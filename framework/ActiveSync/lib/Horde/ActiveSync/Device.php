@@ -78,6 +78,13 @@ class Horde_ActiveSync_Device
     const TYPE_NINE            = 'nine';
 
     /**
+     * Quirk to specify if the client fails to property ghost the
+     * POOMCONTACTS:Picture field. If this quirk is present, it means we should
+     * add the POOMCONTACTS:Picture field to the SUPPORTED array for this client.
+     */
+    const QUIRK_NEEDS_SUPPORTED_PICTURE_TAG = 1;
+
+    /**
      * Device properties.
      *
      * @var array
@@ -111,6 +118,13 @@ class Horde_ActiveSync_Device
      * @var string
      */
     protected $_clientType;
+
+    /**
+     * Cache of OS version.
+     *
+     * @var string
+     */
+    protected $_iOSVersion;
 
     /**
      * Const'r
@@ -163,11 +177,11 @@ class Horde_ActiveSync_Device
         default:
             if (isset($this->_properties[$property])) {
                 return $this->_properties[$property];
-            } else {
-                $return = null;
-                return $return;
             }
         }
+
+        $return = null;
+        return $return;
     }
 
     /**
@@ -383,13 +397,12 @@ class Horde_ActiveSync_Device
                 break;
             case self::TYPE_IPOD:
             case self::TYPE_IPAD:
-                if (preg_match('/(\d+)\.(\d+)/', $this->properties[self::OS], $matches)) {
-                    return $matches[1];
-                }
-                break;
             case self::TYPE_IPHONE:
-                if (preg_match('/(.+)\/(\d+)\.(\d+)/', $this->userAgent, $matches)) {
-                    return $matches[2];
+                if (empty($this->_iOSVersion)) {
+                    $this->_getIosVersion();
+                }
+                if (preg_match('/(\d+)\.(\d+)/', $this->_iOSVersion, $matches)) {
+                    return $matches[1];
                 }
                 break;
             case self::TYPE_ANDROID:
@@ -418,6 +431,29 @@ class Horde_ActiveSync_Device
     }
 
     /**
+     * Detects the iOS version in M.m format and caches locally.
+     */
+    protected function _getIosVersion()
+    {
+        // First see if we have a newer client that sends the OS version
+        // Newer iOS sends e.g., "iOS 8.2.2" in OS field.
+        if (!empty($this->properties[self::OS]) &&
+            preg_match('/\d+\.\d+\.?\d+?/', $this->properties[self::OS], $matches)) {
+            if (!empty($matches[0])) {
+                $this->_iOSVersion = $matches[0];
+                return;
+            }
+        }
+        // Match to a known UserAgent string version.
+        foreach (Horde_ActiveSync_Device_Ios::$VERSION_MAP as $userAgent => $version) {
+            if (preg_match('/\w+\/(' . $userAgent . ')$/', $this->userAgent, $matches)) {
+                $this->_iOSVersion = $version;
+                return;
+            }
+        }
+    }
+
+    /**
      * Return the minor version number of the OS (or client app) as reported
      * by the client.
      *
@@ -433,13 +469,12 @@ class Horde_ActiveSync_Device
                 break;
             case self::TYPE_IPOD:
             case self::TYPE_IPAD:
-                if (preg_match('/(\d+)\.(\d+)/', $this->properties[self::OS], $matches)) {
-                    return $matches[2];
-                }
-                break;
             case self::TYPE_IPHONE:
-                if (preg_match('/(.+)\/(\d+)\.(\d+)/', $this->userAgent, $matches)) {
-                    return $matches[3];
+                if (empty($this->_iOSVersion)) {
+                    $this->_getIosVersion();
+                }
+                if (preg_match('/(\d+)\.(\d+)/', $this->_iOSVersion, $matches)) {
+                    return $matches[2];
                 }
                 break;
             case self::TYPE_ANDROID:
@@ -612,6 +647,27 @@ class Horde_ActiveSync_Device
     }
 
     /**
+     * Return if this client has the described quirk.
+     *
+     * @param integer $quirk  The specified quirk to check for.
+     *
+     * @return boolean  True if quirk is present.
+     */
+    public function hasQuirk($quirk)
+    {
+        switch ($quirk) {
+            case self::QUIRK_NEEDS_SUPPORTED_PICTURE_TAG:
+                if ($this->isIos() && $this->getMajorVersion() == 4) {
+                    return true;
+                }
+                return false;
+                break;
+            default:
+                return false;
+        }
+    }
+
+    /**
      * Attempt to determine the *client* application as opposed to the device,
      * which may or may not be the client.
      *
@@ -664,7 +720,7 @@ class Horde_ActiveSync_Device
     protected function _sniffMultiplex()
     {
         $clientType = Horde_String::lower($this->clientType);
-        if (strpos($this->userAgent, 'iOS') === 0 || in_array($clientType, array(self::TYPE_IPAD, self::TYPE_IPOD, self::TYPE_IPHONE))) {
+        if ($this->_isIos()) {
             // iOS seems to support multiple collections for everything except Notes.
             $this->_properties['properties'][self::MULTIPLEX] = Horde_ActiveSync_Device::MULTIPLEX_NOTES;
         } else if ($clientType == self::TYPE_ANDROID) {
@@ -723,6 +779,25 @@ class Horde_ActiveSync_Device
         } else {
             $this->_properties['properties']['multiplex'] = 0;
         }
+    }
+
+    /**
+     * Return if this client is an iOS device. Different versions require
+     * different checks.
+     *
+     * @return boolean [description]
+     */
+    protected function _isIos()
+    {
+        // Compare in order of likelyhood / most recent to least recent versions.
+        if (strpos($this->{self::OS}, 'iOS') === 0 ||
+            strpos($this->userAgent, 'iOS') === 0 ||
+            in_array(Horde_String::lower($this->clientType), array(self::TYPE_IPAD, self::TYPE_IPOD, self::TYPE_IPHONE)) ||
+            strpos($this->userAgent, 'Apple-') === 0) {
+
+            return true;
+        }
+        return false;
     }
 
 }

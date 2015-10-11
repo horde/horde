@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-09-22</date>
+ <date>2015-10-11</date>
  <version>
   <release>2.29.3</release>
   <api>2.29.0</api>
@@ -40,6 +40,9 @@
        <file name="Exporter.php" role="php" />
        <file name="Importer.php" role="php" />
       </dir> <!-- /lib/Horde/ActiveSync/Connector -->
+      <dir name="Device">
+       <file name="Ios.php" role="php" />
+      </dir> <!-- /lib/Horde/ActiveSync/Device -->
       <dir name="Driver">
        <file name="Base.php" role="php" />
        <file name="Mock.php" role="php" />
@@ -447,6 +450,7 @@
    <install as="Horde/ActiveSync/Wbxml.php" name="lib/Horde/ActiveSync/Wbxml.php" />
    <install as="Horde/ActiveSync/Connector/Exporter.php" name="lib/Horde/ActiveSync/Connector/Exporter.php" />
    <install as="Horde/ActiveSync/Connector/Importer.php" name="lib/Horde/ActiveSync/Connector/Importer.php" />
+   <install as="Horde/ActiveSync/Device/Ios.php" name="lib/Horde/ActiveSync/Device/Ios.php" />
    <install as="Horde/ActiveSync/Driver/Base.php" name="lib/Horde/ActiveSync/Driver/Base.php" />
    <install as="Horde/ActiveSync/Driver/Mock.php" name="lib/Horde/ActiveSync/Driver/Mock.php" />
    <install as="Horde/ActiveSync/Driver/MockConnector.php" name="lib/Horde/ActiveSync/Driver/MockConnector.php" />
@@ -2854,7 +2858,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-09-22</date>
+   <date>2015-10-11</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Change some ERR log level entries to WARN and some other small logging tweaks.
