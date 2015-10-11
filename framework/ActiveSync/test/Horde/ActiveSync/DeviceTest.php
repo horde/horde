@@ -32,6 +32,7 @@ class Horde_ActiveSync_DeviceTest extends Horde_Test_Case
         $this->assertEquals(1, $device->getMinorVersion());
         $this->assertEquals(Horde_ActiveSync_Device::TYPE_IPHONE, Horde_String::lower($device->deviceType));
         $this->assertEquals(Horde_ActiveSync_Device::MULTIPLEX_NOTES, $device->multiplex);
+        $this->assertEquals(false, $device->hasQuirk(Horde_ActiveSync_Device::QUIRK_NEEDS_SUPPORTED_PICTURE_TAG));
 
         $fixture = array(
             'deviceType' => 'iPod',
@@ -40,6 +41,7 @@ class Horde_ActiveSync_DeviceTest extends Horde_Test_Case
         $device = new Horde_ActiveSync_Device($state, $fixture);
         $this->assertEquals(4, $device->getMajorVersion());
         $this->assertEquals(2, $device->getMinorVersion());
+        $this->assertEquals(true, $device->hasQuirk(Horde_ActiveSync_Device::QUIRK_NEEDS_SUPPORTED_PICTURE_TAG));
 
         $fixture = array(
             'deviceType' => 'iPad',
