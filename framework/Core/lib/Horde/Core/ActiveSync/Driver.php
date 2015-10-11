@@ -1802,6 +1802,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         }
 
         $stat = false;
+        // @todo Move the ::setSupported stuff to the ActiveSync library.
+        // Shouldn't have client code be responsible for that.
         switch ($folder_class) {
         case Horde_ActiveSync::CLASS_CALENDAR:
             if (!$id) {
