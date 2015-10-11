@@ -32,6 +32,27 @@ class Horde_ActiveSync_ContactTest extends Horde_Test_Case
         $this->assertEquals('blah', array_pop($contact->children));
     }
 
+    public function testPictureGhosted()
+    {
+        $state = $this->getMockSkipConstructor('Horde_ActiveSync_State_Base');
+        $fixture = array(
+            'deviceType' => 'iPod',
+            'userAgent' => 'Apple-iPod2C1/803.148'
+        );
+        $device = new Horde_ActiveSync_Device($state, $fixture);
+        $contact = new Horde_ActiveSync_Message_Contact(array('device' => $device));
+        $this->assertEquals(true, $contact->isGhosted(Horde_ActiveSync_Message_Contact::PICTURE));
+
+        $fixture = array(
+            'deviceType' => 'iPad',
+            'userAgent' => 'Apple-iPad3C6/1202.435',
+            'properties' => array(Horde_ActiveSync_Device::OS => 'iOS 8.1.1')
+        );
+        $device = new Horde_ActiveSync_Device($state, $fixture);
+        $contact = new Horde_ActiveSync_Message_Contact(array('device' => $device));
+        $this->assertEquals(false, $contact->isGhosted(Horde_ActiveSync_Message_Contact::PICTURE));
+    }
+
     /**
      * Test that known properties work as expected.
      */
@@ -41,7 +62,7 @@ class Horde_ActiveSync_ContactTest extends Horde_Test_Case
 
         $contact->anniversary = '1994-03-06';
         $this->assertEquals('1994-03-06', $contact->anniversary);
-        
+
         $contact->assistantname = 'I wish';
         $this->assertEquals('I wish', $contact->assistantname);
 
