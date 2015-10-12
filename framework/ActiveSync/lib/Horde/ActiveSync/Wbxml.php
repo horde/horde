@@ -867,13 +867,6 @@ class Horde_ActiveSync_Wbxml
       */
      protected $_logLevel;
 
-     /**
-      * The input or output stream.
-      *
-      * @var Horde_Stream_Existing
-      */
-     protected $_stream;
-
     /**
      *
      * @param stream $stream  The [input|output] stream.
