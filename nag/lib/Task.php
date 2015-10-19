@@ -342,6 +342,17 @@ class Nag_Task
     }
 
     /**
+     * Deep clone so we can clone the child objects too.
+     *
+     */
+    public function __clone()
+    {
+        foreach ($this->children as $key => $value) {
+            $this->children[$key] = clone $value;
+        }
+    }
+
+    /**
      * Merges a task hash into this task object.
      *
      * @param array $task  A task hash.
