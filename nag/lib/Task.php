@@ -447,12 +447,14 @@ class Nag_Task
      *
      * @param Nag_Task $task  A sub task.
      */
-    public function add(Nag_Task $task)
+    public function add(Nag_Task $task, $replace = false)
     {
         if (!isset($this->_dict[$task->id])) {
             $this->_dict[$task->id] = count($this->children);
             $task->parent = $this;
             $this->children[] = $task;
+        } elseif ($replace) {
+            $this->children[$this->_dict[$task->id]]= $task;
         }
     }
 
