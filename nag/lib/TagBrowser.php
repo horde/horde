@@ -68,14 +68,7 @@ class Nag_TagBrowser extends Horde_Core_TagBrowser
     {
         // Refresh the search
         $this->runSearch();
-        // @todo. The paging stuff isn't used anywhere yet (i.e., we don't page)
-        //  and this was screwing up parent/child task relationships. Instead,
-        //  we need to somehow pass the $page/$perpage stuff to the $tasks
-        //  iterator so it knows when to stop.
-        // $tasks = $this->_tasks->getSlice($page, $perpage);
-        // $tasks->process();
-
-        return $this->_tasks;
+        return $this->_tasks->getSlice($page, $perpage);
     }
 
     /**
