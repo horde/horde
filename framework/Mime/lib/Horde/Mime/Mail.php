@@ -55,6 +55,13 @@ class Horde_Mime_Mail
     protected $_htmlBody;
 
     /**
+     * Highest/last alternativ body part.
+     *
+     * @var Horde_Mime_Part
+     */
+    protected $_alternativBody;
+
+    /**
      * The message recipients.
      *
      * @var Horde_Mail_Rfc822_List
@@ -135,7 +142,7 @@ class Horde_Mime_Mail
     /**
      * Adds several message headers at once.
      *
-     * @param array $header    Hash with header names as keys and header
+     * @param array $headers   Hash with header names as keys and header
      *                         contents as values.
      *
      * @throws Horde_Mime_Exception
@@ -256,6 +263,26 @@ class Horde_Mime_Mail
         if ($alternative) {
             $this->setBody(Horde_Text_Filter::filter($body, 'Html2text', array('charset' => $charset, 'wrap' => false)), $charset);
         }
+        $this->_base = null;
+    }
+
+    /**
+     * Sets alternativ body, eg. text/calendar has highest / last alternativ
+     *
+     * @param string|resource $content
+     * @param string $type eg. "text/calendar"
+     * @param array $parameters =array() eg. array('method' => 'REQUEST')
+     * @param string $charset =null default to $this->_charset="utf-8"
+     */
+    function setAlternativBody($content, $type, $parameters=array(), $charset=null)
+    {
+        $this->_alternativBody = new Horde_Mime_Part();
+        $this->_alternativBody->setType($type);
+        foreach($parameters as $label => $data) {
+            $this->_alternativBody->setContentTypeParameter($label, $data);
+        }
+        $this->_alternativBody->setCharset($charset ? $charset : $this->_charset);
+        $this->_alternativBody->setContents($content);
         $this->_base = null;
     }
 
@@ -432,12 +459,19 @@ class Horde_Mime_Mail
 
             /* Build mime message. */
             $body = new Horde_Mime_Part();
-            if (!empty($this->_body) && !empty($this->_htmlBody)) {
+            if (!empty($this->_body)+!empty($this->_htmlBody)+!empty($this->_alternateBody) >= 2) {
                 $body->setType('multipart/alternative');
-                $this->_body->setDescription(Horde_Mime_Translation::t("Plaintext Version of Message"));
-                $body[] = $this->_body;
-                $this->_htmlBody->setDescription(Horde_Mime_Translation::t("HTML Version of Message"));
-                $body[] = $this->_htmlBody;
+                if (!empty($this->_body)) {
+                    $this->_body->setDescription(Horde_Mime_Translation::t("Plaintext Version of Message"));
+                    $body[] = $this->_body;
+                }
+                if (!empty($this->_htmlBody)) {
+                    $this->_htmlBody->setDescription(Horde_Mime_Translation::t("HTML Version of Message"));
+                    $body[] = $this->_htmlBody;
+                }
+                if (!empty($this->_alternativBody)) {
+                    $body[] = $this->_alternativBody;
+                }
             } elseif (!empty($this->_htmlBody)) {
                 $body = $this->_htmlBody;
             } elseif (!empty($this->_body)) {
