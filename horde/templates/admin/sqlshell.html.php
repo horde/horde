@@ -1,6 +1,8 @@
 <h1 class="header"><?php echo $this->title ?></h1>
 
 <form name="sqlshell" action="<?php echo $this->action ?>" method="post">
+ <?php Horde_Util::pformInput() ?>
+ <input type="hidden" name="token" value="<?php echo $this->session->getToken() ?>" />
  <div class="horde-content">
 <?php if ($this->results): ?>
 <?php if ($this->command): ?>

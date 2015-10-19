@@ -22,7 +22,9 @@ $db = $injector->getInstance('Horde_Db_Adapter');
 $q_cache = $session->get('horde', 'sql_query_cache', Horde_Session::TYPE_ARRAY);
 $title = _("SQL Shell");
 $vars = $injector->getInstance('Horde_Variables');
-
+if ($vars->get('list-tables') || ($command = trim($vars->sql))) {
+    $session->checkToken($vars->token);
+}
 if ($vars->get('list-tables')) {
     $description = 'LIST TABLES';
     $result = $db->tables();
@@ -48,6 +50,7 @@ if ($vars->get('list-tables')) {
 $view = new Horde_View(array(
     'templatePath' => HORDE_TEMPLATES . '/admin'
 ));
+$view->session = $session;
 $view->addHelper('Horde_Core_View_Helper_Help');
 $view->addHelper('Text');
 

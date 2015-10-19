@@ -48,8 +48,10 @@ $view->application = $application;
 $view->apps = $apps;
 $view->command = $command;
 $view->title = $title;
+$view->session = $session;
 
 if ($command) {
+    $session->checkToken($vars->token);
     $pushed = $registry->pushApp($application);
 
     $part = new Horde_Mime_Part();
