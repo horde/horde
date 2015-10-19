@@ -165,6 +165,9 @@ class Nag_Search implements Serializable
         }
         $tasks->reset();
         while ($task = $tasks->each()) {
+            // Need to empty the children since they might not be in the results
+            $task = clone $task;
+            $task->orphan();
             if (!empty($date)) {
                 if (empty($task->due) || $task->due > $date) {
                     continue;
@@ -186,10 +189,28 @@ class Nag_Search implements Serializable
             }
         }
 
-        // Now that we have filtered results, load all tags at once.
-        $search_results->loadTags();
+        // Now try to maintain parent/child relationships when they are both
+        // in the result set.
+        $search_results->reset();
+        $search_results_copy = clone $search_results;
+        $processed_results = new Nag_Task();
 
-        return $search_results;
+        while ($result = $search_results_copy->each()) {
+            if ($result->parent_id &&
+                ($parent_task = $search_results->hasTask($result->parent_id))) {
+                $parent_task->add($result, true);
+                $processed_results->add($parent_task, true);
+            } else {
+                $result->parent_id = '';
+                $processed_results->add($result);
+            }
+        }
+
+      // Now that we have filtered results, load all tags at once.
+        $processed_results->loadTags();
+        $processed_results->process();
+
+        return $processed_results;
     }
 
     /**
