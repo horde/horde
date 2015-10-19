@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
+* [mjr] SECURITY: Protect against CSRF attacks on various admin pages.
 * [jan] Don&apos;t apply access keys to checkbox and radiobox rows in the sidebar (Bug #14103).
 * [jan] Send correct MIME type for non-statically cached javascript files.
 * [mjr] Added configuration support for version 2 of WorldWeatherOnline&apos;s API.
@@ -4060,6 +4061,7 @@
    <date>2015-07-31</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
+* [mjr] SECURITY: Protect against CSRF attacks on various admin pages.
 * [jan] Don&apos;t apply access keys to checkbox and radiobox rows in the sidebar (Bug #14103).
 * [jan] Send correct MIME type for non-statically cached javascript files.
 * [mjr] Added configuration support for version 2 of WorldWeatherOnline&apos;s API.

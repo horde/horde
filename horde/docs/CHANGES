@@ -2,6 +2,7 @@
 v5.2.8-git
 ----------
 
+[mjr] SECURITY: Protect against CSRF attacks on various admin pages.
 [jan] Don't apply access keys to checkbox and radiobox rows in the sidebar
       (Bug #14103).
 [jan] Send correct MIME type for non-statically cached javascript files.
