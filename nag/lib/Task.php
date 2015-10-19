@@ -702,6 +702,26 @@ class Nag_Task
     }
 
     /**
+     * Return the task, if present anywhere in this tasklist, regardless of
+     * child depth.
+     *
+     * @param  string $taskId  The task id we are looking for.
+     *
+     * @return Nag_Task|false  The task object, if found. Otherwise false.
+     */
+    public function hasTask($taskId)
+    {
+        $this->reset();
+        while ($task = $this->each()) {
+            if ($task->id == $taskId) {
+                return $task;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Returns the next task iterating through all tasks and sub tasks.
      *
      * Call reset() each time before looping through the tasks:
