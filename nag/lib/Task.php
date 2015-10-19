@@ -406,6 +406,20 @@ class Nag_Task
     }
 
     /**
+     * Disconnect this task from any child tasks. Used when building search
+     * result sets since child tasks will be re-added if they actually match
+     * the result, and there is no guarentee that a tasks's parent will
+     * be present in the result set.
+     */
+    public function orphan()
+    {
+        $this->children = array();
+        $this->_dict = array();
+        $this->lastChild = null;
+        $this->indent = null;
+    }
+
+    /**
      * Saves this task in the storage backend.
      *
      * @throws Nag_Exception
