@@ -1,11 +1,11 @@
 <?php
 /* Security release? */
-$notes['security'] = false;
+$notes['security'] = true;
 
 /* Mailing list release notes. */
 $notes['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Horde
-Application Framework version 5.2.7.
+Application Framework version 5.2.8.
 
 The Horde Application Framework is a flexible, modular, general-purpose web
 application framework written in PHP. It provides an extensive array of
@@ -20,10 +20,10 @@ http://www.horde.org/apps/horde/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/horde/docs/INSTALL
 
-The major changes compared to the Horde version 5.2.6 are:
-    * Officially mark PHP 5.6 as supported.
-    * No longer create full sessions for Webdav requests.
-    * Small improvements.
+The major changes compared to the Horde version 5.2.7 are:
+    * SECURITY: Protect against CSRF attacks on various admin pages.
+    * Configuration support for version 2 of WorldWeatherOnline's API
+    * Small bugfixes and improvements.
 ML;
 
 $notes['name'] = 'Horde';
