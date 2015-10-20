@@ -1881,10 +1881,17 @@ class Kronolith
      *        this instance.
      * @param  string $range  The range parameter if this is a recurring event.
      *                        Possible values are self::RANGE_THISANDFUTURE
+     * @param array $cancellations  If $action is 'CANCEL', but it is due to
+     *                              removing attendees and not canceling the
+     *                              entire event, these are the email addresses
+     *                              of the uninvited attendees and are the ONLY
+     *                              people that will receive the CANCEL iTIP.
+     *                              @since  4.2.10
+     *
      */
     static public function sendITipNotifications(
         Kronolith_Event $event, Horde_Notification_Handler $notification,
-        $action, Horde_Date $instance = null, $range = null)
+        $action, Horde_Date $instance = null, $range = null, array $cancellations = array())
     {
         global $injector, $registry;
 
@@ -1908,8 +1915,12 @@ class Kronolith
         $view->identity = $ident;
         $view->event = $event;
         $view->imageId = $image->getContentId();
-
-        foreach ($event->attendees as $email => $status) {
+        if ($action == self::ITIP_CANCEL && !empty($cancellations)) {
+            $mail_attendees = $cancellations;
+        } else {
+            $mail_attendees = $event->attendees;
+        }
+        foreach ($mail_attendees as $email => $status) {
             /* Don't bother sending an invitation/update if the recipient does
              * not need to participate, or has declined participating, or
              * doesn't have an email address. */
