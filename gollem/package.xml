@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [jan] Update Italian translation.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -857,7 +857,7 @@
    <date>2015-08-05</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [jan] Update Italian translation.
    </notes>
   </release>
  </changelog>
