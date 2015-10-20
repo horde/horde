@@ -12,7 +12,7 @@
  </lead>
  <date>2015-10-20</date>
  <version>
-  <release>2.30.0</release>
+  <release>2.30.1</release>
   <api>2.30.0</api>
  </version>
  <stability>
@@ -21,11 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Fix issue in sending email from client due to input stream not being seekable on some systems (Bug #13160).
-* [mjr] Work around bug in early versions of iOS that could cause a contact&apos;s picture to be removed on the server.
-* [mjr] Improved client and version detection, especially for iOS devices.
-* [mjr] Fixed bug that was causing SUPPORTED data to be overwritten.
-* [mjr] Change some ERR log level entries to WARN and some other small logging tweaks.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2870,6 +2866,19 @@
 * [mjr] Improved client and version detection, especially for iOS devices.
 * [mjr] Fixed bug that was causing SUPPORTED data to be overwritten.
 * [mjr] Change some ERR log level entries to WARN and some other small logging tweaks.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.30.1</release>
+    <api>2.30.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-10-20</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
