@@ -1024,10 +1024,6 @@ class Kronolith_Api extends Horde_Registry_Api
         $events = $kronolith_driver->getByUID($uid, null, true);
         $event = null;
 
-        if ($GLOBALS['registry']->isAdmin()) {
-            $event = $events[0];
-        }
-
         // First try the user's own calendars.
         if (empty($event)) {
             $ownerCalendars = Kronolith::listInternalCalendars(true, Horde_Perms::DELETE);
@@ -1050,6 +1046,11 @@ class Kronolith_Api extends Horde_Registry_Api
                     break;
                 }
             }
+        }
+
+        // Are we an admin cleaing up user data?
+        if (empty($event) && $GLOBALS['registry']->isAdmin()) {
+            $event = $events[0];
         }
 
         if (empty($event)) {
