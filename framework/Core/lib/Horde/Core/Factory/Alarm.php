@@ -148,7 +148,7 @@ class Horde_Core_Factory_Alarm extends Horde_Core_Factory_Base
 
         foreach ($apps as $app) {
             if ($changed) {
-                if (!$registry->hasFeature('alarmHandler')) {
+                if (!$registry->hasFeature('alarmHandler', $app)) {
                     continue;
                 }
                 $save[] = $app;
