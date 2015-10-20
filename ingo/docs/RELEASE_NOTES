@@ -5,7 +5,7 @@ $notes['security'] = false;
 /* Mailing list release notes. */
 $notes['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Ingo Email
-Filter Rules Manager version H5 (3.2.6).
+Filter Rules Manager version H5 (3.2.7).
 
 Ingo is an email-filter management application. It is fully internationalized,
 integrated with Horde and the IMP Webmail client, and supports both server-side
@@ -18,12 +18,10 @@ http://www.horde.org/apps/ingo/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/ingo/docs/INSTALL
 
-The major changes compared to Ingo version H5 (3.2.5) are:
-    * Fix using transport parameters in Procmail driver.
-    * Fix duplicate messages with some rules with Procmail backends.
-    * Fix incorrect rule selection after reordering.
-    * Update Czech translation.
+The major changes compared to Ingo version H5 (3.2.6) are:
+    * Fix corruption of rule order when reordering rules in certain cases.
     * Update Italian translation.
+    * Minor bugfixes and improvements.
 ML;
 
 $notes['name'] = 'Ingo';

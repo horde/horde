@@ -2,6 +2,7 @@
 v3.2.7-git
 ----------
 
+[jan] Update Italian translation.
 [mjr] Add database migration for fixing corrupt rule ordering.
 [mjr] Fix corruption of rule order when reordering rules in certain cases.
 
