@@ -39,7 +39,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mjr] Fix ajax updating of Weather block when weather map is shown.
+* [mjr] Fix detecting an application&apos;s ability to send Horde_Alarm notifications (Bug #14098).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4047,7 +4048,8 @@
    <date>2015-09-25</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mjr] Fix ajax updating of Weather block when weather map is shown.
+* [mjr] Fix detecting an application&apos;s ability to send Horde_Alarm notifications (Bug #14098).
    </notes>
   </release>
  </changelog>

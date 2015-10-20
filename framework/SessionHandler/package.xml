@@ -33,7 +33,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Catch possible exceptions in shutdown methods.
+* [jan] Test environment improvements.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -576,7 +577,8 @@ Initial release as a PEAR package
    <date>2014-03-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Catch possible exceptions in shutdown methods.
+* [jan] Test environment improvements.
    </notes>
   </release>
  </changelog>

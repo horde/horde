@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mjr] Avoid some PHP warnings.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -381,7 +381,7 @@
    <date>2015-04-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mjr] Avoid some PHP warnings.
    </notes>
   </release>
  </changelog>
