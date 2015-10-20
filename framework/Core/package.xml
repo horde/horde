@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mjr] Fix detecting an application&apos;s ability to send Horde_Alarm notifications (Bug #14098).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3434,7 +3434,7 @@
    <date>2014-07-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mjr] Fix detecting an application&apos;s ability to send Horde_Alarm notifications (Bug #14098).
    </notes>
   </release>
  </changelog>
