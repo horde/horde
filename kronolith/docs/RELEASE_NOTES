@@ -5,7 +5,7 @@ $notes['security'] = false;
 /* Mailing list release notes. */
 $notes['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Kronolith
-Calendar Application version H5 (4.2.9).
+Calendar Application version H5 (4.2.10).
 
 Kronolith is the Horde calendar application. It provides web-based calendars
 backed by a SQL database or a Kolab server. Supported features include Ajax and
@@ -21,10 +21,12 @@ http://www.horde.org/apps/kronolith/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/kronolith/docs/INSTALL
 
-The major changes compared to Kronolith version H5 (4.2.8) are:
-    * Fix detecting duplicate events during API import.
-    * Honor the workweek view as the initial login view.
-    * Fix allowing deletion of resources for non-admin users.
+The major changes compared to Kronolith version H5 (4.2.9) are:
+    * Fix exporting events from Horde_Perms::SHOW calendars over DAV.
+    * Send CACNEL iTip when attendee is removed from a meeting.
+    * Fix incorrect offset of freebusy times in certain cases.
+    * Fix handling of email groups as attendees.
+    * Fix importing text/calendar data via API.
     * Small bugfixes and improvements.
 ML;
 
