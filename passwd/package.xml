@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix changing password using Kolab driver (Mike Gabriel &lt;mike.gabriel@das-netzwerkteam.de&gt;).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -741,7 +741,7 @@
    <date>2015-07-31</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix changing password using Kolab driver (Mike Gabriel &lt;mike.gabriel@das-netzwerkteam.de&gt;).
    </notes>
   </release>
  </changelog>

@@ -2,6 +2,8 @@
 v5.0.4-git
 ----------
 
+[mjr] Fix changing password using Kolab driver (Mike Gabriel
+      <mike.gabriel@das-netzwerkteam.de>).
 
 
 ------
