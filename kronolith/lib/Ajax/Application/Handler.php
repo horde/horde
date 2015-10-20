@@ -353,14 +353,18 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
                 : Kronolith::ITIP_REQUEST;
             Kronolith::sendITipNotifications($event, $notification, $type);
         }
+
+        // Send a CANCEL iTip for attendees that have been removed, but only if
+        // the entire event isn't being marked as cancelled (which would be
+        // caught above).
         if (!empty($removed_attendees)) {
+            $to_cancel = array();
             foreach ($removed_attendees as $email) {
                 $to_cancel[$email] = $old_attendees[$email];
             }
             $cancelEvent = clone $event;
-            $cancelEvent->attendees = $to_cancel;
             Kronolith::sendITipNotifications(
-                $cancelEvent, $notification, Kronolith::ITIP_CANCEL
+                $cancelEvent, $notification, Kronolith::ITIP_CANCEL, null, null, $to_cancel
             );
         }
         Kronolith::notifyOfResourceRejection($event);
