@@ -2,6 +2,7 @@
 v4.2.6-git
 ----------
 
+[jan] Update Italian translation.
 [mjr] Fix indentation level when searching (Bug #14138).
 [mjr] Remove object reference from Content when object is deleted (Bug #14112).
 [mjr] Remove tags from Content when tagged object is deleted (Bug #14112).

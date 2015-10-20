@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Update Italian translation.
 * [mjr] Fix indentation level when searching (Bug #14138).
 * [mjr] Remove object reference from Content when object is deleted (Bug #14112).
 * [mjr] Remove tags from Content when tagged object is deleted (Bug #14112).
@@ -1658,6 +1659,7 @@
    <date>2015-06-18</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Update Italian translation.
 * [mjr] Fix indentation level when searching (Bug #14138).
 * [mjr] Remove object reference from Content when object is deleted (Bug #14112).
 * [mjr] Remove tags from Content when tagged object is deleted (Bug #14112).
