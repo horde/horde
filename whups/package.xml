@@ -27,7 +27,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
  <notes>
-* 
+* [mjr] Fix some issues with adding tickets via the API.
+* [jan] Update Italian translation.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1179,7 +1180,8 @@
    <date>2015-07-31</date>
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
    <notes>
-* 
+* [mjr] Fix some issues with adding tickets via the API.
+* [jan] Update Italian translation.
    </notes>
   </release>
  </changelog>
