@@ -24,7 +24,7 @@
  </lead>
  <date>2015-10-21</date>
  <version>
-  <release>4.2.10</release>
+  <release>4.2.11</release>
   <api>4.2.0</api>
  </version>
  <stability>
@@ -33,12 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Fix exporting events from Horde_Perms::SHOW calendars over DAV (Bug #14128).
-* [mjr] Send CACNEL iTip when attendee is removed from a meeting (Request #14118).
-* [mjr] Remove object reference from Content when object is deleted (Bug #14112).
-* [mjr] Fix incorrect offset of freebusy times in certain cases (Bug #14084).
-* [mjr] Fix handling of email groups as attendees (Bug #14093).
-* [mjr] Fix importing text/calendar data via API (Bug #14089).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2606,6 +2601,19 @@
 * [mjr] Fix incorrect offset of freebusy times in certain cases (Bug #14084).
 * [mjr] Fix handling of email groups as attendees (Bug #14093).
 * [mjr] Fix importing text/calendar data via API (Bug #14089).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.11</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-10-20</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
