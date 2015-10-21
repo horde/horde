@@ -20,8 +20,11 @@ http://www.horde.org/apps/horde/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/horde/docs/INSTALL
 
+Thanks to  High-Tech Bridge Security Research <advisory@htbridge.ch> for
+reporting the CSRF vulnerability.
+
 The major changes compared to the Horde version 5.2.7 are:
-    * SECURITY: Protect against CSRF attacks on various admin pages.
+    * Protect against CSRF attacks on various admin pages.
     * Configuration support for version 2 of WorldWeatherOnline's API
     * Small bugfixes and improvements.
 ML;
