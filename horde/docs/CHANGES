@@ -1,6 +1,6 @@
-----------
-v5.2.8-git
-----------
+------
+v5.2.8
+------
 
 [mjr] SECURITY: Protect against CSRF attacks on various admin pages.
 [jan] Don't apply access keys to checkbox and radiobox rows in the sidebar

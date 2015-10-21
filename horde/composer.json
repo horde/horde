@@ -26,8 +26,8 @@
             "role": "lead"
         }
     ],
-    "version": "5.2.7",
-    "time": "2015-08-01",
+    "version": "5.2.8",
+    "time": "2015-10-21",
     "repositories": [
         {
             "type": "pear",
@@ -79,7 +79,7 @@
         "pear-pear.horde.org/Horde_OpenXchange": ">=1.0.0@stable,<=2.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Service_Facebook": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Service_Twitter": ">=2.1.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Service_Weather": ">=2.1.0@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Service_Weather": ">=2.2.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_SyncMl": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.php.net/Console_Getopt": "*",
         "pear-pear.php.net/Console_Table": "*",
