@@ -1,6 +1,6 @@
-----------
-v4.2.9-git
-----------
+------
+v4.2.9
+------
 
 [mjr] Better prevention of importing duplicate contacts with same email
       addresses via the API (Bug #14119).
