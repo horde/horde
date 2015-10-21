@@ -30,7 +30,7 @@
  </lead>
  <date>2015-10-21</date>
  <version>
-  <release>4.2.9</release>
+  <release>4.2.10</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -39,13 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* [mjr] Better prevention of importing duplicate contacts with same email addresses via the API (Bug #14119).
-* [mjr] Remove object reference from Content when object is deleted (Bug #14112).
-* [mjr] Remove tags from Content when tagged object is deleted (Bug #14112).
-* [mjr] Allow API to search all email type fields when calling getField().
-* [mjr] Fix removing all contacts owned by a specific user.
-* [jan] Fix inserting and updating photos with Oracle backends.
-* [mjr] Fix incorrectly populating email field when importing vCard (Bug #14046).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2033,6 +2027,19 @@
 * [mjr] Fix removing all contacts owned by a specific user.
 * [jan] Fix inserting and updating photos with Oracle backends.
 * [mjr] Fix incorrectly populating email field when importing vCard (Bug #14046).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.10</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-10-20</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
