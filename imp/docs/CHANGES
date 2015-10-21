@@ -1,6 +1,6 @@
------------
-v6.2.11-git
------------
+-------
+v6.2.11
+-------
 
 [mjr] Request that the contacts API only consider email fields when detecting
       duplicates during automatic saving of attendees to the address book (Bug
