@@ -575,7 +575,7 @@ London W1 1AA',
 
     public function  testBug14046()
     {
-        $vard = 'BEGIN:VCARD
+        $vcard = 'BEGIN:VCARD
 VERSION:3.0
 UID:20110107095409.cA7RPZcRtLVNJykRD60mE0A@h4.theupstairsroom.com
 FN:Michael Joseph Rubinsky
@@ -587,8 +587,8 @@ N:Rubinsky;Michael;Joseph;;
 END:VCARD';
 
     $hash = $this->toHash($vcard);
-    $this->assertEquals($hash['workEmail'] = 'mrubinsk@horde.org');
-    $this->assertEmpty($hash['email']);
+    $this->assertEquals($hash['workEmail'], 'mrubinsk@horde.org');
+    $this->assertTrue(empty($hash['email']));
     }
 
 }
