@@ -2,6 +2,130 @@
 v5.2.11-git
 -----------
 
+Horde Changes
+-------------
+[mjr] SECURITY: Protect against CSRF attacks on various admin pages.
+[jan] Don't apply access keys to checkbox and radiobox rows in the sidebar
+      (Bug #14103).
+[jan] Send correct MIME type for non-statically cached javascript files.
+[mjr] Added configuration support for version 2 of WorldWeatherOnline's API.
+
+Address Book Changes
+--------------------
+[mjr] Better prevention of importing duplicate contacts with same email
+      addresses via the API (Bug #14119).
+[mjr] Remove object reference from Content when object is deleted (Bug #14112).
+[mjr] Remove tags from Content when tagged object is deleted (Bug #14112).
+[mjr] Allow API to search all email type fields when calling getField().
+[mjr] Fix removing all contacts owned by a specific user.
+[jan] Fix inserting and updating photos with Oracle backends.
+[mjr] Fix incorrectly populating email field when importing vCard (Bug #14046).
+
+Bookmarks Changes
+-----------------
+[jan] Update Italian translation.
+[mjr] Remove object reference from Content when object is deleted (Bug #14112).
+
+Calendar Changes
+----------------
+[mjr] Fix exporting events from Horde_Perms::SHOW calendars over DAV (Bug
+      #14128).
+[mjr] Send CACNEL iTip when attendee is removed from a meeting (Request
+      #14118).
+[mjr] Remove object reference from Content when object is deleted (Bug #14112).
+[mjr] Fix incorrect offset of freebusy times in certain cases (Bug #14084).
+[mjr] Fix handling of email groups as attendees (Bug #14093).
+[mjr] Fix importing text/calendar data via API (Bug #14089).
+
+Files Changes
+-------------
+[jan] Update Italian translation.
+
+Notes Changes
+-------------
+[jan] Update Italian translation.
+[mjr] Remove object reference from Content when object is deleted (Bug #14112).
+[mjr] Remove tags from Content when tagged object is deleted (Bug #14112).
+
+Tasks Changes
+-------------
+[jan] Update Italian translation.
+[mjr] Remove object reference from Content when object is deleted (Bug #14112).
+[mjr] Remove tags from Content when tagged object is deleted (Bug #14112).
+
+
+Library Changes
+---------------
+
+[jan] Updated UK Translation.
+[jan] Updated Italian translation.
+[jan] Updated DE translations.
+[jan] Fixed composer files.
+[jan] Fix issues with certain locales like Turkish.
+[jan] Catch possible exceptions in shutdown methods.
+
+ActiveSync
+[mjr] Work around bug in various versions of PHP 5.5 and 5.6 regarding base64-encode stream filters (Bug #14086).
+[mjr] Fix issue where incorrect text/html part is choosen as the main body part.
+[mjr] Explicitly request a FOLDERSYNC when backend id is not found.
+[mjr] Fix corruption of base64 encoded text parts in certain cases (Bug #14092).
+[mjr] Don&apos;t take sub-parts of rfc822/message parts as attachments.
+[mjr] Fix handling of meeting requests that contain no DTEND attribute.
+[mjr] Fix parsing of SETTINGS request that was causing a harmless WBXML parsing error.
+[mjr] Fix issue in sending email from client due to input stream not being seekable on some systems (Bug #13160).
+[mjr] Work around bug in early versions of iOS that could cause a contact&apos;s picture to be removed on the server.
+[mjr] Improved client and version detection, especially for iOS devices.
+[mjr] Fixed bug that was causing SUPPORTED data to be overwritten.
+[mjr] Change some ERR log level entries to WARN and some other small logging tweaks.
+
+Auth
+[jan] SECURITY: Don&apos;t allow to login to LDAP with an emtpy password.
+[mjr] Ensure we rebind as configured user after testing auth user credentials.
+
+Core
+[jan] SECURITY: Don&apos;t allow to login with an emtpy password.
+[jan] Give administrators access to all groups, even with $conf['share']['any_group'] disabled.
+[mjr] Prevent various broken behaviors on ActiveSync clients due to errors copying an email to sent mail folder or updating the maillog (Bug #14058).
+[mjr] Map Kolab distribution-list items to the contacts API (Bug #14038).
+[mjr] Support configuration for version 2 of WorldWeatherOnline's API.
+[mjr] Fix dependency on possibly missing Horde_Kolab_Storage_HistoryPrefix interface (Bug #14099).
+[mjr] Add beforeUpdate callback to prettyautocompleter.js.
+[mjr] ActiveSync logging improvements.
+[mjr] Add support for OpenWeatherMap layers in Horde_Map.
+[mjr] Fix edge-case issue with ActiveSync folder list generation when installed application contains no user writable sources.
+[mjr] Fix ajax updating of Weather block when weather map is shown.
+[mjr] Fix detecting an application&apos;s ability to send Horde_Alarm notifications (Bug #14098).
+
+Crypt
+[mjr] Fix PHP 5.3 incompatibility (Bug #14090).
+
+Image
+[cjh] Fix EXIF data not being returned in Bundled driver.
+
+Imap_Client
+[mms] Ensure FETCH stream data is rewound before returning (Bug #14013).
+[mjr] Fix detecting empty ID queries (Bug #14044).
+[mms] Improved performance of Horde_Imap_Client_Data_Thread object when containing large number of messages (Request #14075).
+[mms] Catch translation errors when creating Exceptions (PR #143; baso10dev@gmail.com).
+[mjr] Avoid PHP warning when listing mailboxes without LIST-STATUS (Bug #14097).
+
+Mime
+[mjr] Correctly work around PHP bug 65776.
+
+Nls
+[jan] Add ALPHA-3 country codes.
+
+Notification
+[jan] Do not silent the potentially fatal require_once.
+
+Pdf
+[mjr] Avoid some PHP warnings.
+
+Service_Weather
+[mjr] Update WWO to support the v2 API (Request #14094).
+[mjr] Add support for OpenWeatherMap API.
+[mjr] Add support for radar maps if provider provides them.
+[mjr] Add support for weather alerts.
 
 
 -------
