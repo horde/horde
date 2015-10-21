@@ -28,7 +28,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2015-08-01</date>
+ <date>2015-10-21</date>
  <version>
   <release>5.2.8</release>
   <api>5.2.0</api>
@@ -4058,7 +4058,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-07-31</date>
+   <date>2015-10-21</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [mjr] SECURITY: Protect against CSRF attacks on various admin pages.
