@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2015-08-01</date>
+ <date>2015-10-21</date>
  <version>
   <release>6.2.11</release>
   <api>6.2.0</api>
@@ -3876,7 +3876,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-07-31</date>
+   <date>2015-10-21</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Request that the contacts API only consider email fields when detecting duplicates during automatic saving of attendees to the address book (Bug #14119).
