@@ -24,7 +24,7 @@
  </lead>
  <date>2015-10-21</date>
  <version>
-  <release>1.1.3</release>
+  <release>1.1.4</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -33,8 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* [jan] Update Italian translation.
-* [mjr] Remove object reference from Content when object is deleted (Bug #14112).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -725,6 +724,19 @@
    <notes>
 * [jan] Update Italian translation.
 * [mjr] Remove object reference from Content when object is deleted (Bug #14112).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.4</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-10-20</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
