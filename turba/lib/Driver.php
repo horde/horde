@@ -1034,9 +1034,13 @@ class Turba_Driver implements Countable
         $GLOBALS['injector']->getInstance('Turba_Tagger')
             ->replaceTags($object->getValue('__uid'), array(), $this->getContactOwner(), 'contact');
 
-        /* Tell content we removed the object */
-       $GLOBALS['injector']->getInstance('Content_Objects_Manager')
-            ->delete(array($object->getValue('__uid')), 'contact');
+        /* Might have tags disabled, hence no Content_* objects autoloadable. */
+        try {
+            /* Tell content we removed the object */
+            $GLOBALS['injector']->getInstance('Content_Objects_Manager')
+                ->delete(array($object->getValue('__uid')), 'contact');
+        } catch (Horde_Exception $e) {}
+
     }
 
     /**
