@@ -28,6 +28,8 @@ Bookmarks Changes
 
 Calendar Changes
 ----------------
+[mjr] Fix issue when replacing an event via the API when the attendee list
+      changes.
 [mjr] Fix exporting events from Horde_Perms::SHOW calendars over DAV (Bug
       #14128).
 [mjr] Send CACNEL iTip when attendee is removed from a meeting (Request

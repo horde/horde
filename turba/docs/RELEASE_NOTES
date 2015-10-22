@@ -5,7 +5,7 @@ $notes['security'] = false;
 /* Mailing list release notes. */
 $notes['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Turba Contact
-Manager version H5 (4.2.9).
+Manager version H5 (4.2.10).
 
 Turba is the Horde contact management application. Leveraging the Horde
 framework to provide seamless integration with IMP and other Horde
@@ -19,13 +19,8 @@ http://www.horde.org/apps/turba/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/turba/docs/INSTALL
 
-The major changes compared to the Turba version H5 (4.2.8) are:
-    * Improved prevention of importing duplicate contacts with same email
-      addresses via the API.
-    * Fix removing all contacts owned by a specific user.
-    * Fix inserting and updating photos with Oracle backends.
-    * Fix incorrectly populating email field when importing vCard.
-    * Small bugfixes and improvements.
+The major changes compared to the Turba version H5 (4.2.9) are:
+    * Fix fatal issue in unit tests related to loading Content object stubs.
 ML;
 
 $notes['name'] = 'Turba';
