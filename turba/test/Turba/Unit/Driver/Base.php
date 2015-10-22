@@ -72,6 +72,7 @@ class Turba_Unit_Driver_Base extends Turba_TestCase
         if (!empty($error)) {
             $this->markTestSkipped($error);
         }
+        $GLOBALS['injector']->setInstance('Turba_Tagger', new Turba_Tagger());
     }
 
     public function tearDown()
