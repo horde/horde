@@ -43,6 +43,8 @@ Bookmarks changes:
     * Remove object reference from Content when object is deleted (Bug #14112).
 
 Calendar changes:
+    * Fix issue when replacing an event via the API when the attendee list
+      changes.
     * Fix exporting events from Horde_Perms::SHOW calendars over DAV
       (Bug #14128).
     * Send CACNEL iTip when attendee is removed from a meeting
