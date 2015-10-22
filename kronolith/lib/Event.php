@@ -1278,6 +1278,8 @@ abstract class Kronolith_Event
             if (!is_array($params)) {
                 $params = array($params);
             }
+            // Clear the attendees since we might be editing/replacing the event
+            $this->attendees = array();
             for ($i = 0; $i < count($attendee); ++$i) {
                 $attendee[$i] = str_replace(array('MAILTO:', 'mailto:'), '',
                                             $attendee[$i]);
