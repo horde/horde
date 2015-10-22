@@ -28,7 +28,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2015-10-21</date>
+ <date>2015-10-22</date>
  <version>
   <release>4.2.10</release>
   <api>4.0.0</api>
@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* 
+* [mjr] Fix fatal test error related to Content_Tagger.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -534,6 +534,9 @@
      </dir> <!-- /test/Turba/fixtures -->
      <dir name="Stub">
       <file name="Hooks.php" role="test" />
+      <file name="ObjectsManager.php" role="test" />
+      <file name="Tagger.php" role="test" />
+      <file name="TypesManager.php" role="test" />
      </dir> <!-- /test/Turba/Stub -->
      <dir name="ToDo">
       <file name="ApiTest.php" role="test" />
@@ -1125,6 +1128,9 @@
    <install as="Turba/fixtures/import.ldif" name="test/Turba/fixtures/import.ldif" />
    <install as="Turba/fixtures/importCRLF.ldif" name="test/Turba/fixtures/importCRLF.ldif" />
    <install as="Turba/Stub/Hooks.php" name="test/Turba/Stub/Hooks.php" />
+   <install as="Turba/Stub/ObjectsManager.php" name="test/Turba/Stub/ObjectsManager.php" />
+   <install as="Turba/Stub/Tagger.php" name="test/Turba/Stub/Tagger.php" />
+   <install as="Turba/Stub/TypesManager.php" name="test/Turba/Stub/TypesManager.php" />
    <install as="Turba/ToDo/ApiTest.php" name="test/Turba/ToDo/ApiTest.php" />
    <install as="Turba/ToDo/BrowsePageTest.php" name="test/Turba/ToDo/BrowsePageTest.php" />
    <install as="Turba/ToDo/DriverTest.php" name="test/Turba/ToDo/DriverTest.php" />
@@ -2036,10 +2042,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-10-20</date>
+   <date>2015-10-22</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* 
+* [mjr] Fix fatal test error related to Content_Tagger.
    </notes>
   </release>
  </changelog>

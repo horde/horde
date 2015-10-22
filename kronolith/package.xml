@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2015-10-21</date>
+ <date>2015-10-22</date>
  <version>
   <release>4.2.11</release>
   <api>4.2.0</api>
@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix fatal test error related to Content_Tagger.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -668,6 +668,7 @@
      <dir name="Stub">
       <file name="CalendarManager.php" role="test" />
       <file name="Driver.php" role="test" />
+      <file name="ObjectsManager.php" role="test" />
       <file name="Registry.php" role="test" />
       <file name="ShareFactory.php" role="test" />
       <file name="Tagger.php" role="test" />
@@ -1434,6 +1435,7 @@
    <install as="Kronolith/Integration/Kronolith/Sql/Pdo/SqliteTest.php" name="test/Kronolith/Integration/Kronolith/Sql/Pdo/SqliteTest.php" />
    <install as="Kronolith/Stub/CalendarManager.php" name="test/Kronolith/Stub/CalendarManager.php" />
    <install as="Kronolith/Stub/Driver.php" name="test/Kronolith/Stub/Driver.php" />
+   <install as="Kronolith/Stub/ObjectsManager.php" name="test/Kronolith/Stub/ObjectsManager.php" />
    <install as="Kronolith/Stub/Registry.php" name="test/Kronolith/Stub/Registry.php" />
    <install as="Kronolith/Stub/ShareFactory.php" name="test/Kronolith/Stub/ShareFactory.php" />
    <install as="Kronolith/Stub/Tagger.php" name="test/Kronolith/Stub/Tagger.php" />
@@ -2610,10 +2612,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-10-20</date>
+   <date>2015-10-22</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix fatal test error related to Content_Tagger.
    </notes>
   </release>
  </changelog>
