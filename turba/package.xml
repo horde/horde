@@ -30,7 +30,7 @@
  </lead>
  <date>2015-10-22</date>
  <version>
-  <release>4.2.10</release>
+  <release>4.2.11</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* [mjr] Fix fatal test error related to Content_Tagger.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2046,6 +2046,19 @@
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [mjr] Fix fatal test error related to Content_Tagger.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.11</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-10-21</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
