@@ -448,15 +448,11 @@ class Horde_ActiveSync_Message_Contact extends Horde_ActiveSync_Message_Base
      */
     public function isGhosted($property)
     {
-        $isGhosted = parent::isGhosted($property);
-        if (!$isGhosted &&
-            empty($this->_exists[$property]) &&
-            $property == $this->_mapping[self::PICTURE][self::KEY_ATTRIBUTE] &&
-            $this->_device->hasQuirk(Horde_ActiveSync_Device::QUIRK_NEEDS_SUPPORTED_PICTURE_TAG)) {
-            return true;
+        if ($this->_device->hasQuirk(Horde_ActiveSync_Device::QUIRK_NEEDS_SUPPORTED_PICTURE_TAG)) {
+            $this->_supported[] = $this->_mapping[self::PICTURE][self::KEY_ATTRIBUTE];
         }
 
-        return $isGhosted;
+        return parent::isGhosted($property);
     }
 
 }
