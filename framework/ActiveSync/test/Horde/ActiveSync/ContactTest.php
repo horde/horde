@@ -41,7 +41,7 @@ class Horde_ActiveSync_ContactTest extends Horde_Test_Case
         );
         $device = new Horde_ActiveSync_Device($state, $fixture);
         $contact = new Horde_ActiveSync_Message_Contact(array('device' => $device));
-        $this->assertEquals(true, $contact->isGhosted(Horde_ActiveSync_Message_Contact::PICTURE));
+        $this->assertEquals(true, $contact->isGhosted('picture'));
 
         $fixture = array(
             'deviceType' => 'iPad',
@@ -50,7 +50,7 @@ class Horde_ActiveSync_ContactTest extends Horde_Test_Case
         );
         $device = new Horde_ActiveSync_Device($state, $fixture);
         $contact = new Horde_ActiveSync_Message_Contact(array('device' => $device));
-        $this->assertEquals(false, $contact->isGhosted(Horde_ActiveSync_Message_Contact::PICTURE));
+        $this->assertEquals(false, $contact->isGhosted('picture'));
     }
 
     /**
