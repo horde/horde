@@ -88,7 +88,7 @@ class Horde_ActiveSync_Message_Base
     protected $_supported = array();
 
     /**
-     * Existance cache, used for working with ghosted properties.
+     * Existence cache, used for working with ghosted properties.
      *
      * @var array
      */
