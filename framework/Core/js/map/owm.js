@@ -26,7 +26,7 @@ HordeMap.Owm = Class.create(
                     {
                         'isBaseLayer': false,
                         'sphericalMercator': true,
-                        'opacity': 0.7
+                        'opacity': 0.5
                     }
             ),
             'precipitation': new OpenLayers.Layer.XYZ(
@@ -37,7 +37,7 @@ HordeMap.Owm = Class.create(
                     {
                         'isBaseLayer': false,
                         'sphericalMercator': true,
-                        'opacity': 0.7
+                        'opacity': 0.5
                     }
             ),
             'rain': new OpenLayers.Layer.XYZ(
@@ -48,7 +48,7 @@ HordeMap.Owm = Class.create(
                     {
                         'isBaseLayer': false,
                         'sphericalMercator': true,
-                        'opacity': 0.7
+                        'opacity': 0.5
                     }
             ),
             'snow': new OpenLayers.Layer.XYZ(
@@ -59,7 +59,7 @@ HordeMap.Owm = Class.create(
                     {
                         'isBaseLayer': false,
                         'sphericalMercator': true,
-                        'opacity': 0.7
+                        'opacity': 0.5
                     }
             ),
             'pressure_cntr': new OpenLayers.Layer.XYZ(
@@ -70,7 +70,7 @@ HordeMap.Owm = Class.create(
                     {
                         'isBaseLayer': false,
                         'sphericalMercator': true,
-                        'opacity': 0.7
+                        'opacity': 0.5
                     }
             ),
             'wind': new OpenLayers.Layer.XYZ(
@@ -81,7 +81,7 @@ HordeMap.Owm = Class.create(
                     {
                         'isBaseLayer': false,
                         'sphericalMercator': true,
-                        'opacity': 0.7
+                        'opacity': 0.5
                     }
             )
         };
