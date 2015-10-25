@@ -435,24 +435,18 @@ class Horde_ActiveSync_Message_Contact extends Horde_ActiveSync_Message_Base
     }
 
     /**
-     * Determines if the property specified has been ghosted by the client.
-     * A ghosted property 1) IS listed in the supported list and 2) NOT
-     * present in the current message. If it's IN the supported list and NOT
-     * in the current message, then it IS ghosted and the server should keep
-     * the field's current value when performing any change action due to this
-     * message.
+     * Set the list of non-ghosted fields for this message.
      *
-     * @param string $property  The property to check
-     *
-     * @return boolean
+     * @param array $fields  The array of fields.
      */
-    public function isGhosted($property)
+    public function setSupported(array $fields)
     {
-        if ($this->_device->hasQuirk(Horde_ActiveSync_Device::QUIRK_NEEDS_SUPPORTED_PICTURE_TAG)) {
+        // See if we need to explicitly add the picture tag to the supported list.
+        parent::setSupported($fields);
+        if ($this->_device->hasQuirk(Horde_ActiveSync_Device::QUIRK_NEEDS_SUPPORTED_PICTURE_TAG) &&
+            !in_array($this->_mapping[self::PICTURE][self::KEY_ATTRIBUTE], $this->_supported)) {
             $this->_supported[] = $this->_mapping[self::PICTURE][self::KEY_ATTRIBUTE];
         }
-
-        return parent::isGhosted($property);
     }
 
 }

@@ -41,6 +41,7 @@ class Horde_ActiveSync_ContactTest extends Horde_Test_Case
         );
         $device = new Horde_ActiveSync_Device($state, $fixture);
         $contact = new Horde_ActiveSync_Message_Contact(array('device' => $device));
+        $contact->setSupported(array());
         $this->assertEquals(true, $contact->isGhosted('picture'));
 
         $fixture = array(
