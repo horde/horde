@@ -239,6 +239,7 @@ class Whups_Api extends Horde_Registry_Api
 
         $ticket->change('summary', $info['summary']);
         $ticket->change('state', $info['state']);
+        $ticket->change('due', $info['due']);
         $ticket->change('priority', $info['priority']);
         if (!empty($info['newcomment'])) {
             $ticket->change('comment', $info['newcomment']);
