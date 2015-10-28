@@ -28,7 +28,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2015-10-22</date>
+ <date>2015-10-28</date>
  <version>
   <release>4.2.11</release>
   <api>4.0.0</api>
@@ -2055,7 +2055,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-10-21</date>
+   <date>2015-10-28</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [mjr] Fix regression in removing all contacts from a single address book in the Sql driver (Bug #14145, Guenter Bartsch &lt;guenter.bartsch@vista-rasch.com&gt;).
