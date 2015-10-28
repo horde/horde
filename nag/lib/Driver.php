@@ -398,6 +398,11 @@ abstract class Nag_Driver
     {
         /* Get the task's details for use later. */
         $task = $this->get($taskId);
+        $task->loadChildren();
+        if ($task->hasSubTasks()) {
+            throw new Nag_Exception(_("Sub tasks exist, delete them first"));
+        }
+
         $delete = $this->_delete($taskId);
 
         /* Remove tags */
