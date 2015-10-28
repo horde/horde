@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* 
+* [mjr] Fix regression in removing all contacts from a single address book in the Sql driver (Bug #14145, Guenter Bartsch &lt;guenter.bartsch@vista-rasch.com&gt;).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2058,7 +2058,7 @@
    <date>2015-10-21</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* 
+* [mjr] Fix regression in removing all contacts from a single address book in the Sql driver (Bug #14145, Guenter Bartsch &lt;guenter.bartsch@vista-rasch.com&gt;).
    </notes>
   </release>
  </changelog>
