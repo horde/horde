@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Return recurring tasks via listTimeObjects API (Bug #14137).
 * [mjr] Prevent orphaning tasks via the API.
  </notes>
  <contents>
@@ -1672,6 +1673,7 @@
    <date>2015-10-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Return recurring tasks via listTimeObjects API (Bug #14137).
 * [mjr] Prevent orphaning tasks via the API.
    </notes>
   </release>
