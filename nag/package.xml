@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Prevent orphaning tasks via the API.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1672,7 +1672,7 @@
    <date>2015-10-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Prevent orphaning tasks via the API.
    </notes>
   </release>
  </changelog>
