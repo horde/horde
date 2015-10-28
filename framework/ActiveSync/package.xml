@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Improved workaround for clients with broken picture tag handling.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2878,7 +2878,7 @@
    <date>2015-10-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Improved workaround for clients with broken picture tag handling.
    </notes>
   </release>
  </changelog>
