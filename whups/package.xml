@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
  <notes>
-* 
+* [mjr] Allow due date to be changed via the API (Neal Thomas Oakey &lt;oakey@b1-systems.de&gt;).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1193,7 +1193,7 @@
    <date>2015-10-20</date>
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
    <notes>
-* 
+* [mjr] Allow due date to be changed via the API (Neal Thomas Oakey &lt;oakey@b1-systems.de&gt;).
    </notes>
   </release>
  </changelog>

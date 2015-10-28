@@ -2,6 +2,8 @@
 v3.0.6-git
 ----------
 
+[mjr] Allow due date to be changed via the API (Neal Thomas Oakey
+      <oakey@b1-systems.de>).
 
 
 ------
