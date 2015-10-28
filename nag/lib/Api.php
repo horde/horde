@@ -1334,7 +1334,7 @@ class Nag_Api extends Horde_Registry_Api
         // List incomplete tasks.
         $tasks = Nag::listTasks(array(
             'tasklists' => $categories,
-            'completed' => Nag::VIEW_INCOMPLETE,
+            'completed' => Nag::VIEW_FUTURE_INCOMPLETE,
             'include_history' => false)
         );
 
