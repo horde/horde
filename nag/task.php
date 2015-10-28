@@ -24,8 +24,6 @@ function _delete($task_id, $tasklist_id)
             }
             if (!$share->hasPermission($registry->getAuth(), Horde_Perms::DELETE)) {
                 $notification->push(_("Access denied deleting task."), 'horde.error');
-            } elseif ($task->hasSubTasks()) {
-                $notification->push(_("Sub tasks exist, delete them first"), 'horde.error');
             } else {
                 $storage = $injector->getInstance('Nag_Factory_Driver')->create($tasklist_id);
                 try {

@@ -35,9 +35,6 @@ class Nag_SaveTask_Controller extends Horde_Controller_Base
             if (!$share->hasPermission($registry->getAuth(), Horde_Perms::DELETE)) {
                 $notification->push(_("Access denied deleting task"), 'horde.error');
                 Horde::url('list.php', true)->redirect();
-            } elseif ($task->hasSubTasks()) {
-                $notification->push(_("Sub tasks exist, delete them first"), 'horde.error');
-                Horde::url('list.php', true)->redirect();
             } else {
                 $storage = $this->getInjector()
                     ->getInstance('Nag_Factory_Driver')
