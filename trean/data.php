@@ -13,7 +13,9 @@ require_once __DIR__ . '/lib/Application.php';
 $app_ob = Horde_Registry::appInit('trean');
 
 /* Importable file types. */
-$file_types = array('json' => _("Firefox JSON"));
+$file_types = array(
+    'json' => _("Firefox JSON"),
+    'html' => _("Netscape-style HTML file"));
 
 /* Templates for the different import steps. */
 $templates = array(
@@ -31,9 +33,18 @@ $storage = $injector->getInstance('Horde_Core_Data_Storage');
 
 if ($import_format) {
     $data = null;
+
+    switch ($import_format) {
+    case 'html':
+        $class = 'Trean_Data_Html';
+        break;
+    case 'json':
+    default:
+        $class = 'Trean_Data_Json';
+        break;
+    }
     try {
-        // @TODO: So far, only Firefox JSON
-        $data = new Trean_Data_Json(
+        $data = new $class(
             $injector->getInstance('Horde_Core_Data_Storage'),
             array(
                 'browser' => $injector->getInstance('Horde_Browser'),
