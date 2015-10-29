@@ -28,14 +28,14 @@ class Trean_Data_Html extends Horde_Data_Base
             } elseif (strpos($line, '</DL>') !== false) {
                 array_pop($this->_folders);
                 // End of folder.
-            } elseif (preg_match("/<DT><A HREF=\"*(.*?)\".*>(.*)<\/A>/", $line, $temp)) {
+            } elseif (preg_match("/<DT><A HREF=\"*(.*?)\" ADD_DATE=\"*(.*?)\".*>(.*)<\/A>/", $line, $temp)) {
                 // Bookmark.
                 $rows[] = array(
                     'bookmark_url' => trim($temp[1]),
-                    'bookmark_title' => trim($temp[2]),
+                    'bookmark_title' => (count($temp) > 3) ? trim($temp[3]) : trim($temp[2]),
                     'bookmark_description' => '',
                     'bookmark_tags' => $this->_folders,
-                    'bookmark_dt' => false, // @todo
+                    'bookmark_dt' => (count($temp) > 3) ? new Horde_Date($temp[2]) : false
                 );
             } elseif (strpos($line, '<DD>') !== false) {
                     // Should be description of previous bookmark.
