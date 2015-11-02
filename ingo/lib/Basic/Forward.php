@@ -88,13 +88,14 @@ class Ingo_Basic_Forward extends Ingo_Basic_Base
         $this->header = _("Forwards Edit");
 
         Horde::startBuffer();
+        Horde_Util::pformInput();
         $form->renderActive(
             new Horde_Form_Renderer(array(
                 'encode_title' => false,
                 'varrenderer_driver' => array('ingo', 'ingo')
             )),
             $this->vars,
-            self::url(),
+            self::url(array('append_session' => -1)),
             'post'
         );
         $this->output = Horde::endBuffer();
@@ -104,7 +105,10 @@ class Ingo_Basic_Forward extends Ingo_Basic_Base
      */
     public static function url(array $opts = array())
     {
-        return Horde::url('basic.php')->add('page', 'forward');
+        if (empty($opts['append_session'])) {
+            $opts['append_session'] = 0;
+        }
+        return Horde::url('basic.php', false, array('append_session' => $opts['append_session']))->add('page', 'forward');
     }
 
 }
