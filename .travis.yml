@@ -21,8 +21,10 @@ addons:
     - cvs
     - cvsps
     - libimage-exiftool-perl
+    - language-pack-cs
+    - language-pack-de
+    - language-pack-tr
 before_install:
-  - sudo locale-gen cs_CZ.UTF-8 de_DE.UTF-8 tr_TR
   - mysql -e "create database IF NOT EXISTS test;" -uroot
 before_script:
   - phpenv config-add .travis.ini
