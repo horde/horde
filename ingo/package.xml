@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* 
+* [mjr] Fix invalid URLs in certain forms when cookies are disabled (Bug #14148).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1607,7 +1607,7 @@
    <date>2015-10-20</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* 
+* [mjr] Fix invalid URLs in certain forms when cookies are disabled (Bug #14148).
    </notes>
   </release>
  </changelog>
