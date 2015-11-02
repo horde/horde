@@ -39,6 +39,6 @@ before_script:
   - ./framework/bin/pear_batch_install
   - psql -c 'create database test;' -U postgres
   - mkdir /tmp/slapd
-  - slapd -f test/Horde/Ldap/fixtures/slapd.conf -h ldap://localhost:3389
-  - ldapadd -h localhost:3389 -D cn=admin,dc=horde,dc=org -w test -f test/Horde/Ldap/fixtures/base.ldif
+  - ldapadd -Y EXTERNAL -H ldapi:/// -f test/Horde/Ldap/fixtures/db.ldif
+  - ldapadd -D cn=admin,dc=horde,dc=org -w test -f test/Horde/Ldap/fixtures/base.ldif
 script: ./framework/bin/test_framework
