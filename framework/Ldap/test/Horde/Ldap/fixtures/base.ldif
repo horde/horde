@@ -1,0 +1,8 @@
+dn: dc=horde,dc=org
+objectClass: dcObject
+objectClass: organization
+o: Horde
+
+dn: ou=Test,dc=horde,dc=org
+objectClass: organizationalUnit
+ou: Test
