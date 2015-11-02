@@ -105,6 +105,7 @@ class Horde_Form_Renderer {
     {
         $this->_name = $name;
         $name = htmlspecialchars($name);
+        $action = htmlspecialchars($action);
         $method = htmlspecialchars($method);
         echo "<form action=\"$action\" method=\"$method\"" . (empty($name) ? '' : " name=\"$name\" id=\"$name\"") . (is_null($enctype) ? '' : " enctype=\"$enctype\"") . ">\n";
         Horde_Util::pformInput();
