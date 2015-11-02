@@ -19,10 +19,12 @@ addons:
     packages:
     - libwbxml2-utils
     - aspell
+    - aspell-en
     - rcs
     - cvs
     - cvsps
     - libimage-exiftool-perl
+    - language-pack-en
     - language-pack-cs
     - language-pack-de
     - language-pack-tr
