@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Fix incorrect URL for form actions when query parameters are present (Bug #14148).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -935,7 +935,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <date>2015-07-30</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [mjr] Fix incorrect URL for form actions when query parameters are present (Bug #14148).
+* 
    </notes>
   </release>
  </changelog>
