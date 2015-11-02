@@ -17,17 +17,17 @@ env: ACTIVESYNC_SQL_MYSQL_TEST_CONFIG='{"activesync":{"sql":{"mysql":{"adapter":
 addons:
   apt:
     packages:
-    - libwbxml2-utils
     - aspell
     - aspell-en
-    - rcs
     - cvs
     - cvsps
-    - libimage-exiftool-perl
     - language-pack-en
     - language-pack-cs
     - language-pack-de
     - language-pack-tr
+    - libimage-exiftool-perl
+    - libwbxml2-utils
+    - rcs
 before_install:
   - mysql -e "create database IF NOT EXISTS test;" -uroot
 before_script:
