@@ -106,7 +106,8 @@ class Ingo_Basic_Spam extends Ingo_Basic_Base
         $this->header = _("Spam Filtering");
 
         Horde::startBuffer();
-        $form->renderActive($renderer, $this->vars, self::url(), 'post');
+        Horde_Util::pformInput();
+        $form->renderActive($renderer, $this->vars, self::url(array('append_session' => -1)), 'post');
         $this->output = Horde::endBuffer();
     }
 
@@ -114,7 +115,10 @@ class Ingo_Basic_Spam extends Ingo_Basic_Base
      */
     static public function url(array $opts = array())
     {
-        return Horde::url('basic.php')->add('page', 'spam');
+        if (empty($opts['append_session'])) {
+            $opts['append_session'] = 0;
+        }
+        return Horde::url('basic.php', false, array('append_session' => $opts['append_session']))->add('page', 'spam');
     }
 
 }
