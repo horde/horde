@@ -118,7 +118,7 @@ class Ingo_Basic_Spam extends Ingo_Basic_Base
         if (empty($opts['append_session'])) {
             $opts['append_session'] = 0;
         }
-        return Horde::url('basic.php', false, array('append_session' => $opts['append_session']))->add('page', 'spam');
+        return Horde::url('basic.php', true, array('append_session' => $opts['append_session']))->add('page', 'spam');
     }
 
 }
