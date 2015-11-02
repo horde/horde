@@ -88,7 +88,7 @@ class Horde_SpellChecker_Aspell extends Horde_SpellChecker
         proc_close($process);
 
         if (strlen($out) === 0) {
-            throw new Horde_SpellChecker_Exception('Spellcheck failed. Command line: ' . $this->_cmd() . "\n" . $err);
+            throw new Horde_SpellChecker_Exception('Spellcheck failed. Command line: ' . $this->_cmd());
         }
 
         // Parse output.
