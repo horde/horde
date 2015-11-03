@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix display of embed code by adding the full url.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2629,7 +2629,7 @@
    <date>2015-10-21</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix display of embed code by adding the full url.
    </notes>
   </release>
  </changelog>
