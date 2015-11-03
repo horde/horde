@@ -2,6 +2,7 @@
 v4.2.12-git
 -----------
 
+[mjr] Fix import of vCard with single component via API.
 
 
 -------

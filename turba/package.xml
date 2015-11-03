@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* 
+* [mjr] Fix import of vCard with single component via API.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2071,7 +2071,7 @@
    <date>2015-10-28</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* 
+* [mjr] Fix import of vCard with single component via API.
    </notes>
   </release>
  </changelog>
