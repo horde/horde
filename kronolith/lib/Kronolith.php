@@ -1773,7 +1773,7 @@ class Kronolith
     public static function embedCode($calendar)
     {
         /* Get the base url */
-        $url = $GLOBALS['registry']->getServiceLink('ajax', 'kronolith')->add(array(
+        $url = $GLOBALS['registry']->getServiceLink('ajax', 'kronolith', true)->add(array(
             'calendar' => 'internal_' . $calendar,
             'container' => 'kronolithCal',
             'view' => 'Month'
