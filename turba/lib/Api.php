@@ -707,7 +707,7 @@ class Turba_Api extends Horde_Registry_Api
                     throw new Turba_Exception(_("No vCard data was found."));
 
                 case 1:
-                    $content = $iCal->getComponent(0);
+                    $content = $driver->toHash($iCal->getComponent(0));
                     break;
 
                 default:
