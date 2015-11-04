@@ -387,6 +387,19 @@ class Text_Wiki {
     */
     function Text_Wiki($rules = null)
     {
+        $this->__construct($rules);
+    }
+
+    /**
+     * A fix for PHP5.
+     *
+     * @param mixed $rules null or an array.
+     *
+     * @return $this
+     * @uses   self::Text_Wiki()
+     */
+    function __construct($rules = null)
+    {
         if (is_array($rules)) {
             $this->rules = array();
             foreach ($rules as $rule) {
@@ -402,20 +415,6 @@ class Text_Wiki {
             'render',
             $this->fixPath(dirname(__FILE__)) . 'Wiki/Render/'
         );
-
-    }
-
-    /**
-     * A fix for PHP5.
-     *
-     * @param mixed $rules null or an array.
-     *
-     * @return $this
-     * @uses   self::Text_Wiki()
-     */
-    function __construct($rules = null)
-    {
-        $this->Text_Wiki($rules);
     }
 
     /**
@@ -480,7 +479,7 @@ class Text_Wiki {
      *    {@see Text_Wiki::singleton} for a list of rules
      * @return Text_Wiki a Parser object extended from Text_Wiki
      */
-    function &factory($parser = 'Default', $rules = null)
+    function factory($parser = 'Default', $rules = null)
     {
         $class = 'Text_Wiki_' . $parser;
         $file = str_replace('_', '/', $class).'.php';
@@ -493,8 +492,7 @@ class Text_Wiki {
             }
         }
 
-        $obj =& new $class($rules);
-        return $obj;
+        return new $class($rules);
     }
 
     /**
@@ -1343,7 +1341,7 @@ class Text_Wiki {
             }
         }
 
-        $this->parseObj[$rule] =& new $class($this);
+        $this->parseObj[$rule] = new $class($this);
 
     }
 
@@ -1379,7 +1377,7 @@ class Text_Wiki {
             }
         }
 
-        $this->renderObj[$rule] =& new $class($this);
+        $this->renderObj[$rule] = new $class($this);
     }
 
 
@@ -1412,7 +1410,7 @@ class Text_Wiki {
             }
         }
 
-        $this->formatObj[$format] =& new $class($this);
+        $this->formatObj[$format] = new $class($this);
     }
 
 
@@ -1540,7 +1538,8 @@ class Text_Wiki {
         if (! class_exists('PEAR_Error')) {
             include_once 'PEAR.php';
         }
-        return PEAR::throwError($message);
+        $pear = new PEAR();
+        return $pear->throwError($message);
     }
 
 
