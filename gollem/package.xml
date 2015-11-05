@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [jan] Fix fatal error when cutting and pasting files on the same backend.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -870,7 +870,7 @@
    <date>2015-10-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [jan] Fix fatal error when cutting and pasting files on the same backend.
    </notes>
   </release>
  </changelog>
