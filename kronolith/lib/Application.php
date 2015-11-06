@@ -536,6 +536,10 @@ class Kronolith_Application extends Horde_Registry_Application
                             'user' => $alarm_user
                         ));
                     }
+                    // Don't show alarms for private events if not the owner.
+                    if ($event->isPrivate($alarm_user)) {
+                        continue;
+                    }
                     $shown_calendars = unserialize($prefs->getValue('display_cals'));
                     $reminder = $prefs->getValue('event_reminder');
                     if (($reminder == 'owner' && $alarm_user == $owner) ||
