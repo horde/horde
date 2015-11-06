@@ -2,6 +2,8 @@
 v4.2.12-git
 -----------
 
+[mjr] Fix visibility of alarm titles when alarm is generated via CLI (Bug
+      #14154).
 [mjr] Fix display of embed code by adding the full url.
 
 

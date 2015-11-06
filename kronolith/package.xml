@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix visibility of alarm titles when alarm is generated via CLI (Bug #14154).
 * [mjr] Fix display of embed code by adding the full url.
  </notes>
  <contents>
@@ -2629,6 +2630,7 @@
    <date>2015-10-21</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix visibility of alarm titles when alarm is generated via CLI (Bug #14154).
 * [mjr] Fix display of embed code by adding the full url.
    </notes>
   </release>
