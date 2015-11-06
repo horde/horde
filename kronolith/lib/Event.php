@@ -2582,10 +2582,6 @@ abstract class Kronolith_Event
     /**
      * Returns whether the event should be considered private.
      *
-     * The event's private flag can be overriden if the current user
-     * is an administrator and the code is run from command line. This is to
-     * allow full event notifications in alarm messages.
-     *
      * @param string $user  The current user. If omitted, uses the current user.
      *
      * @return boolean  Whether to consider the event as private.
@@ -2598,13 +2594,9 @@ abstract class Kronolith_Event
             $user = $registry->getAuth();
         }
 
-        if (!(Horde_Cli::runningFromCLI() && $registry->isAdmin()) &&
-            $this->private && $this->creator != $user) {
-            return true;
-        }
-
-        if ($registry->isAdmin() ||
-             $this->hasPermission(Horde_Perms::READ, $user)) {
+        // Never private if private is not true or if the current user is the
+        // event creator.
+        if (!$this->private || $this->creator == $user) {
             return false;
         }
 
