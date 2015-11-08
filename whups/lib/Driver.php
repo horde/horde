@@ -145,10 +145,16 @@ abstract class Whups_Driver
 
             default:
                 if (strpos($type, 'attribute_') === 0) {
-                    try {
-                        $value = Horde_Serialize::unserialize(
-                            $value, Horde_Serialize::JSON);
-                    } catch (Horde_Serialize_Exception $e) {
+                    if (is_string($value) && defined('JSON_BIGINT_AS_STRING')) {
+                        $value = json_decode(
+                            $value, true, 512, constant('JSON_BIGINT_AS_STRING')
+                        );
+                    } else {
+                        try {
+                            $value = Horde_Serialize::unserialize(
+                                $value, Horde_Serialize::JSON);
+                        } catch (Horde_Serialize_Exception $e) {
+                        }
                     }
                     $attribute = substr($type, 10);
                     if (isset($attributes[$attribute])) {
