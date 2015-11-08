@@ -2,6 +2,7 @@
 v3.0.6-git
 ----------
 
+[mjr] Fix incorrect casting of numeric strings to integers (Bug #14146).
 [mjr] Allow due date to be changed via the API (Neal Thomas Oakey
       <oakey@b1-systems.de>).
 
