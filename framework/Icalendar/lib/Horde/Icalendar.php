@@ -1302,8 +1302,13 @@ class Horde_Icalendar
         }
 
         for ($i = 0, $n = count($change_times); $i < $n - 1; $i++) {
+            // See Bug: 14153. Some timezone definitions may be such that a
+            // transition will incorrectly match due to the way we parse the
+            // 'end' times. There *may* be a more correct way to do this by
+            // sorting the transitions/handling 'end' values differently.
             if (($t >= $change_times[$i]['time']) &&
-                ($t < $change_times[$i + 1]['time'])) {
+                ($t < $change_times[$i + 1]['time']) &&
+                $this->_checkEndDate($t, $change_times[$i + 1])) {
                 return $change_times[$i]['to'];
             }
         }
@@ -1313,6 +1318,33 @@ class Horde_Icalendar
         }
 
         return false;
+    }
+
+    /**
+     * Utility method to aid in checking the end date of a transition.
+     *
+     * @param  integer $t    The timestamp of the date we are checking.
+     * @param  array $times  A transition array.
+     *
+     * @return boolean  True if $t is before the end date of the transition
+     *                  otherwise false.
+     */
+    protected function _checkEndDate($t, $times)
+    {
+        if (empty($times['end'])) {
+            return true;
+        }
+        if (strlen($times['end']) == 4) {
+            $date = @gmmktime(0, 0, 0, 1, 1, $times['end']);
+            if ($date && $t < $date) {
+                return true;
+            }
+            return false;
+        }
+
+        if ($t < $times['end']) {
+            return true;
+        }
     }
 
     /**

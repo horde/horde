@@ -23,7 +23,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2015-07-06</date>
+ <date>2015-11-11</date>
  <version>
   <release>2.1.2</release>
   <api>2.1.0</api>
@@ -376,6 +376,7 @@
         <file name="wicca.txt" role="test" />
        </dir> <!-- /test/Horde/Icalendar/fixtures/vTimezone -->
        <file name="bug7423.ics" role="test" />
+       <file name="bug14153.ics" role="test" />
        <file name="charset1.ics" role="test" />
        <file name="charset2.ics" role="test" />
        <file name="charset3.ics" role="test" />
@@ -597,6 +598,7 @@
    <install as="Horde/Icalendar/phpunit.xml" name="test/Horde/Icalendar/phpunit.xml" />
    <install as="Horde/Icalendar/TimezonesTest.php" name="test/Horde/Icalendar/TimezonesTest.php" />
    <install as="Horde/Icalendar/fixtures/bug7423.ics" name="test/Horde/Icalendar/fixtures/bug7423.ics" />
+   <install as="Horde/Icalendar/fixtures/bug14153.ics" name="test/Horde/Icalendar/fixtures/bug14153.ics" />
    <install as="Horde/Icalendar/fixtures/charset1.ics" name="test/Horde/Icalendar/fixtures/charset1.ics" />
    <install as="Horde/Icalendar/fixtures/charset2.ics" name="test/Horde/Icalendar/fixtures/charset2.ics" />
    <install as="Horde/Icalendar/fixtures/charset3.ics" name="test/Horde/Icalendar/fixtures/charset3.ics" />
@@ -1199,7 +1201,7 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-07-06</date>
+   <date>2015-11-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 
