@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mjr] Fix cases where incorrect transition times were being returned (Bug #14153).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1204,7 +1204,7 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
    <date>2015-11-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mjr] Fix cases where incorrect transition times were being returned (Bug #14153).
    </notes>
   </release>
  </changelog>
