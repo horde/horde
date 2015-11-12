@@ -39,7 +39,7 @@ class Horde_Core_ActiveSync_Logger_Factory implements Horde_ActiveSync_Interface
         $logger = false;
         if ($conf['activesync']['logging']['type'] == 'onefile') {
             if (!empty($properties['DeviceId'])) {
-                $device_id = $properties['DeviceId'];
+                $device_id = Horde_String::upper($properties['DeviceId']);
                 $format = "%timestamp% $device_id %levelName%: %message%" . PHP_EOL;
                 $formatter = new Horde_Log_Formatter_Simple(array('format' => $format));
                 $stream = fopen($conf['activesync']['logging']['path'], 'a');
