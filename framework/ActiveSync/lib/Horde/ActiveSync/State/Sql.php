@@ -909,8 +909,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 $results = $this->_db->selectValue($q, array($options['devId']));
                 if ($results != Horde_ActiveSync::RWSTATUS_NA &&
                     $results != Horde_ActiveSync::RWSTATUS_OK) {
-                    unset($options['user']);
-                    return $this->removeState($options);
+                    return $this->removeState(array('devId' => $options['devId']));
                 }
             } catch (Horde_Db_Exception $e) {
                 throw new Horde_ActiveSync_Exception($e);
