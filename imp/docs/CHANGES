@@ -2,6 +2,7 @@
 v6.2.12-git
 -----------
 
+[jan] Fix wrapping of plain text converted from HTML MIME parts.
 
 
 -------
