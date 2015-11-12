@@ -184,7 +184,7 @@ class IMP_Compose_Ui
 
         case 'text':
             return $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($data, 'Html2text', array(
-                'wrap' => false
+                'width' => 0
             ));
         }
     }
