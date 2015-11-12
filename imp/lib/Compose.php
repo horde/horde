@@ -1655,7 +1655,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 $body_html->returnHtml(),
                 'Html2text',
                 array(
-                    'wrap' => false
+                    'width' => 0
                 )
             );
         }

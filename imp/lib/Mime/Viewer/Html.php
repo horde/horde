@@ -187,7 +187,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         /* We are done processing if converting to text. */
         if ($convert_text) {
             $data = $this->_textFilter($data, 'Html2text', array(
-                'wrap' => false
+                'width' => 0
             ));
 
             // Filter bad language.
