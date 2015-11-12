@@ -714,7 +714,9 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
     public function deviceExists($devId, $user = null)
     {
         if (!empty($user)) {
-            $query = 'SELECT COUNT(*) FROM ' . $this->_syncUsersTable
+            $query = 'SELECT COUNT(*) FROM ' . $this->_syncDeviceTable
+                . ' d INNER JOIN ' . $this->_syncUsersTable
+                . ' u on d.device_id = u.device_id'
                 . ' WHERE device_id = ? AND device_user = ?';
             $values = array($devId, $user);
         } else {
