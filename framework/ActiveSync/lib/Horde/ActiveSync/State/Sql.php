@@ -717,7 +717,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             $query = 'SELECT COUNT(*) FROM ' . $this->_syncDeviceTable
                 . ' d INNER JOIN ' . $this->_syncUsersTable
                 . ' u on d.device_id = u.device_id'
-                . ' WHERE device_id = ? AND device_user = ?';
+                . ' WHERE u.device_id = ? AND device_user = ?';
             $values = array($devId, $user);
         } else {
             $query = 'SELECT COUNT(*) FROM ' . $this->_syncDeviceTable . ' WHERE device_id = ?';
