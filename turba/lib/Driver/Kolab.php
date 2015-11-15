@@ -757,7 +757,7 @@ class Turba_Driver_Kolab extends Turba_Driver
     protected function _delete($object_key, $object_id)
     {
         $this->connect();
-        $this->syncronize();
+        $this->synchronize();
 
         if ($object_key == 'uid') {
             $object_id = Horde_Url::uriB64Encode($object_id);

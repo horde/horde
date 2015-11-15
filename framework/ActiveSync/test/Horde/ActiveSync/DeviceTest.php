@@ -10,7 +10,7 @@ class Horde_ActiveSync_DeviceTest extends Horde_Test_Case
 {
     public function testDeviceDetection()
     {
-        // iOS
+        // // iOS
         $state = $this->getMockSkipConstructor('Horde_ActiveSync_State_Base');
         $fixture = array(
             'deviceType' => 'iPod',
@@ -25,13 +25,46 @@ class Horde_ActiveSync_DeviceTest extends Horde_Test_Case
 
         $fixture = array(
             'deviceType' => 'iPhone',
-            'userAgent' => 'iOS/6.1.3 (10B329)'
+            'userAgent' => 'iOS/1002.329'
         );
         $device = new Horde_ActiveSync_Device($state, $fixture);
         $this->assertEquals(6, $device->getMajorVersion());
         $this->assertEquals(1, $device->getMinorVersion());
         $this->assertEquals(Horde_ActiveSync_Device::TYPE_IPHONE, Horde_String::lower($device->deviceType));
         $this->assertEquals(Horde_ActiveSync_Device::MULTIPLEX_NOTES, $device->multiplex);
+        $this->assertEquals(false, $device->hasQuirk(Horde_ActiveSync_Device::QUIRK_NEEDS_SUPPORTED_PICTURE_TAG));
+
+        $fixture = array(
+            'deviceType' => 'iPod',
+            'userAgent' => 'Apple-iPod2C1/803.148'
+        );
+        $device = new Horde_ActiveSync_Device($state, $fixture);
+        $this->assertEquals(4, $device->getMajorVersion());
+        $this->assertEquals(2, $device->getMinorVersion());
+        $this->assertEquals(true, $device->hasQuirk(Horde_ActiveSync_Device::QUIRK_NEEDS_SUPPORTED_PICTURE_TAG));
+
+        $fixture = array(
+            'deviceType' => 'iPad',
+            'userAgent' => 'Apple-iPad3C6/1202.435',
+            'properties' => array(Horde_ActiveSync_Device::OS => 'iOS 8.1.1')
+        );
+        $device = new Horde_ActiveSync_Device($state, $fixture);
+        $this->assertEquals(8, $device->getMajorVersion());
+        $this->assertEquals(1, $device->getMinorVersion());
+        $this->assertEquals(Horde_ActiveSync_Device::TYPE_IPAD, Horde_String::lower($device->deviceType));
+        $this->assertEquals(Horde_ActiveSync_Device::MULTIPLEX_NOTES, $device->multiplex);
+
+        $fixture = array(
+            'deviceType' => 'iPhone',
+            'userAgent' => 'Apple-iPhone6C1/1104.201',
+            'properties' => array(Horde_ActiveSync_Device::OS => 'iOS 9.0.2 13A452')
+        );
+        $device = new Horde_ActiveSync_Device($state, $fixture);
+        $this->assertEquals(9, $device->getMajorVersion());
+        $this->assertEquals(0, $device->getMinorVersion());
+        $this->assertEquals(Horde_ActiveSync_Device::TYPE_IPHONE, Horde_String::lower($device->deviceType));
+        $this->assertEquals(Horde_ActiveSync_Device::MULTIPLEX_NOTES, $device->multiplex);
+
 
         // Old Android.
         $fixture = array(
@@ -212,6 +245,20 @@ class Horde_ActiveSync_DeviceTest extends Horde_Test_Case
         $this->assertEquals(Horde_ActiveSync_Device::TYPE_ANDROID, $device->clientType);
         $device->clientType = 'Samsung';
         $this->assertEquals('Samsung', $device->clientType);
+    }
+
+    public function testSupported()
+    {
+        $fixture = array(
+            'deviceType' => 'SAMSUNGSMN900V',
+            'userAgent' => 'SAMSUNG-SM-N900V/101.403',
+            'properties' => array(Horde_ActiveSync_Device::OS => 'Android')
+        );
+        $device = new Horde_ActiveSync_Device($this->getMockSkipConstructor('Horde_ActiveSync_State_Base'), $fixture);
+        $this->assertEmpty($device->supported);
+        $device->supported = array();
+        $device->supported['contacts'] = array('one', 'two');
+        $this->assertEquals($device->supported, array('contacts' => array('one', 'two')));
     }
 
 }

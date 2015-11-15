@@ -62,6 +62,15 @@ class IMP_Auth
                 throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
             }
 
+            // Run imap_preauthenticate hook.
+            try {
+                $credentials = $injector->getInstance('Horde_Core_Hooks')->callHook(
+                    'imap_preauthenticate',
+                    'imp',
+                    array($credentials)
+                );
+            } catch (Horde_Exception_HookNotSet $e) {}
+
             try {
                 $imp_imap->createBaseImapObject($credentials['userId'], $credentials['password'], $credentials['server']);
             } catch (IMP_Imap_Exception $e) {

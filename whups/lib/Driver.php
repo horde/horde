@@ -145,10 +145,16 @@ abstract class Whups_Driver
 
             default:
                 if (strpos($type, 'attribute_') === 0) {
-                    try {
-                        $value = Horde_Serialize::unserialize(
-                            $value, Horde_Serialize::JSON);
-                    } catch (Horde_Serialize_Exception $e) {
+                    if (is_string($value) && defined('JSON_BIGINT_AS_STRING')) {
+                        $value = json_decode(
+                            $value, true, 512, constant('JSON_BIGINT_AS_STRING')
+                        );
+                    } else {
+                        try {
+                            $value = Horde_Serialize::unserialize(
+                                $value, Horde_Serialize::JSON);
+                        } catch (Horde_Serialize_Exception $e) {
+                        }
                     }
                     $attribute = substr($type, 10);
                     if (isset($attributes[$attribute])) {
@@ -309,13 +315,6 @@ abstract class Whups_Driver
 
         $attributes = array();
         foreach ($ta as $id => $attribute) {
-            try {
-                $value = Horde_Serialize::unserialize(
-                    $attribute['attribute_value'],
-                    Horde_Serialize::JSON);
-            } catch (Horde_Serialize_Exception $e) {
-                $value = $attribute['attribute_value'];
-            }
             $attributes[$attribute['attribute_id']] = array(
                 'id'         => $attribute['attribute_id'],
                 'human_name' => $attribute['attribute_name'],
@@ -324,8 +323,9 @@ abstract class Whups_Driver
                 'readonly'   => false,
                 'desc'       => $attribute['attribute_description'],
                 'params'     => $attribute['attribute_params'],
-                'value'      => $value);
+                'value'      => $attribute['attribute_value']);
         }
+
         return $attributes;
     }
 

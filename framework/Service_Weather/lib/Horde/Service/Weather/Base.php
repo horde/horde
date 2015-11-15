@@ -93,9 +93,9 @@ abstract class Horde_Service_Weather_Base
     /**
      * Local cache of forecast
      *
-     * @var array
+     * @var  Horde_Service_Weather_Forecast_Base
      */
-    protected $_forecast = array();
+    protected $_forecast;
 
     /**
      * Local cache of station data
@@ -181,8 +181,8 @@ abstract class Horde_Service_Weather_Base
      * @param integer $type     The type of search to perform, a
      *                          Horde_Service_Weather::SEARCHTYPE_* constant.
      *
-     * @return string  The search location suitable to use directly in a
-     *                 weather request.
+     * @return Horde_Service_Weather_Station The search location suitable to use
+     *                                       directly in a weather request.
      * @throws Horde_Service_Weather_Exception
      */
     abstract public function searchLocations(

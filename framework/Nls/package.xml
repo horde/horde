@@ -17,9 +17,9 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-09-15</date>
+ <date>2015-10-20</date>
  <version>
-  <release>2.1.0</release>
+  <release>2.1.1</release>
   <api>1.2.0</api>
  </version>
  <stability>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Add ALPHA-3 country codes.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -829,10 +829,23 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-09-15</date>
+   <date>2015-10-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Add ALPHA-3 country codes.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.1</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-10-20</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

@@ -22,7 +22,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-12-10</date>
+ <date>2015-10-29</date>
  <version>
   <release>1.1.0RC2</release>
   <api>1.1.0</api>
@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
+* [mjr] Support import of HTML bookmark files.
 * [mjr] Added removeUserData API (Request #13688).
 * [mjr] Fix missing CSS rules for blocks.
 * [mjr] Add new block for displaying bookmarks tagged with a certain set of tags (Request #13020).
@@ -90,6 +91,7 @@
      <file name="Tagsearch.php" role="horde" />
     </dir> <!-- /lib/Block -->
     <dir name="Data">
+     <file name="Html.php" role="horde" />
      <file name="Json.php" role="horde" />
     </dir> <!-- /lib/Data -->
     <dir name="Factory">
@@ -488,6 +490,7 @@
    <install as="trean/lib/Block/Bookmarks.php" name="lib/Block/Bookmarks.php" />
    <install as="trean/lib/Block/Mostclicked.php" name="lib/Block/Mostclicked.php" />
    <install as="trean/lib/Block/Tagsearch.php" name="lib/Block/Tagsearch.php" />
+   <install as="trean/lib/Data/Html.php" name="lib/Data/Html.php" />
    <install as="trean/lib/Data/Json.php" name="lib/Data/Json.php" />
    <install as="trean/lib/Factory/TagBrowser.php" name="lib/Factory/TagBrowser.php" />
    <install as="trean/lib/Queue/Task/Crawl.php" name="lib/Queue/Task/Crawl.php" />

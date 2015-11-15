@@ -362,4 +362,27 @@ Not been invited ? Want to attend ? Let us know and we\'ll add you!',
             $ical->getComponent(0)->toHash(true)
         );
     }
+
+    public function testBug14153()
+    {
+	$ical = new Horde_Icalendar();
+	$ical->parsevCalendar(file_get_contents(__DIR__ . '/fixtures/bug14153.ics'));
+	$params = $ical->getComponent(1)->getAttribute('DTSTART', true);
+	$tz = $params[0]['TZID'];
+	$start = $ical->getComponent(1)->getAttribute('DTSTART');
+	$dtstart = new Horde_Date($start, $tz);
+	$this->assertEquals((string)$dtstart, '2015-10-03 15:00:00');
+    }
+
+    public function testBug14132()
+    {
+        $ical = new Horde_Icalendar();
+        $ical->parsevCalendar(file_get_contents(__DIR__ . '/fixtures/bug14132.ics'));
+        $params = $ical->getComponent(1)->getAttribute('DTSTART', true);
+        $tz = $params[0]['TZID'];
+        $start = $ical->getComponent(1)->getAttribute('DTSTART');
+        $dtstart = new Horde_Date($start, $tz);
+        $this->assertEquals((string)$dtstart, '2015-10-09 03:00:00');
+    }
+
 }

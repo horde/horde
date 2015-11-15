@@ -95,15 +95,19 @@ class Horde_Block_Weather extends Horde_Core_Block
             ),
             'days' => array(
                 'type' => 'enum',
-                'name' => _("Forecast Days (note that the returned forecast returns both day and night; a large number here could result in a wide block)"),
+                'name' => _("Forecast Days (note that the returned forecast returns both day and night; a large number here could result in a wide block.)"),
                 'default' => 3,
                 'values' => $lengths
             ),
             'detailedForecast' => array(
                 'type' => 'checkbox',
-                'name' => _("Display detailed forecast"),
+                'name' => _("Display detailed forecast?"),
                 'default' => 0
-            )
+            ),
+            'showMap' => array(
+                'type' => 'checkbox',
+                'name' => _("Display the OpenWeatherMap map?"),
+                'default' => 0)
         );
     }
 
@@ -149,13 +153,26 @@ class Horde_Block_Weather extends Horde_Core_Block
             $view->forecast = $this->_weather->getForecast($view->location->code, $this->_params['days']);
             $view->station = $this->_weather->getStation();
             $view->current = $this->_weather->getCurrentConditions($view->location->code);
+            // @todo: Add link to put alert text in redbox.
             $view->alerts = $this->_weather->getAlerts($view->location->code);
             $view->radar = $this->_weather->getRadarImageUrl($location);
         } catch (Horde_Service_Weather_Exception $e) {
             return $e->getMessage();
         }
 
-        return $view->render('block/weather');
+        if ($this->_params['showMap'] && !empty($view->instance)) {
+            $view->map = true;
+            $GLOBALS['page_output']->addScriptFile('weatherblockmap.js', 'horde');
+            Horde_Core_HordeMap::init(array('providers' => array('owm', 'osm')));
+            $GLOBALS['page_output']->addInlineScript(array(
+                'WeatherBlockMap.initializeMap("' . $view->instance . '", { lat: "' . $view->location->lat . '", lon: "' . $view->location->lon . '"});$("weathermaplayer_' . $view->instance . '").show();'
+            ), true);
+        }
+        if (!empty($view->instance)) {
+            return $view->render('block/weather');
+        } else {
+            return $view->render('block/weather_content');
+        }
     }
 
 }

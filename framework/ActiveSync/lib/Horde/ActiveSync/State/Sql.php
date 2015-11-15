@@ -238,7 +238,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         }
 
         if (empty($results)) {
-            $this->_logger->err(sprintf(
+            $this->_logger->warn(sprintf(
                 '[%s] Could not find state for synckey %s.',
                 $this->_procid,
                 $this->_syncKey));
@@ -632,17 +632,22 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 $this->_db->insert($query, $values);
             } else {
                 $this->_logger->info((sprintf(
-                    '[%s] Device entry exists for %s, updating userAgent and version.',
+                    '[%s] Device entry exists for %s, updating userAgent, version, and supported.',
                     $this->_procid,
                     $data->id)));
+                // device_supported is immutable, and only sent during the initial
+                // sync request, so only set it if it's non-empty.
                 $query = 'UPDATE ' . $this->_syncDeviceTable
-                    . ' SET device_agent = ?, device_properties = ?'
+                    . ' SET device_agent = ?, device_properties = ?' . (!empty($data->supported) ? ', device_supported = ?' : '')
                     . ' WHERE device_id = ?';
                 $values = array(
                     (!empty($data->userAgent) ? $data->userAgent : ''),
-                    serialize($data->properties),
-                    $data->id
+                    serialize($data->properties)
                 );
+                if (!empty($data->supported)) {
+                    $values[] = serialize($data->supported);
+                }
+                $values[] = $data->id;
                 $this->_db->update($query, $values);
             }
         } catch(Horde_Db_Exception $e) {
@@ -709,8 +714,10 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
     public function deviceExists($devId, $user = null)
     {
         if (!empty($user)) {
-            $query = 'SELECT COUNT(*) FROM ' . $this->_syncUsersTable
-                . ' WHERE device_id = ? AND device_user = ?';
+            $query = 'SELECT COUNT(*) FROM ' . $this->_syncDeviceTable
+                . ' d INNER JOIN ' . $this->_syncUsersTable
+                . ' u on d.device_id = u.device_id'
+                . ' WHERE u.device_id = ? AND device_user = ?';
             $values = array($devId, $user);
         } else {
             $query = 'SELECT COUNT(*) FROM ' . $this->_syncDeviceTable . ' WHERE device_id = ?';
@@ -902,8 +909,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 $results = $this->_db->selectValue($q, array($options['devId']));
                 if ($results != Horde_ActiveSync::RWSTATUS_NA &&
                     $results != Horde_ActiveSync::RWSTATUS_OK) {
-                    unset($options['user']);
-                    return $this->removeState($options);
+                    return $this->removeState(array('devId' => $options['devId']));
                 }
             } catch (Horde_Db_Exception $e) {
                 throw new Horde_ActiveSync_Exception($e);

@@ -85,8 +85,17 @@ class Turba_Driver_Vbook extends Turba_Driver
         /* Add the passed in search criteria to the vbook criteria
          * (which need to be mapped from turba fields to
          * driver-specific fields). */
-        $criteria['AND'][] = $this->makeSearch($this->searchCriteria, 'AND', array());
-        $results = $this->_driver->_search($criteria, $fields, $blobFields);
+        $new_criteria = array();
+        if (empty($criteria['AND'])) {
+            $new_criteria['AND'] = array(
+                $criteria,
+                $this->makeSearch($this->searchCriteria, 'AND', array())
+            );
+        } else {
+            $new_criteria = $criteria;
+            $new_criteria['AND'][] = $this->makeSearch($this->searchCriteria, 'AND', array());
+        }
+        $results = $this->_driver->_search($new_criteria, $fields, $blobFields);
         return $count_only ? count($results) : $results;
     }
 

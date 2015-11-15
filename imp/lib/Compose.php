@@ -1551,7 +1551,15 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 : $recipient->personal;
 
             try {
-                $registry->call('contacts/import', array(array('name' => $name, 'email' => $recipient->bare_address), 'array', $abook));
+                $registry->call(
+                    'contacts/import',
+                    array(
+                        array('name' => $name, 'email' => $recipient->bare_address),
+                        'array',
+                        $abook,
+                        array('match_on_email' => true)
+                    )
+                );
                 $notification->push(sprintf(_("Entry \"%s\" was successfully added to the address book"), $name), 'horde.success');
             } catch (Turba_Exception_ObjectExists $e) {
             } catch (Horde_Exception $e) {
@@ -1647,7 +1655,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 $body_html->returnHtml(),
                 'Html2text',
                 array(
-                    'wrap' => false
+                    'width' => 0
                 )
             );
         }

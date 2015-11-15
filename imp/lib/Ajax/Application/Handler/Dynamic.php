@@ -1034,7 +1034,7 @@ extends Horde_Core_Ajax_Application_Handler
 
                 case 'text':
                     $tmp = $injector->getInstance('Horde_Core_Factory_TextFilter')->filter($val['text'], 'Html2text', array(
-                        'wrap' => false
+                        'width' => 0
                     ));
                     break;
                 }

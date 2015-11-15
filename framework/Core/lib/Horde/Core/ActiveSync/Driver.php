@@ -352,7 +352,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                             if (!empty($temp_folder)) {
                                 $folders[] = $temp_folder;
                             } else {
-                                $this->_logger->err('Unable to find a useable calendar folder.');
+                                $this->_logger->info('Unable to find a useable calendar folder.');
                             }
                         } catch (Horde_ActiveSync_Exception $e) {
                         }
@@ -363,9 +363,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                         if (!empty($temp_folder)) {
                             $folders[] = $temp_folder;
                         } else {
-                            $this->_logger->err('Unable to find a useable calendar folder.');
+                            $this->_logger->info('Unable to find a useable calendar folder.');
                         }
                     } catch (Horde_ActiveSync_Exception $e) {
+                        $this->_logger->info('Unable to find a useable calendar folder.');
                     }
                 }
             }
@@ -386,9 +387,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                             if (!empty($temp_folder)) {
                                 $folders[] = $temp_folder;
                             } else {
-                                $this->_logger->err('Unable to find a useable contacts folder.');
+                                $this->_logger->info('Unable to find a useable contacts folder.');
                             }
                         } catch (Horde_ActiveSync_Exception $e) {
+                            $this->_logger->info('Unable to find a useable contacts folder.');
                         }
                     }
                 } else {
@@ -397,9 +399,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                         if (!empty($temp_folder)) {
                             $folders[] = $temp_folder;
                         } else {
-                            $this->_logger->err('Unable to find a useable contacts folder.');
+                            $this->_logger->info('Unable to find a useable contacts folder.');
                         }
                     } catch (Horde_ActiveSync_Exception $e) {
+                        $this->_logger->info('Unable to find a useable contacts folder.');
                     }
                 }
             }
@@ -420,9 +423,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                             if (!empty($temp_folder)) {
                                 $folders[] = $temp_folder;
                             } else {
-                                $this->_logger->err('Unable to find a useable tasks folder.');
+                                $this->_logger->info('Unable to find a useable tasks folder.');
                             }
                        } catch (Horde_ActiveSync_Exception $e) {
+                            $this->_logger->info('Unable to find a useable tasks folder.');
                        }
                     }
                 } else {
@@ -431,9 +435,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                         if (!empty($temp_folder)) {
                             $folders[] = $temp_folder;
                         } else {
-                            $this->_logger->err('Unable to find a useable tasks folder.');
+                            $this->_logger->info('Unable to find a useable tasks folder.');
                         }
                     } catch (Horde_ActiveSync_Exception $e) {
+                        $this->_logger->info('Unable to find a useable tasks folder.');
                     }
                 }
             }
@@ -454,9 +459,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                             if (!empty($temp_folder)) {
                                 $folders[] = $temp_folder;
                             } else {
-                                $this->_logger->err('Unable to find a useable notes folder.');
+                                $this->_logger->info('Unable to find a useable notes folder.');
                             }
                         } catch (Horde_ActiveSync_Exception $e) {
+                            $this->_logger->info('Unable to find a useable notes folder.');
                         }
                     }
                 } else {
@@ -467,7 +473,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     if (!empty($temp_folder)) {
                         $folders[] = $temp_folder;
                     } else {
-                        $this->_logger->err('Unable to find a useable notes folder.');
+                        $this->_logger->info('Unable to find a useable notes folder.');
                     }
                 }
             }
@@ -507,11 +513,15 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      *   - primary: This folder is the 'default' collection for this class.
      *   - display: The display name for FOLDER_TYPE_USER folders.
      *
-     * @return Horde_ActiveSync_Message_Folder
+     * @return Horde_ActiveSync_Message_Folder  The folder object.
      * @throws Horde_ActiveSync_Exception
      */
     protected function _getFolder($id, array $params = array())
     {
+        if (empty($id)) {
+            throw new Horde_ActiveSync_Exception();
+        }
+
         // First check for legacy/multiplexed IDs.
         switch ($id) {
         case self::APPOINTMENTS_FOLDER_UID:
@@ -550,7 +560,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             );
         }
 
-        // Either an email folder or a non-mulitiplexed non-email folder.
+        // Either an email folder or a non-multiplexed non-email folder.
         // Check for a valid class.
         if (empty($params['class'])) {
             // Must be a mail folder
@@ -1792,6 +1802,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         }
 
         $stat = false;
+        // @todo Move the ::setSupported stuff to the ActiveSync library.
+        // Shouldn't have client code be responsible for that.
         switch ($folder_class) {
         case Horde_ActiveSync::CLASS_CALENDAR:
             if (!$id) {

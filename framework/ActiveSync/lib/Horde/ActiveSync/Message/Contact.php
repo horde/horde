@@ -434,4 +434,19 @@ class Horde_ActiveSync_Message_Contact extends Horde_ActiveSync_Message_Base
         return parent::_formatDate($date, $type);
     }
 
+    /**
+     * Set the list of non-ghosted fields for this message.
+     *
+     * @param array $fields  The array of fields.
+     */
+    public function setSupported(array $fields)
+    {
+        // See if we need to explicitly add the picture tag to the supported list.
+        parent::setSupported($fields);
+        if ($this->_device->hasQuirk(Horde_ActiveSync_Device::QUIRK_NEEDS_SUPPORTED_PICTURE_TAG) &&
+            !in_array($this->_mapping[self::PICTURE][self::KEY_ATTRIBUTE], $this->_supported)) {
+            $this->_supported[] = $this->_mapping[self::PICTURE][self::KEY_ATTRIBUTE];
+        }
+    }
+
 }

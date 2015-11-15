@@ -524,6 +524,7 @@ class Gollem
             } catch (Horde_Vfs_Exception $e) {
                 throw new Gollem_Exception($e);
             }
+            return;
         }
 
         /* Else, get the two VFS objects and copy/move the files. */

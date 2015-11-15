@@ -744,6 +744,7 @@ class Turba
      * Return an array of all available attributes of type 'email'.
      *
      * @return array  An array of email fields.
+     * @since  4.2.9
      */
     public static function getAvailableEmailFields()
     {

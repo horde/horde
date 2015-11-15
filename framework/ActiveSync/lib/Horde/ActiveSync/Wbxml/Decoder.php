@@ -129,7 +129,9 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
     {
         // Ensure the buffer was created
         $this->_getTempStream();
-        $this->_buffer->add($this->_stream);
+        // Need to read the stream into memeory since php://input isn't
+        // always seekable (Bug: 13160);
+        $this->_buffer->add($this->_stream->getString());
         $this->_buffer->rewind();
         return $this->_buffer->stream;
     }

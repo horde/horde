@@ -79,6 +79,26 @@ class IMP_Hooks
 //         return true;
 //     }
 
+    /**
+     * AUTHENTICATION HOOK: imap pre-authentication. This hook allows
+     * modification of credentials immediately before authentication to the
+     * IMAP server. This gives the chance to modify the username and
+     * have it affect ONLY the IMAP authentication process. I.e., the modified
+     * username is NOT visible to Horde or any application. This is useful e.g.
+     * when the IMAP server requires prepending the user's IP address to the
+     * username for audit purposes.
+     *
+     * @param array $credentials  An array containing authentication credentials
+     *   - userId: (string) The authentication username.
+     *
+     * @return array The possibly modified authentication credentials.
+     */
+    // public function imap_preauthenticate($credentials)
+    // {
+    //     $credentials['userId'] = $_SERVER['REMOTE_ADDR'] . '@' . $credentials['userId'];
+    //     return $credentials;
+    // }
+
 
     /**
      * PREFERENCE INIT: Set preference values on login.

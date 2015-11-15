@@ -48,7 +48,7 @@ class Horde_Service_Weather_Period_Base
     /**
      * Reference to parent forecast object.
      *
-     * @var Horde_Service_Weather_Forecast_Base;
+     * @var Horde_Service_Weather_Forecast_Base
      */
     protected $_forecast;
 

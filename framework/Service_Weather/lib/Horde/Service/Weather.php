@@ -57,4 +57,20 @@ class Horde_Service_Weather
     const SEARCHTYPE_ZIP = 3;
     const SEARCHTYPE_CITYSTATE = 4;
 
+    /**
+     * Utility function to return textual cardinal compass directions from degress.
+     *
+     * @param integer $degree  The degree direction (0 - 360).
+     *
+     * @return string  The cardinal direction.
+     * @since 2.3.0
+     */
+    public static function degToDirection($degree)
+    {
+        $cardinal = array('N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW');
+        $deg_delta = (int)($degree/22.5 + .5);
+
+        return $cardinal[$deg_delta % 16];
+    }
+
 }

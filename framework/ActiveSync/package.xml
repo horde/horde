@@ -10,10 +10,10 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-09-01</date>
+ <date>2015-10-28</date>
  <version>
-  <release>2.29.2</release>
-  <api>2.29.0</api>
+  <release>2.30.2</release>
+  <api>2.30.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -21,9 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Don&apos;t take sub-parts of rfc822/message parts as attachments.
-* [mjr] Fix handling of meeting requests that contain no DTEND attribute.
-* [mjr] Fix parsing of SETTINGS request that was causing a harmless WBXML parsing error.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -42,6 +40,9 @@
        <file name="Exporter.php" role="php" />
        <file name="Importer.php" role="php" />
       </dir> <!-- /lib/Horde/ActiveSync/Connector -->
+      <dir name="Device">
+       <file name="Ios.php" role="php" />
+      </dir> <!-- /lib/Horde/ActiveSync/Device -->
       <dir name="Driver">
        <file name="Base.php" role="php" />
        <file name="Mock.php" role="php" />
@@ -254,6 +255,7 @@
        <file name="meeting_request_one.wbxml" role="test" />
        <file name="mime_encoding.eml" role="test" />
        <file name="recurrence.wbxml" role="test" />
+       <file name="rfc822_multipart.eml" role="test" />
        <file name="signed_attachment.eml" role="test" />
        <file name="simpleexception.wbxml" role="test" />
       </dir> <!-- /test/Horde/ActiveSync/fixtures -->
@@ -448,6 +450,7 @@
    <install as="Horde/ActiveSync/Wbxml.php" name="lib/Horde/ActiveSync/Wbxml.php" />
    <install as="Horde/ActiveSync/Connector/Exporter.php" name="lib/Horde/ActiveSync/Connector/Exporter.php" />
    <install as="Horde/ActiveSync/Connector/Importer.php" name="lib/Horde/ActiveSync/Connector/Importer.php" />
+   <install as="Horde/ActiveSync/Device/Ios.php" name="lib/Horde/ActiveSync/Device/Ios.php" />
    <install as="Horde/ActiveSync/Driver/Base.php" name="lib/Horde/ActiveSync/Driver/Base.php" />
    <install as="Horde/ActiveSync/Driver/Mock.php" name="lib/Horde/ActiveSync/Driver/Mock.php" />
    <install as="Horde/ActiveSync/Driver/MockConnector.php" name="lib/Horde/ActiveSync/Driver/MockConnector.php" />
@@ -591,6 +594,7 @@
    <install as="Horde/ActiveSync/fixtures/meeting_request_one.wbxml" name="test/Horde/ActiveSync/fixtures/meeting_request_one.wbxml" />
    <install as="Horde/ActiveSync/fixtures/mime_encoding.eml" name="test/Horde/ActiveSync/fixtures/mime_encoding.eml" />
    <install as="Horde/ActiveSync/fixtures/recurrence.wbxml" name="test/Horde/ActiveSync/fixtures/recurrence.wbxml" />
+   <install as="Horde/ActiveSync/fixtures/rfc822_multipart.eml" name="test/Horde/ActiveSync/fixtures/rfc822_multipart.eml" />
    <install as="Horde/ActiveSync/fixtures/signed_attachment.eml" name="test/Horde/ActiveSync/fixtures/signed_attachment.eml" />
    <install as="Horde/ActiveSync/fixtures/simpleexception.wbxml" name="test/Horde/ActiveSync/fixtures/simpleexception.wbxml" />
    <install as="Horde/ActiveSync/StateTest/Base.php" name="test/Horde/ActiveSync/StateTest/Base.php" />
@@ -2839,12 +2843,55 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-09-01</date>
+   <date>2015-09-22</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Don&apos;t take sub-parts of rfc822/message parts as attachments.
 * [mjr] Fix handling of meeting requests that contain no DTEND attribute.
 * [mjr] Fix parsing of SETTINGS request that was causing a harmless WBXML parsing error.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.30.0</release>
+    <api>2.30.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-10-20</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix issue in sending email from client due to input stream not being seekable on some systems (Bug #13160).
+* [mjr] Work around bug in early versions of iOS that could cause a contact&apos;s picture to be removed on the server.
+* [mjr] Improved client and version detection, especially for iOS devices.
+* [mjr] Fixed bug that was causing SUPPORTED data to be overwritten.
+* [mjr] Change some ERR log level entries to WARN and some other small logging tweaks.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.30.1</release>
+    <api>2.30.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-10-28</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Improved workaround for clients with broken picture tag handling.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.30.2</release>
+    <api>2.30.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-10-28</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

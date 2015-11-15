@@ -28,7 +28,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2015-09-08</date>
+ <date>2015-09-27</date>
  <version>
   <release>5.3.0</release>
   <api>5.2.0</api>
@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
+* [mjr] Add option to display OpenWeatherMap&apos;s weather map to the weather block.
 * [mjr] Add configuration switch for disabling maillog synchronization with EAS clients (Bug #13747).
 * [jan] Add inverse tree icons.
 * [mms] Add Hashtable Administration page.
@@ -253,6 +254,7 @@
     <file name="twitterclient.js" role="horde" />
     <file name="userupdate.js" role="horde" />
     <file name="vatid.js" role="horde" />
+    <file name="weatherblockmap.js" role="horde" />
    </dir> <!-- /js -->
    <dir name="lib">
     <dir name="Ajax">
@@ -736,6 +738,7 @@
      <file name="twitter-layout.html.php" role="horde" />
      <file name="twitter_tweet.html.php" role="horde" />
      <file name="weather.html.php" role="horde" />
+     <file name="weather_content.html.php" role="horde" />
     </dir> <!-- /templates/block -->
     <dir name="common">
      <file name="footer.html.php" role="horde" />
@@ -1702,7 +1705,7 @@
    <package>
     <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
-    <min>2.12.0beta4</min>
+    <min>2.22.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -2079,6 +2082,7 @@
    <install as="js/twitterclient.js" name="js/twitterclient.js" />
    <install as="js/userupdate.js" name="js/userupdate.js" />
    <install as="js/vatid.js" name="js/vatid.js" />
+   <install as="Horde/js/weatherblockmap.js" name="js/weatherblockmap.js" />
    <install as="js/plupload/plupload.browserplus.js" name="js/plupload/plupload.browserplus.js" />
    <install as="js/plupload/plupload.flash.js" name="js/plupload/plupload.flash.js" />
    <install as="js/plupload/plupload.flash.swf" name="js/plupload/plupload.flash.swf" />
@@ -2338,6 +2342,7 @@
    <install as="templates/block/twitter-layout.html.php" name="templates/block/twitter-layout.html.php" />
    <install as="templates/block/twitter_tweet.html.php" name="templates/block/twitter_tweet.html.php" />
    <install as="templates/block/weather.html.php" name="templates/block/weather.html.php" />
+   <install as="templates/block/weather_content.html.php" name="templates/block/weather_content.html.php" />
    <install as="templates/common/footer.html.php" name="templates/common/footer.html.php" />
    <install as="templates/common/header.html.php" name="templates/common/header.html.php" />
    <install as="templates/data/csvinfo.inc" name="templates/data/csvinfo.inc" />
@@ -4129,9 +4134,10 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2015-09-08</date>
+   <date>2015-09-27</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
+* [mjr] Add option to display OpenWeatherMap&apos;s weather map to the weather block.
 * [mjr] Add configuration switch for disabling maillog synchronization with EAS clients (Bug #13747).
 * [jan] Add inverse tree icons.
 * [mms] Add Hashtable Administration page.

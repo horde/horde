@@ -837,7 +837,7 @@ class Kronolith_Api extends Horde_Registry_Api
     protected function _addiCalEvent($content, $driver, $exception = false)
     {
         $event = $driver->getEvent();
-        $event->fromiCalendar($content);
+        $event->fromiCalendar($content, true);
         // Check if the entry already exists in the data source, first by UID.
         if (!$exception) {
             try {
@@ -1024,10 +1024,6 @@ class Kronolith_Api extends Horde_Registry_Api
         $events = $kronolith_driver->getByUID($uid, null, true);
         $event = null;
 
-        if ($GLOBALS['registry']->isAdmin()) {
-            $event = $events[0];
-        }
-
         // First try the user's own calendars.
         if (empty($event)) {
             $ownerCalendars = Kronolith::listInternalCalendars(true, Horde_Perms::DELETE);
@@ -1050,6 +1046,11 @@ class Kronolith_Api extends Horde_Registry_Api
                     break;
                 }
             }
+        }
+
+        // Are we an admin cleaing up user data?
+        if (empty($event) && $GLOBALS['registry']->isAdmin()) {
+            $event = $events[0];
         }
 
         if (empty($event)) {
@@ -1179,7 +1180,7 @@ class Kronolith_Api extends Horde_Registry_Api
             $component->getAttribute('RECURRENCE-ID');
             $this->_addiCalEvent($component, Kronolith::getDriver(null, $calendar), true);
         } catch (Horde_Icalendar_Exception $e) {
-            $event->fromiCalendar($component);
+            $event->fromiCalendar($component, true);
             // Ensure we keep the original UID, even when content does not
             // contain one and fromiCalendar creates a new one.
             $event->uid = $uid;

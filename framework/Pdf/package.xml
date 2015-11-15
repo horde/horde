@@ -23,9 +23,9 @@
   <email>mike@maintainable.com</email>
   <active>yes</active>
  </lead>
- <date>2015-04-28</date>
+ <date>2015-10-20</date>
  <version>
-  <release>2.0.6</release>
+  <release>2.0.7</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -378,7 +378,20 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-04-28</date>
+   <date>2015-10-20</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Avoid some PHP warnings.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.7</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-10-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

@@ -45,13 +45,13 @@ class Horde_Exception_ExceptionTest extends  PHPUnit_Framework_TestCase
     public function testMethodTostringYieldsExceptionDescription()
     {
         $e = new Horde_Exception();
-        $this->assertContains('exception \'Horde_Exception\'', (string)$e);
+        $this->assertRegexp('/(exception |^)\'?Horde_Exception\'? in/', (string)$e);
     }
 
     public function testMethodTostringContainsDescriptionOfPreviousException()
     {
         $e = new Horde_Exception(null, null, new Exception('previous'));
-        $this->assertContains('Next exception \'Horde_Exception\'', (string)$e);
+        $this->assertRegexp('/Next( exception)? \'?Horde_Exception\'?/', (string)$e);
     }
 
     // NotFound Exception Testing

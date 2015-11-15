@@ -536,6 +536,10 @@ class Kronolith_Application extends Horde_Registry_Application
                             'user' => $alarm_user
                         ));
                     }
+                    // Don't show alarms for private events if not the owner.
+                    if ($event->isPrivate($alarm_user)) {
+                        continue;
+                    }
                     $shown_calendars = unserialize($prefs->getValue('display_cals'));
                     $reminder = $prefs->getValue('event_reminder');
                     if (($reminder == 'owner' && $alarm_user == $owner) ||
@@ -734,7 +738,7 @@ class Kronolith_Application extends Horde_Registry_Application
             ->getInstance('Horde_Dav_Storage');
 
         $internal = $dav->getInternalCollectionId($collection, 'calendar') ?: $collection;
-        if (!Kronolith::hasPermission($internal, Horde_Perms::READ)) {
+        if (!Kronolith::hasPermission($internal, Horde_Perms::SHOW)) {
             throw new Kronolith_Exception(_("Calendar does not exist or no permission to edit"));
         }
 
@@ -775,7 +779,7 @@ class Kronolith_Application extends Horde_Registry_Application
             ->getInstance('Horde_Dav_Storage');
 
         $internal = $dav->getInternalCollectionId($collection, 'calendar') ?: $collection;
-        if (!Kronolith::hasPermission($internal, Horde_Perms::READ)) {
+        if (!Kronolith::hasPermission($internal, Horde_Perms::SHOW)) {
             throw new Kronolith_Exception(_("Calendar does not exist or no permission to edit"));
         }
 

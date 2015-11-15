@@ -456,21 +456,33 @@ class Horde_Kolab_Storage_Cache_Data
         if (!empty($delete)) {
             foreach ($delete as $obid => $object_id) {
                 $object = $this->_data[self::OBJECTS][$object_id];
-                if (!empty($object['_attachments'])) {
-                    // @todo clean up attachment formatting mess.
-                    if (isset($object['_attachments']['id'])) {
-                        $ids = $object['_attachments']['id'];
-                    } else {
-                        $ids = array_keys($object['_attachments']);
+
+                // Check if the delete request is for the last version of an object.
+                // Otherwise the removal of a duplicate might remove the
+                // current version of an object.
+                $cached_obid = $this->_data[self::O2B][$object_id];
+                if ($cached_obid == $obid) {
+                    if (!empty($object['_attachments'])) {
+                        // @todo clean up attachment formatting mess.
+                        if (isset($object['_attachments']['id'])) {
+                            $ids = $object['_attachments']['id'];
+                        } else {
+                            $ids = array_keys($object['_attachments']);
+                        }
+                        foreach ($ids as $id) {
+                            $this->_cache->deleteAttachment(
+                                $this->getDataId(), $obid, $id
+                            );
+                        }
                     }
-                    foreach ($ids as $id) {
-                        $this->_cache->deleteAttachment(
-                            $this->getDataId(), $obid, $id
-                        );
-                    }
+
+                    unset($this->_data[self::O2B][$object_id]);
+                    unset($this->_data[self::OBJECTS][$object_id]);
+                } else {
+                    Horde::log(sprintf("[KOLAB_STORAGE] Keeping object %s".
+                               " with uid %d, duplicate object with uid %d was removed",
+                               $object_id, $cached_obid, $obid), 'DEBUG');
                 }
-                unset($this->_data[self::O2B][$object_id]);
-                unset($this->_data[self::OBJECTS][$object_id]);
                 unset($this->_data[self::B2O][$obid]);
             }
         }

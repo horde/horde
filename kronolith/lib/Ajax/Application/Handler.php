@@ -190,6 +190,8 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
      */
     public function saveEvent()
     {
+        global $injector, $notification, $registry;
+
         $result = $this->_signedResponse($this->vars->targetcalendar);
 
         if (!($kronolith_driver = $this->_getDriver($this->vars->targetcalendar))) {
@@ -200,13 +202,16 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
             unset($this->vars->event);
         }
         if (!$this->vars->event) {
-            $perms = $GLOBALS['injector']->getInstance('Horde_Core_Perms');
+            $perms = $injector->getInstance('Horde_Core_Perms');
             if ($perms->hasAppPermission('max_events') !== true &&
                 $perms->hasAppPermission('max_events') <= Kronolith::countEvents()) {
                 Horde::permissionDeniedError(
                     'kronolith',
                     'max_events',
-                    sprintf(_("You are not allowed to create more than %d events."), $perms->hasAppPermission('max_events'))
+                    sprintf(
+                        _("You are not allowed to create more than %d events."),
+                        $perms->hasAppPermission('max_events')
+                    )
                 );
                 return $result;
             }
@@ -216,27 +221,37 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
             $this->vars->cal &&
             $this->vars->cal != $this->vars->targetcalendar) {
             if (strpos($kronolith_driver->calendar, '\\')) {
-                list($target, $user) = explode('\\', $kronolith_driver->calendar, 2);
+                list($target, $user) = explode(
+                    '\\', $kronolith_driver->calendar, 2
+                );
             } else {
                 $target = $kronolith_driver->calendar;
-                $user = $GLOBALS['registry']->getAuth();
+                $user = $registry->getAuth();
             }
             $kronolith_driver = $this->_getDriver($this->vars->cal);
             // Only delete the event from the source calendar if this user has
             // permissions to do so.
             try {
-                $sourceShare = Kronolith::getInternalCalendar($kronolith_driver->calendar);
+                $sourceShare = Kronolith::getInternalCalendar(
+                    $kronolith_driver->calendar
+                );
                 $share = Kronolith::getInternalCalendar($target);
-                if ($sourceShare->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE) &&
-                    (($user == $GLOBALS['registry']->getAuth() &&
-                      $share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) ||
-                     ($user != $GLOBALS['registry']->getAuth() &&
-                      $share->hasPermission($GLOBALS['registry']->getAuth(), Kronolith::PERMS_DELEGATE)))) {
+                if ($sourceShare->hasPermission($registry->getAuth(), Horde_Perms::DELETE) &&
+                    (($user == $registry->getAuth() &&
+                      $share->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) ||
+                     ($user != $registry->getAuth() &&
+                      $share->hasPermission($registry->getAuth(), Kronolith::PERMS_DELEGATE)))) {
                     $kronolith_driver->move($this->vars->event, $target);
                     $kronolith_driver = $this->_getDriver($this->vars->targetcalendar);
                 }
             } catch (Exception $e) {
-                $GLOBALS['notification']->push(sprintf(_("There was an error moving the event: %s"), $e->getMessage()), 'horde.error');
+                $notification->push(
+                    sprintf(
+                        _("There was an error moving the event: %s"),
+                        $e->getMessage()
+                    ),
+                    'horde.error'
+                );
                 return $result;
             }
         }
@@ -248,19 +263,26 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
                 // be empty, so this will create a new event.
                 $event = $kronolith_driver->getEvent($this->vars->event);
             } catch (Horde_Exception_NotFound $e) {
-                $GLOBALS['notification']->push(_("The requested event was not found."), 'horde.error');
+                $notification->push(
+                    _("The requested event was not found."),
+                    'horde.error'
+                );
                 return $result;
             } catch (Exception $e) {
-                $GLOBALS['notification']->push($e);
+                $notification->push($e);
                 return $result;
             }
         }
 
         if (!$event->hasPermission(Horde_Perms::EDIT)) {
-            $GLOBALS['notification']->push(_("You do not have permission to edit this event."), 'horde.warning');
+            $notification->push(
+                _("You do not have permission to edit this event."),
+                'horde.warning'
+            );
             return $result;
         }
 
+        $removed_attendees = $old_attendees = array();
         if ($this->vars->recur_edit && $this->vars->recur_edit != 'all') {
             switch ($this->vars->recur_edit) {
             case 'current':
@@ -269,11 +291,11 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
                 $attributes->rend = $this->vars->rend;
                 $this->_addException($event, $attributes);
 
-                // Create a copy of the original event so we can read in the new
-                // form values for the exception. We also MUST reset the recurrence
-                // property even though we won't be using it, since clone() does not
-                // do a deep copy. Otherwise, the original event's recurrence will
-                // become corrupt.
+                // Create a copy of the original event so we can read in the
+                // new form values for the exception. We also MUST reset the
+                // recurrence property even though we won't be using it, since
+                // clone() does not do a deep copy. Otherwise, the original
+                // event's recurrence will become corrupt.
                 $newEvent = clone($event);
                 $newEvent->recurrence = new Horde_Date_Recurrence($event->start);
                 $newEvent->readForm($event);
@@ -304,23 +326,46 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
                     $newEvent = $kronolith_driver->getEvent();
                     $newEvent->readForm();
                     $newEvent->uid = null;
-                    $result = $this->_saveEvent($newEvent, $event, $this->vars, true);
+                    $result = $this->_saveEvent(
+                        $newEvent, $event, $this->vars, true
+                    );
                 }
 
             }
         } else {
             try {
+                $old_attendees = $event->attendees;
                 $event->readForm();
+                $removed_attendees = array_diff(
+                    array_keys($old_attendees),
+                    array_keys($event->attendees)
+                );
                 $result = $this->_saveEvent($event);
             } catch (Exception $e) {
-                $GLOBALS['notification']->push($e);
+                $notification->push($e);
                 return $result;
             }
         }
 
         if (($result !== true) && $this->vars->sendupdates) {
-            $type = $event->status == Kronolith::STATUS_CANCELLED ? Kronolith::ITIP_CANCEL : Kronolith::ITIP_REQUEST;
-            Kronolith::sendITipNotifications($event, $GLOBALS['notification'], $type);
+            $type = $event->status == Kronolith::STATUS_CANCELLED
+                ? Kronolith::ITIP_CANCEL
+                : Kronolith::ITIP_REQUEST;
+            Kronolith::sendITipNotifications($event, $notification, $type);
+        }
+
+        // Send a CANCEL iTip for attendees that have been removed, but only if
+        // the entire event isn't being marked as cancelled (which would be
+        // caught above).
+        if (!empty($removed_attendees)) {
+            $to_cancel = array();
+            foreach ($removed_attendees as $email) {
+                $to_cancel[$email] = $old_attendees[$email];
+            }
+            $cancelEvent = clone $event;
+            Kronolith::sendITipNotifications(
+                $cancelEvent, $notification, Kronolith::ITIP_CANCEL, null, null, $to_cancel
+            );
         }
         Kronolith::notifyOfResourceRejection($event);
 

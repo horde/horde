@@ -503,10 +503,10 @@ class Turba_Driver_Sql extends Turba_Driver
             ? array($GLOBALS['registry']->getAuth())
             : array($sourceName);
 
-        if (empty($this->_params['map']['__owner'])) {
+        if (empty($this->map['__owner'])) {
             throw new Turba_Exception(_("Unable to find __owner field. Cannot delete."));
         }
-        $owner_field = $this->_params['map']['__owner'];
+        $owner_field = $this->map['__owner'];
 
         /* Need a list of UIDs so we can notify History */
         $query = sprintf('SELECT %s FROM %s WHERE %s = ?',
