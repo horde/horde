@@ -160,7 +160,7 @@ class Horde_Block_Weather extends Horde_Core_Block
             return $e->getMessage();
         }
 
-        if ($this->_params['showMap'] && !empty($view->instance)) {
+        if (!empty($this->_params['showMap']) && !empty($view->instance)) {
             $view->map = true;
             $GLOBALS['page_output']->addScriptFile('weatherblockmap.js', 'horde');
             Horde_Core_HordeMap::init(array('providers' => array('owm', 'osm')));

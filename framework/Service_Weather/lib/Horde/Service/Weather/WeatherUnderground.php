@@ -292,7 +292,7 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
         $this->title = $results->current_observation->image->title;
 
         // Radar
-        if (!empty($results->radar)) {
+        if (isset($results->radar->image_url)) {
             $this->_radar = $results->radar->image_url;
         }
     }

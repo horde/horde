@@ -48,7 +48,7 @@
        <?php if ($this->current->wind_direction):?>
          <br /><strong><?php echo _("Wind")?>: </strong>
          <?php echo sprintf(_("From the %s (%s&deg;) at %s %s"), $this->current->wind_direction, $this->current->wind_degrees, $this->current->wind_speed, $this->units['wind']);
-            if ($current->wind_gust > 0):
+            if ($this->current->wind_gust > 0):
                 echo ', ' . _("gusting") . ' ' . $this->current->wind_gust . ' ' . $this->units['wind'];
             endif;
         endif;?>
