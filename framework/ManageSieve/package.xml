@@ -10,18 +10,18 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-07-31</date>
+ <date>2015-11-15</date>
  <version>
-  <release>1.0.0alpha2</release>
-  <api>1.0.0alpha1</api>
+  <release>1.0.0</release>
+  <api>1.0.0</api>
  </version>
  <stability>
-  <release>alpha</release>
-  <api>alpha</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
-* 
+* Initial stable release.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -137,15 +137,15 @@
   </release>
   <release>
    <version>
-    <release>1.0.0alpha2</release>
-    <api>1.0.0alpha1</api></version>
+    <release>1.0.0</release>
+    <api>1.0.0</api></version>
    <stability>
-    <release>alpha</release>
-    <api>alpha</api></stability>
-   <date>2015-07-31</date>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-11-15</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
-* 
+* Initial stable release.
    </notes>
   </release>
  </changelog>
