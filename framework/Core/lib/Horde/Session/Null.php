@@ -49,6 +49,14 @@ class Horde_Session_Null extends Horde_Session implements Horde_Shutdown_Task
     {
         global $conf;
 
+        // Set this here, since we actually do start a php session. Even though
+        // it gets closed immediately, it can still create a session file on
+        // the same session backend as the globally configured Horde sessions.
+        // This may help clean up the large number of session files that can
+        // be created by things like ActiveSync.
+        if (!empty($conf['session']['timeout'])) {
+            ini_set('session.gc_maxlifetime', $conf['session']['timeout']);
+        }
         session_cache_limiter(is_null($cache_limiter) ? $conf['session']['cache_limiter'] : $cache_limiter);
 
         $this->sessionHandler = new Horde_Support_Stub();
