@@ -230,12 +230,11 @@ class Horde_Dav_File extends Sabre\DAV\File implements DAV\IProperties
     /**
      * Updates properties on this node.
      *
-     * @param array $mutations
-     * @return bool|array
+     * @param PropPatch $propPatch
+     * @return void
      */
-    public function updateProperties($mutations)
+    public function propPatch(DAV\PropPatch $propPatch)
     {
-        return false;
     }
 
     /**
