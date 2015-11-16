@@ -275,7 +275,7 @@
          </dir> <!-- /bundle/vendor/sabre/dav/lib/Sabre/HTTP -->
         </dir> <!-- /bundle/vendor/sabre/dav/lib/Sabre -->
        </dir> <!-- /bundle/vendor/sabre/dav/lib -->
-       <file name="LICENSE" role="php" />
+       <file name="LICENSE" role="doc" />
       </dir> <!-- /bundle/vendor/sabre/dav -->
       <dir name="vobject">
        <dir name="lib">
@@ -318,7 +318,7 @@
          </dir> <!-- /bundle/vendor/sabre/vobject/lib/Sabre/VObject -->
         </dir> <!-- /bundle/vendor/sabre/vobject/lib/Sabre -->
        </dir> <!-- /bundle/vendor/sabre/vobject/lib -->
-       <file name="LICENSE" role="php" />
+       <file name="LICENSE" role="doc" />
       </dir> <!-- /bundle/vendor/sabre/vobject -->
      </dir> <!-- /bundle/vendor/sabre -->
     </dir> <!-- /bundle/vendor -->
