@@ -66,10 +66,7 @@ class Horde_Dav_Contacts_Backend extends Backend\AbstractBackend
     }
 
     /**
-     * Updates an addressbook's properties
-     *
-     * See Sabre\DAV\IProperties for a description of the mutations array, as
-     * well as the return value.
+     * Updates properties for an address book.
      *
      * @param string $addressBookId
      * @param \Sabre\DAV\PropPatch $propPatch
@@ -77,7 +74,6 @@ class Horde_Dav_Contacts_Backend extends Backend\AbstractBackend
      */
     public function updateAddressBook($addressBookId, \Sabre\DAV\PropPatch $propPatch) 
     {
-        return false;
     }
 
     /**

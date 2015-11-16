@@ -243,7 +243,7 @@ class Horde_Dav_Collection extends DAV\Collection implements DAV\IProperties
     }
 
     public function propPatch(DAV\PropPatch $propPatch) {
-        
+
     }
 
 }

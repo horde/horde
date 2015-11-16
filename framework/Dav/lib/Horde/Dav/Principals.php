@@ -123,11 +123,10 @@ class Horde_Dav_Principals extends DAVACL\PrincipalBackend\AbstractBackend
      *
      * @param string $path
      * @param \Sabre\DAV\PropPatch $propPatch
-     * @return array|bool
+     * @return void
      */
     public function updatePrincipal($path, \Sabre\DAV\PropPatch $propPatch)
     {
-        return false;
     }
 
     /**
@@ -139,7 +138,7 @@ class Horde_Dav_Principals extends DAVACL\PrincipalBackend\AbstractBackend
      * @param string $test
      * @return array
      */
-    function searchPrincipals($prefixPath, array $searchProperties, $test = 'allof')
+    public function searchPrincipals($prefixPath, array $searchProperties, $test = 'allof')
     {
         return array();
     }
