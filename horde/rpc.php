@@ -36,6 +36,9 @@ if ((!empty($_SERVER['CONTENT_TYPE']) &&
    (stripos($_SERVER['REQUEST_URI'], 'autodiscover/autodiscover.xml') !== false)) {
     /* ActiveSync Request */
     $conf['cookie']['path'] = '/Microsoft-Server-ActiveSync';
+    // Avoid session timeout errors for short max_time values and potentially
+    // long running EAS ping requests.
+    $conf['session']['max_time'] = 0;
     $serverType = 'ActiveSync';
     $nocompress = true;
     $session_control = 'none';
