@@ -32,7 +32,7 @@ foreach ($_SERVER['argv'] as $arg) {
     }
 }
 if (empty($args[1])) {
-    die("horde-db-migrate-component [--parameter=value ...] directory module [(up|down|version) [debug]]\n");
+    die("horde-db-migrate-component [--parameter=value ...] directory module [(up|down|version|status) [debug]]\n");
 }
 if (!isset($params['adapter'])) {
     die("The --adapter parameter is required. Other parameters may be required depending on the adapter.\n");
@@ -51,7 +51,9 @@ if (!empty($args[2])) {
     case 'down':
         $action = $args[2];
         break;
-
+    case 'status':
+        $action = $args[2];
+        break;
     default:
         $action = 'migrate';
         $targetVersion = $args[2];
@@ -95,7 +97,10 @@ try {
         echo "Migrating DB down.\n";
         $migrator->down();
         break;
-
+    case 'status':
+        echo 'Target schema version: ' . $migrator->getTargetVersion() . "\n";
+        exit($migrator->getCurrentVersion() == $migrator->getTargetVersion() ? 0 : 1);
+        break;
     case 'migrate':
         echo 'Migrating DB to schema version ' . $targetVersion . ".\n";
         $migrator->migrate($targetVersion);

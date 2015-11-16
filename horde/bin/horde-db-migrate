@@ -36,7 +36,7 @@ Horde_Registry::appInit('horde', array(
 // Parse command line arguments.
 $parser = new Horde_Argv_Parser(
     array(
-        'usage' => "%prog\n\t[--config=filename]\n\t[--debug]\n\t[--halt-on-error]\n\t[(application|directory) [(up|down|version)]]",
+        'usage' => "%prog\n\t[--config=filename]\n\t[--debug]\n\t[--halt-on-error]\n\t[(application|directory|ALL) [(up|down|version|status)]]",
         'optionList' => array(
             new Horde_Argv_Option(
                 '-c',
@@ -74,11 +74,15 @@ if (empty($args[0])) {
 } else {
     // Run a specific migration.
     $app = $args[0];
+
     if (($key = array_search($app, $migration->apps)) !== false) {
         $dir = $migration->dirs[$key];
     } elseif (($key = array_search($app, $migration->dirs)) !== false) {
         $dir = $app;
         $app = $migration->apps[$key];
+    } elseif ( $app == 'ALL' ) {
+        $apps = $migration->apps;
+        $dirs = $migration->dirs;
     } else {
         $cli->fatal(
             sprintf(
@@ -97,8 +101,10 @@ Supported directories:
             )
         );
     }
-    $dirs = array($dir);
-    $apps = array($app);
+    if ( $app != 'ALL' ) {
+        $dirs = array($dir);
+        $apps = array($app);
+    }
 }
 
 $action = 'up';
@@ -108,7 +114,9 @@ if (!empty($args[1])) {
     case 'down':
         $action = $args[1];
         break;
-
+    case 'status':
+        $action = $args[1];
+    break;
     default:
         $action = 'migrate';
         $targetVersion = $args[1];
@@ -135,11 +143,18 @@ case 'down':
 case 'migrate':
     $cli->message('Migrating DB to schema version ' . $targetVersion . '.');
     break;
+
+case 'status':
+    $cli->message('Check Migration DB status.');
+    break;
+
 }
 
 $logger = new Horde_Log_Logger(
     new Horde_Log_Handler_Stream(
         STDOUT, null, new Horde_Log_Formatter_Simple('%message%' . PHP_EOL)));
+
+$exit_code = 0;
 
 foreach ($apps as $app) {
     $migrator = $migration->getMigrator($app, $logger);
@@ -159,6 +174,15 @@ foreach ($apps as $app) {
         case 'migrate':
             $migrator->migrate($targetVersion);
             break;
+
+        case 'status':
+            if ($migrator->getCurrentVersion() != $migrator->getTargetVersion()) {
+                $exit_code = 1;
+            }
+            $cli->message("Target $app schema version: " . $migrator->getTargetVersion());
+            continue 2;
+            break;
+
         }
     } catch (Exception $e) {
         echo $e->getMessage() . "\n";
@@ -171,3 +195,4 @@ foreach ($apps as $app) {
 
     $cli->message("Ending $app schema version: " . $migrator->getCurrentVersion());
 }
+exit($exit_code);
