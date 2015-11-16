@@ -71,12 +71,11 @@ class Horde_Dav_Contacts_Backend extends Backend\AbstractBackend
      * See Sabre\DAV\IProperties for a description of the mutations array, as
      * well as the return value.
      *
-     * @param mixed $addressBookId
-     * @param array $mutations
-     * @see Sabre\DAV\IProperties::updateProperties
-     * @return bool|array
+     * @param string $addressBookId
+     * @param \Sabre\DAV\PropPatch $propPatch
+     * @return void
      */
-    public function updateAddressBook($addressBookId, array $mutations)
+    public function updateAddressBook($addressBookId, \Sabre\DAV\PropPatch $propPatch) 
     {
         return false;
     }
