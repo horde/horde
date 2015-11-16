@@ -299,7 +299,10 @@
           <file name="PrincipalCollection.php" role="php" />
          </dir> <!-- /bundle/vendor/sabre/dav/lib/DAVACL -->
        </dir> <!-- /bundle/vendor/sabre/dav/lib -->
+       <file name="ChangeLog.md" role="doc" />
+       <file name="CONTRIBUTING.md" role="doc" />
        <file name="LICENSE" role="doc" />
+       <file name="README.md" role="doc" />
       </dir> <!-- /bundle/vendor/sabre/dav -->
       <dir name="event">
        <dir name="lib">
@@ -310,7 +313,9 @@
         <file name="PromiseAlreadyResolvedException.php" role="php" /> 
         <file name="Version.php" role="php" /> 
        </dir> <!-- /bundle/vendor/sabre/event/lib -->
-       <file name="LICENSE" role="php" />
+       <file name="CHANGELOG.md" role="doc" />
+       <file name="LICENSE" role="doc" />
+       <file name="README.md" role="doc" />
       </dir> <!-- /bundle/vendor/sabre/event -->
       <dir name="http">
        <dir name="lib">
@@ -338,7 +343,9 @@
         <file name="Util.php" role="php" /> 
         <file name="Version.php" role="php" /> 
        </dir> <!-- /bundle/vendor/sabre/http/lib -->
-       <file name="LICENSE" role="php" />
+       <file name="ChangeLog.md" role="doc" />
+       <file name="LICENSE" role="doc" />
+       <file name="README.md" role="doc" />
       </dir> <!-- /bundle/vendor/sabre/http -->
       <dir name="vobject">
        <dir name="lib">
@@ -429,7 +436,9 @@
         <file name="VCardConverter.php" role="php" />
         <file name="Version.php" role="php" />
        </dir> <!-- /bundle/vendor/sabre/vobject/lib -->
+       <file name="ChangeLog.md" role="doc" />
        <file name="LICENSE" role="doc" />
+       <file name="README.md" role="doc" />
       </dir> <!-- /bundle/vendor/sabre/vobject -->
      </dir> <!-- /bundle/vendor/sabre -->
     </dir> <!-- /bundle/vendor -->
@@ -563,7 +572,11 @@
    <install as="locale/hu/LC_MESSAGES/Horde_Dav.mo" name="locale/hu/LC_MESSAGES/Horde_Dav.mo" />
    <install as="locale/hu/LC_MESSAGES/Horde_Dav.po" name="locale/hu/LC_MESSAGES/Horde_Dav.po" />
    <install as="migration/1_horde_dav_base_tables.php" name="migration/Horde/Dav/1_horde_dav_base_tables.php" />
+   <install as="migration/2_horde_dav_remove_unique_index.php" name="migration/Horde/Dav/2_horde_dav_remove_unique_index.php" />
+   <install as="ChangeLog.dav.md" name="bundle/vendor/sabre/dav/ChangeLog.md" />
+   <install as="CONTRIBUTING.dav.md" name="bundle/vendor/sabre/dav/CONTRIBUTING.md" />
    <install as="LICENSE.dav" name="bundle/vendor/sabre/dav/LICENSE" />
+   <install as="README.dav.md" name="bundle/vendor/sabre/dav/README.md" />
    <install as="Sabre/CalDAV/Calendar.php" name="bundle/vendor/sabre/dav/lib/CalDAV/Calendar.php" />
    <install as="Sabre/CalDAV/CalendarHome.php" name="bundle/vendor/sabre/dav/lib/CalDAV/CalendarHome.php" />
    <install as="Sabre/CalDAV/CalendarObject.php" name="bundle/vendor/sabre/dav/lib/CalDAV/CalendarObject.php" />
@@ -766,7 +779,9 @@
    <install as="Sabre/DAVACL/Property/CurrentUserPrivilegeSet.php" name="bundle/vendor/sabre/dav/lib/DAVACL/Property/CurrentUserPrivilegeSet.php" />
    <install as="Sabre/DAVACL/Property/Principal.php" name="bundle/vendor/sabre/dav/lib/DAVACL/Property/Principal.php" />
    <install as="Sabre/DAVACL/Property/SupportedPrivilegeSet.php" name="bundle/vendor/sabre/dav/lib/DAVACL/Property/SupportedPrivilegeSet.php" />
-   <install as="Horde/Dav/vendor/sabre/event/LICENSE" name="bundle/vendor/sabre/event/LICENSE" />
+   <install as="CHANGELOG.event.md" name="bundle/vendor/sabre/event/CHANGELOG.md" />
+   <install as="LICENSE.event" name="bundle/vendor/sabre/event/LICENSE" />
+   <install as="README.event.md" name="bundle/vendor/sabre/event/README.md" />
    <install as="Sabre/Event/EventEmitter.php" name="bundle/vendor/sabre/event/lib/EventEmitter.php" />
    <install as="Sabre/Event/EventEmitterInterface.php" name="bundle/vendor/sabre/event/lib/EventEmitterInterface.php" />
    <install as="Sabre/Event/EventEmitterTrait.php" name="bundle/vendor/sabre/event/lib/EventEmitterTrait.php" />
@@ -775,7 +790,9 @@
    <install as="Sabre/HTTP/Auth/AbstractAuth.php" name="bundle/vendor/sabre/http/lib/Auth/AbstractAuth.php" />
    <install as="Sabre/HTTP/Auth/Basic.php" name="bundle/vendor/sabre/http/lib/Auth/Basic.php" />
    <install as="Sabre/HTTP/Auth/Digest.php" name="bundle/vendor/sabre/http/lib/Auth/Digest.php" />
-   <install as="Horde/Dav/vendor/sabre/http/LICENSE" name="bundle/vendor/sabre/http/LICENSE" />
+   <install as="ChangeLog.http.md" name="bundle/vendor/sabre/http/ChangeLog.md" />
+   <install as="LICENSE.http" name="bundle/vendor/sabre/http/LICENSE" />
+   <install as="README.http.md" name="bundle/vendor/sabre/http/README.md" />
    <install as="Sabre/HTTP/Client.php" name="bundle/vendor/sabre/http/lib/Client.php" />
    <install as="Sabre/HTTP/ClientException.php" name="bundle/vendor/sabre/http/lib/ClientException.php" />
    <install as="Sabre/HTTP/ClientHttpException.php" name="bundle/vendor/sabre/http/lib/ClientHttpException.php" />
@@ -793,7 +810,9 @@
    <install as="Sabre/HTTP/URLUtil.php" name="bundle/vendor/sabre/http/lib/URLUtil.php" />
    <install as="Sabre/HTTP/Util.php" name="bundle/vendor/sabre/http/lib/Util.php" />
    <install as="Sabre/HTTP/Version.php" name="bundle/vendor/sabre/http/lib/Version.php" />
+   <install as="ChangeLog.vobject.md" name="bundle/vendor/sabre/vobject/ChangeLog.md" />
    <install as="LICENSE.vobject" name="bundle/vendor/sabre/vobject/LICENSE" />
+   <install as="README.vobject.md" name="bundle/vendor/sabre/vobject/README.md" />
    <install as="Sabre/VObject/Cli.php" name="bundle/vendor/sabre/vobject/lib/Cli.php" />
    <install as="Sabre/VObject/Component.php" name="bundle/vendor/sabre/vobject/lib/Component.php" />
    <install as="Sabre/VObject/DateTimeParser.php" name="bundle/vendor/sabre/vobject/lib/DateTimeParser.php" />
@@ -864,7 +883,6 @@
    <install as="Sabre/VObject/timezonedata/php-bc.php" name="bundle/vendor/sabre/vobject/lib/timezonedata/php-bc.php" />
    <install as="Sabre/VObject/timezonedata/php-workaround.php" name="bundle/vendor/sabre/vobject/lib/timezonedata/php-workaround.php" />
    <install as="Sabre/VObject/timezonedata/windowszones.php" name="bundle/vendor/sabre/vobject/lib/timezonedata/windowszones.php" />
-   <install as="migration/2_horde_dav_remove_unique_index.php" name="migration/Horde/Dav/2_horde_dav_remove_unique_index.php" />
    </filelist>
  </phprelease>
  <changelog>

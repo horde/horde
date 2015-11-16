@@ -1,23 +1,24 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
     "hash": "24627ab014da917658d5ced1d49e9b3b",
+    "content-hash": "21468f5e4e32b1e1b7017297559576b0",
     "packages": [
         {
             "name": "sabre/dav",
-            "version": "2.1.3",
+            "version": "2.1.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fruux/sabre-dav.git",
-                "reference": "6a8aec204688d36681e0185fbaf1974b97e4a070"
+                "reference": "49a666925986af425626f223c30b855967e6a830"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fruux/sabre-dav/zipball/6a8aec204688d36681e0185fbaf1974b97e4a070",
-                "reference": "6a8aec204688d36681e0185fbaf1974b97e4a070",
+                "url": "https://api.github.com/repos/fruux/sabre-dav/zipball/49a666925986af425626f223c30b855967e6a830",
+                "reference": "49a666925986af425626f223c30b855967e6a830",
                 "shasum": ""
             },
             "require": {
@@ -33,7 +34,7 @@
                 "php": ">=5.4.1",
                 "sabre/event": "~2.0.0",
                 "sabre/http": "~3.0.0",
-                "sabre/vobject": "~3.3"
+                "sabre/vobject": ">=3.3.4 <4"
             },
             "require-dev": {
                 "evert/phpdoc-md": "~0.1.0",
@@ -78,24 +79,28 @@
                 "framework",
                 "iCalendar"
             ],
-            "time": "2015-02-25 18:13:20"
+            "time": "2015-09-04 22:20:39"
         },
         {
             "name": "sabre/event",
-            "version": "2.0.1",
+            "version": "2.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fruux/sabre-event.git",
-                "reference": "f33d60742d7dff63d3722d0f70016704bf32e8db"
+                "reference": "337b6f5e10ea6e0b21e22c7e5788dd3883ae73ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fruux/sabre-event/zipball/f33d60742d7dff63d3722d0f70016704bf32e8db",
-                "reference": "f33d60742d7dff63d3722d0f70016704bf32e8db",
+                "url": "https://api.github.com/repos/fruux/sabre-event/zipball/337b6f5e10ea6e0b21e22c7e5788dd3883ae73ff",
+                "reference": "337b6f5e10ea6e0b21e22c7e5788dd3883ae73ff",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.4.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "*",
+                "sabre/cs": "~0.0.1"
             },
             "type": "library",
             "autoload": {
@@ -125,20 +130,20 @@
                 "promise",
                 "signal"
             ],
-            "time": "2014-10-06 23:26:48"
+            "time": "2015-05-19 10:24:22"
         },
         {
             "name": "sabre/http",
-            "version": "3.0.4",
+            "version": "3.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fruux/sabre-http.git",
-                "reference": "efae5aa7155ba73aa517e33c20aba9c001bb6588"
+                "reference": "6b06c03376219b3d608e1f878514ec105ed1b577"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fruux/sabre-http/zipball/efae5aa7155ba73aa517e33c20aba9c001bb6588",
-                "reference": "efae5aa7155ba73aa517e33c20aba9c001bb6588",
+                "url": "https://api.github.com/repos/fruux/sabre-http/zipball/6b06c03376219b3d608e1f878514ec105ed1b577",
+                "reference": "6b06c03376219b3d608e1f878514ec105ed1b577",
                 "shasum": ""
             },
             "require": {
@@ -147,7 +152,7 @@
                 "sabre/event": ">=1.0.0,<3.0.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "*",
+                "phpunit/phpunit": "~4.3",
                 "squizlabs/php_codesniffer": "~1.5.3"
             },
             "suggest": {
@@ -176,20 +181,20 @@
             "keywords": [
                 "http"
             ],
-            "time": "2014-12-10 20:14:39"
+            "time": "2015-05-11 15:25:57"
         },
         {
             "name": "sabre/vobject",
-            "version": "3.4.2",
+            "version": "3.4.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fruux/sabre-vobject.git",
-                "reference": "0c90f60dae40137f1903c7b5915d3691c4fc99b0"
+                "reference": "7b3690545451159fc608dfac6696110f6770ff5d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fruux/sabre-vobject/zipball/0c90f60dae40137f1903c7b5915d3691c4fc99b0",
-                "reference": "0c90f60dae40137f1903c7b5915d3691c4fc99b0",
+                "url": "https://api.github.com/repos/fruux/sabre-vobject/zipball/7b3690545451159fc608dfac6696110f6770ff5d",
+                "reference": "7b3690545451159fc608dfac6696110f6770ff5d",
                 "shasum": ""
             },
             "require": {
@@ -242,7 +247,7 @@
                 "jCard",
                 "vCard"
             ],
-            "time": "2015-02-25 17:47:50"
+            "time": "2015-09-04 15:17:58"
         }
     ],
     "packages-dev": [],

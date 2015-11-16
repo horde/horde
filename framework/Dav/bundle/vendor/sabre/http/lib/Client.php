@@ -36,7 +36,7 @@ use
  * It's also possible to intercept specific http errors, by subscribing to for
  * example 'error:401'.
  *
- * @copyright Copyright (C) 2009-2014 fruux GmbH. All rights reserved.
+ * @copyright Copyright (C) 2009-2015 fruux GmbH (https://fruux.com/).
  * @author Evert Pot (http://evertpot.com/)
  * @license http://sabre.io/license/ Modified BSD License
  */
@@ -73,6 +73,7 @@ class Client extends EventEmitter {
         $this->curlSettings = [
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HEADER => true,
+            CURLOPT_NOBODY => false,
         ];
 
     }

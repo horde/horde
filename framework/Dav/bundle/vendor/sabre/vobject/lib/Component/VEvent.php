@@ -4,6 +4,7 @@ namespace Sabre\VObject\Component;
 
 use Sabre\VObject;
 use Sabre\VObject\Recur\EventIterator;
+use Sabre\VObject\Recur\NoInstancesException;
 
 /**
  * VEvent component
@@ -30,7 +31,19 @@ class VEvent extends VObject\Component {
     public function isInTimeRange(\DateTime $start, \DateTime $end) {
 
         if ($this->RRULE) {
-            $it = new EventIterator($this);
+
+            try {
+
+                $it = new EventIterator($this, null, $start->getTimezone());
+
+            } catch (NoInstancesException $e) {
+
+                // If we've catched this exception, there are no instances
+                // for the event that fall into the specified time-range.
+                return false;
+
+            }
+
             $it->fastForward($start);
 
             // We fast-forwarded to a spot where the end-time of the
@@ -43,7 +56,7 @@ class VEvent extends VObject\Component {
 
         }
 
-        $effectiveStart = $this->DTSTART->getDateTime();
+        $effectiveStart = $this->DTSTART->getDateTime($start->getTimezone());
         if (isset($this->DTEND)) {
 
             // The DTEND property is considered non inclusive. So for a 3 day
@@ -52,7 +65,7 @@ class VEvent extends VObject\Component {
             //
             // See:
             // http://tools.ietf.org/html/rfc5545#page-54
-            $effectiveEnd = $this->DTEND->getDateTime();
+            $effectiveEnd = $this->DTEND->getDateTime($end->getTimezone());
 
         } elseif (isset($this->DURATION)) {
             $effectiveEnd = clone $effectiveStart;
@@ -64,7 +77,7 @@ class VEvent extends VObject\Component {
             $effectiveEnd = clone $effectiveStart;
         }
         return (
-            ($start <= $effectiveEnd) && ($end > $effectiveStart)
+            ($start < $effectiveEnd) && ($end > $effectiveStart)
         );
 
     }
