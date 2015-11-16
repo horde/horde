@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
+* [jan] Add &apos;status&apos; argument to horde-db-migrate (Nicolas Rochelemagne &lt;nicolas.rochelemagne@cpanel.net&gt;).
 * [mjr] Add option to display OpenWeatherMap&apos;s weather map to the weather block.
 * [mjr] Add configuration switch for disabling maillog synchronization with EAS clients (Bug #13747).
 * [jan] Add inverse tree icons.
@@ -4137,6 +4138,7 @@
    <date>2015-09-27</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
+* [jan] Add &apos;status&apos; argument to horde-db-migrate (Nicolas Rochelemagne &lt;nicolas.rochelemagne@cpanel.net&gt;).
 * [mjr] Add option to display OpenWeatherMap&apos;s weather map to the weather block.
 * [mjr] Add configuration switch for disabling maillog synchronization with EAS clients (Bug #13747).
 * [jan] Add inverse tree icons.
