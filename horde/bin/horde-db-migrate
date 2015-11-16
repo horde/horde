@@ -36,7 +36,7 @@ Horde_Registry::appInit('horde', array(
 // Parse command line arguments.
 $parser = new Horde_Argv_Parser(
     array(
-        'usage' => "%prog\n\t[--config=filename]\n\t[--debug]\n\t[--halt-on-error]\n\t[(application|directory|ALL) [(up|down|version|status)]]",
+        'usage' => "%prog\n\t[--config=filename]\n\t[--debug]\n\t[--halt-on-error]\n\t[(application|directory|--) [(up|down|version|status)]]",
         'optionList' => array(
             new Horde_Argv_Option(
                 '-c',
@@ -80,7 +80,7 @@ if (empty($args[0])) {
     } elseif (($key = array_search($app, $migration->dirs)) !== false) {
         $dir = $app;
         $app = $migration->apps[$key];
-    } elseif ( $app == 'ALL' ) {
+    } elseif ($app == '--') {
         $apps = $migration->apps;
         $dirs = $migration->dirs;
     } else {
@@ -101,7 +101,7 @@ Supported directories:
             )
         );
     }
-    if ( $app != 'ALL' ) {
+    if ($app != '--') {
         $dirs = array($dir);
         $apps = array($app);
     }
@@ -114,9 +114,11 @@ if (!empty($args[1])) {
     case 'down':
         $action = $args[1];
         break;
+
     case 'status':
         $action = $args[1];
-    break;
+        break;
+
     default:
         $action = 'migrate';
         $targetVersion = $args[1];
@@ -181,8 +183,6 @@ foreach ($apps as $app) {
             }
             $cli->message("Target $app schema version: " . $migrator->getTargetVersion());
             continue 2;
-            break;
-
         }
     } catch (Exception $e) {
         echo $e->getMessage() . "\n";
@@ -195,4 +195,5 @@ foreach ($apps as $app) {
 
     $cli->message("Ending $app schema version: " . $migrator->getCurrentVersion());
 }
+
 exit($exit_code);

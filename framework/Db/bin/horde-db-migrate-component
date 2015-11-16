@@ -51,9 +51,11 @@ if (!empty($args[2])) {
     case 'down':
         $action = $args[2];
         break;
+
     case 'status':
         $action = $args[2];
         break;
+
     default:
         $action = 'migrate';
         $targetVersion = $args[2];
@@ -97,10 +99,14 @@ try {
         echo "Migrating DB down.\n";
         $migrator->down();
         break;
+
     case 'status':
         echo 'Target schema version: ' . $migrator->getTargetVersion() . "\n";
-        exit($migrator->getCurrentVersion() == $migrator->getTargetVersion() ? 0 : 1);
+        exit(
+            $migrator->getCurrentVersion() == $migrator->getTargetVersion() ? 0 : 1
+        );
         break;
+
     case 'migrate':
         echo 'Migrating DB to schema version ' . $targetVersion . ".\n";
         $migrator->migrate($targetVersion);
