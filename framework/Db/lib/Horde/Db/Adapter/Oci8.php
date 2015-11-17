@@ -427,7 +427,7 @@ class Horde_Db_Adapter_Oci8 extends Horde_Db_Adapter_Base
         }
 
         $sql = sprintf(
-            'UPDATE %s SET %s%s RETURNING %s INTO %s',
+            'UPDATE %s SET %s%s',
             $this->quoteTableName($table),
             implode(', ', $fnames),
             strlen($where) ? ' WHERE ' . $where : ''
