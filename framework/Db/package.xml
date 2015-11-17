@@ -23,7 +23,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-11-16</date>
+ <date>2015-11-17</date>
  <version>
   <release>2.3.0</release>
   <api>2.3.0</api>
@@ -897,7 +897,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-11-16</date>
+   <date>2015-11-17</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [mjr] Fix SQL error when setting blob fields to empty in oracle driver (Bug #14163).
