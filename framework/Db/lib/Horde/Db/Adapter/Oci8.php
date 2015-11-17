@@ -383,9 +383,14 @@ class Horde_Db_Adapter_Oci8 extends Horde_Db_Adapter_Base
                 ', ',
                 array_map(array($this, 'quoteColumnName'), array_keys($fields))
             )
-            . ') VALUES (' . implode(', ', $fields)
-            . ') RETURNING ' . implode(', ', array_keys($blobs)) . ' INTO '
-            . implode(', ', $locators);
+            . ') VALUES (' . implode(', ', $fields) . ')';
+
+        // Protect against empty values being passed for blobs.
+        if (!empty($blobs)) {
+            $sql .= ' RETURNING ' . implode(', ', array_keys($blobs)) . ' INTO '
+                . implode(', ', $locators);
+        }
+
         $this->execute($sql, null, null, $blobs);
 
         return $idValue
@@ -425,10 +430,16 @@ class Horde_Db_Adapter_Oci8 extends Horde_Db_Adapter_Base
             'UPDATE %s SET %s%s RETURNING %s INTO %s',
             $this->quoteTableName($table),
             implode(', ', $fnames),
-            strlen($where) ? ' WHERE ' . $where : '',
-            implode(', ', array_keys($blobs)),
-            implode(', ', $locators)
+            strlen($where) ? ' WHERE ' . $where : ''
         );
+
+        // Protect against empty values for blobs.
+        if (!empty($blobs)) {
+            $sql .= sprintf(' RETURNING %s INTO %s',
+                implode(', ', array_keys($blobs)),
+                implode(', ', $locators)
+            );
+        }
 
         $this->execute($sql, null, null, $blobs);
 
