@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
+* [mjr] Fix SQL error when setting blob fields to empty in oracle driver (Bug #14163).
 * [jan] Add &apos;status&apos; argument to horde-db-migrate-component (Nicolas Rochelemagne &lt;nicolas.rochelemagne@cpanel.net&gt;).
  </notes>
  <contents>
@@ -899,6 +900,7 @@
    <date>2015-11-16</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
+* [mjr] Fix SQL error when setting blob fields to empty in oracle driver (Bug #14163).
 * [jan] Add &apos;status&apos; argument to horde-db-migrate-component (Nicolas Rochelemagne &lt;nicolas.rochelemagne@cpanel.net&gt;).
    </notes>
   </release>
