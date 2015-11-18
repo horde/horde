@@ -506,7 +506,7 @@
  <dependencies>
   <required>
    <php>
-    <min>5.3.0</min>
+    <min>5.4.1</min>
     <max>6.0.0alpha1</max>
     <exclude>6.0.0alpha1</exclude>
    </php>
@@ -548,7 +548,39 @@
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
+   <extension>
+    <name>ctype</name>
+   </extension>
+   <extension>
+    <name>date</name>
+   </extension>
+   <extension>
+    <name>dom</name>
+   </extension>
+   <extension>
+    <name>iconv</name>
+   </extension>
+   <extension>
+    <name>libxml</name>
+   </extension>
+   <extension>
+    <name>mbstring</name>
+   </extension>
+   <extension>
+    <name>pcre</name>
+   </extension>
+   <extension>
+    <name>simplexml</name>
+   </extension>
+   <extension>
+    <name>spl</name>
+   </extension>
   </required>
+  <optional>
+   <extension>
+    <name>curl</name>
+   </extension>
+  </optional>
  </dependencies>
  <phprelease>
   <filelist>
