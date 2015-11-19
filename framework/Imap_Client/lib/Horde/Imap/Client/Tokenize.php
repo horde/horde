@@ -247,7 +247,7 @@ class Horde_Imap_Client_Tokenize implements Iterator
 
         do {
             $check_len = true;
-            $in_quote = $text = false;
+            $in_quote = $text = $binary = false;
 
             while (($c = fgetc($stream)) !== false) {
                 switch ($c) {
@@ -291,10 +291,16 @@ class Horde_Imap_Client_Tokenize implements Iterator
 
                     case '~':
                         // Ignore binary string identifier. PHP strings are
-                        // binary-safe.
-                        break;
+                        // binary-safe. But keep it is not used as string
+                        // identifier.
+                        $binary = true;
+                        $text .= $c;
+                        continue;
 
                     case '{':
+                        if ($binary) {
+                            $text = substr($text, 0, -1);
+                        }
                         $literal_len = intval($this->_stream->getToChar('}'));
                         $pos = $this->_stream->pos();
                         if (isset($this->_literals[$pos])) {
@@ -330,6 +336,7 @@ class Horde_Imap_Client_Tokenize implements Iterator
                     }
                     break;
                 }
+                $binary = false;
             }
 
             if ($check_len) {

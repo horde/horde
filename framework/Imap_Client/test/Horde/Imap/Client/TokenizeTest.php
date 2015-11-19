@@ -464,6 +464,30 @@ EOT;
             100,
             $len['length']
         );
+
+        // Test non-binary-marker tilde.
+        $test = '* LIST () "" ~foo';
+        $token = new Horde_Imap_Client_Tokenize($test);
+        $token->rewind();
+
+        $this->assertEquals(
+            '*',
+            $token->next()
+        );
+        $this->assertEquals(
+            'LIST',
+            $token->next()
+        );
+        $this->assertTrue($token->next());
+        $this->assertFalse($token->next());
+        $this->assertEquals(
+            '',
+            $token->next()
+        );
+        $this->assertEquals(
+            '~foo',
+            $token->next()
+        );
     }
 
     public function testLiteralStream()
