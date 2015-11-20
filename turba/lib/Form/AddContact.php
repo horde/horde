@@ -65,9 +65,14 @@ class Turba_Form_AddContact extends Turba_Form_ContactBase
         /* Form valid, save data. */
         $this->getInfo($this->_vars, $info);
         foreach ($info['object'] as $info_key => $info_val) {
-            if ($GLOBALS['attributes'][$info_key]['type'] == 'image' && !empty($info_val['file'])) {
-                $this->_contact->setValue($info_key, file_get_contents($info_val['file']));
-                $this->_contact->setValue($info_key . 'type', $info_val['type']);
+            if ($GLOBALS['attributes'][$info_key]['type'] == 'image') {
+                if (!empty($info_val['file'])) {
+                    $this->_contact->setValue($info_key, file_get_contents($info_val['file']));
+                    $this->_contact->setValue($info_key . 'type', $info_val['type']);
+                }
+                if (!empty($info_val['orig_file'])) {
+                    $this->_contact->setValue($info_key . '_orig', file_get_contents($info_val['orig_file']));
+                }
             } else {
                 $this->_contact->setValue($info_key, $info_val);
             }

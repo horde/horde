@@ -136,6 +136,12 @@ $attributes['photo'] = array(
     'required' => false,
     'params' => array('show_upload' => true, 'show_keeporig' => true, 'max_filesize'  => null),
 );
+$attributes['photo_orig'] = array(
+    'label' => _("Original Photo"),
+    'type' => 'image',
+    'required' => false,
+    'params' => array('show_upload' => false, 'show_keeporig' => true, 'max_filesize'  => null),
+);
 $attributes['phototype'] = array(
     'label' => _("Photo MIME Type"),
     'type' => 'text',

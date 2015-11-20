@@ -28,7 +28,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2014-09-05</date>
+ <date>2015-11-20</date>
  <version>
   <release>4.3.0</release>
   <api>4.0.0</api>
@@ -469,6 +469,7 @@
     <file name="9_turba_upgrade_schema.php" role="horde" />
     <file name="10_turba_upgrade_categoriestotags.php" role="horde" />
     <file name="11_turba_upgrade_parents.php" role="horde" />
+    <file name="12_turba_upgrade_originalphotos.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="scripts">
     <dir name="ldap">
@@ -1085,6 +1086,7 @@
    <install as="turba/migration/9_turba_upgrade_schema.php" name="migration/9_turba_upgrade_schema.php" />
    <install as="turba/migration/10_turba_upgrade_categoriestotags.php" name="migration/10_turba_upgrade_categoriestotags.php" />
    <install as="turba/migration/11_turba_upgrade_parents.php" name="migration/11_turba_upgrade_parents.php" />
+   <install as="turba/migration/12_turba_upgrade_originalphotos.php" name="migration/12_turba_upgrade_originalphotos.php" />
    <install as="scripts/.htaccess" name="scripts/.htaccess" />
    <install as="scripts/Turba.reg" name="scripts/Turba.reg" />
    <install as="scripts/ldap/addou" name="scripts/ldap/addou" />
@@ -1985,7 +1987,7 @@
    </notes>
   </release>
   <release>
-   <date>2014-06-04</date>
+   <date>2015-11-20</date>
    <version>
     <release>4.3.0</release>
     <api>4.0.0</api>

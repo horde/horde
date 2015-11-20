@@ -45,6 +45,26 @@ outdated.
 Upgrading Turba from 4.2 to 4.3
 ===============================
 
+Attribute Changes
+-----------------
+
+  - The "photo_orig" attribute has been added to store original versions of
+    images that were resized. Any attribute of type "image" can be expanded to
+    support this by also adding an attribute with the string "_orig" appended
+    to the attribute name. If an entry does not contain any "photo" data, but
+    does contain the "photo_orig" data, the "photo" data will automatically be
+    populated with a resized version of the data (see Configuration changes).
+
+
+Configuration Options (conf.php)
+--------------------------------
+
+  - The following options have been added::
+
+      $conf['photos']['height']
+      $conf['photos']['width']
+
+
 API Changes
 -----------
 

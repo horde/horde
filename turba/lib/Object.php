@@ -125,7 +125,7 @@ class Turba_Object
      */
     public function getValue($attribute)
     {
-        global $attributes, $injector;
+        global $attributes, $injector, $conf;
 
         if (isset($this->attributes[$attribute]) &&
             ($hooks = $injector->getInstance('Horde_Core_Hooks')) &&
@@ -144,16 +144,24 @@ class Turba_Object
                 $args[] = $this->getValue($field);
             }
             return Turba::formatCompositeField($this->driver->map[$attribute]['format'], $args);
-        } elseif (!isset($this->attributes[$attribute])) {
-            if (isset($attributes[$attribute]) &&
-                ($attributes[$attribute]['type'] == 'Turba:TurbaTags') &&
-                ($uid = $this->getValue('__uid'))) {
-                $this->synchronizeTags($injector->getInstance('Turba_Tagger')->getTags($uid, 'contact'));
-            } else {
-                return null;
-            }
         } elseif (isset($attributes[$attribute]) &&
             ($attributes[$attribute]['type'] == 'image')) {
+            // If there is no [$attribute], but we have a $attribute . '_orig',
+            // then populate the $attribute data using default resizing config.
+            if (empty($this->attributes[$attribute])) {
+                if (!empty($this->attributes[$attribute . '_orig']) &&
+                    (!empty($conf['photos']['height']) || !empty($conf['photos']['width']))) {
+                    // Do resizing
+                    $img = $injector->getInstance('Horde_Core_Factory_Image')->create(
+                        array(
+                            'data' => $this->attributes[$attribute . '_orig'],
+                            'type' => 'jpeg'
+                        ));
+                    $img->resize($conf['photos']['width'], $conf['photos']['height']);
+                    $this->attributes[$attribute] = $img->raw(true);
+                    $this->store();
+                }
+            }
             return empty($this->attributes[$attribute])
                 ? null
                 : array(
@@ -162,6 +170,14 @@ class Turba_Object
                           'file' => basename(Horde::getTempFile('horde_form_', false, '', false, true))
                       )
                   );
+        } elseif (!isset($this->attributes[$attribute])) {
+            if (isset($attributes[$attribute]) &&
+                ($attributes[$attribute]['type'] == 'Turba:TurbaTags') &&
+                ($uid = $this->getValue('__uid'))) {
+                $this->synchronizeTags($injector->getInstance('Turba_Tagger')->getTags($uid, 'contact'));
+            } else {
+                return null;
+            }
         }
 
         return $this->attributes[$attribute];
