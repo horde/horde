@@ -283,6 +283,7 @@ $cfgSources['localsql'] = array(
         'spouse' => 'object_spouse',
         'photo' => 'object_photo',
         'phototype' => 'object_phototype',
+        'photo_orig' => 'object_photoorig',
         'homeStreet' => 'object_homestreet',
         'homePOBox' => 'object_homepob',
         'homeCity' => 'object_homecity',
