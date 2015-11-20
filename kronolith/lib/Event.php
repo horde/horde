@@ -2255,7 +2255,6 @@ abstract class Kronolith_Event
      * @return stdClass  A simple object.
      */
     public function toJson(array $options = array())
-    //public function toJson($allDay = null, $full = false, $time_format = 'H:i')
     {
         $options = array_merge(array(
             'all_day' => null,
