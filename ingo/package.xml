@@ -1489,8 +1489,8 @@
     <release>3.2.0RC1</release>
     <api>3.2.0</api></version>
    <stability>
-     <release>beta</release>
-     <api>beta</api></stability>
+    <release>beta</release>
+    <api>beta</api></stability>
    <date>2014-06-17</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
@@ -1522,7 +1522,7 @@
    <date>2014-07-08</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-*
+* 
    </notes>
   </release>
   <release>
@@ -1532,7 +1532,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-07-08</date>
+   <date>2014-09-05</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [mms] Fix performing more than one filter drag/drop action on a single page (Bug #13434).
@@ -1548,9 +1548,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-09-05</date>
+   <date>2014-10-29</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [jan] Disable forward rule by default.
 * [mms] Fix checking the &apos;max_forward&apos; permission (Bug #13568).
 * [mms] IMAP driver needs to explicitly search for UTF-8 text, since we don&apos;t restrict charset input at the UI level (Bug #13554).
 * [mjr] Fix issues when preferred configuration contains an array (Bug #13548).
@@ -1563,7 +1564,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-10-29</date>
+   <date>2014-12-03</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [mms] Fix determination of preferred backend (Bug #13548).
@@ -1591,11 +1592,58 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-02-10</date>
+   <date>2015-04-28</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [jan] Add Galician translation.
 * [mms] Enforce selection of a target folder for the spam filter in the UI (Bug #13917).
 * [jan] Fix Sieve error if days of vacation is unset (Bug #13890).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.2.6</release>
+    <api>3.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-08-01</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [mjr] Fix using transport parameters in Procmail driver.
+* [jan] Update Czech translation.
+* [jan] Update Italian translation.
+* [mjr] Fix selecting incorrect rule when performing any action after reordering (Bug #14064 and Bug #13643).
+* [jan] Fix duplicate messages when using the redirect-and-keep rule with Procmail backends.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.2.7</release>
+    <api>3.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-10-21</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [jan] Update Italian translation.
+* [mjr] Add database migration for fixing corrupt rule ordering.
+* [mjr] Fix corruption of rule order when reordering rules in certain cases.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.2.8</release>
+    <api>3.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-10-20</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [jan] Correctly save names of mailbox created from the rule form (Bug #14150).
+* [mjr] Fix invalid URLs in certain forms when cookies are disabled (Bug #14148).
    </notes>
   </release>
   <release>

@@ -84,8 +84,8 @@ abstract class Ingo_Basic_Base
 
         if (strlen($new_mbox)) {
             if ($registry->hasMethod('mail/createMailbox') &&
-                $registry->call('mail/createMailbox', array($new_mbox))) {
-                return $new_mbox;
+                $created = $registry->call('mail/createMailbox', array($new_mbox))) {
+                return strval($created);
             }
         } elseif (strlen($this->vars->$name)) {
             return $this->vars->$name;

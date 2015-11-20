@@ -10,9 +10,32 @@ v3.3.0-git
 
 
 ------
+v3.2.7
+------
+
+[jan] Update Italian translation.
+[mjr] Add database migration for fixing corrupt rule ordering.
+[mjr] Fix corruption of rule order when reordering rules in certain cases.
+
+
+------
+v3.2.6
+------
+
+[mjr] Fix using transport parameters in Procmail driver.
+[jan] Update Czech translation.
+[jan] Update Italian translation.
+[mjr] Fix selecting incorrect rule when performing any action after reordering
+      (Bug #14064 and Bug #13643).
+[jan] Fix duplicate messages when using the redirect-and-keep rule with
+      Procmail backends.
+
+
+------
 v3.2.5
 ------
 
+[jan] Add Galician translation.
 [mms] Enforce selection of a target folder for the spam filter in the UI (Bug
       #13917).
 [jan] Fix Sieve error if days of vacation is unset (Bug #13890).
@@ -39,6 +62,7 @@ v3.2.3
 v3.2.2
 ------
 
+[jan] Disable forward rule by default.
 [mms] Fix checking the 'max_forward' permission (Bug #13568).
 [mms] IMAP driver needs to explicitly search for UTF-8 text, since we don't
       restrict charset input at the UI level (Bug #13554).
@@ -52,10 +76,10 @@ v3.2.1
 [mms] Fix performing more than one filter drag/drop action on a single page
       (Bug #13434).
 [mms] Add support for a negative regex test to the Maildrop driver.
-[mms] Add support for a negative regex test to the Sieve driver (Request
-      #12671; Pete Beardmore <pete.beardmore@msn.com>).
-[mms] Fix vacation in the maildrop driver (Bug #13415;
-      balestrieri@mag-data.com).
+[mms] Add support for a negative regex test to the Sieve driver (Pete Beardmore
+      <pete.beardmore@msn.com>, Request #12671).
+[mms] Fix vacation in the maildrop driver (balestrieri@mag-data.com, Bug
+      #13415).
 
 
 ------
