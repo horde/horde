@@ -50,10 +50,10 @@ abstract class Turba_Form_ContactBase extends Horde_Form
             }
             foreach ($tab_fields as $field) {
                 if (!in_array($field, $fields) ||
-                    !isset($attributes[$field])) {
+                    !isset($attributes[$field]) ||
+                    ($attributes[$field]['type'] == 'image' && strpos($field, '_orig') !== false)) {
                     continue;
                 }
-
                 $attribute = $attributes[$field];
                 $params = isset($attribute['params']) ? $attribute['params'] : array();
                 $desc = isset($attribute['desc']) ? $attribute['desc'] : null;
