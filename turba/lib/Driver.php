@@ -2509,7 +2509,8 @@ class Turba_Driver implements Countable
                     break;
                 }
                 $type = Horde_String::lower($item['name']);
-                $hash[$type] = base64_decode($item['value']);
+                $type_key = $type . (!empty($this->map[$type . '_orig']) ? '_orig' : '');
+                $hash[$type_key] = base64_decode($item['value']);
                 if (isset($item['params']['TYPE'])) {
                     $hash[$type . 'type'] = $item['params']['TYPE'];
                 }
