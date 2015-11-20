@@ -552,7 +552,7 @@ class Kronolith
                             $addEvent->last = false;
                         }
 
-                        $results[$loopDate->dateString()][$addEvent->id] = $json ? $addEvent->toJson($allDay) : $addEvent;
+                        $results[$loopDate->dateString()][$addEvent->id] = $json ? $addEvent->toJson(array('all_day' => $allDay)) : $addEvent;
                     }
 
                     $loopDate = new Horde_Date(
@@ -597,7 +597,7 @@ class Kronolith
                     $addEvent->recurrence->hasCompletion($loopDate->year, $loopDate->month, $loopDate->mday)) {
                     $addEvent->status = Kronolith::STATUS_CANCELLED;
                 }
-                $results[$loopDate->dateString()][$addEvent->id] = $json ? $addEvent->toJson($allDay) : $addEvent;
+                $results[$loopDate->dateString()][$addEvent->id] = $json ? $addEvent->toJson(array('all_day' => $allDay)) : $addEvent;
             }
             $loopDate->mday++;
         }

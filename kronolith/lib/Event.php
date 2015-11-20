@@ -2237,15 +2237,28 @@ abstract class Kronolith_Event
      * - tg: tag list,
      * - mt: meeting (Boolean true if event has attendees, false otherwise).
      *
-     * @param boolean $allDay      If not null, overrides whether the event is
-     *                             an all-day event.
-     * @param boolean $full        Whether to return all event details.
-     * @param string $time_format  The date() format to use for time formatting.
+     * @param array $options  An array of options:
+     *
+     *  - all_day: (boolean)    If not null, overrides whether the event is an
+     *                          all-day event.
+     *                          DEFAULT: null (Do not override).
+     *  - full: (boolean)       Whether to return all event details.
+     *                          DEFAULT: false (Do not return all details).
+     *  - time_format: (string) The date() format to use for time formatting.
+     *                          DEFAULT: 'H:i'
      *
      * @return stdClass  A simple object.
      */
-    public function toJson($allDay = null, $full = false, $time_format = 'H:i')
+    public function toJson(array $options = array())
+    //public function toJson($allDay = null, $full = false, $time_format = 'H:i')
     {
+        $options = array_merge(array(
+            'all_day' => null,
+            'full' => false,
+            'time_format' => 'H:i'),
+            $options
+        );
+
         $json = new stdClass;
         $json->uid = $this->uid;
         $json->t = $this->getTitle();
@@ -2255,7 +2268,7 @@ abstract class Kronolith_Event
         $json->fi = $this->first;
         $json->la = $this->last;
         $json->x = (int)$this->status;
-        $json->al = is_null($allDay) ? $this->isAllDay() : $allDay;
+        $json->al = is_null($options['all_day']) ? $this->isAllDay() : $options['all_day'];
         $json->pe = $this->hasPermission(Horde_Perms::EDIT);
         $json->pd = $this->hasPermission(Horde_Perms::DELETE);
         $json->l = $this->getLocation();
@@ -2295,13 +2308,13 @@ abstract class Kronolith_Event
         if ($this->_resources) {
             $json->rs = $this->_resources;
         }
-        if ($full) {
+        if ($options['full']) {
             $json->id = $this->id;
             $json->ty = $this->calendarType;
             $json->sd = $this->start->strftime('%x');
-            $json->st = $this->start->format($time_format);
+            $json->st = $this->start->format($options['time_format']);
             $json->ed = $this->end->strftime('%x');
-            $json->et = $this->end->format($time_format);
+            $json->et = $this->end->format($options['time_format']);
             $json->tz = $this->timezone;
             $json->a = $this->alarm;
             $json->pv = $this->private;
