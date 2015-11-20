@@ -153,7 +153,8 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
             $event->setTimezone(true);
             $result->event = $event->toJson(array(
                 'full' => true,
-                'time_format' => $GLOBALS['prefs']->getValue('twentyFour') ? 'H:i' : 'h:i A')
+                'time_format' => $GLOBALS['prefs']->getValue('twentyFour') ? 'H:i' : 'h:i A',
+                'history' => true)
             );
             // If recurring, we need to format the dates of this instance, since
             // Kronolith_Driver#getEvent will return the start/end dates of the

@@ -5783,6 +5783,8 @@ KronolithCore = {
             $('kronolithEventSaveAsNew').hide();
             $('kronolithEventUrlDisplay').hide();
             $('kronolithEventUrl').show();
+            $('kronolithEventOtherCreated').update();
+            $('kronolithEventOtherModified').update();
             this.toggleRecurrence(true, 'None');
             $('kronolithEventEditRecur').hide();
             this.enableAlarm('Event', Kronolith.conf.default_alarm);
@@ -6103,6 +6105,12 @@ KronolithCore = {
             }
         } else {
             $('kronolithEventAlarmOff').setValue(true);
+        }
+
+        /* History */
+        if (ev.cb) {
+            $('kronolithEventOtherCreated').update(ev.cb);
+            $('kronolithEventOtherModified').update(ev.mb);
         }
 
         /* Recurrence */

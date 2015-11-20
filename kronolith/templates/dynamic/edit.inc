@@ -118,6 +118,7 @@
     <li><a href="#" class="kronolithTabLink" id="kronolithEventLinkMap"><?php echo _("Map") ?></a></li>
     <?php endif; ?>
     <li><a href="#" class="kronolithTabLink" id="kronolithEventLinkExport"><?php echo _("Export") ?></a></li>
+    <li><a href="#" class="kronolithTabLink" id="kronolithEventLinkOther"><?php echo _("Other") ?></a></li>
   </ul>
 </div>
 <br class="clear" />
@@ -303,6 +304,11 @@
   </p>
   <p class="kronolithDialogInfo"><?php echo _("This event can be saved as a timeslice in your timesheet.")?></p>
   <?php endif;?>
+</div>
+
+<div id="kronolithEventTabOther" class="kronolithTabsOption" style="display:none">
+  <p><strong><?php echo _("Created: ") ?></strong><span id="kronolithEventOtherCreated"></span></p>
+  <p><strong><?php echo _("Last modified: ") ?></strong><span id="kronolithEventOtherModified"></span></p>
 </div>
 
 <div class="kronolithFormActions">

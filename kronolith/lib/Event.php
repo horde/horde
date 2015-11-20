@@ -2236,6 +2236,8 @@ abstract class Kronolith_Event
      * - rs:  resources
      * - tg: tag list,
      * - mt: meeting (Boolean true if event has attendees, false otherwise).
+     * - cb: created by (string describing when and who created the event).
+     * - mb: modified by (string describing when and who last modified event).
      *
      * @param array $options  An array of options:
      *
@@ -2246,6 +2248,9 @@ abstract class Kronolith_Event
      *                          DEFAULT: false (Do not return all details).
      *  - time_format: (string) The date() format to use for time formatting.
      *                          DEFAULT: 'H:i'
+     *  - history: (boolean)    If true, ensures that this event's history is
+     *                          loaded from the History backend.
+     *                          DEFAULT: false (Do not ensure history is loaded).
      *
      * @return stdClass  A simple object.
      */
@@ -2255,7 +2260,8 @@ abstract class Kronolith_Event
         $options = array_merge(array(
             'all_day' => null,
             'full' => false,
-            'time_format' => 'H:i'),
+            'time_format' => 'H:i',
+            'history' => false),
             $options
         );
 
@@ -2308,6 +2314,25 @@ abstract class Kronolith_Event
         if ($this->_resources) {
             $json->rs = $this->_resources;
         }
+
+        if ($options['history']) {
+            $this->loadHistory();
+            $json->cb = sprintf(
+                _("%s %s %s"),
+                $this->created->strftime($GLOBALS['prefs']->getValue('date_format')),
+                $this->created->strftime(($GLOBALS['prefs']->getValue('twentyFour') ? '%H:%M' : '%I:%M %p')),
+                $this->createdby);
+            if (!empty($this->modified)) {
+                $json->mb = sprintf(
+                    _("%s %s %s"),
+                    $this->modified->strftime($GLOBALS['prefs']->getValue('date_format')),
+                    $this->modified->strftime(($GLOBALS['prefs']->getValue('twentyFour') ? '%H:%M' : '%I:%M %p')),
+                    $this->modifiedby);
+            } else {
+                $json->mb = '';
+            }
+        }
+
         if ($options['full']) {
             $json->id = $this->id;
             $json->ty = $this->calendarType;
