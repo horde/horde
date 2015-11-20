@@ -291,7 +291,7 @@ class Horde_Imap_Client_Tokenize implements Iterator
 
                     case '~':
                         // Ignore binary string identifier. PHP strings are
-                        // binary-safe. But keep it is not used as string
+                        // binary-safe. But keep it if it is not used as string
                         // identifier.
                         $binary = true;
                         $text .= $c;
