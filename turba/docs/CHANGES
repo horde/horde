@@ -2,6 +2,8 @@
 v4.3.0-git
 ----------
 
+[mjr] Add ability to store original versions of contact photos when resizing
+      them for display.
 [mjr] Add tag search to advanced search (Request #13693).
 [mms] Added the addGroup API method.
 [mjr] Add ability to add special characters to the alpha pager.
