@@ -21,7 +21,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix issue that prevents new device being added if an entry exists in the device user table but not the device table (Bug #14147).
+* [mjr] OL2016 added to device multiplex settings.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2891,7 +2892,8 @@
    <date>2015-10-28</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix issue that prevents new device being added if an entry exists in the device user table but not the device table (Bug #14147).
+* [mjr] OL2016 added to device multiplex settings.
    </notes>
   </release>
  </changelog>
