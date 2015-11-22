@@ -431,8 +431,19 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
         $tname = $timer['name'];
         $elapsed = ((!$timer['paused']) ? time() - $timer['time'] : 0 ) + $timer['elapsed'];
         $results['h'] = round((float)$elapsed / 3600, 2);
+        $started = new Horde_Date($this->vars->t, 'UTC');
+        $started->setTimezone(date_default_timezone_get());
+        $now = new Horde_Date(time(), 'UTC');
+        $now->setTimezone(date_default_timezone_get());
         if ($prefs->getValue('add_description')) {
-            $results['n'] = sprintf(_("Using the \"%s\" stop watch from %s %s to %s %s"), $tname, strftime($prefs->getValue('date_format_mini'), $this->vars->t), strftime($prefs->getValue('time_format'), $this->vars->t), strftime($prefs->getValue('date_format_mini'), time()), strftime($prefs->getValue('time_format'), time()));
+            $results['n'] = sprintf(
+                _("Using the \"%s\" stop watch from %s %s to %s %s"),
+                $tname,
+                $started->strftime($prefs->getValue('date_format_mini')),
+                $started->strftime($prefs->getValue('time_format')),
+                $now->strftime($prefs->getValue('date_format_mini')),
+                $now->strftime($prefs->getValue('time_format'))
+            );
         } else {
             $results['n'] = '';
         }
