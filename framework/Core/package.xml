@@ -30,7 +30,7 @@
  </developer>
  <date>2015-11-22</date>
  <version>
-  <release>2.22.2</release>
+  <release>2.22.3</release>
   <api>2.22.0</api>
  </version>
  <stability>
@@ -39,8 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Small logging improvements for ActiveSync.
-* [mjr] Match various session parameters in the NULL driver.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4064,6 +4063,19 @@
    <notes>
 * [mjr] Small logging improvements for ActiveSync.
 * [mjr] Match various session parameters in the NULL driver.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.22.3</release>
+    <api>2.22.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-11-22</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
