@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2015-10-20</date>
+ <date>2015-11-22</date>
  <version>
   <release>2.22.2</release>
   <api>2.22.0</api>
@@ -4059,7 +4059,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-10-20</date>
+   <date>2015-11-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Small logging improvements for ActiveSync.
