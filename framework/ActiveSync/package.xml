@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-10-28</date>
+ <date>2015-11-22</date>
  <version>
   <release>2.30.2</release>
   <api>2.30.0</api>
@@ -2889,7 +2889,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-10-28</date>
+   <date>2015-11-22</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix issue that prevents new device being added if an entry exists in the device user table but not the device table (Bug #14147).
