@@ -832,6 +832,8 @@ implements Serializable, SplObserver
             if ($this->getParam('id')) {
                 try {
                     $this->sendID();
+                    /* ID is queued - force sending the queued command. */
+                    $this->_sendCmd($this->_pipeline());
                 } catch (Horde_Imap_Client_Exception_NoSupportExtension $e) {
                     // Ignore if server doesn't support ID extension.
                 }
