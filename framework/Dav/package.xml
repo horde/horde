@@ -862,8 +862,6 @@
    <install as="Sabre/VObject/TimeZoneUtil.php" name="bundle/vendor/sabre/vobject/lib/TimeZoneUtil.php" />
    <install as="Sabre/VObject/UUIDUtil.php" name="bundle/vendor/sabre/vobject/lib/UUIDUtil.php" />
    <install as="Sabre/VObject/VCardConverter.php" name="bundle/vendor/sabre/vobject/lib/VCardConverter.php" />
-   <install as="Sabre/VObject/UUIDUtil.php" name="bundle/vendor/sabre/vobject/lib/UUIDUtil.php" />
-   <install as="Sabre/VObject/VCardConverter.php" name="bundle/vendor/sabre/vobject/lib/VCardConverter.php" />
    <install as="Sabre/VObject/Version.php" name="bundle/vendor/sabre/vobject/lib/Version.php" />
    <install as="Sabre/VObject/Component/Available.php" name="bundle/vendor/sabre/vobject/lib/Component/Available.php" />
    <install as="Sabre/VObject/Component/VAlarm.php" name="bundle/vendor/sabre/vobject/lib/Component/VAlarm.php" />
