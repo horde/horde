@@ -814,11 +814,11 @@ class Kronolith_Api extends Horde_Registry_Api
             $result = array_flip($ical_importer->process());
             return current($result);
 
-            case 'activesync':
-                $event = $kronolith_driver->getEvent();
-                $event->fromASAppointment($content);
-                $event->save();
-                return $event->uid;
+        case 'activesync':
+            $event = $kronolith_driver->getEvent();
+            $event->fromASAppointment($content);
+            $event->save();
+            return $event->uid;
         }
 
         throw new Kronolith_Exception(sprintf(_("Unsupported Content-Type: %s"), $contentType));
