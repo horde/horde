@@ -5770,6 +5770,8 @@ KronolithCore = {
             }
             $('kronolithEventId').clear();
             $('kronolithEventCalendar').clear();
+            $('kronolithEventStatus').disabled = false;
+            $('kronolithEventAttend').hide();
             $('kronolithEventTarget').setValue(Kronolith.conf.default_calendar);
             $('kronolithEventDelete').hide();
             $('kronolithEventStartDate').setValue(d.toString(Kronolith.conf.date_format));
@@ -6076,6 +6078,18 @@ KronolithCore = {
         $('kronolithEventPrivate').setValue(ev.pv);
         $('kronolithEventLinkExport').up('li').show();
         $('kronolithEventExport').href = Kronolith.conf.URI_EVENT_EXPORT.interpolate({ id: ev.id, calendar: ev.c, type: ev.ty });
+
+        /* Attendance and Status */
+        if (!ev.oy) {
+            $('kronolithEventStatus').disabled = true;
+            $('kronolithEventAttend').show();
+        } else {
+            $('kronolithEventStatus').disabled = false;
+            $('kronolithEventAttend').hide();
+        }
+        if (ev.cr) {
+            $('kronolithEventAttendance').setValue(ev.cr);
+        }
 
         /* Alarm */
         if (ev.a) {
