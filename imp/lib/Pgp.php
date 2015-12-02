@@ -885,6 +885,32 @@ class IMP_Pgp
     }
 
     /**
+     * Returns only information on the first ID that matches the email address
+     * input.
+     *
+     * @param string $pgpdata  The PGP data block.
+     * @param string $email    An e-mail address.
+     *
+     * @return array  An array with information on the PGP data block. If an
+     *                element is not present in the data block, it will
+     *                likewise not be set in the array. Array elements:
+     *   - comment: Comment
+     *   - created: Signature creation (UNIX timestamp)
+     *   - email: E-mail Address
+     *   - key_created: Key creation (UNIX timestamp)
+     *   - key_expires: Key expiration (UNIX timestamp; 0 = never expires)
+     *   - key_size: Size of the key in bits
+     *   - key_type: The key type (public_key or secret_key)
+     *   - keyid: 16-bit hex value
+     *   - micalg: The hash used to create the signature
+     *   - name: Full Name
+     */
+    public function pgpPacketSignature($pgpdata, $email)
+    {
+        return $this->_pgp->pgpPacketSignature($pgpdata, $email);
+    }
+
+    /**
      * Return list of keyserver objects.
      *
      * @return array  List of Horde_Crypt_Pgp_Keyserver objects.
