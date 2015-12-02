@@ -3001,7 +3001,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     foreach ($imap_folders as $id => $folder) {
                         if ($folder['level'] == $level) {
                             try {
-                                $folders[] = $this->_getMailFolder($id, $imap_folders, $folder);
+                                $folders[] = $this->_getMailFolder((string)$id, $imap_folders, $folder);
                                 ++$cnt;
                             } catch (Horde_ActiveSync_Exception $e) {
                                 $this->_logger->err(sprintf(
