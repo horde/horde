@@ -1284,7 +1284,7 @@ class Ansel_Image implements Iterator
         if ($view == 'full') {
             return $this->type;
         } elseif ($view == 'screen') {
-            return 'image/jpg';
+            return 'image/jpeg';
         } else {
             return 'image/' . $GLOBALS['conf']['image']['type'];
         }
