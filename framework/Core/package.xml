@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mjr] Fix issue with synchronizing IMAP folder names that contain only numbers.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4075,7 +4075,7 @@
    <date>2015-11-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mjr] Fix issue with synchronizing IMAP folder names that contain only numbers.
    </notes>
   </release>
  </changelog>
