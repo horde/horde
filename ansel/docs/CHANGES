@@ -2,6 +2,8 @@
 v3.0.4-git
 ----------
 
+[mjr] Fix content-type for screen images to be compatible with some versions
+      of IE.
 
 
 ------
