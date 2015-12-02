@@ -1450,27 +1450,32 @@ abstract class Kronolith_Event
         $this->private = ($message->getSensitivity() == Horde_ActiveSync_Message_Appointment::SENSITIVITY_PRIVATE || $message->getSensitivity() == Horde_ActiveSync_Message_Appointment::SENSITIVITY_CONFIDENTIAL) ? true :  false;
 
         /* Busy Status */
-        $status = $message->getBusyStatus();
-        switch ($status) {
-        case Horde_ActiveSync_Message_Appointment::BUSYSTATUS_BUSY:
-            $status = Kronolith::STATUS_CONFIRMED;
-            break;
+        if ($message->getMeetingStatus() == Horde_ActiveSync_Message_Appointment::MEETING_CANCELLED) {
+            $status = Kronolith::STATUS_CANCELLED;
+        } else {
+            $status = $message->getBusyStatus();
+            switch ($status) {
+            case Horde_ActiveSync_Message_Appointment::BUSYSTATUS_BUSY:
+                $status = Kronolith::STATUS_CONFIRMED;
+                break;
 
-        case Horde_ActiveSync_Message_Appointment::BUSYSTATUS_FREE:
-            $status = Kronolith::STATUS_FREE;
-            break;
+            case Horde_ActiveSync_Message_Appointment::BUSYSTATUS_FREE:
+                $status = Kronolith::STATUS_FREE;
+                break;
 
-        case Horde_ActiveSync_Message_Appointment::BUSYSTATUS_TENTATIVE:
-            $status = Kronolith::STATUS_TENTATIVE;
-            break;
-        // @TODO: not sure how "Out" should show in kronolith...
-        case Horde_ActiveSync_Message_Appointment::BUSYSTATUS_OUT:
-            $status = Kronolith::STATUS_CONFIRMED;
-        default:
-            // EAS Specifies default should be free.
-            $status = Kronolith::STATUS_FREE;
+            case Horde_ActiveSync_Message_Appointment::BUSYSTATUS_TENTATIVE:
+                $status = Kronolith::STATUS_TENTATIVE;
+                break;
+            // @TODO: not sure how "Out" should show in kronolith...
+            case Horde_ActiveSync_Message_Appointment::BUSYSTATUS_OUT:
+                $status = Kronolith::STATUS_CONFIRMED;
+            default:
+                // EAS Specifies default should be free.
+                $status = Kronolith::STATUS_FREE;
+            }
         }
         $this->status = $status;
+
 
         /* Alarm */
         if ($alarm = $message->getReminder()) {
@@ -1771,7 +1776,11 @@ abstract class Kronolith_Event
 
         // Attendees
         if (!$this->isPrivate() && count($this->attendees)) {
-            $message->setMeetingStatus(Horde_ActiveSync_Message_Appointment::MEETING_IS_MEETING);
+            $message->setMeetingStatus(
+                $this->status == Kronolith::STATUS_CANCELLED
+                    ? Horde_ActiveSync_Message_Appointment::MEETING_CANCELLED
+                    : Horde_ActiveSync_Message_Appointment::MEETING_IS_MEETING
+            );
             foreach ($this->attendees as $email => $properties) {
                 $attendee = new Horde_ActiveSync_Message_Attendee(array(
                     'protocolversion' => $options['protocolversion']));
@@ -1805,6 +1814,8 @@ abstract class Kronolith_Event
 
                 $message->addAttendee($attendee);
             }
+        } elseif ($this->status == Kronolith::STATUS_CANCELLED) {
+            $message->setMeetingStatus(Horde_ActiveSync_Message_Appointment::MEETING_CANCELLED);
         } else {
             $message->setMeetingStatus(Horde_ActiveSync_Message_Appointment::MEETING_NOT_MEETING);
         }
