@@ -17,7 +17,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-06-24</date>
+ <date>2015-12-03</date>
  <version>
   <release>2.1.6</release>
   <api>2.1.0</api>
@@ -337,6 +337,7 @@
      <dir name="Perms">
       <file name="1_horde_perms_base_tables.php" role="data" />
       <file name="2_horde_perms_upgrade_autoincrement.php" role="data" />
+      <file name="3_horde_perms_upgrade_parent_null.php" role="data" />
      </dir> <!-- /migration/Horde/Perms -->
     </dir> <!-- /migration/Horde -->
    </dir> <!-- /migration -->
@@ -527,6 +528,7 @@
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Perms.po" name="locale/zh_TW/LC_MESSAGES/Horde_Perms.po" />
    <install as="migration/1_horde_perms_base_tables.php" name="migration/Horde/Perms/1_horde_perms_base_tables.php" />
    <install as="migration/2_horde_perms_upgrade_autoincrement.php" name="migration/Horde/Perms/2_horde_perms_upgrade_autoincrement.php" />
+   <install as="migration/3_horde_perms_upgrade_parent_null.php" name="migration/Horde/Perms/3_horde_perms_upgrade_parent_null.php" />
    <install as="Horde/Perms/AllTests.php" name="test/Horde/Perms/AllTests.php" />
    <install as="Horde/Perms/bootstrap.php" name="test/Horde/Perms/bootstrap.php" />
    <install as="Horde/Perms/KolabTest.php" name="test/Horde/Perms/KolabTest.php" />
@@ -978,7 +980,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-06-24</date>
+   <date>2015-12-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

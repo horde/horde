@@ -196,7 +196,7 @@ class Horde_Perms_Sql extends Horde_Perms_Base
         }
 
         // build parents
-        $parents = '';
+        $parents = null;
         if (($pos = strrpos($name, ':')) !== false) {
             $parent_name = substr($name, 0, $pos);
             $query = 'SELECT perm_id, perm_parents FROM ' .
