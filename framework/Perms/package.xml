@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mjr] Use NULL instead of an empty string in the perms_parents field for root permissions.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -983,7 +983,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <date>2015-12-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mjr] Use NULL instead of an empty string in the perms_parents field for root permissions.
    </notes>
   </release>
  </changelog>
