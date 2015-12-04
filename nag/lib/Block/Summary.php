@@ -184,7 +184,7 @@ class Nag_Block_Summary extends Horde_Core_Block
                     . Horde::img('edit-sidebar-' . substr($task->foregroundColor(), 1) . '.png', $label)
                     . '</a></td>';
                 if ($task->completed) {
-                    $html .= '<td width="1%">' . $style . ''
+                    $html .= '<td width="1%"' . $style . '>'
                         . Horde::img('checked.png', _("Completed")) . '</td>';
                 } else {
                     $label = sprintf(_("Complete \"%s\""), $task->name);
