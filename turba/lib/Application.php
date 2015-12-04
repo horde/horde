@@ -559,12 +559,27 @@ class Turba_Application extends Horde_Registry_Application
                     } else {
                         $row = array();
                         foreach ($fields as $field) {
-                            if (substr($field, 0, 2) == '__' ||
+                            if ((substr($field, 0, 2) == '__' && $field != '__members' && $field != '__uid') ||
                                 isset($blobs[$field])) {
                                 continue;
                             }
                             $attribute = $ob->getValue($field);
-                            if ($attributes[$field]['type'] == 'date') {
+                            if ($field == '__members') {
+                                if (empty($attribute)) {
+                                    $row['kind'] = '';
+                                    $row['members'] = '';
+                                    continue;
+                                }
+                                $row['kind'] = 'group';
+                                $members = $ob->listMembers();
+                                $uids = array();
+                                foreach ($members->objects as $member) {
+                                    $uids[] = $member->getValue('__uid');
+                                }
+                                $row['members'] = implode(',', $uids);
+                            } elseif ($field == '__uid') {
+                                $row['uid'] = !empty($attribute) ? $attribute : '';
+                            } elseif ($attributes[$field]['type'] == 'date') {
                                 $row[$field] = strftime('%Y-%m-%d', $attribute);
                             } elseif ($attributes[$field]['type'] == 'time') {
                                 $row[$field] = strftime('%R', $attribute);

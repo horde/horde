@@ -85,6 +85,10 @@ $import_mapping = array(
     'jobtitle' => 'title',
     'internetfreebusy' => 'freebusyUrl',
 
+    // Turba groups
+    'uid' => '__uid',
+    'members' => '__members',
+
     // Entourage on MacOS
     'Dept' => 'department',
     'Work Street Address' => 'workStreet',
@@ -267,9 +271,17 @@ if (is_array($next_step)) {
 
         $error = false;
         $imported = 0;
+        $contact_groups = array();
         foreach ($next_step as $row) {
             if ($row instanceof Horde_Icalendar_Vcard) {
                 $row = $driver->toHash($row);
+            } else {
+                // Check for contact groups, and defer processing until all
+                // other contacts are added.
+                if (!empty($row['__members'])) {
+                    $contact_groups[] = $row;
+                    continue;
+                }
             }
 
             /* Don't search for empty attributes. */
@@ -315,6 +327,27 @@ if (is_array($next_step)) {
                 }
             }
         }
+
+        // Now attempt to create Turba group objects.
+        foreach ($contact_groups as $group) {
+            $attributes = $group;
+            unset($attributes['__members']);
+            $group_obj = new Turba_Object_Group($driver, $attributes);
+            foreach (explode(',', $group['__members']) as $uid) {
+                $results = $driver->search(array('__uid' => $uid));
+                if (count($results->objects)) {
+                    $object = array_pop($results->objects);
+                    $group_obj->addMember($object->getValue('__key'), $object->getSource());
+                }
+            }
+            // We don't actually use the group object to save to storage since
+            // it's not an existing group. We use it so it's responsible for
+            // properly formatting the __members data, which we pull out and
+            // place in the attributes array.
+            $attributes['__members'] = $group_obj->getValue('__members');
+            $attributes['__type'] = 'group';
+            $driver->add($attributes);
+        }
         if (!$error && $imported) {
             $notification->push(sprintf(_("%s file successfully imported."),
                                         $file_types[$data->storage->get('format')]), 'horde.success');
@@ -327,8 +360,14 @@ switch ($next_step) {
 case Horde_Data::IMPORT_MAPPED:
 case Horde_Data::IMPORT_DATETIME:
     foreach ($cfgSources[$data->storage->get('target')]['map'] as $field => $null) {
-        if (substr($field, 0, 2) != '__' && !is_array($null)) {
-            $app_fields[$field] = $attributes[$field]['label'];
+        if ((substr($field, 0, 2) != '__'  && !is_array($null)) || ($field == '__uid' || $field == '__members')) {
+            if ($field == '__uid') {
+                $app_fields['__uid'] = _("UID");
+            } elseif ($field == '__members') {
+                $app_fields['__members'] = _("Contact list members");
+            } else {
+                $app_fields[$field] = $attributes[$field]['label'];
+            }
         }
     }
     break;
