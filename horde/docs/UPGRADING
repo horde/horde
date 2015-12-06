@@ -42,6 +42,15 @@ application, you **always** need to update configurations and database
 schemes. Log in as an administrator, go to Administration => Configuration and
 update anything that's highlighted as outdated.
 
+Upgrading Horde From 5.x To 6.x
+===================================
+
+Configuration
+-------------
+
+The 'maps' configuration options have been moved to the ``horde`` application
+configuration.
+
 
 Upgrading Horde from 5.1.x to 5.2
 =================================

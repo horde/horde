@@ -1920,7 +1920,34 @@
    </configswitch>
   </configsection>
  </configtab>
-
+ <configtab name="maps" desc="Maps">
+  <configsection name="maps">
+    <configheader>Maps</configheader>
+    <configswitch name="driver" desc="Which driver should we use for inline maps?">
+     <case name="false" desc="No inline map support" />
+     <case name="Horde" desc="Horde driver (support for various map providers)">
+      <configmultienum name="providers" desc="Which layers should we add to the map?">
+       <values>
+         <configspecial application="horde" name="mapsources"/>
+       </values>
+      </configmultienum>
+      <configenum default="false" name="geocoder" desc="Which Geocoder service should we use?">
+       <values>
+         <configspecial application="horde" name="geocoders"/>
+       </values>
+      </configenum>
+      <configenum default="false" name="geodriver" desc="Which driver should we
+      use for storing geolocation information?">
+       <values>
+        <value desc="None" default="true">false</value>
+        <value desc="MySQL spatial extensions">Mysql</value>
+        <value desc="General SQL (no spatial index support)">Sql</value>
+       </values>
+      </configenum>
+     </case>
+    </configswitch>
+  </configsection>
+ </configtab>
  <configtab name="imap" desc="IMAP Server">
   <configsection name="imap">
    <configheader>IMAP Server Settings</configheader>
