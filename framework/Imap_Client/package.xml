@@ -22,7 +22,6 @@
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
 * [jan] Fix broken ID requests under certain circumstances.
-* [jan] Fix parsing IMAP responses with tilde characters.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2959,7 +2958,6 @@
    <date>2015-11-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [jan] Fix broken ID requests under certain circumstances.
 * [jan] Fix parsing IMAP responses with tilde characters.
    </notes>
   </release>
@@ -2973,7 +2971,7 @@
    <date>2015-11-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix broken ID requests under certain circumstances.
    </notes>
   </release>
  </changelog>
