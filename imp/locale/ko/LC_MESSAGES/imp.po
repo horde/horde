@@ -14,6 +14,7 @@ msgstr ""
 "PO-Revision-Date: 2014-08-29 14:57+0900\n"
 "Last-Translator: Josh Kim <joshkkim@gmail.com>\n"
 "Language-Team: i18n@lists.horde.org\n"
+"Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -37,8 +38,7 @@ msgstr "월초에 \"%s\" 편지함을 다른 이름으로 변경합니다."
 #: lib/Ajax/Application/ShowMessage.php:309
 #, php-format
 msgid "%d Attachment"
-msgid_plural "%d Attachments"
-msgstr[0] "%d개의 첨부파일"
+msgstr "첨부파일 %d개"
 
 #: lib/Dynamic/Compose/Common.php:253
 #, php-format
@@ -55,7 +55,8 @@ msgstr "%d개의 메시지"
 #, php-format
 msgid "%d message was purged from \"%s\"."
 msgid_plural "%d messages were purged from \"%s\"."
-msgstr[0] "\"%s\"에서 %d개의 메시지를 제거했습니다."
+msgstr[0] "%d개의 메시지를 \"%s\"에서 제거했습니다."
+msgstr[1] "%d개의 메시지를 \"%s\"에서 제거했습니다."
 
 #: lib/Dynamic/Mailbox.php:504 lib/Smartmobile.php:176
 #, php-format
@@ -92,6 +93,7 @@ msgstr "%d분"
 msgid "%d more unseen message..."
 msgid_plural "%d more unseen messages..."
 msgstr[0] "%d개의 읽지 않은 메시지가 더 있습니다..."
+msgstr[1] "%d개의 읽지 않은 메시지가 더 있습니다..."
 
 #: lib/Minimal/Mailbox.php:114
 #, php-format
@@ -382,6 +384,8 @@ msgid_plural ""
 "All messages in the mailboxes \"%s\" older than %s days will be permanently "
 "deleted."
 msgstr[0] ""
+"\"%s\" 편지함의 %s일 이상 경과한 모든 메시지가 영구적으로 삭제됩니다."
+msgstr[1] ""
 "\"%s\" 편지함의 %s일 이상 경과한 모든 메시지가 영구적으로 삭제됩니다."
 
 #: lib/LoginTasks/Task/PurgeSpam.php:81 lib/LoginTasks/Task/PurgeTrash.php:83
@@ -983,6 +987,7 @@ msgstr "복사"
 msgid "Copy %s to %s"
 msgid_plural "Copy %s to %s"
 msgstr[0] "%s을(를) %s(으)로 복사"
+msgstr[1] "%s을(를) %s(으)로 복사"
 
 #: templates/smartmobile/copymove.html.php:3
 #: templates/smartmobile/message.html.php:70
@@ -1945,7 +1950,8 @@ msgstr "mbox 또는 .eml 파일 가져오기"
 #, php-format
 msgid "Imported %d message from %s."
 msgid_plural "Imported %d messages from %s"
-msgstr[0] "%s에서 %d개의 메시지를 가져왔습니다."
+msgstr[0] "%d개의 메시지를 %s에서 가져왔습니다."
+msgstr[1] "%d개의 메시지를 %s에서 가져왔습니다."
 
 #: lib/Basic/Message.php:614 lib/Dynamic/Base.php:175
 msgid "In Body Text"
@@ -2302,6 +2308,7 @@ msgstr "메시지가 서명됨"
 msgid "Message redirected successfully."
 msgid_plural "Messages redirected successfully"
 msgstr[0] "메시지를 성공적으로 재전송했습니다."
+msgstr[1] "메시지를 성공적으로 재전송했습니다."
 
 #: lib/Compose.php:1003
 #, php-format
@@ -2362,6 +2369,7 @@ msgstr "이동"
 msgid "Move %s to %s"
 msgid_plural "Move %s to %s"
 msgstr[0] "%s을(를) %s(으)로 이동"
+msgstr[1] "%s을(를) %s(으)로 이동"
 
 #: config/prefs.php:1162
 msgid ""
@@ -2726,7 +2734,7 @@ msgstr "%s을(를) 영구적으로 삭제할까요?"
 #: lib/Dynamic/Mailbox.php:497
 #, php-format
 msgid "Permanently delete all %d messages in %s?"
-msgstr "%s의 모든 %d개의 메시지를 영구적으로 삭제할까요?"
+msgstr "모든 %d개의 메시지를 %s에서 영구적으로 삭제할까요?"
 
 #: lib/Flag/System/Personal.php:37
 msgid "Personal"
@@ -2905,12 +2913,14 @@ msgstr "보낸 메일 비우기 주기:"
 msgid "Purging %d message from Spam mailbox."
 msgid_plural "Purging %d messages from Spam mailbox."
 msgstr[0] "스팸 편지함에서 %d개의 메시지를 비우는 중입니다."
+msgstr[1] "스팸 편지함에서 %d개의 메시지를 비우는 중입니다."
 
 #: lib/LoginTasks/Task/PurgeTrash.php:71
 #, php-format
 msgid "Purging %d message from Trash mailbox."
 msgid_plural "Purging %d messages from Trash mailbox."
 msgstr[0] "지운 편지함에서 %d개의 메시지를 비우는 중입니다."
+msgstr[1] "지운 편지함에서 %d개의 메시지를 비우는 중입니다."
 
 #: lib/LoginTasks/Task/PurgeSentmail.php:74
 #, php-format
@@ -2979,6 +2989,7 @@ msgstr "재전송"
 msgid "Redirect"
 msgid_plural "Redirect Messages"
 msgstr[0] "재전송"
+msgstr[1] "재전송"
 
 #: lib/Minimal/Folders.php:58 lib/Minimal/Mailbox.php:181
 #: templates/basic/mailbox/header.html.php:9
@@ -3978,6 +3989,7 @@ msgstr "\"%s\"이(가) 보낸 메시지를 스팸 메일로 보고했습니다."
 msgid "The message has been deleted."
 msgid_plural "The messages have been deleted."
 msgstr[0] "메시지를 삭제했습니다."
+msgstr[1] "메시지를 삭제했습니다."
 
 #: lib/Block/Newmail.php:45
 msgid "The number of unseen messages to show"
@@ -4595,12 +4607,14 @@ msgid_plural ""
 "You are not allowed to send messages to more than %d recipients within %d "
 "hours."
 msgstr[0] "%d시간 이내에 %d명의 받는 사람에게 메시지를 전송할 수 없습니다."
+msgstr[1] "%d시간 이내에 %d명의 받는 사람에게 메시지를 전송할 수 없습니다."
 
 #: lib/Compose.php:1209
 #, php-format
 msgid "You are not allowed to send messages to more than %d recipient."
 msgid_plural "You are not allowed to send messages to more than %d recipients."
 msgstr[0] "%d명 이상의 받는 사람에게 메시지를 보낼 수 없습니다."
+msgstr[1] "%d명 이상의 받는 사람에게 메시지를 보낼 수 없습니다."
 
 #: lib/Basic/Folders.php:57
 msgid "You are renaming the mailbox:"
@@ -4633,7 +4647,8 @@ msgstr "이 메시지를 %s에 다음에게 전달했습니다: %s"
 #, php-format
 msgid "You have %d new mail message in %s."
 msgid_plural "You have %d new mail messages in %s."
-msgstr[0] "%s에 %d개의 새로운 메일 메시지가 있습니다."
+msgstr[0] "%d개의 새로운 메일이 %s에 있습니다."
+msgstr[1] "%d개의 새로운 메일이 %s에 있습니다."
 
 #: lib/Basic/Compose.php:107
 msgid "You have already submitted this page."
