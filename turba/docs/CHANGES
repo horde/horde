@@ -2,7 +2,6 @@
 v4.2.12-git
 -----------
 
-[mjr] Fix importing/exporting Turba contact lists via CSV.
 [mjr] Fix searching within virtual address books (Bug #14155).
 [mjr] Fix import of vCard with single component via API.
 
