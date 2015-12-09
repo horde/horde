@@ -767,7 +767,7 @@ $cfgSources['prefs'] = array(
 $cfgSources['favourites'] = array(
     // ENABLED by default
     'disabled' => false,
-    'title' => _("Favourite Recipients"),
+    'title' => _("Favorite Recipients"),
     'type' => 'favourites',
     'params' => array(
         'limit' => 10
