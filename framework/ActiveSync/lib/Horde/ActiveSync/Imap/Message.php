@@ -207,7 +207,7 @@ class Horde_ActiveSync_Imap_Message
                     $query,
                     array('ids' => new Horde_Imap_Client_Ids(array($this->uid)))
                 );
-            } catch (Horde_Imap_Exception $e) {
+            } catch (Horde_Imap_Client_Exception $e) {
                 throw new Horde_ActiveSync_Exception($e);
             }
             $data = $fetch_ret[$this->uid];

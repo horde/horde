@@ -327,7 +327,7 @@ implements Serializable, SplObserver
     {
         try {
             $this->logout();
-        } catch (Horde_Imap_Exception $e) {
+        } catch (Horde_Imap_Client_Exception $e) {
         }
     }
 
