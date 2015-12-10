@@ -266,6 +266,8 @@ class Horde_ActiveSync_Imap_Adapter
      *                DEFAULT: false (Do not fetch headers).
      *
      * @return array  An array of Horde_ActiveSync_Imap_Message objects.
+     * @todo This should be renamed to getImapMessages since we can now accept
+     *       an array of $uids.
      */
     public function getImapMessage($mailbox, $uid, array $options = array())
     {
