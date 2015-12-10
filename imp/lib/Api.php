@@ -499,4 +499,18 @@ class IMP_Api extends Horde_Registry_Api
         );
     }
 
+    /**
+     * Check if we need to send a MDN, and send if needed/able. Will only send
+     * MDN if the request does NOT need to be confirmed by the user.
+     *
+     * @param Horde_Mime_Headers $headers  The headers of the message.
+     *
+     * @return boolean  True if the MDN request was able to be sent.
+     */
+    public function mdnSend(Horde_Mime_Headers $headers, $mailbox, $uid)
+    {
+        $indices = new IMP_Indices($mailbox, $uid);
+        return !$indices->mdnCheck($headers);
+    }
+
 }
