@@ -2,6 +2,7 @@
 v7.0.0-git
 ----------
 
+[mjr] Add support for sending MDN via the API.
 [mjr] Add imap_preauthenticate hook.
 [mms] Report multiple spam/innocent messages in a single digest.
 [mms] Remove mailbox from polled list when unsubscribing from it.
