@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Fix fatal error during shutdown due to incorrect exception name.
 * [jan] Fix broken ID requests under certain circumstances.
  </notes>
  <contents>
@@ -2971,6 +2972,7 @@
    <date>2015-11-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Fix fatal error during shutdown due to incorrect exception name.
 * [jan] Fix broken ID requests under certain circumstances.
    </notes>
   </release>

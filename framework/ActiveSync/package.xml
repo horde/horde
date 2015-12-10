@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix potential fatal error due to incorrect exception name.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2905,7 +2905,7 @@
    <date>2015-11-22</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix potential fatal error due to incorrect exception name.
    </notes>
   </release>
  </changelog>
