@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2015-12-04</date>
+ <date>2015-12-10</date>
  <version>
   <release>2.22.4</release>
   <api>2.22.0</api>
@@ -305,6 +305,7 @@
        <file name="Connector.php" role="php" />
        <file name="Driver.php" role="php" />
        <file name="Mail.php" role="php" />
+       <file name="Mdn.php" role="php" />
       </dir> <!-- /lib/Horde/Core/ActiveSync -->
       <dir name="Ajax">
        <dir name="Application">
@@ -1759,6 +1760,7 @@
    <install as="Horde/Core/ActiveSync/Connector.php" name="lib/Horde/Core/ActiveSync/Connector.php" />
    <install as="Horde/Core/ActiveSync/Driver.php" name="lib/Horde/Core/ActiveSync/Driver.php" />
    <install as="Horde/Core/ActiveSync/Mail.php" name="lib/Horde/Core/ActiveSync/Mail.php" />
+   <install as="Horde/Core/ActiveSync/Mdn.php" name="lib/Horde/Core/ActiveSync/Mdn.php" />
    <install as="Horde/Core/ActiveSync/Imap/Factory.php" name="lib/Horde/Core/ActiveSync/Imap/Factory.php" />
    <install as="Horde/Core/ActiveSync/Logger/Factory.php" name="lib/Horde/Core/ActiveSync/Logger/Factory.php" />
    <install as="Horde/Core/Ajax/Application.php" name="lib/Horde/Core/Ajax/Application.php" />
@@ -4085,7 +4087,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-12-04</date>
+   <date>2015-12-10</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

@@ -833,6 +833,19 @@ class Horde_Core_ActiveSync_Connector
     }
 
     /**
+     * Wrapper around Horde_Registry::hasMethod.
+     *
+     * @param string $api     The API to check.
+     * @param string $method  The method name.
+     *
+     * @return boolean
+     */
+    public function horde_hasMethod($method, $api)
+    {
+        return $this->_registry->hasMethod($method, $this->_registry->hasInterface($api));
+    }
+
+    /**
      * Return the currently set vacation message details.
      *
      * @return array|boolean  The vacation rule properties or false if
@@ -1390,6 +1403,11 @@ class Horde_Core_ActiveSync_Connector
     public function clearAuth()
     {
         $this->_registry->clearAuth(true);
+    }
+
+    public function mdnSend($mdn)
+    {
+        return $this->_registry->mail->mdnSend($mdn->headers(), $mdn->mailbox(), $mdn->uid());
     }
 
 }

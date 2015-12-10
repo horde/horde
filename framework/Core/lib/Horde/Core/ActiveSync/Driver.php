@@ -1916,10 +1916,28 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     'flags' => array(),
                     'categories' => false
                 );
+
                 if ($message->read !== '') {
                     $this->setReadFlag($folderid, $id, $message->read);
                     $stat['flags'] = array_merge($stat['flags'], array('read' => $message->read));
+
+                    // Do RFC 3798 MDN checks. If $message->read is being set to
+                    // FLAG_READ_SEEN, then we *might* be able to send one.
+                    if ($message->read == Horde_ActiveSync_Message_Mail::FLAG_READ_SEEN) {
+                        $this->_logger->info(sprintf(
+                            "[%s] Checking for MDN",
+                            $this->_pid)
+                        );
+                        $mdn = new Horde_Core_ActiveSync_Mdn($folderid, $id, $this->_imap, $this->_connector);
+                        if ($mdn->mdnCheck()) {
+                            $this->_logger->info(sprintf(
+                                "[%s] Sending MDN",
+                                $this->_pid)
+                            );
+                        }
+                    }
                 }
+
                 if ($message->propertyExists('flag')) {
                     if (!$message->flag) {
                         $message->flag = Horde_ActiveSync::messageFactory('Flag');
