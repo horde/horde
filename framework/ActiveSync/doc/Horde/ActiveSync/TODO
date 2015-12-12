@@ -126,3 +126,8 @@ BC BREAKING (i.e., Horde 6).
   (like Outlook). Also, standardize the data format instead of having to
   (re)build a flat array from a multidimensional array of 'changes', 'add' etc..
 
+- Use a configuration object (or maybe a Builder) for constructing the
+  ActiveSync Driver and Server objects. At the very least, need to clean up the
+  constructor parameters and various configuration options mess. (E.g., the
+  "PING" configuration values are no longer really all strictly related to PING
+  requests).
