@@ -21,6 +21,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Allow global request window size limit to be overridden.
+* [mjr] Fix issue where global request window size was being reached prematurely.
 * [mjr] Fix potential fatal error due to incorrect exception name.
  </notes>
  <contents>
@@ -2905,6 +2907,8 @@
    <date>2015-11-22</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Allow global request window size limit to be overridden.
+* [mjr] Fix issue where global request window size was being reached prematurely.
 * [mjr] Fix potential fatal error due to incorrect exception name.
    </notes>
   </release>
