@@ -12,7 +12,7 @@
  </lead>
  <date>2015-12-12</date>
  <version>
-  <release>2.30.3</release>
+  <release>2.30.4</release>
   <api>2.30.0</api>
  </version>
  <stability>
@@ -21,9 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Allow global request window size limit to be overridden.
-* [mjr] Fix issue where global request window size was being reached prematurely.
-* [mjr] Fix potential fatal error due to incorrect exception name.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2910,6 +2908,19 @@
 * [mjr] Allow global request window size limit to be overridden.
 * [mjr] Fix issue where global request window size was being reached prematurely.
 * [mjr] Fix potential fatal error due to incorrect exception name.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.30.4</release>
+    <api>2.30.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-12-12</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
