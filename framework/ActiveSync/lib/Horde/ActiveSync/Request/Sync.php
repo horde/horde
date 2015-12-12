@@ -274,6 +274,11 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
 
         $pingSettings = $this->_driver->getHeartbeatConfig();
 
+        // Override the total, per-request, WINDOWSIZE?
+        if (!empty($pingSettings['maximumrequestwindowsize'])) {
+            $this->_collections->setDefaultWindowSize($pingSettings['maximumrequestwindowsize'], true);
+        }
+
         // If this is >= 12.1, see if we want a looping SYNC.
         if ($this->_collections->canDoLoopingSync() &&
             $this->_device->version >= Horde_ActiveSync::VERSION_TWELVEONE &&
@@ -490,13 +495,13 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                         ? min($collection['windowsize'], $pingSettings['maximumwindowsize'])
                         : $collection['windowsize'];
 
-                    if ((!empty($changecount) && $changecount > $max_windowsize) ||
-                        ($cnt_global + $changecount > $this->_collections->getDefaultWindowSize())) {
+                    if (!empty($changecount) &&
+                        (($changecount > $max_windowsize) || $cnt_global + $max_windowsize > $this->_collections->getDefaultWindowSize())) {
                         $this->_logger->info(sprintf(
-                            '[%s] Sending MOREAVAILABLE. WINDOWSIZE = %d, $changecount = %d, $cnt_global = %d',
-                            $this->_procid, $max_windowsize, $changecount, $cnt_global));
+                            '[%s] Sending MOREAVAILABLE. WINDOWSIZE = %d, $changecount = %d, MAX_REQUEST_WINDOWSIZE = %d, $cnt_global = %d',
+                            $this->_procid, $max_windowsize, $changecount, $this->_collections->getDefaultWindowSize(), $cnt_global));
                         $this->_encoder->startTag(Horde_ActiveSync::SYNC_MOREAVAILABLE, false, true);
-                        $over_window = ($cnt_global + $changecount > $this->_collections->getDefaultWindowSize());
+                        $over_window = ($cnt_global + $max_windowsize > $this->_collections->getDefaultWindowSize());
                     }
 
                     if (!empty($changecount)) {

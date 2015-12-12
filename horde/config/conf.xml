@@ -2392,21 +2392,44 @@
       during each heartbeat.">15</configinteger>
       <configheader>Maximum Collection Window Size</configheader>
       <configdescription>The Maximum Collection Window Size specifies the
-      maximum number of messages that can be sent to the client in a single
-      request before a MOREAVAILABLE flag is sent indicating the remaining
-      messages should be fetched in the next request. This is normally
-      automatically handled by the client but it may be helpful to explicitly
-      limit this if the server is hitting against PHP's memory limit. This is
-      especially true when synchronizing with Outlook, which has an
-      extremely high default window size. If you need to set this, start with
-      a value such as 100 and increase/decrease as necessary after testing. A
-      value of 0 indicates that the client's value will be honored. Setting this
-      to lower values will also make it appear that the client is performing the
-      initial sync quicker, at the expense of needing more server requests.
+      maximum number of messages from a single collection/folder that can be
+      sent to the client in a single request before a MOREAVAILABLE flag is sent
+      (indicating the remaining messages should be fetched in the next request).
+      This is normally automatically handled by the client but it may be helpful
+      to explicitly limit this if the server is hitting against PHP's memory
+      limit. This is especially true when synchronizing with Outlook, which has
+      an extremely high default window size.
+      There is also a per-REQUEST limit that can be enforced. The server will
+      NEVER send more than the per-request value in a single HTTP request. If
+      the server reaches the per-COLLECTION value, but not the per-REQUEST
+      value, a MOREAVAILABLE flag will be sent and processing will move on to
+      the next collection. This continues until the per-request value is
+      reached. So, for example, you may limit the total number of responses per
+      request to 100, but the per-collection limit to 10. This will limit the
+      size of the total response, while allowing more collections to begin to
+      populate sooner. Setting the per-request closer to or equal to the
+      per-collection value will still limit the total number of responses, but
+      it will take more requests to begin to populate each collection.
+      In Outlook, for example, it will take longer for individual email folders
+      to BEGIN to populate during initial sync.
+
+      If you need to set this, start with a total per-REQUEST limit of 100 and
+      increase/decrease as necessary after testing. A value of 0 indicates that
+      the client's value will be honored. Setting the per-REQUEST limit, but
+      leaving the per-COLLECTION limit at 0 will attempt to honor the
+      per-collection limit of the client, while still limiting the total number
+      of responses sent during a single HTTP request.
+
+      Setting this to lower values will also make it appear that the client is
+      performing the initial sync quicker, at the expense of needing more server
+      requests.
       </configdescription>
-      <configinteger name="maximumwindowsize" desc="The Maximum Window Size to
-      use, overriding the client sent value. Set to 0 to use the client value.">
-      0</configinteger>
+      <configinteger name="maximumwindowsize" desc="The Maximum Collection
+      Window Size to use, overriding the client sent value. Set to 0 to use
+      the client value.">0</configinteger>
+      <configinteger name="maximumrequestwindowsize" desc="The Maximum Request
+      Window Size to use, overriding the client sent value. Set to 0 to use the
+      client value.">0</configinteger>
      </configsection>
     </case>
    </configswitch>

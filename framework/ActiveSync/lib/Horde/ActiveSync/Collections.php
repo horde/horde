@@ -77,10 +77,18 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
 
     /**
      * Global WINDOWSIZE
+     * Defaults to 100 (MS-ASCMD 2.2.3.188)
      *
      * @var integer
      */
     protected $_globalWindowSize = 100;
+
+    /**
+     * Flag to indicate we have overridden the globalWindowSize
+     *
+     * @var boolean
+     */
+    protected $_windowsizeOverride = false;
 
     /**
      * Imported changes flag.
@@ -432,11 +440,19 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
      * that can be sent (including all collections). This method should be
      * renamed for 3.0
      *
-     * @param integer $window  The windowsize
+     * @param integer $window    The windowsize
+     * @param boolean $override  If true, this value will override any client
+     *                           supplied value.
      */
-    public function setDefaultWindowSize($window)
+    public function setDefaultWindowSize($window, $override = false)
     {
-        $this->_globalWindowSize = $window;
+        if ($override) {
+            $this->_windowsizeOverride = true;
+        }
+
+        if ($override || empty($this->_windowsizeOverride)) {
+            $this->_globalWindowSize = $window;
+        }
     }
 
     public function getDefaultWindowSize()
