@@ -11,6 +11,7 @@
  * @author  Paul Gareau <paul@xhawk.net>
  * @author  Patrice Levesque <wayne@ptaff.ca>
  * @package Vfs
+ * @todo    Add driver for smbclient extension https://github.com/eduardok/libsmbclient-php
  */
 
 /**

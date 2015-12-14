@@ -142,11 +142,18 @@ class Client
      */
     public function startTls()
     {
-        if ($this->connected &&
-            !$this->secure &&
-            (@stream_socket_enable_crypto($this->_stream, true, STREAM_CRYPTO_METHOD_TLS_CLIENT) === true)) {
-            $this->_secure = true;
-            return true;
+        if ($this->connected && !$this->secure) {
+            if (defined('STREAM_CRYPTO_METHOD_TLSv1_0_CLIENT')) {
+                $mode = STREAM_CRYPTO_METHOD_TLSv1_0_CLIENT
+                    | STREAM_CRYPTO_METHOD_TLSv1_1_CLIENT
+                    | STREAM_CRYPTO_METHOD_TLSv1_2_CLIENT;
+            } else {
+                $mode = STREAM_CRYPTO_METHOD_TLS_CLIENT;
+            }
+            if (@stream_socket_enable_crypto($this->_stream, true, $mode) === true) {
+                $this->_secure = true;
+                return true;
+            }
         }
 
         return false;
