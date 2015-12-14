@@ -318,6 +318,7 @@ AnselCore =
     listGalleriesCallback: function(r)
     {
         this.galleryLayout.galleries = $H(r).values();
+        // @todo - do we want to always update the sidebar here too?
         this.galleryLayout.resize();
     },
 
