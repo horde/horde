@@ -1,23 +1,29 @@
 
 <div class="horde-sidebar-split"></div>
 <div id="anselMenu">
-  <div id="anselNavMe" class="horde-subnavi">
-    <div class="horde-subnavi-icon">
-      <a class="icon"></a>
+  <div>
+    <h3>
+      <span title="<?php echo _("View") ?>"><?php echo _("View") ?></span>
+    </h3>
+    <div id="anselNavMe" class="horde-subnavi">
+      <div class="horde-subnavi-icon">
+        <a class="icon"></a>
+      </div>
+      <div class="horde-subnavi-point"><?php echo _("Mine") ?></div>
     </div>
-    <div class="horde-subnavi-point"><?php echo _("Me") ?></div>
-  </div>
-  <div id="anselNavAll" class="horde-subnavi">
-    <div class="horde-subnavi-icon">
-      <a class="icon"></a>
+    <div id="anselNavAll" class="horde-subnavi">
+      <div class="horde-subnavi-icon">
+        <a class="icon"></a>
+      </div>
+      <div class="horde-subnavi-point"><?php echo _("All") ?></div>
     </div>
-    <div class="horde-subnavi-point"><?php echo _("All") ?></div>
-  </div>
-  <div id="anselNavSubscribed" class="horde-subnavi">
-    <div class="horde-subnavi-icon">
-      <a class="icon"></a>
+    <!-- TODO -->
+    <div id="anselNavSubscribed" class="horde-subnavi">
+      <div class="horde-subnavi-icon">
+        <a class="icon"></a>
+      </div>
+      <div class="horde-subnavi-point"><?php echo _("Subscribed") ?></div>
     </div>
-    <div class="horde-subnavi-point"><?php echo _("Subscribed") ?></div>
   </div>
   <div class="horde-sidebar-split"></div>
     <div>
