@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix writing big session data to Oracle (Bug #14175).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -590,7 +590,7 @@ Initial release as a PEAR package
    <date>2015-10-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix writing big session data to Oracle (Bug #14175).
    </notes>
   </release>
  </changelog>

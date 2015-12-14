@@ -128,32 +128,22 @@ class Horde_SessionHandler_Storage_Sql extends Horde_SessionHandler_Storage
         }
 
         /* Update or insert session data. */
-        $session_data = new Horde_Db_Value_Binary($session_data);
+        $values = array(
+            'session_data' => new Horde_Db_Value_Binary($session_data),
+            'session_lastmodified' => time()
+        );
         try {
             if ($exists) {
-                $query = sprintf(
-                    'UPDATE %s '
-                    . 'SET session_data = ?, session_lastmodified = ? '
-                    . 'WHERE session_id = ?',
-                    $this->_params['table']);
-                $values = array(
-                    $session_data,
-                    time(),
-                    $id
+                $this->_db->updateBlob(
+                    $this->_params['table'],
+                    $values,
+                    array('session_id = ?', array($id))
                 );
-                $this->_db->update($query, $values);
             } else {
-                $query = sprintf(
-                    'INSERT INTO %s '
-                    . '(session_id, session_data, session_lastmodified) '
-                    . 'VALUES (?, ?, ?)',
-                    $this->_params['table']);
-                $values = array(
-                    $id,
-                    $session_data,
-                    time()
+                $this->_db->insertBlob(
+                    $this->_params['table'],
+                    array_merge(array('session_id' => $id), $values)
                 );
-                $this->_db->insert($query, $values);
             }
             $this->_db->commitDbTransaction();
         } catch (Horde_Db_Exception $e) {

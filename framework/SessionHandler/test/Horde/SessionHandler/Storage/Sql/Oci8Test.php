@@ -30,4 +30,14 @@ class Horde_SessionHandler_Storage_Sql_Oci8Test extends Horde_SessionHandler_Sto
         self::$db = new Horde_Db_Adapter_Oci8($config['sessionhandler']['sql']['oci8']);
         parent::setUpBeforeClass();
     }
+
+    public function testLargeWrite()
+    {
+        $this->assertTrue(self::$handler->open(self::$dir, 'sessiondata'));
+        $this->assertSame('', self::$handler->read('largedata'));
+        // Write twice to test both INSERT and UPDATE.
+        $this->assertTrue(self::$handler->write('largedata', str_repeat('x', 4001)));
+        $this->assertTrue(self::$handler->write('largedata', str_repeat('x', 4001)));
+        $this->assertTrue(self::$handler->destroy('largedata'));
+    }
 }
