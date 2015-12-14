@@ -29,18 +29,22 @@ class Ansel_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
     protected $_external = array('embed');
 
     /**
-     * Return an array of gallery objects, matching the requested paramters.
+     * Return an array of gallery objects, matching the requested parameters.
      *
-     * @todo
+     * @see  Ansel_Storage::listGalleries for list of parameters.
      *
      * @return array A hash of gallery id -> gallery object.
      */
     public function listGalleries()
     {
         $params = array(
-            'attributes' => $GLOBALS['registry']->getAuth(),
             'all_levels' => false
         );
+        if (!empty($this->vars->user) && $this->vars->user != '*') {
+            $params['attributes'] = $this->vars->user;
+        } elseif (empty($this->vars->user)) {
+            $params['attributes'] = $GLOBALS['registry']->getAuth();
+        }
         $galleries = $GLOBALS['storage']->listGalleries($params);
         $return = new stdClass();
         foreach ($galleries as $gallery) {

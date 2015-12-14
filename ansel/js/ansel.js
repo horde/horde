@@ -228,10 +228,15 @@ AnselCore =
                 $('anselViewImages').stopObserving('AnselLayout:scroll', this.onImageScroll.bindAsEventListener(this));
                 $('anselViewGalleries').observe('AnselLayout:scroll', this.onGalleryScroll.bindAsEventListener(this));
                 if (data) {
+                    // Loading a single gallery.
                     this.addHistory(view + ':' + subview + ':' + data);
                     this.loadGallery(data);
                 } else {
+                    // Listing galleries.
                     this.addHistory(view + ':' + subview);
+                    if (view == 'all') {
+                        params = { user: '*' };
+                    }
                     HordeCore.doAction('listGalleries', {}, { callback: this.listGalleriesCallback.bind(this) });
                 }
                 break;
