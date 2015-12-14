@@ -44,14 +44,16 @@
       <div id="anselLoading" style="display:none"></div>
         <div id="anselSizer">&nbsp;</div>
         <!-- Images -->
+        <div id="anselImagesTitle" class="smallheader"></div>
         <div id="anselViewImages" style="display;none;">
-            <div id="anselImagesMain"></div>
+          <div id="anselImagesMain"></div>
         </div>
         <!-- End Images -->
 
         <!-- Galleries -->
+        <div id="anselGalleriesTitle"></div>
         <div id="anselViewGalleries" style="display;none;">
-            <div id="anselGalleriesMain"></div>
+          <div id="anselGalleriesMain"></div>
         </div>
         <!-- End Galleries -->
 

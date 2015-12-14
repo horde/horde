@@ -223,3 +223,15 @@ html, body {
     position: relative;
     z-index: 9999;
 }
+
+#anselGalleriesTitle {
+    font-size:18px;
+    text-align: center;
+}
+.ansel-gallery-desc {
+    font-size: 14px;
+    font-weight: normal;
+}
+.ansel-gallery-share {
+
+}

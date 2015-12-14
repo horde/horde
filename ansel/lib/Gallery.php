@@ -1178,6 +1178,8 @@ class Ansel_Gallery implements Serializable
      * @return StdClass  An object describing the gallery
      * <pre>
      * 'id' - gallery id
+     * 'o'  - gallery owner.
+     * 'o'  - gallery owner's fullname.
      * 'p'  - gallery's parent's id (null if top level)
      * 'pn' - gallery's parent's name (null if top level)
      * 'n'  - gallery name
@@ -1221,6 +1223,8 @@ class Ansel_Gallery implements Serializable
         $json->imgs = array();
         $json->ct = $this->countImages(true);
         $json->cs = $this->countChildren($GLOBALS['registry']->getAuth(), Horde_Perms::SHOW, false);
+        $json->o = $this->get('owner');
+        $json->on = $this->getIdentity()->getValue('fullname');
 
         // Parent
         $parents = $this->getParents();

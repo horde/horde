@@ -37,7 +37,7 @@
       </div>
     </div>
   <div class="horde-sidebar-split"></div>
-  <div id="anselMenuOtherGalleries" style="display:none;">
+  <div id="anselSidebarOtherGalleries" style="display:none;">
   <h3>
     <span class="horde-expand" title="<?php echo _("Collapse") ?>"><?php echo _("User Galleries") ?></span>
   </h3>

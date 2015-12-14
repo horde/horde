@@ -131,15 +131,28 @@ AnselCore =
 
         var locCap = loc.capitalize();
         switch (loc) {
+        case 'upload':
+            $('anseluploader').update();
+            $('anselHeader').hide();
+            this.view = loc;
+            $('anselView' + locCap).appear({
+                duration: this.effectDur,
+                queue: 'end',
+                afterFinish: function() {
+                    this.updateView(loc);
+                    this.loadNextView();
+                }.bind(this) });
+            break;
+
         case 'me':
         case 'all':
         case 'subscribed':
-        case 'upload':
-            if (loc != 'upload' && subview != 'image') {
+            if (subview != 'image') {
                 $('anselNav' + locCap).addClassName('horde-subnavi-active');
-                $('anselMenu' + subview.capitalize()).up().addClassName('horde-active');
+                if ($('anselMenu' + subview.capitalize())) {
+                    $('anselMenu' + subview.capitalize()).up().addClassName('horde-active');
+                }
             }
-            $('anselHeader').show();
             switch (loc) {
             case 'me':
             case 'all':
@@ -156,9 +169,7 @@ AnselCore =
                 });
                 //$('anselLoading' + loc).insert($('anselLoading').remove());
                 break;
-            case 'upload':
-                $('anseluploader').update();
-                $('anselHeader').hide();
+
             default:
                 if (!$('anselView' + locCap)) {
                     break;
@@ -191,6 +202,8 @@ AnselCore =
     loadNextView: function()
     {
         var current = this.viewLoading.shift();
+        $('anselSidebarOtherGalleries').hide();
+        $('anselSidebarOtherGalleries').down('span').update('');
         if (this.viewLoading.size()) {
             var next = this.viewLoading.pop();
             this.viewLoading = [];
@@ -237,7 +250,7 @@ AnselCore =
                     if (view == 'all') {
                         params = { user: '*' };
                     }
-                    HordeCore.doAction('listGalleries', {}, { callback: this.listGalleriesCallback.bind(this) });
+                    HordeCore.doAction('listGalleries', params, { callback: this.listGalleriesCallback.bind(this) });
                 }
                 break;
             case 'image':
@@ -339,28 +352,45 @@ AnselCore =
     /**
      * Closes the currently active view.
      *
-     * loc - the *current* location
+     * loc - the *currently selected* location.
      * subview - the *currently selected* subview.
      */
     closeView: function(loc, subview)
     {
         $w('Me All Subscribed').each(function(a) {
             a = $('anselNav' + a);
-            console.log(a);
             if (a) {
                 a.removeClassName('horde-subnavi-active');
             }
         });
-        $w('Images Galleries Map Date Tags').each(function(a) {
-            a = $('anselMenu' + a);
-            if (a) {
-                a.up().removeClassName('horde-active');
-            }
-        });
-        if (loc == 'upload') {
-            this.subview == 'upload';
+
+        // $('anselHeader') is hidden in upload view.
+        if ($('anselHeader')) {
+            $w('Images Galleries Map Date Tags').each(function(a) {
+                a = $('anselMenu' + a);
+                if (a) {
+                    a.up().removeClassName('horde-active');
+                }
+            });
         }
-        if (this.subview) {
+
+        // If previously displayed view was upload, we need to reset things.
+        // (We don't change the subview when selecting upload so we can
+        // revert back to the same subview if we exit out).
+        if (this.view == 'upload') {
+            $('anselViewUpload').fade({
+                duration: this.effectDur,
+                queue: 'end',
+                afterFinish: function() {
+                    if (subview == 'galleries') {
+                        this.galleryLayout.reset();
+                    } else if (subview == 'images') {
+                        this.imagesLayout.reset();
+                    }
+                    $('anselHeader').show();
+                }.bind(this)
+            });
+        } else if(this.subview) {
             $('anselView' + this.subview.capitalize()).fade({
                 duration: this.effectDur,
                 queue: 'end',
@@ -375,6 +405,8 @@ AnselCore =
             if (this.subview == 'image') {
                 this.imageLayout.reset();
             }
+            $('anselGalleriesTitle').update();
+            $('anselImagesTitle').update();
         }
     },
 
@@ -410,7 +442,35 @@ AnselCore =
     getGalleryCallback: function(r)
     {
         this.galleryLayout.reset();
+        // @todo - real breadcrumb, display either "info" or "edit" depending
+        // on permissions?
+        $('anselGalleriesTitle').update(r.n).insert(
+            new Element('div', { 'class': 'ansel-gallery-desc' }).update(r.d)).insert(
+                new Element('div', { 'class': 'ansel-gallery-actions' }).insert(
+                    new Element('img', { src: Ansel.conf.images['edit'] })).insert(
+                    new Element('img', { src: Ansel.conf.images['download'], 'class': 'ansel-gallery-download' })).insert(
+                    new Element('img', { src: Ansel.conf.images['upload'], 'class': 'ansel-gallery-upload' }))
+            );
         this.galleryLayout.addImages(r.imgs);
+        this.updateOtherGalleries(r);
+    },
+
+    updateOtherGalleries: function(r)
+    {
+        HordeCore.doAction(
+            'listGalleries',
+            { user: r.o },
+            { callback: this.updateOtherGalleriesCallback.bind(this, r.on) }
+        );
+    },
+
+    updateOtherGalleriesCallback: function(on, r)
+    {
+        $('anselSidebarOtherGalleries').down('span').update(on);
+        // @todo - need to implement a folder tree manager/objects.
+        // $H(r).each(function(g) {
+        // });
+        $('anselSidebarOtherGalleries').show();
     },
 
     /**
@@ -477,7 +537,8 @@ AnselCore =
 
         while (Object.isElement(elt)) {
             id = elt.readAttribute('id');
-                if (this.subview.empty()) {
+                // Make sure we have a default subview.
+                if (!this.subview) {
                     this.subview = 'images';
                 }
             switch (id) {
@@ -506,6 +567,10 @@ AnselCore =
             switch (elt.className) {
             case 'ansel-tile-target':
                 this.go('me:image:' + elt.retrieve('photo').id, elt.retrieve('photo'));
+                break;
+            case 'ansel-gallery-upload':
+                // Upload link from gallery "actions" icons.
+                this.go('upload:upload');
                 break;
             // case 'ansel-imageview-close':
             //     this.go(this.lastLocation);

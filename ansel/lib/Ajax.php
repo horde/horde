@@ -71,6 +71,11 @@ class Ansel_Ajax
         $js_vars['conf'] = array_filter(array(
             'images' => array(
                 //'alarm'     => strval(Horde_Themes::img('alarm-fff.png')),
+                'info' => strval(Horde_Themes::img('info_icon.png')),
+                'edit' => strval(Horde_Themes::img('edit.png')),
+                'download' => strval(Horde_Themes::img('download.png')),
+                // @todo Better upload icon
+                'upload' => strval(Horde_Themes::img('add.png'))
             ),
             'jsuri' =>  $registry->get('jsuri', 'horde'),
             'user' => $registry->convertUsername($auth_name, false),
@@ -110,6 +115,7 @@ class Ansel_Ajax
             'subgalleries' => _("Sub-galleries"),
             'taken' => _("Taken"),
             'choose_gallery' => _("Choose gallery"),
+            'galleries_by' => _("Galleries by"),
             'uploader' => array(
                 'start' => _("Upload"),
                 'add' => _("Add Images"),
