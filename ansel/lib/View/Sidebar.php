@@ -30,9 +30,9 @@ class Ansel_View_Sidebar extends Horde_View_Sidebar
 
         $blank = new Horde_Url();
         $this->addNewButton(
-            _("Upload Images"),
+            _("Add Gallery"),
             $blank,
-            array('id' => 'anselUpload')
+            array('id' => 'anselSideBarAddGallery')
         );
 
         $sidebar = $injector->createInstance('Horde_View');
