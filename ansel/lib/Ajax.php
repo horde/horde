@@ -116,6 +116,9 @@ class Ansel_Ajax
             'taken' => _("Taken"),
             'choose_gallery' => _("Choose gallery"),
             'galleries_by' => _("Galleries by"),
+            'edit' => _("Edit"),
+            'download' => _("Download"),
+            'upload' => _("Upload"),
             'uploader' => array(
                 'start' => _("Upload"),
                 'add' => _("Add Images"),

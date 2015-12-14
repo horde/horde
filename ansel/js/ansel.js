@@ -447,9 +447,9 @@ AnselCore =
         $('anselGalleriesTitle').update(r.n).insert(
             new Element('div', { 'class': 'ansel-gallery-desc' }).update(r.d)).insert(
                 new Element('div', { 'class': 'ansel-gallery-actions' }).insert(
-                    new Element('img', { src: Ansel.conf.images['edit'] })).insert(
-                    new Element('img', { src: Ansel.conf.images['download'], 'class': 'ansel-gallery-download' })).insert(
-                    new Element('img', { src: Ansel.conf.images['upload'], 'class': 'ansel-gallery-upload' }))
+                    new Element('img', { title: Ansel.text['edit'], src: Ansel.conf.images['edit'] })).insert(
+                    new Element('img', { title: Ansel.text['download'], src: Ansel.conf.images['download'], 'class': 'ansel-gallery-download' })).insert(
+                    new Element('img', { title: Ansel.text['upload'], src: Ansel.conf.images['upload'], 'class': 'ansel-gallery-upload' }))
             );
         this.galleryLayout.addImages(r.imgs);
         this.updateOtherGalleries(r);
