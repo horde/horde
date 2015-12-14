@@ -15,6 +15,9 @@ AnselCore =
     // The current view name.
     view: '',
 
+    // Current subview name.
+    subview: '',
+
     // Stack of loading views.
     viewLoading: [],
 
