@@ -1,4 +1,6 @@
 <?php
+$conf['sessionhandler']['memcache']['hostspec'] = array('localhost');
+$conf['sessionhandler']['memcache']['port'] = array(11211);
 $conf['sessionhandler']['sql']['mysql']['adapter'] = 'mysql';
 $conf['sessionhandler']['sql']['mysql']['host'] = 'localhost';
 $conf['sessionhandler']['sql']['mysql']['username'] = '';
