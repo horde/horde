@@ -333,10 +333,11 @@ AnselCore =
      */
     closeView: function(loc, subview)
     {
-        $w('Me Groups Subscribed').each(function(a) {
+        $w('Me All Subscribed').each(function(a) {
             a = $('anselNav' + a);
+            console.log(a);
             if (a) {
-                a.up().removeClassName('horde-subnavi-active');
+                a.removeClassName('horde-subnavi-active');
             }
         });
         $w('Images Galleries Map Date Tags').each(function(a) {
