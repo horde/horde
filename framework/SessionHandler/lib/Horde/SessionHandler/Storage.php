@@ -9,6 +9,7 @@
  * @copyright 2002-2015 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   SessionHandler
+ * @todo      Use SessionHandlerInterface from PHP 5.4
  */
 
 /**
