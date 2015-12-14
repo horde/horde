@@ -48,7 +48,7 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
         return sprintf('<input type="text" size="5" name="%s" id="%s" value="%s"%s />',
                        htmlspecialchars($var->getVarName()),
                        $this->_genID($var->getVarName(), false),
-                       $value,
+                       htmlspecialchars($value),
                        $this->_getActionScripts($form, $var)
                );
     }
