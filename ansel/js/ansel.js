@@ -208,6 +208,8 @@ AnselCore =
      */
     updateView: function(view, subview, data)
     {
+        var params = {};
+
         switch (view) {
         case 'me':
         case 'all':
@@ -469,7 +471,9 @@ AnselCore =
 
         while (Object.isElement(elt)) {
             id = elt.readAttribute('id');
-
+                if (this.subview.empty()) {
+                    this.subview = 'images';
+                }
             switch (id) {
             case 'anselMenuImages':
                 this.go(this.view + ':images');
@@ -482,11 +486,11 @@ AnselCore =
                 return;
 
             case 'anselNavMe':
-                this.go('me:images');
+                this.go('me:' + this.subview)
                 return;
 
             case 'anselNavAll':
-                this.go('all:images');
+                this.go('all:' + this.subview);
                 return;
 
             }
