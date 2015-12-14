@@ -45,14 +45,14 @@ class Horde_SessionHandler_Storage_External extends Horde_SessionHandler_Storage
      */
     public function open($save_path = null, $session_name = null)
     {
-        call_user_func($this->_params['open'], $save_path, $session_name);
+        return call_user_func($this->_params['open'], $save_path, $session_name);
     }
 
     /**
      */
     public function close()
     {
-        call_user_func($this->_params['close']);
+        return call_user_func($this->_params['close']);
     }
 
     /**

@@ -65,6 +65,7 @@ class Horde_SessionHandler_Storage_Sql extends Horde_SessionHandler_Storage
      */
     public function open($save_path = null, $session_name = null)
     {
+        return true;
     }
 
     /**

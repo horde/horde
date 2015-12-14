@@ -53,8 +53,11 @@ class Horde_SessionHandler_Storage_Stack extends Horde_SessionHandler_Storage
     public function open($save_path = null, $session_name = null)
     {
         foreach ($this->_stack as $val) {
-            $val->open($save_path, $session_name);
+            if (!$val->open($save_path, $session_name)) {
+                return false;
+            }
         }
+        return true;
     }
 
     /**
@@ -62,8 +65,11 @@ class Horde_SessionHandler_Storage_Stack extends Horde_SessionHandler_Storage
     public function close()
     {
         foreach ($this->_stack as $val) {
-            $val->close();
+            if (!$val->close()) {
+                return false;
+            }
         }
+        return true;
     }
 
     /**

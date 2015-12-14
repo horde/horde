@@ -56,6 +56,7 @@ class Horde_SessionHandler_Storage_File extends Horde_SessionHandler_Storage
      */
     public function open($save_path = null, $session_name = null)
     {
+        return true;
     }
 
     /**
@@ -97,7 +98,7 @@ class Horde_SessionHandler_Storage_File extends Horde_SessionHandler_Storage
         $this->_open($id);
 
         if (!$this->_fp) {
-            return '';
+            return false;
         }
 
         $data = '';

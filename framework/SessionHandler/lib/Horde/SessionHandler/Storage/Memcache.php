@@ -83,6 +83,7 @@ class Horde_SessionHandler_Storage_Memcache extends Horde_SessionHandler_Storage
      */
     public function open($save_path = null, $session_name = null)
     {
+        return true;
     }
 
     /**
@@ -92,6 +93,7 @@ class Horde_SessionHandler_Storage_Memcache extends Horde_SessionHandler_Storage
         if (isset($this->_id)) {
             $this->_memcache->unlock($this->_id);
         }
+        return true;
     }
 
     /**
