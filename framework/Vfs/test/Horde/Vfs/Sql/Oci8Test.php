@@ -31,4 +31,12 @@ class Horde_Vfs_Sql_Oci8Test extends Horde_Vfs_Test_Sql_Base
             self::$reason = 'No oci8 configuration';
         }
     }
+
+    public function testWriteLargeData()
+    {
+        // Write twice to test both INSERT and UPDATE.
+        self::$vfs->writeData('', 'large', str_repeat('x', 4001));
+        self::$vfs->writeData('', 'large', str_repeat('x', 4001));
+        self::$vfs->deleteFile('', 'large');
+    }
 }

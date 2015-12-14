@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Fix updating large files in Oracle backends.
 * [jan] Fix writing big session data to Oracle (Bug #14175).
  </notes>
  <contents>
@@ -131,7 +132,7 @@
    <package>
     <name>Horde_Db</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.3</min>
+    <min>2.2.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -590,6 +591,7 @@ Initial release as a PEAR package
    <date>2015-10-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Fix updating large files in Oracle backends.
 * [jan] Fix writing big session data to Oracle (Bug #14175).
    </notes>
   </release>

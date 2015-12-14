@@ -753,32 +753,26 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
      */
     protected function _updateBlob($table, $field, $data, $where, $alsoupdate)
     {
-        $updatestring = '';
-        $values = array();
-        foreach ($alsoupdate as $key => $value) {
-            $updatestring .= $key . ' = ?, ';
-            $values[] = $value;
-        }
-        $updatestring .= $field . ' = ?';
-        $values[] = new Horde_Db_Value_Binary($data);
-
         $wherestring = '';
+        $wherevalues = array();
         foreach ($where as $key => $value) {
             if (!empty($wherestring)) {
                 $wherestring .= ' AND ';
             }
             $wherestring .= $key . ' = ?';
-            $values[] = $value;
+            $wherevalues[] = $value;
         }
-
-        $query = sprintf('UPDATE %s SET %s WHERE %s',
-                         $table,
-                         $updatestring,
-                         $wherestring);
 
         /* Execute the query. */
         try {
-            $this->_db->update($query, $values);
+            $this->_db->updateBlob(
+                $table,
+                array_merge(
+                    $alsoupdate,
+                    array($field => new Horde_Db_Value_Binary($data))
+                ),
+                array($wherestring, $wherevalues)
+            );
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Vfs_Exception($e);
         }
