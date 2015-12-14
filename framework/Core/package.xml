@@ -30,7 +30,7 @@
  </developer>
  <date>2015-12-14</date>
  <version>
-  <release>2.22.4</release>
+  <release>2.22.5</release>
   <api>2.22.0</api>
  </version>
  <stability>
@@ -39,8 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] SECURITY: Fix XSS in Horde_Core_VarRenderer_Html (reported by Centurion Information Security &lt;www.centurioninfosec.sg&gt;).
-* [mjr] Support sending MDN via ActiveSync (Request #23080).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4093,6 +4092,19 @@
    <notes>
 * [mjr] SECURITY: Fix XSS in Horde_Core_VarRenderer_Html (reported by Centurion Information Security &lt;www.centurioninfosec.sg&gt;).
 * [mjr] Support sending MDN via ActiveSync (Request #23080).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.22.5</release>
+    <api>2.22.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-12-14</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
