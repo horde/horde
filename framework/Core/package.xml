@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2015-12-10</date>
+ <date>2015-12-14</date>
  <version>
   <release>2.22.4</release>
   <api>2.22.0</api>
@@ -4088,7 +4088,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-12-10</date>
+   <date>2015-12-14</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] SECURITY: Fix XSS in Horde_Core_VarRenderer_Html (reported by Centurion Information Security &lt;www.centurioninfosec.sg&gt;).
