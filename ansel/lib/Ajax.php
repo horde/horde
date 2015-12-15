@@ -74,8 +74,8 @@ class Ansel_Ajax
                 'info' => strval(Horde_Themes::img('info_icon.png')),
                 'edit' => strval(Horde_Themes::img('edit.png')),
                 'download' => strval(Horde_Themes::img('download.png')),
-                // @todo Better upload icon
-                'upload' => strval(Horde_Themes::img('add.png'))
+                'upload' => strval(Horde_Themes::img('add.png')),
+                'slideshow_play' => strval(Horde_Themes::img('slideshow_play.png')),
             ),
             'jsuri' =>  $registry->get('jsuri', 'horde'),
             'user' => $registry->convertUsername($auth_name, false),
@@ -118,6 +118,7 @@ class Ansel_Ajax
             'galleries_by' => _("Galleries by"),
             'edit' => _("Edit"),
             'download' => _("Download"),
+            'slideshow_play' => _("Start Slideshow"),
             'upload' => _("Upload"),
             'uploader' => array(
                 'start' => _("Upload"),

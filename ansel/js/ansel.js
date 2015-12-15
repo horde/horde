@@ -55,7 +55,7 @@ AnselCore =
      * The current (main) location.
      *
      * This is different from openLocation as it isn't updated for any
-     * locations that are opened in a popup view, e.g. events.
+     * locations that are opened in a popup view.
      *
      * @var string
      */
@@ -447,7 +447,8 @@ AnselCore =
         $('anselGalleriesTitle').update(r.n).insert(
             new Element('div', { 'class': 'ansel-gallery-desc' }).update(r.d)).insert(
                 new Element('div', { 'class': 'ansel-gallery-actions' }).insert(
-                    new Element('img', { title: Ansel.text['edit'], src: Ansel.conf.images['edit'] })).insert(
+                    new Element('img', { title: Ansel.text['slideshow_play'], src: Ansel.conf.images['slideshow_play'], 'class': 'ansel-gallery-slideshowplay' })).insert(
+                    new Element('img', { title: Ansel.text['edit'], src: Ansel.conf.images['edit'], 'class': 'ansel-gallery-edit' })).insert(
                     new Element('img', { title: Ansel.text['download'], src: Ansel.conf.images['download'], 'class': 'ansel-gallery-download' })).insert(
                     new Element('img', { title: Ansel.text['upload'], src: Ansel.conf.images['upload'], 'class': 'ansel-gallery-upload' }))
             );
