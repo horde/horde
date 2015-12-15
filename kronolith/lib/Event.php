@@ -2327,11 +2327,15 @@ abstract class Kronolith_Event
 
         if ($options['history']) {
             $this->loadHistory();
-            $json->cb = sprintf(
-                _("%s %s %s"),
-                $this->created->strftime($GLOBALS['prefs']->getValue('date_format')),
-                $this->created->strftime(($GLOBALS['prefs']->getValue('twentyFour') ? '%H:%M' : '%I:%M %p')),
-                $this->createdby);
+            if (!empty($this->created)) {
+                $json->cb = sprintf(
+                    _("%s %s %s"),
+                    $this->created->strftime($GLOBALS['prefs']->getValue('date_format')),
+                    $this->created->strftime(($GLOBALS['prefs']->getValue('twentyFour') ? '%H:%M' : '%I:%M %p')),
+                    $this->createdby);
+            } else {
+                $json->cb = '';
+            }
             if (!empty($this->modified)) {
                 $json->mb = sprintf(
                     _("%s %s %s"),
