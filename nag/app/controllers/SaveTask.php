@@ -51,7 +51,7 @@ class Nag_SaveTask_Controller extends Horde_Controller_Base
         }
 
         if ($prefs->isLocked('default_tasklist') ||
-            count(Nag::listTasklists(false, Horde_Perms::EDIT, false)) <= 1) {
+            count($this->_getTasklists()) <= 1) {
             $info['tasklist_id'] = $info['old_tasklist'] = Nag::getDefaultTasklist(Horde_Perms::EDIT);
         }
         try {
@@ -110,6 +110,26 @@ class Nag_SaveTask_Controller extends Horde_Controller_Base
         }
 
         $response->setRedirectUrl($url);
+    }
+
+    /**
+     * Return tasklists the current user has PERMS_EDIT on.
+     * See Bug: 13837.
+     *
+     * @return array  A hash of tasklist objects.
+     */
+    protected function _getTasklists()
+    {
+        $tasklist_enums = array();
+        $user = $GLOBALS['registry']->getAuth();
+        foreach (Nag::listTasklists(false, Horde_Perms::SHOW, false) as $tl_id => $tl) {
+            if (!$tl->hasPermission($user, Horde_Perms::EDIT)) {
+                continue;
+            }
+            $tasklist_enums[$tl_id] = Nag::getLabel($tl);
+        }
+
+        return $tasklist_enums;
     }
 
 }
