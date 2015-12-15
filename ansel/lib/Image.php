@@ -1347,7 +1347,7 @@ class Ansel_Image Implements Iterator
      */
     public function toJson($style = null)
     {
-        global $conf, $registry;
+        global $conf, $registry, $injector;
 
         $gallery = $GLOBALS['storage']->getGallery($this->gallery);
         // @TODO Deprecate tiny
@@ -1361,12 +1361,11 @@ class Ansel_Image Implements Iterator
         $i->screen = Ansel::getImageUrl($this->id, 'screen', $tiny, Ansel::getStyleDefinition('ansel_default'))->toString(true);
         $i->fn = $this->filename;
         $i->t = $this->title;
-        $i->c = $this->caption;
+        $i->c = $injector->getInstance('Horde_Core_Factory_TextFilter')->filter($this->caption, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::NOHTML));
 
         $dim = $this->getDimensions('screen');
         $i->width_s = $dim['width'];
         $i->height_s = $dim['height'];
-        $i->c = $this->caption;
 
         $i->tags = array_values($this->getTags());
         $i->d = (string)new Horde_Date($this->originalDate);
