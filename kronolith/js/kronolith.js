@@ -6108,10 +6108,8 @@ KronolithCore = {
         }
 
         /* History */
-        if (ev.cb) {
-            $('kronolithEventOtherCreated').update(ev.cb);
-            $('kronolithEventOtherModified').update(ev.mb);
-        }
+        $('kronolithEventOtherCreated').update(ev.cb);
+        $('kronolithEventOtherModified').update(ev.mb);
 
         /* Recurrence */
         if (ev.r) {
