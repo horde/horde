@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix fatal error when saving tasks when system shares are present in certain cases.
 * [mjr] Return recurring tasks via listTimeObjects API (Bug #14137).
 * [mjr] Prevent orphaning tasks via the API.
  </notes>
@@ -1673,6 +1674,7 @@
    <date>2015-10-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix fatal error when saving tasks when system shares are present in certain cases.
 * [mjr] Return recurring tasks via listTimeObjects API (Bug #14137).
 * [mjr] Prevent orphaning tasks via the API.
    </notes>
