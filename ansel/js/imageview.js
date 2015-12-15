@@ -33,23 +33,27 @@ AnselImageView = Class.create({
     rightdiv: null,
     currentImage: null,
     keyHandler: null,
+    clickHandler: null,
 
     initialize: function(opts)
     {
         this.opts = Object.extend({
             mainClass: 'ansel-imageview-image',
             barClass: 'ansel-imageview-bar',
-            closeClass: 'ansel-imageview-close'
+            nextClass: 'ansel-imageview-next',
+            prevClass: 'ansel-imageview-prev',
+            closeId: 'imageviewclose'
         }, opts);
 
         this.buildDomSturcture();
         Element.observe(window, 'resize', this.onResize.bindAsEventListener(this));
         this.keyHandler = this.keyboardAction.bind(this);
+        this.clickHandler = this.clickAction.bind(this);
     },
 
     buildDomSturcture: function()
     {
-        var close = new Element('a' , { class: this.opts.closeClass }).update('[close]');
+        var close = $('imageviewclose');
 
         this.main = $('imageviewmain');
         this.imagediv = $('imageviewimage');
@@ -110,10 +114,12 @@ AnselImageView = Class.create({
 
     enableKeyboardNav: function() {
         document.observe('keydown', this.keyHandler);
+        document.observe('click', this.clickHandler);
     },
 
     disableKeyboardNav: function() {
        document.stopObserving('keydown', this.keyHandler);
+       document.stopObserving('click', this.clickHandler);
     },
 
     keyboardAction: function(e) {
@@ -129,17 +135,45 @@ AnselImageView = Class.create({
         }
 
         key = String.fromCharCode(keycode).toLowerCase();
-        if (key.match(/x|o|c/) || (keycode == escapeKey)){ // close lightbox
+        if (key.match(/x|o|c/) || (keycode == escapeKey)) { // close lightbox
             this.disableKeyboardNav();
             $(this.opts.container).fire('AnselImageView:close');
-        } else if ((key == 'p') || (keycode == 37)){ // display previous image
+        } else if ((key == 'p') || (keycode == 37)) { // display previous image
             this.disableKeyboardNav();
             $(this.opts.container).fire('AnselImageView:previous');
-        } else if ((key == 'n') || (keycode == 39)){ // display next image
+        } else if ((key == 'n') || (keycode == 39)) { // display next image
             this.disableKeyboardNav();
             $(this.opts.container).fire('AnselImageView:next');
         }
         this.inKeyHandler = false;
+    },
+
+    clickAction: function(e)
+    {
+        if (this.inClickHandler) {
+            return;
+        }
+        if (e.isRightClick() || typeof e.element != 'function') {
+            return;
+        }
+        this.inClickHandler = true;
+        var elt = e.element(), id;
+        while (Object.isElement(elt)) {
+            if (elt.hasClassName(this.opts.nextClass)) {
+                this.disableKeyboardNav();
+                $(this.opts.container).fire('AnselImageView:next');
+                e.stop();
+                this.inClickHandler = false;
+                return;
+            } else if (elt.hasClassName(this.opts.prevClass)) {
+                this.disableKeyboardNav();
+                $(this.opts.container).fire('AnselImageView:previous');
+                e.stop();
+                this.inClickHandler = false;
+                return;
+            }
+            elt = elt.up();
+        }
     },
 
     onResize: function()

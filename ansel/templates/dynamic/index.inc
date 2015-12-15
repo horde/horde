@@ -60,7 +60,13 @@
         <!-- Image view overlay -->
         <div id="anselViewImage" style="display:none;">
           <div id="imageviewmain" class="ansel-imageview-main">
-            <div id="topbar" class="ansel-imageview-topbar">[breadcrumbs][left][right]</div>
+            <div id="topbar" class="ansel-imageview-topbar">
+             <?php echo Horde_Themes_Image::tag('nav/left-grey.png', array('alt' => _("Previous"), 'attr' => array('class' => 'ansel-imageview-prev'))) ?>
+             <?php //echo Horde_Themes_Image::tag('expand.png', array('alt' => _("Play"))) ?>
+             <?php //echo Horde_Themes_Image::tag('expand.png', array('alt' => _("Pause"))) ?>
+             <?php echo Horde_Themes_Image::tag('nav/right-grey.png', array('alt' => _("Next"), 'attr' => array('class' => 'ansel-imageview-next'))) ?>
+             <a id="imageviewclose" class="ansel-imageview-close"><?php echo Horde_Themes_Image::tag('close.png', array('alt' => _("Close"))) ?></a>
+            </div>
             <div id="imageviewimage" class="ansel-imageview-image"></div>
             <div id = "bottombar" class="ansel-imageview-bar">
               <div id="AnselViewImageData"></div>
