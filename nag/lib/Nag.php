@@ -497,6 +497,10 @@ class Nag
                 array('perm' => $permission,
                       'attributes' => $att,
                       'sort_by' => 'name'));
+
+            // Must explicitly add system shares if we are an admin since
+            // it's possible for an admin user to have no explicit perms
+            // added to the share.
             if ($GLOBALS['registry']->isAdmin()) {
                 $tasklists = array_merge(
                     $tasklists,

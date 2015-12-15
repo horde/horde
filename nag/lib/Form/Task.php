@@ -36,6 +36,9 @@ class Nag_Form_Task extends Horde_Form
 
         $user = $registry->getAuth();
         $tasklist_enums = array();
+
+        // We iterate over shares with SHOW and filter out those with no EDIT.
+        // See Bug: 13837
         foreach (Nag::listTasklists(false, Horde_Perms::SHOW, false) as $tl_id => $tl) {
             if (!$tl->hasPermission($user, Horde_Perms::EDIT)) {
                 continue;
