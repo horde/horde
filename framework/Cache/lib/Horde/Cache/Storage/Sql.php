@@ -115,6 +115,7 @@ class Horde_Cache_Storage_Sql extends Horde_Cache_Storage_Base
 
         try {
             $result = $this->_db->selectValue($query, $values);
+            $columns = $this->_db->columns($this->_params['table']);
         } catch (Horde_Db_Exception $e) {
             return false;
         }
@@ -131,7 +132,7 @@ class Horde_Cache_Storage_Sql extends Horde_Cache_Storage_Base
             $this->_logger->log(sprintf('Cache hit: %s (Id %s newer than %d)', $okey, $key, $maxage), 'DEBUG');
         }
 
-        return $result;
+        return $columns['cache_data']->binaryToString($result);
     }
 
     /**
@@ -153,20 +154,22 @@ class Horde_Cache_Storage_Sql extends Horde_Cache_Storage_Base
         }
 
         // Remove any old cache data and prevent duplicate keys
-        $query = 'DELETE FROM ' . $this->_params['table'] . ' WHERE cache_id=?';
+        $query = 'DELETE FROM ' . $this->_params['table'] . ' WHERE cache_id = ?';
         $values = array($key);
         try {
             $this->_db->delete($query, $values);
         } catch (Horde_Db_Exception $e) {}
 
         /* Build SQL query. */
-        $query = 'INSERT INTO ' . $this->_params['table'] .
-                 ' (cache_id, cache_timestamp, cache_expiration, cache_data)' .
-                 ' VALUES (?, ?, ?, ?)';
-        $values = array($key, $timestamp, $expiration, $data);
+        $values = array(
+            'cache_id' => $key,
+            'cache_timestamp' => $timestamp,
+            'cache_expiration' => $expiration,
+            'cache_data' => new Horde_Db_Value_Binary($data)
+        );
 
         try {
-            $this->_db->insert($query, $values);
+            $this->_db->insertBlob($this->_params['table'], $values);
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Cache_Exception($e);
         }

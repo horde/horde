@@ -122,37 +122,29 @@ class Horde_Prefs_Storage_Sql extends Horde_Prefs_Storage_Base
 
                 if (empty($check)) {
                     // Insert a new row.
-                    $query = 'INSERT INTO ' . $this->_params['table'] . ' ' .
-                        '(pref_uid, pref_scope, pref_name, pref_value) VALUES' .
-                        '(?, ?, ?, ?)';
                     $values = array(
-                        $this->_params['user'],
-                        $scope_ob->scope,
-                        $name,
-                        $value
+                        'pref_uid' => $this->_params['user'],
+                        'pref_scope' => $scope_ob->scope,
+                        'pref_name' => $name,
+                        'pref_value' => $value
                     );
 
                     try {
-                        $this->_db->insert($query, $values);
+                        $this->_db->insertBlob($this->_params['table'], $values);
                     } catch (Horde_Db_Exception $e) {
                         throw new Horde_Prefs_Exception($e);
                     }
                 } else {
                     // Update the existing row.
-                    $query = 'UPDATE ' . $this->_params['table'] .
-                        ' SET pref_value = ?' .
-                        ' WHERE pref_uid = ?' .
-                        ' AND pref_name = ?' .
-                        ' AND pref_scope = ?';
-                    $values = array(
-                        $value,
-                        $this->_params['user'],
-                        $name,
-                        $scope_ob->scope
-                    );
-
                     try {
-                        $this->_db->update($query, $values);
+                        $this->_db->updateBlob(
+                            $this->_params['table'],
+                            array('pref_value' => $value),
+                            array(
+                                'pref_uid = ? AND pref_name = ? AND pref_scope = ?',
+                                array($this->_params['user'], $name, $scope_ob->scope)
+                            )
+                        );
                     } catch (Horde_Db_Exception $e) {
                         throw new Horde_Prefs_Exception($e);
                     }

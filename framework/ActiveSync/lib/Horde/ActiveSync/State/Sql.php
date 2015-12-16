@@ -313,11 +313,6 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      */
     public function save()
     {
-        // Update state table to remember this last synctime and key
-        $sql = 'INSERT INTO ' . $this->_syncStateTable
-            . ' (sync_key, sync_data, sync_devid, sync_mod, sync_folderid, sync_user, sync_pending, sync_timestamp)'
-            . ' VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
-
         // Prepare state and pending data
         if ($this->_type == Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC) {
             $data = (isset($this->_folder) ? serialize($this->_folder) : '');
@@ -333,14 +328,15 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         // If we are setting the first synckey iteration, do not save the
         // timestamp, otherwise we will never get the initial set of data.
         $params = array(
-            $this->_syncKey,
-            new Horde_Db_Value_Binary($data),
-            $this->_deviceInfo->id,
-            (self::getSyncKeyCounter($this->_syncKey) == 1 ? 0 : $this->_thisSyncStamp),
-            (!empty($this->_collection['id']) ? $this->_collection['id'] : Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC),
-            $this->_deviceInfo->user,
-            $pending,
-            time());
+            'sync_key' => $this->_syncKey,
+            'sync_data' => new Horde_Db_Value_Binary($data),
+            'sync_devid' => $this->_deviceInfo->id,
+            'sync_mod' => (self::getSyncKeyCounter($this->_syncKey) == 1 ? 0 : $this->_thisSyncStamp),
+            'sync_folderid' => (!empty($this->_collection['id']) ? $this->_collection['id'] : Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC),
+            'sync_user' => $this->_deviceInfo->user,
+            'sync_pending' => $pending,
+            'sync_timestamp' => time()
+        );
         $this->_logger->info(
             sprintf('[%s] Saving state: %s',
                 $this->_procid,
@@ -356,7 +352,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 )
             );
         try {
-            $this->_db->insert($sql, $params);
+            $this->_db->insertBlob($this->_syncStateTable, $params);
         } catch (Horde_Db_Exception $e) {
             // Might exist already if the last sync attempt failed.
             $this->_logger->notice(

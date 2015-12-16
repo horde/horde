@@ -129,24 +129,24 @@ extends Horde_Imap_Client_Cache_Backend
             if (isset($res[$key])) {
                 try {
                     /* Update */
-                    $this->_db->update(
-                        sprintf('UPDATE %s SET data = ? WHERE messageid = ? AND msguid = ?', self::MSG_TABLE),
+                    $this->_db->updateBlob(
+                        self::MSG_TABLE,
+                        array('data' => new Horde_Db_Value_Binary($compress->compress(serialize(array_merge($res[$key], $val))))),
                         array(
-                            new Horde_Db_Value_Binary($compress->compress(serialize(array_merge($res[$key], $val)))),
-                            $uid,
-                            strval($key)
+                            'messageid = ? AND msguid = ?',
+                            array($uid, strval($key))
                         )
                     );
                 } catch (Horde_Db_Exception $e) {}
             } else {
                 /* Insert */
                 try {
-                    $this->_db->insert(
-                        sprintf('INSERT INTO %s (data, msguid, messageid) VALUES (?, ?, ?)', self::MSG_TABLE),
+                    $this->_db->insertBlob(
+                        self::MSG_TABLE,
                         array(
-                            new Horde_Db_Value_Binary($compress->compress(serialize($val))),
-                            strval($key),
-                            $uid
+                            'data' => new Horde_Db_Value_Binary($compress->compress(serialize($val))),
+                            'msguid' => strval($key),
+                            'messageid' => $uid
                         )
                     );
                 } catch (Horde_Db_Exception $e) {}
@@ -241,23 +241,18 @@ extends Horde_Imap_Client_Cache_Backend
             if (in_array($key, $fields)) {
                 /* Update */
                 try {
-                    $this->_db->update(
-                        sprintf(
-                            'UPDATE %s SET data = ? WHERE field = ? AND messageid = ?',
-                            self::MD_TABLE
-                        ),
-                        array($val, $key, $uid)
+                    $this->_db->updateBlob(
+                        self::MD_TABLE,
+                        array('data' => $val),
+                        array('field = ? AND messageid = ?', array($key, $uid))
                     );
                 } catch (Horde_Db_Exception $e) {}
             } else {
                 /* Insert */
                 try {
-                    $this->_db->insert(
-                        sprintf(
-                            'INSERT INTO %s (data, field, messageid) VALUES (?, ?, ?)',
-                            self::MD_TABLE
-                        ),
-                        array($val, $key, $uid)
+                    $this->_db->insertBlob(
+                        self::MD_TABLE,
+                        array('data' => $val, 'field' => $key, 'messageid' => $uid)
                     );
                 } catch (Horde_Db_Exception $e) {}
             }

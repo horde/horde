@@ -30,4 +30,27 @@ class Horde_Prefs_Unit_Storage_Sql_Oci8Test extends Horde_Prefs_Test_Sql_Base
             self::$reason = 'No oci8 configuration';
         }
     }
+
+    public function testLargePreferences()
+    {
+        $p = new Horde_Prefs(
+            'test',
+            array(
+                self::$prefs,
+                new Horde_Prefs_Stub_Storage('test')
+            )
+        );
+        $value = str_repeat('x', 4001);
+        $p['a'] = $value;
+        $p->store();
+        $this->assertEquals(
+            $value,
+            $this->_readValue(
+                self::$db->selectValue(
+                    'SELECT pref_value FROM horde_prefs WHERE pref_uid = ? AND pref_scope = ? AND pref_name = ?',
+                    array('joe', 'test', 'a')
+                )
+            )
+        );
+    }
 }
