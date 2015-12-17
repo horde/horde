@@ -60,7 +60,7 @@
 	}());
 
 	var browser = {
-		ie: ua('msie'),
+		ie: ua('msie') || ua('trident') || ua('edge'),
 		chrome: ua('chrome'),
 		webkit: ua('chrome') || ua('safari'),
 		safari: ua('safari') && !ua('chrome'),
