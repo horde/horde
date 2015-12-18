@@ -99,10 +99,10 @@
   <p>
     <label for="kronolithEventAttendance"><?php echo _("Update attendance to") ?>:</label>
     <select name="attendance" id="kronolithEventAttendance" tabindex="8">
-      <option value="<?php echo Kronolith::RESPONSE_NONE ?>" selected="selected"><?php echo _("Not Decided") ?></option>
+      <option value="<?php echo Kronolith::RESPONSE_NONE ?>" selected="selected"><?php echo _("None") ?></option>
       <option value="<?php echo Kronolith::RESPONSE_TENTATIVE ?>"><?php echo _("Tentative") ?></option>
-      <option value="<?php echo Kronolith::RESPONSE_ACCEPTED ?>"><?php echo _("Confirmed") ?></option>
-      <option value="<?php echo Kronolith::RESPONSE_DECLINED ?>"><?php echo _("Cancelled") ?></option>
+      <option value="<?php echo Kronolith::RESPONSE_ACCEPTED ?>"><?php echo _("Accepted") ?></option>
+      <option value="<?php echo Kronolith::RESPONSE_DECLINED ?>"><?php echo _("Declined") ?></option>
     </select>
   </p>
 </div>
