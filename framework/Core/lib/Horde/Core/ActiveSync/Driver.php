@@ -1823,7 +1823,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     $message->setSupported($device->supported[self::APPOINTMENTS_FOLDER_UID]);
                 }
                 try {
-                    $this->_connector->calendar_replace($id, $message);
+                    $this->_connector->calendar_replace($id, $message, $server_id);
                 } catch (Horde_Exception $e) {
                     $this->_logger->err($e->getMessage());
                     $this->_endBuffer();
