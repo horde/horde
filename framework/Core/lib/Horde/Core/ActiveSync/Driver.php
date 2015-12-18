@@ -2679,10 +2679,29 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             throw new Horde_ActiveSync_Exception('Unknown error locating vEvent.');
         }
 
+        // Update the vCal so the response will be reflected when imported.
+        $ident = $GLOBALS['injector']
+            ->getInstance('Horde_Core_Factory_Identity')
+            ->create($this->_user);
+        $cn= $ident->getValue('fullname');
+        $email = $ident->getValue('from_addr');
+        switch ($response['response']) {
+        case Horde_ActiveSync_Request_MeetingResponse::RESPONSE_ACCEPTED:
+            $response = 'ACCEPTED';
+            break;
+        case Horde_ActiveSync_Request_MeetingResponse::RESPONSE_TENTATIVE:
+            $response = 'TENTATIVE';
+            break;
+        case Horde_ActiveSync_Request_MeetingResponse::RESPONSE_DECLINED:
+            $response = 'DECLINED';
+        }
+        $vEvent->updateAttendee($email, $response);
+
         // Create an event from the vEvent.
         // Note we don't use self::changeMessage since we don't want to treat
         // this as an incoming message addition from the PIM. Otherwise, the
         // message may not get synched back to the PIM.
+
         try {
             $uid = $this->_connector->calendar_import_vevent($vEvent);
         } catch (Horde_Exception $e) {
@@ -2698,11 +2717,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         //     $this->_logger->err('Unable to find organizer.');
         //     throw new Horde_ActiveSync_Exception($e);
         // }
-        // $ident = $GLOBALS['injector']
-        //     ->getInstance('Horde_Core_Factory_Identity')
-        //     ->create($this->_user);
-        // $cn= $ident->getValue('fullname');
-        // $email = $ident->getValue('from_addr');
 
         // // Can't use Horde_Itip_Resource_Identity since it takes an IMP identity
         // $resource = new Horde_Itip_Resource_Base($email, $cn);
