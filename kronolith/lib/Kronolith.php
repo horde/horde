@@ -44,6 +44,7 @@ class Kronolith
     /** iTip requests */
     const ITIP_REQUEST = 1;
     const ITIP_CANCEL  = 2;
+    const ITIP_REPLY  = 3;
 
     const RANGE_THISANDFUTURE = 'THISANDFUTURE';
 
@@ -782,6 +783,9 @@ class Kronolith
 
     /**
      * Checks if an email address belongs to a user.
+     *
+     * @param string  $uid    user id to check
+     * @param string  $email  email address to check
      */
     public static function isUserEmail($uid, $email)
     {
@@ -1919,11 +1923,17 @@ class Kronolith
         $view->identity = $ident;
         $view->event = $event;
         $view->imageId = $image->getContentId();
+
         if ($action == self::ITIP_CANCEL && !empty($cancellations)) {
             $mail_attendees = $cancellations;
+        } elseif ($event->organizer && !self::isUserEmail($event->creator, $event->organizer)) {
+            /* Only send updates to organizer if the user is not the organizer */
+            /* TODO: Guess organizer name and status if he is one of the attendees */
+            $mail_attendees = array($event->organizer => array('name' => $event->organizer));
         } else {
             $mail_attendees = $event->attendees;
         }
+
         foreach ($mail_attendees as $email => $status) {
             /* Don't bother sending an invitation/update if the recipient does
              * not need to participate, or has declined participating, or
@@ -1946,6 +1956,44 @@ class Kronolith
                     $view->header = sprintf(_("%s has cancelled an instance of the recurring \"%s\"."), $ident->getName(), $event->getTitle());
                 }
                 break;
+
+            case self::ITIP_REPLY:
+                $filename = 'event-reply.ics';
+                $vEvent = array_shift($event->toiCalendar(new Horde_Icalendar()));
+                $attendee = new Horde_Itip_Resource_Identity(
+                        $ident,
+                        $vEvent->getAttribute('ATTENDEE'),
+                        $ident->getFromAddress()
+                );
+                /* Find which of the creator's mail addresses is used here */
+                foreach ($event->attendees as $attendeeEmail => $status) {
+                    if (self::isUserEmail($event->creator, $attendeeEmail)) {
+                        switch ($status['response']) {
+                        case self::RESPONSE_ACCEPTED:
+                            $type = new Horde_Itip_Response_Type_Accept($attendee);
+                        break;
+                        case self::RESPONSE_DECLINED:
+                            $type = new Horde_Itip_Response_Type_Decline($attendee);
+                        break;
+                        case self::RESPONSE_TENTATIVE:
+                            $type = new Horde_Itip_Response_Type_Tentative($attendee);
+                        break;
+                        default:
+                            return;
+                        }
+                        try {
+                            // Send the reply.
+                            Horde_Itip::factory($vEvent, $attendee)->sendMultiPartResponse(
+                                $type,
+                                new Horde_Core_Itip_Response_Options_Horde('UTF-8', array()),
+                                $injector->getInstance('Horde_Mail')
+                            );
+                        } catch (Horde_Itip_Exception $e) {
+                            $notification->push(sprintf(_("Error sending reply: %s."), $e->getMessage()), 'horde.error');
+                        }
+                    }
+                }
+                return;
 
             case self::ITIP_REQUEST:
             default:

@@ -64,6 +64,13 @@ abstract class Kronolith_Event
     protected $_creator = null;
 
     /**
+     * The email address of the organizer of the event, if known.
+     *
+     * @var string
+     */
+    public  $organizer = null;
+
+    /**
      * The title of this event.
      *
      * For displaying in the interface use getTitle() instead.
@@ -711,7 +718,9 @@ abstract class Kronolith_Event
         $vEvent->setAttribute('SUMMARY', $this->getTitle());
 
         // Organizer
-        if (count($this->attendees)) {
+        if ($this->organizer) {
+            $vEvent->setAttribute('ORGANIZER', 'mailto:' . $this->organizer, array());
+        } elseif (count($this->attendees)) {
             $name = Kronolith::getUserName($this->creator);
             $email = Kronolith::getUserEmail($this->creator);
             $params = array();
@@ -1010,6 +1019,14 @@ abstract class Kronolith_Event
             $uid = $vEvent->getAttribute('UID');
             if (!empty($uid)) {
                 $this->uid = $uid;
+            }
+        } catch (Horde_Icalendar_Exception $e) {}
+
+        // Organizer
+        try {
+            $organizer = $vEvent->getAttribute('ORGANIZER');
+            if (!empty($organizer)) {
+                $this->organizer = str_replace(array('MAILTO:', 'mailto:'), '', $organizer);
             }
         } catch (Horde_Icalendar_Exception $e) {}
 
@@ -1417,6 +1434,11 @@ abstract class Kronolith_Event
             $this->uid = $message->getUid();
         }
 
+        $organizer = $message->getOrganizer();
+        if ($organizer['email']) {
+            $this->organizer =  $organizer['email'];
+        }
+
         if (strlen($title = $message->getSubject())) {
             $this->title = $title;
         }
@@ -1642,7 +1664,9 @@ abstract class Kronolith_Event
         $message->setTimezone($this->start);
 
         // Organizer
-        if (count($this->attendees)) {
+        if ($this->organizer) {
+            $message->setOrganizer(array('email' => $this->organizer));
+        } elseif (count($this->attendees)) {
             if ($this->creator == $registry->getAuth()) {
                 $as_ident = $prefs->getValue('activesync_identity') == 'horde'
                     ? $prefs->getValue('default_identity')
@@ -2010,11 +2034,9 @@ abstract class Kronolith_Event
         }
 
         // Import once we support organizers.
-        /*
         if (!empty($hash['organizer'])) {
             $this->organizer = $hash['organizer'];
         }
-        */
 
         if (!empty($hash['private'])) {
             $this->private = true;
@@ -2249,6 +2271,9 @@ abstract class Kronolith_Event
      * - mt: meeting (Boolean true if event has attendees, false otherwise).
      * - cb: created by (string describing when and who created the event).
      * - mb: modified by (string describing when and who last modified event).
+     * - o: organizer (if known)
+     * - oy: organizer you
+     * - cr: creator's attendance response
      *
      * @param array $options  An array of options:
      *
@@ -2374,15 +2399,25 @@ abstract class Kronolith_Event
                             $tmp->personal = $info['name'];
                         }
 
+                        if (Kronolith::isUserEmail($this->creator, $email)) {
+                            $json->cr = intval($info['response']);
+                        }
+
                         $attendees[] = array(
                             'a' => intval($info['attendance']),
                             'e' => $tmp->bare_address,
                             'r' => intval($info['response']),
                             'l' => strval($tmp)
                         );
-                        $json->at = $attendees;
                     }
+                    $json->at = $attendees;
                 }
+            }
+            if ($this->organizer) {
+                $json->o = $this->organizer;
+                $json->oy = Kronolith::isUserEmail($this->creator, $this->organizer);
+            } else {
+                $json->oy = true;
             }
             if ($this->methods) {
                 $json->m = $this->methods;
@@ -2806,6 +2841,9 @@ abstract class Kronolith_Event
         $this->timezone = Horde_Util::getFormData('timezone', $this->timezone);
         $this->private = (bool)Horde_Util::getFormData('private');
 
+        // if the field is empty you are the organizer (and so organizer should be null)
+        $this->organizer = Horde_Util::getFormData('organizer', $this->organizer) ?: null;
+
         // URL.
         $url = Horde_Util::getFormData('eventurl', $this->url);
         if (strlen($url)) {
@@ -2869,6 +2907,9 @@ abstract class Kronolith_Event
             foreach (array_keys($attendees) as $email) {
                 if (!isset($newattendees[$email])) {
                     unset($attendees[$email]);
+                }
+                if (Kronolith::isUserEmail($this->creator, $email)) {
+                    $attendees[$email]['response'] = Horde_Util::getFormData('attendance');
                 }
             }
         }
