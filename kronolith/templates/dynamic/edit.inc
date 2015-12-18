@@ -11,6 +11,7 @@
 <input id="kronolithEventRecurOEnd" type="hidden" name="rend" />
 <input type="hidden" name="isajax" value="1" />
 <input type="hidden" id="kronolithEventSendUpdates" name="sendupdates" value="0" />
+<input type="hidden" id="kronolithEventOrganizer" name="organizer" />
 
 <div id="kronolithEventDiv">
 <div id="kronolithEventEditRecur" style="display:none;">
@@ -102,13 +103,6 @@
       <option value="<?php echo Kronolith::RESPONSE_ACCEPTED ?>"><?php echo _("Confirmed") ?></option>
       <option value="<?php echo Kronolith::RESPONSE_DECLINED ?>"><?php echo _("Cancelled") ?></option>
     </select>
-  </p>
-</div>
-
-<div id="kronolithEventOrganized" style="display:none">
-  <p>
-    <label for="kronolithEventOrganizer"><?php echo _("Organizer") ?>:</label>
-    <input type="text" id="kronolithEventOrganizer" name="organizer" />
   </p>
 </div>
 
