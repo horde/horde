@@ -6224,8 +6224,8 @@ KronolithCore = {
     {
         switch (x) {
         case 1: return Kronolith.text.tentative;
-        case 2: return Kronolith.text.accepted;
-        case 4: return Kronolith.text.denied;
+        case 2: return Kronolith.text.confirmed;
+        case 3: return Kronolith.text.cancelled;
         }
 
         return Kronolith.text.noresponse;
