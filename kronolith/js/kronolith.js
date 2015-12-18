@@ -5772,7 +5772,7 @@ KronolithCore = {
             }
             $('kronolithEventId').clear();
             $('kronolithEventCalendar').clear();
-            $('kronolithEventStatus').disabled = false;
+            $('kronolithEventStatus').show();
             $('kronolithEventAttend').hide();
             $('kronolithEventTarget').setValue(Kronolith.conf.default_calendar);
             $('kronolithEventDelete').hide();
@@ -6083,10 +6083,12 @@ KronolithCore = {
 
         /* Attendance and Status */
         if (!ev.oy) {
-            $('kronolithEventStatus').disabled = true;
+            $('kronolithEventStatus').hide();
+            $('kronolithEventStatusText').update(this.getStatusText(ev.x)).show();
             $('kronolithEventAttend').show();
         } else {
-            $('kronolithEventStatus').disabled = false;
+            $('kronolithEventStatus').show();
+            $('kronolithEventStatusText').update().hide();
             $('kronolithEventAttend').hide();
         }
         if (ev.cr) {
@@ -6216,6 +6218,17 @@ KronolithCore = {
                 return false;
             });
         }
+    },
+
+    getStatusText: function(x)
+    {
+        switch (x) {
+        case 1: return Kronolith.text.tentative;
+        case 2: return Kronolith.text.accepted;
+        case 4: return Kronolith.text.denied;
+        }
+
+        return Kronolith.text.noresponse;
     },
 
     /**

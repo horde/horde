@@ -83,6 +83,7 @@
       <option value="<?php echo Kronolith::STATUS_CONFIRMED ?>" selected="selected"><?php echo _("Confirmed") ?></option>
       <option value="<?php echo Kronolith::STATUS_CANCELLED ?>"><?php echo _("Cancelled") ?></option>
     </select>
+    <span id="kronolithEventStatusText"></span>
     &nbsp;
     <label for="kronolithEventLocation"><?php echo _("Location") ?>:</label>
     <input type="text" name="location" id="kronolithEventLocation" size="25" tabindex="9" />
@@ -96,7 +97,7 @@
 
 <div id="kronolithEventAttend" style="display:none">
   <p>
-    <label for="kronolithEventAttendance"><?php echo _("Attendance") ?>:</label>
+    <label for="kronolithEventAttendance"><?php echo _("Update attendance to") ?>:</label>
     <select name="attendance" id="kronolithEventAttendance" tabindex="8">
       <option value="<?php echo Kronolith::RESPONSE_NONE ?>" selected="selected"><?php echo _("Not Decided") ?></option>
       <option value="<?php echo Kronolith::RESPONSE_TENTATIVE ?>"><?php echo _("Tentative") ?></option>
