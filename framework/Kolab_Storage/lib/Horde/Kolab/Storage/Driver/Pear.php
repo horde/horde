@@ -227,7 +227,7 @@ extends Horde_Kolab_Storage_Driver_Base
             $this->getBackend()->getAnnotation(
                 $entry, $type, $this->encodePath($folder)
             )
-        );var_dump($result);
+        );
         foreach ($result as $element) {
             if (isset($element['ATTRIBUTES'][$type])) {
                 return $element['ATTRIBUTES'][$type];
