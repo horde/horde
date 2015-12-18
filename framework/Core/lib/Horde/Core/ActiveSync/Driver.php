@@ -2690,34 +2690,34 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             throw new Horde_ActiveSync_Exception($e);
         }
 
-        // Start building the iTip response email.
-        try {
-            $organizer = parse_url($vEvent->getAttribute('ORGANIZER'));
-            $organizer = $organizer['path'];
-        } catch (Horde_Icalendar_Exception $e) {
-            $this->_logger->err('Unable to find organizer.');
-            throw new Horde_ActiveSync_Exception($e);
-        }
-        $ident = $GLOBALS['injector']
-            ->getInstance('Horde_Core_Factory_Identity')
-            ->create($this->_user);
-        $cn= $ident->getValue('fullname');
-        $email = $ident->getValue('from_addr');
+        // // Start building the iTip response email.
+        // try {
+        //     $organizer = parse_url($vEvent->getAttribute('ORGANIZER'));
+        //     $organizer = $organizer['path'];
+        // } catch (Horde_Icalendar_Exception $e) {
+        //     $this->_logger->err('Unable to find organizer.');
+        //     throw new Horde_ActiveSync_Exception($e);
+        // }
+        // $ident = $GLOBALS['injector']
+        //     ->getInstance('Horde_Core_Factory_Identity')
+        //     ->create($this->_user);
+        // $cn= $ident->getValue('fullname');
+        // $email = $ident->getValue('from_addr');
 
-        // Can't use Horde_Itip_Resource_Identity since it takes an IMP identity
-        $resource = new Horde_Itip_Resource_Base($email, $cn);
+        // // Can't use Horde_Itip_Resource_Identity since it takes an IMP identity
+        // $resource = new Horde_Itip_Resource_Base($email, $cn);
 
-        switch ($response['response']) {
-        case Horde_ActiveSync_Request_MeetingResponse::RESPONSE_ACCEPTED:
-            $type = new Horde_Itip_Response_Type_Accept($resource);
-            break;
-        case Horde_ActiveSync_Request_MeetingResponse::RESPONSE_DECLINED:
-            $type = new Horde_Itip_Response_Type_Decline($resource);
-            break;
-        case Horde_ActiveSync_Request_MeetingResponse::RESPONSE_TENTATIVE:
-            $type = new Horde_Itip_Response_Type_Tentative($resource);
-            break;
-        }
+        // switch ($response['response']) {
+        // case Horde_ActiveSync_Request_MeetingResponse::RESPONSE_ACCEPTED:
+        //     $type = new Horde_Itip_Response_Type_Accept($resource);
+        //     break;
+        // case Horde_ActiveSync_Request_MeetingResponse::RESPONSE_DECLINED:
+        //     $type = new Horde_Itip_Response_Type_Decline($resource);
+        //     break;
+        // case Horde_ActiveSync_Request_MeetingResponse::RESPONSE_TENTATIVE:
+        //     $type = new Horde_Itip_Response_Type_Tentative($resource);
+        //     break;
+        // }
 
         // Delete the original request. EAS Specs require this. Most clients
         // will remove the email from the UI as soon as the response is sent.
