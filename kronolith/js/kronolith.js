@@ -4541,7 +4541,8 @@ KronolithCore = {
 
             case 'kronolithEventSave':
                 if (!elt.disabled) {
-                    if ($F('kronolithEventAttendees') && $F('kronolithEventId')) {
+                    if ($F('kronolithEventAttendees') && $F('kronolithEventId')
+                        && !$F('kronolithEventOrganizer')) {
                         $('kronolithEventSendUpdates').setValue(0);
                         $('kronolithEventDiv').hide();
                         $('kronolithUpdateDiv').show();
@@ -4649,8 +4650,7 @@ KronolithCore = {
 
                 if (id != 'kronolithEventSendCancellationNo'
                     && id != 'kronolithEventSendCancellationYes'
-                    && $F('kronolithEventAttendees')) {
-
+                    && $F('kronolithEventAttendees') && !$F('kronolithEventOrganizer')) {
                     $('kronolithDeleteDiv').hide();
                     $('kronolithCancellationDiv').show();
                     e.stop();
@@ -5410,7 +5410,7 @@ KronolithCore = {
           }.bind(this));
       }.bind(this);
 
-      if (event.value.mt) {
+      if (event.value.mt && event.value.oy) {
           $('kronolithEventDiv').hide();
           $('kronolithUpdateDiv').show();
           RedBox.showHtml($('kronolithEventDialog').show());
@@ -5589,7 +5589,7 @@ KronolithCore = {
             this.loadEventsCallback(r, false);
         }.bind(this);
 
-        if (event.value.mt) {
+        if (event.value.mt && event.value.oy) {
             $('kronolithEventDiv').hide();
             $('kronolithUpdateDiv').show();
             RedBox.showHtml($('kronolithEventDialog').show());
