@@ -275,9 +275,9 @@ $_prefs['sync_calendars'] = array(
         $enum = array();
         $sync = @unserialize($GLOBALS['prefs']->getValue('sync_calendars'));
         if (empty($sync)) {
-            $GLOBALS['prefs']->setValue('sync_calendars', serialize(array(Kronolith::getDefaultCalendar(Horde_Perms::EDIT, !$GLOBALS['prefs']->getValue('activesync_no_multiplex')))));
+            $GLOBALS['prefs']->setValue('sync_calendars', serialize(array(Kronolith::getDefaultCalendar(Horde_Perms::EDIT))));
         }
-        foreach (Kronolith::listInternalCalendars(!$GLOBALS['prefs']->getValue('activesync_no_multiplex'), Horde_Perms::EDIT) as $key => $cal) {
+        foreach (Kronolith::listInternalCalendars(false, Horde_Perms::EDIT) as $key => $cal) {
             if ($cal->getName() != Kronolith::getDefaultCalendar(Horde_Perms::EDIT)) {
                 $enum[$key] = Kronolith::getLabel($cal);
             }
@@ -298,7 +298,7 @@ $_prefs['sync_calendars'] = array(
             $sync[] = $default;
             $GLOBALS['prefs']->setValue('sync_calendars', serialize($sync));
         }
-        if ($GLOBALS['conf']['activesync']['enabled'] && !$GLOBALS['prefs']->getValue('activesync_no_multiplex')) {
+        if ($GLOBALS['conf']['activesync']['enabled']) {
             try {
                 $sm = $GLOBALS['injector']->getInstance('Horde_ActiveSyncState');
                 $sm->setLogger($GLOBALS['injector']->getInstance('Horde_Log_Logger'));
