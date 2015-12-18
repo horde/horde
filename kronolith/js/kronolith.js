@@ -6086,7 +6086,7 @@ KronolithCore = {
         /* Attendance and Status */
         if (!ev.oy) {
             $('kronolithEventStatus').hide();
-            $('kronolithEventStatusText').update(this.getStatusText(ev.x)).show();
+            $('kronolithEventStatusText').update(this.getStatusText(ev.cr)).show();
             $('kronolithEventAttend').show();
         } else {
             $('kronolithEventStatus').show();
@@ -6230,12 +6230,13 @@ KronolithCore = {
     getStatusText: function(x)
     {
         switch (x) {
-        case 1: return Kronolith.text.tentative;
-        case 2: return Kronolith.text.confirmed;
-        case 3: return Kronolith.text.cancelled;
+        case 1: return Kronolith.text.none;
+        case 2: return Kronolith.text.accepted;
+        case 3: return Kronolith.text.declined;
+        case 4: return Kronolith.text.tentative;
         }
 
-        return Kronolith.text.noresponse;
+        return Kronolith.text.none;
     },
 
     showKronolithUpdateDiv: function()

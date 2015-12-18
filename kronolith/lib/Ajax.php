@@ -159,10 +159,10 @@ class Kronolith_Ajax
             'wrong_auth' => _("The authentication information you specified wasn't accepted."),
             'wrong_date_format' => sprintf(_("You used an unknown date format \"%s\". Please try something like \"%s\"."), '#{wrong}', '#{right}'),
             'wrong_time_format' => sprintf(_("You used an unknown time format \"%s\". Please try something like \"%s\"."), '#{wrong}', '#{right}'),
-            'confirmed' => _("You have accepted this meeting."),
-            'tentative' => _("You have tentatively accepted this meeting."),
-            'cancelled' => _("You have marked this meeting as canclled."),
-            'noresponse' => _("You have not yet responded to this meeting request."),
+            'none' => _("You have not responded to this meeting request."),
+            'accepted' => _("You have accepted this meeting request."),
+            'tentative' => _("You have tentatively accepted this meeting request."),
+            'declined' => _("You have declined this meeting request."),
             'update_attendees' => _("Send updates to attendees?"),
             'update_organizer' => _("Send attendance update to organizer?")
         );
