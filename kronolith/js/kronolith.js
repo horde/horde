@@ -49,6 +49,7 @@ KronolithCore = {
     paramsCache: null,
     attendees: [],
     resources: [],
+    attendanceChanged: false,
 
     /**
      * The location that was open before the current location.
@@ -4542,10 +4543,10 @@ KronolithCore = {
             case 'kronolithEventSave':
                 if (!elt.disabled) {
                     if ($F('kronolithEventAttendees') && $F('kronolithEventId')
-                        && !$F('kronolithEventOrganizer')) {
+                        && (!$F('kronolithEventOrganizer') || this.attendanceChanged)) {
                         $('kronolithEventSendUpdates').setValue(0);
                         $('kronolithEventDiv').hide();
-                        $('kronolithUpdateDiv').show();
+                        this.showKronolithUpdateDiv();
                         e.stop();
                         break;
                     }
@@ -5412,7 +5413,7 @@ KronolithCore = {
 
       if (event.value.mt && event.value.oy) {
           $('kronolithEventDiv').hide();
-          $('kronolithUpdateDiv').show();
+          this.showKronolithUpdateDiv();
           RedBox.showHtml($('kronolithEventDialog').show());
           this.uatts = uatts;
           this.ucb = callback;
@@ -5591,7 +5592,7 @@ KronolithCore = {
 
         if (event.value.mt && event.value.oy) {
             $('kronolithEventDiv').hide();
-            $('kronolithUpdateDiv').show();
+            this.showKronolithUpdateDiv();
             RedBox.showHtml($('kronolithEventDialog').show());
             this.uatts = uatts;
             this.ucb = callback;
@@ -6023,6 +6024,7 @@ KronolithCore = {
         $('kronolithEventTitle').setValue(ev.t);
         $('kronolithEventLocation').setValue(ev.l);
         $('kronolithEventTimezone').setValue(ev.tz);
+        this.attendanceChanged = false;
         if (ev.l && Kronolith.conf.maps.driver) {
             $('kronolithEventMapLink').show();
         }
@@ -6220,6 +6222,11 @@ KronolithCore = {
         }
     },
 
+    eventAttendanceChange: function(x)
+    {
+        this.attendanceChanged = true;
+    },
+
     getStatusText: function(x)
     {
         switch (x) {
@@ -6229,6 +6236,16 @@ KronolithCore = {
         }
 
         return Kronolith.text.noresponse;
+    },
+
+    showKronolithUpdateDiv: function()
+    {
+        if (this.attendanceChanged && $F('kronolithEventOrganizer')) {
+            $('kronolithUpdateDiv').down('p').update(Kronolith.text.update_organizer);
+        } else {
+            $('kronolithUpdateDiv').down('p').update(Kronolith.text.update_attendees);
+        }
+        $('kronolithUpdateDiv').show();
     },
 
     /**
@@ -7285,6 +7302,7 @@ KronolithCore = {
         $('kronolithFBDateNext').observe('click', this.nextFreebusy.bind(this));
         $('kronolithResourceFBDatePrev').observe('click', this.prevFreebusy.bind(this));
         $('kronolithResourceFBDateNext').observe('click', this.nextFreebusy.bind(this));
+        $('kronolithEventAttendance').observe('change', this.eventAttendanceChange.bind(this));
     },
 
     initialize: function(location, r)
