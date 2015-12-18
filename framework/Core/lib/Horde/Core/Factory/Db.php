@@ -80,7 +80,8 @@ class Horde_Core_Factory_Db extends Horde_Core_Factory_Base
                 $config['table'],
                 $config['login_block'],
                 $config['login_block_count'],
-                $config['login_block_time']
+                $config['login_block_time'],
+                $config['count_bad_logins']
             );
         }
         unset($config['umask']);
