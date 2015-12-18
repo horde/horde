@@ -351,7 +351,7 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
             }
         }
 
-        if (($result !== true) && $this->vars->sendupdates) {
+        if ($this->vars->sendupdates) {
             if ($this->vars->attendance) {
                 Kronolith::sendITipNotifications($event, $notification, Kronolith::ITIP_REPLY);
             }
