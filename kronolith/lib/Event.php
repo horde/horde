@@ -2837,6 +2837,9 @@ abstract class Kronolith_Event
         $this->timezone = Horde_Util::getFormData('timezone', $this->timezone);
         $this->private = (bool)Horde_Util::getFormData('private');
 
+        // if the field is empty you are the organizer (and so organizer should be null)
+        $this->organizer = Horde_Util::getFormData('organizer', $this->organizer) ?: null;
+
         // URL.
         $url = Horde_Util::getFormData('eventurl', $this->url);
         if (strlen($url)) {

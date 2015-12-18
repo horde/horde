@@ -105,6 +105,13 @@
   </p>
 </div>
 
+<div id="kronolithEventOrganized" style="display:none">
+  <p>
+    <label for="kronolithEventOrganizer"><?php echo _("Organizer") ?>:</label>
+    <input type="text" id="kronolithEventOrganizer" name="organizer" />
+  </p>
+</div>
+
 <div>
   <p>
     <label for="kronolithEventTarget"><?php echo _("Add event to") ?>:</label>

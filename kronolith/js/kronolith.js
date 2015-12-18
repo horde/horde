@@ -6090,6 +6090,9 @@ KronolithCore = {
         if (ev.cr) {
             $('kronolithEventAttendance').setValue(ev.cr);
         }
+        if (ev.o) {
+            $('kronolithEventOrganizer').setValue(ev.o);
+        }
 
         /* Alarm */
         if (ev.a) {
