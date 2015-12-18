@@ -5732,6 +5732,8 @@ KronolithCore = {
         $('kronolithEventTarget').show();
         $('kronolithEventTargetRO').hide();
         $('kronolithEventForm').down('.kronolithFormActions .kronolithSeparator').show();
+        $('kronolithEventOrganizer').clear();
+
         if (id) {
             // An id passed to this function indicates we are editing an event.
             RedBox.loading();
