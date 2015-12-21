@@ -19,7 +19,7 @@
  * @license  http://www.horde.org/licenses/gpl GPL
  * @package  Kronolith
  */
-class KronolithRemoteOrganizer extends Horde_Db_Migration_Base
+class KronolithEventOrganizer extends Horde_Db_Migration_Base
 {
     /**
      * Upgrade.
