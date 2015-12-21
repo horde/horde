@@ -11,6 +11,7 @@
  * @author   Jan Schneider <jan@horde.org>
  * @category Horde
  * @package  Perms
+ * @todo     Remove $GLOBALS references here and in Sql backend for Horde 6.
  */
 abstract class Horde_Perms_Base
 {
