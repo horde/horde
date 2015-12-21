@@ -197,7 +197,7 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
      *
      * @inject
      *
-     * @var Horde_Cache $logger  The cache object.
+     * @param Horde_Cache $cache  The cache object.
      */
     public function setCache(Horde_Cache $cache)
     {
