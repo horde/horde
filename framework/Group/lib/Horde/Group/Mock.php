@@ -1,11 +1,18 @@
 <?php
 /**
- * This class provides a mock driver for the Horde group system.
- *
  * Copyright 2008-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author   Duck <duck@obala.net>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Group
+ */
+
+/**
+ * This class provides a mock driver for the Horde group system.
  *
  * @author   Duck <duck@obala.net>
  * @category Horde
