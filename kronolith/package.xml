@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Honor confirm_delete preference in dynamic view (Bug #14188).
 * [mjr] Correctly deal with cancelled meetings via ActiveSync.
 * [mjr] Fix visibility of alarm titles when alarm is generated via CLI (Bug #14154).
 * [mjr] Fix display of embed code by adding the full url.
@@ -2631,6 +2632,7 @@
    <date>2015-10-21</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Honor confirm_delete preference in dynamic view (Bug #14188).
 * [mjr] Correctly deal with cancelled meetings via ActiveSync.
 * [mjr] Fix visibility of alarm titles when alarm is generated via CLI (Bug #14154).
 * [mjr] Fix display of embed code by adding the full url.
