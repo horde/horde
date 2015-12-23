@@ -52,6 +52,14 @@ KronolithCore = {
     attendanceChanged: false,
 
     /**
+     * Flag that indicates if the event currently displayed in the event
+     * properties window is a recurring event.
+     *
+     * @type boolean
+     */
+    recurs: false,
+
+    /**
      * The location that was open before the current location.
      *
      * @var string
@@ -4594,12 +4602,6 @@ KronolithCore = {
                 e.stop();
                 break;
 
-            case 'kronolithEventDelete':
-                $('kronolithEventDiv').hide();
-                $('kronolithDeleteDiv').show();
-                e.stop();
-                break;
-
             case 'kronolithEventDeleteCancel':
                 $('kronolithDeleteDiv').hide();
                 $('kronolithEventDiv').show();
@@ -4616,6 +4618,16 @@ KronolithCore = {
                 $('kronolithRecurDeleteCurrent').enable();
                 $('kronolithRecurDeleteFuture').enable();
                 $('kronolithCancellationDiv').hide();
+            case 'kronolithEventDelete':
+                if (Kronolith.conf.confirm_delete || this.recurs) {
+                    $('kronolithEventDiv').hide();
+                    $('kronolithDeleteDiv').show();
+                    e.stop();
+                    break;
+                } else {
+                    $('kronolithEventDiv').hide();
+                }
+                // Fallthrough
             case 'kronolithRecurDeleteAll':
             case 'kronolithRecurDeleteCurrent':
             case 'kronolithRecurDeleteFuture':
@@ -6140,6 +6152,7 @@ KronolithCore = {
             $('kronolithRecurDelete').show();
             $('kronolithNoRecurDelete').hide();
             $('kronolithEventEditRecur').show();
+            this.recurs = true;
         } else if (ev.bid) {
             $('kronolithRecurDelete').hide();
             $('kronolithNoRecurDelete').show();
@@ -6147,11 +6160,13 @@ KronolithCore = {
             var div = $('kronolithEventRepeatException');
             div.down('span').update(ev.eod);
             this.toggleRecurrence(true, 'Exception');
+            this.recurs = false;
         } else {
             $('kronolithRecurDelete').hide();
             $('kronolithNoRecurDelete').show();
             $('kronolithEventEditRecur').hide();
             this.toggleRecurrence(true, 'None');
+            this.recurs = false;
         }
 
         /* Attendees */
