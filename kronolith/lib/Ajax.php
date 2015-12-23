@@ -123,7 +123,8 @@ class Kronolith_Ajax
                 'delete' => Horde_Perms::DELETE,
                 'delegate' => Kronolith::PERMS_DELEGATE
             ),
-            'tasks' => $has_tasks ? $registry->tasks->ajaxDefaults() : null
+            'tasks' => $has_tasks ? $registry->tasks->ajaxDefaults() : null,
+            'confirm_delete' => $prefs->getValue('confirm_delete')
         ));
 
         /* Make sure this value is not optimized out by array_filter(). */
