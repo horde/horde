@@ -1903,7 +1903,7 @@ class Kronolith
     {
         global $injector, $registry;
 
-        if (!$event->attendees) {
+        if (!$event->attendees || $GLOBALS['prefs']->getValue('itip_silent')) {
             return;
         }
 

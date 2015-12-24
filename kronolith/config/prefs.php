@@ -78,6 +78,13 @@ $prefGroups['addressbooks'] = array(
     }
 );
 
+$prefGroups['itip'] = array(
+    'column' => _("Events"),
+    'label' => _("iTip/Meeting request preferences"),
+    'desc' => _("Set preferences for dealing with iTip notifications"),
+    'members' => array('itip_silent')
+);
+
 // Show dynamic view?
 $_prefs['dynamic_view'] = array(
    'value' => 1,
@@ -524,4 +531,10 @@ $_prefs['activesync_identity'] = array(
                 ->getInstance('Horde_Core_Factory_Identity')
                 ->create($GLOBALS['registry']->getAuth())->getAll('id'), array('horde' => _("Use Horde Default"))),
     'desc' => _("Choose the identity to use for ActiveSync. This determines the email address used as the ORGANIZER for events you create.")
+);
+
+$_prefs['itip_silent'] = array(
+    'value' => 0,
+    'type' => 'checkbox',
+    'desc' => _("If checked, NEVER SEND any iTip messages. This means invitees will NOT receive meeting requests and organizers will NOT receive any messages when an existing meeting is altered.")
 );

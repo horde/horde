@@ -127,7 +127,8 @@ class Kronolith_Ajax
                 'delegate' => Kronolith::PERMS_DELEGATE
             ),
             'tasks' => $has_tasks ? $registry->tasks->ajaxDefaults() : null,
-            'confirm_delete' => $prefs->getValue('confirm_delete')
+            'confirm_delete' => $prefs->getValue('confirm_delete'),
+            'itip_silent' => $prefs->getValue('itip_silent')
         ));
 
         /* Make sure this value is not optimized out by array_filter(). */

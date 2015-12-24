@@ -4551,7 +4551,8 @@ KronolithCore = {
             case 'kronolithEventSave':
                 if (!elt.disabled) {
                     if ($F('kronolithEventAttendees') && $F('kronolithEventId')
-                        && (!$F('kronolithEventOrganizer') || this.attendanceChanged)) {
+                        && (!$F('kronolithEventOrganizer') || this.attendanceChanged) &&
+                        !Kronolith.conf.itip_silent) {
                         $('kronolithEventSendUpdates').setValue(0);
                         $('kronolithEventDiv').hide();
                         this.showKronolithUpdateDiv();
@@ -4562,7 +4563,7 @@ KronolithCore = {
             case 'kronolithEventSendUpdateYes':
                 if (this.uatts) {
                     this.uatts.u = true;
-                } else {
+                } else if (!Kronolith.conf.itip_silent) {
                     $('kronolithEventSendUpdates').setValue(1);
                 }
             case 'kronolithEventSendUpdateNo':
@@ -5273,7 +5274,8 @@ KronolithCore = {
 
         if (id != 'kronolithEventSendCancellationNo'
             && id != 'kronolithEventSendCancellationYes'
-            && $F('kronolithEventAttendees') && !$F('kronolithEventOrganizer')) {
+            && $F('kronolithEventAttendees') && !$F('kronolithEventOrganizer') &&
+            !Kronolith.conf.itip_silent) {
             $('kronolithDeleteDiv').hide();
             $('kronolithCancellationDiv').show();
             return
