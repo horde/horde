@@ -307,6 +307,14 @@ abstract class Nag_Driver
                 }
                 $log_tasklist = $properties['tasklist'];
             }
+            $task->loadChildren();
+            if ($task->hasSubTasks()) {
+                foreach ($task->children as $child_task) {
+                    $child_task = $child_task->toHash();
+                    $child_task['tasklist'] = $properties['tasklist'];
+                    $this->modify($child_task['task_id'], $child_task);
+                }
+            }
         }
 
         /* Update alarm if necessary. */
