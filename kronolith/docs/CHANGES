@@ -2,6 +2,8 @@
 v4.3.0-git
 ----------
 
+[mjr] Add ability to prevent any iTip notifications from being sent (Request
+      #14157).
 [mjr] Remove maps configuration, replaced by global maps configuration (Bug
       #14168).
 [mjr] Show created/last-modified info on event view (Request #10715).

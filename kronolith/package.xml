@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Add ability to prevent any iTip notifications from being sent (Request #14157).
 * [mjr] Remove maps configuration, replaced by global maps configuration (Bug #14168).
 * [mjr] Show created/last-modified info on event view (Request #10715).
 * [jan] Allow to edit system calendars in dynamic view.
@@ -2567,6 +2568,7 @@
    <date>2015-05-21</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Add ability to prevent any iTip notifications from being sent (Request #14157).
 * [mjr] Remove maps configuration, replaced by global maps configuration (Bug #14168).
 * [mjr] Show created/last-modified info on event view (Request #10715).
 * [jan] Allow to edit system calendars in dynamic view.
