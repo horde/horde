@@ -2597,11 +2597,11 @@ abstract class Kronolith_Event
      */
     public function boundExceptions($flat = true)
     {
-        if (!$this->recurrence) {
+        if (!$this->recurrence || !$this->uid) {
             return array();
         }
         $return = array();
-        $search = new StdClass();
+        $search = new stdClass();
         $search->baseid = $this->uid;
         $results = $this->getDriver()->search($search);
         if (!$flat) {
