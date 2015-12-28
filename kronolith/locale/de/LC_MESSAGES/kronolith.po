@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kronolith H5 (4.2-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-10-29 12:14+0100\n"
+"POT-Creation-Date: 2015-12-28 17:03+0100\n"
 "PO-Revision-Date: 2014-10-29 12:30+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <i18n@lists.horde.org>\n"
@@ -36,7 +36,7 @@ msgstr " ohne Ende"
 msgid "%d %s before the event starts"
 msgstr "%d %s vor dem Terminbeginn"
 
-#: lib/Event.php:2344
+#: lib/Event.php:2337
 #, php-format
 msgid "%d day"
 msgid_plural "%d days"
@@ -48,14 +48,14 @@ msgstr[1] "%d Tage"
 msgid "%d events"
 msgstr "%d Termine"
 
-#: lib/Event.php:2347
+#: lib/Event.php:2340
 #, php-format
 msgid "%d hour"
 msgid_plural "%d hours"
 msgstr[0] "%d Stunde"
 msgstr[1] "%d Stunden"
 
-#: lib/Event.php:2350
+#: lib/Event.php:2343
 #, php-format
 msgid "%d minute"
 msgid_plural "%d minutes"
@@ -67,7 +67,7 @@ msgstr[1] "%d Minuten"
 msgid "%d times"
 msgstr "%d mal"
 
-#: lib/Event.php:2341
+#: lib/Event.php:2334
 #, php-format
 msgid "%d week"
 msgid_plural "%d weeks"
@@ -84,7 +84,7 @@ msgstr "%s %sMit der %s %sGruppe%s teilen und %sihnen erlauben%s %s"
 msgid "%s %sShare with the users:%s %s and %sallow them to%s %s"
 msgstr "%s %sMit den Benutzern:%s %s teilen und %sihnen erlauben%s %s"
 
-#: lib/Api.php:787 lib/Api.php:800
+#: lib/Api.php:778 lib/Api.php:791
 #, php-format
 msgid "%s Already Exists"
 msgstr "%s existiert bereits"
@@ -94,7 +94,7 @@ msgstr "%s existiert bereits"
 msgid "%s Day(s) %s Hour(s) %s Minutes"
 msgstr "%s Tag(e) %s Stunde(n) %s Minuten"
 
-#: templates/dynamic/edit.inc:145 templates/dynamic/task.inc:100
+#: templates/dynamic/edit.inc:146 templates/dynamic/task.inc:102
 #, php-format
 msgid ""
 "%s Don't repeat %s or repeat %s daily, %s weekly, %s monthly %s or %s yearly "
@@ -113,7 +113,7 @@ msgstr "%s nicht einrichten %s oder %s einrichten %s vor dem Termin %s"
 msgid "%s Private %s &mdash; hides details if calendar is public %s"
 msgstr "%s Privat %s &mdash; Versteckt Details in öffentlichen Kalendern %s"
 
-#: lib/Event.php:2358
+#: lib/Event.php:2351
 #, php-format
 msgid "%s at %s"
 msgstr "%s um %s"
@@ -124,7 +124,7 @@ msgid "%s don't set %s or %s set %s before due date %s"
 msgstr ""
 "%s nicht einrichten %s oder %s einrichten %s vor dem Fälligkeitsdatum %s"
 
-#: data.php:210
+#: data.php:213
 #, php-format
 msgid "%s file successfully imported"
 msgstr "Die %s-Datei wurde erfolgreich importiert"
@@ -139,12 +139,12 @@ msgstr "%s hat den Kalender \"%s\" an Sie übergeben."
 msgid "%s has assigned the ownership of the calendar %s to you."
 msgstr "%s hat den Kalender %s an Sie übergeben."
 
-#: lib/Kronolith.php:1922
+#: lib/Kronolith.php:1940
 #, php-format
 msgid "%s has cancelled \"%s\"."
 msgstr "%s hat \"%s\" abgesagt."
 
-#: lib/Kronolith.php:1924
+#: lib/Kronolith.php:1942
 #, php-format
 msgid "%s has cancelled an instance of the recurring \"%s\"."
 msgstr "%s hat eine einzelne Wiederholung von \"%s\" abgesagt."
@@ -154,7 +154,7 @@ msgstr "%s hat eine einzelne Wiederholung von \"%s\" abgesagt."
 msgid "%s not found"
 msgstr "%s nicht gefunden"
 
-#: lib/Kronolith.php:1940
+#: lib/Kronolith.php:1958
 #, php-format
 msgid "%s wants to notify you about changes of \"%s\"."
 msgstr "%s möchte Sie auf Änderungen an \"%s\" aufmerksam machen."
@@ -177,7 +177,7 @@ msgstr ""
 "%s möchte den Kalender %s mit Ihnen teilen, um Ihnen den Zugriff auf alle "
 "Termine in diesem Kalender zu ermöglichen."
 
-#: lib/Kronolith.php:1935
+#: lib/Kronolith.php:1953
 #, php-format
 msgid "%s wishes to make you aware of \"%s\"."
 msgstr "%s möchte Sie auf \"%s\" aufmerksam machen."
@@ -253,7 +253,7 @@ msgstr "AM"
 msgid "Accepted"
 msgstr "Angenommen"
 
-#: lib/Kronolith.php:1550
+#: lib/Kronolith.php:1557
 msgid "Access permissions"
 msgstr "Zugriffsrechte"
 
@@ -270,11 +270,11 @@ msgstr "Hinzufügen"
 msgid "Add Event"
 msgstr "Termin hinzufügen"
 
-#: templates/dynamic/sidebar.html.php:132
+#: templates/dynamic/sidebar.html.php:136
 msgid "Add Holidays"
 msgstr "Feiertage hinzufügen"
 
-#: templates/dynamic/sidebar.html.php:119
+#: templates/dynamic/sidebar.html.php:121
 msgid "Add Remote Calendar"
 msgstr "Externen Kalender hinzufügen"
 
@@ -294,7 +294,7 @@ msgstr "Einen neuen Termin hinzufügen"
 msgid "Add attendees"
 msgstr "Teilnehmer hinzufügen"
 
-#: templates/dynamic/edit.inc:209
+#: templates/dynamic/edit.inc:210
 msgid "Add attendees e-mail addresses"
 msgstr "E-Mail-Adressen der Teilnehmer hinzufügen"
 
@@ -306,7 +306,7 @@ msgstr "Termin hinzufügen zu"
 msgid "Add resource"
 msgstr "Ressourcen hinzufügen"
 
-#: templates/dynamic/edit.inc:234
+#: templates/dynamic/edit.inc:235
 msgid "Add resources"
 msgstr "Ressourcen hinzufügen"
 
@@ -318,7 +318,7 @@ msgstr "Hinzufügen zu"
 msgid "Add to attendees"
 msgstr "Zu Teilnehmern hinzufügen"
 
-#: lib/Ajax/Application/Handler.php:960
+#: lib/Ajax/Application/Handler.php:1005
 msgid "Added task list not found."
 msgstr "Hinzugefügte Aufgabenliste nicht gefunden."
 
@@ -345,28 +345,28 @@ msgstr "Übersicht"
 msgid "Alarm"
 msgstr "Alarm"
 
-#: lib/Event.php:3488
+#: lib/Event.php:3533
 #, php-format
 msgid "Alarm %d day before"
 msgid_plural "Alarm %d days before"
 msgstr[0] "Alarm %d Tag vorher"
 msgstr[1] "Alarm %d Tage vorher"
 
-#: lib/Event.php:3491
+#: lib/Event.php:3536
 #, php-format
 msgid "Alarm %d hour before"
 msgid_plural "Alarm %d hours before"
 msgstr[0] "Alarm %d Stunde vorher"
 msgstr[1] "Alarm %d Stunden vorher"
 
-#: lib/Event.php:3494
+#: lib/Event.php:3539
 #, php-format
 msgid "Alarm %d minute before"
 msgid_plural "Alarm %d minutes before"
 msgstr[0] "Alarm %d Minute vorher"
 msgstr[1] "Alarm %d Minuten vorher"
 
-#: lib/Event.php:3485
+#: lib/Event.php:3530
 #, php-format
 msgid "Alarm %d week before"
 msgid_plural "Alarm %d weeks before"
@@ -397,7 +397,7 @@ msgstr "Alarmdauer"
 msgid "Alarm enabled"
 msgstr "Alarm aktiviert"
 
-#: lib/Ajax.php:134
+#: lib/Ajax.php:135
 msgid "Alarm:"
 msgstr "Alarm:"
 
@@ -437,8 +437,8 @@ msgstr "Alle vergangenen"
 msgid "All Visible"
 msgstr "Alle sichtbaren"
 
-#: lib/Ajax.php:136 lib/Block/Month.php:177 lib/Block/Summary.php:179
-#: lib/Event.php:3606 lib/View/Day.php:94 lib/View/Day.php:97
+#: lib/Ajax.php:137 lib/Block/Month.php:177 lib/Block/Summary.php:179
+#: lib/Event.php:3651 lib/View/Day.php:94 lib/View/Day.php:97
 #: lib/View/Week.php:123 lib/View/Week.php:148 lib/View/Year.php:135
 #: templates/agenda/notification.html.php:24
 #: templates/agenda/notification.plain.php:6 templates/dynamic/day.inc:14
@@ -488,13 +488,13 @@ msgstr "Immer ablehnen"
 msgid "Any"
 msgstr "Alle"
 
-#: lib/Ajax.php:137
+#: lib/Ajax.php:138
 msgid "Are you sure you want to delete this calendar and all the events in it?"
 msgstr ""
 "Sind Sie sicher, dass Sie diesen Kalender und alle Termine darin löschen "
 "möchten?"
 
-#: lib/Ajax.php:138
+#: lib/Ajax.php:139
 msgid "Are you sure you want to delete this task list and all the tasks in it?"
 msgstr ""
 "Sind Sie sicher, dass Sie diese Aufgabenliste und alle Aufgaben darin "
@@ -555,7 +555,7 @@ msgstr "Automatisch"
 msgid "Automatically"
 msgstr "Automatik"
 
-#: templates/dynamic/edit.inc:218 templates/dynamic/edit.inc:243
+#: templates/dynamic/edit.inc:219 templates/dynamic/edit.inc:244
 msgid "Availability"
 msgstr "Verfügbarkeit"
 
@@ -573,12 +573,12 @@ msgstr "Beschäftigt"
 msgid "C_alendar"
 msgstr "_Kalender"
 
-#: lib/Form/EditCalendar.php:105 templates/chunks/calendar.php:114
+#: lib/Form/EditCalendar.php:107 templates/chunks/calendar.php:114
 #: templates/chunks/calendar.php:227
 msgid "CalDAV Account URL"
 msgstr "CalDAV-Konto-Adresse"
 
-#: lib/Form/EditCalendar.php:96 templates/chunks/calendar.php:109
+#: lib/Form/EditCalendar.php:98 templates/chunks/calendar.php:109
 #: templates/chunks/calendar.php:222
 msgid "CalDAV Subscription URL"
 msgstr "CalDAV-Abonnement-Adresse"
@@ -601,12 +601,12 @@ msgstr "ICS-Kalenderdatei"
 msgid "Calendar Summary"
 msgstr "Kalender-Übersicht"
 
-#: lib/Api.php:372 lib/Application.php:880
+#: lib/Api.php:392 lib/Application.php:836
 msgid "Calendar does not exist or no permission to delete"
 msgstr "Der Kalender existiert nicht oder keine Berechtigung zum Löschen"
 
-#: lib/Api.php:259 lib/Application.php:720 lib/Application.php:761
-#: lib/Application.php:807
+#: lib/Api.php:267 lib/Application.php:728 lib/Application.php:769
+#: lib/Application.php:815
 msgid "Calendar does not exist or no permission to edit"
 msgstr "Der Kalender existiert nicht oder keine Berechtigung zum Ändern."
 
@@ -640,14 +640,14 @@ msgstr "Kalender"
 msgid "Calendars Printed: "
 msgstr "Gedruckte Kalender: "
 
-#: data.php:154
+#: data.php:168 data.php:205
 msgid "Can't create a new event."
 msgstr "Ein neuer Termin konnte nicht erstellt werden."
 
 #: lib/Form/DeleteCalendar.php:35 lib/Form/DeleteCalendar.php:44
 #: lib/Form/DeleteResource.php:38 lib/Form/DeleteResource.php:48
 #: lib/Form/DeleteResourceGroup.php:40 lib/Form/DeleteResourceGroup.php:49
-#: lib/Form/EditCalendar.php:171 lib/Form/EditCalendar.php:193
+#: lib/Form/EditCalendar.php:173 lib/Form/EditCalendar.php:195
 #: lib/Form/EditRemoteCalendar.php:36 lib/Form/EditRemoteCalendar.php:58
 #: lib/Form/EditResource.php:74 lib/Form/EditResource.php:139
 #: lib/Form/EditResourceGroup.php:50 lib/Form/EditResourceGroup.php:80
@@ -657,9 +657,9 @@ msgstr "Ein neuer Termin konnte nicht erstellt werden."
 #: templates/chunks/calendar.php:303 templates/chunks/calendar.php:323
 #: templates/chunks/calendar.php:347 templates/chunks/calendar.php:402
 #: templates/chunks/calendar.php:437 templates/delete/delete.inc:28
-#: templates/delete/one.inc:25 templates/dynamic/edit.inc:296
-#: templates/dynamic/edit.inc:311 templates/dynamic/index.inc:14
-#: templates/dynamic/task.inc:166 templates/dynamic/task.inc:180
+#: templates/delete/one.inc:25 templates/dynamic/edit.inc:297
+#: templates/dynamic/edit.inc:312 templates/dynamic/index.inc:14
+#: templates/dynamic/task.inc:168 templates/dynamic/task.inc:182
 #: templates/edit/edit.inc:58 templates/edit/edit.inc:444
 msgid "Cancel"
 msgstr "Abbrechen"
@@ -668,12 +668,12 @@ msgstr "Abbrechen"
 msgid "Cancelled"
 msgstr "Abgesagt"
 
-#: lib/Kronolith.php:1920
+#: lib/Kronolith.php:1938
 #, php-format
 msgid "Cancelled: %s"
 msgstr "Abgesagt: %s"
 
-#: lib/Driver/Ical.php:539
+#: lib/Driver/Ical.php:550
 msgid "Cannot delete exceptions (yet)."
 msgstr "Ausnahmen können (noch) nicht gelöscht werden."
 
@@ -682,7 +682,7 @@ msgstr "Ausnahmen können (noch) nicht gelöscht werden."
 msgid "Cannot parse event description \"%s\""
 msgstr "Die Terminbeschreibung \"%s\" wurde nicht verstanden"
 
-#: lib/Form/EditCalendar.php:157
+#: lib/Form/EditCalendar.php:159
 msgid "Change Permissions"
 msgstr "Rechte Ändern"
 
@@ -766,13 +766,13 @@ msgstr ""
 "Kopieren Sie diese Adresse in Ihren Browser oder klicken Sie darauf, um "
 "diese Ressource anzuzeigen"
 
-#: lib/Form/EditCalendar.php:70
+#: lib/Form/EditCalendar.php:72
 msgid "Click or copy this URL to display this calendar"
 msgstr ""
 "Kopieren Sie diese Adresse in Ihren Browser oder klicken Sie darauf, um "
 "diesen Kalender anzuzeigen"
 
-#: templates/dynamic/edit.inc:281
+#: templates/dynamic/edit.inc:282
 msgid "Client"
 msgstr "Kunde"
 
@@ -792,7 +792,7 @@ msgstr "Fenster schließen"
 msgid "Collapse"
 msgstr "Schließen"
 
-#: lib/Form/CreateCalendar.php:25 lib/Form/EditCalendar.php:55
+#: lib/Form/CreateCalendar.php:25 lib/Form/EditCalendar.php:57
 #: lib/Form/EditRemoteCalendar.php:30 lib/Form/SubscribeRemoteCalendar.php:25
 #: templates/chunks/calendar.php:61 templates/chunks/calendar.php:186
 #: templates/chunks/calendar.php:273
@@ -830,37 +830,37 @@ msgstr ""
 "Benutzen Sie die folgende Adresse, wann immer Sie Ihre Frei/Gebucht-Adresse "
 "benötigen:"
 
-#: lib/Form/EditCalendar.php:109
+#: lib/Form/EditCalendar.php:111
 msgid "Copy this URL to a CalDAV client to subscribe to all your calendars"
 msgstr ""
 "Kopieren Sie diese Adresse in ein CalDAV-Programm um alle Ihre Kalender zu "
 "abonnieren."
 
-#: lib/Form/EditCalendar.php:100
+#: lib/Form/EditCalendar.php:102
 msgid "Copy this URL to a CalDAV client to subscribe to this calendar"
 msgstr ""
 "Kopieren Sie diese Adresse in ein CalDAV-Programm um diesen Kalender zu "
 "abonnieren."
 
-#: lib/Form/EditCalendar.php:125
+#: lib/Form/EditCalendar.php:127
 msgid "Copy this URL to a WebDAV or ICS client to subscribe to this calendar"
 msgstr ""
 "Kopieren Sie diese Adresse in ein WebDAV- oder ICS-Programm um diesen "
 "Kalender zu abonnieren."
 
-#: lib/Form/EditCalendar.php:137
+#: lib/Form/EditCalendar.php:139
 msgid "Copy this URL to a news feed reader to subscribe to this calendar"
 msgstr ""
 "Kopieren Sie diese Adresse in ein Newsfeed-Programm um diesen Kalender zu "
 "abonnieren."
 
-#: lib/Driver/Ical.php:595
+#: lib/Driver/Ical.php:606
 #, php-format
 msgid "Could not open %s: %s"
 msgstr "%s konnte nicht gelesen werden: %s"
 
 #: lib/Form/CreateCalendar.php:33 lib/Form/CreateResource.php:49
-#: lib/Form/CreateResourceGroup.php:36 templates/dynamic/task.inc:178
+#: lib/Form/CreateResourceGroup.php:36 templates/dynamic/task.inc:180
 msgid "Create"
 msgstr "Erstellen"
 
@@ -925,7 +925,7 @@ msgid "Date:"
 msgstr "Datum:"
 
 #: attendees.php:187 config/prefs.php:100 lib/Application.php:447
-#: lib/Kronolith.php:2434 templates/dynamic/index.inc:32
+#: lib/Kronolith.php:2452 templates/dynamic/index.inc:32
 #: templates/smartmobile/day.html.php:2 templates/smartmobile/day.html.php:7
 #: templates/smartmobile/month.html.php:7
 #: templates/smartmobile/summary.html.php:7
@@ -937,7 +937,7 @@ msgstr "Tag"
 msgid "Day(s)"
 msgstr "Tag(e)"
 
-#: lib/Kronolith.php:2501
+#: lib/Kronolith.php:2519
 msgid "De_lete"
 msgstr "_Löschen"
 
@@ -973,9 +973,9 @@ msgstr "Angemeldete Benutzer"
 msgid "Delegate"
 msgstr "Delegieren"
 
-#: lib/Event.php:2544 lib/Event.php:3551 lib/Form/DeleteCalendar.php:34
+#: lib/Event.php:2537 lib/Event.php:3596 lib/Form/DeleteCalendar.php:34
 #: lib/Form/DeleteResource.php:37 lib/Form/DeleteResourceGroup.php:39
-#: lib/Form/EditCalendar.php:170 lib/Form/EditCalendar.php:188
+#: lib/Form/EditCalendar.php:172 lib/Form/EditCalendar.php:190
 #: lib/Form/EditResource.php:73 lib/Form/EditResource.php:133
 #: lib/Form/EditResourceGroup.php:49 lib/Form/EditResourceGroup.php:74
 #: templates/chunks/calendar.php:165 templates/chunks/calendar.php:252
@@ -984,8 +984,8 @@ msgstr "Delegieren"
 #: templates/chunks/calendar.php:436 templates/chunks/permissions.inc:109
 #: templates/chunks/permissions.inc:136 templates/chunks/permissions.inc:164
 #: templates/chunks/permissions.inc:217 templates/chunks/permissions.inc:264
-#: templates/delete/one.inc:24 templates/dynamic/edit.inc:294
-#: templates/dynamic/edit.inc:309 templates/dynamic/task.inc:165
+#: templates/delete/one.inc:24 templates/dynamic/edit.inc:295
+#: templates/dynamic/edit.inc:310 templates/dynamic/task.inc:167
 #: templates/perms/perms.inc:59 templates/perms/perms.inc:80
 #: templates/perms/perms.inc:100 templates/perms/perms.inc:121
 #: templates/perms/perms.inc:142 templates/perms/perms.inc:163
@@ -996,26 +996,26 @@ msgstr "Delegieren"
 msgid "Delete"
 msgstr "Löschen"
 
-#: lib/Event.php:3548 lib/Form/DeleteCalendar.php:28
+#: lib/Event.php:3593 lib/Form/DeleteCalendar.php:28
 #: lib/Form/DeleteResource.php:31 lib/Form/DeleteResourceGroup.php:31
 #: lib/View/DeleteEvent.php:43
 #, php-format
 msgid "Delete %s"
 msgstr "%s löschen"
 
-#: templates/dynamic/edit.inc:304
+#: templates/dynamic/edit.inc:305
 msgid "Delete All"
 msgstr "Alle löschen"
 
-#: templates/dynamic/edit.inc:305
+#: templates/dynamic/edit.inc:306
 msgid "Delete This Event Only"
 msgstr "Nur diesen Termin löschen"
 
-#: templates/dynamic/edit.inc:306
+#: templates/dynamic/edit.inc:307
 msgid "Delete This and Future Events"
 msgstr "Diesen und zukünftige Termine löschen"
 
-#: lib/Event.php:2543
+#: lib/Event.php:2536
 #, php-format
 msgid "Delete exception on %s"
 msgstr "Ausnahme am %s löschen"
@@ -1027,7 +1027,7 @@ msgid_plural "Deleted %d events older than %d days."
 msgstr[0] "%d Termin älter als %d Tage wurde gelöscht."
 msgstr[1] "%d Termine älter als %d Tage wurden gelöscht."
 
-#: lib/Driver/Ical.php:535
+#: lib/Driver/Ical.php:546
 msgid "Deleting events is not supported with this remote calendar."
 msgstr "Dieser externe Kalender unterstützt das Löschen von Terminen nicht."
 
@@ -1037,7 +1037,7 @@ msgid "Descri_ption"
 msgstr "_Beschreibung"
 
 #: data.php:56 lib/Form/CreateCalendar.php:30 lib/Form/CreateResource.php:44
-#: lib/Form/CreateResourceGroup.php:34 lib/Form/EditCalendar.php:59
+#: lib/Form/CreateResourceGroup.php:34 lib/Form/EditCalendar.php:61
 #: lib/Form/EditRemoteCalendar.php:31 lib/Form/EditResource.php:54
 #: lib/Form/EditResourceGroup.php:44 lib/Form/SubscribeRemoteCalendar.php:32
 #: templates/chunks/calendar.php:69 templates/chunks/calendar.php:194
@@ -1059,7 +1059,7 @@ msgstr "Anzeige"
 msgid "Display Preferences"
 msgstr "Anzeige-Einstellungen"
 
-#: lib/Form/EditCalendar.php:66 lib/Form/EditResource.php:62
+#: lib/Form/EditCalendar.php:68 lib/Form/EditResource.php:62
 msgid "Display URL"
 msgstr "Anzeige-Adresse"
 
@@ -1090,22 +1090,22 @@ msgstr "Fälligkeitsdatum"
 msgid "Duration"
 msgstr "_Dauer"
 
-#: lib/Event.php:3312
+#: lib/Event.php:3357
 msgid "Duration Day"
 msgstr "Dauer Tage"
 
-#: lib/Event.php:3323
+#: lib/Event.php:3368
 msgid "Duration Hour"
 msgstr "Dauer Stunden"
 
-#: lib/Event.php:3333
+#: lib/Event.php:3378
 msgid "Duration Minute"
 msgstr "Dauer Minuten"
 
-#: lib/Event.php:3536 templates/chunks/permissions.inc:105
+#: lib/Event.php:3581 templates/chunks/permissions.inc:105
 #: templates/chunks/permissions.inc:132 templates/chunks/permissions.inc:160
 #: templates/chunks/permissions.inc:213 templates/chunks/permissions.inc:260
-#: templates/dynamic/edit.inc:205 templates/perms/perms.inc:58
+#: templates/dynamic/edit.inc:206 templates/perms/perms.inc:58
 #: templates/perms/perms.inc:76 templates/perms/perms.inc:99
 #: templates/perms/perms.inc:117 templates/perms/perms.inc:141
 #: templates/perms/perms.inc:159 templates/perms/perms.inc:182
@@ -1115,7 +1115,7 @@ msgstr "Dauer Minuten"
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: lib/Event.php:3533 lib/Form/EditCalendar.php:36
+#: lib/Event.php:3578 lib/Form/EditCalendar.php:38
 #: lib/Form/EditRemoteCalendar.php:22 lib/Form/EditResource.php:34
 #: lib/Form/EditResourceGroup.php:34 lib/View/EditEvent.php:44
 #: templates/attendees/attendees.inc:58
@@ -1174,7 +1174,7 @@ msgstr "Skript für Einbetten"
 msgid "Embed calendar on external website"
 msgstr "Kalendar in externe Webseite einbetten"
 
-#: lib/Form/EditCalendar.php:144
+#: lib/Form/EditCalendar.php:146
 msgid "Embed code"
 msgstr "Code zum Einbetten"
 
@@ -1186,19 +1186,19 @@ msgstr "En_de"
 msgid "End Date"
 msgstr "Enddatum"
 
-#: lib/Event.php:3285 templates/data/export.inc:161
+#: lib/Event.php:3330 templates/data/export.inc:161
 msgid "End Day"
 msgstr "Enddatum"
 
-#: lib/Event.php:3297 templates/data/export.inc:178
+#: lib/Event.php:3342 templates/data/export.inc:178
 msgid "End Hour"
 msgstr "Endstunde"
 
-#: lib/Event.php:3307 templates/data/export.inc:190
+#: lib/Event.php:3352 templates/data/export.inc:190
 msgid "End Minute"
 msgstr "Endminute"
 
-#: lib/Event.php:3277 templates/data/export.inc:148
+#: lib/Event.php:3322 templates/data/export.inc:148
 msgid "End Month"
 msgstr "Endmonat"
 
@@ -1211,7 +1211,7 @@ msgstr "endet am"
 msgid "End Time"
 msgstr "Endzeit"
 
-#: lib/Event.php:3267 templates/data/export.inc:134
+#: lib/Event.php:3312 templates/data/export.inc:134
 msgid "End Year"
 msgstr "Endjahr"
 
@@ -1219,7 +1219,7 @@ msgstr "Endjahr"
 msgid "End:"
 msgstr "Ende:"
 
-#: templates/dynamic/task.inc:175
+#: templates/dynamic/task.inc:177
 msgid ""
 "Enter one task per line. Create child tasks by indenting them below their "
 "parent task. Include due dates like \"laundry tomorrow\" or \"get dry "
@@ -1240,7 +1240,7 @@ msgstr "Fehler beim Auslesen der Frei/Gebucht-Informationen für %s: %s"
 msgid "Error retrieving your free/busy information: %s"
 msgstr "Fehler beim Auslesen Ihrer Frei/Gebucht-Informationen: %s"
 
-#: lib/Ajax/Application/Handler.php:1404
+#: lib/Ajax/Application/Handler.php:1449
 #, php-format
 msgid "Error saving timeslice: %s"
 msgstr "Fehler beim Speichern des Zeitabschnitts: %s"
@@ -1257,7 +1257,7 @@ msgstr "Termin"
 msgid "Event Defaults"
 msgstr "Standardwerte"
 
-#: templates/dynamic/edit.inc:272
+#: templates/dynamic/edit.inc:273
 msgid "Event ICS file"
 msgstr "ICS-Termindatei"
 
@@ -1265,19 +1265,19 @@ msgstr "ICS-Termindatei"
 msgid "Event Status:"
 msgstr "Terminstatus:"
 
-#: lib/Kronolith.php:2129
+#: lib/Kronolith.php:2147
 msgid "Event added:"
 msgstr "Termin hinzugefügt:"
 
-#: lib/Kronolith.php:2139
+#: lib/Kronolith.php:2157
 msgid "Event deleted:"
 msgstr "Termin gelöscht:"
 
-#: lib/Kronolith.php:2134
+#: lib/Kronolith.php:2152
 msgid "Event edited:"
 msgstr "Termin bearbeitet:"
 
-#: lib/Driver/Horde.php:182 lib/Driver/Ical.php:417 lib/Driver/Ical.php:434
+#: lib/Driver/Horde.php:182 lib/Driver/Ical.php:428 lib/Driver/Ical.php:445
 #: lib/Driver/Sql.php:480 lib/View/DeleteEvent.php:54
 #: lib/View/EditEvent.php:55 lib/View/Event.php:54 lib/View/ExportEvent.php:18
 msgid "Event not found"
@@ -1305,20 +1305,20 @@ msgstr "Termine für diesen Tag"
 msgid "Events from %s"
 msgstr "Termine aus %s"
 
-#: lib/Ajax.php:151
+#: lib/Ajax.php:152
 #, php-format
 msgid "Events matching \"%s\""
 msgstr "Zu \"%s\" passende Termine"
 
-#: lib/Event.php:1985
+#: lib/Event.php:1978
 msgid "Events must have a start date."
 msgstr "Termine müssen ein Startdatum haben."
 
-#: lib/Event.php:1955
+#: lib/Event.php:1948
 msgid "Events must have a title."
 msgstr "Termine müssen einen Titel haben."
 
-#: lib/Ajax.php:171 lib/Event.php:2516 lib/Event.php:3503
+#: lib/Ajax.php:172 lib/Event.php:2509 lib/Event.php:3548
 #: templates/smartmobile/javascript_defs.php:178
 msgid "Exception"
 msgstr "Ausnahme"
@@ -1330,12 +1330,12 @@ msgstr "Ausnahmen"
 #: templates/dynamic/sidebar.html.php:58 templates/dynamic/sidebar.html.php:72
 #: templates/dynamic/sidebar.html.php:89
 #: templates/dynamic/sidebar.html.php:104
-#: templates/dynamic/sidebar.html.php:120
-#: templates/dynamic/sidebar.html.php:133
+#: templates/dynamic/sidebar.html.php:123
+#: templates/dynamic/sidebar.html.php:137
 msgid "Expand"
 msgstr "Vergrößern"
 
-#: lib/Kronolith.php:2508 templates/chunks/calendar.php:88
+#: lib/Kronolith.php:2526 templates/chunks/calendar.php:88
 #: templates/chunks/calendar.php:210 templates/chunks/calendar.php:384
 #: templates/data/export.inc:212 templates/dynamic/edit.inc:111
 msgid "Export"
@@ -1346,11 +1346,11 @@ msgid "Export Calendar"
 msgstr "Kalender exportieren"
 
 #: templates/chunks/calendar.php:158 templates/chunks/calendar.php:245
-#: templates/chunks/calendar.php:395 templates/dynamic/edit.inc:271
+#: templates/chunks/calendar.php:395 templates/dynamic/edit.inc:272
 msgid "Export ICS file"
 msgstr "ICS-Datei exportieren"
 
-#: lib/Form/EditCalendar.php:133 templates/chunks/calendar.php:124
+#: lib/Form/EditCalendar.php:135 templates/chunks/calendar.php:124
 msgid "Feed URL"
 msgstr "Feed-URL"
 
@@ -1374,7 +1374,7 @@ msgstr "Frei"
 msgid "Free/Busy Information"
 msgstr "Frei/Gebucht-Informationen"
 
-#: templates/dynamic/edit.inc:167 templates/dynamic/task.inc:122
+#: templates/dynamic/edit.inc:168 templates/dynamic/task.inc:124
 #: templates/month/head.inc:12 templates/view/view.inc:107
 msgid "Friday"
 msgstr "Freitag"
@@ -1383,12 +1383,12 @@ msgstr "Freitag"
 msgid "From"
 msgstr "Von"
 
-#: lib/Event.php:2212 lib/Event.php:2243
+#: lib/Event.php:2205 lib/Event.php:2236
 #, php-format
 msgid "From %s at %s to %s at %s"
 msgstr "Vom %s um %s bis zum %s um %s"
 
-#: lib/Event.php:2209 lib/Event.php:2240
+#: lib/Event.php:2202 lib/Event.php:2233
 #, php-format
 msgid "From %s to %s"
 msgstr "Vom %s bis zum %s"
@@ -1420,7 +1420,7 @@ msgstr "Gastrechte"
 msgid "Hide"
 msgstr "Ausblenden"
 
-#: lib/Ajax.php:142
+#: lib/Ajax.php:143
 msgid "Hide Notifications"
 msgstr "Benachrichtigungen verstecken"
 
@@ -1433,11 +1433,11 @@ msgid "Highest"
 msgstr "Höchste"
 
 #: lib/Application.php:365 templates/chunks/calendar.php:338
-#: templates/dynamic/sidebar.html.php:133
+#: templates/dynamic/sidebar.html.php:137
 msgid "Holidays"
 msgstr "Feiertage"
 
-#: lib/Factory/Driver.php:100
+#: lib/Factory/Driver.php:101
 msgid "Holidays are disabled"
 msgstr "Feiertage sind deaktiviert"
 
@@ -1502,11 +1502,11 @@ msgstr "Kalender importieren, Schritt %d"
 msgid "Import ICS file"
 msgstr "ICS-Datei importieren"
 
-#: data.php:233
+#: data.php:236
 msgid "Import/Export Calendar"
 msgstr "Kalender-Import/-Export"
 
-#: lib/Ajax.php:143
+#: lib/Ajax.php:144
 msgid "Importing calendar data. This may take a while..."
 msgstr "Importiere Kalenderdaten. Dies kann einige Zeit dauern..."
 
@@ -1523,11 +1523,11 @@ msgstr "Unerledigt"
 msgid "Individual Users"
 msgstr "Einzelne Benutzer"
 
-#: lib/Api.php:252
+#: lib/Api.php:260
 msgid "Invalid calendar data supplied."
 msgstr "Ungültige Kalenderdaten angebeben."
 
-#: lib/Api.php:153
+#: lib/Api.php:155
 msgid "Invalid calendar requested."
 msgstr "Ungültiger Kalender angefordert."
 
@@ -1541,7 +1541,7 @@ msgstr "Einladung von %s zum Kalender \"%s\"."
 msgid "Invitation from %s to the calendar %s"
 msgstr "Einladung von %s zum Kalender %s"
 
-#: templates/dynamic/edit.inc:275
+#: templates/dynamic/edit.inc:276
 msgid "Job type"
 msgstr "Arbeitsart"
 
@@ -1591,13 +1591,13 @@ msgstr "Lade Kalender..."
 
 #: lib/Ui/VarRenderer/Kronolith.php:33 templates/attendees/attendees.inc:129
 #: templates/chunks/calendar.php:101 templates/dynamic/edit.inc:80
-#: templates/dynamic/edit.inc:211 templates/dynamic/edit.inc:236
-#: templates/dynamic/edit.inc:261 templates/dynamic/task.inc:159
+#: templates/dynamic/edit.inc:212 templates/dynamic/edit.inc:237
+#: templates/dynamic/edit.inc:262 templates/dynamic/task.inc:161
 #: templates/edit/edit.inc:422
 msgid "Loading..."
 msgstr "Lade..."
 
-#: data.php:57 lib/Event.php:3588 templates/dynamic/edit.inc:76
+#: data.php:57 lib/Event.php:3633 templates/dynamic/edit.inc:76
 #: templates/search/event_headers.inc:4 templates/view/view.inc:6
 msgid "Location"
 msgstr "Ort"
@@ -1646,11 +1646,11 @@ msgstr "Maximale Anzahl an Terminen"
 msgid "Maximum number of events to display (0 = no limit)"
 msgstr "Maximale Anzahl der anzuzeigenden Termine (0 = keine Begrenzung)"
 
-#: lib/Event.php:3584
+#: lib/Event.php:3629
 msgid "Me"
 msgstr "Ich"
 
-#: lib/Event.php:3513
+#: lib/Event.php:3558
 msgid "Meeting"
 msgstr "Besprechung"
 
@@ -1663,14 +1663,14 @@ msgstr "Minute(n)"
 msgid "Mo"
 msgstr "Mo"
 
-#: config/prefs.php:129 templates/dynamic/edit.inc:163
-#: templates/dynamic/task.inc:118 templates/month/head.inc:8
+#: config/prefs.php:129 templates/dynamic/edit.inc:164
+#: templates/dynamic/task.inc:120 templates/month/head.inc:8
 #: templates/view/view.inc:103
 msgid "Monday"
 msgstr "Montag"
 
 #: attendees.php:190 config/prefs.php:103 lib/Application.php:450
-#: lib/Kronolith.php:2452 templates/dynamic/index.inc:35
+#: lib/Kronolith.php:2470 templates/dynamic/index.inc:35
 #: templates/smartmobile/day.html.php:8 templates/smartmobile/month.html.php:2
 #: templates/smartmobile/month.html.php:8
 #: templates/smartmobile/summary.html.php:8
@@ -1694,7 +1694,7 @@ msgstr "Monate im voraus"
 msgid "Months Before"
 msgstr "Monate zuvor"
 
-#: lib/Api.php:1071
+#: lib/Api.php:1063
 msgid "Multiple iCalendar components found; only one vEvent is supported."
 msgstr ""
 "Mehrere iCalendar-Komponenten gefunden; nur ein vEvent wird unterstützt."
@@ -1720,7 +1720,7 @@ msgid "My Task Lists"
 msgstr "Meine Aufgabenlisten"
 
 #: lib/Form/CreateCalendar.php:24 lib/Form/CreateResource.php:43
-#: lib/Form/CreateResourceGroup.php:33 lib/Form/EditCalendar.php:41
+#: lib/Form/CreateResourceGroup.php:33 lib/Form/EditCalendar.php:43
 #: lib/Form/EditRemoteCalendar.php:25 lib/Form/EditResource.php:52
 #: lib/Form/EditResourceGroup.php:43 lib/Form/SubscribeRemoteCalendar.php:24
 #: templates/chunks/calendar.php:180 templates/chunks/calendar.php:309
@@ -1741,7 +1741,7 @@ msgstr "Neuer Termin"
 msgid "New Task List"
 msgstr "Neue Aufgabenliste"
 
-#: lib/CalendarsManager.php:408
+#: lib/CalendarsManager.php:419
 #, php-format
 msgid ""
 "New calendar created and automatically shared with the following group(s): "
@@ -1781,8 +1781,8 @@ msgid "Next week"
 msgstr "Nächste Woche"
 
 #: config/prefs.php:373 config/prefs.php:386 config/prefs.php:405
-#: templates/dynamic/edit.inc:318 templates/dynamic/edit.inc:325
-#: templates/dynamic/edit.inc:332
+#: templates/dynamic/edit.inc:319 templates/dynamic/edit.inc:326
+#: templates/dynamic/edit.inc:333
 msgid "No"
 msgstr "Nein"
 
@@ -1802,7 +1802,7 @@ msgstr "Kein Alarm"
 msgid "No attendees"
 msgstr "Keine Teilnehmer"
 
-#: lib/Api.php:1217
+#: lib/Api.php:1209
 msgid ""
 "No attendees have been updated because none of the provided email addresses "
 "have been found in the event's attendees list."
@@ -1838,7 +1838,7 @@ msgstr ""
 msgid "No free/busy url found for %s."
 msgstr "Keine Frei/Gebucht-URL für %s gefunden."
 
-#: lib/Api.php:728 lib/Api.php:748 lib/Api.php:1078
+#: lib/Api.php:1070 lib/Icalendar/Handler/Base.php:78
 msgid "No iCalendar data was found."
 msgstr "Es wurden keine iCalendar-Daten gefunden."
 
@@ -1849,20 +1849,20 @@ msgstr "Keine Einträge"
 #: templates/dynamic/sidebar.html.php:62 templates/dynamic/sidebar.html.php:76
 #: templates/dynamic/sidebar.html.php:93
 #: templates/dynamic/sidebar.html.php:108
-#: templates/dynamic/sidebar.html.php:124
-#: templates/dynamic/sidebar.html.php:137
+#: templates/dynamic/sidebar.html.php:127
+#: templates/dynamic/sidebar.html.php:141
 msgid "No items to display"
 msgstr "Keine vorhanden"
 
-#: lib/Ajax.php:147 templates/dynamic/task.inc:44
+#: lib/Ajax.php:148 templates/dynamic/task.inc:44
 msgid "No parent task"
 msgstr "Keine Überaufgabe"
 
-#: lib/Event.php:2514 templates/edit/edit.inc:297
+#: lib/Event.php:2507 templates/edit/edit.inc:297
 msgid "No recurrence"
 msgstr "Keine Wiederholung"
 
-#: lib/Event.php:3040
+#: lib/Event.php:3221
 msgid "No resources from this group were available"
 msgstr "Keine Ressourcen dieser Gruppe waren verfügbar."
 
@@ -1870,7 +1870,7 @@ msgstr "Keine Ressourcen dieser Gruppe waren verfügbar."
 msgid "No valid email address found"
 msgstr "Keine gültige E-Mail-Adresse gefunden"
 
-#: lib/Ajax.php:145 lib/Form/CreateResource.php:32
+#: lib/Ajax.php:146 lib/Form/CreateResource.php:32
 #: lib/Form/EditResource.php:40 lib/Kronolith.php:880 lib/Kronolith.php:901
 #: templates/chunks/calendar.php:367 templates/dynamic/task.inc:51
 msgid "None"
@@ -1888,7 +1888,7 @@ msgstr "Nicht gefunden"
 msgid "Notification"
 msgstr "Benachrichtigung"
 
-#: config/prefs.php:56 lib/Ajax.php:135
+#: config/prefs.php:56 lib/Ajax.php:136
 msgid "Notifications"
 msgstr "Benachrichtigungen"
 
@@ -1904,7 +1904,7 @@ msgstr "Objektersteller"
 msgid "On"
 msgstr "Am"
 
-#: lib/Event.php:2207 lib/Event.php:2238
+#: lib/Event.php:2200 lib/Event.php:2231
 #, php-format
 msgid "On %s"
 msgstr "Am %s"
@@ -1925,7 +1925,7 @@ msgstr "Bei allen angezeigten Kalendern"
 msgid "On my calendars only"
 msgstr "Nur bei meinen Kalendern"
 
-#: lib/Kronolith.php:1427
+#: lib/Kronolith.php:1434
 msgid ""
 "Only the owner or system administrator may change ownership or owner "
 "permissions for a share"
@@ -1949,7 +1949,7 @@ msgstr "Oder geben Sie einen Benutzernamen ein:"
 msgid "Other Preferences"
 msgstr "Andere Einstellungen"
 
-#: lib/Ajax.php:139 lib/Application.php:315
+#: lib/Ajax.php:140 lib/Application.php:315
 msgid "Other events"
 msgstr "Andere Termine"
 
@@ -1957,7 +1957,7 @@ msgstr "Andere Termine"
 msgid "Overview"
 msgstr "Übersicht"
 
-#: lib/Form/EditCalendar.php:44 templates/perms/perms.inc:26
+#: lib/Form/EditCalendar.php:46 templates/perms/perms.inc:26
 #: templates/view/view.inc:28
 msgid "Owner"
 msgstr "Besitzer"
@@ -1966,12 +1966,12 @@ msgstr "Besitzer"
 msgid "Owner:"
 msgstr "Besitzer:"
 
-#: lib/Event.php:3583
+#: lib/Event.php:3628
 #, php-format
 msgid "Owner: %s"
 msgstr "Besitzer: %s"
 
-#: lib/Kronolith.php:1440
+#: lib/Kronolith.php:1447
 msgid "Ownership assignment"
 msgstr "Besitzübergabe"
 
@@ -1996,18 +1996,18 @@ msgstr "Vergangene"
 msgid "Pattern"
 msgstr "Rhythmus"
 
-#: templates/delete/one.inc:22 templates/dynamic/edit.inc:301
+#: templates/delete/one.inc:22 templates/dynamic/edit.inc:302
 msgid "Permanently delete this event?"
 msgstr "Diesen Termin unwiederbringlich löschen?"
 
-#: lib/Ajax/Application/Handler.php:1461 lib/Block/Month.php:70
+#: lib/Ajax/Application/Handler.php:1506 lib/Block/Month.php:70
 #: lib/Block/Monthlist.php:89 lib/Block/Prevmonthlist.php:82
-#: lib/Block/Summary.php:100 lib/Kronolith.php:2674 lib/Kronolith.php:2682
-#: lib/Kronolith.php:2688 lib/Kronolith.php:2694
+#: lib/Block/Summary.php:100 lib/Kronolith.php:2692 lib/Kronolith.php:2700
+#: lib/Kronolith.php:2706 lib/Kronolith.php:2712
 msgid "Permission Denied"
 msgstr "Zugriff verweigert"
 
-#: lib/Api.php:473
+#: lib/Api.php:493
 #, php-format
 msgid "Permission Denied or Calendar Not Found: %s - skipping."
 msgstr "Zugriff verweigert oder Kalender nicht gefunden: %s - übersprungen."
@@ -2026,7 +2026,7 @@ msgstr "Zugriff auf diesen Feed (%s) verweigert."
 msgid "Permissions"
 msgstr "Rechte"
 
-#: lib/Ajax.php:140
+#: lib/Ajax.php:141
 msgid "Please enter correct values in the form first."
 msgstr "Bitte geben Sie erst gültige Werte in das Formular ein."
 
@@ -2034,7 +2034,7 @@ msgstr "Bitte geben Sie erst gültige Werte in das Formular ein."
 msgid "Possible Meeting Time"
 msgstr "Mögliche Besprechungszeit"
 
-#: lib/Ajax.php:150
+#: lib/Ajax.php:151
 msgid "Preferences"
 msgstr "Benutzereinstellungen"
 
@@ -2060,7 +2060,7 @@ msgstr "Vorherige Woche"
 msgid "Previous month"
 msgstr "Vorheriger Monat"
 
-#: templates/dynamic/edit.inc:260 templates/dynamic/task.inc:158
+#: templates/dynamic/edit.inc:261 templates/dynamic/task.inc:160
 msgid "Previously used tags"
 msgstr "Bisher verwendete Tags"
 
@@ -2076,7 +2076,7 @@ msgstr "Vergangene Termine"
 msgid "Priority"
 msgstr "Priorität"
 
-#: lib/Event.php:3508
+#: lib/Event.php:3553
 msgid "Private event"
 msgstr "Privater Termin"
 
@@ -2100,7 +2100,7 @@ msgstr "Alte Termine nach so vielen Tagen endgültig löschen."
 msgid "Quick Event Creation"
 msgstr "Schnelles Hinzufügen"
 
-#: templates/dynamic/task.inc:173
+#: templates/dynamic/task.inc:175
 msgid "Quick Task Creation"
 msgstr "Schnelles Hinzufügen"
 
@@ -2159,15 +2159,15 @@ msgstr "Wiederholungsmuster"
 msgid "Recurrence End Date"
 msgstr "Wiederholungsende"
 
-#: lib/Event.php:3374
+#: lib/Event.php:3419
 msgid "Recurrence End Day"
 msgstr "Wiederholungsendtag"
 
-#: lib/Event.php:3360
+#: lib/Event.php:3405
 msgid "Recurrence End Month"
 msgstr "Wiederholungsendmonat"
 
-#: lib/Event.php:3344
+#: lib/Event.php:3389
 msgid "Recurrence End Year"
 msgstr "Wiederholungsendjahr"
 
@@ -2261,7 +2261,7 @@ msgstr "Jährlich"
 msgid "Reminder"
 msgstr "Erinnerung"
 
-#: lib/Application.php:340 templates/dynamic/sidebar.html.php:120
+#: lib/Application.php:340 templates/dynamic/sidebar.html.php:123
 msgid "Remote Calendars"
 msgstr "Externe Kalender"
 
@@ -2286,12 +2286,12 @@ msgstr "Teilnehmer entfernen"
 msgid "Repeat"
 msgstr "Wiederholung"
 
-#: templates/dynamic/edit.inc:153 templates/dynamic/task.inc:108
+#: templates/dynamic/edit.inc:154 templates/dynamic/task.inc:110
 #, php-format
 msgid "Repeat %s every day %s or %s every %s days %s"
 msgstr "%s Jeden Tag %s oder %s alle %s Tage %s wiederholen"
 
-#: templates/dynamic/edit.inc:172 templates/dynamic/task.inc:127
+#: templates/dynamic/edit.inc:173 templates/dynamic/task.inc:129
 #, php-format
 msgid ""
 "Repeat %s every month %s or %s every %s months, %s on the same %s date %s or "
@@ -2300,12 +2300,12 @@ msgstr ""
 "%s Jeden Monat %s oder %s alle %s Monate %s am gleichen %s Datum %s oder %s "
 "Wochentag %s wiederholen"
 
-#: templates/dynamic/edit.inc:159 templates/dynamic/task.inc:114
+#: templates/dynamic/edit.inc:160 templates/dynamic/task.inc:116
 #, php-format
 msgid "Repeat %s every week %s or %s every %s weeks %s On %s"
 msgstr "%s Jede Woche %s oder %s alle %s Wochen %s am %s wiederholen"
 
-#: templates/dynamic/edit.inc:180 templates/dynamic/task.inc:135
+#: templates/dynamic/edit.inc:181 templates/dynamic/task.inc:137
 #, php-format
 msgid ""
 "Repeat %s every year %s or %s every %s years %s on the same %s date %s day "
@@ -2371,7 +2371,7 @@ msgstr "Ungültige Ressource."
 msgid "Resources"
 msgstr "Ressourcen"
 
-#: lib/Factory/Driver.php:74
+#: lib/Factory/Driver.php:75
 msgid "Resources are disabled"
 msgstr "Ressourcen sind deaktiviert"
 
@@ -2404,20 +2404,20 @@ msgstr "Zurück zu meinen Kalendern"
 msgid "Sa"
 msgstr "Sa"
 
-#: templates/dynamic/edit.inc:168 templates/dynamic/task.inc:123
+#: templates/dynamic/edit.inc:169 templates/dynamic/task.inc:125
 #: templates/month/head.inc:13 templates/view/view.inc:108
 msgid "Saturday"
 msgstr "Samstag"
 
-#: lib/Form/EditCalendar.php:169 lib/Form/EditCalendar.php:181
+#: lib/Form/EditCalendar.php:171 lib/Form/EditCalendar.php:183
 #: lib/Form/EditRemoteCalendar.php:34 lib/Form/EditRemoteCalendar.php:46
 #: lib/Form/EditResource.php:72 lib/Form/EditResource.php:84
 #: lib/Form/EditResourceGroup.php:48 lib/Form/EditResourceGroup.php:60
 #: templates/chunks/calendar.php:164 templates/chunks/calendar.php:251
 #: templates/chunks/calendar.php:321 templates/chunks/calendar.php:345
 #: templates/chunks/calendar.php:400 templates/chunks/calendar.php:435
-#: templates/dynamic/edit.inc:292 templates/dynamic/index.inc:12
-#: templates/dynamic/task.inc:164
+#: templates/dynamic/edit.inc:293 templates/dynamic/index.inc:12
+#: templates/dynamic/task.inc:166
 msgid "Save"
 msgstr "Speichern"
 
@@ -2426,8 +2426,8 @@ msgstr "Speichern"
 msgid "Save %s"
 msgstr "%s speichern"
 
-#: lib/Kronolith.php:2493 lib/View/EditEvent.php:98 lib/View/EditEvent.php:107
-#: templates/dynamic/edit.inc:293 templates/edit/edit.inc:46
+#: lib/Kronolith.php:2511 lib/View/EditEvent.php:98 lib/View/EditEvent.php:107
+#: templates/dynamic/edit.inc:294 templates/edit/edit.inc:46
 msgid "Save As New"
 msgstr "Als Kopie speichern"
 
@@ -2439,7 +2439,7 @@ msgstr "Termin speichern"
 msgid "Save and Finish"
 msgstr "Speichern und Beenden"
 
-#: templates/dynamic/edit.inc:287
+#: templates/dynamic/edit.inc:288
 msgid "Save time"
 msgstr "Zeiteintrag speichern"
 
@@ -2553,7 +2553,7 @@ msgstr ""
 msgid "Send an email to %s"
 msgstr "E-Mail-Nachricht an %s schreiben"
 
-#: templates/dynamic/edit.inc:322
+#: templates/dynamic/edit.inc:323
 msgid "Send cancellation notice to attendees?"
 msgstr "Absagen an alle Teilnehmer schicken?"
 
@@ -2565,7 +2565,7 @@ msgstr "Einladungen an alle Teilnehmer schicken?"
 msgid "Send updates to all attendees?"
 msgstr "Aktualisierungen an alle Teilnehmer schicken?"
 
-#: templates/dynamic/edit.inc:315
+#: templates/dynamic/edit.inc:316
 msgid "Send updates to attendees?"
 msgstr "Aktualisierungen an Teilnehmer schicken?"
 
@@ -2577,8 +2577,8 @@ msgstr "Legen Sie Standardeinstellungen für neue Termine fest."
 msgid "Set due date"
 msgstr "Fälligkeitsdatum festlegen"
 
-#: templates/dynamic/edit.inc:46 templates/dynamic/edit.inc:193
-#: templates/dynamic/task.inc:148 templates/edit/edit_timespan.inc:70
+#: templates/dynamic/edit.inc:46 templates/dynamic/edit.inc:194
+#: templates/dynamic/task.inc:150 templates/edit/edit_timespan.inc:70
 msgid "Set end date"
 msgstr "Enddatum festlegen"
 
@@ -2598,7 +2598,7 @@ msgstr ""
 "Legen Sie Ihre Frei/Gebucht-Kalender und -Einstellungen und die anderer "
 "Benutzer fest."
 
-#: lib/Ajax.php:152
+#: lib/Ajax.php:153
 msgid "Shared"
 msgstr "Gemeinsam"
 
@@ -2665,7 +2665,7 @@ msgid_plural "Showing calendars:"
 msgstr[0] "Angezeigter Kalender:"
 msgstr[1] "Angezeigte Kalender:"
 
-#: templates/dynamic/edit.inc:329
+#: templates/dynamic/edit.inc:330
 msgid "Some resources have scheduling conflicts, save anyway?"
 msgstr "Einige Ressourcen haben Terminkonflikte, trotzdem speichern?"
 
@@ -2677,19 +2677,19 @@ msgstr "_Beginn"
 msgid "Start Date"
 msgstr "Startdatum"
 
-#: lib/Event.php:3244 templates/data/export.inc:68
+#: lib/Event.php:3289 templates/data/export.inc:68
 msgid "Start Day"
 msgstr "Starttag"
 
-#: lib/Event.php:3254 templates/data/export.inc:87
+#: lib/Event.php:3299 templates/data/export.inc:87
 msgid "Start Hour"
 msgstr "Startstunde"
 
-#: lib/Event.php:3263 templates/data/export.inc:102
+#: lib/Event.php:3308 templates/data/export.inc:102
 msgid "Start Minute"
 msgstr "Startminute"
 
-#: lib/Event.php:3236 templates/data/export.inc:54
+#: lib/Event.php:3281 templates/data/export.inc:54
 msgid "Start Month"
 msgstr "Startmonat"
 
@@ -2702,7 +2702,7 @@ msgstr "Beginn"
 msgid "Start Time"
 msgstr "Startzeit"
 
-#: lib/Event.php:3226 templates/data/export.inc:39
+#: lib/Event.php:3271 templates/data/export.inc:39
 msgid "Start Year"
 msgstr "Startjahr"
 
@@ -2719,7 +2719,7 @@ msgstr "_Status"
 msgid "Status"
 msgstr "Status"
 
-#: templates/dynamic/edit.inc:189 templates/dynamic/task.inc:144
+#: templates/dynamic/edit.inc:190 templates/dynamic/task.inc:146
 #, php-format
 msgid "Stop %s never%s, %s at %s or %s after %s recurrences %s"
 msgstr "%s Niemals%s, %s am %s oder %s nach %s Wiederholungen %s beenden"
@@ -2758,7 +2758,7 @@ msgstr "Diese Aufgabenliste mit einem anderen Kalenderprogamm abonnieren"
 msgid "Subscription"
 msgstr "Abonnement"
 
-#: lib/Ajax/Application/Handler.php:1407
+#: lib/Ajax/Application/Handler.php:1452
 msgid "Successfully saved timeslice."
 msgstr "Zeitabschnitt erfolgreich gespeichert."
 
@@ -2766,8 +2766,8 @@ msgstr "Zeitabschnitt erfolgreich gespeichert."
 msgid "Summary"
 msgstr "Übersicht"
 
-#: config/prefs.php:128 templates/dynamic/edit.inc:169
-#: templates/dynamic/task.inc:124 templates/month/head.inc:6
+#: config/prefs.php:128 templates/dynamic/edit.inc:170
+#: templates/dynamic/task.inc:126 templates/month/head.inc:6
 #: templates/month/head.inc:15 templates/view/view.inc:109
 msgid "Sunday"
 msgstr "Sonntag"
@@ -2780,11 +2780,11 @@ msgstr "Getrennte Kalender unterstützen?"
 msgid "Synchronization Preferences"
 msgstr "Synchronisations-Einstellungen"
 
-#: lib/Form/EditCalendar.php:52
+#: lib/Form/EditCalendar.php:54
 msgid "System"
 msgstr "System"
 
-#: lib/Form/CreateCalendar.php:28 lib/Form/EditCalendar.php:57
+#: lib/Form/CreateCalendar.php:28 lib/Form/EditCalendar.php:59
 msgid "System Calendar"
 msgstr "System-Kalender"
 
@@ -2792,7 +2792,7 @@ msgstr "System-Kalender"
 msgid "System Calendars"
 msgstr "System-Kalender"
 
-#: lib/Form/CreateCalendar.php:28 lib/Form/EditCalendar.php:57
+#: lib/Form/CreateCalendar.php:28 lib/Form/EditCalendar.php:59
 msgid ""
 "System calendars don't have an owner. Only administrators can change the "
 "calendar settings and permissions."
@@ -2800,7 +2800,7 @@ msgstr ""
 "System-Kalender haben keinen Besitzer. Nur Administratoren können deren "
 "Einstellungen oder Rechte bearbeiten."
 
-#: lib/Form/CreateCalendar.php:31 lib/Form/EditCalendar.php:60
+#: lib/Form/CreateCalendar.php:31 lib/Form/EditCalendar.php:62
 #: templates/chunks/calendar.php:70 templates/dynamic/edit.inc:103
 #: templates/dynamic/task.inc:67 templates/edit/edit.inc:412
 #: templates/edit/edit.inc:418 templates/view/view.inc:144
@@ -2819,7 +2819,7 @@ msgstr "Aufgabenlistenbesitzer"
 msgid "Task title"
 msgstr "Aufgabe"
 
-#: lib/Ajax.php:153 templates/dynamic/index.inc:38
+#: lib/Ajax.php:154 templates/dynamic/index.inc:38
 msgid "Tasks"
 msgstr "Aufgaben"
 
@@ -2840,7 +2840,7 @@ msgstr "Die %s-Datei enthielt keine Termine."
 msgid "The Calendar backend is not currently available."
 msgstr "Der Kalenderserver ist zur Zeit nicht verfügbar."
 
-#: lib/Factory/Driver.php:116
+#: lib/Factory/Driver.php:117
 #, php-format
 msgid "The Calendar backend is not currently available: %s"
 msgstr "Der Kalenderserver ist zur Zeit nicht verfügbar: %s"
@@ -2857,7 +2857,7 @@ msgstr ""
 msgid "The Edit Attendees screen is no longer present. Exiting."
 msgstr "Die Teilnehmeransicht ist nicht mehr geladen. Abbruch."
 
-#: lib/Api.php:1237
+#: lib/Api.php:1229
 msgid ""
 "The attendee hasn't been updated because the update was not sent from the "
 "attendee."
@@ -2865,33 +2865,33 @@ msgstr ""
 "Der Teilnehmer wurde nicht aktualisiert, weil die Aktualisierung nicht von "
 "diesem Teilnehmer geschickt wurde."
 
-#: lib/Ajax.php:155
+#: lib/Ajax.php:156
 msgid "The authentication information you specified wasn't accepted."
 msgstr "Die Anmeldedaten, die Sie angegeben haben, wurden nicht akzeptiert."
 
-#: calendars/create.php:31 lib/Ajax/Application/Handler.php:913
+#: calendars/create.php:31 lib/Ajax/Application/Handler.php:958
 #: resources/create.php:31 resources/groups/create.php:27
 #, php-format
 msgid "The calendar \"%s\" has been created."
 msgstr "Der Kalender \"%s\" wurde erzeugt."
 
-#: calendars/delete.php:44 lib/Ajax/Application/Handler.php:1131
+#: calendars/delete.php:44 lib/Ajax/Application/Handler.php:1176
 #, php-format
 msgid "The calendar \"%s\" has been deleted."
 msgstr "Der Kalender \"%s\" wurde gelöscht."
 
-#: calendars/edit.php:47 lib/Ajax/Application/Handler.php:938
+#: calendars/edit.php:47 lib/Ajax/Application/Handler.php:983
 #, php-format
 msgid "The calendar \"%s\" has been renamed to \"%s\"."
 msgstr "Der Kalender \"%s\" wurde nach \"%s\" umbenannt."
 
 #: calendars/edit.php:49 calendars/remote_edit.php:46
-#: lib/Ajax/Application/Handler.php:940 lib/Ajax/Application/Handler.php:1031
+#: lib/Ajax/Application/Handler.php:985 lib/Ajax/Application/Handler.php:1076
 #, php-format
 msgid "The calendar \"%s\" has been saved."
 msgstr "Der Kalender \"%s\" wurde gespeichert."
 
-#: lib/Kronolith.php:1089
+#: lib/Kronolith.php:1096
 #, php-format
 msgid "The calendar %s returned the error: %s"
 msgstr "Der Kalender %s hat folgenden Fehler zurückgeliefert: %s"
@@ -2901,7 +2901,7 @@ msgstr "Der Kalender %s hat folgenden Fehler zurückgeliefert: %s"
 msgid "The calendar could not be purged: %s"
 msgstr "Der Kalender konnte nicht geleert werden: %s"
 
-#: lib/Ajax.php:146
+#: lib/Ajax.php:147
 msgid "The calendar title must not be empty."
 msgstr "Der Kalendername darf nicht leer sein."
 
@@ -2909,7 +2909,7 @@ msgstr "Der Kalendername darf nicht leer sein."
 msgid "The end date must be later than the start date."
 msgstr "Das Enddatum muss hinter dem Startdatum liegen."
 
-#: lib/Kronolith.php:2130
+#: lib/Kronolith.php:2148
 #, php-format
 msgid ""
 "The event \"%s\" has been added to \"%s\" calendar, which is on %s at %s."
@@ -2917,7 +2917,7 @@ msgstr ""
 "Der Termin \"%s\", der am %3$s um %4$s Uhr stattfindet, wurde zum Kalender "
 "\"%2$s\" hinzugefügt."
 
-#: lib/Kronolith.php:2140
+#: lib/Kronolith.php:2158
 #, php-format
 msgid ""
 "The event \"%s\" has been deleted from \"%s\" calendar, which was on %s at "
@@ -2926,7 +2926,7 @@ msgstr ""
 "Der Termin \"%s\", der am %3$s um %4$s Uhr stattfinden sollte, wurde aus dem "
 "Kalender \"%2$s\" gelöscht."
 
-#: lib/Kronolith.php:2135
+#: lib/Kronolith.php:2153
 #, php-format
 msgid ""
 "The event \"%s\" has been edited on \"%s\" calendar, which is on %s at %s."
@@ -2934,19 +2934,19 @@ msgstr ""
 "Der Termin \"%s\", der am %3$s um %4$s Uhr stattfindet, wurde im Kalender "
 "\"%2$s\" geändert."
 
-#: lib/Driver/Ical.php:479
+#: lib/Driver/Ical.php:490
 msgid "The event could not be added to the remote server."
 msgstr "Der Termin konnte nicht auf dem externen Server gespeichert werden."
 
-#: lib/Driver/Ical.php:552
+#: lib/Driver/Ical.php:563
 msgid "The event could not be deleted from the remote server."
 msgstr "Der Termin konnte nicht auf dem externen Server gelöscht werden."
 
-#: lib/Driver/Ical.php:452
+#: lib/Driver/Ical.php:463
 msgid "The event could not be updated on the remote server."
 msgstr "Der Termin konnte nicht auf dem externen Server aktualisiert werden."
 
-#: lib/Kronolith.php:2027
+#: lib/Kronolith.php:2045
 #, php-format
 msgid "The event notification to %s was successfully sent."
 msgstr "Ihre Terminbenachrichtigung an %s wurde erfolgreich versendet."
@@ -2959,14 +2959,14 @@ msgstr "Die Ausnahme wurde gelöscht."
 msgid "The following is a more detailed description of the event:"
 msgstr "Hier ist eine detailliertere Beschreibung des Termins:"
 
-#: lib/Kronolith.php:2206
+#: lib/Kronolith.php:2224
 #, php-format
 msgid "The following resource has accepted your request: %s"
 msgid_plural "The following resources have accepted your request: %s"
 msgstr[0] "Für die folgende Ressource wurde Ihre Anfrage angenommen: %s"
 msgstr[1] "Für die folgenden Ressourcen wurde Ihre Anfrage angenommen: %s"
 
-#: lib/Kronolith.php:2193
+#: lib/Kronolith.php:2211
 #, php-format
 msgid "The following resource has declined your request: %s"
 msgid_plural "The following resources have declined your request: %s"
@@ -2979,11 +2979,11 @@ msgid "The free/busy url for %s cannot be retrieved."
 msgstr "Die Frei/Gebucht-URL für %s konnte nicht gelesen werden."
 
 #: calendars/remote_edit.php:37 calendars/remote_unsubscribe.php:38
-#: lib/Kronolith.php:1729
+#: lib/Kronolith.php:1736
 msgid "The remote calendar was not found."
 msgstr "Externen Kalender nicht gefunden."
 
-#: lib/Driver/Ical.php:677
+#: lib/Driver/Ical.php:689
 msgid "The remote server URL does not point to a CalDAV directory."
 msgstr "Die URL des externen Servers verweist nicht auf einen CalDAV server."
 
@@ -2995,8 +2995,8 @@ msgstr ""
 "Die Anfrage war unvollständig. Einige der Parameter, die notwendig sind, um "
 "einen Termin zu bestätigen oder abzusagen, fehlen."
 
-#: lib/Ajax/Application/Handler.php:165 lib/Ajax/Application/Handler.php:250
-#: lib/Ajax/Application/Handler.php:383 lib/Ajax/Application/Handler.php:516
+#: lib/Ajax/Application/Handler.php:165 lib/Ajax/Application/Handler.php:266
+#: lib/Ajax/Application/Handler.php:428 lib/Ajax/Application/Handler.php:561
 msgid "The requested event was not found."
 msgstr "Der gesuchte Termin wurde nicht gefunden."
 
@@ -3005,11 +3005,11 @@ msgstr "Der gesuchte Termin wurde nicht gefunden."
 msgid "The requested feed (%s) was not found on this server."
 msgstr "Der gesuchte Feed (%s) wurde auf diesem Server nicht gefunden."
 
-#: lib/Ajax/Application/Handler.php:633
+#: lib/Ajax/Application/Handler.php:678
 msgid "The requested task was not found."
 msgstr "Gewünschte Aufgabe nicht gefunden."
 
-#: lib/Ajax/Application/Handler.php:1175 lib/Ajax/Application/Handler.php:1192
+#: lib/Ajax/Application/Handler.php:1220 lib/Ajax/Application/Handler.php:1237
 #: resources/delete.php:42
 #, php-format
 msgid "The resource \"%s\" has been deleted."
@@ -3020,7 +3020,7 @@ msgstr "Die Ressource \"%s\" wurde gelöscht."
 msgid "The resource \"%s\" has been renamed to \"%s\"."
 msgstr "Die Ressource \"%s\" wurde nach \"%s\" umbenannt."
 
-#: lib/Ajax/Application/Handler.php:1076 resources/edit.php:45
+#: lib/Ajax/Application/Handler.php:1121 resources/edit.php:45
 #, php-format
 msgid "The resource \"%s\" has been saved."
 msgstr "Die Ressource \"%s\" wurde gespeichert."
@@ -3041,32 +3041,32 @@ msgstr "Die Ressourcengruppe \"%s\" wurde gelöscht."
 msgid "The resource group \"%s\" has been renamed to \"%s\"."
 msgstr "Die Ressourcengruppe \"%s\" wurde nach \"%s\" umbenannt."
 
-#: lib/Ajax/Application/Handler.php:1102 resources/groups/edit.php:41
+#: lib/Ajax/Application/Handler.php:1147 resources/groups/edit.php:41
 #, php-format
 msgid "The resource group \"%s\" has been saved."
 msgstr "Die Ressourcengruppe \"%s\" wurde gespeichert."
 
-#: lib/Ajax/Application/Handler.php:988
+#: lib/Ajax/Application/Handler.php:1033
 #, php-format
 msgid "The task list \"%s\" has been created."
 msgstr "Die Aufgabenliste \"%s\" wurde erstellt."
 
-#: lib/Ajax/Application/Handler.php:1147
+#: lib/Ajax/Application/Handler.php:1192
 #, php-format
 msgid "The task list \"%s\" has been deleted."
 msgstr "Die Aufgabenliste \"%s\" wurde gelöscht."
 
-#: lib/Ajax/Application/Handler.php:1013
+#: lib/Ajax/Application/Handler.php:1058
 #, php-format
 msgid "The task list \"%s\" has been renamed to \"%s\"."
 msgstr "Die Aufgabenliste \"%s\" wurde nach \"%s\" umbenannt."
 
-#: lib/Ajax/Application/Handler.php:1015
+#: lib/Ajax/Application/Handler.php:1060
 #, php-format
 msgid "The task list \"%s\" has been saved."
 msgstr "Die Aufgabenliste \"%s\" wurde gespeichert."
 
-#: lib/Ajax.php:148
+#: lib/Ajax.php:149
 msgid "The task list title must not be empty."
 msgstr "Der Aufgabenlistenname darf nicht leer sein."
 
@@ -3074,7 +3074,7 @@ msgstr "Der Aufgabenlistenname darf nicht leer sein."
 msgid "The time span to show"
 msgstr "Zeitspanne die angezeigt werden soll"
 
-#: lib/Kronolith.php:1429 lib/Kronolith.php:1563
+#: lib/Kronolith.php:1436 lib/Kronolith.php:1570
 #, php-format
 msgid "The user \"%s\" does not exist."
 msgstr "Der Benutzer \"%s\" existiert nicht."
@@ -3104,11 +3104,11 @@ msgstr ""
 msgid "There was an error editing the event: %s"
 msgstr "Beim Bearbeiten des Termins ist ein Fehler aufgetreten: %s"
 
-#: lib/Api.php:273 lib/Api.php:720 lib/Api.php:1063 lib/Application.php:812
+#: lib/Api.php:285 lib/Api.php:740 lib/Api.php:1055 lib/Application.php:820
 msgid "There was an error importing the iCalendar data."
 msgstr "Beim Importieren der iCalendar Daten ist ein Fehler aufgetreten."
 
-#: edit.php:213 lib/Ajax/Application/Handler.php:239
+#: edit.php:213 lib/Ajax/Application/Handler.php:250
 #, php-format
 msgid "There was an error moving the event: %s"
 msgstr "Beim Verschieben des Termins ist ein Fehler aufgetreten: %s."
@@ -3120,7 +3120,7 @@ msgstr ""
 "Beim Löschen der Kalender von %s ist ein Fehler aufgetreten. Details wurden "
 "protokolliert."
 
-#: lib/Kronolith.php:2032
+#: lib/Kronolith.php:2050
 #, php-format
 msgid "There was an error sending an event notification to %s: %s"
 msgstr ""
@@ -3135,7 +3135,7 @@ msgstr "Dieser Monat"
 msgid "This calendar requires to specify a user name and password."
 msgstr "Für diesen Kalender werden Benutzername und Passwort benötigt."
 
-#: templates/dynamic/edit.inc:274
+#: templates/dynamic/edit.inc:275
 msgid "This event can be saved as a timeslice in your timesheet."
 msgstr ""
 "Dieser Termin kann als Zeitabschnitt in Ihrer Zeiterfassung gespeichert "
@@ -3166,7 +3166,7 @@ msgstr ""
 "alle zukünftigen Termine inklusive diesem, die<br />ganze Serie, oder eine "
 "Kopie des Termins speichern?"
 
-#: templates/dynamic/edit.inc:199
+#: templates/dynamic/edit.inc:200
 #, php-format
 msgid "This is an exception to a recurring event originally scheduled on %s"
 msgstr ""
@@ -3181,12 +3181,12 @@ msgstr ""
 "Dies ist die Ausnahme eine Wiederholungstermins, der ursprünglich am %s um "
 "%s stattfinden sollte."
 
-#: data.php:155
+#: data.php:169 data.php:206
 #, php-format
 msgid "This is what the server said: %s"
 msgstr "Meldung des Servers: %s"
 
-#: templates/dynamic/edit.inc:166 templates/dynamic/task.inc:121
+#: templates/dynamic/edit.inc:167 templates/dynamic/task.inc:123
 #: templates/month/head.inc:11 templates/view/view.inc:106
 msgid "Thursday"
 msgstr "Donnerstag"
@@ -3228,13 +3228,13 @@ msgstr "Um den Termin zu bestätigen:"
 msgid "To decline the event:"
 msgstr "Um den Termin abzulehnen:"
 
-#: lib/Form/EditCalendar.php:145
+#: lib/Form/EditCalendar.php:147
 msgid "To embed this calendar in another website, use the code above."
 msgstr ""
 "Um diesen Kalender in eine Webseite einzubetten, verwenden Sie bitte den "
 "obenstehenden Code."
 
-#: templates/dynamic/edit.inc:258
+#: templates/dynamic/edit.inc:259
 msgid ""
 "To make it easier to find, you can enter comma separated tags related to the "
 "event subject."
@@ -3242,7 +3242,7 @@ msgstr ""
 "Um den Termin leichter wiederzufinden, können Sie passende kommagetrennte "
 "Tags hinzufügen."
 
-#: templates/dynamic/task.inc:156
+#: templates/dynamic/task.inc:158
 msgid ""
 "To make it easier to find, you can enter comma separated tags related to the "
 "task subject."
@@ -3257,7 +3257,7 @@ msgstr ""
 "Um diesen Kalender zu abonnieren, klicken Sie bitte auf den folgenden Link:"
 
 #: lib/Block/Monthlist.php:163 lib/Block/Prevmonthlist.php:135
-#: lib/Block/Summary.php:154 lib/Kronolith.php:2429
+#: lib/Block/Summary.php:154 lib/Kronolith.php:2447
 #: templates/smartmobile/javascript_defs.php:138
 msgid "Today"
 msgstr "Heute"
@@ -3272,7 +3272,7 @@ msgstr "Morgen"
 msgid "Tu"
 msgstr "Di"
 
-#: templates/dynamic/edit.inc:164 templates/dynamic/task.inc:119
+#: templates/dynamic/edit.inc:165 templates/dynamic/task.inc:121
 #: templates/month/head.inc:9 templates/view/view.inc:104
 msgid "Tuesday"
 msgstr "Dienstag"
@@ -3284,19 +3284,19 @@ msgstr "Dienstag"
 msgid "URL"
 msgstr "URL"
 
-#: lib/Ajax/Application/Handler.php:1128 lib/Ajax/Application/Handler.php:1144
+#: lib/Ajax/Application/Handler.php:1173 lib/Ajax/Application/Handler.php:1189
 #: lib/Form/DeleteResource.php:61 lib/Form/DeleteResourceGroup.php:62
-#: lib/Kronolith.php:1346
+#: lib/Kronolith.php:1353
 #, php-format
 msgid "Unable to delete \"%s\": %s"
 msgstr "\"%s\" kann nicht gelöscht werden: %s"
 
-#: lib/Api.php:387
+#: lib/Api.php:407
 #, php-format
 msgid "Unable to delete calendar \"%s\": %s"
 msgstr "Der Kalender \"%s\" kann nicht gelöscht werden: %s"
 
-#: lib/Api.php:1017
+#: lib/Api.php:1009
 msgid ""
 "Unable to delete event. An exception date was provided but the event does "
 "not seem to be recurring."
@@ -3304,29 +3304,29 @@ msgstr ""
 "Termin kann nicht gelöscht werden. Es wurde ein Ausnahme angegeben, aber der "
 "Termin scheint gar kein Wiederholungstermin zu sein."
 
-#: lib/Factory/Driver.php:119 lib/Factory/Storage.php:44
+#: lib/Factory/Driver.php:120 lib/Factory/Storage.php:44
 #, php-format
 msgid "Unable to load the definition of %s."
 msgstr "Der %s-Treiber konnte nicht geladen werden."
 
-#: lib/Event.php:1466
+#: lib/Event.php:1452
 msgid "Unable to locate original event series."
 msgstr "Die ursprüngliche Terminserie konnte nicht gefunden werden."
 
-#: lib/Ajax.php:141
+#: lib/Ajax.php:142
 msgid "Unable to locate requested address"
 msgstr "Die gesuchte Adresse wurde nicht gefunden"
 
-#: lib/Event.php:1001
+#: lib/Event.php:1000
 msgid "Unable to parse event."
 msgstr "Der Termin konnte nicht ausgewertet werden."
 
-#: lib/Kronolith.php:1808
+#: lib/Kronolith.php:1815
 #, php-format
 msgid "Unable to recognize \"%s\" as an email address."
 msgstr "\"%s\" wurde nicht als gültige E-Mail-Adresse erkannt."
 
-#: lib/Kronolith.php:1319
+#: lib/Kronolith.php:1326
 #, php-format
 msgid "Unable to save calendar \"%s\": %s"
 msgstr "Der Kalender \"%s\" kann nicht gespeichert werden: %s"
@@ -3336,15 +3336,15 @@ msgstr "Der Kalender \"%s\" kann nicht gespeichert werden: %s"
 msgid "Unable to save resource \"%s\": %s"
 msgstr "Die Ressource \"%s\" kann nicht gespeichert werden: %s"
 
-#: lib/Driver/Ical.php:744
+#: lib/Driver/Ical.php:756
 msgid "Unexpected response from remote server."
 msgstr "Unerwartete Antwort des Servers."
 
-#: lib/Api.php:1316 lib/Api.php:1333
+#: lib/Api.php:1308 lib/Api.php:1325
 msgid "Unknown calendar protocol"
 msgstr "Unbekanntes Kalender-Protokoll."
 
-#: lib/Ajax.php:154
+#: lib/Ajax.php:155
 msgid "Unknown resource."
 msgstr "Unbekannter Ressource."
 
@@ -3359,8 +3359,8 @@ msgstr "Ausblenden"
 msgid "Unsubscribe from %s"
 msgstr "Von %s abmelden"
 
-#: lib/Api.php:337 lib/Api.php:765 lib/Api.php:879 lib/Api.php:933
-#: lib/Api.php:1084
+#: lib/Api.php:357 lib/Api.php:757 lib/Api.php:870 lib/Api.php:924
+#: lib/Api.php:1076
 #, php-format
 msgid "Unsupported Content-Type: %s"
 msgstr "Nicht unterstützter Inhaltstyp: %s"
@@ -3378,7 +3378,7 @@ msgstr "Aktualisierung"
 msgid "Updated \"%s\"."
 msgstr "\"%s\" wurde aktualisiert."
 
-#: lib/Kronolith.php:1939
+#: lib/Kronolith.php:1957
 #, php-format
 msgid "Updated: %s."
 msgstr "Aktualisiert: %s."
@@ -3429,18 +3429,18 @@ msgstr "Mi"
 msgid "We would like to remind you of this upcoming event."
 msgstr "Wir möchten Sie an den folgenden Termin erinnern."
 
-#: lib/Form/EditCalendar.php:121 templates/chunks/calendar.php:119
+#: lib/Form/EditCalendar.php:123 templates/chunks/calendar.php:119
 #: templates/chunks/calendar.php:232
 msgid "WebDAV/ICS Subscription URL"
 msgstr "WebDAV/ICS-Abonnement-Adresse"
 
-#: templates/dynamic/edit.inc:165 templates/dynamic/task.inc:120
+#: templates/dynamic/edit.inc:166 templates/dynamic/task.inc:122
 #: templates/month/head.inc:10 templates/view/view.inc:105
 msgid "Wednesday"
 msgstr "Mittwoch"
 
 #: attendees.php:189 config/prefs.php:101 lib/Application.php:449
-#: lib/Kronolith.php:2446 templates/dynamic/index.inc:34
+#: lib/Kronolith.php:2464 templates/dynamic/index.inc:34
 msgid "Week"
 msgstr "Woche"
 
@@ -3485,11 +3485,11 @@ msgid "Who:"
 msgstr "Wer:"
 
 #: attendees.php:188 config/prefs.php:102 lib/Application.php:448
-#: lib/Kronolith.php:2440 templates/dynamic/index.inc:33
+#: lib/Kronolith.php:2458 templates/dynamic/index.inc:33
 msgid "Work Week"
 msgstr "Arbeitswoche"
 
-#: lib/Application.php:451 lib/Kronolith.php:2458
+#: lib/Application.php:451 lib/Kronolith.php:2476
 #: templates/dynamic/index.inc:36
 msgid "Year"
 msgstr "Jahr"
@@ -3500,8 +3500,8 @@ msgstr "Jahr"
 msgid "Yearly: Recurs every"
 msgstr "Jährlich: Wiederholung alle"
 
-#: templates/dynamic/edit.inc:317 templates/dynamic/edit.inc:324
-#: templates/dynamic/edit.inc:331
+#: templates/dynamic/edit.inc:318 templates/dynamic/edit.inc:325
+#: templates/dynamic/edit.inc:332
 msgid "Yes"
 msgstr "Ja"
 
@@ -3509,7 +3509,7 @@ msgstr "Ja"
 msgid "Yesterday"
 msgstr "Gestern"
 
-#: lib/Kronolith.php:1308
+#: lib/Kronolith.php:1315
 msgid "You are not allowed to change this calendar."
 msgstr "Sie dürfen diesen Kalender nicht ändern."
 
@@ -3517,17 +3517,17 @@ msgstr "Sie dürfen diesen Kalender nicht ändern."
 msgid "You are not allowed to change this resource."
 msgstr "Sie dürfen diese Ressource nicht ändern."
 
-#: add.php:62 data.php:37 data.php:147 edit.php:34
-#: lib/Ajax/Application/Handler.php:209 new.php:29
+#: add.php:62 data.php:37 data.php:149 edit.php:34
+#: lib/Ajax/Application/Handler.php:212 new.php:29
 #, php-format
 msgid "You are not allowed to create more than %d events."
 msgstr "Sie dürfen nicht mehr als %d Termine erstellen."
 
-#: lib/Ajax/Application/Handler.php:1051
+#: lib/Ajax/Application/Handler.php:1096
 msgid "You are not allowed to create new resources."
 msgstr "Sie dürfen keine neuen Ressourcen anlegen."
 
-#: calendars/delete.php:35 lib/Kronolith.php:1339
+#: calendars/delete.php:35 lib/Kronolith.php:1346
 msgid "You are not allowed to delete this calendar."
 msgstr "Sie dürfen diesen Kalender nicht löschen."
 
@@ -3535,16 +3535,16 @@ msgstr "Sie dürfen diesen Kalender nicht löschen."
 msgid "You are not allowed to delete this resource group."
 msgstr "Sie dürfen diese Ressourcengruppe nicht löschen."
 
-#: lib/Ajax/Application/Handler.php:1165 lib/Ajax/Application/Handler.php:1183
+#: lib/Ajax/Application/Handler.php:1210 lib/Ajax/Application/Handler.php:1228
 #: resources/delete.php:28
 msgid "You are not allowed to delete this resource."
 msgstr "Sie dürfen diese Ressource nicht löschen."
 
-#: lib/Ajax/Application/Handler.php:1138
+#: lib/Ajax/Application/Handler.php:1183
 msgid "You are not allowed to delete this task list."
 msgstr "Sie dürfen diese Aufgabenliste nicht löschen."
 
-#: lib/Ajax/Application/Handler.php:1060
+#: lib/Ajax/Application/Handler.php:1105
 msgid "You are not allowed to edit this resource."
 msgstr "Sie dürfen diese Ressource nicht bearbeiten."
 
@@ -3552,7 +3552,7 @@ msgstr "Sie dürfen diese Ressource nicht bearbeiten."
 msgid "You are not allowed to see this calendar."
 msgstr "Sie dürfen diesen Kalender nicht anzeigen."
 
-#: lib/Ajax/Application/Handler.php:1208 lib/Ajax/Application/Handler.php:1215
+#: lib/Ajax/Application/Handler.php:1253 lib/Ajax/Application/Handler.php:1260
 msgid "You are not allowed to view this calendar."
 msgstr "Sie dürfen diesen Kalender nicht lesen."
 
@@ -3571,7 +3571,7 @@ msgstr ""
 msgid "You can only use this form from the Edit Attendees screen."
 msgstr "Sie können dieses Formular nur von der Teilnehmeransicht aus benutzen."
 
-#: lib/Kronolith.php:1890
+#: lib/Kronolith.php:1904
 #, php-format
 msgid ""
 "You do not have an email address configured in your Personal Information "
@@ -3592,12 +3592,12 @@ msgid "You do not have permission to delegate events to this user."
 msgstr ""
 "Sie haben nicht genügend Rechte, um Termine an diesen Benutzer zu delegieren."
 
-#: delete.php:40 delete.php:47 lib/Ajax/Application/Handler.php:469
+#: delete.php:40 delete.php:47 lib/Ajax/Application/Handler.php:514
 msgid "You do not have permission to delete this event."
 msgstr "Sie haben nicht genügend Rechte, um diesen Termin zu löschen."
 
-#: edit.php:65 edit.php:112 edit.php:176 lib/Ajax/Application/Handler.php:259
-#: lib/Ajax/Application/Handler.php:386
+#: edit.php:65 edit.php:112 edit.php:176 lib/Ajax/Application/Handler.php:278
+#: lib/Ajax/Application/Handler.php:431
 msgid "You do not have permission to edit this event."
 msgstr "Sie haben nicht genügend Rechte, um diesen Termin zu bearbeiten."
 
@@ -3629,12 +3629,12 @@ msgstr ""
 "dies ändern, indem Sie sich %sbei Ihrem Kalender anmelden%s und Ihre "
 "Einstellungen anpassen."
 
-#: calendars/remote_subscribe.php:34 lib/Ajax/Application/Handler.php:1033
+#: calendars/remote_subscribe.php:34 lib/Ajax/Application/Handler.php:1078
 #, php-format
 msgid "You have been subscribed to \"%s\" (%s)."
 msgstr "Sie haben \"%s\" (%s) abonniert."
 
-#: calendars/remote_unsubscribe.php:47 lib/Ajax/Application/Handler.php:1157
+#: calendars/remote_unsubscribe.php:47 lib/Ajax/Application/Handler.php:1202
 #, php-format
 msgid "You have been unsubscribed from \"%s\" (%s)."
 msgstr "Sie wurden von \"%s\" (%s) abgemeldet."
@@ -3663,34 +3663,34 @@ msgstr "Sie haben unter Vorbehalt die Teilnahme an diesem Event zugesagt."
 msgid "You must select an address first."
 msgstr "Sie müssen erst eine Adresse auswählen."
 
-#: lib/Ajax.php:149
+#: lib/Ajax.php:150
 msgid "You must specify a URL."
 msgstr "Sie müssen eine URL angeben."
 
-#: lib/Kronolith.php:1673
+#: lib/Kronolith.php:1680
 msgid "You must specify a name and a URL."
 msgstr "Sie müssen einen Namen und eine URL angeben."
 
-#: lib/Kronolith.php:2130
+#: lib/Kronolith.php:2148
 msgid "You requested to be notified when events are added to your calendars."
 msgstr ""
 "Sie wollten benachrichtigt werden, wenn Termine zu Ihren Kalendern "
 "hinzugefügt werden."
 
-#: lib/Kronolith.php:2140
+#: lib/Kronolith.php:2158
 msgid ""
 "You requested to be notified when events are deleted from your calendars."
 msgstr ""
 "Sie wollten benachrichtigt werden, wenn Termine aus Ihren Kalendern gelöscht "
 "werden."
 
-#: lib/Kronolith.php:2135
+#: lib/Kronolith.php:2153
 msgid "You requested to be notified when events are edited in your calendars."
 msgstr ""
 "Sie wollten benachrichtigt werden, wenn Termine in Ihren Kalendern geändert "
 "werden."
 
-#: lib/Ajax.php:156
+#: lib/Ajax.php:157
 #, php-format
 msgid ""
 "You used an unknown date format \"%s\". Please try something like \"%s\"."
@@ -3698,7 +3698,7 @@ msgstr ""
 "Sie haben ein unbekanntes Datumsformat \"%s\" benutzt. Bitte versuchen Sie "
 "etwas wie \"%s\"."
 
-#: lib/Ajax.php:157
+#: lib/Ajax.php:158
 #, php-format
 msgid ""
 "You used an unknown time format \"%s\". Please try something like \"%s\"."
@@ -3719,7 +3719,7 @@ msgstr "Ihr Tagesprogramm für den %s"
 msgid "Your default calendar:"
 msgstr "Ihr Standard-Kalender:"
 
-#: lib/Event.php:2647 lib/Event/Horde.php:276 lib/Event/Ical.php:73
+#: lib/Event.php:2632 lib/Event/Horde.php:276 lib/Event/Ical.php:73
 msgid "[Unnamed event]"
 msgstr "[Unbenannter Termin]"
 
@@ -3736,7 +3736,7 @@ msgstr "_Alarm"
 msgid "_Basic Search"
 msgstr "Ein_fache Suche"
 
-#: lib/Kronolith.php:2493
+#: lib/Kronolith.php:2511
 msgid "_Edit"
 msgstr "_Bearbeiten"
 
@@ -3760,7 +3760,7 @@ msgstr "_Neue Aufgabe"
 msgid "_Search"
 msgstr "_Suche"
 
-#: lib/Kronolith.php:2428 templates/dynamic/index.inc:25
+#: lib/Kronolith.php:2446 templates/dynamic/index.inc:25
 msgid "_Today"
 msgstr "_Heute"
 
@@ -3783,7 +3783,7 @@ msgid "before the event starts. A value of \"0\" means no default alarms."
 msgstr ""
 "vor dem Terminbeginn. Ein Wert von \"0\" bedeutet kein standardmäßiger Alarm."
 
-#: lib/Event.php:2646 lib/Event/Resource/Sql.php:81
+#: lib/Event.php:2631 lib/Event/Resource/Sql.php:81
 msgid "busy"
 msgstr "Beschäftigt"
 
@@ -3814,11 +3814,11 @@ msgstr "Tag(e)"
 msgid "days"
 msgstr "Tage"
 
-#: lib/Application.php:632 templates/data/export.inc:1
+#: lib/Application.php:636 templates/data/export.inc:1
 msgid "events.csv"
 msgstr "termine.csv"
 
-#: lib/Application.php:652
+#: lib/Application.php:656
 msgid "events.ics"
 msgstr "termine.ics"
 
@@ -3828,7 +3828,7 @@ msgstr "Stunden"
 
 #: templates/chunks/calendar.php:142 templates/chunks/calendar.php:156
 #: templates/chunks/calendar.php:243 templates/chunks/calendar.php:393
-#: templates/dynamic/edit.inc:270
+#: templates/dynamic/edit.inc:271
 msgid ""
 "iCalendar is a computer file format which allows internet users to send "
 "meeting requests and tasks to other internet users, via email, or sharing "
@@ -3851,7 +3851,7 @@ msgstr "Minuten"
 msgid "month(s)"
 msgstr "Monat(e)"
 
-#: lib/Ajax.php:144
+#: lib/Ajax.php:145
 msgid "more..."
 msgstr "mehr..."
 
@@ -3872,9 +3872,9 @@ msgstr "am gleichen Wochentag"
 #: templates/chunks/calendar.php:282 templates/chunks/calendar.php:303
 #: templates/chunks/calendar.php:323 templates/chunks/calendar.php:347
 #: templates/chunks/calendar.php:402 templates/chunks/calendar.php:437
-#: templates/dynamic/edit.inc:295 templates/dynamic/edit.inc:311
-#: templates/dynamic/index.inc:13 templates/dynamic/task.inc:166
-#: templates/dynamic/task.inc:179
+#: templates/dynamic/edit.inc:296 templates/dynamic/edit.inc:312
+#: templates/dynamic/index.inc:13 templates/dynamic/task.inc:168
+#: templates/dynamic/task.inc:181
 msgid "or"
 msgstr "oder"
 
@@ -3902,7 +3902,7 @@ msgstr "Wiederholungen"
 msgid "resource"
 msgstr "Ressource"
 
-#: templates/dynamic/edit.inc:209
+#: templates/dynamic/edit.inc:210
 msgid "separate e-mail addresses with a comma"
 msgstr "trennen Sie E-Mail-Adressen durch Kommas"
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ingo H5 (3.2-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-10-29 12:14+0100\n"
+"POT-Creation-Date: 2015-12-28 17:03+0100\n"
 "PO-Revision-Date: 2014-10-29 12:28+0100\n"
 "Last-Translator: Jan Schneider\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -49,6 +49,10 @@ msgstr "%s Fehlermeldung des Treibers: %s"
 #, php-format
 msgid "%s is not supported in the current filtering driver."
 msgstr "%s wird vom aktuellen Filtertreiber nicht unterstützt."
+
+#: lib/Basic/Spam.php:143
+msgid "A target folder is required."
+msgstr "Ein Zielordner ist notwendig."
 
 #: templates/basic/rule/rule.html.php:32
 msgid "ALL of the following"
@@ -173,7 +177,7 @@ msgstr "Kopiere"
 msgid "Copy %s"
 msgstr "%s kopieren"
 
-#: lib/Storage/Filters.php:227 lib/Storage/Filters/Sql.php:240
+#: lib/Storage/Filters.php:227 lib/Storage/Filters/Sql.php:236
 #, php-format
 msgid "Copy of %s"
 msgstr "Kopie von %s"
@@ -374,7 +378,7 @@ msgstr "Filtereinstellungen"
 msgid "Filter Rule"
 msgstr "Filterregel"
 
-#: lib/Basic/Filters.php:319
+#: lib/Basic/Filters.php:321
 msgid "Filter Rules"
 msgstr "Filterregeln"
 
@@ -534,7 +538,7 @@ msgstr "List-ID"
 msgid "Login to %s failed."
 msgstr "Anmeldung bei %s fehlgeschlagen."
 
-#: lib/Basic/Filters.php:312
+#: lib/Basic/Filters.php:314
 msgid "Mailbox Search"
 msgstr "Ordnersuche"
 
@@ -856,6 +860,10 @@ msgstr "Speichern und Deaktivieren"
 #: lib/Form/Base.php:52
 msgid "Save and Enable"
 msgstr "Speichern und Aktivieren"
+
+#: templates/basic/filters/filters.html.php:108
+msgid "Saving..."
+msgstr "Speichern..."
 
 #: templates/basic/script/script.html.php:1
 msgid "Script"

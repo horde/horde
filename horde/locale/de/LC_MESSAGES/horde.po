@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde 5.2-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-10-29 12:14+0100\n"
+"POT-Creation-Date: 2015-12-28 17:03+0100\n"
 "PO-Revision-Date: 2014-10-29 12:27+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
@@ -55,7 +55,7 @@ msgstr "In %d Tagen wird Ihr Passwort ungültig."
 msgid "%d minutes"
 msgstr "%d Minuten"
 
-#: lib/Ajax/Application/FacebookHandler.php:241
+#: lib/Ajax/Application/FacebookHandler.php:221
 #, php-format
 msgid "%d person likes this"
 msgid_plural "%d persons like this"
@@ -77,7 +77,7 @@ msgstr "%d-Tage-Vorhersage"
 msgid "%s - Notice"
 msgstr "%s - Hinweis"
 
-#: admin/config/config.php:28 admin/config/index.php:460
+#: admin/config/config.php:28 admin/config/index.php:465
 #, php-format
 msgid "%s Configuration"
 msgstr "%s-Konfiguration"
@@ -185,13 +185,13 @@ msgstr ""
 "Eine Geräte-Löschung wurde gestartet. Das Gerät wird während der nächsten "
 "Synchronisation gelöscht."
 
-#: admin/config/index.php:166 admin/config/index.php:210
-#: admin/config/index.php:343 admin/config/index.php:369
+#: admin/config/index.php:171 admin/config/index.php:215
+#: admin/config/index.php:348 admin/config/index.php:374
 #, php-format
 msgid "A newer version (%s) exists."
 msgstr "Eine neuere Version (%s) existiert."
 
-#: lib/Prefs/Special/Activesync.php:108
+#: lib/Prefs/Special/Activesync.php:112
 #, php-format
 msgid ""
 "A remote wipe for device id %s has been initiated. The device will be wiped "
@@ -339,7 +339,7 @@ msgstr "Angemeldete Benutzer"
 msgid "All policy keys successfully reset."
 msgstr "Alle Richtlinien-Schlüssel wurden zurückgesetzt."
 
-#: lib/Prefs/Special/Activesync.php:123
+#: lib/Prefs/Special/Activesync.php:127
 msgid ""
 "All state removed for your ActiveSync devices. They will resynchronize next "
 "time they connect to the server."
@@ -391,11 +391,11 @@ msgstr "Antwort"
 msgid "Application"
 msgstr "Anwendung"
 
-#: templates/admin/phpshell.html.php:6
+#: templates/admin/phpshell.html.php:8
 msgid "Application Context"
 msgstr "Anwendungskontext"
 
-#: admin/config/index.php:252
+#: admin/config/index.php:257
 msgid "Application is ready."
 msgstr "Anwendung ist bereit."
 
@@ -642,11 +642,11 @@ msgstr "Legen Sie fest, wie das Datum angezeigt werden soll (Vollständig):"
 msgid "Choose how to display times:"
 msgstr "Legen Sie fest, wie die Uhrzeit angezeigt werden soll:"
 
-#: lib/Prefs/Special/Activesync.php:63
+#: lib/Prefs/Special/Activesync.php:67
 msgid "Class"
 msgstr "Klasse"
 
-#: templates/admin/sqlshell.html.php:56
+#: templates/admin/sqlshell.html.php:58
 msgid "Clear Query"
 msgstr "Abfrage zurücksetzen"
 
@@ -696,7 +696,7 @@ msgstr "Codewort-Häufigkeit"
 msgid "Collapse"
 msgstr "Schließen"
 
-#: lib/Prefs/Special/Activesync.php:62
+#: lib/Prefs/Special/Activesync.php:66
 msgid "Collection id"
 msgstr "Collection-ID"
 
@@ -709,7 +709,7 @@ msgstr "Farbauswahl"
 msgid "Comics"
 msgstr "Comics"
 
-#: templates/admin/cmdshell.html.php:2 templates/admin/cmdshell.html.php:17
+#: templates/admin/cmdshell.html.php:2 templates/admin/cmdshell.html.php:19
 msgid "Command"
 msgstr "Befehl"
 
@@ -717,7 +717,7 @@ msgstr "Befehl"
 msgid "Command Shell"
 msgstr "Befehlszeile"
 
-#: lib/Ajax/Application/FacebookHandler.php:182
+#: lib/Ajax/Application/FacebookHandler.php:162
 #, php-format
 msgid "Comments: %d"
 msgstr "Kommentare: %d"
@@ -750,7 +750,7 @@ msgstr "Konfigurationsunterschiede"
 msgid "Configuration for syncing with PDAs, Smartphones and Outlook."
 msgstr "Konfiguration der Synchronization mit PDAs, Smartphones und Outlook."
 
-#: admin/config/index.php:247
+#: admin/config/index.php:252
 msgid "Configuration is out of date."
 msgstr "Die Konfiguration muss aktualisiert werden."
 
@@ -758,7 +758,7 @@ msgstr "Die Konfiguration muss aktualisiert werden."
 msgid "Configuration upgrade scripts available"
 msgstr "Aktualisierungsskripte sind verfügbar"
 
-#: admin/config/index.php:184
+#: admin/config/index.php:189
 #, php-format
 msgid "Configure %s"
 msgstr "%s konfigurieren"
@@ -780,7 +780,7 @@ msgstr "Cookie"
 msgid "Could not connect to server \"%s\" using FTP: %s"
 msgstr "FTP-Verbindung zum Server \"%s\" konnte nicht hergestellt werden: %s"
 
-#: admin/config/index.php:90
+#: admin/config/index.php:95
 msgid "Could not contact server. Try again later."
 msgstr ""
 "Der Server konnte nicht erreicht werden, bitte versuchen Sie es später noch "
@@ -836,7 +836,7 @@ msgstr "Backup der Konfiguration konnte nicht gespeichert werden: %s"
 msgid "Could not save configuration upgrade script to: \"%s\"."
 msgstr "Das Aktualisierungsskript konnte nicht nach \"%s\" gespeichert werden."
 
-#: admin/config/index.php:111
+#: admin/config/index.php:116
 #, php-format
 msgid ""
 "Could not save the configuration file %s. Use one of the options below to "
@@ -912,7 +912,7 @@ msgstr "Kyrillisch (Windows-1251)"
 msgid "Cyrillic/Ukrainian (KOI8-U)"
 msgstr "Kyrillisch/Ukrainisch (KOI8-U)"
 
-#: admin/config/index.php:267 admin/config/index.php:319
+#: admin/config/index.php:272 admin/config/index.php:324
 msgid "DB access is not configured."
 msgstr "DB-Zugriff ist nicht konfiguriert."
 
@@ -930,6 +930,14 @@ msgstr "Daten"
 #: templates/admin/config/index.html.php:30 templates/prefs/syncml.html.php:11
 msgid "Database"
 msgstr "Datenbank"
+
+#: admin/config/index.php:73
+msgid ""
+"Database migration files not found. Please check PEAR's data_dir "
+"configuration setting."
+msgstr ""
+"Datenbank-Migrations-Skripte nicht gefunden. Bitte überprüfen Sie PEARs "
+"data_dir Konfigurationseinstellung."
 
 #: lib/Block/Vatid.php:88
 msgid "Date"
@@ -1108,13 +1116,13 @@ msgstr ""
 msgid "Don't have an account? Sign up."
 msgstr "Noch keinen Zugang? Hier anmelden."
 
-#: admin/config/index.php:166 admin/config/index.php:210
-#: admin/config/index.php:343 admin/config/index.php:369
+#: admin/config/index.php:171 admin/config/index.php:215
+#: admin/config/index.php:348 admin/config/index.php:374
 #, php-format
 msgid "Download %s"
 msgstr "%s Herunterladen"
 
-#: admin/config/index.php:395
+#: admin/config/index.php:400
 msgid "Download generated configuration as PHP script."
 msgstr "Erzeugte Konfiguration als PHP-Skript herunterladen."
 
@@ -1130,7 +1138,7 @@ msgstr "Dynamisch"
 msgid "EU VAT identification"
 msgstr "EU-UStId-Identifizierung"
 
-#: lib/View/Sidebar.php:223 templates/shares/edit.inc:66
+#: lib/View/Sidebar.php:229 templates/shares/edit.inc:66
 #: templates/shares/edit.inc:83 templates/shares/edit.inc:101
 #: templates/shares/edit.inc:118 templates/shares/edit.inc:137
 #: templates/shares/edit.inc:154 templates/shares/edit.inc:172
@@ -1191,7 +1199,7 @@ msgstr ""
 "Passwort zurücksetzen möchten, z. B. \"Wie lautet der Name Ihres Haustiers?"
 "\":"
 
-#: lib/Ajax/Application/FacebookHandler.php:264
+#: lib/Ajax/Application/FacebookHandler.php:244
 msgid ""
 "Error connecting to Facebook. Details have been logged for the administrator."
 msgstr ""
@@ -1231,10 +1239,6 @@ msgstr "Fehler beim Ändern des Passworts: %s"
 msgid "Ethnic"
 msgstr "Etnisches"
 
-#: lib/Ajax/Application/FacebookHandler.php:63
-msgid "Event Invites:"
-msgstr "Termin-Einladungen:"
-
 #: config/prefs.php:594 templates/portal/layout.inc:101
 msgid "Every 15 minutes"
 msgstr "Alle 15 Minuten"
@@ -1267,8 +1271,8 @@ msgstr "Alle 60 Sekunden"
 msgid "Example values:"
 msgstr "Beispielwerte:"
 
-#: templates/admin/cmdshell.html.php:22 templates/admin/phpshell.html.php:21
-#: templates/admin/sqlshell.html.php:55
+#: templates/admin/cmdshell.html.php:24 templates/admin/phpshell.html.php:23
+#: templates/admin/sqlshell.html.php:57
 msgid "Execute"
 msgstr "Ausführen"
 
@@ -1376,10 +1380,6 @@ msgstr "Glückskekse 2"
 msgid "Forums"
 msgstr "Foren"
 
-#: lib/Ajax/Application/FacebookHandler.php:62
-msgid "Friend Requests:"
-msgstr "Freundschafts-Anfragen:"
-
 #: templates/prefs/facebook.html.php:44
 msgid "Friends enabled."
 msgstr "Freunde aktiviert."
@@ -1415,7 +1415,7 @@ msgstr "%s-Konfiguration erzeugen"
 msgid "Generated Code"
 msgstr "Erzeugter Code"
 
-#: lib/Block/FbStream.php:161 templates/block/twitter-layout.html.php:35
+#: lib/Block/FbStream.php:152 templates/block/twitter-layout.html.php:35
 msgid "Get More"
 msgstr "Mehr holen"
 
@@ -1472,7 +1472,7 @@ msgstr "Hebräisch (ISO-8859-8-I)"
 msgid "Height"
 msgstr "Höhe"
 
-#: lib/Block/FbStream.php:76 lib/Block/TwitterTimeline.php:64
+#: lib/Block/FbStream.php:71 lib/Block/TwitterTimeline.php:64
 msgid "Height of stream content (width automatically adjusts to block)"
 msgstr "Höhe des Inhalts (Breite passt sich automatisch an den Block an)"
 
@@ -1708,7 +1708,7 @@ msgstr "Letzte Anmeldung: %s von %s"
 msgid "Last login: Never"
 msgstr "Letzte Anmeldung: Noch nie"
 
-#: lib/Prefs/Special/Activesync.php:65
+#: lib/Prefs/Special/Activesync.php:69
 msgid "Last synckey"
 msgstr "Letzter Synch-Key"
 
@@ -1720,7 +1720,7 @@ msgstr "Zuletzt"
 msgid "Law"
 msgstr "Gesetz"
 
-#: lib/Ajax/Application/FacebookHandler.php:225
+#: lib/Ajax/Application/FacebookHandler.php:205
 msgid "Like"
 msgstr "Gefällt mir"
 
@@ -1732,7 +1732,7 @@ msgstr "Limerick"
 msgid "Linux Cookie"
 msgstr "Linux-Glückskekse"
 
-#: templates/admin/sqlshell.html.php:60
+#: templates/admin/sqlshell.html.php:62
 msgid "List Tables"
 msgstr "Tabellen anzeigen"
 
@@ -1814,7 +1814,7 @@ msgstr ""
 msgid "Login failed."
 msgstr "Anmeldung fehlgeschlagen."
 
-#: login.php:399
+#: login.php:405
 #, php-format
 msgid "Login to %s"
 msgstr "Anmelden bei %s"
@@ -1940,7 +1940,7 @@ msgstr "Minimale PIN-Länge"
 msgid "Miscellaneous"
 msgstr "Verschiedenes"
 
-#: admin/config/index.php:224
+#: admin/config/index.php:229
 msgid "Missing configuration."
 msgstr "Fehlende Konfiguration."
 
@@ -1968,8 +1968,8 @@ msgstr "Modus"
 msgid "Model"
 msgstr "Modell"
 
-#: admin/config/index.php:169 admin/config/index.php:213
-#: admin/config/index.php:346 admin/config/index.php:372
+#: admin/config/index.php:174 admin/config/index.php:218
+#: admin/config/index.php:351 admin/config/index.php:377
 msgid "Module is up-to-date."
 msgstr "Modul ist aktuell."
 
@@ -2032,10 +2032,6 @@ msgstr "Nie"
 #: templates/prefs/category.html.php:43
 msgid "New Category"
 msgstr "Neue Kategorie"
-
-#: lib/Ajax/Application/FacebookHandler.php:59
-msgid "New Messages:"
-msgstr "Neue Nachrichten:"
 
 #: lib/Block/Moon.php:47 lib/Block/Moon.php:65 lib/Block/Moon.php:173
 msgid "New Moon"
@@ -2108,8 +2104,8 @@ msgstr ""
 "Sie haben keine Sicherheitsfrage hinterlegt. Bitte wenden Sie sich an Ihren "
 "Administrator."
 
-#: admin/config/index.php:163 admin/config/index.php:207
-#: admin/config/index.php:340 admin/config/index.php:366
+#: admin/config/index.php:168 admin/config/index.php:212
+#: admin/config/index.php:345 admin/config/index.php:371
 msgid "No stable version exists yet."
 msgstr "Noch keine stabile Version verfügbar."
 
@@ -2117,28 +2113,28 @@ msgstr "Noch keine stabile Version verfügbar."
 msgid "No username specified."
 msgstr "Kein Benutzername angegeben."
 
-#: admin/config/index.php:230
+#: admin/config/index.php:235
 msgid "No version found in original configuration. Regenerate configuration."
 msgstr ""
 "Keine Versionsnummer in der Originalkonfiguration gefunden. Erneuern Sie "
 "Ihre Konfiguration."
 
-#: admin/config/index.php:239
+#: admin/config/index.php:244
 msgid "No version found in your configuration. Regenerate configuration."
 msgstr ""
 "Keine Versionsnummer in Ihrer Konfiguration gefunden. Erneuern Sie Ihre "
 "Konfiguration."
 
-#: admin/config/index.php:291
+#: admin/config/index.php:296
 msgid "NoSQL indices are ready."
 msgstr "NoSQL-Indices sind bereit."
 
-#: admin/config/index.php:286
+#: admin/config/index.php:291
 #, php-format
 msgid "NoSQL indices for %s"
 msgstr "NoSQL-Indizes für %s"
 
-#: admin/config/index.php:288
+#: admin/config/index.php:293
 msgid "NoSQL indices out of date."
 msgstr "NoSQL-Indizes müssen aktualisiert werden."
 
@@ -2249,11 +2245,11 @@ msgstr "Besitzer"
 msgid "Owner:"
 msgstr "Besitzer:"
 
-#: templates/admin/phpshell.html.php:15
+#: templates/admin/phpshell.html.php:17
 msgid "PHP"
 msgstr "PHP"
 
-#: templates/admin/phpshell.html.php:27
+#: templates/admin/phpshell.html.php:29
 msgid "PHP Code"
 msgstr "PHP Code"
 
@@ -2273,7 +2269,7 @@ msgstr "Die POSIX-Erweiterung fehlt"
 msgid "P_HP Shell"
 msgstr "_PHP Shell"
 
-#: login.php:211 admin/config/index.php:416 admin/user.php:39
+#: login.php:211 admin/config/index.php:421 admin/user.php:39
 #: admin/user.php:53 config/registry.php:327
 #: templates/admin/user/update.inc:20
 msgid "Password"
@@ -2291,7 +2287,7 @@ msgstr "Passwort erfolgreich geändert."
 msgid "Passwords must match."
 msgstr "Die Passwörter müssen gleich sein."
 
-#: templates/admin/sqlshell.html.php:43
+#: templates/admin/sqlshell.html.php:45
 msgid "Paste"
 msgstr "Einfügen"
 
@@ -2361,10 +2357,6 @@ msgstr ""
 "Bitte lesen Sie sich den folgenden Text sorgfältig durch. Sie MÜSSEN diesen "
 "Bedingungen zustimmen, wenn Sie dieses System benutzen möchten."
 
-#: lib/Ajax/Application/FacebookHandler.php:61
-msgid "Pokes:"
-msgstr "Anstupser:"
-
 #: lib/Block/Fortune.php:64
 msgid "Politics"
 msgstr "Politik"
@@ -2378,11 +2370,11 @@ msgstr ""
 "Bitte beachten Sie, dass einige Geräte die Zitatüberschrift immer am Ende "
 "des Antworttextes einfügen."
 
-#: lib/Block/FbStream.php:143
+#: lib/Block/FbStream.php:134
 msgid "Post"
 msgstr "E-Mail schicken"
 
-#: lib/Ajax/Application/FacebookHandler.php:177
+#: lib/Ajax/Application/FacebookHandler.php:157
 #, php-format
 msgid "Posted %s"
 msgstr "Erstellt %s"
@@ -2432,7 +2424,7 @@ msgstr "Verknüpfung"
 msgid "Publish enabled."
 msgstr "Veröffentlichungen aktiviert."
 
-#: templates/admin/sqlshell.html.php:7
+#: templates/admin/sqlshell.html.php:9
 msgid "Query"
 msgstr "Abfrage"
 
@@ -2506,7 +2498,7 @@ msgstr "Entfernen"
 msgid "Remove pair"
 msgstr "Paar löschen"
 
-#: admin/config/index.php:435
+#: admin/config/index.php:440
 msgid "Remove saved script from server's temporary directory."
 msgstr "Gespeichertes Skript aus dem temporären Verzeichnis entfernen."
 
@@ -2553,12 +2545,12 @@ msgstr "Status aller Geräte zurücksetzen"
 msgid "Reset your password"
 msgstr "Passwort zurücksetzen"
 
-#: templates/admin/sqlshell.html.php:58
+#: templates/admin/sqlshell.html.php:60
 msgid "Restore Last Query"
 msgstr "Letzte Abfrage einfügen"
 
-#: templates/admin/cmdshell.html.php:7 templates/admin/phpshell.html.php:32
-#: templates/admin/sqlshell.html.php:11
+#: templates/admin/cmdshell.html.php:7 templates/admin/phpshell.html.php:34
+#: templates/admin/sqlshell.html.php:13
 msgid "Results"
 msgstr "Ergebnisse"
 
@@ -2588,7 +2580,7 @@ msgstr "Konfiguration zurücksetzen"
 msgid "Riddles"
 msgstr "Rätsel"
 
-#: templates/admin/sqlshell.html.php:44
+#: templates/admin/sqlshell.html.php:46
 msgid "Run"
 msgstr "Starten"
 
@@ -2608,11 +2600,11 @@ msgstr "SD-Karten-Verschlüsselung"
 msgid "SMS Text messages"
 msgstr "SMS-Nachrichten"
 
-#: admin/config/index.php:273 admin/config/index.php:326
+#: admin/config/index.php:278 admin/config/index.php:331
 msgid "SQL DB schema is out of date."
 msgstr "SQL-DB-Schema muss aktualisiert werden."
 
-#: admin/config/index.php:278 admin/config/index.php:331
+#: admin/config/index.php:283 admin/config/index.php:336
 msgid "SQL DB schema is ready."
 msgstr "SQL-DB-Schema ist bereit."
 
@@ -2637,7 +2629,7 @@ msgstr "\"%s\" speichern"
 msgid "Save and Finish"
 msgstr "Speichern und Beenden"
 
-#: admin/config/index.php:403
+#: admin/config/index.php:408
 msgid ""
 "Save generated configuration as a PHP script to your server's temporary "
 "directory."
@@ -2735,7 +2727,7 @@ msgstr "Problembericht abschicken"
 msgid "Sensor: "
 msgstr "Sensor: "
 
-#: lib/Prefs/Special/Activesync.php:64
+#: lib/Prefs/Special/Activesync.php:68
 msgid "Server Id"
 msgstr "Server-ID"
 
@@ -2814,7 +2806,7 @@ msgstr "Erweiterte Einstellungen anzeigen"
 msgid "Show All Preferences Groups"
 msgstr "Alle Einstellungs-Gruppen anzeigen"
 
-#: admin/config/index.php:385
+#: admin/config/index.php:390
 msgid ""
 "Show differences between currently saved and the newly generated "
 "configuration."
@@ -2829,10 +2821,6 @@ msgstr "Weitere Details anzeigen?"
 #: config/prefs.php:568
 msgid "Show last login time when logging in?"
 msgstr "Anzeigen, wann die letzte Anmeldung erfolgt ist?"
-
-#: lib/Block/FbStream.php:72
-msgid "Show notifications"
-msgstr "Benachrichtigungen anzeigen"
 
 #: templates/logintasks/logintasks.html.php:25
 #: templates/logintasks/smartmobile.html.php:33
@@ -2892,7 +2880,7 @@ msgstr "Statusverwaltung"
 msgid "Status"
 msgstr "Status"
 
-#: lib/Ajax/Application/FacebookHandler.php:106
+#: lib/Ajax/Application/FacebookHandler.php:86
 msgid "Status unable to be set."
 msgstr "Status konnte nicht aktualisiert werden."
 
@@ -2914,7 +2902,7 @@ msgid "Succesfully connected your Facebook account or updated permissions."
 msgstr ""
 "Erfolgreich mit Ihrem Facebook-Konto verbunden oder Rechte aktualisiert."
 
-#: templates/admin/sqlshell.html.php:15
+#: templates/admin/sqlshell.html.php:17
 msgid "Success"
 msgstr "Erfolg"
 
@@ -3031,7 +3019,7 @@ msgstr ""
 msgid "Thai (TIS-620)"
 msgstr "Thailändisch (TIS-620)"
 
-#: lib/Prefs/Special/Activesync.php:114
+#: lib/Prefs/Special/Activesync.php:118
 #, php-format
 msgid "The Remote Wipe for device id %s has been cancelled."
 msgstr ""
@@ -3045,7 +3033,7 @@ msgstr "Der Alarm wurde gelöscht."
 msgid "The alarm has been saved."
 msgstr "Der Alarm wurde gespeichert."
 
-#: admin/config/index.php:114
+#: admin/config/index.php:119
 #, php-format
 msgid ""
 "The configuration for %s cannot be updated automatically. Please update the "
@@ -3103,7 +3091,7 @@ msgstr "Die Registrierungsanfrage von \"%s\" wurde entfernt."
 msgid "The signup request for user \"%s\" has been removed."
 msgstr "Die Registrierungsanfrage von \"%s\" wurde entfernt."
 
-#: lib/Prefs/Special/Activesync.php:129
+#: lib/Prefs/Special/Activesync.php:133
 #, php-format
 msgid ""
 "The state for device id %s has been reset. It will resynchronize next time "
@@ -3152,7 +3140,7 @@ msgstr "Beim Löschen von \"%s\" aus dem System ist ein Problem aufgetreten: "
 msgid "There was a problem updating \"%s\": %s"
 msgstr "Beim Aktualisieren von \"%s\" ist ein Problem aufgetreten: %s"
 
-#: lib/Prefs/Special/Activesync.php:132
+#: lib/Prefs/Special/Activesync.php:136
 #, php-format
 msgid "There was an error communicating with the ActiveSync server: %s"
 msgstr ""
@@ -3171,8 +3159,7 @@ msgstr ""
 "Das Konfigurations-Formular enthielt einen Fehler. Vielleicht haben Sie ein "
 "Pflichtfeld leer gelassen."
 
-#: lib/Ajax/Application/FacebookHandler.php:48
-#: lib/Ajax/Application/FacebookHandler.php:65 lib/Block/FbStream.php:153
+#: lib/Ajax/Application/FacebookHandler.php:47 lib/Block/FbStream.php:144
 #, php-format
 msgid "There was an error making the request: %s"
 msgstr "Beim Verschicken der Anfrage ist ein Fehler aufgetreten: %s"
@@ -3303,7 +3290,7 @@ msgstr "Homepage"
 msgid "Unable to delete \"%s\": %s."
 msgstr "\"%s\" kann nicht gelöscht werden: %s."
 
-#: lib/Ajax/Application/FacebookHandler.php:138
+#: lib/Ajax/Application/FacebookHandler.php:118
 msgid "Unable to set like."
 msgstr "\"Gefällt mir\" konnte nicht durchgeführt werden."
 
@@ -3313,7 +3300,7 @@ msgstr ""
 "Der Anfrage-Token konnte nicht verifiziert werden. Bitte versuchen Sie es "
 "noch einmal."
 
-#: admin/activesync.php:98 lib/Prefs/Special/Activesync.php:57
+#: admin/activesync.php:98 lib/Prefs/Special/Activesync.php:61
 msgid "Unavailable"
 msgstr "Nicht verfügbar"
 
@@ -3362,7 +3349,7 @@ msgstr "Aktualisierung"
 msgid "Update %s"
 msgstr "%s aktualisieren"
 
-#: admin/config/index.php:187 admin/config/index.php:305
+#: admin/config/index.php:192 admin/config/index.php:310
 #, php-format
 msgid "Update %s schema"
 msgstr "%s-Schema aktualisieren"
@@ -3384,22 +3371,22 @@ msgstr "Benutzer aktualisieren"
 msgid "Updated \"%s\"."
 msgstr "\"%s\" wurde aktualisiert."
 
-#: admin/config/index.php:129
+#: admin/config/index.php:134
 #, php-format
 msgid "Updated schema for %s."
 msgstr "Schema für %s wurde aktualisiert."
 
-#: admin/config/index.php:414
+#: admin/config/index.php:419
 msgid "Upload"
 msgstr "Hochladen"
 
-#: admin/config/index.php:422
+#: admin/config/index.php:427
 msgid "Uploaded all application configuration files to the server."
 msgstr ""
 "Die Konfigurationsdateien aller Anwendungen wurden auf den Server "
 "hochgeladen."
 
-#: lib/Prefs/Special/Activesync.php:77
+#: lib/Prefs/Special/Activesync.php:81
 msgid "Use Horde Default"
 msgstr "Standard verwenden"
 
@@ -3448,7 +3435,7 @@ msgstr "Benutzerkonto nicht gefunden"
 msgid "User to add:"
 msgstr "Hinzuzufügender Benutzer:"
 
-#: login.php:206 admin/config/index.php:415 admin/user.php:36
+#: login.php:206 admin/config/index.php:420 admin/user.php:36
 #: admin/user.php:52 services/resetpassword.php:33
 #: templates/admin/activesync.html.php:9 templates/admin/user/approve.inc:23
 msgid "Username"
@@ -3625,8 +3612,8 @@ msgstr "JJ"
 msgid "Yes, I Agree"
 msgstr "Ja, ich stimme zu"
 
-#: lib/Ajax/Application/FacebookHandler.php:131
-#: lib/Ajax/Application/FacebookHandler.php:233
+#: lib/Ajax/Application/FacebookHandler.php:111
+#: lib/Ajax/Application/FacebookHandler.php:213
 #, php-format
 msgid "You and %d other person likes this"
 msgid_plural "You and %d other people like this"
@@ -3677,7 +3664,7 @@ msgstr "Sie dürfen die Benutzer von Gruppen nicht anzeigen."
 msgid "You are not allowed to list users of shares."
 msgstr "Sie dürfen die Benutzer eines Shares nicht anzeigen."
 
-#: lib/Block/FbStream.php:107
+#: lib/Block/FbStream.php:102
 #, php-format
 msgid ""
 "You are not connected to your Facebook account. You should check your "
@@ -3686,8 +3673,7 @@ msgstr ""
 "Sie sind nicht mit Ihrem Facebook-Konto verbunden. Sie sollten Ihre Facebook-"
 "Einstellungen in Ihren %s überprüfen."
 
-#: lib/Ajax/Application/FacebookHandler.php:49
-#: lib/Ajax/Application/FacebookHandler.php:66 lib/Block/FbStream.php:154
+#: lib/Ajax/Application/FacebookHandler.php:48 lib/Block/FbStream.php:145
 #, php-format
 msgid "You can also check your Facebook settings in your %s."
 msgstr "Sie können die Facebook-Einstellungen in Ihren %s überprüfen."
@@ -3717,9 +3703,9 @@ msgstr ""
 "Sie haben Ihr Twitter-Konto nicht richtig mit Horde verbunden. Sie sollten "
 "Ihre Twitter-Einstellungen in Ihren %s überprüfen."
 
-#: lib/Ajax/Application/FacebookHandler.php:125
-#: lib/Ajax/Application/FacebookHandler.php:133
-#: lib/Ajax/Application/FacebookHandler.php:236
+#: lib/Ajax/Application/FacebookHandler.php:105
+#: lib/Ajax/Application/FacebookHandler.php:113
+#: lib/Ajax/Application/FacebookHandler.php:216
 msgid "You like this"
 msgstr "Ihnen gefällt das"
 
@@ -3918,9 +3904,8 @@ msgstr "böig"
 msgid "inline"
 msgstr "Inline"
 
-#: lib/Ajax/Application/FacebookHandler.php:49
-#: lib/Ajax/Application/FacebookHandler.php:66 lib/Block/FbStream.php:108
-#: lib/Block/FbStream.php:154 lib/Block/TwitterTimeline.php:168
+#: lib/Ajax/Application/FacebookHandler.php:48 lib/Block/FbStream.php:103
+#: lib/Block/FbStream.php:145 lib/Block/TwitterTimeline.php:168
 msgid "preferences"
 msgstr "Benutzereinstellungen"
 
