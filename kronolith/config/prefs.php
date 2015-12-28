@@ -81,7 +81,7 @@ $prefGroups['addressbooks'] = array(
 $prefGroups['itip'] = array(
     'column' => _("Events"),
     'label' => _("iTip/Meeting request preferences"),
-    'desc' => _("Set preferences for dealing with iTip notifications"),
+    'desc' => _("Set preferences for dealing with iTip notifications."),
     'members' => array('itip_silent')
 );
 
