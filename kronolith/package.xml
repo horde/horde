@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Fix accidental deletion of events if importing recurring events without a UID attribute (Bug #14208).
 * [mjr] Honor confirm_delete preference in dynamic view (Bug #14188).
 * [mjr] Correctly deal with cancelled meetings via ActiveSync.
 * [mjr] Fix visibility of alarm titles when alarm is generated via CLI (Bug #14154).
@@ -2632,6 +2633,7 @@
    <date>2015-10-21</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix accidental deletion of events if importing recurring events without a UID attribute (Bug #14208).
 * [mjr] Honor confirm_delete preference in dynamic view (Bug #14188).
 * [mjr] Correctly deal with cancelled meetings via ActiveSync.
 * [mjr] Fix visibility of alarm titles when alarm is generated via CLI (Bug #14154).

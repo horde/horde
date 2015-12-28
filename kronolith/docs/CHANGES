@@ -2,6 +2,8 @@
 v4.2.12-git
 -----------
 
+[jan] Fix accidental deletion of events if importing recurring events without a
+      UID attribute (Bug #14208).
 [mjr] Honor confirm_delete preference in dynamic view (Bug #14188).
 [mjr] Correctly deal with cancelled meetings via ActiveSync.
 [mjr] Fix visibility of alarm titles when alarm is generated via CLI (Bug
