@@ -2354,7 +2354,7 @@ abstract class Kronolith_Event
             $this->loadHistory();
             if (!empty($this->created)) {
                 $json->cb = sprintf(
-                    _("%s %s %s"),
+                    '%s %s %s',
                     $this->created->strftime($GLOBALS['prefs']->getValue('date_format')),
                     $this->created->strftime(($GLOBALS['prefs']->getValue('twentyFour') ? '%H:%M' : '%I:%M %p')),
                     $this->createdby);
@@ -2363,7 +2363,7 @@ abstract class Kronolith_Event
             }
             if (!empty($this->modified)) {
                 $json->mb = sprintf(
-                    _("%s %s %s"),
+                    '%s %s %s',
                     $this->modified->strftime($GLOBALS['prefs']->getValue('date_format')),
                     $this->modified->strftime(($GLOBALS['prefs']->getValue('twentyFour') ? '%H:%M' : '%I:%M %p')),
                     $this->modifiedby);
