@@ -132,7 +132,7 @@
     <li><a href="#" class="kronolithTabLink" id="kronolithEventLinkMap"><?php echo _("Map") ?></a></li>
     <?php endif; ?>
     <li><a href="#" class="kronolithTabLink" id="kronolithEventLinkExport"><?php echo _("Export") ?></a></li>
-    <li><a href="#" class="kronolithTabLink" id="kronolithEventLinkOther"><?php echo _("Other") ?></a></li>
+    <li><a href="#" class="kronolithTabLink" id="kronolithEventLinkOther"><?php echo _("Information") ?></a></li>
   </ul>
 </div>
 <br class="clear" />
