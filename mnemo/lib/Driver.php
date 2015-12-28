@@ -301,7 +301,7 @@ abstract class Mnemo_Driver
                     array('action' => 'delete'),
                     true);
 
-                $injector->getInstance('Mnemo_Tagger')
+                $GLOBALS['injector']->getInstance('Mnemo_Tagger')
                     ->replaceTags($uid, array(), $GLOBALS['registry']->getAuth(), 'note');
 
                 /* Tell content we removed the object */
