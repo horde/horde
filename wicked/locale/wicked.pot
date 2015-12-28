@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wicked\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-03-25 18:08+0100\n"
+"POT-Creation-Date: 2015-12-28 17:03+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -160,7 +160,7 @@ msgstr ""
 msgid "Change references to this page from:"
 msgstr ""
 
-#: lib/Page/MergeOrRename.php:250
+#: lib/Page/MergeOrRename.php:235
 #, php-format
 msgid "Changed references from %s to %s"
 msgstr ""
@@ -276,7 +276,7 @@ msgstr ""
 msgid "Edit Version %s"
 msgstr ""
 
-#: lib/Page/MergeOrRename.php:244
+#: lib/Page/MergeOrRename.php:268
 #, php-format
 msgid "Error retrieving %s: %s"
 msgstr ""
@@ -341,7 +341,7 @@ msgstr ""
 msgid "Internal error viewing requested page: %s"
 msgstr ""
 
-#: lib/Api.php:258
+#: lib/Api.php:256
 msgid "Invalid page requested."
 msgstr ""
 
@@ -429,7 +429,7 @@ msgstr ""
 msgid "New name is the same as old name."
 msgstr ""
 
-#: lib/Api.php:196 lib/Page/EditPage.php:212
+#: lib/Api.php:194 lib/Page/EditPage.php:212
 msgid "No changes made"
 msgstr ""
 
@@ -497,7 +497,7 @@ msgstr ""
 msgid "Permissio_ns"
 msgstr ""
 
-#: lib/Api.php:254
+#: lib/Api.php:252
 msgid "Permission denied."
 msgstr ""
 
@@ -676,7 +676,7 @@ msgstr ""
 #: lib/Page.php:248 lib/Page.php:281 lib/Page.php:286 lib/Page.php:412
 #: lib/Page.php:420 lib/Page.php:428 lib/Page.php:438 lib/Page.php:572
 #: lib/Page.php:611 lib/Page.php:616 lib/Page.php:621 lib/Page.php:626
-#: lib/Page.php:666
+#: lib/Page.php:671
 msgid "Unsupported"
 msgstr ""
 
@@ -703,7 +703,7 @@ msgstr ""
 msgid "View page: "
 msgstr ""
 
-#: lib/Api.php:213
+#: lib/Api.php:211
 msgid "Wiki Templates"
 msgstr ""
 
@@ -739,7 +739,7 @@ msgstr ""
 msgid "You don't have permission to delete \"%s\"."
 msgstr ""
 
-#: lib/Api.php:178 lib/Page/EditPage.php:194 lib/Page/RevertPage.php:133
+#: lib/Api.php:176 lib/Page/EditPage.php:194 lib/Page/RevertPage.php:133
 #, php-format
 msgid "You don't have permission to edit \"%s\"."
 msgstr ""
@@ -752,7 +752,7 @@ msgstr ""
 msgid "You must enter a change description to attach this file."
 msgstr ""
 
-#: lib/Api.php:182 lib/Page/EditPage.php:205
+#: lib/Api.php:180 lib/Page/EditPage.php:205
 msgid "You must provide a change log."
 msgstr ""
 

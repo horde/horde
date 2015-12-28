@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ingo\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-10-29 12:14+0100\n"
+"POT-Creation-Date: 2015-12-28 17:03+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -48,6 +48,10 @@ msgstr ""
 #: lib/Basic/Base.php:152
 #, php-format
 msgid "%s is not supported in the current filtering driver."
+msgstr ""
+
+#: lib/Basic/Spam.php:143
+msgid "A target folder is required."
 msgstr ""
 
 #: templates/basic/rule/rule.html.php:32
@@ -173,7 +177,7 @@ msgstr ""
 msgid "Copy %s"
 msgstr ""
 
-#: lib/Storage/Filters.php:227 lib/Storage/Filters/Sql.php:240
+#: lib/Storage/Filters.php:227 lib/Storage/Filters/Sql.php:236
 #, php-format
 msgid "Copy of %s"
 msgstr ""
@@ -371,7 +375,7 @@ msgstr ""
 msgid "Filter Rule"
 msgstr ""
 
-#: lib/Basic/Filters.php:319
+#: lib/Basic/Filters.php:321
 msgid "Filter Rules"
 msgstr ""
 
@@ -522,7 +526,7 @@ msgstr ""
 msgid "Login to %s failed."
 msgstr ""
 
-#: lib/Basic/Filters.php:312
+#: lib/Basic/Filters.php:314
 msgid "Mailbox Search"
 msgstr ""
 
@@ -831,6 +835,10 @@ msgstr ""
 #: lib/Basic/Forward.php:57 lib/Basic/Spam.php:70 lib/Basic/Vacation.php:70
 #: lib/Form/Base.php:52
 msgid "Save and Enable"
+msgstr ""
+
+#: templates/basic/filters/filters.html.php:108
+msgid "Saving..."
 msgstr ""
 
 #: templates/basic/script/script.html.php:1
