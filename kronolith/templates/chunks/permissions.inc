@@ -54,7 +54,7 @@
     <table width="100%" cellspacing="0" cellpadding="0" border="0">
       <thead>
         <tr valign="middle">
-          <th colspan="2"><?php echo $type == 'internal' ? _("Calendar owner") . '<span style="display:none" id="kronolithSystemOwner"> ' . _("System Owned") . '</div>' : ($type == 'tasklists' ? _("Task list owner") : '') ?></th>
+          <th colspan="2"><span style="display:none" id="kronolithOwner"><?php echo $type == 'internal' ? _("Calendar owner") : ($type == 'tasklists' ? _("Task list owner") : '') ?></span></th>
         </tr>
       </thead>
       <tbody>

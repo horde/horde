@@ -3246,12 +3246,12 @@ KronolithCore = {
 
         if (newCalendar || info.owner) {
             if (system || (info && info.system)) {
+                $('kronolithOwner').hide();
                 $('kronolithPOwnerInput').hide();
                 $('kronolithCalendarSystem').setValue(1);
-                $('kronolithSystemOwner').show();
             } else {
+                $('kronolithOwner').show();
                 $('kronolithPOwnerInput').show();
-                $('kronolithSystemOwner').hide();
                 $('kronolithCalendarSystem').setValue(0);
             }
             if (type == 'internal' || type == 'tasklists' || type == 'resource') {
