@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* 
+* [mjr] Fix fatal error when removing notepads in certain cases.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1336,7 +1336,7 @@
    <date>2015-10-20</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* 
+* [mjr] Fix fatal error when removing notepads in certain cases.
    </notes>
   </release>
  </changelog>
