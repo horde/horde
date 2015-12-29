@@ -898,7 +898,13 @@ class Horde_Translation_Script
         $horde_msg = array();
         $stats_array = array();
 
-        $stats = new Console_Table();
+        $stats = new Console_Table(
+            CONSOLE_TABLE_ALIGN_LEFT,
+            CONSOLE_TABLE_BORDER_ASCII,
+            1,
+            null,
+            true
+        );
         $stats->setHeaders(array('Module', 'Language', 'Translated', 'Fuzzy', 'Untranslated', 'Updated'));
 
         for ($i = 0; $i < count($this->dirs); $i++) {
@@ -1011,7 +1017,15 @@ class Horde_Translation_Script
                         $horde_msg[$locale] = $messages;
                     }
                     $stats_array[$this->apps[$i]][$locale] = $messages;
-                    $stats->addRow(array($this->apps[$i], $locale, $messages[0], $messages[1], $messages[2], $messages[3]));
+                    $fuzzy = $messages[1];
+                    if ($fuzzy) {
+                        $fuzzy = $this->cli->red($fuzzy);
+                    }
+                    $untranslated = $messages[2];
+                    if ($untranslated) {
+                        $untranslated = $this->cli->red($untranslated);
+                    }
+                    $stats->addRow(array($this->apps[$i], $locale, $messages[0], $fuzzy, $untranslated, $messages[3]));
                 } else {
                     $this->writeln($this->cli->red('failed'));
                     exec($sh, $out, $ret);
