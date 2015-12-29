@@ -96,6 +96,45 @@ class Nag_Driver_Kolab extends Nag_Driver
         return new Nag_Task($this, $nag_task);
     }
 
+    /* Little helper function, detecting if a string is already
+     * based64-encoded or not
+     */
+    private function _is_base64_encoded_uid($s) {
+
+        /* redo stuff possibly done by Horde_Url::uriB64Encode()
+         */
+        $data = str_replace(array('-', '_'), array('+', '/'), $s);
+        $mod4 = strlen($data) % 4;
+        if ($mod4) {
+            $data .= substr('====', $mod4);
+        }
+        if (!preg_match('/^[a-zA-Z0-9\/\r\n+]*={0,2}$/', $data)) {
+            return false;
+        }
+
+        /* Decode the string in strict mode and check the results
+         */
+        $decoded = base64_decode($data, true);
+        if(false === $decoded) {
+            return false;
+        }
+
+        /* Check if the decoded string resembles a uid hash...
+         */
+        if (!preg_match('/^[a-zA-Z0-9-]+$/', $decoded)) {
+            return false;
+        }
+
+        /* Encode the string again
+         */
+        if(base64_encode($decoded) != $data)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
     /**
      * Build a task based a data array
      *
@@ -107,13 +146,26 @@ class Nag_Driver_Kolab extends Nag_Driver
      */
     protected function _buildTask($task)
     {
+
+        /*
+         * This decoding of parent ID hashes is required because of a probably
+         * long-existing bug in Nag_Driver_Kolab.
+         *
+         * For details, see:
+         * https://bugs.horde.org/ticket/14197
+         */
+        $parent_uid = $task['parent'];
+        if (!empty($parent_uid) && $this->_is_base64_encoded_uid($parent_uid)) {
+            $parent_uid = Horde_Url::uriB64Decode($parent_uid);
+        }
+
         $result = array(
             'task_id' => Horde_Url::uriB64Encode($task['uid']),
             'uid' => $task['uid'],
             'name' => $task['summary'],
             'desc' => $task['body'],
             'priority' => $task['priority'],
-            'parent' => $task['parent'],
+            'parent' => Horde_Url::uriB64Encode($parent_uid),
             'alarm' => $task['alarm'],
             'completed' => !empty($task['completed']),
             'completed_date' => $task['completed_date'],
@@ -344,7 +396,7 @@ class Nag_Driver_Kolab extends Nag_Driver
             'summary' => $task['name'],
             'body' => $task['desc'],
             'priority' => $task['priority'],
-            'parent' => $task['parent'],
+            'parent' => Horde_Url::uriB64Decode($task['parent']),
         );
         if (!empty($task['start'])) {
             $object['start-date'] = new DateTime('@' . $task['start']);
