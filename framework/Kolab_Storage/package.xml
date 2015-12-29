@@ -28,6 +28,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Fix decoding base64 encoded Kolab objects (Bug #14199, mike.gabriel@das-netzwerkteam.de).
+* [mjr] Fix updating Kolab data that contains non 7-bit data (Bug #14201).
 * [mjr] Implement a token based syncronization strategy for servers with QRESYNC/MODSEQ support.
 * [mjr] Improve debug logging.
 * [mjr] Add full Horde_History support for better Kolab&lt;-&gt;Horde&lt;-&gt;Sync client support.
@@ -1409,6 +1411,8 @@
    <date>2015-06-16</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Fix decoding base64 encoded Kolab objects (Bug #14199, mike.gabriel@das-netzwerkteam.de).
+* [mjr] Fix updating Kolab data that contains non 7-bit data (Bug #14201).
 * [mjr] Implement a token based syncronization strategy for servers with QRESYNC/MODSEQ support.
 * [mjr] Improve debug logging.
 * [mjr] Add full Horde_History support for better Kolab&lt;-&gt;Horde&lt;-&gt;Sync client support.
