@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trean\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2015-03-24 10:40+0100\n"
+"POT-Creation-Date: 2015-12-28 17:25+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -85,7 +85,7 @@ msgstr ""
 msgid "Bookmarks Feed"
 msgstr ""
 
-#: data.php:87
+#: data.php:98
 msgid "Bookmarks successfully imported"
 msgstr ""
 
@@ -98,7 +98,7 @@ msgstr ""
 msgid "Browse"
 msgstr ""
 
-#: data.php:78
+#: data.php:89
 msgid "Can't create a new bookmark."
 msgstr ""
 
@@ -151,7 +151,7 @@ msgstr ""
 msgid "Edit Bookmark"
 msgstr ""
 
-#: data.php:16
+#: data.php:17
 msgid "Firefox JSON"
 msgstr ""
 
@@ -163,7 +163,7 @@ msgstr ""
 msgid "Import"
 msgstr ""
 
-#: data.php:93 templates/data/import.inc:7
+#: data.php:104 templates/data/import.inc:7
 msgid "Import Bookmarks"
 msgstr ""
 
@@ -185,6 +185,10 @@ msgstr ""
 
 #: lib/Block/Mostclicked.php:19
 msgid "Most-clicked Bookmarks"
+msgstr ""
+
+#: data.php:18
+msgid "Netscape-style HTML file"
 msgstr ""
 
 #: add.php:78 templates/add.html.php:9
@@ -295,7 +299,7 @@ msgstr ""
 msgid "Template"
 msgstr ""
 
-#: data.php:70
+#: data.php:81
 msgid "The file didn't contain any bookmarks."
 msgstr ""
 
@@ -319,7 +323,7 @@ msgstr ""
 msgid "There was an error saving the bookmark: %s"
 msgstr ""
 
-#: data.php:79
+#: data.php:90
 #, php-format
 msgid "This is what the server said: %s"
 msgstr ""

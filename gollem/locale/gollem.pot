@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Gollem H5 (3.0.0-git)\n"
+"Project-Id-Version: Gollem\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-01-29 11:44+0100\n"
+"POT-Creation-Date: 2015-12-28 17:25+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -496,7 +496,7 @@ msgstr ""
 msgid "Unable to delete folder %s: %s"
 msgstr ""
 
-#: lib/Gollem.php:687 lib/Gollem.php:697
+#: lib/Gollem.php:688 lib/Gollem.php:698
 #, php-format
 msgid "Up to %s"
 msgstr ""

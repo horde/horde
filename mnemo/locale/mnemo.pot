@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mnemo\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2015-03-24 10:40+0100\n"
+"POT-Creation-Date: 2015-12-28 17:25+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -197,7 +197,7 @@ msgstr ""
 msgid "Empty Note"
 msgstr ""
 
-#: lib/Driver.php:315
+#: lib/Driver.php:331
 msgid ""
 "Encryption support has not been configured, please contact your "
 "administrator."
@@ -211,7 +211,7 @@ msgstr ""
 msgid "Export Notes"
 msgstr ""
 
-#: lib/Driver/Kolab.php:293
+#: lib/Driver/Kolab.php:309
 #, php-format
 msgid "Failed retrieving Kolab data for notepad %s: %s"
 msgstr ""
@@ -269,7 +269,7 @@ msgstr ""
 msgid "More Options..."
 msgstr ""
 
-#: lib/Api.php:776
+#: lib/Api.php:785
 msgid "Multiple iCalendar components found; only one vNote is supported."
 msgstr ""
 
@@ -293,7 +293,7 @@ msgstr ""
 msgid "Next"
 msgstr ""
 
-#: lib/Api.php:612 lib/Api.php:769
+#: lib/Api.php:621 lib/Api.php:778
 msgid "No iCalendar data was found."
 msgstr ""
 
@@ -520,7 +520,7 @@ msgstr ""
 msgid "There was an error importing the data: %s"
 msgstr ""
 
-#: lib/Api.php:606 lib/Api.php:763
+#: lib/Api.php:615 lib/Api.php:772
 msgid "There was an error importing the iCalendar data."
 msgstr ""
 
@@ -562,7 +562,7 @@ msgstr ""
 msgid "This note has been encrypted, please provide the password."
 msgstr ""
 
-#: lib/Driver/Kolab.php:321 lib/Driver/Sql.php:322
+#: lib/Driver/Kolab.php:353 lib/Driver/Sql.php:322
 msgid "This note has been encrypted."
 msgstr ""
 
@@ -570,7 +570,7 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
-#: lib/Api.php:297 lib/Api.php:650 lib/Api.php:702 lib/Api.php:791
+#: lib/Api.php:297 lib/Api.php:659 lib/Api.php:711 lib/Api.php:806
 #, php-format
 msgid "Unsupported Content-Type: %s"
 msgstr ""

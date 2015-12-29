@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: IMP\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2015-03-24 10:40+0100\n"
+"POT-Creation-Date: 2015-12-28 17:25+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -78,22 +78,22 @@ msgid_plural "%d messages were purged from \"%s\"."
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/Dynamic/Mailbox.php:536 lib/Smartmobile.php:178
+#: lib/Dynamic/Mailbox.php:542 lib/Smartmobile.php:178
 #, php-format
 msgid "%d messages"
 msgstr ""
 
-#: lib/Spam.php:189
+#: lib/Spam.php:182
 #, php-format
 msgid "%d messages have been deleted."
 msgstr ""
 
-#: lib/Spam.php:135
+#: lib/Spam.php:128
 #, php-format
 msgid "%d messages have been reported as innocent."
 msgstr ""
 
-#: lib/Spam.php:139
+#: lib/Spam.php:132
 #, php-format
 msgid "%d messages have been reported as spam."
 msgstr ""
@@ -122,7 +122,7 @@ msgid_plural "%d new"
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/Dynamic/Compose/Common.php:265
+#: lib/Dynamic/Compose/Common.php:263
 #, php-format
 msgid "%d recipients"
 msgstr ""
@@ -162,17 +162,17 @@ msgstr ""
 msgid "%s for '%s'"
 msgstr ""
 
-#: lib/Mime/Viewer/Itip.php:386
+#: lib/Mime/Viewer/Itip.php:395
 #, php-format
 msgid "%s has cancelled \"%s\"."
 msgstr ""
 
-#: lib/Mime/Viewer/Itip.php:380
+#: lib/Mime/Viewer/Itip.php:389
 #, php-format
 msgid "%s has cancelled an instance of the recurring \"%s\"."
 msgstr ""
 
-#: lib/Mime/Viewer/Itip.php:375
+#: lib/Mime/Viewer/Itip.php:384
 #, php-format
 msgid "%s has cancelled multiple instances of the recurring \"%s\"."
 msgstr ""
@@ -182,12 +182,12 @@ msgstr ""
 msgid "%s has replied to a free/busy request."
 msgstr ""
 
-#: lib/Mime/Viewer/Itip.php:721
+#: lib/Mime/Viewer/Itip.php:731
 #, php-format
 msgid "%s has replied to the assignment of task \"%s\"."
 msgstr ""
 
-#: lib/Mime/Viewer/Itip.php:348
+#: lib/Mime/Viewer/Itip.php:357
 #, php-format
 msgid "%s has replied to the invitation to \"%s\"."
 msgstr ""
@@ -197,12 +197,12 @@ msgstr ""
 msgid "%s has sent you free/busy information."
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:537
+#: lib/Dynamic/Mailbox.php:543
 #, php-format
 msgid "%s is: %s."
 msgstr ""
 
-#: lib/Spam/Email.php:98
+#: lib/Spam/Email.php:131
 #, php-format
 msgid "%s report from %s"
 msgstr ""
@@ -212,17 +212,17 @@ msgstr ""
 msgid "%s requests your free/busy information."
 msgstr ""
 
-#: lib/Mime/Viewer/Itip.php:314
+#: lib/Mime/Viewer/Itip.php:323
 #, php-format
 msgid "%s requests your presence at \"%s\"."
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:549
+#: lib/Dynamic/Mailbox.php:556
 #, php-format
 msgid "%s selected."
 msgstr ""
 
-#: lib/Mime/Viewer/Itip.php:301
+#: lib/Mime/Viewer/Itip.php:310
 #, php-format
 msgid "%s wants to notify you about changes in \"%s\"."
 msgstr ""
@@ -237,37 +237,37 @@ msgstr ""
 msgid "%s was successfully added to your address book."
 msgstr ""
 
-#: lib/Mime/Viewer/Itip.php:336
+#: lib/Mime/Viewer/Itip.php:345
 #, php-format
 msgid "%s wishes to amend \"%s\"."
 msgstr ""
 
-#: lib/Mime/Viewer/Itip.php:712
+#: lib/Mime/Viewer/Itip.php:722
 #, php-format
 msgid "%s wishes to assign you \"%s\"."
 msgstr ""
 
-#: lib/Mime/Viewer/Itip.php:290 lib/Mime/Viewer/Itip.php:304
-#: lib/Mime/Viewer/Itip.php:705
+#: lib/Mime/Viewer/Itip.php:299 lib/Mime/Viewer/Itip.php:313
+#: lib/Mime/Viewer/Itip.php:715
 #, php-format
 msgid "%s wishes to make you aware of \"%s\"."
 msgstr ""
 
-#: lib/Mime/Viewer/Itip.php:343
+#: lib/Mime/Viewer/Itip.php:352
 #, php-format
 msgid "%s wishes to receive the latest information about \"%s\"."
 msgstr ""
 
-#: lib/Compose.php:2691
+#: lib/Compose.php:2699
 #, php-format
 msgid "%u Forwarded Messages"
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:535 lib/Smartmobile.php:177
+#: lib/Dynamic/Mailbox.php:541 lib/Smartmobile.php:177
 msgid "1 message"
 msgstr ""
 
-#: lib/Mime/Viewer/Pgp.php:363
+#: lib/Mime/Viewer/Pgp.php:364
 msgid "A PGP Public Key is attached to the message."
 msgstr ""
 
@@ -277,7 +277,7 @@ msgid ""
 "recipient."
 msgstr ""
 
-#: lib/Compose.php:3499
+#: lib/Compose.php:3507
 msgid ""
 "A message you were composing when your session expired has been recovered. "
 "You may resume composing your message by going to your Drafts mailbox."
@@ -293,23 +293,23 @@ msgstr ""
 msgid "ACL rights for \"%s\" updated for the mailbox \"%s\"."
 msgstr ""
 
-#: lib/Mime/Viewer/Itip.php:714
+#: lib/Mime/Viewer/Itip.php:724
 msgid "Accept and add this to my tasklist"
 msgstr ""
 
-#: lib/Mime/Viewer/Itip.php:325
+#: lib/Mime/Viewer/Itip.php:334
 msgid "Accept and add to my calendar"
 msgstr ""
 
-#: lib/Mime/Viewer/Itip.php:322
+#: lib/Mime/Viewer/Itip.php:331
 msgid "Accept and update in my calendar"
 msgstr ""
 
-#: lib/Mime/Viewer/Itip.php:329
+#: lib/Mime/Viewer/Itip.php:338
 msgid "Accept request"
 msgstr ""
 
-#: lib/Mime/Viewer/Itip.php:792
+#: lib/Mime/Viewer/Itip.php:802
 msgid "Accepted"
 msgstr ""
 
@@ -346,7 +346,7 @@ msgid "Add Account"
 msgstr ""
 
 #: templates/dynamic/compose.html.php:158
-#: templates/smartmobile/compose.html.php:82
+#: templates/smartmobile/compose.html.php:86
 msgid "Add Attachment"
 msgstr ""
 
@@ -375,14 +375,14 @@ msgid "Add search mailbox"
 msgstr ""
 
 #: templates/contacts/contacts.html.php:43
-msgid "Add these by clicking OK"
+msgid "Add these addresses by clicking OK"
 msgstr ""
 
-#: lib/Mime/Viewer/Itip.php:292
+#: lib/Mime/Viewer/Itip.php:301
 msgid "Add this to my calendar"
 msgstr ""
 
-#: lib/Mime/Viewer/Itip.php:707 lib/Mime/Viewer/Itip.php:715
+#: lib/Mime/Viewer/Itip.php:717 lib/Mime/Viewer/Itip.php:725
 msgid "Add this to my tasklist"
 msgstr ""
 
@@ -390,7 +390,7 @@ msgstr ""
 msgid "Add to Address Book"
 msgstr ""
 
-#: lib/Mime/Viewer/Itip.php:326
+#: lib/Mime/Viewer/Itip.php:335
 msgid "Add to my calendar"
 msgstr ""
 
@@ -410,7 +410,7 @@ msgid ""
 "line)</em>"
 msgstr ""
 
-#: lib/Basic/Contacts.php:112 templates/contacts/contacts.html.php:4
+#: lib/Basic/Contacts.php:113 templates/contacts/contacts.html.php:4
 msgid "Address Book"
 msgstr ""
 
@@ -418,7 +418,7 @@ msgstr ""
 msgid "Address Books"
 msgstr ""
 
-#: lib/Compose.php:2560
+#: lib/Compose.php:2568
 msgid "Address rejected by the sending mail server."
 msgstr ""
 
@@ -438,7 +438,7 @@ msgstr ""
 msgid "Administer"
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:493
+#: lib/Dynamic/Mailbox.php:499
 msgid "Advanced Search..."
 msgstr ""
 
@@ -455,7 +455,7 @@ msgstr ""
 msgid "All Mailboxes"
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:463
+#: lib/Dynamic/Mailbox.php:469
 msgid "All Parts"
 msgstr ""
 
@@ -470,7 +470,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/Dynamic/Mailbox.php:527
+#: lib/Dynamic/Mailbox.php:533
 msgid ""
 "All messages in this mailbox will be downloaded into the format that you "
 "choose. Depending on the size of the mailbox, this action may take awhile."
@@ -543,7 +543,7 @@ msgstr ""
 msgid "An unknown error occured while creating the new task."
 msgstr ""
 
-#: lib/Mime/Viewer/Itip.php:693
+#: lib/Mime/Viewer/Itip.php:703
 msgid "An unknown person"
 msgstr ""
 
@@ -555,7 +555,7 @@ msgstr ""
 msgid "Append"
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:482
+#: lib/Dynamic/Mailbox.php:488
 msgid "Apply Filters"
 msgstr ""
 
@@ -634,21 +634,21 @@ msgstr ""
 msgid "At least one attachment could not be deleted."
 msgstr ""
 
-#: lib/Dynamic/Compose/Common.php:184
+#: lib/Dynamic/Compose/Common.php:182
 msgid "Attach Personal PGP Public Key"
 msgstr ""
 
-#: lib/Dynamic/Compose/Common.php:188
+#: lib/Dynamic/Compose/Common.php:186
 msgid "Attach contact information"
 msgstr ""
 
-#: lib/Compose.php:3432
+#: lib/Compose.php:3440
 #, php-format
 msgid ""
 "Attached file \"%s\" exceeds the attachment size limits. File NOT attached."
 msgstr ""
 
-#: lib/Compose.php:3432
+#: lib/Compose.php:3440
 msgid "Attached file exceeds the attachment size limits. File NOT attached."
 msgstr ""
 
@@ -677,12 +677,12 @@ msgstr ""
 msgid "Attachment successfully stripped."
 msgstr ""
 
-#: lib/Compose.php:3024 lib/Compose.php:3031
-#: templates/smartmobile/compose.html.php:75
+#: lib/Compose.php:3032 lib/Compose.php:3039
+#: templates/smartmobile/compose.html.php:79
 msgid "Attachments"
 msgstr ""
 
-#: templates/smartmobile/compose.html.php:66
+#: templates/smartmobile/compose.html.php:70
 msgid "Attachments..."
 msgstr ""
 
@@ -710,7 +710,7 @@ msgstr ""
 msgid "Automatically Generated Messages"
 msgstr ""
 
-#: lib/Mime/Viewer/Itip.php:871
+#: lib/Mime/Viewer/Itip.php:881
 msgid "Awaiting Response"
 msgstr ""
 
@@ -725,7 +725,7 @@ msgstr ""
 #: lib/Basic/Contacts.php:99 lib/Basic/Search.php:71
 #: templates/contacts/contacts.html.php:37
 #: templates/dynamic/compose.html.php:130
-#: templates/dynamic/mailbox.html.php:152
+#: templates/dynamic/mailbox.html.php:154
 #: templates/dynamic/message.html.php:96
 msgid "Bcc"
 msgstr ""
@@ -746,7 +746,7 @@ msgid ""
 "personal information."
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:326 lib/Dynamic/Mailbox.php:427
+#: lib/Dynamic/Mailbox.php:326 lib/Dynamic/Mailbox.php:433
 msgid "Blacklist"
 msgstr ""
 
@@ -755,7 +755,7 @@ msgid ""
 "Block images in messages unless they are specifically requested to be loaded?"
 msgstr ""
 
-#: lib/Basic/Search.php:83 lib/Dynamic/Mailbox.php:488
+#: lib/Basic/Search.php:83 lib/Dynamic/Mailbox.php:494
 #: templates/smartmobile/search.html.php:10
 msgid "Body"
 msgstr ""
@@ -777,7 +777,7 @@ msgstr ""
 msgid "Bulk Messages"
 msgstr ""
 
-#: lib/Compose.php:1866
+#: lib/Compose.php:1874
 #, php-format
 msgid "Can't attach contact information: %s"
 msgstr ""
@@ -786,7 +786,7 @@ msgstr ""
 #: templates/pgp/import_key.html.php:69 templates/prefs/remote.html.php:80
 #: templates/saveimage/saveimage.html.php:20
 #: templates/search/search.html.php:102
-#: templates/smartmobile/compose.html.php:50
+#: templates/smartmobile/compose.html.php:54
 #: templates/smartmobile/copymove.html.php:20
 #: templates/smartmobile/message.html.php:91
 #: templates/smartmobile/message.html.php:106
@@ -794,7 +794,7 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: lib/Dynamic/Compose/Common.php:253
+#: lib/Dynamic/Compose/Common.php:251
 msgid ""
 "Cancelling this message will permanently discard its contents and will "
 "delete auto-saved drafts.\n"
@@ -832,20 +832,20 @@ msgstr ""
 msgid "Cannot strip the part as the mailbox is read-only."
 msgstr ""
 
-#: lib/Basic/Contacts.php:98 lib/Basic/Search.php:67 lib/Compose.php:2735
+#: lib/Basic/Contacts.php:98 lib/Basic/Search.php:67 lib/Compose.php:2743
 #: lib/Contents/View.php:221 lib/Smartmobile.php:172
 #: templates/contacts/contacts.html.php:36
 #: templates/dynamic/compose.html.php:122
-#: templates/dynamic/mailbox.html.php:148
+#: templates/dynamic/mailbox.html.php:150
 #: templates/dynamic/message.html.php:92
 msgid "Cc"
 msgstr ""
 
-#: templates/smartmobile/compose.html.php:32
+#: templates/smartmobile/compose.html.php:36
 msgid "Cc:"
 msgstr ""
 
-#: lib/Mime/Viewer/Itip.php:853
+#: lib/Mime/Viewer/Itip.php:863
 msgid "Chair Person"
 msgstr ""
 
@@ -868,7 +868,7 @@ msgid ""
 "reply to your email."
 msgstr ""
 
-#: lib/Dynamic/Compose/Common.php:290 templates/dynamic/compose.html.php:35
+#: lib/Dynamic/Compose/Common.php:288 templates/dynamic/compose.html.php:35
 msgid "Check Spelling"
 msgstr ""
 
@@ -880,7 +880,7 @@ msgstr ""
 msgid "Check for valid recipient PGP public keys while replying?"
 msgstr ""
 
-#: templates/dynamic/mailbox.html.php:269
+#: templates/dynamic/mailbox.html.php:277
 msgid "Check mailbox for new mail?"
 msgstr ""
 
@@ -888,7 +888,7 @@ msgstr ""
 msgid "Check spelling before sending a message?"
 msgstr ""
 
-#: lib/Dynamic/Compose/Common.php:291 lib/Dynamic/Mailbox.php:522
+#: lib/Dynamic/Compose/Common.php:289 lib/Dynamic/Mailbox.php:528
 msgid "Checking..."
 msgstr ""
 
@@ -896,11 +896,11 @@ msgstr ""
 msgid "Choose the address book to use when adding addresses."
 msgstr ""
 
-#: templates/dynamic/mailbox.html.php:60
+#: templates/dynamic/mailbox.html.php:60 templates/dynamic/mailbox.html.php:68
 msgid "Clear Search"
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:438
+#: lib/Dynamic/Mailbox.php:444
 msgid "Clear Sort"
 msgstr ""
 
@@ -956,7 +956,7 @@ msgstr ""
 msgid "Click to verify the data."
 msgstr ""
 
-#: lib/Mime/Viewer/Pgp.php:481
+#: lib/Mime/Viewer/Pgp.php:483
 msgid "Click to verify the message."
 msgstr ""
 
@@ -966,11 +966,11 @@ msgid ""
 "view the message correctly."
 msgstr ""
 
-#: templates/dynamic/mailbox.html.php:182
+#: templates/dynamic/mailbox.html.php:184
 msgid "Click to view the message in a new window."
 msgstr ""
 
-#: templates/smartmobile/compose.html.php:86
+#: templates/smartmobile/compose.html.php:90
 msgid "Close"
 msgstr ""
 
@@ -983,7 +983,7 @@ msgstr ""
 msgid "Collapse All"
 msgstr ""
 
-#: templates/dynamic/mailbox.html.php:130
+#: templates/dynamic/mailbox.html.php:132
 msgid "Collapse Headers"
 msgstr ""
 
@@ -999,11 +999,11 @@ msgstr ""
 msgid "Combine all namespaces"
 msgstr ""
 
-#: templates/prefs/pgpprivatekey.html.php:65
+#: lib/Pgp.php:760 templates/prefs/pgpprivatekey.html.php:65
 msgid "Comment"
 msgstr ""
 
-#: lib/Mime/Viewer/Itip.php:804
+#: lib/Mime/Viewer/Itip.php:814
 msgid "Completed"
 msgstr ""
 
@@ -1021,7 +1021,7 @@ msgstr ""
 msgid "Compose Templates mailbox:"
 msgstr ""
 
-#: lib/Dynamic/Compose/Common.php:254
+#: lib/Dynamic/Compose/Common.php:252
 msgid "Compose action completed. You may now safely close this window."
 msgstr ""
 
@@ -1099,7 +1099,7 @@ msgstr ""
 msgid "Copy"
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:523
+#: lib/Dynamic/Mailbox.php:529
 #, php-format
 msgid "Copy %s to %s"
 msgstr ""
@@ -1113,7 +1113,7 @@ msgstr ""
 msgid "Copy/Move"
 msgstr ""
 
-#: lib/Dynamic/Compose/Common.php:256
+#: lib/Dynamic/Compose/Common.php:254
 #, php-format
 msgid "Could not add %d file(s) to message: only images are supported."
 msgstr ""
@@ -1123,12 +1123,12 @@ msgstr ""
 msgid "Could not add rights for user \"%s\" for the mailbox \"%s\"."
 msgstr ""
 
-#: lib/Compose.php:3286
+#: lib/Compose.php:3294
 #, php-format
 msgid "Could not attach %s to the message."
 msgstr ""
 
-#: lib/Ajax/Application/Handler/Remote.php:96
+#: lib/Ajax/Application/Handler/Remote.php:115
 #, php-format
 msgid "Could not authenticate to %s."
 msgstr ""
@@ -1151,7 +1151,7 @@ msgstr ""
 msgid "Could not display attachment data."
 msgstr ""
 
-#: lib/Ajax/Application/Handler/Remote.php:48
+#: lib/Ajax/Application/Handler/Remote.php:50
 msgid "Could not find remote server configuration."
 msgstr ""
 
@@ -1166,7 +1166,7 @@ msgid ""
 "not removed."
 msgstr ""
 
-#: lib/Spam.php:205
+#: lib/Spam.php:198
 msgid ""
 "Could not move message to spam mailbox - no spam mailbox defined in "
 "preferences."
@@ -1176,7 +1176,7 @@ msgstr ""
 msgid "Could not open mailbox."
 msgstr ""
 
-#: lib/Dynamic/Compose/Common.php:264
+#: lib/Dynamic/Compose/Common.php:262
 msgid "Could not paste image as the clipboard data is invalid."
 msgstr ""
 
@@ -1185,11 +1185,11 @@ msgstr ""
 msgid "Could not remove rights for user \"%s\" for the mailbox \"%s\"."
 msgstr ""
 
-#: lib/Compose.php:1934 lib/Compose.php:2316 lib/Dynamic/Compose.php:282
+#: lib/Compose.php:1942 lib/Compose.php:2324 lib/Dynamic/Compose.php:282
 msgid "Could not retrieve message data from the mail server."
 msgstr ""
 
-#: lib/Crypt/Pgp.php:297
+#: lib/Pgp.php:320
 #, php-format
 msgid "Could not retrieve public key for %s."
 msgstr ""
@@ -1198,7 +1198,7 @@ msgstr ""
 msgid "Create Filter"
 msgstr ""
 
-#: templates/prefs/pgpprivatekey.html.php:125
+#: templates/prefs/pgpprivatekey.html.php:126
 msgid "Create Keys"
 msgstr ""
 
@@ -1207,7 +1207,7 @@ msgstr ""
 msgid "Create Mailbox"
 msgstr ""
 
-#: templates/dynamic/mailbox.html.php:280
+#: templates/dynamic/mailbox.html.php:288
 msgid "Create New Flag..."
 msgstr ""
 
@@ -1229,7 +1229,7 @@ msgid ""
 "mailboxes, and delete spam."
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:524
+#: lib/Dynamic/Mailbox.php:530
 msgid "Create mailbox:"
 msgstr ""
 
@@ -1241,7 +1241,7 @@ msgstr ""
 msgid "Create subfolder"
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:525
+#: lib/Dynamic/Mailbox.php:531
 #, php-format
 msgid "Create subfolder of %s:"
 msgstr ""
@@ -1250,7 +1250,7 @@ msgstr ""
 msgid "Create subfolders and rename mailbox"
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:540
+#: lib/Dynamic/Mailbox.php:546
 msgid "Creating New Flag..."
 msgstr ""
 
@@ -1271,13 +1271,13 @@ msgstr ""
 msgid "Custom Header:"
 msgstr ""
 
-#: lib/Dynamic/Compose/Common.php:255
+#: lib/Dynamic/Compose/Common.php:253
 msgid "Data"
 msgstr ""
 
-#: config/prefs.php:1438 lib/Basic/Search.php:91 lib/Compose.php:2715
+#: config/prefs.php:1438 lib/Basic/Search.php:91 lib/Compose.php:2723
 #: lib/Contents/View.php:218 lib/Dynamic/Mailbox.php:199
-#: templates/dynamic/mailbox.html.php:136
+#: templates/dynamic/mailbox.html.php:138
 #: templates/dynamic/message.html.php:75
 msgid "Date"
 msgstr ""
@@ -1306,7 +1306,7 @@ msgstr ""
 msgid "Days"
 msgstr ""
 
-#: lib/Mime/Viewer/Itip.php:795
+#: lib/Mime/Viewer/Itip.php:805
 msgid "Declined"
 msgstr ""
 
@@ -1322,11 +1322,11 @@ msgstr ""
 msgid "Default sorting direction:"
 msgstr ""
 
-#: lib/Mime/Viewer/Itip.php:801
+#: lib/Mime/Viewer/Itip.php:811
 msgid "Delegated"
 msgstr ""
 
-#: lib/Dynamic/Compose/Common.php:178 lib/Dynamic/Mailbox.php:329
+#: lib/Dynamic/Compose/Common.php:176 lib/Dynamic/Mailbox.php:329
 #: lib/Dynamic/Mailbox.php:359 lib/Imap/Acl.php:196
 #: templates/dynamic/mailbox.html.php:51 templates/dynamic/message.html.php:29
 #: templates/prefs/acl.html.php:44 templates/prefs/acl.html.php:79
@@ -1356,7 +1356,7 @@ msgstr ""
 msgid "Delete Virtual Folder"
 msgstr ""
 
-#: templates/dynamic/mailbox.html.php:250
+#: templates/dynamic/mailbox.html.php:257
 msgid "Delete all subfolders?"
 msgstr ""
 
@@ -1364,7 +1364,7 @@ msgstr ""
 msgid "Delete and rename mailbox"
 msgstr ""
 
-#: lib/Mime/Viewer/Itip.php:388
+#: lib/Mime/Viewer/Itip.php:397
 msgid "Delete from my calendar"
 msgstr ""
 
@@ -1416,15 +1416,15 @@ msgstr ""
 msgid "Deleting and Moving Messages"
 msgstr ""
 
-#: lib/Mime/Viewer/Itip.php:331
+#: lib/Mime/Viewer/Itip.php:340
 msgid "Deny request"
 msgstr ""
 
-#: lib/Mime/Viewer/Itip.php:256
+#: lib/Mime/Viewer/Itip.php:265
 msgid "Deny request for free/busy information"
 msgstr ""
 
-#: lib/Mime/Viewer/Itip.php:716
+#: lib/Mime/Viewer/Itip.php:726
 msgid "Deny task assignment"
 msgstr ""
 
@@ -1449,11 +1449,11 @@ msgid "Dim signatures?"
 msgstr ""
 
 #: templates/dynamic/compose.html.php:46
-#: templates/smartmobile/compose.html.php:61
+#: templates/smartmobile/compose.html.php:65
 msgid "Discard Draft"
 msgstr ""
 
-#: lib/Dynamic/Compose/Common.php:267
+#: lib/Dynamic/Compose/Common.php:265
 msgid ""
 "Discard all text formatting information (by converting from HTML to plain "
 "text)? This conversion cannot be reversed."
@@ -1475,7 +1475,7 @@ msgstr ""
 msgid "Do not show parts"
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:477
+#: lib/Dynamic/Mailbox.php:483
 msgid "Don't Show"
 msgstr ""
 
@@ -1484,24 +1484,24 @@ msgstr ""
 msgid "Download"
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:518 lib/Dynamic/Message.php:122
+#: lib/Dynamic/Mailbox.php:524 lib/Dynamic/Message.php:122
 #, php-format
 msgid "Download All (%s)"
 msgstr ""
 
-#: templates/dynamic/mailbox.html.php:227
+#: templates/dynamic/mailbox.html.php:229
 msgid "Download into a MBOX file"
 msgstr ""
 
-#: templates/dynamic/mailbox.html.php:228
+#: templates/dynamic/mailbox.html.php:230
 msgid "Download into a MBOX file (ZIP compressed)"
 msgstr ""
 
-#: lib/Compose.php:3051
+#: lib/Compose.php:3059
 msgid "Download link"
 msgstr ""
 
-#: lib/Compose.php:3044
+#: lib/Compose.php:3052
 #, php-format
 msgid "Download link: %s"
 msgstr ""
@@ -1522,6 +1522,10 @@ msgstr ""
 msgid "Drop file(s) here to attach."
 msgstr ""
 
+#: lib/Pgp.php:761
+msgid "E-Mail"
+msgstr ""
+
 #: templates/prefs/pgpprivatekey.html.php:76 templates/prefs/remote.html.php:9
 msgid "E-mail Address"
 msgstr ""
@@ -1534,7 +1538,7 @@ msgstr ""
 msgid "EXAMPLE LINK"
 msgstr ""
 
-#: lib/Ftree.php:1059
+#: lib/Ftree.php:1062
 msgid "Edit"
 msgstr ""
 
@@ -1546,7 +1550,7 @@ msgstr ""
 msgid "Edit Filter"
 msgstr ""
 
-#: templates/dynamic/mailbox.html.php:284
+#: templates/dynamic/mailbox.html.php:292
 msgid "Edit Flags..."
 msgstr ""
 
@@ -1554,7 +1558,7 @@ msgstr ""
 msgid "Edit Search"
 msgstr ""
 
-#: templates/dynamic/mailbox.html.php:62
+#: templates/dynamic/mailbox.html.php:62 templates/dynamic/mailbox.html.php:70
 msgid "Edit Search Query"
 msgstr ""
 
@@ -1562,7 +1566,7 @@ msgstr ""
 msgid "Edit Template"
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:283 lib/Ftree.php:1059
+#: lib/Dynamic/Mailbox.php:283 lib/Ftree.php:1062
 #: templates/search/search.html.php:7
 msgid "Edit Virtual Folder"
 msgstr ""
@@ -1628,15 +1632,15 @@ msgstr ""
 msgid "End"
 msgstr ""
 
-#: lib/Compose.php:2410
+#: lib/Compose.php:2418
 msgid "End forwarded message"
 msgstr ""
 
-#: lib/Compose.php:2221
+#: lib/Compose.php:2229
 msgid "End message"
 msgstr ""
 
-#: lib/Compose.php:2221
+#: lib/Compose.php:2229
 #, php-format
 msgid "End message from %s"
 msgstr ""
@@ -1678,7 +1682,7 @@ msgstr ""
 msgid "Enter your personal S/MIME passphrase."
 msgstr ""
 
-#: lib/Basic/Search.php:87 lib/Dynamic/Mailbox.php:487
+#: lib/Basic/Search.php:87 lib/Dynamic/Mailbox.php:493
 #: templates/smartmobile/search.html.php:9
 msgid "Entire Message"
 msgstr ""
@@ -1687,7 +1691,7 @@ msgstr ""
 msgid "Entire Message (including Headers)"
 msgstr ""
 
-#: lib/Basic/Thread.php:63 lib/Compose.php:1555
+#: lib/Basic/Thread.php:63 lib/Compose.php:1563
 #, php-format
 msgid "Entry \"%s\" was successfully added to the address book"
 msgstr ""
@@ -1704,7 +1708,7 @@ msgstr ""
 msgid "Error in displaying search results."
 msgstr ""
 
-#: templates/dynamic/mailbox.html.php:69
+#: templates/dynamic/mailbox.html.php:71
 msgid "Error loading message list."
 msgstr ""
 
@@ -1724,7 +1728,11 @@ msgid ""
 "error."
 msgstr ""
 
-#: lib/Compose.php:2520
+#: lib/Smartmobile.php:181
+msgid "Error when loading the message."
+msgstr ""
+
+#: lib/Compose.php:2528
 msgid "Error when redirecting message."
 msgstr ""
 
@@ -1775,11 +1783,11 @@ msgstr ""
 msgid "Expand All"
 msgstr ""
 
-#: lib/Dynamic/Compose/Common.php:257
+#: lib/Dynamic/Compose/Common.php:255
 msgid "Expand Group"
 msgstr ""
 
-#: templates/dynamic/mailbox.html.php:93
+#: templates/dynamic/mailbox.html.php:95
 msgid "Expand Headers"
 msgstr ""
 
@@ -1789,6 +1797,10 @@ msgstr ""
 
 #: templates/prefs/pgpprivatekey.html.php:107
 msgid "Expiration"
+msgstr ""
+
+#: lib/Pgp.php:758
+msgid "Expiration Date"
 msgstr ""
 
 #: lib/Dynamic/Mailbox.php:375
@@ -1819,7 +1831,7 @@ msgstr ""
 msgid "Filter \"%s\" edited successfully."
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:475
+#: lib/Dynamic/Mailbox.php:481
 msgid "Filter By"
 msgstr ""
 
@@ -1852,7 +1864,7 @@ msgstr ""
 msgid "First Page"
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:539
+#: lib/Dynamic/Mailbox.php:545
 msgid "Flag Name:"
 msgstr ""
 
@@ -1912,7 +1924,7 @@ msgid ""
 "should be displayed?"
 msgstr ""
 
-#: lib/Compose.php:2352 lib/Compose.php:2355 lib/Dynamic/Mailbox.php:317
+#: lib/Compose.php:2360 lib/Compose.php:2363 lib/Dynamic/Mailbox.php:317
 #: lib/Notification/Event/Status.php:27 templates/dynamic/mailbox.html.php:32
 #: templates/dynamic/message.html.php:15
 #: templates/smartmobile/message.html.php:52
@@ -1923,15 +1935,15 @@ msgstr ""
 msgid "Forwarded"
 msgstr ""
 
-#: lib/Compose.php:2676
+#: lib/Compose.php:2684
 msgid "Forwarded Message"
 msgstr ""
 
-#: lib/Compose.php:2408
+#: lib/Compose.php:2416
 msgid "Forwarded message"
 msgstr ""
 
-#: lib/Compose.php:2408
+#: lib/Compose.php:2416
 #, php-format
 msgid "Forwarded message from %s"
 msgstr ""
@@ -1944,7 +1956,7 @@ msgstr ""
 msgid "Forwards"
 msgstr ""
 
-#: lib/Compose.php:1677
+#: lib/Compose.php:1685
 #, php-format
 msgid ""
 "Found the word %s in the message text although there are no files attached "
@@ -1956,11 +1968,11 @@ msgstr ""
 msgid "Free/Busy Request Response"
 msgstr ""
 
-#: lib/Basic/Search.php:55 lib/Compose.php:2719 lib/Contents/View.php:219
+#: lib/Basic/Search.php:55 lib/Compose.php:2727 lib/Contents/View.php:219
 #: lib/Dynamic/Mailbox.php:179 lib/Dynamic/Mailbox.php:258
-#: lib/Dynamic/Mailbox.php:489 lib/Smartmobile.php:175
+#: lib/Dynamic/Mailbox.php:495 lib/Smartmobile.php:175
 #: templates/dynamic/compose.html.php:102
-#: templates/dynamic/mailbox.html.php:140
+#: templates/dynamic/mailbox.html.php:142
 #: templates/dynamic/message.html.php:84
 #: templates/smartmobile/search.html.php:11
 #: templates/thread/thread.html.php:21
@@ -1971,7 +1983,7 @@ msgstr ""
 msgid "From Address"
 msgstr ""
 
-#: lib/Mailbox/Ui.php:85 templates/smartmobile/compose.html.php:17
+#: lib/Mailbox/Ui.php:85 templates/smartmobile/compose.html.php:21
 msgid "From:"
 msgstr ""
 
@@ -1993,7 +2005,7 @@ msgstr ""
 msgid "Go to your Inbox..."
 msgstr ""
 
-#: lib/Compose.php:1785
+#: lib/Compose.php:1793
 msgid "HTML Message"
 msgstr ""
 
@@ -2003,6 +2015,10 @@ msgstr ""
 
 #: config/prefs.php:984
 msgid "HTML part"
+msgstr ""
+
+#: lib/Pgp.php:762
+msgid "Hash-Algorithm"
 msgstr ""
 
 #: config/prefs.php:1040
@@ -2025,11 +2041,11 @@ msgstr ""
 msgid "Hide Addresses"
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:435
+#: lib/Dynamic/Mailbox.php:441
 msgid "Hide Deleted"
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:418
+#: lib/Dynamic/Mailbox.php:424
 msgid "Hide Preview"
 msgstr ""
 
@@ -2041,7 +2057,7 @@ msgstr ""
 msgid "Hide deleted messages even if using the Trash mailbox?"
 msgstr ""
 
-#: lib/Dynamic/Compose/Common.php:221
+#: lib/Dynamic/Compose/Common.php:219
 msgid "High"
 msgstr ""
 
@@ -2049,7 +2065,7 @@ msgstr ""
 msgid "High Priority"
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:420
+#: lib/Dynamic/Mailbox.php:426
 msgid "Horizontal Layout"
 msgstr ""
 
@@ -2071,7 +2087,7 @@ msgstr ""
 msgid "How to attribute quoted lines in a reply?"
 msgstr ""
 
-#: lib/Mime/Viewer/Pgp.php:278
+#: lib/Mime/Viewer/Pgp.php:279
 msgid ""
 "However, no personal private key exists so the message cannot be decrypted."
 msgstr ""
@@ -2088,7 +2104,7 @@ msgstr ""
 msgid "Image"
 msgstr ""
 
-#: lib/Dynamic/Compose/Common.php:258
+#: lib/Dynamic/Compose/Common.php:256
 msgid "Image Data"
 msgstr ""
 
@@ -2101,7 +2117,7 @@ msgstr ""
 msgid "Import"
 msgstr ""
 
-#: templates/prefs/pgpprivatekey.html.php:127
+#: templates/prefs/pgpprivatekey.html.php:129
 msgid "Import Key"
 msgstr ""
 
@@ -2142,7 +2158,7 @@ msgid_plural "Imported %d messages from %s"
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/Dynamic/Mailbox.php:530
+#: lib/Dynamic/Mailbox.php:536
 msgid "Importing (this may take some time)..."
 msgstr ""
 
@@ -2150,7 +2166,7 @@ msgstr ""
 msgid "In Body Text"
 msgstr ""
 
-#: lib/Mime/Viewer/Itip.php:807
+#: lib/Mime/Viewer/Itip.php:817
 msgid "In Process"
 msgstr ""
 
@@ -2220,7 +2236,7 @@ msgstr ""
 msgid "Invalid Action selected for this component."
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:519 lib/Mailbox/Ui.php:89 lib/Smartmobile.php:182
+#: lib/Dynamic/Mailbox.php:525 lib/Mailbox/Ui.php:89 lib/Smartmobile.php:183
 msgid "Invalid Address"
 msgstr ""
 
@@ -2228,7 +2244,7 @@ msgstr ""
 msgid "Invalid S/MIME data."
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:520
+#: lib/Dynamic/Mailbox.php:526
 msgid "Invalid Subject"
 msgstr ""
 
@@ -2253,7 +2269,27 @@ msgstr ""
 msgid "Junk"
 msgstr ""
 
-#: lib/Prefs/Special/PgpPrivateKey.php:94
+#: lib/Pgp.php:757
+msgid "Key Creation"
+msgstr ""
+
+#: lib/Pgp.php:764
+msgid "Key Fingerprint"
+msgstr ""
+
+#: lib/Pgp.php:763
+msgid "Key ID"
+msgstr ""
+
+#: lib/Pgp.php:759
+msgid "Key Length"
+msgstr ""
+
+#: lib/Pgp.php:756
+msgid "Key Type"
+msgstr ""
+
+#: lib/Prefs/Special/PgpPrivateKey.php:95
 msgid ""
 "Key generation may take a long time to complete.  Continue with key "
 "generation?"
@@ -2271,7 +2307,7 @@ msgid ""
 "contacts."
 msgstr ""
 
-#: lib/Prefs/Special/PgpPrivateKey.php:164
+#: lib/Prefs/Special/PgpPrivateKey.php:165
 msgid "Key successfully sent to the public keyserver."
 msgstr ""
 
@@ -2292,7 +2328,7 @@ msgstr ""
 msgid "List"
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:465 templates/dynamic/message.html.php:63
+#: lib/Dynamic/Mailbox.php:471 templates/dynamic/message.html.php:63
 #: templates/dynamic/message.html.php:65
 msgid "List Info"
 msgstr ""
@@ -2317,11 +2353,11 @@ msgstr ""
 msgid "Load message styling..."
 msgstr ""
 
-#: lib/Basic/Search.php:493 lib/Dynamic/Compose/Common.php:259
-#: lib/Dynamic/Mailbox.php:533 lib/Mime/Viewer/Html.php:81
+#: lib/Basic/Search.php:493 lib/Dynamic/Compose/Common.php:257
+#: lib/Dynamic/Mailbox.php:539 lib/Mime/Viewer/Html.php:81
 #: lib/Mime/Viewer/Images.php:131 templates/dynamic/compose-base.html.php:4
 #: templates/dynamic/compose.html.php:214 templates/dynamic/mailbox.html.php:2
-#: templates/dynamic/mailbox.html.php:297
+#: templates/dynamic/mailbox.html.php:305
 #: templates/dynamic/mailbox_subinfo.html.php:5
 #: templates/dynamic/message.html.php:4 templates/dynamic/sidebar.html.php:1
 #: templates/search/search.html.php:56
@@ -2336,16 +2372,16 @@ msgstr ""
 msgid "Log Out"
 msgstr ""
 
-#: lib/Ajax/Application/Handler/Remote.php:124
+#: lib/Ajax/Application/Handler/Remote.php:143
 #, php-format
 msgid "Logged out of %s."
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:541
+#: lib/Dynamic/Mailbox.php:548
 msgid "Logging Out..."
 msgstr ""
 
-#: lib/Dynamic/Compose/Common.php:230
+#: lib/Dynamic/Compose/Common.php:228
 msgid "Low"
 msgstr ""
 
@@ -2409,7 +2445,7 @@ msgstr ""
 msgid "Mailing List Messages"
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:511
+#: lib/Dynamic/Mailbox.php:517
 msgid "Manage Remote Accounts"
 msgstr ""
 
@@ -2437,7 +2473,7 @@ msgstr ""
 msgid "Mark all as"
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:320 lib/Dynamic/Mailbox.php:424
+#: lib/Dynamic/Mailbox.php:320 lib/Dynamic/Mailbox.php:430
 msgid "Mark as"
 msgstr ""
 
@@ -2477,13 +2513,13 @@ msgstr ""
 msgid "Maximum size (bytes) of compose body"
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:529
+#: lib/Dynamic/Mailbox.php:535
 msgid "Mbox or .eml file:"
 msgstr ""
 
 #: config/prefs.php:956 config/prefs.php:1101 config/prefs.php:1210
 #: config/prefs.php:1293 config/prefs.php:1340 config/prefs.php:1374
-#: lib/Compose.php:2215 lib/Contents.php:1287 lib/Dynamic/Message.php:149
+#: lib/Compose.php:2223 lib/Contents.php:1287 lib/Dynamic/Message.php:149
 msgid "Message"
 msgstr ""
 
@@ -2513,7 +2549,7 @@ msgstr ""
 msgid "Message Source"
 msgstr ""
 
-#: lib/Compose.php:2215
+#: lib/Compose.php:2223
 #, php-format
 msgid "Message from %s"
 msgstr ""
@@ -2549,7 +2585,7 @@ msgid ""
 "data lives on a remote server."
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:550
+#: lib/Dynamic/Mailbox.php:557
 #, php-format
 msgid "Messages %d - %d"
 msgstr ""
@@ -2574,7 +2610,7 @@ msgstr ""
 msgid "Months"
 msgstr ""
 
-#: templates/smartmobile/compose.html.php:51
+#: templates/smartmobile/compose.html.php:55
 #: templates/smartmobile/folders.html.php:13
 #: templates/smartmobile/mailbox.html.php:14
 #: templates/smartmobile/message.html.php:26
@@ -2585,7 +2621,7 @@ msgstr ""
 msgid "Move"
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:538
+#: lib/Dynamic/Mailbox.php:544
 #, php-format
 msgid "Move %s to %s"
 msgstr ""
@@ -2620,6 +2656,10 @@ msgstr ""
 msgid "Multiple messages can only be forwarded as attachments."
 msgstr ""
 
+#: lib/Dynamic/Mailbox.php:547
+msgid "Must enter a folder name"
+msgstr ""
+
 #: lib/Smartmobile.php:180
 msgid "Must enter a non-empty name for the new destination mailbox."
 msgstr ""
@@ -2628,11 +2668,11 @@ msgstr ""
 msgid "NONE"
 msgstr ""
 
-#: templates/itip/action.html.php:73
+#: lib/Pgp.php:755 templates/itip/action.html.php:73
 msgid "Name"
 msgstr ""
 
-#: lib/Prefs/Special/PgpPrivateKey.php:134
+#: lib/Prefs/Special/PgpPrivateKey.php:135
 msgid "Name and/or email cannot be empty"
 msgstr ""
 
@@ -2649,7 +2689,7 @@ msgstr ""
 msgid "Need at least one message recipient."
 msgstr ""
 
-#: lib/Mime/Viewer/Itip.php:812
+#: lib/Mime/Viewer/Itip.php:822
 msgid "Needs Action"
 msgstr ""
 
@@ -2658,7 +2698,7 @@ msgid "Negative Right"
 msgstr ""
 
 #: config/prefs.php:847 config/prefs.php:1178 config/prefs.php:1269
-#: config/prefs.php:1306
+#: config/prefs.php:1306 lib/Pgp.php:796
 msgid "Never"
 msgstr ""
 
@@ -2674,9 +2714,9 @@ msgstr ""
 msgid "New Mail"
 msgstr ""
 
-#: lib/Application.php:310 lib/Compose.php:2332 lib/Dynamic/Base.php:154
+#: lib/Application.php:310 lib/Compose.php:2340 lib/Dynamic/Base.php:154
 #: lib/Dynamic/Compose.php:79 lib/Dynamic/Mailbox.php:114
-#: lib/Smartmobile.php:181 templates/dynamic/mailbox.html.php:54
+#: lib/Smartmobile.php:182 templates/dynamic/mailbox.html.php:54
 #: templates/smartmobile/compose.html.php:2
 #: templates/smartmobile/folders.html.php:11
 #: templates/smartmobile/mailbox.html.php:11
@@ -2727,7 +2767,7 @@ msgstr ""
 msgid "No PGP public key imported."
 msgstr ""
 
-#: lib/Dynamic/Compose/Common.php:262
+#: lib/Dynamic/Compose/Common.php:260
 msgid "No Results Found"
 msgstr ""
 
@@ -2747,7 +2787,7 @@ msgstr ""
 msgid "No Sound"
 msgstr ""
 
-#: lib/Spam.php:116
+#: lib/Spam.php:109
 msgid "No Subject"
 msgstr ""
 
@@ -2755,7 +2795,11 @@ msgstr ""
 msgid "No actions available"
 msgstr ""
 
-#: lib/Crypt/Smime.php:179
+#: lib/Basic/Contacts.php:102
+msgid "No addresses were selected."
+msgstr ""
+
+#: lib/Smime.php:195
 msgid "No email information located in the public key."
 msgstr ""
 
@@ -2767,7 +2811,7 @@ msgstr ""
 msgid "No mailboxes with unseen messages"
 msgstr ""
 
-#: lib/Compose.php:2246
+#: lib/Compose.php:2254
 msgid "No message body text"
 msgstr ""
 
@@ -2775,11 +2819,11 @@ msgstr ""
 msgid "No message index given."
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:534 lib/Smartmobile.php:176
+#: lib/Dynamic/Mailbox.php:540 lib/Smartmobile.php:176
 msgid "No messages"
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:553
+#: lib/Dynamic/Mailbox.php:560
 msgid "No messages matched the search query."
 msgstr ""
 
@@ -2799,7 +2843,7 @@ msgstr ""
 msgid "No remote accounts configured"
 msgstr ""
 
-#: lib/Dynamic/Compose/Common.php:266
+#: lib/Dynamic/Compose/Common.php:264
 msgid "No spelling errors found."
 msgstr ""
 
@@ -2807,20 +2851,20 @@ msgstr ""
 msgid "No unread messages"
 msgstr ""
 
-#: lib/Mime/Viewer/Itip.php:861
+#: lib/Mime/Viewer/Itip.php:871
 msgid "Non Participant"
 msgstr ""
 
-#: lib/Compose/Ui.php:56 lib/Mime/Viewer/Itip.php:419
-#: lib/Mime/Viewer/Itip.php:592 lib/Mime/Viewer/Itip.php:754
-#: templates/prefs/acl.html.php:39 templates/prefs/acl.html.php:74
-#: templates/prefs/composetemplates.html.php:7
+#: lib/Compose/Ui.php:56 lib/Mime/Viewer/Itip.php:429
+#: lib/Mime/Viewer/Itip.php:602 lib/Mime/Viewer/Itip.php:764 lib/Pgp.php:798
+#: lib/Pgp.php:799 templates/prefs/acl.html.php:39
+#: templates/prefs/acl.html.php:74 templates/prefs/composetemplates.html.php:7
 #: templates/prefs/drafts.html.php:7 templates/prefs/sentmail.html.php:7
 #: templates/prefs/spam.html.php:7 templates/prefs/trash.html.php:7
 msgid "None"
 msgstr ""
 
-#: lib/Dynamic/Compose/Common.php:225
+#: lib/Dynamic/Compose/Common.php:223
 msgid "Normal"
 msgstr ""
 
@@ -2833,7 +2877,7 @@ msgstr ""
 msgid "Not Junk"
 msgstr ""
 
-#: lib/Crypt/Pgp.php:163 lib/Crypt/Smime.php:173
+#: lib/Pgp.php:186 lib/Smime.php:189
 msgid "Not a valid public key."
 msgstr ""
 
@@ -2875,7 +2919,7 @@ msgstr ""
 msgid "Only display mailboxes with unread messages in them?"
 msgstr ""
 
-#: templates/dynamic/mailbox.html.php:106
+#: templates/dynamic/mailbox.html.php:108
 msgid "Open in new window"
 msgstr ""
 
@@ -2883,7 +2927,7 @@ msgstr ""
 msgid "Opened Folder"
 msgstr ""
 
-#: lib/Mime/Viewer/Itip.php:857
+#: lib/Mime/Viewer/Itip.php:867
 msgid "Optional Participant"
 msgstr ""
 
@@ -2891,8 +2935,8 @@ msgstr ""
 msgid "Other"
 msgstr ""
 
-#: templates/dynamic/compose.html.php:92 templates/dynamic/mailbox.html.php:86
-#: templates/dynamic/mailbox.html.php:124
+#: templates/dynamic/compose.html.php:92 templates/dynamic/mailbox.html.php:88
+#: templates/dynamic/mailbox.html.php:126
 msgid "Other Options"
 msgstr ""
 
@@ -2904,11 +2948,11 @@ msgstr ""
 msgid "PGP"
 msgstr ""
 
-#: lib/Crypt/Pgp.php:57
+#: lib/Pgp.php:73
 msgid "PGP Encrypt Message"
 msgstr ""
 
-#: lib/Crypt/Pgp.php:68
+#: lib/Pgp.php:84
 msgid "PGP Encrypt Message with passphrase"
 msgstr ""
 
@@ -2934,19 +2978,19 @@ msgstr ""
 msgid "PGP Public Keyring"
 msgstr ""
 
-#: lib/Crypt/Pgp.php:62
+#: lib/Pgp.php:78
 msgid "PGP Sign Message"
 msgstr ""
 
-#: lib/Crypt/Pgp.php:63
+#: lib/Pgp.php:79
 msgid "PGP Sign/Encrypt Message"
 msgstr ""
 
-#: lib/Crypt/Pgp.php:69
+#: lib/Pgp.php:85
 msgid "PGP Sign/Encrypt Message with passphrase"
 msgstr ""
 
-#: lib/Prefs/Special/PgpPrivateKey.php:170
+#: lib/Prefs/Special/PgpPrivateKey.php:171
 msgid "PGP passphrase successfully unloaded."
 msgstr ""
 
@@ -2985,11 +3029,11 @@ msgstr ""
 msgid "Passphrase verified."
 msgstr ""
 
-#: lib/Prefs/Special/PgpPrivateKey.php:137
+#: lib/Prefs/Special/PgpPrivateKey.php:138
 msgid "Passphrases cannot be empty"
 msgstr ""
 
-#: lib/Prefs/Special/PgpPrivateKey.php:139
+#: lib/Prefs/Special/PgpPrivateKey.php:140
 msgid "Passphrases do not match"
 msgstr ""
 
@@ -2997,7 +3041,7 @@ msgstr ""
 msgid "Password"
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:544
+#: lib/Dynamic/Mailbox.php:551
 #, php-format
 msgid "Password for %s:"
 msgstr ""
@@ -3018,12 +3062,12 @@ msgstr ""
 msgid "Percent complete"
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:526
+#: lib/Dynamic/Mailbox.php:532
 #, php-format
 msgid "Permanently delete %s?"
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:528
+#: lib/Dynamic/Mailbox.php:534
 #, php-format
 msgid "Permanently delete all %d messages in %s?"
 msgstr ""
@@ -3049,11 +3093,11 @@ msgstr ""
 msgid "Personal PGP key successfully added."
 msgstr ""
 
-#: lib/Prefs/Special/PgpPrivateKey.php:156
+#: lib/Prefs/Special/PgpPrivateKey.php:157
 msgid "Personal PGP keypair generated successfully."
 msgstr ""
 
-#: lib/Prefs/Special/PgpPrivateKey.php:120
+#: lib/Prefs/Special/PgpPrivateKey.php:121
 msgid "Personal PGP keys deleted successfully."
 msgstr ""
 
@@ -3073,7 +3117,7 @@ msgstr ""
 msgid "Plain Text"
 msgstr ""
 
-#: lib/Compose.php:1817
+#: lib/Compose.php:1825
 msgid "Plaintext Message"
 msgstr ""
 
@@ -3115,7 +3159,7 @@ msgstr ""
 msgid "Port"
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:542
+#: lib/Dynamic/Mailbox.php:549
 msgid "Portal"
 msgstr ""
 
@@ -3156,6 +3200,10 @@ msgstr ""
 msgid "Priority"
 msgstr ""
 
+#: lib/Pgp.php:794
+msgid "Private Key"
+msgstr ""
+
 #: templates/smime/import_key.html.php:64
 msgid "Private Key Password"
 msgstr ""
@@ -3166,7 +3214,11 @@ msgid ""
 "requested by the sender?"
 msgstr ""
 
-#: lib/Crypt/Pgp.php:714
+#: lib/Pgp.php:794
+msgid "Public Key"
+msgstr ""
+
+#: lib/Pgp.php:924
 msgid "Public PGP keyserver support has been disabled."
 msgstr ""
 
@@ -3174,7 +3226,7 @@ msgstr ""
 msgid "Purge"
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:431 templates/smartmobile/mailbox.html.php:30
+#: lib/Dynamic/Mailbox.php:437 templates/smartmobile/mailbox.html.php:30
 msgid "Purge Deleted"
 msgstr ""
 
@@ -3240,7 +3292,7 @@ msgstr ""
 msgid "Read"
 msgstr ""
 
-#: lib/Dynamic/Compose/Common.php:165
+#: lib/Dynamic/Compose/Common.php:163
 msgid "Read Receipt"
 msgstr ""
 
@@ -3269,12 +3321,12 @@ msgstr ""
 msgid "Recipient address does not match the currently selected identity."
 msgstr ""
 
-#: lib/Mime/Viewer/Mdn.php:143 lib/Mime/Viewer/Status.php:159
+#: lib/Mime/Viewer/Mdn.php:143 lib/Mime/Viewer/Status.php:160
 #, php-format
 msgid "Recipient: %s"
 msgstr ""
 
-#: lib/Basic/Search.php:59 lib/Dynamic/Mailbox.php:490
+#: lib/Basic/Search.php:59 lib/Dynamic/Mailbox.php:496
 #: templates/smartmobile/search.html.php:12
 msgid "Recipients (To/Cc/Bcc)"
 msgstr ""
@@ -3304,7 +3356,7 @@ msgstr ""
 msgid "Refresh Search Results"
 msgstr ""
 
-#: lib/Mime/Viewer/Itip.php:241
+#: lib/Mime/Viewer/Itip.php:250
 msgid "Remember the free/busy information."
 msgstr ""
 
@@ -3328,7 +3380,7 @@ msgstr ""
 msgid "Rename"
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:545
+#: lib/Dynamic/Mailbox.php:552
 #, php-format
 msgid "Rename %s to:"
 msgstr ""
@@ -3377,19 +3429,19 @@ msgstr ""
 msgid "Reply to Sender"
 msgstr ""
 
-#: lib/Mime/Viewer/Itip.php:244 lib/Mime/Viewer/Itip.php:253
+#: lib/Mime/Viewer/Itip.php:253 lib/Mime/Viewer/Itip.php:262
 msgid "Reply with Not Supported Message"
 msgstr ""
 
-#: lib/Mime/Viewer/Itip.php:251
+#: lib/Mime/Viewer/Itip.php:260
 msgid "Reply with free/busy for next 2 months."
 msgstr ""
 
-#: lib/Mime/Viewer/Itip.php:250
+#: lib/Mime/Viewer/Itip.php:259
 msgid "Reply with requested free/busy information."
 msgstr ""
 
-#: lib/Compose.php:2723
+#: lib/Compose.php:2731
 msgid "Reply-To"
 msgstr ""
 
@@ -3422,7 +3474,7 @@ msgstr ""
 msgid "Required"
 msgstr ""
 
-#: lib/Mime/Viewer/Itip.php:849
+#: lib/Mime/Viewer/Itip.php:859
 msgid "Required Participant"
 msgstr ""
 
@@ -3436,11 +3488,11 @@ msgid "Reset"
 msgstr ""
 
 #: lib/Ajax/Imple/ItipRequest.php:129 lib/Ajax/Imple/ItipRequest.php:147
-#: lib/Mime/Viewer/Itip.php:360 lib/Mime/Viewer/Itip.php:734
+#: lib/Mime/Viewer/Itip.php:369 lib/Mime/Viewer/Itip.php:744
 msgid "Respondent Status Updated."
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:548
+#: lib/Dynamic/Mailbox.php:555
 #, php-format
 msgid "Results are %d Minutes Old"
 msgstr ""
@@ -3449,15 +3501,15 @@ msgstr ""
 msgid "Resume"
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:311 templates/dynamic/mailbox.html.php:112
+#: lib/Dynamic/Mailbox.php:311 templates/dynamic/mailbox.html.php:114
 msgid "Resume Draft"
 msgstr ""
 
-#: lib/Dynamic/Compose/Common.php:293
+#: lib/Dynamic/Compose/Common.php:291
 msgid "Resume Editing"
 msgstr ""
 
-#: templates/dynamic/mailbox.html.php:68
+#: templates/dynamic/mailbox.html.php:69
 msgid "Retry"
 msgstr ""
 
@@ -3483,7 +3535,7 @@ msgstr ""
 msgid "S/MIME"
 msgstr ""
 
-#: lib/Crypt/Smime.php:61
+#: lib/Smime.php:77
 msgid "S/MIME Encrypt Message"
 msgstr ""
 
@@ -3516,11 +3568,11 @@ msgstr ""
 msgid "S/MIME Public/Private Keypair successfully added."
 msgstr ""
 
-#: lib/Crypt/Smime.php:67
+#: lib/Smime.php:83
 msgid "S/MIME Sign Message"
 msgstr ""
 
-#: lib/Crypt/Smime.php:68
+#: lib/Smime.php:84
 msgid "S/MIME Sign/Encrypt Message"
 msgstr ""
 
@@ -3551,17 +3603,17 @@ msgid ""
 "the S/MIME features will not work correctly."
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:461 templates/dynamic/message.html.php:48
+#: lib/Dynamic/Mailbox.php:467 templates/dynamic/message.html.php:48
 #: templates/dynamic/message.html.php:50 templates/prefs/remote.html.php:79
 #: templates/search/search.html.php:101
 msgid "Save"
 msgstr ""
 
-#: lib/Dynamic/Compose/Common.php:174
+#: lib/Dynamic/Compose/Common.php:172
 msgid "Save Attachments in Sent Mailbox"
 msgstr ""
 
-#: templates/smartmobile/compose.html.php:58
+#: templates/smartmobile/compose.html.php:62
 msgid "Save Draft"
 msgstr ""
 
@@ -3601,6 +3653,10 @@ msgstr ""
 msgid "Save in"
 msgstr ""
 
+#: templates/dynamic/mailbox.html.php:247
+msgid "Save password?"
+msgstr ""
+
 #: config/prefs.php:887
 msgid "Save recipients automatically to the default address book?"
 msgstr ""
@@ -3617,7 +3673,7 @@ msgstr ""
 msgid "Save the certificate to your Address Book."
 msgstr ""
 
-#: lib/Mime/Viewer/Pgp.php:378
+#: lib/Mime/Viewer/Pgp.php:379
 msgid "Save the key to your address book."
 msgstr ""
 
@@ -3653,7 +3709,7 @@ msgstr ""
 
 #: lib/Application.php:338 lib/Basic/Search.php:515
 #: lib/Dynamic/Mailbox.php:230 lib/Dynamic/Mailbox.php:368
-#: lib/Dynamic/Mailbox.php:546 templates/contacts/contacts.html.php:21
+#: lib/Dynamic/Mailbox.php:553 templates/contacts/contacts.html.php:21
 #: templates/search/search.html.php:11
 #: templates/smartmobile/mailbox.html.php:22
 #: templates/smartmobile/search.html.php:3
@@ -3670,7 +3726,7 @@ msgstr ""
 msgid "Search %s in %s"
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:547
+#: lib/Dynamic/Mailbox.php:554
 #, php-format
 msgid "Search (%s)"
 msgstr ""
@@ -3687,7 +3743,7 @@ msgstr ""
 msgid "Search Mailboxes"
 msgstr ""
 
-#: lib/Search/Query.php:144 lib/Smartmobile.php:184
+#: lib/Search/Query.php:144 lib/Smartmobile.php:185
 #: templates/contacts/contacts.html.php:28
 msgid "Search Results"
 msgstr ""
@@ -3700,7 +3756,7 @@ msgstr ""
 msgid "Search all subfolders?"
 msgstr ""
 
-#: lib/Basic/Contacts.php:102
+#: lib/Basic/Contacts.php:103
 msgid "Searching..."
 msgstr ""
 
@@ -3712,8 +3768,8 @@ msgstr ""
 msgid "Select"
 msgstr ""
 
-#: templates/dynamic/mailbox.html.php:190
-#: templates/dynamic/mailbox.html.php:210
+#: templates/dynamic/mailbox.html.php:192
+#: templates/dynamic/mailbox.html.php:212
 msgid "Select All"
 msgstr ""
 
@@ -3742,19 +3798,19 @@ msgstr ""
 msgid "Send Key to Public Keyserver"
 msgstr ""
 
-#: lib/Mime/Viewer/Itip.php:344
+#: lib/Mime/Viewer/Itip.php:353
 msgid "Send Latest Information"
 msgstr ""
 
-#: templates/smartmobile/compose.html.php:49
+#: templates/smartmobile/compose.html.php:53
 msgid "Send Message"
 msgstr ""
 
-#: lib/Smartmobile.php:183
+#: lib/Smartmobile.php:184
 msgid "Send message without a Subject?"
 msgstr ""
 
-#: lib/Dynamic/Compose/Common.php:263
+#: lib/Dynamic/Compose/Common.php:261
 msgid "Send message without a subject?"
 msgstr ""
 
@@ -3843,7 +3899,7 @@ msgstr ""
 msgid "Show All Mailboxes"
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:434
+#: lib/Dynamic/Mailbox.php:440
 msgid "Show Deleted"
 msgstr ""
 
@@ -3851,7 +3907,7 @@ msgstr ""
 msgid "Show Images?"
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:476
+#: lib/Dynamic/Mailbox.php:482
 msgid "Show Only"
 msgstr ""
 
@@ -3859,7 +3915,7 @@ msgstr ""
 msgid "Show Polled"
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:419
+#: lib/Dynamic/Mailbox.php:425
 msgid "Show Preview"
 msgstr ""
 
@@ -3920,7 +3976,7 @@ msgstr ""
 msgid "Size - Less Than (KB)"
 msgstr ""
 
-#: templates/dynamic/mailbox.html.php:207
+#: templates/dynamic/mailbox.html.php:209
 msgid "Sort"
 msgstr ""
 
@@ -3940,7 +3996,7 @@ msgstr ""
 msgid "Spam mailbox:"
 msgstr ""
 
-#: lib/Dynamic/Compose/Common.php:292
+#: lib/Dynamic/Compose/Common.php:290
 msgid "Spell Check Failed"
 msgstr ""
 
@@ -3964,15 +4020,15 @@ msgstr ""
 msgid "Strip the sender's signature from plaintext replies?"
 msgstr ""
 
-#: config/prefs.php:1441 lib/Basic/Search.php:75 lib/Compose.php:2727
+#: config/prefs.php:1441 lib/Basic/Search.php:75 lib/Compose.php:2735
 #: lib/Contents/View.php:222 lib/Dynamic/Mailbox.php:190
-#: lib/Dynamic/Mailbox.php:260 lib/Dynamic/Mailbox.php:491
-#: lib/Smartmobile.php:185 templates/dynamic/compose.html.php:144
+#: lib/Dynamic/Mailbox.php:260 lib/Dynamic/Mailbox.php:497
+#: lib/Smartmobile.php:186 templates/dynamic/compose.html.php:144
 #: templates/smartmobile/search.html.php:13
 msgid "Subject"
 msgstr ""
 
-#: templates/smartmobile/compose.html.php:39
+#: templates/smartmobile/compose.html.php:43
 msgid "Subject:"
 msgstr ""
 
@@ -3986,12 +4042,12 @@ msgstr ""
 msgid "Subscribe"
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:558
+#: lib/Dynamic/Mailbox.php:565
 #, php-format
 msgid "Subscribe to %s?"
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:559
+#: lib/Dynamic/Mailbox.php:566
 #, php-format
 msgid "Subscribe to all subfolders of %s?"
 msgstr ""
@@ -4008,7 +4064,7 @@ msgstr ""
 msgid "Successfully added public key from message."
 msgstr ""
 
-#: lib/Ajax/Application/Handler/Remote.php:63
+#: lib/Ajax/Application/Handler/Remote.php:78
 #, php-format
 msgid "Successfully authenticated to %s."
 msgstr ""
@@ -4026,11 +4082,11 @@ msgstr ""
 msgid "Templates"
 msgstr ""
 
-#: lib/Mime/Viewer/Itip.php:330
+#: lib/Mime/Viewer/Itip.php:339
 msgid "Tentatively Accept request"
 msgstr ""
 
-#: lib/Mime/Viewer/Itip.php:798
+#: lib/Mime/Viewer/Itip.php:808
 msgid "Tentatively Accepted"
 msgstr ""
 
@@ -4038,7 +4094,7 @@ msgstr ""
 msgid "Text"
 msgstr ""
 
-#: templates/smartmobile/compose.html.php:42
+#: templates/smartmobile/compose.html.php:46
 msgid "Text:"
 msgstr ""
 
@@ -4065,17 +4121,17 @@ msgstr ""
 msgid "The current sent-mail mailbox(es) \"%s\" will be renamed."
 msgstr ""
 
-#: lib/Mime/Viewer/Pgp.php:299
+#: lib/Mime/Viewer/Pgp.php:300
 msgid ""
 "The data in this part does not appear to be a valid PGP encrypted message. "
 "Error: "
 msgstr ""
 
-#: lib/Mime/Viewer/Pgp.php:259
+#: lib/Mime/Viewer/Pgp.php:260
 msgid "The data in this part has been compressed via PGP."
 msgstr ""
 
-#: lib/Mime/Viewer/Pgp.php:312 lib/Mime/Viewer/Pgp.php:416
+#: lib/Mime/Viewer/Pgp.php:313 lib/Mime/Viewer/Pgp.php:417
 msgid "The data in this part has been digitally signed via PGP."
 msgstr ""
 
@@ -4083,13 +4139,13 @@ msgstr ""
 msgid "The data in this part has been digitally signed via S/MIME."
 msgstr ""
 
-#: lib/Mime/Viewer/Pgp.php:206
+#: lib/Mime/Viewer/Pgp.php:207
 msgid ""
 "The data in this part has been encrypted via PGP, however, PGP support is "
 "disabled so the message cannot be decrypted."
 msgstr ""
 
-#: lib/Mime/Viewer/Pgp.php:230 lib/Mime/Viewer/Pgp.php:261
+#: lib/Mime/Viewer/Pgp.php:231 lib/Mime/Viewer/Pgp.php:262
 msgid "The data in this part has been encrypted via PGP."
 msgstr ""
 
@@ -4200,12 +4256,12 @@ msgstr ""
 msgid "The mailbox %s is already empty."
 msgstr ""
 
-#: lib/Spam.php:122
+#: lib/Spam.php:115
 #, php-format
 msgid "The message \"%s\" has been reported as innocent."
 msgstr ""
 
-#: lib/Spam.php:128
+#: lib/Spam.php:121
 #, php-format
 msgid "The message \"%s\" has been reported as spam."
 msgstr ""
@@ -4214,20 +4270,20 @@ msgstr ""
 msgid "The message being composed has been closed."
 msgstr ""
 
-#: lib/Smartmobile.php:183
+#: lib/Smartmobile.php:184
 msgid "The message does not have a Subject entered."
 msgstr ""
 
-#: lib/Dynamic/Compose/Common.php:263
+#: lib/Dynamic/Compose/Common.php:261
 msgid "The message does not have a subject entered."
 msgstr ""
 
-#: lib/Spam.php:123
+#: lib/Spam.php:116
 #, php-format
 msgid "The message from \"%s\" has been reported as innocent."
 msgstr ""
 
-#: lib/Spam.php:129
+#: lib/Spam.php:122
 #, php-format
 msgid "The message from \"%s\" has been reported as spam."
 msgstr ""
@@ -4238,7 +4294,7 @@ msgid ""
 "viewed the message."
 msgstr ""
 
-#: lib/Filter.php:76 lib/Spam.php:187
+#: lib/Filter.php:76 lib/Spam.php:180
 msgid "The message has been deleted."
 msgid_plural "The messages have been deleted."
 msgstr[0] ""
@@ -4272,11 +4328,11 @@ msgid ""
 "read this message."
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:531
+#: lib/Dynamic/Mailbox.php:537
 msgid "The server is still generating the message list."
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:532
+#: lib/Dynamic/Mailbox.php:538
 msgid "The server was unable to generate the message list."
 msgstr ""
 
@@ -4310,7 +4366,7 @@ msgstr ""
 msgid "The uploaded file cannot be opened."
 msgstr ""
 
-#: lib/Ajax/Imple/ItipRequest.php:189 lib/Mime/Viewer/Itip.php:236
+#: lib/Ajax/Imple/ItipRequest.php:189 lib/Mime/Viewer/Itip.php:245
 msgid "The user's free/busy information was sucessfully stored."
 msgstr ""
 
@@ -4318,7 +4374,7 @@ msgstr ""
 msgid "There are no alternative parts that can be displayed inline."
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:552
+#: lib/Dynamic/Mailbox.php:559
 msgid "There are no messages in this mailbox."
 msgstr ""
 
@@ -4371,7 +4427,7 @@ msgstr ""
 msgid "There was an error importing the task: %s"
 msgstr ""
 
-#: lib/Ajax/Imple/ItipRequest.php:192 lib/Mime/Viewer/Itip.php:238
+#: lib/Ajax/Imple/ItipRequest.php:192 lib/Mime/Viewer/Itip.php:247
 #, php-format
 msgid "There was an error importing user's free/busy information: %s"
 msgstr ""
@@ -4388,7 +4444,7 @@ msgstr ""
 msgid "There was an error sending your message: %s"
 msgstr ""
 
-#: lib/Ajax/Imple/ItipRequest.php:133 lib/Mime/Viewer/Itip.php:362
+#: lib/Ajax/Imple/ItipRequest.php:133 lib/Mime/Viewer/Itip.php:371
 #, php-format
 msgid "There was an error updating the event: %s"
 msgstr ""
@@ -4399,7 +4455,7 @@ msgid ""
 "There was an error updating the event: %s Trying to import the event instead."
 msgstr ""
 
-#: lib/Ajax/Imple/ItipRequest.php:151 lib/Mime/Viewer/Itip.php:736
+#: lib/Ajax/Imple/ItipRequest.php:151 lib/Mime/Viewer/Itip.php:746
 #, php-format
 msgid "There was an error updating the task: %s"
 msgstr ""
@@ -4417,7 +4473,7 @@ msgstr ""
 msgid "This audio file is reported to be %s in length."
 msgstr ""
 
-#: lib/Mime/Viewer/Pgp.php:439
+#: lib/Mime/Viewer/Pgp.php:440
 msgid "This digitally signed message is broken."
 msgstr ""
 
@@ -4511,12 +4567,12 @@ msgstr ""
 msgid "Thread View"
 msgstr ""
 
-#: lib/Basic/Contacts.php:97 lib/Basic/Search.php:63 lib/Compose.php:2731
+#: lib/Basic/Contacts.php:97 lib/Basic/Search.php:63 lib/Compose.php:2739
 #: lib/Contents/View.php:220 lib/Dynamic/Mailbox.php:185
-#: lib/Dynamic/Mailbox.php:259 lib/Smartmobile.php:186
+#: lib/Dynamic/Mailbox.php:259 lib/Smartmobile.php:187
 #: templates/contacts/contacts.html.php:34
 #: templates/dynamic/compose.html.php:114
-#: templates/dynamic/mailbox.html.php:144
+#: templates/dynamic/mailbox.html.php:146
 #: templates/dynamic/message.html.php:88 templates/thread/thread.html.php:21
 msgid "To"
 msgstr ""
@@ -4540,7 +4596,7 @@ msgstr ""
 #: lib/Basic/Thread.php:118 lib/Basic/Thread.php:120 lib/Mailbox/Ui.php:74
 #: templates/dynamic/redirect.html.php:14
 #: templates/smartmobile/compose.html.php:7
-#: templates/smartmobile/compose.html.php:25
+#: templates/smartmobile/compose.html.php:29
 msgid "To:"
 msgstr ""
 
@@ -4578,11 +4634,11 @@ msgstr ""
 msgid "Unable to retrieve quota"
 msgstr ""
 
-#: templates/dynamic/mailbox.html.php:179
+#: templates/dynamic/mailbox.html.php:181
 msgid "Unable to view message in preview pane."
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:330 lib/Dynamic/Mailbox.php:432
+#: lib/Dynamic/Mailbox.php:330 lib/Dynamic/Mailbox.php:438
 msgid "Undelete"
 msgstr ""
 
@@ -4595,7 +4651,8 @@ msgstr ""
 msgid "Unhandled component of type: %s"
 msgstr ""
 
-#: lib/Mime/Viewer/Itip.php:845
+#: lib/Mime/Viewer/Itip.php:855 lib/Pgp.php:800 lib/Pgp.php:801
+#: lib/Pgp.php:802
 msgid "Unknown"
 msgstr ""
 
@@ -4603,7 +4660,7 @@ msgstr ""
 msgid "Unknown Date"
 msgstr ""
 
-#: lib/Mime/Viewer/Itip.php:418 lib/Mime/Viewer/Itip.php:591
+#: lib/Mime/Viewer/Itip.php:428 lib/Mime/Viewer/Itip.php:601
 msgid "Unknown Meeting"
 msgstr ""
 
@@ -4611,7 +4668,7 @@ msgstr ""
 msgid "Unknown Sender"
 msgstr ""
 
-#: lib/Mime/Viewer/Itip.php:753
+#: lib/Mime/Viewer/Itip.php:763
 msgid "Unknown Task"
 msgstr ""
 
@@ -4620,7 +4677,7 @@ msgstr ""
 msgid "Unload Passphrase"
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:321 lib/Dynamic/Mailbox.php:425
+#: lib/Dynamic/Mailbox.php:321 lib/Dynamic/Mailbox.php:431
 msgid "Unmark as"
 msgstr ""
 
@@ -4633,25 +4690,25 @@ msgstr ""
 msgid "Unsubscribe"
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:560
+#: lib/Dynamic/Mailbox.php:567
 #, php-format
 msgid "Unsubscribe to %s?"
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:561
+#: lib/Dynamic/Mailbox.php:568
 #, php-format
 msgid "Unsubscribe to all subfolders of %s?"
 msgstr ""
 
-#: lib/Mime/Viewer/Itip.php:323 lib/Mime/Viewer/Itip.php:383
+#: lib/Mime/Viewer/Itip.php:332 lib/Mime/Viewer/Itip.php:392
 msgid "Update in my calendar"
 msgstr ""
 
-#: lib/Mime/Viewer/Itip.php:365 lib/Mime/Viewer/Itip.php:739
+#: lib/Mime/Viewer/Itip.php:374 lib/Mime/Viewer/Itip.php:749
 msgid "Update respondent status"
 msgstr ""
 
-#: lib/Mime/Viewer/Itip.php:338
+#: lib/Mime/Viewer/Itip.php:347
 msgid "Update this event on my calendar"
 msgstr ""
 
@@ -4664,7 +4721,7 @@ msgstr ""
 msgid "Uploading attachments has been disabled on this server."
 msgstr ""
 
-#: lib/Dynamic/Compose/Common.php:268
+#: lib/Dynamic/Compose/Common.php:266
 msgid "Uploading..."
 msgstr ""
 
@@ -4677,7 +4734,7 @@ msgid "Use IMAP mailbox subscriptions?"
 msgstr ""
 
 #: lib/Dynamic/Mailbox.php:312 templates/dynamic/mailbox.html.php:48
-#: templates/dynamic/mailbox.html.php:118
+#: templates/dynamic/mailbox.html.php:120
 msgid "Use Template"
 msgstr ""
 
@@ -4701,7 +4758,7 @@ msgstr ""
 msgid "User"
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:543
+#: lib/Dynamic/Mailbox.php:550
 msgid "User Options"
 msgstr ""
 
@@ -4721,7 +4778,7 @@ msgstr ""
 msgid "Verifying..."
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:421
+#: lib/Dynamic/Mailbox.php:427
 msgid "Vertical Layout"
 msgstr ""
 
@@ -4782,12 +4839,12 @@ msgstr ""
 msgid "View Personal Public Key"
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:333 lib/Dynamic/Mailbox.php:462
+#: lib/Dynamic/Mailbox.php:333 lib/Dynamic/Mailbox.php:468
 #: templates/dynamic/message.html.php:41 templates/dynamic/message.html.php:43
 msgid "View Source"
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:464
+#: lib/Dynamic/Mailbox.php:470
 msgid "View Thread"
 msgstr ""
 
@@ -4808,7 +4865,7 @@ msgstr ""
 msgid "View event"
 msgstr ""
 
-#: lib/Mime/Viewer/Pgp.php:380
+#: lib/Mime/Viewer/Pgp.php:381
 msgid "View key details."
 msgstr ""
 
@@ -4847,7 +4904,7 @@ msgstr ""
 msgid "Virtual Folder \"%s\" edited successfully."
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:551
+#: lib/Dynamic/Mailbox.php:558
 #, php-format
 msgid "Virtual Folder: %s"
 msgstr ""
@@ -4905,7 +4962,7 @@ msgstr ""
 msgid "Which message parts do you want to display in the summary?"
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:327 lib/Dynamic/Mailbox.php:428
+#: lib/Dynamic/Mailbox.php:327 lib/Dynamic/Mailbox.php:434
 msgid "Whitelist"
 msgstr ""
 
@@ -5004,12 +5061,12 @@ msgid ""
 "preferences."
 msgstr ""
 
-#: lib/Dynamic/Compose/Common.php:252
+#: lib/Dynamic/Compose/Common.php:250
 msgid ""
 "You have edited your signature. Change the identity and lose your changes?"
 msgstr ""
 
-#: lib/Dynamic/Compose/Common.php:261
+#: lib/Dynamic/Compose/Common.php:259
 msgid ""
 "You have reached the limit for the number of attachments in this message."
 msgstr ""
@@ -5029,7 +5086,7 @@ msgstr ""
 msgid "You may not rename \"%s\"."
 msgstr ""
 
-#: lib/Mime/Viewer/Pgp.php:272
+#: lib/Mime/Viewer/Pgp.php:273
 msgid ""
 "You must enter the passphrase for your PGP private key to view this message."
 msgstr ""
@@ -5039,11 +5096,11 @@ msgid ""
 "You must enter the passphrase for your S/MIME private key to view this data."
 msgstr ""
 
-#: lib/Mime/Viewer/Pgp.php:240
+#: lib/Mime/Viewer/Pgp.php:241
 msgid "You must enter the passphrase used to encrypt this message to view it."
 msgstr ""
 
-#: lib/Basic/Contacts.php:103
+#: lib/Basic/Contacts.php:104
 msgid "You must select an address first."
 msgstr ""
 
@@ -5156,7 +5213,7 @@ msgid ""
 "size allowed by the server configuration."
 msgstr ""
 
-#: lib/Dynamic/Compose/Common.php:260
+#: lib/Dynamic/Compose/Common.php:258
 msgid "Your attachment(s) are too large and cannot be uploaded."
 msgstr ""
 
@@ -5203,7 +5260,7 @@ msgstr ""
 msgid "Your signature:"
 msgstr ""
 
-#: lib/Compose.php:2697 lib/Contents/Message.php:443 lib/Mailbox/Ui.php:119
+#: lib/Compose.php:2705 lib/Contents/Message.php:443 lib/Mailbox/Ui.php:119
 #: lib/Prefs/AttribText.php:103
 msgid "[No Subject]"
 msgstr ""
@@ -5213,7 +5270,7 @@ msgstr ""
 msgid "[Part stripped: Original part type: %s, name: %s]"
 msgstr ""
 
-#: lib/Compose.php:3143
+#: lib/Compose.php:3151
 msgid "[Truncated Text]"
 msgstr ""
 
@@ -5230,7 +5287,7 @@ msgid_plural "and %d more mailboxes"
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/Compose.php:3312
+#: lib/Compose.php:3320
 msgid "attachment"
 msgstr ""
 
@@ -5238,7 +5295,7 @@ msgstr ""
 msgid "attachments.zip"
 msgstr ""
 
-#: lib/Dynamic/Mailbox.php:521
+#: lib/Dynamic/Mailbox.php:527
 msgid "base level of the folder tree"
 msgstr ""
 
@@ -5252,7 +5309,7 @@ msgid "flagged \"%s\""
 msgstr ""
 
 #: templates/contacts/contacts.html.php:12
-#: templates/dynamic/mailbox.html.php:96
+#: templates/dynamic/mailbox.html.php:98
 msgid "from"
 msgstr ""
 
@@ -5260,7 +5317,7 @@ msgstr ""
 msgid "key"
 msgstr ""
 
-#: lib/Compose.php:3021
+#: lib/Compose.php:3029
 #, php-format
 msgid "links will expire on %s"
 msgstr ""

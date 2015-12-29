@@ -1,0 +1,66 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Horde LLC (http://www.horde.org/)
+# This file is distributed under the same license as the Horde_Pgp package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_Pgp\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2015-12-28 17:25+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: lib/Horde/Pgp.php:119 lib/Horde/Pgp.php:154
+msgid "Could not PGP encrypt data."
+msgstr ""
+
+#: lib/Horde/Pgp.php:189 lib/Horde/Pgp.php:217 lib/Horde/Pgp.php:245
+msgid "Could not PGP sign data."
+msgstr ""
+
+#: lib/Horde/Pgp.php:267 lib/Horde/Pgp.php:293
+msgid "Could not decrypt PGP data."
+msgstr ""
+
+#: lib/Horde/Pgp/Keyserver.php:92 lib/Horde/Pgp/Keyserver.php:202
+msgid "Could not obtain public key from the keyserver."
+msgstr ""
+
+#: lib/Horde/Pgp/Element/PrivateKey.php:74
+msgid "Could not unencrypt private key."
+msgstr ""
+
+#: lib/Horde/Pgp.php:356
+msgid "Could not verify PGP data."
+msgstr ""
+
+#: lib/Horde/Pgp/Keyserver.php:112
+msgid "Key already exists on the public keyserver."
+msgstr ""
+
+#: lib/Horde/Pgp/Mime.php:90
+msgid "PGP Digital Signature"
+msgstr ""
+
+#: lib/Horde/Pgp/Mime.php:138
+msgid "PGP Encrypted Data"
+msgstr ""
+
+#: lib/Horde/Pgp/Element/PublicKey.php:48 lib/Horde/Pgp/Mime.php:270
+msgid "PGP Public Key"
+msgstr ""
+
+#: lib/Horde/Pgp/Mime.php:246
+msgid "PGP Signed/Encrypted Data"
+msgstr ""
+
+#: lib/Horde/Pgp.php:85
+msgid "PGP key not generated successfully."
+msgstr ""

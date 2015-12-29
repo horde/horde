@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Nag\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2015-03-24 10:40+0100\n"
+"POT-Creation-Date: 2015-12-28 17:25+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -63,7 +63,7 @@ msgstr ""
 msgid "%d minutes"
 msgstr ""
 
-#: lib/Ui/VarRenderer/Nag.php:380
+#: lib/Ui/VarRenderer/Nag.php:411
 #, php-format
 msgid "%s %s days of %s"
 msgstr ""
@@ -126,7 +126,7 @@ msgstr ""
 msgid "(lowest)"
 msgstr ""
 
-#: lib/Form/Type/NagRecurrence.php:127
+#: lib/Form/Type/NagRecurrence.php:136
 msgid "A due date is necessary to enable recurrences."
 msgstr ""
 
@@ -138,7 +138,7 @@ msgstr ""
 msgid "Access denied completing this task."
 msgstr ""
 
-#: app/controllers/SaveTask.php:34
+#: app/controllers/SaveTask.php:36
 msgid "Access denied deleting task"
 msgstr ""
 
@@ -151,11 +151,11 @@ msgstr ""
 msgid "Access denied deleting task: %s"
 msgstr ""
 
-#: task.php:101 task.php:107
+#: task.php:99 task.php:105
 msgid "Access denied editing task."
 msgstr ""
 
-#: task.php:98
+#: task.php:96
 #, php-format
 msgid "Access denied editing task: %s"
 msgstr ""
@@ -168,11 +168,11 @@ msgstr ""
 msgid "Access denied removing task from this task list."
 msgstr ""
 
-#: app/controllers/SaveTask.php:61
+#: app/controllers/SaveTask.php:64
 msgid "Access denied saving task to this task list."
 msgstr ""
 
-#: app/controllers/SaveTask.php:57
+#: app/controllers/SaveTask.php:60
 #, php-format
 msgid "Access denied saving task: %s"
 msgstr ""
@@ -262,7 +262,7 @@ msgstr ""
 msgid "CalDAV Subscription URL"
 msgstr ""
 
-#: lib/Ui/VarRenderer/Nag.php:121 lib/Ui/VarRenderer/Nag.php:421
+#: lib/Ui/VarRenderer/Nag.php:121 lib/Ui/VarRenderer/Nag.php:452
 msgid "Calendar"
 msgstr ""
 
@@ -469,7 +469,7 @@ msgstr ""
 msgid "Daily: Recurs every"
 msgstr ""
 
-#: lib/Ui/VarRenderer/Nag.php:111 lib/Ui/VarRenderer/Nag.php:411
+#: lib/Ui/VarRenderer/Nag.php:111 lib/Ui/VarRenderer/Nag.php:442
 msgid "Date"
 msgstr ""
 
@@ -516,7 +516,7 @@ msgstr ""
 msgid "Delete behaviour"
 msgstr ""
 
-#: task.php:39
+#: task.php:37
 #, php-format
 msgid "Deleted %s."
 msgstr ""
@@ -577,7 +577,7 @@ msgstr ""
 msgid "Due date:"
 msgstr ""
 
-#: lib/Ui/VarRenderer/Nag.php:384
+#: lib/Ui/VarRenderer/Nag.php:415
 msgid "E.g., Is due within 2 days of today"
 msgstr ""
 
@@ -595,7 +595,7 @@ msgstr ""
 msgid "Edit Task"
 msgstr ""
 
-#: app/controllers/SaveTask.php:12 task.php:124
+#: app/controllers/SaveTask.php:12 task.php:122
 #, php-format
 msgid "Edit: %s"
 msgstr ""
@@ -613,7 +613,7 @@ msgid ""
 "character."
 msgstr ""
 
-#: app/controllers/SaveTask.php:43 task.php:44
+#: app/controllers/SaveTask.php:47 task.php:42
 #, php-format
 msgid "Error deleting task: %s"
 msgstr ""
@@ -707,7 +707,7 @@ msgstr ""
 msgid "Invalid task list requested."
 msgstr ""
 
-#: lib/Ui/VarRenderer/Nag.php:381
+#: lib/Ui/VarRenderer/Nag.php:412
 msgid "Is due within"
 msgstr ""
 
@@ -720,7 +720,7 @@ msgstr ""
 msgid "Lists"
 msgstr ""
 
-#: lib/Ui/VarRenderer/Nag.php:438 lib/Ui/VarRenderer/Nag.php:458
+#: lib/Ui/VarRenderer/Nag.php:469 lib/Ui/VarRenderer/Nag.php:489
 msgid "Loading..."
 msgstr ""
 
@@ -758,6 +758,7 @@ msgid "Mo"
 msgstr ""
 
 #: lib/Ui/VarRenderer/Nag.php:267 lib/Ui/VarRenderer/Nag.php:282
+#: lib/Ui/VarRenderer/Nag.php:297
 msgid "Monthly: Recurs every"
 msgstr ""
 
@@ -765,7 +766,7 @@ msgstr ""
 msgid "More Options..."
 msgstr ""
 
-#: lib/Api.php:1362
+#: lib/Api.php:1368
 msgid "Multiple iCalendar components found; only one vTodo is supported."
 msgstr ""
 
@@ -797,7 +798,7 @@ msgid "New"
 msgstr ""
 
 #: app/controllers/SaveTask.php:12 lib/Application.php:320
-#: lib/Smartmobile.php:122 task.php:89 test/Nag/Unit/Form/Task/Base.php:72
+#: lib/Smartmobile.php:122 task.php:87 test/Nag/Unit/Form/Task/Base.php:72
 #: test/Nag/Unit/Form/Task/Base.php:86
 msgid "New Task"
 msgstr ""
@@ -816,7 +817,7 @@ msgid ""
 "have been found in the event's attendees list."
 msgstr ""
 
-#: lib/Ui/VarRenderer/Nag.php:408
+#: lib/Ui/VarRenderer/Nag.php:439
 msgid "No delay"
 msgstr ""
 
@@ -824,11 +825,11 @@ msgstr ""
 msgid "No due date."
 msgstr ""
 
-#: lib/Ui/VarRenderer/Nag.php:346
+#: lib/Ui/VarRenderer/Nag.php:361
 msgid "No end date"
 msgstr ""
 
-#: lib/Api.php:1027 lib/Api.php:1061 lib/Api.php:1369
+#: lib/Api.php:1033 lib/Api.php:1067 lib/Api.php:1375
 msgid "No iCalendar data was found."
 msgstr ""
 
@@ -918,7 +919,7 @@ msgstr ""
 msgid "Private"
 msgstr ""
 
-#: data.php:54 lib/Task.php:835
+#: data.php:54 lib/Task.php:882
 msgid "Private Task"
 msgstr ""
 
@@ -936,8 +937,8 @@ msgstr ""
 
 #: lib/LoginTasks/Task/PurgeCompleted.php:66
 #, php-format
-msgid "Purging %d completed task."
-msgid_plural "Purging %d completed tasks."
+msgid "Purged %d completed task."
+msgid_plural "Purged %d completed tasks."
 msgstr[0] ""
 msgstr[1] ""
 
@@ -956,7 +957,7 @@ msgstr ""
 msgid "Really delete this task?"
 msgstr ""
 
-#: lib/Ui/VarRenderer/Nag.php:344
+#: lib/Ui/VarRenderer/Nag.php:359
 msgid "Recur Until"
 msgstr ""
 
@@ -1006,7 +1007,7 @@ msgstr ""
 msgid "Saved %s"
 msgstr ""
 
-#: app/controllers/SaveTask.php:103
+#: app/controllers/SaveTask.php:106
 #, php-format
 msgid "Saved %s."
 msgstr ""
@@ -1063,7 +1064,7 @@ msgstr ""
 msgid "Select the task states to export:"
 msgstr ""
 
-#: lib/Ui/VarRenderer/Nag.php:357
+#: lib/Ui/VarRenderer/Nag.php:372
 msgid "Set recurrence end date"
 msgstr ""
 
@@ -1136,7 +1137,7 @@ msgstr ""
 msgid "Start Date"
 msgstr ""
 
-#: lib/Ui/VarRenderer/Nag.php:410
+#: lib/Ui/VarRenderer/Nag.php:441
 msgid "Start date specified."
 msgstr ""
 
@@ -1144,7 +1145,7 @@ msgstr ""
 msgid "Su"
 msgstr ""
 
-#: task.php:28
+#: lib/Driver.php:411
 msgid "Sub tasks exist, delete them first"
 msgstr ""
 
@@ -1253,15 +1254,15 @@ msgstr ""
 msgid "Task not found"
 msgstr ""
 
-#: task.php:105
+#: task.php:103
 msgid "Task not found."
 msgstr ""
 
-#: app/controllers/SaveTask.php:46
+#: app/controllers/SaveTask.php:44
 msgid "Task successfully deleted"
 msgstr ""
 
-#: lib/Api.php:1451 lib/Tasklists/Kolab.php:41
+#: lib/Api.php:1457 lib/Tasklists/Kolab.php:41
 msgid "Tasks"
 msgstr ""
 
@@ -1369,12 +1370,12 @@ msgstr ""
 msgid "There was a problem completing %s: %s"
 msgstr ""
 
-#: task.php:35
+#: task.php:33
 #, php-format
 msgid "There was a problem deleting %s: %s"
 msgstr ""
 
-#: app/controllers/SaveTask.php:93
+#: app/controllers/SaveTask.php:96
 #, php-format
 msgid "There was a problem saving the task: %s."
 msgstr ""
@@ -1389,7 +1390,7 @@ msgstr ""
 msgid "There was an error importing the data: %s"
 msgstr ""
 
-#: lib/Api.php:606 lib/Api.php:1019 lib/Api.php:1354 lib/Application.php:579
+#: lib/Api.php:606 lib/Api.php:1025 lib/Api.php:1360 lib/Application.php:579
 msgid "There was an error importing the iCalendar data."
 msgstr ""
 
@@ -1454,8 +1455,8 @@ msgstr ""
 msgid "Unique ID"
 msgstr ""
 
-#: lib/Api.php:709 lib/Api.php:1078 lib/Api.php:1202 lib/Api.php:1268
-#: lib/Api.php:1386
+#: lib/Api.php:709 lib/Api.php:1084 lib/Api.php:1208 lib/Api.php:1274
+#: lib/Api.php:1392
 #, php-format
 msgid "Unsupported Content-Type: %s"
 msgstr ""
@@ -1511,8 +1512,8 @@ msgstr ""
 msgid "Which task list should the tasks be added to?"
 msgstr ""
 
-#: lib/Ui/VarRenderer/Nag.php:297 lib/Ui/VarRenderer/Nag.php:312
-#: lib/Ui/VarRenderer/Nag.php:327
+#: lib/Ui/VarRenderer/Nag.php:312 lib/Ui/VarRenderer/Nag.php:327
+#: lib/Ui/VarRenderer/Nag.php:342
 msgid "Yearly: Recurs every"
 msgstr ""
 
@@ -1520,7 +1521,7 @@ msgstr ""
 msgid "You are not allowed to change this task list."
 msgstr ""
 
-#: data.php:38 data.php:114 task.php:78
+#: data.php:38 data.php:114 task.php:76
 #, php-format
 msgid "You are not allowed to create more than %d tasks."
 msgstr ""
@@ -1688,6 +1689,7 @@ msgid "in %s"
 msgstr ""
 
 #: lib/Ui/VarRenderer/Nag.php:269 lib/Ui/VarRenderer/Nag.php:284
+#: lib/Ui/VarRenderer/Nag.php:299
 msgid "month(s)"
 msgstr ""
 
@@ -1715,6 +1717,10 @@ msgstr ""
 msgid "on the same date"
 msgstr ""
 
+#: lib/Ui/VarRenderer/Nag.php:299
+msgid "on the same last weekday"
+msgstr ""
+
 #: lib/Ui/VarRenderer/Nag.php:284
 msgid "on the same weekday"
 msgstr ""
@@ -1723,7 +1729,7 @@ msgstr ""
 msgid "pm"
 msgstr ""
 
-#: lib/Ui/VarRenderer/Nag.php:368
+#: lib/Ui/VarRenderer/Nag.php:383
 msgid "recurrences"
 msgstr ""
 
@@ -1747,14 +1753,14 @@ msgstr ""
 msgid "with"
 msgstr ""
 
-#: lib/Ui/VarRenderer/Nag.php:299
+#: lib/Ui/VarRenderer/Nag.php:314
 msgid "year(s) on the same date"
 msgstr ""
 
-#: lib/Ui/VarRenderer/Nag.php:314
+#: lib/Ui/VarRenderer/Nag.php:329
 msgid "year(s) on the same day of the year"
 msgstr ""
 
-#: lib/Ui/VarRenderer/Nag.php:329
+#: lib/Ui/VarRenderer/Nag.php:344
 msgid "year(s) on the same weekday and month of the year"
 msgstr ""

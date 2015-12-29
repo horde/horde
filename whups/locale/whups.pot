@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Whups\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2015-03-24 10:40+0100\n"
+"POT-Creation-Date: 2015-12-28 17:25+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -92,7 +92,7 @@ msgstr ""
 msgid "%s will no longer receive updates for this ticket."
 msgstr ""
 
-#: lib/Driver.php:238
+#: lib/Driver.php:244
 msgid "(inactive)"
 msgstr ""
 
@@ -227,7 +227,7 @@ msgstr ""
 msgid "Assign"
 msgstr ""
 
-#: config/prefs.php:57 lib/Api.php:679 lib/Driver.php:270
+#: config/prefs.php:57 lib/Api.php:676 lib/Driver.php:276
 #: lib/Form/Renderer/Query.php:164 lib/Form/TicketDetails.php:127
 #: lib/Whups.php:866
 msgid "Assigned"
@@ -260,7 +260,7 @@ msgstr ""
 msgid "Attachment %s deleted."
 msgstr ""
 
-#: lib/Driver/Sql.php:1344 lib/Ticket.php:551
+#: lib/Driver/Sql.php:1350 lib/Ticket.php:551
 #, php-format
 msgid "Attachment %s not found."
 msgstr ""
@@ -274,7 +274,7 @@ msgstr ""
 msgid "Attri_bute Criteria"
 msgstr ""
 
-#: lib/Driver.php:181
+#: lib/Driver.php:187
 #, php-format
 msgid "Attribute %d"
 msgstr ""
@@ -454,12 +454,12 @@ msgstr ""
 msgid "Create Ticket - Step 4"
 msgstr ""
 
-#: config/prefs.php:56 lib/Api.php:684 lib/Form/Renderer/Query.php:149
+#: config/prefs.php:56 lib/Api.php:681 lib/Form/Renderer/Query.php:149
 #: lib/Form/TicketDetails.php:109 lib/Whups.php:864
 msgid "Created"
 msgstr ""
 
-#: lib/Ticket.php:690 lib/Ticket.php:716
+#: lib/Ticket.php:705 lib/Ticket.php:731
 msgid "Created By"
 msgstr ""
 
@@ -605,7 +605,7 @@ msgstr ""
 msgid "Delete entry"
 msgstr ""
 
-#: lib/Ticket.php:695 lib/Ticket.php:799
+#: lib/Ticket.php:710 lib/Ticket.php:814
 msgid "Deleted Attachment"
 msgstr ""
 
@@ -638,8 +638,8 @@ msgstr ""
 msgid "Download these results as: "
 msgstr ""
 
-#: lib/Api.php:688 lib/Form/Renderer/Query.php:169
-#: lib/Form/TicketDetails.php:115 lib/Ticket.php:687 lib/Ticket.php:879
+#: lib/Api.php:685 lib/Form/Renderer/Query.php:169
+#: lib/Form/TicketDetails.php:115 lib/Ticket.php:702 lib/Ticket.php:894
 #: lib/Whups.php:867
 msgid "Due"
 msgstr ""
@@ -813,7 +813,7 @@ msgstr ""
 msgid "Email address to remove"
 msgstr ""
 
-#: lib/Api.php:326
+#: lib/Api.php:324
 msgid "Empty attachment"
 msgstr ""
 
@@ -927,15 +927,15 @@ msgstr ""
 msgid "Invalid Queue"
 msgstr ""
 
-#: lib/Api.php:321 lib/Whups.php:387
+#: lib/Api.php:319 lib/Whups.php:387
 msgid "Invalid Ticket Id"
 msgstr ""
 
-#: lib/Api.php:356
+#: lib/Api.php:354
 msgid "Invalid argument: Missing attribute name or value."
 msgstr ""
 
-#: lib/Api.php:348
+#: lib/Api.php:346
 msgid "Invalid arguments: Must supply a ticket number and new attributes."
 msgstr ""
 
@@ -947,7 +947,7 @@ msgstr ""
 msgid "Invalid search"
 msgstr ""
 
-#: lib/Api.php:238
+#: lib/Api.php:235
 #, php-format
 msgid "Invalid ticket data supplied: %s"
 msgstr ""
@@ -1046,19 +1046,19 @@ msgstr ""
 msgid "My Tickets"
 msgstr ""
 
-#: lib/Api.php:651
+#: lib/Api.php:648
 msgid "My tickets by assignment date"
 msgstr ""
 
-#: lib/Api.php:650
+#: lib/Api.php:647
 msgid "My tickets by creation date"
 msgstr ""
 
-#: lib/Api.php:652
+#: lib/Api.php:649
 msgid "My tickets by due date"
 msgstr ""
 
-#: lib/Api.php:653
+#: lib/Api.php:650
 msgid "My tickets by resolution date"
 msgstr ""
 
@@ -1075,11 +1075,11 @@ msgstr ""
 msgid "Ne_w Query"
 msgstr ""
 
-#: lib/Driver.php:269
+#: lib/Driver.php:275
 msgid "New"
 msgstr ""
 
-#: lib/Ticket.php:694 lib/Ticket.php:787 lib/Ticket.php:792
+#: lib/Ticket.php:709 lib/Ticket.php:802 lib/Ticket.php:807
 msgid "New Attachment"
 msgstr ""
 
@@ -1184,7 +1184,7 @@ msgstr ""
 msgid "Notification Preferences"
 msgstr ""
 
-#: lib/Driver.php:248
+#: lib/Driver.php:254
 msgid "Older? Please update first!"
 msgstr ""
 
@@ -1252,8 +1252,8 @@ msgstr ""
 
 #: lib/Form/Renderer/Query.php:88 lib/Form/Ticket/CreateStepFour.php:52
 #: lib/Form/Ticket/CreateStepFour.php:67 lib/Form/Ticket/Edit.php:118
-#: lib/Form/TicketDetails.php:96 lib/Ticket.php:693 lib/Ticket.php:777
-#: lib/Ticket.php:778 lib/Ticket.php:781 lib/Ticket.php:883 lib/Ticket.php:904
+#: lib/Form/TicketDetails.php:96 lib/Ticket.php:708 lib/Ticket.php:792
+#: lib/Ticket.php:793 lib/Ticket.php:796 lib/Ticket.php:898 lib/Ticket.php:919
 #: lib/Whups.php:863
 msgid "Owners"
 msgstr ""
@@ -1290,7 +1290,7 @@ msgstr ""
 #: lib/Form/Queue/StepThree.php:35 lib/Form/Renderer/Query.php:129
 #: lib/Form/SetTypeStepTwo.php:28 lib/Form/Ticket/CreateStepThree.php:69
 #: lib/Form/Ticket/Edit.php:86 lib/Form/TicketDetails.php:91
-#: lib/Ticket.php:686 lib/Ticket.php:878 lib/Whups.php:860
+#: lib/Ticket.php:701 lib/Ticket.php:893 lib/Whups.php:860
 msgid "Priority"
 msgstr ""
 
@@ -1343,7 +1343,7 @@ msgstr ""
 #: lib/Block/Queuesummary.php:39 lib/Form/Query/PropertyCriterion.php:52
 #: lib/Form/Renderer/Query.php:98 lib/Form/Search.php:40
 #: lib/Form/TicketDetails.php:53 lib/Form/TicketDetails.php:60
-#: lib/Ticket.php:682 lib/Ticket.php:874 lib/Whups.php:861
+#: lib/Ticket.php:697 lib/Ticket.php:889 lib/Whups.php:861
 msgid "Queue"
 msgstr ""
 
@@ -1483,7 +1483,7 @@ msgstr ""
 msgid "Required Attribute?"
 msgstr ""
 
-#: config/prefs.php:58 lib/Api.php:693 lib/Driver.php:271
+#: config/prefs.php:58 lib/Api.php:690 lib/Driver.php:277
 #: lib/Form/Renderer/Query.php:159 lib/Form/TicketDetails.php:133
 #: lib/Whups.php:868
 msgid "Resolved"
@@ -1676,7 +1676,7 @@ msgstr ""
 #: config/prefs.php:51 lib/Form/Query/PropertyCriterion.php:65
 #: lib/Form/Queue/StepThree.php:34 lib/Form/Renderer/Query.php:121
 #: lib/Form/SetTypeStepTwo.php:27 lib/Form/Ticket/Edit.php:80
-#: lib/Form/TicketDetails.php:86 lib/Ticket.php:685 lib/Ticket.php:877
+#: lib/Form/TicketDetails.php:86 lib/Ticket.php:700 lib/Ticket.php:892
 #: lib/Whups.php:858
 msgid "State"
 msgstr ""
@@ -1733,8 +1733,8 @@ msgstr ""
 #: config/prefs.php:50 lib/Form/Renderer/Query.php:93
 #: lib/Form/Ticket/CreateStepThree.php:74 lib/Form/Ticket/Delete.php:20
 #: lib/Form/Ticket/Edit.php:63 lib/Form/TicketDetails.php:47
-#: lib/Ticket.php:692 lib/Ticket.php:719 lib/Ticket.php:722 lib/Ticket.php:726
-#: lib/Ticket.php:883 lib/Ticket.php:892 lib/Whups.php:857
+#: lib/Ticket.php:707 lib/Ticket.php:734 lib/Ticket.php:737 lib/Ticket.php:741
+#: lib/Ticket.php:898 lib/Ticket.php:907 lib/Whups.php:857
 msgid "Summary"
 msgstr ""
 
@@ -1756,7 +1756,7 @@ msgstr ""
 msgid "Text"
 msgstr ""
 
-#: lib/Driver/Sql.php:98 lib/Driver/Sql.php:1544
+#: lib/Driver/Sql.php:98 lib/Driver/Sql.php:1550
 msgid "That queue slug is already taken. Please select another."
 msgstr ""
 
@@ -2072,7 +2072,7 @@ msgstr ""
 
 #: lib/Form/Admin/AddUser.php:44
 #, php-format
-msgid "There was an error listing users: %s; %s"
+msgid "There was an error listing users: %s"
 msgstr ""
 
 #: queue/index.php:55
@@ -2130,7 +2130,7 @@ msgid ""
 "be able to create tickets."
 msgstr ""
 
-#: lib/Api.php:400 lib/Ticket.php:714 lib/Ticket.php:891
+#: lib/Api.php:398 lib/Ticket.php:729 lib/Ticket.php:906
 msgid "Ticket"
 msgstr ""
 
@@ -2152,12 +2152,12 @@ msgstr ""
 msgid "Ticket %d not found."
 msgstr ""
 
-#: lib/Api.php:615
+#: lib/Api.php:612
 #, php-format
 msgid "Ticket %s - %s"
 msgstr ""
 
-#: lib/Driver/Sql.php:1161
+#: lib/Driver/Sql.php:1167
 #, php-format
 msgid "Ticket %s was not found."
 msgstr ""
@@ -2183,16 +2183,16 @@ msgstr ""
 msgid "Ticket Types associated with this Queue"
 msgstr ""
 
-#: lib/Ticket.php:709
+#: lib/Ticket.php:724
 #, php-format
 msgid "Ticket URL: %s"
 msgstr ""
 
-#: ticket/update.php:104
+#: ticket/update.php:90
 msgid "Ticket Updated"
 msgstr ""
 
-#: lib/Api.php:638
+#: lib/Api.php:635
 msgid "Tickets"
 msgstr ""
 
@@ -2208,7 +2208,7 @@ msgstr ""
 
 #: config/prefs.php:52 lib/Form/Query/PropertyCriterion.php:43
 #: lib/Form/Queue/StepTwo.php:42 lib/Form/Renderer/Query.php:112
-#: lib/Form/TicketDetails.php:82 lib/Ticket.php:684 lib/Ticket.php:876
+#: lib/Form/TicketDetails.php:82 lib/Ticket.php:699 lib/Ticket.php:891
 #: lib/Whups.php:859
 msgid "Type"
 msgstr ""
@@ -2245,7 +2245,7 @@ msgstr ""
 msgid "Unassigned tickets"
 msgstr ""
 
-#: lib/Driver.php:268
+#: lib/Driver.php:274
 msgid "Unconfirmed"
 msgstr ""
 
@@ -2258,7 +2258,7 @@ msgstr ""
 msgid "Update"
 msgstr ""
 
-#: ticket/update.php:66
+#: ticket/update.php:52
 #, php-format
 msgid "Update %s"
 msgstr ""
@@ -2272,7 +2272,7 @@ msgstr ""
 msgid "Updated"
 msgstr ""
 
-#: lib/Ticket.php:691 lib/Ticket.php:716
+#: lib/Ticket.php:706 lib/Ticket.php:731
 msgid "Updated By"
 msgstr ""
 
@@ -2302,7 +2302,7 @@ msgid "Users responsible for this queue"
 msgstr ""
 
 #: config/prefs.php:55 lib/Form/Query/PropertyCriterion.php:57
-#: lib/Form/Renderer/Query.php:106 lib/Ticket.php:683 lib/Ticket.php:875
+#: lib/Form/Renderer/Query.php:106 lib/Ticket.php:698 lib/Ticket.php:890
 msgid "Version"
 msgstr ""
 
@@ -2368,12 +2368,12 @@ msgstr ""
 msgid "You are not allowed to view ticket %d."
 msgstr ""
 
-#: lib/Driver/Sql.php:1171
+#: lib/Driver/Sql.php:1177
 #, php-format
 msgid "You do not have permission to access this ticket (%s)."
 msgstr ""
 
-#: lib/Api.php:216
+#: lib/Api.php:213
 msgid "You do not have permission to update this ticket."
 msgstr ""
 
@@ -2509,7 +2509,7 @@ msgstr ""
 msgid "contains the word"
 msgstr ""
 
-#: lib/Api.php:625
+#: lib/Api.php:622
 msgid "estimated time"
 msgstr ""
 

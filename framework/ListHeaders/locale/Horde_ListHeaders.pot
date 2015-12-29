@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_ListHeaders\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-05-21 15:36+0200\n"
+"POT-Creation-Date: 2015-12-28 17:25+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,30 +17,30 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: lib/Horde/ListHeaders.php:40
+#: lib/Horde/ListHeaders.php:38
 msgid "Archive"
 msgstr ""
 
-#: lib/Horde/ListHeaders.php:35
+#: lib/Horde/ListHeaders.php:33
 msgid "Help"
 msgstr ""
 
-#: lib/Horde/ListHeaders.php:42
+#: lib/Horde/ListHeaders.php:40
 msgid "Identification"
 msgstr ""
 
-#: lib/Horde/ListHeaders.php:38
+#: lib/Horde/ListHeaders.php:36
 msgid "Owner"
 msgstr ""
 
-#: lib/Horde/ListHeaders.php:39
+#: lib/Horde/ListHeaders.php:37
 msgid "Post"
 msgstr ""
 
-#: lib/Horde/ListHeaders.php:37
+#: lib/Horde/ListHeaders.php:35
 msgid "Subscribe"
 msgstr ""
 
-#: lib/Horde/ListHeaders.php:36
+#: lib/Horde/ListHeaders.php:34
 msgid "Unsubscribe"
 msgstr ""

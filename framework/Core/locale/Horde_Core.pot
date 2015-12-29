@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Core\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2015-03-24 10:40+0100\n"
+"POT-Creation-Date: 2015-12-28 17:25+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: lib/Horde.php:964
+#: lib/Horde.php:972
 #, php-format
 msgid " (Accesskey %s)"
 msgstr ""
@@ -35,7 +35,7 @@ msgid_plural "%d contacts were successfully added to your address book."
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/Horde/Core/Auth/Application.php:658
+#: lib/Horde/Core/Auth/Application.php:670
 #, php-format
 msgid "%d day until your password expires."
 msgid_plural "%d days until your password expires."
@@ -217,7 +217,7 @@ msgstr ""
 msgid "Block \"%s\" of application \"%s\" not found."
 msgstr ""
 
-#: lib/Horde/Core/ActiveSync/Driver.php:153
+#: lib/Horde/Core/ActiveSync/Driver.php:159
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:549
 msgid "Calendar"
 msgstr ""
@@ -270,7 +270,7 @@ msgstr ""
 msgid "Confirm new email address"
 msgstr ""
 
-#: lib/Horde/Core/ActiveSync/Driver.php:154
+#: lib/Horde/Core/ActiveSync/Driver.php:160
 msgid "Contacts"
 msgstr ""
 
@@ -349,7 +349,7 @@ msgstr ""
 msgid "Domestic Address"
 msgstr ""
 
-#: lib/Horde/Core/ActiveSync/Driver.php:2948
+#: lib/Horde/Core/ActiveSync/Driver.php:3080
 msgid "Drafts"
 msgstr ""
 
@@ -392,7 +392,7 @@ msgstr ""
 msgid "Error when communicating with the server."
 msgstr ""
 
-#: lib/Horde/Core/Block/Layout/Manager.php:531
+#: lib/Horde/Core/Block/Layout/Manager.php:536
 msgid "Expand"
 msgstr ""
 
@@ -463,7 +463,7 @@ msgstr ""
 msgid "Home Phone"
 msgstr ""
 
-#: lib/Horde/Core/ActiveSync/Driver.php:2943
+#: lib/Horde/Core/ActiveSync/Driver.php:3075
 msgid "Inbox"
 msgstr ""
 
@@ -549,19 +549,19 @@ msgstr ""
 msgid "Monday"
 msgstr ""
 
-#: lib/Horde/Core/Block/Layout/Manager.php:565
+#: lib/Horde/Core/Block/Layout/Manager.php:570
 msgid "Move Down"
 msgstr ""
 
-#: lib/Horde/Core/Block/Layout/Manager.php:569
+#: lib/Horde/Core/Block/Layout/Manager.php:574
 msgid "Move Left"
 msgstr ""
 
-#: lib/Horde/Core/Block/Layout/Manager.php:573
+#: lib/Horde/Core/Block/Layout/Manager.php:578
 msgid "Move Right"
 msgstr ""
 
-#: lib/Horde/Core/Block/Layout/Manager.php:561
+#: lib/Horde/Core/Block/Layout/Manager.php:566
 msgid "Move Up"
 msgstr ""
 
@@ -612,12 +612,12 @@ msgstr ""
 msgid "No children can be added to this permission."
 msgstr ""
 
-#: lib/Horde.php:358
+#: lib/Horde.php:366
 #, php-format
 msgid "No configuration information specified for %s."
 msgstr ""
 
-#: lib/Horde/Core/ActiveSync/Mail.php:512
+#: lib/Horde/Core/ActiveSync/Mail.php:562
 msgid "No message body text"
 msgstr ""
 
@@ -637,7 +637,7 @@ msgstr ""
 msgid "Not an admin"
 msgstr ""
 
-#: lib/Horde/Core/ActiveSync/Driver.php:156
+#: lib/Horde/Core/ActiveSync/Driver.php:162
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:377
 msgid "Notes"
 msgstr ""
@@ -666,12 +666,12 @@ msgstr ""
 msgid "Ok"
 msgstr ""
 
-#: lib/Horde/Core/ActiveSync/Connector.php:871
-#: lib/Horde/Core/ActiveSync/Connector.php:878
+#: lib/Horde/Core/ActiveSync/Connector.php:885
+#: lib/Horde/Core/ActiveSync/Connector.php:892
 msgid "Out Of Office"
 msgstr ""
 
-#: lib/Horde/Core/ActiveSync/Driver.php:2953
+#: lib/Horde/Core/ActiveSync/Driver.php:3085
 msgid "Outbox"
 msgstr ""
 
@@ -747,7 +747,7 @@ msgstr ""
 msgid "Remove source"
 msgstr ""
 
-#: lib/Horde.php:367
+#: lib/Horde.php:375
 #, php-format
 msgid "Required \"%s\" not specified in %s configuration."
 msgstr ""
@@ -818,7 +818,7 @@ msgstr ""
 msgid "Send SMS"
 msgstr ""
 
-#: lib/Horde/Core/ActiveSync/Driver.php:2938
+#: lib/Horde/Core/ActiveSync/Driver.php:3070
 msgid "Sent"
 msgstr ""
 
@@ -828,7 +828,7 @@ msgstr ""
 msgid "September"
 msgstr ""
 
-#: lib/Horde/Core/Block/Layout/Manager.php:536
+#: lib/Horde/Core/Block/Layout/Manager.php:541
 msgid "Shrink"
 msgstr ""
 
@@ -866,7 +866,7 @@ msgstr ""
 msgid "Sunday"
 msgstr ""
 
-#: lib/Horde/Core/ActiveSync/Driver.php:155
+#: lib/Horde/Core/ActiveSync/Driver.php:161
 msgid "Tasks"
 msgstr ""
 
@@ -882,6 +882,10 @@ msgstr ""
 msgid "The connection to the server has been restored."
 msgstr ""
 
+#: lib/Horde/Core/Prefs/Ui.php:999
+msgid "The e-mail field cannot be empty."
+msgstr ""
+
 #: lib/Horde/Core/Prefs/Identity.php:145
 #, php-format
 msgid ""
@@ -889,16 +893,16 @@ msgid ""
 "window now."
 msgstr ""
 
-#: lib/Horde.php:279
+#: lib/Horde.php:287
 msgid "The encryption features require a secure web connection."
 msgstr ""
 
-#: lib/Horde.php:368
+#: lib/Horde.php:376
 #, php-format
 msgid "The file %s should contain a %s setting."
 msgstr ""
 
-#: lib/Horde.php:359
+#: lib/Horde.php:367
 #, php-format
 msgid "The file %s should contain some %s settings."
 msgstr ""
@@ -919,7 +923,7 @@ msgstr ""
 msgid "The identity \"%s\" has been deleted."
 msgstr ""
 
-#: lib/Horde/Core/Prefs/Ui.php:1003
+#: lib/Horde/Core/Prefs/Ui.php:1006
 msgid "The new from address can't be verified, try again later: "
 msgstr ""
 
@@ -993,7 +997,7 @@ msgstr ""
 msgid "Toggle Alerts Log"
 msgstr ""
 
-#: lib/Horde/Core/ActiveSync/Driver.php:2933
+#: lib/Horde/Core/ActiveSync/Driver.php:3065
 msgid "Trash"
 msgstr ""
 
@@ -1078,7 +1082,7 @@ msgstr ""
 msgid "Yes"
 msgstr ""
 
-#: lib/Horde/Core/Block/Layout/Manager.php:220
+#: lib/Horde/Core/Block/Layout/Manager.php:225
 #, php-format
 msgid "You are not allowed to create more than %d block."
 msgid_plural "You are not allowed to create more than %d blocks."
@@ -1089,7 +1093,7 @@ msgstr[1] ""
 msgid "You are not allowed to remove user data."
 msgstr ""
 
-#: lib/Horde/Core/Auth/Application.php:743
+#: lib/Horde/Core/Auth/Application.php:755
 msgid ""
 "You are using an old, unsupported version of Internet Explorer. You need at "
 "least Internet Explorer 8. If you already run IE8 or higher, disable the "
@@ -1122,17 +1126,17 @@ msgstr ""
 msgid "You must provide a setting for \"%s\"."
 msgstr ""
 
-#: lib/Horde/Core/Auth/Application.php:710
+#: lib/Horde/Core/Auth/Application.php:722
 msgid "Your browser does not support javascript. Using minimal view instead."
 msgstr ""
 
-#: lib/Horde/Core/Auth/Application.php:718
+#: lib/Horde/Core/Auth/Application.php:730
 msgid ""
 "Your browser does not support the dynamic view. Using basic view instead."
 msgstr ""
 
-#: lib/Horde/Core/Auth/Application.php:721
-#: lib/Horde/Core/Auth/Application.php:729
+#: lib/Horde/Core/Auth/Application.php:733
+#: lib/Horde/Core/Auth/Application.php:741
 msgid ""
 "Your browser does not support the dynamic view. Using minimal view instead."
 msgstr ""
