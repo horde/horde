@@ -94,13 +94,17 @@ class Nag_Driver_Kolab extends Nag_Driver
         return new Nag_Task($this, $nag_task);
     }
 
-    /* Little helper function, detecting if a string is already
-     * based64-encoded or not
+    /**
+     * Detect if a string is already Horde_Url::uriB64Encode()'ed or not.
+     *
+     * @param string $s  The string to test.
+     *
+     * @return  boolean  True if $s was base64 encoded.
+     * @todo  This will be removed in Horde 6.
      */
-    private function _is_base64_encoded_uid($s) {
-
-        /* redo stuff possibly done by Horde_Url::uriB64Encode()
-         */
+    public function _isBase64EncodedUid($s)
+    {
+         // Redo stuff possibly done by Horde_Url::uriB64Encode()
         $data = str_replace(array('-', '_'), array('+', '/'), $s);
         $mod4 = strlen($data) % 4;
         if ($mod4) {
@@ -110,23 +114,19 @@ class Nag_Driver_Kolab extends Nag_Driver
             return false;
         }
 
-        /* Decode the string in strict mode and check the results
-         */
+         // Decode the string in strict mode and check the results
         $decoded = base64_decode($data, true);
-        if(false === $decoded) {
+        if ($decoded === false) {
             return false;
         }
 
-        /* Check if the decoded string resembles a uid hash...
-         */
+        // Check if the decoded string resembles a uid hash...
         if (!preg_match('/^[a-zA-Z0-9-]+$/', $decoded)) {
             return false;
         }
 
-        /* Encode the string again
-         */
-        if(base64_encode($decoded) != $data)
-        {
+         // Encode the string again for a final sanity check.
+        if (base64_encode($decoded) != $data) {
             return false;
         }
 
@@ -142,16 +142,11 @@ class Nag_Driver_Kolab extends Nag_Driver
      */
     protected function _buildTask($task)
     {
-
-        /*
-         * This decoding of parent ID hashes is required because of a probably
-         * long-existing bug in Nag_Driver_Kolab.
-         *
-         * For details, see:
-         * https://bugs.horde.org/ticket/14197
-         */
+         // This decoding of parent ID hashes is required because of a
+         // previous bug in Nag_Driver_Kolab.
+         // See Bug: 14197
         $parent_uid = $task['parent'];
-        if (!empty($parent_uid) && $this->_is_base64_encoded_uid($parent_uid)) {
+        if (!empty($parent_uid) && $this->_isBase64EncodedUid($parent_uid)) {
             $parent_uid = Horde_Url::uriB64Decode($parent_uid);
         }
 
@@ -161,6 +156,7 @@ class Nag_Driver_Kolab extends Nag_Driver
             'name' => $task['summary'],
             'desc' => $task['body'],
             'priority' => $task['priority'],
+            // parent is keyed to internal id, not UID.
             'parent' => Horde_Url::uriB64Encode($parent_uid),
             'alarm' => $task['alarm'],
             'completed' => !empty($task['completed']),
@@ -256,7 +252,7 @@ class Nag_Driver_Kolab extends Nag_Driver
     protected function _add(array $task)
     {
         $object = $this->_getObject($task);
-        $object['uid'] = $this->_getData()->generateUid(); 
+        $object['uid'] = $this->_getData()->generateUid();
         try {
             $this->_getData()->create($object);
             $this->_addTags($task);
@@ -339,6 +335,7 @@ class Nag_Driver_Kolab extends Nag_Driver
             'body' => $task['desc'],
             //@todo: Match Horde/Kolab priority values
             'priority' => $task['priority'],
+            // Kolab's parent field is UID, Nag's parent is id.
             'parent' => Horde_Url::uriB64Decode($task['parent']),
         );
         if (!empty($task['start'])) {
