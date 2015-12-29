@@ -11,6 +11,12 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
+ <lead>
+  <name>Michael J Rubinsky</name>
+  <user>mrubinsk</user>
+  <email>mrubinsk@horde.org</email>
+  <active>yes</active>
+ </lead>
  <date>2015-06-16</date>
  <version>
   <release>2.2.0</release>
