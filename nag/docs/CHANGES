@@ -2,6 +2,8 @@
 v4.2.7-git
 ----------
 
+[mjr] Fix storage of parent field when using Kolab driver (Bug #14197,
+      mike.gabriel@das-netzwerkteam.de).
 [mjr] Fix switching tab/filters when using Kolab driver (Bug #14196,
       mike.gabriel@das-netzwerkteam.de).
 [mjr] Fix moving subtasks to another tasklist when parent task is moved (Bug
