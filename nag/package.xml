@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix switching tab/filters when using Kolab driver (Bug #14196, mike.gabriel@das-netzwerkteam.de).
 * [mjr] Fix moving subtasks to another tasklist when parent task is moved (Bug #14209).
 * [mjr] Fix fatal error when saving tasks when system shares are present in certain cases.
 * [mjr] Return recurring tasks via listTimeObjects API (Bug #14137).
@@ -1675,6 +1676,7 @@
    <date>2015-10-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix switching tab/filters when using Kolab driver (Bug #14196, mike.gabriel@das-netzwerkteam.de).
 * [mjr] Fix moving subtasks to another tasklist when parent task is moved (Bug #14209).
 * [mjr] Fix fatal error when saving tasks when system shares are present in certain cases.
 * [mjr] Return recurring tasks via listTimeObjects API (Bug #14137).
