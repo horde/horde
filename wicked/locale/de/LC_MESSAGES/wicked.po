@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wicked H4 (2.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2015-03-24 10:40+0100\n"
+"POT-Creation-Date: 2015-12-28 17:25+0100\n"
 "PO-Revision-Date: 2015-01-08 11:24+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -350,7 +350,7 @@ msgstr "Interner Fehler beim Anzeigen dieser Seite"
 msgid "Internal error viewing requested page: %s"
 msgstr "Interner Fehler beim Anzeigen dieser Seite: %s"
 
-#: lib/Api.php:258
+#: lib/Api.php:256
 msgid "Invalid page requested."
 msgstr "Ungültige Seite angefordert."
 
@@ -438,7 +438,7 @@ msgstr "Neuer Name"
 msgid "New name is the same as old name."
 msgstr "Neuer Name ist der gleiche wie der alte."
 
-#: lib/Api.php:196 lib/Page/EditPage.php:212
+#: lib/Api.php:194 lib/Page/EditPage.php:212
 msgid "No changes made"
 msgstr "Keine Änderungen vorgenommen"
 
@@ -506,7 +506,7 @@ msgstr "Seiten dürfen nicht leer sein."
 msgid "Permissio_ns"
 msgstr "_Rechte"
 
-#: lib/Api.php:254
+#: lib/Api.php:252
 msgid "Permission denied."
 msgstr "Zugriff verweigert."
 
@@ -686,7 +686,7 @@ msgstr ""
 #: lib/Page.php:248 lib/Page.php:281 lib/Page.php:286 lib/Page.php:410
 #: lib/Page.php:418 lib/Page.php:426 lib/Page.php:436 lib/Page.php:570
 #: lib/Page.php:609 lib/Page.php:614 lib/Page.php:619 lib/Page.php:624
-#: lib/Page.php:664
+#: lib/Page.php:669
 msgid "Unsupported"
 msgstr "Nicht unterstützt"
 
@@ -713,7 +713,7 @@ msgstr "Version"
 msgid "View page: "
 msgstr "Seite anzeigen: "
 
-#: lib/Api.php:213
+#: lib/Api.php:211
 msgid "Wiki Templates"
 msgstr "Wiki-Vorlagen"
 
@@ -750,7 +750,7 @@ msgstr "Sie haben nicht genügend Rechte, um \"%s\" zu erstellen."
 msgid "You don't have permission to delete \"%s\"."
 msgstr "Sie haben nicht genügend Rechte, um \"%s\" zu löschen."
 
-#: lib/Api.php:178 lib/Page/EditPage.php:194 lib/Page/RevertPage.php:133
+#: lib/Api.php:176 lib/Page/EditPage.php:194 lib/Page/RevertPage.php:133
 #, php-format
 msgid "You don't have permission to edit \"%s\"."
 msgstr "Sie haben nicht genügend Rechte, um \"%s\" zu bearbeiten."
@@ -763,7 +763,7 @@ msgstr "Sie haben nicht die nötigen Rechte um diese Seite anzuzeigen."
 msgid "You must enter a change description to attach this file."
 msgstr "Sie müssen einen Änderungseintrag eingeben, um diese Datei anzuhängen."
 
-#: lib/Api.php:182 lib/Page/EditPage.php:205
+#: lib/Api.php:180 lib/Page/EditPage.php:205
 msgid "You must provide a change log."
 msgstr "Sie müssen einen Änderungseintrag angeben."
 

@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde 5.2-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2015-03-24 10:40+0100\n"
-"PO-Revision-Date: 2015-03-24 11:18+0100\n"
+"POT-Creation-Date: 2015-12-28 17:25+0100\n"
+"PO-Revision-Date: 2015-12-29 17:50+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
 "Language: de\n"
@@ -40,7 +40,7 @@ msgstr "\"%s\" wurde nicht erstellt: %s."
 msgid "%.2fMB used of %.2fMB allowed (%.2f%%)"
 msgstr "%.2fMB (%3$.2f%%) von %2$.2fMB erlaubten verbraucht"
 
-#: lib/Block/Weather.php:212
+#: templates/block/weather_content.html.php:43
 #, php-format
 msgid "%d %s and %s"
 msgstr "%d %s und %s"
@@ -67,7 +67,7 @@ msgstr[1] "%d Personen gefällt das"
 msgid "%d to %d of %d"
 msgstr "%d bis %d von %d"
 
-#: lib/Block/Weather.php:252
+#: templates/block/weather_content.html.php:73
 #, php-format
 msgid "%d-day forecast"
 msgstr "%d-Tage-Vorhersage"
@@ -212,7 +212,7 @@ msgstr "Kontoinformationen"
 msgid "Account Password"
 msgstr "Kontopasswort"
 
-#: templates/activesync/device_table.html.php:9
+#: templates/activesync/device_table.html.php:11
 msgid "Actions"
 msgstr "Aktionen"
 
@@ -391,7 +391,7 @@ msgstr "Antwort"
 msgid "Application"
 msgstr "Anwendung"
 
-#: templates/admin/phpshell.html.php:6
+#: templates/admin/phpshell.html.php:8
 msgid "Application Context"
 msgstr "Anwendungskontext"
 
@@ -510,7 +510,7 @@ msgstr "Baltisch (ISO-8859-13)"
 msgid "Basic"
 msgstr "Einfach"
 
-#: templates/activesync/device_table.html.php:54
+#: templates/activesync/device_table.html.php:58
 msgid "Block"
 msgstr "Blockieren"
 
@@ -556,11 +556,11 @@ msgstr ""
 "tatsächlich gelöscht wurden, nur dass keine Fehlermeldung zurückgegeben "
 "wurde."
 
-#: templates/activesync/device_table.html.php:8
+#: templates/activesync/device_table.html.php:9
 msgid "Cached Collections"
 msgstr "Gecachte Collections"
 
-#: templates/activesync/device_table.html.php:32
+#: templates/activesync/device_table.html.php:34
 msgid "Cached Heartbeat (seconds)"
 msgstr "Gespeicherter Heartbeat (Sekunden)"
 
@@ -581,7 +581,7 @@ msgstr "Abbrechen"
 msgid "Cancel Problem Report"
 msgstr "Problembericht abbrechen"
 
-#: templates/activesync/device_table.html.php:47
+#: templates/activesync/device_table.html.php:51
 msgid "Cancel Wipe"
 msgstr "Löschen abbrechen"
 
@@ -607,7 +607,7 @@ msgstr "Mitteleuropäisch (ISO-8859-2)"
 msgid "Change"
 msgstr "Ändern"
 
-#: lib/Block/Weather.php:134
+#: templates/block/weather.html.php:4
 msgid "Change Location"
 msgstr "Ort ändern"
 
@@ -688,7 +688,7 @@ msgstr "Cache leeren"
 msgid "Clear Hashtable"
 msgstr "Hashtable leeren"
 
-#: templates/admin/sqlshell.html.php:56
+#: templates/admin/sqlshell.html.php:58
 msgid "Clear Query"
 msgstr "Abfrage zurücksetzen"
 
@@ -751,7 +751,7 @@ msgstr "Farbauswahl"
 msgid "Comics"
 msgstr "Comics"
 
-#: templates/admin/cmdshell.html.php:2 templates/admin/cmdshell.html.php:17
+#: templates/admin/cmdshell.html.php:2 templates/admin/cmdshell.html.php:19
 msgid "Command"
 msgstr "Befehl"
 
@@ -772,7 +772,7 @@ msgstr "Eindeutiger Name"
 msgid "Computers"
 msgstr "Computer"
 
-#: lib/Block/Weather.php:265
+#: templates/block/weather_content.html.php:79
 msgid "Condition"
 msgstr "Bedingungen"
 
@@ -938,7 +938,7 @@ msgstr "Aktuelle Zeit"
 msgid "Current Weather"
 msgstr "Aktuelles Wetter"
 
-#: lib/Block/Weather.php:244
+#: templates/block/weather_content.html.php:67
 msgid "Current condition"
 msgstr "Aktuelle Bedingungen"
 
@@ -994,7 +994,7 @@ msgstr "Empfangsdatum"
 msgid "Date: %s; time: %s"
 msgstr "Datum: %s; Uhrzeit: %s"
 
-#: lib/Block/Weather.php:260
+#: templates/block/weather_content.html.php:77
 msgid "Day"
 msgstr "Tag"
 
@@ -1093,11 +1093,11 @@ msgstr "Geräte-Typ"
 msgid "Device encryption"
 msgstr "Geräteverschlüsselung"
 
-#: templates/activesync/device_table.html.php:17
+#: templates/activesync/device_table.html.php:19
 msgid "Device is Blocked."
 msgstr "Gerät ist blockiert."
 
-#: templates/activesync/device_table.html.php:15
+#: templates/activesync/device_table.html.php:17
 msgid "Device is Wiped. Remove device state to allow device to reconnect."
 msgstr ""
 "Gerät wurde gelöscht. Entfernen Sie den Geräte-Status, um dem Gerät zu "
@@ -1119,7 +1119,7 @@ msgstr "Taupunkt"
 msgid "Dew Point for last hour: "
 msgstr "Taupunkt der letzten Stunde: "
 
-#: lib/Block/Weather.php:195
+#: templates/block/weather_content.html.php:34
 msgid "Dew point"
 msgstr "Taupunkt"
 
@@ -1141,12 +1141,16 @@ msgid "Display Preferences"
 msgstr "Anzeige-Einstellungen"
 
 #: lib/Block/Weather.php:104
-msgid "Display detailed forecast"
-msgstr "Detailierte Vorhersage anzeigen"
+msgid "Display detailed forecast?"
+msgstr "Detailierte Vorhersage anzeigen?"
 
 #: lib/Block/Metar.php:72
 msgid "Display forecast (TAF)"
 msgstr "Vorhersage (TAF) anzeigen"
+
+#: lib/Block/Weather.php:109
+msgid "Display the OpenWeatherMap map?"
+msgstr "Die OpenWeatherMap-Karte anzeigen?"
 
 #: templates/admin/hashtable.html.php:14
 msgid "Does the backend provide locking support?"
@@ -1192,7 +1196,7 @@ msgstr "Dynamisch"
 msgid "EU VAT identification"
 msgstr "EU-UStId-Identifizierung"
 
-#: lib/View/Sidebar.php:223 templates/shares/edit.inc:66
+#: lib/View/Sidebar.php:229 templates/shares/edit.inc:66
 #: templates/shares/edit.inc:83 templates/shares/edit.inc:101
 #: templates/shares/edit.inc:118 templates/shares/edit.inc:137
 #: templates/shares/edit.inc:154 templates/shares/edit.inc:172
@@ -1325,14 +1329,18 @@ msgstr "Alle 60 Sekunden"
 msgid "Example values:"
 msgstr "Beispielwerte:"
 
-#: templates/admin/cmdshell.html.php:22 templates/admin/phpshell.html.php:21
-#: templates/admin/sqlshell.html.php:55
+#: templates/admin/cmdshell.html.php:24 templates/admin/phpshell.html.php:23
+#: templates/admin/sqlshell.html.php:57
 msgid "Execute"
 msgstr "Ausführen"
 
 #: lib/View/Sidebar.php:66 templates/sidebar/_container.html.php:14
 msgid "Expand"
 msgstr "Vergrößern"
+
+#: templates/block/weather_content.html.php:14
+msgid "Expires: "
+msgstr "Läuft ab: "
 
 #: lib/Block/Iframe.php:38
 msgid "Extra Large"
@@ -1405,7 +1413,7 @@ msgstr "Vorhersage (TAF)"
 #: lib/Block/Weather.php:98
 msgid ""
 "Forecast Days (note that the returned forecast returns both day and night; a "
-"large number here could result in a wide block)"
+"large number here could result in a wide block.)"
 msgstr ""
 "Vorhergesagte Tage (Vorhersagen enthalten Tage und Nächte, ein hoher Wert "
 "kann zu einem sehr großen Block führen)"
@@ -1442,12 +1450,12 @@ msgstr "Foren"
 msgid "Friends enabled."
 msgstr "Freunde aktiviert."
 
-#: lib/Block/Weather.php:221
+#: templates/block/weather_content.html.php:50
 #, php-format
-msgid "From the %s (%s &deg;) at %s %s"
-msgstr "aus %s (%s &deg;) mit %s %s"
+msgid "From the %s (%s&deg;) at %s %s"
+msgstr "aus %s (%s&deg;) mit %s %s"
 
-#: lib/Block/Weather.php:332
+#: templates/block/weather_content.html.php:111
 #, php-format
 msgid "From the %s at %s %s"
 msgstr "aus %s mit %s %s"
@@ -1586,7 +1594,8 @@ msgstr "Wieviele Felder (Spalten) gibt es?"
 msgid "How many seconds before we check for new articles?"
 msgstr "Nach wie vielen Sekunden soll nach neuen Beiträgen geschaut werden?"
 
-#: lib/Block/Metar.php:204 lib/Block/Weather.php:233 lib/Block/Weather.php:273
+#: lib/Block/Metar.php:204 templates/block/weather_content.html.php:58
+#: templates/block/weather_content.html.php:85
 msgid "Humidity"
 msgstr "Luftfeuchtigkeit"
 
@@ -1802,7 +1811,7 @@ msgstr "Limerick"
 msgid "Linux Cookie"
 msgstr "Linux-Glückskekse"
 
-#: templates/admin/sqlshell.html.php:60
+#: templates/admin/sqlshell.html.php:62
 msgid "List Tables"
 msgstr "Tabellen anzeigen"
 
@@ -1840,7 +1849,7 @@ msgstr "Das Anzeigen der Benutzer ist nicht möglich."
 msgid "Literature"
 msgstr "Literatur"
 
-#: lib/Block/Weather.php:173
+#: templates/block/weather_content.html.php:4
 #, php-format
 msgid "Local time: %s %s (UTC %s)"
 msgstr "Lokale Zeit: %s %s (UTC %s)"
@@ -1884,7 +1893,7 @@ msgstr ""
 msgid "Login failed."
 msgstr "Anmeldung fehlgeschlagen."
 
-#: login.php:399
+#: login.php:405
 #, php-format
 msgid "Login to %s"
 msgstr "Anmelden bei %s"
@@ -2071,8 +2080,9 @@ msgstr "Mein Portal"
 msgid "My Portal Layout"
 msgstr "Mein Portallayout"
 
-#: lib/Block/Weather.php:322 lib/Block/Weather.php:326
-#: lib/Block/Weather.php:342
+#: templates/block/weather_content.html.php:104
+#: templates/block/weather_content.html.php:107
+#: templates/block/weather_content.html.php:113
 msgid "N/A"
 msgstr "k.A."
 
@@ -2212,7 +2222,7 @@ msgstr "NoSQL-Indizes für %s"
 msgid "NoSQL indices out of date."
 msgstr "NoSQL-Indizes müssen aktualisiert werden."
 
-#: templates/activesync/device_table.html.php:26
+#: templates/activesync/device_table.html.php:28
 #: templates/admin/activesync.html.php:28
 #: templates/prefs/activesync.html.php:30 templates/prefs/syncml.html.php:34
 msgid "None"
@@ -2226,7 +2236,7 @@ msgstr "Nordisch (ISO-8859-10)"
 msgid "Northern Hemisphere"
 msgstr "Nördliche Hemisphere"
 
-#: templates/activesync/device_table.html.php:19
+#: templates/activesync/device_table.html.php:21
 msgid "Not Provisioned"
 msgstr "Nicht verknüpft"
 
@@ -2319,11 +2329,11 @@ msgstr "Besitzer"
 msgid "Owner:"
 msgstr "Besitzer:"
 
-#: templates/admin/phpshell.html.php:15
+#: templates/admin/phpshell.html.php:17
 msgid "PHP"
 msgstr "PHP"
 
-#: templates/admin/phpshell.html.php:27
+#: templates/admin/phpshell.html.php:29
 msgid "PHP Code"
 msgstr "PHP Code"
 
@@ -2361,7 +2371,7 @@ msgstr "Passwort erfolgreich geändert."
 msgid "Passwords must match."
 msgstr "Die Passwörter müssen gleich sein."
 
-#: templates/admin/sqlshell.html.php:43
+#: templates/admin/sqlshell.html.php:45
 msgid "Paste"
 msgstr "Einfügen"
 
@@ -2456,12 +2466,12 @@ msgid_plural "Precipitation for last %d hours: "
 msgstr[0] "Niederschlag in der letzten %d Stunde: "
 msgstr[1] "Niederschlag in den letzten %d Stunden: "
 
-#: lib/Block/Weather.php:269
+#: templates/block/weather_content.html.php:82
 #, php-format
 msgid "Precipitation%schance"
 msgstr "Niederschlags-%swahrscheinlichkeit"
 
-#: lib/Block/Metar.php:199 lib/Block/Weather.php:206
+#: lib/Block/Metar.php:199 templates/block/weather_content.html.php:39
 msgid "Pressure"
 msgstr "Luftdruck"
 
@@ -2477,7 +2487,7 @@ msgstr "Resource"
 msgid "Problem Description"
 msgstr "Problembeschreibung"
 
-#: templates/activesync/device_table.html.php:19
+#: templates/activesync/device_table.html.php:21
 msgid "Provisioned"
 msgstr "Verknüpft"
 
@@ -2489,7 +2499,7 @@ msgstr "Verknüpfung"
 msgid "Publish enabled."
 msgstr "Veröffentlichungen aktiviert."
 
-#: templates/admin/sqlshell.html.php:7
+#: templates/admin/sqlshell.html.php:9
 msgid "Query"
 msgstr "Abfrage"
 
@@ -2553,7 +2563,7 @@ msgstr "Bemerkungen"
 msgid "Remote Host"
 msgstr "Entfernter Rechner"
 
-#: templates/activesync/device_table.html.php:49
+#: templates/activesync/device_table.html.php:53
 #: templates/admin/groups/edit.inc:25 templates/admin/user/approve.inc:41
 #: templates/admin/user/removequeued.inc:13
 msgid "Remove"
@@ -2610,12 +2620,12 @@ msgstr "Status aller Geräte zurücksetzen"
 msgid "Reset your password"
 msgstr "Passwort zurücksetzen"
 
-#: templates/admin/sqlshell.html.php:58
+#: templates/admin/sqlshell.html.php:60
 msgid "Restore Last Query"
 msgstr "Letzte Abfrage einfügen"
 
-#: templates/admin/cmdshell.html.php:7 templates/admin/phpshell.html.php:32
-#: templates/admin/sqlshell.html.php:11
+#: templates/admin/cmdshell.html.php:7 templates/admin/phpshell.html.php:34
+#: templates/admin/sqlshell.html.php:13
 msgid "Results"
 msgstr "Ergebnisse"
 
@@ -2645,7 +2655,7 @@ msgstr "Konfiguration zurücksetzen"
 msgid "Riddles"
 msgstr "Rätsel"
 
-#: templates/admin/sqlshell.html.php:44
+#: templates/admin/sqlshell.html.php:46
 msgid "Run"
 msgstr "Starten"
 
@@ -2840,7 +2850,7 @@ msgstr ""
 "und andere Anzeigeeinstellungen fest."
 
 # Mehrere passende Orte mit diesem Parameter:
-#: lib/Block/Weather.php:150
+#: templates/block/weather.html.php:13
 #, php-format
 msgid "Several locations possible with the parameter: %s"
 msgstr "Mehrere passende Orte mit dem Parameter: %s"
@@ -2936,6 +2946,10 @@ msgstr "Star Trek"
 msgid "Start Time"
 msgstr "Startzeit"
 
+#: templates/block/weather_content.html.php:14
+msgid "Starts: "
+msgstr "Beginnt: "
+
 #: templates/prefs/activesync.html.php:13
 msgid "State Management"
 msgstr "Statusverwaltung"
@@ -2968,7 +2982,7 @@ msgstr ""
 "Erfolgreich mit Ihrem Facebook-Konto verbunden oder Rechte aktualisiert."
 
 #: templates/admin/cache.html.php:12 templates/admin/hashtable.html.php:20
-#: templates/admin/sqlshell.html.php:15
+#: templates/admin/sqlshell.html.php:17
 msgid "Success"
 msgstr "Erfolg"
 
@@ -3024,7 +3038,8 @@ msgstr "Sonnenuntergang"
 msgid "Sunday"
 msgstr "Sonntag"
 
-#: lib/Block/Weather.php:180 lib/Block/Weather.php:181
+#: templates/block/weather_content.html.php:21
+#: templates/block/weather_content.html.php:22
 msgid "Sunrise"
 msgstr "Sonnenaufgang"
 
@@ -3032,7 +3047,8 @@ msgstr "Sonnenaufgang"
 msgid "Sunrise/Sunset"
 msgstr "Sonnenauf/untergang"
 
-#: lib/Block/Weather.php:183 lib/Block/Weather.php:184
+#: templates/block/weather_content.html.php:24
+#: templates/block/weather_content.html.php:25
 msgid "Sunset"
 msgstr "Sonnenuntergang"
 
@@ -3060,11 +3076,11 @@ msgstr "Aufgaben"
 msgid "Temp for last hour: "
 msgstr "Temperatur der letzten Stunde: "
 
-#: lib/Block/Metar.php:188 lib/Block/Weather.php:190
+#: lib/Block/Metar.php:188 templates/block/weather_content.html.php:31
 msgid "Temperature"
 msgstr "Temperatur"
 
-#: lib/Block/Weather.php:261
+#: templates/block/weather_content.html.php:78
 #, php-format
 msgid "Temperature%s(%sHi%s/%sLo%s)"
 msgstr "Temperatur%s(%sMax%s/%sMin%s)"
@@ -3306,11 +3322,11 @@ msgstr ""
 "Halten Sie beim Klicken Strg (PC) bzw. Command (Mac) gedrückt, um mehrere "
 "Einträge auszuwählen."
 
-#: lib/Block/Weather.php:294
+#: templates/block/weather_content.html.php:99
 msgid "Today"
 msgstr "Heute"
 
-#: lib/Block/Weather.php:296
+#: templates/block/weather_content.html.php:99
 msgid "Tomorrow"
 msgstr "Morgen"
 
@@ -3366,7 +3382,7 @@ msgstr ""
 msgid "Unavailable"
 msgstr "Nicht verfügbar"
 
-#: templates/activesync/device_table.html.php:52
+#: templates/activesync/device_table.html.php:56
 msgid "Unblock"
 msgstr "Freigeben"
 
@@ -3543,7 +3559,7 @@ msgstr "Vietnamesisch (VISCII)"
 msgid "View an external web page"
 msgstr "Externe Webseite anzeigen"
 
-#: lib/Block/Metar.php:183 lib/Block/Weather.php:238
+#: lib/Block/Metar.php:183 templates/block/weather_content.html.php:63
 msgid "Visibility"
 msgstr "Sicht"
 
@@ -3559,7 +3575,8 @@ msgstr "Warnung: Ihre Hochstelltaste ist aktiviert!"
 msgid "Weather"
 msgstr "Wetter"
 
-#: lib/Block/Weather.php:354 lib/Block/Weather.php:362
+#: templates/block/weather_content.html.php:123
+#: templates/block/weather_content.html.php:125
 msgid "Weather data provided by"
 msgstr "Wetterdaten von"
 
@@ -3626,7 +3643,8 @@ msgstr "WLAN"
 msgid "Wiki"
 msgstr "Wiki"
 
-#: lib/Block/Weather.php:219 lib/Block/Weather.php:277
+#: templates/block/weather_content.html.php:49
+#: templates/block/weather_content.html.php:88
 msgid "Wind"
 msgstr "Wind"
 
@@ -3638,11 +3656,11 @@ msgstr "Windgeschwindigtkeit in Knoten"
 msgid "Wind:"
 msgstr "Wind:"
 
-#: templates/activesync/device_table.html.php:44
+#: templates/activesync/device_table.html.php:48
 msgid "Wipe"
 msgstr "Löschen"
 
-#: templates/activesync/device_table.html.php:13
+#: templates/activesync/device_table.html.php:15
 msgid "Wipe Pending"
 msgstr "Löschung steht an"
 
@@ -3962,7 +3980,8 @@ msgstr "windstill"
 msgid "from the %s (%s) at %s %s"
 msgstr "aus %s (%s) mit %s %s"
 
-#: lib/Block/Weather.php:227 lib/Block/Weather.php:337
+#: templates/block/weather_content.html.php:52
+#: templates/block/weather_content.html.php:111
 msgid "gusting"
 msgstr "böig"
 

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gollem H5 (3.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-01-29 11:44+0100\n"
+"POT-Creation-Date: 2015-12-28 17:25+0100\n"
 "PO-Revision-Date: 2013-01-29 11:58+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
@@ -508,7 +508,7 @@ msgstr "Die Datei \"%s\" konnte nicht gelöscht werden: %s"
 msgid "Unable to delete folder %s: %s"
 msgstr "Das Verzeichnis \"%s\" konnte nicht gelöscht werden: %s"
 
-#: lib/Gollem.php:687 lib/Gollem.php:697
+#: lib/Gollem.php:688 lib/Gollem.php:698
 #, php-format
 msgid "Up to %s"
 msgstr "Hoch nach %s"

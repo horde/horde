@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Nag H5 (4.2-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2015-03-24 10:40+0100\n"
-"PO-Revision-Date: 2015-03-24 11:03+0100\n"
+"POT-Creation-Date: 2015-12-28 17:25+0100\n"
+"PO-Revision-Date: 2015-12-29 17:53+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
 "Language: de\n"
@@ -62,7 +62,7 @@ msgstr "%d Minute"
 msgid "%d minutes"
 msgstr "%d Minuten"
 
-#: lib/Ui/VarRenderer/Nag.php:380
+#: lib/Ui/VarRenderer/Nag.php:411
 #, php-format
 msgid "%s %s days of %s"
 msgstr "%s %s Tagen vom %s"
@@ -125,7 +125,7 @@ msgstr "(Höchste)"
 msgid "(lowest)"
 msgstr "(Niedrigste)"
 
-#: lib/Form/Type/NagRecurrence.php:127
+#: lib/Form/Type/NagRecurrence.php:136
 msgid "A due date is necessary to enable recurrences."
 msgstr ""
 "Ein Fälligkeitsdatum muss angegeben sein, um Wiederholungen zu verwenden."
@@ -138,7 +138,7 @@ msgstr "Ein Fälligkeitsdatum muss angegeben sein, um den Alarm zu aktivieren."
 msgid "Access denied completing this task."
 msgstr "Zugriff verweigert beim Erledigen dieser Aufgabe."
 
-#: app/controllers/SaveTask.php:34
+#: app/controllers/SaveTask.php:36
 msgid "Access denied deleting task"
 msgstr "Zugriff verweigert beim Löschen der Aufgabe"
 
@@ -151,11 +151,11 @@ msgstr "Zugriff verweigert beim Löschen der Aufgabe."
 msgid "Access denied deleting task: %s"
 msgstr "Zugriff verweigert beim Löschen der Aufgabe: %s"
 
-#: task.php:101 task.php:107
+#: task.php:99 task.php:105
 msgid "Access denied editing task."
 msgstr "Zugriff verweigert beim Bearbeiten der Aufgabe."
 
-#: task.php:98
+#: task.php:96
 #, php-format
 msgid "Access denied editing task: %s"
 msgstr "Zugriff verweigert beim Bearbeiten der Aufgabe: %s"
@@ -170,11 +170,11 @@ msgid "Access denied removing task from this task list."
 msgstr ""
 "Zugriff verweigert beim Entfernen der Aufgabe von dieser Aufgabenliste."
 
-#: app/controllers/SaveTask.php:61
+#: app/controllers/SaveTask.php:64
 msgid "Access denied saving task to this task list."
 msgstr "Zugriff verweigert beim Speichern der Aufgabe in diese Aufgabenliste."
 
-#: app/controllers/SaveTask.php:57
+#: app/controllers/SaveTask.php:60
 #, php-format
 msgid "Access denied saving task: %s"
 msgstr "Zugriff verweigert beim Speichern der Aufgabe: %s"
@@ -274,7 +274,7 @@ msgstr "CalDAV-Konto-Adresse"
 msgid "CalDAV Subscription URL"
 msgstr "CalDAV-Abonnement-Adresse"
 
-#: lib/Ui/VarRenderer/Nag.php:121 lib/Ui/VarRenderer/Nag.php:421
+#: lib/Ui/VarRenderer/Nag.php:121 lib/Ui/VarRenderer/Nag.php:452
 msgid "Calendar"
 msgstr "Kalender"
 
@@ -498,7 +498,7 @@ msgstr "Erstellt"
 msgid "Daily: Recurs every"
 msgstr "Täglich: Wiederholung alle"
 
-#: lib/Ui/VarRenderer/Nag.php:111 lib/Ui/VarRenderer/Nag.php:411
+#: lib/Ui/VarRenderer/Nag.php:111 lib/Ui/VarRenderer/Nag.php:442
 msgid "Date"
 msgstr "Datum"
 
@@ -545,7 +545,7 @@ msgstr "Smartliste löschen"
 msgid "Delete behaviour"
 msgstr "Verhalten beim Löschen"
 
-#: task.php:39
+#: task.php:37
 #, php-format
 msgid "Deleted %s."
 msgstr "%s gelöscht."
@@ -608,7 +608,7 @@ msgstr "Fälligkeitsdatum angegeben."
 msgid "Due date:"
 msgstr "Fälligkeitsdatum:"
 
-#: lib/Ui/VarRenderer/Nag.php:384
+#: lib/Ui/VarRenderer/Nag.php:415
 msgid "E.g., Is due within 2 days of today"
 msgstr "Z.B.: Ist fällig in 2 Tagen von heute"
 
@@ -626,7 +626,7 @@ msgstr "%s bearbeiten"
 msgid "Edit Task"
 msgstr "Aufgabe bearbeiten"
 
-#: app/controllers/SaveTask.php:12 task.php:124
+#: app/controllers/SaveTask.php:12 task.php:122
 #, php-format
 msgid "Edit: %s"
 msgstr "Bearbeiten: %s"
@@ -649,7 +649,7 @@ msgstr ""
 "Reinigung abholen\". Tags können hinzugefügt werden, indem Sie diesen das \"#"
 "\"-Zeichen voranstellen."
 
-#: app/controllers/SaveTask.php:43 task.php:44
+#: app/controllers/SaveTask.php:47 task.php:42
 #, php-format
 msgid "Error deleting task: %s"
 msgstr "Fehler beim Löschen der Aufgabe: %s"
@@ -745,7 +745,7 @@ msgstr "Ungültige Aufgabenliste angegeben."
 msgid "Invalid task list requested."
 msgstr "Ungültige Aufgabenliste angegeben."
 
-#: lib/Ui/VarRenderer/Nag.php:381
+#: lib/Ui/VarRenderer/Nag.php:412
 msgid "Is due within"
 msgstr "Ist fällig in"
 
@@ -758,7 +758,7 @@ msgstr "Letzte Änderung"
 msgid "Lists"
 msgstr "Listen"
 
-#: lib/Ui/VarRenderer/Nag.php:438 lib/Ui/VarRenderer/Nag.php:458
+#: lib/Ui/VarRenderer/Nag.php:469 lib/Ui/VarRenderer/Nag.php:489
 msgid "Loading..."
 msgstr "Lade..."
 
@@ -796,6 +796,7 @@ msgid "Mo"
 msgstr "Mo"
 
 #: lib/Ui/VarRenderer/Nag.php:267 lib/Ui/VarRenderer/Nag.php:282
+#: lib/Ui/VarRenderer/Nag.php:297
 msgid "Monthly: Recurs every"
 msgstr "Monatlich: Wiederholung alle"
 
@@ -803,7 +804,7 @@ msgstr "Monatlich: Wiederholung alle"
 msgid "More Options..."
 msgstr "Weitere Optionen..."
 
-#: lib/Api.php:1362
+#: lib/Api.php:1368
 msgid "Multiple iCalendar components found; only one vTodo is supported."
 msgstr ""
 "Mehrere iCalendar-Komponenten gefunden; nur ein vTodo wird unterstützt."
@@ -836,7 +837,7 @@ msgid "New"
 msgstr "Neu"
 
 #: app/controllers/SaveTask.php:12 lib/Application.php:320
-#: lib/Smartmobile.php:122 task.php:89 test/Nag/Unit/Form/Task/Base.php:72
+#: lib/Smartmobile.php:122 task.php:87 test/Nag/Unit/Form/Task/Base.php:72
 #: test/Nag/Unit/Form/Task/Base.php:86
 msgid "New Task"
 msgstr "Neue Aufgabe"
@@ -857,7 +858,7 @@ msgstr ""
 "Es wurden keine Teilnehmer aktualisiert, weil keine der angegebenen E-Mail-"
 "Adressen in der Teilnehmerliste gefunden wurde."
 
-#: lib/Ui/VarRenderer/Nag.php:408
+#: lib/Ui/VarRenderer/Nag.php:439
 msgid "No delay"
 msgstr "Keine Verzögerung"
 
@@ -865,11 +866,11 @@ msgstr "Keine Verzögerung"
 msgid "No due date."
 msgstr "Kein Fälligkeitsdatum"
 
-#: lib/Ui/VarRenderer/Nag.php:346
+#: lib/Ui/VarRenderer/Nag.php:361
 msgid "No end date"
 msgstr "Kein Ende"
 
-#: lib/Api.php:1027 lib/Api.php:1061 lib/Api.php:1369
+#: lib/Api.php:1033 lib/Api.php:1067 lib/Api.php:1375
 msgid "No iCalendar data was found."
 msgstr "Es wurden keine iCalendar-Daten gefunden."
 
@@ -959,7 +960,7 @@ msgstr "Priorität"
 msgid "Private"
 msgstr "Privat"
 
-#: data.php:54 lib/Task.php:835
+#: data.php:54 lib/Task.php:882
 msgid "Private Task"
 msgstr "Private Aufgabe"
 
@@ -977,10 +978,10 @@ msgstr "Erledigte Aufgaben nach so vielen Tagen endgültig löschen."
 
 #: lib/LoginTasks/Task/PurgeCompleted.php:66
 #, php-format
-msgid "Purging %d completed task."
-msgid_plural "Purging %d completed tasks."
-msgstr[0] "Lösche %d erledigte Aufgabe."
-msgstr[1] "Lösche %d erledigte Aufgaben."
+msgid "Purged %d completed task."
+msgid_plural "Purged %d completed tasks."
+msgstr[0] "%d erledigte Aufgabe gelöscht."
+msgstr[1] "%d erledigte Aufgaben gelöscht."
 
 #: templates/quick.inc:2
 msgid "Quick Task Creation"
@@ -1000,7 +1001,7 @@ msgstr ""
 msgid "Really delete this task?"
 msgstr "Diese Aufgabe wirklich löschen?"
 
-#: lib/Ui/VarRenderer/Nag.php:344
+#: lib/Ui/VarRenderer/Nag.php:359
 msgid "Recur Until"
 msgstr "Wiederholen bis"
 
@@ -1050,7 +1051,7 @@ msgstr "Suche als Smartliste speichern?"
 msgid "Saved %s"
 msgstr "%s gespeichert"
 
-#: app/controllers/SaveTask.php:103
+#: app/controllers/SaveTask.php:106
 #, php-format
 msgid "Saved %s."
 msgstr "%s gespeichert."
@@ -1110,7 +1111,7 @@ msgstr ""
 msgid "Select the task states to export:"
 msgstr "Wählen Sie den Status der Aufgaben, die exportiert werden sollen:"
 
-#: lib/Ui/VarRenderer/Nag.php:357
+#: lib/Ui/VarRenderer/Nag.php:372
 msgid "Set recurrence end date"
 msgstr "Wiederholungsende festlegen"
 
@@ -1184,7 +1185,7 @@ msgstr "Beginn"
 msgid "Start Date"
 msgstr "Startdatum"
 
-#: lib/Ui/VarRenderer/Nag.php:410
+#: lib/Ui/VarRenderer/Nag.php:441
 msgid "Start date specified."
 msgstr "Startdatum angegeben."
 
@@ -1192,7 +1193,7 @@ msgstr "Startdatum angegeben."
 msgid "Su"
 msgstr "So"
 
-#: task.php:28
+#: lib/Driver.php:411
 msgid "Sub tasks exist, delete them first"
 msgstr "Es existieren noch Unteraufgaben, löschen Sie diese zuerst"
 
@@ -1303,15 +1304,15 @@ msgstr "Aufgabe geändert:"
 msgid "Task not found"
 msgstr "Aufgabe nicht gefunden"
 
-#: task.php:105
+#: task.php:103
 msgid "Task not found."
 msgstr "Aufgabe nicht gefunden."
 
-#: app/controllers/SaveTask.php:46
+#: app/controllers/SaveTask.php:44
 msgid "Task successfully deleted"
 msgstr "Aufgabe erfolgreich gelöscht"
 
-#: lib/Api.php:1451 lib/Tasklists/Kolab.php:41
+#: lib/Api.php:1457 lib/Tasklists/Kolab.php:41
 msgid "Tasks"
 msgstr "Aufgaben"
 
@@ -1423,12 +1424,12 @@ msgstr "Es gibt keine Aufgaben, die den Suchkriterien entsprechen."
 msgid "There was a problem completing %s: %s"
 msgstr "Beim Erledigen von %s ist ein Problem aufgetreten: %s"
 
-#: task.php:35
+#: task.php:33
 #, php-format
 msgid "There was a problem deleting %s: %s"
 msgstr "Beim Löschen von %s ist ein Problem aufgetreten: %s"
 
-#: app/controllers/SaveTask.php:93
+#: app/controllers/SaveTask.php:96
 #, php-format
 msgid "There was a problem saving the task: %s."
 msgstr "Beim Speichern der Aufgabe ist ein Fehler aufgetreten: %s."
@@ -1444,7 +1445,7 @@ msgstr ""
 msgid "There was an error importing the data: %s"
 msgstr "Beim Importieren der Daten ist ein Fehler aufgetreten: %s"
 
-#: lib/Api.php:606 lib/Api.php:1019 lib/Api.php:1354 lib/Application.php:579
+#: lib/Api.php:606 lib/Api.php:1025 lib/Api.php:1360 lib/Application.php:579
 msgid "There was an error importing the iCalendar data."
 msgstr "Beim Importieren der iCalendar Daten ist ein Fehler aufgetreten."
 
@@ -1513,8 +1514,8 @@ msgstr "Die Aufgabenliste \"%s\" kann nicht gespeichert werden: %s"
 msgid "Unique ID"
 msgstr "Eindeutige ID"
 
-#: lib/Api.php:709 lib/Api.php:1078 lib/Api.php:1202 lib/Api.php:1268
-#: lib/Api.php:1386
+#: lib/Api.php:709 lib/Api.php:1084 lib/Api.php:1208 lib/Api.php:1274
+#: lib/Api.php:1392
 #, php-format
 msgid "Unsupported Content-Type: %s"
 msgstr "Nicht unterstützer Inhaltstyp: %s"
@@ -1572,8 +1573,8 @@ msgstr "Soll eine neue Aufgabe standardmäßig ein Fälligkeitsdatum haben?"
 msgid "Which task list should the tasks be added to?"
 msgstr "Zu welcher Aufgabenliste sollen die Aufgaben hinzugefügt werden?"
 
-#: lib/Ui/VarRenderer/Nag.php:297 lib/Ui/VarRenderer/Nag.php:312
-#: lib/Ui/VarRenderer/Nag.php:327
+#: lib/Ui/VarRenderer/Nag.php:312 lib/Ui/VarRenderer/Nag.php:327
+#: lib/Ui/VarRenderer/Nag.php:342
 msgid "Yearly: Recurs every"
 msgstr "Jährlich: Wiederholung alle"
 
@@ -1581,7 +1582,7 @@ msgstr "Jährlich: Wiederholung alle"
 msgid "You are not allowed to change this task list."
 msgstr "Sie dürfen diese Aufgabenliste nicht ändern."
 
-#: data.php:38 data.php:114 task.php:78
+#: data.php:38 data.php:114 task.php:76
 #, php-format
 msgid "You are not allowed to create more than %d tasks."
 msgstr "Sie dürfen nicht an mehr als %d Aufgaben erstellen."
@@ -1762,6 +1763,7 @@ msgid "in %s"
 msgstr "in %s"
 
 #: lib/Ui/VarRenderer/Nag.php:269 lib/Ui/VarRenderer/Nag.php:284
+#: lib/Ui/VarRenderer/Nag.php:299
 msgid "month(s)"
 msgstr "Monat(e)"
 
@@ -1789,6 +1791,10 @@ msgstr "nicht erledigt"
 msgid "on the same date"
 msgstr "am gleichen Datum"
 
+#: lib/Ui/VarRenderer/Nag.php:299
+msgid "on the same last weekday"
+msgstr "am gleichen letzten Wochentag"
+
 #: lib/Ui/VarRenderer/Nag.php:284
 msgid "on the same weekday"
 msgstr "am gleichen Wochentag"
@@ -1797,7 +1803,7 @@ msgstr "am gleichen Wochentag"
 msgid "pm"
 msgstr "pm"
 
-#: lib/Ui/VarRenderer/Nag.php:368
+#: lib/Ui/VarRenderer/Nag.php:383
 msgid "recurrences"
 msgstr "Wiederholungen"
 
@@ -1821,14 +1827,14 @@ msgstr "Woche(n) am:"
 msgid "with"
 msgstr "mit"
 
-#: lib/Ui/VarRenderer/Nag.php:299
+#: lib/Ui/VarRenderer/Nag.php:314
 msgid "year(s) on the same date"
 msgstr "Jahr(e) am gleichen Datum"
 
-#: lib/Ui/VarRenderer/Nag.php:314
+#: lib/Ui/VarRenderer/Nag.php:329
 msgid "year(s) on the same day of the year"
 msgstr "Jahr(e) am gleichen Jahrestag"
 
-#: lib/Ui/VarRenderer/Nag.php:329
+#: lib/Ui/VarRenderer/Nag.php:344
 msgid "year(s) on the same weekday and month of the year"
 msgstr "Jahr(e) am gleichen Wochentag und Monat des Jahres"

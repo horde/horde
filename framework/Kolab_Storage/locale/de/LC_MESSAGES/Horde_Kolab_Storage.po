@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Kolab_Storage\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-06-04 11:28+0200\n"
+"POT-Creation-Date: 2015-12-28 17:25+0100\n"
 "PO-Revision-Date: 2012-10-02 18:10+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -17,147 +17,147 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde/Kolab/Storage/Driver/Cclient.php:103
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:99
 #, php-format
 msgid "Connecting to server %s failed."
 msgstr "Fehler beim Verbinden zum Server %s."
 
-#: lib/Horde/Kolab/Storage/Driver/Cclient.php:222
-#: lib/Horde/Kolab/Storage/Driver/Rcube.php:113
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:218
+#: lib/Horde/Kolab/Storage/Driver/Rcube.php:109
 #, php-format
 msgid "Creating folder %s failed."
 msgstr "Fehler beim Anlegen des Ordners %s."
 
-#: lib/Horde/Kolab/Storage/Driver/Cclient.php:250
-#: lib/Horde/Kolab/Storage/Driver/Rcube.php:138
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:246
+#: lib/Horde/Kolab/Storage/Driver/Rcube.php:134
 #, php-format
 msgid "Deleting folder %s failed."
 msgstr "Fehler beim Löschen des Ordners %s."
 
-#: lib/Horde/Kolab/Storage/Driver/Cclient.php:106
-#: lib/Horde/Kolab/Storage/Driver/Cclient.php:187
-#: lib/Horde/Kolab/Storage/Driver/Cclient.php:225
-#: lib/Horde/Kolab/Storage/Driver/Cclient.php:253
-#: lib/Horde/Kolab/Storage/Driver/Cclient.php:283
-#: lib/Horde/Kolab/Storage/Driver/Cclient.php:327
-#: lib/Horde/Kolab/Storage/Driver/Cclient.php:357
-#: lib/Horde/Kolab/Storage/Driver/Cclient.php:385
-#: lib/Horde/Kolab/Storage/Driver/Cclient.php:456
-#: lib/Horde/Kolab/Storage/Driver/Cclient.php:489
-#: lib/Horde/Kolab/Storage/Driver/Cclient.php:519
-#: lib/Horde/Kolab/Storage/Driver/Cclient.php:551
-#: lib/Horde/Kolab/Storage/Driver/Cclient.php:610
-#: lib/Horde/Kolab/Storage/Driver/Cclient.php:646
-#: lib/Horde/Kolab/Storage/Driver/Cclient.php:680
-#: lib/Horde/Kolab/Storage/Driver/Cclient.php:715
-#: lib/Horde/Kolab/Storage/Driver/Cclient.php:749
-#: lib/Horde/Kolab/Storage/Driver/Cclient.php:786
-#: lib/Horde/Kolab/Storage/Driver/Cclient.php:815
-#: lib/Horde/Kolab/Storage/Driver/Rcube.php:116
-#: lib/Horde/Kolab/Storage/Driver/Rcube.php:141
-#: lib/Horde/Kolab/Storage/Driver/Rcube.php:170
-#: lib/Horde/Kolab/Storage/Driver/Rcube.php:206
-#: lib/Horde/Kolab/Storage/Driver/Rcube.php:236
-#: lib/Horde/Kolab/Storage/Driver/Rcube.php:264
-#: lib/Horde/Kolab/Storage/Driver/Rcube.php:292
-#: lib/Horde/Kolab/Storage/Driver/Rcube.php:346
-#: lib/Horde/Kolab/Storage/Driver/Rcube.php:379
-#: lib/Horde/Kolab/Storage/Driver/Rcube.php:431
-#: lib/Horde/Kolab/Storage/Driver/Rcube.php:459
-#: lib/Horde/Kolab/Storage/Driver/Rcube.php:492
-#: lib/Horde/Kolab/Storage/Driver/Rcube.php:525
-#: lib/Horde/Kolab/Storage/Driver/Rcube.php:566
-#: lib/Horde/Kolab/Storage/Driver/Rcube.php:603
-#: lib/Horde/Kolab/Storage/Driver/Rcube.php:636
-#: lib/Horde/Kolab/Storage/Driver/Rcube.php:665
-#: lib/Horde/Kolab/Storage/Driver/Rcube.php:696
-#: lib/Horde/Kolab/Storage/Driver/Rcube.php:722
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:102
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:183
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:221
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:249
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:279
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:323
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:353
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:381
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:452
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:485
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:515
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:548
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:608
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:644
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:678
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:713
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:747
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:784
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:813
+#: lib/Horde/Kolab/Storage/Driver/Rcube.php:112
+#: lib/Horde/Kolab/Storage/Driver/Rcube.php:137
+#: lib/Horde/Kolab/Storage/Driver/Rcube.php:166
+#: lib/Horde/Kolab/Storage/Driver/Rcube.php:202
+#: lib/Horde/Kolab/Storage/Driver/Rcube.php:232
+#: lib/Horde/Kolab/Storage/Driver/Rcube.php:260
+#: lib/Horde/Kolab/Storage/Driver/Rcube.php:288
+#: lib/Horde/Kolab/Storage/Driver/Rcube.php:342
+#: lib/Horde/Kolab/Storage/Driver/Rcube.php:375
+#: lib/Horde/Kolab/Storage/Driver/Rcube.php:427
+#: lib/Horde/Kolab/Storage/Driver/Rcube.php:456
+#: lib/Horde/Kolab/Storage/Driver/Rcube.php:490
+#: lib/Horde/Kolab/Storage/Driver/Rcube.php:523
+#: lib/Horde/Kolab/Storage/Driver/Rcube.php:564
+#: lib/Horde/Kolab/Storage/Driver/Rcube.php:601
+#: lib/Horde/Kolab/Storage/Driver/Rcube.php:634
+#: lib/Horde/Kolab/Storage/Driver/Rcube.php:663
+#: lib/Horde/Kolab/Storage/Driver/Rcube.php:694
+#: lib/Horde/Kolab/Storage/Driver/Rcube.php:720
 #, php-format
 msgid "Error: %s"
 msgstr "Fehler: %s"
 
-#: lib/Horde/Kolab/Storage/Driver/Cclient.php:712
-#: lib/Horde/Kolab/Storage/Driver/Rcube.php:633
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:710
+#: lib/Horde/Kolab/Storage/Driver/Rcube.php:631
 #, php-format
 msgid "Failed appending new message to folder %s."
 msgstr "Fehler beim Speichern einer neuen Nachricht im Ordner %s."
 
-#: lib/Horde/Kolab/Storage/Driver/Rcube.php:289
+#: lib/Horde/Kolab/Storage/Driver/Rcube.php:285
 #, php-format
 msgid "Failed deleting ACL on folder %s for user %s."
 msgstr "Fehler beim Löschen der ACL im Ordner %s für Benutzer %s."
 
-#: lib/Horde/Kolab/Storage/Driver/Cclient.php:746
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:744
 #, php-format
 msgid "Failed deleting message %s in folder %s."
 msgstr "Fehler beim Löschen der Nachricht %s im Ordner %s."
 
-#: lib/Horde/Kolab/Storage/Driver/Rcube.php:662
+#: lib/Horde/Kolab/Storage/Driver/Rcube.php:660
 #, php-format
 msgid "Failed deleting messages from folder %s."
 msgstr "Fehler beim Löschen von Nachrichten im Ordner %s."
 
-#: lib/Horde/Kolab/Storage/Driver/Cclient.php:812
-#: lib/Horde/Kolab/Storage/Driver/Rcube.php:719
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:810
+#: lib/Horde/Kolab/Storage/Driver/Rcube.php:717
 #, php-format
 msgid "Failed expunging folder %s."
 msgstr "Fehler beim Aufräumen des Ordners %s."
 
-#: lib/Horde/Kolab/Storage/Driver/Cclient.php:677
-#: lib/Horde/Kolab/Storage/Driver/Rcube.php:600
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:675
+#: lib/Horde/Kolab/Storage/Driver/Rcube.php:598
 #, php-format
 msgid "Failed fetching body part %s for message %s in folder %s."
 msgstr ""
 "Fehler beim Laden des Nachrichtenteils %s von Nachricht %s im Ordner %s."
 
-#: lib/Horde/Kolab/Storage/Driver/Cclient.php:607
-#: lib/Horde/Kolab/Storage/Driver/Imap.php:420
-#: lib/Horde/Kolab/Storage/Driver/Rcube.php:522
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:605
+#: lib/Horde/Kolab/Storage/Driver/Imap.php:495
+#: lib/Horde/Kolab/Storage/Driver/Rcube.php:520
 #, php-format
 msgid "Failed fetching message %s in folder %s."
 msgstr "Fehler beim Laden der Nachricht %s vom Ordner %s."
 
-#: lib/Horde/Kolab/Storage/Driver/Cclient.php:643
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:641
 #, php-format
 msgid "Failed fetching structure information for messages %s in folder %s."
 msgstr ""
 "Fehler beim Laden der Nachrichtenstruktur für die Nachrichten %s vom Ordner "
 "%s."
 
-#: lib/Horde/Kolab/Storage/Driver/Cclient.php:783
-#: lib/Horde/Kolab/Storage/Driver/Rcube.php:693
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:781
+#: lib/Horde/Kolab/Storage/Driver/Rcube.php:691
 #, php-format
 msgid "Failed moving message %s from folder %s to folder %s."
 msgstr "Fehler beim Verschieben der Nachricht %s vom Ordner %s in Ordner %s."
 
-#: lib/Horde/Kolab/Storage/Driver/Cclient.php:516
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:512
 #, php-format
 msgid "Failed opening folder %s."
 msgstr "Fehler beim Öffnen des Ordners %s."
 
-#: lib/Horde/Kolab/Storage/Driver/Cclient.php:324
-#: lib/Horde/Kolab/Storage/Driver/Rcube.php:203
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:320
+#: lib/Horde/Kolab/Storage/Driver/Rcube.php:199
 #, php-format
 msgid "Failed reading ACL on folder %s."
 msgstr "Fehler beim Lesen der ACL des Ordners %s."
 
-#: lib/Horde/Kolab/Storage/Driver/Cclient.php:354
-#: lib/Horde/Kolab/Storage/Driver/Rcube.php:233
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:350
+#: lib/Horde/Kolab/Storage/Driver/Rcube.php:229
 #, php-format
 msgid "Failed reading user rights on folder %s."
 msgstr "Fehler beim Lesen der Benutzerechte am Ordner %s."
 
-#: lib/Horde/Kolab/Storage/Driver/Rcube.php:489
+#: lib/Horde/Kolab/Storage/Driver/Rcube.php:487
 #, php-format
 msgid "Failed retrieving UIDs for folder %s."
 msgstr "Fehler beim Laden der UIDs des Ordners %s."
 
-#: lib/Horde/Kolab/Storage/Driver/Cclient.php:548
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:545
 #, php-format
 msgid "Failed retrieving status information for folder %s."
 msgstr "Fehler beim Lesen des Status von Ordner %s."
 
-#: lib/Horde/Kolab/Storage/Driver/Rcube.php:563
+#: lib/Horde/Kolab/Storage/Driver/Rcube.php:561
 #, php-format
 msgid "Failed retrieving structure of message %s in folder %s."
 msgstr ""
@@ -171,8 +171,8 @@ msgstr ""
 "Lesen der Nachricht mit der ID %s fehlgeschlagen. Fehlermeldung des Servers: "
 "%s"
 
-#: lib/Horde/Kolab/Storage/Driver/Cclient.php:382
-#: lib/Horde/Kolab/Storage/Driver/Rcube.php:261
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:378
+#: lib/Horde/Kolab/Storage/Driver/Rcube.php:257
 #, php-format
 msgid "Failed setting ACL on folder %s for user %s to %s."
 msgstr "Fehler beim Setzen der ACL im Ordner %s für Benutzer %s nach %s."
@@ -182,7 +182,7 @@ msgstr "Fehler beim Setzen der ACL im Ordner %s für Benutzer %s nach %s."
 msgid "Failed triggering folder %s. Error was: %s"
 msgstr "Fehler beim Anlegen des Ordners %s. Fehlermeldung des Servers: %s"
 
-#: lib/Horde/Kolab/Storage/Factory.php:172
+#: lib/Horde/Kolab/Storage/Factory.php:188
 #, php-format
 msgid ""
 "Invalid \"driver\" parameter \"%s\". Please use one of \"mock\", \"php\", "
@@ -191,21 +191,21 @@ msgstr ""
 "Ungülter \"driver\"-Parameter \"%s\". Bitte benutzen Sie einen aus \"mock\", "
 "\"php\", \"pear\", \"horde\", \"horde-php\", und \"roundcube\"!"
 
-#: lib/Horde/Kolab/Storage/Factory.php:217
+#: lib/Horde/Kolab/Storage/Factory.php:230
 #, php-format
 msgid "Invalid \"namespace\" type \"%s\"!"
 msgstr "Ungültiger \"namespace\"-Typ \"%s\"!"
 
-#: lib/Horde/Kolab/Storage/Driver/Cclient.php:184
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:180
 #, php-format
 msgid "Listing folders for %s failed."
 msgstr "Fehler beim Laden der Ordner von %s."
 
-#: lib/Horde/Kolab/Storage/Factory.php:127
+#: lib/Horde/Kolab/Storage/Factory.php:143
 msgid "Missing \"driver\" parameter!"
 msgstr "\"driver\"-Parameter fehlt!"
 
-#: lib/Horde/Kolab/Storage/Driver/Cclient.php:148
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:144
 msgid "Missing \"host\" parameter!"
 msgstr "\"host\"-Parameter fehlt!"
 
@@ -219,39 +219,39 @@ msgstr "Altes Object %s existiert nicht."
 msgid "Old object %s does not map to a uid."
 msgstr "Das alte Objekt %s kann keiner UID zugeordnet werden."
 
-#: lib/Horde/Kolab/Storage/Driver/Cclient.php:280
-#: lib/Horde/Kolab/Storage/Driver/Rcube.php:167
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:276
+#: lib/Horde/Kolab/Storage/Driver/Rcube.php:163
 #, php-format
 msgid "Renaming folder %s to %s failed."
 msgstr "Fehler beim Umbenennen von Ordner %s nach %s."
 
-#: lib/Horde/Kolab/Storage/Driver/Cclient.php:453
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:449
 #, php-format
 msgid "Retrieving annotation %s[%s] on folder %s failed."
 msgstr "Fehler beim Lesen der Annotation %s[%s] von Ordner %s."
 
-#: lib/Horde/Kolab/Storage/Driver/Rcube.php:456
+#: lib/Horde/Kolab/Storage/Driver/Rcube.php:453
 #, php-format
 msgid "Retrieving the status for folder %s failed."
 msgstr "Fehler beim Lesen des Status von Ordner %s."
 
-#: lib/Horde/Kolab/Storage/Driver/Rcube.php:428
+#: lib/Horde/Kolab/Storage/Driver/Rcube.php:424
 #, php-format
 msgid "Selecting folder %s failed."
 msgstr "Fehler beim Öffnen des Ordners %s."
 
-#: lib/Horde/Kolab/Storage/Driver/Rcube.php:343
+#: lib/Horde/Kolab/Storage/Driver/Rcube.php:339
 #, php-format
 msgid "Setting annotation %s[%s] on folder %s failed."
 msgstr "Fehler beim Schreiben der Annotation %s[%s] von Ordner %s."
 
-#: lib/Horde/Kolab/Storage/Driver/Cclient.php:486
-#: lib/Horde/Kolab/Storage/Driver/Rcube.php:376
+#: lib/Horde/Kolab/Storage/Driver/Cclient.php:482
+#: lib/Horde/Kolab/Storage/Driver/Rcube.php:372
 #, php-format
 msgid "Setting annotation %s[%s] on folder %s to %s failed."
 msgstr "Fehler beim Schreiben der Annotation %s[%s] von Ordner %s nach %s."
 
-#: lib/Horde/Kolab/Storage/Data/Base.php:255
+#: lib/Horde/Kolab/Storage/Data/Base.php:287
 #, php-format
 msgid ""
 "The message with ID %s does not exist. This probably means that the Kolab "
@@ -273,7 +273,7 @@ msgstr ""
 "dass dieses Kolab-Object von jemand anderem verändert wurde, während Sie es "
 "bearbeitet haben. Ihre Änderungen sind verloren."
 
-#: lib/Horde/Kolab/Storage/Object.php:531
+#: lib/Horde/Kolab/Storage/Object.php:522
 #, php-format
 msgid ""
 "This is a Kolab Groupware object. To view this object you will need an email "

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mnemo H5 (4.2-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2015-03-24 10:40+0100\n"
+"POT-Creation-Date: 2015-12-28 17:25+0100\n"
 "PO-Revision-Date: 2015-01-08 11:23+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@horde.org>\n"
@@ -200,7 +200,7 @@ msgstr "Bearbeiten: %s"
 msgid "Empty Note"
 msgstr "Leere Notiz"
 
-#: lib/Driver.php:315
+#: lib/Driver.php:331
 msgid ""
 "Encryption support has not been configured, please contact your "
 "administrator."
@@ -216,7 +216,7 @@ msgstr "Exportieren"
 msgid "Export Notes"
 msgstr "Notizen exportieren"
 
-#: lib/Driver/Kolab.php:293
+#: lib/Driver/Kolab.php:309
 #, php-format
 msgid "Failed retrieving Kolab data for notepad %s: %s"
 msgstr "Fehler beim Lesen der Kolab-Daten für das Notizbuch %s: %s"
@@ -274,7 +274,7 @@ msgstr "Änderungsdatum"
 msgid "More Options..."
 msgstr "Weitere Optionen..."
 
-#: lib/Api.php:776
+#: lib/Api.php:785
 msgid "Multiple iCalendar components found; only one vNote is supported."
 msgstr ""
 "Mehrere iCalendar-Komponenten gefunden; nur ein vNote wird unterstützt."
@@ -299,7 +299,7 @@ msgstr "Neue Notiz"
 msgid "Next"
 msgstr "Weiter"
 
-#: lib/Api.php:612 lib/Api.php:769
+#: lib/Api.php:621 lib/Api.php:778
 msgid "No iCalendar data was found."
 msgstr "Es wurden keine iCalendar-Daten gefunden."
 
@@ -536,7 +536,7 @@ msgstr ""
 msgid "There was an error importing the data: %s"
 msgstr "Beim Importieren der Daten ist ein Fehler aufgetreten: %s"
 
-#: lib/Api.php:606 lib/Api.php:763
+#: lib/Api.php:615 lib/Api.php:772
 msgid "There was an error importing the iCalendar data."
 msgstr "Beim Importieren der iCalendar Daten ist ein Fehler aufgetreten."
 
@@ -582,7 +582,7 @@ msgstr ""
 msgid "This note has been encrypted, please provide the password."
 msgstr "Diese Notiz wurde verschlüsselt, bitte geben Sie das Passwort ein."
 
-#: lib/Driver/Kolab.php:321 lib/Driver/Sql.php:322
+#: lib/Driver/Kolab.php:353 lib/Driver/Sql.php:322
 msgid "This note has been encrypted."
 msgstr "Diese Notiz wurde verschlüsselt."
 
@@ -590,7 +590,7 @@ msgstr "Diese Notiz wurde verschlüsselt."
 msgid "Title"
 msgstr "Titel"
 
-#: lib/Api.php:297 lib/Api.php:650 lib/Api.php:702 lib/Api.php:791
+#: lib/Api.php:297 lib/Api.php:659 lib/Api.php:711 lib/Api.php:806
 #, php-format
 msgid "Unsupported Content-Type: %s"
 msgstr "Nicht unterstützter Inhaltstyp: %s"

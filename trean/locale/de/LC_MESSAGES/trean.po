@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trean H5 (1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2015-03-24 10:40+0100\n"
-"PO-Revision-Date: 2015-03-24 11:00+0100\n"
+"POT-Creation-Date: 2015-12-28 17:25+0100\n"
+"PO-Revision-Date: 2015-12-29 17:56+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: \n"
@@ -85,7 +85,7 @@ msgstr "Lesezeichen"
 msgid "Bookmarks Feed"
 msgstr "Lesezeichen-Feed"
 
-#: data.php:87
+#: data.php:98
 msgid "Bookmarks successfully imported"
 msgstr "Lesezeichen erfolgreich importiert"
 
@@ -98,7 +98,7 @@ msgstr "Mit \"%s\" getaggte Lesezeichen"
 msgid "Browse"
 msgstr "Liste"
 
-#: data.php:78
+#: data.php:89
 msgid "Can't create a new bookmark."
 msgstr "Neues Lesezeichen konnte nicht erstellt werden."
 
@@ -155,7 +155,7 @@ msgstr "Bearbeiten"
 msgid "Edit Bookmark"
 msgstr "Lesezeichen bearbeiten"
 
-#: data.php:16
+#: data.php:17
 msgid "Firefox JSON"
 msgstr "Firefox JSON"
 
@@ -167,7 +167,7 @@ msgstr "Firefox/Mozilla"
 msgid "Import"
 msgstr "Importieren"
 
-#: data.php:93 templates/data/import.inc:7
+#: data.php:104 templates/data/import.inc:7
 msgid "Import Bookmarks"
 msgstr "Lesezeichen importieren"
 
@@ -190,6 +190,10 @@ msgstr "Am häufigsten geklickt"
 #: lib/Block/Mostclicked.php:19
 msgid "Most-clicked Bookmarks"
 msgstr "Meistgeklickte Lesezeichen"
+
+#: data.php:18
+msgid "Netscape-style HTML file"
+msgstr "HTML-Datei im Netscape-Format"
 
 #: add.php:78 templates/add.html.php:9
 msgid "New Bookmark"
@@ -303,7 +307,7 @@ msgstr "Tags"
 msgid "Template"
 msgstr "Vorlage"
 
-#: data.php:70
+#: data.php:81
 msgid "The file didn't contain any bookmarks."
 msgstr "Die Datei enthielt keine Lesezeichen."
 
@@ -329,7 +333,7 @@ msgstr ""
 msgid "There was an error saving the bookmark: %s"
 msgstr "Beim Speichern des Lesezeichens ist ein Fehler aufgetreten: %s"
 
-#: data.php:79
+#: data.php:90
 #, php-format
 msgid "This is what the server said: %s"
 msgstr "Meldung des Servers: %s"
