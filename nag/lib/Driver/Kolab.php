@@ -415,7 +415,7 @@ class Nag_Driver_Kolab extends Nag_Driver
             switch ($completed) {
             case Nag::VIEW_INCOMPLETE:
                 if ($complete) {
-                    continue;
+                    continue 2;
                 }
                 if ($start && $t->recurs() &&
                     ($completions = $t->recurrence->getCompletions())) {
@@ -431,18 +431,18 @@ class Nag_Driver_Kolab extends Nag_Driver
                         ->nextRecurrence($lastCompletion)
                         ->timestamp();
                     if ($start > $_SERVER['REQUEST_TIME']) {
-                        continue;
+                        continue 2;
                     }
                 }
                 break;
             case Nag::VIEW_COMPLETE:
                 if (!$complete) {
-                    continue;
+                    continue 2;
                 }
                 break;
             case Nag::VIEW_FUTURE:
                 if ($complete || $start == 0) {
-                    continue;
+                    continue 2;
                 }
                 if ($start && $t->recurs() &&
                     ($completions = $t->recurrence->getCompletions())) {
@@ -458,13 +458,13 @@ class Nag_Driver_Kolab extends Nag_Driver
                         ->nextRecurrence($lastCompletion)
                         ->timestamp();
                     if ($start < $_SERVER['REQUEST_TIME']) {
-                        continue;
+                        continue 2;
                     }
                 }
                 break;
             case Nag::VIEW_FUTURE_INCOMPLETE:
                 if ($complete) {
-                    continue;
+                    continue 2;
                 }
                 break;
             }
