@@ -44,7 +44,7 @@ class Horde_Kolab_Format_Xml_Envelope extends Horde_Kolab_Format_Xml
      * @param array $object  The data array representing the object.
      * @param array $options Additional options when parsing the XML.
      * <pre>
-     * - previos: The previous XML text (default: empty string)
+     * - previous: The previous XML text (default: empty string)
      * - relaxed: Relaxed error checking (default: false)
      * </pre>
      *
