@@ -88,7 +88,13 @@ abstract class Horde_Core_Tagger
      */
     public function split($tags)
     {
+        // Short circuit empty tags since explode() will return an array
+        // such as [ 0 => '' ] in this case. See Bug #14203
+        if (empty($tags)) {
+            return array();
+        }
         $split_tags = explode(',', $tags);
+
         return array_map('trim', $split_tags);
     }
 
