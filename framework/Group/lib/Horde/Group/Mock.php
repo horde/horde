@@ -29,6 +29,42 @@ class Horde_Group_Mock extends Horde_Group_Base
     protected $_groups = array();
 
     /**
+     * Access log.
+     *
+     * @var array
+     */
+    protected $_log = array();
+
+    /**
+     * Returns the current method call log.
+     *
+     * @return array  The current call log.
+     */
+    public function getLog()
+    {
+        return $this->_log;
+    }
+
+    /**
+     * Resets the current method call log.
+     */
+    public function clearLog()
+    {
+        $this->_log = array();
+    }
+
+    /**
+     * Logs a method call.
+     *
+     * Add the currently called class method to the call log.
+     */
+    protected function _log()
+    {
+        $trace = debug_backtrace();
+        $this->_log[] = $trace[1]['function'];
+    }
+
+    /**
      * Creates a new group.
      *
      * @param string $name   A group name.
@@ -37,8 +73,9 @@ class Horde_Group_Mock extends Horde_Group_Base
      * @return mixed  The ID of the created group.
      * @throws Horde_Group_Exception
      */
-    public function create($name, $email = null)
+    protected function _create($name, $email = null)
     {
+        $this->_log();
         $id = 'group_' . count($this->_groups);
         $this->_groups[$id] = array('name'  => $name,
                                     'email' => $email,
@@ -54,8 +91,9 @@ class Horde_Group_Mock extends Horde_Group_Base
      *
      * @throws Horde_Group_Exception
      */
-    public function rename($gid, $name)
+    protected function _rename($gid, $name)
     {
+        $this->_log();
         if (!isset($this->_groups[$gid])) {
             throw new Horde_Exception_NotFound('Group "' . $gid . '" not found');
         }
@@ -69,8 +107,9 @@ class Horde_Group_Mock extends Horde_Group_Base
      *
      * @throws Horde_Group_Exception
      */
-    public function remove($gid)
+    protected function _remove($gid)
     {
+        $this->_log();
         unset($this->_groups[$gid]);
     }
 
@@ -82,8 +121,9 @@ class Horde_Group_Mock extends Horde_Group_Base
      * @return boolean  True if the group exists.
      * @throws Horde_Group_Exception
      */
-    public function exists($gid)
+    protected function _exists($gid)
     {
+        $this->_log();
         return isset($this->_groups[$gid]);
     }
 
@@ -95,8 +135,9 @@ class Horde_Group_Mock extends Horde_Group_Base
      * @return string  The group's name.
      * @throws Horde_Group_Exception
      */
-    public function getName($gid)
+    protected function _getName($gid)
     {
+        $this->_log();
         if (!isset($this->_groups[$gid])) {
             throw new Horde_Exception_NotFound('Group ' . $gid . ' not found');
         }
@@ -112,8 +153,9 @@ class Horde_Group_Mock extends Horde_Group_Base
      * @throws Horde_Group_Exception
      * @throws Horde_Exception_NotFound
      */
-    public function getData($gid)
+    protected function _getData($gid)
     {
+        $this->_log();
         if (!isset($this->_groups[$gid])) {
             throw new Horde_Exception_NotFound('Group ' . $gid . ' not found');
         }
@@ -132,8 +174,9 @@ class Horde_Group_Mock extends Horde_Group_Base
      * @throws Horde_Group_Exception
      * @throws Horde_Exception_NotFound
      */
-    public function setData($gid, $attribute, $value = null)
+    protected function _setData($gid, $attribute, $value = null)
     {
+        $this->_log();
         if (!isset($this->_groups[$gid])) {
             throw new Horde_Exception_NotFound('Group ' . $gid . ' not found');
         }
@@ -148,17 +191,12 @@ class Horde_Group_Mock extends Horde_Group_Base
      * Returns a list of all groups a user may see, with IDs as keys and names
      * as values.
      *
-     * @param string $member  Only return groups that this user is a member of.
-     *
      * @return array  All existing groups.
      * @throws Horde_Group_Exception
      */
-    public function listAll($member = null)
+    protected function _listAll()
     {
-        if (!is_null($member)) {
-            return $this->listGroups($member);
-        }
-
+        $this->_log();
         $groups = array();
         foreach ($this->_groups as $gid => $group) {
             $groups[$gid] = $group['name'];
@@ -175,8 +213,9 @@ class Horde_Group_Mock extends Horde_Group_Base
      * @return array  List of group users.
      * @throws Horde_Group_Exception
      */
-    public function listUsers($gid)
+    protected function _listUsers($gid)
     {
+        $this->_log();
         if (!isset($this->_groups[$gid])) {
             throw new Horde_Exception_NotFound('Group ' . $gid . ' not found');
         }
@@ -191,8 +230,9 @@ class Horde_Group_Mock extends Horde_Group_Base
      * @return array  A list of groups, with IDs as keys and names as values.
      * @throws Horde_Group_Exception
      */
-    public function listGroups($user)
+    protected function _listGroups($user)
     {
+        $this->_log();
         $groups = array();
         foreach ($this->_groups as $gid => $group) {
             if (in_array($user, $group['users'])) {
@@ -211,8 +251,9 @@ class Horde_Group_Mock extends Horde_Group_Base
      *
      * @throws Horde_Group_Exception
      */
-    public function addUser($gid, $user)
+    protected function _addUser($gid, $user)
     {
+        $this->_log();
         if (!isset($this->_groups[$gid])) {
             throw new Horde_Exception_NotFound('Group ' . $gid . ' not found');
         }
@@ -227,8 +268,9 @@ class Horde_Group_Mock extends Horde_Group_Base
      *
      * @throws Horde_Group_Exception
      */
-    public function removeUser($gid, $user)
+    protected function _removeUser($gid, $user)
     {
+        $this->_log();
         if (!isset($this->_groups[$gid])) {
             throw new Horde_Exception_NotFound('Group ' . $gid . ' not found');
         }
@@ -247,8 +289,9 @@ class Horde_Group_Mock extends Horde_Group_Base
      *                values.
      * @throws Horde_Group_Exception
      */
-    public function search($name)
+    protected function _search($name)
     {
+        $this->_log();
         $groups = array();
         foreach ($this->_groups as $gid => $group) {
             if (strpos($group['name'], $name) !== false) {

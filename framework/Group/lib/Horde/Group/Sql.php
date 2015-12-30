@@ -35,6 +35,8 @@ class Horde_Group_Sql extends Horde_Group_Base
      */
     public function __construct($params)
     {
+        parent::__construct($params);
+
         if (!isset($params['db'])) {
             throw new Horde_Group_Exception('The \'db\' parameter is missing.');
         }
@@ -60,7 +62,7 @@ class Horde_Group_Sql extends Horde_Group_Base
      * @return mixed  The ID of the created group.
      * @throws Horde_Group_Exception
      */
-    public function create($name, $email = null)
+    protected function _create($name, $email = null)
     {
         try {
             return $this->_db->insert(
@@ -79,7 +81,7 @@ class Horde_Group_Sql extends Horde_Group_Base
      *
      * @throws Horde_Group_Exception
      */
-    public function rename($gid, $name)
+    protected function _rename($gid, $name)
     {
         try {
             return $this->_db->update(
@@ -97,7 +99,7 @@ class Horde_Group_Sql extends Horde_Group_Base
      *
      * @throws Horde_Group_Exception
      */
-    public function remove($gid)
+    protected function _remove($gid)
     {
         try {
             $this->_db->beginDbTransaction();
@@ -121,7 +123,7 @@ class Horde_Group_Sql extends Horde_Group_Base
      * @return boolean  True if the group exists.
      * @throws Horde_Group_Exception
      */
-    public function exists($gid)
+    protected function _exists($gid)
     {
         try {
             return (bool)$this->_db->selectValue(
@@ -140,7 +142,7 @@ class Horde_Group_Sql extends Horde_Group_Base
      * @return string  The group's name.
      * @throws Horde_Group_Exception
      */
-    public function getName($gid)
+    protected function _getName($gid)
     {
         try {
             return $this->_db->selectValue(
@@ -160,7 +162,7 @@ class Horde_Group_Sql extends Horde_Group_Base
      * @throws Horde_Group_Exception
      * @throws Horde_Exception_NotFound
      */
-    public function getData($gid)
+    protected function _getData($gid)
     {
         try {
             $result = $this->_db->selectOne(
@@ -190,7 +192,7 @@ class Horde_Group_Sql extends Horde_Group_Base
      *
      * @throws Horde_Group_Exception
      */
-    public function setData($gid, $attribute, $value = null)
+    protected function _setData($gid, $attribute, $value = null)
     {
         $attributes = is_array($attribute)
             ? $attribute
@@ -212,17 +214,11 @@ class Horde_Group_Sql extends Horde_Group_Base
      * Returns a list of all groups a user may see, with IDs as keys and names
      * as values.
      *
-     * @param string $member  Only return groups that this user is a member of.
-     *
      * @return array  All existing groups.
      * @throws Horde_Group_Exception
      */
-    public function listAll($member = null)
+    protected function _listAll()
     {
-        if (!is_null($member)) {
-            return $this->listGroups($member);
-        }
-
         try {
             return $this->_db->selectAssoc('SELECT group_uid, group_name FROM horde_groups');
         } catch (Horde_Db_Exception $e) {
@@ -238,7 +234,7 @@ class Horde_Group_Sql extends Horde_Group_Base
      * @return array  List of group users.
      * @throws Horde_Group_Exception
      */
-    public function listUsers($gid)
+    protected function _listUsers($gid)
     {
         try {
             return $this->_db->selectValues(
@@ -257,7 +253,7 @@ class Horde_Group_Sql extends Horde_Group_Base
      * @return array  A list of groups, with IDs as keys and names as values.
      * @throws Horde_Group_Exception
      */
-    public function listGroups($user)
+    protected function _listGroups($user)
     {
         try {
             return $this->_db->selectAssoc(
@@ -276,7 +272,7 @@ class Horde_Group_Sql extends Horde_Group_Base
      *
      * @throws Horde_Group_Exception
      */
-    public function addUser($gid, $user)
+    protected function _addUser($gid, $user)
     {
         try {
             $this->_db->insert(
@@ -294,7 +290,7 @@ class Horde_Group_Sql extends Horde_Group_Base
      *
      * @throws Horde_Group_Exception
      */
-    public function removeUser($gid, $user)
+    protected function _removeUser($gid, $user)
     {
         try {
             $this->_db->delete(
@@ -314,7 +310,7 @@ class Horde_Group_Sql extends Horde_Group_Base
      *                values.
      * @throws Horde_Group_Exception
      */
-    public function search($name)
+    protected function _search($name)
     {
         try {
             return $this->_db->selectAssoc(
