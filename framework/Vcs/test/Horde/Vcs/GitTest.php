@@ -183,7 +183,7 @@ class Horde_Vcs_GitTest extends Horde_Vcs_TestBase
     public function testUnicodeFile()
     {
         if (!setlocale(LC_ALL, 'de_DE.UTF-8')) {
-            $this->skipTest('Cannot set de_DE locale');
+            $this->markTestSkipped('Cannot set de_DE locale');
         }
 
         /* Test unicode file. */
