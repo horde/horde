@@ -34,6 +34,7 @@ before_script:
   - phpenv config-add .travis.ini
   - pear install channel://pear.php.net/Net_DNS2
   - pear install channel://pear.horde.org/Horde_Role
+  - pear config-show
   - ./framework/bin/pear_batch_install
   - psql -c 'create database test;' -U postgres
 script: ./framework/bin/test_framework
