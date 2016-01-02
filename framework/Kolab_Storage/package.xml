@@ -17,7 +17,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-06-16</date>
+ <date>2016-01-02</date>
  <version>
   <release>2.2.0</release>
   <api>2.2.0</api>
@@ -1408,7 +1408,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-06-16</date>
+   <date>2016-01-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Fix decoding base64 encoded Kolab objects (Bug #14199, mike.gabriel@das-netzwerkteam.de).

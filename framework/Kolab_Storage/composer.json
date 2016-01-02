@@ -9,10 +9,15 @@
             "name": "Gunnar Wrobel",
             "email": "p@rdus.de",
             "role": "lead"
+        },
+        {
+            "name": "Michael J Rubinsky",
+            "email": "mrubinsk@horde.org",
+            "role": "lead"
         }
     ],
-    "version": "2.1.4",
-    "time": "2015-04-28",
+    "version": "2.2.0",
+    "time": "2016-01-02",
     "repositories": [
         {
             "type": "pear",
