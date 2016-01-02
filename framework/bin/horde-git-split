@@ -92,7 +92,7 @@ $delete = array();
 foreach (array_filter(explode("\n", shell_exec('git tag -l'))) as $val) {
     if (strpos($val, $tag_prefix) === 0) {
         $version = preg_replace('/^' . $tag_prefix . '/', '', $val);
-        passthru('git tag ' . escapeshellarg('v' . $version) . ' ' . escapeshellarg($val));
+        passthru('git tag -f ' . escapeshellarg('v' . $version) . ' ' . escapeshellarg($val));
     }
     $delete[] = escapeshellarg($val);
 }
