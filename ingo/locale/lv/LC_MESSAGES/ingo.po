@@ -1,5 +1,5 @@
 # Latvian translations for Ingo package.
-# Copyright 2004-2013 Horde Project
+# Copyright 2004-2015 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Ingo package.
 # Janis Eisaks, <jancs@dv.lv>, 2011.
 #
@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Ingo H3 (1.1.5)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2013-01-11 10:58+0200\n"
-"PO-Revision-Date: 2013-06-03 14:05+0300\n"
+"PO-Revision-Date: 2016-01-02 15:01+0100\n"
 "Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: \n"
