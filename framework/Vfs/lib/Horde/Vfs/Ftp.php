@@ -25,7 +25,7 @@
  * - type: (string) The type of the remote FTP server. Possible values: 'unix',
  *         'win', 'netware' By default, we attempt to auto-detect type.
  *
- * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2016 Horde LLC (http://www.horde.org/)
  * Copyright 2002-2007 Michael Varghese <mike.varghese@ascellatech.com>
  *
  * See the enclosed file COPYING for license information (LGPL). If you

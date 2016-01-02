@@ -2,7 +2,7 @@
 /**
  * Show bookmarks tagged with a specified set of tags.
  *
- * Copyright 2007-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2016 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.

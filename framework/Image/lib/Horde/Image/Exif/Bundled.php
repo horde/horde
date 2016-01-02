@@ -18,7 +18,7 @@
  * modifications are
  *
  * Copyright 2003 Jake Olefsky
- * Copyright 2009-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2016 Horde LLC (http://www.horde.org/)
  *
  * @author   Jake Olefsky <jake@olefsky.com>
  * @author   Michael J. Rubinsky <mrubinsk@horde.org>
@@ -34,7 +34,7 @@
  * @author    Jake Olefsky <jake@olefsky.com>
  * @author    Michael J. Rubinsky <mrubinsk@horde.org>
  * @category  Horde
- * @copyright 2009-2015 Horde LLC
+ * @copyright 2009-2016 Horde LLC
  * @package   Image
  */
 class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base

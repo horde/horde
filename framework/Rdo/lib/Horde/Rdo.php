@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2006-2016 Horde LLC (http://www.horde.org/)
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://www.horde.org/licenses/bsd BSD

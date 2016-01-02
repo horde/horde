@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2014-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2014-2016 Horde LLC (http://www.horde.org/)
  *
  * @category   Horde
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1

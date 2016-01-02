@@ -1,6 +1,6 @@
 # German translations for Klutz package
 # German messages for Klutz.
-# Copyright 2002-2015 Horde LLC (http://www.horde.org/)
+# Copyright 2002-2016 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Klutz package.
 # Jan Schneider <jan@horde.org>, 2002-2011.
 #

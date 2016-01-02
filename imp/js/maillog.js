@@ -2,7 +2,7 @@
  * Maillog display for dynamic view.
  *
  * @author     Michael Slusarz <slusarz@horde.org>
- * @copyright  2015 Horde LLC
+ * @copyright  2015-2016 Horde LLC
  * @license    GPL-2 (http://www.horde.org/licenses/gpl)
  */
 

@@ -19,7 +19,7 @@
  * class and provide a _load/_save function.
  *
  * Copyright 2007-2009 Klarälvdalens Datakonsult AB
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2016 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see

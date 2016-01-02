@@ -1,5 +1,5 @@
 # Latvian messages for Timeobjects.
-# Copyright 2011-2015 Horde LLC (http://www.horde.org/)
+# Copyright 2011-2016 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Timeobjects package.
 # Jānis Eisaks <jancs@dv.lv>, 2011.
 #

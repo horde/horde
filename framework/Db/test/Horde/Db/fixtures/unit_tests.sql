@@ -1,6 +1,6 @@
 --
 -- Copyright 2007 Maintainable Software, LLC
--- Copyright 2008-2015 Horde LLC (http://www.horde.org/)
+-- Copyright 2008-2016 Horde LLC (http://www.horde.org/)
 --
 -- @author     Mike Naberezny <mike@maintainable.com>
 -- @author     Derek DeVries <derek@maintainable.com>

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2008-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2016 Horde LLC (http://www.horde.org/)
  *
  * getBaseSubject() code adapted from imap-base-subject.c (Dovecot 1.2)
  *   Original code released under the LGPL-2.1
@@ -11,7 +11,7 @@
  *
  * @category  Horde
  * @copyright 2002-2008 Timo Sirainen
- * @copyright 2008-2015 Horde LLC
+ * @copyright 2008-2016 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Imap_Client
  */
@@ -23,7 +23,7 @@
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
  * @copyright 2002-2008 Timo Sirainen
- * @copyright 2011-2015 Horde LLC
+ * @copyright 2011-2016 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Imap_Client
  */

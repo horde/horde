@@ -3,7 +3,7 @@
  * The Horde_Form_Type_NagSearchDue:: class provides a form field for combining
  * the due_within and due_of form fields for task searching.
  *
- * @copyright 2012-2015 Horde LLC (http://www.horde.org)
+ * @copyright 2012-2016 Horde LLC (http://www.horde.org)
  * @author Michael J Rubinsky <mrubinsk@horde.org>
  * @license  http://www.horde.org/licenses/gpl GPL
  * @package Nag

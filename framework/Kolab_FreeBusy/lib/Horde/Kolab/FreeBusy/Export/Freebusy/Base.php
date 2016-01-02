@@ -17,7 +17,7 @@
  * Converts the data from the free/busy resource into a free/busy iCal object,
  *
  * Copyright 2004-2010 Klarälvdalens Datakonsult AB
- * Copyright 2008-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2016 Horde LLC (http://www.horde.org/)
  * Copyright 2011 Kolab Systems AG
  *
  * See the enclosed file COPYING for license information (LGPL). If

@@ -1,7 +1,7 @@
 /**
  * OpenWeatherMap layer (See http://openweathermap.org/tile_map#list)
  *
- * Copyright 2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2015-2016 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.

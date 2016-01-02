@@ -2,7 +2,7 @@
 /**
  * Setup autoloading for the tests.
  *
- * Copyright 2011-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2016 Horde LLC (http://www.horde.org/)
  *
  * @category   Horde
  * @package    Yaml

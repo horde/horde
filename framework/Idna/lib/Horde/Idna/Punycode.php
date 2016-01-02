@@ -1,14 +1,14 @@
 <?php
 /**
  * Copyright 2014 TrueServer B.V.
- * Copyright 2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2015-2016 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsd.
  *
  * @category  Horde
  * @copyright 2014 TrueServer B.V.
- * @copyright 2015 Horde LLC
+ * @copyright 2015-2016 Horde LLC
  * @license   http://www.horde.org/licenses/bsd BSD
  * @package   Idna
  */
@@ -23,7 +23,7 @@
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
  * @copyright 2014 TrueServer B.V.
- * @copyright 2015 Horde LLC
+ * @copyright 2015-2016 Horde LLC
  * @license   http://www.horde.org/licenses/bsd BSD
  * @link      http://tools.ietf.org/html/rfc3492
  * @package   Idna

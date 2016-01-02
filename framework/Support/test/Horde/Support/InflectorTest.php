@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2007-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2016 Horde LLC (http://www.horde.org/)
  *
  * @category   Horde
  * @package    Support

@@ -5,13 +5,13 @@
  * preference is to be moved from locked = false, to locked = true and there
  * have already been preferences set by the users.
  *
- * Copyright 2007-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2016 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL-2). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl.
  *
  * @category  Horde
- * @copyright 2007-2015 Horde LLC
+ * @copyright 2007-2016 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl LGPL-2
  * @package   Horde
  */

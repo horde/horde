@@ -1,5 +1,5 @@
 --
--- Copyright 2012-2015 Horde LLC (http://www.horde.org/)
+-- Copyright 2012-2016 Horde LLC (http://www.horde.org/)
 --
 -- @author     Ralf Lang <lang@b1-systems.de>
 -- @category   Horde

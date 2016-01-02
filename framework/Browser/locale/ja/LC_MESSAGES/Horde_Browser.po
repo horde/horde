@@ -1,5 +1,5 @@
 # Japanese translations for Horde_Browser package.
-# Copyright 2011-2015 Horde LLC (http://www.horde.org/)
+# Copyright 2011-2016 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Browser package.
 # Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>
 #

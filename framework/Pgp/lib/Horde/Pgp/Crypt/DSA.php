@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2015-2016 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -38,7 +38,7 @@
 
  * @category  Horde
  * @copyright 2006 TSURUOKA Naoya
- * @copyright 2015 Horde LLC
+ * @copyright 2015-2016 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Pgp
  */
@@ -51,7 +51,7 @@
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
  * @copyright 2006 TSURUOKA Naoya
- * @copyright 2015 Horde LLC
+ * @copyright 2015-2016 Horde LLC
  * @internal
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Pgp

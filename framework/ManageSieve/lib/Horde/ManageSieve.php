@@ -2,7 +2,7 @@
 /**
  * Copyright 2002-2003 Richard Heyes
  * Copyright 2006-2008 Anish Mistry
- * Copyright 2009-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2016 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsd.
@@ -30,7 +30,7 @@ use Horde\ManageSieve\Exception;
  * @author    Jan Schneider <jan@horde.org>
  * @copyright 2002-2003 Richard Heyes
  * @copyright 2006-2008 Anish Mistry
- * @copyright 2009-2015 Horde LLC
+ * @copyright 2009-2016 Horde LLC
  * @license   http://www.horde.org/licenses/bsd BSD
  * @link      http://tools.ietf.org/html/rfc5804 RFC 5804 A Protocol for
  *            Remotely Managing Sieve Scripts
