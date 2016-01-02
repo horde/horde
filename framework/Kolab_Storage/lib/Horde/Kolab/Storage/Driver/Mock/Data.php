@@ -342,10 +342,12 @@ implements ArrayAccess
         $this->select($folder);
         if (isset($this->_selected['mails'][$uid]['parts'][$id])) {
             if (isset($this->_selected['mails'][$uid]['parts'][$id]['file'])) {
-                return fopen(
+                $stream = fopen(
                     $this->_selected['mails'][$uid]['parts'][$id]['file'],
                     'r'
                 );
+                stream_filter_append($stream, 'convert.quoted-printable-decode');
+                return $stream;
             }
         } elseif (isset($this->_selected['mails'][$uid]['stream'])) {
             rewind($this->_selected['mails'][$uid]['stream']);
