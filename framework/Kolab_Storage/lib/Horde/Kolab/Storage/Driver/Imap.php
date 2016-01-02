@@ -583,7 +583,8 @@ extends Horde_Kolab_Storage_Driver_Base
      * @param array  $uid                 The message UID.
      * @param array  $id                  The mime part ID.
      *
-     * @return resource  The body part, as a stream resource.
+     * @return resource  The body part, as a stream resource. The contents are
+     *                   already transfer decoded and presented as 8bit data.
      */
     public function fetchBodypart($folder, $uid, $id)
     {

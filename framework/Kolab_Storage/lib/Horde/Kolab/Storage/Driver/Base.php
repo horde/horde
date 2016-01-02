@@ -345,7 +345,8 @@ implements Horde_Kolab_Storage_Driver
      * @param array  $uid     The message UID.
      * @param array  $id      The mime part ID.
      *
-     * @return resource  The body part, as a stream resource.
+     * @return resource  The transfer-decoded body part data, as a stream
+     *                   resource presented as 8bit data.
      */
     public function fetchBodypart($mailbox, $uid, $id)
     {
