@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2007-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2016 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -14,7 +14,7 @@
  * The Ansel_View_Results:: class wraps display of images/galleries from
  * multiple parent sources..
  *
- * Copyright 2007-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2016 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.

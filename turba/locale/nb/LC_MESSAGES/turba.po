@@ -1,5 +1,5 @@
 # Norwegian Turba Translation.
-# Copyright 2001-2015 Horde LLC (http://www.horde.org/)
+# Copyright 2001-2016 Horde LLC (http://www.horde.org/)
 # Oystein Steimler <oystein@rexta.net>, 2001.
 # Torstein S. Hansen <huleboer@techbee.no>, 2002.
 # Andreas Gunleikskaas <andreas@gunleikskaas.no>, 2003.

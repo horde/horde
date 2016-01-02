@@ -2,7 +2,7 @@
 /**
  * Imple for performing AJAX setting of image captions.
  *
- * Copyright 2008-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2016 Horde LLC (http://www.horde.org/)
  *
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel

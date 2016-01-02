@@ -14,7 +14,7 @@
 /**
  * A Horde_Injector:: based Turba_Driver:: factory.
  *
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2016 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (APL). If you
  * did not receive this file, see http://www.horde.org/licenses/apl.html.

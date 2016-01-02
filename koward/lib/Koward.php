@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2009-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2016 Horde LLC (http://www.horde.org/)
  *
  * @author   Gunnar Wrobel <p@rdus.de>
  * @license  http://www.horde.org/licenses/lgpl21

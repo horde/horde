@@ -3,7 +3,7 @@
  * Class to encapsulate a single gallery. Implemented as an extension of
  * the Horde_Share_Object class.
  *
- * Copyright 2001-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2016 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
