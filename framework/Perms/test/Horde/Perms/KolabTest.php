@@ -35,7 +35,7 @@ class Horde_Perms_KolabTest extends PHPUnit_Framework_TestCase
         $this->storage->expects($this->once())
             ->method('getPermissionId')
             ->will($this->returnValue('test'));
-        $this->groups = $this->getMock('Horde_Group_Base', array(), array(), '', false, false);
+        $this->groups = $this->getMockForAbstractClass('Horde_Group_Base', array(), '', true, false);
         $this->perms = new Horde_Perms_Null();
     }
 
@@ -83,7 +83,7 @@ class Horde_Perms_KolabTest extends PHPUnit_Framework_TestCase
         $this->assertTrue((bool) $this->perms->hasPermission($permission, 'test', Horde_Perms::EDIT));
     }
 
-    public function testImapDeleteAclResultsInDeletePermission() 
+    public function testImapDeleteAclResultsInDeletePermission()
     {
         $this->storage->expects($this->once())
             ->method('getAcl')
@@ -94,7 +94,7 @@ class Horde_Perms_KolabTest extends PHPUnit_Framework_TestCase
         $this->assertTrue((bool) $this->perms->hasPermission($permission, 'test', Horde_Perms::DELETE));
     }
 
-    public function testImapTAclResultsInDeletePermission() 
+    public function testImapTAclResultsInDeletePermission()
     {
         $this->storage->expects($this->once())
             ->method('getAcl')
@@ -180,7 +180,7 @@ class Horde_Perms_KolabTest extends PHPUnit_Framework_TestCase
         $permission->addUserPermission('test', Horde_Perms::EDIT, true);
     }
 
-    public function testDeletePermissionResultsInImapDeleteAcl() 
+    public function testDeletePermissionResultsInImapDeleteAcl()
     {
         $this->storage->expects($this->exactly(3))
             ->method('getAcl')
