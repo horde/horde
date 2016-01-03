@@ -196,14 +196,23 @@ abstract class Horde_ActiveSync_State_Base
      * Return a device wipe status
      *
      * @param string $devId
+     * @param boolean $refresh  If true, reload the device's rwstatus flag.
+     *        @since  2.31.0
      *
      * @return integer
      */
-    public function getDeviceRWStatus($devId)
+    public function getDeviceRWStatus($devId, $refresh = false)
     {
         /* See if we have it already */
         if (empty($this->_deviceInfo) || $this->_deviceInfo->id != $devId) {
             throw new Horde_ActiveSync_Exception('Device not loaded.');
+        }
+
+        /* Should we refresh? */
+        if ($refresh) {
+            $this->loadDeviceInfo(
+                $this->_deviceInfo->user, $this->_deviceInfo->id, array('force' => true)
+            );
         }
 
         return $this->_deviceInfo->rwstatus;
@@ -955,10 +964,15 @@ abstract class Horde_ActiveSync_State_Base
      *
      * @param object $device
      * @param string $user
+     * @param array  $params  Additional parameters:
+     *   - force: (boolean)  If true, reload the device info even if it's
+     *     already loaded. Used to refresh values such as device_rwstatus that
+     *     may have changed during a long running PING/SYNC. DEFAULT: false.
+     *     @since  2.31.0
      *
      * @return Horde_ActiveSync_Device
      */
-    abstract public function loadDeviceInfo($device, $user = null);
+    abstract public function loadDeviceInfo($device, $user = null, $params = array());
 
     /**
      * Check that a given device id is known to the server. This is regardless

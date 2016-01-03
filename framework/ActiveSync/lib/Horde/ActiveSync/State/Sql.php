@@ -541,14 +541,19 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      *
      * @param string $devId   The device id to obtain
      * @param string $user    The user to retrieve user-specific device info for
+     * @param array  $params  Additional parameters:
+     *   - force: (boolean)  If true, reload the device info even if it's
+     *     already loaded. Used to refresh values such as device_rwstatus that
+     *     may have changed during a long running PING/SYNC. DEFAULT: false.
+     *     @since  2.31.0
      *
      * @return Horde_ActiveSync_Device  The device object
      * @throws Horde_ActiveSync_Exception
      */
-    public function loadDeviceInfo($devId, $user = null)
+    public function loadDeviceInfo($devId, $user = null, $params = array())
     {
         // See if we already have this device, for this user loaded
-        if (!empty($this->_deviceInfo) && $this->_deviceInfo->id == $devId &&
+        if (empty($params['force']) && !empty($this->_deviceInfo) && $this->_deviceInfo->id == $devId &&
             !empty($this->_deviceInfo) &&
             $user == $this->_deviceInfo->user) {
             return $this->_deviceInfo;
