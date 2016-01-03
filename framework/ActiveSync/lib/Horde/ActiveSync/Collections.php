@@ -1102,7 +1102,11 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
         $this->lasthbsyncstarted = $started;
         $this->save();
 
+        // We only check for remote wipe request once every 5 iterations to
+        // save on DB load since we must reload the device's state each time.
+        $rw_check_countdown = 5;
         while (($now = time()) < $until) {
+
             // Try not to go over the heartbeat interval.
             if ($until - $now < $interval) {
                 $interval = $until - $now;
@@ -1121,12 +1125,15 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
                 return self::COLLECTION_ERR_SERVER;
             }
 
-            // Check for WIPE request. If so, force a foldersync so it is
-            // performed.
-            if ($this->_as->provisioning != Horde_ActiveSync::PROVISIONING_NONE) {
-                $rwstatus = $this->_as->state->getDeviceRWStatus($this->_as->device->id);
-                if ($rwstatus == Horde_ActiveSync::RWSTATUS_PENDING || $rwstatus == Horde_ActiveSync::RWSTATUS_WIPED) {
-                    return self::COLLECTION_ERR_FOLDERSYNC_REQUIRED;
+            // Check for WIPE request once every 5 iterations to balance between
+            // performance and speed of catching a remote wipe request.
+            if ($rw_check_countdown-- == 0) {
+                 $rw_check_countdown = 5;
+                 if ($this->_as->provisioning != Horde_ActiveSync::PROVISIONING_NONE) {
+                    $rwstatus = $this->_as->state->getDeviceRWStatus($this->_as->device->id, true);
+                    if ($rwstatus == Horde_ActiveSync::RWSTATUS_PENDING || $rwstatus == Horde_ActiveSync::RWSTATUS_WIPED) {
+                        return self::COLLECTION_ERR_FOLDERSYNC_REQUIRED;
+                    }
                 }
             }
 
