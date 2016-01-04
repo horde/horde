@@ -8,6 +8,10 @@ v5.2.12-git
 v5.2.11
 -------
 
+[jan] Update Italian translation.
+[mjr] Remove object reference from Content when object is deleted (Bug #14112).
+[mjr] Remove tags from Content when tagged object is deleted (Bug #14112).
+
 Horde Changes
 -------------
 [mjr] SECURITY: Protect against CSRF attacks on various admin pages.
@@ -20,17 +24,10 @@ Address Book Changes
 --------------------
 [mjr] Better prevention of importing duplicate contacts with same email
       addresses via the API (Bug #14119).
-[mjr] Remove object reference from Content when object is deleted (Bug #14112).
-[mjr] Remove tags from Content when tagged object is deleted (Bug #14112).
 [mjr] Allow API to search all email type fields when calling getField().
 [mjr] Fix removing all contacts owned by a specific user.
 [jan] Fix inserting and updating photos with Oracle backends.
 [mjr] Fix incorrectly populating email field when importing vCard (Bug #14046).
-
-Bookmarks Changes
------------------
-[jan] Update Italian translation.
-[mjr] Remove object reference from Content when object is deleted (Bug #14112).
 
 Calendar Changes
 ----------------
@@ -40,69 +37,45 @@ Calendar Changes
       #14128).
 [mjr] Send CACNEL iTip when attendee is removed from a meeting (Request
       #14118).
-[mjr] Remove object reference from Content when object is deleted (Bug #14112).
 [mjr] Fix incorrect offset of freebusy times in certain cases (Bug #14084).
 [mjr] Fix handling of email groups as attendees (Bug #14093).
 [mjr] Fix importing text/calendar data via API (Bug #14089).
 
-Files Changes
--------------
-[jan] Update Italian translation.
-
-Notes Changes
--------------
-[jan] Update Italian translation.
-[mjr] Remove object reference from Content when object is deleted (Bug #14112).
-[mjr] Remove tags from Content when tagged object is deleted (Bug #14112).
-
-Tasks Changes
--------------
-[jan] Update Italian translation.
-[mjr] Remove object reference from Content when object is deleted (Bug #14112).
-[mjr] Remove tags from Content when tagged object is deleted (Bug #14112).
-
-
 Library Changes
 ---------------
-
-[jan] Updated UK Translation.
-[jan] Updated Italian translation.
-[jan] Updated DE translations.
-[jan] Fixed composer files.
-[jan] Fix issues with certain locales like Turkish.
 [jan] Catch possible exceptions in shutdown methods.
 
 ActiveSync
-[mjr] Work around bug in various versions of PHP 5.5 and 5.6 regarding base64-encode stream filters (Bug #14086).
-[mjr] Fix issue where incorrect text/html part is choosen as the main body part.
-[mjr] Explicitly request a FOLDERSYNC when backend id is not found.
-[mjr] Fix corruption of base64 encoded text parts in certain cases (Bug #14092).
-[mjr] Don&apos;t take sub-parts of rfc822/message parts as attachments.
-[mjr] Fix handling of meeting requests that contain no DTEND attribute.
-[mjr] Fix parsing of SETTINGS request that was causing a harmless WBXML parsing error.
-[mjr] Fix issue in sending email from client due to input stream not being seekable on some systems (Bug #13160).
-[mjr] Work around bug in early versions of iOS that could cause a contact&apos;s picture to be removed on the server.
+[mjr] Fix issue in sending email from client due to input stream not being
+      seekable on some systems (Bug #13160).
+[mjr] Work around bug in early versions of iOS that could cause a contact's
+      picture to be removed on the server.
 [mjr] Improved client and version detection, especially for iOS devices.
 [mjr] Fixed bug that was causing SUPPORTED data to be overwritten.
-[mjr] Change some ERR log level entries to WARN and some other small logging tweaks.
-
-Auth
-[jan] SECURITY: Don&apos;t allow to login to LDAP with an emtpy password.
-[mjr] Ensure we rebind as configured user after testing auth user credentials.
+[mjr] Change some ERR log level entries to WARN and some other small logging
+      tweaks.
+[mjr] Don't take sub-parts of rfc822/message parts as attachments.
+[mjr] Fix handling of meeting requests that contain no DTEND attribute.
+[mjr] Fix parsing of SETTINGS request that was causing a harmless WBXML parsing
+      error.
+[mjr] Explicitly request a FOLDERSYNC when backend id is not found.
+[mjr] Fix corruption of base64 encoded text parts in certain cases (Bug #14092).
+[mjr] Work around bug in various versions of PHP 5.5 and 5.6 regarding
+      base64-encode stream filters (Bug #14086).
+[mjr] Fix issue where incorrect text/html part is choosen as the main body part.
 
 Core
-[jan] SECURITY: Don&apos;t allow to login with an emtpy password.
-[jan] Give administrators access to all groups, even with $conf['share']['any_group'] disabled.
-[mjr] Prevent various broken behaviors on ActiveSync clients due to errors copying an email to sent mail folder or updating the maillog (Bug #14058).
-[mjr] Map Kolab distribution-list items to the contacts API (Bug #14038).
-[mjr] Support configuration for version 2 of WorldWeatherOnline's API.
-[mjr] Fix dependency on possibly missing Horde_Kolab_Storage_HistoryPrefix interface (Bug #14099).
-[mjr] Add beforeUpdate callback to prettyautocompleter.js.
+[mjr] Fix ajax updating of Weather block when weather map is shown.
+[mjr] Fix detecting an application's ability to send Horde_Alarm notifications
+      (Bug #14098).
 [mjr] ActiveSync logging improvements.
 [mjr] Add support for OpenWeatherMap layers in Horde_Map.
-[mjr] Fix edge-case issue with ActiveSync folder list generation when installed application contains no user writable sources.
-[mjr] Fix ajax updating of Weather block when weather map is shown.
-[mjr] Fix detecting an application&apos;s ability to send Horde_Alarm notifications (Bug #14098).
+[mjr] Fix edge-case issue with ActiveSync folder list generation when installed
+      application contains no user writable sources.
+[mjr] Fix dependency on possibly missing Horde_Kolab_Storage_HistoryPrefix
+      interface (Bug #14099).
+[mjr] Add beforeUpdate callback to prettyautocompleter.js.
+[mjr] Support configuration for version 2 of WorldWeatherOnline's API.
 
 Crypt
 [mjr] Fix PHP 5.3 incompatibility (Bug #14090).
@@ -111,11 +84,11 @@ Image
 [cjh] Fix EXIF data not being returned in Bundled driver.
 
 Imap_Client
-[mms] Ensure FETCH stream data is rewound before returning (Bug #14013).
-[mjr] Fix detecting empty ID queries (Bug #14044).
-[mms] Improved performance of Horde_Imap_Client_Data_Thread object when containing large number of messages (Request #14075).
-[mms] Catch translation errors when creating Exceptions (PR #143; baso10dev@gmail.com).
 [mjr] Avoid PHP warning when listing mailboxes without LIST-STATUS (Bug #14097).
+[mms] Improved performance of Horde_Imap_Client_Data_Thread object when
+      containing large number of messages (Request #14075).
+[mms] Catch translation errors when creating Exceptions (PR #143;
+      baso10dev@gmail.com).
 
 Mime
 [mjr] Correctly work around PHP bug 65776.
@@ -129,11 +102,17 @@ Notification
 Pdf
 [mjr] Avoid some PHP warnings.
 
+Secret
+[jan] Remove unnecessary include.
+
 Service_Weather
-[mjr] Update WWO to support the v2 API (Request #14094).
 [mjr] Add support for OpenWeatherMap API.
 [mjr] Add support for radar maps if provider provides them.
 [mjr] Add support for weather alerts.
+[mjr] Update WWO to support the v2 API (Request #14094).
+
+SessionHandler
+[jan] Test environment improvements.
 
 
 -------
@@ -157,6 +136,11 @@ v5.2.9
 v5.2.8
 ------
 
+[jan] Update Czech translation.
+[jan] Update Italian translation.
+[jan] Update German translation.
+[jan] Update Hungarian translation.
+
 Horde Changes
 -------------
 [mjr] Don't create a session for Webdav requests (Bug #14040).
@@ -168,16 +152,6 @@ Address Book Changes
 --------------------
 [mjr] Fix issue where sidebar links point to incorrect address book.
 
-Bookmarks Changes
------------------
-[jan] Update Italian translation.
-[jan] Update German translation.
-[jan] Update Hungarian translation.
-[mjr] Fix shebang (after install) for trean scripts (Remi Collet
-      <fedora@famillecollet.com>).
-[mjr] Use the favicon when returning tag search results via the API if
-      possible.
-
 Calendar Changes
 ----------------
 [mjr] Fix enabling deletion of resources for non-admin users (Bug #14069).
@@ -188,49 +162,49 @@ Calendar Changes
 [mjr] Honor locking the remote_cals preference.
 [mjr] Fix detecting duplicate events during import via the API (Bug #14018).
 
-Files Changes
--------------
-[jan] Update Italian translation.
-[jan] Update Catalan translation.
-[jan] Update Czech translation (Michael Grafnetter
-      <michael.grafnetter@outlook.com>).
-[jan] Update German translation.
-[jan] Update Hungarian translation.
-
 Notes Changes
 -------------
-[jan] Update Italian translation.
-[jan] Update Czech translation.
 [mjr] Fix inconsistent handling of incoming HTML notes from ActiveSync clients
       (Bug #14045).
 [mjr] Allow more reasonable length of description field to interop better with
       synchronized clients (Bug #14041).
 
+Bookmarks Changes
+-----------------
+[mjr] Fix shebang (after install) for trean scripts (Remi Collet
+      <fedora@famillecollet.com>).
+[mjr] Use the favicon when returning tag search results via the API if
+      possible.
+
 Library Changes
 ---------------
-[jan] Updated DE translation.
-[jan] Updated UK translation.
+[jan] Update Galician translation.
+[jan] Update Ukrainian translation.
 [jan] Fix Composer files.
 
 ActiveSync
-[mjr] Fix regression that could cause loss of mailbox sync.
-[mjr] Fix regression causing useless backend query.
-[mjr] Fix bug causing changes to be sent as new messages, thus causing them to be ignored by most clients.
-[mjr] Fix sending SMIME signed/encrypted mail when using streams.
-[mjr] Fix off by one error that could cause some errors in downstream client code.
-[mjr] Fix detecting changes in email message "Flag" sent from certain clients.
-[mjr] Fix issue when using REPLACEMIME feature of SENDMAIL and some other edge cases (Bug #13901).
-[mjr] Reduce memory usage during IMAP FETCH with very large mailboxes.
-[mjr] Workaround broken CGI behavior of sending incorrect authentication headers.
-[mjr] Fix issues with detecting changes in FILTERTYPE.
-[mjr] Performance improvements during IMAP server change detection for CONDSTORE servers, especially during FILTERTYPE changes.
 [mjr] Fix display of certain Multipart/Report messages, on certain clients.
 [mjr] Improve handling of authentication/policy errors.
-[mjr] Fix renaming email folder when using PostgreSQL state storage (Bug #14019, horde@albasoft.com).
+[mjr] Fix renaming email folder when using PostgreSQL state storage (Bug
+      #14019, horde@albasoft.com).
+
+Auth
+[jan] SECURITY: Don't allow to login to LDAP with an emtpy password.
+[mjr] Ensure we rebind as configured user after testing auth user credentials.
+
+Core
+[jan] SECURITY: Don't allow to login with an empty password.
+[mjr] Map Kolab distribution-list items to the contacts API (Bug #14038).
+[mjr] Prevent various broken behaviors on ActiveSync clients due to errors
+      copying an email to sent mail folder or updating the maillog (Bug
+      #14058).
+[jan] Give administrators access to all groups, even with
+      $conf['share']['any_group'] disabled.
 
 Crypt
 [jan] Fix issues with certain locales like Turkish.
-[mms] Split gnupg command-line binary specific code out into a separate PGP backend driver.
+[mms] Split gnupg command-line binary specific code out into a separate PGP
+      backend driver.
 [mms] S/MIME encryption is now done only with AES (if using PHP 5.4+) or 3DES.
 
 Css_Parser
@@ -239,16 +213,32 @@ Css_Parser
 
 Form
 [jan] SECURITY: Fixed XSS in form renderer.
-[mjr] Prevent empty email addresses from being detected as a valid "multiple" email (Bug #14063).
+[mjr] Prevent empty email addresses from being detected as a valid "multiple"
+      email (Bug #14063).
 
 History
 [jan] Improve performance of database migration.
 
+Icalendar
+[jan] Fix generated VALARM TRIGGER attributes with empty duration (Ralf Becker
+      <RalfBecker@outdoor-training.de>).
+
+Imap_Client
+[mms] Ensure FETCH stream data is rewound before returning (Bug #14013).
+[mjr] Fix detecting empty ID queries (Bug #14044).
+
 Mail
 [mms] Fix validating sent messages if the driver supports EAI addresses.
+[mjr] Fix sending mail via PHP's mail function (Steffen Lindner
+      <mail@steffen-lindner.de>).
+
+Perms
+[mjr] Fix issues when a value of 0 is a valid value for the permission (Bug
+      #14025).
 
 Rpc
-[mjr] Send more appropriate HTTP status codes on ActiveSync authentication failure.
+[mjr] Send more appropriate HTTP status codes on ActiveSync authentication
+      failure.
 
 Util
 [jan] Fix test that could fail due to changes in glibc.
