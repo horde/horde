@@ -21,8 +21,8 @@ Please see below for changes between certain Horde Groupware versions that are
 not covered by the update script.
 
 
-Upgrading a Horde Groupware Webmail Edition 4 or later
-======================================================
+Upgrading any Horde Groupware Webmail Edition 4 or later
+========================================================
 
 Upgrading Horde Groupware Webmail Edition is as easy as running::
 
@@ -39,11 +39,529 @@ as an administrator, go to Administration => Configuration and update
 anything that's highlighted as outdated.
 
 
+Upgrading Horde Groupware Webmail Edition from 5.1.x to 5.2
+===========================================================
+
+
+-----------
+Base Module
+-----------
+
+
+Configuration Options (conf.php)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+New logging options for ActiveSync logging have been added. It is now possible
+to log all devices to a single log file or to device specific files.
+Additionally, it is also possible to select between including the raw wbxml
+stream in the output, or prune tag content greater than 50 bytes. The
+ActiveSync configuration section should be revisited.
+
+It is now possible to use X509 certificates either in addition to, or in place
+of traditional HTTP Basic authentication for ActiveSync. Refer to the
+ActiveSync configuration section for more details.
+
+An additional option is now available for the SMTP Mailer driver: 'lmtp'.
+
+A new NoSQL driver is now available for storing ActiveSync device state. Refer
+to the ActiveSync configuration section for more details.
+
+The History driver can now be explicitly defined in the configuration (and a
+new NoSQL driver has been added).
+
+Additional options are now available for the Predis HashTable driver:
+'password', 'persistent', and 'protocol'. Additionally, the 'hostspec' and
+'port' options now accept multiple values (separated by commas).
+
+The following options were added::
+
+    $conf['activesync']['logging']['level']
+    $conf['activesync']['auth']['type']
+    $conf['activesync']['auth']['params']
+    $conf['activesync']['storage']
+    $conf['activesync']['params']['driverconfig']
+    $conf['cachecssparams']['filemtime']
+    $conf['history']['driver']
+    $conf['history']['params']['driverconfig']
+    $conf['mailer']['params']['password_auth']
+    $conf['mailer']['params']['username_auth']
+
+The available options for the following options were changed::
+
+    $conf['activesync']['logging']['type']
+    $conf['mailer']['params']['password'] (for SMTP)
+    $conf['mailer']['params']['username'] (for SMTP)
+
+The default value for the following options were changed::
+
+    $conf['prefs']['maxsize']
+
+The following options were removed::
+
+    $conf['mailformat']['brokenrfc2231']
+
+
+Hooks (hooks.php)
+~~~~~~~~~~~~~~~~~
+
+New ActiveSync related hooks have been added::
+
+    activesync_create_device
+    activesync_device_check
+    activesync_device_modify
+
+Read the comments at the top of the hooks.php file for descriptions of each
+hook.
+
+
+Registry Options (registry.php)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The 'staticfs' and 'staticuri' configuration options were added to the 'horde'
+configuration.
+
+
+-----------
+Mail Module
+-----------
+
+
+Server Options (imp/config/backends.php)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The 'format' quota option has been removed.
+
+The 'cache_lifetime' option is now honored for the 'cache' and 'hashtable'
+caching backends.
+
+The 'interval' parameter has been added to the quota configuration.
+
+The 'lmtp' parameter has been added to the smtp configuration.
+
+
+Configuration Options (imp/config/conf.php)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The following options have been added::
+
+   $conf['compose']['htmlsig_img_size']
+   $conf['compose']['link_attach_size_hard']
+   $conf['contactsimage']['backends']
+   $conf['maillog']['driver']
+
+The following options have been removed::
+
+   $conf['compose']['ac_threshold']
+   $conf['compose']['convert_to_related']
+   $conf['maillog']['use_maillog']
+
+The default value for the following options have been changed:
+
+   $conf['pgp']['keylength']
+
+
+Hooks (imp/config/hooks.php)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The following hooks have been added::
+
+   compose_addr
+
+
+MIME Viewer Options (imp/config/mime_drivers.php)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The 'pgp_inline' config parameter has been added to the plaintext driver.
+The 'thumbnails_dataurl' config parameter has been added to the images driver.
+
+
+Permissions
+~~~~~~~~~~~
+
+The 'max_bodysize' permission has been added.
+
+
+Preferences (imp/config/prefs.php)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The following preferences have been added::
+
+   signature_show_compose
+
+The following preferences have been removed::
+
+   default_msg_charset
+   mail_domain
+   mimp_download_confirm
+   mimp_inline_all
+   mimp_preview_msg
+   pgp_scan_body
+
+The default value for the following preferences have been changed::
+
+   ckeditor_buttons
+
+
+API Changes
+~~~~~~~~~~~
+
+These API calls have been changed::
+
+   - mailboxList
+
+     Added the 'subscribed' return value.
+
+
+--------------
+Filters Module
+--------------
+
+
+API Changes
+~~~~~~~~~~~
+
+Added the 'newEmailFilter' API link.  Takes one argument: 'email', the
+e-mail address to pre-populate into a new rule.
+
+
+Backend Configuration (ingo/config/backends.php)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The Sieve driver now uses the 'enotify' extension by default. If using an
+old version of Sieve that only supports the deprecated 'notify' setting, set
+'notify' to true in the sieve script parameters (see backends.php).
+
+The Sieve driver now uses 'imap4flags' by default to set flags. If using an
+old version of Sieve that only supports the deprecated 'imapflags' setting,
+set 'imapflags' to true in the sieve script parameters (see backends.php).
+
+
+Configuration Options (ingo/config/conf.php)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The following options have been removed (see Permissions section for
+replacement functionality)::
+
+   $conf['storage']['maxblacklist']
+   $conf['storage']['maxwhitelist']
+
+
+Permissions
+~~~~~~~~~~~
+
+Ingo permissions are now applied per backend. To upgrade existing permissions,
+an admin needs to run the following script::
+
+   bin/ingo-admin-upgrade --task=backend_perms
+
+The following permissions have been added::
+
+   max_blacklist
+   max_forward
+   max_whitelist
+
+The following permissions have been removed::
+
+   allow_rules (replacement: set max_rules permission to 0)
+
+
+-------------------
+Address Book Module
+-------------------
+
+
+Attribute Changes
+~~~~~~~~~~~~~~~~~
+
+  - Categories have been replaced by Tags. As such, you **must** update any
+    local source definitions and remove the "Category" attribute.
+
+
+Configuration Options (turba/config/conf.php)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The following options have been added::
+
+   $conf['tags']['enabled']
+
+
+Upgrading Horde Groupware Webmail Edition from 5.1.x to 5.1.2
+=============================================================
+
+
+-----------
+Mail Module
+-----------
+
+
+Hooks (imp/config/hooks.php)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The 'trailer' hook now has two additional parameters in addition to the
+previously existing $html parameter: $identity and $to. Further details on
+the content of these parameters can be found in hooks.php.dist.
+
+
+Upgrading Horde Groupware Webmail Edition from 5.0.x to 5.1
+===========================================================
+
+
+-----------
+Base Module
+-----------
+
+
+Configuration Options (conf.php)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+It is now possible to configure Horde-wide settings for a NoSQL database
+backend. Addtionally, several Horde packages now allow a NoSQL backend driver
+to be used.
+
+The Memcache configuration options have been deprecated and have been replaced
+by the generic Horde_HashTable package (which supports both Memcache and Redis
+servers). Although the previous memcache configuration will continue to work
+in Horde 5.x, it is recommended to upgrade to the new 'hashtable'
+configuration setup.
+
+The following options were added::
+
+   $conf['auth']['resetpassword_from']
+
+The following options were removed::
+
+   $conf['cache']['compress']
+   $conf['cachecssparams']['compress']
+
+
+Hooks (hooks.php)
+~~~~~~~~~~~~~~~~~
+
+The 'ajaxaction' hook has been deprecated and replaced with the
+'ajaxaction_handle' hook (new hook needed in order to allow, e.g., adding
+tasks to the outgoing response).
+
+The following hooks were added::
+
+   ajaxaction_data
+
+
+-----------
+Mail Module
+-----------
+
+
+Server Options (imp/config/backends.php)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Sorting on non-IMAP servers, or IMAP servers that do not support the SORT
+extension, has been disabled by default in IMP 6.1. To restore the old
+behavior (NOT RECOMMENDED), see the 'sort_force' option in
+``config/backends.local.php``.
+
+The 'debug' option has been added to the SMTP configuration.
+
+IMAP/POP caching can now be done using database backends (see documentation
+for the 'cache' parameter).
+
+The following quota drivers have been removed::
+
+   Command
+   Maildir
+   Mdaemon
+   Mercury32
+   Sql
+
+
+Configuration Options (imp/config/conf.php)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The $conf['user']['allow_folders'] option has been removed. This can now be
+set per-backend using the Horde permissions system.
+
+The $conf['server']['fixed_folders'] option has been removed. Preventing
+actions on a specific mailbox can be controlled via native IMAP ACLs or,
+alternatively, by the 'mbox_acl' hook.
+
+The $conf['user']['autocreate_special'] option has been removed. This can now
+be set on a per-backend basis in ``config/backends.local.php``
+('autocreate_special' option).
+
+The $conf['msgsettings']['filtering'] and $conf['msgsettings']['replacement']
+options have been removed. This feature has been moved to the 'msg_filter'
+hook.
+
+The following spam-reporting options have been removed and can now be
+configured per-backend in ``config/backends.local.php``::
+
+   $conf['notspam']['email']
+   $conf['notspam']['email_format']
+   $conf['notspam']['program']
+   $conf['notspam']['reporting']
+   $conf['notspam']['spamfolder']
+   $conf['spam']['email']
+   $conf['spam']['email_format']
+   $conf['spam']['program']
+   $conf['spam']['reporting']
+   $conf['spam']['spamfolder']
+
+The following options have been added::
+
+   $conf['pgp']['keylength']
+
+The following options have been removed::
+
+   $conf['compose']['link_all_attachments']
+
+
+Hooks (imp/config/hooks.php)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The 'attach_body_check' hook has been added. This hook handles the attachment
+word checking code that previously was provided as an example in the
+'pre_sent' hook.
+
+The 'compose_attach' hook has been removed and replaced by the
+'compose_attachment' hook. Both hooks are designed for the same purpose;
+however, the arguments have been completely changed so it is safest to
+entirely deprecate usage of the previous hook.
+
+The 'mbox_readonly' hook has been removed. Mailbox permissions can instead be
+controlled via native IMAP ACLs or, alternatively, by the 'mbox_acl' hook.
+
+The 'mbox_special' hook has been removed. Additional special mailboxes can
+now be defined per-backend in ``config/backends.local.php``.
+
+The 'mailboxarray' and 'msglist_flags' hooks have been altered to remove the
+second argument ($mode). If the current view mode is needed, it can be
+obtained via a call to $GLOBALS['registry']->getView().
+
+The 'spam_email' hook has been removed. This configuration can now be defined
+per-backend in ``config/backends.local.php``.
+
+The $html argument to the 'trailer' hook has been added.
+
+The following hooks have been added::
+
+   mbox_acl
+   msg_filter
+
+The following hooks have been removed::
+
+   dimp_messageview
+   dimp_previewview
+   mimp_advanced
+   signature
+
+
+MIME Viewer Options (imp/config/mime_drivers.php)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Thumbnails can now be disabled for images and PDF attachments.
+
+Thumbnails are now automatically generated for video attachments if the ffmpeg
+binary is present on your system.  This is enabled by default.
+
+
+Permissions
+~~~~~~~~~~~
+
+IMP permissions are now applied per backend. To upgrade existing permissions,
+an admin needs to run the following script::
+
+   bin/imp-admin-upgrade --task=backend_perms
+
+
+Preferences (imp/config/prefs.php)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The default values for these preferences have been changed::
+
+   request_mdn
+
+The following preferences are no longer used and may be safely removed from
+your preference backend (only after all users have logged in - these
+preferences MAY be used to automatically upgrade to new preferences when
+a user logs into IMP 6 for the first time)::
+
+   compose_bcc
+   compose_cc
+   link_attach
+
+
+API Changes
+~~~~~~~~~~~
+
+These API calls have been added::
+
+   - getMaillog
+   - getMaillogChanges
+   - logMaillog
+
+
+--------------
+Filters Module
+--------------
+
+
+Backend Configuration (ingo/config/backends.php)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The 'script' and 'transport' settings of the backend configuration have been
+changed from strings to arrays, to allow different backends for different
+filter rules.
+
+
+API Changes
+~~~~~~~~~~~
+
+The applyFilters() no longer returns a value.
+
+
+-------------------
+Address Book Module
+-------------------
+
+
+Attribute Changes
+~~~~~~~~~~~~~~~~~
+
+  - The "instantMessenger" attribute has been replaced by the "imaddress",
+    "imaddress2", and "imaddress3" attributes.
+
+  - The default SQL schema has been updated, as well as the out of the box
+    field definitions for the 'localsql' source. You must execute the database
+    migrations for Turba to ensure you have the latest schema.
+
+
+Upgrading Horde Groupware Webmail Edition from 5.0 to 5.0.1
+===========================================================
+
+
+-----------
+Base Module
+-----------
+
+
+Weather portal block
+~~~~~~~~~~~~~~~~~~~~
+
+Google no longer provides a weather API. Support for this has therefore been
+removed from Horde. If you were using Google as a source for weather, you will
+need to pick a new provider and update the Horde configuration.
+
+
 Upgrading Horde Groupware Webmail Edition from 4.x to 5.x
 =========================================================
 
+
+-----------
+Base Module
+-----------
+
+
 Configuration Options (config/conf.php)
----------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The $conf['session']['max_time'] option was added. The default is no maximum
 session time, the same behavior as in Horde Groupware Webmail Edition 4.
@@ -62,7 +580,7 @@ Groupware Webmail Edition 4.
 
 
 Hooks (config/hooks.php)
-------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 The 'appauthenticated' hook has been added.
 
@@ -78,7 +596,7 @@ See ``config/hooks.php.dist`` for further details.
 
 
 Preferences (config/prefs.php)
-------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The 'sending_charset' preference now defaults to 'UTF-8'.
 
@@ -86,7 +604,7 @@ The 'menu_view' and 'show_sidebar' preferences have been removed.
 
 
 ActiveSync (EAS) Integration
-----------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Email support has been added, along with support for the EAS 12.0 and 12.1
 protocol versions. New configuration options have been added to support this.
@@ -102,6 +620,7 @@ New database migrations have been added, you MUST run these migrations for
 ActiveSync to work.
 
 
+-----------
 Mail Module
 -----------
 
@@ -234,8 +753,10 @@ API Changes
     The $mailbox parameter is now required to be a UTF-8 string.
 
 
+--------------
 Filters Module
 --------------
+
 
 Backend Configuration (ingo/config/backends.php)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -246,18 +767,20 @@ Webmail Edition authentication credentials to access. To set a different
 username and/or password, you should use the 'transport_auth' hook.
 
 
+-------------------
 Address Book Module
 -------------------
 
-Attribute Changes
-~~~~~~~~~~~~~~~~~
+
+Attributes
+~~~~~~~~~~
 
   - The "gender" attribute sets values of (literally) "male" or "female" now,
     and no longer 0 or 1.
 
 
-Preference Changes
-~~~~~~~~~~~~~~~~~~
+Preferences (turba/config/prefs.php)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   - The "addressbooks" preference has been removed.
 
@@ -274,12 +797,48 @@ API Changes
     instead of the search results array (which remains the default).
 
 
+Upgrading Horde Groupware Webmail Edition from 4.0.x to 4.0.9
+=============================================================
+
+
+-----------
+Mail Module
+-----------
+
+
+Configuration Options (imp/config/conf.php)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The $conf['spam']['email_format'] and $conf['notspam']['email_format']
+configuration options have been added.
+
+
+Upgrading Horde Groupware Webmail Edition from 4.0.x to 4.0.7
+=============================================================
+
+
+-----------
+Mail Module
+-----------
+
+
+Preferences (imp/config/prefs.php)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The 'delhide_trash' preference has been added.
+
+
 Upgrading Horde Groupware Webmail Edition from 4.0.x to 4.0.4
 =============================================================
 
 
+-----------
+Base Module
+-----------
+
+
 Weather portal block
---------------------
+~~~~~~~~~~~~~~~~~~~~
 
 The weather.com website has dropped their API to retrieve weather forecasts
 with a very short notice. The weather.com portal block has been removed and
@@ -295,37 +854,47 @@ service in Horde Groupware's configuration::
 
 
 Configuration changes
----------------------
+~~~~~~~~~~~~~~~~~~~~~
 
 The 'nobase64_img' option was added.
 
 
+-----------
+Mail Module
+-----------
+
+
 Preferences (imp/config/prefs.php)
-----------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The 'delete_mark_seen' preference has been added to the Mail module.
+The 'delete_mark_seen' preference has been added.
 
-The 'reply_lang' preference has been added to the Mail module.
+The 'reply_lang' preference has been added.
 
 
 Upgrading Horde Groupware Webmail Edition from 4.0.x to 4.0.3
 =============================================================
 
 
-Configuration Options
----------------------
-
-The 'allow_resume_all' option has been removed from the Mail module.  Only
-messages specifically marked as drafts can be resumed; however, all messages
-are given the option to "Edit As New".
+-----------
+Mail Module
+-----------
 
 
 MIME Viewer Options (imp/config/mime_drivers.php)
--------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The 'allthumbs' option has been removed from the Mail module's HTML driver.
-Image thumbnail previews are now always shown if an image conversion utility is
-present on the system.
+The 'allthumbs' option has been removed from the HTML driver.  Image thumbnail
+previews are now always shown if an image conversion utility is present on the
+system.
+
+
+Configuration Options (imp/config/conf.php)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The 'allow_resume_all' option has been removed.  Only messages specifically
+marked as drafts can be resumed; however, all messages are given the option
+to "Edit As New".
 
 
 Upgrading a Horde Groupware Webmail Edition 1.x
@@ -388,8 +957,13 @@ Upgrading Horde Groupware Webmail Edition from 1.1.x to 1.1.1.1
 ===============================================================
 
 
+-------------------
+Address Book Module
+-------------------
+
+
 Favourite Recpients Address Book
---------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 An address book which lists the users' most favourite recipients had been
 added in version 1.1 already but has only been activated with this
@@ -405,14 +979,19 @@ Upgrading Horde Groupware Webmail Edition from 1.0.x to 1.1.x
 =============================================================
 
 
+-----------
+Base Module
+-----------
+
+
 Memcache Configuration
-----------------------
+~~~~~~~~~~~~~~~~~~~~~~
 
 All memcache configuration has been moved to the $conf['memcache'] parameter.
 
 
 Application Hooks
------------------
+~~~~~~~~~~~~~~~~~
 
 All hooks that are specific to a single application have been moved to that
 application's ``config/hooks.php`` file. Split up your existing Hooks from
@@ -420,7 +999,7 @@ application's ``config/hooks.php`` file. Split up your existing Hooks from
 
 
 Group Hooks
------------
+~~~~~~~~~~~
 
 The format for group hook functions has changed from
 _group_hook_groupName($username) to _group_hook($groupName,
@@ -432,7 +1011,7 @@ config/hooks.php that will call the old style hook functions for you.
 
 
 Custom Themes
--------------
+~~~~~~~~~~~~~
 
 Themes no longer have ``info.php`` files. If you have any custom
 themes that provide their own images, you must add a
@@ -443,7 +1022,7 @@ you wish; it simply needs to exist.
 
 
 Static Log out Links
---------------------
+~~~~~~~~~~~~~~~~~~~~
 
 If you have hardcoded a log out link in any custom templates or menu
 items, you must update it to use Horde::getServiceLink(). This is
@@ -451,8 +1030,13 @@ because logging out is now protected by a token to avoid CSRF
 exploits.
 
 
+-----------
+Mail Module
+-----------
+
+
 Unified IMAP Quota Driver
--------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Separate quota drivers for Cyrus and Courier servers are no longer
 necessary. These drivers have been replaced by a generic IMAP driver that
@@ -462,7 +1046,7 @@ setting to 'imap'.
 
 
 User-Defined Mailbox Icons
---------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The usage of the hook ``_imp_hook_mbox_icons()`` has changed.  If you use this
 hook, make sure you change your implementation so it returns the correct
@@ -470,7 +1054,7 @@ value.
 
 
 New Message List Format Hook
-----------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The new hook ``_imp_hook_msglist_format()`` has been added which allows the
 formatting of a message entry in the mailbox message list to be altered
@@ -487,14 +1071,19 @@ to replicate the previous behavior.
 
 
 Spell Checking
---------------
+~~~~~~~~~~~~~~
 
 The ``pspell`` driver is no longer supported since it does not work with
 HTML messages.  If using pspell, you must upgrade to aspell version 0.60+.
 
 
+--------------
+Filters Module
+--------------
+
+
 Filters SQL Backend
--------------------
+~~~~~~~~~~~~~~~~~~~
 
 An SQL table has been added than can optionally be used as a storage backend
 for the filter rules. Using this backend no longer limits the number and size
@@ -514,8 +1103,13 @@ command::
    mysql --user=root --password=<MySQL-root-password> --skip-column-names --batch --execute='SELECT DISTINCT pref_uid FROM horde_prefs' <db name>
 
 
+-------------------
+Address Book Module
+-------------------
+
+
 IMSP Driver and Share Support
------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Share support has been added to the IMSP driver.  This support requires at
 least a Horde 3.2 install.  With this change, any IMSP address books the user
