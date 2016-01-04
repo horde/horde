@@ -3968,7 +3968,7 @@
    <date>2015-07-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [jan] SECURITY: Don&apos;t allow to login with an emtpy password.
+* [jan] SECURITY: Don&apos;t allow to login with an empty password.
 * [jan] Give administrators access to all groups, even with $conf[&apos;share&apos;][&apos;any_group&apos;] disabled.
    </notes>
   </release>
