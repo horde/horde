@@ -21,8 +21,8 @@ Please see below for changes between certain Horde Groupware versions that are
 not covered by the update script.
 
 
-Upgrading a Horde Groupware 4 or later
-======================================
+Upgrading any Horde Groupware 4 or later
+========================================
 
 Upgrading Horde Groupware is as easy as running::
 
@@ -38,11 +38,196 @@ Administration => Configuration and update anything that's highlighted as
 outdated.
 
 
+Upgrading Horde Groupware from 5.1.x to 5.2
+===========================================
+
+
+-----------
+Base Module
+-----------
+
+
+Configuration Options (conf.php)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+New logging options for ActiveSync logging have been added. It is now possible
+to log all devices to a single log file or to device specific files.
+Additionally, it is also possible to select between including the raw wbxml
+stream in the output, or prune tag content greater than 50 bytes. The
+ActiveSync configuration section should be revisited.
+
+It is now possible to use X509 certificates either in addition to, or in place
+of traditional HTTP Basic authentication for ActiveSync. Refer to the
+ActiveSync configuration section for more details.
+
+An additional option is now available for the SMTP Mailer driver: 'lmtp'.
+
+A new NoSQL driver is now available for storing ActiveSync device state. Refer
+to the ActiveSync configuration section for more details.
+
+The History driver can now be explicitly defined in the configuration (and a
+new NoSQL driver has been added).
+
+Additional options are now available for the Predis HashTable driver:
+'password', 'persistent', and 'protocol'. Additionally, the 'hostspec' and
+'port' options now accept multiple values (separated by commas).
+
+The following options were added::
+
+    $conf['activesync']['logging']['level']
+    $conf['activesync']['auth']['type']
+    $conf['activesync']['auth']['params']
+    $conf['activesync']['storage']
+    $conf['activesync']['params']['driverconfig']
+    $conf['cachecssparams']['filemtime']
+    $conf['history']['driver']
+    $conf['history']['params']['driverconfig']
+    $conf['mailer']['params']['password_auth']
+    $conf['mailer']['params']['username_auth']
+
+The available options for the following options were changed::
+
+    $conf['activesync']['logging']['type']
+    $conf['mailer']['params']['password'] (for SMTP)
+    $conf['mailer']['params']['username'] (for SMTP)
+
+The default value for the following options were changed::
+
+    $conf['prefs']['maxsize']
+
+The following options were removed::
+
+    $conf['mailformat']['brokenrfc2231']
+
+
+Hooks (hooks.php)
+~~~~~~~~~~~~~~~~~
+
+New ActiveSync related hooks have been added::
+
+    activesync_create_device
+    activesync_device_check
+    activesync_device_modify
+
+Read the comments at the top of the hooks.php file for descriptions of each
+hook.
+
+
+Registry Options (registry.php)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The 'staticfs' and 'staticuri' configuration options were added to the 'horde'
+configuration.
+
+
+-------------------
+Address Book Module
+-------------------
+
+
+Attribute Changes
+~~~~~~~~~~~~~~~~~
+
+  - Categories have been replaced by Tags. As such, you **must** update any
+    local source definitions and remove the "Category" attribute.
+
+
+Configuration Options (turba/config/conf.php)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The following options have been added::
+
+   $conf['tags']['enabled']
+
+
+Upgrading Horde Groupware from 5.0.x to 5.1
+===========================================
+
+
+-----------
+Base Module
+-----------
+
+
+Configuration Options (conf.php)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+It is now possible to configure Horde-wide settings for a NoSQL database
+backend. Addtionally, several Horde packages now allow a NoSQL backend driver
+to be used.
+
+The Memcache configuration options have been deprecated and have been replaced
+by the generic Horde_HashTable package (which supports both Memcache and Redis
+servers). Although the previous memcache configuration will continue to work
+in Horde 5.x, it is recommended to upgrade to the new 'hashtable'
+configuration setup.
+
+The following options were added::
+
+   $conf['auth']['resetpassword_from']
+
+The following options were removed::
+
+   $conf['cache']['compress']
+   $conf['cachecssparams']['compress']
+
+
+Hooks (hooks.php)
+~~~~~~~~~~~~~~~~~
+
+The 'ajaxaction' hook has been deprecated and replaced with the
+'ajaxaction_handle' hook (new hook needed in order to allow, e.g., adding
+tasks to the outgoing response).
+
+The following hooks were added::
+
+   ajaxaction_data
+
+
+-------------------
+Address Book Module
+-------------------
+
+
+Attribute Changes
+~~~~~~~~~~~~~~~~~
+
+  - The "instantMessenger" attribute has been replaced by the "imaddress",
+    "imaddress2", and "imaddress3" attributes.
+
+  - The default SQL schema has been updated, as well as the out of the box
+    field definitions for the 'localsql' source. You must execute the database
+    migrations for Turba to ensure you have the latest schema.
+
+
+Upgrading Horde Groupware from 5.0 to 5.0.1
+===========================================
+
+
+-----------
+Base Module
+-----------
+
+
+Weather portal block
+~~~~~~~~~~~~~~~~~~~~
+
+Google no longer provides a weather API. Support for this has therefore been
+removed from Horde. If you were using Google as a source for weather, you will
+need to pick a new provider and update the Horde configuration.
+
+
 Upgrading Horde Groupware from 4.x to 5.x
 =========================================
 
+
+-----------
+Base Module
+-----------
+
+
 Configuration Options (config/conf.php)
----------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The $conf['session']['max_time'] option was added. The default is no maximum
 session time, the same behavior as in Horde Groupware 4.
@@ -61,7 +246,7 @@ Groupware 4.
 
 
 Hooks (config/hooks.php)
-------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 The 'appauthenticated' hook has been added.
 
@@ -77,7 +262,7 @@ See ``config/hooks.php.dist`` for further details.
 
 
 Preferences (config/prefs.php)
-------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The 'sending_charset' preference now defaults to 'UTF-8'.
 
@@ -85,7 +270,7 @@ The 'menu_view' and 'show_sidebar' preferences have been removed.
 
 
 ActiveSync (EAS) Integration
-----------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Support for the EAS 12.0 and 12.1 protocol versions has been added. New
 configuration options have been added to support this.  You MUST update Horde
@@ -101,18 +286,20 @@ New database migrations have been added, you MUST run these migrations for
 ActiveSync to work.
 
 
+-------------------
 Address Book Module
 -------------------
 
-Attribute Changes
-~~~~~~~~~~~~~~~~~
+
+Attributes
+~~~~~~~~~~
 
   - The "gender" attribute sets values of (literally) "male" or "female" now,
     and no longer 0 or 1.
 
 
-Preference Changes
-~~~~~~~~~~~~~~~~~~
+Preferences (turba/config/prefs.php)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   - The "addressbooks" preference has been removed.
 
@@ -133,8 +320,13 @@ Upgrading Horde Groupware from 4.0.x to 4.0.4
 =============================================
 
 
+-----------
+Base Module
+-----------
+
+
 Weather portal block
---------------------
+~~~~~~~~~~~~~~~~~~~~
 
 The weather.com website has dropped their API to retrieve weather forecasts
 with a very short notice. The weather.com portal block has been removed and
@@ -150,7 +342,7 @@ service in Horde Groupware's configuration::
 
 
 Configuration changes
----------------------
+~~~~~~~~~~~~~~~~~~~~~
 
 The 'nobase64_img' option was added.
 
@@ -213,14 +405,19 @@ Upgrading Horde Groupware from 1.0.x to 1.1.x
 =============================================
 
 
+-----------
+Base Module
+-----------
+
+
 Memcache Configuration
-----------------------
+~~~~~~~~~~~~~~~~~~~~~~
 
 All memcache configuration has been moved to the $conf['memcache'] parameter.
 
 
 Application Hooks
------------------
+~~~~~~~~~~~~~~~~~
 
 All hooks that are specific to a single application have been moved to that
 application's ``config/hooks.php`` file. Split up your existing Hooks from
@@ -228,7 +425,7 @@ application's ``config/hooks.php`` file. Split up your existing Hooks from
 
 
 Group Hooks
------------
+~~~~~~~~~~~
 
 The format for group hook functions has changed from
 _group_hook_groupName($username) to _group_hook($groupName,
@@ -240,7 +437,7 @@ config/hooks.php that will call the old style hook functions for you.
 
 
 Custom Themes
--------------
+~~~~~~~~~~~~~
 
 Themes no longer have ``info.php`` files. If you have any custom
 themes that provide their own images, you must add a
@@ -251,7 +448,7 @@ you wish; it simply needs to exist.
 
 
 Static Log out Links
---------------------
+~~~~~~~~~~~~~~~~~~~~
 
 If you have hardcoded a log out link in any custom templates or menu
 items, you must update it to use Horde::getServiceLink(). This is
@@ -259,8 +456,13 @@ because logging out is now protected by a token to avoid CSRF
 exploits.
 
 
+-------------------
+Address Book Module
+-------------------
+
+
 IMSP Driver and Share Support
------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Share support has been added to the IMSP driver.  This support requires at
 least a Horde 3.2 install.  With this change, any IMSP address books the user
