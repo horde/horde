@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Pass Horde_Cache to Horde_Group if group caching enabled.
 * [mjr] Fix handling of empty tags strings in certain use cases (Bug #14203).
 * [mjr] Fix fatal error when using count_bad_logins in SQL auth driver.
  </notes>
@@ -4105,6 +4106,7 @@
    <date>2015-12-14</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Pass Horde_Cache to Horde_Group if group caching enabled.
 * [mjr] Fix handling of empty tags strings in certain use cases (Bug #14203).
 * [mjr] Fix fatal error when using count_bad_logins in SQL auth driver.
    </notes>

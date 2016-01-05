@@ -9,6 +9,9 @@ class Horde_Core_Factory_Group extends Horde_Core_Factory_Injector
     {
         $driver = Horde_String::ucfirst($GLOBALS['conf']['group']['driver']);
         $params = Horde::getDriverConfig('group', $driver);
+        if (!empty($GLOBALS['conf']['group']['cache'])) {
+            $params['cache'] = $injector->getInstance('Horde_Cache');
+        }
 
         switch ($driver) {
         case 'Contactlists':
