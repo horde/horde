@@ -225,7 +225,7 @@ class Horde_Perms_KolabTest extends PHPUnit_Framework_TestCase
     public function testHordeGroupMapsToImapGroup()
     {
         $this->groups->expects($this->once())
-            ->method('getName')
+            ->method('_getName')
             ->with('horde_test')
             ->will($this->returnValue('test'));
         $this->storage->expects($this->exactly(3))
