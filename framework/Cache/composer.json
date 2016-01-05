@@ -16,8 +16,8 @@
             "role": "lead"
         }
     ],
-    "version": "2.5.0",
-    "time": "2014-05-06",
+    "version": "2.5.1",
+    "time": "2016-01-05",
     "repositories": [
         {
             "type": "pear",
@@ -32,7 +32,7 @@
         "ext-hash": "*"
     },
     "suggest": {
-        "pear-pear.horde.org/Horde_Db": ">=2.0.3@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Db": ">=2.1.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_HashTable": ">=1.0.0@stable,<=2.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Log": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Memcache": ">=2.0.0@stable,<=3.0.0alpha1@stable",
