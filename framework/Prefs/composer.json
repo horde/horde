@@ -21,8 +21,8 @@
             "role": "lead"
         }
     ],
-    "version": "2.7.4",
-    "time": "2015-07-31",
+    "version": "2.7.5",
+    "time": "2016-01-05",
     "repositories": [
         {
             "type": "pear",
@@ -41,7 +41,7 @@
     "suggest": {
         "pear-pear.horde.org/Horde_Autoloader": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Cache": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Db": ">=2.0.3@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Db": ">=2.2.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Image": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Imsp": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Kolab_Storage": ">=2.0.0@stable,<=3.0.0alpha1@stable",
