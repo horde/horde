@@ -31,7 +31,7 @@ addons:
 before_install:
   - mysql -e "create database IF NOT EXISTS test;" -uroot
 before_script:
-  - phpenv config-add .travis.ini
+  - if [ "$TRAVIS_PHP_VERSION" == "7.0" ]; then phpenv config-add .travis.php7.ini; else phpenv config-add .travis.ini; fi
   - pear install channel://pear.php.net/Net_DNS2
   - pear install channel://pear.horde.org/Horde_Role
   - pear config-show
