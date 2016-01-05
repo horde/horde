@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-12-14</date>
+ <date>2016-01-05</date>
  <version>
   <release>2.1.0</release>
   <api>2.0.0</api>
@@ -156,7 +156,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-12-14</date>
+   <date>2016-01-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Enable TLS 1.1 and 1.2 connections (Request #14190).
