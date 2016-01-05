@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
+* [jan] Add group caching.
 * [mjr] Add configuration options for overriding maximum request window size for ActiveSync.
 * [mjr] Added maps configuration (Bug #14168).
 * [jan] Add &apos;status&apos; argument to horde-db-migrate (Nicolas Rochelemagne &lt;nicolas.rochelemagne@cpanel.net&gt;).
@@ -4140,6 +4141,7 @@
    <date>2015-09-27</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
+* [jan] Add group caching.
 * [mjr] Add configuration options for overriding maximum request window size for ActiveSync.
 * [mjr] Added maps configuration (Bug #14168).
 * [jan] Add &apos;status&apos; argument to horde-db-migrate (Nicolas Rochelemagne &lt;nicolas.rochelemagne@cpanel.net&gt;).

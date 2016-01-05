@@ -914,7 +914,13 @@
 
  <configtab name="group" desc="Groups">
   <configsection name="group">
-   <configheader>Groups Settings</configheader>
+   <configheader>Group Caching</configheader>
+   <configdescription>Enabling group caching improves performance because the
+   group backend will only be queried once per TTL. But group changes will only
+   take effect if applied from the Horde group interface.</configdescription>
+   <configboolean name="cache" required="false" desc="Enable group
+   caching?">false</configboolean>
+   <configheader>Groups Driver</configheader>
    <configswitch name="driver" desc="What backend should we use for Horde
    Groups?">Sql
     <case name="Kolab" desc="Kolab"/>
