@@ -2,6 +2,7 @@
 v1.1.4-git
 ----------
 
+[mjr] Fix tag links when tags contain URL special characters.
 
 
 ------

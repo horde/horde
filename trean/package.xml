@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* 
+* [mjr] Fix tag links when tags contain URL special characters.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -736,7 +736,7 @@
    <date>2015-10-20</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* 
+* [mjr] Fix tag links when tags contain URL special characters.
    </notes>
   </release>
  </changelog>
