@@ -160,7 +160,7 @@ abstract class Nag_Driver
         $result = Nag::sendNotification('add', $task);
 
         /* Add an alarm if necessary. */
-        if (!empty($task->alarm) &&
+        if (!empty($task->due) && !empty($task->alarm) &&
             ($alarm = $task->toAlarm())) {
             $GLOBALS['injector']->getInstance('Horde_Alarm')->set($alarm);
         }
@@ -302,7 +302,7 @@ abstract class Nag_Driver
         /* Update alarm if necessary. */
         $horde_alarm = $GLOBALS['injector']->getInstance('Horde_Alarm');
         if ((isset($properties['alarm']) && empty($properties['alarm'])) ||
-            !empty($properties['completed'])) {
+            !empty($properties['completed']) || empty($task->due)) {
             $horde_alarm->delete($task->uid);
         } else {
             $task = $this->get($taskId);

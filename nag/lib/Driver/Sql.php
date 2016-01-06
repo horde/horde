@@ -519,9 +519,11 @@ class Nag_Driver_Sql extends Nag_Driver
      */
     public function listAlarms($date)
     {
+        // Check for non-empty alarm AND a non-empty due date.
+        // See Bug: 14214
         $q = 'SELECT * FROM ' . $this->_params['table'] .
             ' WHERE task_owner = ?' .
-            ' AND task_alarm > 0' .
+            ' AND task_alarm > 0 AND task_due > 0' .
             ' AND (task_due - (task_alarm * 60) <= ?)' .
             ' AND task_completed = 0';
         $values = array($this->_tasklist, $date);
