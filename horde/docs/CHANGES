@@ -20,11 +20,29 @@ v5.3.0-git
 
 
 ------
+v5.2.9
+------
+
+[jan] SECURITY: Fix XSS vulnerability in menu bar exposed by only a few
+      applications (Bug #14213).
+
+
+------
+v5.2.8
+------
+
+[mjr] SECURITY: Protect against CSRF attacks on various admin pages.
+[jan] Don't apply access keys to checkbox and radiobox rows in the sidebar
+      (Bug #14103).
+[jan] Send correct MIME type for non-statically cached javascript files.
+[mjr] Added configuration support for version 2 of WorldWeatherOnline's API.
+
+
+------
 v5.2.7
 ------
 
-=======
-[mjr] Don't create session for Webdav requests (Bug #14040).
+[mjr] Don't create a session for Webdav requests (Bug #14040).
 [jan] Mark PHP 5.6 as officially supported.
 [mjr] Fix some issues with the permission interface when a value of 0 is a
       valid permission value (Bug #14025).
@@ -43,6 +61,7 @@ v5.2.6
 v5.2.5
 ------
 
+[jan] SECURITY: Fix XSS vulnerability in group administration.
 [mjr] Fix display of Facebook block by removing no longer allowed notification
       data.
 
@@ -50,6 +69,7 @@ v5.2.5
 ------
 v5.2.4
 ------
+
 [mms] Make dynamic context menus scrollable if taller than the browser screen
       height (Bug #13833).
 [jan] Fix horde-import-squirrelmail-prefs script (Bug #13780).
@@ -61,7 +81,7 @@ v5.2.3
 ------
 
 [mjr] Fix performing actions from ActiveSync user preference page (Bug #13657).
-[jan]  Add missing 'secure' configuration for SMTP.
+[jan] Add missing 'secure' configuration for SMTP.
 
 
 ------
