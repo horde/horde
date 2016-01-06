@@ -26,7 +26,7 @@ v4.2.10
 
 [mjr] Fix exporting events from Horde_Perms::SHOW calendars over DAV (Bug
       #14128).
-[mjr] Send CACNEL iTip when attendee is removed from a meeting (Request
+[mjr] Send CANCEL iTip when attendee is removed from a meeting (Request
       #14118).
 [mjr] Remove object reference from Content when object is deleted (Bug #14112).
 [mjr] Fix incorrect offset of freebusy times in certain cases (Bug #14084).
