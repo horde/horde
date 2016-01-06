@@ -2,6 +2,7 @@
 v5.3.0-git
 ----------
 
+[jan] Add option to always lowercase user names after logging in.
 [jan] Add group caching.
 [mjr] Add configuration options for overriding maximum request window size for
       ActiveSync.

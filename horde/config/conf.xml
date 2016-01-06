@@ -705,6 +705,13 @@
     blocking">5</configinteger>
    </configsection>
 
+   <configboolean name="lowercase" required="false" desc="Lowercase all user
+   names after logging in? Horde is case sensitive while many authentication
+   backends are case insensitive. Enabling this setting will normalize all user
+   names. If you need all user names internally to be exactly like entered in
+   the login screen, or if you allowed this in versions prior to Horde 6,
+   disable this flag.">true</configboolean>
+
    <configswitch name="resetpassword" desc="Allow users to reset passwords and
    provide a link on the login screen?">true
     <case name="true" desc="Yes">

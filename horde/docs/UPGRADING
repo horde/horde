@@ -58,6 +58,10 @@ Upgrading Horde from 5.1.x to 5.2
 Configuration Options (conf.php)
 --------------------------------
 
+An option has been added to always lowercase all user names after logging
+in. The example in the 'authusername' hook that accomplished the same has been
+removed.
+
 New logging options for ActiveSync logging have been added. It is now possible
 to log all devices to a single log file or to device specific files.
 Additionally, it is also possible to select between including the raw wbxml
@@ -88,6 +92,7 @@ The following options were added::
     $conf['activesync']['storage']
     $conf['activesync']['params']['driverconfig']
     $conf['cachecssparams']['filemtime']
+    $conf['auth']['lowercase']
     $conf['history']['driver']
     $conf['history']['params']['driverconfig']
     $conf['mailer']['params']['password_auth']

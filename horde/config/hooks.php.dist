@@ -579,17 +579,7 @@ class Horde_Hooks
 //            : $userId;
 //
 //
-//        // Example #2: Convert username to all lowercase. This might be
-//        // necessary if an authentication backend is case insensitive to
-//        // take into account that Horde's preference system is case
-//        // sensitive.
-//        // ex. $userId = 'MyName' returns: 'myname'
-//        return $toHorde
-//            ? Horde_String::lower($userId)
-//            : $userId;
-//
-//
-//        // Example #3: Map the LDAP "uid" back to the LDAP "mail"
+//        // Example #2: Map the LDAP "uid" back to the LDAP "mail"
 //        // attribute in case both are allowed user IDs for login.
 //        if (!$toHorde) {
 //            return $userId;
@@ -608,7 +598,7 @@ class Horde_Hooks
 //        }
 //        return $userId;
 //
-//       // Example #4: Essentially the same as Example #1, but in the reverse
+//       // Example #3: Essentially the same as Example #1, but in the reverse
 //       // direction. This is used, e.g., when using x509 client certificates
 //       // that provide the username as an email address and you want Horde
 //       // logins to be usernames only.
