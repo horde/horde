@@ -1,6 +1,40 @@
 ----------
-v3.0.3-git
+v3.0.7-git
 ----------
+
+[jan] Fix fatal error when cutting and pasting files on the same backend.
+
+
+------
+v3.0.6
+------
+
+[jan] Update Italian translation.
+
+
+------
+v3.0.5
+------
+
+[mjr] SECURITY: Fix XSS vulnerability when viewing directory contents
+      (Discovered by http://www.beyondsecurity.com/ssd.html).
+
+
+------
+v3.0.4
+------
+
+[jan] Update Italian translation.
+[jan] Update Catalan translation.
+[jan] Update Czech translation (Michael Grafnetter
+      <michael.grafnetter@outlook.com>).
+[jan] Update German translation.
+[jan] Update Hungarian translation.
+
+
+------
+v3.0.3
+------
 
 [jan] Update Polish translation (Maciej Uhlig <maciej.uhlig@us.edu.pl>).
 [jan] Make shares table compatible with Oracle.

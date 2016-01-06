@@ -10,6 +10,34 @@ v1.2.0-git
 
 
 ------
+v1.1.3
+------
+
+[jan] Update Italian translation.
+[mjr] Remove object reference from Content when object is deleted (Bug #14112).
+
+
+------
+v1.1.2
+------
+
+[jan] Update Italian translation.
+[jan] Update German translation.
+[jan] Update Hungarian translation.
+[mjr] Fix shebang (after install) for trean scripts (Remi Collet
+      <fedora@famillecollet.com>).
+[mjr] Use the favicon when returning tag search results via the API if
+      possible.
+
+
+------
+v1.1.1
+------
+
+[mjr] Fix fatal error due to botched merge.
+
+
+------
 v1.1.0
 ------
 

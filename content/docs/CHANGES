@@ -1,6 +1,6 @@
-----------
-v2.0.5-git
-----------
+------
+v2.0.5
+------
 
 [mjr] Fix bug that was causing tag stats to be incorrectly incremented (Bug
       #14112).

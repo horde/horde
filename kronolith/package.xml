@@ -1061,7 +1061,7 @@
    <package>
     <name>nag</name>
     <channel>pear.horde.org</channel>
-    <min>4.2.0alpha1</min>
+    <min>4.2.0</min>
     <max>5.0.0alpha1</max>
     <exclude>5.0.0alpha1</exclude>
    </package>
@@ -2460,7 +2460,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-07-08</date>
+   <date>2014-08-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Fix displayed CalDAV URLs for shared calendars (Bug #12380).
@@ -2480,7 +2480,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-08-04</date>
+   <date>2014-09-05</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix removing resource event when editing the bound event causes the resource to reject the event (Bug #13466).
@@ -2501,9 +2501,18 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-08-04</date>
+   <date>2014-10-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Export nicer display names for users and resources via WebDAV.
+* [jan] Export custom owner and read-only properties via WebDAV.
+* [jan] Fix finding modification times of shared calendars via WebDAV.
+* [jan] Support time label rotation in week and day views on IE 11.
+* [jan] Fix updating of task list view if no tasks are returned from server.
+* [jan] Fix ordering of sub-tasks.
+* [jan] Send iTip notifications even to attendees that are not required to attend (Bug #13600).
+* [jan] Fix notification and alarm issues if alarm is longer than a day (Bug #13584).
+* [jan] Fix closure compiler errors (Bug #13593).
 * [mjr] Fix checking resource availability when adding multiple resources (Bug #13561).
    </notes>
   </release>
@@ -2514,9 +2523,12 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-08-04</date>
+   <date>2014-12-03</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Make access to non-CalDAV remote calendars faster (Bug #12379).
+* [jan] Continue with further events if parsing of one remote event date fails.
+* [jan] Fix JS error in month view with more events today than the maximum threshold.
 * [mjr] Fix fatal error when creating or modifying an entry via PUT.
 * [mjr] Don&apos;t show private event details in daily agenda emails if not the owner (Bug #13660).
    </notes>
@@ -2528,7 +2540,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-01-24</date>
+   <date>2015-02-10</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix generating calendar embed code (Bug #13828).
@@ -2545,6 +2557,7 @@
    <date>2015-04-28</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix building recipient list for event update notifications.
 * [mjr] Honor background color for listTimeObjects API calendars (Bug #13951).
 * [jan] Always sort users in advanced sharing dialog (Bug #13938).
 * [mjr] Fix saving recurring event after a change in resources (Bug #13921).
@@ -2556,6 +2569,99 @@
 * [jan] Fix duplicate group names in sharing dialog.
 * [jan] Fix JavaScript error when saving an unselected calendar.
 * [mjr] Fix using custom SQL configuration parameters.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.7</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-05-18</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Fix importing iCalendar events via the API (Bug #13975).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.8</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-06-18</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Don&apos;t delete existing exceptions and completions when editing recurring events or tasks.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.9</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-08-01</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix enabling deletion of resources for non-admin users (Bug #14069).
+* [mjr] Honor workweek view as the login_view (Bug #14042).
+* [mjr] Fix Permission Denied error after removing a currently displayed timeObject (Bug #14022).
+* [jan] Enable purge calendar checkbox if user has delete permissions.
+* [mjr] Honor locking the remote_cals preference.
+* [mjr] Fix detecting duplicate events during import via the API (Bug #14018).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.10</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-10-21</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix exporting events from Horde_Perms::SHOW calendars over DAV (Bug #14128).
+* [mjr] Send CANCEL iTip when attendee is removed from a meeting (Request #14118).
+* [mjr] Remove object reference from Content when object is deleted (Bug #14112).
+* [mjr] Fix incorrect offset of freebusy times in certain cases (Bug #14084).
+* [mjr] Fix handling of email groups as attendees (Bug #14093).
+* [mjr] Fix importing text/calendar data via API (Bug #14089).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.11</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-10-22</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix issue when replacing an event via the API and the attendee list changes (Bug #14118).
+* [mjr] Fix fatal test error related to Content_Tagger.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.12</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-10-21</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Fix accidental deletion of events if importing recurring events without a UID attribute (Bug #14208).
+* [mjr] Honor confirm_delete preference in dynamic view (Bug #14188).
+* [mjr] Correctly deal with cancelled meetings via ActiveSync.
+* [mjr] Fix visibility of alarm titles when alarm is generated via CLI (Bug #14154).
+* [mjr] Fix display of embed code by adding the full url.
    </notes>
   </release>
   <release>

@@ -1118,10 +1118,85 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-03-10</date>
+   <date>2014-10-29</date>
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
    <notes>
+* [jan] Fix CSS styling of comment text.
+* [jan] Prefix ticket number exported via tasks API.
 * [mms] Fix whups-mail-filter binary.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.2</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-02-10</date>
+   <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
+   <notes>
+* [jan] Fix uploading attachments when assigning in step 4 (Bug #13621).
+* [jan] Fix sending reminders (Bug #12867).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.3</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-04-28</date>
+   <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
+   <notes>
+* [mjr] Fix error reporting if listing of users failed (Bug #13944).
+* [jan] Don&apos;t make attribute description a required field.
+* [jan] Fix fatal error when assigning a ticket in certain use cases (Bug #13731).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.4</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-08-01</date>
+   <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
+   <notes>
+* [jan] Update Italian translation.
+* [jan] Update Czech translation.
+* [mjr] Fix validation of email field failing for valide RFC822 email lists (Bug #14063).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.5</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-10-21</date>
+   <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
+   <notes>
+* [mjr] Fix some issues with adding tickets via the API.
+* [jan] Update Italian translation.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.6</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-10-20</date>
+   <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
+   <notes>
+* [jan] Fix updating tickets with owners via the API (Neal Thomas Oakey &lt;oakey@b1-systems.de&gt;).
+* [mjr] Fix incorrect casting of numeric strings to integers (Bug #14146).
+* [mjr] Allow due date to be changed via the API (Neal Thomas Oakey &lt;oakey@b1-systems.de&gt;).
    </notes>
   </release>
   <release>

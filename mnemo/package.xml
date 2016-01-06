@@ -1146,7 +1146,7 @@
    <date>2014-03-10</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-*
+* 
    </notes>
   </release>
   <release>
@@ -1206,7 +1206,7 @@
    <date>2014-07-08</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-*
+* 
    </notes>
   </release>
   <release>
@@ -1216,7 +1216,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-07-08</date>
+   <date>2014-08-04</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [mjr] Ensure default share attribute is set when auto determining a default share.
@@ -1233,7 +1233,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-08-16</date>
+   <date>2014-10-29</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [mjr] Fix adding new notepads via the API.
@@ -1248,9 +1248,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-08-16</date>
+   <date>2014-12-03</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [jan] SECURITY: Fix permission check when editing notes (found by Christopher Neuhaus &lt;cne@ruhrverband.de&gt;).
 * [mms] Added ability to link to note via API.
    </notes>
   </release>
@@ -1261,15 +1262,17 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-12-15</date>
+   <date>2015-02-10</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [jan] Don&apos;t list notepads without SHOW permissions (Bug #13838).
+* [jan] Fix using custom SQL driver configuration.
 * [mjr] Fix truncation of body text when synchronizing over EAS when no truncationsize option is sent from client (Bug #13755).
    </notes>
   </release>
   <release>
    <version>
-    <release>4.2.3</release>
+    <release>4.2.5</release>
     <api>4.0.0</api></version>
    <stability>
     <release>stable</release>
@@ -1282,15 +1285,59 @@
   </release>
   <release>
    <version>
-    <release>4.2.4</release>
+    <release>4.2.6</release>
     <api>4.0.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-02-10</date>
+   <date>2015-04-28</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [mjr] Fix using custom SQL configuration parameters.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.7</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-08-01</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [jan] Update Italian translation.
+* [jan] Update Czech translation.
+* [mjr] Fix inconsistent handling of incoming HTML notes from ActiveSync clients (Bug #14045).
+* [mjr] Allow more reasonable length of description field to interop better with synchronized clients (Bug #14041).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.8</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-10-21</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [jan] Update Italian translation.
+* [mjr] Remove object reference from Content when object is deleted (Bug #14112).
+* [mjr] Remove tags from Content when tagged object is deleted (Bug #14112).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.9</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-10-20</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [mjr] Fix fatal error when removing notepads in certain cases.
    </notes>
   </release>
   <release>

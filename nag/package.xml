@@ -1575,7 +1575,7 @@
    <date>2014-07-01</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-*
+* 
    </notes>
   </release>
   <release>
@@ -1599,7 +1599,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-07-08</date>
+   <date>2014-08-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Don&apos;t include external tasks with WebDAV task list.
@@ -1617,9 +1617,12 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-08-04</date>
+   <date>2014-10-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Export nicer display names for users and resources via WebDAV.
+* [jan] Export custom owner and read-only properties via WebDAV.
+* [jan] Fix search attribute of SQL shares on Oracle.
 * [mjr] Fix adding a new tasklist to the syncronized tasklists (Bug #13642).
 * [jan] Pass current start date of recurring tasks to dynamic interface.
 * [jan] Fix setting task list name for external tasks.
@@ -1637,10 +1640,78 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-11-18</date>
+   <date>2014-11-21</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix issue with initially creating nag_shares table.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.4</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-02-10</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Don&apos;t list task lists without SHOW permissions (Bug #13837).
+* [jan] Use consistent checkbox.
+* [jan] Don&apos;t allow deletion of tasks with sub-tasks (Bug #13809).
+* [jan] Don&apos;t allow completion of tasks with incomplete sub-tasks and vice versa.
+* [jan] Don&apos;t wipe out whole task lists when PUTing individual tasks via WebDAV.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.5</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-06-18</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Fix positioning of dialog windows.
+* [jan] Don&apos;t delete existing completions when editing a recurring task.
+* [jan] Only delete the last completion when toggling a recurring task to incomplete.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.6</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-10-21</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Update Italian translation.
+* [mjr] Fix indentation level when searching (Bug #14138).
+* [mjr] Remove object reference from Content when object is deleted (Bug #14112).
+* [mjr] Remove tags from Content when tagged object is deleted (Bug #14112).
+* [jan] Fix linking to external tasks from smartmobile view.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.7</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-10-20</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix possible fatal error due to tasks created with an alarm but no due date (Bug #14214).
+* [mjr] Fix storage of parent field when using Kolab driver (Bug #14197, mike.gabriel@das-netzwerkteam.de).
+* [mjr] Fix switching tab/filters when using Kolab driver (Bug #14196, mike.gabriel@das-netzwerkteam.de).
+* [mjr] Fix moving subtasks to another tasklist when parent task is moved (Bug #14209).
+* [mjr] Fix fatal error when saving tasks when system shares are present in certain cases.
+* [mjr] Return recurring tasks via listTimeObjects API (Bug #14137).
+* [mjr] Prevent orphaning tasks via the API.
    </notes>
   </release>
   <release>

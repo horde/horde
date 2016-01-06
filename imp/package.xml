@@ -1346,7 +1346,7 @@
    <package>
     <name>Horde_Mail_Autoconfig</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0alpha1</max>
     <exclude>2.0.0alpha1</exclude>
    </package>
@@ -1507,7 +1507,7 @@
    <package>
     <name>Horde_Service_Gravatar</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0alpha1</min>
+    <min>1.0.0</min>
     <max>2.0.0alpha1</max>
     <exclude>2.0.0alpha1</exclude>
    </package>
@@ -3806,9 +3806,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-06-10</date>
+   <date>2015-06-18</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Don&apos;t focus body field when composing message with HTML editor.
 * [jan] Protect against infinite request loop if expanding all mailboxes.
 * [jan] Don&apos;t show ACL context menu if ACL preferences are locked.
 * [jan] Fix redirecting in smartmobile mode (Bug #14002).
@@ -3816,6 +3817,107 @@
 * [jan] Fix setting single recipients in redirection window in basic mode (Bug #14002).
 * [jan] Don&apos;t switch to regular compose view after an error in the redirection view in basic mode.
 * [jan] Fix cancelling redirection window in basic mode (Bug #14002).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>6.2.10</release>
+    <api>6.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-08-01</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mms] Ensure mailbox name is a valid string (Bug #14049).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>6.2.11</release>
+    <api>6.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-10-21</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Request that the contacts API only consider email fields when detecting duplicates during automatic saving of attendees to the address book (Bug #14119).
+* [jan] Don&apos;t show "Create Keys" button if creating PGP keys is disabled (steffen.hau@rz.uni-mannheim.de, Request #14096).
+* [mjr] Fix displaying iTips with certain locale/date_format preference combinations (Bug #14076).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>6.2.12</release>
+    <api>6.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-10-20</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Fix setting title with newmail count in IE11 and Edge (Bug #14189).
+* [jan] Fix wrapping of plain text converted from HTML MIME parts.
+   </notes>
+  </release>
+  <release>
+   <date>2015-03-26</date>
+   <version>
+    <release>7.0.0</release>
+    <api>7.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Add support for sending MDN via the API.
+* [mjr] Add imap_preauthenticate hook.
+* [mms] Report multiple spam/innocent messages in a single digest.
+* [mms] Remove mailbox from polled list when unsubscribing from it.
+* [mms] Allow remote account passwords to be saved encrypted in user&apos;s preferences (Request #13168).
+* [mms] Send IMP MUA information to IMAP servers that support the ID extension.
+* [mms] Send S/MIME encrypted data to multiple recipients in a single outgoing message.
+* [mms] Sent-mail maillog entries are now linked to a viewable representation of the sent message, if it still exists on the server.
+* [mms] Store message ID of the sent message when saving maillog history.
+* [mms] Add backend configuration option to use body structure data to more accurately determine whether a message contains attachments.
+* [jan] Show warning on S/MIME page if personal certificate has expired.
+* [mjr] Improve support for vTodo iTip handling.
+* [mms] Add resent information to message header display.
+* [mms] Added an option to the mailboxList API call to force inclusion of unsubscribed mailboxes.
+* [mms] Asynchronously load the mailbox list on the advanced search page.
+* [mms] Automatically try to rotate embedded inline images when displaying a message.
+* [mms] Add ability to add email groups to the address book.
+* [mms] Improved contacts loading - all contacts are never shown by default, but provide simple method for user to load all contacts.
+* [mms] Add dynamically updating relative time display for messages in dynamic view.
+* [mms] Add Purge Deleted button in smartmobile view (Request #13155).
+* [mms] Improved display of attachments and message log information in dynamic view.
+* [mms] IMP no longer uses MDN status stored in the maillog backend by default.
+* [mms] Add ability to download individual files from within a .tgz attachment.
+* [mms] Improved display of contents of ZIP attachments.
+* [mms] Contacts popup now does address search dynamically, without the need to reload the page.
+* [mms] Remove &apos;mailboxarray&apos; hook.
+* [mms] Remove &apos;display_folder&apos; hook.
+* [mms] Auto-detect EAI support on mail backends and provide validation feedback without the need to submit to the backend.
+* [mms] Removed basic view.
+* [mms] Do autocomplete search on browser, if sufficient data exists, to save calls to contacts backend.
+* [mms] Removed minimal view.
+* [mms] Allow auto-completed e-mail groups to be expanded on the dynamic compose page.
+* [mms] Add class of message part rendering display errors that aren&apos;t shown to the user by default.
+* [mms] Throttle message list keypresses in dynamic view to prevent avalanche of preview requests sent to server (Request #13574).
+* [mms] Filter out relative image URLs in HTML message data.
+* [mms] Implement lazy loading for images in HTML messages.
+* [mms] Add &apos;dynamic_prefs&apos; hook to allow for changing of default values for browser-based preferences in dynamic view.
+* [mms] Removed compose &apos;use_vfs&apos; configuration option.
+* [mjr] Add IMP_Api::addFlags().
+* [mms] Allow multiple independent attachment actions on the dynamic compose screen.
+* [mms] Add upload progress bar in dynamic compose screen when adding attachments.
+* [mms] Uniquely identify sent-mail mailboxes by identity in main folder tree (Request #12721).
+* [mms] Don&apos;t send empty text part if a message contains attachments.
+* [mms] Add button to allow folder tree to be rebuilt in smartmobile view.
+* [mms] Add option to poll mailbox for new mailbox when creating a mailbox (Request #13227).
    </notes>
   </release>
  </changelog>

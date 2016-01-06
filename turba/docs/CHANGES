@@ -12,6 +12,50 @@ v4.3.0-git
       #11889).
 
 
+-------
+v4.2.11
+-------
+
+[mjr] Fix regression in removing all contacts from a single address book in the
+      SQL driver (Bug #14145, Guenter Bartsch
+      <guenter.bartsch@vista-rasch.com>).
+
+
+-------
+v4.2.10
+-------
+
+[mjr] Fix fatal test error related to Content_Tagger.
+
+
+------
+v4.2.9
+------
+
+[mjr] Better prevention of importing duplicate contacts with same email
+      addresses via the API (Bug #14119).
+[mjr] Remove object reference from Content when object is deleted (Bug #14112).
+[mjr] Remove tags from Content when tagged object is deleted (Bug #14112).
+[mjr] Allow API to search all email type fields when calling getField().
+[mjr] Fix removing all contacts owned by a specific user.
+[jan] Fix inserting and updating photos with Oracle backends.
+[mjr] Fix incorrectly populating email field when importing vCard (Bug #14046).
+
+
+------
+v4.2.8
+------
+
+[mjr] Fix issue where sidebar links point to incorrect address book.
+
+
+------
+v4.2.7
+------
+
+[jan] Fix error when removing user data.
+
+
 ------
 v4.2.6
 ------
@@ -39,6 +83,10 @@ v4.2.4
 v4.2.3
 ------
 
+[jan] Export nicer display names for users and resources via WebDAV.
+[jan] Export custom owner and read-only properties via WebDAV.
+[jan] Fix exporting contacts without __uid attributes via WebDAV.
+[jan] Fix importing empty birthdays/anniversaries from vCard.
 [mjr] Fix defaulting to the defined search fields when searching via the API.
 [mjr] Fix broken EAS synchronization due to incorrect setting of the
       Categories field.

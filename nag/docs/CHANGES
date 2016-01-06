@@ -17,6 +17,38 @@ v4.3.0-git
 
 
 ------
+v4.2.6
+------
+
+[jan] Update Italian translation.
+[mjr] Fix indentation level when searching (Bug #14138).
+[mjr] Remove object reference from Content when object is deleted (Bug #14112).
+[mjr] Remove tags from Content when tagged object is deleted (Bug #14112).
+[jan] Fix linking to external tasks from smartmobile view.
+
+
+------
+v4.2.5
+------
+
+[jan] Fix positioning of dialog windows.
+[jan] Don't delete existing completions when editing a recurring task.
+[jan] Only delete the last completion when toggling a recurring task to
+      incomplete.
+
+
+------
+v4.2.4
+------
+
+[jan] Don't list task lists without SHOW permissions (Bug #13837).
+[jan] Use consistent checkbox.
+[jan] Don't allow deletion of tasks with sub-tasks (Bug #13809).
+[jan] Don't allow completion of tasks with incomplete sub-tasks and vice versa.
+[jan] Don't wipe out whole task lists when PUTing individual tasks via WebDAV.
+
+
+------
 v4.2.3
 ------
 
@@ -27,6 +59,9 @@ v4.2.3
 v4.2.2
 ------
 
+[jan] Export nicer display names for users and resources via WebDAV.
+[jan] Export custom owner and read-only properties via WebDAV.
+[jan] Fix search attribute of SQL shares on Oracle.
 [mjr] Fix adding a new tasklist to the syncronized tasklists (Bug #13642).
 [jan] Pass current start date of recurring tasks to dynamic interface.
 [jan] Fix setting task list name for external tasks.

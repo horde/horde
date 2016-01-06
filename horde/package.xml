@@ -1945,7 +1945,7 @@
    <package>
     <name>Horde_Service_Weather</name>
     <channel>pear.horde.org</channel>
-    <min>2.1.0</min>
+    <min>2.2.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -4003,20 +4003,6 @@
   </release>
   <release>
    <version>
-    <release>5.2.0beta3</release>
-    <api>5.2.0</api></version>
-   <stability>
-    <release>beta</release>
-    <api>beta</api></stability>
-   <date>2014-06-04</date>
-   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
-   <notes>
-* [jan] Add configuration for searching user DNs in LDAP groups (Bug #12128).
-* [jan] Don&apos;t try to write to read-only group backends when removing user data (skhorde@smail.inf.fh-bonn-rhein-sieg.de, Bug #13248).
-   </notes>
-  </release>
-  <release>
-   <version>
     <release>5.2.0RC1</release>
     <api>5.2.0</api></version>
    <stability>
@@ -4062,7 +4048,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-07-08</date>
+   <date>2014-08-04</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [mjr] Fix cancelling remote wipe of EAS client from user prefs.
@@ -4077,7 +4063,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-07-08</date>
+   <date>2014-10-29</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [mjr] Honor date_format_mini in Moon block (Bug #13628).
@@ -4096,11 +4082,11 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-07-08</date>
+   <date>2014-12-03</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [mjr] Fix performing actions from ActiveSync user preference page (Bug #13657).
-* [jan]  Add missing &apos;secure&apos; configuration for SMTP.
+* [jan] Add missing &apos;secure&apos; configuration for SMTP.
    </notes>
   </release>
   <release>
@@ -4110,7 +4096,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-12-03</date>
+   <date>2015-02-10</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [mms] Make dynamic context menus scrollable if taller than the browser screen height (Bug #13833).
@@ -4125,10 +4111,70 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-12-03</date>
+   <date>2015-04-28</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
+* [jan] SECURITY: Fix XSS vulnerability in group administration.
 * [mjr] Fix display of Facebook block by removing no longer allowed notification data.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.2.6</release>
+    <api>5.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-06-18</date>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
+   <notes>
+* [jan] Use Horde_Ldap in example preference hooks.
+* [jan] Convert REDIRECT_HTTP_AUTHORIZATION to HTTP authentication headers too.
+* [jan] Display MOTD on mobile login screen.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.2.7</release>
+    <api>5.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-08-01</date>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
+   <notes>
+* [mjr] Don&apos;t create a session for Webdav requests (Bug #14040).
+* [jan] Mark PHP 5.6 as officially supported.
+* [mjr] Fix some issues with the permission interface when a value of 0 is a valid permission value (Bug #14025).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.2.8</release>
+    <api>5.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-10-21</date>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
+   <notes>
+* [mjr] SECURITY: Protect against CSRF attacks on various admin pages.
+* [jan] Don&apos;t apply access keys to checkbox and radiobox rows in the sidebar (Bug #14103).
+* [jan] Send correct MIME type for non-statically cached javascript files.
+* [mjr] Added configuration support for version 2 of WorldWeatherOnline&apos;s API.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.2.9</release>
+    <api>5.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-10-20</date>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
+   <notes>
+* [jan] SECURITY: Fix XSS vulnerability in menu bar exposed by only a few applications (Bug #14213).
    </notes>
   </release>
   <release>

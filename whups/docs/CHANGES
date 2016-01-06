@@ -8,6 +8,51 @@ v3.1.0-git
 
 
 ------
+v3.0.5
+------
+
+[mjr] Fix some issues with adding tickets via the API.
+[jan] Update Italian translation.
+
+
+------
+v3.0.4
+------
+
+[jan] Update Italian translation.
+[jan] Update Czech translation.
+[mjr] Fix validation of email field failing for valide RFC822 email lists (Bug
+      #14063).
+
+
+------
+v3.0.3
+------
+
+[mjr] Fix error reporting if listing of users failed (Bug #13944).
+[jan] Don't make attribute description a required field.
+[jan] Fix fatal error when assigning a ticket in certain use cases (Bug
+      #13731).
+
+
+------
+v3.0.2
+------
+
+[jan] Fix uploading attachments when assigning in step 4 (Bug #13621).
+[jan] Fix sending reminders (Bug #12867).
+
+
+------
+v3.0.1
+------
+
+[jan] Fix CSS styling of comment text.
+[jan] Prefix ticket number exported via tasks API.
+[mms] Fix whups-mail-filter binary.
+
+
+------
 v3.0.0
 ------
 

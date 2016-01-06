@@ -69,12 +69,50 @@ v7.0.0-git
       (Request #13227).
 
 
+-------
+v6.2.11
+-------
+
+[mjr] Request that the contacts API only consider email fields when detecting
+      duplicates during automatic saving of attendees to the address book (Bug
+      #14119).
+[jan] Don't show "Create Keys" button if creating PGP keys is disabled
+      (steffen.hau@rz.uni-mannheim.de, Request #14096).
+[mjr] Fix displaying iTips with certain locale/date_format preference
+      combinations (Bug #14076).
+
+
+-------
+v6.2.10
+-------
+
+[mms] Ensure mailbox name is a valid string (Bug #14049).
+
+
+------
+v6.2.9
+------
+
+[jan] Don't focus body field when composing message with HTML editor.
+[jan] Protect against infinite request loop if expanding all mailboxes.
+[jan] Fix redirecting in smartmobile mode (Bug #14002).
+[jan] Fix address autocompletion in redirection window of smartmobile mode
+      (Bug #14002).
+[jan] Fix setting single recipients in redirection window in basic mode (Bug
+      #14002).
+[jan] Don't switch to regular compose view after an error in the redirection
+      view in basic mode.
+[jan] Fix cancelling redirection window in basic mode (Bug #14002).
+
+
 ------
 v6.2.8
 ------
 
 [mms] SECURITY: Fix XSS vulnerability when manually switching between plaintext
       -> HTML compose mode.
+[jan] Update Bcc address when switching identities (João Machado
+      <geral@jpaulo.eu>, Bug #13922).
 [jan] Fix protocol name in POP3 example backend configuration.
 [mms] Don't honor linked attachment limit configuration options if linked
       attachments are disabled (Bug #13665).

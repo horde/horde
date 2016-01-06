@@ -670,7 +670,7 @@
    <package>
     <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
-    <min>2.12.0alpha1</min>
+    <min>2.12.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1829,7 +1829,7 @@
    <date>2014-05-05</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* [jan] Don&apos;t extport binary fields to CSV/TSV.
+* [jan] Don&apos;t export binary fields to CSV/TSV.
 * [mms] Fix search in Facebook driver.
 * [jan] Add script to import contacts from Open-Xchange.
 * [jan] Don&apos;t remove missing contacts from distributions lists in Kolab backends (Bug #12861).
@@ -1904,7 +1904,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-07-08</date>
+   <date>2014-08-04</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Display correct address books in WebDAV folders.
@@ -1921,7 +1921,7 @@
     <release>4.2.2</release>
     <api>4.0.0</api></version>
    <stability>
-    <release>beta</release>
+    <release>stable</release>
     <api>stable</api></stability>
    <date>2014-09-05</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
@@ -1937,11 +1937,15 @@
     <release>4.2.3</release>
     <api>4.0.0</api></version>
    <stability>
-    <release>beta</release>
+    <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-09-05</date>
+   <date>2014-10-29</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [jan] Export nicer display names for users and resources via WebDAV.
+* [jan] Export custom owner and read-only properties via WebDAV.
+* [jan] Fix exporting contacts without __uid attributes via WebDAV.
+* [jan] Fix importing empty birthdays/anniversaries from vCard.
 * [mjr] Fix defaulting to the defined search fields when searching via the API.
 * [mjr] Fix broken EAS synchronization due to incorrect setting of the Categories field.
    </notes>
@@ -1979,12 +1983,97 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-02-10</date>
+   <date>2015-04-28</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Don&apos;t try to load Content application if tags are disabled.
 * [mjr] Fix adding tags to new contacts (Bug #13884).
 * [jan] Fix waiting for replication on LDAP backend.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.7</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-06-18</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [jan] Fix error when removing user data.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.8</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-08-01</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [mjr] Fix issue where sidebar links point to incorrect address book.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.9</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-10-21</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [mjr] Better prevention of importing duplicate contacts with same email addresses via the API (Bug #14119).
+* [mjr] Remove object reference from Content when object is deleted (Bug #14112).
+* [mjr] Remove tags from Content when tagged object is deleted (Bug #14112).
+* [mjr] Allow API to search all email type fields when calling getField().
+* [mjr] Fix removing all contacts owned by a specific user.
+* [jan] Fix inserting and updating photos with Oracle backends.
+* [mjr] Fix incorrectly populating email field when importing vCard (Bug #14046).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.10</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-10-22</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [mjr] Fix fatal test error related to Content_Tagger.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.11</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-10-28</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [mjr] Fix regression in removing all contacts from a single address book in the Sql driver (Bug #14145, Guenter Bartsch &lt;guenter.bartsch@vista-rasch.com&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.12</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-10-28</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [mjr] Fix searching within virtual address books (Bug #14155).
+* [mjr] Fix import of vCard with single component via API.
    </notes>
   </release>
   <release>

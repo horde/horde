@@ -578,7 +578,7 @@
    <package>
     <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
-    <min>2.12.0alpha1</min>
+    <min>2.12.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1642,6 +1642,7 @@
    <date>2015-10-20</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [jan] Fix variable name in vacation_addresses hook example.
 * [jan] Correctly save names of mailbox created from the rule form (Bug #14150).
 * [mjr] Fix invalid URLs in certain forms when cookies are disabled (Bug #14148).
    </notes>
