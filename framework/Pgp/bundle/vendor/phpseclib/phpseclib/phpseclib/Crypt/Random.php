@@ -3,57 +3,44 @@
 /**
  * Random Number Generator
  *
- * The idea behind this function is that it can be easily replaced with your own crypt_random_string()
- * function. eg. maybe you have a better source of entropy for creating the initial states or whatever.
- *
- * PHP versions 4 and 5
+ * PHP version 5
  *
  * Here's a short example of how to use this library:
  * <code>
  * <?php
- *    include 'Crypt/Random.php';
+ *    include 'vendor/autoload.php';
  *
- *    echo bin2hex(crypt_random_string(8));
+ *    echo bin2hex(\phpseclib\Crypt\Random::string(8));
  * ?>
  * </code>
  *
- * LICENSE: Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
  * @category  Crypt
- * @package   Crypt_Random
+ * @package   Random
  * @author    Jim Wigginton <terrafrost@php.net>
  * @copyright 2007 Jim Wigginton
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link      http://phpseclib.sourceforge.net
  */
 
-// laravel is a PHP framework that utilizes phpseclib. laravel workbenches may, independently,
-// have phpseclib as a requirement as well. if you're developing such a program you may encounter
-// a "Cannot redeclare crypt_random_string()" error.
-if (!function_exists('crypt_random_string')) {
-    /**
-     * "Is Windows" test
-     *
-     * @access private
-     */
-    define('CRYPT_RANDOM_IS_WINDOWS', strtoupper(substr(PHP_OS, 0, 3)) === 'WIN');
+namespace phpseclib\Crypt;
 
+use phpseclib\Crypt\AES;
+use phpseclib\Crypt\Base;
+use phpseclib\Crypt\Blowfish;
+use phpseclib\Crypt\DES;
+use phpseclib\Crypt\RC4;
+use phpseclib\Crypt\TripleDES;
+use phpseclib\Crypt\Twofish;
+
+/**
+ * Pure-PHP Random Number Generator
+ *
+ * @package Random
+ * @author  Jim Wigginton <terrafrost@php.net>
+ * @access  public
+ */
+class Random
+{
     /**
      * Generate a random string.
      *
@@ -63,11 +50,10 @@ if (!function_exists('crypt_random_string')) {
      *
      * @param Integer $length
      * @return String
-     * @access public
      */
-    function crypt_random_string($length)
+    public static function string($length)
     {
-        if (CRYPT_RANDOM_IS_WINDOWS) {
+        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
             // method 1. prior to PHP 5.3 this would call rand() on windows hence the function_exists('class_alias') call.
             // ie. class_alias is a function that was introduced in PHP 5.3
             if (function_exists('mcrypt_create_iv') && function_exists('class_alias')) {
@@ -194,44 +180,26 @@ if (!function_exists('crypt_random_string')) {
             //
             // http://en.wikipedia.org/wiki/Cryptographically_secure_pseudorandom_number_generator#Designs_based_on_cryptographic_primitives
             switch (true) {
-                case phpseclib_resolve_include_path('Crypt/AES.php'):
-                    if (!class_exists('Crypt_AES')) {
-                        include_once 'AES.php';
-                    }
-                    $crypto = new Crypt_AES(CRYPT_AES_MODE_CTR);
+                case class_exists('\phpseclib\Crypt\AES'):
+                    $crypto = new AES(Base::MODE_CTR);
                     break;
-                case phpseclib_resolve_include_path('Crypt/Twofish.php'):
-                    if (!class_exists('Crypt_Twofish')) {
-                        include_once 'Twofish.php';
-                    }
-                    $crypto = new Crypt_Twofish(CRYPT_TWOFISH_MODE_CTR);
+                case class_exists('\phpseclib\Crypt\Twofish'):
+                    $crypto = new Twofish(Base::MODE_CTR);
                     break;
-                case phpseclib_resolve_include_path('Crypt/Blowfish.php'):
-                    if (!class_exists('Crypt_Blowfish')) {
-                        include_once 'Blowfish.php';
-                    }
-                    $crypto = new Crypt_Blowfish(CRYPT_BLOWFISH_MODE_CTR);
+                case class_exists('\phpseclib\Crypt\Blowfish'):
+                    $crypto = new Blowfish(Base::MODE_CTR);
                     break;
-                case phpseclib_resolve_include_path('Crypt/TripleDES.php'):
-                    if (!class_exists('Crypt_TripleDES')) {
-                        include_once 'TripleDES.php';
-                    }
-                    $crypto = new Crypt_TripleDES(CRYPT_DES_MODE_CTR);
+                case class_exists('\phpseclib\Crypt\TripleDES'):
+                    $crypto = new TripleDES(Base::MODE_CTR);
                     break;
-                case phpseclib_resolve_include_path('Crypt/DES.php'):
-                    if (!class_exists('Crypt_DES')) {
-                        include_once 'DES.php';
-                    }
-                    $crypto = new Crypt_DES(CRYPT_DES_MODE_CTR);
+                case class_exists('\phpseclib\Crypt\DES'):
+                    $crypto = new DES(Base::MODE_CTR);
                     break;
-                case phpseclib_resolve_include_path('Crypt/RC4.php'):
-                    if (!class_exists('Crypt_RC4')) {
-                        include_once 'RC4.php';
-                    }
-                    $crypto = new Crypt_RC4();
+                case class_exists('\phpseclib\Crypt\RC4'):
+                    $crypto = new RC4();
                     break;
                 default:
-                    user_error('crypt_random_string requires at least one symmetric cipher be loaded');
+                    user_error(__CLASS__ . ' requires at least one symmetric cipher be loaded');
                     return false;
             }
 
@@ -258,43 +226,5 @@ if (!function_exists('crypt_random_string')) {
             $result.= $r;
         }
         return substr($result, 0, $length);
-    }
-}
-
-if (!function_exists('phpseclib_resolve_include_path')) {
-    /**
-     * Resolve filename against the include path.
-     *
-     * Wrapper around stream_resolve_include_path() (which was introduced in
-     * PHP 5.3.2) with fallback implementation for earlier PHP versions.
-     *
-     * @param string $filename
-     * @return mixed Filename (string) on success, false otherwise.
-     * @access public
-     */
-    function phpseclib_resolve_include_path($filename)
-    {
-        if (function_exists('stream_resolve_include_path')) {
-            return stream_resolve_include_path($filename);
-        }
-
-        // handle non-relative paths
-        if (file_exists($filename)) {
-            return realpath($filename);
-        }
-
-        $paths = PATH_SEPARATOR == ':' ?
-            preg_split('#(?<!phar):#', get_include_path()) :
-            explode(PATH_SEPARATOR, get_include_path());
-        foreach ($paths as $prefix) {
-            // path's specified in include_path don't always end in /
-            $ds = substr($prefix, -1) == DIRECTORY_SEPARATOR ? '' : DIRECTORY_SEPARATOR;
-            $file = $prefix . $ds . $filename;
-            if (file_exists($file)) {
-                return realpath($file);
-            }
-        }
-
-        return false;
     }
 }

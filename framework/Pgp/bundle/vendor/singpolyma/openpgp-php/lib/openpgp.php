@@ -418,22 +418,41 @@ class OpenPGP_Packet {
   /**
    * Parses an OpenPGP packet.
    *
+   * Partial body lengths based on https://github.com/toofishes/python-pgpdump/blob/master/pgpdump/packet.py
+   *
    * @see http://tools.ietf.org/html/rfc4880#section-4.2
    */
   static function parse(&$input) {
     $packet = NULL;
     if (strlen($input) > 0) {
       $parser = ord($input[0]) & 64 ? 'parse_new_format' : 'parse_old_format';
-      list($tag, $data) = self::$parser($input);
+
+      $header_start0 = 0;
+      $consumed = 0;
+      $packet_data = "";
+      do {
+          list($tag, $data_offset, $data_length, $partial) = self::$parser($input, $header_start0);
+
+          $data_start0 = $header_start0 + $data_offset;
+          $header_start0 = $data_start0 + $data_length - 1;
+          $packet_data .= substr($input, $data_start0, $data_length);
+
+          $consumed += $data_offset + $data_length;
+          if ($partial) {
+              $consumed -= 1;
+          }
+      } while ($partial === true && $parser === 'parse_new_format');
+
       if ($tag && ($class = self::class_for($tag))) {
         $packet = new $class();
         $packet->tag    = $tag;
-        $packet->input  = $data;
-        $packet->length = strlen($data);
+        $packet->input  = $packet_data;
+        $packet->length = strlen($packet_data);
         $packet->read();
         unset($packet->input);
         unset($packet->length);
       }
+      $input = substr($input, $consumed);
     }
     return $packet;
   }
@@ -443,40 +462,21 @@ class OpenPGP_Packet {
    *
    * @see http://tools.ietf.org/html/rfc4880#section-4.2.2
    */
-  static function parse_new_format(&$input) {
+  static function parse_new_format($input, $header_start = 0) {
     $tag = ord($input[0]) & 63;
-    $input = substr($input, 1);
-    return array($tag, self::_parse_new_format($input));
-  }
-
-  /**
-   */
-  static function _parse_new_format(&$input) {
-    $len = ord($input[0]);
-    $recurse = false;
-
-    if ($len < 192) { // One octet length
-        $offset = 1;
-        $len = $len;
-    } elseif ($len > 191 && $len < 224) { // Two octet length
-        $offset = 2;
-        $len = (($len - 192) << 8) + ord($input[1]) + 192;
-    } elseif (($len > 223) & ($len < 255)) { // Partial body lengths
-        $offset = 1;
-        $len = 1 << ($len & 0x1F);
-        $recurse = true;
-    } elseif ($len == 255) { // Five octet length
-        $offset = 5;
-        $len = unpack('N', substr($input, 1, 4));
-        $len = reset($len);
+    $len = ord($input[$header_start + 1]);
+    if($len < 192) { // One octet length
+      return array($tag, 2, $len, false);
     }
-
-    $out = substr($input, $offset, $len);
-    $input = substr($input, $offset + $len);
-
-    return $recurse
-        ? $out . self::_parse_new_format($input)
-        : $out;
+    if($len > 191 && $len < 224) { // Two octet length
+      return array($tag, 3, (($len - 192) << 8) + ord($input[$header_start + 2]) + 192, false);
+    }
+    if($len == 255) { // Five octet length
+      $unpacked = unpack('N', substr($input, $header_start + 2, 4));
+      return array($tag, 6, reset($unpacked), false);
+    }
+    // Partial body lengths
+    return array($tag, 2, 1 << ($len & 0x1f), true);
   }
 
   /**
@@ -484,7 +484,7 @@ class OpenPGP_Packet {
    *
    * @see http://tools.ietf.org/html/rfc4880#section-4.2.1
    */
-  static function parse_old_format(&$input) {
+  static function parse_old_format($input) {
     $len = ($tag = ord($input[0])) & 3;
     $tag = ($tag >> 2) & 15;
     switch ($len) {
@@ -507,10 +507,7 @@ class OpenPGP_Packet {
         $data_length = strlen($input) - $head_length;
         break;
     }
-
-    $out = substr($input, $head_length, $data_length);
-    $input = substr($input, $head_length + $data_length);
-    return array($tag, $out);
+    return array($tag, $head_length, $data_length, false);
   }
 
   function __construct($data=NULL) {
@@ -720,7 +717,7 @@ class OpenPGP_SignaturePacket extends OpenPGP_Packet {
           $this->data[] = $this->read_mpi();
         }
         /* Horde change */
-        /* v3 Siganture trailer (RFC 4880 [5.2.4]) */
+        /* v3 Signature trailer (RFC 4880 [5.2.4]) */
         $this->trailer = chr($this->signature_type) . pack('N', $creation_time);
         /* End horde change. */
         break;
@@ -1279,7 +1276,7 @@ class OpenPGP_SignaturePacket_EmbeddedSignaturePacket extends OpenPGP_SignatureP
 class OpenPGP_SymmetricSessionKeyPacket extends OpenPGP_Packet {
   public $version, $symmetric_algorithm, $s2k, $encrypted_data;
 
-  function __construct($s2k=NULL, $encrypted_data='', $symmetric_algorithm=9, $version=4) {
+  function __construct($s2k=NULL, $encrypted_data='', $symmetric_algorithm=9, $version=3) {
     parent::__construct();
     $this->version = $version;
     $this->symmetric_algorithm = $symmetric_algorithm;
@@ -1343,15 +1340,32 @@ class OpenPGP_PublicKeyPacket extends OpenPGP_Packet {
 
   function __construct($key=array(), $algorithm='RSA', $timestamp=NULL, $version=4) {
     parent::__construct();
-    $this->key = $key;
-    if(is_string($this->algorithm = $algorithm)) {
-      $this->algorithm = array_search($this->algorithm, self::$algorithms);
-    }
-    $this->timestamp = $timestamp ? $timestamp : time();
-    $this->version = $version;
 
-    if(count($this->key) > 0) {
-      $this->key_id = substr($this->fingerprint(), -8);
+    if($key instanceof OpenPGP_PublicKeyPacket) {
+      $this->algorithm = $key->algorithm;
+      $this->key = array();
+
+      // Restrict to only the fields we need
+      foreach (self::$key_fields[$this->algorithm] as $field) {
+        $this->key[$field] = $key->key[$field];
+      }
+
+      $this->key_id = $key->key_id;
+      $this->fingerprint = $key->fingerprint;
+      $this->timestamp = $key->timestamp;
+      $this->version = $key->version;
+      $this->v3_days_of_validity = $key->v3_days_of_validity;
+    } else {
+      $this->key = $key;
+      if(is_string($this->algorithm = $algorithm)) {
+        $this->algorithm = array_search($this->algorithm, self::$algorithms);
+      }
+      $this->timestamp = $timestamp ? $timestamp : time();
+      $this->version = $version;
+
+      if(count($this->key) > 0) {
+        $this->key_id = substr($this->fingerprint(), -8);
+      }
     }
   }
 

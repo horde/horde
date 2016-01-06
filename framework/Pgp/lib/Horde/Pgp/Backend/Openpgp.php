@@ -11,6 +11,11 @@
  * @package   Pgp
  */
 
+use phpseclib\Crypt\AES as Crypt_AES;
+use phpseclib\Crypt\RSA as Crypt_RSA;
+use phpseclib\Crypt\Random as crypt_random;
+use phpseclib\Math\BigInteger as Math_BigInteger;
+
 /**
  * PGP backend that uses the openpgp-php library.
  *
@@ -139,10 +144,10 @@ extends Horde_Pgp_Backend
             $cipher = new Crypt_AES(CRYPT_AES_MODE_CFB);
             $cipher->setKeyLength(128);
 
-            $s2k = new OpenPGP_S2K(crypt_random_string(8), 2);
+            $s2k = new OpenPGP_S2K(crypt_random::String(8), 2);
             $cipher->setKey($s2k->make_key($opts['passphrase'], 16));
 
-            $iv = crypt_random_string(16);
+            $iv = crypt_random::String(16);
 
             $this->_encryptPrivateKey($skey, $cipher, $s2k, $iv);
         }
@@ -298,7 +303,7 @@ extends Horde_Pgp_Backend
 
         list($cipher, $key_bytes, $block_bytes) =
             OpenPGP_Crypt_Symmetric::getCipher($opts['cipher']);
-        $prefix = crypt_random_string($block_bytes);
+        $prefix = crypt_random::String($block_bytes);
         $prefix .= substr($prefix, -2);
 
         $to_encrypt = $prefix . $msg->to_bytes();
@@ -308,7 +313,7 @@ extends Horde_Pgp_Backend
         );
 
         /* This is the symmetric encryption session key. */
-        $ckey = crypt_random_string($key_bytes);
+        $ckey = crypt_random::String($key_bytes);
         $cipher->setKey($ckey);
 
         /* This is the symmetrically encrypted version of plaintext. */
@@ -323,7 +328,7 @@ extends Horde_Pgp_Backend
         foreach ($key as $k) {
             /* Symmetric encryption. */
             if (is_string($k)) {
-                $s2k = new OpenPGP_S2K(crypt_random_string(8, 2)); // SHA-1
+                $s2k = new OpenPGP_S2K(crypt_random::String(8, 2)); // SHA-1
                 $cipher->setKey($s2k->make_key($k, $key_bytes));
 
                 $encrypted[] = new OpenPGP_SymmetricSessionKeyPacket(

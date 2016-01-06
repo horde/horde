@@ -5,22 +5,24 @@
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  */
 
+use phpseclib\Crypt\Hash;
+
 class Unit_Crypt_Hash_MD5Test extends Unit_Crypt_Hash_TestCase
 {
     public function getInstance()
     {
-        return new Crypt_Hash('md5');
+        return new Hash('md5');
     }
 
     /**
-    * @dataProvider hashData()
-    */
+     * @dataProvider hashData()
+     */
     public function testHash($message, $result)
     {
         $this->assertHashesTo($this->getInstance(), $message, $result);
     }
 
-    static public function hashData()
+    public static function hashData()
     {
         return array(
             array('', 'd41d8cd98f00b204e9800998ecf8427e'),
@@ -30,14 +32,14 @@ class Unit_Crypt_Hash_MD5Test extends Unit_Crypt_Hash_TestCase
     }
 
     /**
-    * @dataProvider hmacData()
-    */
+     * @dataProvider hmacData()
+     */
     public function testHMAC($key, $message, $result)
     {
         $this->assertHMACsTo($this->getInstance(), $key, $message, $result);
     }
 
-    static public function hmacData()
+    public static function hmacData()
     {
         return array(
             array('', '', '74e6f7298a9c2d168935f58c001bad88'),

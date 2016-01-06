@@ -5,24 +5,26 @@
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  */
 
+use phpseclib\Crypt\Hash;
+
 class Unit_Crypt_Hash_SHA256_96Test extends Unit_Crypt_Hash_SHA256Test
 {
     public function getInstance()
     {
-        return new Crypt_Hash('sha256-96');
+        return new Hash('sha256-96');
     }
 
     /**
-    * @dataProvider hashData()
-    */
+     * @dataProvider hashData()
+     */
     public function testHash($message, $longResult)
     {
         parent::testHash($message, substr($longResult, 0, 24));
     }
 
     /**
-    * @dataProvider hmacData()
-    */
+     * @dataProvider hmacData()
+     */
     public function testHMAC($key, $message, $longResult)
     {
         parent::testHMAC($key, $message, substr($longResult, 0, 24));

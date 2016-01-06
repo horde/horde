@@ -5,29 +5,22 @@
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  */
 
-require_once 'Net/SFTP/Stream.php';
+use phpseclib\Net\SFTP\Stream;
 
 class Unit_Net_SFTPStreamTest extends PhpseclibTestCase
 {
-    protected $protocol = 'sftptest';
-
-    public function setUp()
+    public function testRegisterWithoutArgument()
     {
-        parent::setUp();
-        if (in_array($this->protocol, stream_get_wrappers())) {
-            stream_wrapper_unregister($this->protocol);
-        }
-    }
-
-    public function testRegisterFromSideEffect()
-    {
-        // Including the file registers 'sftp' as a stream.
+        $this->assertTrue(Stream::register());
         $this->assertContains('sftp', stream_get_wrappers());
+        $this->assertTrue(stream_wrapper_unregister('sftp'));
     }
 
     public function testRegisterWithArgument()
     {
-        Net_SFTP_Stream::register($this->protocol);
-        $this->assertContains($this->protocol, stream_get_wrappers());
+        $protocol = 'sftptest';
+        $this->assertTrue(Stream::register($protocol));
+        $this->assertContains($protocol, stream_get_wrappers());
+        $this->assertTrue(stream_wrapper_unregister($protocol));
     }
 }

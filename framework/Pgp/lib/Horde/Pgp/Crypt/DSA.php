@@ -43,6 +43,10 @@
  * @package   Pgp
  */
 
+use phpseclib\Crypt\Hash as Crypt_Hash;
+use phpseclib\Crypt\Random as crypt_random;
+use phpseclib\Math\BigInteger as Math_BigInteger;
+
 /**
  * DSA (Digital Signature Algorithm) implementation.
  *
@@ -76,7 +80,7 @@ class Horde_Pgp_Crypt_DSA
     {
         $bytes = strlen($q->toBytes()) + 8;
         $ints = ($bytes + 1) >> 2;
-        $cstring = crypt_random_string($ints);
+        $cstring = crypt_random::String($ints);
 
         $random = '';
         for ($i = 0; $i < $ints; ++$i) {

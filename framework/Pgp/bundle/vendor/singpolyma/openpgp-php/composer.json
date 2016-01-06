@@ -13,7 +13,7 @@
     }
   ],
   "require": {
-    "phpseclib/phpseclib": "~0.3"
+    "phpseclib/phpseclib": "2.0.0"
   },
   "require-dev": {
     "phpunit/phpunit": "~4.0"

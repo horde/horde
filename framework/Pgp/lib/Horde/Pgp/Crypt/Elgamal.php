@@ -11,6 +11,9 @@
  * @package   Pgp
  */
 
+use phpseclib\Crypt\Random as crypt_random;
+use phpseclib\Math\BigInteger as Math_BigInteger;
+
 /**
  * Elgamal encryption implementation (w/EME-PKCS1-v1_5 block encoding).
  *
@@ -66,7 +69,7 @@ class Horde_Pgp_Crypt_Elgamal
             $ps = '';
 
             while (($psLen2 = strlen($ps)) != $psLen) {
-                $tmp = crypt_random_string($psLen - $psLen2);
+                $tmp = crypt_random::String($psLen - $psLen2);
                 $ps .= str_replace("\x00", '', $tmp);
             }
 

@@ -5,27 +5,30 @@
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  */
 
+use phpseclib\Crypt\Hash;
+use phpseclib\Math\BigInteger;
+
 abstract class PhpseclibFunctionalTestCase extends PhpseclibTestCase
 {
-    static public function setUpBeforeClass()
+    public static function setUpBeforeClass()
     {
         if (extension_loaded('runkit')) {
             if (extension_loaded('gmp')) {
                 self::ensureConstant(
                     'MATH_BIGINTEGER_MODE',
-                    MATH_BIGINTEGER_MODE_GMP
+                    BigInteger::MODE_GMP
                 );
             } elseif (extension_loaded('bcmath')) {
                 self::ensureConstant(
                     'MATH_BIGINTEGER_MODE',
-                    MATH_BIGINTEGER_MODE_BCMATH
+                    BigInteger::MODE_BCMATH
                 );
             } else {
                 self::markTestSkipped(
                     'Should have gmp or bcmath extension for functional test.'
                 );
             }
-            self::ensureConstant('CRYPT_HASH_MODE', CRYPT_HASH_MODE_HASH);
+            self::ensureConstant('CRYPT_HASH_MODE', Hash::MODE_HASH);
             self::reRequireFile('Math/BigInteger.php');
             self::reRequireFile('Crypt/Hash.php');
         }
@@ -33,11 +36,11 @@ abstract class PhpseclibFunctionalTestCase extends PhpseclibTestCase
     }
 
     /**
-    * @param string $variable
-    * @param string|null $message
-    *
-    * @return null
-    */
+     * @param string $variable
+     * @param string|null $message
+     *
+     * @return null
+     */
     protected function requireEnv($variable, $message = null)
     {
         if ($this->_getEnv($variable) === false) {
@@ -50,10 +53,10 @@ abstract class PhpseclibFunctionalTestCase extends PhpseclibTestCase
     }
 
     /**
-    * @param string $variable
-    *
-    * @return string
-    */
+     * @param string $variable
+     *
+     * @return string
+     */
     protected function getEnv($variable)
     {
         $this->requireEnv($variable);

@@ -5,22 +5,24 @@
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  */
 
+use phpseclib\Crypt\Hash;
+
 class Unit_Crypt_Hash_SHA256Test extends Unit_Crypt_Hash_TestCase
 {
     public function getInstance()
     {
-        return new Crypt_Hash('sha256');
+        return new Hash('sha256');
     }
 
     /**
-    * @dataProvider hashData()
-    */
+     * @dataProvider hashData()
+     */
     public function testHash($message, $result)
     {
         $this->assertHashesTo($this->getInstance(), $message, $result);
     }
 
-    static public function hashData()
+    public static function hashData()
     {
         return array(
             array(
@@ -39,14 +41,14 @@ class Unit_Crypt_Hash_SHA256Test extends Unit_Crypt_Hash_TestCase
     }
 
     /**
-    * @dataProvider hmacData()
-    */
+     * @dataProvider hmacData()
+     */
     public function testHMAC($key, $message, $result)
     {
         $this->assertHMACsTo($this->getInstance(), $key, $message, $result);
     }
 
-    static public function hmacData()
+    public static function hmacData()
     {
         return array(
             // RFC 4231

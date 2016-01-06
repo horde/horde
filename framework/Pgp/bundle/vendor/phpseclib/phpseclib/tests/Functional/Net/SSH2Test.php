@@ -6,11 +6,13 @@
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  */
 
+use phpseclib\Net\SSH2;
+
 class Functional_Net_SSH2Test extends PhpseclibFunctionalTestCase
 {
     public function testConstructor()
     {
-        $ssh = new Net_SSH2($this->getEnv('SSH_HOSTNAME'));
+        $ssh = new SSH2($this->getEnv('SSH_HOSTNAME'));
 
         $this->assertTrue(
             is_object($ssh),
@@ -21,10 +23,10 @@ class Functional_Net_SSH2Test extends PhpseclibFunctionalTestCase
     }
 
     /**
-    * @depends testConstructor
-    * @group github408
-    * @group github412
-    */
+     * @depends testConstructor
+     * @group github408
+     * @group github412
+     */
     public function testPreLogin($ssh)
     {
         $this->assertFalse(
@@ -51,8 +53,8 @@ class Functional_Net_SSH2Test extends PhpseclibFunctionalTestCase
     }
 
     /**
-    * @depends testPreLogin
-    */
+     * @depends testPreLogin
+     */
     public function testPasswordLogin($ssh)
     {
         $username = $this->getEnv('SSH_USERNAME');
@@ -66,9 +68,9 @@ class Functional_Net_SSH2Test extends PhpseclibFunctionalTestCase
     }
 
     /**
-    * @depends testPasswordLogin
-    * @group github280
-    */
+     * @depends testPasswordLogin
+     * @group github280
+     */
     public function testExecWithMethodCallback($ssh)
     {
         $callbackObject = $this->getMock('stdClass', array('callbackMethod'));
@@ -81,8 +83,21 @@ class Functional_Net_SSH2Test extends PhpseclibFunctionalTestCase
 
     public function testGetServerPublicHostKey()
     {
-        $ssh = new Net_SSH2($this->getEnv('SSH_HOSTNAME'));
+        $ssh = new SSH2($this->getEnv('SSH_HOSTNAME'));
 
         $this->assertInternalType('string', $ssh->getServerPublicHostKey());
+    }
+
+    public function testOpenSocketConnect()
+    {
+        $fsock = fsockopen($this->getEnv('SSH_HOSTNAME'), 22);
+        $ssh = new SSH2($fsock);
+
+        $username = $this->getEnv('SSH_USERNAME');
+        $password = $this->getEnv('SSH_PASSWORD');
+        $this->assertTrue(
+            $ssh->login($username, $password),
+            'SSH2 login using an open socket failed.'
+        );
     }
 }

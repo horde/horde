@@ -21,4 +21,11 @@ $uid = new OpenPGP_UserIDPacket('Test <test@example.com>');
 $wkey = new OpenPGP_Crypt_RSA($nkey);
 $m = $wkey->sign_key_userid(array($nkey, $uid));
 
+// Serialize private key
 print $m->to_bytes();
+
+// Serialize public key message
+$pubm = clone($m);
+$pubm[0] = new OpenPGP_PublicKeyPacket($pubm[0]);
+
+$public_bytes = $pubm->to_bytes();

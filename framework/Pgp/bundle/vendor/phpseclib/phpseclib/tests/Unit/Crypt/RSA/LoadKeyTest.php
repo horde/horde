@@ -5,13 +5,13 @@
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  */
 
-require_once 'Crypt/RSA.php' ;
+use phpseclib\Crypt\RSA;
 
 class Unit_Crypt_RSA_LoadKeyTest extends PhpseclibTestCase
 {
     public function testBadKey()
     {
-        $rsa = new Crypt_RSA();
+        $rsa = new RSA();
 
         $key = 'zzzzzzzzzzzzzz';
 
@@ -20,7 +20,7 @@ class Unit_Crypt_RSA_LoadKeyTest extends PhpseclibTestCase
 
     public function testPKCS1Key()
     {
-        $rsa = new Crypt_RSA();
+        $rsa = new RSA();
 
         $key = '-----BEGIN RSA PRIVATE KEY-----
 MIICXAIBAAKBgQCqGKukO1De7zhZj6+H0qtjTkVxwTCpvKe4eCZ0FPqri0cb2JZfXJ/DgYSF6vUp
@@ -42,7 +42,7 @@ U9VQQSQzY1oZMVX8i1m5WUTLPz2yLJIBQVdXqhMCQBGoiuSoSjafUhV7i1cEGpb88h5NBYZzWXGZ
 
     public function testPKCS1SpacesKey()
     {
-        $rsa = new Crypt_RSA();
+        $rsa = new RSA();
 
         $key = '-----BEGIN RSA PRIVATE KEY-----
 MIICXAIBAAKBgQCqGKukO1De7zhZj6+H0qtjTkVxwTCpvKe4eCZ0FPqri0cb2JZfXJ/DgYSF6vUp
@@ -65,7 +65,7 @@ U9VQQSQzY1oZMVX8i1m5WUTLPz2yLJIBQVdXqhMCQBGoiuSoSjafUhV7i1cEGpb88h5NBYZzWXGZ
 
     public function testPKCS1NoHeaderKey()
     {
-        $rsa = new Crypt_RSA();
+        $rsa = new RSA();
 
         $key = 'MIICXAIBAAKBgQCqGKukO1De7zhZj6+H0qtjTkVxwTCpvKe4eCZ0FPqri0cb2JZfXJ/DgYSF6vUp
 wmJG8wVQZKjeGcjDOL5UlsuusFncCzWBQ7RKNUSesmQRMSGkVb1/3j+skZ6UtW+5u09lHNsj6tQ5
@@ -85,7 +85,7 @@ U9VQQSQzY1oZMVX8i1m5WUTLPz2yLJIBQVdXqhMCQBGoiuSoSjafUhV7i1cEGpb88h5NBYZzWXGZ
 
     public function testPKCS1NoWhitespaceNoHeaderKey()
     {
-        $rsa = new Crypt_RSA();
+        $rsa = new RSA();
 
         $key = 'MIICXAIBAAKBgQCqGKukO1De7zhZj6+H0qtjTkVxwTCpvKe4eCZ0FPqri0cb2JZfXJ/DgYSF6vUp' .
                'wmJG8wVQZKjeGcjDOL5UlsuusFncCzWBQ7RKNUSesmQRMSGkVb1/3j+skZ6UtW+5u09lHNsj6tQ5' .
@@ -105,7 +105,7 @@ U9VQQSQzY1oZMVX8i1m5WUTLPz2yLJIBQVdXqhMCQBGoiuSoSjafUhV7i1cEGpb88h5NBYZzWXGZ
 
     public function testRawPKCS1Key()
     {
-        $rsa = new Crypt_RSA();
+        $rsa = new RSA();
 
         $key = 'MIICXAIBAAKBgQCqGKukO1De7zhZj6+H0qtjTkVxwTCpvKe4eCZ0FPqri0cb2JZfXJ/DgYSF6vUp' .
                'wmJG8wVQZKjeGcjDOL5UlsuusFncCzWBQ7RKNUSesmQRMSGkVb1/3j+skZ6UtW+5u09lHNsj6tQ5' .
@@ -126,7 +126,7 @@ U9VQQSQzY1oZMVX8i1m5WUTLPz2yLJIBQVdXqhMCQBGoiuSoSjafUhV7i1cEGpb88h5NBYZzWXGZ
 
     public function testLoadPKCS8PrivateKey()
     {
-        $rsa = new Crypt_RSA();
+        $rsa = new RSA();
         $rsa->setPassword('password');
 
         $key = '-----BEGIN ENCRYPTED PRIVATE KEY-----
@@ -165,7 +165,7 @@ xryZaRDVmtMuf/OZBQ==
 
     public function testSavePKCS8PrivateKey()
     {
-        $rsa = new Crypt_RSA();
+        $rsa = new RSA();
 
         $key = '-----BEGIN RSA PRIVATE KEY-----
 MIICXAIBAAKBgQCqGKukO1De7zhZj6+H0qtjTkVxwTCpvKe4eCZ0FPqri0cb2JZfXJ/DgYSF6vUp
@@ -184,7 +184,7 @@ U9VQQSQzY1oZMVX8i1m5WUTLPz2yLJIBQVdXqhMCQBGoiuSoSjafUhV7i1cEGpb88h5NBYZzWXGZ
 
         $this->assertTrue($rsa->loadKey($key));
 
-        $key = $rsa->getPrivateKey(CRYPT_RSA_PRIVATE_FORMAT_PKCS8);
+        $key = $rsa->getPrivateKey(RSA::PRIVATE_FORMAT_PKCS8);
         $this->assertInternalType('string', $key);
 
         $this->assertTrue($rsa->loadKey($key));
@@ -192,7 +192,7 @@ U9VQQSQzY1oZMVX8i1m5WUTLPz2yLJIBQVdXqhMCQBGoiuSoSjafUhV7i1cEGpb88h5NBYZzWXGZ
 
     public function testPubKey1()
     {
-        $rsa = new Crypt_RSA();
+        $rsa = new RSA();
 
         $key = '-----BEGIN RSA PUBLIC KEY-----
 MIIBCgKCAQEA61BjmfXGEvWmegnBGSuS+rU9soUg2FnODva32D1AqhwdziwHINFa
@@ -210,7 +210,7 @@ Ao8eayMp6FcvNucIpUndo1X8dKMv3Y26ZQIDAQAB
 
     public function testPubKey2()
     {
-        $rsa = new Crypt_RSA();
+        $rsa = new RSA();
 
         $key = '-----BEGIN PUBLIC KEY-----
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA61BjmfXGEvWmegnBGSuS
@@ -229,7 +229,7 @@ ZQIDAQAB
 
     public function testSSHPubKey()
     {
-        $rsa = new Crypt_RSA();
+        $rsa = new RSA();
 
         $key = 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQCqGKukO1De7zhZj6+H0qtjTkVxwTCpvKe4e' .
                'CZ0FPqri0cb2JZfXJ/DgYSF6vUpwmJG8wVQZKjeGcjDOL5UlsuusFncCzWBQ7RKNUSesmQRMS' .
@@ -241,9 +241,25 @@ ZQIDAQAB
         $this->assertFalse($rsa->getPrivateKey());
     }
 
+    public function testSSHPubKeyFingerprint()
+    {
+        $rsa = new RSA();
+
+        $key = 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQD9K+ebJRMN10kGanhi6kDz6EYFqZttZWZh0'.
+              'YoEbIbbere9N2Yvfc7oIoCTHYowhXND9WSJaIs1E4bx0085CZnofWaqf4NbZTzAh18iZup08ec'.
+              'COB5gJVS1efpgVSviDF2L7jxMsBVoOBfqsmA8m0RwDDVezyWvw4y+STSuVzu2jI8EfwN7ZFGC6'.
+              'Yo8m/Z94qIGzqPYGKJLuCeidB0TnUE0ZtzOJTiOc/WoTm/NOpCdfQZEJggd1MOTi+QUnqRu4Wu'.
+              'b6wYtY/q/WtUFr3nK+x0lgOtokhnJfRR/6fnmC1CztPnIT4BWK81VGKWONAxuhMyQ5XChyu6S9'.
+              'mWG5tUlUI/5';
+
+        $this->assertTrue($rsa->loadKey($key));
+        $this->assertSame($rsa->getPublicKeyFingerprint('md5'), 'bd:2c:2f:31:b9:ef:b8:f8:ad:fc:40:a6:94:4f:28:82');
+        $this->assertSame($rsa->getPublicKeyFingerprint('sha256'), 'N9sV2uSNZEe8TITODku0pRI27l+Zk0IY0TrRTw3ozwM');
+    }
+
     public function testSetPrivate()
     {
-        $rsa = new Crypt_RSA();
+        $rsa = new RSA();
 
         $key = '-----BEGIN RSA PUBLIC KEY-----
 MIIBCgKCAQEA61BjmfXGEvWmegnBGSuS+rU9soUg2FnODva32D1AqhwdziwHINFa
@@ -261,13 +277,13 @@ Ao8eayMp6FcvNucIpUndo1X8dKMv3Y26ZQIDAQAB
     }
 
     /**
-    * make phpseclib generated XML keys be unsigned. this may need to be reverted
-    * if it is later learned that XML keys are, in fact, supposed to be signed
-    * @group github468
-    */
+     * make phpseclib generated XML keys be unsigned. this may need to be reverted
+     * if it is later learned that XML keys are, in fact, supposed to be signed
+     * @group github468
+     */
     public function testUnsignedXML()
     {
-        $rsa = new Crypt_RSA();
+        $rsa = new RSA();
 
         $key = '<RSAKeyValue>
   <Modulus>v5OxcEgxPUfa701NpxnScCmlRkbwSGBiTWobHkIWZEB+AlRTHaVoZg/D8l6YzR7VdQidG6gF+nuUMjY75dBXgY/XcyVq0Hccf1jTfgARuNuq4GGG3hnCJVi2QsOgcf9R7TeXn+p1RKIhjQoWCiEQeEBTotNbJhcabNcPGSEJw+s=</Modulus>
@@ -276,17 +292,17 @@ Ao8eayMp6FcvNucIpUndo1X8dKMv3Y26ZQIDAQAB
 
         $rsa->loadKey($key);
         $rsa->setPublicKey();
-        $newkey = $rsa->getPublicKey(CRYPT_RSA_PUBLIC_FORMAT_XML);
+        $newkey = $rsa->getPublicKey(RSA::PUBLIC_FORMAT_XML);
 
         $this->assertSame(preg_replace('#\s#', '', $key), preg_replace('#\s#', '', $newkey));
     }
 
     /**
-    * @group github468
-    */
+     * @group github468
+     */
     public function testSignedPKCS1()
     {
-        $rsa = new Crypt_RSA();
+        $rsa = new RSA();
 
         $key = '-----BEGIN PUBLIC KEY-----
 MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC/k7FwSDE9R9rvTU2nGdJwKaVG

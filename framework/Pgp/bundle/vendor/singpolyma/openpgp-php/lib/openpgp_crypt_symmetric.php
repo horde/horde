@@ -1,20 +1,32 @@
 <?php
 
+/* Horde change */
+use phpseclib\Crypt\Blowfish as Crypt_Blowfish;
+use phpseclib\Crypt\Twofish as Crypt_Twofish;
+/* End Horde Change */
+use phpseclib\Crypt\TripleDES as Crypt_TripleDES;
+use phpseclib\Crypt\AES as Crypt_AES;
+use phpseclib\Crypt\Random;
+
+define('CRYPT_DES_MODE_CFB', Crypt_TripleDES::MODE_CFB);
+define('CRYPT_AES_MODE_CFB', Crypt_AES::MODE_CFB);
+/* Horde change */
+define('CRYPT_TWOFISH_MODE_CFB', Crypt_Twofish::MODE_CFB);
+define('CRYPT_BLOWFISH_MODE_CFB', Crypt_Blowfish::MODE_CFB);
+/* End Horde Change */
+
 require_once dirname(__FILE__).'/openpgp.php';
 @include_once dirname(__FILE__).'/openpgp_crypt_rsa.php';
 @include_once dirname(__FILE__).'/openpgp_mcrypt_wrapper.php';
-@include_once 'Crypt/AES.php';
-@include_once 'Crypt/TripleDES.php';
-require_once 'Crypt/Random.php'; // part of phpseclib is absolutely required
 
 class OpenPGP_Crypt_Symmetric {
   public static function encrypt($passphrases_and_keys, $message, $symmetric_algorithm=9) {
     list($cipher, $key_bytes, $key_block_bytes) = self::getCipher($symmetric_algorithm);
     if(!$cipher) throw new Exception("Unsupported cipher");
-    $prefix = crypt_random_string($key_block_bytes);
+    $prefix = Random::string($key_block_bytes);
     $prefix .= substr($prefix, -2);
 
-    $key = crypt_random_string($key_bytes);
+    $key = Random::string($key_bytes);
     $cipher->setKey($key);
 
     $to_encrypt = $prefix . $message->to_bytes();
@@ -36,7 +48,7 @@ class OpenPGP_Crypt_Symmetric {
         $esk = pack('n', OpenPGP::bitlength($esk)) . $esk;
         array_unshift($encrypted, new OpenPGP_AsymmetricSessionKeyPacket($pass->algorithm, $pass->fingerprint(), $esk));
       } else if(is_string($pass)) {
-        $s2k = new OpenPGP_S2K(crypt_random_string(8));
+        $s2k = new OpenPGP_S2K(Random::string(10));
         $cipher->setKey($s2k->make_key($pass, $key_bytes));
         $esk = $cipher->encrypt(chr($symmetric_algorithm) . $key);
         array_unshift($encrypted, new OpenPGP_SymmetricSessionKeyPacket($s2k, $esk, $symmetric_algorithm));
@@ -143,11 +155,9 @@ class OpenPGP_Crypt_Symmetric {
     $cipher = NULL;
     switch($algo) {
       case 2:
-        if(class_exists('Crypt_TripleDES')) {
           $cipher = new Crypt_TripleDES(CRYPT_DES_MODE_CFB);
           $key_bytes = 24;
           $key_block_bytes = 8;
-        }
         break;
       case 3:
         if(defined('MCRYPT_CAST_128')) {
@@ -166,22 +176,16 @@ class OpenPGP_Crypt_Symmetric {
         break;
       /* End Horde Change */
       case 7:
-        if(class_exists('Crypt_AES')) {
           $cipher = new Crypt_AES(CRYPT_AES_MODE_CFB);
           $cipher->setKeyLength(128);
-        }
         break;
       case 8:
-        if(class_exists('Crypt_AES')) {
           $cipher = new Crypt_AES(CRYPT_AES_MODE_CFB);
           $cipher->setKeyLength(192);
-        }
         break;
       case 9:
-        if(class_exists('Crypt_AES')) {
           $cipher = new Crypt_AES(CRYPT_AES_MODE_CFB);
           $cipher->setKeyLength(256);
-        }
         break;
       /* Horde change */
       case 10:

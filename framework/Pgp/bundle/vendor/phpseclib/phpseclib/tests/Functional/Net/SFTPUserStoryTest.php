@@ -6,13 +6,16 @@
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  */
 
+use phpseclib\Net\SFTP;
+
 class Functional_Net_SFTPUserStoryTest extends PhpseclibFunctionalTestCase
 {
     static protected $scratchDir;
     static protected $exampleData;
     static protected $exampleDataLength;
+    static protected $buffer;
 
-    static public function setUpBeforeClass()
+    public static function setUpBeforeClass()
     {
         parent::setUpBeforeClass();
 
@@ -24,7 +27,7 @@ class Functional_Net_SFTPUserStoryTest extends PhpseclibFunctionalTestCase
 
     public function testConstructor()
     {
-        $sftp = new Net_SFTP($this->getEnv('SSH_HOSTNAME'));
+        $sftp = new SFTP($this->getEnv('SSH_HOSTNAME'));
 
         $this->assertTrue(
             is_object($sftp),
@@ -35,8 +38,8 @@ class Functional_Net_SFTPUserStoryTest extends PhpseclibFunctionalTestCase
     }
 
     /**
-    * @depends testConstructor
-    */
+     * @depends testConstructor
+     */
     public function testPasswordLogin($sftp)
     {
         $username = $this->getEnv('SSH_USERNAME');
@@ -50,8 +53,8 @@ class Functional_Net_SFTPUserStoryTest extends PhpseclibFunctionalTestCase
     }
 
     /**
-    * @depends testPasswordLogin
-    */
+     * @depends testPasswordLogin
+     */
     public function testPwdHome($sftp)
     {
         $this->assertEquals(
@@ -64,8 +67,8 @@ class Functional_Net_SFTPUserStoryTest extends PhpseclibFunctionalTestCase
     }
 
     /**
-    * @depends testPwdHome
-    */
+     * @depends testPwdHome
+     */
     public function testMkDirScratch($sftp)
     {
         $dirname = self::$scratchDir;
@@ -86,8 +89,8 @@ class Functional_Net_SFTPUserStoryTest extends PhpseclibFunctionalTestCase
     }
 
     /**
-    * @depends testMkDirScratch
-    */
+     * @depends testMkDirScratch
+     */
     public function testChDirScratch($sftp)
     {
         $this->assertTrue(
@@ -119,8 +122,8 @@ class Functional_Net_SFTPUserStoryTest extends PhpseclibFunctionalTestCase
     }
 
     /**
-    * @depends testChDirScratch
-    */
+     * @depends testChDirScratch
+     */
     public function testStatOnDir($sftp)
     {
         $this->assertNotSame(
@@ -133,8 +136,8 @@ class Functional_Net_SFTPUserStoryTest extends PhpseclibFunctionalTestCase
     }
 
     /**
-    * @depends testStatOnDir
-    */
+     * @depends testStatOnDir
+     */
     public function testPutSizeGetFile($sftp)
     {
         $this->assertTrue(
@@ -157,9 +160,45 @@ class Functional_Net_SFTPUserStoryTest extends PhpseclibFunctionalTestCase
         return $sftp;
     }
 
+    static function callback($length)
+    {
+        $r = substr(self::$buffer, 0, $length);
+        self::$buffer = substr(self::$buffer, $length);
+        if (strlen($r)) {
+            return $r;
+        }
+        return null;
+    }
+
     /**
-    * @depends testPutSizeGetFile
+    * @depends testStatOnDir
     */
+    public function testPutSizeGetFileCallback($sftp)
+    {
+        self::$buffer = self::$exampleData;
+        $this->assertTrue(
+            $sftp->put('file1.txt', array(__CLASS__, 'callback'), $sftp::SOURCE_CALLBACK),
+            'Failed asserting that example data could be successfully put().'
+        );
+
+        $this->assertSame(
+            self::$exampleDataLength,
+            $sftp->size('file1.txt'),
+            'Failed asserting that put example data has the expected length'
+        );
+
+        $this->assertSame(
+            self::$exampleData,
+            $sftp->get('file1.txt'),
+            'Failed asserting that get() returns expected example data.'
+        );
+
+        return $sftp;
+    }
+
+    /**
+     * @depends testPutSizeGetFile
+     */
     public function testTouch($sftp)
     {
         $this->assertTrue(
@@ -176,8 +215,8 @@ class Functional_Net_SFTPUserStoryTest extends PhpseclibFunctionalTestCase
     }
 
     /**
-    * @depends testTouch
-    */
+     * @depends testTouch
+     */
     public function testTruncate($sftp)
     {
         $this->assertTrue(
@@ -200,8 +239,8 @@ class Functional_Net_SFTPUserStoryTest extends PhpseclibFunctionalTestCase
     }
 
     /**
-    * @depends testTruncate
-    */
+     * @depends testTruncate
+     */
     public function testChDirOnFile($sftp)
     {
         $this->assertFalse(
@@ -213,8 +252,8 @@ class Functional_Net_SFTPUserStoryTest extends PhpseclibFunctionalTestCase
     }
 
     /**
-    * @depends testChDirOnFile
-    */
+     * @depends testChDirOnFile
+     */
     public function testFileExistsIsFileIsDirFile($sftp)
     {
         $this->assertTrue(
@@ -236,8 +275,8 @@ class Functional_Net_SFTPUserStoryTest extends PhpseclibFunctionalTestCase
     }
 
     /**
-    * @depends testFileExistsIsFileIsDirFile
-    */
+     * @depends testFileExistsIsFileIsDirFile
+     */
     public function testFileExistsIsFileIsDirFileNonexistent($sftp)
     {
         $this->assertFalse(
@@ -259,8 +298,8 @@ class Functional_Net_SFTPUserStoryTest extends PhpseclibFunctionalTestCase
     }
 
     /**
-    * @depends testFileExistsIsFileIsDirFileNonexistent
-    */
+     * @depends testFileExistsIsFileIsDirFileNonexistent
+     */
     public function testSortOrder($sftp)
     {
         $this->assertTrue(
@@ -300,7 +339,8 @@ class Functional_Net_SFTPUserStoryTest extends PhpseclibFunctionalTestCase
             if ($sftp->is_file($file)) {
                 $cur_size = $sftp->size($file);
                 $this->assertLessThanOrEqual(
-                    $last_size, $cur_size,
+                    $last_size,
+                    $cur_size,
                     'Failed asserting that nlist() is in descending order'
                 );
                 $last_size = $cur_size;
@@ -311,8 +351,8 @@ class Functional_Net_SFTPUserStoryTest extends PhpseclibFunctionalTestCase
     }
 
     /**
-    * @depends testSortOrder
-    */
+     * @depends testSortOrder
+     */
     public function testResourceXfer($sftp)
     {
         $fp = fopen('res.txt', 'w+');
@@ -331,8 +371,8 @@ class Functional_Net_SFTPUserStoryTest extends PhpseclibFunctionalTestCase
     }
 
     /**
-    * @depends testResourceXfer
-    */
+     * @depends testResourceXfer
+     */
     public function testSymlink($sftp)
     {
         $this->assertTrue(
@@ -344,11 +384,50 @@ class Functional_Net_SFTPUserStoryTest extends PhpseclibFunctionalTestCase
     }
 
     /**
-    * @depends testSymlink
-    */
+     * @depends testSymlink
+     */
+    public function testStatLstatCache($sftp)
+    {
+        $stat = $sftp->stat('symlink');
+        $lstat = $sftp->lstat('symlink');
+        $this->assertNotEquals(
+            $stat,
+            $lstat,
+            'Failed asserting that stat and lstat returned different output for a symlink'
+        );
+
+        return $sftp;
+    }
+
+    /**
+     * @depends testStatLstatCache
+     */
+    public function testLinkFile($sftp)
+    {
+        $this->assertTrue(
+            $sftp->is_link('symlink'),
+            'Failed asserting that symlink is a link'
+        );
+        $this->assertTrue(
+            $sftp->is_file('symlink'),
+            'Failed asserting that symlink is a file'
+        );
+        $this->assertFalse(
+            $sftp->is_dir('symlink'),
+            'Failed asserting that symlink is not a directory'
+        );
+
+        return $sftp;
+    }
+
+    /**
+     * @depends testLinkFile
+     */
     public function testReadlink($sftp)
     {
-        $this->assertInternalType('string', $sftp->readlink('symlink'),
+        $this->assertInternalType(
+            'string',
+            $sftp->readlink('symlink'),
             'Failed asserting that a symlink\'s target could be read'
         );
 
@@ -356,10 +435,32 @@ class Functional_Net_SFTPUserStoryTest extends PhpseclibFunctionalTestCase
     }
 
     /**
-    * on older versions this would result in a fatal error
-    * @depends testReadlink
-    * @group github402
-    */
+     * @depends testReadlink
+     * @group github716
+     */
+    public function testStatOnCWD($sftp)
+    {
+        $stat = $sftp->stat('.');
+        $this->assertInternalType(
+            'array',
+            $stat,
+            'Failed asserting that stat on . returns an array'
+        );
+        $lstat = $sftp->lstat('.');
+        $this->assertInternalType(
+            'array',
+            $lstat,
+            'Failed asserting that lstat on . returns an array'
+        );
+
+        return $sftp;
+    }
+
+    /**
+     * on older versions this would result in a fatal error
+     * @depends testStatOnCWD
+     * @group github402
+     */
     public function testStatcacheFix($sftp)
     {
         // Name used for both directory and file.
@@ -381,8 +482,8 @@ class Functional_Net_SFTPUserStoryTest extends PhpseclibFunctionalTestCase
     }
 
     /**
-    * @depends testStatcacheFix
-    */
+     * @depends testStatcacheFix
+     */
     public function testChDirUpHome($sftp)
     {
         $this->assertTrue(
@@ -400,8 +501,8 @@ class Functional_Net_SFTPUserStoryTest extends PhpseclibFunctionalTestCase
     }
 
     /**
-    * @depends testChDirUpHome
-    */
+     * @depends testChDirUpHome
+     */
     public function testFileExistsIsFileIsDirDir($sftp)
     {
         $this->assertTrue(
@@ -423,8 +524,8 @@ class Functional_Net_SFTPUserStoryTest extends PhpseclibFunctionalTestCase
     }
 
     /**
-    * @depends testFileExistsIsFileIsDirDir
-    */
+     * @depends testFileExistsIsFileIsDirDir
+     */
     public function testTruncateLargeFile($sftp)
     {
         $filesize = (4 * 1024 + 16) * 1024 * 1024;
@@ -437,8 +538,8 @@ class Functional_Net_SFTPUserStoryTest extends PhpseclibFunctionalTestCase
     }
 
     /**
-    * @depends testTruncateLargeFile
-    */
+     * @depends testTruncateLargeFile
+     */
     public function testRmDirScratch($sftp)
     {
         $this->assertFalse(
@@ -451,8 +552,8 @@ class Functional_Net_SFTPUserStoryTest extends PhpseclibFunctionalTestCase
     }
 
     /**
-    * @depends testRmDirScratch
-    */
+     * @depends testRmDirScratch
+     */
     public function testDeleteRecursiveScratch($sftp)
     {
         $this->assertTrue(
@@ -465,8 +566,8 @@ class Functional_Net_SFTPUserStoryTest extends PhpseclibFunctionalTestCase
     }
 
     /**
-    * @depends testDeleteRecursiveScratch
-    */
+     * @depends testDeleteRecursiveScratch
+     */
     public function testRmDirScratchNonexistent($sftp)
     {
         $this->assertFalse(
@@ -474,5 +575,81 @@ class Functional_Net_SFTPUserStoryTest extends PhpseclibFunctionalTestCase
             'Failed asserting that nonexistent scratch directory could ' .
             'not be deleted using rmdir().'
         );
+
+        return $sftp;
+    }
+
+    /**
+     * @depends testRmDirScratchNonexistent
+     * @group github706
+     */
+    public function testDeleteEmptyDir($sftp)
+    {
+        $this->assertTrue(
+            $sftp->mkdir(self::$scratchDir),
+            'Failed asserting that scratch directory could ' .
+            'be created.'
+        );
+        $this->assertInternalType(
+            'array',
+            $sftp->stat(self::$scratchDir),
+            'Failed asserting that stat on an existant empty directory returns an array'
+        );
+        $this->assertTrue(
+            $sftp->delete(self::$scratchDir),
+            'Failed asserting that empty scratch directory could ' .
+            'be deleted using recursive delete().'
+        );
+        $this->assertFalse(
+            $sftp->stat(self::$scratchDir),
+            'Failed asserting that stat on a deleted directory returns false'
+        );
+
+        return $sftp;
+    }
+
+    /**
+     * @depends testDeleteEmptyDir
+     * @group github735
+     */
+    public function testStatVsLstat($sftp)
+    {
+        $this->assertTrue($sftp->mkdir(self::$scratchDir));
+        $this->assertTrue($sftp->chdir(self::$scratchDir));
+        $this->assertTrue($sftp->put('text.txt', 'zzzzz'));
+        $this->assertTrue($sftp->symlink('text.txt', 'link.txt'));
+        $this->assertTrue($sftp->mkdir('subdir'));
+        $this->assertTrue($sftp->symlink('subdir', 'linkdir'));
+
+        $sftp->clearStatCache();
+
+        // pre-populate the stat cache
+        $sftp->nlist();
+
+        $stat = $sftp->stat('link.txt');
+        $this->assertSame($stat['type'], NET_SFTP_TYPE_REGULAR);
+        $stat = $sftp->lstat('link.txt');
+        $this->assertSame($stat['type'], NET_SFTP_TYPE_SYMLINK);
+
+        $stat = $sftp->stat('linkdir');
+        $this->assertSame($stat['type'], NET_SFTP_TYPE_DIRECTORY);
+        $stat = $sftp->lstat('link.txt');
+        $this->assertSame($stat['type'], NET_SFTP_TYPE_SYMLINK);
+
+        $sftp->disableStatCache();
+
+        $sftp->nlist();
+
+        $stat = $sftp->stat('link.txt');
+        $this->assertSame($stat['type'], NET_SFTP_TYPE_REGULAR);
+        $stat = $sftp->lstat('link.txt');
+        $this->assertSame($stat['type'], NET_SFTP_TYPE_SYMLINK);
+
+        $stat = $sftp->stat('linkdir');
+        $this->assertSame($stat['type'], NET_SFTP_TYPE_DIRECTORY);
+        $stat = $sftp->lstat('link.txt');
+        $this->assertSame($stat['type'], NET_SFTP_TYPE_SYMLINK);
+
+        $sftp->enableStatCache();
     }
 }

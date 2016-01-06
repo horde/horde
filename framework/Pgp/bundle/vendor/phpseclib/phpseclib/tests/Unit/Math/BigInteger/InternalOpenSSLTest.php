@@ -7,7 +7,7 @@
 
 class Unit_Math_BigInteger_InternalOpenSSLTest extends Unit_Math_BigInteger_TestCase
 {
-    static public function setUpBeforeClass()
+    public static function setUpBeforeClass()
     {
         if (!function_exists('openssl_public_encrypt')) {
             self::markTestSkipped('openssl_public_encrypt() function is not available.');
@@ -15,6 +15,6 @@ class Unit_Math_BigInteger_InternalOpenSSLTest extends Unit_Math_BigInteger_Test
 
         parent::setUpBeforeClass();
 
-        self::ensureConstant('MATH_BIGINTEGER_MODE', MATH_BIGINTEGER_MODE_INTERNAL);
+        self::ensureConstant('MATH_BIGINTEGER_MODE', \phpseclib\Math\BigInteger::MODE_INTERNAL);
     }
 }
