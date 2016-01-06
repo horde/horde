@@ -39,11 +39,35 @@ if ($vars->get('list-tables')) {
     $q_cache = array_slice($q_cache, -20);
     $session->set('horde', 'sql_query_cache', $q_cache);
 
-    // Parse out the query results.
-    try {
-        $result = $db->select(Horde_String::convertCharset($command, 'UTF-8', $conf['sql']['charset']));
-    } catch (Horde_Db_Exception $e) {
-        $notification->push($e);
+    if (stripos($command, 'UPDATE') === 0) {
+        $type = 'update';
+        try {
+            $result = $db->update(Horde_String::convertCharset($command, 'UTF-8', $conf['sql']['charset']));
+        } catch (Horde_Db_Exception $e) {
+            $notification->push($e);
+        }
+    } elseif (stripos($command, 'INSERT') === 0) {
+        $type = 'insert';
+        try {
+            $result = $db->insert(Horde_String::convertCharset($command, 'UTF-8', $conf['sql']['charset']));
+        } catch (Horde_Db_Exception $e) {
+            $notification->push($e);
+        }
+    } elseif (stripos($command, 'DELETE') === 0) {
+        $type = 'delete';
+        try {
+            $result = $db->delete(Horde_String::convertCharset($command, 'UTF-8', $conf['sql']['charset']));
+        } catch (Horde_Db_Exception $e) {
+            $notification->push($e);
+        }
+    } else {
+        // Default to a SELECT and hope for the best.
+        $type = 'select';
+        try {
+            $result = $db->select(Horde_String::convertCharset($command, 'UTF-8', $conf['sql']['charset']));
+        } catch (Horde_Db_Exception $e) {
+            $notification->push($e);
+        }
     }
 }
 
@@ -58,6 +82,19 @@ $view->action = Horde::url('admin/sqlshell.php');
 $view->command = $command;
 $view->q_cache = $q_cache;
 $view->title = $title;
+
+switch ($type) {
+case 'insert':
+    $notification->push(_("The INSERT command completed successfully."), 'horde.success');
+    unset($result);
+    break;
+case 'update':
+    $notification->push(sprintf(_("The UPDATE command completed successfully. A total of %d rows were modified."), $result), 'horde.success');
+    unset($result);
+    break;
+case 'delete':
+    $notification->push(sprintf(_("The DELETE command completed successfully. A total of %d rows were deleted."), $result), 'horde.success');
+}
 
 if (isset($result)) {
     $keys = null;
