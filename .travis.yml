@@ -34,6 +34,7 @@ before_install:
   - mysql -e "create database IF NOT EXISTS test;" -uroot
 before_script:
   - if [ "$TRAVIS_PHP_VERSION" == "7.0" ]; then phpenv config-add .travis.php7.ini; pear config-set doc_dir /home/travis/.phpenv/versions/7.0.0/share/pear/docs; pear config-set ext_dir /home/travis/.phpenv/versions/7.0.0/share/extensions/no-debug-zts-20151012; pear config-set php_dir /home/travis/.phpenv/versions/7.0.0/share/pear; pear config-set cfg_dir /home/travis/.phpenv/versions/7.0.0/share/pear/cfg; pear config-set data_dir /home/travis/.phpenv/versions/7.0.0/share/pear/data; pear config-set test_dir /home/travis/.phpenv/versions/7.0.0/share/pear/tests; pear config-set www_dir /home/travis/.phpenv/versions/7.0.0/share/pear/www; else phpenv config-add .travis.ini; fi
+  - pear install channel://pear.php.net/Math_BigInteger
   - pear install channel://pear.php.net/Net_DNS2
   - pear install channel://pear.horde.org/Horde_Role
   - pear config-show
