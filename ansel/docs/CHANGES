@@ -1,13 +1,29 @@
 ----------
-v3.0.2-git
+v3.1.0-git
 ----------
 
 [mjr] Remove maps configuration, replaced by global maps configuration (Bug
       #14168).
 [jan] Keep original file names when PUTing images via WebDAV.
-[jan] Fix closure compiler errors (Bug #13596).
 [jan] Return ETags with browse() API method.
 [mjr] Fix fatal divide by zero error due to incorrectly named variable.
+
+
+------
+v3.0.3
+------
+
+[jan] Fix PUTing images.
+[jan] Fix DAV URLs when using authusername hooks.
+[mjr] Fix fatal error due to failed generation of KeyImage thumbnails in mobile
+      view (Bug #14028).
+
+
+------
+v3.0.2
+------
+
+[jan] Fix closure compiler errors (Bug #13596).
 [jan] Fix type of ansel_shares_users.user_uid column.
 [jan] Fix watermark font size preference.
 [jan] Make shares table compatible with Oracle.
