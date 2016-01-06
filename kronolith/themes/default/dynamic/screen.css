@@ -330,33 +330,32 @@ ul.horde-tags li:hover {
 #kronolithResourceACBox {
     line-height: 100%;
 }
-#kronolithEventTabAttendees td.kronolithAttendeeNone ,
+#kronolithEventTabAttendees td.kronolithAttendeeNone,
+#kronolithEventTabResources td.kronolithAttendeeNone,
+#kronolithEventTabAttendees td.kronolithAttendeeAccepted,
+#kronolithEventTabResources td.kronolithAttendeeAccepted,
+#kronolithEventTabAttendees td.kronolithAttendeeDeclined,
+#kronolithEventTabResources td.kronolithAttendeeDeclined,
+#kronolithEventTabAttendees td.kronolithAttendeeTentative {
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    padding-left: 21px;
+}
+#kronolithEventTabAttendees td.kronolithAttendeeNone,
 #kronolithEventTabResources td.kronolithAttendeeNone {
     background-image: url("../graphics/attendee-none.png");
-    background-position: 0 center;
-    background-repeat: no-repeat;
-    padding-left: 18px;
 }
 #kronolithEventTabAttendees td.kronolithAttendeeAccepted,
 #kronolithEventTabResources td.kronolithAttendeeAccepted {
     background-image: url("../graphics/attendee-accepted.png");
-    background-position: 0 center;
-    background-repeat: no-repeat;
-    padding-left: 18px;
 }
 #kronolithEventTabAttendees td.kronolithAttendeeDeclined,
 #kronolithEventTabResources td.kronolithAttendeeDeclined {
     background-image: url("../graphics/attendee-declined.png");
     text-decoration: line-through;
-    background-position: 0 center;
-    background-repeat: no-repeat;
-    padding-left: 18px;
 }
 #kronolithEventTabAttendees td.kronolithAttendeeTentative {
     background-image: url("../graphics/attendee-tentative.png");
-    background-position: 0 center;
-    background-repeat: no-repeat;
-    padding-left: 18px;
 }
 
 .kronolithFBFree {
