@@ -2581,7 +2581,12 @@ class Horde_Registry implements Horde_Shutdown_Task
         $session->set('horde', 'auth/remoteAddr', $remote->addr);
 
         $session->set('horde', 'auth/timestamp', time());
-        $session->set('horde', 'auth/userId', $this->convertUsername(trim($authId), true));
+        $username = trim($authId);
+        if (!empty($GLOBALS['conf']['auth']['lowercase'])) {
+            $username = Horde_String::lower($username);
+        }
+        $username = $this->convertUsername($username, true);
+        $session->set('horde', 'auth/userId', $username);
 
         $this->_cache['auth'] = null;
         $this->_cache['existing'] = $this->_cache['isauth'] = array();
