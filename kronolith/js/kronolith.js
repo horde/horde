@@ -2939,7 +2939,8 @@ KronolithCore = {
      */
     saveTask: function()
     {
-        if (this.wrongFormat.size()) {
+        if (this.wrongFormat.size() ||
+            (($F('kronolithTaskAlarmOn')) && $F('kronolithTaskDueDate').length == 0)) {
             HordeCore.notify(Kronolith.text.fix_form_values, 'horde.warning');
             return;
         }
