@@ -4,6 +4,8 @@ v5.2.9-git
 
 [jan] SECURITY: Fix XSS vulnerability in menu bar exposed by only a few
       applications (Bug #14213).
+[mjr] Fix reporting results for non-select queries in administrative sql shell
+      (Bug #14216).
 
 
 ------
