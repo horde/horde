@@ -43,9 +43,9 @@
  * @package   Pgp
  */
 
-use phpseclib\Crypt\Hash as Crypt_Hash;
-use phpseclib\Crypt\Random as crypt_random;
-use phpseclib\Math\BigInteger as Math_BigInteger;
+use phpseclib\Crypt;
+use phpseclib\Crypt\Random;
+use phpseclib\Math\BigInteger;
 
 /**
  * DSA (Digital Signature Algorithm) implementation.
@@ -72,26 +72,26 @@ class Horde_Pgp_Crypt_DSA
     /**
      * Generate a number that lies between 0 and q-1.
      *
-     * @param Math_BigInteger $q  Max number.
+     * @param \phpseclib\Math\BigInteger $q  Max number.
      *
-     * @return Math_BigInteger  Generated number.
+     * @return \phpseclib\Math\BigInteger  Generated number.
      */
     static public function randomNumber($q)
     {
         $bytes = strlen($q->toBytes()) + 8;
         $ints = ($bytes + 1) >> 2;
-        $cstring = crypt_random::String($ints);
+        $cstring = Crypt\Random::String($ints);
 
         $random = '';
         for ($i = 0; $i < $ints; ++$i) {
             $random .= pack('N', $cstring[$i]);
         }
 
-        $c = new Math_BigInteger(
+        $c = new BigInteger(
             substr($random, 0, $bytes),
             256
         );
-        $one = new Math_BigInteger(1);
+        $one = new BigInteger(1);
         $result_base = $c->divide($q->subtract($one));
 
         return $result_base[1]->add($one);
@@ -112,13 +112,13 @@ class Horde_Pgp_Crypt_DSA
     /**
      * DSA keypair creation.
      *
-     * @param Math_BigInteger $p  p
-     * @param Math_BigInteger $q  q
-     * @param Math_BigInteger $g  g
+     * @param \phpseclib\Math\BigInteger $p  p
+     * @param \phpseclib\Math\BigInteger $q  q
+     * @param \phpseclib\Math\BigInteger $g  g
      *
      * @return array  Keys:
-     *   - x: (Math_BigInteger) Private key.
-     *   - y: (Math_BigInteger) Public key.
+     *   - x: (\phpseclib\Math\BigInteger) Private key.
+     *   - y: (\phpseclib\Math\BigInteger) Public key.
      */
     public function generate($p, $q, $g)
     {
@@ -138,15 +138,15 @@ class Horde_Pgp_Crypt_DSA
      */
     public function sign($message, $hash_alg)
     {
-        $hash = new Crypt_Hash($hash_alg);
-        $zero = new Math_BigInteger();
+        $hash = new Crypt\Hash($hash_alg);
+        $zero = new BigInteger();
 
-        $g = new Math_BigInteger($this->_key->key['g'], 256);
-        $p = new Math_BigInteger($this->_key->key['p'], 256);
-        $q = new Math_BigInteger($this->_key->key['q'], 256);
-        $x = new Math_BigInteger($this->_key->key['x'], 256);
+        $g = new BigInteger($this->_key->key['g'], 256);
+        $p = new BigInteger($this->_key->key['p'], 256);
+        $q = new BigInteger($this->_key->key['q'], 256);
+        $x = new BigInteger($this->_key->key['x'], 256);
 
-        $bigint_hash = new Math_BigInteger($hash->hash($message), 256);
+        $bigint_hash = new BigInteger($hash->hash($message), 256);
 
         while (true) {
             $k = self::randomNumber($q);
@@ -182,22 +182,22 @@ class Horde_Pgp_Crypt_DSA
     /**
      * DSA verify.
      *
-     * @param string $message     Message.
-     * @param string $hash_alg    Hash algorithm.
-     * @param Math_BigInteger $r  r.
-     * @param Math_BigInteger $s  s.
+     * @param string $message            Message.
+     * @param string $hash_alg           Hash algorithm.
+     * @param \phpseclib\Math\BigInteger $r  r.
+     * @param \phpseclib\Math\BigInteger $s  s.
      *
      * @return bool  True if verified.
      */
     public function verify($message, $hash_alg, $r, $s)
     {
-        $hash = new Crypt_Hash($hash_alg);
-        $hash_m = new Math_BigInteger($hash->hash($message), 256);
+        $hash = new Crypt\Hash($hash_alg);
+        $hash_m = new BigInteger($hash->hash($message), 256);
 
-        $g = new Math_BigInteger($this->_key->key['g'], 256);
-        $p = new Math_BigInteger($this->_key->key['p'], 256);
-        $q = new Math_BigInteger($this->_key->key['q'], 256);
-        $y = new Math_BigInteger($this->_key->key['y'], 256);
+        $g = new BigInteger($this->_key->key['g'], 256);
+        $p = new BigInteger($this->_key->key['p'], 256);
+        $q = new BigInteger($this->_key->key['q'], 256);
+        $y = new BigInteger($this->_key->key['y'], 256);
 
         $w = $s->modInverse($q);
 

@@ -8,7 +8,10 @@
 
 // From http://phpseclib.sourceforge.net/
 use phpseclib\Crypt\RSA as Crypt_RSA;
-use phpseclib\Math\BigInteger as Math_BigInteger;
+/* Horde change */
+//use phpseclib\Math\BigInteger as Math_BigInteger;
+use phpseclib\Math\BigInteger;
+/* End Horde Change */
 
 define('CRYPT_RSA_ENCRYPTION_PKCS1', Crypt_RSA::ENCRYPTION_PKCS1);
 define('CRYPT_RSA_SIGNATURE_PKCS1', Crypt_RSA::SIGNATURE_PKCS1);
@@ -226,9 +229,9 @@ class OpenPGP_Crypt_RSA {
     $rsa = new Crypt_RSA();
     $rsa->setSignatureMode(CRYPT_RSA_SIGNATURE_PKCS1);
     $rsa->setHash(strtolower($hash));
-    $rsa->modulus = new Math_BigInteger($mod, 256);
+    $rsa->modulus = new BigInteger($mod, 256);
     $rsa->k = strlen($rsa->modulus->toBytes());
-    $rsa->exponent = new Math_BigInteger($exp, 256);
+    $rsa->exponent = new BigInteger($exp, 256);
     $rsa->setPublicKey();
     return $rsa;
   }

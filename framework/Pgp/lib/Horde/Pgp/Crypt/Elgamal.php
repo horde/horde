@@ -11,8 +11,8 @@
  * @package   Pgp
  */
 
-use phpseclib\Crypt\Random as crypt_random;
-use phpseclib\Math\BigInteger as Math_BigInteger;
+use phpseclib\Crypt\Random;
+use phpseclib\Math\BigInteger;
 
 /**
  * Elgamal encryption implementation (w/EME-PKCS1-v1_5 block encoding).
@@ -58,9 +58,9 @@ class Horde_Pgp_Crypt_Elgamal
             return false;
         }
 
-        $g = new Math_BigInteger($this->_key->key['g'], 256);
-        $p = new Math_BigInteger($this->_key->key['p'], 256);
-        $y = new Math_BigInteger($this->_key->key['y'], 256);
+        $g = new BigInteger($this->_key->key['g'], 256);
+        $p = new BigInteger($this->_key->key['p'], 256);
+        $y = new BigInteger($this->_key->key['y'], 256);
         $out = array();
 
         foreach (str_split($text, $length) as $m) {
@@ -69,11 +69,11 @@ class Horde_Pgp_Crypt_Elgamal
             $ps = '';
 
             while (($psLen2 = strlen($ps)) != $psLen) {
-                $tmp = crypt_random::String($psLen - $psLen2);
+                $tmp = Random::String($psLen - $psLen2);
                 $ps .= str_replace("\x00", '', $tmp);
             }
 
-            $em = new Math_BigInteger(
+            $em = new BigInteger(
                 chr(0) . chr(2) . $ps . chr(0) . $m,
                 256
             );
@@ -111,12 +111,12 @@ class Horde_Pgp_Crypt_Elgamal
             STR_PAD_LEFT
         );
 
-        $p = new Math_BigInteger($this->_key->key['p'], 256);
-        $x = new Math_BigInteger($this->_key->key['x'], 256);
+        $p = new BigInteger($this->_key->key['p'], 256);
+        $x = new BigInteger($this->_key->key['x'], 256);
 
         for ($i = 0, $j = count($text); $i < $j; $i += 2) {
-            $c1 = new Math_BigInteger($text[$i], 256);
-            $c2 = new Math_BigInteger($text[$i + 1], 256);
+            $c1 = new BigInteger($text[$i], 256);
+            $c2 = new BigInteger($text[$i + 1], 256);
 
             $s = $c1->modPow($x, $p);
             $m_prime = $s->modInverse($p)->multiply($c2)->divide($p);
