@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
-* 
+* [jan] SECURITY: Fix XSS vulnerability in menu bar exposed by only a few applications (Bug #14213).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4074,7 +4074,7 @@
    <date>2015-10-20</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
-* 
+* [jan] SECURITY: Fix XSS vulnerability in menu bar exposed by only a few applications (Bug #14213).
    </notes>
   </release>
  </changelog>
