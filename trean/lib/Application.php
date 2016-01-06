@@ -107,8 +107,8 @@ class Trean_Application extends Horde_Registry_Application
         $tagger = $GLOBALS['injector']->getInstance('Trean_Tagger');
         $tags = $tagger->listBookmarkTags();
         natcasesort($tags);
-        foreach ($tags as $tag) {
-            $url = Horde::url("tag/$tag");
+        foreach ($tags as $tag) {;
+            $url = Horde::url('tag/' . urlencode($tag));
             $row = array(
                 'url' => $url,
                 'cssClass' => 'trean-tag',
