@@ -47,7 +47,12 @@ try {
 }
 
 $mime_part = new Horde_Mime_Part();
-$mime_part->setType(Horde_Mime_Magic::extToMime($type));
+// $type might already be a mime_type.
+if (strpos($type, '/')) {
+    $mime_part->setType($type);
+} else {
+    $mime_part->setType(Horde_Mime_Magic::extToMime($type));
+}
 $mime_part->setContents($data);
 $mime_part->setName($filename);
 $mime_part->buildMimeIds();
