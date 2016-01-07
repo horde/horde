@@ -1541,7 +1541,7 @@ EOT;
      */
     public function addFile()
     {
-        global $notification;
+        global $notification, $conf;
 
         $result = new stdClass;
         $result->success = 0;
@@ -1552,7 +1552,13 @@ EOT;
             try {
                 $event = $this->_getDriver($this->vars->c)->getEvent($this->vars->i);
                 if ($this->_canUploadFiles()) {
+                    $max_files = $conf['documents']['count_limit'];
                     foreach ($this->_addFileFromUpload() as $f) {
+                        if (!empty($conf['documents']['count_limit']) &&
+                            count($event->listFiles()) >= $max_files) {
+                            $notification->push(_("You have reached the maximum number of allowed files."), 'horde.notification');
+                            break;
+                        }
                         if ($f instanceof Kronolith_Exception) {
                             $notification->push($f, 'horde.error');
                         } else {
@@ -1613,9 +1619,9 @@ EOT;
         global $browser, $conf;
 
         $size = $browser->allowFileUploads();
-        return empty($conf['file_uploads'])
+        return empty($conf['documents']['size_limit'])
             ? $size
-            : min($size, $conf['file_uploads']['size_limit']);
+            : min($size, $conf['documents']['size_limit']);
     }
 
     /**

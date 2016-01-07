@@ -20,6 +20,12 @@
  <configsection name="documents">
   <configheader>Virtual File Storage</configheader>
   <configvfs switchname="type" />
+   <configinteger name="size_limit" desc="The maximum total size of
+   documents allowed per event (in bytes)? Set to 0 for no limit. [The
+   maximum allowable size of any individual attachment is set via the PHP
+   'upload_max_filesize' parameter; see kronolith/docs/INSTALL]">0</configinteger>
+   <configinteger name="count_limit" desc="The maximum total number of
+   documents allowed per event? Set to 0 for no limit.">0</configinteger>
  </configsection>
 
  <configsection name="storage">
