@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2015-05-21</date>
+ <date>2016-01-07</date>
  <version>
   <release>4.3.0</release>
   <api>4.2.0</api>
@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Support file attachments to events (Request #2009).
 * [mjr] Add ability to prevent any iTip notifications from being sent (Request #14157).
 * [mjr] Remove maps configuration, replaced by global maps configuration (Bug #14168).
 * [mjr] Show created/last-modified info on event view (Request #10715).
@@ -519,6 +520,7 @@
     <file name="23_kronolith_upgrade_baseidindex.php" role="horde" />
     <file name="24_kronolith_upgrade_resourcestoshares.php" role="horde" />
     <file name="25_kronolith_upgrade_typetocalendartype.php" role="horde" />
+    <file name="26_kronolith_event_organizer.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="resources">
     <dir name="groups">
@@ -811,6 +813,7 @@
    <file name="search.php" role="horde" />
    <file name="smartmobile.php" role="horde" />
    <file name="view.php" role="horde" />
+   <file name="viewer.php" role="horde" />
    <file name="week.php" role="horde" />
    <file name="workweek.php" role="horde" />
    <file name="year.php" role="horde" />
@@ -1360,6 +1363,7 @@
    <install as="kronolith/migration/23_kronolith_upgrade_baseidindex.php" name="migration/23_kronolith_upgrade_baseidindex.php" />
    <install as="kronolith/migration/24_kronolith_upgrade_resourcestoshares.php" name="migration/24_kronolith_upgrade_resourcestoshares.php" />
    <install as="kronolith/migration/25_kronolith_upgrade_typetocalendartype.php" name="migration/25_kronolith_upgrade_typetocalendartype.php" />
+   <install as="kronolith/migration/26_kronolith_event_organizer.php" name="migration/26_kronolith_event_organizer.php" />
    <install as="kronolith/resources/create.php" name="resources/create.php" />
    <install as="kronolith/resources/delete.php" name="resources/delete.php" />
    <install as="kronolith/resources/edit.php" name="resources/edit.php" />
@@ -1563,6 +1567,7 @@
    <install as="kronolith/search.php" name="search.php" />
    <install as="kronolith/smartmobile.php" name="smartmobile.php" />
    <install as="kronolith/view.php" name="view.php" />
+   <install as="kronolith/viewer.php" name="viewer.php" />
    <install as="kronolith/week.php" name="week.php" />
    <install as="kronolith/workweek.php" name="workweek.php" />
    <install as="kronolith/year.php" name="year.php" />
@@ -2671,9 +2676,10 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2015-05-21</date>
+   <date>2016-01-07</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Support file attachments to events (Request #2009).
 * [mjr] Add ability to prevent any iTip notifications from being sent (Request #14157).
 * [mjr] Remove maps configuration, replaced by global maps configuration (Bug #14168).
 * [mjr] Show created/last-modified info on event view (Request #10715).
