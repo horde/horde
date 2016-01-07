@@ -52,6 +52,7 @@ PHP_MINFO_FUNCTION(horde_xxhash)
     php_info_print_table_end();
 }
 
+#if PHP_MAJOR_VERSION < 7
 
 PHP_FUNCTION(horde_xxhash)
 {
@@ -68,3 +69,22 @@ PHP_FUNCTION(horde_xxhash)
 
     RETURN_STRINGL(hash, 8, 0);
 }
+
+#else
+
+PHP_FUNCTION(horde_xxhash)
+{
+    char *data = NULL;
+    size_t data_len;
+    zend_string *hash;
+
+    if (zend_parse_parameters(ZEND_NUM_ARGS(), "s", &data, &data_len) == FAILURE) {
+        RETURN_FALSE;
+    }
+
+    hash = strpprintf(8, "%08x", XXH32(data, data_len, 0));
+
+    RETURN_STR(hash);
+}
+
+#endif
