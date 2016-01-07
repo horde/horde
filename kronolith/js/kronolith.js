@@ -4597,19 +4597,23 @@ KronolithCore = {
                 e.stop();
                 break;
 
+            case 'kronolithEventFileUpload':
+                if (!elt.disabled) {
+                    this.attachFile();
+                    e.stop();
+                }
+                break;
             case 'kronolithTaskSave':
                 if (!elt.disabled) {
                     this.saveTask();
                 }
                 e.stop();
                 break;
-
             case 'kronolithEventDeleteCancel':
                 $('kronolithDeleteDiv').hide();
                 $('kronolithEventDiv').show();
                 e.stop();
                 return;
-
             case 'kronolithEventSendCancellationYes':
                 this.paramsCache.sendupdates = 1;
             case 'kronolithEventSendCancellationNo':
@@ -5020,6 +5024,19 @@ KronolithCore = {
                     update: [[input, 'value'],
                              [input, 'background']]
                 });
+                e.stop();
+                return;
+            case 'kronolithEventFileDelete':
+                var f = elt.retrieve('file')
+                if (f) {
+                    HordeCore.doAction('deleteFile', f, {
+                        callback: function(r) {
+                            if (r.success) {
+                                elt.up().remove();
+                            }
+                        }
+                    });
+                }
                 e.stop();
                 return;
             }
@@ -5750,7 +5767,7 @@ KronolithCore = {
         $('kronolithEventTargetRO').hide();
         $('kronolithEventForm').down('.kronolithFormActions .kronolithSeparator').show();
         $('kronolithEventOrganizer').clear();
-
+        $('kronolithEventFileList').update();
         if (id) {
             // An id passed to this function indicates we are editing an event.
             RedBox.loading();
@@ -6202,6 +6219,13 @@ KronolithCore = {
             $('kronolithEventMapZoom').value = Math.max(1, ev.gl.zoom);
         }
 
+        /* Files */
+        if (ev.fs) {
+            $H(ev.fs).each(function(f) {
+                this.insertFile(f.value);
+            }.bind(this));
+        }
+        $('kronolithEventFileList').show();
         if (!ev.pe) {
             $('kronolithEventSave').hide();
             HordeImple.AutoCompleter.kronolithEventTags.disable();
@@ -6239,6 +6263,35 @@ KronolithCore = {
                 return false;
             });
         }
+    },
+
+    /**
+     * Insert attached file in the event form.
+     *
+     *  @param f  Hash containing 'name' and 'type' properties.
+     */
+    insertFile: function(f)
+    {
+        var view_link, dl_link;
+
+        view_link = new Element('a', {
+            href: Kronolith.conf.URI_FILE_VIEW.interpolate({ filename: f.name, type: encodeURIComponent(f.type), source: $F('kronolithEventCalendar'), key: $F('kronolithEventId') }),
+            target: '__blank'
+        });
+        dl_link = new Element('a', {
+            href: Kronolith.conf.URI_FILE_DOWNLOAD.interpolate({ filename: f.name, type: encodeURIComponent(f.type), source: $F('kronolithEventCalendar'), key: $F('kronolithEventId') }),
+            target: '__blank'
+        });
+        dl_link.insert(new Element('img', { src: Kronolith.conf.images.download, alt: Kronolith.text.download_file }));
+
+        d_link = new Element('img', {
+            src: Kronolith.conf.images.delete,
+            alt: Kronolith.text.delete_file,
+            class: 'kronolithEventFileDelete'
+        });
+        d_link.store({file: { source: $F('kronolithEventCalendar'), key: $F('kronolithEventId'), name: f.name }});
+
+        $('kronolithEventFileList').insert(new Element('div').insert(view_link.update(f.name.escapeHTML())).insert(dl_link).insert(d_link));
     },
 
     eventAttendanceChange: function(x)
@@ -7049,6 +7102,102 @@ KronolithCore = {
             this.updateRecurrenceVisibility();
             break;
         }
+    },
+
+    uploadFileWait: function(f)
+    {
+        var li = new Element('li')
+            .insert(
+                new Element('span')
+                    .addClassName('file_upload_text')
+                    .insert(f.name.escapeHTML())
+                    .insert(new Element('span').insert('(' + Kronolith.text.uploading + ')'))
+            );
+
+        $('kronolithEventFileList').show().insert(li);
+
+        return li;
+    },
+
+    /**
+     * Upload a file associated with an event.
+     *
+     */
+    attachFile: function()
+    {
+        // @todo Check it's not a new event. (enable/disable the button?)
+
+        // Get file(s).
+        var fi = $('kronolithEventFile').files;
+
+        // @todo Size checks?
+        // if ($A(data).detect(function(d) {
+        //     return (parseInt(d.size, 10) >= this.size_limit);
+        // }, this)) {
+        //     HordeCore.notify(Kronolith.text.max_file_size, 'horde.error');
+        //     return;
+        // }
+        var params = $H({ i: $F('kronolithEventId'), c: $F('kronolithEventCalendar') });
+        HordeCore.addRequestParams(params);
+
+        $A(fi).each(function(d) {
+            var fd = new FormData(), li;
+
+            params.merge({
+                file_upload: d
+            }).each(function(p) {
+                fd.append(p.key, p.value);
+            });
+
+            ++this.curr_upload;
+            if (Object.isNumber(this.num_limit)) {
+                --this.num_limit;
+            }
+
+            HordeCore.doAction('addFile', {}, {
+                ajaxopts: {
+                    postBody: fd,
+                    requestHeaders: { "Content-type": null },
+                    onComplete: function() {
+                        --this.curr_upload;
+                        li.remove();
+                    }.bind(this),
+                    onCreate: function(e) {
+                        if (e.transport && e.transport.upload) {
+                            var p = new Element('SPAN')
+                                .addClassName('file_upload_progress')
+                                .hide()
+                                .insert(new Element('span'));
+                            li = this.uploadFileWait(d);
+                            li.insert(p);
+
+                            e.transport.upload.onprogress = function(e2) {
+                                if (e2.lengthComputable) {
+                                    console.log(parseInt((e2.loaded / e2.total) * 100, 10) + "%");
+                                    p.down('span').setStyle({
+                                        width: parseInt((e2.loaded / e2.total) * 100, 10) + "%"
+                                    });
+                                    if (!p.visible()) {
+                                        li.down('.file_upload_text')
+                                            .addClassName('file_upload_text_progress')
+                                            .down('span').remove();
+                                        p.show();
+                                    }
+                                }
+                            };
+                        } else {
+                            li = this.uploadFileWait(d);
+                        }
+                    }.bind(this)
+                },
+                callback: function(r) {
+                    // @todo Add file link.
+                    if (r.success) {
+                        this.insertFile(d);
+                    }
+                }.bind(this)
+            });
+        }, this);
     },
 
     /**

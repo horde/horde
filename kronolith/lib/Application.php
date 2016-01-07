@@ -568,6 +568,50 @@ class Kronolith_Application extends Horde_Registry_Application
         global $display_calendars, $injector;
 
         switch ($vars->actionID) {
+        case 'download_file':
+            $source = Horde_Util::getFormData('source');
+            $key = Horde_Util::getFormData('key');
+            $filename = Horde_Util::getFormData('file');
+            $type = Horde_Util::getFormData('type');
+
+            list($driver_type, $calendar) = explode('|', $source);
+            if ($driver_type == 'internal' &&
+                !Kronolith::hasPermission($calendar, Horde_Perms::SHOW)) {
+                $GLOBALS['notification']->push(_("Permission Denied"), 'horde.error');
+                return false;
+            }
+
+            try {
+                $driver = Kronolith::getDriver($driver_type, $calendar);
+            } catch (Exception $e) {
+                $GLOBALS['notification']->push($e, 'horde.error');
+                return false;
+            }
+            $event = $driver->getEvent($key);
+
+            /* Check permissions. */
+            if (!$event->hasPermission(Horde_Perms::READ)) {
+                throw new Kronolith_Exception(_("You do not have permission to view this event."));
+            }
+
+            try {
+                $data = $event->vfsInit()->read(Kronolith::VFS_PATH . '/' . $event->getVfsUid(), $filename);
+            } catch (Horde_Vfs_Exception $e) {
+                Horde::log($e, 'ERR');
+                throw new Kronolith_Exception(sprintf(_("Access denied to %s"), $filename));
+            }
+
+            try {
+                return array(
+                    'data' => $data,
+                    'name' => $vars->file,
+                    'type' => $type
+                );
+            } catch (Horde_Vfs_Exception $e) {
+                Horde::log($e, 'ERR');
+                throw new Kronolith_Exception(sprintf(_("Access denied to %s"), $vars->file));
+            }
+
         case 'export':
             if ($vars->all_events) {
                 $end = $start = null;

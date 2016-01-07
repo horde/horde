@@ -68,6 +68,11 @@ class Kronolith_Ajax
                 array('#', '#', '{', '{', '}', '}'),
                 strval($registry->downloadUrl('#{calendar}.ics', array('actionID' => 'export', 'all_events' => 1, 'exportID' => Horde_Data::EXPORT_ICALENDAR, 'exportCal' => 'resource_#{calendar}'))->setRaw(true))),
             'URI_EVENT_EXPORT' => str_replace(array('%23', '%7B', '%7D'), array('#', '{', '}'), Horde::url('event.php', true)->add(array('view' => 'ExportEvent', 'eventID' => '#{id}', 'calendar' => '#{calendar}', 'type' => '#{type}'))),
+            'URI_FILE_DOWNLOAD' => str_replace(
+                array('%23', '%2523', '%7B', '%257B', '%7D', '%257D'),
+                array('#', '#', '{', '{', '}', '}'),
+                strval($registry->downloadUrl('#{filename}', array('actionID' => 'download_file', 'file' => '#{filename}', 'type' => '#{type}', 'source' => '#{source}', 'key' => '#{key}'))->setRaw(true))),
+            'URI_FILE_VIEW' => str_replace(array('%23', '%7B', '%7D'), array('#', '{', '}'), Horde::url('viewer.php', true)->add(array('file' => '#{filename}', 'type' => '#{type}', 'source' => '#{source}', 'key' => '#{key}'))),
             'images' => array(
                 'alarm'     => strval(Horde_Themes::img('alarm-fff.png')),
                 'attendees' => strval(Horde_Themes::img('attendees-fff.png')),
@@ -75,6 +80,8 @@ class Kronolith_Ajax
                 'new_event' => strval(Horde_Themes::img('new.png')),
                 'new_task'  => strval(Horde_Themes::img('new_task.png')),
                 'recur'     => strval(Horde_Themes::img('recur-fff.png')),
+                'download'  => strval(Horde_Themes::img('download.png')),
+                'delete'    => strval(Horde_Themes::img('delete.png'))
             ),
             'new_event' => $injector->getInstance('Kronolith_View_Sidebar')->newLink
                 . $injector->getInstance('Kronolith_View_Sidebar')->newText
@@ -140,7 +147,9 @@ class Kronolith_Ajax
             'alerts' => _("Notifications"),
             'allday' => _("All day"),
             'delete_calendar' => _("Are you sure you want to delete this calendar and all the events in it?"),
+            'delete_file' => _("Delete file"),
             'delete_tasklist' => _("Are you sure you want to delete this task list and all the tasks in it?"),
+            'download_file' => _("Download file"),
             'external_category' => _("Other events"),
             'fix_form_values' => _("Please enter correct values in the form first."),
             'geocode_error' => _("Unable to locate requested address"),
@@ -166,7 +175,8 @@ class Kronolith_Ajax
             'tentative' => _("You have tentatively accepted this meeting request."),
             'declined' => _("You have declined this meeting request."),
             'update_attendees' => _("Send updates to attendees?"),
-            'update_organizer' => _("Send attendance update to organizer?")
+            'update_organizer' => _("Send attendance update to organizer?"),
+            'uploading' => _("Uploading")
         );
 
         for ($i = 1; $i <= 12; ++$i) {

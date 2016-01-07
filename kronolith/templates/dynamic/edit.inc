@@ -133,6 +133,7 @@
     <?php endif; ?>
     <li><a href="#" class="kronolithTabLink" id="kronolithEventLinkExport"><?php echo _("Export") ?></a></li>
     <li><a href="#" class="kronolithTabLink" id="kronolithEventLinkOther"><?php echo _("Information") ?></a></li>
+    <li><a href="#" class="kronolithTabLink" id="kronolithEventLinkFiles"><?php echo _("Files") ?></a></li>
   </ul>
 </div>
 <br class="clear" />
@@ -323,6 +324,11 @@
 <div id="kronolithEventTabOther" class="kronolithTabsOption" style="display:none">
   <p><strong><?php echo _("Created: ") ?></strong><span id="kronolithEventOtherCreated"></span></p>
   <p><strong><?php echo _("Last modified: ") ?></strong><span id="kronolithEventOtherModified"></span></p>
+</div>
+
+<div id="kronolithEventTabFiles" class="kronolithTabsOption" style="display:none">
+  <input type="file" size="30" name="kronolithEventFile" id="kronolithEventFile" /><input type="button" id="kronolithEventFileUpload" class="horde-default" value="<?php echo _("Upload") ?>" />
+  <div id="kronolithEventFileList"></div>
 </div>
 
 <div class="kronolithFormActions">

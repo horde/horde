@@ -1530,6 +1530,132 @@ EOT;
     }
 
     /**
+     * Add a file to an event.
+     *
+     * The following arguments are expected:
+     *   - i:  The event id.
+     *   - c:  The calendar id.
+     *
+     *   The actual file data is returned in $_FILES and is handled in
+     *   self::_addFileFromUpload()
+     */
+    public function addFile()
+    {
+        global $notification, $conf;
+
+        $result = new stdClass;
+        $result->success = 0;
+
+        if (!isset($this->vars->i)) {
+            $notification->push(_("Your attachment was not uploaded. Most likely, the file exceeded the maximum size allowed by the server configuration."), 'horde.warning');
+        } else {
+            try {
+                $event = $this->_getDriver($this->vars->c)->getEvent($this->vars->i);
+                if ($this->_canUploadFiles()) {
+                    $max_files = $conf['documents']['count_limit'];
+                    foreach ($this->_addFileFromUpload() as $f) {
+                        if (!empty($conf['documents']['count_limit']) &&
+                            count($event->listFiles()) >= $max_files) {
+                            $notification->push(_("You have reached the maximum number of allowed files."), 'horde.notification');
+                            break;
+                        }
+                        if ($f instanceof Kronolith_Exception) {
+                            $notification->push($f, 'horde.error');
+                        } else {
+                            $event->addFile($f);
+                            $result->success = 1;
+                            $notification->push(_("The file was successfully uploaded."), 'horde.success');
+                        }
+                    }
+                } elseif (empty($e)) {
+                    $notification->push(_("Uploading files has been disabled on this server."), 'horde.error');
+                }
+            } catch (Kronolith_Exception $e) {
+                $notification->push($e, 'horde.error');
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * Removes a file from the specified event.
+     *
+     * The following arguments are expected:
+     *   - source:  The type|calender source string.
+     *   - key:     The event id.
+     *   - name:    The filename to delete.
+     */
+    public function deleteFile()
+    {
+        global $notification;
+
+        $result = new StdClass;
+        $result->success = 0;
+
+        try {
+            $event = $this->_getDriver($this->vars->source)->getEvent($this->vars->key);
+            if (!$event->hasPermission(Horde_Perms::EDIT)) {
+                $notification->push(_("Permission Denied"), 'horde.error');
+            } else {
+                $event->deleteFile($this->vars->name);
+                $result->success = 1;
+                $notification->push(_("The file was successfully deleted."), 'horde.success');
+            }
+        } catch (Kronolith_Exception $e) {
+            $notification->push($e, 'horde.error');
+        }
+
+        return $result;
+    }
+
+    /**
+     * Check ability to upload files.
+     *
+     * @return integer  Maximum allowed size of file.
+     */
+    protected function _canUploadFiles()
+    {
+        global $browser, $conf;
+
+        $size = $browser->allowFileUploads();
+        return empty($conf['documents']['size_limit'])
+            ? $size
+            : min($size, $conf['documents']['size_limit']);
+    }
+
+    /**
+     * Collect uploaded files.
+     *
+     * @return  array  An array of fileinfo hashes.
+     */
+    protected function _addFileFromUpload()
+    {
+        global $browser;
+
+        try {
+            $browser->wasFileUploaded('file_upload');
+        } catch (Horde_Browser_Exception $e) {
+            throw new Kronolith_Exception($e);
+        }
+
+        $finfo = array();
+        if (is_array($_FILES['file_upload']['size'])) {
+            for ($i = 0; $i < count($_FILES['file_upload']['size']); ++$i) {
+                $tmp = array();
+                foreach ($_FILES['file_upload'] as $key => $val) {
+                    $tmp[$key] = $val[$i];
+                }
+                $finfo[] = $tmp;
+            }
+        } else {
+            $finfo[] = $_FILES['file_upload'];
+        }
+
+        return $finfo;
+    }
+
+    /**
      * Returns the driver object for a calendar.
      *
      * @param string $cal  A calendar string in the format "type|name".

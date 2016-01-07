@@ -68,6 +68,11 @@ class Kronolith
     const SHARE_TYPE_RESOURCE      = 2;
 
     /**
+     * The virtual path to use for VFS data.
+     */
+    const VFS_PATH = '.horde/kronolith/documents';
+
+    /**
      * @var Kronolith_Tagger
      */
     private static $_tagger;
