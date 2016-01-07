@@ -6291,7 +6291,7 @@ KronolithCore = {
         });
         d_link.store({file: { source: $F('kronolithEventCalendar'), key: $F('kronolithEventId'), name: f.name }});
 
-        $('kronolithEventFileList').insert(new Element('div').insert(view_link.update(f.name.escapeHTML())).insert(dl_link).insert(d_link));
+        $('kronolithEventFileList').insert(new Element('div', { class: 'fileName' }).insert(view_link.update(f.name.escapeHTML())).insert(dl_link).insert(d_link));
     },
 
     eventAttendanceChange: function(x)

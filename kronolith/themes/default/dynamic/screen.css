@@ -827,6 +827,61 @@ div.kronolithEditable:hover .kronolithDragger,
     color: #000;
 }
 
+#kronolithEventFileList {
+    list-style: none;
+    max-height: 125px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+#kronolithEventFileList canvas {
+    margin-bottom: -4px;
+    padding-right: 4px;
+}
+#kronolithEventFileList li {
+    padding: 5px 0 1px;
+}
+#kronolithEventFileList div.fileName.a {
+    color: #36525d;
+    cursor: pointer;
+}
+#kronolithEventFileList div.fileName:hover {
+    color: red;
+}
+
+#kronolithEventFileList span.file_upload_text {
+    display: inline-block;
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    white-space: nowrap;
+}
+#kronolithEventFileList span.file_upload_text span {
+    padding-left: 5px;
+}
+#kronolithEventFileList span.file_upload_text_progress {
+    max-width: 290px;
+    margin-right: 8px;
+}
+#kronolithEventFileList span.file_upload_progress {
+    background-color: #1a1a1a;
+    border-radius: 5px;
+    bottom: 4px;
+    display: inline-block;
+    height: 6px;
+    padding: 2px;
+    position: relative;
+    width: 200px;
+}
+#kronolithEventFileList span.file_upload_progress span {
+    background-color: #34c2e3;
+    border-radius: 3px;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, .5) inset;
+    display: inline-block;
+    height: 100%;
+    transition: width 0.2s ease-in-out 0s;
+}
+
 @media print {
     #kronolithMenu, #kronolithBar, #kronolithHeader {
         display: none;
