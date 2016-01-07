@@ -2281,6 +2281,7 @@ abstract class Kronolith_Event
      * - o: organizer (if known)
      * - oy: organizer you
      * - cr: creator's attendance response
+     * - fs: Array of attached files.
      *
      * @param array $options  An array of options:
      *
@@ -2428,6 +2429,13 @@ abstract class Kronolith_Event
             }
             if ($this->methods) {
                 $json->m = $this->methods;
+            }
+
+            if ($this->vfsInit()) {
+                $files = $this->listFiles();
+                $json->fs = count($files)
+                    ? $files
+                    : false;
             }
         }
 
@@ -3769,7 +3777,7 @@ abstract class Kronolith_Event
      */
     public function getVfsUid()
     {
-        return $GLOBALS['registry']->getAuth() . ':' . $this->uid;
+        return $this->calendar . ':' . $this->uid;
     }
 
     /**
@@ -3860,12 +3868,74 @@ abstract class Kronolith_Event
             try {
                 $vfs = $this->vfsInit();
                 if ($vfs->exists(Kronolith::VFS_PATH, $this->getVfsUid())) {
-                    return $vfs->listFolder(Kronolith::VFS_PATH . '/' . $this->getVfsUid);
+                    return $vfs->listFolder(Kronolith::VFS_PATH . '/' . $this->getVfsUid());
                 }
             } catch (Kronolith_Exception $e) {}
         }
 
         return array();
+    }
+
+    /**
+     * Returns a link to display and download a file from the VFS backend
+     * associated with this object.
+     *
+     * @param array $file  The file information hash as returned from self::listFiles.
+     *
+     * @return string  The HTML code of the generated link.
+     */
+    public function vfsDisplayUrl($file)
+    {
+        global $registry;
+
+        $mime_part = new Horde_Mime_Part();
+        $mime_part->setType(Horde_Mime_Magic::extToMime($file['type']));
+        $viewer = $GLOBALS['injector']->getInstance('Horde_Core_Factory_MimeViewer')->create($mime_part);
+
+        // We can always download files.
+        $url_params = array(
+            'actionID' => 'download_file',
+            'file' => $file['name'],
+            'type' => $file['type'],
+            'source' => $this->calendarType . '|' . $this->calendar,
+            'key' => $this->_id
+        );
+        $dl = Horde::link($registry->downloadUrl($file['name'], $url_params), $file['name']) . Horde_Themes_Image::tag('download.png', array('alt' => _("Download"))) . '</a>';
+
+        // Let's see if we can view this one, too.
+        if ($viewer && !($viewer instanceof Horde_Mime_Viewer_Default)) {
+            $url = Horde::url('viewer.php')
+                ->add($url_params)
+                ->add('actionID', 'view_file');
+            $link = Horde::link($url, $file['name'], null, '_blank') . $file['name'] . '</a>';
+        } else {
+            $link = $file['name'];
+        }
+
+        return $link . ' ' . $dl;
+    }
+
+    /**
+     * Returns a link to display, download, and delete a file from the VFS
+     * backend associated with this object.
+     *
+     * @param array $file  The file information hash as returned from self::listFiles.
+     *
+     * @return string  The HTML code of the generated link.
+     */
+    public function vfsEditUrl($file)
+    {
+        $delform = '<form action="' .
+            Horde::url('deletefile.php') .
+            '" style="display:inline" method="post">' .
+            Horde_Util::formInput() .
+            '<input type="hidden" name="file" value="' . htmlspecialchars($file['name']) . '" />' .
+            '<input type="hidden" name="source" value="' . htmlspecialchars($this->calendar) . '" />' .
+            '<input type="hidden" name="key" value="' . htmlspecialchars($this->_id) . '" />' .
+            '<input type="image" class="img" src="' . Horde_Themes::img('delete.png') . '" />' .
+            '</form>';
+
+        return $this->vfsDisplayUrl($file) . ' ' . $delform;
     }
 
 }
