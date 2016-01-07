@@ -17,6 +17,11 @@
   </configswitch>
  </configsection>
 
+ <configsection name="documents">
+  <configheader>Virtual File Storage</configheader>
+  <configvfs switchname="type" />
+ </configsection>
+
  <configsection name="storage">
   <configheader>Free/Busy Driver Settings</configheader>
   <configstring name="default_domain" desc="Default domain to add to attendee

@@ -383,6 +383,13 @@ abstract class Kronolith_Event
     protected $_duration;
 
     /**
+     * VFS handler
+     *
+     * @var Horde_Vfs
+     */
+    protected $_vfs;
+
+    /**
      * Constructor.
      *
      * @param Kronolith_Driver $driver  The backend driver that this event is
@@ -3733,4 +3740,132 @@ abstract class Kronolith_Event
                            array('_', ''),
                            $id);
     }
+
+    /**
+     * Loads the VFS configuration and initializes the VFS backend.
+     *
+     * @return Horde_Vfs  A VFS object.
+     * @throws Kronolith_Exception
+     */
+    public function vfsInit()
+    {
+        if (!isset($this->_vfs)) {
+            try {
+                $this->_vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create('documents');
+            } catch (Horde_Exception $e) {
+                throw new Kronolith_Exception($e);
+            }
+        }
+
+        return $this->_vfs;
+    }
+
+    /**
+     * Return a unique id suitable for identifying this event in the VFS. Takes
+     * into account there may be multiple users with access to the same UID in
+     * different calendars.
+     *
+     * @return string  The unique id.
+     */
+    public function getVfsUid()
+    {
+        return $GLOBALS['registry']->getAuth() . ':' . $this->uid;
+    }
+
+    /**
+     * Saves a file into the VFS backend associated with this event.
+     *
+     * @param array $info  A hash with the file information as returned from a
+     *                     Horde_Form_Type_file.
+     * @throws Kronolith_Exception
+     */
+    public function addFile(array $info)
+    {
+        if (empty($this->uid)) {
+            throw new Kronolith_Exception('VFS not supported for this object.');
+        }
+
+        $vfs = $this->vfsInit();
+
+        $dir = Kronolith::VFS_PATH . '/' . $this->getVfsUid();
+        $file = $info['name'];
+        while ($vfs->exists($dir, $file)) {
+            if (preg_match('/(.*)\[(\d+)\](\.[^.]*)?$/', $file, $match)) {
+                $file = $match[1] . '[' . ++$match[2] . ']' . $match[3];
+            } else {
+                $dot = strrpos($file, '.');
+                if ($dot === false) {
+                    $file .= '[1]';
+                } else {
+                    $file = substr($file, 0, $dot) . '[1]' . substr($file, $dot);
+                }
+            }
+        }
+        try {
+            $vfs->write($dir, $file, $info['tmp_name'], true);
+        } catch (Horde_Vfs_Exception $e) {
+            throw new Kronolith_Exception($e);
+        }
+    }
+
+    /**
+     * Deletes a file from the VFS backend associated with this event.
+     *
+     * @param string $file  The file name.
+     * @throws Kronolith_Exception
+     */
+    public function deleteFile($file)
+    {
+        if (empty($this->uid)) {
+            throw new Kronolith_Exception('VFS not supported for this object.');
+        }
+
+        try {
+            $this->vfsInit()->deleteFile(Kronolith::VFS_PATH . '/' . $this->getVfsUid(), $file);
+        } catch (Horde_Vfs_Exception $e) {
+            throw new Kronolith_Exception($e);
+        }
+    }
+
+    /**
+     * Deletes all files from the VFS backend associated with this event.
+     *
+     * @throws Kronolith_Exception
+     */
+    public function deleteFiles()
+    {
+        if (empty($this->uid)) {
+            throw new Kronolith_Exception('VFS not supported for this object.');
+        }
+
+        $vfs = $this->vfsInit();
+
+        if ($vfs->exists(Kronolith::VFS_PATH, $this->getVfsUid())) {
+            try {
+                $vfs->deleteFolder(Kronolith::VFS_PATH, $this->getVfsUid(), true);
+            } catch (Horde_Vfs_Exception $e) {
+                throw new Kronolith_Exception($e);
+            }
+        }
+    }
+
+    /**
+     * Returns all files from the VFS backend associated with this event.
+     *
+     * @return array  A list of hashes with file informations.
+     */
+    public function listFiles()
+    {
+        if ($this->uid) {
+            try {
+                $vfs = $this->vfsInit();
+                if ($vfs->exists(Kronolith::VFS_PATH, $this->getVfsUid())) {
+                    return $vfs->listFolder(Kronolith::VFS_PATH . '/' . $this->getVfsUid);
+                }
+            } catch (Kronolith_Exception $e) {}
+        }
+
+        return array();
+    }
+
 }
