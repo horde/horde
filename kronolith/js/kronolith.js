@@ -5818,6 +5818,7 @@ KronolithCore = {
             $('kronolithEventEndDate').setValue(d.toString(Kronolith.conf.date_format));
             $('kronolithEventEndTime').setValue(d.toString(Kronolith.conf.time_format));
             $('kronolithEventLinkExport').up('li').hide();
+            $('kronolithEventLinkFiles').up('li').hide();
             $('kronolithEventSaveAsNew').hide();
             $('kronolithEventUrlDisplay').hide();
             $('kronolithEventUrl').show();
@@ -6225,6 +6226,7 @@ KronolithCore = {
                 this.insertFile(f.value);
             }.bind(this));
         }
+        $('kronolithEventLinkFiles').up('li').show();
         $('kronolithEventFileList').show();
         if (!ev.pe) {
             $('kronolithEventSave').hide();
