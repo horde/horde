@@ -6222,7 +6222,7 @@ KronolithCore = {
         /* Files */
         if (ev.fs) {
             $H(ev.fs).each(function(f) {
-                $('kronolithEventFileList').insert(this.insertFile(f.value, ev));
+                this.insertFile(f.value);
             }.bind(this));
         }
         $('kronolithEventFileList').show();
@@ -6265,16 +6265,21 @@ KronolithCore = {
         }
     },
 
-    insertFile: function(f, ev)
+    /**
+     * Insert attached file in the event form.
+     *
+     *  @param f  Hash containing 'name' and 'type' properties.
+     */
+    insertFile: function(f)
     {
         var view_link, dl_link;
 
         view_link = new Element('a', {
-            href: Kronolith.conf.URI_FILE_VIEW.interpolate({ filename: f.name, type: f.type, source: ev.ty + '|' + ev.c, key: ev.id }),
+            href: Kronolith.conf.URI_FILE_VIEW.interpolate({ filename: f.name, type: encodeURIComponent(f.type), source: $F('kronolithEventCalendar'), key: $F('kronolithEventId') }),
             target: '__blank'
         });
         dl_link = new Element('a', {
-            href: Kronolith.conf.URI_FILE_DOWNLOAD.interpolate({ filename: f.name, type: f.type, source: ev.ty + '|' + ev.c, key: ev.id }),
+            href: Kronolith.conf.URI_FILE_DOWNLOAD.interpolate({ filename: f.name, type: encodeURIComponent(f.type), source: $F('kronolithEventCalendar'), key: $F('kronolithEventId') }),
             target: '__blank'
         });
         dl_link.insert(new Element('img', { src: Kronolith.conf.images.download, alt: Kronolith.text.download_file }));
@@ -6284,8 +6289,9 @@ KronolithCore = {
             alt: Kronolith.text.delete_file,
             class: 'kronolithEventFileDelete'
         });
-        d_link.store({file: { source: ev.ty + '|' + ev.c, key: ev.id, name: f.name }});
-        return new Element('div').insert(view_link.update(f.name)).insert(dl_link).insert(d_link);
+        d_link.store({file: { source: $F('kronolithEventCalendar'), key: $F('kronolithEventId'), name: f.name }});
+
+        $('kronolithEventFileList').insert(new Element('div').insert(view_link.update(f.name.escapeHTML())).insert(dl_link).insert(d_link));
     },
 
     eventAttendanceChange: function(x)
@@ -7186,8 +7192,10 @@ KronolithCore = {
                 },
                 callback: function(r) {
                     // @todo Add file link.
-                    console.log(r);
-                }
+                    if (r.success) {
+                        this.insertFile(d);
+                    }
+                }.bind(this)
             });
         }, this);
     },
