@@ -79,9 +79,10 @@ abstract class Horde_Alarm_Storage_Base extends Horde_Test_Case
      */
     public function testListAlarms()
     {
-        self::$date->min--;
+        $date = clone self::$date;
+        $date->min--;
         self::$alarm->set(array('id' => 'publicalarm',
-                                'start' => self::$date,
+                                'start' => $date,
                                 'end' => self::$end,
                                 'methods' => array(),
                                 'params' => array(),
