@@ -241,7 +241,9 @@ class Horde_Kolab_Storage_List_Query_List_Cache_Synchronization
             unset($annotations[$old]);
         }
         $namespace = unserialize($this->_cache->getNamespace());
-        $this->_synchronize($namespace, $folder_list, $annotations);
+	// Using array_values() here to make testing across PHP versions
+	// easier.
+	$this->_synchronize($namespace, array_values($folder_list), $annotations);
     }
 
     /**

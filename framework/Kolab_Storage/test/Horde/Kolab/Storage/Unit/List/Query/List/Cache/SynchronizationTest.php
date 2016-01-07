@@ -286,7 +286,7 @@ extends PHPUnit_Framework_TestCase
         $cache->expects($this->once())
             ->method('store')
             ->with(
-                array(0 => 'INBOX/Foo', 2 => 'INBOX/FooBar'),
+                array('INBOX/Foo', 'INBOX/FooBar'),
                 array('INBOX/Foo' => 'contact', 'INBOX/FooBar' => 'note')
             );
         $list = new Horde_Kolab_Storage_List_Query_List_Cache_Synchronization(
