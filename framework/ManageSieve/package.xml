@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
-* 
+* [jan] Mark PHP 7 as supported.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -158,7 +158,7 @@
    <date>2015-11-15</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
-* 
+* [jan] Mark PHP 7 as supported.
    </notes>
   </release>
  </changelog>

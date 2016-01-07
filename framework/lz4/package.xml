@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/MIT">MIT (Expat)</license>
  <notes>
-* [jan] Allow installation on PHP 7.
+* [jan] Mark PHP 7 as supported.
  </notes>
  <contents>
   <dir name="/">
@@ -228,7 +228,7 @@
    <date>2015-04-13</date>
    <license uri="http://opensource.org/licenses/MIT">MIT (Expat)</license>
    <notes>
-* [jan] Allow installation on PHP 7.
+* [jan] Mark PHP 7 as supported.
    </notes>
   </release>
  </changelog>
