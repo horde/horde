@@ -7127,8 +7127,6 @@ KronolithCore = {
      */
     attachFile: function()
     {
-        // @todo Check it's not a new event. (enable/disable the button?)
-
         // Get file(s).
         var fi = $('kronolithEventFile').files;
 
@@ -7141,27 +7139,18 @@ KronolithCore = {
         // }
         var params = $H({ i: $F('kronolithEventId'), c: $F('kronolithEventCalendar') });
         HordeCore.addRequestParams(params);
-
         $A(fi).each(function(d) {
             var fd = new FormData(), li;
-
             params.merge({
                 file_upload: d
             }).each(function(p) {
                 fd.append(p.key, p.value);
             });
-
-            ++this.curr_upload;
-            if (Object.isNumber(this.num_limit)) {
-                --this.num_limit;
-            }
-
             HordeCore.doAction('addFile', {}, {
                 ajaxopts: {
                     postBody: fd,
                     requestHeaders: { "Content-type": null },
                     onComplete: function() {
-                        --this.curr_upload;
                         li.remove();
                     }.bind(this),
                     onCreate: function(e) {
@@ -7175,7 +7164,6 @@ KronolithCore = {
 
                             e.transport.upload.onprogress = function(e2) {
                                 if (e2.lengthComputable) {
-                                    console.log(parseInt((e2.loaded / e2.total) * 100, 10) + "%");
                                     p.down('span').setStyle({
                                         width: parseInt((e2.loaded / e2.total) * 100, 10) + "%"
                                     });
