@@ -1,11 +1,20 @@
 <?php
 /**
- * This class provides the API interface to the cache storage drivers.
- *
  * Copyright 1999-2016 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author   Anil Madhavapeddy <anil@recoil.org>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Cache
+ */
+
+/**
+ * This class provides the API interface to the cache storage drivers.
  *
  * @author   Anil Madhavapeddy <anil@recoil.org>
  * @author   Chuck Hagenbuch <chuck@horde.org>
@@ -117,8 +126,8 @@ class Horde_Cache
      * @param string $data       Data to store in the cache.
      * @param integer $lifetime  Object lifetime - i.e. the time before the
      *                           data becomes available for garbage
-     *                           collection.  If null use the default Horde GC
-     *                           time.  If 0 will not be GC'd.
+     *                           collection, in seconds.  If null use the
+     *                           default Horde GC time.  If 0 will not be GC'd.
      */
     public function set($key, $data, $lifetime = null)
     {
