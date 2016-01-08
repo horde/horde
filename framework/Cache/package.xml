@@ -3,7 +3,7 @@
  <name>Horde_Cache</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Caching API</summary>
- <description>A simple, functional caching API, with the option to store the cached data on the filesystem, in one of the PHP opcode cache systems (APC, eAcclerator, XCache, or Zend Performance Suite&apos;s content cache), memcached, or an SQL table.</description>
+ <description>A simple, functional caching API, with the option to store the cached data on the filesystem, in one of the PHP opcode cache systems (APC, eAcclerator, XCache), Memcache, MongoDB, Redis, user session, an SQL table, or a combination of these.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
@@ -178,6 +178,9 @@
     <min>0.9.5</min>
     <max>0.9.6</max>
     <exclude>0.9.6</exclude>
+   </extension>
+   <extension>
+    <name>xcache</name>
    </extension>
   </optional>
  </dependencies>
