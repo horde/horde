@@ -16,7 +16,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-01-05</date>
+ <date>2016-01-08</date>
  <version>
   <release>2.5.2</release>
   <api>2.5.0</api>
@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Add unit tests.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -71,6 +71,29 @@
      </dir> <!-- /migration/Horde/Cache -->
     </dir> <!-- /migration/Horde -->
     </dir> <!-- /migration -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="Cache">
+      <dir name="Sql">
+       <file name="Base.php" role="test" />
+      </dir> <!-- /test/Horde/Cache/Sql -->
+      <file name="AllTests.php" role="test" />
+      <file name="ApcTest.php" role="test" />
+      <file name="bootstrap.php" role="test" />
+      <file name="conf.php.dist" role="test" />
+      <file name="EacceleratorTest.php" role="test" />
+      <file name="FileTest.php" role="test" />
+      <file name="HashtableTest.php" role="test" />
+      <file name="MemcacheTest.php" role="test" />
+      <file name="MemoryTest.php" role="test" />
+      <file name="MongoTest.php" role="test" />
+      <file name="phpunit.xml" role="test" />
+      <file name="SessionTest.php" role="test" />
+      <file name="TestBase.php" role="test" />
+      <file name="XcacheTest.php" role="test" />
+     </dir> <!-- /test/Horde/Cache -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -180,6 +203,21 @@
    <install as="Horde/Cache/Storage/Xcache.php" name="lib/Horde/Cache/Storage/Xcache.php" />
    <install as="migration/1_horde_cache_base_tables.php" name="migration/Horde/Cache/1_horde_cache_base_tables.php" />
    <install as="migration/2_horde_cache_fix_blob_length.php" name="migration/Horde/Cache/2_horde_cache_fix_blob_length.php" />
+   <install as="Horde/Cache/AllTests.php" name="test/Horde/Cache/AllTests.php" />
+   <install as="Horde/Cache/ApcTest.php" name="test/Horde/Cache/ApcTest.php" />
+   <install as="Horde/Cache/bootstrap.php" name="test/Horde/Cache/bootstrap.php" />
+   <install as="Horde/Cache/conf.php.dist" name="test/Horde/Cache/conf.php.dist" />
+   <install as="Horde/Cache/EacceleratorTest.php" name="test/Horde/Cache/EacceleratorTest.php" />
+   <install as="Horde/Cache/FileTest.php" name="test/Horde/Cache/FileTest.php" />
+   <install as="Horde/Cache/HashtableTest.php" name="test/Horde/Cache/HashtableTest.php" />
+   <install as="Horde/Cache/MemcacheTest.php" name="test/Horde/Cache/MemcacheTest.php" />
+   <install as="Horde/Cache/MemoryTest.php" name="test/Horde/Cache/MemoryTest.php" />
+   <install as="Horde/Cache/MongoTest.php" name="test/Horde/Cache/MongoTest.php" />
+   <install as="Horde/Cache/phpunit.xml" name="test/Horde/Cache/phpunit.xml" />
+   <install as="Horde/Cache/SessionTest.php" name="test/Horde/Cache/SessionTest.php" />
+   <install as="Horde/Cache/TestBase.php" name="test/Horde/Cache/TestBase.php" />
+   <install as="Horde/Cache/XcacheTest.php" name="test/Horde/Cache/XcacheTest.php" />
+   <install as="Horde/Cache/Sql/Base.php" name="test/Horde/Cache/Sql/Base.php" />
    </filelist>
  </phprelease>
  <changelog>
@@ -596,10 +634,10 @@ Initial packaging.
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-01-05</date>
+   <date>2016-01-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Add unit tests.
    </notes>
   </release>
  </changelog>
