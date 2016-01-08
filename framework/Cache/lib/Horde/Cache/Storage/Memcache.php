@@ -25,12 +25,12 @@
 class Horde_Cache_Storage_Memcache extends Horde_Cache_Storage_Base
 {
     /**
-     * Cache results of expire() calls (since we will get the entire object
-     * on an expire() call anyway).
+     * Cache results of exists()/get() calls (since we will get the entire
+     * object on an exists() call anyway).
      *
      * @var array
      */
-    protected $_expirecache = array();
+    protected $_objectcache = array();
 
     /**
      * Memcache object.
@@ -77,8 +77,8 @@ class Horde_Cache_Storage_Memcache extends Horde_Cache_Storage_Base
     {
         $original_key = $key;
         $key = $this->_params['prefix'] . $key;
-        if (isset($this->_expirecache[$key])) {
-            return $this->_expirecache[$key];
+        if (isset($this->_objectcache[$key])) {
+            return $this->_objectcache[$key];
         }
 
         $key_list = array($key);
@@ -89,16 +89,17 @@ class Horde_Cache_Storage_Memcache extends Horde_Cache_Storage_Base
         $res = $this->_memcache->get($key_list);
 
         if ($res === false) {
-            unset($this->_expirecache[$key]);
+            return $this->_objectcache[$key] = false;
+        }
+
+        // If we can't find the expire time, assume we have exceeded it.
+        if (empty($lifetime) ||
+            (($res[$key . '_e'] !== false) &&
+             ($res[$key . '_e'] + $lifetime > time()))) {
+            $this->_objectcache[$key] = $res[$key];
         } else {
-            // If we can't find the expire time, assume we have exceeded it.
-            if (empty($lifetime) ||
-                (($res[$key . '_e'] !== false) && ($res[$key . '_e'] + $lifetime > time()))) {
-                $this->_expirecache[$key] = $res[$key];
-            } else {
-                $res[$key] = false;
-                $this->expire($original_key);
-            }
+            $this->expire($original_key);
+            return false;
         }
 
         return $res[$key];
@@ -112,6 +113,7 @@ class Horde_Cache_Storage_Memcache extends Horde_Cache_Storage_Base
 
         if ($this->_memcache->set($key . '_e', time(), $lifetime) !== false) {
             $this->_memcache->set($key, $data, $lifetime);
+            unset($this->_objectcache[$key]);
         }
     }
 
@@ -127,7 +129,7 @@ class Horde_Cache_Storage_Memcache extends Horde_Cache_Storage_Base
     public function expire($key)
     {
         $key = $this->_params['prefix'] . $key;
-        unset($this->_expirecache[$key]);
+        $this->_objectcache[$key] = false;
         $this->_memcache->delete($key . '_e');
 
         return $this->_memcache->delete($key);
@@ -138,6 +140,7 @@ class Horde_Cache_Storage_Memcache extends Horde_Cache_Storage_Base
     public function clear()
     {
         $this->_memcache->flush();
+        $this->_objectcache = array();
     }
 
 }
