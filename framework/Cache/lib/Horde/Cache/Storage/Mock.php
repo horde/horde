@@ -14,6 +14,7 @@
 
 /**
  * Cache storage in PHP memory.
+ *
  * It persists only during a script run and ignores the object lifetime
  * because of that.
  *

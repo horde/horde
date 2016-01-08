@@ -14,11 +14,6 @@
 /**
  * Cache storage in the Alternative PHP Cache (APC).
  *
- * Copyright 2006-2016 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
- *
  * @author    Duck <duck@obala.net>
  * @category  Horde
  * @copyright 2006-2016 Horde LLC
