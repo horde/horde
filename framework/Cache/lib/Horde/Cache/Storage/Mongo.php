@@ -215,7 +215,9 @@ class Horde_Cache_Storage_Mongo extends Horde_Cache_Storage_Base
             $this->_db->remove(array(
                 self::CID => $key
             ));
-            $this->_logger->log(sprintf('Cache expire: %s (cache ID %s)', $okey, $key), 'DEBUG');
+            if ($this->_logger) {
+                $this->_logger->log(sprintf('Cache expire: %s (cache ID %s)', $okey, $key), 'DEBUG');
+            }
             return true;
         } catch (MongoException $e) {
             return false;
