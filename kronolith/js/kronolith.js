@@ -6293,7 +6293,13 @@ KronolithCore = {
         });
         d_link.store({file: { source: $F('kronolithEventCalendar'), key: $F('kronolithEventId'), name: f.name }});
 
-        $('kronolithEventFileList').insert(new Element('div', { class: 'fileName' }).insert(view_link.update(f.name.escapeHTML())).insert(dl_link).insert(d_link));
+        $('kronolithEventFileList').insert(new Element('div', { class: 'fileName' }).insert(view_link.update(f.name.escapeHTML() + ' (' + this.humanFileSize(f.size) + ') ')).insert(dl_link).insert(d_link));
+    },
+
+    humanFileSize: function(s)
+    {
+        var i = Math.floor(Math.log(s) / Math.log(1024));
+        return (s / Math.pow(1024, i)).toFixed(2) * 1 + '' + ['B', 'KB', 'MB', 'GB', 'TB'][i];
     },
 
     eventAttendanceChange: function(x)
