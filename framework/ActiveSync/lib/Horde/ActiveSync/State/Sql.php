@@ -553,7 +553,9 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
     public function loadDeviceInfo($devId, $user = null, $params = array())
     {
         // See if we already have this device, for this user loaded
-        if (empty($params['force']) && !empty($this->_deviceInfo) && $this->_deviceInfo->id == $devId &&
+        if (empty($params['force']) &&
+            !empty($this->_deviceInfo) &&
+            $this->_deviceInfo->id == $devId &&
             !empty($this->_deviceInfo) &&
             $user == $this->_deviceInfo->user) {
             return $this->_deviceInfo;
