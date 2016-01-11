@@ -27,6 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Improve performance and memory consumption of garbage collection in File driver.
 * [jan] Fix garbage collection in File driver.
 * [jan] Fix caching issues within the same request in the Memcache driver.
 * [jan] Fix the Mongo driver&apos;s expire() if not using a logger.
@@ -657,6 +658,7 @@ Initial packaging.
    <date>2016-01-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Improve performance and memory consumption of garbage collection in File driver.
 * [jan] Fix garbage collection in File driver.
 * [jan] Fix caching issues within the same request in the Memcache driver.
 * [jan] Fix the Mongo driver&apos;s expire() if not using a logger.
