@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [mjr] Fix splitting tags over ActiveSync (Bug #13800).
 * [mjr] Fix searching within virtual address books (Bug #14155).
 * [mjr] Fix import of vCard with single component via API.
  </notes>
@@ -2072,6 +2073,7 @@
    <date>2015-10-28</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [mjr] Fix splitting tags over ActiveSync (Bug #13800).
 * [mjr] Fix searching within virtual address books (Bug #14155).
 * [mjr] Fix import of vCard with single component via API.
    </notes>

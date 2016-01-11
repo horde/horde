@@ -2,6 +2,7 @@
 v4.2.12-git
 -----------
 
+[mjr] Fix splitting tags over ActiveSync (Bug #13800).
 [mjr] Fix searching within virtual address books (Bug #14155).
 [mjr] Fix import of vCard with single component via API.
 
