@@ -33,12 +33,18 @@ class Horde_Cache_MongoTest extends Horde_Cache_TestBase
         }
         if (!($config = self::getConfig('CACHE_MONGO_TEST_CONFIG', __DIR__)) ||
             !isset($config['cache']['mongo']['hostspec'])) {
+            $this->reason = 'Mongo configuration not available';
+            return;
         }
         $factory = new Horde_Test_Factory_Mongo();
         $this->mongo = $factory->create(array(
             'config' => $config['cache']['mongo']['hostspec'],
             'dbname' => 'horde_cache_test'
         ));
+        if (!$this->mongo) {
+            $this->reason = 'MongoDB not available.';
+            return;
+        }
         return new Horde_Cache(
             new Horde_Cache_Storage_Mongo(array(
                 'mongo_db' => $this->mongo,
