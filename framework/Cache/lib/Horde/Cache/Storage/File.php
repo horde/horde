@@ -77,33 +77,7 @@ class Horde_Cache_Storage_File extends Horde_Cache_Storage_Base
             return;
         }
 
-        $filename = $this->_params['dir'] . '/' . self::GC_FILE;
-        $excepts = array();
-
-        if (is_readable($filename)) {
-            $gc_file = file($filename, FILE_IGNORE_NEW_LINES);
-            reset($gc_file);
-            next($gc_file);
-            while (list(,$data) = each($gc_file)) {
-                $parts = explode("\t", $data, 2);
-                $excepts[$parts[0]] = $parts[1];
-            }
-        }
-
-        foreach ($this->_getCacheFiles() as $fname => $pname) {
-            if (!empty($excepts[$fname]) &&
-                (($c_time - $excepts[$fname]) > filemtime($pname))) {
-                @unlink($pname);
-                unset($excepts[$fname]);
-            }
-        }
-
-        if ($fp = @fopen($filename, 'w')) {
-            foreach ($excepts as $key => $val) {
-                fwrite($fp, $key . "\t" . $val . "\n");
-            }
-            fclose($fp);
-        }
+        $this->_gc();
     }
 
     /**
@@ -249,6 +223,40 @@ class Horde_Cache_Storage_File extends Horde_Cache_Storage_Base
         }
 
         return $this->_file[$key];
+    }
+
+    /**
+     * Garbage collector
+     */
+    protected function _gc()
+    {
+        $c_time = time();
+
+        $filename = $this->_params['dir'] . '/' . self::GC_FILE;
+        $excepts = array();
+
+        if (is_readable($filename)) {
+            $gc_file = file($filename, FILE_IGNORE_NEW_LINES);
+            while (list(,$data) = each($gc_file)) {
+                $parts = explode("\t", $data, 2);
+                $excepts[$parts[0]] = $parts[1];
+            }
+        }
+
+        foreach ($this->_getCacheFiles() as $pname) {
+            if (!empty($excepts[$pname]) &&
+                ($c_time > $excepts[$pname])) {
+                @unlink($pname);
+                unset($excepts[$pname]);
+            }
+        }
+
+        if ($fp = @fopen($filename, 'w')) {
+            foreach ($excepts as $key => $val) {
+                fwrite($fp, $key . "\t" . $val . "\n");
+            }
+            fclose($fp);
+        }
     }
 
 }

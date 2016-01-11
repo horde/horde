@@ -68,6 +68,30 @@ class Horde_Cache_FileTest extends Horde_Cache_TestBase
         );
     }
 
+    public function testGarbageCollection()
+    {
+        $this->tearDown();
+        $this->dir = sys_get_temp_dir() . '/horde_cache_test';
+        mkdir($this->dir);
+        $storage = new Horde_Cache_Stub_File(array(
+            'dir'    => $this->dir,
+            'no_gc'  => true,
+            'prefix' => 'horde_cache_test'
+        ));
+        $this->cache = new Horde_Cache($storage);
+        $this->cache->set('key1', 'data1', -100);
+        $this->cache->set('key2', 'data2', 100);
+        $this->cache->set('key3', 'data3', -100);
+        $this->cache->set('key3', 'data4', 100);
+        $this->cache->set('key4', 'data5', 100);
+        $this->cache->set('key4', 'data6', -100);
+        $storage->gc();
+        $this->assertFileExists($this->dir . '/horde_cache_test78f825aaa0103319aaa1a30bf4fe3ada');
+        $this->assertFileExists($this->dir . '/horde_cache_test3631578538a2d6ba5879b31a9a42f290');
+        $this->assertFileNotExists($this->dir . '/horde_cache_testc2add694bf942dc77b376592d9c862cd');
+        $this->assertFileNotExists($this->dir . '/horde_cache_testcaf8e34be07426ae7127c1b4829983c1');
+    }
+
     public function tearDown()
     {
         parent::tearDown();
