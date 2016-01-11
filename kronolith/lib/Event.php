@@ -644,10 +644,12 @@ abstract class Kronolith_Event
      *
      * @param Horde_Icalendar $calendar  A Horde_Icalendar object that acts as
      *                                   a container.
+     * @param boolean  $includeFiles     Include attached files in the iCalendar
+     *                                   file? @since 4.3.0
      *
      * @return array  An array of Horde_Icalendar_Vevent objects for this event.
      */
-    public function toiCalendar($calendar)
+    public function toiCalendar($calendar, $includeFiles = true)
     {
         $vEvent = Horde_Icalendar::newComponent('vevent', $calendar);
         $v1 = $calendar->getAttribute('VERSION') == '1.0';
@@ -916,6 +918,25 @@ abstract class Kronolith_Event
                 if (!empty($alarm['snooze'])) {
                     $alarm['snooze']->setTimezone(date_default_timezone_get());
                     $vEvent->setAttribute('X-MOZ-SNOOZE-TIME', $alarm['snooze']);
+                }
+            }
+        }
+
+        // Attached files
+        if ($includeFiles && count($this->listFiles())) {
+            $vfs = $this->vfsInit();
+            foreach ($this->listFiles() as $file) {
+                try {
+                    $data = $vfs->read(Kronolith::VFS_PATH . '/' . $this->getVfsUid(), $file['name']);
+                } catch (Horde_Vfs_Exception $e) {
+                    Horde::log($e->getMessage, 'ERR');
+                }
+                if ($data) {
+                    try {
+                        $vEvent->setAttribute('ATTACH', $data, array('FMTTYPE' => $file['type'], 'VALUE' => 'BINARY', 'ENCODING' => 'BASE64'));
+                    } catch (Horde_Icalendar_Exception $e) {
+                        Horde::log($e->getMessage(), 'ERR');
+                    }
                 }
             }
         }
@@ -1271,6 +1292,41 @@ abstract class Kronolith_Event
                     $this->_snooze = -1;
                 }
             } catch (Horde_Icalendar_Exception $e) {
+            }
+        }
+
+        // Attached files, we require a UID so we can attach the file in VFS.
+        if ($this->uid) {
+            $attach = false;
+            $attach_params = array();
+            try {
+                $attach = $vEvent->getAttribute('ATTACH');
+                $attach_params = $vEvent->getAttribute('ATTACH', true);
+            } catch (Horde_Icalendar_Exception $e) {}
+            if (!is_array($attach)) {
+                $attach = array($attach);
+            }
+            foreach ($attach as $key => $attribute) {
+                if (isset($attach_params[$key]['VALUE']) &&
+                    Horde_String::lower($attach_params[$key]['VALUE']) == 'uri') {
+                    // @todo
+                } elseif (Horde_String::upper($attach_params[$key]['ENCODING']) == 'BASE64') {
+                    $mime_type = !empty($attach_params[$key]['FMTTYPE'])
+                        ? $attach_params[$key]['FMTTYPE']
+                        : '';
+                    // @todo We really should add stream support to VFS
+                    $file_data = base64_decode($attribute);
+                    $vfs = $this->vfsInit();
+                    $dir = Kronolith::VFS_PATH . '/' . $this->getVfsUid();
+                    // @todo - Is there a way to get a filename from a non-uri
+                    // ATTACH attribute??
+                    $filename = sprintf(_("File %d.%s"), $key, Horde_Mime_Magic::mimeToExt($mime_type));
+                    try {
+                        $vfs->writeData($dir, $filename, $file_data, true);
+                    } catch (Horde_Vfs_Exception $e) {
+                        Horde::log($e->getMessage(), 'ERR');
+                    }
+                }
             }
         }
 
@@ -3759,7 +3815,9 @@ abstract class Kronolith_Event
     {
         if (!isset($this->_vfs)) {
             try {
-                $this->_vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create('documents');
+                $this->_vfs = $GLOBALS['injector']
+                    ->getInstance('Horde_Core_Factory_Vfs')
+                    ->create('documents');
             } catch (Horde_Exception $e) {
                 throw new Kronolith_Exception($e);
             }
