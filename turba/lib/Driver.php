@@ -2730,7 +2730,8 @@ class Turba_Driver implements Countable
         }
 
         /* Get tags. */
-        $message->categories = explode(',', $object->getValue('__tags'));
+        $message->categories = $injector->getInstance('Turba_Tagger')
+            ->split($object->getValue('__tags'));
 
         if (empty($this->fileas)) {
             $message->fileas = Turba::formatName($object);
