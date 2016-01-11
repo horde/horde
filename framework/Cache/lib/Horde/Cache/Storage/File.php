@@ -255,7 +255,13 @@ class Horde_Cache_Storage_File extends Horde_Cache_Storage_Base
 
         if (!empty($this->_params['sub']) &&
             file_exists($this->_params['dir'] . '/' . self::GC_FILE)) {
-            $this->_migrateGc();
+            // If we cannot migrate, we cannot GC either, because we expect the
+            // new format.
+            try {
+                $this->_migrateGc();
+            } catch (Horde_Cache_Exception $e) {
+                return;
+            }
         }
 
         foreach ($this->_getGCFiles() as $filename) {
@@ -297,6 +303,9 @@ class Horde_Cache_Storage_File extends Horde_Cache_Storage_Base
 
         $fhs = array();
         $fp = fopen($filename, 'r');
+        if (!flock($fp, LOCK_EX)) {
+            throw new Horde_Cache_Exception('Cannot acquire lock for old garbage collection index');
+        }
 
         // Loops through all cached files from the old index and write their GC
         // information to the new GC indexes.
