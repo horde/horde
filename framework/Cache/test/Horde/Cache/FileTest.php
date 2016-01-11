@@ -37,6 +37,37 @@ class Horde_Cache_FileTest extends Horde_Cache_TestBase
         );
     }
 
+    public function testSubdirectories()
+    {
+        $this->tearDown();
+        $this->cache = $this->_getCache(array('sub' => 2));
+        if (!$this->cache) {
+            $this->markTestSkipped($this->reason);
+        }
+        $this->assertNull($this->cache->set('key1', 'data1', 0));
+        $this->assertNull($this->cache->set('key2', 'data2', 0));
+        $this->assertEquals(
+            array($this->dir . '/7/', $this->dir . '/c/'),
+            glob($this->dir . '/*', GLOB_MARK)
+        );
+        $this->assertEquals(
+            array($this->dir . '/7/8/'),
+            glob($this->dir . '/7/*', GLOB_MARK)
+        );
+        $this->assertEquals(
+            array($this->dir . '/c/2/'),
+            glob($this->dir . '/c/*', GLOB_MARK)
+        );
+        $this->assertEquals(
+            array($this->dir . '/7/8/horde_cache_test78f825aaa0103319aaa1a30bf4fe3ada'),
+            glob($this->dir . '/7/8/*', GLOB_MARK)
+        );
+        $this->assertEquals(
+            array($this->dir . '/c/2/horde_cache_testc2add694bf942dc77b376592d9c862cd'),
+            glob($this->dir . '/c/2/*', GLOB_MARK)
+        );
+    }
+
     public function tearDown()
     {
         parent::tearDown();
