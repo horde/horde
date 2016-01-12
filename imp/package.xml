@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* Allow to disable remote accounts by locking the preference.
 * [jan] Fix setting title with newmail count in IE11 and Edge (Bug #14189).
 * [jan] Fix wrapping of plain text converted from HTML MIME parts.
  </notes>
@@ -3893,6 +3894,7 @@
    <date>2015-10-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* Allow to disable remote accounts by locking the preference.
 * [jan] Fix setting title with newmail count in IE11 and Edge (Bug #14189).
 * [jan] Fix wrapping of plain text converted from HTML MIME parts.
    </notes>
