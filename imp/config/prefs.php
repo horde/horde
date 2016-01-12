@@ -149,6 +149,7 @@ $_prefs['remotemanagement'] = array(
 
 // Internal remote accounts storage value
 $_prefs['remote'] = array(
+    // set 'locked' => true to disable remote accounts
     // 'value' = serialize(array())
     'value' => 'a:0:{}'
 );

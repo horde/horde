@@ -32,7 +32,11 @@ class IMP_Prefs_Special_Remote implements Horde_Core_Prefs_Ui_Special
      */
     public function display(Horde_Core_Prefs_Ui $ui)
     {
-        global $injector, $page_output;
+        global $injector, $page_output, $prefs;
+
+        if ($prefs->isLocked('remote')) {
+            return;
+        }
 
         $ui->nobuttons = true;
 
@@ -69,7 +73,11 @@ class IMP_Prefs_Special_Remote implements Horde_Core_Prefs_Ui_Special
      */
     public function update(Horde_Core_Prefs_Ui $ui)
     {
-        global $injector, $notification;
+        global $injector, $notification, $prefs;
+
+        if ($prefs->isLocked('remote')) {
+            return false;
+        }
 
         $remote = $injector->getInstance('IMP_Remote');
 
