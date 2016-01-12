@@ -252,6 +252,38 @@ class Horde_Timezone_Rule
                     . ';BYMONTHDAY=' . implode(',', $days)
                     . ';BYDAY=-1' . Horde_String::upper(substr($weekday, 0, 2))
                     . $until);
+            } elseif (is_numeric($rule[6])) {
+                // Rule starts on a certain day of month.
+                $last = new Horde_Date(
+                    array(
+                        'year' => $rule[2],
+                        'month' => $month,
+                        'mday' => $rule[6],
+                        'hour' => $match[1],
+                        'min' => $match[2],
+                        'sec' => 0),
+                    $tzid
+                );
+                $component->setAttribute('DTSTART', $last);
+                if ($rule[3][0] == 'm') {
+                    $until = '';
+                } else {
+                    $last = new Horde_Date(
+                        array('year'  => $rule[3],
+                              'month' => $month,
+                              'mday'  => $rule[6],
+                              'hour'  => $match[1],
+                              'min'   => $match[2],
+                              'sec'   => 0),
+                        $tzid);
+                    $last->setTimezone('UTC');
+                    $until = ';UNTIL=' . $last->format('Ymd\THis') . 'Z';
+                    $component->setAttribute(
+                        'RRULE',
+                        'FREQ=YEARLY;BYMONTH=' . $month
+                        . ';BYMONTHDAY=' . $rule[6]
+                        . $until);
+                }
             }
             $component->setAttribute('TZNAME', sprintf($name, $rule[9]));
             $tz->addComponent($component);
