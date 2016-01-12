@@ -22,6 +22,7 @@ $db = $injector->getInstance('Horde_Db_Adapter');
 $q_cache = $session->get('horde', 'sql_query_cache', Horde_Session::TYPE_ARRAY);
 $title = _("SQL Shell");
 $vars = $injector->getInstance('Horde_Variables');
+$type = null;
 if ($vars->get('list-tables') || ($command = trim($vars->sql))) {
     $session->checkToken($vars->token);
 }

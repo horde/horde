@@ -89,8 +89,8 @@ class Horde_SessionHandler_Storage_BuiltinTest extends Horde_SessionHandler_Stor
         $this->probability = ini_get('session.gc_probability');
         $this->divisor     = ini_get('session.gc_divisor');
         $this->maxlifetime = ini_get('session.gc_maxlifetime');
-        ini_set('session.gc_probability', 1);
-        ini_set('session.gc_divisor', 100);
+        ini_set('session.gc_probability', 100);
+        ini_set('session.gc_divisor', 1);
         ini_set('session.gc_maxlifetime', -1);
         session_name('sessionname');
         @session_start();
