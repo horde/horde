@@ -7,14 +7,25 @@
 
     <div class="horde-content">
       <!-- Weather alerts -->
-      <?php if (!empty($this->alerts)):
-        foreach ($this->alerts as $alert): ?>
-          <div class="hordeWeather<?php echo (!empty($this->sig) ? $this->sig : 'Alert')?>" title="<?php echo $this->h($alert['body'])?>">
-            <div style="font-weight:bold;"><?php echo $this->h($alert['desc'])?></div>
-            <?php if (!empty($alert['date_text'])):?><strong><?php echo _("Starts: ")?>:</strong> <?php echo $this->h($alert['date_text'])?><br /><?php endif; ?><strong><?php echo _("Expires: ")?></strong>: <?php echo $alert['expires_text']?>
+      <?php if (!empty($this->alerts)): ?>
+        <?php foreach ($this->alerts as $alert): ?>
+          <div class="hordeWeather<?php echo (!empty($this->sig) ? $this->sig : 'Alert') ?>" title="<?php echo $this->h($alert['body']) ?>">
+            <div style="font-weight:bold;"><?php echo $this->h($alert['desc']) ?></div>
+            <?php if (!empty($alert['date'])): ?>
+            <?php $alert['date']->setTimezone($this->timezone); ?>
+            <strong><?php echo _("Starts:") ?></strong> <?php echo $this->h($alert['date']->strftime($this->dateFormat . ' ' . $this->timeFormat)) ?><br />
+            <?php elseif (!empty($alert['date_text'])): ?>
+            <strong><?php echo _("Starts:") ?></strong> <?php echo $this->h($alert['date_text']) ?><br />
+            <?php endif ?>
+            <?php if (!empty($alert['expires'])): ?>
+            <?php $alert['expires']->setTimezone($this->timezone); ?>
+            <strong><?php echo _("Expires:") ?></strong> <?php echo $this->h($alert['expires']->strftime($this->dateFormat . ' ' . $this->timeFormat)) ?><br />
+            <?php elseif (!empty($alert['expires_text'])): ?>
+            <strong><?php echo _("Expires:") ?></strong> <?php echo $this->h($alert['expires_text']) ?>
+            <?php endif ?>
           </div>
-        <?php endforeach;?>
-      <?php endif;?>
+        <?php endforeach ?>
+      <?php endif ?>
 
       <!-- Sunrise/Sunset -->
       <?php if ($this->station->sunrise):?>

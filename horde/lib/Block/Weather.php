@@ -115,16 +115,18 @@ class Horde_Block_Weather extends Horde_Core_Block
      */
     protected function _content()
     {
+        global $injector, $page_output, $prefs;
+
         // Set the requested units.
         $this->_weather->units = $this->_params['units'];
-        $view = $GLOBALS['injector']->getInstance('Horde_View');
+        $view = $injector->getInstance('Horde_View');
 
         if (!empty($this->_refreshParams) && !empty($this->_refreshParams->location)) {
             $location = $this->_refreshParams->location;
             $view->instance = '';
         } else {
             $view->instance = hash('md5', mt_rand());
-            $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create(
+            $injector->getInstance('Horde_Core_Factory_Imple')->create(
                 'WeatherLocationAutoCompleter',
                 array(
                     'id' => 'location' . $view->instance,
@@ -154,6 +156,9 @@ class Horde_Block_Weather extends Horde_Core_Block
             $view->station = $this->_weather->getStation();
             $view->current = $this->_weather->getCurrentConditions($view->location->code);
             // @todo: Add link to put alert text in redbox.
+            $view->timezone = $prefs->getValue('timezone');
+            $view->dateFormat = $prefs->getValue('date_format');
+            $view->timeFormat = $prefs->getValue('time_format');
             $view->alerts = $this->_weather->getAlerts($view->location->code);
             $view->radar = $this->_weather->getRadarImageUrl($location);
         } catch (Horde_Service_Weather_Exception $e) {
@@ -162,9 +167,9 @@ class Horde_Block_Weather extends Horde_Core_Block
 
         if (!empty($this->_params['showMap']) && !empty($view->instance)) {
             $view->map = true;
-            $GLOBALS['page_output']->addScriptFile('weatherblockmap.js', 'horde');
+            $page_output->addScriptFile('weatherblockmap.js', 'horde');
             Horde_Core_HordeMap::init(array('providers' => array('owm', 'osm')));
-            $GLOBALS['page_output']->addInlineScript(array(
+            $page_output->addInlineScript(array(
                 'WeatherBlockMap.initializeMap("' . $view->instance . '", { lat: "' . $view->location->lat . '", lon: "' . $view->location->lon . '"});$("weathermaplayer_' . $view->instance . '").show();'
             ), true);
         }
