@@ -1510,6 +1510,7 @@ class Horde_ActiveSync_Imap_Adapter
     protected function _doQuery(array $query)
     {
         $imap_query = new Horde_Imap_Client_Search_Query();
+        $imap_query->charset('UTF-8', false);
         $mboxes = array();
         $results = array();
         foreach ($query as $q) {
