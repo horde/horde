@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Fix generation of broken VTIMEZONE components for certain (odd?) Rules (Bug #14221).
 * [jan] Mark PHP 7 as supported.
  </notes>
  <contents>
@@ -287,6 +288,7 @@
    <date>2015-01-09</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Fix generation of broken VTIMEZONE components for certain (odd?) Rules (Bug #14221).
 * [jan] Mark PHP 7 as supported.
    </notes>
   </release>
