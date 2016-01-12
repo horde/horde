@@ -32,7 +32,11 @@ class IMP_Prefs_Special_Acl implements Horde_Core_Prefs_Ui_Special
      */
     public function display(Horde_Core_Prefs_Ui $ui)
     {
-        global $injector, $notification, $page_output;
+        global $injector, $notification, $page_output, $prefs;
+
+        if ($prefs->isLocked('acl')) {
+            return;
+        }
 
         $page_output->addScriptFile('acl.js');
 
@@ -141,9 +145,9 @@ class IMP_Prefs_Special_Acl implements Horde_Core_Prefs_Ui_Special
      */
     public function update(Horde_Core_Prefs_Ui $ui)
     {
-        global $injector, $notification;
+        global $injector, $notification, $prefs;
 
-        if ($ui->vars->change_acl_mbox) {
+        if ($prefs->isLocked('acl') || $ui->vars->change_acl_mbox) {
             return false;
         }
 
