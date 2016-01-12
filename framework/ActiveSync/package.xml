@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix mailbox searches with non 7-bit characters.
 * [jan] Mark PHP 7 as supported.
 * [jan] Improve Oracle compatibility.
  </notes>
@@ -2921,6 +2922,7 @@
    <date>2015-12-12</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix mailbox searches with non 7-bit characters.
 * [jan] Mark PHP 7 as supported.
 * [jan] Improve Oracle compatibility.
    </notes>
