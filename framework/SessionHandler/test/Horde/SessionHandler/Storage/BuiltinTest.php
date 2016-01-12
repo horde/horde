@@ -86,19 +86,16 @@ class Horde_SessionHandler_Storage_BuiltinTest extends Horde_SessionHandler_Stor
      */
     public function testGc()
     {
-        $probability = ini_get('session.gc_probability');
-        $divisor     = ini_get('session.gc_divisor');
-        $maxlifetime = ini_get('session.gc_maxlifetime');
-        ini_set('session.gc_probability', 100);
-        ini_set('session.gc_divisor', 1);
+        $this->probability = ini_get('session.gc_probability');
+        $this->divisor     = ini_get('session.gc_divisor');
+        $this->maxlifetime = ini_get('session.gc_maxlifetime');
+        ini_set('session.gc_probability', 1);
+        ini_set('session.gc_divisor', 100);
         ini_set('session.gc_maxlifetime', -1);
         session_name('sessionname');
         @session_start();
         $this->assertEquals(array(),
                             self::$handler->getSessionIDs());
-        ini_set('session.gc_probability', $probability);
-        ini_set('session.gc_divisor', $divisor);
-        ini_set('session.gc_maxlifetime', $maxlifetime);
     }
 
     public static function setUpBeforeClass()
@@ -106,6 +103,15 @@ class Horde_SessionHandler_Storage_BuiltinTest extends Horde_SessionHandler_Stor
         parent::setUpBeforeClass();
         ini_set('session.save_path', self::$dir);
         self::$handler = new Horde_SessionHandler_Storage_Builtin(array('path' => self::$dir));
+    }
+
+    public function tearDown()
+    {
+        if (isset($this->probability)) {
+            ini_set('session.gc_probability', $this->probability);
+            ini_set('session.gc_divisor', $this->divisor);
+            ini_set('session.gc_maxlifetime', $this->maxlifetime);
+        }
     }
 
     public static function tearDownAfterClass()
