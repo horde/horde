@@ -34,4 +34,14 @@ class Horde_Timezone_IcalendarTest extends Horde_Test_Case
             $tz->getZone('Etc/UTC')->toVtimezone()->exportVcalendar()
         );
     }
+
+    public function testBug14221()
+    {
+        $tz = new Horde_Timezone_Mock('budapest');
+        file_put_contents('/tmp/budapest.ics', $tz->getZone('Europe/Budapest')->toVtimezone()->exportVcalendar());
+        $this->assertStringEqualsFile(
+            __DIR__ . '/fixtures/budapest.ics',
+            $tz->getZone('Europe/Budapest')->toVtimezone()->exportVcalendar()
+        );
+    }
 }

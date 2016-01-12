@@ -1,0 +1,127 @@
+###############################################################################
+
+# Europe
+
+# EU rules are for the European Union, previously known as the EC, EEC,
+# Common Market, etc.
+
+# Rule  NAME    FROM    TO  TYPE    IN  ON  AT  SAVE    LETTER/S
+Rule    EU  1977    1980    -   Apr Sun>=1   1:00u  1:00    S
+Rule    EU  1977    only    -   Sep lastSun  1:00u  0   -
+Rule    EU  1978    only    -   Oct  1   1:00u  0   -
+Rule    EU  1979    1995    -   Sep lastSun  1:00u  0   -
+Rule    EU  1981    max -   Mar lastSun  1:00u  1:00    S
+Rule    EU  1996    max -   Oct lastSun  1:00u  0   -
+# The most recent directive covers the years starting in 2002.  See:
+# Directive 2000/84/EC of the European Parliament and of the Council
+# of 19 January 2001 on summer-time arrangements.
+# http://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri=CELEX:32000L0084:EN:NOT
+
+# W-Eur differs from EU only in that W-Eur uses standard time.
+Rule    W-Eur   1977    1980    -   Apr Sun>=1   1:00s  1:00    S
+Rule    W-Eur   1977    only    -   Sep lastSun  1:00s  0   -
+Rule    W-Eur   1978    only    -   Oct  1   1:00s  0   -
+Rule    W-Eur   1979    1995    -   Sep lastSun  1:00s  0   -
+Rule    W-Eur   1981    max -   Mar lastSun  1:00s  1:00    S
+Rule    W-Eur   1996    max -   Oct lastSun  1:00s  0   -
+
+# Older C-Eur rules are for convenience in the tables.
+# From 1977 on, C-Eur differs from EU only in that C-Eur uses standard time.
+Rule    C-Eur   1916    only    -   Apr 30  23:00   1:00    S
+Rule    C-Eur   1916    only    -   Oct  1   1:00   0   -
+Rule    C-Eur   1917    1918    -   Apr Mon>=15  2:00s  1:00    S
+Rule    C-Eur   1917    1918    -   Sep Mon>=15  2:00s  0   -
+Rule    C-Eur   1940    only    -   Apr  1   2:00s  1:00    S
+Rule    C-Eur   1942    only    -   Nov  2   2:00s  0   -
+Rule    C-Eur   1943    only    -   Mar 29   2:00s  1:00    S
+Rule    C-Eur   1943    only    -   Oct  4   2:00s  0   -
+Rule    C-Eur   1944    1945    -   Apr Mon>=1   2:00s  1:00    S
+# Whitman gives 1944 Oct 7; go with Shanks & Pottenger.
+Rule    C-Eur   1944    only    -   Oct  2   2:00s  0   -
+# From Jesper Nørgaard Welen (2008-07-13):
+#
+# I found what is probably a typo of 2:00 which should perhaps be 2:00s
+# in the C-Eur rule from tz database version 2008d (this part was
+# corrected in version 2008d). The circumstantial evidence is simply the
+# tz database itself, as seen below:
+#
+# Zone Europe/Paris 0:09:21 - LMT 1891 Mar 15  0:01
+#    0:00 France WE%sT 1945 Sep 16  3:00
+#
+# Zone Europe/Monaco 0:29:32 - LMT 1891 Mar 15
+#    0:00 France WE%sT 1945 Sep 16  3:00
+#
+# Zone Europe/Belgrade 1:22:00 - LMT 1884
+#    1:00 1:00 CEST 1945 Sep 16  2:00s
+#
+# Rule France 1945 only - Sep 16  3:00 0 -
+# Rule Belgium 1945 only - Sep 16  2:00s 0 -
+# Rule Neth 1945 only - Sep 16 2:00s 0 -
+#
+# The rule line to be changed is:
+#
+# Rule C-Eur 1945 only - Sep 16  2:00 0 -
+#
+# It seems that Paris, Monaco, Rule France, Rule Belgium all agree on
+# 2:00 standard time, e.g. 3:00 local time.  However there are no
+# countries that use C-Eur rules in September 1945, so the only items
+# affected are apparently these fictitious zones that translate acronyms
+# CET and MET:
+#
+# Zone CET  1:00 C-Eur CE%sT
+# Zone MET  1:00 C-Eur ME%sT
+#
+# It this is right then the corrected version would look like:
+#
+# Rule C-Eur 1945 only - Sep 16  2:00s 0 -
+#
+# A small step for mankind though 8-)
+Rule    C-Eur   1945    only    -   Sep 16   2:00s  0   -
+Rule    C-Eur   1977    1980    -   Apr Sun>=1   2:00s  1:00    S
+Rule    C-Eur   1977    only    -   Sep lastSun  2:00s  0   -
+Rule    C-Eur   1978    only    -   Oct  1   2:00s  0   -
+Rule    C-Eur   1979    1995    -   Sep lastSun  2:00s  0   -
+Rule    C-Eur   1981    max -   Mar lastSun  2:00s  1:00    S
+Rule    C-Eur   1996    max -   Oct lastSun  2:00s  0   -
+
+# E-Eur differs from EU only in that E-Eur switches at midnight local time.
+Rule    E-Eur   1977    1980    -   Apr Sun>=1   0:00   1:00    S
+Rule    E-Eur   1977    only    -   Sep lastSun  0:00   0   -
+Rule    E-Eur   1978    only    -   Oct  1   0:00   0   -
+Rule    E-Eur   1979    1995    -   Sep lastSun  0:00   0   -
+Rule    E-Eur   1981    max -   Mar lastSun  0:00   1:00    S
+Rule    E-Eur   1996    max -   Oct lastSun  0:00   0   -
+# Hungary
+# From Paul Eggert (2014-07-15):
+# Dates for 1916-1945 are taken from:
+# Oross A. Jelen a múlt jövője: a nyári időszámítás Magyarországon 1916-1945.
+# National Archives of Hungary (2012-10-29).
+# http://mnl.gov.hu/a_het_dokumentuma/a_nyari_idoszamitas_magyarorszagon_19161945.html
+# This source does not always give times, which are taken from Shanks
+# & Pottenger (which disagree about the dates).
+# Rule  NAME    FROM    TO  TYPE    IN  ON  AT  SAVE    LETTER/S
+Rule    Hungary 1918    only    -   Apr  1   3:00   1:00    S
+Rule    Hungary 1918    only    -   Sep 16   3:00   0   -
+Rule    Hungary 1919    only    -   Apr 15   3:00   1:00    S
+Rule    Hungary 1919    only    -   Nov 24   3:00   0   -
+Rule    Hungary 1945    only    -   May  1  23:00   1:00    S
+Rule    Hungary 1945    only    -   Nov  1   0:00   0   -
+Rule    Hungary 1946    only    -   Mar 31   2:00s  1:00    S
+Rule    Hungary 1946    1949    -   Oct Sun>=1   2:00s  0   -
+Rule    Hungary 1947    1949    -   Apr Sun>=4   2:00s  1:00    S
+Rule    Hungary 1950    only    -   Apr 17   2:00s  1:00    S
+Rule    Hungary 1950    only    -   Oct 23   2:00s  0   -
+Rule    Hungary 1954    1955    -   May 23   0:00   1:00    S
+Rule    Hungary 1954    1955    -   Oct  3   0:00   0   -
+Rule    Hungary 1956    only    -   Jun Sun>=1   0:00   1:00    S
+Rule    Hungary 1956    only    -   Sep lastSun  0:00   0   -
+Rule    Hungary 1957    only    -   Jun Sun>=1   1:00   1:00    S
+Rule    Hungary 1957    only    -   Sep lastSun  3:00   0   -
+Rule    Hungary 1980    only    -   Apr  6   1:00   1:00    S
+# Zone  NAME        GMTOFF  RULES   FORMAT  [UNTIL]
+Zone    Europe/Budapest 1:16:20 -   LMT 1890 Oct
+            1:00    C-Eur   CE%sT   1918
+            1:00    Hungary CE%sT   1941 Apr  8
+            1:00    C-Eur   CE%sT   1945
+            1:00    Hungary CE%sT   1980 Sep 28  2:00s
+            1:00    EU  CE%sT
