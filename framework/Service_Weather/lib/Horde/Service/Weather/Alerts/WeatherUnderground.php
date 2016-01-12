@@ -31,14 +31,39 @@
     {
         $this->_parsedAlerts = array();
         foreach ($this->_properties as $alert) {
+            try {
+                $date = new Horde_Date($alert->date_epoch, 'UTC');
+            } catch (Horde_Date_Exception $e) {
+                try {
+                    $date = new Horde_Date($alert->date);
+                } catch (Horde_Date_Exception $e) {
+                    $date = null;
+                }
+            }
+            try {
+                $expires = new Horde_Date($alert->expires_epoch, 'UTC');
+            } catch (Horde_Date_Exception $e) {
+                try {
+                    $expires = new Horde_Date($alert->expires);
+                } catch (Horde_Date_Exception $e) {
+                    $expires = null;
+                }
+            }
             $alert = array(
-                'type' => (!empty($this->_typeMap[$alert->type]) ? $this->_typeMap[$alert->type] : ''),
-                'desc' => (!empty($alert->description) ? $alert->description : (!empty($alert->wtype_meteo_name) ? $alert->wtype_meteo_name : '')),
-                'date_text' => $alert->date, // Euro only returns this, not epoch, but it's in UTC.
-                'date' => new Horde_Date($alert->date_epoch, 'UTC'),
+                'type' => empty($this->_typeMap[$alert->type])
+                    ? ''
+                    : $this->_typeMap[$alert->type],
+                'desc' => empty($alert->description)
+                    ? (empty($alert->wtype_meteo_name)
+                       ? ''
+                       : $alert->wtype_meteo_name)
+                    : $alert->description,
+                // Euro only returns this, not epoch, but it's in UTC.
+                'date_text' => $alert->date,
+                'date' => $date,
                 'expires_text' => $alert->expires,
-                'expires' => new Horde_Date($alert->expires_epoch, 'UTC'),
-                'tz' => $alert->tz_long, //@todo - needed??
+                'expires' => $expires,
+                // 'tz' => $alert->tz_long, //@todo - needed??
                 'body' => $alert->message,
                 // @todo This is available here: http://www.nws.noaa.gov/os/vtec/
                 // but probably not needed, since 'description' looks like it
