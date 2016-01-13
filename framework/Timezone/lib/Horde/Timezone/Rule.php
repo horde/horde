@@ -274,6 +274,8 @@ class Horde_Timezone_Rule
                     . ';BYMONTHDAY=' . implode(',', $days)
                     . ';BYDAY=-1' . Horde_String::upper(substr($weekday, 0, 2))
                     . $until);
+            } else {
+                continue;
             }
             $component->setAttribute('TZNAME', sprintf($name, $rule[9]));
             $tz->addComponent($component);
