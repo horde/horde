@@ -21,14 +21,6 @@ v5.3.0-git
 
 
 ------
-v5.2.9
-------
-
-[jan] SECURITY: Fix XSS vulnerability in menu bar exposed by only a few
-      applications (Bug #14213).
-
-
-------
 v5.2.8
 ------
 

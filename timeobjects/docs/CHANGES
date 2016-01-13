@@ -2,6 +2,7 @@
 v2.1.1-git
 ----------
 
+[jan] Use access rules compatible with both Apache 2.2 and 2.4.
 [jan] Add Italian translation (Massimo Balestrieri <nag@hidaba.com>).
 
 
