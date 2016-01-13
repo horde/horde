@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-10-21</date>
+ <date>2016-01-13</date>
  <version>
   <release>3.0.7</release>
   <api>3.0.0</api>
@@ -39,6 +39,7 @@
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="config">
+    <file name=".htaccess" role="horde" />
     <file name="backends.php" role="horde" />
     <file name="conf.xml" role="horde" />
     <file name="menu.php.dist" role="horde" />
@@ -74,6 +75,7 @@
       <file name="Columnselect.php" role="horde" />
      </dir> <!-- /lib/Prefs/Special -->
     </dir> <!-- /lib/Prefs -->
+    <file name=".htaccess" role="horde" />
     <file name="Api.php" role="horde" />
     <file name="Application.php" role="horde" />
     <file name="Auth.php" role="horde" />
@@ -271,6 +273,7 @@
     <file name="3_gollem_upgrade_parents.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="templates">
+    <file name=".htaccess" role="horde" />
     <file name="clipboard.html.php" role="horde" />
     <file name="edit.html.php" role="horde" />
     <file name="manager.html.php" role="horde" />
@@ -468,6 +471,7 @@
    <install as="gollem/selectlist.php" name="selectlist.php" />
    <install as="gollem/share.php" name="share.php" />
    <install as="gollem/view.php" name="view.php" />
+   <install as="gollem/config/.htaccess" name="config/.htaccess" />
    <install as="gollem/config/backends.php" name="config/backends.php" />
    <install as="gollem/config/conf.xml" name="config/conf.xml" />
    <install as="gollem/config/menu.php.dist" name="config/menu.php.dist" />
@@ -482,6 +486,7 @@
    <install as="gollem/js/login.js" name="js/login.js" />
    <install as="gollem/js/manager.js" name="js/manager.js" />
    <install as="gollem/js/selectlist.js" name="js/selectlist.js" />
+   <install as="gollem/lib/.htaccess" name="lib/.htaccess" />
    <install as="gollem/lib/Api.php" name="lib/Api.php" />
    <install as="gollem/lib/Application.php" name="lib/Application.php" />
    <install as="gollem/lib/Auth.php" name="lib/Auth.php" />
@@ -564,6 +569,7 @@
    <install as="gollem/migration/1_gollem_base_tables.php" name="migration/1_gollem_base_tables.php" />
    <install as="gollem/migration/2_gollem_upgrade_autoincrement.php" name="migration/2_gollem_upgrade_autoincrement.php" />
    <install as="gollem/migration/3_gollem_upgrade_parents.php" name="migration/3_gollem_upgrade_parents.php" />
+   <install as="gollem/templates/.htaccess" name="templates/.htaccess" />
    <install as="gollem/templates/clipboard.html.php" name="templates/clipboard.html.php" />
    <install as="gollem/templates/edit.html.php" name="templates/edit.html.php" />
    <install as="gollem/templates/manager.html.php" name="templates/manager.html.php" />
@@ -868,7 +874,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-10-20</date>
+   <date>2016-01-13</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Use access rules compatible with both Apache 2.2 and 2.4.

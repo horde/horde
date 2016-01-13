@@ -11,8 +11,7 @@
   <email>wrobel@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-07-19</date>
- <time>22:36:19</time>
+ <date>2016-01-13</date>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -30,6 +29,7 @@
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="config">
+    <file name=".htaccess" role="horde" />
     <file name="conf.xml" role="horde" />
     <file name="prefs.php" role="horde" />
    </dir> <!-- /config -->
@@ -49,6 +49,7 @@
     <dir name="Factory">
      <file name="Driver.php" role="horde" />
     </dir> <!-- /lib/Factory -->
+    <file name=".htaccess" role="horde" />
     <file name="Api.php" role="horde" />
     <file name="Application.php" role="horde" />
     <file name="Driver.php" role="horde" />
@@ -59,20 +60,40 @@
     <dir name="en">
      <file name="help.xml" role="horde" />
     </dir> <!-- /locale/en -->
+    <dir name="es">
+     <dir name="LC_MESSAGES">
+      <file name="kolab.mo" role="horde" />
+      <file name="kolab.po" role="horde" />
+     </dir> <!-- /locale/es/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/es -->
     <dir name="fi">
      <dir name="LC_MESSAGES">
       <file name="kolab.mo" role="horde" />
       <file name="kolab.po" role="horde" />
      </dir> <!-- /locale/fi/LC_MESSAGES -->
     </dir> <!-- /locale/fi -->
+    <dir name="fr">
+     <dir name="LC_MESSAGES">
+      <file name="kolab.mo" role="horde" />
+      <file name="kolab.po" role="horde" />
+     </dir> <!-- /locale/fr/LC_MESSAGES -->
+    </dir> <!-- /locale/fr -->
+    <dir name="hu">
+     <dir name="LC_MESSAGES">
+      <file name="kolab.mo" role="horde" />
+      <file name="kolab.po" role="horde" />
+     </dir> <!-- /locale/hu/LC_MESSAGES -->
+    </dir> <!-- /locale/hu -->
     <file name=".htaccess" role="horde" />
     <file name="kolab.pot" role="horde" />
    </dir> <!-- /locale -->
    <dir name="test">
     <dir name="Kolab">
      <file name="AllTests.php" role="test" />
-     <file name="Autoload.php" role="test" />
+     <file name="bootstrap.php" role="test" />
      <file name="ExampleTest.php" role="test" />
+     <file name="phpunit.xml" role="test" />
     </dir> <!-- /test/Kolab -->
    </dir> <!-- /test -->
    <dir name="themes">
@@ -106,12 +127,14 @@
    <install as="COPYING" name="COPYING" />
    <install as="kolab/index.php" name="index.php" />
    <install as="README" name="README" />
+   <install as="kolab/config/.htaccess" name="config/.htaccess" />
    <install as="kolab/config/conf.xml" name="config/conf.xml" />
    <install as="kolab/config/prefs.php" name="config/prefs.php" />
    <install as="CHANGES" name="docs/CHANGES" />
    <install as="CREDITS" name="docs/CREDITS" />
    <install as="INSTALL" name="docs/INSTALL" />
    <install as="RELEASE_NOTES" name="docs/RELEASE_NOTES" />
+   <install as="kolab/lib/.htaccess" name="lib/.htaccess" />
    <install as="kolab/lib/Api.php" name="lib/Api.php" />
    <install as="kolab/lib/Application.php" name="lib/Application.php" />
    <install as="kolab/lib/Driver.php" name="lib/Driver.php" />
@@ -123,11 +146,19 @@
    <install as="kolab/locale/.htaccess" name="locale/.htaccess" />
    <install as="kolab/locale/kolab.pot" name="locale/kolab.pot" />
    <install as="kolab/locale/en/help.xml" name="locale/en/help.xml" />
+   <install as="kolab/locale/es/help.xml" name="locale/es/help.xml" />
+   <install as="kolab/locale/es/LC_MESSAGES/kolab.mo" name="locale/es/LC_MESSAGES/kolab.mo" />
+   <install as="kolab/locale/es/LC_MESSAGES/kolab.po" name="locale/es/LC_MESSAGES/kolab.po" />
    <install as="kolab/locale/fi/LC_MESSAGES/kolab.mo" name="locale/fi/LC_MESSAGES/kolab.mo" />
    <install as="kolab/locale/fi/LC_MESSAGES/kolab.po" name="locale/fi/LC_MESSAGES/kolab.po" />
+   <install as="kolab/locale/fr/LC_MESSAGES/kolab.mo" name="locale/fr/LC_MESSAGES/kolab.mo" />
+   <install as="kolab/locale/fr/LC_MESSAGES/kolab.po" name="locale/fr/LC_MESSAGES/kolab.po" />
+   <install as="kolab/locale/hu/LC_MESSAGES/kolab.mo" name="locale/hu/LC_MESSAGES/kolab.mo" />
+   <install as="kolab/locale/hu/LC_MESSAGES/kolab.po" name="locale/hu/LC_MESSAGES/kolab.po" />
    <install as="Kolab/AllTests.php" name="test/Kolab/AllTests.php" />
-   <install as="Kolab/Autoload.php" name="test/Kolab/Autoload.php" />
+   <install as="Kolab/bootstrap.php" name="test/Kolab/bootstrap.php" />
    <install as="Kolab/ExampleTest.php" name="test/Kolab/ExampleTest.php" />
+   <install as="Kolab/phpunit.xml" name="test/Kolab/phpunit.xml" />
    <install as="kolab/themes/default/screen.css" name="themes/default/screen.css" />
    <install as="kolab/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
    <install as="kolab/themes/default/graphics/kolab.png" name="themes/default/graphics/kolab.png" />
@@ -143,7 +174,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2012-07-19</date>
+   <date>2016-01-13</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Add Spanish translation (Manuel P. Ayala &lt;mayala@unex.es&gt;).

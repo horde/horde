@@ -10,7 +10,7 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2014-03-10</date>
+ <date>2016-01-13</date>
  <version>
   <release>0.99.1</release>
   <api>1.0</api>
@@ -49,6 +49,7 @@
     </file>
    </dir> <!-- /bin -->
    <dir name="config">
+    <file name=".htaccess" role="horde" />
     <file name="conf.php.dist" role="cfg" />
    </dir> <!-- /config -->
    <dir name="data">
@@ -289,6 +290,7 @@
      <file name="Package2XmlToComposer.php" role="horde" />
      <file name="PEARPackageFilev2.php" role="horde" />
     </dir> <!-- /lib/Conductor -->
+    <file name=".htaccess" role="horde" />
     <file name="Components.php" role="php" />
    </dir> <!-- /lib -->
    <dir name="test">
@@ -622,6 +624,7 @@
   <filelist>
    <install as="horde-bootstrap" name="bin/horde-bootstrap" />
    <install as="horde-components" name="bin/horde-components" />
+   <install as=".htaccess" name="config/.htaccess" />
    <install as="conf.php.dist" name="config/conf.php.dist" />
    <install as="distribute/debian/components.php" name="data/distribute/debian/components.php" />
    <install as="distribute/debian/templates/changelog" name="data/distribute/debian/templates/changelog" />
@@ -661,6 +664,7 @@
    <install as="jenkins/pre-build/phpunit.xml" name="data/jenkins/pre-build/phpunit.xml" />
    <install as="qc_standards/phpcs.xml" name="data/qc_standards/phpcs.xml" />
    <install as="qc_standards/phpmd.xml" name="data/qc_standards/phpmd.xml" />
+   <install as=".htaccess" name="lib/.htaccess" />
    <install as="Components.php" name="lib/Components.php" />
    <install as="Components/Component.php" name="lib/Components/Component.php" />
    <install as="Components/Config.php" name="lib/Components/Config.php" />
@@ -894,7 +898,7 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2014-03-10</date>
+   <date>2016-01-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Update website versions after releasing a package.

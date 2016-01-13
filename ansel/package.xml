@@ -22,7 +22,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-08-01</date>
+ <date>2016-01-13</date>
  <version>
   <release>3.0.4</release>
   <api>3.0.0</api>
@@ -57,6 +57,7 @@
     </file>
    </dir> <!-- /bin -->
    <dir name="config">
+    <file name=".htaccess" role="horde" />
     <file name="conf.xml" role="horde" />
     <file name="hooks.php.dist" role="horde" />
     <file name="prefs.php" role="horde" />
@@ -257,6 +258,7 @@
      <file name="SimilarPhotos.php" role="horde" />
      <file name="Tags.php" role="horde" />
     </dir> <!-- /lib/Widget -->
+    <file name=".htaccess" role="horde" />
     <file name="ActionHandler.php" role="horde" />
     <file name="Ansel.php" role="horde" />
     <file name="Api.php" role="horde" />
@@ -475,6 +477,7 @@
      <file name="login.inc" role="horde" />
      <file name="new.inc" role="horde" />
     </dir> <!-- /templates/xppublish -->
+    <file name=".htaccess" role="horde" />
     <file name="map_edit.html.php" role="horde" />
    </dir> <!-- /templates -->
    <dir name="test">
@@ -833,6 +836,7 @@
    <install as="ansel-exif-to-tags" name="bin/ansel-exif-to-tags" />
    <install as="ansel-garbage-collection" name="bin/ansel-garbage-collection" />
    <install as="AnselPublish.scpt" name="bin/AnselPublish.scpt" />
+   <install as="ansel/config/.htaccess" name="config/.htaccess" />
    <install as="ansel/config/conf.xml" name="config/conf.xml" />
    <install as="ansel/config/hooks.php.dist" name="config/hooks.php.dist" />
    <install as="ansel/config/prefs.php" name="config/prefs.php" />
@@ -894,6 +898,7 @@
    <install as="ansel/js/views/slideshow.js" name="js/views/slideshow.js" />
    <install as="ansel/js/widgets/geotag.js" name="js/widgets/geotag.js" />
    <install as="ansel/js/widgets/tagactions.js" name="js/widgets/tagactions.js" />
+   <install as="ansel/lib/.htaccess" name="lib/.htaccess" />
    <install as="ansel/lib/ActionHandler.php" name="lib/ActionHandler.php" />
    <install as="ansel/lib/Ansel.php" name="lib/Ansel.php" />
    <install as="ansel/lib/Api.php" name="lib/Api.php" />
@@ -1037,6 +1042,7 @@
    <install as="ansel/migration/12_ansel_upgrade_fixautoincrement.php" name="migration/12_ansel_upgrade_fixautoincrement.php" />
    <install as="ansel/migration/13_ansel_upgrade_parents.php" name="migration/13_ansel_upgrade_parents.php" />
    <install as="ansel/migration/14_ansel_upgrade_fixshareusers.php" name="migration/14_ansel_upgrade_fixshareusers.php" />
+   <install as="ansel/templates/.htaccess" name="templates/.htaccess" />
    <install as="ansel/templates/map_edit.html.php" name="templates/map_edit.html.php" />
    <install as="ansel/templates/browse/new.inc" name="templates/browse/new.inc" />
    <install as="ansel/templates/captions/captions.inc" name="templates/captions/captions.inc" />
@@ -1375,7 +1381,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-07-31</date>
+   <date>2016-01-13</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Use access rules compatible with both Apache 2.2 and 2.4.

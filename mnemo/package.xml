@@ -16,7 +16,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2015-10-21</date>
+ <date>2016-01-13</date>
  <version>
   <release>4.2.9</release>
   <api>4.0.0</api>
@@ -96,6 +96,7 @@
      <file name="Default.php" role="horde" />
      <file name="Kolab.php" role="horde" />
     </dir> <!-- /lib/Notepads -->
+    <file name=".htaccess" role="horde" />
     <file name="Api.php" role="horde" />
     <file name="Application.php" role="horde" />
     <file name="Driver.php" role="horde" />
@@ -354,6 +355,7 @@
     <dir name="view">
      <file name="view.html.php" role="horde" />
     </dir> <!-- /templates/view -->
+    <file name=".htaccess" role="horde" />
    </dir> <!-- /templates -->
    <dir name="test">
     <dir name="Mnemo">
@@ -614,6 +616,7 @@
    <install as="mnemo/js/list.js" name="js/list.js" />
    <install as="mnemo/js/memo.js" name="js/memo.js" />
    <install as="mnemo/js/view.js" name="js/view.js" />
+   <install as="mnemo/lib/.htaccess" name="lib/.htaccess" />
    <install as="mnemo/lib/Api.php" name="lib/Api.php" />
    <install as="mnemo/lib/Application.php" name="lib/Application.php" />
    <install as="mnemo/lib/Driver.php" name="lib/Driver.php" />
@@ -729,6 +732,7 @@
    <install as="mnemo/notepads/edit.php" name="notepads/edit.php" />
    <install as="mnemo/notepads/index.php" name="notepads/index.php" />
    <install as="mnemo/notes/index.php" name="notes/index.php" />
+   <install as="mnemo/templates/.htaccess" name="templates/.htaccess" />
    <install as="mnemo/templates/data/export.inc" name="templates/data/export.inc" />
    <install as="mnemo/templates/data/import.inc" name="templates/data/import.inc" />
    <install as="mnemo/templates/list/empty.html.php" name="templates/list/empty.html.php" />
@@ -1334,7 +1338,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-10-20</date>
+   <date>2016-01-13</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Use access rules compatible with both Apache 2.2 and 2.4.

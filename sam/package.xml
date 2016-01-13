@@ -10,8 +10,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-07-19</date>
- <time>22:36:21</time>
+ <date>2016-01-13</date>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -28,6 +27,7 @@
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="config">
+    <file name=".htaccess" role="horde" />
     <file name="attributes.php" role="horde" />
     <file name="backends.php" role="horde" />
     <file name="conf.xml" role="horde" />
@@ -62,6 +62,7 @@
      <file name="Options.php" role="horde" />
      <file name="Whitelist.php" role="horde" />
     </dir> <!-- /lib/Form -->
+    <file name=".htaccess" role="horde" />
     <file name="Api.php" role="horde" />
     <file name="Application.php" role="horde" />
     <file name="Exception.php" role="horde" />
@@ -109,6 +110,12 @@
       <file name="sam.po" role="horde" />
      </dir> <!-- /locale/fr/LC_MESSAGES -->
     </dir> <!-- /locale/fr -->
+    <dir name="hu">
+     <dir name="LC_MESSAGES">
+      <file name="sam.mo" role="horde" />
+      <file name="sam.po" role="horde" />
+     </dir> <!-- /locale/hu/LC_MESSAGES -->
+    </dir> <!-- /locale/hu -->
     <dir name="it">
      <dir name="LC_MESSAGES">
       <file name="sam.mo" role="horde" />
@@ -139,6 +146,7 @@
       <file name="sam.po" role="horde" />
      </dir> <!-- /locale/zh_TW/LC_MESSAGES -->
     </dir> <!-- /locale/zh_TW -->
+    <file name=".htaccess" role="horde" />
     <file name="sam.pot" role="horde" />
    </dir> <!-- /locale -->
    <dir name="migration">
@@ -196,6 +204,7 @@
    <install as="README" name="README" />
    <install as="sam/spam.php" name="spam.php" />
    <install as="sam/whitelist.php" name="whitelist.php" />
+   <install as="sam/config/.htaccess" name="config/.htaccess" />
    <install as="sam/config/attributes.php" name="config/attributes.php" />
    <install as="sam/config/backends.php" name="config/backends.php" />
    <install as="sam/config/conf.xml" name="config/conf.xml" />
@@ -205,6 +214,7 @@
    <install as="CREDITS" name="docs/CREDITS" />
    <install as="INSTALL" name="docs/INSTALL" />
    <install as="TODO" name="docs/TODO" />
+   <install as="sam/lib/.htaccess" name="lib/.htaccess" />
    <install as="sam/lib/Api.php" name="lib/Api.php" />
    <install as="sam/lib/Application.php" name="lib/Application.php" />
    <install as="sam/lib/Exception.php" name="lib/Exception.php" />
@@ -220,6 +230,7 @@
    <install as="sam/lib/Form/List.php" name="lib/Form/List.php" />
    <install as="sam/lib/Form/Options.php" name="lib/Form/Options.php" />
    <install as="sam/lib/Form/Whitelist.php" name="lib/Form/Whitelist.php" />
+   <install as="sam/locale/.htaccess" name="locale/.htaccess" />
    <install as="sam/locale/sam.pot" name="locale/sam.pot" />
    <install as="sam/locale/cs/LC_MESSAGES/sam.mo" name="locale/cs/LC_MESSAGES/sam.mo" />
    <install as="sam/locale/cs/LC_MESSAGES/sam.po" name="locale/cs/LC_MESSAGES/sam.po" />
@@ -236,6 +247,8 @@
    <install as="sam/locale/fi/LC_MESSAGES/sam.po" name="locale/fi/LC_MESSAGES/sam.po" />
    <install as="sam/locale/fr/LC_MESSAGES/sam.mo" name="locale/fr/LC_MESSAGES/sam.mo" />
    <install as="sam/locale/fr/LC_MESSAGES/sam.po" name="locale/fr/LC_MESSAGES/sam.po" />
+   <install as="sam/locale/hu/LC_MESSAGES/sam.mo" name="locale/hu/LC_MESSAGES/sam.mo" />
+   <install as="sam/locale/hu/LC_MESSAGES/sam.po" name="locale/hu/LC_MESSAGES/sam.po" />
    <install as="sam/locale/it/LC_MESSAGES/sam.mo" name="locale/it/LC_MESSAGES/sam.mo" />
    <install as="sam/locale/it/LC_MESSAGES/sam.po" name="locale/it/LC_MESSAGES/sam.po" />
    <install as="sam/locale/lv/LC_MESSAGES/sam.mo" name="locale/lv/LC_MESSAGES/sam.mo" />
@@ -263,7 +276,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2012-07-19</date>
+   <date>2016-01-13</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Add Latvian translation (Jānis Eisaks).

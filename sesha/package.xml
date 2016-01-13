@@ -16,8 +16,7 @@
   <email>lang@b1-systems.de</email>
   <active>yes</active>
  </lead>
- <date>2013-01-10</date>
- <time>14:58:47</time>
+ <date>2016-01-13</date>
  <version>
   <release>1.0.0RC4</release>
   <api>1.0.0</api>
@@ -38,6 +37,7 @@
     </file>
    </dir> <!-- /bin -->
    <dir name="config">
+    <file name=".htaccess" role="horde" />
     <file name="conf.xml" role="horde" />
     <file name="prefs.php" role="horde" />
    </dir> <!-- /config -->
@@ -87,6 +87,7 @@
      <file name="Base.php" role="horde" />
      <file name="List.php" role="horde" />
     </dir> <!-- /lib/View -->
+    <file name=".htaccess" role="horde" />
     <file name="Api.php" role="horde" />
     <file name="Application.php" role="horde" />
     <file name="Driver.php" role="horde" />
@@ -96,6 +97,7 @@
    <dir name="locale">
     <dir name="de">
      <dir name="LC_MESSAGES">
+      <file name="#sesha.po#" role="horde" />
       <file name="sesha.mo" role="horde" />
       <file name="sesha.po" role="horde" />
      </dir> <!-- /locale/de/LC_MESSAGES -->
@@ -124,6 +126,7 @@
       <file name="sesha.po" role="horde" />
      </dir> <!-- /locale/lv/LC_MESSAGES -->
     </dir> <!-- /locale/lv -->
+    <file name=".htaccess" role="horde" />
     <file name="sesha.pot" role="horde" />
    </dir> <!-- /locale -->
    <dir name="migration">
@@ -134,6 +137,7 @@
     <dir name="view">
      <file name="list.php" role="horde" />
     </dir> <!-- /templates/view -->
+    <file name=".htaccess" role="horde" />
    </dir> <!-- /templates -->
    <dir name="test">
     <dir name="Sesha">
@@ -269,6 +273,7 @@
    <install as="sesha/search.php" name="search.php" />
    <install as="sesha/stock.php" name="stock.php" />
    <install as="sesha-add-stock" name="bin/sesha-add-stock" />
+   <install as="sesha/config/.htaccess" name="config/.htaccess" />
    <install as="sesha/config/conf.xml" name="config/conf.xml" />
    <install as="sesha/config/prefs.php" name="config/prefs.php" />
    <install as="CHANGES" name="docs/CHANGES" />
@@ -276,6 +281,7 @@
    <install as="INSTALL" name="docs/INSTALL" />
    <install as="RELEASE_NOTES" name="docs/RELEASE_NOTES" />
    <install as="TODO" name="docs/TODO" />
+   <install as="sesha/lib/.htaccess" name="lib/.htaccess" />
    <install as="sesha/lib/Api.php" name="lib/Api.php" />
    <install as="sesha/lib/Application.php" name="lib/Application.php" />
    <install as="sesha/lib/Driver.php" name="lib/Driver.php" />
@@ -303,7 +309,9 @@
    <install as="sesha/lib/Ui/VarRenderer/Stockedit_Html.php" name="lib/Ui/VarRenderer/Stockedit_Html.php" />
    <install as="sesha/lib/View/Base.php" name="lib/View/Base.php" />
    <install as="sesha/lib/View/List.php" name="lib/View/List.php" />
+   <install as="sesha/locale/.htaccess" name="locale/.htaccess" />
    <install as="sesha/locale/sesha.pot" name="locale/sesha.pot" />
+   <install as="sesha/locale/de/LC_MESSAGES/#sesha.po#" name="locale/de/LC_MESSAGES/#sesha.po#" />
    <install as="sesha/locale/de/LC_MESSAGES/sesha.mo" name="locale/de/LC_MESSAGES/sesha.mo" />
    <install as="sesha/locale/de/LC_MESSAGES/sesha.po" name="locale/de/LC_MESSAGES/sesha.po" />
    <install as="sesha/locale/es/LC_MESSAGES/sesha.mo" name="locale/es/LC_MESSAGES/sesha.mo" />
@@ -316,6 +324,7 @@
    <install as="sesha/locale/lv/LC_MESSAGES/sesha.po" name="locale/lv/LC_MESSAGES/sesha.po" />
    <install as="sesha/migration/1_sesha_base_tables.php" name="migration/1_sesha_base_tables.php" />
    <install as="sesha/migration/2_sesha_upgrade_autoincrement.php" name="migration/2_sesha_upgrade_autoincrement.php" />
+   <install as="sesha/templates/.htaccess" name="templates/.htaccess" />
    <install as="sesha/templates/view/list.php" name="templates/view/list.php" />
    <install as="Sesha/AllTests.php" name="test/Sesha/AllTests.php" />
    <install as="Sesha/Autoload.php" name="test/Sesha/Autoload.php" />
@@ -416,7 +425,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2013-01-10</date>
+   <date>2016-01-13</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Don&apos;t use LIKE search on inventory ID field (Bug #12976).

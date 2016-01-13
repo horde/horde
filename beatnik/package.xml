@@ -10,8 +10,7 @@
   <email>bklang@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-06-05</date>
- <time>13:42:43</time>
+ <date>2016-01-13</date>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -28,6 +27,7 @@
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="config">
+    <file name=".htaccess" role="horde" />
     <file name="autogenerate.php.dist" role="horde" />
     <file name="conf.xml" role="horde" />
     <file name="prefs.php" role="horde" />
@@ -52,6 +52,7 @@
      <file name="DeleteRecord.php" role="horde" />
      <file name="EditRecord.php" role="horde" />
     </dir> <!-- /lib/Forms -->
+    <file name=".htaccess" role="horde" />
     <file name="Application.php" role="horde" />
     <file name="Beatnik.php" role="horde" />
     <file name="Driver.php" role="horde" />
@@ -61,12 +62,25 @@
     <dir name="en">
      <file name="help.xml" role="horde" />
     </dir> <!-- /locale/en -->
+    <dir name="es">
+     <dir name="LC_MESSAGES">
+      <file name="beatnik.mo" role="horde" />
+      <file name="beatnik.po" role="horde" />
+     </dir> <!-- /locale/es/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/es -->
     <dir name="fi">
      <dir name="LC_MESSAGES">
       <file name="beatnik.mo" role="horde" />
       <file name="beatnik.po" role="horde" />
      </dir> <!-- /locale/fi/LC_MESSAGES -->
     </dir> <!-- /locale/fi -->
+    <dir name="hu">
+     <dir name="LC_MESSAGES">
+      <file name="beatnik.mo" role="horde" />
+      <file name="beatnik.po" role="horde" />
+     </dir> <!-- /locale/hu/LC_MESSAGES -->
+    </dir> <!-- /locale/hu -->
     <dir name="lv">
      <dir name="LC_MESSAGES">
       <file name="beatnik.mo" role="horde" />
@@ -100,6 +114,7 @@
      <file name="header.inc" role="horde" />
      <file name="record.inc" role="horde" />
     </dir> <!-- /templates/view -->
+    <file name=".htaccess" role="horde" />
     <file name="menu.inc" role="horde" />
    </dir> <!-- /templates -->
    <dir name="themes">
@@ -112,7 +127,6 @@
     </dir> <!-- /themes/default -->
    </dir> <!-- /themes -->
    <file name="autogenerate.php" role="horde" />
-   <file name="beatnik-1.0.0dev201212191259.tgz" role="horde" />
    <file name="commit.php" role="horde" />
    <file name="delete.php" role="horde" />
    <file name="editrec.php" role="horde" />
@@ -148,13 +162,13 @@
  <phprelease>
   <filelist>
    <install as="beatnik/autogenerate.php" name="autogenerate.php" />
-   <install as="beatnik/beatnik-1.0.0dev201212191259.tgz" name="beatnik-1.0.0dev201212191259.tgz" />
    <install as="beatnik/commit.php" name="commit.php" />
    <install as="beatnik/delete.php" name="delete.php" />
    <install as="beatnik/editrec.php" name="editrec.php" />
    <install as="beatnik/index.php" name="index.php" />
    <install as="beatnik/listzones.php" name="listzones.php" />
    <install as="beatnik/viewzone.php" name="viewzone.php" />
+   <install as="beatnik/config/.htaccess" name="config/.htaccess" />
    <install as="beatnik/config/autogenerate.php.dist" name="config/autogenerate.php.dist" />
    <install as="beatnik/config/conf.xml" name="config/conf.xml" />
    <install as="beatnik/config/prefs.php" name="config/prefs.php" />
@@ -163,6 +177,7 @@
    <install as="RELEASE_NOTES" name="docs/RELEASE_NOTES" />
    <install as="TODO" name="docs/TODO" />
    <install as="beatnik/js/beatnik.js" name="js/beatnik.js" />
+   <install as="beatnik/lib/.htaccess" name="lib/.htaccess" />
    <install as="beatnik/lib/Application.php" name="lib/Application.php" />
    <install as="beatnik/lib/Beatnik.php" name="lib/Beatnik.php" />
    <install as="beatnik/lib/Driver.php" name="lib/Driver.php" />
@@ -176,8 +191,13 @@
    <install as="beatnik/locale/.htaccess" name="locale/.htaccess" />
    <install as="beatnik/locale/beatnik.pot" name="locale/beatnik.pot" />
    <install as="beatnik/locale/en/help.xml" name="locale/en/help.xml" />
+   <install as="beatnik/locale/es/help.xml" name="locale/es/help.xml" />
+   <install as="beatnik/locale/es/LC_MESSAGES/beatnik.mo" name="locale/es/LC_MESSAGES/beatnik.mo" />
+   <install as="beatnik/locale/es/LC_MESSAGES/beatnik.po" name="locale/es/LC_MESSAGES/beatnik.po" />
    <install as="beatnik/locale/fi/LC_MESSAGES/beatnik.mo" name="locale/fi/LC_MESSAGES/beatnik.mo" />
    <install as="beatnik/locale/fi/LC_MESSAGES/beatnik.po" name="locale/fi/LC_MESSAGES/beatnik.po" />
+   <install as="beatnik/locale/hu/LC_MESSAGES/beatnik.mo" name="locale/hu/LC_MESSAGES/beatnik.mo" />
+   <install as="beatnik/locale/hu/LC_MESSAGES/beatnik.po" name="locale/hu/LC_MESSAGES/beatnik.po" />
    <install as="beatnik/locale/lv/help.xml" name="locale/lv/help.xml" />
    <install as="beatnik/locale/lv/LC_MESSAGES/beatnik.mo" name="locale/lv/LC_MESSAGES/beatnik.mo" />
    <install as="beatnik/locale/lv/LC_MESSAGES/beatnik.po" name="locale/lv/LC_MESSAGES/beatnik.po" />
@@ -185,6 +205,7 @@
    <install as="beatnik/locale/sl/LC_MESSAGES/beatnik.po" name="locale/sl/LC_MESSAGES/beatnik.po" />
    <install as="beatnik/migration/1_beatnik_base_tables.php" name="migration/1_beatnik_base_tables.php" />
    <install as="beatnik/scripts/export_config.php" name="scripts/export_config.php" />
+   <install as="beatnik/templates/.htaccess" name="templates/.htaccess" />
    <install as="beatnik/templates/menu.inc" name="templates/menu.inc" />
    <install as="beatnik/templates/listzones/footer.inc" name="templates/listzones/footer.inc" />
    <install as="beatnik/templates/listzones/header.inc" name="templates/listzones/header.inc" />
@@ -207,7 +228,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2013-06-05</date>
+   <date>2016-01-13</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL</license>
    <notes>
 * [mjr] Add initial database migration.

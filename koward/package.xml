@@ -11,7 +11,7 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2012-07-19</date>
+ <date>2016-01-13</date>
  <version>
   <release>0.99.1</release>
   <api>1.0</api>
@@ -31,6 +31,7 @@
     <file name="TODO" role="horde" />
    </dir> <!-- /doc -->
    <dir name="lib">
+    <file name=".htaccess" role="horde" />
     <file name="Koward.php" role="php" />
     <dir name="Koward">
      <file name="Cli.php" role="php" />
@@ -94,8 +95,10 @@
    <dir name="test">
     <dir name="Koward">
      <file name="AllTests.php" role="test" />
+     <file name="Autoload.php" role="test" />
+     <file name="bootstrap.php" role="test" />
      <file name="KowardTest.php" role="test" />
-     <file name="TestInit.php" role="test" />
+     <file name="phpunit.xml" role="test" />
     </dir> <!-- /test/Koward -->
    </dir> <!-- /test -->
    <dir name="www">
@@ -277,6 +280,7 @@
   <filelist>
    <install as="koward/doc/COPYING" name="doc/COPYING" />
    <install as="koward/doc/TODO" name="doc/TODO" />
+   <install as="koward/lib/.htaccess" name="lib/.htaccess" />
    <install name="lib/Koward.php" as="Koward.php" />
    <install name="lib/Koward/Cli.php" as="Koward/Cli.php" />
    <install name="lib/Koward/Controller/Application.php" as="Koward/Controller/Application.php" />
@@ -309,8 +313,10 @@
    <install name="lib/Koward/View/shared/_menu.html.php" as="Koward/View/shared/_menu.html.php" />
    <install name="script/Koward/koward.php" as="koward" />
    <install name="test/Koward/AllTests.php" as="Koward/AllTests.php" />
+   <install as="Koward/Autoload.php" name="test/Koward/Autoload.php" />
+   <install as="Koward/bootstrap.php" name="test/Koward/bootstrap.php" />
    <install name="test/Koward/KowardTest.php" as="Koward/KowardTest.php" />
-   <install name="test/Koward/TestInit.php" as="Koward/TestInit.php" />
+   <install as="Koward/phpunit.xml" name="test/Koward/phpunit.xml" />
    <install name="www/horde/config/conf.php.dist" as="horde/config/conf.php.dist" />
    <install name="www/horde/config/nls.php.dist" as="horde/config/nls.php.dist" />
    <install name="www/horde/config/prefs.php.dist" as="horde/config/prefs.php.dist" />
