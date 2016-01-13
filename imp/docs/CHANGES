@@ -2,6 +2,7 @@
 v6.2.12-git
 -----------
 
+[jan] Use access rules compatible with both Apache 2.2 and 2.4.
 Allow to disable remote accounts by locking the preference.
 [jan] Fix setting title with newmail count in IE11 and Edge (Bug #14189).
 [jan] Fix wrapping of plain text converted from HTML MIME parts.

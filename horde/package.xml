@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
+* [jan] Use access rules compatible with both Apache 2.2 and 2.4.
 * [jan] SECURITY: Fix XSS vulnerability in menu bar exposed by only a few applications (Bug #14213).
 * [mjr] Fix reporting results for non-select queries in administrative sql shell (Bug #14216).
  </notes>
@@ -4075,6 +4076,7 @@
    <date>2015-10-20</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
+* [jan] Use access rules compatible with both Apache 2.2 and 2.4.
 * [jan] SECURITY: Fix XSS vulnerability in menu bar exposed by only a few applications (Bug #14213).
 * [mjr] Fix reporting results for non-select queries in administrative sql shell (Bug #14216).
    </notes>

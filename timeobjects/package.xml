@@ -27,6 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
+* [jan] Use access rules compatible with both Apache 2.2 and 2.4.
 * [jan] Add Italian translation (Massimo Balestrieri &lt;nag@hidaba.com&gt;).
  </notes>
  <contents>
@@ -535,6 +536,7 @@
    <date>2015-08-17</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
+* [jan] Use access rules compatible with both Apache 2.2 and 2.4.
 * [jan] Add Italian translation (Massimo Balestrieri &lt;nag@hidaba.com&gt;).
    </notes>
   </release>

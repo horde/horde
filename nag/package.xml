@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Use access rules compatible with both Apache 2.2 and 2.4.
 * [mjr] Fix possible fatal error due to tasks created with an alarm but no due date (Bug #14214).
 * [mjr] Fix storage of parent field when using Kolab driver (Bug #14197, mike.gabriel@das-netzwerkteam.de).
 * [mjr] Fix switching tab/filters when using Kolab driver (Bug #14196, mike.gabriel@das-netzwerkteam.de).
@@ -1678,6 +1679,7 @@
    <date>2015-10-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Use access rules compatible with both Apache 2.2 and 2.4.
 * [mjr] Fix possible fatal error due to tasks created with an alarm but no due date (Bug #14214).
 * [mjr] Fix storage of parent field when using Kolab driver (Bug #14197, mike.gabriel@das-netzwerkteam.de).
 * [mjr] Fix switching tab/filters when using Kolab driver (Bug #14196, mike.gabriel@das-netzwerkteam.de).
