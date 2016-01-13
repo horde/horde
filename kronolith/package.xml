@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2016-01-07</date>
+ <date>2016-01-13</date>
  <version>
   <release>4.3.0</release>
   <api>4.2.0</api>
@@ -645,6 +645,7 @@
      <file name="head.inc" role="horde" />
      <file name="head_side_by_side.inc" role="horde" />
     </dir> <!-- /templates/week -->
+    <file name=".htaccess" role="horde" />
     <file name="buttonbar.html.php" role="horde" />
     <file name="calendar_titles.inc" role="horde" />
     <file name="javascript_defs.php" role="horde" />
@@ -1372,6 +1373,7 @@
    <install as="kronolith/resources/groups/delete.php" name="resources/groups/delete.php" />
    <install as="kronolith/resources/groups/edit.php" name="resources/groups/edit.php" />
    <install as="kronolith/resources/groups/index.html" name="resources/groups/index.html" />
+   <install as="kronolith/templates/.htaccess" name="templates/.htaccess" />
    <install as="kronolith/templates/buttonbar.html.php" name="templates/buttonbar.html.php" />
    <install as="kronolith/templates/calendar_titles.inc" name="templates/calendar_titles.inc" />
    <install as="kronolith/templates/javascript_defs.php" name="templates/javascript_defs.php" />
@@ -2677,7 +2679,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2016-01-07</date>
+   <date>2016-01-13</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Support file attachments to events (Request #2009).

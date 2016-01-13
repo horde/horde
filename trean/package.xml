@@ -22,7 +22,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-10-29</date>
+ <date>2016-01-13</date>
  <version>
   <release>1.2.0</release>
   <api>1.2.0</api>
@@ -106,6 +106,7 @@
     <dir name="View">
      <file name="BookmarkList.php" role="horde" />
     </dir> <!-- /lib/View -->
+    <file name=".htaccess" role="horde" />
     <file name="Api.php" role="horde" />
     <file name="Application.php" role="horde" />
     <file name="Bookmark.php" role="horde" />
@@ -233,6 +234,7 @@
     <dir name="data">
      <file name="import.inc" role="horde" />
     </dir> <!-- /templates/data -->
+    <file name=".htaccess" role="horde" />
     <file name="add.html.php" role="horde" />
     <file name="bookmarklet.html.php" role="horde" />
     <file name="edit.html.php" role="horde" />
@@ -475,6 +477,7 @@
    <install as="lighttpd-trean.conf" name="docs/lighttpd-trean.conf" />
    <install as="RELEASE_NOTES" name="docs/RELEASE_NOTES" />
    <install as="trean/js/toptags.js" name="js/toptags.js" />
+   <install as="trean/lib/.htaccess" name="lib/.htaccess" />
    <install as="trean/lib/Api.php" name="lib/Api.php" />
    <install as="trean/lib/Application.php" name="lib/Application.php" />
    <install as="trean/lib/Bookmark.php" name="lib/Bookmark.php" />
@@ -538,6 +541,7 @@
    <install as="trean/migration/3_trean_upgrade_folders_to_tags.php" name="migration/3_trean_upgrade_folders_to_tags.php" />
    <install as="trean/migration/4_trean_upgrade_folders_to_tags_post.php" name="migration/4_trean_upgrade_folders_to_tags_post.php" />
    <install as="trean/migration/5_trean_add_favicon_url.php" name="migration/5_trean_add_favicon_url.php" />
+   <install as="trean/templates/.htaccess" name="templates/.htaccess" />
    <install as="trean/templates/add.html.php" name="templates/add.html.php" />
    <install as="trean/templates/bookmarklet.html.php" name="templates/bookmarklet.html.php" />
    <install as="trean/templates/edit.html.php" name="templates/edit.html.php" />

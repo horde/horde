@@ -11,7 +11,7 @@
   <email>wrobel@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-06-23</date>
+ <date>2016-01-13</date>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -30,6 +30,7 @@
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="config">
+    <file name=".htaccess" role="horde" />
     <file name="conf.xml" role="horde" />
     <file name="prefs.php" role="horde" />
    </dir> <!-- /config -->
@@ -49,6 +50,7 @@
     <dir name="Factory">
      <file name="Driver.php" role="horde" />
     </dir> <!-- /lib/Factory -->
+    <file name=".htaccess" role="horde" />
     <file name="Api.php" role="horde" />
     <file name="Application.php" role="horde" />
     <file name="Driver.php" role="horde" />
@@ -126,12 +128,14 @@
    <install as="COPYING" name="COPYING" />
    <install as="kolab/index.php" name="index.php" />
    <install as="README" name="README" />
+   <install as="kolab/config/.htaccess" name="config/.htaccess" />
    <install as="kolab/config/conf.xml" name="config/conf.xml" />
    <install as="kolab/config/prefs.php" name="config/prefs.php" />
    <install as="CHANGES" name="docs/CHANGES" />
    <install as="CREDITS" name="docs/CREDITS" />
    <install as="INSTALL" name="docs/INSTALL" />
    <install as="RELEASE_NOTES" name="docs/RELEASE_NOTES" />
+   <install as="kolab/lib/.htaccess" name="lib/.htaccess" />
    <install as="kolab/lib/Api.php" name="lib/Api.php" />
    <install as="kolab/lib/Application.php" name="lib/Application.php" />
    <install as="kolab/lib/Driver.php" name="lib/Driver.php" />
@@ -171,7 +175,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2014-06-23</date>
+   <date>2016-01-13</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Add Hungarian translation (Andras Galos &lt;galosa@netinform.hu&gt;).

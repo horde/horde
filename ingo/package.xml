@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2015-08-25</date>
+ <date>2016-01-13</date>
  <version>
   <release>3.3.0</release>
   <api>3.2.0</api>
@@ -235,6 +235,7 @@
       <file name="Ingo.php" role="horde" />
      </dir> <!-- /lib/Ui/VarRenderer -->
     </dir> <!-- /lib/Ui -->
+    <file name=".htaccess" role="horde" />
     <file name="Api.php" role="horde" />
     <file name="Application.php" role="horde" />
     <file name="Exception.php" role="horde" />
@@ -493,6 +494,7 @@
      <file name="rule.html.php" role="horde" />
      <file name="rules.html.php" role="horde" />
     </dir> <!-- /templates/smartmobile -->
+    <file name=".htaccess" role="horde" />
     </dir> <!-- /templates -->
    <dir name="test">
     <dir name="Ingo">
@@ -702,6 +704,7 @@
    <install as="ingo/js/rule.js" name="js/rule.js" />
    <install as="ingo/js/smartmobile.js" name="js/smartmobile.js" />
    <install as="ingo/js/whitelist.js" name="js/whitelist.js" />
+   <install as="ingo/lib/.htaccess" name="lib/.htaccess" />
    <install as="ingo/lib/Api.php" name="lib/Api.php" />
    <install as="ingo/lib/Application.php" name="lib/Application.php" />
    <install as="ingo/lib/Exception.php" name="lib/Exception.php" />
@@ -900,6 +903,7 @@
    <install as="ingo/migration/5_ingo_upgrade_sqlnghierarchical.php" name="migration/5_ingo_upgrade_sqlnghierarchical.php" />
    <install as="ingo/migration/6_ingo_upgrade_parents.php" name="migration/6_ingo_upgrade_parents.php" />
    <install as="ingo/migration/7_ingo_fix_rule_order.php" name="migration/7_ingo_fix_rule_order.php" />
+   <install as="ingo/templates/.htaccess" name="templates/.htaccess" />
    <install as="ingo/templates/basic/blacklist/blacklist.html.php" name="templates/basic/blacklist/blacklist.html.php" />
    <install as="ingo/templates/basic/filters/filters.html.php" name="templates/basic/filters/filters.html.php" />
    <install as="ingo/templates/basic/menu/menu.html.php" name="templates/basic/menu/menu.html.php" />
@@ -1649,7 +1653,7 @@
    </notes>
   </release>
   <release>
-   <date>2015-08-25</date>
+   <date>2016-01-13</date>
    <version>
     <release>3.3.0</release>
     <api>3.2.0</api>

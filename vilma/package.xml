@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>vilma</name>
+ <channel>pear.horde.org</channel>
+ <summary>TODO</summary>
+ <description>TODO</description>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2016-01-13</date>
+ <version>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0alpha1</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="TODO">TODO</license>
+ <notes>
+* Initial release.
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <dir name="config">
+    <file name=".htaccess" role="horde" />
+    <file name="conf.xml" role="horde" />
+    <file name="hooks.php.dist" role="horde" />
+    <file name="prefs.php" role="horde" />
+   </dir> <!-- /config -->
+   <dir name="docs">
+    <file name="CHANGES" role="doc" />
+    <file name="CREDITS" role="doc" />
+    <file name="INSTALL" role="doc" />
+    <file name="TODO" role="doc" />
+   </dir> <!-- /docs -->
+   <dir name="domains">
+    <file name="delete.php" role="horde" />
+    <file name="edit.php" role="horde" />
+    <file name="index.php" role="horde" />
+   </dir> <!-- /domains -->
+   <dir name="lib">
+    <dir name="Driver">
+     <file name="Qmailldap.php" role="horde" />
+     <file name="Sql.php" role="horde" />
+    </dir> <!-- /lib/Driver -->
+    <dir name="Form">
+     <file name="DeleteDomain.php" role="horde" />
+     <file name="EditAlias.php" role="horde" />
+     <file name="EditDomain.php" role="horde" />
+     <file name="EditForward.php" role="horde" />
+     <file name="EditUser.php" role="horde" />
+    </dir> <!-- /lib/Form -->
+    <dir name="MailboxDriver">
+     <file name="Hooks.php" role="horde" />
+     <file name="Imap.php" role="horde" />
+     <file name="Maildrop.php" role="horde" />
+     <file name="Null.php" role="horde" />
+    </dir> <!-- /lib/MailboxDriver -->
+    <dir name="tests">
+     <file name="driver.phpt" role="horde" />
+    </dir> <!-- /lib/tests -->
+    <file name=".htaccess" role="horde" />
+    <file name="Api.php" role="horde" />
+    <file name="Application.php" role="horde" />
+    <file name="Driver.php" role="horde" />
+    <file name="Exception.php" role="horde" />
+    <file name="MailboxDriver.php" role="horde" />
+    <file name="Test.php" role="horde" />
+    <file name="Vilma.php" role="horde" />
+   </dir> <!-- /lib -->
+   <dir name="locale">
+    <dir name="de">
+     <dir name="LC_MESSAGES">
+      <file name="vilma.mo" role="horde" />
+      <file name="vilma.po" role="horde" />
+     </dir> <!-- /locale/de/LC_MESSAGES -->
+    </dir> <!-- /locale/de -->
+    <dir name="es">
+     <dir name="LC_MESSAGES">
+      <file name="vilma.mo" role="horde" />
+      <file name="vilma.po" role="horde" />
+     </dir> <!-- /locale/es/LC_MESSAGES -->
+    </dir> <!-- /locale/es -->
+    <dir name="fi">
+     <dir name="LC_MESSAGES">
+      <file name="vilma.mo" role="horde" />
+      <file name="vilma.po" role="horde" />
+     </dir> <!-- /locale/fi/LC_MESSAGES -->
+    </dir> <!-- /locale/fi -->
+    <dir name="it">
+     <dir name="LC_MESSAGES">
+      <file name="vilma.mo" role="horde" />
+      <file name="vilma.po" role="horde" />
+     </dir> <!-- /locale/it/LC_MESSAGES -->
+    </dir> <!-- /locale/it -->
+    <dir name="lt">
+     <dir name="LC_MESSAGES">
+      <file name="vilma.mo" role="horde" />
+      <file name="vilma.po" role="horde" />
+     </dir> <!-- /locale/lt/LC_MESSAGES -->
+    </dir> <!-- /locale/lt -->
+    <dir name="lv">
+     <dir name="LC_MESSAGES">
+      <file name="vilma.mo" role="horde" />
+      <file name="vilma.po" role="horde" />
+     </dir> <!-- /locale/lv/LC_MESSAGES -->
+    </dir> <!-- /locale/lv -->
+    <file name=".htaccess" role="horde" />
+    <file name="vilma.pot" role="horde" />
+   </dir> <!-- /locale -->
+   <dir name="migration">
+    <file name="1_vilma_base_tables.php" role="horde" />
+    <file name="2_vilma_drop_domainkey.php" role="horde" />
+   </dir> <!-- /migration -->
+   <dir name="scripts">
+    <file name=".htaccess" role="horde" />
+    <file name="create_mailboxes.php" role="horde" />
+   </dir> <!-- /scripts -->
+   <dir name="templates">
+    <dir name="domains">
+     <file name="index.html" role="horde" />
+    </dir> <!-- /templates/domains -->
+    <dir name="users">
+     <file name="index.html" role="horde" />
+    </dir> <!-- /templates/users -->
+    <dir name="virtuals">
+     <file name="index.html" role="horde" />
+    </dir> <!-- /templates/virtuals -->
+    <file name=".htaccess" role="horde" />
+   </dir> <!-- /templates -->
+   <dir name="themes">
+    <dir name="default">
+     <dir name="graphics">
+      <file name="display.png" role="horde" />
+      <file name="domain.png" role="horde" />
+      <file name="favicon.ico" role="horde" />
+      <file name="sort.png" role="horde" />
+      <file name="vilma.png" role="horde" />
+     </dir> <!-- /themes/default/graphics -->
+    </dir> <!-- /themes/default -->
+   </dir> <!-- /themes -->
+   <dir name="users">
+    <file name="delete.php" role="horde" />
+    <file name="edit.php" role="horde" />
+    <file name="editAlias.php" role="horde" />
+    <file name="editForward.php" role="horde" />
+    <file name="index.php" role="horde" />
+   </dir> <!-- /users -->
+   <dir name="virtuals">
+    <file name="delete.php" role="horde" />
+    <file name="edit.php" role="horde" />
+    <file name="index.php" role="horde" />
+   </dir> <!-- /virtuals -->
+   <file name="index.php" role="horde" />
+   <file name="LICENSE" role="doc" />
+   <file name="README" role="doc" />
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.3.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.7.0</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install as="vilma/index.php" name="index.php" />
+   <install as="LICENSE" name="LICENSE" />
+   <install as="README" name="README" />
+   <install as="vilma/config/.htaccess" name="config/.htaccess" />
+   <install as="vilma/config/conf.xml" name="config/conf.xml" />
+   <install as="vilma/config/hooks.php.dist" name="config/hooks.php.dist" />
+   <install as="vilma/config/prefs.php" name="config/prefs.php" />
+   <install as="CHANGES" name="docs/CHANGES" />
+   <install as="CREDITS" name="docs/CREDITS" />
+   <install as="INSTALL" name="docs/INSTALL" />
+   <install as="TODO" name="docs/TODO" />
+   <install as="vilma/domains/delete.php" name="domains/delete.php" />
+   <install as="vilma/domains/edit.php" name="domains/edit.php" />
+   <install as="vilma/domains/index.php" name="domains/index.php" />
+   <install as="vilma/lib/.htaccess" name="lib/.htaccess" />
+   <install as="vilma/lib/Api.php" name="lib/Api.php" />
+   <install as="vilma/lib/Application.php" name="lib/Application.php" />
+   <install as="vilma/lib/Driver.php" name="lib/Driver.php" />
+   <install as="vilma/lib/Exception.php" name="lib/Exception.php" />
+   <install as="vilma/lib/MailboxDriver.php" name="lib/MailboxDriver.php" />
+   <install as="vilma/lib/Test.php" name="lib/Test.php" />
+   <install as="vilma/lib/Vilma.php" name="lib/Vilma.php" />
+   <install as="vilma/lib/Driver/Qmailldap.php" name="lib/Driver/Qmailldap.php" />
+   <install as="vilma/lib/Driver/Sql.php" name="lib/Driver/Sql.php" />
+   <install as="vilma/lib/Form/DeleteDomain.php" name="lib/Form/DeleteDomain.php" />
+   <install as="vilma/lib/Form/EditAlias.php" name="lib/Form/EditAlias.php" />
+   <install as="vilma/lib/Form/EditDomain.php" name="lib/Form/EditDomain.php" />
+   <install as="vilma/lib/Form/EditForward.php" name="lib/Form/EditForward.php" />
+   <install as="vilma/lib/Form/EditUser.php" name="lib/Form/EditUser.php" />
+   <install as="vilma/lib/MailboxDriver/Hooks.php" name="lib/MailboxDriver/Hooks.php" />
+   <install as="vilma/lib/MailboxDriver/Imap.php" name="lib/MailboxDriver/Imap.php" />
+   <install as="vilma/lib/MailboxDriver/Maildrop.php" name="lib/MailboxDriver/Maildrop.php" />
+   <install as="vilma/lib/MailboxDriver/Null.php" name="lib/MailboxDriver/Null.php" />
+   <install as="vilma/lib/tests/driver.phpt" name="lib/tests/driver.phpt" />
+   <install as="vilma/locale/.htaccess" name="locale/.htaccess" />
+   <install as="vilma/locale/vilma.pot" name="locale/vilma.pot" />
+   <install as="vilma/locale/de/LC_MESSAGES/vilma.mo" name="locale/de/LC_MESSAGES/vilma.mo" />
+   <install as="vilma/locale/de/LC_MESSAGES/vilma.po" name="locale/de/LC_MESSAGES/vilma.po" />
+   <install as="vilma/locale/es/LC_MESSAGES/vilma.mo" name="locale/es/LC_MESSAGES/vilma.mo" />
+   <install as="vilma/locale/es/LC_MESSAGES/vilma.po" name="locale/es/LC_MESSAGES/vilma.po" />
+   <install as="vilma/locale/fi/LC_MESSAGES/vilma.mo" name="locale/fi/LC_MESSAGES/vilma.mo" />
+   <install as="vilma/locale/fi/LC_MESSAGES/vilma.po" name="locale/fi/LC_MESSAGES/vilma.po" />
+   <install as="vilma/locale/it/LC_MESSAGES/vilma.mo" name="locale/it/LC_MESSAGES/vilma.mo" />
+   <install as="vilma/locale/it/LC_MESSAGES/vilma.po" name="locale/it/LC_MESSAGES/vilma.po" />
+   <install as="vilma/locale/lt/LC_MESSAGES/vilma.mo" name="locale/lt/LC_MESSAGES/vilma.mo" />
+   <install as="vilma/locale/lt/LC_MESSAGES/vilma.po" name="locale/lt/LC_MESSAGES/vilma.po" />
+   <install as="vilma/locale/lv/LC_MESSAGES/vilma.mo" name="locale/lv/LC_MESSAGES/vilma.mo" />
+   <install as="vilma/locale/lv/LC_MESSAGES/vilma.po" name="locale/lv/LC_MESSAGES/vilma.po" />
+   <install as="vilma/migration/1_vilma_base_tables.php" name="migration/1_vilma_base_tables.php" />
+   <install as="vilma/migration/2_vilma_drop_domainkey.php" name="migration/2_vilma_drop_domainkey.php" />
+   <install as="vilma/scripts/.htaccess" name="scripts/.htaccess" />
+   <install as="vilma/scripts/create_mailboxes.php" name="scripts/create_mailboxes.php" />
+   <install as="vilma/templates/.htaccess" name="templates/.htaccess" />
+   <install as="vilma/templates/domains/index.html" name="templates/domains/index.html" />
+   <install as="vilma/templates/users/index.html" name="templates/users/index.html" />
+   <install as="vilma/templates/virtuals/index.html" name="templates/virtuals/index.html" />
+   <install as="vilma/themes/default/graphics/display.png" name="themes/default/graphics/display.png" />
+   <install as="vilma/themes/default/graphics/domain.png" name="themes/default/graphics/domain.png" />
+   <install as="vilma/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
+   <install as="vilma/themes/default/graphics/sort.png" name="themes/default/graphics/sort.png" />
+   <install as="vilma/themes/default/graphics/vilma.png" name="themes/default/graphics/vilma.png" />
+   <install as="vilma/users/delete.php" name="users/delete.php" />
+   <install as="vilma/users/edit.php" name="users/edit.php" />
+   <install as="vilma/users/editAlias.php" name="users/editAlias.php" />
+   <install as="vilma/users/editForward.php" name="users/editForward.php" />
+   <install as="vilma/users/index.php" name="users/index.php" />
+   <install as="vilma/virtuals/delete.php" name="virtuals/delete.php" />
+   <install as="vilma/virtuals/edit.php" name="virtuals/edit.php" />
+   <install as="vilma/virtuals/index.php" name="virtuals/index.php" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0alpha1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2016-01-13</date>
+   <license uri="TODO">TODO</license>
+   <notes>
+* Initial release.
+   </notes>
+  </release>
+ </changelog>
+</package>

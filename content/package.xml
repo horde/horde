@@ -16,7 +16,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-10-21</date>
+ <date>2016-01-13</date>
  <version>
   <release>2.0.6</release>
   <api>2.0.0</api>
@@ -64,6 +64,7 @@
     </file>
    </dir> <!-- /bin -->
    <dir name="config">
+    <file name=".htaccess" role="horde" />
     <file name="routes.php" role="horde" />
    </dir> <!-- /config -->
    <dir name="docs">
@@ -94,6 +95,7 @@
     <dir name="Users">
      <file name="Manager.php" role="horde" />
     </dir> <!-- /lib/Users -->
+    <file name=".htaccess" role="horde" />
     <file name="Application.php" role="horde" />
     <file name="Exception.php" role="horde" />
     <file name="Indexer.php" role="horde" />
@@ -235,10 +237,12 @@
    <install as="content-tag-add" name="bin/content-tag-add" />
    <install as="content-tag-delete" name="bin/content-tag-delete" />
    <install as="content-untag" name="bin/content-untag" />
+   <install as="content/config/.htaccess" name="config/.htaccess" />
    <install as="content/config/routes.php" name="config/routes.php" />
    <install as="CHANGES" name="docs/CHANGES" />
    <install as="RELEASE_NOTES" name="docs/RELEASE_NOTES" />
    <install as="TODO.txt" name="docs/TODO.txt" />
+   <install as="content/lib/.htaccess" name="lib/.htaccess" />
    <install as="content/lib/Application.php" name="lib/Application.php" />
    <install as="content/lib/Exception.php" name="lib/Exception.php" />
    <install as="content/lib/Indexer.php" name="lib/Indexer.php" />
@@ -512,7 +516,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-10-21</date>
+   <date>2016-01-13</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * 

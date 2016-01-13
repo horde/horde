@@ -22,7 +22,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-03-31</date>
+ <date>2016-01-13</date>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -122,6 +122,7 @@
     <dir name="View">
      <file name="Sidebar.php" role="horde" />
     </dir> <!-- /lib/View -->
+    <file name=".htaccess" role="horde" />
     <file name="Ajax.php" role="horde" />
     <file name="Api.php" role="horde" />
     <file name="Application.php" role="horde" />
@@ -194,6 +195,7 @@
     <dir name="time">
      <file name="form.html" role="horde" />
     </dir> <!-- /templates/time -->
+    <file name=".htaccess" role="horde" />
    </dir> <!-- /templates -->
    <dir name="themes">
     <dir name="default">
@@ -406,6 +408,7 @@
    <install as="RELEASE_NOTES" name="docs/RELEASE_NOTES" />
    <install as="TODO" name="docs/TODO" />
    <install as="hermes/js/hermes.js" name="js/hermes.js" />
+   <install as="hermes/lib/.htaccess" name="lib/.htaccess" />
    <install as="hermes/lib/Ajax.php" name="lib/Ajax.php" />
    <install as="hermes/lib/Api.php" name="lib/Api.php" />
    <install as="hermes/lib/Application.php" name="lib/Application.php" />
@@ -457,6 +460,7 @@
    <install as="hermes/migration/1_hermes_base_tables.php" name="migration/1_hermes_base_tables.php" />
    <install as="hermes/migration/2_hermes_autoincrement.php" name="migration/2_hermes_autoincrement.php" />
    <install as="hermes/migration/3_hermes_search_indexes.php" name="migration/3_hermes_search_indexes.php" />
+   <install as="hermes/templates/.htaccess" name="templates/.htaccess" />
    <install as="hermes/templates/deliverables/list.inc" name="templates/deliverables/list.inc" />
    <install as="hermes/templates/dynamic/deliverabledetail.inc" name="templates/dynamic/deliverabledetail.inc" />
    <install as="hermes/templates/dynamic/deliverables.inc" name="templates/dynamic/deliverables.inc" />

@@ -16,7 +16,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-11-27</date>
+ <date>2016-01-13</date>
  <version>
   <release>2.1.0</release>
   <api>2.0.0</api>
@@ -249,6 +249,7 @@
       <file name="Navigation.php" role="horde" />
      </dir> <!-- /lib/View/Helper -->
     </dir> <!-- /lib/View -->
+    <file name=".htaccess" role="horde" />
     <file name="Api.php" role="horde" />
     <file name="Application.php" role="horde" />
     <file name="Driver.php" role="horde" />
@@ -384,6 +385,7 @@
      <file name="search.html.php" role="horde" />
      <file name="_page.html.php" role="horde" />
     </dir> <!-- /templates/pagelist -->
+    <file name=".htaccess" role="horde" />
     </dir> <!-- /templates -->
    <dir name="test">
     <dir name="Wicked">
@@ -679,6 +681,7 @@
    <install as="wicked/js/edit.js" name="js/edit.js" />
    <install as="wicked/js/history.js" name="js/history.js" />
    <install as="wicked/js/toc.js" name="js/toc.js" />
+   <install as="wicked/lib/.htaccess" name="lib/.htaccess" />
    <install as="wicked/lib/Api.php" name="lib/Api.php" />
    <install as="wicked/lib/Application.php" name="lib/Application.php" />
    <install as="wicked/lib/Driver.php" name="lib/Driver.php" />
@@ -820,6 +823,7 @@
    <install as="wicked/migration/4_wicked_single_revisions.php" name="migration/4_wicked_single_revisions.php" />
    <install as="wicked/migration/5_wicked_rename_pages.php" name="migration/5_wicked_rename_pages.php" />
    <install as="wicked/migration/6_wicked_fix_text_length.php" name="migration/6_wicked_fix_text_length.php" />
+   <install as="wicked/templates/.htaccess" name="templates/.htaccess" />
    <install as="wicked/templates/diff/diff.html.php" name="templates/diff/diff.html.php" />
    <install as="wicked/templates/display/AttachedFiles.html.php" name="templates/display/AttachedFiles.html.php" />
    <install as="wicked/templates/display/MergeOrRename.html.php" name="templates/display/MergeOrRename.html.php" />
@@ -1100,7 +1104,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-11-27</date>
+   <date>2016-01-13</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Add navigation between pages from the same hierarchy.

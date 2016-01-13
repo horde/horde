@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>shout</name>
+ <channel>pear.horde.org</channel>
+ <summary>TODO</summary>
+ <description>TODO</description>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2016-01-13</date>
+ <version>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0alpha1</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="TODO">TODO</license>
+ <notes>
+* Initial release.
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <dir name="admin">
+    <file name="accounts.php" role="horde" />
+    <file name="numbers.php" role="horde" />
+   </dir> <!-- /admin -->
+   <dir name="config">
+    <file name=".htaccess" role="horde" />
+    <file name="conf.xml" role="horde" />
+   </dir> <!-- /config -->
+   <dir name="docs">
+    <file name="CREDITS" role="doc" />
+   </dir> <!-- /docs -->
+   <dir name="lib">
+    <dir name="Ajax">
+     <dir name="Application">
+      <file name="Handler.php" role="horde" />
+     </dir> <!-- /lib/Ajax/Application -->
+     <file name="Application.php" role="horde" />
+    </dir> <!-- /lib/Ajax -->
+    <dir name="Driver">
+     <file name="Ldap.php" role="horde" />
+     <file name="Sql.php" role="horde" />
+    </dir> <!-- /lib/Driver -->
+    <dir name="Forms">
+     <file name="AccountForm.php" role="horde" />
+     <file name="ConferenceForm.php" role="horde" />
+     <file name="DeviceForm.php" role="horde" />
+     <file name="ExtensionForm.php" role="horde" />
+     <file name="MenuForm.php" role="horde" />
+     <file name="NumberForm.php" role="horde" />
+     <file name="RecordingForm.php" role="horde" />
+    </dir> <!-- /lib/Forms -->
+    <file name=".htaccess" role="horde" />
+    <file name="Application.php" role="horde" />
+    <file name="Driver.php" role="horde" />
+    <file name="Exception.php" role="horde" />
+    <file name="Shout.php" role="horde" />
+   </dir> <!-- /lib -->
+   <dir name="scripts">
+    <dir name="sql">
+     <file name="shout.sql" role="horde" />
+    </dir> <!-- /scripts/sql -->
+   </dir> <!-- /scripts -->
+   <dir name="templates">
+    <dir name="admin">
+     <dir name="accounts">
+      <file name="edit.inc" role="horde" />
+      <file name="list.inc" role="horde" />
+     </dir> <!-- /templates/admin/accounts -->
+     <dir name="numbers">
+      <file name="edit.inc.php" role="horde" />
+      <file name="list.inc.php" role="horde" />
+     </dir> <!-- /templates/admin/numbers -->
+    </dir> <!-- /templates/admin -->
+    <dir name="conferences">
+     <file name="edit.inc" role="horde" />
+     <file name="list.inc" role="horde" />
+    </dir> <!-- /templates/conferences -->
+    <dir name="devices">
+     <file name="delete.inc" role="horde" />
+     <file name="edit.inc" role="horde" />
+     <file name="list.inc" role="horde" />
+    </dir> <!-- /templates/devices -->
+    <dir name="dialplan">
+     <file name="add.inc" role="horde" />
+     <file name="edit.inc" role="horde" />
+    </dir> <!-- /templates/dialplan -->
+    <dir name="recordings">
+     <file name="add.inc" role="horde" />
+     <file name="list.inc" role="horde" />
+    </dir> <!-- /templates/recordings -->
+    <file name=".htaccess" role="horde" />
+    <file name="extensions.inc.php" role="horde" />
+    <file name="menu.inc" role="horde" />
+    <file name="wizard.inc" role="horde" />
+   </dir> <!-- /templates -->
+   <dir name="themes">
+    <dir name="default">
+     <dir name="graphics">
+      <file name="admin.png" role="horde" />
+      <file name="conference-add.png" role="horde" />
+      <file name="conference.png" role="horde" />
+      <file name="delete-small.png" role="horde" />
+      <file name="device-add.png" role="horde" />
+      <file name="dialplan.png" role="horde" />
+      <file name="digit-0.png" role="horde" />
+      <file name="digit-1.png" role="horde" />
+      <file name="digit-2.png" role="horde" />
+      <file name="digit-3.png" role="horde" />
+      <file name="digit-4.png" role="horde" />
+      <file name="digit-5.png" role="horde" />
+      <file name="digit-6.png" role="horde" />
+      <file name="digit-7.png" role="horde" />
+      <file name="digit-8.png" role="horde" />
+      <file name="digit-9.png" role="horde" />
+      <file name="digit-bg.png" role="horde" />
+      <file name="digit-octo.png" role="horde" />
+      <file name="digit-star.png" role="horde" />
+      <file name="edit.png" role="horde" />
+      <file name="extension-add.png" role="horde" />
+      <file name="extension.png" role="horde" />
+      <file name="menu-add.png" role="horde" />
+      <file name="menu-delete.png" role="horde" />
+      <file name="menu-edit.png" role="horde" />
+      <file name="recording-add.png" role="horde" />
+      <file name="recordings.png" role="horde" />
+      <file name="redbox_spinner.gif" role="horde" />
+      <file name="shout.png" role="horde" />
+      <file name="telephone-pole.png" role="horde" />
+      <file name="transparency.png" role="horde" />
+     </dir> <!-- /themes/default/graphics -->
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/default -->
+   </dir> <!-- /themes -->
+   <file name="admin.php" role="horde" />
+   <file name="conferences.php" role="horde" />
+   <file name="COPYING" role="doc" />
+   <file name="devices.php" role="horde" />
+   <file name="dialplan.php" role="horde" />
+   <file name="extensions.php" role="horde" />
+   <file name="index.php" role="horde" />
+   <file name="recordings.php" role="horde" />
+   <file name="wizard.php" role="horde" />
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.3.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.7.0</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install as="shout/admin.php" name="admin.php" />
+   <install as="shout/conferences.php" name="conferences.php" />
+   <install as="COPYING" name="COPYING" />
+   <install as="shout/devices.php" name="devices.php" />
+   <install as="shout/dialplan.php" name="dialplan.php" />
+   <install as="shout/extensions.php" name="extensions.php" />
+   <install as="shout/index.php" name="index.php" />
+   <install as="shout/recordings.php" name="recordings.php" />
+   <install as="shout/wizard.php" name="wizard.php" />
+   <install as="shout/admin/accounts.php" name="admin/accounts.php" />
+   <install as="shout/admin/numbers.php" name="admin/numbers.php" />
+   <install as="shout/config/.htaccess" name="config/.htaccess" />
+   <install as="shout/config/conf.xml" name="config/conf.xml" />
+   <install as="CREDITS" name="docs/CREDITS" />
+   <install as="shout/lib/.htaccess" name="lib/.htaccess" />
+   <install as="shout/lib/Application.php" name="lib/Application.php" />
+   <install as="shout/lib/Driver.php" name="lib/Driver.php" />
+   <install as="shout/lib/Exception.php" name="lib/Exception.php" />
+   <install as="shout/lib/Shout.php" name="lib/Shout.php" />
+   <install as="shout/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
+   <install as="shout/lib/Ajax/Application/Handler.php" name="lib/Ajax/Application/Handler.php" />
+   <install as="shout/lib/Driver/Ldap.php" name="lib/Driver/Ldap.php" />
+   <install as="shout/lib/Driver/Sql.php" name="lib/Driver/Sql.php" />
+   <install as="shout/lib/Forms/AccountForm.php" name="lib/Forms/AccountForm.php" />
+   <install as="shout/lib/Forms/ConferenceForm.php" name="lib/Forms/ConferenceForm.php" />
+   <install as="shout/lib/Forms/DeviceForm.php" name="lib/Forms/DeviceForm.php" />
+   <install as="shout/lib/Forms/ExtensionForm.php" name="lib/Forms/ExtensionForm.php" />
+   <install as="shout/lib/Forms/MenuForm.php" name="lib/Forms/MenuForm.php" />
+   <install as="shout/lib/Forms/NumberForm.php" name="lib/Forms/NumberForm.php" />
+   <install as="shout/lib/Forms/RecordingForm.php" name="lib/Forms/RecordingForm.php" />
+   <install as="shout/scripts/sql/shout.sql" name="scripts/sql/shout.sql" />
+   <install as="shout/templates/.htaccess" name="templates/.htaccess" />
+   <install as="shout/templates/extensions.inc.php" name="templates/extensions.inc.php" />
+   <install as="shout/templates/menu.inc" name="templates/menu.inc" />
+   <install as="shout/templates/wizard.inc" name="templates/wizard.inc" />
+   <install as="shout/templates/admin/accounts/edit.inc" name="templates/admin/accounts/edit.inc" />
+   <install as="shout/templates/admin/accounts/list.inc" name="templates/admin/accounts/list.inc" />
+   <install as="shout/templates/admin/numbers/edit.inc.php" name="templates/admin/numbers/edit.inc.php" />
+   <install as="shout/templates/admin/numbers/list.inc.php" name="templates/admin/numbers/list.inc.php" />
+   <install as="shout/templates/conferences/edit.inc" name="templates/conferences/edit.inc" />
+   <install as="shout/templates/conferences/list.inc" name="templates/conferences/list.inc" />
+   <install as="shout/templates/devices/delete.inc" name="templates/devices/delete.inc" />
+   <install as="shout/templates/devices/edit.inc" name="templates/devices/edit.inc" />
+   <install as="shout/templates/devices/list.inc" name="templates/devices/list.inc" />
+   <install as="shout/templates/dialplan/add.inc" name="templates/dialplan/add.inc" />
+   <install as="shout/templates/dialplan/edit.inc" name="templates/dialplan/edit.inc" />
+   <install as="shout/templates/recordings/add.inc" name="templates/recordings/add.inc" />
+   <install as="shout/templates/recordings/list.inc" name="templates/recordings/list.inc" />
+   <install as="shout/themes/default/screen.css" name="themes/default/screen.css" />
+   <install as="shout/themes/default/graphics/admin.png" name="themes/default/graphics/admin.png" />
+   <install as="shout/themes/default/graphics/conference-add.png" name="themes/default/graphics/conference-add.png" />
+   <install as="shout/themes/default/graphics/conference.png" name="themes/default/graphics/conference.png" />
+   <install as="shout/themes/default/graphics/delete-small.png" name="themes/default/graphics/delete-small.png" />
+   <install as="shout/themes/default/graphics/device-add.png" name="themes/default/graphics/device-add.png" />
+   <install as="shout/themes/default/graphics/dialplan.png" name="themes/default/graphics/dialplan.png" />
+   <install as="shout/themes/default/graphics/digit-0.png" name="themes/default/graphics/digit-0.png" />
+   <install as="shout/themes/default/graphics/digit-1.png" name="themes/default/graphics/digit-1.png" />
+   <install as="shout/themes/default/graphics/digit-2.png" name="themes/default/graphics/digit-2.png" />
+   <install as="shout/themes/default/graphics/digit-3.png" name="themes/default/graphics/digit-3.png" />
+   <install as="shout/themes/default/graphics/digit-4.png" name="themes/default/graphics/digit-4.png" />
+   <install as="shout/themes/default/graphics/digit-5.png" name="themes/default/graphics/digit-5.png" />
+   <install as="shout/themes/default/graphics/digit-6.png" name="themes/default/graphics/digit-6.png" />
+   <install as="shout/themes/default/graphics/digit-7.png" name="themes/default/graphics/digit-7.png" />
+   <install as="shout/themes/default/graphics/digit-8.png" name="themes/default/graphics/digit-8.png" />
+   <install as="shout/themes/default/graphics/digit-9.png" name="themes/default/graphics/digit-9.png" />
+   <install as="shout/themes/default/graphics/digit-bg.png" name="themes/default/graphics/digit-bg.png" />
+   <install as="shout/themes/default/graphics/digit-octo.png" name="themes/default/graphics/digit-octo.png" />
+   <install as="shout/themes/default/graphics/digit-star.png" name="themes/default/graphics/digit-star.png" />
+   <install as="shout/themes/default/graphics/edit.png" name="themes/default/graphics/edit.png" />
+   <install as="shout/themes/default/graphics/extension-add.png" name="themes/default/graphics/extension-add.png" />
+   <install as="shout/themes/default/graphics/extension.png" name="themes/default/graphics/extension.png" />
+   <install as="shout/themes/default/graphics/menu-add.png" name="themes/default/graphics/menu-add.png" />
+   <install as="shout/themes/default/graphics/menu-delete.png" name="themes/default/graphics/menu-delete.png" />
+   <install as="shout/themes/default/graphics/menu-edit.png" name="themes/default/graphics/menu-edit.png" />
+   <install as="shout/themes/default/graphics/recording-add.png" name="themes/default/graphics/recording-add.png" />
+   <install as="shout/themes/default/graphics/recordings.png" name="themes/default/graphics/recordings.png" />
+   <install as="shout/themes/default/graphics/redbox_spinner.gif" name="themes/default/graphics/redbox_spinner.gif" />
+   <install as="shout/themes/default/graphics/shout.png" name="themes/default/graphics/shout.png" />
+   <install as="shout/themes/default/graphics/telephone-pole.png" name="themes/default/graphics/telephone-pole.png" />
+   <install as="shout/themes/default/graphics/transparency.png" name="themes/default/graphics/transparency.png" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0alpha1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2016-01-13</date>
+   <license uri="TODO">TODO</license>
+   <notes>
+* Initial release.
+   </notes>
+  </release>
+ </changelog>
+</package>

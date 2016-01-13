@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>false</active>
  </lead>
- <date>2015-05-21</date>
+ <date>2016-01-13</date>
  <version>
   <release>4.3.0</release>
   <api>4.2.0</api>
@@ -465,6 +465,7 @@
     <dir name="view">
      <file name="task.inc" role="horde" />
     </dir> <!-- /templates/view -->
+    <file name=".htaccess" role="horde" />
     <file name="javascript_defs.php" role="horde" />
     <file name="list.html.php" role="horde" />
     <file name="quick.inc" role="horde" />
@@ -970,6 +971,7 @@
    <install as="nag/tasklists/edit.php" name="tasklists/edit.php" />
    <install as="nag/tasklists/index.html" name="tasklists/index.html" />
    <install as="nag/tasks/index.php" name="tasks/index.php" />
+   <install as="nag/templates/.htaccess" name="templates/.htaccess" />
    <install as="nag/templates/javascript_defs.php" name="templates/javascript_defs.php" />
    <install as="nag/templates/list.html.php" name="templates/list.html.php" />
    <install as="nag/templates/quick.inc" name="templates/quick.inc" />
@@ -1722,7 +1724,7 @@
    <stability>
     <release>beta</release>
     <api>alpha</api></stability>
-   <date>2015-05-21</date>
+   <date>2016-01-13</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Add support for monthly recurrence on last weekday (Request #1922).

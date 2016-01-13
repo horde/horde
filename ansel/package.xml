@@ -22,7 +22,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-02-24</date>
+ <date>2016-01-13</date>
  <version>
   <release>3.1.0</release>
   <api>3.0.0</api>
@@ -58,6 +58,7 @@
     </file>
    </dir> <!-- /bin -->
    <dir name="config">
+    <file name=".htaccess" role="horde" />
     <file name="conf.xml" role="horde" />
     <file name="hooks.php.dist" role="horde" />
     <file name="prefs.php" role="horde" />
@@ -69,6 +70,7 @@
     <file name="INSTALL" role="doc" />
     <file name="lighttpd-ansel.conf" role="doc" />
     <file name="RELEASE_NOTES" role="doc" />
+    <file name="UPGRADING" role="doc" />
    </dir> <!-- /docs -->
    <dir name="faces">
     <dir name="search">
@@ -258,6 +260,7 @@
      <file name="SimilarPhotos.php" role="horde" />
      <file name="Tags.php" role="horde" />
     </dir> <!-- /lib/Widget -->
+    <file name=".htaccess" role="horde" />
     <file name="ActionHandler.php" role="horde" />
     <file name="Ansel.php" role="horde" />
     <file name="Api.php" role="horde" />
@@ -476,6 +479,7 @@
      <file name="login.inc" role="horde" />
      <file name="new.inc" role="horde" />
     </dir> <!-- /templates/xppublish -->
+    <file name=".htaccess" role="horde" />
     <file name="map_edit.html.php" role="horde" />
    </dir> <!-- /templates -->
    <dir name="test">
@@ -834,6 +838,7 @@
    <install as="ansel-exif-to-tags" name="bin/ansel-exif-to-tags" />
    <install as="ansel-garbage-collection" name="bin/ansel-garbage-collection" />
    <install as="AnselPublish.scpt" name="bin/AnselPublish.scpt" />
+   <install as="ansel/config/.htaccess" name="config/.htaccess" />
    <install as="ansel/config/conf.xml" name="config/conf.xml" />
    <install as="ansel/config/hooks.php.dist" name="config/hooks.php.dist" />
    <install as="ansel/config/prefs.php" name="config/prefs.php" />
@@ -843,6 +848,7 @@
    <install as="INSTALL" name="docs/INSTALL" />
    <install as="lighttpd-ansel.conf" name="docs/lighttpd-ansel.conf" />
    <install as="RELEASE_NOTES" name="docs/RELEASE_NOTES" />
+   <install as="UPGRADING" name="docs/UPGRADING" />
    <install as="ansel/faces/claim.php" name="faces/claim.php" />
    <install as="ansel/faces/custom.php" name="faces/custom.php" />
    <install as="ansel/faces/face.php" name="faces/face.php" />
@@ -895,6 +901,7 @@
    <install as="ansel/js/views/slideshow.js" name="js/views/slideshow.js" />
    <install as="ansel/js/widgets/geotag.js" name="js/widgets/geotag.js" />
    <install as="ansel/js/widgets/tagactions.js" name="js/widgets/tagactions.js" />
+   <install as="ansel/lib/.htaccess" name="lib/.htaccess" />
    <install as="ansel/lib/ActionHandler.php" name="lib/ActionHandler.php" />
    <install as="ansel/lib/Ansel.php" name="lib/Ansel.php" />
    <install as="ansel/lib/Api.php" name="lib/Api.php" />
@@ -1038,6 +1045,7 @@
    <install as="ansel/migration/12_ansel_upgrade_fixautoincrement.php" name="migration/12_ansel_upgrade_fixautoincrement.php" />
    <install as="ansel/migration/13_ansel_upgrade_parents.php" name="migration/13_ansel_upgrade_parents.php" />
    <install as="ansel/migration/14_ansel_upgrade_fixshareusers.php" name="migration/14_ansel_upgrade_fixshareusers.php" />
+   <install as="ansel/templates/.htaccess" name="templates/.htaccess" />
    <install as="ansel/templates/map_edit.html.php" name="templates/map_edit.html.php" />
    <install as="ansel/templates/browse/new.inc" name="templates/browse/new.inc" />
    <install as="ansel/templates/captions/captions.inc" name="templates/captions/captions.inc" />

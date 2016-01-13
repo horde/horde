@@ -16,7 +16,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2014-05-05</date>
+ <date>2016-01-13</date>
  <version>
   <release>4.3.0</release>
   <api>4.1.0</api>
@@ -98,6 +98,7 @@
      <file name="Default.php" role="horde" />
      <file name="Kolab.php" role="horde" />
     </dir> <!-- /lib/Notepads -->
+    <file name=".htaccess" role="horde" />
     <file name="Api.php" role="horde" />
     <file name="Application.php" role="horde" />
     <file name="Driver.php" role="horde" />
@@ -323,6 +324,7 @@
     <file name="5_mnemo_upgrade_sqlnghierarchical.php" role="horde" />
     <file name="6_mnemo_upgrade_categoriestotags.php" role="horde" />
     <file name="7_mnemo_upgrade_parents.php" role="horde" />
+    <file name="8_mnemo_fix_desc_size.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="note">
     <file name="index.php" role="horde" />
@@ -355,6 +357,7 @@
     <dir name="view">
      <file name="view.html.php" role="horde" />
     </dir> <!-- /templates/view -->
+    <file name=".htaccess" role="horde" />
    </dir> <!-- /templates -->
    <dir name="test">
     <dir name="Mnemo">
@@ -615,6 +618,7 @@
    <install as="mnemo/js/list.js" name="js/list.js" />
    <install as="mnemo/js/memo.js" name="js/memo.js" />
    <install as="mnemo/js/view.js" name="js/view.js" />
+   <install as="mnemo/lib/.htaccess" name="lib/.htaccess" />
    <install as="mnemo/lib/Api.php" name="lib/Api.php" />
    <install as="mnemo/lib/Application.php" name="lib/Application.php" />
    <install as="mnemo/lib/Driver.php" name="lib/Driver.php" />
@@ -722,6 +726,7 @@
    <install as="mnemo/migration/5_mnemo_upgrade_sqlnghierarchical.php" name="migration/5_mnemo_upgrade_sqlnghierarchical.php" />
    <install as="mnemo/migration/6_mnemo_upgrade_categoriestotags.php" name="migration/6_mnemo_upgrade_categoriestotags.php" />
    <install as="mnemo/migration/7_mnemo_upgrade_parents.php" name="migration/7_mnemo_upgrade_parents.php" />
+   <install as="mnemo/migration/8_mnemo_fix_desc_size.php" name="migration/8_mnemo_fix_desc_size.php" />
    <install as="mnemo/note/index.php" name="note/index.php" />
    <install as="mnemo/note/pdf.php" name="note/pdf.php" />
    <install as="mnemo/notepads/create.php" name="notepads/create.php" />
@@ -729,6 +734,7 @@
    <install as="mnemo/notepads/edit.php" name="notepads/edit.php" />
    <install as="mnemo/notepads/index.php" name="notepads/index.php" />
    <install as="mnemo/notes/index.php" name="notes/index.php" />
+   <install as="mnemo/templates/.htaccess" name="templates/.htaccess" />
    <install as="mnemo/templates/data/export.inc" name="templates/data/export.inc" />
    <install as="mnemo/templates/data/import.inc" name="templates/data/import.inc" />
    <install as="mnemo/templates/list/empty.html.php" name="templates/list/empty.html.php" />
@@ -1348,7 +1354,7 @@
    <stability>
     <release>alpha</release>
     <api>alpha</api></stability>
-   <date>2014-05-06</date>
+   <date>2016-01-13</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Keep original file names when PUTing notes via WebDAV.
