@@ -109,7 +109,7 @@ extends Horde_Crypt_Pgp_Backend
             'Preferences: AES256 AES192 AES CAST5 3DES SHA256 SHA512 SHA384 SHA224 SHA1 ZLIB BZIP2 ZIP Uncompressed'
         );
         if (!empty($opts['comment'])) {
-            $input[] = 'Name-Comment: ' . $comment;
+            $input[] = 'Name-Comment: ' . $opts['comment'];
         }
         $input[] = '%commit';
 
