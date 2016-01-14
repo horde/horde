@@ -27,6 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Allow any empty format specifiers for the monthdayyear field (Bug #14130).
 * [jan] Mark PHP 7 as supported.
  </notes>
  <contents>
@@ -935,6 +936,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <date>2015-07-30</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Allow any empty format specifiers for the monthdayyear field (Bug #14130).
 * [jan] Mark PHP 7 as supported.
    </notes>
   </release>
