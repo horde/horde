@@ -211,7 +211,7 @@ abstract class Horde_ActiveSync_State_Base
         /* Should we refresh? */
         if ($refresh) {
             $this->loadDeviceInfo(
-                $this->_deviceInfo->user, $this->_deviceInfo->id, array('force' => true)
+                $this->_deviceInfo->id, $this->_deviceInfo->user, array('force' => true)
             );
         }
 
