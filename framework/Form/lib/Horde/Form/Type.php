@@ -3021,7 +3021,7 @@ class Horde_Form_Type_monthdayyear extends Horde_Form_Type {
             return $var->getDefault();
         } else {
             $date = $this->getDateOb($value);
-            if ($this->_format_in === null) {
+            if (!strlen($this->_format_in)) {
                 return $date->timestamp();
             } else {
                 return $date->strftime($this->_format_in);
