@@ -12,7 +12,7 @@
  </lead>
  <date>2016-01-14</date>
  <version>
-  <release>2.30.5</release>
+  <release>2.30.6</release>
   <api>2.30.0</api>
  </version>
  <stability>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Fix regression introduced by checking device remote wipe during PING requests.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2936,6 +2936,19 @@
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix regression introduced by checking device remote wipe during PING requests.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.30.6</release>
+    <api>2.30.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-01-14</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
