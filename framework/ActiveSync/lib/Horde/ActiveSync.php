@@ -143,10 +143,32 @@ class Horde_ActiveSync
 
     // 14.0
     const AIRSYNCBASE_PREVIEW                   = 'AirSyncBase:Preview';
+
     // 14.1
     const AIRSYNCBASE_BODYPARTPREFERENCE        = 'AirSyncBase:BodyPartPreference';
     const AIRSYNCBASE_BODYPART                  = 'AirSyncBase:BodyPart';
     const AIRSYNCBASE_STATUS                    = 'AirSyncBase:Status';
+
+    // 16.0
+    const AIRSYNCBASE_ADD                       = 'AirSyncBase:Add';
+    const AIRSYNCBASE_DELETE                    = 'AirSyncBase:Delete';
+    const AIRSYNCBASE_CLIENTID                  = 'AirSyncBase:ClientId';
+    const AIRSYNCBASE_CONTENT                   = 'AirSyncBase:Content';
+    const AIRSYNCBASE_LOCATION                  = 'AirSyncBase:Location';
+    const AIRSYNCBASE_ANNOTATION                = 'AirSyncBase:Annotation';
+    const AIRSYNCBASE_STREET                    = 'AirSyncBase:Street';
+    const AIRSYNCBASE_CITY                      = 'AirSyncBase:City';
+    const AIRSYNCBASE_STATE                     = 'AirSyncBase:State';
+    const AIRSYNCBASE_COUNTRY                   = 'AirSyncBase:Country';
+    const AIRSYNCBASE_POSTALCODE                = 'AirSyncBase:PostalCode';
+    const AIRSYNCBASE_LATITUDE                  = 'AirSyncBase:Latitude';
+    const AIRSYNCBASE_LONGITUDE                 = 'AirSyncBase:Longitude';
+    const AIRSYNCBASE_ACCURACY                  = 'AirSyncBase:Accuracy';
+    const AIRSYNCBASE_ALTITUDE                  = 'AirSyncBase:Altitude';
+    const AIRSYNCBASE_ALTITUDEACCURACY          = 'AirSyncBase:AltitudeAccuracy';
+    const AIRSYNCBASE_LOCATIONURI               = 'AirSyncBase:LocationUri';
+    const AIRSYNCBASE_INSTANCEID                = 'AirSyncBase:InstanceId';
+
 
     /* Body type prefs */
     const BODYPREF_TYPE_PLAIN                   = 1;

@@ -89,6 +89,9 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
     const POOMCAL_ONLINECONFLINK          = 'POOMCAL:OnlineMeetingConfLink';
     const POOMCAL_ONLINEEXTLINK           = 'POOMCAL:OnlineMeetingExternalLink';
 
+    // 16.0
+    const POOMCAL_CLIENTUID               = 'POOMCAL:ClientUid';
+
     /* Sensitivity */
     const SENSITIVITY_NORMAL         = 0;
     const SENSITIVITY_PERSONAL       = 1;
@@ -175,7 +178,6 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
         'exceptions'     => array(),
         'organizeremail' => false,
         'organizername'  => false,
-        'location'       => false,
         'meetingstatus'  => self::MEETING_NOT_MEETING,
         'recurrence'     => false,
         'reminder'       => false,
@@ -194,6 +196,17 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
     public function __construct(array $options = array())
     {
         parent::__construct($options);
+
+        // Removed in 16.0
+        if ($this->_version <= Horde_ActiveSync::VERSION_FOURTEENONE) {
+            $this->_mapping += array(
+                Horde_ActiveSync_Message_Appointment::POOMCAL_LOCATION           => array(self::KEY_ATTRIBUTE => 'location'),
+            );
+            $this->_properties += array(
+                'location' => false,
+            );
+        }
+
         if ($this->_version < Horde_ActiveSync::VERSION_TWELVE) {
             $this->_mapping += array(
                 self::POOMCAL_BODY => array(self::KEY_ATTRIBUTE => 'body'),
@@ -236,6 +249,16 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
                 $this->_properties += array(
                     'onlinemeetingconflink' => false,
                     'onlinemeetingexternallink' => false
+                );
+            }
+            if ($this->_version >= Horde_ActiveSync::VERSION_SIXTEEN) {
+                $this->_mapping += array(
+                    Horde_ActiveSync::AIRSYNCBASE_LOCATION => array(self::KEY_ATTRIBUTE => 'location'),
+                    self::POOMCAL_CLIENTUID => array(self::KEY_ATTRIBUTE => 'clientuid')
+                );
+                $this->_properties += array(
+                    'location' => false,
+                    'clientuid' => false,
                 );
             }
         }
@@ -397,7 +420,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      * clients will use the CLIENT_ENTRY_ID for this value, and will send the
      * invitation email out using this value as the UID so we sort-of HAVE to
      * use this value as the server's UID.
-     * 
+     *
      * @param string $uid  The server's uid for this appointment
      */
     public function setUid($uid)

@@ -46,6 +46,12 @@ class Horde_ActiveSync_Request_MeetingResponse extends Horde_ActiveSync_Request_
     const MEETINGRESPONSE_USERRESPONSE    = 'MeetingResponse:UserResponse';
     const MEETINGRESPONSE_VERSION         = 'MeetingResponse:Version';
 
+    // 14.1
+    const MEETINGRESPONSE_INSTANCEID      = 'MeetingResponse:InstanceId';
+
+    // 16.0 @todo
+    const MEETINGRESPONSE_SENDRESPONSE    = 'MeetingResponse:SendResposne';
+
     // Response constants
     const RESPONSE_ACCEPTED               = 1;
     const RESPONSE_TENTATIVE              = 2;
