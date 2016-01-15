@@ -115,7 +115,7 @@ Configuring Whups
 
       bugs |/usr/bin/whups-mail-filter --queue-id=1
 
-   For Postfix:
+   For Postfix::
 
       bugs: |"/usr/bin/whups-mail-filter --queue-id=1"
 
