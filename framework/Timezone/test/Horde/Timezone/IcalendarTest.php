@@ -44,4 +44,12 @@ class Horde_Timezone_IcalendarTest extends Horde_Test_Case
         );
     }
 
+    public function testBug14162()
+    {
+        $tz = new Horde_Timezone_Mock('uruguay');
+        $this->assertStringEqualsFile(
+            __DIR__ . '/fixtures/uruguay.ics',
+            $tz->getZone('America/Montevideo')->toVtimezone()->exportVcalendar()
+        );
+    }
 }
