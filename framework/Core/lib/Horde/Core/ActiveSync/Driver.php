@@ -2074,8 +2074,15 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $itemid = $source->itemid;
             }
             try {
+                // In EAS 16.0, forwardees are passed as forwardee objects in
+                // the forwardees property.
                 if ($forward === true) {
-                    $mailer->setForward($folderid, $itemid);
+                    if (!empty($message) && !empty($message->forwardees)) {
+                        $fowardees = $message->forwardees;
+                    } else {
+                        $forwardees = array();
+                    }
+                    $mailer->setForward($folderid, $itemid, $forwardees);
                 } elseif (!empty($forward)) {
                     $mailer->setForward($parent, $forward);
                 }

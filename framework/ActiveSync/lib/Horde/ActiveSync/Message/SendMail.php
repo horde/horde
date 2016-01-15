@@ -50,10 +50,8 @@
  *                                      The email source.
  * @property string|stream mime         The MIME contents of the message.
  * @property string  $templateid        The templateid.
- * @property string  $forwardees        EAS 16.0 Only
- * @property string  $forwardee         EAS 16.0 Only.
- * @property string  $forwardeename     EAS 16.0 Only.
- * @property string  $forwardeeemail    EAS 16.0 Only.
+ * @property string  $forwardees        An array of Forwardee objects.
+ *                                      EAS 16.0 Only.
  */
 class Horde_ActiveSync_Message_SendMail extends Horde_ActiveSync_Message_Base
 {
@@ -116,16 +114,10 @@ class Horde_ActiveSync_Message_SendMail extends Horde_ActiveSync_Message_Base
         parent::__construct($options);
         if ($this->_version >= Horde_ActiveSync::VERSION_SIXTEEN) {
             $this->_mapping += array(
-                self::COMPOSEMAIL_FORWARDEES          => array(self::KEY_ATTRIBUTE => 'forwardees'),
-                self::COMPOSEMAIL_FORWARDEE           => array(self::KEY_ATTRIBUTE => 'forwardee'),
-                self::COMPOSEMAIL_FORWARDEENAME       => array(self::KEY_ATTRIBUTE => 'forwardeename'),
-                self::COMPOSEMAIL_FORWARDEEEMAIL      => array(self::KEY_ATTRIBUTE => 'forwardeeemail'),
-
+                self::COMPOSEMAIL_FORWARDEES => array(self::KEY_ATTRIBUTE => 'forwardees', self::KEY_TYPE => 'Horde_ActiveSync_Message_Forwardee', self::KEY_VALUES => self::COMPOSEMAIL_FORWARDEE),
+            );
             $this->_properties += array(
-                'forwardees'     => false,
-                'forwardee'      => false,
-                'forwardeename'  => false,
-                'forwardeeemail' => false,
+                'forwardees'     => false
             );
         }
     }
