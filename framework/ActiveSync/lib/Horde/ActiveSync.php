@@ -139,6 +139,8 @@ class Horde_ActiveSync
     const AIRSYNCBASE_ISINLINE                  = 'AirSyncBase:IsInline';
     const AIRSYNCBASE_NATIVEBODYTYPE            = 'AirSyncBase:NativeBodyType';
     const AIRSYNCBASE_CONTENTTYPE               = 'AirSyncBase:ContentType';
+    const AIRSYNCBASE_LOCATION                  = 'AirSyncBase:Location';
+
     // 14.0
     const AIRSYNCBASE_PREVIEW                   = 'AirSyncBase:Preview';
     // 14.1

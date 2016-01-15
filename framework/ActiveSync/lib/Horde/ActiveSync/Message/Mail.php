@@ -34,118 +34,131 @@
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  *
- * @property string   $to
- * @property string   $cc
- * @property string   $from
- * @property string   $subject
- * @property string   $threadtopic
- * @property Horde_Date   $datereceived
- * @property string   $displayto
- * @property integer   $importance
- * @property integer   $mimetruncated
- * @property string   $mimedata
- * @property integer   $mimesize
- * @property integer   $messageclass
- * @property Horde_ActiveSync_Message_MeetingRequest   $meetingrequest
- * @property string   $reply_to
- * @property integer   $read
- * @property cpid   $integer  The codepage id.
- * @property Horde_ActiveSync_Message_Attachments   $attachments (EAS 2.5 only).
- * @property integer   $bodytruncated (EAS 2.5 only)
- * @property integer   $bodysize (EAS 2.5 only)
- * @property mixed   $stream|string  body (EAS 2.5 only)
- * @property integer   $airsyncbasenativebodytype (EAS > 2.5 only).
- * @property Horde_ActiveSync_Message_AirSyncBaseBody   $airsyncbasebody (EAS > 2.5 only).
- * @property Horde_ActiveSync_Message_AirSyncBaseAttachments   $airsyncbaseattachments (EAS > 2.5 only).
- * @property integer   $contentclass (EAS > 2.5 only).
- * @property Horde_ActiveSync_Message_Flag   $flag (EAS > 2.5 only).
+ * @property string         $to
+ * @property string         $cc
+ * @property string         $from
+ * @property string         $subject
+ * @property string         $threadtopic
+ * @property Horde_Date     $datereceived
+ * @property string         $displayto
+ * @property integer        $importance
+ * @property integer        $mimetruncated
+ * @property string         $mimedata
+ * @property integer        $mimesize
+ * @property integer        $messageclass
+ * @property Horde_ActiveSync_Message_MeetingRequest
+ *                          $meetingrequest
+ * @property string         $reply_to
+ * @property integer        $read
+ * @property cpid           $integer  The codepage id.
+ * @property Horde_ActiveSync_Message_Attachments
+ *                          $attachments (EAS 2.5 only).
+ * @property integer        $bodytruncated (EAS 2.5 only)
+ * @property integer        $bodysize (EAS 2.5 only)
+ * @property stream|string  $body (EAS 2.5 only)
+ * @property integer        $airsyncbasenativebodytype (EAS > 2.5 only).
+ * @property Horde_ActiveSync_Message_AirSyncBaseBody
+ *                          $airsyncbasebody (EAS > 2.5 only).
+ * @property Horde_ActiveSync_Message_AirSyncBaseAttachments
+ *                          $airsyncbaseattachments (EAS > 2.5 only).
+ * @property integer        $contentclass (EAS > 2.5 only).
+ * @property Horde_ActiveSync_Message_Flag
+ *                          $flag (EAS > 2.5 only).
+ * @property boolean        $isdraft (EAS 16.0 only).
+ * @property string         $bcc  The bcc recipients (EAS 16.0 only).
+ * @property boolean        $send (EAS 16.0 only).
  *
  * // Internal properties. Not streamed to device.
- * @property string   $messageid @since 2.4.0
- * @property boolean   $answered @since 2.4.0
- * @property boolean   $forwarded @since 2.4.0
+ * @property string         $messageid @since 2.4.0
+ * @property boolean        $answered @since 2.4.0
+ * @property boolean        $forwarded @since 2.4.0
  */
 class Horde_ActiveSync_Message_Mail extends Horde_ActiveSync_Message_Base
 {
-    const POOMMAIL_ATTACHMENT        = 'POOMMAIL:Attachment';
-    const POOMMAIL_ATTACHMENTS       = 'POOMMAIL:Attachments';
-    const POOMMAIL_BODY              = 'POOMMAIL:Body';
-    const POOMMAIL_BODYSIZE          = 'POOMMAIL:BodySize';
-    const POOMMAIL_BODYTRUNCATED     = 'POOMMAIL:BodyTruncated';
-    const POOMMAIL_DATERECEIVED      = 'POOMMAIL:DateReceived';
-    const POOMMAIL_DISPLAYTO         = 'POOMMAIL:DisplayTo';
-    const POOMMAIL_IMPORTANCE        = 'POOMMAIL:Importance';
-    const POOMMAIL_MESSAGECLASS      = 'POOMMAIL:MessageClass';
-    const POOMMAIL_SUBJECT           = 'POOMMAIL:Subject';
-    const POOMMAIL_READ              = 'POOMMAIL:Read';
-    const POOMMAIL_TO                = 'POOMMAIL:To';
-    const POOMMAIL_CC                = 'POOMMAIL:Cc';
-    const POOMMAIL_FROM              = 'POOMMAIL:From';
-    const POOMMAIL_REPLY_TO          = 'POOMMAIL:Reply-To';
-    const POOMMAIL_ALLDAYEVENT       = 'POOMMAIL:AllDayEvent';
-    const POOMMAIL_CATEGORIES        = 'POOMMAIL:Categories';
-    const POOMMAIL_CATEGORY          = 'POOMMAIL:Category';
-    const POOMMAIL_DTSTAMP           = 'POOMMAIL:DtStamp';
-    const POOMMAIL_ENDTIME           = 'POOMMAIL:EndTime';
-    const POOMMAIL_INSTANCETYPE      = 'POOMMAIL:InstanceType';
-    const POOMMAIL_BUSYSTATUS        = 'POOMMAIL:BusyStatus';
-    const POOMMAIL_LOCATION          = 'POOMMAIL:Location';
-    const POOMMAIL_MEETINGREQUEST    = 'POOMMAIL:MeetingRequest';
-    const POOMMAIL_ORGANIZER         = 'POOMMAIL:Organizer';
-    const POOMMAIL_RECURRENCEID      = 'POOMMAIL:RecurrenceId';
-    const POOMMAIL_REMINDER          = 'POOMMAIL:Reminder';
-    const POOMMAIL_RESPONSEREQUESTED = 'POOMMAIL:ResponseRequested';
-    const POOMMAIL_RECURRENCES       = 'POOMMAIL:Recurrences';
-    const POOMMAIL_RECURRENCE        = 'POOMMAIL:Recurrence';
-    const POOMMAIL_TYPE              = 'POOMMAIL:Type';
-    const POOMMAIL_UNTIL             = 'POOMMAIL:Until';
-    const POOMMAIL_OCCURRENCES       = 'POOMMAIL:Occurrences';
-    const POOMMAIL_INTERVAL          = 'POOMMAIL:Interval';
-    const POOMMAIL_DAYOFWEEK         = 'POOMMAIL:DayOfWeek';
-    const POOMMAIL_DAYOFMONTH        = 'POOMMAIL:DayOfMonth';
-    const POOMMAIL_WEEKOFMONTH       = 'POOMMAIL:WeekOfMonth';
-    const POOMMAIL_MONTHOFYEAR       = 'POOMMAIL:MonthOfYear';
-    const POOMMAIL_STARTTIME         = 'POOMMAIL:StartTime';
-    const POOMMAIL_SENSITIVITY       = 'POOMMAIL:Sensitivity';
-    const POOMMAIL_TIMEZONE          = 'POOMMAIL:TimeZone';
-    const POOMMAIL_GLOBALOBJID       = 'POOMMAIL:GlobalObjId';
-    const POOMMAIL_THREADTOPIC       = 'POOMMAIL:ThreadTopic';
-    const POOMMAIL_MIMEDATA          = 'POOMMAIL:MIMEData';
-    const POOMMAIL_MIMETRUNCATED     = 'POOMMAIL:MIMETruncated';
-    const POOMMAIL_MIMESIZE          = 'POOMMAIL:MIMESize';
-    const POOMMAIL_INTERNETCPID      = 'POOMMAIL:InternetCPID';
+    const POOMMAIL_ATTACHMENT              = 'POOMMAIL:Attachment';
+    const POOMMAIL_ATTACHMENTS             = 'POOMMAIL:Attachments';
+    const POOMMAIL_BODY                    = 'POOMMAIL:Body';
+    const POOMMAIL_BODYSIZE                = 'POOMMAIL:BodySize';
+    const POOMMAIL_BODYTRUNCATED           = 'POOMMAIL:BodyTruncated';
+    const POOMMAIL_DATERECEIVED            = 'POOMMAIL:DateReceived';
+    const POOMMAIL_DISPLAYTO               = 'POOMMAIL:DisplayTo';
+    const POOMMAIL_IMPORTANCE              = 'POOMMAIL:Importance';
+    const POOMMAIL_MESSAGECLASS            = 'POOMMAIL:MessageClass';
+    const POOMMAIL_SUBJECT                 = 'POOMMAIL:Subject';
+    const POOMMAIL_READ                    = 'POOMMAIL:Read';
+    const POOMMAIL_TO                      = 'POOMMAIL:To';
+    const POOMMAIL_CC                      = 'POOMMAIL:Cc';
+    const POOMMAIL_FROM                    = 'POOMMAIL:From';
+    const POOMMAIL_REPLY_TO                = 'POOMMAIL:Reply-To';
+    const POOMMAIL_ALLDAYEVENT             = 'POOMMAIL:AllDayEvent';
+    const POOMMAIL_CATEGORIES              = 'POOMMAIL:Categories';
+    const POOMMAIL_CATEGORY                = 'POOMMAIL:Category';
+    const POOMMAIL_DTSTAMP                 = 'POOMMAIL:DtStamp';
+    const POOMMAIL_ENDTIME                 = 'POOMMAIL:EndTime';
+    const POOMMAIL_INSTANCETYPE            = 'POOMMAIL:InstanceType';
+    const POOMMAIL_BUSYSTATUS              = 'POOMMAIL:BusyStatus';
+    const POOMMAIL_LOCATION                = 'POOMMAIL:Location';
+    const POOMMAIL_MEETINGREQUEST          = 'POOMMAIL:MeetingRequest';
+    const POOMMAIL_ORGANIZER               = 'POOMMAIL:Organizer';
+    const POOMMAIL_RECURRENCEID            = 'POOMMAIL:RecurrenceId';
+    const POOMMAIL_REMINDER                = 'POOMMAIL:Reminder';
+    const POOMMAIL_RESPONSEREQUESTED       = 'POOMMAIL:ResponseRequested';
+    const POOMMAIL_RECURRENCES             = 'POOMMAIL:Recurrences';
+    const POOMMAIL_RECURRENCE              = 'POOMMAIL:Recurrence';
+    const POOMMAIL_TYPE                    = 'POOMMAIL:Type';
+    const POOMMAIL_UNTIL                   = 'POOMMAIL:Until';
+    const POOMMAIL_OCCURRENCES             = 'POOMMAIL:Occurrences';
+    const POOMMAIL_INTERVAL                = 'POOMMAIL:Interval';
+    const POOMMAIL_DAYOFWEEK               = 'POOMMAIL:DayOfWeek';
+    const POOMMAIL_DAYOFMONTH              = 'POOMMAIL:DayOfMonth';
+    const POOMMAIL_WEEKOFMONTH             = 'POOMMAIL:WeekOfMonth';
+    const POOMMAIL_MONTHOFYEAR             = 'POOMMAIL:MonthOfYear';
+    const POOMMAIL_STARTTIME               = 'POOMMAIL:StartTime';
+    const POOMMAIL_SENSITIVITY             = 'POOMMAIL:Sensitivity';
+    const POOMMAIL_TIMEZONE                = 'POOMMAIL:TimeZone';
+    const POOMMAIL_GLOBALOBJID             = 'POOMMAIL:GlobalObjId';
+    const POOMMAIL_THREADTOPIC             = 'POOMMAIL:ThreadTopic';
+    const POOMMAIL_MIMEDATA                = 'POOMMAIL:MIMEData';
+    const POOMMAIL_MIMETRUNCATED           = 'POOMMAIL:MIMETruncated';
+    const POOMMAIL_MIMESIZE                = 'POOMMAIL:MIMESize';
+    const POOMMAIL_INTERNETCPID            = 'POOMMAIL:InternetCPID';
 
     // EAS 12.0
-    const POOMMAIL_CONTENTCLASS      = 'POOMMAIL:ContentClass';
-    const POOMMAIL_FLAG              = 'POOMMAIL:Flag';
+    const POOMMAIL_CONTENTCLASS            = 'POOMMAIL:ContentClass';
+    const POOMMAIL_FLAG                    = 'POOMMAIL:Flag';
 
     // EAS 14.0
     const POOMMAIL_COMPLETETIME            = 'POOMMAIL:CompleteTime';
     const POOMMAIL_DISALLOWNEWTIMEPROPOSAL = 'POOMMAIL:DisallowNewTimeProposal';
 
     // EAS 14 POOMMAIL2
-    const POOMMAIL2_UMCALLERID            = 'POOMMAIL2:UmCallerId';
-    const POOMMAIL2_UMUSERNOTES           = 'POOMMAIL2:UmUserNotes';
-    const POOMMAIL2_UMATTDURATION         = 'POOMMAIL2:UmAttDuration';
-    const POOMMAIL2_UMATTORDER            = 'POOMMAIL2:UmAttOrder';
-    const POOMMAIL2_CONVERSATIONID        = 'POOMMAIL2:ConversationId';
-    const POOMMAIL2_CONVERSATIONINDEX     = 'POOMMAIL2:ConversationIndex';
-    const POOMMAIL2_LASTVERBEXECUTED      = 'POOMMAIL2:LastVerbExecuted';
-    const POOMMAIL2_LASTVERBEXECUTIONTIME = 'POOMMAIL2:LastVerbExecutionTime';
-    const POOMMAIL2_RECEIVEDASBCC         = 'POOMMAIL2:ReceivedAsBcc';
-    const POOMMAIL2_SENDER                = 'POOMMAIL2:Sender';
-    const POOMMAIL2_CALENDARTYPE          = 'POOMMAIL2:CalendarType';
-    const POOMMAIL2_ISLEAPMONTH           = 'POOMMAIL2:IsLeapMonth';
-    const POOMMAIL2_ACCOUNTID             = 'POOMMAIL2:AccountId';
-    const POOMMAIL2_FIRSTDAYOFWEEK        = 'POOMMAIL2:FirstDayOfWeek';
+    const POOMMAIL2_UMCALLERID             = 'POOMMAIL2:UmCallerId';
+    const POOMMAIL2_UMUSERNOTES            = 'POOMMAIL2:UmUserNotes';
+    const POOMMAIL2_UMATTDURATION          = 'POOMMAIL2:UmAttDuration';
+    const POOMMAIL2_UMATTORDER             = 'POOMMAIL2:UmAttOrder';
+    const POOMMAIL2_CONVERSATIONID         = 'POOMMAIL2:ConversationId';
+    const POOMMAIL2_CONVERSATIONINDEX      = 'POOMMAIL2:ConversationIndex';
+    const POOMMAIL2_LASTVERBEXECUTED       = 'POOMMAIL2:LastVerbExecuted';
+    const POOMMAIL2_LASTVERBEXECUTIONTIME  = 'POOMMAIL2:LastVerbExecutionTime';
+    const POOMMAIL2_RECEIVEDASBCC          = 'POOMMAIL2:ReceivedAsBcc';
+    const POOMMAIL2_SENDER                 = 'POOMMAIL2:Sender';
+    const POOMMAIL2_CALENDARTYPE           = 'POOMMAIL2:CalendarType';
+    const POOMMAIL2_ISLEAPMONTH            = 'POOMMAIL2:IsLeapMonth';
+    const POOMMAIL2_ACCOUNTID              = 'POOMMAIL2:AccountId';
+    const POOMMAIL2_FIRSTDAYOFWEEK         = 'POOMMAIL2:FirstDayOfWeek';
 
     // EAS 14.1
-    const POOMMAIL2_MEETINGMESSAGETYPE    = 'POOMMAIL2:MeetingMessageType';
+    const POOMMAIL2_MEETINGMESSAGETYPE     = 'POOMMAIL2:MeetingMessageType';
+
+    // EAS 16.0
+    const POOMMAIL2_ISDRAFT                = 'POOMMAIL2:IsDraft';
+    const POOMMAIL2_BCC                    = 'POOMMAIL2:Bcc';
+    const POOMMAIL2_SEND                   = 'POOMMAIL2:Send';
 
     /* Mail message types */
-    const CLASS_NOTE            = 'IPM.Note';
-    const CLASS_MEETING_REQUEST = 'IPM.Schedule.Meeting.Request';
-    const CLASS_MEETING_NOTICE  = 'IPM.Notification.Meeting';
+    const CLASS_NOTE                       = 'IPM.Note';
+    const CLASS_MEETING_REQUEST            = 'IPM.Schedule.Meeting.Request';
+    const CLASS_MEETING_NOTICE             = 'IPM.Notification.Meeting';
 
     /* Flags */
     const FLAG_READ_UNSEEN   = 0;
@@ -255,6 +268,18 @@ class Horde_ActiveSync_Message_Mail extends Horde_ActiveSync_Message_Base
                 'flag'                      => false,
             );
 
+            // Removed in 16.0
+            if ($this->_version <= Horde_ActiveSync::VERSION_FOURTEENONE) {
+                $this->_mapping += array(
+                    self::POOMMAIL_LOCATION => array(self::KEY_ATTRIBUTE => 'location'),
+                    self::POOMMAIL_GLOBALOBJID => array(self::KEY_ATTRIBUTE => 'globalobjid')
+                );
+                $this->_properties += array(
+                    'location' => false,
+                    'globalobjid' => false,
+                );
+            }
+
             if ($this->_version >= Horde_ActiveSync::VERSION_FOURTEEN) {
                 $this->_mapping += array(
                     self::POOMMAIL_CATEGORIES             => array(self::KEY_ATTRIBUTE => 'categories', self::KEY_VALUES => self::POOMMAIL_CATEGORY),
@@ -305,6 +330,24 @@ class Horde_ActiveSync_Message_Mail extends Horde_ActiveSync_Message_Base
                 );
                 $this->_properties += array(
                     'airsyncbasebodypart' => false
+                );
+            }
+
+            if ($this->_version >= Horde_ActiveSync::VERSION_SIXTEEN) {
+                $this->_mapping += array(
+                    self::POOMMAIL2_ISDRAFT                => array(self::KEY_ATTRIBUTE => 'isdraft'),
+                    self::POOMMAIL2_BCC                    => array(self::KEY_ATTRIBUTE => 'bcc'),
+                    self::POOMMAIL2_SEND                   => array(self::KEY_ATTRIBUTE => 'send'),
+                    Horde_ActiveSync::AIRSYNCBASE_LOCATION => array(self::KEY_ATTRIBUTE => 'location',
+                    Horde_ActiveSync_Message_Appointment::POOMCAL_UID => array(self::KEY_ATTRIBUTE => 'uid')),
+                );
+
+                $this->_properties += array(
+                    'isdraft'  => false,
+                    'bcc'      => false,
+                    'send'     => false,
+                    'location' => false,
+                    'uid'      => false,
                 );
             }
         }
