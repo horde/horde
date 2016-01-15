@@ -97,7 +97,7 @@ class Horde_ActiveSync_Connector_Importer
     }
 
     /**
-     * Initialize the exporter for this collection
+     * Initialize the importer for this collection
      *
      * @param Horde_ActiveSync_State_Base $state  The state machine.
      * @param string $folderId                    The collection's uid.
