@@ -154,7 +154,6 @@ class Horde_ActiveSync
     const AIRSYNCBASE_DELETE                    = 'AirSyncBase:Delete';
     const AIRSYNCBASE_CLIENTID                  = 'AirSyncBase:ClientId';
     const AIRSYNCBASE_CONTENT                   = 'AirSyncBase:Content';
-    const AIRSYNCBASE_LOCATION                  = 'AirSyncBase:Location';
     const AIRSYNCBASE_ANNOTATION                = 'AirSyncBase:Annotation';
     const AIRSYNCBASE_STREET                    = 'AirSyncBase:Street';
     const AIRSYNCBASE_CITY                      = 'AirSyncBase:City';
