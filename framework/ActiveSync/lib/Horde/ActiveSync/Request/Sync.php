@@ -921,19 +921,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 $this->_procid));
         }
 
-        if (empty($collection['class'])) {
-            $collection['class'] = $this->_collections->getCollectionClass($collection['id']);
-        }
-        if (empty($collection['serverid'])) {
-            try {
-                $collection['serverid'] = $this->_collections->getBackendIdForFolderUid($collection['id']);
-            } catch (Horde_ActiveSync_Exception $e) {
-                $this->_statusCode = self::STATUS_FOLDERSYNC_REQUIRED;
-                $this->_handleError($colleciton);
-                return false;
-            }
-        }
-
         try {
             $this->_collections->initCollectionState($collection);
         } catch (Horde_ActiveSync_Exception_StateGone $e) {
@@ -947,6 +934,10 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             $this->_logger->notice($e->getMessage());
             $this->_statusCode = self::STATUS_SERVERERROR;
             $this->_handleGlobalSyncError();
+            return false;
+        } catch (Horde_ActiveSync_Exception $e) {
+            $this->_statusCode = self::STATUS_FOLDERSYNC_REQUIRED;
+            $this->_handleError($colleciton);
             return false;
         } catch (Horde_ActiveSync_Exception $e) {
             $this->_logger->err($e->getMessage());

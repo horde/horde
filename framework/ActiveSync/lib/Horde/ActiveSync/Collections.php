@@ -342,7 +342,7 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
      * @param $id  The uid.
      *
      * @return string  The backend server id.
-     * @throws Horde_ActiveSync_Exception
+     * @throws Horde_ActiveSync_Exception_FolderGone
      */
     public function getBackendIdForFolderUid($folderid)
     {
@@ -357,7 +357,7 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
             $this->_logger->err(
                 sprintf('[%s] Horde_ActiveSync_Collections::getBackendIdForFolderUid failed because folder was not found in cache.',
                 $this->_procid));
-            throw new Horde_ActiveSync_Exception('Folder not found in cache.');
+            throw new Horde_ActiveSync_Exception_FolderGone('Folder not found in cache.');
         }
     }
 
@@ -500,6 +500,13 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
         if ($id == 'RI') {
             return $id;
         }
+
+        // First try existing, loaded collections.
+        if (!empty($this->_collections[$collection['id']])) {
+            return $this->_collections[$collection['id']]['class'];
+        }
+
+        // Next look in the SyncCache.
         if (isset($this->_cache->folders[$id]['class'])) {
             $class = $this->_cache->folders[$id]['class'];
             $this->_logger->info(sprintf(
@@ -1026,25 +1033,30 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
      *                                 throw exception if it's not present.
      *
      * @throws Horde_ActiveSync_Exception_InvalidRequest
+     * @throws Horde_ActiveSync_Exception_FolderGone
      */
-    public function initCollectionState(array $collection, $requireSyncKey = false)
+    public function initCollectionState(array &$collection, $requireSyncKey = false)
     {
         // Clear the changes cache.
         $this->_changes = null;
 
+        // Ensure we have a collection class.
         if (empty($collection['class'])) {
-            if (!empty($this->_collections[$collection['id']])) {
-                $collection['class'] = $this->_collections[$collection['id']]['class'];
-            } else {
+            if (!($collection['class'] = $this->getCollectionClass($collection['id']))) {
                 throw new Horde_ActiveSync_Exception_FolderGone('Could not load collection class for ' . $collection['id']);
             }
         }
 
+        // Load the collection's type if we can.
+        if (empty($collection['type'])) {
+            $collection['type'] = $this->getCollectionType($collection['id']);
+        }
+
         // Get the backend serverid.
         if (empty($collection['serverid'])) {
-            $f = $this->_cache->getFolder($collection['id']);
-            $collection['serverid'] = $f['serverid'];
+            $collection['serverid'] = $this->getBackendIdForFolderUid($collection['uid']);
         }
+
 
         if ($requireSyncKey && empty($collection['synckey'])) {
             throw new Horde_ActiveSync_Exception_InvalidRequest(sprintf(
