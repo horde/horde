@@ -25,19 +25,25 @@
  * @package   ActiveSync
  * @internal  Not intended for use outside of the Horde_ActiveSync library.
  *
- * @property array   $folders              The folders cache.
- * @property integer   $hbinterval         The heartbeat interval (in seconds).
- * @property integer   $wait               The wait interval (in minutes).
- * @property integer   $pingheartbeat      The heartbeat used in PING requests.
+ * The SyncCache maintains a number of "caches" - which are really more of a
+ * shared memory store for keeping all relevant data from all running sync
+ * requests up-to-date and available to other running requests:
+ *
+ * @property array    $folders             The folders cache: the list of
+ *     current folders, keyed by their internal uid and containing 'class',
+ *     'serverid' and 'type'.
+ * @property integer  $hbinterval          The heartbeat interval (in seconds).
+ * @property integer  $wait                The wait interval (in minutes).
+ * @property integer  $pingheartbeat       The heartbeat used in PING requests.
  * @property string   $hierarchy           The hierarchy synckey.
- * @property array   $confirmed_synckeys   Array of synckeys being confirmed during
- *                                       a looping sync.
- * @property integer   $lastuntil          Timestamp representing the last planned
- *                                       looping sync end time.
- * @property integer   $lasthbsyncstarted  Timestamp of the start of the last
- *                                       looping sync.
- * @property integer   $lastsyncendnormal  Timestamp of the last looping sync that
- *                                       ended normally.
+ * @property array    $confirmed_synckeys  Array of synckeys being confirmed
+ *     during a looping sync.
+ * @property integer  $lastuntil           Timestamp representing the last
+ *     planned looping sync end time.
+ * @property integer  $lasthbsyncstarted   Timestamp of the start of the last
+ *     looping sync.
+ * @property integer  $lastsyncendnormal   Timestamp of the last looping sync
+ *     that ended normally.
  */
 class Horde_ActiveSync_SyncCache
 {
@@ -631,6 +637,10 @@ class Horde_ActiveSync_SyncCache
                 $collections[$key]['class'] = $this->_data['folders'][$values['id']]['class'];
                 $this->_markCollectionsDirty($key);
             }
+            if (!isset($values['type']) && isset($this->_data['folders'][$values['id']]['type'])) {
+                $collections[$key]['type'] = $this->_data['folders'][$values['id']]['type'];
+                $this->_markCollectionsDirty($key);
+            }
             if (!isset($values['filtertype']) && isset($this->_data['collections'][$values['id']]['filtertype'])) {
                 $collections[$key]['filtertype'] = $this->_data['collections'][$values['id']]['filtertype'];
                 $this->_markCollectionsDirty($key);
@@ -664,8 +674,7 @@ class Horde_ActiveSync_SyncCache
                 $this->_markCollectionsDirty($key);
             }
 
-            // in case the maxitems (windowsize) is above 512 or 0 it should be
-            // interpreted as 512 according to specs.
+            // According to specs, if WINDOWSIZE is out of bounds, interpret as 512.
             if ($collections[$key]['windowsize'] > Horde_ActiveSync_Request_Sync::MAX_WINDOW_SIZE ||
                 $collections[$key]['windowsize'] == 0) {
 
@@ -749,6 +758,8 @@ class Horde_ActiveSync_SyncCache
             $this->_data['folders'][$folder->serverid] = array('class' => 'Email');
         }
         $this->_data['folders'][$folder->serverid]['serverid'] = $folder->_serverid;
+        $this->_data['folders'][$folder->serverid]['type'] = $folder->type;
+
         $this->_dirty['folders'] = true;
     }
 
