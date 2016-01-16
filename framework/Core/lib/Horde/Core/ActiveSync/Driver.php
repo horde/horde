@@ -1270,6 +1270,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      *                                truncated.
      *                DEFAULT: 0 (No truncation)
      *   - bodyprefs: (array)  The bodypref array from the device.
+     *   - type: (integer)     The Horde_ActiveSync::FOLDER_TYPE_* for this
+     *                         collection.
      *
      * @return Horde_ActiveSync_Message_Base The message data
      * @throws Horde_ActiveSync_Exception, Horde_Exception_NotFound
@@ -1442,6 +1444,13 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                         $msg->lastverbexecutiontime = new Horde_Date(time());
                     }
                 }
+            }
+
+            // Is this from the draft folder?
+            if ($this->_version >= Horde_ActiveSync::VERSION_SIXTEEN &&
+                !empty($collection['type']) &&
+                $collection['type'] == Horde_ActiveSync::FOLDER_TYPE_DRAFTS) {
+                $msg->isdraft = true;
             }
 
             $this->_endBuffer();
