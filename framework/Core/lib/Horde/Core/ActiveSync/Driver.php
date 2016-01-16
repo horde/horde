@@ -59,7 +59,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     protected $_connector;
 
     /**
-     * Folder cache
+     * Local cache of folders polled from the various backends.
      *
      * @var array
      */
