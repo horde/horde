@@ -1926,6 +1926,25 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     'categories' => false
                 );
 
+                // Check for draft sync. @todo Not yet implemented since there
+                // are currently no available clients that support this to
+                // test and reverse engineer.
+                if ($this->_version >= Horde_ActiveSync::VERSION_SIXTEEN && !$id) {
+                    if ($message->send) {
+                        // @todo. Need a client that supports this to test.
+                        $this->_logger->err('NOT YET SUPPORTED.');
+                        return $stat;
+                    }
+                    // If some non-flag related property is set, we must be
+                    // setting a draft. Should probably sanity check the folder
+                    // type too. @todo Need a client that actually does this
+                    // in order to see exactly what is sent.
+                    if ($message->to) {
+                        $this->_logger->err('NOT YET SUPPORTED.');
+                        return $stat;
+                    }
+                }
+
                 if ($message->read !== '') {
                     $this->setReadFlag($folderid, $id, $message->read);
                     $stat['flags'] = array_merge($stat['flags'], array('read' => $message->read));
