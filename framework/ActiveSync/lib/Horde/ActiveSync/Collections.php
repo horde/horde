@@ -518,6 +518,29 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
         return false;
     }
 
+    public function getCollectionType($id)
+    {
+        if ($id == 'RI') {
+            return $id;
+        }
+
+        // First try existing, loaded collections.
+        if (!empty($this->_collections[$collection['id']])) {
+            return $this->_collections[$collection['id']]['type'];
+        }
+
+        // Next look in the SyncCache.
+        if (isset($this->_cache->folders[$id]['type'])) {
+            $type = $this->_cache->folders[$id]['type'];
+            $this->_logger->info(sprintf(
+                '[%s] Obtaining collection type of %s for collection id %s',
+                $this->_procid, $type, $id));
+            return $type;
+        }
+
+        return false;
+    }
+
     /**
      * Determine if we have any syncable collections either locally or in the
      * sync cache.
