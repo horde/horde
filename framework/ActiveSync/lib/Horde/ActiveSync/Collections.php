@@ -1077,7 +1077,7 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
 
         // Get the backend serverid.
         if (empty($collection['serverid'])) {
-            $collection['serverid'] = $this->getBackendIdForFolderUid($collection['uid']);
+            $collection['serverid'] = $this->getBackendIdForFolderUid($collection['id']);
         }
 
 
