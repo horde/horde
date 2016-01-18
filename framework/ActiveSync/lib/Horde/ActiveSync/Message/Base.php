@@ -221,6 +221,7 @@ class Horde_ActiveSync_Message_Base
      * Give concrete classes the chance to enforce rules.
      *
      * @return boolean  True on success, otherwise false.
+     * @since  2.31.0
      */
     protected function _validateDecodedValues()
     {
@@ -233,6 +234,7 @@ class Horde_ActiveSync_Message_Base
      *
      * @return boolean  True if values were valid (or could be made valid).
      *     False if values are unable to be validated.
+     * @since  2.31.0
      */
     protected function _preEncodeValidation()
     {
