@@ -74,6 +74,15 @@ class Horde_ActiveSync_Message_Base
     public $flags = false;
 
     /**
+     * Request type. One of: Horde_ActiveSync::SYNC_ADD, SYNC_MODIFY,
+     *    SYNC_REMOVE, or SYNC_FETCH. Used internally for enforcing various
+     *    protocol rules depending on request. @since 2.31.0
+     *
+     * @var  string
+     */
+    public $commandType;
+
+    /**
      * Logger
      *
      * @var Horde_Log_Logger

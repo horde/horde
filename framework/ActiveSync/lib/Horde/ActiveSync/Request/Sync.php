@@ -960,11 +960,12 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 break;
             }
             $nchanges++;
+            $commandType = $element[Horde_ActiveSync_Wbxml::EN_TAG];
 
             // Only sent during SYNC_MODIFY/SYNC_REMOVE/SYNC_FETCH
-            if (($element[Horde_ActiveSync_Wbxml::EN_TAG] == Horde_ActiveSync::SYNC_MODIFY ||
-                 $element[Horde_ActiveSync_Wbxml::EN_TAG] == Horde_ActiveSync::SYNC_REMOVE ||
-                 $element[Horde_ActiveSync_Wbxml::EN_TAG] == Horde_ActiveSync::SYNC_FETCH) &&
+            if (($commandType == Horde_ActiveSync::SYNC_MODIFY ||
+                 $commandType == Horde_ActiveSync::SYNC_REMOVE ||
+                 $commandType == Horde_ActiveSync::SYNC_FETCH) &&
                 $this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_SERVERENTRYID)) {
 
                 $serverid = $this->_decoder->getElementContent();
@@ -984,7 +985,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             // and it's not even sent by all clients. Parse it if it's there,
             // ignore it if not.
             if ($this->_activeSync->device->version > Horde_ActiveSync::VERSION_TWELVEONE &&
-                $element[Horde_ActiveSync_Wbxml::EN_TAG] == Horde_ActiveSync::SYNC_ADD &&
+                $commandType == Horde_ActiveSync::SYNC_ADD &&
                 $this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_FOLDERTYPE)) {
 
                 $collection['class'] = $this->_decoder->getElementContent();
@@ -997,7 +998,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             }
 
             // Only sent during SYNC_ADD
-            if ($element[Horde_ActiveSync_Wbxml::EN_TAG] == Horde_ActiveSync::SYNC_ADD &&
+            if ($commandType == Horde_ActiveSync::SYNC_ADD &&
                 $this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_CLIENTENTRYID)) {
                 $clientid = $this->_decoder->getElementContent();
                 if (!$this->_decoder->getElementEndTag()) {
@@ -1012,8 +1013,8 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
 
             // Create Message object from messages passed from client.
             // Only passed during SYNC_ADD or SYNC_MODIFY
-            if (($element[Horde_ActiveSync_Wbxml::EN_TAG] == Horde_ActiveSync::SYNC_ADD ||
-                $element[Horde_ActiveSync_Wbxml::EN_TAG] == Horde_ActiveSync::SYNC_MODIFY) &&
+            if (($commandType == Horde_ActiveSync::SYNC_ADD ||
+                $commandType == Horde_ActiveSync::SYNC_MODIFY) &&
                 $this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_DATA)) {
                 switch ($collection['class']) {
                 case Horde_ActiveSync::CLASS_EMAIL:
@@ -1049,9 +1050,10 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     return false;
                 }
             }
+            $appdata->commandType = $commandType;
 
             if (!empty($collection['synckey'])) {
-                switch ($element[Horde_ActiveSync_Wbxml::EN_TAG]) {
+                switch ($commandType) {
                 case Horde_ActiveSync::SYNC_MODIFY:
                     if (isset($appdata)) {
                         $id = $importer->importMessageChange(
