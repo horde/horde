@@ -118,6 +118,11 @@ class Horde_ActiveSync_Message_Base
      */
     protected $_device;
 
+    /**
+     * Cache of current stream filters.
+     *
+     * @var array
+     */
     protected $_streamFilters = array();
 
     /**
