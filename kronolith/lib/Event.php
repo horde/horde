@@ -1520,15 +1520,34 @@ abstract class Kronolith_Event
         }
 
         /* Date/times */
-        $tz = $message->getTimezone();
         $dates = $message->getDatetime();
-        $this->start = clone($dates['start']);
-        $this->start->setTimezone($tz);
-        $this->end = clone($dates['end']);
-        $this->end->setTimezone($tz);
         $this->allday = $dates['allday'];
-        if ($tz != date_default_timezone_get()) {
-            $this->timezone = $tz;
+        if (!empty($this->id) &&
+            $dates['allday'] &&
+            $message->getProtocolVersion() == Horde_ActiveSync::VERSION_SIXTEEN) {
+            // allday events are handled differently when updating vs creating
+            // new when using EAS 16.0
+            $this->start = new Horde_Date(array(
+                'year' => $dates['start']->year,
+                'month' => $dates['start']->month,
+                'mday' => $dates['start']->mday),
+                !empty($this->timezone) ? $this->timezone : date_default_timezone_get()
+            );
+            $this->end = new Horde_Date(array(
+                'year' => $dates['end']->year,
+                'month' => $dates['end']->month,
+                'mday' => $dates['end']->mday),
+                !empty($this->timezone) ? $this->timezone : date_default_timezone_get()
+            );
+        } else {
+            $tz = $message->getTimezone();
+            $this->start = clone($dates['start']);
+            $this->start->setTimezone($tz);
+            $this->end = clone($dates['end']);
+            $this->end->setTimezone($tz);
+            if ($tz != date_default_timezone_get()) {
+                $this->timezone = $tz;
+            }
         }
 
         /* Sensitivity */
