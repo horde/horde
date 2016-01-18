@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Horde_Core\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2015-12-28 17:25+0100\n"
-"PO-Revision-Date: 2015-02-10 12:42+0100\n"
+"PO-Revision-Date: 2016-01-18 10:03+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: \n"
@@ -1140,7 +1140,7 @@ msgstr ""
 #: lib/Horde/PageOutput.php:656
 #, php-format
 msgid "You can snooze it for %s or %s dismiss %s it entirely"
-msgstr "Sie können ihn für %s auschalten oder dauerhaft %s abschalten %s"
+msgstr "Sie können ihn für %s ausschalten oder dauerhaft %s abschalten %s"
 
 #: lib/Horde/Core/Prefs/Identity.php:63
 #, php-format
