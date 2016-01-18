@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
+* [jan] Fix returning to last page after problem reporting from AJAX pages (Bug #12112).
 * [jan] Fix custom database configuration for groups (Bug #11664).
 * [jan] Use access rules compatible with both Apache 2.2 and 2.4.
 * [jan] SECURITY: Fix XSS vulnerability in menu bar exposed by only a few applications (Bug #14213).
@@ -4077,6 +4078,7 @@
    <date>2015-10-20</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
+* [jan] Fix returning to last page after problem reporting from AJAX pages (Bug #12112).
 * [jan] Fix custom database configuration for groups (Bug #11664).
 * [jan] Use access rules compatible with both Apache 2.2 and 2.4.
 * [jan] SECURITY: Fix XSS vulnerability in menu bar exposed by only a few applications (Bug #14213).
