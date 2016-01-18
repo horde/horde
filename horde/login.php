@@ -279,12 +279,14 @@ if (!empty($conf['auth']['alternate_login'])) {
 if (!$is_auth && !$prefs->isLocked('language')) {
     $langs = array();
     foreach ($registry->nlsconfig->languages as $key => $val) {
-        $langs[] = array(
-            'sel' => ($key == $GLOBALS['language']),
-            'val' => $key,
-            // Language names are already encoded.
-            'name' => $val
-        );
+        if ($registry->nlsconfig->validLang($key)) {
+            $langs[] = array(
+                'sel' => ($key == $GLOBALS['language']),
+                'val' => $key,
+                // Language names are already encoded.
+                'name' => $val
+            );
+        }
     }
 }
 
