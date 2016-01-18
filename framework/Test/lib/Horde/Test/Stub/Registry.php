@@ -46,6 +46,13 @@ class Horde_Test_Stub_Registry
     protected $_app;
 
     /**
+     * List of pre-configured configuration objects.
+     *
+     * @var array
+     */
+    protected $_configObjects = array();
+
+    /**
      * Constructor.
      *
      * @param string $user The current user.
@@ -133,6 +140,27 @@ class Horde_Test_Stub_Registry
     }
 
     /**
+     * Assigns a (pre-configured) Loadconfig object.
+     *
+     * This object will be returned by loadConfig(), if the same parameters are
+     * used.
+     *
+     * @since Horde_Test 2.6.0
+     *
+     * @param object $loadconfig Configuration object.
+     * @param string $conf_file  Configuration file name.
+     * @param mixed $vars        List of config variables to load.
+     * @param string $app        Application.
+     */
+    public function setConfigFile(
+        $loadconfig, $conf_file, $vars = null, $app = null
+    )
+    {
+        $sig = serialize(array($conf_file, $vars, $app));
+        $this->configObjects[$sig] = $loadconfig;
+    }
+
+    /**
      * Load a configuration file from a Horde application's config directory.
      * This call is cached (a config file is only loaded once, regardless of
      * the $vars value).
@@ -148,6 +176,11 @@ class Horde_Test_Stub_Registry
     {
         if ($conf_file == 'hooks.php') {
             throw new Horde_Exception('Failed to import configuration file "hooks.php".');
+        }
+
+        $sig = serialize(array($conf_file, $vars, $app));
+        if (isset($this->configObjects[$sig])) {
+            return $this->configObjects[$sig];
         }
 
         return new Horde_Test_Stub_Registry_Loadconfig(
