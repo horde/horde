@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [jan] Change sort direction of birthday/anniversary year picker (Request #11837).
 * [mjr] Add ability to store original versions of contact photos when resizing them for display.
 * [mjr] Add tag search to advanced search (Request #13693).
 * [mms] Added the addGroup API method.
@@ -2090,6 +2091,7 @@
    </stability>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [jan] Change sort direction of birthday/anniversary year picker (Request #11837).
 * [mjr] Add ability to store original versions of contact photos when resizing them for display.
 * [mjr] Add tag search to advanced search (Request #13693).
 * [mms] Added the addGroup API method.

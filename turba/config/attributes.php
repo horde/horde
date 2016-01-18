@@ -108,13 +108,13 @@ $attributes['birthday'] = array(
     'label' => _("Birthday"),
     'type' => 'monthdayyear',
     'required' => false,
-    'params' => array('start_year' => 1900, 'end_year' => null, 'picker' => true, 'format_in' => '%Y-%m-%d', 'format_out' => $GLOBALS['prefs']->getValue('date_format')),
+    'params' => array('start_year' => date('Y'), 'end_year' => 1900, 'picker' => true, 'format_in' => '%Y-%m-%d', 'format_out' => $GLOBALS['prefs']->getValue('date_format')),
     'time_object_label' => _("Birthdays"),
 );
 $attributes['anniversary'] = array(
     'label' => _("Anniversary"),
     'type' => 'monthdayyear',
-    'params' => array('start_year' => 1900, 'end_year' => null, 'picker' => true, 'format_in' => '%Y-%m-%d', 'format_out' => $GLOBALS['prefs']->getValue('date_format')),
+    'params' => array('start_year' => date('Y'), 'end_year' => 1900, 'picker' => true, 'format_in' => '%Y-%m-%d', 'format_out' => $GLOBALS['prefs']->getValue('date_format')),
     'required' => false,
     'time_object_label' => _("Anniversaries"),
 );
