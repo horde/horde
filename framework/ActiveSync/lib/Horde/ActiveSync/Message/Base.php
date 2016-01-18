@@ -218,6 +218,16 @@ class Horde_ActiveSync_Message_Base
     }
 
     /**
+     * Give concrete classes the chance to enforce rules.
+     *
+     * @return boolean  True on success, otherwise false.
+     */
+    protected function _validateDecodedValues()
+    {
+        return true;
+    }
+
+    /**
      * Magic caller method.
      *
      * @param  mixed $method  The method to call.
@@ -423,6 +433,12 @@ class Horde_ActiveSync_Message_Base
                 $this->_logger->err('Unexpected content in type');
                 break;
             }
+        }
+        if (!$this->_validateDecodedValues()) {
+            throw new Horde_ActiveSync_Exception(sprintf(
+                'Invalid values detected in %s.',
+                get_class($this))
+            );
         }
     }
 

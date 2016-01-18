@@ -265,6 +265,61 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
     }
 
     /**
+     * Give concrete classes the chance to enforce rules on property values.
+     *
+     * @param string $property  The property name.
+     * @param mixed $value      The value to test.
+     *
+     * @return boolean  True on success, otherwise false.
+     */
+    protected function _validateDecodedValues($property, $value)
+    {
+        if ($this->commandType == Horde_ActiveSync::SYNC_MODIFY &&
+            $this->_version == Horde_ActiveSync::VERSION_SIXTEEN) {
+
+            if ($this->_properties['alldayevent'] == true) {
+                // Timezone element is forbidden here.
+                if (!empty($this->_properties['timezone'])) {
+                    return false;
+                }
+
+                // No time components allowed here. The server is to interpret
+                // the starttime as occuring on the date listed here regardless
+                // of the timezone.
+                if ($this->_properties['starttime'] &&
+                    ($this->_properties['starttime']->hour != 0 ||
+                     $this->_properties['starttime']->min != 0 ||
+                     $this->_properties['starttime']->sec != 0)) {
+                    return false;
+                }
+                if ($this->_properties['endtime'] &&
+                    ($this->_properties['endtime']->hour != 0 ||
+                     $this->_properties['endtime']->min != 0 ||
+                     $this->_properties['endtime']->sec != 0)) {
+                    return false;
+                }
+                if ($this->_properties['recurrence'] && $this->_properties['recurrence']->until &&
+                    ($this->_properties['recurrence']->until != 0 ||
+                     $this->_properties['recurrence']->until != 0 ||
+                     $this->_properties['recurrence']->until != 0)) {
+                    return false;
+                }
+            }
+
+            // Exception events must match the alldayevent property of the
+            // master event.
+            foreach ($this->_properties['exceptions'] as $ex) {
+                if ($ex->alldayevent != $this->_properties['alldayevent']) {
+                    return false;
+                }
+            }
+
+        }
+
+        return true;
+    }
+
+    /**
      * Set the timezone
      *
      * @param mixed $date  Either a Horde_Date or timezone descriptor such as
