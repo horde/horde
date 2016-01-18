@@ -1472,7 +1472,12 @@ class Horde_Registry implements Horde_Shutdown_Task
 
         case 'problem':
             return Horde::url('services/problem.php', $full, $opts)
-                ->add('return_url', Horde::selfUrl(true, true, true));
+                ->add(
+                    'return_url',
+                    Horde_Util::getFormData(
+                        'location', Horde::selfUrl(true, true, true)
+                    )
+                );
 
         case 'sidebar':
             return Horde::url('services/sidebar.php', $full, $opts);

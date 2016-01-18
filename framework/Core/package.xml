@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Fix returning to last page after problem reporting from AJAX pages (Bug #12112).
 * [jan] Fix updating group cache with LDAP backend.
 * [jan] Horde_Registry_Nlsconfig#validLang() checks now if a locale is installed (Request #10457).
 * [jan] Mark PHP 7 as supported.
@@ -4122,6 +4123,7 @@
    <date>2016-01-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Fix returning to last page after problem reporting from AJAX pages (Bug #12112).
 * [jan] Fix updating group cache with LDAP backend.
 * [jan] Horde_Registry_Nlsconfig#validLang() checks now if a locale is installed (Request #10457).
 * [jan] Mark PHP 7 as supported.
