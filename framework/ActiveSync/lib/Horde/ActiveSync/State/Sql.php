@@ -341,12 +341,12 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             sprintf('[%s] Saving state: %s',
                 $this->_procid,
                 serialize(array(
-                    $params[0],
-                    $params[1],
-                    $params[2],
-                    $params[3],
-                    $params[4],
-                    $params[5],
+                    $params['sync_key'],
+                    $params['sync_data'],
+                    $params['sync_devid'],
+                    $params['sync_mod'],
+                    $params['sync_folderid'],
+                    $params['sync_user'],
                     count($this->_changes),
                     time()))
                 )
