@@ -1560,6 +1560,7 @@ abstract class Kronolith_Event
             $status = $message->getBusyStatus();
             switch ($status) {
             case Horde_ActiveSync_Message_Appointment::BUSYSTATUS_BUSY:
+            case Horde_ActiveSync_Message_Appointment::BUSYSTATUS_ELSEWHERE;
                 $status = Kronolith::STATUS_CONFIRMED;
                 break;
 
