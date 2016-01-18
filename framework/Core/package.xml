@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Horde_Registry_Nlsconfig#validLang() checks now if a locale is installed (Request #10457).
 * [jan] Mark PHP 7 as supported.
 * [jan] Add option to always lowercase user names after logging in.
  </notes>
@@ -1463,7 +1464,7 @@
    <package>
     <name>Horde_Test</name>
     <channel>pear.horde.org</channel>
-    <min>2.1.0</min>
+    <min>2.6.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -4120,6 +4121,7 @@
    <date>2016-01-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Horde_Registry_Nlsconfig#validLang() checks now if a locale is installed (Request #10457).
 * [jan] Mark PHP 7 as supported.
 * [jan] Add option to always lowercase user names after logging in.
    </notes>

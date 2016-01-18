@@ -1,11 +1,18 @@
 <?php
 /**
- * Interface to NLS configuration.
- *
  * Copyright 2010-2016 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Core
+ */
+
+/**
+ * Interface to NLS configuration.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
@@ -122,7 +129,15 @@ class Horde_Registry_Nlsconfig
     public function validLang($lang)
     {
         if (!$GLOBALS['session']->exists('horde', 'nls/valid_' . $lang)) {
-            $GLOBALS['session']->set('horde', 'nls/valid_' . $lang, isset($this->languages[$lang]));
+            $valid = false;
+            if (isset($this->languages[$lang])) {
+                $locale = setlocale(LC_ALL, 0);
+                if (setlocale(LC_ALL, $lang . '.UTF-8')) {
+                    $valid = true;
+                }
+                setlocale(LC_ALL, $locale);
+            }
+            $GLOBALS['session']->set('horde', 'nls/valid_' . $lang, $valid);
         }
 
         return $GLOBALS['session']->get('horde', 'nls/valid_' . $lang);
