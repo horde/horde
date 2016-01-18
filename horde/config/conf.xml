@@ -975,7 +975,9 @@
     </case>
     <case name="Mock" desc="No Groups"/>
     <case name="Sql" desc="SQL">
-     <configsql switchname="driverconfig" />
+     <configsection name="params">
+      <configsql switchname="driverconfig" />
+     </configsection>
     </case>
    </configswitch>
   </configsection>
