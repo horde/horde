@@ -1721,9 +1721,31 @@ abstract class Kronolith_Event
         }
 
         $message->setSubject($this->getTitle());
-        $message->starttime = clone($this->start);
-        $message->endtime = clone($this->end);
         $message->alldayevent = $this->isAllDay();
+        $st = clone($this->start);
+        $et = clone($this->end);
+        if ($this->isAllDay()) {
+            // EAS requires all day to be from 12:00 to 12:00.
+            if ($this->start->hour != 0 || $this->start->min != 0 || $this->start->sec != 0) {
+                $st->hour = 0;
+                $st->min = 0;
+                $st->sec = 0;
+            }
+            // For end it's a bit trickier. If it's 11:59pm, bump it up to 12:00
+            // am of the next day. Otherwise, if it's not 12:00am, make it 12:00
+            // am of the same day. This *shouldn't* happen, but protect against
+            // issues with EAS just in case.
+            if ($this->end->hour != 0 || $this->end->min != 0 || $this->end->sec != 0) {
+                if ($this->end->hour == 23 && $this->end->min == 59) {
+                    $et->mday++;
+                }
+                $et->hour = 0;
+                $et->min = 0;
+                $et->sec = 0;
+            }
+        }
+        $message->starttime = $st;
+        $message->endtime = $et;
         $message->setTimezone($this->start);
 
         // Organizer
