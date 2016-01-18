@@ -262,6 +262,7 @@ class Trean_Bookmarks
         $tagger = $GLOBALS['injector']->getInstance('Trean_Tagger');
         $charset = $GLOBALS['trean_db']->getOption('charset');
         foreach ($bookmarks as $bookmark) {
+            $cvBookmarks = array();
             foreach ($bookmark as $key => $value) {
                 if (!empty($value) && !is_numeric($value)) {
                     $cvBookmarks[$key] = Horde_String::convertCharset($value, $charset, 'UTF-8');
