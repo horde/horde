@@ -368,6 +368,7 @@ class Horde_ActiveSync_Message_Base
                                     'protocolversion' => $this->_version,
                                     'logger' => $this->_logger)
                                 );
+                                $decoded->commandType = $this->commandType;
                                 $decoded->decodeStream($decoder);
                             } else {
                                 $decoded = $decoder->getElementContent();
@@ -414,6 +415,7 @@ class Horde_ActiveSync_Message_Base
                                     'protocolversion' => $this->_version,
                                     'logger' => $this->_logger)
                                 );
+                                $subdecoder->commandType = $this->commandType;
                                 $subdecoder->decodeStream($decoder);
                                 $decoded = $subdecoder;
                             }
