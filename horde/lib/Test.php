@@ -941,6 +941,26 @@ class Horde_Test
             'This value should be several times the expect largest upload size (notwithstanding any upload limits present in an application). Any upload that exceeds this size will cause any state information sent along with the uploaded data to be lost. This is a PHP limitation and can not be worked around.'.
             '</li></ul>';
 
+        /* Check for supported translations. */
+        $ret .= '<h1>Supported locales</h1><ul>';
+        $missing = false;
+        foreach ($GLOBALS['registry']->nlsconfig->languages as $code => $language) {
+            if ($GLOBALS['registry']->nlsconfig->validLang($code)) {
+                $color = 'green';
+            } else {
+                $color = 'red';
+                $missing = true;
+            }
+            $ret .= sprintf(
+                '<li>%s &#x202d;(%s): <strong style="color:%s">%s</strong></li>',
+                $language,
+                $code,
+                $color,
+                $color == 'green' ? 'Yes' : 'No'
+            );
+        }
+        $ret .= '</ul>';
+
         /* Determine if 'static' is writable by the web user. */
         $user = function_exists('posix_getuid') ? posix_getpwuid(posix_getuid()) : null;
         $static_dir = $GLOBALS['registry']->get('staticfs', 'horde');
