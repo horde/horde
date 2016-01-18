@@ -228,6 +228,18 @@ class Horde_ActiveSync_Message_Base
     }
 
     /**
+     * Give concrete classes the chance to enforce rules before encoding
+     * messages to send to the client.
+     *
+     * @return boolean  True if values were valid (or could be made valid).
+     *     False if values are unable to be validated.
+     */
+    protected function _preEncodeValidation()
+    {
+        return true;
+    }
+
+    /**
      * Magic caller method.
      *
      * @param  mixed $method  The method to call.
@@ -450,6 +462,13 @@ class Horde_ActiveSync_Message_Base
      */
     public function encodeStream(Horde_ActiveSync_Wbxml_Encoder &$encoder)
     {
+        if (!$this->_preEncodeValidation()) {
+            throw new Horde_ActiveSync_Exception(sprintf(
+                'Pre-encoding validation failded for %s item',
+                get_class($this))
+            );
+        }
+
         foreach ($this->_mapping as $tag => $map) {
             if (isset($this->{$map[self::KEY_ATTRIBUTE]})) {
                 // Variable is available
