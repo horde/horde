@@ -116,7 +116,7 @@ $_prefs['max_events'] = array(
 $_prefs['time_between_days'] = array(
     'value' => 0,
     'type' => 'checkbox',
-    'desc' => _("Show time of day between each day in week views?")
+    'desc' => _("Show time of day between each day in week views?") . ' (<em>' . _("Basic view only") . '</em>'
 );
 
 // what day does the week start with
@@ -136,7 +136,7 @@ $_prefs['day_hour_start'] = array(
     'value' => 16,
     'type' => 'enum',
     'enum' => array(),
-    'desc' => _("What time should day and week views start, when there are no earlier events?"),
+    'desc' => _("What time should day and week views start, when there are no earlier events?") . ' (<em>' . _("Basic view only") . '</em>',
     'on_init' => function($ui) {
         $enum = array();
         $fmt = $GLOBALS['prefs']->getValue('twentyFour')
@@ -155,7 +155,7 @@ $_prefs['day_hour_end'] = array(
     'value' => 48,
     'type' => 'enum',
     'enum' => array(),
-    'desc' => _("What time should day and week views end, when there are no later events?"),
+    'desc' => _("What time should day and week views end, when there are no later events?") . ' (<em>' . _("Basic view only") . '</em>',
     'on_init' => function($ui) {
         $enum = array();
         $fmt = $GLOBALS['prefs']->getValue('twentyFour')
@@ -179,7 +179,7 @@ $_prefs['day_hour_force'] = array(
 $_prefs['slots_per_hour'] = array(
     'value' => 1,
     'type' => 'enum',
-    'desc' => _("How long should the time slots on the day and week views be?"),
+    'desc' => _("How long should the time slots on the day and week views be?") . ' (<em>' . _("Basic view only") . '</em>',
     'enum' => array(
         4 => _("15 minutes"),
         3 => _("20 minutes"),
@@ -192,7 +192,7 @@ $_prefs['slots_per_hour'] = array(
 $_prefs['show_icons'] = array(
     'value' => 1,
     'type' => 'checkbox',
-    'desc' => _("Show delete, alarm, and recurrence icons in calendar views?"),
+    'desc' => _("Show delete, alarm, and recurrence icons in calendar views?") . ' (<em>' . _("Basic view only") . '</em>',
 );
 
 // show event start/end times in the calendar and/or print views?
@@ -214,7 +214,7 @@ $_prefs['show_location'] = array(
         'screen' => _("Month, Week, and Day Views"),
         'print' => _("Print Views")
      ),
-    'desc' => _("Choose the views to show event locations in:"),
+    'desc' => _("Choose the views to show event locations in:") . ' (<em>' . _("Basic view only") . '</em>',
 );
 
 // show Free/Busy legend?
@@ -222,14 +222,14 @@ $_prefs['show_location'] = array(
 $_prefs['show_fb_legend'] = array(
     'value' => 1,
     'type' => 'checkbox',
-    'desc' => _("Show Free/Busy legend?"),
+    'desc' => _("Show Free/Busy legend?") . ' (<em>' . _("Basic view only") . '</em>',
 );
 
 // collapsed or side by side view
 $_prefs['show_shared_side_by_side'] = array(
     'value' => 0,
     'type' => 'checkbox',
-    'desc' => _("Show shared calendars side-by-side?"),
+    'desc' => _("Show shared calendars side-by-side?") . ' (<em>' . _("Basic view only") . '</em>',
 );
 
 // default calendar

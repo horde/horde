@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Mark preferences only available in basic mode.
 * [jan] Use access rules compatible with both Apache 2.2 and 2.4.
 * [jan] Fix accidental deletion of events if importing recurring events without a UID attribute (Bug #14208).
 * [mjr] Honor confirm_delete preference in dynamic view (Bug #14188).
@@ -2636,6 +2637,7 @@
    <date>2016-01-13</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Mark preferences only available in basic mode.
 * [jan] Use access rules compatible with both Apache 2.2 and 2.4.
 * [jan] Fix accidental deletion of events if importing recurring events without a UID attribute (Bug #14208).
 * [mjr] Honor confirm_delete preference in dynamic view (Bug #14188).
