@@ -103,6 +103,8 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
     const BUSYSTATUS_TENTATIVE       = 1;
     const BUSYSTATUS_BUSY            = 2;
     const BUSYSTATUS_OUT             = 3;
+    // 16.0 only.
+    const BUSYSTATUS_ELSEWHERE       = 4;
 
     /* All day meeting */
     const IS_ALL_DAY                 = 1;
