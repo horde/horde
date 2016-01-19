@@ -83,7 +83,8 @@ class Ingo_Application extends Horde_Registry_Application
             $ruleset = Horde_Util::getFormData('ruleset');
 
             /* Select current share. */
-            if (is_null($curr_share) || ($ruleset != $curr_share)) {
+            if (is_null($curr_share) ||
+                (!empty($ruleset) && $ruleset != $curr_share)) {
                 $session->set('ingo', 'current_share', $ruleset);
                 $all_rulesets = $this->_listRulesets();
 
