@@ -603,14 +603,9 @@ class Turba_Driver implements Countable
     {
         global $injector;
 
-        /* If we are not using Horde_Share, enforce the requirement that the
-         * current user must be the owner of the addressbook. */
-        $search_criteria['__owner'] = $this->getContactOwner();
-        $strict_fields = array($this->toDriver('__owner') => true);
-        $custom_strict_fields = array();
-
         /* Add any fields that must match exactly for this source to the
          * $strict_fields array. */
+        $strict_fields = $custom_strict_fields = array();
         foreach ($this->strict as $strict_field) {
             $strict_fields[$strict_field] = true;
         }
@@ -628,6 +623,19 @@ class Turba_Driver implements Countable
         /* Translate the Turba attributes to driver-specific attributes. */
         $fields = $this->makeSearch($search_criteria, $search_type,
                                     $strict_fields, $match_begin, $custom_strict_fields);
+
+        /* If we are not using Horde_Share, enforce the requirement that the
+         * current user must be the owner of the addressbook. */
+        $fields = array(
+            'AND' => array(
+                $fields,
+                array(
+                    'field' => $this->toDriver('__owner'),
+                    'op' => '=',
+                    'test' => $this->getContactOwner()
+                )
+            )
+        );
 
         if (in_array('email', $return_fields) &&
             !in_array('emails', $return_fields)) {
