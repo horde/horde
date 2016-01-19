@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [jan] Add second home and business phone fields to Kolab backend (Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;, Request #12776).
 * [jan] Change sort direction of birthday/anniversary year picker (Request #11837).
 * [mjr] Add ability to store original versions of contact photos when resizing them for display.
 * [mjr] Add tag search to advanced search (Request #13693).
@@ -2092,6 +2093,7 @@
    </stability>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [jan] Add second home and business phone fields to Kolab backend (Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;, Request #12776).
 * [jan] Change sort direction of birthday/anniversary year picker (Request #11837).
 * [mjr] Add ability to store original versions of contact photos when resizing them for display.
 * [mjr] Add tag search to advanced search (Request #13693).
