@@ -96,10 +96,8 @@ class Ingo
         global $injector, $registry, $session;
 
         return ($share = $injector->getInstance('Ingo_Shares'))
-            ? ($share->getPermissions(
-                  $session->get('ingo', 'current_share'),
-                  $registry->getAuth()
-              ) & $mask)
+            ? $share->getShare($session->get('ingo', 'current_share'))
+                ->hasPermission($registry->getAuth(), $mask)
             : true;
     }
 
