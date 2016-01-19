@@ -204,8 +204,14 @@ class Ingo_Application extends Horde_Registry_Application
             );
         }
 
-        if ($injector->getInstance('Ingo_Shares') &&
+        if (($shares = $injector->getInstance('Ingo_Shares')) &&
             empty($conf['share']['no_sharing'])) {
+            if ($shares->getShare($session->get('ingo', 'current_share'))->get('owner') == $registry->getAuth()) {
+                $share = $session->get('ingo', 'current_share');
+            } else {
+                $share = $session->get('ingo', 'backend/id')
+                    . ':' . $registry->getAuth();
+            }
             $menu->add(
                 '#',
                 _("_Permissions"),
@@ -221,8 +227,7 @@ class Ingo_Application extends Horde_Registry_Application
                     array(
                         'params' => array(
                             'app' => 'ingo',
-                            'share' => $session->get('ingo', 'backend/id')
-                                . ':' . $registry->getAuth()
+                            'share' => $share
                         ),
                         'urlencode' => true
                     )
