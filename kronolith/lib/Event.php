@@ -1984,6 +1984,11 @@ abstract class Kronolith_Event
         if ($options['protocolversion'] > Horde_ActiveSync::VERSION_TWELVEONE &&
             $message->getMeetingStatus() == Horde_ActiveSync_Message_Appointment::MEETING_IS_MEETING) {
 
+            // Are we the
+            if (empty($this->organizer) && $this->creator == $registry->getAuth()) {
+                $message->responsetype = Horde_ActiveSync_Message_Appointment::RESPONSE_ORGANIZER;
+            }
+
             // We don't track the actual responses we sent to other's invitations.
             // Set this based on the status flag.
             switch ($this->status) {
