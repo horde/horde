@@ -130,7 +130,7 @@ class Horde_Form_Variable {
     {
         $this->humanName   = $humanName;
         $this->varName     = $varName;
-        $this->type        = &$type;
+        $this->type        = $type;
         $this->required    = $required;
         $this->readonly    = $readonly;
         $this->description = $description;
