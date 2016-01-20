@@ -397,7 +397,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      * clients will use the CLIENT_ENTRY_ID for this value, and will send the
      * invitation email out using this value as the UID so we sort-of HAVE to
      * use this value as the server's UID.
-     * 
+     *
      * @param string $uid  The server's uid for this appointment
      */
     public function setUid($uid)
@@ -521,6 +521,11 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
             $r->type = Horde_ActiveSync_Message_Recurrence::TYPE_YEARLY;
             $r->monthofyear = $recurrence->start->month;
             $r->dayofmonth = $recurrence->start->mday;
+            break;
+        case Horde_Date_Recurrence::RECUR_YEARLY_DAY:
+            $r->type = Horde_ActiveSync_Message_Recurrence::TYPE_YEARLYNTH;
+            $r->weekofmonth = ceil($recurrence->start->mday / 7);
+            $r->monthofyear = $recurrence->start->month;
             break;
         case Horde_Date_Recurrence::RECUR_YEARLY_WEEKDAY:
             $r->type = Horde_ActiveSync_Message_Recurrence::TYPE_YEARLYNTH;
