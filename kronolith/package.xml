@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix issue where new event could be created with exceptions from previously edited event.
 * [jan] Mark preferences only available in basic mode.
 * [jan] Use access rules compatible with both Apache 2.2 and 2.4.
 * [jan] Fix accidental deletion of events if importing recurring events without a UID attribute (Bug #14208).
@@ -2637,6 +2638,7 @@
    <date>2016-01-13</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix issue where new event could be created with exceptions from previously edited event.
 * [jan] Mark preferences only available in basic mode.
 * [jan] Use access rules compatible with both Apache 2.2 and 2.4.
 * [jan] Fix accidental deletion of events if importing recurring events without a UID attribute (Bug #14208).
