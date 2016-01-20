@@ -405,6 +405,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      * Set the appointment's modify timestamp
      *
      * @param mixed Horde_Date|integer $date  The date to set.
+     * @deprecated
      */
     public function setDTStamp($date)
     {
@@ -418,6 +419,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      * Get the appointment's dtimestamp
      *
      * @return Horde_Date  The timestamp.
+     * @deprecated
      */
     public function getDTStamp()
     {
@@ -486,6 +488,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      *   - start: (Horde_Date) The start time.
      *   - end: (Horde_Date) The end time.
      *   - allday: (boolean) If true, this is an allday event.
+     *  @deprecated
      */
     public function getDatetime()
     {
@@ -500,6 +503,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      * Set the appointment subject field.
      *
      * @param string $subject   A UTF-8 string
+     * @deprecated Set the property directly. I.e. $message->subject = 'Test'
      */
     public function setSubject($subject)
     {
@@ -510,6 +514,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      * Get the subject
      *
      * @return string  The UTF-8 subject string
+     * @deprecated Retrieve the value directly. I.e., $message->subject
      */
     public function getSubject()
     {
@@ -596,6 +601,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      * Set appointment location field.
      *
      * @param string $location
+     * @deprecated
      */
     public function setLocation($location)
     {
@@ -606,6 +612,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      * Get the location field
      *
      * @return string
+     * @deprecated
      */
     public function getLocation()
     {
@@ -757,6 +764,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      *   normal, personal, private, confidential
      *
      * @param integer $sensitivity  The SENSITIVITY constant
+     * @deprecated
      */
     public function setSensitivity($sensitivity)
     {
@@ -767,6 +775,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      * Return the sensitivity setting for this appointment
      *
      * @return integer  The SENSITIVITY constant
+     * @deprecated
      */
     public function getSensitivity()
     {
@@ -777,6 +786,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      * Sets the busy status for this appointment
      *
      * @param integer  $busy  The BUSYSTATUS constant
+     * @deprecated
      */
     public function setBusyStatus($busy)
     {
@@ -787,6 +797,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      * Return the busy status for this appointment.
      *
      * @return integer The BUSYSTATUS constant
+     * @deprecated
      */
     public function getBusyStatus()
     {
@@ -798,6 +809,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      *   none, organizer, tentative, accepted, declined
      *
      * @param integer $response  The response type constant
+     * @deprecated
      */
     public function setResponseType($response)
     {
@@ -808,6 +820,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      * Get response type
      *
      * @return integer  The responsetype constant
+     * @deprecated
      */
     public function getResponseType()
     {
@@ -819,6 +832,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      *
      * @param integer $minutes  The number of minutes before appintment to
      *                          trigger a reminder.
+     * @deprecated
      */
     public function setReminder($minutes)
     {
@@ -830,6 +844,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      *
      * @return integer|boolean  Number of minutes before appointment for
      *                          notifications or false if not set.
+     * @deprecated
      */
     public function getReminder()
     {
@@ -887,6 +902,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      * Set the appointment's body
      *
      * @param string $body  UTF-8 encoded string
+     * @deprecated
      */
     public function setBody($body)
     {
@@ -897,6 +913,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      * Get the appointment's body
      *
      * @return string  UTF-8 encoded string
+     * @deprecated
      */
     public function getBody()
     {
