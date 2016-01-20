@@ -2138,7 +2138,6 @@ abstract class Kronolith_Event
             $this->location = $hash['location'];
         }
 
-        // Import once we support organizers.
         if (!empty($hash['organizer'])) {
             $this->organizer = $hash['organizer'];
         }
