@@ -239,11 +239,11 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
         switch ($e->getCode()) {
         case Horde_ActiveSync_Status::SYNC_NOT_ALLOWED:
         case Horde_ActiveSync_Status::DEVICE_BLOCKED_FOR_USER:
-            $this->_logger->err('Sending 403');
+            $this->_logger->err('Sending HTTP 403 Forbidden header response.');
             header('HTTP/1.1 403 Forbidden');
             break;
         default:
-        $this->_logger->err('Sending 401');
+        $this->_logger->err('Sending HTTP 401 Unauthorized header response.');
             header('HTTP/1.1 401 Unauthorized');
             header('WWW-Authenticate: Basic realm="Horde ActiveSync"');
         }
