@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix RECUR_YEARLY_DAY recurrences showing up every day.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2948,7 +2948,7 @@
    <date>2016-01-14</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix RECUR_YEARLY_DAY recurrences showing up every day.
    </notes>
   </release>
  </changelog>
