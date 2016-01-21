@@ -1668,15 +1668,19 @@ abstract class Kronolith_Event
         }
 
         /* Recurrence */
-        if ($message->getProtocolVersion() < Horde_ActiveSync::VERSION_SIXTEEN &&
-            $rrule = $message->getRecurrence()) {
+        if ($rrule = $message->getRecurrence()) {
             /* Exceptions */
             /* Since AS keeps exceptions as part of the original event, we need
              * to delete all existing exceptions and re-create them. The only
              * drawback to this is that the UIDs will change. */
             $kronolith_driver = $this->getDriver();
             $this->recurrence = $rrule;
-            if (!empty($this->uid)) {
+
+            if (!empty($this->uid) &&
+                $message->getProtocolVersion() < Horde_ActiveSync::VERSION_SIXTEEN) {
+                // EAS 16.0 NEVER adds exceptions from withing the base event,
+                // so we can't delete the existing exceptions - we don't have
+                // the current list to replace them with.
                 $search = new StdClass();
                 $search->baseid = $this->uid;
                 $results = $kronolith_driver->search($search);
@@ -1685,46 +1689,46 @@ abstract class Kronolith_Event
                         $kronolith_driver->deleteEvent($exception->id);
                     }
                 }
-            }
 
-            $erules = $message->getExceptions();
-            foreach ($erules as $rule){
-                /* Readd the exception event, but only if not deleted */
-                if (!$rule->deleted) {
-                    $event = $kronolith_driver->getEvent();
-                    $times = $rule->getDatetime();
-                    if ($message->getProtocolVersion() < Horde_ActiveSync::VERSION_SIXTEEN) {
-                        $original = $rule->getExceptionStartTime();
+                $erules = $message->getExceptions();
+                foreach ($erules as $rule){
+                    /* Readd the exception event, but only if not deleted */
+                    if (!$rule->deleted) {
+                        $event = $kronolith_driver->getEvent();
+                        $times = $rule->getDatetime();
+                        if ($message->getProtocolVersion() < Horde_ActiveSync::VERSION_SIXTEEN) {
+                            $original = $rule->getExceptionStartTime();
+                        } else {
+                            $original = $rule->instanceid;
+                        }
+                        $original->setTimezone($tz);
+                        $this->recurrence->addException($original->format('Y'), $original->format('m'), $original->format('d'));
+                        $event->start = $times['start'];
+                        $event->end = $times['end'];
+                        $event->start->setTimezone($tz);
+                        $event->end->setTimezone($tz);
+                        $event->allday = $times['allday'];
+                        $event->title = $rule->getSubject();
+                        $event->title = empty($event->title) ? $this->title : $event->title;
+                        $event->description = $rule->getBody();
+                        $event->description = empty($event->description) ? $this->description : $event->description;
+                        $event->baseid = $this->uid;
+                        $event->exceptionoriginaldate = $original;
+                        $event->initialized = true;
+                        if ($tz != date_default_timezone_get()) {
+                            $event->timezone = $tz;
+                        }
+                        $event->save();
                     } else {
-                        $original = $rule->instanceid;
-                    }
-                    $original->setTimezone($tz);
-                    $this->recurrence->addException($original->format('Y'), $original->format('m'), $original->format('d'));
-                    $event->start = $times['start'];
-                    $event->end = $times['end'];
-                    $event->start->setTimezone($tz);
-                    $event->end->setTimezone($tz);
-                    $event->allday = $times['allday'];
-                    $event->title = $rule->getSubject();
-                    $event->title = empty($event->title) ? $this->title : $event->title;
-                    $event->description = $rule->getBody();
-                    $event->description = empty($event->description) ? $this->description : $event->description;
-                    $event->baseid = $this->uid;
-                    $event->exceptionoriginaldate = $original;
-                    $event->initialized = true;
-                    if ($tz != date_default_timezone_get()) {
-                        $event->timezone = $tz;
-                    }
-                    $event->save();
-                } else {
-                    /* For exceptions that are deletions, just add the exception */
-                    if ($message->getProtocolVersion() < Horde_ActiveSync::VERSION_SIXTEEN) {
-                        $exceptiondt = $rule->getExceptionStartTime();
-                    } else {
-                        $exceptiondt = $rule->instanceid;
-                    }
-                    $exceptiondt->setTimezone($tz);
-                    $this->recurrence->addException($exceptiondt->format('Y'), $exceptiondt->format('m'), $exceptiondt->format('d'));
+                        /* For exceptions that are deletions, just add the exception */
+                        if ($message->getProtocolVersion() < Horde_ActiveSync::VERSION_SIXTEEN) {
+                            $exceptiondt = $rule->getExceptionStartTime();
+                        } else {
+                            $exceptiondt = $rule->instanceid;
+                        }
+                        $exceptiondt->setTimezone($tz);
+                        $this->recurrence->addException($exceptiondt->format('Y'), $exceptiondt->format('m'), $exceptiondt->format('d'));
+                   }
                }
             }
         }
