@@ -256,11 +256,13 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
             if ($this->_version >= Horde_ActiveSync::VERSION_SIXTEEN) {
                 $this->_mapping += array(
                     Horde_ActiveSync::AIRSYNCBASE_LOCATION => array(self::KEY_ATTRIBUTE => 'location'),
-                    self::POOMCAL_CLIENTUID => array(self::KEY_ATTRIBUTE => 'clientuid')
+                    self::POOMCAL_CLIENTUID => array(self::KEY_ATTRIBUTE => 'clientuid'),
+                    Horde_ActiveSync::AIRSYNCBASE_INSTANCEID => array(self::KEY_ATTRIBUTE => 'instanceid', self::KEY_TYPE => self::TYPE_DATE),
                 );
                 $this->_properties += array(
                     'location' => false,
                     'clientuid' => false,
+                    'instanceid' => false,
                 );
             }
         }

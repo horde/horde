@@ -961,7 +961,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             }
             $nchanges++;
             $commandType = $element[Horde_ActiveSync_Wbxml::EN_TAG];
-
+            $instanceid = false;
             // Only sent during SYNC_MODIFY/SYNC_REMOVE/SYNC_FETCH
             if (($commandType == Horde_ActiveSync::SYNC_MODIFY ||
                  $commandType == Horde_ActiveSync::SYNC_REMOVE ||
@@ -976,6 +976,18 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     $this->_handleGlobalSyncError();
                     $this->_logger->err('Parsing Error - expecting </SYNC_SERVERENTRYID>');
                     return false;
+                }
+
+                if ($this->_activeSync->device->version >= Horde_ActiveSync::VERSION_SIXTEEN) {
+                    if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_INSTANCEID)) {
+                        $instanceid = $this->_decoder->getElementContent();
+                        if ($instanceid !== false && !$this->_decoder->getElementEndTag()) {
+                            $this->_statusCode = self::STATUS_PROTERROR;
+                            $this->_handleGlobalSyncError();
+                            $this->_logger->err('Parsing Error - expecting </AIRSYNCBASE_INSTANCEID>');
+                            return false;
+                        }
+                    }
                 }
             } else {
                 $serverid = false;
@@ -1028,6 +1040,11 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 case Horde_ActiveSync::CLASS_CALENDAR:
                     $appdata = Horde_ActiveSync::messageFactory('Appointment');
                     $appdata->decodeStream($this->_decoder);
+                    if (!empty($instanceid) &&
+                        $commandType == Horde_ActiveSync::SYNC_MODIFY) {
+                        // EAS 16.0 sends instanceid/serverid for exceptions.
+                        $appdata->instanceid = $instanceid;
+                    }
                     break;
                 case Horde_ActiveSync::CLASS_TASKS:
                     $appdata = Horde_ActiveSync::messageFactory('Task');
@@ -1057,7 +1074,8 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 case Horde_ActiveSync::SYNC_MODIFY:
                     if (isset($appdata)) {
                         $id = $importer->importMessageChange(
-                            $serverid, $appdata, $this->_device, false);
+                            $serverid, $appdata, $this->_device, false, false,
+                            $collection['synckey']);
                         if ($id && !is_array($id)) {
                             $collection['importedchanges'] = true;
                         } elseif (is_array($id)) {
@@ -1080,8 +1098,10 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     break;
 
                 case Horde_ActiveSync::SYNC_REMOVE:
-                    // Work around broken clients that send empty $serverid.
-                    if ($serverid) {
+                    if ($instanceid) {
+                        $collection['instanceid_removes'][$serverid] = $instanceid;
+                    } elseif ($serverid) {
+                        // Work around broken clients that send empty $serverid.
                         $collection['removes'][] = $serverid;
                     }
                     break;
@@ -1117,6 +1137,13 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             }
             unset($collection['removes']);
             $collection['importedchanges'] = true;
+        }
+        // EAS 16.0 instance deletions.
+        if (!empty($collection['instanceid_removes']) && !empty($collection['synckey'])) {
+                foreach ($collection['instanceid_removes'] as $uid => $instanceid) {
+                    $importer->importMessageDeletion(array($uid => $instanceid), $collection['class'], true);
+                }
+            unset($collection['instanceid_removes']);
         }
 
         $this->_logger->info(sprintf(

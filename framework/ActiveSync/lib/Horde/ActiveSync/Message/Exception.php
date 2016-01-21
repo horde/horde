@@ -47,10 +47,11 @@
  * @property integer      $alldayevent
  * @property integer      $reminder
  * @property integer      $meetingstatus
- * @property Horde_Date   $exceptionstarttime (EAS <= 14.1 Only).
+ * @property Horde_Date   $exceptionstarttime (EAS <= 14.1 only).
  * @property integer      $deleted
  * @property array        $attendees
  * @property array        $categories
+ * @property Horde_Date   $instanceid (EAS >= 16.0 only).
  */
 class Horde_ActiveSync_Message_Exception extends Horde_ActiveSync_Message_Appointment
 {
@@ -122,10 +123,12 @@ class Horde_ActiveSync_Message_Exception extends Horde_ActiveSync_Message_Appoin
         }
         if ($this->_version >= Horde_ActiveSync::VERSION_SIXTEEN) {
             $this->_mapping += array(
-                Horde_ActiveSync::AIRSYNCBASE_LOCATION => array(self::KEY_ATTRIBUTE => 'location')
+                Horde_ActiveSync::AIRSYNCBASE_LOCATION => array(self::KEY_ATTRIBUTE => 'location'),
+                Horde_ActiveSync::AIRSYNCBASE_INSTANCEID => array(self::KEY_ATTRIBUTE => 'instanceid', self::KEY_TYPE => self::TYPE_DATE)
             );
             $this->_properties += array(
-                'location' => false
+                'location' => false,
+                'instanceid' => false,
             );
         }
     }

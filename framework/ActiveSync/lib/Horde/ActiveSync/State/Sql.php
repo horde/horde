@@ -1041,6 +1041,26 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         }
      }
 
+     /**
+      * Check if the UID provided was altered during the SYNC_KEY provided.
+      *
+      * @param string $uid      The UID to check.
+      * @param string $synckey  The synckey to check.
+      *
+      * @return boolean  True if the provided UID was updated during the
+      *                  SYNC for the synckey provided.
+      * @since  2.31.0
+      */
+     public  function isDuplicatePIMChange($uid, $synckey)
+     {
+        $sql = 'SELECT count(*) FROM ' . $this->_syncMapTable
+            . ' WHERE message_uid = ? AND sync_user = ? AND sync_key = ?';
+        try {
+            return $this->_db->selectValue($sql, array($uid, $this->_deviceInfo->user, $synckey));
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_ActiveSync_Exception($e);
+        }
+     }
     /**
      * Return the sync cache.
      *
