@@ -255,7 +255,7 @@ class Horde_ActiveSync_Connector_Importer
                 // Log this as a change in the state, not a deletion because
                 // these are actually instances of recurring series being
                 // deleted, not the entire item being deleted.
-                $this->state->updateState(
+                $this->_state->updateState(
                     Horde_ActiveSync::CHANGE_TYPE_CHANGE,
                     $change,
                     Horde_ActiveSync::CHANGE_ORIGIN_PIM,
