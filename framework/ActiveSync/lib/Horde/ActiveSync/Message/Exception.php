@@ -148,6 +148,7 @@ class Horde_ActiveSync_Message_Exception extends Horde_ActiveSync_Message_Appoin
      * date of the *original* recurring event.
      *
      * @return Horde_Date  The exception's start time
+     * @deprecated
      */
     public function getExceptionStartTime()
     {
@@ -158,6 +159,7 @@ class Horde_ActiveSync_Message_Exception extends Horde_ActiveSync_Message_Appoin
      * Set the exceptionStartTime value.
      *
      * @param Horde_Date $date  The exceptionStartTime.
+     * @deprecated
      */
     public function setExceptionStartTime($date)
     {
