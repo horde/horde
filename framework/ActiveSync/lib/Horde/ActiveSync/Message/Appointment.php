@@ -366,6 +366,8 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
                 $this->_properties['endtime']->sec = 0;
             }
         }
+
+        return true;
     }
 
     /**
