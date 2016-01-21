@@ -361,7 +361,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                         $this->_syncKey)
                 );
             $this->_db->delete('DELETE FROM ' . $this->_syncStateTable . ' WHERE sync_key = ?', array($this->_syncKey));
-            $this->_db->insert($sql, $params);
+            $this->_db->insertBlob($this->_syncStateTable, $params);
         }
     }
 
