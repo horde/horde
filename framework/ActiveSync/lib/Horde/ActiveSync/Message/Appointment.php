@@ -152,7 +152,6 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
         self::POOMCAL_ORGANIZEREMAIL => array (self::KEY_ATTRIBUTE => 'organizeremail'),
         self::POOMCAL_DTSTAMP        => array (self::KEY_ATTRIBUTE => 'dtstamp', self::KEY_TYPE => self::TYPE_DATE),
         self::POOMCAL_ENDTIME        => array (self::KEY_ATTRIBUTE => 'endtime', self::KEY_TYPE => self::TYPE_DATE),
-        self::POOMCAL_LOCATION       => array (self::KEY_ATTRIBUTE => 'location'),
         self::POOMCAL_REMINDER       => array (self::KEY_ATTRIBUTE => 'reminder'),
         self::POOMCAL_SENSITIVITY    => array (self::KEY_ATTRIBUTE => 'sensitivity'),
         self::POOMCAL_SUBJECT        => array (self::KEY_ATTRIBUTE => 'subject'),
@@ -202,7 +201,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
         // Removed in 16.0
         if ($this->_version <= Horde_ActiveSync::VERSION_FOURTEENONE) {
             $this->_mapping += array(
-                Horde_ActiveSync_Message_Appointment::POOMCAL_LOCATION           => array(self::KEY_ATTRIBUTE => 'location'),
+                self::POOMCAL_LOCATION => array(self::KEY_ATTRIBUTE => 'location'),
             );
             $this->_properties += array(
                 'location' => false,
