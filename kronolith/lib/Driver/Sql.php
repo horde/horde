@@ -753,7 +753,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
     }
 
     /**
-     * Delete a calendar and all its events.
+     * Delete all of a calendar's events.
      *
      * @param string $calendar  The name of the calendar to delete.
      *
