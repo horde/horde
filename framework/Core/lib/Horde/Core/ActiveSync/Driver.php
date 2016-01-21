@@ -1598,19 +1598,22 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     /**
      * Delete a message
      *
-     * @param string $folderid  The folder id
-     * @param array $ids        The message ids to delete
+     * @param string $folderid      The folder id
+     * @param array $ids            The message ids to delete
+     * @param boolean $instanceids  If true, $ids is a hash of
+     *                              instanceids => uids. @since 2.23.0
      *
      * @return array  An array of succesfully deleted messages (currently
      *                only guarenteed for email messages).
      */
-    public function deleteMessage($folderid, array $ids)
+    public function deleteMessage($folderid, array $ids, $instanceids = false)
     {
         $this->_logger->info(sprintf(
-            "[%s] Horde_Core_ActiveSync_Driver::deleteMessage() %s: %s",
+            "[%s] Horde_Core_ActiveSync_Driver::deleteMessage() %s: %s %s",
             $this->_pid,
             $folderid,
-            print_r($ids, true))
+            print_r($ids, true),
+            $instanceids)
         );
 
         $parts = $this->_parseFolderId($folderid);
@@ -1623,10 +1626,21 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         }
         ob_start();
         $results = $ids;
+
         switch ($class) {
         case Horde_ActiveSync::CLASS_CALENDAR:
+            if ($instanceids) {
+                reset($ids);
+                list($ids, $instanceid) = each($ids);
+            } else {
+                $instanceid = false;
+            }
             try {
-                $this->_connector->calendar_delete($ids, $folder_id);
+                $this->_logger->info(sprintf(
+                    'calendar_delete: %s %s %s',
+                    print_r($ids, true), $folder_id, $instanceid)
+                );
+                $this->_connector->calendar_delete($ids, $folder_id, $instanceid);
             } catch (Horde_Exception $e) {
                 // Since we don't get back successfully deleted ids and we can
                 // can pass an array of ids to delete, we need to see what ids
