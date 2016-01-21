@@ -1337,7 +1337,7 @@ class Kronolith
     }
 
     /**
-     * Deletes a share.
+     * Deletes a share and removes all events associated with it.
      *
      * @param Horde_Share $calendar  The share to delete.
      *

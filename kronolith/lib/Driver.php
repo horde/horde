@@ -443,6 +443,9 @@ class Kronolith_Driver
     /**
      * Stub to be overridden in the child class.
      *
+     * Note: This method only "Purges" the calendar - removing the
+     * events, it doesn't remove the calendar itself.
+     *
      * @throws Kronolith_Exception
      */
     public function delete($calendar)
