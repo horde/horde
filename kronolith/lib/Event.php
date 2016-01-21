@@ -1480,9 +1480,74 @@ abstract class Kronolith_Event
     }
 
     /**
+     * Handle adding/editing exceptions from EAS 16.0 clients.
+     *
+     * @param  Horde_ActiveSync_Message_Appointment $message
+     *
+     * @return boolean
+     */
+    protected function _handleEas16Exception(Horde_ActiveSync_Message_Appointment $message)
+    {
+        if (!$this->recurs()) {
+            return false;
+        }
+        $tz = $message->getTimezone();
+        $kronolith_driver = $this->getDriver();
+
+        // Do we already have an exception for this day? If so, remove the
+        // bound exception (but don't need to remove it from the recurrence
+        // object since we are just replacing it).
+        $search = new StdClass();
+        $search->baseid = $this->uid;
+        $results = $kronolith_driver->search($search);
+        foreach ($results as $days) {
+            foreach ($days as $exception) {
+                if ($exception->exceptionoriginaldate->setTimezone('UTC')->format('Ymd\THis\Z') == $message->instanceid) {
+                    $kronolith_driver->deleteEvent($exception->id);
+                    break;
+                }
+            }
+        }
+
+        // Ensure the exception is added to the recurrence object.
+        $original = new Horde_Date($message->instanceid, 'UTC');
+        $original->setTimezone($tz);
+        $this->recurrence->addException($original->format('Y'), $original->format('m'), $original->format('d'));
+
+        // Create the new exception event.
+        $event = $kronolith_driver->getEvent();
+        if ($message->starttime) {
+            $event->start = clone($message->starttime);
+            $event->start->setTimezone($tz);
+        } else {
+            $event->start = clone($this->start);
+        }
+        if ($message->endtime) {
+            $event->end = clone($message->endtime);
+            $event->end->setTimezone($tz);
+        } else {
+            $event->end = clone($this->end);
+        }
+        $event->title = $message->subject ? $message->subject : $this->title;
+        $event->description = $message->getBody();
+        $event->description = empty($event->description) ? $this->description : $event->description;
+        $event->baseid = $this->uid;
+        $event->exceptionoriginaldate = new Horde_Date($message->instanceid, 'UTC');
+        $event->exceptionoriginaldate->setTimezone($tz);
+        $event->initialized = true;
+        if ($tz != date_default_timezone_get()) {
+            $event->timezone = $tz;
+        }
+        $event->save();
+
+        return true;
+    }
+
+    /**
      * Imports the values for this event from a MS ActiveSync Message.
      *
-     * @see Horde_ActiveSync_Message_Appointment
+     * @param Horde_ActiveSync_Message_Appointment $message
+     * @throws  Kronolith_Exception
      */
     public function fromASAppointment(Horde_ActiveSync_Message_Appointment $message)
     {
@@ -1491,15 +1556,30 @@ abstract class Kronolith_Event
             $this->creator = $GLOBALS['registry']->getAuth();
         }
 
+        // EAS 16.0 sends new/changed exceptions as "orphaned" instances so
+        // they need to be handled separately.
+        if ($message->getProtocolVersion() >= Horde_ActiveSync::VERSION_SIXTEEN &&
+            !empty($message->instanceid)) {
+            if (!$this->_handleEas16Exception($message)) {
+                throw new Kronolith_Exception('Error handling EAS 16 exceptions.');
+            }
+            return;
+        }
+
         /* Meeting requests come with their own UID value. */
         $client_uid = $message->getUid();
         if (empty($this->uid) && !empty($client_uid)) {
             $this->uid = $message->getUid();
         }
 
+        // EAS 16 disallows the client to send/set the ORGANIZER.
+        // Even so, add the extra check of not allowing the organizer to
+        // be changed by the client.
         $organizer = $message->getOrganizer();
-        if ($organizer['email']) {
-            $this->organizer =  $organizer['email'];
+        if ($message->getProtocolVersion() < Horde_ActiveSync::VERSION_SIXTEEN) {
+            if ($organizer['email'] && empty($this->organizer)) {
+                $this->organizer =  $organizer['email'];
+            }
         }
 
         if (strlen($title = $message->getSubject())) {
@@ -1588,7 +1668,8 @@ abstract class Kronolith_Event
         }
 
         /* Recurrence */
-        if ($rrule = $message->getRecurrence()) {
+        if ($message->getProtocolVersion() < Horde_ActiveSync::VERSION_SIXTEEN &&
+            $rrule = $message->getRecurrence()) {
             /* Exceptions */
             /* Since AS keeps exceptions as part of the original event, we need
              * to delete all existing exceptions and re-create them. The only
@@ -1612,7 +1693,11 @@ abstract class Kronolith_Event
                 if (!$rule->deleted) {
                     $event = $kronolith_driver->getEvent();
                     $times = $rule->getDatetime();
-                    $original = $rule->getExceptionStartTime();
+                    if ($message->getProtocolVersion() < Horde_ActiveSync::VERSION_SIXTEEN) {
+                        $original = $rule->getExceptionStartTime();
+                    } else {
+                        $original = $rule->instanceid;
+                    }
                     $original->setTimezone($tz);
                     $this->recurrence->addException($original->format('Y'), $original->format('m'), $original->format('d'));
                     $event->start = $times['start'];
@@ -1633,7 +1718,11 @@ abstract class Kronolith_Event
                     $event->save();
                 } else {
                     /* For exceptions that are deletions, just add the exception */
-                    $exceptiondt = $rule->getExceptionStartTime();
+                    if ($message->getProtocolVersion() < Horde_ActiveSync::VERSION_SIXTEEN) {
+                        $exceptiondt = $rule->getExceptionStartTime();
+                    } else {
+                        $exceptiondt = $rule->instanceid;
+                    }
                     $exceptiondt->setTimezone($tz);
                     $this->recurrence->addException($exceptiondt->format('Y'), $exceptiondt->format('m'), $exceptiondt->format('d'));
                }
@@ -1701,6 +1790,11 @@ abstract class Kronolith_Event
     public function toASAppointment(array $options = array())
     {
         global $prefs, $registry;
+
+        // @todo This should be a required option.
+        if (empty($options['protocolversion'])) {
+            $options['protocolversion'] = 2.5;
+        }
 
         $message = new Horde_ActiveSync_Message_Appointment(
             array(
@@ -1838,8 +1932,14 @@ abstract class Kronolith_Event
                         'end' => $exception->end,
                         'allday' => $exception->isAllDay()));
 
-                    // The start time of the *original* recurring event
-                    $e->setExceptionStartTime($exception->exceptionoriginaldate);
+                    // The start time of the *original* recurring event.
+                    // EAS < 16.0 uses 'exceptionstarttime'. Otherwise it's
+                    // 'instanceid'.
+                    if ($options['protocolversion'] < Horde_ActiveSync::VERSION_SIXTEEN) {
+                        $e->setExceptionStartTime($exception->exceptionoriginaldate);
+                    } else {
+                        $e->instanceid = $exception->exceptionoriginaldate;
+                    }
                     $originaldate = $exception->exceptionoriginaldate->format('Ymd');
                     $key = array_search($originaldate, $exceptions);
                     if ($key !== false) {
@@ -1896,7 +1996,11 @@ abstract class Kronolith_Event
                     $st->year = $year;
                     $st->month = $month;
                     $st->mday = $mday;
-                    $e->setExceptionStartTime($st);
+                    if ($options['protocolversion'] < Horde_ActiveSync::VERSION_SIXTEEN) {
+                        $e->setExceptionStartTime($st);
+                    } else {
+                        $e->instanceid = $st;
+                    }
                     $e->deleted = true;
                     $message->addException($e);
                 }
