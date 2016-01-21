@@ -211,11 +211,11 @@ class Horde_Core_ActiveSync_Connector
      * Delete an event from Horde's calendar storage
      *
      * @param string $uid  The UID of the event to delete
-     * @param string $calendar  The calendar id. @since 2.12.0
+     * @param string $calendar  The calendar id. @since 2.12.0 @deprecated (unused).
      */
     public function calendar_delete($uid, $calendar = null)
     {
-        $this->_registry->calendar->delete($uid, null, $calendar);
+        $this->_registry->calendar->delete($uid);
     }
 
     /**
