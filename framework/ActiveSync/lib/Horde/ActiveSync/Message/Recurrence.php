@@ -125,7 +125,7 @@ class Horde_ActiveSync_Message_Recurrence extends Horde_ActiveSync_Message_Base
                 'calendartype' => false,
                 'isleapmonth' => false);
         }
-        if ($this->_version == Horde_ActiveSync::VERSION_FOURTEENONE) {
+        if ($this->_version >= Horde_ActiveSync::VERSION_FOURTEENONE) {
             $this->_mapping += array(
                 Horde_ActiveSync_Message_Appointment::POOMCAL_FIRSTDAYOFWEEK => array(self::KEY_ATTRIBUTE => 'firstdayofweek')
             );
