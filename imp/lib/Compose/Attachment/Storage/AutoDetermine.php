@@ -75,7 +75,7 @@ extends IMP_Compose_Attachment_Storage
     {
         global $conf, $injector;
 
-        if (filesize($filename) < intval($conf['compose']['link_attach_threshol'])) {
+        if (filesize($filename) < intval($conf['compose']['link_attach_threshold'])) {
             $factory = $injector->getInstance('IMP_Factory_ComposeAtc');
             $this->_storage = new $factory->classAtc($this->_user, $this->_id);
         }
