@@ -133,8 +133,10 @@ class Horde_Date
     protected $_timezone;
 
     /**
-     * These aliases map Windows and Lotus Timezone IDs to those understood by PHP
-     * This list better moves somewhere else
+     * These aliases map Windows and Lotus Timezone IDs to those understood by
+     * PHP.
+     *
+     * @todo This list better moves somewhere else
      * @var array
      */
     protected static $_timezoneAliases = array(
