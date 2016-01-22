@@ -2,6 +2,8 @@
 v7.0.0-git
 ----------
 
+[jan] Add Alt+Home and Alt+End hotkeys to navigate in preview pane
+      (michael.menge@zdv.uni-tuebingen.de, Request #13983).
 [mjr] Add support for sending MDN via the API.
 [mjr] Add imap_preauthenticate hook.
 [mms] Report multiple spam/innocent messages in a single digest.

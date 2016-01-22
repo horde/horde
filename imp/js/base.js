@@ -2718,8 +2718,24 @@ var ImpBase = {
 
         case Event.KEY_HOME:
         case Event.KEY_END:
-            this.moveSelected(kc == Event.KEY_HOME ? 1 : this.viewport.getMetaData('total_rows'), true);
-            e.stop();
+            if (e.altKey) {
+                pp = $('previewPane');
+                h = pp.getHeight();
+                if (h != pp.scrollHeight) {
+                    switch (kc) {
+                    case Event.KEY_HOME:
+                        pp.scrollTop = 0;
+                        break;
+                    case Event.KEY_END:
+                        pp.scrollTop = pp.scrollHeight;
+                        break;
+                    }
+                }
+                e.stop();
+            } else {
+              this.moveSelected(kc == Event.KEY_HOME ? 1 : this.viewport.getMetaData('total_rows'), true);
+              e.stop();
+            }
             break;
 
         case Event.KEY_RETURN:
