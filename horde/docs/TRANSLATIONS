@@ -83,9 +83,8 @@ and Brazilian Portuguese (pt_BR).
    Assuming that you have put the translated Horde file in
    ``/var/www/horde/locale/nl/LC_MESSAGES/horde.mo``::
 
-      $ export TEXTDOMAINDIR=/var/www/horde/locale
-      $ (LANG=nl_NL; LANGUAGE=nl_NL; LC_MESSAGES=nl_NL; gettext horde "Message" )
-      Bericht
+      $ TEXTDOMAINDIR=/var/www/horde/locale LANG=nl_NL.utf8 LANGUAGE=nl_NL.utf8 LC_MESSAGES=nl_NL.utf8 gettext horde "Calendar" )
+      Agenda
 
    Create a file in the horde directory, langtest.php::
 
@@ -105,19 +104,19 @@ and Brazilian Portuguese (pt_BR).
       textdomain('horde');
 
       // Print the already tested message
-      echo _("Message");
+      echo _("Calendar");
       echo '<br />';
 
       // this should print the same.
-      echo dgettext('horde', 'Message');
+      echo dgettext('horde', 'Calendar');
 
       ?>
 
    Output web browser::
 
       Geheugen uitgeput
-      Bericht
-      Bericht
+      Agenda
+      Agenda
 
 
 .. _`i18n mailing list`: http://www.horde.org/community/mail
