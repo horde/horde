@@ -10,7 +10,7 @@
  * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
  * @package  Auth
- * @todo     Add driver for smbclient extension https://github.com/eduardok/libsmbclient-php
+ * @todo     Add driver for other smbclient extensions https://github.com/eduardok/libsmbclient-php http://pecl.php.net/package/smbclient
  */
 
 /**
