@@ -789,7 +789,6 @@ $cfgSources['favourites'] = array(
         'email'
     ),
     'strict' => array(
-        'id',
     ),
     'export' => true,
     'browse' => true,
