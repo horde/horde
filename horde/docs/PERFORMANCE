@@ -90,6 +90,9 @@ Webserver/PHP tuning
 * Disable DNS lookups in your Apache logging, or use a caching DNS server on
   the web server host.
 
+  Horde itself will run DNS queries too, so make sure your DNS resolution works
+  correctly and fast.
+
 * Enable Apache keepalives.
 
 * You can configure Horde to serve all images, style sheets and/or static
