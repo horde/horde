@@ -821,6 +821,13 @@ class IMP_Indices implements ArrayAccess, Countable, Iterator
 
         /* Send out the MDN now. */
         $success = false;
+        $identity = $injector->getInstance('IMP_Identity');
+        if (isset($headers['To']) &&
+            (($match = $identity->getMatchingIdentity($headers['To'], true)) !== null)) {
+            $from = $identity->getFromAddress($match);
+        } else {
+            $from = $identity->getDefaultFromAddress();
+        }
         try {
             $mdn->generate(
                 false,
@@ -830,7 +837,7 @@ class IMP_Indices implements ArrayAccess, Countable, Iterator
                 $injector->getInstance('IMP_Mail'),
                 array(
                     'charset' => 'UTF-8',
-                    'from_addr' => $injector->getInstance('Horde_Core_Factory_Identity')->create()->getDefaultFromAddress()
+                    'from_addr' => $from
                 )
             );
 
