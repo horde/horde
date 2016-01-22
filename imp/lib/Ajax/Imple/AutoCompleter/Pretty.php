@@ -40,7 +40,7 @@ extends Horde_Core_Ajax_Imple_AutoCompleter_Ajax
                 'boxClass' => 'hordeACBox impACBox',
                 'boxClassFocus' => 'impACBoxFocus',
                 'deleteIcon' => strval(Horde_Themes::img('delete-small.png')),
-                'displayFilter' => 'new Function("t", "return t.sub(/<[^>]*>$/, \"\").strip().escapeHTML()")',
+                'displayFilter' => 'new Function("t", "return t.sub(/<[^>]*(?:>|\\.{3})$/, \"\").strip().escapeHTML()")',
                 'growingInputClass' => 'hordeACTrigger impACTrigger',
                 'listClass' => 'hordeACList impACList',
                 'processValueCallback' => 'ImpComposeBase.autocompleteValue.bind(ImpComposeBase)',

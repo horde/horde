@@ -2,6 +2,8 @@
 v6.2.12-git
 -----------
 
+[jan] Fix autocompleter filtering if items exceed the maximum size
+      (jsveiga@it.eng.br, Bug #13984).
 [jan] Use access rules compatible with both Apache 2.2 and 2.4.
 [jan] Allow to disable remote accounts by locking the preference.
 [jan] Fix setting title with newmail count in IE11 and Edge (Bug #14189).
