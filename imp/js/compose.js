@@ -1469,7 +1469,7 @@ var ImpCompose = {
                     boxClass: 'hordeACBox impACBox',
                     boxClassFocus: 'impACBoxFocus',
                     deleteIcon: ImpCore.conf.ac_delete,
-                    displayFilter: function(t) { return t.sub(/<[^>]*>$/, "").strip().escapeHTML(); },
+                    displayFilter: function(t) { return t.sub(/<[^>]*(?:>|\\.{3})$/, '').strip().escapeHTML(); },
                     growingInputClass: 'hordeACTrigger impACTrigger',
                     listClass: 'hordeACList impACList',
                     loadingText: ImpCore.text.loading,
