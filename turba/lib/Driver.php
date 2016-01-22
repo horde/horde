@@ -624,16 +624,18 @@ class Turba_Driver implements Countable
 
         /* If we are not using Horde_Share, enforce the requirement that the
          * current user must be the owner of the addressbook. */
-        $fields = array(
-            'AND' => array(
-                $fields,
-                array(
-                    'field' => $this->toDriver('__owner'),
-                    'op' => '=',
-                    'test' => $this->getContactOwner()
+        if (isset($this->map['__owner'])) {
+            $fields = array(
+                'AND' => array(
+                    $fields,
+                    array(
+                        'field' => $this->toDriver('__owner'),
+                        'op' => '=',
+                        'test' => $this->getContactOwner()
+                    )
                 )
-            )
-        );
+            );
+        }
 
         if (in_array('email', $return_fields) &&
             !in_array('emails', $return_fields)) {
