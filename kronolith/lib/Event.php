@@ -1867,9 +1867,10 @@ abstract class Kronolith_Event
         $message->setTimezone($this->start);
 
         // Organizer
+        $attendees = $this->attendees;
         if ($this->organizer) {
             $message->setOrganizer(array('email' => $this->organizer));
-        } elseif (count($this->attendees)) {
+        } elseif (count($attendees)) {
             if ($this->creator == $registry->getAuth()) {
                 $as_ident = $prefs->getValue('activesync_identity') == 'horde'
                     ? $prefs->getValue('default_identity')
@@ -1889,6 +1890,7 @@ abstract class Kronolith_Event
                 'name' => $name,
                 'email' => $email)
             );
+            unset($attendees[$email]);
         }
 
         // Privacy
@@ -2012,13 +2014,13 @@ abstract class Kronolith_Event
         }
 
         // Attendees
-        if (!$this->isPrivate() && count($this->attendees)) {
+        if (!$this->isPrivate() && count($attendees)) {
             $message->setMeetingStatus(
                 $this->status == Kronolith::STATUS_CANCELLED
                     ? Horde_ActiveSync_Message_Appointment::MEETING_CANCELLED
                     : Horde_ActiveSync_Message_Appointment::MEETING_IS_MEETING
             );
-            foreach ($this->attendees as $email => $properties) {
+            foreach ($attendees as $email => $properties) {
                 $attendee = new Horde_ActiveSync_Message_Attendee(array(
                     'protocolversion' => $options['protocolversion']));
                 $adr_obj = new Horde_Mail_Rfc822_Address($email);
