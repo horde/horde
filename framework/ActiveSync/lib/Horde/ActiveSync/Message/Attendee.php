@@ -77,4 +77,19 @@ class Horde_ActiveSync_Message_Attendee extends Horde_ActiveSync_Message_Base
         'type' => false
     );
 
+    /**
+     * Give concrete classes the chance to enforce rules on property values.
+     *
+     * @return boolean  True on success, otherwise false.
+     */
+    protected function _validateDecodedValues()
+    {
+        if ($this->_version == Horde_ActiveSync::VERSION_SIXTEEN &&
+            !empty($this->_properties['status'])) {
+            return false;
+        }
+
+        return true;
+    }
+
 }
