@@ -270,12 +270,9 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
     /**
      * Give concrete classes the chance to enforce rules on property values.
      *
-     * @param string $property  The property name.
-     * @param mixed $value      The value to test.
-     *
      * @return boolean  True on success, otherwise false.
      */
-    protected function _validateDecodedValues($property, $value)
+    protected function _validateDecodedValues()
     {
         if ($this->commandType == Horde_ActiveSync::SYNC_MODIFY &&
             $this->_version == Horde_ActiveSync::VERSION_SIXTEEN) {
