@@ -187,6 +187,8 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
         'subject'        => false,
         'timezone'       => false,
         'uid'            => false,
+        // Not part of the protocol. Used internally.
+        'serveruid'     => false,
     );
 
     /**
@@ -318,7 +320,8 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
         // These values are not allowed in a EAS 16.0 command request.
         // @todo - should we just wipe the values instead of failing the test?
         if ($this->_version == Horde_ActiveSync::VERSION_SIXTEEN) {
-            if (!empty($this->_properties['dtstamp']) ||
+            if (!empty($this->_properties['uid']) ||
+                !empty($this->_properties['dtstamp']) ||
                 !empty($this->_properties['organizername']) ||
                 !empty($this->_properties['organizeremail'])) {
                 return false;

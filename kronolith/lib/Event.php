@@ -1566,10 +1566,15 @@ abstract class Kronolith_Event
             return;
         }
 
-        /* Meeting requests come with their own UID value. */
-        $client_uid = $message->getUid();
-        if (empty($this->uid) && !empty($client_uid)) {
-            $this->uid = $message->getUid();
+         // Meeting requests come with their own UID value, but only if we
+         // are not using EAS 16.0 (16 sends a ClientUID value, but it's only
+         // purpose is to prevent duplicate events. We currently don't store
+         // this value.
+        if ($message->getProtocolVersion < Horde_ActiveSync::VERSION_SIXTEEN) {
+            $client_uid = $message->getUid();
+            if (empty($this->uid) && !empty($client_uid)) {
+                $this->uid = $message->getUid();
+            }
         }
 
         // EAS 16 disallows the client to send/set the ORGANIZER.
