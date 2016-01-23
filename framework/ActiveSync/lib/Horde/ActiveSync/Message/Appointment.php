@@ -953,6 +953,22 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
     }
 
     /**
+     * Override parent class' method. In EAS 16.0, top level appointment
+     * properties are ALWAYS ghosted.
+     *
+     * @param string $property  The property to check
+     *
+     * @return boolean
+     */
+    public function isGhosted($property)
+    {
+        if ($this->_version >= Horde_ActiveSync::VERSION_SIXTEEN) {
+            return true;
+        }
+        return parent::isGhosted($property);
+    }
+
+    /**
      * Return the collection class name the object is for.
      *
      * @return string
