@@ -337,6 +337,8 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
 
             }
         } else {
+            $old_start = !empty($event->start) ? clone($event->start) : false;
+            $old_end = !empty($event->end) ? clone($event->end) : false;
             try {
                 $old_attendees = $event->attendees;
                 $event->readForm();
@@ -344,6 +346,15 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
                     array_keys($old_attendees),
                     array_keys($event->attendees)
                 );
+                if (!empty($old_start) && !empty($old_end) &&
+                    $event->recurs() &&
+                    ($old_start->compareTime($event->start) !== 0 ||
+                     $old_end->compareTime($event->end) !== 0)) {
+                    // Disconnect any existing exceptions when the
+                    // start/end time changes still @todo this when the
+                    // recurrence series type/properties change too.
+                    $this->_disconnectExceptions($event);
+                }
                 $result = $this->_saveEvent($event);
             } catch (Exception $e) {
                 $notification->push($e);
@@ -1853,6 +1864,32 @@ EOT;
         $nevent->initialized = true;
 
         return $nevent;
+    }
+
+    /**
+     * Disconnect any existing exceptions.
+     *
+     * @param  Kronolith_Event $event  The event.
+     */
+    protected function _disconnectExceptions(Kronolith_Event $event)
+    {
+        // Get exceptions that we have bound events for.
+        $exceptions = $event->boundExceptions();
+
+        // Remove all exception dates from the recurrence object.
+        $ex_dates = $event->recurrence->getExceptions();
+        foreach ($ex_dates as $ex_date) {
+            list($year, $month, $day) = sscanf($ex_date, '%04d%02d%02d');
+            $event->recurrence->deleteException($year, $month, $day);
+        }
+
+        // Unbind the event from the base event, but don't delete it to avoid
+        // any unpleasent user surprises.
+        foreach ($exceptions as $exception) {
+            $exception->baseid = null;
+            $exception->exceptionoriginaldate = null;
+            $exception->save();
+        }
     }
 
 }

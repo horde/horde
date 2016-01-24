@@ -265,6 +265,9 @@ class Kronolith_Event_Sql extends Kronolith_Event
                 $eod = $this->exceptionoriginaldate;
             }
             $properties['event_exceptionoriginaldate'] = $eod->strftime('%Y-%m-%d %H:%M:%S');
+        } else {
+            $properties['event_baseid'] = null;
+            $properties['event_exceptionoriginaldate'] = null;
         }
 
         return $properties;
