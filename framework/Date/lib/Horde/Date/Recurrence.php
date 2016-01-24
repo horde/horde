@@ -1702,6 +1702,28 @@ class Horde_Date_Recurrence
     }
 
     /**
+     * Return whether or not this object is equal to another recurrence object.
+     * The objects are considered equal if the recurrence rules are the same.
+     * This does not take any exceptions into account.
+     *
+     * @param  Horde_Date_Recurrence $recurrence  The recurrence object to check
+     *                                            equality to.
+     *
+     * @return boolean   True if the recurrence rules are the same.
+     * @since  2.2.0
+     */
+    public function isEqual(Horde_Date_Recurrence $recurrence)
+    {
+        return ($this->getRecurType() == $recurrence->getRecurType() &&
+            $this->getRecurInterval() == $recurrence->getRecurInterval() &&
+            $this->getRecurCount() == $recurrence->getRecurCount() &&
+            $this->getRecurEnd() == $recurrence->getRecurEnd() &&
+            $this->getRecurStart() == $recurrence->getRecurStart() &&
+            $this->getRecurOnDays() == $recurrence->getRecurOnDays()
+        );
+    }
+
+    /**
      * Returns a correcty formatted exception date for recurring events.
      *
      * @param string $date    Exception in the format Ymd.
