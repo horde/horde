@@ -339,6 +339,7 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
         } else {
             $old_start = !empty($event->start) ? clone($event->start) : false;
             $old_end = !empty($event->end) ? clone($event->end) : false;
+            $old_recurrence = !empty($event->recurrence) ? clone($event->recurrence) : false;
             try {
                 $old_attendees = $event->attendees;
                 $event->readForm();
@@ -346,10 +347,11 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
                     array_keys($old_attendees),
                     array_keys($event->attendees)
                 );
-                if (!empty($old_start) && !empty($old_end) &&
+                if ((!empty($old_start) && !empty($old_end) &&
                     $event->recurs() &&
                     ($old_start->compareTime($event->start) !== 0 ||
-                     $old_end->compareTime($event->end) !== 0)) {
+                     $old_end->compareTime($event->end) !== 0)) ||
+                      ($old_recurrence && !$event->recurrence->isEqual($old_recurrence))) {
                     // Disconnect any existing exceptions when the
                     // start/end time changes still @todo this when the
                     // recurrence series type/properties change too.
