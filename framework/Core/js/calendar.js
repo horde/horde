@@ -92,7 +92,7 @@ var Horde_Calendar =
         }
         weekNr = Math.ceil((((d - newYear) / 86400000) + day + 1) / 7);
         if (weekNr == 0) {
-            return this.weekOfYear(new Date(d.getFullYear()-1, 11, 31));
+            return this.weekOfYear(new Date(d.getFullYear() - 1, 11, 31));
         }
         return weekNr;
     },
