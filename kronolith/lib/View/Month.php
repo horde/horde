@@ -146,6 +146,7 @@ class Kronolith_View_Month
         $this_link = $this->link(0, true);
         $new_url = Horde::url('new.php')->add('url', $this_link);
         $new_img = Horde::img('new_small.png', '+');
+        $weekOffset = $prefs->getValue('week_start_monday') ? 0 : 1;
 
         foreach ($this->_currentCalendars as $id => $cal) {
             if ($sidebyside) {
@@ -156,9 +157,9 @@ class Kronolith_View_Month
             for ($day = $this->_startOfView; $day < $this->_startOfView + $this->_daysInView; ++$day) {
                 $date = new Kronolith_Day($this->month, $day, $this->year);
                 $date->hour = $twentyFour ? 12 : 6;
-                $week = $date->weekOfYear();
 
                 if ($cell % 7 == 0) {
+                    $week = $date->add(array('day' => $weekOffset))->weekOfYear();
                     $weeklink = Horde::url('week.php')
                         ->add('date', $date->dateString())
                         ->link(array('class' => 'kronolith-weeklink'))
