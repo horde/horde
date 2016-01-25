@@ -1413,9 +1413,13 @@
       <configenum name="secure" desc="The encryption to use to connect to
       the SMTP server.">tls
        <values>
-        <value>none</value>
-        <value>tls</value>
-        <value>ssl</value>
+        <value desc="No encryption">none</value>
+        <value desc="Auto-detect SSL version">ssl</value>
+        <value desc="Force SSL version 2">sslv2</value>
+        <value desc="Force SSL version 3">sslv3</value>
+        <value desc="TLS">tls</value>
+        <value desc="TLS direct version 1.x connection to server (Since Horde_Smtp 1.3.0)">tlsv1</value>
+        <value desc="Use TLS, if available (Since Horde_Smtp 1.2.0)">true</value>
        </values>
       </configenum>
       <configstring name="localhost" required="false" desc="The local hostname
