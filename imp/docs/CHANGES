@@ -2,6 +2,7 @@
 v6.2.12-git
 -----------
 
+[jan] Send MDNs from the correct identity (Bug #14034).
 [jan] Fix autocompleter filtering if items exceed the maximum size
       (jsveiga@it.eng.br, Bug #13984).
 [jan] Use access rules compatible with both Apache 2.2 and 2.4.
