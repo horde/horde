@@ -83,8 +83,8 @@ class Horde_Mail_Transport_Smtphorde extends Horde_Mail_Transport
      *             DEFAULT: true (use 'tls' option, if available)
      *     - false (No encryption)
      *     - 'ssl' (Auto-detect SSL version)
-     *     - 'sslv2' (Force SSL version 3)
-     *     - 'sslv3' (Force SSL version 2)
+     *     - 'sslv2' (Force SSL version 2)
+     *     - 'sslv3' (Force SSL version 3)
      *     - 'tls' (TLS; started via protocol-level negotation over
      *       unencrypted channel; RECOMMENDED way of initiating secure
      *       connection)
