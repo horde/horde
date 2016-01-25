@@ -81,14 +81,20 @@ var Horde_Calendar =
     },
 
     // http://javascript.about.com/library/blstdweek.htm
+    // The first week of a year is the week that contains the first Thursday of the year (and, hence, always contains 4 January).
+    // see: https://en.wikipedia.org/wiki/ISO_week_date
     weekOfYear: function(d)
     {
-        var newYear = new Date(d.getFullYear(), 0, 1),
-            day = newYear.getDay();
+        var newYear = new Date(d.getFullYear(), 0, 4),
+            day = newYear.getDay(), weekNr;
         if (this.firstDayOfWeek !== 0) {
             day = ((day + (7 - this.firstDayOfWeek)) % 7);
         }
-        return Math.ceil((((d - newYear) / 86400000) + day + 1) / 7);
+        weekNr = Math.ceil((((d - newYear) / 86400000) + day + 1) / 7);
+        if (weekNr == 0) {
+            return this.weekOfYear(new Date(d.getFullYear()-1, 11, 31));
+        }
+        return weekNr;
     },
 
     draw: function(timestamp, init)
