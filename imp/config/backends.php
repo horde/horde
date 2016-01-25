@@ -150,9 +150,6 @@
  *   Horde-wide SMTP configuration, 'horde_auth' must be true (see below).
  *
  *   These configuration parameters are available:
- *     - auth: [*] (integer|boolean) Authentication method to use. Set to
- *             boolean true to choose the best available authenticate method
- *             (RECOMMENDED).
  *     - debug: (string) If set, enables SMTP debugging. See the 'debug'
  *              parameter below (under the 'Debugging Properties' header)
  *              for acceptable values.
