@@ -87,7 +87,7 @@
  *   another mail agent while the IMP session is active will not be updated.)
  *
  *   The following values are recognized:
- *     - false: Caching is disabled (DEFAULT)
+ *     - false: [DEFAULT] Caching is disabled
  *     - true: Caching is enabled using the Horde cache (configured in
  *             horde/config/conf.php). (This option is DEPRECATED; use one of
  *             the below options instead.)
@@ -162,6 +162,18 @@
  *     - localhost: [*] (string) The local hostname.
  *     - password: (string) Password to use for SMTP server authentication.
  *     - port: [*] (integer) SMTP server port.
+ *     - secure: [*] (string) Use SSL or TLS to connect.
+ *               Possible options:
+ *                 - false (No encryption)
+ *                 - 'ssl' (Auto-detect SSL version)
+ *                 - 'sslv2' (Force SSL version 2)
+ *                 - 'sslv3' (Force SSL version 3)
+ *                 - 'tls' (TLS) [DEFAULT]
+ *                 - 'tlsv1' (TLS direct version 1.x connection to server)
+ *                   [@since Horde_Smtp 1.3.0]
+ *                 - true (Use TLS, if available) [@since Horde_Smtp 1.2.0]
+ *     - timeout: (integer) Connection timeout, in seconds. Defaults to 30
+ *                seconds
  *     - username: (string) Username to use for SMTP server authentication.
  *
  * spam: (array) Spam reporting configuration. This array can contain two
