@@ -2,6 +2,7 @@
 v4.2.12-git
 -----------
 
+[jan] Fix week number in basic view if week starts on Sundays.
 [mjr] Fix issue where new event could be created with exceptions from
       previously edited event.
 [jan] Mark preferences only available in basic mode.

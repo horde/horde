@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Fix week number in basic view if week starts on Sundays.
 * [mjr] Fix issue where new event could be created with exceptions from previously edited event.
 * [jan] Mark preferences only available in basic mode.
 * [jan] Use access rules compatible with both Apache 2.2 and 2.4.
@@ -2638,6 +2639,7 @@
    <date>2016-01-13</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix week number in basic view if week starts on Sundays.
 * [mjr] Fix issue where new event could be created with exceptions from previously edited event.
 * [jan] Mark preferences only available in basic mode.
 * [jan] Use access rules compatible with both Apache 2.2 and 2.4.
