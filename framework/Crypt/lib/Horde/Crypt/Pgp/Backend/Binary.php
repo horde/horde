@@ -132,7 +132,7 @@ extends Horde_Crypt_Pgp_Backend
 
         /* If either key is empty, something went wrong. */
         if (empty($public_key) || empty($secret_key)) {
-            throw new RuntimeException();
+            throw new Horde_Crypt_Exception(_("Cannot generate PGP keys"));
         }
 
         return array(
@@ -307,7 +307,7 @@ extends Horde_Crypt_Pgp_Backend
             return $matches[1];
         }
 
-        throw new RuntimeException();
+        throw new Horde_Crypt_Exception(_("Cannot read PGP key ID"));
     }
 
     /**
@@ -328,9 +328,7 @@ extends Horde_Crypt_Pgp_Backend
             false,
             true
         );
-        if (!$result || !$result->stdout) {
-            throw new RuntimeException();
-        }
+        $this->_ensureResult($result);
 
         /* Parse fingerprints and key ids from output. */
         $fingerprints = array();
@@ -410,13 +408,7 @@ extends Horde_Crypt_Pgp_Backend
             true,
             true
         );
-
-        // TODO: error logging
-        // $error = preg_replace('/\n.*/', '', $result->stderr);
-
-        if (empty($result->output)) {
-            throw new RuntimeException();
-        }
+        $this->_ensureResult($result);
 
         return $result->output;
     }
@@ -454,13 +446,7 @@ extends Horde_Crypt_Pgp_Backend
             true,
             true
         );
-
-        // TODO: error logging
-        // $error = preg_replace('/\n.*/', '', $result->stderr);
-
-        if (empty($result->output)) {
-            throw new RuntimeException();
-        }
+        $this->_ensureResult($result);
 
         return $result->output;
     }
@@ -502,13 +488,7 @@ extends Horde_Crypt_Pgp_Backend
             true,
             true
         );
-
-        // TODO: error logging
-        // $error = preg_replace('/\n.*/', '', $result->stderr);
-
-        if (empty($result->output)) {
-            throw new RuntimeException();
-        }
+        $this->_ensureResult($result);
 
         return $this->_checkSignatureResult($result->stderr, $result->output);
     }
@@ -567,10 +547,7 @@ extends Horde_Crypt_Pgp_Backend
         );
 
         $result = $this->_callGpg($cmdline, 'r', array(), true, true);
-
-        if (empty($result->output)) {
-            throw new RuntimeException();
-        }
+        $this->_ensureResult($result);
 
         return $result->output;
     }
@@ -770,6 +747,27 @@ extends Horde_Crypt_Pgp_Backend
         );
 
         return $keyring;
+    }
+
+    /**
+     * Checks whether there was some valid output.
+     *
+     * @param object $result  A result from _callGpg().
+     *
+     * @throws Horde_Crypt_Exception with messages from stderr if the result
+     *                               output is empty.
+     */
+    protected function _ensureResult($result)
+    {
+        if (empty($result->output) && empty($result->stdout)) {
+            throw new Horde_Crypt_Exception(
+                preg_replace(
+                    array('/^gpg: /', '/\n/'),
+                    array('', '. '),
+                    $result->stderr
+                )
+            );
+        }
     }
 
     /**

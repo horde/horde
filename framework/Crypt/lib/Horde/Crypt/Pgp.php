@@ -88,7 +88,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
                 if ($ret !== false) {
                     return $ret;
                 }
-            } catch (Exception $e) {}
+            } catch (Horde_Crypt_Exception $e) {}
         }
 
         throw new Horde_Crypt_Exception(
@@ -149,7 +149,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         foreach ($this->_backends as $val) {
             try {
                 return $val->packetInfo($pgpdata);
-            } catch (Exception $e) {}
+            } catch (Horde_Crypt_Exception $e) {}
         }
 
         return array();
@@ -374,7 +374,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         foreach ($this->_backends as $val) {
             try {
                 return $val->getSignersKeyId($text);
-            } catch (Exception $e) {}
+            } catch (Horde_Crypt_Exception $e) {}
         }
 
         return null;
@@ -482,7 +482,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         foreach ($this->_backends as $val) {
             try {
                 return $val->getFingerprintsFromKey($pgpdata);
-            } catch (Exception $e) {}
+            } catch (Horde_Crypt_Exception $e) {}
         }
 
         return array();
@@ -503,7 +503,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         foreach ($this->_backends as $val) {
             try {
                 return $val->getPublicKeyFromPrivateKey($data);
-            } catch (Exception $e) {}
+            } catch (Horde_Crypt_Exception $e) {}
         }
 
         return null;
@@ -557,7 +557,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         foreach ($this->_backends as $val) {
             try {
                 return $val->$func($text, $params);
-            } catch (Exception $e) {}
+            } catch (Horde_Crypt_Exception $e) {}
         }
 
         throw new Horde_Crypt_Exception($error);
@@ -621,7 +621,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         foreach ($this->_backends as $val) {
             try {
                 return $val->$func($text, $params);
-            } catch (Exception $e) {}
+            } catch (Horde_Crypt_Exception $e) {}
         }
 
         throw new Horde_Crypt_Exception(
@@ -647,7 +647,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         foreach ($this->_backends as $val) {
             try {
                 return $val->isEncryptedSymmetrically($text);
-            } catch (Exception $e) {}
+            } catch (Horde_Crypt_Exception $e) {}
         }
 
         throw new Horde_Crypt_Exception(
