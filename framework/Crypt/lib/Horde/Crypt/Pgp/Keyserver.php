@@ -66,7 +66,7 @@ class Horde_Crypt_Pgp_Keyserver
             : new Horde_Http_Client();
         $this->_keyserver = isset($params['keyserver'])
             ? $params['keyserver']
-            : 'pool.sks-keyservers.net';
+            : 'http://pool.sks-keyservers.net';
         $this->_keyserver .= ':' . (isset($params['port']) ? $params['port'] : '11371');
     }
 

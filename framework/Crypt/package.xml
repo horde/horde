@@ -27,6 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Fix retrieving PGP keys from the keyserver with certain HTTP client backends.
 * [jan] Fix creating PGP keys with comments (Bug #14125).
 * [jan] Mark PHP 7 as supported.
  </notes>
@@ -1118,6 +1119,7 @@ Initial release as a PEAR package
    <date>2015-08-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Fix retrieving PGP keys from the keyserver with certain HTTP client backends.
 * [jan] Fix creating PGP keys with comments (Bug #14125).
 * [jan] Mark PHP 7 as supported.
    </notes>
