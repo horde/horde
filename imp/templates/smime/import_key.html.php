@@ -33,13 +33,13 @@
 <?php if ($this->target == 'process_import_personal_certs'): ?>
 <div class="horde-content">
   <label class="importKeyText">
-    <?php echo _("Password") ?>:<br />
+    <?php echo _("Password of Uploaded Certificate") ?>:<br />
     <input id="upload_key_pass" name="upload_key_pass" type="password" size="30" />
   </label>
 </div>
 <div class="horde-content">
   <label class="importKeyText">
-    <?php echo _("Private Key Password") ?>:<br />
+    <?php echo _("New Password for Private Key") ?>:<br />
     <input id="upload_key_pk_pass" name="upload_key_pk_pass" type="password" size="30" />
   </label>
 </div>
