@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Allow to import multiple PGP keys in a single PGP packet (Request #13190).
 * [jan] Add Alt+Home and Alt+End hotkeys to navigate in preview pane (michael.menge@zdv.uni-tuebingen.de, Request #13983).
 * [mjr] Add support for sending MDN via the API.
 * [mjr] Add imap_preauthenticate hook.
@@ -1256,7 +1257,7 @@
    <package>
     <name>Horde_Crypt</name>
     <channel>pear.horde.org</channel>
-    <min>2.6.0</min>
+    <min>2.7.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -3878,6 +3879,7 @@
    </stability>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Allow to import multiple PGP keys in a single PGP packet (Request #13190).
 * [jan] Add Alt+Home and Alt+End hotkeys to navigate in preview pane (michael.menge@zdv.uni-tuebingen.de, Request #13983).
 * [mjr] Add support for sending MDN via the API.
 * [mjr] Add imap_preauthenticate hook.

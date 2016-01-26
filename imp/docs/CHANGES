@@ -2,6 +2,8 @@
 v7.0.0-git
 ----------
 
+[jan] Allow to import multiple PGP keys in a single PGP packet (Request
+      #13190).
 [jan] Add Alt+Home and Alt+End hotkeys to navigate in preview pane
       (michael.menge@zdv.uni-tuebingen.de, Request #13983).
 [mjr] Add support for sending MDN via the API.

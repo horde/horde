@@ -174,43 +174,74 @@ class IMP_Pgp
      *
      * @param string $public_key  An PGP public key.
      *
-     * @return array  See Horde_Crypt_Pgp::pgpPacketInformation()
+     * @return array  See Horde_Crypt_Pgp::pgpPacketInformationMultiple()
      * @throws Horde_Crypt_Exception
      * @throws Horde_Exception
      */
     public function addPublicKey($public_key)
     {
-        /* Make sure the key is valid. */
-        $key_info = $this->_pgp->pgpPacketInformation($public_key);
-        if (!isset($key_info['signature'])) {
-            throw new Horde_Crypt_Exception(_("Not a valid public key."));
-        }
+        $valid = false;
+        $keys = array();
 
-        /* Remove the '_SIGNATURE' entry. */
-        unset($key_info['signature']['_SIGNATURE']);
+        foreach ($this->_pgp->pgpPacketInformationMultiple($public_key) as $key_info) {
+            /* Make sure the key is valid. */
+            if (!isset($key_info['signature'])) {
+                continue;
+            }
+            $valid = true;
 
-        /* Store all signatures that appear in the key. */
-        foreach ($key_info['signature'] as $id => $sig) {
-            /* Check to make sure the key does not already exist in ANY
-             * address book and remove the id from the key_info for a correct
-             * output. */
-            try {
-                $result = $this->getPublicKey($sig['email'], array(
-                    'nocache' => true,
-                    'nohooks' => true,
-                    'noserver' => true
-                ));
-                if (!empty($result)) {
-                    unset($key_info['signature'][$id]);
+            /* Remove the '_SIGNATURE' entry. */
+            unset($key_info['signature']['_SIGNATURE']);
+
+            /* Store all signatures that appear in the key. */
+            foreach ($key_info['signature'] as $id => $sig) {
+                if (!isset($sig['email'])) {
                     continue;
                 }
-            } catch (Horde_Crypt_Exception $e) {}
+                if (!isset($sig['name'])) {
+                    $key_info['signature'][$id]['name'] = $sig['name'] = $sig['email'];
+                }
 
-            /* Add key to the user's address book. */
-            $GLOBALS['registry']->call('contacts/addField', array($sig['email'], $sig['name'], self::PUBKEY_FIELD, $public_key, $GLOBALS['prefs']->getValue('add_source')));
+                /* Check to make sure the key does not already exist in ANY
+                 * address book and remove the id from the key_info for a
+                 * correct output. */
+                try {
+                    $result = $this->getPublicKey(
+                        $sig['email'],
+                        array(
+                            'nocache' => true,
+                            'nohooks' => true,
+                            'noserver' => true
+                        )
+                    );
+                    if (!empty($result)) {
+                        unset($key_info['signature'][$id]);
+                        continue;
+                    }
+                } catch (Horde_Crypt_Exception $e) {
+                }
+
+                /* Add key to the user's address book. */
+                $GLOBALS['registry']->call(
+                    'contacts/addField',
+                    array(
+                        $sig['email'],
+                        $sig['name'],
+                        self::PUBKEY_FIELD,
+                        $public_key,
+                        $GLOBALS['prefs']->getValue('add_source')
+                    )
+                );
+            }
+
+            $keys[] = $key_info;
         }
 
-        return $key_info;
+        if (!$valid) {
+            throw new Horde_Crypt_Exception(_("No valid public key found."));
+        }
+
+        return $keys;
     }
 
     /**

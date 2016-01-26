@@ -50,9 +50,12 @@ class IMP_Basic_Pgp extends IMP_Basic_Base
 
             if (count($import_keys['public'])) {
                 foreach ($import_keys['public'] as $val) {
-                    $key_info = $this->_pgp->addPublicKey($val);
-                    foreach ($key_info['signature'] as $sig) {
-                        $notification->push(sprintf(_("PGP Public Key for \"%s (%s)\" was successfully added."), $sig['name'], $sig['email']), 'horde.success');
+                    foreach ($this->_pgp->addPublicKey($val) as $key_info) {
+                        foreach ($key_info['signature'] as $sig) {
+                            if (isset($sig['email'])) {
+                                $notification->push(sprintf(_("PGP Public Key for \"%s (%s)\" was successfully added."), $sig['name'], $sig['email']), 'horde.success');
+                            }
+                        }
                     }
                 }
                 $this->_reloadWindow();
