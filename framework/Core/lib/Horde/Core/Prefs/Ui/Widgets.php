@@ -69,7 +69,7 @@ class Horde_Core_Prefs_Ui_Widgets
             }
 
             $sources[$key] = array($selected, $unselected);
-            $labels[] = array('key' => $key, 'label' => $val['label']);
+            $labels[] = array('key' => $key, 'label' => isset($val['label']) ? $val['label'] : '');
         }
 
         if (count($sources) == 1) {
