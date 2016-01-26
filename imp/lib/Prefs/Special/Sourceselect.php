@@ -58,6 +58,10 @@ class IMP_Prefs_Special_Sourceselect implements Horde_Core_Prefs_Ui_Special
             $updated = true;
         }
 
+        if ($updated) {
+            $GLOBALS['injector']->getInstance('IMP_Contacts')->clearCache();
+        }
+
         return $updated;
     }
 
