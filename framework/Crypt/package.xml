@@ -16,10 +16,10 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-08-20</date>
+ <date>2016-01-26</date>
  <version>
-  <release>2.6.2</release>
-  <api>2.6.0</api>
+  <release>2.7.0</release>
+  <api>2.7.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -27,6 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Add Horde_Crypt_Pgp::pgpPacketInformationMultiple() and Horde_Crypt_Pgp_Backend_Binary::packetInfoMultiple() (Request #13190).
 * [jan] Fix retrieving PGP keys from the keyserver with certain HTTP client backends.
 * [jan] Fix creating PGP keys with comments (Bug #14125).
 * [jan] Mark PHP 7 as supported.
@@ -1111,14 +1112,15 @@ Initial release as a PEAR package
   </release>
   <release>
    <version>
-    <release>2.6.2</release>
-    <api>2.6.0</api></version>
+    <release>2.7.0</release>
+    <api>2.7.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-08-20</date>
+   <date>2016-01-26</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Add Horde_Crypt_Pgp::pgpPacketInformationMultiple() and Horde_Crypt_Pgp_Backend_Binary::packetInfoMultiple() (Request #13190).
 * [jan] Fix retrieving PGP keys from the keyserver with certain HTTP client backends.
 * [jan] Fix creating PGP keys with comments (Bug #14125).
 * [jan] Mark PHP 7 as supported.

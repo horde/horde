@@ -99,6 +99,12 @@ class Horde_Crypt_Pgp extends Horde_Crypt
     /**
      * Returns information on a PGP data block.
      *
+     * If the data block contains multiple keys, only the first is returned. To
+     * return all keys of this block, use pgpPacketInformationMultiple()
+     * instead.
+     *
+     * @see pgpPacketInformationMultiple()
+     *
      * @param string $pgpdata  The PGP data block.
      *
      * @return array  An array with information on the PGP data block. If an
@@ -149,6 +155,31 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         foreach ($this->_backends as $val) {
             try {
                 return $val->packetInfo($pgpdata);
+            } catch (Horde_Crypt_Exception $e) {}
+        }
+
+        return array();
+    }
+
+    /**
+     * Returns all information on a PGP data block.
+     *
+     * @since Horde_Crypt 2.7.0
+     * @see pgpPacketInformation()
+     *
+     * @param string $pgpdata  The PGP data block.
+     *
+     * @return array  An array with information on the PGP data block. The
+     *                array contains one or more entries as returned from
+     *                pgpPacketInformation().
+     */
+    public function pgpPacketInformationMultiple($pgpdata)
+    {
+        $this->_initDrivers();
+
+        foreach ($this->_backends as $val) {
+            try {
+                return $val->packetInfoMultiple($pgpdata);
             } catch (Horde_Crypt_Exception $e) {}
         }
 

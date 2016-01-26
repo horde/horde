@@ -145,18 +145,21 @@ extends Horde_Crypt_Pgp_Backend
      */
     public function packetInfo($pgpdata)
     {
+        $info = $this->packetInfoMultiple($pgpdata);
+        return reset($info);
+    }
+
+    /**
+     */
+    public function packetInfoMultiple($pgpdata)
+    {
         $header = $keyid = null;
         $input = $this->_createTempFile('horde-pgp');
         $sig_id = $uid_idx = 0;
+        $key_idx = -1;
         $out = array();
 
         $this2 = $this;
-        $packetInfoKeyId = function ($input) use ($this2) {
-            $data = $this2->_callGpg(array('--with-colons', $input), 'r');
-            return preg_match('/(sec|pub):.*:.*:.*:([A-F0-9]{16}):/', $data->stdout, $matches)
-                ? $matches[2]
-                : null;
-        };
 
         $packetInfoHelper = function ($a) {
             return chr(hexdec($a[1]));
@@ -193,93 +196,120 @@ extends Horde_Crypt_Pgp_Backend
 
                 if (strpos($lowerLine, ':public key packet:') !== false) {
                     $header = 'public_key';
-                } elseif (strpos($lowerLine, ':secret key packet:') !== false) {
+                    $key_idx++;
+                    $uid_idx = 0;
+                    continue;
+                }
+
+                if (strpos($lowerLine, ':secret key packet:') !== false) {
                     $header = 'secret_key';
-                } elseif (strpos($lowerLine, ':user id packet:') !== false) {
+                    continue;
+                }
+
+                if (strpos($lowerLine, ':user id packet:') !== false) {
                     $uid_idx++;
                     $line = preg_replace_callback('/\\\\x([0-9a-f]{2})/', $packetInfoHelper, $line);
-                    if (preg_match("/\"([^\<]+)\<([^\>]+)\>\"/", $line, $matches)) {
-                        $header = 'id' . $uid_idx;
-                        if (preg_match('/([^\(]+)\((.+)\)$/', trim($matches[1]), $comment_matches)) {
-                            $out['signature'][$header]['name'] = trim($comment_matches[1]);
-                            $out['signature'][$header]['comment'] = $comment_matches[2];
-                        } else {
-                            $out['signature'][$header]['name'] = trim($matches[1]);
-                            $out['signature'][$header]['comment'] = '';
-                        }
-                        $out['signature'][$header]['email'] = $matches[2];
-                        if (is_null($keyid)) {
-                            $keyid = $packetInfoKeyId($input);
-                        }
-                        $out['signature'][$header]['keyid'] = $keyid;
+                    if (!preg_match('/"([^\<]+)\<([^\>]+)\>"/', $line, $matches)) {
+                        continue;
                     }
-                } elseif (strpos($lowerLine, ':signature packet:') !== false) {
+                    $header = 'id' . $uid_idx;
+                    if (preg_match('/([^\(]+)\((.+)\)$/', trim($matches[1]), $comment_matches)) {
+                        $out[$key_idx]['signature'][$header]['name'] = trim($comment_matches[1]);
+                        $out[$key_idx]['signature'][$header]['comment'] = $comment_matches[2];
+                    } else {
+                        $out[$key_idx]['signature'][$header]['name'] = trim($matches[1]);
+                        $out[$key_idx]['signature'][$header]['comment'] = '';
+                    }
+                    $out[$key_idx]['signature'][$header]['email'] = $matches[2];
+                    $out[$key_idx]['signature'][$header]['keyid'] = $keyid;
+                    continue;
+                }
+
+                if (strpos($lowerLine, ':signature packet:') !== false) {
                     if (empty($header) || empty($uid_idx)) {
                         $header = '_SIGNATURE';
                     }
-                    if (preg_match("/keyid\s+([0-9A-F]+)/i", $line, $matches)) {
-                        $sig_id = $matches[1];
-                        $out['signature'][$header]['sig_' . $sig_id]['keyid'] = $matches[1];
-                        $out['keyid'] = $matches[1];
+                    if (!preg_match('/keyid\s+([0-9A-F]+)/i', $line, $matches)) {
+                        continue;
                     }
-                } elseif (strpos($lowerLine, ':literal data packet:') !== false) {
+                    $sig_id = $matches[1];
+                    $out[$key_idx]['signature'][$header]['sig_' . $sig_id]['keyid'] = $matches[1];
+                    $out[$key_idx]['keyid'] = $matches[1];
+                    continue;
+                }
+
+                if (strpos($lowerLine, ':literal data packet:') !== false) {
                     $header = 'literal';
-                } elseif (strpos($lowerLine, ':encrypted data packet:') !== false) {
+                    continue;
+                }
+
+                if (strpos($lowerLine, ':encrypted data packet:') !== false) {
                     $header = 'encrypted';
-                } else {
-                    $header = null;
+                    continue;
                 }
-            } else {
-                if ($header == 'secret_key' || $header == 'public_key') {
-                    if (preg_match("/created\s+(\d+),\s+expires\s+(\d+)/i", $line, $matches)) {
-                        $out[$header]['created'] = $matches[1];
-                        $out[$header]['expires'] = $matches[2];
-                    } elseif (preg_match("/\s+[sp]key\[0\]:\s+\[(\d+)/i", $line, $matches)) {
-                        $out[$header]['size'] = $matches[1];
-                    } elseif (preg_match("/\s+keyid:\s+([0-9A-F]+)/i", $line, $matches)) {
-                        $keyid = $matches[1];
+
+                $header = null;
+                continue;
+            }
+
+            if ($header == 'secret_key' || $header == 'public_key') {
+                if (preg_match('/created\s+(\d+),\s+expires\s+(\d+)/i', $line, $matches)) {
+                    $out[$key_idx][$header]['created'] = $matches[1];
+                    $out[$key_idx][$header]['expires'] = $matches[2];
+                    continue;
+                }
+                if (preg_match('/\s+[sp]key\[0\]:\s+\[(\d+)/i', $line, $matches)) {
+                    $out[$key_idx][$header]['size'] = $matches[1];
+                    continue;
+                }
+                if (preg_match('/\s+keyid:\s+([0-9A-F]+)/i', $line, $matches)) {
+                    $keyid = $matches[1];
+                    continue;
+                }
+                continue;
+            }
+
+            if ($header == 'literal' || $header == 'encrypted') {
+                $out[$key_idx][$header] = true;
+                continue;
+            }
+
+            if ($header) {
+                if (preg_match('/version\s+\d+,\s+created\s+(\d+)/i', $line, $matches)) {
+                    $out[$key_idx]['signature'][$header]['sig_' . $sig_id]['created'] = $matches[1];
+                    continue;
+                }
+
+                if (isset($out[$key_idx]['signature'][$header]['sig_' . $sig_id]['created']) &&
+                    preg_match('/expires after (\d+y\d+d\d+h\d+m)\)$/', $line, $matches)) {
+                    $expires = $matches[1];
+                    preg_match('/^(\d+)y(\d+)d(\d+)h(\d+)m$/', $expires, $matches);
+                    list(, $years, $days, $hours, $minutes) = $matches;
+                    $out[$key_idx]['signature'][$header]['sig_' . $sig_id]['expires'] =
+                        strtotime('+ ' . $years . ' years + ' . $days . ' days + ' . $hours . ' hours + ' . $minutes . ' minutes', $out[$key_idx]['signature'][$header]['sig_' . $sig_id]['created']);
+                    continue;
+                }
+
+                if (preg_match('/digest algo\s+(\d{1})/', $line, $matches)) {
+                    $micalg = $hashAlg[$matches[1]];
+                    $out[$key_idx]['signature'][$header]['sig_' . $sig_id]['micalg'] = $micalg;
+                    if ($header == '_SIGNATURE') {
+                        /* Likely a signature block, not a key. */
+                        $out[$key_idx]['signature']['_SIGNATURE']['micalg'] = $micalg;
                     }
-                } elseif ($header == 'literal' || $header == 'encrypted') {
-                    $out[$header] = true;
-                } elseif ($header) {
-                    if (preg_match("/version\s+\d+,\s+created\s+(\d+)/i", $line, $matches)) {
-                        $out['signature'][$header]['sig_' . $sig_id]['created'] = $matches[1];
-                    } elseif (isset($out['signature'][$header]['sig_' . $sig_id]['created']) &&
-                              preg_match('/expires after (\d+y\d+d\d+h\d+m)\)$/', $line, $matches)) {
-                        $expires = $matches[1];
-                        preg_match('/^(\d+)y(\d+)d(\d+)h(\d+)m$/', $expires, $matches);
-                        list(, $years, $days, $hours, $minutes) = $matches;
-                        $out['signature'][$header]['sig_' . $sig_id]['expires'] =
-                            strtotime('+ ' . $years . ' years + ' . $days . ' days + ' . $hours . ' hours + ' . $minutes . ' minutes', $out['signature'][$header]['sig_' . $sig_id]['created']);
-                    } elseif (preg_match("/digest algo\s+(\d{1})/", $line, $matches)) {
-                        $micalg = $hashAlg[$matches[1]];
-                        $out['signature'][$header]['sig_' . $sig_id]['micalg'] = $micalg;
-                        if ($header == '_SIGNATURE') {
-                            /* Likely a signature block, not a key. */
-                            $out['signature']['_SIGNATURE']['micalg'] = $micalg;
-                        }
 
-                        if (is_null($keyid)) {
-                            $keyid = $packetInfoKeyId($input);
-                        }
-
-                        if ($sig_id == $keyid) {
-                            /* Self signing signature - we can assume
-                             * the micalg value from this signature is
-                             * that for the key */
-                            $out['signature']['_SIGNATURE']['micalg'] = $micalg;
-                            $out['signature'][$header]['micalg'] = $micalg;
-                        }
+                    if ($sig_id == $keyid) {
+                        /* Self signing signature - we can assume
+                         * the micalg value from this signature is
+                         * that for the key */
+                        $out[$key_idx]['signature']['_SIGNATURE']['micalg'] = $micalg;
+                        $out[$key_idx]['signature'][$header]['micalg'] = $micalg;
                     }
                 }
+
+                continue;
             }
         }
-
-        if (is_null($keyid)) {
-            $keyid = $packetInfoKeyId($input);
-        }
-
-        $keyid && $out['keyid'] = $keyid;
 
         return $out;
     }
@@ -597,9 +627,10 @@ extends Horde_Crypt_Pgp_Backend
      *       which does not give it access to non-puplic members, we must
      *       make this public until H6 when we can require at least PHP 5.4.
      */
-    public function _callGpg($options, $mode, $input = array(),
-                                $output = false, $stderr = false,
-                                $parseable = false, $verbose = false)
+    public function _callGpg(
+        $options, $mode, $input = array(), $output = false, $stderr = false,
+        $parseable = false, $verbose = false
+    )
     {
         $data = new stdClass;
         $data->output = null;

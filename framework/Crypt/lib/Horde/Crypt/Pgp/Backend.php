@@ -75,6 +75,21 @@ class Horde_Crypt_Pgp_Backend
     }
 
     /**
+     * Returns all information on a PGP data block.
+     *
+     * @since Horde_Crypt 2.7.0
+     *
+     * @param string $pgpdata  The PGP data block.
+     *
+     * @return array  An array with information on the PGP data block.
+     *                {@see Horde_Crypt_Pgp::pgpPacketInformationMultiple()}
+     */
+    public function packetInfoMultiple($pgpdata)
+    {
+        throw new BadMethodCallException();
+    }
+
+    /**
      * Returns the key ID of the key used to sign a block of PGP data.
      *
      * @param string $text  The PGP signed text block.
