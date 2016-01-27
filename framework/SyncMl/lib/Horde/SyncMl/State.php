@@ -285,9 +285,6 @@ class Horde_SyncMl_State
                  * P800: */
                 $this->_deviceDriver = 'P800';
             } elseif (!empty($di->Man) &&
-                      stristr($di->Man, 'synthesis') !== false) {
-                $this->_deviceDriver = 'Synthesis';
-            } elseif (!empty($di->Man) &&
                       stristr($di->Man, 'nokia') !== false) {
                 $this->_deviceDriver = 'Nokia';
             } elseif (stristr($si, 'fmz-') !== false) {

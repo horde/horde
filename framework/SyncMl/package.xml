@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Remove workarounds for ancient Synthesis clients (Bug #10942).
 * [jan] Mark PHP 7 as supported.
  </notes>
  <contents>
@@ -1336,6 +1337,7 @@ Make the SyncML package independant from Horde, provide a new Sql backend as a r
    <date>2014-12-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Remove workarounds for ancient Synthesis clients (Bug #10942).
 * [jan] Mark PHP 7 as supported.
    </notes>
   </release>
