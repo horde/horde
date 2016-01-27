@@ -690,7 +690,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
         foreach ($conf['gnupg']['keyserver'] as $server) {
             $out[] = new Horde_Crypt_Pgp_Keyserver($this, array(
                 'http' => $http,
-                'keyserver' => $server
+                'keyserver' => 'http://' . $server
             ));
         }
 
