@@ -17,7 +17,6 @@
 
 namespace Horde;
 use Horde\Socket\Client;
-use Horde\ManageSieve;
 use Horde\ManageSieve\Exception;
 
 /**
@@ -258,7 +257,7 @@ class ManageSieve
      * @param string  $port    Port of server.
      * @param array   $context List of options to pass to
      *                         stream_context_create().
-     * @param boolean $secure: Security layer requested. @see __construct().
+     * @param boolean $secure Security layer requested. @see __construct().
      *
      * @throws \Horde\ManageSieve\Exception
      */
@@ -315,7 +314,6 @@ class ManageSieve
 
         // Check if we can enable TLS via STARTTLS.
         if ($this->_params['secure'] === 'tls' ||
-            $this->_params['secure'] === 'tlsv1' ||
             ($this->_params['secure'] === true &&
              !empty($this->_capability['starttls']))) {
             $this->_doCmd('STARTTLS');
@@ -362,7 +360,7 @@ class ManageSieve
      * Defaults from the constructor are used for missing parameters.
      *
      * @param string $user        Login username.
-     * @param string $pass        Login password.
+     * @param string $password    Login password.
      * @param string $authmethod  Type of login method to use.
      * @param string $euser       Effective UID (perform on behalf of $euser).
      *
@@ -375,13 +373,13 @@ class ManageSieve
         if (isset($user)) {
             $this->_params['user'] = $user;
         }
-        if (isset($user)) {
+        if (isset($password)) {
             $this->_params['password'] = $password;
         }
-        if (isset($user)) {
+        if (isset($authmethod)) {
             $this->_params['authmethod'] = $authmethod;
         }
-        if (isset($user)) {
+        if (isset($euser)) {
             $this->_params['euser'] = $euser;
         }
 
