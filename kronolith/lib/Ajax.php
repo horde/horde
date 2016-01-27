@@ -193,7 +193,9 @@ class Kronolith_Ajax
         $js_vars['text']['recur']['exception'] = _("Exception");
 
         // Maps
-        $js_vars['conf']['maps'] = $conf['maps'];
+        $js_vars['conf']['maps'] = !empty($conf['maps'])
+            ? $conf['maps']
+            : array();
 
         return $js_vars;
     }
