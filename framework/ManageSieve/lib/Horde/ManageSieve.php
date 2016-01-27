@@ -283,7 +283,7 @@ class ManageSieve
         }
 
         if (self::STATE_DISCONNECTED != $this->_state) {
-            throw new NotDisconnected();
+            throw new Exception\NotDisconnected('Not currently in DISCONNECTED state'.' state='.$this->_state);
         }
 
         try {
@@ -295,7 +295,7 @@ class ManageSieve
                 $this->_params['context']
             );
         } catch (Client\Exception $e) {
-            throw new Exception($e);
+            throw new Exception\ConnectionFailed($e);
         }
 
         if ($this->_params['bypassauth']) {
@@ -310,7 +310,7 @@ class ManageSieve
         try {
             $this->_cmdCapability();
         } catch (Exception $e) {
-            throw new ConnectionFailed($e);
+            throw new Exception\ConnectionFailed($e);
         }
 
         // Check if we can enable TLS via STARTTLS.
@@ -338,7 +338,7 @@ class ManageSieve
             try {
                 $this->_cmdCapability();
             } catch (Exception $e) {
-                throw new ConnectionFailed($e);
+                throw new Exception\ConnectionFailed($e);
             }
         }
     }
@@ -621,7 +621,7 @@ class ManageSieve
         try {
             $this->_cmdCapability();
         } catch (Exception $e) {
-            throw new ConnectionFailed($e);
+            throw new Exception\ConnectionFailed($e);
         }
     }
 
@@ -968,7 +968,7 @@ class ManageSieve
      *
      * @throws \Horde\ManageSieve\Exception if a NO response.
      * @return string  Reponse string if an OK response.
-     *                            
+     *
      */
     protected function _doCmd($cmd = '', $auth = false)
     {
@@ -1023,7 +1023,7 @@ class ManageSieve
                         try {
                             $this->_handleConnectAndLogin();
                         } catch (Exception $e) {
-                            throw new Referral(
+                            throw new Exception\Referral(
                                 'Cannot follow referral to '
                                 . $this->_params['host'] . ', the error was: '
                                 . $e->getMessage()
@@ -1058,7 +1058,7 @@ class ManageSieve
             }
         }
 
-        throw new Referral('Max referral count (' . $referralCount . ') reached.');
+        throw new Exception\Referral('Max referral count (' . $referralCount . ') reached.');
     }
 
     /**
@@ -1119,7 +1119,7 @@ class ManageSieve
     protected function _checkConnected()
     {
         if (self::STATE_DISCONNECTED == $this->_state) {
-            throw new NotConnected();
+            throw new Exception\NotConnected();
         }
     }
 
@@ -1131,7 +1131,7 @@ class ManageSieve
     protected function _checkAuthenticated()
     {
         if (self::STATE_AUTHENTICATED != $this->_state) {
-            throw new NotAuthenticated();
+            throw new Exception\NotAuthenticated();
         }
     }
 
