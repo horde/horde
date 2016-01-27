@@ -343,7 +343,7 @@ class IMP_Pgp
                      * object exists, store the retrieved public key in the
                      * cache. */
                     if (is_object($cache)) {
-                        $cache->set("PGPpublicKey_" . $address . $keyid, $result, 3600);
+                        $cache->set('PGPpublicKey_' . $address . $keyid, $result, 3600);
                     }
                 } catch (Horde_Crypt_Exception $e) {
                     /* Return now, if no public key found at all. */
@@ -964,7 +964,7 @@ class IMP_Pgp
         foreach ($conf['gnupg']['keyserver'] as $server) {
             $out[] = new Horde_Crypt_Pgp_Keyserver($this, array(
                 'http' => $http,
-                'keyserver' => $server
+                'keyserver' => 'http://' . $server
             ));
         }
 
