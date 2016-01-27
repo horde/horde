@@ -95,6 +95,8 @@
    <configboolean name="assign_all_groups" desc="Allow assignment to any
    group? Assignment of bugs to groups can be limited to groups that users are
    members of by disabling this option" required="false">false</configboolean>
+   <configboolean name="obfuscate_email" desc="Obfuscate email addresses in
+   ticket view page?" required="false">true</configboolean>
   </configsection>
  </configtab>
 

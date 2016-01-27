@@ -777,7 +777,8 @@ class Whups
         }
         if (($showemail || empty($name) || !$showname) &&
             !empty($details['email'])) {
-            if ($html && strpos($details['email'], '@') !== false) {
+            if ($html && $GLOBALS['conf']['prefs']['obfuscate_email'] &&
+                strpos($details['email'], '@') !== false) {
                 $details['email'] = str_replace(array('@', '.'),
                                                 array(' (at) ', ' (dot) '),
                                                 $details['email']);
