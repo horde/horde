@@ -12,7 +12,6 @@
  */
 
 namespace Horde\ManageSieve\Exception;
-use Horde\ManageSieve\Exception;
 
 /**
  * Exception thrown if the server should be disconnected but isn't.

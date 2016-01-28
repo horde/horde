@@ -12,7 +12,6 @@
  */
 
 namespace Horde\ManageSieve\Exception;
-use Horde\ManageSieve\Exception;
 
 /**
  * Exception thrown if the user should be authenticated but isn't.
