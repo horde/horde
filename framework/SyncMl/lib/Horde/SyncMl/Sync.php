@@ -178,7 +178,16 @@ class Horde_SyncMl_Sync
      * @var array
      */
     protected $_server_task_adds;
-
+    
+    /**
+     * Array holding the remaining content when splitting a large object into
+     * multiple messages. Keys are numeric, values are:
+     * command, chunkContent, clientContentType, clientEncodingType, cuid, suid
+     *
+     * @var array
+     */
+    protected $_server_largeobj;
+ 
     /**
      *
      * @param string $syncType
@@ -372,6 +381,7 @@ class Horde_SyncMl_Sync
 
         $state = $GLOBALS['backend']->state;
         $device = $state->getDevice();
+        $di = $state->deviceInfo;
         $contentType = $device->getPreferredContentTypeClient(
             $this->_targetLocURI, $this->_sourceLocURI);
         $contentTypeTasks = $device->getPreferredContentTypeClient(
@@ -428,7 +438,6 @@ class Horde_SyncMl_Sync
 
             /* Now we know the number of Changes and can send them to the
              * client. */
-            $di = $state->deviceInfo;
             if ($di->SupportNumberOfChanges) {
                 $output->outputSyncStart($this->_sourceLocURI,
                                          $this->_targetLocURI,
@@ -446,6 +455,26 @@ class Horde_SyncMl_Sync
         /* We sent a Sync. So at least we espect a status response and thus
          * another message from the client. */
         $GLOBALS['message_expectresponse'] = true;
+ 
+        /* Handle large objects. */
+        if (isset($this->_server_largeobj)) {
+            list($command, $chunkContent, $clientContentType, $clientEncodingType, $cuid, $suid) = $this->_server_largeobj;
+            $backend->logMessage("Continuing sending large object from server: ".$suid, 'DEBUG');
+            $chunkLength = $state->maxMsgSize - $output->getOutputSize() - Horde_SyncMl::MSG_CHUNK_LEN - Horde_SyncMl::MSG_TRAILER_LEN;
+            if (($chunkContent = $this->_getServerLargeObjChunk($chunkLength)) !== false) {
+                $moreData = $messageFull = isset($this->_server_largeobj);
+                $cmdId = $output->outputSyncCommand($command, $chunkContent,
+                                                    $clientContentType,
+                                                    $clientEncodingType,
+                                                    $cuid, $suid,
+                                                    null, $moreData);
+                if ($messageFull) {
+                    $output->outputSyncEnd();
+                    $this->_syncsSent += 1;
+                    return;
+                }
+            }
+        }
 
         /* Handle deletions. */
         $deletes = $this->_server_deletes;
@@ -488,19 +517,50 @@ class Horde_SyncMl_Sync
             } else {
                 list($clientContent, $clientContentType, $clientEncodingType) =
                     $device->convertServer2Client($c, $contentType, $syncDB);
+                /* Trim clientContent to calculate correct size. */
+                $clientContent = trim($clientContent);
+                $clientContentLength = strlen($clientContent);
                 /* Check if we have space left in the message. */
-                if (($state->maxMsgSize - $output->getOutputSize() - strlen($clientContent)) < Horde_SyncMl::MSG_TRAILER_LEN) {
+                if (($state->maxMsgSize - $output->getOutputSize() - $clientContentLength) < Horde_SyncMl::MSG_TRAILER_LEN) {
                     $backend->logMessage(
                         'Maximum message size ' . $state->maxMsgSize
                         . ' approached during add; current size: '
                         . $output->getOutputSize(), 'DEBUG');
-                    if (strlen($clientContent) + Horde_SyncMl::MSG_DEFAULT_LEN > $state->maxMsgSize) {
-                        $backend->logMessage(
-                            'Data item won\'t fit into a single message. Partial sending not implemented yet. Item will not be sent!', 'WARN');
-                        /* @todo: implement partial sending instead of
-                         * dropping item! */
-                        unset($this->_server_adds[$suid]);
-                        continue;
+                    if ($clientContentLength + Horde_SyncMl::MSG_DEFAULT_LEN > $state->maxMsgSize) {
+                        if (!$di->SupportLargeObjs) {
+                            $backend->logMessage(
+                                'Data item won\'t fit into a single message. Client doesn\'t support large objects, so item will be skipped.', 'DEBUG');
+                            unset($this->_server_adds[$suid]);
+                            continue;
+                        } elseif ($state->maxObjSize < $clientContentLength) {
+                            $backend->logMessage(
+                                'Data item won\'t fit into a single message. Item size ' . $clientContentLength . ' exceeds maximum object size ' . $state->maxObjSize . ', so item will be skipped.', 'DEBUG');
+                            unset($this->_server_adds[$suid]);
+                            continue;
+                        } else {
+                            $backend->logMessage(
+                                'Data item won\'t fit into a single message. Split content into chunks and send in multiple messages.', 'DEBUG');
+                            $this->_server_largeobj = array('Add', $clientContent,
+                                                            $clientContentType,
+                                                            $clientEncodingType,
+                                                            null, $suid);
+                            $chunkLength = $state->maxMsgSize - $output->getOutputSize() - Horde_SyncMl::MSG_CHUNK_LEN - Horde_SyncMl::MSG_TRAILER_LEN;
+                            if (($chunkContent = $this->_getServerLargeObjChunk($chunkLength)) !== false) {
+                                $cmdId = $output->outputSyncCommand('Add', $chunkContent,
+                                                                    $clientContentType,
+                                                                    $clientEncodingType,
+                                                                    null, $suid,
+                                                                    $clientContentLength, true);
+                                /* @todo: _server_add_count, _server_adds and serverChanges on first or last chunk? */
+                                $this->_server_add_count++;
+                                unset($this->_server_adds[$suid]);
+                                $state->serverChanges[$state->messageID][$this->_targetLocURI][$cmdId] = array($suid, 0);
+                                $messageFull = true;
+                                $output->outputSyncEnd();
+                                $this->_syncsSent += 1;
+                                return;
+                            }
+                        }
                     }
                     $messageFull = true;
                     $output->outputSyncEnd();
@@ -540,19 +600,50 @@ class Horde_SyncMl_Sync
                 "Sending replace from server: $suid", 'DEBUG');
             list($clientContent, $clientContentType, $clientEncodingType) =
                 $device->convertServer2Client($c, $contentType, $syncDB);
+            /* Trim clientContent to calculate correct size. */
+            $clientContent = trim($clientContent);
+            $clientContentLength = strlen($clientContent);
             /* Check if we have space left in the message. */
-            if (($state->maxMsgSize - $output->getOutputSize() - strlen($clientContent)) < Horde_SyncMl::MSG_TRAILER_LEN) {
+            if (($state->maxMsgSize - $output->getOutputSize() - $clientContentLength) < Horde_SyncMl::MSG_TRAILER_LEN) {
                 $backend->logMessage(
                     'Maximum message size ' . $state->maxMsgSize
                     . ' approached during replace; current size: '
                     . $output->getOutputSize(), 'DEBUG');
-                if (strlen($clientContent) + Horde_SyncMl::MSG_DEFAULT_LEN > $state->maxMsgSize) {
-                    $backend->logMessage(
-                        'Data item won\'t fit into a single message. Partial sending not implemented yet. Item will not be sent!', 'WARNING');
-                    /* @todo: implement partial sending instead of
-                     * dropping item! */
-                    unset($this->_server_replaces[$suid]);
-                    continue;
+                if ($clientContentLength + Horde_SyncMl::MSG_DEFAULT_LEN > $state->maxMsgSize) {
+                    if (!$di->SupportLargeObjs) {
+                        $backend->logMessage(
+                            'Data item won\'t fit into a single message. Client doesn\'t support large objects, so item will be skipped.', 'DEBUG');
+                        unset($this->_server_adds[$suid]);
+                        continue;
+                    } elseif ($state->maxObjSize < $clientContentLength) {
+                        $backend->logMessage(
+                            'Data item won\'t fit into a single message. Item size ' . $clientContentLength . ' exceeds maximum object size ' . $state->maxObjSize . ', so item will be skipped.', 'DEBUG');
+                        unset($this->_server_adds[$suid]);
+                        continue;
+                    } else {
+                        $backend->logMessage(
+                            'Data item won\'t fit into a single message. Split content into chunks and send in multiple messages.', 'DEBUG');
+                        $this->_server_largeobj = array('Replace', $clientContent,
+                                                        $clientContentType,
+                                                        $clientEncodingType,
+                                                        $cuid, null);
+                        $chunkLength = $state->maxMsgSize - $output->getOutputSize() - Horde_SyncMl::MSG_CHUNK_LEN - Horde_SyncMl::MSG_TRAILER_LEN;
+                        if (($chunkContent = $this->_getServerLargeObjChunk($chunkLength)) !== false) {
+                            $cmdId = $output->outputSyncCommand('Replace', $chunkContent,
+                                                                $clientContentType,
+                                                                $clientEncodingType,
+                                                                $cuid, null,
+                                                                $clientContentLength, true);
+                            /* @todo: _server_replace_count, _server_replaces and serverChanges on first or last chunk? */
+                            $this->_server_replace_count++;
+                            unset($this->_server_replaces[$suid]);
+                            $state->serverChanges[$state->messageID][$this->_targetLocURI][$cmdId] = array($suid, $cuid);
+                            $messageFull = true;
+                            $output->outputSyncEnd();
+                            $this->_syncsSent += 1;
+                            return;
+                        }
+                    }
                 }
                 $messageFull = true;
                 $output->outputSyncEnd();
@@ -669,10 +760,10 @@ class Horde_SyncMl_Sync
             /* Changes not compiled yet: not pending: */
             return false;
         }
-
-        return (count($this->_server_adds) + count($this->_server_replaces) + count($this->_server_deletes)) > 0;
+ 
+        return (count($this->_server_adds) + count($this->_server_replaces) + count($this->_server_deletes) + (int)(bool)$this->_server_largeobj) > 0;
     }
-
+ 
     public function addSyncReceived()
     {
         $this->_syncsReceived++;
@@ -809,5 +900,36 @@ class Horde_SyncMl_Sync
     protected function _taskToCalendar($databaseURI)
     {
         return str_replace('calendar', 'tasks', $databaseURI);
+    }
+    
+    /**
+     * Get the next chunk from the cached large object with maximum length
+     * of chunkLength or return false.
+     *
+     * @param int $chunkLength The maximum length of the chunk.
+     *
+     * @return string  The next chunk of the cached large object.
+     */
+    protected function _getServerLargeObjChunk($chunkLength)
+    {
+        if ($this->_server_largeobj) {
+            $chunkContent = $this->_server_largeobj[1];
+            if ($chunkLength < strlen($chunkContent)) {
+                /* Ensure that no whitespace is on split edge, because it would get trimmed later during sending and size calculation would be wrong. */
+                if (preg_match('/\A.+\S\S/s', substr($chunkContent, 0, $chunkLength + 1), $matches)) {
+                    $this->_server_largeobj[1] = substr($chunkContent, strlen($matches[0]) - 1);
+                    $chunkContent = substr($matches[0], 0, -1);
+                } else {
+                    /* Error: no fitting chunk found; return empty string to finish partial sending. */
+                    $chunkContent = '';
+                    unset($this->_server_largeobj);
+                }                       
+            } else {
+                unset($this->_server_largeobj);
+            }
+            return $chunkContent;
+        } else {
+            return false;
+        } 
     }
 }

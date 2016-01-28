@@ -122,26 +122,21 @@ class Horde_SyncMl_Command_Alert extends Horde_SyncMl_Command
                                                 Horde_SyncMl::RESPONSE_INVALID_CREDENTIALS);
             return;
         }
-
-        // Handle NEXT_MESSAGE Alert by doing nothing, except OK status
-        // response.  Exception for Funambol: here we produce the output only
-        // after an explicit Horde_SyncMl::ALERT_NEXT_MESSAGE.
+ 
+        // Handle NEXT_MESSAGE Alert by sending either pending elements or
+        // OK status response.
         if ($this->_alert == Horde_SyncMl::ALERT_NEXT_MESSAGE) {
-            $this->_outputHandler->outputStatus($this->_cmdID, $this->_cmdName,
-                                                Horde_SyncMl::RESPONSE_OK);
-            // @TODO: create a getDevice()->sentyncDataLate() method instead
-            // of this:
-            if (is_a($state->getDevice(), 'Horde_SyncMl_Device_sync4j')) {
-                // Now send client changes to server. This will produce the
-                // <Sync> response.
-                $sync = &$state->getSync($this->_targetLocURI);
-                if ($sync) {
+            if ($sync = &$state->getSync($this->_targetLocURI)) {
+                if ($sync->hasPendingElements()) {
                     $sync->createSyncOutput($this->_outputHandler);
+                    return;
                 }
             }
+            $this->_outputHandler->outputStatus($this->_cmdID, $this->_cmdName,
+                                                Horde_SyncMl::RESPONSE_OK);
             return;
         }
-
+ 
         $database = $this->_targetLocURI;
         if (!$GLOBALS['backend']->isValidDatabaseURI($database)) {
             $this->_outputHandler->outputStatus($this->_cmdID, $this->_cmdName,

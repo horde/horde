@@ -533,11 +533,14 @@ class Horde_SyncMl_XmlOutput
      * @param string $encodingType  The content encoding of the object.
      * @param string $cuid          The client's object UID.
      * @param string $suid          The server's object UID.
+     * @param int $contentSize      The total content size.
+     * @param bool $moreData             Add MoreData tag when splitting messages.
      *
      * @return integer  The CmdID used for this command.
      */
     public function outputSyncCommand($command, $content = null, $contentType = null,
-                               $encodingType = null, $cuid = null, $suid = null)
+                               $encodingType = null, $cuid = null, $suid = null,
+                               $contentSize = null, $moreData = false)
     {
         $uriMeta = $GLOBALS['backend']->state->uriMeta;
 
@@ -549,9 +552,14 @@ class Horde_SyncMl_XmlOutput
             $this->output->startElement($uriMeta, 'Type');
             $this->output->characters($contentType);
             $this->output->endElement($uriMeta, 'Type');
+            if (isset($content) && isset($contentSize)) {
+                $this->output->startElement($uriMeta, 'Size');
+                $this->output->characters($contentSize);
+                $this->output->endElement($uriMeta, 'Size');
+            }
             $this->output->endElement($this->_uri, 'Meta');
         }
-
+        
         if (isset($content) || isset($cuid) || isset($suid)) {
             $this->output->startElement($this->_uri, 'Item');
             if ($suid != null) {
@@ -592,6 +600,10 @@ class Horde_SyncMl_XmlOutput
                     }
                 }
                 $this->output->endElement($this->_uri, 'Data');
+                if ($moreData) {
+                    $this->output->startElement($this->_uri, 'MoreData');
+                    $this->output->endElement($this->_uri, 'MoreData');
+                }
             }
             $this->output->endElement($this->_uri, 'Item');
         }

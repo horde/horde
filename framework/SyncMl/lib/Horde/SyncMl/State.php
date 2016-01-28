@@ -110,6 +110,15 @@ class Horde_SyncMl_State
     public $maxMsgSize = 1000000000;
 
     /**
+     * The maximum allowed object size in bytes.
+     *
+     * @todo Change to PHP_INT_MAX.
+     *
+     * @var integer
+     */
+    public $maxObjSize = 1000000000;
+
+    /**
      * Array of Horde_SyncMl_Sync objects.
      *
      * @var array

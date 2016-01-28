@@ -95,7 +95,7 @@ class Horde_SyncMl
     // const RESPONSE_INVALID_CREDENTIALS = 408;
     // const RESPONSE_INVALID_CREDENTIALS = 409;
     // const RESPONSE_INVALID_CREDENTIALS = 410;
-    // const RESPONSE_INVALID_CREDENTIALS = 411;
+    const RESPONSE_SIZE_REQUIRED = 411;
     // const RESPONSE_INVALID_CREDENTIALS = 412;
     // const RESPONSE_INVALID_CREDENTIALS = 413;
     // const RESPONSE_INVALID_CREDENTIALS = 414;
@@ -149,6 +149,15 @@ class Horde_SyncMl
      * Maximum size for one sync message as defined by SyncML protocol spec.
      */
     const SERVER_MAXMSGSIZE = 1000000000;
+
+    /**
+     * Estimated size of an empty chunk when when splitting a message,
+     * including MoreData tag.
+     *
+     * When splitting a message, we have to ensure that the size of the
+     * complete message does not exceed MaxMsgSize sent by the client.
+     */
+    const MSG_CHUNK_LEN = 180;
 
     /**
      * The "safety margin" for the closing tags when finishing a message.
