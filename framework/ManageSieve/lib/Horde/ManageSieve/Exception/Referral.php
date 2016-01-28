@@ -12,6 +12,7 @@
  */
 
 namespace Horde\ManageSieve\Exception;
+use Horde\ManageSieve;
 
 /**
  * Exception thrown if the referring to a different server failed.
@@ -22,6 +23,6 @@ namespace Horde\ManageSieve\Exception;
  * @license   http://www.horde.org/licenses/bsd BSD
  * @package   ManageSieve
  */
-class Referral extends Exception
+class Referral extends ManageSieve\Exception
 {
 }
