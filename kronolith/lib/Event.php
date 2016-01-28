@@ -1302,32 +1302,32 @@ abstract class Kronolith_Event
             try {
                 $attach = $vEvent->getAttribute('ATTACH');
                 $attach_params = $vEvent->getAttribute('ATTACH', true);
-            } catch (Horde_Icalendar_Exception $e) {}
-            if (!is_array($attach)) {
-                $attach = array($attach);
-            }
-            foreach ($attach as $key => $attribute) {
-                if (isset($attach_params[$key]['VALUE']) &&
-                    Horde_String::lower($attach_params[$key]['VALUE']) == 'uri') {
-                    // @todo
-                } elseif (Horde_String::upper($attach_params[$key]['ENCODING']) == 'BASE64') {
-                    $mime_type = !empty($attach_params[$key]['FMTTYPE'])
-                        ? $attach_params[$key]['FMTTYPE']
-                        : '';
-                    // @todo We really should add stream support to VFS
-                    $file_data = base64_decode($attribute);
-                    $vfs = $this->vfsInit();
-                    $dir = Kronolith::VFS_PATH . '/' . $this->getVfsUid();
-                    // @todo - Is there a way to get a filename from a non-uri
-                    // ATTACH attribute??
-                    $filename = sprintf(_("File %d.%s"), $key, Horde_Mime_Magic::mimeToExt($mime_type));
-                    try {
-                        $vfs->writeData($dir, $filename, $file_data, true);
-                    } catch (Horde_Vfs_Exception $e) {
-                        Horde::log($e->getMessage(), 'ERR');
+                if (!is_array($attach)) {
+                    $attach = array($attach);
+                }
+                foreach ($attach as $key => $attribute) {
+                    if (isset($attach_params[$key]['VALUE']) &&
+                        Horde_String::lower($attach_params[$key]['VALUE']) == 'uri') {
+                        // @todo
+                    } elseif (Horde_String::upper($attach_params[$key]['ENCODING']) == 'BASE64') {
+                        $mime_type = !empty($attach_params[$key]['FMTTYPE'])
+                            ? $attach_params[$key]['FMTTYPE']
+                            : '';
+                        // @todo We really should add stream support to VFS
+                        $file_data = base64_decode($attribute);
+                        $vfs = $this->vfsInit();
+                        $dir = Kronolith::VFS_PATH . '/' . $this->getVfsUid();
+                        // @todo - Is there a way to get a filename from a
+                        // non-uri ATTACH attribute??
+                        $filename = sprintf(_("File %d.%s"), $key, Horde_Mime_Magic::mimeToExt($mime_type));
+                        try {
+                            $vfs->writeData($dir, $filename, $file_data, true);
+                        } catch (Horde_Vfs_Exception $e) {
+                            Horde::log($e->getMessage(), 'ERR');
+                        }
                     }
                 }
-            }
+            } catch (Horde_Icalendar_Exception $e) {}
         }
 
         // Attendance.
