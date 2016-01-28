@@ -12,7 +12,6 @@
  */
 
 namespace Horde\ManageSieve\Exception;
-use Horde\ManageSieve;
 
 /**
  * Exception thrown if the server should be connected but isn't.

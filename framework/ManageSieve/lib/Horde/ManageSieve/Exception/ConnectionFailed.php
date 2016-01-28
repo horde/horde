@@ -12,7 +12,6 @@
  */
 
 namespace Horde\ManageSieve\Exception;
-use Horde\ManageSieve;
 
 /**
  * Exception thrown if connecting to the server failed.
@@ -28,9 +27,9 @@ class ConnectionFailed extends Exception
     /**
      * Exception constructor.
      *
-     * @param Exception $message  An Exception object.
+     * @param Exception $e  An Exception object.
      */
-    public function __construct(Exception $e)
+    public function __construct(\Exception $e)
     {
         parent::__construct('Failed to connect, server said: ' . $e->getMessage());
     }
