@@ -282,7 +282,7 @@ class ManageSieve
         }
 
         if (self::STATE_DISCONNECTED != $this->_state) {
-            throw new Exception\NotDisconnected('Not currently in DISCONNECTED state'.' state='.$this->_state);
+            throw new Exception\NotDisconnected();
         }
 
         try {
