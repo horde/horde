@@ -101,6 +101,24 @@ class ManageSieveTest extends Horde_Test_Case
         $this->logout();
     }
 
+    /**
+     * @expectedException \Horde\ManageSieve\Exception
+     */
+    public function testException()
+    {
+        $this->login();
+        $this->fixture->login($this->config['username'], $this->config['password']);
+    }
+
+    /**
+     * @expectedException \Horde\ManageSieve\Exception\NotDisconnected
+     */
+    public function testExceptionNotDisconnected()
+    {
+        $this->fixture->connect($this->config['host'], $this->config['port']);
+        $this->fixture->connect($this->config['host'], $this->config['port']);
+    }
+
     public function testConnect()
     {
         $this->fixture->connect($this->config['host'], $this->config['port']);
