@@ -186,8 +186,10 @@ extends Horde_Crypt_Pgp_Backend
             '--list-packets',
             $input
         );
+        $result = $this->_callGpg(array('--version'), 'r', null, false, false, true);
+        var_dump($result);
         $result = $this->_callGpg($cmdline, 'r', null, false, false, true);
-var_dump($result);
+
         foreach (explode("\n", $result->stdout) as $line) {
             /* Headers are prefaced with a ':' as the first character on the
              * line. */
