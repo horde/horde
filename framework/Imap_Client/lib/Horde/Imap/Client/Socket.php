@@ -439,16 +439,17 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
             unset($auth['XOAUTH2']);
 
-            /* 'AUTH=PLAIN' authentication always exists if under TLS (RFC
-             *  3501 [7.2.1]; RFC 2595). Use it over all other authentication
-             *  methods, although we need to do sanity checking since broken
-             *  IMAP servers may not support as required - fallback to
-             *  LOGIN instead. */
+            /* 'AUTH=PLAIN' authentication always exists if under TLS (RFC 3501
+             *  [7.2.1]; RFC 2595), even though we might get here with a
+             *  non-TLS secure connection too. Use it over all other
+             *  authentication methods, although we need to do sanity checking
+             *  since broken IMAP servers may not support as required -
+             *  fallback to LOGIN instead, if not explicitly disabled. */
             if ($secure) {
                 if (isset($auth['PLAIN'])) {
                     $auth_mech[] = 'PLAIN';
                     unset($auth['PLAIN']);
-                } else {
+                } elseif (!$this->_capability('LOGINDISABLED')) {
                     $auth_mech[] = 'LOGIN';
                 }
             }

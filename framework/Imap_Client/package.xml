@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Don&apos;t try LOGIN authentication over secure connections if explicitly disabled.
 * [jan] Mark PHP 7 as supported.
 * [jan] Improve Oracle compatibility.
 * [mjr] Fix fatal error during shutdown due to incorrect exception name.
@@ -2974,6 +2975,7 @@
    <date>2015-11-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Don&apos;t try LOGIN authentication over secure connections if explicitly disabled.
 * [jan] Mark PHP 7 as supported.
 * [jan] Improve Oracle compatibility.
 * [mjr] Fix fatal error during shutdown due to incorrect exception name.
