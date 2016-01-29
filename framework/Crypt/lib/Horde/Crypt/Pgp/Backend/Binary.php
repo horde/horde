@@ -187,7 +187,7 @@ extends Horde_Crypt_Pgp_Backend
             $input
         );
         $result = $this->_callGpg($cmdline, 'r', null, false, false, true);
-
+var_dump($result);
         foreach (explode("\n", $result->stdout) as $line) {
             /* Headers are prefaced with a ':' as the first character on the
              * line. */
