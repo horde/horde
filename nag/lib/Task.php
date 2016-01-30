@@ -576,18 +576,24 @@ class Nag_Task
      * Toggles completion status of this task. Moves a recurring task
      * to the next occurence on completion. Enforces the rule that sub
      * tasks must be completed before parent tasks.
-     *
-     *
      */
-    public function toggleComplete()
+    public function toggleComplete($ignore_children = false)
     {
-        $this->loadChildren();
-        if (!$this->completed && !$this->childrenCompleted()) {
-            throw new Nag_Exception(_("Must complete all children tasks."));
+        if ($ignore_children) {
+            $this->loadChildren();
+            if (!$this->completed && !$this->childrenCompleted()) {
+                throw new Nag_Exception(_("Must complete all children tasks."));
+            }
         }
         if ($this->completed) {
             $this->completed_date = null;
             $this->completed = false;
+            if ($parent = $this->getParent()) {
+                if ($parent->completed) {
+                    $parent->toggleComplete(true);
+                    $parent->save();
+                }
+            }
             if ($this->recurs()) {
                 /* Only delete the latest completion. */
                 $completions = $this->recurrence->getCompletions();
