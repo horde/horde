@@ -1682,9 +1682,29 @@ abstract class Kronolith_Event
         }
 
 
-        /* Alarm */
-        if (!$message->isGhosted('reminder') && ($alarm = $message->getReminder())) {
-            $this->alarm = $alarm;
+        // Alarms:
+        // EAS allows setting an alarm at the time of the event, and
+        // signifies this with a '0' minutes before. Kronolith does not
+        // support this, and uses '0' to mean no alarm. Make these fire
+        // at 1 minute prior.
+        if (!$message->isGhosted('reminder')) {
+            $alarm = $message->getReminder();
+            if ($alarm === 0 || $alarm === "0") {
+                // "At time of event"
+                $this->alarm = 1;
+            } elseif ($message->getProtocolVersion() >= Horde_ActiveSync::VERSION_SIXTEEN) {
+                if (empty($alarm)) {
+                    // Client sent an empty reminder tag meaning no alarm.
+                    $this->alarm = 0;
+                } else {
+                    // It was either missing (no alarm) or set with a value.
+                    $this->alarm = $alarm;
+                }
+            } elseif ($alarm) {
+               $this->alarm = $alarm;
+            } else {
+                $this->alarm = 0;
+            }
         }
 
         /* Recurrence */
