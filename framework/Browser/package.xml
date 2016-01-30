@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mjr] Don&apos;t set the empty_file_input_value quirk for recent Safari versions (Bug #14207).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -877,7 +877,7 @@ Initial packaging
    <date>2015-07-30</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mjr] Don&apos;t set the empty_file_input_value quirk for recent Safari versions (Bug #14207).
    </notes>
   </release>
  </changelog>
