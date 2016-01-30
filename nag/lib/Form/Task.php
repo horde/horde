@@ -21,6 +21,12 @@ class Nag_Form_Task extends Horde_Form
     const SECTION_DESC    = 3;
 
     /**
+     *
+     * @var Nag_Task
+     */
+    protected $_task;
+
+    /**
      * Const'r
      *
      * @param Horde_Form_Variables $vars  The form variables.
@@ -144,8 +150,7 @@ class Nag_Form_Task extends Horde_Form
             $v->setDefault(3);
             $this->addVariable(_("Estimated Time"), 'estimate', 'number', false);
             $this->addVariable(_("Actual Time"), 'actual', 'number', false);
-            $this->addVariable(_("Completed?"), 'completed', 'boolean', false);
-
+            $this->_completedVar = $this->addVariable(_("Completed?"), 'completed', 'boolean', false);
             $this->setSection(self::SECTION_RECUR, _("Recurrence"));
             $this->addVariable(_("Recurrence"), 'recurrence', 'Nag:NagRecurrence', false);
         }
@@ -185,6 +190,14 @@ class Nag_Form_Task extends Horde_Form
             ),
             'post'
         );
+    }
+
+    public function setTask(Nag_Task $task)
+    {
+        $this->_task = $task;
+        if (!$this->_task->childrenCompleted()) {
+            $this->_completedVar->disable();
+        }
     }
 
 }

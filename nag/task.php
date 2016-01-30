@@ -120,6 +120,10 @@ case 'modify_task':
             }
 
             $form = new Nag_Form_Task($vars, sprintf(_("Edit: %s"), $task->name));
+            if (!$task->completed) {
+                $task->loadChildren();
+                $form->setTask($task);
+            }
             break;
         }
     }
