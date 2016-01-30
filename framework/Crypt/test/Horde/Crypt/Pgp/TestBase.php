@@ -253,11 +253,6 @@ Version: GnuPG %s
             'me@example.com'
         );
 
-        // Some older gpg versions, verified on 1.4.11, do not report the
-        // keyid in the secret|public key packet.
-        if (empty($out['keyid'])) {
-            $this->markTestSkipped('keyid not provided by backend.');
-        }
         $this->assertEquals(
             '7CA74426BADEABD7',
             $out['keyid']
@@ -290,10 +285,6 @@ Version: GnuPG %s
             $this->_getPublicKey(),
             'id1'
         );
-
-        if (empty($out['keyid'])) {
-            $this->markTestSkipped('keyid not provided by backend.');
-        }
 
         $this->assertEquals(
             '7CA74426BADEABD7',
