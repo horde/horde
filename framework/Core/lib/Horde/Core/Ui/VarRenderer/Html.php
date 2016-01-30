@@ -910,8 +910,9 @@ EOT;
 
     protected function _renderVarInput_boolean($form, &$var, &$vars)
     {
-        $html = '<input type="checkbox" class="checkbox" name="' .  htmlspecialchars($var->getVarName()) . '"' .
-            ' id="' . $this->_genID($var->getVarName(), false) . '"' . ($var->getValue($vars) ? ' checked="checked"' : '');
+        $html = '<input type="checkbox" class="checkbox" name="' .  htmlspecialchars($var->getVarName()) . '"'
+            . ' id="' . $this->_genID($var->getVarName(), false) . '"' . ($var->getValue($vars) ? ' checked="checked"' : '')
+            . ($var->isDisabled() ? ' disabled="disabled" ' : '');
         if ($var->hasAction()) {
             $html .= $this->_genActionScript($form, $var->_action,
                                              $var->getVarName());
