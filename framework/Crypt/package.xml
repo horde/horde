@@ -27,6 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Fix parsing pgp packet information with older gpg versions.
 * [jan] Add Horde_Crypt_Pgp::pgpPacketInformationMultiple() and Horde_Crypt_Pgp_Backend_Binary::packetInfoMultiple() (Request #13190).
 * [jan] Fix retrieving PGP keys from the keyserver with certain HTTP client backends.
 * [jan] Fix creating PGP keys with comments (Bug #14125).
@@ -1120,6 +1121,7 @@ Initial release as a PEAR package
    <date>2016-01-26</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Fix parsing pgp packet information with older gpg versions.
 * [jan] Add Horde_Crypt_Pgp::pgpPacketInformationMultiple() and Horde_Crypt_Pgp_Backend_Binary::packetInfoMultiple() (Request #13190).
 * [jan] Fix retrieving PGP keys from the keyserver with certain HTTP client backends.
 * [jan] Fix creating PGP keys with comments (Bug #14125).
