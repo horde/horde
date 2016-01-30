@@ -220,6 +220,19 @@ extends Horde_Crypt_Pgp_Backend
                         $out[$key_idx]['signature'][$header]['name'] = trim($matches[1]);
                         $out[$key_idx]['signature'][$header]['comment'] = '';
                     }
+                    // Some gpg versions do not return keyid in the
+                    // :public|secret key packet: section so we use the
+                    // fingerprint
+                    if (empty($keyid)) {
+                        $cmdline = array(
+                            '--with-fingerprint',
+                            $input
+                        );
+                        $results = $this->_callGpg($cmdline, 'r', null, false, false, true);
+                        if (preg_match('/key fingerprint = ([0-9A-Z ]+)/i', $results->stdout, $m)) {
+                            $keyid = substr(str_replace(' ', '', $m[1]), -16);
+                        }
+                    }
                     $out[$key_idx]['signature'][$header]['email'] = $matches[2];
                     $out[$key_idx]['signature'][$header]['keyid'] = $keyid;
                     continue;
