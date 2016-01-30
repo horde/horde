@@ -72,7 +72,12 @@ class Nag_SaveTask_Controller extends Horde_Controller_Base
                 ->getInstance('Nag_Factory_Driver')
                 ->create($info['old_tasklist']);
             $info['tasklist'] = $info['tasklist_id'];
-            $result = $storage->modify($info['task_id'], $info);
+            try {
+                $storage->modify($info['task_id'], $info);
+            } catch (Nag_Exception $e) {
+                $notification->push(sprintf(_("There was a problem saving the task: %s."), $e->getMessage()), 'horde.error');
+                Horde::url('list.php', true)->redirect();
+            }
             $method = Nag::ITIP_UPDATE;
             $newid = array($info['task_id']);
         } else {

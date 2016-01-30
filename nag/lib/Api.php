@@ -1131,7 +1131,8 @@ class Nag_Api extends Horde_Registry_Api
      * @param string $tasklist_id  The tasklist that contains the task.
      *
      * @return boolean|string  True if the task has been toggled, a due date if
-     *                         there are still incomplete recurrences.
+     *                         there are still incomplete recurrences, otherwise
+     *                         false.
      */
     public function toggleCompletion($task_id, $tasklist_id)
     {
@@ -1146,7 +1147,12 @@ class Nag_Api extends Horde_Registry_Api
         }
         $task = Nag::getTask($tasklist_id, $task_id);
         $completed = $task->completed;
-        $task->toggleComplete();
+        try {
+            $task->toggleComplete();
+        } catch (Nag_Exception $e) {
+            Horde::log($e->getMessage(), 'DEBUG');
+            return false;
+        }
         $task->save();
         $due = $task->getNextDue();
         if ($task->completed == $completed) {
