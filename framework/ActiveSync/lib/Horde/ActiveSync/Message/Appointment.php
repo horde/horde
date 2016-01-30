@@ -954,7 +954,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
 
     /**
      * Override parent class' method. In EAS 16.0, top level appointment
-     * properties are ALWAYS ghosted.
+     * properties are ALWAYS ghosted if they are not explicitly sent.
      *
      * @param string $property  The property to check
      *
@@ -962,7 +962,8 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      */
     public function isGhosted($property)
     {
-        if ($this->_version >= Horde_ActiveSync::VERSION_SIXTEEN) {
+        if ($this->_version >= Horde_ActiveSync::VERSION_SIXTEEN &&
+            empty($this->_exists[$property])) {
             return true;
         }
         return parent::isGhosted($property);
