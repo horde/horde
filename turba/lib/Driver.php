@@ -673,7 +673,8 @@ class Turba_Driver implements Countable
         /* Need some magic if we are searching tags */
         $list = $this->_filterTags(
             $objects,
-            !empty($search_criteria['tags']) ? $injector->getInstance('Turba_Tagger')->split($search_criteria['tags']) : array()
+            !empty($search_criteria['tags']) ? $injector->getInstance('Turba_Tagger')->split($search_criteria['tags']) : array(),
+            $sort_order
         );
 
         if ($count_only) {
@@ -685,17 +686,19 @@ class Turba_Driver implements Countable
     /**
      * Returns a Turba_List object containing $objects filtered by $tags.
      *
-     * @param  array $objects  A hash of objects, as returned by self::_search.
-     * @param  array $tags     An array of tags to filter by.
+     * @param  array $objects     A hash of objects, as returned by
+     *                            self::_search.
+     * @param  array $tags        An array of tags to filter by.
+     * @param  Array $sort_order  The sort order to pass to Turba_List::sort.
      *
      * @return Turba_List  The filtered Turba_List object.
      */
-    protected function _filterTags($objects, $tags)
+    protected function _filterTags($objects, $tags, $sort_order = null)
     {
         global $injector;
 
         if (empty($tags)) {
-            return $this->_toTurbaObjects($objects);
+            return $this->_toTurbaObjects($objects, $sort_order);
         }
         $tag_results = $injector->getInstance('Turba_Tagger')
             ->search($tags, array('list' => $this->_name));
@@ -705,7 +708,7 @@ class Turba_Driver implements Countable
             return new Turba_List();
         }
 
-        $list = $this->_toTurbaObjects($objects);
+        $list = $this->_toTurbaObjects($objects, $sort_order);
         return $list->filter('__uid', $tag_results);
     }
 
