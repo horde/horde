@@ -109,16 +109,12 @@ case 'modify_task':
             $vars = new Horde_Variables($h);
             $vars->set('old_tasklist', $task->tasklist);
             $vars->set('url', Horde_Util::getFormData('url'));
-            if ($u = Horde_Util::getFormData('url')) {
-                $vars->set('url', $u);
-            }
             if ($sl = Horde_Util::getFormData('list')) {
                 $vars->set('list', $sl);
             }
             if ($tn = Horde_Util::getFormData('tab_name')) {
                 $vars->set('tab_name', $tn);
             }
-
             $form = new Nag_Form_Task($vars, sprintf(_("Edit: %s"), $task->name));
             if (!$task->completed) {
                 $task->loadChildren();
