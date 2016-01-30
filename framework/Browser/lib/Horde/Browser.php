@@ -546,6 +546,9 @@ class Horde_Browser
                     $this->setFeature('accesskey');
                     $this->setFeature('xmlhttpreq');
                 }
+                if ($this->_majorVersion >= 9) {
+                    $this->setQuirk('empty_file_input_value', 0);
+                }
             } else {
                 // Konqueror.
                 $this->setFeature('javascript', 1.1);
