@@ -1888,7 +1888,7 @@ EOT;
         // Unbind the event from the base event, but don't delete it to avoid
         // any unpleasent user surprises.
         foreach ($exceptions as $exception) {
-            $exception->baseid = null;
+            unset($exception->baseid);
             $exception->exceptionoriginaldate = null;
             $exception->save();
         }
