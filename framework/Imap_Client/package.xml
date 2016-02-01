@@ -12,7 +12,7 @@
  </lead>
  <date>2016-02-01</date>
  <version>
-  <release>2.29.5</release>
+  <release>2.29.6</release>
   <api>2.29.0</api>
  </version>
  <stability>
@@ -21,11 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Don&apos;t try LOGIN authentication over secure connections if explicitly disabled.
-* [jan] Mark PHP 7 as supported.
-* [jan] Improve Oracle compatibility.
-* [mjr] Fix fatal error during shutdown due to incorrect exception name.
-* [jan] Fix broken ID requests under certain circumstances.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2980,6 +2976,19 @@
 * [jan] Improve Oracle compatibility.
 * [mjr] Fix fatal error during shutdown due to incorrect exception name.
 * [jan] Fix broken ID requests under certain circumstances.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.29.6</release>
+    <api>2.29.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-02-01</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
