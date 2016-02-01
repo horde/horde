@@ -16,7 +16,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2015-07-31</date>
+ <date>2016-02-01</date>
  <version>
   <release>2.0.11</release>
   <api>1.0.0</api>
@@ -874,7 +874,7 @@ Initial packaging
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-07-30</date>
+   <date>2016-02-01</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Don&apos;t set the empty_file_input_value quirk for recent Safari versions (Bug #14207).
