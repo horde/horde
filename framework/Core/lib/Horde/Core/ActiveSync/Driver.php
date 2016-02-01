@@ -59,7 +59,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     protected $_connector;
 
     /**
-     * Folder cache
+     * Local cache of folders polled from the various backends.
      *
      * @var array
      */
@@ -1270,6 +1270,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      *                                truncated.
      *                DEFAULT: 0 (No truncation)
      *   - bodyprefs: (array)  The bodypref array from the device.
+     *   - type: (integer)     The Horde_ActiveSync::FOLDER_TYPE_* for this
+     *                         collection.
      *
      * @return Horde_ActiveSync_Message_Base The message data
      * @throws Horde_ActiveSync_Exception, Horde_Exception_NotFound
@@ -1444,6 +1446,13 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 }
             }
 
+            // Is this from the draft folder?
+            if ($this->_version >= Horde_ActiveSync::VERSION_SIXTEEN &&
+                !empty($collection['type']) &&
+                $collection['type'] == Horde_ActiveSync::FOLDER_TYPE_DRAFTS) {
+                $msg->isdraft = true;
+            }
+
             $this->_endBuffer();
 
             // Should we import an iTip response if we have one and we are in
@@ -1589,19 +1598,22 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     /**
      * Delete a message
      *
-     * @param string $folderid  The folder id
-     * @param array $ids        The message ids to delete
+     * @param string $folderid      The folder id
+     * @param array $ids            The message ids to delete
+     * @param boolean $instanceids  If true, $ids is a hash of
+     *                              instanceids => uids. @since 2.23.0
      *
      * @return array  An array of succesfully deleted messages (currently
      *                only guarenteed for email messages).
      */
-    public function deleteMessage($folderid, array $ids)
+    public function deleteMessage($folderid, array $ids, $instanceids = false)
     {
         $this->_logger->info(sprintf(
-            "[%s] Horde_Core_ActiveSync_Driver::deleteMessage() %s: %s",
+            "[%s] Horde_Core_ActiveSync_Driver::deleteMessage() %s: %s %s",
             $this->_pid,
             $folderid,
-            print_r($ids, true))
+            print_r($ids, true),
+            $instanceids)
         );
 
         $parts = $this->_parseFolderId($folderid);
@@ -1614,10 +1626,21 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         }
         ob_start();
         $results = $ids;
+
         switch ($class) {
         case Horde_ActiveSync::CLASS_CALENDAR:
+            if ($instanceids) {
+                reset($ids);
+                list($ids, $instanceid) = each($ids);
+            } else {
+                $instanceid = false;
+            }
             try {
-                $this->_connector->calendar_delete($ids, $folder_id);
+                $this->_logger->info(sprintf(
+                    'calendar_delete: %s %s %s',
+                    print_r($ids, true), $folder_id, $instanceid)
+                );
+                $this->_connector->calendar_delete($ids, $folder_id, $instanceid);
             } catch (Horde_Exception $e) {
                 // Since we don't get back successfully deleted ids and we can
                 // can pass an array of ids to delete, we need to see what ids
@@ -1917,6 +1940,25 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     'categories' => false
                 );
 
+                // Check for draft sync. @todo Not yet implemented since there
+                // are currently no available clients that support this to
+                // test and reverse engineer.
+                if ($this->_version >= Horde_ActiveSync::VERSION_SIXTEEN && !$id) {
+                    if ($message->send) {
+                        // @todo. Need a client that supports this to test.
+                        $this->_logger->err('NOT YET SUPPORTED.');
+                        return $stat;
+                    }
+                    // If some non-flag related property is set, we must be
+                    // setting a draft. Should probably sanity check the folder
+                    // type too. @todo Need a client that actually does this
+                    // in order to see exactly what is sent.
+                    if ($message->to) {
+                        $this->_logger->err('NOT YET SUPPORTED.');
+                        return $stat;
+                    }
+                }
+
                 if ($message->read !== '') {
                     $this->setReadFlag($folderid, $id, $message->read);
                     $stat['flags'] = array_merge($stat['flags'], array('read' => $message->read));
@@ -2074,8 +2116,15 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $itemid = $source->itemid;
             }
             try {
+                // In EAS 16.0, forwardees are passed as forwardee objects in
+                // the forwardees property.
                 if ($forward === true) {
-                    $mailer->setForward($folderid, $itemid);
+                    if (!empty($message) && !empty($message->forwardees)) {
+                        $fowardees = $message->forwardees;
+                    } else {
+                        $forwardees = array();
+                    }
+                    $mailer->setForward($folderid, $itemid, $forwardees);
                 } elseif (!empty($forward)) {
                     $mailer->setForward($parent, $forward);
                 }

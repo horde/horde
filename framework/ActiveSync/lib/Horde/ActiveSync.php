@@ -139,12 +139,35 @@ class Horde_ActiveSync
     const AIRSYNCBASE_ISINLINE                  = 'AirSyncBase:IsInline';
     const AIRSYNCBASE_NATIVEBODYTYPE            = 'AirSyncBase:NativeBodyType';
     const AIRSYNCBASE_CONTENTTYPE               = 'AirSyncBase:ContentType';
+    const AIRSYNCBASE_LOCATION                  = 'AirSyncBase:Location';
+
     // 14.0
     const AIRSYNCBASE_PREVIEW                   = 'AirSyncBase:Preview';
+
     // 14.1
     const AIRSYNCBASE_BODYPARTPREFERENCE        = 'AirSyncBase:BodyPartPreference';
     const AIRSYNCBASE_BODYPART                  = 'AirSyncBase:BodyPart';
     const AIRSYNCBASE_STATUS                    = 'AirSyncBase:Status';
+
+    // 16.0
+    const AIRSYNCBASE_ADD                       = 'AirSyncBase:Add';
+    const AIRSYNCBASE_DELETE                    = 'AirSyncBase:Delete';
+    const AIRSYNCBASE_CLIENTID                  = 'AirSyncBase:ClientId';
+    const AIRSYNCBASE_CONTENT                   = 'AirSyncBase:Content';
+    const AIRSYNCBASE_ANNOTATION                = 'AirSyncBase:Annotation';
+    const AIRSYNCBASE_STREET                    = 'AirSyncBase:Street';
+    const AIRSYNCBASE_CITY                      = 'AirSyncBase:City';
+    const AIRSYNCBASE_STATE                     = 'AirSyncBase:State';
+    const AIRSYNCBASE_COUNTRY                   = 'AirSyncBase:Country';
+    const AIRSYNCBASE_POSTALCODE                = 'AirSyncBase:PostalCode';
+    const AIRSYNCBASE_LATITUDE                  = 'AirSyncBase:Latitude';
+    const AIRSYNCBASE_LONGITUDE                 = 'AirSyncBase:Longitude';
+    const AIRSYNCBASE_ACCURACY                  = 'AirSyncBase:Accuracy';
+    const AIRSYNCBASE_ALTITUDE                  = 'AirSyncBase:Altitude';
+    const AIRSYNCBASE_ALTITUDEACCURACY          = 'AirSyncBase:AltitudeAccuracy';
+    const AIRSYNCBASE_LOCATIONURI               = 'AirSyncBase:LocationUri';
+    const AIRSYNCBASE_INSTANCEID                = 'AirSyncBase:InstanceId';
+
 
     /* Body type prefs */
     const BODYPREF_TYPE_PLAIN                   = 1;
@@ -274,6 +297,7 @@ class Horde_ActiveSync
     const VERSION_TWELVEONE                     = '12.1';
     const VERSION_FOURTEEN                      = '14.0';
     const VERSION_FOURTEENONE                   = '14.1';
+    const VERSION_SIXTEEN                       = '16.0';
 
     const MIME_SUPPORT_NONE                     = 0;
     const MIME_SUPPORT_SMIME                    = 1;
@@ -318,7 +342,7 @@ class Horde_ActiveSync
      *
      * @var float
      */
-    protected $_maxVersion = self::VERSION_FOURTEENONE;
+    protected $_maxVersion = self::VERSION_SIXTEEN;
 
     /**
      * The actual version we are supporting.
@@ -413,7 +437,8 @@ class Horde_ActiveSync
         self::VERSION_TWELVE,
         self::VERSION_TWELVEONE,
         self::VERSION_FOURTEEN,
-        self::VERSION_FOURTEENONE
+        self::VERSION_FOURTEENONE,
+        self::VERSION_SIXTEEN
     );
 
     /**
@@ -958,7 +983,10 @@ class Horde_ActiveSync
             header('MS-Server-ActiveSync: 14.0');
             break;
         case self::VERSION_FOURTEENONE:
-            header('MS-Server-ActiveSync: 14.2');
+            header('MS-Server-ActiveSync: 14.1');
+            break;
+        case self::VERSION_SIXTEEN:
+            header('MS-Server-ActiveSync: 16.0');
         }
     }
 
@@ -1005,6 +1033,7 @@ class Horde_ActiveSync
         case self::VERSION_TWELVEONE:
         case self::VERSION_FOURTEEN:
         case self::VERSION_FOURTEENONE:
+        case self::VERSION_SIXTEEN:
             return 'Sync,SendMail,SmartForward,SmartReply,GetAttachment,GetHierarchy,CreateCollection,DeleteCollection,MoveCollection,FolderSync,FolderCreate,FolderDelete,FolderUpdate,MoveItems,GetItemEstimate,MeetingResponse,Search,Settings,Ping,ItemOperations,Provision,ResolveRecipients,ValidateCert';
         }
     }

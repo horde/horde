@@ -89,6 +89,9 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
     const POOMCAL_ONLINECONFLINK          = 'POOMCAL:OnlineMeetingConfLink';
     const POOMCAL_ONLINEEXTLINK           = 'POOMCAL:OnlineMeetingExternalLink';
 
+    // 16.0
+    const POOMCAL_CLIENTUID               = 'POOMCAL:ClientUid';
+
     /* Sensitivity */
     const SENSITIVITY_NORMAL         = 0;
     const SENSITIVITY_PERSONAL       = 1;
@@ -100,6 +103,8 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
     const BUSYSTATUS_TENTATIVE       = 1;
     const BUSYSTATUS_BUSY            = 2;
     const BUSYSTATUS_OUT             = 3;
+    // 16.0 only.
+    const BUSYSTATUS_ELSEWHERE       = 4;
 
     /* All day meeting */
     const IS_ALL_DAY                 = 1;
@@ -147,7 +152,6 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
         self::POOMCAL_ORGANIZEREMAIL => array (self::KEY_ATTRIBUTE => 'organizeremail'),
         self::POOMCAL_DTSTAMP        => array (self::KEY_ATTRIBUTE => 'dtstamp', self::KEY_TYPE => self::TYPE_DATE),
         self::POOMCAL_ENDTIME        => array (self::KEY_ATTRIBUTE => 'endtime', self::KEY_TYPE => self::TYPE_DATE),
-        self::POOMCAL_LOCATION       => array (self::KEY_ATTRIBUTE => 'location'),
         self::POOMCAL_REMINDER       => array (self::KEY_ATTRIBUTE => 'reminder'),
         self::POOMCAL_SENSITIVITY    => array (self::KEY_ATTRIBUTE => 'sensitivity'),
         self::POOMCAL_SUBJECT        => array (self::KEY_ATTRIBUTE => 'subject'),
@@ -175,7 +179,6 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
         'exceptions'     => array(),
         'organizeremail' => false,
         'organizername'  => false,
-        'location'       => false,
         'meetingstatus'  => self::MEETING_NOT_MEETING,
         'recurrence'     => false,
         'reminder'       => false,
@@ -184,6 +187,8 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
         'subject'        => false,
         'timezone'       => false,
         'uid'            => false,
+        // Not part of the protocol. Used internally.
+        'serveruid'     => false,
     );
 
     /**
@@ -194,6 +199,17 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
     public function __construct(array $options = array())
     {
         parent::__construct($options);
+
+        // Removed in 16.0
+        if ($this->_version <= Horde_ActiveSync::VERSION_FOURTEENONE) {
+            $this->_mapping += array(
+                self::POOMCAL_LOCATION => array(self::KEY_ATTRIBUTE => 'location'),
+            );
+            $this->_properties += array(
+                'location' => false,
+            );
+        }
+
         if ($this->_version < Horde_ActiveSync::VERSION_TWELVE) {
             $this->_mapping += array(
                 self::POOMCAL_BODY => array(self::KEY_ATTRIBUTE => 'body'),
@@ -238,7 +254,130 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
                     'onlinemeetingexternallink' => false
                 );
             }
+            if ($this->_version >= Horde_ActiveSync::VERSION_SIXTEEN) {
+                $this->_mapping += array(
+                    Horde_ActiveSync::AIRSYNCBASE_LOCATION => array(self::KEY_ATTRIBUTE => 'location', self::KEY_TYPE => Horde_ActiveSync_Message_AirSyncBaseLocation),
+                    self::POOMCAL_CLIENTUID => array(self::KEY_ATTRIBUTE => 'clientuid'),
+                    Horde_ActiveSync::AIRSYNCBASE_INSTANCEID => array(self::KEY_ATTRIBUTE => 'instanceid', self::KEY_TYPE => self::TYPE_DATE),
+                );
+                $this->_properties += array(
+                    'location' => false,
+                    'clientuid' => false,
+                    'instanceid' => false,
+                );
+            }
         }
+    }
+
+    /**
+     * Give concrete classes the chance to enforce rules on property values.
+     *
+     * @return boolean  True on success, otherwise false.
+     */
+    protected function _validateDecodedValues()
+    {
+        if ($this->commandType == Horde_ActiveSync::SYNC_MODIFY &&
+            $this->_version == Horde_ActiveSync::VERSION_SIXTEEN) {
+
+            if ($this->_properties['alldayevent'] == true) {
+                // Timezone element is forbidden here.
+                if (!empty($this->_properties['timezone'])) {
+                    return false;
+                }
+
+                // No time components allowed here. The server is to interpret
+                // the starttime as occuring on the date listed here regardless
+                // of the timezone.
+                if ($this->_properties['starttime'] &&
+                    ($this->_properties['starttime']->hour != 0 ||
+                     $this->_properties['starttime']->min != 0 ||
+                     $this->_properties['starttime']->sec != 0)) {
+                    return false;
+                }
+                if ($this->_properties['endtime'] &&
+                    ($this->_properties['endtime']->hour != 0 ||
+                     $this->_properties['endtime']->min != 0 ||
+                     $this->_properties['endtime']->sec != 0)) {
+                    return false;
+                }
+                if ($this->_properties['recurrence'] && $this->_properties['recurrence']->until &&
+                    ($this->_properties['recurrence']->until != 0 ||
+                     $this->_properties['recurrence']->until != 0 ||
+                     $this->_properties['recurrence']->until != 0)) {
+                    return false;
+                }
+            }
+
+            // Exception events must match the alldayevent property of the
+            // master event.
+            foreach ($this->_properties['exceptions'] as $ex) {
+                if ($ex->alldayevent != $this->_properties['alldayevent']) {
+                    return false;
+                }
+            }
+        }
+
+        // These values are not allowed in a EAS 16.0 command request.
+        // @todo - should we just wipe the values instead of failing the test?
+        if ($this->_version == Horde_ActiveSync::VERSION_SIXTEEN) {
+            if (!empty($this->_properties['uid']) ||
+                !empty($this->_properties['dtstamp']) ||
+                !empty($this->_properties['organizername']) ||
+                !empty($this->_properties['organizeremail'])) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Give concrete classes the chance to enforce rules before encoding
+     * messages to send to the client.
+     *
+     * @return boolean  True if values were valid (or could be made valid).
+     *     False if values are unable to be validated.
+     * @since  2.31.0
+     */
+    protected function _preEncodeValidation()
+    {
+        if ($this->_properties['alldayevent']) {
+            if ($this->_properties['starttime']->hour != 0 ||
+                 $this->_properties['starttime']->min != 0 ||
+                 $this->_properties['starttime']->sec != 0) {
+                return false;
+            }
+            if ($this->_properties['endtime'] &&
+                ($this->_properties['endtime']->hour != 0 ||
+                 $this->_properties['endtime']->min != 0 ||
+                 $this->_properties['endtime']->sec != 0)) {
+                return false;
+            }
+
+            // For EAS 16, timezone cannot be sent for allday events. The
+            // event is interpreted to be on the given date regardless of
+            // timezone...as such, we need to manually convert to UTC here
+            // and (re)set the date to be sure it matches the desired date.
+            if ($this->_version == Horde_ActiveSync::VERSION_SIXTEEN) {
+                $this->_properties['timezone'] = false;
+                $mday = $this->_properties['starttime']->mday;
+                $this->_properties['starttime']->setTimezone('UTC');
+                $this->_properties['starttime']->mday = $mday;
+                $this->_properties['starttime']->hour = 0;
+                $this->_properties['starttime']->min = 0;
+                $this->_properties['starttime']->sec = 0;
+            }
+            if ($this->_properties['endtime']) {
+                $mday = $this->_properties['endtime']->mday;
+                $this->_properties['endtime']->setTimezone('UTC');
+                $this->_properties['endtime']->mday = $mday;
+                $this->_properties['endtime']->hour = 0;
+                $this->_properties['endtime']->min = 0;
+                $this->_properties['endtime']->sec = 0;
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -278,6 +417,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      * Set the appointment's modify timestamp
      *
      * @param mixed Horde_Date|integer $date  The date to set.
+     * @deprecated
      */
     public function setDTStamp($date)
     {
@@ -291,6 +431,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      * Get the appointment's dtimestamp
      *
      * @return Horde_Date  The timestamp.
+     * @deprecated
      */
     public function getDTStamp()
     {
@@ -359,6 +500,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      *   - start: (Horde_Date) The start time.
      *   - end: (Horde_Date) The end time.
      *   - allday: (boolean) If true, this is an allday event.
+     *  @deprecated
      */
     public function getDatetime()
     {
@@ -373,6 +515,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      * Set the appointment subject field.
      *
      * @param string $subject   A UTF-8 string
+     * @deprecated Set the property directly. I.e. $message->subject = 'Test'
      */
     public function setSubject($subject)
     {
@@ -383,6 +526,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      * Get the subject
      *
      * @return string  The UTF-8 subject string
+     * @deprecated Retrieve the value directly. I.e., $message->subject
      */
     public function getSubject()
     {
@@ -469,6 +613,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      * Set appointment location field.
      *
      * @param string $location
+     * @deprecated
      */
     public function setLocation($location)
     {
@@ -479,6 +624,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      * Get the location field
      *
      * @return string
+     * @deprecated
      */
     public function getLocation()
     {
@@ -635,6 +781,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      *   normal, personal, private, confidential
      *
      * @param integer $sensitivity  The SENSITIVITY constant
+     * @deprecated
      */
     public function setSensitivity($sensitivity)
     {
@@ -645,6 +792,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      * Return the sensitivity setting for this appointment
      *
      * @return integer  The SENSITIVITY constant
+     * @deprecated
      */
     public function getSensitivity()
     {
@@ -655,6 +803,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      * Sets the busy status for this appointment
      *
      * @param integer  $busy  The BUSYSTATUS constant
+     * @deprecated
      */
     public function setBusyStatus($busy)
     {
@@ -665,6 +814,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      * Return the busy status for this appointment.
      *
      * @return integer The BUSYSTATUS constant
+     * @deprecated
      */
     public function getBusyStatus()
     {
@@ -676,6 +826,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      *   none, organizer, tentative, accepted, declined
      *
      * @param integer $response  The response type constant
+     * @deprecated
      */
     public function setResponseType($response)
     {
@@ -686,6 +837,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      * Get response type
      *
      * @return integer  The responsetype constant
+     * @deprecated
      */
     public function getResponseType()
     {
@@ -697,6 +849,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      *
      * @param integer $minutes  The number of minutes before appintment to
      *                          trigger a reminder.
+     * @deprecated
      */
     public function setReminder($minutes)
     {
@@ -708,6 +861,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      *
      * @return integer|boolean  Number of minutes before appointment for
      *                          notifications or false if not set.
+     * @deprecated
      */
     public function getReminder()
     {
@@ -765,6 +919,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      * Set the appointment's body
      *
      * @param string $body  UTF-8 encoded string
+     * @deprecated
      */
     public function setBody($body)
     {
@@ -775,6 +930,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      * Get the appointment's body
      *
      * @return string  UTF-8 encoded string
+     * @deprecated
      */
     public function getBody()
     {
@@ -799,6 +955,23 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
     public function getCategories()
     {
         return $this->_properties['categories'];
+    }
+
+    /**
+     * Override parent class' method. In EAS 16.0, top level appointment
+     * properties are ALWAYS ghosted if they are not explicitly sent.
+     *
+     * @param string $property  The property to check
+     *
+     * @return boolean
+     */
+    public function isGhosted($property)
+    {
+        if ($this->_version >= Horde_ActiveSync::VERSION_SIXTEEN &&
+            empty($this->_exists[$property])) {
+            return true;
+        }
+        return parent::isGhosted($property);
     }
 
     /**

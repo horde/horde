@@ -97,7 +97,7 @@ class Horde_ActiveSync_Connector_Importer
     }
 
     /**
-     * Initialize the exporter for this collection
+     * Initialize the importer for this collection
      *
      * @param Horde_ActiveSync_State_Base $state  The state machine.
      * @param string $folderId                    The collection's uid.
@@ -132,8 +132,10 @@ class Horde_ActiveSync_Connector_Importer
      * @param Horde_ActiveSync_Device $device          A device descriptor
      * @param integer $clientid                        Client id sent from client.
      *                                                 on message addition.
-     * @param string $class   The collection class (only needed for SMS).
-     *                        @since 2.6.0
+     * @param string $class    The collection class (only needed for SMS).
+     *                         @since 2.6.0
+     * @param string $synckey  The synckey currently being processed.
+     *                         @since  2.31.0
      *
      * @todo Revisit passing $class for SMS. Probably pass class in the
      *       const'r.
@@ -143,7 +145,8 @@ class Horde_ActiveSync_Connector_Importer
      */
     public function importMessageChange(
         $id, Horde_ActiveSync_Message_Base $message,
-        Horde_ActiveSync_Device $device, $clientid, $class = null)
+        Horde_ActiveSync_Device $device, $clientid, $class = false,
+        $synckey = false)
     {
         // Don't support SMS, but can't tell client that. Send back a phoney
         // UID for any imported SMS objects.
@@ -152,17 +155,35 @@ class Horde_ActiveSync_Connector_Importer
         }
 
         // Changing an existing object
-        if ($id && $this->_flags == Horde_ActiveSync::CONFLICT_OVERWRITE_PIM) {
-            $conflict = $this->_isConflict(
-                Horde_ActiveSync::CHANGE_TYPE_CHANGE,
-                $this->_folderId,
-                $id);
-            if ($conflict) {
-                $this->_logger->notice(sprintf(
-                    '[%s] Conflict when updating %s, will overwrite client version on next sync.',
-                    $this->_procid, $id)
-                );
-                return array($id, Horde_ActiveSync_Request_Sync::STATUS_CONFLICT);
+        if ($id && $synckey &&
+            ($message instanceof Horde_ActiveSync_Message_Appointment) &&
+            $this->_flags == Horde_ActiveSync::CONFLICT_OVERWRITE_PIM) {
+
+            if ($this->_state->isDuplicatePIMChange($id, $synckey)) {}
+
+        } elseif ($id && $this->_flags == Horde_ActiveSync::CONFLICT_OVERWRITE_PIM) {
+            // This is complicated by the fact that in EAS 16.0, clients
+            // will send a CHANGE for adding/editing an exception along with
+            // a seperate change with the entire appointment - even if nothing
+            // else has changed. This leads to conficts (since the appointment
+            // is marked as changed after the first edit). Sniff that out here
+            // and prevent the conflict check for those messages.
+            if (!$synckey ||
+                !(($message instanceof Horde_ActiveSync_Message_Appointment) &&
+                  $this->_state->isDuplicatePIMChange($id, $synckey))) {
+
+                $conflict = $this->_isConflict(
+                    Horde_ActiveSync::CHANGE_TYPE_CHANGE,
+                    $this->_folderId,
+                    $id
+                    );
+                if ($conflict) {
+                    $this->_logger->notice(sprintf(
+                        '[%s] Conflict when updating %s, will overwrite client version on next sync.',
+                        $this->_procid, $id)
+                    );
+                    return array($id, Horde_ActiveSync_Request_Sync::STATUS_CONFLICT);
+                }
             }
         } elseif (!$id && $uid = $this->_state->isDuplicatePIMAddition($clientid)) {
             // Already saw this addition, but client never received UID
@@ -208,16 +229,41 @@ class Horde_ActiveSync_Connector_Importer
      * Import message deletions. This may conflict if the local object has been
      * modified.
      *
-     * @param array $ids          Server message uids to delete
-     * @param string $class       The server collection class.
+     * @param array $ids            Server message uids to delete
+     * @param string $class         The server collection class.
+     * @param boolean $instanceids  If true, $ids is a hash of
+     *                              instanceids => uids. @since 2.31.0
      *
      * @return array  An array containing ids of successfully deleted messages.
      */
-    public function importMessageDeletion(array $ids, $class)
+    public function importMessageDeletion(array $ids, $class, $instanceids = false)
     {
         // Don't support SMS, but can't tell client that.
         if ($class == Horde_ActiveSync::CLASS_SMS) {
             return array();
+        }
+
+        if ($instanceids) {
+            foreach ($ids as $uid => $iid) {
+                $mod = $this->_as->driver->getSyncStamp($this->_folderId);
+                $this->_as->driver->deleteMessage($this->_folderId, array($uid => $iid), true);
+                $change = array(
+                    'id' => $uid,
+                    'mod' => $mod,
+                    'serverid' => $this->_folderId
+                );
+                // Log this as a change in the state, not a deletion because
+                // these are actually instances of recurring series being
+                // deleted, not the entire item being deleted.
+                $this->_state->updateState(
+                    Horde_ActiveSync::CHANGE_TYPE_CHANGE,
+                    $change,
+                    Horde_ActiveSync::CHANGE_ORIGIN_PIM,
+                    $this->_as->driver->getUser()
+                );
+            }
+
+            return $ids;
         }
 
         // Ask the backend to delete the message.

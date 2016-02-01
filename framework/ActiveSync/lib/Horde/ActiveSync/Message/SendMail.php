@@ -39,15 +39,19 @@
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  *
- * @property string   $clientid      The client's temporary clientid for this item.
- * @property boolean   $saveinsent   Flag to indicate whether to save in sent mail.
- * @property boolean   $replacemime  Flag to indicate we are replacing the full
- *                                MIME data (i.e., not a SMART item).
- * @property string   $accountid     The accountid.
+ * @property string   $clientid         The client's temporary clientid for this
+ *                                      item.
+ * @property boolean   $saveinsent      Flag to indicate whether to save in sent
+ *                                      mail.
+ * @property boolean   $replacemime     Flag to indicate we are replacing the
+ *                                      Full MIME data (i.e., not a SMART item).
+ * @property string   $accountid        The accountid.
  * @property Horde_ActiveSync_Message_SendMailSource   $source
- *                                The email source.
- * @property string|stream mime   The MIME contents of the message.
- * @property string   $templateid    The templateid.
+ *                                      The email source.
+ * @property string|stream mime         The MIME contents of the message.
+ * @property string  $templateid        The templateid.
+ * @property string  $forwardees        An array of Forwardee objects.
+ *                                      EAS 16.0 Only.
  */
 class Horde_ActiveSync_Message_SendMail extends Horde_ActiveSync_Message_Base
 {
@@ -62,6 +66,13 @@ class Horde_ActiveSync_Message_SendMail extends Horde_ActiveSync_Message_Base
     const COMPOSEMAIL_CLIENTID        = 'ComposeMail:ClientId';
     const COMPOSEMAIL_STATUS          = 'ComposeMail:Status';
     const COMPOSEMAIL_ACCOUNTID       = 'ComposeMail:AccountId';
+
+    // 16.0
+    const COMPOSEMAIL_FORWARDEES      = 'ComposeMail:Forwardees';
+    const COMPOSEMAIL_FORWARDEE       = 'ComposeMail:Forwardee';
+    const COMPOSEMAIL_FORWARDEENAME   = 'ComposeMail:ForwardeeName';
+    const COMPOSEMAIL_FORWARDEEEMAIL  = 'ComposeMail:ForwardeeEmail';
+
 
     /**
      * Property mapping
@@ -92,6 +103,24 @@ class Horde_ActiveSync_Message_SendMail extends Horde_ActiveSync_Message_Base
         'mime'        => false,
         'templateid'  => false,
     );
+
+    /**
+     * Const'r
+     *
+     * @see Horde_ActiveSync_Message_Base::__construct()
+     */
+    public function __construct(array $options = array())
+    {
+        parent::__construct($options);
+        if ($this->_version >= Horde_ActiveSync::VERSION_SIXTEEN) {
+            $this->_mapping += array(
+                self::COMPOSEMAIL_FORWARDEES => array(self::KEY_ATTRIBUTE => 'forwardees', self::KEY_TYPE => 'Horde_ActiveSync_Message_Forwardee', self::KEY_VALUES => self::COMPOSEMAIL_FORWARDEE),
+            );
+            $this->_properties += array(
+                'forwardees'     => false
+            );
+        }
+    }
 
     public function &__get($property)
     {

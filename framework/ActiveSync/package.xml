@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-01-20</date>
+ <date>2016-01-23</date>
  <version>
   <release>2.30.7</release>
   <api>2.30.0</api>
@@ -76,6 +76,7 @@
        <file name="AirSyncBaseBody.php" role="php" />
        <file name="AirSyncBaseBodypart.php" role="php" />
        <file name="AirSyncBaseFileAttachment.php" role="php" />
+       <file name="AirSyncBaseLocation.php" role="php" />
        <file name="Appointment.php" role="php" />
        <file name="Attachment.php" role="php" />
        <file name="Attendee.php" role="php" />
@@ -87,6 +88,7 @@
        <file name="Exception.php" role="php" />
        <file name="Flag.php" role="php" />
        <file name="Folder.php" role="php" />
+       <file name="Forwardee.php" role="php" />
        <file name="GalPicture.php" role="php" />
        <file name="Mail.php" role="php" />
        <file name="MeetingRequest.php" role="php" />
@@ -473,6 +475,7 @@
    <install as="Horde/ActiveSync/Message/AirSyncBaseBody.php" name="lib/Horde/ActiveSync/Message/AirSyncBaseBody.php" />
    <install as="Horde/ActiveSync/Message/AirSyncBaseBodypart.php" name="lib/Horde/ActiveSync/Message/AirSyncBaseBodypart.php" />
    <install as="Horde/ActiveSync/Message/AirSyncBaseFileAttachment.php" name="lib/Horde/ActiveSync/Message/AirSyncBaseFileAttachment.php" />
+   <install as="Horde/ActiveSync/Message/AirSyncBaseLocation.php" name="lib/Horde/ActiveSync/Message/AirSyncBaseLocation.php" />
    <install as="Horde/ActiveSync/Message/Appointment.php" name="lib/Horde/ActiveSync/Message/Appointment.php" />
    <install as="Horde/ActiveSync/Message/Attachment.php" name="lib/Horde/ActiveSync/Message/Attachment.php" />
    <install as="Horde/ActiveSync/Message/Attendee.php" name="lib/Horde/ActiveSync/Message/Attendee.php" />
@@ -484,6 +487,7 @@
    <install as="Horde/ActiveSync/Message/Exception.php" name="lib/Horde/ActiveSync/Message/Exception.php" />
    <install as="Horde/ActiveSync/Message/Flag.php" name="lib/Horde/ActiveSync/Message/Flag.php" />
    <install as="Horde/ActiveSync/Message/Folder.php" name="lib/Horde/ActiveSync/Message/Folder.php" />
+   <install as="Horde/ActiveSync/Message/Forwardee.php" name="lib/Horde/ActiveSync/Message/Forwardee.php" />
    <install as="Horde/ActiveSync/Message/GalPicture.php" name="lib/Horde/ActiveSync/Message/GalPicture.php" />
    <install as="Horde/ActiveSync/Message/Mail.php" name="lib/Horde/ActiveSync/Message/Mail.php" />
    <install as="Horde/ActiveSync/Message/MeetingRequest.php" name="lib/Horde/ActiveSync/Message/MeetingRequest.php" />

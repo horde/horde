@@ -319,6 +319,8 @@ class Horde_ActiveSync_Wbxml
                 0x39 => 'FirstDayOfWeek',
                 0x3a => 'OnlineMeetingConfLink',
                 0x3b => 'OnlineMeetingExternalLink',
+                // EAS 16.0
+                0x3c => 'ClientUid',
             ),
             /* MOVE */
             5 => array (
@@ -378,6 +380,10 @@ class Horde_ActiveSync_Wbxml
                 0x0b => 'Status',
                 0x0c => 'UserResponse',
                 0x0d => 'Version',
+                // EAS 14.1
+                0x0e => 'InstanceId',
+                // EAS 16.0
+                0x12 => 'SendResponse',
             ),
             /* POOMTASKS */
             9 => array (
@@ -621,6 +627,25 @@ class Horde_ActiveSync_Wbxml
                 0x19 => 'BodyPartPreference',
                 0x1a => 'BodyPart',
                 0x1b => 'Status',
+                // EAS 16.0
+                0x1c => 'Add',
+                0x1d => 'Delete',
+                0x1e => 'ClientId',
+                0x1f => 'Content',
+                0x20 => 'Location',
+                0x21 => 'Annontation',
+                0x22 => 'Street',
+                0x23 => 'City',
+                0x24 => 'State',
+                0x25 => 'Country',
+                0x26 => 'PostalCode',
+                0x27 => 'Latitude',
+                0x28 => 'Longitude',
+                0x29 => 'Accuracy',
+                0x2a => 'Altitude',
+                0x2b => 'AltitudeAccuracy',
+                0x2c => 'LocationUri',
+                0x2d => 'InstanceId',
             ),
 
             /* SETTINGS */
@@ -726,6 +751,11 @@ class Horde_ActiveSync_Wbxml
                 0x12 => 'Status',
                 // 14.1
                 0x13 => 'AccountId',
+                // EAS 16.0
+                0x15 => 'Forwardees',
+                0x16 => 'Forwardee',
+                0x17 => 'ForwardeeName',
+                0x18 => 'ForwardeeEmail'
             ),
 
             /* POOMMAIL2 (14.0) */
@@ -746,6 +776,10 @@ class Horde_ActiveSync_Wbxml
                 0x11 => 'AccountId',
                 0x12 => 'FirstDayOfWeek',
                 0x13 => 'MeetingMessageType',
+                // EAS 16.0
+                0x15 => 'IsDraft',
+                0x16 => 'Bcc',
+                0x17 => 'Send'
             ),
 
             /* Notes (14.0) */

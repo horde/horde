@@ -126,6 +126,14 @@ class Horde_Core_ActiveSync_Mail
     protected $_version;
 
     /**
+     * Array of email addresses to forward message to, if using SMART_FORWARD.
+     *
+     * @var array
+     * @since  2.31.0
+     */
+    protected $_forwardees = array();
+
+    /**
      * Const'r
      *
      * @param Horde_ActiveSync_Imap_Adapter $imap  The IMAP adapter.
@@ -196,9 +204,13 @@ class Horde_Core_ActiveSync_Mail
      *
      * @param string $parent  The folder containing the source message.
      * @param integer $id     The source message UID.
+     * @param  array $params  Additional parameters: @since 2.31.0
+     *   - forwardees: An array of email addresses that this message will be
+     *                 forwarded to. DEFAULT: Recipients are taken from raw
+     *                 message.
      * @throws Horde_ActiveSync_Exception
      */
-    public function setForward($parent, $id)
+    public function setForward($parent, $id, $params = array())
     {
         if (!empty($this->_reply)) {
             throw new Horde_ActiveSync_Exception('Cannot set both Forward and Reply.');
@@ -206,6 +218,10 @@ class Horde_Core_ActiveSync_Mail
         $this->_id = $id;
         $this->_parentFolder = $parent;
         $this->_forward = true;
+
+        if (!empty($params['forwardees'])) {
+            $this->_forwardees = $params['forwardees'];
+        }
     }
 
     /**
@@ -360,6 +376,18 @@ class Horde_Core_ActiveSync_Mail
         // text sent from the client, not the fully generated MIME message.
         $this->_headers->removeHeader('Content-Type');
         $this->_headers->removeHeader('Content-Transfer-Encoding');
+
+        // Check for EAS 16.0 Forwardees
+        if (!empty($this->_forwardees)) {
+            $list = new Horde_Mail_Rfc822_List();
+            foreach ($this->_forwardees as $forwardee) {
+                $to = new Horde_Mail_Rfc822_Address($forwardee->email);
+                $to->personal = $forwardee->name;
+                $list->add($to);
+            }
+            $this->_headers->add('To', $list->writeAddress());
+        }
+
         $mail = new Horde_Mime_Mail($this->_headers->toArray(array('charset' => 'UTF-8')));
         $base_part = $this->imapMessage->getStructure();
         $plain_id = $base_part->findBody('plain');

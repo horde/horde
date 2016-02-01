@@ -999,9 +999,10 @@ class Kronolith_Api extends Horde_Registry_Api
      * @param string|array $uid     A single UID or an array identifying the
      *                              event(s) to delete.
      *
-     * @param string $recurrenceId  The reccurenceId for the event instance, if
+     * @param mixed $recurrenceId   The reccurenceId for the event instance, if
      *                              this is a deletion of a recurring event
      *                              instance ($uid must not be an array).
+     *                              Either a string or Horde_Date object.
      * @param string $range         The range value if deleting a recurring
      *                              event instance. Only supported values are
      *                              null or Kronolith::RANGE_THISANDFUTURE.
@@ -1057,8 +1058,14 @@ class Kronolith_Api extends Horde_Registry_Api
             throw new Horde_Exception_PermissionDenied();
         }
 
+        if ($recurrenceId instanceof Horde_Date) {
+            $recurrenceId->setTimezone($event->timezone ? $event->timezone : date_default_timezone_get());
+        }
+
         if ($recurrenceId && $event->recurs() && empty($range)) {
-            $deleteDate = new Horde_Date($recurrenceId);
+            $deleteDate = ($recurrenceId instanceof Horde_Date)
+                ? $recurrenceId
+                : new Horde_Date($recurrenceId);
             $event->recurrence->addException($deleteDate->format('Y'), $deleteDate->format('m'), $deleteDate->format('d'));
             $event->save();
         } elseif ($range == Kronolith::RANGE_THISANDFUTURE) {
