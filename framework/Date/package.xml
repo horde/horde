@@ -18,7 +18,7 @@
  </lead>
  <date>2016-02-01</date>
  <version>
-  <release>2.2.0</release>
+  <release>2.2.1</release>
   <api>2.2.0</api>
  </version>
  <stability>
@@ -27,8 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Add Horde_Date_Recurrence::isEqual().
-* [jan] Mark PHP 7 as supported.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1063,6 +1062,19 @@
    <notes>
 * [mjr] Add Horde_Date_Recurrence::isEqual().
 * [jan] Mark PHP 7 as supported.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.1</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-02-01</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
