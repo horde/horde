@@ -125,7 +125,7 @@ class IMP_Compose_Link
     {
         $url->add('popup_link', 1);
 
-        return "javascript:void(window.open('" . strval($url) . "','','width=800,height=600,status=1,scrollbars=yes,resizable=yes'))";
+        return "javascript:void(window.open('" . strval($url) . "','','width=820,height=600,status=1,scrollbars=yes,resizable=yes'))";
     }
 
     /**
