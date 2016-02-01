@@ -30,7 +30,7 @@
  </developer>
  <date>2016-02-01</date>
  <version>
-  <release>2.1.4</release>
+  <release>2.1.5</release>
   <api>2.1.0</api>
  </version>
  <stability>
@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Mark PHP 7 as supported.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1001,6 +1001,19 @@ Initial release as a PEAR package
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Mark PHP 7 as supported.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.5</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-02-01</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
