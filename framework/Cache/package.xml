@@ -18,7 +18,7 @@
  </lead>
  <date>2016-02-01</date>
  <version>
-  <release>2.5.2</release>
+  <release>2.5.3</release>
   <api>2.5.0</api>
  </version>
  <stability>
@@ -27,11 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Improve performance and memory consumption of garbage collection in File driver.
-* [jan] Fix garbage collection in File driver.
-* [jan] Fix caching issues within the same request in the Memcache driver.
-* [jan] Fix the Mongo driver&apos;s expire() if not using a logger.
-* [jan] Add unit tests.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -667,6 +663,19 @@ Initial packaging.
 * [jan] Fix caching issues within the same request in the Memcache driver.
 * [jan] Fix the Mongo driver&apos;s expire() if not using a logger.
 * [jan] Add unit tests.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.5.3</release>
+    <api>2.5.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-02-01</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
