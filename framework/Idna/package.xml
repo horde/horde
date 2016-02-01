@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-04-28</date>
+ <date>2016-02-01</date>
  <version>
   <release>1.0.4</release>
   <api>1.0.0</api>
@@ -158,7 +158,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-04-28</date>
+   <date>2016-02-01</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [jan] Mark PHP 7 as supported.
