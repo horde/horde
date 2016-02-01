@@ -17,7 +17,6 @@
 
 namespace Horde;
 use Horde\Socket\Client;
-use Horde\ManageSieve;
 use Horde\ManageSieve\Exception;
 
 /**
@@ -258,7 +257,7 @@ class ManageSieve
      * @param string  $port    Port of server.
      * @param array   $context List of options to pass to
      *                         stream_context_create().
-     * @param boolean $secure: Security layer requested. @see __construct().
+     * @param boolean $secure Security layer requested. @see __construct().
      *
      * @throws \Horde\ManageSieve\Exception
      */
@@ -283,7 +282,7 @@ class ManageSieve
         }
 
         if (self::STATE_DISCONNECTED != $this->_state) {
-            throw new NotDisconnected();
+            throw new Exception\NotDisconnected();
         }
 
         try {
@@ -295,7 +294,7 @@ class ManageSieve
                 $this->_params['context']
             );
         } catch (Client\Exception $e) {
-            throw new Exception($e);
+            throw new Exception\ConnectionFailed($e);
         }
 
         if ($this->_params['bypassauth']) {
@@ -310,12 +309,11 @@ class ManageSieve
         try {
             $this->_cmdCapability();
         } catch (Exception $e) {
-            throw new ConnectionFailed($e);
+            throw new Exception\ConnectionFailed($e);
         }
 
         // Check if we can enable TLS via STARTTLS.
         if ($this->_params['secure'] === 'tls' ||
-            $this->_params['secure'] === 'tlsv1' ||
             ($this->_params['secure'] === true &&
              !empty($this->_capability['starttls']))) {
             $this->_doCmd('STARTTLS');
@@ -338,7 +336,7 @@ class ManageSieve
             try {
                 $this->_cmdCapability();
             } catch (Exception $e) {
-                throw new ConnectionFailed($e);
+                throw new Exception\ConnectionFailed($e);
             }
         }
     }
@@ -362,7 +360,7 @@ class ManageSieve
      * Defaults from the constructor are used for missing parameters.
      *
      * @param string $user        Login username.
-     * @param string $pass        Login password.
+     * @param string $password    Login password.
      * @param string $authmethod  Type of login method to use.
      * @param string $euser       Effective UID (perform on behalf of $euser).
      *
@@ -375,13 +373,13 @@ class ManageSieve
         if (isset($user)) {
             $this->_params['user'] = $user;
         }
-        if (isset($user)) {
+        if (isset($password)) {
             $this->_params['password'] = $password;
         }
-        if (isset($user)) {
+        if (isset($authmethod)) {
             $this->_params['authmethod'] = $authmethod;
         }
-        if (isset($user)) {
+        if (isset($euser)) {
             $this->_params['euser'] = $euser;
         }
 
@@ -621,7 +619,7 @@ class ManageSieve
         try {
             $this->_cmdCapability();
         } catch (Exception $e) {
-            throw new ConnectionFailed($e);
+            throw new Exception\ConnectionFailed($e);
         }
     }
 
@@ -968,7 +966,7 @@ class ManageSieve
      *
      * @throws \Horde\ManageSieve\Exception if a NO response.
      * @return string  Reponse string if an OK response.
-     *                            
+     *
      */
     protected function _doCmd($cmd = '', $auth = false)
     {
@@ -1023,7 +1021,7 @@ class ManageSieve
                         try {
                             $this->_handleConnectAndLogin();
                         } catch (Exception $e) {
-                            throw new Referral(
+                            throw new Exception\Referral(
                                 'Cannot follow referral to '
                                 . $this->_params['host'] . ', the error was: '
                                 . $e->getMessage()
@@ -1058,7 +1056,7 @@ class ManageSieve
             }
         }
 
-        throw new Referral('Max referral count (' . $referralCount . ') reached.');
+        throw new Exception\Referral('Max referral count (' . $referralCount . ') reached.');
     }
 
     /**
@@ -1119,7 +1117,7 @@ class ManageSieve
     protected function _checkConnected()
     {
         if (self::STATE_DISCONNECTED == $this->_state) {
-            throw new NotConnected();
+            throw new Exception\NotConnected();
         }
     }
 
@@ -1131,7 +1129,7 @@ class ManageSieve
     protected function _checkAuthenticated()
     {
         if (self::STATE_AUTHENTICATED != $this->_state) {
-            throw new NotAuthenticated();
+            throw new Exception\NotAuthenticated();
         }
     }
 

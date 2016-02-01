@@ -23,7 +23,7 @@ use Horde\ManageSieve;
  * @license   http://www.horde.org/licenses/bsd BSD
  * @package   ManageSieve
  */
-class NotConnected extends Exception
+class NotConnected extends ManageSieve\Exception
 {
     /**
      * Exception constructor.

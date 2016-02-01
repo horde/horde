@@ -23,6 +23,6 @@ use Horde\ManageSieve;
  * @license   http://www.horde.org/licenses/bsd BSD
  * @package   ManageSieve
  */
-class Referral extends Exception
+class Referral extends ManageSieve\Exception
 {
 }

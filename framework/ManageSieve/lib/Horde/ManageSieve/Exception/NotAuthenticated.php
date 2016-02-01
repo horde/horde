@@ -23,7 +23,7 @@ use Horde\ManageSieve;
  * @license   http://www.horde.org/licenses/bsd BSD
  * @package   ManageSieve
  */
-class NotAuthenticated extends Exception
+class NotAuthenticated extends ManageSieve\Exception
 {
     /**
      * Exception constructor.
