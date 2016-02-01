@@ -12,7 +12,7 @@
  </lead>
  <date>2016-02-01</date>
  <version>
-  <release>1.0.1</release>
+  <release>1.0.2</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -21,10 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
-* [jan] Fix usage of &apos;tlsv1&apos; connection setting (Ralf Becker &lt;RalfBecker@outdoor-training.de&gt;).
-* [jan] Fix setting authentication credentials from login() (Ralf Becker &lt;RalfBecker@outdoor-training.de&gt;).
-* [jan] Fix throwing exceptions (Ralf Becker &lt;RalfBecker@outdoor-training.de&gt;).
-* [jan] Mark PHP 7 as supported.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -165,6 +162,19 @@
 * [jan] Fix setting authentication credentials from login() (Ralf Becker &lt;RalfBecker@outdoor-training.de&gt;).
 * [jan] Fix throwing exceptions (Ralf Becker &lt;RalfBecker@outdoor-training.de&gt;).
 * [jan] Mark PHP 7 as supported.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-02-01</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
