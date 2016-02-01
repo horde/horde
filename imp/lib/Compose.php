@@ -986,8 +986,11 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 $save_msg->buildMimeIds();
 
                 /* Don't strip any part if this is a text message with both
-                 * plaintext and HTML representation. */
-                if ($save_msg->getType() != 'multipart/alternative') {
+                 * plaintext and HTML representation, or a signed or encrypted
+                 * message. */
+                if ($save_msg->getType() != 'multipart/alternative' &&
+                    $save_msg->getType() != 'multipart/encrypted' &&
+                    $save_msg->getType() != 'multipart/signed') {
                     for ($i = 2; ; ++$i) {
                         if (!($oldPart = $save_msg->getPart($i))) {
                             break;
