@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
+* [jan] Fix throwing exceptions (Ralf Becker &lt;RalfBecker@outdoor-training.de&gt;).
 * [jan] Mark PHP 7 as supported.
  </notes>
  <contents>
@@ -158,6 +159,7 @@
    <date>2015-11-15</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
+* [jan] Fix throwing exceptions (Ralf Becker &lt;RalfBecker@outdoor-training.de&gt;).
 * [jan] Mark PHP 7 as supported.
    </notes>
   </release>
