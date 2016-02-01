@@ -2,6 +2,7 @@
 v4.3.0-git
 ----------
 
+[mjr] Support for subset of features of ActiveSync 16.0.
 [mjr] Disconnect exceptions from base event when series changes.
 [mjr] Support file attachments to events (Request #2009).
 [mjr] Add ability to prevent any iTip notifications from being sent (Request

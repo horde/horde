@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Changes for EAS 16.0 support.
 * [mjr] Honor the disabled property when rendering boolean form types.
 * [jan] Fix returning to last page after problem reporting from AJAX pages (Bug #12112).
 * [jan] Fix updating group cache with LDAP backend.
@@ -1299,7 +1300,7 @@
    <package>
     <name>Horde_ActiveSync</name>
     <channel>pear.horde.org</channel>
-    <min>2.28.0</min>
+    <min>2.31.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -4124,6 +4125,7 @@
    <date>2016-01-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Changes for EAS 16.0 support.
 * [mjr] Honor the disabled property when rendering boolean form types.
 * [jan] Fix returning to last page after problem reporting from AJAX pages (Bug #12112).
 * [jan] Fix updating group cache with LDAP backend.

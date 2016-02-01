@@ -12,8 +12,8 @@
  </lead>
  <date>2016-01-23</date>
  <version>
-  <release>2.30.7</release>
-  <api>2.30.0</api>
+  <release>2.31.0</release>
+  <api>2.31.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Changes for EAS 16.0 support.
 * [mjr] Fix error when attempting to rewrite previous syncstate.
  </notes>
  <contents>
@@ -2957,14 +2958,15 @@
   </release>
   <release>
    <version>
-    <release>2.30.7</release>
-    <api>2.30.0</api></version>
+    <release>2.31.0</release>
+    <api>2.31.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
    <date>2016-01-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Changes for EAS 16.0 support.
 * [mjr] Fix error when attempting to rewrite previous syncstate.
    </notes>
   </release>
