@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-11-22</date>
+ <date>2016-02-01</date>
  <version>
   <release>2.29.5</release>
   <api>2.29.0</api>
@@ -2972,7 +2972,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-11-22</date>
+   <date>2016-02-01</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Don&apos;t try LOGIN authentication over secure connections if explicitly disabled.
