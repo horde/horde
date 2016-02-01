@@ -47,9 +47,8 @@ class Horde_Mime_Viewer_Ooo extends Horde_Mime_Viewer_Base
      * @param Horde_Mime_Part $mime_part  The object with the data to be
      *                                    rendered.
      * @param array $conf                 Configuration:
-     * <pre>
-     * 'zip' - (Horde_Compress_Zip) A zip object.
-     * </pre>
+     *   - 'zip': (Horde_Compress_Zip) A zip object.
+     *   - 'temp_dir': (string) Where to create a temporary directory.
      */
     public function __construct(Horde_Mime_Part $part, array $conf = array())
     {
@@ -66,7 +65,7 @@ class Horde_Mime_Viewer_Ooo extends Horde_Mime_Viewer_Base
     {
         $has_xsl = Horde_Util::extensionExists('xsl');
         if ($has_xsl) {
-            $tmpdir = Horde_Util::createTempDir(true) . '/';
+            $tmpdir = Horde_Util::createTempDir(true, $this->getConfigParam('temp_dir')) . '/';
         }
 
         $fnames = array('content.xml', 'styles.xml', 'meta.xml');

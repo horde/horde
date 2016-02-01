@@ -100,6 +100,7 @@ class Horde_Core_Factory_MimeViewer extends Horde_Core_Factory_Base
             break;
 
         case 'Ooo':
+            $params['temp_dir'] = Horde::getTempDir();
             $params['zip'] = Horde_Compress::factory('Zip');
             break;
 
