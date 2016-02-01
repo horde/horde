@@ -139,9 +139,11 @@ abstract class Horde_Alarm_Storage_Base extends Horde_Test_Case
      */
     public function testAlarmWithoutEnd()
     {
+        $start = clone self::$date;
+        $start->min--;
         self::$alarm->set(array('id' => 'noend',
                                 'user' => 'john',
-                                'start' => self::$date,
+                                'start' => $start,
                                 'methods' => array('notify'),
                                 'params' => array(),
                                 'title' => 'This is an alarm without end.'));
