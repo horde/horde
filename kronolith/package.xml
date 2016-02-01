@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix missing truncated event description when using ActiveSync.
 * [jan] Fix week number in basic view if week starts on Sundays.
 * [mjr] Fix issue where new event could be created with exceptions from previously edited event.
 * [jan] Mark preferences only available in basic mode.
@@ -2639,6 +2640,7 @@
    <date>2016-01-13</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix missing truncated event description when using ActiveSync.
 * [jan] Fix week number in basic view if week starts on Sundays.
 * [mjr] Fix issue where new event could be created with exceptions from previously edited event.
 * [jan] Mark preferences only available in basic mode.
