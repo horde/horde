@@ -1014,7 +1014,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         case IMP_Pgp::SIGNENC:
         case IMP_Pgp::SYM_ENCRYPT:
         case IMP_Pgp::SYM_SIGNENC:
-            if (IMP_Pgp::enabled()) {
+            if (!IMP_Pgp::enabled()) {
                 break;
             }
 
