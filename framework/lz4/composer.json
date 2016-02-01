@@ -11,8 +11,8 @@
             "role": "lead"
         }
     ],
-    "version": "1.0.8",
-    "time": "2015-04-13",
+    "version": "1.0.9",
+    "time": "2016-02-01",
     "repositories": [
         {
             "type": "pear",
@@ -20,6 +20,6 @@
         }
     ],
     "require": {
-        "php": ">=5.0.0,<=6.0.0alpha1"
+        "php": ">=5.0.0,<=8.0.0alpha1"
     }
 }
