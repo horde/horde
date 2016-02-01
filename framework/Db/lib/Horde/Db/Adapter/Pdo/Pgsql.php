@@ -66,7 +66,7 @@ class Horde_Db_Adapter_Pdo_Pgsql extends Horde_Db_Adapter_Pdo_Base
 
     public function supportsInsertWithReturning()
     {
-        return $this->postgresqlVersion() >= 80200;
+        return true;
     }
 
 
@@ -93,11 +93,6 @@ class Horde_Db_Adapter_Pdo_Pgsql extends Horde_Db_Adapter_Pdo_Base
             $error = $this->_connection->errorInfo();
             throw new Horde_Db_Exception($error[2]);
         }
-
-        // Money type has a fixed precision of 10 in PostgreSQL 8.2 and below, and as of
-        // PostgreSQL 8.3 it has a fixed precision of 19. PostgreSQLColumn.extract_precision
-        // should know about this but can't detect it there, so deal with it here.
-        Horde_Db_Adapter_Postgresql_Column::$moneyPrecision = ($this->postgresqlVersion() >= 80300) ? 19 : 10;
 
         $this->_configureConnection();
     }

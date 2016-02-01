@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
+* [jan] Bump earliest supported PostgreSQL version to 8.3.
 * [jan] Improve getting tables and indexes from PostgreSQL servers (Ivan Sergio Borgonovo &lt;mail@webthatworks.it&gt;).
 * [jan] Mark PHP 7 as supported.
  </notes>
@@ -914,6 +915,7 @@
    <date>2015-11-17</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
+* [jan] Bump earliest supported PostgreSQL version to 8.3.
 * [jan] Improve getting tables and indexes from PostgreSQL servers (Ivan Sergio Borgonovo &lt;mail@webthatworks.it&gt;).
 * [jan] Mark PHP 7 as supported.
    </notes>

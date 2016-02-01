@@ -236,16 +236,13 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
      * Returns the maximum length a table alias can have.
      *
      * Returns the configured supported identifier length supported by
-     * PostgreSQL, or report the default of 63 on PostgreSQL 7.x.
+     * PostgreSQL.
      *
      * @return integer  The maximum table alias length.
      */
     public function tableAliasLength()
     {
-        if ($this->postgresqlVersion() >= 80000) {
-            return (int)$this->selectValue('SHOW max_identifier_length');
-        }
-        return 63;
+        return (int)$this->selectValue('SHOW max_identifier_length');
     }
 
     /**
@@ -574,13 +571,11 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
                            $this->quoteColumnName($columnName),
                            $this->quoteSequenceName($seq_name));
             $this->execute($sql);
-            if ($this->postgresqlVersion() >= 80200) {
-                $sql = sprintf('ALTER SEQUENCE %s OWNED BY %s.%s',
-                               $seq_name,
-                               $this->quoteTableName($tableName),
-                               $this->quoteColumnName($columnName));
-                $this->execute($sql);
-            }
+            $sql = sprintf('ALTER SEQUENCE %s OWNED BY %s.%s',
+                           $seq_name,
+                           $this->quoteTableName($tableName),
+                           $this->quoteColumnName($columnName));
+            $this->execute($sql);
         } elseif (array_key_exists('default', $options)) {
             $this->changeColumnDefault($tableName, $columnName,
                                        $options['default']);
@@ -742,16 +737,7 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
      */
     public function dropDatabase($name)
     {
-        if ($this->postgresqlVersion() >= 80200) {
-            return $this->execute('DROP DATABASE IF EXISTS ' . $this->quoteTableName($name));
-        }
-        try {
-            return $this->execute('DROP DATABASE ' . $this->quoteTableName($name));
-        } catch (Horde_Db_Exception $e) {
-            if ($this->_logger) {
-                $this->_logger->warn("$name database doesn't exist");
-            }
-        }
+        return $this->execute('DROP DATABASE IF EXISTS ' . $this->quoteTableName($name));
     }
 
     /**
