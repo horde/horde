@@ -2253,6 +2253,7 @@
        <value desc="Exchange 2007sp1 (EAS 12.1)">12.1</value>
        <value desc="Exchange 2010sp1 (EAS 14.0)">14</value>
        <value desc="Exchange 2010sp2 (EAS 14.1)">14.1</value>
+       <value desc="Exchange 2013 (EAS 16.0) EXPERIMENTAL">16.0</value>
       </values>
      </configenum>
      <configheader>Authentication</configheader>
