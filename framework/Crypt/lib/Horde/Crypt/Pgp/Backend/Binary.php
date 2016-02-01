@@ -64,10 +64,7 @@ extends Horde_Crypt_Pgp_Backend
      */
     public function __construct($gnupg, $temp = null)
     {
-        $this->_tempdir = Horde_Util::createTempDir(
-            true,
-            is_null($temp) ? sys_get_temp_dir() : $temp
-        );
+        $this->_tempdir = Horde_Util::createTempDir($temp);
 
         /* Store the location of GnuPG and set common options. */
         $this->_gnupg = array(
