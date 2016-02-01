@@ -12,6 +12,7 @@
  */
 
 namespace Horde\ManageSieve\Exception;
+use Horde\ManageSieve;
 
 /**
  * Exception thrown if connecting to the server failed.
@@ -22,7 +23,7 @@ namespace Horde\ManageSieve\Exception;
  * @license   http://www.horde.org/licenses/bsd BSD
  * @package   ManageSieve
  */
-class ConnectionFailed extends Exception
+class ConnectionFailed extends ManageSieve\Exception
 {
     /**
      * Exception constructor.

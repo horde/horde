@@ -12,6 +12,7 @@
  */
 
 namespace Horde\ManageSieve\Exception;
+use Horde\ManageSieve;
 
 /**
  * Exception thrown if the server should be disconnected but isn't.
@@ -22,7 +23,7 @@ namespace Horde\ManageSieve\Exception;
  * @license   http://www.horde.org/licenses/bsd BSD
  * @package   ManageSieve
  */
-class NotDisconnected extends Exception
+class NotDisconnected extends ManageSieve\Exception
 {
     /**
      * Exception constructor.
