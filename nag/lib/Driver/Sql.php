@@ -67,8 +67,10 @@ class Nag_Driver_Sql extends Nag_Driver
         }
 
         $owner_lists = Nag::listTasklists(true);
+
         $task = null;
-        foreach ($results as $row) {
+        $results->reset();
+        while ($row =  $results->each()) {
             if (isset($owner_lists[$row->tasklist])) {
                 $task = $row;
                 break;
