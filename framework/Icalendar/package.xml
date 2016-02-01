@@ -23,7 +23,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2015-12-02</date>
+ <date>2016-02-01</date>
  <version>
   <release>2.1.3</release>
   <api>2.1.0</api>
@@ -1218,7 +1218,7 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-12-02</date>
+   <date>2016-02-01</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Mark PHP 7 as supported.
