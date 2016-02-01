@@ -4,6 +4,8 @@ v5.2.9-git
 
 [jan] SECURITY: Fix XSS vulnerability in menu bar exposed by few applications
       (Bug #14213).
+[jan] Add more detailed user DN settings to Kolab group configuration (Request
+      #11737).
 [jan] Fix returning to last page after problem reporting from AJAX pages (Bug
       #12112).
 [jan] Fix custom database configuration for groups (Bug #11664).
