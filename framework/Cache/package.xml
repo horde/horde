@@ -16,7 +16,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-01-08</date>
+ <date>2016-02-01</date>
  <version>
   <release>2.5.2</release>
   <api>2.5.0</api>
@@ -89,6 +89,9 @@
        <file name="MysqlTest.php" role="test" />
        <file name="Oci8Test.php" role="test" />
       </dir> <!-- /test/Horde/Cache/Sql -->
+      <dir name="Stub">
+       <file name="File.php" role="test" />
+      </dir> <!-- /test/Horde/Cache/Stub -->
       <file name="AllTests.php" role="test" />
       <file name="ApcTest.php" role="test" />
       <file name="bootstrap.php" role="test" />
@@ -239,6 +242,7 @@
    <install as="Horde/Cache/Sql/Pdo/MysqlTest.php" name="test/Horde/Cache/Sql/Pdo/MysqlTest.php" />
    <install as="Horde/Cache/Sql/Pdo/PgsqlTest.php" name="test/Horde/Cache/Sql/Pdo/PgsqlTest.php" />
    <install as="Horde/Cache/Sql/Pdo/SqliteTest.php" name="test/Horde/Cache/Sql/Pdo/SqliteTest.php" />
+   <install as="Horde/Cache/Stub/File.php" name="test/Horde/Cache/Stub/File.php" />
    </filelist>
  </phprelease>
  <changelog>
@@ -655,7 +659,7 @@ Initial packaging.
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-01-08</date>
+   <date>2016-02-01</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Improve performance and memory consumption of garbage collection in File driver.
