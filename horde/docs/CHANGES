@@ -2,12 +2,12 @@
 v5.2.9-git
 ----------
 
+[jan] SECURITY: Fix XSS vulnerability in menu bar exposed by few applications
+      (Bug #14213).
 [jan] Fix returning to last page after problem reporting from AJAX pages (Bug
       #12112).
 [jan] Fix custom database configuration for groups (Bug #11664).
 [jan] Use access rules compatible with both Apache 2.2 and 2.4.
-[jan] SECURITY: Fix XSS vulnerability in menu bar exposed by only a few
-      applications (Bug #14213).
 [mjr] Fix reporting results for non-select queries in administrative sql shell
       (Bug #14216).
 

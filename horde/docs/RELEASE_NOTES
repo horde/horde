@@ -5,7 +5,7 @@ $notes['security'] = true;
 /* Mailing list release notes. */
 $notes['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Horde
-Application Framework version 5.2.8.
+Application Framework version 5.2.9.
 
 The Horde Application Framework is a flexible, modular, general-purpose web
 application framework written in PHP. It provides an extensive array of
@@ -20,12 +20,10 @@ http://www.horde.org/apps/horde/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/horde/docs/INSTALL
 
-Thanks to  High-Tech Bridge Security Research <advisory@htbridge.ch> for
-reporting the CSRF vulnerability.
+Thanks to duarteetraud@gmail.com for reporting the XSS vulnerability.
 
-The major changes compared to the Horde version 5.2.7 are:
-    * Protect against CSRF attacks on various admin pages.
-    * Configuration support for version 2 of WorldWeatherOnline's API
+The major changes compared to the Horde version 5.2.8 are:
+    * Fixed XSS vulnerability in menu bar.
     * Small bugfixes and improvements.
 ML;
 

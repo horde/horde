@@ -5,7 +5,7 @@ $notes['security'] = false;
 /* Mailing list release notes. */
 $notes['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Nag Task List
-Manager version H5 (4.2.6).
+Manager version H5 (4.2.7).
 
 Nag is a web-based application built upon the Horde Application Framework which
 provides a simple, clean interface for managing online task lists (i.e., todo
@@ -19,11 +19,11 @@ http://www.horde.org/apps/nag/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/nag/docs/INSTALL
 
-The major changes compared to the Nag version H5 (4.2.5) are:
-* Fix indentation level when searching.
-* Fix linking to external tasks from smartmobile view.
-* Update Italian translation.
-* Small bugfixes and improvements.
+The major changes compared to the Nag version H5 (4.2.6) are:
+    * Fixed several parent-child-tasks bugs.
+    * Fixed two fatal errors.
+    * Fixed Kolab issues.
+    * Further bugfixes and improvements.
 ML;
 
 $notes['name'] = 'Nag';

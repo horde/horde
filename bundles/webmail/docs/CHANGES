@@ -2,6 +2,96 @@
 v5.2.12-git
 -----------
 
+[jan] Use access rules compatible with both Apache 2.2 and 2.4.
+
+Horde Changes
+-------------
+[jan] SECURITY: Fix XSS vulnerability in menu bar exposed by few applications
+      (Bug #14213).
+[jan] Fix returning to last page after problem reporting from AJAX pages (Bug
+      #12112).
+[jan] Fix custom database configuration for groups (Bug #11664).
+[mjr] Fix reporting results for non-select queries in administrative sql shell
+      (Bug #14216).
+
+Mail Changes
+------------
+[jan] Don't strip PGP mime parts when saving sent messages (Bug #14233).
+[jan] Fix retrieving public PGP keys with certain HTTP client backends.
+[jan] Send MDNs from the correct identity (Bug #14034).
+[jan] Fix autocompleter filtering if items exceed the maximum size
+      (jsveiga@it.eng.br, Bug #13984).
+[jan] Allow to disable remote accounts by locking the preference.
+[jan] Fix setting title with newmail count in IE11 and Edge (Bug #14189).
+[jan] Fix wrapping of plain text converted from HTML MIME parts.
+
+Filters Changes
+---------------
+[jan] Fix editing shared rulesets (Bug #12694).
+[jan] Allow to edit permissions of another user's rules if that user assigned
+      ownership.
+[jan] Fix variable name in vacation_addresses hook example.
+[jan] Correctly save names of mailbox created from the rule form (Bug #14150).
+[mjr] Fix invalid URLs in certain forms when cookies are disabled (Bug #14148).
+
+Address Book Changes
+--------------------
+[jan] Fix building search query if some fields are set for strict search (Bug
+      #12272).
+[mjr] Fix splitting tags over ActiveSync (Bug #14218).
+[mjr] Fix searching within virtual address books (Bug #14155).
+[mjr] Fix import of vCard with single component via API.
+
+Calendar Changes
+----------------
+[mjr] Fix missing truncated event description when using ActiveSync.
+[jan] Fix week number in basic view if week starts on Sundays.
+[mjr] Fix issue where new event could be created with exceptions from
+      previously edited event.
+[jan] Mark preferences only available in basic mode.
+[jan] Fix accidental deletion of events if importing recurring events without a
+      UID attribute (Bug #14208).
+[mjr] Honor confirm_delete preference in dynamic view (Bug #14188).
+[mjr] Correctly deal with cancelled meetings via ActiveSync.
+[mjr] Fix visibility of alarm titles when alarm is generated via CLI (Bug
+      #14154).
+[mjr] Fix display of embed code by adding the full url.
+
+Tasks Changes
+-------------
+[mjr] Enforce child tasks must be completed before parent tasks in edit form
+      (Bug #12308).
+[mjr] Fix possible fatal error due to tasks created with an alarm but no due
+      date (Bug #14214).
+[mjr] Fix storage of parent field when using Kolab driver (Bug #14197,
+      mike.gabriel@das-netzwerkteam.de).
+[mjr] Fix switching tab/filters when using Kolab driver (Bug #14196,
+      mike.gabriel@das-netzwerkteam.de).
+[mjr] Fix moving subtasks to another tasklist when parent task is moved (Bug
+      #14209).
+[mjr] Fix fatal error when saving tasks when system shares are present in
+      certain cases.
+[mjr] Return recurring tasks via listTimeObjects API (Bug #14137).
+[mjr] Prevent orphaning tasks via the API.
+
+Notes Changes
+-------------
+[mjr] Fix fatal error when removing notepads in certain cases.
+
+File Manager Changes
+--------------------
+[jan] Fix fatal error when cutting and pasting files on the same backend.
+
+Bookmarks Changes
+-----------------
+[mjr] Fix tag links when tags contain URL special characters.
+
+Timeobject Changes
+------------------
+[jan] Add Italian translation (Massimo Balestrieri <nag@hidaba.com>).
+
+Library Changes
+---------------
 
 
 -------
@@ -55,7 +145,6 @@ Calendar Changes
 [mjr] Fix incorrect offset of freebusy times in certain cases (Bug #14084).
 [mjr] Fix handling of email groups as attendees (Bug #14093).
 [mjr] Fix importing text/calendar data via API (Bug #14089).
-
 
 Library Changes
 ---------------
