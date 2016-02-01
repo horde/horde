@@ -298,7 +298,42 @@ extends Horde_Test_Case
      * @dataProvider encryptSymmetricProvider
      * @depends testDecryptSymmetric
      */
-    public function testEncryptSymmetric($data, $pass)
+    public function testEncryptSymmetric($compress, $cipher, $data, $pass)
+    {
+        $result = $this->_pgp->encryptSymmetric(
+            $data,
+            $pass,
+            array(
+                'cipher' => $cipher,
+                'compress' => $compress
+            )
+        );
+
+        $this->assertInstanceOf(
+            'Horde_Pgp_Element_Message',
+            $result
+        );
+
+        $this->assertEquals(
+            1 + count($pass),
+            count($result->message->packets)
+        );
+
+        foreach ($pass as $val) {
+            $result2 = $this->_pgp->decryptSymmetric(
+                $result,
+                $val
+            );
+            $result2_sigs = $result2->message->signatures();
+
+            $this->assertEquals(
+                $data,
+                $result2_sigs[0][0]->data
+            );
+        }
+    }
+
+    public function encryptSymmetricProvider()
     {
         $ciphers = array(
             '3DES', 'CAST5', 'AES128', 'AES192', 'AES256', 'Twofish'
@@ -306,47 +341,7 @@ extends Horde_Test_Case
         $compress = array(
             'NONE', 'ZIP', 'ZLIB'
         );
-
-        foreach ($compress as $c1) {
-            foreach ($ciphers as $c2) {
-                $result = $this->_pgp->encryptSymmetric(
-                    $data,
-                    $pass,
-                    array(
-                        'cipher' => $c2,
-                        'compress' => $c1
-                    )
-                );
-
-                $this->assertInstanceOf(
-                    'Horde_Pgp_Element_Message',
-                    $result
-                );
-
-                $this->assertEquals(
-                    1 + count($pass),
-                    count($result->message->packets)
-                );
-
-                foreach ($pass as $val) {
-                    $result2 = $this->_pgp->decryptSymmetric(
-                        $result,
-                        $val
-                    );
-                    $result2_sigs = $result2->message->signatures();
-
-                    $this->assertEquals(
-                        $data,
-                        $result2_sigs[0][0]->data
-                    );
-                }
-            }
-        }
-    }
-
-    public function encryptSymmetricProvider()
-    {
-        return array(
+        $fixtures = array(
             array(
                 $this->_getFixture('clear.txt'),
                 array(
@@ -361,6 +356,17 @@ extends Horde_Test_Case
                 )
             )
         );
+
+        $data = array();
+        foreach ($compress as $c1) {
+            foreach ($ciphers as $c2) {
+                foreach ($fixtures as $f) {
+                    $data[] = array($c1, $c2, $f[0], $f[1]);
+                }
+            }
+        }
+
+        return $data;
     }
 
     /**
