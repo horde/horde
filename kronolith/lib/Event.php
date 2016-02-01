@@ -1669,7 +1669,7 @@ abstract class Kronolith_Event
                         $truncation = false;
                     }
                     if ($truncation && Horde_String::length($this->description) > $truncation) {
-                        $note->data = Horde_String::substr($this->desciption, 0, $truncation);
+                        $note->data = Horde_String::substr($this->description, 0, $truncation);
                         $note->truncated = 1;
                     } else {
                         $note->data = $this->description;
