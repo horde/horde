@@ -255,7 +255,7 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
      */
     public function tables()
     {
-			return $this->selectValues('SELECT table_name FROM information_schema.tables WHERE table_schema = ANY (CURRENT_SCHEMAS(false));');
+        return $this->selectValues('SELECT table_name FROM information_schema.tables WHERE table_schema = ANY (CURRENT_SCHEMAS(false));');
     }
 
     /**
