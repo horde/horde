@@ -27,7 +27,7 @@ class Horde_Cache_Sql_Pdo_SqliteTest extends Horde_Cache_Sql_Base
         try {
             $this->db = $factory_db->create();
         } catch (Horde_Test_Exception $e) {
-            $this->$reason = 'Sqlite not available';
+            $this->reason = 'Sqlite not available';
             return;
         }
         return parent::_getCache($params);
