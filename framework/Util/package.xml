@@ -23,7 +23,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2015-07-31</date>
+ <date>2016-02-02</date>
  <version>
   <release>2.5.7</release>
   <api>2.5.0</api>
@@ -774,7 +774,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-07-31</date>
+   <date>2016-02-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Mark PHP 7 as supported.
