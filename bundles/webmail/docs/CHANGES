@@ -104,7 +104,6 @@ ActiveSync
 [mjr] Fix regression introduced by checking device remote wipe during PING
       requests.
 [mjr] Fix mailbox searches with non 7-bit characters.
-[jan] Mark PHP 7 as supported.
 [mjr] Allow global request window size limit to be overridden.
 [mjr] Fix issue where global request window size was being reached prematurely.
 [mjr] Fix potential fatal error due to incorrect exception name.

@@ -5,7 +5,7 @@ $notes['security'] = true;
 /* Mailing list release notes. */
 $notes['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Horde Groupware
-version 5.2.11.
+version 5.2.12.
 
 Horde Groupware is a free, enterprise ready, browser based collaboration
 suite. Users can manage and share calendars, contacts, tasks, notes, files, and
@@ -17,51 +17,28 @@ http://www.horde.org/apps/groupware/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/groupware/docs/INSTALL
 
+Thanks to duarteetraud@gmail.com and Centurion Information Security
+(www.centurioninfosec.sg) for reporting the XSS vulnerabilities.
 
-The major changes compared to the Horde Groupware version 5.2.10 are:
+The major changes compared to the Horde Groupware version 5.2.11 are:
 
 General changes:
-    * SECURITY: Protect against CSRF attacks on various admin pages.
-    * Don't apply access keys to checkbox and radiobox rows in the sidebar
-      (Bug #14103).
-    * Send correct MIME type for non-statically cached javascript files.
-    * Added configuration support for version 2 of WorldWeatherOnline's API.
+    * Fixed XSS vulnerabilities in menu bar and form renderer.
+    * Improved Oracle compatibility.
+    * Several bugfixes and improvements.
 
 Address Book changes:
-    * Better prevention of importing duplicate contacts with same email
-      addresses via the API (Bug #14119).
-    * Allow API to search all email type fields when calling getField().
-    * Fix removing all contacts owned by a specific user.
-    * Fix inserting and updating photos with Oracle backends.
-    * Fix incorrectly populating email field when importing vCard (Bug #14046).
-
-Bookmarks changes:
-    * Update Italian translation.
-    * Remove object reference from Content when object is deleted (Bug #14112).
+    * Fixed importing of vCard via the API.
 
 Calendar changes:
-    * Fix issue when replacing an event via the API when the attendee list
-      changes.
-    * Fix exporting events from Horde_Perms::SHOW calendars over DAV
-      (Bug #14128).
-    * Send CACNEL iTip when attendee is removed from a meeting
-      (Request #14118).
-    * Fix incorrect offset of freebusy times in certain cases (Bug #14084).
-    * Fix handling of email groups as attendees (Bug #14093).
-    * Fix importing text/calendar data via API (Bug #14089).
-
-Files changes:
-    * Update Italian translation.
-
-Notes changes:
-    * Update Italian translation.
-    * Remove object reference from Content when object is deleted (Bug #14112).
-    * Remove tags from Content when tagged object is deleted (Bug #14112).
+    * Honor preference to confirm deletions in dynamic view.
+    * Fixed accidental deletion of events.
+    * Fixed week numbers in basic view.
 
 Tasks changes:
-    * Update Italian translation.
-    * Remove object reference from Content when object is deleted (Bug #14112).
-    * Remove tags from Content when tagged object is deleted (Bug #14112).
+    * Fixed several parent-child-tasks bugs.
+    * Fixed two fatal errors.
+    * Fixed Kolab issues.
 ML;
 
 $notes['name'] = 'Horde Groupware';

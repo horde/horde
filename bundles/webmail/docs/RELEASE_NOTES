@@ -5,7 +5,7 @@ $notes['security'] = true;
 /* Mailing list release notes. */
 $notes['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Horde Groupware
-Webmail Edition version 5.2.11.
+Webmail Edition version 5.2.12.
 
 Horde Groupware Webmail Edition is a free, enterprise ready, browser based
 communication suite. Users can read, send and organize email messages with four
@@ -19,73 +19,36 @@ http://www.horde.org/apps/webmail/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/webmail/docs/INSTALL
 
+Thanks to duarteetraud@gmail.com and Centurion Information Security
+(www.centurioninfosec.sg) for reporting the XSS vulnerabilities.
 
-The major changes compared to the Horde Groupware Webmail Edition version 5.2.10
-are:
+The major changes compared to the Horde Groupware Webmail Edition version
+5.2.11 are:
 
 General changes:
-    * SECURITY: Protect against CSRF attacks on various admin pages.
-    * Don't apply access keys to checkbox and radiobox rows in the sidebar
-      (Bug #14103).
-    * Send correct MIME type for non-statically cached javascript files.
-    * Added configuration support for version 2 of WorldWeatherOnline's API.
-
-Address Book changes:
-    * Better prevention of importing duplicate contacts with same email
-      addresses via the API (Bug #14119).
-    * Allow API to search all email type fields when calling getField().
-    * Fix removing all contacts owned by a specific user.
-    * Fix inserting and updating photos with Oracle backends.
-    * Fix incorrectly populating email field when importing vCard (Bug #14046).
-
-Bookmarks changes:
-    * Update Italian translation.
-    * Remove object reference from Content when object is deleted (Bug #14112).
-
-Calendar changes:
-    * Fix issue when replacing an event via the API when the attendee list
-      changes.
-    * Fix exporting events from Horde_Perms::SHOW calendars over DAV
-      (Bug #14128).
-    * Send CACNEL iTip when attendee is removed from a meeting
-      (Request #14118).
-    * Fix incorrect offset of freebusy times in certain cases (Bug #14084).
-    * Fix handling of email groups as attendees (Bug #14093).
-    * Fix importing text/calendar data via API (Bug #14089).
-
-Files changes:
-    * Update Italian translation.
-
-Filters changes:
-    * Fix using transport parameters in Procmail driver.
-    * Update Czech translation.
-    * Update Italian translation.
-    * Fix selecting incorrect rule when performing any action after reordering
-      (Bug #14064 and Bug #13643).
-    * Fix duplicate messages when using the redirect-and-keep rule with
-      Procmail backends.
-    * Update Italian translation.
-    * Add database migration for fixing corrupt rule ordering.
-    * Fix corruption of rule order when reordering rules in certain cases.
+    * Fixed XSS vulnerabilities in menu bar and form renderer.
+    * Improved Oracle compatibility.
+    * Several bugfixes and improvements.
 
 Mail changes:
-    * Request that the contacts API only consider email fields when detecting
-      duplicates during automatic saving of attendees to the address book
-      (Bug #14119).
-    * Don't show "Create Keys" button if creating PGP keys is disabled
-      (steffen.hau@rz.uni-mannheim.de, Request #14096).
-    * Fix displaying iTips with certain locale/date_format preference
-      combinations (Bug #14076).
+    * Improved HTML to plain text conversion.
+    * Sending MDNs from the correct identity.
 
-Notes changes:
-    * Update Italian translation.
-    * Remove object reference from Content when object is deleted (Bug #14112).
-    * Remove tags from Content when tagged object is deleted (Bug #14112).
+Filters changes:
+    * Fixed editing shared rulesets.
+
+Address Book changes:
+    * Fixed importing of vCard via the API.
+
+Calendar changes:
+    * Honor preference to confirm deletions in dynamic view.
+    * Fixed accidental deletion of events.
+    * Fixed week numbers in basic view.
 
 Tasks changes:
-    * Update Italian translation.
-    * Remove object reference from Content when object is deleted (Bug #14112).
-    * Remove tags from Content when tagged object is deleted (Bug #14112).
+    * Fixed several parent-child-tasks bugs.
+    * Fixed two fatal errors.
+    * Fixed Kolab issues.
 ML;
 
 $notes['name'] = 'Horde Groupware Webmail Edition';
