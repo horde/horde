@@ -10,7 +10,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-01-09</date>
+ <date>2016-02-02</date>
  <version>
   <release>1.0.10</release>
   <api>1.0.0</api>
@@ -47,12 +47,16 @@
     <dir name="Horde">
      <dir name="Timezone">
       <dir name="fixtures">
+       <file name="budapest" role="test" />
+       <file name="budapest.ics" role="test" />
        <file name="etcetera" role="test" />
        <file name="etcetera.ics" role="test" />
        <file name="europe" role="test" />
        <file name="europe.ics" role="test" />
        <file name="losangeles.ics" role="test" />
        <file name="northamerica" role="test" />
+       <file name="uruguay" role="test" />
+       <file name="uruguay.ics" role="test" />
       </dir> <!-- /test/Horde/Timezone/fixtures -->
       <file name="AllTests.php" role="test" />
       <file name="bootstrap.php" role="test" />
@@ -120,12 +124,16 @@
    <install as="Horde/Timezone/Mock.php" name="test/Horde/Timezone/Mock.php" />
    <install as="Horde/Timezone/ParseTest.php" name="test/Horde/Timezone/ParseTest.php" />
    <install as="Horde/Timezone/phpunit.xml" name="test/Horde/Timezone/phpunit.xml" />
+   <install as="Horde/Timezone/fixtures/budapest" name="test/Horde/Timezone/fixtures/budapest" />
+   <install as="Horde/Timezone/fixtures/budapest.ics" name="test/Horde/Timezone/fixtures/budapest.ics" />
    <install as="Horde/Timezone/fixtures/etcetera" name="test/Horde/Timezone/fixtures/etcetera" />
    <install as="Horde/Timezone/fixtures/etcetera.ics" name="test/Horde/Timezone/fixtures/etcetera.ics" />
    <install as="Horde/Timezone/fixtures/europe" name="test/Horde/Timezone/fixtures/europe" />
    <install as="Horde/Timezone/fixtures/europe.ics" name="test/Horde/Timezone/fixtures/europe.ics" />
    <install as="Horde/Timezone/fixtures/losangeles.ics" name="test/Horde/Timezone/fixtures/losangeles.ics" />
    <install as="Horde/Timezone/fixtures/northamerica" name="test/Horde/Timezone/fixtures/northamerica" />
+   <install as="Horde/Timezone/fixtures/uruguay" name="test/Horde/Timezone/fixtures/uruguay" />
+   <install as="Horde/Timezone/fixtures/uruguay.ics" name="test/Horde/Timezone/fixtures/uruguay.ics" />
   </filelist>
  </phprelease>
  <changelog>
@@ -285,7 +293,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-01-09</date>
+   <date>2016-02-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Fix generation of broken VTIMEZONE components for certain Rules (Bug #14221).
