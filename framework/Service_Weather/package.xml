@@ -12,7 +12,7 @@
  </lead>
  <date>2016-02-02</date>
  <version>
-  <release>2.3.2</release>
+  <release>2.3.3</release>
   <api>1.3.0</api>
  </version>
  <stability>
@@ -21,8 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* [jan] Catch Horde_Date exceptions and try harder to provide dates for weather alerts.
-* [jan] Mark PHP 7 as supported.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -891,6 +890,19 @@
    <notes>
 * [jan] Catch Horde_Date exceptions and try harder to provide dates for weather alerts.
 * [jan] Mark PHP 7 as supported.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.3.3</release>
+    <api>1.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-02-02</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
