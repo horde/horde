@@ -23,6 +23,9 @@ Address Book Changes
 [mjr] Fix splitting tags over ActiveSync (Bug #14218).
 [mjr] Fix searching within virtual address books (Bug #14155).
 [mjr] Fix import of vCard with single component via API.
+[mjr] Fix regression in removing all contacts from a single address book in the
+      SQL driver (Bug #14145, Guenter Bartsch
+      <guenter.bartsch@vista-rasch.com>).
 
 Calendar Changes
 ----------------
@@ -74,6 +77,128 @@ Timeobject Changes
 
 Library Changes
 ---------------
+[jan] Improve Oracle compatibility.
+
+ActiveSync
+[mjr] Fix RECUR_YEARLY_DAY recurrences showing up every day.
+[mjr] Fix regression introduced by checking device remote wipe during PING
+      requests.
+[mjr] Fix mailbox searches with non 7-bit characters.
+[jan] Mark PHP 7 as supported.
+[mjr] Allow global request window size limit to be overridden.
+[mjr] Fix issue where global request window size was being reached prematurely.
+[mjr] Fix potential fatal error due to incorrect exception name.
+[mjr] Fix issue that prevents new device being added if an entry exists in the
+      device user table but not the device table (Bug #14147).
+[mjr] OL2016 added to device multiplex settings.
+[mjr] Improved workaround for clients with broken picture tag handling.
+
+Browser
+[mjr] Don't set the empty_file_input_value quirk for recent Safari versions
+      (Bug #14207).
+
+Cache
+[jan] Improve performance and memory consumption of garbage collection in File
+      driver.
+[jan] Fix garbage collection in File driver.
+[jan] Fix caching issues within the same request in the Memcache driver.
+[jan] Fix the Mongo driver's expire() if not using a logger.
+[jan] Add unit tests.
+
+Core
+[mjr] SECURITY: Fix XSS in Horde_Core_VarRenderer_Html (reported by Centurion
+      Information Security <www.centurioninfosec.sg>).
+[jan] Pass Horde_Cache to Horde_Group if group caching enabled.
+[mjr] Fix handling of empty tags strings in certain use cases (Bug #14203).
+[mjr] Fix fatal error when using count_bad_logins in SQL auth driver.
+[mjr] Support sending MDN via ActiveSync (Request #23080).
+[mjr] Fix issue with synchronizing IMAP folder names that contain only numbers.
+[mjr] Small logging improvements for ActiveSync.
+[mjr] Match various session parameters in the NULL driver.
+
+Crypt
+[jan] Add Horde_Crypt_Pgp::pgpPacketInformationMultiple() and
+      Horde_Crypt_Pgp_Backend_Binary::packetInfoMultiple() (Request #13190).
+[jan] Fix retrieving PGP keys from the keyserver with certain HTTP client
+      backends.
+[jan] Fix creating PGP keys with comments (Bug #14125).
+
+Date
+[mjr] Add Horde_Date_Recurrence::isEqual().
+
+Db
+[jan] Bump earliest supported PostgreSQL version to 8.3.
+[jan] Improve getting tables and indexes from PostgreSQL servers (Ivan Sergio
+      Borgonovo <mail@webthatworks.it>).
+[mjr] Fix SQL error when setting blob fields to empty in oracle driver (Bug
+      #14163).
+[jan] Add 'status' argument to horde-db-migrate-component (Nicolas Rochelemagne
+      <nicolas.rochelemagne@cpanel.net>).
+
+Form
+[jan] Fix field types being overwritten in certain cases.
+[jan] Allow any empty format specifiers for the monthdayyear field (Bug #14130).
+
+Group
+[jan] Add caching support.
+
+Http
+[jan] Fix disabling SSL certificate hostname check (Thomas Jarosch
+      <thomas.jarosch@intra2net.com>, Bug #12929).
+
+Icalendar
+[mjr] Fix cases where incorrect transition times were being returned (Bug
+      #14153).
+
+Imap_Client
+[jan] Don't try LOGIN authentication over secure connections if explicitly
+      disabled.
+[mjr] Fix fatal error during shutdown due to incorrect exception name.
+[jan] Fix broken ID requests under certain circumstances.
+[jan] Fix parsing IMAP responses with tilde characters.
+
+Kolab_Storage
+[mjr] Fix decoding base64 encoded Kolab objects (Bug #14199,
+      mike.gabriel@das-netzwerkteam.de).
+[mjr] Fix updating Kolab data that contains non 7-bit data (Bug #14201).
+[mjr] Implement a token based syncronization strategy for servers with
+      QRESYNC/MODSEQ support.
+[mjr] Improve debug logging.
+[mjr] Add full Horde_History support for better Kolab<->Horde<->Sync client
+      support.
+
+Mime_Viewer
+[jan] Add temp_dir configuration parameter to OpenOffice/LibreOffice viewer
+      (Request #11756).
+
+Perms
+[mjr] Use NULL instead of an empty string in the perms_parents field for root
+      permissions.
+
+Service_Weather
+[jan] Catch Horde_Date exceptions and try harder to provide dates for weather
+      alerts.
+[jan] Fix undefined variable warnings.
+
+SessionHandler
+[jan] Fix updating large files in Oracle backends.
+[jan] Fix writing big session data to Oracle (Bug #14175).
+
+Socket_Client
+[jan] Enable TLS 1.1 and 1.2 connections (Request #14190).
+
+SyncMl
+[jan] Split large objects into multiple messages (thomas@trethan.net, Request
+      #11071).
+[jan] Remove workarounds for ancient Synthesis clients (Bug #10942).
+
+Test
+[jan] Add Horde_Test_Stub_Registry#setConfigFile() to provide pre-configured
+      Horde_Test_Stub_Registry_Loadconfig objects.
+
+Timezone
+[mjr] Fix generation of broken VTIMEZONE components for certain Rules (Bug
+      #14221).
 
 
 -------
