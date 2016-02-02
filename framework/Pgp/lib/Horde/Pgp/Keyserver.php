@@ -141,6 +141,8 @@ class Horde_Pgp_Keyserver
      */
     public function getKeyByEmail($address)
     {
+        $output = null;
+
         // Some keyservers are broken, third time's a charm.
         for ($i = 0; $i < 3; $i++) {
             /* Connect to the public keyserver. */
@@ -160,6 +162,12 @@ class Horde_Pgp_Keyserver
             } catch (Horde_Http_Exception $e) {
                 throw new Horde_Pgp_Exception($e);
             }
+        }
+
+        if (!$output) {
+            throw new Horde_Pgp_Exception(
+                Horde_Pgp_Translation::t("Could not obtain public key from the keyserver.")
+            );
         }
 
         if (strpos($output, '-----BEGIN PGP PUBLIC KEY BLOCK') !== false) {
