@@ -1,6 +1,6 @@
-----------
-v4.2.7-git
-----------
+------
+v4.2.7
+------
 
 [mjr] Enforce child tasks must be completed before parent tasks in edit form
       (Bug #12308).
