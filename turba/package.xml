@@ -30,7 +30,7 @@
  </lead>
  <date>2016-02-02</date>
  <version>
-  <release>4.2.12</release>
+  <release>4.2.13</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -39,11 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* [jan] Fix building search query if some fields are set for strict search (Bug #12272).
-* [jan] Use access rules compatible with both Apache 2.2 and 2.4.
-* [mjr] Fix splitting tags over ActiveSync (Bug #14218).
-* [mjr] Fix searching within virtual address books (Bug #14155).
-* [mjr] Fix import of vCard with single component via API.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2080,6 +2076,19 @@
 * [mjr] Fix splitting tags over ActiveSync (Bug #14218).
 * [mjr] Fix searching within virtual address books (Bug #14155).
 * [mjr] Fix import of vCard with single component via API.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.13</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-02-02</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
