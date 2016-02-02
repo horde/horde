@@ -141,17 +141,25 @@ class Horde_Pgp_Keyserver
      */
     public function getKeyByEmail($address)
     {
-        /* Connect to the public keyserver. */
-        $url = $this->_createUrl('/pks/lookup', array(
-            'op' => 'index',
-            'options' => 'mr',
-            'search' => $address
-        ));
+        // Some keyservers are broken, third time's a charm.
+        for ($i = 0; $i < 3; $i++) {
+            /* Connect to the public keyserver. */
+            $url = $this->_createUrl('/pks/lookup', array(
+                'op' => 'index',
+                'options' => 'mr',
+                'search' => $address
+            ));
 
-        try {
-            $output = ltrim($this->_http->get($url)->getBody());
-        } catch (Horde_Http_Exception $e) {
-            throw new Horde_Pgp_Exception($e);
+            try {
+                $response = $this->_http->get($url);
+                // Some keyservers return HTML, try again.
+                if ($response->getHeader('Content-Type') != 'text/plain') {
+                    continue;
+                }
+                $output = ltrim($response->getBody());
+            } catch (Horde_Http_Exception $e) {
+                throw new Horde_Pgp_Exception($e);
+            }
         }
 
         if (strpos($output, '-----BEGIN PGP PUBLIC KEY BLOCK') !== false) {
