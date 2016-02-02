@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2016-01-13</date>
+ <date>2016-02-02</date>
  <version>
   <release>3.2.8</release>
   <api>3.2.0</api>
@@ -1613,7 +1613,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-01-13</date>
+   <date>2016-02-02</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Fix editing shared rulesets (Bug #12694).

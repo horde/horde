@@ -1,6 +1,6 @@
-----------
-v3.2.8-git
-----------
+------
+v3.2.8
+------
 
 [jan] Fix editing shared rulesets (Bug #12694).
 [jan] Allow to edit permissions of another user's rules if that user assigned
