@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2015-10-21</date>
+ <date>2016-02-02</date>
  <version>
   <release>6.2.12</release>
   <api>6.2.0</api>
@@ -3896,7 +3896,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-10-20</date>
+   <date>2016-02-02</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Don&apos;t strip PGP mime parts when saving sent messages (Bug #14233).

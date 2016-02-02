@@ -1,6 +1,6 @@
------------
-v6.2.12-git
------------
+-------
+v6.2.12
+-------
 
 [jan] Don't strip PGP mime parts when saving sent messages (Bug #14233).
 [jan] Fix retrieving public PGP keys with certain HTTP client backends.
