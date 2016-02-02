@@ -24,7 +24,7 @@
  </lead>
  <date>2016-02-02</date>
  <version>
-  <release>4.2.12</release>
+  <release>4.2.13</release>
   <api>4.2.0</api>
  </version>
  <stability>
@@ -33,16 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Fix missing truncated event description when using ActiveSync.
-* [jan] Fix week number in basic view if week starts on Sundays.
-* [mjr] Fix issue where new event could be created with exceptions from previously edited event.
-* [jan] Mark preferences only available in basic mode.
-* [jan] Use access rules compatible with both Apache 2.2 and 2.4.
-* [jan] Fix accidental deletion of events if importing recurring events without a UID attribute (Bug #14208).
-* [mjr] Honor confirm_delete preference in dynamic view (Bug #14188).
-* [mjr] Correctly deal with cancelled meetings via ActiveSync.
-* [mjr] Fix visibility of alarm titles when alarm is generated via CLI (Bug #14154).
-* [mjr] Fix display of embed code by adding the full url.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2650,6 +2641,19 @@
 * [mjr] Correctly deal with cancelled meetings via ActiveSync.
 * [mjr] Fix visibility of alarm titles when alarm is generated via CLI (Bug #14154).
 * [mjr] Fix display of embed code by adding the full url.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.13</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-02-02</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
