@@ -17,6 +17,18 @@ v4.3.0-git
 
 
 -------
+v4.2.12
+-------
+
+[jan] Fix building search query if some fields are set for strict search (Bug
+      #12272).
+[jan] Use access rules compatible with both Apache 2.2 and 2.4.
+[mjr] Fix splitting tags over ActiveSync (Bug #14218).
+[mjr] Fix searching within virtual address books (Bug #14155).
+[mjr] Fix import of vCard with single component via API.
+
+
+-------
 v4.2.11
 -------
 

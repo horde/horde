@@ -10,6 +10,14 @@ v4.3.0-git
 
 
 ------
+v4.2.9
+------
+
+[jan] Use access rules compatible with both Apache 2.2 and 2.4.
+[mjr] Fix fatal error when removing notepads in certain cases.
+
+
+------
 v4.2.8
 ------
 

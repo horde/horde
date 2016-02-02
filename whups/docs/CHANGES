@@ -10,6 +10,18 @@ v3.1.0-git
 
 
 ------
+v3.0.6
+------
+
+[jan] Use access rules compatible with both Apache 2.2 and 2.4.
+[jan] Fix updating tickets with owners via the API (Neal Thomas Oakey
+      <oakey@b1-systems.de>).
+[mjr] Fix incorrect casting of numeric strings to integers (Bug #14146).
+[mjr] Allow due date to be changed via the API (Neal Thomas Oakey
+      <oakey@b1-systems.de>).
+
+
+------
 v3.0.5
 ------
 
