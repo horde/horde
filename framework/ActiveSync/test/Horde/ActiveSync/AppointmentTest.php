@@ -301,4 +301,44 @@ class Horde_ActiveSync_AppointmentTest extends Horde_Test_Case
         $this->assertEquals('2011-12-10 15:00:00', (string)$next->setTimezone('America/New_York'));
     }
 
+    public function testMissingSupportedTag()
+    {
+        $state = $this->getMockSkipConstructor('Horde_ActiveSync_State_Base');
+        $fixture = array(
+            'userAgent' => 'Apple-iPad3C6/1202.435',
+            'properties' => array(Horde_ActiveSync_Device::OS => 'iOS 8.1.1')
+        );
+        $device = new Horde_ActiveSync_Device($state, $fixture);
+        $contact = new Horde_ActiveSync_Message_Appointment(array('device' => $device, 'protocolversion' => Horde_ActiveSync::VERSION_FOURTEEN));
+        $contact->setSupported(array());
+        $this->assertEquals(false, $contact->isGhosted('subject'));
+        $this->assertEquals(false, $contact->isGhosted('body'));
+
+        $device = new Horde_ActiveSync_Device($state, $fixture);
+        $contact = new Horde_ActiveSync_Message_Appointment(array('device' => $device, 'protocolversion' => Horde_ActiveSync::VERSION_SIXTEEN));
+        $contact->setSupported(array());
+        $this->assertEquals(true, $contact->isGhosted('subject'));
+        $this->assertEquals(true, $contact->isGhosted('body'));
+    }
+
+    public function testEmptySupportedTag()
+    {
+        $state = $this->getMockSkipConstructor('Horde_ActiveSync_State_Base');
+        $fixture = array(
+            'userAgent' => 'Apple-iPad3C6/1202.435',
+            'properties' => array(Horde_ActiveSync_Device::OS => 'iOS 8.1.1')
+        );
+        $device = new Horde_ActiveSync_Device($state, $fixture);
+        $contact = new Horde_ActiveSync_Message_Appointment(array('device' => $device, 'protocolversion' => Horde_ActiveSync::VERSION_FOURTEEN));
+        $contact->setSupported(array(Horde_ActiveSync::ALL_GHOSTED));
+        $this->assertEquals(true, $contact->isGhosted('subject'));
+        $this->assertEquals(true, $contact->isGhosted('body'));
+
+        $device = new Horde_ActiveSync_Device($state, $fixture);
+        $contact = new Horde_ActiveSync_Message_Appointment(array('device' => $device, 'protocolversion' => Horde_ActiveSync::VERSION_SIXTEEN));
+        $contact->setSupported(array(Horde_ActiveSync::ALL_GHOSTED));
+        $this->assertEquals(true, $contact->isGhosted('subject'));
+        $this->assertEquals(true, $contact->isGhosted('body'));
+    }
+
 }

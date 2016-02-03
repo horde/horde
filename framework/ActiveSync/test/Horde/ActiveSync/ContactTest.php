@@ -51,7 +51,34 @@ class Horde_ActiveSync_ContactTest extends Horde_Test_Case
         );
         $device = new Horde_ActiveSync_Device($state, $fixture);
         $contact = new Horde_ActiveSync_Message_Contact(array('device' => $device));
+        $contact->setSupported(array());
         $this->assertEquals(false, $contact->isGhosted('picture'));
+    }
+
+    public function testMissingSupportedTag()
+    {
+        $state = $this->getMockSkipConstructor('Horde_ActiveSync_State_Base');
+        $fixture = array(
+            'userAgent' => 'Apple-iPad3C6/1202.435',
+            'properties' => array(Horde_ActiveSync_Device::OS => 'iOS 8.1.1')
+        );
+        $device = new Horde_ActiveSync_Device($state, $fixture);
+        $contact = new Horde_ActiveSync_Message_Contact(array('device' => $device));
+        $contact->setSupported(array());
+        $this->assertEquals(false, $contact->isGhosted('fileas'));
+    }
+
+    public function testEmptySupportedTag()
+    {
+        $state = $this->getMockSkipConstructor('Horde_ActiveSync_State_Base');
+        $fixture = array(
+            'userAgent' => 'Apple-iPad3C6/1202.435',
+            'properties' => array(Horde_ActiveSync_Device::OS => 'iOS 8.1.1')
+        );
+        $device = new Horde_ActiveSync_Device($state, $fixture);
+        $contact = new Horde_ActiveSync_Message_Contact(array('device' => $device));
+        $contact->setSupported(array(Horde_ActiveSync::ALL_GHOSTED));
+        $this->assertEquals(true, $contact->isGhosted('fileas'));
     }
 
     /**
