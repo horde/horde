@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix reversed login in GHOSTED element handling.
 * [mjr] Changes for EAS 16.0 support.
 * [mjr] Fix error when attempting to rewrite previous syncstate.
  </notes>
@@ -2966,6 +2967,7 @@
    <date>2016-01-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix reversed login in GHOSTED element handling.
 * [mjr] Changes for EAS 16.0 support.
 * [mjr] Fix error when attempting to rewrite previous syncstate.
    </notes>
