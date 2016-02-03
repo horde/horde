@@ -155,13 +155,7 @@ class Horde_ActiveSync_Connector_Importer
         }
 
         // Changing an existing object
-        if ($id && $synckey &&
-            ($message instanceof Horde_ActiveSync_Message_Appointment) &&
-            $this->_flags == Horde_ActiveSync::CONFLICT_OVERWRITE_PIM) {
-
-            if ($this->_state->isDuplicatePIMChange($id, $synckey)) {}
-
-        } elseif ($id && $this->_flags == Horde_ActiveSync::CONFLICT_OVERWRITE_PIM) {
+        if ($id && $this->_flags == Horde_ActiveSync::CONFLICT_OVERWRITE_PIM) {
             // This is complicated by the fact that in EAS 16.0, clients
             // will send a CHANGE for adding/editing an exception along with
             // a seperate change with the entire appointment - even if nothing
