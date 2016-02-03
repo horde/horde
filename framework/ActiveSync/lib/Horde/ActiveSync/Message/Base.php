@@ -308,6 +308,14 @@ class Horde_ActiveSync_Message_Base
      */
     public function isGhosted($property)
     {
+        // MS-ASCMD 2.2.3.168 An empty SUPPORTED tag
+        // indicates that ALL elements able to be ghosted
+        // ARE ghosted.
+        if (current($this->_supported) == Horde_ActiveSync::ALL_GHOSTED &&
+            empty($this->_exists[$property])) {
+            return true;
+        }
+
         return array_search($property, $this->_supported) === false &&
                empty($this->_exists[$property]);
     }
