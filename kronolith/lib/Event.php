@@ -1746,7 +1746,19 @@ abstract class Kronolith_Event
              * to delete all existing exceptions and re-create them. The only
              * drawback to this is that the UIDs will change. */
             $kronolith_driver = $this->getDriver();
-            $this->recurrence = $rrule;
+
+            // EAS 16 doesn't update exception data on edits of the base event
+            // but still sends the recurrence rule. We need to replace the
+            // recurrence rule if it changed (and overwrite any exceptions),
+            // otherwise leave it alone.
+            if ($message->getProtocolVersion() >= Horde_ActiveSync::VERSION_SIXTEEN) {
+                if (!empty($this->uid) &&
+                    !empty($this->recurrence) &&
+                    !$this->recurrence->isEqual($rrule)) {
+                    $this->disconnectExceptions(true);
+                    $this->recurrence = $rrule;
+                }
+            }
 
             if (!empty($this->uid) &&
                 $message->getProtocolVersion() < Horde_ActiveSync::VERSION_SIXTEEN) {
