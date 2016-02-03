@@ -1465,73 +1465,90 @@ abstract class Kronolith_Event
         if ($this->id === null) {
             $this->creator = $GLOBALS['registry']->getAuth();
         }
-        if (strlen($title = $message->getSubject())) {
+        if (!$message->isGhosted('subject') &&
+            strlen($title = $message->getSubject())) {
             $this->title = $title;
         }
-        if ($message->getProtocolVersion() == Horde_ActiveSync::VERSION_TWOFIVE &&
-            strlen($description = $message->getBody())) {
-            $this->description = $description;
-        } elseif ($message->getProtocolVersion() > Horde_ActiveSync::VERSION_TWOFIVE) {
-            if ($message->airsyncbasebody->type == Horde_ActiveSync::BODYPREF_TYPE_HTML) {
-                $this->description = Horde_Text_Filter::filter($message->airsyncbasebody->data, 'Html2text');
-            } else {
-                $this->description = $message->airsyncbasebody->data;
+        if (!$message->isGhosted('body')) {
+            if ($message->getProtocolVersion() == Horde_ActiveSync::VERSION_TWOFIVE &&
+                strlen($description = $message->getBody())) {
+                $this->description = $description;
+            } elseif ($message->getProtocolVersion() > Horde_ActiveSync::VERSION_TWOFIVE) {
+                if ($message->airsyncbasebody->type == Horde_ActiveSync::BODYPREF_TYPE_HTML) {
+                    $this->description = Horde_Text_Filter::filter($message->airsyncbasebody->data, 'Html2text');
+                } else {
+                    $this->description = $message->airsyncbasebody->data;
+                }
             }
         }
-        if (strlen($location = $message->getLocation())) {
+        if (!$message->isGhosted('location') &&
+            strlen($location = $message->getLocation())) {
             $this->location = $location;
         }
 
         /* Date/times */
-        $tz = $message->getTimezone();
+        $tz = !$message->isGhosted('timezone')
+            ? $message->getTimezone()
+            : $this->timezone;
         $dates = $message->getDatetime();
-        $this->start = clone($dates['start']);
+        $this->start = !$message->isGhosted('starttime')
+            ? clone($dates['start'])
+            : $this->start;
         $this->start->setTimezone($tz);
-        $this->end = clone($dates['end']);
+
+        $this->end = !$message->isGhosted('endtime')
+            ? clone($dates['end'])
+            : $this->end;
         $this->end->setTimezone($tz);
-        $this->allday = $dates['allday'];
+
+        if (!$message->isGhosted('alldayevent')) {
+            $this->allday = $dates['allday'];
+        }
         if ($tz != date_default_timezone_get()) {
             $this->timezone = $tz;
         }
 
         /* Sensitivity */
-        $this->private = ($message->getSensitivity() == Horde_ActiveSync_Message_Appointment::SENSITIVITY_PRIVATE || $message->getSensitivity() == Horde_ActiveSync_Message_Appointment::SENSITIVITY_CONFIDENTIAL) ? true :  false;
+        if (!$message->isGhosted('sensitivity')) {
+            $this->private = ($message->getSensitivity() == Horde_ActiveSync_Message_Appointment::SENSITIVITY_PRIVATE || $message->getSensitivity() == Horde_ActiveSync_Message_Appointment::SENSITIVITY_CONFIDENTIAL) ? true :  false;
+        }
 
         /* Busy Status */
-        if ($message->getMeetingStatus() == Horde_ActiveSync_Message_Appointment::MEETING_CANCELLED) {
-            $status = Kronolith::STATUS_CANCELLED;
-        } else {
-            $status = $message->getBusyStatus();
-            switch ($status) {
-            case Horde_ActiveSync_Message_Appointment::BUSYSTATUS_BUSY:
-                $status = Kronolith::STATUS_CONFIRMED;
-                break;
+        if (!$message->isGhosted('meetingstatus')) {
+            if ($message->getMeetingStatus() == Horde_ActiveSync_Message_Appointment::MEETING_CANCELLED) {
+                $status = Kronolith::STATUS_CANCELLED;
+            } else {
+                $status = $message->getBusyStatus();
+                switch ($status) {
+                case Horde_ActiveSync_Message_Appointment::BUSYSTATUS_BUSY:
+                    $status = Kronolith::STATUS_CONFIRMED;
+                    break;
 
-            case Horde_ActiveSync_Message_Appointment::BUSYSTATUS_FREE:
-                $status = Kronolith::STATUS_FREE;
-                break;
+                case Horde_ActiveSync_Message_Appointment::BUSYSTATUS_FREE:
+                    $status = Kronolith::STATUS_FREE;
+                    break;
 
-            case Horde_ActiveSync_Message_Appointment::BUSYSTATUS_TENTATIVE:
-                $status = Kronolith::STATUS_TENTATIVE;
-                break;
-            // @TODO: not sure how "Out" should show in kronolith...
-            case Horde_ActiveSync_Message_Appointment::BUSYSTATUS_OUT:
-                $status = Kronolith::STATUS_CONFIRMED;
-            default:
-                // EAS Specifies default should be free.
-                $status = Kronolith::STATUS_FREE;
+                case Horde_ActiveSync_Message_Appointment::BUSYSTATUS_TENTATIVE:
+                    $status = Kronolith::STATUS_TENTATIVE;
+                    break;
+                // @TODO: not sure how "Out" should show in kronolith...
+                case Horde_ActiveSync_Message_Appointment::BUSYSTATUS_OUT:
+                    $status = Kronolith::STATUS_CONFIRMED;
+                default:
+                    // EAS Specifies default should be free.
+                    $status = Kronolith::STATUS_FREE;
+                }
             }
+            $this->status = $status;
         }
-        $this->status = $status;
-
 
         /* Alarm */
-        if ($alarm = $message->getReminder()) {
+        if (!$message->isGhosted('reminder') && ($alarm = $message->getReminder())) {
             $this->alarm = $alarm;
         }
 
         /* Recurrence */
-        if ($rrule = $message->getRecurrence()) {
+        if (!$message->isGhosted('recurrence') && ($rrule = $message->getRecurrence())) {
             /* Exceptions */
             $kronolith_driver = $this->getDriver();
             /* Since AS keeps exceptions as part of the original event, we need
@@ -1584,43 +1601,48 @@ abstract class Kronolith_Event
         }
 
         /* Attendees */
-        $attendees = $message->getAttendees();
-        foreach ($attendees as $attendee) {
-            switch ($attendee->status) {
-            case Horde_ActiveSync_Message_Attendee::STATUS_ACCEPT:
-                $response_code = Kronolith::RESPONSE_ACCEPTED;
-                break;
-            case Horde_ActiveSync_Message_Attendee::STATUS_DECLINE:
-                $response_code = Kronolith::RESPONSE_DECLINED;
-                break;
-            case Horde_ActiveSync_Message_Attendee::STATUS_TENTATIVE:
-                $response_code = Kronolith::RESPONSE_TENTATIVE;
-                break;
-            default:
-                $response_code = Kronolith::RESPONSE_NONE;
-            }
-            switch ($attendee->type) {
-            case Horde_ActiveSync_Message_Attendee::TYPE_REQUIRED:
-                $part_type = Kronolith::PART_REQUIRED;
-                break;
-            case Horde_ActiveSync_Message_Attendee::TYPE_OPTIONAL:
-                $part_type = Kronolith::PART_OPTIONAL;
-                break;
-            case Horde_ActiveSync_Message_Attendee::TYPE_RESOURCE:
-                $part_type = Kronolith::PART_REQUIRED;
-            }
+        if (!$message->isGhosted('attendees')) {
+            $attendees = $message->getAttendees();
+            foreach ($attendees as $attendee) {
+                switch ($attendee->status) {
+                case Horde_ActiveSync_Message_Attendee::STATUS_ACCEPT:
+                    $response_code = Kronolith::RESPONSE_ACCEPTED;
+                    break;
+                case Horde_ActiveSync_Message_Attendee::STATUS_DECLINE:
+                    $response_code = Kronolith::RESPONSE_DECLINED;
+                    break;
+                case Horde_ActiveSync_Message_Attendee::STATUS_TENTATIVE:
+                    $response_code = Kronolith::RESPONSE_TENTATIVE;
+                    break;
+                default:
+                    $response_code = Kronolith::RESPONSE_NONE;
+                }
+                switch ($attendee->type) {
+                case Horde_ActiveSync_Message_Attendee::TYPE_REQUIRED:
+                    $part_type = Kronolith::PART_REQUIRED;
+                    break;
+                case Horde_ActiveSync_Message_Attendee::TYPE_OPTIONAL:
+                    $part_type = Kronolith::PART_OPTIONAL;
+                    break;
+                case Horde_ActiveSync_Message_Attendee::TYPE_RESOURCE:
+                    $part_type = Kronolith::PART_REQUIRED;
+                }
 
-            $this->addAttendee($attendee->email,
-                               $part_type,
-                               $response_code,
-                               $attendee->name);
+                $this->addAttendee($attendee->email,
+                                   $part_type,
+                                   $response_code,
+                                   $attendee->name);
+            }
         }
 
         /* Categories (Tags) */
-        $this->_tags = $message->getCategories();
+        if (!$message->isGhosted('categories')) {
+            $this->_tags = $message->getCategories();
+        }
 
         // 14.1
-        if ($message->getProtocolVersion() >= Horde_ActiveSync::VERSION_FOURTEENONE) {
+        if ($message->getProtocolVersion() >= Horde_ActiveSync::VERSION_FOURTEENONE &&
+            !$message->isGhosted('onlinemeetingexternallink')) {
             $this->url = $message->onlinemeetingexternallink;
         }
 
