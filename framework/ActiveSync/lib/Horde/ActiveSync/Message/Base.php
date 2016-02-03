@@ -277,11 +277,20 @@ class Horde_ActiveSync_Message_Base
     /**
      * Set the list of non-ghosted fields for this message.
      *
-     * @param array $fields  The array of fields.
+     * @param array $fields  The array of fields, keyed by the fully qualified
+     *                       property name i.e., POOMCONTACTS:Anniversary. To
+     *                       signify an empty SUPPORTED container $fields should
+     *                       contain a single element equal to
+     *                       Horde_ActiveSync::ALL_GHOSTED.
      */
     public function setSupported(array $fields)
     {
         $this->_supported = array();
+        if (current($fields) == Horde_ActiveSync::ALL_GHOSTED) {
+            $this->_supported = $fields;
+            return;
+        }
+
         foreach ($fields as $field) {
             $this->_supported[] = $this->_mapping[$field][self::KEY_ATTRIBUTE];
         }
@@ -308,9 +317,14 @@ class Horde_ActiveSync_Message_Base
      */
     public function isGhosted($property)
     {
-        // MS-ASCMD 2.2.3.168 An empty SUPPORTED tag
-        // indicates that ALL elements able to be ghosted
-        // ARE ghosted.
+        // MS-ASCMD 2.2.3.168:
+        // An empty SUPPORTED container indicates that ALL elements able to be
+        // ghosted ARE ghosted. A *missing* SUPPORTED tag indicates that NO
+        // fields are ghosted - any ghostable properties are always considered
+        // NOT ghosted.
+        if (empty($this->_supported)) {
+            return false;
+        }
         if (current($this->_supported) == Horde_ActiveSync::ALL_GHOSTED &&
             empty($this->_exists[$property])) {
             return true;

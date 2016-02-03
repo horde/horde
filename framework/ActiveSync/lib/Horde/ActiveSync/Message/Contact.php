@@ -435,18 +435,31 @@ class Horde_ActiveSync_Message_Contact extends Horde_ActiveSync_Message_Base
     }
 
     /**
-     * Set the list of non-ghosted fields for this message.
+     * Determines if the property specified has been ghosted by the client.
+     * A property is ghosted if it is NOT listed in the SUPPORTED list sent
+     * by the client AND is NOT present in the request data.
      *
-     * @param array $fields  The array of fields.
+     * @param string $property  The property to check
+     *
+     * @return boolean
      */
-    public function setSupported(array $fields)
+    public function isGhosted($property)
     {
-        // See if we need to explicitly add the picture tag to the supported list.
-        parent::setSupported($fields);
-        if ($this->_device->hasQuirk(Horde_ActiveSync_Device::QUIRK_NEEDS_SUPPORTED_PICTURE_TAG) &&
-            !in_array($this->_mapping[self::PICTURE][self::KEY_ATTRIBUTE], $this->_supported)) {
-            $this->_supported[] = $this->_mapping[self::PICTURE][self::KEY_ATTRIBUTE];
+        // MS-ASCMD 2.2.3.168:
+        // An empty SUPPORTED container indicates that ALL elements able to be
+        // ghosted ARE ghosted. A *missing* SUPPORTED tag indicates that NO
+        // fields are ghosted - any ghostable properties are always considered
+        // NOT ghosted. Some clients like iOS 4.x screw this up by not sending
+        // any SUPPORTED container and also not sending the picture field during
+        // edits.
+        if ($property == $this->_mapping[self::PICTURE][self::KEY_ATTRIBUTE] &&
+            empty($this->_exists[$property]) &&
+            empty($this->_supported) &&
+            $this->_device->hasQuirk(Horde_ActiveSync_Device::QUIRK_NEEDS_SUPPORTED_PICTURE_TAG)) {
+            return true;
         }
+
+        return parent::isGhosted($property);
     }
 
 }
