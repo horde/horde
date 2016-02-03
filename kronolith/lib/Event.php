@@ -1480,6 +1480,38 @@ abstract class Kronolith_Event
     }
 
     /**
+     * Disconnect any existing exceptions.
+     *
+     * @param boolean $delete  If true, disconnected exceptions will be deleted
+     *                         completely.
+     */
+    public function disconnectExceptions($delete = false)
+    {
+        // Get exceptions that we have bound events for.
+        $exceptions = $this->boundExceptions();
+
+        // Remove all exception dates from the recurrence object.
+        $ex_dates = $this->recurrence->getExceptions();
+        foreach ($ex_dates as $ex_date) {
+            list($year, $month, $day) = sscanf($ex_date, '%04d%02d%02d');
+            $this->recurrence->deleteException($year, $month, $day);
+        }
+
+        // Unbind the event from the base event, but don't delete it to avoid
+        // any unpleasent user surprises.
+        foreach ($exceptions as $exception) {
+            unset($exception->baseid);
+            $exception->exceptionoriginaldate = null;
+            $exception->save();
+            // Must delete after the baseid was removed so it doesn't alter
+            // the old base event's history.
+            if ($delete) {
+                $this->getDriver()->deleteEvent($exception, true);
+            }
+        }
+    }
+
+    /**
      * Handle adding/editing exceptions from EAS 16.0 clients.
      *
      * @param  Horde_ActiveSync_Message_Appointment $message

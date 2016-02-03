@@ -355,7 +355,7 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
                     // Disconnect any existing exceptions when the
                     // start/end time changes still @todo this when the
                     // recurrence series type/properties change too.
-                    $this->_disconnectExceptions($event);
+                    $event->disconnectExceptions();
                 }
                 $result = $this->_saveEvent($event);
             } catch (Exception $e) {
@@ -1866,32 +1866,6 @@ EOT;
         $nevent->initialized = true;
 
         return $nevent;
-    }
-
-    /**
-     * Disconnect any existing exceptions.
-     *
-     * @param  Kronolith_Event $event  The event.
-     */
-    protected function _disconnectExceptions(Kronolith_Event $event)
-    {
-        // Get exceptions that we have bound events for.
-        $exceptions = $event->boundExceptions();
-
-        // Remove all exception dates from the recurrence object.
-        $ex_dates = $event->recurrence->getExceptions();
-        foreach ($ex_dates as $ex_date) {
-            list($year, $month, $day) = sscanf($ex_date, '%04d%02d%02d');
-            $event->recurrence->deleteException($year, $month, $day);
-        }
-
-        // Unbind the event from the base event, but don't delete it to avoid
-        // any unpleasent user surprises.
-        foreach ($exceptions as $exception) {
-            unset($exception->baseid);
-            $exception->exceptionoriginaldate = null;
-            $exception->save();
-        }
     }
 
 }
