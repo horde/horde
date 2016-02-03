@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Do not throw a fatal error if a meeting request can not be deleted after responding to it.
 * [mjr] Changes for EAS 16.0 support.
 * [mjr] Honor the disabled property when rendering boolean form types.
 * [jan] Fix returning to last page after problem reporting from AJAX pages (Bug #12112).
@@ -4125,6 +4126,7 @@
    <date>2016-01-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Do not throw a fatal error if a meeting request can not be deleted after responding to it.
 * [mjr] Changes for EAS 16.0 support.
 * [mjr] Honor the disabled property when rendering boolean form types.
 * [jan] Fix returning to last page after problem reporting from AJAX pages (Bug #12112).
