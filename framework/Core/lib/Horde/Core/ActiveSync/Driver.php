@@ -2786,7 +2786,11 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         // will remove the email from the UI as soon as the response is sent.
         // Failure to remove it from the server will result in an inconsistent
         // sync state.
-        $this->_imap->deleteMessages(array($response['requestid']), $response['folderid']);
+        try {
+            $this->_imap->deleteMessages(array($response['requestid']), $response['folderid']);
+        } catch (Horde_ActiveSync_Exception $e) {
+            $this->_logger->err($e->getMessage());
+        }
 
         return $uid;
     }
