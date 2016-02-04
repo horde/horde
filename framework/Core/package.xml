@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2016-01-05</date>
+ <date>2016-02-04</date>
  <version>
   <release>2.22.6</release>
   <api>2.22.0</api>
@@ -998,6 +998,7 @@
       <file name="ActiveSyncTests.php" role="test" />
       <file name="AllTests.php" role="test" />
       <file name="bootstrap.php" role="test" />
+      <file name="NlsconfigTest.php" role="test" />
       <file name="phpunit.xml" role="test" />
       <file name="RegistryTest.php" role="test" />
       <file name="SmartmobileUrlTest.php" role="test" />
@@ -2087,6 +2088,7 @@
    <install as="Horde/Core/ActiveSyncTests.php" name="test/Horde/Core/ActiveSyncTests.php" />
    <install as="Horde/Core/AllTests.php" name="test/Horde/Core/AllTests.php" />
    <install as="Horde/Core/bootstrap.php" name="test/Horde/Core/bootstrap.php" />
+   <install as="Horde/Core/NlsconfigTest.php" name="test/Horde/Core/NlsconfigTest.php" />
    <install as="Horde/Core/phpunit.xml" name="test/Horde/Core/phpunit.xml" />
    <install as="Horde/Core/RegistryTest.php" name="test/Horde/Core/RegistryTest.php" />
    <install as="Horde/Core/SmartmobileUrlTest.php" name="test/Horde/Core/SmartmobileUrlTest.php" />
@@ -4124,7 +4126,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-01-05</date>
+   <date>2016-02-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Improvements to GHOSTED/SUPPORTED handling for ActiveSync.
