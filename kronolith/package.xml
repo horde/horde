@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Add missing EAS ghosted property support for all EAS versions.
+* [mjr] Add missing EAS ghosted property support for all EAS versions. Prevents potential loss of event data during synchronization.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2653,7 +2653,7 @@
    <date>2016-02-02</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* [mjr] Add missing EAS ghosted property support for all EAS versions.
+* [mjr] Add missing EAS ghosted property support for all EAS versions. Prevents potential loss of event data during synchronization.
    </notes>
   </release>
  </changelog>

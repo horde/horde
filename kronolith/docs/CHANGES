@@ -2,7 +2,8 @@
 v4.2.13-git
 -----------
 
-[mjr] Add missing EAS ghosted property support for all EAS versions.
+[mjr] Add missing EAS ghosted property support for all EAS versions. Fixes
+      potential loss of event data during synchronization.
 
 
 -------
