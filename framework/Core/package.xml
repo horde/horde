@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Improvements to GHOSTED/SUPPORTED handling for ActiveSync.
 * [mjr] Do not throw a fatal error if a meeting request can not be deleted after responding to it.
 * [mjr] Changes for EAS 16.0 support.
 * [mjr] Honor the disabled property when rendering boolean form types.
@@ -4126,6 +4127,7 @@
    <date>2016-01-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Improvements to GHOSTED/SUPPORTED handling for ActiveSync.
 * [mjr] Do not throw a fatal error if a meeting request can not be deleted after responding to it.
 * [mjr] Changes for EAS 16.0 support.
 * [mjr] Honor the disabled property when rendering boolean form types.
