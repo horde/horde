@@ -30,7 +30,7 @@
  </developer>
  <date>2016-02-04</date>
  <version>
-  <release>2.22.6</release>
+  <release>2.22.7</release>
   <api>2.22.0</api>
  </version>
  <stability>
@@ -39,15 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Improvements to GHOSTED/SUPPORTED handling for ActiveSync.
-* [mjr] Do not throw a fatal error if a meeting request can not be deleted after responding to it.
-* [mjr] Changes for EAS 16.0 support.
-* [mjr] Honor the disabled property when rendering boolean form types.
-* [jan] Fix returning to last page after problem reporting from AJAX pages (Bug #12112).
-* [jan] Fix updating group cache with LDAP backend.
-* [jan] Horde_Registry_Nlsconfig#validLang() checks now if a locale is installed (Request #10457).
-* [jan] Mark PHP 7 as supported.
-* [jan] Add option to always lowercase user names after logging in.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4138,6 +4130,19 @@
 * [jan] Horde_Registry_Nlsconfig#validLang() checks now if a locale is installed (Request #10457).
 * [jan] Mark PHP 7 as supported.
 * [jan] Add option to always lowercase user names after logging in.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.22.7</release>
+    <api>2.22.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-02-03</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
