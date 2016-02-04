@@ -1469,18 +1469,18 @@ abstract class Kronolith_Event
             strlen($title = $message->getSubject())) {
             $this->title = $title;
         }
-        if (!$message->isGhosted('body')) {
-            if ($message->getProtocolVersion() == Horde_ActiveSync::VERSION_TWOFIVE &&
-                strlen($description = $message->getBody())) {
-                $this->description = $description;
-            } elseif ($message->getProtocolVersion() > Horde_ActiveSync::VERSION_TWOFIVE) {
-                if ($message->airsyncbasebody->type == Horde_ActiveSync::BODYPREF_TYPE_HTML) {
-                    $this->description = Horde_Text_Filter::filter($message->airsyncbasebody->data, 'Html2text');
-                } else {
-                    $this->description = $message->airsyncbasebody->data;
-                }
+        if ($message->getProtocolVersion() == Horde_ActiveSync::VERSION_TWOFIVE &&
+            !$message->isGhosted('body') &&
+            strlen($description = $message->getBody())) {
+            $this->description = $description;
+        } elseif ($message->getProtocolVersion() > Horde_ActiveSync::VERSION_TWOFIVE && !$message->isGhosted('airsyncbasebody')) {
+            if ($message->airsyncbasebody->type == Horde_ActiveSync::BODYPREF_TYPE_HTML) {
+                $this->description = Horde_Text_Filter::filter($message->airsyncbasebody->data, 'Html2text');
+            } else {
+                $this->description = $message->airsyncbasebody->data;
             }
         }
+
         if (!$message->isGhosted('location') &&
             strlen($location = $message->getLocation())) {
             $this->location = $location;
