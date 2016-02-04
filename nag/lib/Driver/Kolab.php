@@ -316,6 +316,7 @@ class Nag_Driver_Kolab extends Nag_Driver
         $object['uid'] = $this->_getData()->generateUid();
         try {
             $this->_getData()->create($object);
+            $task['uid'] = $object['uid'];
             $this->_addTags($task);
         } catch (Horde_Kolab_Storage_Exception $e) {
             throw new Nag_Exception($e);
