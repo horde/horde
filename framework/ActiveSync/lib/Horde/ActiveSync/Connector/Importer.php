@@ -132,7 +132,8 @@ class Horde_ActiveSync_Connector_Importer
      * @param Horde_ActiveSync_Device $device          A device descriptor
      * @param integer $clientid                        Client id sent from client.
      *                                                 on message addition.
-     * @param string $class    The collection class (only needed for SMS).
+     * @param string $class    The collection class - needed for SMS since the
+     *                         actual serverid will be for an email folder.
      *                         @since 2.6.0
      * @param string $synckey  The synckey currently being processed when
      *                         processing a SYNC_MODIFY command.
@@ -186,6 +187,11 @@ class Horde_ActiveSync_Connector_Importer
                 $this->_procid, $uid)
             );
             return $uid;
+        }
+
+        // Set the supported/ghosted data if this is a SYNC_MODIFY.
+        if ($id && !empty($device->supported[$class])) {
+            $message->setSupported($device->supported[$class]);
         }
 
         // Tell the backend about the change
