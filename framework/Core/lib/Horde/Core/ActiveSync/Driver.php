@@ -1825,8 +1825,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         }
 
         $stat = false;
-        // @todo Move the ::setSupported stuff to the ActiveSync library.
-        // Shouldn't have client code be responsible for that.
+
         switch ($folder_class) {
         case Horde_ActiveSync::CLASS_CALENDAR:
             if (!$id) {
@@ -1842,9 +1841,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 // ActiveSync messages do NOT contain the serverUID value, put
                 // it in ourselves so we can have it during import/change.
                 $message->setServerUID($id);
-                if (!empty($device->supported[Horde_ActiveSync::CLASS_CALENDAR])) {
-                    $message->setSupported($device->supported[Horde_ActiveSync::CLASS_CALENDAR]);
-                }
                 try {
                     $this->_connector->calendar_replace($id, $message, $server_id);
                 } catch (Horde_Exception $e) {
@@ -1867,9 +1863,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 }
                 $stat = array('mod' => $this->getSyncStamp($folderid), 'id' => $id, 'flags' => 1);
             } else {
-                if (!empty($device->supported[Horde_ActiveSync::CLASS_CONTACTS])) {
-                    $message->setSupported($device->supported[Horde_ActiveSync::CLASS_CONTACTS]);
-                }
                 try {
                     $this->_connector->contacts_replace($id, $message);
                 } catch (Horde_Exception $e) {
@@ -1892,9 +1885,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 }
                 $stat = array('mod' => $this->getSyncStamp($folderid), 'id' => $id, 'flags' => 1);
             } else {
-                if (!empty($device->supported[Horde_ActiveSync::CLASS_TASKS])) {
-                    $message->setSupported($device->supported[Horde_ActiveSync::CLASS_TASKS]);
-                }
                 try {
                     $this->_connector->tasks_replace($id, $message);
                 } catch (Horde_Exception $e) {
@@ -1917,9 +1907,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 }
                 $stat = array('mod' => $this->getSyncStamp($folderid), 'id' => $id, 'flags' => 1);
             } else {
-                if (!empty($device->supported[Horde_ActiveSync::CLASS_NOTES])) {
-                    $message->setSupported($device->supported[Horde_ActiveSync::CLASS_NOTES]);
-                }
                 try {
                     $this->_connector->notes_replace($id, $message);
                 } catch (Horde_Exception $e) {
