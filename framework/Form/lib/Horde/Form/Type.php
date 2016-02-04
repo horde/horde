@@ -460,7 +460,7 @@ class Horde_Form_Type_phone extends Horde_Form_Type {
                 $message = Horde_Form_Translation::t("This field is required.");
                 return false;
             }
-        } elseif (!preg_match('/^\+?[\d()\-\/. ]*$/', $value)) {
+        } elseif (!preg_match('/^\+?[\d()\-\/.\s]*$/u', $value)) {
             $message = Horde_Form_Translation::t("You must enter a valid phone number, digits only with an optional '+' for the international dialing prefix.");
             return false;
         }
