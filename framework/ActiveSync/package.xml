@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-01-23</date>
+ <date>2016-02-04</date>
  <version>
   <release>2.31.0</release>
   <api>2.31.0</api>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Fix possibly leaking Horde_Imap_Client Exceptions.
+* [mjr] Fix possible leaking of Horde_Imap_Client Exceptions.
 * [mjr] Fix reversed login in GHOSTED element handling.
 * [mjr] Changes for EAS 16.0 support.
 * [mjr] Fix error when attempting to rewrite previous syncstate.
@@ -2965,10 +2965,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-01-20</date>
+   <date>2016-02-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* [mjr] Fix possibly leaking Horde_Imap_Client Exceptions.
+* [mjr] Fix possible leaking of Horde_Imap_Client Exceptions.
 * [mjr] Fix reversed login in GHOSTED element handling.
 * [mjr] Changes for EAS 16.0 support.
 * [mjr] Fix error when attempting to rewrite previous syncstate.
