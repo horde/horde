@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Another fix for GHOSTED support on certain clients.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2981,7 +2981,7 @@
    <date>2016-02-03</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Another fix for GHOSTED support on certain clients.
    </notes>
   </release>
  </changelog>
