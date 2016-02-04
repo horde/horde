@@ -24,7 +24,7 @@
  </lead>
  <date>2016-02-04</date>
  <version>
-  <release>4.2.13</release>
+  <release>4.2.14</release>
   <api>4.2.0</api>
  </version>
  <stability>
@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Add missing EAS ghosted property support for all EAS versions. Prevents potential loss of event data during synchronization.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2654,6 +2654,19 @@
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Add missing EAS ghosted property support for all EAS versions. Prevents potential loss of event data during synchronization.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.14</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-02-04</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
