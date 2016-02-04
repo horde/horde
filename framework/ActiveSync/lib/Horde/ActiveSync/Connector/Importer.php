@@ -163,9 +163,8 @@ class Horde_ActiveSync_Connector_Importer
             // else has changed. This leads to conficts (since the appointment
             // is marked as changed after the first edit). Sniff that out here
             // and prevent the conflict check for those messages.
-            if (!$synckey ||
-                !(($message instanceof Horde_ActiveSync_Message_Appointment) &&
-                  $this->_state->isDuplicatePIMChange($id, $synckey))) {
+            if (!($message instanceof Horde_ActiveSync_Message_Appointment) &&
+                 $this->_state->isDuplicatePIMChange($id, $synckey)) {
 
                 $conflict = $this->_isConflict(
                     Horde_ActiveSync::CHANGE_TYPE_CHANGE,
