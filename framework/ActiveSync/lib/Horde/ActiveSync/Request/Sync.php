@@ -805,7 +805,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     }
                     while (1) {
                         $el = $this->_decoder->getElement();
-                        if ($this->_decoder->isEmptyElement($el)) {
+                        if ($this->_decoder->isEmptyElement($this->_decoder->getLastStartElement())) {
                             // MS-ASCMD 2.2.3.168 An empty SUPPORTED tag
                             // indicates that ALL elements able to be ghosted
                             // ARE ghosted.
