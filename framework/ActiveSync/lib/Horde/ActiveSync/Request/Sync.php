@@ -1081,8 +1081,9 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 case Horde_ActiveSync::SYNC_MODIFY:
                     if (isset($appdata)) {
                         $id = $importer->importMessageChange(
-                            $serverid, $appdata, $this->_device, false, false,
-                            $collection['synckey']);
+                            $serverid, $appdata, $this->_device, false,
+                            $collection['class'], $collection['synckey']
+                        );
                         if ($id && !is_array($id)) {
                             $collection['importedchanges'] = true;
                         } elseif (is_array($id)) {
