@@ -387,7 +387,9 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
                     $event->save();
                 }
             }
-            if (!$event->organizer || Kronolith::isUserEmail($this->creator, $event->organizer)) {
+
+            // Only the ORGANIZER's copy should trigger a REQUEST or CANCEL.
+            if (empty($event->organizer)) {
                 $type = $event->status == Kronolith::STATUS_CANCELLED
                     ? Kronolith::ITIP_CANCEL
                     : Kronolith::ITIP_REQUEST;
@@ -398,7 +400,7 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
         // Send a CANCEL iTip for attendees that have been removed, but only if
         // the entire event isn't being marked as cancelled (which would be
         // caught above).
-        if (!empty($removed_attendees)) {
+        if (empty($event->organizer) && !empty($removed_attendees)) {
             $to_cancel = array();
             foreach ($removed_attendees as $email) {
                 $to_cancel[$email] = $old_attendees[$email];

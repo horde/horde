@@ -1940,6 +1940,12 @@ class Kronolith
         }
 
         foreach ($mail_attendees as $email => $status) {
+            /* Don't send notifications to the ORGANIZER if this is the
+             * ORGANIZER's copy of the event. */
+            if (!$event->organizer && Kronolith::isUserEmail($event->creator, $email)) {
+                continue;
+            }
+
             /* Don't bother sending an invitation/update if the recipient does
              * not need to participate, or has declined participating, or
              * doesn't have an email address. */
