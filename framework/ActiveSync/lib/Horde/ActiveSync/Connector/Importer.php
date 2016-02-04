@@ -134,7 +134,8 @@ class Horde_ActiveSync_Connector_Importer
      *                                                 on message addition.
      * @param string $class    The collection class (only needed for SMS).
      *                         @since 2.6.0
-     * @param string $synckey  The synckey currently being processed.
+     * @param string $synckey  The synckey currently being processed when
+     *                         processing a SYNC_MODIFY command.
      *                         @since  2.31.0
      *
      * @todo Revisit passing $class for SMS. Probably pass class in the
@@ -170,7 +171,7 @@ class Horde_ActiveSync_Connector_Importer
                     Horde_ActiveSync::CHANGE_TYPE_CHANGE,
                     $this->_folderId,
                     $id
-                    );
+                );
                 if ($conflict) {
                     $this->_logger->notice(sprintf(
                         '[%s] Conflict when updating %s, will overwrite client version on next sync.',
