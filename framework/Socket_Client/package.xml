@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Mark PHP 7 as supported.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -172,7 +172,7 @@
    <date>2016-01-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Mark PHP 7 as supported.
    </notes>
   </release>
  </changelog>
