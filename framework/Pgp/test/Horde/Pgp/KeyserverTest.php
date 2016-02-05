@@ -64,7 +64,7 @@ class Horde_Pgp_KeyserverTest extends Horde_Test_Case
             $this->_checkKey($this->_ks->getKeyByEmail($email), $id);
         } catch (Horde_Pgp_Exception $e) {
             if ($e->getPrevious() instanceof Horde_Http_Exception) {
-                $this->markTestSkipped($e->getMessage());
+                $this->markTestSkipped($e->getPrevious()->getMessage());
             } else {
                 throw $e;
             }
