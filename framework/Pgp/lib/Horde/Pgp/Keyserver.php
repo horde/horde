@@ -56,6 +56,7 @@ class Horde_Pgp_Keyserver
         $this->_http = (isset($params['http']) && ($params['http'] instanceof Horde_Http_Client))
             ? $params['http']
             : new Horde_Http_Client();
+        $this->_http->{'request.userAgent'} = '';
         $this->_keyserver = isset($params['keyserver'])
             ? $params['keyserver']
             : self::DEFAULT_KEYSERVER;
