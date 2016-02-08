@@ -4563,14 +4563,16 @@ KronolithCore = {
                 $('kronolithRecurDeleteCurrent').enable();
                 $('kronolithRecurDeleteFuture').enable();
                 $('kronolithCancellationDiv').hide();
+                this.delete_verified = true;
             case 'kronolithEventDelete':
-                if (Kronolith.conf.confirm_delete || this.recurs) {
+                if ((Kronolith.conf.confirm_delete || this.recurs) && !$this.delete_verified) {
                     $('kronolithEventDiv').hide();
                     $('kronolithDeleteDiv').show();
                     e.stop();
                     break;
                 } else {
                     $('kronolithEventDiv').hide();
+                    this.delete_verified = false;
                 }
                 // Fallthrough
             case 'kronolithRecurDeleteAll':
