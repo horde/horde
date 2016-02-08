@@ -44,6 +44,13 @@ class Kronolith_Icalendar_Handler_Dav extends Kronolith_Icalendar_Handler_Base
     protected $_existingEvent;
 
     /**
+     * List of attendees that should not be sent iTip notifications.
+     *
+     * @var  array
+     */
+    protected $_noItips = array();
+
+    /**
      *
      * @param Horde_Icalendar  $iCal    The iCalendar data.
      * @param Kronolith_Driver $driver  The Kronolith driver.
@@ -128,6 +135,31 @@ class Kronolith_Icalendar_Handler_Dav extends Kronolith_Icalendar_Handler_Base
             }
         } catch (Horde_Icalendar_Exception $e) {}
 
+        try {
+            $organizer = $component->getAttribute('ORGANIZER');
+            $organizer_params = $component->getAttribute('ORGANIZER', true);
+            if (!empty($organizer_params[0]['SCHEDULE-AGENT']) &&
+                $organizer_params[0]['SCHEDULE-AGENT'] == 'CLIENT' ||
+                $organizer_params[0]['SCHEDULE-AGENT'] == 'NONE') {
+                $tmp = str_replace(array('MAILTO:', 'mailto:'), '', $organizer);
+                $tmp = new Horde_Mail_Rfc822_Address($tmp);
+                $this->_noItips[] = $tmp->bare_address;
+            }
+        } catch (Horde_Icalendar_Exception $e) {}
+        try {
+            $attendee = $component->getAttribute('ATTENDEE');
+            $params = $component->getAttribute('ATTENDEE', true);
+            for ($i = 0; $i < count($attendee); ++$i) {
+                if (!empty($params[$i]['SCHEDULE-AGENT']) &&
+                    $params[$i]['SCHEDULE-AGENT'] == 'CLIENT' ||
+                    $params[$i]['SCHEDULE-AGENT'] == 'NONE') {
+                    $tmp = str_replace(array('MAILTO:', 'mailto:'), '', $attendee[$i]);
+                    $tmp = new Horde_Mail_Rfc822_Address($tmp);
+                    $this->_noItips[] = $tmp->bare_address;
+                }
+            }
+        } catch (Horde_Icalendar_Exception $e) {}
+
         return true;
     }
 
@@ -140,8 +172,10 @@ class Kronolith_Icalendar_Handler_Dav extends Kronolith_Icalendar_Handler_Base
         // Send iTip messages.
         // Notifications will get lost, there is no way to return messages
         // to clients.
+        $event_copy = clone($event);
+        $event_copy->attendees = array_diff_key($event->attendees, array_flip($this->_noItips));
         Kronolith::sendITipNotifications(
-            $event,
+            $event_copy,
             new Horde_Notification_Handler(new Horde_Notification_Storage_Object()),
             Kronolith::ITIP_REQUEST
         );
