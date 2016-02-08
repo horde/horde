@@ -33,7 +33,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix issue deleting and closing event dialog during event deletion.
+* [mjr] Honor the SCHEDULE-AGENT attribute during CalDAV import.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2666,7 +2667,8 @@
    <date>2016-02-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix issue deleting and closing event dialog during event deletion.
+* [mjr] Honor the SCHEDULE-AGENT attribute during CalDAV import.
    </notes>
   </release>
  </changelog>
