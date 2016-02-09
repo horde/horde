@@ -29,7 +29,9 @@ class Horde_Pgp_KeyserverTest extends Horde_Test_Case
 
     protected function setUp()
     {
-        $this->_ks = new Horde_Pgp_Keyserver();
+        $this->_ks = new Horde_Pgp_Keyserver(array(
+            'keyserver' => 'http://ha.pool.sks-keyservers.net:11371'
+        ));
     }
 
     /**
