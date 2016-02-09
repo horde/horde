@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/MIT">MIT (Expat)</license>
  <notes>
-* 
+* [jan] Fix module version number (Bug #14240).
  </notes>
  <contents>
   <dir name="/">
@@ -41,7 +41,9 @@
    <file name="config.m4" role="src" />
    <file name="CREDITS" role="doc" />
    <file name="horde_lz4.c" role="src" />
-   <file name="horde_lz4.h" role="src" />
+   <file name="horde_lz4.h" role="src">
+    <tasks:replace from="@version@" to="version" type="package-info" />
+   </file>
    <file name="LICENSE" role="doc" />
    <dir name="lib">
     <file name="LICENSE" role="doc" />
@@ -241,7 +243,7 @@
    <date>2016-02-01</date>
    <license uri="http://opensource.org/licenses/MIT">MIT (Expat)</license>
    <notes>
-* 
+* [jan] Fix module version number (Bug #14240).
    </notes>
   </release>
  </changelog>
