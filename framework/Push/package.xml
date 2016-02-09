@@ -38,6 +38,7 @@
   <dir baseinstalldir="/" name="/">
    <dir name="bin">
     <file name="horde-push" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
      <tasks:replace from="@php_dir@" to="php_dir" type="pear-config" />
     </file>
    </dir> <!-- /bin -->

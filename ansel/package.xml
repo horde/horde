@@ -53,9 +53,7 @@
     <file name="ansel-garbage-collection" role="script">
      <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
     </file>
-    <file name="AnselPublish.scpt" role="script">
-     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
-    </file>
+    <file name="AnselPublish.scpt" role="script"/>
    </dir> <!-- /bin -->
    <dir name="config">
     <file name=".htaccess" role="horde" />
