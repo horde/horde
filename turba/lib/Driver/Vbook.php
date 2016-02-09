@@ -48,7 +48,9 @@ class Turba_Driver_Vbook extends Turba_Driver
         $this->_share = $this->_params['share'];
 
         /* Load the underlying driver. */
-        $this->_driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($this->_params['source']);
+        $this->_driver = $GLOBALS['injector']
+            ->getInstance('Turba_Factory_Driver')
+            ->create($this->_params['source']);
 
         $this->searchCriteria = empty($this->_params['criteria'])
             ? array()
@@ -80,7 +82,8 @@ class Turba_Driver_Vbook extends Turba_Driver
      * @return array  Hash containing the search results.
      * @throws Turba_Exception
      */
-    protected function _search(array $criteria, array $fields, array $blobFields = array(), $count_only = false)
+    protected function _search(
+        array $criteria, array $fields, array $blobFields = array(), $count_only = false)
     {
         /* Add the passed in search criteria to the vbook criteria
          * (which need to be mapped from turba fields to
@@ -114,7 +117,10 @@ class Turba_Driver_Vbook extends Turba_Driver
         // Overridden in this class so we can grab the internally stored
         // tag criteria.
         if (isset($this->searchCriteria['tags'])) {
-            $tags = array_merge($injector->getInstance('Turba_Tagger')->split($this->searchCriteria['tags']), $tags);
+            $tags = array_merge(
+                $injector->getInstance('Turba_Tagger')->split($this->searchCriteria['tags']),
+                $tags
+            );
 
         }
 
