@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [jan] Fix finding reply or forward text from signed or encrypted messages with HTML content.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3912,7 +3912,7 @@
    <date>2016-02-02</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [jan] Fix finding reply or forward text from signed or encrypted messages with HTML content.
    </notes>
   </release>
  </changelog>
