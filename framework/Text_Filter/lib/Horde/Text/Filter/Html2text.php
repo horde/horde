@@ -120,10 +120,8 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
                 $this->_params['nestingLimit'] += 2;
             }
             $text = Horde_String::convertCharset($this->_node($dom->dom, $dom->dom), 'UTF-8', $this->_params['charset']);
-            $dom_convert = true;
         } catch (Exception $e) {
             $text = strip_tags(preg_replace("/\<br\s*\/?\>/i", "\n", $text));
-            $dom_convert = false;
         }
 
         /* Bring down number of empty lines to 2 max, and remove trailing
