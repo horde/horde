@@ -22,7 +22,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2016-02-02</date>
+ <date>2016-02-10</date>
  <version>
   <release>2.3.4</release>
   <api>2.3.0</api>
@@ -63,6 +63,7 @@
        <file name="Html2text.php" role="php" />
        <file name="JavascriptMinify.php" role="php" />
        <file name="Linkurls.php" role="php" />
+       <file name="Msoffice.php" role="php" />
        <file name="Simplemarkup.php" role="php" />
        <file name="Space2html.php" role="php" />
        <file name="Tabs2spaces.php" role="php" />
@@ -345,6 +346,7 @@
        <file name="EnvironmentTest.php" role="test" />
        <file name="Html2textTest.php" role="test" />
        <file name="LinkurlsTest.php" role="test" />
+       <file name="MsofficeTest.php" role="test" />
        <file name="phpunit.xml" role="test" />
        <file name="SimplemarkupTest.php" role="test" />
        <file name="Space2htmlTest.php" role="test" />
@@ -440,6 +442,7 @@
    <install as="Horde/Text/Filter/Html2text.php" name="lib/Horde/Text/Filter/Html2text.php" />
    <install as="Horde/Text/Filter/JavascriptMinify.php" name="lib/Horde/Text/Filter/JavascriptMinify.php" />
    <install as="Horde/Text/Filter/Linkurls.php" name="lib/Horde/Text/Filter/Linkurls.php" />
+   <install as="Horde/Text/Filter/Msoffice.php" name="lib/Horde/Text/Filter/Msoffice.php" />
    <install as="Horde/Text/Filter/Simplemarkup.php" name="lib/Horde/Text/Filter/Simplemarkup.php" />
    <install as="Horde/Text/Filter/Space2html.php" name="lib/Horde/Text/Filter/Space2html.php" />
    <install as="Horde/Text/Filter/Tabs2spaces.php" name="lib/Horde/Text/Filter/Tabs2spaces.php" />
@@ -538,6 +541,7 @@
    <install as="Horde/Text/Filter/EnvironmentTest.php" name="test/Horde/Text/Filter/EnvironmentTest.php" />
    <install as="Horde/Text/Filter/Html2textTest.php" name="test/Horde/Text/Filter/Html2textTest.php" />
    <install as="Horde/Text/Filter/LinkurlsTest.php" name="test/Horde/Text/Filter/LinkurlsTest.php" />
+   <install as="Horde/Text/Filter/MsofficeTest.php" name="test/Horde/Text/Filter/MsofficeTest.php" />
    <install as="Horde/Text/Filter/phpunit.xml" name="test/Horde/Text/Filter/phpunit.xml" />
    <install as="Horde/Text/Filter/SimplemarkupTest.php" name="test/Horde/Text/Filter/SimplemarkupTest.php" />
    <install as="Horde/Text/Filter/Space2htmlTest.php" name="test/Horde/Text/Filter/Space2htmlTest.php" />
@@ -1091,7 +1095,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-02-02</date>
+   <date>2016-02-10</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 
