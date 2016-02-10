@@ -57,15 +57,15 @@ class Horde_Mime_Id
      * Performs MIME ID "arithmetic".
      *
      * @param string $action  One of:
-     *   - ID_DOWN: ID of child. Note: down will first traverse to "$id.0" if
-     *              given an ID *NOT* of the form "$id.0". If given an ID of
-     *              the form "$id.0", down will traverse to "$id.1". This
+     *   - ID_DOWN: ID of child. Note: ID_DOWN will first traverse to "$id.0"
+     *              if given an ID *NOT* of the form "$id.0". If given an ID of
+     *              the form "$id.0", ID_DOWN will traverse to "$id.1". This
      *              behavior can be avoided if 'no_rfc822' option is set.
      *   - ID_NEXT: ID of next sibling.
      *   - ID_PREV: ID of previous sibling.
-     *   - ID_UP: ID of parent. Note: up will first traverse to "$id.0" if
+     *   - ID_UP: ID of parent. Note: ID_UP will first traverse to "$id.0" if
      *            given an ID *NOT* of the form "$id.0". If given an ID of the
-     *            form "$id.0", down will traverse to "$id". This behavior can
+     *            form "$id.0", ID_UP will traverse to "$id". This behavior can
      *            be avoided if 'no_rfc822' option is set.
      * @param array $options  Additional options:
      *   - count: (integer) How many levels to traverse.
