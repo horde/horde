@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2016-02-04</date>
+ <date>2016-02-11</date>
  <version>
   <release>4.2.14</release>
   <api>4.2.0</api>
@@ -2664,7 +2664,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-02-04</date>
+   <date>2016-02-11</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix issue deleting and closing event dialog during event deletion.
