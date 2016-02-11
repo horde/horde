@@ -110,6 +110,7 @@ class Hermes_Slice implements ArrayAccess, IteratorAggregate
      */
     public function toJson()
     {
+        $d = new Horde_Date($this->_properties['date']);
         // @TODO: DO we need the *entire* contact object?
         $cn = $GLOBALS['registry']->clients->getClients(array($this->_properties['client']));
         $json = array (
@@ -117,7 +118,7 @@ class Hermes_Slice implements ArrayAccess, IteratorAggregate
             'cn' => current($cn),
             'co' => $this->_properties['costobject'],
             'con' => $this->_properties['_costobject_name'],
-            'd' => $this->_properties['date']->dateString(),
+            'd' => $d->dateString(),
             'desc' => $this->_properties['description'],
             'e' => $this->_properties['employee'],
             'h' => $this->_properties['hours'],
