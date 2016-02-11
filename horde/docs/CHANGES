@@ -2,6 +2,8 @@
 v5.2.10-git
 -----------
 
+[jan] Check if temporary directory is writable
+      (skhorde@smail.inf.fh-bonn-rhein-sieg.de, Request #14237).
 
 
 ------
