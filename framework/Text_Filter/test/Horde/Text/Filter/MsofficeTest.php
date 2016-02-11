@@ -48,7 +48,8 @@ HTML;
 </body></html>
 HTML;
 
-        $expected = <<<HTML
+        if (LIBXML_VERSION > 20900) {
+            $expected = <<<HTML
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
 <html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns:m="http://schemas.microsoft.com/office/2004/12/omml" xmlns="http://www.w3.org/TR/REC-html40">
 <body>
@@ -57,6 +58,16 @@ HTML;
 </body></html>
 
 HTML;
+        } else {
+            $expected = <<<HTML
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns:m="http://schemas.microsoft.com/office/2004/12/omml" xmlns="http://www.w3.org/TR/REC-html40"><body>
+<p><span>Danke f&uuml;r die rasche Erledigung!</span></p>
+<p><span></span></p>
+</body></html>
+
+HTML;
+        }
 
         $filtered = Horde_Text_Filter::filter($html, 'Msoffice');
         $this->assertEquals($expected, $filtered);
