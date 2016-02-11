@@ -26,7 +26,9 @@
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="bin">
-    <file name="groupware-install" role="script" />
+    <file name="groupware-install" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
    </dir> <!-- /bin -->
    <dir name="config">
     <dir name="prefs.d">
