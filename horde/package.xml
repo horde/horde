@@ -4173,13 +4173,28 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-10-20</date>
+   <date>2016-02-02</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
+* [jan] SECURITY: Fix XSS vulnerability in menu bar exposed by few applications (Bug #14213).
+* [jan] Add more detailed user DN settings to Kolab group configuration (Request #11737).
 * [jan] Fix returning to last page after problem reporting from AJAX pages (Bug #12112).
 * [jan] Fix custom database configuration for groups (Bug #11664).
 * [jan] Use access rules compatible with both Apache 2.2 and 2.4.
-* [jan] SECURITY: Fix XSS vulnerability in menu bar exposed by only a few applications (Bug #14213).
+* [mjr] Fix reporting results for non-select queries in administrative sql shell (Bug #14216).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.2.10</release>
+    <api>5.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-02-02</date>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
+   <notes>
+* [jan] Check if temporary directory is writable (skhorde@smail.inf.fh-bonn-rhein-sieg.de, Request #14237).
    </notes>
   </release>
   <release>

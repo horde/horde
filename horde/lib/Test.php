@@ -973,6 +973,17 @@ class Horde_Test
             ? '<strong style="color:green">Yes</strong>'
             : '<strong style="color:red">No</strong><br /><strong style="color:orange">If caching javascript and CSS files by storing them in static files (HIGHLY RECOMMENDED), this directory must be writable as the user the web server runs as%s.</strong>';
 
+        /* Determine if 'tmpdir' is writable by the web user. */
+        $tmpdir = Horde::getTempDir();
+        $ret .= sprintf(
+            '<li>Is tmpdir <tt>%s</tt> writable by the web server user%s? ',
+            htmlspecialchars($tmpdir),
+            $user ? (' (' . $user['name'] . ')') : ''
+        );
+        $ret .= is_writable($tmpdir)
+            ? '<strong style="color:green">Yes</strong>'
+            : '<strong style="color:red">No</strong><br />';
+
         if (extension_loaded('imagick')) {
             $im = new Imagick();
             $imagick = is_callable(array($im, 'getIteratorIndex'));
