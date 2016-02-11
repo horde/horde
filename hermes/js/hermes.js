@@ -1076,8 +1076,9 @@ HermesCore = {
      */
      deliverableEdit: function(id)
      {
+        id = id.split(':');
         HordeCore.doAction('listDeliverables',
-            { 'id': id },
+            { 'id': id[1] },
             { 'callback': this.deliverableEditCallback.bind(this) }
         );
      },
