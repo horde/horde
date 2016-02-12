@@ -37,7 +37,8 @@ class Horde_Core_Secret_Cbc extends Horde_Core_Secret
     {
         global $conf;
 
-        if (!isset($this->_cipherCache[self::HORDE_KEYNAME])) {
+        if (!isset($this->_cipherCache[self::HORDE_KEYNAME]) ||
+            $this->_cipherCache[self::HORDE_KEYNAME]->key != $key) {
             /* Use more secure CBC mode (rather than ECB). */
             $this->_cipherCache[self::HORDE_KEYNAME] = new Horde_Crypt_Blowfish(
                 substr($key, 0, 56),
