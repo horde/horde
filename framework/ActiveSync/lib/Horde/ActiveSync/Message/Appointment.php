@@ -366,14 +366,15 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
                 $this->_properties['starttime']->hour = 0;
                 $this->_properties['starttime']->min = 0;
                 $this->_properties['starttime']->sec = 0;
-            }
-            if ($this->_properties['endtime']) {
-                $mday = $this->_properties['endtime']->mday;
-                $this->_properties['endtime']->setTimezone('UTC');
-                $this->_properties['endtime']->mday = $mday;
-                $this->_properties['endtime']->hour = 0;
-                $this->_properties['endtime']->min = 0;
-                $this->_properties['endtime']->sec = 0;
+
+                if ($this->_properties['endtime']) {
+                    $mday = $this->_properties['endtime']->mday;
+                    $this->_properties['endtime']->setTimezone('UTC');
+                    $this->_properties['endtime']->mday = $mday;
+                    $this->_properties['endtime']->hour = 0;
+                    $this->_properties['endtime']->min = 0;
+                    $this->_properties['endtime']->sec = 0;
+                }
             }
         }
 
@@ -479,7 +480,8 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
             $end = new Horde_Date(
                 array('year'  => (int)$end->year,
                       'month' => (int)$end->month,
-                      'mday'  => (int)$end->mday + 1));
+                      'mday'  => (int)$end->mday + 1),
+                $end->timezone);
             $this->_properties['alldayevent'] = self::IS_ALL_DAY;
 
         } elseif (!empty($datetime['allday'])) {
@@ -487,7 +489,8 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
             $end = new Horde_Date(
                 array('year'  => (int)$end->year,
                       'month' => (int)$end->month,
-                      'mday'  => (int)$end->mday));
+                      'mday'  => (int)$end->mday),
+                $end->timezone);
         }
         $this->_properties['starttime'] = $start;
         $this->_properties['endtime'] = $end;
