@@ -157,10 +157,25 @@ class Horde_Crypt_Pgp_Keyserver
             'search' => $address
         ));
 
-        try {
-            $output = $this->_http->get($url)->getBody();
-        } catch (Horde_Http_Exception $e) {
-            throw new Horde_Crypt_Exception($e);
+        // Some keyservers are broken, third time's a charm.
+        $output = null;
+        for ($i = 0; $i < 3; $i++) {
+            try {
+                $response = $this->_http->get($url);
+                // Some keyservers return HTML, try again.
+                if ($response->getHeader('Content-Type') != 'text/plain') {
+                    continue;
+                }
+                $output = $response->getBody();
+            } catch (Horde_Http_Exception $e) {
+                throw new Horde_Crypt_Exception($e);
+            }
+        }
+
+        if (!$output) {
+            throw new Horde_Crypt_Exception(
+                Horde_Crypt_Translation::t("Could not obtain public key from the keyserver.")
+            );
         }
 
         if (strpos($output, '-----BEGIN PGP PUBLIC KEY BLOCK') !== false) {
