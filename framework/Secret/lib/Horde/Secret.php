@@ -115,8 +115,7 @@ class Horde_Secret
         $key = substr($key, 0, 56);
 
         $idx = hash('md5', $key);
-        if (!isset($this->_cipherCache[$idx]) ||
-            $this->_cipherCache[$idx]->key != $key) {
+        if (!isset($this->_cipherCache[$idx])) {
             $this->_cipherCache[$idx] = new Horde_Crypt_Blowfish($key);
         }
 
