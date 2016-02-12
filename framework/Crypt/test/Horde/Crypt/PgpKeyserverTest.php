@@ -30,7 +30,8 @@ class Horde_Crypt_PgpKeyserverTest extends Horde_Test_Case
         $this->_ks = new Horde_Crypt_Pgp_Keyserver(
             Horde_Crypt::factory('Pgp', array(
                 'program' => $gnupg
-            ))
+            )),
+            array('keyserver' => 'http://ha.pool.sks-keyservers.net')
         );
     }
 
