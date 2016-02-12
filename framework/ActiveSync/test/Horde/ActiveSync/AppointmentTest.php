@@ -224,6 +224,58 @@ class Horde_ActiveSync_AppointmentTest extends Horde_Test_Case
         $this->assertEquals($fixture, $results);
     }
 
+    public function testAlldayEncoding()
+    {
+        $l = new Horde_Test_Log();
+        $logger = $l->getLogger();
+
+        // Check that the encoded wbxml looks correct.
+        $stream_out = fopen('php://memory', 'w+');
+        $encoder = new Horde_ActiveSync_Wbxml_Encoder($stream_out);
+        $message = new Horde_ActiveSync_Message_Appointment(
+            array('logger' => $logger, 'protocolversion' => Horde_ActiveSync::VERSION_FOURTEEN)
+        );
+        $message->setSubject('Test Event');
+        $message->alldayevent = true;
+        $start = new Horde_Date('1970-03-20T00:00:00', 'America/New_York');
+        $end = new Horde_Date('1970-03-21T00:00:00', 'America/New_York');
+        $message->starttime = $start;
+        $message->endtime = $end;
+        $message->setTimezone($start);
+        $message->encodeStream($encoder);
+
+        $fixture = file_get_contents(__DIR__ . '/fixtures/allday_appointment.wbxml');
+        rewind($stream_out);
+        $this->assertEquals($fixture, stream_get_contents($stream_out));
+
+        // Make sure EAS versions work properly.
+        rewind($stream_out);
+        $message = new Horde_ActiveSync_Message_Appointment(
+            array('logger' => $logger, 'protocolversion' => Horde_ActiveSync::VERSION_FOURTEEN)
+        );
+        $decoder = new Horde_ActiveSync_Wbxml_Decoder($stream_out);
+        $decoder->getElementStartTag(Horde_ActiveSync::SYNC_DATA);
+        $message->decodeStream($decoder);
+        $end = $message->endtime;
+        $end->setTimezone('America/New_York');
+        $start->setTimezone('America/New_York');
+        $this->assertEquals('1970-03-21 00:00:00', (string)$end);
+        $this->assertEquals('1970-03-20 00:00:00', (string)$start);
+
+        rewind($stream_out);
+        $message = new Horde_ActiveSync_Message_Appointment(
+            array('logger' => $logger, 'protocolversion' => Horde_ActiveSync::VERSION_SIXTEEN)
+        );
+        $decoder = new Horde_ActiveSync_Wbxml_Decoder($stream_out);
+        $decoder->getElementStartTag(Horde_ActiveSync::SYNC_DATA);
+        $message->decodeStream($decoder);
+        $end = $message->endtime;
+        $end->setTimezone('America/New_York');
+        $start->setTimezone('America/New_York');
+        $this->assertEquals('1970-03-21 00:00:00', (string)$end);
+        $this->assertEquals('1970-03-20 00:00:00', (string)$start);
+    }
+
     public function testDecodingSimpleExceptions()
     {
         $l = new Horde_Test_Log();
