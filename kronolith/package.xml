@@ -2663,9 +2663,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-10-21</date>
+   <date>2016-02-02</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix missing truncated event description when using ActiveSync.
 * [jan] Fix week number in basic view if week starts on Sundays.
 * [mjr] Fix issue where new event could be created with exceptions from previously edited event.
 * [jan] Mark preferences only available in basic mode.
@@ -2675,6 +2676,46 @@
 * [mjr] Correctly deal with cancelled meetings via ActiveSync.
 * [mjr] Fix visibility of alarm titles when alarm is generated via CLI (Bug #14154).
 * [mjr] Fix display of embed code by adding the full url.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.13</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-02-04</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Add missing EAS ghosted property support for all EAS versions. Prevents potential loss of event data during synchronization.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.14</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-02-11</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix issue deleting and closing event dialog during event deletion.
+* [mjr] Honor the SCHEDULE-AGENT attribute during CalDAV import.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.15</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-02-10</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Handle gracefully if the base event of an imported recurrence exception is no longer recurring (Bug #14249).
    </notes>
   </release>
   <release>
