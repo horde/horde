@@ -1444,10 +1444,14 @@ abstract class Kronolith_Event
             $this->uid = null;
             try {
                 $originalEvent = $this->getDriver()->getByUID($this->baseid);
-                $originalEvent->recurrence->addException($originaldt->format('Y'),
-                    $originaldt->format('m'),
-                    $originaldt->format('d'));
-                $originalEvent->save();
+                if ($originalEvent->recurrence) {
+                    $originalEvent->recurrence->addException(
+                        $originaldt->format('Y'),
+                        $originaldt->format('m'),
+                        $originaldt->format('d')
+                    );
+                    $originalEvent->save();
+                }
             } catch (Horde_Exception_NotFound $e) {
                 throw new Kronolith_Exception(_("Unable to locate original event series."));
             }

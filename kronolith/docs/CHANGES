@@ -2,6 +2,8 @@
 v4.2.15-git
 -----------
 
+[jan] Handle gracefully if the base event of an imported recurrence exception
+      is no longer recurring (Bug #14249).
 
 
 -------
