@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix regression in handling all day events in EAS versions prior to 16.0.
 * [mjr] Fix undefined variable notices (Bug #14251).
  </notes>
  <contents>
@@ -2994,6 +2995,7 @@
    <date>2016-02-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix regression in handling all day events in EAS versions prior to 16.0.
 * [mjr] Fix undefined variable notices (Bug #14251).
    </notes>
   </release>
