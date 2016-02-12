@@ -144,15 +144,15 @@ class Horde_Pgp_Keyserver
     {
         $output = null;
 
+        /* Connect to the public keyserver. */
+        $url = $this->_createUrl('/pks/lookup', array(
+            'op' => 'index',
+            'options' => 'mr',
+            'search' => $address
+        ));
+
         // Some keyservers are broken, third time's a charm.
         for ($i = 0; $i < 3; $i++) {
-            /* Connect to the public keyserver. */
-            $url = $this->_createUrl('/pks/lookup', array(
-                'op' => 'index',
-                'options' => 'mr',
-                'search' => $address
-            ));
-
             try {
                 $response = $this->_http->get($url);
                 // Some keyservers return HTML, try again.
