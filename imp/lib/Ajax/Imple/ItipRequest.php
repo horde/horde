@@ -75,6 +75,7 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
             }
 
             $components = $vCal->getComponents();
+            $v1 = $vCal->getAttribute('VERSION') == '1.0';
         } catch (Exception $e) {
             $notification->push($e, 'horde.error');
             $actions = array();
@@ -167,8 +168,40 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
                 // vJournal publish.
                 switch ($components[$key]->getType()) {
                 case 'vEvent':
+                    // If we have accepted and are importing, update the
+                    // user's attendance status in the vCal so it will be
+                    // reflected when it is imported.
+                    if ($action == 'accept-import') {
+                        try {
+                            $a = $components[$key]->getAttribute('ATTENDEE');
+                            $a_params = $components[$key]->getAttribute('ATTENDEE', true);
+                            foreach ($a as $a_key => $attendee) {
+                                $attendee_email = preg_replace('/mailto:/i', '', $attendee);
+                                $identity = $injector->getInstance('IMP_Identity');
+                                if (!is_null($id = $identity->getMatchingIdentity($attendee_email))) {
+                                    $components[$key]->removeAttribute('ATTENDEE');
+                                    if ($v1) {
+                                        $a_params[$a_key]['STATUS'] = 'ACCEPTED';
+                                    } else {
+                                        $a_params[$a_key]['PARTSTAT'] = 'ACCEPTED';
+                                    }
+                                    foreach ($a as $ai_key => $i_attendee) {
+                                        $components[$key]->setAttribute(
+                                            'ATTENDEE',
+                                            $i_attendee,
+                                            $a_params[$ai_key]
+                                        );
+                                    }
+                                    break;
+                                }
+                            }
+                        } catch (Horde_Icalendar_Exception $e) {
+                            $notification->push(sprintf(_("There was an error updating attendee status: %s"), $e->getMessage()), 'horde.error');
+                        }
+                    }
+
+                    // Handle the import, and check for exceptions.
                     $result = $this->_handlevEvent($key, $components, $mime_part);
-                    // Must check for exceptions.
                     foreach ($components as $k => $component) {
                         try {
                             if ($component->getType() == 'vEvent' && $component->getAttribute('RECURRENCE-ID')) {
