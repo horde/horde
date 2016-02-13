@@ -1989,8 +1989,17 @@ abstract class Kronolith_Event
             Horde_ActiveSync_Message_Appointment::SENSITIVITY_NORMAL);
 
         // Busy Status
+        // This is the *busy* status of the time for this meeting. This is NOT
+        // the Kronolith_Event::status or the attendance response for this
+        // meeting. Kronolith does not (yet) support sepcifying the busy status
+        // of the event time separate from the STATUS_FREE value of the
+        // Kronolith_Event::status field, so for now we map these values the
+        // best we can by assuming that STATUS_CONFIRMED meetings should always
+        // show as BUSYSTATUS_BUSY etc...
         switch ($this->status) {
         case Kronolith::STATUS_CANCELLED:
+        case Kronolith::STATUS_FREE:
+        case Kronolith::STATUS_NONE:
             $status = Horde_ActiveSync_Message_Appointment::BUSYSTATUS_FREE;
             break;
         case Kronolith::STATUS_CONFIRMED:
@@ -1998,9 +2007,6 @@ abstract class Kronolith_Event
             break;
         case Kronolith::STATUS_TENTATIVE:
             $status = Horde_ActiveSync_Message_Appointment::BUSYSTATUS_TENTATIVE;
-        case Kronolith::STATUS_FREE:
-        case Kronolith::STATUS_NONE:
-            $status = Horde_ActiveSync_Message_Appointment::BUSYSTATUS_FREE;
         }
         $message->setBusyStatus($status);
 
