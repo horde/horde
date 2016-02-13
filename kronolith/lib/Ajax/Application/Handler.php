@@ -367,25 +367,6 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
         if ($this->vars->sendupdates) {
             if ($this->vars->attendance) {
                 Kronolith::sendITipNotifications($event, $notification, Kronolith::ITIP_REPLY);
-                // Since we are sending a response, we should update the
-                // status to indicate this.
-                $old_status = $event->status;
-                switch ($this->vars->attendance) {
-                    case Kronolith::RESPONSE_TENTATIVE:
-                        $event->status = Kronolith::STATUS_TENTATIVE;
-                        break;
-                    case Kronolith::RESPONSE_DECLINED:
-                        $event->status = Kronolith::STATUS_FREE;
-                        break;
-                    case Kronolith::RESPONSE_NONE:
-                        $event->status = Kronolith::STATUS_NONE;
-                    default:
-                        $event->status = Kronolith::STATUS_CONFIRMED;
-                        break;
-                }
-                if ($old_status != $event->status) {
-                    $event->save();
-                }
             }
 
             // Only the ORGANIZER's copy should trigger a REQUEST or CANCEL.
