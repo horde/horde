@@ -161,6 +161,7 @@ class Kronolith_Ajax
             'no_parent' => _("No parent task"),
             'no_tasklist_title' => _("The task list title must not be empty."),
             'no_url' => _("You must specify a URL."),
+            'organizer' => _("Organizer"),
             'prefs' => _("Preferences"),
             'resources' => _("Resources"),
             'searching' => sprintf(_("Events matching \"%s\""), '#{term}'),

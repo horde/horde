@@ -336,7 +336,8 @@ ul.horde-tags li:hover {
 #kronolithEventTabResources td.kronolithAttendeeAccepted,
 #kronolithEventTabAttendees td.kronolithAttendeeDeclined,
 #kronolithEventTabResources td.kronolithAttendeeDeclined,
-#kronolithEventTabAttendees td.kronolithAttendeeTentative {
+#kronolithEventTabAttendees td.kronolithAttendeeTentative,
+#kronolithEventTabAttendees td.kronolithAttendeeOrganizer {
     background-position: 0 0;
     background-repeat: no-repeat;
     padding-left: 21px;
@@ -356,6 +357,9 @@ ul.horde-tags li:hover {
 }
 #kronolithEventTabAttendees td.kronolithAttendeeTentative {
     background-image: url("../graphics/attendee-tentative.png");
+}
+#kronolithEventTabAttendees td.kronolithAttendeeOrganizer {
+    background-image: url("../graphics/organizer.png");
 }
 
 .kronolithFBFree {

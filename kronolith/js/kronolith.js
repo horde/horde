@@ -6317,8 +6317,9 @@ KronolithCore = {
      * Adds an attendee row to the free/busy table.
      *
      * @param object attendee  An attendee object with the properties:
-     *                         - e: email address
-     *                         - l: the display name of the attendee
+     *                         - e: The email address.
+     *                         - l: The display name of the attendee.
+     *                         - o: True if this is the organizer.
      */
     addAttendee: function(attendee)
     {
@@ -6368,8 +6369,8 @@ KronolithCore = {
             case 4: response = 'Tentative'; break;
         }
         tr.insert(new Element('td')
-                  .writeAttribute('title', attendee.l)
-                  .addClassName('kronolithAttendee' + response)
+                  .writeAttribute('title', attendee.l + (attendee.o ? ' (' + Kronolith.text.organizer + ') ' : ''))
+                  .addClassName('kronolithAttendee' + (attendee.o ? 'Organizer' : response))
                   .insert(attendee.e ? attendee.e.escapeHTML() : attendee.l.escapeHTML()));
         for (i = 0; i < 24; i++) {
             tr.insert(new Element('td', { className: 'kronolithFBUnknown' }));

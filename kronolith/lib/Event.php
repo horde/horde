@@ -2701,6 +2701,12 @@ abstract class Kronolith_Event
             if ($this->recurs()) {
                 $json->r = $this->recurrence->toJson();
             }
+            if ($this->organizer) {
+                $json->o = $this->organizer;
+                $json->oy = Kronolith::isUserEmail($this->creator, $this->organizer);
+            } else {
+                $json->oy = true;
+            }
             if (!$this->isPrivate()) {
                 $json->d = $this->description;
                 $json->u = $this->url;
@@ -2723,18 +2729,15 @@ abstract class Kronolith_Event
                             'a' => intval($info['attendance']),
                             'e' => $tmp->bare_address,
                             'r' => intval($info['response']),
-                            'l' => strval($tmp)
+                            'l' => strval($tmp),
+                            'o' => ($this->oy && Kronolith::isUserEmail($this->creator, $tmp->bare_address)) ||
+                                (!empty($this->organizer) && $this->organizer == $tmp->bare_address)
                         );
                     }
                     $json->at = $attendees;
                 }
             }
-            if ($this->organizer) {
-                $json->o = $this->organizer;
-                $json->oy = Kronolith::isUserEmail($this->creator, $this->organizer);
-            } else {
-                $json->oy = true;
-            }
+
             if ($this->methods) {
                 $json->m = $this->methods;
             }
