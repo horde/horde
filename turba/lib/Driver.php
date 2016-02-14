@@ -2694,7 +2694,7 @@ class Turba_Driver implements Countable
                 break;
 
             case 'notes':
-                if ($options['protocolversion'] > Horde_ActiveSync::VERSION_TWOFIVE) {
+                if (strlen($value) && $options['protocolversion'] > Horde_ActiveSync::VERSION_TWOFIVE) {
                     $bp = $options['bodyprefs'];
                     $note = new Horde_ActiveSync_Message_AirSyncBaseBody();
                     // No HTML supported in Turba's notes. Always use plaintext.
@@ -2709,7 +2709,7 @@ class Turba_Driver implements Countable
                         $note->estimateddatasize = Horde_String::length($value);
                     }
                     $message->airsyncbasebody = $note;
-                } else {
+                } elseif (strlen($value)) {
                     // EAS 2.5
                     $message->body = $value;
                     $message->bodysize = strlen($message->body);
