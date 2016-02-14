@@ -137,7 +137,6 @@ class Turba_Driver implements Countable
         'lastname' => 'lastname',
         'firstname' => 'firstname',
         'middlenames' => 'middlename',
-        'alias' => 'nickname',
         'nickname' => 'nickname',
         'namePrefix' => 'title',
         'nameSuffix' => 'suffix',
