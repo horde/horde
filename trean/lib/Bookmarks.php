@@ -11,8 +11,9 @@
  * @license  http://www.horde.org/licenses/bsdl.php
  * @package  Trean
  */
+
 /**
- * Trean_Bookmarks:: Handles basic management of bookmark storage.
+ * Trean_Bookmarks handles basic management of bookmark storage.
  *
  * @author   Ben Chavet <ben@horde.org>
  * @author   Chuck Hagenbuch <chuck@horde.org>
