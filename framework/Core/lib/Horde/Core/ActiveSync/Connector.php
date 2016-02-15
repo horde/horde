@@ -741,18 +741,24 @@ class Horde_Core_ActiveSync_Connector
      */
     public function horde_listApis()
     {
-        $apps = $this->_registry->horde->listAPIs();
+        $apis = $this->_registry->horde->listAPIs();
 
         // Note support not added until 5.1. Need to check the feature.
         // @TODO: H6, add this check to all apps. BC break to check it now,
         // since we didn't have this feature earlier.
-        if ($key = array_search('notes', $apps)) {
+        if ($key = array_search('notes', $apis)) {
             if (!$this->hasFeature('activesync', 'notes')) {
-                unset($apps[$key]);
+                unset($apis[$key]);
             }
         }
-
-        return $apps;
+        $inactive = $this->_registry->listApps(array('inactive'));
+        $active_apis = array();
+        foreach ($apis as $api) {
+            if (!$this->_registry->isInactive($this->_registry->hasInterface($api))) {
+                $active_apis[] = $api;
+            }
+        }
+        return $active_apis;
     }
 
     /**
