@@ -98,7 +98,7 @@ class Horde_Crypt_Pgp_Keyserver
             return substr($start, 0, $length);
         }
 
-        throw new Horde_Crypt_Exception(Horde_Crypt_Translation::t("Could not obtain public key from the keyserver."));
+        throw new Horde_Crypt_Exception(Horde_Crypt_Translation::t("Could not obtain public key from the keyserver.") . ' Response: ' . $output);
     }
 
     /**
