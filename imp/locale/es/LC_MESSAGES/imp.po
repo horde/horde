@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: IMP\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2014-06-12 16:24+0200\n"
-"PO-Revision-Date: 2014-06-16 09:05+0100\n"
+"PO-Revision-Date: 2016-02-16 18:26+0100\n"
 "Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
 "<jcblanco@fi.upm.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -5972,7 +5972,7 @@ msgstr "Sí"
 #: templates/basic/compose/compose.html.php:159
 #: templates/dynamic/compose.html.php:181
 msgid "You are"
-msgstr "Usted es"
+msgstr "Usted está"
 
 #: templates/basic/folders/folders_confirm.html.php:13
 msgid ""
@@ -6509,7 +6509,7 @@ msgstr "destinatarios"
 #: templates/basic/compose/compose.html.php:159
 #: templates/dynamic/compose.html.php:181
 msgid "replying to ALL"
-msgstr "responder a TODOS"
+msgstr "respondiendo a TODOS"
 
 #: lib/Basic/Search.php:506
 msgid "to"
