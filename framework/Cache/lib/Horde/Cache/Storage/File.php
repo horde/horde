@@ -251,7 +251,6 @@ class Horde_Cache_Storage_File extends Horde_Cache_Storage_Base
     protected function _gc()
     {
         $c_time = time();
-        $excepts = array();
 
         if (!empty($this->_params['sub']) &&
             file_exists($this->_params['dir'] . '/' . self::GC_FILE)) {
@@ -265,6 +264,7 @@ class Horde_Cache_Storage_File extends Horde_Cache_Storage_Base
         }
 
         foreach ($this->_getGCFiles() as $filename) {
+            $excepts = array();
             if (is_readable($filename)) {
                 $fp = fopen($filename, 'r');
                 while (!feof($fp) && ($data = fgets($fp))) {

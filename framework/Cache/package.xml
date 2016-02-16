@@ -27,6 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Fix incomplete migration from old to new garbage collection in file backend (Bug #14258).
 * [jan] Mark PHP 7 as supported.
  </notes>
  <contents>
@@ -675,6 +676,7 @@ Initial packaging.
    <date>2016-02-01</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Fix incomplete migration from old to new garbage collection in file backend (Bug #14258).
 * [jan] Mark PHP 7 as supported.
    </notes>
   </release>
