@@ -3857,15 +3857,31 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-10-20</date>
+   <date>2016-02-02</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Don&apos;t strip PGP mime parts when saving sent messages (Bug #14233).
+* [jan] Fix retrieving public PGP keys with certain HTTP client backends.
 * [jan] Send MDNs from the correct identity (Bug #14034).
 * [jan] Fix autocompleter filtering if items exceed the maximum size (jsveiga@it.eng.br, Bug #13984).
 * [jan] Use access rules compatible with both Apache 2.2 and 2.4.
 * [jan] Allow to disable remote accounts by locking the preference.
 * [jan] Fix setting title with newmail count in IE11 and Edge (Bug #14189).
 * [jan] Fix wrapping of plain text converted from HTML MIME parts.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>6.2.13</release>
+    <api>6.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-02-02</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Fix creating new trash folder from preference screen.
+* [jan] Fix finding reply or forward text from signed or encrypted messages with HTML content.
    </notes>
   </release>
   <release>

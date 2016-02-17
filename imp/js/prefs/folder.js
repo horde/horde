@@ -15,7 +15,7 @@ var ImpFolderPrefs = {
     {
         var mbox,
             id = f.identify(),
-            txt = this.mboxes.get(id),
+            txt = $H(this.mboxes).get(id),
             newmbox = $(id + '_new'),
             sel = $(f[f.selectedIndex]);
 
@@ -60,4 +60,4 @@ var ImpFolderPrefs = {
 
 document.observe('dom:loaded', ImpFolderPrefs.onDomLoad.bind(ImpFolderPrefs));
 document.observe('HordeIdentitySelect:change', ImpFolderPrefs.changeIdentity.bindAsEventListener(ImpFolderPrefs));
-document.on('select', '.folderPrefSelect', ImpFolderPrefs.newMboxName.bind(ImpFolderPrefs));
+document.on('change', '.folderPrefSelect', ImpFolderPrefs.newMboxName.bind(ImpFolderPrefs));
