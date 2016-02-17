@@ -57,6 +57,8 @@ The steps to use when cutting a new release
 9. Bump version numbers of showstopper tickets that didn't go into the release,
    then bump version number in the showstopper query on bugs.horde.org.
 
+10. Update demo.horde.org
+
 
 Guidelines for release cycles
 =============================
