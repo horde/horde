@@ -1034,44 +1034,51 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             // Only passed during SYNC_ADD or SYNC_MODIFY
             if (($commandType == Horde_ActiveSync::SYNC_ADD ||
                 $commandType == Horde_ActiveSync::SYNC_MODIFY) &&
-                $this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_DATA)) {
-                switch ($collection['class']) {
-                case Horde_ActiveSync::CLASS_EMAIL:
-                    $appdata = Horde_ActiveSync::messageFactory('Mail');
-                    $appdata->decodeStream($this->_decoder);
-                    break;
-                case Horde_ActiveSync::CLASS_CONTACTS:
-                    $appdata = Horde_ActiveSync::messageFactory('Contact');
-                    $appdata->decodeStream($this->_decoder);
-                    break;
-                case Horde_ActiveSync::CLASS_CALENDAR:
-                    $appdata = Horde_ActiveSync::messageFactory('Appointment');
-                    $appdata->decodeStream($this->_decoder);
-                    if (!empty($instanceid) &&
-                        $commandType == Horde_ActiveSync::SYNC_MODIFY) {
-                        // EAS 16.0 sends instanceid/serverid for exceptions.
-                        $appdata->instanceid = $instanceid;
+                ($el = $this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_DATA))) {
+                if ($this->_decoder->isEmptyElement($el)) {
+                    $this->_logger->err(sprintf(
+                        '[%s] Client sent an empty <Data> element. This is a protocol error, but attempting to ignore.',
+                        $this->_procid)
+                    );
+                } else {
+                    switch ($collection['class']) {
+                    case Horde_ActiveSync::CLASS_EMAIL:
+                        $appdata = Horde_ActiveSync::messageFactory('Mail');
+                        $appdata->decodeStream($this->_decoder);
+                        break;
+                    case Horde_ActiveSync::CLASS_CONTACTS:
+                        $appdata = Horde_ActiveSync::messageFactory('Contact');
+                        $appdata->decodeStream($this->_decoder);
+                        break;
+                    case Horde_ActiveSync::CLASS_CALENDAR:
+                        $appdata = Horde_ActiveSync::messageFactory('Appointment');
+                        $appdata->decodeStream($this->_decoder);
+                        if (!empty($instanceid) &&
+                            $commandType == Horde_ActiveSync::SYNC_MODIFY) {
+                            // EAS 16.0 sends instanceid/serverid for exceptions.
+                            $appdata->instanceid = $instanceid;
+                        }
+                        break;
+                    case Horde_ActiveSync::CLASS_TASKS:
+                        $appdata = Horde_ActiveSync::messageFactory('Task');
+                        $appdata->decodeStream($this->_decoder);
+                        break;
+                    case Horde_ActiveSync::CLASS_NOTES:
+                        $appdata = Horde_ActiveSync::messageFactory('Note');
+                        $appdata->decodeStream($this->_decoder);
+                        break;
+                    case Horde_ActiveSync::CLASS_SMS:
+                        $appdata = Horde_ActiveSync::messageFactory('Mail');
+                        $appdata->decodeStream($this->_decoder);
+                        break;
                     }
-                    break;
-                case Horde_ActiveSync::CLASS_TASKS:
-                    $appdata = Horde_ActiveSync::messageFactory('Task');
-                    $appdata->decodeStream($this->_decoder);
-                    break;
-                case Horde_ActiveSync::CLASS_NOTES:
-                    $appdata = Horde_ActiveSync::messageFactory('Note');
-                    $appdata->decodeStream($this->_decoder);
-                    break;
-                case Horde_ActiveSync::CLASS_SMS:
-                    $appdata = Horde_ActiveSync::messageFactory('Mail');
-                    $appdata->decodeStream($this->_decoder);
-                    break;
-                }
 
-                if (!$this->_decoder->getElementEndTag()) {
-                    // End application data
-                    $this->_statusCode = self::STATUS_PROTERROR;
-                    $this->_handleGlobalSyncError();
-                    return false;
+                    if (!$this->_decoder->getElementEndTag()) {
+                        // End application data
+                        $this->_statusCode = self::STATUS_PROTERROR;
+                        $this->_handleGlobalSyncError();
+                        return false;
+                    }
                 }
             }
             $appdata->commandType = $commandType;
