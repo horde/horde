@@ -1114,7 +1114,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             break;
 
         case Horde_ActiveSync::CLASS_EMAIL:
-            if (empty($this->_imap)) {
+            if (empty($this->_imap) ||
+                $folder->serverid() == 'OUTBOX') {
                 $this->_endBuffer();
                 return array();
             }
@@ -1814,6 +1815,12 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             $this->_pid,
             $folderid,
             $id));
+
+        // Short circuit OUTBOX modifications to work around broken clients.
+        if ($folderid == 'OUTBOX') {
+            return false;
+        }
+
         ob_start();
 
         $folder_split = $this->_parseFolderId($folderid);
@@ -3087,6 +3094,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     }
                     ++$level;
                 }
+
+                // Fake Outbox for broken clients.
+                $folders[] = $this->_buildDummyFolder(self::SPECIAL_OUTBOX);
 
                 $this->_mailFolders = $folders;
             }
