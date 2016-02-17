@@ -69,7 +69,9 @@ class IMP_Prefs_Special_Trash extends IMP_Prefs_Special_SpecialMboxes implements
 
         if (!$prefs->isLocked('vfolder') || $imp_search['vtrash']->enabled) {
             $view->vtrash = IMP_Mailbox::formTo($imp_search->createSearchId('vtrash'));
-            $view->vtrash_select = $trash->vtrash;
+            if ($trash) {
+                $view->vtrash_select = $trash->vtrash;
+            }
         }
 
         return $view->render('trash');
@@ -82,12 +84,13 @@ class IMP_Prefs_Special_Trash extends IMP_Prefs_Special_SpecialMboxes implements
         global $injector, $prefs;
 
         $imp_search = $injector->getInstance('IMP_Search');
-        $curr_vtrash = IMP_Mailbox::getPref(IMP_Mailbox::MBOX_TRASH)->vtrash;
+        $curr_trash = IMP_Mailbox::getPref(IMP_Mailbox::MBOX_TRASH);
+        $curr_vtrash = $curr_trash && $curr_trash->vtrash;
         $trash = IMP_Mailbox::formFrom($ui->vars->trash);
 
         if (!$prefs->isLocked('vfolder')) {
             $vtrash = $imp_search['vtrash'];
-            $vtrash->enabled = $trash->vtrash;
+            $vtrash->enabled = $trash && $trash->vtrash;
             $imp_search['vtrash'] = $vtrash;
         }
 
@@ -99,7 +102,7 @@ class IMP_Prefs_Special_Trash extends IMP_Prefs_Special_SpecialMboxes implements
 
         /* Switching to/from Virtual Trash requires us to expire all currently
          * cached mailbox lists (hide deleted status may have changed). */
-        if ($curr_vtrash || $trash->vtrash) {
+        if ($curr_vtrash || ($trash && $trash->vtrash)) {
             $injector->getInstance('IMP_Factory_MailboxList')->expireAll();
         }
 
