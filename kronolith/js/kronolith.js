@@ -4565,7 +4565,7 @@ KronolithCore = {
                 $('kronolithCancellationDiv').hide();
                 this.delete_verified = true;
             case 'kronolithEventDelete':
-                if ((Kronolith.conf.confirm_delete || this.recurs) && !$this.delete_verified) {
+                if ((Kronolith.conf.confirm_delete || this.recurs) && !this.delete_verified) {
                     $('kronolithEventDiv').hide();
                     $('kronolithDeleteDiv').show();
                     e.stop();
