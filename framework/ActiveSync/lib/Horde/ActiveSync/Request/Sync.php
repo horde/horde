@@ -496,12 +496,12 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                         : $collection['windowsize'];
 
                     if (!empty($changecount) &&
-                        (($changecount > $max_windowsize) || $cnt_global + $max_windowsize > $this->_collections->getDefaultWindowSize())) {
+                        (($changecount > $max_windowsize) || $cnt_global + $changecount > $this->_collections->getDefaultWindowSize())) {
                         $this->_logger->info(sprintf(
                             '[%s] Sending MOREAVAILABLE. WINDOWSIZE = %d, $changecount = %d, MAX_REQUEST_WINDOWSIZE = %d, $cnt_global = %d',
                             $this->_procid, $max_windowsize, $changecount, $this->_collections->getDefaultWindowSize(), $cnt_global));
                         $this->_encoder->startTag(Horde_ActiveSync::SYNC_MOREAVAILABLE, false, true);
-                        $over_window = ($cnt_global + $max_windowsize > $this->_collections->getDefaultWindowSize());
+                        $over_window = ($cnt_global + $changecount > $this->_collections->getDefaultWindowSize());
                     }
 
                     if (!empty($changecount)) {
