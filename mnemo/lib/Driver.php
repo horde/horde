@@ -290,23 +290,26 @@ abstract class Mnemo_Driver
      */
     public function deleteAll()
     {
+        global $injector, $registry;
+
         $uids = $this->_deleteAll();
 
         // Update History.
-        $history = $GLOBALS['injector']->getInstance('Horde_History');
+        $history = $injector->getInstance('Horde_History');
+        $tagger  = $injector->getInstance('Mnemo_Tagger');
+        $manager = $injector->getInstance('Content_Objects_Manager');
         try {
             foreach ($uids as $uid) {
                 $history->log(
                     'mnemo:' . $this->_notepad . ':' . $uid,
                     array('action' => 'delete'),
                     true);
-
-                $GLOBALS['injector']->getInstance('Mnemo_Tagger')
-                    ->replaceTags($uid, array(), $GLOBALS['registry']->getAuth(), 'note');
+                $tagger->replaceTags(
+                    $uid, array(), $registry->getAuth(), 'note'
+                );
 
                 /* Tell content we removed the object */
-                $GLOBALS['injector']->getInstance('Content_Objects_Manager')
-                    ->delete(array($uid), 'note');
+                $manager->delete(array($uid), 'note');
             }
         } catch (Horde_Exception $e) {
         }
