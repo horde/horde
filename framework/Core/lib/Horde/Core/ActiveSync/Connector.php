@@ -358,7 +358,8 @@ class Horde_Core_ActiveSync_Connector
      */
     public function getRecipientCache($max = 100)
     {
-        if (!$this->_registry->hasInterface('mail')) {
+        if (!$this->_registry->hasInterface('mail') ||
+            !$this->_registry->hasInterface('contacts')) {
             return array();
         }
         $cache = $GLOBALS['injector']->getInstance('Horde_Cache');

@@ -477,7 +477,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     }
                 }
             }
-            if ($this->_version > Horde_ActiveSync::VERSION_TWELVEONE) {
+            if ($this->_version > Horde_ActiveSync::VERSION_TWELVEONE &&
+                $GLOBALS['registry']->hasInterface('contacts')) {
                 $folders[] = $this->_getFolder('RI', array('class' => 'RI'));
             }
 
