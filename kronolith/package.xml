@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix typo preventing deletion of events from dynamic view (Bug #14256).
 * [jan] Handle gracefully if the base event of an imported recurrence exception is no longer recurring (Bug #14249).
  </notes>
  <contents>
@@ -2680,6 +2681,7 @@
    <date>2016-02-10</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix typo preventing deletion of events from dynamic view (Bug #14256).
 * [jan] Handle gracefully if the base event of an imported recurrence exception is no longer recurring (Bug #14249).
    </notes>
   </release>
