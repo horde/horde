@@ -5,7 +5,7 @@ $notes['security'] = false;
 /* Mailing list release notes. */
 $notes['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Kronolith
-Calendar Application version H5 (4.2.13).
+Calendar Application version H5 (4.2.15).
 
 Kronolith is the Horde calendar application. It provides web-based calendars
 backed by a SQL database or a Kolab server. Supported features include Ajax and
@@ -21,9 +21,10 @@ http://www.horde.org/apps/kronolith/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/kronolith/docs/INSTALL
 
-The major changes compared to Kronolith version H5 (4.2.12) are:
-    * Fix an issue that could cause loss of event properties when editing an
-      event from an ActiveSync client.
+The major changes compared to Kronolith version H5 (4.2.14) are:
+   * Handle gracefully if the base event of an imported recurrence exception
+     is no longer recurring.
+   * Fix typo preventing deletion of events from dynamic view.
 ML;
 
 $notes['name'] = 'Kronolith';
