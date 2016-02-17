@@ -1,6 +1,6 @@
------------
-v4.2.15-git
------------
+-------
+v4.2.15
+-------
 
 [mjr] Fix typo preventing deletion of events from dynamic view (Bug #14256).
 [jan] Handle gracefully if the base event of an imported recurrence exception
