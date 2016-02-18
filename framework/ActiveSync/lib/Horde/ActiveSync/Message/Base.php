@@ -477,6 +477,7 @@ class Horde_ActiveSync_Message_Base
      * Output is ordered according to $_mapping
      *
      * @param Horde_ActiveSync_Wbxml_Encoder $encoder  The wbxml stream encoder
+     * @throws  Horde_ActiveSync_Exception
      */
     public function encodeStream(Horde_ActiveSync_Wbxml_Encoder &$encoder)
     {
