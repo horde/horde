@@ -323,11 +323,7 @@ class Horde_Share_Sql extends Horde_Share_Base
         $sharelist = array();
         foreach ($shares as $data) {
             $this->_getSharePerms($data);
-            if (!empty($data['share_name'])) {
-                $sharelist[$data['share_name']] = $this->_createObject($data);
-            } else {
-                $sharelist[] = $this->_createObject($data);
-            }
+            $sharelist[$data['share_name']] = $this->_createObject($data);
         }
 
         return $sharelist;
