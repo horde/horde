@@ -169,4 +169,56 @@ class Horde_ActiveSync_Message_Exception extends Horde_ActiveSync_Message_Appoin
         $this->exceptionstarttime = $date;
     }
 
+    /**
+     * Give concrete classes the chance to enforce rules before encoding
+     * messages to send to the client.
+     *
+     * @return boolean  True if values were valid (or could be made valid).
+     *     False if values are unable to be validated.
+     */
+    protected function _preEncodeValidation()
+    {
+        if ($this->_properties['alldayevent']) {
+            if ($this->_properties['starttime'] &&
+                 $this->_properties['starttime']->hour != 0 ||
+                 $this->_properties['starttime']->min != 0 ||
+                 $this->_properties['starttime']->sec != 0) {
+                return false;
+            }
+            if ($this->_properties['endtime'] &&
+                ($this->_properties['endtime']->hour != 0 ||
+                 $this->_properties['endtime']->min != 0 ||
+                 $this->_properties['endtime']->sec != 0)) {
+                return false;
+            }
+
+            // For EAS 16, timezone cannot be sent for allday events. The
+            // event is interpreted to be on the given date regardless of
+            // timezone...as such, we need to manually convert to UTC here
+            // and (re)set the date to be sure it matches the desired date.
+            if ($this->_version == Horde_ActiveSync::VERSION_SIXTEEN) {
+                $this->_properties['timezone'] = false;
+                $mday = $this->_properties['starttime']->mday;
+                if ($this->_properties['starttime']) {
+                    $this->_properties['starttime']->setTimezone('UTC');
+                    $this->_properties['starttime']->mday = $mday;
+                    $this->_properties['starttime']->hour = 0;
+                    $this->_properties['starttime']->min = 0;
+                    $this->_properties['starttime']->sec = 0;
+                }
+
+                if ($this->_properties['endtime']) {
+                    $mday = $this->_properties['endtime']->mday;
+                    $this->_properties['endtime']->setTimezone('UTC');
+                    $this->_properties['endtime']->mday = $mday;
+                    $this->_properties['endtime']->hour = 0;
+                    $this->_properties['endtime']->min = 0;
+                    $this->_properties['endtime']->sec = 0;
+                }
+            }
+        }
+
+        return true;
+    }
+
 }
