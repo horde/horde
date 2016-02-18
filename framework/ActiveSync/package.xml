@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix WBXML output when allday event exceptions have no starttime set (Bug #14255).
 * [mjr] Fix calculation of when to send MOREAVAILABLE tag.
  </notes>
  <contents>
@@ -3010,6 +3011,7 @@
    <date>2016-02-12</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix WBXML output when allday event exceptions have no starttime set (Bug #14255).
 * [mjr] Fix calculation of when to send MOREAVAILABLE tag.
    </notes>
   </release>
