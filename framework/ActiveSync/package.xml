@@ -12,7 +12,7 @@
  </lead>
  <date>2016-02-18</date>
  <version>
-  <release>2.31.4</release>
+  <release>2.31.5</release>
   <api>2.31.0</api>
  </version>
  <stability>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] More fixes for allday exception events (Bug #14255).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3025,6 +3025,19 @@
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] More fixes for allday exception events (Bug #14255).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.31.5</release>
+    <api>2.31.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-02-18</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
