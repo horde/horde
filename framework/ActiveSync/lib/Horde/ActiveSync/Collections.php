@@ -525,7 +525,7 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
         }
 
         // First try existing, loaded collections.
-        if (!empty($this->_collections[$id])) {
+        if (!empty($this->_collections[$id]['type'])) {
             return $this->_collections[$id]['type'];
         }
 
