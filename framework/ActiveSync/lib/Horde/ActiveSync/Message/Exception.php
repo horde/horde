@@ -179,17 +179,15 @@ class Horde_ActiveSync_Message_Exception extends Horde_ActiveSync_Message_Appoin
     protected function _preEncodeValidation()
     {
         if ($this->_properties['alldayevent']) {
-            if ($this->_properties['starttime'] &&
-                 $this->_properties['starttime']->hour != 0 ||
-                 $this->_properties['starttime']->min != 0 ||
-                 $this->_properties['starttime']->sec != 0) {
-                return false;
+            if ($this->_properties['starttime']) {
+                $this->_properties['starttime']->hour = 0;
+                $this->_properties['starttime']->min = 0;
+                $this->_properties['starttime']->sec = 0;
             }
-            if ($this->_properties['endtime'] &&
-                ($this->_properties['endtime']->hour != 0 ||
-                 $this->_properties['endtime']->min != 0 ||
-                 $this->_properties['endtime']->sec != 0)) {
-                return false;
+            if ($this->_properties['endtime']) {
+                $this->_properties['endtime']->hour = 0;
+                $this->_properties['endtime']->min = 0;
+                $this->_properties['endtime']->sec = 0;
             }
 
             // For EAS 16, timezone cannot be sent for allday events. The
