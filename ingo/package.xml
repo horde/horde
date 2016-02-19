@@ -1643,7 +1643,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-10-20</date>
+   <date>2016-02-02</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Fix editing shared rulesets (Bug #12694).
@@ -1652,6 +1652,19 @@
 * [jan] Fix variable name in vacation_addresses hook example.
 * [jan] Correctly save names of mailbox created from the rule form (Bug #14150).
 * [mjr] Fix invalid URLs in certain forms when cookies are disabled (Bug #14148).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.2.9</release>
+    <api>3.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-02-02</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [jan] Fix Oracle compatibility (Bug #14262).
    </notes>
   </release>
   <release>
