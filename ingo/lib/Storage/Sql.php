@@ -76,13 +76,23 @@ class Ingo_Storage_Sql extends Ingo_Storage
                              $this->_params['table_forwards']);
 
             try {
-                $data = $this->_params['db']->selectOne($query, array(Ingo::getUser()));
+                $data = $this->_params['db']->selectOne(
+                    $query, array(Ingo::getUser())
+                );
+                $columns = $this->_params['db']->columns(
+                    $this->_params['table_forwards']
+                );
             } catch (Horde_Db_Exception $e) {
                 throw new Ingo_Exception($e);
             }
             $ob = new Ingo_Storage_Forward();
             if (!empty($data)) {
-                $ob->setForwardAddresses(explode("\n", $data['forward_addresses']));
+                $ob->setForwardAddresses(explode(
+                    "\n",
+                    $columns['forward_addresses']->binaryToString(
+                        $data['forward_addresses']
+                    )
+                ));
                 $ob->setForwardKeep((bool)$data['forward_keep']);
                 $ob->setSaved(true);
             } elseif ($data = @unserialize($GLOBALS['prefs']->getDefault('forward'))) {
@@ -96,20 +106,45 @@ class Ingo_Storage_Sql extends Ingo_Storage
                              $this->_params['table_vacations']);
 
             try {
-                $data = $this->_params['db']->selectOne($query, array(Ingo::getUser()));
+                $data = $this->_params['db']->selectOne(
+                    $query, array(Ingo::getUser())
+                );
+                $columns = $this->_params['db']->columns(
+                    $this->_params['table_vacations']
+                );
             } catch (Horde_Db_Exception $e) {
                 throw new Ingo_Exception($e);
             }
             $ob = new Ingo_Storage_Vacation();
             if (!empty($data)) {
-                $ob->setVacationAddresses(explode("\n", $data['vacation_addresses']));
+                $ob->setVacationAddresses(explode(
+                    "\n",
+                    $columns['vacation_addresses']->binaryToString(
+                        $data['vacation_addresses']
+                    )
+                ));
                 $ob->setVacationDays((int)$data['vacation_days']);
                 $ob->setVacationStart((int)$data['vacation_start']);
                 $ob->setVacationEnd((int)$data['vacation_end']);
-                $ob->setVacationExcludes(explode("\n", $data['vacation_excludes']));
+                $ob->setVacationExcludes(explode(
+                    "\n",
+                    $columns['vacation_excludes']->binaryToString(
+                        $data['vacation_excludes']
+                    )
+                ));
                 $ob->setVacationIgnorelist((bool)$data['vacation_ignorelists']);
-                $ob->setVacationReason(Horde_String::convertCharset($data['vacation_reason'], $this->_params['charset'], 'UTF-8'));
-                $ob->setVacationSubject(Horde_String::convertCharset($data['vacation_subject'], $this->_params['charset'], 'UTF-8'));
+                $ob->setVacationReason(Horde_String::convertCharset(
+                    $columns['vacation_reason']->binaryToString(
+                        $data['vacation_reason']
+                    ),
+                    $this->_params['charset'],
+                    'UTF-8'
+                ));
+                $ob->setVacationSubject(Horde_String::convertCharset(
+                    $data['vacation_subject'],
+                    $this->_params['charset'],
+                    'UTF-8'
+                ));
                 $ob->setSaved(true);
             } elseif ($data = @unserialize($GLOBALS['prefs']->getDefault('vacation'))) {
                 $ob->setVacationAddresses($data['addresses'], false);
@@ -209,7 +244,9 @@ class Ingo_Storage_Sql extends Ingo_Storage
 
         case self::ACTION_FORWARD:
             $values = array(
-                implode("\n", $ob->getForwardAddresses()),
+                new Horde_Db_Value_Text(
+                    implode("\n", $ob->getForwardAddresses())
+                ),
                 (int)(bool)$ob->getForwardKeep(),
                 Ingo::getUser());
             try {
@@ -228,17 +265,25 @@ class Ingo_Storage_Sql extends Ingo_Storage
 
         case self::ACTION_VACATION:
             $values = array(
-                implode("\n", $ob->getVacationAddresses()),
-                Horde_String::convertCharset($ob->getVacationSubject(),
-                                             'UTF-8',
-                                             $this->_params['charset']),
-                Horde_String::convertCharset($ob->getVacationReason(),
-                                             'UTF-8',
-                                             $this->_params['charset']),
+                new Horde_Db_Value_Text(
+                    implode("\n", $ob->getVacationAddresses())
+                ),
+                Horde_String::convertCharset(
+                    $ob->getVacationSubject(),
+                    'UTF-8',
+                    $this->_params['charset']
+                ),
+                new Horde_Db_Value_Text(Horde_String::convertCharset(
+                    $ob->getVacationReason(),
+                    'UTF-8',
+                    $this->_params['charset']
+                )),
                 (int)$ob->getVacationDays(),
                 (int)$ob->getVacationStart(),
                 (int)$ob->getVacationEnd(),
-                implode("\n", $ob->getVacationExcludes()),
+                new Horde_Db_Value_Text(
+                    implode("\n", $ob->getVacationExcludes())
+                ),
                 (int)(bool)$ob->getVacationIgnorelist(),
                 Ingo::getUser()
             );

@@ -61,18 +61,32 @@ class Ingo_Storage_Filters_Sql extends Ingo_Storage_Filters
         $values = array(Ingo::getUser());
         try {
             $result = $this->_db->selectAll($query, $values);
+            $columns = $this->_db->columns($this->_params['table_rules']);
         } catch (Horde_Db_Exception $e) {
             throw new Ingo_Exception($e);
         }
         $data = array();
         foreach ($result as $row) {
+            if (empty($row['rule_conditions'])) {
+                $conditions = null;
+            } else {
+                $conditions = Horde_String::convertCharset(
+                    unserialize(
+                        $columns['rule_conditions']->binaryToString(
+                            $row['rule_conditions']
+                        )
+                    ),
+                    $this->_params['charset'],
+                    'UTF-8'
+                );
+            }
             $data[$row['rule_order']] = array(
                 'id' => (int)$row['rule_id'],
                 'name' => Horde_String::convertCharset($row['rule_name'], $this->_params['charset'], 'UTF-8'),
                 'action' => (int)$row['rule_action'],
                 'action-value' => Horde_String::convertCharset($row['rule_value'], $this->_params['charset'], 'UTF-8'),
                 'flags' => (int)$row['rule_flags'],
-                'conditions' => empty($row['rule_conditions']) ? null : Horde_String::convertCharset(unserialize($row['rule_conditions']), $this->_params['charset'], 'UTF-8'),
+                'conditions' => $conditions,
                 'combine' => (int)$row['rule_combine'],
                 'stop' => (bool)$row['rule_stop'],
                 'disable' => !(bool)$row['rule_active']);
@@ -122,14 +136,30 @@ class Ingo_Storage_Filters_Sql extends Ingo_Storage_Filters
      */
     protected function _ruleToBackend(array $rule)
     {
-        return array(Horde_String::convertCharset($rule['name'], 'UTF-8', $this->_params['charset']),
-                     (int)$rule['action'],
-                     isset($rule['action-value']) ? Horde_String::convertCharset($rule['action-value'], 'UTF-8', $this->_params['charset']) : null,
-                     isset($rule['flags']) ? (int)$rule['flags'] : null,
-                     isset($rule['conditions']) ? serialize(Horde_String::convertCharset($rule['conditions'], 'UTF-8', $this->_params['charset'])) : null,
-                     isset($rule['combine']) ? (int)$rule['combine'] : null,
-                     isset($rule['stop']) ? (int)$rule['stop'] : null,
-                     isset($rule['disable']) ? (int)(!$rule['disable']) : 1);
+        return array(
+            Horde_String::convertCharset(
+                $rule['name'], 'UTF-8', $this->_params['charset']
+            ),
+            (int)$rule['action'],
+            isset($rule['action-value'])
+                ? Horde_String::convertCharset(
+                    $rule['action-value'], 'UTF-8', $this->_params['charset']
+                )
+                : null,
+            isset($rule['flags']) ? (int)$rule['flags'] : null,
+            isset($rule['conditions'])
+                ? new Horde_Db_Value_Text(serialize(
+                     Horde_String::convertCharset(
+                         $rule['conditions'],
+                         'UTF-8',
+                         $this->_params['charset']
+                     )
+                ))
+                : null,
+            isset($rule['combine']) ? (int)$rule['combine'] : null,
+            isset($rule['stop']) ? (int)$rule['stop'] : null,
+            isset($rule['disable']) ? (int)(!$rule['disable']) : 1
+        );
     }
 
     /**
