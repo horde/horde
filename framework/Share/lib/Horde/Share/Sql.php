@@ -307,7 +307,9 @@ class Horde_Share_Sql extends Horde_Share_Base
             throw new Horde_Share_Exception($e);
         }
         foreach ($rows as $row) {
-            $shares[$row['share_id']]['perm']['users'][$row['user_uid']] = $this->_buildPermsFromRow($row);
+            if (isset($shares[$row['share_id']])) {
+                $shares[$row['share_id']]['perm']['users'][$row['user_uid']] = $this->_buildPermsFromRow($row);
+            }
         }
 
         // Get groups permissions
@@ -317,7 +319,9 @@ class Horde_Share_Sql extends Horde_Share_Base
             throw new Horde_Share_Exception($e->getMessage());
         }
         foreach ($rows as $row) {
-            $shares[$row['share_id']]['perm']['groups'][$row['group_uid']] = $this->_buildPermsFromRow($row);
+            if (isset($shares[$row['share_id']])) {
+                $shares[$row['share_id']]['perm']['groups'][$row['group_uid']] = $this->_buildPermsFromRow($row);
+            }
         }
 
         $sharelist = array();

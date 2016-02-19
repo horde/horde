@@ -34,7 +34,7 @@ owns or has access to.</description>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Protect against certain share tables corruption (Bug #14259).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1027,7 +1027,7 @@ Initial release as a PEAR package
    <date>2016-02-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Protect against certain share tables corruption (Bug #14259).
    </notes>
   </release>
  </changelog>
