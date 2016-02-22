@@ -2365,12 +2365,12 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     $identity = $identities->get();
                     $emails = !empty($identity['alias_addr']) ? $identity['alias_addr'] : array();
                     $emails[] = $identity['from_addr'];
-                    $accounts[] = array('fullname' => $identity['fullname'], 'emailaddresses' => array_reverse($emails));
+                    $accounts[] = array('fullname' => $identity['fullname'], 'emailaddresses' => array_reverse($emails), 'accountname' => $identity['id']);
                     foreach ($identities as $id => $identity) {
                         if ($id != $as_ident) {
                             $emails = !empty($identity['alias_addr']) ? $identity['alias_addr'] : array();
                             $emails[] = $identity['from_addr'];
-                            $accounts[] = array('fullname' => $identity['fullname'], 'emailaddresses' => array_reverse($emails));
+                            $accounts[] = array('fullname' => $identity['fullname'], 'emailaddresses' => array_reverse($emails), 'accountname' => $identity['id'], 'id' => $id);
                         }
                     }
                 }

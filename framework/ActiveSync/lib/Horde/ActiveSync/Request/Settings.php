@@ -78,6 +78,7 @@ class Horde_ActiveSync_Request_Settings extends Horde_ActiveSync_Request_Base
     const SETTINGS_ACCOUNTID                = 'Settings:AccountId';
     const SETTINGS_USERDISPLAYNAME          = 'Settings:UserDisplayName';
     const SETTINGS_RIGHTSMANAGEMENTINFO     = 'Settings:RightsManagementInformation';
+    const SETTINGS_ACCOUNTNAME              = 'Settings:AccountName';
 
 
     /** Status codes **/
@@ -257,34 +258,38 @@ class Horde_ActiveSync_Request_Settings extends Horde_ActiveSync_Request_Base
             if ($this->_device->version >= Horde_ActiveSync::VERSION_FOURTEENONE &&
                 !empty($result['get']['userinformation']['accounts'])) {
                 $this->_encoder->startTag(self::SETTINGS_ACCOUNTS);
+                $havePrimary = false;
                 foreach ($result['get']['userinformation']['accounts'] as $account) {
                     $this->_encoder->startTag(self::SETTINGS_ACCOUNT);
 
+                    if (!empty($account['id'])) {
+                        $this->_encoder->startTag(self::SETTINGS_ACCOUNTID);
+                        $this->_encoder->content($account['id']);
+                        $this->_encoder->endTag();
+                    }
+                    if (!empty($account['accountname'])) {
+                        $this->_encoder->startTag(self::SETTINGS_ACCOUNTNAME);
+                        $this->_encoder->content($account['accountname']);
+                        $this->_encoder->endTag();
+                    }
                     if (!empty($account['fullname'])) {
                         $this->_encoder->startTag(self::SETTINGS_USERDISPLAYNAME);
                         $this->_encoder->content($account['fullname']);
                         $this->_encoder->endTag();
                     }
-
                     if (!empty($account['emailaddresses'])) {
-                        $this->_encoder->startTag(self::SETTINGS_EMAILADDRESSES);
-
-                        $this->_encoder->startTag(self::SETTINGS_PRIMARYSMTPADDRESS);
-                        $this->_encoder->content($account['emailaddresses'][0]);
-                        $this->_encoder->endTag();
-
-                        if (!empty($account['id'])) {
-                            $this->_encoder->startTag(self::SETTINGS_ACCOUNTID);
-                            $this->_encoder->content(array_pop($account['id']));
-                            $this->_encoder->endTag();
+                        if (!$havePrimary) {
+                            $this->_encoder->startTag(self::SETTINGS_EMAILADDRESSES);
+                            $this->_encoder->startTag(self::SETTINGS_PRIMARYSMTPADDRESS);
+                            $this->_encoder->content($account['emailaddresses'][0]);
+                            $havePrimary = true;
                         }
-
+                        $this->_encoder->endTag();
                         foreach($account['emailaddresses'] as $value) {
                             $this->_encoder->startTag(self::SETTINGS_SMTPADDRESS);
                             $this->_encoder->content($value);
                             $this->_encoder->endTag(); // end self::SETTINGS_SMTPADDRESS
                         }
-
                         $this->_encoder->endTag(); // SETTINGS_EMAILADDRESSES
                     }
 
