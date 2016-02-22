@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Prevent mirroring back email category changes.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3039,7 +3039,7 @@
    <date>2016-02-22</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Prevent mirroring back email category changes.
    </notes>
   </release>
  </changelog>
