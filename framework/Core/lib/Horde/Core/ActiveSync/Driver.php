@@ -1147,6 +1147,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 }
             } else {
                 // SOFTDELETE, but only if we aren't refreshing FILTERTYPE.
+                // @todo - Move the soft delete check(s) into the AS library.
                 $soft = false;
                 if (!$refreshFilter) {
                     $sd = $folder->getSoftDeleteTimes();
