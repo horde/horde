@@ -2315,6 +2315,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function getSettings(array $settings, $device)
     {
+        global $injector, $prefs, $registry;
+
         $res = array();
         foreach ($settings as $key => $setting) {
             switch ($key) {
@@ -2347,21 +2349,30 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 );
                 break;
             case 'userinformation':
-                $identities= $GLOBALS['injector']
+                $identities = $injector
                     ->getInstance('Horde_Core_Factory_Identity')
-                    ->create($GLOBALS['registry']->getAuth());
-
+                    ->create($registry->getAuth());
+                $as_ident = $prefs->getValue('activesync_identity');
+                if ($as_ident != 'horde') {
+                    $identities->setDefault($prefs->getValue('activesync_identity'));
+                } else {
+                    $as_ident = $identities->getDefault();
+                }
                 $default_email = $identities->getValue('from_addr');
                 $email_addresses = array($default_email);
                 $accounts = array();
                 if ($this->_version >= Horde_ActiveSync::VERSION_FOURTEENONE) {
-                    // @TODO Do clients actually support multiple accounts?
-                    // Can't find one that does. For now, only return the
-                    // default identity.
-                    $ident = $identities->get();
-                    $emails = !empty($ident['alias_addr']) ? $ident['alias_addr'] : array();
-                    $emails[] = $ident['from_addr'];
-                    $accounts[] = array('fullname' => $ident['fullname'], 'emailaddresses' => array_reverse($emails));
+                    $identity = $identities->get();
+                    $emails = !empty($identity['alias_addr']) ? $identity['alias_addr'] : array();
+                    $emails[] = $identity['from_addr'];
+                    $accounts[] = array('fullname' => $identity['fullname'], 'emailaddresses' => array_reverse($emails));
+                    foreach ($identities as $id => $identity) {
+                        if ($id != $as_ident) {
+                            $emails = !empty($identity['alias_addr']) ? $identity['alias_addr'] : array();
+                            $emails[] = $identity['from_addr'];
+                            $accounts[] = array('fullname' => $identity['fullname'], 'emailaddresses' => array_reverse($emails));
+                        }
+                    }
                 }
                 $res['userinformation'] = array(
                     'emailaddresses' => $email_addresses,
