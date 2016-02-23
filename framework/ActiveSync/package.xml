@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Improvements to ActiveSync SETTINGS_ACCOUNTS response data.
 * [mjr] Prevent mirroring back email category changes.
  </notes>
  <contents>
@@ -3039,6 +3040,7 @@
    <date>2016-02-22</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Improvements to ActiveSync SETTINGS_ACCOUNTS response data.
 * [mjr] Prevent mirroring back email category changes.
    </notes>
   </release>

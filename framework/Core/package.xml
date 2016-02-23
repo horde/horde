@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Improvements to ActiveSync SETTINGS_ACCOUNTS response data.
 * [mjr] Fix issues with ActiveSync clients and user defined message flags.
 * [jan] Fix logging in from a different page than the login page (Bug #14231).
  </notes>
@@ -4143,6 +4144,7 @@
    <date>2016-02-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Improvements to ActiveSync SETTINGS_ACCOUNTS response data.
 * [mjr] Fix issues with ActiveSync clients and user defined message flags.
 * [jan] Fix logging in from a different page than the login page (Bug #14231).
    </notes>
