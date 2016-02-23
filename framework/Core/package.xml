@@ -30,7 +30,7 @@
  </developer>
  <date>2016-02-23</date>
  <version>
-  <release>2.22.7</release>
+  <release>2.22.8</release>
   <api>2.22.0</api>
  </version>
  <stability>
@@ -39,9 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Improvements to ActiveSync SETTINGS_ACCOUNTS response data.
-* [mjr] Fix issues with ActiveSync clients and user defined message flags.
-* [jan] Fix logging in from a different page than the login page (Bug #14231).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4147,6 +4145,19 @@
 * [mjr] Improvements to ActiveSync SETTINGS_ACCOUNTS response data.
 * [mjr] Fix issues with ActiveSync clients and user defined message flags.
 * [jan] Fix logging in from a different page than the login page (Bug #14231).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.22.8</release>
+    <api>2.22.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-02-23</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
