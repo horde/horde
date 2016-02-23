@@ -2,6 +2,7 @@
 v2.1.0-git
 ----------
 
+[jan] Complete the reST renderer.
 [jan] Add navigation between pages from the same hierarchy.
 
 

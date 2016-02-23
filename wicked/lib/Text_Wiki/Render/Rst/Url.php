@@ -1,14 +1,9 @@
 <?php
 /**
- * Renders a URL for a Wiki page.
- *
  * Copyright 2011-2016 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPLv2). If
- * you did not receive this file, see
- * http://www.horde.org/licenses/gpl
- *
- * PHP version 5
+ * you did not receive this file, see http://www.horde.org/licenses/gpl
  *
  * @category Horde
  * @package  Wicked

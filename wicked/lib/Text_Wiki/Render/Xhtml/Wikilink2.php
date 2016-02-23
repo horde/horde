@@ -19,7 +19,7 @@ class Text_Wiki_Render_Xhtml_Wikilink2 extends Text_Wiki_Render_Xhtml_Wikilink
      */
     public function token($options)
     {
-        // make nice variable names (page, anchor, text)
+        // make nice variable names (page, anchor, text, type)
         extract($options);
 
         // is there a "page existence" callback?

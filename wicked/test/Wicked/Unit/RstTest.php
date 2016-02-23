@@ -253,6 +253,17 @@ test
         );
     }
 
+    public function testItalic()
+    {
+        $wiki = new Text_Wiki_Default();
+        $this->assertEquals(
+            '*italic*
+
+',
+            $this->protectAgainstPearError($wiki->transform("''italic''", 'Rst'))
+        );
+    }
+
     public function testBold()
     {
         $wiki = new Text_Wiki_Default();

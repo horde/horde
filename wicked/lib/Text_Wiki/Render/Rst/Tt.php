@@ -38,6 +38,6 @@ class Text_Wiki_Render_Rst_Tt extends Text_Wiki_Render
      */
     public function token($options)
     {
-        return '``';
+        return '';
     }
 }

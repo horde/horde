@@ -1,7 +1,5 @@
 <?php
 /**
- * Renders quoted text for a Wiki page.
- *
  * Copyright 2013-2016 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPLv2). If
@@ -26,6 +24,13 @@
 class Text_Wiki_Render_Rst_Blockquote extends Text_Wiki_Render
 {
     /**
+     * A caching stack for blockquote levels.
+     *
+     * @var array
+     */
+    protected $_level;
+
+    /**
      * Renders a token into text matching the requested format.
      * 
      * @param array $options The "options" portion of the token (second
@@ -37,23 +42,29 @@ class Text_Wiki_Render_Rst_Blockquote extends Text_Wiki_Render
     {
         // starting
         if ($options['type'] == 'start') {
-            $this->wiki->registerRenderCallback(array($this, 'renderInsideText'));
-            $this->_level = $options['level'];
+            $this->wiki->registerRenderCallback(
+                array($this, 'renderInsideText')
+            );
+            if ($options['level'] == 1) {
+                $this->_level = array($options['level']);
+            } else {
+                $this->_level[] = $options['level'];
+            }
             return '';
         }
 
         // ending
         if ($options['type'] == 'end') {
-            $this->wiki->popRenderCallback();
-            return "\n";
+            return $this->wiki->popRenderCallback() . "\n\n";
         }
     }
 
     public function renderInsideText($text)
     {
-        return preg_replace('/(^|\n)(>*) */',
-                            '\1' . str_repeat(' ', $this->_level * 2). '\2',
-                            trim($text))
-            . "\n";
+        return preg_replace(
+            '/^(?! )/m',
+            "\n" . str_repeat(' ', array_pop($this->_level) * 2),
+            trim($text)
+        );
     }
 }

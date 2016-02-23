@@ -45,7 +45,7 @@ class Text_Wiki_Render_Rst_Deflist extends Text_Wiki_Render
             return '';
         case 'list_end':
             $this->wiki->popRenderCallback();
-            return Text_Wiki_Render_Rst_Links::append();
+            return '';
         case 'term_end':
         case 'narr_end':
             return $this->wiki->delim;

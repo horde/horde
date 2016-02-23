@@ -45,8 +45,7 @@ class Text_Wiki_Render_Rst_Paragraph extends Text_Wiki_Render
         }
         
         if ($type == 'end') {
-            $result = Text_Wiki_Render_Rst_Links::append();
-            return $result . "\n\n";
+            return Text_Wiki_Render_Rst_Links::append() . "\n\n";
         }
     }
 }

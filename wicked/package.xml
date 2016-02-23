@@ -16,7 +16,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-01-13</date>
+ <date>2016-02-23</date>
  <version>
   <release>2.1.0</release>
   <api>2.0.0</api>
@@ -27,6 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Complete the reST renderer.
 * [jan] Add navigation between pages from the same hierarchy.
  </notes>
  <contents>
@@ -177,6 +178,7 @@
        <file name="Heading2.php" role="horde" />
        <file name="Image2.php" role="horde" />
        <file name="Registrylink.php" role="horde" />
+       <file name="Table2.php" role="horde" />
        <file name="Toc2.php" role="horde" />
        <file name="Wickedblock.php" role="horde" />
        <file name="Wikilink2.php" role="horde" />
@@ -208,25 +210,39 @@
       </dir> <!-- /lib/Text_Wiki/Render/Latex -->
       <dir name="Plain">
        <file name="Heading2.php" role="horde" />
+       <file name="Table2.php" role="horde" />
        <file name="Toc2.php" role="horde" />
       </dir> <!-- /lib/Text_Wiki/Render/Plain -->
       <dir name="Rst">
+       <file name="Anchor.php" role="horde" />
        <file name="Blockquote.php" role="horde" />
        <file name="Bold.php" role="horde" />
+       <file name="Center.php" role="horde" />
        <file name="Code.php" role="horde" />
+       <file name="Colortext.php" role="horde" />
        <file name="Deflist.php" role="horde" />
        <file name="Emphasis.php" role="horde" />
-       <file name="Freelink.php" role="horde" />
+       <file name="Freelink2.php" role="horde" />
        <file name="Heading2.php" role="horde" />
        <file name="Horiz.php" role="horde" />
+       <file name="Interwiki.php" role="horde" />
+       <file name="Italic.php" role="horde" />
        <file name="Links.php" role="horde" />
        <file name="List.php" role="horde" />
        <file name="Newline.php" role="horde" />
        <file name="Paragraph.php" role="horde" />
+       <file name="Phplookup.php" role="horde" />
        <file name="Raw.php" role="horde" />
+       <file name="Revise.php" role="horde" />
+       <file name="Strong.php" role="horde" />
+       <file name="Subscript.php" role="horde" />
+       <file name="Superscript.php" role="horde" />
+       <file name="Table2.php" role="horde" />
        <file name="Toc2.php" role="horde" />
        <file name="Tt.php" role="horde" />
+       <file name="Underline.php" role="horde" />
        <file name="Url.php" role="horde" />
+       <file name="Wikilink.php" role="horde" />
       </dir> <!-- /lib/Text_Wiki/Render/Rst -->
       <dir name="Xhtml">
        <file name="Attribute.php" role="horde" />
@@ -733,6 +749,7 @@
    <install as="wicked/lib/Text_Wiki/Parse/Default/Heading2.php" name="lib/Text_Wiki/Parse/Default/Heading2.php" />
    <install as="wicked/lib/Text_Wiki/Parse/Default/Image2.php" name="lib/Text_Wiki/Parse/Default/Image2.php" />
    <install as="wicked/lib/Text_Wiki/Parse/Default/Registrylink.php" name="lib/Text_Wiki/Parse/Default/Registrylink.php" />
+   <install as="wicked/lib/Text_Wiki/Parse/Default/Table2.php" name="lib/Text_Wiki/Parse/Default/Table2.php" />
    <install as="wicked/lib/Text_Wiki/Parse/Default/Toc2.php" name="lib/Text_Wiki/Parse/Default/Toc2.php" />
    <install as="wicked/lib/Text_Wiki/Parse/Default/Wickedblock.php" name="lib/Text_Wiki/Parse/Default/Wickedblock.php" />
    <install as="wicked/lib/Text_Wiki/Parse/Default/Wikilink2.php" name="lib/Text_Wiki/Parse/Default/Wikilink2.php" />
@@ -755,23 +772,37 @@
    <install as="wicked/lib/Text_Wiki/Render/Latex/Heading2.php" name="lib/Text_Wiki/Render/Latex/Heading2.php" />
    <install as="wicked/lib/Text_Wiki/Render/Latex/Toc2.php" name="lib/Text_Wiki/Render/Latex/Toc2.php" />
    <install as="wicked/lib/Text_Wiki/Render/Plain/Heading2.php" name="lib/Text_Wiki/Render/Plain/Heading2.php" />
+   <install as="wicked/lib/Text_Wiki/Render/Plain/Table2.php" name="lib/Text_Wiki/Render/Plain/Table2.php" />
    <install as="wicked/lib/Text_Wiki/Render/Plain/Toc2.php" name="lib/Text_Wiki/Render/Plain/Toc2.php" />
+   <install as="wicked/lib/Text_Wiki/Render/Rst/Anchor.php" name="lib/Text_Wiki/Render/Rst/Anchor.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst/Blockquote.php" name="lib/Text_Wiki/Render/Rst/Blockquote.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst/Bold.php" name="lib/Text_Wiki/Render/Rst/Bold.php" />
+   <install as="wicked/lib/Text_Wiki/Render/Rst/Center.php" name="lib/Text_Wiki/Render/Rst/Center.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst/Code.php" name="lib/Text_Wiki/Render/Rst/Code.php" />
+   <install as="wicked/lib/Text_Wiki/Render/Rst/Colortext.php" name="lib/Text_Wiki/Render/Rst/Colortext.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst/Deflist.php" name="lib/Text_Wiki/Render/Rst/Deflist.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst/Emphasis.php" name="lib/Text_Wiki/Render/Rst/Emphasis.php" />
-   <install as="wicked/lib/Text_Wiki/Render/Rst/Freelink.php" name="lib/Text_Wiki/Render/Rst/Freelink.php" />
+   <install as="wicked/lib/Text_Wiki/Render/Rst/Freelink2.php" name="lib/Text_Wiki/Render/Rst/Freelink2.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst/Heading2.php" name="lib/Text_Wiki/Render/Rst/Heading2.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst/Horiz.php" name="lib/Text_Wiki/Render/Rst/Horiz.php" />
+   <install as="wicked/lib/Text_Wiki/Render/Rst/Interwiki.php" name="lib/Text_Wiki/Render/Rst/Interwiki.php" />
+   <install as="wicked/lib/Text_Wiki/Render/Rst/Italic.php" name="lib/Text_Wiki/Render/Rst/Italic.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst/Links.php" name="lib/Text_Wiki/Render/Rst/Links.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst/List.php" name="lib/Text_Wiki/Render/Rst/List.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst/Newline.php" name="lib/Text_Wiki/Render/Rst/Newline.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst/Paragraph.php" name="lib/Text_Wiki/Render/Rst/Paragraph.php" />
+   <install as="wicked/lib/Text_Wiki/Render/Rst/Phplookup.php" name="lib/Text_Wiki/Render/Rst/Phplookup.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst/Raw.php" name="lib/Text_Wiki/Render/Rst/Raw.php" />
+   <install as="wicked/lib/Text_Wiki/Render/Rst/Revise.php" name="lib/Text_Wiki/Render/Rst/Revise.php" />
+   <install as="wicked/lib/Text_Wiki/Render/Rst/Strong.php" name="lib/Text_Wiki/Render/Rst/Strong.php" />
+   <install as="wicked/lib/Text_Wiki/Render/Rst/Subscript.php" name="lib/Text_Wiki/Render/Rst/Subscript.php" />
+   <install as="wicked/lib/Text_Wiki/Render/Rst/Superscript.php" name="lib/Text_Wiki/Render/Rst/Superscript.php" />
+   <install as="wicked/lib/Text_Wiki/Render/Rst/Table2.php" name="lib/Text_Wiki/Render/Rst/Table2.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst/Toc2.php" name="lib/Text_Wiki/Render/Rst/Toc2.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst/Tt.php" name="lib/Text_Wiki/Render/Rst/Tt.php" />
+   <install as="wicked/lib/Text_Wiki/Render/Rst/Underline.php" name="lib/Text_Wiki/Render/Rst/Underline.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst/Url.php" name="lib/Text_Wiki/Render/Rst/Url.php" />
+   <install as="wicked/lib/Text_Wiki/Render/Rst/Wikilink.php" name="lib/Text_Wiki/Render/Rst/Wikilink.php" />
    <install as="wicked/lib/Text_Wiki/Render/Xhtml/Attribute.php" name="lib/Text_Wiki/Render/Xhtml/Attribute.php" />
    <install as="wicked/lib/Text_Wiki/Render/Xhtml/Code2.php" name="lib/Text_Wiki/Render/Xhtml/Code2.php" />
    <install as="wicked/lib/Text_Wiki/Render/Xhtml/Freelink2.php" name="lib/Text_Wiki/Render/Xhtml/Freelink2.php" />
@@ -1104,9 +1135,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-01-13</date>
+   <date>2016-02-23</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Complete the reST renderer.
 * [jan] Add navigation between pages from the same hierarchy.
    </notes>
   </release>
