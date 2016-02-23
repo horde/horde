@@ -140,8 +140,24 @@ class Horde_Core_ActiveSync_Imap_Factory implements Horde_ActiveSync_Interface_I
 
         $msgFlags = array();
         $flags = unserialize($registry->horde->getPreference($registry->hasInterface('mail'), 'msgflags'));
+
+        // Remove any system flags, as these should never be user (un)set.
+        $system_flags = array(
+            Horde_Imap_Client::FLAG_ANSWERED,
+            Horde_Imap_Client::FLAG_DELETED,
+            Horde_Imap_Client::FLAG_DRAFT,
+            Horde_Imap_Client::FLAG_FLAGGED,
+            Horde_Imap_Client::FLAG_RECENT,
+            Horde_Imap_Client::FLAG_SEEN
+        );
+        foreach ($system_flags as $flag) {
+            unset($flags[$flag]);
+        }
+
         foreach ($flags as $flag) {
-            $msgFlags[Horde_String::lower($flag->imapflag)] = $flag->label;
+            if ($flag->imapflag) {
+                   $msgFlags[Horde_String::lower($flag->imapflag)] = $flag->label;
+            }
         }
 
         return $msgFlags;
