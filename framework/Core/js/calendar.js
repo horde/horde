@@ -80,23 +80,6 @@ var Horde_Calendar =
         return Math.ceil((this.daysInMonth(month, year) - firstWeekDays) / 7) + weeks;
     },
 
-    // http://javascript.about.com/library/blstdweek.htm
-    // The first week of a year is the week that contains the first Thursday of the year (and, hence, always contains 4 January).
-    // see: https://en.wikipedia.org/wiki/ISO_week_date
-    weekOfYear: function(d)
-    {
-        var newYear = new Date(d.getFullYear(), 0, 4),
-            day = newYear.getDay(), weekNr;
-        if (this.firstDayOfWeek !== 0) {
-            day = ((day + (7 - this.firstDayOfWeek)) % 7);
-        }
-        weekNr = Math.ceil((((d - newYear) / 86400000) + day + 1) / 7);
-        if (weekNr == 0) {
-            return this.weekOfYear(new Date(d.getFullYear() - 1, 11, 31));
-        }
-        return weekNr;
-    },
-
     draw: function(timestamp, init)
     {
         this.date = new Date(timestamp);
@@ -140,7 +123,9 @@ var Horde_Calendar =
             if (count == 1) {
                 row = new Element('TR');
                 if (this.click_week) {
-                    row.insert(new Element('TD').insert(new Element('A', { className: 'hordeCalendarWeek' }).insert(this.weekOfYear(new Date(this.year, this.month, (i < 1) ? 1 : i)))));
+                    row.insert(new Element('TD')
+                        .insert(new Element('A', { className: 'hordeCalendarWeek' })
+                        .insert((new Date(this.year, this.month, (i < 1) ? 1 : i)).getWeek())));
                 }
             }
 
