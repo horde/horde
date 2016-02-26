@@ -2039,9 +2039,14 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             if (!empty($this->_cache) && $this->_cache->exists($cache_key, 0)) {
                 $results = json_decode($this->_cache->get($cache_key, 0), true);
             } else {
-                $results = $this->_searchMailbox($query);
-                if (!empty($this->_cache)) {
-                    $this->_cache->set($cache_key, json_encode($results));
+                try {
+                    $results = $this->_searchMailbox($query);
+                    if (!empty($this->_cache)) {
+                        $this->_cache->set($cache_key, json_encode($results));
+                    }
+                } catch (Horde_ActiveSync_Exception $e) {
+                    $this->_logger->err($e->getMessage());
+                    $results = array();
                 }
             }
 
