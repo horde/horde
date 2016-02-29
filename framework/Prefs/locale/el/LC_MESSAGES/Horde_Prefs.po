@@ -7,45 +7,50 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Prefs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"POT-Creation-Date: 2014-11-12 14:05+0100\n"
 "PO-Revision-Date: 2010-10-13 01:27+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde/Prefs/Identity.php:131
+#: lib/Horde/Prefs/Identity.php:347
+#, php-format
+msgid "\"%s\" is not a valid email address."
+msgstr "\"%s\" δεν είναι σωστή διέυθυνση email."
+
+#: lib/Horde/Prefs/Identity.php:119
 msgid "Default Identity"
 msgstr "Προεπιλεγμένη Ταυτότητα"
 
-#: lib/Horde/Prefs/Ldap.php:142
-#, fuzzy
-msgid "Internal LDAP error.  Details have been logged for the administrator."
-msgstr "Οι λεπτομέρειες έχουν καταγραφεί για τον διαχειριστή."
-
-#: lib/Horde/Prefs/CategoryManager.php:57
+#: lib/Horde/Prefs/CategoryManager.php:54
 msgid "New Category"
 msgstr "Νέα Κατηγορία"
 
-#: lib/Horde/Prefs/CategoryManager.php:88
+#: lib/Horde/Prefs/CategoryManager.php:82
 msgid "Please type the new category name:"
 msgstr "Παρακαλώ δώστε το όνομα της νέας κατηγορίας:"
 
-#: lib/Horde/Prefs/CategoryManager.php:66
+#: lib/Horde/Prefs/Storage/KolabImap.php:66
+msgid "Preferences"
+msgstr "Επιλογές"
+
+#: lib/Horde/Prefs/CategoryManager.php:63
 msgid "Unfiled"
 msgstr "Μη Αρχειοθετημένο"
 
-#: lib/Horde/Prefs/Identity.php:352
+#: lib/Horde/Prefs/Identity.php:336
 msgid "Unnamed"
 msgstr "Ανώνυμο"
 
-#: lib/Horde/Prefs/CategoryManager.php:51
+#: lib/Horde/Prefs/CategoryManager.php:48
 #, php-format
 msgid "Use Current: %s"
 msgstr "Χρήση τρέχοντος: %s"
 
-#: lib/Horde/Prefs/CategoryManager.php:89
+#: lib/Horde/Prefs/CategoryManager.php:83
 msgid "You must type a new category name."
 msgstr "Πρέπει να δώσετε ένα όνομα για τη νέα κατηγορία."

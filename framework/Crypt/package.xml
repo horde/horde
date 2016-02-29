@@ -27,6 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Update Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
 * [jan] Try three times to retrieve public PGP if the keyserver pool contains broken servers.
  </notes>
  <contents>
@@ -1133,6 +1134,7 @@ Initial release as a PEAR package
    <date>2016-02-01</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Update Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
 * [jan] Try three times to retrieve public PGP if the keyserver pool contains broken servers.
    </notes>
   </release>

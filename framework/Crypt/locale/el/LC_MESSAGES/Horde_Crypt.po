@@ -8,13 +8,15 @@ msgstr ""
 "Project-Id-Version: Horde_Crypt\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2010-10-13 01:27+0200\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2015-10-02 11:47+0200\n"
+"Last-Translator: Antonis Limperis <limperis@cti.gr>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: el\n"
+"X-Generator: Poedit 1.7.1\n"
 
 #: lib/Horde/Crypt/Smime.php:614
 #, php-format
@@ -22,9 +24,10 @@ msgid "%s Fingerprint"
 msgstr "%s Δακτυλικό αποτύπωμα"
 
 #: lib/Horde/Crypt/Pgp.php:1240
-#, fuzzy
 msgid "A passphrase is required to decrypt a message."
-msgstr "Απαιτείται δημόσιο κλειδί PGP για την κρυπτογράφηση ενός μηνύματος."
+msgstr ""
+"Για την αποκρυπτογράφηση ενός μηνύματος απαιτείται μια φράση πρόσβασης "
+"(passphrase)."
 
 #: lib/Horde/Crypt/Pgp.php:1307
 msgid "A public PGP key is required to verify a signed message."
@@ -40,7 +43,6 @@ msgstr ""
 "ψηφιακά ένα μήνυμα."
 
 #: lib/Horde/Crypt/Smime.php:311
-#, fuzzy
 msgid "A public S/MIME key is required to encrypt a message."
 msgstr "Απαιτείται δημόσιο κλειδί S/MIME για την κρυπτογράφηση ενός μηνύματος."
 
@@ -69,9 +71,8 @@ msgid "Certificate Details"
 msgstr "Λεπτομέρειες Πιστοποιητικού"
 
 #: lib/Horde/Crypt/Smime.php:520
-#, fuzzy
 msgid "Certificate Owner"
-msgstr "Λεπτομέρειες Πιστοποιητικού"
+msgstr "Ιδιοκτήτης Πιστοποιητικού"
 
 #: lib/Horde/Crypt/Smime.php:505
 msgid "Certificate Policies"
@@ -95,12 +96,10 @@ msgid "Connection refused to the public keyserver. Reason: %s (%s)"
 msgstr "Αρνηση σύνδεσης από το δημόσιο εξυπηρετητή κλειδιών. Λόγος : %s (%s)"
 
 #: lib/Horde/Crypt/Pgp.php:1132
-#, fuzzy
 msgid "Could not PGP encrypt message: "
 msgstr "Αδύνατη η κρυπτογράφηση του μηνύματος με PGP."
 
 #: lib/Horde/Crypt/Pgp.php:1201
-#, fuzzy
 msgid "Could not PGP sign message: "
 msgstr "Αδύνατη η υπογραφή του μηνύματος με PGP."
 
@@ -113,7 +112,6 @@ msgid "Could not S/MIME sign message."
 msgstr "Αδύνατη η υπογραφή του μηνύματος με S/MIME."
 
 #: lib/Horde/Crypt/Pgp.php:1276
-#, fuzzy
 msgid "Could not decrypt PGP data: "
 msgstr "Αδύνατη η αποκρυπτογράφηση PGP δεδομένων."
 
@@ -134,7 +132,6 @@ msgid "Country"
 msgstr "Χώρα"
 
 #: lib/Horde/Crypt/Pgp.php:426
-#, fuzzy
 msgid "E-Mail"
 msgstr "Αλληλογραφία"
 
@@ -144,12 +141,12 @@ msgstr "Διεύθυνση Email"
 
 #: lib/Horde/Crypt/Pgp.php:1584 lib/Horde/Crypt/Pgp.php:1592
 msgid "Error while talking to pgp binary."
-msgstr ""
+msgstr "Σφάλμα, κατά την αλληλεπίδραση με το πρόγραμμα PGP."
 
 #: lib/Horde/Crypt/Smime.php:1251 lib/Horde/Crypt/Smime.php:1269
 #: lib/Horde/Crypt/Smime.php:1284
 msgid "Error while talking to smime binary."
-msgstr ""
+msgstr "Σφάλμα, κατά την αλληλεπίδραση με το πρόγραμμα smime."
 
 #: lib/Horde/Crypt/Pgp.php:425
 msgid "Expiration Date"
@@ -164,13 +161,12 @@ msgid "Given Name"
 msgstr "Μικρό Όνομα"
 
 #: lib/Horde/Crypt/Pgp.php:426
-#, fuzzy
 msgid "Hash-Algorithm"
-msgstr "Αλγόριθμος Υπογραφής"
+msgstr "Hash-Αλγόριθμος"
 
 #: lib/Horde/Crypt/Smime.php:534
 msgid "Issuer"
-msgstr ""
+msgstr "Εκδότης"
 
 #: lib/Horde/Crypt/Pgp.php:424
 msgid "Key Creation"
@@ -261,6 +257,8 @@ msgid ""
 "No path to the OpenSSL binary provided. The OpenSSL binary is necessary to "
 "work with PKCS 12 data."
 msgstr ""
+"Δεν έχει οριστεί  διαδρομή προς το πρόγραμμα OpenSSL. Το πρόγραμμα OpenSSL "
+"είναι απαραίτητο για λειτουργίες με δεδομένα PKCS 12."
 
 #: lib/Horde/Crypt/Pgp.php:451 lib/Horde/Crypt/Pgp.php:452
 msgid "None"
@@ -320,9 +318,8 @@ msgid "Public Key Algorithm"
 msgstr "Αλγόριθμος Δημόσιου Κλειδιού"
 
 #: lib/Horde/Crypt/Smime.php:553
-#, fuzzy
 msgid "Public Key Info"
-msgstr "Δημόσιο Κλειδί"
+msgstr "Πληροφορίες Δημόσιου Κλειδιού"
 
 #: lib/Horde/Crypt/Pgp.php:225
 msgid "Public/Private keypair not generated successfully."
@@ -334,14 +331,12 @@ msgid "RSA Public Key (%d bit)"
 msgstr "Δημόσιο Κλειδί RSA (%d Bit)"
 
 #: lib/Horde/Crypt/Pgp.php:227
-#, fuzzy
 msgid "Returned error message:"
-msgstr "Ανάγνωση μηνύματος"
+msgstr "Επισττρεφόμενο μήνυμα λάθους:"
 
 #: lib/Horde/Crypt/Pgp.php:1644
-#, fuzzy
 msgid "Revocation key not generated successfully."
-msgstr "Το ζεύγος Δημόσιου/Προσωπικού κλειδιού δε δημιουργήθηκε επιτυχώς."
+msgstr "Το κλειδί ανάκλησης δεν δημιουργήθηκε με επιτυχία."
 
 #: lib/Horde/Crypt/Smime.php:252
 msgid "S/MIME Cryptographic Signature"
@@ -387,9 +382,8 @@ msgstr ""
 "μηνήματος."
 
 #: lib/Horde/Crypt/Smime.php:1146
-#, fuzzy
 msgid "The openssl module is required for the Horde_Crypt_Smime:: class."
-msgstr "Η βιβλιοθήκη OpenSSL απαιτείται για Horde_Crypt_smime:: κλάση."
+msgstr "Η βιβλιοθήκη OpenSSL απαιτείται για την κλάση Horde_Crypt_smime::."
 
 #: lib/Horde/Crypt/Smime.php:512
 msgid "Unable to extract certificate details"
@@ -410,9 +404,8 @@ msgid "Validity"
 msgstr "Εγκυρότητα"
 
 #: lib/Horde/Crypt/Smime.php:191
-#, fuzzy
 msgid "Verification failed - an unknown error has occurred."
-msgstr "Παρουσιάσθηκε κρίσιμο λάθος"
+msgstr "Η επαλήθευση απέτυχε - Παρουσιάστηκε ένα άγνωστο σφάλμα."
 
 #: lib/Horde/Crypt/Smime.php:193
 msgid "Verification failed - this message may have been tampered with."

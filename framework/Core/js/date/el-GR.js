@@ -122,8 +122,8 @@ Date.CultureInfo = {
         day: /^d(ay)?s?/i,
         year: /^y(ear)?s?/i,
 
-        shortMeridian: /^(a|p)/i,
-        longMeridian: /^(a\.?m?\.?|p\.?m?\.?)/i,
+        shortMeridian: /^(π|μ)/i,
+        longMeridian: /^(π\.?μ?\.?|μ\.?μ?\.?)/i,
         timezone: /^((e(s|d)t|c(s|d)t|m(s|d)t|p(s|d)t)|((gmt)?\s*(\+|\-)\s*\d\d\d\d?)|gmt|utc)/i,
         ordinalSuffix: /^\s*(st|nd|rd|th)/i,
         timeContext: /^\s*(\:|a(?!u|p)|p)/i

@@ -8,32 +8,32 @@ msgstr ""
 "Project-Id-Version: Horde_Alarm\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2010-10-13 01:27+0200\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2015-10-21 15:14+0200\n"
+"Last-Translator: Antonis Limperis <limperis@cti.gr>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: el\n"
+"X-Generator: Poedit 1.7.1\n"
 
 #: lib/Horde/Alarm/Handler/Desktop.php:86
 msgid "Desktop notification (with certain browsers)"
-msgstr ""
+msgstr "Desktop notification (με συγκεκριμένους φυλλομετρητές)"
 
 #: lib/Horde/Alarm/Handler/Mail.php:118
 msgid "Email"
 msgstr "Αλληλογραφία"
 
 #: lib/Horde/Alarm/Handler/Mail.php:138
-#, fuzzy
 msgid "Email address (optional)"
-msgstr "Διεύθυνση Email"
+msgstr "Διεύθυνση Email (προαιρετικά)"
 
 #: lib/Horde/Alarm/Handler/Notify.php:81
-#, fuzzy
 msgid "Inline"
 msgstr "ενσωματωμένο"
 
 #: lib/Horde/Alarm/Handler/Notify.php:101
 msgid "Play a sound?"
-msgstr ""
+msgstr "Αναπαραγωγή ενός ήχου;"

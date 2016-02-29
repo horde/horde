@@ -8,13 +8,15 @@ msgstr ""
 "Project-Id-Version: Horde_Form\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2010-10-13 01:27+0200\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2015-10-02 13:20+0200\n"
+"Last-Translator: Antonis Limperis <limperis@cti.gr>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: el\n"
+"X-Generator: Poedit 1.7.1\n"
 
 #: Form/Type.php:2520
 #, php-format
@@ -39,9 +41,9 @@ msgid " (yesterday)"
 msgstr " (χθες)"
 
 #: Form/Type.php:1460
-#, fuzzy, php-format
+#, php-format
 msgid "\"%s\" is not a valid email address."
-msgstr "Δε δώσατε έγγυρη διεύθυνση email."
+msgstr "Η \"% s\" δεν είναι μια έγκυρη διεύθυνση ηλεκτρονικού ταχυδρομείου."
 
 #: Form/Type.php:2475
 #, php-format
@@ -53,37 +55,32 @@ msgid "-- select --"
 msgstr "-- επιλογή --"
 
 #: Form/Type.php:843 Form/Type.php:886
-#, fuzzy
 msgid "A temporary directory"
-msgstr "Δε βρίσκω προσωρινό φάκελο (temp dir)."
+msgstr "Ένας προσωρινός φάκελος (temp dir)."
 
 #: Form/Type.php:773
 msgid "Address"
 msgstr "Διεύθυνση"
 
 #: Form/Type.php:795
-#, fuzzy
 msgid "Address Link"
-msgstr "Διευθυνσιογράφος"
+msgstr "Σύνδεσμος Διεύθυνσης"
 
 #: Form/Type.php:1620
-#, fuzzy
 msgid "Allow multiple addresses?"
-msgstr "Να επιτρέπονται πολλαπλές διευθύνσεις"
+msgstr "Να επιτρέπονται πολλαπλές διευθύνσεις;"
 
 #: Form/Type.php:3473
 msgid "Assignment columns"
 msgstr "Ανάθεση στηλών"
 
 #: Form/Type.php:3745
-#, fuzzy
 msgid "Category"
-msgstr "Νέα Κατηγορία"
+msgstr "Κατηγορία"
 
 #: Form/Type.php:1632
-#, fuzzy
 msgid "Character to split multiple addresses with"
-msgstr "Να επιτρέπονται πολλαπλές διευθύνσεις"
+msgstr "Χαρακτήρας διαχωρισμού πολλαπλών διευθύνσεων με"
 
 #: Form/Type.php:3161
 msgid "Colour selection"
@@ -98,9 +95,8 @@ msgid "Counted text"
 msgstr "Μετρημένο κείμενο"
 
 #: Form/Type.php:909
-#, fuzzy
 msgid "Country drop down list"
-msgstr "Λίστα Καταράκτης"
+msgstr "Αναπτυσσόμενη λίστα χώρας"
 
 #: Form/Type.php:3588
 msgid "Credit card number"
@@ -120,9 +116,8 @@ msgid "Date"
 msgstr "Ημερομηνία"
 
 #: Form/Type.php:3121
-#, fuzzy
 msgid "Date and time selection"
-msgstr "Επιλογή Ημερομηνίας"
+msgstr "Επιλογή Ημερομηνίας και ώρας"
 
 #: Form/Type.php:2958
 msgid "Date selection"
@@ -178,7 +173,7 @@ msgstr "'Ανέβασμα' Αρχείου"
 
 #: Form/Type.php:3719
 msgid "Font"
-msgstr ""
+msgstr "Γραμματοσειρά"
 
 #: Form/Type.php:152
 msgid "HTML"
@@ -186,34 +181,31 @@ msgstr ""
 
 #: Form/Type.php:115 Form/Type.php:3285
 msgid "Header"
-msgstr ""
+msgstr "Επικεφαλίδα"
 
 #: Form/Type/tableset.php:58
 msgid "Headers"
-msgstr ""
+msgstr "Επικεφαλίδες"
 
 #: Form/Type.php:617
-#, fuzzy
 msgid "Helpers"
-msgstr "Βοηθός"
+msgstr "Βοηθοί"
 
 #: Form/Type.php:528
-#, fuzzy
 msgid "IP address"
 msgstr "IP-Διεύθυνση"
 
 #: Form/Type.php:558
-#, fuzzy
 msgid "IPv6 address"
-msgstr "IP-Διεύθυνση"
+msgstr "IPv6-Διεύθυνση"
 
 #: Form/Type.php:3349
 msgid "Id"
-msgstr ""
+msgstr "Αναγνωριστικό"
 
 #: Form/Type.php:3715
 msgid "Image CAPTCHA"
-msgstr ""
+msgstr "Εικόνα  CAPTCHA"
 
 #: Form/Type.php:1292
 msgid "Image upload"
@@ -245,55 +237,48 @@ msgid "Link"
 msgstr "Σύνδεση"
 
 #: Form/Type.php:1355
-#, fuzzy
 msgid "Link URL"
-msgstr "Σύνδεση"
+msgstr "URL Συνδέσμου"
 
 #: Form/Type.php:1370
-#, fuzzy
 msgid "Link access key"
-msgstr " (Κλειδί πρόσβασης %s)"
+msgstr "Kλειδί  συνδέσμου πρόσβασης"
 
 #: Form/Type.php:3353
-#, fuzzy
 msgid "Link style"
-msgstr "Συνδέσεις"
+msgstr "Στυλ συνδέσμου"
 
 #: Form/Type.php:1361
 msgid "Link target"
-msgstr ""
+msgstr "Σύνδεσμος προορισμού"
 
 #: Form/Type.php:1358 Form/Type.php:3351
-#, fuzzy
 msgid "Link text"
-msgstr "Μεγάλο Κείμενο"
+msgstr "Κείμενο Συνδέσμου"
 
 #: Form/Type.php:1626
-#, fuzzy
 msgid "Link the email address to the compose page when displaying?"
-msgstr "Σύνδεση της διεύθυνση για άνοιγμα παραθύρου σύνθεσης;"
+msgstr "Σύνδεση της email  διεύθυνσης στη σελίδα σύνταξης κατά την εμφάνιση;"
 
 #: Form/Type.php:1367
 msgid "Link title attribute"
-msgstr ""
+msgstr "Σύνδεσμος προς την ιδιότητα προορισμού"
 
 #: Form/Type.php:611
 msgid "Long text"
 msgstr "Μεγάλο Κείμενο"
 
 #: Form/Type.php:1298
-#, fuzzy
 msgid "Maximum file size in bytes"
-msgstr "Μέγιστο μήκος"
+msgstr "Μέγιστο μέγεθος αρχείου σε bytes"
 
 #: Form/Type.php:400 Form/Type.php:420 Form/Type.php:446
 msgid "Maximum length"
 msgstr "Μέγιστο μήκος"
 
 #: Form/Type.php:487
-#, fuzzy
 msgid "Mobile phone number"
-msgstr "Αριθμός Τηλεφώνου"
+msgstr "Αριθμός Κινητού Τηλεφώνου"
 
 #: Form/Type.php:2742
 msgid "Month and year"
@@ -330,23 +315,20 @@ msgid "Octal"
 msgstr "Οκταδικός"
 
 #: Form/Type.php:1364
-#, fuzzy
 msgid "Onclick event"
-msgstr "πατήστε εδώ"
+msgstr "Γεγονός με το πατήμα (Onclick)"
 
 #: Form/Type.php:2098
 msgid "Only one email address allowed."
 msgstr "Μόνο μια Email διεύθυνση επιτρέπεται."
 
 #: Form/Type.php:1449
-#, fuzzy
 msgid "Only one email address is allowed."
-msgstr "Μόνο μια Email διεύθυνση επιτρέπεται."
+msgstr "Επιτρέπεται μόνο μια διεύθυνση Email  "
 
 #: Form/Type.php:839
-#, fuzzy
 msgid "PGP Key"
-msgstr "Δημόσιο Κλειδί PGP"
+msgstr "Κλειδί PGP"
 
 #: Form/Type.php:2142
 msgid "Password"
@@ -362,16 +344,15 @@ msgstr "Ο κωδικός πρέπει να ταιριάζει."
 
 #: Form/Type.php:841
 msgid "Path to the GnuPG binary"
-msgstr ""
+msgstr "Διαδρομή προς το GnuPG"
 
 #: Form/Type.php:475
-#, fuzzy
 msgid "Phone number"
 msgstr "Αριθμός Τηλεφώνου"
 
 #: Form/Type.php:3191
 msgid "Please choose a sound."
-msgstr ""
+msgstr "Παρακαλώ επιλέξτε έναν ήχο."
 
 #: Form/Type.php:2720
 msgid "Please enter a month and a year."
@@ -396,7 +377,7 @@ msgstr "Κείμενο προτροπής"
 
 #: Form/Type.php:1623
 msgid "Protect address from spammers?"
-msgstr ""
+msgstr "Προστατέψτε τη διεύθυνση από τους spammers;"
 
 #: Form/Type.php:2401
 msgid "Radio selection"
@@ -407,7 +388,6 @@ msgid "Regex"
 msgstr "Regex"
 
 #: Form/Type.php:3605
-#, fuzzy
 msgid "Relationship browser"
 msgstr "Εμφάνιση Σχέσεων"
 
@@ -417,7 +397,7 @@ msgstr "Απαιτούμενο Πεδίο"
 
 #: Form.php:632
 msgid "Required secret is invalid - potentially malicious request."
-msgstr ""
+msgstr "Το απαίτουμενο κλειδί είναι άκυρο - ενδεχομένως κακόβουλο αίτημα."
 
 #: Form.php:368 Form/Renderer.php:329
 msgid "Reset"
@@ -433,11 +413,11 @@ msgstr "Δεξιές τιμές"
 
 #: Form/Type.php:884
 msgid "S/MIME Key"
-msgstr ""
+msgstr "Κλειδί S/MIME"
 
 #: Form/Type.php:3645
 msgid "SQL statement for value lookups"
-msgstr ""
+msgstr "Εντολή SQL για αναζήτηση τιμών"
 
 #: Form/Type.php:3326
 msgid "Select Files"
@@ -452,28 +432,24 @@ msgid "Set"
 msgstr "Θέσε"
 
 #: Form/Type.php:3355
-#, fuzzy
 msgid "Show icon?"
-msgstr "Εμφάνιση συλλέκτη"
+msgstr "Εμφάνιση εικονιδίου;"
 
 #: Form/Type.php:1296
-#, fuzzy
 msgid "Show option to keep original?"
-msgstr "Εμφάνιση επιλογής για αποθήκευση του αυθεντικού"
+msgstr "Εμφάνιση επιλογής για διατήριση  του αρχικού;"
 
 #: Form/Type.php:2964 Form/Type.php:3127
-#, fuzzy
 msgid "Show picker?"
-msgstr "Εμφάνιση συλλέκτη"
+msgstr "Εμφάνιση επιλογέα (picker);"
 
 #: Form/Type.php:2688 Form/Type.php:3133
 msgid "Show seconds?"
-msgstr ""
+msgstr "Εμφάνιση δευτερολέπτων;"
 
 #: Form/Type.php:1294
-#, fuzzy
 msgid "Show upload?"
-msgstr "Εμφάνιση φόρτωσης (upload)"
+msgstr "Εμφάνιση φόρτωσης (upload);"
 
 #: Form/Type.php:398 Form/Type.php:418 Form/Type.php:444 Form/Type.php:2370
 #: Form/Type.php:3283 Form/Type.php:3483
@@ -485,9 +461,8 @@ msgid "Sort order selection"
 msgstr "Επιλογή κατεύθυνσης ταξινόμησης"
 
 #: Form/Type.php:3200
-#, fuzzy
 msgid "Sound selection"
-msgstr "Αποκοπή επιλογής"
+msgstr "Επιλογή ήχου"
 
 #: Form/Type.php:98
 msgid "Spacer"
@@ -507,16 +482,15 @@ msgstr "Λίστα λέξεων"
 
 #: Form/Type.php:440
 msgid "String list returning an array"
-msgstr ""
+msgstr "Η λίστα συμβολοσειρών επιστρέφει έναν πίνακα"
 
 #: Form.php:361 Form/Renderer.php:326
 msgid "Submit"
 msgstr "Αποστολή"
 
 #: Form/Type/tableset.php:54
-#, fuzzy
 msgid "Table Set"
-msgstr "Πίνακας"
+msgstr "Σετ Πινάκων"
 
 #: Form/Type.php:394 Form/Type.php:3698 Form/Type.php:3717
 msgid "Text"
@@ -527,13 +501,15 @@ msgid ""
 "The image file size could not be determined or it was 0 bytes. The upload "
 "may have been interrupted."
 msgstr ""
+"Το μέγεθος του αρχείου της εικόνας δεν μπορεί να καθοριστεί ή αν ήταν 0 "
+"bytes. Η μεταφόρτωση μπορεί να έχει διακοπεί"
 
 #: Form/Type.php:1060
-#, fuzzy, php-format
+#, php-format
 msgid "The image file was larger than the maximum allowed size (%d bytes)."
 msgstr ""
-"Παρουσιάσθηκε πρόβλημα κατά την αποστολή του αρχείου: Το %s είναι μεγαλύτερο "
-"από το μέγιστο επιτρεπόμενο μέγεθος (%d Bytes)."
+"Το αρχείο εικόνας ήταν μεγαλύτερο από το μέγιστο επιτρεπόμενο μέγεθος (%d "
+"bytes)."
 
 #: Form/Type.php:1629
 msgid "The name to use when linking to the compose page"
@@ -541,20 +517,20 @@ msgstr "Το όνομα που θα χρησιμοποιείται όταν συ
 
 #: Form/Type.php:3673
 msgid "The text you entered did not match the text on the screen."
-msgstr ""
+msgstr "Το κείμενο που εισαγάγατε δεν ταιριάζει με το κείμενο στην οθόνη."
 
 #: Form/Type.php:644
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "There are too many characters in this field. You have entered %d character; "
 msgid_plural ""
 "There are too many characters in this field. You have entered %d characters; "
 msgstr[0] ""
-"Υπάρχουν πολλοί χαρακτήρες σε αυτό το πεδίο. Εισαγάγατε %s χαρακτήρες, "
-"πρέπει να υπάρχουν λιγότεροι από %s."
+"Υπάρχουν πάρα πολλοί χαρακτήρες σε αυτό το πεδίο. Έχετε καταχωρήσει  %d "
+"χαρακτήρες;"
 msgstr[1] ""
-"Υπάρχουν πολλοί χαρακτήρες σε αυτό το πεδίο. Εισαγάγατε %s χαρακτήρες, "
-"πρέπει να υπάρχουν λιγότεροι από %s."
+"Υπάρχουν πάρα πολλοί χαρακτήρες σε αυτό το πεδίο. Έχετε καταχωρήσει  %d "
+"χαρακτήρες;"
 
 #: Form/Type.php:3504
 msgid "This does not seem to be a valid card number."
@@ -620,7 +596,7 @@ msgstr "Αληθές ή ψευδές"
 #: Form/Type.php:360
 #, php-format
 msgid "Value is over the maximum length of %d."
-msgstr ""
+msgstr "Η τιμή είναι πάνω από το μέγιστο μήκος του%d."
 
 #: Form/Type.php:2368 Form/Type.php:2403 Form/Type.php:2452 Form/Type.php:3281
 #: Form/Type/tableset.php:56
@@ -640,37 +616,34 @@ msgid "You did not enter a valid email address."
 msgstr "Δε δώσατε έγγυρη διεύθυνση email."
 
 #: Form/Type.php:3028
-#, fuzzy
 msgid "You must choose a date."
-msgstr "Πρέπει να ρυθμίσετε το VFS-Backend."
+msgstr "Πρέπει να επιλέξετε μια ημερομηνία."
 
 #: Form/Type.php:3026
-#, fuzzy
 msgid "You must choose a time."
-msgstr "Πρέπει να ρυθμίσετε το VFS-Backend."
+msgstr "Πρέπει να επιλέξετε μια ώρα"
 
 #: Form/Type.php:463
 msgid ""
 "You must enter a valid phone number, digits only with an optional '+' for "
 "the international dialing prefix."
 msgstr ""
+"Πρέπει να εισάγετε έναν έγκυρο αριθμό τηλεφώνου, ψηφία μόνο με ένα "
+"προαιρετικό «+» για το πρόθεμα διεθνών κλήσεων."
 
 #: Form/Type.php:371
-#, fuzzy
 msgid "You must enter a valid value."
 msgstr "Πρέπει να δώσετε μια έγκυρη τιμή."
 
 #: Form/Type.php:1470
-#, fuzzy
 msgid "You must enter an email address."
-msgstr "Δε δώσατε έγγυρη διεύθυνση email."
+msgstr "Πρέπει να δώσετε μια έγγυρη διεύθυνση email."
 
 #: Form/Type.php:1468
-#, fuzzy
 msgid "You must enter at least one email address."
-msgstr "Δε δώσατε έγγυρη διεύθυνση email."
+msgstr "Πρέπει να δώσετε μια έγγυρη διεύθυνση email τουλάχιστον."
 
 #: Form/Type.php:645
 #, php-format
 msgid "you must enter less than %d."
-msgstr ""
+msgstr "θα πρέπει να εισάγετε τιμή μικρότερη από %d ."

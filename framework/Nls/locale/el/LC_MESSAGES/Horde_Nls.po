@@ -8,18 +8,19 @@ msgstr ""
 "Project-Id-Version: Horde_Nls\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2010-10-13 01:27+0200\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2015-10-02 16:14+0200\n"
+"Last-Translator: Antonis Limperis <limperis@cti.gr>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: el\n"
+"X-Generator: Poedit 1.7.1\n"
 
 #: lib/Horde/Nls/Countries.php:10 lib/Horde/Nls/Tld.php:18
-#, fuzzy
 msgid "Afghanistan"
-msgstr "Οργανισμός"
+msgstr "Αφγανιστάν"
 
 #: lib/Horde/Nls/Tld.php:31
 msgid "Aland Islands"
@@ -218,14 +219,12 @@ msgid "Cocos (Keeling) Islands"
 msgstr ""
 
 #: lib/Horde/Nls/Countries.php:56 lib/Horde/Nls/Tld.php:63
-#, fuzzy
 msgid "Colombia"
-msgstr "Χρώμα"
+msgstr "Κολομβία"
 
 #: lib/Horde/Nls/Countries.php:57 lib/Horde/Nls/Tld.php:133
-#, fuzzy
 msgid "Comoros"
-msgstr "Αύριο"
+msgstr ""
 
 #: lib/Horde/Nls/Countries.php:58
 msgid "Congo"
@@ -272,9 +271,8 @@ msgid "Czech Republic"
 msgstr ""
 
 #: lib/Horde/Nls/Countries.php:67 lib/Horde/Nls/Tld.php:72
-#, fuzzy
 msgid "Denmark"
-msgstr "Σχόλια"
+msgstr "Δανία"
 
 #: lib/Horde/Nls/Countries.php:68 lib/Horde/Nls/Tld.php:71
 msgid "Djibouti"
@@ -325,9 +323,8 @@ msgid "Europe"
 msgstr "Ευρώπη"
 
 #: lib/Horde/Nls/Tld.php:83
-#, fuzzy
 msgid "European Union"
-msgstr "Ευρώπη"
+msgstr "Ευρωπαϊκή Ένωση"
 
 #: lib/Horde/Nls/Countries.php:78 lib/Horde/Nls/Tld.php:86
 msgid "Falkland Islands (Malvinas)"
@@ -346,9 +343,8 @@ msgid "Finland"
 msgstr ""
 
 #: lib/Horde/Nls/Countries.php:82 lib/Horde/Nls/Tld.php:89
-#, fuzzy
 msgid "France"
-msgstr "Ακύρωση"
+msgstr "Γαλλία "
 
 #: lib/Horde/Nls/Countries.php:83 lib/Horde/Nls/Tld.php:94
 msgid "French Guiana"
@@ -376,7 +372,7 @@ msgstr ""
 
 #: lib/Horde/Nls/Countries.php:89 lib/Horde/Nls/Tld.php:70
 msgid "Germany"
-msgstr ""
+msgstr "Γερμανία"
 
 #: lib/Horde/Nls/Countries.php:90 lib/Horde/Nls/Tld.php:96
 msgid "Ghana"
@@ -487,9 +483,8 @@ msgid "Israel"
 msgstr ""
 
 #: lib/Horde/Nls/Countries.php:114 lib/Horde/Nls/Tld.php:124
-#, fuzzy
 msgid "Italy"
-msgstr "Πλαγια"
+msgstr "Ιταλία "
 
 #: lib/Horde/Nls/Countries.php:115 lib/Horde/Nls/Tld.php:126
 msgid "Jamaica"
@@ -684,9 +679,8 @@ msgid "Netherlands Antilles"
 msgstr ""
 
 #: lib/Horde/Nls/Countries.php:161 lib/Horde/Nls/Tld.php:174
-#, fuzzy
 msgid "New Caledonia"
-msgstr "Νέα Κατηγορία"
+msgstr "Νέα Καληδονία"
 
 #: lib/Horde/Nls/Countries.php:162 lib/Horde/Nls/Tld.php:184
 msgid "New Zealand"
@@ -773,9 +767,8 @@ msgid "Poland"
 msgstr ""
 
 #: lib/Horde/Nls/Countries.php:181 lib/Horde/Nls/Tld.php:197
-#, fuzzy
 msgid "Portugal"
-msgstr "Ο ιστότοπός μου (portal)"
+msgstr "Πορτογαλία"
 
 #: lib/Horde/Nls/Countries.php:182 lib/Horde/Nls/Tld.php:195
 msgid "Puerto Rico"
@@ -790,9 +783,8 @@ msgid "Reunion"
 msgstr "Επανένωση"
 
 #: lib/Horde/Nls/Tld.php:201
-#, fuzzy
 msgid "Reunion Island"
-msgstr "Επανένωση"
+msgstr ""
 
 #: lib/Horde/Nls/Countries.php:185 lib/Horde/Nls/Tld.php:202
 msgid "Romania"
@@ -911,9 +903,8 @@ msgid "Sudan"
 msgstr ""
 
 #: lib/Horde/Nls/Countries.php:211 lib/Horde/Nls/Tld.php:220
-#, fuzzy
 msgid "Suriname"
-msgstr "Επίθετο"
+msgstr ""
 
 #: lib/Horde/Nls/Countries.php:212
 msgid "Svalbard and Jan Mayen"
@@ -1033,18 +1024,16 @@ msgid "Uzbekistan"
 msgstr ""
 
 #: lib/Horde/Nls/Countries.php:239 lib/Horde/Nls/Tld.php:256
-#, fuzzy
 msgid "Vanuatu"
-msgstr "Εγχειρίδιο"
+msgstr ""
 
 #: lib/Horde/Nls/Countries.php:240 lib/Horde/Nls/Tld.php:252
 msgid "Venezuela"
 msgstr ""
 
 #: lib/Horde/Nls/Countries.php:241 lib/Horde/Nls/Tld.php:255
-#, fuzzy
 msgid "Viet Nam"
-msgstr "Όνομα Αρχείου"
+msgstr "Βιετνάμ"
 
 #: lib/Horde/Nls/Countries.php:242 lib/Horde/Nls/Tld.php:253
 msgid "Virgin Islands, British"

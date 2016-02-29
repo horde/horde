@@ -8,22 +8,23 @@ msgstr ""
 "Project-Id-Version: Horde_Share\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2010-10-13 01:27+0200\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2015-10-13 06:42+0200\n"
+"Last-Translator: Antonis Limperis <limperis@cti.gr>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: el\n"
+"X-Generator: Poedit 1.7.1\n"
 
 #: lib/Horde/Share/Object/Kolab.php:131
 msgid "Calendar"
 msgstr "Ημερολόγιο"
 
 #: lib/Horde/Share/Object/Kolab.php:127
-#, fuzzy
 msgid "Contacts"
-msgstr "Αναζήτηση Επαφής"
+msgstr "Επαφές"
 
 #: lib/Horde/Share/Object/Kolab.php:135
 msgid "Filters"
@@ -35,21 +36,21 @@ msgstr "Σημειώσεις"
 
 #: lib/Horde/Share/Object/Kolab.php:137
 msgid "Preferences"
-msgstr ""
+msgstr "Επιλογές"
 
 #: lib/Horde/Share/Kolab.php:117 lib/Horde/Share/Sql.php:210
-#, fuzzy, php-format
+#, php-format
 msgid "Share \"%s\" does not exist."
-msgstr "Το προσωρινό αρχείο \"%s\" δεν υπάρχει."
+msgstr "Ο διαμοιρασμός \"%s\" δεν υπάρχει."
 
 #: lib/Horde/Share/Sql.php:272
-#, fuzzy, php-format
+#, php-format
 msgid "Share ID %d does not exist."
-msgstr "Ο φάκελος %s δεν υπάρχει"
+msgstr "Το αναγνωριστικό διαμοιραμού %d δεν υπάρχει"
 
 #: lib/Horde/Share/Sql/Hierarchical.php:547
 msgid "Share names are not supported in this driver"
-msgstr ""
+msgstr "Ονόματα διαμοιραμού δεν υποστηρίζονται σε αυτό το πρόγραμμα οδήγησης"
 
 #: lib/Horde/Share/Object/Kolab.php:133
 msgid "Tasks"
@@ -58,13 +59,12 @@ msgstr "Εργασίες"
 #: lib/Horde/Share/Kolab.php:81
 #, php-format
 msgid "The Horde/Kolab integration engine does not support \"%s\""
-msgstr "Το σύστημα Horde/Kolab δεν υποστηρίζει \"%s\""
+msgstr "Ο μηχανή ολοκλήρωσης Horde/Kolab δεν υποστηρίζει  \"% s \""
 
 #: lib/Horde/Share/Object/Kolab.php:373
 msgid "The Kolab share object has not been initialized yet!"
-msgstr ""
+msgstr "Το αντικείμενο διαμοιρασμού Kolab δεν έχει προετοιμαστεί ακόμα!"
 
 #: lib/Horde/Share/Object/Kolab.php:153
-#, fuzzy
 msgid "The share has already been initialized!"
-msgstr "Αυτή η φόρμα έχει ήδη επεξεργασθεί."
+msgstr "Η διαμοιρασμός έχει ήδη αρχικοποιηθεί!"

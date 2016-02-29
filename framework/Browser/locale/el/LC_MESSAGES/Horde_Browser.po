@@ -5,35 +5,38 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Horde_Browser \n"
+"Project-Id-Version: Horde_Browser\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2011-03-24 16:00+0100\n"
-"PO-Revision-Date: 2011-03-24 16:00+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2015-10-02 11:20+0200\n"
+"Last-Translator: Antonis Limperis <limperis@cti.gr>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.7.1\n"
 
 #: lib/Horde/Browser.php:1026
 msgid "File uploads not supported."
-msgstr "'Ανέβασμα' Αρχείου δεν υποστηρίζεται."
+msgstr "Δεν υποστηρίζεται η μεταφόρτωση αρχείου."
 
 #: lib/Horde/Browser.php:1043
 msgid "No file uploaded"
-msgstr "Δε φορτώθηκαν αρχεία"
+msgstr "Το αρχείο δεν μεταφορτώθηκε"
 
 #: lib/Horde/Browser.php:1053
 msgid ""
 "The uploaded file appears to be empty. It may not exist on your computer."
 msgstr ""
+"Το αρχείο που ανεβάσατε φαίνεται να είναι κενό. Μπορεί να μην υπάρχει στον "
+"υπολογιστή σας."
 
 #: lib/Horde/Browser.php:1050
 #, php-format
 msgid "There was a problem with the file upload: No %s was uploaded."
-msgstr "Πρόβλημα κατά την αποστολή αρχείου: Δεν στάλθηκε %s."
+msgstr "Πρόβλημα κατά την αποστολή αρχείου: Δεν στάλθηκαν %s."
 
 #: lib/Horde/Browser.php:1058
 #, php-format
@@ -49,5 +52,5 @@ msgstr ""
 msgid ""
 "There was a problem with the file upload: The %s was only partially uploaded."
 msgstr ""
-"Παρουσιάσθηκε πρόβλημα κατά την αποστολή του αρχείου: Στάλθηκε μόνο ένα "
+"Παρουσιάσθηκε πρόβλημα κατά την αποσοτλή του αρχείου: Στάλθηκε μόνο ένα "
 "τμήμα του %s."

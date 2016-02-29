@@ -8,13 +8,15 @@ msgstr ""
 "Project-Id-Version: Horde_Itip\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2010-10-13 01:27+0200\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2015-10-02 15:36+0200\n"
+"Last-Translator: Antonis Limperis <limperis@cti.gr>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: el\n"
+"X-Generator: Poedit 1.7.1\n"
 
 #: lib/Horde/Itip/Response/Type/Accept.php:49
 msgid "Accepted"
@@ -22,40 +24,36 @@ msgstr "Εγινε αποδεκτό"
 
 #: lib/Horde/Itip/Response/Type/Decline.php:49
 msgid "Declined"
-msgstr "Έχουν αρνηθεί"
+msgstr "Απόρριψη"
 
 #: lib/Horde/Itip/Event/Vevent.php:106
-#, fuzzy
 msgid "No summary available"
-msgstr "Οι προτιμήσεις δεν είναι διαθέσιμες."
+msgstr "Δεν υπάρχει διαθέσιμη περίληψη"
 
 #: lib/Horde/Itip/Response/Type/Tentative.php:49
-#, fuzzy
 msgid "Tentative"
-msgstr "Προσωρινά Αποδεκτό"
+msgstr "Με επιφύλαξη"
 
 #: lib/Horde/Itip/Response/Type/Accept.php:63
-#, fuzzy
 msgid "has accepted the invitation to the following event"
-msgstr "%s απάντησε στην πρόσκληση για %s."
+msgstr "έχει αποδεχτεί την πρόσκληση στο παρακάτω γεγονός"
 
 #: lib/Horde/Itip/Response/Type/Accept.php:62
 msgid "has accepted the update to the following event"
-msgstr ""
+msgstr "έχει αποδεχθεί την ενημέρωση για το ακόλουθο γεγονός"
 
 #: lib/Horde/Itip/Response/Type/Decline.php:63
-#, fuzzy
 msgid "has declined the invitation to the following event"
-msgstr "%s απάντησε στην πρόσκληση για %s."
+msgstr "αρνήθηκε την πρόσκληση στο παρακάτω γεγονός"
 
 #: lib/Horde/Itip/Response/Type/Decline.php:62
 msgid "has declined the update to the following event"
-msgstr ""
+msgstr "αρνήθηκε την ενημέρωση για το ακόλουθο γεγονός"
 
 #: lib/Horde/Itip/Response/Type/Tentative.php:63
 msgid "has tentatively accepted the invitation to the following event"
-msgstr ""
+msgstr "έχει αποδεχθεί με επιφύλαξη την πρόσκληση στο παρακάτω γεγονός"
 
 #: lib/Horde/Itip/Response/Type/Tentative.php:62
 msgid "has tentatively accepted the update to the following event"
-msgstr ""
+msgstr "έχει αποδεχτεί με επιφύλαξη ενημέρωση για το ακόλουθο γεγονός"

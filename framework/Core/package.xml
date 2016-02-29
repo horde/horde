@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Update Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
 * [mjr] Fix fatal error with broken EAS clients searching the Outbox.
  </notes>
  <contents>
@@ -4157,6 +4158,7 @@
    <date>2016-02-23</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Update Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
 * [mjr] Fix fatal error with broken EAS clients searching the Outbox.
    </notes>
   </release>
