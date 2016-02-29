@@ -16,7 +16,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-02-02</date>
+ <date>2016-02-29</date>
  <version>
   <release>2.1.2</release>
   <api>2.0.0</api>
@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* 
+* [jan] Add Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -68,6 +68,12 @@
       <file name="timeobjects.po" role="horde" />
      </dir> <!-- /locale/de/LC_MESSAGES -->
     </dir> <!-- /locale/de -->
+    <dir name="el">
+     <dir name="LC_MESSAGES">
+      <file name="timeobjects.mo" role="horde" />
+      <file name="timeobjects.po" role="horde" />
+     </dir> <!-- /locale/el/LC_MESSAGES -->
+    </dir> <!-- /locale/el -->
     <dir name="es">
      <dir name="LC_MESSAGES">
       <file name="timeobjects.mo" role="horde" />
@@ -233,6 +239,8 @@
    <install as="timeobjects/locale/da/LC_MESSAGES/timeobjects.po" name="locale/da/LC_MESSAGES/timeobjects.po" />
    <install as="timeobjects/locale/de/LC_MESSAGES/timeobjects.mo" name="locale/de/LC_MESSAGES/timeobjects.mo" />
    <install as="timeobjects/locale/de/LC_MESSAGES/timeobjects.po" name="locale/de/LC_MESSAGES/timeobjects.po" />
+   <install as="timeobjects/locale/el/LC_MESSAGES/timeobjects.mo" name="locale/el/LC_MESSAGES/timeobjects.mo" />
+   <install as="timeobjects/locale/el/LC_MESSAGES/timeobjects.po" name="locale/el/LC_MESSAGES/timeobjects.po" />
    <install as="timeobjects/locale/es/LC_MESSAGES/timeobjects.mo" name="locale/es/LC_MESSAGES/timeobjects.mo" />
    <install as="timeobjects/locale/es/LC_MESSAGES/timeobjects.po" name="locale/es/LC_MESSAGES/timeobjects.po" />
    <install as="timeobjects/locale/et/LC_MESSAGES/timeobjects.mo" name="locale/et/LC_MESSAGES/timeobjects.mo" />
@@ -550,10 +558,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-02-02</date>
+   <date>2016-02-29</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* 
+* [jan] Add Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
    </notes>
   </release>
  </changelog>
