@@ -177,10 +177,12 @@
   <configsection name="auth">
    <configheader>Authentication Settings</configheader>
    <configlist name="admins" desc="Which users should be treated as
-   administrators (root, super-user) by Horde?" required="false"/>
-   <configenum name="list_users" desc="If the authentication backend is
-   capable of listing all users, should we show this list to the users,
-   e.g. in the permissions screen?">list
+   administrators (root, super-user) by Horde? If using a user name hook, these
+   have to be internal Horde user names after the conversion."
+   required="false"/>
+   <configenum name="list_users" desc="If the authentication backend is capable
+   of listing all users, should we show this list to the users, e.g. in the
+   permissions screen?">list
     <values>
      <value desc="Show a drop down list">list</value>
      <value desc="Show an input field">input</value>
