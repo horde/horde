@@ -1,0 +1,76 @@
+# Spanish translations for Horde_Smtp package.
+# Copyright (C) 2014 Horde LLC (http://www.horde.org/)
+# This file is distributed under the same license as the Horde_Smtp package.
+# Automatically generated, 2014.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_Smtp\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2014-06-04 11:28+0200\n"
+"PO-Revision-Date: 2015-10-02 16:38+0200\n"
+"Last-Translator: Antonis Limperis <limperis@cti.gr>\n"
+"Language-Team: i18n@lists.horde.org\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.7.1\n"
+
+#: lib/Horde/Smtp/Exception.php:136
+msgid "Could not open secure TLS connection to the server."
+msgstr "Αδυναμία δημιουργίας ασφαλούς σύνδεσης TLS με το διακομιστή."
+
+#: lib/Horde/Smtp.php:365
+msgid "Error connecting to SMTP server."
+msgstr "Σφάλμα κατά τη σύνδεση με το διακομιστή SMTP."
+
+#: lib/Horde/Smtp/Connection.php:108
+msgid "Error when communicating with the server."
+msgstr "Σφάλμα κατά την επικοινωνία με το διακομιστή."
+
+#: lib/Horde/Smtp/Exception.php:130
+msgid "Insufficient system storage."
+msgstr "Ανεπαρκές σύστημα αποθήκευσης."
+
+#: lib/Horde/Smtp/Exception.php:124
+msgid "Mailbox unavailable."
+msgstr "Μη διαθέσιμο γραμματοκιβώτιο."
+
+#: lib/Horde/Smtp/Exception.php:148
+msgid ""
+"Message could not be delivered - the address was not found, is unknown, or "
+"is not receiving messages."
+msgstr ""
+"Το μήνυμα δεν μπόρεσε να παραδοθεί - η διεύθυνση δεν βρέθηκε, είναι άγνωστη, "
+"ή δεν λαμβάνει μηνύματα."
+
+#: lib/Horde/Smtp/Connection.php:100
+msgid "Server closed the connection unexpectedly."
+msgstr "Ο διακομιστής έκλεισε τη σύνδεση απροσδόκητα."
+
+#: lib/Horde/Smtp.php:434
+msgid "Server denied authentication."
+msgstr "Ο διακομιστής δεν επέτρεψε την πιστοποίηση."
+
+#: lib/Horde/Smtp.php:701
+msgid "Server does not support TLS connections."
+msgstr "Ο διακομιστής δεν υποστηρίζει TLS συνδέσεις."
+
+#: lib/Horde/Smtp.php:395
+#, php-format
+msgid "Server does not support a necessary server extension: %s."
+msgstr "Ο διακομιστής δεν υποστηρίζει μία  αναγκαία επέκταση:%s."
+
+#: lib/Horde/Smtp/Exception.php:162
+msgid "Server is not accepting SMTP connections."
+msgstr "Ο διακομιστής δεν δέχεται συνδέσεις SMTP."
+
+#: lib/Horde/Smtp/Exception.php:142
+msgid "Server requires authentication."
+msgstr "Ο διακομιστής απαιτεί πιστοποίηση."
+
+#: lib/Horde/Smtp/Connection.php:81
+msgid "Server write error."
+msgstr "Σφάλμα εγγραφής διακομιστή."
