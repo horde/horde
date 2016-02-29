@@ -1664,6 +1664,7 @@
    <date>2016-02-02</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [jan] Update Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
 * [jan] Fix Oracle compatibility (Bug #14262).
    </notes>
   </release>

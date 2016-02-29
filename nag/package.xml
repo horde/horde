@@ -1704,9 +1704,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-10-20</date>
+   <date>2016-02-02</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Enforce child tasks must be completed before parent tasks in edit form (Bug #12308).
 * [jan] Use access rules compatible with both Apache 2.2 and 2.4.
 * [mjr] Fix possible fatal error due to tasks created with an alarm but no due date (Bug #14214).
 * [mjr] Fix storage of parent field when using Kolab driver (Bug #14197, mike.gabriel@das-netzwerkteam.de).
@@ -1715,6 +1716,19 @@
 * [mjr] Fix fatal error when saving tasks when system shares are present in certain cases.
 * [mjr] Return recurring tasks via listTimeObjects API (Bug #14137).
 * [mjr] Prevent orphaning tasks via the API.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.8</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-02-02</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Update Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
    </notes>
   </release>
   <release>

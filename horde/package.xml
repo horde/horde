@@ -4194,6 +4194,7 @@
    <date>2016-02-02</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
+* [jan] Update Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
 * [jan] Check if temporary directory is writable (skhorde@smail.inf.fh-bonn-rhein-sieg.de, Request #14237).
    </notes>
   </release>

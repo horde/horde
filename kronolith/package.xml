@@ -2712,10 +2712,24 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-02-10</date>
+   <date>2016-02-17</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix typo preventing deletion of events from dynamic view (Bug #14256).
 * [jan] Handle gracefully if the base event of an imported recurrence exception is no longer recurring (Bug #14249).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.16</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-02-17</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Update Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
    </notes>
   </release>
   <release>

@@ -256,6 +256,7 @@
       <file name="turba.mo" role="horde" />
       <file name="turba.po" role="horde" />
      </dir> <!-- /locale/el/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/el -->
     <dir name="en">
      <file name="help.xml" role="horde" />
@@ -1002,6 +1003,7 @@
    <install as="turba/locale/de/help.xml" name="locale/de/help.xml" />
    <install as="turba/locale/de/LC_MESSAGES/turba.mo" name="locale/de/LC_MESSAGES/turba.mo" />
    <install as="turba/locale/de/LC_MESSAGES/turba.po" name="locale/de/LC_MESSAGES/turba.po" />
+   <install as="turba/locale/el/help.xml" name="locale/el/help.xml" />
    <install as="turba/locale/el/LC_MESSAGES/turba.mo" name="locale/el/LC_MESSAGES/turba.mo" />
    <install as="turba/locale/el/LC_MESSAGES/turba.po" name="locale/el/LC_MESSAGES/turba.po" />
    <install as="turba/locale/en/help.xml" name="locale/en/help.xml" />
@@ -2071,7 +2073,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-10-28</date>
+   <date>2016-02-02</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Fix building search query if some fields are set for strict search (Bug #12272).
@@ -2079,6 +2081,19 @@
 * [mjr] Fix splitting tags over ActiveSync (Bug #14218).
 * [mjr] Fix searching within virtual address books (Bug #14155).
 * [mjr] Fix import of vCard with single component via API.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.13</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-02-29</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [jan] Update Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
    </notes>
   </release>
   <release>
