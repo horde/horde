@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* 
+* [jan] Update Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1354,7 +1354,7 @@
    <date>2016-02-02</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* 
+* [jan] Update Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
    </notes>
   </release>
  </changelog>

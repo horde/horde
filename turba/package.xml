@@ -28,7 +28,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2016-02-02</date>
+ <date>2016-02-29</date>
  <version>
   <release>4.2.13</release>
   <api>4.0.0</api>
@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* 
+* [jan] Update Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -249,6 +249,7 @@
       <file name="turba.mo" role="horde" />
       <file name="turba.po" role="horde" />
      </dir> <!-- /locale/el/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/el -->
     <dir name="en">
      <file name="help.xml" role="horde" />
@@ -997,6 +998,7 @@
    <install as="turba/locale/de/help.xml" name="locale/de/help.xml" />
    <install as="turba/locale/de/LC_MESSAGES/turba.mo" name="locale/de/LC_MESSAGES/turba.mo" />
    <install as="turba/locale/de/LC_MESSAGES/turba.po" name="locale/de/LC_MESSAGES/turba.po" />
+   <install as="turba/locale/el/help.xml" name="locale/el/help.xml" />
    <install as="turba/locale/el/LC_MESSAGES/turba.mo" name="locale/el/LC_MESSAGES/turba.mo" />
    <install as="turba/locale/el/LC_MESSAGES/turba.po" name="locale/el/LC_MESSAGES/turba.po" />
    <install as="turba/locale/en/help.xml" name="locale/en/help.xml" />
@@ -2085,10 +2087,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-02-02</date>
+   <date>2016-02-29</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* 
+* [jan] Update Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
    </notes>
   </release>
  </changelog>

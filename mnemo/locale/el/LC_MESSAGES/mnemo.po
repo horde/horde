@@ -1,781 +1,677 @@
 # Mnemo Greek translation
-# Copyright 2002 Stefanos I. Dimitriou.
+# Copyright 2012-2016 Horde LLC (http://www.horde.org/)
+# This file is distributed under the same license as the mnemo package.
 # Stefanos I. Dimitriou <support_webmail@teiath.gr>, 2002.
 # Silligardos Xristoforos, 2002.
 # Anagnostopoulos Apostolis, 2002.
 # Milosis C. Konstantinos, 2005.
-#
+# Giorgos Strimpakos <strimpak.geo@gmail.com>, 2012.
+# Terpou Maria <mterpou@cti.gr>, 2015
+# Drakopoulos Takis <tdrakop@cti.gr>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Mnemo: 1.1-cvs\n"
-"POT-Creation-Date: 2002-11-07 12:12+0200\n"
-"PO-Revision-Date: 2002-11-12 12:12+0200\n"
-"Last-Translator: Konstantinos C. Milosis <kmilosis@yahoo.com>\n"
-"Language-Team: Greek <dev@lists.horde.org>\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2015-07-08 06:49+0300\n"
+"PO-Revision-Date: 2016-02-29 12:24+0100\n"
+"Last-Translator: Antonis Limperis <limperis@cti.gr>\n"
+"Language-Team: i18n@lists.horde.org\n"
+"Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8-bit\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.7.6\n"
 
-#, c-format
-msgid "%d memos"
-msgstr "%d σημειώσεις"
+#: memo.php:276
+#, php-format
+msgid "%s characters"
+msgstr "%s χαρακτήρες"
 
-msgid "%d notes"
-msgstr "%d σημειώσεις"
-
-#: /home/httpd/html/horde_cvs/po/../mnemo/data.php:98
-#, c-format
+#: data.php:149
+#, php-format
 msgid "%s file successfully imported"
 msgstr "Το αρχείο %s εισήχθη επιτυχώς"
 
-msgid "1 memo"
-msgstr "1 σημείωση"
+#: memo.php:101
+msgid "Access denied addings notes to this notepad."
+msgstr ""
+"Δεν επιτρέπεται η πρόσβαση για την προσθήκη  σημειώσεων στο σημειωματάριο "
+"αυτό."
 
-#: /home/httpd/html/horde_cvs/po/../mnemo/templates/list/header.inc:17
-msgid "1 note"
-msgstr "1 σημείωση"
-
-#: /home/httpd/html/horde_cvs/po/../mnemo/memo.php:144
+#: memo.php:251
 msgid "Access denied deleting note."
 msgstr "Αρνηση πρόσβασης κατά τη διαγραφή σημείωσης."
 
-#: /home/httpd/html/horde_cvs/po/../mnemo/memo.php:92
-msgid "Access denied removing the note."
-msgstr "Αρνηση πρόσβασης κατά τη διαγραφή σημείωσης."
+#: memo.php:115
+msgid "Access denied editing note."
+msgstr "Δεν επιτρέπεται η πρόσβαση για επεξεργασία της σημείωσης."
 
-#: /home/httpd/html/horde_cvs/po/../mnemo/config/prefs.php.dist:28
-msgid "Add, remove, and edit categories."
-msgstr "Προσθήκη, διαγραφή και επεξεργασία κατηγορίας."
+#: memo.php:188
+msgid "Access denied moving the note."
+msgstr "Δεν έχετε πρόσβαση να μετακινήσετε την σημείωση."
 
-msgid "Adding A New Memo"
-msgstr "Προσθήκη μίας νέας σημείωσης"
+#: memo.php:157
+msgid "Access denied saving note to this notepad."
+msgstr ""
+"Δεν επιτρέπεται η πρόσβαση για την αποθήκευση σημείωσης στο σημειωματάριο "
+"αυτό ."
 
-#: /home/httpd/html/horde_cvs/po/../mnemo/memo.php:33
-msgid "Adding A New Note"
-msgstr "Προσθήκη μίας νέας σημείωσης"
+#: config/prefs.php:149
+msgid ""
+"All state removed for your ActiveSync devices. They will resynchronize next "
+"time they connect to the server."
+msgstr ""
+"Όλες οι καταστάσεις αφαιρέθηκαν από την ActiveSync συσκευή σας. Θα "
+"ξανασυγχρονιστούν την επόμενη φορά που θα συνδεθούν στο erver."
 
-#: /home/httpd/html/horde_cvs/po/../mnemo/templates/prefs/category_management.inc:41
-msgid "Any notes in a category that is deleted will become %s."
-msgstr "Όλες οι σημειώσεις της κατηγορίας που διαγράφεται θα γίνουν %s."
+#: lib/Block/Note.php:91
+#, php-format
+msgid "An error occurred displaying %s"
+msgstr "Ένα σφάλμα προέκυψε κατά την εμφάνιση %s"
 
-#: /home/httpd/html/horde_cvs/po/../mnemo/config/prefs.php.dist:55
+#: lib/Block/Note.php:93
+msgid "An error occurred displaying the note"
+msgstr "Ένα σφάλμα προέκυψε κατά την εμφάνιση της σημείωσης"
+
+#: config/prefs.php:64
 msgid "Ascending"
 msgstr "Αύξουσα"
 
-msgid "Back to Memo List"
-msgstr "Πίσω στη λίστα με τις σημειώσεις"
+#: lib/Form/Search.php:27
+msgid "Body"
+msgstr "Σώμα"
 
-#: /home/httpd/html/horde_cvs/po/../mnemo/templates/view/headers.inc:28
-#: /home/httpd/html/horde_cvs/po/../mnemo/templates/view/navbar.inc:21
-msgid "Back to Notepad"
-msgstr "Πίσω στο Σημειωματάριο"
+#: data.php:21 templates/data/import.inc:10
+msgid "CSV"
+msgstr "Τιμές χωρισμένες με κόμμα (CSV)"
 
-msgid "Back to Notepad Options"
-msgstr "Πίσω στις επιλογές Σημειωματαρίου"
+#: lib/Form/DeleteNotepad.php:36 lib/Form/DeleteNotepad.php:43
+#: lib/Form/EditNotepad.php:78 lib/Form/EditNotepad.php:95
+msgid "Cancel"
+msgstr "Ακύρωση"
 
-msgid "Browse..."
-msgstr "Αναζήτηση..."
+#: lib/Form/EditNotepad.php:64
+msgid "Change Permissions"
+msgstr "Αλλαγή Δικαιωμάτων"
 
-msgid "Business"
-msgstr "Επιχειρήσεις"
-
-msgid "CVS"
-msgstr "Τιμές χωρισμένες με κόμα (CVS)"
-
-msgid "CSV file successfully imported"
-msgstr "Το αρχείο CVS εισάχθηκε επιτυχώς"
-
-msgid "Category"
-msgstr "Κατηγορία"
-
-#: /home/httpd/html/horde_cvs/po/../mnemo/config/prefs.php.dist:27
-#: /home/httpd/html/horde_cvs/po/../mnemo/config/prefs.php.dist:88
-msgid "Category Management"
-msgstr "Διαχείριση Κατηγοριών"
-
-msgid "Change your memo sorting and display options."
+#: config/prefs.php:14
+msgid "Change your note sorting and display preferences."
 msgstr "Αλλαγή του τρόπου ταξινόμησης και των επιλογών εμφάνισης."
 
-msgid "Change your note sorting and display options."
-msgstr "Αλλαγή του τρόπου ταξινόμησης και των επιλογών εμφάνισης."
+#: config/prefs.php:28
+msgid "Choose the Notepads to use for synchronization with external devices."
+msgstr ""
+"Επιλέξτε τα σημειωματάρια που θα χρησιμοποιείτε για συγχρονισμό με "
+"εξωτερικές συσκευές."
 
-msgid "Checkbox"
-msgstr "Πλαίσιο Επιλογής"
-
-msgid "Choose Action:"
-msgstr "Επιλέξτε ενέργεια:"
-
-#: /home/httpd/html/horde_cvs/po/../mnemo/config/prefs.php.dist:72
-msgid "Choose Color"
-msgstr "Επιλέξτε Χρώμα"
-
+#: config/prefs.php:21
 msgid "Choose your default Notepad."
 msgstr "Επιλέξτε το προκαθορισμένο σας Σημειωματάριο"
 
-msgid "Clear Form"
-msgstr "Καθαρισμός φόρμας"
+#: templates/list/header.html.php:8
+msgid "Close Search"
+msgstr "Κλείσιμο Αναζήτησης"
 
+#: lib/Form/CreateNotepad.php:25
 msgid "Create"
 msgstr "Δημιουργία"
 
-#: /home/httpd/html/horde_cvs/po/../mnemo/templates/prefs/category_management.inc:47
-msgid "Create New Category"
-msgstr "Δημιουργία Νέας Κατηγορίας"
+#: lib/Form/CreateNotepad.php:20
+msgid "Create Notepad"
+msgstr "Δημιουργία Σημειωματάριου"
 
+#: lib/Application.php:127
+msgid "Create a new Notepad"
+msgstr "Δημιουργία ενός νέου Σημειωματάριου"
+
+#: templates/view/view.html.php:30
 msgid "Created"
 msgstr "Δημιουργήθηκε"
 
-msgid "Current Memos"
-msgstr "Οι Σημειώσεις"
+#: list.php:107
+msgid "Date"
+msgstr "Ημερομηνία"
 
+#: templates/memo/memo.html.php:13 templates/view/view.html.php:58
+msgid "Decrypt"
+msgstr "Αποκρυπτογράφηση"
+
+#: config/prefs.php:20
 msgid "Default Notepad"
 msgstr "Προεπιλεγμένο Σημειωματάριο"
 
+#: config/prefs.php:56
 msgid "Default sorting criteria:"
 msgstr "Προεπιλεγμένο κριτήριο ταξινόμησης:"
 
+#: config/prefs.php:67
 msgid "Default sorting direction:"
-msgstr "Προεπιλεγμένη κατεύθυνση ταξινόμησης:"
+msgstr "Προεπιλεγμένη σειρά ταξινόμησης:"
 
+#: lib/Form/DeleteNotepad.php:35 lib/Form/EditNotepad.php:77
+#: lib/Form/EditNotepad.php:90 templates/memo/memo.html.php:33
 msgid "Delete"
 msgstr "Διαγραφή"
 
-#: config/prefs.php.dist:28
+#: lib/Form/DeleteNotepad.php:29
+#, php-format
+msgid "Delete %s"
+msgstr "Διαγραφή %s"
+
+#: config/prefs.php:34
 msgid "Delete Confirmation"
 msgstr "Επιβεβαίωση Διαγραφής"
 
-#: config/prefs.php.dist:29
+#: config/prefs.php:35
 msgid "Delete button behaviour"
 msgstr "Συμπεριφορά πλήκτρου διαγραφής"
 
-msgid "Delete Memo"
-msgstr "Διαγραφή Σημείωσης"
-
-msgid "Delete Memos"
-msgstr "Διαγραφή Σημειώσεων"
-
-msgid "Deleted %d memos."
-msgstr "Διαγράφηκαν %d σημειώσεις."
-
-msgid "Deleted 1 memo."
-msgstr "Διαγράφηκε 1 σημείωση."
-
-#: /home/httpd/html/horde_cvs/po/../mnemo/templates/list/memo_headers.inc:9
-#: /home/httpd/html/horde_cvs/po/../mnemo/templates/list/memo_summaries.inc:4
-#: /home/httpd/html/horde_cvs/po/../mnemo/templates/list/memo_summaries.inc:5
-#: /home/httpd/html/horde_cvs/po/../mnemo/templates/view/headers.inc:25
-#: /home/httpd/html/horde_cvs/po/../mnemo/templates/view/navbar.inc:17
-msgid "Delete Note"
-msgstr "Διαγραφή Σημείωσης"
-
-#: /home/httpd/html/horde_cvs/po/../mnemo/templates/list/actions.inc:7
-msgid "Delete Notes"
-msgstr "Διαγραφή Σημειώσεων"
-
-#: templates/memo/memo.inc:67
-msgid "Delete this note"
-msgstr "Διαγραφή αυτής της σημείωσης"
-
-#: /home/httpd/html/horde_cvs/po/../mnemo/config/prefs.php.dist:56
+#: config/prefs.php:65
 msgid "Descending"
 msgstr "Φθίνουσα"
 
+#: lib/Form/CreateNotepad.php:23 lib/Form/EditNotepad.php:53
 msgid "Description"
 msgstr "Περιγραφή"
 
-msgid "Description:"
-msgstr "Περιγραφή:"
-
-msgid "Display Options"
+#: config/prefs.php:13
+msgid "Display Preferences"
 msgstr "Επιλογές Εμφάνισης"
 
-msgid "Does the first row contain the field names? If yes, check this box:"
-msgstr "Περιέχει η πρώτη γραμμή τα ονόματα των πεδίων; Αν ναι τσεκάρισε εδώ:"
+#: config/prefs.php:174
+msgid "Do you want to confirm deleting entries?"
+msgstr "Θέλετε να επιβεβαιώνετε τη διαγραφή καταχωρήσεων;"
 
-#: /home/httpd/html/horde_cvs/po/../mnemo/templates/notepads/members/manage.inc:43
-msgid "Edit"
-msgstr "Επεξεργασία"
+#: list.php:122
+#, php-format
+msgid "Edit \"%s\""
+msgstr "Επεξεργασία \"%s\""
 
-#: /home/httpd/html/horde_cvs/po/../mnemo/config/prefs.php.dist:106
-msgid "Edit your notepads."
-msgstr "Επεξεργασία των σημειώσεών σας."
+#: lib/Form/EditNotepad.php:34
+#, php-format
+msgid "Edit %s"
+msgstr "Επεξεργασία %s"
 
+#: lib/Block/Summary.php:67 lib/Block/Summary.php:68 list.php:78
+msgid "Edit Note"
+msgstr "Επεξεργασία Σημείωσης"
+
+#: memo.php:139 memo.php:171
+#, php-format
+msgid "Edit: %s"
+msgstr "Επεξεργασία: %s"
+
+#: lib/Block/Summary.php:85 list.php:141
+msgid "Empty Note"
+msgstr "Κενή Σημείωση"
+
+#: lib/Driver.php:315
+msgid ""
+"Encryption support has not been configured, please contact your "
+"administrator."
+msgstr ""
+"Η υποστήριξη κρυπτογράφησης δεν έχει ρυθμιστεί, παρακαλούμε επικοινωνήστε με "
+"τον διαχειριστή."
+
+#: templates/data/export.inc:14
 msgid "Export"
 msgstr "Εξαγωγή"
 
-#: /home/httpd/html/horde_cvs/po/../mnemo/templates/data/export.inc:7
+#: templates/data/export.inc:1
 msgid "Export Notes"
 msgstr "Εξαγωγή Σημειώσεων"
 
-msgid "F_ull Text"
-msgstr "Πλήρες Κείμενο"
+#: lib/Driver/Kolab.php:293
+#, php-format
+msgid "Failed retrieving Kolab data for notepad %s: %s"
+msgstr "Αποτυχία  ανάκτησης δεδομένων Kolab για σημειωματάριο %s: % s"
 
-#: /home/httpd/html/horde_cvs/po/../mnemo/data.php:124
-msgid "Flags"
-msgstr "'Σημαίες' (Flags)"
+#: lib/Form/Search.php:24
+msgid "For"
+msgstr "Για"
 
-msgid "Full Text"
-msgstr "Πλήρες Κείμενο"
+#: config/prefs.php:12 config/prefs.php:33
+msgid "General Preferences"
+msgstr "Γενικές Επιλογές"
 
-msgid "Help"
-msgstr "Βοήθεια"
+#: templates/data/import.inc:1
+#, php-format
+msgid "Import Notes, Step %d"
+msgstr "Εισαγωγή Σημειώσεων, Βήμα %d"
 
-msgid "Here is the beginning of the file:"
-msgstr "Αυτή είναι η αρχή του αρχείου:"
-
-msgid "How many fields (columns) are there?"
-msgstr "Πόσα πεδία (στήλες υπάρχουν;"
-
-#: /home/httpd/html/horde_cvs/po/../mnemo/templates/data/import.inc:1
-msgid "If importing CSV data: does the first row contain the field names?"
-msgstr "Αν εισάγετε CSV δεδομένα: Περιέχει η πρώτη γραμμή ονόματα πεδίων;"
-
-#: /home/httpd/html/horde_cvs/po/../mnemo/data.php:107
-msgid "Illegal or malformed form data."
-msgstr "Μη έγκυρα ή μη έγκυρης μορφής δεδομένα."
-
-msgid "Import Notes"
-msgstr "Εισαγωγή Σημειώσεων"
-
-msgid "Import Notes,"
-msgstr "Εισαγωγή Σημειώσεων,"
-
-#: /home/httpd/html/horde_cvs/po/../mnemo/templates/menu/menu.inc:15
-msgid "Import/Export"
-msgstr "Εισαγωγή/Εξαγωή"
-
-#: /home/httpd/html/horde_cvs/po/../mnemo/data.php:169
+#: data.php:156
 msgid "Import/Export Notes"
-msgstr "Εισαγωγή/Εξαγωή Σημειώσεων"
+msgstr "Εισαγωγή/Εξαγωγή Σημειώσεων"
 
-msgid "Introduction"
-msgstr "Εισαγωγή"
+#: lib/Form/Search.php:26
+msgid "In"
+msgstr "Στο"
 
-msgid "Language"
-msgstr "Γλώσσα"
+#: templates/view/view.html.php:40
+msgid "Last Modified"
+msgstr "Τελευταία Επεξεργασία"
 
-msgid "List Memos"
-msgstr "Λίστα Σημειώσεων"
+#: memo.php:287
+msgid "Loading..."
+msgstr "Φόρτωση..."
 
-#: /home/httpd/html/horde_cvs/po/../mnemo/templates/menu/menu.inc:6
-msgid "List Notes"
-msgstr "Λίστα Σημειώσεων"
+#: lib/Application.php:74
+msgid "Maximum Number of Notes"
+msgstr "Μέγιστος Αριθμός Σημειώσεων"
 
-#: /home/httpd/html/horde_cvs/po/../mnemo/config/prefs.php.dist:22
-msgid "Manage multiple notepads."
-msgstr "Διαχείριση πολλαπλών σημειώσεων."
-
-#: /home/httpd/html/horde_cvs/po/../mnemo/templates/notepads/members/manage.inc:36
-msgid "Member's Permission:"
-msgstr "Εξουσιοδοτήσεις Μελών:"
-
-#: /home/httpd/html/horde_cvs/po/../mnemo/templates/notepads/members/manage.inc:25
-msgid "Member's email address:"
-msgstr "email διευθύνσεις Μελών:"
-
-#: /home/httpd/html/horde_cvs/po/../mnemo/notepads/members.php:111
-msgid "Members List"
-msgstr "Λίστα Μελών"
-
-#: /home/httpd/html/horde_cvs/po/../mnemo/templates/notepads/members/manage.inc:6
-msgid "Members List for Notepad"
-msgstr "Λίστα Μελών για το Σημειωματάριο"
-
-msgid "Memo Category"
-msgstr "Κατηγορία Σημειώσεων"
-
-msgid "Memo Description"
-msgstr "Περιγραφή Σημειώσεων"
-
-msgid "Memo Details"
-msgstr "Λεπτομέρειες Σημειώσεων"
-
-msgid "Menou Items"
-msgstr "Αντικείμενα Μενού"
-
+#: data.php:42
 msgid "Memo Text"
 msgstr "Κείμενο Σημειώσεων"
 
-msgid "Mnemo is not properly configured"
-msgstr "Το πρόγραμμα Mnemo δεν έχει ρυθμιστεί σωστά"
+#: config/prefs.php:54
+msgid "Modification Date"
+msgstr "Ημερομηνία Επεξεργασίας"
 
-msgid "Modify Memo"
-msgstr "Επεξεργασία Σημείωσης"
+#: templates/list/header.html.php:9
+msgid "More Options..."
+msgstr "Περισσότερες Επιλογές..."
 
-msgid "Modify Note"
-msgstr "Επεξεργασία Σημείωσης"
+#: lib/Api.php:438
+msgid "Multiple iCalendar components found; only one vNote is supported."
+msgstr "Πολλαπλά iCalendar στοιχεία βρέθηκαν, μόνο ένα vNote υποστηρίζεται."
 
-#, c-format
-msgid "Modifying %s"
-msgstr "Επεξεργασία του %s"
+#: lib/Application.php:120
+msgid "My Notepads"
+msgstr "Τα σημειωματάρια μου"
 
-#: /home/httpd/html/horde_cvs/po/../mnemo/lib/base.php:92
-#: /home/httpd/html/horde_cvs/po/../mnemo/notepads/prefs.php:109
-msgid "My Notepad"
-msgstr "Το σημειωματάριό μου"
-
+#: list.php:29
 msgid "My Notes"
 msgstr "Οι Σημειώσεις μου"
 
-msgid "New Memo"
-msgstr "Νέα Σημείωση"
+#: lib/Form/CreateNotepad.php:22 lib/Form/EditNotepad.php:39
+msgid "Name"
+msgstr "Όνομα"
 
+#: lib/Application.php:188 memo.php:110 memo.php:163
 msgid "New Note"
 msgstr "Νέα Σημείωση"
 
+#: templates/data/import.inc:36
 msgid "Next"
 msgstr "Επόμενο"
 
-msgid "No configuration information specified for SQL Memos."
-msgstr "Δεν έχουν προσδιοριστεί πληροφορίες για τις σημειώσεις σε SQL."
+#: lib/Api.php:274 lib/Api.php:431
+msgid "No iCalendar data was found."
+msgstr "Δεν βρέθηκαν iCalendar δεδομένα."
 
-msgid "No events to display"
-msgstr "Καμία σημείωση για εμφάνιση"
+#: lib/Block/Note.php:82
+msgid "No note loaded"
+msgstr "Δεν φορτώθηκε καμία σημείωση"
 
-msgid "No memos were deleted."
-msgstr "Καμία σημείωση δεν διαγράφηκε."
+#: templates/list/memo_footers.html.php:4
+msgid "No notes match"
+msgstr "Καμία Σημείωση δεν ταιριάζει"
 
-msgid "No memos"
-msgstr "Καμία σημείωση"
-
-msgid "No notes"
-msgstr "Καμία σημείωση"
-
+#: templates/list/empty.html.php:1
 msgid "No notes match the current criteria."
 msgstr "Καμία Σημείωση δεν ταιριάζει με τα τρέχοντα κριτήρια."
 
+#: lib/Block/Summary.php:94
 msgid "No notes to display"
 msgstr "Καμία Σημείωση για εμφάνιση"
 
+#: list.php:97
 msgid "No_te"
 msgstr "Σημείωση"
 
-msgid "None specified"
-msgstr "Δεν προσδιορίστηκε κανένα"
-
-msgid "Note Category"
-msgstr "Κατηγορία Σημείωσης"
-
-#: /home/httpd/html/horde_cvs/po/../mnemo/config/prefs.php.dist:45
-msgid "Note Description"
-msgstr "Περιγραφή Σημείωσης"
-
-#: /home/httpd/html/horde_cvs/po/../mnemo/view.php:26
-#: /home/httpd/html/horde_cvs/po/../mnemo/templates/view/headers.inc:9
+#: view.php:155
 msgid "Note Details"
 msgstr "Λεπτομέρειες Σημείωσης"
 
-#: /home/httpd/html/horde_cvs/po/../mnemo/notepads/prefs.php:126
-msgid "Note Lists"
-msgstr "Λίστα Σημειώσεων"
-
-#: /home/httpd/html/horde_cvs/po/../mnemo/templates/memo/memo.inc:3
+#: config/prefs.php:52
 msgid "Note Text"
 msgstr "Κείμενο Σημείωσης"
 
+#: templates/memo/memo.html.php:26
 msgid "Note _Text"
 msgstr "Κείμενο Σημείωσης"
 
-#: /home/httpd/html/horde_cvs/po/../mnemo/templates/memo/memo.inc:10
+#: memo.php:126 memo.php:168 note/pdf.php:52 view.php:55
+msgid "Note not found."
+msgstr "Η Σημείωση δε βρέθηκε."
+
+#: templates/memo/memo.html.php:39
+msgid "Note_pad:"
+msgstr "Σημειωματάριο"
+
+#: config/prefs.php:53 list.php:87
 msgid "Notepad"
 msgstr "Σημειωματάριο"
 
-#: /home/httpd/html/horde_cvs/po/../mnemo/templates/notepads/manage.inc:33
-msgid "Notepad's Type:"
-msgstr "Τύπος Σημειωματαρίου:"
+#: config/prefs.php:19 config/prefs.php:26
+msgid "Notepad and Share Preferences"
+msgstr "Σημειωματάριο και Επιλογές Διαμοιρασμού"
 
-#: /home/httpd/html/horde_cvs/po/../mnemo/templates/notepads/manage.inc:23
-msgid "Notepad's name:"
-msgstr "Ονομα Σημειωματαρίου:"
+#: lib/Notepads/Default.php:64
+#, php-format
+msgid "Notepad of %s"
+msgstr "Το Σημειωματάριο του %s"
 
-#: /home/httpd/html/horde_cvs/po/../mnemo/templates/notepads/manage.inc:5
-#: /home/httpd/html/horde_cvs/po/../mnemo/config/prefs.php.dist:21
-msgid "Notepads"
-msgstr "Σημειωματάρια"
+#: lib/Notepads/Kolab.php:58
+msgid "Notes"
+msgstr "Σημειώσεις"
 
-msgid "Notes List: Actions"
-msgstr "Λίστες Σημειώσεων: Ενέργειες"
+#: lib/Block/Summary.php:12
+msgid "Notes Summary"
+msgstr "Προεπισκόπηση Σημειώσεων"
 
+#: lib/Form/EditNotepad.php:42
+msgid "Owner"
+msgstr "Ιδιοκτήτης"
+
+#: lib/Form/DeleteNotepad.php:50
+msgid "Permission denied"
+msgstr "Άρνηση Πρόσβασης"
+
+#: lib/Form/DeleteNotepad.php:32
+#, php-format
 msgid ""
-"Notes is an application which allows you to create the computer equivalent "
-"of sticky notes. Notes can be created, modified, deleted, and printed. You "
-"can also search on your notes to locate information. Support for importing "
-"and exporting notes is also available."
+"Really delete the notepad \"%s\"? This cannot be undone and all data on this "
+"notepad will be permanently removed."
 msgstr ""
-"Οι σημειώσεις είναι μια εφαρμογή που σας επιτρέπει να δημιουργήσετε το "
-"αντίστοιχο των κίτρινων μικρών χαρτιών στον υπολογιστή. Μπορείτε να "
-"δημιουργήσετε, να τροποποιήσετε, να διαγράψετε και να τυπώσετε. Μπορείτε "
-"επίσης να ψάξετε στις σημείωσεις σας για να εντοπίσετε μια πληροφορία. "
-"Υποστηρίζεται και εισαγωγή - εξαγωγή των σημειώσεων."
+"Είστε σίγουροι ότι θέλετε να διαγράψετε το σημειωματάριο \"%s\"; Η πράξη "
+"αυτή δεν μπορεί να αναιρεθεί και όλα τα δεδομένα του σημειωματάριου θα "
+"διαγραφούν μόνιμα."
 
-msgid "Options"
-msgstr "Επιλογές"
+#: view.php:152
+msgid "Really delete this note?"
+msgstr "Είστε σίγουροι ότι θέλετε να διαγράψετε αυτή τη σημείωση;"
 
-msgid "Options for"
-msgstr "Επιλογές για"
-
-msgid "Other Options"
-msgstr "Αλλες Επιλογές"
-
-msgid "Overview"
-msgstr "Γενικά"
-
-msgid "Permissions"
-msgstr "Εξουσιοδοτήσεις"
-
-msgid "Personal"
-msgstr "Προσωπικό"
-
-msgid "Problem?"
-msgstr "Πρόβλημα;"
-
-#: /home/httpd/html/horde_cvs/po/../mnemo/templates/menu/menu.inc:20
-msgid "Print"
-msgstr "Εκτύπωση"
-
-#: /home/httpd/html/horde_cvs/po/../mnemo/templates/notepads/manage.inc:35
-msgid "Private"
-msgstr "Προσωπικό"
-
-#: /home/httpd/html/horde_cvs/po/../mnemo/templates/notepads/members/manage.inc:42
-msgid "Read"
-msgstr "Ανάγνωση"
-
-#: /home/httpd/html/horde_cvs/po/../mnemo/templates/list/header.inc:12
-#: /home/httpd/html/horde_cvs/po/../mnemo/templates/list/header.inc:13
-msgid "Refresh List"
-msgstr "Ανανέωση Λίστας"
-
-#: /home/httpd/html/horde_cvs/po/../mnemo/templates/prefs/category_management.inc:63
-msgid "Rename"
-msgstr "Μετονομασία"
-
-msgid "Required 'database' not specified in memos configuration."
-msgstr "Η απαιτούμενη βάση δεδομένων δεν έχει καθοριστεί για τις σημειώσεις."
-
-msgid "Required 'hostspec' not specified in memos configuration."
-msgstr "Το απαιτούμενο 'hostspec' δεν έχει καθοριστεί για τις σημειώσεις."
-
-msgid "Required 'password' not specified in memos configuration."
-msgstr "Το απαιτούμενο 'password' δεν έχει καθοριστεί για τις σημειώσεις."
-
-msgid "Required 'phptype' not specified in memos configuration."
-msgstr "Το απαιτούμενο 'phptype' δεν έχει καθοριστεί για τις σημειώσεις."
-
-msgid "Required 'table' not specified in memos configuration."
-msgstr "Το απαιτούμενο 'table' δεν έχει καθοριστεί για τις σημειώσεις."
-
-msgid "Required 'username' not specified in memos configuration."
-msgstr "Το απαιτούμενο 'username' δεν έχει καθοριστεί για τις σημειώσεις."
-
-msgid "Reset"
-msgstr "Καθαρισμός"
-
-msgid "Search"
-msgstr "Αναζήτηση"
-
-msgid "Search Results"
-msgstr "Αποτελέσματα Αναζήτησης"
-
-msgid "Search Scope"
-msgstr "Πεδία στα οποία θα γίνει αναζήτηση"
-
-msgid "Search Text"
-msgstr "Κείμενο που θα αναζητηθεί"
-
-msgid "Search _Text"
-msgstr "Κείμενο που θα αναζητηθεί"
-
+#: lib/Form/EditNotepad.php:76 lib/Form/EditNotepad.php:85
+#: templates/memo/memo.html.php:31
 msgid "Save"
 msgstr "Αποθήκευση"
 
-msgid "Save Memo"
-msgstr "Αποθήκευση Σημείωσης"
+#: templates/view/view.html.php:4
+msgid "Save as PDF"
+msgstr "Αποθήκευση σαν PDF"
 
-#: /home/httpd/html/horde_cvs/po/../mnemo/lib/Mnemo.php:126
-msgid "Select Category"
-msgstr "Επιλέξτε Κατηγορία"
+#: lib/Application.php:216 lib/Form/Search.php:22 lib/Form/Search.php:30
+#: list.php:59 search.php:24 templates/list/header.html.php:4
+msgid "Search"
+msgstr "Αναζήτηση"
 
-#: /home/httpd/html/horde_cvs/po/../mnemo/templates/notepads/members/manage.inc:12
-msgid "Select a member"
-msgstr "Επιλέξτε ένα μέλος"
+#: list.php:52 notes/index.php:44
+msgid "Search Results"
+msgstr "Αποτελέσματα Αναζήτησης"
 
-#: /home/httpd/html/horde_cvs/po/../mnemo/templates/notepads/manage.inc:11
-msgid "Select a notepad"
-msgstr "Επιλέξτε σημειωματάριο"
-
+#: templates/data/export.inc:7
 msgid "Select the export format:"
 msgstr "Επιλέξτε τη μορφή εξόδου:"
 
+#: templates/data/import.inc:30
 msgid "Select the file to import:"
 msgstr "Επιλέξτε το αρχείο εισόδου:"
 
+#: templates/data/import.inc:8
 msgid "Select the format of the source file:"
-msgstr "Επιλέξτε τη μορφή του πηγαίου αρχείου:"
+msgstr "Επιλέξτε τη μορφή του αρχείου προέλευσης (εισαγωγής):"
 
-#: /home/httpd/html/horde_cvs/po/../mnemo/templates/data/export.inc:14
-msgid "Select the format to export to:"
-msgstr "Επιλέξτε τη μορφή για εξαγωγή σε:"
+#: config/prefs.php:109
+msgid ""
+"Select the notepads that, in addition to the default, should be used for "
+"synchronization with external devices:"
+msgstr ""
+"Επιλέξτε τα σημειωματάρια, τα οποία μαζί με το προεπιλεγμένο, θέλετε να "
+"συγχρονίζονται με εξωτερικές συσκευές:"
 
-#: /home/httpd/html/horde_cvs/po/../mnemo/templates/data/import.inc:1
-msgid "Select the source to import from:"
-msgstr "Επιλέξτε το αρχείο από το οποίο θα γίνει εισαγωγή:"
+#: lib/Application.php:133
+msgid "Shared Notepads"
+msgstr "Διαμοιραζόμενα Σημειωματάρια"
 
-msgid "Select your preferred language:"
-msgstr "Επιλέξτε την προτιμούμενη γλώσσα:"
+#: config/prefs.php:44
+msgid "Should the Notepad be shown in its own column in the List view?"
+msgstr ""
+"Θέλετε το σημειωματάριο να εμφανίζεται στη δική του στήλη στην προβολή "
+"Λίστας;"
 
-msgid "Set the your preferred display language."
-msgstr "Καθορίστε την προτιμούμενη γλώσσα που θα εμφανίζεται."
-
-#: /home/httpd/html/horde_cvs/po/../mnemo/templates/notepads/manage.inc:36
-msgid "Shared"
-msgstr "Κοινόχρηστα"
-
-#: /home/httpd/html/horde_cvs/po/../mnemo/templates/menu/menu.inc:38
-#: /home/httpd/html/horde_cvs/po/../mnemo/templates/notepads/members/manage.inc:41
-msgid "Show"
-msgstr "Εμφάνιση"
-
-#: lib/Block/summary.php:38
+#: lib/Block/Summary.php:36
 msgid "Show action buttons?"
 msgstr "Εμφάνιση πλήκτρων λειτουργιών;"
 
-#: /home/httpd/html/horde_cvs/po/../mnemo/config/prefs.php.dist:80
-msgid "Show highlight colors in the summary view?"
-msgstr "Εμφάνιση χρωμάτων έμφασης στην εμφάνιση περίληψης;"
-
+#: lib/Block/Summary.php:41
 msgid "Show notepad name?"
-msgstr "Εμφάνιση ονόματος σημειωματαρίου;"
+msgstr "Εμφάνιση ονόματος σημειωματάριου;"
 
-msgid "Show notes from these categories"
-msgstr "Εμφάνιση σημειώσεων αυτών των κατηγοριών"
+#: lib/Block/Note.php:40
+msgid "Show this note"
+msgstr "Εμφάνιση αυτής της σημείωσης"
 
-msgid "Some of Mnemo's configuration files are missing:"
-msgstr "Ορισμένα από τα αρχεία ρυθμίσεων του προγράμματος mnemo δεν υπάρχουν:"
+#: memo.php:231
+#, php-format
+msgid "Successfully saved \"%s\"."
+msgstr "Η Σημείωση \"%s\" αποθηκεύτηκε."
 
-msgid "Sort Direction"
-msgstr "Κατεύθυνση Ταξινόμησης"
+#: config/prefs.php:161
+msgid "Support separate notepads?"
+msgstr "Υποστήριξη ξεχωριστών σημειωματάριων;"
 
-msgid "Sort by Category"
-msgstr "Ταξινόμηση κατά Κατηγορία"
+#: config/prefs.php:27
+msgid "Synchronization Preferences"
+msgstr "Επιλογές Συγχρονισμού"
 
-msgid "Sort by Description"
-msgstr "Ταξινόμηση κατά Περιγραφή"
+#: lib/Form/EditNotepad.php:50
+msgid "System"
+msgstr "Σύστημα"
 
-msgid "Successfully saved '%s'."
-msgstr "Η Σημείωση '%s' αποθηκεύθηκε."
+#: templates/memo/memo.html.php:50
+msgid "T_ags:"
+msgstr "Ετικέτες:"
 
-#: /home/httpd/html/horde_cvs/po/../mnemo/data.php:33
-#: /home/httpd/html/horde_cvs/po/../mnemo/data.php:52
-msgid "The data was lost."
-msgstr "Τα δεδομένα χάθηκαν."
+#: data.php:43 templates/view/view.html.php:23
+msgid "Tags"
+msgstr "Ετικέτες"
 
-#: /home/httpd/html/horde_cvs/po/../mnemo/data.php:133
-msgid "The file contained no data."
-msgstr "Το αρχείο δεν περιέχει δεδομένα."
+#: data.php:144
+#, php-format
+msgid "The %s file didn't contain any notes."
+msgstr "Το αρχείο %s δεν περιείχε καμία σημείωση."
 
-#: /home/httpd/html/horde_cvs/po/../mnemo/notepads/members.php:104
-msgid "The member \"%s\" has been deleted."
-msgstr "Το μέλος '%s' διαγράφηκε."
+#: lib/Application.php:62
+msgid ""
+"The Content_Tagger class could not be found. Make sure the Content "
+"application is installed."
+msgstr ""
+"Η κλάση Content_Tagger δεν βρέθηκε.  Βεβαιωθείτε ότι η εφαρμογή Περιεχομένου "
+"έχει εγκατασταθεί."
 
-#: /home/httpd/html/horde_cvs/po/../mnemo/notepads/members.php:94
-msgid "The member \"%s\" has been saved."
-msgstr "Το μέλος '%s' αποθηκεύθηκε."
-
-#: /home/httpd/html/horde_cvs/po/../mnemo/memo.php:141
+#: memo.php:246
 msgid "The note was deleted."
 msgstr "Η σημείωση διαγράφηκε."
 
-#: /home/httpd/html/horde_cvs/po/../mnemo/notepads/prefs.php:64
+#: notepads/create.php:29
+#, php-format
 msgid "The notepad \"%s\" has been created."
 msgstr "Το σημειωματάριο '%s' δημιουργήθηκε."
 
-#: /home/httpd/html/horde_cvs/po/../mnemo/notepads/prefs.php:97
+#: notepads/delete.php:40
+#, php-format
 msgid "The notepad \"%s\" has been deleted."
 msgstr "Το σημειωματάριο '%s' διαγράφηκε."
 
-#: /home/httpd/html/horde_cvs/po/../mnemo/notepads/prefs.php:71
+#: notepads/edit.php:43
+#, php-format
+msgid "The notepad \"%s\" has been renamed to \"%s\"."
+msgstr "Το σημειωματάριο \"%s\" έχει μετονομαστεί σε \"%s\"."
+
+#: notepads/edit.php:45
+#, php-format
 msgid "The notepad \"%s\" has been saved."
-msgstr "Το σημειωματάριο '%s' αποθηκεύθηκε."
+msgstr "Το σημειωματάριο '%s' αποθηκεύτηκε."
 
-#: /home/httpd/html/horde_cvs/po/../mnemo/notepads/prefs.php:50
-msgid "The notepad name is empty."
-msgstr "Το όνομα του σημειωματαριου είναι κενό."
+#: memo.php:161
+msgid "The passwords don't match."
+msgstr "Ο κωδικός δεν ταιριάζει."
 
-msgid "The requested memo does not exist."
-msgstr "Η σημείωση που ζητήθηκε δεν υπάρχει."
-
-#: /home/httpd/html/horde_cvs/po/../mnemo/templates/view/no-memo.inc:3
-msgid "The requested note does not exist."
-msgstr "Η σημείωση που ζητήθηκε δεν υπάρχει."
-
-msgid "There was a problem deleting memos."
-msgstr "Παρουσιάστηκε πρόβλημα κατά την διαγραφή των σημειώσεων."
-
-#: /home/httpd/html/horde_cvs/po/../mnemo/data.php:104
-msgid ""
-"There was a problem with the file upload. The file may have been larger than "
-"the maximum allowed size."
+#: config/prefs.php:151
+#, php-format
+msgid "There was an error communicating with the ActiveSync server: %s"
 msgstr ""
-"Πρόβλημα κατά τη φόρτωση του αρχείου. Μάλλον το αρχείο είναι μεγαλύτερο από "
-"το μέγιστο επιτρεπόμενο μέγεθος."
+"Υπήρξε κάποιο σφάλμα κατά την διάρκεια της επικοινωνίας με τον ActiveSync "
+"εξυπηρετητή: %s"
 
-#: /home/httpd/html/horde_cvs/po/../mnemo/data.php:90
-msgid "There was an error importing the data."
-msgstr "Πρόβλημα κατά την εισαγωγή δεδομένων."
+#: data.php:147
+#, php-format
+msgid "There was an error importing the data: %s"
+msgstr "Υπήρξε ένα σφάλμα κατά την εισαγωγή δεδομένων: %s"
 
-#: /home/httpd/html/horde_cvs/po/../mnemo/data.php:117
-msgid "There was an error importing the uploaded file"
-msgstr "Πρόβλημα κατά την εισαγωγή του αρχείου που φορτώθηκε"
+#: lib/Api.php:268 lib/Api.php:425
+msgid "There was an error importing the iCalendar data."
+msgstr "Υπήρξε ένα σφάλμα κατά την εισαγωγή των iCalendar δεδομένων."
 
-#: /home/httpd/html/horde_cvs/po/../mnemo/memo.php:83
-#: /home/httpd/html/horde_cvs/po/../mnemo/memo.php:139
-msgid "There was an error removing the note."
-msgstr "Πρόβλημα κατά τη διαγραφή της σημείωσης."
-
-#: /home/httpd/html/horde_cvs/po/../mnemo/memo.php:114
-msgid "There was an error saving the note."
-msgstr "Πρόβλημα κατά την αποθήκευση της σημείωσης."
-
-#: /home/httpd/html/horde_cvs/po/../mnemo/data.php:152
-msgid "There were no memos to export."
-msgstr "Δεν υπάρχουν σημειώσεις για εξαγωγή."
-
-#: /home/httpd/html/horde_cvs/po/../mnemo/templates/prefs/category_management.inc:72
-msgid "These changes can not be undone!"
-msgstr "Οι αλλαγές δε μπορούν να ανεραιθούν!"
-
-#: /home/httpd/html/horde_cvs/po/../mnemo/templates/index/notconfigured.inc:25
-msgid "This file contains preferences for Mnemo."
-msgstr "Αυτό το αρχείο περιέχει τις ρυθμίσεις για το πρόγραμμα Mnemo."
-
-msgid ""
-"This file controls the stylesheet that is used to set colors and fonts in "
-"addition to or overriding Horde defaults."
+#: lib/Application.php:263
+#, php-format
+msgid "There was an error removing notes for %s. Details have been logged."
 msgstr ""
-"Αυτό το αρχείο περιέχει τις ρυθμίσεις για τα χρώματα και τις γραμματοσειρές, "
-"με τα οποία μπορούν να παρακαμφθούν τα προκαθορισμένα από το σύστημα."
+"Υπήρξε ένα σφάλμα κατά την διαγραφή σημειώσεων για %s. Οι λεπτομέρειες έχουν "
+"καταγραφεί."
 
+#: memo.php:248
+#, php-format
+msgid "There was an error removing the note: %s"
+msgstr "Υπήρξε ένα σφάλμα κατά τη διαγραφή της σημείωσης: %s"
+
+#: memo.php:229
+#, php-format
+msgid "There was an error saving the note: %s"
+msgstr "Υπήρξε ένα σφάλμα κατά την αποθήκευση της σημείωσης: %s"
+
+#: memo.php:60 note/pdf.php:42 view.php:45
+#, php-format
+msgid "There was an error viewing this notepad: %s"
+msgstr "Υπήρξε ένα σφάλμα κατά την προβολή αυτού του σημειωματάριου: %s"
+
+#: data.php:70
+msgid "This file format is not supported."
+msgstr "Ο τύπος αρχείου δεν υποστηρίζεται."
+
+#: memo.php:39 view.php:77
+msgid "This note cannot be decrypted:"
+msgstr "Αυτή η σημείωση δεν μπορεί να αποκρυπτογραφηθεί:"
+
+#: memo.php:32 memo.php:42 view.php:72 view.php:80
 msgid ""
-"This is the main Mnemo configuration file. It contains options for all Mnemo "
-"scripts."
+"This note has been encrypted, and cannot be decrypted without a secure web "
+"connection"
 msgstr ""
-"Αυτό είναι το βασικό αρχείο ρυθμίσεων του Mnemo. Περιέχει τα μονοπάτια και "
-"τις επιλογές για τα Mnemo scripts."
+"Αυτή η σημείωση είναι κρυπτογραφημένη, και δεν μπορεί να αποκρυπτογραφηθεί "
+"χωρίς ασφαλή σύνδεση"
 
-#: /home/httpd/html/horde_cvs/po/../mnemo/memo.php:64
-msgid "Unable to create to category: %s"
-msgstr "Αδύνατη η δημιουργία στη κατηγορία: %s"
+#: memo.php:29 view.php:69
+msgid "This note has been encrypted, please provide the password."
+msgstr ""
+"H σημείωση αυτή έχει κρυπτογραφηθεί, παρακαλώ δώστε  τον κωδικό "
+"αποκρυπτογράφησης (password)."
 
-#: /home/httpd/html/horde_cvs/po/../mnemo/notepads/prefs.php:93
-msgid "Unable to delete \"%s\": %s"
-msgstr "Αδύνατη η διαγραφή '%s': %s"
+#: lib/Driver/Kolab.php:321 lib/Driver/Sql.php:331
+msgid "This note has been encrypted."
+msgstr "Αυτή η σημείωση είναι κρυπτογραφημένη."
 
-msgid "Undo changes"
-msgstr "Ακύρωση Αλλαγών"
+#: lib/Form/Search.php:27
+msgid "Title"
+msgstr "Τίτλος"
 
-msgid "Unfiled"
-msgstr "Μη Κατηγοριοποιημένο"
+#: lib/Api.php:312 lib/Api.php:364 lib/Api.php:453
+#, php-format
+msgid "Unsupported Content-Type: %s"
+msgstr "Μη υποστηριζόμενος τύπος περιεχομένου: %s"
 
-msgid "Unknown memo"
-msgstr "Αγνωστη σημείωση"
+#: lib/Block/Note.php:22
+msgid "View note"
+msgstr "Εμφάνιση σημείωσης"
 
-msgid "Unknown note"
-msgstr "Αγνωστη σημείωση"
-
-msgid "User Options"
-msgstr "Επιλογές Χρήστη"
-
-msgid "View Memo Details"
-msgstr "Εμφάνιση Λεπτομερειών Σημείωσης"
-
-msgid "View Note Details"
-msgstr "Εμφάνιση Λεπτομερειών Σημείωσης"
-
-msgid "What is the delimiter character?"
-msgstr "Ποιός είναι ο διαχωριστικος χαρακτήρας;"
-
-msgid "What is the quote character?"
-msgstr "Ποιός είναι ο χαρακτήρας 'εισαγωγικά';"
-
-#: /home/httpd/html/horde_cvs/po/../mnemo/templates/data/import.inc:2
+#: templates/data/import.inc:15
 msgid "Which Notepad should the notes be added to?"
-msgstr "Σε ποιό Σημειωματάριο θα προστεθούν οι σημειώσεις;"
+msgstr "Σε ποιο Σημειωματάριο θα προστεθούν οι σημειώσεις;"
 
-msgid "You have no memos."
-msgstr "Δεν έχετε σημειώσεις."
+#: data.php:34 data.php:87 memo.php:86
+#, php-format
+msgid "You are not allowed to create more than %d notes."
+msgstr "Δεν σας επιτρέπεται να δημιουργήσετε παραπάνω από %d σημειώσεις."
 
-msgid "You have no notes."
-msgstr "Δεν έχετε σημειώσεις."
+#: notepads/delete.php:30
+msgid "You are not allowed to delete this notepad."
+msgstr "Δεν σας επιτρέπεται να διαγράψετε αυτό το σημειωματάριο."
 
-#: /home/httpd/html/horde_cvs/po/../mnemo/notepads/prefs.php:100
-msgid "You must select a notepad to be deleted."
-msgstr "Πρέπει να επιλέξετε ένα σημειωματάριο για διαγραφή."
+#: notepads/edit.php:32
+msgid "You are not allowed to see this notepad."
+msgstr "Δεν επιτρέπεται να δείτε το σημειωματάριο αυτό."
 
-#: /home/httpd/html/horde_cvs/po/../mnemo/notepads/members.php:106
-msgid "You must select an member to be deleted."
-msgstr "Πρέπει να επιλέξετε ένα μέλος για διαγραφή."
+#: lib/Ajax/Imple/EditNote.php:27
+msgid "You do not have permission to edit this note."
+msgstr "Δεν έχετε δικαιώματα να επεξεργαστείτε αυτή τη σημείωση."
 
-msgid "You must select at least one memo first."
-msgstr "Πρέπει πρώτα να επιλέξετε τουλάχιστον μία σημείωση."
+#: note/pdf.php:46 view.php:49
+msgid "You do not have permission to view this notepad."
+msgstr "Δεν έχετε δικαιώματα να δείτε το σημειωματάριο αυτό."
 
-msgid "Your Information"
-msgstr "Οι Πληροφορίες Σας"
-
+#: config/prefs.php:76
 msgid "Your default notepad:"
-msgstr "Το προκαθορισμένο σας Σημειωματάριο:"
+msgstr "Το προεπιλεγμένο  Σημειωματάριο σας:"
 
-#: /home/httpd/html/horde_cvs/po/../mnemo/templates/notepads/members/manage.inc:10
-msgid "Your members:"
-msgstr "Τα μέλη σας:"
-
-msgid "Your notepads:"
-msgstr "Τα σημειωματάριά σου:"
-
-msgid "Save Options"
-msgstr "Αποθήκευση Επιλογών"
-
-msgid "Return to Options"
-msgstr "Επιστροφή στις Επιλογές"
-
-msgid ""
-"Unlike real sticky notes, your computer notes can be shared with others in "
-"different physical locations. Notes can be organized into different "
-"notepads, and assigned categories."
-msgstr ""
-"Σε αντίθεση με τα κίτρινα χαρτάκια, οι σημειώσεις του υπολογιστή σας μπορούν "
-"να διαμοιρασθούν με άλλους σε διαφορετικές τοποθεσίες. Μπορούν να οργανωθούν "
-"σε διαφορετικά σημειωματάρια και να κατηγοριοποιηθούν."
-
-msgid "Use Default Value"
-msgstr "Χρήση προκαθορισμένης τιμής"
-
-msgid "_Back to Notepad"
-msgstr "Πίσω στο Σημειωματάριο"
-
-msgid "_Category"
-msgstr "Κατηγορία"
-
+#: view.php:122
 msgid "_Delete"
 msgstr "Διαγραφή"
 
+#: view.php:129
 msgid "_Edit"
 msgstr "Διόρθωση"
 
-msgid "_First Line"
-msgstr "Πρώτη Γραμμή"
+#: templates/memo/memo.html.php:59
+msgid "_Encrypt?"
+msgstr "Κρυπτογράφηση;"
 
+#: lib/Application.php:93
 msgid "_Import/Export"
 msgstr "Εισαγωγή/Εξαγωγή"
 
+#: lib/Application.php:86
 msgid "_List Notes"
 msgstr "Λίστα Σημειώσεων"
 
-msgid "_My Notepads"
-msgstr "Τα σημειωματάριά μου"
-
+#: lib/Application.php:109
 msgid "_New Note"
 msgstr "Νέα Σημείωση"
 
+#: templates/memo/memo.html.php:11 templates/view/view.html.php:56
+msgid "_Password"
+msgstr "Κωδικός Πρόσβασης"
+
+#: templates/memo/memo.html.php:64
+msgid "_Password:"
+msgstr "Κωδικός Πρόσβασης:"
+
+#: templates/memo/memo.html.php:68
+msgid "_Repeat:"
+msgstr "Επανάληψη:"
+
+#: lib/Application.php:89
 msgid "_Search"
 msgstr "Αναζήτηση"
+
+#: lib/Driver/Sql.php:366 lib/Driver/Sql.php:375
+#, php-format
+msgid "by %s"
+msgstr "από %s"
+
+#: lib/Driver/Sql.php:368 lib/Driver/Sql.php:377
+msgid "by me"
+msgstr "από εμένα"
+
+#: lib/Application.php:204
+#, php-format
+msgid "in %s"
+msgstr "στο %s"
+
+#: lib/Application.php:301 templates/data/export.inc:3
+msgid "notes.csv"
+msgstr "notes.csv"
+
+#: data.php:22 templates/data/import.inc:11
+msgid "vNote"
+msgstr "vNote"

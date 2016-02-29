@@ -2,6 +2,7 @@
 v6.2.13-git
 -----------
 
+[jan] Update Greek translation (Limperis Antonis <limperis@cti.gr>).
 [jan] Fix creating new trash folder from preference screen.
 [jan] Fix finding reply or forward text from signed or encrypted messages with
       HTML content.

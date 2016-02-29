@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Update Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
 * [jan] Fix creating new trash folder from preference screen.
 * [jan] Fix finding reply or forward text from signed or encrypted messages with HTML content.
  </notes>
@@ -3913,6 +3914,7 @@
    <date>2016-02-02</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Update Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
 * [jan] Fix creating new trash folder from preference screen.
 * [jan] Fix finding reply or forward text from signed or encrypted messages with HTML content.
    </notes>
