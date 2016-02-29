@@ -22,7 +22,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-02-02</date>
+ <date>2016-02-29</date>
  <version>
   <release>1.1.5</release>
   <api>1.1.0</api>
@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
+* [jan] Add Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
 * [cjh] Fix error when deleting bookmarks.
  </notes>
  <contents>
@@ -126,6 +127,12 @@
      </dir> <!-- /locale/de/LC_MESSAGES -->
      <file name="help.xml" role="horde" />
     </dir> <!-- /locale/de -->
+    <dir name="el">
+     <dir name="LC_MESSAGES">
+      <file name="trean.mo" role="horde" />
+      <file name="trean.po" role="horde" />
+     </dir> <!-- /locale/el/LC_MESSAGES -->
+    </dir> <!-- /locale/el -->
     <dir name="en">
      <file name="help.xml" role="horde" />
     </dir> <!-- /locale/en -->
@@ -496,6 +503,8 @@
    <install as="trean/locale/de/help.xml" name="locale/de/help.xml" />
    <install as="trean/locale/de/LC_MESSAGES/trean.mo" name="locale/de/LC_MESSAGES/trean.mo" />
    <install as="trean/locale/de/LC_MESSAGES/trean.po" name="locale/de/LC_MESSAGES/trean.po" />
+   <install as="trean/locale/el/LC_MESSAGES/trean.mo" name="locale/el/LC_MESSAGES/trean.mo" />
+   <install as="trean/locale/el/LC_MESSAGES/trean.po" name="locale/el/LC_MESSAGES/trean.po" />
    <install as="trean/locale/en/help.xml" name="locale/en/help.xml" />
    <install as="trean/locale/es/help.xml" name="locale/es/help.xml" />
    <install as="trean/locale/es/LC_MESSAGES/trean.mo" name="locale/es/LC_MESSAGES/trean.mo" />
@@ -751,9 +760,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-02-02</date>
+   <date>2016-02-29</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
+* [jan] Add Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
 * [cjh] Fix error when deleting bookmarks.
    </notes>
   </release>
