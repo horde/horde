@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-02-02</date>
+ <date>2016-02-29</date>
  <version>
   <release>3.0.8</release>
   <api>3.0.0</api>
@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [jan] Add Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -115,6 +115,12 @@
      </dir> <!-- /locale/de/LC_MESSAGES -->
      <file name="help.xml" role="horde" />
     </dir> <!-- /locale/de -->
+    <dir name="el">
+     <dir name="LC_MESSAGES">
+      <file name="gollem.mo" role="horde" />
+      <file name="gollem.po" role="horde" />
+     </dir> <!-- /locale/el/LC_MESSAGES -->
+    </dir> <!-- /locale/el -->
     <dir name="en">
      <file name="help.xml" role="horde" />
     </dir> <!-- /locale/en -->
@@ -511,6 +517,8 @@
    <install as="gollem/locale/de/help.xml" name="locale/de/help.xml" />
    <install as="gollem/locale/de/LC_MESSAGES/gollem.mo" name="locale/de/LC_MESSAGES/gollem.mo" />
    <install as="gollem/locale/de/LC_MESSAGES/gollem.po" name="locale/de/LC_MESSAGES/gollem.po" />
+   <install as="gollem/locale/el/LC_MESSAGES/gollem.mo" name="locale/el/LC_MESSAGES/gollem.mo" />
+   <install as="gollem/locale/el/LC_MESSAGES/gollem.po" name="locale/el/LC_MESSAGES/gollem.po" />
    <install as="gollem/locale/en/help.xml" name="locale/en/help.xml" />
    <install as="gollem/locale/es/help.xml" name="locale/es/help.xml" />
    <install as="gollem/locale/es/LC_MESSAGES/gollem.mo" name="locale/es/LC_MESSAGES/gollem.mo" />
@@ -887,10 +895,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-02-02</date>
+   <date>2016-02-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [jan] Add Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
    </notes>
   </release>
  </changelog>
