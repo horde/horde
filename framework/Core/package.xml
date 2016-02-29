@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Don&apos;t call authusername() hook on administrator names when running CLI scripts.
 * [jan] Update Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
 * [mjr] Fix fatal error with broken EAS clients searching the Outbox.
  </notes>
@@ -4158,6 +4159,7 @@
    <date>2016-02-23</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Don&apos;t call authusername() hook on administrator names when running CLI scripts.
 * [jan] Update Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
 * [mjr] Fix fatal error with broken EAS clients searching the Outbox.
    </notes>
