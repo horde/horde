@@ -1,0 +1,368 @@
+# Trean Greek translation
+# Copyright 2012-2016 Horde LLC (http://www.horde.org/)
+# This file is distributed under the same license as the Trean package.
+# Giorgos Strimpakos <strimpak.geo@gmail.com>, 2012.
+# Terpou Maria <mterpou@cti.gr>, 2015
+# Drakopoulos Takis <tdrakop@cti.gr>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Trean\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2014-10-29 12:14+0100\n"
+"PO-Revision-Date: 2016-02-29 12:31+0100\n"
+"Last-Translator: Antonis Limperis <limperis@cti.gr>\n"
+"Language-Team: i18n@lists.horde.org\n"
+"Language: el\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.7.6\n"
+
+#: lib/Block/Bookmarks.php:53 lib/Block/Mostclicked.php:44
+msgid "1 Line"
+msgstr "1 Γραμμή"
+
+#: lib/Block/Bookmarks.php:41 lib/Block/Mostclicked.php:32
+msgid "10 rows"
+msgstr "10 γραμμές"
+
+#: lib/Block/Bookmarks.php:42 lib/Block/Mostclicked.php:33
+msgid "15 rows"
+msgstr "15 γραμμές"
+
+#: lib/Block/Bookmarks.php:52 lib/Block/Mostclicked.php:43
+msgid "2 Line"
+msgstr "2 Γραμμή"
+
+#: lib/Block/Bookmarks.php:43 lib/Block/Mostclicked.php:34
+msgid "25 rows"
+msgstr "25 γραμμές"
+
+#: lib/Block/Bookmarks.php:51 lib/Block/Mostclicked.php:42
+msgid "3 Line"
+msgstr "3 Γραμμή"
+
+#: templates/add.html.php:52
+msgid "Add"
+msgstr "Προσθήκη"
+
+#: templates/bookmarklet.html.php:1
+msgid "Add to Bookmarks"
+msgstr "Προσθήκη στους Σελιδοδείκτες"
+
+#: templates/list.html.php:13
+msgid "Added"
+msgstr "Προστέθηκε"
+
+#: config/prefs.php:36
+msgid "Ascending (A to Z or oldest to newest)"
+msgstr "Αύξουσα (Α έως το Ω ή παλαιότερο προς το νεότερο)"
+
+#: add.php:47
+msgid "Bookmark Added"
+msgstr "Ο Σελιδοδείκτης Προστέθηκε"
+
+#: edit.php:19
+#, php-format
+msgid "Bookmark not found: %s."
+msgstr "Ο σελιδοδείκτης \"%s\" δεν βρέθηκε."
+
+#: config/prefs.php:26
+msgid "Bookmarked on"
+msgstr "Σελιδοδείκτης για"
+
+#: lib/Block/Bookmarks.php:19 lib/Block/Bookmarks.php:64
+#: lib/View/BookmarkList.php:119
+msgid "Bookmarks"
+msgstr "Σελιδοδείκτες"
+
+#: lib/Trean.php:71
+msgid "Bookmarks Feed"
+msgstr "Feed Σελιδοδεικτών"
+
+#: data.php:87
+msgid "Bookmarks successfully imported"
+msgstr "Επιτυχημένη εισαγωγή σελιδοδεικτών"
+
+#: browse.php:31
+msgid "Browse"
+msgstr "Εξερεύνηση"
+
+#: data.php:78
+msgid "Can't create a new bookmark."
+msgstr "Αδύνατη η δημιουργία νέου σελιδοδείκτη."
+
+#: templates/add.html.php:53 templates/edit.html.php:63
+msgid "Cancel"
+msgstr "Ακύρωση "
+
+#: templates/list.html.php:14
+msgid "Clicks"
+msgstr "Κλικς"
+
+#: lib/Api.php:131
+msgid "Close"
+msgstr "Κλείσιμο"
+
+#: app/controllers/DeleteBookmark.php:13
+msgid "Deleted bookmark: "
+msgstr "Διεγραμμένοι Σελιδοδείκτες:"
+
+#: config/prefs.php:37
+msgid "Descending (9 to 1 or newest to oldest)"
+msgstr "Φθίνουσα (9-1 ή νεότερο προς παλαιότερο)"
+
+#: templates/add.html.php:25 templates/edit.html.php:34
+msgid "Description"
+msgstr "Περιγραφή"
+
+#: config/prefs.php:13
+msgid "Display Preferences"
+msgstr "Επιλογές Εμφάνισης"
+
+#: lib/Block/Bookmarks.php:37
+msgid "Display Rows"
+msgstr "Εμφάνιση γραμμών"
+
+#: templates/add.html.php:64
+msgid "Drag the \"Add to Bookmarks\" link below onto your \"Links\" Bar"
+msgstr ""
+"Σύρετε τον  παρακάτω σύνδεσμο \"Προσθήκη στους Σελιδοδείκτες \"  επάνω  "
+"Γραμμή   \"Συνδέσεων \" "
+
+#: templates/add.html.php:62
+msgid ""
+"Drag the \"Add to Bookmarks\" link below onto your \"Personal Toolbar\"."
+msgstr ""
+"Σύρετε τον  παρακάτω σύνδεσμο \"Προσθήκη στους Σελιδοδείκτες \"  επάνω  στην "
+"\"Προσωπική γραμμή Γραμμή Εργαλείων\" "
+
+#: templates/list.html.php:58
+msgid "Edit"
+msgstr "Επεξεργασία"
+
+#: edit.php:42
+msgid "Edit Bookmark"
+msgstr "Επεξεργασία Σελιδοδείκτη"
+
+#: data.php:16
+msgid "Firefox JSON"
+msgstr ""
+
+#: templates/add.html.php:61
+msgid "Firefox/Mozilla"
+msgstr ""
+
+#: templates/data/import.inc:23
+msgid "Import"
+msgstr "Εισαγωγή"
+
+#: data.php:93 templates/data/import.inc:7
+msgid "Import Bookmarks"
+msgstr "Εισαγωγή Σελιδοδεικτών"
+
+#: templates/add.html.php:63
+msgid "Internet Explorer"
+msgstr ""
+
+#: templates/add.html.php:38 templates/edit.html.php:47
+msgid "Loading..."
+msgstr "Φόρτωση..."
+
+#: lib/Application.php:76
+msgid "Maximum Number of Bookmarks"
+msgstr "Μέγιστο πλήθος Σελιδοδεικτών"
+
+#: config/prefs.php:25 lib/Block/Bookmarks.php:33
+msgid "Most Clicked"
+msgstr "Με τα περισσότερα κλικ"
+
+#: lib/Block/Mostclicked.php:19
+msgid "Most-clicked Bookmarks"
+msgstr "Σύνδεσμοι με τα περισσότερα κλικ"
+
+#: add.php:78 templates/add.html.php:9
+msgid "New Bookmark"
+msgstr "Νέος Σελιδοδείκτης"
+
+#: search.php:43
+msgid "No bookmarks found"
+msgstr "Δεν βρέθηκαν σελιδοδείκτες."
+
+#: lib/Block/Bookmarks.php:91 lib/Block/Mostclicked.php:72
+msgid "No bookmarks to display"
+msgstr "Δεν υπάρχουν σελιδοδείκτες  για εμφάνιση"
+
+#: browse.php:18
+msgid "No bookmarks yet."
+msgstr "Δεν υπάρχουν σελιδοδείκτες ακόμα."
+
+#: search.php:50
+msgid "No search"
+msgstr "Κλείσιμο Αναζήτησης"
+
+#: templates/add.html.php:67
+msgid "Note:"
+msgstr "Σημείωση:"
+
+#: lib/Block/Mostclicked.php:28
+msgid "Number of bookmarks to show"
+msgstr "Αριθμός σελιδοδεικτών προς εμφάνιση"
+
+#: templates/add.html.php:68
+#, php-format
+msgid ""
+"On newer versions of Internet Explorer, you may have to add %s://%s to your "
+"Trusted Zone for this to work."
+msgstr ""
+"Στιςς νεότερες εκδόσεις του Internet Explorer, μπορεί να χρειαστεί να "
+"προσθέσετε το  % s: //% s  στην Trusted Zone για να λειτουργήσει αυτό."
+
+#: config/prefs.php:46
+msgid "Open links in a new window?"
+msgstr "Άνοιγμα συνδέσμου σε νέο παράθυρο;"
+
+#: config/prefs.php:12
+msgid "Other Preferences"
+msgstr "Άλλες Επιλογές"
+
+#: templates/add.html.php:43 templates/edit.html.php:52
+msgid "Previously used tags"
+msgstr "Παλιότερες Ετικέτες"
+
+#: lib/View/BookmarkList.php:213
+msgid "Remove from search"
+msgstr "Αφαίρεση από την αναζήτηση "
+
+#: templates/edit.html.php:62
+msgid "Save"
+msgstr "Αποθήκευση"
+
+#: search.php:36
+msgid "Search"
+msgstr "Αναζήτηση"
+
+#: search.php:47
+#, php-format
+msgid "Search results (%s)"
+msgstr "Αποτελέσματα Αναζήτησης (%s)"
+
+#: templates/add.html.php:41 templates/edit.html.php:50
+msgid "See previously used tags"
+msgstr "Δείτε προηγούμενες χρησιμοποιημένες Ετικέτες"
+
+#: templates/data/import.inc:18
+msgid "Select the file to import:"
+msgstr "Παρακαλώ επιλέξτε αρχείο για εισαγωγή:"
+
+#: templates/data/import.inc:11
+msgid "Select the format of the source file:"
+msgstr "Επιλέξτε την μορφή του αρχείου Εισαγωγής:"
+
+#: config/prefs.php:14
+msgid "Set how to display bookmark listings and how to open links."
+msgstr ""
+"Ρυθμίσετε τον τρόπο εμφάνισης της λίστας σελιδοδεικτών και πώς να ανοίγουν "
+"οι σύνδεσμοι."
+
+#: config/prefs.php:28
+msgid "Sort bookmarks by:"
+msgstr "Ταξινόμηση σελιδοδεικτών κατά:"
+
+#: lib/Block/Bookmarks.php:28
+msgid "Sort by"
+msgstr "Ταξιμόνηση κατά"
+
+#: config/prefs.php:38
+msgid "Sort direction:"
+msgstr "Σιερά ταξινόμησης:"
+
+#: app/controllers/BrowseByTag.php:23
+#, php-format
+msgid "Tagged with %s"
+msgstr "Mε ετικέτα:  %s"
+
+#: lib/Application.php:102 templates/add.html.php:30
+#: templates/edit.html.php:39
+msgid "Tags"
+msgstr "Ετικέτες"
+
+#: lib/Block/Bookmarks.php:47 lib/Block/Mostclicked.php:38
+msgid "Template"
+msgstr "Πρότυπο"
+
+#: data.php:70
+msgid "The file didn't contain any bookmarks."
+msgstr "Το αρχείο δεν περιέχει σελιδοδείκτες."
+
+#: app/controllers/DeleteBookmark.php:16
+#, php-format
+msgid "There was a problem deleting the bookmark: %s"
+msgstr "Υπήρξε πρόβλημα κατά την διαγραφή του σελιδοδείκτη: %s"
+
+#: add.php:41
+#, php-format
+msgid "There was an error adding the bookmark: %s"
+msgstr "Πρόβλημα κατά τη προσθήκη του σελιδοδείκτη: %s"
+
+#: app/controllers/SaveBookmark.php:25
+#, php-format
+msgid "There was an error saving the bookmark: %s"
+msgstr "Υπήρξε ένα σφάλμα κατά την αποθήκευση του σελιδοδείκτη: %s"
+
+#: data.php:79
+#, php-format
+msgid "This is what the server said: %s"
+msgstr "Αυτό είναι το μήνυμα του εξυπηρετητή: %s"
+
+#: config/prefs.php:24 lib/Block/Bookmarks.php:32 templates/add.html.php:20
+#: templates/edit.html.php:29 templates/list.html.php:12
+msgid "Title"
+msgstr "Τίτλος"
+
+#: templates/add.html.php:60
+msgid "To be able to quickly add bookmarks from your web browser:"
+msgstr ""
+"Για να μπορέσετε να προσθέσετε γρήγορα σελιδοδείκτες από τον φυλλομετρητή "
+"σας:"
+
+#: templates/add.html.php:15 templates/edit.html.php:24
+msgid "URL"
+msgstr "Ηλεκτρονική Διεύθυνση"
+
+#: templates/add.html.php:65
+msgid ""
+"While browsing you will be able to bookmark the current page by clicking "
+"your new \"Add to Bookmarks\" shortcut."
+msgstr ""
+"Κατά την περιήγηση σας θα μπορείτε να ορίσετε σελιδοδείκτη στην τρέχουσα "
+"σελίδα, κάνοντας κλικ στο νέα συντόμευση  \"Προσθήκη στους σελιδοδείκτες \"."
+
+#: add.php:25
+#, php-format
+msgid "You are not allowed to create more than %d bookmarks."
+msgstr ""
+"Δεν σας επιτρέπεται να δημιουργήσετε περισσότερους από %d σελιδοδείκτες."
+
+#: lib/Application.php:86
+msgid "_Browse"
+msgstr "Εξερεύνηση"
+
+#: lib/Application.php:87
+msgid "_Import"
+msgstr "Εισαγωγή"
+
+#: lib/Application.php:97
+msgid "_New Bookmark"
+msgstr "Νέος Σελιδοδείκτης"
+
+#: templates/block/1line.inc:21 templates/block/2line.inc:24
+#: templates/block/standard.inc:22
+msgid "click"
+msgstr "κλικ"
+
+#: templates/block/1line.inc:21 templates/block/2line.inc:24
+#: templates/block/standard.inc:22
+msgid "clicks"
+msgstr "κλικς"
