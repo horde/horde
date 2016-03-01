@@ -67,6 +67,7 @@ extends PHPUnit_Framework_TestCase
                 'session' => 'Horde_Session',
             )
         );
+        $GLOBALS['injector']->setInstance('Content_Objects_Manager', new Content_Objects_Manager());
         $GLOBALS['injector']->setInstance('Content_Tagger', new Content_Tagger());
         $GLOBALS['injector']->setInstance('Content_Types_Manager', new Content_Types_Manager());
         $GLOBALS['conf']['prefs']['driver'] = 'Null';
