@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2016-01-13</date>
+ <date>2016-03-01</date>
  <version>
   <release>4.3.0</release>
   <api>4.2.0</api>
@@ -130,6 +130,9 @@
      </dir> <!-- /lib/Ajax/Imple -->
      <file name="Application.php" role="horde" />
     </dir> <!-- /lib/Ajax -->
+    <dir name="Attendee">
+     <file name="List.php" role="horde" />
+    </dir> <!-- /lib/Attendee -->
     <dir name="Block">
      <file name="Month.php" role="horde" />
      <file name="Monthlist.php" role="horde" />
@@ -260,6 +263,7 @@
     <file name="Ajax.php" role="horde" />
     <file name="Api.php" role="horde" />
     <file name="Application.php" role="horde" />
+    <file name="Attendee.php" role="horde" />
     <file name="Calendar.php" role="horde" />
     <file name="CalendarsManager.php" role="horde" />
     <file name="Day.php" role="horde" />
@@ -656,6 +660,7 @@
     <dir name="Kronolith">
      <dir name="fixtures">
       <file name="allday.ics" role="test" />
+      <file name="attendees.php" role="test" />
       <file name="bug7068.ics" role="test" />
       <file name="bug11688.ics" role="test" />
       <file name="export1.ics" role="test" />
@@ -692,11 +697,16 @@
      <dir name="Stub">
       <file name="CalendarManager.php" role="test" />
       <file name="Driver.php" role="test" />
+      <file name="Objects.php" role="test" />
       <file name="Registry.php" role="test" />
       <file name="ShareFactory.php" role="test" />
       <file name="Tagger.php" role="test" />
       <file name="Types.php" role="test" />
      </dir> <!-- /test/Kronolith/Stub -->
+     <dir name="Unit">
+      <file name="AttendeeListTest.php" role="test" />
+      <file name="AttendeeTest.php" role="test" />
+     </dir> <!-- /test/Kronolith/Unit -->
      <file name="AllTests.php" role="test" />
      <file name="Autoload.php" role="test" />
      <file name="bootstrap.php" role="test" />
@@ -768,6 +778,7 @@
       <file name="new_small.png" role="horde" />
       <file name="new_small_fade.png" role="horde" />
       <file name="new_task.png" role="horde" />
+      <file name="organizer.png" role="horde" />
       <file name="picker.png" role="horde" />
       <file name="plus.png" role="horde" />
       <file name="prefs.png" role="horde" />
@@ -825,7 +836,7 @@
  <dependencies>
   <required>
    <php>
-    <min>5.3.0</min>
+    <min>5.3.4</min>
     <max>6.0.0alpha1</max>
     <exclude>6.0.0alpha1</exclude>
    </php>
@@ -1163,6 +1174,7 @@
    <install as="kronolith/lib/Ajax.php" name="lib/Ajax.php" />
    <install as="kronolith/lib/Api.php" name="lib/Api.php" />
    <install as="kronolith/lib/Application.php" name="lib/Application.php" />
+   <install as="kronolith/lib/Attendee.php" name="lib/Attendee.php" />
    <install as="kronolith/lib/Calendar.php" name="lib/Calendar.php" />
    <install as="kronolith/lib/CalendarsManager.php" name="lib/CalendarsManager.php" />
    <install as="kronolith/lib/Day.php" name="lib/Day.php" />
@@ -1181,6 +1193,7 @@
    <install as="kronolith/lib/Ajax/Imple/ContactAutoCompleter.php" name="lib/Ajax/Imple/ContactAutoCompleter.php" />
    <install as="kronolith/lib/Ajax/Imple/ResourceAutoCompleter.php" name="lib/Ajax/Imple/ResourceAutoCompleter.php" />
    <install as="kronolith/lib/Ajax/Imple/TagAutoCompleter.php" name="lib/Ajax/Imple/TagAutoCompleter.php" />
+   <install as="kronolith/lib/Attendee/List.php" name="lib/Attendee/List.php" />
    <install as="kronolith/lib/Block/Month.php" name="lib/Block/Month.php" />
    <install as="kronolith/lib/Block/Monthlist.php" name="lib/Block/Monthlist.php" />
    <install as="kronolith/lib/Block/Prevmonthlist.php" name="lib/Block/Prevmonthlist.php" />
@@ -1449,6 +1462,7 @@
    <install as="Kronolith/phpunit.xml" name="test/Kronolith/phpunit.xml" />
    <install as="Kronolith/TestCase.php" name="test/Kronolith/TestCase.php" />
    <install as="Kronolith/fixtures/allday.ics" name="test/Kronolith/fixtures/allday.ics" />
+   <install as="Kronolith/fixtures/attendees.php" name="test/Kronolith/fixtures/attendees.php" />
    <install as="Kronolith/fixtures/bug7068.ics" name="test/Kronolith/fixtures/bug7068.ics" />
    <install as="Kronolith/fixtures/bug11688.ics" name="test/Kronolith/fixtures/bug11688.ics" />
    <install as="Kronolith/fixtures/export1.ics" name="test/Kronolith/fixtures/export1.ics" />
@@ -1469,10 +1483,13 @@
    <install as="Kronolith/Integration/Kronolith/Sql/Pdo/SqliteTest.php" name="test/Kronolith/Integration/Kronolith/Sql/Pdo/SqliteTest.php" />
    <install as="Kronolith/Stub/CalendarManager.php" name="test/Kronolith/Stub/CalendarManager.php" />
    <install as="Kronolith/Stub/Driver.php" name="test/Kronolith/Stub/Driver.php" />
+   <install as="Kronolith/Stub/Objects.php" name="test/Kronolith/Stub/Objects.php" />
    <install as="Kronolith/Stub/Registry.php" name="test/Kronolith/Stub/Registry.php" />
    <install as="Kronolith/Stub/ShareFactory.php" name="test/Kronolith/Stub/ShareFactory.php" />
    <install as="Kronolith/Stub/Tagger.php" name="test/Kronolith/Stub/Tagger.php" />
    <install as="Kronolith/Stub/Types.php" name="test/Kronolith/Stub/Types.php" />
+   <install as="Kronolith/Unit/AttendeeListTest.php" name="test/Kronolith/Unit/AttendeeListTest.php" />
+   <install as="Kronolith/Unit/AttendeeTest.php" name="test/Kronolith/Unit/AttendeeTest.php" />
    <install as="kronolith/themes/default/embed.css" name="themes/default/embed.css" />
    <install as="kronolith/themes/default/ie8.css" name="themes/default/ie8.css" />
    <install as="kronolith/themes/default/opera.css" name="themes/default/opera.css" />
@@ -1528,6 +1545,7 @@
    <install as="kronolith/themes/default/graphics/new_small.png" name="themes/default/graphics/new_small.png" />
    <install as="kronolith/themes/default/graphics/new_small_fade.png" name="themes/default/graphics/new_small_fade.png" />
    <install as="kronolith/themes/default/graphics/new_task.png" name="themes/default/graphics/new_task.png" />
+   <install as="kronolith/themes/default/graphics/organizer.png" name="themes/default/graphics/organizer.png" />
    <install as="kronolith/themes/default/graphics/picker.png" name="themes/default/graphics/picker.png" />
    <install as="kronolith/themes/default/graphics/plus.png" name="themes/default/graphics/plus.png" />
    <install as="kronolith/themes/default/graphics/prefs.png" name="themes/default/graphics/prefs.png" />
@@ -2739,7 +2757,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2016-01-13</date>
+   <date>2016-03-01</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Support for subset of features of ActiveSync 16.0.
