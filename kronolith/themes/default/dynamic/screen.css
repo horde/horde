@@ -338,7 +338,7 @@ ul.horde-tags li:hover {
 #kronolithEventTabResources td.kronolithAttendeeDeclined,
 #kronolithEventTabAttendees td.kronolithAttendeeTentative,
 #kronolithEventTabAttendees td.kronolithAttendeeOrganizer {
-    background-position: 0 0;
+    background-position: 0 -1px;
     background-repeat: no-repeat;
     padding-left: 21px;
 }
