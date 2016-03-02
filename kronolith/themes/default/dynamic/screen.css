@@ -295,10 +295,10 @@ ul.horde-tags li:hover {
 #kronolithEventTabAttendees td, #kronolithEventTabAttendees th,
 #kronolithEventTabResources td, #kronolithEventTabResources th {
     border: 1px solid #999;
-    padding: 1px;
-    width: 18px;
     font-size: 85%;
-    line-height: 140%;
+    padding: 1px;
+    height: 18px;
+    width: 18px;
 }
 #kronolithEventTabAttendees td:first-child, #kronolithEventTabAttendees th:first-child,
 #kronolithEventTabResources td:first-child, #kronolithEventTabResources th:first-child {
@@ -338,7 +338,7 @@ ul.horde-tags li:hover {
 #kronolithEventTabResources td.kronolithAttendeeDeclined,
 #kronolithEventTabAttendees td.kronolithAttendeeTentative,
 #kronolithEventTabAttendees td.kronolithAttendeeOrganizer {
-    background-position: 0 -1px;
+    background-position: 0 0;
     background-repeat: no-repeat;
     padding-left: 21px;
 }
