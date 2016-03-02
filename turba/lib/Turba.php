@@ -590,6 +590,16 @@ class Turba
                     'strict' => $newSources[$params['source']]['strict'],
                     'use_shares' => false,
                 );
+            } else {
+                $notification->push(sprintf(
+                    _("Removing the virtual address book \"%s\" because the parent source has disappeared."),
+                    $shares[$name]->get('name')), 'horde.message'
+                );
+                try {
+                    $injector->getInstance('Turba_Shares')->removeShare($shares[$name]);
+                } catch (Horde_Share_Exception $e) {
+                    Horde::log($e, 'ERR');
+                }
             }
         }
 
