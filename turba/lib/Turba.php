@@ -460,12 +460,14 @@ class Turba
      */
     static public function getConfigFromShares(array $sources, $owner = false)
     {
+        global $notification, $registry, $conf, $injector, $prefs;
+
         try {
             $shares = self::listShares($owner);
         } catch (Horde_Share_Exception $e) {
             // Notify the user if we failed, but still return the $cfgSource
             // array.
-            $GLOBALS['notification']->push($e, 'horde.error');
+            $notification->push($e, 'horde.error');
             return $sources;
         }
 
@@ -479,7 +481,7 @@ class Turba
             }
         }
 
-        $auth_user = $GLOBALS['registry']->getAuth();
+        $auth_user = $registry->getAuth();
         $sortedSources = $vbooks = array();
         $personal = false;
 
@@ -517,7 +519,7 @@ class Turba
                 $info['params']['config']['params']['name'] = $params['name'];
                 $info['title'] = $share->get('name');
                 if ($share->get('owner') != $auth_user) {
-                    $info['title'] .= ' [' . $GLOBALS['registry']->convertUsername($share->get('owner'), false) . ']';
+                    $info['title'] .= ' [' . $registry->convertUsername($share->get('owner'), false) . ']';
                 }
                 $info['type'] = 'share';
                 $info['use_shares'] = false;
@@ -537,16 +539,16 @@ class Turba
                 $newSources = array_merge($newSources, $sortedSources[$source]);
             }
 
-            if (!empty($GLOBALS['conf']['share']['auto_create']) &&
+            if (!empty($conf['share']['auto_create']) &&
                 $auth_user &&
                 !$personal) {
                 // User's default share is missing.
                 try {
-                    $driver = $GLOBALS['injector']
+                    $driver = $injector
                         ->getInstance('Turba_Factory_Driver')
                         ->create($source);
                 } catch (Turba_Exception $e) {
-                    $GLOBALS['notification']->push($e->getMessage(), 'horde.error');
+                    $notification->push($e->getMessage(), 'horde.error');
                     continue;
                 }
 
@@ -567,7 +569,7 @@ class Turba
                     $source_config['params']['share'] = $share;
                     $newSources[$sourceKey] = $source_config;
                     $personal = true;
-                    $GLOBALS['prefs']->setValue('default_dir', $share->getName());
+                    $prefs->setValue('default_dir', $share->getName());
                 } catch (Horde_Share_Exception $e) {
                     Horde::log($e, 'ERR');
                 }
