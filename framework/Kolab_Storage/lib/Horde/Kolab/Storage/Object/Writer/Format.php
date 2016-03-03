@@ -83,8 +83,8 @@ class Horde_Kolab_Storage_Object_Writer_Format extends Horde_Kolab_Storage_Objec
      *
      * @param Horde_Kolab_Storage_Object $object The object that should receive the parsed data.
      *
-     * @return resource The encoded object data, ready to be written into the
-     *                  backend.
+     * @return string The encoded object data, ready to be written into the
+     *                backend.
      */
     public function save(Horde_Kolab_Storage_Object $object)
     {

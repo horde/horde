@@ -255,7 +255,7 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
      * - relaxed: Relaxed error checking (default: false)
      * </pre>
      *
-     * @return resource The data as XML stream.
+     * @return string The data as an XML string.
      *
      * @throws Horde_Kolab_Format_Exception If converting the data to XML failed.
      */
