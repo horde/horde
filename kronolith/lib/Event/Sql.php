@@ -132,7 +132,16 @@ class Kronolith_Event_Sql extends Kronolith_Event
         if (isset($SQLEvent['event_attendees'])) {
             $attendees = unserialize($SQLEvent['event_attendees']);
             if ($attendees) {
-                $this->attendees = $driver->convertFromDriver($attendees);
+                if (!is_object($attendees)) {
+                    $this->attendees = new Kronolith_Attendee_List();
+                    foreach ($attendees as $email => $attendee) {
+                        $this->attendees[] = Kronolith_Attendee::migrate(
+                            $email, $driver->convertFromDriver($attendee)
+                        );
+                    }
+                } else {
+                    $this->attendees = $attendees;
+                }
             }
         }
         if (isset($SQLEvent['event_resources'])) {
@@ -196,7 +205,7 @@ class Kronolith_Event_Sql extends Kronolith_Event
         $properties['event_url'] = (string)$this->url;
         $properties['event_private'] = (int)$this->private;
         $properties['event_status'] = $this->status;
-        $properties['event_attendees'] = serialize($driver->convertToDriver($this->attendees));
+        $properties['event_attendees'] = serialize($this->attendees);
         $properties['event_resources'] = serialize($driver->convertToDriver($this->getResources()));
         $properties['event_modified'] = $_SERVER['REQUEST_TIME'];
         $properties['event_organizer'] = $this->organizer;

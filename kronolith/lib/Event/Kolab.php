@@ -190,12 +190,6 @@ class Kronolith_Event_Kolab extends Kronolith_Event
                     break;
                 }
 
-                // Attendees without an email address get added as incremented number
-                if (empty($email)) {
-                    $email = $attendee_count;
-                    $attendee_count++;
-                }
-
                 $this->addAttendee($email, $role, $status, $name);
             }
         }
@@ -264,18 +258,18 @@ class Kronolith_Event_Kolab extends Kronolith_Event
 
         // Attendees
         $event['attendee'] = array();
-        foreach ($this->attendees as $email => $attendee) {
+        foreach ($this->attendees as $attendee) {
             $new_attendee = array();
-            $new_attendee['display-name'] = $attendee['name'];
+            $new_attendee['display-name'] = $attendee->name;
 
             // Attendee without an email address
-            if (is_int($email)) {
+            if (strpos($attendee->email, '@') === false) {
                 $new_attendee['smtp-address'] = '';
             } else {
-                $new_attendee['smtp-address'] = $email;
+                $new_attendee['smtp-address'] = $attendee->email;
             }
 
-            switch ($attendee['attendance']) {
+            switch ($attendee->role) {
             case Kronolith::PART_OPTIONAL:
                 $new_attendee['role'] = 'optional';
                 break;
@@ -292,7 +286,7 @@ class Kronolith_Event_Kolab extends Kronolith_Event
 
             $new_attendee['request-response'] = 'false';
 
-            switch ($attendee['response']) {
+            switch ($attendee->response) {
             case Kronolith::RESPONSE_ACCEPTED:
                 $new_attendee['status'] = 'accepted';
                 break;

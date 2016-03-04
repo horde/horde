@@ -15,7 +15,7 @@ if (empty($url)) {
 <input type="hidden" name="type" value="<?php echo htmlspecialchars($this->event->calendarType) ?>" />
 
 <div class="headerbox">
-<?php if (!empty($this->event->attendees)): ?>
+<?php if (count($this->event->attendees)): ?>
  <p><input id="sendupdates_del" type="checkbox" class="checkbox" name="sendupdates" checked="checked" /><label for="sendupdates_del"> <?php echo _("Send a cancel notification to all attendees when deleting this event?") ?></label></p>
 <?php endif ?>
 

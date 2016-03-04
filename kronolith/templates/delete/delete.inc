@@ -17,7 +17,7 @@ if (empty($url)) {
 <table class="striped" cellspacing="0">
 <tr><td class="warning"><?php echo _("This is a recurring event. Delete the current event only, this<br />occurrence and all future occurences, or all occurences?") ?></td></tr>
 
-<?php if (!empty($this->event->attendees)): ?>
+<?php if (count($this->event->attendees)): ?>
 <tr><td><input id="sendupdates_del" type="checkbox" class="checkbox" name="sendupdates" checked="checked" /><label for="sendupdates_del"> <?php echo _("Send a cancel notification to all attendees when deleting this event?") ?></label></td></tr>
 <?php endif ?>
 

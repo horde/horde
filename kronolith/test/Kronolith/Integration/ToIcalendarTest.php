@@ -116,22 +116,31 @@ class Kronolith_Integration_ToIcalendarTest extends Kronolith_TestCase
         $event->recurrence->setRecurInterval(1);
         $event->recurrence->addException(2007, 4, 15);
         $event->recurrence->addException(2007, 6, 15);
-        $event->attendees =
-            array('juergen@example.com' =>
-                  array('attendance' => Kronolith::PART_REQUIRED,
-                        'response' => Kronolith::RESPONSE_NONE,
-                        'name' => 'Jürgen Doe'),
-                  0 =>
-                  array('attendance' => Kronolith::PART_OPTIONAL,
-                        'response' => Kronolith::RESPONSE_ACCEPTED,
-                        'name' => 'Jane Doe'),
-                  'jack@example.com' =>
-                  array('attendance' => Kronolith::PART_NONE,
-                        'response' => Kronolith::RESPONSE_DECLINED,
-                        'name' => 'Jack Doe'),
-                  'jenny@example.com' =>
-                  array('attendance' => Kronolith::PART_NONE,
-                        'response' => Kronolith::RESPONSE_TENTATIVE));
+        $event->attendees = new Kronolith_Attendee_List(array(
+            new Kronolith_Attendee(array(
+                'email' => 'juergen@example.com',
+                'role' => Kronolith::PART_REQUIRED,
+                'response' => Kronolith::RESPONSE_NONE,
+                'name' => 'Jürgen Doe'
+            )),
+            new Kronolith_Attendee(array(
+                'email' => 'Jane Doe',
+                'role' => Kronolith::PART_OPTIONAL,
+                'response' => Kronolith::RESPONSE_ACCEPTED,
+                'name' => 'Jane Doe'
+            )),
+            new Kronolith_Attendee(array(
+                'email' => 'jack@example.com',
+                'role' => Kronolith::PART_NONE,
+                'response' => Kronolith::RESPONSE_DECLINED,
+                'name' => 'Jack Doe'
+            )),
+            new Kronolith_Attendee(array(
+                'email' => 'jenny@example.com',
+                'role' => Kronolith::PART_NONE,
+                'response' => Kronolith::RESPONSE_TENTATIVE
+            ))
+        ));
         return $event;
     }
 

@@ -165,7 +165,7 @@ if ($this->event->initialized && $this->event->alarm > 0):
 
 <?php if (!$private): ?>
 <table cellspacing="0">
-<?php if (!empty($attendees)): ?>
+<?php if (count($attendees)): ?>
  <!-- attendees -->
  <tr>
   <td colspan="3" class="control"><strong><?php echo _("Attendees") ?></strong></td>
@@ -175,11 +175,11 @@ if ($this->event->initialized && $this->event->alarm > 0):
   <th width="25%"><?php echo _("Attendance") ?></th>
   <th width="25%"><?php echo _("Response") ?></th>
  </tr>
- <?php $link_emails = $GLOBALS['registry']->hasMethod('mail/compose'); foreach (Kronolith::getAttendeeEmailList($attendees) as $full): $status = $attendees[$full->bare_address]; ?>
+ <?php $link_emails = $GLOBALS['registry']->hasMethod('mail/compose'); foreach ($attendees as $attendee): ?>
  <tr>
-  <td class="nowrap"><?php echo ($link_emails && strpos($full, '@') !== false) ? ($GLOBALS['registry']->call('mail/compose', array(array('to' => $full)))->link(array('title' => sprintf(_("Send an email to %s"), empty($status['name']) ? $email : $status['name']))) . htmlspecialchars($full) . '</a>') : htmlspecialchars($full) ?></td>
-  <td><?php echo Kronolith::partToString($status['attendance']) ?></td>
-  <td><?php echo Kronolith::responseToString($status['response']) ?></td>
+  <td class="nowrap"><?php echo ($link_emails && strpos($attendee->addressObject, '@') !== false) ? ($GLOBALS['registry']->call('mail/compose', array(array('to' => $attendee->addressObject)))->link(array('title' => sprintf(_("Send an email to %s"), empty($attendee->name) ? $attendee->email : $attendee->name))) . htmlspecialchars($attendee->addressObject) . '</a>') : htmlspecialchars($attendee->addressObject) ?></td>
+  <td><?php echo Kronolith::partToString($attendee->role) ?></td>
+  <td><?php echo Kronolith::responseToString($attendee->response) ?></td>
  </tr>
  <?php endforeach; ?>
 <?php endif; ?>

@@ -1,7 +1,5 @@
 <?php
 /**
- * Kronolith base library.
- *
  * Copyright 1999-2016 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -13,7 +11,9 @@
  */
 
 /**
- * The Kronolith:: class provides functionality common to all of Kronolith.
+ * Kronolith base library.
+ *
+ * The Kronolith class provides functionality common to all of Kronolith.
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @category Horde
@@ -1794,81 +1794,21 @@ class Kronolith
     }
 
     /**
-     * Parses a comma separated list of names and e-mail addresses into a list
-     * of attendee hashes.
-     *
-     * @param string $newAttendees  A comma separated attendee list.
-     *
-     * @return array  The attendee list with e-mail addresses as keys and
-     *                attendee information as values.
-     */
-    public static function parseAttendees($newAttendees)
-    {
-        global $injector, $notification;
-
-        if (empty($newAttendees)) {
-            return array();
-        }
-
-        $parser = $injector->getInstance('Horde_Mail_Rfc822');
-        $attendees = array();
-
-        /* Parse the address without validation to see what we can get out
-         * of it. We allow email addresses (john@example.com), email
-         * address with user information (John Doe <john@example.com>),
-         * and plain names (John Doe). */
-        $result = $parser->parseAddressList($newAttendees);
-        $result->setIteratorFilter(Horde_Mail_Rfc822_List::HIDE_GROUPS);
-
-        foreach ($result as $newAttendee) {
-            if (!$newAttendee->valid) {
-                // If we can't even get a mailbox out of the address, then it
-                // is likely unuseable. Reject it entirely.
-                $notification->push(
-                    sprintf(_("Unable to recognize \"%s\" as an email address."), $newAttendee),
-                    'horde.error'
-                );
-                continue;
-            }
-
-            // If there is only a mailbox part, then it is just a local name.
-            if (!is_null($newAttendee->host)) {
-                // Build a full email address again and validate it.
-                try {
-                    $parser->parseAddressList($newAttendee->writeAddress(true));
-                } catch (Horde_Mail_Exception $e) {
-                    $notification->push($e, 'horde.error');
-                    continue;
-                }
-                $name = $newAttendee->label != $newAttendee->bare_address ? $newAttendee->label : '';
-            } else {
-                $name = $newAttendee->bare_address;
-            }
-
-            // Avoid overwriting existing attendees with the default
-            // values.
-            $attendees[$newAttendee->bare_address] = array(
-                'attendance' => self::PART_REQUIRED,
-                'response'   => self::RESPONSE_NONE,
-                'name'       => $name
-            );
-        }
-
-        return $attendees;
-    }
-
-    /**
      * Returns a comma separated list of attendees and resources
      *
      * @return string  Attendee/Resource list.
      */
     public static function attendeeList()
     {
+        global $session;
+
         /* Attendees */
-        $attendees = self::getAttendeeEmailList($GLOBALS['session']->get('kronolith', 'attendees', Horde_Session::TYPE_ARRAY))->addresses;
+        $attendees = array(strval(
+            $session->get('kronolith', 'attendees')
+        ));
 
         /* Resources */
-        foreach ($GLOBALS['session']->get('kronolith', 'resources', Horde_Session::TYPE_ARRAY) as $resource) {
+        foreach ($session->get('kronolith', 'resources', Horde_Session::TYPE_ARRAY) as $resource) {
             $attendees[] = $resource['name'];
         }
 
@@ -1939,18 +1879,18 @@ class Kronolith
             $mail_attendees = $event->attendees;
         }
 
-        foreach ($mail_attendees as $email => $status) {
+        foreach ($mail_attendees as $attendee) {
             /* Don't send notifications to the ORGANIZER if this is the
              * ORGANIZER's copy of the event. */
-            if (!$event->organizer && Kronolith::isUserEmail($event->creator, $email)) {
+            if (!$event->organizer && Kronolith::isUserEmail($event->creator, $attendee->email)) {
                 continue;
             }
 
             /* Don't bother sending an invitation/update if the recipient does
              * not need to participate, or has declined participating, or
              * doesn't have an email address. */
-            if (strpos($email, '@') === false ||
-                $status['response'] == self::RESPONSE_DECLINED) {
+            if (strpos($attendee->email, '@') === false ||
+                $attendee->response == self::RESPONSE_DECLINED) {
                 continue;
             }
 
@@ -1971,30 +1911,30 @@ class Kronolith
             case self::ITIP_REPLY:
                 $filename = 'event-reply.ics';
                 $vEvent = array_shift($event->toiCalendar(new Horde_Icalendar()));
-                $attendee = new Horde_Itip_Resource_Identity(
+                $itipIdentity = new Horde_Itip_Resource_Identity(
                         $ident,
                         $vEvent->getAttribute('ATTENDEE'),
                         (string)$ident->getFromAddress()
                 );
                 /* Find which of the creator's mail addresses is used here */
-                foreach ($event->attendees as $attendeeEmail => $status) {
-                    if (self::isUserEmail($event->creator, $attendeeEmail)) {
-                        switch ($status['response']) {
+                foreach ($event->attendees as $attendee) {
+                    if (self::isUserEmail($event->creator, $attendee->email)) {
+                        switch ($attendee->response) {
                         case self::RESPONSE_ACCEPTED:
-                            $type = new Horde_Itip_Response_Type_Accept($attendee);
+                            $type = new Horde_Itip_Response_Type_Accept($itipIdentity);
                         break;
                         case self::RESPONSE_DECLINED:
-                            $type = new Horde_Itip_Response_Type_Decline($attendee);
+                            $type = new Horde_Itip_Response_Type_Decline($itipIdentity);
                         break;
                         case self::RESPONSE_TENTATIVE:
-                            $type = new Horde_Itip_Response_Type_Tentative($attendee);
+                            $type = new Horde_Itip_Response_Type_Tentative($itipIdentity);
                         break;
                         default:
                             return;
                         }
                         try {
                             // Send the reply.
-                            Horde_Itip::factory($vEvent, $attendee)->sendMultiPartResponse(
+                            Horde_Itip::factory($vEvent, $itipIdentity)->sendMultiPartResponse(
                                 $type,
                                 new Horde_Core_Itip_Response_Options_Horde('UTF-8', array()),
                                 $injector->getInstance('Horde_Mail')
@@ -2009,7 +1949,7 @@ class Kronolith
             case self::ITIP_REQUEST:
             default:
                 $method = 'REQUEST';
-                if ($status['response'] == self::RESPONSE_NONE) {
+                if ($attendee->response == self::RESPONSE_NONE) {
                     /* Invitation. */
                     $filename = 'event-invitation.ics';
                     $view->subject = $event->getTitle();
@@ -2023,14 +1963,16 @@ class Kronolith
                 break;
             }
 
-            $view->attendees = strval(self::getAttendeeEmailList($event->attendees));
+            if (count($event->attendees)) {
+                $view->attendees = $event->attendees;
+            }
             $view->organizer = $registry->convertUserName($event->creator, false);
 
             if ($action == self::ITIP_REQUEST) {
                 $attend_link = Horde::url('attend.php', true, -1)
                     ->add(array('c' => $event->calendar,
                                 'e' => $event->id,
-                                'u' => $email));
+                                'u' => $attendee->email));
                 $view->linkAccept    = (string)$attend_link->add('a', 'accept');
                 $view->linkTentative = (string)$attend_link->add('a', 'tentative');
                 $view->linkDecline   = (string)$attend_link->add('a', 'decline');
@@ -2088,11 +2030,7 @@ class Kronolith
             $multipart->addPart($inner);
             $multipart->addPart($ics2);
 
-            $recipient = new Horde_Mail_Rfc822_Address($email);
-            if (!empty($status['name'])) {
-                $recipient->personal = $status['name'];
-            }
-
+            $recipient = $attendee->addressObject;
             $mail = new Horde_Mime_Mail(
                 array('Subject' => $view->subject,
                       'To' => $recipient,
@@ -3019,28 +2957,6 @@ class Kronolith
                 }
             }
         }
-    }
-
-    /**
-     * TODO
-     *
-     * @param array $attendees
-     *
-     * @return Horde_Mail_Rfc822_List
-     */
-    public static function getAttendeeEmailList($attendees)
-    {
-        $a_list = new Horde_Mail_Rfc822_List();
-
-        foreach ($attendees as $mail => $attendee) {
-            $tmp = new Horde_Mail_Rfc822_Address($mail);
-            if (!empty($attendee['name'])) {
-                $tmp->personal = $attendee['name'];
-            }
-            $a_list->add($tmp);
-        }
-
-        return $a_list;
     }
 
     /**

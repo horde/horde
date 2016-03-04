@@ -51,26 +51,26 @@ function switchDateView(view, date)
 </tr>
 
 <!-- attendees -->
-<?php $i = 0; if (!$GLOBALS['session']->get('kronolith', 'attendees')): ?>
+<?php $i = 0; if (!($attendees = $GLOBALS['session']->get('kronolith', 'attendees')) || !count($attendees)): ?>
  <tr><td colspan="4"><em><?php echo _("No attendees") ?></em></td></tr>
-<?php else: foreach ($GLOBALS['session']->get('kronolith', 'attendees') as $email => $status): ?>
+<?php else: foreach ($attendees as $attendee): ?>
  <tr>
-  <td class="nowrap"><?php $name = strpos($email, '@') === false ? $status['name'] : $email; echo Horde::url('#')->link(array('title' => sprintf(_("Remove %s"), $name), 'onclick' => "performAction('remove', decodeURIComponent('" . rawurlencode($email) . "')); return false;")) . Horde::img('delete.png') . '</a> ' . Horde::url('#')->link(array('title' => sprintf(_("Edit %s"), $name), 'onclick' => "performAction('edit', decodeURIComponent('" . rawurlencode($email) . "')); return false;")) . Horde::img('edit.png') . '</a>' ?></td>
-  <td><?php echo htmlspecialchars(strval(Kronolith::getAttendeeEmailList(array($email => $status)))) ?></td>
+  <td class="nowrap"><?php echo Horde::url('#')->link(array('title' => sprintf(_("Remove %s"), $attendee->displayName), 'onclick' => "performAction('remove', decodeURIComponent('" . rawurlencode($attendee->email) . "')); return false;")) . Horde::img('delete.png') . '</a> ' . Horde::url('#')->link(array('title' => sprintf(_("Edit %s"), $attendee->displayName), 'onclick' => "performAction('edit', decodeURIComponent('" . rawurlencode($attendee->email) . "')); return false;")) . Horde::img('edit.png') . '</a>' ?></td>
+  <td><?php echo htmlspecialchars(strval($attendee)) ?></td>
   <td>
 <label for="<?php echo "attendance_$i" ?>" class="hidden"><?php echo _("Attendance") ?></label>
-   <select id="<?php echo "attendance_$i" ?>" name="<?php echo "attendance_$i" ?>" onchange="performAction('changeatt', document.attendeesForm.<?php echo "attendance_$i" ?>.value + ' ' + decodeURIComponent('<?php echo rawurlencode($email) ?>'));">
-    <option value="<?php echo Kronolith::PART_REQUIRED ?>"<?php if ($status['attendance'] == Kronolith::PART_REQUIRED)  echo ' selected="selected"' ?>><?php echo Kronolith::partToString(Kronolith::PART_REQUIRED) ?></option>
-    <option value="<?php echo Kronolith::PART_OPTIONAL ?>"<?php if ($status['attendance'] == Kronolith::PART_OPTIONAL)  echo ' selected="selected"' ?>><?php echo Kronolith::partToString(Kronolith::PART_OPTIONAL) ?></option>
-    <option value="<?php echo Kronolith::PART_NONE ?>"<?php if ($status['attendance'] == Kronolith::PART_NONE)  echo ' selected="selected"' ?>><?php echo Kronolith::partToString(Kronolith::PART_NONE) ?></option>
+   <select id="<?php echo "attendance_$i" ?>" name="<?php echo "attendance_$i" ?>" onchange="performAction('changeatt', document.attendeesForm.<?php echo "attendance_$i" ?>.value + ' ' + decodeURIComponent('<?php echo rawurlencode($attendee->email) ?>'));">
+    <option value="<?php echo Kronolith::PART_REQUIRED ?>"<?php if ($attendee->role == Kronolith::PART_REQUIRED)  echo ' selected="selected"' ?>><?php echo Kronolith::partToString(Kronolith::PART_REQUIRED) ?></option>
+    <option value="<?php echo Kronolith::PART_OPTIONAL ?>"<?php if ($attendee->role == Kronolith::PART_OPTIONAL)  echo ' selected="selected"' ?>><?php echo Kronolith::partToString(Kronolith::PART_OPTIONAL) ?></option>
+    <option value="<?php echo Kronolith::PART_NONE ?>"<?php if ($attendee->role == Kronolith::PART_NONE)  echo ' selected="selected"' ?>><?php echo Kronolith::partToString(Kronolith::PART_NONE) ?></option>
    </select>
   </td>
   <td>
-   <select name="<?php echo "response_$i" ?>" onchange="performAction('changeresp', document.attendeesForm.<?php echo "response_$i" ?>.value + ' ' + decodeURIComponent('<?php echo rawurlencode($email) ?>'));">
-    <option value="<?php echo Kronolith::RESPONSE_ACCEPTED ?>"<?php if ($status['response'] == Kronolith::RESPONSE_ACCEPTED)  echo ' selected="selected"' ?>><?php echo Kronolith::responseToString(Kronolith::RESPONSE_ACCEPTED) ?></option>
-    <option value="<?php echo Kronolith::RESPONSE_DECLINED ?>"<?php if ($status['response'] == Kronolith::RESPONSE_DECLINED)  echo ' selected="selected"' ?>><?php echo Kronolith::responseToString(Kronolith::RESPONSE_DECLINED) ?></option>
-    <option value="<?php echo Kronolith::RESPONSE_TENTATIVE ?>"<?php if ($status['response'] == Kronolith::RESPONSE_TENTATIVE)  echo ' selected="selected"' ?>><?php echo Kronolith::responseToString(Kronolith::RESPONSE_TENTATIVE) ?></option>
-    <option value="<?php echo Kronolith::RESPONSE_NONE ?>"<?php if ($status['response'] == Kronolith::RESPONSE_NONE)  echo ' selected="selected"' ?>><?php echo Kronolith::responsetoString(Kronolith::RESPONSE_NONE) ?></option>
+   <select name="<?php echo "response_$i" ?>" onchange="performAction('changeresp', document.attendeesForm.<?php echo "response_$i" ?>.value + ' ' + decodeURIComponent('<?php echo rawurlencode($attendee->email) ?>'));">
+    <option value="<?php echo Kronolith::RESPONSE_ACCEPTED ?>"<?php if ($attendee->response == Kronolith::RESPONSE_ACCEPTED)  echo ' selected="selected"' ?>><?php echo Kronolith::responseToString(Kronolith::RESPONSE_ACCEPTED) ?></option>
+    <option value="<?php echo Kronolith::RESPONSE_DECLINED ?>"<?php if ($attendee->response == Kronolith::RESPONSE_DECLINED)  echo ' selected="selected"' ?>><?php echo Kronolith::responseToString(Kronolith::RESPONSE_DECLINED) ?></option>
+    <option value="<?php echo Kronolith::RESPONSE_TENTATIVE ?>"<?php if ($attendee->response == Kronolith::RESPONSE_TENTATIVE)  echo ' selected="selected"' ?>><?php echo Kronolith::responseToString(Kronolith::RESPONSE_TENTATIVE) ?></option>
+    <option value="<?php echo Kronolith::RESPONSE_NONE ?>"<?php if ($attendee->response == Kronolith::RESPONSE_NONE)  echo ' selected="selected"' ?>><?php echo Kronolith::responsetoString(Kronolith::RESPONSE_NONE) ?></option>
    </select>
   </td>
  </tr>
@@ -151,7 +151,7 @@ function switchDateView(view, date)
 <div class="horde-form-buttons">
  <input type="submit" class="horde-default" name="addNewClose" value="<?php echo htmlspecialchars(_("Save and Finish")) ?>" />
  <input type="submit" name="addNew" value="<?php echo htmlspecialchars(_("Update")) ?>" />
- <?php if ($GLOBALS['session']->get('kronolith', 'attendees')): ?><input type="submit" class="horde-delete" name="clearAll" value="<?php echo htmlspecialchars(_("Clear all")) ?>" /><?php endif; ?>
+ <?php if ($attendees && count($attendees)): ?><input type="submit" class="horde-delete" name="clearAll" value="<?php echo htmlspecialchars(_("Clear all")) ?>" /><?php endif; ?>
 </div>
 
 <br />

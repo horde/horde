@@ -176,7 +176,7 @@ class Kronolith_Icalendar_Handler_Dav extends Kronolith_Icalendar_Handler_Base
             return;
         }
         $event_copy = clone($event);
-        $event_copy->attendees = array_diff_key($event->attendees, array_flip($this->_noItips));
+        $event_copy->attendees = $event->attendees->without($this->_noItips);
         Kronolith::sendITipNotifications(
             $event_copy,
             new Horde_Notification_Handler(new Horde_Notification_Storage_Object()),

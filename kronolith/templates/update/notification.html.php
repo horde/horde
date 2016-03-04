@@ -44,7 +44,7 @@
           <td width="100%"><font size="2"><strong><?php echo $this->h($this->event->location) ?></strong></font></td>
         </tr>
         <?php endif ?>
-        <?php if ($this->attendees): ?>
+        <?php if (count($this->event->attendees)): ?>
 
         <tr<?php if ($i++ % 2) echo ' bgcolor="#f1f1f1"' ?>>
           <td nowrap="nowrap" align="right" valign="top">
@@ -52,13 +52,13 @@
           </td>
           <td width="5">&nbsp;</td>
           <td width="100%"><font size="2"><strong>
-            <?php foreach (explode(',', $this->attendees) as $attendee): ?>
-            <?php if (strpos('@', $attendee) === false): ?>
-            <?php echo $this->h($attendee) ?><br />
+            <?php foreach ($this->event->attendees as $attendee): ?>
+            <?php if (is_null($attendee->addressObject->host)): ?>
+            <?php echo $this->h($attendee->displayName) ?><br />
             <?php else: ?>
-            <a href="mailto:<?php echo $attendee ?>"><?php echo $this->h($attendee) ?></a><br />
-            <?php endif; ?>
-            <?php endforeach; ?>
+            <a href="mailto:<?php echo $this->h($attendee->email) ?>"><?php echo $this->h($attendee->displayName) ?></a><br />
+            <?php endif ?>
+            <?php endforeach ?>
 
           </strong></font></td>
         </tr>

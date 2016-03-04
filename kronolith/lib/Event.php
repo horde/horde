@@ -1,11 +1,17 @@
 <?php
 /**
- * Kronolith_Event defines a generic API for events.
- *
  * Copyright 1999-2016 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
+ *
+ * @author  Chuck Hagenbuch <chuck@horde.org>
+ * @author  Jan Schneider <jan@horde.org>
+ * @package Kronolith
+ */
+
+/**
+ * Kronolith_Event defines a generic API for events.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Jan Schneider <jan@horde.org>
@@ -166,14 +172,9 @@ abstract class Kronolith_Event
     /**
      * All the attendees of this event.
      *
-     * This is an associative array where the keys are the email addresses
-     * of the attendees, and the values are also associative arrays with
-     * keys 'attendance' and 'response' pointing to the attendees' attendance
-     * and response values, respectively.
-     *
-     * @var array
+     * @var Kronolith_Attendee_List
      */
-    public $attendees = array();
+    public $attendees;
 
     /**
      * All resources of this event.
@@ -399,6 +400,7 @@ abstract class Kronolith_Event
      */
     public function __construct(Kronolith_Driver $driver, $eventObject = null)
     {
+        $this->attendees = new Kronolith_Attendee_List();
         $this->calendar = $driver->calendar;
         list($this->_backgroundColor, $this->_foregroundColor) = $driver->colors();
 
@@ -803,9 +805,9 @@ abstract class Kronolith_Event
         }
 
         // Attendees.
-        foreach ($this->attendees as $email => $status) {
+        foreach ($this->attendees as $attendee) {
             $params = array();
-            switch ($status['attendance']) {
+            switch ($attendee->role) {
             case Kronolith::PART_REQUIRED:
                 if ($v1) {
                     $params['EXPECT'] = 'REQUIRE';
@@ -831,7 +833,7 @@ abstract class Kronolith_Event
                 break;
             }
 
-            switch ($status['response']) {
+            switch ($attendee->response) {
             case Kronolith::RESPONSE_NONE:
                 if ($v1) {
                     $params['STATUS'] = 'NEEDS ACTION';
@@ -867,24 +869,25 @@ abstract class Kronolith_Event
                 break;
             }
 
+            $email = $attendee->email;
             if (strpos($email, '@') === false) {
                 $email = '';
             }
             if ($v1) {
                 if (empty($email)) {
-                    if (!empty($status['name'])) {
-                        $email = $status['name'];
+                    if (strlen($attendee->name)) {
+                        $email = $attendee->name;
                     }
                 } else {
                     $tmp = new Horde_Mail_Rfc822_Address($email);
-                    if (!empty($status['name'])) {
-                        $tmp->personal = $status['name'];
+                    if (strlen($attendee->name)) {
+                        $tmp->personal = $attendee->name;
                     }
                     $email = strval($tmp);
                 }
             } else {
-                if (!empty($status['name'])) {
-                    $params['CN'] = $status['name'];
+                if (strlen($attendee->name)) {
+                    $params['CN'] = $attendee->name;
                 }
                 if (!empty($email)) {
                     $email = 'mailto:' . $email;
@@ -1359,7 +1362,7 @@ abstract class Kronolith_Event
                 $params = array($params);
             }
             // Clear the attendees since we might be editing/replacing the event
-            $this->attendees = array();
+            $this->attendees = new Kronolith_Attendee_List();
             for ($i = 0; $i < count($attendee); ++$i) {
                 $attendee[$i] = str_replace(array('MAILTO:', 'mailto:'), '',
                                             $attendee[$i]);
@@ -1958,6 +1961,7 @@ abstract class Kronolith_Event
 
         // Organizer
         $attendees = $this->attendees;
+        $skipOrganizer = null;
         if ($this->organizer) {
             $message->setOrganizer(array('email' => $this->organizer));
         } elseif (count($attendees)) {
@@ -1980,7 +1984,7 @@ abstract class Kronolith_Event
                 'name' => $name,
                 'email' => $email)
             );
-            unset($attendees[$email]);
+            $skipOrganizer = $email;
         }
 
         // Privacy
@@ -2116,38 +2120,40 @@ abstract class Kronolith_Event
                     ? Horde_ActiveSync_Message_Appointment::MEETING_CANCELLED
                     : Horde_ActiveSync_Message_Appointment::MEETING_IS_MEETING
             );
-            foreach ($attendees as $email => $properties) {
-                $attendee = new Horde_ActiveSync_Message_Attendee(array(
+            foreach ($attendees as $attendee) {
+                if ($skipOrganizer && $attendee->email == $skipOrganizer) {
+                    continue;
+                }
+                $attendeeAS = new Horde_ActiveSync_Message_Attendee(array(
                     'protocolversion' => $options['protocolversion']));
-                $adr_obj = new Horde_Mail_Rfc822_Address($email);
-                $attendee->name = $adr_obj->label;
-                $attendee->email = $adr_obj->bare_address;
+                $attendeeAS->name = $attendee->addressObject->label;
+                $attendeeAS->email = $attendee->addressObject->bare_address;
 
                 // AS only has required or optional, and only EAS Version > 2.5
                 if ($options['protocolversion'] > Horde_ActiveSync::VERSION_TWOFIVE) {
-                    $attendee->type = ($properties['attendance'] !== Kronolith::PART_REQUIRED
+                    $attendeeAS->type = ($attendee->role !== Kronolith::PART_REQUIRED
                         ? Horde_ActiveSync_Message_Attendee::TYPE_OPTIONAL
                         : Horde_ActiveSync_Message_Attendee::TYPE_REQUIRED);
 
-                    switch ($properties['response']) {
+                    switch ($attendee->response) {
                     case Kronolith::RESPONSE_NONE:
-                        $attendee->status = Horde_ActiveSync_Message_Attendee::STATUS_NORESPONSE;
+                        $attendeeAS->status = Horde_ActiveSync_Message_Attendee::STATUS_NORESPONSE;
                         break;
                     case Kronolith::RESPONSE_ACCEPTED:
-                        $attendee->status = Horde_ActiveSync_Message_Attendee::STATUS_ACCEPT;
+                        $attendeeAS->status = Horde_ActiveSync_Message_Attendee::STATUS_ACCEPT;
                         break;
                     case Kronolith::RESPONSE_DECLINED:
-                        $attendee->status = Horde_ActiveSync_Message_Attendee::STATUS_DECLINE;
+                        $attendeeAS->status = Horde_ActiveSync_Message_Attendee::STATUS_DECLINE;
                         break;
                     case Kronolith::RESPONSE_TENTATIVE:
-                        $attendee->status = Horde_ActiveSync_Message_Attendee::STATUS_TENTATIVE;
+                        $attendeeAS->status = Horde_ActiveSync_Message_Attendee::STATUS_TENTATIVE;
                         break;
                     default:
-                        $attendee->status = Horde_ActiveSync_Message_Attendee::STATUS_UNKNOWN;
+                        $attendeeAS->status = Horde_ActiveSync_Message_Attendee::STATUS_UNKNOWN;
                     }
                 }
 
-                $message->addAttendee($attendee);
+                $message->addAttendee($attendeeAS);
             }
         } elseif ($this->status == Kronolith::STATUS_CANCELLED) {
             $message->setMeetingStatus(Horde_ActiveSync_Message_Appointment::MEETING_CANCELLED);
@@ -2163,13 +2169,13 @@ abstract class Kronolith_Event
                 // EAS *REQUIRES* an email field for Resources. If it is missing
                 // a number of clients will fail, losing push.
                 if ($resource->get('email')) {
-                    $attendee = new Horde_ActiveSync_Message_Attendee(array(
+                    $attendeeAS = new Horde_ActiveSync_Message_Attendee(array(
                         'protocolversion' => $options['protocolversion']));
-                    $attendee->email = $resource->get('email');
-                    $attendee->type = Horde_ActiveSync_Message_Attendee::TYPE_RESOURCE;
-                    $attendee->name = $data['name'];
-                    $attendee->status = $data['response'];
-                    $message->addAttendee($attendee);
+                    $attendeeAS->email = $resource->get('email');
+                    $attendeeAS->type = Horde_ActiveSync_Message_Attendee::TYPE_RESOURCE;
+                    $attendeeAS->name = $data['name'];
+                    $attendeeAS->status = $data['response'];
+                    $message->addAttendee($attendeeAS);
                 }
            }
         }
@@ -2508,8 +2514,8 @@ abstract class Kronolith_Event
             if (!$prefs->isLocked('event_reminder')) {
                 $view->prefsUrl = Horde::url($GLOBALS['registry']->getServiceLink('prefs', 'kronolith'), true)->remove(session_name());
             }
-            if ($this->attendees) {
-                $view->attendees = Kronolith::getAttendeeEmailList($this->attendees)->addresses;
+            if (count($this->attendees)) {
+                $view->attendees = $this->attendees;
             }
 
             $methods['mail']['mimepart'] = Kronolith::buildMimeMessage($view, 'mail', $image);
@@ -2629,7 +2635,7 @@ abstract class Kronolith_Event
         $json->pe = $this->hasPermission(Horde_Perms::EDIT);
         $json->pd = $this->hasPermission(Horde_Perms::DELETE);
         $json->l = $this->getLocation();
-        $json->mt = !empty($this->attendees);
+        $json->mt = count($this->attendees);
         $json->sort = sprintf(
             '%010s%06s',
             $this->originalStart->timestamp(),
@@ -2713,26 +2719,22 @@ abstract class Kronolith_Event
                 $json->uhl = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($this->url, 'linkurls');
                 $json->tg = array_values($this->tags);
                 $json->gl = $this->geoLocation;
-                if ($this->attendees) {
+                if (count($this->attendees)) {
                     $attendees = array();
-                    foreach ($this->attendees as $email => $info) {
-                        $tmp = new Horde_Mail_Rfc822_Address($email);
-                        if (!empty($info['name'])) {
-                            $tmp->personal = $info['name'];
+                    foreach ($this->attendees as $attendee) {
+                        if (Kronolith::isUserEmail($this->creator, $attendee->email)) {
+                            $json->cr = intval($attendee->response);
                         }
-
-                        if (Kronolith::isUserEmail($this->creator, $email)) {
-                            $json->cr = intval($info['response']);
-                        }
-
-                        $attendees[] = array(
-                            'a' => intval($info['attendance']),
-                            'e' => $tmp->bare_address,
-                            'r' => intval($info['response']),
-                            'l' => strval($tmp),
-                            'o' => ($this->oy && Kronolith::isUserEmail($this->creator, $tmp->bare_address)) ||
-                                (!empty($this->organizer) && $this->organizer == $tmp->bare_address)
-                        );
+                        $attendeeJson = $attendee->toJson();
+                        $attendeeJson->o =
+                            ($json->oy &&
+                             Kronolith::isUserEmail(
+                                 $this->creator,
+                                 $attendee->addressObject->bare_address
+                             )) ||
+                            (!empty($this->organizer) &&
+                             $this->organizer == $attendee->addressObject->bare_address);
+                        $attendees[] = $attendeeJson;
                     }
                     $json->at = $attendees;
                 }
@@ -3003,15 +3005,21 @@ abstract class Kronolith_Event
      * @param string $email            The email address of the attendee.
      * @param boolean $case_sensitive  Match in a case sensitive manner.
      *                                 @since 4.3.0
+     * @param array $attendees         Search that attendee list instead of
+     *                                 this event's. @since 4.3.0
+     *
      * @return boolean  True if the specified attendee is present for this
      *                  event.
      */
-    public function hasAttendee($email, $case_sensitive = false)
+    public function hasAttendee(
+        $email, $case_sensitive = false, $attendees = null
+    )
     {
-        $email = new Horde_Mail_Rfc822_Address($email);
-        foreach (array_keys($this->attendees) as $attendee) {
-            if (($case_sensitive && $email->match($attendee)) ||
-                (!$case_sensitive && $email->matchInsensitive($email))) {
+        if (is_null($attendees)) {
+            $attendees = $this->attendees;
+        }
+        foreach ($attendees as $attendee) {
+            if ($attendee->match($email, $case_sensitive)) {
                 return true;
             }
         }
@@ -3025,30 +3033,40 @@ abstract class Kronolith_Event
      * This will overwrite an existing attendee if one exists with the same
      * email address.
      *
-     * @param string $email        The email address of the attendee.
-     * @param integer $attendance  The attendance code of the attendee.
-     * @param integer $response    The response code of the attendee.
-     * @param string $name         The name of the attendee.
+     * @param string $email      The email address of the attendee.
+     * @param integer $role      The role code of the attendee.
+     * @param integer $response  The response code of the attendee.
+     * @param string $name       The name of the attendee.
      */
-    public function addAttendee($email, $attendance, $response, $name = null)
+    public function addAttendee($email, $role, $response, $name = null)
     {
-        if ($attendance == Kronolith::PART_IGNORE) {
-            if (isset($this->attendees[$email])) {
-                $attendance = $this->attendees[$email]['attendance'];
-            } else {
-                $attendance = Kronolith::PART_REQUIRED;
+        $found = false;
+        foreach ($this->attendees as $key => &$attendee) {
+            if ($attendee->email == $email) {
+                $found = true;
+                unset($this->attendees[$key]);
+                break;
             }
         }
-        if (empty($name) && isset($this->attendees[$email]) &&
-            !empty($this->attendees[$email]['name'])) {
-            $name = $this->attendees[$email]['name'];
+        if ($found) {
+            if ($role != Kronolith::PART_IGNORE) {
+                $attendee->role = $role;
+            }
+        } else {
+            if ($role == Kronolith::PART_IGNORE) {
+                $role = Kronolith::PART_REQUIRED;
+            }
+            $attendee = new Kronolith_Attendee(
+                array('email' => $email, 'role' => $role)
+            );
         }
 
-        $this->attendees[$email] = array(
-            'attendance' => $attendance,
-            'response' => $response,
-            'name' => $name
-        );
+        $attendee->response = $response;
+        if (strlen($name)) {
+            $attendee->name = $name;
+        }
+
+        $this->attendees[] = $attendee;
     }
 
     /**
@@ -3150,14 +3168,14 @@ abstract class Kronolith_Event
      */
     public function readForm(Kronolith_Event $existing = null)
     {
-        global $prefs, $session;
+        global $notification, $prefs, $registry, $session;
 
         // Event owner.
         $targetcalendar = Horde_Util::getFormData('targetcalendar');
         if (strpos($targetcalendar, '\\')) {
             list(, $this->creator) = explode('\\', $targetcalendar, 2);
         } elseif (!isset($this->_id)) {
-            $this->creator = $GLOBALS['registry']->getAuth();
+            $this->creator = $registry->getAuth();
         }
 
         // Basic fields.
@@ -3222,22 +3240,33 @@ abstract class Kronolith_Event
         $this->status = Horde_Util::getFormData('status', $this->status);
 
         // Attendees.
-        $attendees = $session->get('kronolith', 'attendees', Horde_Session::TYPE_ARRAY);
+        $attendees = $session->get('kronolith', 'attendees');
+        if (!$attendees) {
+            $attendees = new Kronolith_Attendee_List();
+        }
         if (!is_null($newattendees = Horde_Util::getFormData('attendees'))) {
-            $newattendees = Kronolith::parseAttendees(trim($newattendees));
-            foreach ($newattendees as $email => $attendee) {
-                if (!isset($attendees[$email])) {
-                    $attendees[$email] = $attendee;
+            $newattendees = Kronolith_Attendee_List::parse(
+                trim($newattendees), $notification
+            );
+            // First add new attendees missing in the current list.
+            foreach ($newattendees as $attendee) {
+                if (!$attendees->has($attendee)) {
+                    $attendees[] = $attendee;
                 }
             }
-            foreach (array_keys($attendees) as $email) {
-                if (!isset($newattendees[$email])) {
-                    unset($attendees[$email]);
+            // Now check for attendees in the current list that don't exist in
+            // the new attendee list anymore.
+            $finalAttendees = new Kronolith_Attendee_List();
+            foreach ($attendees as $attendee) {
+                if (!$newattendees->has($attendee)) {
+                    continue;
                 }
-                if (Kronolith::isUserEmail($this->creator, $email)) {
-                    $attendees[$email]['response'] = Horde_Util::getFormData('attendance');
+                if (Kronolith::isUserEmail($this->creator, $attendee->email)) {
+                    $attendee->response = Horde_Util::getFormData('attendance');
                 }
+                $finalAttendees[] = $attendee;
             }
+            $attendees = $finalAttendees;
         }
         $this->attendees = $attendees;
 
@@ -3564,7 +3593,7 @@ abstract class Kronolith_Event
      */
     protected function _handleResources(Kronolith_Event $existing = null)
     {
-        global $session;
+        global $notification, $session;
 
         if (Horde_Util::getFormData('isajax', false)) {
             $resources = array();
@@ -3579,7 +3608,7 @@ abstract class Kronolith_Event
                 try {
                     $resource = Kronolith::getDriver('Resource')->getResource($id);
                 } catch (Kronolith_Exception $e) {
-                    $GLOBALS['notification']->push($e->getMessage(), 'horde.error');
+                    $notification->push($e->getMessage(), 'horde.error');
                     continue;
                 }
                 if (!($resource instanceof Kronolith_Resource_Group) ||
@@ -3590,7 +3619,7 @@ abstract class Kronolith_Event
                         'name'       => $resource->get('name')
                     );
                 } else {
-                    $GLOBALS['notification']->push(_("No resources from this group were available"), 'horde.error');
+                    $notification->push(_("No resources from this group were available"), 'horde.error');
                 }
             }
         }
@@ -3622,7 +3651,7 @@ abstract class Kronolith_Event
                             ->getResource($key)
                             ->removeEvent($this);
                     } catch (Kronolith_Exception $e) {
-                        $GLOBALS['notification']->push('foo', 'horde.error');
+                        $notification->push('foo', 'horde.error');
                     }
                 }
             }
@@ -3926,7 +3955,7 @@ abstract class Kronolith_Event
                 $status .= Horde::fullSrcImg('private-' . $icon_color . '.png', array('attr' => array('alt' => $title, 'title' => $title, 'class' => 'iconPrivate')));
             }
 
-            if (!empty($this->attendees)) {
+            if (count($this->attendees)) {
                 $status .= Horde::fullSrcImg('attendees-' . $icon_color . '.png', array('attr' => array('alt' => _("Meeting"), 'title' => _("Meeting"), 'class' => 'iconPeople')));
             }
 

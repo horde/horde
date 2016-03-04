@@ -129,9 +129,8 @@ foreach ($events as $day_events) {
         }
         /* Attendees. */
         if (!$event->isPrivate()) {
-            $attendees = Kronolith::getAttendeeEmailList($event->attendees);
-            if (count($attendees)) {
-                $desc .= '<br />' . _("Who:") . ' ' . htmlspecialchars(strval($attendees));
+            if (count($event->attendees)) {
+                $desc .= '<br />' . _("Who:") . ' ' . htmlspecialchars(strval($event->attendees));
             }
             if (strlen($event->location)) {
                 $desc .= '<br />' . _("Where:") . ' ' . htmlspecialchars($event->location);

@@ -343,10 +343,19 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
             try {
                 $old_attendees = $event->attendees;
                 $event->readForm();
-                $removed_attendees = array_diff(
-                    array_keys($old_attendees),
-                    array_keys($event->attendees)
-                );
+                $removed_attendees = array();
+                foreach ($old_attendees as $old_attendee) {
+                    $found = false;
+                    foreach ($event->attendees as $new_attendee) {
+                        if ($new_attendee->email == $old_attendee->email) {
+                            $found = true;
+                            break;
+                        }
+                    }
+                    if (!$found) {
+                        $removed_attendees[] = $old_attendee->email;
+                    }
+                }
                 if ((!empty($old_start) && !empty($old_end) &&
                     $event->recurs() &&
                     ($old_start->compareTime($event->start) !== 0 ||

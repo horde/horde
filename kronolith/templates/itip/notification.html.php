@@ -43,13 +43,13 @@
           </td>
           <td width="5">&nbsp;</td>
           <td width="100%"><font size="2"><strong>
-            <?php foreach (explode(',', $this->attendees) as $attendee): ?>
-            <?php if (strpos('@', $attendee) === false): ?>
-            <?php echo $this->h($attendee) ?><br />
+            <?php foreach ($this->attendees as $attendee): ?>
+            <?php if (is_null($attendee->addressObject->host)): ?>
+            <?php echo $this->h($attendee->displayName) ?><br />
             <?php else: ?>
-            <a href="mailto:<?php echo $attendee ?>"><?php echo $this->h($attendee) ?></a><br />
-            <?php endif; ?>
-            <?php endforeach; ?>
+            <a href="mailto:<?php echo $this->h($attendee->email) ?>"><?php echo $this->h($attendee->displayName) ?></a><br />
+            <?php endif ?>
+            <?php endforeach ?>
 
           </strong></font></td>
         </tr>
@@ -73,4 +73,6 @@
 
 <p><font size="2"><?php echo _("Attached is an iCalendar file with more information about the event. If your mail client supports iTip requests you can use this file to easily update your local copy of the event.") ?></font></p>
 
+<?php if ($this->linkAccept): ?>
 <p><font size="2"><?php printf(_("If your email client doesn't support iTip requests you can use the following links to: %saccept%s, %saccept tentatively%s or %sdecline%s the event."), '<strong><a href="' . htmlspecialchars($this->linkAccept) . '">', '</a></strong>', '<strong><a href="' . htmlspecialchars($this->linkTentative) . '">', '</a></strong>', '<strong><a href="' . htmlspecialchars($this->linkDecline) . '">', '</a></strong>') ?></font></p>
+<?php endif ?>
