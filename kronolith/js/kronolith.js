@@ -6368,10 +6368,7 @@ KronolithCore = {
             case 3: response = 'Declined'; break;
             case 4: response = 'Tentative'; break;
         }
-        tr.insert(new Element('td')
-                  .writeAttribute('title', attendee.l + (attendee.o ? ' (' + Kronolith.text.organizer + ') ' : ''))
-                  .addClassName('kronolithAttendee' + (attendee.o ? 'Organizer' : response))
-                  .insert(attendee.e ? attendee.e.escapeHTML() : attendee.l.escapeHTML()));
+        tr.insert(this.getAttendeeCell(attendee, response));
         for (i = 0; i < 24; i++) {
             tr.insert(new Element('td', { className: 'kronolithFBUnknown' }));
         }
@@ -6391,10 +6388,7 @@ KronolithCore = {
                 case 3: response = 'Declined'; break;
                 case 4: response = 'Tentative'; break;
             }
-            row.insert(new Element('td')
-                      .writeAttribute('title', attendee.l)
-                      .addClassName('kronolithAttendee' + response)
-                      .insert(attendee.e ? attendee.e.escapeHTML() : attendee.l.escapeHTML()));
+            row.insert(this.getAttendeeCell(attendee, response));
             for (i = 0; i < 24; i++) {
                 row.insert(new Element('td', { className: 'kronolithFBUnknown' }));
             }
@@ -6408,6 +6402,28 @@ KronolithCore = {
                 row.insert(new Element('td', { className: 'kronolithFBUnknown' }));
             }
         }.bind(this));
+    },
+
+    getAttendeeCell: function(attendee, response)
+    {
+        var className, label, title;
+
+        className = 'kronolithAttendee';
+        title = attendee.l;
+        if (attendee.o) {
+            className += 'Organizer';
+            title += ' (' + Kronolith.text.organizer + ') ';
+        } else {
+            className += response;
+        }
+        label = attendee.e
+            ? attendee.e.escapeHTML()
+            : attendee.l.escapeHTML();
+
+        return new Element('td')
+            .writeAttribute('title', title)
+            .addClassName(className)
+            .insert(label);
     },
 
     addResourceTabLink: function()
