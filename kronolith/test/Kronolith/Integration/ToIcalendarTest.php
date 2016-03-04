@@ -1,31 +1,27 @@
 <?php
 /**
- * Test exporting iCalendar events.
+ * Copyright 2011-2016 Horde LLC (http://www.horde.org/)
  *
- * PHP version 5
+ * See the enclosed file COPYING for license information (GPLv2). If you
+ * did not receive this file, see http://www.horde.org/licenses/gpl
  *
  * @category   Horde
  * @package    Kronolith
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
  * @link       http://www.horde.org/apps/kronolith
- * @license    http://www.horde.org/licenses/gpl GNU General Public License, version 2
+ * @license    http://www.horde.org/licenses/gpl GPLv2
  */
 
 /**
  * Test exporting iCalendar events.
  *
- * Copyright 2011-2016 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (GPLv2). If you did not
- * receive this file, see http://www.horde.org/licenses/gpl
- *
  * @category   Horde
  * @package    Kronolith
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
  * @link       http://www.horde.org/apps/kronolith
- * @license    http://www.horde.org/licenses/gpl GNU General Public License, version 2
+ * @license    http://www.horde.org/licenses/gpl GPLv2
  */
 class Kronolith_Integration_ToIcalendarTest extends Kronolith_TestCase
 {
