@@ -1974,7 +1974,7 @@ class Kronolith
                 $attendee = new Horde_Itip_Resource_Identity(
                         $ident,
                         $vEvent->getAttribute('ATTENDEE'),
-                        $ident->getFromAddress()
+                        (string)$ident->getFromAddress()
                 );
                 /* Find which of the creator's mail addresses is used here */
                 foreach ($event->attendees as $attendeeEmail => $status) {

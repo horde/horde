@@ -191,24 +191,6 @@ class Horde_Core_Prefs_Identity extends Horde_Prefs_Identity
     }
 
     /**
-     * Returns the from address based on the chosen identity. If no
-     * address can be found it is built from the current user name and
-     * the specified maildomain.
-     *
-     * @param integer $ident  The identity to retrieve the address from.
-     *
-     * @return string  A valid from address.
-     */
-    public function getFromAddress($ident = null)
-    {
-        $from = $this->getValue('from_addr', $ident);
-        if (strlen($from)) {
-            return $from;
-        }
-        return $this->_user;
-    }
-
-    /**
      * Returns the identity's id that matches the passed addresses.
      *
      * @param mixed $addresses     Either an array or a single string or a
