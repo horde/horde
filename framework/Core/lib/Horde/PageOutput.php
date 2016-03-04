@@ -726,8 +726,10 @@ class Horde_PageOutput
         // Send what we have currently output so the browser can start
         // loading CSS/JS. See:
         // http://developer.yahoo.com/performance/rules.html#flush
-        echo Horde::endBuffer();
-        flush();
+        if (Horde::contentSent()) {
+            echo Horde::endBuffer();
+            flush();
+        }
     }
 
     /**
