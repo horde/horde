@@ -914,10 +914,14 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
     {
         $result = new stdClass;
         if ($this->vars->email) {
-            try {
-                $result->fb = Kronolith_FreeBusy::get($this->vars->email, true);
-            } catch (Exception $e) {
-                $GLOBALS['notification']->push($e->getMessage(), 'horde.warning');
+            $rfc822 = new Horde_Mail_Rfc822();
+            $res = $rfc822->parseAddressList($this->vars->email);
+            if ($res[0] && $res[0]->host) {
+                try {
+                    $result->fb = Kronolith_FreeBusy::get($this->vars->email, true);
+                } catch (Exception $e) {
+                    $GLOBALS['notification']->push($e->getMessage(), 'horde.warning');
+                }
             }
         } elseif ($this->vars->resource) {
             try {
