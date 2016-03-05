@@ -1842,6 +1842,7 @@ class Turba_Api extends Horde_Registry_Api
                 $list = $sdriver->search($criterium, null, 'OR', array(), $strict ? array_keys($criterium) : array());
             } catch (Turba_Exception $e) {
                 Horde::log($e, 'ERR');
+                continue;
             }
 
             if ($list instanceof Turba_List) {
