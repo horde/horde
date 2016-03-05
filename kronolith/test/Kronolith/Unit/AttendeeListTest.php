@@ -35,7 +35,7 @@ class Kronolith_Unit_AttendeeListTest extends Horde_Test_Case
     public function testCountable()
     {
         $this->assertEquals(0, count(new Kronolith_Attendee_List()));
-        $this->assertEquals(4, count($this->_getList()));
+        $this->assertEquals(6, count($this->_getList()));
     }
 
     public function testIterator()
@@ -45,7 +45,7 @@ class Kronolith_Unit_AttendeeListTest extends Horde_Test_Case
             $this->assertInstanceOf('Kronolith_Attendee', $attendee);
             $count++;
         }
-        $this->assertEquals(4, $count);
+        $this->assertEquals(6, $count);
     }
 
     public function testArrayAccess()
@@ -101,6 +101,7 @@ class Kronolith_Unit_AttendeeListTest extends Horde_Test_Case
             $attendee->response = Kronolith::RESPONSE_NONE;
         }
         $attendees = iterator_to_array($attendees);
+        unset($expectedAttendees[5], $expectedAttendees[4]);
         $this->assertEquals(
             $expectedAttendees,
             array_values($attendees)
@@ -122,13 +123,13 @@ class Kronolith_Unit_AttendeeListTest extends Horde_Test_Case
         $attendees->add(
             new Kronolith_Attendee(array('email' => 'foo@example.com'))
         );
-        $this->assertEquals(5, count($attendees));
+        $this->assertEquals(7, count($attendees));
         $this->assertTrue(isset($attendees['email:foo@example.com']));
 
         $attendees->add(new Kronolith_Attendee_List(array(
             new Kronolith_Attendee(array('email' => 'bar@example.com'))
         )));
-        $this->assertEquals(6, count($attendees));
+        $this->assertEquals(8, count($attendees));
         $this->assertTrue(isset($attendees['email:bar@example.com']));
     }
 
@@ -150,20 +151,20 @@ class Kronolith_Unit_AttendeeListTest extends Horde_Test_Case
     {
         $attendees = $this->_getList()->without(array('juergen@example.com'));
         $this->assertInstanceOf('Kronolith_Attendee_List', $attendees);
-        $this->assertEquals(3, count($attendees));
+        $this->assertEquals(5, count($attendees));
     }
 
     public function testGetEmailList()
     {
         $attendees = $this->_getList()->getEmailList();
         $this->assertInstanceOf('Horde_Mail_Rfc822_List', $attendees);
-        $this->assertEquals(4, count($attendees));
+        $this->assertEquals(6, count($attendees));
     }
 
     public function testToString()
     {
         $this->assertEquals(
-            'Jürgen Doe <juergen@example.com>, Jane Doe, Jack Doe <jack@example.com>, jenny@example.com',
+            'Jürgen Doe <juergen@example.com>, Jane Doe, Jack Doe <jack@example.com>, jenny@example.com, User Name <user@example.com>, Another User <user2@example.com>',
             strval($this->_getList())
         );
     }
