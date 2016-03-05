@@ -28,10 +28,10 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2016-02-23</date>
+ <date>2016-03-05</date>
  <version>
-  <release>2.22.8</release>
-  <api>2.22.0</api>
+  <release>2.23.0</release>
+  <api>2.23.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Add Horde_Core_Auth_Application#listNames().
 * [jan] Don&apos;t call authusername() hook on administrator names when running CLI scripts.
 * [jan] Update Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
 * [mjr] Fix fatal error with broken EAS clients searching the Outbox.
@@ -4151,14 +4152,15 @@
   </release>
   <release>
    <version>
-    <release>2.22.8</release>
-    <api>2.22.0</api></version>
+    <release>2.23.0</release>
+    <api>2.23.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-02-23</date>
+   <date>2016-03-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Add Horde_Core_Auth_Application#listNames().
 * [jan] Don&apos;t call authusername() hook on administrator names when running CLI scripts.
 * [jan] Update Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
 * [mjr] Fix fatal error with broken EAS clients searching the Outbox.

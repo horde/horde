@@ -337,6 +337,26 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
     }
 
     /**
+     * List all users in the system with their real names.
+     *
+     * @since Horde_Core 2.23.0
+     *
+     * @return array  The array of user IDs as keys and names as values.
+     * @throws Horde_Auth_Exception
+     */
+    public function listNames()
+    {
+        $factory = $GLOBALS['injector']
+            ->getInstance('Horde_Core_Factory_Identity');
+        $names = array();
+        foreach ($this->listUsers() as $user) {
+            $names[$user] = $factory->create($user)->getName();
+        }
+        asort($names);
+        return $names;
+    }
+
+    /**
      * Checks if a user ID exists in the system.
      *
      * @param string $userId  User ID to check.
