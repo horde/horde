@@ -1834,21 +1834,24 @@ class Kronolith
      *        this instance.
      * @param  string $range  The range parameter if this is a recurring event.
      *                        Possible values are self::RANGE_THISANDFUTURE
-     * @param array $cancellations  If $action is 'CANCEL', but it is due to
-     *                              removing attendees and not canceling the
-     *                              entire event, these are the email addresses
-     *                              of the uninvited attendees and are the ONLY
-     *                              people that will receive the CANCEL iTIP.
-     *                              @since  4.2.10
-     *
+     * @param Kronolith_Attendee_List $cancellations  If $action is 'CANCEL',
+     *                                                but it is due to removing
+     *                                                attendees and not
+     *                                                canceling the entire
+     *                                                event, these are the
+     *                                                uninvited attendees and
+     *                                                are the ONLY people that
+     *                                                will receive the CANCEL
+     *                                                iTIP.  @since 4.2.10
      */
     public static function sendITipNotifications(
         Kronolith_Event $event, Horde_Notification_Handler $notification,
-        $action, Horde_Date $instance = null, $range = null, array $cancellations = array())
+        $action, Horde_Date $instance = null, $range = null,
+        Kronolith_Attendee_List $cancellations = null)
     {
-        global $injector, $registry;
+        global $injector, $prefs, $registry;
 
-        if (!$event->attendees || $GLOBALS['prefs']->getValue('itip_silent')) {
+        if (!count($event->attendees) || $prefs->getValue('itip_silent')) {
             return;
         }
 
@@ -1869,12 +1872,17 @@ class Kronolith
         $view->event = $event;
         $view->imageId = $image->getContentId();
 
-        if ($action == self::ITIP_CANCEL && !empty($cancellations)) {
+        if ($action == self::ITIP_CANCEL && count($cancellations)) {
             $mail_attendees = $cancellations;
-        } elseif ($event->organizer && !self::isUserEmail($event->creator, $event->organizer)) {
-            /* Only send updates to organizer if the user is not the organizer */
-            /* TODO: Guess organizer name and status if he is one of the attendees */
-            $mail_attendees = array($event->organizer => array('name' => $event->organizer));
+        } elseif ($event->organizer &&
+                  !self::isUserEmail($event->creator, $event->organizer)) {
+            /* Only send updates to organizer if the user is not the
+             * organizer */
+            /* TODO: Guess organizer name and status if he is one of the
+             * attendees */
+            $mail_attendees = new Kronolith_Attendee_List(
+                array('name' => $event->organizer)
+            );
         } else {
             $mail_attendees = $event->attendees;
         }
@@ -1882,7 +1890,8 @@ class Kronolith
         foreach ($mail_attendees as $attendee) {
             /* Don't send notifications to the ORGANIZER if this is the
              * ORGANIZER's copy of the event. */
-            if (!$event->organizer && Kronolith::isUserEmail($event->creator, $attendee->email)) {
+            if (!$event->organizer &&
+                Kronolith::isUserEmail($event->creator, $attendee->email)) {
                 continue;
             }
 
@@ -1963,9 +1972,6 @@ class Kronolith
                 break;
             }
 
-            if (count($event->attendees)) {
-                $view->attendees = $event->attendees;
-            }
             $view->organizer = $registry->convertUserName($event->creator, false);
 
             if ($action == self::ITIP_REQUEST) {

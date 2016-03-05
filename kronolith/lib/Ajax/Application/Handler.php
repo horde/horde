@@ -286,7 +286,8 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
             return $result;
         }
 
-        $removed_attendees = $old_attendees = array();
+        $removed_attendees = new Kronolith_Attendee_List();
+        $old_attendees = new Kronolith_Attendee_List();
         if ($this->vars->recur_edit && $this->vars->recur_edit != 'all') {
             switch ($this->vars->recur_edit) {
             case 'current':
@@ -343,17 +344,9 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
             try {
                 $old_attendees = $event->attendees;
                 $event->readForm();
-                $removed_attendees = array();
                 foreach ($old_attendees as $old_attendee) {
-                    $found = false;
-                    foreach ($event->attendees as $new_attendee) {
-                        if ($new_attendee->email == $old_attendee->email) {
-                            $found = true;
-                            break;
-                        }
-                    }
-                    if (!$found) {
-                        $removed_attendees[] = $old_attendee->email;
+                    if (!$event->attendees->has($old_attendee)) {
+                        $removed_attendees->add($old_attendee);
                     }
                 }
                 if ((!empty($old_start) && !empty($old_end) &&
@@ -390,14 +383,15 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
         // Send a CANCEL iTip for attendees that have been removed, but only if
         // the entire event isn't being marked as cancelled (which would be
         // caught above).
-        if (empty($event->organizer) && !empty($removed_attendees)) {
-            $to_cancel = array();
-            foreach ($removed_attendees as $email) {
-                $to_cancel[$email] = $old_attendees[$email];
-            }
+        if (empty($event->organizer) && count($removed_attendees)) {
             $cancelEvent = clone $event;
             Kronolith::sendITipNotifications(
-                $cancelEvent, $notification, Kronolith::ITIP_CANCEL, null, null, $to_cancel
+                $cancelEvent,
+                $notification,
+                Kronolith::ITIP_CANCEL,
+                null,
+                null,
+                $removed_attendees
             );
         }
         Kronolith::notifyOfResourceRejection($event);

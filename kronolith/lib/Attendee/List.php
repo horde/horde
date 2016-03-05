@@ -32,7 +32,9 @@ implements ArrayAccess, Countable, IteratorAggregate, Serializable
      */
     public function __construct(array $attendees = array())
     {
-        $this->_list = $attendees;
+        foreach ($attendees as $attendee) {
+            $this->_list[$attendee->id] = $attendee;
+        }
     }
 
     /**
@@ -79,6 +81,7 @@ implements ArrayAccess, Countable, IteratorAggregate, Serializable
 
             // If there is only a mailbox part, then it is just a local name.
             if (is_null($newAttendee->host)) {
+                $email = null;
                 $name = $newAttendee->bare_address;
             } else {
                 // Build a full email address again and validate it.
@@ -88,13 +91,14 @@ implements ArrayAccess, Countable, IteratorAggregate, Serializable
                     $notification->push($e, 'horde.error');
                     continue;
                 }
+                $email = $newAttendee->bare_address;
                 $name = $newAttendee->label != $newAttendee->bare_address
                     ? $newAttendee->label
                     : '';
             }
 
             $attendees->add(new Kronolith_Attendee(array(
-                'email'    => $newAttendee->bare_address,
+                'email'    => $email,
                 'role'     => Kronolith::PART_REQUIRED,
                 'response' => Kronolith::RESPONSE_NONE,
                 'name'     => $name
@@ -120,7 +124,7 @@ implements ArrayAccess, Countable, IteratorAggregate, Serializable
             }
             return $this;
         }
-        $this->_list[] = $what;
+        $this->_list[$what->id] = $what;
         return $this;
     }
 
@@ -137,10 +141,10 @@ implements ArrayAccess, Countable, IteratorAggregate, Serializable
     public function has($email)
     {
         if ($email instanceof Kronolith_Attendee) {
-            $email = $email->email;
+            return isset($this->_list[$email->id]);
         }
         foreach ($this as $attendee) {
-            if ($attendee->match($email, false)) {
+            if ($attendee->matchesEmail($email, false)) {
                 return true;
             }
         }
@@ -157,8 +161,8 @@ implements ArrayAccess, Countable, IteratorAggregate, Serializable
     public function without(array $excluded)
     {
         $list = clone $this;
-        foreach (array_flip($excluded) as $email) {
-            unset($list[$email]);
+        foreach ($excluded as $email) {
+            unset($list['email:' . $email]);
         }
         return $list;
     }
@@ -181,7 +185,15 @@ implements ArrayAccess, Countable, IteratorAggregate, Serializable
      */
     public function __toString()
     {
-        return implode(', ', iterator_to_array($this->getEmailList()));
+        $list = array();
+        foreach ($this as $attendee) {
+            if (strlen($attendee->email)) {
+                $list[] = strval($attendee->addressObject);
+            } else {
+                $list[] = $attendee->name;
+            }
+        }
+        return implode(', ', $list);
     }
 
     /* Array methods. */
@@ -190,17 +202,15 @@ implements ArrayAccess, Countable, IteratorAggregate, Serializable
      */
     public function offsetExists($index)
     {
-        return $this[$index] !== false;
+        return isset($this->_list[$index]);
     }
 
     /**
      */
     public function &offsetGet($index)
     {
-        foreach ($this->_list as &$attendee) {
-            if ($attendee->match($index, true)) {
-                return $attendee;
-            }
+        if (isset($this->_list[$index])) {
+            return $this->_list[$index];
         }
         $attendee = false;
         return $attendee;
@@ -210,25 +220,20 @@ implements ArrayAccess, Countable, IteratorAggregate, Serializable
      */
     public function offsetSet($index, $value)
     {
-        foreach ($this->_list as $key => $attendee) {
-            if ($attendee->match($index, true)) {
-                $this->_list[$key] = $value;
-                return;
-            }
+        if (!($value instanceof Kronolith_Attendee)) {
+            throw new InvalidArgumentException('Value must be a Kronolith_Attendee object');
         }
-        $this->_list[] = $value;
+        if ($index != $value->id) {
+            throw new InvalidArgumentException('Key must match the attendee\'s ID');
+        }
+        $this->_list[$index] = $value;
     }
 
     /**
      */
     public function offsetUnset($index)
     {
-        foreach ($this->_list as $key => $attendee) {
-            if (!is_null($attendee->email) && $attendee->email == $index) {
-                unset($this->_list[$key]);
-                return;
-            }
-        }
+        unset($this->_list[$index]);
     }
 
     /* Countable method. */

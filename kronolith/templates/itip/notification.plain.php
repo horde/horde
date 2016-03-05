@@ -6,8 +6,8 @@
 
 
 <?php endif ?>
-<?php if ($this->attendees): ?>
-<?php echo _("Attendees:") ?> <?php echo $this->attendees ?>
+<?php if (count($this->event->attendees)): ?>
+<?php echo _("Attendees:") ?> <?php echo $this->event->attendees ?>
 
 
 <?php endif ?>

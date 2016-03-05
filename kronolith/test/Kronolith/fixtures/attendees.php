@@ -8,7 +8,6 @@ return array(
         'name' => 'Jürgen Doe'
     )),
     new Kronolith_Attendee(array(
-        'email' => 'Jane Doe',
         'role' => Kronolith::PART_OPTIONAL,
         'response' => Kronolith::RESPONSE_ACCEPTED,
         'name' => 'Jane Doe'

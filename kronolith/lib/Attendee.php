@@ -15,8 +15,10 @@
  * @author  Jan Schneider <jan@horde.org>
  * @package Kronolith
  *
- * @property-read Horde_Mail_Rfc822_Address $adressObject An address object
+ * @property-read Horde_Mail_Rfc822_Address $addressObject An address object
  *                representation of this attendee.
+ * @property-read string $displayName A simple label to identify the attendee.
+ * @property-read string $id An ID for this attendee.
  */
 class Kronolith_Attendee implements Serializable
 {
@@ -67,12 +69,9 @@ class Kronolith_Attendee implements Serializable
      */
     public function __construct($params)
     {
-        if (!isset($params['email'])) {
-            throw new InvalidArgumentException('\'email\' parameter is missing');
-        }
-
         $params = array_merge(
             array(
+                'email'     => null,
                 'role'     => Kronolith::PART_REQUIRED,
                 'response' => Kronolith::RESPONSE_NONE,
                 'name'     => null
@@ -93,6 +92,12 @@ class Kronolith_Attendee implements Serializable
      */
     public static function migrate($email, $data)
     {
+        if (strpos($email, '@') === false) {
+            // "name == email" is how we stored non-email attendees already,
+            // but re-assign anyway, to be sure.
+            $data['name'] = $email;
+            $email = null;
+        }
         return new self(array(
             'email'    => $email,
             'name'     => isset($data['name']) ? $data['name'] : null,
@@ -118,6 +123,12 @@ class Kronolith_Attendee implements Serializable
                 return $this->name;
             }
             return $this->email;
+
+        case 'id':
+            if (strlen($this->email)) {
+                return 'email:' . $this->email;
+            }
+            return 'name:' . $this->name;
         }
     }
 
@@ -129,7 +140,7 @@ class Kronolith_Attendee implements Serializable
      *
      * @return boolean  True if the email address matches this attendee.
      */
-    public function match($email, $caseSensitive)
+    public function matchesEmail($email, $caseSensitive)
     {
         $email = new Horde_Mail_Rfc822_Address($email);
         return ($caseSensitive && $email->match($this->email)) ||
@@ -140,7 +151,9 @@ class Kronolith_Attendee implements Serializable
      */
     public function __toString()
     {
-        return strval($this->addressObject);
+        return strlen($this->email)
+            ? strval($this->addressObject)
+            : $this->name;
     }
 
     /**
@@ -154,8 +167,8 @@ class Kronolith_Attendee implements Serializable
         return (object)array(
             'a' => intval($this->role),
             'e' => $this->addressObject->bare_address,
+            'l' => strval($this->displayName),
             'r' => intval($this->response),
-            'l' => strval($this->addressObject),
         );
     }
 

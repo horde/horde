@@ -2514,9 +2514,7 @@ abstract class Kronolith_Event
             if (!$prefs->isLocked('event_reminder')) {
                 $view->prefsUrl = Horde::url($GLOBALS['registry']->getServiceLink('prefs', 'kronolith'), true)->remove(session_name());
             }
-            if (count($this->attendees)) {
-                $view->attendees = $this->attendees;
-            }
+            $view->attendees = $this->attendees;
 
             $methods['mail']['mimepart'] = Kronolith::buildMimeMessage($view, 'mail', $image);
         }
@@ -2635,7 +2633,7 @@ abstract class Kronolith_Event
         $json->pe = $this->hasPermission(Horde_Perms::EDIT);
         $json->pd = $this->hasPermission(Horde_Perms::DELETE);
         $json->l = $this->getLocation();
-        $json->mt = count($this->attendees);
+        $json->mt = (bool)count($this->attendees);
         $json->sort = sprintf(
             '%010s%06s',
             $this->originalStart->timestamp(),
@@ -3019,7 +3017,7 @@ abstract class Kronolith_Event
             $attendees = $this->attendees;
         }
         foreach ($attendees as $attendee) {
-            if ($attendee->match($email, $case_sensitive)) {
+            if ($attendee->matchesEmail($email, $case_sensitive)) {
                 return true;
             }
         }
@@ -3066,7 +3064,7 @@ abstract class Kronolith_Event
             $attendee->name = $name;
         }
 
-        $this->attendees[] = $attendee;
+        $this->attendees->add($attendee);
     }
 
     /**
@@ -3251,7 +3249,7 @@ abstract class Kronolith_Event
             // First add new attendees missing in the current list.
             foreach ($newattendees as $attendee) {
                 if (!$attendees->has($attendee)) {
-                    $attendees[] = $attendee;
+                    $attendees->add($attendee);
                 }
             }
             // Now check for attendees in the current list that don't exist in
@@ -3264,7 +3262,7 @@ abstract class Kronolith_Event
                 if (Kronolith::isUserEmail($this->creator, $attendee->email)) {
                     $attendee->response = Horde_Util::getFormData('attendance');
                 }
-                $finalAttendees[] = $attendee;
+                $finalAttendees->add($attendee);
             }
             $attendees = $finalAttendees;
         }

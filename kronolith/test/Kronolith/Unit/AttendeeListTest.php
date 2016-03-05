@@ -53,10 +53,11 @@ class Kronolith_Unit_AttendeeListTest extends Horde_Test_Case
         $attendees = $this->_getList();
 
         // offsetExists
-        $this->assertTrue(isset($attendees['jack@example.com']));
+        $this->assertTrue(isset($attendees['email:jack@example.com']));
+        $this->assertTrue(isset($attendees['name:Jane Doe']));
 
         // offsetGet
-        $attendee = $attendees['jack@example.com'];
+        $attendee = $attendees['email:jack@example.com'];
         $this->assertInstanceOf('Kronolith_Attendee', $attendee);
         $this->assertEquals('jack@example.com', $attendee->email);
         $this->assertEquals(Kronolith::PART_NONE, $attendee->role);
@@ -65,15 +66,23 @@ class Kronolith_Unit_AttendeeListTest extends Horde_Test_Case
 
         // offsetSet
         $attendee->name = 'New Name';
-        $attendees['jack@example.com'] = $attendee;
-        $this->assertEquals('New Name', $attendees['jack@example.com']->name);
+        try {
+            $attendees['jack@example.com'] = $attendee;
+            $this->markTestFailed('InvalidArgumentException expected');
+        } catch (InvalidArgumentException $e) {
+        }
+        $attendees['email:jack@example.com'] = $attendee;
+        $this->assertEquals(
+            'New Name',
+            $attendees['email:jack@example.com']->name
+        );
         $attendee = new Kronolith_Attendee(array('email' => 'foo@example.com'));
-        $attendees['foo@example.com'] = $attendee;
-        $this->assertEquals($attendee, $attendees['foo@example.com']);
+        $attendees['email:foo@example.com'] = $attendee;
+        $this->assertEquals($attendee, $attendees['email:foo@example.com']);
 
         // offsetUnset
-        unset($attendees['jack@example.com']);
-        $this->assertFalse(isset($attendees['jack@example.com']));
+        unset($attendees['email:jack@example.com']);
+        $this->assertFalse(isset($attendees['email:jack@example.com']));
     }
 
     public function testParse()
@@ -91,9 +100,19 @@ class Kronolith_Unit_AttendeeListTest extends Horde_Test_Case
             $attendee->role = Kronolith::PART_REQUIRED;
             $attendee->response = Kronolith::RESPONSE_NONE;
         }
+        $attendees = iterator_to_array($attendees);
         $this->assertEquals(
             $expectedAttendees,
-            iterator_to_array($attendees)
+            array_values($attendees)
+        );
+        $this->assertEquals(
+            array(
+                'email:juergen@example.com',
+                'name:Jane Doe',
+                'email:jack@example.com',
+                'email:jenny@example.com'
+            ),
+            array_keys($attendees)
         );
     }
 
@@ -104,13 +123,13 @@ class Kronolith_Unit_AttendeeListTest extends Horde_Test_Case
             new Kronolith_Attendee(array('email' => 'foo@example.com'))
         );
         $this->assertEquals(5, count($attendees));
-        $this->assertTrue(isset($attendees['foo@example.com']));
+        $this->assertTrue(isset($attendees['email:foo@example.com']));
 
         $attendees->add(new Kronolith_Attendee_List(array(
             new Kronolith_Attendee(array('email' => 'bar@example.com'))
         )));
         $this->assertEquals(6, count($attendees));
-        $this->assertTrue(isset($attendees['bar@example.com']));
+        $this->assertTrue(isset($attendees['email:bar@example.com']));
     }
 
     public function testHas()
@@ -118,7 +137,7 @@ class Kronolith_Unit_AttendeeListTest extends Horde_Test_Case
         $attendees = $this->_getList();
         $this->assertTrue($attendees->has('juergen@example.com'));
         $this->assertTrue($attendees->has('Juergen@example.com'));
-        $this->assertTrue($attendees->has($attendees['juergen@example.com']));
+        $this->assertTrue($attendees->has($attendees['email:juergen@example.com']));
         $this->assertFalse($attendees->has('foo@example.com'));
         $this->assertFalse(
             $attendees->has(
@@ -144,7 +163,7 @@ class Kronolith_Unit_AttendeeListTest extends Horde_Test_Case
     public function testToString()
     {
         $this->assertEquals(
-            'Jürgen Doe <juergen@example.com>, "Jane Doe", Jack Doe <jack@example.com>, jenny@example.com',
+            'Jürgen Doe <juergen@example.com>, Jane Doe, Jack Doe <jack@example.com>, jenny@example.com',
             strval($this->_getList())
         );
     }

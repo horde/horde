@@ -35,7 +35,7 @@
           <td width="100%"><font size="2"><strong><?php echo $this->h($this->event->location) ?></strong></font></td>
         </tr>
         <?php endif ?>
-        <?php if ($this->attendees): ?>
+        <?php if (count($this->event->attendees)): ?>
 
         <tr<?php if ($i++ % 2) echo ' bgcolor="#f1f1f1"' ?>>
           <td nowrap="nowrap" align="right" valign="top">
@@ -43,7 +43,7 @@
           </td>
           <td width="5">&nbsp;</td>
           <td width="100%"><font size="2"><strong>
-            <?php foreach ($this->attendees as $attendee): ?>
+            <?php foreach ($this->event->attendees as $attendee): ?>
             <?php if (is_null($attendee->addressObject->host)): ?>
             <?php echo $this->h($attendee->displayName) ?><br />
             <?php else: ?>

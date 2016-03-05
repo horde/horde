@@ -140,7 +140,7 @@ class Kronolith_Event_Sql extends Kronolith_Event
                         );
                     }
                 } else {
-                    $this->attendees = $attendees;
+                    $this->attendees = new Kronolith_Attendee_List(iterator_to_array($attendees));
                 }
             }
         }

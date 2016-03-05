@@ -85,15 +85,24 @@ class Kronolith_Unit_AttendeeTest extends Horde_Test_Case
         $this->assertEquals('jenny@example.com', $attendees[3]->displayName);
     }
 
+    public function testId()
+    {
+        $attendees = $this->_getAttendees();
+        $this->assertEquals('email:juergen@example.com', $attendees[0]->id);
+        $this->assertEquals('name:Jane Doe', $attendees[1]->id);
+        $this->assertEquals('email:jack@example.com', $attendees[2]->id);
+        $this->assertEquals('email:jenny@example.com', $attendees[3]->id);
+    }
+
     public function testMatch()
     {
         $attendee = $this->_getAttendees()[0];
-        $this->assertTrue($attendee->match('juergen@example.com', false));
-        $this->assertTrue($attendee->match('Juergen@example.com', false));
-        $this->assertFalse($attendee->match('jane@example.com', false));
-        $this->assertTrue($attendee->match('juergen@example.com', true));
-        $this->assertFalse($attendee->match('Juergen@example.com', true));
-        $this->assertFalse($attendee->match('jane@example.com', true));
+        $this->assertTrue($attendee->matchesEmail('juergen@example.com', false));
+        $this->assertTrue($attendee->matchesEmail('Juergen@example.com', false));
+        $this->assertFalse($attendee->matchesEmail('jane@example.com', false));
+        $this->assertTrue($attendee->matchesEmail('juergen@example.com', true));
+        $this->assertFalse($attendee->matchesEmail('Juergen@example.com', true));
+        $this->assertFalse($attendee->matchesEmail('jane@example.com', true));
     }
 
     public function testToString()
@@ -104,7 +113,7 @@ class Kronolith_Unit_AttendeeTest extends Horde_Test_Case
             strval($attendees[0])
         );
         $this->assertEquals(
-            '"Jane Doe"',
+            'Jane Doe',
             strval($attendees[1])
         );
         $this->assertEquals(
@@ -124,17 +133,17 @@ class Kronolith_Unit_AttendeeTest extends Horde_Test_Case
             (object)array(
                 'a' => Kronolith::PART_REQUIRED,
                 'e' => 'juergen@example.com',
+                'l' => 'Jürgen Doe',
                 'r' => Kronolith::RESPONSE_NONE,
-                'l' => 'Jürgen Doe <juergen@example.com>',
             ),
             $attendees[0]->toJson()
         );
         $this->assertEquals(
             (object)array(
                 'a' => Kronolith::PART_OPTIONAL,
-                'e' => 'Jane Doe',
+                'e' => null,
+                'l' => 'Jane Doe',
                 'r' => Kronolith::RESPONSE_ACCEPTED,
-                'l' => '"Jane Doe"',
             ),
             $attendees[1]->toJson()
         );
@@ -142,8 +151,8 @@ class Kronolith_Unit_AttendeeTest extends Horde_Test_Case
             (object)array(
                 'a' => Kronolith::PART_NONE,
                 'e' => 'jenny@example.com',
-                'r' => Kronolith::RESPONSE_TENTATIVE,
                 'l' => 'jenny@example.com',
+                'r' => Kronolith::RESPONSE_TENTATIVE,
             ),
             $attendees[3]->toJson()
         );
@@ -180,7 +189,7 @@ class Kronolith_Unit_AttendeeTest extends Horde_Test_Case
         $this->assertEquals(Kronolith::RESPONSE_NONE, $attendees[0]->response);
         $this->assertEquals('Jürgen Doe', $attendees[0]->name);
 
-        $this->assertEquals('Jane Doe', $attendees[1]->email);
+        $this->assertNull($attendees[1]->email);
         $this->assertEquals(Kronolith::PART_OPTIONAL, $attendees[1]->role);
         $this->assertEquals(Kronolith::RESPONSE_ACCEPTED, $attendees[1]->response);
         $this->assertEquals('Jane Doe', $attendees[1]->name);
