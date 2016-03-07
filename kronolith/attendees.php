@@ -253,7 +253,11 @@ foreach ($session->get('kronolith', 'attendees') as $attendee) {
 if (count($resources)) {
     $driver = Kronolith::getDriver('Resource');
     foreach ($resources as $r_id => $resource) {
-        $r = $driver->getResource($r_id);
+        try {
+            $r = $driver->getResource($r_id);
+        } catch (Horde_Exception_NotFound $e) {
+            continue;
+        }
         try {
             $vfb = $r->getFreeBusy(null, null, true);
             if ($resource['attendance'] == Kronolith::PART_REQUIRED) {
