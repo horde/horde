@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [mjr] Honor alternative_name mapping (Bug #14280).
 * [mjr] Fix dealing with orphaned virtual address books.
 * [jan] Update Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
  </notes>
@@ -2091,6 +2092,7 @@
    <date>2016-02-29</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [mjr] Honor alternative_name mapping (Bug #14280).
 * [mjr] Fix dealing with orphaned virtual address books.
 * [jan] Update Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
    </notes>
