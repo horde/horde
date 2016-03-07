@@ -395,7 +395,7 @@ class Kronolith_Driver_Resource extends Kronolith_Driver
      */
     public function convertFromDriver($value)
     {
-        return Horde_String::convertCharset($value, $this->_params['charset'], 'UTF-8');
+        return $this->_driver->convertFromDriver($value);
     }
 
     /**
@@ -408,7 +408,7 @@ class Kronolith_Driver_Resource extends Kronolith_Driver
      */
     public function convertToDriver($value)
     {
-        return Horde_String::convertCharset($value, 'UTF-8', $this->_params['charset']);
+        return $this->_driver->convertToDriver($value);
     }
 
     /**
