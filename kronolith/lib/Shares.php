@@ -64,8 +64,8 @@ class Kronolith_Shares
     {
         $attributes = array('calendar_type' => Kronolith::SHARE_TYPE_USER);
         if (!empty($params['attributes']) && !is_array($params['attributes'])) {
-                $attributes['owner'] = $params['attributes'];
-                $params['attributes'] = array();
+            $attributes['owner'] = $params['attributes'];
+            $params['attributes'] = array();
         } elseif (empty($params['attributes'])) {
             $params['attributes'] = array();
         }

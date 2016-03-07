@@ -1,8 +1,5 @@
 <?php
 /**
- * Base class for Kronolith resources. Partially presents a Horde_Share_Object
- * interface.
- *
  * Copyright 2009-2016 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -11,19 +8,29 @@
  * @author Michael J Rubinsky <mrubinsk@horde.org>
  * @package Kronolith
  */
+
+/**
+ * Base class for Kronolith resources.
+ *
+ * Partially presents a Horde_Share_Object interface.
+ *
+ * @author Michael J Rubinsky <mrubinsk@horde.org>
+ * @package Kronolith
+ */
 abstract class Kronolith_Resource_Base
 {
     /**
-     * Instance copy of parameters
+     * Instance copy of parameters.
+     *
      * Contains:
-     *<pre>
-     *   -:name          - Display name of resource.
-     *   -:calendar      - The calendar associated with this resource.
-     *   -:description   - Resource description.
-     *   -:email         - An email address for the resource. (Currently not used)
-     *   -:members       - Member resources, if this is a group.
-     *   -:response_type - A RESPONSETYPE_* constant
-     *</pre>
+     *   - name:          Display name of resource.
+     *   - calendar:      The calendar associated with this resource.
+     *   - description:   Resource description.
+     *   - email:         An email address for the resource. (Currently not
+     *                    used)
+     *   - members:       Member resources, if this is a group.
+     *   - response_type: A RESPONSETYPE_* constant
+     *
      * @var array
      */
     protected $_params = array();

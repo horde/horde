@@ -339,22 +339,24 @@ class Kronolith_Driver_Resource extends Kronolith_Driver
      * @return an array of Kronolith_Resource objects.
      * @throws Kronolith_Exception
      */
-    public function listResources($perms = Horde_Perms::READ, array $filter = array(), $orderby = null)
+    public function listResources(
+        $perms = Horde_Perms::READ, array $filter = array(), $orderby = null
+    )
     {
-        global $registry;
+        global $injector, $registry;
+
         $attributes = array_merge(
             array('calendar_type' => Kronolith::SHARE_TYPE_RESOURCE),
             $filter
         );
-        $shares = $GLOBALS['injector']->getInstance('Kronolith_Shares')->listShares(
+        $shares = $injector->getInstance('Kronolith_Shares')->listShares(
             $registry->getAuth(),
-            array('perm' => $perms, 'attributes' => $attributes));
+            array('perm' => $perms, 'attributes' => $attributes)
+        );
         $return = array();
         foreach ($shares as $share) {
-            $class = 'Kronolith_Resource_' . ($share->get('isgroup')
-                ? 'Group'
-                : 'Single');
-
+            $class = 'Kronolith_Resource_'
+                . ($share->get('isgroup') ? 'Group' : 'Single');
             $return[$share->getName()] = new $class(array('share' => $share));
         }
 

@@ -26,7 +26,8 @@ class Kronolith_Resource
     * @param array $info            The resource array.
     *   - name: (string)            The resource name.
     *   - desc: (string)            The resource description.
-    *   - email: (string)           An email address for the resource, if needed.
+    *   - email: (string)           An email address for the resource, if
+    *                               needed.
     *   - response_type: (integer)  The RESPONSETYPE_* constant.
     *   - group: (boolean)          Flag resource as a group.
     *   - members: (array)          An array of resource ids if this is a group.
