@@ -22,12 +22,12 @@ class Kronolith_Event_Sql extends Kronolith_Event
     /**
      * Constructor.
      *
-     * @param Kronolith_Driver_Sql $driver  The backend driver that this event
-     *                                      is stored in.
-     * @param mixed $eventObject            Backend specific event object
-     *                                      that this will represent.
+     * @param Kronolith_Driver $driver  The backend driver that this event
+     *                                  is stored in.
+     * @param mixed $eventObject        Backend specific event object
+     *                                  that this will represent.
      */
-    public function __construct(Kronolith_Driver_Sql $driver, $eventObject = null)
+    public function __construct(Kronolith_Driver $driver, $eventObject = null)
     {
         /* Set default alarm value. */
         if (isset($GLOBALS['prefs'])) {
