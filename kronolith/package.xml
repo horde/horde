@@ -2748,6 +2748,7 @@
    <date>2016-02-17</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fixed several issues with resource management.
 * [jan] Update Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
    </notes>
   </release>
