@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
  <notes>
+* [jan] Show users&apos; full names in employee lists.
 * [jan] Add indexes to searchable timeslice columns.
 * [mjr] Add ability to delete multiple slices at one time.
 * [mjr] Add confirmation dialog for deleting time slices (Request #10361).
@@ -285,7 +286,7 @@
    <package>
     <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
-    <min>2.9.0</min>
+    <min>2.23.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -516,6 +517,7 @@
    </stability>
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
    <notes>
+* [jan] Show users&apos; full names in employee lists.
 * [jan] Add indexes to searchable timeslice columns.
 * [mjr] Add ability to delete multiple slices at one time.
 * [mjr] Add confirmation dialog for deleting time slices (Request #10361).

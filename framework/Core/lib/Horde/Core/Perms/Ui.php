@@ -310,6 +310,7 @@ class Horde_Core_Perms_Ui
         $perm_val = $permission->getUserPermissions();
         $this->_form->setSection('users', Horde_Core_Translation::t("Individual Users"), Horde_Themes_Image::tag('user.png'), false);
         $auth = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create();
+        $user_list = array();
         if ($auth->hasCapability('list')) {
             /* The auth driver has list capabilities so set up an array which
              * the matrix field type will recognise to set up an enum box for
@@ -317,11 +318,10 @@ class Horde_Core_Perms_Ui
             $new_users = array();
 
             try {
-                $user_list = $auth->listUsers();
-                sort($user_list);
-                foreach ($user_list as $user) {
+                $user_list = $auth->listNames();
+                foreach ($user_list as $user => $name) {
                     if (!isset($perm_val[$user])) {
-                        $new_users[$user] = $user;
+                        $new_users[$user] = $name;
                     }
                 }
             } catch (Horde_Auth_Exception $e) {
@@ -340,7 +340,7 @@ class Horde_Core_Perms_Ui
             $rows = array();
             $matrix = array();
             foreach ($perm_val as $u_id => $u_perms) {
-                $rows[$u_id] = $u_id;
+                $rows[$u_id] = isset($user_list[$u_id]) ? $user_list[$u_id] : $u_id;
                 $matrix[$u_id] = Horde_Perms::integerToArray($u_perms);
             }
             $this->_form->addVariable('', 'u', 'matrix', false, false, null, array($cols, $rows, $matrix, $new_users));
@@ -350,10 +350,10 @@ class Horde_Core_Perms_Ui
                     $u_n = Horde_Util::getFormData('u_n');
                     $u_n = empty($u_n['u']) ? null : $u_n['u'];
                     $user_html = '<select name="u_n[u]"><option value="">' . Horde_Core_Translation::t("-- select --") . '</option>';
-                    foreach ($new_users as $new_user) {
+                    foreach ($new_users as $new_user => $name) {
                         $user_html .= '<option value="' . $new_user . '"';
                         $user_html .= $u_n == $new_user ? ' selected="selected"' : '';
-                        $user_html .= '>' . htmlspecialchars($new_user) . '</option>';
+                        $user_html .= '>' . htmlspecialchars($name) . '</option>';
                     }
                     $user_html .= '</select>';
                 } else {

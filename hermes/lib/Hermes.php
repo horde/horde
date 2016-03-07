@@ -204,27 +204,23 @@ class Hermes
      */
     public static function getEmployeesType($enumtype = 'multienum')
     {
-        $auth = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create();
+        $auth = $GLOBALS['injector']
+            ->getInstance('Horde_Core_Factory_Auth')
+            ->create();
         if (!$auth->hasCapability('list')) {
             return array('text', array());
         }
         try {
-            $users = $auth->listUsers();
+            $employees = $auth->listNames();
         } catch (Exception $e) {
-            return array('invalid',
-                         sprintf(_("An error occurred listing users: %s"), $e->getMessage()));
+            return array(
+                'invalid',
+                sprintf(
+                    _("An error occurred listing users: %s"),
+                    $e->getMessage()
+                )
+            );
         }
-
-        $employees = array();
-        foreach ($users as $user) {
-            $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($user);
-            $label = $identity->getValue('fullname');
-            if (empty($label)) {
-                $label = $user;
-            }
-            $employees[$user] = $label;
-        }
-
         return array($enumtype, $employees);
     }
 

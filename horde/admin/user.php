@@ -268,11 +268,19 @@ if ($auth->hasCapability('list')) {
     $search_pattern = $vars->get('search_pattern', '');
 
     try {
-        $users = $auth->listUsers();
+        $users = $auth->listNames();
 
-        /* Returns only users that match the specified pattern. */
-        $users = preg_grep('/' . $search_pattern . '/', $users);
-        sort($users);
+        if (strlen($search_pattern)) {
+            /* Returns only users that match the specified pattern. */
+            $search_pattern = '/' . preg_quote($search_pattern, '/') . '/i';
+            $users = array_merge(
+                preg_grep($search_pattern, $users),
+                array_intersect_key(
+                    $users,
+                    array_flip(preg_grep($search_pattern, array_keys($users)))
+                )
+            );
+        }
 
         $viewurl = Horde::url('admin/user.php')->add('search_pattern', $search_pattern);
 

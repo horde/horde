@@ -27,6 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
  <notes>
+* [jan] Show users&apos; full names in responsible user lists.
 * [jan] Add option to not obfuscate email addresses (horde@iotti.biz, Request #13848).
 * [jan] Allow to set new due date through API (Karim Geiger &lt;me@karim-geiger.de&gt;).
 * [jan] Add ticket_create hook.
@@ -52,7 +53,7 @@
     <file name="whups-git-hook" role="script">
      <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
     </file>
-    <file name="whups-git-hook-conf.php.dist" role="script"/>
+    <file name="whups-git-hook-conf.php.dist" role="script" />
     <file name="whups-mail-filter" role="script">
      <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
     </file>
@@ -65,7 +66,7 @@
     <file name="whups-svn-hook" role="script">
      <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
     </file>
-    <file name="whups-svn-hook-conf.php.dist" role="script"/>
+    <file name="whups-svn-hook-conf.php.dist" role="script" />
    </dir> <!-- /bin -->
    <dir name="config">
     <file name=".htaccess" role="horde" />
@@ -516,7 +517,7 @@
    <package>
     <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.23.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1207,6 +1208,7 @@
    <date>2014-03-10</date>
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
    <notes>
+* [jan] Show users&apos; full names in responsible user lists.
 * [jan] Add option to not obfuscate email addresses (horde@iotti.biz, Request #13848).
 * [jan] Allow to set new due date through API (Karim Geiger &lt;me@karim-geiger.de&gt;).
 * [jan] Add ticket_create hook.

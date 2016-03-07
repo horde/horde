@@ -40,9 +40,9 @@ $operm = isset($userperms[$owner])
     <label for="owner_select" class="hidden"><?php echo _("Owner:") ?></label>
     <select id="owner_select" name="owner_select">
       <option value=""><?php echo _("Select a new owner:") ?></option>
-      <option value="<?php echo htmlspecialchars($registry->convertUsername($owner, false)) ?>" selected="selected"><?php echo htmlspecialchars($registry->convertUsername($owner, false)) ?></option>
-<?php foreach ($userList as $user) { if ($user != $registry->convertUsername($owner, false)) { ?>
-      <option value="<?php echo htmlspecialchars($user) ?>"><?php echo htmlspecialchars($registry->convertUsername($user, false)) ?></option>
+      <option value="<?php echo htmlspecialchars($registry->convertUsername($owner, false)) ?>" selected="selected"><?php echo htmlspecialchars($userList[$registry->convertUsername($owner, false)]) ?></option>
+<?php foreach ($userList as $user => $name) { if ($user != $registry->convertUsername($owner, false)) { ?>
+      <option value="<?php echo htmlspecialchars($user) ?>"><?php echo htmlspecialchars($name) ?></option>
 <?php } } ?>
     </select>
 <?php else: ?>
@@ -179,7 +179,7 @@ foreach ($userperms as $user => $uperm) {
         $user = $registry->convertUsername($user, false);
 ?>
 <tr>
-  <td class="light"><?php echo htmlspecialchars($user) ?><input type="hidden" name="u_names[<?php echo htmlspecialchars($user) ?>]" value="<?php echo htmlspecialchars($user) ?>" /></td>
+  <td class="light"><?php echo htmlspecialchars($userList[$user]) ?><input type="hidden" name="u_names[<?php echo htmlspecialchars($user) ?>]" value="<?php echo htmlspecialchars($user) ?>" /></td>
   <td align="center">
     <input type="checkbox" id="u_show_<?php echo str_replace('@', '_', htmlspecialchars($user)) ?>" name="u_show[<?php echo htmlspecialchars($user) ?>]"<?php echo ($uperm & Horde_Perms::SHOW) ? ' checked="checked"' : '' ?> />
     <label for="u_show_<?php echo str_replace('@', '_', htmlspecialchars($user)) ?>" class="hidden"><?php echo _("Show") ?></label>
@@ -207,11 +207,11 @@ foreach ($userperms as $user => $uperm) {
     <select id="u_names_new_select" name="u_names[||new_select]">
       <option value=""><?php echo _("Select a user to add:") ?></option>
 <?php
-foreach ($userList as $user) {
+foreach ($userList as $user => $name) {
     if (!isset($userperms[$registry->convertUsername($user, true)]) &&
         $user != $registry->convertUsername($owner, false)) {
 ?>
-      <option value="<?php echo htmlspecialchars($user) ?>"><?php echo htmlspecialchars($user) ?></option>
+      <option value="<?php echo htmlspecialchars($user) ?>"><?php echo htmlspecialchars($name) ?></option>
 <?php } } ?>
     </select>
   </td>

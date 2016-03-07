@@ -28,7 +28,7 @@
 <?php foreach ($users as $user): ?>
  <tr>
   <td><label for="remove_<?php echo htmlspecialchars($user) ?>">
-   <?php echo htmlspecialchars($user) ?>
+   <?php echo htmlspecialchars($user_list[$user]) ?>
   </label></td>
   <?php if (!$groups->readOnly()): ?>
   <td><input type="checkbox" id="remove_<?php echo htmlspecialchars($user) ?>" name="remove[<?php echo htmlspecialchars($user) ?>]" /></td>
@@ -58,9 +58,9 @@
 <?php if ($auth->hasCapability('list')): ?>
  <label for="new_user" class="hidden"><?php echo _("Users") ?></label>
  <select id="new_user" name="new_user[]" multiple="multiple">
-<?php foreach ($user_list as $user): ?>
+<?php foreach ($user_list as $user => $name): ?>
 <?php if (!in_array($user, $users)): ?>
-  <option value="<?php echo $user ?>"><?php echo $user ?></option>
+  <option value="<?php echo htmlspecialchars($user) ?>"><?php echo htmlspecialchars($name) ?></option>
 <?php endif ?>
 <?php endforeach ?>
  </select>

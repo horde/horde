@@ -253,8 +253,7 @@ if ($auth->hasCapability('list') &&
     ($conf['auth']['list_users'] == 'list' ||
      $conf['auth']['list_users'] == 'both')) {
     try {
-        $userList = $auth->listUsers();
-        sort($userList);
+        $userList = $auth->listNames();
     } catch (Horde_Auth_Exception $e) {
         Horde::log($e, 'ERR');
     }

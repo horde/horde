@@ -145,12 +145,11 @@ case 'edit.inc':
 
     if ($auth->hasCapability('list')) {
         try {
-            $user_list = $auth->listUsers();
+            $user_list = $auth->listNames();
         } catch (Horde_Auth_Exception $e) {
             $notification->push($e, 'horde.error');
             $user_list = array();
         }
-        sort($user_list);
     } else {
         $user_list = array();
     }

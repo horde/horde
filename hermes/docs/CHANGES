@@ -2,6 +2,7 @@
 v2.0-git
 --------
 
+[jan] Show users' full names in employee lists.
 [jan] Add indexes to searchable timeslice columns.
 [mjr] Add ability to delete multiple slices at one time.
 [mjr] Add confirmation dialog for deleting time slices (Request #10361).

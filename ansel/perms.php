@@ -261,8 +261,7 @@ if (empty($share)) {
 }
 
 if ($auth->hasCapability('list')) {
-    $userList = $auth->listUsers();
-    sort($userList);
+    $userList = $auth->listNames();
 } else {
     $userList = array();
 }

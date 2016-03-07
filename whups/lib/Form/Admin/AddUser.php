@@ -29,12 +29,11 @@ class Whups_Form_Admin_AddUser extends Horde_Form
             $current = $whups_driver->getQueueUsers($queue);
 
             try {
-                $list = $auth->listUsers();
-                sort($list);
+                $list = $auth->listNames();
                 $users = array();
-                foreach ($list as $user) {
+                foreach ($list as $user => $name) {
                     if (!in_array($user, $current)) {
-                        $users[$user] = $GLOBALS['registry']->convertUsername($user, false);
+                        $users[$user] = $name;
                     }
                 }
                 $this->addVariable(_("User"), 'user', 'multienum', true, false, null, array($users));

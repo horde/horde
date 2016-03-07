@@ -2,6 +2,7 @@
 v5.3.0-git
 ----------
 
+[jan] Show users' full names in user lists.
 [jan] Only show languages on login page that are supported by the system
       (Request #10457).
 [jan] Add option to always lowercase user names after logging in.

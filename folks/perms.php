@@ -223,12 +223,7 @@ if (is_a($share, 'PEAR_Error')) {
 }
 
 if ($auth->hasCapability('list')) {
-    $userList = $auth->listUsers();
-    if (is_a($userList, 'PEAR_Error')) {
-        Horde::log($userList, 'ERR');
-        $userList = array();
-    }
-    sort($userList);
+    $userList = $auth->listNames();
 } else {
     $userList = array();
 }
