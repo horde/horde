@@ -14,19 +14,22 @@ if (empty($url)) {
 <input type="hidden" name="calendar" value="<?php echo htmlspecialchars($this->event->calendar) ?>" />
 <input type="hidden" name="type" value="<?php echo htmlspecialchars($this->event->calendarType) ?>" />
 
-<table class="striped" cellspacing="0">
-<tr><td class="warning"><?php echo _("This is a recurring event. Delete the current event only, this<br />occurrence and all future occurences, or all occurences?") ?></td></tr>
+<p class="horde-content warning"><?php echo _("This is a recurring event. Delete the current event only, this<br />occurrence and all future occurences, or all occurences?") ?></p>
 
 <?php if (count($this->event->attendees)): ?>
-<tr><td><input id="sendupdates_del" type="checkbox" class="checkbox" name="sendupdates" checked="checked" /><label for="sendupdates_del"> <?php echo _("Send a cancel notification to all attendees when deleting this event?") ?></label></td></tr>
+<p class="horde-content">
+ <label>
+  <input id="sendupdates_del" type="checkbox" class="checkbox" name="sendupdates" checked="checked" />
+  <?php echo _("Send a cancel notification to all attendees when deleting this event?") ?>
+ </label>
+</p>
 <?php endif ?>
 
-<tr><td>
+<p class="horde-form-buttons">
  <input type="submit" class="horde-delete" name="current" value="<?php echo _("Current") ?>" />
  <input type="submit" class="horde-delete" name="future" value="<?php echo _("Future") ?>" />
  <input type="submit" class="horde-delete" name="all" value="<?php echo _("All") ?>" />
  <a class="horde-cancel" href="<?php echo htmlspecialchars($url) ?>"><?php echo _("Cancel") ?></a>
-</td></tr>
-</table>
+</p>
 
 </form>

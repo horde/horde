@@ -37,8 +37,7 @@ $hide_img = Horde::img('minus.png', _("Hide"), 'style="display:none"');
            $GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission('max_events') > Kronolith::countEvents())): ?>
 <!-- recurrence editing -->
 <tr>
- <td></td>
- <td colspan="4" class="warning">
+ <td colspan="5" class="warning">
   <?php echo _("This is a recurring event. Edit the current event only, this occurrence<br />and all future occurences, all occurences, or save this event as new?") ?><br /><br />
   <input type="radio" name="edit_recur" value="current" id="edit_current" /> <?php echo Horde::label('edit_current', _("Current")) ?>
   <input type="radio" name="edit_recur" value="future" id="edit_future" /> <?php echo Horde::label('edit_future', _("Future")) ?>
