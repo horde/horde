@@ -471,26 +471,31 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
         }
 
         // Is this an all day event?
-        if ($start->hour == 0 &&
-            $start->min == 0 &&
-            $start->sec == 0 &&
-            $end->hour == 23 &&
-            $end->min == 59) {
-
+        if ($start->hour == 0 && $start->min == 0 && $start->sec == 0 &&
+            $end->hour == 23 && $end->min == 59) {
+            // Yes, with end date ending on 23:59, bump up to 00:00 next day.
             $end = new Horde_Date(
                 array('year'  => (int)$end->year,
                       'month' => (int)$end->month,
                       'mday'  => (int)$end->mday + 1),
                 $end->timezone);
             $this->_properties['alldayevent'] = self::IS_ALL_DAY;
-
-        } elseif (!empty($datetime['allday'])) {
+        } elseif ($start->hour == 0 && $start->min == 0 && $start->sec == 0 &&
+                  $end->hour == 0 && $end->min == 0 && $end->sec == 0 &&
+                  ($end->mday > $start->mday || $end->month > $start->month ||
+                   $end->year > $start->year)) {
+            // Yes, can use values as-is.
             $this->_properties['alldayevent'] = self::IS_ALL_DAY;
+        } elseif (!empty($datetime['allday'])) {
+            // Yes, but need to create the end date but must make sure the
+            // start time is 00:00.
+            $start->hour = $start->min = $start->sec = 0;
             $end = new Horde_Date(
                 array('year'  => (int)$end->year,
                       'month' => (int)$end->month,
-                      'mday'  => (int)$end->mday),
+                      'mday'  => (int)$end->mday + 1),
                 $end->timezone);
+            $this->_properties['alldayevent'] = self::IS_ALL_DAY;
         }
         $this->_properties['starttime'] = $start;
         $this->_properties['endtime'] = $end;
