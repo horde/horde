@@ -642,7 +642,11 @@ class Turba_Driver implements Countable
             $return_fields[] = 'emails';
         }
         if (count($return_fields)) {
-            $return_fields_pre = array_unique(array_merge(array('__key', '__type', '__owner', '__members', 'name'), $return_fields));
+            $default_fields = array('__key', '__type', '__owner', '__members', 'name');
+            if ($this->alternativeName) {
+                $default_fields[] = $this->alternativeName;
+            }
+            $return_fields_pre = array_unique(array_merge($default_fields, $return_fields));
             $return_fields = array();
             foreach ($return_fields_pre as $field) {
                 $result = $this->toDriver($field);
