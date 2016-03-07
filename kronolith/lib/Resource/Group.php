@@ -100,7 +100,11 @@ class Kronolith_Resource_Group extends Kronolith_Resource_Base
         /* Iterate over all resources until one with no conflicts is found */
         foreach ($resources as $resource_id) {
             $conflict = false;
-            $resource = $this->_driver->getResource($resource_id);
+            try {
+                $resource = $this->_driver->getResource($resource_id);
+            } catch (Horde_Exception_NotFound $e) {
+                continue;
+            }
             $busy = Kronolith::getDriver('Resource', $resource->get('calendar'))
                 ->listEvents($start, $end, array('show_recurrence' => true));
 
