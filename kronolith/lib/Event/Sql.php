@@ -135,9 +135,9 @@ class Kronolith_Event_Sql extends Kronolith_Event
                 if (!is_object($attendees)) {
                     $this->attendees = new Kronolith_Attendee_List();
                     foreach ($attendees as $email => $attendee) {
-                        $this->attendees[] = Kronolith_Attendee::migrate(
+                        $this->attendees->add(Kronolith_Attendee::migrate(
                             $email, $driver->convertFromDriver($attendee)
-                        );
+                        ));
                     }
                 } else {
                     $this->attendees = new Kronolith_Attendee_List(iterator_to_array($attendees));
