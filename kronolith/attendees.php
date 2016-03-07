@@ -45,11 +45,14 @@ case 'add':
         /* Get the requested resource */
         $resource = Kronolith::getDriver('Resource')->getResource($newResource);
 
-        /* Do our best to see what the response will be. Note that this response
-         * is only guarenteed once the event is saved. */
-        $date = new Horde_Date(Horde_Util::getFormData('startdate'));
-        $end = new Horde_Date(Horde_Util::getFormData('enddate'));
-        $response = $resource->getResponse(array('start' => $date, 'end' => $end));
+        /* Do our best to see what the response will be. Note that this
+         * response is only guarenteed once the event is saved. */
+        $event = Kronolith::getDriver()->getEvent();
+        $event->start = new Horde_Date(Horde_Util::getFormData('startdate'));
+        $event->end = new Horde_Date(Horde_Util::getFormData('enddate'));
+        $event->start->setTimezone(date_default_timezone_get());
+        $event->end->setTimezone(date_default_timezone_get());
+        $response = $resource->getResponse($event);
         $resources[$resource->getId()] = array(
             'attendance' => Kronolith::PART_REQUIRED,
             'response'   => $response,
