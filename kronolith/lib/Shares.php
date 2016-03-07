@@ -76,7 +76,8 @@ class Kronolith_Shares
 
         // Must explicitly include system shares if the user is an admin since
         // there may be some shares that do not have perms set.
-        if ($GLOBALS['registry']->isAdmin()) {
+        if ($attributes['calendar_type'] == Kronolith::SHARE_TYPE_USER &&
+            $GLOBALS['registry']->isAdmin()) {
             $shares = array_merge($shares, $this->listSystemShares());
         }
 
