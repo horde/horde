@@ -250,6 +250,7 @@
      </dir> <!-- /lib/Ui/VarRenderer -->
     </dir> <!-- /lib/Ui -->
     <dir name="View">
+     <file name="Attendees.php" role="horde" />
      <file name="Day.php" role="horde" />
      <file name="DeleteEvent.php" role="horde" />
      <file name="EditEvent.php" role="horde" />
@@ -554,7 +555,9 @@
      <file name="mail.plain.php" role="horde" />
     </dir> <!-- /templates/alarm -->
     <dir name="attendees">
-     <file name="attendees.inc" role="horde" />
+     <file name="attendees.html.php" role="horde" />
+     <file name="_attendee.html.php" role="horde" />
+     <file name="_resource.html.php" role="horde" />
     </dir> <!-- /templates/attendees -->
     <dir name="chunks">
      <file name="calendar.php" role="horde" />
@@ -1265,6 +1268,7 @@
    <install as="kronolith/lib/Storage/Kolab.php" name="lib/Storage/Kolab.php" />
    <install as="kronolith/lib/Storage/Sql.php" name="lib/Storage/Sql.php" />
    <install as="kronolith/lib/Ui/VarRenderer/Kronolith.php" name="lib/Ui/VarRenderer/Kronolith.php" />
+   <install as="kronolith/lib/View/Attendees.php" name="lib/View/Attendees.php" />
    <install as="kronolith/lib/View/Day.php" name="lib/View/Day.php" />
    <install as="kronolith/lib/View/DeleteEvent.php" name="lib/View/DeleteEvent.php" />
    <install as="kronolith/lib/View/EditEvent.php" name="lib/View/EditEvent.php" />
@@ -1401,7 +1405,9 @@
    <install as="kronolith/templates/agenda/notification.plain.php" name="templates/agenda/notification.plain.php" />
    <install as="kronolith/templates/alarm/mail.html.php" name="templates/alarm/mail.html.php" />
    <install as="kronolith/templates/alarm/mail.plain.php" name="templates/alarm/mail.plain.php" />
-   <install as="kronolith/templates/attendees/attendees.inc" name="templates/attendees/attendees.inc" />
+   <install as="kronolith/templates/attendees/attendees.html.php" name="templates/attendees/attendees.html.php" />
+   <install as="kronolith/templates/attendees/_attendee.html.php" name="templates/attendees/_attendee.html.php" />
+   <install as="kronolith/templates/attendees/_resource.html.php" name="templates/attendees/_resource.html.php" />
    <install as="kronolith/templates/chunks/calendar.php" name="templates/chunks/calendar.php" />
    <install as="kronolith/templates/chunks/permissions.inc" name="templates/chunks/permissions.inc" />
    <install as="kronolith/templates/contacts/contacts.inc" name="templates/contacts/contacts.inc" />

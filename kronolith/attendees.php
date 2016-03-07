@@ -70,7 +70,6 @@ case 'add':
 
 case 'edit':
     // Edit the specified attendee.
-    $actionValue = Horde_String::lower($actionValue);
     if (isset($attendees[$actionValue])) {
         $editAttendee = strval($attendees[$actionValue]);
         unset($attendees[$actionValue]);
@@ -80,7 +79,6 @@ case 'edit':
 
 case 'remove':
     // Remove the specified attendee.
-    $actionValue = Horde_String::lower($actionValue);
     if (isset($attendees[$actionValue])) {
         unset($attendees[$actionValue]);
         $session->set('kronolith', 'attendees', $attendees);
@@ -107,7 +105,6 @@ case 'changeResourceResp':
 case 'changeatt':
     // Change the attendance status of an attendee
     list($partval, $partname) = explode(' ', $actionValue, 2);
-    $partname = Horde_String::lower($partname);
     if (isset($attendees[$partname])) {
         $attendees[$partname]->role = $partval;
         $session->set('kronolith', 'attendees', $attendees);
@@ -117,7 +114,6 @@ case 'changeatt':
 case 'changeResourceAtt':
     // Change attendance status of a resource
     list($partval, $partname) = explode(' ', $actionValue, 2);
-    $partname = Horde_String::lower($partname);
     if (isset($resources[$partname])) {
         $resources[$partname]['attendance'] = $partval;
         $session->set('kronolith', 'resources', $resources);
@@ -159,16 +155,6 @@ case 'clear':
     break;
 }
 
-/* Get list of resources for select list, and remove those we already added */
-if (!empty($conf['resources']['enabled'])) {
-    $allResources = Kronolith::getDriver('Resource')->listResources(Horde_Perms::READ, array(), 'name');
-    foreach (array_keys($resources) as $id) {
-        unset($allResources[$id]);
-    }
-} else {
-    $allResources = array();
-}
-
 // Get the current Free/Busy view; default to the 'day' view if none specified.
 $view = Horde_Util::getFormData('view', 'Day');
 
@@ -177,14 +163,8 @@ $delimg = Horde::img('delete.png', _("Remove Attendee"));
 
 $ident = $injector->getInstance('Horde_Core_Factory_Identity')->create();
 $identities = $ident->getAll('id');
-$vars = Horde_Variables::getDefaultVariables();
-$tabs = new Horde_Core_Ui_Tabs(null, $vars);
-$tabs->addTab(_("Day"), new Horde_Url('javascript:switchView(\'Day\')'), 'Day');
-$tabs->addTab(_("Work Week"), new Horde_Url('javascript:switchView(\'Workweek\')'), 'Workweek');
-$tabs->addTab(_("Week"), new Horde_Url('javascript:switchView(\'Week\')'), 'Week');
-$tabs->addTab(_("Month"), new Horde_Url('javascript:switchView(\'Month\')'), 'Month');
 
-$attendee_view = Kronolith_FreeBusy_View::singleton($view);
+$fbView = Kronolith_FreeBusy_View::singleton($view);
 
 // Add the creator as a required attendee in the Free/Busy display
 $cal = @unserialize($prefs->getValue('fb_cals'));
@@ -203,7 +183,7 @@ if (!$cal) {
 }
 try {
     $vfb = Kronolith_FreeBusy::generate($cal, null, null, true, $GLOBALS['registry']->getAuth());
-    $attendee_view->addRequiredMember($vfb);
+    $fbView->addRequiredMember($vfb);
 } catch (Exception $e) {
     $notification->push(sprintf(_("Error retrieving your free/busy information: %s"), $e->getMessage()));
 }
@@ -243,9 +223,9 @@ foreach ($session->get('kronolith', 'attendees') as $attendee) {
         );
     }
     if ($attendee->role == Kronolith::PART_REQUIRED) {
-        $attendee_view->addRequiredMember($vfb);
+        $fbView->addRequiredMember($vfb);
     } else {
-        $attendee_view->addOptionalMember($vfb);
+        $fbView->addOptionalMember($vfb);
     }
 }
 
@@ -261,9 +241,9 @@ if (count($resources)) {
         try {
             $vfb = $r->getFreeBusy(null, null, true);
             if ($resource['attendance'] == Kronolith::PART_REQUIRED) {
-                $attendee_view->addRequiredResourceMember($vfb);
+                $fbView->addRequiredResourceMember($vfb);
             } else {
-                $attendee_view->addOptionalResourceMember($vfb);
+                $fbView->addOptionalResourceMember($vfb);
             }
         } catch (Horde_Exception $e) {
             $notification->push(
@@ -273,21 +253,20 @@ if (count($resources)) {
     }
 }
 
-$date = new Horde_Date(Horde_Util::getFormData('startdate', date('Ymd') . '000000'));
-$end =  new Horde_Date(Horde_Util::getFormData('enddate', date('Ymd') . '000000'));
+$title = _("Edit attendees");
 
-$vfb_html = $attendee_view->render($date);
+$attendeesView = new Kronolith_View_Attendees(array('fbView' => $fbView));
+$attendeesView->assign(compact('editAttendee', 'title'));
 
 $injector->getInstance('Horde_Core_Factory_Imple')->create('Kronolith_Ajax_Imple_ContactAutoCompleter', array(
     'id' => 'newAttendees'
 ));
 
-$title = _("Edit attendees");
 $page_output->sidebar = $page_output->topbar = false;
 $page_output->header(array(
     'title' => $title
 ));
 require KRONOLITH_TEMPLATES . '/javascript_defs.php';
 $notification->notify(array('listeners' => 'status'));
-require KRONOLITH_TEMPLATES . '/attendees/attendees.inc';
+echo $attendeesView->render('attendees');
 $page_output->footer();
