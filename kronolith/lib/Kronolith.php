@@ -1576,7 +1576,9 @@ class Kronolith
             $user = $GLOBALS['registry']->convertUsername($user_backend, true);
             // If the user is empty, or we've already set permissions
             // via the owner_ options, don't do anything here.
-            if (empty($user) || $user == $new_owner) {
+            if (empty($user) ||
+                (!($share instanceof Kronolith_Resource_Base) &&
+                 $user == $new_owner)) {
                 continue;
             }
             if ($auth->hasCapability('list') && !$auth->exists($user_backend)) {

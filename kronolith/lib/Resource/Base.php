@@ -76,7 +76,7 @@ abstract class Kronolith_Resource_Base
     public function lock()
     {
         $locks = $GLOBALS['injector']->getInstance('Horde_Lock');
-        $principle = 'calendar/' . $rcal;
+        $principle = 'calendar/' . $this->_id;
         $this->_lock = $locks->setLock(
             $GLOBALS['registry']->getAuth(),
             'kronolith',

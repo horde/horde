@@ -50,8 +50,10 @@ class Kronolith_Resource
         }
 
         $share->set('desc', $info['desc']);
-        $share->set('email', $info['email']);
-        $share->set('response_type', $info['response_type']);
+        //$share->set('email', $info['email']);
+        if (isset($info['response_type'])) {
+            $share->set('response_type', $info['response_type']);
+        }
         $share->set('calendar_type', Kronolith::SHARE_TYPE_RESOURCE);
 
         if (!empty($info['group'])) {
@@ -101,7 +103,7 @@ class Kronolith_Resource
                 } else {
                     $haveLock = false;
                 }
-                $response = $resource->getResponse($this);
+                $response = $resource->getResponse($event);
 
                 /* Remember accepted resources so we can add the event to their
                  * calendars. Otherwise, clear the lock. */
