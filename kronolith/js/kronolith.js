@@ -3346,6 +3346,9 @@ KronolithCore = {
      */
     updateResourcegroupSelect: function()
     {
+        if (!Kronolith.conf.calendars.resource) {
+            return;
+        }
         $('kronolithCalendarresourcegroupmembers').update();
         $H(Kronolith.conf.calendars.resource).each(function(r) {
             var o = new Element('option', { value: r.value.id }).update(r.value.name);
