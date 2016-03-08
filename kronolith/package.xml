@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix updating list of resource calendars in resource group dialog (Bug #14281).
 * [jan] Fixed several issues with resource management.
 * [jan] Update Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
  </notes>
@@ -2695,6 +2696,7 @@
    <date>2016-02-17</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix updating list of resource calendars in resource group dialog (Bug #14281).
 * [jan] Fixed several issues with resource management.
 * [jan] Update Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
    </notes>

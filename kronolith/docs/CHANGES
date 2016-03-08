@@ -2,6 +2,8 @@
 v4.2.16-git
 -----------
 
+[mjr] Fix updating list of resource calendars in resource group dialog (Bug
+      #14281).
 [jan] Fixed several issues with resource management.
 [jan] Update Greek translation (Limperis Antonis <limperis@cti.gr>).
 
