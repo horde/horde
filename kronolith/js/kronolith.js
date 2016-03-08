@@ -3135,6 +3135,9 @@ KronolithCore = {
             }
             newCalendar = true;
         }
+        if (type == 'resourcegroup') {
+            this.updateResourcegroupSelect();
+        }
         if (newCalendar) {
             switch (type) {
             case 'internal':
@@ -3304,6 +3307,18 @@ KronolithCore = {
                 form.down('.kronolithFormActions .kronolithSeparator').hide();
             }
         }
+    },
+
+    /**
+     * Updates the select list in the resourcegroup calendar dialog.
+     */
+    updateResourcegroupSelect: function()
+    {
+        $('kronolithCalendarresourcegroupmembers').update();
+        $H(Kronolith.conf.calendars.resource).each(function(r) {
+            var o = new Element('option', { value: r.value.id }).update(r.value.name);
+            $('kronolithCalendarresourcegroupmembers').insert(o);
+        });
     },
 
     /**
