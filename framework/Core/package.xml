@@ -30,7 +30,7 @@
  </developer>
  <date>2016-03-08</date>
  <version>
-  <release>2.23.0</release>
+  <release>2.23.1</release>
   <api>2.23.0</api>
  </version>
  <stability>
@@ -39,10 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Add Horde_Core_Auth_Application#listNames().
-* [jan] Don&apos;t call authusername() hook on administrator names when running CLI scripts.
-* [jan] Update Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
-* [mjr] Fix fatal error with broken EAS clients searching the Outbox.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4164,6 +4161,19 @@
 * [jan] Don&apos;t call authusername() hook on administrator names when running CLI scripts.
 * [jan] Update Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
 * [mjr] Fix fatal error with broken EAS clients searching the Outbox.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.23.1</release>
+    <api>2.23.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-03-08</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
