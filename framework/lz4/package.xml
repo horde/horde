@@ -12,7 +12,7 @@
  </lead>
  <date>2016-03-08</date>
  <version>
-  <release>1.0.10</release>
+  <release>1.0.11</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/MIT">MIT (Expat)</license>
  <notes>
-* [jan] Fix module version number (Bug #14240).
+* 
  </notes>
  <contents>
   <dir name="/">
@@ -244,6 +244,19 @@
    <license uri="http://opensource.org/licenses/MIT">MIT (Expat)</license>
    <notes>
 * [jan] Fix module version number (Bug #14240).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.11</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-03-08</date>
+   <license uri="http://opensource.org/licenses/MIT">MIT (Expat)</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
