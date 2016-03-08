@@ -1079,9 +1079,9 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                         $this->_handleGlobalSyncError();
                         return false;
                     }
+                    $appdata->commandType = $commandType;
                 }
             }
-            $appdata->commandType = $commandType;
 
             if (!empty($collection['synckey'])) {
                 switch ($commandType) {
