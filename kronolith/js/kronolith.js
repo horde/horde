@@ -3884,10 +3884,8 @@ KronolithCore = {
             if (type == 'remote') {
                 this.loadCalendar(type, id);
             }
-            if (type == 'resource') {
-                if (!$('kronolithEventLinkResources')) {
-                    this.addResourceTabLink();
-                }
+            if (type == 'resource' && !$('kronolithEventLinkResources')) {
+                this.addResourceTabLink();
             }
         }
         form.down('.kronolithCalendarSave').enable();
