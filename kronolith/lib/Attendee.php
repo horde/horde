@@ -96,18 +96,12 @@ class Kronolith_Attendee implements Serializable
         $this->role     = $params['role'];
         $this->response = $params['response'];
 
-        if (isset($this->user) && isset($params['identities']) &&
-            (!isset($this->email) || !isset($this->name))) {
-            $identity = $params['identities']->create($this->user, 'kronolith');
-            if (!isset($this->email)) {
-                $address = $identity->getFromAddress();
-                if ($address->host) {
-                    $this->email = $address->bare_address;
-                }
-            }
-            if (!isset($this->name)) {
-                $this->name = $identity->getValue('fullname');
-            }
+        if (isset($this->user) &&
+            isset($params['identities']) &&
+            !isset($this->name)) {
+            $this->name = $params['identities']
+                ->create($this->user)
+                ->getValue('fullname');
         }
     }
 
@@ -187,10 +181,14 @@ class Kronolith_Attendee implements Serializable
         if (strlen($this->email)) {
             return strval($this->addressObject);
         }
+        $result = $this->user;
         if (strlen($this->name)) {
-            return $this->name;
+            if (strlen($result)) {
+                $result = ' (' . $result . ')';
+            }
+            return $this->name . $result;
         }
-        return $user;
+        return $result;
     }
 
     /**

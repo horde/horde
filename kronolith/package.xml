@@ -668,6 +668,8 @@
      <dir name="fixtures">
       <file name="allday.ics" role="test" />
       <file name="attendees.php" role="test" />
+      <file name="attendees1.ics" role="test" />
+      <file name="attendees2.ics" role="test" />
       <file name="bug7068.ics" role="test" />
       <file name="bug11688.ics" role="test" />
       <file name="export1.ics" role="test" />
@@ -1474,6 +1476,8 @@
    <install as="Kronolith/TestCase.php" name="test/Kronolith/TestCase.php" />
    <install as="Kronolith/fixtures/allday.ics" name="test/Kronolith/fixtures/allday.ics" />
    <install as="Kronolith/fixtures/attendees.php" name="test/Kronolith/fixtures/attendees.php" />
+   <install as="Kronolith/fixtures/attendees1.ics" name="test/Kronolith/fixtures/attendees1.ics" />
+   <install as="Kronolith/fixtures/attendees2.ics" name="test/Kronolith/fixtures/attendees2.ics" />
    <install as="Kronolith/fixtures/bug7068.ics" name="test/Kronolith/fixtures/bug7068.ics" />
    <install as="Kronolith/fixtures/bug11688.ics" name="test/Kronolith/fixtures/bug11688.ics" />
    <install as="Kronolith/fixtures/export1.ics" name="test/Kronolith/fixtures/export1.ics" />

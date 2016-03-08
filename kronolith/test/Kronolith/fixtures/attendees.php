@@ -45,7 +45,6 @@ return array(
     )),
     new Kronolith_Attendee(array(
         'user' => 'username2',
-        'email' => 'user2@example.com',
         'role' => Kronolith::PART_NONE,
         'response' => Kronolith::RESPONSE_TENTATIVE,
         'name' => 'Another User'

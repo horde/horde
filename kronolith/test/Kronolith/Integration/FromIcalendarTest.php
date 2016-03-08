@@ -105,6 +105,48 @@ class Kronolith_Integration_FromIcalendarTest extends Kronolith_TestCase
         unset($GLOBALS['conf']);
     }
 
+    public function testAttendees()
+    {
+        foreach (array(1, 2) as $i) {
+            $event = $this->_getFixture("attendees$i.ics");
+            $this->assertInstanceOf(
+                'Kronolith_Attendee_List',
+                $event->attendees
+            );
+            $this->assertEquals(2, count($event->attendees));
+            $this->assertArrayHasKey('user:username', $event->attendees);
+            $this->assertArrayHasKey('user:username2', $event->attendees);
+            $this->assertInstanceOf(
+                'Kronolith_Attendee',
+                $event->attendees['user:username']
+            );
+            $this->assertEquals(
+                'username',
+                $event->attendees['user:username']->user
+            );
+            $this->assertEquals(
+                Kronolith::PART_NONE,
+                $event->attendees['user:username']->role
+            );
+            $this->assertEquals(
+                Kronolith::RESPONSE_TENTATIVE,
+                $event->attendees['user:username']->response
+            );
+            $this->assertEquals(
+                'username2',
+                $event->attendees['user:username2']->user
+            );
+            $this->assertEquals(
+                Kronolith::PART_OPTIONAL,
+                $event->attendees['user:username2']->role
+            );
+            $this->assertEquals(
+                Kronolith::RESPONSE_NONE,
+                $event->attendees['user:username2']->response
+            );
+        }
+    }
+
     private function _getFixture($name, $item = 0)
     {
         $iCal = new Horde_Icalendar();
@@ -113,7 +155,7 @@ class Kronolith_Integration_FromIcalendarTest extends Kronolith_TestCase
         );
         $components = $iCal->getComponents();
         $event = new Kronolith_Event_Sql(new Kronolith_Stub_Driver());
-        $event->fromiCalendar($components[$item]);
+        $event->fromiCalendar($components[$item], true);
         return $event;
     }
 }

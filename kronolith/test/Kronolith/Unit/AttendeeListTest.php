@@ -164,7 +164,7 @@ class Kronolith_Unit_AttendeeListTest extends Horde_Test_Case
     public function testToString()
     {
         $this->assertEquals(
-            'Jürgen Doe <juergen@example.com>, Jane Doe, Jack Doe <jack@example.com>, jenny@example.com, User Name <user@example.com>, Another User <user2@example.com>',
+            'Jürgen Doe <juergen@example.com>, Jane Doe, Jack Doe <jack@example.com>, jenny@example.com, User Name, Another User',
             strval($this->_getList())
         );
     }

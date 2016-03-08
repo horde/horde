@@ -874,11 +874,16 @@ abstract class Kronolith_Event
                 $email = '';
             }
             if ($v1) {
-                if (empty($email)) {
+                if ($attendee->user) {
+                    $attribute = 'X-HORDE-ATTENDEE';
+                    $email = $attendee->user;
+                } elseif (empty($email)) {
+                    $attribute = 'ATTENDEE';
                     if (strlen($attendee->name)) {
                         $email = $attendee->name;
                     }
                 } else {
+                    $attribute = 'ATTENDEE';
                     $tmp = new Horde_Mail_Rfc822_Address($email);
                     if (strlen($attendee->name)) {
                         $tmp->personal = $attendee->name;
@@ -889,12 +894,16 @@ abstract class Kronolith_Event
                 if (strlen($attendee->name)) {
                     $params['CN'] = $attendee->name;
                 }
-                if (!empty($email)) {
+                if ($attendee->user) {
+                    $attribute = 'X-HORDE-ATTENDEE';
+                    $email = $attendee->user;
+                } elseif (!empty($email)) {
+                    $attribute = 'ATTENDEE';
                     $email = 'mailto:' . $email;
                 }
             }
 
-            $vEvent->setAttribute('ATTENDEE', $email, $params);
+            $vEvent->setAttribute($attribute, $email, $params);
         }
 
         // Alarms.
@@ -1341,7 +1350,7 @@ abstract class Kronolith_Event
         // can be overriden.
         // X-ATTENDEE is there for historical reasons. @todo remove in
         // Kronolith 5.
-        $attendee = null;
+        $attendee = $users = null;
         if ($parseAttendees) {
             try {
                 $attendee = $vEvent->getAttribute('ATTENDEE');
@@ -1353,21 +1362,34 @@ abstract class Kronolith_Event
                 } catch (Horde_Icalendar_Exception $e) {
                 }
             }
-        }
-        if ($attendee) {
-            if (!is_array($attendee)) {
+            if ($attendee && !is_array($attendee)) {
                 $attendee = array($attendee);
-            }
-            if (!is_array($params)) {
                 $params = array($params);
             }
+            try {
+                $users = $vEvent->getAttribute('X-HORDE-ATTENDEE');
+                $userParams = $vEvent->getAttribute('X-HORDE-ATTENDEE', true);
+                if (!is_array($users)) {
+                    $users = array($users);
+                    $userParams = array($userParams);
+                }
+                foreach ($userParams as &$param) {
+                    $param['hordeUser'] = true;
+                }
+                if ($attendee) {
+                    $attendee = array_merge($attendee, $users);
+                    $params = array_merge($params, $userParams);
+                } else {
+                    $attendee = $users;
+                    $params = $userParams;
+                }
+            } catch (Horde_Icalendar_Exception $e) {
+            }
+        }
+        if ($attendee) {
             // Clear the attendees since we might be editing/replacing the event
             $this->attendees = new Kronolith_Attendee_List();
             for ($i = 0; $i < count($attendee); ++$i) {
-                $attendee[$i] = str_replace(array('MAILTO:', 'mailto:'), '',
-                                            $attendee[$i]);
-                $tmp = new Horde_Mail_Rfc822_Address($attendee[$i]);
-                $email = $tmp->bare_address;
                 // Default according to rfc2445:
                 $attendance = Kronolith::PART_REQUIRED;
                 // vCalendar 2.0 style:
@@ -1415,9 +1437,21 @@ abstract class Kronolith_Event
                         break;
                     }
                 }
-                $name = isset($params[$i]['CN']) ? $params[$i]['CN'] : null;
 
-                $this->addAttendee($email, $attendance, $response, $name);
+                if (!empty($params[$i]['hordeUser'])) {
+                    $this->attendees->add(new Kronolith_Attendee(array(
+                        'user' => $attendee[$i],
+                        'role' => $attendance,
+                        'response' => $response
+                    )));
+                } else {
+                    $tmp = new Horde_Mail_Rfc822_Address(
+                        str_replace(array('MAILTO:', 'mailto:'), '', $attendee[$i])
+                    );
+                    $email = $tmp->bare_address;
+                    $name = isset($params[$i]['CN']) ? $params[$i]['CN'] : null;
+                    $this->addAttendee($email, $attendance, $response, $name);
+                }
             }
         }
 

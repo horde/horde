@@ -126,6 +126,14 @@ class Kronolith_Unit_AttendeeTest extends Horde_Test_Case
             'jenny@example.com',
             strval($attendees[3])
         );
+        $this->assertEquals(
+            'User Name (username)',
+            strval($attendees[4])
+        );
+        $this->assertEquals(
+            'Another User (username2)',
+            strval($attendees[5])
+        );
     }
 
     public function testToJson()
@@ -164,7 +172,7 @@ class Kronolith_Unit_AttendeeTest extends Horde_Test_Case
         $this->assertEquals(
             (object)array(
                 'a' => Kronolith::PART_NONE,
-                'e' => 'user@example.com',
+                'e' => null,
                 'l' => 'User Name',
                 'r' => Kronolith::RESPONSE_TENTATIVE,
                 'u' => 'username',
@@ -174,7 +182,7 @@ class Kronolith_Unit_AttendeeTest extends Horde_Test_Case
         $this->assertEquals(
             (object)array(
                 'a' => Kronolith::PART_NONE,
-                'e' => 'user2@example.com',
+                'e' => null,
                 'l' => 'Another User',
                 'r' => Kronolith::RESPONSE_TENTATIVE,
                 'u' => 'username2',
@@ -192,7 +200,7 @@ class Kronolith_Unit_AttendeeTest extends Horde_Test_Case
             $serialized[0]
         );
         $this->assertEquals(
-            'C:18:"Kronolith_Attendee":109:{a:5:{s:1:"u";s:8:"username";s:1:"e";s:16:"user@example.com";s:1:"p";i:3;s:1:"r";i:4;s:1:"n";s:9:"User Name";}}',
+            'C:18:"Kronolith_Attendee":87:{a:5:{s:1:"u";s:8:"username";s:1:"e";N;s:1:"p";i:3;s:1:"r";i:4;s:1:"n";s:9:"User Name";}}',
             $serialized[1]
         );
         return $serialized;
@@ -213,7 +221,7 @@ class Kronolith_Unit_AttendeeTest extends Horde_Test_Case
         $attendee = unserialize($serialized[1]);
         $this->assertInstanceOf('Kronolith_Attendee', $attendee);
         $this->assertEquals('username', $attendee->user);
-        $this->assertEquals('user@example.com', $attendee->email);
+        $this->assertNull($attendee->email);
         $this->assertEquals(Kronolith::PART_NONE, $attendee->role);
         $this->assertEquals(Kronolith::RESPONSE_TENTATIVE, $attendee->response);
         $this->assertEquals('User Name', $attendee->name);
@@ -240,11 +248,11 @@ class Kronolith_Unit_AttendeeTest extends Horde_Test_Case
 
         if (!$smallSet) {
             $this->assertEquals('username', $attendees[4]->user);
-            $this->assertEquals('user@example.com', $attendees[4]->email);
+            $this->assertNull($attendees[4]->email);
             $this->assertEquals('User Name', $attendees[4]->name);
 
             $this->assertEquals('username2', $attendees[5]->user);
-            $this->assertEquals('user2@example.com', $attendees[5]->email);
+            $this->assertNull($attendees[5]->email);
             $this->assertEquals('Another User', $attendees[5]->name);
         }
     }
