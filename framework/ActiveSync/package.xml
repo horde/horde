@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix the workaround for some versions of Outlook&apos;s broken behavior regarding moving email messages.
 * [mjr] Improve allday event handling in appointment objects (Bug #14278).
  </notes>
  <contents>
@@ -3053,6 +3054,7 @@
    <date>2016-02-23</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix the workaround for some versions of Outlook&apos;s broken behavior regarding moving email messages.
 * [mjr] Improve allday event handling in appointment objects (Bug #14278).
    </notes>
   </release>
