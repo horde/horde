@@ -599,6 +599,7 @@ extends Horde_Crypt_Pgp_Backend
      * @param string $message  The decrypted message data.
      *
      * @return object  See decryptSignature().
+     * @throws Horde_Crypt_Exception
      */
     protected function _checkSignatureResult($result, $message = null)
     {
@@ -607,7 +608,7 @@ extends Horde_Crypt_Pgp_Backend
          * Bad signature:
          *   gpg: BAD signature from "blah blah blah (Comment)" */
         if (strpos($result, 'gpg: BAD signature') !== false) {
-            throw new RuntimeException();
+            throw new Horde_Crypt_Exception($result);
         }
 
         $ob = new stdClass;

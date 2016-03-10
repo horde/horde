@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix throwing exception if verifying a PGP signature failed.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1147,7 +1147,7 @@ Initial release as a PEAR package
    <date>2016-03-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix throwing exception if verifying a PGP signature failed.
    </notes>
   </release>
  </changelog>
