@@ -36,8 +36,19 @@ class HordeDavRemoveUniqueIndex extends Horde_Db_Migration_Base
      */
     public function down()
     {
-        $this->removeIndex('horde_dav_objects', array('id_external', 'id_collection'));
-        $this->removeIndex('horde_dav_objects', 'id_external');
+        $indexes = $this->indexes('horde_dav_objects');
+        $idx_names = array(
+            $this->indexName(
+                'horde_dav_objects',
+                array('column' => array('id_external', 'id_collection'))
+            ),
+            $this->indexName('horde_dav_objects', 'id_external')
+        );
+        foreach ($indexes as $idx) {
+            if (in_array($idx->name, $idx_names)) {
+                $this->removeIndex('horde_dav_objects', array('name' => $idx->name));
+            }
+        }
         $this->addIndex('horde_dav_objects', 'id_external', array('unique' => true));
     }
 }
