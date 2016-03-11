@@ -2,6 +2,7 @@
 v4.3.0-git
 ----------
 
+[mjr] Remove Facebook driver.
 [jan] Add second home and business phone fields to Kolab backend (Thomas
       Jarosch <thomas.jarosch@intra2net.com>, Request #12776).
 [jan] Change sort direction of birthday/anniversary year picker (Request
