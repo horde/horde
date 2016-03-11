@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Honor date_format prefs in Task form (Bug #14287).
 * [jan] Update Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
  </notes>
  <contents>
@@ -1695,6 +1696,7 @@
    <date>2016-02-02</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Honor date_format prefs in Task form (Bug #14287).
 * [jan] Update Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
    </notes>
   </release>
