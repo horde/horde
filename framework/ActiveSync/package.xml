@@ -12,7 +12,7 @@
  </lead>
  <date>2016-03-11</date>
  <version>
-  <release>2.31.6</release>
+  <release>2.31.7</release>
   <api>2.31.0</api>
  </version>
  <stability>
@@ -21,8 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Fix the workaround for some versions of Outlook&apos;s broken behavior regarding moving email messages.
-* [mjr] Improve allday event handling in appointment objects (Bug #14278).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3056,6 +3055,19 @@
    <notes>
 * [mjr] Fix the workaround for some versions of Outlook&apos;s broken behavior regarding moving email messages.
 * [mjr] Improve allday event handling in appointment objects (Bug #14278).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.31.7</release>
+    <api>2.31.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-03-11</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
