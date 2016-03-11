@@ -35,7 +35,6 @@ var Horde_Facebook = Class.create({
 
         this.getNewEntries();
         $(this.opts.getmore).observe('click', function(e) { this.getOlderEntries(); e.stop(); }.bind(this));
-        $(this.opts.button).observe('click', function(e) { this.updateStatus(); e.stop(); }.bind(this));
     },
 
     /**
