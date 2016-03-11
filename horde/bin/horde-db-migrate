@@ -77,13 +77,19 @@ if (empty($args[0])) {
     $app = $args[0];
 
     if (($key = array_search($app, $migration->apps)) !== false) {
-        $dir = $migration->dirs[$key];
+        $apps = array($app);
+        $dirs = array($migration->dirs[$key]);
+        array_shift($args);
     } elseif (($key = array_search($app, $migration->dirs)) !== false) {
-        $dir = $app;
-        $app = $migration->apps[$key];
-    } elseif ($app == '--') {
+        $apps = array($migration->apps[$key]);
+        $dirs = array($app);
+        array_shift($args);
+    } elseif (in_array($app, array('--', 'up', 'down', 'status'))) {
         $apps = $migration->apps;
         $dirs = $migration->dirs;
+        if ($app == '--') {
+            array_shift($args);
+        }
     } else {
         $cli->fatal(
             sprintf(
@@ -102,27 +108,20 @@ Supported directories:
             )
         );
     }
-    if ($app != '--') {
-        $dirs = array($dir);
-        $apps = array($app);
-    }
 }
 
 $action = 'up';
-if (!empty($args[1])) {
-    switch ($args[1]) {
+if (!empty($args[0])) {
+    switch ($args[0]) {
     case 'up':
     case 'down':
-        $action = $args[1];
-        break;
-
     case 'status':
-        $action = $args[1];
+        $action = $args[0];
         break;
 
     default:
         $action = 'migrate';
-        $targetVersion = $args[1];
+        $targetVersion = $args[0];
         break;
     }
 }
