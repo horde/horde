@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
+* [mjr] Remove broken Facebook posting functionality from the Facebook block.
 * [jan] Update Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
 * [jan] Check if temporary directory is writable (skhorde@smail.inf.fh-bonn-rhein-sieg.de, Request #14237).
  </notes>
@@ -4093,6 +4094,7 @@
    <date>2016-02-02</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
+* [mjr] Remove broken Facebook posting functionality from the Facebook block.
 * [jan] Update Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
 * [jan] Check if temporary directory is writable (skhorde@smail.inf.fh-bonn-rhein-sieg.de, Request #14237).
    </notes>
