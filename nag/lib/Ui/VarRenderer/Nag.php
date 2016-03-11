@@ -109,7 +109,7 @@ class Horde_Core_Ui_VarRenderer_Nag extends Horde_Core_Ui_VarRenderer_Html
             $on ? ' checked="checked"' : '',
             _("Due date specified."),
             _("Date"),
-            htmlspecialchars(strftime('%x', $due_dt))
+            htmlspecialchars(strftime($GLOBALS['prefs']->getValue('date_format_mini'), $due_dt))
         );
 
         if ($GLOBALS['browser']->hasFeature('javascript')) {
@@ -440,7 +440,7 @@ class Horde_Core_Ui_VarRenderer_Nag extends Horde_Core_Ui_VarRenderer_Html
             $on ? ' checked="checked"' : '',
             _("Start date specified."),
             _("Date"),
-            htmlspecialchars(strftime('%x', $start_dt))
+            htmlspecialchars(strftime($GLOBALS['prefs']->getValue('time_format_mini'), $start_dt))
         );
 
         if ($GLOBALS['browser']->hasFeature('javascript')) {

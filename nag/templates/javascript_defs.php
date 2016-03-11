@@ -5,7 +5,7 @@ $code['conf'] = array(
     'URI_AJAX' => (string)$GLOBALS['registry']->getServiceLink('ajax', 'nag'),
     'date_format' => str_replace(array('%e', '%d', '%a', '%A', '%m', '%h', '%b', '%B', '%y', '%Y'),
                                  array('d', 'dd', 'ddd', 'dddd', 'MM', 'MMM', 'MMM', 'MMMM', 'yy', 'yyyy'),
-                                 Horde_Nls::getLangInfo(D_FMT)),
+                                 $GLOBALS['prefs']->getValue('date_format_mini')),
     'tasklist_info_url' => (string)Horde::url('tasklists/info.php'),
     'time_format' => $GLOBALS['prefs']->getValue('twentyFour') ? 'HH:mm' : 'hh:mm tt',
 );
