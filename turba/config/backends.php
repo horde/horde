@@ -795,49 +795,6 @@ $cfgSources['favourites'] = array(
 );
 
 /**
- * A driver to show a user's Facebook friends as a turba address book. Some
- * data (like email) is not readily available via the API, but other data, like
- * birthdays (which will show up via the listTimeObjects API) may still be
- * useful to some
- */
-if (!empty($GLOBALS['conf']['facebook']['id'])) {
-    $cfgSources['facebook'] = array(
-        // Disabled if no provisioning with the Facebook API.
-        'disabled' => !$GLOBALS['injector']->getInstance('Horde_Service_Facebook')->auth->getSessionKey(),
-        'title' => _("Facebook Friends"),
-        'type' => 'facebook',
-        'params' => array(
-            'limit' => 10
-        ),
-        'map' => array(
-            '__key' => 'uid',
-            'name' => 'name',
-            'lastname' => 'last_name',
-            'firstname' => 'first_name',
-            'middlenames' => 'middle_name',
-            // 'email' => 'email',
-            'birthday' => 'birthday_date',
-            'homeCity' => 'current_location.city',
-            'homeProvince' => 'current_location.state',
-            'homePostalCode' => 'current_location.zip',
-            'homeCountry' => 'current_location.country',
-            'homeAddress' => array('fields' => array('homeCity',
-                                                     'homeProvince',
-                                                     'homePostalCode'),
-                                   'format' => "%s, %s %s"),
-            'notes' => 'about_me',
-            // 'website' => 'website',
-        ),
-        'search' => array(
-            'name',
-            'email',
-        ),
-        'export' => true,
-        'browse' => true,
-    );
-}
-
-/**
  * This source creates an address book for each group the current user is a
  * member in.  The address book will always be read only, and the group members
  * must have an email address entered in their default identity.  No email

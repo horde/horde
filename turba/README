@@ -9,8 +9,8 @@
 
 Turba is the Horde contact management application, designed to be integrated
 with other Horde applications to provide a unified interface to contact
-management throughout the Horde suite. It supports SQL, LDAP, Kolab, IMSP, and
-Facebook address books, and works as a CardDAV server.
+management throughout the Horde suite. It supports SQL, LDAP, Kolab, and IMSP
+address books, and works as a CardDAV server.
 
 This software is OSI Certified Open Source Software. OSI Certified is a
 certification mark of the `Open Source Initiative`_.

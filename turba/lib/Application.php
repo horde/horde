@@ -725,7 +725,6 @@ class Turba_Application extends Horde_Registry_Application
                 $readOnly = !$share->hasPermission($hordeUser, Horde_Perms::EDIT);
                 break;
 
-            case 'facebook':
             case 'favourites':
             case 'vbook':
                 if ($user == '-system-') {
