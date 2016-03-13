@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Handle overflowed timestamps on 32bit systems more gracefully.
 * [jan] Update Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
  </notes>
  <contents>
@@ -1013,6 +1014,7 @@ Initial release as a PEAR package
    <date>2016-02-01</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Handle overflowed timestamps on 32bit systems more gracefully.
 * [jan] Update Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
    </notes>
   </release>
