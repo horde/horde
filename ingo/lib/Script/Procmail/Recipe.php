@@ -76,7 +76,15 @@ class Ingo_Script_Procmail_Recipe implements Ingo_Script_Item
         if (isset($this->_params['transport'][Ingo::RULE_ALL]['params']['delivery_mailbox_prefix'])) {
             $delivery .= ' ' . $this->_params['transport'][Ingo::RULE_ALL]['params']['delivery_mailbox_prefix'];
         }
-
+        if (!empty($this->_params['transport'][Ingo::RULE_ALL]['params']['date'])) {
+            $this->_params['date'] = $this->_params['transport'][Ingo::RULE_ALL]['params']['date'];
+        }
+        if (!empty($this->_params['transport'][Ingo::RULE_ALL]['params']['echo'])) {
+            $this->_params['echo'] = $this->_params['transport'][Ingo::RULE_ALL]['params']['echo'];
+        }
+        if (!empty($this->_params['transport'][Ingo::RULE_ALL]['params']['ls'])) {
+            $this->_params['ls'] = $this->_params['transport'][Ingo::RULE_ALL]['params']['ls'];
+        }
         switch ($params['action']) {
         case 'Ingo_Rule_User_Keep':
             // Note: you may have to set the DEFAULT variable in your
