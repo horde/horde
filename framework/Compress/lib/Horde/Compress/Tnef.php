@@ -664,7 +664,7 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
             } catch (Horde_Mapi_Exception $e) {
                 throw new Horde_Compress_Exception($e);
             } catch (Horde_Date_Exception $e) {
-                throw new Horde_Compress_Exception($e);
+                $this->_logger->err(sprintf('TNEF: Unable to parse date string - %s', $e->getMessage()));
             }
             break;
         case self::AFROM:
