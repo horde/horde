@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [mjr] Honor &apos;date&apos;, &apos;echo&apos;, and &apos;ls&apos; path overrides (Bug #14284).
 * [jan] Update Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
 * [jan] Fix Oracle compatibility (Bug #14262).
  </notes>
@@ -1630,6 +1631,7 @@
    <date>2016-02-02</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [mjr] Honor &apos;date&apos;, &apos;echo&apos;, and &apos;ls&apos; path overrides (Bug #14284).
 * [jan] Update Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
 * [jan] Fix Oracle compatibility (Bug #14262).
    </notes>
