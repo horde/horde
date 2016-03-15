@@ -148,9 +148,9 @@
     </tr>
    </table>
 
+<?php if ($this->attach): ?>
    <div id="atcdiv">
     <span class="iconImg attachmentImg"></span>
-<?php if ($this->attach): ?>
     <div id="upload_limit" style="display:none">
      <?php echo _("The attachment limit has been reached.") ?>
     </div>
@@ -158,11 +158,9 @@
      <label id="compose_upload_add" for="upload"><?php echo _("Add Attachment") ?></label>
       <?php echo $this->fileFieldTag('file_upload[]', array('id' => 'upload', 'multiple' => 'multiple')) ?>
     </div>
-<?php endif; ?>
     <ul id="attach_list" style="display:none"></ul>
    </div>
 
-<?php if ($this->attach): ?>
    <div id="atcdrop" style="display:none">
     <?php echo _("Drop file(s) here to attach.") ?>
    </div>
