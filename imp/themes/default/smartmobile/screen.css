@@ -95,7 +95,7 @@
 }
 #imp-compose-upload-container input {
     height: 1%;
-    left: 50%
+    left: 50%;
     filter: alpha(opacity=0);
     -moz-opacity: 0;
     opacity: 0;

@@ -11,7 +11,7 @@ div.modal-form .submit-button {
     width: 100px;
 }
 
-// IE 8 only supports one url argument for background.
+/* IE 8 only supports one url argument for background. */
 table.horde-table thead .horde-split-left.sortup,
 table.horde-table thead .horde-split-right.sortup {
     background-image: url("graphics/za.png");
