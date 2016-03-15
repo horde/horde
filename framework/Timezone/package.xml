@@ -10,7 +10,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-02-02</date>
+ <date>2016-03-15</date>
  <version>
   <release>1.0.11</release>
   <api>1.0.0</api>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Support more timezone names in Horde_Timezone#getZone().
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -50,8 +50,10 @@
        <file name="budapest.ics" role="test" />
        <file name="etcetera" role="test" />
        <file name="etcetera.ics" role="test" />
-       <file name="europe" role="test" />
-       <file name="europe.ics" role="test" />
+       <file name="europe_berlin" role="test" />
+       <file name="europe_berlin.ics" role="test" />
+       <file name="europe_jersey" role="test" />
+       <file name="europe_jersey.ics" role="test" />
        <file name="losangeles.ics" role="test" />
        <file name="northamerica" role="test" />
        <file name="uruguay" role="test" />
@@ -81,7 +83,7 @@
    <package>
      <name>Horde_Date</name>
      <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.3.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -127,8 +129,10 @@
    <install as="Horde/Timezone/fixtures/budapest.ics" name="test/Horde/Timezone/fixtures/budapest.ics" />
    <install as="Horde/Timezone/fixtures/etcetera" name="test/Horde/Timezone/fixtures/etcetera" />
    <install as="Horde/Timezone/fixtures/etcetera.ics" name="test/Horde/Timezone/fixtures/etcetera.ics" />
-   <install as="Horde/Timezone/fixtures/europe" name="test/Horde/Timezone/fixtures/europe" />
-   <install as="Horde/Timezone/fixtures/europe.ics" name="test/Horde/Timezone/fixtures/europe.ics" />
+   <install as="Horde/Timezone/fixtures/europe_berlin" name="test/Horde/Timezone/fixtures/europe_berlin" />
+   <install as="Horde/Timezone/fixtures/europe_berlin.ics" name="test/Horde/Timezone/fixtures/europe_berlin.ics" />
+   <install as="Horde/Timezone/fixtures/europe_jersey" name="test/Horde/Timezone/fixtures/europe_jersey" />
+   <install as="Horde/Timezone/fixtures/europe_jersey.ics" name="test/Horde/Timezone/fixtures/europe_jersey.ics" />
    <install as="Horde/Timezone/fixtures/losangeles.ics" name="test/Horde/Timezone/fixtures/losangeles.ics" />
    <install as="Horde/Timezone/fixtures/northamerica" name="test/Horde/Timezone/fixtures/northamerica" />
    <install as="Horde/Timezone/fixtures/uruguay" name="test/Horde/Timezone/fixtures/uruguay" />
@@ -306,10 +310,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-02-02</date>
+   <date>2016-03-15</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Support more timezone names in Horde_Timezone#getZone().
    </notes>
   </release>
  </changelog>

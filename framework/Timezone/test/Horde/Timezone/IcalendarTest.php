@@ -10,10 +10,36 @@ class Horde_Timezone_IcalendarTest extends Horde_Test_Case
 {
     public function testEurope()
     {
-        $tz = new Horde_Timezone_Mock('europe');
+        $tz = new Horde_Timezone_Mock('europe_jersey');
         $this->assertStringEqualsFile(
-            __DIR__ . '/fixtures/europe.ics',
+            __DIR__ . '/fixtures/europe_jersey.ics',
             $tz->getZone('Europe/Jersey')->toVtimezone()->exportVcalendar()
+        );
+        $tz = new Horde_Timezone_Mock('europe_berlin');
+        $this->assertStringEqualsFile(
+            __DIR__ . '/fixtures/europe_berlin.ics',
+            $tz->getZone('Europe/Berlin')->toVtimezone()->exportVcalendar()
+        );
+    }
+
+    public function testAliases()
+    {
+        $tz = new Horde_Timezone_Mock('europe_berlin');
+        $this->assertStringEqualsFile(
+            __DIR__ . '/fixtures/europe_berlin.ics',
+            $tz->getZone('Europe/Berlin')->toVtimezone()->exportVcalendar()
+        );
+        $this->assertStringEqualsFile(
+            __DIR__ . '/fixtures/europe_berlin.ics',
+            $tz->getZone('W. Europe Standard Time')->toVtimezone()->exportVcalendar()
+        );
+        $this->assertStringEqualsFile(
+            __DIR__ . '/fixtures/europe_berlin.ics',
+            $tz->getZone('W. Europe')->toVtimezone()->exportVcalendar()
+        );
+        $this->assertStringEqualsFile(
+            __DIR__ . '/fixtures/europe_berlin.ics',
+            $tz->getZone('CET')->toVtimezone()->exportVcalendar()
         );
     }
 
