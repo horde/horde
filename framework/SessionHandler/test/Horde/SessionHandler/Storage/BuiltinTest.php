@@ -75,7 +75,7 @@ class Horde_SessionHandler_Storage_BuiltinTest extends Horde_SessionHandler_Stor
     {
         session_name('sessionname');
         session_id('sessionid2');
-        @session_start();
+        session_start();
         session_destroy();
         $this->assertEquals(array('sessionid'),
                             self::$handler->getSessionIDs());
@@ -93,7 +93,7 @@ class Horde_SessionHandler_Storage_BuiltinTest extends Horde_SessionHandler_Stor
         ini_set('session.gc_divisor', 1);
         ini_set('session.gc_maxlifetime', -1);
         session_name('sessionname');
-        @session_start();
+        session_start();
         $this->assertEquals(array(),
                             self::$handler->getSessionIDs());
     }
