@@ -76,8 +76,10 @@ class Horde_SessionHandler_Storage_BuiltinTest extends Horde_SessionHandler_Stor
         session_name('sessionname');
         session_id('sessionid2');
         session_start();
-        $this->assertEquals(array('sessionid2', 'sessionid'),
-                            self::$handler->getSessionIDs());
+        $sessionIds = self::$handler->getSessionIDs();
+        sort($sessionIds);
+        $this->assertEquals(array('sessionid', 'sessionid2'),
+                            $sessionIds);
         session_destroy();
         $this->assertEquals(array('sessionid'),
                             self::$handler->getSessionIDs());
