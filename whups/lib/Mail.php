@@ -64,6 +64,9 @@ class Whups_Mail
             $headers->getValue('X-List-Administrivia') == 'Yes') {
             return true;
         }
+        if ($reply_to = $headers->getValue('reply-to')) {
+            $from = $reply_to;
+        }
 
         // Use the message subject as the ticket summary.
         $info['summary'] = trim($headers->getValue('subject'));
