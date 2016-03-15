@@ -2,6 +2,10 @@
 v3.0.7-git
 ----------
 
+[jan] Fix displaying ticket creators with names when creating tickets from
+      emails.
+[jan] If set, use Reply-To: address for the ticket creator when creating
+      tickets from emails.
 
 
 ------
