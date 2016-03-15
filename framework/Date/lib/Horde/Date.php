@@ -693,7 +693,8 @@ class Horde_Date
         }
         $lower = Horde_String::lower($timezone);
         if (isset(self::$_timezoneAbbreviations[$lower])) {
-            $timezone = reset(self::$_timezoneAbbreviations[$lower])['timezone_id'];
+            $timezone = reset(self::$_timezoneAbbreviations[$lower]);
+            $timezone = $timezone['timezone_id'];
         }
         return $timezone;
     }
