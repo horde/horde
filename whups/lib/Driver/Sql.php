@@ -2682,8 +2682,7 @@ class Whups_Driver_Sql extends Whups_Driver
     {
         try {
             $listeners = $this->_db->selectValues(
-                'SELECT DISTINCT l.user_uid FROM whups_ticket_listeners l, '
-                    . 'whups_tickets t WHERE (l.ticket_id = ?)',
+                'SELECT DISTINCT user_uid FROM whups_ticket_listeners WHERE (ticket_id = ?)',
                 array((int)$ticket));
         } catch (Horde_Db_Exception $e) {
             throw new Whups_Exception($e);
