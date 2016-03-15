@@ -784,7 +784,9 @@ class Whups
             }
 
             if (!empty($name) && $showname) {
-                $name .= ' <' . $details['email'] . '>';
+                $addrOb = new Horde_Mail_Rfc822_Address($details['email']);
+                $addrOb->personal = $name;
+                $name = strval($addrOb);
             } else {
                 $name = $details['email'];
             }
