@@ -243,6 +243,23 @@ class Horde_Date
         'E. Europe' => 'Asia/Nicosia',
     );
 
+    /**
+     * These aliases map timezone abbreviations to those understood by PHP.
+     *
+     * @todo This list better moves somewhere else
+     * @see getTimezoneAlias()
+     * @var array
+     */
+    protected static $_timezoneAbbreviations = array();
+
+    /**
+     * A list of (Olson) timezone identifiers understood by PHP.
+     *
+     * @todo This list better moves somewhere else
+     * @see getTimezoneAlias()
+     * @var array
+     */
+    protected static $_timezoneIdentifiers = array();
 
     /**
      * Default format for __toString()
@@ -647,6 +664,41 @@ class Horde_Date
     }
 
     /**
+     * Returns the normalized (Olson) timezone name of a timezone alias.
+     *
+     * We currently support Windows and Lotus timezone names, and timezone
+     * abbreviations.
+     *
+     * @since Horde_Date 2.3.0
+     *
+     * @param string $timezone  Some timezone alias.
+     *
+     * @return string  The Olson timezone name, or the original value, if no
+     *                 alias found.
+     */
+    public static function getTimezoneAlias($timezone)
+    {
+        if (empty(self::$_timezoneIdentifiers)) {
+            self::$_timezoneIdentifiers = array_flip(DateTimeZone::listIdentifiers());
+        }
+        if (isset(self::$_timezoneIdentifiers[$timezone])) {
+            return $timezone;
+        }
+        /* Workaround for standard cases of bug #11688 */
+        if (isset(self::$_timezoneAliases[$timezone])) {
+            $timezone = self::$_timezoneAliases[$timezone];
+        }
+        if (empty(self::$_timezoneAbbreviations)) {
+            self::$_timezoneAbbreviations = DateTimeZone::listAbbreviations();
+        }
+        $lower = Horde_String::lower($timezone);
+        if (isset(self::$_timezoneAbbreviations[$lower])) {
+            $timezone = reset(self::$_timezoneAbbreviations[$lower])['timezone_id'];
+        }
+        return $timezone;
+    }
+
+    /**
      * Converts this object to a different timezone.
      *
      * @param string $timezone  The new timezone.
@@ -656,10 +708,7 @@ class Horde_Date
     public function setTimezone($timezone)
     {
         $date = $this->toDateTime();
-        /* Workaround for standard cases of bug #11688 */
-        if (array_key_exists($timezone, self::$_timezoneAliases)) {
-            $timezone = self::$_timezoneAliases[$timezone];
-        }
+        $timezone = self::getTimezoneAlias($timezone);
         $date->setTimezone(new DateTimeZone($timezone));
         $this->_timezone = $timezone;
         $this->_year     = (int)$date->format('Y');

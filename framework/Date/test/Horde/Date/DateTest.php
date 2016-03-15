@@ -281,6 +281,26 @@ class Horde_Date_DateTest extends PHPUnit_Framework_TestCase
                             $date->strftime('%a'));
     }
 
+    public function testGetTimezoneAlias()
+    {
+        $this->assertEquals(
+            'Europe/Berlin',
+            Horde_Date::getTimezoneAlias('W. Europe Standard Time')
+        );
+        $this->assertEquals(
+            'Europe/Berlin',
+            Horde_Date::getTimezoneAlias('W. Europe')
+        );
+        $this->assertEquals(
+            'Europe/Berlin',
+            Horde_Date::getTimezoneAlias('CET')
+        );
+        $this->assertEquals(
+            'UTC',
+            Horde_Date::getTimezoneAlias('UTC')
+        );
+    }
+
     public function testSetTimezone()
     {
         $oldTimezone = date_default_timezone_get();
@@ -297,6 +317,17 @@ class Horde_Date_DateTest extends PHPUnit_Framework_TestCase
 
         $date->setTimezone('Europe/Berlin');
         $this->assertEquals('2001-02-03 05:05:06', (string)$date);
+
+        $date->setTimezone('W. Europe');
+        $this->assertEquals('2001-02-03 05:05:06', (string)$date);
+
+        $date->setTimezone('CET');
+        $this->assertEquals('2001-02-03 05:05:06', (string)$date);
+
+        $date = new Horde_Date('20010203040506', 'CET');
+        $this->assertEquals('2001-02-03 04:05:06', (string)$date);
+        $date->setTimezone('Europe/Berlin');
+        $this->assertEquals('2001-02-03 04:05:06', (string)$date);
 
         date_default_timezone_set($oldTimezone);
     }
