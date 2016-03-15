@@ -114,11 +114,19 @@ class Horde_SessionHandler_Storage_BuiltinTest extends Horde_SessionHandler_Stor
         }
     }
 
+    /**
+     * @todo Rely on session_status() in H6.
+     */
     public static function tearDownAfterClass()
     {
         parent::tearDownAfterClass();
         unset($_SESSION);
-        session_destroy();
+        if ((function_exists('session_status') &&
+             session_status() == PHP_SESSION_ACTIVE) ||
+            (!function_exists('session_status') &&
+             session_id())) {
+            session_destroy();
+        }
         session_name(ini_get('session.name'));
     }
 
