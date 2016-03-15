@@ -106,6 +106,13 @@ class Whups_Ticket
         $details = $whups_driver->getTicketDetails($id, false);
         $ticket = new Whups_Ticket($id, $details);
 
+        // Add additional listeners.
+        if (!empty($info['listeners'])) {
+            foreach ($info['listeners'] as $listener) {
+                $whups_driver->addUniqueListener($id, $listener);
+            }
+        }
+
         // Add attachment if one was uploaded.
         if (!empty($info['newattachment']['name'])) {
             $ticket->change(

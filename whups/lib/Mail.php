@@ -67,6 +67,15 @@ class Whups_Mail
         if ($reply_to = $headers->getValue('reply-to')) {
             $from = $reply_to;
         }
+        $listeners = array();
+        if ($cc = $headers->getValue('cc')) {
+            $rfc822 = new Horde_Mail_Rfc822();
+            foreach ($rfc822->parseAddressList($cc) as $address) {
+                if ($address->valid) {
+                    $listeners[] = $address->bare_address;
+                }
+            }
+        }
 
         // Use the message subject as the ticket summary.
         $info['summary'] = trim($headers->getValue('subject'));
@@ -203,6 +212,11 @@ class Whups_Mail
             if ($attachments) {
                 $ticket->change('attachments', $attachments);
             }
+            foreach ($listeners as $listener) {
+                $GLOBALS['whups_driver']->addUniqueListener(
+                    $ticket->getId(), $listener
+                );
+            }
             $ticket->commit($author);
         } elseif (!empty($info['ticket'])) {
             // Didn't match an existing ticket though a ticket number had been
@@ -223,6 +237,7 @@ class Whups_Mail
                 }
             }
             $info['attachments'] = $attachments;
+            $info['listeners'] = $listeners;
 
             // Create a new ticket.
             $ticket = Whups_Ticket::newTicket($info, $author);
