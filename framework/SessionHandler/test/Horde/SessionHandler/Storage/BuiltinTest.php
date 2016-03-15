@@ -19,7 +19,7 @@ class Horde_SessionHandler_Storage_BuiltinTest extends Horde_SessionHandler_Stor
     {
         session_name('sessionname');
         session_id('sessionid');
-        @session_start();
+        session_start();
         $this->assertEmpty($_SESSION);
         $_SESSION['sessiondata'] = 'foo';
         session_write_close();
@@ -41,7 +41,7 @@ class Horde_SessionHandler_Storage_BuiltinTest extends Horde_SessionHandler_Stor
         session_write_close();
         session_name('sessionname');
         session_id('sessionid');
-        @session_start();
+        session_start();
         $this->assertEquals('foo', $_SESSION['sessiondata']);
         session_write_close();
     }
@@ -54,7 +54,7 @@ class Horde_SessionHandler_Storage_BuiltinTest extends Horde_SessionHandler_Stor
         session_write_close();
         session_name('sessionname');
         session_id('sessionid2');
-        @session_start();
+        session_start();
         $_SESSION['sessiondata2'] = 'foo';
         /* List while session is active. */
         $ids = self::$handler->getSessionIDs();
@@ -76,6 +76,8 @@ class Horde_SessionHandler_Storage_BuiltinTest extends Horde_SessionHandler_Stor
         session_name('sessionname');
         session_id('sessionid2');
         session_start();
+        $this->assertEquals(array('sessionid2', 'sessionid'),
+                            self::$handler->getSessionIDs());
         session_destroy();
         $this->assertEquals(array('sessionid'),
                             self::$handler->getSessionIDs());
@@ -101,6 +103,8 @@ class Horde_SessionHandler_Storage_BuiltinTest extends Horde_SessionHandler_Stor
     public static function setUpBeforeClass()
     {
         parent::setUpBeforeClass();
+        session_cache_limiter('');
+        ini_set('session.use_cookies', 0);
         ini_set('session.save_path', self::$dir);
         self::$handler = new Horde_SessionHandler_Storage_Builtin(array('path' => self::$dir));
     }
