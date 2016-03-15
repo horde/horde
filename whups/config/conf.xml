@@ -74,13 +74,11 @@
    queue continue to receive email once a ticket is
    assigned?" required="false">true</configboolean>
    <configstring name="server_name" desc="What server name should be used to
-   create ticket links if using
-   scripts/mail-filter.php?">127.0.0.1</configstring>
+   create ticket links if using whups-mail-filter?">127.0.0.1</configstring>
    <configinteger name="server_port" desc="What server port should be used to
-   create ticket links if using
-   scripts/mail-filter.php?">80</configinteger>
+   create ticket links if using whups-mail-filter?">80</configinteger>
    <configstring name="username" desc="What user should be used to create
-   tickets if using scripts/mail-filter.php?" required="false" />
+   tickets if using whups-mail-filter?" required="false" />
   </configsection>
  </configtab>
 
