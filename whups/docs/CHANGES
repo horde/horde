@@ -2,6 +2,8 @@
 v3.1.0-git
 ----------
 
+[jan] Display ticket listeners to authenticated users.
+[jan] Add Cc: addresses as listeners when creating tickets from emails.
 [jan] Show users' full names in responsible user lists.
 [jan] Add option to not obfuscate email addresses (horde@iotti.biz, Request
       #13848).
