@@ -523,10 +523,15 @@ class Horde_Cli
 
     /**
      * Destroys any session on script end.
+     *
+     * @todo Rely on session_status() in H6.
      */
     public function shutdown()
     {
-        if (session_id()) {
+        if ((function_exists('session_status') &&
+             session_status() == PHP_SESSION_ACTIVE) ||
+            (!function_exists('session_status') &&
+             session_id())) {
             session_destroy();
         }
     }
