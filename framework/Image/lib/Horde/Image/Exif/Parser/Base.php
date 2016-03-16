@@ -26,7 +26,7 @@ class Horde_Image_Exif_Parser_Base
      * @param $size
      * @return unknown_type
      */
-    protected function _lookupType(&$type, &$size)
+    protected function _lookupType($type)
     {
         switch($type) {
         case '0001': $type = 'UBYTE';          $size = 1; break;
@@ -43,5 +43,7 @@ class Horde_Image_Exif_Parser_Base
         case '000c': $type = 'DOUBLE';         $size = 8; break;
         default:     $type = 'error:' . $type; $size = 0; break;
         }
+
+        return array($type, $size);
     }
 }

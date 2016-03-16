@@ -213,7 +213,7 @@ class Horde_Image_Exif_Parser_Olympus extends Horde_Image_Exif_Parser_Base
             if ($intel) {
                 $type = Horde_Image_Exif::intel2Moto($type);
             }
-            $this->_lookupType($type, $size);
+            list($type, $size) = $this->_lookupType($type);
 
             //4 byte count of number of data units
             $count = bin2hex(substr($block, $place, 4));

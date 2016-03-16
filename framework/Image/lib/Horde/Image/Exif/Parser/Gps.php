@@ -316,7 +316,7 @@ class Horde_Image_Exif_Parser_Gps extends Horde_Image_Exif_Parser_Base
             if ($intel == 1) {
                 $type = Horde_Image_Exif::intel2Moto($type);
             }
-            $this->_lookupType($type, $size);
+            list($type, $size) = $this->_lookupType($type);
 
             //4 byte number of elements
             $count = bin2hex(substr($block, $place, 4));

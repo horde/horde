@@ -414,7 +414,7 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
         if ($intel == 1) {
             $type = Horde_Image_Exif::intel2Moto($type);
         }
-        $this->_lookupType($type, $size);
+        list($type, $size) = $this->_lookupType($type);
 
         // 4 byte number of elements
         $count = bin2hex($in->substring(0, 4));
@@ -868,10 +868,10 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
     /**
      *
      * @param $type
-     * @param $size
+     *
      * @return unknown_type
      */
-    protected function _lookupType(&$type, &$size)
+    protected function _lookupType($type)
     {
         switch ($type) {
         case '0001': $type = 'UBYTE'; $size = 1; break;
@@ -889,7 +889,7 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
         default: $type = 'error:'.$type; $size = 0; break;
         }
 
-        return $type;
+        return array($type, $size);
     }
 
     public function supportedCategories()
