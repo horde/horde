@@ -13,9 +13,9 @@
             "region": [{
                 "value": "Massachusetts"
             }],
-            "timezone": [{
+            "timezone": {
                 "offset": "-4.0"
-            }],
+            },
             "weatherUrl": [{
                 "value": "http:\/\/www.worldweatheronline.com\/Boston-weather\/Massachusetts\/US.aspx"
             }]
@@ -32,9 +32,9 @@
             "region": [{
                 "value": "Lincolnshire"
             }],
-            "timezone": [{
+            "timezone": {
                 "offset": "1.0"
-            }],
+            },
             "weatherUrl": [{
                 "value": "http:\/\/www.worldweatheronline.com\/Boston-weather\/Lincolnshire\/GB.aspx"
             }]
@@ -51,9 +51,9 @@
             "region": [{
                 "value": "Davao Oriental"
             }],
-            "timezone": [{
+            "timezone": {
                 "offset": "8.0"
-            }],
+            },
             "weatherUrl": [{
                 "value": "http:\/\/www.worldweatheronline.com\/Boston-weather\/Davao-Oriental\/PH.aspx"
             }]
@@ -70,9 +70,9 @@
             "region": [{
                 "value": "La Paz"
             }],
-            "timezone": [{
+            "timezone": {
                 "offset": "-4.0"
-            }],
+            },
             "weatherUrl": [{
                 "value": "http:\/\/www.worldweatheronline.com\/Boston-weather\/La-Paz\/BO.aspx"
             }]
@@ -89,9 +89,9 @@
             "region": [{
                 "value": "Bolivar Department"
             }],
-            "timezone": [{
+            "timezone": {
                 "offset": "-5.0"
-            }],
+            },
             "weatherUrl": [{
                 "value": "http:\/\/www.worldweatheronline.com\/Boston-weather\/Bolivar-Department\/CO.aspx"
             }]
@@ -108,9 +108,9 @@
             "region": [{
                 "value": "Sucre"
             }],
-            "timezone": [{
+            "timezone": {
                 "offset": "-5.0"
-            }],
+            },
             "weatherUrl": [{
                 "value": "http:\/\/www.worldweatheronline.com\/Boston-weather\/Sucre\/CO.aspx"
             }]
@@ -127,9 +127,9 @@
             "region": [{
                 "value": "Guanacaste"
             }],
-            "timezone": [{
+            "timezone": {
                 "offset": "-6.0"
-            }],
+            },
             "weatherUrl": [{
                 "value": "http:\/\/www.worldweatheronline.com\/Boston-weather\/Guanacaste\/CR.aspx"
             }]
@@ -146,9 +146,9 @@
             "region": [{
                 "value": "Limon"
             }],
-            "timezone": [{
+            "timezone": {
                 "offset": "-6.0"
-            }],
+            },
             "weatherUrl": [{
                 "value": "http:\/\/www.worldweatheronline.com\/Boston-weather\/Limon\/CR.aspx"
             }]
@@ -165,9 +165,9 @@
             "region": [{
                 "value": "Camaguey"
             }],
-            "timezone": [{
+            "timezone": {
                 "offset": "-4.0"
-            }],
+            },
             "weatherUrl": [{
                 "value": "http:\/\/www.worldweatheronline.com\/Boston-weather\/Camaguey\/CU.aspx"
             }]
@@ -184,9 +184,9 @@
             "region": [{
                 "value": "Kwazulu-Natal"
             }],
-            "timezone": [{
+            "timezone": {
                 "offset": "2.0"
-            }],
+            },
             "weatherUrl": [{
                 "value": "http:\/\/www.worldweatheronline.com\/Boston-weather\/KwaZulu-Natal\/ZA.aspx"
             }]
