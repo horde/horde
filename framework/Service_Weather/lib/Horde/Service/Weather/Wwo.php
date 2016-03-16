@@ -289,7 +289,7 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
         if (isset($station->timezone)) {
             // Only the *current* UTC offset is provided, with no indication
             // if we are in DST or not.
-            $properties['tz'] = $station->timezone[0]->offset;
+            $properties['tz'] = $station->timezone->offset;
         }
 
         return new Horde_Service_Weather_Station($properties);
