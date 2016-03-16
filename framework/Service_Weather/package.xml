@@ -12,7 +12,7 @@
  </lead>
  <date>2016-03-16</date>
  <version>
-  <release>2.3.3</release>
+  <release>2.3.4</release>
   <api>1.3.0</api>
  </version>
  <stability>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* [mjr] Fix fatal error related to setting timezone in WWO driver (Bug #14289).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -903,6 +903,19 @@
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [mjr] Fix fatal error related to setting timezone in WWO driver (Bug #14289).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.3.4</release>
+    <api>1.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-03-16</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
