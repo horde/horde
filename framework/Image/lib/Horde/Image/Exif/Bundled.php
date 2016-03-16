@@ -866,10 +866,12 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
     }
 
     /**
+     * Look up the data type.
      *
-     * @param $type
+     * @param string  The string representation of the hex type code.
      *
-     * @return unknown_type
+     * @return array  An array containing the string type name in the 0 index
+     *                and the integer size in the 1 index.
      */
     protected function _lookupType($type)
     {
