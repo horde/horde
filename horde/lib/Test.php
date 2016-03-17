@@ -63,11 +63,6 @@ class Horde_Test
      * @var array
      */
     protected $_moduleList = array(
-        'bcmath' => array(
-            'descrip' => 'Bcmath Support',
-            'error' => 'The bcmath functions are used in decoding certain embedded attachments in TNEF data.',
-            'fatal' => false
-        ),
         'ctype' => array(
             'descrip' => 'Ctype Support',
             'error' => 'The ctype functions are required by various Horde libraries. Don\t compile PHP with <code>--disable-all/--disable-ctype</code>.',
@@ -293,6 +288,9 @@ class Horde_Test
         ),
         'Services_Weather' => array(
             'error' => 'Services_Weather is used by the METAR weather applet/block on the portal page.'
+        ),
+        'Math_BigInteger' => array(
+            'error' => 'The Math_BigInteger library is used in decoding certain embedded attachments in TNEF data.',
         ),
     );
 
