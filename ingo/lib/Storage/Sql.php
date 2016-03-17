@@ -218,7 +218,7 @@ class Ingo_Storage_Sql extends Ingo_Storage
                 break;
 
             default:
-                $columns = $this->_db->columns($this->_params['table_rules']);
+                $columns = $this->_params['db']->columns($this->_params['table_rules']);
                 $ob->combine = intval($row['rule_combine']);
                 $ob->conditions = empty($row['rule_conditions'])
                     ? null :
