@@ -250,14 +250,22 @@ class Horde_Mapi_Timezone
     }
 
     /**
-     * Attempt to guess the timezone identifier from the $offsets array.
+     * Attempt to guess the timezone identifier from the $offsets array. Since
+     * it's impossible to know exactly which olson timezone name a specific set
+     * of offsets represent (multiple timezone names may be described by the
+     * same offsets for any given year) we allow passing an expected timezone.
+     * If this matches one of the timezones that matches the offsets, we return
+     * that. Otherwise, we return the abbreviated timezone alias of the first
+     * timezone that matches.
      *
      * @param array|string $offsets     The timezone to check. Either an array
      *                                  of offsets or an activesynz tz blob.
      * @param string $expectedTimezone  The expected timezone. If not empty, and
      *                                  present in the results, will return.
      *
-     * @return string  The timezone identifier
+     * @return string  The timezone identifier. Either the full timezone name
+     *                 (Europe/Berlin) if $expectedTimezone matches or the
+     *                 abbreviated identifier (CET) if it does not.
      */
     public function getTimezone($offsets, $expectedTimezone = null)
     {
