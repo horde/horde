@@ -250,13 +250,14 @@ class Horde_Mapi_Timezone
     }
 
     /**
-     * Attempt to guess the timezone identifier from the $offsets array. Since
-     * it's impossible to know exactly which olson timezone name a specific set
-     * of offsets represent (multiple timezone names may be described by the
-     * same offsets for any given year) we allow passing an expected timezone.
-     * If this matches one of the timezones that matches the offsets, we return
-     * that. Otherwise, we return the abbreviated timezone alias of the first
-     * timezone that matches.
+     * Attempt to guess the timezone identifier from the $offsets array.
+     *
+     * Since it's impossible to know exactly which olson timezone name a
+     * specific set of offsets represent (multiple timezone names may be
+     * described by the same offsets for any given year) we allow passing an
+     * expected timezone. If this matches one of the timezones that matches the
+     * offsets, we return that. Otherwise, we return the abbreviated timezone
+     * alias of the first timezone that matches.
      *
      * @param array|string $offsets     The timezone to check. Either an array
      *                                  of offsets or an activesynz tz blob.
