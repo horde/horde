@@ -256,17 +256,16 @@ class Horde_Mapi_Timezone
      * specific set of offsets represent (multiple timezone names may be
      * described by the same offsets for any given year) we allow passing an
      * expected timezone. If this matches one of the timezones that matches the
-     * offsets, we return that. Otherwise, we return the abbreviated timezone
-     * alias of the first timezone that matches.
+     * offsets, we return that. Otherwise, we attempt to get the full timezone
+     * name from Horde_Date and if that fails, return the abbreviated timezone
+     * name of the first timezone that matches the provided offsets.
      *
      * @param array|string $offsets     The timezone to check. Either an array
      *                                  of offsets or an activesynz tz blob.
      * @param string $expectedTimezone  The expected timezone. If not empty, and
      *                                  present in the results, will return.
      *
-     * @return string  The timezone identifier. Either the full timezone name
-     *                 (Europe/Berlin) if $expectedTimezone matches or the
-     *                 abbreviated identifier (CET) if it does not.
+     * @return string  The timezone identifier.
      */
     public function getTimezone($offsets, $expectedTimezone = null)
     {
@@ -274,7 +273,7 @@ class Horde_Mapi_Timezone
         if (isset($timezones[$expectedTimezone])) {
             return $expectedTimezone;
         } else {
-            return current($timezones);
+            return Horde_Date::getTimezoneAlias(current($timezones));
         }
     }
 
