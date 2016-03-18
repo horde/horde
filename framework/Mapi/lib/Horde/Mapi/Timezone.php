@@ -55,7 +55,7 @@ class Horde_Mapi_Timezone
      *     WORD wYear;
      *     WORD wMonth;
      *     WORD wDayOfWeek;
-     *     WORD wDay;
+     *     WORD wDay; (Used as week number)
      *     WORD wHour;
      *     WORD wMinute;
      *     WORD wSecond;
@@ -308,7 +308,7 @@ class Horde_Mapi_Timezone
     /**
      * Set default value for $_startDate.
      *
-     * Tries to guess the correct startDate depending on object property falls
+     * Tries to guess the correct startDate depending on object property. Falls
      * back to current date.
      *
      * @param array $offsets  Offsets may be avaluated for a given start year
