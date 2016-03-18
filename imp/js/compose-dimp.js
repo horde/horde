@@ -1408,10 +1408,7 @@ var DimpCompose = {
         /* Attach event handlers. */
         if (Prototype.Browser.IE) {
             // IE doesn't bubble change events.
-            if ($('upload')) {
-                $('upload').observe('change', this.changeHandler.bindAsEventListener(this));
-            }
-            $('identity').observe('change', this.changeHandler.bindAsEventListener(this));
+            $('identity', 'upload').invoke('observe', 'change', this.changeHandler.bindAsEventListener(this));
         } else {
             document.observe('change', this.changeHandler.bindAsEventListener(this));
         }
