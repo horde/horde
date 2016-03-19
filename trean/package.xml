@@ -794,7 +794,6 @@
 * [mjr] Fix missing CSS rules for blocks.
 * [mjr] Add new block for displaying bookmarks tagged with a certain set of tags (Request #13020).
    </notes>
-  <release>
   </release>
  </changelog>
 </package>
