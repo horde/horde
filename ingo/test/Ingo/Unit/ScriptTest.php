@@ -97,7 +97,7 @@ class ScriptTester {
     var $test;
     var $rules = array();
 
-    function ScriptTester($test)
+    function __construct($test)
     {
         $this->test = $test;
     }
