@@ -39,10 +39,14 @@ Calendar changes:
 
 Mail changes:
     * Fix opening compose window on IE when uploads are disabled (Bug #14267).
-    * Update Greek translation (Limperis Antonis <limperis@cti.gr>).
     * Fix creating new trash folder from preference screen.
     * Fix finding reply or forward text from signed or encrypted messages with
       HTML content.
+
+Filter changes:
+    * Honor 'date', 'echo', and 'ls' path overrides.
+    * Fix Oracle compatibility.
+    * Small bugfixes and improvements.
 
 Tasks changes:
     * Honor date_format prefs in Task form (Bug #14287).
