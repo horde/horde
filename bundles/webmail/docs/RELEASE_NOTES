@@ -1,11 +1,11 @@
 <?php
 /* Security release? */
-$notes['security'] = true;
+$notes['security'] = false;
 
 /* Mailing list release notes. */
 $notes['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Horde Groupware
-Webmail Edition version 5.2.12.
+Webmail Edition version 5.2.13.
 
 Horde Groupware Webmail Edition is a free, enterprise ready, browser based
 communication suite. Users can read, send and organize email messages with four
@@ -23,32 +23,29 @@ Thanks to duarteetraud@gmail.com and Centurion Information Security
 (www.centurioninfosec.sg) for reporting the XSS vulnerabilities.
 
 The major changes compared to the Horde Groupware Webmail Edition version
-5.2.11 are:
+5.2.12 are:
 
 General changes:
-    * Fixed XSS vulnerabilities in menu bar and form renderer.
-    * Improved Oracle compatibility.
+    * Update Greek translation.
     * Several bugfixes and improvements.
 
-Mail changes:
-    * Improved HTML to plain text conversion.
-    * Sending MDNs from the correct identity.
-
-Filters changes:
-    * Fixed editing shared rulesets.
-
 Address Book changes:
-    * Fixed importing of vCard via the API.
+    * Honor alternative_name mapping (Bug #14280).
+    * Fix dealing with orphaned virtual address books.
 
 Calendar changes:
-    * Honor preference to confirm deletions in dynamic view.
-    * Fixed accidental deletion of events.
-    * Fixed week numbers in basic view.
+    * Fix updating list of resource calendars in resource group dialog (Bug #14281).
+    * Fixed several issues with resource management.
+
+Mail changes:
+    * Fix opening compose window on IE when uploads are disabled (Bug #14267).
+    * Update Greek translation (Limperis Antonis <limperis@cti.gr>).
+    * Fix creating new trash folder from preference screen.
+    * Fix finding reply or forward text from signed or encrypted messages with
+      HTML content.
 
 Tasks changes:
-    * Fixed several parent-child-tasks bugs.
-    * Fixed two fatal errors.
-    * Fixed Kolab issues.
+    * Honor date_format prefs in Task form (Bug #14287).
 ML;
 
 $notes['name'] = 'Horde Groupware Webmail Edition';

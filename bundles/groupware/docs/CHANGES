@@ -2,6 +2,121 @@
 v5.2.13-git
 -----------
 
+[jan] Update Greek translation (Limperis Antonis <limperis@cti.gr>).
+
+Horde Changes
+-------------
+[mjr] Remove broken Facebook posting functionality from the Facebook block.
+[jan] Check if temporary directory is writable
+      (skhorde@smail.inf.fh-bonn-rhein-sieg.de, Request #14237).
+
+Address Book Changes
+--------------------
+[mjr] Honor alternative_name mapping (Bug #14280).
+[mjr] Fix dealing with orphaned virtual address books.
+
+Bookmarks Changes
+-----------------
+[cjh] Fix error when deleting bookmarks.
+
+Calendar Changes
+----------------
+[mjr] Fix updating list of resource calendars in resource group dialog (Bug
+      #14281).
+[jan] Fixed several issues with resource management.
+[mjr] Fix typo preventing deletion of events from dynamic view (Bug #14256).
+[jan] Handle gracefully if the base event of an imported recurrence exception
+      is no longer recurring (Bug #14249).
+[mjr] Fix issue deleting and closing event dialog during event deletion.
+[mjr] Honor the SCHEDULE-AGENT attribute during CalDAV import.
+[mjr] Add missing EAS ghosted property support for all EAS versions. Prevents
+      potential loss of event data during synchronization.
+
+Tasks Changes
+-------------
+[mjr] Honor date_format prefs in Task form (Bug #14287).
+
+Library Changes
+---------------
+
+[jan] Mark PHP 7 as supported.
+[mjr] Update Greek translation.
+
+ActiveSync
+[mjr] Fix possible leaking of Horde_Imap_Client Exceptions.
+[mjr] Fix reversed login in GHOSTED element handling.
+[mjr] Changes for EAS 16.0 support.
+[mjr] Fix error when attempting to rewrite previous syncstate.
+[mjr] Another fix for GHOSTED support on certain clients.
+[mjr] Fix regression in handling all day events in EAS versions prior to 16.0.
+[mjr] Fix undefined variable notices (Bug #14251).
+[mjr] Fix WBXML output when allday event exceptions have no starttime set (Bug #14255).
+[mjr] Fix calculation of when to send MOREAVAILABLE tag.
+[mjr] More fixes for allday exception events (Bug #14255).
+[mjr] Improvements to ActiveSync SETTINGS_ACCOUNTS response data.
+[mjr] Prevent mirroring back email category changes.
+[mjr] Fix the workaround for some versions of Outlook's broken behavior regarding moving email messages.
+[mjr] Improve allday event handling in appointment objects (Bug #14278).
+[mjr] Work around BC break in PHP 5.5.10 with converting timezone abbreviations to full timezone names.
+
+Cache
+[jan] Fix incomplete migration from old to new garbage collection in file backend (Bug #14258).
+
+Core
+[mjr] Improvements to GHOSTED/SUPPORTED handling for ActiveSync.
+[mjr] Do not throw a fatal error if a meeting request can not be deleted after responding to it.
+[mjr] Changes for EAS 16.0 support.
+[mjr] Honor the disabled property when rendering boolean form types.
+[jan] Fix returning to last page after problem reporting from AJAX pages (Bug #12112).
+[jan] Fix updating group cache with LDAP backend.
+[jan] Horde_Registry_Nlsconfig#validLang() checks now if a locale is installed (Request #10457).
+[jan] Add option to always lowercase user names after logging in.
+[mjr] Improvements to ActiveSync SETTINGS_ACCOUNTS response data.
+[mjr] Fix issues with ActiveSync clients and user defined message flags.
+[jan] Fix logging in from a different page than the login page (Bug #14231).
+[jan] Add Horde_Core_Auth_Application#listNames().
+[jan] Don't call authusername() hook on administrator names when running CLI scripts.
+[jan] Update Greek translation (Limperis Antonis <limperis@cti.gr>).
+[mjr] Fix fatal error with broken EAS clients searching the Outbox.
+
+Crypt
+[jan] Try three times to retrieve public PGP if the keyserver pool contains broken servers.
+[jan] Fix throwing exception if verifying a PGP signature failed.
+
+Date
+[jan] Add Horde_Date::getTimezoneAlias().
+
+Image
+[mjr] Fixes for PHP 7.1.
+
+JavascriptMinify
+[jan] Fix compression with Closure.
+
+ManageSieve
+[jan] Fix usage of &apos;tlsv1&apos; connection setting (Ralf Becker <RalfBecker@outdoor-training.de>).
+[jan] Fix setting authentication credentials from login() (Ralf Becker <RalfBecker@outdoor-training.de>).
+[jan] Fix throwing exceptions (Ralf Becker <RalfBecker@outdoor-training.de>).
+
+Db
+--
+[jan] Bump earliest supported PostgreSQL version to 8.3.
+[jan] Improve getting tables and indexes from PostgreSQL servers (Ivan Sergio Borgonovo <mail@webthatworks.it>).
+
+Form
+----
+[mjr] Allow non-breaking space to match in a telephone field (Request #14235).
+
+Mapi
+[mjr] Work around BC break in PHP 5.5.10 with converting timezone abbreviations to full timezone names.
+
+Mime_Viewer
+[jan] Add temp_dir configuration parameter to OpenOffice/LibreOffice viewer (Request #11756).
+
+Share
+[jan] Protect against certain share tables corruption (Bug #14259).
+
+Timezone
+[jan] Support more timezone names in Horde_Timezone#getZone().
 
 
 -------
