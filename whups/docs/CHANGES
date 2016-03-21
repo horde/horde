@@ -1,6 +1,6 @@
-----------
-v3.0.7-git
-----------
+------
+v3.0.7
+------
 
 [jan] Fix displaying ticket creators with names when creating tickets from
       emails.
