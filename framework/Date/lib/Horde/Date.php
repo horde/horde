@@ -705,12 +705,17 @@ class Horde_Date
      * @param string $timezone  The new timezone.
      *
      * @return Horde_Date  This object.
+     * @throws Horde_Date_Exception
      */
     public function setTimezone($timezone)
     {
         $date = $this->toDateTime();
         $timezone = self::getTimezoneAlias($timezone);
-        $date->setTimezone(new DateTimeZone($timezone));
+        try {
+            $date->setTimezone(new DateTimeZone($timezone));
+        } catch (Exception $e) {
+            throw new Horde_Date_Exception($e->getMessage());
+        }
         $this->_timezone = $timezone;
         $this->_year     = (int)$date->format('Y');
         $this->_month    = (int)$date->format('m');
