@@ -30,7 +30,7 @@
  </lead>
  <date>2016-03-21</date>
  <version>
-  <release>5.2.10</release>
+  <release>5.2.11</release>
   <api>5.2.0</api>
  </version>
  <stability>
@@ -39,9 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
-* [mjr] Remove broken Facebook posting functionality from the Facebook block.
-* [jan] Update Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
-* [jan] Check if temporary directory is writable (skhorde@smail.inf.fh-bonn-rhein-sieg.de, Request #14237).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4097,6 +4095,19 @@
 * [mjr] Remove broken Facebook posting functionality from the Facebook block.
 * [jan] Update Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
 * [jan] Check if temporary directory is writable (skhorde@smail.inf.fh-bonn-rhein-sieg.de, Request #14237).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.2.11</release>
+    <api>5.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-03-21</date>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
