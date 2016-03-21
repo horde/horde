@@ -30,7 +30,7 @@
  </lead>
  <date>2016-03-21</date>
  <version>
-  <release>4.2.13</release>
+  <release>4.2.14</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -39,9 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* [mjr] Honor alternative_name mapping (Bug #14280).
-* [mjr] Fix dealing with orphaned virtual address books.
-* [jan] Update Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2095,6 +2093,19 @@
 * [mjr] Honor alternative_name mapping (Bug #14280).
 * [mjr] Fix dealing with orphaned virtual address books.
 * [jan] Update Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.14</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-03-21</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
