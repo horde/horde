@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* 
+* [jan] Add a few common aliases for the log level constants.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -431,7 +431,7 @@
    <date>2016-02-01</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* 
+* [jan] Add a few common aliases for the log level constants.
    </notes>
   </release>
  </changelog>

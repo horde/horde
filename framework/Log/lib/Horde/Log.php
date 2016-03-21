@@ -17,10 +17,13 @@
  * @category Horde
  * @package  Log
  */
-class Horde_Log {
-
+class Horde_Log
+{
     /** Emergency: system is unusable */
     const EMERG = 0;
+
+    /** Emergency: system is unusable */
+    const EMERGENCY = 0;
 
     /** Alert: action must be taken immediately */
     const ALERT = 1;
@@ -28,11 +31,20 @@ class Horde_Log {
     /** Critical: critical conditions */
     const CRIT = 2;
 
+    /** Critical: critical conditions */
+    const CRITICAL = 2;
+
     /** Error: error conditions */
     const ERR = 3;
 
+    /** Error: error conditions */
+    const ERROR = 3;
+
     /** Warning: warning conditions */
     const WARN = 4;
+
+    /** Warning: warning conditions */
+    const WARNING = 4;
 
     /** Notice: normal but significant condition */
     const NOTICE = 5;
@@ -40,7 +52,12 @@ class Horde_Log {
     /** Informational: informational messages */
     const INFO = 6;
 
+    /** Informational: informational messages */
+    const INFORMATION = 6;
+
+    /** Informational: informational messages */
+    const INFORMATIONAL = 6;
+
     /** Debug: debug-level messages */
     const DEBUG = 7;
-
 }
