@@ -30,9 +30,17 @@ Address Book changes:
     * Honor alternative_name mapping (Bug #14280).
     * Fix dealing with orphaned virtual address books.
 
+Bookmarks changes:
+    * Fix error when deleting bookmarks.
+
 Calendar changes:
     * Fix updating list of resource calendars in resource group dialog (Bug #14281).
     * Fixed several issues with resource management.
+    * Fix typo preventing deletion of events from dynamic view (Bug #14256).
+    * Handle gracefully if the base event of an imported recurrence exception is no longer recurring (Bug #14249).
+    * Fix issue deleting and closing event dialog during event deletion.
+    * Honor the SCHEDULE-AGENT attribute during CalDAV import.
+    * Add missing EAS ghosted property support for all EAS versions. Prevents potential loss of event data during synchronization.
 
 Tasks changes:
     * Honor date_format prefs in Task form (Bug #14287).
