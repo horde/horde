@@ -1,6 +1,6 @@
------------
-v6.2.13-git
------------
+-------
+v6.2.13
+-------
 
 [mjr] Fix opening compose window on IE when uploads are disabled (Bug #14267).
 [jan] Update Greek translation (Limperis Antonis <limperis@cti.gr>).
