@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2016-02-01</date>
+ <date>2016-03-21</date>
  <version>
   <release>2.1.5</release>
   <api>2.1.0</api>
@@ -1011,7 +1011,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-02-01</date>
+   <date>2016-03-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Handle overflowed timestamps on 32bit systems more gracefully.
