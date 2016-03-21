@@ -11,7 +11,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-07-31</date>
+ <date>2016-03-21</date>
  <version>
   <release>2.0.9</release>
   <api>1.0.0</api>
@@ -856,7 +856,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-07-30</date>
+   <date>2016-03-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Update Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
