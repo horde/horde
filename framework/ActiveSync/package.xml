@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Work around BC break in PHP 5.5.10 with converting timezone abbreviations to full timezone names.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3067,7 +3067,7 @@
    <date>2016-03-11</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Work around BC break in PHP 5.5.10 with converting timezone abbreviations to full timezone names.
    </notes>
   </release>
  </changelog>
