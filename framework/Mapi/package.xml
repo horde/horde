@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mjr] Fix dependency on Horde_Date 2.3.0.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -71,7 +71,7 @@
    <package>
     <name>Horde_Date</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.3.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -210,7 +210,7 @@
    <date>2016-03-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mjr] Work around BC break in PHP 5.5.10 with converting timezone abbreviations to full timezone names.
    </notes>
   </release>
   <release>
@@ -223,7 +223,7 @@
    <date>2016-03-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mjr] Fix dependency on Horde_Date 2.3.0.
    </notes>
   </release>
  </changelog>
