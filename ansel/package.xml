@@ -22,7 +22,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-01-13</date>
+ <date>2016-03-21</date>
  <version>
   <release>3.0.4</release>
   <api>3.0.0</api>
@@ -52,7 +52,7 @@
     <file name="ansel-garbage-collection" role="script">
      <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
     </file>
-    <file name="AnselPublish.scpt" role="script"/>
+    <file name="AnselPublish.scpt" role="script" />
    </dir> <!-- /bin -->
    <dir name="config">
     <file name=".htaccess" role="horde" />
@@ -1379,7 +1379,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-01-13</date>
+   <date>2016-03-21</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Use access rules compatible with both Apache 2.2 and 2.4.
