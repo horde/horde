@@ -110,7 +110,16 @@ class Turba_Unit_Driver_Base extends Turba_TestCase
 
     public function testDuplicateDetectionFromAsWithNoEmail()
     {
-        $eas_obj = Horde_ActiveSync::messageFactory('Contact');
+        if (!class_exists('Horde_ActiveSync')){
+            $this->markTestSkipped('ActiveSync not installed.');
+        }
+        $state = $this->getMock('Horde_ActiveSync_State_Base', array(), array(), '', false);
+        $fixture = array(
+            'userAgent' => 'Apple-iPad3C6/1202.435',
+            'properties' => array(Horde_ActiveSync_Device::OS => 'iOS 8.1.1')
+        );
+        $device = new Horde_ActiveSync_Device($state, $fixture);
+        $eas_obj = new Horde_ActiveSync_Message_Contact(array('device' => $device, 'protocolversion' => Horde_ActiveSync::VERSION_FOURTEEN));
         $eas_obj->firstname = 'Firstname';
         $eas_obj->fileas = 'Firstname';
         $eas_obj->homephonenumber = '+55555555';
