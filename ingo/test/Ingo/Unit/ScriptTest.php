@@ -93,7 +93,7 @@ class ScriptTester {
     protected $test;
     protected $rules = array();
 
-    function ScriptTester($test)
+    function __construct($test)
     {
         $this->test = $test;
     }
