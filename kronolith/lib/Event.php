@@ -1678,7 +1678,7 @@ abstract class Kronolith_Event
                 $this->start->setTimezone($tz);
             } catch (Horde_Date_Exception $e) {
                 $tz = date_default_timezone_get();
-                Horde::log(sprintf('Unable to set timezone. Using %s.', $tz), 'ERR');
+                Horde::log(sprintf('Unable to set timezone. Using %s.', $tz), 'WARN');
                 $this->start->setTimezone($tz);
             }
             $this->end = !$message->isGhosted('endtime') ? clone($dates['end']) : $this->end;
@@ -1799,7 +1799,7 @@ abstract class Kronolith_Event
                             $original->setTimezone($tz);
                         } catch (Horde_Date_Exception $e) {
                             $tz = date_default_timezone_get();
-                            Horde::log(sprintf('Unable to set timezone. Using %s.', $tz), 'ERR');
+                            Horde::log(sprintf('Unable to set timezone. Using %s.', $tz), 'WARN');
                             $original->setTimezone($tz);
                         }
                         $this->recurrence->addException($original->format('Y'), $original->format('m'), $original->format('d'));
@@ -1830,7 +1830,7 @@ abstract class Kronolith_Event
                             $exceptiondt->setTimezone($tz);
                         } catch (Horde_Date_Exception $e) {
                             $tz = date_default_timezone_get();
-                            Horde::log(sprintf('Unable to set timezone. Using %s.', $tz), 'ERR');
+                            Horde::log(sprintf('Unable to set timezone. Using %s.', $tz), 'WARN');
                             $exceptiondt->setTimezone($tz);
                         }
                         $this->recurrence->addException($exceptiondt->format('Y'), $exceptiondt->format('m'), $exceptiondt->format('d'));
