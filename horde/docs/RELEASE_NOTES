@@ -1,6 +1,6 @@
 <?php
 /* Security release? */
-$notes['security'] = true;
+$notes['security'] = false;
 
 /* Mailing list release notes. */
 $notes['changes'] = <<<ML
