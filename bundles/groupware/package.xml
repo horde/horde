@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/">OSI certified</license>
  <notes>
-* [mjr] Update Horde, Turba, Trean, Kronolith, Mnemo, and Nag.
+* [mjr] Update Horde, Turba, Trean, Kronolith, Mnemo, Nag, and Gollem.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -85,7 +85,7 @@
    <package>
     <name>gollem</name>
     <channel>pear.horde.org</channel>
-    <min>3.0.7</min>
+    <min>3.0.8</min>
     <max>4.0.0alpha1</max>
     <exclude>4.0.0alpha1</exclude>
    </package>
@@ -654,7 +654,7 @@
    <date>2016-02-02</date>
    <license uri="http://www.horde.org/licenses/">OSI certified</license>
    <notes>
-* [mjr] Update Horde, Turba, Trean, Kronolith, Mnemo, and Nag.
+* [mjr] Update Horde, Turba, Trean, Kronolith, Mnemo, Nag, and Gollem.
    </notes>
   </release>
  </changelog>
