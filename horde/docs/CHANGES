@@ -1,6 +1,6 @@
------------
-v5.2.10-git
------------
+-------
+v5.2.10
+-------
 
 [mjr] Remove broken Facebook posting functionality from the Facebook block.
 [jan] Update Greek translation (Limperis Antonis <limperis@cti.gr>).
