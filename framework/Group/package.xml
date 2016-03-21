@@ -17,7 +17,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-01-05</date>
+ <date>2016-03-21</date>
  <version>
   <release>2.1.1</release>
   <api>1.1.0</api>
@@ -520,7 +520,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-01-05</date>
+   <date>2016-03-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Mark PHP 7 as supported.
