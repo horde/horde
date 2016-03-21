@@ -10,7 +10,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-03-15</date>
+ <date>2016-03-21</date>
  <version>
   <release>1.0.11</release>
   <api>1.0.0</api>
@@ -310,7 +310,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-03-15</date>
+   <date>2016-03-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Support more timezone names in Horde_Timezone#getZone().
