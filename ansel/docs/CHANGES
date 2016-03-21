@@ -1,6 +1,6 @@
-----------
-v3.0.4-git
-----------
+------
+v3.0.4
+------
 
 [jan] Use access rules compatible with both Apache 2.2 and 2.4.
 [jan] Improve Oracle compatibility.
