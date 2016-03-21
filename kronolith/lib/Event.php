@@ -1674,7 +1674,13 @@ abstract class Kronolith_Event
         } else {
             $tz = !$message->isGhosted('timezone') ? $message->getTimezone() : $this->timezone;
             $this->start = !$message->isGhosted('starttime') ? clone($dates['start']) : $this->start;
-            $this->start->setTimezone($tz);
+            try {
+                $this->start->setTimezone($tz);
+            } catch (Horde_Date_Exception $e) {
+                $tz = date_default_timezone_get();
+                Horde::log(sprintf('Unable to set timezone. Using %s.', $tz), 'ERR');
+                $this->start->setTimezone($tz);
+            }
             $this->end = !$message->isGhosted('endtime') ? clone($dates['end']) : $this->end;
             $this->end->setTimezone($tz);
             if ($tz != date_default_timezone_get()) {
@@ -1789,7 +1795,13 @@ abstract class Kronolith_Event
                         } else {
                             $original = $rule->instanceid;
                         }
-                        $original->setTimezone($tz);
+                        try {
+                            $original->setTimezone($tz);
+                        } catch (Horde_Date_Exception $e) {
+                            $tz = date_default_timezone_get();
+                            Horde::log(sprintf('Unable to set timezone. Using %s.', $tz), 'ERR');
+                            $original->setTimezone($tz);
+                        }
                         $this->recurrence->addException($original->format('Y'), $original->format('m'), $original->format('d'));
                         $event->start = $times['start'];
                         $event->end = $times['end'];
@@ -1814,7 +1826,13 @@ abstract class Kronolith_Event
                         } else {
                             $exceptiondt = $rule->instanceid;
                         }
-                        $exceptiondt->setTimezone($tz);
+                        try {
+                            $exceptiondt->setTimezone($tz);
+                        } catch (Horde_Date_Exception $e) {
+                            $tz = date_default_timezone_get();
+                            Horde::log(sprintf('Unable to set timezone. Using %s.', $tz), 'ERR');
+                            $exceptiondt->setTimezone($tz);
+                        }
                         $this->recurrence->addException($exceptiondt->format('Y'), $exceptiondt->format('m'), $exceptiondt->format('d'));
                    }
                }
