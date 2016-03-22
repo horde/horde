@@ -53,9 +53,17 @@ class Horde_Pgp_Keyserver
      */
     public function __construct(array $params = array())
     {
-        $this->_http = (isset($params['http']) && ($params['http'] instanceof Horde_Http_Client))
-            ? $params['http']
-            : new Horde_Http_Client();
+        if (isset($params['http'])) {
+            if (!($params['http'] instanceof Horde_Http_Client)) {
+                throw new InvalidArgumentException('Argument is not a Horde_Http_Client instance');
+            }
+            $this->_http = $params['http'];
+        } else {
+            $this->_http = new Horde_Http_Client();
+        }
+        /* There is a broken key server software that returns HTML content
+         * instead of plain text on arbitrary criteria. A User-Agent header is
+         * one of those. */
         $this->_http->{'request.userAgent'} = '';
         $this->_keyserver = isset($params['keyserver'])
             ? $params['keyserver']

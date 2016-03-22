@@ -61,9 +61,18 @@ class Horde_Crypt_Pgp_Keyserver
     public function __construct($pgp, array $params = array())
     {
         $this->_pgp = $pgp;
-        $this->_http = (isset($params['http']) && ($params['http'] instanceof Horde_Http_Client))
-            ? $params['http']
-            : new Horde_Http_Client();
+        if (isset($params['http'])) {
+            if (!($params['http'] instanceof Horde_Http_Client)) {
+                throw new InvalidArgumentException('Argument is not a Horde_Http_Client instance');
+            }
+            $this->_http = $params['http'];
+        } else {
+            $this->_http = new Horde_Http_Client();
+        }
+        /* There is a broken key server software that returns HTML content
+         * instead of plain text on arbitrary criteria. A User-Agent header is
+         * one of those. */
+        $this->_http->{'request.userAgent'} = '';
         $this->_keyserver = isset($params['keyserver'])
             ? $params['keyserver']
             : 'http://pool.sks-keyservers.net';
@@ -98,7 +107,7 @@ class Horde_Crypt_Pgp_Keyserver
             return substr($start, 0, $length);
         }
 
-        throw new Horde_Crypt_Exception(Horde_Crypt_Translation::t("Could not obtain public key from the keyserver.") . ' Response: ' . $output);
+        throw new Horde_Crypt_Exception(Horde_Crypt_Translation::t("Could not obtain public key from the keyserver."));
     }
 
     /**
@@ -174,7 +183,7 @@ class Horde_Crypt_Pgp_Keyserver
 
         if (!$output) {
             throw new Horde_Crypt_Exception(
-                Horde_Crypt_Translation::t("Could not obtain public key from the keyserver.") . ' Response: ' . var_export($response, true)
+                Horde_Crypt_Translation::t("Could not obtain public key from the keyserver.")
             );
         }
 

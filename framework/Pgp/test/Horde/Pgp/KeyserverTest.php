@@ -29,9 +29,7 @@ class Horde_Pgp_KeyserverTest extends Horde_Test_Case
 
     protected function setUp()
     {
-        $this->_ks = new Horde_Pgp_Keyserver(array(
-            'keyserver' => 'http://ha.pool.sks-keyservers.net:11371'
-        ));
+        $this->_ks = new Horde_Pgp_Keyserver();
     }
 
     /**
@@ -64,6 +62,25 @@ class Horde_Pgp_KeyserverTest extends Horde_Test_Case
     {
         try {
             $this->_checkKey($this->_ks->getKeyByEmail($email), $id);
+        } catch (Horde_Pgp_Exception $e) {
+            if ($e->getPrevious() instanceof Horde_Http_Exception) {
+                $this->markTestSkipped($e->getPrevious()->getMessage());
+            } else {
+                throw $e;
+            }
+        }
+    }
+
+    /**
+     * @dataProvider keyserverRetrieveByEmailProvider
+     */
+    public function testBrokenKeyserver($email, $id)
+    {
+        $ks = new Horde_Pgp_Keyserver(array(
+            'keyserver' => 'http://pgp.key-server.io:11371'
+        ));
+        try {
+            $this->_checkKey($ks->getKeyByEmail($email), $id);
         } catch (Horde_Pgp_Exception $e) {
             if ($e->getPrevious() instanceof Horde_Http_Exception) {
                 $this->markTestSkipped($e->getPrevious()->getMessage());

@@ -12,26 +12,26 @@
 class Horde_Crypt_PgpKeyserverTest extends Horde_Test_Case
 {
     protected $_ks;
+    protected $_gnupg;
 
     protected function setUp()
     {
         $c = self::getConfig('CRYPTPGP_TEST_CONFIG', __DIR__);
-        $gnupg = isset($c['gnupg'])
+        $this->_gnupg = isset($c['gnupg'])
             ? $c['gnupg']
             : '/usr/bin/gpg';
 
-        if (!is_executable($gnupg)) {
+        if (!is_executable($this->_gnupg)) {
             $this->markTestSkipped(sprintf(
                 'GPG binary not found at %s.',
-                $gnupg
+                $this->_gnupg
             ));
         }
 
         $this->_ks = new Horde_Crypt_Pgp_Keyserver(
             Horde_Crypt::factory('Pgp', array(
-                'program' => $gnupg
-            )),
-            array('keyserver' => 'http://ha.pool.sks-keyservers.net')
+                'program' => $this->_gnupg
+            ))
         );
     }
 
@@ -64,4 +64,25 @@ class Horde_Crypt_PgpKeyserverTest extends Horde_Test_Case
         }
     }
 
+    public function testBrokenKeyserver()
+    {
+        $ks = new Horde_Crypt_Pgp_Keyserver(
+            Horde_Crypt::factory('Pgp', array(
+                'program' => $this->_gnupg
+            )),
+            array('keyserver' => 'http://pgp.key-server.io')
+        );
+        try {
+            $this->assertEquals(
+                '4DE5B969',
+                $ks->getKeyID('jan@horde.org')
+            );
+        } catch (Horde_Crypt_Exception $e) {
+            if (strpos($e->getMessage(), 'Operation timed out') === 0) {
+                $this->markTestSkipped($e->getMessage());
+            } else {
+                throw $e;
+            }
+        }
+    }
 }
