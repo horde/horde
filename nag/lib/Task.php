@@ -272,7 +272,7 @@ class Nag_Task
     /**
      * Task tags (lazy loaded).
      *
-     * @var array
+     * @var string
      */
     protected $_tags;
 
@@ -946,7 +946,7 @@ class Nag_Task
                     'task'
                 );
             }
-            $this->_tags = $this->internaltags;
+            $this->_tags = implode(',', $this->internaltags);
         } else {
             $this->_tags = $tags;
         }
@@ -1589,7 +1589,7 @@ class Nag_Task
 
         /* Categories */
         if (is_array($message->categories) && count($message->categories)) {
-            $this->tags = $message->categories;
+            $this->tags = implode(',', $message->categories);
         }
     }
 
