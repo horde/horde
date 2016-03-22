@@ -123,7 +123,7 @@ class Horde_Log_LogTest extends PHPUnit_Framework_TestCase
     {
         try {
             $logger = new Horde_Log_Logger($this->handler);
-            $logger->addLevel('BOB', 0);
+            $logger->addLevel('WARN', 99);
             $this->fail();
         } catch (Exception $e) {
             $this->assertInstanceOf('Horde_Log_Exception', $e);

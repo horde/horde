@@ -113,7 +113,7 @@ class Horde_Log_Logger implements Serializable
     protected function _init()
     {
         $r = new ReflectionClass('Horde_Log');
-        $this->_levels = array_flip($r->getConstants());
+        $this->_levels = $r->getConstants();
     }
 
     /**
@@ -130,8 +130,8 @@ class Horde_Log_Logger implements Serializable
     public function __call($method, $params)
     {
         $levelName = Horde_String::upper($method);
-        if (($level = array_search($levelName, $this->_levels)) !== false) {
-            $this->log(array_shift($params), $level);
+        if (isset($this->_levels[$levelName])) {
+            $this->log(array_shift($params), $this->_levels[$levelName]);
         } else {
             throw new Horde_Log_Exception('Bad log level ' . $levelName);
         }
@@ -169,14 +169,13 @@ class Horde_Log_Logger implements Serializable
             $event = array('message' => $event, 'level' => $level);
         }
 
-        if (!isset($this->_levels[$event['level']]) ||
-            !is_string($this->_levels[$event['level']])) {
+        if (($level = array_search($event['level'], $this->_levels)) === false) {
             throw new Horde_Log_Exception('Bad log level: ' . $event['level']);
         }
 
         // Fill in the level name and timestamp for filters, formatters,
         // handlers.
-        $event['levelName'] = $this->_levels[$event['level']];
+        $event['levelName'] = $level;
 
         if (!isset($event['timestamp'])) {
             $event['timestamp'] = date('c');
@@ -204,7 +203,7 @@ class Horde_Log_Logger implements Serializable
      */
     public function hasLevel($name)
     {
-        return (boolean)array_search($name, $this->_levels);
+        return isset($this->_levels[$name]);
     }
 
     /**
@@ -218,11 +217,11 @@ class Horde_Log_Logger implements Serializable
         // Log level names must be uppercase for predictability.
         $name = Horde_String::upper($name);
 
-        if (isset($this->_levels[$level]) || $this->hasLevel($name)) {
+        if ($this->hasLevel($name)) {
             throw new Horde_Log_Exception('Existing log levels cannot be overwritten');
         }
 
-        $this->_levels[$level] = $name;
+        $this->_levels[$name] = $level;
     }
 
     /**
