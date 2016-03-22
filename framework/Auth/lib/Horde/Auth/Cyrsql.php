@@ -252,7 +252,7 @@ class Horde_Auth_Cyrsql extends Horde_Auth_Sql
             parent::addUser($userId, $credentials);
         }
 
-        $mailbox = $this->_params['userhierarchy'];
+        $mailbox = $this->_params['userhierarchy'] . $userId;
 
         try {
             $this->_imap->createMailbox($mailbox);
@@ -309,7 +309,7 @@ class Horde_Auth_Cyrsql extends Horde_Auth_Sql
         /* Set ACL for mailbox deletion. */
         list($admin) = explode('@', $this->_params['cyradmin']);
 
-        $mailbox = $this->_params['userhierarchy'];
+        $mailbox = $this->_params['userhierarchy'] . $userId;
 
         try {
             $this->_imap->setACL($mailbox, $admin, array('rights' => 'lrswipcda'));
