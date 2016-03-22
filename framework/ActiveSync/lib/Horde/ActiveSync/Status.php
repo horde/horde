@@ -85,6 +85,4 @@ class Horde_ActiveSync_Status
     const BODYPART_CONVERSATION_TOO_LARGE        = 176;
     const MAXIMUM_DEVICES_REACHED                = 177;
 
-
-
 }
