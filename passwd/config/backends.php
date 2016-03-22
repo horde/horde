@@ -20,6 +20,7 @@
  *     - adsi: ADSI COM interface.
  *     - expect: Expect script.
  *     - horde: Horde authentication driver.
+ *     - ispconfig: ISPConfig SOAP Server.
  *     - ldap: LDAP server.
  *     - pine: Pine-encoded file.
  *     - poppassd: Poppassd server.
@@ -550,4 +551,25 @@ $backends['composite'] = array(
             ),
         ),
     )),
+);
+
+/* ISPConfig Example */
+$backends['ispconfig'] = array(
+    'disabled' => true,
+    'name' => 'ISPConfig Server',
+    'driver' => 'Ispconfig',
+    'policy' => array(
+        'minLength' => 7,
+        'maxLength' => 64,
+        'maxSpace' => 0,
+        'minNumeric' => 1,
+    ),
+    'params' => array(
+        'soap_uri' => 'http://ispconfig-webinterface.example.com:8080/remote/',
+        // This user must be created in the ISPConfig webinterface
+        // under System -> Remote Users.  The required permissions
+        // ("functions") is "mail user functions" only.
+        'soap_user' => 'horde',
+        'soap_pass' => 'secret',
+    ),
 );
