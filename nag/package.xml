@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix handling EAS categories/tags.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1709,7 +1709,7 @@
    <date>2016-03-21</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix handling EAS categories/tags.
    </notes>
   </release>
  </changelog>
