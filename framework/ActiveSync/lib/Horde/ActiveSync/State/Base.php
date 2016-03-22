@@ -828,7 +828,7 @@ abstract class Horde_ActiveSync_State_Base
 
         // Check if synckey is allowed
         if (!preg_match('/^\{([0-9A-Za-z-]+)\}([0-9]+)$/', $syncKey, $matches)) {
-            throw new Horde_ActiveSync_Exception('Invalid sync key');
+            throw new Horde_ActiveSync_Exception('Invalid synckey');
         }
         $this->_syncKey = $syncKey;
 
