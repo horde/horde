@@ -1392,6 +1392,7 @@ class Nag_Api extends Horde_Registry_Api
             $task = new Nag_Task();
             $task->fromASTask($content);
             $task->owner = $owner;
+            $task->uid = $uid;
             $factory->create($existing->tasklist)->modify($taskId, $task->toHash());
             break;
         default:
