@@ -1,21 +1,23 @@
 <?php
 /**
- * Copyright 2009-2016 Horde LLC (http://www.horde.org/)
+ * Copyright 2016 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
- * @copyright 2009-2016 Horde LLC
+ * @copyright 2016 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   Passwd
  */
+
 /**
  * Changes a email password using the IspConfig 3 API.
  *
  * @author    Thomas Basler <tbasler@oprago.com>
+ * @author    Michael Bunk <mb@computer-leipzig.com>
  * @category  Horde
- * @copyright 2009-2016 Horde LLC
+ * @copyright 2016 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   Passwd
  */
@@ -39,6 +41,7 @@ class Passwd_Driver_Ispconfig extends Passwd_Driver
             throw new Passwd_Exception('The Passwd Ispconfig driver is not properly configured, edit your passwd/config/backends.local.php.');
         }
     }
+
     /**
      */
     protected function _changePassword($user, $oldpass, $newpass)
@@ -99,7 +102,5 @@ class Passwd_Driver_Ispconfig extends Passwd_Driver
         } catch (SoapFault $e) {
             throw new Passwd_Exception($e);
         }
-        
-        
     }
 }
