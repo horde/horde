@@ -1,13 +1,24 @@
 <?php
 /**
- * The Horde_Nls:: class provides Native Language Support. This includes
- * common methods for handling language data, timezones, and hostname->country
- * lookups.
- *
  * Copyright 1999-2016 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author   Jon Parise <jon@horde.org>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Nls
+ */
+
+/**
+ * The Horde_Nls class provides Native Language Support.
+ *
+ * This includes common methods for handling language data, timezones, and
+ * hostname->country lookups.
  *
  * @author   Jon Parise <jon@horde.org>
  * @author   Chuck Hagenbuch <chuck@horde.org>
@@ -67,6 +78,29 @@ class Horde_Nls
     {
         $timezones = DateTimeZone::listIdentifiers();
         return array_combine($timezones, $timezones);
+    }
+
+    /**
+     * Returns a list of available timezones, including timezone abbreviations.
+     *
+     * Contrary to getTimezones() the timezone IDs are values and the timezone
+     * labels are the keys, to allow multiple labels for the same timezone.
+     *
+     * @since 2.2.0
+     *
+     * @return array  List of timezones.
+     */
+    public static function getTimezonesWithAbbreviations()
+    {
+        $timezones = array_flip(self::getTimezones());
+        foreach (DateTimeZone::listAbbreviations() as $abbreviation => $timezone) {
+            $abbreviation = Horde_String::upper($abbreviation);
+            if ($abbreviation == 'UTC' || strlen($abbreviation) < 2) {
+                continue;
+            }
+            $timezones[$abbreviation] = $timezone[0]['timezone_id'];
+        }
+        return $timezones;
     }
 
     /**
