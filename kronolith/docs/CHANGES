@@ -2,6 +2,8 @@
 v4.3.0-git
 ----------
 
+[jan] Only export the timezone rules required for an event to iCalendar
+      objects.
 [jan] Show timezone abbreviations in event dialog too.
 [jan] Show users' full names in share dialogs.
 [mjr] Support for subset of features of ActiveSync 16.0.

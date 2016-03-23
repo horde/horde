@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Only export the timezone rules required for an event to iCalendar objects.
 * [jan] Show timezone abbreviations in event dialog too.
 * [jan] Show users&apos; full names in share dialogs.
 * [mjr] Support for subset of features of ActiveSync 16.0.
@@ -2763,6 +2764,7 @@
    <date>2016-03-01</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Only export the timezone rules required for an event to iCalendar objects.
 * [jan] Show timezone abbreviations in event dialog too.
 * [jan] Show users&apos; full names in share dialogs.
 * [mjr] Support for subset of features of ActiveSync 16.0.
