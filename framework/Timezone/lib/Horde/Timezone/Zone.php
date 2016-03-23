@@ -77,7 +77,7 @@ class Horde_Timezone_Zone
      *                                    this timezone.
      * @throws Horde_Timezone_Exception
      */
-    public function toVtimezone()
+    public function toVtimezone($from = null, $to = null)
     {
         if (!count($this->_info)) {
             throw new Horde_Timezone_Exception('No rules found for timezone ' . $this->_name);
@@ -95,8 +95,14 @@ class Horde_Timezone_Zone
         $startDate = $this->_getDate(0);
         $startOffset = $this->_getOffset(0);
         for ($i = 1, $c = count($this->_info); $i < $c; $i++) {
+            if ($to && $startDate->after($to)) {
+                continue;
+            }
             $name = $this->_info[$i][2];
             $endDate = count($this->_info[$i]) > 3 ? $this->_getDate($i) : null;
+            if ($from && $endDate && $endDate->before($from)) {
+                continue;
+            }
             if ($this->_info[$i][1] == '-') {
                 // Standard time.
                 $component = new Horde_Icalendar_Standard();
@@ -106,7 +112,15 @@ class Horde_Timezone_Zone
             } else {
                 // Represented by a ruleset.
                 $startOffset = $this->_getOffset($i);
-                $this->_tz->getRule($this->_info[$i][1])->addRules($tz, $this->_name, $name, $startOffset, $startDate, $endDate);
+                $this->_tz->getRule($this->_info[$i][1])
+                    ->addRules(
+                        $tz,
+                        $this->_name,
+                        $name,
+                        $startOffset,
+                        $from && $from->after($startDate) ? $from : $startDate,
+                        $to && $to->before($endDate) ? $to : $endDate
+                    );
                 $startDate = $endDate;
                 // Continue, because addRules() already adds the
                 // component to $tz.

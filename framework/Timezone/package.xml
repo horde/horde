@@ -10,10 +10,10 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-03-21</date>
+ <date>2016-03-23</date>
  <version>
-  <release>1.0.12</release>
-  <api>1.0.0</api>
+  <release>1.1.0</release>
+  <api>1.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Add parameters to Horde_Timezone_Zone#toVtimezone() to limit the generated STANDARD and DAYLIGHT sections.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -318,15 +318,15 @@
   </release>
   <release>
    <version>
-    <release>1.0.12</release>
-    <api>1.0.0</api></version>
+    <release>1.1.0</release>
+    <api>1.1.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-03-21</date>
+   <date>2016-03-23</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Add parameters to Horde_Timezone_Zone#toVtimezone() to limit the generated STANDARD and DAYLIGHT sections.
    </notes>
   </release>
  </changelog>
