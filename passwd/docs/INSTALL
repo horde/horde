@@ -56,7 +56,7 @@ To function properly, Passwd **requires** the following:
 
    e. SOAP support ``--enable-soap`` [OPTIONAL]
 
-      SOAP support is necessary for the soap driver.
+      SOAP support is necessary for the soap and ispconfig driver.
 
 3. The following PEAR modules:
    (See `horde/docs/INSTALL`_ for instructions on installing PEAR modules)
@@ -86,6 +86,8 @@ use:
    passwords are stored/set (could be localhost).
 
 6. A SOAP service endpoint.
+
+7. A ISPConfig server with installed remoting API.
 
 
 Installing Passwd
@@ -280,6 +282,15 @@ This code allows users to change their passwords via the PHP PECL expect
 extension. It requires the PECL expect extension and a ssh program.
 
 You can find the extension on http://pecl.php.net/package/expect
+
+
+ISPConfig Implementation Information
+====================================
+
+This code allows users to change their passwords via the ISPConfig
+remoting API. The advantage compared to the SQL driver is that the
+SOAP API triggers the ISPConfig replication correctly which is necessary
+for multi server environments.
 
 
 Obtaining Support
