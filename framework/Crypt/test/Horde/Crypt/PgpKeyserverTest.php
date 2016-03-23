@@ -40,7 +40,7 @@ class Horde_Crypt_PgpKeyserverTest extends Horde_Test_Case
         try {
             $this->_ks->get('4DE5B969');
         } catch (Horde_Crypt_Exception $e) {
-            if (strpos($e->getMessage(), 'Operation timed out') === 0) {
+            if ($e->getPrevious() instanceof Horde_Http_Exception) {
                 $this->markTestSkipped($e->getMessage());
             } else {
                 throw $e;
@@ -56,7 +56,7 @@ class Horde_Crypt_PgpKeyserverTest extends Horde_Test_Case
                 $this->_ks->getKeyID('jan@horde.org')
             );
         } catch (Horde_Crypt_Exception $e) {
-            if (strpos($e->getMessage(), 'Operation timed out') === 0) {
+            if ($e->getPrevious() instanceof Horde_Http_Exception) {
                 $this->markTestSkipped($e->getMessage());
             } else {
                 throw $e;
@@ -78,7 +78,7 @@ class Horde_Crypt_PgpKeyserverTest extends Horde_Test_Case
                 $ks->getKeyID('jan@horde.org')
             );
         } catch (Horde_Crypt_Exception $e) {
-            if (strpos($e->getMessage(), 'Operation timed out') === 0) {
+            if ($e->getPrevious() instanceof Horde_Http_Exception) {
                 $this->markTestSkipped($e->getMessage());
             } else {
                 throw $e;
