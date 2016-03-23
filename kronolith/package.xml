@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Show timezone abbreviations in event dialog too.
 * [jan] Show users&apos; full names in share dialogs.
 * [mjr] Support for subset of features of ActiveSync 16.0.
 * [mjr] Disconnect exceptions from base event when series changes.
@@ -987,7 +988,7 @@
    <package>
     <name>Horde_Nls</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.3.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -2762,6 +2763,7 @@
    <date>2016-03-01</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Show timezone abbreviations in event dialog too.
 * [jan] Show users&apos; full names in share dialogs.
 * [mjr] Support for subset of features of ActiveSync 16.0.
 * [mjr] Disconnect exceptions from base event when series changes.

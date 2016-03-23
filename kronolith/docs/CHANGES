@@ -2,6 +2,7 @@
 v4.3.0-git
 ----------
 
+[jan] Show timezone abbreviations in event dialog too.
 [jan] Show users' full names in share dialogs.
 [mjr] Support for subset of features of ActiveSync 16.0.
 [mjr] Disconnect exceptions from base event when series changes.

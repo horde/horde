@@ -67,8 +67,8 @@
     <label for="kronolithEventTimezone"><?php echo _("Timezone") ?>:</label>
     <select name="timezone" id="kronolithEventTimezone" tabindex="7">
       <option value=""><?php echo _("Default") ?></option>
-      <?php foreach (Horde_Nls::getTimezones() as $timezone): ?>
-      <option value="<?php echo $timezone ?>"><?php echo $timezone ?></option>
+      <?php foreach (Horde_Nls::getTimezonesWithAbbreviations() as $label => $timezone): ?>
+      <option value="<?php echo $timezone ?>"><?php echo $label ?></option>
       <?php endforeach ?>
     </select>
   </p>
