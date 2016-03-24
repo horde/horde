@@ -1327,7 +1327,13 @@ class Nag_Task
         }
 
         if ($this->due) {
-            $vTodo->setAttribute('DUE', $this->due);
+            if($this->recurs()) {
+                $d = $this->recurrence->nextActiveRecurrence(new Horde_Date($this->due));
+                $vTodo->setAttribute('DUE', $d);
+            } else {
+                $vTodo->setAttribute('DUE', $this->due);
+            }
+
 
             if ($this->alarm) {
                 if ($v1) {
