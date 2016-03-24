@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Improve handling of when a client sends an incorrect synckey.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3080,7 +3080,7 @@
    <date>2016-03-21</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Improve handling of when a client sends an incorrect synckey.
    </notes>
   </release>
  </changelog>
