@@ -2,6 +2,7 @@
 v4.2.9-git
 ----------
 
+[jan] Fix regression with date picker in tasks form (Bug #14303).
 [mjr] Fix handling EAS categories/tags.
 
 

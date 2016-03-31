@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Fix regression with date picker in tasks form (Bug #14303).
 * [mjr] Fix handling EAS categories/tags.
  </notes>
  <contents>
@@ -1709,6 +1710,7 @@
    <date>2016-03-21</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix regression with date picker in tasks form (Bug #14303).
 * [mjr] Fix handling EAS categories/tags.
    </notes>
   </release>
