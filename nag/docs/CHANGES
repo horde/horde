@@ -17,6 +17,14 @@ v4.3.0-git
 
 
 ------
+v4.2.8
+------
+
+[mjr] Honor date_format prefs in Task form (Bug #14287).
+[jan] Update Greek translation (Limperis Antonis <limperis@cti.gr>).
+
+
+------
 v4.2.7
 ------
 

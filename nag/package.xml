@@ -1725,10 +1725,25 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-02-02</date>
+   <date>2016-03-21</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Honor date_format prefs in Task form (Bug #14287).
 * [jan] Update Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.9</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-03-21</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Fix regression with date picker in tasks form (Bug #14303).
+* [mjr] Fix handling EAS categories/tags.
    </notes>
   </release>
   <release>
