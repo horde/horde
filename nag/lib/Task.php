@@ -1786,6 +1786,12 @@ class Nag_Task
         /* Owner is always current user. */
         $this->owner = $GLOBALS['registry']->getAuth();
 
+        /* Must set _tags so we don't lazy load tags from the backend in the
+         * case that this is an edit. For edits, all current tags will be passed
+         * from the client.
+         */
+        $this->_tags = array();
+
         /* Notes and Title */
         if ($message->getProtocolVersion() >= Horde_ActiveSync::VERSION_TWELVE) {
             if ($message->airsyncbasebody->type == Horde_ActiveSync::BODYPREF_TYPE_HTML) {
