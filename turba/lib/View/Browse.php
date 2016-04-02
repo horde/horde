@@ -216,6 +216,8 @@ class Turba_View_Browse
                     if ($actionID == 'copy') {
                         unset($objAttributes['__uid']);
                     }
+                    // Try adding tags.
+                    $objAttributes['__tags'] = $object->getValue('__tags');
 
                     try {
                         $targetDriver->add($objAttributes);
@@ -239,7 +241,7 @@ class Turba_View_Browse
                     // delete them from the original source now.
                     if ($actionID == 'move') {
                         try {
-                            $sourceDriver->delete($objectKey);
+                            $sourceDriver->delete($objectKey, false);
                         } catch (Turba_Exception $e) {
                             $notification->push(
                                 sprintf(_("There was an error deleting \"%s\" from the source address book."),
