@@ -135,13 +135,15 @@ class Horde_Mime_Headers_Deprecated
             $server_name = 'unknown';
         }
 
+        $is_ssl = isset($_SERVER['HTTPS']) &&
+                 $_SERVER['HTTPS'] != 'off';
 
         $this->_headers->addHeaderOb(new Horde_Mime_Headers_Element_Multiple(
             'Received',
             'from ' . $remote . ' (' . $remote_ident .
             '[' . $remote_addr . ']) ' .
-            'by ' . $server_name . ' (Horde Framework) with HTTP; ' .
-            date('r')
+            'by ' . $server_name . ' (Horde Framework) with HTTP' .
+            ($is_ssl ? 'S' : '') . '; ' . date('r')
         ));
     }
 

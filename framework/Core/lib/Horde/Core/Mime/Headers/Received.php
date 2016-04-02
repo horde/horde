@@ -30,7 +30,7 @@ extends Horde_Mime_Headers_Received
      */
     public static function createHordeHop()
     {
-        global $conf, $registry;
+        global $conf, $registry, $injector;
 
         $remote = $registry->remoteHost();
 
@@ -52,13 +52,14 @@ extends Horde_Mime_Headers_Received
             $server_name = 'unknown';
         }
 
+        $is_ssl = $injector->getInstance('Horde_Browser')->usingSSLConnection();
 
         return new self(
             null,
             'from ' . $remote->host . ' (' . $remote_ident .
             '[' . $remote->addr . ']) ' .
-            'by ' . $server_name . ' (Horde Framework) with HTTP; ' .
-            date('r')
+            'by ' . $server_name . ' (Horde Framework) with HTTP' .
+            ($is_ssl ? 'S' : '') . '; ' . date('r')
         );
     }
 
