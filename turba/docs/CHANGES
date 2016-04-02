@@ -2,6 +2,8 @@
 v4.2.14-git
 -----------
 
+[mjr] Fix resetting state when changing sync_book prefs and device has forced
+      multiplex.
 [mjr] Fix synchronizing contact notes via ActiveSync when no truncation value
       is requested by the client (Bug #14307).
 
