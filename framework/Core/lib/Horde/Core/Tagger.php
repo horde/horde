@@ -145,6 +145,9 @@ abstract class Horde_Core_Tagger
      */
     public function getTags($localId, $type = null)
     {
+        if (empty($localId)) {
+            return array();
+        }
         if (empty($type)) {
             $type = $this->_types[0];
         }
