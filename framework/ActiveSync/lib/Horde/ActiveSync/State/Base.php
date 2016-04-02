@@ -964,7 +964,7 @@ abstract class Horde_ActiveSync_State_Base
     /**
      * Obtain the device object.
      *
-     * @param object $device
+     * @param string $devId   The device id to obtain
      * @param string $user
      * @param array  $params  Additional parameters:
      *   - force: (boolean)  If true, reload the device info even if it's
