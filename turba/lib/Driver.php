@@ -2703,15 +2703,14 @@ class Turba_Driver implements Countable
                     $note = new Horde_ActiveSync_Message_AirSyncBaseBody();
                     // No HTML supported in Turba's notes. Always use plaintext.
                     $note->type = Horde_ActiveSync::BODYPREF_TYPE_PLAIN;
-                    if (isset($bp[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize'])) {
-                        if (Horde_String::length($value) > $bp[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize']) {
+                    if (isset($bp[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize']) &&
+                        Horde_String::length($value) > $bp[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize']) {
                             $note->data = Horde_String::substr($value, 0, $bp[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize']);
                             $note->truncated = 1;
-                        } else {
-                            $note->data = $value;
-                        }
-                        $note->estimateddatasize = Horde_String::length($value);
+                    } else {
+                        $note->data = $value;
                     }
+                    $note->estimateddatasize = Horde_String::length($value);
                     $message->airsyncbasebody = $note;
                 } elseif (strlen($value)) {
                     // EAS 2.5
