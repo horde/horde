@@ -1035,12 +1035,13 @@ class Turba_Driver implements Countable
     /**
      * Deletes the specified entry from the contact source.
      *
-     * @param string $object_id  The ID of the object to delete.
+     * @param string $object_id      The ID of the object to delete.
+     * @param  boolean $remove_tags  Remove tags if true.
      *
      * @throws Turba_Exception
      * @throws Horde_Exception_NotFound
      */
-    public function delete($object_id)
+    public function delete($object_id, $remove_tags = true)
     {
         $object = $this->getObject($object_id);
 
@@ -1083,12 +1084,14 @@ class Turba_Driver implements Countable
         }
 
         /* Remove tags */
-        $GLOBALS['injector']->getInstance('Turba_Tagger')
-            ->replaceTags($object->getValue('__uid'), array(), $this->getContactOwner(), 'contact');
+        if ($remove_tags) {
+            $GLOBALS['injector']->getInstance('Turba_Tagger')
+                ->replaceTags($object->getValue('__uid'), array(), $this->getContactOwner(), 'contact');
 
-        /* Tell content we removed the object */
-       $GLOBALS['injector']->getInstance('Content_Objects_Manager')
-            ->delete(array($object->getValue('__uid')), 'contact');
+            /* Tell content we removed the object */
+           $GLOBALS['injector']->getInstance('Content_Objects_Manager')
+                ->delete(array($object->getValue('__uid')), 'contact');
+        }
     }
 
     /**
