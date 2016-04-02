@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* 
+* [mjr] Fix synchronizing contact notes via ActiveSync when no truncation value is requested by the client (Bug #14307).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2105,7 +2105,7 @@
    <date>2016-03-21</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* 
+* [mjr] Fix synchronizing contact notes via ActiveSync when no truncation value is requested by the client (Bug #14307).
    </notes>
   </release>
  </changelog>
