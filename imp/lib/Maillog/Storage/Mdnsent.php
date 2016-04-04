@@ -63,9 +63,14 @@ class IMP_Maillog_Storage_Mdnsent extends IMP_Maillog_Storage_Base
         $imp_imap = $mbox->imp_imap;
 
         try {
-            $flags = $imp_imap->fetch($mbox, $query, array(
+            $first = $imp_imap->fetch($mbox, $query, array(
                 'ids' => $imp_imap->getIdsOb($uid)
-            ))->first()->getFlags();
+            ))->first();
+            if ($first) {
+                $flags = $first->getFlags();
+            } else {
+                $flags = array();
+            }
         } catch (IMP_Imap_Exception $e) {
             $flags = array();
         }
