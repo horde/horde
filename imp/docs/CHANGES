@@ -2,6 +2,8 @@
 v6.2.14-git
 -----------
 
+[mjr] Fix fatal error when deleteing messages in basic view when IMAP server
+      does not support QRESYNC or CONDSTORE (Bug #14257).
 
 
 -------
