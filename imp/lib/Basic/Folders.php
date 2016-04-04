@@ -421,7 +421,7 @@ class IMP_Basic_Folders extends IMP_Basic_Base
 
         $displayNames = $fullNames = array();
 
-        foreach ($ftree as $val) {
+        foreach ($iterator as $val) {
             $mbox_ob = $val->mbox_ob;
             $tmp = $displayNames[] = $mbox_ob->display;
 
