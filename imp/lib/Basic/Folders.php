@@ -296,10 +296,10 @@ class IMP_Basic_Folders extends IMP_Basic_Base
                 $sum = 0;
 
                 foreach ($mbox_list as $val) {
-                    $size = $val->size;
+                    $size = $val->size_raw;
                     $data = array(
                         'name' => $val->display,
-                        'size' => sprintf(_("%.2fMB"), $size / (1024 * 1024)),
+                        'size' => $val->size,
                         'sort' => $size
                     );
                     $sum += $size;

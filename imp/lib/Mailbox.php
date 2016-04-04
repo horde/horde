@@ -117,6 +117,7 @@
  * @property-read boolean $remote_mbox  Is this mailbox on a remote server?
  * @property-read boolean $search  Is this a search mailbox?
  * @property-read string $size  Human readable size of the mailbox.
+ * @property-read integer $size_raw  Size of mailbox in bytes. @since 6.2.14
  * @property-read IMP_Prefs_Sort $sortob  Sort ob for use with this mailbox.
  * @property-read boolean $spam  Is this a Spam mailbox?
  * @property-read boolean $spam_show  Show the spam action in this mailbox?
@@ -586,6 +587,9 @@ class IMP_Mailbox
 
         case 'size':
             return $injector->getInstance('IMP_Mbox_Size')->getSize($this);
+
+        case 'size_raw':
+            return $injector->getInstance('IMP_Mbox_Size')->getSize($this, false);
 
         case 'sortob':
             return $this->imp_imap->access(IMP_Imap::ACCESS_SORT)
