@@ -36,7 +36,7 @@ class Ingo_Script_Procmail extends Ingo_Script_Base
         /* Does the driver support setting IMAP flags? */
         'imap_flags' => false,
         /* Does the driver support the stop-script option? */
-        'stop_script' => true,
+        'stop_script' => false,
         /* Can this driver perform on demand filtering? */
         'on_demand' => false,
         /* Does the driver require a script file to be generated? */
@@ -175,9 +175,6 @@ class Ingo_Script_Procmail extends Ingo_Script_Base
                     /* Create filter if using AND. */
                     if ($filter['combine'] == Ingo_Storage::COMBINE_ALL) {
                         $recipe = new Ingo_Script_Procmail_Recipe($filter, $this->_params);
-                        if (!$filter['stop']) {
-                            $recipe->addFlag('c');
-                        }
                         foreach ($filter['conditions'] as $condition) {
                             $recipe->addCondition($condition);
                         }
@@ -191,9 +188,6 @@ class Ingo_Script_Procmail extends Ingo_Script_Base
                             $recipe = new Ingo_Script_Procmail_Recipe($filter, $this->_params);
                             if ($loop++) {
                                 $recipe->addFlag('E');
-                            }
-                            if (!$filter['stop']) {
-                                $recipe->addFlag('c');
                             }
                             $recipe->addCondition($condition);
                             $this->_addItem(Ingo::RULE_FILTER, $recipe);
