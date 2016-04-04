@@ -720,7 +720,7 @@ class Turba_Application extends Horde_Registry_Application
                     ($user != '-system-' &&
                      $hordeUser != $share->get('owner') &&
                      $hordeUser != $registry->getAuth())) {
-                    continue;
+                    continue 2;
                 }
                 $readOnly = !$share->hasPermission($hordeUser, Horde_Perms::EDIT);
                 break;
@@ -728,7 +728,7 @@ class Turba_Application extends Horde_Registry_Application
             case 'favourites':
             case 'vbook':
                 if ($user == '-system-') {
-                    continue;
+                    continue 2;
                 }
                 $readOnly = true;
                 break;
