@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* 
+* [jan] Remove stop-script feature from Procmail driver.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1645,7 +1645,7 @@
    <date>2016-03-21</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* 
+* [jan] Remove stop-script feature from Procmail driver.
    </notes>
   </release>
  </changelog>
