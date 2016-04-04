@@ -12,7 +12,7 @@
  */
 
 /**
- * Changes a email password using the IspConfig 3 API.
+ * Changes an email password using the ISPConfig 3 API.
  *
  * @author    Thomas Basler <tbasler@oprago.com>
  * @author    Michael Bunk <mb@computer-leipzig.com>
