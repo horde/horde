@@ -484,8 +484,9 @@ class IMP_Application extends Horde_Registry_Application
     /* Exception handler. */
 
     /**
+     * @todo Type hint with Throwable in H6.
      */
-    public function exceptionHandler(Exception $e)
+    public function exceptionHandler($e)
     {
         if ($e instanceof Horde_Imap_Client_Exception) {
             $e = new Horde_Exception_AuthenticationFailure(
