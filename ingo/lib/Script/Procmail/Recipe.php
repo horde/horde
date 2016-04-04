@@ -237,6 +237,8 @@ class Ingo_Script_Procmail_Recipe implements Ingo_Script_Item
                     . ' -e "' . $reason . '" \\';
                 $this->_action[] = '      ) | $SENDMAIL -f' . $address
                     . ' -oi -t';
+                $this->_action[] = '      :0';
+                $this->_action[] = '      /dev/null';
                 $this->_action[] = '    }';
                 $this->_action[] = '  }';
             }

@@ -2,6 +2,8 @@
 v3.2.10-git
 -----------
 
+[jan] Don't duplicate messages in Procmail's vacation recipe if excluding email
+      addresses (Michael.Martin@warp-it.com, Bug #14275).
 [jan] Remove stop-script feature from Procmail driver.
 
 

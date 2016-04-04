@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [jan] Don&apos;t duplicate messages in Procmail&apos;s vacation recipe if excluding email addresses (Michael.Martin@warp-it.com, Bug #14275).
 * [jan] Remove stop-script feature from Procmail driver.
  </notes>
  <contents>
@@ -1645,6 +1646,7 @@
    <date>2016-03-21</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [jan] Don&apos;t duplicate messages in Procmail&apos;s vacation recipe if excluding email addresses (Michael.Martin@warp-it.com, Bug #14275).
 * [jan] Remove stop-script feature from Procmail driver.
    </notes>
   </release>
