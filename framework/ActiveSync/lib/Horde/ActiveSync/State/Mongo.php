@@ -278,7 +278,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
     {
         try {
             $results = $this->_db->selectCollection(self::COLLECTION_STATE)->findOne(
-                array(self::MONGO_ID => $this->_syncKey),
+                array(self::MONGO_ID => $this->_syncKey, self::SYNC_FOLDERID => $this->_collection['id']),
                 array(self::SYNC_DATA, self::SYNC_DEVID, self::SYNC_MOD, self::SYNC_PENDING));
         } catch (Exception $e) {
             $this->_logger->err('Error in loading state from DB: ' . $e->getMessage());

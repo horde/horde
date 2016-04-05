@@ -227,7 +227,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         // Load the previous syncState from storage
         try {
             $results = $this->_db->selectOne('SELECT sync_data, sync_devid, sync_mod, sync_pending FROM '
-                . $this->_syncStateTable . ' WHERE sync_key = ?', array($this->_syncKey));
+                . $this->_syncStateTable . ' WHERE sync_key = ? AND sync_folderid = ?', array($this->_syncKey, $this->_collection['id']));
         } catch (Horde_Db_Exception $e) {
             $this->_logger->err(sprintf(
                 '[%s] %s',
