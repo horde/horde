@@ -24,7 +24,7 @@
  </lead>
  <date>2016-04-05</date>
  <version>
-  <release>6.2.14</release>
+  <release>6.2.15</release>
   <api>6.2.0</api>
  </version>
  <stability>
@@ -33,9 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Fix renaming subfolders in basic view (Bug #14254).
-* [mjr] Fix display of mailbox sizes in basic view (Bug #14308).
-* [mjr] Fix fatal error when deleting messages in basic view when IMAP server does not support QRESYNC or CONDSTORE (Bug #14257).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3933,6 +3931,19 @@
 * [mjr] Fix renaming subfolders in basic view (Bug #14254).
 * [mjr] Fix display of mailbox sizes in basic view (Bug #14308).
 * [mjr] Fix fatal error when deleting messages in basic view when IMAP server does not support QRESYNC or CONDSTORE (Bug #14257).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>6.2.15</release>
+    <api>6.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-04-05</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
