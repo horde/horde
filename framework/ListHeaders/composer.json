@@ -11,8 +11,8 @@
             "role": "lead"
         }
     ],
-    "version": "1.2.3",
-    "time": "2016-02-01",
+    "version": "1.2.4",
+    "time": "2016-04-05",
     "repositories": [
         {
             "type": "pear",
