@@ -95,8 +95,24 @@ class Components_Release_Notes
             } catch (Horde_Yaml_Exception $e) {
                 throw new Components_Exception($e);
             }
-            $this->_notes['branch'] = $release['branch'];
+            if (isset($release['branch'])) {
+                $this->_notes['branch'] = $release['branch'];
+            }
             $this->_notes['security'] = $release['security'];
+            if (!is_array(reset($release['changes']))) {
+                $release['changes'] = array($release['changes']);
+            }
+            $currentSection = null;
+            $changes = '';
+            foreach ($release['changes'] as $section => $sectionChanges) {
+                if ($section != $currentSection) {
+                    $changes .= "\n\n" . $section . ':';
+                    $currentSection = $section;
+                }
+                foreach ($sectionChanges as $change) {
+                    $changes .= "\n    * " . $change;
+                }
+            }
             $this->_notes['changes'] = sprintf(
                 'The Horde Team is pleased to announce the %s%s of the %s version %s.
 
@@ -108,8 +124,7 @@ http://www.horde.org/apps/%s/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/%s/docs/INSTALL
 %s
-The major changes compared to the %s version %s are:
-    * %s',
+The major changes compared to the %s version %s are:%s',
                 $version->subversion
                     ? NumberFormatter::create('en_US', NumberFormatter::ORDINAL)
                         ->format($version->subversion) . ' '
@@ -125,7 +140,7 @@ The major changes compared to the %s version %s are:
                     : '',
                 $info['name'],
                 $this->_component->getPreviousVersion(),
-                implode("\n    * ", $release['changes'])
+                $changes
             );
         } else {
             $this->_notes = include $file;
