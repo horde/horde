@@ -93,6 +93,20 @@ class Horde_Pear_Remote
     }
 
     /**
+     * Returns all release for a specific package.
+     *
+     * @param string $package The name of the package.
+     *
+     * @return Horde_Pear_Rest_Releases A list of releases.
+     */
+    public function getReleases($package)
+    {
+        return new Horde_Pear_Rest_Releases(
+            $this->_rest->fetchPackageReleases($package)
+        );
+    }
+
+    /**
      * Retrieve the dependencies for the specified package release.
      *
      * @param string $package  The package name.

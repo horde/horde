@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Add Horde_Pear_Remote#getReleases().
 * [jan] Add Horde_Pear_Package_Xml#getVersions().
  </notes>
  <contents>
@@ -587,6 +588,7 @@
    <date>2016-03-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Add Horde_Pear_Remote#getReleases().
 * [jan] Add Horde_Pear_Package_Xml#getVersions().
    </notes>
   </release>
