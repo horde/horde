@@ -1,6 +1,6 @@
------------
-v6.2.14-git
------------
+-------
+v6.2.14
+-------
 
 [mjr] Fix renaming subfolders in basic view (Bug #14254).
 [mjr] Fix display of mailbox sizes in basic view (Bug #14308).
