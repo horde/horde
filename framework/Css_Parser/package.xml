@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-03-29</date>
+ <date>2016-04-05</date>
  <version>
   <release>1.0.9</release>
   <api>1.0.0</api>
@@ -398,7 +398,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-03-29</date>
+   <date>2016-04-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Update to PHP-CSS-Parser 7.0.2 (Request #14297).
