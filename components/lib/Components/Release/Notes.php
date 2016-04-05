@@ -1,9 +1,9 @@
 <?php
 /**
- * Components_Release_Notes:: deals with the information associated to a
- * release.
+ * Copyright 2011-2016 Horde LLC (http://www.horde.org/)
  *
- * PHP version 5
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
  * @package  Components
@@ -13,13 +13,7 @@
  */
 
 /**
- * Components_Release_Notes:: deals with the information associated to a
- * release.
- *
- * Copyright 2011-2016 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * This class deals with the information associated to a release.
  *
  * @category Horde
  * @package  Components
@@ -70,7 +64,70 @@ class Components_Release_Notes
     public function setComponent(Components_Component $component)
     {
         $this->_component = $component;
-        if ($file = $component->getReleaseNotesPath()) {
+        $this->_setReleaseNotes();
+    }
+
+    /**
+     * Populates the release information for the current component.
+     */
+    protected function _setReleaseNotes()
+    {
+        if (!($file = $this->_component->getReleaseNotesPath())) {
+            return;
+        }
+        if (basename($file) == 'release.yml') {
+            $version = Components_Helper_Version::parsePearVersion(
+                $this->_component->getVersion()
+            );
+            $description = Horde_String::lower($version->description);
+            if (strpos($description, 'release') === false) {
+                $description .= ' release';
+            }
+            $infofile = dirname($file) . '/horde.yml';
+            try {
+                $info = Horde_Yaml::loadFile($infofile);
+            } catch (Horde_Yaml_Exception $e) {
+                throw new Components_Exception($e);
+            }
+            $this->_notes['name'] = $info['name'];
+            try {
+                $release = Horde_Yaml::loadFile($file);
+            } catch (Horde_Yaml_Exception $e) {
+                throw new Components_Exception($e);
+            }
+            $this->_notes['branch'] = $release['branch'];
+            $this->_notes['security'] = $release['security'];
+            $this->_notes['changes'] = sprintf(
+                'The Horde Team is pleased to announce the %s%s of the %s version %s.
+
+%s
+
+For upgrading instructions, please see
+http://www.horde.org/apps/%s/docs/UPGRADING
+
+For detailed installation and configuration instructions, please see
+http://www.horde.org/apps/%s/docs/INSTALL
+%s
+The major changes compared to the %s version %s are:
+    * %s',
+                $version->subversion
+                    ? NumberFormatter::create('en_US', NumberFormatter::ORDINAL)
+                        ->format($version->subversion) . ' '
+                    : '',
+                $description,
+                $info['full'],
+                $version->version,
+                $info['description'],
+                $info['id'],
+                $info['id'],
+                $release['additional']
+                    ? "\n" . implode("\n\n", $release['additional']) . "\n"
+                    : '',
+                $info['name'],
+                $this->_component->getPreviousVersion(),
+                implode("\n    * ", $release['changes'])
+            );
+        } else {
             $this->_notes = include $file;
         }
     }
@@ -84,12 +141,11 @@ class Components_Release_Notes
      */
     public function getBranch()
     {
-        if (!empty($this->_notes['branch'])
-            && $this->_notes['name'] != 'Horde') {
+        if (!empty($this->_notes['branch']) &&
+            $this->_notes['name'] != 'Horde') {
             return strtr($this->_notes['branch'], array('Horde ' => 'H'));
-        } else {
-            return '';
         }
+        return '';
     }
 
     /**
@@ -101,9 +157,8 @@ class Components_Release_Notes
     {
         if (isset($this->_notes['name'])) {
             return $this->_notes['name'];
-        } else {
-            return $this->_component->getName();
         }
+        return $this->_component->getName();
     }
 
     /**

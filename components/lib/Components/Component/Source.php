@@ -1,8 +1,9 @@
 <?php
 /**
- * Represents a source component.
+ * Copyright 2011-2016 Horde LLC (http://www.horde.org/)
  *
- * PHP version 5
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
  * @package  Components
@@ -13,11 +14,6 @@
 
 /**
  * Represents a source component.
- *
- * Copyright 2011-2016 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
  * @package  Components
@@ -126,11 +122,13 @@ class Components_Component_Source extends Components_Component_Base
      */
     public function getReleaseNotesPath()
     {
-        if (file_exists($this->_directory . '/docs/RELEASE_NOTES')) {
-            return $this->_directory . '/docs/RELEASE_NOTES';
-        }
-        if (file_exists($this->_directory . '/doc/RELEASE_NOTES')) {
-            return $this->_directory . '/doc/RELEASE_NOTES';
+        foreach (array('release.yml', 'RELEASE_NOTES') as $file) {
+            foreach (array('docs', 'doc') as $directory) {
+                $path = $this->_directory . '/' . $directory . '/' . $file;
+                if (file_exists($path)) {
+                    return $path;
+                }
+            }
         }
         return false;
     }
