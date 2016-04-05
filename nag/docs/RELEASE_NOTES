@@ -5,7 +5,7 @@ $notes['security'] = false;
 /* Mailing list release notes. */
 $notes['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Nag Task List
-Manager version H5 (4.2.8).
+Manager version H5 (4.2.9).
 
 Nag is a web-based application built upon the Horde Application Framework which
 provides a simple, clean interface for managing online task lists (i.e., todo
@@ -19,9 +19,9 @@ http://www.horde.org/apps/nag/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/nag/docs/INSTALL
 
-The major changes compared to the Nag version H5 (4.2.7) are:
-    * Honor date_format prefs in Task form.
-    * Update Greek translation.
+The major changes compared to the Nag version H5 (4.2.8) are:
+    * Fixed regression in date pickers.
+    * Fixed tags handling with ActiveSync.
 ML;
 
 $notes['name'] = 'Nag';
