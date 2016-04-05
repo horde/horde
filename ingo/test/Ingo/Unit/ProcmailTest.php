@@ -195,6 +195,8 @@ SUBJECT=| formail -xSubject:
 -i"Subject: Subject (Re: $SUBJECT)" ; \
 echo -e "Because I don\'t like working!" \
 ) | $SENDMAIL -ffrom@example.com -oi -t
+:0
+/dev/null
 }
 }
 }');
