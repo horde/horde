@@ -1,8 +1,9 @@
 <?php
 /**
- * Convert the PEAR package version to the Horde version scheme.
+ * Copyright 2011-2016 Horde LLC (http://www.horde.org/)
  *
- * PHP version 5
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
  * @package  Components
@@ -12,12 +13,7 @@
  */
 
 /**
- * Convert the PEAR package version to the Horde version scheme.
- *
- * Copyright 2011-2016 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * Converts between different version schemes.
  *
  * @category Horde
  * @package  Components
@@ -110,7 +106,7 @@ class Components_Helper_Version
     }
 
     /**
-     * Convert the PEAR package version number to a descriptive tag used on
+     * Converts the PEAR package version number to a descriptive tag used on
      * bugs.horde.org.
      *
      * @param string $version The PEAR package version.
@@ -121,25 +117,60 @@ class Components_Helper_Version
      */
     public static function pearToTicketDescription($version)
     {
+        $info = self::parsePearVersion($version);
+        $version = $info->version;
+        if ($info->description) {
+            $version .= ' ' . $info->description;
+            if ($info->subversion) {
+                $version .= ' ' . $info->subversion;
+            }
+        }
+        return $version;
+    }
+
+    /**
+     * Converts the PEAR package version number to descriptive information.
+     *
+     * 1.1.0RC2 would become: { version: '1.1.0', description: 'Release
+     * Candidate', subversion: '2' }
+     *
+     * @param string $version The PEAR package version.
+     *
+     * @return object  An object with the properties:
+     *                 - version: The base version string.
+     *                 - description: A stability description.
+     *                 - subversion: The sub version within the stability level.
+     *
+     * @throws Components_Exception on invalid version string.
+     */
+    public static function parsePearVersion($version)
+    {
         preg_match('/([.\d]+)(.*)/', $version, $matches);
+
+        $result = new stdClass();
+        $result->version = $matches[1];
+        $result->description = '';
+        $result->subversion = null;
+
         if (!empty($matches[2]) && !preg_match('/^pl\d/', $matches[2])) {
             if (preg_match('/^RC(\d+)/', $matches[2], $postmatch)) {
-                $post = ' Release Candidate ' . $postmatch[1];
-            } else if (preg_match('/^alpha(\d+)/', $matches[2], $postmatch)) {
-                $post = ' Alpha ' . $postmatch[1];
-            } else if (preg_match('/^beta(\d+)/', $matches[2], $postmatch)) {
-                $post = ' Beta ' . $postmatch[1];
-            } else {
-                $post = '';
+                $result->description = 'Release Candidate';
+                $result->subversion = $postmatch[1];
+            } elseif (preg_match('/^alpha(\d+)/', $matches[2], $postmatch)) {
+                $result->description = 'Alpha';
+                $result->subversion = $postmatch[1];
+            } elseif (preg_match('/^beta(\d+)/', $matches[2], $postmatch)) {
+                $result->description = 'Beta';
+                $result->subversion = $postmatch[1];
             }
         } else {
-            $post = ' Final';
+            $result->description = 'Final';
         }
-        $vcomp = explode('.', $matches[1]);
+        $vcomp = explode('.', $result->version);
         if (count($vcomp) != 3) {
             throw new Components_Exception('A version number must have 3 parts.');
         }
-        return $matches[1] . $post;
+        return $result;
     }
 
     /**
