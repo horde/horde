@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Work around broken PGP key servers.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1160,7 +1160,7 @@ Initial release as a PEAR package
    <date>2016-03-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Work around broken PGP key servers.
    </notes>
   </release>
  </changelog>
