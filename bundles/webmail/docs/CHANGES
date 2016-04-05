@@ -2,6 +2,59 @@
 v5.2.14-git
 -----------
 
+[jan] Update Greek translation (Limperis Antonis <limperis@cti.gr>).
+
+Mail Changes
+------------
+[mjr] Fix renaming subfolders in basic view (Bug #14254).
+[mjr] Fix display of mailbox sizes in basic view (Bug #14308).
+[mjr] Fix fatal error when deleting messages in basic view when IMAP server
+      does not support QRESYNC or CONDSTORE (Bug #14257).
+
+Filter Changes
+--------------
+[jan] Don't duplicate messages in Procmail's vacation recipe if excluding email
+      addresses (Michael.Martin@warp-it.com, Bug #14275).
+[jan] Remove stop-script feature from Procmail driver.
+
+Address Book Changes
+--------------------
+[mjr] Fix persisting tags when moving or copying a contact to another address
+      book (Bug #14312).
+[mjr] Fix resetting state when changing sync_book prefs and device has forced
+      multiplex.
+[mjr] Fix synchronizing contact notes via ActiveSync when no truncation value
+      is requested by the client (Bug #14307).
+
+Tasks Changes
+-------------
+[jan] Fix regression with date picker in tasks form (Bug #14303).
+[mjr] Fix handling EAS categories/tags.
+
+Library Changes
+---------------
+ActiveSync
+[mjr] Improve handling of when a client sends an incorrect synckey.
+
+Auth
+[mjr] Fix creating/removing mailbox in cyrsql driver
+      (federico.mennite@lifeware.ch, Bug #14295).
+
+Crypt
+[jan] Work around broken PGP key servers.
+
+Css_Parser
+[jan] Update to PHP-CSS-Parser 7.0.2 (Request #14297).
+
+Dav
+[jan] Fix down migration of database schema.
+
+Log
+[jan] Add a few common aliases for the log level constants.
+[jan] Allow to have mltiple log level names with the same value.
+
+Nls
+[jan] Add Horde_Nls::getTimezonesWithAbbreviations().
 
 
 -------
@@ -58,7 +111,6 @@ Bookmarks Changes
 
 Library Changes
 ---------------
-
 [jan] Mark PHP 7 as supported.
 
 ActiveSync
