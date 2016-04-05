@@ -28,7 +28,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2016-03-21</date>
+ <date>2016-04-05</date>
  <version>
   <release>4.2.14</release>
   <api>4.0.0</api>
@@ -2104,7 +2104,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-03-21</date>
+   <date>2016-04-05</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [mjr] Fix persisting tags when moving or copying a contact to another address book (Bug #14312).
