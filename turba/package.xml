@@ -30,7 +30,7 @@
  </lead>
  <date>2016-04-05</date>
  <version>
-  <release>4.2.14</release>
+  <release>4.2.15</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -39,9 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* [mjr] Fix persisting tags when moving or copying a contact to another address book (Bug #14312).
-* [mjr] Fix resetting state when changing sync_book prefs and device has forced multiplex.
-* [mjr] Fix synchronizing contact notes via ActiveSync when no truncation value is requested by the client (Bug #14307).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2110,6 +2108,19 @@
 * [mjr] Fix persisting tags when moving or copying a contact to another address book (Bug #14312).
 * [mjr] Fix resetting state when changing sync_book prefs and device has forced multiplex.
 * [mjr] Fix synchronizing contact notes via ActiveSync when no truncation value is requested by the client (Bug #14307).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.15</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-04-05</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
