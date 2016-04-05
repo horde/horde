@@ -19,7 +19,7 @@
  </lead>
  <date>2016-04-05</date>
  <version>
-  <release>2.2.2</release>
+  <release>2.2.3</release>
   <api>2.2.0</api>
  </version>
  <stability>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Update Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1438,6 +1438,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Update Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.3</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-04-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
