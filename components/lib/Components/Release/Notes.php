@@ -90,6 +90,9 @@ class Components_Release_Notes
                 throw new Components_Exception($e);
             }
             $this->_notes['name'] = $info['name'];
+            if (isset($info['list'])) {
+                $this->_notes['list'] = $info['list'];
+            }
             try {
                 $release = Horde_Yaml::loadFile($file);
             } catch (Horde_Yaml_Exception $e) {
