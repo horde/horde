@@ -187,6 +187,27 @@ class Horde_Pear_Package_Xml
     }
 
     /**
+     * Returns all package versions from the changelog.
+     *
+     * @return array A list of versions and stabilities.
+     */
+    public function getVersions()
+    {
+        $versions = array();
+        foreach ($this->findNodes('/p:package/p:changelog/p:release') as $release) {
+            $versions[] = array(
+                'version' => $this->getNodeTextRelativeTo(
+                    'p:version/p:release', $release
+                ),
+                'stability' => $this->getNodeTextRelativeTo(
+                    'p:stability/p:release', $release
+                ),
+            );
+        }
+        return $versions;
+    }
+
+    /**
      * Return the release date.
      *
      * @return string The date for the current release.
