@@ -194,9 +194,10 @@ class Horde_Release
     protected $_latest = true;
 
     /**
-     * Populated when the RELEASE_NOTES file is included.
-     * Should probably be refactored to use a setter for each
-     * property the RELEASE_NOTES file sets...
+     * Populated when the release notes are included.
+     *
+     * May be refactored to use a setter for each property the release notes
+     * sets...
      *
      * @var array
      */
@@ -509,7 +510,7 @@ class Horde_Release
     {
         $module = $this->_options['module'];
         if (!isset($this->notes)) {
-            print "NOT announcing release, RELEASE_NOTES missing.\n";
+            print "NOT announcing release, release notes missing.\n";
             return;
         }
 
@@ -645,7 +646,7 @@ class Horde_Release
     public function addWhupsVersion()
     {
         if (!isset($this->notes)) {
-            print "\nNOT updating bugs.horde.org, RELEASE_NOTES missing.\n";
+            print "\nNOT updating bugs.horde.org, release notes missing.\n";
             return;
         }
         $this->_ticketVersionDesc = $this->notes['name'] . $this->_ticketVersionDesc;
