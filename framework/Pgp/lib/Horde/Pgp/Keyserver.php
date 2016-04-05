@@ -164,7 +164,7 @@ class Horde_Pgp_Keyserver
             try {
                 $response = $this->_http->get($url);
                 // Some keyservers return HTML, try again.
-                if ($response->getHeader('Content-Type') != 'text/plain') {
+                if (strpos($response->getHeader('Content-Type'), 'text/plain') !== 0) {
                     continue;
                 }
                 $output = ltrim($response->getBody());
@@ -175,7 +175,7 @@ class Horde_Pgp_Keyserver
 
         if (!$output) {
             throw new Horde_Pgp_Exception(
-                Horde_Pgp_Translation::t("Could not obtain public key from the keyserver.") . ' Response: ' . var_export($response, true)
+                Horde_Pgp_Translation::t("Could not obtain public key from the keyserver.")
             );
         }
 
