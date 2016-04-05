@@ -217,12 +217,9 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
     /**
      * Load the state represented by $syncKey from storage.
      *
-     * @param string $type       The type of state a
-     *                           Horde_ActiveSync::REQUEST_TYPE constant.
-     *
      * @throws Horde_ActiveSync_Exception, Horde_ActiveSync_Exception_StateGone
      */
-    protected function _loadState($type)
+    protected function _loadState()
     {
         // Load the previous syncState from storage
         try {
@@ -245,18 +242,17 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             throw new Horde_ActiveSync_Exception_StateGone();
         }
 
-        $this->_loadStateFromResults($results, $type);
+        $this->_loadStateFromResults($results);
     }
 
     /**
      * Actually load the state data into the object from the query results.
      *
      * @param array $results  The results array from the state query.
-     * @param string $type    The type of request we are handling.
      *
      * @throws Horde_ActiveSync_Exception_StateGone
      */
-    protected function _loadStateFromResults($results, $type = Horde_ActiveSync::REQUEST_TYPE_SYNC)
+    protected function _loadStateFromResults($results)
     {
         // Load the last known sync time for this collection
         $this->_lastSyncStamp = !empty($results['sync_mod'])
@@ -281,13 +277,13 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         $data = unserialize($columns['sync_data']->binaryToString($results['sync_data']));
         $pending = unserialize($results['sync_pending']);
 
-        if ($type == Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC) {
+        if ($this->_type == Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC) {
             $this->_folder = ($data !== false) ? $data : array();
             $this->_logger->info(
                 sprintf('[%s] Loading FOLDERSYNC state containing %d folders.',
                 $this->_procid,
                 count($this->_folder)));
-        } elseif ($type == Horde_ActiveSync::REQUEST_TYPE_SYNC) {
+        } elseif ($this->_type == Horde_ActiveSync::REQUEST_TYPE_SYNC) {
             // @TODO: This shouldn't default to an empty folder object,
             // if we don't have the data, it's an exception.
             $this->_folder = ($data !== false

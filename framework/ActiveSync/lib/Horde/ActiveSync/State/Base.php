@@ -838,7 +838,7 @@ abstract class Horde_ActiveSync_State_Base
         $this->_gc($syncKey);
 
         // Load the state
-        $this->_loadState($type);
+        $this->_loadState();
     }
 
     /**
@@ -862,12 +862,9 @@ abstract class Horde_ActiveSync_State_Base
     /**
      * Load the state represented by $syncKey from storage.
      *
-     * @param string $type       The type of state a
-     *                           Horde_ActiveSync::REQUEST_TYPE constant.
-     *
      * @throws Horde_ActiveSync_Exception, Horde_ActiveSync_Exception_StateGone
      */
-    protected function _loadState($type)
+    protected function _loadState()
     {
         throw new Horde_ActiveSync_Exception('Must be implemented in concrete class.');
     }

@@ -269,12 +269,9 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
     /**
      * Load the state represented by $syncKey from storage.
      *
-     * @param string $type  The type of state a
-     *                      Horde_ActiveSync::REQUEST_TYPE constant.
-     *
      * @throws Horde_ActiveSync_Exception, Horde_ActiveSync_Exception_StateGone
      */
-    protected function _loadState($type)
+    protected function _loadState()
     {
         try {
             $results = $this->_db->selectCollection(self::COLLECTION_STATE)->findOne(
@@ -293,18 +290,17 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
             throw new Horde_ActiveSync_Exception_StateGone();
         }
 
-        $this->_loadStateFromResults($results, $type);
+        $this->_loadStateFromResults($results);
     }
 
     /**
      * Actually load the state data into the object from the query results.
      *
      * @param array $results  The results array from the state query.
-     * @param string $type    The type of request we are handling.
      *
      * @throws Horde_ActiveSync_Exception_StateGone
      */
-    protected function _loadStateFromResults(array $results, $type = Horde_ActiveSync::REQUEST_TYPE_SYNC)
+    protected function _loadStateFromResults(array $results)
     {
         // Load the last known sync time for this collection
         $this->_lastSyncStamp = !empty($results[self::SYNC_MOD])
@@ -319,13 +315,13 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
         $data = unserialize($results[self::SYNC_DATA]);
         $pending = $results[self::SYNC_PENDING];
 
-        if ($type == Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC) {
+        if ($this->_type == Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC) {
             $this->_folder = ($data !== false) ? $data : array();
             $this->_logger->info(
                 sprintf('[%s] Loading FOLDERSYNC state containing %d folders.',
                 $this->_procid,
                 count($this->_folder)));
-        } elseif ($type == Horde_ActiveSync::REQUEST_TYPE_SYNC) {
+        } elseif ($this->_type == Horde_ActiveSync::REQUEST_TYPE_SYNC) {
             $this->_folder = $data;
             $this->_changes = ($pending !== false) ? $pending : null;
             if ($this->_changes) {
