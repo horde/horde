@@ -1,9 +1,9 @@
 <?php
 /**
- * Components_Helper_Website:: is a helper for a horde-web git repository
- * checkout.
+ * Copyright 2011-2016 Horde LLC (http://www.horde.org/)
  *
- * PHP version 5
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
  * @package  Components
@@ -13,13 +13,7 @@
  */
 
 /**
- * Components_Helper_Website:: is a helper for a horde-web git repository
- * checkout.
- *
- * Copyright 2011-2016 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * This class is a helper for a horde-web git repository checkout.
  *
  * @category Horde
  * @package  Components
@@ -125,7 +119,7 @@ class Components_Helper_Website
                     $orig
                 );
                 $out .= $orig . '</pre>';
-            } else if ($filename == 'RELEASE_NOTES') {
+            } elseif ($filename == 'RELEASE_NOTES') {
                 $out = "<h3>Release notes for the latest release</h3><pre>\n";
                 $notes = include $path;
                 $out .= $notes['changes'];
