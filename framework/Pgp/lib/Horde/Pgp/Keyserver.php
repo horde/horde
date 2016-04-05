@@ -175,7 +175,7 @@ class Horde_Pgp_Keyserver
 
         if (!$output) {
             throw new Horde_Pgp_Exception(
-                Horde_Pgp_Translation::t("Could not obtain public key from the keyserver.")
+                Horde_Pgp_Translation::t("Could not obtain public key from the keyserver.") . ' Response: ' . var_export($response, true)
             );
         }
 
