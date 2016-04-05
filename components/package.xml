@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Add Components_Component_Base#getPreviousVersion().
 * [jan] Bundle QC tools.
 * [jan] Remove Freecode support.
 * [jan] Update website versions after releasing a package.
@@ -4581,6 +4582,7 @@
    <date>2016-01-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Add Components_Component_Base#getPreviousVersion().
 * [jan] Bundle QC tools.
 * [jan] Remove Freecode support.
 * [jan] Update website versions after releasing a package.

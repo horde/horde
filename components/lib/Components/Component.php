@@ -56,6 +56,13 @@ interface Components_Component
     public function getVersion();
 
     /**
+     * Returns the previous version of the component.
+     *
+     * @return string The previous component version.
+     */
+    public function getPreviousVersion();
+
+    /**
      * Return the last release date of the component.
      *
      * @return string The date.

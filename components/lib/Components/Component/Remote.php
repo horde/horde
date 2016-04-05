@@ -139,6 +139,34 @@ class Components_Component_Remote extends Components_Component_Base
     }
 
     /**
+     * Returns the previous version of the component.
+     *
+     * @return string The previous component version.
+     */
+    public function getPreviousVersion()
+    {
+        $previousVersion = null;
+        $currentVersion = $this->getVersion();
+        $currentState = $this->getState();
+        $releases = $this->_remote->getReleases();
+        $versions = $releases->listReleases();
+        usort($versions, 'version_compare');
+        foreach ($versions as $version) {
+            // If this is a stable version we want the previous stable version,
+            // otherwise use any previous version.
+            if ($currentState == 'stable' &&
+                $releases->getReleaseStability($version) != 'stable') {
+                continue;
+            }
+            if (version_compare($version, $currentVersion, '>=')) {
+                return $previousVersion;
+            }
+            $previousVersion = $version;
+        }
+        return $previousVersion;
+    }
+
+    /**
      * Return the channel of the component.
      *
      * @return string The component channel.

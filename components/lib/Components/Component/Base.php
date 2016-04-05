@@ -99,6 +99,38 @@ abstract class Components_Component_Base implements Components_Component
     }
 
     /**
+     * Returns the previous version of the component.
+     *
+     * @return string The previous component version.
+     */
+    public function getPreviousVersion()
+    {
+        $previousVersion = null;
+        $currentVersion = $this->getVersion();
+        $currentState = $this->getState();
+        $versions = $this->getPackageXml()->getVersions();
+        usort(
+            $versions,
+            function($a, $b) {
+                return version_compare($a['version'], $b['version']);
+            }
+        );
+        foreach ($versions as $version) {
+            // If this is a stable version we want the previous stable version,
+            // otherwise use any previous version.
+            if ($currentState == 'stable' &&
+                $version['stability'] != 'stable') {
+                continue;
+            }
+            if (version_compare($version['version'], $currentVersion, '>=')) {
+                return $previousVersion;
+            }
+            $previousVersion = $version['version'];
+        }
+        return $previousVersion;
+    }
+
+    /**
      * Return the last release date of the component.
      *
      * @return string The date.
