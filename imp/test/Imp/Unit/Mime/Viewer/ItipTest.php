@@ -77,6 +77,9 @@ extends PHPUnit_Framework_TestCase
     public function _injectorGetInstance($interface)
     {
         switch ($interface) {
+        case 'Horde_Browser':
+            return new Horde_Browser();
+
         case 'Horde_Core_Hooks':
             return new Horde_Core_Hooks();
 
