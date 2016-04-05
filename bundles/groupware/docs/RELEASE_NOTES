@@ -5,7 +5,7 @@ $notes['security'] = false;
 /* Mailing list release notes. */
 $notes['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Horde Groupware
-version 5.2.13.
+version 5.2.14.
 
 Horde Groupware is a free, enterprise ready, browser based collaboration
 suite. Users can manage and share calendars, contacts, tasks, notes, files, and
@@ -17,33 +17,15 @@ http://www.horde.org/apps/groupware/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/groupware/docs/INSTALL
 
-Thanks to duarteetraud@gmail.com and Centurion Information Security
-(www.centurioninfosec.sg) for reporting the XSS vulnerabilities.
-
-The major changes compared to the Horde Groupware version 5.2.12 are:
-
-General changes:
-    * Update Greek translation.
-    * Several bugfixes and improvements.
+The major changes compared to the Horde Groupware version 5.2.13 are:
 
 Address Book changes:
-    * Honor alternative_name mapping (Bug #14280).
-    * Fix dealing with orphaned virtual address books.
-
-Bookmarks changes:
-    * Fix error when deleting bookmarks.
-
-Calendar changes:
-    * Fix updating list of resource calendars in resource group dialog (Bug #14281).
-    * Fixed several issues with resource management.
-    * Fix typo preventing deletion of events from dynamic view (Bug #14256).
-    * Handle gracefully if the base event of an imported recurrence exception is no longer recurring (Bug #14249).
-    * Fix issue deleting and closing event dialog during event deletion.
-    * Honor the SCHEDULE-AGENT attribute during CalDAV import.
-    * Add missing EAS ghosted property support for all EAS versions. Prevents potential loss of event data during synchronization.
+    * Fixed losing tags if copying or moving a contact.
+    * Fixed ActiveSync issues.
 
 Tasks changes:
-    * Honor date_format prefs in Task form (Bug #14287).
+    * Fixed regression in date pickers.
+    * Fixed tags handling with ActiveSync.
 ML;
 
 $notes['name'] = 'Horde Groupware';

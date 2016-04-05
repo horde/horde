@@ -10,7 +10,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-03-21</date>
+ <date>2016-04-05</date>
  <version>
   <release>5.2.14</release>
   <api>5.2.0</api>
@@ -107,14 +107,14 @@
    <package>
     <name>imp</name>
     <channel>pear.horde.org</channel>
-    <min>6.2.13</min>
+    <min>6.2.14</min>
     <max>7.0.0alpha1</max>
     <exclude>7.0.0alpha1</exclude>
    </package>
    <package>
     <name>ingo</name>
     <channel>pear.horde.org</channel>
-    <min>3.2.9</min>
+    <min>3.2.10</min>
     <max>4.0.0alpha1</max>
     <exclude>4.0.0alpha1</exclude>
    </package>
@@ -135,14 +135,14 @@
    <package>
     <name>nag</name>
     <channel>pear.horde.org</channel>
-    <min>4.2.8</min>
+    <min>4.2.9</min>
     <max>5.0.0alpha1</max>
     <exclude>5.0.0alpha1</exclude>
    </package>
    <package>
     <name>timeobjects</name>
     <channel>pear.horde.org</channel>
-    <min>2.1.1</min>
+    <min>2.1.2</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -156,7 +156,7 @@
    <package>
     <name>turba</name>
     <channel>pear.horde.org</channel>
-    <min>4.2.13</min>
+    <min>4.2.14</min>
     <max>5.0.0alpha1</max>
     <exclude>5.0.0alpha1</exclude>
    </package>
@@ -718,10 +718,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-03-21</date>
+   <date>2016-04-05</date>
    <license uri="http://www.horde.org/licenses/">OSI certified</license>
    <notes>
-* 
+* [jan] Update IMP, Ingo, Turba, Nag, and Timeobjects.
    </notes>
   </release>
  </changelog>
