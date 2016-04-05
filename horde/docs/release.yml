@@ -1,0 +1,14 @@
+# Security release?
+security: true
+
+# Main changes
+changes:
+    - Some important fix
+    - Major bugfixes and improvements
+
+# Additional notes like security reports
+additional:
+    - Thanks to John Doe for reporting the XSS issue.
+
+# Horde compatibility branch
+branch: Horde 5
