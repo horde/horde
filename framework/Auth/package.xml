@@ -25,7 +25,7 @@
  </lead>
  <date>2016-04-05</date>
  <version>
-  <release>2.1.12</release>
+  <release>2.1.13</release>
   <api>2.1.0</api>
  </version>
  <stability>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Fix creating/removing mailbox in cyrsql driver (Bug #14295, federico.mennite@lifeware.ch).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1071,6 +1071,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Fix creating/removing mailbox in cyrsql driver (Bug #14295, federico.mennite@lifeware.ch).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.13</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-04-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
