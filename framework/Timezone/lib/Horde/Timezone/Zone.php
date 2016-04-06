@@ -73,6 +73,10 @@ class Horde_Timezone_Zone
     /**
      * Exports this zone to a VTIMEZONE component.
      *
+     * @param Horde_Date $from  The earliest date that we need timezone
+     *                          definitions for.
+     * @param Horde_Date $to    The latest date.
+     *
      * @return Horde_Icalendar_Vtimezone  A VTIMEZONE component representing
      *                                    this timezone.
      * @throws Horde_Timezone_Exception
