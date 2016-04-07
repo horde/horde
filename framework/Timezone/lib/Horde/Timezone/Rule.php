@@ -106,7 +106,7 @@ class Horde_Timezone_Rule
                 $offset = $startOffset;
             } else {
                 $component = new Horde_Icalendar_Daylight();
-                $component->setAttribute('TZOFFSETFROM', $offset);
+                $component->setAttribute('TZOFFSETFROM', $startOffset);
                 $offset = $this->_getOffset($startOffset, $rule[8]);
                 $component->setAttribute('TZOFFSETTO', $offset);
             }
