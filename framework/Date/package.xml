@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Add old Olson timezone names as aliases.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1088,7 +1088,7 @@
    <date>2016-03-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Add old Olson timezone names as aliases.
    </notes>
   </release>
  </changelog>
