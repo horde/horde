@@ -130,71 +130,31 @@ class Horde_Timezone_Rule
             if (!isset($match[2])) {
                 $match[2] = 0;
             }
+
+            // Find the start and end date.
+            $first = $this->_getFirstMatch($rule, $rule[2], $match[1], $match[2]);
+            $component->setAttribute('DTSTART', $first);
+            if ($rule[3][0] == 'm') {
+                $until = '';
+            } else {
+                $last = $this->_getFirstMatch($rule, $rule[3], $match[1], $match[2]);
+                $last->setTimezone('UTC');
+                $until = ';UNTIL=' . $last->format('Ymd\THis') . 'Z';
+            }
+
             if (preg_match('/^\d+$/', $rule[6])) {
                 // Rule starts on a specific date.
-                $rdate = new Horde_Date(
-                    array('year'  => $rule[2],
-                          'month' => $month,
-                          'mday'  => $rule[6],
-                          'hour'  => $match[1],
-                          'min'   => $match[2],
-                          'sec'   => 0)
-                );
-                $component->setAttribute('DTSTART', $rdate);
-                if ($rule[2] != $rule[3]) {
+                if ($rule[2] != $rule[3] &&
+                    $rule[3][0] != 'm') {
                     // Rule lasts more than a single year.
-                    if ($rule[3][0] == 'm') {
-                        $until = '';
-                    } else {
-                        $last = new Horde_Date(
-                            array('year'  => $rule[3],
-                                  'month' => $month,
-                                  'mday'  => $rule[6],
-                                  'hour'  => $match[1],
-                                  'min'   => $match[2],
-                                  'sec'   => 0),
-                            $tzid);
-                        $last->setTimezone('UTC');
-                        $until = ';UNTIL=' . $last->format('Ymd\THis') . 'Z';
-                        $component->setAttribute(
-                            'RRULE',
-                            'FREQ=YEARLY;BYMONTH=' . $month
-                            . ';BYMONTHDAY=' . $rule[6]
-                            . $until);
-                    }
+                    $component->setAttribute(
+                        'RRULE',
+                        'FREQ=YEARLY;BYMONTH=' . $month
+                        . ';BYMONTHDAY=' . $rule[6]
+                        . $until);
                 }
             } elseif (substr($rule[6], 0, 4) == 'last') {
                 // Rule starts on the last of a certain weekday of the month.
-                $weekday = $this->_weekdays[substr($rule[6], 4, 3)];
-                $last = new Horde_Date(array(
-                    'year'  => $rule[2],
-                    'month' => $month,
-                    'mday'  => Horde_Date_Utils::daysInMonth($month, $rule[2]),
-                    'hour'  => $match[1],
-                    'min'   => $match[2],
-                    'sec'   => 0
-                ));
-                while ($last->dayOfWeek() != $weekday) {
-                    $last->mday--;
-                }
-                $component->setAttribute('DTSTART', $last);
-                if ($rule[3][0] == 'm') {
-                    $until = '';
-                } else {
-                    $last = new Horde_Date(
-                        array('year'  => $rule[3],
-                              'month' => $month,
-                              'mday'  => Horde_Date_Utils::daysInMonth($month, $rule[2]),
-                              'hour'  => $match[1],
-                              'min'   => $match[2],
-                              'sec'   => 0),
-                        $tzid);
-                    while ($last->dayOfWeek() != $weekday) {
-                        $last->mday--;
-                    }
-                    $last->setTimezone('UTC');
-                    $until = ';UNTIL=' . $last->format('Ymd\THis') . 'Z';
-                }
                 $component->setAttribute(
                     'RRULE',
                     'FREQ=YEARLY;BYDAY=-1'
@@ -204,36 +164,6 @@ class Horde_Timezone_Rule
                 // Rule starts on a certain weekday after a certain day of
                 // month.
                 list($weekday, $day) = explode('>=', $rule[6]);
-                $weekdayInt = $this->_weekdays[substr($weekday, 0, 3)];
-                $first = new Horde_Date(array(
-                    'year'  => $rule[2],
-                    'month' => $month,
-                    'mday'  => $day,
-                    'hour'  => $match[1],
-                    'min'   => $match[2],
-                    'sec'   => 0
-                ));
-                while ($first->dayOfWeek() != $weekdayInt) {
-                    $first->mday++;
-                }
-                $component->setAttribute('DTSTART', $first);
-                if ($rule[3][0] == 'm') {
-                    $until = '';
-                } else {
-                    $last = new Horde_Date(
-                        array('year'  => $rule[3],
-                              'month' => $month,
-                              'mday'  => $day,
-                              'hour'  => $match[1],
-                              'min'   => $match[2],
-                              'sec'   => 0),
-                        $tzid);
-                    while ($last->dayOfWeek() != $weekday) {
-                        $last->mday++;
-                    }
-                    $last->setTimezone('UTC');
-                    $until = ';UNTIL=' . $last->format('Ymd\THis') . 'Z';
-                }
                 for ($days = array(), $i = $day, $lastDay = min(Horde_Date_Utils::daysInMonth($month, $rule[2]), $i + 6);
                      $day > 1 && $i <= $lastDay;
                      $i++) {
@@ -248,37 +178,6 @@ class Horde_Timezone_Rule
             } elseif (strpos($rule[6], '<=')) {
                 // Rule starts on a certain weekday before a certain day of
                 // month.
-                list($weekday, $day) = explode('>=', $rule[6]);
-                $weekdayInt = $this->_weekdays[substr($weekday, 0, 3)];
-                $last = new Horde_Date(array(
-                    'year'  => $rule[2],
-                    'month' => $month,
-                    'mday'  => $day,
-                    'hour'  => $match[1],
-                    'min'   => $match[2],
-                    'sec'   => 0
-                ));
-                while ($last->dayOfWeek() != $weekdayInt) {
-                    $last->mday--;
-                }
-                $component->setAttribute('DTSTART', $last);
-                if ($rule[3][0] == 'm') {
-                    $until = '';
-                } else {
-                    $last = new Horde_Date(
-                        array('year'  => $rule[3],
-                              'month' => $month,
-                              'mday'  => $day,
-                              'hour'  => $match[1],
-                              'min'   => $match[2],
-                              'sec'   => 0),
-                        $tzid);
-                    while ($last->dayOfWeek() != $weekday) {
-                        $last->mday--;
-                    }
-                    $last->setTimezone('UTC');
-                    $until = ';UNTIL=' . $last->format('Ymd\THis') . 'Z';
-                }
                 for ($days = array(), $i = 1; $i <= $day; $i++) {
                     $days[] = $i;
                 }
@@ -294,6 +193,79 @@ class Horde_Timezone_Rule
             $component->setAttribute('TZNAME', sprintf($name, $rule[9]));
             $tz->addComponent($component);
         }
+    }
+
+    /**
+     * Finds a date matching a rule definition.
+     *
+     * @param array $rule      A rule definition hash from addRules().
+     * @param integer $year    A year when the rule should be applied.
+     * @param integer $hour    The hour.
+     * @param integer $minute  The minute.
+     *
+     * @return Horde_Date  The first matching date.
+     */
+    protected function _getFirstMatch($rule, $year, $hour, $minute)
+    {
+        $month = Horde_Timezone::getMonth($rule[5]);
+
+        if (preg_match('/^\d+$/', $rule[6])) {
+            // Rule starts on a specific date.
+            $date = new Horde_Date(array(
+                'year'  => $year,
+                'month' => $month,
+                'mday'  => $rule[6],
+                'hour'  => $hour,
+                'min'   => $minute,
+                'sec'   => 0
+            ));
+        } elseif (substr($rule[6], 0, 4) == 'last') {
+            // Rule starts on the last of a certain weekday of the month.
+            $weekday = $this->_weekdays[substr($rule[6], 4, 3)];
+            $date = new Horde_Date(array(
+                'year'  => $year,
+                'month' => $month,
+                'mday'  => Horde_Date_Utils::daysInMonth($month, $rule[2]),
+                'hour'  => $hour,
+                'min'   => $minute,
+                'sec'   => 0
+            ));
+            while ($date->dayOfWeek() != $weekday) {
+                $date->mday--;
+            }
+        } elseif (strpos($rule[6], '>=')) {
+            // Rule starts on a certain weekday after a certain day of month.
+            list($weekday, $day) = explode('>=', $rule[6]);
+            $weekdayInt = $this->_weekdays[substr($weekday, 0, 3)];
+            $date = new Horde_Date(array(
+                'year'  => $year,
+                'month' => $month,
+                'mday'  => $day,
+                'hour'  => $hour,
+                'min'   => $minute,
+                'sec'   => 0
+            ));
+            while ($date->dayOfWeek() != $weekdayInt) {
+                $date->mday++;
+            }
+        } elseif (strpos($rule[6], '<=')) {
+            // Rule starts on a certain weekday before a certain day of month.
+            list($weekday, $day) = explode('>=', $rule[6]);
+            $weekdayInt = $this->_weekdays[substr($weekday, 0, 3)];
+            $date = new Horde_Date(array(
+                'year'  => $year,
+                'month' => $month,
+                'mday'  => $day,
+                'hour'  => $hour,
+                'min'   => $minute,
+                'sec'   => 0
+            ));
+            while ($date->dayOfWeek() != $weekdayInt) {
+                $date->mday--;
+            }
+        }
+
+        return $date;
     }
 
     /**
