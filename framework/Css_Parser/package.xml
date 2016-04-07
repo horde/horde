@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix upstream regression causing infite loops with empty CSS documents (Bug #14318).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -414,7 +414,7 @@
    <date>2016-04-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix upstream regression causing infite loops with empty CSS documents (Bug #14318).
    </notes>
   </release>
  </changelog>

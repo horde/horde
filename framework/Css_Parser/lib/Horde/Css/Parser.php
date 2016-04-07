@@ -52,6 +52,11 @@ class Horde_Css_Parser
      */
     public function __construct($css, Sabberworm\CSS\Settings $settings = null)
     {
+        if (!strlen($css)) {
+            $this->doc = new Sabberworm\CSS\CSSList\Document();
+            return;
+        }
+
         if (is_null($settings)) {
             $settings = Sabberworm\CSS\Settings::create();
             $settings->withMultibyteSupport(false);
