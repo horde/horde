@@ -82,13 +82,24 @@ class Horde_Timezone_Rule
     {
         $offset = $startOffset;
         foreach ($this->_rules as $rule) {
+            // The rule offsets are:
+            // 0: "Rule"
+            // 1: The rule name
+            // 2: The start year or "minimum"
+            // 3: The end year or "only" if only at the start year or "maximum"
+            // 4: Type, whatever that means (unused)
+            // 5: The start month
+            // 6: The start day, either specific or as a rule
+            // 7: The start time
+            // 8: The offset to the base time
+            // 9: The time name abbreviation
             $year = $rule[3];
             if ($year[0] == 'o') {
                 // TO is "only"
                 $rule[3] = $rule[2];
             }
             if ($rule[3][0] != 'm' && $rule[3] < $start->year) {
-                // TO is not maximum and is before the searched period
+                // TO is not "maximum" and is before the searched period
                 continue;
             }
             if ($end &&
@@ -110,8 +121,11 @@ class Horde_Timezone_Rule
                 $offset = $this->_getOffset($startOffset, $rule[8]);
                 $component->setAttribute('TZOFFSETTO', $offset);
             }
+
+            // The month of rule start.
             $month = Horde_Timezone::getMonth($rule[5]);
-            // Retrieve time of rule start.
+
+            // The time of rule start.
             preg_match('/(\d+)(?::(\d+))?(?::(\d+))?(w|s|u)?/', $rule[7], $match);
             if (!isset($match[2])) {
                 $match[2] = 0;
