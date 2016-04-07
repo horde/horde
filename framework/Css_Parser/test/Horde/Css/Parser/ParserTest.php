@@ -30,4 +30,12 @@ class Horde_Css_Parser_ParserTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * @small
+     */
+    public function testEmptyDocument()
+    {
+        $css = new Horde_Css_Parser('');
+        $this->assertEquals('', $css->compress());
+    }
 }
