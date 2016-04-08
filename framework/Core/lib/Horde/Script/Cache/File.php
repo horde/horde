@@ -64,6 +64,7 @@ class Horde_Script_Cache_File extends Horde_Script_Cache
         foreach (glob($static_dir . '/*.js') as $file) {
             if ($curr_time > filemtime($file)) {
                 @unlink($file);
+                @unlink($file . '.map');
                 ++$removed;
             }
         }
