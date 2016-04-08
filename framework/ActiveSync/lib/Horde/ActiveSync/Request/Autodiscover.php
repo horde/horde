@@ -179,6 +179,16 @@ class Horde_ActiveSync_Request_Autodiscover extends Horde_ActiveSync_Request_Bas
                     </Protocol>';
             }
             if (!empty($properties['smtp'])) {
+                switch ($properties['smtp']['ssl']) {
+                case 'ssl':
+                  $encryption = '<SSL>on</SSL>';
+                  break;
+                case 'tls':
+                  $encryption = '<Encryption>TLS</Encryption>';
+                  break;
+                default:
+                  $encryption = '<SSL>off</SSL>';
+                }
                 $xml .= '<Protocol>
                     <Type>SMTP</Type>
                     <Server>' . $properties['smtp']['host'] . '</Server>
@@ -186,7 +196,7 @@ class Horde_ActiveSync_Request_Autodiscover extends Horde_ActiveSync_Request_Bas
                     <LoginName>' . $properties['username'] . '</LoginName>
                     <DomainRequired>off</DomainRequired>
                     <SPA>off</SPA>
-                    <SSL>' . ($properties['smtp']['ssl'] ? 'on' : 'off') . '</SSL>
+                    ' . $encryption . '
                     <AuthRequired>on</AuthRequired>
                     <UsePOPAuth>' . ($properties['smtp']['popauth'] ? 'on' : 'off') . '</UsePOPAuth>
                     </Protocol>';
