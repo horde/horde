@@ -293,9 +293,9 @@ class Horde_Form {
                 if ((is_a($var, 'Horde_Form_Variable') && $this->_variables[$section][$i] === $var) ||
                     ($this->_variables[$section][$i]->getVarName() == $var)) {
                     // Slice out the variable to be removed.
-                    $this->_variables[$this->_currentSection] = array_merge(
-                        array_slice($this->_variables[$this->_currentSection], 0, $i),
-                        array_slice($this->_variables[$this->_currentSection], $i + 1));
+                    $this->_variables[$section] = array_merge(
+                        array_slice($this->_variables[$section], 0, $i),
+                        array_slice($this->_variables[$section], $i + 1));
 
                     return true;
                 }
