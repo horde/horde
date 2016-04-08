@@ -502,10 +502,10 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 throw new Horde_ActiveSync_Exception($e);
             }
         } else {
-            // We are sending server changes; $this->_changes will contain all
-            // changes so we need to track which ones are sent since not all
-            // may be sent. We need to store the leftovers for sending next
-            // request.
+            // We are sending server changes; $this->_changes contains changes.
+            // We need to track which ones are sent since not all may be sent.
+            // Store the leftovers for sending next request via MOREAVAILABLE.
+            //
             // @todo FIX BC HACK for differing data structures when sending
             // initial change set.
             foreach ($this->_changes as $key => $value) {
