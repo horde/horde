@@ -78,13 +78,15 @@ class Horde_Themes_Css_Cache_File extends Horde_Themes_Css_Cache
         $static_dir = $registry->get('fileroot', 'horde') . '/static';
         $static_stat = $static_dir . '/gc_cachecss';
 
-        $next_run = !is_readable($static_stat) ?: @file_get_contents($static_stat);
+        $next_run = is_readable($static_stat)
+            ? @file_get_contents($static_stat)
+            : false;
 
         if (!$next_run || ($curr_time > $next_run)) {
             file_put_contents($static_stat, $curr_time + 86400);
         }
 
-        if (!$next_run || ($curr_time < $next_run)) {
+        if ($next_run && ($curr_time < $next_run)) {
             return;
         }
 
