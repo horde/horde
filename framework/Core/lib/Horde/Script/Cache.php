@@ -41,6 +41,16 @@ abstract class Horde_Script_Cache
     }
 
     /**
+     * Destructor.
+     */
+    public function __destruct()
+    {
+        if (!rand(0, 999)) {
+            $this->gc();
+        }
+    }
+
+    /**
      * Process the scripts contained in Horde_Script_List.
      *
      * @param Horde_Script_List $hsl  Script list.

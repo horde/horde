@@ -41,6 +41,16 @@ abstract class Horde_Themes_Css_Cache
     }
 
     /**
+     * Destructor.
+     */
+    public function __destruct()
+    {
+        if (!rand(0, 999)) {
+            $this->gc();
+        }
+    }
+
+    /**
      * Process a list of CSS files.
      *
      * @param array $css       See Horde_Themes_Css#getStylesheets().

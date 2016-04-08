@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix running garbage collection on cached CSS and JS files (Bug #14285).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4173,7 +4173,7 @@
    <date>2016-03-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix running garbage collection on cached CSS and JS files (Bug #14285).
    </notes>
   </release>
  </changelog>
