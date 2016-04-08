@@ -38,13 +38,6 @@ abstract class Horde_Script_Cache
     public function __construct(array $params = array())
     {
         $this->_params = $params;
-    }
-
-    /**
-     * Destructor.
-     */
-    public function __destruct()
-    {
         if (!rand(0, 999)) {
             $this->gc();
         }
