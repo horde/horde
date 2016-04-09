@@ -621,18 +621,9 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
 
                 // Save the sync state for the next time
                 if (!empty($collection['newsynckey'])) {
-                    if (!empty($sync) || !empty($importer) || $collection['synckey'] == 0)  {
-                        $this->_state->setNewSyncKey($collection['newsynckey']);
-                        $this->_state->save();
-                    } else {
-                        $this->_logger->err(sprintf(
-                            '[%s] Error saving %s - no state information available.',
-                            $this->_procid,
-                            $collection['newsynckey'])
-                        );
-                    }
-
-                    // Do we need to add the new synckey to the syncCache?
+                    $this->_state->setNewSyncKey($collection['newsynckey']);
+                    $this->_state->save();
+                    // Add the new synckey to the syncCache?
                     if ($collection['newsynckey'] != $collection['synckey']) {
                         $this->_collections->addConfirmedKey($collection['newsynckey']);
                     }
@@ -642,6 +633,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     );
                 }
             }
+
             $this->_encoder->endTag();
             $this->_logger->info(sprintf(
                 '[%s] Collection output peak memory usage: %d',
