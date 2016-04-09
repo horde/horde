@@ -146,8 +146,6 @@ abstract class Horde_ActiveSync_State_Base
      * Update the $oldKey syncState to $newKey.
      *
      * @param string $newKey
-     *
-     * @return void
      */
     public function setNewSyncKey($newKey)
     {
