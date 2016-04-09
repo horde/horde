@@ -378,33 +378,21 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 return false;
             }
 
-            // Outlook explicitly tells the server to NOT check for server
-            // changes when importing client changes, unlike EVERY OTHER client
-            // out there. This completely screws up many things like conflict
-            // detection since we can't update the sync_ts until we actually
-            // check for changes. So, we need to FORCE a change detection cycle
-            // to be sure we don't screw up state. Any detected changes will be
-            // ignored until the next cycle, utilizing the existing mechanism
-            // for sending MOREITEMS when we will return the previously
-            // selected changes. getchanges defaults to true if it is missing
-            // and the synckey != 0, defaults to true if it is present as an
-            // empty tag. If it is present, but '0' or not present but synckey
-            // is 0 then it defaults to false.
-            if (!isset($collection['getchanges']) && $collection['synckey'] != '0') {
-                $collection['getchanges'] = true;
-            }
-            if (!empty($collection['importedchanges']) && (empty($collection['getchanges']))) {
+            // Clients are allowed to NOT request changes. We still must check
+            // for them since this would otherwise screw up conflict detection
+            // (we can't upate sync_ts until we actually check for changes). In
+            // this case, we just don't send the changes back to the client
+            // until the next SYNC that does set GETCHANGES using the
+            // MOREAVAILABLE mechanism.
+            if (!empty($collection['importedchanges']) && empty($collection['getchanges'])) {
                 $forceChanges = true;
                 $collection['getchanges'] = true;
                 $this->_logger->notice(sprintf(
-                    '[%s] Force a GETCHANGES due to incoming changes.',
+                    '[%s] Forcing a GETCHANGES due to incoming changes.',
                     $this->_procid));
             }
 
-            if ($statusCode == self::STATUS_SUCCESS &&
-                (!empty($collection['getchanges']) ||
-                 (!isset($collection['getchanges']) && $collection['synckey'] != '0'))) {
-
+            if ($statusCode == self::STATUS_SUCCESS && !empty($collection['getchanges']) {
                 try {
                     $changecount = $this->_collections->getCollectionChangeCount();
                 } catch (Horde_ActiveSync_Exception_StaleState $e) {
@@ -488,8 +476,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 // Send server changes to client
                 if ($statusCode == self::STATUS_SUCCESS &&
                     empty($forceChanges) &&
-                    (!empty($collection['getchanges']) ||
-                     (!isset($collection['getchanges']) && !empty($collection['synckey'])))) {
+                    !empty($collection['getchanges'])) {
 
                     $max_windowsize = !empty($pingSettings['maximumwindowsize'])
                         ? min($collection['windowsize'], $pingSettings['maximumwindowsize'])
@@ -846,11 +833,13 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
 
                 case Horde_ActiveSync::SYNC_GETCHANGES:
                     // Optional element, but if it's present with an empty value
-                    // it defaults to true. Also, not sent by EAS 14
+                    // it defaults to true.
                     $collection['getchanges'] = $this->_decoder->getElementContent();
                     if ($collection['getchanges'] !== false && !$this->_decoder->getElementEndTag()) {
+                        // Present, has a value, but no closing tag.
                         throw new Horde_ActiveSync_Exception('Protocol Error');
                     } elseif ($collection['getchanges'] === false) {
+                        // Present, but is an empty tag, so defaults to true.
                         $collection['getchanges'] = true;
                     }
                     break;
@@ -880,6 +869,12 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 $this->_logger->info(sprintf(
                     '[%s] Found updated filtertype, will force a SOFTDELETE.', $this->_procid));
                 $collection['forcerefresh'] = true;
+            }
+
+            // Default value, if missing is TRUE if we have a non-empty synckey,
+            // otherwise FALSE.
+            if (!isset($collection['getchanges'])) {
+                $collection['getchanges'] = !$collection['synckey']->isEmpty();
             }
 
             try {
