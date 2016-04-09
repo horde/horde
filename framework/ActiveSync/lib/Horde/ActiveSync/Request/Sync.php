@@ -473,7 +473,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
 
             if ($statusCode == self::STATUS_SUCCESS) {
 
-                // Send server changes to client
+                // Server changes
                 if ($statusCode == self::STATUS_SUCCESS &&
                     empty($forceChanges) &&
                     !empty($collection['getchanges'])) {
@@ -516,7 +516,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
 
                     $this->_encoder->startTag(Horde_ActiveSync::SYNC_REPLIES);
 
-                    // Output any SYNC_MODIFY failures
+                    // SYNC_MODIFY failures
                     if (!empty($collection['importfailures'])) {
                         foreach ($collection['importfailures'] as $id => $reason) {
                             $this->_encoder->startTag(Horde_ActiveSync::SYNC_MODIFY);
@@ -537,7 +537,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                         }
                     }
 
-                    // Output server IDs for new items we received and added from client
+                    // Server IDs for new items we received from client
                     if (!empty($collection['clientids'])) {
                         foreach ($collection['clientids'] as $clientid => $serverid) {
                             if ($serverid) {
@@ -568,7 +568,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                         }
                     }
 
-                    // Output any errors from missing messages in REMOVE requests.
+                    // Errors from missing messages in REMOVE requests.
                     if (!empty($collection['missing'])) {
                         foreach ($collection['missing'] as $uid) {
                             $this->_encoder->startTag(Horde_ActiveSync::SYNC_REMOVE);
@@ -583,7 +583,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     }
 
                     if (!empty($collection['fetchids'])) {
-                        // Output any FETCH requests
                         foreach ($collection['fetchids'] as $fetch_id) {
                             try {
                                 $data = $this->_driver->fetch($collection['serverid'], $fetch_id, $collection);
@@ -619,7 +618,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     $this->_encoder->endTag();
                 }
 
-                // Save the sync state for the next time
+                // Save state
                 if (!empty($collection['newsynckey'])) {
                     $this->_state->setNewSyncKey($collection['newsynckey']);
                     $this->_state->save();
