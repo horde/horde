@@ -623,10 +623,8 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 if (!empty($collection['newsynckey'])) {
                     $this->_state->setNewSyncKey($collection['newsynckey']);
                     $this->_state->save();
-                    // Add the new synckey to the syncCache?
-                    if ($collection['newsynckey'] != $collection['synckey']) {
-                        $this->_collections->addConfirmedKey($collection['newsynckey']);
-                    }
+                    // Add the new synckey to the syncCache
+                    $this->_collections->addConfirmedKey($collection['newsynckey']);
                     $this->_collections->updateCollection(
                         $collection,
                         array('newsynckey' => true, 'unsetChanges' => true, 'unsetPingChangeFlag' => true)
