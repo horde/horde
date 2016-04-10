@@ -1222,12 +1222,15 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
     protected function _getPIMChangeTS(array $changes)
     {
         $sql = 'SELECT message_uid, MAX(sync_modtime) FROM ' . $this->_syncMapTable
-            . ' WHERE sync_devid = ? AND sync_user = ? AND sync_key IN (?, ?) ';
+            . ' WHERE sync_devid = ? AND sync_user = ? AND sync_folderid = ? AND sync_key IN (?, ?) ';
 
         // Get the allowed synckeys to include.
         $uuid = self::getSyncKeyUid($this->_syncKey);
         $cnt = self::getSyncKeyCounter($this->_syncKey);
-        $values = array($this->_deviceInfo->id, $this->_deviceInfo->user);
+        $values = array($this->_deviceInfo->id,
+            $this->_deviceInfo->user,
+            $this->_collection['id']
+        );
         foreach (array($uuid . $cnt, $uuid . ($cnt - 1)) as $v) {
             $values[] = $v;
         }
