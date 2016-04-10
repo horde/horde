@@ -1129,19 +1129,7 @@ class Whups_Driver_Sql extends Whups_Driver
         $attributes = $this->getTicketAttributesWithNames(array_keys($tickets));
         foreach ($attributes as $row) {
             $attribute_id = 'attribute_' . $row['attribute_id'];
-            if (is_string($row['attribute_value']) && defined('JSON_BIGINT_AS_STRING')) {
-                $tickets[$row['id']][$attribute_id] = json_decode(
-                    $row['attribute_value'], true, 512, constant('JSON_BIGINT_AS_STRING')
-                );
-            } else {
-                try {
-                    $tickets[$row['id']][$attribute_id] =
-                        Horde_Serialize::unserialize($row['attribute_value'],
-                                                     Horde_Serialize::JSON);
-                } catch (Horde_Serialize_Exception $e) {
-                    $tickets[$row['id']][$attribute_id] = $row['attribute_value'];
-                }
-            }
+            $tickets[$row['id']][$attribute_id] = $this->_json_decode($row['attribute_value']);
             $tickets[$row['id']][$attribute_id . '_name'] = $row['attribute_name'];
         }
 
@@ -3137,16 +3125,7 @@ class Whups_Driver_Sql extends Whups_Driver
             $attributes = $this->_fromBackend($attributes);
 
             foreach ($attributes as &$ticket) {
-                if (is_string($ticket['attribute_value']) && defined('JSON_BIGINT_AS_STRING')) {
-                    $ticket['attribute_value'] = json_decode($ticket['attribute_value'], true, 512, constant('JSON_BIGINT_AS_STRING'));
-                } else {
-                    try {
-                        $ticket['attribute_value'] = Horde_Serialize::unserialize(
-                            $ticket['attribute_value'],
-                            Horde_Serialize::JSON);
-                    } catch (Horde_Serialize_Exception $e) {
-                    }
-                }
+                $ticket['attribute_value'] = $this->_json_decode($ticket['attribute_value']);
             }
         } else {
             try {
@@ -3214,18 +3193,7 @@ class Whups_Driver_Sql extends Whups_Driver
                 $this->_fromBackend(@unserialize($attribute['attribute_params']));
             $attribute['attribute_required'] =
                 (bool)$attribute['attribute_required'];
-            if (is_string($attribute['attribute_value']) && defined('JSON_BIGINT_AS_STRING')) {
-                $attribute['attribute_value'] = json_decode(
-                    $attribute['attribute_value'], true, 512, constant('JSON_BIGINT_AS_STRING')
-                );
-            } else {
-                try {
-                    $attribute['attribute_value'] = Horde_Serialize::unserialize(
-                        $attribute['attribute_value'],
-                        Horde_Serialize::JSON);
-                } catch (Horde_Serialize_Exception $e) {
-                }
-            }
+            $attribute['attribute_value'] = $this->_json_decode($attribute['attribute_value']);
         }
 
         return $attributes;
