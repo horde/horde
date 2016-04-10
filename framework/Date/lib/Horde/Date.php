@@ -355,10 +355,10 @@ class Horde_Date
         'US/Mountain' => 'America/Denver',
         'US/Pacific' => 'America/Los_Angeles',
         'US/Samoa' => 'Pacific/Pago_Pago',
-        'UTC' => 'Etc/UTC',
-        'Universal' => 'Etc/UTC',
+        'UTC' => 'UTC',
+        'Universal' => 'UTC',
         'W-SU' => 'Europe/Moscow',
-        'Zulu' => 'Etc/UTC',
+        'Zulu' => 'UTC',
     );
 
     /**
