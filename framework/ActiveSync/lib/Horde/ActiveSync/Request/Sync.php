@@ -392,7 +392,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     $this->_procid));
             }
 
-            if ($statusCode == self::STATUS_SUCCESS && !empty($collection['getchanges']) {
+            if ($statusCode == self::STATUS_SUCCESS && !empty($collection['getchanges'])) {
                 try {
                     $changecount = $this->_collections->getCollectionChangeCount();
                 } catch (Horde_ActiveSync_Exception_StaleState $e) {
