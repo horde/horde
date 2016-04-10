@@ -136,3 +136,6 @@ BC BREAKING (i.e., Horde 6).
   constructor parameters and various configuration options mess. (E.g., the
   "PING" configuration values are no longer really all strictly related to PING
   requests).
+
+- Implement a Repository pattern for adding/supporting each backend collection
+  type instead of using a monolithic driver/connector object.
