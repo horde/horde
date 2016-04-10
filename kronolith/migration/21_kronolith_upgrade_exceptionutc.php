@@ -95,18 +95,20 @@ class KronolithUpgradeExceptionUtc extends Horde_Db_Migration_Base
         $utc = new DateTimeZone('UTC');
         foreach ($rows as $row) {
             if ($row['event_creator_id'] != $creator) {
-                $prefs = $GLOBALS['injector']
-                    ->getInstance('Horde_Core_Factory_Prefs')
-                    ->create('horde', array(
-                        'cache' => false,
-                        'user' => $row['event_creator_id'])
-                );
-                $tz = $prefs->getValue('timezone');
-                if (empty($tz)) {
-                    $tz = date_default_timezone_get();
-                }
-                $tz = new DateTimeZone($tz);
-                $creator = $row['event_creator_id'];
+                try {
+                    $prefs = $GLOBALS['injector']
+                        ->getInstance('Horde_Core_Factory_Prefs')
+                        ->create('horde', array(
+                            'cache' => false,
+                            'user' => $row['event_creator_id'])
+                    );
+                    $tz = $prefs->getValue('timezone');
+                    if (empty($tz)) {
+                        $tz = date_default_timezone_get();
+                    }
+                    $tz = new DateTimeZone($tz);
+                    $creator = $row['event_creator_id'];
+                } catch (Exception $e) {}
             }
 
             $eod = new DateTime($row['event_exceptionoriginaldate'], $utc);
