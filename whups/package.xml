@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
  <notes>
-* 
+* [mjr] Fix decoding custom attributes for display (Bug #14326).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1219,7 +1219,7 @@
    <date>2016-03-21</date>
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
    <notes>
-* 
+* [mjr] Fix decoding custom attributes for display (Bug #14326).
    </notes>
   </release>
  </changelog>
