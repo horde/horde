@@ -122,6 +122,7 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
                 $result->events = $events;
             }
         } catch (Exception $e) {
+            $session->start();
             $GLOBALS['notification']->push($e, 'horde.error');
         }
         return $result;
