@@ -63,6 +63,9 @@ class Turba_Factory_Driver extends Horde_Core_Factory_Base
         }
 
         if (!isset($this->_instances[$key])) {
+            if (!isset($srcConfig['type'])) {
+                throw new Turba_Exception(sprintf(_("The address book \"%s\" does not exist."), $srcName));
+            }
             $class = 'Turba_Driver_' . ucfirst(basename($srcConfig['type']));
             if (!class_exists($class)) {
                 throw new Turba_Exception(sprintf(_("Unable to load the definition of %s."), $class));
