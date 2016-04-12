@@ -22,6 +22,9 @@
  * $tz->getZone('America/New_York')->toVtimezone()->exportVcalendar();
  * </code>
  *
+ * Documentation on the database file formats can be found at
+ * ftp://ftp.iana.org/tz/tz-how-to.html
+ *
  * @author  Jan Schneider <jan@horde.org>
  * @package Timezone
  */
