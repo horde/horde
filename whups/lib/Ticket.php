@@ -109,7 +109,7 @@ class Whups_Ticket
         // Add additional listeners.
         if (!empty($info['listeners'])) {
             foreach ($info['listeners'] as $listener) {
-                $whups_driver->addUniqueListener($id, $listener);
+                $whups_driver->addUniqueListener($ticket, $listener);
             }
         }
 

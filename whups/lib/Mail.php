@@ -128,8 +128,7 @@ class Whups_Mail
 
         // Try to determine the Horde user for creating the ticket.
         if (empty($auth_user)) {
-            $tmp = new Horde_Mail_Rfc822_Address($from);
-            $auth_user = self::_findAuthUser($tmp->bare_address);
+            $auth_user = self::_findAuthUser($fromAddress->bare_address);
         }
         $author = $auth_user;
 
@@ -214,9 +213,7 @@ class Whups_Mail
                 $ticket->change('attachments', $attachments);
             }
             foreach ($listeners as $listener) {
-                $GLOBALS['whups_driver']->addUniqueListener(
-                    $ticket->getId(), $listener
-                );
+                $GLOBALS['whups_driver']->addUniqueListener($ticket, $listener);
             }
             $ticket->commit($author);
         } elseif (!empty($info['ticket'])) {

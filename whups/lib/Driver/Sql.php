@@ -2635,20 +2635,27 @@ class Whups_Driver_Sql extends Whups_Driver
     /**
      * Adds a ticket listener if it doesn't exist yet.
      *
-     * @param integer $ticket  A ticket ID.
-     * @param string $user     An email address.
+     * @param Whups_Ticket $ticket  A ticket.
+     * @param string $user          An email address.
      *
      * @throws Whups_Exception
      */
     public function addUniqueListener($ticket, $user)
     {
+        $id = (int)$ticket->getId();
+        $requester = Whups::formatUser(
+            $ticket->get('user_id_requester'), true, false
+        );
+        if ($user == (string)$requester) {
+            return;
+        }
         try {
             $exists = $this->_db->selectValue(
                 'SELECT 1 FROM whups_ticket_listeners WHERE ticket_id = ? AND user_uid = ?',
-                array((int)$ticket, $user)
+                array($id, $user)
             );
             if (!$exists) {
-                $this->addListener($ticket, $user);
+                $this->addListener($id, $user);
             }
         } catch (Horde_Db_Exception $e) {
             throw new Whups_Exception($e);
