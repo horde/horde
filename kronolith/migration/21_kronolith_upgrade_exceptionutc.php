@@ -108,7 +108,13 @@ class KronolithUpgradeExceptionUtc extends Horde_Db_Migration_Base
                     }
                     $tz = new DateTimeZone($tz);
                     $creator = $row['event_creator_id'];
-                } catch (Exception $e) {}
+                } catch (Exception $e) {
+                    // Fallback to UTC if prefs is unavailable since if prefs
+                    // is unavailable this most likely means we are down
+                    // migrating everything, or at the very least don't have
+                    // a working horde install.
+                    $tz = new DateTimeZone('UTC');
+                }
             }
 
             $eod = new DateTime($row['event_exceptionoriginaldate'], $utc);
