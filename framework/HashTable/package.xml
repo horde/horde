@@ -10,9 +10,9 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-02-01</date>
+ <date>2016-03-21</date>
  <version>
-  <release>1.2.5</release>
+  <release>1.2.6</release>
   <api>1.2.0</api>
  </version>
  <stability>
@@ -39,6 +39,7 @@
       <file name="Exception.php" role="php" />
       <file name="Lock.php" role="php" />
       <file name="Memcache.php" role="php" />
+      <file name="Memcached.php" role="php" />
       <file name="Memory.php" role="php" />
       <file name="Null.php" role="php" />
       <file name="Predis.php" role="php" />
@@ -51,6 +52,7 @@
      <dir name="HashTable">
       <dir name="Driver">
        <file name="MemcacheTest.php" role="test" />
+       <file name="MemcachedTest.php" role="test" />
        <file name="MemoryTest.php" role="test" />
        <file name="PredisTest.php" role="test" />
        <file name="TestBase.php" role="test" />
@@ -91,6 +93,13 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
+    <name>Horde_Memcached</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
+   </package>
+   <package>
     <name>Horde_Memcache</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
@@ -118,6 +127,7 @@
    <install as="Horde/HashTable/Exception.php" name="lib/Horde/HashTable/Exception.php" />
    <install as="Horde/HashTable/Lock.php" name="lib/Horde/HashTable/Lock.php" />
    <install as="Horde/HashTable/Memcache.php" name="lib/Horde/HashTable/Memcache.php" />
+   <install as="Horde/HashTable/Memcached.php" name="lib/Horde/HashTable/Memcached.php" />
    <install as="Horde/HashTable/Memory.php" name="lib/Horde/HashTable/Memory.php" />
    <install as="Horde/HashTable/Null.php" name="lib/Horde/HashTable/Null.php" />
    <install as="Horde/HashTable/Predis.php" name="lib/Horde/HashTable/Predis.php" />
@@ -127,6 +137,7 @@
    <install as="Horde/HashTable/conf.php.dist" name="test/Horde/HashTable/conf.php.dist" />
    <install as="Horde/HashTable/phpunit.xml" name="test/Horde/HashTable/phpunit.xml" />
    <install as="Horde/HashTable/Driver/MemcacheTest.php" name="test/Horde/HashTable/Driver/MemcacheTest.php" />
+   <install as="Horde/HashTable/Driver/MemcachedTest.php" name="test/Horde/HashTable/Driver/MemcachedTest.php" />
    <install as="Horde/HashTable/Driver/MemoryTest.php" name="test/Horde/HashTable/Driver/MemoryTest.php" />
    <install as="Horde/HashTable/Driver/PredisTest.php" name="test/Horde/HashTable/Driver/PredisTest.php" />
    <install as="Horde/HashTable/Driver/TestBase.php" name="test/Horde/HashTable/Driver/TestBase.php" />
@@ -331,6 +342,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.6</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-03-21</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [acmpires] Added Horde_Memcached driver
    </notes>
   </release>
  </changelog>

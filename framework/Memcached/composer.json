@@ -1,0 +1,28 @@
+{
+    "name": "horde/horde-memcached",
+    "description": "Horde Memcached API",
+    "type": "library",
+    "homepage": "http://pear.horde.org",
+    "license": "LGPL-2.1",
+    "authors": [
+        {
+            "name": "Carlos Pires",
+            "email": "acmpires@sapo.pt",
+            "role": "developer"
+        }
+    ],
+    "version": "1.0.0",
+    "time": "2016-03-21",
+    "repositories": [
+        {
+            "type": "pear",
+            "url": "http://pear.horde.org"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "pear-pear.horde.org/Horde_Exception": ">=2.0.0@stable,<=3.0.0alpha1@stable",
+        "pear-pecl.php.net/memcached": "=2.2.0@stable",
+        "ext-hash": "*"
+    }
+}

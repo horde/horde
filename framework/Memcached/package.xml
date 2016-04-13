@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Horde_Memcached</name>
+ <channel>pear.horde.org</channel>
+ <summary>Horde Memcached API</summary>
+ <description>Provides an API to access a memcached installation.</description>
+ <lead>
+  <name>Carlos Pires</name>
+  <user>acmpires</user>
+  <email>acmpires@sapo.pt</email>
+  <active>yes</active>
+ </lead>
+ <date>2016-03-21</date>
+ <version>
+  <release>1.0.0</release>
+  <api>1.0.0</api>
+ </version>
+ <stability>
+  <release>stable</release>
+  <api>stable</api>
+ </stability>
+ <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+ <notes>
+* 
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Memcached">
+      <file name="COPYING" role="doc" />
+     </dir> <!-- /doc/Horde/Memcached -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
+   <dir name="lib">
+    <dir name="Horde">
+     <dir name="Memcached">
+      <file name="Exception.php" role="php" />
+     </dir> <!-- /lib/Horde/Memcached -->
+     <file name="Memcached.php" role="php" />
+    </dir> <!-- //lib/Horde -->
+   </dir> <!-- //lib -->
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.3.0</min>
+    <max>7.1.0alpha1</max>
+    <exclude>7.1.0alpha1</exclude>
+   </php>
+   <pearinstaller>
+    <min>1.7.0</min>
+   </pearinstaller>
+   <package>
+    <name>Horde_Exception</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>memcached</name>
+    <channel>pecl.php.net</channel>
+    <min>2.2.0</min>
+    <min>2.2.0</min>
+    <providesextension>memcached</providesextension>
+   </package>
+   <extension>
+    <name>hash</name>
+   </extension>
+  </required>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install as="COPYING" name="doc/Horde/Memcached/COPYING" />
+   <install as="Horde/Memcached.php" name="lib/Horde/Memcached.php" />
+   <install as="Horde/Memcached/Exception.php" name="lib/Horde/Memcached/Exception.php" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>1.0.0</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2016-03-21</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [acmpires] First version of a Memcached driver
+   </notes>
+  </release>
+ </changelog>
+</package>
