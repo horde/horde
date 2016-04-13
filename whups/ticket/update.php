@@ -101,8 +101,7 @@ $page_output->header(array(
 $notification->notify(array('listeners' => 'status'));
 require WHUPS_TEMPLATES . '/prevnext.inc';
 
-$tabs = Whups::getTicketTabs($vars, $id);
-echo $tabs->render('update');
+echo Whups::getTicketTabs($vars, $id)->render('update');
 
 $editform->renderActive($editform->getRenderer(), $vars, Horde::url('ticket/update.php'), 'post');
 echo '<br class="spacer" />';
