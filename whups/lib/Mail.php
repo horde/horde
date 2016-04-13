@@ -67,7 +67,8 @@ class Whups_Mail
         if ($reply_to = $headers->getValue('reply-to')) {
             $from = $reply_to;
         }
-        $listeners = array();
+        $fromAddress = new Horde_Mail_Rfc822_Address($from);
+        $listeners = array($fromAddress->bare_address);
         if ($cc = $headers->getValue('cc')) {
             $rfc822 = new Horde_Mail_Rfc822();
             foreach ($rfc822->parseAddressList($cc) as $address) {
