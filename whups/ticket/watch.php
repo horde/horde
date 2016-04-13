@@ -92,7 +92,7 @@ $page_output->header(array(
 ));
 $notification->notify(array('listeners' => 'status'));
 require WHUPS_TEMPLATES . '/prevnext.inc';
-Whups::getTicketTabs($vars, $id)->render('watch');
+echo Whups::getTicketTabs($vars, $id)->render('watch');
 require WHUPS_TEMPLATES . '/ticket/watchers.inc';
 $addform->renderActive($r, $vars, Horde::url('ticket/watch.php'), 'post');
 echo '<br class="spacer" />';
