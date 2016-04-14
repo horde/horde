@@ -863,7 +863,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             // Default value, if missing is TRUE if we have a non-empty synckey,
             // otherwise FALSE.
             if (!isset($collection['getchanges'])) {
-                $collection['getchanges'] = !$collection['synckey']->isEmpty();
+                $collection['getchanges'] = !empty($collection['synckey']);
             }
 
             try {
