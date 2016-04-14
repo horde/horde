@@ -1365,12 +1365,13 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         // ensures that we can still respond to SYNC requests for the previous
         // key if the client never received the new key in a SYNC response.
         $sql = 'SELECT sync_key FROM ' . $this->_syncStateTable
-            . ' WHERE sync_devid = ? AND sync_folderid = ?';
+            . ' WHERE sync_devid = ? AND sync_folderid = ? AND sync_user = ?';
         $values = array(
             $this->_deviceInfo->id,
             !empty($this->_collection['id'])
                 ? $this->_collection['id']
-                : Horde_ActiveSync::CHANGE_TYPE_FOLDERSYNC);
+                : Horde_ActiveSync::CHANGE_TYPE_FOLDERSYNC,
+            $this->_deviceInfo->user);
 
         try {
             $results = $this->_db->selectAll($sql, $values);
