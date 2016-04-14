@@ -578,6 +578,51 @@ abstract class Horde_ActiveSync_State_Base
     }
 
     /**
+     * Non-static wrapper for getNewSyncKey.
+     *
+     * @param string $syncKey  The old syncKey
+     *
+     * @return string  The new synckey
+     * @throws Horde_ActiveSync_Exception
+     *
+     * @todo  Remove/replace in H6 with Horde_ActiveSync_SyncKey
+     */
+    public function getNewSyncKeyWrapper($syncKey)
+    {
+        if ($this->checkCollision($newKey = self::getNewSyncKey($syncKey))) {
+            $this->_logger->err(sprintf(
+                '[%s] Found collision when generating synckey %s. Trying again.',
+                $this->_procid, $newKey));
+            return $this->getNewSyncKeyWrapper($synckey);
+        }
+
+        return $newKey;
+    }
+
+    /**
+     * Check for the (rare) possibility of a synckey collision between
+     * collections.
+     *
+     * @param string $syncKey  The synckey to check.
+     *
+     * @return boolean  True if there was a collision.
+     */
+    public function checkCollision($syncKey)
+    {
+        if (!preg_match('/^\{([0-9A-Za-z-]+)\}([0-9]+)$/', $syncKey, $matches)) {
+            return false;
+        }
+        $guid = $matches[1];
+
+        // We only need to check for collisions on the first save.
+        if ($matches[2] != 1) {
+            return false;
+        }
+
+        return $this->_checkCollision($guid);
+    }
+
+    /**
      * Gets the new sync key for a specified sync key. You must save the new
      * sync state under this sync key when done sync'ing by calling
      * setNewSyncKey(), then save().

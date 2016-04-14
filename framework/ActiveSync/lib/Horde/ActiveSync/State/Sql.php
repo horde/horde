@@ -1349,6 +1349,32 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
     }
 
     /**
+     * Check for the (rare) possibility of a synckey collision between
+     * collections.
+     *
+     * @param string $guid The GUID portion of the synckey to check.
+     *
+     * @return boolean  true if there was a collision.
+     */
+    protected function _checkCollision($guid)
+    {
+        $sql = 'SELECT COUNT(sync_key) FROM ' . $this->_syncStateTable
+            . ' WHERE sync_devid = ? AND sync_folderid != ? AND sync_key LIKE ?';
+        $values = array($this->_deviceInfo->id, $this->_collection['id'], '{' . $guid . '}%');
+
+        try {
+            return (boolean)$this->_db->selectValue($sql, $values);
+        } catch (Horde_Db_Exception $e) {
+            $this->_logger->err(sprintf(
+                '[%s] %s',
+                $this->_procid,
+                $e->getMessage())
+            );
+            throw new Horde_ActiveSync_Exception($e);
+        }
+    }
+
+    /**
      * Garbage collector - clean up from previous sync requests.
      *
      * @param string $syncKey  The sync key

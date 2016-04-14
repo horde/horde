@@ -434,7 +434,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 $this->_collections->hasPingChangeFlag($id))) {
 
                 try {
-                    $collection['newsynckey'] = $this->_state->getNewSyncKey($collection['synckey']);
+                    $collection['newsynckey'] = $this->_state->getNewSyncKeyWrapper($collection['synckey']);
                     $this->_logger->info(sprintf(
                         '[%s] Old SYNCKEY: %s, New SYNCKEY: %s',
                         $this->_procid,

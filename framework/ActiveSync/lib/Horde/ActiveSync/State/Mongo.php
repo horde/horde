@@ -719,6 +719,17 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
     }
 
     /**
+     * @todo
+     *
+     * @param  [type] $guid [description]
+     * @return [type]       [description]
+     */
+    protected function _checkCollision($guid)
+    {
+        return false;
+    }
+
+    /**
      * List all devices that we know about.
      *
      * @param string $user  The username to list devices for. If empty, will
