@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-04-05</date>
+ <date>2016-04-14</date>
  <version>
   <release>1.0.10</release>
   <api>1.0.0</api>
@@ -411,7 +411,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-04-05</date>
+   <date>2016-04-14</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix upstream regression causing infite loops with empty CSS documents (Bug #14318).
