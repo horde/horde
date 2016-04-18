@@ -121,14 +121,14 @@ abstract class Horde_Image_Exif_Base
         }
 
         if (strpos($data[0], '/') !== false) {
-            $hour = explode('/', $data[0]);
-            if (count($hour) > 1) {
-                $hour = $hour[0] / $hour[1];
+            $degrees = explode('/', $data[0]);
+            if (count($degrees) > 1) {
+                $degrees = $degrees[0] / $degrees[1];
             } else {
-                $hour = $hour[0];
+                $degrees = $degrees[0];
             }
         } else {
-            $hour = $data[0];
+            $degrees = $data[0];
         }
 
         if (strpos($data[1], '/') !== false) {
@@ -153,7 +153,7 @@ abstract class Horde_Image_Exif_Base
             $sec = $data[2];
         }
 
-        return self::_degToDecimal($hour, $min, $sec);
+        return self::_degToDecimal($degrees, $min, $sec);
     }
 
     /**
