@@ -34,7 +34,8 @@ abstract class Horde_Image_Exif_Base
 
     /**
      *
-     * @param $params
+     * @param array $params  Parameter array:
+     *        - logger: Horde_Log_Logger  Logger instance.
      */
     public function __construct($params = array())
     {
@@ -46,9 +47,11 @@ abstract class Horde_Image_Exif_Base
     }
 
     /**
+     * Process the EXIF data.
      *
-     * @param $exif
-     * @return unknown_type
+     * @param array $exif  Array of EXIF data.
+     *
+     * @return array  An array of processed EXIF data.
      */
     protected function _processData($exif)
     {
@@ -157,11 +160,13 @@ abstract class Horde_Image_Exif_Base
     }
 
     /**
+     * Convert degrees representation to decimal representation.
      *
-     * @param $degrees
-     * @param $minutes
-     * @param $seconds
-     * @return unknown_type
+     * @param double $degrees  The degrees latitude or longitude.
+     * @param double $minutes  The minutes latitude or longitude.
+     * @param double $seconds  the seconds latitude or longitude.
+     *
+     * @return double  The decimal representation of the latitude or longitute.
      */
     protected function _degToDecimal($degrees, $minutes, $seconds)
     {
