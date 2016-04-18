@@ -238,7 +238,11 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
 
         // Hack some data to allow UTC observation time to be returned.
         $results->data->current_condition[0]->date = new Horde_Date($results->data->current_condition[0]->localObsDateTime);
-        $results->data->current_condition[0]->date->hour += -$station->getOffset();
+        if (preg_match('/^(\+|-)?(\d{2}):(\d{2})/', $station->getOffset(), $match)) {
+            $factor = $match[1] == '-' ? -1 : 1;
+            $results->data->current_condition[0]->date->hour += $factor * $match[2];
+            $results->data->current_condition[0]->date->min  += $factor * $match[3];
+        }
 
         // Parse it.
         $this->_current = $this->_parseCurrent($results->data->current_condition);
