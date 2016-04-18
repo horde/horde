@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix parsing GPS exif data of a certain format.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1183,7 +1183,7 @@ Initial release as a PEAR package
    <date>2016-03-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix parsing GPS exif data of a certain format.
    </notes>
   </release>
  </changelog>

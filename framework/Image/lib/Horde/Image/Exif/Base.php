@@ -120,6 +120,17 @@ abstract class Horde_Image_Exif_Base
             return 0;
         }
 
+        if (strpos($data[0], '/') !== false) {
+            $hour = explode('/', $data[0]);
+            if (count($hour) > 1) {
+                $hour = $hour[0] / $hour[1];
+            } else {
+                $hour = $hour[0];
+            }
+        } else {
+            $hour = $data[0];
+        }
+
         if (strpos($data[1], '/') !== false) {
             $min = explode('/', $data[1]);
             if (count($min) > 1) {
@@ -142,7 +153,7 @@ abstract class Horde_Image_Exif_Base
             $sec = $data[2];
         }
 
-        return self::_degToDecimal($data[0], $min, $sec);
+        return self::_degToDecimal($hour, $min, $sec);
     }
 
     /**
