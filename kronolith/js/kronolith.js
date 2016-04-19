@@ -6511,9 +6511,8 @@ KronolithCore = {
                     end.add(-1).minute();
                 }
             } else if (old) {
-                end.add(1).day();
-                end.setHours(0);
-                end.setMinutes(0);
+                end.setHours(23);
+                end.setMinutes(59);
             }
             $('kronolithEventEndDate').setValue(end.toString(Kronolith.conf.date_format));
             $('kronolithEventEndTime').setValue(end.toString(Kronolith.conf.time_format));
