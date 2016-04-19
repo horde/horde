@@ -2,6 +2,8 @@
 v6.2.15-git
 -----------
 
+[mjr] Fix re-adding an attachment after it has been removed from the compose
+      window (Bug #14329).
 
 
 -------
