@@ -885,6 +885,8 @@ var DimpCompose = {
                 afterFinish: function() {
                     this.removeAttachRow(elt);
                     this.initAttachList();
+                    $('upload').removeAttribute('value');
+                    $('upload').replace($('upload').cloneNode(true));
                 }.bind(this),
                 duration: 0.4
             });
