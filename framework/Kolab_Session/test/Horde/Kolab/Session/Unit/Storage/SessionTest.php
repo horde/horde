@@ -40,19 +40,19 @@ class Horde_Kolab_Session_Unit_Storage_SessionTest extends Horde_Kolab_Session_T
     public function testLoad()
     {
         $_SESSION['kolab_session'] = array('data');
-        $storage = new Horde_Kolab_Session_Storage_Session($session);
+        $storage = new Horde_Kolab_Session_Storage_Session();
         $this->assertEquals($storage->load(), array('data'));
     }
 
     public function testEmpty()
     {
-        $storage = new Horde_Kolab_Session_Storage_Session($session);
+        $storage = new Horde_Kolab_Session_Storage_Session();
         $this->assertEquals($storage->load(), array());
     }
 
     public function testSave()
     {
-        $storage = new Horde_Kolab_Session_Storage_Session($session);
+        $storage = new Horde_Kolab_Session_Storage_Session();
         $storage->save(array('data'));
         $this->assertEquals($_SESSION['kolab_session'], array('data'));
     }
