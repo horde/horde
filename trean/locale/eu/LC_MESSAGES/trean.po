@@ -1,0 +1,362 @@
+# Basque translations for Trean package.
+# Copyright (C) 2015 Horde LLC (http://www.horde.org/)
+# This file is distributed under the same license as the Trean package.
+# Automatically generated, 2015.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Trean\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2016-04-14 15:27+0200\n"
+"PO-Revision-Date: 2015-07-23 14:02+0100\n"
+"Last-Translator: Ibon Igartua <ibon.igartua@ehu.eus>\n"
+"Language-Team: i18n@lists.horde.org\n"
+"Language: eu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.7.5\n"
+
+#: lib/Block/Bookmarks.php:53 lib/Block/Mostclicked.php:44
+msgid "1 Line"
+msgstr "1 lerro"
+
+#: lib/Block/Bookmarks.php:41 lib/Block/Mostclicked.php:32
+msgid "10 rows"
+msgstr "10 lerro"
+
+#: lib/Block/Bookmarks.php:42 lib/Block/Mostclicked.php:33
+msgid "15 rows"
+msgstr "15 lerro"
+
+#: lib/Block/Bookmarks.php:52 lib/Block/Mostclicked.php:43
+msgid "2 Line"
+msgstr "2 lerro"
+
+#: lib/Block/Bookmarks.php:43 lib/Block/Mostclicked.php:34
+msgid "25 rows"
+msgstr "25 lerro"
+
+#: lib/Block/Bookmarks.php:51 lib/Block/Mostclicked.php:42
+msgid "3 Line"
+msgstr "3 lerro"
+
+#: templates/add.html.php:52
+msgid "Add"
+msgstr "Gehitu"
+
+#: templates/bookmarklet.html.php:1
+msgid "Add to Bookmarks"
+msgstr "Gehitu laster-marketara"
+
+#: templates/list.html.php:13
+msgid "Added"
+msgstr "Gehituta"
+
+#: config/prefs.php:36
+msgid "Ascending (A to Z or oldest to newest)"
+msgstr "Gorantz (Atik Zra edo zaharretik berrira)"
+
+#: add.php:53
+msgid "Bookmark Added"
+msgstr "Laster-marka gehitu da"
+
+#: edit.php:19
+#, php-format
+msgid "Bookmark not found: %s."
+msgstr "Laster-marka ez da aurkitu: %s"
+
+#: config/prefs.php:26
+msgid "Bookmarked on"
+msgstr "Data"
+
+#: lib/Block/Bookmarks.php:19 lib/Block/Bookmarks.php:64
+#: lib/View/BookmarkList.php:119
+msgid "Bookmarks"
+msgstr "Laster-markak"
+
+#: lib/Trean.php:71
+msgid "Bookmarks Feed"
+msgstr "Laster-marken harpidetza"
+
+#: data.php:87
+msgid "Bookmarks successfully imported"
+msgstr "Laster-markak behar bezala inportatu dira"
+
+#: browse.php:31
+msgid "Browse"
+msgstr "Arakatu"
+
+#: data.php:78
+msgid "Can't create a new bookmark."
+msgstr "Ezin da laster-marka berria sortu."
+
+#: templates/add.html.php:53 templates/edit.html.php:63
+msgid "Cancel"
+msgstr "Utzi"
+
+#: templates/list.html.php:14
+msgid "Clicks"
+msgstr "Klikak"
+
+#: lib/Api.php:131
+msgid "Close"
+msgstr "Itxi"
+
+#: app/controllers/DeleteBookmark.php:13
+msgid "Deleted bookmark: "
+msgstr "Ezabatutako laster-marka: "
+
+#: config/prefs.php:37
+msgid "Descending (9 to 1 or newest to oldest)"
+msgstr "Beherantz (9tik 1era edo berritik zaharrera)"
+
+#: templates/add.html.php:25 templates/edit.html.php:34
+msgid "Description"
+msgstr "Azalpena"
+
+#: config/prefs.php:13
+msgid "Display Preferences"
+msgstr "Bistaratzeko hobespenak"
+
+#: lib/Block/Bookmarks.php:37
+msgid "Display Rows"
+msgstr "Bistaratu lerroak"
+
+#: templates/add.html.php:64
+msgid "Drag the \"Add to Bookmarks\" link below onto your \"Links\" Bar"
+msgstr ""
+"Arrastatu  ondorengo \"Gehitu laster-marketara\" esteka nabigatzailearen  "
+"esteken tresna-barrara"
+
+#: templates/add.html.php:62
+msgid ""
+"Drag the \"Add to Bookmarks\" link below onto your \"Personal Toolbar\"."
+msgstr ""
+"Arrastatu  ondorengo \"Gehitu laster-marketara\" esteka nabigatzailearen  "
+"laster-marken tresna-barrara"
+
+#: templates/list.html.php:58
+msgid "Edit"
+msgstr "Editatu"
+
+#: edit.php:42
+msgid "Edit Bookmark"
+msgstr "Editatu laster-markak"
+
+#: data.php:16
+msgid "Firefox JSON"
+msgstr "Firefox JSON"
+
+#: templates/add.html.php:61
+msgid "Firefox/Mozilla"
+msgstr "Firefox/Mozilla"
+
+#: templates/data/import.inc:23
+msgid "Import"
+msgstr "Inportatu"
+
+#: data.php:93 templates/data/import.inc:7
+msgid "Import Bookmarks"
+msgstr "Inportatu laster-markak"
+
+#: templates/add.html.php:63
+msgid "Internet Explorer"
+msgstr "Internet Explorer"
+
+#: templates/add.html.php:38 templates/edit.html.php:47
+msgid "Loading..."
+msgstr "Kargatzen..."
+
+#: lib/Application.php:76
+msgid "Maximum Number of Bookmarks"
+msgstr "Gehieneko laster-marka kopurua"
+
+#: config/prefs.php:25 lib/Block/Bookmarks.php:33
+msgid "Most Clicked"
+msgstr "Gehien klikatutakoak"
+
+#: lib/Block/Mostclicked.php:19
+msgid "Most-clicked Bookmarks"
+msgstr "Gehien klikatutako laster-markak"
+
+#: add.php:84 templates/add.html.php:9
+msgid "New Bookmark"
+msgstr "Laster-marka berria"
+
+#: search.php:43
+msgid "No bookmarks found"
+msgstr "Ez da laster-markarik aurkitu"
+
+#: lib/Block/Bookmarks.php:91 lib/Block/Mostclicked.php:72
+msgid "No bookmarks to display"
+msgstr "Ez dago laster-markarik bistaratzeko"
+
+#: browse.php:18
+msgid "No bookmarks yet."
+msgstr "Ez dago laster-markarik oraindik."
+
+#: search.php:50
+msgid "No search"
+msgstr "Ez dago bilaketarik"
+
+#: templates/add.html.php:67
+msgid "Note:"
+msgstr "Oharra:"
+
+#: lib/Block/Mostclicked.php:28
+msgid "Number of bookmarks to show"
+msgstr "Bistaratuko diren laster-marken kopurua"
+
+#: templates/add.html.php:68
+#, php-format
+msgid ""
+"On newer versions of Internet Explorer, you may have to add %s://%s to your "
+"Trusted Zone for this to work."
+msgstr ""
+"Internet explorer bertsio berrietan erabili ahal izateko, %s://%s  zona "
+"fidagarrietara gehitu beharko duzu."
+
+#: config/prefs.php:46
+msgid "Open links in a new window?"
+msgstr "Ireki estekak leiho berrian?"
+
+#: config/prefs.php:12
+msgid "Other Preferences"
+msgstr "Beste hobespen batzuk"
+
+#: templates/add.html.php:43 templates/edit.html.php:52
+msgid "Previously used tags"
+msgstr "Aurrez erabilitako etiketak"
+
+#: lib/View/BookmarkList.php:213
+msgid "Remove from search"
+msgstr "Kendu bilaketatik"
+
+#: templates/edit.html.php:62
+msgid "Save"
+msgstr "Gorde"
+
+#: search.php:36
+msgid "Search"
+msgstr "Bilatu"
+
+#: search.php:47
+#, php-format
+msgid "Search results (%s)"
+msgstr "Bilaketaren emaitzak (%s)"
+
+#: templates/add.html.php:41 templates/edit.html.php:50
+msgid "See previously used tags"
+msgstr "Ikusi aurretik erabilitako etiketak"
+
+#: templates/data/import.inc:18
+msgid "Select the file to import:"
+msgstr "Hautatu inportatzeko fitxategia:"
+
+#: templates/data/import.inc:11
+msgid "Select the format of the source file:"
+msgstr "Hautatu iturburu-fitxategiaren formatua:"
+
+#: config/prefs.php:14
+msgid "Set how to display bookmark listings and how to open links."
+msgstr ""
+"Laster-marken zerrendak zelan bistaratu eta estekak zelan ireki zehaztu."
+
+#: config/prefs.php:28
+msgid "Sort bookmarks by:"
+msgstr "Ordenatu laster-markak honen arabera:"
+
+#: lib/Block/Bookmarks.php:28
+msgid "Sort by"
+msgstr "Ordenatu honen arabera"
+
+#: config/prefs.php:38
+msgid "Sort direction:"
+msgstr "Ordenatzeko noranzkoa:"
+
+#: app/controllers/BrowseByTag.php:23
+#, php-format
+msgid "Tagged with %s"
+msgstr "Honekin etiketatua: %s"
+
+#: lib/Application.php:102 templates/add.html.php:30
+#: templates/edit.html.php:39
+msgid "Tags"
+msgstr "Etiketak"
+
+#: lib/Block/Bookmarks.php:47 lib/Block/Mostclicked.php:38
+msgid "Template"
+msgstr "Txantiloia"
+
+#: data.php:70
+msgid "The file didn't contain any bookmarks."
+msgstr "Fitxategiak ez dauka laster-markarik."
+
+#: app/controllers/DeleteBookmark.php:16
+#, php-format
+msgid "There was a problem deleting the bookmark: %s"
+msgstr "Arazo bat gertatu da laster-marka ezabatzean: %s"
+
+#: add.php:47
+#, php-format
+msgid "There was an error adding the bookmark: %s"
+msgstr "Errore bat gertatu da laster-marka gehitzean: %s"
+
+#: app/controllers/SaveBookmark.php:25
+#, php-format
+msgid "There was an error saving the bookmark: %s"
+msgstr "Errore bat gertatu da laster-marka gordetzean: %s"
+
+#: data.php:79
+#, php-format
+msgid "This is what the server said: %s"
+msgstr "Hau esan du zerbitzariak: %s"
+
+#: config/prefs.php:24 lib/Block/Bookmarks.php:32 templates/add.html.php:20
+#: templates/edit.html.php:29 templates/list.html.php:12
+msgid "Title"
+msgstr "Izenburua"
+
+#: templates/add.html.php:60
+msgid "To be able to quickly add bookmarks from your web browser:"
+msgstr "Laster-markak nabigatzailetik klik batean sortu ahal izateko:"
+
+#: templates/add.html.php:15 templates/edit.html.php:24
+msgid "URL"
+msgstr "URLa"
+
+#: templates/add.html.php:65
+msgid ""
+"While browsing you will be able to bookmark the current page by clicking "
+"your new \"Add to Bookmarks\" shortcut."
+msgstr ""
+"Nabigatu bitartean uneko orria laster-marketara gehitzeko \"Gehitu laster-"
+"marketara\" estekan klik egin dezakezu."
+
+#: add.php:25
+#, php-format
+msgid "You are not allowed to create more than %d bookmarks."
+msgstr "Ez daukazu baimenik %d laster-marka baino gehiago sortzeko."
+
+#: lib/Application.php:86
+msgid "_Browse"
+msgstr "_Arakatu"
+
+#: lib/Application.php:87
+msgid "_Import"
+msgstr "_Inportatu"
+
+#: lib/Application.php:97
+msgid "_New Bookmark"
+msgstr "_Laster-marka berria"
+
+#: templates/block/1line.inc:21 templates/block/2line.inc:24
+#: templates/block/standard.inc:22
+msgid "click"
+msgstr "klik"
+
+#: templates/block/1line.inc:21 templates/block/2line.inc:24
+#: templates/block/standard.inc:22
+msgid "clicks"
+msgstr "klik"
