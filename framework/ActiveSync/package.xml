@@ -2970,7 +2970,7 @@
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix possible leaking of Horde_Imap_Client Exceptions.
-* [mjr] Fix reversed login in GHOSTED element handling.
+* [mjr] Fix reversed logic in GHOSTED element handling.
 * [mjr] Changes for EAS 16.0 support.
 * [mjr] Fix error when attempting to rewrite previous syncstate.
    </notes>
