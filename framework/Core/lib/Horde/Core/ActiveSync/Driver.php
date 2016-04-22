@@ -75,7 +75,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     /**
      * Authentication object
      *
-     * @var Horde_Auth_Base
+     * @var Horde_Core_ActiveSync_Auth
      */
     protected $_auth;
 
@@ -117,7 +117,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      *   - connector: (Horde_Core_ActiveSync_Connector) The connector object
      *                for communicating with the registry.
      *                DEFAULT: none (REQUIRED)
-     *   - auth: (Horde_Auth) The auth object.
+     *   - auth: (Horde_Core_ActiveSync_Auth) The auth object.
      *           DEFAULT: none (REQUIRED).
      *   - imap: (Horde_ActiveSync_Imap_Adapter) The IMAP adapter if email
      *           support is desired.

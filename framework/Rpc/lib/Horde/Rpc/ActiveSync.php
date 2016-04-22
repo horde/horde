@@ -172,7 +172,7 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
 
     /**
      * Override the authorize method and always return true. The ActiveSync
-     * server classes handld authentication directly since we need complete
+     * server classes handle authentication directly since we need complete
      * control over what responses are sent.
      *
      * @return boolean
