@@ -60,79 +60,16 @@
     <heading>Ezetsi mezu hau arrazoiarekin</heading>
     <para>Jatorrizko mezua baztertu egingo da, eta mezu berri bat bidaliko diozu bidaltzaileari zuk zehaztutako testuarekin.</para>
   </entry>
-  <entry id="rule-combine" md5="29484c1ebdd7ce71edc34fc8100ef69c" state="changed">
-    <title>Iragazteko araua: Konbinatu aukerak</title>
-    <para>Arau batean baldintza asko defini ditzakezu. Logikoki batera taldeka ditzakezu "eta"/"edo" erabiliz. Ezin duzu bi baldintzak dauzkan iragazki konplexurik sortu.</para>
-    <heading>Eta</heading>
-    <para>ETA hautatzen baduzu, iristen den mezu batek zuk zehaztutako baldintza guztiak bete behar ditu, ekintzak exekutatzeko.</para>
-    <heading>Or</heading>
-    <para>EDO hautatzen baduzu, zehaztutako ekintzak exekutatuko dira, baldintzetako bat betetzen bada gutxienez.</para>
-  <!-- English entry (2013-11-05):
-<entry id="rule-combine">
-    <title>Filter Rule: Combine Options</title>
+  <entry id="rule-match" state="uptodate" md5="9c59f97fcc11a8349105610a26630ecd">
+    <title>Filter Rule: Matching</title>
     <para>You may define multiple conditions within a single rule. You may
-    group them together logically using "and"/"or". You may not create complex
+    group them together logically using ALL or OR. You may not create complex
     filters containing both types of conditions.</para>
-    <heading>And</heading>
-    <para>If you select AND, an incoming message must match every condition
-    that you specify in order for the actions to be executed.</para>
-    <heading>Or</heading>
-    <para>If you select OR, the specified actions will be executed if at least
-    one of the conditions is met.</para>
-  </entry>--></entry>
-  <entry id="rule-mark" md5="e8bdb30d1c1c1cdc5ec1e5e4804f9300" state="uptodate">
-    <title>Iragazteko araua: Markatu mezua</title>
-    <para>Mezu bat IMAP bandera bat baino gehiagorekin markatzea zehatz dezakezu, arau batean ekintza bat baino gehiago egiteko. Aukerak hauek dira: Ikusita, Segimendurako markatuta, Erantzunda eta Ezabatuta.</para>
-  </entry>
-  <entry id="rule-matches" md5="d30d522bc0e6b34ab656e658dc5ecc9e" state="changed">
-    <title>Iragazteko araua: Bat dator</title>
-    <para>Arau bateko baldintza bakoitzean 3 osagai daude. Lehena aztertu behar den eremua da. Bigarrena egin behar den konparazio mota da. Hirugarrenak eremua zein baliorekin konparatu behar den zehazten du. Konparazio mota batzuk egin daitezke. Edozein eremutako konparazio erabilgarriak eremu motaren eta azpiko iragazki-softwareak maneia dezakeenaren araberakoak izaten dira. Beraz, behean zerrendatuta dauden bat-etortze posible guztiak ez dira agertuko eremuan.</para>
-    <heading>Hau dauka</heading>
-    <para>Egiazkotzat joko da, zehaztutako katea lerroan zehar, nonbait, aurkitzen bada. Adibidea: user@example bat etorriko litzateke
-    joe_user@example.com helbidearekin</para>
-    <heading>Ez dauka</heading>
-    <para>Egiazkotzat joko da zehaztutako katea ez bada lerroan zehar inon aurkitzen. Adibidea: user@example ez litzateke bat etorriko
-    joe_user@example.com helbidearekin</para>
-    <heading>Hau da</heading>
-    <para>Egiazkotzat joko da zehaztutako katea lerroarekin bat badator zehatz-mehatz. Adibidea: user@example.com user@example.com da</para>
-    <heading>Ez da hau</heading>
-    <para>Egiazkotzat joko da zehaztutako katea ez badator bat lerroaren amaierarekin. Adibidea: user@example ez da user@example.com</para>
-    <heading>Honela hasten da</heading>
-    <para>Egiazkotzat joko da zehaztutako katea lerroaren hasierarekin bat etortzen bada. Adibidea: user@example bat etorriko litzateke
-    user@example.com helbidearekin</para>
-    <heading>Ez da honela hasten</heading>
-    <para>Egiazkotzat joko da zehaztutako katea ez badator bat lerroaren hasierarekin. Adibidea: user@example.com ez litzateke bat etorriko
-    user@example helbidearekin</para>
-    <heading>Honela amaitzen da</heading>
-    <para>Egiazkotzat joko da zehaztutako katea lerroaren amaierarekin bat etortzen bada. Adibidea: example.com bat etorriko da user@example.com helbidearekin</para>
-    <heading>Ez da honela amaitzen</heading>
-    <para>Egiazkotzat joko da zehaztutako katea ez badator bat lerroaren amaierarekin. Example: horde.org ez da bat etorriko
-    user@example.com helbidearekin</para>
-    <heading>Badago</heading>
-    <para>Egiazkotzat joko da zehaztutako goiburua mezuan badago, zein balio den kontuan hartu gabe.</para>
-    <heading>Ez dago</heading>
-    <para>Egiazkotzat joko da zehaztutako goiburua ez badago mezuan.</para>
-    <heading>Regex</heading>
-    <para>Regex-en bidez, POSIX adierazpen erregular bateragarri konplexuak erabil ditzakezu mezuaren goiburua hautatzeko. Adibidea: "Bidaltzailea [*\.*\.*\.*] (a-ostalaria|b-ostalaria).example.com*" eta "Bidaltzailea [172.16.100.1] a-ostalaria.example.com asteartean" bat etor daitezke</para>
-    <heading>Bat datoz</heading>
-    <para>Bat-etortzea eta edukia antzekoak dira, baina * eta ? komodinak ere erabil ditzakezu. * komodinak edozein karaktere kopururekin bat egiten du, eta ? komodinak zehazki karaktere batekin egiten du bat. Adibidea: "*erabiltzailea?@example.com" helbideak "erabiltzailea1@example.com" eta "bestelakoerabiltzailea2@example.com" helbideekin bat egingo du.</para>
-    <heading>Ez dator bat</heading>
-    <para>"Ez dator bat" bat etortzea bezalakoa da, baina kasu honetan faltsu gisa ebaluatuko da, zehaztutako balioa mezuaren goiburuko katearekin bat badator.</para>
-    <heading>Hau baino txikiagoa da</heading>
-    <para>Proba erlazional bat da, zehaztutako balioa eta mezuaren goiburuko balioa zenbaki-mailan konparatuko dituena.</para>
-    <heading>Txikiagoa edo berdina da</heading>
-    <para>Proba erlazional bat da, zehaztutako balioa eta mezuaren goiburuko balioa zenbaki-mailan konparatuko dituena.</para>
-    <heading>Berdin</heading>
-    <para>Proba erlazional bat da, zehaztutako balioa eta mezuaren goiburuko balioa zenbaki-mailan konparatuko dituena.</para>
-    <heading>Greater than or equal to</heading>
-    <para>Proba erlazional bat da, zehaztutako balioa eta mezuaren goiburuko balioa zenbaki-mailan konparatuko dituena.</para>
-    <heading>Hau baino handiagoa da</heading>
-    <para>Proba erlazional bat da, zehaztutako balioa eta mezuaren goiburuko balioa zenbaki-mailan konparatuko dituena.</para>
-    <heading>Sieve iragazketaren muga</heading>
-    <warn>Sieve zehaztapenak ez ditu onartzen zenbaki negatiboak dituzten konparazioak. Balio negatibo bat sartzen baduzu proba erlazionaletako batean, arauak ez du behar bezala funtzionatuko.</warn>
-  <!-- English entry (2013-11-05):
-<entry id="rule-matches">
-    <title>Filter Rule: Matches</title>
+    <para>If you select <b>ALL</b>, an incoming message must match every
+    condition that you specify in order for the actions to be executed.</para>
+    <para>If you select <b>ANY</b>, the specified actions will be executed if
+    at least one of the conditions is met.</para>
+    <heading>Conditions</heading>
     <para>There are 3 components to each condition in a rule. The first is the
     field to examine. The second is the type of comparison to perform. The
     third is the value to which the field should be compared. There are a few
@@ -181,7 +118,7 @@
     <heading>Matches</heading>
     <para>Matches is similar to contains, with the exception that you may use *
     and ? as wildcards. An * will match any number of characters, and a ? will
-    match exactly one charater. Example: "*user?@example.com" will match both
+    match exactly one character. Example: "*user?@example.com" will match both
     "user1@example.com" and "otheruser2@example.com"</para>
     <heading>Doesn't match</heading>
     <para>Doesn't match is the same as matches except that it will evaluate to
@@ -206,7 +143,11 @@
     <warn>The Sieve specification doesn't support comparions with negative
     numbers. If you enter a negative value in one of the relational tests,
     your rule won't work correctly.</warn>
-  </entry>--></entry>
+  </entry>
+  <entry id="rule-mark" md5="e8bdb30d1c1c1cdc5ec1e5e4804f9300" state="uptodate">
+    <title>Iragazteko araua: Markatu mezua</title>
+    <para>Mezu bat IMAP bandera bat baino gehiagorekin markatzea zehatz dezakezu, arau batean ekintza bat baino gehiago egiteko. Aukerak hauek dira: Ikusita, Segimendurako markatuta, Erantzunda eta Ezabatuta.</para>
+  </entry>
   <entry id="rule-name" md5="8faaf71e4bf2f91d943d77f803f9a2d5" state="uptodate">
     <title>Iragazteko araua: Izena</title>
     <para>Arau baten izen deskribatzailea da. Izen deskribatzailea erabil dezakezu iragazki-zerrendan arau bat identifikatzeko.</para>
@@ -250,10 +191,6 @@
   <entry id="whitelist" md5="ecbf7000f107832d68bd7ba8f5121909" state="uptodate">
     <title>Zerrenda zuria</title>
     <para>SARRERAKO ONTZIAn beti ikusi nahi dituzun helbide elektroniko seguruen zerrenda da zerrenda zuria. Helbide bakoitza lerro batean sartu behar da.</para>
-  </entry>
-  <entry id="whitelist-addresses" md5="9ad6cb56e8bc5762112fa95382424608" state="uptodate">
-    <title>Zerrenda zuria: Helbideak</title>
-    <para>EGITEKO Helbide bakoitza lerro batean sartu behar da.</para>
   </entry>
   <entry id="spam-level" md5="6f00c30a45b0acaef4ae9dba56d58013" state="uptodate">
     <title>Mezu baztergarrien iragazkia: Baztergarri-maila</title>

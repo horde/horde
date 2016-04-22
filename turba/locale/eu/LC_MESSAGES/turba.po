@@ -5,69 +5,68 @@ msgid ""
 msgstr ""
 "Project-Id-Version: turba\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-11-06 16:40+0100\n"
-"PO-Revision-Date: 2013-02-08 17:09+0100\n"
-"Last-Translator: Edurne <edurne@uzei.com>\n"
+"POT-Creation-Date: 2016-04-14 15:27+0200\n"
+"PO-Revision-Date: 2016-04-15 09:54+0200\n"
+"Last-Translator: Ibon Igartua <ibon.igartua@ehu.eus>\n"
 "Language-Team: Euskal Herriko Unibertsitatea <webmaster@ehu.es>\n"
 "Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Virtaal 0.7.1\n"
-"X-Poedit-Language: Basque\n"
+"X-Generator: Poedit 1.8.4\n"
 
-#: data.php:293
+#: data.php:287
 #, php-format
 msgid "\"%s\" already exists and was not imported."
 msgstr "\"%s\" badago lehendik eta ez da inportatu."
 
-#: lib/Form/EditContact.php:82
+#: lib/Form/EditContact.php:102
 #, php-format
 msgid "\"%s\" updated, but saving the uploaded file failed: %s"
 msgstr ""
 "\"%s\" eguneratu da, baina huts egin du eguneratutako fitxategia gordetzean: "
 "%s"
 
-#: lib/Form/EditContact.php:80 lib/Form/EditContact.php:85
+#: lib/Form/EditContact.php:100 lib/Form/EditContact.php:105
 #, php-format
 msgid "\"%s\" updated."
 msgstr "\"%s\" eguneratu da."
 
-#: lib/View/Browse.php:196
+#: lib/View/Browse.php:190
 #, php-format
 msgid "\"%s\" was not copied because it is a list."
 msgstr "\"%s\" ez da kopiatu zerrenda bat delako."
 
-#: lib/View/Browse.php:191
+#: lib/View/Browse.php:185
 #, php-format
 msgid "\"%s\" was not moved because it is a list."
 msgstr "\"%s\" ez da lekuz aldatu zerrenda bat delako."
 
-#: config/prefs.php:139 config/prefs.php:151
+#: config/prefs.php:152 config/prefs.php:164
 msgid "\"Firstname Lastname\"  (ie. John Doe)"
 msgstr "\"Izena Abizena\" (adib. Maialen Ugarte)"
 
-#: config/prefs.php:138 config/prefs.php:150
+#: config/prefs.php:151 config/prefs.php:163
 msgid "\"Lastname, Firstname\" (ie. Doe, John)"
 msgstr "\"Abizena, Izena\" (adib. Ugarte, Maialen)"
 
-#: lib/Driver.php:722
+#: lib/Driver.php:793
 #, php-format
 msgid "%d. %s of %s"
 msgstr "%d. %s / %s"
 
-#: lib/Form/AddContact.php:88
+#: lib/Form/AddContact.php:92
 #, php-format
 msgid "%s added."
 msgstr "%s gehitu da."
 
-#: data.php:331
+#: data.php:319
 #, php-format
 msgid "%s file successfully imported."
 msgstr "%s fitxategia behar bezala inportatu da."
 
-#: lib/Api.php:1363
+#: lib/Api.php:1478
 #, php-format
 msgid "%s in %s"
 msgstr "%s - %s"
@@ -81,16 +80,16 @@ msgstr "%s - %s / %s"
 msgid "<< Merge this into the first contact"
 msgstr "<< Batu lehen kontaktuarekin"
 
-#: lib/Application.php:457 view.php:48
+#: lib/Application.php:510 view.php:38
 #, php-format
 msgid "Access denied to %s"
 msgstr "Honako sarbidea ukatu da: %s"
 
-#: lib/Form/AddContact.php:17 templates/browse/actions.inc:27
+#: lib/Form/AddContact.php:21 templates/browse/actions.inc:27
 msgid "Add"
 msgstr "Gehitu"
 
-#: lib/Form/EditContact.php:31
+#: lib/Form/EditContact.php:48
 msgid "Add file"
 msgstr "Gehitu fitxategia"
 
@@ -98,7 +97,7 @@ msgstr "Gehitu fitxategia"
 msgid "Add to"
 msgstr "Gehitu hemen"
 
-#: lib/Api.php:1536
+#: lib/Api.php:1651
 #, php-format
 msgid "Added or updated %d contact, but at least one contact failed:"
 msgid_plural "Added or updated %d contacts, but at least one contact failed:"
@@ -109,7 +108,7 @@ msgstr[1] ""
 "%d kontaktu gehitu edo eguneratu dira, baina kontaktu batek gutxienez hutsik "
 "egin du:"
 
-#: lib/Driver.php:2831
+#: lib/Driver.php:3074
 msgid "Adding contacts is not available."
 msgstr "Kontaktu-gehitzea ez dago erabilgarri."
 
@@ -117,7 +116,7 @@ msgstr "Kontaktu-gehitzea ez dago erabilgarri."
 msgid "Address Book"
 msgstr "Helbide-liburua"
 
-#: config/prefs.php:127 lib/View/Browse.php:42
+#: config/prefs.php:140 lib/View/Browse.php:42
 msgid "Address Book Listing"
 msgstr "Helbide-liburuen zerrenda"
 
@@ -126,16 +125,16 @@ msgstr "Helbide-liburuen zerrenda"
 msgid "Address Books"
 msgstr "Helbide-liburuak"
 
-#: lib/Api.php:414
+#: lib/Api.php:411
 msgid "Address book does not exist"
 msgstr "Helbide-liburua ez dago"
 
-#: lib/Turba.php:646
+#: lib/Turba.php:680
 #, php-format
 msgid "Address book of %s"
 msgstr "Honen helbide-liburua: %s"
 
-#: data.php:268
+#: data.php:262
 msgid "Address book successfully purged."
 msgstr "Helbide-liburua behar bezala borratu da betiko."
 
@@ -143,7 +142,7 @@ msgstr "Helbide-liburua behar bezala borratu da betiko."
 msgid "Addressbook entry could not be loaded."
 msgstr "Ezin izan da kargatu helbide-liburuko sarrera."
 
-#: search.php:170 search.php:214
+#: search.php:204 search.php:248
 msgid "Advanced Search"
 msgstr "Bilaketa aurreratua"
 
@@ -151,11 +150,12 @@ msgstr "Bilaketa aurreratua"
 msgid "Alias"
 msgstr "Aliasa"
 
-#: templates/list/alphaPager.inc:6 templates/list/alphaPager.inc:8
+#: search.php:53 templates/list/alphaPager.inc:6
+#: templates/list/alphaPager.inc:8 templates/search/basic.html.php:12
 msgid "All"
 msgstr "Denak"
 
-#: config/prefs.php:79
+#: config/prefs.php:84
 msgid ""
 "All state removed for your ActiveSync devices. They will resynchronize next "
 "time they connect to the server."
@@ -163,36 +163,36 @@ msgstr ""
 "Egoera guztiak kendu zaizkie ActiveSync gailuei. Zerbitzarira konektatzen "
 "diren hurrengo aldian berriro sinkronizatuko dira."
 
-#: lib/Api.php:685
+#: lib/Api.php:754
 msgid "Already Exists"
 msgstr "Badago lehendik"
 
-#: config/attributes.php:107
+#: config/attributes.php:119
 msgid "Anniversaries"
 msgstr "Urteurrenak"
 
-#: config/attributes.php:103
+#: config/attributes.php:115
 msgid "Anniversary"
 msgstr "Urteurrena"
 
-#: lib/Turba.php:681
+#: lib/Turba.php:715
 #, php-format
 msgid "Are you sure that you want to delete %s?"
 msgstr "Ziur zaude %s ezabatu nahi duzula?"
 
-#: lib/Turba.php:686
+#: lib/Turba.php:720
 msgid "Are you sure that you want to delete the selected contacts?"
 msgstr "Ziur zaude hautatutako kontaktuak ezabatu nahi dituzula?"
 
-#: config/attributes.php:500
+#: config/attributes.php:524
 msgid "Assistant"
 msgstr "Laguntzailea"
 
-#: config/attributes.php:312
+#: config/attributes.php:342
 msgid "Assistant Phone"
 msgstr "Laguntzailearen telefonoa"
 
-#: search.php:169 search.php:203
+#: search.php:203 search.php:238
 msgid "Basic Search"
 msgstr "Oinarrizko bilaketa"
 
@@ -201,24 +201,24 @@ msgstr "Oinarrizko bilaketa"
 msgid "Bind failed: (%s) %s"
 msgstr "Loturak huts egin du: (%s) %s"
 
-#: config/attributes.php:96
+#: config/attributes.php:108
 msgid "Birthday"
 msgstr "Urtebetetzea"
 
-#: config/attributes.php:100
+#: config/attributes.php:112
 msgid "Birthdays"
 msgstr "Urtebetetzeak"
 
-#: contact.php:121 templates/browse/row.inc:10
+#: contact.php:124 templates/browse/row.inc:10
 msgid "Blank name"
 msgstr "Izen hutsa"
 
-#: templates/smartmobile/browse.html.php:2
+#: lib/Smartmobile.php:118 templates/smartmobile/browse.html.php:2
 #: templates/smartmobile/entry.html.php:2
 msgid "Browse"
 msgstr "Arakatu"
 
-#: config/attributes.php:391
+#: config/attributes.php:421
 msgid "Business Category"
 msgstr "Negozio-kategoria"
 
@@ -226,20 +226,28 @@ msgstr "Negozio-kategoria"
 msgid "CSV"
 msgstr "CSV"
 
-#: lib/Object/Group.php:65
-msgid "Can't add a group to itself."
-msgstr "Ezin zaio talde bat gehitu bere buruari."
+#: lib/Object/Group.php:70
+msgid "Can't add a contact list to itself."
+msgstr "Ezin zaio kontaktu-zerrenda bat gehitu bere buruari."
 
 #: lib/Form/DeleteAddressBook.php:35 lib/Form/DeleteAddressBook.php:45
-#: lib/Form/EditAddressBook.php:82 lib/Form/EditAddressBook.php:103
+#: lib/Form/EditAddressBook.php:146 lib/Form/EditAddressBook.php:167
 msgid "Cancel"
 msgstr "Utzi"
 
-#: config/attributes.php:329
+#: config/attributes.php:359
 msgid "Car Phone"
 msgstr "Telefonoa (autoa)"
 
-#: config/attributes.php:468
+#: lib/Form/EditAddressBook.php:98
+msgid "CardDAV Account URL"
+msgstr "CalDAV kontuaren URLa"
+
+#: lib/Form/EditAddressBook.php:88
+msgid "CardDAV Subscription URL"
+msgstr "CalDAV harpidetzaren URLa"
+
+#: config/attributes.php:498
 msgid "Category"
 msgstr "Kategoria"
 
@@ -248,7 +256,7 @@ msgstr "Kategoria"
 msgid "Change %s sort to %s"
 msgstr "Aldatu %s ordena hona: %s"
 
-#: lib/Form/EditAddressBook.php:68
+#: lib/Form/EditAddressBook.php:132
 msgid "Change Permissions"
 msgstr "Aldatu baimenak"
 
@@ -260,11 +268,11 @@ msgstr "Egiaztatu guztiak/bat ere ez"
 msgid "Check _All/None"
 msgstr "Egiaztatu _guztiak/bat ere ez"
 
-#: config/attributes.php:116
+#: config/attributes.php:128
 msgid "Children"
 msgstr "Haurrak"
 
-#: lib/Form/AddContact.php:28
+#: lib/Form/AddContact.php:32
 msgid "Choose an address book"
 msgstr "Aukeratu helbide-liburu bat"
 
@@ -307,55 +315,55 @@ msgstr "Komaz bereizitako balioak"
 msgid "Comma separated values (Microsoft Outlook)"
 msgstr "Komaz bereizitako balioak (Microsoft Outlook)"
 
-#: config/attributes.php:606
+#: config/attributes.php:624
 msgid "Common Address Extended"
 msgstr "Helbide arrunt hedatua"
 
-#: config/attributes.php:624
+#: config/attributes.php:642
 msgid "Common City"
 msgstr "Herri arrunta"
 
-#: config/attributes.php:642
+#: config/attributes.php:660 config/attributes.php:666
 msgid "Common Country"
 msgstr "Herrialde arrunta"
 
-#: config/attributes.php:542
+#: config/attributes.php:566
 msgid "Common Phone"
 msgstr "Telefono arrunta"
 
-#: config/attributes.php:618
+#: config/attributes.php:636
 msgid "Common Post Office Box"
 msgstr "Posta-kode arrunta"
 
-#: config/attributes.php:636
+#: config/attributes.php:654
 msgid "Common Postal Code"
 msgstr "Posta-kode arrunta"
 
-#: config/attributes.php:630
+#: config/attributes.php:648
 msgid "Common State/Province"
 msgstr "Herrialde/Probintzia arrunta"
 
-#: config/attributes.php:612
+#: config/attributes.php:630
 msgid "Common Street"
 msgstr "Kale arrunta"
 
-#: config/attributes.php:570
+#: config/attributes.php:588
 msgid "Common Video Call"
 msgstr "Bideo-dei arrunta"
 
-#: config/backends.php:340 config/backends.php:666
+#: config/backends.php:358 config/backends.php:697
 msgid "Communications"
 msgstr "Komunikazioak"
 
-#: config/attributes.php:397
+#: config/attributes.php:427
 msgid "Company"
 msgstr "Enpresa"
 
-#: config/attributes.php:220
+#: config/attributes.php:244
 msgid "Company Address"
 msgstr "Enpresaren helbidea"
 
-#: config/attributes.php:318
+#: config/attributes.php:348
 msgid "Company Phone"
 msgstr "Enpresako telefonoa"
 
@@ -363,11 +371,19 @@ msgstr "Enpresako telefonoa"
 msgid "Connection failure"
 msgstr "Konexioak huts egin du"
 
+#: lib/Smartmobile.php:119 templates/browse/row.inc:56
+msgid "Contact List"
+msgstr "Kontaktu-zerrenda"
+
+#: lib/Ajax/Application/Handler/Smartmobile.php:105
+msgid "Contact List Members"
+msgstr "Kontaktu-zerrendako kideak"
+
 #: lib/Block/Minisearch.php:27
 msgid "Contact Search"
 msgstr "Kontaktu-bilaketa"
 
-#: lib/Driver/Kolab.php:815
+#: lib/Driver/Kolab.php:969
 msgid "Contacts"
 msgstr "Kontaktuak"
 
@@ -375,7 +391,12 @@ msgstr "Kontaktuak"
 msgid "Contacts displayed:"
 msgstr "Bistaratutako kontaktuak:"
 
-#: lib/View/Browse.php:440
+#: lib/Api.php:282
+#, php-format
+msgid "Contacts from %s"
+msgstr "Honen kontaktuak: %s"
+
+#: lib/View/Browse.php:435
 #, php-format
 msgid "Contacts in list: %s"
 msgstr "Zerrendako kontaktuak: %s"
@@ -383,6 +404,22 @@ msgstr "Zerrendako kontaktuak: %s"
 #: templates/browse/actions.inc:17
 msgid "Copy"
 msgstr "Kopiatu"
+
+#: lib/Form/EditAddressBook.php:92
+msgid "Copy this URL to a CardDAV client to subscribe to this address book"
+msgstr ""
+"Kopiatu ondorengo URLa CardDAV bezerora helbide-liburu honetara harpidetzeko"
+
+#: lib/Form/EditAddressBook.php:102
+msgid ""
+"Copy this URL to a CarddAV client to subscribe to all your address books"
+msgstr ""
+"Kopiatu ondorengo URLa CardDAV bezerora helbide-liburu guztietara "
+"harpidetzeko"
+
+#: lib/Form/EditAddressBook.php:118
+msgid "Copy this URL to a WebDAV client to browse this address book"
+msgstr "Kopiatu ondorengo URLa WebDAV bezerora helbide-liburu hau ikusteko"
 
 #: templates/search/duplicate/list.html.php:16
 msgid "Count"
@@ -396,15 +433,15 @@ msgstr "Sortu"
 msgid "Create Address Book"
 msgstr "Sortu helbide-liburua"
 
-#: lib/Application.php:192
+#: lib/Application.php:239
 msgid "Create a new Address Book"
 msgstr "Sortu helbide-liburu berria"
 
-#: lib/View/List.php:490
+#: lib/View/List.php:495
 msgid "Create a new Contact List in:"
 msgstr "Sortu kontaktu-zerrenda berria hemen:"
 
-#: lib/View/Contact.php:48
+#: lib/View/Contact.php:49
 msgid "Created"
 msgstr "Sortze-data"
 
@@ -412,8 +449,8 @@ msgstr "Sortze-data"
 msgid "De_lete"
 msgstr "E_zabatu"
 
-#: lib/Form/DeleteAddressBook.php:34 lib/Form/EditAddressBook.php:81
-#: lib/Form/EditAddressBook.php:98 lib/View/DeleteContact.php:58
+#: lib/Form/DeleteAddressBook.php:34 lib/Form/EditAddressBook.php:145
+#: lib/Form/EditAddressBook.php:162 lib/View/DeleteContact.php:58
 #: templates/search/duplicate/contact_header.html.php:22
 msgid "Delete"
 msgstr "Ezabatu"
@@ -430,14 +467,14 @@ msgstr "Ezabatu %s"
 
 #: lib/View/DeleteContact.php:28
 #, php-format
-msgid "Delete Group \"%s\""
-msgstr "Ezabatu taldea: \"%s\""
+msgid "Delete Contact List \"%s\""
+msgstr "Ezabatu \"%s\" kontaktu-zerrenda"
 
-#: lib/Api.php:410
+#: lib/Api.php:407
 msgid "Delete denied."
 msgstr "Ezabatzea ukatu da."
 
-#: lib/Driver/Ldap.php:350
+#: lib/Driver/Ldap.php:362
 #, php-format
 msgid "Delete failed: (%s) %s"
 msgstr "Huts egin du ezabatzean: (%s) %s"
@@ -447,7 +484,7 @@ msgstr "Huts egin du ezabatzean: (%s) %s"
 msgid "Deleted contact: %s"
 msgstr "Ezabatutako kontaktua: %s"
 
-#: lib/Driver.php:2844
+#: lib/Driver.php:3087
 msgid "Deleting contacts is not available."
 msgstr "Kontaktu-ezabatzea ez dago erabilgarri."
 
@@ -455,11 +492,11 @@ msgstr "Kontaktu-ezabatzea ez dago erabilgarri."
 msgid "Deletion failed"
 msgstr "Huts egin du ezabatzean"
 
-#: config/attributes.php:403
+#: config/attributes.php:433
 msgid "Department"
 msgstr "Saila"
 
-#: lib/Form/CreateAddressBook.php:25 lib/Form/EditAddressBook.php:57
+#: lib/Form/CreateAddressBook.php:25 lib/Form/EditAddressBook.php:59
 msgid "Description"
 msgstr "Azalpena"
 
@@ -471,15 +508,15 @@ msgstr "Bistaratzea"
 msgid "Display Preferences"
 msgstr "Bistaratzeko hobespenak"
 
-#: lib/Object.php:427
+#: lib/Object.php:523
 msgid "Download"
 msgstr "Deskargatu"
 
-#: templates/browse/column_headers.inc:15 templates/browse/row.inc:26
+#: templates/browse/column_headers.inc:15 templates/browse/row.inc:28
 msgid "Download vCard"
 msgstr "Deskargatu vCard"
 
-#: search.php:172 search.php:222
+#: search.php:206 search.php:260
 msgid "Duplicate Search"
 msgstr "Errepikatuen bilaketa"
 
@@ -494,35 +531,35 @@ msgid "Duplicates of %s \"%s\""
 msgstr "%s errepikatuak \"%s\""
 
 #: templates/browse/actions.inc:8 templates/browse/column_headers.inc:12
-#: templates/browse/row.inc:36
+#: templates/browse/row.inc:38
 #: templates/search/duplicate/contact_header.html.php:29
 msgid "Edit"
 msgstr "Editatu"
 
-#: edit.php:85 lib/View/EditContact.php:27
+#: edit.php:87 lib/View/EditContact.php:27
 #, php-format
 msgid "Edit \"%s\""
 msgstr "Editatu \"%s\""
 
-#: lib/Form/EditAddressBook.php:38
+#: lib/Form/EditAddressBook.php:40
 #, php-format
 msgid "Edit %s"
 msgstr "Editatu %s"
 
-#: edit.php:85 lib/View/EditContact.php:27
+#: edit.php:87 lib/View/EditContact.php:27
 #, php-format
-msgid "Edit Group \"%s\""
-msgstr "Editatu taldea \"%s\""
+msgid "Edit Contact List \"%s\""
+msgstr "Editatu \"%s\" kontaktu-zerrenda"
 
-#: lib/Form/EditContact.php:104
-msgid "Edit/View Group Members"
-msgstr "Editatu/Ikusi taldeko kideak"
+#: lib/Form/EditContact.php:124
+msgid "Edit/View Contact List Members"
+msgstr "Editatu/Ikusi kontaktu-zerrendako kideak"
 
-#: config/attributes.php:276
+#: config/attributes.php:306
 msgid "Email"
 msgstr "Helb. el."
 
-#: config/attributes.php:282
+#: config/attributes.php:312
 msgid "Emails"
 msgstr "Helbide elektronikoak"
 
@@ -530,41 +567,41 @@ msgstr "Helbide elektronikoak"
 msgid "Entries"
 msgstr "Sarrerak"
 
-#: lib/View/Browse.php:327 lib/View/Browse.php:394
+#: lib/View/Browse.php:322 lib/View/Browse.php:389
 #, php-format
 msgid "Error adding %d contact(s) to list."
 msgstr "Errorea %d kontaktu zerrendan gehitzean."
 
-#: lib/View/Browse.php:332 lib/View/Browse.php:399
+#: lib/View/Browse.php:327 lib/View/Browse.php:394
 #, php-format
 msgid "Error adding %d of %d requested contact(s) to list."
 msgstr "Errorea eskatutako %d / %d kontaktu zerrendan gehitzean."
 
-#: lib/View/Browse.php:115
+#: lib/View/Browse.php:113
 #, php-format
 msgid "Error deleting %d contact."
 msgid_plural "Error deleting %d contacts."
 msgstr[0] "Errorea %d kontaktu ezabatzean."
 msgstr[1] "Errorea %d kontaktu ezabatzean."
 
-#: lib/View/Browse.php:120
+#: lib/View/Browse.php:118
 #, php-format
 msgid "Error deleting %d of %d requested contact."
 msgid_plural "Error deleting %d of %d requested contacts."
 msgstr[0] "Errorea eskatutako %d / %d kontaktu ezabatzean."
 msgstr[1] "Errorea eskatutako %d / %d kontaktu ezabatzean."
 
-#: lib/View/Browse.php:86
+#: lib/View/Browse.php:84
 #, php-format
 msgid "Error removing %d contact(s) from list."
 msgstr "Errorea %d kontaktu zerrendatik kentzean."
 
-#: lib/View/Browse.php:91
+#: lib/View/Browse.php:89
 #, php-format
 msgid "Error removing %d of %d requested contact(s) from list."
 msgstr "Errorea eskatutako %d / %d kontaktu zerrendatik kentzean."
 
-#: lib/Api.php:440
+#: lib/Api.php:437
 #, php-format
 msgid "Error searching the address book: %s"
 msgstr "Errorea helbide liburuan bilatzean: %s"
@@ -585,7 +622,7 @@ msgstr "Esportatu hautatako kontaktuak bakarrik."
 msgid "Export the following address book completely."
 msgstr "Esportatu helbide-liburu hau osorik."
 
-#: config/backends.php:770
+#: config/backends.php:799
 msgid "Facebook Friends"
 msgstr "Facebook-eko lagunak"
 
@@ -594,40 +631,39 @@ msgstr "Facebook-eko lagunak"
 msgid "Failed to add %s to %s: %s"
 msgstr "Huts egin du gehitzean %s --> %s: %s"
 
-#: lib/View/Browse.php:458
+#: lib/View/Browse.php:453
 msgid "Failed to browse list"
 msgstr "Huts egin du zerrenda arakatzean"
 
-#: lib/Driver/Ldap.php:393
+#: lib/Driver/Ldap.php:405
 #, php-format
 msgid "Failed to change name: (%s) %s; Old DN = %s, New DN = %s, Root = %s"
 msgstr ""
 "Huts egin du izena aldatzean: (%s) %s; DN zaharra = %s, DN berria = %s, "
 "Erroa = %s"
 
-#: lib/View/Browse.php:182
-#, php-format
-msgid "Failed to find object to be added: %s"
-msgstr "Huts egin du gehitzeko objektua aurkitzean: %s"
+#: lib/View/Browse.php:176
+msgid "Failed to find object to be added"
+msgstr "Ezin da aurkitu gehitu beharreko objektua"
 
-#: search.php:145
+#: search.php:191
 msgid "Failed to search the address book"
 msgstr "Huts egin du helbide-liburuan bilatzean"
 
-#: lib/Application.php:495
+#: lib/Application.php:549
 #, php-format
 msgid "Failed to search the directory: %s"
 msgstr "Huts egin du direktorioan bilatzean: %s"
 
-#: config/backends.php:739
-msgid "Favourite Recipients"
+#: config/backends.php:770
+msgid "Favorite Recipients"
 msgstr "Gogoko hartzaileak"
 
-#: config/attributes.php:341
+#: config/attributes.php:371
 msgid "Fax"
 msgstr "Faxa"
 
-#: lib/Form/Contact.php:37
+#: lib/Form/Contact.php:61
 msgid "Files"
 msgstr "Fitxategiak"
 
@@ -637,7 +673,7 @@ msgstr "bilatu"
 
 #: lib/Form/EditContactGroup.php:22 lib/Form/EditContactGroup.php:26
 #: lib/Form/EditContactGroup.php:30 lib/Form/EditContactGroup.php:35
-#: lib/Form/EditContactGroup.php:79
+#: lib/Form/EditContactGroup.php:80
 msgid "Finish"
 msgstr "Amaitu"
 
@@ -645,7 +681,7 @@ msgstr "Amaitu"
 msgid "First Name"
 msgstr "Izena"
 
-#: config/attributes.php:441
+#: config/attributes.php:471
 msgid "Freebusy URL"
 msgstr "Libre/Lanpetutaren URLa"
 
@@ -653,84 +689,79 @@ msgstr "Libre/Lanpetutaren URLa"
 msgid "From"
 msgstr "Hemen"
 
-#: config/attributes.php:506
+#: config/attributes.php:530
 msgid "Gender"
 msgstr "Generoa"
 
-#: templates/browse/row.inc:54
-msgid "Group"
-msgstr "Taldea"
+#: lib/Api.php:208
+msgid "Global Address Books"
+msgstr "Helbide-liburu orokorrak"
 
-#: config/attributes.php:136
+#: config/attributes.php:148
 msgid "Home Address"
 msgstr "Helbidea (etxea)"
 
-#: config/attributes.php:676
+#: config/attributes.php:700
 msgid "Home Address Extended"
 msgstr "Helbide hedatua (etxea)"
 
-#: config/attributes.php:154
+#: config/attributes.php:166
 msgid "Home City"
 msgstr "Herria (etxea)"
 
-#: config/attributes.php:172
+#: config/attributes.php:184 config/attributes.php:190
 msgid "Home Country"
 msgstr "Estatua (etxea)"
 
-#: config/attributes.php:536
+#: config/attributes.php:560
 msgid "Home Email"
 msgstr "Helb. el. (etxea)"
 
-#: config/attributes.php:347 config/attributes.php:554
+#: config/attributes.php:377
 msgid "Home Fax"
 msgstr "Faxa (etxea)"
 
-#: config/attributes.php:682
+#: config/attributes.php:706
 msgid "Home Latitude"
 msgstr "Latitudea (etxea)"
 
-#: config/attributes.php:687
+#: config/attributes.php:711
 msgid "Home Longitude"
 msgstr "Longitudea (etxea)"
 
-#: config/attributes.php:565
+#: config/attributes.php:583
 msgid "Home Mobile Phone"
 msgstr "Telefono mugikorra (etxea)"
 
-#: config/attributes.php:288 config/attributes.php:294
+#: config/attributes.php:318 config/attributes.php:324
 msgid "Home Phone"
 msgstr "Telefonoa (etxea)"
 
-#: config/attributes.php:148
+#: config/attributes.php:160
 msgid "Home Post Office Box"
 msgstr "Posta-kodea (etxea)"
 
-#: config/attributes.php:166
+#: config/attributes.php:178
 msgid "Home Postal Code"
 msgstr "Posta-kodea (etxea)"
 
-#: config/attributes.php:160
+#: config/attributes.php:172
 msgid "Home State/Province"
 msgstr "Herrialdea/Probintzia (etxea)"
 
-#: config/attributes.php:142
+#: config/attributes.php:154
 msgid "Home Street Address"
 msgstr "Kale-helbidea (etxea)"
 
-#: config/attributes.php:582
+#: config/attributes.php:600
 msgid "Home Video Call"
 msgstr "Bideo-deia (etxea)"
 
-#: config/attributes.php:670
+#: config/attributes.php:694
 msgid "Home Website URL"
 msgstr "Webgunearen URLa (etxea)"
 
-#: config/attributes.php:359 config/attributes.php:365
-#: config/attributes.php:371
-msgid "IM Address"
-msgstr "IM helbidea"
-
-#: config/backends.php:895
+#: config/backends.php:924
 msgid "IMSP"
 msgstr "IMSP"
 
@@ -739,56 +770,57 @@ msgstr "IMSP"
 msgid "Import Address Book, Step %d"
 msgstr "Inportatu helbide-liburua, %d. urratsa"
 
-#: data.php:350
+#: data.php:338
 msgid "Import/Export Address Books"
 msgstr "Inportatu/esportatu helbide-liburuak"
 
-#: config/attributes.php:482
+#: config/attributes.php:512
 msgid "Initials"
 msgstr "Inizialak"
 
-#: config/attributes.php:488
+#: config/attributes.php:389 config/attributes.php:395
+#: config/attributes.php:401
 msgid "Instant Messenger"
 msgstr "Istanteko mezularitza"
 
-#: lib/Api.php:732 lib/Api.php:874
+#: lib/Api.php:811 lib/Api.php:953
 msgid "Invalid ID"
 msgstr "IDa ez da baliozkoa"
 
-#: lib/Api.php:110
+#: lib/Api.php:117
 msgid "Invalid address book."
 msgstr "Helbide-liburua ez da baliozkoa."
 
-#: lib/Api.php:605 lib/Api.php:1546 lib/Api.php:2065
+#: lib/Api.php:669 lib/Api.php:1661 lib/Api.php:2243
 #, php-format
 msgid "Invalid address book: %s"
 msgstr "Helbide-liburua ez da baliozkoa: %s"
 
-#: lib/Api.php:930
+#: lib/Api.php:1013
 msgid "Invalid contact unique ID"
 msgstr "Kontaktuaren ID bakarra ez da baliozkoa"
 
-#: lib/Api.php:1550 lib/Api.php:1635 lib/Api.php:1706
+#: lib/Api.php:1665 lib/Api.php:1750 lib/Api.php:1820
 msgid "Invalid email"
 msgstr "Helbide elektronikoa ez da baliozkoa"
 
-#: lib/Api.php:1558
+#: lib/Api.php:1673
 msgid "Invalid entry"
 msgstr "Sarrera ez da baliozkoa"
 
-#: lib/Driver/Ldap.php:344
+#: lib/Driver/Ldap.php:356
 msgid "Invalid key specified."
 msgstr "Gako baliogabea zehaztu da."
 
-#: lib/Api.php:1554
+#: lib/Api.php:1669
 msgid "Invalid name"
 msgstr "Izena ez da baliozkoa"
 
-#: config/attributes.php:379
+#: config/attributes.php:409
 msgid "Job Title"
 msgstr "Kargua"
 
-#: config/attributes.php:476
+#: config/attributes.php:506
 msgid "Kolab Home Server"
 msgstr "Kolab zerbitzari lokala"
 
@@ -803,11 +835,11 @@ msgstr ""
 msgid "LDIF Address Book"
 msgstr "LDIF helbide liburua"
 
-#: config/attributes.php:512
+#: config/attributes.php:536
 msgid "Language"
 msgstr "Hizkuntza"
 
-#: lib/View/Contact.php:48
+#: lib/View/Contact.php:49
 msgid "Last Modified"
 msgstr "Azken aldaketa"
 
@@ -819,7 +851,7 @@ msgstr "Abizena"
 msgid "Last change: "
 msgstr "Azken aldaketa:"
 
-#: config/attributes.php:518
+#: config/attributes.php:542
 msgid "Latitude"
 msgstr "Latitudea"
 
@@ -827,43 +859,47 @@ msgstr "Latitudea"
 msgid "List"
 msgstr "Zerrenda"
 
-#: config/backends.php:335 config/backends.php:662
+#: lib/Ui/VarRenderer/Turba.php:33
+msgid "Loading..."
+msgstr "Kargatzen..."
+
+#: config/backends.php:350 config/backends.php:693
 msgid "Location"
 msgstr "Kokalekua"
 
-#: config/attributes.php:415
+#: config/attributes.php:445
 msgid "Logo"
 msgstr "Logotipoa"
 
-#: config/attributes.php:421
+#: config/attributes.php:451
 msgid "Logo MIME Type"
 msgstr "Logotipoa (MIME mota)"
 
-#: config/attributes.php:523
+#: config/attributes.php:547
 msgid "Longitude"
 msgstr "Longitudea"
 
-#: lib/Api.php:388
+#: lib/Api.php:385
 msgid "Malformed request."
 msgstr "Gaizki osatutako eskaera."
 
-#: config/attributes.php:494
+#: config/attributes.php:518
 msgid "Manager"
 msgstr "Kudeatzailea"
 
-#: contact.php:108
+#: contact.php:111
 msgid "Mark this as your own contact"
 msgstr "Bihurtu hau zure kontaktu"
 
-#: templates/search/basic.html.php:18
+#: templates/search/basic.html.php:19
 msgid "Matching"
 msgstr " "
 
-#: lib/Application.php:142
+#: lib/Application.php:171
 msgid "Maximum Number of Contacts"
 msgstr "kontaktu gehienez"
 
-#: config/prefs.php:112
+#: config/prefs.php:125
 msgid "Maximum number of pages"
 msgstr "Gehieneko orri kopurua"
 
@@ -871,7 +907,7 @@ msgstr "Gehieneko orri kopurua"
 msgid "Middle Names"
 msgstr "Bigarren izenak"
 
-#: lib/Driver/Ldap.php:386
+#: lib/Driver/Ldap.php:398
 msgid "Missing DN in LDAP source configuration."
 msgstr "DN falta da LDAP iturburuen konfigurazioan."
 
@@ -879,11 +915,11 @@ msgstr "DN falta da LDAP iturburuen konfigurazioan."
 msgid "Mobile Addressbook"
 msgstr "Mugikorreko helbide-liburua"
 
-#: config/attributes.php:324
+#: config/attributes.php:354
 msgid "Mobile Phone"
 msgstr "Telefono mugikorra"
 
-#: lib/Driver/Ldap.php:413 lib/Driver/Ldap.php:439
+#: lib/Driver/Ldap.php:425 lib/Driver/Ldap.php:451
 #, php-format
 msgid "Modify failed: (%s) %s"
 msgstr "Huts egin du aldaketak: (%s) %s"
@@ -892,7 +928,7 @@ msgstr "Huts egin du aldaketak: (%s) %s"
 msgid "More Options..."
 msgstr "Aukera gehiago..."
 
-#: lib/Api.php:1683
+#: lib/Api.php:1797
 msgid "More than 1 entry found"
 msgstr "Sarrera bat baino gehiago aurkitu da"
 
@@ -904,26 +940,27 @@ msgstr "Lekuz aldatu"
 msgid "Mulberry Address Book"
 msgstr "Mulberry helbide-liburua"
 
-#: lib/Api.php:947
-msgid "Multiple contacts found with same unique ID."
-msgstr "ID bera daukaten hainbat kontaktu aurkitu dira."
+#: lib/Api.php:1030
+#, php-format
+msgid "Multiple contacts found with same unique ID %s."
+msgstr "ID bera ( %s) daukaten hainbat kontaktu aurkitu dira."
 
-#: lib/Api.php:1581
+#: lib/Api.php:1696
 #, php-format
 msgid ""
 "Multiple persons with address [%s], but none with name [%s] already exist"
 msgstr "Hainbat pertsonak dute helbidea [%s], baina ez dago [%s] izena duenik"
 
-#: config/backends.php:496
+#: config/backends.php:517
 msgid "My Address Book"
 msgstr "Nire helbide-liburua"
 
-#: lib/Application.php:184
+#: lib/Application.php:229
 msgid "My Address Books"
 msgstr "Nire helbide-liburuak"
 
 #: config/attributes.php:48 lib/Form/CreateAddressBook.php:24
-#: lib/Form/EditAddressBook.php:43
+#: lib/Form/EditAddressBook.php:45
 msgid "Name"
 msgstr "Izena"
 
@@ -939,16 +976,16 @@ msgstr "Izen-aurrizkiak"
 msgid "Name Suffixes"
 msgstr "Izen-atzizkiak"
 
-#: templates/search/vbook.html.php:6
+#: templates/search/vbook.html.php:7
 msgid "Name:"
 msgstr "Izena:"
 
-#: add.php:76 lib/Application.php:377
+#: add.php:76 lib/Application.php:431
 msgid "New Contact"
 msgstr "Kontaktu berria"
 
 #: lib/Form/EditContactGroup.php:25 lib/Form/EditContactGroup.php:34
-#: lib/Form/EditContactGroup.php:93 templates/data/import.inc:51
+#: lib/Form/EditContactGroup.php:94 templates/data/import.inc:51
 msgid "Next"
 msgstr "Hurrengoa"
 
@@ -956,7 +993,7 @@ msgstr "Hurrengoa"
 msgid "Nickname"
 msgstr "Goitizena"
 
-#: lib/Api.php:1686 lib/Api.php:1742
+#: lib/Api.php:1800 lib/Api.php:1856
 #, php-format
 msgid "No %s entry found for %s"
 msgstr "Ez da aurkitu %s sarrerarik %s(r)entzat"
@@ -973,11 +1010,11 @@ msgid "No Address Books are currently available. Searching is disabled."
 msgstr ""
 "Une honetan ez dago helbide-libururik erabilgarri. Bilaketa desgaituta dago."
 
-#: lib/Smartmobile.php:86
+#: lib/Ajax/Application/Handler/Smartmobile.php:113 lib/Smartmobile.php:97
 msgid "No Name"
 msgstr "Izengabea"
 
-#: lib/Api.php:2059
+#: lib/Api.php:2237
 msgid "No address book specified"
 msgstr "Ez da helbide-libururik zehaztu"
 
@@ -997,19 +1034,19 @@ msgstr "Ez dago uneko iragazkiarekin bat datorren kontakturik."
 msgid "No duplicates found."
 msgstr "Ez da errepikaturik aurkitu."
 
-#: lib/View/List.php:253
+#: lib/View/List.php:254
 msgid "No matching contacts"
 msgstr "Ez dago bat datorren kontakturik"
 
-#: lib/Driver/Favourites.php:168
+#: lib/Driver/Favourites.php:171
 msgid "No source for favourite recipients exists."
 msgstr "Ez dago iturbururik gogoko hartzaileentzat."
 
-#: lib/Api.php:642 lib/Api.php:976
+#: lib/Api.php:702 lib/Api.php:1058
 msgid "No vCard data was found."
 msgstr "Ez da aurkitu vCard daturik."
 
-#: lib/Application.php:284 templates/list/numPager.inc:8
+#: lib/Application.php:338 templates/list/numPager.inc:8
 msgid "None"
 msgstr "Bat ere ez"
 
@@ -1022,88 +1059,89 @@ msgstr "Ez da aurkitu"
 msgid "Not found"
 msgstr "Ez da aurkitu"
 
-#: config/attributes.php:429
+#: config/attributes.php:459
 msgid "Notes"
 msgstr "Oharrak"
 
-#: config/prefs.php:118
+#: config/prefs.php:131
 msgid "Number of items per page"
 msgstr "Elementu kopurua orriko"
 
-#: lib/Api.php:791 lib/Api.php:1000
-msgid "Object not found."
-msgstr "Objektua ez da aurkitu."
+#: lib/Api.php:870 lib/Api.php:1082
+#, php-format
+msgid "Object %s not found."
+msgstr "%s objektua ez da aurkitu."
 
-#: lib/Driver/Kolab.php:638
+#: lib/Driver/Kolab.php:768
 #, php-format
 msgid "Object with UID %s does not exist!"
 msgstr "Ez dago %s UIDa duen objekturik!"
 
-#: config/attributes.php:385
+#: config/attributes.php:415
 msgid "Occupation"
 msgstr "Lanbidea"
 
-#: config/attributes.php:409
+#: config/attributes.php:439
 msgid "Office"
 msgstr "Bulegoa"
 
-#: lib/Api.php:983
+#: lib/Api.php:1065
 msgid "Only one vcard supported."
 msgstr "vcard bat bakarrik onartzen da."
 
-#: config/backends.php:344 config/backends.php:668
+#: config/backends.php:365 config/backends.php:699
 msgid "Organization"
 msgstr "Erakundea"
 
-#: config/backends.php:345 config/backends.php:670
+#: config/backends.php:366 config/backends.php:701
 msgid "Other"
 msgstr "Beste batzuk"
 
-#: config/attributes.php:226
+#: config/attributes.php:250
 msgid "Other Address"
 msgstr "Beste helbide bat"
 
-#: lib/Application.php:231
+#: lib/Application.php:285
 msgid "Other Address Books"
 msgstr "Beste helbide-liburu batzuk"
 
-#: config/attributes.php:238
+#: config/attributes.php:262
 msgid "Other City"
 msgstr "Beste hiri bat"
 
-#: config/attributes.php:256
+#: config/attributes.php:280 config/attributes.php:286
 msgid "Other Country"
 msgstr "Beste herrialde bat"
 
-#: config/attributes.php:262
+#: config/attributes.php:292
 msgid "Other Post Office Box"
 msgstr "Beste posta-kutxa bat"
 
-#: config/attributes.php:250
+#: config/attributes.php:274
 msgid "Other Postal Code"
 msgstr "Beste posta-kode bat"
 
-#: config/attributes.php:244
+#: config/attributes.php:268
 msgid "Other State/Province"
 msgstr "Beste herrialde/probintzia bat"
 
-#: config/attributes.php:232
+#: config/attributes.php:256
 msgid "Other Street Address"
 msgstr "Beste kale-helbide bat"
 
-#: lib/Form/EditAddressBook.php:46
+#: lib/Form/EditAddressBook.php:48
 msgid "Owner"
 msgstr "Jabea"
 
-#: config/attributes.php:448 config/attributes.php:455
+#: config/attributes.php:478 config/attributes.php:485
 msgid "PGP Public Key"
 msgstr "PGP gako publikoa"
 
-#: config/attributes.php:600
+#: config/attributes.php:618
 msgid "PTT"
 msgstr "PTT"
 
-#: config/attributes.php:353
+#: config/attributes.php:383
 msgid "Pager"
 msgstr "Bilagailua"
 
@@ -1111,20 +1149,28 @@ msgstr "Bilagailua"
 msgid "Permanently delete this contact?"
 msgstr "Kontaktu hau betiko ezabatu?"
 
-#: deletefile.php:32 lib/Api.php:613 lib/Api.php:1564 lib/Driver.php:920
-#: lib/Driver/Share.php:231 lib/Driver/Sql.php:649
+#: deletefile.php:32 lib/Api.php:677 lib/Api.php:1679 lib/Driver.php:1011
+#: lib/Driver/Share.php:328 lib/Driver/Sql.php:685
 msgid "Permission denied"
 msgstr "Baimena ukatu da"
 
-#: config/backends.php:332 config/backends.php:658
+#: config/backends.php:346 config/backends.php:689
 msgid "Personal"
 msgstr "Pertsonala"
 
-#: config/attributes.php:122
+#: config/attributes.php:96
+msgid "Phonetic First Name"
+msgstr "Izen fonetikoa"
+
+#: config/attributes.php:102
+msgid "Phonetic Last Name"
+msgstr "Abizen fonetikoa"
+
+#: config/attributes.php:134
 msgid "Photo"
 msgstr "Argazkia"
 
-#: config/attributes.php:128
+#: config/attributes.php:140
 msgid "Photo MIME Type"
 msgstr "Argazkiaren MIME mota"
 
@@ -1132,34 +1178,34 @@ msgstr "Argazkiaren MIME mota"
 msgid "Pine Address Book"
 msgstr "Pine helbide-liburua"
 
-#: lib/Turba.php:684
+#: lib/Turba.php:718
 msgid "Please name the new contact list:"
 msgstr "Idatzi kontaktu-zerrenda berriaren izena:"
 
 #: lib/Form/EditContactGroup.php:29 lib/Form/EditContactGroup.php:33
-#: lib/Form/EditContactGroup.php:86
+#: lib/Form/EditContactGroup.php:87
 msgid "Previous"
 msgstr "Aurrekoa"
 
-#: config/backends.php:700
+#: config/backends.php:731
 msgid "Private Address Book"
 msgstr "Helbide-liburu pribatua"
 
-#: lib/Driver/Ldap.php:204
+#: lib/Driver/Ldap.php:212
 #, php-format
 msgid "Query failed: (%s) %s"
 msgstr "Kontsulta honek huts egin du: (%s) %s"
 
-#: config/attributes.php:335
+#: config/attributes.php:365
 msgid "Radio Phone"
 msgstr "Irrati-telefonoa"
 
-#: lib/Driver/Ldap.php:253 lib/Driver/Ldap.php:262 lib/Driver/Ldap.php:535
+#: lib/Driver/Ldap.php:264 lib/Driver/Ldap.php:273 lib/Driver/Ldap.php:547
 #, php-format
 msgid "Read failed: (%s) %s"
 msgstr "Huts egin du irakurtzean: (%s) %s"
 
-#: lib/Driver.php:2818
+#: lib/Driver.php:3060
 msgid "Reading contacts is not available."
 msgstr "Kontaktu-irakurtzea ez dago erabilgarri."
 
@@ -1172,7 +1218,16 @@ msgstr ""
 "Ziur zaude \"%s\" helbide-liburua ezabatu nahi duzula? Ezingo da desegin, "
 "eta helbide-liburu honetako kontaktu guztiak betiko kenduko dira."
 
-#: lib/Driver.php:2869
+#: lib/Turba.php:595
+#, php-format
+msgid ""
+"Removing the virtual address book \"%s\" because the parent source has "
+"disappeared."
+msgstr ""
+"\"%s\" helbide-liburu birtuala ezabatzen bere jatorrizko iturburua desagertu "
+"delako."
+
+#: lib/Driver.php:3112
 msgid ""
 "Removing user data is not supported in the current address book storage "
 "driver."
@@ -1188,19 +1243,15 @@ msgstr ""
 "Ordeztu lehendik dagoen helbide-liburua inportatutakoarekin? <strong>Kontuz: "
 "uneko helbide-liburuko sarrera guztiak ezabatuko dira.</strong>"
 
-#: lib/Driver.php:800
-msgid "Requested object not found."
-msgstr "Eskatutako objektua ez da aurkitu"
-
 #: templates/search/advanced.html.php:6
 msgid "Reset to Defaults"
 msgstr "Berrezarri lehenespenak"
 
-#: config/attributes.php:462
+#: config/attributes.php:492
 msgid "S/MIME Public Certificate"
 msgstr "S/MIME ziurtagiri publikoa"
 
-#: config/attributes.php:594
+#: config/attributes.php:612
 msgid "SIP"
 msgstr "SIP"
 
@@ -1209,35 +1260,39 @@ msgstr "SIP"
 msgid "STARTTLS failed: (%s) %s"
 msgstr "STARTTLSek huts egin du: (%s) %s"
 
-#: lib/Form/EditAddressBook.php:80 lib/Form/EditAddressBook.php:89
-#: lib/Form/EditContact.php:24
+#: lib/Form/EditAddressBook.php:144 lib/Form/EditAddressBook.php:153
+#: lib/Form/EditContact.php:40
 msgid "Save"
 msgstr "Gorde"
 
-#: templates/search/vbook.html.php:4
+#: templates/search/vbook.html.php:5
 msgid "Save search as a virtual address book?"
 msgstr "Gorde bilaketa helbide-liburu birtual gisa?"
 
-#: lib/Driver.php:2857
+#: lib/Driver.php:3100
 msgid "Saving contacts is not available."
 msgstr "Kontaktu-gordetzea ez dago erabilgarri."
 
-#: config/prefs.php:128 lib/Application.php:416
+#: config/prefs.php:141 lib/Application.php:470
 #: templates/block/minisearch.inc:4 templates/browse/header.inc:3
-#: templates/search/advanced.html.php:5 templates/search/basic.html.php:20
+#: templates/search/advanced.html.php:5 templates/search/basic.html.php:21
 #: templates/search/duplicate.html.php:11
 msgid "Search"
 msgstr "Bilatu"
+
+#: templates/search/header.html.php:3
+msgid "Search Criteria Hidden - Click to Display"
+msgstr "Bilaketa irizpideak ezkutatuta - klik egin bistaratzeko"
 
 #: templates/search/duplicate.html.php:2
 msgid "Search duplicates in:"
 msgstr "Bilatu errepikatuak hemen:"
 
-#: lib/Api.php:1330
+#: lib/Api.php:1445
 msgid "Search failed"
 msgstr "Bilaketak huts egin du"
 
-#: lib/Api.php:1570 lib/Api.php:1577 lib/Api.php:1587 lib/Api.php:1601
+#: lib/Api.php:1685 lib/Api.php:1692 lib/Api.php:1702 lib/Api.php:1716
 #, php-format
 msgid "Search failed: %s"
 msgstr "Bilaketak huts egin du: %s"
@@ -1246,11 +1301,11 @@ msgstr "Bilaketak huts egin du: %s"
 msgid "Search for: "
 msgstr "Bilatu hau: "
 
-#: lib/Driver.php:2800
+#: lib/Driver.php:3039
 msgid "Searching is not available."
 msgstr "Bilaketa ez dago erabilgarri."
 
-#: templates/browse/row.inc:45
+#: templates/browse/row.inc:47
 msgid "Select contact"
 msgstr "Hautatu kontaktua"
 
@@ -1286,11 +1341,11 @@ msgstr "Hautatu inportatzeko fitxategia:"
 msgid "Select the format of the source file:"
 msgstr "Hautatu iturburu-fitxategiaren formatua:"
 
-#: config/prefs.php:136
+#: config/prefs.php:149
 msgid "Select the format used to <em>display</em> names:"
 msgstr "Hautatu izenak <em>bistaratzeko</em> erabiliko den formatua:"
 
-#: config/prefs.php:148
+#: config/prefs.php:161
 msgid "Select the format used to <em>sort</em> names:"
 msgstr "Hautatu izenak <em>ordenatzeko</em> erabiliko den formatua:"
 
@@ -1306,16 +1361,37 @@ msgstr "Hautatu helbide-zerrendetan bistaratzeko eremuak."
 msgid "Select which format to display names."
 msgstr "Hautatu izenak bistaratzeko formatua."
 
-#: lib/Form/AddContact.php:34
+#: lib/Form/AddContact.php:38
 #, php-format
 msgid "Selected address book \"%s\"."
 msgstr "Hautatutako helbidea liburua, \"%s\"."
 
-#: config/backends.php:234 config/backends.php:580 lib/Application.php:198
+#: lib/Driver/Sql.php:437
+msgid "Server error when adding data."
+msgstr "Zerbitzariaren errorea datuak gehitzean."
+
+#: lib/Driver/Sql.php:483 lib/Driver/Sql.php:518 lib/Driver/Sql.php:526
+msgid "Server error when deleting data."
+msgstr "Zerbitzariaren errorea datuak ezabatzean."
+
+#: lib/Factory/Driver.php:85
+msgid "Server error when initializing database connection."
+msgstr "Zerbitzariaren errorea datu basearekin konexioa ezartzean."
+
+#: lib/Api.php:1947 lib/Api.php:1978 lib/Api.php:2044 lib/Api.php:2125
+#: lib/Driver/Sql.php:175 lib/Driver/Sql.php:330 lib/Driver/Sql.php:409
+msgid "Server error when performing search."
+msgstr "Zerbitzariaren errorea bilaketa egiterakoan."
+
+#: lib/Driver/Sql.php:562
+msgid "Server error when saving data."
+msgstr "Zerbitzariaren errorea datuak gordetzean."
+
+#: config/backends.php:228 config/backends.php:601 lib/Application.php:270
 msgid "Shared Address Books"
 msgstr "Helbide-liburu partekatuak"
 
-#: config/backends.php:378
+#: config/backends.php:399
 msgid "Shared Directory"
 msgstr "Direktorio partekatua"
 
@@ -1331,7 +1407,7 @@ msgstr "Erakutsi kontaktuak"
 msgid "Show _Lists"
 msgstr "Erakutsi zerrendak"
 
-#: lib/View/List.php:332 lib/View/List.php:338
+#: lib/View/List.php:333 lib/View/List.php:343
 msgid "Sort Direction"
 msgstr "Ordenatzeko noranzkoa"
 
@@ -1350,15 +1426,15 @@ msgstr "Ordenatu honen arabera bakarrik: %s"
 msgid "Sort by %s, then by %s"
 msgstr "Ordenatu honen arabera: %s. Ondoren: %s"
 
-#: lib/Application.php:132
+#: lib/Application.php:161
 msgid "Sources"
 msgstr "Iturburuak"
 
-#: config/attributes.php:110
+#: config/attributes.php:122
 msgid "Spouse"
 msgstr "Ezkontidea"
 
-#: lib/View/Browse.php:322 lib/View/Browse.php:389
+#: lib/View/Browse.php:317 lib/View/Browse.php:384
 #, php-format
 msgid "Successfully added %d contact(s) to list."
 msgstr "Behar bezala gehitu da/dira %d kontaktu zerrendan."
@@ -1368,17 +1444,17 @@ msgstr "Behar bezala gehitu da/dira %d kontaktu zerrendan."
 msgid "Successfully added %s to %s"
 msgstr "Behar bezala gehitu da: %s --> %s"
 
-#: lib/View/Browse.php:373
+#: lib/View/Browse.php:368
 #, php-format
 msgid "Successfully created the contact list \"%s\"."
 msgstr "Behar bezala sortu da \"%s\" kontaktu-zerrenda."
 
-#: search.php:113
+#: search.php:159
 #, php-format
 msgid "Successfully created virtual address book \"%s\""
 msgstr "Behar bezala sortu da \"%s\" helbide-liburu birtuala."
 
-#: lib/View/Browse.php:110
+#: lib/View/Browse.php:108
 #, php-format
 msgid "Successfully deleted %d contact."
 msgid_plural "Successfully deleted %d contacts."
@@ -1389,16 +1465,20 @@ msgstr[1] "Behar bezala ezabatu dira %d kontaktu."
 msgid "Successfully merged two contacts."
 msgstr "Behar bezala batu dira bi kontaktu."
 
-#: lib/View/Browse.php:81
+#: lib/View/Browse.php:79
 #, php-format
 msgid "Successfully removed %d contact(s) from list."
 msgstr "Behar bezala kendu da/dira %d kontaktu zerrendatik."
+
+#: config/prefs.php:96
+msgid "Support separate address books?"
+msgstr "Helbide-liburu desberdinak onartu?"
 
 #: config/prefs.php:20
 msgid "Synchronization Preferences"
 msgstr "Sinkronizazio-hobespenak"
 
-#: lib/Form/EditAddressBook.php:54
+#: lib/Form/EditAddressBook.php:56
 msgid "System"
 msgstr "Sistema"
 
@@ -1410,6 +1490,10 @@ msgstr "TSV"
 msgid "Tab separated values"
 msgstr "Tabulazioz bereizitako balioak"
 
+#: config/attributes.php:716 lib/Form/ContactBase.php:92
+msgid "Tags"
+msgstr "Etiketak"
+
 #: templates/browse/actions.inc:19
 msgid "Target Address Book"
 msgstr "Helburuko helbide-liburua"
@@ -1418,17 +1502,20 @@ msgstr "Helburuko helbide-liburua"
 msgid "Target Contact List"
 msgstr "Helburuko kontaktu-zerrenda"
 
-#: data.php:262
+#: data.php:256
 #, php-format
 msgid "The %s file didn't contain any contacts."
 msgstr "%s fitxategiak ez dauka kontakturik."
 
-#: view.php:17
-msgid "The VFS backend needs to be configured to enable attachment uploads."
+#: lib/Application.php:99
+msgid ""
+"The Content_Tagger class could not be found. Make sure the Content "
+"application is installed."
 msgstr ""
-"VFS moduluak eranskinak kargatzea gaitzeko egon behar du konfiguratuta."
+"Ezin izan da aurkitu Content_Tagger klasea. Ziurtatu Content aplikazioa "
+"instalatuta dagoela."
 
-#: lib/Factory/Driver.php:56
+#: lib/Factory/Driver.php:60
 #, php-format
 msgid "The address book \"%s\" does not exist."
 msgstr "\"%s\" helbide-liburua ez dago."
@@ -1438,12 +1525,12 @@ msgstr "\"%s\" helbide-liburua ez dago."
 msgid "The address book \"%s\" has been created."
 msgstr "\"%s\" helbide-liburua sortu da."
 
-#: data.php:270
+#: data.php:264
 #, php-format
 msgid "The address book could not be purged: %s"
 msgstr "Helbide-liburua ezin izan da betiko borratu: %s"
 
-#: lib/Api.php:839
+#: lib/Api.php:918
 msgid "The address book with your own contact doesn't exist anymore."
 msgstr "Zeure kontaktua daukan helbide-libururik ez dago jada."
 
@@ -1462,7 +1549,7 @@ msgstr "\"%s\" helbide-liburuari izena aldatu zaio: \"%s\"."
 msgid "The addressbook \"%s\" has been saved."
 msgstr "\"%s\" helbide-liburua gorde da."
 
-#: contact.php:19 lib/Application.php:439 vcard.php:18 view.php:27
+#: contact.php:19 lib/Application.php:493 vcard.php:18 view.php:23
 msgid "The contact you requested does not exist."
 msgstr "Zuk eskatutako kontaktua ez dago."
 
@@ -1471,7 +1558,7 @@ msgstr "Zuk eskatutako kontaktua ez dago."
 msgid "The file \"%s\" has been deleted."
 msgstr "\"%s\" fitxategia ezabatu da."
 
-#: data.php:222
+#: data.php:221
 msgid "The import can be finished despite the warnings."
 msgstr "Inportazioa amai daiteke, abisuak egon arren."
 
@@ -1495,19 +1582,19 @@ msgstr ""
 "izateko. Hau errore bat dela iruditzen bazaizu, galdetu sistema-"
 "administratzaileari."
 
-#: lib/View/Browse.php:450
+#: lib/View/Browse.php:445
 #, php-format
 msgid "There is %d contact in this list that is not viewable to you"
 msgid_plural "There are %d contacts in this list that are not viewable to you"
 msgstr[0] "Zuk ikusi ezin duzun %d kontaktu dago zerrenda honetan"
 msgstr[1] "Zuk ikusi ezin dituzun %d kontaktu daude zerrenda honetan"
 
-#: search.php:109
+#: search.php:155
 #, php-format
 msgid "There was a problem creating the virtual address book: %s"
 msgstr "Arazo bat gertatu da helbide-liburu birtuala sortzean: %s"
 
-#: lib/Form/AddContact.php:98
+#: lib/Form/AddContact.php:103
 msgid ""
 "There was an error adding the new contact. Contact your system administrator "
 "for further help."
@@ -1515,12 +1602,12 @@ msgstr ""
 "Errore bat gertatu da kontaktu berria gehitzean. Laguntza gehiago nahi "
 "izanez gero, galdetu sistema-administratzaileari."
 
-#: config/prefs.php:81
+#: config/prefs.php:86
 #, php-format
 msgid "There was an error communicating with the ActiveSync server: %s"
 msgstr "Errore bat gertatu da ActiveSync zerbitzariarekin komunikatzean: %s"
 
-#: lib/View/Browse.php:364
+#: lib/View/Browse.php:359
 msgid "There was an error creating a new list."
 msgstr "Errore bat gertatu da zerrenda berria sortzean."
 
@@ -1534,25 +1621,29 @@ msgstr "Errore bat gertatu da \"%s\" ezabatzean sorburuko helbide-liburutik."
 msgid "There was an error deleting this contact: %s"
 msgstr "Errore bat gertatu da kontaktu hau ezabatzean: %s"
 
-#: lib/View/Browse.php:435
+#: lib/View/Browse.php:430
 msgid "There was an error displaying the list"
 msgstr "Errore bat gertatu da zerrenda bistaratzean"
 
-#: data.php:318
+#: data.php:312
 #, php-format
 msgid "There was an error importing the data: %s"
 msgstr "Errore bat gertatu da datuak inportatzean: %s"
 
-#: lib/Api.php:637 lib/Api.php:971
+#: lib/Api.php:697 lib/Api.php:1053
 msgid "There was an error importing the iCalendar data."
 msgstr "Errore bat gertatu da iCalendar datuak inportatzean."
 
-#: lib/Application.php:312 lib/Application.php:344 lib/Application.php:357
+#: lib/Application.php:851
+msgid "There was an error importing the vCard data."
+msgstr "Errore bat gertatu da vCard datuak inportatzean."
+
+#: lib/Application.php:366 lib/Application.php:398 lib/Application.php:411
 #, php-format
 msgid "There was an error removing an address book for %s"
 msgstr "Errore bat gertatu da helbide-liburu bat kentzean %s(r)entzat"
 
-#: lib/Form/EditContact.php:73
+#: lib/Form/EditContact.php:93
 msgid ""
 "There was an error saving the contact. Contact your system administrator for "
 "further help."
@@ -1568,41 +1659,41 @@ msgstr "Helbide-liburu hau ezin da ezabatu"
 msgid "This contact has been marked as your own."
 msgstr "Kontaktu hau zeure kontaktu gisa markatu da."
 
-#: data.php:205
+#: data.php:158
 msgid "This file format is not supported."
 msgstr "Fitxategi-formatu hau ez da onartzen."
 
-#: lib/Api.php:1591 lib/Api.php:1605
+#: lib/Api.php:1706 lib/Api.php:1720
 #, php-format
 msgid "This person already has a %s entry in the address book"
 msgstr "Pertsona honek badu lehendik %s sarrera bat helbide-liburuan"
 
-#: config/prefs.php:162
+#: config/prefs.php:175
 msgid ""
 "This will be the default address book when adding or importing contacts."
 msgstr ""
 "Hau izango da kontaktuak gehitzeko edo inportatzeko helbide-liburu "
 "lehenetsia:"
 
-#: config/attributes.php:268
+#: config/attributes.php:298
 msgid "Time Zone"
 msgstr "Ordu-zona"
 
-#: lib/Driver/Share.php:117
+#: lib/Driver/Share.php:177
 msgid "Unable to find contact owner."
 msgstr "Ezin da aurkitu kontaktuaren jabea."
 
-#: lib/Factory/Driver.php:64
+#: lib/Factory/Driver.php:68
 #, php-format
 msgid "Unable to load the definition of %s."
 msgstr "Ezin da %s(r)en definizioa kargatu."
 
-#: lib/Form/EditAddressBook.php:95
+#: lib/Form/EditAddressBook.php:159
 #, php-format
 msgid "Unable to save address book \"%s\": %s"
 msgstr "Ezin da gorde \"%s\" helbide-liburua: %s"
 
-#: lib/Api.php:674 lib/Api.php:787 lib/Api.php:988
+#: lib/Api.php:728 lib/Api.php:866 lib/Api.php:1070
 #, php-format
 msgid "Unsupported Content-Type: %s"
 msgstr "Eduki mota hau ez da onartzen: %s"
@@ -1616,83 +1707,87 @@ msgstr "Ikusi kontaktua"
 msgid "View Entry"
 msgstr "Ikusi sarrera"
 
-#: config/prefs.php:125
+#: config/prefs.php:138
 msgid "View to display by default:"
 msgstr "Lehenespenez bistaratzeko ikuspegia"
 
-#: config/attributes.php:588
+#: config/attributes.php:606
 msgid "VoIP"
 msgstr "VoIP"
 
-#: config/attributes.php:435
+#: lib/Form/EditAddressBook.php:114
+msgid "WebDAV URL"
+msgstr "WebDAV URLa"
+
+#: config/attributes.php:465
 msgid "Website URL"
 msgstr "Webgunearen URLa"
 
-#: config/attributes.php:178
+#: config/attributes.php:196
 msgid "Work Address"
 msgstr "Helbidea (lantokia)"
 
-#: config/attributes.php:654
+#: config/attributes.php:678
 msgid "Work Address Extended"
 msgstr "Helbide hedatua (lantokia)"
 
-#: config/attributes.php:196
+#: config/attributes.php:214
 msgid "Work City"
 msgstr "Herria (lantokia)"
 
-#: config/attributes.php:214
+#: config/attributes.php:232 config/attributes.php:238
 msgid "Work Country"
 msgstr "Estatua (lantokia)"
 
-#: config/attributes.php:530
+#: config/attributes.php:554
 msgid "Work Email"
 msgstr "Helb. el. (lantokia)"
 
-#: config/attributes.php:548
+#: config/attributes.php:572
 msgid "Work Fax"
 msgstr "Faxa (lantokia)"
 
-#: config/attributes.php:660
+#: config/attributes.php:684
 msgid "Work Latitude"
 msgstr "Latitudea (lantokia)"
 
-#: config/attributes.php:665
+#: config/attributes.php:689
 msgid "Work Longitude"
 msgstr "Longitudea (lantokia)"
 
-#: config/attributes.php:560
+#: config/attributes.php:578
 msgid "Work Mobile Phone"
 msgstr "Telefono mugikorra (lantokia)"
 
-#: config/attributes.php:300 config/attributes.php:306
+#: config/attributes.php:330 config/attributes.php:336
 msgid "Work Phone"
 msgstr "Telefonoa (lantokia)"
 
-#: config/attributes.php:190
+#: config/attributes.php:208
 msgid "Work Post Office Box"
 msgstr "Posta-kodea (lantokia)"
 
-#: config/attributes.php:208
+#: config/attributes.php:226
 msgid "Work Postal Code"
 msgstr "Posta-kodea (lantokia)"
 
-#: config/attributes.php:202
+#: config/attributes.php:220
 msgid "Work State/Province"
 msgstr "Herrialdea/Probintzia (lantokia)"
 
-#: config/attributes.php:184
+#: config/attributes.php:202
 msgid "Work Street Address"
 msgstr "Kale-helbidea (lantokia)"
 
-#: config/attributes.php:576
+#: config/attributes.php:594
 msgid "Work Video Call"
 msgstr "Bideo-deia (lantokia)"
 
-#: config/attributes.php:648
+#: config/attributes.php:672
 msgid "Work Website URL"
 msgstr "Webgunearen URLa (lantokia)"
 
-#: add.php:51 data.php:153 lib/View/Browse.php:153 lib/View/Browse.php:347
+#: add.php:51 data.php:180 lib/View/Browse.php:149 lib/View/Browse.php:342
 #, php-format
 msgid "You are not allowed to create more than %d contacts in \"%s\"."
 msgstr "Ez daukazu baimenik %d kontaktu baino gehiago sortzeko hemen: \"%s\"."
@@ -1705,7 +1800,7 @@ msgstr "Ez daukazu baimenik helbide-liburu hau ezabatzeko."
 msgid "You are not allowed to see this addressbook."
 msgstr "Ez daukazu baimenik helbide-liburu hau ikusteko."
 
-#: lib/Driver/Facebook.php:165
+#: lib/Driver/Facebook.php:214
 msgid ""
 "You are not connected to Facebook. Create a Facebook connection in the "
 "Global Preferences."
@@ -1713,20 +1808,20 @@ msgstr ""
 "Ez zaude Facebook-era konektatuta. Sortu Facebook konexio bat Hobespen "
 "orokorretan."
 
-#: lib/Driver/Vbook.php:115
+#: lib/Driver/Vbook.php:126
 msgid "You cannot add new contacts to a virtual address book"
 msgstr "Ezin duzu kontaktu berririk gehitu helbide-liburu birtual batean"
 
-#: lib/Driver/Vbook.php:126
+#: lib/Driver/Vbook.php:137
 msgid "You cannot delete contacts from a virtual address book"
 msgstr "Ezin duzu kontakturik ezabatu helbide-liburu birtual batetik"
 
-#: lib/Api.php:834
+#: lib/Api.php:913
 msgid "You didn't mark a contact as your own yet."
 msgstr "Oraindik ez duzu kontakturik markatu zeure kontaktu gisa."
 
-#: edit.php:63 lib/Application.php:446 lib/View/DeleteContact.php:41
-#: lib/View/EditContact.php:42 view.php:35
+#: edit.php:63 lib/Application.php:500 lib/View/DeleteContact.php:41
+#: lib/View/EditContact.php:42 view.php:31
 msgid "You do not have permission to view this contact."
 msgstr "Ez daukazu baimenik kontaktu hau ikusteko."
 
@@ -1738,7 +1833,7 @@ msgstr "Ez daukazu baimenik objektu hau ikusteko."
 msgid "You do not have permissions to delete this address book."
 msgstr "Ez daukazu baimenik helbide-liburu hau ezabatzeko."
 
-#: lib/Api.php:845
+#: lib/Api.php:924
 msgid ""
 "You don't have sufficient permissions to read the address book that contains "
 "your own contact."
@@ -1746,19 +1841,19 @@ msgstr ""
 "Ez daukazu behar adina baimen zeure kontaktua daukan helbide-liburua "
 "irakurtzeko."
 
-#: search.php:91
+#: search.php:137
 msgid "You must provide a name for virtual address books."
 msgstr "Izen bat eman behar duzu helbide-liburu birtualentzat."
 
-#: lib/Turba.php:685
+#: lib/Turba.php:719
 msgid "You must select a target address book."
 msgstr "Helburuko helbide-liburu bat hautatu behar duzu."
 
-#: lib/Turba.php:683
+#: lib/Turba.php:717
 msgid "You must select a target contact list."
 msgstr "Helburuko kontaktu-zerrenda bat hautatu behar duzu."
 
-#: edit.php:29 lib/Turba.php:682
+#: edit.php:29 lib/Turba.php:716
 msgid "You must select at least one contact first."
 msgstr "Kontaktu bat hautatu behar duzu gutxienez lehendabizi."
 
@@ -1766,20 +1861,20 @@ msgstr "Kontaktu bat hautatu behar duzu gutxienez lehendabizi."
 msgid "You only have permission to view this contact."
 msgstr "Kontaktu hau ikusteko baimena bakarrik daukazu."
 
-#: lib/View/Browse.php:466
+#: lib/View/Browse.php:461
 msgid "Your default address book is not browseable."
 msgstr "Helbide-liburu lehenetsia ez da arakatzeko modukoa."
 
-#: contact.php:101 contact.php:102 templates/browse/row.inc:14
-#: templates/browse/row.inc:15
+#: contact.php:103 contact.php:104 templates/browse/row.inc:15
+#: templates/browse/row.inc:16
 msgid "Your own contact"
 msgstr "Zeure kontaktua"
 
-#: lib/Api.php:851
+#: lib/Api.php:930
 msgid "Your own contact cannot be found in the address book."
 msgstr "Ezin da aurkitu zeure kontaktua helbide-liburuan."
 
-#: lib/Application.php:155
+#: lib/Application.php:200
 msgid "_Browse"
 msgstr "_Arakatu"
 
@@ -1791,11 +1886,11 @@ msgstr "Eza_batu"
 msgid "_Edit"
 msgstr "E_ditatu"
 
-#: lib/Application.php:162
+#: lib/Application.php:207
 msgid "_Import/Export"
 msgstr "_Inportatu/Esportatu"
 
-#: lib/Application.php:174
+#: lib/Application.php:219
 msgid "_New Contact"
 msgstr "_Kontaktu berria"
 
@@ -1803,7 +1898,7 @@ msgstr "_Kontaktu berria"
 msgid "_Remove from this list"
 msgstr "K_endu zerrenda honetatik"
 
-#: lib/Application.php:158
+#: lib/Application.php:203
 msgid "_Search"
 msgstr "_Bilatu"
 
@@ -1815,12 +1910,12 @@ msgstr "Iku_si"
 msgid "ascending"
 msgstr "gorantz"
 
-#: lib/Object.php:237
+#: lib/Object.php:330
 #, php-format
 msgid "by %s"
 msgstr "- %s"
 
-#: lib/Object.php:239
+#: lib/Object.php:332
 msgid "by me"
 msgstr "nik"
 
@@ -1828,19 +1923,19 @@ msgstr "nik"
 msgid "contact"
 msgstr "kontaktua"
 
-#: lib/Application.php:540 lib/Application.php:544 templates/data/export.inc:1
+#: lib/Application.php:596 lib/Application.php:600 templates/data/export.inc:1
 msgid "contacts.csv"
 msgstr "contacts.csv"
 
-#: lib/Application.php:562
+#: lib/Application.php:618
 msgid "contacts.ldif"
 msgstr "contacts.ldif"
 
-#: lib/Application.php:548
+#: lib/Application.php:604
 msgid "contacts.tsv"
 msgstr "contacts.tsv"
 
-#: lib/Application.php:553
+#: lib/Application.php:609
 msgid "contacts.vcf"
 msgstr "contacts.vcf"
 
@@ -1848,20 +1943,20 @@ msgstr "contacts.vcf"
 msgid "descending"
 msgstr "beherantz"
 
-#: config/attributes.php:509
+#: config/attributes.php:533
 msgid "female"
 msgstr "emakumea"
 
-#: lib/Application.php:388
+#: lib/Application.php:442
 #, php-format
 msgid "in %s"
 msgstr "hemen: %s"
 
-#: config/attributes.php:509
+#: config/attributes.php:533
 msgid "male"
 msgstr "gizonezkoa"
 
-#: config/prefs.php:140 config/prefs.php:152
+#: config/prefs.php:153 config/prefs.php:165
 msgid "no formatting"
 msgstr "formaturik ez"
 

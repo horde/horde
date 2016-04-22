@@ -131,19 +131,12 @@
     </para>
 </entry>
 
-    <entry id="filter-on-display" md5="9c6208b9b6f9df77c60778c565f897a7" state="changed">
+    <entry id="filter-on-display" md5="08c26328ea17a4c811ad577d3ef70ac1" state="uptodate">
     <title>Iragazkiak: Aplikatu iragazkia freskatzean</title>
-    <heading>Aplikatu iragazki-arauak SARRERAKO ONTZIA bistaratzen den bakoitzean?</heading>
     <para>
-    Aukera hau hautatu nahi duzu, SARRERAKO ONTZIA ikusten duzun bakoitzean iragazkiak beti aplika daitezen?
+		Aukera hau hautatu SARRERAKO ONTZIA ikusten duzun bakoitzean iragazkiak beti aplika daitezen
     </para>
-<!-- English entry (2014-04-17):
-<entry id="filter-on-display">
-        <title>Filters: Preferences: Filter on Refresh</title>
-        <para>
-            Check this option to always apply filters whenever you view the Inbox.
-        </para>
-    </entry>--></entry>
+</entry>
 
     <entry id="filter-any-mailbox" md5="c89004a1ef14f8a875ebf02f25727934" state="uptodate">
     <title>Iragazkiak: Aplikatu iragazkia edozein postontzitan</title>
@@ -169,84 +162,45 @@
     </para>
 </entry>
 
-    <entry id="compose-options-encrypt" md5="9ded3c9c3d1d0e938ea6f649c68065d3" state="changed">
+    <entry id="compose-options-encrypt" md5="9a36c004d88bbee23c6952dd24cb72b5" state="uptodate">
     <title>Mezu-idazketa: Enkriptatze-aukerak</title>
     <heading>Enkriptatzerik ez</heading>
     <para>
-    Mezua enkriptatu gabe bidaltzen du (testu osoa).
+		Mezua enkriptatu gabe bidaltzen du (testu osoa).
     </para>
     <heading>PGP enkriptatzedun mezua</heading>
     <para>
-    Aukera honek uneko mezua enkriptatuko du, PGP eta hartzaileen gako publiko pertsonala erabiliz, eta ondoren, mezua bidaliko du. Hartzaileen gako publikoa gordeta eduki BEHAR duzu helbide-liburuan; bestela, aukerak honek huts egingo du. Hartzaileen gako publikoa helbide-liburuan badaukazu, baina hala ere erroreak jasotzen badituzu, egiaztatu hartzaileen eremuko posta elektronikoa eta gako publikoan gordeta dagoen helbide elektronikoa bat datozela. Enkriptatutako datuak irteerako mezuan erantsiko dira.
+		Aukera honek uneko mezua enkriptatuko du, PGP eta hartzaileen gako publiko pertsonala erabiliz, eta ondoren, mezua bidaliko du. Hartzaileen gako publikoa gordeta eduki BEHAR duzu helbide-liburuan; bestela, aukerak honek huts egingo du. Hartzaileen gako publikoa helbide-liburuan badaukazu, baina hala ere erroreak jasotzen badituzu, egiaztatu hartzaileen eremuko posta elektronikoa eta gako publikoan gordeta dagoen helbide elektronikoa bat datozela. Enkriptatutako datuak irteerako mezuan erantsiko dira.
     </para>
     <heading>PGP sinaduradun mezua</heading>
     <para>
-    Aukera honek uneko mezua digitalki sinatuko du PGP eta gako pribatu pertsonala erabiliz. Oraindik ez baduzu gako pribatuaren pasaesaldia sartu saio honetan, pasaesaldia sartu nahi duzun galdetuko dizu. Hartzaileak zure gako publikoaren kopia bat eduki behar du zure sinadura digitalki egiaztatzeko.
+		Aukera honek uneko mezua digitalki sinatuko du PGP eta gako pribatu pertsonala erabiliz. Oraindik ez baduzu gako pribatuaren pasaesaldia sartu saio honetan, pasaesaldia sartu nahi duzun galdetuko dizu. Hartzaileak zure gako publikoaren kopia bat eduki behar du zure sinadura digitalki egiaztatzeko.
     </para>
     <heading>PGP sinaduradun/enkriptatzedun mezua</heading>
     <para>
-    Aukera honek mezua digitalki sinatuko du lehendabizi, eta ondoren irteerako emaitza enkriptatuko du. Ikus "PGP enkriptatzedun mezua" eta "PGP sinaduradun mezua" atalak informazio gehiago nahi izanez gero.
+		Aukera honek mezua digitalki sinatuko du lehendabizi, eta ondoren irteerako emaitza enkriptatuko du. Ikus "PGP enkriptatzedun mezua" eta "PGP sinaduradun mezua" atalak informazio gehiago nahi izanez gero.
     </para>
     <heading>PGP enkriptatzedun mezua pasaesaldiarekin</heading>
     <para>
-    Aukera honek uneko mezua enkriptatuko du, PGP eta pasaesaldi bat erabiliz, eta ondoren, mezua bidaliko du. Enkriptatzeko erabili beharreko pasaesaldia zein den galdetuko zaizu. Eman pasaesaldia hartzaileari kanal seguru baten bitartez (pertsonalki, telefonoz, etab.) Enkriptatutako datuak irteerako mezuari erantsiko zaizkio.
+		Aukera honek uneko mezua enkriptatuko du, PGP eta pasaesaldi bat erabiliz, eta ondoren, mezua bidaliko du. Enkriptatzeko erabili beharreko pasaesaldia zein den galdetuko zaizu. Eman pasaesaldia hartzaileari kanal seguru baten bitartez (pertsonalki, telefonoz, etab.) Enkriptatutako datuak irteerako mezuari erantsiko zaizkio.
     </para>
     <heading>PGP sinaduradun/enkriptatzedun mezua pasaesaldiarekin</heading>
     <para>
-    Aukera honek mezua digitalki sinatuko du lehendabizi, eta ondoren irteerako emaitza enkriptatuko du pasaesaldi batekin. Ikus "PGP enkriptatzedun mezua pasaesaldiarekin" eta "PGP sinaduradun mezua" atalak informazio gehiago nahi izanez gero.
+		Aukera honek mezua digitalki sinatuko du lehendabizi, eta ondoren irteerako emaitza enkriptatuko du pasaesaldi batekin. Ikus "PGP enkriptatzedun mezua pasaesaldiarekin" eta "PGP sinaduradun mezua" atalak informazio gehiago nahi izanez gero.
     </para>
     <heading>S/MIME enkriptatzedun mezua</heading>
     <para>
-    Aukera honek uneko mezua enkriptatuko du, S/MIME eta hartzaileen ziurtagiria erabiliz, eta ondoren, mezua bidaliko du. Hartzaileen ziurtagiria gordeta eduki BEHAR duzu helbide-liburuan; bestela, aukerak honek huts egingo du. Hartzailearen ziurtagiria helbide-liburuan badaukazu, baina hala ere erroreak jasotzen badituzu, egiaztatu hartzaileen eremuko helbide elektronikoa eta ziurtagiria gordetako helbide elektronikoa bat datozela. Enkriptatutako datuak irteerako mezuan erantsiko dira.
+		Aukera honek uneko mezua enkriptatuko du, S/MIME eta hartzaileen ziurtagiria erabiliz, eta ondoren, mezua bidaliko du. Hartzaileen ziurtagiria gordeta eduki BEHAR duzu helbide-liburuan; bestela, aukerak honek huts egingo du. Hartzailearen ziurtagiria helbide-liburuan badaukazu, baina hala ere erroreak jasotzen badituzu, egiaztatu hartzaileen eremuko helbide elektronikoa eta ziurtagiria gordetako helbide elektronikoa bat datozela. Enkriptatutako datuak irteerako mezuan erantsiko dira.
     </para>
     <heading>S/MIME sinaduradun mezua</heading>
     <para>
-    Aukera honek digitalki sinatuko du uneko mezua, S/MIME eta zure ziurtagiria erabiliz. Oraindik ez baduzu ziurtagiriaren pasaesaldia sartu saio honetan, pasaesaldia sartzeko eskatuko zaizu.
+		Aukera honek digitalki sinatuko du uneko mezua, S/MIME eta zure ziurtagiria erabiliz. Oraindik ez baduzu ziurtagiriaren pasaesaldia sartu saio honetan, pasaesaldia sartzeko eskatuko zaizu.
     </para>
     <heading>S/MIME sinaduradun/enkriptatzedun mezua</heading>
     <para>
-    Aukera honek mezua digitalki sinatuko du lehendabizi, eta ondoren irteerako emaitza enkriptatuko du. Ikus "S/MIME enkriptatzedun mezua" eta "S/MIME sinaduradun mezua" sarrerak informazio gehiago nahi izanez gero.
+		Aukera honek mezua digitalki sinatuko du lehendabizi, eta ondoren irteerako emaitza enkriptatuko du. Ikus "S/MIME enkriptatzedun mezua" eta "S/MIME sinaduradun mezua" sarrerak informazio gehiago nahi izanez gero.
     </para>
-<!-- English entry (2014-04-17):
-<entry id="compose-options-encrypt">
-        <title>Compose: Encryption Options</title>
-        <heading>No Encryption</heading>
-        <para>
-            Send the message with no encryption (cleartext).
-        </para>
-        <heading>PGP Encrypt Message</heading>
-        <para>
-            This option will encrypt the current message, using PGP and the recipients personal public key, and then send it. You MUST have the public key of the recipient stored in your addressbook or else this option will fail. If you have the public key for the recipient in your addressbook and are still receiving errors, verify that the e-mail address in the recipient field matches the e-mail address where the public key is stored. The encrypted data will be attached to the outgoing message.
-        </para>
-        <heading>PGP Sign Message</heading>
-        <para>
-            This option will digitally sign the current message using PGP and your personal private key. If you have not already entered the passphrase for your private key during this session you will be prompted for it. The recipient must have a copy of your public key to digitally verify your signature.
-        </para>
-        <heading>PGP Sign/Encrypt Message</heading>
-        <para>
-            This option will first digitally sign your message and then will encrypt the resulting output. See the "PGP Encrypt Message" and "PGP Sign Message" entries for further information.
-        </para>
-        <heading>PGP Encrypt Message with passphrase</heading>
-        <para>
-            This option will encrypt the current message, using PGP and a passphrase, and then send it. You will be prompted for the passphrase that should be used for the encryption. Give the passphrase to the recipient through a secure channel (e.g. personal conversation, phone). The encrypted data will be attached to the outgoing message.
-        </para>
-        <heading>PGP Sign/Encrypt Message with passphrase</heading>
-        <para>
-            This option will first digitally sign your message and then will encrypt the resulting output with a passphrase. See the "PGP Encrypt Message with passphrase" and "PGP Sign Message" entries for further information.
-        </para>
-        <heading>S/MIME Encrypt Message</heading>
-        <para>
-            This option will encrypt the current message, using S/MIME and the recipient's certificate, and then send it. You MUST have the certificate of the recipient stored in your addressbook or else this option will fail. If you have the certificate for the recipient in your addressbook and are still receiving errors, verify that the e-mail address in the recipient field matches the e-mail address where the certificate is stored. The encrypted data will be attached to the outgoing message.
-        </para>
-        <heading>S/MIME Sign Message</heading>
-        <para>
-            This option will digitally sign the current message using S/MIME and your certificate. If you have not already entered the passphrase for your certificate during this session you will be prompted for it.
-        </para>
-        <heading>S/MIME Sign/Encrypt Message</heading>
-        <para>
-            This option will first digitally sign your message and then will encrypt the resulting output. See the "S/MIME Encrypt Message" and "S/MIME Sign Message" entries for further information.
-        </para>
-    </entry>--></entry>
+</entry>
 
     <entry id="pgp-overview" md5="70c98866d308d4eb29ac844d04262b92" state="uptodate">
     <title>PGP: Ikuspegi orokorra</title>
@@ -384,54 +338,32 @@
     </para>
 </entry>
 
-    <entry id="pgp-personalkey-create-actions" md5="4c03caeab8a56878399334062df1b543" state="changed">
-    <title>PGP: Sortu gako pertsonala - Ekintzak</title>
-    <heading>Sortu gakoak</heading>
+    <entry id="pgp-personalkey-create-actions" md5="0a7b4143400bc648f235cd841b611143" state="uptodate">
+    <title>PGP: Hobespenak: Sortu gako pertsonala: Ekintzak</title>
+    <heading>Sortu gakoa</heading>
     <para>
-    Gako-pare publikoa/pribatua sortu eta gordetzen du.
+		Zure gako pertsonala sortu eta gordetzen du.
     </para>
-    <heading>Inportatu gako-parea</heading>
+    <heading>Inportatu gakoa</heading>
     <para>
-    Gako-pare pertsonala/pribatua inportatzen du. Botoi honek PGP gako-pare pertsonal publikoa/pribatua eskuz inportatzeko leihoa irekitzen du. Gako publikoak testu-eremu batean ere itsats daitezke, edo gakoak ordenagailu lokaleko fitxategi batean badaude, inporta ditzakezu. Gakoak baliozkoak badira, hobespenetan sartuko dira eta leihoa itxi egingo da; ez badira baliozkoak, errore-mezu bat agertuko da zergatia azaltzeko.
+		Botoi honek PGP gako pertsonala eskuz inportatzeko leihoa irekitzen du. Gakoa testu-eremu batean itsats daiteke, edo gakoa ordenagailu lokaleko fitxategi batean badago, zerbitzarira igo dezakezu. Gakoa baliozkoa bada, hobespenetan sartuko da eta leihoa itxi egingo da; ez bada baliozkoa, errore-mezu bat agertuko da zergatia azaltzeko.
     </para>
-<!-- English entry (2014-04-17):
-<entry id="pgp-personalkey-create-actions">
-        <title>PGP: Preferences: Create Personal Key: Actions</title>
-        <heading>Create Key</heading>
-        <para>
-            Create and store your personal key.
-        </para>
-        <heading>Import Key</heading>
-        <para>
-            This button opens a window where you can manually import your existing PGP personal key. The key can either be pasted into a textfield or, if the key resides in a file on your local computer, can be uploaded. If the key is valid it will be inserted into your preferences and the window will close; if not valid, an error message will be returned explaining why.
-        </para>
-        <para>
-            Only the private portion of your key is needed; the public key will be automatically generated from the private key.
-        </para>
-    </entry>--></entry>
+	<para>
+		Zure gakoaren alde pribatua baino ez da behar; gako publikoa automatikoki sortuko da gako probatutik.
+	</para>
+</entry>
 
-    <entry id="smime-overview" md5="06bc9544a439ca416ebed22df8e6102a" state="changed">
+    <entry id="smime-overview" md5="3cab2af4d9b0041580b5c6a996b83796" state="uptodate">
     <title>S/MIME: Ikuspegi orokorra</title>
     <heading>Zer da S/MIME?</heading>
     <para>
-    S/MIME gako-pare sistema pribatu/publiko bat da, eta sinadura digitalak, mezu-pribatutasuna eta manipulazio-detekzioa eskaintzen ditu modu elkarreraginkorrean. S/MIMEk mezuaren pribatutasuna eskain dezake, bidaltzaileak eta hartzaileek soilik deskodetu ditzaketen mezuak enkriptatuz. Mezu baten bidaltzailea identifika dezakezu sinadura digitalaren bidez. Biek batera, enkriptatzeak eta sinadura digitalak, manipulazioak detektatzen laguntzen dute; horrela, bidaltzaileek hartzaileei mezua bidali ondoren aldatu den ala ez jakin dezakete hartzaileek.
+		S/MIME gako-pare sistema pribatu/publiko bat da, eta sinadura digitalak, mezu-pribatutasuna eta manipulazio-detekzioa eskaintzen ditu modu elkarreraginkorrean. S/MIMEk mezuaren pribatutasuna eskain dezake, bidaltzaileak eta hartzaileek soilik deskodetu ditzaketen mezuak enkriptatuz. Mezu baten bidaltzailea identifika dezakezu sinadura digitalaren bidez. Biek batera, enkriptatzeak eta sinadura digitalak, manipulazioak detektatzen laguntzen dute; horrela, bidaltzaileek hartzaileei mezua bidali ondoren aldatu den ala ez jakin dezakete hartzaileek.
     </para>
     <heading>Gaitu S/MIME funtzionaltasuna?</heading>
     <para>
-    Aukera hau hautatuz gero, S/MIME gako pertsonalak inportatu ahal izango dituzu, enkriptatutako mezuak irakurri, digitalki sinatutako mezuak egiaztatu eta bidaliko dituzun mezuak enkriptatu/sinatu.
+		Aukera hau hautatuz gero, S/MIME gako pertsonalak inportatu ahal izango dituzu, enkriptatutako mezuak irakurri, digitalki sinatutako mezuak egiaztatu eta bidaliko dituzun mezuak enkriptatu/sinatu.
     </para>
-<!-- English entry (2014-04-17):
-<entry id="smime-overview">
-        <title>S/MIME: Overview</title>
-        <heading>What is S/MIME?</heading>
-        <para>
-            S/MIME is a private/public key pair system which provides digital signatures, message privacy, and tamper detection in an open, interoperable way. S/MIME can provide message privacy by encrypting messages that only the sender and the intended recipients can decode. It allows you to identify the sender of a message via a digital signature. Together, this encryption and digital signing help provide tamper detection, allowing recipients to determine whether a message was altered after it was sent.
-        </para>
-        <heading>Enable S/MIME functionality?</heading>
-        <para>
-            If this option is selected, you will be able to import your personal S/MIME keys, read encrypted mail, verify digitally signed mail, and encrypt/sign your outgoing mail.
-        </para>
-    </entry>--></entry>
+</entry>
 
     <entry id="smime-overview-personalkey" md5="f396c6349cd59218a9f0408878ced995" state="uptodate">
     <title>S/MIME: Gako pertsonalak</title>
@@ -457,43 +389,24 @@
     </para>
 </entry>
 
-    <entry id="smime-manage-pubkey" md5="263a47e866aae1e361c1b9cf0b29f62e" state="changed">
-    <title>S/MIME: Kudeatu gako publikoak</title>
-    <heading>S/MIME: Kudeatu gako publikoak</heading>
+    <entry id="smime-manage-pubkey" md5="0aff8be5d92d7d4ffbfca1333607a9fb" state="uptodate">
+    <title>S/MIME: Hobespenak: Kudeatu gako publikoak</title>
     <para>
-    Kudeatu S/MIME gako publikoen zerrenda.
+		Kudeatu S/MIME gako publikoen zerrenda.
     </para>
     <heading>Ikusi</heading>
-    <para>
-    Ikusi gako publikoaren testu gordina.
+	<para>
+		Ikusi gako publikoaren testu gordina.
     </para>
     <heading>Xehetasunak</heading>
     <para>
-    Ikusi gako publikoaren xehetasun teknikoak.
+		Ikusi gako publikoaren xehetasun teknikoak.
     </para>
     <heading>Ezabatu</heading>
     <para>
-    Biltegian hautatutako gako publikoa ezabatzen du.  Gako publikoa ezabatuz gero, erabiltzaile horri enkriptatutako mezuak bidaltzea eragotziko duzu.
+		Biltegian hautatutako gako publikoa ezabatzen du.  Gako publikoa ezabatuz gero, erabiltzaile horri enkriptatutako mezuak bidaltzea eragotziko duzu.
     </para>
-<!-- English entry (2014-04-17):
-<entry id="smime-manage-pubkey">
-        <title>S/MIME: Preferences: Manage Public Keys</title>
-        <para>
-            Manage your S/MIME public key list.
-        </para>
-        <heading>View</heading>
-        <para>
-            View the raw text of the public key.
-        </para>
-        <heading>Details</heading>
-        <para>
-            View technical details of the public key.
-        </para>
-        <heading>Delete</heading>
-        <para>
-            Deletes the selected public key from storage.  Deleting a public key for a user will prevent you from encrypting a message to that user.
-        </para>
-    </entry>--></entry>
+</entry>
 
     <entry id="printing" md5="8f38316f520b5c60c0311c97f9472144" state="uptodate">
     <title>Inprimatu</title>
@@ -601,13 +514,6 @@
 
 </entry>
 
-    <entry id="prefs-default_msg_charset" md5="b2a6c49163203f3462784dbf4e391066" state="uptodate">
-    <title>Hobespenak: Mezuaren karaktere-joko lehenetsia</title>
-    <para>
-    Definitu karaktere-jokoari buruzko informazio zehatzik ez duten testu-mezu zatietan ezarri behar den karaktere lehenetsia. RFC 2045ren arabera, karaktere-jokoaren parametrorik ez duten mezuak 'US-ASCII' karaktere-jokoa erabiliz bistaratzen dira. Nolanahi ere, mezu-zerbitzu akastun batzuek testu-mezuak bidal ditzakete bestelako karaktere-joko batzuetan, mezuaren goiburuan parametro egokiak ezarri gabe. Parametro hau karaktere-joko lehenetsian ezartzea komeni da lokalki erabiltzeko. Hautatu "Lehenetsia" MIME lehenespenak erabiltzeko.
-    </para>
-</entry>
-
     <entry id="prefs-request_mdn" md5="5155a0b683cd0bbd49606be2b8b42758" state="uptodate">
     <title>Hobespenak: Eskatu irakurragiriak</title>
     <para>
@@ -622,36 +528,21 @@
     </para>
 </entry>
 
-    <entry id="prefs-delete_spam_after_report" md5="ff0d7dbc0f05688e9fe7f55e98dfcea1" state="changed">
-    <title>Hobespenak: Ezabatu mezu baztergarriak sailkatu ondoren</title>
+    <entry id="prefs-delete_spam_after_report" md5="5e2523414b34ddc1bc9454c8a1b5053c" state="uptodate">
+    <title>Mezua: Hobespenak: Ezabatu mezu baztergarriak sailkatu ondoren</title>
     <para>
-    Hiru aukeretako bat egitea hauta dezakezu, mezu bat baztergarri gisa sailkatu ondoren.
+		Hiru aukeretako bat egitea hauta dezakezu, mezu bat baztergarri gisa sailkatu ondoren.
     </para>
     <para>
-    Lehenengoan, ezer ez egitea erabaki dezakezu - mezua baztergarri gisa sailkatuko da, baina zure postontzian aldatu gabe geratuko da.
+		Lehenengoan, ezer ez egitea erabaki dezakezu - mezua baztergarri gisa sailkatuko da, baina zure postontzian aldatu gabe geratuko da.
     </para>
     <para>
-    Bigarrengoan, mezua baztergarri gisa sailkatuz gero, mezua berehala ezabatuko da.
+		Bigarrengoan, mezua baztergarri gisa sailkatuz gero, mezua berehala ezabatuko da.
     </para>
     <para>
-    Hirugarrenean, mezu bat baztergarri gisa sailkatzen denean, mezua uneko postontzitik ezabatuko da eta baztergarrien karpetara eramango da.
+		Hirugarrenean, mezu bat baztergarri gisa sailkatzen denean, mezua uneko postontzitik ezabatuko da eta baztergarrien karpetara eramango da.
     </para>
-<!-- English entry (2014-04-17):
-<entry id="prefs-delete_spam_after_report">
-        <title>Message: Preferences: Delete Spam After Reporting</title>
-        <para>
-            You may elect to do one of three items after reporting a message as spam.
-        </para>
-        <para>
-            1. Do nothing. The message will be reported as spam but will otherwise remain unchanged in your mailbox.
-        </para>
-        <para>
-            2. If reporting a message as spam, the message will be immediately deleted.
-        </para>
-        <para>
-            3. After reporting a message as spam the message will be deleted from the current mailbox and moved to your spam folder.
-        </para>
-    </entry>--></entry>
+</entry>
 
     <entry id="prefs-move_innocent_after_report" state="uptodate" md5="99a33858f784fa3ad393b735f91941d0">
         <title>Mezua: Hobespenak: Lekuz aldatu mezu baztergarriak seguru gisa sailkatu ondoren</title>
@@ -941,7 +832,7 @@
             </para>
         </entry>
 
-        <entry id="mailbox-keyboard" state="changed" md5="658ffd53ea2c3b2ae06f99faeb8afab6">
+        <entry id="mailbox-keyboard" state="uptodate" md5="6aa100450de5b2b9bd82627a7af64103">
             <title>Postontzia: Teklatuko lasterbideak</title>
             <para>
                 Laster-tekla hauek daude erabilgarri:
@@ -970,36 +861,6 @@
             <para>
                 <css class="kbd">Ktrl</css> + <css class="kbd">A</css>: Hautatu uneko postontziko mezu guztiak.
             </para>
-        <!-- English entry (2014-04-17):
-<entry id="mailbox-keyboard">
-            <title>Mailbox: Keyboard Shortcuts</title>
-            <para>
-                The following keyboard shortcuts are available:
-            </para>
-            <para>
-                <css class="iconImg keyupImg"/> / <css class="iconImg keydownImg"/> : Move up/down through the message list.
-            </para>
-            <para>
-                <css class="kbd">PgUp</css> / <css class="kbd">PgDown</css> : Move one page up/down through the message list.
-            </para>
-            <para>
-                <css class="kbd">Alt</css> + (<css class="kbd">PgUp</css> / <css class="kbd">PgDown</css> / <css class="iconImg keyupImg"/> / <css class="iconImg keydownImg"/>): Scroll up/down through the display of the previewed message.
-            </para>
-            <para>
-                <css class="kbd">Home</css> / <css class="kbd">End</css> : Move to the beginning/end of the message list.
-            </para>
-            <para>
-                <css class="kbd">Del</css> : Delete the currently selected message(s). <css class="kbd">Shift</css> + <css class="kbd">Del</css> will delete the current message and move to the next message if a single message is selected.
-            </para>
-            <para>
-                <css class="kbd">Shift</css> + <css class="kbd">N</css> : Move to the next unseen message (non-search mailboxes only).
-            </para>
-            <para>
-                <css class="kbd">Enter</css> : Open message in a popup window.
-            </para>
-            <para>
-                <css class="kbd">Ctrl</css> + <css class="kbd">A</css> : Select all messages in the current mailbox.
-            </para>
-        </entry>--></entry>
+		</entry>
     </view>
 </help>

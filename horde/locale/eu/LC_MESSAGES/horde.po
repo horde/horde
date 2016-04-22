@@ -5,16 +5,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-11-06 16:40+0100\n"
-"PO-Revision-Date: 2013-02-25 12:59+0100\n"
-"Last-Translator: Edurne <edurne@uzei.com>\n"
+"POT-Creation-Date: 2016-04-14 15:27+0200\n"
+"PO-Revision-Date: 2016-04-15 09:43+0200\n"
+"Last-Translator: Ibon Igartua <ibon.igartua@ehu.eus>\n"
 "Language-Team: Euskal Herriko Unibertsitatea <webmaster@ehu.es>\n"
-"Language: \n"
+"Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Poedit-Language: Basque\n"
+"X-Generator: Poedit 1.8.4\n"
 
 #: admin/groups.php:32
 #, php-format
@@ -36,7 +36,7 @@ msgstr "\"%s\" ez da sortu: %s."
 msgid "%.2fMB used of %.2fMB allowed (%.2f%%)"
 msgstr "%.2fMB erabilita / %.2fMB onartuta (%%%.2f)"
 
-#: lib/Block/Weather.php:198
+#: lib/Block/Weather.php:212
 #, php-format
 msgid "%d %s and %s"
 msgstr "%d %s eta %s"
@@ -51,7 +51,7 @@ msgstr "%d egun falta pasahitza iraungitzeko."
 msgid "%d minutes"
 msgstr "%d minutu"
 
-#: services/facebook/index.php:97
+#: lib/Ajax/Application/FacebookHandler.php:221
 #, php-format
 msgid "%d person likes this"
 msgid_plural "%d persons like this"
@@ -63,27 +63,27 @@ msgstr[1] "%d pertsonak hau atsegin dute"
 msgid "%d to %d of %d"
 msgstr "%d - %d / %d"
 
-#: lib/Block/Weather.php:238
+#: lib/Block/Weather.php:252
 #, php-format
 msgid "%d-day forecast"
 msgstr "%d eguneko iragarpena"
 
-#: services/logintasks.php:89
+#: services/logintasks.php:91
 #, php-format
 msgid "%s - Notice"
 msgstr "%s - Abisua"
 
-#: admin/config/config.php:28 admin/config/index.php:358
+#: admin/config/config.php:28 admin/config/index.php:465
 #, php-format
 msgid "%s Configuration"
 msgstr "%s konfigurazioa"
 
-#: services/logintasks.php:69
+#: services/logintasks.php:71
 #, php-format
 msgid "%s Tasks - Confirmation"
 msgstr "%s atazak - Berrespena"
 
-#: services/logintasks.php:79
+#: services/logintasks.php:81
 #, php-format
 msgid "%s Terms of Agreement"
 msgstr "%s kontratu-baldintzak"
@@ -94,7 +94,34 @@ msgstr "%s kontratu-baldintzak"
 msgid "%s at %s %s"
 msgstr "%s - %s %s"
 
-#: services/logintasks.php:70
+#: templates/prefs/twitter.html.php:9
+#, php-format
+msgid "%s can interact with your Twitter account"
+msgstr "%s(e)k Twitter kontuarekin interakzioan jardun dezake"
+
+#: templates/prefs/facebook.html.php:48
+#, php-format
+msgid "%s cannot read information about your Facebook friends."
+msgstr ""
+"%s(e)k ezin du Facebook-en dituzun lagunei buruzko informaziorik irakurri."
+
+#: templates/prefs/facebook.html.php:34
+#, php-format
+msgid ""
+"%s cannot read your stream messages and various other Facebook data items."
+msgstr ""
+"%s(e)k ezin ditu irakurri zure korronte-mezuak eta Facebook-eko beste "
+"hainbat datu-elementu."
+
+#: templates/prefs/facebook.html.php:20
+#, php-format
+msgid ""
+"%s cannot set your status messages or publish other content to Facebook."
+msgstr ""
+"%s(e)k ezin ditu ezarri zure egoera-mezuak, ezta Facebook-eko bestelako "
+"edukiak argitaratu ere."
+
+#: services/logintasks.php:72
 #, php-format
 msgid ""
 "%s is ready to perform the tasks below. Select each operation to run at this "
@@ -113,15 +140,15 @@ msgstr ", haizetsu %s %s"
 msgid ", variable from %s to %s"
 msgstr ", aldakorra %s -> %s"
 
-#: lib/Application.php:295
+#: lib/Application.php:336
 msgid "1 Day"
 msgstr "1 egun"
 
-#: lib/Application.php:299
+#: lib/Application.php:340
 msgid "1 Month"
 msgstr "1 hilabete"
 
-#: lib/Application.php:297
+#: lib/Application.php:338
 msgid "1 Week"
 msgstr "1 aste"
 
@@ -129,7 +156,7 @@ msgstr "1 aste"
 msgid "12 Hour Format"
 msgstr "12 orduko formatua"
 
-#: lib/Application.php:298
+#: lib/Application.php:339
 msgid "2 Weeks"
 msgstr "2 aste"
 
@@ -141,42 +168,15 @@ msgstr "24 orduko formatua"
 msgid "24 hours"
 msgstr "24 ordu"
 
-#: config/prefs.php:504 config/prefs.php:506
+#: config/prefs.php:486 config/prefs.php:488
 msgid "24-hour format"
 msgstr "24 orduko formatua"
 
-#: lib/Application.php:296
+#: lib/Application.php:337
 msgid "3 Days"
 msgstr "3 egun"
 
-#: templates/prefs/facebook.html:41
-msgid "<tag:app_name /> cannot read information about your Facebook friends."
-msgstr ""
-"<tag:app_name /> aplikazioak ezin du Facebook-en dituzun lagunei buruzko "
-"informaziorik irakurri."
-
-#: templates/prefs/facebook.html:29
-msgid ""
-"<tag:app_name /> cannot read your stream messages and various other Facebook "
-"data items."
-msgstr ""
-"<tag:app_name /> aplikazioak ezin ditu irakurri zure korronte-mezuak eta "
-"Facebook-eko beste hainbat datu-elementu."
-
-#: templates/prefs/facebook.html:17
-msgid ""
-"<tag:app_name /> cannot set your status messages or publish other content to "
-"Facebook."
-msgstr ""
-"<tag:app_name /> aplikazioak ezin ditu ezarri zure egoera-mezuak, ezta "
-"Facebook-eko bestelako edukiak argitaratu ere."
-
-#: templates/prefs/twitter.html:9
-msgid "<tag:appname /> can interact with your Twitter account"
-msgstr ""
-"<tag:appname /> aplikazioak Twitter kontuarekin interakzioan jardun dezake"
-
-#: admin/activesync.php:33
+#: admin/activesync.php:40
 msgid ""
 "A device wipe has been requested. Device will be wiped on next "
 "syncronization attempt."
@@ -184,12 +184,13 @@ msgstr ""
 "Gailu-garbiketa bat eskatu da. Gailua garbituko da hurrengo sinkronizazio-"
 "saioan."
 
-#: admin/config/index.php:144 admin/config/index.php:185
+#: admin/config/index.php:171 admin/config/index.php:215
+#: admin/config/index.php:348 admin/config/index.php:374
 #, php-format
 msgid "A newer version (%s) exists."
 msgstr "Badago lehendik bertsio berriago bat (%s)."
 
-#: lib/Prefs/Special/Activesync.php:108
+#: lib/Prefs/Special/Activesync.php:112
 #, php-format
 msgid ""
 "A remote wipe for device id %s has been initiated. The device will be wiped "
@@ -206,27 +207,28 @@ msgstr "AM/PM"
 msgid "Account Information"
 msgstr "Kontuaren informazioa"
 
-#: config/prefs.php:336
+#: config/prefs.php:325
 msgid "Account Password"
 msgstr "Kontuaren pasahitza"
 
-#: admin/activesync.php:129
+#: templates/activesync/device_table.html.php:8
 msgid "Actions"
 msgstr "Ekintzak"
 
-#: config/prefs.php:750 lib/Application.php:175
+#: config/prefs.php:735 lib/Application.php:211
 msgid "ActiveSync"
 msgstr "ActiveSync"
 
-#: admin/activesync.php:74
-msgid "ActiveSync Device Administration"
-msgstr "ActiveSync gailu-administrazioa"
+#: admin/activesync.php:108
+msgid "ActiveSync Administration"
+msgstr "ActiveSync administrazioa"
 
-#: admin/activesync.php:199 lib/Api.php:80
+#: lib/Api.php:93 templates/admin/activesync.html.php:6
 msgid "ActiveSync Devices"
 msgstr "ActiveSync gailuak"
 
-#: admin/activesync.php:22 lib/Prefs/Special/Activesync.php:30
+#: admin/activesync.php:24 lib/Api.php:720 lib/Api.php:781
+#: lib/Prefs/Special/Activesync.php:32
 msgid "ActiveSync not activated."
 msgstr "ActiveSync ez dago aktibatuta."
 
@@ -242,7 +244,7 @@ msgstr "Gehitu edukia"
 msgid "Add Here:"
 msgstr "Gehitu hemen:"
 
-#: templates/admin/groups/edit.inc:53
+#: templates/admin/groups/edit.inc:55
 msgid "Add Members"
 msgstr "Gehitu kideak"
 
@@ -266,7 +268,7 @@ msgstr "Gehitu bikotea"
 msgid "Add user"
 msgstr "Gehitu erabiltzailea"
 
-#: admin/signup_confirm.php:82 admin/user.php:94
+#: admin/signup_confirm.php:82 admin/user.php:93
 #, php-format
 msgid ""
 "Added \"%s\" to the system, but could not add additional signup information: "
@@ -284,15 +286,15 @@ msgstr "\"%s\" behar bezala gehitu da sisteman. Saioa has dezakezu bertan."
 msgid "Adding users is disabled."
 msgstr "Erabiltzaileak gehitzea desgaituta dago."
 
-#: lib/Block/Vatid.php:94
+#: lib/Block/Vatid.php:97
 msgid "Address"
 msgstr "Helbidea"
 
-#: config/registry.php:131
+#: config/registry.php:134
 msgid "Address Book"
 msgstr "Helbide-liburua"
 
-#: lib/Application.php:52
+#: lib/Application.php:55
 msgid "Administration"
 msgstr "Administrazioa"
 
@@ -316,23 +318,27 @@ msgstr "Alarma-testua"
 msgid "Alarm title"
 msgstr "Alarma-izenburua"
 
-#: admin/alarms.php:141
+#: admin/alarms.php:146
 msgid "Alarms"
 msgstr "Alarmak"
+
+#: admin/alarms.php:121
+msgid "Alarms have been disabled in the configuration"
+msgstr "Alarmak desgaituta daude konfigurazioan"
 
 #: lib/Block/Fortune.php:93
 msgid "All"
 msgstr "Denak"
 
-#: templates/shares/edit.inc:61
+#: templates/shares/edit.inc:62
 msgid "All Authenticated Users"
 msgstr "Erabiltzaile autentifikatu guztiak"
 
-#: admin/activesync.php:51
+#: admin/activesync.php:58
 msgid "All policy keys successfully reset."
 msgstr "Gidalerro-gako guztiak behar bezala berrezarri dira."
 
-#: lib/Prefs/Special/Activesync.php:121
+#: lib/Prefs/Special/Activesync.php:127
 msgid ""
 "All state removed for your ActiveSync devices. They will resynchronize next "
 "time they connect to the server."
@@ -340,35 +346,35 @@ msgstr ""
 "Egoera guztiak kendu zaizkie ActiveSync gailuei. Zerbitzarira konektatzen "
 "diren hurrengo aldian berriro sinkronizatuko dira."
 
-#: lib/Prefs/Special/Syncml.php:74
+#: lib/Prefs/Special/Syncml.php:76
 msgid "All synchronization sessions deleted."
 msgstr "Sinkronizazio-saio guztiak ezabatu dira."
 
-#: lib/Application.php:186
-msgid "Allow"
-msgstr "Onartu"
-
-#: lib/Application.php:206
+#: lib/Application.php:247
 msgid "Allow alphanumeric"
 msgstr "Onartu alfazenbakizkoak"
 
-#: lib/Application.php:207
+#: lib/Application.php:248
 msgid "Allow any"
 msgstr "Onartu denak"
 
-#: lib/Application.php:205
+#: lib/Application.php:226
+msgid "Allow non-provisionable devices"
+msgstr "Baimendu hornitu gabeko gailuak"
+
+#: lib/Application.php:246
 msgid "Allow only numeric"
 msgstr "Onartu zenbakizkoak soilik"
 
-#: config/prefs.php:712
+#: config/prefs.php:690
 msgid "Alternate IMSP Login"
 msgstr "Ordezko IMSP saio-hasiera"
 
-#: config/prefs.php:729
+#: config/prefs.php:707
 msgid "Alternate IMSP Password"
 msgstr "Ordezko IMSP pasahitza"
 
-#: config/prefs.php:723
+#: config/prefs.php:701
 msgid "Alternate IMSP Username"
 msgstr "Ordezko IMSP erabiltzaile-izena"
 
@@ -380,27 +386,19 @@ msgstr "Ordezko helbide elektronikoa"
 msgid "Answer"
 msgstr "Erantzun"
 
-#: templates/data/csvmap.inc:113 templates/admin/config/index.html:27
+#: templates/admin/config/index.html.php:27 templates/data/csvmap.inc:113
 msgid "Application"
 msgstr "Aplikazioa"
 
-#: templates/admin/phpshell.html.php:6
+#: templates/admin/phpshell.html.php:8
 msgid "Application Context"
 msgstr "Aplikazio-testuingurua"
 
-#: util/icon_browser.php:45
-msgid "Application List"
-msgstr "Aplikazio-zerrenda"
-
-#: admin/config/index.php:225
+#: admin/config/index.php:257
 msgid "Application is ready."
 msgstr "Aplikazioa prest dago."
 
-#: admin/config/index.php:147 admin/config/index.php:188
-msgid "Application is up-to-date."
-msgstr "Aplikazioa eguneratuta dago."
-
-#: templates/admin/user/approve.inc:33
+#: templates/admin/user/approve.inc:34
 msgid "Approve"
 msgstr "Onartu"
 
@@ -408,7 +406,7 @@ msgstr "Onartu"
 msgid "Arabic (Windows-1256)"
 msgstr "Arabiarra (Windows-1256)"
 
-#: admin/alarms.php:130
+#: admin/alarms.php:134
 #, php-format
 msgid "Are you sure you want to delete '%s'?"
 msgstr "Ziur zaude '%s' ezabatu nahi duzula?"
@@ -435,7 +433,7 @@ msgstr "Artea"
 msgid "Ascii Art"
 msgstr "Ascii artea"
 
-#: lib/LoginTasks/Task/AdminCheck.php:65
+#: lib/LoginTasks/Task/AdminCheck.php:57
 msgid "At least one database schema is outdated."
 msgstr "Datu-base eskema bat gutxienez zaharkituta dago."
 
@@ -443,7 +441,7 @@ msgstr "Datu-base eskema bat gutxienez zaharkituta dago."
 msgid "Attachment"
 msgstr "Eranskina"
 
-#: lib/Application.php:229
+#: lib/Application.php:270
 msgid "Attachment Download"
 msgstr "Eranskina deskargatzea"
 
@@ -455,31 +453,37 @@ msgstr "Ez dagoen talde bat ezabatzen saiatu zara."
 msgid "Attempt to delete a non-existent permission."
 msgstr "Ez dagoen baimen bat ezabatzen saiatu zara."
 
-#: admin/perms/edit.php:98
+#: admin/perms/edit.php:119
 msgid "Attempt to edit a non-existent permission."
 msgstr "Ez dagoen baimen bat editatzen saiatu zara."
 
-#: services/shares/edit.php:75
+#: services/shares/edit.php:70
 msgid "Attempt to edit a non-existent share."
 msgstr "Ez dagoen baliabide partekatu bat editatzen saiatu zara."
 
-#: templates/admin/sessions.html.php:27
-msgid "Authenticated to"
-msgstr "Honentzat autentifikatua"
+#: templates/admin/sessions.html.php:11
+msgid "Authenticated Applications"
+msgstr "Autentifikatutako aplikazioak"
 
-#: templates/prefs/facebook.html:42
-msgid "Authorize Access to Friends Data:"
-msgstr "Baimendu lagunen datuetan sartzea:"
+#: templates/prefs/facebook.html.php:23 templates/prefs/facebook.html.php:37
+#: templates/prefs/facebook.html.php:51 templates/prefs/facebook.html.php:63
+#: templates/prefs/twitter.html.php:18
+msgid "Authorize"
+msgstr "Baimendu"
 
-#: templates/prefs/facebook.html:18
+#: templates/prefs/facebook.html.php:49
+msgid "Authorize Access to Friends Data"
+msgstr "Baimendu lagunen datuetan sartzea"
+
+#: templates/prefs/facebook.html.php:21
 msgid "Authorize Publish"
 msgstr "Baimendu argitaratzea"
 
-#: templates/prefs/facebook.html:30
-msgid "Authorize Read:"
-msgstr "Baimendu irakurketa:"
+#: templates/prefs/facebook.html.php:35
+msgid "Authorize Read"
+msgstr "Baimendu irakurketa"
 
-#: login.php:225
+#: templates/login/login.inc:61 templates/login/smartmobile.html.php:31
 msgid "Automatic"
 msgstr "Automatikoa"
 
@@ -495,14 +499,13 @@ msgstr "BOFH aitzakiak"
 msgid "Baltic (ISO-8859-13)"
 msgstr "Baltikokoa (ISO-8859-13)"
 
-#: util/icon_browser.php:34
-#, php-format
-msgid "Base graphics directory \"%s\" not found."
-msgstr "Irudien oinarrizko \"%s\" direktorioa ez da aurkitu."
-
-#: login.php:230
+#: templates/login/login.inc:63 templates/login/smartmobile.html.php:33
 msgid "Basic"
 msgstr "Oinarrizkoa"
+
+#: templates/activesync/device_table.html.php:43
+msgid "Block"
+msgstr "Blokeatu"
 
 #: templates/portal/layout.inc:90
 msgid "Block Settings"
@@ -512,11 +515,11 @@ msgstr "Bloke-ezarpenak"
 msgid "Block Type"
 msgstr "Bloke mota"
 
-#: lib/Application.php:262
+#: lib/Application.php:303
 msgid "Bluetooth"
 msgstr "Bluetooth"
 
-#: config/registry.php:188
+#: config/registry.php:185
 msgid "Bookmarks"
 msgstr "Laster-markak"
 
@@ -524,24 +527,28 @@ msgstr "Laster-markak"
 msgid "Both"
 msgstr "Biak"
 
-#: config/prefs.php:766
+#: config/prefs.php:751
 msgid "Bottom"
 msgstr "Behealdea"
 
-#: templates/admin/sessions.html.php:19
+#: templates/admin/sessions.html.php:9
 msgid "Browser"
 msgstr "Arakatzailea"
 
-#: config/registry.php:117
+#: templates/activesync/device_table.html.php:29
+msgid "Cached Heartbeat (seconds)"
+msgstr "Heartbeat cacheatuta (segunduetan)"
+
+#: config/registry.php:120
 msgid "Calendar"
 msgstr "Egutegia"
 
-#: lib/Application.php:250
+#: lib/Application.php:291
 msgid "Camera"
 msgstr "Kamera"
 
-#: admin/user.php:116 admin/user.php:139 templates/admin/groups/delete.inc:12
-#: templates/admin/user/clear.inc:14 templates/admin/user/remove.inc:13
+#: admin/user.php:115 admin/user.php:138 templates/admin/groups/delete.inc:12
+#: templates/admin/user/clear.inc:14 templates/admin/user/remove.inc:15
 msgid "Cancel"
 msgstr "Utzi"
 
@@ -549,7 +556,7 @@ msgstr "Utzi"
 msgid "Cancel Problem Report"
 msgstr "Utzi arazoaren berri emateari"
 
-#: admin/activesync.php:184 templates/prefs/activesync.html:31
+#: templates/activesync/device_table.html.php:36
 msgid "Cancel Wipe"
 msgstr "Utzi garbiketa"
 
@@ -557,7 +564,7 @@ msgstr "Utzi garbiketa"
 msgid "Cannot reset password automatically, contact your administrator."
 msgstr "Ezin da pasahitza automatikoki berrezarri; esan administratzaileari."
 
-#: config/prefs.php:529
+#: config/prefs.php:510
 msgid "Categories and Labels"
 msgstr "Kategoriak eta etiketak"
 
@@ -573,7 +580,7 @@ msgstr "Europako Erdialdekoa (ISO-8859-2)"
 msgid "Change"
 msgstr "Aldatu"
 
-#: lib/Block/Weather.php:120
+#: lib/Block/Weather.php:134
 msgid "Change Location"
 msgstr "Aldatu kokalekua"
 
@@ -581,7 +588,7 @@ msgstr "Aldatu kokalekua"
 msgid "Change Your Password"
 msgstr "Aldatu pasahitza"
 
-#: config/prefs.php:273
+#: config/prefs.php:264
 msgid "Change your personal information."
 msgstr "Aldatu zure informazio pertsonala."
 
@@ -597,11 +604,11 @@ msgstr ""
 msgid "Check"
 msgstr "Egiaztatu"
 
-#: templates/admin/config/index.html:4
+#: templates/admin/config/index.html.php:4
 msgid "Check for newer versions"
 msgstr "Begiratu bertsio berririk dagoen"
 
-#: lib/Block/Vatid.php:44
+#: lib/Block/Vatid.php:45
 msgid "Checking"
 msgstr "Egiaztatzen"
 
@@ -613,24 +620,28 @@ msgstr "Txinatar soildua (GB2312)"
 msgid "Chinese Traditional (Big5)"
 msgstr "Txinatar tradizionala (Big5)"
 
-#: services/obrowser/index.php:94
+#: services/obrowser/index.php:61
 #, php-format
 msgid "Choose %s"
 msgstr "Aukeratu %s"
 
-#: config/prefs.php:495
+#: config/prefs.php:478
 msgid "Choose how to display dates (abbreviated format):"
 msgstr "Aukeratu datak bistaratzeko modua (formatu laburra):"
 
-#: config/prefs.php:470
+#: config/prefs.php:454
 msgid "Choose how to display dates (full format):"
 msgstr "Aukeratu datak bistaratzeko modua (formatu osoa):"
 
-#: config/prefs.php:509
+#: config/prefs.php:491
 msgid "Choose how to display times:"
 msgstr "Aukeratu orduak bistaratzeko modua:"
 
-#: templates/admin/sqlshell.html.php:56
+#: lib/Prefs/Special/Activesync.php:67
+msgid "Class"
+msgstr "Klasea"
+
+#: templates/admin/sqlshell.html.php:58
 msgid "Clear Query"
 msgstr "Garbitu kontsulta"
 
@@ -655,16 +666,16 @@ msgstr ""
 "Egin klik hautatutako helbide-liburu batean, eta ondoren hautatu bilatzeko "
 "eremu guztiak."
 
-#: templates/logintasks/logintasks.html:30
-#: templates/logintasks/smartmobile.html:34
+#: templates/logintasks/logintasks.html.php:32
+#: templates/logintasks/smartmobile.html.php:52
 msgid "Click to Continue"
 msgstr "Egin klik aurrera jarraitzeko"
 
-#: templates/prefs/syncml.html:13
+#: templates/prefs/syncml.html.php:13
 msgid "Client Anchor"
 msgstr "Bezero-aingura"
 
-#: templates/shares/edit.inc:12
+#: templates/shares/edit.inc:13
 msgid "Close Window"
 msgstr "Itxi leihoa"
 
@@ -672,24 +683,28 @@ msgstr "Itxi leihoa"
 msgid "Clouds"
 msgstr "Hodeiak"
 
-#: lib/Application.php:222
+#: lib/Application.php:263
 msgid "Codeword frequency"
 msgstr "Kode-hitzen maiztasuna"
 
-#: lib/View/Sidebar.php:63 templates/admin/sessions.html.php:9
-#: templates/sidebar/_container.html.php:14
+#: lib/View/Sidebar.php:65 templates/sidebar/_container.html.php:14
 msgid "Collapse"
 msgstr "Tolestu"
 
-#: lib/Prefs/Special/Category.php:44
+#: lib/Prefs/Special/Activesync.php:66
+msgid "Collection id"
+msgstr "Bildumaren IDa"
+
+#: templates/prefs/category.html.php:12 templates/prefs/category.html.php:23
+#: templates/prefs/category.html.php:35
 msgid "Color Picker"
 msgstr "Kolore-hautatzailea"
 
-#: config/registry.php:240
+#: config/registry.php:249
 msgid "Comics"
 msgstr "Komikiak"
 
-#: templates/admin/cmdshell.html.php:2 templates/admin/cmdshell.html.php:17
+#: templates/admin/cmdshell.html.php:2 templates/admin/cmdshell.html.php:19
 msgid "Command"
 msgstr "Komandoa"
 
@@ -697,16 +712,20 @@ msgstr "Komandoa"
 msgid "Command Shell"
 msgstr "Komando shell-a"
 
-#: services/facebook/index.php:38
+#: lib/Ajax/Application/FacebookHandler.php:162
 #, php-format
 msgid "Comments: %d"
 msgstr "Iruzkinak: %d"
+
+#: templates/admin/activesync.html.php:16
+msgid "Common Name"
+msgstr "Izen arrunta"
 
 #: lib/Block/Fortune.php:38
 msgid "Computers"
 msgstr "Ordenagailuak"
 
-#: lib/Block/Weather.php:251
+#: lib/Block/Weather.php:265
 msgid "Condition"
 msgstr "Baldintza"
 
@@ -714,27 +733,27 @@ msgstr "Baldintza"
 msgid "Conditions"
 msgstr "Baldintzak"
 
-#: admin/config/config.php:59 templates/admin/config/config.html:9
+#: admin/config/config.php:59 templates/admin/config/config.html.php:11
 msgid "Configuration"
 msgstr "Konfigurazioa"
 
-#: admin/config/diff.php:88
+#: admin/config/diff.php:90
 msgid "Configuration Differences"
 msgstr "Konfigurazio-desberdintasunak"
 
-#: config/prefs.php:738
+#: config/prefs.php:717
 msgid "Configuration for syncing with PDAs, Smartphones and Outlook."
 msgstr "PDA, smartphone eta Outlook-ekin sinkronizatzeko konfigurazioa."
 
-#: admin/config/index.php:220
+#: admin/config/index.php:252
 msgid "Configuration is out of date."
 msgstr "Konfigurazioa iraungita dago."
 
-#: templates/admin/config/index.html:89
+#: templates/admin/config/index.html.php:79
 msgid "Configuration upgrade scripts available"
 msgstr "Konfigurazioa eguneratzeko scriptak erabilgarri daude"
 
-#: admin/config/index.php:162
+#: admin/config/index.php:189
 #, php-format
 msgid "Configure %s"
 msgstr "Konfiguratu %s"
@@ -756,7 +775,7 @@ msgstr "Cookie-ak"
 msgid "Could not connect to server \"%s\" using FTP: %s"
 msgstr "Ezin izan da \"%s\" zerbitzariarekin konektatu FTP bidez: %s"
 
-#: admin/config/index.php:76
+#: admin/config/index.php:95
 msgid "Could not contact server. Try again later."
 msgstr "Ezin izan da zerbitzarira konektatu. Saiatu berriro geroago."
 
@@ -765,15 +784,26 @@ msgstr "Ezin izan da zerbitzarira konektatu. Saiatu berriro geroago."
 msgid "Could not delete configuration upgrade script \"%s\"."
 msgstr "Ezin izan da ezabatu konfigurazioa eguneratzeko \"%s\" scripta."
 
-#: templates/prefs/twitter.html:14
+#: templates/prefs/facebook.html.php:58
+#, php-format
 msgid ""
-"Could not find authorization for <tag:appname /> to interact with your "
-"Twitter account"
+"Could not find authorization for \"%s\" to interact with your Facebook "
+"account. This means that either you have not yet authorized your Facebook "
+"account to interact with \"%s\", or your authorization has expired and must "
+"be renewed."
 msgstr ""
-"Ez da aurkitu <tag:appname /> aplikazioak Twitter kontuarekin interakzioan "
-"jarduteko baimenik"
+"\"%s\"(e)k ez dauka baimenik zure Facebook kontuarekin jarduteko. Agian ez "
+"duzu \"%s\" baimendu Facebook kontuarekin jarduteko edo baliteke baimena "
+"iraungita egotea."
 
-#: services/resetpassword.php:100
+#: templates/prefs/twitter.html.php:15
+#, php-format
+msgid ""
+"Could not find authorization for %s to interact with your Twitter account"
+msgstr ""
+"Ez da aurkitu %s(e)rako Twitter kontuarekin interakzioan jarduteko baimenik"
+
+#: services/resetpassword.php:104
 msgid ""
 "Could not reset the password for the requested user. Some or all of the "
 "details are not correct. Try again or contact your administrator if you need "
@@ -797,7 +827,7 @@ msgstr "Ezin izan da gorde babeskopiaren konfigurazioa: %s"
 msgid "Could not save configuration upgrade script to: \"%s\"."
 msgstr "Ezin izan da gorde konfigurazioa eguneratzeko scripta hemen: \"%s\"."
 
-#: admin/config/index.php:97
+#: admin/config/index.php:116
 #, php-format
 msgid ""
 "Could not save the configuration file %s. Use one of the options below to "
@@ -820,7 +850,7 @@ msgstr ""
 msgid "Could not write configuration for \"%s\": %s"
 msgstr "Ezin izan da idatzi \"%s\"(r)en konfigurazioa: %s"
 
-#: lib/Block/Vatid.php:82
+#: lib/Block/Vatid.php:85
 msgid "Country"
 msgstr "Herrialdea"
 
@@ -828,7 +858,7 @@ msgstr "Herrialdea"
 msgid "Create"
 msgstr "Sortu"
 
-#: templates/prefs/identityselect.html:22
+#: templates/prefs/identityselect.html:26
 msgid "Create New Identity"
 msgstr "Sortu identitate berria"
 
@@ -844,7 +874,7 @@ msgstr "Uneko alarmak"
 msgid "Current Locks"
 msgstr "Uneko blokeoak"
 
-#: templates/admin/sessions.html.php:2 templates/admin/sessions.html.php:35
+#: templates/admin/sessions.html.php:2 templates/admin/sessions.html.php:27
 msgid "Current Sessions"
 msgstr "Uneko saioak"
 
@@ -856,7 +886,7 @@ msgstr "Uneko ordua"
 msgid "Current Weather"
 msgstr "Uneko eguraldia"
 
-#: lib/Block/Weather.php:230
+#: lib/Block/Weather.php:244
 msgid "Current condition"
 msgstr "Uneko baldintza"
 
@@ -872,17 +902,9 @@ msgstr "Zirilikoa (Windows-1251)"
 msgid "Cyrillic/Ukrainian (KOI8-U)"
 msgstr "Zirilikoa/Ukrainarra (KOI8-R)"
 
-#: admin/config/index.php:238 admin/config/index.php:276
+#: admin/config/index.php:272 admin/config/index.php:324
 msgid "DB access is not configured."
 msgstr "Datu-baserako sarbidea ez dago konfiguratuta."
-
-#: admin/config/index.php:244 admin/config/index.php:283
-msgid "DB schema is out of date."
-msgstr "Datu-basearen eskema iraungita dago."
-
-#: admin/config/index.php:249 admin/config/index.php:288
-msgid "DB schema is ready."
-msgstr "Datu-basearen eskema prest dago."
 
 #: templates/data/date.inc:47 templates/data/date.inc:48
 #: templates/data/date.inc:49 templates/data/date.inc:50
@@ -895,15 +917,23 @@ msgstr "EE"
 msgid "Data"
 msgstr "Datuak"
 
-#: templates/admin/config/index.html:33 templates/prefs/syncml.html:11
+#: templates/admin/config/index.html.php:30 templates/prefs/syncml.html.php:11
 msgid "Database"
 msgstr "Datu-basea"
 
-#: lib/Block/Vatid.php:85
+#: admin/config/index.php:73
+msgid ""
+"Database migration files not found. Please check PEAR's data_dir "
+"configuration setting."
+msgstr ""
+"Datu-basea migratzeko fitxategiak ez dira aurkitu. Egiaztatu mesedez PEAR "
+"data_dir karpetaren konfigurazioa."
+
+#: lib/Block/Vatid.php:88
 msgid "Date"
 msgstr "Data"
 
-#: templates/admin/user/approve.inc:23
+#: templates/admin/user/approve.inc:24
 msgid "Date Received"
 msgstr "Data jaso da"
 
@@ -912,16 +942,16 @@ msgstr "Data jaso da"
 msgid "Date: %s; time: %s"
 msgstr "Data: %s; ordua: %s"
 
-#: lib/Block/Weather.php:246
+#: lib/Block/Weather.php:260
 msgid "Day"
 msgstr "Eguna"
 
-#: config/prefs.php:394 config/prefs.php:416 config/prefs.php:430
-#: config/prefs.php:503 themes/default/info.php:2
+#: config/prefs.php:382 config/prefs.php:403 config/prefs.php:416
+#: config/prefs.php:485 themes/default/info.php:2
 msgid "Default"
 msgstr "Lehenetsia"
 
-#: lib/Prefs/Special/Category.php:59 lib/Prefs/Special/Category.php:89
+#: templates/prefs/category.html.php:7 templates/prefs/category.html.php:30
 msgid "Default Color"
 msgstr "Kolore lehenetsia"
 
@@ -929,11 +959,11 @@ msgstr "Kolore lehenetsia"
 msgid "Default Shell"
 msgstr "Shell lehenetsia"
 
-#: config/prefs.php:419
+#: config/prefs.php:406
 msgid "Default charset for sending e-mail messages:"
 msgstr "Mezu elektronikoak bidaltzeko karaktere-joko lehenetsia:"
 
-#: config/prefs.php:309
+#: config/prefs.php:296
 msgid "Default location to use for location-aware features."
 msgstr ""
 "Kokalekua kontuan hartzen duten eginbideak erabiltzeko kokaleku lehenetsia."
@@ -943,28 +973,28 @@ msgid "Definitions"
 msgstr "Definizioak"
 
 #: admin/groups.php:52 templates/admin/groups/delete.inc:11
-#: templates/admin/user/list.inc:32 templates/shares/edit.inc:66
-#: templates/shares/edit.inc:86 templates/shares/edit.inc:101
-#: templates/shares/edit.inc:121 templates/shares/edit.inc:137
-#: templates/shares/edit.inc:157 templates/shares/edit.inc:172
-#: templates/shares/edit.inc:196 templates/shares/edit.inc:231
-#: templates/shares/edit.inc:258 templates/shares/edit.inc:274
-#: templates/shares/edit.inc:299 templates/shares/edit.inc:328
-#: templates/prefs/identityselect.html:34 templates/prefs/rpc.html:35
-#: templates/prefs/syncml.html:14 templates/prefs/syncml.html:23
+#: templates/admin/user/list.inc:32 templates/prefs/syncml.html.php:14
+#: templates/prefs/syncml.html.php:23 templates/shares/edit.inc:67
+#: templates/shares/edit.inc:87 templates/shares/edit.inc:102
+#: templates/shares/edit.inc:122 templates/shares/edit.inc:138
+#: templates/shares/edit.inc:158 templates/shares/edit.inc:173
+#: templates/shares/edit.inc:197 templates/shares/edit.inc:232
+#: templates/shares/edit.inc:259 templates/shares/edit.inc:275
+#: templates/shares/edit.inc:300 templates/shares/edit.inc:329
+#: templates/prefs/identityselect.html:32 templates/prefs/rpc.html:35
 msgid "Delete"
 msgstr "Ezabatu"
 
-#: admin/alarms.php:129 admin/groups.php:206
+#: admin/alarms.php:133 admin/groups.php:208
 #, php-format
 msgid "Delete \"%s\""
 msgstr "Ezabatu \"%s\""
 
-#: templates/prefs/syncml.html:30
+#: templates/prefs/syncml.html.php:30
 msgid "Delete All SyncML Data"
 msgstr "Ezabatu SyncML datu guztiak"
 
-#: admin/groups.php:180
+#: admin/groups.php:181
 msgid "Delete Group"
 msgstr "Ezabatu taldea"
 
@@ -973,7 +1003,7 @@ msgstr "Ezabatu taldea"
 msgid "Deleted configuration upgrade script \"%s\"."
 msgstr "Konfigurazioa eguneratzeko \"%s\" scripta ezabatu da."
 
-#: lib/Prefs/Special/Syncml.php:66
+#: lib/Prefs/Special/Syncml.php:68
 #, php-format
 msgid "Deleted synchronization session for device \"%s\" and database \"%s\"."
 msgstr ""
@@ -983,39 +1013,50 @@ msgstr ""
 msgid "Describe the Problem"
 msgstr "Azaldu arazoa"
 
-#: config/registry.php:200
+#: config/registry.php:209
 msgid "Development"
 msgstr "Garapena"
 
-#: templates/prefs/activesync.html:20 templates/prefs/syncml.html:10
+#: templates/activesync/device_table.html.php:4
+#: templates/prefs/syncml.html.php:10
 msgid "Device"
 msgstr "Gailua"
 
-#: admin/activesync.php:122
-msgid "Device ID"
+#: templates/admin/activesync.html.php:11
+msgid "Device Id"
 msgstr "Gailuaren IDa"
 
-#: templates/prefs/activesync.html:11
+#: templates/activesync/device_table.html.php:7
+msgid "Device Information"
+msgstr "Gailuaren informazioa"
+
+#: templates/prefs/activesync.html.php:20
 msgid "Device Management"
 msgstr "Gailu-kudeaketa"
 
-#: lib/Application.php:282
+#: templates/admin/activesync.html.php:10
+msgid "Device Type"
+msgstr "Gailu mota"
+
+#: lib/Application.php:323
 msgid "Device encryption"
 msgstr "Gailu-enkriptatzea"
 
-#: lib/Prefs/Special/Activesync.php:84
-msgid "Device id:"
-msgstr "Gailuaren IDa:"
+#: templates/activesync/device_table.html.php:16
+msgid "Device is Blocked."
+msgstr "Gailua blokeatu da."
 
-#: admin/activesync.php:168 lib/Prefs/Special/Activesync.php:72
-msgid "Device is wiped"
-msgstr "Gailua garbitu da"
+#: templates/activesync/device_table.html.php:14
+msgid "Device is Wiped. Remove device state to allow device to reconnect."
+msgstr ""
+"Gailua garbitu egin da. Kendu gailuaren egoera berriro konektatu ahal "
+"izateko."
 
-#: admin/activesync.php:46
+#: admin/activesync.php:53
 msgid "Device successfully removed."
 msgstr "Gailua behar bezala kendu da."
 
-#: admin/activesync.php:38
+#: admin/activesync.php:45
 msgid "Device wipe successfully canceled."
 msgstr "Gailu-garbiketa bertan behera utzi da."
 
@@ -1027,24 +1068,28 @@ msgstr "Kondentsazio-puntua"
 msgid "Dew Point for last hour: "
 msgstr "Azken orduko kondentsazio-puntua: "
 
-#: lib/Block/Weather.php:181
+#: lib/Block/Weather.php:195
 msgid "Dew point"
 msgstr "Kondentsazio-puntua"
 
-#: templates/prefs/facebook.html:13 templates/prefs/facebook.html:25
-#: templates/prefs/facebook.html:37 templates/prefs/twitter.html:10
+#: templates/prefs/facebook.html.php:18 templates/prefs/facebook.html.php:32
+#: templates/prefs/facebook.html.php:46 templates/prefs/twitter.html.php:11
 msgid "Disable"
 msgstr "Desgaitu"
 
-#: config/prefs.php:439
+#: lib/Application.php:227
+msgid "Disable (not recommended)"
+msgstr "Desgaitu (ez dago gomendatua)"
+
+#: config/prefs.php:424
 msgid "Display 24-hour times?"
 msgstr "Ordua 24 orduko formatuan erakutsi"
 
-#: config/prefs.php:556
+#: config/prefs.php:535
 msgid "Display Preferences"
 msgstr "Bistaratzeko hobespenak"
 
-#: lib/Block/Weather.php:87
+#: lib/Block/Weather.php:104
 msgid "Display detailed forecast"
 msgstr "Bistaratu iragarpen xehea"
 
@@ -1057,16 +1102,17 @@ msgid "Does the first row contain the field names? If yes, check this box:"
 msgstr ""
 "Lehenengo errenkadak eremu-izenak dauzka? Baiezkoan, hautatu koadro hau:"
 
-#: templates/login/login.inc:57
+#: templates/login/login.inc:119
 msgid "Don't have an account? Sign up."
 msgstr "Ez duzu konturik? Erregistratu."
 
-#: admin/config/index.php:144 admin/config/index.php:185
+#: admin/config/index.php:171 admin/config/index.php:215
+#: admin/config/index.php:348 admin/config/index.php:374
 #, php-format
 msgid "Download %s"
 msgstr "Deskargatu %s"
 
-#: admin/config/index.php:306
+#: admin/config/index.php:400
 msgid "Download generated configuration as PHP script."
 msgstr "Deskargatu sortutako konfigurazioa PHP script gisa."
 
@@ -1074,7 +1120,7 @@ msgstr "Deskargatu sortutako konfigurazioa PHP script gisa."
 msgid "Drugs"
 msgstr "Drogak"
 
-#: login.php:234
+#: templates/login/login.inc:64 templates/login/smartmobile.html.php:34
 msgid "Dynamic"
 msgstr "Dinamikoa"
 
@@ -1082,13 +1128,13 @@ msgstr "Dinamikoa"
 msgid "EU VAT identification"
 msgstr "EU BEZ identifikazioa"
 
-#: lib/View/Sidebar.php:220 templates/shares/edit.inc:65
-#: templates/shares/edit.inc:82 templates/shares/edit.inc:100
-#: templates/shares/edit.inc:117 templates/shares/edit.inc:136
-#: templates/shares/edit.inc:153 templates/shares/edit.inc:171
-#: templates/shares/edit.inc:192 templates/shares/edit.inc:227
-#: templates/shares/edit.inc:254 templates/shares/edit.inc:273
-#: templates/shares/edit.inc:295 templates/shares/edit.inc:324
+#: lib/View/Sidebar.php:229 templates/shares/edit.inc:66
+#: templates/shares/edit.inc:83 templates/shares/edit.inc:101
+#: templates/shares/edit.inc:118 templates/shares/edit.inc:137
+#: templates/shares/edit.inc:154 templates/shares/edit.inc:172
+#: templates/shares/edit.inc:193 templates/shares/edit.inc:228
+#: templates/shares/edit.inc:255 templates/shares/edit.inc:274
+#: templates/shares/edit.inc:296 templates/shares/edit.inc:325
 msgid "Edit"
 msgstr "Editatu"
 
@@ -1101,11 +1147,11 @@ msgstr "Editatu \"%s\""
 msgid "Edit Preferences for"
 msgstr "Editatu honen hobespenak"
 
-#: services/shares/edit.php:251
+#: services/shares/edit.php:249
 msgid "Edit permissions"
 msgstr "Editatu baimenak"
 
-#: services/shares/edit.php:252 templates/shares/edit.inc:14
+#: services/shares/edit.php:248 templates/shares/edit.inc:15
 #, php-format
 msgid "Edit permissions for \"%s\""
 msgstr "Editatu \"%s\"(r)en baimenak"
@@ -1118,11 +1164,15 @@ msgstr "Hezkuntza"
 msgid "Email Address"
 msgstr "Helbide elektronikoa"
 
+#: lib/Application.php:225
+msgid "Enable"
+msgstr "Gaitu"
+
 #: templates/admin/locks/list.html.php:14
 msgid "End Time"
 msgstr "Amaiera-ordua"
 
-#: lib/Block/Weather.php:75
+#: lib/Block/Weather.php:92
 msgid "English"
 msgstr "Ingelesa"
 
@@ -1130,7 +1180,7 @@ msgstr "Ingelesa"
 msgid "Enter a name for the new category:"
 msgstr "Idatzi izen bat kategoria berriarentzat:"
 
-#: config/prefs.php:354
+#: config/prefs.php:345
 msgid ""
 "Enter a security question which you will be asked if you need to reset your "
 "password, e.g. 'what is the name of your pet?':"
@@ -1138,8 +1188,21 @@ msgstr ""
 "Sartu pasahitza etab. berrezarri behar dituzunean egingo zaizun segurtasun--"
 "galdera, esate baterako, 'zein da zure maskotaren izena?':"
 
-#: lib/Prefs/Special/Twitter.php:49 services/twitter/index.php:184
-#: services/twitter/index.php:207
+#: lib/Ajax/Application/FacebookHandler.php:244
+msgid ""
+"Error connecting to Facebook. Details have been logged for the administrator."
+msgstr ""
+"Errorea Facebookera konektatzean. Administratzailearentzako xehetasunak "
+"erregistratu dira."
+
+#: lib/Ajax/Application/TwitterHandler.php:284 services/twitter/index.php:27
+msgid ""
+"Error connecting to Twitter. Details have been logged for the administrator."
+msgstr ""
+"Errorea Twitterera konektatzean. Administratzailearentzako xehetasunak "
+"erregistratu dira."
+
+#: lib/Prefs/Special/Twitter.php:54
 #, php-format
 msgid ""
 "Error connecting to Twitter: %s Details have been logged for the "
@@ -1148,15 +1211,15 @@ msgstr ""
 "Errorea Twitter-era konektatzean: %s  Administratzailearentzako xehetasunak "
 "erregistratu dira."
 
-#: lib/Prefs/Special/Syncml.php:68
+#: lib/Prefs/Special/Syncml.php:70
 msgid "Error deleting synchronization session:"
 msgstr "Errorea sinkronizazio-saioa ezabatzean:"
 
-#: lib/Prefs/Special/Syncml.php:76
+#: lib/Prefs/Special/Syncml.php:78
 msgid "Error deleting synchronization sessions:"
 msgstr "Errorea sinkronizazio-saioak ezabatzean:"
 
-#: services/changepassword.php:59
+#: services/changepassword.php:54
 #, php-format
 msgid "Error updating password: %s"
 msgstr "Errorea pasahitza eguneratzean: %s"
@@ -1165,27 +1228,23 @@ msgstr "Errorea pasahitza eguneratzean: %s"
 msgid "Ethnic"
 msgstr "Etnikoak"
 
-#: services/facebook/index.php:189
-msgid "Event Invites:"
-msgstr "Gertaera-gonbidapenak:"
-
-#: config/prefs.php:617 templates/portal/layout.inc:101
+#: config/prefs.php:594 templates/portal/layout.inc:101
 msgid "Every 15 minutes"
 msgstr "15 minutuz behin"
 
-#: config/prefs.php:636
+#: config/prefs.php:613
 msgid "Every 2 minutes"
 msgstr "2 minutuz behin"
 
-#: config/prefs.php:614 config/prefs.php:634 templates/portal/layout.inc:98
+#: config/prefs.php:591 config/prefs.php:611 templates/portal/layout.inc:98
 msgid "Every 30 seconds"
 msgstr "30 segundoz behin"
 
-#: config/prefs.php:616 config/prefs.php:637 templates/portal/layout.inc:100
+#: config/prefs.php:593 config/prefs.php:614 templates/portal/layout.inc:100
 msgid "Every 5 minutes"
 msgstr "5 minutuz behin"
 
-#: config/prefs.php:618 templates/portal/layout.inc:102
+#: config/prefs.php:595 templates/portal/layout.inc:102
 msgid "Every half hour"
 msgstr "Ordu erdiz behin"
 
@@ -1193,7 +1252,7 @@ msgstr "Ordu erdiz behin"
 msgid "Every hour"
 msgstr "Orduan behin"
 
-#: config/prefs.php:615 config/prefs.php:635 templates/portal/layout.inc:99
+#: config/prefs.php:592 config/prefs.php:612 templates/portal/layout.inc:99
 msgid "Every minute"
 msgstr "Minutuan behin"
 
@@ -1201,13 +1260,12 @@ msgstr "Minutuan behin"
 msgid "Example values:"
 msgstr "Balio-adibideak:"
 
-#: templates/admin/cmdshell.html.php:22 templates/admin/phpshell.html.php:21
-#: templates/admin/sqlshell.html.php:55
+#: templates/admin/cmdshell.html.php:24 templates/admin/phpshell.html.php:23
+#: templates/admin/sqlshell.html.php:57
 msgid "Execute"
 msgstr "Exekutatu"
 
-#: lib/View/Sidebar.php:64 templates/admin/sessions.html.php:8
-#: templates/sidebar/_container.html.php:14
+#: lib/View/Sidebar.php:66 templates/sidebar/_container.html.php:14
 msgid "Expand"
 msgstr "Zabaldu"
 
@@ -1215,17 +1273,21 @@ msgstr "Zabaldu"
 msgid "Extra Large"
 msgstr "Oso handia"
 
-#: templates/admin/config/index.html:102
+#: templates/admin/config/index.html.php:93
 msgid "FTP upload of configuration"
 msgstr "Konfigurazioa FTPn kargatzea"
 
-#: config/prefs.php:661
+#: config/prefs.php:638
 msgid "Facebook Integration"
 msgstr "Facebook-en integrazioa"
 
-#: lib/Application.php:217
+#: lib/Application.php:258
 msgid "Failed unlock attempts before device is wiped"
 msgstr "Desblokeatzeko huts egiten diren saioak gailua garbitu aurretik"
+
+#: lib/Block/TwitterTimeline.php:120 templates/block/twitter_tweet.html.php:37
+msgid "Favorite"
+msgstr "Gogokoa"
 
 #: lib/Block/Feed.php:56
 msgid "Feed"
@@ -1243,23 +1305,23 @@ msgstr "Sentsazio termikoa"
 msgid "Fields to search"
 msgstr "Bilatzeko eremuak"
 
-#: config/registry.php:306
+#: config/registry.php:315
 msgid "File Manager"
 msgstr "Fitxategi-kudeatzailea"
 
-#: lib/Block/FbStream.php:60
+#: lib/Block/FbStream.php:61
 msgid "Filter"
 msgstr "Iragazkia"
 
-#: config/registry.php:88
+#: config/registry.php:90
 msgid "Filters"
 msgstr "Iragazkiak"
 
-#: lib/Block/Moon.php:167
+#: lib/Block/Moon.php:165
 msgid "First Half"
 msgstr "Ilgora (lehen erdia)"
 
-#: lib/Block/Moon.php:75 lib/Block/Moon.php:77
+#: lib/Block/Moon.php:72 lib/Block/Moon.php:74
 msgid "First Quarter"
 msgstr "Ilgora"
 
@@ -1267,15 +1329,11 @@ msgstr "Ilgora"
 msgid "Food"
 msgstr "Janariak"
 
-#: lib/Application.php:185
-msgid "Force"
-msgstr "Behartu"
-
 #: lib/Block/Metar.php:308
 msgid "Forecast (TAF)"
 msgstr "Iragarpena (TAF)"
 
-#: lib/Block/Weather.php:81
+#: lib/Block/Weather.php:98
 msgid ""
 "Forecast Days (note that the returned forecast returns both day and night; a "
 "large number here could result in a wide block)"
@@ -1283,11 +1341,11 @@ msgstr ""
 "Iragarpen-egunak (kontuan hartu bai egunak, eta bai gauak azalduko direla; "
 "egun asko aukeratuz gero, bloke oso handia aterako litzateke)"
 
-#: templates/login/login.inc:64
+#: templates/login/login.inc:126
 msgid "Forgot your password?"
 msgstr "Pasahitza ahaztu zaizu?"
 
-#: config/registry.php:335
+#: config/registry.php:344
 msgid "Forms"
 msgstr "Inprimakiak"
 
@@ -1307,24 +1365,20 @@ msgstr "Fortunak"
 msgid "Fortunes 2"
 msgstr "Fortunak 2"
 
-#: config/registry.php:329
+#: config/registry.php:338
 msgid "Forums"
 msgstr "Foroak"
 
-#: services/facebook/index.php:188
-msgid "Friend Requests:"
-msgstr "Lagun-eskaerak:"
+#: templates/prefs/facebook.html.php:44
+msgid "Friends enabled."
+msgstr "Lagunak gaituta."
 
-#: templates/prefs/facebook.html:36
-msgid "Friends enabled"
-msgstr "Lagunak gaituta"
-
-#: lib/Block/Weather.php:207
+#: lib/Block/Weather.php:221
 #, php-format
 msgid "From the %s (%s &deg;) at %s %s"
 msgstr "Noiztik: %s (%s &deg;); zein ordutatik: %s %s"
 
-#: lib/Block/Weather.php:318
+#: lib/Block/Weather.php:332
 #, php-format
 msgid "From the %s at %s %s"
 msgstr "Noiztik: %s; zein ordutatik: %s %s"
@@ -1333,7 +1387,7 @@ msgstr "Noiztik: %s; zein ordutatik: %s %s"
 msgid "Full Description"
 msgstr "Azalpen osoa"
 
-#: lib/Block/Moon.php:82 lib/Block/Moon.php:177
+#: lib/Block/Moon.php:79 lib/Block/Moon.php:175
 msgid "Full Moon"
 msgstr "Ilbetea"
 
@@ -1346,11 +1400,11 @@ msgstr "Izen osoa"
 msgid "Generate %s Configuration"
 msgstr "Sortu %s konfigurazioa"
 
-#: templates/admin/config/config.html:6
+#: templates/admin/config/config.html.php:6
 msgid "Generated Code"
 msgstr "Sortutako kodea"
 
-#: lib/Block/FbStream.php:155 templates/block/twitter-layout.html.php:35
+#: lib/Block/FbStream.php:150 templates/block/twitter-layout.html.php:35
 msgid "Get More"
 msgstr "Eskuratu gehiago"
 
@@ -1387,15 +1441,15 @@ msgstr "Taldearen izena"
 msgid "Group was not created: %s."
 msgstr "Taldea ez da sortu: %s."
 
-#: admin/groups.php:219 templates/shares/edit.inc:269
+#: admin/groups.php:221 templates/shares/edit.inc:270
 msgid "Groups"
 msgstr "Taldeak"
 
-#: templates/shares/edit.inc:96
+#: templates/shares/edit.inc:97
 msgid "Guest Permissions"
 msgstr "Gonbidatu-baimenak"
 
-#: lib/Application.php:286
+#: lib/Application.php:327
 msgid "HTML Email"
 msgstr "HTML posta"
 
@@ -1407,7 +1461,7 @@ msgstr "Hebrearra (ISO-8859-8-I)"
 msgid "Height"
 msgstr "Altuera"
 
-#: lib/Block/FbStream.php:75 lib/Block/TwitterTimeline.php:64
+#: lib/Block/FbStream.php:71 lib/Block/TwitterTimeline.php:64
 msgid "Height of stream content (width automatically adjusts to block)"
 msgstr ""
 "Korronte-edukiaren altuera (zabalera automatikoki egokitzen zaio blokeari)"
@@ -1440,7 +1494,7 @@ msgstr "Ezkutatu emaitzak"
 msgid "Home Directory"
 msgstr "Direktorio nagusia"
 
-#: config/registry.php:75
+#: config/registry.php:77
 msgid "Horde"
 msgstr "Horde"
 
@@ -1452,7 +1506,7 @@ msgstr "Zenbat eremu (zutabe) daude hor?"
 msgid "How many seconds before we check for new articles?"
 msgstr "Zenbat segundo igaro behar dira artikulu berririk dagoen begiratzeko?"
 
-#: lib/Block/Metar.php:204 lib/Block/Weather.php:219 lib/Block/Weather.php:259
+#: lib/Block/Metar.php:204 lib/Block/Weather.php:233 lib/Block/Weather.php:273
 msgid "Humidity"
 msgstr "Hezetasuna"
 
@@ -1460,12 +1514,21 @@ msgstr "Hezetasuna"
 msgid "Humorists"
 msgstr "Umoristak"
 
-#: util/icon_browser.php:53
+#: templates/admin/activesync.html.php:15
+msgid "IMEI"
+msgstr "IMEI"
+
+#: util/icon_browser.php:40
 #, php-format
 msgid "Icons for %s"
 msgstr "%s(r)en ikonoak"
 
-#: config/prefs.php:284
+#: templates/prefs/activesync.html.php:2
+msgid "Identity to use when sending email via ActiveSync."
+msgstr ""
+"ActiveSync-en bidez posta elektronikoak bidaltzean erabiliko den identitatea."
+
+#: config/prefs.php:274
 msgid "Identity's name:"
 msgstr "Identitatearen izena:"
 
@@ -1484,7 +1547,7 @@ msgstr "Inportatutako eremua: %s"
 msgid "Imported fields:"
 msgstr "Inportatutako eremuak:"
 
-#: lib/Block/TwitterTimeline.php:110
+#: lib/Block/TwitterTimeline.php:113
 msgid "In reply to:"
 msgstr "Honentzako erantzunean:"
 
@@ -1508,27 +1571,27 @@ msgstr ""
 "Erabiltzaile-izen edo ordezko helbide okerra. Saiatu berriro, edo eskatu "
 "laguntza administratzaileari, behar izanez gero."
 
-#: templates/shares/edit.inc:167
+#: templates/shares/edit.inc:168
 msgid "Individual Users"
 msgstr "Erabiltzaile indibidualak"
 
-#: config/registry.php:234
+#: config/registry.php:243
 msgid "Information"
 msgstr "Informazioa"
 
-#: templates/admin/groups/edit.inc:40
+#: templates/admin/groups/edit.inc:42
 msgid "Inherited Members"
 msgstr "Heredatutako kideak"
 
-#: config/prefs.php:368
+#: config/prefs.php:357
 msgid "Insert an email address to which you can receive the new password:"
 msgstr "Sartu pasahitz berria jasotzeko helbide elektronikoa:"
 
-#: config/prefs.php:361
+#: config/prefs.php:351
 msgid "Insert the required answer to the security question:"
 msgstr "Txertatu segurtasun-galderak eskatutako erantzuna:"
 
-#: lib/Block/Vatid.php:58
+#: lib/Block/Vatid.php:61
 msgid "Invalid VAT identification number format."
 msgstr "BEZaren identifikazio-zenbakiaren formatua ez da baliozkoa."
 
@@ -1549,7 +1612,7 @@ msgstr "Hash baliogabea."
 msgid "Invalid parent permission."
 msgstr "Guraso-baimena ez da baliozkoa."
 
-#: config/registry.php:287
+#: config/registry.php:296
 msgid "Inventory"
 msgstr "Inbentarioa"
 
@@ -1557,7 +1620,15 @@ msgstr "Inbentarioa"
 msgid "Japanese (ISO-2022-JP)"
 msgstr "Japoniarra (ISO-2022-JP)"
 
-#: lib/Block/TwitterTimeline.php:111
+#: login.php:167
+msgid ""
+"JavaScript is either disabled or not available on your browser. You are "
+"restricted to the minimal view."
+msgstr ""
+"Zure nabigatzailean JavaScripta ez dago aktibatuta edo ez dago erabilgarri. "
+"Ikuspegi minimalistara mugatuta zaude."
+
+#: lib/Block/TwitterTimeline.php:114
 msgid "Just now..."
 msgstr "Justu orain..."
 
@@ -1573,7 +1644,7 @@ msgstr "Gako-hitza"
 msgid "Kids"
 msgstr "Haurrak"
 
-#: config/registry.php:295
+#: config/registry.php:304
 msgid "Kolab"
 msgstr "Kolab"
 
@@ -1581,7 +1652,7 @@ msgstr "Kolab"
 msgid "Korean (EUC-KR)"
 msgstr "Korearra (EUC-KR)"
 
-#: login.php:382 templates/login/login.inc:37
+#: login.php:365 templates/login/login.inc:99
 msgid "Language"
 msgstr "Hizkuntza"
 
@@ -1589,7 +1660,7 @@ msgstr "Hizkuntza"
 msgid "Large"
 msgstr "Handia"
 
-#: lib/Block/Moon.php:170
+#: lib/Block/Moon.php:168
 msgid "Last Half"
 msgstr "Ilbehera (azken erdia)"
 
@@ -1597,11 +1668,11 @@ msgstr "Ilbehera (azken erdia)"
 msgid "Last Password Change"
 msgstr "Azken pasahitz-aldaketa"
 
-#: lib/Block/Moon.php:87 lib/Block/Moon.php:89
+#: lib/Block/Moon.php:85 lib/Block/Moon.php:87
 msgid "Last Quarter"
 msgstr "Ilbehera"
 
-#: admin/activesync.php:101 templates/prefs/activesync.html:21
+#: templates/activesync/device_table.html.php:5
 msgid "Last Sync Time"
 msgstr "Azken sinkronizazioaren ordua"
 
@@ -1609,19 +1680,23 @@ msgstr "Azken sinkronizazioaren ordua"
 msgid "Last Updated:"
 msgstr "Azken eguneratzea:"
 
-#: lib/LoginTasks/Task/LastLogin.php:49
+#: lib/LoginTasks/Task/LastLogin.php:52
 #, php-format
 msgid "Last login: %s"
 msgstr "Azken saio-hasiera: %s"
 
-#: lib/LoginTasks/Task/LastLogin.php:51
+#: lib/LoginTasks/Task/LastLogin.php:54
 #, php-format
 msgid "Last login: %s from %s"
 msgstr "Azken saio-hasiera: %s - %s"
 
-#: lib/LoginTasks/Task/LastLogin.php:47
+#: lib/LoginTasks/Task/LastLogin.php:50
 msgid "Last login: Never"
 msgstr "Azken saio-hasiera: inoiz ez"
+
+#: lib/Prefs/Special/Activesync.php:69
+msgid "Last synckey"
+msgstr "Azken sinkronizazio-klabea"
 
 #: templates/block/twitter-layout.html.php:19
 msgid "Latest"
@@ -1631,7 +1706,7 @@ msgstr "Azkena"
 msgid "Law"
 msgstr "Zuzenbidea"
 
-#: services/facebook/index.php:81
+#: lib/Ajax/Application/FacebookHandler.php:205
 msgid "Like"
 msgstr "Atsegin"
 
@@ -1643,11 +1718,11 @@ msgstr "Limerick"
 msgid "Linux Cookie"
 msgstr "Linux cookie-a"
 
-#: templates/admin/sqlshell.html.php:60
+#: templates/admin/sqlshell.html.php:62
 msgid "List Tables"
 msgstr "Zerrenda - taulak"
 
-#: admin/alarms.php:137
+#: admin/alarms.php:141
 #, php-format
 msgid "Listing alarms failed: %s"
 msgstr "Huts egin du alarmak zerrendatzean: %s"
@@ -1657,10 +1732,19 @@ msgstr "Huts egin du alarmak zerrendatzean: %s"
 msgid "Listing locks failed: %s"
 msgstr "Huts egin du blokeoak zerrendatzean: %s"
 
-#: templates/admin/sessions.html.php:37
+#: templates/admin/sessions.html.php:29
 #, php-format
 msgid "Listing sessions failed: %s"
 msgstr "Huts egin du saioak zerrendatzean: %s"
+
+#: templates/admin/user/listfail.inc:5
+#, php-format
+msgid "Listing users failed with this error message: %s"
+msgstr "Erabiltzaileak zerrendatzean errorea gertatu da: %s"
+
+#: templates/admin/user/listfail.inc:2
+msgid "Listing users failed."
+msgstr "Huts egin du erabiltzaileak zerrendatzean."
 
 #: templates/admin/user/nolist.inc:2
 msgid "Listing users is disabled."
@@ -1670,16 +1754,16 @@ msgstr "Erabiltzaileak zerrendatzea desgaituta dago."
 msgid "Literature"
 msgstr "Literatura"
 
-#: lib/Block/Weather.php:159
+#: lib/Block/Weather.php:173
 #, php-format
-msgid "Local time: %s %s"
-msgstr "Ordu lokala: %s %s"
+msgid "Local time: %s %s (UTC %s)"
+msgstr "Ordu lokala: %s %s (UTC %s)"
 
-#: config/prefs.php:377
+#: config/prefs.php:366
 msgid "Locale and Time"
 msgstr "Konfigurazio lokala eta ordua"
 
-#: lib/Block/Metar.php:52 lib/Block/Sunrise.php:23 lib/Block/Weather.php:67
+#: lib/Block/Metar.php:52 lib/Block/Sunrise.php:23 lib/Block/Weather.php:84
 msgid "Location"
 msgstr "Kokalekua"
 
@@ -1691,37 +1775,45 @@ msgstr "Blokeatu erabiltzailea"
 msgid "Locks"
 msgstr "Blokeoak"
 
-#: login.php:310 templates/login/login.inc:46
+#: login.php:291 templates/login/login.inc:108
+#: templates/topbar/_menubar.html.php:9
 msgid "Log in"
 msgstr "Hasi saioa"
 
-#: templates/portal/smartmobile.inc:5
+#: templates/portal/smartmobile.inc:5 templates/topbar/_menubar.html.php:7
 msgid "Log out"
 msgstr "Itxi saioa"
 
-#: templates/prefs/facebook.html:8
+#: templates/prefs/facebook.html.php:8
 msgid "Logged in to Facebook"
 msgstr "Facebook-eko saioa hasita"
 
-#: login.php:339
+#: login.php:320
 msgid "Login failed because your username or password was entered incorrectly."
 msgstr ""
 "Saio-hasierak huts egin du: erabiltzaile-izena edo pasahitza ez dira ondo "
 "sartu."
 
-#: login.php:335
+#: login.php:316
 msgid "Login failed."
 msgstr "Saio-hasierak huts egin du."
 
-#: templates/prefs/facebook.html:49
-msgid "Login to Facebook and authorize <tag:app_name />"
-msgstr "Hasi Facebook-eko saioa eta baimendu <tag:app_name />"
+#: login.php:405
+#, php-format
+msgid "Login to %s"
+msgstr "Saioa hasi %s(e)n"
 
-#: templates/prefs/twitter.html:21
-msgid "Login to Twitter and authorize the <tag:appname /> application"
-msgstr "Hasi Twitter-eko saioa eta baimendu <tag:appname /> aplikazioa"
+#: templates/prefs/facebook.html.php:62
+#, php-format
+msgid "Login to Facebook and authorize %s"
+msgstr "Hasi Facebook-eko saioa eta baimendu %s"
 
-#: templates/prefs/facebook.html:9
+#: templates/prefs/twitter.html.php:18
+#, php-format
+msgid "Login to Twitter and authorize %s"
+msgstr "Hasi Twitter-eko saioa eta baimendu %s"
+
+#: templates/prefs/facebook.html.php:10
 msgid "Logout"
 msgstr "Itxi saioa"
 
@@ -1740,15 +1832,15 @@ msgstr "HH"
 msgid "Magic"
 msgstr "Magia"
 
-#: config/registry.php:80
+#: config/registry.php:82
 msgid "Mail"
 msgstr "Posta"
 
-#: config/registry.php:352
+#: config/registry.php:349
 msgid "Mail Admin"
 msgstr "Posta-adm."
 
-#: config/prefs.php:530
+#: config/prefs.php:511
 msgid ""
 "Manage the list of categories you have to label items with, and colors "
 "associated with those categories."
@@ -1756,7 +1848,7 @@ msgstr ""
 "Kudeatu elementuak etiketatzeko kategorien zerrenda eta kategoriekin "
 "lotutako koloreak."
 
-#: config/prefs.php:751
+#: config/prefs.php:736
 msgid "Manage your ActiveSync devices."
 msgstr "Kudeatu ActiveSync gailuak."
 
@@ -1772,19 +1864,23 @@ msgstr "Azken 24 orduetako tenp. altuena: "
 msgid "Max temp last 6 hours: "
 msgstr "Azken 6 orduetako tenp. altuena: "
 
-#: lib/Application.php:290
+#: lib/Application.php:331
 msgid "Maximum Email age"
 msgstr "Mezu elektronikoen gehieneko denbora"
 
-#: lib/Application.php:48
+#: lib/Application.php:51
 msgid "Maximum Number of Portal Blocks"
 msgstr "Atari-blokeen gehieneko kopurua"
 
-#: lib/Application.php:234
-msgid "Maximum attachment size"
-msgstr "Eranskinen gehieneko tamaina"
+#: lib/Application.php:275
+msgid "Maximum attachment size in bytes"
+msgstr "Eranskinen gehieneko tamaina byte-etan"
 
-#: lib/Block/FbStream.php:66
+#: lib/Application.php:216
+msgid "Maximum number of devices"
+msgstr "Gehieneko gailu kopurua"
+
+#: lib/Block/FbStream.php:67
 msgid "Maximum number of entries to display"
 msgstr "Bistaratzeko gehieneko sarrera kopurua"
 
@@ -1808,7 +1904,7 @@ msgstr "Aipamenak"
 msgid "Metar Weather"
 msgstr "Metar eguraldia"
 
-#: lib/Block/Metar.php:62 lib/Block/Weather.php:76
+#: lib/Block/Metar.php:62 lib/Block/Weather.php:93
 msgid "Metric"
 msgstr "Metrikoa"
 
@@ -1820,39 +1916,48 @@ msgstr "Azken 24 orduetako tenp. baxuena: "
 msgid "Min temp last 6 hours: "
 msgstr "Azken 6 orduetako tenp. baxuena: "
 
-#: lib/Application.php:196
+#: lib/Application.php:237
 msgid "Minimum PIN length"
 msgstr "Gutxieneko PIN luzera"
-
-#: lib/Application.php:212
-msgid "Minutes of inactivity before device should lock"
-msgstr "Inaktibo igarotzen diren minutuak gailuak blokeatu aurretik"
 
 #: lib/Block/Fortune.php:58
 msgid "Miscellaneous"
 msgstr "Askotarikoak"
 
-#: admin/config/index.php:197
+#: admin/config/index.php:229
 msgid "Missing configuration."
 msgstr "Konfigurazioa falta da."
 
-#: login.php:242
+#: templates/login/login.inc:66 templates/login/smartmobile.html.php:36
 msgid "Mobile (Minimal)"
 msgstr "Mugikorra (txikiena)"
 
-#: login.php:238
-msgid "Mobile (Smartphone)"
-msgstr "Mugikorra (Smartphone)"
+#: templates/login/login.inc:67 templates/login/smartmobile.html.php:37
+msgid "Mobile (No JavaScript)"
+msgstr "Mugikorra (JavaScript gabe)"
 
-#: templates/portal/smartmobile.inc:11
+#: templates/login/login.inc:65 templates/login/smartmobile.html.php:35
+msgid "Mobile (Smartphone/Tablet)"
+msgstr "Mugikorra (Smartphone/Tableta)"
+
+#: templates/portal/smartmobile.inc:12
 msgid "Mobile Optimized Apps"
 msgstr "Mugikorretarako optimizatutako aplikazioak"
 
-#: login.php:221
+#: templates/login/login.inc:58 templates/login/smartmobile.html.php:29
 msgid "Mode"
 msgstr "Modua"
 
-#: config/prefs.php:518
+#: templates/admin/activesync.html.php:14
+msgid "Model"
+msgstr "Mota"
+
+#: admin/config/index.php:174 admin/config/index.php:218
+#: admin/config/index.php:351 admin/config/index.php:377
+msgid "Module is up-to-date."
+msgstr "Modulua eguneratuta dago."
+
+#: config/prefs.php:499
 msgid "Monday"
 msgstr "Astelehena"
 
@@ -1860,7 +1965,7 @@ msgstr "Astelehena"
 msgid "Moon Phases"
 msgstr "Ilargiaren faseak"
 
-#: config/registry.php:300
+#: config/registry.php:309
 msgid "My Account"
 msgstr "Nire kontua"
 
@@ -1868,7 +1973,7 @@ msgstr "Nire kontua"
 msgid "My Account Information"
 msgstr "Nire kontuaren informazioa"
 
-#: lib/Block/FbStream.php:37
+#: lib/Block/FbStream.php:38
 msgid "My Facebook Stream"
 msgstr "Nire Facebook korrontea"
 
@@ -1880,17 +1985,18 @@ msgstr "Nire ataria"
 msgid "My Portal Layout"
 msgstr "Nire atariaren diseinua"
 
-#: lib/Block/Weather.php:308 lib/Block/Weather.php:312
-#: lib/Block/Weather.php:328
+#: lib/Block/Weather.php:322 lib/Block/Weather.php:326
+#: lib/Block/Weather.php:342
 msgid "N/A"
 msgstr "E/E"
 
-#: templates/logintasks/logintasks.html:27
-#: templates/logintasks/smartmobile.html:29
+#: templates/logintasks/logintasks.html.php:29
+#: templates/logintasks/smartmobile.html.php:45
 msgid "NO, I Do NOT Agree"
 msgstr "EZ, EZ nago ados"
 
-#: templates/prefs/activesync.html:48
+#: templates/admin/activesync.html.php:37
+#: templates/prefs/activesync.html.php:36
 msgid ""
 "NOTE: WIPING A DEVICE MAY RESET IT TO FACTORY DEFAULTS. PLEASE MAKE SURE YOU "
 "REALLY WANT TO DO THIS BEFORE REQUESTING A WIPE"
@@ -1899,24 +2005,19 @@ msgstr ""
 "BERREZARRIKO DIRA. ZIURTATU HORI EGIN NAHI DUZULA GARBITZE BAT ESKATU "
 "AURRETIK"
 
-#: lib/Block/Vatid.php:90
+#: lib/Block/Vatid.php:93
 msgid "Name"
 msgstr "Izena"
 
-#: config/prefs.php:613 config/prefs.php:633 lib/Application.php:184
-#: templates/portal/layout.inc:97
+#: config/prefs.php:590 config/prefs.php:610 templates/portal/layout.inc:97
 msgid "Never"
 msgstr "Inoiz ez"
 
-#: templates/prefs/category.html:3
+#: templates/prefs/category.html.php:43
 msgid "New Category"
 msgstr "Kategoria berria"
 
-#: services/facebook/index.php:185
-msgid "New Messages:"
-msgstr "Mezu berriak:"
-
-#: lib/Block/Moon.php:47 lib/Block/Moon.php:69 lib/Block/Moon.php:175
+#: lib/Block/Moon.php:47 lib/Block/Moon.php:65 lib/Block/Moon.php:173
 msgid "New Moon"
 msgstr "Ilberria"
 
@@ -1924,15 +2025,15 @@ msgstr "Ilberria"
 msgid "New Username (optional)"
 msgstr "Erabiltzaile-izen berria (aukerakoa)"
 
-#: services/changepassword.php:32
+#: services/changepassword.php:31
 msgid "New password"
 msgstr "Pasahitz berria"
 
-#: services/changepassword.php:43
+#: services/changepassword.php:40
 msgid "New passwords don't match."
 msgstr "Pasahitz berriak ez datoz bat."
 
-#: config/registry.php:245 lib/Block/Fortune.php:59
+#: config/registry.php:254 lib/Block/Fortune.php:59
 msgid "News"
 msgstr "Berriak"
 
@@ -1949,15 +2050,15 @@ msgstr "Hurrengo 4 faseak"
 msgid "No Sound"
 msgstr "Soinurik ez"
 
-#: templates/admin/config/diff.html:9
+#: templates/admin/config/diff.html.php:2
 msgid "No available configuration data to show differences for."
 msgstr "Ez dago konfigurazio-datu erabilgarririk desberdintasunak erakusteko."
 
-#: admin/config/diff.php:45
+#: admin/config/diff.php:49
 msgid "No change."
 msgstr "Aldaketarik ez."
 
-#: util/icon_browser.php:83
+#: util/icon_browser.php:70
 msgid "No icons found."
 msgstr "Ez da ikonorik aurkitu."
 
@@ -1977,7 +2078,7 @@ msgstr "Fortuna iraingarririk ez"
 msgid "No pending signups."
 msgstr "Ez dago erregistrorik zain."
 
-#: lib/Application.php:303
+#: lib/Application.php:344
 msgid "No push while roaming"
 msgstr "Push-ik ez ibiltaritzan dagoen bitartean"
 
@@ -1987,7 +2088,8 @@ msgstr ""
 "Ez da segurtasun-galderarik ezarri. Jarri harremanetan "
 "administratzailearekin."
 
-#: admin/config/index.php:141 admin/config/index.php:182
+#: admin/config/index.php:168 admin/config/index.php:212
+#: admin/config/index.php:345 admin/config/index.php:371
 msgid "No stable version exists yet."
 msgstr "Oraindik ez dago bertsio egonkorrik."
 
@@ -1995,17 +2097,31 @@ msgstr "Oraindik ez dago bertsio egonkorrik."
 msgid "No username specified."
 msgstr "Ez da erabiltzaile-izenik zehaztu."
 
-#: admin/config/index.php:203
+#: admin/config/index.php:235
 msgid "No version found in original configuration. Regenerate configuration."
 msgstr ""
 "Ez da bertsiorik aurkitu jatorrizko konfigurazioan. Birsortu konfigurazioa."
 
-#: admin/config/index.php:212
+#: admin/config/index.php:244
 msgid "No version found in your configuration. Regenerate configuration."
 msgstr "Ez da bertsiorik aurkitu zure konfigurazioan. Birsortu konfigurazioa."
 
-#: lib/Prefs/Special/Activesync.php:63 templates/prefs/activesync.html:43
-#: templates/prefs/identityselect.html:20 templates/prefs/syncml.html:34
+#: admin/config/index.php:296
+msgid "NoSQL indices are ready."
+msgstr "NoSQL indizeak prest daude."
+
+#: admin/config/index.php:291
+#, php-format
+msgid "NoSQL indices for %s"
+msgstr "%s(k) ez dauka NoSQL indizerik"
+
+#: admin/config/index.php:293
+msgid "NoSQL indices out of date."
+msgstr "NoSQL indizeak iraungita daude."
+
+#: templates/activesync/device_table.html.php:23
+#: templates/admin/activesync.html.php:28
+#: templates/prefs/activesync.html.php:30 templates/prefs/syncml.html.php:34
 msgid "None"
 msgstr "Bat ere ez"
 
@@ -2013,19 +2129,19 @@ msgstr "Bat ere ez"
 msgid "Nordic (ISO-8859-10)"
 msgstr "Nordikoa (ISO-8859-10)"
 
-#: lib/Block/Moon.php:31 lib/Block/Moon.php:61
+#: lib/Block/Moon.php:31 lib/Block/Moon.php:59
 msgid "Northern Hemisphere"
 msgstr "Ipar-hemisferioa"
 
-#: admin/activesync.php:172 lib/Prefs/Special/Activesync.php:78
+#: templates/activesync/device_table.html.php:18
 msgid "Not Provisioned"
 msgstr "Hornitu gabe"
 
-#: config/registry.php:166
+#: config/registry.php:169
 msgid "Notes"
 msgstr "Oharrak"
 
-#: services/obrowser/index.php:35
+#: services/obrowser/index.php:36
 msgid "Nothing to browse, go back."
 msgstr "Ez dago non arakatu, joan atzera."
 
@@ -2037,7 +2153,15 @@ msgstr "Bistaratzeko artikulu kopurua"
 msgid "Number of seconds to wait to refresh"
 msgstr "Freskatu aurretik itxaron beharreko segundo kopurua"
 
-#: templates/shares/edit.inc:132
+#: templates/admin/activesync.html.php:17
+msgid "OS"
+msgstr "SE"
+
+#: templates/services/obrowser.html.php:5
+msgid "Object Browser"
+msgstr "Objektu-nabigatzailea"
+
+#: templates/shares/edit.inc:133
 msgid "Object Creator"
 msgstr "Objektu-sortzailea"
 
@@ -2045,19 +2169,19 @@ msgstr "Objektu-sortzailea"
 msgid "Offense filter"
 msgstr "Irainen iragazkia"
 
-#: config/registry.php:257
+#: config/registry.php:266
 msgid "Office"
 msgstr "Bulegoa"
 
-#: services/changepassword.php:45
+#: services/changepassword.php:42
 msgid "Old and new passwords must be different."
 msgstr "Pasahitz zaharrak eta berriak desberdinak izan behar dute."
 
-#: services/changepassword.php:31
+#: services/changepassword.php:30
 msgid "Old password"
 msgstr "Pasahitz zaharra"
 
-#: services/changepassword.php:41
+#: services/changepassword.php:38
 msgid "Old password is not correct."
 msgstr "Pasahitz zaharra okerra da."
 
@@ -2065,7 +2189,7 @@ msgstr "Pasahitz zaharra okerra da."
 msgid "Only offensive fortunes"
 msgstr "Fortuna iraingarriak bakarrik"
 
-#: services/shares/edit.php:92
+#: services/shares/edit.php:91
 msgid ""
 "Only the owner or system administrator may change ownership or owner "
 "permissions for a share"
@@ -2077,16 +2201,12 @@ msgstr ""
 msgid "Operating System"
 msgstr "Sistema eragilea"
 
-#: templates/shares/edit.inc:239
+#: templates/shares/edit.inc:240
 msgid "Or enter a user name:"
 msgstr "Edo sartu erabiltzaile-izen bat:"
 
-#: config/registry.php:182
-msgid "Organizing"
-msgstr "Antolamendua"
-
-#: config/prefs.php:555 config/prefs.php:660 config/prefs.php:686
-#: config/prefs.php:711 config/prefs.php:736 config/prefs.php:749
+#: config/prefs.php:534 config/prefs.php:637 config/prefs.php:663
+#: config/prefs.php:689 config/prefs.php:715 config/prefs.php:734
 msgid "Other Information"
 msgstr "Bestelako informazioa"
 
@@ -2094,23 +2214,23 @@ msgstr "Bestelako informazioa"
 msgid "Other Options"
 msgstr "Beste aukera batzuk"
 
-#: config/registry.php:177
+#: config/registry.php:180
 msgid "Others"
 msgstr "Beste batzuk"
 
-#: templates/shares/edit.inc:33
+#: templates/shares/edit.inc:34
 msgid "Owner"
 msgstr "Jabea"
 
-#: templates/shares/edit.inc:39 templates/shares/edit.inc:48
+#: templates/shares/edit.inc:40 templates/shares/edit.inc:49
 msgid "Owner:"
 msgstr "Jabea:"
 
-#: templates/admin/phpshell.html.php:15
+#: templates/admin/phpshell.html.php:17
 msgid "PHP"
 msgstr "PHP"
 
-#: templates/admin/phpshell.html.php:27
+#: templates/admin/phpshell.html.php:29
 msgid "PHP Code"
 msgstr "PHP kodea"
 
@@ -2118,7 +2238,7 @@ msgstr "PHP kodea"
 msgid "PHP Shell"
 msgstr "PHP shell-a"
 
-#: lib/Application.php:266
+#: lib/Application.php:307
 msgid "POP/IMAP Email accounts"
 msgstr "POP/IMAP posta-kontuak"
 
@@ -2126,29 +2246,29 @@ msgstr "POP/IMAP posta-kontuak"
 msgid "POSIX extension is missing"
 msgstr "POSIX luzapena falta da"
 
-#: lib/Api.php:62
+#: lib/Api.php:75
 msgid "P_HP Shell"
 msgstr "_PHP shell-a"
 
-#: login.php:204 admin/config/index.php:319 admin/user.php:40
-#: admin/user.php:54 config/registry.php:318
+#: login.php:211 admin/config/index.php:421 admin/user.php:39
+#: admin/user.php:53 config/registry.php:327
 #: templates/admin/user/update.inc:20
 msgid "Password"
 msgstr "Pasahitza"
 
-#: lib/Application.php:201
+#: lib/Application.php:242
 msgid "Password Complexity"
 msgstr "Pasahitz-konplexutasuna"
 
-#: services/changepassword.php:50
+#: services/changepassword.php:47
 msgid "Password changed successfully."
 msgstr "Pasahitza behar bezala aldatu da."
 
-#: admin/user.php:176 admin/user.php:236
+#: admin/user.php:175 admin/user.php:235
 msgid "Passwords must match."
 msgstr "Pasahitzek bat etorri behar dute."
 
-#: templates/admin/sqlshell.html.php:42
+#: templates/admin/sqlshell.html.php:45
 msgid "Paste"
 msgstr "Itsatsi"
 
@@ -2160,7 +2280,7 @@ msgstr "Zain dauden erregistroak:"
 msgid "People"
 msgstr "Jendea"
 
-#: templates/logintasks/logintasks.html:22
+#: templates/logintasks/logintasks.html.php:24
 msgid "Perform Login Tasks"
 msgstr "Egin saio-hasierako atazak"
 
@@ -2174,11 +2294,11 @@ msgid "Permissions"
 msgstr "Baimenak"
 
 #: admin/perms/addchild.php:58 admin/perms/delete.php:53
-#: admin/perms/edit.php:129 admin/perms/index.php:23
+#: admin/perms/edit.php:150 admin/perms/index.php:23
 msgid "Permissions Administration"
 msgstr "Baimenen administrazioa"
 
-#: config/prefs.php:272
+#: config/prefs.php:263
 msgid "Personal Information"
 msgstr "Informazio pertsonala"
 
@@ -2186,7 +2306,11 @@ msgstr "Informazio pertsonala"
 msgid "Pets"
 msgstr "Maskotak"
 
-#: config/registry.php:340
+#: templates/admin/activesync.html.php:19
+msgid "Phone Number"
+msgstr "Telefono zenbakia"
+
+#: config/registry.php:197
 msgid "Photos"
 msgstr "Argazkiak"
 
@@ -2194,11 +2318,11 @@ msgstr "Argazkiak"
 msgid "Platitudes"
 msgstr "Topikoak"
 
-#: login.php:210
+#: login.php:217
 msgid "Please enter a password."
 msgstr "Idatzi pasahitz bat."
 
-#: login.php:209
+#: login.php:216
 msgid "Please enter a username."
 msgstr "Idatzi erabiltzaile-izen bat."
 
@@ -2206,7 +2330,7 @@ msgstr "Idatzi erabiltzaile-izen bat."
 msgid "Please provide a summary of the problem."
 msgstr "Eman arazoari buruzko laburpen bat."
 
-#: services/logintasks.php:80
+#: services/logintasks.php:82
 msgid ""
 "Please read the following text. You MUST agree with the terms to use the "
 "system."
@@ -2214,23 +2338,11 @@ msgstr ""
 "Irakurri ondoko testua. Ados egon BEHAR duzu baldintzekin, sistema erabili "
 "ahal izateko."
 
-#: services/facebook/index.php:187
-msgid "Pokes:"
-msgstr "Bultzadak:"
-
-#: admin/activesync.php:108
-msgid "Policy Key"
-msgstr "Gidalerro-gakoa"
-
-#: lib/Prefs/Special/Activesync.php:84
-msgid "Policy Key:"
-msgstr "Gidalerro-gakoa:"
-
 #: lib/Block/Fortune.php:64
 msgid "Politics"
 msgstr "Politika"
 
-#: config/prefs.php:765
+#: config/prefs.php:750
 msgid ""
 "Position of reply text when replying to email on your device. Note that some "
 "devices will always send the citation string at the end of the reply text."
@@ -2239,7 +2351,7 @@ msgstr ""
 "Kontuan izan zenbait gailuk beti bidaltzen dutela aipu-katea erantzun-"
 "testuaren amaieran."
 
-#: services/facebook/index.php:33
+#: lib/Ajax/Application/FacebookHandler.php:157
 #, php-format
 msgid "Posted %s"
 msgstr "Bidalketa: %s"
@@ -2256,12 +2368,12 @@ msgid_plural "Precipitation for last %d hours: "
 msgstr[0] "Azken ordubeteko (%d) prezipitazioak: "
 msgstr[1] "Azken %d orduetako prezipitazioak: "
 
-#: lib/Block/Weather.php:255
+#: lib/Block/Weather.php:269
 #, php-format
 msgid "Precipitation%schance"
 msgstr "Prezipitazio-%saukera"
 
-#: lib/Block/Metar.php:199 lib/Block/Weather.php:192
+#: lib/Block/Metar.php:199 lib/Block/Weather.php:206
 msgid "Pressure"
 msgstr "Presioa"
 
@@ -2277,19 +2389,19 @@ msgstr "Nagusia"
 msgid "Problem Description"
 msgstr "Arazoaren azalpena"
 
-#: admin/activesync.php:172 lib/Prefs/Special/Activesync.php:77
+#: templates/activesync/device_table.html.php:18
 msgid "Provisioned"
 msgstr "Hornituta"
 
-#: lib/Application.php:180
+#: lib/Application.php:221
 msgid "Provisioning"
 msgstr "Hornitzea"
 
-#: templates/prefs/facebook.html:12
+#: templates/prefs/facebook.html.php:16
 msgid "Publish enabled."
 msgstr "Argitaratzea gaituta."
 
-#: templates/admin/sqlshell.html.php:7
+#: templates/admin/sqlshell.html.php:9
 msgid "Query"
 msgstr "Kontsulta"
 
@@ -2301,21 +2413,21 @@ msgstr "Kuota"
 msgid "Random Fortune"
 msgstr "Fortunaren gurpila"
 
-#: templates/shares/edit.inc:64 templates/shares/edit.inc:78
-#: templates/shares/edit.inc:99 templates/shares/edit.inc:113
-#: templates/shares/edit.inc:135 templates/shares/edit.inc:149
-#: templates/shares/edit.inc:170 templates/shares/edit.inc:188
-#: templates/shares/edit.inc:223 templates/shares/edit.inc:250
-#: templates/shares/edit.inc:272 templates/shares/edit.inc:291
-#: templates/shares/edit.inc:320
+#: templates/shares/edit.inc:65 templates/shares/edit.inc:79
+#: templates/shares/edit.inc:100 templates/shares/edit.inc:114
+#: templates/shares/edit.inc:136 templates/shares/edit.inc:150
+#: templates/shares/edit.inc:171 templates/shares/edit.inc:189
+#: templates/shares/edit.inc:224 templates/shares/edit.inc:251
+#: templates/shares/edit.inc:273 templates/shares/edit.inc:292
+#: templates/shares/edit.inc:321
 msgid "Read"
 msgstr "Irakurri"
 
-#: templates/prefs/facebook.html:24
-msgid "Read enabled"
-msgstr "Irakurketa gaituta"
+#: templates/prefs/facebook.html.php:30
+msgid "Read enabled."
+msgstr "Irakurketa gaituta."
 
-#: templates/admin/user/remove.inc:9
+#: templates/admin/user/remove.inc:11
 #, php-format
 msgid "Really delete \"%s\"? This operation cannot be undone."
 msgstr "Benetan ezabatu nahi duzu \"%s\"? Eragiketa hau ezin da desegin."
@@ -2328,23 +2440,19 @@ msgstr ""
 "Benetan kendu nahi dituzu \"%s\" erabiltzailearen erabiltzaile-datuak? "
 "Ezingo duzu eragiketa desegin."
 
-#: config/prefs.php:639
+#: config/prefs.php:616
 msgid "Refresh Dynamic Menu Elements:"
 msgstr "Freskatu menu dinamikoko elementuak:"
 
-#: config/prefs.php:620
+#: config/prefs.php:597
 msgid "Refresh Portal View:"
-msgstr "Freskatu atariaren ikuspegia"
+msgstr "Freskatu atariaren ikuspegia:"
 
 #: templates/portal/layout.inc:94
 msgid "Refresh rate:"
 msgstr "Freskatzeko ratioa:"
 
-#: admin/activesync.php:137
-msgid "Registered User Devices"
-msgstr "Erregistratutako erabiltzaile-gailuak"
-
-#: templates/portal/smartmobile.inc:17
+#: templates/portal/smartmobile.inc:22
 msgid "Regular Apps"
 msgstr "Aplikazio arruntak"
 
@@ -2352,13 +2460,13 @@ msgstr "Aplikazio arruntak"
 msgid "Remarks"
 msgstr "Oharrak"
 
-#: templates/admin/sessions.html.php:23
+#: templates/admin/sessions.html.php:10
 msgid "Remote Host"
 msgstr "Urruneko ostalaria"
 
-#: admin/activesync.php:186 templates/admin/groups/edit.inc:25
-#: templates/admin/user/approve.inc:40
-#: templates/admin/user/removequeued.inc:13 templates/prefs/activesync.html:33
+#: templates/activesync/device_table.html.php:38
+#: templates/admin/groups/edit.inc:25 templates/admin/user/approve.inc:41
+#: templates/admin/user/removequeued.inc:13
 msgid "Remove"
 msgstr "Kendu"
 
@@ -2366,15 +2474,15 @@ msgstr "Kendu"
 msgid "Remove pair"
 msgstr "Kendu bikotea"
 
-#: admin/config/index.php:338
+#: admin/config/index.php:440
 msgid "Remove saved script from server's temporary directory."
 msgstr "Kendu gordetako scripta zerbitzariaren aldi baterako direktoriotik."
 
-#: templates/admin/user/remove.inc:12
+#: templates/admin/user/remove.inc:14
 msgid "Remove user"
 msgstr "Kendu erabiltzailea"
 
-#: templates/admin/user/remove.inc:6
+#: templates/admin/user/remove.inc:8
 #, php-format
 msgid "Remove user: %s"
 msgstr "Kendu erabiltzailea: %s"
@@ -2383,19 +2491,15 @@ msgstr "Kendu erabiltzailea: %s"
 msgid "Reply"
 msgstr "Erantzun"
 
-#: admin/activesync.php:140
-msgid "Reprovision All Devices"
-msgstr "Hornitu berriro gailu guztiak"
-
-#: lib/Application.php:191
+#: lib/Application.php:232
 msgid "Require PIN"
 msgstr "Eskatu PIN"
 
-#: lib/Application.php:274
+#: lib/Application.php:315
 msgid "Require S/MIME Encryption"
 msgstr "Eskatu S/MIME enkriptatzea"
 
-#: lib/Application.php:278
+#: lib/Application.php:319
 msgid "Require S/MIME Signature"
 msgstr "Eskatu S/MIME sinadura"
 
@@ -2408,24 +2512,21 @@ msgstr "Berrezarri"
 msgid "Reset Password"
 msgstr "Berrezarri pasahitza"
 
-#: templates/prefs/activesync.html:6
-msgid ""
-"Reset all device state. This will cause your devices to resyncronize all "
-"items."
-msgstr ""
-"Gailu guztiak berrezartzeko egoera. Zure gailuek elementu guztiak "
-"birsinkronizatzea eragingo du honek."
+#: templates/admin/activesync.html.php:32
+#: templates/prefs/activesync.html.php:15
+msgid "Reset all device state"
+msgstr "Berrezarri gailu guztien egoera"
 
 #: services/resetpassword.php:27
 msgid "Reset your password"
 msgstr "Berrezarri pasahitza"
 
-#: templates/admin/sqlshell.html.php:58
+#: templates/admin/sqlshell.html.php:60
 msgid "Restore Last Query"
 msgstr "Leheneratu azken kontsulta"
 
-#: templates/admin/cmdshell.html.php:7 templates/admin/phpshell.html.php:32
-#: templates/admin/sqlshell.html.php:11
+#: templates/admin/cmdshell.html.php:7 templates/admin/phpshell.html.php:34
+#: templates/admin/sqlshell.html.php:13
 msgid "Results"
 msgstr "Emaitzak"
 
@@ -2433,10 +2534,6 @@ msgstr "Emaitzak"
 #, php-format
 msgid "Results for %s"
 msgstr "Honen emaitzak: %s"
-
-#: templates/prefs/end.html:7
-msgid "Return to Main Screen"
-msgstr "Itzuli pantaila nagusira"
 
 #: templates/block/twitter_tweet.html.php:35
 msgid "Retweet"
@@ -2447,7 +2544,7 @@ msgstr "Birtuiteatu"
 msgid "Retweeted by %s"
 msgstr "%s(e)k birtuiteatua"
 
-#: services/changepassword.php:33
+#: services/changepassword.php:32
 msgid "Retype new password"
 msgstr "Idatzi berriro pasahitz berria"
 
@@ -2459,48 +2556,56 @@ msgstr "Leheneratu konfigurazioa"
 msgid "Riddles"
 msgstr "Asmakariak"
 
-#: templates/admin/sqlshell.html.php:43
+#: templates/admin/sqlshell.html.php:46
 msgid "Run"
 msgstr "Exekutatu"
 
-#: templates/logintasks/smartmobile.html:22
+#: templates/logintasks/smartmobile.html.php:29
 msgid "Run Login Tasks"
 msgstr "Exekutatu saio-hasierako atazak"
 
-#: lib/Application.php:246
+#: lib/Application.php:287
 msgid "SD card"
 msgstr "SD txartela"
 
-#: lib/Application.php:239
+#: lib/Application.php:280
 msgid "SD card encryption"
 msgstr "SD card enkriptatzea"
 
-#: lib/Application.php:254
+#: lib/Application.php:295
 msgid "SMS Text messages"
 msgstr "SMS testu-mezuak"
+
+#: admin/config/index.php:278 admin/config/index.php:331
+msgid "SQL DB schema is out of date."
+msgstr "SQL DB eskema iraungita dago."
+
+#: admin/config/index.php:283 admin/config/index.php:336
+msgid "SQL DB schema is ready."
+msgstr "SQL DB eskema prest dago."
 
 #: admin/sqlshell.php:23
 msgid "SQL Shell"
 msgstr "SQL shell-a"
 
-#: lib/Api.php:67
+#: lib/Api.php:80
 msgid "S_QL Shell"
 msgstr "S_QL shell-a"
 
-#: templates/portal/layout.inc:115 templates/prefs/end.html:3
+#: templates/portal/layout.inc:115 templates/prefs/end.html:4
 msgid "Save"
 msgstr "Gorde"
 
-#: templates/admin/groups/edit.inc:69 templates/shares/edit.inc:335
+#: templates/admin/groups/edit.inc:71 templates/shares/edit.inc:336
 #, php-format
 msgid "Save \"%s\""
 msgstr "Gorde \"%s\""
 
-#: templates/shares/edit.inc:336
+#: templates/shares/edit.inc:337
 msgid "Save and Finish"
 msgstr "Gorde eta amaitu"
 
-#: admin/config/index.php:310
+#: admin/config/index.php:408
 msgid ""
 "Save generated configuration as a PHP script to your server's temporary "
 "directory."
@@ -2525,20 +2630,24 @@ msgstr "Esparrua"
 msgid "Sea_rch"
 msgstr "Bi_latu"
 
-#: services/help/index.php:156 templates/admin/user/list.inc:14
-#: templates/topbar/_menubar.html.php:21
+#: lib/View/Topbar.php:59 services/help/index.php:156
+#: templates/admin/activesync.html.php:22 templates/admin/user/list.inc:14
 msgid "Search"
 msgstr "Bilatu"
 
-#: templates/admin/user/list.inc:12
+#: templates/admin/activesync.html.php:7 templates/admin/user/list.inc:12
 msgid "Search:"
 msgstr "Bilatu:"
 
-#: templates/shares/edit.inc:306 templates/shares/edit.inc:308
+#: lib/Application.php:253
+msgid "Seconds of inactivity before device should lock"
+msgstr "Inaktibo igarotzen diren minutuak gailua blokeatu aurretik"
+
+#: templates/shares/edit.inc:307 templates/shares/edit.inc:309
 msgid "Select a group to add:"
 msgstr "Hautatu gehitu nahi duzun taldea:"
 
-#: templates/shares/edit.inc:41
+#: templates/shares/edit.inc:42
 msgid "Select a new owner:"
 msgstr "Hautatu jabe berria:"
 
@@ -2546,7 +2655,7 @@ msgstr "Hautatu jabe berria:"
 msgid "Select a server"
 msgstr "Hautatu zerbitzaria"
 
-#: templates/shares/edit.inc:205 templates/shares/edit.inc:207
+#: templates/shares/edit.inc:206 templates/shares/edit.inc:208
 msgid "Select a user to add:"
 msgstr "Hautatu gehitu nahi duzun erabiltzailea:"
 
@@ -2578,11 +2687,11 @@ msgstr "Hautatu ordu-mugatzailea:"
 msgid "Select the time format:"
 msgstr "Hautatu ordu-formatua:"
 
-#: config/prefs.php:606
+#: config/prefs.php:583
 msgid "Select your color scheme."
 msgstr "Hautatu kolore-eskema"
 
-#: config/prefs.php:391
+#: config/prefs.php:379
 msgid "Select your preferred language:"
 msgstr "Hautatu gogokoen duzun hizkuntza:"
 
@@ -2594,40 +2703,44 @@ msgstr "Eman arazoaren berri"
 msgid "Sensor: "
 msgstr "Sentsorea: "
 
-#: templates/prefs/syncml.html:12
+#: lib/Prefs/Special/Activesync.php:68
+msgid "Server Id"
+msgstr "Zerbitzariaren IDa"
+
+#: templates/prefs/syncml.html.php:12
 msgid "Server Time"
 msgstr "Zerbitzariaren ordua"
 
-#: admin/sessions.php:68
+#: admin/sessions.php:67
 msgid "Session Administration"
 msgstr "Saioaren administrazioa"
 
-#: templates/admin/sessions.html.php:15
+#: templates/admin/sessions.html.php:8
 msgid "Session Timestamp"
 msgstr "Saioaren ordu-zigilua"
 
-#: lib/Api.php:57
+#: lib/Api.php:70
 msgid "Sessions"
 msgstr "Saioak"
 
-#: config/prefs.php:337
+#: config/prefs.php:326
 msgid ""
 "Set preferences to allow you to reset your password if you ever forget it."
 msgstr "Ezarri hobespenak pasahitza berrezarri ahal izateko, ahaztuz gero."
 
-#: config/prefs.php:662
+#: config/prefs.php:639
 msgid "Set up integration with your Facebook account."
 msgstr "Konfiguratu Facebook kontuarekiko integrazioa."
 
-#: config/prefs.php:688
+#: config/prefs.php:665
 msgid "Set up integration with your Twitter account."
 msgstr "Konfiguratu Twitter kontuarekiko integrazioa."
 
-#: config/prefs.php:378
+#: config/prefs.php:367
 msgid "Set your preferred language, timezone and date preferences."
 msgstr "Ezarri hizkuntza gogokoenaren, ordu-zonaren eta dataren hobespenak."
 
-#: config/prefs.php:557
+#: config/prefs.php:536
 msgid ""
 "Set your startup application, color scheme, page refreshing, and other "
 "display preferences."
@@ -2635,7 +2748,7 @@ msgstr ""
 "Ezarri abioko aplikazioa, kolore-eskema, orri-freskatzea eta bestelako "
 "bistaratze-hobespenak."
 
-#: lib/Block/Weather.php:136
+#: lib/Block/Weather.php:150
 #, php-format
 msgid "Several locations possible with the parameter: %s"
 msgstr "Parametroarekin posible diren hainbat kokaleku: %s"
@@ -2644,17 +2757,17 @@ msgstr "Parametroarekin posible diren hainbat kokaleku: %s"
 msgid "Short Summary"
 msgstr "Laburpen txikia"
 
-#: config/prefs.php:646
+#: config/prefs.php:623
 msgid "Should access keys be defined for most links?"
 msgstr "Sarbide-gakoak definitu beharko lirateke esteka gehienetarako?"
 
-#: templates/shares/edit.inc:63 templates/shares/edit.inc:74
-#: templates/shares/edit.inc:98 templates/shares/edit.inc:109
-#: templates/shares/edit.inc:134 templates/shares/edit.inc:145
-#: templates/shares/edit.inc:169 templates/shares/edit.inc:184
-#: templates/shares/edit.inc:219 templates/shares/edit.inc:246
-#: templates/shares/edit.inc:271 templates/shares/edit.inc:287
-#: templates/shares/edit.inc:316
+#: templates/shares/edit.inc:64 templates/shares/edit.inc:75
+#: templates/shares/edit.inc:99 templates/shares/edit.inc:110
+#: templates/shares/edit.inc:135 templates/shares/edit.inc:146
+#: templates/shares/edit.inc:170 templates/shares/edit.inc:185
+#: templates/shares/edit.inc:220 templates/shares/edit.inc:247
+#: templates/shares/edit.inc:272 templates/shares/edit.inc:288
+#: templates/shares/edit.inc:317
 msgid "Show"
 msgstr "Erakutsi"
 
@@ -2662,7 +2775,11 @@ msgstr "Erakutsi"
 msgid "Show Advanced Preferences"
 msgstr "Erakutsi hobespen aurreratuak"
 
-#: admin/config/index.php:300
+#: templates/prefs/end.html:8
+msgid "Show All Preferences Groups"
+msgstr "Erakutsi hobespen talde guztiak"
+
+#: admin/config/index.php:390
 msgid ""
 "Show differences between currently saved and the newly generated "
 "configuration."
@@ -2674,16 +2791,12 @@ msgstr ""
 msgid "Show extra detail?"
 msgstr "Erakutsi xehetasun gehiago?"
 
-#: config/prefs.php:590
+#: config/prefs.php:568
 msgid "Show last login time when logging in?"
 msgstr "Erakutsi azken saio-hasierako ordua saioa hastean?"
 
-#: lib/Block/FbStream.php:71
-msgid "Show notifications"
-msgstr "Erakutsi jakinarazpenak"
-
-#: templates/logintasks/logintasks.html:23
-#: templates/logintasks/smartmobile.html:23
+#: templates/logintasks/logintasks.html.php:25
+#: templates/logintasks/smartmobile.html.php:33
 msgid "Skip Login Tasks"
 msgstr "Saltatu saio-hasierako atazak"
 
@@ -2707,11 +2820,11 @@ msgstr "Abestiak eta poemak"
 msgid "South European (ISO-8859-3)"
 msgstr "Europako Hegoaldekoa (ISO-8859-3)"
 
-#: lib/Block/Moon.php:32 lib/Block/Moon.php:63
+#: lib/Block/Moon.php:32 lib/Block/Moon.php:60
 msgid "Southern Hemisphere"
 msgstr "Hego-hemisferioa"
 
-#: config/registry.php:103
+#: config/registry.php:106
 msgid "Spam"
 msgstr "Mezu baztergarriak"
 
@@ -2731,27 +2844,22 @@ msgstr "Star Trek"
 msgid "Start Time"
 msgstr "Hasiera-ordua"
 
-#: templates/prefs/activesync.html:2
+#: templates/prefs/activesync.html.php:13
 msgid "State Management"
 msgstr "Egoera-kudeaketa"
 
-#: admin/activesync.php:115 templates/admin/config/index.html:39
-#: templates/prefs/activesync.html:22
+#: templates/activesync/device_table.html.php:6
+#: templates/admin/config/index.html.php:33
 msgid "Status"
 msgstr "Egoera"
 
-#: services/facebook/index.php:232
+#: lib/Ajax/Application/FacebookHandler.php:86
 msgid "Status unable to be set."
 msgstr "Ezin da egoera ezarri."
 
 #: templates/block/twitter-layout.html.php:24
 msgid "Stream"
 msgstr "Korrontea"
-
-#: util/icon_browser.php:40
-#, php-format
-msgid "Subdirectory \"%s\" not found."
-msgstr "Ez da aurkitu \"%s\" azpidirektorioa."
 
 #: signup.php:55
 #, php-format
@@ -2762,20 +2870,20 @@ msgstr ""
 "\"%s\" sisteman gehitzeko eskaera bidali da. Ezin duzu saioa hasi zure "
 "eskaera onartzen den arte."
 
-#: services/facebook/index.php:138
+#: services/facebook/index.php:48
 msgid "Succesfully connected your Facebook account or updated permissions."
 msgstr "Behar bezala konektatu da Facebook kontua edo eguneratu dira baimenak."
 
-#: templates/admin/sqlshell.html.php:15
+#: templates/admin/sqlshell.html.php:17
 msgid "Success"
 msgstr "Ongi"
 
-#: admin/signup_confirm.php:87 admin/user.php:102
+#: admin/signup_confirm.php:87 admin/user.php:101
 #, php-format
 msgid "Successfully added \"%s\" to the system."
 msgstr "\"%s\" behar bezala gehitu da sisteman."
 
-#: admin/user.php:148
+#: admin/user.php:147
 #, php-format
 msgid "Successfully cleared data for user \"%s\" from the system."
 msgstr "Behar bezala ezabatu dira sistematik \"%s\" erabiltzailearen datuak."
@@ -2785,7 +2893,7 @@ msgstr "Behar bezala ezabatu dira sistematik \"%s\" erabiltzailearen datuak."
 msgid "Successfully deleted \"%s\"."
 msgstr "Beha bezala ezabatu da \"%s\"."
 
-#: admin/user.php:125
+#: admin/user.php:124
 #, php-format
 msgid "Successfully removed \"%s\" from the system."
 msgstr "Behar bezala kendu da \"%s\" sistematik."
@@ -2799,7 +2907,7 @@ msgstr ""
 msgid "Successfully saved backup configuration."
 msgstr "Behar bezala gorde da babeskopiaren konfigurazioa."
 
-#: admin/user.php:200
+#: admin/user.php:199
 #, php-format
 msgid "Successfully updated \"%s\""
 msgstr "Behar bezala eguneratu da \"%s\""
@@ -2817,11 +2925,11 @@ msgstr "Egunsentia"
 msgid "Sun Set"
 msgstr "Eguzki-sartzea"
 
-#: config/prefs.php:517
+#: config/prefs.php:498
 msgid "Sunday"
 msgstr "Igandea"
 
-#: lib/Block/Weather.php:166 lib/Block/Weather.php:167
+#: lib/Block/Weather.php:180 lib/Block/Weather.php:181
 msgid "Sunrise"
 msgstr "Egunsentia"
 
@@ -2829,15 +2937,15 @@ msgstr "Egunsentia"
 msgid "Sunrise/Sunset"
 msgstr "Egunsentia/Eguzki-sartzea"
 
-#: lib/Block/Weather.php:169 lib/Block/Weather.php:170
+#: lib/Block/Weather.php:183 lib/Block/Weather.php:184
 msgid "Sunset"
 msgstr "Eguzki-sartzea"
 
-#: lib/Application.php:294
+#: lib/Application.php:335
 msgid "Sync all"
 msgstr "Sinkronizatu denak"
 
-#: config/prefs.php:737
+#: config/prefs.php:716
 msgid "SyncML"
 msgstr "SyncML"
 
@@ -2849,7 +2957,7 @@ msgstr "Iturri sindikatua"
 msgid "Tag Cloud"
 msgstr "Etiketa-hodeia"
 
-#: config/registry.php:152
+#: config/registry.php:155
 msgid "Tasks"
 msgstr "Zereginak"
 
@@ -2857,16 +2965,16 @@ msgstr "Zereginak"
 msgid "Temp for last hour: "
 msgstr "Azken orduko tenp.: "
 
-#: lib/Block/Metar.php:188 lib/Block/Weather.php:176
+#: lib/Block/Metar.php:188 lib/Block/Weather.php:190
 msgid "Temperature"
 msgstr "Tenperatura"
 
-#: lib/Block/Weather.php:247
+#: lib/Block/Weather.php:261
 #, php-format
 msgid "Temperature%s(%sHi%s/%sLo%s)"
 msgstr "Tenperatura%s(%sHi%s/%sLo%s)"
 
-#: lib/Prefs/Special/Facebook.php:76 services/facebook/index.php:147
+#: lib/Prefs/Special/Facebook.php:79 services/facebook/index.php:57
 msgid "Temporarily unable to connect with Facebook, Please try again."
 msgstr "Une honetan ezin da konektatu Facebook-ekin. Saiatu berriro geroago."
 
@@ -2878,10 +2986,26 @@ msgstr "Une honetan ezin da Twitter-era konektatu. Saiatu berriro geroago."
 msgid "Thai (TIS-620)"
 msgstr "Thailandiarra (TIS-620)"
 
-#: lib/Prefs/Special/Activesync.php:112
+#: admin/sqlshell.php:97
+#, php-format
+msgid ""
+"The DELETE command completed successfully. A total of %d rows were deleted."
+msgstr "DELETE komandoa ondo burutu da. Guztira %d lerro ezabatu dira."
+
+#: admin/sqlshell.php:89
+msgid "The INSERT command completed successfully."
+msgstr "INSERT komandoa ondo burutu da."
+
+#: lib/Prefs/Special/Activesync.php:118
 #, php-format
 msgid "The Remote Wipe for device id %s has been cancelled."
 msgstr "Bertan behera utzi da %s gailuaren urruneko garbiketa."
+
+#: admin/sqlshell.php:93
+#, php-format
+msgid ""
+"The UPDATE command completed successfully. A total of %d rows were modified."
+msgstr "UPDATE komandoa ondo burutu da. Guztira %d lerro aldatu dira."
 
 #: admin/alarms.php:86
 msgid "The alarm has been deleted."
@@ -2891,7 +3015,7 @@ msgstr "Alarma ezabatu da."
 msgid "The alarm has been saved."
 msgstr "Alarma gorde da."
 
-#: admin/config/index.php:100
+#: admin/config/index.php:119
 #, php-format
 msgid ""
 "The configuration for %s cannot be updated automatically. Please update the "
@@ -2900,7 +3024,7 @@ msgstr ""
 "%s(r)en konfigurazioa ezin da automatikoki eguneratu. Eguneratu "
 "konfigurazioa eskuz."
 
-#: config/prefs.php:302
+#: config/prefs.php:290
 msgid "The default e-mail address to use with this identity:"
 msgstr "Identitate honekin erabiltzeko helbide elektroniko lehenetsia:"
 
@@ -2908,7 +3032,7 @@ msgstr "Identitate honekin erabiltzeko helbide elektroniko lehenetsia:"
 msgid "The lock has been removed."
 msgstr "Blokeoa kendu da."
 
-#: lib/Block/Vatid.php:113
+#: lib/Block/Vatid.php:116
 msgid ""
 "The member state service could not be reached in time. Try again later or "
 "with a different member state."
@@ -2916,7 +3040,7 @@ msgstr ""
 "Ezin izan da kide-egoeraren zerbitzua denboraz atzitu. Saiatu berriro "
 "geroago, edo saiatu beste kide-egoera batekin."
 
-#: lib/Block/Vatid.php:109
+#: lib/Block/Vatid.php:112
 msgid ""
 "The member state service is currently not available. Try again later or with "
 "a different member state."
@@ -2924,19 +3048,19 @@ msgstr ""
 "Kide-egoeraren zerbitzua ez dago erabilgarri une honetan. Saiatu berriro "
 "geroago, edo saiatu beste kide-egoera batekin."
 
-#: lib/Block/Vatid.php:101
+#: lib/Block/Vatid.php:104
 msgid "The provided country code is invalid."
 msgstr "Emandako herrialde-kodea ez da baliozkoa."
 
-#: lib/Block/Vatid.php:105
+#: lib/Block/Vatid.php:108
 msgid "The service is currently not available. Try again later."
 msgstr "Zerbitzua ez dago erabilgarri une honetan. Saiatu berriro geroago."
 
-#: lib/Block/Vatid.php:117
+#: lib/Block/Vatid.php:120
 msgid "The service is currently too busy. Try again later."
 msgstr "Zerbitzua lanpetuegi dago une honetan. Saiatu berriro geroago."
 
-#: admin/user.php:225
+#: admin/user.php:224
 #, php-format
 msgid "The signup request for \"%s\" has been removed."
 msgstr "\"%s\" erregistratzeko eskaera kendu egin da."
@@ -2946,7 +3070,7 @@ msgstr "\"%s\" erregistratzeko eskaera kendu egin da."
 msgid "The signup request for user \"%s\" has been removed."
 msgstr "\"%s\" erabiltzailea erregistratzeko eskaera kendu egin da."
 
-#: lib/Prefs/Special/Activesync.php:127
+#: lib/Prefs/Special/Activesync.php:133
 #, php-format
 msgid ""
 "The state for device id %s has been reset. It will resynchronize next time "
@@ -2963,48 +3087,43 @@ msgstr ""
 "Probako script-a gaituta dago une honetan. Segurtasun-arrazoiak direla-eta, "
 "desgaitu probako script-ak proba-fasea amaitzean (ikus horde/docs/INSTALL)."
 
-#: admin/signup_confirm.php:62 admin/user.php:74
+#: admin/signup_confirm.php:62 admin/user.php:73
 #, php-format
 msgid "The user \"%s\" already exists."
 msgstr "\"%s\" erabiltzailea badago lehendik."
 
-#: services/shares/edit.php:94 services/shares/edit.php:179
+#: services/shares/edit.php:93 services/shares/edit.php:178
 #, php-format
 msgid "The user \"%s\" does not exist."
 msgstr "\"%s\" erabiltzailea ez dago."
 
-#: util/icon_browser.php:28
-#, php-format
-msgid "Themes directory \"%s\" not found."
-msgstr "Ez da aurkitu gaien \"%s\" direktorioa."
-
-#: signup.php:41 signup.php:62 admin/signup_confirm.php:76 admin/user.php:86
+#: signup.php:41 signup.php:62 admin/signup_confirm.php:76 admin/user.php:85
 #, php-format
 msgid "There was a problem adding \"%s\" to the system: %s"
 msgstr "Arazo bat gertatu da \"%s\" sisteman gehitzean: %s "
 
-#: admin/user.php:150
+#: admin/user.php:149
 #, php-format
 msgid "There was a problem clearing data for user \"%s\" from the system: "
 msgstr ""
 "Arazo bat gertatu da \"%s\" erabiltzailearen datuak sistematik ezabatzean: "
 
-#: admin/user.php:127
+#: admin/user.php:126
 #, php-format
 msgid "There was a problem removing \"%s\" from the system: "
 msgstr "Arazo bat gertatu da \"%s\" sistematik kentzean: "
 
-#: admin/user.php:181
+#: admin/user.php:180
 #, php-format
 msgid "There was a problem updating \"%s\": %s"
 msgstr "Arazo bat gertatu da \"%s\" eguneratzean: %s"
 
-#: lib/Prefs/Special/Activesync.php:130
+#: lib/Prefs/Special/Activesync.php:136
 #, php-format
 msgid "There was an error communicating with the ActiveSync server: %s"
 msgstr "Errore bat gertatu da ActiveSync zerbitzariarekin komunikatzean: %s"
 
-#: lib/Block/TwitterTimeline.php:86 lib/Block/TwitterTimeline.php:102
+#: lib/Block/TwitterTimeline.php:86 lib/Block/TwitterTimeline.php:105
 #, php-format
 msgid "There was an error contacting Twitter: %s"
 msgstr "Errore bat gertatu da Twitter-ekin konektatzean: %s"
@@ -3017,19 +3136,18 @@ msgstr ""
 "Errore bat gertatu da konfigurazio-inprimakian. Baliteke beharrezkoa zen "
 "eremu bat bete gabe utzi izana."
 
-#: lib/Block/FbStream.php:147 services/facebook/index.php:174
-#: services/facebook/index.php:191
+#: lib/Ajax/Application/FacebookHandler.php:47 lib/Block/FbStream.php:142
 #, php-format
 msgid "There was an error making the request: %s"
 msgstr "Errore bat gertatu da eskaera egitean: %s"
 
-#: services/facebook/index.php:142
+#: services/facebook/index.php:52
 msgid ""
 "There was an error obtaining your Facebook session. Please try again later."
 msgstr ""
 "Errore bat gertatu da Facebook-eko saioa eskuratzean. Saiatu berriro geroago."
 
-#: lib/Application.php:166
+#: lib/Application.php:202
 #, php-format
 msgid ""
 "There was an error removing global data for %s. Details have been logged."
@@ -3037,23 +3155,31 @@ msgstr ""
 "Errore bat gertatu da %s(r)en datu orokorrak kentzean. Xehetasunak "
 "erregistratu dira."
 
-#: services/facebook/index.php:157
+#: services/facebook/index.php:67
 msgid "There was an error with the requested permissions"
 msgstr "Errore bat gertatu da eskatutako baimenekin"
 
-#: lib/Block/Vatid.php:79
+#: lib/Block/Vatid.php:82
 msgid "This VAT identification number is invalid."
 msgstr "BEZaren identifikazio-zenbaki hau ez da baliozkoa."
 
-#: lib/Block/Vatid.php:76
+#: lib/Block/Vatid.php:79
 msgid "This VAT identification number is valid."
 msgstr "BEZaren identifikazio-zenbaki hau baliozkoa da."
 
-#: config/registry.php:217
+#: templates/admin/activesync.html.php:33
+msgid "This will cause all devices to resyncronize all items."
+msgstr "Gailu guztiek elementu guztiak birsinkronizatzea eragingo du honek."
+
+#: templates/prefs/activesync.html.php:16
+msgid "This will cause your devices to resyncronize all items."
+msgstr "Zure gailuek elementu guztiak birsinkronizatzea eragingo du honek."
+
+#: config/registry.php:226
 msgid "Tickets"
 msgstr "Txartelak"
 
-#: config/registry.php:263
+#: config/registry.php:272
 msgid "Time Tracking"
 msgstr "Denbora-pistak"
 
@@ -3065,7 +3191,7 @@ msgstr "Ordu-formatua"
 msgid "Timestamp or unknown"
 msgstr "Ordu-zigilua edo ezezaguna"
 
-#: templates/prefs/syncml.html:2
+#: templates/prefs/syncml.html.php:2
 msgid "Timestamps of successful synchronization sessions"
 msgstr "Behar bezala osatutako sinkronizazio-saioen ordu-zigiluak"
 
@@ -3090,15 +3216,15 @@ msgstr ""
 "Hainbat eremu hautatzeko, sakatu Ktrl (PC) edo Komandoa (Mac) tekla klik "
 "egiten duzun bitartean."
 
-#: lib/Block/Weather.php:280
+#: lib/Block/Weather.php:294
 msgid "Today"
 msgstr "Gaur"
 
-#: lib/Block/Weather.php:282
+#: lib/Block/Weather.php:296
 msgid "Tomorrow"
 msgstr "Bihar"
 
-#: config/prefs.php:766
+#: config/prefs.php:751
 msgid "Top"
 msgstr "Goian"
 
@@ -3114,7 +3240,7 @@ msgstr "Turkiarra (ISO-8859-9)"
 msgid "Tweet"
 msgstr "Tuiteatu"
 
-#: config/prefs.php:687
+#: config/prefs.php:664
 msgid "Twitter Integration"
 msgstr "Twitter-eko integrazioa"
 
@@ -3127,35 +3253,44 @@ msgstr "Twitter Timeline"
 msgid "Twitter Timeline for %s"
 msgstr "%s(r)en Twitter Timeline"
 
+#: lib/Ajax/Application/TwitterHandler.php:37
+msgid "Twitter not enabled."
+msgstr "Twitter ez dago gaituta."
+
 #: lib/Block/Iframe.php:23
 msgid "URL"
 msgstr "URLa"
-
-#: services/twitter/index.php:80
-#, php-format
-msgid "Unable to contact Twitter. Please try again later. Error returned: %s"
-msgstr ""
-"Ezin da Twitter-ekin harremanetan jarri. Saiatu berriro geroago. Itzulitako "
-"errorea: %s"
 
 #: admin/groups.php:66 admin/perms/delete.php:45
 #, php-format
 msgid "Unable to delete \"%s\": %s."
 msgstr "Ezin da \"%s\" ezabatu: %s."
 
-#: services/facebook/index.php:257
+#: lib/Ajax/Application/FacebookHandler.php:118
 msgid "Unable to set like."
 msgstr "Ezin da Atsegin ezarri."
 
-#: services/facebook/index.php:126
+#: services/facebook/index.php:36
 msgid "Unable to validate the request token. Please try your request again."
 msgstr "Ezin da eskaera-tokena balidatu. Saiatu berriro eskaerarekin."
 
-#: templates/prefs/end.html:4
+#: admin/activesync.php:98 lib/Prefs/Special/Activesync.php:61
+msgid "Unavailable"
+msgstr "Ez dago erabilgarri"
+
+#: templates/activesync/device_table.html.php:41
+msgid "Unblock"
+msgstr "Desblokeatu"
+
+#: templates/prefs/end.html:5
 msgid "Undo Changes"
 msgstr "Desegin aldaketak"
 
-#: lib/Prefs/Special/Category.php:73
+#: lib/Block/TwitterTimeline.php:121 templates/block/twitter_tweet.html.php:39
+msgid "Unfavorite"
+msgstr "Ez da gogokoa"
+
+#: templates/prefs/category.html.php:18
 msgid "Unfiled"
 msgstr "Sailkatu gabea"
 
@@ -3163,7 +3298,7 @@ msgstr "Sailkatu gabea"
 msgid "Unicode (UTF-8)"
 msgstr "Unicode (UTF-8)"
 
-#: lib/Block/Metar.php:58 lib/Block/Weather.php:72
+#: lib/Block/Metar.php:58 lib/Block/Weather.php:89
 msgid "Units"
 msgstr "Unitateak"
 
@@ -3175,7 +3310,11 @@ msgstr "Ezezaguna"
 msgid "Unlock"
 msgstr "Desblokeatu"
 
-#: lib/Block/FbStream.php:142 templates/admin/user/list.inc:34
+#: lib/Api.php:723 lib/Api.php:784
+msgid "Unsupported action."
+msgstr "Ekintza hau ez da onartzen."
+
+#: templates/admin/user/list.inc:34
 msgid "Update"
 msgstr "Eguneratu"
 
@@ -3184,16 +3323,16 @@ msgstr "Eguneratu"
 msgid "Update %s"
 msgstr "Eguneratu %s"
 
-#: admin/config/index.php:165 admin/config/index.php:263
+#: admin/config/index.php:192 admin/config/index.php:310
 #, php-format
 msgid "Update %s schema"
 msgstr "Eguneratu %s eskema"
 
-#: templates/admin/config/index.html:19
+#: templates/admin/config/index.html.php:19
 msgid "Update all DB schemas"
 msgstr "Eguneratu datu-baseen eskema guztiak"
 
-#: templates/admin/config/index.html:11
+#: templates/admin/config/index.html.php:11
 msgid "Update all configurations"
 msgstr "Eguneratu konfigurazio guztiak"
 
@@ -3201,40 +3340,45 @@ msgstr "Eguneratu konfigurazio guztiak"
 msgid "Update user"
 msgstr "Eguneratu erabiltzailea"
 
-#: admin/groups.php:105 admin/perms/edit.php:110 services/shares/edit.php:243
+#: admin/groups.php:105 admin/perms/edit.php:131 services/shares/edit.php:241
 #, php-format
 msgid "Updated \"%s\"."
 msgstr "\"%s\" eguneratu da."
 
-#: admin/config/index.php:115
+#: admin/config/index.php:134
 #, php-format
 msgid "Updated schema for %s."
 msgstr "%s(r)en eskema eguneratu da."
 
-#: admin/config/index.php:317
+#: admin/config/index.php:419
 msgid "Upload"
 msgstr "Kargatu"
 
-#: admin/config/index.php:325
+#: admin/config/index.php:427
 msgid "Uploaded all application configuration files to the server."
 msgstr "Aplikazioa konfiguratzeko fitxategi guztiak kargatu dira zerbitzarian."
 
-#: config/prefs.php:713
+#: lib/Prefs/Special/Activesync.php:81
+msgid "Use Horde Default"
+msgstr "Erabili balio lehenetsia"
+
+#: config/prefs.php:691
 msgid "Use if name/password is different for IMSP server."
 msgstr "Erabili izena/pasahitza IMSP zerbitzariarena ez bada bakarrik."
 
-#: templates/admin/groups/edit.inc:23 templates/admin/groups/edit.inc:66
-#: templates/admin/locks/list.html.php:12
+#: templates/activesync/device_table.html.php:3
+#: templates/admin/groups/edit.inc:23 templates/admin/groups/edit.inc:68
+#: templates/admin/locks/list.html.php:12 templates/admin/sessions.html.php:7
 msgid "User"
 msgstr "Erabiltzailea"
 
-#: admin/user.php:241
+#: admin/user.php:240
 msgid "User Administration"
 msgstr "Erabiltzaile-administrazioa"
 
-#: lib/Prefs/Special/Activesync.php:84
-msgid "User Agent:"
-msgstr "Erabiltzaile-agentea:"
+#: templates/admin/activesync.html.php:12
+msgid "User Agent"
+msgstr "Erabiltzaile-agentea"
 
 #: lib/Block/Account.php:68
 msgid "User Name"
@@ -3258,17 +3402,17 @@ msgstr ""
 msgid "User account not found"
 msgstr "Ez da aurkitu erabiltzaile-kontua"
 
-#: templates/shares/edit.inc:241
+#: templates/shares/edit.inc:242
 msgid "User to add:"
 msgstr "Gehitzeko erabiltzailea:"
 
-#: login.php:199 admin/config/index.php:318 admin/user.php:37
-#: admin/user.php:53 services/resetpassword.php:33
-#: templates/admin/user/approve.inc:22
+#: login.php:206 admin/config/index.php:420 admin/user.php:36
+#: admin/user.php:52 services/resetpassword.php:33
+#: templates/admin/activesync.html.php:9 templates/admin/user/approve.inc:23
 msgid "Username"
 msgstr "Erabiltzaile-izena"
 
-#: templates/admin/groups/edit.inc:57
+#: templates/admin/groups/edit.inc:59
 msgid "Users"
 msgstr "Erabiltzaileak"
 
@@ -3284,15 +3428,19 @@ msgstr "BEZaren ID zenbakiaren egiaztapena"
 msgid "VAT identification number:"
 msgstr "BEZaren identifikazio-zenbakia:"
 
-#: lib/Block/Vatid.php:84
+#: lib/Block/Vatid.php:87
 msgid "VAT number"
 msgstr "BEZ zenbakia"
 
-#: templates/admin/config/index.html:46
+#: templates/admin/activesync.html.php:18
+msgid "Version"
+msgstr "Bertsioa"
+
+#: templates/admin/config/index.html.php:37
 msgid "Version Check"
 msgstr "Bertsio-egiaztapena"
 
-#: config/registry.php:206
+#: config/registry.php:215
 msgid "Version Control"
 msgstr "Bertsioaren kontrola"
 
@@ -3304,7 +3452,7 @@ msgstr "Vietnamdarra (VISCII)"
 msgid "View an external web page"
 msgstr "Ikusi kanpoko web-orri bat"
 
-#: lib/Block/Metar.php:183 lib/Block/Weather.php:224
+#: lib/Block/Metar.php:183 lib/Block/Weather.php:238
 msgid "Visibility"
 msgstr "Ikusgaitasuna"
 
@@ -3312,19 +3460,23 @@ msgstr "Ikusgaitasuna"
 msgid "Warning"
 msgstr "Abisua"
 
-#: lib/Block/Weather.php:54
+#: templates/login/login.inc:81
+msgid "Warning: Your Caps Lock key is on!"
+msgstr "Kontuz: Blok Maius tekla sakatuta dago!"
+
+#: lib/Block/Weather.php:46 lib/Block/Weather.php:73
 msgid "Weather"
 msgstr "Eguraldia"
 
-#: lib/Block/Weather.php:340 lib/Block/Weather.php:348
+#: lib/Block/Weather.php:354 lib/Block/Weather.php:362
 msgid "Weather data provided by"
 msgstr "Eguraldi-datuen hornitzailea:"
 
-#: config/registry.php:323
+#: config/registry.php:332
 msgid "Web Site"
 msgstr "Webgunea"
 
-#: lib/Application.php:270
+#: lib/Application.php:311
 msgid "Web browser"
 msgstr "Web-arakatzailea"
 
@@ -3345,13 +3497,13 @@ msgstr "Mendebaldekoa (ISO-8859-1)"
 msgid "Western (ISO-8859-15)"
 msgstr "Mendebaldekoa (ISO-8859-15)"
 
-#: config/prefs.php:570
+#: config/prefs.php:548
 #, php-format
 msgid "What application should %s display after login?"
 msgstr ""
 "Zein aplikazio bistaratu beharko luke %s(e)k aplikazioak saioa hasitakoan?"
 
-#: lib/Block/TwitterTimeline.php:107
+#: lib/Block/TwitterTimeline.php:110
 msgid "What are you working on now?"
 msgstr "Zertan ari zara orain?"
 
@@ -3363,7 +3515,7 @@ msgstr "Zein da karaktere mugatzailea?"
 msgid "What is the quote character?"
 msgstr "Zein da aipamen-karakterea?"
 
-#: config/prefs.php:520
+#: config/prefs.php:501
 msgid "Which day would you like to be displayed as the first day of the week?"
 msgstr "Zein egun nahi duzu asteko lehen egun gisa agertzea?"
 
@@ -3371,20 +3523,20 @@ msgstr "Zein egun nahi duzu asteko lehen egun gisa agertzea?"
 msgid "Which phases"
 msgstr "Zein fase"
 
-#: config/prefs.php:626
+#: config/prefs.php:603
 #, php-format
 msgid "Width of the %s menu on the left:"
 msgstr "%s menuaren zabalera ezkerrean:"
 
-#: lib/Application.php:258
+#: lib/Application.php:299
 msgid "Wifi"
 msgstr "Wifi"
 
-#: config/registry.php:346
+#: config/registry.php:203
 msgid "Wiki"
 msgstr "Wikia"
 
-#: lib/Block/Weather.php:205 lib/Block/Weather.php:263
+#: lib/Block/Weather.php:219 lib/Block/Weather.php:277
 msgid "Wind"
 msgstr "Haizea"
 
@@ -3396,12 +3548,12 @@ msgstr "Haizearen abiadura korapilotan"
 msgid "Wind:"
 msgstr "Haizea:"
 
-#: admin/activesync.php:182 templates/prefs/activesync.html:28
+#: templates/activesync/device_table.html.php:33
 msgid "Wipe"
 msgstr "Garbiketa"
 
-#: admin/activesync.php:163 lib/Prefs/Special/Activesync.php:67
-msgid "Wipe is pending"
+#: templates/activesync/device_table.html.php:12
+msgid "Wipe Pending"
 msgstr "Garbiketa egiteke dago"
 
 #: lib/Block/Fortune.php:71
@@ -3416,7 +3568,7 @@ msgstr "Honekin"
 msgid "Work"
 msgstr "Lana"
 
-#: config/registry.php:229
+#: config/registry.php:238
 msgid "X-Ref"
 msgstr "X-Ref"
 
@@ -3427,31 +3579,32 @@ msgstr "X-Ref"
 msgid "YY"
 msgstr "UU"
 
-#: templates/logintasks/logintasks.html:26
-#: templates/logintasks/smartmobile.html:28
+#: templates/logintasks/logintasks.html.php:28
+#: templates/logintasks/smartmobile.html.php:42
 msgid "Yes, I Agree"
 msgstr "Bai, ados nago"
 
-#: services/facebook/index.php:89 services/facebook/index.php:251
+#: lib/Ajax/Application/FacebookHandler.php:111
+#: lib/Ajax/Application/FacebookHandler.php:213
 #, php-format
 msgid "You and %d other person likes this"
 msgid_plural "You and %d other people like this"
 msgstr[0] "Zuk eta beste %d pertsonak hau atsegin duzue"
 msgstr[1] "Zuk eta beste %d pertsonak hau atsegin duzue"
 
-#: lib/Api.php:246
+#: lib/Api.php:250
 msgid "You are not allowed to add groups."
 msgstr "Ez daukazu baimenik taldeak gehitzeko."
 
-#: lib/Api.php:363
+#: lib/Api.php:348
 msgid "You are not allowed to add shares."
 msgstr "Ez daukazu baimenik partekatzeak gehitzeko."
 
-#: lib/Api.php:289 lib/Api.php:312
+#: lib/Api.php:285 lib/Api.php:304
 msgid "You are not allowed to change groups."
 msgstr "Ez daukazu baimenik taldeak aldatzeko."
 
-#: lib/Api.php:444 lib/Api.php:481 lib/Api.php:515 lib/Api.php:540
+#: lib/Api.php:422 lib/Api.php:455 lib/Api.php:485 lib/Api.php:506
 msgid "You are not allowed to change shares."
 msgstr "Ez daukazu baimenik partekatzeak aldatzeko."
 
@@ -3459,31 +3612,31 @@ msgstr "Ez daukazu baimenik partekatzeak aldatzeko."
 msgid "You are not allowed to delete groups."
 msgstr "Ez daukazu baimenik taldeak ezabatzeko."
 
-#: lib/Api.php:388
+#: lib/Api.php:369
 msgid "You are not allowed to delete shares."
 msgstr "Ez daukazu baimenik partekatzeak ezabatzeko."
 
-#: lib/Api.php:672
+#: lib/Api.php:637
 msgid "You are not allowed to list groups of shares."
 msgstr "Ez daukazu baimenik partekatze taldeak zerrendatzeko."
 
-#: lib/Api.php:566 lib/Api.php:604
+#: lib/Api.php:528 lib/Api.php:566
 msgid "You are not allowed to list share permissions."
 msgstr "Ez daukazu baimenik partekatze-baimenak zerrendatzeko."
 
-#: lib/Api.php:413
+#: lib/Api.php:390
 msgid "You are not allowed to list shares."
 msgstr "Ez daukazu baimenik partekatzeak zerrendatzeko."
 
-#: lib/Api.php:335
+#: lib/Api.php:324
 msgid "You are not allowed to list users of groups."
 msgstr "Ez daukazu baimenik talde-erabiltzaileak zerrendatzeko."
 
-#: lib/Api.php:642
+#: lib/Api.php:605
 msgid "You are not allowed to list users of shares."
 msgstr "Ez daukazu baimenik partekatze-erabiltzaileak zerrendatzeko."
 
-#: lib/Block/FbStream.php:106
+#: lib/Block/FbStream.php:102
 #, php-format
 msgid ""
 "You are not connected to your Facebook account. You should check your "
@@ -3492,8 +3645,7 @@ msgstr ""
 "Ez zaude Facebook kontura konektatuta. Facebook-eko ezarpenak egiaztatu "
 "behar dituzu %s(e)n."
 
-#: lib/Block/FbStream.php:148 services/facebook/index.php:175
-#: services/facebook/index.php:192
+#: lib/Ajax/Application/FacebookHandler.php:48 lib/Block/FbStream.php:143
 #, php-format
 msgid "You can also check your Facebook settings in your %s."
 msgstr "Zuk ere Facebook-eko ezarpenak egiazta ditzakezu zure %s(e)an."
@@ -3506,15 +3658,15 @@ msgstr ""
 "Ez duzu onartu Zerbitzu-baldintzen hitzarmena, eta horregatik ez zaizu utzi "
 "saioa hasten."
 
-#: login.php:331
+#: login.php:312
 msgid "You have been logged out."
 msgstr "Saioa itxi duzu."
 
-#: services/facebook/index.php:155
+#: services/facebook/index.php:65
 msgid "You have denied the requested permissions."
 msgstr "Eskatutako baimenak ukatu dituzu."
 
-#: lib/Block/TwitterTimeline.php:160
+#: lib/Block/TwitterTimeline.php:168
 #, php-format
 msgid ""
 "You have not properly connected your Twitter account with Horde. You should "
@@ -3523,8 +3675,9 @@ msgstr ""
 "Ez duzu behar bezala konektatu Twitter kontua Horde-rekin. Twitter-eko "
 "ezarpenak egiaztatu behar dituzu %s(e)n."
 
-#: services/facebook/index.php:92 services/facebook/index.php:245
-#: services/facebook/index.php:253
+#: lib/Ajax/Application/FacebookHandler.php:105
+#: lib/Ajax/Application/FacebookHandler.php:113
+#: lib/Ajax/Application/FacebookHandler.php:216
 msgid "You like this"
 msgstr "Hau atsegin duzu"
 
@@ -3533,19 +3686,19 @@ msgid "You must describe the problem before you can send the problem report."
 msgstr ""
 "Arazoa deskribatu behar duzu, hari buruzko txostena bidali ahal izateko."
 
-#: admin/user.php:143
+#: admin/user.php:142
 msgid "You must specify a username to clear out."
 msgstr "Erabiltzaile-izen bat zehaztu behar duzu garbitzeko."
 
-#: admin/user.php:120
+#: admin/user.php:119
 msgid "You must specify a username to remove."
 msgstr "Erabiltzaile-izen bat zehaztu behar duzu kentzeko."
 
-#: admin/user.php:72
+#: admin/user.php:71
 msgid "You must specify the username to add."
 msgstr "Erabiltzaile-izena zehaztu behar duzu gehitzeko."
 
-#: admin/user.php:172
+#: admin/user.php:171
 msgid "You must specify the username to update."
 msgstr "Erabiltzaile-izena zehaztu behar duzu eguneratzeko."
 
@@ -3553,12 +3706,12 @@ msgstr "Erabiltzaile-izena zehaztu behar duzu eguneratzeko."
 msgid "Your Email Address"
 msgstr "Helbide elektronikoa"
 
-#: config/prefs.php:271 config/prefs.php:335 config/prefs.php:376
-#: config/prefs.php:528
+#: config/prefs.php:262 config/prefs.php:324 config/prefs.php:365
+#: config/prefs.php:509
 msgid "Your Information"
 msgstr "Zure informazioa"
 
-#: login.php:319
+#: login.php:300
 msgid ""
 "Your Internet Address has changed since the beginning of your session. To "
 "protect your security, you must login again."
@@ -3588,7 +3741,7 @@ msgstr ""
 "Zure autentifikazio-moduluak ez du onartzen erabiltzaileak zerrendatzea, edo "
 "eginbidea desgaitu egin da, beste zerbait dela-eta."
 
-#: login.php:323
+#: login.php:304
 msgid ""
 "Your browser appears to have changed since the beginning of your session. To "
 "protect your security, you must login again."
@@ -3596,19 +3749,19 @@ msgstr ""
 "Badirudi arakatzailea aldatu dela saioa hasi duzunetik. Zure segurtasuna "
 "babesteko, saioa hasi behar duzu berriro."
 
-#: lib/Block/Iframe.php:65
+#: lib/Block/Iframe.php:69
 msgid "Your browser does not support this feature."
 msgstr "Arakatzaileak ez du eginbide hori onartzen."
 
-#: config/prefs.php:427
+#: config/prefs.php:413
 msgid "Your current time zone:"
 msgstr "Uneko ordu-zona:"
 
-#: config/prefs.php:293
+#: config/prefs.php:282
 msgid "Your full name:"
 msgstr "Zure izena:"
 
-#: login.php:343
+#: login.php:324
 msgid "Your login has expired."
 msgstr "Saio-hasiera iraungi da."
 
@@ -3617,11 +3770,11 @@ msgstr "Saio-hasiera iraungi da."
 msgid "Your new password for %s is: %s"
 msgstr "%s(r)en pasahitz berria: %s"
 
-#: services/resetpassword.php:81
+#: services/resetpassword.php:89
 msgid "Your password has been reset"
 msgstr "Pasahitza berrezarri da."
 
-#: services/resetpassword.php:95
+#: services/resetpassword.php:99
 msgid ""
 "Your password has been reset, but couldn't be sent to you. Please contact "
 "the administrator."
@@ -3629,26 +3782,34 @@ msgstr ""
 "Pasahitza berrezarri da, baina ezin izan zaizu bidali. Jarri harremanetan "
 "administratzailearekin."
 
-#: services/resetpassword.php:90
+#: services/resetpassword.php:94
 msgid ""
 "Your password has been reset, check your email and log in with your new "
 "password."
 msgstr ""
 "Pasahitza berrezarri da; begiratu posta, eta hasi saioa pasahitz berriarekin."
 
+#: services/changepassword.php:50
+msgid ""
+"Your password has been succesfully changed. You need to re-login to the "
+"system with your new password."
+msgstr ""
+"Pasahitza behar bezala aldatu da. Saioa berriro hasi behar duzu pasahitz "
+"berriarekin."
+
 #: lib/Block/Account/Ldap.php:212 lib/Block/Account/Ldap.php:224
 msgid "Your password has expired"
 msgstr "Pasahitza iraungi da"
 
-#: login.php:173
+#: login.php:178
 msgid "Your password has expired."
 msgstr "Pasahitza iraungi da."
 
-#: login.php:315
+#: login.php:296
 msgid "Your session has expired. Please login again."
 msgstr "Saioa iraungi da. Hasi saioa berriro."
 
-#: login.php:327
+#: login.php:308
 msgid ""
 "Your session length has exceeded the maximum amount of time allowed. Please "
 "login again."
@@ -3663,31 +3824,31 @@ msgstr "Zippy"
 msgid "[Problem Report]"
 msgstr "[Arazoari buruzko txostena]"
 
-#: lib/Api.php:52
+#: lib/Api.php:65
 msgid "_Alarms"
 msgstr "_Alarmak"
 
-#: lib/Api.php:72
+#: lib/Api.php:85
 msgid "_CLI"
 msgstr "_CLI"
 
-#: lib/Api.php:27
+#: lib/Api.php:40
 msgid "_Configuration"
 msgstr "_Konfigurazioa"
 
-#: lib/Api.php:37
+#: lib/Api.php:50
 msgid "_Groups"
 msgstr "_Taldeak"
 
-#: lib/Api.php:47
+#: lib/Api.php:60
 msgid "_Locks"
 msgstr "_Blokeoak"
 
-#: lib/Api.php:42
+#: lib/Api.php:55
 msgid "_Permissions"
 msgstr "_Baimenak"
 
-#: lib/Api.php:32
+#: lib/Api.php:45
 msgid "_Users"
 msgstr "_Erabiltzaileak"
 
@@ -3705,32 +3866,27 @@ msgstr "barealdia"
 msgid "from the %s (%s) at %s %s"
 msgstr "noiztik: %s (%s); zein ordutatik: %s %s"
 
-#: lib/Block/Weather.php:213 lib/Block/Weather.php:323
+#: lib/Block/Weather.php:227 lib/Block/Weather.php:337
 msgid "gusting"
 msgstr "haizetsu"
 
-#: admin/config/diff.php:57 admin/config/diff.php:69
+#: admin/config/diff.php:61 admin/config/diff.php:71
 msgid "inline"
 msgstr "barnean"
 
-#: lib/Block/FbStream.php:107 lib/Block/FbStream.php:148
-#: lib/Block/TwitterTimeline.php:160 services/facebook/index.php:175
-#: services/facebook/index.php:192
+#: lib/Ajax/Application/FacebookHandler.php:48 lib/Block/FbStream.php:103
+#: lib/Block/FbStream.php:143 lib/Block/TwitterTimeline.php:168
 msgid "preferences"
 msgstr "hobespenak"
 
-#: admin/config/config.php:72
+#: admin/config/config.php:75
 msgid "show differences"
 msgstr "erakutsi desberdintasunak"
 
-#: admin/user.php:40 admin/user.php:54
+#: admin/user.php:39 admin/user.php:53
 msgid "type the password twice to confirm"
 msgstr "idatzi pasahitza bitan berresteko"
 
-#: admin/config/diff.php:57 admin/config/diff.php:69
+#: admin/config/diff.php:61 admin/config/diff.php:71
 msgid "unified"
 msgstr "bateratua"
-
-#: lib/Block/Weather.php:33
-msgid "weather"
-msgstr "eguraldia"

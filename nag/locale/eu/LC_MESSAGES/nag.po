@@ -5,100 +5,108 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nag\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-11-06 16:40+0100\n"
-"PO-Revision-Date: 2013-02-25 12:59+0100\n"
-"Last-Translator: Edurne <edurne@uzei.com>\n"
+"POT-Creation-Date: 2016-04-14 15:27+0200\n"
+"PO-Revision-Date: 2016-04-15 09:49+0200\n"
+"Last-Translator: Ibon Igartua <ibon.igartua@ehu.eus>\n"
 "Language-Team: Euskal Herriko Unibertsitatea <webmaster@ehu.es>\n"
 "Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Virtaal 0.7.1\n"
-"X-Poedit-Language: Basque\n"
+"X-Generator: Poedit 1.8.4\n"
 
-#: templates/view/task.inc:35
+#: templates/view/task.inc:58
 #, php-format
 msgid " (%s including sub-tasks)"
 msgstr " (%s, azpizereginak barne)"
 
-#: lib/Nag.php:113
+#: lib/Nag.php:126
 #, php-format
 msgid "%d hour"
 msgstr "%d ordu"
 
-#: lib/Nag.php:115
+#: lib/Nag.php:128
 #, php-format
 msgid "%d hour, %d minute"
 msgstr "%d ordu, %d minutu"
 
-#: lib/Nag.php:117
+#: lib/Nag.php:130
 #, php-format
 msgid "%d hour, %d minutes"
 msgstr "%d ordu, %d minutu"
 
-#: lib/Nag.php:105
+#: lib/Nag.php:118
 #, php-format
 msgid "%d hours"
 msgstr "%d ordu"
 
-#: lib/Nag.php:107
+#: lib/Nag.php:120
 #, php-format
 msgid "%d hours, %d minute"
 msgstr "%d ordu, %d minutu"
 
-#: lib/Nag.php:109
+#: lib/Nag.php:122
 #, php-format
 msgid "%d hours, %d minutes"
 msgstr "%d ordu, %d minutu"
 
-#: lib/Nag.php:123
+#: lib/Nag.php:136
 #, php-format
 msgid "%d minute"
 msgstr "%d minutu"
 
-#: lib/Nag.php:125
+#: lib/Nag.php:138
 #, php-format
 msgid "%d minutes"
 msgstr "%d minutu"
 
-#: lib/Ui/VarRenderer/Nag.php:217
+#: lib/Ui/VarRenderer/Nag.php:396
 #, php-format
 msgid "%s %s days of %s"
 msgstr "%s %s egun / %s"
 
-#: lib/Nag.php:727
+#: lib/Nag.php:844
 #, php-format
 msgid "%s at %s"
 msgstr "%s - %s"
 
-#: lib/Block/Summary.php:122 lib/Nag.php:902
+#: lib/Block/Summary.php:121 lib/Nag.php:1018
 #, php-format
 msgid "%s is due in %s"
 msgstr "%s, epemuga: %s"
 
-#: lib/Block/Summary.php:119 lib/Nag.php:900
+#: lib/Block/Summary.php:118 lib/Nag.php:1016
 #, php-format
 msgid "%s is due now."
 msgstr "%s, epemuga orain."
 
-#: lib/CompleteTask.php:26
+#: lib/CompleteTask.php:40
 #, php-format
 msgid "%s is now incomplete."
 msgstr "%s, osatzeke dago orain."
+
+#: lib/CompleteTask.php:37
+#, php-format
+msgid "%s is still incomplete."
+msgstr "%s osatzeke dago oraindik."
 
 #: data.php:163
 #, php-format
 msgid "%s successfully imported"
 msgstr "%s behar bezala inportatu da"
 
-#: lib/Form/Task.php:42 lib/Nag.php:678
+#: lib/Form/Task.php:61 lib/Nag.php:795
 msgid "(highest)"
 msgstr "(handiena)"
 
-#: lib/Form/Task.php:46 lib/Nag.php:678
+#: lib/Form/Task.php:65 lib/Nag.php:795
 msgid "(lowest)"
 msgstr "(txikiena)"
+
+#: lib/Form/Type/NagRecurrence.php:131
+msgid "A due date is necessary to enable recurrences."
+msgstr "Epemuga bat ezarri behar da erepikapenak gaitzeko."
 
 #: lib/Form/Type/NagAlarm.php:30
 msgid "A due date must be set to enable alarms."
@@ -108,37 +116,41 @@ msgstr "Epemuga bat ezarri behar da alarmak gaitzeko."
 msgid "Access denied completing this task."
 msgstr "Zeregin hau osatzeko sarbidea ukatu da."
 
-#: task.php:23
+#: app/controllers/SaveTask.php:36
+msgid "Access denied deleting task"
+msgstr "Zeregina ezabatzeko sarbidea ukatu da"
+
+#: task.php:26
 msgid "Access denied deleting task."
 msgstr "Zeregina ezabatzeko sarbidea ukatu da."
 
-#: app/controllers/SaveTask.php:26 app/controllers/SaveTask.php:30
+#: app/controllers/SaveTask.php:30
 #, php-format
 msgid "Access denied deleting task: %s"
 msgstr "Zeregin hau ezabatzeko sarbidea ukatu da: %s"
 
-#: task.php:93 task.php:99
+#: task.php:99 task.php:105
 msgid "Access denied editing task."
 msgstr "Zeregina editatzeko sarbidea ukatu da."
 
-#: task.php:90
+#: task.php:96
 #, php-format
 msgid "Access denied editing task: %s"
 msgstr "Zeregina editatzeko sarbidea ukatu da: %s"
 
-#: lib/Driver.php:263
+#: lib/Driver.php:270
 msgid "Access denied moving the task to this task list."
 msgstr "Zeregin hau zeregin-zerrendara eramateko sarbidea ukatu da."
 
-#: lib/Driver.php:251
+#: lib/Driver.php:258
 msgid "Access denied removing task from this task list."
 msgstr "Zeregina zeregin-zerrendatik kentzeko sarbidea ukatu da."
 
-#: app/controllers/SaveTask.php:57
+#: app/controllers/SaveTask.php:64
 msgid "Access denied saving task to this task list."
 msgstr "Zeregin-zerrenda honetan zeregina gordetzeko sarbidea ukatu da."
 
-#: app/controllers/SaveTask.php:53
+#: app/controllers/SaveTask.php:60
 #, php-format
 msgid "Access denied saving task: %s"
 msgstr "Zeregina gordetzeko sarbidea ukatu da: %s"
@@ -150,7 +162,7 @@ msgid_plural "Added %d tasks"
 msgstr[0] "%d zeregin gehitu da"
 msgstr[1] "%d zeregin gehitu dira"
 
-#: data.php:51 lib/Form/Task.php:120 templates/view/task.inc:26
+#: data.php:51 lib/Form/Task.php:142 templates/view/task.inc:49
 msgid "Alarm"
 msgstr "Alarma"
 
@@ -169,7 +181,7 @@ msgstr ""
 "%d egun baino gehiago dituzten zeregin osatugabe guztiak betiko ezabatuko "
 "dira."
 
-#: config/prefs.php:313
+#: config/prefs.php:316
 msgid ""
 "All state removed for your ActiveSync devices. They will resynchronize next "
 "time they connect to the server."
@@ -198,8 +210,8 @@ msgid "Ascending"
 msgstr "Gorantz"
 
 #: config/prefs.php:67 config/prefs.php:86 config/prefs.php:103 data.php:49
-#: lib/Form/Task.php:111 templates/list/task_headers.html.php:37
-#: templates/smartmobile/taskform.html.php:19 templates/view/task.inc:8
+#: lib/Form/Task.php:133 templates/list/task_headers.html.php:37
+#: templates/smartmobile/taskform.html.php:19 templates/view/task.inc:31
 msgid "Assignee"
 msgstr "Esleipen-hartzailea"
 
@@ -211,13 +223,21 @@ msgstr "Bloke-izenburua"
 msgid "CSV"
 msgstr "CSV"
 
-#: lib/Ui/VarRenderer/Nag.php:84 lib/Ui/VarRenderer/Nag.php:134
+#: lib/Form/EditTaskList.php:98
+msgid "CalDAV Account URL"
+msgstr "CalDAV kontuaren URLa"
+
+#: lib/Form/EditTaskList.php:89
+msgid "CalDAV Subscription URL"
+msgstr "CalDAV harpidetzaren URLa"
+
+#: lib/Ui/VarRenderer/Nag.php:121 lib/Ui/VarRenderer/Nag.php:437
 msgid "Calendar"
 msgstr "Egutegia"
 
 #: lib/Form/DeleteTaskList.php:43 lib/Form/DeleteTaskList.php:49
-#: lib/Form/EditTaskList.php:129 lib/Form/EditTaskList.php:148
-#: templates/quick.inc:8 templates/smartmobile/taskform.html.php:62
+#: lib/Form/EditTaskList.php:142 lib/Form/EditTaskList.php:161
+#: templates/quick.inc:9 templates/smartmobile/taskform.html.php:62
 msgid "Cancel"
 msgstr "Utzi"
 
@@ -225,7 +245,7 @@ msgstr "Utzi"
 msgid "Cannot add tasks to smart lists."
 msgstr "Ezin zaie zereginik gehitu zerrenda adimendunei."
 
-#: lib/Form/EditTaskList.php:115
+#: lib/Form/EditTaskList.php:128
 msgid "Change Permissions"
 msgstr "Aldatu baimenak"
 
@@ -233,61 +253,61 @@ msgstr "Aldatu baimenak"
 msgid "Change your task sorting and display preferences."
 msgstr "Aldatu zereginak ordenatzeko eta bistaratzeko hobespenak."
 
-#: lib/Nag.php:1094
+#: lib/Nag.php:1210
 #, php-format
 msgid "Changed alarm from %s to %s"
 msgstr "Alarma aldatu da: %s --> %s"
 
-#: lib/Nag.php:1073
+#: lib/Nag.php:1189
 #, php-format
 msgid "Changed assignee from \"%s\" to \"%s\""
 msgstr "Esleipen-hartzailea aldatu da: \"%s\" --> \"%s\""
 
-#: lib/Nag.php:1109
+#: lib/Nag.php:1225
 #, php-format
 msgid "Changed completion from %s to %s"
 msgstr "Osatzea aldatu da: %s --> %s"
 
-#: lib/Nag.php:1114
+#: lib/Nag.php:1230
 msgid "Changed description"
 msgstr "Azalpena aldatu da"
 
-#: lib/Nag.php:1082
+#: lib/Nag.php:1198
 #, php-format
 msgid "Changed due date from %s to %s"
 msgstr "Epemuga aldatu da: %s --> %s"
 
-#: lib/Nag.php:1104
+#: lib/Nag.php:1220
 #, php-format
 msgid "Changed estimate from %s to %s"
 msgstr "Aurreikuspena aldatu da: %s --> %s"
 
-#: lib/Nag.php:1041
+#: lib/Nag.php:1157
 #, php-format
 msgid "Changed name from \"%s\" to \"%s\""
 msgstr "Izena aldatu da: \"%s\" --> \"%s\""
 
-#: lib/Nag.php:1055
+#: lib/Nag.php:1171
 #, php-format
 msgid "Changed parent task from \"%s\" to \"%s\""
 msgstr "Zeregin gurasoa aldatu da: \"%s\" --> \"%s\""
 
-#: lib/Nag.php:1099
+#: lib/Nag.php:1215
 #, php-format
 msgid "Changed priority from %s to %s"
 msgstr "Lehentasuna aldatu da: %s --> %s"
 
-#: lib/Nag.php:1088
+#: lib/Nag.php:1204
 #, php-format
 msgid "Changed start date from %s to %s"
 msgstr "Hasiera-data aldatu da: %s --> %s"
 
-#: lib/Nag.php:1047
+#: lib/Nag.php:1163
 #, php-format
 msgid "Changed task list from \"%s\" to \"%s\""
 msgstr "Zeregin-zerrenda aldatu da: \"%s\" --> \"%s\""
 
-#: lib/Nag.php:1038
+#: lib/Nag.php:1154
 msgid "Changes made for this task:"
 msgstr "Zeregin honentzat egindako aldaketak:"
 
@@ -315,7 +335,7 @@ msgstr ""
 msgid "Choose your default task list."
 msgstr "Aukeratu zeregin-zerrenda lehenetsia"
 
-#: lib/Form/EditTaskList.php:79 lib/Form/EditTaskList.php:101
+#: lib/Form/EditTaskList.php:79
 msgid "Click or copy this URL to display this task list"
 msgstr "Egin klik edo kopiatu URLa, zeregin-zerrenda hau bistaratzeko"
 
@@ -336,25 +356,21 @@ msgstr "Kolorea"
 msgid "Complete \"%s\""
 msgstr "\"%s\" osatua"
 
-#: templates/view/task.inc:42
-msgid "Complete Task"
-msgstr "Zeregin osatua"
-
 #: config/prefs.php:226
 msgid "Complete tasks"
 msgstr "Zeregin osatuak"
 
-#: lib/Block/Summary.php:186 lib/Form/Search.php:54 lib/Nag.php:742
+#: lib/Block/Summary.php:186 lib/Form/Search.php:54 lib/Nag.php:859
 #: templates/smartmobile/taskform.html.php:55
 msgid "Completed"
 msgstr "Osatua"
 
-#: lib/CompleteTask.php:23
+#: lib/CompleteTask.php:34
 #, php-format
 msgid "Completed %s."
 msgstr "%s osatu da."
 
-#: templates/list/_task.html.php:15
+#: lib/CompleteTask.php:25 templates/list/_task.html.php:15
 msgid "Completed parent task, mark it as incomplete first"
 msgstr "Osatutako zeregin gurasoa, markatu osatugabe gisa lehendabizi"
 
@@ -362,8 +378,8 @@ msgstr "Osatutako zeregin gurasoa, markatu osatugabe gisa lehendabizi"
 msgid "Completed tasks"
 msgstr "Zeregin osatuak"
 
-#: config/prefs.php:84 config/prefs.php:101 lib/Form/Task.php:130
-#: templates/list/task_headers.html.php:4 templates/view/task.inc:38
+#: config/prefs.php:84 config/prefs.php:101 lib/Form/Task.php:151
+#: templates/list/task_headers.html.php:4 templates/view/task.inc:61
 msgid "Completed?"
 msgstr "Osatuta?"
 
@@ -375,28 +391,57 @@ msgstr "Osatze-data"
 msgid "Completion Status"
 msgstr "Osatze-egoera"
 
-#: lib/Api.php:621
+#: lib/Api.php:631
 #, php-format
 msgid "Connection failed: %s"
 msgstr "Konexioak huts egin du: %s"
 
-#: lib/Form/CreateTaskList.php:33 templates/quick.inc:7
+#: lib/Form/EditTaskList.php:102
+msgid "Copy this URL to a CalDAV client to subscribe to all your task lists"
+msgstr ""
+"Kopiatu ondorengo URLa CalDAV bezeroan zeregin-zerrenda guztietara "
+"harpidetzeko"
+
+#: lib/Form/EditTaskList.php:93
+msgid "Copy this URL to a CalDAV client to subscribe to this task list"
+msgstr ""
+"Kopiatu ondorengo URLa CalDAV bezeroan zeregin-zerrenda honetara harpidetzeko"
+
+#: lib/Form/EditTaskList.php:114
+msgid "Copy this URL to a WebDAV or ICS client to subscribe to this task list"
+msgstr ""
+"Kopiatu ondorengo URLa WebDAV edo ICS bezeroan zeregin-zerrenda honetara "
+"harpidetzeko"
+
+#: lib/Form/CreateTaskList.php:33 templates/quick.inc:8
 msgid "Create"
 msgstr "Sortu"
+
+#: templates/view/task.inc:10
+msgid "Create Subtask"
+msgstr "Sortu azpizeregina"
 
 #: lib/Form/CreateTaskList.php:21
 msgid "Create Task List"
 msgstr "Sortu zeregin-zerrenda"
 
-#: lib/Application.php:145
+#: lib/Application.php:161
+msgid "Create a new System Task List"
+msgstr "Sortu sistemaren zeregin-zerrenda berria"
+
+#: lib/Application.php:148
 msgid "Create a new Task List"
 msgstr "Sortu zeregin-zerrenda berria"
 
-#: templates/view/task.inc:57
+#: templates/view/task.inc:72
 msgid "Created"
 msgstr "Sortze-data"
 
-#: lib/Ui/VarRenderer/Nag.php:75 lib/Ui/VarRenderer/Nag.php:124
+#: lib/Ui/VarRenderer/Nag.php:207
+msgid "Daily: Recurs every"
+msgstr "Egunero: Errepikatu"
+
+#: lib/Ui/VarRenderer/Nag.php:111 lib/Ui/VarRenderer/Nag.php:427
 msgid "Date"
 msgstr "Data"
 
@@ -408,7 +453,7 @@ msgstr "Data eta ordua:"
 msgid "Date:"
 msgstr "Data:"
 
-#: lib/Nag.php:774 lib/Ui/VarRenderer/Nag.php:164
+#: lib/Nag.php:891 lib/Ui/VarRenderer/Nag.php:43
 msgid "Day(s)"
 msgstr "egunez behin"
 
@@ -420,12 +465,12 @@ msgstr "Zeregin-zerrenda lehenetsia"
 msgid "Defaults for new tasks"
 msgstr "Zeregin berrien lehenespenak."
 
-#: lib/Form/Task.php:118
+#: lib/Form/Task.php:140
 msgid "Delay Start Until"
 msgstr "Hasi egunero data hau arte:"
 
-#: lib/Form/DeleteTaskList.php:42 lib/Form/EditTaskList.php:128
-#: lib/Form/EditTaskList.php:143 lib/Form/Task.php:142
+#: lib/Form/DeleteTaskList.php:42 lib/Form/EditTaskList.php:141
+#: lib/Form/EditTaskList.php:156 lib/Form/Task.php:166
 #: templates/smartmobile/taskform.html.php:63
 msgid "Delete"
 msgstr "Ezabatu"
@@ -435,25 +480,25 @@ msgstr "Ezabatu"
 msgid "Delete %s"
 msgstr "Ezabatu %s"
 
-#: config/prefs.php:20
-msgid "Delete Confirmation"
-msgstr "Ezabatzeko berrespena"
-
 #: lib/Form/Search.php:66
 msgid "Delete Smart List"
 msgstr "Ezabatu zerrenda adimenduna"
 
 #: config/prefs.php:21
-msgid "Delete button behaviour"
-msgstr "Ezabatu botoiaren portaera."
+msgid "Delete behaviour"
+msgstr "Ezabatu portaera"
 
-#: task.php:34
+#: task.php:37
 #, php-format
 msgid "Deleted %s."
 msgstr "%s ezabatu da."
 
-#: lib/Api.php:600
-msgid "Deleting entire tasklists is not supported."
+#: config/prefs.php:20
+msgid "Deleting Tasks"
+msgstr "Zereginak ezabatzen"
+
+#: lib/Api.php:610
+msgid "Deleting entire task lists is not supported."
 msgstr "Ez da onartzen zeregin-zerrenda osoak ezabatzea."
 
 #: config/prefs.php:115
@@ -461,7 +506,7 @@ msgid "Descending"
 msgstr "Beherantz"
 
 #: data.php:48 lib/Form/CreateTaskList.php:31 lib/Form/EditTaskList.php:69
-#: lib/Form/Search.php:39 lib/Form/Task.php:138
+#: lib/Form/Search.php:39 lib/Form/Task.php:156 lib/Form/Task.php:162
 #: templates/smartmobile/taskform.html.php:14
 msgid "Description"
 msgstr "Azalpena"
@@ -488,7 +533,7 @@ msgid ""
 msgstr ""
 "Ez bidali jakinarazpenik zeregina gehitu, aldatu edo ezabatzen dudanean?"
 
-#: data.php:50 lib/Form/Task.php:116 templates/view/task.inc:22
+#: data.php:50 lib/Form/Task.php:138 templates/view/task.inc:45
 msgid "Due By"
 msgstr "Epemuga"
 
@@ -497,7 +542,7 @@ msgstr "Epemuga"
 msgid "Due Date"
 msgstr "Epemuga"
 
-#: lib/Ui/VarRenderer/Nag.php:123
+#: lib/Ui/VarRenderer/Nag.php:110
 msgid "Due date specified."
 msgstr "Epemuga zehaztuta."
 
@@ -505,7 +550,7 @@ msgstr "Epemuga zehaztuta."
 msgid "Due date:"
 msgstr "Epemuga:"
 
-#: lib/Ui/VarRenderer/Nag.php:221
+#: lib/Ui/VarRenderer/Nag.php:400
 msgid "E.g., Is due within 2 days of today"
 msgstr "Adib.: Gaurtik hasi eta hurrengo 2 egunetan egin behar da"
 
@@ -523,11 +568,7 @@ msgstr "Editatu %s"
 msgid "Edit Task"
 msgstr "Editatu zeregina"
 
-#: templates/list/header.html.php:4
-msgid "Edit criteria"
-msgstr "Editatu irizpideak"
-
-#: app/controllers/SaveTask.php:12 task.php:106
+#: app/controllers/SaveTask.php:12 task.php:118
 #, php-format
 msgid "Edit: %s"
 msgstr "Editatu: %s"
@@ -537,7 +578,7 @@ msgstr "Editatu: %s"
 msgid "Editing Smart List \"%s\""
 msgstr "\"%s\" zerrenda adimenduna editatzea"
 
-#: templates/quick.inc:4
+#: templates/quick.inc:5
 msgid ""
 "Enter one task per line. Create child tasks by indenting them below their "
 "parent task. Include due dates like \"laundry tomorrow\" or \"get dry "
@@ -549,7 +590,7 @@ msgstr ""
 "tailerretik ostegun arratsaldean\"... Etiketak gehi daitezke \"#\" "
 "karakterea aurretik jarrita."
 
-#: app/controllers/SaveTask.php:39 task.php:39
+#: app/controllers/SaveTask.php:47 task.php:42
 #, php-format
 msgid "Error deleting task: %s"
 msgstr "Errorea zeregina ezabatzean: %s"
@@ -559,8 +600,8 @@ msgid "Estimate"
 msgstr "Estimazioa"
 
 #: config/prefs.php:70 config/prefs.php:85 config/prefs.php:102 data.php:55
-#: lib/Form/Task.php:129 templates/list/task_headers.html.php:33
-#: templates/view/task.inc:34
+#: lib/Form/Task.php:150 templates/list/task_headers.html.php:33
+#: templates/view/task.inc:57
 msgid "Estimated Time"
 msgstr "Aurreikusitako ordua"
 
@@ -576,9 +617,17 @@ msgstr "Esportatu zereginak"
 msgid "External Data"
 msgstr "Kanpoko datuak"
 
+#: lib/Ui/VarRenderer/Nag.php:246
+msgid "Fr"
+msgstr "Or"
+
 #: config/prefs.php:227 templates/data/export.inc:36
 msgid "Future tasks"
 msgstr "Etorkizuneko zereginak"
+
+#: lib/Form/Task.php:76
+msgid "General"
+msgstr "Orokorra"
 
 #: config/prefs.php:12 config/prefs.php:19 config/prefs.php:26
 msgid "General Preferences"
@@ -588,7 +637,7 @@ msgstr "Hobespen orokorrak"
 msgid "Highest"
 msgstr "Handiena"
 
-#: lib/Nag.php:777 lib/Ui/VarRenderer/Nag.php:163
+#: lib/Nag.php:894 lib/Ui/VarRenderer/Nag.php:42
 msgid "Hour(s)"
 msgstr "orduz behin"
 
@@ -601,7 +650,7 @@ msgstr "Inportatu zereginak, %d. urratsa"
 msgid "Import/Export Tasks"
 msgstr "Inportatu/Esportatu zereginak"
 
-#: lib/View/List.php:97
+#: lib/View/List.php:104
 msgid "Incom_plete tasks"
 msgstr "Zeregin osatu_gabeak"
 
@@ -609,7 +658,7 @@ msgstr "Zeregin osatu_gabeak"
 msgid "Incomplete"
 msgstr "Osatugabeak"
 
-#: templates/list/_task.html.php:7
+#: lib/CompleteTask.php:28 templates/list/_task.html.php:7
 msgid "Incomplete sub tasks, complete them first"
 msgstr "Azpizeregin osatugabeak osatu lehendabizi"
 
@@ -617,23 +666,23 @@ msgstr "Azpizeregin osatugabeak osatu lehendabizi"
 msgid "Incomplete tasks"
 msgstr "Zeregin osatugabeak"
 
-#: lib/Api.php:331
-msgid "Invalid tasklist file requested."
+#: lib/Api.php:338
+msgid "Invalid task list file requested."
 msgstr "Zeregin-zerrendaren fitxategi baliogabea eskatu da."
 
-#: lib/Api.php:465
-msgid "Invalid tasklist name supplied."
+#: lib/Api.php:472
+msgid "Invalid task list name supplied."
 msgstr "Zeregin-zerrendaren izen baliogabea eman da."
 
-#: lib/Api.php:347
-msgid "Invalid tasklist requested."
+#: lib/Api.php:356 lib/Api.php:361
+msgid "Invalid task list requested."
 msgstr "Zeregin-zerrenda baliogabea eskatu da."
 
-#: lib/Ui/VarRenderer/Nag.php:218
+#: lib/Ui/VarRenderer/Nag.php:397
 msgid "Is due within"
 msgstr "Igarotakoan"
 
-#: templates/view/task.inc:64
+#: templates/view/task.inc:79
 msgid "Last Modified"
 msgstr "Azken aldaketa"
 
@@ -642,7 +691,7 @@ msgstr "Azken aldaketa"
 msgid "Lists"
 msgstr "Zerrendak"
 
-#: lib/Ui/VarRenderer/Nag.php:205
+#: lib/Ui/VarRenderer/Nag.php:454
 msgid "Loading..."
 msgstr "Kargatzen..."
 
@@ -655,44 +704,52 @@ msgstr "Txikiena"
 msgid "Mark \"%s\" as incomplete"
 msgstr "Markatu \"%s\" osatugabe gisa"
 
-#: templates/view/task.inc:44
-msgid "Mark as incomplete"
-msgstr "Markatu osatugabe gisa"
-
-#: lib/Application.php:73
+#: lib/Application.php:76
 msgid "Maximum Number of Tasks"
 msgstr "Gehieneko zeregin kopurua"
 
-#: lib/Nag.php:780 lib/Ui/VarRenderer/Nag.php:163
+#: lib/Nag.php:897 lib/Ui/VarRenderer/Nag.php:42
 msgid "Minute(s)"
 msgstr "minutuz behin"
 
-#: lib/Ajax/Application/Handler/Smartmobile.php:82
+#: lib/Ajax/Application/Handler/Smartmobile.php:81
 msgid "Missing required task id"
 msgstr "Beharrezko zeregin IDa falta da"
 
-#: lib/Ajax/Application/Handler/Smartmobile.php:86
-msgid "Missing required tasklist"
+#: lib/Ajax/Application/Handler/Smartmobile.php:85
+msgid "Missing required task list"
 msgstr "Beharrezko zeregin-zerrenda falta da"
 
-#: lib/Nag.php:596
+#: lib/Nag.php:654
 msgid "Missing valid search criteria"
 msgstr "Bilatzeko irizpide baliozkoa falta da:"
+
+#: lib/Ui/VarRenderer/Nag.php:234
+msgid "Mo"
+msgstr "Al"
+
+#: lib/Ui/VarRenderer/Nag.php:267 lib/Ui/VarRenderer/Nag.php:282
+msgid "Monthly: Recurs every"
+msgstr "Hilero: Errepikatu"
 
 #: templates/list/header.html.php:11
 msgid "More Options..."
 msgstr "Aukera gehiago..."
 
-#: lib/Api.php:1134
+#: lib/Api.php:1213
 msgid "Multiple iCalendar components found; only one vTodo is supported."
 msgstr ""
 "iCalendar osagai bat baino gehiago aurkitu dira; vTodo bakarra onartzen da."
 
-#: lib/Application.php:138
+#: lib/Task.php:585
+msgid "Must complete all children tasks."
+msgstr "Azpizeregin guztiak osatu behar dira."
+
+#: lib/Application.php:141
 msgid "My Task Lists"
 msgstr "Nire zeregin-zerrendak"
 
-#: lib/View/List.php:67 smartmobile.php:21
+#: lib/View/List.php:74 smartmobile.php:21
 #: templates/smartmobile/main.html.php:2
 #: templates/smartmobile/taskform.html.php:2
 msgid "My Tasks"
@@ -703,7 +760,7 @@ msgid "Na_me"
 msgstr "Iz_ena"
 
 #: data.php:47 lib/Form/CreateTaskList.php:23 lib/Form/EditTaskList.php:48
-#: lib/Form/Search.php:38 lib/Form/Task.php:52
+#: lib/Form/Search.php:38 lib/Form/Task.php:77
 msgid "Name"
 msgstr "Izena"
 
@@ -715,9 +772,8 @@ msgstr "Inoiz ez"
 msgid "New"
 msgstr "Berria"
 
-#: app/controllers/SaveTask.php:12 lib/Application.php:301
-#: lib/Smartmobile.php:122 task.php:81 test/Nag/Unit/Form/Task/Base.php:72
-#: test/Nag/Unit/Form/Task/Base.php:86
+#: app/controllers/SaveTask.php:12 lib/Application.php:320
+#: lib/Smartmobile.php:122 task.php:87
 msgid "New Task"
 msgstr "Zeregin berria"
 
@@ -729,23 +785,31 @@ msgstr "Hurrengoa"
 msgid "No"
 msgstr "Ez"
 
-#: lib/Ui/VarRenderer/Nag.php:70
+#: lib/Ui/VarRenderer/Nag.php:424
 msgid "No delay"
 msgstr "Atzerapenik ez"
 
-#: lib/Ui/VarRenderer/Nag.php:119
+#: lib/Ui/VarRenderer/Nag.php:108
 msgid "No due date."
 msgstr "Ez dago epemugarik."
 
-#: lib/Api.php:811 lib/Api.php:834 lib/Api.php:1141
+#: lib/Ui/VarRenderer/Nag.php:346
+msgid "No end date"
+msgstr "Ez dago amaiera-datarik"
+
+#: lib/Api.php:877 lib/Api.php:906 lib/Api.php:1220
 msgid "No iCalendar data was found."
 msgstr "Ez da aurkitu iCalendar daturik."
 
-#: lib/Form/Task.php:71
+#: lib/Form/Task.php:94
 msgid "No parent task"
 msgstr "Zeregin gurasorik ez"
 
-#: lib/Nag.php:920
+#: lib/Ui/VarRenderer/Nag.php:194
+msgid "No recurrence"
+msgstr "Errepikapenik ez"
+
+#: lib/Nag.php:1036
 msgid "No task lists are available to guests."
 msgstr "Ez dago zeregin-zerrendarik erabilgarri gonbidatuentzat."
 
@@ -753,31 +817,31 @@ msgstr "Ez dago zeregin-zerrendarik erabilgarri gonbidatuentzat."
 msgid "No tasks have been added."
 msgstr "Ez da zereginik gehitu."
 
-#: templates/list.html.php:74
+#: templates/list.html.php:76
 msgid "No tasks match"
 msgstr "Ez dago bat datorren zereginik"
 
-#: lib/Block/Summary.php:231 templates/smartmobile/main.html.php:5
+#: lib/Block/Summary.php:238 templates/smartmobile/main.html.php:5
 msgid "No tasks to display"
 msgstr "Ez dago zereginik bistaratzeko"
 
-#: lib/Form/Task.php:112 lib/Nag.php:784 lib/Ui/VarRenderer/Nag.php:179
+#: lib/Form/Task.php:134 lib/Nag.php:901 lib/Ui/VarRenderer/Nag.php:58
 msgid "None"
 msgstr "Bat ere ez"
 
-#: lib/Nag.php:743
+#: lib/Nag.php:860
 msgid "Not Completed"
 msgstr "Ez da osatu"
 
-#: templates/view/task.inc:14
+#: templates/view/task.inc:37
 msgid "Not Private"
 msgstr "Ez pribatua"
 
-#: lib/Api.php:659
+#: lib/Api.php:669
 msgid "Not configured"
 msgstr "Ez da konfiguratu"
 
-#: lib/Form/Task.php:123
+#: lib/Form/Task.php:145
 msgid "Notification"
 msgstr "Jakinarazpena"
 
@@ -805,25 +869,25 @@ msgstr "Jabea"
 msgid "P_ri"
 msgstr "_Lehentasuna"
 
-#: lib/Form/Task.php:81
+#: lib/Form/Task.php:104
 msgid "Parent task"
 msgstr "Zeregin gurasoa"
 
 #: config/prefs.php:66 config/prefs.php:80 config/prefs.php:97 data.php:53
-#: lib/Form/Task.php:126 templates/smartmobile/taskform.html.php:39
-#: templates/view/task.inc:30
+#: lib/Form/Task.php:148 templates/smartmobile/taskform.html.php:39
+#: templates/view/task.inc:53
 msgid "Priority"
 msgstr "Lehentasuna"
 
-#: templates/smartmobile/taskform.html.php:24 templates/view/task.inc:14
+#: templates/smartmobile/taskform.html.php:24 templates/view/task.inc:37
 msgid "Private"
 msgstr "Pribatua"
 
-#: data.php:54 lib/Task.php:692
+#: data.php:54 lib/Task.php:851
 msgid "Private Task"
 msgstr "Zeregin pribatua"
 
-#: lib/Form/Task.php:115 templates/view/task.inc:12
+#: lib/Form/Task.php:137 templates/view/task.inc:35
 msgid "Private?"
 msgstr "Pribatua?"
 
@@ -835,7 +899,7 @@ msgstr "Zeregin osatugabeak betiko borratzeko maiztasuna:"
 msgid "Purge completed tasks older than this amount of days."
 msgstr "Betiko borratu egun kopuru hau baino gehiagoko zeregin osatugabeak."
 
-#: lib/LoginTasks/Task/PurgeCompleted.php:65
+#: lib/LoginTasks/Task/PurgeCompleted.php:66
 #, php-format
 msgid "Purging %d completed task."
 msgid_plural "Purging %d completed tasks."
@@ -855,11 +919,19 @@ msgstr ""
 "Ziur zaude \"%s\" zeregin-zerrenda ezabatu nahi duzula? Ezingo da desegin, "
 "eta zeregin-zerrenda honetako datu guztiak betiko kenduko dira."
 
-#: view.php:112
+#: templates/view/task.inc:13
 msgid "Really delete this task?"
 msgstr "Ziur zaude zeregin hau ezabatu nahi duzula?"
 
-#: lib/View/List.php:397
+#: lib/Ui/VarRenderer/Nag.php:344
+msgid "Recur Until"
+msgstr "Noiz arte errepikatu"
+
+#: lib/Form/Task.php:152 lib/Form/Task.php:153
+msgid "Recurrence"
+msgstr "Errepikapena"
+
+#: lib/View/List.php:425
 msgid "Remove from search"
 msgstr "Kendu bilaketatik"
 
@@ -867,8 +939,20 @@ msgstr "Kendu bilaketatik"
 msgid "Reset"
 msgstr "Berrezarri"
 
-#: lib/Form/EditTaskList.php:127 lib/Form/EditTaskList.php:136
-#: lib/Form/Search.php:65 lib/Form/Task.php:140
+#: lib/Form/Task.php:172
+msgid "Return to Search Results"
+msgstr "Itzuli bilaketaren emaitzetara"
+
+#: templates/view/task.inc:17
+msgid "Return to search results"
+msgstr "Itzuli bilaketaren emaitzetara"
+
+#: lib/Ui/VarRenderer/Nag.php:249
+msgid "Sa"
+msgstr "Lr"
+
+#: lib/Form/EditTaskList.php:140 lib/Form/EditTaskList.php:149
+#: lib/Form/Search.php:65 lib/Form/Task.php:164
 msgid "Save"
 msgstr "Gorde"
 
@@ -876,7 +960,7 @@ msgstr "Gorde"
 msgid "Save Task"
 msgstr "Gorde zeregina"
 
-#: lib/Form/Task.php:145
+#: lib/Form/Task.php:169
 msgid "Save and New"
 msgstr "Gorde eta berria"
 
@@ -884,17 +968,17 @@ msgstr "Gorde eta berria"
 msgid "Save this search as a Smart List?"
 msgstr "Gorde bilaketa hau zerrenda adimendun gisa?"
 
-#: lib/Ajax/Application/Handler/Smartmobile.php:193
+#: lib/Ajax/Application/Handler/Smartmobile.php:192
 #, php-format
 msgid "Saved %s"
 msgstr "Gorde da %s"
 
-#: app/controllers/SaveTask.php:91
+#: app/controllers/SaveTask.php:104
 #, php-format
 msgid "Saved %s."
 msgstr "Gorde %s."
 
-#: lib/Application.php:325 lib/Form/Search.php:72 search.php:17 search.php:30
+#: lib/Application.php:348 lib/Form/Search.php:72 search.php:17 search.php:30
 #: templates/list/header.html.php:6
 msgid "Search"
 msgstr "Bilatu"
@@ -911,7 +995,7 @@ msgstr "Bilatzeko testua:"
 msgid "Search:"
 msgstr "Bilatu:"
 
-#: lib/View/List.php:317
+#: lib/View/List.php:337
 #, php-format
 msgid "Search: Results for"
 msgstr "Bilaketa: honen emaitzak"
@@ -936,19 +1020,23 @@ msgstr "Hautatu iturburu-fitxategiaren formatua:"
 msgid "Select the task list(s) to export from:"
 msgstr "Hautatu zein zeregin-zerrendatatik esportatuko den:"
 
-#: templates/data/export.inc:32
-msgid "Select the task states to export:"
-msgstr "Hautatu esportatzeko zeregin-egoerak:"
-
-#: config/prefs.php:273
+#: config/prefs.php:276
 msgid ""
-"Select the tasklists that, in addition to the default, should be used for "
+"Select the task lists that, in addition to the default, should be used for "
 "synchronization with external devices:"
 msgstr ""
 "Hautatu zeregin-zerrenda lehenetsiaz gainera kanpoko gailuekin "
 "sinkronizatzeko erabiliko diren beste zeregin-zerrendak:"
 
-#: lib/Application.php:151
+#: templates/data/export.inc:32
+msgid "Select the task states to export:"
+msgstr "Hautatu esportatzeko zeregin-egoerak:"
+
+#: lib/Ui/VarRenderer/Nag.php:357
+msgid "Set recurrence end date"
+msgstr "Ezarri errepikapenaren amaiera-data"
+
+#: lib/Application.php:167
 msgid "Shared Task Lists"
 msgstr "Zeregin-zerrenda partekatuak"
 
@@ -982,18 +1070,18 @@ msgid "Show task alarms?"
 msgstr "Erakutsi zeregin-alarmak?"
 
 #: lib/Block/Summary.php:61
-msgid "Show tasklist name?"
+msgid "Show task list name?"
 msgstr "Erakutsi zeregin-zerrendaren izena?"
 
 #: lib/Block/Summary.php:81
-msgid "Show tasks from these tasklists"
+msgid "Show tasks from these task lists"
 msgstr "Erakutsi zeregin-zerrenda hauetako zereginak"
 
 #: lib/Form/Search.php:69
 msgid "Smart List Name:"
 msgstr "Zerrenda adimendunaren izena:"
 
-#: lib/View/List.php:361
+#: lib/View/List.php:382
 msgid "Smart List deleted successfully"
 msgstr "Zerrenda adimenduna behar bezala ezabatu da"
 
@@ -1014,21 +1102,29 @@ msgid "Start"
 msgstr "Hasiera"
 
 #: config/prefs.php:69 config/prefs.php:83 config/prefs.php:100
-#: templates/smartmobile/taskform.html.php:29 templates/view/task.inc:18
+#: templates/smartmobile/taskform.html.php:29 templates/view/task.inc:41
 msgid "Start Date"
 msgstr "Hasiera-data"
 
-#: lib/Ui/VarRenderer/Nag.php:74
+#: lib/Ui/VarRenderer/Nag.php:426
 msgid "Start date specified."
 msgstr "Hasiera-data zehaztuta."
 
-#: lib/Form/EditTaskList.php:97
-msgid "Subscription URL"
-msgstr "Harpidetzaren URLa"
+#: lib/Ui/VarRenderer/Nag.php:252
+msgid "Su"
+msgstr "Ig"
 
-#: lib/Ajax/Application/Handler/Smartmobile.php:116
+#: lib/Driver.php:391
+msgid "Sub tasks exist, delete them first"
+msgstr "Azpizereginak daude, beraz, ezabatu hauek lehendabizi"
+
+#: lib/Ajax/Application/Handler/Smartmobile.php:115
 msgid "Successfully deleted"
 msgstr "Beha bezala ezabatuta"
+
+#: config/prefs.php:328
+msgid "Support separate task lists?"
+msgstr "Zeregin-zerrenda desberdinak onartu?"
 
 #: config/prefs.php:41
 msgid "Synchronization Preferences"
@@ -1042,6 +1138,10 @@ msgstr "Sistema"
 msgid "System Task List"
 msgstr "Sistemaren zeregin-zerrenda"
 
+#: lib/Application.php:155
+msgid "System Task Lists"
+msgstr "Sistemaren zeregin-zerrendak"
+
 #: lib/Form/CreateTaskList.php:29 lib/Form/EditTaskList.php:66
 msgid ""
 "System task lists don't have an owner. Only administrators can change the "
@@ -1054,11 +1154,11 @@ msgstr ""
 msgid "Tagged with:"
 msgstr "Honekin etiketatua:"
 
-#: data.php:59 lib/Form/Task.php:85
+#: data.php:59 lib/Form/Task.php:108
 msgid "Tags"
 msgstr "Etiketak"
 
-#: templates/list/_task.html.php:59
+#: templates/list/_task.html.php:68
 msgid "Task Alarm"
 msgstr "Zeregin-alarma"
 
@@ -1071,7 +1171,7 @@ msgid "Task Defaults"
 msgstr "Zeregin-lehenespenak"
 
 #: config/prefs.php:65 config/prefs.php:87 config/prefs.php:104
-#: lib/Form/Task.php:59
+#: lib/Form/Task.php:81
 msgid "Task List"
 msgstr "Zeregin-zerrenda"
 
@@ -1084,7 +1184,7 @@ msgstr "Zeregin-zerrendaren hobespenak eta partekatzeko hobespenak"
 msgid "Task Name"
 msgstr "Zeregin-izena"
 
-#: templates/list/_task.html.php:57
+#: templates/list/_task.html.php:66
 msgid "Task Note"
 msgstr "Zeregin-oharra"
 
@@ -1092,44 +1192,48 @@ msgstr "Zeregin-oharra"
 msgid "Task Note?"
 msgstr "Zeregin-oharra?"
 
-#: lib/Nag.php:1020
+#: lib/Nag.php:1136
 msgid "Task added:"
 msgstr "Zeregina gehituta:"
 
-#: lib/Nag.php:1119
+#: lib/Nag.php:1235
 msgid "Task deleted:"
 msgstr "Zeregina ezabatuta:"
 
-#: lib/Nag.php:1136
+#: lib/Nag.php:1252
 msgid "Task description:"
 msgstr "Zeregin-azalpena:"
 
-#: lib/Tasklists/Default.php:46
+#: lib/Api.php:623
+msgid "Task list does not exist or no permission to delete"
+msgstr "Zeregin-zerrenda ez dago, edo ezabatzeko baimenik ez dago"
+
+#: lib/Api.php:478
+msgid "Task list does not exist or no permission to edit"
+msgstr "Zeregin-zerrenda ez dago, edo editatzeko baimenik ez dago"
+
+#: lib/Tasklists/Default.php:45
 #, php-format
 msgid "Task list of %s"
 msgstr "%s(r)en zeregin-zerrenda"
 
-#: lib/Nag.php:1031
+#: lib/Nag.php:1147
 msgid "Task modified:"
 msgstr "Zeregina aldatuta:"
 
-#: task.php:97 view.php:38
+#: view.php:19 view.php:37
+msgid "Task not found"
+msgstr "Zeregina ez da aurkitu"
+
+#: task.php:103
 msgid "Task not found."
 msgstr "Zeregina ez da aurkitu."
 
-#: app/controllers/SaveTask.php:42
+#: app/controllers/SaveTask.php:44
 msgid "Task successfully deleted"
 msgstr "Zeregina behar bezala ezabatu da."
 
-#: lib/Api.php:613
-msgid "Tasklist does not exist or no permission to delete"
-msgstr "Zeregin-zerrenda ez dago, edo ezabatzeko baimenik ez dago"
-
-#: lib/Api.php:471
-msgid "Tasklist does not exist or no permission to edit"
-msgstr "Zeregin-zerrenda ez dago, edo editatzeko baimenik ez dago"
-
-#: lib/Api.php:1209 lib/Tasklists/Kolab.php:21
+#: lib/Api.php:1303 lib/Tasklists/Kolab.php:41
 msgid "Tasks"
 msgstr "Zereginak"
 
@@ -1137,10 +1241,18 @@ msgstr "Zereginak"
 msgid "Tasks Summary"
 msgstr "Zeregin-laburpena"
 
-#: lib/Api.php:293
+#: lib/Api.php:305
 #, php-format
 msgid "Tasks from %s"
 msgstr "Hemengo zeregina: %s"
+
+#: lib/Driver/Sql.php:99
+msgid "Tasks not found"
+msgstr "Zereginak ez dira aurkitu"
+
+#: lib/Ui/VarRenderer/Nag.php:243
+msgid "Th"
+msgstr "Og"
 
 #: data.php:160
 #, php-format
@@ -1160,24 +1272,24 @@ msgstr "Zereginen euskarri-modulua ez dago erabilgarri une honetan: %s"
 msgid "The current hour"
 msgstr "Uneko ordua"
 
-#: lib/Nag.php:1024
+#: lib/Nag.php:1140
 #, php-format
 msgid ""
 "The task \"%s\" has been added to task list \"%s\", with a due date of: %s."
 msgstr ""
 "\"%s\" zeregina gehitu da \"%s\" zeregin-zerrendan, epemuga honekin: %s."
 
-#: lib/Nag.php:1025
+#: lib/Nag.php:1141
 #, php-format
 msgid "The task \"%s\" has been added to task list \"%s\"."
 msgstr "\"%s\" zeregina gehitu da \"%s\" zeregin-zerrendan."
 
-#: lib/Nag.php:1123
+#: lib/Nag.php:1239
 #, php-format
 msgid "The task \"%s\" has been deleted from task list \"%s\"."
 msgstr "\"%s\" zeregina ezabatu da \"%s\" zeregin-zerrendatik."
 
-#: lib/Nag.php:1034
+#: lib/Nag.php:1150
 #, php-format
 msgid "The task \"%s\" has been edited on task list \"%s\"."
 msgstr "\"%s\" zeregina editatu da \"%s\" zeregin-zerrendan."
@@ -1210,22 +1322,22 @@ msgstr "Ondoren honen arabera:"
 msgid "There are no tasks matching the current criteria."
 msgstr "Ez dago uneko irizpideak betetzen dituen zereginik."
 
-#: lib/CompleteTask.php:31
+#: lib/CompleteTask.php:46
 #, php-format
 msgid "There was a problem completing %s: %s"
 msgstr "Arazo bat gertatu da \"%s\" osatzean: %s"
 
-#: task.php:30
+#: task.php:33
 #, php-format
 msgid "There was a problem deleting %s: %s"
 msgstr "Arazo bat gertatu da %s ezabatzean: %s"
 
-#: app/controllers/SaveTask.php:85
+#: app/controllers/SaveTask.php:78 app/controllers/SaveTask.php:99
 #, php-format
 msgid "There was a problem saving the task: %s."
 msgstr "Arazo bat gertatu da zeregina gordetzean: %s."
 
-#: config/prefs.php:315
+#: config/prefs.php:318
 #, php-format
 msgid "There was an error communicating with the ActiveSync server: %s"
 msgstr "Errore bat gertatu da ActiveSync zerbitzariarekin komunikatzean: %s"
@@ -1235,11 +1347,11 @@ msgstr "Errore bat gertatu da ActiveSync zerbitzariarekin komunikatzean: %s"
 msgid "There was an error importing the data: %s"
 msgstr "Errore bat gertatu da datuak inportatzean: %s"
 
-#: lib/Api.php:487 lib/Api.php:803 lib/Api.php:1126
+#: lib/Api.php:498 lib/Api.php:869 lib/Api.php:1205 lib/Application.php:579
 msgid "There was an error importing the iCalendar data."
 msgstr "Errore bat gertatu da iCalendar datuak inportatzean."
 
-#: lib/Application.php:232
+#: lib/Application.php:251
 #, php-format
 msgid "There was an error removing tasks for %s. Details have been logged."
 msgstr ""
@@ -1250,7 +1362,7 @@ msgstr ""
 msgid "This file format is not supported."
 msgstr "Fitxategi-formatu hau ez da onartzen."
 
-#: lib/Ui/VarRenderer/Nag.php:139
+#: lib/Ui/VarRenderer/Nag.php:130
 msgid "Time"
 msgstr "Ordua"
 
@@ -1262,17 +1374,21 @@ msgstr "Ordua:"
 msgid "Title"
 msgstr "Izenburua"
 
-#: lib/Nag.php:1078
+#: lib/Ui/VarRenderer/Nag.php:237
+msgid "Tu"
+msgstr "Ar"
+
+#: lib/Nag.php:1194
 msgid "Turned privacy off"
 msgstr "Pribatutasuna desaktibatuta"
 
-#: lib/Nag.php:1078
+#: lib/Nag.php:1194
 msgid "Turned privacy on"
 msgstr "Pribatutasuna aktibatuta"
 
-#: lib/Api.php:631
+#: lib/Api.php:641
 #, php-format
-msgid "Unable to delete tasklist \"%s\": %s"
+msgid "Unable to delete task list \"%s\": %s"
 msgstr "Ezin da ezabatu \"%s\" zeregin-zerrenda: %s"
 
 #: lib/Factory/Driver.php:70
@@ -1280,7 +1396,7 @@ msgstr "Ezin da ezabatu \"%s\" zeregin-zerrenda: %s"
 msgid "Unable to load the definition of %s."
 msgstr "Ezin da %s(r)en definizioa kargatu."
 
-#: lib/Nag.php:603
+#: lib/Nag.php:661
 #, php-format
 msgid "Unable to save task list \"%s\": %s"
 msgstr "Ezin da gorde \"%s\" zeregin-zerrenda: %s"
@@ -1289,27 +1405,39 @@ msgstr "Ezin da gorde \"%s\" zeregin-zerrenda: %s"
 msgid "Unique ID"
 msgstr "ID bakarra"
 
-#: lib/Api.php:567 lib/Api.php:851 lib/Api.php:975 lib/Api.php:1040
-#: lib/Api.php:1158
+#: lib/Api.php:577 lib/Api.php:923 lib/Api.php:1053 lib/Api.php:1119
+#: lib/Api.php:1238
 #, php-format
 msgid "Unsupported Content-Type: %s"
 msgstr "Eduki mota hau ez da onartzen: %s"
 
-#: lib/Ui/VarRenderer/Nag.php:41
+#: lib/Ui/VarRenderer/Nag.php:159
 msgid "Use custom notification method"
 msgstr "Erabili jakinarazpen-metodo pertsonalizatua"
 
-#: lib/Ui/VarRenderer/Nag.php:35
+#: lib/Ui/VarRenderer/Nag.php:151
 msgid "Use default notification method"
 msgstr "Erabili jakinarazpen-metodo lehenetsia"
+
+#: lib/Ui/VarRenderer/Nag.php:240
+msgid "We"
+msgstr "Az"
 
 #: templates/alarm/mail.plain.php:1
 msgid "We would like to remind you of this due task."
 msgstr "Zeregin osatugabe hau gogorarazi nahi dizugu."
 
-#: lib/Nag.php:771 lib/Ui/VarRenderer/Nag.php:164
+#: lib/Form/EditTaskList.php:110
+msgid "WebDAV/ICS Subscription URL"
+msgstr "WebDAV/ICS harpidetzaren URLa"
+
+#: lib/Nag.php:888 lib/Ui/VarRenderer/Nag.php:43
 msgid "Week(s)"
 msgstr "astez behin"
+
+#: lib/Ui/VarRenderer/Nag.php:231
+msgid "Weekly: Recurs every"
+msgstr "Astero: Errepikatu"
 
 #: config/prefs.php:161
 msgid "What do you want to be the default due time for tasks?"
@@ -1328,27 +1456,32 @@ msgid "When creating a new task, should it default to having a due date?"
 msgstr "Zeregin berri bat sortzean, epemuga bat izan behar du lehenespenez?"
 
 #: templates/data/import.inc:21
-msgid "Which tasklist should the tasks be added to?"
+msgid "Which task list should the tasks be added to?"
 msgstr "Zein zeregin-zerrendatan gehituko dira zereginak?"
 
-#: lib/Nag.php:587
+#: lib/Ui/VarRenderer/Nag.php:297 lib/Ui/VarRenderer/Nag.php:312
+#: lib/Ui/VarRenderer/Nag.php:327
+msgid "Yearly: Recurs every"
+msgstr "Urtero: Errepikatu"
+
+#: lib/Nag.php:645
 msgid "You are not allowed to change this task list."
 msgstr "Ez daukazu baimenik zeregin-zerrenda hau aldatzeko."
 
-#: data.php:38 data.php:114 task.php:73
+#: data.php:38 data.php:114 task.php:76
 #, php-format
 msgid "You are not allowed to create more than %d tasks."
 msgstr "Ez daukazu baimenik %d zeregin baino gehiago sortzeko."
 
-#: lib/Nag.php:620 tasklists/delete.php:27
+#: lib/Nag.php:678 tasklists/delete.php:27
 msgid "You are not allowed to delete this task list."
 msgstr "Ez daukazu baimenik zeregin-zerrenda hau ezabatzeko."
 
-#: lib/Ajax/Application/Handler/Smartmobile.php:107
+#: lib/Ajax/Application/Handler/Smartmobile.php:106
 msgid "You are not allowed to delete this task."
 msgstr "Ez daukazu baimenik zeregin hau ezabatzeko."
 
-#: lib/Api.php:132
+#: lib/Api.php:137
 msgid "You are not allowed to retrieve this task list."
 msgstr "Ez daukazu baimenik zeregin-zerrenda hau eskuratzeko."
 
@@ -1357,7 +1490,7 @@ msgid "You are not allowed to see this task list."
 msgstr "Ez daukazu baimenik zeregin-zerrenda hau ikusteko."
 
 #: view.php:48
-msgid "You do not have permission to view this tasklist."
+msgid "You do not have permission to view this task list."
 msgstr "Ez daukazu baimenik zeregin-zerrenda hau ikusteko."
 
 #: templates/alarm/mail.html.php:35
@@ -1371,20 +1504,20 @@ msgstr ""
 "konfiguratuta daukazulako jaso duzu mezu hau. Ezarpen hori aldatu nahi "
 "izanez gero, %shasi saioa zeregin-zerrendan%s eta aldatu hobespenak."
 
-#: lib/Nag.php:1021
+#: lib/Nag.php:1137
 msgid "You requested to be notified when tasks are added to your task lists."
 msgstr ""
 "Zure zeregin-zerrendetan zereginak gehitzean horren berri ematea eskatu "
 "zenuen."
 
-#: lib/Nag.php:1121
+#: lib/Nag.php:1237
 msgid ""
 "You requested to be notified when tasks are deleted from your task lists."
 msgstr ""
 "Zure zeregin-zerrendetatik zereginak ezabatzean horren berri ematea eskatu "
 "zenuen."
 
-#: lib/Nag.php:1032
+#: lib/Nag.php:1148
 msgid "You requested to be notified when tasks are edited on your task lists."
 msgstr ""
 "Zure zeregin-zerrendetan zereginak editatzean horren berri ematea eskatu "
@@ -1394,24 +1527,24 @@ msgstr ""
 msgid "Your default task list:"
 msgstr "Zeregin-zerrenda lehenetsia:"
 
-#: lib/Block/Summary.php:116 lib/Block/Summary.php:215
-#: templates/list/_task.html.php:47
+#: lib/Block/Summary.php:115 lib/Block/Summary.php:223
+#: templates/list/_task.html.php:51
 msgid "[none]"
 msgstr "[bat ere ez]"
 
-#: lib/View/List.php:96
+#: lib/View/List.php:103
 msgid "_All tasks"
 msgstr "Ze_regin guztiak"
 
-#: view.php:105
+#: templates/view/task.inc:5
 msgid "_Complete"
 msgstr "_Osatuta"
 
-#: lib/View/List.php:99
+#: lib/View/List.php:106
 msgid "_Completed tasks"
 msgstr "Buru_tutako zereginak"
 
-#: view.php:112
+#: templates/view/task.inc:13
 msgid "_Delete"
 msgstr "Eza_batu"
 
@@ -1419,31 +1552,31 @@ msgstr "Eza_batu"
 msgid "_Due Date"
 msgstr "_Epemuga"
 
-#: view.php:108
+#: templates/view/task.inc:8
 msgid "_Edit"
 msgstr "E_ditatu"
 
-#: lib/View/List.php:98
+#: lib/View/List.php:105
 msgid "_Future tasks"
 msgstr "E_torkizuneko zereginak"
 
-#: lib/Application.php:95
+#: lib/Application.php:98
 msgid "_Import/Export"
 msgstr "_Inportatu/Esportatu"
 
-#: lib/Application.php:88
+#: lib/Application.php:91
 msgid "_List Tasks"
 msgstr "Zerre_ndatu zereginak"
 
-#: lib/Application.php:114
+#: lib/Application.php:117
 msgid "_New Task"
 msgstr "_Berria"
 
-#: lib/Application.php:124
+#: lib/Application.php:127
 msgid "_Quick Add"
 msgstr "_Gehitze bizkorra"
 
-#: lib/Application.php:91
+#: lib/Application.php:94
 msgid "_Search"
 msgstr "_Bilatu"
 
@@ -1459,33 +1592,37 @@ msgstr "Z_eregin-zerrenda"
 msgid "am"
 msgstr "am"
 
-#: lib/View/List.php:327 lib/View/List.php:336
+#: lib/View/List.php:347 lib/View/List.php:356
 msgid "and"
 msgstr "eta"
 
-#: lib/View/List.php:340
+#: lib/View/List.php:360
 #, php-format
 msgid "and tagged with %s"
 msgstr "eta %s(r)ekin etiketatua"
 
-#: lib/Ui/VarRenderer/Nag.php:138
+#: lib/Ui/VarRenderer/Nag.php:126
 msgid "at"
 msgstr "-"
 
-#: view.php:67 view.php:76
+#: lib/Driver/Sql.php:630 lib/Driver/Sql.php:639
 #, php-format
 msgid "by %s"
 msgstr "- %s"
 
-#: view.php:69 view.php:78
+#: lib/Driver/Sql.php:632 lib/Driver/Sql.php:641
 msgid "by me"
 msgstr "nik"
 
-#: lib/Nag.php:1110 lib/Nag.php:1111
+#: lib/Nag.php:1226 lib/Nag.php:1227
 msgid "completed"
 msgstr "osatuta"
 
-#: lib/View/List.php:332
+#: lib/Ui/VarRenderer/Nag.php:209
+msgid "day(s)"
+msgstr "egun"
+
+#: lib/View/List.php:352
 #, php-format
 msgid "due date within %d days of %s"
 msgstr "epemuga %d egun barru (%s)"
@@ -1494,47 +1631,79 @@ msgstr "epemuga %d egun barru (%s)"
 msgid "iCalendar (vTodo)"
 msgstr "iCalendar (vTodo)"
 
-#: lib/Application.php:313
+#: lib/Application.php:336
 #, php-format
 msgid "in %s"
 msgstr "hemen: %s"
 
-#: lib/Nag.php:1083 lib/Nag.php:1084
+#: lib/Ui/VarRenderer/Nag.php:269 lib/Ui/VarRenderer/Nag.php:284
+msgid "month(s)"
+msgstr "hilabetez"
+
+#: lib/Nag.php:1199 lib/Nag.php:1200
 msgid "no due date"
 msgstr "epemugarik ez"
 
-#: lib/Nag.php:1056 lib/Nag.php:1057
+#: lib/Nag.php:1172 lib/Nag.php:1173
 msgid "no parent"
 msgstr "gurasorik ez"
 
-#: lib/Nag.php:1089 lib/Nag.php:1090
+#: lib/Nag.php:1205 lib/Nag.php:1206
 msgid "no start date"
 msgstr "hasiera-datarik ez"
 
-#: lib/Nag.php:121
+#: lib/Nag.php:134
 msgid "no time"
 msgstr "ordurik ez"
 
-#: lib/Nag.php:1110 lib/Nag.php:1111
+#: lib/Nag.php:1226 lib/Nag.php:1227
 msgid "not completed"
 msgstr "osatu gabe"
+
+#: lib/Ui/VarRenderer/Nag.php:269
+msgid "on the same date"
+msgstr "egun berean"
+
+#: lib/Ui/VarRenderer/Nag.php:284
+msgid "on the same weekday"
+msgstr "astegun berean"
 
 #: config/prefs.php:169
 msgid "pm"
 msgstr "pm"
 
-#: lib/View/List.php:323
+#: lib/Ui/VarRenderer/Nag.php:368
+msgid "recurrences"
+msgstr "gertaldi"
+
+#: lib/View/List.php:343
 msgid "tasks"
 msgstr "zereginak"
 
-#: lib/Application.php:388 templates/data/export.inc:1
+#: lib/Application.php:412 templates/data/export.inc:1
 msgid "tasks.csv"
 msgstr "tasks.csv"
 
-#: lib/Application.php:402
+#: lib/Application.php:426
 msgid "tasks.ics"
 msgstr "tasks.ics"
 
-#: lib/View/List.php:329 lib/View/List.php:338
+#: lib/Ui/VarRenderer/Nag.php:233
+msgid "week(s) on:"
+msgstr "astez behin, eguna:"
+
+#: lib/View/List.php:349 lib/View/List.php:358
 msgid "with"
 msgstr "honekin"
+
+#: lib/Ui/VarRenderer/Nag.php:299
+msgid "year(s) on the same date"
+msgstr "urtez data berean"
+
+#: lib/Ui/VarRenderer/Nag.php:314
+msgid "year(s) on the same day of the year"
+msgstr "urtez urteko egun berean"
+
+#: lib/Ui/VarRenderer/Nag.php:329
+msgid "year(s) on the same weekday and month of the year"
+msgstr "urtez urteko astegun eta hilabete berean"
