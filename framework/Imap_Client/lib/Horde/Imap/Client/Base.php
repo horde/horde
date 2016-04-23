@@ -733,11 +733,11 @@ implements Serializable, SplObserver
              * hidden namespaces cannot be empty. */
             $to_process = array_diff(array_filter($additional, 'strlen'), array_map('strlen', iterator_to_array($ns)));
             if (!empty($to_process)) {
-                foreach ($this->listMailboxes($to_process, Horde_Imap_Client::MBOX_ALL, array('delimiter' => true)) as $val) {
+                foreach ($this->listMailboxes($to_process, Horde_Imap_Client::MBOX_ALL, array('delimiter' => true)) as $key => $val) {
                     $ob = new Horde_Imap_Client_Data_Namespace();
                     $ob->delimiter = $val['delimiter'];
                     $ob->hidden = true;
-                    $ob->name = $val;
+                    $ob->name = $key;
                     $ob->type = $ob::NS_SHARED;
                     $ns[$val] = $ob;
                 }
