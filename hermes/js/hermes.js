@@ -355,23 +355,23 @@ HermesCore = {
                 return;
 
             case 'hermesDeliverablesClose':
-                RedBox.close();
+                this.closeRedBox()
                 return;
 
             // Log Timer
             case 'hermesLogTimerCancel':
-                RedBox.close();
+                this.closeRedBox();
                 this.temp_timer = null;
                 return;
 
             case 'hermesLogTimerLogClose':
-                RedBox.close();
+                this.closeRedBox();
                 this.doStopTimer(this.temp_timer, false);
                 this.temp_timer = null;
                 return;
 
             case 'hermesLogTimerLogRestart':
-                RedBox.close();
+                this.closeRedBox();
                 this.doStopTimer(this.temp_timer, true);
                 this.temp_timer = null;
                 return;
