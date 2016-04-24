@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* 
+* [mjr] Require Horde_Perms::DELETE for including an address book  as sync-able.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2120,7 +2120,7 @@
    <date>2016-04-05</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* 
+* [mjr] Require Horde_Perms::DELETE for including an address book  as sync-able.
    </notes>
   </release>
  </changelog>

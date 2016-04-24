@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Require Horde_Perms::DELETE for including a tasklist as sync-able.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1723,7 +1723,7 @@
    <date>2016-04-05</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Require Horde_Perms::DELETE for including a tasklist as sync-able.
    </notes>
   </release>
  </changelog>

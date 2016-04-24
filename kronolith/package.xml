@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Require Horde_Perms::DELETE for including a calendar as sync-able.
 * [mjr] Fix end date when toggling an all day event off (Bug #13979).
 * [jan] Fix showing error message if loading of remote calendars failed.
  </notes>
@@ -2710,6 +2711,7 @@
    <date>2016-03-21</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Require Horde_Perms::DELETE for including a calendar as sync-able.
 * [mjr] Fix end date when toggling an all day event off (Bug #13979).
 * [jan] Fix showing error message if loading of remote calendars failed.
    </notes>
