@@ -537,7 +537,7 @@ class Mnemo
         $cs = unserialize($GLOBALS['prefs']->getValue('sync_notepads'));
         if (!empty($cs)) {
             if ($prune) {
-                $notepads =  self::listNotepads(true, Horde_Perms::EDIT);
+                $notepads =  self::listNotepads(true, Horde_Perms::DELETE);
                 $cscopy = array_flip($cs);
                 foreach ($cs as $c) {
                     if (empty($notepads[$c])) {
@@ -552,7 +552,7 @@ class Mnemo
             return $cs;
         }
 
-        if ($cs = self::getDefaultNotepad(Horde_Perms::EDIT)) {
+        if ($cs = self::getDefaultNotepad(Horde_Perms::DELETE)) {
             return array($cs);
         }
 

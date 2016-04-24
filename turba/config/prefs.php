@@ -55,7 +55,7 @@ $_prefs['sync_books'] = array(
         if (empty($sync_books)) {
             $GLOBALS['prefs']->setValue('sync_books', serialize(array(Turba::getDefaultAddressbook())));
         }
-        foreach (Turba::getAddressBooks() as $key => $val) {
+        foreach (Turba::getAddressBooks(Horde_Perms::DELETE) as $key => $val) {
             if (!empty($val['map']['__uid']) &&
                 !empty($val['browse'])) {
                 $enum[$key] = $val['title'];
