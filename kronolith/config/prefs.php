@@ -277,8 +277,8 @@ $_prefs['sync_calendars'] = array(
         if (empty($sync)) {
             $GLOBALS['prefs']->setValue('sync_calendars', serialize(array(Kronolith::getDefaultCalendar())));
         }
-        foreach (Kronolith::listInternalCalendars(!$GLOBALS['prefs']->getValue('activesync_no_multiplex'), Horde_Perms::EDIT) as $key => $cal) {
-            if ($cal->getName() != Kronolith::getDefaultCalendar(Horde_Perms::EDIT)) {
+        foreach (Kronolith::listInternalCalendars(!$GLOBALS['prefs']->getValue('activesync_no_multiplex'), Horde_Perms::DELETE) as $key => $cal) {
+            if ($cal->getName() != Kronolith::getDefaultCalendar(Horde_Perms::DELETE)) {
                 $enum[$key] = Kronolith::getLabel($cal);
             }
         }
@@ -287,7 +287,7 @@ $_prefs['sync_calendars'] = array(
     'on_change' => function() {
         $sync = @unserialize($GLOBALS['prefs']->getValue('sync_calendars'));
         $haveDefault = false;
-        $default = Kronolith::getDefaultCalendar(Horde_Perms::EDIT);
+        $default = Kronolith::getDefaultCalendar(Horde_Perms::DELETE);
         foreach ($sync as $cid) {
             if ($cid == $default) {
                 $haveDefault = true;

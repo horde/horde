@@ -1170,7 +1170,7 @@ class Kronolith
         $cs = unserialize($GLOBALS['prefs']->getValue('sync_calendars'));
         if (!empty($cs)) {
             if ($prune) {
-                $calendars = self::listInternalCalendars(true, Horde_Perms::EDIT);
+                $calendars = self::listInternalCalendars(false, Horde_Perms::DELETE);
                 $cscopy = array_flip($cs);
                 foreach ($cs as $c) {
                     if (empty($calendars[$c])) {
