@@ -32,6 +32,7 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
     const COLLECTION_ERR_STALE               = -3;
     const COLLECTION_ERR_SYNC_REQUIRED       = -4;
     const COLLECTION_ERR_PING_NEED_FULL      = -5;
+    const COLLECTION_ERR_AUTHENTICATION      = -6;
 
     /**
      * The collection data
@@ -1255,7 +1256,13 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
                     // out on their own.
                     $this->resetPingCache();
                     return self::COLLECTION_ERR_FOLDERSYNC_REQUIRED;
-
+                } catch (Horde_Exception_AuthenticationFailure $e) {
+                    // We lost authentication for some reason.
+                    $this->_logger->err(sprintf(
+                        '[%s] Authentication lost during PING!!',
+                        $this->_procid)
+                    );
+                    return self::COLLECTION_ERR_AUTHENTICATION;
                 } catch (Horde_ActiveSync_Exception $e) {
                     $this->_logger->err(sprintf(
                         '[%s] Sync object cannot be configured, throttling: %s',
