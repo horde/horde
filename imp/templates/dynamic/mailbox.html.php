@@ -194,7 +194,7 @@
 <div id="msglistHeaderContainer">
  <div class="vpRowHoriz vpRow horde-table-header" id="msglistHeaderHoriz" style="display:none">
   <div class="msgStatus">
-   <div class="iconImg msCheckAll msCheck" id="horiz_opts" title="<?php echo _("Select All") ?>"></div>
+   <div class="iconImg msCheckAll msCheck" id="horiz_opts" title="<?php echo _("Select") ?>"></div>
   </div>
   <div class="msgFrom sep">
    <div class="horde-split-left"></div>
@@ -214,7 +214,7 @@
    <a class="widget" id="vertical_sort"><?php echo _("Sort") ?></a>
   </div>
   <div class="iconImg msgStatus">
-   <div class="iconImg msCheckAll msCheck" title="<?php echo _("Select All") ?>"></div>
+   <div class="iconImg msCheckAll msCheck" title="<?php echo _("Select") ?>"></div>
   </div>
  </div>
 </div>
