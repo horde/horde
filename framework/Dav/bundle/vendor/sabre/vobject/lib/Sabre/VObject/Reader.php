@@ -10,9 +10,9 @@ namespace Sabre\VObject;
  * TODO: this class currently completely works 'statically'. This is pointless,
  * and defeats OOP principals. Needs refactoring in a future version.
  *
- * @copyright Copyright (C) 2007-2013 fruux GmbH (https://fruux.com/).
+ * @copyright Copyright (C) 2011-2015 fruux GmbH (https://fruux.com/).
  * @author Evert Pot (http://evertpot.com/)
- * @license http://code.google.com/p/sabredav/wiki/License Modified BSD License
+ * @license http://sabre.io/license/ Modified BSD License
  */
 class Reader {
 

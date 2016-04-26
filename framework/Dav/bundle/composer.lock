@@ -1,22 +1,24 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
     ],
     "hash": "6a4abe0dd61e595e9b81892d1cb44914",
+    "content-hash": "fe1212f969968666eef404bc61346464",
     "packages": [
         {
             "name": "sabre/dav",
-            "version": "1.8.10",
+            "version": "1.8.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fruux/sabre-dav.git",
-                "reference": "0d064536ed3c7974e486b6ebb5b17ad7a974fe18"
+                "reference": "78b0a55ae126666b49ec9ac88582d453b971967d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fruux/sabre-dav/zipball/0d064536ed3c7974e486b6ebb5b17ad7a974fe18",
-                "reference": "0d064536ed3c7974e486b6ebb5b17ad7a974fe18",
+                "url": "https://api.github.com/repos/fruux/sabre-dav/zipball/78b0a55ae126666b49ec9ac88582d453b971967d",
+                "reference": "78b0a55ae126666b49ec9ac88582d453b971967d",
                 "shasum": ""
             },
             "require": {
@@ -78,20 +80,20 @@
                 "framework",
                 "iCalendar"
             ],
-            "time": "2014-05-16 00:14:02"
+            "time": "2015-01-21 21:01:09"
         },
         {
             "name": "sabre/vobject",
-            "version": "2.1.4",
+            "version": "2.1.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fruux/sabre-vobject.git",
-                "reference": "199b6ec87104b05e3013dfd5b90eafbbe4cf97dc"
+                "reference": "c3ebe643fd1037b656ebcc149e3fd3d38938fe58"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fruux/sabre-vobject/zipball/199b6ec87104b05e3013dfd5b90eafbbe4cf97dc",
-                "reference": "199b6ec87104b05e3013dfd5b90eafbbe4cf97dc",
+                "url": "https://api.github.com/repos/fruux/sabre-vobject/zipball/c3ebe643fd1037b656ebcc149e3fd3d38938fe58",
+                "reference": "c3ebe643fd1037b656ebcc149e3fd3d38938fe58",
                 "shasum": ""
             },
             "require": {
@@ -120,29 +122,21 @@
                 }
             ],
             "description": "The VObject library for PHP allows you to easily parse and manipulate iCalendar and vCard objects",
-            "homepage": "https://github.com/fruux/sabre-vobject",
+            "homepage": "http://sabre.io/vobject/",
             "keywords": [
                 "VObject",
                 "iCalendar",
                 "vCard"
             ],
-            "time": "2014-03-30 23:01:06"
+            "time": "2015-01-21 20:57:59"
         }
     ],
-    "packages-dev": [
-
-    ],
-    "aliases": [
-
-    ],
+    "packages-dev": [],
+    "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [
-
-    ],
-    "platform": [
-
-    ],
-    "platform-dev": [
-
-    ]
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
 }

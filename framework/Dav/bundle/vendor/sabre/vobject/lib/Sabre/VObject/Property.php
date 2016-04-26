@@ -13,9 +13,9 @@ namespace Sabre\VObject;
  *
  * Parameters can be accessed using the ArrayAccess interface.
  *
- * @copyright Copyright (C) 2007-2013 fruux GmbH (https://fruux.com/).
+ * @copyright Copyright (C) 2011-2015 fruux GmbH (https://fruux.com/).
  * @author Evert Pot (http://evertpot.com/)
- * @license http://code.google.com/p/sabredav/wiki/License Modified BSD License
+ * @license http://sabre.io/license/ Modified BSD License
  */
 class Property extends Node {
 
@@ -195,6 +195,15 @@ class Property extends Node {
             '\n',
             '',
         );
+
+        // avoid double-escaping of \, and \; from Compound properties
+        if (method_exists($this, 'setParts')) {
+            $src[] = '\\\\,';
+            $out[] = '\\,';
+            $src[] = '\\\\;';
+            $out[] = '\\;';
+        }
+
         $str.=':' . str_replace($src, $out, $this->value);
 
         $out = '';

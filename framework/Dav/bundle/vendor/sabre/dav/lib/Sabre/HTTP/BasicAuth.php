@@ -7,7 +7,7 @@ namespace Sabre\HTTP;
  *
  * Use this class for easy http authentication setup
  *
- * @copyright Copyright (C) 2007-2014 fruux GmbH (https://fruux.com/).
+ * @copyright Copyright (C) 2007-2015 fruux GmbH (https://fruux.com/).
  * @author Evert Pot (http://evertpot.com/)
  * @license http://sabre.io/license/ Modified BSD License
  */
@@ -27,7 +27,7 @@ class BasicAuth extends AbstractAuth {
     public function getUserPass() {
 
         // Apache and mod_php
-        if (($user = $this->httpRequest->getRawServerValue('PHP_AUTH_USER')) && ($pass = $this->httpRequest->getRawServerValue('PHP_AUTH_PW'))) {
+        if (($user = $this->httpRequest->getRawServerValue('PHP_AUTH_USER'))!==null && ($pass = $this->httpRequest->getRawServerValue('PHP_AUTH_PW'))!==null) {
 
             return array($user,$pass);
 
