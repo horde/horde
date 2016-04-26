@@ -10,7 +10,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-04-05</date>
+ <date>2016-04-26</date>
  <version>
   <release>1.1.4</release>
   <api>1.1.0</api>
@@ -275,7 +275,9 @@
          </dir> <!-- /bundle/vendor/sabre/dav/lib/Sabre/HTTP -->
         </dir> <!-- /bundle/vendor/sabre/dav/lib/Sabre -->
        </dir> <!-- /bundle/vendor/sabre/dav/lib -->
+       <file name="ChangeLog" role="php" />
        <file name="LICENSE" role="php" />
+       <file name="README.md" role="php" />
       </dir> <!-- /bundle/vendor/sabre/dav -->
       <dir name="vobject">
        <dir name="lib">
@@ -318,7 +320,9 @@
          </dir> <!-- /bundle/vendor/sabre/vobject/lib/Sabre/VObject -->
         </dir> <!-- /bundle/vendor/sabre/vobject/lib/Sabre -->
        </dir> <!-- /bundle/vendor/sabre/vobject/lib -->
+       <file name="ChangeLog" role="php" />
        <file name="LICENSE" role="php" />
+       <file name="README.md" role="php" />
       </dir> <!-- /bundle/vendor/sabre/vobject -->
      </dir> <!-- /bundle/vendor/sabre -->
     </dir> <!-- /bundle/vendor -->
@@ -452,7 +456,9 @@
    <install as="locale/hu/LC_MESSAGES/Horde_Dav.mo" name="locale/hu/LC_MESSAGES/Horde_Dav.mo" />
    <install as="locale/hu/LC_MESSAGES/Horde_Dav.po" name="locale/hu/LC_MESSAGES/Horde_Dav.po" />
    <install as="migration/1_horde_dav_base_tables.php" name="migration/Horde/Dav/1_horde_dav_base_tables.php" />
+   <install as="Horde/Dav/vendor/sabre/dav/ChangeLog" name="bundle/vendor/sabre/dav/ChangeLog" />
    <install as="LICENSE.dav" name="bundle/vendor/sabre/dav/LICENSE" />
+   <install as="Horde/Dav/vendor/sabre/dav/README.md" name="bundle/vendor/sabre/dav/README.md" />
    <install as="Sabre/CalDAV/Calendar.php" name="bundle/vendor/sabre/dav/lib/Sabre/CalDAV/Calendar.php" />
    <install as="Sabre/CalDAV/CalendarObject.php" name="bundle/vendor/sabre/dav/lib/Sabre/CalDAV/CalendarObject.php" />
    <install as="Sabre/CalDAV/CalendarQueryParser.php" name="bundle/vendor/sabre/dav/lib/Sabre/CalDAV/CalendarQueryParser.php" />
@@ -633,7 +639,9 @@
    <install as="Sabre/HTTP/Response.php" name="bundle/vendor/sabre/dav/lib/Sabre/HTTP/Response.php" />
    <install as="Sabre/HTTP/Util.php" name="bundle/vendor/sabre/dav/lib/Sabre/HTTP/Util.php" />
    <install as="Sabre/HTTP/Version.php" name="bundle/vendor/sabre/dav/lib/Sabre/HTTP/Version.php" />
+   <install as="Horde/Dav/vendor/sabre/vobject/ChangeLog" name="bundle/vendor/sabre/vobject/ChangeLog" />
    <install as="LICENSE.vobject" name="bundle/vendor/sabre/vobject/LICENSE" />
+   <install as="Horde/Dav/vendor/sabre/vobject/README.md" name="bundle/vendor/sabre/vobject/README.md" />
    <install as="Sabre/VObject/Component.php" name="bundle/vendor/sabre/vobject/lib/Sabre/VObject/Component.php" />
    <install as="Sabre/VObject/DateTimeParser.php" name="bundle/vendor/sabre/vobject/lib/Sabre/VObject/DateTimeParser.php" />
    <install as="Sabre/VObject/Document.php" name="bundle/vendor/sabre/vobject/lib/Sabre/VObject/Document.php" />
@@ -866,7 +874,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-04-05</date>
+   <date>2016-04-26</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [jan] Update to SabreDAV 1.8.12 (Only redirect client to HTTP and HTTPS urls; Support empty user names and passwords in basic authentication).
