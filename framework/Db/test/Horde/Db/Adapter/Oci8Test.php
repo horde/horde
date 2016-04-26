@@ -334,9 +334,6 @@ class Horde_Db_Adapter_Oci8Test extends Horde_Db_Adapter_TestBase
         $this->assertEquals('test NOT NULL', $result);
     }
 
-    /**
-     * @depends testQuoteBinary
-     */
     public function testBug14163()
     {
         $blob = new Horde_Db_Value_Binary('foo');
