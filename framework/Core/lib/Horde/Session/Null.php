@@ -99,7 +99,9 @@ class Horde_Session_Null extends Horde_Session implements Horde_Shutdown_Task
         if ($this->_cleansession) {
             return false;
         }
+        session_start();
         session_regenerate_id(true);
+        session_write_close();
         $this->destroy();
         $this->_start();
 

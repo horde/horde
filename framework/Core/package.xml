@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Fix session_regenerate_id() warnings with PHP 7.
 * [jan] Fix running garbage collection on cached CSS and JS files (Bug #14285).
  </notes>
  <contents>
@@ -4173,6 +4174,7 @@
    <date>2016-03-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Fix session_regenerate_id() warnings with PHP 7.
 * [jan] Fix running garbage collection on cached CSS and JS files (Bug #14285).
    </notes>
   </release>
