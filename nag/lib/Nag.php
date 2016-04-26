@@ -1825,7 +1825,7 @@ class Nag
 
         $email = Nag::getUserEmail($task->assignee);
         if (strpos($email, '@') === false) {
-            continue;
+            return;
         }
 
        /* Determine all notification-specific strings. */
