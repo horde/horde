@@ -10,7 +10,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-11-18</date>
+ <date>2016-04-26</date>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -391,8 +391,8 @@
            <file name="Binary.php" role="php" />
            <file name="Boolean.php" role="php" />
            <file name="FlatText.php" role="php" />
-           <file name="Float.php" role="php" />
-           <file name="Integer.php" role="php" />
+         <file name="FloatValue.php" role="php" />
+         <file name="IntegerValue.php" role="php" />
            <file name="Text.php" role="php" />
            <file name="Time.php" role="php" />
            <file name="Unknown.php" role="php" />
@@ -894,8 +894,8 @@
    <install as="Sabre/VObject/Property/Binary.php" name="bundle/vendor/sabre/vobject/lib/Property/Binary.php" />
    <install as="Sabre/VObject/Property/Boolean.php" name="bundle/vendor/sabre/vobject/lib/Property/Boolean.php" />
    <install as="Sabre/VObject/Property/FlatText.php" name="bundle/vendor/sabre/vobject/lib/Property/FlatText.php" />
-   <install as="Sabre/VObject/Property/Float.php" name="bundle/vendor/sabre/vobject/lib/Property/Float.php" />
-   <install as="Sabre/VObject/Property/Integer.php" name="bundle/vendor/sabre/vobject/lib/Property/Integer.php" />
+   <install as="Horde/Dav/vendor/sabre/vobject/lib/Property/FloatValue.php" name="bundle/vendor/sabre/vobject/lib/Property/FloatValue.php" />
+   <install as="Horde/Dav/vendor/sabre/vobject/lib/Property/IntegerValue.php" name="bundle/vendor/sabre/vobject/lib/Property/IntegerValue.php" />
    <install as="Sabre/VObject/Property/Text.php" name="bundle/vendor/sabre/vobject/lib/Property/Text.php" />
    <install as="Sabre/VObject/Property/Time.php" name="bundle/vendor/sabre/vobject/lib/Property/Time.php" />
    <install as="Sabre/VObject/Property/Unknown.php" name="bundle/vendor/sabre/vobject/lib/Property/Unknown.php" />
@@ -1116,7 +1116,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-11-18</date>
+   <date>2016-04-26</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [jan] Update to SabreDAV 2.1 (Stefan Popp &lt;se12m014@technikum-wien.at&gt;).

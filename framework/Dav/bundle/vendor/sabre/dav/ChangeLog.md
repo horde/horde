@@ -1,6 +1,30 @@
 ChangeLog
 =========
 
+2.1.10 (2016-03-10)
+-------------------
+
+* #784: Sync logs for address books were not correctly cleaned up after
+  deleting them.
+
+
+2.1.9 (2016-01-25)
+------------------
+
+* #674: PHP7 support (@DeepDiver1975).
+* The zip release ships with [sabre/vobject 3.5.0][vobj],
+  [sabre/http 3.0.5][http], and [sabre/event 2.0.2][evnt].
+
+
+2.1.8 (2016-01-04)
+------------------
+
+* #729: Fixed a caching problem in the Tree object.
+* #740: Bugs in `migrate20.php` script.
+* The zip release ships with [sabre/vobject 3.4.8][vobj],
+  [sabre/http 3.0.5][http], and [sabre/event 2.0.2][evnt].
+
+
 2.1.7 (2015-09-05)
 ------------------
 

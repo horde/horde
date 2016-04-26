@@ -10,7 +10,7 @@ use Sabre\HTTP\URLUtil;
  * It allows for fetching nodes by path, facilitates deleting, copying and
  * moving.
  *
- * @copyright Copyright (C) 2007-2015 fruux GmbH (https://fruux.com/).
+ * @copyright Copyright (C) fruux GmbH (https://fruux.com/)
  * @author Evert Pot (http://evertpot.com/)
  * @license http://sabre.io/license/ Modified BSD License
  */
@@ -193,8 +193,10 @@ class Tree {
 
         $node = $this->getNodeForPath($path);
         $children = $node->getChildren();
-        $basePath = trim($path,'/') . '/';
-        foreach($children as $child) {
+        $basePath = trim($path, '/');
+        if ($basePath !== '') $basePath.='/';
+
+        foreach ($children as $child) {
 
             $this->cache[$basePath . $child->getName()] = $child;
 

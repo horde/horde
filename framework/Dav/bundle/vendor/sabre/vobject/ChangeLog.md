@@ -1,7 +1,47 @@
 ChangeLog
 =========
 
-3.4.7 (2015-09-04)
+3.5.2 (2016-04-24)
+-----------------
+
+* #312: Backported a fix related to iTip processing of events with timezones,
+  without a master event.
+
+
+3.5.1 (2016-04-06)
+------------------
+
+* #309: When expanding recurring events, the first event should also have a
+  `RECURRENCE-ID` property.
+* #306: iTip REPLYs to the first instance of a recurring event was not handled
+  correctly.
+
+
+3.5.0 (2016-01-11)
+------------------
+
+* This release supports PHP 7, contrary to 3.4.x versions.
+* BC Break: `Sabre\VObject\Property\Float` has been renamed to
+  `Sabre\VObject\Property\FloatValue`.
+* BC Break: `Sabre\VObject\Property\Integer` has been renamed to
+  `Sabre\VObject\Property\IntegerValue`.
+
+
+3.4.9 (2016-01-11)
+------------------
+
+* This package now specifies in composer.json that it does not support PHP 7.
+  For PHP 7, use version 3.5.x or 4.x.
+
+
+3.4.8 (2016-01-04)
+------------------
+
+* #284: When generating `CANCEL` iTip messages, we now include `DTEND`.
+  (@kewisch).
+
+
+3.4.7 (2015-09-05)
 ------------------
 
 * #253: Handle `isInTimeRange` for recurring events that have 0 valid

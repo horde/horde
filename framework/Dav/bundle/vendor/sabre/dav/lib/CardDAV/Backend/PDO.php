@@ -10,7 +10,7 @@ use Sabre\DAV;
  *
  * This CardDAV backend uses PDO to store addressbooks
  *
- * @copyright Copyright (C) 2007-2015 fruux GmbH (https://fruux.com/).
+ * @copyright Copyright (C) fruux GmbH (https://fruux.com/)
  * @author Evert Pot (http://evertpot.com/)
  * @license http://sabre.io/license/ Modified BSD License
  */
@@ -206,7 +206,7 @@ class PDO extends AbstractBackend implements SyncSupport {
         $stmt = $this->pdo->prepare('DELETE FROM ' . $this->addressBooksTableName . ' WHERE id = ?');
         $stmt->execute([$addressBookId]);
 
-        $stmt = $this->pdo->prepare('DELETE FROM '.$this->addressBookChangesTableName.' WHERE id = ?');
+        $stmt = $this->pdo->prepare('DELETE FROM '.$this->addressBookChangesTableName.' WHERE addressbookid = ?');
         $stmt->execute([$addressBookId]);
 
     }

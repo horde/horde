@@ -11,7 +11,7 @@ use
  * This component represents the BEGIN:VCARD and END:VCARD found in every
  * vcard.
  *
- * @copyright Copyright (C) 2011-2015 fruux GmbH (https://fruux.com/).
+ * @copyright Copyright (C) fruux GmbH (https://fruux.com/)
  * @author Evert Pot (http://evertpot.com/)
  * @license http://sabre.io/license/ Modified BSD License
  */
@@ -45,8 +45,8 @@ class VCard extends VObject\Document {
         'DATE'             => 'Sabre\\VObject\\Property\\VCard\\Date',
         'DATE-TIME'        => 'Sabre\\VObject\\Property\\VCard\\DateTime',
         'DATE-AND-OR-TIME' => 'Sabre\\VObject\\Property\\VCard\\DateAndOrTime', // vCard only
-        'FLOAT'            => 'Sabre\\VObject\\Property\\Float',
-        'INTEGER'          => 'Sabre\\VObject\\Property\\Integer',
+        'FLOAT'            => 'Sabre\\VObject\\Property\\FloatValue',
+        'INTEGER'          => 'Sabre\\VObject\\Property\\IntegerValue',
         'LANGUAGE-TAG'     => 'Sabre\\VObject\\Property\\VCard\\LanguageTag',
         'TIMESTAMP'        => 'Sabre\\VObject\\Property\\VCard\\TimeStamp',
         'TEXT'             => 'Sabre\\VObject\\Property\\Text',

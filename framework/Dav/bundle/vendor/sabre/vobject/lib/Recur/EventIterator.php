@@ -50,7 +50,7 @@ use Sabre\VObject\Component\VEvent;
  *
  * The recurrence iterator also does not yet support THISANDFUTURE.
  *
- * @copyright Copyright (C) 2011-2015 fruux GmbH (https://fruux.com/).
+ * @copyright Copyright (C) fruux GmbH (https://fruux.com/)
  * @author Evert Pot (http://evertpot.com/)
  * @license http://sabre.io/license/ Modified BSD License
  */
@@ -278,16 +278,9 @@ class EventIterator implements \Iterator {
         if (isset($event->DTEND)) {
             $event->DTEND->setDateTime($this->getDtEnd(), $event->DTEND->isFloating());
         }
-        // Including a RECURRENCE-ID to the object, unless this is the first
-        // object.
-        //
-        // The inner recurIterator is always one step ahead, this is why we're
-        // checking for the key being higher than 1.
-        if ($this->recurIterator->key() > 1) {
-            $recurid = clone $event->DTSTART;
-            $recurid->name = 'RECURRENCE-ID';
-            $event->add($recurid);
-        }
+        $recurid = clone $event->DTSTART;
+        $recurid->name = 'RECURRENCE-ID';
+        $event->add($recurid);
         return $event;
 
     }
