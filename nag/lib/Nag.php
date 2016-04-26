@@ -1828,10 +1828,10 @@ class Nag
             return;
         }
 
-       /* Determine all notification-specific strings. */
-       $method = 'REQUEST';
-       switch ($action) {
-       case self::ITIP_CANCEL:
+        /* Determine all notification-specific strings. */
+        $method = 'REQUEST';
+        switch ($action) {
+        case self::ITIP_CANCEL:
             /* Cancellation. */
             $method = 'CANCEL';
             $filename = 'task-cancellation.ics';
