@@ -894,8 +894,8 @@
    <install as="Sabre/VObject/Property/Binary.php" name="bundle/vendor/sabre/vobject/lib/Property/Binary.php" />
    <install as="Sabre/VObject/Property/Boolean.php" name="bundle/vendor/sabre/vobject/lib/Property/Boolean.php" />
    <install as="Sabre/VObject/Property/FlatText.php" name="bundle/vendor/sabre/vobject/lib/Property/FlatText.php" />
-   <install as="Horde/Dav/vendor/sabre/vobject/lib/Property/FloatValue.php" name="bundle/vendor/sabre/vobject/lib/Property/FloatValue.php" />
-   <install as="Horde/Dav/vendor/sabre/vobject/lib/Property/IntegerValue.php" name="bundle/vendor/sabre/vobject/lib/Property/IntegerValue.php" />
+   <install as="Sabre/VObject/Property/FloatValue.php" name="bundle/vendor/sabre/vobject/lib/Property/FloatValue.php" />
+   <install as="Sabre/VObject/Property/IntegerValue.php" name="bundle/vendor/sabre/vobject/lib/Property/IntegerValue.php" />
    <install as="Sabre/VObject/Property/Text.php" name="bundle/vendor/sabre/vobject/lib/Property/Text.php" />
    <install as="Sabre/VObject/Property/Time.php" name="bundle/vendor/sabre/vobject/lib/Property/Time.php" />
    <install as="Sabre/VObject/Property/Unknown.php" name="bundle/vendor/sabre/vobject/lib/Property/Unknown.php" />
