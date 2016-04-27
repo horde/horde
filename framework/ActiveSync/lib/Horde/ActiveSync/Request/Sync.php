@@ -933,7 +933,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             return false;
         } catch (Horde_ActiveSync_Exception $e) {
             $this->_statusCode = self::STATUS_FOLDERSYNC_REQUIRED;
-            $this->_handleError($colleciton);
+            $this->_handleError($collection);
             return false;
         } catch (Horde_ActiveSync_Exception $e) {
             $this->_logger->err($e->getMessage());
