@@ -306,12 +306,12 @@
       </dir> <!-- /bundle/vendor/sabre/dav -->
       <dir name="event">
        <dir name="lib">
-        <file name="EventEmitter.php" role="php" /> 
-        <file name="EventEmitterInterface.php" role="php" /> 
-        <file name="EventEmitterTrait.php" role="php" /> 
-        <file name="Promise.php" role="php" /> 
-        <file name="PromiseAlreadyResolvedException.php" role="php" /> 
-        <file name="Version.php" role="php" /> 
+        <file name="EventEmitter.php" role="php" />
+        <file name="EventEmitterInterface.php" role="php" />
+        <file name="EventEmitterTrait.php" role="php" />
+        <file name="Promise.php" role="php" />
+        <file name="PromiseAlreadyResolvedException.php" role="php" />
+        <file name="Version.php" role="php" />
        </dir> <!-- /bundle/vendor/sabre/event/lib -->
        <file name="CHANGELOG.md" role="doc" />
        <file name="LICENSE" role="doc" />
@@ -320,28 +320,28 @@
       <dir name="http">
        <dir name="lib">
         <dir name="Auth">
-         <file name="AWS.php" role="php" />   
-         <file name="AbstractAuth.php" role="php" /> 
-         <file name="Basic.php" role="php" /> 
-         <file name="Digest.php" role="php" /> 
+         <file name="AWS.php" role="php" />
+         <file name="AbstractAuth.php" role="php" />
+         <file name="Basic.php" role="php" />
+         <file name="Digest.php" role="php" />
         </dir> <!-- /bundle/vendor/sabre/vobject/lib/Sabre/HTTP/Auth -->
-        <file name="Client.php" role="php" /> 
-        <file name="ClientException.php" role="php" /> 
-        <file name="ClientHttpException.php" role="php" /> 
-        <file name="HttpException.php" role="php" /> 
-        <file name="Message.php" role="php" /> 
-        <file name="MessageDecoratorTrait.php" role="php" /> 
-        <file name="MessageInterface.php" role="php" />  
-        <file name="Request.php" role="php" />       
-        <file name="RequestDecorator.php" role="php" /> 
-        <file name="RequestInterface.php" role="php" /> 
-        <file name="Response.php" role="php" /> 
-        <file name="ResponseDecorator.php" role="php" /> 
-        <file name="ResponseInterface.php" role="php" /> 
-        <file name="Sapi.php" role="php" /> 
-        <file name="URLUtil.php" role="php" /> 
-        <file name="Util.php" role="php" /> 
-        <file name="Version.php" role="php" /> 
+        <file name="Client.php" role="php" />
+        <file name="ClientException.php" role="php" />
+        <file name="ClientHttpException.php" role="php" />
+        <file name="HttpException.php" role="php" />
+        <file name="Message.php" role="php" />
+        <file name="MessageDecoratorTrait.php" role="php" />
+        <file name="MessageInterface.php" role="php" />
+        <file name="Request.php" role="php" />
+        <file name="RequestDecorator.php" role="php" />
+        <file name="RequestInterface.php" role="php" />
+        <file name="Response.php" role="php" />
+        <file name="ResponseDecorator.php" role="php" />
+        <file name="ResponseInterface.php" role="php" />
+        <file name="Sapi.php" role="php" />
+        <file name="URLUtil.php" role="php" />
+        <file name="Util.php" role="php" />
+        <file name="Version.php" role="php" />
        </dir> <!-- /bundle/vendor/sabre/http/lib -->
        <file name="ChangeLog.md" role="doc" />
        <file name="LICENSE" role="doc" />
