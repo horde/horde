@@ -12,7 +12,7 @@
  </lead>
  <date>2016-04-27</date>
  <version>
-  <release>2.31.9</release>
+  <release>2.31.10</release>
   <api>2.31.0</api>
  </version>
  <stability>
@@ -21,8 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Fix PHP error when handling a STATUS_FOLDERSYNC_REQUIRED.
-* [mjr] Protect against colliding synckeys.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3096,6 +3095,19 @@
    <notes>
 * [mjr] Fix PHP error when handling a STATUS_FOLDERSYNC_REQUIRED.
 * [mjr] Protect against colliding synckeys.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.31.10</release>
+    <api>2.31.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-04-27</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
