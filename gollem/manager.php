@@ -202,6 +202,7 @@ case 'change_sortdir':
 
 /* First loop through getting folder lists, setting the directory,
  * etc., to make sure we can catch any errors. */
+$list = null;
 try {
     $list = Gollem::listFolder(Gollem::$backend['dir']);
 } catch (Horde_Exception $e) {
