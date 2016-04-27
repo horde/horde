@@ -72,9 +72,11 @@ class Kronolith_Event_Holidays extends Kronolith_Event
     /**
      * Return this events title.
      *
+     * @param string $user  The current user.
+     *
      * @return string The title of this event
      */
-    public function getTitle()
+    public function getTitle($user = null)
     {
         return $this->title;
     }
