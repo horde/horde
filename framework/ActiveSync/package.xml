@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-03-24</date>
+ <date>2016-04-27</date>
  <version>
   <release>2.31.9</release>
   <api>2.31.0</api>
@@ -3091,7 +3091,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-03-23</date>
+   <date>2016-04-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix PHP error when handling a STATUS_FOLDERSYNC_REQUIRED.
