@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix PHP error when handling a STATUS_FOLDERSYNC_REQUIRED.
 * [mjr] Protect against colliding synckeys.
  </notes>
  <contents>
@@ -3093,6 +3094,7 @@
    <date>2016-03-23</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix PHP error when handling a STATUS_FOLDERSYNC_REQUIRED.
 * [mjr] Protect against colliding synckeys.
    </notes>
   </release>
