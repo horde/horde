@@ -931,7 +931,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             $this->_statusCode = self::STATUS_SERVERERROR;
             $this->_handleGlobalSyncError();
             return false;
-        } catch (Horde_ActiveSync_Exception $e) {
+        } catch (Horde_ActiveSync_Exception_FolderGone $e) {
             $this->_statusCode = self::STATUS_FOLDERSYNC_REQUIRED;
             $this->_handleError($collection);
             return false;
@@ -1208,7 +1208,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 $options['conflict'] = $this->_decoder->getElementContent();
                 if (!$this->_decoder->getElementEndTag()) {
                     $this->_statusCode = self::STATUS_PROTERROR;
-                    $this->_handleError;
+                    $this->_handleError($collection);
                     exit;
                 }
             }
