@@ -10,7 +10,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-04-26</date>
+ <date>2016-04-27</date>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -30,274 +30,274 @@
      <dir name="sabre">
       <dir name="dav">
        <dir name="lib">
-         <dir name="CalDAV">
-          <dir name="Backend">
-           <file name="AbstractBackend.php" role="php" />
-           <file name="BackendInterface.php" role="php" />
-           <file name="NotificationSupport.php" role="php" />
-           <file name="PDO.php" role="php" />
-           <file name="SchedulingSupport.php" role="php" />
-           <file name="SharingSupport.php" role="php" />
-           <file name="SubscriptionSupport.php" role="php" />
-           <file name="SyncSupport.php" role="php" />
-          </dir> <!-- /bundle/vendor/sabre/dav/lib/CalDAV/Backend -->
-          <dir name="Exception">
-           <file name="InvalidComponentType.php" role="php" />
-          </dir> <!-- /bundle/vendor/sabre/dav/lib/CalDAV/Exception -->
-          <dir name="Notifications">
-           <dir name="Notification">
-            <file name="Invite.php" role="php" />
-            <file name="InviteReply.php" role="php" />
-            <file name="SystemStatus.php" role="php" />
-           </dir> <!-- /bundle/vendor/sabre/dav/lib/CalDAV/Notifications/Notification -->
-           <file name="Collection.php" role="php" />
-           <file name="ICollection.php" role="php" />
-           <file name="INode.php" role="php" />
-           <file name="INotificationType.php" role="php" />
-           <file name="Node.php" role="php" />
-           <file name="Plugin.php" role="php" />
-          </dir> <!-- /bundle/vendor/sabre/dav/lib/CalDAV/Notifications -->
-          <dir name="Principal">
-           <file name="Collection.php" role="php" />
-           <file name="IProxyRead.php" role="php" />
-           <file name="IProxyWrite.php" role="php" />
-           <file name="ProxyRead.php" role="php" />
-           <file name="ProxyWrite.php" role="php" />
-           <file name="User.php" role="php" />
-          </dir> <!-- /bundle/vendor/sabre/dav/lib/CalDAV/Principal -->
-          <dir name="Property">
-           <file name="AllowedSharingModes.php" role="php" />
-           <file name="EmailAddressSet.php" role="php" />
+        <dir name="CalDAV">
+         <dir name="Backend">
+          <file name="AbstractBackend.php" role="php" />
+          <file name="BackendInterface.php" role="php" />
+          <file name="NotificationSupport.php" role="php" />
+          <file name="PDO.php" role="php" />
+          <file name="SchedulingSupport.php" role="php" />
+          <file name="SharingSupport.php" role="php" />
+          <file name="SubscriptionSupport.php" role="php" />
+          <file name="SyncSupport.php" role="php" />
+         </dir> <!-- /bundle/vendor/sabre/dav/lib/CalDAV/Backend -->
+         <dir name="Exception">
+          <file name="InvalidComponentType.php" role="php" />
+         </dir> <!-- /bundle/vendor/sabre/dav/lib/CalDAV/Exception -->
+         <dir name="Notifications">
+          <dir name="Notification">
            <file name="Invite.php" role="php" />
-           <file name="ScheduleCalendarTransp.php" role="php" />
-           <file name="SupportedCalendarComponentSet.php" role="php" />
-           <file name="SupportedCalendarData.php" role="php" />
-           <file name="SupportedCollationSet.php" role="php" />
-          </dir> <!-- /bundle/vendor/sabre/dav/lib/CalDAV/Property -->
-          <dir name="Schedule">
-           <file name="IInbox.php" role="php" />
-           <file name="IMipPlugin.php" role="php" />
-           <file name="IOutbox.php" role="php" />
-           <file name="ISchedulingObject.php" role="php" />
-           <file name="Inbox.php" role="php" />
-           <file name="Outbox.php" role="php" />
-           <file name="Plugin.php" role="php" />
-           <file name="SchedulingObject.php" role="php" />
-          </dir> <!-- /bundle/vendor/sabre/dav/lib/CalDAV/Schedule -->
-          <dir name="Subscriptions">
-           <file name="ISubscription.php" role="php" />
-           <file name="Plugin.php" role="php" />
-           <file name="Subscription.php" role="php" />
-          </dir> <!-- /bundle/vendor/sabre/dav/lib/CalDAV/Subscriptions -->
-          <file name="Calendar.php" role="php" />
-          <file name="CalendarHome.php" role="php" />
-          <file name="CalendarObject.php" role="php" />
-          <file name="CalendarQueryParser.php" role="php" />
-          <file name="CalendarQueryValidator.php" role="php" />
-          <file name="CalendarRoot.php" role="php" />
-          <file name="CalendarRootNode.php" role="php" />
-          <file name="ICalendar.php" role="php" />
-          <file name="ICalendarObject.php" role="php" />
-          <file name="ICalendarObjectContainer.php" role="php" />
-          <file name="ICSExportPlugin.php" role="php" />
-          <file name="IShareableCalendar.php" role="php" />
-          <file name="ISharedCalendar.php" role="php" />
+           <file name="InviteReply.php" role="php" />
+           <file name="SystemStatus.php" role="php" />
+          </dir> <!-- /bundle/vendor/sabre/dav/lib/CalDAV/Notifications/Notification -->
+          <file name="Collection.php" role="php" />
+          <file name="ICollection.php" role="php" />
+          <file name="INode.php" role="php" />
+          <file name="INotificationType.php" role="php" />
+          <file name="Node.php" role="php" />
           <file name="Plugin.php" role="php" />
-          <file name="ShareableCalendar.php" role="php" />
-          <file name="SharedCalendar.php" role="php" />
-          <file name="SharingPlugin.php" role="php" />
-          <file name="UserCalendars.php" role="php" />
-         </dir> <!-- /bundle/vendor/sabre/dav/lib/CalDAV -->
-         <dir name="CardDAV">
+         </dir> <!-- /bundle/vendor/sabre/dav/lib/CalDAV/Notifications -->
+         <dir name="Principal">
+          <file name="Collection.php" role="php" />
+          <file name="IProxyRead.php" role="php" />
+          <file name="IProxyWrite.php" role="php" />
+          <file name="ProxyRead.php" role="php" />
+          <file name="ProxyWrite.php" role="php" />
+          <file name="User.php" role="php" />
+         </dir> <!-- /bundle/vendor/sabre/dav/lib/CalDAV/Principal -->
+         <dir name="Property">
+          <file name="AllowedSharingModes.php" role="php" />
+          <file name="EmailAddressSet.php" role="php" />
+          <file name="Invite.php" role="php" />
+          <file name="ScheduleCalendarTransp.php" role="php" />
+          <file name="SupportedCalendarComponentSet.php" role="php" />
+          <file name="SupportedCalendarData.php" role="php" />
+          <file name="SupportedCollationSet.php" role="php" />
+         </dir> <!-- /bundle/vendor/sabre/dav/lib/CalDAV/Property -->
+         <dir name="Schedule">
+          <file name="IInbox.php" role="php" />
+          <file name="IMipPlugin.php" role="php" />
+          <file name="Inbox.php" role="php" />
+          <file name="IOutbox.php" role="php" />
+          <file name="ISchedulingObject.php" role="php" />
+          <file name="Outbox.php" role="php" />
+          <file name="Plugin.php" role="php" />
+          <file name="SchedulingObject.php" role="php" />
+         </dir> <!-- /bundle/vendor/sabre/dav/lib/CalDAV/Schedule -->
+         <dir name="Subscriptions">
+          <file name="ISubscription.php" role="php" />
+          <file name="Plugin.php" role="php" />
+          <file name="Subscription.php" role="php" />
+         </dir> <!-- /bundle/vendor/sabre/dav/lib/CalDAV/Subscriptions -->
+         <file name="Calendar.php" role="php" />
+         <file name="CalendarHome.php" role="php" />
+         <file name="CalendarObject.php" role="php" />
+         <file name="CalendarQueryParser.php" role="php" />
+         <file name="CalendarQueryValidator.php" role="php" />
+         <file name="CalendarRoot.php" role="php" />
+         <file name="CalendarRootNode.php" role="php" />
+         <file name="ICalendar.php" role="php" />
+         <file name="ICalendarObject.php" role="php" />
+         <file name="ICalendarObjectContainer.php" role="php" />
+         <file name="ICSExportPlugin.php" role="php" />
+         <file name="IShareableCalendar.php" role="php" />
+         <file name="ISharedCalendar.php" role="php" />
+         <file name="Plugin.php" role="php" />
+         <file name="ShareableCalendar.php" role="php" />
+         <file name="SharedCalendar.php" role="php" />
+         <file name="SharingPlugin.php" role="php" />
+         <file name="UserCalendars.php" role="php" />
+        </dir> <!-- /bundle/vendor/sabre/dav/lib/CalDAV -->
+        <dir name="CardDAV">
+         <dir name="Backend">
+          <file name="AbstractBackend.php" role="php" />
+          <file name="BackendInterface.php" role="php" />
+          <file name="PDO.php" role="php" />
+          <file name="SyncSupport.php" role="php" />
+         </dir> <!-- /bundle/vendor/sabre/dav/lib/CardDAV/Backend -->
+         <dir name="Property">
+          <file name="SupportedAddressData.php" role="php" />
+          <file name="SupportedCollationSet.php" role="php" />
+         </dir> <!-- /bundle/vendor/sabre/dav/lib/CardDAV/Property -->
+         <file name="AddressBook.php" role="php" />
+         <file name="AddressBookQueryParser.php" role="php" />
+         <file name="AddressBookRoot.php" role="php" />
+         <file name="Card.php" role="php" />
+         <file name="IAddressBook.php" role="php" />
+         <file name="ICard.php" role="php" />
+         <file name="IDirectory.php" role="php" />
+         <file name="Plugin.php" role="php" />
+         <file name="UserAddressBooks.php" role="php" />
+         <file name="VCFExportPlugin.php" role="php" />
+        </dir> <!-- /bundle/vendor/sabre/dav/lib/CardDAV -->
+        <dir name="DAV">
+         <dir name="Auth">
+          <dir name="Backend">
+           <file name="AbstractBasic.php" role="php" />
+           <file name="AbstractDigest.php" role="php" />
+           <file name="Apache.php" role="php" />
+           <file name="BackendInterface.php" role="php" />
+           <file name="BasicCallBack.php" role="php" />
+           <file name="File.php" role="php" />
+           <file name="PDO.php" role="php" />
+          </dir> <!-- /bundle/vendor/sabre/dav/lib/DAV/Auth/Backend -->
+          <file name="Plugin.php" role="php" />
+         </dir> <!-- /bundle/vendor/sabre/dav/lib/DAV/Auth -->
+         <dir name="Browser">
+          <dir name="assets">
+           <dir name="openiconic">
+            <file name="ICON-LICENSE" role="php" />
+            <file name="open-iconic.css" role="php" />
+            <file name="open-iconic.eot" role="php" />
+            <file name="open-iconic.otf" role="php" />
+            <file name="open-iconic.svg" role="php" />
+            <file name="open-iconic.ttf" role="php" />
+            <file name="open-iconic.woff" role="php" />
+           </dir> <!-- /bundle/vendor/sabre/dav/lib/DAV/Browser/assets/openiconic -->
+           <file name="favicon.ico" role="php" />
+           <file name="sabredav.css" role="php" />
+           <file name="sabredav.png" role="php" />
+          </dir> <!-- /bundle/vendor/sabre/dav/lib/DAV/Browser/assets -->
+          <file name="GuessContentType.php" role="php" />
+          <file name="MapGetToPropFind.php" role="php" />
+          <file name="Plugin.php" role="php" />
+          <file name="PropFindAll.php" role="php" />
+         </dir> <!-- /bundle/vendor/sabre/dav/lib/DAV/Browser -->
+         <dir name="Exception">
+          <file name="BadRequest.php" role="php" />
+          <file name="Conflict.php" role="php" />
+          <file name="ConflictingLock.php" role="php" />
+          <file name="FileNotFound.php" role="php" />
+          <file name="Forbidden.php" role="php" />
+          <file name="InsufficientStorage.php" role="php" />
+          <file name="InvalidResourceType.php" role="php" />
+          <file name="InvalidSyncToken.php" role="php" />
+          <file name="LengthRequired.php" role="php" />
+          <file name="Locked.php" role="php" />
+          <file name="LockTokenMatchesRequestUri.php" role="php" />
+          <file name="MethodNotAllowed.php" role="php" />
+          <file name="NotAuthenticated.php" role="php" />
+          <file name="NotFound.php" role="php" />
+          <file name="NotImplemented.php" role="php" />
+          <file name="PaymentRequired.php" role="php" />
+          <file name="PreconditionFailed.php" role="php" />
+          <file name="ReportNotSupported.php" role="php" />
+          <file name="RequestedRangeNotSatisfiable.php" role="php" />
+          <file name="ServiceUnavailable.php" role="php" />
+          <file name="TooManyMatches.php" role="php" />
+          <file name="UnsupportedMediaType.php" role="php" />
+         </dir> <!-- /bundle/vendor/sabre/dav/lib/DAV/Exception -->
+         <dir name="FS">
+          <file name="Directory.php" role="php" />
+          <file name="File.php" role="php" />
+          <file name="Node.php" role="php" />
+         </dir> <!-- /bundle/vendor/sabre/dav/lib/DAV/FS -->
+         <dir name="FSExt">
+          <file name="Directory.php" role="php" />
+          <file name="File.php" role="php" />
+          <file name="Node.php" role="php" />
+         </dir> <!-- /bundle/vendor/sabre/dav/lib/DAV/FSExt -->
+         <dir name="Locks">
           <dir name="Backend">
            <file name="AbstractBackend.php" role="php" />
            <file name="BackendInterface.php" role="php" />
+           <file name="File.php" role="php" />
+           <file name="FS.php" role="php" />
            <file name="PDO.php" role="php" />
-           <file name="SyncSupport.php" role="php" />
-          </dir> <!-- /bundle/vendor/sabre/dav/lib/CardDAV/Backend -->
-          <dir name="Property">
-           <file name="SupportedAddressData.php" role="php" />
-           <file name="SupportedCollationSet.php" role="php" />
-          </dir> <!-- /bundle/vendor/sabre/dav/lib/CardDAV/Property -->
-          <file name="AddressBook.php" role="php" />
-          <file name="AddressBookQueryParser.php" role="php" />
-          <file name="AddressBookRoot.php" role="php" />
-          <file name="Card.php" role="php" />
-          <file name="IAddressBook.php" role="php" />
-          <file name="ICard.php" role="php" />
-          <file name="IDirectory.php" role="php" />
+          </dir> <!-- /bundle/vendor/sabre/dav/lib/DAV/Locks/Backend -->
+          <file name="LockInfo.php" role="php" />
           <file name="Plugin.php" role="php" />
-          <file name="UserAddressBooks.php" role="php" />
-          <file name="VCFExportPlugin.php" role="php" />
-         </dir> <!-- /bundle/vendor/sabre/dav/lib/CardDAV -->
-         <dir name="DAV">
-          <dir name="Auth">
-           <dir name="Backend">
-            <file name="AbstractBasic.php" role="php" />
-            <file name="AbstractDigest.php" role="php" />
-            <file name="Apache.php" role="php" />
-            <file name="BackendInterface.php" role="php" />
-            <file name="BasicCallBack.php" role="php" />
-            <file name="File.php" role="php" />
-            <file name="PDO.php" role="php" />
-           </dir> <!-- /bundle/vendor/sabre/dav/lib/DAV/Auth/Backend -->
-           <file name="Plugin.php" role="php" />
-          </dir> <!-- /bundle/vendor/sabre/dav/lib/DAV/Auth -->
-          <dir name="Browser">
-           <dir name="assets">
-            <dir name="openiconic">
-             <file name="open-iconic.css" role="php" />
-             <file name="open-iconic.eot" role="php" />
-             <file name="open-iconic.otf" role="php" />
-             <file name="open-iconic.svg" role="php" />
-             <file name="open-iconic.ttf" role="php" />
-             <file name="open-iconic.woff" role="php" />
-             <file name="ICON-LICENSE" role="php" />
-            </dir> <!-- /bundle/vendor/sabre/dav/lib/DAV/Browser/assets/icons -->
-            <file name="favicon.ico" role="php" />
-            <file name="sabredav.css" role="php" />
-            <file name="sabredav.png" role="php" />
-           </dir> <!-- /bundle/vendor/sabre/dav/lib/DAV/Browser/assets -->
-           <file name="GuessContentType.php" role="php" />
-           <file name="MapGetToPropFind.php" role="php" />
-           <file name="Plugin.php" role="php" />
-           <file name="PropFindAll.php" role="php" />
-          </dir> <!-- /bundle/vendor/sabre/dav/lib/DAV/Browser -->
-          <dir name="Exception">
-           <file name="BadRequest.php" role="php" />
-           <file name="Conflict.php" role="php" />
-           <file name="ConflictingLock.php" role="php" />
-           <file name="FileNotFound.php" role="php" />
-           <file name="Forbidden.php" role="php" />
-           <file name="InsufficientStorage.php" role="php" />
-           <file name="InvalidResourceType.php" role="php" />
-           <file name="InvalidSyncToken.php" role="php" />
-           <file name="LengthRequired.php" role="php" />
-           <file name="Locked.php" role="php" />
-           <file name="LockTokenMatchesRequestUri.php" role="php" />
-           <file name="MethodNotAllowed.php" role="php" />
-           <file name="NotAuthenticated.php" role="php" />
-           <file name="NotFound.php" role="php" />
-           <file name="NotImplemented.php" role="php" />
-           <file name="PaymentRequired.php" role="php" />
-           <file name="PreconditionFailed.php" role="php" />
-           <file name="ReportNotSupported.php" role="php" />
-           <file name="RequestedRangeNotSatisfiable.php" role="php" />
-           <file name="ServiceUnavailable.php" role="php" />
-           <file name="TooManyMatches.php" role="php" />
-           <file name="UnsupportedMediaType.php" role="php" />
-          </dir> <!-- /bundle/vendor/sabre/dav/lib/DAV/Exception -->
-          <dir name="FS">
-           <file name="Directory.php" role="php" />
-           <file name="File.php" role="php" />
-           <file name="Node.php" role="php" />
-          </dir> <!-- /bundle/vendor/sabre/dav/lib/DAV/FS -->
-          <dir name="FSExt">
-           <file name="Directory.php" role="php" />
-           <file name="File.php" role="php" />
-           <file name="Node.php" role="php" />
-          </dir> <!-- /bundle/vendor/sabre/dav/lib/DAV/FSExt -->
-          <dir name="Locks">
-           <dir name="Backend">
-            <file name="AbstractBackend.php" role="php" />
-            <file name="BackendInterface.php" role="php" />
-            <file name="File.php" role="php" />
-            <file name="FS.php" role="php" />
-            <file name="PDO.php" role="php" />
-           </dir> <!-- /bundle/vendor/sabre/dav/lib/DAV/Locks/Backend -->
-           <file name="LockInfo.php" role="php" />
-           <file name="Plugin.php" role="php" />
-          </dir> <!-- /bundle/vendor/sabre/dav/lib/DAV/Locks -->
-          <dir name="Mount">
-           <file name="Plugin.php" role="php" />
-          </dir> <!-- /bundle/vendor/sabre/dav/lib/DAV/Mount -->
-          <dir name="PartialUpdate">
-           <file name="IFile.php" role="php" />
-           <file name="IPatchSupport.php" role="php" />
-           <file name="Plugin.php" role="php" />
-          </dir> <!-- /bundle/vendor/sabre/dav/lib/DAV/PartialUpdate -->
-          <dir name="Property">
-           <file name="GetLastModified.php" role="php" />
-           <file name="Href.php" role="php" />
-           <file name="HrefList.php" role="php" />
-           <file name="IHref.php" role="php" />
-           <file name="LockDiscovery.php" role="php" />
-           <file name="ResourceType.php" role="php" />
-           <file name="Response.php" role="php" />
-           <file name="ResponseList.php" role="php" />
-           <file name="SupportedLock.php" role="php" />
-           <file name="SupportedMethodSet.php" role="php" />
-           <file name="SupportedReportSet.php" role="php" />
-          </dir> <!-- /bundle/vendor/sabre/dav/lib/DAV/Property -->
-          <dir name="PropertyStorage">
-           <dir name="Backend">
-            <file name="BackendInterface.php" role="php" />
-            <file name="PDO.php" role="php" />
-           </dir>
-           <file name="Plugin.php" role="php" />
-          </dir> <!-- /bundle/vendor/sabre/dav/lib/DAV/PropertyStorage -->
-          <dir name="Sync">
-           <file name="ISyncCollection.php" role="php" />
-           <file name="Plugin.php" role="php" />
-          </dir> <!-- /bundle/vendor/sabre/dav/lib/DAV/Sync -->
-          <file name="Client.php" role="php" />
-          <file name="Collection.php" role="php" />
-          <file name="CorePlugin.php" role="php" />
-          <file name="Exception.php" role="php" />
-          <file name="File.php" role="php" />
-          <file name="ICollection.php" role="php" />
-          <file name="IExtendedCollection.php" role="php" />
+         </dir> <!-- /bundle/vendor/sabre/dav/lib/DAV/Locks -->
+         <dir name="Mount">
+          <file name="Plugin.php" role="php" />
+         </dir> <!-- /bundle/vendor/sabre/dav/lib/DAV/Mount -->
+         <dir name="PartialUpdate">
           <file name="IFile.php" role="php" />
-          <file name="IMoveTarget.php" role="php" />
-          <file name="IMultiGet.php" role="php" />
-          <file name="INode.php" role="php" />
-          <file name="IProperties.php" role="php" />
-          <file name="IQuota.php" role="php" />
-          <file name="Node.php" role="php" />
-          <file name="PropFind.php" role="php" />
-          <file name="PropPatch.php" role="php" />
-          <file name="Property.php" role="php" />
-          <file name="PropertyInterface.php" role="php" />
-          <file name="Server.php" role="php" />
-          <file name="ServerPlugin.php" role="php" />
-          <file name="SimpleCollection.php" role="php" />
-          <file name="SimpleFile.php" role="php" />
-          <file name="StringUtil.php" role="php" />
-          <file name="TemporaryFileFilterPlugin.php" role="php" />
-          <file name="Tree.php" role="php" />
-          <file name="URLUtil.php" role="php" />
-          <file name="UUIDUtil.php" role="php" />
-          <file name="Version.php" role="php" />
-          <file name="XMLUtil.php" role="php" />
-         </dir> <!-- /bundle/vendor/sabre/dav/lib/DAV -->
-         <dir name="DAVACL">
-          <dir name="Exception">
-           <file name="AceConflict.php" role="php" />
-           <file name="NeedPrivileges.php" role="php" />
-           <file name="NoAbstract.php" role="php" />
-           <file name="NotRecognizedPrincipal.php" role="php" />
-           <file name="NotSupportedPrivilege.php" role="php" />
-          </dir> <!-- /bundle/vendor/sabre/dav/lib/DAVACL/Exception -->
-          <dir name="PrincipalBackend">
-           <file name="AbstractBackend.php" role="php" />
+          <file name="IPatchSupport.php" role="php" />
+          <file name="Plugin.php" role="php" />
+         </dir> <!-- /bundle/vendor/sabre/dav/lib/DAV/PartialUpdate -->
+         <dir name="Property">
+          <file name="GetLastModified.php" role="php" />
+          <file name="Href.php" role="php" />
+          <file name="HrefList.php" role="php" />
+          <file name="IHref.php" role="php" />
+          <file name="LockDiscovery.php" role="php" />
+          <file name="ResourceType.php" role="php" />
+          <file name="Response.php" role="php" />
+          <file name="ResponseList.php" role="php" />
+          <file name="SupportedLock.php" role="php" />
+          <file name="SupportedMethodSet.php" role="php" />
+          <file name="SupportedReportSet.php" role="php" />
+         </dir> <!-- /bundle/vendor/sabre/dav/lib/DAV/Property -->
+         <dir name="PropertyStorage">
+          <dir name="Backend">
            <file name="BackendInterface.php" role="php" />
            <file name="PDO.php" role="php" />
-          </dir> <!-- /bundle/vendor/sabre/dav/lib/DAVACL/PrincipalBackend -->
-          <dir name="Property">
-           <file name="Acl.php" role="php" />
-           <file name="AclRestrictions.php" role="php" />
-           <file name="CurrentUserPrivilegeSet.php" role="php" />
-           <file name="Principal.php" role="php" />
-           <file name="SupportedPrivilegeSet.php" role="php" />
-          </dir> <!-- /bundle/vendor/sabre/dav/lib/DAVACL/Property -->
-          <file name="AbstractPrincipalCollection.php" role="php" />
-          <file name="IACL.php" role="php" />
-          <file name="IPrincipal.php" role="php" />
-          <file name="IPrincipalCollection.php" role="php" />
+          </dir> <!-- /bundle/vendor/sabre/dav/lib/DAV/PropertyStorage/Backend -->
           <file name="Plugin.php" role="php" />
+         </dir> <!-- /bundle/vendor/sabre/dav/lib/DAV/PropertyStorage -->
+         <dir name="Sync">
+          <file name="ISyncCollection.php" role="php" />
+          <file name="Plugin.php" role="php" />
+         </dir> <!-- /bundle/vendor/sabre/dav/lib/DAV/Sync -->
+         <file name="Client.php" role="php" />
+         <file name="Collection.php" role="php" />
+         <file name="CorePlugin.php" role="php" />
+         <file name="Exception.php" role="php" />
+         <file name="File.php" role="php" />
+         <file name="ICollection.php" role="php" />
+         <file name="IExtendedCollection.php" role="php" />
+         <file name="IFile.php" role="php" />
+         <file name="IMoveTarget.php" role="php" />
+         <file name="IMultiGet.php" role="php" />
+         <file name="INode.php" role="php" />
+         <file name="IProperties.php" role="php" />
+         <file name="IQuota.php" role="php" />
+         <file name="Node.php" role="php" />
+         <file name="Property.php" role="php" />
+         <file name="PropertyInterface.php" role="php" />
+         <file name="PropFind.php" role="php" />
+         <file name="PropPatch.php" role="php" />
+         <file name="Server.php" role="php" />
+         <file name="ServerPlugin.php" role="php" />
+         <file name="SimpleCollection.php" role="php" />
+         <file name="SimpleFile.php" role="php" />
+         <file name="StringUtil.php" role="php" />
+         <file name="TemporaryFileFilterPlugin.php" role="php" />
+         <file name="Tree.php" role="php" />
+         <file name="URLUtil.php" role="php" />
+         <file name="UUIDUtil.php" role="php" />
+         <file name="Version.php" role="php" />
+         <file name="XMLUtil.php" role="php" />
+        </dir> <!-- /bundle/vendor/sabre/dav/lib/DAV -->
+        <dir name="DAVACL">
+         <dir name="Exception">
+          <file name="AceConflict.php" role="php" />
+          <file name="NeedPrivileges.php" role="php" />
+          <file name="NoAbstract.php" role="php" />
+          <file name="NotRecognizedPrincipal.php" role="php" />
+          <file name="NotSupportedPrivilege.php" role="php" />
+         </dir> <!-- /bundle/vendor/sabre/dav/lib/DAVACL/Exception -->
+         <dir name="PrincipalBackend">
+          <file name="AbstractBackend.php" role="php" />
+          <file name="BackendInterface.php" role="php" />
+          <file name="PDO.php" role="php" />
+         </dir> <!-- /bundle/vendor/sabre/dav/lib/DAVACL/PrincipalBackend -->
+         <dir name="Property">
+          <file name="Acl.php" role="php" />
+          <file name="AclRestrictions.php" role="php" />
+          <file name="CurrentUserPrivilegeSet.php" role="php" />
           <file name="Principal.php" role="php" />
-          <file name="PrincipalCollection.php" role="php" />
-         </dir> <!-- /bundle/vendor/sabre/dav/lib/DAVACL -->
+          <file name="SupportedPrivilegeSet.php" role="php" />
+         </dir> <!-- /bundle/vendor/sabre/dav/lib/DAVACL/Property -->
+         <file name="AbstractPrincipalCollection.php" role="php" />
+         <file name="IACL.php" role="php" />
+         <file name="IPrincipal.php" role="php" />
+         <file name="IPrincipalCollection.php" role="php" />
+         <file name="Plugin.php" role="php" />
+         <file name="Principal.php" role="php" />
+         <file name="PrincipalCollection.php" role="php" />
+        </dir> <!-- /bundle/vendor/sabre/dav/lib/DAVACL -->
        </dir> <!-- /bundle/vendor/sabre/dav/lib -->
        <file name="ChangeLog.md" role="doc" />
        <file name="CONTRIBUTING.md" role="doc" />
@@ -320,11 +320,11 @@
       <dir name="http">
        <dir name="lib">
         <dir name="Auth">
-         <file name="AWS.php" role="php" />
          <file name="AbstractAuth.php" role="php" />
+         <file name="AWS.php" role="php" />
          <file name="Basic.php" role="php" />
          <file name="Digest.php" role="php" />
-        </dir> <!-- /bundle/vendor/sabre/vobject/lib/Sabre/HTTP/Auth -->
+        </dir> <!-- /bundle/vendor/sabre/http/lib/Auth -->
         <file name="Client.php" role="php" />
         <file name="ClientException.php" role="php" />
         <file name="ClientHttpException.php" role="php" />
@@ -362,61 +362,61 @@
          <file name="VTodo.php" role="php" />
         </dir> <!-- /bundle/vendor/sabre/vobject/lib/Component -->
         <dir name="ITip">
-           <file name="Broker.php" role="php" />
-           <file name="ITipException.php" role="php" />
-           <file name="Message.php" role="php" />
-           <file name="SameOrganizerForAllComponentsException.php" role="php" />
-          </dir> <!-- /bundle/vendor/sabre/vobject/lib/ITip -->
-          <dir name="Parser">
-           <file name="Json.php" role="php" />
-           <file name="MimeDir.php" role="php" />
-           <file name="Parser.php" role="php" />
-          </dir> <!-- /bundle/vendor/sabre/vobject/lib/Parser -->
+         <file name="Broker.php" role="php" />
+         <file name="ITipException.php" role="php" />
+         <file name="Message.php" role="php" />
+         <file name="SameOrganizerForAllComponentsException.php" role="php" />
+        </dir> <!-- /bundle/vendor/sabre/vobject/lib/ITip -->
+        <dir name="Parser">
+         <file name="Json.php" role="php" />
+         <file name="MimeDir.php" role="php" />
+         <file name="Parser.php" role="php" />
+        </dir> <!-- /bundle/vendor/sabre/vobject/lib/Parser -->
         <dir name="Property">
-           <dir name="ICalendar">
-            <file name="CalAddress.php" role="php" />
-            <file name="Date.php" role="php" />
-            <file name="DateTime.php" role="php" />
-            <file name="Duration.php" role="php" />
-            <file name="Period.php" role="php" />
-            <file name="Recur.php" role="php" />
-           </dir> <!-- /bundle/vendor/sabre/vobject/lib/Property/ICalendar -->
-           <dir name="VCard">
-            <file name="Date.php" role="php" />
-            <file name="DateAndOrTime.php" role="php" />
-            <file name="DateTime.php" role="php" />
-            <file name="LanguageTag.php" role="php" />
-            <file name="TimeStamp.php" role="php" />
-           </dir> <!-- /bundle/vendor/sabre/vobject/lib/Property/ICalendar -->
-           <file name="Binary.php" role="php" />
-           <file name="Boolean.php" role="php" />
-           <file name="FlatText.php" role="php" />
+         <dir name="ICalendar">
+          <file name="CalAddress.php" role="php" />
+          <file name="Date.php" role="php" />
+          <file name="DateTime.php" role="php" />
+          <file name="Duration.php" role="php" />
+          <file name="Period.php" role="php" />
+          <file name="Recur.php" role="php" />
+         </dir> <!-- /bundle/vendor/sabre/vobject/lib/Property/ICalendar -->
+         <dir name="VCard">
+          <file name="Date.php" role="php" />
+          <file name="DateAndOrTime.php" role="php" />
+          <file name="DateTime.php" role="php" />
+          <file name="LanguageTag.php" role="php" />
+          <file name="TimeStamp.php" role="php" />
+         </dir> <!-- /bundle/vendor/sabre/vobject/lib/Property/VCard -->
+         <file name="Binary.php" role="php" />
+         <file name="Boolean.php" role="php" />
+         <file name="FlatText.php" role="php" />
          <file name="FloatValue.php" role="php" />
          <file name="IntegerValue.php" role="php" />
-           <file name="Text.php" role="php" />
-           <file name="Time.php" role="php" />
-           <file name="Unknown.php" role="php" />
-           <file name="Uri.php" role="php" />
-           <file name="UtcOffset.php" role="php" />
-          </dir> <!-- /bundle/vendor/sabre/vobject/lib/Property -->
-          <dir name="Recur">
-           <file name="EventIterator.php" role="php" />
-           <file name="NoInstancesException.php" role="php" />
-           <file name="RDateIterator.php" role="php" />
-           <file name="RRuleIterator.php" role="php" />
-          </dir> <!-- /bundle/vendor/sabre/vobject/lib/Recur -->
-          <dir name="Splitter">
-           <file name="ICalendar.php" role="php" />
-           <file name="SplitterInterface.php" role="php" />
-           <file name="VCard.php" role="php" />
-          </dir> <!-- /bundle/vendor/sabre/vobject/lib/Splitter -->
-          <dir name="timezonedata">
-           <file name="exchangezones.php" role="php" />
-           <file name="lotuszones.php" role="php" />
-           <file name="php-bc.php" role="php" />
-           <file name="php-workaround.php" role="php" />
-           <file name="windowszones.php" role="php" />
-          </dir> <!-- /bundle/vendor/sabre/vobject/lib/timezonedata -->
+         <file name="Text.php" role="php" />
+         <file name="Time.php" role="php" />
+         <file name="Unknown.php" role="php" />
+         <file name="Uri.php" role="php" />
+         <file name="UtcOffset.php" role="php" />
+        </dir> <!-- /bundle/vendor/sabre/vobject/lib/Property -->
+        <dir name="Recur">
+         <file name="EventIterator.php" role="php" />
+         <file name="NoInstancesException.php" role="php" />
+         <file name="RDateIterator.php" role="php" />
+         <file name="RRuleIterator.php" role="php" />
+        </dir> <!-- /bundle/vendor/sabre/vobject/lib/Recur -->
+        <dir name="Splitter">
+         <file name="ICalendar.php" role="php" />
+         <file name="SplitterInterface.php" role="php" />
+         <file name="VCard.php" role="php" />
+        </dir> <!-- /bundle/vendor/sabre/vobject/lib/Splitter -->
+        <dir name="timezonedata">
+         <file name="exchangezones.php" role="php" />
+         <file name="lotuszones.php" role="php" />
+         <file name="php-bc.php" role="php" />
+         <file name="php-workaround.php" role="php" />
+         <file name="windowszones.php" role="php" />
+        </dir> <!-- /bundle/vendor/sabre/vobject/lib/timezonedata -->
         <file name="Cli.php" role="php" />
         <file name="Component.php" role="php" />
         <file name="DateTimeParser.php" role="php" />
@@ -449,7 +449,7 @@
       <file name="LICENSE" role="doc" />
       <file name="UPGRADING" role="doc" />
      </dir> <!-- /doc/Horde/Dav -->
-     </dir> <!-- /doc/Horde -->
+    </dir> <!-- /doc/Horde -->
    </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
@@ -475,9 +475,8 @@
        <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
       </file>
      </dir> <!-- /lib/Horde/Dav -->
-     </dir> <!-- /lib/Horde -->
-    <!-- //lib/Sabre -->
-   </dir> <!-- //lib -->
+    </dir> <!-- /lib/Horde -->
+   </dir> <!-- /lib -->
    <dir name="locale">
     <dir name="da">
      <dir name="LC_MESSAGES">
@@ -501,14 +500,14 @@
      </dir> <!-- /migration/Horde/Dav -->
     </dir> <!-- /migration/Horde -->
    </dir> <!-- /migration -->
-   </dir> <!-- / -->
+  </dir> <!-- / -->
  </contents>
  <dependencies>
   <required>
    <php>
     <min>5.4.1</min>
-    <max>6.0.0alpha1</max>
-    <exclude>6.0.0alpha1</exclude>
+    <max>8.0.0alpha1</max>
+    <exclude>8.0.0alpha1</exclude>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -584,31 +583,10 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="LICENSE" name="doc/Horde/Dav/LICENSE" />
-   <install as="UPGRADING" name="doc/Horde/Dav/UPGRADING" />
-   <install as="Horde/Dav/Auth.php" name="lib/Horde/Dav/Auth.php" />
-   <install as="Horde/Dav/Collection.php" name="lib/Horde/Dav/Collection.php" />
-   <install as="Horde/Dav/Exception.php" name="lib/Horde/Dav/Exception.php" />
-   <install as="Horde/Dav/File.php" name="lib/Horde/Dav/File.php" />
-   <install as="Horde/Dav/Locks.php" name="lib/Horde/Dav/Locks.php" />
-   <install as="Horde/Dav/Principals.php" name="lib/Horde/Dav/Principals.php" />
-   <install as="Horde/Dav/RootCollection.php" name="lib/Horde/Dav/RootCollection.php" />
-   <install as="Horde/Dav/Translation.php" name="lib/Horde/Dav/Translation.php" />
-   <install as="Horde/Dav/Calendar/Backend.php" name="lib/Horde/Dav/Calendar/Backend.php" />
-   <install as="Horde/Dav/Contacts/Backend.php" name="lib/Horde/Dav/Contacts/Backend.php" />
-   <install as="Horde/Dav/Storage/Base.php" name="lib/Horde/Dav/Storage/Base.php" />
-   <install as="Horde/Dav/Storage/Sql.php" name="lib/Horde/Dav/Storage/Sql.php" />
-   <install as="locale/Horde_Dav.pot" name="locale/Horde_Dav.pot" />
-   <install as="locale/da/LC_MESSAGES/Horde_Dav.mo" name="locale/da/LC_MESSAGES/Horde_Dav.mo" />
-   <install as="locale/da/LC_MESSAGES/Horde_Dav.po" name="locale/da/LC_MESSAGES/Horde_Dav.po" />
-   <install as="locale/hu/LC_MESSAGES/Horde_Dav.mo" name="locale/hu/LC_MESSAGES/Horde_Dav.mo" />
-   <install as="locale/hu/LC_MESSAGES/Horde_Dav.po" name="locale/hu/LC_MESSAGES/Horde_Dav.po" />
-   <install as="migration/1_horde_dav_base_tables.php" name="migration/Horde/Dav/1_horde_dav_base_tables.php" />
-   <install as="migration/2_horde_dav_remove_unique_index.php" name="migration/Horde/Dav/2_horde_dav_remove_unique_index.php" />
-   <install as="ChangeLog.dav.md" name="bundle/vendor/sabre/dav/ChangeLog.md" />
-   <install as="CONTRIBUTING.dav.md" name="bundle/vendor/sabre/dav/CONTRIBUTING.md" />
-   <install as="LICENSE.dav" name="bundle/vendor/sabre/dav/LICENSE" />
-   <install as="README.dav.md" name="bundle/vendor/sabre/dav/README.md" />
+   <install as="Sabre/DAV/ChangeLog.md" name="bundle/vendor/sabre/dav/ChangeLog.md" />
+   <install as="Sabre/DAV/CONTRIBUTING.md" name="bundle/vendor/sabre/dav/CONTRIBUTING.md" />
+   <install as="Sabre/DAV/LICENSE" name="bundle/vendor/sabre/dav/LICENSE" />
+   <install as="Sabre/DAV/README.md" name="bundle/vendor/sabre/dav/README.md" />
    <install as="Sabre/CalDAV/Calendar.php" name="bundle/vendor/sabre/dav/lib/CalDAV/Calendar.php" />
    <install as="Sabre/CalDAV/CalendarHome.php" name="bundle/vendor/sabre/dav/lib/CalDAV/CalendarHome.php" />
    <install as="Sabre/CalDAV/CalendarObject.php" name="bundle/vendor/sabre/dav/lib/CalDAV/CalendarObject.php" />
@@ -660,9 +638,9 @@
    <install as="Sabre/CalDAV/Property/SupportedCollationSet.php" name="bundle/vendor/sabre/dav/lib/CalDAV/Property/SupportedCollationSet.php" />
    <install as="Sabre/CalDAV/Schedule/IInbox.php" name="bundle/vendor/sabre/dav/lib/CalDAV/Schedule/IInbox.php" />
    <install as="Sabre/CalDAV/Schedule/IMipPlugin.php" name="bundle/vendor/sabre/dav/lib/CalDAV/Schedule/IMipPlugin.php" />
+   <install as="Sabre/CalDAV/Schedule/Inbox.php" name="bundle/vendor/sabre/dav/lib/CalDAV/Schedule/Inbox.php" />
    <install as="Sabre/CalDAV/Schedule/IOutbox.php" name="bundle/vendor/sabre/dav/lib/CalDAV/Schedule/IOutbox.php" />
    <install as="Sabre/CalDAV/Schedule/ISchedulingObject.php" name="bundle/vendor/sabre/dav/lib/CalDAV/Schedule/ISchedulingObject.php" />
-   <install as="Sabre/CalDAV/Schedule/Inbox.php" name="bundle/vendor/sabre/dav/lib/CalDAV/Schedule/Inbox.php" />
    <install as="Sabre/CalDAV/Schedule/Outbox.php" name="bundle/vendor/sabre/dav/lib/CalDAV/Schedule/Outbox.php" />
    <install as="Sabre/CalDAV/Schedule/Plugin.php" name="bundle/vendor/sabre/dav/lib/CalDAV/Schedule/Plugin.php" />
    <install as="Sabre/CalDAV/Schedule/SchedulingObject.php" name="bundle/vendor/sabre/dav/lib/CalDAV/Schedule/SchedulingObject.php" />
@@ -693,16 +671,16 @@
    <install as="Sabre/DAV/ICollection.php" name="bundle/vendor/sabre/dav/lib/DAV/ICollection.php" />
    <install as="Sabre/DAV/IExtendedCollection.php" name="bundle/vendor/sabre/dav/lib/DAV/IExtendedCollection.php" />
    <install as="Sabre/DAV/IFile.php" name="bundle/vendor/sabre/dav/lib/DAV/IFile.php" />
-   <install as="Sabre/DAV/INode.php" name="bundle/vendor/sabre/dav/lib/DAV/INode.php" />
    <install as="Sabre/DAV/IMoveTarget.php" name="bundle/vendor/sabre/dav/lib/DAV/IMoveTarget.php" />
    <install as="Sabre/DAV/IMultiGet.php" name="bundle/vendor/sabre/dav/lib/DAV/IMultiGet.php" />
+   <install as="Sabre/DAV/INode.php" name="bundle/vendor/sabre/dav/lib/DAV/INode.php" />
    <install as="Sabre/DAV/IProperties.php" name="bundle/vendor/sabre/dav/lib/DAV/IProperties.php" />
    <install as="Sabre/DAV/IQuota.php" name="bundle/vendor/sabre/dav/lib/DAV/IQuota.php" />
    <install as="Sabre/DAV/Node.php" name="bundle/vendor/sabre/dav/lib/DAV/Node.php" />
-   <install as="Sabre/DAV/PropFind.php" name="bundle/vendor/sabre/dav/lib/DAV/PropFind.php" />
-   <install as="Sabre/DAV/PropPatch.php" name="bundle/vendor/sabre/dav/lib/DAV/PropPatch.php" />
    <install as="Sabre/DAV/Property.php" name="bundle/vendor/sabre/dav/lib/DAV/Property.php" />
    <install as="Sabre/DAV/PropertyInterface.php" name="bundle/vendor/sabre/dav/lib/DAV/PropertyInterface.php" />
+   <install as="Sabre/DAV/PropFind.php" name="bundle/vendor/sabre/dav/lib/DAV/PropFind.php" />
+   <install as="Sabre/DAV/PropPatch.php" name="bundle/vendor/sabre/dav/lib/DAV/PropPatch.php" />
    <install as="Sabre/DAV/Server.php" name="bundle/vendor/sabre/dav/lib/DAV/Server.php" />
    <install as="Sabre/DAV/ServerPlugin.php" name="bundle/vendor/sabre/dav/lib/DAV/ServerPlugin.php" />
    <install as="Sabre/DAV/SimpleCollection.php" name="bundle/vendor/sabre/dav/lib/DAV/SimpleCollection.php" />
@@ -729,13 +707,13 @@
    <install as="Sabre/DAV/Browser/assets/favicon.ico" name="bundle/vendor/sabre/dav/lib/DAV/Browser/assets/favicon.ico" />
    <install as="Sabre/DAV/Browser/assets/sabredav.css" name="bundle/vendor/sabre/dav/lib/DAV/Browser/assets/sabredav.css" />
    <install as="Sabre/DAV/Browser/assets/sabredav.png" name="bundle/vendor/sabre/dav/lib/DAV/Browser/assets/sabredav.png" />
+   <install as="Sabre/DAV/Browser/assets/openiconic/ICON-LICENSE" name="bundle/vendor/sabre/dav/lib/DAV/Browser/assets/openiconic/ICON-LICENSE" />
    <install as="Sabre/DAV/Browser/assets/openiconic/open-iconic.css" name="bundle/vendor/sabre/dav/lib/DAV/Browser/assets/openiconic/open-iconic.css" />
    <install as="Sabre/DAV/Browser/assets/openiconic/open-iconic.eot" name="bundle/vendor/sabre/dav/lib/DAV/Browser/assets/openiconic/open-iconic.eot" />
    <install as="Sabre/DAV/Browser/assets/openiconic/open-iconic.otf" name="bundle/vendor/sabre/dav/lib/DAV/Browser/assets/openiconic/open-iconic.otf" />
    <install as="Sabre/DAV/Browser/assets/openiconic/open-iconic.svg" name="bundle/vendor/sabre/dav/lib/DAV/Browser/assets/openiconic/open-iconic.svg" />
    <install as="Sabre/DAV/Browser/assets/openiconic/open-iconic.ttf" name="bundle/vendor/sabre/dav/lib/DAV/Browser/assets/openiconic/open-iconic.ttf" />
    <install as="Sabre/DAV/Browser/assets/openiconic/open-iconic.woff" name="bundle/vendor/sabre/dav/lib/DAV/Browser/assets/openiconic/open-iconic.woff" />
-   <install as="Sabre/DAV/Browser/assets/openiconic/ICON-LICENSE" name="bundle/vendor/sabre/dav/lib/DAV/Browser/assets/openiconic/ICON-LICENSE" />
    <install as="Sabre/DAV/Exception/BadRequest.php" name="bundle/vendor/sabre/dav/lib/DAV/Exception/BadRequest.php" />
    <install as="Sabre/DAV/Exception/Conflict.php" name="bundle/vendor/sabre/dav/lib/DAV/Exception/Conflict.php" />
    <install as="Sabre/DAV/Exception/ConflictingLock.php" name="bundle/vendor/sabre/dav/lib/DAV/Exception/ConflictingLock.php" />
@@ -789,8 +767,8 @@
    <install as="Sabre/DAV/PropertyStorage/Plugin.php" name="bundle/vendor/sabre/dav/lib/DAV/PropertyStorage/Plugin.php" />
    <install as="Sabre/DAV/PropertyStorage/Backend/BackendInterface.php" name="bundle/vendor/sabre/dav/lib/DAV/PropertyStorage/Backend/BackendInterface.php" />
    <install as="Sabre/DAV/PropertyStorage/Backend/PDO.php" name="bundle/vendor/sabre/dav/lib/DAV/PropertyStorage/Backend/PDO.php" />
-   <install as="Sabre/DAV/Sync/Plugin.php" name="bundle/vendor/sabre/dav/lib/DAV/Sync/Plugin.php" />
    <install as="Sabre/DAV/Sync/ISyncCollection.php" name="bundle/vendor/sabre/dav/lib/DAV/Sync/ISyncCollection.php" />
+   <install as="Sabre/DAV/Sync/Plugin.php" name="bundle/vendor/sabre/dav/lib/DAV/Sync/Plugin.php" />
    <install as="Sabre/DAVACL/AbstractPrincipalCollection.php" name="bundle/vendor/sabre/dav/lib/DAVACL/AbstractPrincipalCollection.php" />
    <install as="Sabre/DAVACL/IACL.php" name="bundle/vendor/sabre/dav/lib/DAVACL/IACL.php" />
    <install as="Sabre/DAVACL/IPrincipal.php" name="bundle/vendor/sabre/dav/lib/DAVACL/IPrincipal.php" />
@@ -811,20 +789,18 @@
    <install as="Sabre/DAVACL/Property/CurrentUserPrivilegeSet.php" name="bundle/vendor/sabre/dav/lib/DAVACL/Property/CurrentUserPrivilegeSet.php" />
    <install as="Sabre/DAVACL/Property/Principal.php" name="bundle/vendor/sabre/dav/lib/DAVACL/Property/Principal.php" />
    <install as="Sabre/DAVACL/Property/SupportedPrivilegeSet.php" name="bundle/vendor/sabre/dav/lib/DAVACL/Property/SupportedPrivilegeSet.php" />
-   <install as="CHANGELOG.event.md" name="bundle/vendor/sabre/event/CHANGELOG.md" />
-   <install as="LICENSE.event" name="bundle/vendor/sabre/event/LICENSE" />
-   <install as="README.event.md" name="bundle/vendor/sabre/event/README.md" />
+   <install as="Sabre/Event/CHANGELOG.md" name="bundle/vendor/sabre/event/CHANGELOG.md" />
+   <install as="Sabre/Event/LICENSE" name="bundle/vendor/sabre/event/LICENSE" />
+   <install as="Sabre/Event/README.md" name="bundle/vendor/sabre/event/README.md" />
    <install as="Sabre/Event/EventEmitter.php" name="bundle/vendor/sabre/event/lib/EventEmitter.php" />
    <install as="Sabre/Event/EventEmitterInterface.php" name="bundle/vendor/sabre/event/lib/EventEmitterInterface.php" />
    <install as="Sabre/Event/EventEmitterTrait.php" name="bundle/vendor/sabre/event/lib/EventEmitterTrait.php" />
+   <install as="Sabre/Event/Promise.php" name="bundle/vendor/sabre/event/lib/Promise.php" />
+   <install as="Sabre/Event/PromiseAlreadyResolvedException.php" name="bundle/vendor/sabre/event/lib/PromiseAlreadyResolvedException.php" />
    <install as="Sabre/Event/Version.php" name="bundle/vendor/sabre/event/lib/Version.php" />
-   <install as="Sabre/HTTP/Auth/AWS.php" name="bundle/vendor/sabre/http/lib/Auth/AWS.php" />
-   <install as="Sabre/HTTP/Auth/AbstractAuth.php" name="bundle/vendor/sabre/http/lib/Auth/AbstractAuth.php" />
-   <install as="Sabre/HTTP/Auth/Basic.php" name="bundle/vendor/sabre/http/lib/Auth/Basic.php" />
-   <install as="Sabre/HTTP/Auth/Digest.php" name="bundle/vendor/sabre/http/lib/Auth/Digest.php" />
-   <install as="ChangeLog.http.md" name="bundle/vendor/sabre/http/ChangeLog.md" />
-   <install as="LICENSE.http" name="bundle/vendor/sabre/http/LICENSE" />
-   <install as="README.http.md" name="bundle/vendor/sabre/http/README.md" />
+   <install as="Sabre/HTTP/ChangeLog.md" name="bundle/vendor/sabre/http/ChangeLog.md" />
+   <install as="Sabre/HTTP/LICENSE" name="bundle/vendor/sabre/http/LICENSE" />
+   <install as="Sabre/HTTP/README.md" name="bundle/vendor/sabre/http/README.md" />
    <install as="Sabre/HTTP/Client.php" name="bundle/vendor/sabre/http/lib/Client.php" />
    <install as="Sabre/HTTP/ClientException.php" name="bundle/vendor/sabre/http/lib/ClientException.php" />
    <install as="Sabre/HTTP/ClientHttpException.php" name="bundle/vendor/sabre/http/lib/ClientHttpException.php" />
@@ -842,9 +818,13 @@
    <install as="Sabre/HTTP/URLUtil.php" name="bundle/vendor/sabre/http/lib/URLUtil.php" />
    <install as="Sabre/HTTP/Util.php" name="bundle/vendor/sabre/http/lib/Util.php" />
    <install as="Sabre/HTTP/Version.php" name="bundle/vendor/sabre/http/lib/Version.php" />
-   <install as="ChangeLog.vobject.md" name="bundle/vendor/sabre/vobject/ChangeLog.md" />
-   <install as="LICENSE.vobject" name="bundle/vendor/sabre/vobject/LICENSE" />
-   <install as="README.vobject.md" name="bundle/vendor/sabre/vobject/README.md" />
+   <install as="Sabre/HTTP/Auth/AbstractAuth.php" name="bundle/vendor/sabre/http/lib/Auth/AbstractAuth.php" />
+   <install as="Sabre/HTTP/Auth/AWS.php" name="bundle/vendor/sabre/http/lib/Auth/AWS.php" />
+   <install as="Sabre/HTTP/Auth/Basic.php" name="bundle/vendor/sabre/http/lib/Auth/Basic.php" />
+   <install as="Sabre/HTTP/Auth/Digest.php" name="bundle/vendor/sabre/http/lib/Auth/Digest.php" />
+   <install as="Sabre/VObject/ChangeLog.md" name="bundle/vendor/sabre/vobject/ChangeLog.md" />
+   <install as="Sabre/VObject/LICENSE" name="bundle/vendor/sabre/vobject/LICENSE" />
+   <install as="Sabre/VObject/README.md" name="bundle/vendor/sabre/vobject/README.md" />
    <install as="Sabre/VObject/Cli.php" name="bundle/vendor/sabre/vobject/lib/Cli.php" />
    <install as="Sabre/VObject/Component.php" name="bundle/vendor/sabre/vobject/lib/Component.php" />
    <install as="Sabre/VObject/DateTimeParser.php" name="bundle/vendor/sabre/vobject/lib/DateTimeParser.php" />
@@ -880,6 +860,16 @@
    <install as="Sabre/VObject/Parser/Json.php" name="bundle/vendor/sabre/vobject/lib/Parser/Json.php" />
    <install as="Sabre/VObject/Parser/MimeDir.php" name="bundle/vendor/sabre/vobject/lib/Parser/MimeDir.php" />
    <install as="Sabre/VObject/Parser/Parser.php" name="bundle/vendor/sabre/vobject/lib/Parser/Parser.php" />
+   <install as="Sabre/VObject/Property/Binary.php" name="bundle/vendor/sabre/vobject/lib/Property/Binary.php" />
+   <install as="Sabre/VObject/Property/Boolean.php" name="bundle/vendor/sabre/vobject/lib/Property/Boolean.php" />
+   <install as="Sabre/VObject/Property/FlatText.php" name="bundle/vendor/sabre/vobject/lib/Property/FlatText.php" />
+   <install as="Sabre/VObject/Property/FloatValue.php" name="bundle/vendor/sabre/vobject/lib/Property/FloatValue.php" />
+   <install as="Sabre/VObject/Property/IntegerValue.php" name="bundle/vendor/sabre/vobject/lib/Property/IntegerValue.php" />
+   <install as="Sabre/VObject/Property/Text.php" name="bundle/vendor/sabre/vobject/lib/Property/Text.php" />
+   <install as="Sabre/VObject/Property/Time.php" name="bundle/vendor/sabre/vobject/lib/Property/Time.php" />
+   <install as="Sabre/VObject/Property/Unknown.php" name="bundle/vendor/sabre/vobject/lib/Property/Unknown.php" />
+   <install as="Sabre/VObject/Property/Uri.php" name="bundle/vendor/sabre/vobject/lib/Property/Uri.php" />
+   <install as="Sabre/VObject/Property/UtcOffset.php" name="bundle/vendor/sabre/vobject/lib/Property/UtcOffset.php" />
    <install as="Sabre/VObject/Property/ICalendar/CalAddress.php" name="bundle/vendor/sabre/vobject/lib/Property/ICalendar/CalAddress.php" />
    <install as="Sabre/VObject/Property/ICalendar/Date.php" name="bundle/vendor/sabre/vobject/lib/Property/ICalendar/Date.php" />
    <install as="Sabre/VObject/Property/ICalendar/DateTime.php" name="bundle/vendor/sabre/vobject/lib/Property/ICalendar/DateTime.php" />
@@ -891,16 +881,6 @@
    <install as="Sabre/VObject/Property/VCard/DateTime.php" name="bundle/vendor/sabre/vobject/lib/Property/VCard/DateTime.php" />
    <install as="Sabre/VObject/Property/VCard/LanguageTag.php" name="bundle/vendor/sabre/vobject/lib/Property/VCard/LanguageTag.php" />
    <install as="Sabre/VObject/Property/VCard/TimeStamp.php" name="bundle/vendor/sabre/vobject/lib/Property/VCard/TimeStamp.php" />
-   <install as="Sabre/VObject/Property/Binary.php" name="bundle/vendor/sabre/vobject/lib/Property/Binary.php" />
-   <install as="Sabre/VObject/Property/Boolean.php" name="bundle/vendor/sabre/vobject/lib/Property/Boolean.php" />
-   <install as="Sabre/VObject/Property/FlatText.php" name="bundle/vendor/sabre/vobject/lib/Property/FlatText.php" />
-   <install as="Sabre/VObject/Property/FloatValue.php" name="bundle/vendor/sabre/vobject/lib/Property/FloatValue.php" />
-   <install as="Sabre/VObject/Property/IntegerValue.php" name="bundle/vendor/sabre/vobject/lib/Property/IntegerValue.php" />
-   <install as="Sabre/VObject/Property/Text.php" name="bundle/vendor/sabre/vobject/lib/Property/Text.php" />
-   <install as="Sabre/VObject/Property/Time.php" name="bundle/vendor/sabre/vobject/lib/Property/Time.php" />
-   <install as="Sabre/VObject/Property/Unknown.php" name="bundle/vendor/sabre/vobject/lib/Property/Unknown.php" />
-   <install as="Sabre/VObject/Property/Uri.php" name="bundle/vendor/sabre/vobject/lib/Property/Uri.php" />
-   <install as="Sabre/VObject/Property/UtcOffset.php" name="bundle/vendor/sabre/vobject/lib/Property/UtcOffset.php" />
    <install as="Sabre/VObject/Recur/EventIterator.php" name="bundle/vendor/sabre/vobject/lib/Recur/EventIterator.php" />
    <install as="Sabre/VObject/Recur/NoInstancesException.php" name="bundle/vendor/sabre/vobject/lib/Recur/NoInstancesException.php" />
    <install as="Sabre/VObject/Recur/RDateIterator.php" name="bundle/vendor/sabre/vobject/lib/Recur/RDateIterator.php" />
@@ -913,7 +893,28 @@
    <install as="Sabre/VObject/timezonedata/php-bc.php" name="bundle/vendor/sabre/vobject/lib/timezonedata/php-bc.php" />
    <install as="Sabre/VObject/timezonedata/php-workaround.php" name="bundle/vendor/sabre/vobject/lib/timezonedata/php-workaround.php" />
    <install as="Sabre/VObject/timezonedata/windowszones.php" name="bundle/vendor/sabre/vobject/lib/timezonedata/windowszones.php" />
-   </filelist>
+   <install as="LICENSE" name="doc/Horde/Dav/LICENSE" />
+   <install as="UPGRADING" name="doc/Horde/Dav/UPGRADING" />
+   <install as="Horde/Dav/Auth.php" name="lib/Horde/Dav/Auth.php" />
+   <install as="Horde/Dav/Collection.php" name="lib/Horde/Dav/Collection.php" />
+   <install as="Horde/Dav/Exception.php" name="lib/Horde/Dav/Exception.php" />
+   <install as="Horde/Dav/File.php" name="lib/Horde/Dav/File.php" />
+   <install as="Horde/Dav/Locks.php" name="lib/Horde/Dav/Locks.php" />
+   <install as="Horde/Dav/Principals.php" name="lib/Horde/Dav/Principals.php" />
+   <install as="Horde/Dav/RootCollection.php" name="lib/Horde/Dav/RootCollection.php" />
+   <install as="Horde/Dav/Translation.php" name="lib/Horde/Dav/Translation.php" />
+   <install as="Horde/Dav/Calendar/Backend.php" name="lib/Horde/Dav/Calendar/Backend.php" />
+   <install as="Horde/Dav/Contacts/Backend.php" name="lib/Horde/Dav/Contacts/Backend.php" />
+   <install as="Horde/Dav/Storage/Base.php" name="lib/Horde/Dav/Storage/Base.php" />
+   <install as="Horde/Dav/Storage/Sql.php" name="lib/Horde/Dav/Storage/Sql.php" />
+   <install as="locale/Horde_Dav.pot" name="locale/Horde_Dav.pot" />
+   <install as="locale/da/LC_MESSAGES/Horde_Dav.mo" name="locale/da/LC_MESSAGES/Horde_Dav.mo" />
+   <install as="locale/da/LC_MESSAGES/Horde_Dav.po" name="locale/da/LC_MESSAGES/Horde_Dav.po" />
+   <install as="locale/hu/LC_MESSAGES/Horde_Dav.mo" name="locale/hu/LC_MESSAGES/Horde_Dav.mo" />
+   <install as="locale/hu/LC_MESSAGES/Horde_Dav.po" name="locale/hu/LC_MESSAGES/Horde_Dav.po" />
+   <install as="migration/1_horde_dav_base_tables.php" name="migration/Horde/Dav/1_horde_dav_base_tables.php" />
+   <install as="migration/2_horde_dav_remove_unique_index.php" name="migration/Horde/Dav/2_horde_dav_remove_unique_index.php" />
+  </filelist>
  </phprelease>
  <changelog>
   <release>
@@ -1116,7 +1117,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-04-26</date>
+   <date>2016-04-27</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [jan] Update to SabreDAV 2.1 (Stefan Popp &lt;se12m014@technikum-wien.at&gt;).
