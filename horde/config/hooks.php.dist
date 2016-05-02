@@ -487,7 +487,7 @@ class Horde_Hooks
 //            'userId' => $userId,
 //            'credentials' => $entry
 //        );
-//     }
+//    }
 
 
 //    // POSTAUTHENTICATE HOOK: See above for description of format.
@@ -541,24 +541,26 @@ class Horde_Hooks
 //
 //        return $ret;
 //
-//      // Example #2: Providing a client certificate <-> horde username store.
-//      // Normally, the following would be looked up in a persistent storage
-//      // backend. Note this example also stores a plaintext password to avoid
-//      // cluttering up the example. DO NOT DO THIS. If your x509 client
-//      // certificate setup requires that you still pass a password to the IMAP
-//      // server, the password MUST be stored encrypted. In this example, we
-//      // store a unique identifier for the certificate to add an additional level
-//      // of security. It wouldn't be too hard to create a admin UI for managing
-//      // client certificates and "registering" them to the user.
-//      $mapping = array('user@example.com' => array(
-//         'credentials' => array('password' => 'passw0rd'), 'certificate_id' => '123456'));
+//        // Example #2: Providing a client certificate <-> horde username
+//        // store.
+//        // Normally, the following would be looked up in a persistent storage
+//        // backend. Note this example also stores a plaintext password to
+//        // avoid cluttering up the example. DO NOT DO THIS. If your x509
+//        // client certificate setup requires that you still pass a password
+//        // to the IMAP server, the password MUST be stored encrypted. In this
+//        // example, we store a unique identifier for the certificate to add
+//        // an additional level of security. It wouldn't be too hard to create
+//        // a admin UI for managing client certificates and "registering" them
+//        // to the user.
+//        $mapping = array('user@example.com' => array(
+//           'credentials' => array('password' => 'passw0rd'), 'certificate_id' => '123456'));
 //
-//      if (empty($mapping[$userId]) || $credentials['certificate_id'] != $mapping[$userId]['certificate_id']) {
-//         return false;
-//      }
+//        if (empty($mapping[$userId]) || $credentials['certificate_id'] != $mapping[$userId]['certificate_id']) {
+//           return false;
+//        }
 //
-//     return $mapping[$userId]['credentials'];
-//     }
+//        return $mapping[$userId]['credentials'];
+//    }
 
 
 //    // USERNAME HOOK: See above for description of format.
