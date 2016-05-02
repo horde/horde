@@ -38,7 +38,7 @@ class Horde_Core_Factory_DavServer extends Horde_Core_Factory_Injector
                         ->create()
                 )
             ),
-            $injector->getInstance('Horde_Core_Factory_Identity_UsernameHook')
+            $injector->getInstance('Horde_Core_Factory_Identity_DavUsernameHook')
         );
         $principals = new DAVACL\PrincipalCollection($principalBackend);
         $principals->disableListing = $conf['auth']['list_users'] == 'input';
@@ -62,7 +62,7 @@ class Horde_Core_Factory_DavServer extends Horde_Core_Factory_Injector
         );
         $server->addPlugin(
             new DAV\Auth\Plugin(
-                new Horde_Dav_Auth(
+                new Horde_Core_Dav_Auth(
                     $injector->getInstance('Horde_Core_Factory_Auth')->create()
                 ),
                 'Horde DAV Server'

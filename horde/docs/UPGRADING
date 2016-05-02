@@ -52,6 +52,16 @@ The 'maps' configuration options have been moved to the ``horde`` application
 configuration.
 
 
+Hooks (hooks.php)
+-----------------
+
+The following hooks have been added::
+
+   davusername
+
+See ``config/hooks.php.dist`` for further details.
+
+
 Upgrading Horde from 5.1.x to 5.2
 =================================
 

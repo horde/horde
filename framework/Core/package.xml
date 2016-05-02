@@ -28,10 +28,10 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2016-03-08</date>
+ <date>2016-05-02</date>
  <version>
-  <release>2.23.1</release>
-  <api>2.23.0</api>
+  <release>2.24.0</release>
+  <api>2.24.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Add classes to support the Horde 6 davusername hook.
 * [jan] Fix session_regenerate_id() warnings with PHP 7.
 * [jan] Fix running garbage collection on cached CSS and JS files (Bug #14285).
  </notes>
@@ -400,6 +401,9 @@
       <dir name="Data">
        <file name="Storage.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Data -->
+      <dir name="Dav">
+       <file name="Auth.php" role="php" />
+      </dir> <!-- /lib/Horde/Core/Dav -->
       <dir name="Db">
        <file name="Migration.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Db -->
@@ -408,6 +412,7 @@
       </dir> <!-- /lib/Horde/Core/Editor -->
       <dir name="Factory">
        <dir name="Identity">
+        <file name="DavUsernameHook.php" role="php" />
         <file name="UsernameHook.php" role="php" />
        </dir> <!-- /lib/Horde/Core/Factory/Identity -->
        <dir name="Secret">
@@ -1821,6 +1826,7 @@
    <install as="Horde/Core/Controller/RequestMapper.php" name="lib/Horde/Core/Controller/RequestMapper.php" />
    <install as="Horde/Core/Controller/SettingsFinder.php" name="lib/Horde/Core/Controller/SettingsFinder.php" />
    <install as="Horde/Core/Data/Storage.php" name="lib/Horde/Core/Data/Storage.php" />
+   <install as="Horde/Core/Dav/Auth.php" name="lib/Horde/Core/Dav/Auth.php" />
    <install as="Horde/Core/Db/Migration.php" name="lib/Horde/Core/Db/Migration.php" />
    <install as="Horde/Core/Editor/Ckeditor.php" name="lib/Horde/Core/Editor/Ckeditor.php" />
    <install as="Horde/Core/Factory/ActiveSyncBackend.php" name="lib/Horde/Core/Factory/ActiveSyncBackend.php" />
@@ -1897,6 +1903,7 @@
    <install as="Horde/Core/Factory/Vfs.php" name="lib/Horde/Core/Factory/Vfs.php" />
    <install as="Horde/Core/Factory/View.php" name="lib/Horde/Core/Factory/View.php" />
    <install as="Horde/Core/Factory/Weather.php" name="lib/Horde/Core/Factory/Weather.php" />
+   <install as="Horde/Core/Factory/Identity/DavUsernameHook.php" name="lib/Horde/Core/Factory/Identity/DavUsernameHook.php" />
    <install as="Horde/Core/Factory/Identity/UsernameHook.php" name="lib/Horde/Core/Factory/Identity/UsernameHook.php" />
    <install as="Horde/Core/Factory/Secret/Cbc.php" name="lib/Horde/Core/Factory/Secret/Cbc.php" />
    <install as="Horde/Core/Group/Ldap.php" name="lib/Horde/Core/Group/Ldap.php" />
@@ -4166,14 +4173,15 @@
   </release>
   <release>
    <version>
-    <release>2.23.1</release>
-    <api>2.23.0</api></version>
+    <release>2.24.0</release>
+    <api>2.24.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-03-08</date>
+   <date>2016-05-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Add classes to support the Horde 6 davusername hook.
 * [jan] Fix session_regenerate_id() warnings with PHP 7.
 * [jan] Fix running garbage collection on cached CSS and JS files (Bug #14285).
    </notes>

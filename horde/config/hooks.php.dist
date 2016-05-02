@@ -120,6 +120,22 @@
  *   [throw Horde_Auth_Exception] - Fatal error.
  *   (string) - The converted username.
  *
+ * davusername
+ * -----------
+ * This hook is used to dynamically convert between a username for DAV clients
+ * and a Horde username.
+ *
+ * May for example be used to add some realm to user names referring to an IMAP
+ * server that would otherwise be picked from the login screen.
+ *
+ * Parameters in:
+ *   $userId (string): The username.
+ *   $toHorde (boolean): If true, convert from DAV ID to Horde ID.
+ *                       Otherwise, do the reverse conversion.
+ *
+ * The return value from this hook is as follows:
+ *   (string) - The converted username.
+ *
  * x509_validate
  * -------------
  * This hook is called during initial authentication when using the X509 client
@@ -617,6 +633,64 @@ class Horde_Hooks
 //             : $userId;
 //       }
 //    }
+
+
+//    // DAV USERNAME HOOK: See above for description of format.
+//    public function davusername($userId, $toHorde)
+//    {
+//        // Example: append realm to user name
+//        global $registry;
+//
+//        if (!$userId) {
+//            return $userId;
+//        }
+//
+//        $server = $registry->mail->server();
+//        $realm = $server['hostspec'];
+//        if ($toHorde) {
+//            return (substr($userId, -strlen($realm)) == $realm)
+//                ? substr($userId, 0, -strlen($realm) - 1)
+//                : $userId;
+//        }
+//
+//        return Horde_String::lower($userId) . '@' . $realm;
+//    }
+//
+//    // The following hook examples may pick up the realm information from
+//    // above:
+//    //
+//    // public function pushapp()
+//    // {
+//    //     if (strpos($_SERVER['REQUEST_URI'], '/rpc') &&
+//    //         preg_match('/@([^\/]*)/', $_SERVER['REQUEST_URI'], $m)) {
+//    //         // Parse the domain part from the user name in the URL, and
+//    //         // save it as the realm.
+//    //         putenv('REALM=' . basename($m[1]));
+//    //     }
+//    // }
+//    //
+//    // public function preauthenticate($userId, $credentials)
+//    // {
+//    //     global $registry;
+//    //     $result = array('userId' => $userId, 'credentials' => $credentials);
+//    //     if ($credentials['authMethod'] == 'authenticate' &&
+//    //         strpos($_SERVER['REQUEST_URI'], '/rpc') &&
+//    //         ($realm = getenv('REALM'))) {
+//    //         // If this was realm'ed RPC request, pick the correct server
+//    //         // from IMP's backend configuration.
+//    //         $servers = $registry
+//    //             ->loadConfigFile('backends.php', 'servers', 'imp')
+//    //             ->config['servers'];
+//    //         foreach ($servers as $key => $server) {
+//    //             if (empty($server['disabled']) &&
+//    //                 $server['hostspec'] == $realm) {
+//    //                 $result['credentials']['server'] = $key;
+//    //                 break;
+//    //             }
+//    //         }
+//    //     }
+//    //     return $result;
+//    // }
 
 
 //    // APPLICATION AUTHENTICATED HOOK: See above for format.

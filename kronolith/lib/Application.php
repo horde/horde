@@ -734,7 +734,13 @@ class Kronolith_Application extends Horde_Registry_Application
     {
         global $calendar_manager, $injector, $registry;
 
-        $hordeUser = $registry->convertUsername($user, true);
+        $hordeUser = $user;
+        try {
+            $hordeUser = $injector->getInstance('Horde_Core_Hooks')
+                ->callHook('davusername', 'horde', array($hordeUser, true));
+        } catch (Horde_Exception_HookNotSet $e) {
+        }
+        $hordeUser = $registry->convertUsername($hordeUser, true);
         $shares = $injector->getInstance('Kronolith_Shares')
             ->listShares($hordeUser);
         $dav = $injector->getInstance('Horde_Dav_Storage');

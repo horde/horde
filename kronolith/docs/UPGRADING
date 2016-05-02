@@ -41,6 +41,7 @@ configurations and database schemes. Log in as an administrator, go to
 Administration => Configuration and update anything that's highlighted as
 outdated.
 
+
 Upgrading Kronolith from 4.x to 5.x
 ===================================
 
@@ -56,14 +57,6 @@ fixed names now.
 
 Resources are now share-based and no longer require an explicit driver
 selection. The configuration options have been changed to reflect this.
-
-
-Hooks (hooks.php)
------------------
-
-The following hooks have been added::
-
-   caldav_url
 
 
 Upgrading Kronolith from 2.3.x to 3.x

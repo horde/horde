@@ -31,18 +31,14 @@ if (isset($GLOBALS['conf']['urls']['pretty']) &&
 } else {
     $accountUrl .= '/rpc.php/';
 }
-$accountParts = array(
-    Horde::url($accountUrl, true, -1) . 'principals',
-    $GLOBALS['registry']->convertUsername($GLOBALS['registry']->getAuth(), false),
-    ''
-);
+$accountUrl = Horde::url($accountUrl, true, -1) . 'principals/';
+$user = $GLOBALS['registry']->convertUsername($GLOBALS['registry']->getAuth(), false);
 try {
-    $accountUrl = $GLOBALS['injector']->getInstance('Horde_Core_Hooks')
-        ->callHook('caldav_url', 'kronolith', $accountParts);
+    $user = $GLOBALS['injector']->getInstance('Horde_Core_Hooks')
+        ->callHook('davusername', 'horde', array($user, false));
 } catch (Horde_Exception_HookNotSet $e) {
-    $accountUrl = implode('/', $accountParts);
 }
-
+$accountUrl .= $user;
 
 ?>
 <div id="kronolithCalendarDialog" class="kronolithDialog">
