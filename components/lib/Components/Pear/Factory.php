@@ -153,7 +153,8 @@ class Components_Pear_Factory
         $package_xml_path,
         Components_Pear_Environment $environment
     ) {
-        $pkg = new PEAR_PackageFile($environment->getPearConfig());
+        $config = $environment->getPearConfig();
+        $pkg = new PEAR_PackageFile($config);
         return Components_Exception_Pear::catchError(
             $pkg->fromPackageFile($package_xml_path, PEAR_VALIDATE_NORMAL)
         );
