@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
+* [mjr] Honor [&apos;content_index&apos;][&apos;enabled&apos;] setting (Bug #14345).
 * [jan] Add Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.eus&gt;).
  </notes>
  <contents>
@@ -776,6 +777,7 @@
    <date>2016-03-21</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
+* [mjr] Honor [&apos;content_index&apos;][&apos;enabled&apos;] setting (Bug #14345).
 * [jan] Add Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.eus&gt;).
    </notes>
   </release>
