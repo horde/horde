@@ -36,7 +36,7 @@ case 'add_bookmark':
     );
 
     try {
-        $bookmark = $trean_gateway->newBookmark($properties);
+        $bookmark = $trean_gateway->newBookmark($properties, !empty($conf['content_index']['enabled']));
     } catch (Exception $e) {
         $notification->push(sprintf(_("There was an error adding the bookmark: %s"), $e->getMessage()), 'horde.error');
     }
