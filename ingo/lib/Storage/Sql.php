@@ -235,7 +235,7 @@ class Ingo_Storage_Sql extends Ingo_Storage
                               $is_blacklist,
                               $address));
                 } catch (Horde_Db_Exception $e) {
-                    Horde::log($result, 'ERR');
+                    Horde::log($e, 'ERR');
                     throw new Ingo_Exception($e);
                 }
             }
