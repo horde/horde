@@ -97,49 +97,51 @@ abstract class Nag_Driver
      * Adds a task and handles notification.
      *
      * @param array $task  A hash with the following possible properties:
-     *     - name: (string) The name (short) of the task.
      *     - desc: (string) The description (long) of the task.
-     *     - start: (OPTIONAL, integer) The start date of the task.
+     *     - name: (string) The name (short) of the task.
+     *     - alarm: (OPTIONAL, integer) The alarm associated with the task.
+     *     - assignee: (OPTIONAL, string) The assignee of the event.
+     *     - completed: (OPTIONAL, integer) The completion state of the task.
+     *     - completed_date: (OPTIONAL, integer) The task's completion date.
      *     - due: (OPTIONAL, integer) The due date of the task.
-     *     - priority: (OPTIONAL, integer) The priority of the task.
      *     - estimate: (OPTIONAL, float) The estimated time to complete the
      *                 task.
-     *     - completed: (OPTIONAL, integer) The completion state of the task.
-     *     - tags: (OPTIONAL, string) The comma delimited list of tags.
-     *     - alarm: (OPTIONAL, integer) The alarm associated with the task.
      *     - methods: (OPTIONAL, array) The overridden alarm notification
      *                methods.
-     *     - uid: (OPTIONAL, string) A Unique Identifier for the task.
-     *     - parent: (OPTIONAL, string) The parent task.
-     *     - private: (OPTIONAL, boolean) Whether the task is private.
      *     - owner: (OPTIONAL, string) The owner of the event.
-     *     - assignee: (OPTIONAL, string) The assignee of the event.
-     *     - completed_date: (OPTIONAL, integer) The task's completion date.
+     *     - parent: (OPTIONAL, string) The parent task.
+     *     - priority: (OPTIONAL, integer) The priority of the task.
+     *     - private: (OPTIONAL, boolean) Whether the task is private.
      *     - recurrence: (OPTIONAL, Horde_Date_Recurrence|array) Recurrence
      *                   information.
+     *     - start: (OPTIONAL, integer) The start date of the task.
+     *     - tags: (OPTIONAL, string) The comma delimited list of tags.
+     *     - uid: (OPTIONAL, string) A Unique Identifier for the task.
      *
      * @return array  array(ID,UID) of new task
      */
     public function add(array $task)
     {
         $task = array_merge(
-            array('start' => 0,
-                  'due' => 0,
-                  'priority' => 3,
-                  'estimate' => 0.0,
-                  'completed' => 0,
-                  'tags' => '',
-                  'alarm' => 0,
-                  'methods' => null,
-                  'uid' => strval(new Horde_Support_Guid()),
-                  'parent' => '',
-                  'private' => false,
-                  'owner' => $GLOBALS['registry']->getAuth(),
-                  'organizer' => null,
-                  'assignee' => null,
-                  'status' => null,
-                  'completed_date' => 0,
-                  'recurrence' => null),
+            array(
+                'alarm' => 0,
+                'assignee' => null,
+                'completed' => 0,
+                'completed_date' => 0,
+                'due' => 0,
+                'estimate' => 0.0,
+                'methods' => null,
+                'organizer' => null,
+                'owner' => $GLOBALS['registry']->getAuth(),
+                'parent' => '',
+                'priority' => 3,
+                'private' => false,
+                'recurrence' => null,
+                'start' => 0,
+                'status' => null,
+                'tags' => '',
+                'uid' => strval(new Horde_Support_Guid()),
+            ),
             $task
         );
 
