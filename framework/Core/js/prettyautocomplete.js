@@ -46,7 +46,7 @@ var PrettyAutocompleter = Class.create({
             onRemove: Prototype.K,
             requireSelection: false,
             existing: [],
-            beforeUpdate: function(i) { return [i]; },
+            beforeUpdate: function(i) { return [i]; }
         }, params || {});
 
         // The original input element is transformed into the hidden input
