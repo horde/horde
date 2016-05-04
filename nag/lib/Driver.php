@@ -99,6 +99,7 @@ abstract class Nag_Driver
      * @param array $task  A hash with the following possible properties:
      *     - desc: (string) The description (long) of the task.
      *     - name: (string) The name (short) of the task.
+     *     - actual: (OPTIONAL, float) The actual time spent on the task.
      *     - alarm: (OPTIONAL, integer) The alarm associated with the task.
      *     - assignee: (OPTIONAL, string) The assignee of the event.
      *     - completed: (OPTIONAL, integer) The completion state of the task.
@@ -124,6 +125,7 @@ abstract class Nag_Driver
     {
         $task = array_merge(
             array(
+                'actual' => 0.0,
                 'alarm' => 0,
                 'assignee' => null,
                 'completed' => 0,

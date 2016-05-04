@@ -147,6 +147,7 @@ class Nag_Driver_Sql extends Nag_Driver
      * Adds a task to the backend storage.
      *
      * @param array $task  A hash with the following possible properties:
+     *     - actual: (float) The actual time spent on the task.
      *     - alarm: (integer) The alarm associated with the task.
      *     - assignee: (string) The assignee of the event.
      *     - completed: (integer) The completion state of the task.
@@ -182,25 +183,35 @@ class Nag_Driver_Sql extends Nag_Driver
             . 'task_completions) '
             . 'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 
-        $values = array($this->_tasklist,
-                        $task['owner'],
-                        $task['assignee'],
-                        $taskId,
-                        Horde_String::convertCharset($task['name'], 'UTF-8', $this->_params['charset']),
-                        Horde_String::convertCharset($task['uid'], 'UTF-8', $this->_params['charset']),
-                        Horde_String::convertCharset($task['desc'], 'UTF-8', $this->_params['charset']),
-                        (int)$task['start'],
-                        (int)$task['due'],
-                        (int)$task['priority'],
-                        number_format(floatval($task['estimate']), 2),
-                        (int)$task['completed'],
-                        (int)$task['alarm'],
-                        serialize(Horde_String::convertCharset($task['methods'], 'UTF-8', $this->_params['charset'])),
-                        (int)$task['private'],
-                        $task['parent'],
-                        $task['organizer'],
-                        $task['status'],
-                        $task['actual']);
+        $values = array(
+            $this->_tasklist,
+            $task['owner'],
+            $task['assignee'],
+            $taskId,
+            Horde_String::convertCharset(
+                $task['name'], 'UTF-8', $this->_params['charset']
+            ),
+            Horde_String::convertCharset(
+                $task['uid'], 'UTF-8', $this->_params['charset']
+            ),
+            Horde_String::convertCharset(
+                $task['desc'], 'UTF-8', $this->_params['charset']
+            ),
+            (int)$task['start'],
+            (int)$task['due'],
+            (int)$task['priority'],
+            number_format(floatval($task['estimate']), 2),
+            (int)$task['completed'],
+            (int)$task['alarm'],
+            serialize(Horde_String::convertCharset(
+                $task['methods'], 'UTF-8', $this->_params['charset']
+            )),
+            (int)$task['private'],
+            $task['parent'],
+            $task['organizer'],
+            $task['status'],
+            number_format(floatval($task['actual']), 2),
+        );
 
         $this->_addRecurrenceFields($values, $task);
 
