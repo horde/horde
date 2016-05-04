@@ -3286,7 +3286,7 @@ KronolithCore = {
                     $('kronolithCalendar' + type + 'EmbedUrl').enable();
                     if (info.edit) {
                         $('kronolithCalendarinternalImport').enable();
-                        if (info.delete) {
+                        if (info.del) {
                             $('kronolithCalendarinternalImportOver').enable();
                         }
                     }

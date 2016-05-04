@@ -120,7 +120,7 @@ class Kronolith_Ajax
                 'show' => Horde_Perms::SHOW,
                 'read' => Horde_Perms::READ,
                 'edit' => Horde_Perms::EDIT,
-                'delete' => Horde_Perms::DELETE,
+                'del'  => Horde_Perms::DELETE,
                 'delegate' => Kronolith::PERMS_DELEGATE
             ),
             'tasks' => $has_tasks ? $registry->tasks->ajaxDefaults() : null,
