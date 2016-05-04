@@ -81,7 +81,7 @@ class Kronolith_Ajax
                 'new_task'  => strval(Horde_Themes::img('new_task.png')),
                 'recur'     => strval(Horde_Themes::img('recur-fff.png')),
                 'download'  => strval(Horde_Themes::img('download.png')),
-                'delete'    => strval(Horde_Themes::img('delete.png'))
+                'del'       => strval(Horde_Themes::img('delete.png'))
             ),
             'new_event' => $injector->getInstance('Kronolith_View_Sidebar')->newLink
                 . $injector->getInstance('Kronolith_View_Sidebar')->newText
@@ -130,7 +130,7 @@ class Kronolith_Ajax
                 'show' => Horde_Perms::SHOW,
                 'read' => Horde_Perms::READ,
                 'edit' => Horde_Perms::EDIT,
-                'delete' => Horde_Perms::DELETE,
+                'del'  => Horde_Perms::DELETE,
                 'delegate' => Kronolith::PERMS_DELEGATE
             ),
             'tasks' => $has_tasks ? $registry->tasks->ajaxDefaults() : null,

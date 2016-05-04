@@ -3318,7 +3318,7 @@ KronolithCore = {
                     if (info.edit) {
                         $('kronolithCalendarinternalImport').enable();
                         $('kronolithCalendarinternalImportUrl').enable();
-                        if (info.delete) {
+                        if (info.del) {
                             $('kronolithCalendarinternalImportOver').enable();
                         }
                     }
@@ -6299,13 +6299,13 @@ KronolithCore = {
         dl_link.insert(new Element('img', { src: Kronolith.conf.images.download, alt: Kronolith.text.download_file }));
 
         d_link = new Element('img', {
-            src: Kronolith.conf.images.delete,
+            src: Kronolith.conf.images.del,
             alt: Kronolith.text.delete_file,
-            class: 'kronolithEventFileDelete'
+            'class': 'kronolithEventFileDelete'
         });
         d_link.store({file: { source: $F('kronolithEventCalendar'), key: $F('kronolithEventId'), name: f.name }});
 
-        $('kronolithEventFileList').insert(new Element('div', { class: 'fileName' }).insert(view_link.update(f.name.escapeHTML() + ' (' + this.humanFileSize(f.size) + ') ')).insert(dl_link).insert(d_link));
+        $('kronolithEventFileList').insert(new Element('div', { 'class': 'fileName' }).insert(view_link.update(f.name.escapeHTML() + ' (' + this.humanFileSize(f.size) + ') ')).insert(dl_link).insert(d_link));
     },
 
     humanFileSize: function(s)
