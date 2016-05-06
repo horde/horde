@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix mirroring client changes back to the client (Bug #14354).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3107,7 +3107,7 @@
    <date>2016-04-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix mirroring client changes back to the client (Bug #14354).
    </notes>
   </release>
  </changelog>
