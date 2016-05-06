@@ -3256,7 +3256,9 @@ KronolithCore = {
             } else {
                 $('kronolithOwner').show();
                 $('kronolithPOwnerInput').show();
-                $('kronolithCalendarSystem').setValue(0);
+                if ($('kronolithCalendarSystem')) {
+                    $('kronolithCalendarSystem').setValue(0);
+                }
             }
             if (type == 'internal' || type == 'tasklists' || type == 'resource') {
                 this.updateGroupDropDown([['kronolithC' + type + 'PGList', this.updateGroupPerms.bind(this, type)],
