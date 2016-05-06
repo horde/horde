@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Support TLS encryption setting in Outlook autodiscovery responses.
 * [mjr] Fix mirroring client changes back to the client (Bug #14354).
  </notes>
  <contents>
@@ -3107,6 +3108,7 @@
    <date>2016-04-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Support TLS encryption setting in Outlook autodiscovery responses.
 * [mjr] Fix mirroring client changes back to the client (Bug #14354).
    </notes>
   </release>
