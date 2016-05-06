@@ -2375,18 +2375,36 @@
            <configsection name="imap">
              <configstring name="host" desc="IMAP host" required="false"></configstring>
              <configinteger name="port" desc="IMAP port" required="false"></configinteger>
-             <configboolean name="ssl" desc="Use SSL?" />
+             <configenum name="encryption" desc="Encryption level">
+               <values>
+                <value desc="None">None</value>
+                <value desc="SSL">SSL</value>
+                <value desc="TLS">TLS</value>
+               </values>
+             </configenum>
            </configsection>
            <configsection name="pop">
              <configstring name="host" desc="POP3 host" required="false"></configstring>
              <configinteger name="port" desc="POP3 port" required="false"></configinteger>
-             <configboolean name="ssl" desc="Use SSL?" />
+             <configenum name="encryption" desc="Encryption level">
+               <values>
+                <value desc="None">None</value>
+                <value desc="SSL">SSL</value>
+                <value desc="TLS">TLS</value>
+               </values>
+             </configenum>
            </configsection>
            <configsection name="smtp">
              <configstring name="host" desc="SMTP host"></configstring>
              <configinteger name="port" desc="SMTP port" required="false"></configinteger>
              <configboolean name="popauth" desc="Require Pop Auth?" required="false" />
-             <configboolean name="ssl" desc="Use SSL?" />
+             <configenum name="encryption" desc="Encryption level">
+               <values>
+                <value desc="None">None</value>
+                <value desc="SSL">SSL</value>
+                <value desc="TLS">TLS</value>
+               </values>
+             </configenum>
            </configsection>
          </configsection>
        </case>
