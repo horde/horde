@@ -162,7 +162,7 @@ class Horde_ActiveSync_Request_Autodiscover extends Horde_ActiveSync_Request_Bas
                     <LoginName>' . $properties['username'] . '</LoginName>
                     <DomainRequired>off</DomainRequired>
                     <SPA>off</SPA>
-                    <SSL>' . ($properties['imap']['ssl'] ? 'on' : 'off') . '</SSL>
+                    ' . $this->_getEncryptionValue('imap', $properties) . '
                     <AuthRequired>on</AuthRequired>
                     </Protocol>';
             }
@@ -174,7 +174,7 @@ class Horde_ActiveSync_Request_Autodiscover extends Horde_ActiveSync_Request_Bas
                     <LoginName>' . $properties['username'] . '</LoginName>
                     <DomainRequired>off</DomainRequired>
                     <SPA>off</SPA>
-                    <SSL>' . ($properties['pop']['ssl'] ? 'on' : 'off') . '</SSL>
+                    ' . $this->_getEncryptionValue('pop', $properties) . '
                     <AuthRequired>on</AuthRequired>
                     </Protocol>';
             }
@@ -186,7 +186,7 @@ class Horde_ActiveSync_Request_Autodiscover extends Horde_ActiveSync_Request_Bas
                     <LoginName>' . $properties['username'] . '</LoginName>
                     <DomainRequired>off</DomainRequired>
                     <SPA>off</SPA>
-                    <SSL>' . ($properties['smtp']['ssl'] ? 'on' : 'off') . '</SSL>
+                    ' . $this->_getEncryptionValue('smtp', $properties) . '
                     <AuthRequired>on</AuthRequired>
                     <UsePOPAuth>' . ($properties['smtp']['popauth'] ? 'on' : 'off') . '</UsePOPAuth>
                     </Protocol>';
@@ -200,6 +200,20 @@ class Horde_ActiveSync_Request_Autodiscover extends Horde_ActiveSync_Request_Bas
           // Unknown request.
           return $this->_buildFailureResponse($properties['email'], '600', $properties['response_schema']);
         }
+    }
+
+    protected function _getEncryptionValue($type, $properties)
+    {
+      if (!empty($properties[$type]['encryption'])) {
+          return '<Encryption>' . $properties[$type]['encryption'] . '</Encryption>';
+      }
+      // Older version of autodiscover.
+      if (!empty($properties[$type]['ssl'])) {
+        return '<Encryption>SSL</Encryption>';
+      }
+
+      // None specified.
+      return '<Encryption>None</Encryption>';
     }
 
     /**
