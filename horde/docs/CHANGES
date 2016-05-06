@@ -2,6 +2,8 @@
 v5.3.0-git
 ----------
 
+[mjr] Use more flexible Encryption property for Outlook Autodiscovery
+      responses.
 [jan] Add hook to customize user names for DAV clients.
 [jan] Show users' full names in user lists.
 [jan] Only show languages on login page that are supported by the system

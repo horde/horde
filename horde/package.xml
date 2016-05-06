@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
+* [mjr] Use more flexible Encryption property for Outlook Autodiscovery responses.
 * [jan] Add hook to customize user names for DAV clients.
 * [jan] Show users&apos; full names in user lists.
 * [jan] Only show languages on login page that are supported by the system (Request #10457).
@@ -4214,6 +4215,7 @@
    <date>2016-04-05</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
+* [mjr] Use more flexible Encryption property for Outlook Autodiscovery responses.
 * [jan] Add hook to customize user names for DAV clients.
 * [jan] Show users&apos; full names in user lists.
 * [jan] Only show languages on login page that are supported by the system (Request #10457).
