@@ -1235,7 +1235,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         $cnt = self::getSyncKeyCounter($this->_syncKey);
         $values = array($this->_deviceInfo->id,
             $this->_deviceInfo->user,
-            $this->_collection['id']
+            $this->_collection['serverid']
         );
         foreach (array($this->_syncKey, $uuid . ($cnt - 1)) as $v) {
             $values[] = $v;
