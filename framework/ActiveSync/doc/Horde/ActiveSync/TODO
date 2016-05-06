@@ -61,6 +61,8 @@ BC BREAKING (i.e., Horde 6).
 
 - Maintain the serverid -> backendid map in a single place and stop storing
   backend ids (i.e., IMAP folder names) in collection/state/folder cache etc...
+  Also, standardize on using the serverid value everwhere within H_AS code.
+  backendid should be just that - only used when communicating with the backend.
 
 - Possibly move the syncCache and state into the device object so we have a
   single object to pass around that has access to all.
