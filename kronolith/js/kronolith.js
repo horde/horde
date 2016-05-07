@@ -4569,6 +4569,8 @@ KronolithCore = {
 
             case 'kronolithEventSave':
                 if (!elt.disabled) {
+                    this._checkDate($('kronolithEventStartDate'));
+                    this._checkDate($('kronolithEventEndDate'));
                     if ($F('kronolithEventAttendees') && $F('kronolithEventId')
                         && (!$F('kronolithEventOrganizer') || this.attendanceChanged) &&
                         !Kronolith.conf.itip_silent) {
@@ -6936,7 +6938,11 @@ KronolithCore = {
     },
 
     checkDate: function(e) {
-        var elm = e.element();
+        this._checkDate(e.element());
+    },
+
+    _checkDate: function(elm)
+    {
         if ($F(elm)) {
             var date = Date.parseExact($F(elm), Kronolith.conf.date_format) || Date.parse($F(elm));
             if (date) {
