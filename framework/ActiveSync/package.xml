@@ -12,7 +12,7 @@
  </lead>
  <date>2016-05-07</date>
  <version>
-  <release>2.31.10</release>
+  <release>2.31.11</release>
   <api>2.31.0</api>
  </version>
  <stability>
@@ -21,8 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Support TLS encryption setting in Outlook autodiscovery responses.
-* [mjr] Fix mirroring client changes back to the client (Bug #14354).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3110,6 +3109,19 @@
    <notes>
 * [mjr] Support TLS encryption setting in Outlook autodiscovery responses.
 * [mjr] Fix mirroring client changes back to the client (Bug #14354).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.31.11</release>
+    <api>2.31.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-05-07</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
