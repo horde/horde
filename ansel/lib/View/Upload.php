@@ -524,7 +524,6 @@ EOT;
                 $files = $zip->decompress($data, array('action' => Horde_Compress_Zip::ZIP_LIST));
             } catch (Horde_Compress_Exception $e) {
                 throw new Ansel_Exception($e);
-                continue;
             }
 
             /* Iterate the archive */
