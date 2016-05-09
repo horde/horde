@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Unset window opener when opening new windows from HTML messages (João Machado &lt;geral@jpaulo.eu&gt;).
 * [mjr] Fix re-adding an attachment after it has been removed from the compose window (Bug #14329).
  </notes>
  <contents>
@@ -3943,6 +3944,7 @@
    <date>2016-04-05</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Unset window opener when opening new windows from HTML messages (João Machado &lt;geral@jpaulo.eu&gt;).
 * [mjr] Fix re-adding an attachment after it has been removed from the compose window (Bug #14329).
    </notes>
   </release>
