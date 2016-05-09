@@ -340,6 +340,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                     $node->removeAttribute('target');
                 } else {
                     $node->setAttribute('target', strval(new Horde_Support_Randomid()));
+                    $node->setAttribute('rel', 'noopener noreferrer');
                 }
             }
             break;
