@@ -492,12 +492,13 @@ class Ansel_Storage
         if (!$image) {
             throw new Horde_Exception_NotFound(_("Photo not found"));
         } else {
+            $columns = $this->_db->columns('ansel_images');
             $image['image_filename'] = Horde_String::convertCharset(
                 $image['image_filename'],
                 $GLOBALS['conf']['sql']['charset'],
                 'UTF-8');
             $image['image_caption'] = Horde_String::convertCharset(
-                $image['image_caption'],
+                $columns['image_caption']->binaryToString($image['image_caption']),
                 $GLOBALS['conf']['sql']['charset'],
                 'UTF-8');
             $this->_images[$id] = new Ansel_Image($image);
@@ -709,9 +710,10 @@ class Ansel_Storage
         }
 
         $return = array();
+        $columns = $this->_db->columns('ansel_images');
         foreach ($images as $image) {
             $image['image_filename'] = Horde_String::convertCharset($image['image_filename'], $GLOBALS['conf']['sql']['charset'], 'UTF-8');
-            $image['image_caption'] = Horde_String::convertCharset($image['image_caption'], $GLOBALS['conf']['sql']['charset'], 'UTF-8');
+            $image['image_caption'] = Horde_String::convertCharset($columns['image_caption']->binaryToString($image['image_caption']), $GLOBALS['conf']['sql']['charset'], 'UTF-8');
             $return[$image['image_id']] = new Ansel_Image($image);
             $this->_images[(int)$image['image_id']] = &$return[$image['image_id']];
         }
@@ -813,10 +815,10 @@ class Ansel_Storage
         } catch (Horde_Db_Exception $e) {
             throw new Ansel_Exception($e);
         }
-
+        $columns = $this->_db->columns('ansel_images');
         foreach($images as $image) {
             $image['image_filename'] = Horde_String::convertCharset($image['image_filename'], $GLOBALS['conf']['sql']['charset'], 'UTF-8');
-            $image['image_caption'] = Horde_String::convertCharset($image['image_caption'], $GLOBALS['conf']['sql']['charset'], 'UTF-8');
+            $image['image_caption'] = Horde_String::convertCharset($columns['image_caption']->binaryToString($image['image_caption']), $GLOBALS['conf']['sql']['charset'], 'UTF-8');
             $results[] = new Ansel_Image($image);
         }
 
