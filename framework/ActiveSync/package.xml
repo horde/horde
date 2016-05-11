@@ -12,7 +12,7 @@
  </lead>
  <date>2016-05-11</date>
  <version>
-  <release>2.32.0</release>
+  <release>2.32.1</release>
   <api>2.32.0</api>
  </version>
  <stability>
@@ -21,8 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Fix iOS version detection for some iOS devices.
-* [mjr] Work around broken iOS behavior of sending empty POOMCONTACTS:Picture tags (Bug #14361).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3124,6 +3123,19 @@
    <notes>
 * [mjr] Fix iOS version detection for some iOS devices.
 * [mjr] Work around broken iOS behavior of sending empty POOMCONTACTS:Picture tags (Bug #14361).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.32.1</release>
+    <api>2.32.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-05-11</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
