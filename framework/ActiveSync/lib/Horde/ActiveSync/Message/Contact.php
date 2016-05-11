@@ -458,8 +458,8 @@ class Horde_ActiveSync_Message_Contact extends Horde_ActiveSync_Message_Base
         if ($property == $this->_mapping[self::PICTURE][self::KEY_ATTRIBUTE]) {
             if (empty($options['ignoreEmptyPictureTagCheck']) &&
                 $this->_device->hasQuirk(Horde_ActiveSync_Device::QUIRK_INCORRECTLY_SENDS_EMPTY_PICTURE_TAG) &&
-                !empty($this->_exists[$property]) &&
-                $this->{$property} == '') {
+                ((!empty($this->_exists[$property]) &&
+                $this->{$property} == '') || empty($this->_exists[$property]))) {
                 return true;
             }
 
