@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix normalizing POOMCONTACTS:Birthday and other date fields for the "Nine" client.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3135,7 +3135,7 @@
    <date>2016-05-11</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix normalizing POOMCONTACTS:Birthday and other date fields for the "Nine" client.
    </notes>
   </release>
  </changelog>
