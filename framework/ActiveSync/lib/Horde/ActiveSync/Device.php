@@ -444,7 +444,7 @@ class Horde_ActiveSync_Device
         // First see if we have a newer client that sends the OS version
         // Newer iOS sends e.g., "iOS 8.2.2" in OS field.
         if (!empty($this->properties[self::OS]) &&
-            preg_match('/\d+\.\d+\.?\d+?/', $this->properties[self::OS], $matches)) {
+            preg_match('/\d+\.\d+\.?\d?/', $this->properties[self::OS], $matches)) {
             if (!empty($matches[0])) {
                 $this->_iOSVersion = $matches[0];
                 return;
