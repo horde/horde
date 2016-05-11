@@ -2832,10 +2832,11 @@ class Turba_Driver implements Countable
         // picture ($message->picture *should* already be base64 encdoed)
         if (!$message->isGhosted('picture')) {
             $hash['photo'] = base64_decode($message->picture);
-            if (!empty($hash['photo']))
+            if (!empty($hash['photo'])) {
                 $hash['phototype'] = Horde_Mime_Magic::analyzeData($hash['photo']);
-            else
+            } else {
                 $hash['phototype'] = null;
+            }
         }
 
         /* Email addresses */
