@@ -85,6 +85,12 @@ class Horde_ActiveSync_Device
     const QUIRK_NEEDS_SUPPORTED_PICTURE_TAG = 1;
 
     /**
+     * iOS sends an empty picture tag on every edit of contacts whose pictures
+     * did not originate on the client itself.
+     */
+    const QUIRK_INCORRECTLY_SENDS_EMPTY_PICTURE_TAG = 2;
+
+    /**
      * Device properties.
      *
      * @var array
@@ -657,11 +663,14 @@ class Horde_ActiveSync_Device
     {
         switch ($quirk) {
             case self::QUIRK_NEEDS_SUPPORTED_PICTURE_TAG:
-                if ($this->_isIos() && $this->getMajorVersion() == 4) {
-                    return true;
-                }
-                return false;
-                break;
+                return ($this->_isIos() && $this->getMajorVersion() == 4);
+
+            case self::QUIRK_INCORRECTLY_SENDS_EMPTY_PICTURE_TAG:
+                Horde::debug($this->_isIos());
+                Horde::debug($this->getMajorVersion());
+                Horde::debug($this->getMinorVersion());
+                return ($this->_isIos() && $this->getMajorVersion() >= 8 && $this->getMinorVersion() > 1);
+
             default:
                 return false;
         }
