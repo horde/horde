@@ -440,10 +440,13 @@ class Horde_ActiveSync_Message_Contact extends Horde_ActiveSync_Message_Base
      * by the client AND is NOT present in the request data.
      *
      * @param string $property  The property to check
+     * @param array  $options   An array of options:
+     *     - ignoreEmptyPictureTagCheck: boolean If true, will not check for the
+     *       QUIRK_INCORRECTLY_SENDS_EMPTY_PICTURE_TAG quirk. @since  2.32.0
      *
      * @return boolean
      */
-    public function isGhosted($property)
+    public function isGhosted($property, $options = array())
     {
         // MS-ASCMD 2.2.3.168:
         // An empty SUPPORTED container indicates that ALL elements able to be
@@ -452,11 +455,19 @@ class Horde_ActiveSync_Message_Contact extends Horde_ActiveSync_Message_Base
         // NOT ghosted. Some clients like iOS 4.x screw this up by not sending
         // any SUPPORTED container and also not sending the picture field during
         // edits.
-        if ($property == $this->_mapping[self::PICTURE][self::KEY_ATTRIBUTE] &&
-            empty($this->_exists[$property]) &&
-            empty($this->_supported) &&
-            $this->_device->hasQuirk(Horde_ActiveSync_Device::QUIRK_NEEDS_SUPPORTED_PICTURE_TAG)) {
-            return true;
+        if ($property == $this->_mapping[self::PICTURE][self::KEY_ATTRIBUTE]) {
+            if (empty($options['ignoreEmptyPictureTagCheck']) &&
+                $this->_device->hasQuirk(Horde_ActiveSync_Device::QUIRK_INCORRECTLY_SENDS_EMPTY_PICTURE_TAG) &&
+                !empty($this->_exists[$property]) &&
+                $this->{$property} == '') {
+                return true;
+            }
+
+            if (empty($this->_exists[$property]) &&
+                empty($this->_supported) &&
+                $this->_device->hasQuirk(Horde_ActiveSync_Device::QUIRK_NEEDS_SUPPORTED_PICTURE_TAG)) {
+                return true;
+            }
         }
 
         return parent::isGhosted($property);
