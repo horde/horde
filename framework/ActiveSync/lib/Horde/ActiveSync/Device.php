@@ -632,7 +632,7 @@ class Horde_ActiveSync_Device
 
         case self::TYPE_NINE:
                 if ($toEas) {
-                    return new Horde_Date($date->format('Y-m-d 00:00:00'));
+                    return new Horde_Date($date->format('Y-m-d 00:00:00'), 'UTC');
                 } else {
                     return $date;
                 }
