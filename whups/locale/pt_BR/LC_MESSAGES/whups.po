@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Whups 1.0-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-09-06 20:59-0300\n"
+"POT-Creation-Date: 2016-05-11 00:06+0000\n"
 "PO-Revision-Date: 2005-01-21 12:09+0100\n"
 "Last-Translator: Daniel V. Hoisel <daniel@maxlinux.com.br>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -42,12 +42,12 @@ msgstr "Para tickets desta fila"
 msgid "%s &rArr; %s"
 msgstr "Tipo &rArr; %s"
 
-#: lib/Driver.php:657
+#: lib/Driver.php:688
 #, php-format
 msgid "%s (%s) uploaded: %s"
 msgstr ""
 
-#: lib/Driver.php:639
+#: lib/Driver.php:670
 #, php-format
 msgid "%s (%s) wrote:"
 msgstr ""
@@ -67,7 +67,7 @@ msgstr "%s dias"
 msgid "%s deleted this ticket."
 msgstr "Realmente apagar esta tarefa?"
 
-#: lib/Mail.php:181 lib/Mail.php:184
+#: lib/Mail.php:184 lib/Mail.php:187
 #, fuzzy, php-format
 msgid "%s part"
 msgstr "Parte HTML"
@@ -92,7 +92,7 @@ msgstr ""
 msgid "%s will no longer receive updates for this ticket."
 msgstr ""
 
-#: lib/Driver.php:238
+#: lib/Driver.php:272
 #, fuzzy
 msgid "(inactive)"
 msgstr "inativo"
@@ -233,9 +233,9 @@ msgstr "Ascendente"
 msgid "Assign"
 msgstr "Assinado"
 
-#: config/prefs.php:57 lib/Api.php:667 lib/Driver.php:270
+#: config/prefs.php:57 lib/Api.php:663 lib/Driver.php:304
 #: lib/Form/Renderer/Query.php:164 lib/Form/TicketDetails.php:127
-#: lib/Whups.php:866
+#: lib/Whups.php:868
 msgid "Assigned"
 msgstr "Assinado"
 
@@ -268,7 +268,7 @@ msgstr "Anexo"
 msgid "Attachment %s deleted."
 msgstr "Anexo %s apagado."
 
-#: lib/Driver/Sql.php:1338 lib/Ticket.php:539
+#: lib/Driver/Sql.php:1332 lib/Ticket.php:545
 #, fuzzy, php-format
 msgid "Attachment %s not found."
 msgstr "Anexo %s apagado."
@@ -283,7 +283,7 @@ msgstr "Patchsets para %s"
 msgid "Attri_bute Criteria"
 msgstr "Critério do atributo"
 
-#: lib/Driver.php:181
+#: lib/Driver.php:177
 #, fuzzy, php-format
 msgid "Attribute %d"
 msgstr "Atributos"
@@ -435,7 +435,7 @@ msgstr "Copia de %s"
 msgid "Could not find any groups."
 msgstr "Não encontrei nenhum grupo"
 
-#: lib/Mail.php:208
+#: lib/Mail.php:211
 #, fuzzy, php-format
 msgid "Could not find ticket \"%s\"."
 msgstr "Impossível autenticar a %s."
@@ -468,12 +468,12 @@ msgstr "Criar ticket - Passo 3"
 msgid "Create Ticket - Step 4"
 msgstr "Criar ticket - Passo 4"
 
-#: config/prefs.php:56 lib/Api.php:672 lib/Form/Renderer/Query.php:149
-#: lib/Form/TicketDetails.php:109 lib/Whups.php:864
+#: config/prefs.php:56 lib/Api.php:668 lib/Form/Renderer/Query.php:149
+#: lib/Form/TicketDetails.php:109 lib/Whups.php:866
 msgid "Created"
 msgstr "Criado"
 
-#: lib/Ticket.php:678 lib/Ticket.php:704
+#: lib/Ticket.php:699 lib/Ticket.php:725
 msgid "Created By"
 msgstr "Criado por"
 
@@ -538,7 +538,7 @@ msgstr "Direção de classificação padrão"
 msgid "Delete"
 msgstr "Apagar"
 
-#: lib/Whups.php:1066 lib/Whups.php:1075
+#: lib/Whups.php:1068 lib/Whups.php:1077
 #, php-format
 msgid "Delete %s"
 msgstr "Excluir %s"
@@ -630,7 +630,7 @@ msgstr "Confirmação para apagar versão"
 msgid "Delete entry"
 msgstr "Apagar pesquisa"
 
-#: lib/Ticket.php:683 lib/Ticket.php:787
+#: lib/Ticket.php:704 lib/Ticket.php:808
 #, fuzzy
 msgid "Deleted Attachment"
 msgstr "Anexo apagado \"%s\"."
@@ -640,7 +640,7 @@ msgstr "Anexo apagado \"%s\"."
 msgid "Deleted Attachment: %s"
 msgstr "Anexo apagado \"%s\"."
 
-#: lib/Ticket.php:452
+#: lib/Ticket.php:458
 #, fuzzy
 msgid "Deleted:"
 msgstr "Excluída"
@@ -668,7 +668,7 @@ msgstr ""
 "#-#-#-#-#  nag.po (pt_BR)  #-#-#-#-#\n"
 "Preferências de Exibição"
 
-#: lib/Whups.php:1053
+#: lib/Whups.php:1055
 msgid "Download"
 msgstr "Download"
 
@@ -677,9 +677,9 @@ msgstr "Download"
 msgid "Download these results as: "
 msgstr "Salvar este resultado como: "
 
-#: lib/Api.php:676 lib/Form/Renderer/Query.php:169
-#: lib/Form/TicketDetails.php:115 lib/Ticket.php:675 lib/Ticket.php:867
-#: lib/Whups.php:867
+#: lib/Api.php:672 lib/Form/Renderer/Query.php:169
+#: lib/Form/TicketDetails.php:115 lib/Ticket.php:696 lib/Ticket.php:888
+#: lib/Whups.php:869
 #, fuzzy
 msgid "Due"
 msgstr "Vencimento Em"
@@ -869,7 +869,7 @@ msgstr "Endereço para notificar ausente"
 msgid "Email address to remove"
 msgstr "Endereço de email para confirmação não encontrado."
 
-#: lib/Api.php:323
+#: lib/Api.php:321
 #, fuzzy
 msgid "Empty attachment"
 msgstr "anexo"
@@ -960,7 +960,7 @@ msgstr "Subordinadas"
 
 #: config/prefs.php:49 lib/Block/Tickets.php:54
 #: lib/Form/Query/PropertyCriterion.php:39 lib/Form/Renderer/Query.php:87
-#: lib/Whups.php:856 lib/Whups.php:879
+#: lib/Whups.php:858 lib/Whups.php:881
 msgid "Id"
 msgstr "Id"
 
@@ -992,15 +992,15 @@ msgstr "Inserir Or"
 msgid "Invalid Queue"
 msgstr "Chave inválida"
 
-#: lib/Api.php:318 lib/Whups.php:387
+#: lib/Api.php:316 lib/Whups.php:387
 msgid "Invalid Ticket Id"
 msgstr "Identificação do ticket inválida"
 
-#: lib/Api.php:353
+#: lib/Api.php:351
 msgid "Invalid argument: Missing attribute name or value."
 msgstr ""
 
-#: lib/Api.php:345
+#: lib/Api.php:343
 msgid "Invalid arguments: Must supply a ticket number and new attributes."
 msgstr ""
 
@@ -1014,7 +1014,7 @@ msgstr "Chave inválida"
 msgid "Invalid search"
 msgstr "E-mail inválido"
 
-#: lib/Api.php:238
+#: lib/Api.php:235
 #, fuzzy, php-format
 msgid "Invalid ticket data supplied: %s"
 msgstr "Fornecida informação inválida de calendário."
@@ -1116,22 +1116,22 @@ msgstr "Meus pedidos abertos"
 msgid "My Tickets"
 msgstr "Meus tickets"
 
-#: lib/Api.php:639
+#: lib/Api.php:635
 #, fuzzy
 msgid "My tickets by assignment date"
 msgstr "Tickets assinados por você"
 
-#: lib/Api.php:638
+#: lib/Api.php:634
 #, fuzzy
 msgid "My tickets by creation date"
 msgstr "Tickets abertos por Estado"
 
-#: lib/Api.php:640
+#: lib/Api.php:636
 #, fuzzy
 msgid "My tickets by due date"
 msgstr "Tickets abertos por Fila"
 
-#: lib/Api.php:641
+#: lib/Api.php:637
 #, fuzzy
 msgid "My tickets by resolution date"
 msgstr "Tickets abertos por Estado"
@@ -1150,11 +1150,11 @@ msgstr "Nome da cópia clonada"
 msgid "Ne_w Query"
 msgstr "Nova consulta"
 
-#: lib/Driver.php:269
+#: lib/Driver.php:303
 msgid "New"
 msgstr "Novo"
 
-#: lib/Ticket.php:682 lib/Ticket.php:775 lib/Ticket.php:780
+#: lib/Ticket.php:703 lib/Ticket.php:796 lib/Ticket.php:801
 #, fuzzy
 msgid "New Attachment"
 msgstr "Exibir Anexo"
@@ -1169,7 +1169,7 @@ msgstr "Exibir Anexo"
 msgid "New Queue"
 msgstr "Nova fila"
 
-#: lib/Application.php:140 ticket/create.php:64
+#: lib/Application.php:140 ticket/create.php:63
 msgid "New Ticket"
 msgstr "Novo ticket"
 
@@ -1237,12 +1237,17 @@ msgstr "Tickets assinados por você"
 msgid "No tickets are unassigned!"
 msgstr "Tickets assinados por você"
 
+#: lib/Block/Query.php:70
+#, fuzzy
+msgid "No tickets from query."
+msgstr "Para tickets desta fila"
+
 #: lib/Block/Queuecontents.php:66 lib/Block/Queuecontents.php:73
 #, fuzzy
 msgid "No tickets in queue."
 msgstr "Para tickets desta fila"
 
-#: lib/Whups.php:924
+#: lib/Whups.php:926
 msgid "No tickets matched your search criteria."
 msgstr "Nenhum ticket coincide com seu critério de pesquisa"
 
@@ -1264,7 +1269,7 @@ msgstr "Não"
 msgid "Notification Preferences"
 msgstr "Preferências de Sincronização"
 
-#: lib/Driver.php:248
+#: lib/Driver.php:282
 msgid "Older? Please update first!"
 msgstr ""
 
@@ -1330,20 +1335,20 @@ msgstr "Pasta Aberta"
 msgid "Or"
 msgstr "Ou"
 
-#: lib/Mail.php:154
+#: lib/Mail.php:157
 #, fuzzy
 msgid "Original Message"
 msgstr "Mensagens Pessoais"
 
 #: lib/Form/Renderer/Query.php:88 lib/Form/Ticket/CreateStepFour.php:52
 #: lib/Form/Ticket/CreateStepFour.php:67 lib/Form/Ticket/Edit.php:118
-#: lib/Form/TicketDetails.php:96 lib/Ticket.php:681 lib/Ticket.php:765
-#: lib/Ticket.php:766 lib/Ticket.php:769 lib/Ticket.php:871 lib/Ticket.php:892
-#: lib/Whups.php:863
+#: lib/Form/TicketDetails.php:96 lib/Ticket.php:702 lib/Ticket.php:786
+#: lib/Ticket.php:787 lib/Ticket.php:790 lib/Ticket.php:892 lib/Ticket.php:913
+#: lib/Whups.php:865
 msgid "Owners"
 msgstr "Proprietários"
 
-#: lib/Whups.php:1069
+#: lib/Whups.php:1071
 #, php-format
 msgid "Permanently delete %s?"
 msgstr "Apagar permanentemente %s?"
@@ -1376,7 +1381,7 @@ msgstr "Prioridades para este tipo"
 #: lib/Form/Queue/StepThree.php:35 lib/Form/Renderer/Query.php:129
 #: lib/Form/SetTypeStepTwo.php:28 lib/Form/Ticket/CreateStepThree.php:69
 #: lib/Form/Ticket/Edit.php:86 lib/Form/TicketDetails.php:91
-#: lib/Ticket.php:674 lib/Ticket.php:866 lib/Whups.php:860
+#: lib/Ticket.php:695 lib/Ticket.php:887 lib/Whups.php:862
 msgid "Priority"
 msgstr "Prioridade"
 
@@ -1432,7 +1437,7 @@ msgstr ""
 #: lib/Block/Queuesummary.php:39 lib/Form/Query/PropertyCriterion.php:52
 #: lib/Form/Renderer/Query.php:98 lib/Form/Search.php:40
 #: lib/Form/TicketDetails.php:53 lib/Form/TicketDetails.php:60
-#: lib/Ticket.php:670 lib/Ticket.php:862 lib/Whups.php:861
+#: lib/Ticket.php:691 lib/Ticket.php:883 lib/Whups.php:863
 msgid "Queue"
 msgstr "Fila"
 
@@ -1539,7 +1544,7 @@ msgstr "Apagar com certeza este tipo? Isto pode causar problemas de dados!"
 msgid "Really delete this version? This may cause data problems!"
 msgstr "Apagar com certeza esta versão? Isto pode causa problemas de dados!"
 
-#: lib/Mail.php:75
+#: lib/Mail.php:78
 #, fuzzy
 msgid "Received message:"
 msgstr "Ler mensagens"
@@ -1548,7 +1553,7 @@ msgstr "Ler mensagens"
 msgid "Refine Search"
 msgstr "Refinar pesquisa"
 
-#: lib/Whups.php:959
+#: lib/Whups.php:961
 msgid "Reminder: Your open tickets"
 msgstr ""
 
@@ -1575,7 +1580,7 @@ msgid "Reports"
 msgstr "Relatórios"
 
 #: lib/Form/Renderer/Query.php:90 lib/Form/TicketDetails.php:103
-#: lib/Whups.php:862
+#: lib/Whups.php:864
 msgid "Requester"
 msgstr "Requisitante"
 
@@ -1585,9 +1590,9 @@ msgstr "Requisitante"
 msgid "Required Attribute?"
 msgstr "Participantes Obrigatórios"
 
-#: config/prefs.php:58 lib/Api.php:681 lib/Driver.php:271
+#: config/prefs.php:58 lib/Api.php:677 lib/Driver.php:305
 #: lib/Form/Renderer/Query.php:159 lib/Form/TicketDetails.php:133
-#: lib/Whups.php:868
+#: lib/Whups.php:870
 msgid "Resolved"
 msgstr "Resolvido"
 
@@ -1791,8 +1796,8 @@ msgstr "Relatório de Spam"
 #: config/prefs.php:51 lib/Form/Query/PropertyCriterion.php:65
 #: lib/Form/Queue/StepThree.php:34 lib/Form/Renderer/Query.php:121
 #: lib/Form/SetTypeStepTwo.php:27 lib/Form/Ticket/Edit.php:80
-#: lib/Form/TicketDetails.php:86 lib/Ticket.php:673 lib/Ticket.php:865
-#: lib/Whups.php:858
+#: lib/Form/TicketDetails.php:86 lib/Ticket.php:694 lib/Ticket.php:886
+#: lib/Whups.php:860
 msgid "State"
 msgstr "Estado"
 
@@ -1829,7 +1834,7 @@ msgstr "Estados para este tipo"
 msgid "Status"
 msgstr "Situação"
 
-#: ticket/create.php:142
+#: ticket/create.php:141
 msgid "Submit"
 msgstr "Enviar"
 
@@ -1850,8 +1855,8 @@ msgstr "Tipo do ticket alterado com sucesso."
 #: config/prefs.php:50 lib/Form/Renderer/Query.php:93
 #: lib/Form/Ticket/CreateStepThree.php:74 lib/Form/Ticket/Delete.php:20
 #: lib/Form/Ticket/Edit.php:63 lib/Form/TicketDetails.php:47
-#: lib/Ticket.php:680 lib/Ticket.php:707 lib/Ticket.php:710 lib/Ticket.php:714
-#: lib/Ticket.php:871 lib/Ticket.php:880 lib/Whups.php:857
+#: lib/Ticket.php:701 lib/Ticket.php:728 lib/Ticket.php:731 lib/Ticket.php:735
+#: lib/Ticket.php:892 lib/Ticket.php:901 lib/Whups.php:859
 msgid "Summary"
 msgstr "Sumário"
 
@@ -1873,7 +1878,7 @@ msgstr "Pego de %s"
 msgid "Text"
 msgstr "Texto"
 
-#: lib/Driver/Sql.php:98 lib/Driver/Sql.php:1538
+#: lib/Driver/Sql.php:98 lib/Driver/Sql.php:1532
 msgid "That queue slug is already taken. Please select another."
 msgstr ""
 
@@ -1882,7 +1887,7 @@ msgstr ""
 msgid "The Requester's Email Address"
 msgstr "Seu e-mail"
 
-#: lib/Application.php:184 lib/Ticket.php:471 lib/Ticket.php:524 view.php:39
+#: lib/Application.php:184 lib/Ticket.php:477 lib/Ticket.php:530 view.php:39
 msgid "The VFS backend needs to be configured to enable attachment uploads."
 msgstr "O backend VFS precisa ser configurado para ativar envio de anexos."
 
@@ -2003,7 +2008,7 @@ msgstr "O estado foi modificado."
 msgid "The state was not deleted."
 msgstr "O estado não foi apagado."
 
-#: lib/Ticket.php:447
+#: lib/Ticket.php:453
 #, fuzzy
 msgid "The ticket was deleted."
 msgstr "O ticket foi apagado."
@@ -2218,8 +2223,8 @@ msgid "There was an error editing the version:"
 msgstr "Houve um erro ao editar a versão: %s."
 
 #: lib/Form/Admin/AddUser.php:44
-#, php-format
-msgid "There was an error listing users: %s; %s"
+#, fuzzy, php-format
+msgid "There was an error listing users: %s"
 msgstr "Houve um erro ao listar os usuários: %s; %s"
 
 #: queue/index.php:55
@@ -2281,7 +2286,7 @@ msgid ""
 "be able to create tickets."
 msgstr ""
 
-#: lib/Ticket.php:702 lib/Ticket.php:879
+#: lib/Api.php:395 lib/Ticket.php:723 lib/Ticket.php:900
 msgid "Ticket"
 msgstr "Ticket"
 
@@ -2305,12 +2310,12 @@ msgstr "Ticket %d foi apagado"
 msgid "Ticket %d not found."
 msgstr "Ticket %s não foi encontrado"
 
-#: lib/Api.php:607
+#: lib/Api.php:602
 #, fuzzy, php-format
 msgid "Ticket %s - %s"
 msgstr "URL do ticket: %s\n"
 
-#: lib/Driver/Sql.php:1155
+#: lib/Driver/Sql.php:1149
 #, php-format
 msgid "Ticket %s was not found."
 msgstr "Ticket %s não foi encontrado"
@@ -2337,16 +2342,16 @@ msgstr "Tipo do ticket"
 msgid "Ticket Types associated with this Queue"
 msgstr "Tipos de tickets associados com esta fila"
 
-#: lib/Ticket.php:697
+#: lib/Ticket.php:718
 #, fuzzy, php-format
 msgid "Ticket URL: %s"
 msgstr "URL do ticket: %s\n"
 
-#: ticket/update.php:104
+#: ticket/update.php:90
 msgid "Ticket Updated"
 msgstr "Ticket atualizado"
 
-#: lib/Api.php:626
+#: lib/Api.php:622
 msgid "Tickets"
 msgstr "Bilhetes"
 
@@ -2362,8 +2367,8 @@ msgstr "Eventos correspondendo \"%s\""
 
 #: config/prefs.php:52 lib/Form/Query/PropertyCriterion.php:43
 #: lib/Form/Queue/StepTwo.php:42 lib/Form/Renderer/Query.php:112
-#: lib/Form/TicketDetails.php:82 lib/Ticket.php:672 lib/Ticket.php:864
-#: lib/Whups.php:859
+#: lib/Form/TicketDetails.php:82 lib/Ticket.php:693 lib/Ticket.php:885
+#: lib/Whups.php:861
 msgid "Type"
 msgstr "Tipo"
 
@@ -2400,7 +2405,7 @@ msgstr "Tickets não assinados"
 msgid "Unassigned tickets"
 msgstr "Tickets não assinados"
 
-#: lib/Driver.php:268
+#: lib/Driver.php:302
 msgid "Unconfirmed"
 msgstr "Não confirmado"
 
@@ -2413,7 +2418,7 @@ msgstr "tipo de nó desconhecido %s"
 msgid "Update"
 msgstr "Atualizar"
 
-#: ticket/update.php:66
+#: ticket/update.php:52
 #, php-format
 msgid "Update %s"
 msgstr "Atualizar %s"
@@ -2423,12 +2428,12 @@ msgid "Update Associations"
 msgstr "Atualizar associações"
 
 #: lib/Form/Renderer/Query.php:154 lib/Form/TicketDetails.php:121
-#: lib/Whups.php:865
+#: lib/Whups.php:867
 #, fuzzy
 msgid "Updated"
 msgstr "Atualizar"
 
-#: lib/Ticket.php:679 lib/Ticket.php:704
+#: lib/Ticket.php:700 lib/Ticket.php:725
 msgid "Updated By"
 msgstr "Atualizado por"
 
@@ -2460,7 +2465,7 @@ msgid "Users responsible for this queue"
 msgstr "Usuários responsáveis por esta fila"
 
 #: config/prefs.php:55 lib/Form/Query/PropertyCriterion.php:57
-#: lib/Form/Renderer/Query.php:106 lib/Ticket.php:671 lib/Ticket.php:863
+#: lib/Form/Renderer/Query.php:106 lib/Ticket.php:692 lib/Ticket.php:884
 msgid "Version"
 msgstr "Versão"
 
@@ -2529,12 +2534,12 @@ msgstr "Sim"
 msgid "You are not allowed to view ticket %d."
 msgstr "Você não tem permissão para ver este ticket."
 
-#: lib/Driver/Sql.php:1165
+#: lib/Driver/Sql.php:1159
 #, php-format
 msgid "You do not have permission to access this ticket (%s)."
 msgstr "Você não tem permissão para acessar este ticket (%s)."
 
-#: lib/Api.php:216
+#: lib/Api.php:213
 #, fuzzy
 msgid "You do not have permission to update this ticket."
 msgstr "Você não tem permissão para acessar este ticket (%s)."
@@ -2548,7 +2553,7 @@ msgstr "Você não salvou as consultas"
 msgid "You have no saved queries."
 msgstr "Você não salvou as consultas"
 
-#: lib/Whups.php:918
+#: lib/Whups.php:920
 msgid "You must select at least one queue to send reminders for."
 msgstr "Você deve selecionar ao menos uma fila para enviar lembretes"
 
@@ -2563,7 +2568,7 @@ msgid ""
 "request."
 msgstr ""
 
-#: lib/Mail.php:107 lib/Mail.php:111
+#: lib/Mail.php:110 lib/Mail.php:114
 #, fuzzy
 msgid "[ Could not render body of message. ]"
 msgstr "Não foi posśivel carregar mensagem."
@@ -2573,7 +2578,7 @@ msgstr "Não foi posśivel carregar mensagem."
 msgid "[Hidden]"
 msgstr "Oculto"
 
-#: lib/Mail.php:71
+#: lib/Mail.php:74
 msgid "[No Subject]"
 msgstr "[Sem Assunto]"
 
@@ -2688,7 +2693,7 @@ msgstr "contem sequência (sensível ao caso)"
 msgid "contains the word"
 msgstr "contem palavra"
 
-#: lib/Api.php:613
+#: lib/Api.php:608
 #, fuzzy
 msgid "estimated time"
 msgstr "Tempo Estimado"

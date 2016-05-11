@@ -9,11 +9,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pt_BR\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2015-03-08 19:18-0300\n"
-"PO-Revision-Date: 2013-11-21 22:54-0300\n"
+"POT-Creation-Date: 2015-12-28 17:03+0100\n"
+"PO-Revision-Date: 2016-05-10 21:34-0300\n"
 "Last-Translator: Luis Felipe Marzagao <duli@easylifeproject.org>\n"
 "Language-Team: Português brasileiro <i18n@lists.horde.org>\n"
-"Language: \n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -350,7 +350,7 @@ msgstr "Erro interno ao exibir a página requisitada"
 msgid "Internal error viewing requested page: %s"
 msgstr "Erro interno ao exibir a página requisitada: %s"
 
-#: lib/Api.php:258
+#: lib/Api.php:256
 msgid "Invalid page requested."
 msgstr "Página requisitada inválida."
 
@@ -438,7 +438,7 @@ msgstr "Novo nome"
 msgid "New name is the same as old name."
 msgstr "Novo nome é o mesmo que o anterior."
 
-#: lib/Api.php:196 lib/Page/EditPage.php:212
+#: lib/Api.php:194 lib/Page/EditPage.php:212
 msgid "No changes made"
 msgstr "Nenhuma mudança feita"
 
@@ -506,7 +506,7 @@ msgstr "Páginas não podem ser vazias."
 msgid "Permissio_ns"
 msgstr "Permissõ_es"
 
-#: lib/Api.php:254
+#: lib/Api.php:252
 msgid "Permission denied."
 msgstr "Permissão negada."
 
@@ -685,7 +685,7 @@ msgstr "Impossível criar Wiki/Home. O wiki não está configurado."
 #: lib/Page.php:248 lib/Page.php:281 lib/Page.php:286 lib/Page.php:412
 #: lib/Page.php:420 lib/Page.php:428 lib/Page.php:438 lib/Page.php:572
 #: lib/Page.php:611 lib/Page.php:616 lib/Page.php:621 lib/Page.php:626
-#: lib/Page.php:666
+#: lib/Page.php:671
 msgid "Unsupported"
 msgstr "Não suportado"
 
@@ -712,7 +712,7 @@ msgstr "Versão"
 msgid "View page: "
 msgstr "Exibir página: "
 
-#: lib/Api.php:213
+#: lib/Api.php:211
 msgid "Wiki Templates"
 msgstr "Modelos de Wiki"
 
@@ -748,7 +748,7 @@ msgstr "Você não tem permissão para criar \"%s\"."
 msgid "You don't have permission to delete \"%s\"."
 msgstr "Você não tem permissão para apagar \"%s\"."
 
-#: lib/Api.php:178 lib/Page/EditPage.php:194 lib/Page/RevertPage.php:133
+#: lib/Api.php:176 lib/Page/EditPage.php:194 lib/Page/RevertPage.php:133
 #, php-format
 msgid "You don't have permission to edit \"%s\"."
 msgstr "Você não tem permissão para editar \"%s\"."
@@ -761,7 +761,7 @@ msgstr "Você não tem permissão para ver esta página."
 msgid "You must enter a change description to attach this file."
 msgstr "Você deve digitar uma descrição de alteração para anexar esse arquivo."
 
-#: lib/Api.php:182 lib/Page/EditPage.php:205
+#: lib/Api.php:180 lib/Page/EditPage.php:205
 msgid "You must provide a change log."
 msgstr "Você deve fornecer um log de alteração."
 

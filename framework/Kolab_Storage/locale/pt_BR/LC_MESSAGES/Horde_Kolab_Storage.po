@@ -8,31 +8,32 @@ msgstr ""
 "Project-Id-Version: Horde_Kolab_Storage\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2014-04-25 22:27-0300\n"
-"PO-Revision-Date: 2013-03-16 11:06-0300\n"
+"PO-Revision-Date: 2016-05-10 21:57-0300\n"
 "Last-Translator: Luis Felipe Marzagao <duli@easylifeproject.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 1.5.4\n"
+"Language: pt_BR\n"
 
 #: lib/Horde/Kolab/Storage/Driver/Cclient.php:103
-#, fuzzy, php-format
+#, php-format
 msgid "Connecting to server %s failed."
-msgstr "Conexão com o servidor %s falhou. Erro: %s"
+msgstr "Conexão com o servidor %s falhou."
 
 #: lib/Horde/Kolab/Storage/Driver/Cclient.php:222
 #: lib/Horde/Kolab/Storage/Driver/Rcube.php:113
-#, fuzzy, php-format
+#, php-format
 msgid "Creating folder %s failed."
-msgstr "Ciração da pasta %s falhou. Erro: %s"
+msgstr "Criação da pasta %s falhou."
 
 #: lib/Horde/Kolab/Storage/Driver/Cclient.php:250
 #: lib/Horde/Kolab/Storage/Driver/Rcube.php:138
-#, fuzzy, php-format
+#, php-format
 msgid "Deleting folder %s failed."
-msgstr "Remoção da pasta %s falhou. Erro: %s"
+msgstr "Remoção da pasta %s falhou."
 
 #: lib/Horde/Kolab/Storage/Driver/Cclient.php:106
 #: lib/Horde/Kolab/Storage/Driver/Cclient.php:187
@@ -78,89 +79,87 @@ msgstr "Erro: %s"
 
 #: lib/Horde/Kolab/Storage/Driver/Cclient.php:712
 #: lib/Horde/Kolab/Storage/Driver/Rcube.php:633
-#, fuzzy, php-format
+#, php-format
 msgid "Failed appending new message to folder %s."
-msgstr "Falha ao adicionar nova mensagem à pasta %s. Erro: %s"
+msgstr "Falha ao acrescentar nova mensagem à pasta %s."
 
 #: lib/Horde/Kolab/Storage/Driver/Rcube.php:289
-#, fuzzy, php-format
+#, php-format
 msgid "Failed deleting ACL on folder %s for user %s."
-msgstr "Falha ao apagar ACL na pasta %s para usuário %s. Erro: %s"
+msgstr "Falha ao apagar ACL na pasta %s para usuário %s."
 
 #: lib/Horde/Kolab/Storage/Driver/Cclient.php:746
-#, fuzzy, php-format
+#, php-format
 msgid "Failed deleting message %s in folder %s."
-msgstr "Falha ao apagar mensagem %s na pasta %s. Erro: %s"
+msgstr "Falhou ao apagar mensagem %s na pasta %s."
 
 #: lib/Horde/Kolab/Storage/Driver/Rcube.php:662
-#, fuzzy, php-format
+#, php-format
 msgid "Failed deleting messages from folder %s."
-msgstr "Falha ao apagar mensagens da pasta %s. Erro: %s"
+msgstr "Falhou ao apagar mensagens da pasta %s."
 
 #: lib/Horde/Kolab/Storage/Driver/Cclient.php:812
 #: lib/Horde/Kolab/Storage/Driver/Rcube.php:719
-#, fuzzy, php-format
+#, php-format
 msgid "Failed expunging folder %s."
-msgstr "Falha ao expurgar pasta %s. Erro: %s"
+msgstr "Falhou ao purgar pasta %s."
 
 #: lib/Horde/Kolab/Storage/Driver/Cclient.php:677
 #: lib/Horde/Kolab/Storage/Driver/Rcube.php:600
-#, fuzzy, php-format
+#, php-format
 msgid "Failed fetching body part %s for message %s in folder %s."
-msgstr ""
-"Falha ao obter parte de corpo %s da mensagem %s na pasta %s%s. Erro: %s"
+msgstr "Falhou ao obter parte do corpo %s para mensagem %s na pasta %s."
 
 #: lib/Horde/Kolab/Storage/Driver/Cclient.php:607
 #: lib/Horde/Kolab/Storage/Driver/Imap.php:420
 #: lib/Horde/Kolab/Storage/Driver/Rcube.php:522
-#, fuzzy, php-format
+#, php-format
 msgid "Failed fetching message %s in folder %s."
-msgstr "Falha ao obter mensagem %s na pasta %s%s. Erro: %s"
+msgstr "Falhou ao obter a mensagem %s na pasta %s."
 
 #: lib/Horde/Kolab/Storage/Driver/Cclient.php:643
-#, fuzzy, php-format
+#, php-format
 msgid "Failed fetching structure information for messages %s in folder %s."
 msgstr ""
-"Falha ao obter informação de estrutura para mensagens %s na pasta %s%s. "
-"Erro: %s"
+"Falhou ao obter a informação de estrutura para as mensagens %s na pasta %s."
 
 #: lib/Horde/Kolab/Storage/Driver/Cclient.php:783
 #: lib/Horde/Kolab/Storage/Driver/Rcube.php:693
-#, fuzzy, php-format
+#, php-format
 msgid "Failed moving message %s from folder %s to folder %s."
-msgstr "Falha ao mover mensagem %s da pasta %s para pasta %s. Erro: %s"
+msgstr "Falhou ao move a mensagem %s da pasta %s para a pasta %s."
 
 #: lib/Horde/Kolab/Storage/Driver/Cclient.php:516
-#, fuzzy, php-format
+#, php-format
 msgid "Failed opening folder %s."
-msgstr "Falha ao abrir pasta %s%s. Erro: %s"
+msgstr "Falhou ao abrir a pasta %s."
 
 #: lib/Horde/Kolab/Storage/Driver/Cclient.php:324
 #: lib/Horde/Kolab/Storage/Driver/Rcube.php:203
-#, fuzzy, php-format
+#, php-format
 msgid "Failed reading ACL on folder %s."
-msgstr "Falha ao ler ACL na pasta %s. Erro: %s"
+msgstr "Falhou ao ler ACL na pasta %s."
 
 #: lib/Horde/Kolab/Storage/Driver/Cclient.php:354
 #: lib/Horde/Kolab/Storage/Driver/Rcube.php:233
-#, fuzzy, php-format
+#, php-format
 msgid "Failed reading user rights on folder %s."
-msgstr "Falha ao ler direitos do usuário na pasta %s. Erro: %s"
+msgstr "Falhou ao ler permissões de usuário na pasta %s."
 
 #: lib/Horde/Kolab/Storage/Driver/Rcube.php:489
-#, fuzzy, php-format
+#, php-format
 msgid "Failed retrieving UIDs for folder %s."
-msgstr "Falha ao obter UIDs para pasta %s. Erro: %s"
+msgstr "Falhou ao obter UIDs para a pasta %s."
 
 #: lib/Horde/Kolab/Storage/Driver/Cclient.php:548
-#, fuzzy, php-format
+#, php-format
 msgid "Failed retrieving status information for folder %s."
-msgstr "Falha ao obter informação de status para a pasta %s%s. Erro: %s"
+msgstr "Falhou ao obter informações de status para a pasta %s."
 
 #: lib/Horde/Kolab/Storage/Driver/Rcube.php:563
-#, fuzzy, php-format
+#, php-format
 msgid "Failed retrieving structure of message %s in folder %s."
-msgstr "Falha ao obter estrutura da mensagem %s na pasta %s. Erro: %s"
+msgstr "Falhou ao obter estrutura da mensagem %s na pasta %s."
 
 #: doc/Horde/Kolab/Storage/OLD/Folder.php:841
 #: doc/Horde/Kolab/Storage/OLD/Folder.php:847
@@ -170,9 +169,9 @@ msgstr "Falha ao obter a mensagem com ID %s. Erro original: %s."
 
 #: lib/Horde/Kolab/Storage/Driver/Cclient.php:382
 #: lib/Horde/Kolab/Storage/Driver/Rcube.php:261
-#, fuzzy, php-format
+#, php-format
 msgid "Failed setting ACL on folder %s for user %s to %s."
-msgstr "Falha ao definir ACL na pasta %s para o usuário %s para %s. Erro: %s"
+msgstr "Falhou ao definir ACL na pasta %s para o usuário %s para %s."
 
 #: doc/Horde/Kolab/Storage/OLD/Trigger.php:225
 #, php-format
@@ -194,9 +193,9 @@ msgid "Invalid \"namespace\" type \"%s\"!"
 msgstr "Tipo de \"namespace\" inválido \"%s\"!"
 
 #: lib/Horde/Kolab/Storage/Driver/Cclient.php:184
-#, fuzzy, php-format
+#, php-format
 msgid "Listing folders for %s failed."
-msgstr "Listagem de pastas para %s falhou. Erro: %s"
+msgstr "Falhou ao listar pastas para %s."
 
 #: lib/Horde/Kolab/Storage/Factory.php:127
 msgid "Missing \"driver\" parameter!"
@@ -218,35 +217,35 @@ msgstr "Objeto %s anterior não aponta para uma uid."
 
 #: lib/Horde/Kolab/Storage/Driver/Cclient.php:280
 #: lib/Horde/Kolab/Storage/Driver/Rcube.php:167
-#, fuzzy, php-format
+#, php-format
 msgid "Renaming folder %s to %s failed."
-msgstr "Renomeando pasta %s para %s falhou. Erro: %s"
+msgstr "Falhou ao renomear pasta %s para %s."
 
 #: lib/Horde/Kolab/Storage/Driver/Cclient.php:453
-#, fuzzy, php-format
+#, php-format
 msgid "Retrieving annotation %s[%s] on folder %s failed."
-msgstr "Obtendo anotação %s[%s] na pasta %s%s falhou. Erro: %s"
+msgstr "Falhou ao obter anotação %s[%s] na pasta %s."
 
 #: lib/Horde/Kolab/Storage/Driver/Rcube.php:456
-#, fuzzy, php-format
+#, php-format
 msgid "Retrieving the status for folder %s failed."
-msgstr "Obtenção do status para a pasta %s falhou. Erro: %s"
+msgstr "Falhou ao obter status para pasta %s."
 
 #: lib/Horde/Kolab/Storage/Driver/Rcube.php:428
-#, fuzzy, php-format
+#, php-format
 msgid "Selecting folder %s failed."
-msgstr "Seleção da pasta %s falhou. Erro: %s"
+msgstr "Falhou ao selecionar pasta %s."
 
 #: lib/Horde/Kolab/Storage/Driver/Rcube.php:343
-#, fuzzy, php-format
+#, php-format
 msgid "Setting annotation %s[%s] on folder %s failed."
-msgstr "Definindo anotação %s[%s] na pasta %s falhou. Erro: %s"
+msgstr "Falhou ao definir anotação %s[%s] na pasta %s."
 
 #: lib/Horde/Kolab/Storage/Driver/Cclient.php:486
 #: lib/Horde/Kolab/Storage/Driver/Rcube.php:376
-#, fuzzy, php-format
+#, php-format
 msgid "Setting annotation %s[%s] on folder %s to %s failed."
-msgstr "Definindo anotação %s[%s] na pasta %s para %s falhou. Erro: %s"
+msgstr "Falhou ao definir anotação %s[%s] na pasta %s para %s."
 
 #: lib/Horde/Kolab/Storage/Data/Base.php:255
 #, php-format

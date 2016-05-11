@@ -3,17 +3,17 @@
 # Copyright 2008-2016 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde package.
 #
-# Automatically generated, 2008.
-# Luis Felipe Marzagao <duli@fedoraproject.org>, 2008.
+# Automatically generated, 2016.
+# Luis Felipe Marzagao <duli@fedoraproject.org>, 2016.
 msgid ""
 msgstr ""
 "Project-Id-Version: pt_BR\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2015-03-08 19:18-0300\n"
-"PO-Revision-Date: 2015-03-08 19:21-0300\n"
+"POT-Creation-Date: 2016-05-11 00:06+0000\n"
+"PO-Revision-Date: 2016-05-10 21:18-0300\n"
 "Last-Translator: Luis Felipe Marzagao <duli@easylifeproject.org>\n"
 "Language-Team: Português brasileiro <i18n@lists.horde.org>\n"
-"Language: \n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -393,7 +393,7 @@ msgstr "Resposta"
 msgid "Application"
 msgstr "Aplicação"
 
-#: templates/admin/phpshell.html.php:6
+#: templates/admin/phpshell.html.php:8
 msgid "Application Context"
 msgstr "Contexto da Aplicação:"
 
@@ -646,7 +646,7 @@ msgstr "Escolha como mostrar horários:"
 msgid "Class"
 msgstr "Classe"
 
-#: templates/admin/sqlshell.html.php:56
+#: templates/admin/sqlshell.html.php:58
 msgid "Clear Query"
 msgstr "Limpar Pesquisa"
 
@@ -709,7 +709,7 @@ msgstr "Palheta de Cor"
 msgid "Comics"
 msgstr "Quadrinhos"
 
-#: templates/admin/cmdshell.html.php:2 templates/admin/cmdshell.html.php:17
+#: templates/admin/cmdshell.html.php:2 templates/admin/cmdshell.html.php:19
 msgid "Command"
 msgstr "Comando"
 
@@ -1135,7 +1135,7 @@ msgstr "Dinâmico"
 msgid "EU VAT identification"
 msgstr "Identificação EU VAT"
 
-#: lib/View/Sidebar.php:223 templates/shares/edit.inc:66
+#: lib/View/Sidebar.php:229 templates/shares/edit.inc:66
 #: templates/shares/edit.inc:83 templates/shares/edit.inc:101
 #: templates/shares/edit.inc:118 templates/shares/edit.inc:137
 #: templates/shares/edit.inc:154 templates/shares/edit.inc:172
@@ -1267,8 +1267,8 @@ msgstr "Cada minuto"
 msgid "Example values:"
 msgstr "Valores de exemplo:"
 
-#: templates/admin/cmdshell.html.php:22 templates/admin/phpshell.html.php:21
-#: templates/admin/sqlshell.html.php:55
+#: templates/admin/cmdshell.html.php:24 templates/admin/phpshell.html.php:23
+#: templates/admin/sqlshell.html.php:57
 msgid "Execute"
 msgstr "Executar"
 
@@ -1412,7 +1412,7 @@ msgstr "Gerar a Configuração de %s"
 msgid "Generated Code"
 msgstr "Código Gerado"
 
-#: lib/Block/FbStream.php:152 templates/block/twitter-layout.html.php:35
+#: lib/Block/FbStream.php:150 templates/block/twitter-layout.html.php:35
 msgid "Get More"
 msgstr "Obtenha Mais"
 
@@ -1725,7 +1725,7 @@ msgstr "Poêmas"
 msgid "Linux Cookie"
 msgstr "Cookie do Linux"
 
-#: templates/admin/sqlshell.html.php:60
+#: templates/admin/sqlshell.html.php:62
 msgid "List Tables"
 msgstr "Listar Tabelas"
 
@@ -1803,7 +1803,7 @@ msgstr "A conexão falhou porque seu usuário ou senha estava incorreta."
 msgid "Login failed."
 msgstr "Falha de Conexão."
 
-#: login.php:399
+#: login.php:405
 #, php-format
 msgid "Login to %s"
 msgstr "Login para %s"
@@ -2231,11 +2231,11 @@ msgstr "Proprietário"
 msgid "Owner:"
 msgstr "Proprietário:"
 
-#: templates/admin/phpshell.html.php:15
+#: templates/admin/phpshell.html.php:17
 msgid "PHP"
 msgstr "PHP"
 
-#: templates/admin/phpshell.html.php:27
+#: templates/admin/phpshell.html.php:29
 msgid "PHP Code"
 msgstr "Código PHP"
 
@@ -2273,7 +2273,7 @@ msgstr "Senha alterada com sucesso."
 msgid "Passwords must match."
 msgstr "Senhas devem ser iguais."
 
-#: templates/admin/sqlshell.html.php:43
+#: templates/admin/sqlshell.html.php:45
 msgid "Paste"
 msgstr "Colar"
 
@@ -2356,10 +2356,6 @@ msgstr ""
 "que alguns dispositivos vão sempre enviar citações ao final do texto de "
 "resposta."
 
-#: lib/Block/FbStream.php:134
-msgid "Post"
-msgstr "Postar"
-
 #: lib/Ajax/Application/FacebookHandler.php:157
 #, php-format
 msgid "Posted %s"
@@ -2410,7 +2406,7 @@ msgstr "Provisionando"
 msgid "Publish enabled."
 msgstr "Publicação habilitada."
 
-#: templates/admin/sqlshell.html.php:7
+#: templates/admin/sqlshell.html.php:9
 msgid "Query"
 msgstr "Consultar"
 
@@ -2530,12 +2526,12 @@ msgstr "Redefinir estado de todos dispositivos"
 msgid "Reset your password"
 msgstr "Redefenir sua senha"
 
-#: templates/admin/sqlshell.html.php:58
+#: templates/admin/sqlshell.html.php:60
 msgid "Restore Last Query"
 msgstr "Restaurar última pesquisa"
 
-#: templates/admin/cmdshell.html.php:7 templates/admin/phpshell.html.php:32
-#: templates/admin/sqlshell.html.php:11
+#: templates/admin/cmdshell.html.php:7 templates/admin/phpshell.html.php:34
+#: templates/admin/sqlshell.html.php:13
 msgid "Results"
 msgstr "Resultados"
 
@@ -2565,7 +2561,7 @@ msgstr "Reverter Configuração"
 msgid "Riddles"
 msgstr "Charadas"
 
-#: templates/admin/sqlshell.html.php:44
+#: templates/admin/sqlshell.html.php:46
 msgid "Run"
 msgstr "Executar"
 
@@ -2884,7 +2880,7 @@ msgid "Succesfully connected your Facebook account or updated permissions."
 msgstr ""
 "Conectado com sucesso à sua conta do Facebook ou atualizadas permissões."
 
-#: templates/admin/sqlshell.html.php:15
+#: templates/admin/sqlshell.html.php:17
 msgid "Success"
 msgstr "Sucesso"
 
@@ -2999,10 +2995,30 @@ msgstr ""
 msgid "Thai (TIS-620)"
 msgstr "Tailandês (TIS-620)"
 
+#: admin/sqlshell.php:97
+#, php-format
+msgid ""
+"The DELETE command completed successfully. A total of %d rows were deleted."
+msgstr ""
+"O comando DELETE foi executado com sucesso. Total de %d linhas foram "
+"apagadas."
+
+#: admin/sqlshell.php:89
+msgid "The INSERT command completed successfully."
+msgstr "O comando INSERT executado com sucesso."
+
 #: lib/Prefs/Special/Activesync.php:118
 #, php-format
 msgid "The Remote Wipe for device id %s has been cancelled."
 msgstr "A Limpeza Remota para o id de dispositivo %s foi cancelada."
+
+#: admin/sqlshell.php:93
+#, php-format
+msgid ""
+"The UPDATE command completed successfully. A total of %d rows were modified."
+msgstr ""
+"O comando UPDATE foi executado com sucesso. Total de %d linhas foram "
+"modificadas."
 
 #: admin/alarms.php:86
 msgid "The alarm has been deleted."
@@ -3132,7 +3148,7 @@ msgstr ""
 "Houve um erro no formulário de configuração. Talvez você deixou um campo "
 "obrigatório em branco."
 
-#: lib/Ajax/Application/FacebookHandler.php:47 lib/Block/FbStream.php:144
+#: lib/Ajax/Application/FacebookHandler.php:47 lib/Block/FbStream.php:142
 #, php-format
 msgid "There was an error making the request: %s"
 msgstr "Houve um erro ao fazer a solicitação: %s"
@@ -3645,7 +3661,7 @@ msgstr ""
 "Você não está conectado à sua conta do Facebook. Você deve verificar suas "
 "configurações do Facebook em %s."
 
-#: lib/Ajax/Application/FacebookHandler.php:48 lib/Block/FbStream.php:145
+#: lib/Ajax/Application/FacebookHandler.php:48 lib/Block/FbStream.php:143
 #, php-format
 msgid "You can also check your Facebook settings in your %s."
 msgstr "Você também pode verificar suas configurações do Facebook no seu %s."
@@ -3877,7 +3893,7 @@ msgid "inline"
 msgstr "incorporado"
 
 #: lib/Ajax/Application/FacebookHandler.php:48 lib/Block/FbStream.php:103
-#: lib/Block/FbStream.php:145 lib/Block/TwitterTimeline.php:168
+#: lib/Block/FbStream.php:143 lib/Block/TwitterTimeline.php:168
 msgid "preferences"
 msgstr "preferências"
 
@@ -3892,3 +3908,6 @@ msgstr "preencha sua senha duas vezes para confirmar"
 #: admin/config/diff.php:61 admin/config/diff.php:71
 msgid "unified"
 msgstr "unificado"
+
+#~ msgid "Post"
+#~ msgstr "Postar"

@@ -3,21 +3,21 @@
 # Copyright 2012-2016 Horde LLC (http://www.horde.org/)
 #
 # Fabio Gomes <flgoms@uol.com.br>, 2005.
-# Luis Felipe Marzagao <duli@fedoraproject.org>, 2008.
+# Luis Felipe Marzagao <duli@easylifeproject.org>, 2016.
 msgid ""
 msgstr ""
 "Project-Id-Version: pt_BR\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2015-03-08 19:18-0300\n"
-"PO-Revision-Date: 2015-03-08 19:24-0300\n"
+"POT-Creation-Date: 2016-05-11 00:06+0000\n"
+"PO-Revision-Date: 2016-05-10 21:33-0300\n"
 "Last-Translator: Luis Felipe Marzagao <duli@easylifeproject.org>\n"
 "Language-Team: Português brasileiro <i18n@lists.horde.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.5.4\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: pt_BR\n"
 
 #: lib/Storage.php:348
 msgid " and"
@@ -51,6 +51,10 @@ msgstr "%s O driver disse: %s"
 #, php-format
 msgid "%s is not supported in the current filtering driver."
 msgstr "%s não é suportado no driver de filtragem atual."
+
+#: lib/Basic/Spam.php:143
+msgid "A target folder is required."
+msgstr "É preciso de uma pasta alvo."
 
 #: templates/basic/rule/rule.html.php:32
 msgid "ALL of the following"
@@ -136,7 +140,7 @@ msgstr "Lista Negra"
 msgid "Blacklist Edit"
 msgstr "Editar Lista Negra"
 
-#: lib/Script/Maildrop.php:176 lib/Script/Procmail.php:231
+#: lib/Script/Maildrop.php:176 lib/Script/Procmail.php:225
 #: lib/Script/Sieve.php:237
 msgid "Blacklisted Addresses"
 msgstr "Endereços na Lista Negra"
@@ -175,7 +179,7 @@ msgstr "Copiar"
 msgid "Copy %s"
 msgstr "Copiar %s"
 
-#: lib/Storage/Filters.php:227 lib/Storage/Filters/Sql.php:240
+#: lib/Storage/Filters.php:227 lib/Storage/Filters/Sql.php:266
 #, php-format
 msgid "Copy of %s"
 msgstr "Copiar de %s"
@@ -381,7 +385,7 @@ msgstr "Regras de Filtro"
 msgid "Filter Script Display"
 msgstr "Exibição da Rotina do Filtro"
 
-#: lib/Application.php:115
+#: lib/Application.php:116
 msgid "Filter _Rules"
 msgstr "_Regras de Filtro"
 
@@ -455,7 +459,7 @@ msgstr "Encaminhar"
 msgid "Forward Keep Action"
 msgstr "Encaminhar Manter Ação"
 
-#: lib/Script/Maildrop.php:227 lib/Script/Procmail.php:313
+#: lib/Script/Maildrop.php:227 lib/Script/Procmail.php:307
 #: lib/Script/Sieve.php:193
 msgid "Forwards"
 msgstr "Redirecionamentos"
@@ -629,7 +633,7 @@ msgstr "Celular"
 msgid "My email addresses:"
 msgstr "Meus endereços de e-mail:"
 
-#: lib/Application.php:194 lib/Storage/Filters.php:123
+#: lib/Application.php:200 lib/Storage/Filters.php:123
 #: templates/basic/filters/filters.html.php:29
 msgid "New Rule"
 msgstr "Nova Regra"
@@ -647,7 +651,7 @@ msgstr "Sem Descrição"
 msgid "No backend configured for this host"
 msgstr "Não foi configurado um driver para este servidor"
 
-#: lib/Ingo.php:178
+#: lib/Ingo.php:176
 msgid "No backends configured in backends.php"
 msgstr "Nenhum driver configurado em backends.php"
 
@@ -701,7 +705,7 @@ msgstr "Visão geral"
 msgid "Participant (From, To, etc.)"
 msgstr "Participante (De, Para, etc.)"
 
-#: lib/Storage/Sql.php:291
+#: lib/Storage/Sql.php:336
 msgid "Permission Denied"
 msgstr "Permissão Negada"
 
@@ -821,7 +825,7 @@ msgstr "Regras Contendo Pasta \"%s\""
 msgid "Rules Matching Mailbox \"%s\""
 msgstr "Regas Correspondendo Pasta \"%s\""
 
-#: lib/Application.php:206
+#: lib/Application.php:212
 msgid "Ruleset"
 msgstr "Conjunto de regras"
 
@@ -830,7 +834,7 @@ msgstr "Conjunto de regras"
 msgid "STARTTLS failed: (%s) %s"
 msgstr "O STARTTLS falhou: (%s) %s"
 
-#: lib/Application.php:137
+#: lib/Application.php:138
 msgid "S_pam"
 msgstr "S_pam"
 
@@ -1017,7 +1021,7 @@ msgstr "Cabeçalho de usuário"
 
 #: lib/Basic/Filters.php:218 lib/Basic/Vacation.php:32
 #: lib/Basic/Vacation.php:122 lib/Block/Overview.php:64
-#: lib/Script/Maildrop.php:259 lib/Script/Procmail.php:292
+#: lib/Script/Maildrop.php:259 lib/Script/Procmail.php:286
 #: lib/Script/Sieve.php:377 lib/Smartmobile.php:95
 msgid "Vacation"
 msgstr "Férias"
@@ -1056,7 +1060,7 @@ msgstr "Lista Branca"
 msgid "Whitelist Edit"
 msgstr "Editar Lista Branca"
 
-#: lib/Script/Maildrop.php:204 lib/Script/Procmail.php:259
+#: lib/Script/Maildrop.php:204 lib/Script/Procmail.php:253
 #: lib/Script/Sieve.php:298
 msgid "Whitelisted Addresses"
 msgstr "Endereços na Lista Branca"
@@ -1126,7 +1130,7 @@ msgstr "[Sem Remetente]"
 msgid "[No Subject]"
 msgstr "[Sem Assunto]"
 
-#: lib/Application.php:122
+#: lib/Application.php:123
 msgid "_Blacklist"
 msgstr "Lista _Negra"
 
@@ -1138,7 +1142,7 @@ msgstr "E_xcluir mensagem completamente"
 msgid "_Enter each address on a new line:"
 msgstr "_Preencha cada endereço em uma nova linha:"
 
-#: lib/Application.php:133
+#: lib/Application.php:134
 msgid "_Forward"
 msgstr "_Encaminhar"
 
@@ -1146,19 +1150,19 @@ msgstr "_Encaminhar"
 msgid "_Move message to folder:"
 msgstr "_Mover mensagem para a pasta:"
 
-#: lib/Application.php:150
+#: lib/Application.php:157
 msgid "_Permissions"
 msgstr "_Permissões"
 
-#: lib/Application.php:143
+#: lib/Application.php:144
 msgid "_Script"
 msgstr "_Rotina"
 
-#: lib/Application.php:129
+#: lib/Application.php:130
 msgid "_Vacation"
 msgstr "_Férias"
 
-#: lib/Application.php:119
+#: lib/Application.php:120
 msgid "_Whitelist"
 msgstr "Lista _Branca"
 
