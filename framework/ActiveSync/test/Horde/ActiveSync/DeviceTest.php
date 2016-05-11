@@ -55,6 +55,17 @@ class Horde_ActiveSync_DeviceTest extends Horde_Test_Case
         $this->assertEquals(Horde_ActiveSync_Device::MULTIPLEX_NOTES, $device->multiplex);
 
         $fixture = array(
+            'deviceType' => 'iPad',
+            'userAgent' => 'Apple-iPad4C5/1206.69',
+            'properties' => array(Horde_ActiveSync_Device::OS => 'iOS 8.3 12F69')
+        );
+        $device = new Horde_ActiveSync_Device($state, $fixture);
+        $this->assertEquals(8, $device->getMajorVersion());
+        $this->assertEquals(3, $device->getMinorVersion());
+        $this->assertEquals(Horde_ActiveSync_Device::TYPE_IPAD, Horde_String::lower($device->deviceType));
+        $this->assertEquals(Horde_ActiveSync_Device::MULTIPLEX_NOTES, $device->multiplex);
+
+        $fixture = array(
             'deviceType' => 'iPhone',
             'userAgent' => 'Apple-iPhone6C1/1104.201',
             'properties' => array(Horde_ActiveSync_Device::OS => 'iOS 9.0.2 13A452')
