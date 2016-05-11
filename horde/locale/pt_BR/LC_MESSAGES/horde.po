@@ -2255,9 +2255,8 @@ msgstr "Extensão POSIX inválida"
 msgid "P_HP Shell"
 msgstr "P_HP Shell"
 
-#: login.php:211 admin/config/index.php:421 admin/user.php:39
-#: admin/user.php:53 config/registry.php:327
-#: templates/admin/user/update.inc:20
+#: login.php:211 admin/config/index.php:421 admin/user.php:39 admin/user.php:53
+#: config/registry.php:327 templates/admin/user/update.inc:20
 msgid "Password"
 msgstr "Senha"
 
@@ -3422,9 +3421,9 @@ msgstr "Conta de usuário não encontrada"
 msgid "User to add:"
 msgstr "Usuário a adicionar:"
 
-#: login.php:206 admin/config/index.php:420 admin/user.php:36
-#: admin/user.php:52 services/resetpassword.php:33
-#: templates/admin/activesync.html.php:9 templates/admin/user/approve.inc:23
+#: login.php:206 admin/config/index.php:420 admin/user.php:36 admin/user.php:52
+#: services/resetpassword.php:33 templates/admin/activesync.html.php:9
+#: templates/admin/user/approve.inc:23
 msgid "Username"
 msgstr "Nome do usuário"
 
@@ -3908,6 +3907,3 @@ msgstr "preencha sua senha duas vezes para confirmar"
 #: admin/config/diff.php:61 admin/config/diff.php:71
 msgid "unified"
 msgstr "unificado"
-
-#~ msgid "Post"
-#~ msgstr "Postar"

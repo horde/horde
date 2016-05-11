@@ -810,8 +810,7 @@ msgstr "Ordenação de rega gravada com sucesso."
 msgid "Rule:"
 msgstr "Regra:"
 
-#: templates/smartmobile/rule.html.php:2
-#: templates/smartmobile/rules.html.php:2
+#: templates/smartmobile/rule.html.php:2 templates/smartmobile/rules.html.php:2
 msgid "Rules"
 msgstr "Regras"
 
@@ -937,8 +936,7 @@ msgid "Source (From, Reply-to, etc.)"
 msgstr "Origem (De, Responder-para, etc.)"
 
 #: lib/Basic/Filters.php:236 lib/Block/Overview.php:112
-#: lib/Script/Maildrop.php:296 lib/Script/Sieve.php:404
-#: lib/Smartmobile.php:105
+#: lib/Script/Maildrop.php:296 lib/Script/Sieve.php:404 lib/Smartmobile.php:105
 msgid "Spam Filter"
 msgstr "Filtro de Spam"
 

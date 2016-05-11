@@ -1254,8 +1254,8 @@ msgid "Event edited:"
 msgstr "Evento editado:"
 
 #: lib/Driver/Horde.php:182 lib/Driver/Ical.php:428 lib/Driver/Ical.php:445
-#: lib/Driver/Sql.php:480 lib/View/DeleteEvent.php:54
-#: lib/View/EditEvent.php:55 lib/View/Event.php:54 lib/View/ExportEvent.php:18
+#: lib/Driver/Sql.php:480 lib/View/DeleteEvent.php:54 lib/View/EditEvent.php:55
+#: lib/View/Event.php:54 lib/View/ExportEvent.php:18
 msgid "Event not found"
 msgstr "Evento não encontrado"
 
@@ -1304,8 +1304,7 @@ msgid "Exceptions"
 msgstr "Exceções"
 
 #: templates/dynamic/sidebar.html.php:58 templates/dynamic/sidebar.html.php:72
-#: templates/dynamic/sidebar.html.php:89
-#: templates/dynamic/sidebar.html.php:104
+#: templates/dynamic/sidebar.html.php:89 templates/dynamic/sidebar.html.php:104
 #: templates/dynamic/sidebar.html.php:123
 #: templates/dynamic/sidebar.html.php:137
 msgid "Expand"
@@ -1824,8 +1823,7 @@ msgid "No items"
 msgstr "Nenhum item"
 
 #: templates/dynamic/sidebar.html.php:62 templates/dynamic/sidebar.html.php:76
-#: templates/dynamic/sidebar.html.php:93
-#: templates/dynamic/sidebar.html.php:108
+#: templates/dynamic/sidebar.html.php:93 templates/dynamic/sidebar.html.php:108
 #: templates/dynamic/sidebar.html.php:127
 #: templates/dynamic/sidebar.html.php:141
 msgid "No items to display"
@@ -1847,8 +1845,8 @@ msgstr "Nenhum recurso desse grupo estava disponível"
 msgid "No valid email address found"
 msgstr "Endereço de e-mail válido não encontrado"
 
-#: lib/Ajax.php:146 lib/Form/CreateResource.php:32
-#: lib/Form/EditResource.php:40 lib/Kronolith.php:880 lib/Kronolith.php:901
+#: lib/Ajax.php:146 lib/Form/CreateResource.php:32 lib/Form/EditResource.php:40
+#: lib/Kronolith.php:880 lib/Kronolith.php:901
 #: templates/chunks/calendar.php:367 templates/dynamic/task.inc:51
 msgid "None"
 msgstr "Nenhum"

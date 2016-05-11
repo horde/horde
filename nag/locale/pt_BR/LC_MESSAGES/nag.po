@@ -692,8 +692,7 @@ msgstr "Vence em"
 msgid "Last Modified"
 msgstr "Última Modificação"
 
-#: templates/smartmobile/lists.html.php:2
-#: templates/smartmobile/main.html.php:2
+#: templates/smartmobile/lists.html.php:2 templates/smartmobile/main.html.php:2
 msgid "Lists"
 msgstr "Listas"
 

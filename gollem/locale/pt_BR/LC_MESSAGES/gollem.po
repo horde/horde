@@ -96,8 +96,7 @@ msgstr "Estruturas"
 msgid "Below is the current contents of your clipboard."
 msgstr "Abaixo está o conteúdo atual da área de transferência."
 
-#: clipboard.php:23 templates/edit.html.php:15
-#: templates/selectlist.html.php:30
+#: clipboard.php:23 templates/edit.html.php:15 templates/selectlist.html.php:30
 msgid "Cancel"
 msgstr "Cancelar"
 

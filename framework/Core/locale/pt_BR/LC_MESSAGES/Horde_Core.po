@@ -47,28 +47,23 @@ msgstr[1] "%d dias até sua senha expirar."
 msgid "-- select --"
 msgstr "-- selecione --"
 
-#: lib/Horde/Core/Notification/Event/Status.php:73
-#: lib/Horde/PageOutput.php:654
+#: lib/Horde/Core/Notification/Event/Status.php:73 lib/Horde/PageOutput.php:654
 msgid "1 day"
 msgstr "1 dia"
 
-#: lib/Horde/Core/Notification/Event/Status.php:71
-#: lib/Horde/PageOutput.php:652
+#: lib/Horde/Core/Notification/Event/Status.php:71 lib/Horde/PageOutput.php:652
 msgid "1 hour"
 msgstr "1 hora"
 
-#: lib/Horde/Core/Notification/Event/Status.php:70
-#: lib/Horde/PageOutput.php:651
+#: lib/Horde/Core/Notification/Event/Status.php:70 lib/Horde/PageOutput.php:651
 msgid "15 minutes"
 msgstr "15 minutos"
 
-#: lib/Horde/Core/Notification/Event/Status.php:69
-#: lib/Horde/PageOutput.php:650
+#: lib/Horde/Core/Notification/Event/Status.php:69 lib/Horde/PageOutput.php:650
 msgid "5 minutes"
 msgstr "5 minutos"
 
-#: lib/Horde/Core/Notification/Event/Status.php:72
-#: lib/Horde/PageOutput.php:653
+#: lib/Horde/Core/Notification/Event/Status.php:72 lib/Horde/PageOutput.php:653
 msgid "6 hours"
 msgstr "6 horas"
 

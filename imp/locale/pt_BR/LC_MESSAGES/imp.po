@@ -71,8 +71,7 @@ msgstr[1] "%d Anexos"
 msgid "%d Attachments"
 msgstr "%d Anexos"
 
-#: lib/Basic/Mailbox.php:397 lib/Basic/Mailbox.php:398
-#: lib/Basic/Thread.php:180
+#: lib/Basic/Mailbox.php:397 lib/Basic/Mailbox.php:398 lib/Basic/Thread.php:180
 #, php-format
 msgid "%d Messages"
 msgstr "%d Mensagens"
@@ -976,9 +975,8 @@ msgstr "Impossível anexar informação de contato: %s"
 #: templates/basic/folders/folders_confirm.html.php:27
 #: templates/basic/folders/import.html.php:17
 #: templates/contacts/contacts.html.php:69
-#: templates/minimal/compose.html.php:59
-#: templates/minimal/redirect.html.php:29 templates/pgp/import_key.html.php:69
-#: templates/prefs/remote.html.php:80
+#: templates/minimal/compose.html.php:59 templates/minimal/redirect.html.php:29
+#: templates/pgp/import_key.html.php:69 templates/prefs/remote.html.php:80
 #: templates/saveimage/saveimage.html.php:20
 #: templates/search/search.html.php:103
 #: templates/smartmobile/compose.html.php:54
@@ -1619,8 +1617,8 @@ msgid "Delegated"
 msgstr "Delegado"
 
 #: lib/Dynamic/Compose/Common.php:186 lib/Dynamic/Mailbox.php:327
-#: lib/Dynamic/Mailbox.php:358 lib/Imap/Acl.php:196
-#: lib/Minimal/Message.php:218 templates/basic/folders/actions.html.php:26
+#: lib/Dynamic/Mailbox.php:358 lib/Imap/Acl.php:196 lib/Minimal/Message.php:218
+#: templates/basic/folders/actions.html.php:26
 #: templates/dynamic/mailbox.html.php:51 templates/dynamic/message.html.php:29
 #: templates/minimal/mailbox.html.php:30 templates/prefs/acl.html.php:43
 #: templates/prefs/acl.html.php:78 templates/prefs/pgppublickey.html.php:22
@@ -2161,8 +2159,7 @@ msgid "Expand Headers"
 msgstr "Expandir Cabeçalhos"
 
 #: lib/Minimal/Compose.php:107 lib/Minimal/Compose.php:162
-#: templates/minimal/compose.html.php:58
-#: templates/minimal/redirect.html.php:28
+#: templates/minimal/compose.html.php:58 templates/minimal/redirect.html.php:28
 msgid "Expand Names"
 msgstr "Expandir Nomes"
 
@@ -2298,8 +2295,7 @@ msgstr "Pasta"
 msgid "Folder Actions"
 msgstr "Ações de Pasta"
 
-#: lib/Basic/Folders.php:274
-#: templates/basic/folders/folders_confirm.html.php:6
+#: lib/Basic/Folders.php:274 templates/basic/folders/folders_confirm.html.php:6
 msgid "Folder Actions - Confirmation"
 msgstr "Ações de Pastas - Confirmação"
 
@@ -2384,8 +2380,7 @@ msgstr "_De"
 #: templates/basic/search/search-basic.html.php:16
 #: templates/dynamic/compose.html.php:102
 #: templates/dynamic/mailbox.html.php:128 templates/minimal/mailbox.html.php:9
-#: templates/smartmobile/search.html.php:11
-#: templates/thread/thread.html.php:21
+#: templates/smartmobile/search.html.php:11 templates/thread/thread.html.php:21
 msgid "From"
 msgstr "De"
 
@@ -3231,10 +3226,9 @@ msgstr "Nova Bandeira"
 msgid "New Mail"
 msgstr "Nova Mensagem"
 
-#: lib/Application.php:430 lib/Basic/Compose.php:207
-#: lib/Basic/Compose.php:1152 lib/Compose.php:2220 lib/Dynamic/Base.php:157
-#: lib/Dynamic/Compose.php:78 lib/Dynamic/Mailbox.php:109
-#: lib/Minimal/Base.php:88 lib/Smartmobile.php:177
+#: lib/Application.php:430 lib/Basic/Compose.php:207 lib/Basic/Compose.php:1152
+#: lib/Compose.php:2220 lib/Dynamic/Base.php:157 lib/Dynamic/Compose.php:78
+#: lib/Dynamic/Mailbox.php:109 lib/Minimal/Base.php:88 lib/Smartmobile.php:177
 #: templates/dynamic/mailbox.html.php:54
 #: templates/smartmobile/compose.html.php:2
 #: templates/smartmobile/folders.html.php:13
@@ -3962,13 +3956,12 @@ msgstr "Repetição"
 msgid "Redirec_t"
 msgstr "Redirec_ionar"
 
-#: lib/Basic/Compose.php:421 lib/Basic/Mailbox.php:685
-#: lib/Dynamic/Base.php:180 lib/Dynamic/Compose.php:148
-#: lib/Minimal/Compose.php:234 lib/Minimal/Compose.php:237
-#: lib/Minimal/Message.php:244 lib/Notification/Event/Status.php:32
+#: lib/Basic/Compose.php:421 lib/Basic/Mailbox.php:685 lib/Dynamic/Base.php:180
+#: lib/Dynamic/Compose.php:148 lib/Minimal/Compose.php:234
+#: lib/Minimal/Compose.php:237 lib/Minimal/Message.php:244
+#: lib/Notification/Event/Status.php:32
 #: templates/basic/compose/redirect.html.php:51
-#: templates/dynamic/redirect.html.php:7
-#: templates/minimal/redirect.html.php:27
+#: templates/dynamic/redirect.html.php:7 templates/minimal/redirect.html.php:27
 #: templates/smartmobile/message.html.php:55
 msgid "Redirect"
 msgid_plural "Redirect Messages"
@@ -4152,8 +4145,7 @@ msgid "Required Participant"
 msgstr "Participante Obrigatório"
 
 #: templates/basic/search/search-basic.html.php:50
-#: templates/contacts/contacts.html.php:25
-#: templates/search/search.html.php:106
+#: templates/contacts/contacts.html.php:25 templates/search/search.html.php:106
 msgid "Reset"
 msgstr "Limpar"
 
@@ -4856,8 +4848,7 @@ msgstr "_Assunto"
 #: lib/Dynamic/Mailbox.php:188 lib/Dynamic/Mailbox.php:258
 #: lib/Dynamic/Mailbox.php:499 lib/Message/Ui.php:39 lib/Smartmobile.php:181
 #: templates/basic/search/search-basic.html.php:18
-#: templates/dynamic/compose.html.php:147
-#: templates/minimal/mailbox.html.php:10
+#: templates/dynamic/compose.html.php:147 templates/minimal/mailbox.html.php:10
 #: templates/smartmobile/search.html.php:13
 msgid "Subject"
 msgstr "Assunto"
@@ -5322,8 +5313,7 @@ msgstr "A informação livre/ocupado do usuário foi armazenada com sucesso."
 msgid "There are no alternative parts that can be displayed inline."
 msgstr "Não existem partes alternativas que podem ser exibidas em linha."
 
-#: lib/Dynamic/Mailbox.php:561
-#: templates/basic/mailbox/empty_mailbox.html.php:6
+#: lib/Dynamic/Mailbox.php:561 templates/basic/mailbox/empty_mailbox.html.php:6
 msgid "There are no messages in this mailbox."
 msgstr "Não existem mensagens nesta pasta."
 
@@ -5521,10 +5511,9 @@ msgstr "Ordenar por Discussão"
 msgid "Thread View"
 msgstr "Visualização de Discussões"
 
-#: lib/Basic/Contacts.php:111 lib/Basic/Mailbox.php:725
-#: lib/Basic/Search.php:65 lib/Compose.php:2610 lib/Dynamic/Mailbox.php:183
-#: lib/Dynamic/Mailbox.php:257 lib/Message/Ui.php:35
-#: templates/basic/compose/redirect.html.php:30
+#: lib/Basic/Contacts.php:111 lib/Basic/Mailbox.php:725 lib/Basic/Search.php:65
+#: lib/Compose.php:2610 lib/Dynamic/Mailbox.php:183 lib/Dynamic/Mailbox.php:257
+#: lib/Message/Ui.php:35 templates/basic/compose/redirect.html.php:30
 #: templates/contacts/contacts.html.php:40
 #: templates/dynamic/compose.html.php:114
 #: templates/dynamic/mailbox.html.php:136 templates/thread/thread.html.php:21

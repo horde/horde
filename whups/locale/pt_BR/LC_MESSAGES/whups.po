@@ -711,8 +711,7 @@ msgstr "Executar consulta"
 msgid "Edit"
 msgstr "Editar"
 
-#: lib/Form/Admin/EditQueueStepTwo.php:32
-#: lib/Form/Admin/EditTypeStepTwo.php:23
+#: lib/Form/Admin/EditQueueStepTwo.php:32 lib/Form/Admin/EditTypeStepTwo.php:23
 #, php-format
 msgid "Edit %s"
 msgstr "Editar %s"
@@ -1063,8 +1062,8 @@ msgstr ""
 msgid "Match"
 msgstr "Coincidir"
 
-#: lib/Form/Query/AttributeCriterion.php:52
-#: lib/Form/Query/TextCriterion.php:39 lib/Form/Query/UserCriterion.php:39
+#: lib/Form/Query/AttributeCriterion.php:52 lib/Form/Query/TextCriterion.php:39
+#: lib/Form/Query/UserCriterion.php:39
 msgid "Match Operator"
 msgstr "Operador de coincidência"
 
@@ -1380,8 +1379,8 @@ msgstr "Prioridades para este tipo"
 #: config/prefs.php:53 lib/Form/Query/PropertyCriterion.php:71
 #: lib/Form/Queue/StepThree.php:35 lib/Form/Renderer/Query.php:129
 #: lib/Form/SetTypeStepTwo.php:28 lib/Form/Ticket/CreateStepThree.php:69
-#: lib/Form/Ticket/Edit.php:86 lib/Form/TicketDetails.php:91
-#: lib/Ticket.php:695 lib/Ticket.php:887 lib/Whups.php:862
+#: lib/Form/Ticket/Edit.php:86 lib/Form/TicketDetails.php:91 lib/Ticket.php:695
+#: lib/Ticket.php:887 lib/Whups.php:862
 msgid "Priority"
 msgstr "Prioridade"
 
@@ -1854,9 +1853,9 @@ msgstr "Tipo do ticket alterado com sucesso."
 
 #: config/prefs.php:50 lib/Form/Renderer/Query.php:93
 #: lib/Form/Ticket/CreateStepThree.php:74 lib/Form/Ticket/Delete.php:20
-#: lib/Form/Ticket/Edit.php:63 lib/Form/TicketDetails.php:47
-#: lib/Ticket.php:701 lib/Ticket.php:728 lib/Ticket.php:731 lib/Ticket.php:735
-#: lib/Ticket.php:892 lib/Ticket.php:901 lib/Whups.php:859
+#: lib/Form/Ticket/Edit.php:63 lib/Form/TicketDetails.php:47 lib/Ticket.php:701
+#: lib/Ticket.php:728 lib/Ticket.php:731 lib/Ticket.php:735 lib/Ticket.php:892
+#: lib/Ticket.php:901 lib/Whups.php:859
 msgid "Summary"
 msgstr "Sumário"
 
