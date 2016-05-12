@@ -34,6 +34,6 @@ class KronolithEventOrganizer extends Horde_Db_Migration_Base
      */
     public function down()
     {
-        $this->removeColumn('kronolith_events', 'event_organizer', 'text');
+        $this->removeColumn('kronolith_events', 'event_organizer');
     }
 }
