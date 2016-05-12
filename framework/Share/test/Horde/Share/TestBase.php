@@ -24,6 +24,7 @@ class Horde_Share_TestBase extends Horde_Test_Case
         $share = self::$share->newShare('john', 'myshare', 'My Share');
         $this->assertInstanceOf('Horde_Share_Object', $share);
         $share->set('desc', '行事曆');
+        $share->set('clob', '行事曆');
         $share->addDefaultPermission(Horde_Perms::SHOW);
         $share->addUserPermission('jane', Horde_Perms::SHOW);
         $share->addGroupPermission('mygroup', Horde_Perms::SHOW);
@@ -204,7 +205,7 @@ class Horde_Share_TestBase extends Horde_Test_Case
         $this->assertInstanceOf('Horde_Share_Object', $myshare);
         $this->assertEquals(self::$shares['myshare'], $myshare);
         $this->assertEquals('行事曆', $myshare->get('desc'));
-
+        $this->assertEquals('行事曆', $myshare->get('clob'));
         $this->switchAuth('jane');
         $janeshare = self::$share->getShareById(self::$shares['jane']['janeshare']->getId());
         $janeshare->getPermission();

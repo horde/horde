@@ -110,7 +110,7 @@ class Horde_Share_Sqlng extends Horde_Share_Sql
             $sortfield = 'attribute_' . $params['sort_by'];
         }
         $where = $this->_getShareCriteria($userid, $perms, $params['attributes'], $shareids, $params['parent'], $params['all_levels']);
-        $query = 'SELECT DISTINCT * FROM ' . $this->_table . ' s ' .
+        $query = 'SELECT ' . $this->_getDistinctClause() . ' FROM ' . $this->_table . ' s ' .
             (!empty($where) ? ' WHERE ' . $where : '')
             . ' ORDER BY ' . $sortfield
             . (($params['direction'] == 0) ? ' ASC' : ' DESC');
@@ -125,6 +125,7 @@ class Horde_Share_Sqlng extends Horde_Share_Sql
 
         $sharelist = array();
         foreach ($rows as $share) {
+            $this->_convertClobs($share);
             $share = $this->_fromDriverCharset($share);
             $this->_loadPermissions($share);
             $sharelist[$share['share_name']] = $this->_createObject($share);
@@ -156,6 +157,7 @@ class Horde_Share_Sqlng extends Horde_Share_Sql
 
         $sharelist = array();
         foreach ($rows as $share) {
+            $this->_convertClobs($share);
             $data = $this->_fromDriverCharset($share);
             $this->_loadPermissions($data);
             $sharelist[$data['share_name']] = $this->_createObject($data);

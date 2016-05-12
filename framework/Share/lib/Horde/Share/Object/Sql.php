@@ -22,6 +22,8 @@ class Horde_Share_Object_Sql extends Horde_Share_Object implements Serializable
      */
     public $data = array();
 
+    protected $_clobFields = array();
+
     /**
      * Constructor.
      *

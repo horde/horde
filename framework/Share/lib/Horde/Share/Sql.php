@@ -48,6 +48,20 @@ class Horde_Share_Sql extends Horde_Share_Base
     protected $_shareObject = 'Horde_Share_Object_Sql';
 
     /**
+     * Local cache of text/clob fields
+     *
+     * @var array
+     */
+    protected $_clobFields = array();
+
+    /**
+     * Local cache of non-text/clob fields
+     *
+     * @var array
+     */
+    protected $_nonClobFields = array();
+
+    /**
      *
      * @see Horde_Share_Base::__construct()
      */
@@ -90,6 +104,59 @@ class Horde_Share_Sql extends Horde_Share_Base
     public function getStorage()
     {
         return $this->_db;
+    }
+
+    /**
+     * Return a list of fields in the table that ARE text/clob fields.
+     *
+     * @return array  An array of clob field names.
+     */
+    protected function _getClobFields()
+    {
+        if (!empty($this->_clobFields)) {
+            return $this->_clobFields;
+        }
+
+        $columns = $this->_db->columns($this->_table);
+        foreach ($columns as $column) {
+            if ($column->getType() == 'text') {
+                $this->_clobFields[] = $column->getName();
+            }
+        }
+
+        return $this->_clobFields;
+    }
+
+    /**
+     * Return a list of fields in the table that are NOT text/clob fields.
+     *
+     * @return array  An array of non-clob field names.
+     */
+    protected function _getNonClobFields()
+    {
+        if (!empty($this->_nonClobFields)) {
+            return $this->_nonClobFields;
+        }
+        $columns = $this->_db->columns($this->_table);
+        foreach ($columns as $column) {
+            if ($column->getType() != 'text') {
+                $this->_nonClobFields[] = $column->getName();
+            }
+        }
+
+        return $this->_nonClobFields;
+    }
+
+    /**
+     * Return a DISTINCT clause containing all non-clob field names.
+     *
+     * @return string  The DISTINCT clause.
+     */
+    protected function _getDistinctClause()
+    {
+        $clause = 'DISTINCT ';
+        $fields = array_map(function($f) { return 's.' . $f; }, $this->_getNonClobFields());
+        return 'DISTINCT ' . implode(', ', $fields);
     }
 
     /**
@@ -178,6 +245,7 @@ class Horde_Share_Sql extends Horde_Share_Base
         if (!$results) {
             throw new Horde_Exception_NotFound(sprintf('Share name %s not found', $name));
         }
+        $this->_convertClobs($results);
         $data = $this->_fromDriverCharset($results);
         $this->_loadPermissions($data);
 
@@ -190,6 +258,21 @@ class Horde_Share_Sql extends Horde_Share_Base
         $this->initShareObject($object);
 
         return $object;
+    }
+
+    /**
+     * Convert clob data to string.
+     *
+     * @param array &$data  An array of share data.
+     */
+    protected function _convertClobs(&$data)
+    {
+        $columns = $this->_db->columns($this->_table);
+        foreach ($data as $row => &$value) {
+            if (in_array($row, $this->_getClobFields())) {
+                $value = $columns[$row]->binaryToString($value);
+            }
+        }
     }
 
     /**
@@ -232,9 +315,9 @@ class Horde_Share_Sql extends Horde_Share_Base
         if (!$results) {
             throw new Horde_Exception_NotFound(sprintf('Share id %s not found', $id));
         }
+        $this->_convertClobs($results);
         $data = $this->_fromDriverCharset($results);
         $this->_loadPermissions($data);
-
         return $this->_createObject($data);
     }
 
@@ -260,6 +343,7 @@ class Horde_Share_Sql extends Horde_Share_Base
         $sharelist = array();
         foreach ($rows as $share) {
             $this->_loadPermissions($share);
+            $this->_convertClobs($share);
             $sharelist[$share['share_name']] = $this->_createObject($share);
         }
 
@@ -297,6 +381,7 @@ class Horde_Share_Sql extends Horde_Share_Base
         }
 
         foreach ($rows as $share) {
+            $this->_convertClobs($share);
             $shares[(int)$share['share_id']] = $this->_fromDriverCharset($share);
         }
 
@@ -379,7 +464,7 @@ class Horde_Share_Sql extends Horde_Share_Base
             $sortfield = 's.attribute_' . $params['sort_by'];
         }
 
-        $query = 'SELECT DISTINCT s.* '
+        $query = 'SELECT ' . $this->_getDistinctClause() . ' '
             . $this->getShareCriteria($userid, $params['perm'], $params['attributes'], $params['parent'], $params['all_levels'])
             . ' ORDER BY ' . $sortfield
             . (($params['direction'] == 0) ? ' ASC' : ' DESC');
@@ -394,6 +479,7 @@ class Horde_Share_Sql extends Horde_Share_Base
         $users = array();
         $groups = array();
         foreach ($rows as $share) {
+            $this->_convertClobs($share);
             $shares[(int)$share['share_id']] = $this->_fromDriverCharset($share);
             if ($this->_hasUsers($share)) {
                 $users[] = (int)$share['share_id'];
@@ -568,6 +654,7 @@ class Horde_Share_Sql extends Horde_Share_Base
 
         $sharelist = array();
         foreach ($rows as $share) {
+            $this->_convertClobs($share);
             $data = $this->_fromDriverCharset($share);
             $this->_getSharePerms($data);
             $sharelist[$data['share_name']] = $this->_createObject($data);
