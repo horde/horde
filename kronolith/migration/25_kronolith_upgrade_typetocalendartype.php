@@ -28,8 +28,8 @@ class KronolithUpgradeTypeToCalendarType extends Horde_Db_Migration_Base
      */
     public function up()
     {
-        $this->renameColumn('kronolith_sharesng', 'attribute_type','attribute_calendar_type');
-        $this->renameColumn('kronolith_shares', 'attribute_type','attribute_calendar_type');
+        $this->renameColumn('kronolith_sharesng', 'attribute_type', 'attribute_calendar_type');
+        $this->renameColumn('kronolith_shares', 'attribute_type',  'attribute_calendar_type');
     }
 
     /**
@@ -37,8 +37,8 @@ class KronolithUpgradeTypeToCalendarType extends Horde_Db_Migration_Base
      */
     public function down()
     {
-        $this->renameColumn('kronolith_sharesng', 'attribute_calendar_type','attribute_type');
-        $this->renameColumn('kronolith_shares', 'attribute_calendar_type','attribute_type');
+        $this->renameColumn('kronolith_sharesng', 'attribute_calendar_type', 'attribute_type');
+        $this->renameColumn('kronolith_shares', 'attribute_calendar_type', 'attribute_type');
     }
 
 }
