@@ -19,7 +19,7 @@
  * @license  http://www.horde.org/licenses/gpl GPL
  * @package  Kronolith
  */
-class KronolithUpgradeDescToText extends Horde_Db_Migration_Base
+class KronolithUpgradeDescriptionToText extends Horde_Db_Migration_Base
 {
     /**
      * Upgrade.
