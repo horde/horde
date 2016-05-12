@@ -30,7 +30,7 @@ function migrate_sqlng($db)
     $t->column('perm_guest_' . Horde_Perms::EDIT, 'boolean', array('default' => false, 'null' => false));
     $t->column('perm_guest_' . Horde_Perms::DELETE, 'boolean', array('default' => false, 'null' => false));
     $t->column('attribute_name', 'string', array('limit' => 255));
-    $t->column('attribute_desc', 'text');
+    $t->column('attribute_desc', 'string', array('limit' => 255));
     $t->end();
 
     $migration->addIndex('test_shares', array('share_name'));

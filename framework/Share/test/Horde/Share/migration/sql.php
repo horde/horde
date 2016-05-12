@@ -21,7 +21,7 @@ function migrate_sql($db)
     $t->column('perm_default', 'integer', array('default' => 0, 'null' => false));
     $t->column('perm_guest', 'integer', array('default' => 0, 'null' => false));
     $t->column('attribute_name', 'string', array('limit' => 255));
-    $t->column('attribute_desc', 'text');
+    $t->column('attribute_desc', 'string', array('limit' => 255));
     $t->end();
 
     $migration->addIndex('test_shares', array('share_name'));
