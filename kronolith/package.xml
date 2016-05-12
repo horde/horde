@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2016-03-01</date>
+ <date>2016-05-12</date>
  <version>
   <release>4.3.0</release>
   <api>4.2.0</api>
@@ -529,6 +529,7 @@
     <file name="24_kronolith_upgrade_resourcestoshares.php" role="horde" />
     <file name="25_kronolith_upgrade_typetocalendartype.php" role="horde" />
     <file name="26_kronolith_event_organizer.php" role="horde" />
+    <file name="27_kronolith_upgrade_description_totext.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="resources">
     <dir name="groups">
@@ -1382,6 +1383,7 @@
    <install as="kronolith/migration/24_kronolith_upgrade_resourcestoshares.php" name="migration/24_kronolith_upgrade_resourcestoshares.php" />
    <install as="kronolith/migration/25_kronolith_upgrade_typetocalendartype.php" name="migration/25_kronolith_upgrade_typetocalendartype.php" />
    <install as="kronolith/migration/26_kronolith_event_organizer.php" name="migration/26_kronolith_event_organizer.php" />
+   <install as="kronolith/migration/27_kronolith_upgrade_description_totext.php" name="migration/27_kronolith_upgrade_description_totext.php" />
    <install as="kronolith/resources/create.php" name="resources/create.php" />
    <install as="kronolith/resources/delete.php" name="resources/delete.php" />
    <install as="kronolith/resources/edit.php" name="resources/edit.php" />
@@ -2774,7 +2776,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2016-03-01</date>
+   <date>2016-05-12</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Only export the timezone rules required for an event to iCalendar objects.
