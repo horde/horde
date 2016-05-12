@@ -558,7 +558,6 @@ class Horde_Db_Adapter_Oci8 extends Horde_Db_Adapter_Base
                 'iso-8859-7',
                 'iso-8859-8',
                 'iso-8859-9',
-                'iso-8859-1',
                 'iso-8859-10',
                 'iso-8859-13',
                 'iso-8859-15',
