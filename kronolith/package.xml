@@ -529,7 +529,7 @@
     <file name="24_kronolith_upgrade_resourcestoshares.php" role="horde" />
     <file name="25_kronolith_upgrade_typetocalendartype.php" role="horde" />
     <file name="26_kronolith_event_organizer.php" role="horde" />
-    <file name="27_kronolith_upgrade_description_totext.php" role="horde" />
+    <file name="27_kronolith_upgrade_description_to_text.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="resources">
     <dir name="groups">
@@ -1383,7 +1383,7 @@
    <install as="kronolith/migration/24_kronolith_upgrade_resourcestoshares.php" name="migration/24_kronolith_upgrade_resourcestoshares.php" />
    <install as="kronolith/migration/25_kronolith_upgrade_typetocalendartype.php" name="migration/25_kronolith_upgrade_typetocalendartype.php" />
    <install as="kronolith/migration/26_kronolith_event_organizer.php" name="migration/26_kronolith_event_organizer.php" />
-   <install as="kronolith/migration/27_kronolith_upgrade_description_totext.php" name="migration/27_kronolith_upgrade_description_totext.php" />
+   <install as="kronolith/migration/27_kronolith_upgrade_description_to_text.php" name="migration/27_kronolith_upgrade_description_to_text.php" />
    <install as="kronolith/resources/create.php" name="resources/create.php" />
    <install as="kronolith/resources/delete.php" name="resources/delete.php" />
    <install as="kronolith/resources/edit.php" name="resources/edit.php" />
