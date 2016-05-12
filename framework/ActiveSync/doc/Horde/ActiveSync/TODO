@@ -133,3 +133,6 @@ BC BREAKING (i.e., Horde 6).
 
 - Implement a Repository pattern for adding/supporting each backend collection
   type instead of using a monolithic driver/connector object.
+
+- Use a Horde_ActiveSync_Date or Horde_ActiveSync_Message_Date object to wrap
+  logic such as NormalizePoomContactsDate etc...
