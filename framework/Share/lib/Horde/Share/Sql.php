@@ -479,7 +479,6 @@ class Horde_Share_Sql extends Horde_Share_Base
         $users = array();
         $groups = array();
         foreach ($rows as $share) {
-            $this->_convertClobs($share);
             $shares[(int)$share['share_id']] = $this->_fromDriverCharset($share);
             if ($this->_hasUsers($share)) {
                 $users[] = (int)$share['share_id'];
@@ -488,6 +487,7 @@ class Horde_Share_Sql extends Horde_Share_Base
                 $groups[] = (int)$share['share_id'];
             }
         }
+        $this->_fetchClobFields($shares);
 
         // Get users permissions
         if (!empty($users)) {
@@ -533,6 +533,33 @@ class Horde_Share_Sql extends Horde_Share_Base
         $this->_listcache[$key] = $sharelist;
 
         return $sharelist;
+    }
+
+    /**
+     * Fetch data for all clob fields of each share passed in $shares.
+     *
+     * @param array &$shares  List of share data to populate with clob data.
+     */
+    protected function _fetchClobFields(&$shares)
+    {
+        $clobs = $this->_getClobFields();
+        if (!empty($clobs) && !empty($shares)) {
+            $ids = array_map(function($ar) { return $ar['share_id']; }, $shares);
+            $query = 'SELECT share_id, ' . implode(', ', $clobs) . ' FROM '
+                . $this->_table . ' WHERE share_id IN ('
+                . str_repeat('?,', count($ids) - 1) . '?)';
+            try {
+                $rows = $this->_db->selectAll($query, $ids);
+                foreach ($rows as $share_properties) {
+                    $this->_convertClobs($share_properties);
+                    foreach ($share_properties as $name => $property) {
+                        $shares[$share_properties['share_id']][$name] = $property;
+                    }
+                }
+            } catch (Horde_Db_Exception $e) {
+                throw new Horde_Share_Exception($e->getMessage());
+            }
+        }
     }
 
     /**

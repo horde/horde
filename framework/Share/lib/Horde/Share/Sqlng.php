@@ -124,12 +124,16 @@ class Horde_Share_Sqlng extends Horde_Share_Sql
         }
 
         $sharelist = array();
+        $shares = array();
         foreach ($rows as $share) {
-            $this->_convertClobs($share);
-            $share = $this->_fromDriverCharset($share);
+            $shares[(int)$share['share_id']] = $this->_fromDriverCharset($share);
+        }
+        $this->_fetchClobFields($shares);
+        foreach ($shares as $share) {
             $this->_loadPermissions($share);
             $sharelist[$share['share_name']] = $this->_createObject($share);
         }
+        unset($shares);
 
         // Run the results through the callback, if configured.
         if (!empty($this->_callbacks['list'])) {
