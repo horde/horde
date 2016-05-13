@@ -52,14 +52,14 @@ class Horde_Share_Sql extends Horde_Share_Base
      *
      * @var array
      */
-    protected $_clobFields = array();
+    protected $_clobFields;
 
     /**
      * Local cache of non-text/clob fields
      *
      * @var array
      */
-    protected $_nonClobFields = array();
+    protected $_nonClobFields;
 
     /**
      *
@@ -113,7 +113,7 @@ class Horde_Share_Sql extends Horde_Share_Base
      */
     protected function _getClobFields()
     {
-        if (!empty($this->_clobFields)) {
+        if (isset($this->_clobFields)) {
             return $this->_clobFields;
         }
 
@@ -134,7 +134,7 @@ class Horde_Share_Sql extends Horde_Share_Base
      */
     protected function _getNonClobFields()
     {
-        if (!empty($this->_nonClobFields)) {
+        if (isset($this->_nonClobFields)) {
             return $this->_nonClobFields;
         }
         $columns = $this->_db->columns($this->_table);
