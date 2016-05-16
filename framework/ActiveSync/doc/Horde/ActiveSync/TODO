@@ -41,7 +41,8 @@ BC BREAKING (i.e., Horde 6).
   Horde_ActiveSync_Device object instead of a hash keyed by backend field names
   and to take the object property names as filters instead of backend field names.
 
-- Clean up logger creation/setting/log_level setting.
+- Clean up logger creation/setting/log_level setting and provide a single
+  access point for the logger instead of injecting it everywhere.
 
 - Consolidate folderUid <-> backend id mapping methods into a single place.
   Currently they live in both the collection handler and the backend driver.
