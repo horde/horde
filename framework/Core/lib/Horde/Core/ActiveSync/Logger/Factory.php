@@ -59,9 +59,10 @@ class Horde_Core_ActiveSync_Logger_Factory implements Horde_ActiveSync_Interface
             break;
         case 'perrequest':
             if (!empty($properties['DeviceId'])) {
-                $path = sprintf('%s/%s-%s-%s.txt',
+                $path = sprintf('%s/%s-%s-%s-%s.txt',
                     $conf['activesync']['logging']['path'],
                     Horde_String::upper($properties['DeviceId']),
+                    time(),
                     getmypid(),
                     (!empty($properties['Cmd']) ? $properties['Cmd'] : 'UnknownCmd')
                 );
