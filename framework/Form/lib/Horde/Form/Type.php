@@ -3018,7 +3018,12 @@ class Horde_Form_Type_monthdayyear extends Horde_Form_Type {
         /* If any component is empty consider it a bad date and return the
          * default. */
         if ($this->emptyDateArray($value) == 1) {
-            return $var->getDefault();
+            $value = $var->getDefault();
+        }
+
+        // If any component is empty consider it a bad date and return null
+        if ($this->emptyDateArray($value) != 0) {
+            return null;
         } else {
             $date = $this->getDateOb($value);
             if (!strlen($this->_format_in)) {
@@ -3118,7 +3123,18 @@ class Horde_Form_Type_datetime extends Horde_Form_Type {
          * default. */
         $value = $var->getValue($vars);
         if ($this->emptyDateArray($value) == 1 || $this->emptyTimeArray($value)) {
-            $info = $var->getDefault();
+            $this->_getInfo($var->getDefault(), $info);
+            return;
+        }
+
+        $this->_getInfo($value, $info);
+    }
+
+    function _getInfo($value, &$info)
+    {
+        // If any component is empty consider it a bad date and return null 
+        if ($this->emptyDateArray($value) != 0 || $this->emptyTimeArray($value)) {
+            $info = null;
             return;
         }
 
