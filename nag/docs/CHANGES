@@ -2,6 +2,7 @@
 v4.2.10-git
 -----------
 
+[jan] Fix deleteing alarms when completing a task.
 [mjr] Require Horde_Perms::DELETE for including a tasklist as sync-able.
 
 
