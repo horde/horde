@@ -37,7 +37,8 @@ class Horde_Core_ActiveSync_Logger_Factory implements Horde_ActiveSync_Interface
         global $conf;
 
         $logger = false;
-        if ($conf['activesync']['logging']['type'] == 'onefile') {
+        switch ($conf['activesync']['logging']['type']) {
+        case 'onefile':
             if (!empty($properties['DeviceId'])) {
                 $device_id = Horde_String::upper($properties['DeviceId']);
                 $format = "%timestamp% $device_id %levelName%: %message%" . PHP_EOL;
@@ -47,15 +48,29 @@ class Horde_Core_ActiveSync_Logger_Factory implements Horde_ActiveSync_Interface
                     $logger = new Horde_Log_Logger(new Horde_Log_Handler_Stream($stream, false, $formatter));
                 }
             }
-        } elseif ($conf['activesync']['logging']['type'] == 'perdevice') {
+            break;
+        case 'perdevice':
             if (!empty($properties['DeviceId'])) {
                 $stream = fopen($conf['activesync']['logging']['path'] . '/' . Horde_String::upper($properties['DeviceId']) . '.txt', 'a');
                 if ($stream) {
                     $logger = new Horde_Log_Logger(new Horde_Log_Handler_Stream($stream));
                 }
             }
+            break;
+        case 'perrequest':
+            if (!empty($properties['DeviceId'])) {
+                $path = sprintf('%s/%s-%s-%s.txt',
+                    $conf['activesync']['logging']['path'],
+                    Horde_String::upper($properties['DeviceId']),
+                    getmypid(),
+                    (!empty($properties['Cmd']) ? $properties['Cmd'] : 'UnknownCmd')
+                );
+                $stream = fopen($path, 'a');
+                if ($stream) {
+                    $logger = new Horde_Log_Logger(new Horde_Log_Handler_Stream($stream));
+                }
+            }
         }
-
         if (!$logger) {
             $logger = new Horde_Log_Logger(new Horde_Log_Handler_Null());
         }

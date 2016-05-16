@@ -2423,7 +2423,7 @@
            in the Wbxml log stream? If set to Detailed, the entire raw content
            is logged. If set to Protocol, all protocol level detail is included,
            but any Wbxml tag content over 50 bytes is logged only as the size of
-           the data." required="false">protocol
+           the data." required="false">2
              <values>
                <value desc="Protocol">2</value>
                <value desc="Detailed">1</value>
@@ -2433,6 +2433,20 @@
          <case name="onefile" desc="Single file">
            <configstring name="path" desc="Log file name." />
          </case>
+         <case name="perrequest" desc="Per Request: Recommended only for
+          ocassional debugging use as this will generate many log files.">
+          <configstring name="path" desc="Path to custom log directory." />
+           <configenum name="level" desc="Should Horde include all the raw data
+           in the Wbxml log stream? If set to Detailed, the entire raw content
+           is logged. If set to Protocol, all protocol level detail is included,
+           but any Wbxml tag content over 50 bytes is logged only as the size of
+           the data." required="false">1
+             <values>
+               <value desc="Protocol">2</value>
+               <value desc="Detailed">1</value>
+             </values>
+          </configenum>
+        </case>
        </configswitch>
      </configsection>
      <configsection name="ping">
