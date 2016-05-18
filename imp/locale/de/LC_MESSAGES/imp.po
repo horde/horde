@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: IMP H5 (6.2-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2015-12-28 17:25+0100\n"
-"PO-Revision-Date: 2015-12-29 20:44+0100\n"
+"PO-Revision-Date: 2016-05-18 13:00+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
 "Language: de\n"
@@ -3608,7 +3608,7 @@ msgstr "Antworten..."
 #: templates/smartmobile/message.html.php:92
 #: templates/smartmobile/message.html.php:107
 msgid "Report"
-msgstr "Meldung"
+msgstr "Melden"
 
 #: lib/Dynamic/Mailbox.php:325 templates/smartmobile/message.html.php:85
 msgid "Report as Innocent"
