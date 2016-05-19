@@ -52,7 +52,7 @@ class KronolithUpgradeCategoriesToTags extends Horde_Db_Migration_Base
                         $row['event_category']
                     );
                 }
-            } catch (Exception $e) {
+            } catch (Horde_Exception_NotFound $e) {
                 $this->announce('Unable to find Share: ' . $row['calendar_id'] . ' Skipping.');
             }
         }
