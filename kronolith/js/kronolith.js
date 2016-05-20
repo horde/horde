@@ -6209,7 +6209,17 @@ KronolithCore = {
 
         /* Attendees */
         if (!Object.isUndefined(ev.at)) {
-            HordeImple.AutoCompleter.kronolithEventAttendees.reset(ev.at.pluck('l'));
+            var ea = [];
+            ev.at.each(function(a) {
+                if (a.l && a.e && a.l != a.e) {
+                    ea.push(a.l + ' <' + a.e + '>');
+                } else if (a.e) {
+                    ea.push(a.e);
+                } else if (a.l) {
+                    ea.push(a.l);
+                }
+            });
+            HordeImple.AutoCompleter.kronolithEventAttendees.reset(ea);
             ev.at.each(this.addAttendee.bind(this));
             if (this.fbLoading) {
                 $('kronolithFBLoading').show();
