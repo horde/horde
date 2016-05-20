@@ -80,12 +80,9 @@ class Horde_Core_ActiveSync_Mdn
      * Check to see if we are able to send an unconfirmed MDN based on the
      * message data.
      *
-     * @param string $mailbox  The IMAP mailbox name.
-     * @param integer $uid     The IMAP UID of the message.
-     *
      * @return boolean  True if able to send, otherwise false.
      */
-    protected function _msgCheck($mailbox, $uid)
+    protected function _msgCheck()
     {
         $msgs = $this->_imap->getImapMessage($this->_mailbox, $this->_uid, array('headers' => true));
         if (!count($msgs)) {
