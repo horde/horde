@@ -40,4 +40,5 @@ before_script:
   - pear install channel://pear.horde.org/Horde_Role
   - ./framework/bin/pear_batch_install
   - psql -c 'create database test;' -U postgres
-script: ./framework/bin/test_framework
+script:
+  - ./framework/bin/test_framework
