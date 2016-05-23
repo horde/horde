@@ -2,7 +2,7 @@
     "name": "horde/horde-managesieve",
     "description": "Client library for ManageSieve",
     "type": "library",
-    "homepage": "http://pear.horde.org",
+    "homepage": "https://pear.horde.org",
     "license": "BSD",
     "authors": [
         {
@@ -16,7 +16,7 @@
     "repositories": [
         {
             "type": "pear",
-            "url": "http://pear.horde.org"
+            "url": "https://pear.horde.org"
         }
     ],
     "require": {

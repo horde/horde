@@ -2,7 +2,7 @@
     "name": "horde/horde-controller",
     "description": "Horde Controller libraries",
     "type": "library",
-    "homepage": "http://pear.horde.org",
+    "homepage": "https://pear.horde.org",
     "license": "BSD-2-Clause",
     "authors": [
         {
@@ -21,7 +21,7 @@
     "repositories": [
         {
             "type": "pear",
-            "url": "http://pear.horde.org"
+            "url": "https://pear.horde.org"
         }
     ],
     "require": {

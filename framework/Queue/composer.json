@@ -2,7 +2,7 @@
     "name": "horde/horde-queue",
     "description": "Horde Queue",
     "type": "library",
-    "homepage": "http://pear.horde.org",
+    "homepage": "https://pear.horde.org",
     "license": "LGPL-2.1",
     "authors": [
         {
@@ -16,7 +16,7 @@
     "repositories": [
         {
             "type": "pear",
-            "url": "http://pear.horde.org"
+            "url": "https://pear.horde.org"
         }
     ],
     "require": {
