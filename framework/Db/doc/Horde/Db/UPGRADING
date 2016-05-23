@@ -30,3 +30,13 @@ Upgrading to 2.1.0
 
     - The writeCache(), readCache(), insertBlob(), and column() methods have
       been added.
+
+
+Upgrading to 2.2.0
+==================
+
+  - Horde_Db_Adapter_Base
+
+    - The updateBlob() method has been added.
+
+  - Horde_Db_Value_Text has been added
