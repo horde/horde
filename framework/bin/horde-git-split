@@ -88,14 +88,16 @@ passthru('git clone --bare ' . escapeshellarg($base) . ' tmp');
 chdir($tmp . '/tmp');
 passthru('git remote rm origin');
 
-$delete = array();
+$delete = $keep = array();
 foreach (array_filter(explode("\n", shell_exec('git tag -l'))) as $val) {
     if (strpos($val, $tag_prefix) === 0) {
         $version = preg_replace('/^' . $tag_prefix . '/', '', $val);
         passthru('git tag -f ' . escapeshellarg('v' . $version) . ' ' . escapeshellarg($val));
+        $keep[] = escapeshellarg('v' . $version);
     }
     $delete[] = escapeshellarg($val);
 }
+$delete = array_diff($delete, $keep);
 if (count($delete)) {
     printf("Deleting %d tags...\n", count($delete));
     shell_exec('git tag -d ' . implode(' ', $delete));
