@@ -60,8 +60,8 @@ class Horde_Core_Factory_Db extends Horde_Core_Factory_Base
 
         /* Prevent DSN from getting polluted (this only applies to non-custom
          * auth type connections. All other custom sql configurations MUST be
-         * cleansed prior to passing to the factory (at least until Horde
-         * 5). @todo Still needed? */
+         * cleansed prior to passing to the factory (at least until Horde 5).
+         * @todo Fix with Horde 6. */
         if (!is_array($backend) && ($backend == 'auth')) {
             unset(
                 $config['driverconfig'],
