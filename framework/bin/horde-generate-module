@@ -1,9 +1,9 @@
 #!/usr/bin/env php
 <?php
 /**
- * Horde Module-from-Skeleton helper. This script allows to convert
- * the example skeleton project into a real module stup that can
- * develop into your own module.
+ * Horde Module-from-Skeleton helper. This script allows to convert the example
+ * skeleton project into a real module stub that can develop into your own
+ * module.
  *
  * Usage: horde-generate-module.php MODULENAME "AUTHOR"
  *
@@ -65,19 +65,19 @@ function analysedir($path, $list)
 
 function substitute_skeleton($filename, $modulname, $author)
 {
-    $prjUC=strtoupper(trim($modulname));
-    $prjLC=strtolower($prjUC);
-    $prjMC=substr($prjUC, 0, 1) . substr($prjLC, 1, strlen($prjLC)-1);
+    $prjUC = strtoupper(trim($modulname));
+    $prjLC = strtolower($prjUC);
+    $prjMC = substr($prjUC, 0, 1) . substr($prjLC, 1, strlen($prjLC) - 1);
 
-    $filehandle=fopen(trim($filename), 'r');
-    $file=fread($filehandle, filesize($filename));
+    $filehandle = fopen(trim($filename), 'r');
+    $file = fread($filehandle, filesize($filename));
     fclose($filehandle);
-    $newfile=str_replace(
+    $newfile = str_replace(
         array('SKELETON', 'Skeleton', 'skeleton', 'Your Name <you@example.com>'),
         array($prjUC, $prjMC, $prjLC, $author),
         $file
     );
-    $filehandle=fopen(trim($filename), 'w');
+    $filehandle = fopen(trim($filename), 'w');
     fwrite($filehandle, $newfile);
     fclose($filehandle);
 }
@@ -87,47 +87,47 @@ function substitute_skeleton($filename, $modulname, $author)
 // ------------------- Main-Code --------------------
 //
 
-if (count($_SERVER['argv']) == 3) {
-    // Preparation
-    $module = trim($_SERVER['argv'][1]);
-    $author = trim($_SERVER['argv'][2]);
-
-    $skeleton_path = __DIR__ . '/../../skeleton';
-    if (!is_dir($skeleton_path)) {
-        echo 'Assumed origin of the skeleton module (' . $skeleton_path . ')does not seem to exist!';
-        exit(1);
-    }
-    $module_path = dirname($skeleton_path) . '/' . $module;
-    recursiveCopy($skeleton_path, $module_path);
-
-    // Fetch filelist
-    $list = array();
-    $list = analysedir($module_path, $list);
-
-    // Modify each file
-    foreach ($list as $file) {
-        substitute_skeleton($file, $module, $author);
-    }
-
-    rename(
-        $module_path . '/test/Skeleton',
-        $module_path . '/test/' . ucfirst($module)
-    );
-
-    rename(
-        $module_path . '/locale/skeleton.pot',
-        $module_path . '/locale/' . $module . '.pot'
-    );
-
-    rename(
-        $module_path . '/migration/1_skeleton_base_tables.php',
-        $module_path . '/migration/1_' . $module . '_base_tables.php'
-    );
-    echo 'Started new Module in ' . realpath($module_path) . "!\n\n";
-    echo 'Register the new Module with a file in the config/registry.d directory:' . "\n\n";
-    echo '<?php' . "\n";
-    echo '$this->applications[\'' . $module . '\'] = array(\'name\' => _("' . ucfirst($module) . '"));'. "\n\n";
-} else {
+if (count($_SERVER['argv']) != 3) {
   help();
   exit(1);
 }
+
+// Preparation
+$module = trim($_SERVER['argv'][1]);
+$author = trim($_SERVER['argv'][2]);
+
+$skeleton_path = __DIR__ . '/../../skeleton';
+if (!is_dir($skeleton_path)) {
+    echo 'Assumed origin of the skeleton module (' . $skeleton_path . ') does not seem to exist!';
+    exit(1);
+}
+
+$module_path = dirname($skeleton_path) . '/' . $module;
+recursiveCopy($skeleton_path, $module_path);
+
+// Fetch filelist
+$list = array();
+$list = analysedir($module_path, $list);
+
+// Modify each file
+foreach ($list as $file) {
+    substitute_skeleton($file, $module, $author);
+}
+
+rename(
+    $module_path . '/test/Skeleton',
+    $module_path . '/test/' . ucfirst($module)
+);
+rename(
+    $module_path . '/locale/skeleton.pot',
+    $module_path . '/locale/' . $module . '.pot'
+);
+rename(
+    $module_path . '/migration/1_skeleton_base_tables.php',
+    $module_path . '/migration/1_' . $module . '_base_tables.php'
+);
+
+echo 'Started new Module in ' . realpath($module_path) . "!\n\n";
+echo 'Register the new Module with a file in the config/registry.d directory:' . "\n\n";
+echo '<?php' . "\n";
+echo '$this->applications[\'' . $module . '\'] = array(\'name\' => _("' . ucfirst($module) . '"));'. "\n\n";
