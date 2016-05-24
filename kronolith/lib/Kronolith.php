@@ -520,52 +520,8 @@ class Kronolith
                     }
                 }
 
-                /* Add the event to all the days it covers. This is similar to
-                 * Kronolith::addCoverDates(), but for days in between the
-                 * start and end day, the range is midnight to midnight, and
-                 * for the edge days it's start to midnight, and midnight to
-                 * end. */
-                $i = $eventStart->mday;
-                $loopDate = new Horde_Date(array('month' => $eventStart->month,
-                                                 'mday' => $i,
-                                                 'year' => $eventStart->year));
-                while ($loopDate->compareDateTime($eventEnd) <= 0) {
-                    if (!$allDay ||
-                        $loopDate->compareDateTime($eventEnd) != 0) {
-                        $addEvent = clone $event;
-                        $addEvent->originalStart = $originalStart;
-                        $addEvent->originalEnd = $originalEnd;
-
-                        /* If this is the start day, set the start time to
-                         * the real start time, otherwise set it to
-                         * 00:00 */
-                        if ($loopDate->compareDate($eventStart) == 0) {
-                            $addEvent->start = $eventStart;
-                        } else {
-                            $addEvent->start = clone $loopDate;
-                            $addEvent->start->hour = $addEvent->start->min = $addEvent->start->sec = 0;
-                            $addEvent->first = false;
-                        }
-
-                        /* If this is the end day, set the end time to the
-                         * real event end, otherwise set it to 23:59. */
-                        if ($loopDate->compareDate($eventEnd) == 0) {
-                            $addEvent->end = $eventEnd;
-                        } else {
-                            $addEvent->end = clone $loopDate;
-                            $addEvent->end->hour = 23;
-                            $addEvent->end->min = $addEvent->end->sec = 59;
-                            $addEvent->last = false;
-                        }
-
-                        $results[$loopDate->dateString()][$addEvent->id] = $json ? $addEvent->toJson(array('all_day' => $allDay)) : $addEvent;
-                    }
-
-                    $loopDate = new Horde_Date(
-                        array('month' => $eventStart->month,
-                              'mday' => ++$i,
-                              'year' => $eventStart->year));
-                }
+                Kronolith::addCoverDates($results, $event, $eventStart,
+                                  $eventEnd, $json, $originalStart, $originalEnd);
             }
         }
         ksort($results);
@@ -583,21 +539,40 @@ class Kronolith
      *                                method?
      */
     public static function addCoverDates(&$results, $event, $eventStart,
-                                         $eventEnd, $json)
+                                         $eventEnd, $json, $originalStart = null, $originalEnd = null)
     {
-        $loopDate = new Horde_Date($eventStart->year, $eventStart->month, $eventStart->mday);
+        $i = $eventStart->mday;
+        $loopDate = new Horde_Date(array('month' => $eventStart->month,
+                                        'mday' => $i,
+                                        'year' => $eventStart->year));
         $allDay = $event->isAllDay();
         while ($loopDate->compareDateTime($eventEnd) <= 0) {
             if (!$allDay ||
                 $loopDate->compareDateTime($eventEnd) != 0) {
                 $addEvent = clone $event;
-                $addEvent->start = $eventStart;
-                $addEvent->end = $eventEnd;
+                if ($originalStart) $addEvent->originalStart = $originalStart;
+                if ($originalEnd) $addEvent->originalEnd = $originalEnd;
+
+                /* If this is the start day, set the start time to
+                 * the real start time, otherwise set it to
+                 * 00:00 */
                 if ($loopDate->compareDate($eventStart) != 0) {
+                    $addEvent->start = clone $loopDate;
+                    $addEvent->start->hour = $addEvent->start->min = $addEvent->start->sec = 0;
                     $addEvent->first = false;
+                } else {
+                    $addEvent->start = $eventStart;
                 }
+
+                /* If this is the end day, set the end time to the
+                 * real event end, otherwise set it to 23:59. */
                 if ($loopDate->compareDate($eventEnd) != 0) {
+                    $addEvent->end = clone $loopDate;
+                    $addEvent->end->hour = 23;
+                    $addEvent->end->min = $addEvent->end->sec = 59;
                     $addEvent->last = false;
+                } else {
+                    $addEvent->end = $eventEnd;
                 }
                 if ($addEvent->recurs() &&
                     $addEvent->recurrence->hasCompletion($loopDate->year, $loopDate->month, $loopDate->mday)) {
@@ -605,7 +580,10 @@ class Kronolith
                 }
                 $results[$loopDate->dateString()][$addEvent->id] = $json ? $addEvent->toJson(array('all_day' => $allDay)) : $addEvent;
             }
-            $loopDate->mday++;
+            $loopDate = new Horde_Date(
+                array('month' => $eventStart->month,
+                'mday' => ++$i,
+                'year' => $eventStart->year));
         }
     }
 
