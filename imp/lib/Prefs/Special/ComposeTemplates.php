@@ -60,7 +60,6 @@ implements Horde_Core_Prefs_Ui_Special
         $iterator->mboxes = array('INBOX');
 
         $view->mbox_flist = new IMP_Ftree_Select(array(
-            'basename' => true,
             'iterator' => $iterator,
             'new_mbox' => true,
             'selected' => IMP_Mailbox::getPref(IMP_Mailbox::MBOX_TEMPLATES)

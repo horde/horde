@@ -1190,7 +1190,7 @@ extends Horde_Core_Ajax_Application_Handler
             $mbox_ob = $val->mbox_ob;
             $tmp = array(
                 'f' => $mbox_ob->display,
-                'l' => Horde_String::abbreviate(str_repeat(' ', 2 * $val->level) . $mbox_ob->basename, 30),
+                'l' => Horde_String::abbreviate(str_repeat(' ', 2 * $val->level) . $mbox_ob->display, 30),
                 'v' => $val->container ? '' : $mbox_ob->form_to
             );
             if ($tmp['f'] == $tmp['v']) {

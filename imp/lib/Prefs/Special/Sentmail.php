@@ -65,7 +65,6 @@ class IMP_Prefs_Special_Sentmail extends IMP_Prefs_Special_SpecialMboxes impleme
         $iterator->mboxes = array('INBOX');
 
         $view->flist = new IMP_Ftree_Select(array(
-            'basename' => true,
             'iterator' => $iterator,
             'new_mbox' => true
         ));
