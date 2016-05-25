@@ -47,7 +47,7 @@ class Passwd_Driver_Soap extends Passwd_Driver
 
     /**
      */
-    protected function changePassword($user, $oldpass, $newpass)
+    protected function _changePassword($user, $oldpass, $newpass)
     {
         $args = array();
         if (($pos = array_search('username', $this->_params['arguments'])) !== false) {
