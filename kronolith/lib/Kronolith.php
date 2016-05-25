@@ -592,11 +592,7 @@ class Kronolith
                     ? $addEvent->toJson(array('all_day' => $allDay))
                     : $addEvent;
             }
-            $loopDate = new Horde_Date(array(
-                'month' => $eventStart->month,
-                'mday' => ++$i,
-                'year' => $eventStart->year)
-            );
+            $loopDate->mday++;
         }
     }
 
