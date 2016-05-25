@@ -451,14 +451,14 @@ class Kronolith
                     /* It started before the beginning of the period. */
                     if ($event->recurs()) {
                         $eventStart = $event->recurrence->nextRecurrence($startDate);
-                        $originalStart = clone $eventStart;
+                        $actualStart = clone $eventStart;
                     } else {
                         $eventStart = clone $startDate;
-                        $originalStart = clone $event->start;
+                        $actualStart = clone $event->start;
                     }
                 } else {
                     $eventStart = clone $event->start;
-                    $originalStart = clone $event->start;
+                    $actualStart = clone $event->start;
                 }
 
                 /* Work out what day it ends on. */
@@ -467,10 +467,10 @@ class Kronolith
                     /* Ends after the end of the period. */
                     if (is_object($endDate)) {
                         $eventEnd = clone $endDate;
-                        $originalEnd = clone $event->end;
+                        $actualEnd = clone $event->end;
                     } else {
                         $eventEnd = $endDate;
-                        $originalEnd = new Horde_Date($endDate);
+                        $actualEnd = new Horde_Date($endDate);
                     }
                 } else {
                     /* Need to perform some magic if this is a single instance
@@ -497,7 +497,7 @@ class Kronolith
                     } else {
                         $theEnd = clone $event->end;
                     }
-                    $originalEnd = clone $theEnd;
+                    $actualEnd = clone $theEnd;
 
                     /* If the event doesn't end at 12am set the end date to
                      * the current end date. If it ends at 12am and does not
@@ -521,7 +521,7 @@ class Kronolith
                 }
 
                 Kronolith::addCoverDates($results, $event, $eventStart,
-                                  $eventEnd, $json, $originalStart, $originalEnd);
+                    $eventEnd, $json, $actualStart, $actualEnd);
             }
         }
         ksort($results);
@@ -530,28 +530,38 @@ class Kronolith
     /**
      * Adds an event to all the days it covers.
      *
-     * @param array $result           The current result list.
-     * @param Kronolith_Event $event  An event object.
-     * @param Horde_Date $eventStart  The event's start at the actual
-     *                                recurrence.
-     * @param Horde_Date $eventEnd    The event's end at the actual recurrence.
-     * @param boolean $json           Store the results of the events' toJson()
-     *                                method?
+     * @param array $result            The current result list.
+     * @param Kronolith_Event $event   An event object.
+     * @param Horde_Date $eventStart   The event's start of the actual
+     *                                 recurrence.
+     * @param Horde_Date $eventEnd     The event's end of the actual recurrence.
+     * @param boolean $json            Store the results of the events' toJson()
+     *                                 method?
+     * @param Horde_Date $actualStart  The actual starting time of a single
+     *                                 event spanning multiple days.
+     * @param Horde_Date $actualEnd    The actual ending time of a single event
+     *                                 spanning multiple days.
      */
     public static function addCoverDates(&$results, $event, $eventStart,
-                                         $eventEnd, $json, $originalStart = null, $originalEnd = null)
+        $eventEnd, $json, $actualStart = null, $actualEnd = null)
     {
         $i = $eventStart->mday;
-        $loopDate = new Horde_Date(array('month' => $eventStart->month,
-                                        'mday' => $i,
-                                        'year' => $eventStart->year));
+        $loopDate = new Horde_Date(array(
+            'month' => $eventStart->month,
+            'mday' => $i,
+            'year' => $eventStart->year)
+        );
         $allDay = $event->isAllDay();
         while ($loopDate->compareDateTime($eventEnd) <= 0) {
             if (!$allDay ||
                 $loopDate->compareDateTime($eventEnd) != 0) {
                 $addEvent = clone $event;
-                if ($originalStart) $addEvent->originalStart = $originalStart;
-                if ($originalEnd) $addEvent->originalEnd = $originalEnd;
+                if ($actualStart) {
+                    $addEvent->originalStart = $actualStart;
+                }
+                if ($actualEnd) {
+                    $addEvent->originalEnd = $actualEnd;
+                }
 
                 /* If this is the start day, set the start time to
                  * the real start time, otherwise set it to
@@ -578,12 +588,15 @@ class Kronolith
                     $addEvent->recurrence->hasCompletion($loopDate->year, $loopDate->month, $loopDate->mday)) {
                     $addEvent->status = Kronolith::STATUS_CANCELLED;
                 }
-                $results[$loopDate->dateString()][$addEvent->id] = $json ? $addEvent->toJson(array('all_day' => $allDay)) : $addEvent;
+                $results[$loopDate->dateString()][$addEvent->id] = $json
+                    ? $addEvent->toJson(array('all_day' => $allDay))
+                    : $addEvent;
             }
-            $loopDate = new Horde_Date(
-                array('month' => $eventStart->month,
+            $loopDate = new Horde_Date(array(
+                'month' => $eventStart->month,
                 'mday' => ++$i,
-                'year' => $eventStart->year));
+                'year' => $eventStart->year)
+            );
         }
     }
 
