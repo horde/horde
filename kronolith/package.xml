@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix display of recurring multi-day events ("Pascal Rigaux" &lt;pascal.rigaux@univ-paris1.fr&gt;).
 * [jan] Only export the timezone rules required for an event to iCalendar objects.
 * [jan] Show timezone abbreviations in event dialog too.
 * [jan] Show users&apos; full names in share dialogs.
@@ -2779,6 +2780,7 @@
    <date>2016-05-12</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix display of recurring multi-day events ("Pascal Rigaux" &lt;pascal.rigaux@univ-paris1.fr&gt;).
 * [jan] Only export the timezone rules required for an event to iCalendar objects.
 * [jan] Show timezone abbreviations in event dialog too.
 * [jan] Show users&apos; full names in share dialogs.

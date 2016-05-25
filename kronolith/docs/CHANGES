@@ -2,6 +2,8 @@
 v4.3.0-git
 ----------
 
+[mjr] Fix display of recurring multi-day events ("Pascal Rigaux"
+      <pascal.rigaux@univ-paris1.fr>).
 [jan] Only export the timezone rules required for an event to iCalendar
       objects.
 [jan] Show timezone abbreviations in event dialog too.
