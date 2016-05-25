@@ -138,6 +138,8 @@ class IMP_Compose_Ui
                 'sm_name' => $sm ? $sm->form_to : '',
                 // Save in sent mail mailbox by default?
                 'sm_save' => (bool)$identity->saveSentmail($ident),
+                // Sent mail title
+                'sm_title' => $sm ? $sm->display_notranslate : '',
                 // Sent mail display name
                 'sm_display' => $sm ? $sm->display_html : '',
                 // Bcc addresses to add

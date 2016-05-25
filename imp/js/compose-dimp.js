@@ -119,12 +119,18 @@ var DimpCompose = {
 
         var identity = ImpComposeBase.identities[$F('identity')];
 
-        this.setPopdownLabel('sm', identity.sm_name, identity.sm_display, {
-            opts: {
-                input: 'save_sent_mail_mbox',
-                label: 'sent_mail_label'
+        this.setPopdownLabel(
+            'sm',
+            identity.sm_name,
+            identity.sm_display,
+            identity.sm_title,
+            {
+                opts: {
+                    input: 'save_sent_mail_mbox',
+                    label: 'sent_mail_label'
+                }
             }
-        });
+        );
         if (identity.bcc) {
             $('bcc').setValue(($F('bcc') ? $F('bcc') + ', ' : '') + identity.bcc)
                 .fire('AutoComplete:reset');
@@ -177,7 +183,7 @@ var DimpCompose = {
         });
     },
 
-    setPopdownLabel: function(id, s, l, k)
+    setPopdownLabel: function(id, s, l, t, k)
     {
         var input;
 
@@ -208,7 +214,7 @@ var DimpCompose = {
         }
 
         input.setValue(s);
-        $(k.opts.label).writeAttribute('title', l.escapeHTML()).setText(l.truncate(15)).up(1).show();
+        $(k.opts.label).writeAttribute('title', t).setText(l.truncate(15)).up(1).show();
 
         if (k.knl) {
             k.knl.setSelected(s);
