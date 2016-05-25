@@ -59,7 +59,6 @@ class IMP_Prefs_Special_Trash extends IMP_Prefs_Special_SpecialMboxes implements
         $iterator->mboxes = array('INBOX');
 
         $view->flist = new IMP_Ftree_Select(array(
-            'basename' => true,
             'iterator' => $iterator,
             'new_mbox' => true,
             'selected' => $trash

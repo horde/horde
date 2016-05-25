@@ -932,7 +932,6 @@ class IMP_Basic_Compose extends IMP_Basic_Base
 
                     $ssm_options = array(
                         'abbrev' => false,
-                        'basename' => true,
                         'iterator' => $iterator,
                         'selected' => $sent_mail
                     );

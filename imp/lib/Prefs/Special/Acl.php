@@ -76,7 +76,6 @@ class IMP_Prefs_Special_Acl implements Horde_Core_Prefs_Ui_Special
         $view->hasacl = count($curr_acl);
         $view->mbox = $mbox->form_to;
         $view->options = new IMP_Ftree_Select(array(
-            'basename' => true,
             'iterator' => $iterator,
             'selected' => $mbox
         ));

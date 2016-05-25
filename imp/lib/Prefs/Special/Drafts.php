@@ -54,7 +54,6 @@ class IMP_Prefs_Special_Drafts extends IMP_Prefs_Special_SpecialMboxes implement
         $iterator->mboxes = array('INBOX');
 
         $view->flist = new IMP_Ftree_Select(array(
-            'basename' => true,
             'iterator' => $iterator,
             'new_mbox' => true,
             'selected' => IMP_Mailbox::getPref(IMP_Mailbox::MBOX_DRAFTS)

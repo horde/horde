@@ -2,6 +2,7 @@
 v6.2.15-git
 -----------
 
+[jan] Display translated mailbox names in drop down lists too.
 [jan] Consistently display the raw mailbox name in mailbox element titles.
 [jan] Unset window opener when opening new windows from HTML messages (João
       Machado <geral@jpaulo.eu>).
