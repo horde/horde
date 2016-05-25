@@ -76,6 +76,27 @@ v7.0.0-git
 
 
 -------
+v6.2.14
+-------
+
+[mjr] Fix renaming subfolders in basic view (Bug #14254).
+[mjr] Fix display of mailbox sizes in basic view (Bug #14308).
+[mjr] Fix fatal error when deleting messages in basic view when IMAP server
+      does not support QRESYNC or CONDSTORE (Bug #14257).
+
+
+-------
+v6.2.13
+-------
+
+[mjr] Fix opening compose window on IE when uploads are disabled (Bug #14267).
+[jan] Update Greek translation (Limperis Antonis <limperis@cti.gr>).
+[jan] Fix creating new trash folder from preference screen.
+[jan] Fix finding reply or forward text from signed or encrypted messages with
+      HTML content.
+
+
+-------
 v6.2.12
 -------
 

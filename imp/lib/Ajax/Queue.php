@@ -709,7 +709,7 @@ class IMP_Ajax_Queue
         }
 
         $ob->l = htmlspecialchars($mbox_ob->abbrev_label);
-        $label = $mbox_ob->label;
+        $label = $mbox_ob->display_notranslate;
         if ($ob->l != $label) {
             $ob->t = $label;
         }

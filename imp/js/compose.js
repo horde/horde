@@ -151,12 +151,18 @@ var ImpCompose = {
 
         identity = this.identities[identity_id];
 
-        this.setPopdownLabel('sm', identity.sm_name, identity.sm_display, {
-            opts: {
-                input: 'save_sent_mail_mbox',
-                label: 'sent_mail_label'
+        this.setPopdownLabel(
+            'sm',
+            identity.sm_name,
+            identity.sm_display,
+            identity.sm_title,
+            {
+                opts: {
+                    input: 'save_sent_mail_mbox',
+                    label: 'sent_mail_label'
+                }
             }
-        });
+        );
 
         if (this.old_bcc) {
             this.ac.get('bcc').removeEntry(this.old_bcc);
@@ -246,7 +252,7 @@ var ImpCompose = {
         });
     },
 
-    setPopdownLabel: function(id, s, l, k)
+    setPopdownLabel: function(id, s, l, t, k)
     {
         var input;
 
@@ -277,7 +283,7 @@ var ImpCompose = {
         }
 
         input.setValue(s);
-        $(k.opts.label).writeAttribute('title', l.escapeHTML()).setText(l.truncate(11)).up(1).show();
+        $(k.opts.label).writeAttribute('title', t).setText(l.truncate(11)).up(1).show();
 
         if (k.knl) {
             k.knl.setSelected(s);

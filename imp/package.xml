@@ -3877,12 +3877,44 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-02-02</date>
+   <date>2016-03-21</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix opening compose window on IE when uploads are disabled (Bug #14267).
 * [jan] Update Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
 * [jan] Fix creating new trash folder from preference screen.
 * [jan] Fix finding reply or forward text from signed or encrypted messages with HTML content.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>6.2.14</release>
+    <api>6.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-04-05</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix renaming subfolders in basic view (Bug #14254).
+* [mjr] Fix display of mailbox sizes in basic view (Bug #14308).
+* [mjr] Fix fatal error when deleting messages in basic view when IMAP server does not support QRESYNC or CONDSTORE (Bug #14257).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>6.2.15</release>
+    <api>6.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-04-05</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Display translated mailbox names in drop down lists too.
+* [jan] Consistently display the raw mailbox name in mailbox element titles.
+* [jan] Unset window opener when opening new windows from HTML messages (João Machado &lt;geral@jpaulo.eu&gt;).
+* [mjr] Fix re-adding an attachment after it has been removed from the compose window (Bug #14329).
    </notes>
   </release>
   <release>
