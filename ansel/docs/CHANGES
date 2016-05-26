@@ -1,6 +1,6 @@
-----------
-v3.0.5-git
-----------
+------
+v3.0.5
+------
 
 [mjr] Fix creating new galleries (Bug #14372).
 [jan] Fix fatal error in upload screen with PHP 7 (Michael Cramer

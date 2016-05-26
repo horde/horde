@@ -2,7 +2,7 @@
     "name": "horde/ansel",
     "description": "Photo management application",
     "type": "library",
-    "homepage": "http://pear.horde.org",
+    "homepage": "https://pear.horde.org",
     "license": "GPL-2.0",
     "authors": [
         {
@@ -21,8 +21,8 @@
             "role": "lead"
         }
     ],
-    "version": "3.0.4",
-    "time": "2016-03-21",
+    "version": "3.0.5",
+    "time": "2016-05-26",
     "repositories": [
         {
             "type": "pear",
