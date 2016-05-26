@@ -122,7 +122,7 @@ abstract class Ansel_View_GalleryRenderer_Base
      *
      * @param Ansel_View_Gallery  The view object for this renderer.
      */
-    public function __construct(Ansel_View_Gallery $view)
+    public function __construct(Ansel_View_Gallery $view = null)
     {
         $this->view = $view;
         Ansel_ActionHandler::imageActions(Horde_Util::getFormData('actionID'));

@@ -23,7 +23,7 @@
  */
 class Ansel_View_GalleryRenderer_GalleryLightbox extends Ansel_View_GalleryRenderer_Base
 {
-    public function __construct(Ansel_View_Gallery $view)
+    public function __construct(Ansel_View_Gallery $view = null)
     {
         parent::__construct($view);
         $this->title = _("Lightbox Gallery");
