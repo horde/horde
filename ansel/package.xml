@@ -24,7 +24,7 @@
  </lead>
  <date>2016-05-26</date>
  <version>
-  <release>3.0.5</release>
+  <release>3.0.6</release>
   <api>3.0.0</api>
  </version>
  <stability>
@@ -33,8 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Fix creating new galleries (Bug #14372).
-* [jan] Fix fatal error in upload screen with PHP 7 (Michael Cramer &lt;michael@bigmichi1.de&gt;).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1398,6 +1397,19 @@
    <notes>
 * [mjr] Fix creating new galleries (Bug #14372).
 * [jan] Fix fatal error in upload screen with PHP 7 (Michael Cramer &lt;michael@bigmichi1.de&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.6</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-05-26</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
