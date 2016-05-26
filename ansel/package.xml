@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix creating new galleries (Bug #14372).
 * [jan] Fix fatal error in upload screen with PHP 7 (Michael Cramer &lt;michael@bigmichi1.de&gt;).
  </notes>
  <contents>
@@ -1395,6 +1396,7 @@
    <date>2016-03-21</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix creating new galleries (Bug #14372).
 * [jan] Fix fatal error in upload screen with PHP 7 (Michael Cramer &lt;michael@bigmichi1.de&gt;).
    </notes>
   </release>
