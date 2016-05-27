@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: Whups 2.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2015-12-28 17:25+0100\n"
-"PO-Revision-Date: 2015-01-08 11:27+0100\n"
+"PO-Revision-Date: 2016-05-27 10:48+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@horde.org>\n"
 "Language: de\n"
@@ -678,8 +678,7 @@ msgstr "Abfrage ausfü_hren"
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: lib/Form/Admin/EditQueueStepTwo.php:32
-#: lib/Form/Admin/EditTypeStepTwo.php:23
+#: lib/Form/Admin/EditQueueStepTwo.php:32 lib/Form/Admin/EditTypeStepTwo.php:23
 #, php-format
 msgid "Edit %s"
 msgstr "%s Bearbeiten"
@@ -1009,8 +1008,8 @@ msgstr ""
 msgid "Match"
 msgstr "Suchbegriff"
 
-#: lib/Form/Query/AttributeCriterion.php:52
-#: lib/Form/Query/TextCriterion.php:39 lib/Form/Query/UserCriterion.php:39
+#: lib/Form/Query/AttributeCriterion.php:52 lib/Form/Query/TextCriterion.php:39
+#: lib/Form/Query/UserCriterion.php:39
 msgid "Match Operator"
 msgstr "Suchoperation"
 
@@ -1310,8 +1309,8 @@ msgstr "Prioritäten für diesen Typ"
 #: config/prefs.php:53 lib/Form/Query/PropertyCriterion.php:71
 #: lib/Form/Queue/StepThree.php:35 lib/Form/Renderer/Query.php:129
 #: lib/Form/SetTypeStepTwo.php:28 lib/Form/Ticket/CreateStepThree.php:69
-#: lib/Form/Ticket/Edit.php:86 lib/Form/TicketDetails.php:91
-#: lib/Ticket.php:701 lib/Ticket.php:893 lib/Whups.php:860
+#: lib/Form/Ticket/Edit.php:86 lib/Form/TicketDetails.php:91 lib/Ticket.php:701
+#: lib/Ticket.php:893 lib/Whups.php:860
 msgid "Priority"
 msgstr "Priorität"
 
@@ -1464,7 +1463,7 @@ msgstr ""
 msgid ""
 "Really delete this ticket? It will NOT be archived, and will be gone forever."
 msgstr ""
-"Dieses Ticket wirklich löschen? Es wird nicht archiviert, sondern geht für "
+"Dieses Ticket wirklich löschen? Es wird NICHT archiviert, sondern geht für "
 "immer verloren."
 
 #: lib/Form/Admin/DeleteType.php:59
@@ -1777,9 +1776,9 @@ msgstr "Tickettyp erfolgreich geändert."
 
 #: config/prefs.php:50 lib/Form/Renderer/Query.php:93
 #: lib/Form/Ticket/CreateStepThree.php:74 lib/Form/Ticket/Delete.php:20
-#: lib/Form/Ticket/Edit.php:63 lib/Form/TicketDetails.php:47
-#: lib/Ticket.php:707 lib/Ticket.php:734 lib/Ticket.php:737 lib/Ticket.php:741
-#: lib/Ticket.php:898 lib/Ticket.php:907 lib/Whups.php:857
+#: lib/Form/Ticket/Edit.php:63 lib/Form/TicketDetails.php:47 lib/Ticket.php:707
+#: lib/Ticket.php:734 lib/Ticket.php:737 lib/Ticket.php:741 lib/Ticket.php:898
+#: lib/Ticket.php:907 lib/Whups.php:857
 msgid "Summary"
 msgstr "Zusammenfassung"
 

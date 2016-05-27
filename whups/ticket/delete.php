@@ -33,7 +33,7 @@ $deleteform = new Whups_Form_Ticket_Delete($vars, $title);
 
 if ($vars->get('formname') == 'whups_form_ticket_delete') {
     if ($deleteform->validate($vars)) {
-        if ($vars->get('yesno') == 1) {
+        if ($vars->get('submitbutton') == _("Delete")) {
             $deleteform->getInfo($vars, $info);
             try {
                 $ticket->delete();

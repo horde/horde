@@ -27,6 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
  <notes>
+* [jan] Use confirm buttons instead of dropdown when deleting tickets.
 * [jan] Display ticket listeners to authenticated users.
 * [jan] Add Cc: addresses as listeners when creating tickets from emails.
 * [jan] Show users&apos; full names in responsible user lists.
@@ -1224,6 +1225,7 @@
    <date>2014-03-10</date>
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
    <notes>
+* [jan] Use confirm buttons instead of dropdown when deleting tickets.
 * [jan] Display ticket listeners to authenticated users.
 * [jan] Add Cc: addresses as listeners when creating tickets from emails.
 * [jan] Show users&apos; full names in responsible user lists.
