@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Fix pre-selecting an item in key-navigation-lists.
 * [jan] Add classes to support the Horde 6 davusername hook.
 * [jan] Fix session_regenerate_id() warnings with PHP 7.
 * [jan] Fix running garbage collection on cached CSS and JS files (Bug #14285).
@@ -4181,6 +4182,7 @@
    <date>2016-05-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Fix pre-selecting an item in key-navigation-lists.
 * [jan] Add classes to support the Horde 6 davusername hook.
 * [jan] Fix session_regenerate_id() warnings with PHP 7.
 * [jan] Fix running garbage collection on cached CSS and JS files (Bug #14285).
