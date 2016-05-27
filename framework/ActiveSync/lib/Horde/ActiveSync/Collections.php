@@ -1230,6 +1230,12 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
                         if (!empty($options['pingable'])) {
                             $this->_cache->setPingChangeFlag($id);
                         }
+                    } else {
+                        try {
+                            $this->_as->state->updateSyncStamp();
+                        } catch (Horde_ActiveSync_Exception $e) {
+                            $this->_logger->err($e->getMessage());
+                        }
                     }
                 } catch (Horde_ActiveSync_Exception_StaleState $e) {
                     $this->_logger->notice(sprintf(

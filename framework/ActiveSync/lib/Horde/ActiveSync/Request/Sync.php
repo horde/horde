@@ -633,6 +633,16 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                         $collection,
                         array('newsynckey' => true, 'unsetChanges' => true, 'unsetPingChangeFlag' => true)
                     );
+                } elseif (!isset($changes)) {
+                    // See if we could benefit from updating the collection's
+                    // syncStamp value even though there were no changes. If
+                    // $changes is set, we did a looping sync and already took
+                    // care of this.
+                    try {
+                        $this->_state->updateSyncStamp();
+                    } catch (Horde_ActiveSync_Exception $e) {
+                        $this->_logger->err($e->getMessage());
+                    }
                 }
             }
 

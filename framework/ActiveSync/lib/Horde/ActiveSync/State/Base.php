@@ -944,6 +944,15 @@ abstract class Horde_ActiveSync_State_Base
         throw new Horde_ActiveSync_Exception('Must be implemented in concrete class.');
     }
 
+    /**
+     * Update the syncStamp in the collection state, outside of any other changes.
+     * Used to prevent extremely large differences in syncStamps for clients
+     * and collections that don't often have changes.
+     */
+    public function updateSyncStamp()
+    {
+        throw new Horde_ActiveSync_Exception('Not supported in this state driver.');
+    }
 
     /**
      * Save the current syncstate to storage

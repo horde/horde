@@ -119,6 +119,14 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
     protected $_syncCacheTable;
 
     /**
+     * When there are no changes found in a collection, but the difference in
+     * syncStamp values is more than this threshold, the syncStamp is updated
+     * in the collection state without modifying the synckey or anyother
+     * state.
+     */
+    const SYNCSTAMP_UPDATE_THRESHOLD = 30000;
+
+    /**
      * Const'r
      *
      * @param array  $params   Must contain:
@@ -304,6 +312,43 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                     sprintf('[%s] Found %d changes remaining from previous SYNC.',
                     $this->_procid,
                     count($this->_changes)));
+            }
+        }
+    }
+
+
+    /**
+     * Update the syncStamp in the collection state, outside of any other changes.
+     * Used to prevent extremely large differences in syncStamps for clients
+     * and collections that don't often have changes and the backend server
+     * doesn't keep separate syncStamp values per collection.
+     *
+     * @throws  Horde_ActiveSync_Exception
+     */
+    public function updateSyncStamp()
+    {
+        if (($this->_thisSyncStamp - $this->_lastSyncStamp) >= self::SYNCSTAMP_UPDATE_THRESHOLD) {
+            $this->_logger->info(sprintf(
+                '[%s] Updating sync_mod value from %s to %s without changes.',
+                $this->_procid,
+                $this->_lastSyncStamp,
+                $this->_thisSyncStamp)
+            );
+            $sql = 'UPDATE ' . $this->_syncStateTable . ' SET sync_mod = ?'
+                . ' WHERE sync_mod = ? AND sync_key = ? AND sync_user = ? AND sync_folderid = ?';
+            try {
+                $this->_db->update(
+                    $sql,
+                    array(
+                        $this->_thisSyncStamp,
+                        $this->_lastSyncStamp,
+                        $this->_syncKey,
+                        $this->_deviceInfo->user,
+                        $this->_collection['id']
+                    )
+                );
+            } catch (Horde_Db_Exception $e) {
+                throw new Horde_ActiveSync_Exception($e);
             }
         }
     }
