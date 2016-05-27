@@ -12,7 +12,7 @@
  </lead>
  <date>2016-05-27</date>
  <version>
-  <release>2.33.0</release>
+  <release>2.33.1</release>
   <api>2.33.0</api>
  </version>
  <stability>
@@ -21,8 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Improve performance in certain cases by updating collection syncstamps (Ticket #14368).
-* [mjr] Fix normalizing POOMCONTACTS:Birthday and other date fields for the "Nine" client.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3138,6 +3137,19 @@
    <notes>
 * [mjr] Improve performance in certain cases by updating collection syncstamps (Ticket #14368).
 * [mjr] Fix normalizing POOMCONTACTS:Birthday and other date fields for the "Nine" client.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.33.1</release>
+    <api>2.33.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-05-26</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
