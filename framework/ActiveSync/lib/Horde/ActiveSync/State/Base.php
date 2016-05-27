@@ -656,7 +656,7 @@ abstract class Horde_ActiveSync_State_Base
      */
     public static function getSyncKeyCounter($syncKey)
     {
-       if (preg_match('/^\{([a-fA-F0-9-]+)\}([0-9]+)$/', $syncKey, $matches)) {
+        if (preg_match('/^\{([a-fA-F0-9-]+)\}([0-9]+)$/', $syncKey, $matches)) {
             $n = $matches[2];
             return $n;
         }

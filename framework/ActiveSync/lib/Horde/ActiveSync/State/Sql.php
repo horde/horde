@@ -328,7 +328,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         }
 
         // If we are setting the first synckey iteration, do not save the
-        // timestamp, otherwise we will never get the initial set of data.
+        // syncstamp/mod, otherwise we will never get the initial set of data.
         $params = array(
             'sync_key' => $this->_syncKey,
             'sync_data' => new Horde_Db_Value_Binary($data),
@@ -902,7 +902,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      *   - id:      (string)  When removing device state, restrict ro removing data
      *                        only for this collection.
      *
-     * @throws Horde_ActiveSyncException
+     * @throws Horde_ActiveSync_Exception
      */
     public function removeState(array $options)
     {

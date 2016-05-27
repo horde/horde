@@ -380,7 +380,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
 
             // Clients are allowed to NOT request changes. We still must check
             // for them since this would otherwise screw up conflict detection
-            // (we can't upate sync_ts until we actually check for changes). In
+            // (we can't update sync_ts until we actually check for changes). In
             // this case, we just don't send the changes back to the client
             // until the next SYNC that does set GETCHANGES using the
             // MOREAVAILABLE mechanism.
@@ -424,12 +424,12 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 }
             }
 
-            // Get new synckey if needed. We need a new synckey if there were
-            // any changes (incoming or outgoing), if this is during the
-            // initial sync pairing of the collection, or if we received a
-            // SYNC due to changes found during a PING (since those changes
-            // may be changes to items that never even made it to the client in
-            // the first place (See Bug: 12075).
+            // Get new synckey if needed. We need a new synckey if any of the
+            // following are true:
+            //    - There are any changes (incoming or outgoing).
+            //    - This is the initial sync pairing of the collection.
+            //    - We received a SYNC due to changes found during a PING
+            //      (See Bug: 12075).
             if ($statusCode == self::STATUS_SUCCESS &&
                 (!empty($collection['importedchanges']) ||
                 !empty($changecount) ||

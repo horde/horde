@@ -1105,8 +1105,8 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
      * Poll the backend for changes.
      *
      * @param integer $heartbeat  The heartbeat lifetime to wait for changes.
-     * @param integer $interval  The wait interval between poll iterations.
-     * @param array $options  An options array containing any of:
+     * @param integer $interval   The wait interval between poll iterations.
+     * @param array $options      An options array containing any of:
      *   - pingable: (boolean)  Only poll collections with the pingable flag set.
      *                DEFAULT: false
      *
