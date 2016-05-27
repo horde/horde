@@ -546,10 +546,9 @@ class Kronolith
     public static function addCoverDates(&$results, $event, $eventStart,
         $eventEnd, $json, $originalStart = null, $originalEnd = null)
     {
-        $i = $eventStart->mday;
         $loopDate = new Horde_Date(array(
             'month' => $eventStart->month,
-            'mday' => $i,
+            'mday' => $eventStart->mday,
             'year' => $eventStart->year)
         );
         $allDay = $event->isAllDay();
