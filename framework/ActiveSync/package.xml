@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Remove debug output.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3149,7 +3149,7 @@
    <date>2016-05-26</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Remove debug output.
    </notes>
   </release>
  </changelog>
