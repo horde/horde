@@ -666,9 +666,6 @@ class Horde_ActiveSync_Device
                 return ($this->_isIos() && $this->getMajorVersion() == 4);
 
             case self::QUIRK_INCORRECTLY_SENDS_EMPTY_PICTURE_TAG:
-                Horde::debug($this->_isIos());
-                Horde::debug($this->getMajorVersion());
-                Horde::debug($this->getMinorVersion());
                 return ($this->_isIos() && $this->getMajorVersion() >= 8 && $this->getMinorVersion() > 1);
 
             default:
