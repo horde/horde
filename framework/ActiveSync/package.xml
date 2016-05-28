@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-05-27</date>
+ <date>2016-05-28</date>
  <version>
   <release>2.33.1</release>
   <api>2.33.0</api>
@@ -3146,7 +3146,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-05-26</date>
+   <date>2016-05-28</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Remove debug output.
