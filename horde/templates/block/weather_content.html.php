@@ -9,8 +9,14 @@
       <!-- Weather alerts -->
       <?php if (!empty($this->alerts)): ?>
         <?php foreach ($this->alerts as $alert): ?>
-          <div class="hordeWeather<?php echo (!empty($this->sig) ? $this->sig : 'Alert') ?>" title="<?php echo $this->h($alert['body']) ?>">
-            <div style="font-weight:bold;"><?php echo $this->h($alert['desc']) ?></div>
+          <div class="hordeWeather<?php echo (!empty($this->sig) ? $this->sig : 'Alert') ?>">
+            <?php if (!empty($alert['type'])): ?>
+            <span style="font-weight:bold;"><?php echo $this->h($alert['type']) ?></span><br />
+            <?php endif ?>
+            <?php $desc = preg_replace($this->languageFilter, '', $alert['desc']) ?>
+            <?php if (!empty($desc)): ?>
+            <?php echo $this->h($desc) ?><br />
+            <?php endif ?>
             <?php if (!empty($alert['date'])): ?>
             <?php $alert['date']->setTimezone($this->timezone); ?>
             <strong><?php echo _("Starts:") ?></strong> <?php echo $this->h($alert['date']->strftime($this->dateFormat . ' ' . $this->timeFormat)) ?><br />

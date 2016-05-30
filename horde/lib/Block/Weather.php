@@ -115,7 +115,7 @@ class Horde_Block_Weather extends Horde_Core_Block
      */
     protected function _content()
     {
-        global $injector, $page_output, $prefs;
+        global $injector, $language, $page_output, $prefs, $registry;
 
         // Set the requested units.
         $this->_weather->units = $this->_params['units'];
@@ -164,6 +164,8 @@ class Horde_Block_Weather extends Horde_Core_Block
         } catch (Horde_Service_Weather_Exception $e) {
             return $e->getMessage();
         }
+        $view->languageFilter = '/^'
+            . $registry->nlsconfig->languages[$language] . ': /i';
 
         if (!empty($this->_params['showMap']) && !empty($view->instance)) {
             $view->map = true;
