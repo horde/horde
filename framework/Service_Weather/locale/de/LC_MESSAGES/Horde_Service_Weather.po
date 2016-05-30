@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Horde_Service_Weather \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2015-12-28 17:25+0100\n"
-"PO-Revision-Date: 2015-12-29 18:10+0100\n"
+"PO-Revision-Date: 2016-05-30 12:48+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: de\n"
@@ -791,11 +791,11 @@ msgstr "Vereinzelt Schauer"
 
 #: lib/Horde/Service/Weather/Alerts/Base.php:29
 msgid "Severe Thunderstorm Warning"
-msgstr "Schwere Sturmwarnung"
+msgstr "Warnung vor schwerem Gewitter"
 
 #: lib/Horde/Service/Weather/Alerts/Base.php:30
 msgid "Severe Thunderstorm Watch"
-msgstr "Schwere Sturmvorwarnung"
+msgstr "Vorwarnung vor schwerem Gewitter"
 
 #: lib/Horde/Service/Weather/Alerts/Base.php:35
 msgid "Severe Weather Statement"
