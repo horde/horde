@@ -53,18 +53,18 @@
                 'type' => empty($this->_typeMap[$alert->type])
                     ? ''
                     : $this->_typeMap[$alert->type],
-                'desc' => empty($alert->description)
-                    ? (empty($alert->wtype_meteo_name)
+                'desc' => empty(trim($alert->description))
+                    ? (empty(trim($alert->wtype_meteo_name))
                        ? ''
-                       : $alert->wtype_meteo_name)
-                    : $alert->description,
+                       : trim($alert->wtype_meteo_name))
+                    : trim($alert->description),
                 // Euro only returns this, not epoch, but it's in UTC.
                 'date_text' => $alert->date,
                 'date' => $date,
                 'expires_text' => $alert->expires,
                 'expires' => $expires,
                 // 'tz' => $alert->tz_long, //@todo - needed??
-                'body' => $alert->message,
+                'body' => trim($alert->message),
                 // @todo This is available here: http://www.nws.noaa.gov/os/vtec/
                 // but probably not needed, since 'description' looks like it
                 // contains a sort-of-mapping already.
