@@ -559,7 +559,7 @@ class Horde_ActiveSync_Device
      *     Given all of this, it makes sense to me to ALWAYS send birthday
      *     data as occuring at 08:00:00 UTC for *native* Android clients.
      *
-     *   BB 10+ expects it at 12:00:00 UTC
+     *   BB 10+ expects it at 11:00:00 UTC
      *
      * @param Horde_Date $date  The date. This should normally be in the local
      *                          timezone if encoding the date for the client.
@@ -639,7 +639,7 @@ class Horde_ActiveSync_Device
 
         case self::TYPE_BLACKBERRY:
             if ($toEas) {
-                return new Horde_Date($date->format('Y-m-d 12:00:00'), 'UTC');
+                return new Horde_Date($date->format('Y-m-d 11:00:00'), 'UTC');
             } else {
                 $date = new Horde_Date($date->format('Y-m-d'));
                 return $date->setTimezone('UTC');
