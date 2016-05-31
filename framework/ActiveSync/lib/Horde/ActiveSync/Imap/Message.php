@@ -677,18 +677,7 @@ class Horde_ActiveSync_Imap_Message
      */
     public function getDate()
     {
-        try {
-            $date = new Horde_Date((string)$this->envelope->date);
-            if (!$date->year) {
-                return new Horde_Date(time());
-            }
-        } catch (Horde_Date_Exception $e) {
-            // At least one client will crash if it doesn't have a
-            // valid date here. I'm looking at you OL.
-            return new Horde_Date(time());
-        }
-
-        return $date;
+        return new Horde_Date((string)$this->envelope->date);
     }
 
     /**

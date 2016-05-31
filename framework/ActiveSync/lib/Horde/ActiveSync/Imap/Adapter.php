@@ -1172,19 +1172,6 @@ class Horde_ActiveSync_Imap_Adapter
                     $headers = $imap_message->getHeaders();
                     $headers->removeHeader('Content-Type');
                     $headers->removeHeader('Content-Transfer-Encoding');
-
-                    // Sanity check the date. Some clients die an unhappy
-                    // death if the date is malformed. *cough* outlook *cough*
-                    try {
-                        $d = new Horde_Date($headers->getHeader('Date')->value_single);
-                        if (!$d->year) {
-                            $headers->removeHeader('Date');
-                            $headers->addHeader('Date', date('r'));
-                        }
-                    } catch (Horde_Date_Exception $e) {
-                        $headers->removeHeader('Date');
-                        $headers->addHeader('Date', date('r'));
-                    }
                     $airsync_body->data = $base->toString(array(
                         'headers' => $headers,
                         'stream' => true)
