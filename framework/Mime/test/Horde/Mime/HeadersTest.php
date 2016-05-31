@@ -748,4 +748,15 @@ class Horde_Mime_HeadersTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testBug14381()
+    {
+        $hdrs = new Horde_Mime_Headers();
+        $hdrs->addHeader('Date', 'Sat, 22 May 2016 01:41:04 0000');
+        $this->assertEquals($hdrs->getValue('Date'), 'Sat, 22 May 2016 01:41:04 +0000');
+
+        $hdrs = new Horde_Mime_Headers();
+        $hdrs->addHeader('Date', 'Sat, 22 May 2016 01:41:04 +0000');
+        $this->assertEquals($hdrs->getValue('Date'), 'Sat, 22 May 2016 01:41:04 +0000');
+    }
+
 }
