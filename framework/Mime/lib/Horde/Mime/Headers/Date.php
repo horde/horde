@@ -51,4 +51,19 @@ extends Horde_Mime_Headers_Element_Single
         );
     }
 
+    /**
+     * Perform sanity checking on a header value.
+     *
+     * @param string $data  The header data.
+     *
+     * @return string  The cleaned header data.
+     */
+    protected function _sanityCheck($data)
+    {
+        $date = parent::_sanityCheck($data);
+        if (substr(rtrim($date), -5) === ' 0000') {
+            $date = substr(trim($date), 0, strlen(trim($date)) - 5) . ' +0000';
+        }
+        return $date;
+    }
 }
