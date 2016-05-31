@@ -36,7 +36,9 @@ class Horde_Imap_Client_DateTimeTest extends PHPUnit_Framework_TestCase
             // current year.
             array('Apr 13 20:4:48', gmmktime(20, 4, 48, 4, 13)),
             // Bad date input
-            array('This is a bad date', 0)
+            array('This is a bad date', 0),
+            // Bug #14381
+            array('Thu, 1 Aug 2013 20:22:47 0000', 1375388567)
         );
     }
 
