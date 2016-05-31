@@ -125,7 +125,7 @@ class Horde_ActiveSync_Imap_Message
     /**
      * Return this message's base part headers.
      *
-     * @return Horde_Mime_Header  The message headers.
+     * @return Horde_Mime_Headers  The message headers.
      */
     public function getHeaders()
     {
