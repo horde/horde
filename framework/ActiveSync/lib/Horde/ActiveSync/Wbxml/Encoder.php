@@ -309,7 +309,13 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
                 $this->_logContent($content);
             }
         } else {
-            $this->_logContent('[STREAM]');
+            if ($this->_logLevel == self::LOG_DETAILED) {
+                rewind($content);
+                $this->_logContent(stream_get_contents($content));
+                rewind($content);
+            } else {
+                $this->_logContent('[STREAM]');
+            }
         }
         $this->_outByte(self::STR_I);
         $this->_outTermStr($content);
