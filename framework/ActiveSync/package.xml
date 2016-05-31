@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Birthday workaround fixes for BB10 (Bug #14375).
 * [mjr] Sanity check envelope date (Ticket #14381).
  </notes>
  <contents>
@@ -3162,6 +3163,7 @@
    <date>2016-05-28</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Birthday workaround fixes for BB10 (Bug #14375).
 * [mjr] Sanity check envelope date (Ticket #14381).
    </notes>
   </release>
