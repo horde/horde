@@ -12,7 +12,7 @@
  </lead>
  <date>2016-05-31</date>
  <version>
-  <release>2.29.7</release>
+  <release>2.29.8</release>
   <api>2.29.0</api>
  </version>
  <stability>
@@ -21,8 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Add sanity check for malformed offset in Date header (Bug #14381).
-* [mjr] Fix fatal error in certain cases when performing a BODY[HEADER.FIELDS] query.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3012,6 +3011,19 @@
    <notes>
 * [mjr] Add sanity check for malformed offset in Date header (Bug #14381).
 * [mjr] Fix fatal error in certain cases when performing a BODY[HEADER.FIELDS] query.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.29.8</release>
+    <api>2.29.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-05-31</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
