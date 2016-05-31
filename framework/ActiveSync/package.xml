@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Sanity check envelope date (Ticket #14381).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3162,7 +3162,7 @@
    <date>2016-05-28</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Sanity check envelope date (Ticket #14381).
    </notes>
   </release>
  </changelog>
