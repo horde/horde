@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Honor the LOG_DETAILED debug log setting even when data is contained in a stream.
 * [mjr] Birthday workaround fixes for BB10 (Bug #14375).
 * [mjr] Sanity check envelope date (Ticket #14381).
  </notes>
@@ -3163,6 +3164,7 @@
    <date>2016-05-28</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Honor the LOG_DETAILED debug log setting even when data is contained in a stream.
 * [mjr] Birthday workaround fixes for BB10 (Bug #14375).
 * [mjr] Sanity check envelope date (Ticket #14381).
    </notes>
