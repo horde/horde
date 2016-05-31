@@ -100,6 +100,9 @@ class Horde_Imap_Client_Data_Fetch
      */
     public function setHeaders($label, $data)
     {
+        if ($data instanceof Horde_Stream) {
+            $data = $data->stream;
+        }
         $this->_data[Horde_Imap_Client::FETCH_HEADERS][$label] = $data;
     }
 
