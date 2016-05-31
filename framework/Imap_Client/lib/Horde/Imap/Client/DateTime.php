@@ -33,6 +33,19 @@ class Horde_Imap_Client_DateTime extends DateTime
                      in_array(PHP_VERSION, array('5.4.29', '5.5.13'));
         $tz = new DateTimeZone('UTC');
 
+        /* Bug #14381 Catch malformed offset - which doesn't cause
+           DateTime to throw exception. */
+        if (substr(rtrim($time), -5) === ' 0000') {
+            $time = substr(trim($time), 0, strlen(trim($time)) - 5) . ' +0000';
+            try {
+                if ($bug_67118) {
+                    new DateTime($time, $tz);
+                }
+                parent::__construct($time, $tz);
+                return;
+            } catch (Exception $e) {}
+        }
+
         try {
             if ($bug_67118) {
                 new DateTime($time, $tz);
