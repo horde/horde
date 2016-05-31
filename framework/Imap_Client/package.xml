@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mjr] Fix fatal error in certain cases when performing a BODY[HEADER.FIELDS] query.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3009,7 +3009,7 @@
    <date>2016-03-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mjr] Fix fatal error in certain cases when performing a BODY[HEADER.FIELDS] query.
    </notes>
   </release>
  </changelog>
