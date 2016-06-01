@@ -12,7 +12,7 @@
  </lead>
  <date>2016-06-01</date>
  <version>
-  <release>2.33.3</release>
+  <release>2.33.4</release>
   <api>2.33.0</api>
  </version>
  <stability>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Remove workaround for broken date headers.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3178,6 +3178,19 @@
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Remove workaround for broken date headers.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.33.4</release>
+    <api>2.33.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-05-31</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
