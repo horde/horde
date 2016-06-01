@@ -1867,11 +1867,12 @@ class Kronolith
                   !self::isUserEmail($event->creator, $event->organizer)) {
             /* Only send updates to organizer if the user is not the
              * organizer */
-            /* TODO: Guess organizer name and status if he is one of the
-             * attendees */
-            $mail_attendees = new Kronolith_Attendee_List(
-                array('name' => $event->organizer)
-            );
+            if (isset($event->attendees['email:'.$event->organizer])) {
+                $organizer = $event->attendees['email:'.$event->organizer];
+	    } else {
+                $organizer = new Kronolith_Attendee(array('email' => $event->organizer));
+            }
+            $mail_attendees = new Kronolith_Attendee_List(array($organizer));
         } else {
             $mail_attendees = $event->attendees;
         }
