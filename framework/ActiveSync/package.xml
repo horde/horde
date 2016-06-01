@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-05-31</date>
+ <date>2016-06-01</date>
  <version>
   <release>2.33.3</release>
   <api>2.33.0</api>
@@ -3174,7 +3174,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-05-31</date>
+   <date>2016-06-01</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Remove workaround for broken date headers.
