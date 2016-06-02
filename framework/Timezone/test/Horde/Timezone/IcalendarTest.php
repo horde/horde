@@ -8,6 +8,11 @@
  */
 class Horde_Timezone_IcalendarTest extends Horde_Test_Case
 {
+    public function setUp()
+    {
+        $this->markTestIncomplete('WIP');
+    }
+
     public function testEurope()
     {
         $tz = new Horde_Timezone_Mock('europe_jersey');
