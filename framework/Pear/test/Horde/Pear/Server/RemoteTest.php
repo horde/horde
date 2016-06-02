@@ -59,7 +59,7 @@ extends Horde_Pear_TestCase
     public function testLatestUri()
     {
         $this->assertEquals(
-            'http://pear.horde.org/get/Horde_DataTree-2.0.1.tgz',
+            'https://pear.horde.org/get/Horde_DataTree-2.0.1.tgz',
             $this->_getRemote()->getLatestDownloadUri('Horde_DataTree')
         );
     }
