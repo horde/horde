@@ -282,6 +282,18 @@ var ImpCompose = {
                 : l.l;
         }
 
+        if (!t) {
+            t = (k.opts.data || []).find(function(f) {
+                return f.v == s;
+            });
+            if (t && id == 'sm') {
+                t = t.f;
+            }
+            if (!t) {
+                t = '';
+            }
+        }
+
         input.setValue(s);
         $(k.opts.label).writeAttribute('title', t).setText(l.truncate(11)).up(1).show();
 
