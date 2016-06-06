@@ -141,6 +141,9 @@ class Ingo
             return Horde::url('smartmobile.php');
 
         default:
+            if ($initial_page = $registry->get('initial_page')) {
+                return Horde::url($registry->get('webroot') . '/' . $initial_page);
+            }
             return Ingo_Basic_Filters::url();
         }
     }

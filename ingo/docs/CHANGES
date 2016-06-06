@@ -9,6 +9,26 @@ v3.3.0-git
 [mms] Rearrange the default order of filter rules.
 
 
+-------
+v3.2.10
+-------
+
+[jan] Don't duplicate messages in Procmail's vacation recipe if excluding email
+      addresses (Michael.Martin@warp-it.com, Bug #14275).
+[jan] Remove stop-script feature from Procmail driver.
+
+
+------
+v3.2.9
+------
+
+[mjr] Fix PHP deprecated warnings in unit test (PR #176, Mathieu Parent
+      <math.parent@gmail.com>).
+[mjr] Honor 'date', 'echo', and 'ls' path overrides (Bug #14284).
+[jan] Update Greek translation (Limperis Antonis <limperis@cti.gr>).
+[jan] Fix Oracle compatibility (Bug #14262).
+
+
 ------
 v3.2.8
 ------
