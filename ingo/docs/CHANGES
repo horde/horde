@@ -2,6 +2,7 @@
 v3.2.11-git
 -----------
 
+[jan] Don't ignore 'initial_page' registry setting.
 
 
 -------

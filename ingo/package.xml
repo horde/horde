@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* 
+* [jan] Don&apos;t ignore &apos;initial_page&apos; registry setting.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1659,7 +1659,7 @@
    <date>2016-04-05</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* 
+* [jan] Don&apos;t ignore &apos;initial_page&apos; registry setting.
    </notes>
   </release>
  </changelog>
