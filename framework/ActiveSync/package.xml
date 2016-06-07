@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-06-01</date>
+ <date>2016-06-07</date>
  <version>
   <release>2.34.0</release>
   <api>2.34.0</api>
@@ -3187,7 +3187,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-05-31</date>
+   <date>2016-06-07</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Prevent sending empty message objects.
