@@ -424,7 +424,7 @@ class Horde_ActiveSync_Message_Base
                             if ($map[self::KEY_TYPE] == self::TYPE_DATE || $map[self::KEY_TYPE] == self::TYPE_DATE_DASHES) {
                                 $decoded = $this->_parseDate($decoder->getElementContent());
                             } elseif ($map[self::KEY_TYPE] == self::TYPE_HEX) {
-                                $decoded = self::hex2bin($decoder->getElementContent());
+                                $decoded = self::_hex2bin($decoder->getElementContent());
                             } else {
                                 $class = $map[self::KEY_TYPE];
                                 $subdecoder = new $class(array(
@@ -674,7 +674,7 @@ class Horde_ActiveSync_Message_Base
      *
      * @return string  The binary data
      */
-    private static function hex2bin($data)
+    private static function _hex2bin($data)
     {
         $len = strlen($data);
         $newdata = '';
