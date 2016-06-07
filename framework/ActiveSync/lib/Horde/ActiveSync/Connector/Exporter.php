@@ -355,6 +355,17 @@ class Horde_ActiveSync_Connector_Exporter
             return;
         }
 
+        // Ignore any empty objects.
+        if ($message->isEmpty()) {
+            $this->_logger->notice(sprintf(
+                '[%s] IGNORING message %s since it looks like it does not contain any data. Class: %s, CurrentClass: %s',
+                $this->_procid,
+                $id,
+                $message->getClass(),
+                $this->_currentCollection['class']));
+            return;
+        }
+
         // Remember this message
         $this->_seenObjects[] = $id;
 

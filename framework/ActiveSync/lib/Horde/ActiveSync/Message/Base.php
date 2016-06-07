@@ -627,6 +627,24 @@ class Horde_ActiveSync_Message_Base
     }
 
     /**
+     * Returns whether or not this message actually contains any data to
+     * send.
+     *
+     * @return boolean  True if message is empty, otherwise false.
+     * @since  2.34.0
+     */
+    public function isEmpty()
+    {
+        foreach ($this->_properties as $value) {
+            if (!empty($value)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
      * Oh yeah. This is beautiful. Exchange outputs date fields differently in
      * calendar items and emails. We could just always send one or the other,
      * but unfortunately nokia's 'Mail for exchange' depends on this quirk.
