@@ -369,7 +369,7 @@ class Horde_ActiveSync_Connector_Exporter
         $this->_encoder->startTag(Horde_ActiveSync::SYNC_SERVERENTRYID);
         $this->_encoder->content($id);
         $this->_encoder->endTag();
-        $this->_encoder->startTag(Horde_ActiveSync::SYNC_DATA);
+        $this->_encoder->startTag(Horde_ActiveSync::SYNC_DATA, false, true);
         try {
             $message->encodeStream($this->_encoder);
         } catch (Horde_ActiveSync_Exception $e) {
