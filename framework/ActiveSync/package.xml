@@ -12,8 +12,8 @@
  </lead>
  <date>2016-06-01</date>
  <version>
-  <release>2.33.4</release>
-  <api>2.33.0</api>
+  <release>2.34.0/release>
+  <api>2.34.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Prevent sending empty message objects.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3182,15 +3182,15 @@
   </release>
   <release>
    <version>
-    <release>2.33.4</release>
-    <api>2.33.0</api></version>
+    <release>2.34.0</release>
+    <api>2.34.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
    <date>2016-05-31</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Prevent sending empty message objects.
    </notes>
   </release>
  </changelog>
