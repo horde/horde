@@ -3108,12 +3108,6 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             self::canHtmlCompose() &&
             (($body_id = $contents->findBody('html')) !== null)) {
             $mime_message = $contents->getMIMEMessage();
-            if ($mime_message->getType() == 'multipart/encrypted' ||
-                $mime_message->getType() == 'multipart/signed') {
-                $mime_message = $mime_message->getPart(1);
-                $mime_message->buildMimeIds();
-                $body_id = $mime_message->findBody('html');
-            }
 
             switch ($mime_message->getPrimaryType()) {
             case 'multipart':
