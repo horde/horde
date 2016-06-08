@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2016-05-02</date>
+ <date>2016-06-08</date>
  <version>
   <release>2.24.0</release>
   <api>2.24.0</api>
@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Upgrade prototype.js to version 1.7.3.
 * [jan] Pre-select the current locale when building the spellchecker languages (Request #14244).
 * [jan] Fix pre-selecting an item in key-navigation-lists.
 * [jan] Add classes to support the Horde 6 davusername hook.
@@ -4180,9 +4181,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-05-02</date>
+   <date>2016-06-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Upgrade prototype.js to version 1.7.3.
 * [jan] Pre-select the current locale when building the spellchecker languages (Request #14244).
 * [jan] Fix pre-selecting an item in key-navigation-lists.
 * [jan] Add classes to support the Horde 6 davusername hook.
