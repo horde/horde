@@ -113,14 +113,13 @@ class Horde_Share_Sql extends Horde_Share_Base
      */
     protected function _getClobFields()
     {
-        if (isset($this->_clobFields)) {
-            return $this->_clobFields;
-        }
-
-        $columns = $this->_db->columns($this->_table);
-        foreach ($columns as $column) {
-            if ($column->getType() == 'text') {
-                $this->_clobFields[] = $column->getName();
+        if (!isset($this->_clobFields)) {
+            $this->_clobFields = array();
+            $columns = $this->_db->columns($this->_table);
+            foreach ($columns as $column) {
+                if ($column->getType() == 'text') {
+                    $this->_clobFields[] = $column->getName();
+                }
             }
         }
 
@@ -134,13 +133,13 @@ class Horde_Share_Sql extends Horde_Share_Base
      */
     protected function _getNonClobFields()
     {
-        if (isset($this->_nonClobFields)) {
-            return $this->_nonClobFields;
-        }
-        $columns = $this->_db->columns($this->_table);
-        foreach ($columns as $column) {
-            if ($column->getType() != 'text') {
-                $this->_nonClobFields[] = $column->getName();
+        if (!isset($this->_nonClobFields)) {
+            $this->_nonClobFields = array();
+            $columns = $this->_db->columns($this->_table);
+            foreach ($columns as $column) {
+                if ($column->getType() != 'text') {
+                    $this->_nonClobFields[] = $column->getName();
+                }
             }
         }
 
