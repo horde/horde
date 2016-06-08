@@ -1155,6 +1155,9 @@ class Turba_Api extends Horde_Registry_Api
         // ...and ensure the default source is used as a default.
         if (!count($opts['sources'])) {
             $opts['sources'] = array(Turba::getDefaultAddressbook());
+            if (!empty($opts['fields']) && empty($opts['fields'][$opts['sources'][0]])) {
+                $opts['fields'][$opts['sources'][0]] = $opts['fields'];
+            }
         }
 
         $driver = $injector->getInstance('Turba_Factory_Driver');
