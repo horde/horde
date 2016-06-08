@@ -169,10 +169,8 @@ class Kronolith_Icalendar_Handler_Dav extends Kronolith_Icalendar_Handler_Base
             $this->_dav->addObjectMap($event->id, $this->_params['object'], $this->_calendar);
         }
 
-        // Send iTip messages
-        // Notifications will get lost, there is no way to return messages
-        // to clients.
-	$type = Kronolith::ITIP_REQUEST;
+        // Send iTip messages if necessary.
+	    $type = Kronolith::ITIP_REQUEST;
         if ($event->organizer && !Kronolith::isUserEmail($event->creator, $event->organizer)) {
             $type = Kronolith::ITIP_REPLY;
         }
