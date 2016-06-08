@@ -2,6 +2,7 @@
 v3.1.0-git
 ----------
 
+[jan] Add batch-deletion of tickets from result lists.
 [jan] Use confirm buttons instead of dropdown when deleting tickets.
 [jan] Display ticket listeners to authenticated users.
 [jan] Add Cc: addresses as listeners when creating tickets from emails.
