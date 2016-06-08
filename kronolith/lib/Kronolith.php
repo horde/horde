@@ -44,7 +44,7 @@ class Kronolith
     /** iTip requests */
     const ITIP_REQUEST = 1;
     const ITIP_CANCEL  = 2;
-    const ITIP_REPLY  = 3;
+    const ITIP_REPLY   = 3;
 
     const RANGE_THISANDFUTURE = 'THISANDFUTURE';
 
@@ -1867,9 +1867,9 @@ class Kronolith
                   !self::isUserEmail($event->creator, $event->organizer)) {
             /* Only send updates to organizer if the user is not the
              * organizer */
-            if (isset($event->attendees['email:'.$event->organizer])) {
-                $organizer = $event->attendees['email:'.$event->organizer];
-	    } else {
+            if (isset($event->attendees['email:' . $event->organizer])) {
+                $organizer = $event->attendees['email:' . $event->organizer];
+	        } else {
                 $organizer = new Kronolith_Attendee(array('email' => $event->organizer));
             }
             $mail_attendees = new Kronolith_Attendee_List(array($organizer));
