@@ -51,6 +51,14 @@ class Kronolith_Icalendar_Handler_Dav extends Kronolith_Icalendar_Handler_Base
     protected $_noItips = array();
 
     /**
+     * List of attendess that have been previously invited. Used to detect if
+     * attendees are removed and to send ITIP_CANCEL to these attendees.
+     *
+     * @var Kronolith_Attendee_List
+     */
+    protected $_oldAttendees;
+
+    /**
      *
      * @param Horde_Icalendar  $iCal    The iCalendar data.
      * @param Kronolith_Driver $driver  The Kronolith driver.
@@ -86,6 +94,8 @@ class Kronolith_Icalendar_Handler_Dav extends Kronolith_Icalendar_Handler_Base
 
         // Ensure we start with a fresh state.
         $this->_existingEvent = null;
+        $this->_oldAttendees = new Kronolith_Attendee_List();
+        $this->_noItips = array();
 
         // Get the internal id of the existing copy of the event, if it exists.
         try {
@@ -121,6 +131,9 @@ class Kronolith_Icalendar_Handler_Dav extends Kronolith_Icalendar_Handler_Base
                 $this->_existingEvent->loadHistory();
                 $modified = $this->_existingEvent->modified
                     ?: $this->_existingEvent->created;
+
+                // Get list of existing attendees.
+                $this->_oldAttendees = $this->_existingEvent->attendees;
             } catch (Horde_Exception_NotFound $e) {
                 $this->_existingEvent = null;
             }
@@ -165,6 +178,8 @@ class Kronolith_Icalendar_Handler_Dav extends Kronolith_Icalendar_Handler_Base
 
     protected function _postSave(Kronolith_Event $event)
     {
+        global $registry;
+
         if (!$this->_dav->getInternalObjectId($this->_params['object'], $this->_calendar)) {
             $this->_dav->addObjectMap($event->id, $this->_params['object'], $this->_calendar);
         }
@@ -176,11 +191,37 @@ class Kronolith_Icalendar_Handler_Dav extends Kronolith_Icalendar_Handler_Base
         }
         $event_copy = clone($event);
         $event_copy->attendees = $event->attendees->without($this->_noItips);
+        $notification = new Horde_Notification_Handler(new Horde_Notification_Storage_Object());
         Kronolith::sendITipNotifications(
             $event_copy,
-            new Horde_Notification_Handler(new Horde_Notification_Storage_Object()),
+            $notification,
             $type
         );
+
+        // Send ITIP_CANCEL to any attendee that was removed, but only if this
+        // is the ORGANZIER's copy of the event.
+        if (empty($event->organizer) ||
+            ($registry->getAuth() == $event->creator &&
+             Kronolith::isUserEmail($event->creator, $event->organizer))) {
+
+            $removed_attendees = new Kronolith_Attendee_List();
+            foreach ($this->_oldAttendees as $old_attendee) {
+                if (!$event->attendees->has($old_attendee)) {
+                    $removed_attendees->add($old_attendee);
+                }
+            }
+            if (count($removed_attendees)) {
+                $cancelEvent = clone $event;
+                Kronolith::sendITipNotifications(
+                    $cancelEvent,
+                    $notification,
+                    Kronolith::ITIP_CANCEL,
+                    null,
+                    null,
+                    $removed_attendees
+                );
+            }
+        }
     }
 
 }
