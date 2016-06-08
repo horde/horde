@@ -169,18 +169,19 @@ class Kronolith_Icalendar_Handler_Dav extends Kronolith_Icalendar_Handler_Base
             $this->_dav->addObjectMap($event->id, $this->_params['object'], $this->_calendar);
         }
 
-        // Send iTip messages unless organizer is external.
+        // Send iTip messages
         // Notifications will get lost, there is no way to return messages
         // to clients.
+	$type = Kronolith::ITIP_REQUEST;
         if ($event->organizer && !Kronolith::isUserEmail($event->creator, $event->organizer)) {
-            return;
+            $type = Kronolith::ITIP_REPLY;
         }
         $event_copy = clone($event);
         $event_copy->attendees = $event->attendees->without($this->_noItips);
         Kronolith::sendITipNotifications(
             $event_copy,
             new Horde_Notification_Handler(new Horde_Notification_Storage_Object()),
-            Kronolith::ITIP_REQUEST
+            $type
         );
     }
 
