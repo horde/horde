@@ -6370,7 +6370,11 @@ KronolithCore = {
             }
         }
 
+        var id = attendee.l;
         if (attendee.e) {
+            if (!id.include(attendee.e)) {
+                id += " <" + attendee.e + ">";
+            }
             this.attendees.push(attendee);
             this.fbLoading++;
             HordeCore.doAction('getFreeBusy', {
@@ -6390,7 +6394,7 @@ KronolithCore = {
         }
 
         var tr = new Element('tr'), response, i;
-        this.freeBusy.set(attendee.l, [ tr ]);
+        this.freeBusy.set(id, [ tr ]);
         attendee.r = attendee.r || 1;
         switch (attendee.r) {
             case 1: response = 'None'; break;
