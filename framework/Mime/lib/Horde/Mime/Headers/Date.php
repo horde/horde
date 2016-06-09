@@ -64,6 +64,12 @@ extends Horde_Mime_Headers_Element_Single
         if (substr(rtrim($date), -5) === ' 0000') {
             $date = substr(trim($date), 0, strlen(trim($date)) - 5) . ' +0000';
         }
+
+        /* Check for malformed day-of-week parts */
+        if (!preg_match("/^(Mon|Tue|Wed|Thu|Fri|Sat|Sun),/", $date)) {
+            $date = trim(preg_replace("/^(\S*,)/", '', $date));
+        }
+
         return $date;
     }
 }

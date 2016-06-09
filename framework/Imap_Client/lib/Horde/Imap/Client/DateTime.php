@@ -54,6 +54,21 @@ class Horde_Imap_Client_DateTime extends DateTime
             return;
         } catch (Exception $e) {}
 
+        /* Check for malformed day-of-week parts, usually incorrectly
+         *  localized. E.g. Fr, 15 Apr 2016 15:15:09 +0000 */
+        if (!preg_match("/^(Mon|Tue|Wed|Thu|Fri|Sat|Sun),/", $time)) {
+            $time = preg_replace("/^(\S*,)/", '', $time, 1, $i);
+            if ($i) {
+                try {
+                    if ($bug_67118) {
+                        new DateTime($time, $tz);
+                    }
+                    parent::__construct($time, $tz);
+                    return;
+                } catch (Exception $e) {}
+            }
+        }
+
         /* Bug #5717 - Check for UT vs. UTC. */
         if (substr(rtrim($time), -3) === ' UT') {
             try {
