@@ -561,7 +561,7 @@ class Whups_Api extends Horde_Registry_Api
                     'type'              => $tickets[$i]['type_name'],
                     'priority'          => $tickets[$i]['priority_name'],
                     'desc'              => null,
-                    'due'               => null,
+                    'due'               => $tickets[$i]['due'],
                     'category'          => null,
                     'view_link'         => $view_link,
                     'delete_link'       => $delete_link,
