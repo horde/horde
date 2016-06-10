@@ -44,7 +44,7 @@ class Horde_Core_Factory_Logger extends Horde_Core_Factory_Injector
 
             switch ($format) {
             case 'custom':
-                $formatter = new Horde_Log_Formatter_Xml(array('format' => $conf['log']['params']['template']));
+                $formatter = new Horde_Log_Formatter_Simple(array('format' => $conf['log']['params']['template']));
                 break;
 
             case 'default':
