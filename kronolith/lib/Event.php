@@ -2709,7 +2709,12 @@ abstract class Kronolith_Event
                 $json->mb = '';
             }
         }
-
+        if ($this->organizer) {
+            $json->o = $this->organizer;
+            $json->oy = Kronolith::isUserEmail($this->creator, $this->organizer);
+        } else {
+            $json->oy = true;
+        }
         if ($options['full']) {
             $json->id = $this->id;
             $json->ty = $this->calendarType;
@@ -2722,12 +2727,6 @@ abstract class Kronolith_Event
             $json->pv = $this->private;
             if ($this->recurs()) {
                 $json->r = $this->recurrence->toJson();
-            }
-            if ($this->organizer) {
-                $json->o = $this->organizer;
-                $json->oy = Kronolith::isUserEmail($this->creator, $this->organizer);
-            } else {
-                $json->oy = true;
             }
             if (!$this->isPrivate()) {
                 $json->d = $this->description;
