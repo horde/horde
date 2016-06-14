@@ -38,6 +38,7 @@ Reading, writing and listing of files are all supported.</description>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Don&apos;t change directory when listing folders in File backend.
 * [jan] Allow to specify root folder (&apos;/&apos;) as &apos;vfsroot&apos; parameter.
  </notes>
  <contents>
@@ -1274,6 +1275,7 @@ Added a class for providing garbage collection; removed all Horde dependancies.
    <date>2016-03-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Don&apos;t change directory when listing folders in File backend.
 * [jan] Allow to specify root folder (&apos;/&apos;) as &apos;vfsroot&apos; parameter.
    </notes>
   </release>

@@ -481,7 +481,8 @@ class Horde_Vfs_File extends Horde_Vfs_Base
             throw new Horde_Vfs_Exception(sprintf('%s is not a VFS directory', $path));
         }
 
-        if (!@chdir($dir)) {
+        $d = @dir($dir);
+        if (!$d) {
             $e = new Horde_Vfs_Exception(sprintf('Unable to access VFS directory %s.', $path));
             if (isset($php_errormsg)) {
                 $e->details = $php_errormsg;
@@ -489,7 +490,6 @@ class Horde_Vfs_File extends Horde_Vfs_Base
             throw $e;
         }
 
-        $d = dir($dir);
         while (($entry = $d->read()) !== false) {
             // Filter out '.' and '..' entries.
             if ($entry == '.' || $entry == '..') {
@@ -503,39 +503,40 @@ class Horde_Vfs_File extends Horde_Vfs_Base
 
             // File name
             $file['name'] = $entry;
+            $path = $dir . '/' . $entry;
 
             // Unix style file permissions
-            $file['perms'] = $this->_getUnixPerms(fileperms($entry));
+            $file['perms'] = $this->_getUnixPerms(fileperms($path));
 
             // Owner
-            $file['owner'] = fileowner($entry);
+            $file['owner'] = fileowner($path);
             if (function_exists('posix_getpwuid')) {
                 $owner = posix_getpwuid($file['owner']);
                 $file['owner'] = $owner['name'];
             }
 
             // Group
-            $file['group'] = filegroup($entry);
+            $file['group'] = filegroup($path);
             if (function_exists('posix_getgrgid')) {
                 $group = posix_getgrgid($file['group']);
                 $file['group'] = $group['name'];
             }
 
             // Size
-            $file['size'] = filesize($entry);
+            $file['size'] = filesize($path);
 
             // Date
-            $file['date'] = filemtime($entry);
+            $file['date'] = filemtime($path);
 
             // Type
-            if (@is_dir($entry) && !is_link($entry)) {
+            if (@is_dir($path) && !is_link($path)) {
                 $file['perms'] = 'd' . $file['perms'];
                 $file['type'] = '**dir';
                 $file['size'] = -1;
-            } elseif (is_link($entry)) {
+            } elseif (is_link($path)) {
                 $file['perms'] = 'l' . $file['perms'];
                 $file['type'] = '**sym';
-                $file['link'] = readlink($entry);
+                $file['link'] = readlink($path);
                 $file['linktype'] = '**none';
                 if (file_exists($file['link'])) {
                     if (is_dir($file['link'])) {
@@ -551,7 +552,7 @@ class Horde_Vfs_File extends Horde_Vfs_Base
                 } else {
                     $file['linktype'] = '**broken';
                 }
-            } elseif (is_file($entry)) {
+            } elseif (is_file($path)) {
                 $file['perms'] = '-' . $file['perms'];
                 $ext = explode('.', $entry);
 
@@ -562,13 +563,13 @@ class Horde_Vfs_File extends Horde_Vfs_Base
                 }
             } else {
                 $file['type'] = '**none';
-                if ((fileperms($entry) & 0xC000) == 0xC000) {
+                if ((fileperms($path) & 0xC000) == 0xC000) {
                     $file['perms'] = 's' . $file['perms'];
-                } elseif ((fileperms($entry) & 0x6000) == 0x6000) {
+                } elseif ((fileperms($path) & 0x6000) == 0x6000) {
                     $file['perms'] = 'b' . $file['perms'];
-                } elseif ((fileperms($entry) & 0x2000) == 0x2000) {
+                } elseif ((fileperms($path) & 0x2000) == 0x2000) {
                     $file['perms'] = 'c' . $file['perms'];
-                } elseif ((fileperms($entry) & 0x1000) == 0x1000) {
+                } elseif ((fileperms($path) & 0x1000) == 0x1000) {
                     $file['perms'] = 'p' . $file['perms'];
                 } else {
                     $file['perms'] = '?' . $file['perms'];

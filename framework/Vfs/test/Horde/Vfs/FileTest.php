@@ -171,6 +171,19 @@ class Horde_Vfs_FileTest extends Horde_Vfs_TestBase
         $this->_listFolder();
     }
 
+    /**
+     * @expectedException Horde_Vfs_Exception
+     * @expectedExceptionMessage Unable to access VFS directory root.
+     */
+    public function testListFolderWithoutPermissions()
+    {
+        if (!is_dir('/root')) {
+            $this->markSkipped('No /root folder to test permissions.');
+        }
+        $vfs = Horde_Vfs::factory('File', array('vfsroot' => '/'));
+        $vfs->listFolder('root');
+    }
+
     public function testChmod()
     {
         $this->_chmod();
