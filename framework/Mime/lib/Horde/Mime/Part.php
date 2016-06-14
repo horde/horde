@@ -160,6 +160,13 @@ implements ArrayAccess, Countable, RecursiveIterator, Serializable
     protected $_transferEncoding = self::DEFAULT_ENCODING;
 
     /**
+     * Flag to detect if a message failed to send at least once.
+     *
+     * @var boolean
+     */
+    protected $_failed = false;
+
+    /**
      * Constructor.
      */
     public function __construct()
@@ -1557,6 +1564,19 @@ implements ArrayAccess, Countable, RecursiveIterator, Serializable
                 'canonical' => $canonical,
                 'charset' => $this->getHeaderCharset()
             )), $msg);
+        } catch (InvalidArgumentException $e) {
+            // Try to rebuild the part in case it was due to
+            // an invalid line length in a rfc822/message attachment.
+            if ($this->_failed) {
+                throw $e;
+            }
+            $this->_failed = true;
+            $this->_sanityCheckRfc822Attachments();
+            try {
+                $this->send($email, $headers, $mailer, $opts);
+            } catch (Horde_Mail_Exception $e) {
+                throw new Horde_Mime_Exception($e);
+            }
         } catch (Horde_Mail_Exception $e) {
             throw new Horde_Mime_Exception($e);
         }
@@ -2111,6 +2131,39 @@ implements ArrayAccess, Countable, RecursiveIterator, Serializable
         }
 
         return $out;
+    }
+
+    /**
+     * Re-enocdes message/rfc822 parts in case there was e.g., some broken
+     * line length in the headers of the message in the part. Since we shouldn't
+     * alter the original message in any way, we simply reset cause the part to
+     * be encoded as base64 and sent as a application/octet part.
+     */
+    protected function _sanityCheckRfc822Attachments()
+    {
+        if ($this->getType() == 'message/rfc822') {
+            $this->_reEncodeMessageAttachment($this);
+            return;
+        }
+        foreach ($this->getParts() as $part) {
+            if ($part->getType() == 'message/rfc822') {
+                $this->_reEncodeMessageAttachment($part);
+            }
+        }
+        return;
+    }
+
+    /**
+     * Rebuilds $part and forces it to be a base64 encoded
+     * application/octet-stream part.
+     *
+     * @param  Horde_Mime_Part $part   The MIME part.
+     */
+    protected function _reEncodeMessageAttachment(Horde_Mime_Part $part)
+    {
+        $new_part = Horde_Mime_Part::parseMessage($part->getContents());
+        $part->setContents($new_part->getContents(array('stream' => true)), array('encoding' => self::ENCODE_BINARY));
+        $part->setTransferEncoding('base64', array('send' => true));
     }
 
     /* ArrayAccess methods. */
