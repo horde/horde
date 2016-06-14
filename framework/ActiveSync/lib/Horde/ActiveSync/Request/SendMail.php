@@ -56,7 +56,7 @@ class Horde_ActiveSync_Request_SendMail extends Horde_ActiveSync_Request_Base
                 return $result;
             } catch (Horde_ActiveSync_Exception $e) {
                 $this->_logger->err($e->getMessage());
-                $this->_handError(
+                $this->_handleError(
                     Horde_ActiveSync_Status::MAIL_SUBMISSION_FAILED,
                     Horde_ActiveSync_Message_SendMail::COMPOSEMAIL_SENDMAIL);
 
