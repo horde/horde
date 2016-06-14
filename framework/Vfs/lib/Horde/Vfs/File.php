@@ -61,6 +61,9 @@ class Horde_Vfs_File extends Horde_Vfs_Base
             ((substr($this->_params['vfsroot'], -1) == '/') ||
              (substr($this->_params['vfsroot'], -1) == '\\'))) {
             $this->_params['vfsroot'] = substr($this->_params['vfsroot'], 0, strlen($this->_params['vfsroot']) - 1);
+            if (!strlen($this->_params['vfsroot'])) {
+                $this->_params['vfsroot'] = '/';
+            }
         }
 
         $this->_connect();
