@@ -19,8 +19,8 @@
  </lead>
  <date>2016-06-01</date>
  <version>
-  <release>2.9.6</release>
-  <api>2.9.0</api>
+  <release>2.10.0</release>
+  <api>2.10.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -1772,8 +1772,8 @@
   </release>
   <release>
    <version>
-    <release>2.9.6</release>
-    <api>2.9.0</api></version>
+    <release>2.10.0</release>
+    <api>2.10.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
