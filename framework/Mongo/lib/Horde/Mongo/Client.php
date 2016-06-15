@@ -11,6 +11,15 @@
  * @package   Mongo
  */
 
+if (!extension_loaded('mongo')) {
+    // use the compatibility layer and mongodb extension
+    if (file_exists(__DIR__ . '/vendor/autoload.php')) {
+        require_once __DIR__ . '/vendor/autoload.php'; // PEAR installation
+    } else {
+        require_once __DIR__ . '/../../../bundle/vendor/autoload.php'; // GIT
+    }
+}
+
 /**
  * Extend the base PECL MongoClient class by allowing it to be serialized.
  *

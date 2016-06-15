@@ -23,8 +23,8 @@ class Horde_Cache_MongoTest extends Horde_Cache_TestBase
 {
     protected function _getCache($params = array())
     {
-        if (!extension_loaded('mongo')) {
-            $this->reason = 'Mongo extension not loaded';
+        if (!extension_loaded('mongo') && !extension_loaded('mongodb')) {
+            $this->reason = 'Mongo/Mongodb extensions not loaded';
             return;
         }
         if (!class_exists('Horde_Mongo_Client')) {
