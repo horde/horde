@@ -1739,11 +1739,27 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-03-21</date>
+   <date>2016-04-05</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Fix regression with date picker in tasks form (Bug #14303).
 * [mjr] Fix handling EAS categories/tags.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.10</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-04-05</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Avoid fatal errors if tasks don&apos;t have a UID.
+* [mjr] Fix parsing certain date formats (Bug #14348).
+* [jan] Fix deleteing alarms when completing a task.
+* [mjr] Require Horde_Perms::DELETE for including a tasklist as sync-able.
    </notes>
   </release>
   <release>

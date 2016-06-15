@@ -392,7 +392,9 @@ class Nag_View_List
         $this->_tasks->reset();
         $ids = array();
         while ($t = $this->_tasks->each()) {
-            $ids[] = $t->uid;
+            if ($t->uid) {
+                $ids[] = $t->uid;
+            }
         }
         $rtags = $this->_browser->getRelatedTags($ids);
         if (count($rtags)) {
