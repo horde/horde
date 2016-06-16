@@ -365,12 +365,6 @@ class IMP_Basic_Message extends IMP_Basic_Base
                 'buid' => $imp_mailbox->getBuid($prev_msg['m'], $prev_msg['u']),
                 'mailbox' => $mailbox
             ))->setRaw(true);
-            $page_output->addLinkTag(array(
-                'href' => $prev_url,
-                'id' => 'prev',
-                'rel' => 'Previous',
-                'type' => null
-            ));
         } else {
             $prev_url = null;
         }
@@ -381,12 +375,6 @@ class IMP_Basic_Message extends IMP_Basic_Base
                 'buid' => $imp_mailbox->getBuid($next_msg['m'], $next_msg['u']),
                 'mailbox' => $mailbox
             ))->setRaw(true);
-            $page_output->addLinkTag(array(
-                'href' => $next_url,
-                'id' => 'next',
-                'rel' => 'Next',
-                'type' => null
-            ));
         } else {
             $next_url = null;
         }

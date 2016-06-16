@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Remove &lt;link rel=""&gt; tags with "Previous" and "Next" from basic message view (Bug #14400).
 * [jan] Display translated mailbox names in drop down lists too.
 * [jan] Consistently display the raw mailbox name in mailbox element titles.
 * [jan] Unset window opener when opening new windows from HTML messages (João Machado &lt;geral@jpaulo.eu&gt;).
@@ -3946,6 +3947,7 @@
    <date>2016-04-05</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Remove &lt;link rel=""&gt; tags with "Previous" and "Next" from basic message view (Bug #14400).
 * [jan] Display translated mailbox names in drop down lists too.
 * [jan] Consistently display the raw mailbox name in mailbox element titles.
 * [jan] Unset window opener when opening new windows from HTML messages (João Machado &lt;geral@jpaulo.eu&gt;).
