@@ -493,7 +493,6 @@ class Horde_ActiveSync_SyncCache
 
     /**
      * Clear all synckeys from the known collections.
-     *
      */
     public function clearCollectionKeys()
     {
@@ -710,7 +709,6 @@ class Horde_ActiveSync_SyncCache
 
     /**
      * Clear the folder cache
-     *
      */
     public function clearFolders()
     {

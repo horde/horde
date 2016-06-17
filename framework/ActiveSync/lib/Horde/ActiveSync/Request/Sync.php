@@ -230,17 +230,13 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             if ($partial === true) {
                 $this->_logger->info(sprintf(
                     '[%s] Executing a PARTIAL SYNC.',
-                    $this->_procid));
+                    $this->_procid)
+                );
                 if (!$this->_collections->initPartialSync()) {
                     $this->_statusCode = self::STATUS_REQUEST_INCOMPLETE;
                     $this->_handleGlobalSyncError();
                     return true;
                 }
-
-                // Fill in any missing collections that were already sent.
-                // @TODO: Can we move this to initPartialSync()?
-                $this->_collections->getMissingCollectionsFromCache();
-
             } else {
                 // Full request.
                 $this->_collections->initFullSync();

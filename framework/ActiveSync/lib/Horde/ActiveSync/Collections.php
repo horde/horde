@@ -809,6 +809,8 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
      * Prepares the syncCache for a partial sync request and checks that
      * it is allowed.
      *
+     * MS-ASCMD 2.2.3.124
+     *
      * @return boolean True if parital sync is possible, false otherwise.
      */
     public function initPartialSync()
@@ -816,38 +818,26 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
         // Need this for all PARTIAL sync requests.
         $this->_tempSyncCache = clone $this->_cache;
 
-        // PARTIAL is allowed without a <collection> tag if the waitinterval,
-        // heartbeat, or windowsize changed. So, short circuit the logic for
-        // checking for changed collections in this case.
+        // Short circuit if we only have a changed ping/wait interval.
         if (empty($this->_collections)) {
-            $this->_logger->info('No collections in collection handler, loading full collection set from cache.');
+            $emptyCollections = true;
+            $this->_logger->info(sprintf(
+                '[%s] No collections in collection handler, loading full collection set from cache.',
+                $this->_procid)
+            );
             $this->loadCollectionsFromCache();
-            foreach ($this->_collections as $value) {
-                // Remove keys from confirmed synckeys array and count them
-                if (isset($value['synckey'])) {
-                    if (isset($this->_cache->confirmed_synckeys[$value['synckey']])) {
-                        $this->_logger->info(sprintf(
-                            'Removed %s from confirmed_synckeys',
-                            $value['synckey'])
-                        );
-                        $this->_cache->removeConfirmedKey($value['synckey']);
-                    }
-                    $this->_synckeyCount++;
+
+        } else {
+            // Collect collection options sent from client and compare against
+            // last known collection options to determine which collections
+            // changed.
+            $emptyCollections = false;
+            $c = $this->_tempSyncCache->getCollections();
+            foreach ($this->_collections as $key => $value) {
+                // Collections from cache might not all have synckeys.
+                if (empty($c[$key])) {
+                    continue;
                 }
-            }
-            if (!$this->_checkConfirmedKeys()) {
-                $this->_logger->err('Some synckeys were not confirmed. Requesting full SYNC');
-                $this->save();
-                return false;
-            }
-
-            return true;
-        }
-
-        $c = $this->_tempSyncCache->getCollections();
-        foreach ($this->_collections as $key => $value) {
-            // Collections from cache might not all have synckeys.
-            if (!empty($c[$key])) {
                 $v1 = $value;
                 foreach ($v1 as $k => $o) {
                     if (is_null($o)) {
@@ -855,15 +845,18 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
                     }
                 }
                 unset($v1['id'], $v1['serverid'], $v1['clientids'], $v1['fetchids'],
-                      $v1['getchanges'], $v1['changeids'], $v1['pingable'],
-                      $v1['class'], $v1['synckey'], $v1['lastsynckey']);
+                    $v1['getchanges'], $v1['changeids'], $v1['pingable'],
+                    $v1['class'], $v1['synckey'], $v1['lastsynckey']
+                );
                 $v2 = $c[$key];
                 foreach ($v2 as $k => $o) {
                     if (is_null($o)) {
                         unset($v2[$k]);
                     }
                 }
-                unset($v2['id'], $v2['serverid'], $v2['pingable'], $v2['class'], $v2['synckey'], $v2['lastsynckey']);
+                unset($v2['id'], $v2['serverid'], $v2['pingable'], $v2['class'],
+                    $v2['synckey'], $v2['lastsynckey']
+                );
                 ksort($v1);
                 if (isset($v1['bodyprefs'])) {
                     ksort($v1['bodyprefs']);
@@ -873,7 +866,6 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
                         }
                     }
                 }
-
                 ksort($v2);
                 if (isset($v2['bodyprefs'])) {
                     ksort($v2['bodyprefs']);
@@ -887,23 +879,26 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
                 if (md5(serialize($v1)) == md5(serialize($v2))) {
                     $this->_unchangedCount++;
                 }
+
                 // Unset in tempSyncCache, since we have it from device.
-                // Afterwards, anything left in tempSyncCache needs to be added
-                // to _collections (this is done in
-                // self::_haveNoChangesInPartialSync()).
                 $this->_tempSyncCache->removeCollection($key);
 
-                // Remove keys from confirmed synckeys array and count them.
-                if (isset($value['synckey'])) {
-                    if (isset($this->_cache->confirmed_synckeys[$value['synckey']])) {
-                        $this->_logger->info(sprintf(
-                            'Removed %s from confirmed_synckeys',
-                            $value['synckey'])
-                        );
-                        $this->_cache->removeConfirmedKey($value['synckey']);
-                    }
-                    $this->_synckeyCount++;
+                // Populate _collections with missing collection data not sent.
+                $this->_getMissingCollectionsFromCache();
+            }
+        }
+
+        // Ensure we are both talking about the same synckey.
+        foreach ($this->_collections as $value) {
+            if (isset($value['synckey'])) {
+                if (isset($this->_cache->confirmed_synckeys[$value['synckey']])) {
+                    $this->_logger->info(sprintf(
+                        'Removed %s from confirmed_synckeys',
+                        $value['synckey'])
+                    );
+                    $this->_cache->removeConfirmedKey($value['synckey']);
                 }
+                $this->_synckeyCount++;
             }
         }
 
@@ -913,11 +908,12 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
             return false;
         }
 
-        if ($this->_haveNoChangesInPartialSync()) {
-                $this->_logger->warn(sprintf(
-                    '[%s] Partial Request with completely unchanged collections. Request a full SYNC',
-                    $this->_procid));
-                    return false;
+        if (!$emptyCollections && $this->_haveNoChangesInPartialSync()) {
+            $this->_logger->warn(sprintf(
+                '[%s] Partial Request with completely unchanged collections. Request a full SYNC',
+                $this->_procid)
+            );
+            return false;
         }
 
         return true;
@@ -950,9 +946,9 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
     }
 
     /**
-     * Return if we have no changes, but have requested a partial sync. A
-     * partial sync must have either a wait, hbinterval, or some subset of
-     * collections to be valid.
+     * Return if we have no changes to collection options, but have requested
+     * a partial sync. A partial sync must have either a wait, hbinterval,
+     * or some subset of collections to be valid.
      *
      * @return boolean
      */
@@ -964,9 +960,10 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
     }
 
     /**
-     * Populate the collections data with missing data from the syncCache.
+     * Populate the collections data with missing data from the syncCache during
+     * a PARTIAL SYNC.
      */
-    public function getMissingCollectionsFromCache()
+    protected function _getMissingCollectionsFromCache()
     {
         if (empty($this->_tempSyncCache)) {
             throw new Horde_ActiveSync_Exception('Did not initialize the PARTIAL sync.');
