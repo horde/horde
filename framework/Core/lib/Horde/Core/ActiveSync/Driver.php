@@ -1313,6 +1313,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 if (!$message->getUid()) {
                     $message->setUid($id);
                 }
+            } catch (Horde_Exception_NotFound $e) {
+                throw $e;
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->getMessage());
                 $this->_endBuffer();
@@ -1324,6 +1326,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             $id = explode(':', $id);
             try {
                 $recipients = $this->_connector->contacts_search($id[0], array('recipient_cache_search' => true));
+            } catch (Horde_Exception_NotFound $e) {
+                throw $e;
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->getMessage());
                 $this->_endBuffer();
@@ -1352,6 +1356,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     'bodyprefs' => $collection['bodyprefs'],
                     'mimesupport' => $collection['mimesupport'],
                     'device' => $this->_device));
+            } catch (Horde_Exception_NotFound $e) {
+                throw $e;
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->getMessage());
                 $this->_endBuffer();
@@ -1366,6 +1372,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     'truncation' => $collection['truncation'],
                     'bodyprefs' => $collection['bodyprefs'],
                     'mimesupport' => $collection['mimesupport']));
+            } catch (Horde_Exception_NotFound $e) {
+                throw $e;
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->getMessage());
                 $this->_endBuffer();
@@ -1380,6 +1388,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     'truncation' => $collection['truncation'],
                     'bodyprefs' => $collection['bodyprefs'],
                     'mimesupport' => $collection['mimesupport']));
+            } catch (Horde_Exception_NotFound $e) {
+                throw $e;
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->getMessage());
                 $this->_endBuffer();
