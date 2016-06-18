@@ -499,8 +499,6 @@ class Horde_ActiveSync_StateTest_Base extends Horde_Test_Case
         );
         $collections->addCollection($col);
         $collections->initPartialSync();
-        $this->assertEquals(1, $collections->collectionCount());
-        $collections->getMissingCollectionsFromCache();
         $this->assertEquals(2, $collections->collectionCount());
     }
 
