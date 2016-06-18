@@ -903,7 +903,7 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
         }
 
         if (!$this->_checkConfirmedKeys()) {
-            $this->_logger->err('Some synckeys were not confirmed. Requesting full SYNC');
+            $this->_logger->warn('Some synckeys were not confirmed. Requesting full SYNC');
             $this->save();
             return false;
         }
