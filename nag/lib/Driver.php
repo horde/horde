@@ -197,28 +197,7 @@ abstract class Nag_Driver
      * Modifies an existing task and handles notification.
      *
      * @param string $taskId  The task to modify.
-     * @param array $properties  A hash with the following possible properties:
-     *     - name: (string) The name (short) of the task.
-     *     - desc: (string) The description (long) of the task.
-     *     - start: (OPTIONAL, integer) The start date of the task.
-     *     - due: (OPTIONAL, integer) The due date of the task.
-     *     - priority: (OPTIONAL, integer) The priority of the task.
-     *     - estimate: (OPTIONAL, float) The estimated time to complete the
-     *                 task.
-     *     - completed: (OPTIONAL, integer) The completion state of the task.
-     *     - tags: (OPTIONAL, string) The tags of the task.
-     *     - alarm: (OPTIONAL, integer) The alarm associated with the task.
-     *     - methods: (OPTIONAL, array) The overridden alarm notification
-     *                methods.
-     *     - uid: (OPTIONAL, string) A Unique Identifier for the task.
-     *     - parent: (OPTIONAL, string) The parent task.
-     *     - private: (OPTIONAL, boolean) Whether the task is private.
-     *     - owner: (OPTIONAL, string) The owner of the event.
-     *     - assignee: (OPTIONAL, string) The assignee of the event.
-     *     - completed_date: (OPTIONAL, integer) The task's completion date.
-     *     - tasklist: (OPTIONAL, string) The new tasklist.
-     *     - recurrence: (OPTIONAL, Horde_Date_Recurrence|array) Recurrence
-     *                   information.
+     * @param array $properties  A hash with properties. @see add().
      *
      * @throws Nag_Exception
      */
