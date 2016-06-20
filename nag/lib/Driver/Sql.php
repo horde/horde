@@ -289,7 +289,7 @@ class Nag_Driver_Sql extends Nag_Driver
                         (int)$task['start'],
                         (int)$task['due'],
                         (int)$task['priority'],
-                        number_format($task['estimate'], 2),
+                        number_format(floatval($task['estimate']), 2),
                         (int)$task['completed'],
                         (int)$task['completed_date'],
                         (int)$task['alarm'],
@@ -298,7 +298,7 @@ class Nag_Driver_Sql extends Nag_Driver
                         (int)$task['private'],
                         $task['organizer'],
                         $task['status'],
-                        $task['actual']);
+                        number_format(floatval($task['actual']), 2));
         $this->_addRecurrenceFields($values, $task);
         $values[] = $this->_tasklist;
         $values[] = $taskId;
