@@ -56,6 +56,14 @@ class Horde_Core_Factory_HashTable extends Horde_Core_Factory_Injector
                 )))
             ));
 
+        case 'memcached':
+            return new Horde_HashTable_Memcached(array(
+                'logger' => $logger,
+                'memcached' => new Horde_Memcached(array_merge($params, array(
+                    'logger' => $logger
+                )))
+            ));
+
         case 'predis':
             $params = array_merge(array(
                 'hostspec' => array(),
