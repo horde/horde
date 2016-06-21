@@ -28,7 +28,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2016-04-05</date>
+ <date>2016-06-21</date>
  <version>
   <release>5.3.0</release>
   <api>5.2.0</api>
@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
+* [jan] Add a weekly login task to check for newer versions.
 * [mjr] Use more flexible Encryption property for Outlook Autodiscovery responses.
 * [jan] Add hook to customize user names for DAV clients.
 * [jan] Show users&apos; full names in user lists.
@@ -312,6 +313,7 @@
       <file name="AdminCheck.php" role="horde" />
       <file name="LastLogin.php" role="horde" />
       <file name="TosAgreement.php" role="horde" />
+      <file name="UpgradeCheck.php" role="horde" />
      </dir> <!-- /lib/LoginTasks/Task -->
     </dir> <!-- /lib/LoginTasks -->
     <dir name="Prefs">
@@ -2153,6 +2155,7 @@
    <install as="lib/LoginTasks/Task/AdminCheck.php" name="lib/LoginTasks/Task/AdminCheck.php" />
    <install as="lib/LoginTasks/Task/LastLogin.php" name="lib/LoginTasks/Task/LastLogin.php" />
    <install as="lib/LoginTasks/Task/TosAgreement.php" name="lib/LoginTasks/Task/TosAgreement.php" />
+   <install as="lib/LoginTasks/Task/UpgradeCheck.php" name="lib/LoginTasks/Task/UpgradeCheck.php" />
    <install as="lib/Prefs/Special/Activesync.php" name="lib/Prefs/Special/Activesync.php" />
    <install as="lib/Prefs/Special/Category.php" name="lib/Prefs/Special/Category.php" />
    <install as="lib/Prefs/Special/Facebook.php" name="lib/Prefs/Special/Facebook.php" />
@@ -4212,9 +4215,10 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2016-04-05</date>
+   <date>2016-06-21</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
+* [jan] Add a weekly login task to check for newer versions.
 * [mjr] Use more flexible Encryption property for Outlook Autodiscovery responses.
 * [jan] Add hook to customize user names for DAV clients.
 * [jan] Show users&apos; full names in user lists.
