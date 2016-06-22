@@ -533,6 +533,8 @@ abstract class Horde_Vfs_Base
     /**
      * Returns a file list of the directory passed in.
      *
+     * @todo Move all but $path to an $opts argument.
+     *
      * @param string $path          The path of the directory.
      * @param string|array $filter  Regular expression(s) to filter
      *                              file/directory name on.
