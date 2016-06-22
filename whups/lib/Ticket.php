@@ -390,6 +390,7 @@ class Whups_Ticket
                     $updates['version'] = 0;
                 }
                 $updates['queue'] = $value;
+                break;
 
             default:
                 if (strpos($detail, 'attribute_') === 0 &&
