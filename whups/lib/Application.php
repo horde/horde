@@ -166,6 +166,7 @@ class Whups_Application extends Horde_Registry_Application
 
         switch ($vars->actionID) {
         case 'download_file':
+        case 'download_message':
             // Get the ticket details first.
             if (empty($vars->ticket)) {
                 exit;
@@ -175,22 +176,41 @@ class Whups_Application extends Horde_Registry_Application
 
             // Check permissions on this ticket.
             if (!count(Whups::permissionsFilter($whups_driver->getHistory($vars->ticket), 'comment', Horde_Perms::READ))) {
-                throw new Whups_Exception(sprintf(_("You are not allowed to view ticket %d."), $vars->ticket));
+                throw new Whups_Exception(sprintf(
+                    _("You are not allowed to view ticket %d."),
+                    $vars->ticket
+                ));
             }
 
             try {
-                $vfs = $injector->getInstance('Horde_Core_Factory_Vfs')->create();
+                $vfs = $injector->getInstance('Horde_Core_Factory_Vfs')
+                    ->create();
             } catch (Horde_Exception $e) {
                 throw new Whups_Exception(_("The VFS backend needs to be configured to enable attachment uploads."));
             }
 
             try {
-                return array(
-                    'data' => $vfs->read(Whups::VFS_ATTACH_PATH . '/' . $vars->ticket, $vars->file),
-                    'name' => $vars->file
-                );
+                if ($vars->actionID == 'download_message') {
+                    return array(
+                        'data' => $vfs->read(
+                            Whups::VFS_MESSAGE_PATH . '/' . $vars->ticket,
+                            $vars->message
+                        ),
+                        'name' => _("Original message") . '.eml'
+                    );
+                } else {
+                    return array(
+                        'data' => $vfs->read(
+                            Whups::VFS_ATTACH_PATH . '/' . $vars->ticket,
+                            $vars->file
+                        ),
+                        'name' => $vars->file
+                    );
+                }
             } catch (Horde_Vfs_Exception $e) {
-                throw new Whups_Exception(sprintf(_("Access denied to %s"), $vars->file));
+                throw new Whups_Exception(
+                    sprintf(_("Access denied to %s"), $vars->file)
+                );
             }
             break;
 

@@ -25,6 +25,11 @@ class Whups
     const VFS_ATTACH_PATH = '.horde/whups/attachments';
 
     /**
+     * Path to email messages in the VFS.
+     */
+    const VFS_MESSAGE_PATH = '.horde/whups/messages';
+
+    /**
      * The current sort field.
      *
      * @see sortBy()
@@ -966,6 +971,88 @@ class Whups
                                       'template' => $message_file,
                                       'from' => $user));
         }
+    }
+
+    /**
+     * Returns whether an original message for a ticket comment exists.
+     *
+     * @param integer $ticket  A ticket ID.
+     * @param integer $id      A message ID.
+     *
+     * @return boolean  True if the original message exists.
+     *
+     * @throws Whups_Exception if the VFS object cannot be created.
+     */
+    public static function hasMessage($ticket, $id)
+    {
+        global $conf, $injector;
+
+        if (empty($conf['vfs']['type'])) {
+            return false;
+        }
+
+        try {
+            $vfs = $injector->getInstance('Horde_Core_Factory_Vfs')->create();
+        } catch (Horde_Vfs_Exception $e) {
+            throw new Whups_Exception($e);
+        }
+
+        return $vfs->exists(self::VFS_MESSAGE_PATH . '/' . $ticket, $id);
+    }
+
+    /**
+     * Returns the links to view, download, and delete an original message.
+     *
+     * @param integer $ticket  A ticket ID.
+     * @param integer $id      A message ID.
+     * @param integer $queue   The ticket's queue ID.
+     *
+     * @return array  List of URLs.
+     */
+    public static function messageUrls($ticket, $message, $queue)
+    {
+        global $injector, $registry;
+
+        $links = array(
+            'view' => Horde::url('view.php')
+                ->add(array(
+                    'actionID' => 'view_message',
+                    'message' => $message,
+                    'ticket' => $ticket
+                ))
+                ->link(array('target' => '_blank'))
+                . _("View original message") . '</a>',
+            'download' => $registry->downloadUrl(
+                _("Original Message") . '.eml',
+                array(
+                    'actionID' => 'download_message',
+                    'message' => $message,
+                    'ticket' => $ticket
+                ))
+                ->link()
+                . Horde::img('download.png', _("Download")) . '</a>'
+        );
+
+        // Admins can delete attachments.
+        if (self::hasPermission($queue, 'queue', Horde_Perms::DELETE)) {
+            $links['delete'] = Horde::url('ticket/delete_attachment.php')
+                ->add(
+                    array(
+                        'message' => $message,
+                        'id' => $ticket,
+                        'url' => Horde::selfUrl(true, false, true)
+                    )
+                )
+                ->link(array(
+                    'title' => _("Delete Message"),
+                    'onclick' => 'return window.confirm(\''
+                        . addslashes(_("Permanently delete original message?"))
+                        . '\');'
+                ))
+                . Horde::img('delete.png', _("Delete message")) . '</a>';
+        }
+
+        return $links;
     }
 
     /**

@@ -151,22 +151,6 @@ class Whups_Mail
             $GLOBALS['registry']->setAuth($auth_user, array());
         }
 
-        // Attach message.
-        $attachments = array();
-        if (!empty($GLOBALS['conf']['mail']['attach_message'])) {
-            $tmp_name = Horde::getTempFile('whups');
-            $fp = @fopen($tmp_name, 'wb');
-            if (!$fp) {
-                throw new Whups_Exception(
-                    sprintf('Cannot open file %s for writing.', $tmp_name));
-            }
-            fwrite($fp, $text);
-            fclose($fp);
-            $attachments[] = array(
-                'name' => _("Original Message") . '.eml',
-                'tmp_name' => $tmp_name);
-        }
-
         // Extract attachments.
         $dl_list = array_slice(array_keys($message->contentTypeMap()), 1);
         foreach ($dl_list as $key) {
@@ -209,6 +193,7 @@ class Whups_Mail
         if ($ticket = self::_findTicket($info)) {
             $ticket->change('comment', $info['comment']);
             $ticket->change('comment-email', $from);
+            $ticket->change('message', $text);
             if ($attachments) {
                 $ticket->change('attachments', $attachments);
             }
@@ -234,6 +219,7 @@ class Whups_Mail
                     }
                 }
             }
+            $info['message'] = $text;
             $info['attachments'] = $attachments;
             $info['listeners'] = $listeners;
 

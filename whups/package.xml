@@ -16,7 +16,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-03-10</date>
+ <date>2016-06-23</date>
  <version>
   <release>3.1.0</release>
   <api>3.0.0</api>
@@ -27,6 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
  <notes>
+* [jan] Store incoming email messages separately from attachments.
 * [jan] Return due dates in API methods.
 * [jan] Add batch-deletion of tickets from result lists.
 * [jan] Use confirm buttons instead of dropdown when deleting tickets.
@@ -96,6 +97,9 @@
     <file name="TODO" role="doc" />
     <file name="UPGRADING" role="doc" />
    </dir> <!-- /docs -->
+   <dir name="js">
+    <file name="results.js" role="horde" />
+   </dir> <!-- /js -->
    <dir name="lib">
     <dir name="Ajax">
      <dir name="Imple">
@@ -185,6 +189,7 @@
       <file name="CreateStepThree.php" role="horde" />
       <file name="CreateStepTwo.php" role="horde" />
       <file name="Delete.php" role="horde" />
+      <file name="DeleteMultiple.php" role="horde" />
       <file name="Edit.php" role="horde" />
      </dir> <!-- /lib/Form/Ticket -->
      <dir name="Type">
@@ -203,6 +208,7 @@
     <dir name="LoginTasks">
      <dir name="SystemTask">
       <file name="Upgrade.php" role="horde" />
+      <file name="UpgradeAdmin.php" role="horde" />
      </dir> <!-- /lib/LoginTasks/SystemTask -->
     </dir> <!-- /lib/LoginTasks -->
     <dir name="Mime">
@@ -463,6 +469,7 @@
     <file name="delete.php" role="horde" />
     <file name="delete_attachment.php" role="horde" />
     <file name="delete_history.php" role="horde" />
+    <file name="delete_multiple.php" role="horde" />
     <file name="index.php" role="horde" />
     <file name="queue.php" role="horde" />
     <file name="rss.php" role="horde" />
@@ -707,6 +714,7 @@
    <install as="RELEASE_NOTES" name="docs/RELEASE_NOTES" />
    <install as="TODO" name="docs/TODO" />
    <install as="UPGRADING" name="docs/UPGRADING" />
+   <install as="whups/js/results.js" name="js/results.js" />
    <install as="whups/lib/.htaccess" name="lib/.htaccess" />
    <install as="whups/lib/Api.php" name="lib/Api.php" />
    <install as="whups/lib/Application.php" name="lib/Application.php" />
@@ -793,9 +801,11 @@
    <install as="whups/lib/Form/Ticket/CreateStepThree.php" name="lib/Form/Ticket/CreateStepThree.php" />
    <install as="whups/lib/Form/Ticket/CreateStepTwo.php" name="lib/Form/Ticket/CreateStepTwo.php" />
    <install as="whups/lib/Form/Ticket/Delete.php" name="lib/Form/Ticket/Delete.php" />
+   <install as="whups/lib/Form/Ticket/DeleteMultiple.php" name="lib/Form/Ticket/DeleteMultiple.php" />
    <install as="whups/lib/Form/Ticket/Edit.php" name="lib/Form/Ticket/Edit.php" />
    <install as="whups/lib/Form/Type/whupsemail.php" name="lib/Form/Type/whupsemail.php" />
    <install as="whups/lib/LoginTasks/SystemTask/Upgrade.php" name="lib/LoginTasks/SystemTask/Upgrade.php" />
+   <install as="whups/lib/LoginTasks/SystemTask/UpgradeAdmin.php" name="lib/LoginTasks/SystemTask/UpgradeAdmin.php" />
    <install as="whups/lib/Mime/Viewer/Zip.php" name="lib/Mime/Viewer/Zip.php" />
    <install as="whups/lib/Prefs/Special/Sourceselect.php" name="lib/Prefs/Special/Sourceselect.php" />
    <install as="whups/lib/Query/Manager.php" name="lib/Query/Manager.php" />
@@ -901,6 +911,7 @@
    <install as="whups/ticket/delete.php" name="ticket/delete.php" />
    <install as="whups/ticket/delete_attachment.php" name="ticket/delete_attachment.php" />
    <install as="whups/ticket/delete_history.php" name="ticket/delete_history.php" />
+   <install as="whups/ticket/delete_multiple.php" name="ticket/delete_multiple.php" />
    <install as="whups/ticket/index.php" name="ticket/index.php" />
    <install as="whups/ticket/queue.php" name="ticket/queue.php" />
    <install as="whups/ticket/rss.php" name="ticket/rss.php" />
@@ -1224,9 +1235,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-03-10</date>
+   <date>2016-06-23</date>
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
    <notes>
+* [jan] Store incoming email messages separately from attachments.
 * [jan] Return due dates in API methods.
 * [jan] Add batch-deletion of tickets from result lists.
 * [jan] Use confirm buttons instead of dropdown when deleting tickets.

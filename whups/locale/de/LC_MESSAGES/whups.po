@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: Whups 2.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2015-12-28 17:25+0100\n"
-"PO-Revision-Date: 2016-05-27 10:48+0200\n"
+"PO-Revision-Date: 2016-06-22 17:47+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@horde.org>\n"
 "Language: de\n"
@@ -256,17 +256,17 @@ msgstr "Zuordnungen erfolgreich aktualisiert."
 #: lib/Form/AddComment.php:31 lib/Form/Ticket/CreateStepThree.php:75
 #: lib/Form/Ticket/Edit.php:140
 msgid "Attachment"
-msgstr "Anlage"
+msgstr "Anhang"
 
 #: ticket/delete_attachment.php:26
 #, php-format
 msgid "Attachment %s deleted."
-msgstr "Anlage %s wurde gelöscht."
+msgstr "Anhang %s wurde gelöscht."
 
 #: lib/Driver/Sql.php:1350 lib/Ticket.php:551
 #, php-format
 msgid "Attachment %s not found."
-msgstr "Anlage %s nicht gefunden."
+msgstr "Anhang %s nicht gefunden."
 
 #: ticket/attachments.php:57
 #, php-format
@@ -616,12 +616,12 @@ msgstr "Kommentar löschen"
 
 #: lib/Ticket.php:710 lib/Ticket.php:814
 msgid "Deleted Attachment"
-msgstr "Anlage gelöscht"
+msgstr "Anhang gelöscht"
 
 #: lib/Form/Renderer/Comment.php:76
 #, php-format
 msgid "Deleted Attachment: %s"
-msgstr "Anlage gelöscht: %s"
+msgstr "Anhang gelöscht: %s"
 
 #: lib/Ticket.php:464
 msgid "Deleted:"
@@ -1095,13 +1095,13 @@ msgstr "Neu"
 
 #: lib/Ticket.php:709 lib/Ticket.php:802 lib/Ticket.php:807
 msgid "New Attachment"
-msgstr "Neue Anlage"
+msgstr "Neuer Anhang"
 
 #: lib/Form/Renderer/Comment.php:59 lib/Form/Renderer/Comment.php:64
 #: lib/Form/Renderer/Comment.php:69
 #, php-format
 msgid "New Attachment: %s"
-msgstr "Neue Anlage: %s"
+msgstr "Neuer Anhang: %s"
 
 #: lib/Form/Queue/StepOne.php:24
 msgid "New Queue"

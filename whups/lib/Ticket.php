@@ -57,8 +57,6 @@ class Whups_Ticket
      *
      * Pretty bare wrapper around Whups_Driver::addTicket().
      *
-     * @static
-     *
      * @param array $info  A hash with ticket information.
      *
      * @return Whups_Ticket  Whups_Ticket object.
@@ -111,6 +109,11 @@ class Whups_Ticket
             foreach ($info['listeners'] as $listener) {
                 $whups_driver->addUniqueListener($ticket, $listener);
             }
+        }
+
+        // Add message if from incoming mail.
+        if (!empty($info['message'])) {
+            $ticket->change('message', $info['message']);
         }
 
         // Add attachment if one was uploaded.
@@ -256,7 +259,7 @@ class Whups_Ticket
      */
     public function commit($user = null, $transaction = null, $notify = true)
     {
-        global $whups_driver;
+        global $conf, $whups_driver;
 
         if (!count($this->_changes)) {
             return;
@@ -359,6 +362,21 @@ class Whups_Ticket
                 // Skip these, handled in the comment case.
                 break;
 
+            case 'message':
+                if (isset($conf['vfs']['type'])) {
+                    $updates['message'] = $this->addMessage($value);
+                }
+                break;
+
+            case 'delete-message':
+                if (isset($conf['vfs']['type'])) {
+                    $this->deleteMessage($value);
+                    // Store the deleted message id in the updates array for the
+                    // log.
+                    $updates['delete-message'] = $value;
+                }
+                break;
+
             case 'attachment':
                 $this->addAttachment($value['name'], $value['tmp_name']);
                 // Store the new file name in the updates array for the
@@ -380,7 +398,6 @@ class Whups_Ticket
                 // Store the deleted file name in the updates array for
                 // the log.
                 $updates['delete-attachment'] = $value;
-
                 break;
 
             case 'queue':
@@ -399,6 +416,7 @@ class Whups_Ticket
                                                         Horde_Serialize::JSON);
                 }
                 $updates[$detail] = $value;
+                break;
             }
         }
 
@@ -476,6 +494,60 @@ class Whups_Ticket
     }
 
     /**
+     * Adds a message to this ticket.
+     *
+     * @param string $message  The email message content.
+     *
+     * @return integer  The message ID.
+     * @throws Whups_Exception
+     */
+    public function addMessage($message)
+    {
+        $vfs = $this->_getVfs();
+        $dir = Whups::VFS_MESSAGE_PATH . '/' . $this->_id;
+
+        // Get highest message ID.
+        try {
+            if ($vfs->exists($dir, 'id')) {
+                $id = $vfs->read($dir, 'id') + 1;
+            } else {
+                $id = 1;
+            }
+            $vfs->writeData($dir, 'id', $id);
+            $vfs->writeData($dir, $id, $message, true);
+        } catch (Horde_Vfs_Exception $e) {
+            throw new Whups_Exception($e);
+        }
+
+        return $id;
+    }
+
+    /**
+     * Removes a message from this ticket.
+     *
+     * @param integer $message  A message ID.
+     *
+     * @throws Whups_Exception
+     */
+    public function deleteMessage($message)
+    {
+        $vfs = $this->_getVfs();
+        $dir = Whups::VFS_MESSAGE_PATH . '/' . $this->_id;
+        if (!$vfs->exists($dir, $message)) {
+            throw new Whups_Exception(
+                sprintf(_("Message %d not found."), $message),
+                'horde.error'
+            );
+        }
+
+        try {
+            $vfs->deleteFile($dir, $message);
+        } catch (Horde_Vfs_Exception $e) {
+            throw new Whups_Exception($e);
+        }
+    }
+
+    /**
      * Adds an attachment to this ticket.
      *
      * @param string $attachment_name  The name of the attachment.
@@ -486,19 +558,7 @@ class Whups_Ticket
      */
     public function addAttachment(&$attachment_name, $attachment_file)
     {
-        if (!isset($GLOBALS['conf']['vfs']['type'])) {
-            throw new Whups_Exception(
-                _("The VFS backend needs to be configured to enable attachment uploads."),
-                'horde.error');
-        }
-
-        try {
-            $vfs = $GLOBALS['injector']
-                ->getInstance('Horde_Core_Factory_Vfs')
-                ->create();
-        } catch (Horde_Vfs_Exception $e) {
-            throw new Whups_Exception($e);
-        }
+        $vfs = $this->_getVfs();
 
         // Get existing attachment names.
         $used_names = array_unique($this->listAllAttachments('value'));
@@ -539,20 +599,7 @@ class Whups_Ticket
      */
     public function deleteAttachment($attachment_name)
     {
-        if (!isset($GLOBALS['conf']['vfs']['type'])) {
-            throw new Whups_Exception(
-                _("The VFS backend needs to be configured to enable attachment uploads."),
-                'horde.error');
-        }
-
-        try {
-            $vfs = $GLOBALS['injector']
-                ->getInstance('Horde_Core_Factory_Vfs')
-                ->create();
-        } catch (Horde_Vfs_Exception $e) {
-            throw Whups_Exception($e);
-        }
-
+        $vfs = $this->_getVfs();
         $dir = Whups::VFS_ATTACH_PATH . '/' . $this->_id;
         if (!$vfs->exists($dir, $attachment_name)) {
             throw new Whups_Exception(
@@ -951,6 +998,30 @@ class Whups_Ticket
             $this->set('attribute_' . $attribute_id, $attribute['value']);
         }
         return $attributes;
+    }
+
+    /**
+     * Returns a Horde_Vfs instance.
+     *
+     * @return Horde_Vfs_Base  A VFS instance.
+     */
+    protected function _getVfs()
+    {
+        global $conf, $injector;
+
+        if (!isset($conf['vfs']['type'])) {
+            throw new Whups_Exception(
+                _("The VFS backend needs to be configured to enable attachment or message uploads."),
+                'horde.error');
+        }
+
+        try {
+            return $injector
+                ->getInstance('Horde_Core_Factory_Vfs')
+                ->create();
+        } catch (Horde_Vfs_Exception $e) {
+            throw Whups_Exception($e);
+        }
     }
 
 }

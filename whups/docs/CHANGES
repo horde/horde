@@ -2,6 +2,7 @@
 v3.1.0-git
 ----------
 
+[jan] Store incoming email messages separately from attachments.
 [jan] Return due dates in API methods.
 [jan] Add batch-deletion of tickets from result lists.
 [jan] Use confirm buttons instead of dropdown when deleting tickets.

@@ -20,10 +20,18 @@ if (!Whups::hasPermission($ticket->get('queue'), 'queue', Horde_Perms::DELETE)) 
 }
 
 $file = basename(Horde_Util::getFormData('file'));
-$ticket->change('delete-attachment', $file);
+if ($file) {
+    $ticket->change('delete-attachment', $file);
+} else {
+    $ticket->change('delete-message', (int)Horde_Util::getFormData('message'));
+}
 try {
     $ticket->commit();
-    $notification->push(sprintf(_("Attachment %s deleted."), $file), 'horde.success');
+    if ($file) {
+        $notification->push(sprintf(_("Attachment %s deleted."), $file), 'horde.success');
+    } else {
+        $notification->push(_("Original message deleted."), 'horde.success');
+    }
 } catch (Whups_Exception $e) {
     $notification->push($e, 'horde.error');
 }

@@ -1,11 +1,18 @@
 <?php
 /**
- * Login system task for automated upgrade tasks.
- *
  * Copyright 2010-2016 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
+ *
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/bsdl.php BSDL
+ * @package  Whups
+ */
+
+/**
+ * Login system task for automated upgrade tasks.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
