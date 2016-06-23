@@ -513,8 +513,8 @@ class Whups_Ticket
             } else {
                 $id = 1;
             }
-            $vfs->writeData($dir, 'id', $id);
             $vfs->writeData($dir, $id, $message, true);
+            $vfs->writeData($dir, 'id', $id);
         } catch (Horde_Vfs_Exception $e) {
             throw new Whups_Exception($e);
         }
