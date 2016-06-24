@@ -522,6 +522,9 @@ class Horde_Test
      */
     protected function _checkMongo()
     {
+        if (extension_loaded('mongodb')) {
+            return true;
+        }
         if (!extension_loaded('mongo')) {
             return false;
         }
