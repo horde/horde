@@ -152,12 +152,8 @@ class Whups_Mail
         }
 
         // Extract attachments.
-        $dl_list = array_slice(array_keys($message->contentTypeMap()), 1);
-        foreach ($dl_list as $key) {
-            $part = $message->getPart($key);
-            if (($key == $body_id && $part->getType() == 'text/plain') ||
-                $part->getType() == 'multipart/alternative' ||
-                $part->getType() == 'multipart/mixed') {
+        foreach ($message->partIterator() as $part) {
+            if (!$part->isAttachment()) {
                 continue;
             }
             $tmp_name = Horde::getTempFile('whups');
