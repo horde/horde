@@ -774,7 +774,7 @@ class IMP_Contents
         $part['type'] = $mime_type;
 
         /* Is this part an attachment? */
-        $is_atc = IMP_Mime_Attachment::isAttachment($mime_part);
+        $is_atc = $mime_part->isAttachment();
 
         /* Get bytes/size information. */
         if (($mask & self::SUMMARY_BYTES) ||
@@ -1191,7 +1191,7 @@ class IMP_Contents
         $this->_buildMessage();
 
         foreach ($this->_message->partIterator() as $val) {
-            if (IMP_Mime_Attachment::isAttachment($val)) {
+            if ($val->isAttachment()) {
                 $ret[] = $val->getMimeId();
             }
         }

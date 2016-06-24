@@ -11,6 +11,16 @@
 This lists the API changes between releases of the package.
 
 
+Upgrading to 2.10
+=================
+
+  - Horde_Mime_Part
+
+    - isAttachment()
+
+      This method has been added.
+
+
 Upgrading to 2.9
 ================
 

@@ -1444,6 +1444,67 @@ implements ArrayAccess, Countable, RecursiveIterator, Serializable
     }
 
     /**
+     * Determines if this MIME part is an attachment for display purposes.
+     *
+     * @since Horde_Mime 2.10.0
+     *
+     * @return boolean  True if this part should be considered an attachment.
+     */
+    public function isAttachment()
+    {
+        $type = $this->getType();
+
+        switch ($type) {
+        case 'application/ms-tnef':
+        case 'application/pgp-keys':
+        case 'application/vnd.ms-tnef':
+            return false;
+        }
+
+        if ($this->parent) {
+            switch ($this->parent->getType()) {
+            case 'multipart/encrypted':
+                switch ($type) {
+                case 'application/octet-stream':
+                    return false;
+                }
+                break;
+
+            case 'multipart/signed':
+                switch ($type) {
+                case 'application/pgp-signature':
+                case 'application/pkcs7-signature':
+                case 'application/x-pkcs7-signature':
+                    return false;
+                }
+                break;
+            }
+        }
+
+        switch ($this->getDisposition()) {
+        case 'attachment':
+            return true;
+        }
+
+        switch ($this->getPrimaryType()) {
+        case 'application':
+            if (strlen($this->getName())) {
+                return true;
+            }
+            break;
+
+        case 'audio':
+        case 'video':
+            return true;
+
+        case 'multipart':
+            return false;
+        }
+
+        return false;
+    }
+
+    /**
      * Set a piece of metadata on this object.
      *
      * @param string $key  The metadata key.

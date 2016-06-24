@@ -17,7 +17,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-06-01</date>
+ <date>2016-06-24</date>
  <version>
   <release>2.10.0</release>
   <api>2.10.0</api>
@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Add Horde_Mime_Part#isAttachment().
 * [mjr] Add workaround for failures due to sending broken rfc822/message attachments (Bug #14324).
 * [mjr] Catch incorrectly localized Date headers.
  </notes>
@@ -1777,9 +1778,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-05-31</date>
+   <date>2016-06-24</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Add Horde_Mime_Part#isAttachment().
 * [mjr] Add workaround for failures due to sending broken rfc822/message attachments (Bug #14324).
 * [mjr] Catch incorrectly localized Date headers.
    </notes>

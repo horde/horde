@@ -69,7 +69,7 @@ implements IMP_Search_Element_Callback
             if (isset($fetch_res[$v])) {
                 $atc = false;
                 foreach ($fetch_res[$v]->getStructure()->partIterator() as $val) {
-                    if (IMP_Mime_Attachment::isAttachment($val)) {
+                    if ($val->isAttachment()) {
                         $atc = true;
                         break;
                     }
