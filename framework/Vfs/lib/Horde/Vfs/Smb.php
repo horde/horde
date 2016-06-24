@@ -52,11 +52,38 @@ class Horde_Vfs_Smb extends Horde_Vfs_Base
     protected $_credentials = array('username', 'password');
 
     /**
+     * Prefix to use for every path.
+     *
+     * Passed as a path suffix to the share parameter.
+     *
+     * @var string
+     */
+    protected $_prefix = '';
+
+    /**
      * Has the vfsroot already been created?
      *
      * @var boolean
      */
     protected $_rootCreated = false;
+
+    /**
+     * Constructor.
+     *
+     * @param array $params  A hash containing connection parameters.
+     */
+    public function __construct($params = array())
+    {
+        parent::__construct($params);
+        if (!isset($this->_params['share'])) {
+            return;
+        }
+        $share_parts = explode('/', $this->_params['share']);
+        $this->_params['share'] = array_shift($share_parts);
+        if ($share_parts) {
+            $this->_prefix = implode('/', $share_parts);
+        }
+    }
 
     /**
      * Retrieves the size of a file from the VFS.
@@ -502,14 +529,15 @@ class Horde_Vfs_Smb extends Horde_Vfs_Base
      */
     protected function _getNativePath($path)
     {
+        $parts = array($path);
+        if (strlen($this->_prefix)) {
+            array_unshift($parts, $this->_prefix);
+        }
         if (isset($this->_params['vfsroot']) &&
             strlen($this->_params['vfsroot'])) {
-            if (strlen($path)) {
-                $path = $this->_params['vfsroot'] . '/' . $path;
-            } else {
-                $path = $this->_params['vfsroot'];
-            }
+            array_unshift($parts, $this->_params['vfsroot']);
         }
+        $path = implode('/', $parts);
 
         // In some samba versions after samba-3.0.25-pre2, $path must
         // end in a trailing slash.
@@ -619,11 +647,7 @@ class Horde_Vfs_Smb extends Horde_Vfs_Base
      */
     protected function _command($path, $cmd)
     {
-        $share_parts = explode('/', $this->_params['share']);
-        list($share) = $this->_escapeShellCommand(array_shift($share_parts));
-        if ($share_parts) {
-            $path = implode('/', $share_parts) . '/' . $path;
-        }
+        list($share) = $this->_escapeShellCommand($this->_params['share']);
 
         putenv('PASSWD=' . $this->_params['password']);
         $port = isset($this->_params['port'])
@@ -639,7 +663,7 @@ class Horde_Vfs_Smb extends Horde_Vfs_Base
             ' "//' . $this->_params['hostspec'] . '/' . $share . '"' .
             $port .
             ' "-U' . $this->_params['username'] . '"' .
-            ' -D "' . $path . '" ' .
+            ' -D "' . $path . '"' .
             $ipoption .
             $domain .
             ' -c "';
@@ -674,23 +698,22 @@ class Horde_Vfs_Smb extends Horde_Vfs_Base
             return;
         }
 
-        if (!empty($this->_params['vfsroot'])) {
-            $path = '';
-            foreach (explode('/', $this->_params['vfsroot']) as $dir) {
+        $root = trim($this->_params['vfsroot'] . '/' . $this->_prefix, '/');
+        $path = '';
+        foreach (explode('/', $root) as $dir) {
+            try {
+                $this->_command($path . '/' . $dir . '/', array());
+            } catch (Horde_Vfs_Exception $e) {
                 try {
-                    $this->_command($path . $dir, array());
+                    $this->_command('/' . $path . '/', array('mkdir \"' . $dir . '\"'));
                 } catch (Horde_Vfs_Exception $e) {
-                    try {
-                        $this->_command($path, array('mkdir \"' . $dir . '\"'));
-                    } catch (Horde_Vfs_Exception $e) {
-                        throw new Horde_Vfs_Exception(sprintf('Unable to create VFS root directory "%s".', $this->_params['vfsroot']));
-                    }
+                    echo $e;
+                    throw new Horde_Vfs_Exception(sprintf('Unable to create VFS root directory "%s".', $this->_params['vfsroot']));
                 }
-                $path .= '/' . $dir;
             }
+            $path .= '/' . $dir;
         }
 
         $this->_rootCreated = true;
     }
-
 }
