@@ -41,7 +41,7 @@ class Horde_Test_Factory_Mongo
     {
         $mongo = null;
 
-        if (extension_loaded('mongo') &&
+        if ((extension_loaded('mongo') || extension_loaded('mongodb')) &&
             class_exists('Horde_Mongo_Client') &&
             !empty($params['config'])) {
             try {
