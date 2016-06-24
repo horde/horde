@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit backupGlobals="false"
+         backupStaticAttributes="false"
+         colors="false"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         stopOnFailure="false"
+         syntaxCheck="false"
+>
+    <php>
+        <!-- Disable deprecation warnings -->
+        <!-- php -r 'echo -1 & ~E_USER_DEPRECATED & ~E_DEPRECATED;' -->
+        <ini name="error_reporting" value="-24577"/>
+    </php>
+
+    <testsuites>
+        <testsuite name="Mongo driver adapter test suite">
+            <directory>./tests/Alcaeus/MongoDbAdapter/</directory>
+        </testsuite>
+    </testsuites>
+
+    <filter>
+        <whitelist>
+            <directory suffix=".php">./lib/Alcaeus/MongoDbAdapter</directory>
+        </whitelist>
+    </filter>
+</phpunit>
