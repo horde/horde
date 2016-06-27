@@ -4,7 +4,7 @@
  *
  * PHP Version 5
  *
- * Copyright (c) 2008-2013, Manuel Pichler <mapi@pdepend.org>.
+ * Copyright (c) 2008-2015, Manuel Pichler <mapi@pdepend.org>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -36,9 +36,9 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @copyright 2008-2013 Manuel Pichler. All rights reserved.
+ * @copyright 2008-2015 Manuel Pichler. All rights reserved.
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
- * @since     0.9.6
+ * @since 0.9.6
  */
 
 namespace PDepend\Source\AST;
@@ -46,11 +46,11 @@ namespace PDepend\Source\AST;
 /**
  * Abstract base class for a type node.
  *
- * @copyright 2008-2013 Manuel Pichler. All rights reserved.
+ * @copyright 2008-2015 Manuel Pichler. All rights reserved.
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
- * @since     0.9.6
+ * @since 0.9.6
  */
-class ASTType extends ASTNode
+class ASTType extends AbstractASTNode
 {
     /**
      * This method will return <b>true</b> when the underlying type is an array.
@@ -68,7 +68,7 @@ class ASTType extends ASTNode
      *
      * @return boolean
      */
-    public function isPrimitive()
+    public function isScalar()
     {
         return false;
     }
@@ -78,10 +78,10 @@ class ASTType extends ASTNode
      * by a visitor during tree traversal.
      *
      * @param \PDepend\Source\ASTVisitor\ASTVisitor $visitor The calling visitor instance.
-     * @param mixed $data
+     * @param mixed                                 $data
      *
      * @return mixed
-     * @since 0.9.12
+     * @since  0.9.12
      */
     public function accept(\PDepend\Source\ASTVisitor\ASTVisitor $visitor, $data = null)
     {

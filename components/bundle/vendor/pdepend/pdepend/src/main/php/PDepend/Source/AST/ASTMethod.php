@@ -4,7 +4,7 @@
  *
  * PHP Version 5
  *
- * Copyright (c) 2008-2013, Manuel Pichler <mapi@pdepend.org>.
+ * Copyright (c) 2008-2015, Manuel Pichler <mapi@pdepend.org>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -36,7 +36,7 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @copyright 2008-2013 Manuel Pichler. All rights reserved.
+ * @copyright 2008-2015 Manuel Pichler. All rights reserved.
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
  */
 
@@ -47,7 +47,7 @@ use PDepend\Source\ASTVisitor\ASTVisitor;
 /**
  * Represents a php method node.
  *
- * @copyright 2008-2013 Manuel Pichler. All rights reserved.
+ * @copyright 2008-2015 Manuel Pichler. All rights reserved.
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
  */
 class ASTMethod extends AbstractASTCallable
@@ -71,7 +71,7 @@ class ASTMethod extends AbstractASTCallable
      * this method.
      *
      * @return integer
-     * @since 1.0.0
+     * @since  1.0.0
      */
     public function getModifiers()
     {
@@ -85,10 +85,10 @@ class ASTMethod extends AbstractASTCallable
      * This method will throw an exception when the value of given <b>$modifiers</b>
      * contains an invalid/unexpected modifier
      *
-     * @param integer $modifiers
+     * @param  integer $modifiers
      * @return void
      * @throws \InvalidArgumentException If the given modifier contains unexpected values.
-     * @since 0.9.4
+     * @since  0.9.4
      */
     public function setModifiers($modifiers)
     {
@@ -184,7 +184,7 @@ class ASTMethod extends AbstractASTCallable
     /**
      * Sets the parent type object.
      *
-     * @param \PDepend\Source\AST\AbstractASTType $parent
+     * @param  \PDepend\Source\AST\AbstractASTType $parent
      * @return void
      */
     public function setParent(AbstractASTType $parent = null)
@@ -197,7 +197,7 @@ class ASTMethod extends AbstractASTCallable
      *
      * @return \PDepend\Source\AST\ASTCompilationUnit
      * @throws \PDepend\Source\AST\ASTCompilationUnitNotFoundException When no parent was set.
-     * @since 0.10.0
+     * @since  0.10.0
      */
     public function getCompilationUnit()
     {
@@ -210,7 +210,7 @@ class ASTMethod extends AbstractASTCallable
     /**
      * ASTVisitor method for node tree traversal.
      *
-     * @param \PDepend\Source\ASTVisitor\ASTVisitor $visitor
+     * @param  \PDepend\Source\ASTVisitor\ASTVisitor $visitor
      * @return void
      */
     public function accept(ASTVisitor $visitor)
@@ -224,7 +224,7 @@ class ASTMethod extends AbstractASTCallable
      * cached for method instances.
      *
      * @return array(string)
-     * @since 0.10.0
+     * @since  0.10.0
      */
     public function __sleep()
     {

@@ -2,8 +2,6 @@
 /**
  * This file is part of PHP Mess Detector.
  *
- * PHP Version 5
- *
  * Copyright (c) 2008-2012, Manuel Pichler <mapi@phpmd.org>.
  * All rights reserved.
  *
@@ -39,7 +37,6 @@
  * @author    Manuel Pichler <mapi@phpmd.org>
  * @copyright 2008-2014 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php BSD License
- * @version   @project.version@
  */
 
 namespace PHPMD\Rule\CleanCode;
@@ -62,7 +59,6 @@ use PHPMD\Rule\MethodAware;
  * @author    Benjamin Eberlei <benjamin@qafoo.com>
  * @copyright 2008-2014 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php BSD License
- * @version   @project.version@
  */
 class StaticAccess extends AbstractRule implements MethodAware, FunctionAware
 {
@@ -74,6 +70,7 @@ class StaticAccess extends AbstractRule implements MethodAware, FunctionAware
      */
     public function apply(AbstractNode $node)
     {
+        $exceptions = $this->getExceptionsList();
         $nodes = $node->findChildrenOfType('MemberPrimaryPrefix');
 
         foreach ($nodes as $methodCall) {
@@ -81,7 +78,12 @@ class StaticAccess extends AbstractRule implements MethodAware, FunctionAware
                 continue;
             }
 
-            $this->addViolation($methodCall, array($methodCall->getImage(), $methodCall->getImage()));
+            $className = $methodCall->getChild(0)->getNode()->getImage();
+            if (in_array(trim($className, " \t\n\r\0\x0B\\"), $exceptions)) {
+                continue;
+            }
+
+            $this->addViolation($methodCall, array($className, $node->getName()));
         }
     }
 
@@ -101,5 +103,26 @@ class StaticAccess extends AbstractRule implements MethodAware, FunctionAware
     private function isCallingSelf($methodCall)
     {
         return $methodCall->getChild(0)->getNode() instanceof ASTSelfReference;
+    }
+
+    /**
+     * Gets array of exceptions from property
+     *
+     * @return array
+     */
+    private function getExceptionsList()
+    {
+        try {
+            $exceptions = $this->getStringProperty('exceptions');
+        } catch (\OutOfBoundsException $e) {
+            $exceptions = '';
+        }
+
+        return array_map(
+            function ($className) {
+                return trim($className, " \t\n\r\0\x0B\\");
+            },
+            explode(',', $exceptions)
+        );
     }
 }

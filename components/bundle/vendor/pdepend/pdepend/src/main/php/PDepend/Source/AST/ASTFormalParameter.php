@@ -4,7 +4,7 @@
  *
  * PHP Version 5
  *
- * Copyright (c) 2008-2013, Manuel Pichler <mapi@pdepend.org>.
+ * Copyright (c) 2008-2015, Manuel Pichler <mapi@pdepend.org>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -36,9 +36,9 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @copyright 2008-2013 Manuel Pichler. All rights reserved.
+ * @copyright 2008-2015 Manuel Pichler. All rights reserved.
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
- * @since     0.9.6
+ * @since 0.9.6
  */
 
 namespace PDepend\Source\AST;
@@ -52,12 +52,58 @@ use PDepend\Source\ASTVisitor\ASTVisitor;
  * Formal parameters can include a type hint, a by reference identifier and a
  * default value. The only mandatory part is the parameter identifier.
  *
- * @copyright 2008-2013 Manuel Pichler. All rights reserved.
+ * @copyright 2008-2015 Manuel Pichler. All rights reserved.
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
- * @since     0.9.6
+ * @since 0.9.6
  */
-class ASTFormalParameter extends ASTNode
+class ASTFormalParameter extends AbstractASTNode
 {
+    /**
+     * Checks if this parameter has a type.
+     *
+     * @return boolean
+     */
+    public function hasType()
+    {
+        return (reset($this->nodes) instanceof ASTType);
+    }
+
+    /**
+     * Returns the type of this parameter.
+     *
+     * @return \PDepend\Source\AST\ASTType
+     */
+    public function getType()
+    {
+        if ($this->hasType()) {
+            return $this->getChild(0);
+        }
+        throw new \OutOfBoundsException('The parameter does not has a type specification.');
+    }
+
+    /**
+     * This method will return <b>true</b> when the parameter is declared as a
+     * variable argument list <b>...</b>.
+     *
+     * @return boolean
+     * @since 2.0.7
+     */
+    public function isVariableArgList()
+    {
+        return $this->getMetadataBoolean(6);
+    }
+
+    /**
+     * This method can be used to mark this parameter as passed by reference.
+     *
+     * @return void
+    @since 2.0.7
+     */
+    public function setVariableArgList()
+    {
+        return $this->setMetadataBoolean(6, true);
+    }
+
     /**
      * This method will return <b>true</b> when the parameter is passed by
      * reference.
@@ -83,10 +129,10 @@ class ASTFormalParameter extends ASTNode
      * Accept method of the visitor design pattern. This method will be called
      * by a visitor during tree traversal.
      *
-     * @param \PDepend\Source\ASTVisitor\ASTVisitor $visitor The calling visitor instance.
-     * @param mixed $data
+     * @param  \PDepend\Source\ASTVisitor\ASTVisitor $visitor The calling visitor instance.
+     * @param  mixed                                 $data
      * @return mixed
-     * @since 0.9.12
+     * @since  0.9.12
      */
     public function accept(ASTVisitor $visitor, $data = null)
     {
@@ -97,11 +143,11 @@ class ASTFormalParameter extends ASTNode
      * Returns the total number of the used property bag.
      *
      * @return integer
-     * @since 0.10.4
-     * @see \PDepend\Source\AST\ASTNode#getMetadataSize()
+     * @since  0.10.4
+     * @see    \PDepend\Source\AST\ASTNode#getMetadataSize()
      */
     protected function getMetadataSize()
     {
-        return 6;
+        return 7;
     }
 }

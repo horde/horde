@@ -4,7 +4,7 @@
  *
  * PHP Version 5
  *
- * Copyright (c) 2008-2013, Manuel Pichler <mapi@pdepend.org>.
+ * Copyright (c) 2008-2015, Manuel Pichler <mapi@pdepend.org>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -36,93 +36,16 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @copyright 2008-2013 Manuel Pichler. All rights reserved.
+ * @copyright 2008-2015 Manuel Pichler. All rights reserved.
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
  */
 
 namespace PDepend\Source\Tokenizer;
 
 /**
- * Define PHP 5.4 __TRAIT__ token constant.
- */
-if (!defined('T_TRAIT_C')) {
-    define('T_TRAIT_C', 42000);
-}
-
-/**
- * Define PHP 5.4 'trait' token constant.
- */
-if (!defined('T_TRAIT')) {
-    define('T_TRAIT', 42001);
-}
-
-/**
- * Define PHP 5.4 'insteadof' token constant.
- */
-if (!defined('T_INSTEADOF')) {
-    define('T_INSTEADOF', 42002);
-}
-
-/**
- * Define PHP 5.3 __NAMESPACE__ token constant.
- */
-if (!defined('T_NS_C')) {
-    define('T_NS_C', 42003);
-}
-
-/**
- * Define PHP 5.3 'use' token constant
- */
-if (!defined('T_USE')) {
-    define('T_USE', 42004);
-}
-
-/**
- * Define PHP 5.3 'namespace' token constant.
- */
-if (!defined('T_NAMESPACE')) {
-    define('T_NAMESPACE', 42005);
-}
-
-/**
- * Define PHP 5.3's '__DIR__' token constant.
- */
-if (!defined('T_DIR')) {
-    define('T_DIR', 42006);
-}
-
-/**
- * Define PHP 5.3's 'T_GOTO' token constant.
- */
-if (!defined('T_GOTO')) {
-    define('T_GOTO', 42007);
-}
-
-/**
- * Define PHP 5.4's 'T_CALLABLE' token constant
- */
-if (!defined('T_CALLABLE')) {
-    define('T_CALLABLE', 42008);
-}
-
-/**
- * Define PHP 5.5's 'T_YIELD' token constant
- */
-if (!defined('T_YIELD')) {
-    define('T_YIELD', 42009);
-}
-
-/**
- * Define PHP 5,5's 'T_FINALLY' token constant
- */
-if (!defined('T_FINALLY')) {
-    define('T_FINALLY', 42010);
-}
-
-/**
  * Base interface for all php code tokenizers.
  *
- * @copyright 2008-2013 Manuel Pichler. All rights reserved.
+ * @copyright 2008-2015 Manuel Pichler. All rights reserved.
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
  */
 interface Tokenizer
@@ -174,7 +97,7 @@ interface Tokenizer
      * ignores all comments between the current and the next token.
      *
      * @return integer
-     * @since 0.9.12
+     * @since  0.9.12
      */
     public function peekNext();
 

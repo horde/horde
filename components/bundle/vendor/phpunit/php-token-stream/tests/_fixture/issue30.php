@@ -3,6 +3,6 @@ class Foo
 {
     public function bar()
     {
-        return Foo::FOO;
+        return Foo::CLASS;
     }
 }

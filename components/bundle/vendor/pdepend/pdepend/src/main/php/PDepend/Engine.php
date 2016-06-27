@@ -4,7 +4,7 @@
  *
  * PHP Version 5
  *
- * Copyright (c) 2008-2013, Manuel Pichler <mapi@pdepend.org>.
+ * Copyright (c) 2008-2015, Manuel Pichler <mapi@pdepend.org>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -36,7 +36,7 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @copyright 2008-2013 Manuel Pichler. All rights reserved.
+ * @copyright 2008-2015 Manuel Pichler. All rights reserved.
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
   */
 
@@ -44,11 +44,12 @@ namespace PDepend;
 
 use PDepend\Input\CompositeFilter;
 use PDepend\Input\Filter;
+use PDepend\Input\Iterator;
+use PDepend\Metrics\AnalyzerCacheAware;
 use PDepend\Metrics\AnalyzerClassFileSystemLocator;
+use PDepend\Metrics\AnalyzerFactory;
 use PDepend\Metrics\AnalyzerFilterAware;
 use PDepend\Metrics\AnalyzerLoader;
-use PDepend\Metrics\AnalyzerFactory;
-use PDepend\Metrics\AnalyzerCacheAware;
 use PDepend\Report\CodeAwareGenerator;
 use PDepend\Source\AST\ASTArtifactList\ArtifactFilter;
 use PDepend\Source\AST\ASTArtifactList\CollectionArtifactFilter;
@@ -59,8 +60,8 @@ use PDepend\Source\Language\PHP\PHPBuilder;
 use PDepend\Source\Language\PHP\PHPParserGeneric;
 use PDepend\Source\Language\PHP\PHPTokenizerInternal;
 use PDepend\Source\Tokenizer\Tokenizer;
-use PDepend\Util\Configuration;
 use PDepend\Util\Cache\CacheFactory;
+use PDepend\Util\Configuration;
 
 /**
  * PDepend analyzes php class files and generates metrics.
@@ -68,7 +69,7 @@ use PDepend\Util\Cache\CacheFactory;
  * The PDepend is a php port/adaption of the Java class file analyzer
  * <a href="http://clarkware.com/software/JDepend.html">JDepend</a>.
  *
- * @copyright 2008-2013 Manuel Pichler. All rights reserved.
+ * @copyright 2008-2015 Manuel Pichler. All rights reserved.
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
  */
 class Engine
@@ -86,7 +87,7 @@ class Engine
     /**
      * The system configuration.
      *
-     * @var \PDepend\Util\Configuration
+     * @var   \PDepend\Util\Configuration
      * @since 0.10.0
      */
     protected $configuration = null;
@@ -115,7 +116,7 @@ class Engine
     /**
      * Generated {@link \PDepend\Source\AST\ASTNamespace} objects.
      *
-     * @var Iterator
+     * @var \PDepend\Source\AST\ASTNamespace[]
      */
     private $namespaces = null;
 
@@ -172,7 +173,7 @@ class Engine
     /**
      * The configured cache factory.
      *
-     * @var \PDepend\Util\Cache\CacheFactory
+     * @var   \PDepend\Util\Cache\CacheFactory
      * @since 1.0.0
      */
     private $cacheFactory;
@@ -185,7 +186,7 @@ class Engine
     /**
      * Constructs a new php depend facade.
      *
-     * @param \PDepend\Util\Configuration $configuration The system configuration.
+     * @param \PDepend\Util\Configuration      $configuration   The system configuration.
      * @param \PDepend\Util\Cache\CacheFactory $cacheFactory
      * @param \PDepend\Metrics\AnalyzerFactory $analyzerFactory
      */
@@ -206,7 +207,7 @@ class Engine
     /**
      * Adds the specified directory to the list of directories to be analyzed.
      *
-     * @param string $directory The php source directory.
+     * @param  string $directory The php source directory.
      * @return void
      */
     public function addDirectory($directory)
@@ -223,7 +224,7 @@ class Engine
     /**
      * Adds a single source code file to the list of files to be analysed.
      *
-     * @param string $file The source file name.
+     * @param  string $file The source file name.
      * @return void
      */
     public function addFile($file)
@@ -240,7 +241,7 @@ class Engine
     /**
      * Adds a logger to the output list.
      *
-     * @param \PDepend\Report\ReportGenerator $generator The logger instance.
+     * @param  \PDepend\Report\ReportGenerator $generator The logger instance.
      * @return void
      */
     public function addReportGenerator(\PDepend\Report\ReportGenerator $generator)
@@ -251,7 +252,7 @@ class Engine
     /**
      * Adds a new input/file filter.
      *
-     * @param \PDepend\Input\Filter $filter New input/file filter instance.
+     * @param  \PDepend\Input\Filter $filter New input/file filter instance.
      * @return void
      */
     public function addFileFilter(Filter $filter)
@@ -263,7 +264,7 @@ class Engine
      * Sets an additional code filter. These filters could be used to hide
      * external libraries and global stuff from the PDepend output.
      *
-     * @param \PDepend\Source\AST\ASTArtifactList\ArtifactFilter $filter
+     * @param  \PDepend\Source\AST\ASTArtifactList\ArtifactFilter $filter
      * @return void
      */
     public function setCodeFilter(ArtifactFilter $filter)
@@ -274,7 +275,7 @@ class Engine
     /**
      * Sets analyzer options.
      *
-     * @param array(string=>mixed) $options The analyzer options.
+     * @param  array(string=>mixed) $options The analyzer options.
      * @return void
      */
     public function setOptions(array $options = array())
@@ -295,7 +296,7 @@ class Engine
     /**
      * Adds a process listener.
      *
-     * @param \PDepend\ProcessListener $listener The listener instance.
+     * @param  \PDepend\ProcessListener $listener The listener instance.
      * @return void
      */
     public function addProcessListener(ProcessListener $listener)
@@ -399,7 +400,7 @@ class Engine
     /**
      * Returns the analyzed namespace for the given name.
      *
-     * @param string $name
+     * @param  string $name
      * @return \PDepend\Source\AST\ASTNamespace
      * @throws \OutOfBoundsException
      * @throws \RuntimeException
@@ -436,7 +437,7 @@ class Engine
     /**
      * Send the start parsing process event.
      *
-     * @param \PDepend\Source\Builder\Builder $builder The used node builder instance.
+     * @param  \PDepend\Source\Builder\Builder $builder The used node builder instance.
      * @return void
      */
     protected function fireStartParseProcess(Builder $builder)
@@ -449,7 +450,7 @@ class Engine
     /**
      * Send the end parsing process event.
      *
-     * @param \PDepend\Source\Builder\Builder $builder The used node builder instance.
+     * @param  \PDepend\Source\Builder\Builder $builder The used node builder instance.
      * @return void
      */
     protected function fireEndParseProcess(Builder $builder)
@@ -462,7 +463,7 @@ class Engine
     /**
      * Sends the start file parsing event.
      *
-     * @param \PDepend\Source\Tokenizer\Tokenizer $tokenizer
+     * @param  \PDepend\Source\Tokenizer\Tokenizer $tokenizer
      * @return void
      */
     protected function fireStartFileParsing(Tokenizer $tokenizer)
@@ -475,7 +476,7 @@ class Engine
     /**
      * Sends the end file parsing event.
      *
-     * @param \PDepend\Source\Tokenizer\Tokenizer $tokenizer
+     * @param  \PDepend\Source\Tokenizer\Tokenizer $tokenizer
      * @return void
      */
     protected function fireEndFileParsing(Tokenizer $tokenizer)
@@ -619,7 +620,7 @@ class Engine
      * This method will create an iterator instance which contains all files
      * that are part of the parsing process.
      *
-     * @return Iterator
+     * @return \Iterator
      */
     private function createFileIterator()
     {
@@ -632,9 +633,12 @@ class Engine
 
         foreach ($this->directories as $directory) {
             $fileIterator->append(
-                new \PDepend\Input\Iterator(
+                new Iterator(
                     new \RecursiveIteratorIterator(
-                        new \RecursiveDirectoryIterator($directory . '/')
+                        new \RecursiveDirectoryIterator(
+                            $directory . '/',
+                            \RecursiveDirectoryIterator::FOLLOW_SYMLINKS
+                        )
                     ),
                     $this->fileFilter,
                     $directory
@@ -652,6 +656,12 @@ class Engine
             } else {
                 $pathname         = realpath($file->getPathname());
                 $files[$pathname] = $pathname;
+            }
+        }
+
+        foreach ($files as $key => $file) {
+            if (!$this->fileFilter->accept($file, $file)) {
+                unset($files[$key]);
             }
         }
 

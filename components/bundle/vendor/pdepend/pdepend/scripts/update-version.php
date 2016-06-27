@@ -41,6 +41,8 @@
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
  */
 
+namespace PDepend;
+
 /**
  * Utility class that we use to recalculate the cache hash/version.
  *

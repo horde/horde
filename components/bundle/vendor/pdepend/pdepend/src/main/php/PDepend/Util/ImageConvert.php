@@ -4,7 +4,7 @@
  *
  * PHP Version 5
  *
- * Copyright (c) 2008-2013, Manuel Pichler <mapi@pdepend.org>.
+ * Copyright (c) 2008-2015, Manuel Pichler <mapi@pdepend.org>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -36,7 +36,7 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @copyright 2008-2013 Manuel Pichler. All rights reserved.
+ * @copyright 2008-2015 Manuel Pichler. All rights reserved.
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
  */
 
@@ -47,7 +47,7 @@ namespace PDepend\Util;
  * class can use the ImageMagick cli tool <b>convert</b> and the pecl extension
  * <b>pecl/imagick</b>.
  *
- * @copyright 2008-2013 Manuel Pichler. All rights reserved.
+ * @copyright 2008-2015 Manuel Pichler. All rights reserved.
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
  */
 class ImageConvert
@@ -55,8 +55,8 @@ class ImageConvert
     /**
      * Tries to converts the <b>$input</b> image into the <b>$output</b> format.
      *
-     * @param string $input The input file.
-     * @param string $output The output file.
+     * @param  string $input  The input file.
+     * @param  string $output The output file.
      * @return void
      */
     public static function convert($input, $output)
@@ -89,7 +89,6 @@ class ImageConvert
 
             system("convert {$input} {$output}");
         } else {
-
             $fallback = substr($output, 0, -strlen($outputType)) . $inputType;
 
             echo "WARNING: Cannot generate image of type '{$outputType}'. This",
@@ -134,7 +133,7 @@ class ImageConvert
      * imageConvert options exists, this method will prepare the input image
      * file.
      *
-     * @param string $input The input svg file.
+     * @param  string $input The input svg file.
      * @return void
      */
     protected static function prepareSvg($input)

@@ -4,7 +4,7 @@
  *
  * PHP Version 5
  *
- * Copyright (c) 2008-2013, Manuel Pichler <mapi@pdepend.org>.
+ * Copyright (c) 2008-2015, Manuel Pichler <mapi@pdepend.org>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -36,7 +36,7 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @copyright 2008-2013 Manuel Pichler. All rights reserved.
+ * @copyright 2008-2015 Manuel Pichler. All rights reserved.
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
  */
 
@@ -46,7 +46,7 @@ namespace PDepend\Util;
  * Simple container class that holds settings for PDepend and all its sub
  * systems.
  *
- * @copyright 2008-2013 Manuel Pichler. All rights reserved.
+ * @copyright 2008-2015 Manuel Pichler. All rights reserved.
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
  */
 class Configuration
@@ -54,7 +54,7 @@ class Configuration
     /**
      * Simple object tree holding the concrete configuration values.
      *
-     * @var \stdClass
+     * @var   \stdClass
      * @since 0.10.0
      */
     protected $settings = null;
@@ -77,10 +77,10 @@ class Configuration
      * for the given <b>$name</b> exists and returns the configuration value if
      * a matching entry exists. Otherwise this method will throw an exception.
      *
-     * @param string $name Name of the requested configuration value.
+     * @param  string $name Name of the requested configuration value.
      * @return mixed
      * @throws \OutOfRangeException If no matching configuration value exists.
-     * @since 0.10.0
+     * @since  0.10.0
      */
     public function __get($name)
     {
@@ -98,11 +98,11 @@ class Configuration
      * implementation of the magic set method always throws an exception, because
      * configuration settings are immutable.
      *
-     * @param string $name  Name of the write property.
-     * @param mixed $value The new property value.
+     * @param  string $name  Name of the write property.
+     * @param  mixed  $value The new property value.
      * @return void
      * @throws \OutOfRangeException Whenever this method is called.
-     * @since 0.10.0
+     * @since  0.10.0
      */
     public function __set($name, $value)
     {
@@ -117,9 +117,9 @@ class Configuration
      * implementation of the magic isset method tests if a configuration value
      * for the given <b>$name</b> exists.
      *
-     * @param string $name Name of the requested property.
+     * @param  string $name Name of the requested property.
      * @return boolean
-     * @since 0.10.0
+     * @since  0.10.0
      */
     public function __isset($name)
     {

@@ -4,7 +4,7 @@
  *
  * PHP Version 5
  *
- * Copyright (c) 2008-2013, Manuel Pichler <mapi@pdepend.org>.
+ * Copyright (c) 2008-2015, Manuel Pichler <mapi@pdepend.org>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -36,19 +36,21 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @copyright 2008-2013 Manuel Pichler. All rights reserved.
+ * @copyright 2008-2015 Manuel Pichler. All rights reserved.
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
- * @since     0.9.12
+ * @since 0.9.12
  */
 
 namespace PDepend\Source\AST;
 
+use PDepend\Source\ASTVisitor\ASTVisitor;
+
 /**
  * This node class represents an isste-expression/function.
  *
- * @copyright 2008-2013 Manuel Pichler. All rights reserved.
+ * @copyright 2008-2015 Manuel Pichler. All rights reserved.
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
- * @since     0.9.12
+ * @since 0.9.12
  */
 class ASTIssetExpression extends ASTExpression
 {
@@ -56,13 +58,12 @@ class ASTIssetExpression extends ASTExpression
      * Accept method of the visitor design pattern. This method will be called
      * by a visitor during tree traversal.
      *
-     * @param \PDepend\Source\ASTVisitor\ASTVisitor $visitor The calling visitor instance.
+     * @param \PDepend\Source\ASTVisitor\ASTVisitor $visitor
      * @param mixed $data
-     *
      * @return mixed
      * @since 0.9.12
      */
-    public function accept(\PDepend\Source\ASTVisitor\ASTVisitor $visitor, $data = null)
+    public function accept(ASTVisitor $visitor, $data = null)
     {
         return $visitor->visitIssetExpression($this, $data);
     }

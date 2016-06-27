@@ -4,7 +4,7 @@
  *
  * PHP Version 5
  *
- * Copyright (c) 2008-2013, Manuel Pichler <mapi@pdepend.org>.
+ * Copyright (c) 2008-2015, Manuel Pichler <mapi@pdepend.org>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -36,7 +36,7 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @copyright 2008-2013 Manuel Pichler. All rights reserved.
+ * @copyright 2008-2015 Manuel Pichler. All rights reserved.
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
  */
 
@@ -45,7 +45,7 @@ namespace PDepend\Source\AST;
 /**
  * Abstract base class for code item.
  *
- * @copyright 2008-2013 Manuel Pichler. All rights reserved.
+ * @copyright 2008-2015 Manuel Pichler. All rights reserved.
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
  */
 abstract class AbstractASTArtifact implements ASTArtifact
@@ -90,7 +90,7 @@ abstract class AbstractASTArtifact implements ASTArtifact
      *
      * @var string
      */
-    protected $docComment = null;
+    protected $comment = null;
 
     /**
      * Constructs a new item for the given <b>$name</b>.
@@ -118,7 +118,7 @@ abstract class AbstractASTArtifact implements ASTArtifact
      * @param string $name The item name.
      *
      * @return void
-     * @since 1.0.0
+     * @since  1.0.0
      */
     public function setName($name)
     {
@@ -141,9 +141,9 @@ abstract class AbstractASTArtifact implements ASTArtifact
     /**
      * Sets the unique identifier for this node instance.
      *
-     * @param string $id Identifier for this node.
+     * @param  string $id Identifier for this node.
      * @return void
-     * @since 0.9.12
+     * @since  0.9.12
      */
     public function setId($id)
     {
@@ -163,7 +163,7 @@ abstract class AbstractASTArtifact implements ASTArtifact
     /**
      * Sets the source file for this item.
      *
-     * @param \PDepend\Source\AST\ASTCompilationUnit $compilationUnit
+     * @param  \PDepend\Source\AST\ASTCompilationUnit $compilationUnit
      * @return void
      */
     public function setCompilationUnit(ASTCompilationUnit $compilationUnit)
@@ -174,24 +174,71 @@ abstract class AbstractASTArtifact implements ASTArtifact
     }
 
     /**
-     * Returns the doc comment for this item or <b>null</b>.
+     * Returns a doc comment for this node or <b>null</b> when no comment was
+     * found.
      *
      * @return string
      */
+    public function getComment()
+    {
+        return $this->comment;
+    }
+
+    /**
+     * Sets the raw doc comment for this node.
+     *
+     * @param string $comment
+     * @return void
+     */
+    public function setComment($comment)
+    {
+        $this->comment = $comment;
+    }
+
+    /**
+     * Returns the line number where the class or interface declaration starts.
+     *
+     * @return integer
+     */
+    public function getStartLine()
+    {
+        return $this->startLine;
+    }
+
+    /**
+     * Returns the line number where the class or interface declaration ends.
+     *
+     * @return integer
+     */
+    public function getEndLine()
+    {
+        return $this->endLine;
+    }
+
+    // BEGIN@deprecated
+
+    /**
+     * Returns the doc comment for this item or <b>null</b>.
+     *
+     * @return string
+     * @deprecated Use getComment() inherit from ASTNode instead.
+     */
     public function getDocComment()
     {
-        return $this->docComment;
+        return $this->getComment();
     }
 
     /**
      * Sets the doc comment for this item.
      *
-     * @param string $docComment The doc comment block.
-     *
+     * @param string $docComment
      * @return void
+     * @deprecated Use setComment() inherit from ASTNode instead.
      */
     public function setDocComment($docComment)
     {
-        $this->docComment = $docComment;
+        $this->setComment($docComment);
     }
+
+    // END@deprecated
 }

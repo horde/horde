@@ -2,8 +2,6 @@
 /**
  * This file is part of PHP Mess Detector.
  *
- * PHP Version 5
- *
  * Copyright (c) 2008-2012, Manuel Pichler <mapi@phpmd.org>.
  * All rights reserved.
  *
@@ -39,7 +37,6 @@
  * @author    Manuel Pichler <mapi@phpmd.org>
  * @copyright 2008-2014 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php BSD License
- * @version   @project.version@
  */
 
 namespace PHPMD\Rule\Design;
@@ -55,20 +52,11 @@ use PHPMD\Rule\ClassAware;
  * @author    Manuel Pichler <mapi@phpmd.org>
  * @copyright 2008-2014 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php BSD License
- * @version   @project.version@
  */
 class TooManyMethods extends AbstractRule implements ClassAware
 {
     /**
-     * the default regex pattern for ignore method names. override with
-     * "ignorepattern" rule setting.
-     *
-     * @var string
-     */
-    const DEFAULT_IGNORE_REGEXP = '(^(set|get))i';
-
-    /**
-     * Regular expression that filter all methods that are ignored by this rule.
+     * Regular expression that filters all methods that are ignored by this rule.
      *
      * @var string
      */
@@ -83,11 +71,7 @@ class TooManyMethods extends AbstractRule implements ClassAware
      */
     public function apply(AbstractNode $node)
     {
-        try {
-            $this->ignoreRegexp = $this->getStringProperty('ignorepattern');
-        } catch (\OutOfBoundsException $e) {
-            $this->ignoreRegexp = self::DEFAULT_IGNORE_REGEXP;
-        }
+        $this->ignoreRegexp = $this->getStringProperty('ignorepattern');
 
         $threshold = $this->getIntProperty('maxmethods');
         if ($node->getMetric('nom') <= $threshold) {
@@ -110,7 +94,6 @@ class TooManyMethods extends AbstractRule implements ClassAware
 
     /**
      * Counts all methods within the given class/interface node.
-     *
      *
      * @param \PHPMD\Node\AbstractTypeNode $node
      * @return integer

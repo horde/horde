@@ -2,8 +2,6 @@
 /**
  * This file is part of PHP Mess Detector.
  *
- * PHP Version 5
- *
  * Copyright (c) 2008-2012, Manuel Pichler <mapi@phpmd.org>.
  * All rights reserved.
  *
@@ -39,7 +37,6 @@
  * @author    Manuel Pichler <mapi@phpmd.org>
  * @copyright 2008-2014 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php BSD License
- * @version   @project.version@
  */
 
 namespace PHPMD;
@@ -50,25 +47,11 @@ namespace PHPMD;
  * @author    Manuel Pichler <mapi@phpmd.org>
  * @copyright 2008-2014 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php BSD License
- * @version   @project.version@
  *
  * @SuppressWarnings(PHPMD)
  */
 abstract class AbstractRule implements Rule
 {
-    /**
-     * List of readable priority names.
-     *
-     * @var array(string) $_priorities
-     */
-    private static $priorities = array(
-        'High',
-        'Medium High',
-        'Medium',
-        'Medium Low',
-        'Low'
-    );
-
     /**
      * The name for this rule instance.
      *
@@ -361,7 +344,7 @@ abstract class AbstractRule implements Rule
         if (isset($this->properties[$name])) {
             return in_array($this->properties[$name], array('true', 'on', 1));
         }
-        throw new \OutOfBoundsException('Property $' . $name . ' does not exist.');
+        throw new \OutOfBoundsException('Property "' . $name . '" does not exist.');
     }
 
     /**
@@ -377,7 +360,7 @@ abstract class AbstractRule implements Rule
         if (isset($this->properties[$name])) {
             return (int) $this->properties[$name];
         }
-        throw new \OutOfBoundsException('Property $' . $name . ' does not exist.');
+        throw new \OutOfBoundsException('Property "' . $name . '" does not exist.');
     }
 
 
@@ -394,7 +377,7 @@ abstract class AbstractRule implements Rule
         if (isset($this->properties[$name])) {
             return $this->properties[$name];
         }
-        throw new \OutOfBoundsException('Property $' . $name . ' does not exist.');
+        throw new \OutOfBoundsException('Property "' . $name . '" does not exist.');
 
     }
 
@@ -424,4 +407,13 @@ abstract class AbstractRule implements Rule
         $ruleViolation = new RuleViolation($this, $node, $message, $metric);
         $this->report->addRuleViolation($ruleViolation);
     }
+
+    /**
+     * This method should implement the violation analysis algorithm of concrete
+     * rule implementations. All extending classes must implement this method.
+     *
+     * @param \PHPMD\AbstractNode $node
+     * @return void
+     */
+    abstract public function apply(AbstractNode $node);
 }

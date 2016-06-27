@@ -4,7 +4,7 @@
  *
  * PHP Version 5
  *
- * Copyright (c) 2008-2013, Manuel Pichler <mapi@pdepend.org>.
+ * Copyright (c) 2008-2015, Manuel Pichler <mapi@pdepend.org>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -36,14 +36,12 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @copyright 2008-2013 Manuel Pichler. All rights reserved.
+ * @copyright 2008-2015 Manuel Pichler. All rights reserved.
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
- * @since     0.9.6
+ * @since 0.9.6
  */
 
 namespace PDepend\Source\AST;
-
-use PDepend\Source\AST\State;
 
 /**
  * This class represents a field or property declaration of a class.
@@ -62,11 +60,11 @@ use PDepend\Source\AST\State;
  * }
  * </code>
  *
- * @copyright 2008-2013 Manuel Pichler. All rights reserved.
+ * @copyright 2008-2015 Manuel Pichler. All rights reserved.
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
- * @since     0.9.6
+ * @since 0.9.6
  */
-class ASTFieldDeclaration extends ASTNode
+class ASTFieldDeclaration extends AbstractASTNode
 {
     /**
      * This method returns a OR combined integer of the declared modifiers for
@@ -157,10 +155,10 @@ class ASTFieldDeclaration extends ASTNode
      * by a visitor during tree traversal.
      *
      * @param \PDepend\Source\ASTVisitor\ASTVisitor $visitor The calling visitor instance.
-     * @param mixed $data
+     * @param mixed                                 $data
      *
      * @return mixed
-     * @since 0.9.12
+     * @since  0.9.12
      */
     public function accept(\PDepend\Source\ASTVisitor\ASTVisitor $visitor, $data = null)
     {
@@ -171,8 +169,8 @@ class ASTFieldDeclaration extends ASTNode
      * Returns the total number of the used property bag.
      *
      * @return integer
-     * @since 0.10.4
-     * @see \PDepend\Source\AST\ASTNode#getMetadataSize()
+     * @since  0.10.4
+     * @see    \PDepend\Source\AST\ASTNode#getMetadataSize()
      */
     protected function getMetadataSize()
     {

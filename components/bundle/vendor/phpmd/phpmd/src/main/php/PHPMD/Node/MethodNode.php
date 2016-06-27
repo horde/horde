@@ -2,8 +2,6 @@
 /**
  * This file is part of PHP Mess Detector.
  *
- * PHP Version 5
- *
  * Copyright (c) 2008-2012, Manuel Pichler <mapi@phpmd.org>.
  * All rights reserved.
  *
@@ -39,7 +37,6 @@
  * @author    Manuel Pichler <mapi@phpmd.org>
  * @copyright 2008-2014 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php BSD License
- * @version   @project.version@
  */
 
 namespace PHPMD\Node;
@@ -55,7 +52,6 @@ use PHPMD\Rule;
  * @author    Manuel Pichler <mapi@phpmd.org>
  * @copyright 2008-2014 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php BSD License
- * @version   @project.version@
  */
 class MethodNode extends AbstractCallableNode
 {
@@ -88,6 +84,22 @@ class MethodNode extends AbstractCallableNode
     public function getParentName()
     {
         return $this->getNode()->getParent()->getName();
+    }
+
+    /**
+     * Returns the full qualified name of a class, an interface, a method or
+     * a function.
+     *
+     * @return string
+     */
+    public function getFullQualifiedName()
+    {
+        return sprintf(
+            '%s\\%s::%s()',
+            $this->getNamespaceName(),
+            $this->getParentName(),
+            $this->getName()
+        );
     }
 
     /**
@@ -125,12 +137,14 @@ class MethodNode extends AbstractCallableNode
     {
         $parentNode = $this->getNode()->getParent();
 
-        if ($parentNode instanceof ASTClass) {
-            return new ClassNode($parentNode);
-        }
         if ($parentNode instanceof ASTTrait) {
             return new TraitNode($parentNode);
         }
+
+        if ($parentNode instanceof ASTClass) {
+            return new ClassNode($parentNode);
+        }
+
         return new InterfaceNode($parentNode);
     }
 

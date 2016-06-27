@@ -4,7 +4,7 @@
  *
  * PHP Version 5
  *
- * Copyright (c) 2008-2013, Manuel Pichler <mapi@pdepend.org>.
+ * Copyright (c) 2008-2015, Manuel Pichler <mapi@pdepend.org>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -36,7 +36,7 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @copyright 2008-2013 Manuel Pichler. All rights reserved.
+ * @copyright 2008-2015 Manuel Pichler. All rights reserved.
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
  */
 
@@ -47,7 +47,7 @@ use PDepend\Source\ASTVisitor\AbstractASTVisitor;
 /**
  * This abstract class provides a base implementation of an analyzer.
  *
- * @copyright 2008-2013 Manuel Pichler. All rights reserved.
+ * @copyright 2008-2015 Manuel Pichler. All rights reserved.
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
  */
 abstract class AbstractAnalyzer extends AbstractASTVisitor implements Analyzer
@@ -91,7 +91,7 @@ abstract class AbstractAnalyzer extends AbstractASTVisitor implements Analyzer
     /**
      * Adds a listener to this analyzer.
      *
-     * @param \PDepend\Metrics\AnalyzerListener $listener The listener instance.
+     * @param  \PDepend\Metrics\AnalyzerListener $listener The listener instance.
      * @return void
      */
     public function addAnalyzeListener(\PDepend\Metrics\AnalyzerListener $listener)
@@ -110,7 +110,7 @@ abstract class AbstractAnalyzer extends AbstractASTVisitor implements Analyzer
      * state based disabling/enabling.
      *
      * @return boolean
-     * @since 0.9.10
+     * @since  0.9.10
      */
     public function isEnabled()
     {

@@ -4,7 +4,7 @@
  *
  * PHP Version 5
  *
- * Copyright (c) 2008-2013, Manuel Pichler <mapi@pdepend.org>.
+ * Copyright (c) 2008-2015, Manuel Pichler <mapi@pdepend.org>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -36,7 +36,7 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @copyright 2008-2013 Manuel Pichler. All rights reserved.
+ * @copyright 2008-2015 Manuel Pichler. All rights reserved.
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
  */
 
@@ -45,7 +45,7 @@ namespace PDepend\Util;
 /**
  * Utility class that can be used to detect simpl scalars or internal types.
  *
- * @copyright 2008-2013 Manuel Pichler. All rights reserved.
+ * @copyright 2008-2015 Manuel Pichler. All rights reserved.
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
  */
 final class Type
@@ -134,7 +134,7 @@ final class Type
      * Hash with all internal namespaces/extensions. Key and value are identical
      * and contain the name of the extension.
      *
-     * @var array(string=>string)
+     * @var   array(string=>string)
      * @since 0.9.10
      */
     private static $internalNamespaces = null;
@@ -325,7 +325,7 @@ final class Type
      * @param string $image The type image.
      *
      * @return boolean
-     * @since 0.9.6
+     * @since  0.9.6
      */
     public static function isPrimitiveType($image)
     {
@@ -339,7 +339,7 @@ final class Type
      * @param string $image The found primitive type image.
      *
      * @return string
-     * @since 0.9.6
+     * @since  0.9.6
      */
     public static function getPrimitiveType($image)
     {
@@ -365,7 +365,7 @@ final class Type
      * @param string $image The found type image.
      *
      * @return boolean
-     * @since 0.9.6
+     * @since  0.9.6
      */
     public static function isArrayType($image)
     {

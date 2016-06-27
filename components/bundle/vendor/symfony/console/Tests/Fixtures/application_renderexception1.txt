@@ -1,0 +1,4 @@
+
+
+  [Symfony\Component\Console\Exception\CommandNotFoundException]
+  Command "foo" is not defined.

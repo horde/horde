@@ -4,7 +4,7 @@
  *
  * PHP Version 5
  *
- * Copyright (c) 2008-2013, Manuel Pichler <mapi@pdepend.org>.
+ * Copyright (c) 2008-2015, Manuel Pichler <mapi@pdepend.org>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -36,9 +36,9 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @copyright 2008-2013 Manuel Pichler. All rights reserved.
+ * @copyright 2008-2015 Manuel Pichler. All rights reserved.
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
- * @since     0.10.0
+ * @since 0.10.0
  */
 
 namespace PDepend\Util\Cache;
@@ -50,9 +50,9 @@ use PDepend\Util\Configuration;
 /**
  * Factory that encapsulates the creation of a concrete cache instance.
  *
- * @copyright 2008-2013 Manuel Pichler. All rights reserved.
+ * @copyright 2008-2015 Manuel Pichler. All rights reserved.
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
- * @since     0.10.0
+ * @since 0.10.0
  */
 class CacheFactory
 {
@@ -99,7 +99,7 @@ class CacheFactory
     /**
      * Creates a cache instance based on the supplied configuration.
      *
-     * @param string $cacheKey The name/identifier for the cache instance.
+     * @param  string $cacheKey The name/identifier for the cache instance.
      * @return \PDepend\Util\Cache\CacheDriver
      * @throws \InvalidArgumentException If the configured cache driver is unknown.
      */
@@ -122,8 +122,8 @@ class CacheFactory
     /**
      * Creates a new file system based cache instance.
      *
-     * @param string $location Cache root directory.
-     * @param string $cacheKey The name/identifier for the cache instance.
+     * @param  string $location Cache root directory.
+     * @param  string $cacheKey The name/identifier for the cache instance.
      * @return \PDepend\Util\Cache\Driver\FileCacheDriver
      */
     protected function createFileCache($location, $cacheKey)

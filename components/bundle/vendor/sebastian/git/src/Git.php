@@ -1,54 +1,18 @@
 <?php
-/**
- * Git
+/*
+ * This file is part of Git.
  *
- * Copyright (c) 2013, Sebastian Bergmann <sebastian@phpunit.de>.
- * All rights reserved.
+ * (c) Sebastian Bergmann <sebastian@phpunit.de>
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *
- *   * Redistributions of source code must retain the above copyright
- *     notice, this list of conditions and the following disclaimer.
- *
- *   * Redistributions in binary form must reproduce the above copyright
- *     notice, this list of conditions and the following disclaimer in
- *     the documentation and/or other materials provided with the
- *     distribution.
- *
- *   * Neither the name of Sebastian Bergmann nor the names of his
- *     contributors may be used to endorse or promote products derived
- *     from this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
- * FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
- * COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
- * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
- * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
- *
- * @package    Git
- * @author     Sebastian Bergmann <sebastian@phpunit.de>
- * @copyright  2013 Sebastian Bergmann <sebastian@phpunit.de>
- * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
- * @link       http://www.github.com/sebastianbergmann/git
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
-namespace SebastianBergmann;
+namespace SebastianBergmann\Git;
+
+use DateTime;
 
 /**
- * @package    Git
- * @author     Sebastian Bergmann <sebastian@phpunit.de>
- * @copyright  2013 Sebastian Bergmann <sebastian@phpunit.de>
- * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
- * @link       http://www.github.com/sebastianbergmann/git
  */
 class Git
 {
@@ -62,6 +26,15 @@ class Git
      */
     public function __construct($repositoryPath)
     {
+        if (!is_dir($repositoryPath)) {
+            throw new RuntimeException(
+                sprintf(
+                    'Directory "%s" does not exist',
+                    $repositoryPath
+                )
+            );
+        }
+
         $this->repositoryPath = realpath($repositoryPath);
     }
 
@@ -70,7 +43,9 @@ class Git
      */
     public function checkout($revision)
     {
-        $this->execute('git checkout ' . $revision . ' 2>&1', $output, $return);
+        $this->execute(
+            'checkout --force --quiet ' . $revision . ' 2>&1'
+        );
     }
 
     /**
@@ -78,11 +53,9 @@ class Git
      */
     public function getCurrentBranch()
     {
-        $this->execute('git status --short --branch', $output, $return);
+        $output = $this->execute('symbolic-ref --short HEAD');
 
-        $tmp = explode(' ', $output[0]);
-
-        return $tmp[1];
+        return $output[0];
     }
 
     /**
@@ -92,13 +65,11 @@ class Git
      */
     public function getDiff($from, $to)
     {
-        $this->execute(
-            'git diff --no-ext-diff ' . $from . ' ' . $to,
-            $output,
-            $return
+        $output = $this->execute(
+            'diff --no-ext-diff ' . $from . ' ' . $to
         );
 
-        return join("\n", $output);
+        return implode("\n", $output);
     }
 
     /**
@@ -106,10 +77,8 @@ class Git
      */
     public function getRevisions()
     {
-        $this->execute(
-            'git log --no-merges --date-order --reverse',
-            $output,
-            $return
+        $output = $this->execute(
+            'log --no-merges --date-order --reverse --format=medium'
         );
 
         $numLines  = count($output);
@@ -118,21 +87,23 @@ class Git
         for ($i = 0; $i < $numLines; $i++) {
             $tmp = explode(' ', $output[$i]);
 
-            if (count($tmp) == 2 && $tmp[0] == 'commit') {
+            if ($tmp[0] == 'commit') {
                 $sha1 = $tmp[1];
-            } elseif (count($tmp) == 4 && $tmp[0] == 'Author:') {
-                $author = join(' ', array_slice($tmp, 1));
-            } elseif (count($tmp) == 9 && $tmp[0] == 'Date:') {
-
+            } elseif ($tmp[0] == 'Author:') {
+                $author = implode(' ', array_slice($tmp, 1));
+            } elseif ($tmp[0] == 'Date:' && isset($author) && isset($sha1)) {
                 $revisions[] = array(
                   'author'  => $author,
-                  'date'    => \DateTime::createFromFormat(
+                  'date'    => DateTime::createFromFormat(
                       'D M j H:i:s Y O',
-                      join(' ', array_slice($tmp, 3))
+                      implode(' ', array_slice($tmp, 3))
                   ),
                   'sha1'    => $sha1,
                   'message' => isset($output[$i+2]) ? trim($output[$i+2]) : ''
                 );
+
+                unset($author);
+                unset($sha1);
             }
         }
 
@@ -140,15 +111,31 @@ class Git
     }
 
     /**
-     * @param string  $command
-     * @param array   $output
-     * @param integer $returnValue
+     * @return bool
      */
-    private function execute($command, &$output, &$returnValue)
+    public function isWorkingCopyClean()
     {
-        $cwd = getcwd();
-        chdir($this->repositoryPath);
+        $output = $this->execute('status');
+
+        return $output[count($output)-1] == 'nothing to commit, working directory clean';
+    }
+
+    /**
+     * @param  string           $command
+     * @throws RuntimeException
+     */
+    protected function execute($command)
+    {
+        $command = 'git -C ' . escapeshellarg($this->repositoryPath) . ' ' . $command;
+        if (DIRECTORY_SEPARATOR == '/') {
+            $command = 'LC_ALL=en_US.UTF-8 ' . $command;
+        }
         exec($command, $output, $returnValue);
-        chdir($cwd);
+
+        if ($returnValue !== 0) {
+            throw new RuntimeException(implode("\r\n", $output));
+        }
+
+        return $output;
     }
 }

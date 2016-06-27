@@ -4,7 +4,7 @@
  *
  * PHP Version 5
  *
- * Copyright (c) 2008-2013, Manuel Pichler <mapi@pdepend.org>.
+ * Copyright (c) 2008-2015, Manuel Pichler <mapi@pdepend.org>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -36,7 +36,7 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @copyright 2008-2013 Manuel Pichler. All rights reserved.
+ * @copyright 2008-2015 Manuel Pichler. All rights reserved.
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
  */
 
@@ -48,12 +48,116 @@ use PDepend\Source\Tokenizer\Tokenizer;
 use PDepend\Source\Tokenizer\Tokens;
 
 /**
+ * Define PHP 5.4 __TRAIT__ token constant.
+ */
+if (!defined('T_TRAIT_C')) {
+    define('T_TRAIT_C', 42000);
+}
+
+/**
+ * Define PHP 5.4 'trait' token constant.
+ */
+if (!defined('T_TRAIT')) {
+    define('T_TRAIT', 42001);
+}
+
+/**
+ * Define PHP 5.4 'insteadof' token constant.
+ */
+if (!defined('T_INSTEADOF')) {
+    define('T_INSTEADOF', 42002);
+}
+
+/**
+ * Define PHP 5.3 __NAMESPACE__ token constant.
+ */
+if (!defined('T_NS_C')) {
+    define('T_NS_C', 42003);
+}
+
+/**
+ * Define PHP 5.3 'use' token constant
+ */
+if (!defined('T_USE')) {
+    define('T_USE', 42004);
+}
+
+/**
+ * Define PHP 5.3 'namespace' token constant.
+ */
+if (!defined('T_NAMESPACE')) {
+    define('T_NAMESPACE', 42005);
+}
+
+/**
+ * Define PHP 5.6 '...' token constant
+ */
+if (!defined('T_ELLIPSIS')) {
+    define('T_ELLIPSIS', 42006);
+}
+
+/**
+ * Define PHP 5.3's '__DIR__' token constant.
+ */
+if (!defined('T_DIR')) {
+    define('T_DIR', 42006);
+}
+
+/**
+ * Define PHP 5.3's 'T_GOTO' token constant.
+ */
+if (!defined('T_GOTO')) {
+    define('T_GOTO', 42007);
+}
+
+/**
+ * Define PHP 5.4's 'T_CALLABLE' token constant
+ */
+if (!defined('T_CALLABLE')) {
+    define('T_CALLABLE', 42008);
+}
+
+/**
+ * Define PHP 5.5's 'T_YIELD' token constant
+ */
+if (!defined('T_YIELD')) {
+    define('T_YIELD', 42009);
+}
+
+/**
+ * Define PHP 5,5's 'T_FINALLY' token constant
+ */
+if (!defined('T_FINALLY')) {
+    define('T_FINALLY', 42010);
+}
+
+/**
+ * Define character token that was removed in PHP 7
+ */
+if (!defined('T_CHARACTER')) {
+    define('T_CHARACTER', 42011);
+}
+
+/**
+ * Define bad character token that was removed in PHP 7
+ */
+if (!defined('T_BAD_CHARACTER')) {
+    define('T_BAD_CHARACTER', 42012);
+}
+
+/**
+ * Define PHP 7's '<=>' token constant
+ */
+if (!defined('T_SPACESHIP')) {
+    define('T_SPACESHIP', 42013);
+}
+
+/**
  * This tokenizer uses the internal {@link token_get_all()} function as token stream
  * generator.
  *
- * @copyright 2008-2013 Manuel Pichler. All rights reserved.
+ * @copyright 2008-2015 Manuel Pichler. All rights reserved.
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
- *
  */
 class PHPTokenizerInternal implements Tokenizer
 {
@@ -130,6 +234,7 @@ class PHPTokenizerInternal implements Tokenizer
         T_OR_EQUAL                  =>  Tokens::T_OR_EQUAL,
         T_CONTINUE                  =>  Tokens::T_CONTINUE,
         T_METHOD_C                  =>  Tokens::T_METHOD_C,
+        T_ELLIPSIS                  =>  Tokens::T_ELLIPSIS,
         T_OPEN_TAG                  =>  Tokens::T_OPEN_TAG,
         T_SL_EQUAL                  =>  Tokens::T_SL_EQUAL,
         T_SR_EQUAL                  =>  Tokens::T_SR_EQUAL,
@@ -147,6 +252,7 @@ class PHPTokenizerInternal implements Tokenizer
         T_CLOSE_TAG                 =>  Tokens::T_CLOSE_TAG,
         T_INSTEADOF                 =>  Tokens::T_INSTEADOF,
         T_PROTECTED                 =>  Tokens::T_PROTECTED,
+        T_SPACESHIP                 =>  Tokens::T_SPACESHIP,
         T_CURLY_OPEN                =>  Tokens::T_CURLY_BRACE_OPEN,
         T_ENDFOREACH                =>  Tokens::T_ENDFOREACH,
         T_ENDDECLARE                =>  Tokens::T_ENDDECLARE,
@@ -191,6 +297,11 @@ class PHPTokenizerInternal implements Tokenizer
         T_FINALLY                   =>  Tokens::T_FINALLY,
         //T_DOLLAR_OPEN_CURLY_BRACES  =>  Tokens::T_CURLY_BRACE_OPEN,
     );
+
+    /**
+     * Internally used transition token.
+     */
+    const T_ELLIPSIS = 23006;
 
     /**
      * Mapping between php internal text tokens an php depend numeric tokens.
@@ -238,6 +349,7 @@ class PHPTokenizerInternal implements Tokenizer
         'yield'          =>  Tokens::T_YIELD,
         'parent'         =>  Tokens::T_PARENT,
         'finally'        =>  Tokens::T_FINALLY,
+        'callable'       =>  Tokens::T_CALLABLE,
         'insteadof'      =>  Tokens::T_INSTEADOF,
         'namespace'      =>  Tokens::T_NAMESPACE,
         '__dir__'        =>  Tokens::T_DIR,
@@ -286,6 +398,7 @@ class PHPTokenizerInternal implements Tokenizer
         Tokens::T_TRUE => array(
             Tokens::T_OBJECT_OPERATOR  =>  Tokens::T_STRING,
             Tokens::T_DOUBLE_COLON     =>  Tokens::T_STRING,
+            Tokens::T_NAMESPACE        =>  Tokens::T_STRING,
             Tokens::T_CONST            =>  Tokens::T_STRING,
             Tokens::T_FUNCTION         =>  Tokens::T_STRING,
         ),
@@ -295,6 +408,7 @@ class PHPTokenizerInternal implements Tokenizer
         Tokens::T_FALSE => array(
             Tokens::T_OBJECT_OPERATOR  =>  Tokens::T_STRING,
             Tokens::T_DOUBLE_COLON     =>  Tokens::T_STRING,
+            Tokens::T_NAMESPACE        =>  Tokens::T_STRING,
             Tokens::T_CONST            =>  Tokens::T_STRING,
             Tokens::T_FUNCTION         =>  Tokens::T_STRING,
         ),
@@ -328,24 +442,6 @@ class PHPTokenizerInternal implements Tokenizer
             Tokens::T_CONST            =>  Tokens::T_STRING,
             Tokens::T_FUNCTION         =>  Tokens::T_STRING,
         ),
-        Tokens::T_TRAIT_C=> array(
-            Tokens::T_OBJECT_OPERATOR  =>  Tokens::T_STRING,
-            Tokens::T_DOUBLE_COLON     =>  Tokens::T_STRING,
-            Tokens::T_CONST            =>  Tokens::T_STRING,
-            Tokens::T_FUNCTION         =>  Tokens::T_STRING,
-        ),
-        Tokens::T_TRAIT => array(
-            Tokens::T_OBJECT_OPERATOR  =>  Tokens::T_STRING,
-            Tokens::T_DOUBLE_COLON     =>  Tokens::T_STRING,
-            Tokens::T_CONST            =>  Tokens::T_STRING,
-            Tokens::T_FUNCTION         =>  Tokens::T_STRING,
-        ),
-        Tokens::T_INSTEADOF => array(
-            Tokens::T_OBJECT_OPERATOR  =>  Tokens::T_STRING,
-            Tokens::T_DOUBLE_COLON     =>  Tokens::T_STRING,
-            Tokens::T_CONST            =>  Tokens::T_STRING,
-            Tokens::T_FUNCTION         =>  Tokens::T_STRING,
-        ),
         Tokens::T_FINALLY => array(
             Tokens::T_OBJECT_OPERATOR  =>  Tokens::T_STRING,
             Tokens::T_DOUBLE_COLON     =>  Tokens::T_STRING,
@@ -354,6 +450,26 @@ class PHPTokenizerInternal implements Tokenizer
         ),
         Tokens::T_CLASS => array(
             Tokens::T_DOUBLE_COLON     => Tokens::T_CLASS_FQN,
+        ),
+    );
+
+    protected static $reductionMap = array(
+        Tokens::T_CONCAT => array(
+            Tokens::T_CONCAT => array(
+                'type'  => self::T_ELLIPSIS,
+                'image' => '..',
+            ),
+            self::T_ELLIPSIS  =>  array(
+                'type'  => Tokens::T_ELLIPSIS,
+                'image' => '...',
+            )
+        ),
+
+        Tokens::T_ANGLE_BRACKET_CLOSE => array(
+            Tokens::T_IS_SMALLER_OR_EQUAL => array(
+                'type'  => Tokens::T_SPACESHIP,
+                'image' => '<=>',
+            )
         ),
     );
 
@@ -452,7 +568,7 @@ class PHPTokenizerInternal implements Tokenizer
      * ignores all comments between the current and the next token.
      *
      * @return integer
-     * @since 0.9.12
+     * @since  0.9.12
      */
     public function peekNext()
     {
@@ -554,6 +670,7 @@ class PHPTokenizerInternal implements Tokenizer
 
         // Previous found type
         $previousType = null;
+        $previousStartColumn = 0;
 
         while ($token = current($tokens)) {
             $type  = null;
@@ -591,12 +708,22 @@ class PHPTokenizerInternal implements Tokenizer
                 if (isset($literalMap[$value])) {
                     // Fetch literal type
                     $type = $literalMap[$value];
+                    $image = $token[1];
 
                     // Check for a context sensitive alternative
                     if (isset(self::$alternativeMap[$type][$previousType])) {
                         $type = self::$alternativeMap[$type][$previousType];
                     }
-                    $image = $token[1];
+
+                    if (isset(self::$reductionMap[$type][$previousType])) {
+                        $image = self::$reductionMap[$type][$previousType]['image'];
+                        $type = self::$reductionMap[$type][$previousType]['type'];
+
+                        $startColumn = $previousStartColumn;
+
+                        array_pop($this->tokens);
+                    }
+
                 } elseif (isset($tokenMap[$token[0]])) {
                     $type = $tokenMap[$token[0]];
                     // Check for a context sensitive alternative
@@ -630,6 +757,9 @@ class PHPTokenizerInternal implements Tokenizer
 
                 // Store token in internal list
                 $this->tokens[] = $token;
+
+                // Store previous start column
+                $previousStartColumn = $startColumn;
 
                 // Count newlines in token
                 $lines = substr_count($image, "\n");
@@ -676,7 +806,6 @@ class PHPTokenizerInternal implements Tokenizer
         while ($token[0] !== T_OPEN_TAG_WITH_ECHO &&
                $token[0] !== T_OPEN_TAG &&
                $token[0] !== false) {
-
             $content .= (isset($token[1]) ? $token[1] : $token[0]);
 
             $token = (array) next($tokens);

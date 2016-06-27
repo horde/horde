@@ -4,7 +4,7 @@
  *
  * PHP Version 5
  *
- * Copyright (c) 2008-2013, Manuel Pichler <mapi@pdepend.org>.
+ * Copyright (c) 2008-2015, Manuel Pichler <mapi@pdepend.org>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -36,9 +36,9 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @copyright 2008-2013 Manuel Pichler. All rights reserved.
+ * @copyright 2008-2015 Manuel Pichler. All rights reserved.
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
- * @since     0.9.12
+ * @since 0.9.12
  */
 
 namespace PDepend\Source\AST;
@@ -46,12 +46,25 @@ namespace PDepend\Source\AST;
 /**
  * This node class represents a closure-expression.
  *
- * @copyright 2008-2013 Manuel Pichler. All rights reserved.
+ * @copyright 2008-2015 Manuel Pichler. All rights reserved.
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
- * @since     0.9.12
+ * @since 0.9.12
  */
-class ASTClosure extends \PDepend\Source\AST\ASTNode
+class ASTClosure extends AbstractASTNode implements ASTCallable
 {
+    /**
+     * @return \PDepend\Source\AST\ASTType
+     */
+    public function getReturnType()
+    {
+        foreach ($this->nodes as $node) {
+            if ($node instanceof ASTType) {
+                return $node;
+            }
+        }
+        return null;
+    }
+
     /**
      * This method will return <b>true</b> when this closure returns by
      * reference.
@@ -96,7 +109,7 @@ class ASTClosure extends \PDepend\Source\AST\ASTNode
      * </code>
      *
      * @return boolean
-     * @since 1.0.0
+     * @since  1.0.0
      */
     public function isStatic()
     {
@@ -109,7 +122,7 @@ class ASTClosure extends \PDepend\Source\AST\ASTNode
      * @param boolean $static Whether this closure is static or not.
      *
      * @return void
-     * @since 1.0.0
+     * @since  1.0.0
      */
     public function setStatic($static)
     {
@@ -121,10 +134,10 @@ class ASTClosure extends \PDepend\Source\AST\ASTNode
      * by a visitor during tree traversal.
      *
      * @param \PDepend\Source\ASTVisitor\ASTVisitor $visitor The calling visitor instance.
-     * @param mixed $data
+     * @param mixed                                 $data
      *
      * @return mixed
-     * @since 0.9.12
+     * @since  0.9.12
      */
     public function accept(\PDepend\Source\ASTVisitor\ASTVisitor $visitor, $data = null)
     {
@@ -135,8 +148,8 @@ class ASTClosure extends \PDepend\Source\AST\ASTNode
      * Returns the total number of the used property bag.
      *
      * @return integer
-     * @since 1.0.0
-     * @see \PDepend\Source\AST\ASTNode#getMetadataSize()
+     * @since  1.0.0
+     * @see    \PDepend\Source\AST\ASTNode#getMetadataSize()
      */
     protected function getMetadataSize()
     {

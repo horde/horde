@@ -4,7 +4,7 @@
  *
  * PHP Version 5
  *
- * Copyright (c) 2008-2013, Manuel Pichler <mapi@pdepend.org>.
+ * Copyright (c) 2008-2015, Manuel Pichler <mapi@pdepend.org>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -36,7 +36,7 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @copyright 2008-2013 Manuel Pichler. All rights reserved.
+ * @copyright 2008-2015 Manuel Pichler. All rights reserved.
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
  */
 
@@ -47,7 +47,7 @@ use PDepend\Source\AST\ASTArtifactList;
 /**
  * Base interface for all analyzer implementations.
  *
- * @copyright 2008-2013 Manuel Pichler. All rights reserved.
+ * @copyright 2008-2015 Manuel Pichler. All rights reserved.
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
  */
 interface Analyzer
@@ -63,7 +63,7 @@ interface Analyzer
     /**
      * Adds a listener to this analyzer.
      *
-     * @param \PDepend\Metrics\AnalyzerListener $listener The listener instance.
+     * @param  \PDepend\Metrics\AnalyzerListener $listener The listener instance.
      * @return void
      */
     public function addAnalyzeListener(AnalyzerListener $listener);
@@ -71,7 +71,7 @@ interface Analyzer
     /**
      * Processes all {@link \PDepend\Source\AST\ASTNamespace} code nodes.
      *
-     * @param \PDepend\Source\AST\ASTNamespace[] $namespaces
+     * @param  \PDepend\Source\AST\ASTNamespace[] $namespaces
      * @return void
      */
     public function analyze($namespaces);
@@ -82,7 +82,7 @@ interface Analyzer
      * for any reason should return <b>false</b>.
      *
      * @return boolean
-     * @since 0.9.10
+     * @since  0.9.10
      */
     public function isEnabled();
 

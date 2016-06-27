@@ -2,8 +2,6 @@
 /**
  * This file is part of PHP Mess Detector.
  *
- * PHP Version 5
- *
  * Copyright (c) 2008-2012, Manuel Pichler <mapi@phpmd.org>.
  * All rights reserved.
  *
@@ -39,7 +37,6 @@
  * @author    Manuel Pichler <mapi@phpmd.org>
  * @copyright 2008-2014 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php BSD License
- * @version   @project.version@
  */
 
 namespace PHPMD\Rule\Naming;
@@ -57,7 +54,6 @@ use PHPMD\Rule\MethodAware;
  * @author    Manuel Pichler <mapi@phpmd.org>
  * @copyright 2008-2014 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php BSD License
- * @version   @project.version@
  */
 class LongVariable extends AbstractRule implements ClassAware, MethodAware, FunctionAware
 {
@@ -119,7 +115,7 @@ class LongVariable extends AbstractRule implements ClassAware, MethodAware, Func
     {
         if ($this->isNotProcessed($node)) {
             $this->addProcessed($node);
-            $this->doCheckNodeImage($node);
+            $this->checkMaximumLength($node);
         }
     }
 
@@ -129,7 +125,7 @@ class LongVariable extends AbstractRule implements ClassAware, MethodAware, Func
      * @param \PHPMD\AbstractNode $node
      * @return void
      */
-    protected function doCheckNodeImage(AbstractNode $node)
+    protected function checkMaximumLength(AbstractNode $node)
     {
         $threshold = $this->getIntProperty('maximum');
         if ($threshold >= strlen($node->getImage()) - 1) {

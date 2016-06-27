@@ -2,8 +2,6 @@
 /**
  * This file is part of PHP Mess Detector.
  *
- * PHP Version 5
- *
  * Copyright (c) 2008-2012, Manuel Pichler <mapi@phpmd.org>.
  * All rights reserved.
  *
@@ -39,7 +37,6 @@
  * @author    Manuel Pichler <mapi@phpmd.org>
  * @copyright 2008-2014 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php BSD License
- * @version   @project.version@
  */
 
 namespace PHPMD\Renderer;
@@ -54,7 +51,6 @@ use PHPMD\Report;
  * @author    Manuel Pichler <mapi@phpmd.org>
  * @copyright 2008-2014 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php BSD License
- * @version   @project.version@
  */
 class TextRenderer extends AbstractRenderer
 {
@@ -72,7 +68,6 @@ class TextRenderer extends AbstractRenderer
         $writer->write(PHP_EOL);
 
         foreach ($report->getRuleViolations() as $violation) {
-
             $writer->write($violation->getFileName());
             $writer->write(':');
             $writer->write($violation->getBeginLine());
@@ -82,7 +77,6 @@ class TextRenderer extends AbstractRenderer
         }
 
         foreach ($report->getErrors() as $error) {
-
             $writer->write($error->getFile());
             $writer->write("\t-\t");
             $writer->write($error->getMessage());

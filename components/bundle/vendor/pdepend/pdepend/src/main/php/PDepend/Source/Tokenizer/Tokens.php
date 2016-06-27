@@ -4,7 +4,7 @@
  *
  * PHP Version 5
  *
- * Copyright (c) 2008-2013, Manuel Pichler <mapi@pdepend.org>.
+ * Copyright (c) 2008-2015, Manuel Pichler <mapi@pdepend.org>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -36,7 +36,7 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @copyright 2008-2013 Manuel Pichler. All rights reserved.
+ * @copyright 2008-2015 Manuel Pichler. All rights reserved.
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
  */
 
@@ -45,7 +45,7 @@ namespace PDepend\Source\Tokenizer;
 /**
  * This interface holds the different tokenizer, builder and parser constants.
  *
- * @copyright 2008-2013 Manuel Pichler. All rights reserved.
+ * @copyright 2008-2015 Manuel Pichler. All rights reserved.
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
  */
 interface Tokens
@@ -849,6 +849,18 @@ interface Tokens
      * Token that represents the 'finally' keyword.
      */
     const T_FINALLY = 160;
+
+    /**
+     * Token that represents the '...' token
+     *
+     * @since 2.0.7
+     */
+    const T_ELLIPSIS = 161;
+
+    /**
+     * Token that represents the '<=>' spaceship operator
+     */
+    const T_SPACESHIP = 162;
 
     /**
      * Marks any content not between php tags.

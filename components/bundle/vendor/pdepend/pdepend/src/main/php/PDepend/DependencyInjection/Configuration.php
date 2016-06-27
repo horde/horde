@@ -4,7 +4,7 @@
  *
  * PHP Version 5
  *
- * Copyright (c) 2008-2013, Manuel Pichler <mapi@pdepend.org>.
+ * Copyright (c) 2008-2015, Manuel Pichler <mapi@pdepend.org>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -36,22 +36,21 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @copyright 2008-2013 Manuel Pichler. All rights reserved.
+ * @copyright 2008-2015 Manuel Pichler. All rights reserved.
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
  */
 
 namespace PDepend\DependencyInjection;
 
-use Symfony\Component\Config\Definition\Builder\TreeBuilder;
-use Symfony\Component\Config\Definition\ConfigurationInterface;
-
 use PDepend\Util\FileUtil;
 use PDepend\Util\Workarounds;
+use Symfony\Component\Config\Definition\Builder\TreeBuilder;
+use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 /**
  * This is the class that validates and merges configuration
  *
- * @copyright 2008-2013 Manuel Pichler. All rights reserved.
+ * @copyright 2008-2015 Manuel Pichler. All rights reserved.
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
  */
 class Configuration implements ConfigurationInterface
@@ -81,34 +80,33 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->arrayNode('cache')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->enumNode('driver')->defaultValue($defaultCacheDriver)->values(array('file', 'memory'))->end()
-                        ->scalarNode('location')->defaultValue($home . '/.pdepend')->end()
-                    ->end()
-                ->end()
-                ->arrayNode('image_convert')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->scalarNode('font_size')->defaultValue('11')->end()
-                        ->scalarNode('font_family')->defaultValue('Arial')->end()
-                    ->end()
-                ->end()
-                ->arrayNode('parser')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->integerNode('nesting')->defaultValue(65536)->end()
-                    ->end()
-                ->end()
+            ->arrayNode('cache')
+            ->addDefaultsIfNotSet()
+            ->children()
+            ->enumNode('driver')->defaultValue($defaultCacheDriver)->values(array('file', 'memory'))->end()
+            ->scalarNode('location')->defaultValue($home . '/.pdepend')->end()
             ->end()
-        ;
+            ->end()
+            ->arrayNode('image_convert')
+            ->addDefaultsIfNotSet()
+            ->children()
+            ->scalarNode('font_size')->defaultValue('11')->end()
+            ->scalarNode('font_family')->defaultValue('Arial')->end()
+            ->end()
+            ->end()
+            ->arrayNode('parser')
+            ->addDefaultsIfNotSet()
+            ->children()
+            ->integerNode('nesting')->defaultValue(65536)->end()
+            ->end()
+            ->end()
+            ->end();
 
         $extensionsNode = $rootNode
             ->children()
-                ->arrayNode('extensions')
-                ->addDefaultsIfNotSet()
-                    ->children();
+            ->arrayNode('extensions')
+            ->addDefaultsIfNotSet()
+            ->children();
 
         foreach ($this->extensions as $extension) {
             $extensionNode = $extensionsNode->arrayNode($extension->getName());

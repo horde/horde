@@ -2,8 +2,6 @@
 /**
  * This file is part of PHP Mess Detector.
  *
- * PHP Version 5
- *
  * Copyright (c) 2008-2012, Manuel Pichler <mapi@phpmd.org>.
  * All rights reserved.
  *
@@ -39,7 +37,6 @@
  * @author    Manuel Pichler <mapi@phpmd.org>
  * @copyright 2008-2014 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php BSD License
- * @version   @project.version@
  */
 
 namespace PHPMD\Rule\Naming;
@@ -55,7 +52,6 @@ use PHPMD\Rule\MethodAware;
  * @author    Manuel Pichler <mapi@phpmd.org>
  * @copyright 2008-2014 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php BSD License
- * @version   @project.version@
  */
 class ShortMethodName extends AbstractRule implements MethodAware, FunctionAware
 {
@@ -73,6 +69,13 @@ class ShortMethodName extends AbstractRule implements MethodAware, FunctionAware
         if ($threshold <= strlen($node->getName())) {
             return;
         }
+
+        $exceptions = $this->getExceptionsList();
+
+        if (in_array($node->getName(), $exceptions)) {
+            return;
+        }
+
         $this->addViolation(
             $node,
             array(
@@ -81,5 +84,21 @@ class ShortMethodName extends AbstractRule implements MethodAware, FunctionAware
                 $threshold
             )
         );
+    }
+
+    /**
+     * Gets array of exceptions from property
+     *
+     * @return array
+     */
+    private function getExceptionsList()
+    {
+        try {
+            $exceptions = $this->getStringProperty('exceptions');
+        } catch (\OutOfBoundsException $e) {
+            $exceptions = '';
+        }
+
+        return explode(',', $exceptions);
     }
 }

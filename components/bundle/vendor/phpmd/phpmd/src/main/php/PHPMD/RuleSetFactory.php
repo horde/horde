@@ -2,8 +2,6 @@
 /**
  * This file is part of PHP Mess Detector.
  *
- * PHP Version 5
- *
  * Copyright (c) 2008-2012, Manuel Pichler <mapi@phpmd.org>.
  * All rights reserved.
  *
@@ -39,7 +37,6 @@
  * @author    Manuel Pichler <mapi@phpmd.org>
  * @copyright 2008-2014 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php BSD License
- * @version   @project.version@
  */
 
 namespace PHPMD;
@@ -51,7 +48,6 @@ namespace PHPMD;
  * @author    Manuel Pichler <mapi@phpmd.org>
  * @copyright 2008-2014 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php BSD License
- * @version   @project.version@
  */
 class RuleSetFactory
 {
@@ -186,6 +182,17 @@ class RuleSetFactory
             return $fileName;
         }
 
+        foreach (explode(PATH_SEPARATOR, get_include_path()) as $includePath) {
+            $fileName = $includePath . '/' . $ruleSetOrFileName;
+            if (file_exists($fileName) === true) {
+                return $fileName;
+            }
+            $fileName = $includePath . '/' . $ruleSetOrFileName . ".xml";
+            if (file_exists($fileName) === true) {
+                return $fileName;
+            }
+        }
+
         throw new RuleSetNotFoundException($ruleSetOrFileName);
     }
 
@@ -235,6 +242,20 @@ class RuleSetFactory
 
         if ($this->strict) {
             $ruleSet->setStrict();
+        }
+
+        foreach ($xml->children() as $node) {
+            if ($node->getName() === 'php-includepath') {
+                $includePath = (string) $node;
+
+                if (is_dir(dirname($fileName) . DIRECTORY_SEPARATOR . $includePath)) {
+                    $includePath = dirname($fileName) . DIRECTORY_SEPARATOR . $includePath;
+                    $includePath = realpath($includePath);
+                }
+
+                $includePath = get_include_path() . PATH_SEPARATOR . $includePath;
+                set_include_path($includePath);
+            }
         }
 
         foreach ($xml->children() as $node) {
@@ -332,8 +353,28 @@ class RuleSetFactory
      */
     private function parseSingleRuleNode(RuleSet $ruleSet, \SimpleXMLElement $ruleNode)
     {
+        $fileName = "";
+
+        $ruleSetFolderPath = dirname($ruleSet->getFileName());
+
+        if (isset($ruleNode['file'])) {
+            if (is_readable((string) $ruleNode['file'])) {
+                $fileName = (string) $ruleNode['file'];
+
+            } elseif (is_readable($ruleSetFolderPath . DIRECTORY_SEPARATOR . (string) $ruleNode['file'])) {
+                $fileName = $ruleSetFolderPath . DIRECTORY_SEPARATOR . (string) $ruleNode['file'];
+            }
+        }
+
         $className = (string) $ruleNode['class'];
-        $fileName  = strtr($className, '\\', '/') . '.php';
+
+        if (!is_readable($fileName)) {
+            $fileName = strtr($className, '\\', '/') . '.php';
+        }
+
+        if (!is_readable($fileName)) {
+            $fileName = str_replace(array('\\', '_'), '/', $className) . '.php';
+        }
 
         if (class_exists($className) === false) {
             $handle = @fopen($fileName, 'r', true);

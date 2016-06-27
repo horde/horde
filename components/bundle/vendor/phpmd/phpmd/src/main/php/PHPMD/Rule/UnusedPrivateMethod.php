@@ -2,8 +2,6 @@
 /**
  * This file is part of PHP Mess Detector.
  *
- * PHP Version 5
- *
  * Copyright (c) 2008-2012, Manuel Pichler <mapi@phpmd.org>.
  * All rights reserved.
  *
@@ -39,7 +37,6 @@
  * @author    Manuel Pichler <mapi@phpmd.org>
  * @copyright 2008-2014 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php BSD License
- * @version   @project.version@
  */
 
 namespace PHPMD\Rule;
@@ -57,7 +54,6 @@ use PHPMD\Node\MethodNode;
  * @author    Manuel Pichler <mapi@phpmd.org>
  * @copyright 2008-2014 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php BSD License
- * @version   @project.version@
  */
 class UnusedPrivateMethod extends AbstractRule implements ClassAware
 {
@@ -153,10 +149,8 @@ class UnusedPrivateMethod extends AbstractRule implements ClassAware
     private function isClassScope(ClassNode $class, ASTNode $postfix)
     {
         $owner = $postfix->getParent()->getChild(0);
-        if ($owner->isInstanceOf('MethodPostfix')) {
-            $owner = $owner->getParent()->getParent()->getChild(0);
-        }
         return (
+        $owner->isInstanceOf('MethodPostfix') ||
             $owner->isInstanceOf('SelfReference') ||
             $owner->isInstanceOf('StaticReference') ||
             strcasecmp($owner->getImage(), '$this') === 0 ||
