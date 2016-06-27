@@ -22,7 +22,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-02-02</date>
+ <date>2016-06-27</date>
  <version>
   <release>2.2.8</release>
   <api>2.2.0</api>
@@ -91,6 +91,7 @@
        <file name="ExternalTest.php" role="test" />
        <file name="FileTest.php" role="test" />
        <file name="MemcacheTest.php" role="test" />
+       <file name="MongoTest.php" role="test" />
        <file name="StackTest.php" role="test" />
       </dir> <!-- /test/Horde/SessionHandler/Storage -->
       <file name="AllTests.php" role="test" />
@@ -190,6 +191,7 @@
    <install as="Horde/SessionHandler/Storage/ExternalTest.php" name="test/Horde/SessionHandler/Storage/ExternalTest.php" />
    <install as="Horde/SessionHandler/Storage/FileTest.php" name="test/Horde/SessionHandler/Storage/FileTest.php" />
    <install as="Horde/SessionHandler/Storage/MemcacheTest.php" name="test/Horde/SessionHandler/Storage/MemcacheTest.php" />
+   <install as="Horde/SessionHandler/Storage/MongoTest.php" name="test/Horde/SessionHandler/Storage/MongoTest.php" />
    <install as="Horde/SessionHandler/Storage/StackTest.php" name="test/Horde/SessionHandler/Storage/StackTest.php" />
    <install as="Horde/SessionHandler/Storage/Sql/Base.php" name="test/Horde/SessionHandler/Storage/Sql/Base.php" />
    <install as="Horde/SessionHandler/Storage/Sql/MysqliTest.php" name="test/Horde/SessionHandler/Storage/Sql/MysqliTest.php" />
@@ -614,7 +616,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-02-02</date>
+   <date>2016-06-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 
