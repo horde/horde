@@ -156,7 +156,7 @@ class Horde_Db_SearchParser
         }
 
         $val = Horde_String::lower(substr(array_shift($tokens), 1));
-        $val = addslashes(ereg_replace("([\\%])", "\\\\1", $val));
+        $val = addslashes(str_replace("%", "\\%", $val));
 
         return "(LOWER($column) LIKE '%$val%')";
     }
