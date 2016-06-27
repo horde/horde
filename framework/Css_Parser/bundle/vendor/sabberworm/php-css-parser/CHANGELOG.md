@@ -22,6 +22,12 @@
 * *No backwards-incompatible changes*
 * *No deprecations*
 
+### 7.0.3 (2016-04-27)
+
+* Fixed parsing empty CSS when multibyte is off
+* *No backwards-incompatible changes*
+* *No deprecations*
+
 ## 6.0
 
 ### 6.0.0 (2014-07-03)
@@ -114,7 +120,9 @@
 
 ### 5.1.2 (2013-10-30)
 
-* Remove the use of consumeUntil in comment parsing. This makes it possible to parse comments such as “/** Perfectly valid **/”
+* Remove the use of consumeUntil in comment parsing. This makes it possible to parse comments such as `/** Perfectly valid **/`
+* Add fr relative size unit
+* Fix some issues with HHVM
 * *No backwards-incompatible changes*
 * *No deprecations*
 
