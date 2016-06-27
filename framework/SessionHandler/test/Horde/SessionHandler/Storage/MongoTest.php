@@ -13,7 +13,7 @@ require_once dirname(__FILE__) . '/Base.php';
  * @subpackage UnitTests
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  */
-class Horde_SessionHandler_Storage_MemcacheTest extends Horde_SessionHandler_Storage_Base
+class Horde_SessionHandler_Storage_MongoTest extends Horde_SessionHandler_Storage_Base
 {
     protected static $reason;
     protected static $mongo;
