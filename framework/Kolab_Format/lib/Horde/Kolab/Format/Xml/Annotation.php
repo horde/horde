@@ -59,7 +59,7 @@ class Horde_Kolab_Format_Xml_Annotation extends Horde_Kolab_Format_Xml
 
         $result = array();
         foreach ($object['annotation'] as $annotation) {
-            list($key, $value)           = split('#', $annotation, 2);
+            list($key, $value)           = explode('#', $annotation, 2);
             $result[base64_decode($key)] = base64_decode($value);
         }
 
