@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-06-18</date>
+ <date>2016-06-27</date>
  <version>
   <release>1.0.3</release>
   <api>1.0.0</api>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
  <notes>
-* 
+* [jan] Update bundled code from github.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -29,12 +29,13 @@
     <dir name="vendor">
      <dir name="composer">
       <file name="autoload_classmap.php" role="php" />
-      <file name="autoload_files.php" role="php" />
       <file name="autoload_namespaces.php" role="php" />
       <file name="autoload_psr4.php" role="php" />
       <file name="autoload_real.php" role="php" />
+      <file name="autoload_static.php" role="php" />
       <file name="ClassLoader.php" role="php" />
       <file name="installed.json" role="php" />
+      <file name="LICENSE" role="php" />
      </dir> <!-- /bundle/vendor/composer -->
      <dir name="znerol">
       <dir name="php-stringprep">
@@ -80,6 +81,9 @@
            <file name="ProfileTest.php" role="php" />
            <file name="UnicodeUtilTest.php" role="php" />
           </dir> <!-- /bundle/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/Tests -->
+          <file name=".gitignore" role="php" />
+          <file name=".travis.yml" role="php" />
+          <file name="LICENSE" role="php" />
           <file name="phpunit.xml" role="php" />
           <file name="Profile.php" role="php" />
           <file name="ProfileException.php" role="php" />
@@ -129,12 +133,16 @@
   <filelist>
    <install as="Horde/Stringprep/vendor/autoload.php" name="bundle/vendor/autoload.php" />
    <install as="Horde/Stringprep/vendor/composer/autoload_classmap.php" name="bundle/vendor/composer/autoload_classmap.php" />
-   <install as="Horde/Stringprep/vendor/composer/autoload_files.php" name="bundle/vendor/composer/autoload_files.php" />
    <install as="Horde/Stringprep/vendor/composer/autoload_namespaces.php" name="bundle/vendor/composer/autoload_namespaces.php" />
    <install as="Horde/Stringprep/vendor/composer/autoload_psr4.php" name="bundle/vendor/composer/autoload_psr4.php" />
    <install as="Horde/Stringprep/vendor/composer/autoload_real.php" name="bundle/vendor/composer/autoload_real.php" />
+   <install as="Horde/Stringprep/vendor/composer/autoload_static.php" name="bundle/vendor/composer/autoload_static.php" />
    <install as="Horde/Stringprep/vendor/composer/ClassLoader.php" name="bundle/vendor/composer/ClassLoader.php" />
    <install as="Horde/Stringprep/vendor/composer/installed.json" name="bundle/vendor/composer/installed.json" />
+   <install as="Horde/Stringprep/vendor/composer/LICENSE" name="bundle/vendor/composer/LICENSE" />
+   <install as="Horde/Stringprep/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.gitignore" name="bundle/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.gitignore" />
+   <install as="Horde/Stringprep/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.travis.yml" name="bundle/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.travis.yml" />
+   <install as="Horde/Stringprep/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/LICENSE" name="bundle/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/LICENSE" />
    <install as="Horde/Stringprep/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/phpunit.xml" name="bundle/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/phpunit.xml" />
    <install as="Horde/Stringprep/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/Profile.php" name="bundle/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/Profile.php" />
    <install as="Horde/Stringprep/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/ProfileException.php" name="bundle/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/ProfileException.php" />
@@ -222,10 +230,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-06-18</date>
+   <date>2016-06-27</date>
    <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
    <notes>
-* 
+* [jan] Update bundled code from github.
    </notes>
   </release>
  </changelog>

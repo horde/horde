@@ -1,6 +1,13 @@
 PHP stringprep
 ==============
 
+[![Build Status](https://travis-ci.org/znerol/Stringprep.svg?branch=master)](https://travis-ci.org/znerol/Stringprep)
+
+**Please note that this project is not maintained. It was implemented on a
+weekend and never used in production by the author. If you intend to use it,
+then please fork it, fix it and then sumbit a pull request updating this
+document to point to the proper project.**
+
 This is a PHP implementation of RFC 3454 - Preparation of Internationalized
 Strings ("stringprep").
 
@@ -87,7 +94,7 @@ catch (ProfileException $e) {
 License
 -------
 
-This software is released under the GNU General Public License v3.0
+This software is released under the GNU Lesser General Public License, version 3.0 (LGPL-3.0)
 
 Acknowledgment
 --------------

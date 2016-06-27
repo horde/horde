@@ -1,6 +1,7 @@
 <?php
 
 namespace Znerol\Component\Stringprep\Profile;
+use Znerol\Component\Stringprep\Profile;
 
 /**
  * XMPP Resourceprep profile for stringprep defined in RFC 6122, Appendix B
