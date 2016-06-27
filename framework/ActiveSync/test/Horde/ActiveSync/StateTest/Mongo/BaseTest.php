@@ -204,7 +204,8 @@ class Horde_ActiveSync_StateTest_Mongo_BaseTest extends Horde_ActiveSync_StateTe
 
     public static function tearDownAfterClass()
     {
-        if (class_exists('MongoDB')) {
+        if ((extension_loaded('mongo') || extension_loaded('mongodb')) &&
+            class_exists('Horde_Mongo_Client')) {
             try {
                 $mongo = new Horde_Mongo_Client();
                 $mongo->activesync_test->drop();
@@ -216,7 +217,8 @@ class Horde_ActiveSync_StateTest_Mongo_BaseTest extends Horde_ActiveSync_StateTe
 
     public function setUp()
     {
-        if (!class_exists('MongoDB')) {
+        if (!(extension_loaded('mongo') || extension_loaded('mongodb')) ||
+            !class_exists('Horde_Mongo_Client')) {
             $this->markTestSkipped('MongoDB extension not loaded.');
             return;
         }
