@@ -30,7 +30,8 @@ Users
 
 OpenPGP.php is currently being used in the following projects:
 
-* <http://drupal.org/project/openpgp>
+* <https://drupal.org/project/openpgp>
+* <https://wordpress.org/plugins/wp-pgp-encrypted-emails/>
 
 Download
 --------

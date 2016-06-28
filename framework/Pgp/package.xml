@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-01-06</date>
+ <date>2016-06-28</date>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0</api>
@@ -32,6 +32,7 @@
       <file name="autoload_namespaces.php" role="php" />
       <file name="autoload_psr4.php" role="php" />
       <file name="autoload_real.php" role="php" />
+      <file name="autoload_static.php" role="php" />
       <file name="ClassLoader.php" role="php" />
       <file name="include_paths.php" role="php" />
       <file name="installed.json" role="php" />
@@ -481,6 +482,7 @@
    <install as="Horde/Pgp/vendor/composer/autoload_namespaces.php" name="bundle/vendor/composer/autoload_namespaces.php" />
    <install as="Horde/Pgp/vendor/composer/autoload_psr4.php" name="bundle/vendor/composer/autoload_psr4.php" />
    <install as="Horde/Pgp/vendor/composer/autoload_real.php" name="bundle/vendor/composer/autoload_real.php" />
+   <install as="Horde/Pgp/vendor/composer/autoload_static.php" name="bundle/vendor/composer/autoload_static.php" />
    <install as="Horde/Pgp/vendor/composer/ClassLoader.php" name="bundle/vendor/composer/ClassLoader.php" />
    <install as="Horde/Pgp/vendor/composer/include_paths.php" name="bundle/vendor/composer/include_paths.php" />
    <install as="Horde/Pgp/vendor/composer/installed.json" name="bundle/vendor/composer/installed.json" />

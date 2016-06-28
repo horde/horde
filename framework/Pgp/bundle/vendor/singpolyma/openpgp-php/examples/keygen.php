@@ -3,7 +3,7 @@
 require_once dirname(__FILE__).'/../lib/openpgp.php';
 require_once dirname(__FILE__).'/../lib/openpgp_crypt_rsa.php';
 
-$rsa = new Crypt_RSA();
+$rsa = new \phpseclib\Crypt\RSA();
 $k = $rsa->createKey(512);
 $rsa->loadKey($k['privatekey']);
 

@@ -1715,9 +1715,18 @@ class OpenPGP_LiteralDataPacket extends OpenPGP_Packet {
     $this->timestamp = isset($opt['timestamp']) ? $opt['timestamp'] : time();
   }
 
-  function normalize() {
+  function normalize($clearsign=false) {
+    if($clearsign && ($this->format != 'u' && $this->format != 't')) {
+      $this->format = 'u'; // Clearsign must be text
+    }
+
     if($this->format == 'u' || $this->format == 't') { // Normalize line endings
       $this->data = str_replace("\n", "\r\n", str_replace("\r", "\n", str_replace("\r\n", "\n", $this->data)));
+    }
+
+    if($clearsign) {
+      // When clearsigning, do not sign over trailing whitespace
+      $this->data = preg_replace('/\s+\r/', "\r", $this->data);
     }
   }
 

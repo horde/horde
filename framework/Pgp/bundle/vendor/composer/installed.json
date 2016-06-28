@@ -96,12 +96,12 @@
         "source": {
             "type": "git",
             "url": "https://github.com/singpolyma/openpgp-php.git",
-            "reference": "a1fe3a6e58c83a7c84a954397ac0bbc373a12fc7"
+            "reference": "859efcbee3daa5fecb765246c98800c694c91ee4"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/singpolyma/openpgp-php/zipball/a1fe3a6e58c83a7c84a954397ac0bbc373a12fc7",
-            "reference": "a1fe3a6e58c83a7c84a954397ac0bbc373a12fc7",
+            "url": "https://api.github.com/repos/singpolyma/openpgp-php/zipball/859efcbee3daa5fecb765246c98800c694c91ee4",
+            "reference": "859efcbee3daa5fecb765246c98800c694c91ee4",
             "shasum": ""
         },
         "require": {
@@ -110,7 +110,7 @@
         "require-dev": {
             "phpunit/phpunit": "~4.0"
         },
-        "time": "2015-11-30 19:49:15",
+        "time": "2016-03-15 12:23:47",
         "type": "library",
         "installation-source": "source",
         "autoload": {
