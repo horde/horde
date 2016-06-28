@@ -1363,13 +1363,13 @@ class Nag_Task
         /* Due Date */
         if (!empty($this->due)) {
             $message->utcduedate = new Horde_Date($this->due);
-            $message->duedate = new Horde_Date($this->due, 'UTC');
+            $message->duedate = clone($message->utcduedate);
         }
 
         /* Start Date */
         if (!empty($this->start)) {
             $message->utcstartdate = new Horde_Date($this->start);
-            $message->startdate = new Horde_Date($this->start, 'UTC');
+            $message->startdate = clone($message->utcstartdate);
         }
 
         /* Priority */
