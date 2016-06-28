@@ -1,6 +1,5 @@
 {
-    "minimum-stability": "dev",
     "require": {
-        "singpolyma/openpgp-php": "*"
+        "singpolyma/openpgp-php": "dev-master"
     }
 }
