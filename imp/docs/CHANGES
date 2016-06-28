@@ -2,6 +2,7 @@
 v7.0.0-git
 ----------
 
+[mjr] Display comment attribute in iTip viewer (Request #14407).
 [mjr] Update the user/attendee participation status when accepting/importing
       an iTip.
 [jan] Allow to import multiple PGP keys in a single PGP packet (Request
