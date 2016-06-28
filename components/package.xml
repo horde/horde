@@ -10,7 +10,7 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2016-06-27</date>
+ <date>2016-06-28</date>
  <version>
   <release>0.99.1</release>
   <api>1.0</api>
@@ -70,7 +70,6 @@
       <dir name="pdepend">
        <dir name="scripts">
         <file name="compare.sh" role="horde" />
-        <file name="update-version.php" role="horde" />
        </dir> <!-- /bundle/vendor/pdepend/pdepend/scripts -->
        <dir name="src">
         <dir name="bin">
@@ -608,35 +607,6 @@
         </dir> <!-- /bundle/vendor/phpunit/php-token-stream/src/Token -->
         <file name="Token.php" role="horde" />
        </dir> <!-- /bundle/vendor/phpunit/php-token-stream/src -->
-       <dir name="tests">
-        <dir name="Token">
-         <file name="ClassTest.php" role="horde" />
-         <file name="ClosureTest.php" role="horde" />
-         <file name="FunctionTest.php" role="horde" />
-         <file name="IncludeTest.php" role="horde" />
-         <file name="InterfaceTest.php" role="horde" />
-         <file name="NamespaceTest.php" role="horde" />
-        </dir> <!-- /bundle/vendor/phpunit/php-token-stream/tests/Token -->
-        <dir name="_fixture">
-         <file name="classExtendsNamespacedClass.php" role="horde" />
-         <file name="classInNamespace.php" role="horde" />
-         <file name="classInScopedNamespace.php" role="horde" />
-         <file name="class_with_method_that_declares_anonymous_class.php" role="horde" />
-         <file name="class_with_method_that_declares_anonymous_class2.php" role="horde" />
-         <file name="closure.php" role="horde" />
-         <file name="issue19.php" role="horde" />
-         <file name="issue30.php" role="horde" />
-         <file name="multipleNamespacesWithOneClassUsingBraces.php" role="horde" />
-         <file name="multipleNamespacesWithOneClassUsingNonBraceSyntax.php" role="horde" />
-         <file name="source.php" role="horde" />
-         <file name="source2.php" role="horde" />
-         <file name="source3.php" role="horde" />
-         <file name="source4.php" role="horde" />
-         <file name="source5.php" role="horde" />
-        </dir> <!-- /bundle/vendor/phpunit/php-token-stream/tests/_fixture -->
-        <file name="bootstrap.php" role="horde" />
-        <file name="TokenTest.php" role="horde" />
-       </dir> <!-- /bundle/vendor/phpunit/php-token-stream/tests -->
        <file name=".gitattributes" role="horde" />
        <file name=".gitignore" role="horde" />
        <file name=".travis.yml" role="horde" />
@@ -1347,215 +1317,6 @@
         <file name="ParameterBag.php" role="horde" />
         <file name="ParameterBagInterface.php" role="horde" />
        </dir> <!-- /bundle/vendor/symfony/dependency-injection/ParameterBag -->
-       <dir name="Tests">
-        <dir name="Compiler">
-         <file name="AnalyzeServiceReferencesPassTest.php" role="horde" />
-         <file name="AutoAliasServicePassTest.php" role="horde" />
-         <file name="AutowirePassTest.php" role="horde" />
-         <file name="CheckCircularReferencesPassTest.php" role="horde" />
-         <file name="CheckDefinitionValidityPassTest.php" role="horde" />
-         <file name="CheckExceptionOnInvalidReferenceBehaviorPassTest.php" role="horde" />
-         <file name="CheckReferenceValidityPassTest.php" role="horde" />
-         <file name="DecoratorServicePassTest.php" role="horde" />
-         <file name="ExtensionCompilerPassTest.php" role="horde" />
-         <file name="InlineServiceDefinitionsPassTest.php" role="horde" />
-         <file name="IntegrationTest.php" role="horde" />
-         <file name="MergeExtensionConfigurationPassTest.php" role="horde" />
-         <file name="OptionalServiceClass.php" role="horde" />
-         <file name="RemoveUnusedDefinitionsPassTest.php" role="horde" />
-         <file name="ReplaceAliasByActualDefinitionPassTest.php" role="horde" />
-         <file name="ResolveDefinitionTemplatesPassTest.php" role="horde" />
-         <file name="ResolveInvalidReferencesPassTest.php" role="horde" />
-         <file name="ResolveParameterPlaceHoldersPassTest.php" role="horde" />
-         <file name="ResolveReferencesToAliasesPassTest.php" role="horde" />
-        </dir> <!-- /bundle/vendor/symfony/dependency-injection/Tests/Compiler -->
-        <dir name="Config">
-         <file name="AutowireServiceResourceTest.php" role="horde" />
-        </dir> <!-- /bundle/vendor/symfony/dependency-injection/Tests/Config -->
-        <dir name="Dumper">
-         <file name="GraphvizDumperTest.php" role="horde" />
-         <file name="PhpDumperTest.php" role="horde" />
-         <file name="XmlDumperTest.php" role="horde" />
-         <file name="YamlDumperTest.php" role="horde" />
-        </dir> <!-- /bundle/vendor/symfony/dependency-injection/Tests/Dumper -->
-        <dir name="Extension">
-         <file name="ExtensionTest.php" role="horde" />
-        </dir> <!-- /bundle/vendor/symfony/dependency-injection/Tests/Extension -->
-        <dir name="Fixtures">
-         <dir name="containers">
-          <file name="container8.php" role="horde" />
-          <file name="container9.php" role="horde" />
-          <file name="container10.php" role="horde" />
-          <file name="container11.php" role="horde" />
-          <file name="container12.php" role="horde" />
-          <file name="container13.php" role="horde" />
-          <file name="container14.php" role="horde" />
-          <file name="container15.php" role="horde" />
-          <file name="container16.php" role="horde" />
-          <file name="container17.php" role="horde" />
-          <file name="container19.php" role="horde" />
-          <file name="container21.php" role="horde" />
-          <file name="container24.php" role="horde" />
-          <file name="CustomContainer.php" role="horde" />
-         </dir> <!-- /bundle/vendor/symfony/dependency-injection/Tests/Fixtures/containers -->
-         <dir name="directory">
-          <dir name="import">
-           <file name="import.yml" role="horde" />
-          </dir> <!-- /bundle/vendor/symfony/dependency-injection/Tests/Fixtures/directory/import -->
-          <dir name="recurse">
-           <file name="simple.ini" role="horde" />
-           <file name="simple.yml" role="horde" />
-          </dir> <!-- /bundle/vendor/symfony/dependency-injection/Tests/Fixtures/directory/recurse -->
-          <file name="simple.php" role="horde" />
-         </dir> <!-- /bundle/vendor/symfony/dependency-injection/Tests/Fixtures/directory -->
-         <dir name="graphviz">
-          <file name="services1.dot" role="horde" />
-          <file name="services9.dot" role="horde" />
-          <file name="services10-1.dot" role="horde" />
-          <file name="services10.dot" role="horde" />
-          <file name="services13.dot" role="horde" />
-          <file name="services14.dot" role="horde" />
-          <file name="services17.dot" role="horde" />
-          <file name="services18.dot" role="horde" />
-         </dir> <!-- /bundle/vendor/symfony/dependency-injection/Tests/Fixtures/graphviz -->
-         <dir name="includes">
-          <dir name="schema">
-           <file name="project-1.0.xsd" role="horde" />
-          </dir> <!-- /bundle/vendor/symfony/dependency-injection/Tests/Fixtures/includes/schema -->
-          <file name="classes.php" role="horde" />
-          <file name="createphar.php" role="horde" />
-          <file name="foo.php" role="horde" />
-          <file name="ProjectExtension.php" role="horde" />
-          <file name="ProjectWithXsdExtension.php" role="horde" />
-          <file name="ProjectWithXsdExtensionInPhar.phar" role="horde" />
-         </dir> <!-- /bundle/vendor/symfony/dependency-injection/Tests/Fixtures/includes -->
-         <dir name="ini">
-          <file name="nonvalid.ini" role="horde" />
-          <file name="parameters.ini" role="horde" />
-          <file name="parameters1.ini" role="horde" />
-          <file name="parameters2.ini" role="horde" />
-         </dir> <!-- /bundle/vendor/symfony/dependency-injection/Tests/Fixtures/ini -->
-         <dir name="php">
-          <file name="services1-1.php" role="horde" />
-          <file name="services1.php" role="horde" />
-          <file name="services8.php" role="horde" />
-          <file name="services9.php" role="horde" />
-          <file name="services9_compiled.php" role="horde" />
-          <file name="services10.php" role="horde" />
-          <file name="services12.php" role="horde" />
-          <file name="services13.php" role="horde" />
-          <file name="services19.php" role="horde" />
-          <file name="services24.php" role="horde" />
-          <file name="simple.php" role="horde" />
-         </dir> <!-- /bundle/vendor/symfony/dependency-injection/Tests/Fixtures/php -->
-         <dir name="xml">
-          <dir name="extension1">
-           <file name="services.xml" role="horde" />
-          </dir> <!-- /bundle/vendor/symfony/dependency-injection/Tests/Fixtures/xml/extension1 -->
-          <dir name="extension2">
-           <file name="services.xml" role="horde" />
-          </dir> <!-- /bundle/vendor/symfony/dependency-injection/Tests/Fixtures/xml/extension2 -->
-          <dir name="extensions">
-           <file name="services1.xml" role="horde" />
-           <file name="services2.xml" role="horde" />
-           <file name="services3.xml" role="horde" />
-           <file name="services4.xml" role="horde" />
-           <file name="services5.xml" role="horde" />
-           <file name="services6.xml" role="horde" />
-           <file name="services7.xml" role="horde" />
-          </dir> <!-- /bundle/vendor/symfony/dependency-injection/Tests/Fixtures/xml/extensions -->
-          <file name="legacy_invalid_alias_definition.xml" role="horde" />
-          <file name="namespaces.xml" role="horde" />
-          <file name="nonvalid.xml" role="horde" />
-          <file name="services1.xml" role="horde" />
-          <file name="services2.xml" role="horde" />
-          <file name="services3.xml" role="horde" />
-          <file name="services4.xml" role="horde" />
-          <file name="services4_bad_import.xml" role="horde" />
-          <file name="services5.xml" role="horde" />
-          <file name="services6.xml" role="horde" />
-          <file name="services7.xml" role="horde" />
-          <file name="services8.xml" role="horde" />
-          <file name="services9.xml" role="horde" />
-          <file name="services10.xml" role="horde" />
-          <file name="services13.xml" role="horde" />
-          <file name="services14.xml" role="horde" />
-          <file name="services21.xml" role="horde" />
-          <file name="services22.xml" role="horde" />
-          <file name="services23.xml" role="horde" />
-          <file name="services24.xml" role="horde" />
-          <file name="tag_without_name.xml" role="horde" />
-          <file name="tag_with_empty_name.xml" role="horde" />
-          <file name="withdoctype.xml" role="horde" />
-         </dir> <!-- /bundle/vendor/symfony/dependency-injection/Tests/Fixtures/xml -->
-         <dir name="yaml">
-          <file name="badtag1.yml" role="horde" />
-          <file name="badtag2.yml" role="horde" />
-          <file name="badtag3.yml" role="horde" />
-          <file name="badtag4.yml" role="horde" />
-          <file name="bad_calls.yml" role="horde" />
-          <file name="bad_decorates.yml" role="horde" />
-          <file name="bad_format.yml" role="horde" />
-          <file name="bad_import.yml" role="horde" />
-          <file name="bad_imports.yml" role="horde" />
-          <file name="bad_parameters.yml" role="horde" />
-          <file name="bad_service.yml" role="horde" />
-          <file name="bad_services.yml" role="horde" />
-          <file name="bad_types1.yml" role="horde" />
-          <file name="bad_types2.yml" role="horde" />
-          <file name="legacy_invalid_alias_definition.yml" role="horde" />
-          <file name="legacy_invalid_definition.yml" role="horde" />
-          <file name="nonvalid1.yml" role="horde" />
-          <file name="nonvalid2.yml" role="horde" />
-          <file name="services1.yml" role="horde" />
-          <file name="services2.yml" role="horde" />
-          <file name="services3.yml" role="horde" />
-          <file name="services4.yml" role="horde" />
-          <file name="services4_bad_import.yml" role="horde" />
-          <file name="services6.yml" role="horde" />
-          <file name="services7.yml" role="horde" />
-          <file name="services8.yml" role="horde" />
-          <file name="services9.yml" role="horde" />
-          <file name="services10.yml" role="horde" />
-          <file name="services11.yml" role="horde" />
-          <file name="services13.yml" role="horde" />
-          <file name="services14.yml" role="horde" />
-          <file name="services21.yml" role="horde" />
-          <file name="services22.yml" role="horde" />
-          <file name="services23.yml" role="horde" />
-          <file name="services24.yml" role="horde" />
-          <file name="tag_name_empty_string.yml" role="horde" />
-          <file name="tag_name_no_string.yml" role="horde" />
-         </dir> <!-- /bundle/vendor/symfony/dependency-injection/Tests/Fixtures/yaml -->
-        </dir> <!-- /bundle/vendor/symfony/dependency-injection/Tests/Fixtures -->
-        <dir name="LazyProxy">
-         <dir name="Instantiator">
-          <file name="RealServiceInstantiatorTest.php" role="horde" />
-         </dir> <!-- /bundle/vendor/symfony/dependency-injection/Tests/LazyProxy/Instantiator -->
-         <dir name="PhpDumper">
-          <file name="NullDumperTest.php" role="horde" />
-         </dir> <!-- /bundle/vendor/symfony/dependency-injection/Tests/LazyProxy/PhpDumper -->
-        </dir> <!-- /bundle/vendor/symfony/dependency-injection/Tests/LazyProxy -->
-        <dir name="Loader">
-         <file name="ClosureLoaderTest.php" role="horde" />
-         <file name="DirectoryLoaderTest.php" role="horde" />
-         <file name="IniFileLoaderTest.php" role="horde" />
-         <file name="PhpFileLoaderTest.php" role="horde" />
-         <file name="XmlFileLoaderTest.php" role="horde" />
-         <file name="YamlFileLoaderTest.php" role="horde" />
-        </dir> <!-- /bundle/vendor/symfony/dependency-injection/Tests/Loader -->
-        <dir name="ParameterBag">
-         <file name="FrozenParameterBagTest.php" role="horde" />
-         <file name="ParameterBagTest.php" role="horde" />
-        </dir> <!-- /bundle/vendor/symfony/dependency-injection/Tests/ParameterBag -->
-        <file name="ContainerBuilderTest.php" role="horde" />
-        <file name="ContainerTest.php" role="horde" />
-        <file name="CrossCheckTest.php" role="horde" />
-        <file name="DefinitionDecoratorTest.php" role="horde" />
-        <file name="DefinitionTest.php" role="horde" />
-        <file name="ParameterTest.php" role="horde" />
-        <file name="ReferenceTest.php" role="horde" />
-       </dir> <!-- /bundle/vendor/symfony/dependency-injection/Tests -->
        <file name=".gitignore" role="horde" />
        <file name="Alias.php" role="horde" />
        <file name="CHANGELOG.md" role="horde" />
@@ -2359,7 +2120,6 @@
    <install as="vendor/pdepend/pdepend/LICENSE" name="bundle/vendor/pdepend/pdepend/LICENSE" />
    <install as="vendor/pdepend/pdepend/Vagrantfile" name="bundle/vendor/pdepend/pdepend/Vagrantfile" />
    <install as="vendor/pdepend/pdepend/scripts/compare.sh" name="bundle/vendor/pdepend/pdepend/scripts/compare.sh" />
-   <install as="vendor/pdepend/pdepend/scripts/update-version.php" name="bundle/vendor/pdepend/pdepend/scripts/update-version.php" />
    <install as="vendor/pdepend/pdepend/src/bin/pdepend" name="bundle/vendor/pdepend/pdepend/src/bin/pdepend" />
    <install as="vendor/pdepend/pdepend/src/bin/pdepend.bat" name="bundle/vendor/pdepend/pdepend/src/bin/pdepend.bat" />
    <install as="vendor/pdepend/pdepend/src/bin/pdepend.php" name="bundle/vendor/pdepend/pdepend/src/bin/pdepend.php" />
@@ -2744,29 +2504,6 @@
    <install as="vendor/phpunit/php-token-stream/src/Token.php" name="bundle/vendor/phpunit/php-token-stream/src/Token.php" />
    <install as="vendor/phpunit/php-token-stream/src/Token/Stream.php" name="bundle/vendor/phpunit/php-token-stream/src/Token/Stream.php" />
    <install as="vendor/phpunit/php-token-stream/src/Token/Stream/CachingFactory.php" name="bundle/vendor/phpunit/php-token-stream/src/Token/Stream/CachingFactory.php" />
-   <install as="vendor/phpunit/php-token-stream/tests/bootstrap.php" name="bundle/vendor/phpunit/php-token-stream/tests/bootstrap.php" />
-   <install as="vendor/phpunit/php-token-stream/tests/TokenTest.php" name="bundle/vendor/phpunit/php-token-stream/tests/TokenTest.php" />
-   <install as="vendor/phpunit/php-token-stream/tests/Token/ClassTest.php" name="bundle/vendor/phpunit/php-token-stream/tests/Token/ClassTest.php" />
-   <install as="vendor/phpunit/php-token-stream/tests/Token/ClosureTest.php" name="bundle/vendor/phpunit/php-token-stream/tests/Token/ClosureTest.php" />
-   <install as="vendor/phpunit/php-token-stream/tests/Token/FunctionTest.php" name="bundle/vendor/phpunit/php-token-stream/tests/Token/FunctionTest.php" />
-   <install as="vendor/phpunit/php-token-stream/tests/Token/IncludeTest.php" name="bundle/vendor/phpunit/php-token-stream/tests/Token/IncludeTest.php" />
-   <install as="vendor/phpunit/php-token-stream/tests/Token/InterfaceTest.php" name="bundle/vendor/phpunit/php-token-stream/tests/Token/InterfaceTest.php" />
-   <install as="vendor/phpunit/php-token-stream/tests/Token/NamespaceTest.php" name="bundle/vendor/phpunit/php-token-stream/tests/Token/NamespaceTest.php" />
-   <install as="vendor/phpunit/php-token-stream/tests/_fixture/classExtendsNamespacedClass.php" name="bundle/vendor/phpunit/php-token-stream/tests/_fixture/classExtendsNamespacedClass.php" />
-   <install as="vendor/phpunit/php-token-stream/tests/_fixture/classInNamespace.php" name="bundle/vendor/phpunit/php-token-stream/tests/_fixture/classInNamespace.php" />
-   <install as="vendor/phpunit/php-token-stream/tests/_fixture/classInScopedNamespace.php" name="bundle/vendor/phpunit/php-token-stream/tests/_fixture/classInScopedNamespace.php" />
-   <install as="vendor/phpunit/php-token-stream/tests/_fixture/class_with_method_that_declares_anonymous_class.php" name="bundle/vendor/phpunit/php-token-stream/tests/_fixture/class_with_method_that_declares_anonymous_class.php" />
-   <install as="vendor/phpunit/php-token-stream/tests/_fixture/class_with_method_that_declares_anonymous_class2.php" name="bundle/vendor/phpunit/php-token-stream/tests/_fixture/class_with_method_that_declares_anonymous_class2.php" />
-   <install as="vendor/phpunit/php-token-stream/tests/_fixture/closure.php" name="bundle/vendor/phpunit/php-token-stream/tests/_fixture/closure.php" />
-   <install as="vendor/phpunit/php-token-stream/tests/_fixture/issue19.php" name="bundle/vendor/phpunit/php-token-stream/tests/_fixture/issue19.php" />
-   <install as="vendor/phpunit/php-token-stream/tests/_fixture/issue30.php" name="bundle/vendor/phpunit/php-token-stream/tests/_fixture/issue30.php" />
-   <install as="vendor/phpunit/php-token-stream/tests/_fixture/multipleNamespacesWithOneClassUsingBraces.php" name="bundle/vendor/phpunit/php-token-stream/tests/_fixture/multipleNamespacesWithOneClassUsingBraces.php" />
-   <install as="vendor/phpunit/php-token-stream/tests/_fixture/multipleNamespacesWithOneClassUsingNonBraceSyntax.php" name="bundle/vendor/phpunit/php-token-stream/tests/_fixture/multipleNamespacesWithOneClassUsingNonBraceSyntax.php" />
-   <install as="vendor/phpunit/php-token-stream/tests/_fixture/source.php" name="bundle/vendor/phpunit/php-token-stream/tests/_fixture/source.php" />
-   <install as="vendor/phpunit/php-token-stream/tests/_fixture/source2.php" name="bundle/vendor/phpunit/php-token-stream/tests/_fixture/source2.php" />
-   <install as="vendor/phpunit/php-token-stream/tests/_fixture/source3.php" name="bundle/vendor/phpunit/php-token-stream/tests/_fixture/source3.php" />
-   <install as="vendor/phpunit/php-token-stream/tests/_fixture/source4.php" name="bundle/vendor/phpunit/php-token-stream/tests/_fixture/source4.php" />
-   <install as="vendor/phpunit/php-token-stream/tests/_fixture/source5.php" name="bundle/vendor/phpunit/php-token-stream/tests/_fixture/source5.php" />
    <install as="vendor/sebastian/finder-facade/.gitattributes" name="bundle/vendor/sebastian/finder-facade/.gitattributes" />
    <install as="vendor/sebastian/finder-facade/.gitignore" name="bundle/vendor/sebastian/finder-facade/.gitignore" />
    <install as="vendor/sebastian/finder-facade/build.xml" name="bundle/vendor/sebastian/finder-facade/build.xml" />
@@ -3297,165 +3034,6 @@
    <install as="vendor/symfony/dependency-injection/ParameterBag/FrozenParameterBag.php" name="bundle/vendor/symfony/dependency-injection/ParameterBag/FrozenParameterBag.php" />
    <install as="vendor/symfony/dependency-injection/ParameterBag/ParameterBag.php" name="bundle/vendor/symfony/dependency-injection/ParameterBag/ParameterBag.php" />
    <install as="vendor/symfony/dependency-injection/ParameterBag/ParameterBagInterface.php" name="bundle/vendor/symfony/dependency-injection/ParameterBag/ParameterBagInterface.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/ContainerBuilderTest.php" name="bundle/vendor/symfony/dependency-injection/Tests/ContainerBuilderTest.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/ContainerTest.php" name="bundle/vendor/symfony/dependency-injection/Tests/ContainerTest.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/CrossCheckTest.php" name="bundle/vendor/symfony/dependency-injection/Tests/CrossCheckTest.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/DefinitionDecoratorTest.php" name="bundle/vendor/symfony/dependency-injection/Tests/DefinitionDecoratorTest.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/DefinitionTest.php" name="bundle/vendor/symfony/dependency-injection/Tests/DefinitionTest.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/ParameterTest.php" name="bundle/vendor/symfony/dependency-injection/Tests/ParameterTest.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/ReferenceTest.php" name="bundle/vendor/symfony/dependency-injection/Tests/ReferenceTest.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Compiler/AnalyzeServiceReferencesPassTest.php" name="bundle/vendor/symfony/dependency-injection/Tests/Compiler/AnalyzeServiceReferencesPassTest.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Compiler/AutoAliasServicePassTest.php" name="bundle/vendor/symfony/dependency-injection/Tests/Compiler/AutoAliasServicePassTest.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Compiler/AutowirePassTest.php" name="bundle/vendor/symfony/dependency-injection/Tests/Compiler/AutowirePassTest.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Compiler/CheckCircularReferencesPassTest.php" name="bundle/vendor/symfony/dependency-injection/Tests/Compiler/CheckCircularReferencesPassTest.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Compiler/CheckDefinitionValidityPassTest.php" name="bundle/vendor/symfony/dependency-injection/Tests/Compiler/CheckDefinitionValidityPassTest.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Compiler/CheckExceptionOnInvalidReferenceBehaviorPassTest.php" name="bundle/vendor/symfony/dependency-injection/Tests/Compiler/CheckExceptionOnInvalidReferenceBehaviorPassTest.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Compiler/CheckReferenceValidityPassTest.php" name="bundle/vendor/symfony/dependency-injection/Tests/Compiler/CheckReferenceValidityPassTest.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Compiler/DecoratorServicePassTest.php" name="bundle/vendor/symfony/dependency-injection/Tests/Compiler/DecoratorServicePassTest.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Compiler/ExtensionCompilerPassTest.php" name="bundle/vendor/symfony/dependency-injection/Tests/Compiler/ExtensionCompilerPassTest.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Compiler/InlineServiceDefinitionsPassTest.php" name="bundle/vendor/symfony/dependency-injection/Tests/Compiler/InlineServiceDefinitionsPassTest.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Compiler/IntegrationTest.php" name="bundle/vendor/symfony/dependency-injection/Tests/Compiler/IntegrationTest.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Compiler/MergeExtensionConfigurationPassTest.php" name="bundle/vendor/symfony/dependency-injection/Tests/Compiler/MergeExtensionConfigurationPassTest.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Compiler/OptionalServiceClass.php" name="bundle/vendor/symfony/dependency-injection/Tests/Compiler/OptionalServiceClass.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Compiler/RemoveUnusedDefinitionsPassTest.php" name="bundle/vendor/symfony/dependency-injection/Tests/Compiler/RemoveUnusedDefinitionsPassTest.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Compiler/ReplaceAliasByActualDefinitionPassTest.php" name="bundle/vendor/symfony/dependency-injection/Tests/Compiler/ReplaceAliasByActualDefinitionPassTest.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Compiler/ResolveDefinitionTemplatesPassTest.php" name="bundle/vendor/symfony/dependency-injection/Tests/Compiler/ResolveDefinitionTemplatesPassTest.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Compiler/ResolveInvalidReferencesPassTest.php" name="bundle/vendor/symfony/dependency-injection/Tests/Compiler/ResolveInvalidReferencesPassTest.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Compiler/ResolveParameterPlaceHoldersPassTest.php" name="bundle/vendor/symfony/dependency-injection/Tests/Compiler/ResolveParameterPlaceHoldersPassTest.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Compiler/ResolveReferencesToAliasesPassTest.php" name="bundle/vendor/symfony/dependency-injection/Tests/Compiler/ResolveReferencesToAliasesPassTest.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Config/AutowireServiceResourceTest.php" name="bundle/vendor/symfony/dependency-injection/Tests/Config/AutowireServiceResourceTest.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Dumper/GraphvizDumperTest.php" name="bundle/vendor/symfony/dependency-injection/Tests/Dumper/GraphvizDumperTest.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Dumper/PhpDumperTest.php" name="bundle/vendor/symfony/dependency-injection/Tests/Dumper/PhpDumperTest.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Dumper/XmlDumperTest.php" name="bundle/vendor/symfony/dependency-injection/Tests/Dumper/XmlDumperTest.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Dumper/YamlDumperTest.php" name="bundle/vendor/symfony/dependency-injection/Tests/Dumper/YamlDumperTest.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Extension/ExtensionTest.php" name="bundle/vendor/symfony/dependency-injection/Tests/Extension/ExtensionTest.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/containers/container8.php" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/containers/container8.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/containers/container9.php" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/containers/container9.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/containers/container10.php" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/containers/container10.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/containers/container11.php" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/containers/container11.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/containers/container12.php" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/containers/container12.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/containers/container13.php" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/containers/container13.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/containers/container14.php" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/containers/container14.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/containers/container15.php" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/containers/container15.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/containers/container16.php" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/containers/container16.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/containers/container17.php" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/containers/container17.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/containers/container19.php" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/containers/container19.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/containers/container21.php" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/containers/container21.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/containers/container24.php" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/containers/container24.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/containers/CustomContainer.php" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/containers/CustomContainer.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/directory/simple.php" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/directory/simple.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/directory/import/import.yml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/directory/import/import.yml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/directory/recurse/simple.ini" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/directory/recurse/simple.ini" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/directory/recurse/simple.yml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/directory/recurse/simple.yml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/graphviz/services1.dot" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/graphviz/services1.dot" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/graphviz/services9.dot" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/graphviz/services9.dot" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/graphviz/services10-1.dot" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/graphviz/services10-1.dot" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/graphviz/services10.dot" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/graphviz/services10.dot" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/graphviz/services13.dot" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/graphviz/services13.dot" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/graphviz/services14.dot" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/graphviz/services14.dot" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/graphviz/services17.dot" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/graphviz/services17.dot" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/graphviz/services18.dot" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/graphviz/services18.dot" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/includes/classes.php" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/includes/classes.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/includes/createphar.php" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/includes/createphar.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/includes/foo.php" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/includes/foo.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/includes/ProjectExtension.php" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/includes/ProjectExtension.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/includes/ProjectWithXsdExtension.php" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/includes/ProjectWithXsdExtension.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/includes/ProjectWithXsdExtensionInPhar.phar" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/includes/ProjectWithXsdExtensionInPhar.phar" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/includes/schema/project-1.0.xsd" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/includes/schema/project-1.0.xsd" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/ini/nonvalid.ini" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/ini/nonvalid.ini" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/ini/parameters.ini" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/ini/parameters.ini" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/ini/parameters1.ini" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/ini/parameters1.ini" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/ini/parameters2.ini" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/ini/parameters2.ini" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/php/services1-1.php" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/php/services1-1.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/php/services1.php" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/php/services1.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/php/services8.php" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/php/services8.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/php/services9.php" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/php/services9.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/php/services9_compiled.php" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/php/services9_compiled.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/php/services10.php" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/php/services10.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/php/services12.php" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/php/services12.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/php/services13.php" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/php/services13.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/php/services19.php" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/php/services19.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/php/services24.php" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/php/services24.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/php/simple.php" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/php/simple.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/xml/legacy_invalid_alias_definition.xml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/xml/legacy_invalid_alias_definition.xml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/xml/namespaces.xml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/xml/namespaces.xml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/xml/nonvalid.xml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/xml/nonvalid.xml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/xml/services1.xml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/xml/services1.xml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/xml/services2.xml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/xml/services2.xml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/xml/services3.xml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/xml/services3.xml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/xml/services4.xml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/xml/services4.xml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/xml/services4_bad_import.xml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/xml/services4_bad_import.xml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/xml/services5.xml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/xml/services5.xml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/xml/services6.xml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/xml/services6.xml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/xml/services7.xml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/xml/services7.xml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/xml/services8.xml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/xml/services8.xml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/xml/services9.xml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/xml/services9.xml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/xml/services10.xml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/xml/services10.xml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/xml/services13.xml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/xml/services13.xml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/xml/services14.xml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/xml/services14.xml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/xml/services21.xml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/xml/services21.xml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/xml/services22.xml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/xml/services22.xml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/xml/services23.xml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/xml/services23.xml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/xml/services24.xml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/xml/services24.xml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/xml/tag_without_name.xml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/xml/tag_without_name.xml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/xml/tag_with_empty_name.xml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/xml/tag_with_empty_name.xml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/xml/withdoctype.xml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/xml/withdoctype.xml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/xml/extension1/services.xml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/xml/extension1/services.xml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/xml/extension2/services.xml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/xml/extension2/services.xml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/xml/extensions/services1.xml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/xml/extensions/services1.xml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/xml/extensions/services2.xml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/xml/extensions/services2.xml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/xml/extensions/services3.xml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/xml/extensions/services3.xml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/xml/extensions/services4.xml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/xml/extensions/services4.xml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/xml/extensions/services5.xml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/xml/extensions/services5.xml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/xml/extensions/services6.xml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/xml/extensions/services6.xml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/xml/extensions/services7.xml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/xml/extensions/services7.xml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/yaml/badtag1.yml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/yaml/badtag1.yml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/yaml/badtag2.yml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/yaml/badtag2.yml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/yaml/badtag3.yml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/yaml/badtag3.yml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/yaml/badtag4.yml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/yaml/badtag4.yml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/yaml/bad_calls.yml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/yaml/bad_calls.yml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/yaml/bad_decorates.yml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/yaml/bad_decorates.yml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/yaml/bad_format.yml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/yaml/bad_format.yml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/yaml/bad_import.yml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/yaml/bad_import.yml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/yaml/bad_imports.yml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/yaml/bad_imports.yml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/yaml/bad_parameters.yml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/yaml/bad_parameters.yml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/yaml/bad_service.yml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/yaml/bad_service.yml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/yaml/bad_services.yml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/yaml/bad_services.yml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/yaml/bad_types1.yml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/yaml/bad_types1.yml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/yaml/bad_types2.yml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/yaml/bad_types2.yml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/yaml/legacy_invalid_alias_definition.yml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/yaml/legacy_invalid_alias_definition.yml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/yaml/legacy_invalid_definition.yml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/yaml/legacy_invalid_definition.yml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/yaml/nonvalid1.yml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/yaml/nonvalid1.yml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/yaml/nonvalid2.yml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/yaml/nonvalid2.yml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/yaml/services1.yml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/yaml/services1.yml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/yaml/services2.yml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/yaml/services2.yml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/yaml/services3.yml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/yaml/services3.yml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/yaml/services4.yml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/yaml/services4.yml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/yaml/services4_bad_import.yml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/yaml/services4_bad_import.yml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/yaml/services6.yml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/yaml/services6.yml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/yaml/services7.yml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/yaml/services7.yml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/yaml/services8.yml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/yaml/services8.yml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/yaml/services9.yml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/yaml/services9.yml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/yaml/services10.yml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/yaml/services10.yml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/yaml/services11.yml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/yaml/services11.yml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/yaml/services13.yml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/yaml/services13.yml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/yaml/services14.yml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/yaml/services14.yml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/yaml/services21.yml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/yaml/services21.yml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/yaml/services22.yml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/yaml/services22.yml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/yaml/services23.yml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/yaml/services23.yml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/yaml/services24.yml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/yaml/services24.yml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/yaml/tag_name_empty_string.yml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/yaml/tag_name_empty_string.yml" />
-   <install as="vendor/symfony/dependency-injection/Tests/Fixtures/yaml/tag_name_no_string.yml" name="bundle/vendor/symfony/dependency-injection/Tests/Fixtures/yaml/tag_name_no_string.yml" />
-   <install as="vendor/symfony/dependency-injection/Tests/LazyProxy/Instantiator/RealServiceInstantiatorTest.php" name="bundle/vendor/symfony/dependency-injection/Tests/LazyProxy/Instantiator/RealServiceInstantiatorTest.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/LazyProxy/PhpDumper/NullDumperTest.php" name="bundle/vendor/symfony/dependency-injection/Tests/LazyProxy/PhpDumper/NullDumperTest.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Loader/ClosureLoaderTest.php" name="bundle/vendor/symfony/dependency-injection/Tests/Loader/ClosureLoaderTest.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Loader/DirectoryLoaderTest.php" name="bundle/vendor/symfony/dependency-injection/Tests/Loader/DirectoryLoaderTest.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Loader/IniFileLoaderTest.php" name="bundle/vendor/symfony/dependency-injection/Tests/Loader/IniFileLoaderTest.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Loader/PhpFileLoaderTest.php" name="bundle/vendor/symfony/dependency-injection/Tests/Loader/PhpFileLoaderTest.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Loader/XmlFileLoaderTest.php" name="bundle/vendor/symfony/dependency-injection/Tests/Loader/XmlFileLoaderTest.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/Loader/YamlFileLoaderTest.php" name="bundle/vendor/symfony/dependency-injection/Tests/Loader/YamlFileLoaderTest.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/ParameterBag/FrozenParameterBagTest.php" name="bundle/vendor/symfony/dependency-injection/Tests/ParameterBag/FrozenParameterBagTest.php" />
-   <install as="vendor/symfony/dependency-injection/Tests/ParameterBag/ParameterBagTest.php" name="bundle/vendor/symfony/dependency-injection/Tests/ParameterBag/ParameterBagTest.php" />
    <install as="vendor/symfony/filesystem/.gitignore" name="bundle/vendor/symfony/filesystem/.gitignore" />
    <install as="vendor/symfony/filesystem/CHANGELOG.md" name="bundle/vendor/symfony/filesystem/CHANGELOG.md" />
    <install as="vendor/symfony/filesystem/Filesystem.php" name="bundle/vendor/symfony/filesystem/Filesystem.php" />
@@ -3849,7 +3427,7 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2016-06-27</date>
+   <date>2016-06-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Allow to set component and release information via YAML files.
