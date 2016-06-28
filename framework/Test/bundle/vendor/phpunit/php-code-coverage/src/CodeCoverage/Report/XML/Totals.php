@@ -9,13 +9,7 @@
  */
 
 /**
- * @category   PHP
- * @package    CodeCoverage
- * @author     Arne Blankerts <arne@blankerts.de>
- * @copyright  Sebastian Bergmann <sebastian@phpunit.de>
- * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
- * @link       http://github.com/sebastianbergmann/php-code-coverage
- * @since      Class available since Release 2.0.0
+ * @since Class available since Release 2.0.0
  */
 class PHP_CodeCoverage_Report_XML_Totals
 {
@@ -55,23 +49,28 @@ class PHP_CodeCoverage_Report_XML_Totals
         $dom             = $container->ownerDocument;
 
         $this->linesNode = $dom->createElementNS(
-            'http://schema.phpunit.de/coverage/1.0', 'lines')
-        ;
+            'http://schema.phpunit.de/coverage/1.0',
+            'lines'
+        );
 
         $this->methodsNode = $dom->createElementNS(
-            'http://schema.phpunit.de/coverage/1.0', 'methods'
+            'http://schema.phpunit.de/coverage/1.0',
+            'methods'
         );
 
         $this->functionsNode = $dom->createElementNS(
-            'http://schema.phpunit.de/coverage/1.0', 'functions'
+            'http://schema.phpunit.de/coverage/1.0',
+            'functions'
         );
 
         $this->classesNode = $dom->createElementNS(
-            'http://schema.phpunit.de/coverage/1.0', 'classes'
+            'http://schema.phpunit.de/coverage/1.0',
+            'classes'
         );
 
         $this->traitsNode = $dom->createElementNS(
-            'http://schema.phpunit.de/coverage/1.0', 'traits'
+            'http://schema.phpunit.de/coverage/1.0',
+            'traits'
         );
 
         $container->appendChild($this->linesNode);
@@ -94,7 +93,8 @@ class PHP_CodeCoverage_Report_XML_Totals
         $this->linesNode->setAttribute('executable', $executable);
         $this->linesNode->setAttribute('executed', $executed);
         $this->linesNode->setAttribute(
-            'percent', PHP_CodeCoverage_Util::percent($executed,$executable, true)
+            'percent',
+            PHP_CodeCoverage_Util::percent($executed, $executable, true)
         );
     }
 
@@ -103,7 +103,8 @@ class PHP_CodeCoverage_Report_XML_Totals
         $this->classesNode->setAttribute('count', $count);
         $this->classesNode->setAttribute('tested', $tested);
         $this->classesNode->setAttribute(
-            'percent', PHP_CodeCoverage_Util::percent($tested,$count, true)
+            'percent',
+            PHP_CodeCoverage_Util::percent($tested, $count, true)
         );
     }
 
@@ -112,7 +113,8 @@ class PHP_CodeCoverage_Report_XML_Totals
         $this->traitsNode->setAttribute('count', $count);
         $this->traitsNode->setAttribute('tested', $tested);
         $this->traitsNode->setAttribute(
-            'percent', PHP_CodeCoverage_Util::percent($tested,$count, true)
+            'percent',
+            PHP_CodeCoverage_Util::percent($tested, $count, true)
         );
     }
 
@@ -121,7 +123,8 @@ class PHP_CodeCoverage_Report_XML_Totals
         $this->methodsNode->setAttribute('count', $count);
         $this->methodsNode->setAttribute('tested', $tested);
         $this->methodsNode->setAttribute(
-            'percent', PHP_CodeCoverage_Util::percent($tested,$count, true)
+            'percent',
+            PHP_CodeCoverage_Util::percent($tested, $count, true)
         );
     }
 
@@ -130,7 +133,8 @@ class PHP_CodeCoverage_Report_XML_Totals
         $this->functionsNode->setAttribute('count', $count);
         $this->functionsNode->setAttribute('tested', $tested);
         $this->functionsNode->setAttribute(
-            'percent', PHP_CodeCoverage_Util::percent($tested,$count, true)
+            'percent',
+            PHP_CodeCoverage_Util::percent($tested, $count, true)
         );
     }
 }

@@ -11,6 +11,8 @@
 
 namespace Prophecy\Prophecy;
 
+use SebastianBergmann\Comparator\ComparisonFailure;
+use Prophecy\Comparator\Factory as ComparatorFactory;
 use Prophecy\Call\Call;
 use Prophecy\Doubler\LazyDouble;
 use Prophecy\Argument\ArgumentsWildcard;
@@ -30,6 +32,7 @@ class ObjectProphecy implements ProphecyInterface
     private $lazyDouble;
     private $callCenter;
     private $revealer;
+    private $comparatorFactory;
 
     /**
      * @var MethodProphecy[][]
@@ -42,13 +45,19 @@ class ObjectProphecy implements ProphecyInterface
      * @param LazyDouble        $lazyDouble
      * @param CallCenter        $callCenter
      * @param RevealerInterface $revealer
+     * @param ComparatorFactory $comparatorFactory
      */
-    public function __construct(LazyDouble $lazyDouble, CallCenter $callCenter = null,
-                                RevealerInterface $revealer = null)
-    {
+    public function __construct(
+        LazyDouble $lazyDouble,
+        CallCenter $callCenter = null,
+        RevealerInterface $revealer = null,
+        ComparatorFactory $comparatorFactory = null
+    ) {
         $this->lazyDouble = $lazyDouble;
         $this->callCenter = $callCenter ?: new CallCenter;
         $this->revealer   = $revealer ?: new Revealer;
+
+        $this->comparatorFactory = $comparatorFactory ?: ComparatorFactory::getInstance();
     }
 
     /**
@@ -233,10 +242,15 @@ class ObjectProphecy implements ProphecyInterface
         $arguments = new ArgumentsWildcard($this->revealer->reveal($arguments));
 
         foreach ($this->getMethodProphecies($methodName) as $prophecy) {
-            // Use the silence operator to suppress any notice about object to integer casting
-            if (@($prophecy->getArgumentsWildcard() == $arguments)) {
+            $argumentsWildcard = $prophecy->getArgumentsWildcard();
+            $comparator = $this->comparatorFactory->getComparatorFor(
+                $argumentsWildcard, $arguments
+            );
+
+            try {
+                $comparator->assertEquals($argumentsWildcard, $arguments);
                 return $prophecy;
-            }
+            } catch (ComparisonFailure $failure) {}
         }
 
         return new MethodProphecy($this, $methodName, $arguments);
@@ -246,6 +260,8 @@ class ObjectProphecy implements ProphecyInterface
      * Tries to get property value from double.
      *
      * @param string $name
+     *
+     * @return mixed
      */
     public function __get($name)
     {
@@ -256,7 +272,7 @@ class ObjectProphecy implements ProphecyInterface
      * Tries to set property value to double.
      *
      * @param string $name
-     * @param string $value
+     * @param mixed  $value
      */
     public function __set($name, $value)
     {
