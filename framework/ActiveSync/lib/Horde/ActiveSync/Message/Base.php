@@ -421,12 +421,12 @@ class Horde_ActiveSync_Message_Base
                     } else {
                         // Handle a simple attribute value
                         if (isset($map[self::KEY_TYPE])) {
-                            // Complex type, decode recursively
-                            if ($map[self::KEY_TYPE] == self::TYPE_DATE || $map[self::KEY_TYPE] == self::TYPE_DATE_DASHES) {
+                            if (in_array($map[self::KEY_TYPE], array(self::TYPE_DATE, self::TYPE_DATE_DASHES, self::TYPE_DATE_LOCAL))) {
                                 $decoded = $this->_parseDate($decoder->getElementContent());
                             } elseif ($map[self::KEY_TYPE] == self::TYPE_HEX) {
                                 $decoded = self::_hex2bin($decoder->getElementContent());
                             } else {
+                                // Complex type, decode recursively
                                 $class = $map[self::KEY_TYPE];
                                 $subdecoder = new $class(array(
                                     'protocolversion' => $this->_version,
