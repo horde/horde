@@ -1817,14 +1817,43 @@ class Nag_Task
         }
 
         /* Due Date */
-        if (($due = $message->utcduedate) || ($due = $message->duedate)) {
+        if ($due = $message->utcduedate) {
             $due->setTimezone($tz);
+            $this->due = $due->timestamp();
+        } elseif ($due = $message->duedate) {
+            // "Local" date, sent as a UTC datetime string,
+            // but must be interpreted as a local time. Since
+            // we have no timezone information we have to assume it's the
+            // same as $tz.
+            $due = new Horde_Date(
+                array(
+                    'year' => $due->year,
+                    'month' => $due->month,
+                    'mday' => $due->mday,
+                    'hour' => $due->hour,
+                    'min' => $due->min
+                ),
+                $tz
+            );
             $this->due = $due->timestamp();
         }
 
         /* Start Date */
-        if (($start = $message->utcstartdate) || ($start = $message->startdate)) {
+        if ($start = $message->utcstartdate) {
             $start->setTimezone($tz);
+            $this->start = $start->timestamp();
+        } elseif ($start = $message->startdate) {
+            // See note above regarding utc vs local times.
+            $start = new Horde_Date(
+                array(
+                    'year' => $start->year,
+                    'month' => $start->month,
+                    'mday' => $start->mday,
+                    'hour' => $start->hour,
+                    'min' => $start->min
+                ),
+                $tz
+            );
             $this->start = $start->timestamp();
         }
 
