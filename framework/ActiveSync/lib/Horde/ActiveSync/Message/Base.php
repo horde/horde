@@ -49,6 +49,7 @@ class Horde_ActiveSync_Message_Base
     const TYPE_DATE_DASHES      = 3;
     const TYPE_MAPI_STREAM      = 4;
     const TYPE_MAPI_GOID        = 5;
+    const TYPE_DATE_LOCAL       = 6;
 
     const PROPERTY_NO_CONTAINER = 7;
 
@@ -555,7 +556,8 @@ class Horde_ActiveSync_Message_Base
                     }
 
                     $encoder->startTag($tag);
-                    if (isset($map[self::KEY_TYPE]) && ($map[self::KEY_TYPE] == self::TYPE_DATE || $map[self::KEY_TYPE] == self::TYPE_DATE_DASHES)) {
+                    if (isset($map[self::KEY_TYPE]) &&
+                        (in_array($map[self::KEY_TYPE], array(self::TYPE_DATE, self::TYPE_DATE_DASHES, self::TYPE_DATE_LOCAL)))) {
                         if (!empty($this->{$map[self::KEY_ATTRIBUTE]})) { // don't output 1-1-1970
                             $encoder->content($this->_formatDate($this->{$map[self::KEY_ATTRIBUTE]}, $map[self::KEY_TYPE]));
                         }
@@ -653,16 +655,23 @@ class Horde_ActiveSync_Message_Base
      *
      * @param Horde_Date $dt  The Horde_Date object to format
      *                        (should normally be in local tz).
-     * @param integer $type   The type to format as (TYPE_DATE or TYPE_DATE_DASHES)
+     * @param integer $type   The type to format as: One of
+     *     TYPE_DATE or TYPE_DATE_DASHES, TYPE_DATE_LOCAL
      *
      * @return string  The formatted date
+     * @throws  InvalidArgumentException
      */
     protected function _formatDate(Horde_Date $dt, $type)
     {
-        if ($type == Horde_ActiveSync_Message_Base::TYPE_DATE) {
+        switch ($type) {
+        case self::TYPE_DATE:
             return $dt->setTimezone('UTC')->format('Ymd\THis\Z');
-        } elseif ($type == Horde_ActiveSync_Message_Base::TYPE_DATE_DASHES) {
+        case self::TYPE_DATE_DASHES:
             return $dt->setTimezone('UTC')->format('Y-m-d\TH:i:s\.000\Z');
+        case self::TYPE_DATE_LOCAL:
+            return $dt->format('Y-m-d\TH:i:s\.000\Z');
+        default:
+            throw new InvalidArgumentException('Unidentified DATE_TYPE');
         }
     }
 
