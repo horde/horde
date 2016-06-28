@@ -436,6 +436,10 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
         } catch (Horde_Icalendar_Exception $e) {}
 
         try {
+            $view->comment = $vevent->getAttributeSingle('COMMENT');
+        } catch (Horde_Icalendar_Exception $e) {}
+
+        try {
             $view->loc = $vevent->getAttributeSingle('LOCATION');
         } catch (Horde_Icalendar_Exception $e) {}
 

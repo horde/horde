@@ -42,6 +42,12 @@
   <td><?php echo nl2br($this->h($this->desc2)) ?></td>
  </tr>
 <?php endif; ?>
+<?php if (strlen($this->comment)): ?>
+  <tr>
+    <td><strong><?php echo _("Comment") ?>:</strong></td>
+    <td><?php echo nl2br($this->h($this->comment)) ?></td>
+  </tr>
+<?php endif; ?>
 <?php if (strlen($this->percentComplete)): ?>
  <tr>
   <td><strong><?php echo _("Percent complete") ?>:</strong></td>
