@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix handling of start and due dates when synching via EAS.
 * [jan] Avoid fatal errors if tasks don&apos;t have a UID.
 * [mjr] Fix parsing certain date formats (Bug #14348).
 * [jan] Fix deleteing alarms when completing a task.
@@ -1726,6 +1727,7 @@
    <date>2016-04-05</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix handling of start and due dates when synching via EAS.
 * [jan] Avoid fatal errors if tasks don&apos;t have a UID.
 * [mjr] Fix parsing certain date formats (Bug #14348).
 * [jan] Fix deleteing alarms when completing a task.
