@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mjr] Fix detecting certain types of broken UTF-8 strings.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -790,7 +790,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <date>2016-02-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mjr] Fix detecting certain types of broken UTF-8 strings.
    </notes>
   </release>
  </changelog>
