@@ -827,9 +827,13 @@ class Horde_String
     {
         $text = strval($text);
 
+        // First check for illegal surrogate pair sequences. See RFC 3629.
+        if (preg_match('/\xE0[\x80-\x9F][\x80-\xBF]|\xED[\xA0-\xBF][\x80-\xBF]/S', $text)) {
+            return false;
+        }
+
         for ($i = 0, $len = strlen($text); $i < $len; ++$i) {
             $c = ord($text[$i]);
-
             if ($c > 128) {
                 if ($c > 247) {
                     // STD 63 (RFC 3629) eliminates 5 & 6-byte characters.
