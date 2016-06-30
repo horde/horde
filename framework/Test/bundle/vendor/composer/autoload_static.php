@@ -30,7 +30,6 @@ class ComposerStaticInit50a55a8b75314b0511c82a05b5a1af6c
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
             1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
-            2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
         ),
         'Webmozart\\Assert\\' => 
         array (
@@ -47,6 +46,13 @@ class ComposerStaticInit50a55a8b75314b0511c82a05b5a1af6c
     );
 
     public static $prefixesPsr0 = array (
+        'p' => 
+        array (
+            'phpDocumentor' => 
+            array (
+                0 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            ),
+        ),
         'P' => 
         array (
             'Prophecy\\' => 

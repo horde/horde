@@ -16,7 +16,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-06-28</date>
+ <date>2016-06-30</date>
  <version>
   <release>2.6.1</release>
   <api>2.6.0</api>
@@ -95,54 +95,45 @@
       </dir> <!-- /bundle/vendor/phpdocumentor/reflection-common -->
       <dir name="reflection-docblock">
        <dir name="src">
-        <dir name="DocBlock">
-         <dir name="Tags">
-          <dir name="Factory">
-           <file name="StaticMethod.php" role="php" />
-           <file name="Strategy.php" role="php" />
-          </dir> <!-- /bundle/vendor/phpdocumentor/reflection-docblock/src/DocBlock/Tags/Factory -->
-          <dir name="Formatter">
-           <file name="PassthroughFormatter.php" role="php" />
-          </dir> <!-- /bundle/vendor/phpdocumentor/reflection-docblock/src/DocBlock/Tags/Formatter -->
-          <file name="Author.php" role="php" />
-          <file name="BaseTag.php" role="php" />
-          <file name="Covers.php" role="php" />
-          <file name="Deprecated.php" role="php" />
-          <file name="Example.php" role="php" />
-          <file name="Formatter.php" role="php" />
-          <file name="Generic.php" role="php" />
-          <file name="Link.php" role="php" />
-          <file name="Method.php" role="php" />
-          <file name="Param.php" role="php" />
-          <file name="Property.php" role="php" />
-          <file name="PropertyRead.php" role="php" />
-          <file name="PropertyWrite.php" role="php" />
-          <file name="Return_.php" role="php" />
-          <file name="See.php" role="php" />
-          <file name="Since.php" role="php" />
-          <file name="Source.php" role="php" />
-          <file name="Throws.php" role="php" />
-          <file name="Uses.php" role="php" />
-          <file name="Var_.php" role="php" />
-          <file name="Version.php" role="php" />
-         </dir> <!-- /bundle/vendor/phpdocumentor/reflection-docblock/src/DocBlock/Tags -->
-         <file name="Description.php" role="php" />
-         <file name="DescriptionFactory.php" role="php" />
-         <file name="ExampleFinder.php" role="php" />
-         <file name="Serializer.php" role="php" />
-         <file name="StandardTagFactory.php" role="php" />
-         <file name="Tag.php" role="php" />
-         <file name="TagFactory.php" role="php" />
-        </dir> <!-- /bundle/vendor/phpdocumentor/reflection-docblock/src/DocBlock -->
-        <file name="DocBlock.php" role="php" />
-        <file name="DocBlockFactory.php" role="php" />
-        <file name="DocBlockFactoryInterface.php" role="php" />
+        <dir name="phpDocumentor">
+         <dir name="Reflection">
+          <dir name="DocBlock">
+           <dir name="Tag">
+            <file name="AuthorTag.php" role="php" />
+            <file name="CoversTag.php" role="php" />
+            <file name="DeprecatedTag.php" role="php" />
+            <file name="ExampleTag.php" role="php" />
+            <file name="LinkTag.php" role="php" />
+            <file name="MethodTag.php" role="php" />
+            <file name="ParamTag.php" role="php" />
+            <file name="PropertyReadTag.php" role="php" />
+            <file name="PropertyTag.php" role="php" />
+            <file name="PropertyWriteTag.php" role="php" />
+            <file name="ReturnTag.php" role="php" />
+            <file name="SeeTag.php" role="php" />
+            <file name="SinceTag.php" role="php" />
+            <file name="SourceTag.php" role="php" />
+            <file name="ThrowsTag.php" role="php" />
+            <file name="UsesTag.php" role="php" />
+            <file name="VarTag.php" role="php" />
+            <file name="VersionTag.php" role="php" />
+           </dir> <!-- /bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag -->
+           <dir name="Type">
+            <file name="Collection.php" role="php" />
+           </dir> <!-- /bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Type -->
+           <file name="Context.php" role="php" />
+           <file name="Description.php" role="php" />
+           <file name="Location.php" role="php" />
+           <file name="Serializer.php" role="php" />
+           <file name="Tag.php" role="php" />
+          </dir> <!-- /bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock -->
+          <file name="DocBlock.php" role="php" />
+         </dir> <!-- /bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection -->
+        </dir> <!-- /bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor -->
        </dir> <!-- /bundle/vendor/phpdocumentor/reflection-docblock/src -->
        <file name=".gitignore" role="php" />
-       <file name=".scrutinizer.yml" role="php" />
        <file name=".travis.yml" role="php" />
        <file name="LICENSE" role="php" />
-       <file name="phpmd.xml.dist" role="php" />
        <file name="phpunit.xml.dist" role="php" />
        <file name="README.md" role="php" />
       </dir> <!-- /bundle/vendor/phpdocumentor/reflection-docblock -->
@@ -1260,7 +1251,7 @@
  <dependencies>
   <required>
    <php>
-    <min>5.3.0</min>
+    <min>5.3.3</min>
     <max>8.0.0alpha1</max>
     <exclude>8.0.0alpha1</exclude>
    </php>
@@ -1344,46 +1335,35 @@
    <install as="Horde/Test/vendor/phpdocumentor/reflection-common/tests/common/bootstrap.php" name="bundle/vendor/phpdocumentor/reflection-common/tests/common/bootstrap.php" />
    <install as="Horde/Test/vendor/phpdocumentor/reflection-common/tests/unit/FqsenTest.php" name="bundle/vendor/phpdocumentor/reflection-common/tests/unit/FqsenTest.php" />
    <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/.gitignore" name="bundle/vendor/phpdocumentor/reflection-docblock/.gitignore" />
-   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/.scrutinizer.yml" name="bundle/vendor/phpdocumentor/reflection-docblock/.scrutinizer.yml" />
    <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/.travis.yml" name="bundle/vendor/phpdocumentor/reflection-docblock/.travis.yml" />
    <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/LICENSE" name="bundle/vendor/phpdocumentor/reflection-docblock/LICENSE" />
-   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/phpmd.xml.dist" name="bundle/vendor/phpdocumentor/reflection-docblock/phpmd.xml.dist" />
    <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/phpunit.xml.dist" name="bundle/vendor/phpdocumentor/reflection-docblock/phpunit.xml.dist" />
    <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/README.md" name="bundle/vendor/phpdocumentor/reflection-docblock/README.md" />
-   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/DocBlock.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/DocBlock.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/DocBlockFactory.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/DocBlockFactory.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/DocBlockFactoryInterface.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/DocBlockFactoryInterface.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/DocBlock/Description.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/DocBlock/Description.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/DocBlock/DescriptionFactory.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/DocBlock/DescriptionFactory.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/DocBlock/ExampleFinder.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/DocBlock/ExampleFinder.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/DocBlock/Serializer.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/DocBlock/Serializer.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/DocBlock/StandardTagFactory.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/DocBlock/StandardTagFactory.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/DocBlock/Tag.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/DocBlock/Tag.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/DocBlock/TagFactory.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/DocBlock/TagFactory.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/DocBlock/Tags/Author.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/DocBlock/Tags/Author.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/DocBlock/Tags/BaseTag.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/DocBlock/Tags/BaseTag.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/DocBlock/Tags/Covers.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/DocBlock/Tags/Covers.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/DocBlock/Tags/Deprecated.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/DocBlock/Tags/Deprecated.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/DocBlock/Tags/Example.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/DocBlock/Tags/Example.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/DocBlock/Tags/Formatter.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/DocBlock/Tags/Formatter.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/DocBlock/Tags/Generic.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/DocBlock/Tags/Generic.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/DocBlock/Tags/Link.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/DocBlock/Tags/Link.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/DocBlock/Tags/Method.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/DocBlock/Tags/Method.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/DocBlock/Tags/Param.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/DocBlock/Tags/Param.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/DocBlock/Tags/Property.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/DocBlock/Tags/Property.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/DocBlock/Tags/PropertyRead.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/DocBlock/Tags/PropertyRead.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/DocBlock/Tags/PropertyWrite.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/DocBlock/Tags/PropertyWrite.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/DocBlock/Tags/Return_.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/DocBlock/Tags/Return_.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/DocBlock/Tags/See.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/DocBlock/Tags/See.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/DocBlock/Tags/Since.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/DocBlock/Tags/Since.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/DocBlock/Tags/Source.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/DocBlock/Tags/Source.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/DocBlock/Tags/Throws.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/DocBlock/Tags/Throws.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/DocBlock/Tags/Uses.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/DocBlock/Tags/Uses.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/DocBlock/Tags/Var_.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/DocBlock/Tags/Var_.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/DocBlock/Tags/Version.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/DocBlock/Tags/Version.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/DocBlock/Tags/Factory/StaticMethod.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/DocBlock/Tags/Factory/StaticMethod.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/DocBlock/Tags/Factory/Strategy.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/DocBlock/Tags/Factory/Strategy.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/DocBlock/Tags/Formatter/PassthroughFormatter.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/DocBlock/Tags/Formatter/PassthroughFormatter.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Context.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Context.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Description.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Description.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Location.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Location.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Serializer.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Serializer.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/AuthorTag.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/AuthorTag.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/CoversTag.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/CoversTag.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/DeprecatedTag.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/DeprecatedTag.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/ExampleTag.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/ExampleTag.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/LinkTag.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/LinkTag.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/MethodTag.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/MethodTag.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/ParamTag.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/ParamTag.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/PropertyReadTag.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/PropertyReadTag.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/PropertyTag.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/PropertyTag.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/PropertyWriteTag.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/PropertyWriteTag.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/ReturnTag.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/ReturnTag.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/SeeTag.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/SeeTag.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/SinceTag.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/SinceTag.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/SourceTag.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/SourceTag.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/ThrowsTag.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/ThrowsTag.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/UsesTag.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/UsesTag.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/VarTag.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/VarTag.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/VersionTag.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/VersionTag.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Type/Collection.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Type/Collection.php" />
    <install as="Horde/Test/vendor/phpdocumentor/type-resolver/.gitignore" name="bundle/vendor/phpdocumentor/type-resolver/.gitignore" />
    <install as="Horde/Test/vendor/phpdocumentor/type-resolver/.scrutinizer.yml" name="bundle/vendor/phpdocumentor/type-resolver/.scrutinizer.yml" />
    <install as="Horde/Test/vendor/phpdocumentor/type-resolver/.travis.yml" name="bundle/vendor/phpdocumentor/type-resolver/.travis.yml" />
@@ -2652,7 +2632,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-06-28</date>
+   <date>2016-06-30</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Update to PHPUnit 4.8.26 and dependencies.
