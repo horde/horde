@@ -11,6 +11,7 @@ class Horde_Spam_EmailTest extends Horde_Spam_TestBase
     public function setUp()
     {
         parent::setUp();
+        setlocale(LC_ALL, 'C');
         list($this->spam_header, $this->spam_body) = explode("\n\n", $this->spam, 2);
         list($this->ham_header, $this->ham_body) = explode("\n\n", $this->ham, 2);
         $this->ham_header = str_replace(
@@ -18,6 +19,11 @@ class Horde_Spam_EmailTest extends Horde_Spam_TestBase
             'Return-Path: <report@example.com>',
             $this->ham_header
         );
+    }
+
+    public function tearDown()
+    {
+        setlocale(LC_ALL, '');
     }
 
     public function testReportSpamRedirect()
