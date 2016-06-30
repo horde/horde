@@ -1179,10 +1179,10 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
         $projection = array();
         if (!is_null($fields)) {
             foreach ($fields as $field) {
-                $projection[] = 'cache_data.' . $field;
+                $projection[self::CACHE_DATA . '.' . $field] = true;
             }
         } else {
-            $projection = array(self::CACHE_DATA);
+            $projection = array(self::CACHE_DATA => true);
         }
         try {
             $data = $this->_db->selectCollection(self::COLLECTION_CACHE)->findOne(
