@@ -214,7 +214,7 @@ class Horde_Lock_Mongo extends Horde_Lock
             : ($now + $lifetime);
 
         try {
-            $this->_db->insert(array(
+            $doc = array(
                 self::EXPIRY_TS => $expiration,
                 self::LID => $lockid,
                 self::ORIGIN_TS => $now,
@@ -223,7 +223,8 @@ class Horde_Lock_Mongo extends Horde_Lock
                 self::SCOPE => $scope,
                 self::TYPE => $type,
                 self::UPDATE_TS => $now
-            ));
+            );
+            $this->_db->insert($doc);
         } catch (MongoException $e) {
             throw new Horde_Lock_Exception($e);
         }

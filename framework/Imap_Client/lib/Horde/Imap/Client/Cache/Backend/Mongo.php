@@ -191,11 +191,12 @@ implements Horde_Mongo_Collection_Index
                         self::MSG_UID => $uid
                     ));
                 } else {
-                    $coll->insert(array(
+                    $doc = array(
                         self::MSG_DATA => $this->_value($val),
                         self::MSG_MSGUID => strval($key),
                         self::MSG_UID => $uid
-                    ));
+                    );
+                    $coll->insert($doc);
                 }
             } catch (MongoException $e) {}
         }
@@ -387,12 +388,13 @@ implements Horde_Mongo_Collection_Index
      */
     protected function _createUid($mailbox)
     {
-        $this->_db->selectCollection(self::BASE)->insert(array(
+        $doc = array(
             self::BASE_HOSTSPEC => $this->_params['hostspec'],
             self::BASE_MAILBOX => $mailbox,
             self::BASE_PORT => $this->_params['port'],
             self::BASE_USERNAME => $this->_params['username']
-        ));
+        );
+        $this->_db->selectCollection(self::BASE)->insert($doc);
 
         return $this->_getUid($mailbox);
     }

@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Avoid notice with Horde_Mongo on PHP 7.
 * [mjr] Catch incorrectly localized Date headers.
  </notes>
  <contents>
@@ -3023,6 +3024,7 @@
    <date>2016-05-31</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Avoid notice with Horde_Mongo on PHP 7.
 * [mjr] Catch incorrectly localized Date headers.
    </notes>
   </release>
