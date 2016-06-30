@@ -205,7 +205,7 @@ class Horde_ActiveSync_StateTest_Mongo_BaseTest extends Horde_ActiveSync_StateTe
     {
         if ((extension_loaded('mongo') || extension_loaded('mongodb')) &&
             class_exists('Horde_Mongo_Client') &&
-            ($config = self::getConfig('ACTIVESYNC_MONGO_TEST_CONFIG', __DIR__)) &&
+            ($config = self::getConfig('ACTIVESYNC_MONGO_TEST_CONFIG', __DIR__ . '/../..')) &&
             isset($config['activesync']['mongo']['hostspec'])) {
             try {
                 $factory = new Horde_Test_Factory_Mongo();
@@ -213,7 +213,6 @@ class Horde_ActiveSync_StateTest_Mongo_BaseTest extends Horde_ActiveSync_StateTe
                     'config' => $config['activesync']['mongo']['hostspec'],
                     'dbname' => 'horde_activesync_test'
                 ));
-                $mongo = new Horde_Mongo_Client();
                 $mongo->activesync_test->drop();
             } catch (MongoConnectionException $e) {
             }
@@ -228,7 +227,7 @@ class Horde_ActiveSync_StateTest_Mongo_BaseTest extends Horde_ActiveSync_StateTe
             $this->markTestSkipped('MongoDB extension not loaded.');
             return;
         }
-        if (($config = self::getConfig('ACTIVESYNC_MONGO_TEST_CONFIG', __DIR__)) &&
+        if (($config = self::getConfig('ACTIVESYNC_MONGO_TEST_CONFIG', __DIR__ . '/../..')) &&
             isset($config['activesync']['mongo']['hostspec'])) {
             $factory = new Horde_Test_Factory_Mongo();
             self::$mongo = $factory->create(array(
