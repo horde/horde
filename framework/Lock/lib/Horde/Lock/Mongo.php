@@ -75,7 +75,8 @@ class Horde_Lock_Mongo extends Horde_Lock
             'collection' => 'horde_locks'
         ), $params));
 
-        $this->_db = $this->_params['mongo_db']->selectCollection(null, $this->_params['collection']);
+        $this->_db = $this->_params['mongo_db']
+            ->selectCollection(null, $this->_params['collection']);
     }
 
     /**
@@ -95,14 +96,8 @@ class Horde_Lock_Mongo extends Horde_Lock
         $query = array(
             self::LID => $lockid,
             '$or' => array(
-                array(
-                    self::EXPIRY_TS => array(
-                        '$gte' => time()
-                    ),
-                ),
-                array(
-                    self::EXPIRY_TS => Horde_Lock::PERMANENT
-                )
+                array(self::EXPIRY_TS => array('$gte' => time()),),
+                array(self::EXPIRY_TS => Horde_Lock::PERMANENT)
             )
         );
 
@@ -119,14 +114,8 @@ class Horde_Lock_Mongo extends Horde_Lock
     {
         $query = array(
             '$or' => array(
-                array(
-                    self::EXPIRY_TS => array(
-                        '$gte' => time()
-                    ),
-                ),
-                array(
-                    self::EXPIRY_TS => Horde_Lock::PERMANENT
-                )
+                array(self::EXPIRY_TS => array('$gte' => time()),),
+                array(self::EXPIRY_TS => Horde_Lock::PERMANENT)
             )
         );
 
@@ -169,17 +158,18 @@ class Horde_Lock_Mongo extends Horde_Lock
             : ($now + $lifetime);
 
         try {
-            $this->_db->update(array(
-                self::EXPIRY_TS => array(
-                    '$ne' => Horde_Lock::PERMANENT
+            $this->_db->update(
+                array(
+                    self::EXPIRY_TS => array('$ne' => Horde_Lock::PERMANENT),
+                    self::LID => $lockid
                 ),
-                self::LID => $lockid
-            ), array(
-                '$set' => array(
-                    self::EXPIRY_TS => $expiration,
-                    self::UPDATE_TS => $now
+                array(
+                    '$set' => array(
+                        self::EXPIRY_TS => $expiration,
+                        self::UPDATE_TS => $now
+                    )
                 )
-            ));
+            );
         } catch (MongoException $e) {
             throw new Horde_Lock_Exception($e);
         }
@@ -201,7 +191,13 @@ class Horde_Lock_Mongo extends Horde_Lock
         if (count($oldlocks) != 0) {
             // A lock exists.  Deny the new request.
             if ($this->_logger) {
-                $this->_logger->log(sprintf('Lock requested for %s denied due to existing lock.', $principal), 'NOTICE');
+                $this->_logger->log(
+                    sprintf(
+                        'Lock requested for %s denied due to existing lock.',
+                        $principal
+                    ),
+                    'NOTICE'
+                );
             }
             return false;
         }
@@ -230,7 +226,13 @@ class Horde_Lock_Mongo extends Horde_Lock
         }
 
         if ($this->_logger) {
-            $this->_logger->log(sprintf('Lock %s set successfully by %s in scope %s on "%s"', $lockid, $requestor, $scope, $principal), 'DEBUG');
+            $this->_logger->log(
+                sprintf(
+                    'Lock %s set successfully by %s in scope %s on "%s"',
+                    $lockid, $requestor, $scope, $principal
+                ),
+                'DEBUG'
+            );
         }
 
         return $lockid;
@@ -245,17 +247,17 @@ class Horde_Lock_Mongo extends Horde_Lock
         }
 
         try {
-            /* Since we're trying to clear the lock we don't care whether it
-                is still valid or not. Unconditionally remove it. */
-            $this->_db->remove(array(
-                self::LID => $lockid
-            ));
+            /* Since we're trying to clear the lock we don't care whether it is
+             * still valid or not. Unconditionally remove it. */
+            $this->_db->remove(array(self::LID => $lockid));
         } catch (MongoException $e) {
             throw new Horde_Lock_Exception($e);
         }
 
         if ($this->_logger) {
-            $this->_logger->log(sprintf('Lock %s cleared successfully.', $lockid), 'DEBUG');
+            $this->_logger->log(
+                sprintf('Lock %s cleared successfully.', $lockid), 'DEBUG'
+            );
         }
 
         return true;
@@ -275,7 +277,13 @@ class Horde_Lock_Mongo extends Horde_Lock
             ));
 
             if ($this->_logger) {
-                $this->_logger->log(sprintf('Lock garbage collection cleared %d locks.', $result['n']), 'DEBUG');
+                $this->_logger->log(
+                    sprintf(
+                        'Lock garbage collection cleared %d locks.',
+                        $result['n']
+                    ),
+                    'DEBUG'
+                );
             }
         } catch (MongoException $e) {}
     }
