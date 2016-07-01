@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* 
+* [jan] Support HTTP PECL extension version 3.x.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -127,8 +127,8 @@
     <name>pecl_http</name>
     <channel>pecl.php.net</channel>
     <min>1.7.0</min>
-    <max>3.0.0alpha1</max>
-    <exclude>3.0.0alpha1</exclude>
+    <max>4.0.0alpha1</max>
+    <exclude>4.0.0alpha1</exclude>
     <providesextension>http</providesextension>
    </package>
    <extension>
@@ -550,7 +550,7 @@
    <date>2016-02-01</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* 
+* [jan] Support HTTP PECL extension version 3.x.
    </notes>
   </release>
  </changelog>
