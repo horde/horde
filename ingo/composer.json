@@ -2,7 +2,7 @@
     "name": "horde/ingo",
     "description": "An email filter rules manager",
     "type": "library",
-    "homepage": "http://pear.horde.org",
+    "homepage": "https://pear.horde.org",
     "license": "ASL",
     "authors": [
         {
@@ -21,8 +21,8 @@
             "role": "lead"
         }
     ],
-    "version": "3.2.10",
-    "time": "2016-04-05",
+    "version": "3.2.11",
+    "time": "2016-07-01",
     "repositories": [
         {
             "type": "pear",
