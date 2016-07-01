@@ -1168,7 +1168,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      *
      * @throws Horde_ActiveSync_Exception
      */
-    public function saveSyncCache(array $cache, $devid, $user, array $dirty = null)
+    public function saveSyncCache(array $cache, $devid, $user, array $dirty = array())
     {
         $cache['timestamp'] = strval($cache['timestamp']);
         $sql = 'SELECT count(*) FROM ' . $this->_syncCacheTable

@@ -1108,7 +1108,7 @@ abstract class Horde_ActiveSync_State_Base
      *
      * @throws Horde_ActiveSync_Exception
      */
-    abstract public function saveSyncCache(array $cache, $devid, $user, array $dirty = null);
+    abstract public function saveSyncCache(array $cache, $devid, $user, array $dirty = array());
 
     /**
      * Delete a complete sync cache
