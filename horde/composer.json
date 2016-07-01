@@ -2,7 +2,7 @@
     "name": "horde/horde",
     "description": "Horde Application Framework",
     "type": "library",
-    "homepage": "http://pear.horde.org",
+    "homepage": "https://pear.horde.org",
     "license": "LGPL-2",
     "authors": [
         {
@@ -26,8 +26,8 @@
             "role": "lead"
         }
     ],
-    "version": "5.2.10",
-    "time": "2016-03-21",
+    "version": "5.2.11",
+    "time": "2016-07-01",
     "repositories": [
         {
             "type": "pear",
