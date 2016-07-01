@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-05-31</date>
+ <date>2016-07-01</date>
  <version>
   <release>2.29.8</release>
   <api>2.29.0</api>
@@ -3021,7 +3021,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-05-31</date>
+   <date>2016-07-01</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Avoid notice with Horde_Mongo on PHP 7.
