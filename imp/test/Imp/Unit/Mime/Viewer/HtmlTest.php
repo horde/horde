@@ -44,7 +44,7 @@ class Imp_Unit_Mime_Viewer_HtmlTest extends PHPUnit_Framework_TestCase
             'example@example.com' => '<p>example@example.com</p>',
             'foo <a href="#bar">Anchor</a>' => '<p>foo <a href="#bar" target="%s">Anchor</a></p>',
             'foo <a href="http://www.example.com/">example</a>' => '<p>foo <a href="http://www.example.com/" target="%s">example</a></p>',
-            'foo <a target="foo" href="http://www.example.com/">example</a>' => '<p>foo <a target="%s" href="http://www.example.com/">example</a></p>',
+            'foo <a target="foo" href="http://www.example.com/">example</a>' => '<p>foo <a target="%s" href="http://www.example.com/" rel="noopener noreferrer">example</a></p>',
             'foo <a href="http://www.example.com/" target="foo">example</a>' => '<p>foo <a href="http://www.example.com/" target="%s">example</a></p>',
             'foo <a mailto="example@example.com">Example Email</a>' => '<p>foo <a mailto="example@example.com">Example Email</a></p>',
             '<map name="Map"><area shape="rect" coords="32,-2,293,29" href="http://www.example.com/"></map>' => '<map name="Map"><area shape="rect" coords="32,-2,293,29" href="http://www.example.com/" target="%s"/></map>',
