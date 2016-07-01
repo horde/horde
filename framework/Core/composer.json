@@ -26,12 +26,12 @@
             "role": "developer"
         }
     ],
-    "version": "2.23.0",
-    "time": "2016-03-08",
+    "version": "2.24.0",
+    "time": "2016-07-01",
     "repositories": [
         {
             "type": "pear",
-            "url": "https://pear.horde.org"
+            "url": "http://pear.horde.org"
         }
     ],
     "require": {
