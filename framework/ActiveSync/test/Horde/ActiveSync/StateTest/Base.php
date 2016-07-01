@@ -441,7 +441,7 @@ class Horde_ActiveSync_StateTest_Base extends Horde_Test_Case
 
     protected function _testPartialSyncWithOnlyChangedHbInterval()
     {
-        $this->markTestSkipped('No idea why the cache does not load the collections here.');
+        $this->markTestIncomplete('No idea why the cache does not load the collections here.');
         $collections = $this->getCollectionHandler();
         $collections->loadCollectionsFromCache();
         $collections->setHeartbeat(array('hbinterval' => 1));
