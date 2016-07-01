@@ -192,7 +192,7 @@ class PHPUnit_Framework_TestResult implements Countable
      * @param Exception              $e
      * @param float                  $time
      */
-    public function addError(PHPUnit_Framework_Test $test, Exception $e, $time)
+    public function addError(PHPUnit_Framework_Test $test, $e, $time)
     {
         if ($e instanceof PHPUnit_Framework_RiskyTest) {
             $this->risky[] = new PHPUnit_Framework_TestFailure($test, $e);

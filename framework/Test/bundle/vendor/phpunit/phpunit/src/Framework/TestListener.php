@@ -22,7 +22,7 @@ interface PHPUnit_Framework_TestListener
      * @param Exception              $e
      * @param float                  $time
      */
-    public function addError(PHPUnit_Framework_Test $test, Exception $e, $time);
+    public function addError(PHPUnit_Framework_Test $test, $e, $time);
 
     /**
      * A failure occurred.
