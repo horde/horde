@@ -39,6 +39,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [jan] Update Portuguese translation.
+* [jan] Update Basque translation.
 * [mjr] Fix searching via the API when specifying fields and not specifying source.
 * [mjr] Require Horde_Perms::DELETE for including an address book  as sync-able.
  </notes>
@@ -2121,6 +2123,8 @@
    <date>2016-04-05</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [jan] Update Portuguese translation.
+* [jan] Update Basque translation.
 * [mjr] Fix searching via the API when specifying fields and not specifying source.
 * [mjr] Require Horde_Perms::DELETE for including an address book  as sync-able.
    </notes>

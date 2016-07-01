@@ -33,6 +33,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Update Portuguese translation.
+* [jan] Update Basque translation.
 * [mjr] Fix issue where it is possible to save an event with an empty start or end date on some browsers.
 * [mjr] Require Horde_Perms::DELETE for including a calendar as sync-able.
 * [mjr] Fix end date when toggling an all day event off (Bug #13979).
@@ -2712,6 +2714,8 @@
    <date>2016-03-21</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Update Portuguese translation.
+* [jan] Update Basque translation.
 * [mjr] Fix issue where it is possible to save an event with an empty start or end date on some browsers.
 * [mjr] Require Horde_Perms::DELETE for including a calendar as sync-able.
 * [mjr] Fix end date when toggling an all day event off (Bug #13979).

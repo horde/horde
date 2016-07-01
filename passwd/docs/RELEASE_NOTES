@@ -5,7 +5,7 @@ $notes['security'] = false;
 /* Mailing list release notes. */
 $notes['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Passwd Horde
-password changing application version H5 (5.0.4).
+password changing application version H5 (5.0.5).
 
 Passwd provides support for changing passwords via the Horde authentication
 system or various password backends.
@@ -16,8 +16,11 @@ http://www.horde.org/apps/nag/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/nag/docs/INSTALL
 
-The major changes compared to Passwd version H5 (5.0.3) are:
-    * Fix password changing using Kolab driver.
+The major changes compared to Passwd version H5 (5.0.4) are:
+    * Fix changing password with SOAP driver.
+    * Update Portuguese translation.
+    * Update German translation.
+    * Further bugfixes and improvements.
 ML;
 
 

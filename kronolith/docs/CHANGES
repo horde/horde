@@ -2,6 +2,8 @@
 v4.2.17-git
 -----------
 
+[jan] Update Portuguese translation.
+[jan] Update Basque translation.
 [mjr] Fix issue where it is possible to save an event with an empty start or
       end date on some browsers.
 [mjr] Require Horde_Perms::DELETE for including a calendar as sync-able.

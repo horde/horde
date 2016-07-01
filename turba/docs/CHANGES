@@ -2,6 +2,8 @@
 v4.2.15-git
 -----------
 
+[jan] Update Portuguese translation.
+[jan] Update Basque translation.
 [mjr] Fix searching via the API when specifying fields and not specifying
       source.
 [mjr] Require Horde_Perms::DELETE for including an address book  as sync-able.

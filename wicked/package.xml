@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [jan] Update Portuguese translation.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1101,7 +1101,7 @@
    <date>2016-03-21</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [jan] Update Portuguese translation.
    </notes>
   </release>
  </changelog>

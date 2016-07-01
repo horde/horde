@@ -5,7 +5,7 @@ $notes['security'] = false;
 /* Mailing list release notes. */
 $notes['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Horde
-Application Framework version 5.2.10.
+Application Framework version 5.2.11.
 
 The Horde Application Framework is a flexible, modular, general-purpose web
 application framework written in PHP. It provides an extensive array of
@@ -22,10 +22,10 @@ http://www.horde.org/apps/horde/docs/INSTALL
 
 Thanks to duarteetraud@gmail.com for reporting the XSS vulnerability.
 
-The major changes compared to the Horde version 5.2.9 are:
-    * Remove Facebook posting functionality due to Facebook API changes.
-    * Update Greek translation.
-    * Check if temporary directory is writable.
+The major changes compared to the Horde version 5.2.10 are:
+    * Update Portuguese translation.
+    * Update Basque translation.
+    * Further bugfixes and improvements.
 ML;
 
 $notes['name'] = 'Horde';

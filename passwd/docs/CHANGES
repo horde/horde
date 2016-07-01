@@ -2,6 +2,8 @@
 v5.0.5-git
 ----------
 
+[jan] Update German translation.
+[jan] Update Portuguese translation.
 [jan] Fix changing passwords with the SOAP driver.
 [jan] Use access rules compatible with both Apache 2.2 and 2.4.
 

@@ -27,6 +27,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [jan] Update Portuguese translation.
+* [jan] Update Basque translation.
 * [mjr] Require Horde_Perms::DELETE for including a notebook as sync-able.
  </notes>
  <contents>
@@ -1367,6 +1369,8 @@
    <date>2016-03-21</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [jan] Update Portuguese translation.
+* [jan] Update Basque translation.
 * [mjr] Require Horde_Perms::DELETE for including a notebook as sync-able.
    </notes>
   </release>

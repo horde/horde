@@ -2,7 +2,7 @@
 v4.2.10-git
 -----------
 
-[mjr] Fix handling of start and due dates when synching via EAS.
+[mjr] Fix handling of start and due dates when syncing via EAS.
 [jan] Avoid fatal errors if tasks don't have a UID.
 [mjr] Fix parsing certain date formats (Bug #14348).
 [jan] Fix deleteing alarms when completing a task.

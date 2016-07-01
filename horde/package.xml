@@ -39,7 +39,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
-* 
+* [jan] Update Portuguese translation.
+* [jan] Update Basque translation.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4107,7 +4108,8 @@
    <date>2016-03-21</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
-* 
+* [jan] Update Portuguese translation.
+* [jan] Update Basque translation.
    </notes>
   </release>
  </changelog>
