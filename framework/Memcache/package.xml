@@ -10,9 +10,9 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-12-01</date>
+ <date>2016-07-01</date>
  <version>
-  <release>2.0.8</release>
+  <release>2.1.0</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Add support for memcached extension and PHP 7.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -46,8 +46,8 @@
   <required>
    <php>
     <min>5.3.0</min>
-    <max>6.0.0alpha1</max>
-    <exclude>6.0.0alpha1</exclude>
+    <max>8.0.0alpha1</max>
+    <exclude>8.0.0alpha1</exclude>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -59,16 +59,23 @@
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
+   <extension>
+    <name>hash</name>
+   </extension>
+  </required>
+  <optional>
    <package>
     <name>memcache</name>
     <channel>pecl.php.net</channel>
     <min>2.0.0</min>
     <providesextension>memcache</providesextension>
    </package>
-   <extension>
-    <name>hash</name>
-   </extension>
-  </required>
+   <package>
+    <name>memcached</name>
+    <channel>pecl.php.net</channel>
+    <providesextension>memcached</providesextension>
+   </package>
+  </optional>
  </dependencies>
  <phprelease>
   <filelist>
@@ -379,15 +386,15 @@
   </release>
   <release>
    <version>
-    <release>2.0.8</release>
+    <release>2.1.0</release>
     <api>1.1.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-12-01</date>
+   <date>2016-07-01</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Add support for memcached extension and PHP 7.
    </notes>
   </release>
  </changelog>

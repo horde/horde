@@ -1,15 +1,25 @@
 <?php
 /**
- * This class provides an API or Horde code to interact with a centrally
- * configured memcache installation.
- *
- * memcached website: http://www.danga.com/memcached/
- *
  * Copyright 2007-2016 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @author   Didi Rieder <adrieder@sbox.tugraz.at>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Memcache
+ */
+
+/**
+ * This class provides an API or Horde code to interact with a centrally
+ * configured memcache installation.
+ *
+ * memcached website: http://www.danga.com/memcached/
+ *
+ * @author   Jan Schneider <jan@horde.org>
  * @author   Michael Slusarz <slusarz@horde.org>
  * @author   Didi Rieder <adrieder@sbox.tugraz.at>
  * @category Horde
@@ -107,7 +117,8 @@ class Horde_Memcache implements Serializable
      *   - hostspec: (array) The memcached host(s) to connect to.
      *                  DEFAULT: 'localhost'
      *   - large_items: (boolean) Allow storing large data items (larger than
-     *                  Horde_Memcache::MAX_SIZE)?
+     *                  Horde_Memcache::MAX_SIZE)? Currently not supported with
+     *                  memcached extension.
      *                  DEFAULT: true
      *   - persistent: (boolean) Use persistent DB connections?
      *                 DEFAULT: false
@@ -134,19 +145,48 @@ class Horde_Memcache implements Serializable
      */
     public function _init()
     {
-        $this->_memcache = new Memcache();
+        if (class_exists('Memcached')) {
+            if (empty($this->_params['persistent'])) {
+                $this->_memcache = new Memcached();
+            } else {
+                $this->_memcache = new Memcached('horde_memcache');
+            }
+            $this->_params['large_items'] = false;
+            $this->_memcache->setOptions(array(
+                Memcached::OPT_COMPRESSION => $this->_params['compression'],
+                Memcached::OPT_DISTRIBUTION => Memcached::DISTRIBUTION_CONSISTENT,
+                Memcached::OPT_HASH => Memcached::HASH_MD5,
+                Memcached::OPT_LIBKETAMA_COMPATIBLE => true,
+                Memcached::OPT_PREFIX_KEY => $this->_params['prefix'],
+            ));
+        } else {
+            // Force consistent hashing
+            ini_set('memcache.hash_strategy', 'consistent');
+            $this->_memcache = new Memcache();
+            if (!empty($this->_params['c_threshold'])) {
+                $this->_memcache->setCompressThreshold($this->_params['c_threshold']);
+            }
+        }
 
         for ($i = 0, $n = count($this->_params['hostspec']); $i < $n; ++$i) {
-            $res = $this->_memcache->addServer(
-                $this->_params['hostspec'][$i],
-                empty($this->_params['port'][$i]) ? 0 : $this->_params['port'][$i],
-                !empty($this->_params['persistent']),
-                !empty($this->_params['weight'][$i]) ? $this->_params['weight'][$i] : 1,
-                1,
-                15,
-                true,
-                array($this, 'failover')
-            );
+            if ($this->_memcache instanceof Memcached) {
+                $res = $this->_memcache->addServer(
+                    $this->_params['hostspec'][$i],
+                    empty($this->_params['port'][$i]) ? 0 : $this->_params['port'][$i],
+                    !empty($this->_params['weight'][$i]) ? $this->_params['weight'][$i] : 0
+                );
+            } else {
+                $res = $this->_memcache->addServer(
+                    $this->_params['hostspec'][$i],
+                    empty($this->_params['port'][$i]) ? 0 : $this->_params['port'][$i],
+                    !empty($this->_params['persistent']),
+                    !empty($this->_params['weight'][$i]) ? $this->_params['weight'][$i] : 1,
+                    1,
+                    15,
+                    true,
+                    array($this, 'failover')
+                );
+            }
 
             if ($res) {
                 $this->_servers[] = $this->_params['hostspec'][$i] . (!empty($this->_params['port'][$i]) ? ':' . $this->_params['port'][$i] : '');
@@ -157,13 +197,6 @@ class Horde_Memcache implements Serializable
         if (empty($this->_servers)) {
             throw new Horde_Memcache_Exception('Could not connect to any defined memcache servers.');
         }
-
-        if (!empty($this->_params['c_threshold'])) {
-            $this->_memcache->setCompressThreshold($this->_params['c_threshold']);
-        }
-
-        // Force consistent hashing
-        ini_set('memcache.hash_strategy', 'consistent');
 
         if (isset($this->_params['logger'])) {
             $this->_logger = $this->_params['logger'];
@@ -224,7 +257,12 @@ class Horde_Memcache implements Serializable
             $key_map[$v] = $this->_key($v);
         }
 
-        if (($res = $this->_memcache->get(array_values($key_map), $flags)) === false) {
+        if ($this->_memcache instanceof Memcached) {
+            $res = $this->_memcache->getMulti(array_values($key_map));
+        } else {
+            $res = $this->_memcache->get(array_values($key_map), $flags);
+        }
+        if ($res === false) {
             return false;
         }
 
@@ -334,9 +372,14 @@ class Horde_Memcache implements Serializable
 
         for ($i = 0; ($i * self::MAX_SIZE) < $len; ++$i) {
             $curr_key = $i ? ($key . '_s' . $i) : $key;
-
-            $flags = $this->_getFlags($i ? 0 : ceil($len / self::MAX_SIZE));
-            $res = $this->_memcache->set($this->_key($curr_key), substr($var, $i * self::MAX_SIZE, self::MAX_SIZE), $flags, $expire);
+            $res = $this->_memcache instanceof Memcached
+                ? $this->_memcache->set($curr_key, $var, $expire)
+                : $this->_memcache->set(
+                    $this->_key($curr_key),
+                    substr($var, $i * self::MAX_SIZE, self::MAX_SIZE),
+                    $this->_getFlags($i ? 0 : ceil($len / self::MAX_SIZE)),
+                    $expire
+                );
             if ($res === false) {
                 $this->delete($key);
                 break;
@@ -371,7 +414,11 @@ class Horde_Memcache implements Serializable
             return false;
         }
 
-        return $this->_memcache->replace($this->_key($key), $var, $this->_getFlags(1), $expire);
+        return $this->_memcache instanceof Memcached
+            ? $this->_memcache->replace($key, $var, $expire)
+            : $this->_memcache->replace(
+                $this->_key($key), $var, $this->_getFlags(1), $expire
+            );
     }
 
     /**
@@ -383,7 +430,7 @@ class Horde_Memcache implements Serializable
     {
         $i = 0;
 
-        while ($this->_memcache->add($this->_key($key . self::LOCK_SUFFIX), 1, 0, self::LOCK_TIMEOUT) === false) {
+        while ($this->_memcache->add($this->_key($key . self::LOCK_SUFFIX), 1, self::LOCK_TIMEOUT) === false) {
             usleep(min(pow(2, $i++) * 10000, 100000));
         }
 
@@ -435,7 +482,9 @@ class Horde_Memcache implements Serializable
      */
     public function stats()
     {
-        return $this->_memcache->getExtendedStats();
+        return $this->_memcache instanceof Memcached
+            ? $this->_memcache->getStats()
+            : $this->_memcache->getExtendedStats();
     }
 
     /**
@@ -468,7 +517,9 @@ class Horde_Memcache implements Serializable
      */
     protected function _key($key)
     {
-        return hash('md5', $this->_params['prefix'] . $key);
+        return $this->_memcache instanceof Memcached
+            ? $key
+            : hash('md5', $this->_params['prefix'] . $key);
     }
 
     /**
