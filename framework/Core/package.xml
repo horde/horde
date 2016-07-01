@@ -30,7 +30,7 @@
  </developer>
  <date>2016-07-01</date>
  <version>
-  <release>2.24.0</release>
+  <release>2.24.1</release>
   <api>2.24.0</api>
  </version>
  <stability>
@@ -39,14 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Improve EAS logging when sending email messages.
-* [jan] Fix specifying custom log template (Viktor Szépe &lt;viktor@szepe.net&gt;).
-* [jan] Upgrade prototype.js to version 1.7.3.
-* [jan] Pre-select the current locale when building the spellchecker languages (Request #14244).
-* [jan] Fix pre-selecting an item in key-navigation-lists.
-* [jan] Add classes to support the Horde 6 davusername hook.
-* [jan] Fix session_regenerate_id() warnings with PHP 7.
-* [jan] Fix running garbage collection on cached CSS and JS files (Bug #14285).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4194,6 +4187,19 @@
 * [jan] Add classes to support the Horde 6 davusername hook.
 * [jan] Fix session_regenerate_id() warnings with PHP 7.
 * [jan] Fix running garbage collection on cached CSS and JS files (Bug #14285).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.24.1</release>
+    <api>2.24.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-07-01</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
