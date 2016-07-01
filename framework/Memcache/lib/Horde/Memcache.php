@@ -430,7 +430,7 @@ class Horde_Memcache implements Serializable
     {
         $i = 0;
 
-        while ($this->_memcache->add($this->_key($key . self::LOCK_SUFFIX), 1, self::LOCK_TIMEOUT) === false) {
+        while ($this->_lockAdd($key) === false) {
             usleep(min(pow(2, $i++) * 10000, 100000));
         }
 
@@ -453,6 +453,24 @@ class Horde_Memcache implements Serializable
         }
 
         $this->_locks[$key] = true;
+    }
+
+    /**
+     * Small wrapper around Memcache[d]#add().
+     *
+     * @param string $key  The key to lock.
+     */
+    protected function _lockAdd($key)
+    {
+        if ($this->_memcache instanceof Memcached) {
+            $this->_memcache->add(
+                $this->_key($key . self::LOCK_SUFFIX), 1, self::LOCK_TIMEOUT
+            );
+        } else {
+            $this->_memcache->add(
+                $this->_key($key . self::LOCK_SUFFIX), 1, 0, self::LOCK_TIMEOUT
+            );
+        }
     }
 
     /**
