@@ -56,7 +56,7 @@ class Horde_SessionHandler_Storage_MemcacheTest extends Horde_SessionHandler_Sto
 
     public static function setUpBeforeClass()
     {
-        if (!extension_loaded('memcache')) {
+        if (!(extension_loaded('memcache') || extension_loaded('memcached'))) {
             self::$reason = 'No memcache extension.';
             return;
         }
