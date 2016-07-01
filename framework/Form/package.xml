@@ -18,7 +18,7 @@
  </lead>
  <date>2016-07-01</date>
  <version>
-  <release>2.0.14</release>
+  <release>2.0.15</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -27,8 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Fix handling of incomplete date arrays (Neal Thomas Oakey &lt;oakey@b1-systems.de&gt;).
-* [mjr] Fix bug when using multiple sections (Neal Thomas Oakey &lt;oakey@b1-systems.de&gt;).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -967,6 +966,19 @@ Converted to package.xml 2.0 for pear.horde.org
    <notes>
 * [mjr] Fix handling of incomplete date arrays (Neal Thomas Oakey &lt;oakey@b1-systems.de&gt;).
 * [mjr] Fix bug when using multiple sections (Neal Thomas Oakey &lt;oakey@b1-systems.de&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.15</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-07-01</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
