@@ -19,7 +19,7 @@
  </lead>
  <date>2016-07-01</date>
  <version>
-  <release>2.10.0</release>
+  <release>2.10.1</release>
   <api>2.10.0</api>
  </version>
  <stability>
@@ -28,9 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Add Horde_Mime_Part#isAttachment().
-* [mjr] Add workaround for failures due to sending broken rfc822/message attachments (Bug #14324).
-* [mjr] Catch incorrectly localized Date headers.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1784,6 +1782,19 @@
 * [jan] Add Horde_Mime_Part#isAttachment().
 * [mjr] Add workaround for failures due to sending broken rfc822/message attachments (Bug #14324).
 * [mjr] Catch incorrectly localized Date headers.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.10.1</release>
+    <api>2.10.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-07-01</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
