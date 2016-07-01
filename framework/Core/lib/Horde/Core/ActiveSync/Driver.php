@@ -2153,6 +2153,11 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
 
         try {
             $mailer->send();
+            $this->_logger->info(sprintf(
+                "[%s] Message-ID: '%s' successfully sent.",
+                $this->_pid,
+                $mailer->headers['Message-ID'])
+            );
         } catch (Horde_ActiveSync_Exception $e) {
             $this->_logger->err($e->getMessage());
             $this->_endBuffer();
@@ -2163,15 +2168,23 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             $sf = $this->getSpecialFolderNameByType(self::SPECIAL_SENT);
             if (!empty($sf)) {
                 $this->_logger->info(sprintf(
-                    "[%s] Preparing to copy to '%s'",
+                    "[%s] Preparing to copy Message-ID: '%s' to '%s'.",
                     $this->_pid,
-                    $sf));
+                    $mailer->headers['Message-ID'],
+                    $sf)
+                );
                 $flags = array(Horde_Imap_Client::FLAG_SEEN);
 
                 // Ignore issues sending to sent, in case the folder isn't
                 // available.
                 try {
                     $this->_imap->appendMessage($sf, $mailer->getSentMail(), $flags);
+                    $this->_logger->info(sprintf(
+                        "[%s] Message-ID: '%s' appended to '%s'.",
+                        $this->_pid,
+                        $mailer->headers['Message-ID'],
+                        $sf)
+                    );
                 } catch (Horde_ActiveSync_Exception $e) {
                     $this->_logger->err($e->getMessage());
                 }
