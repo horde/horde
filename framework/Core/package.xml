@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Improve EAS logging when sending email messages.
 * [jan] Fix specifying custom log template (Viktor Szépe &lt;viktor@szepe.net&gt;).
 * [jan] Upgrade prototype.js to version 1.7.3.
 * [jan] Pre-select the current locale when building the spellchecker languages (Request #14244).
@@ -4185,6 +4186,7 @@
    <date>2016-06-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Improve EAS logging when sending email messages.
 * [jan] Fix specifying custom log template (Viktor Szépe &lt;viktor@szepe.net&gt;).
 * [jan] Upgrade prototype.js to version 1.7.3.
 * [jan] Pre-select the current locale when building the spellchecker languages (Request #14244).
