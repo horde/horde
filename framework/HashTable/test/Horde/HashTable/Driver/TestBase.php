@@ -36,17 +36,26 @@ abstract class Horde_HashTable_Driver_TestBase extends Horde_Test_Case
         }
     }
 
+    public static function tearDownAfterClass()
+    {
+        if (self::$_driver) {
+            self::$_driver->clear();
+        }
+    }
+
     public function testSet()
     {
         $this->assertTrue(self::$_driver->set('foo', 1));
 
-        /* This should immediately expire. */
-        $this->assertTrue(self::$_driver->set('foo2', 1, array('expire' => -1)));
+        /* This expires after a second. */
+        $this->assertTrue(self::$_driver->set('foo2', 1, array('expire' => 1)));
+        self::$_driver->exists('foo3');
         $this->assertFalse(self::$_driver->set('foo3', 1, array('replace' => true)));
         $this->assertTrue(self::$_driver->set('foo3', 1));
         $this->assertTrue(self::$_driver->set('foo3', 2, array('replace' => true)));
         /* @todo BC: 'timeout' will work also for 1.x. */
-        $this->assertTrue(self::$_driver->set('foo4', 1, array('timeout' => -1)));
+        $this->assertTrue(self::$_driver->set('foo4', 1, array('timeout' => 1)));
+        sleep(2);
     }
 
     /**
