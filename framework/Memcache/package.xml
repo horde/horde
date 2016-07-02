@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Fix locking.
 * [jan] Add support for memcached extension and PHP 7.
  </notes>
  <contents>
@@ -394,6 +395,7 @@
    <date>2016-07-01</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Fix locking.
 * [jan] Add support for memcached extension and PHP 7.
    </notes>
   </release>
