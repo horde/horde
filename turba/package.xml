@@ -30,7 +30,7 @@
  </lead>
  <date>2016-07-02</date>
  <version>
-  <release>4.2.15</release>
+  <release>4.2.16</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -39,10 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* [jan] Update Portuguese translation.
-* [jan] Update Basque translation.
-* [mjr] Fix searching via the API when specifying fields and not specifying source.
-* [mjr] Require Horde_Perms::DELETE for including an address book  as sync-able.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2127,6 +2124,19 @@
 * [jan] Update Basque translation.
 * [mjr] Fix searching via the API when specifying fields and not specifying source.
 * [mjr] Require Horde_Perms::DELETE for including an address book  as sync-able.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.16</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-07-01</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
