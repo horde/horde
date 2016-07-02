@@ -24,7 +24,7 @@
  </lead>
  <date>2016-07-02</date>
  <version>
-  <release>1.1.6</release>
+  <release>1.1.7</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -33,8 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* [mjr] Honor [&apos;content_index&apos;][&apos;enabled&apos;] setting (Bug #14345).
-* [jan] Add Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.eus&gt;).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -789,6 +788,19 @@
    <notes>
 * [mjr] Honor [&apos;content_index&apos;][&apos;enabled&apos;] setting (Bug #14345).
 * [jan] Add Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.eus&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.7</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-07-01</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
