@@ -178,7 +178,7 @@ class Horde_Vfs_FileTest extends Horde_Vfs_TestBase
     public function testListFolderWithoutPermissions()
     {
         if (!is_dir('/root')) {
-            $this->markSkipped('No /root folder to test permissions.');
+            $this->markTestSkipped('No /root folder to test permissions.');
         }
         $vfs = Horde_Vfs::factory('File', array('vfsroot' => '/'));
         $vfs->listFolder('root');
