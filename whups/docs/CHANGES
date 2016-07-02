@@ -1,6 +1,6 @@
-----------
-v3.0.8-git
-----------
+------
+v3.0.8
+------
 
 [jan] Update Portuguese translation.
 [mjr] Fix decoding custom attributes for display (Bug #14326).
