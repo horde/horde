@@ -12,11 +12,11 @@
         }
     ],
     "version": "1.0.3",
-    "time": "2015-06-18",
+    "time": "2016-07-02",
     "repositories": [
         {
             "type": "pear",
-            "url": "https://pear.horde.org"
+            "url": "http://pear.horde.org"
         }
     ],
     "require": {
