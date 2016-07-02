@@ -18,7 +18,7 @@
  </lead>
  <date>2016-07-02</date>
  <version>
-  <release>5.0.5</release>
+  <release>5.0.6</release>
   <api>5.0.0</api>
  </version>
  <stability>
@@ -27,10 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Update German translation.
-* [jan] Update Portuguese translation.
-* [jan] Fix changing passwords with the SOAP driver.
-* [jan] Use access rules compatible with both Apache 2.2 and 2.4.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -761,6 +758,19 @@
 * [jan] Update Portuguese translation.
 * [jan] Fix changing passwords with the SOAP driver.
 * [jan] Use access rules compatible with both Apache 2.2 and 2.4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.6</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-07-01</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
