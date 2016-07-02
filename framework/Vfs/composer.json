@@ -16,12 +16,12 @@
             "role": "lead"
         }
     ],
-    "version": "2.3.2",
-    "time": "2016-03-21",
+    "version": "2.3.3",
+    "time": "2016-07-02",
     "repositories": [
         {
             "type": "pear",
-            "url": "https://pear.horde.org"
+            "url": "http://pear.horde.org"
         }
     ],
     "require": {
@@ -36,6 +36,7 @@
         "pear-pear.horde.org/Horde_Db": ">=2.2.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Kolab_Session": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Mime": ">=2.0.0@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Mongo": ">=1.0.0@stable,<=2.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Perms": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Test": ">=2.1.0@stable,<=3.0.0alpha1@stable",
         "pear-pecl.php.net/ssh2": ">=0.12@stable",

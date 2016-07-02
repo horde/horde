@@ -27,7 +27,7 @@ Reading, writing and listing of files are all supported.</description>
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-03-21</date>
+ <date>2016-07-02</date>
  <version>
   <release>2.3.3</release>
   <api>2.3.0</api>
@@ -1280,7 +1280,7 @@ Added a class for providing garbage collection; removed all Horde dependancies.
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-03-21</date>
+   <date>2016-07-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix creating the vfsroot when using paths in the &apos;hostspec&apos; parameter of the Smb driver.
