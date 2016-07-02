@@ -1,6 +1,6 @@
-----------
-v1.1.6-git
-----------
+------
+v1.1.6
+------
 
 [mjr] Honor ['content_index']['enabled'] setting (Bug #14345).
 [jan] Add Basque translation (Ibon Igartua <ibon.igartua@ehu.eus>).

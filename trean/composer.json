@@ -2,7 +2,7 @@
     "name": "horde/trean",
     "description": "Web-based bookmarks application",
     "type": "library",
-    "homepage": "http://pear.horde.org",
+    "homepage": "https://pear.horde.org",
     "license": "BSD-2-Clause",
     "authors": [
         {
@@ -21,8 +21,8 @@
             "role": "lead"
         }
     ],
-    "version": "1.1.5",
-    "time": "2016-03-21",
+    "version": "1.1.6",
+    "time": "2016-07-02",
     "repositories": [
         {
             "type": "pear",
