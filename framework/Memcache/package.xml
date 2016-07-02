@@ -12,7 +12,7 @@
  </lead>
  <date>2016-07-02</date>
  <version>
-  <release>2.1.0</release>
+  <release>2.1.1</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -21,8 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Fix locking.
-* [jan] Add support for memcached extension and PHP 7.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -397,6 +396,19 @@
    <notes>
 * [jan] Fix locking.
 * [jan] Add support for memcached extension and PHP 7.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.1</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-07-02</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
