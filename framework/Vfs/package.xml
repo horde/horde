@@ -29,7 +29,7 @@ Reading, writing and listing of files are all supported.</description>
  </lead>
  <date>2016-07-02</date>
  <version>
-  <release>2.3.3</release>
+  <release>2.3.4</release>
   <api>2.3.0</api>
  </version>
  <stability>
@@ -38,9 +38,7 @@ Reading, writing and listing of files are all supported.</description>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Fix creating the vfsroot when using paths in the &apos;hostspec&apos; parameter of the Smb driver.
-* [jan] Don&apos;t change directory when listing folders in File backend.
-* [jan] Allow to specify root folder (&apos;/&apos;) as &apos;vfsroot&apos; parameter.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1286,6 +1284,19 @@ Added a class for providing garbage collection; removed all Horde dependancies.
 * [jan] Fix creating the vfsroot when using paths in the &apos;hostspec&apos; parameter of the Smb driver.
 * [jan] Don&apos;t change directory when listing folders in File backend.
 * [jan] Allow to specify root folder (&apos;/&apos;) as &apos;vfsroot&apos; parameter.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.3.4</release>
+    <api>2.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-07-02</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
