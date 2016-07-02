@@ -11,7 +11,7 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2016-02-01</date>
+ <date>2016-07-02</date>
  <version>
   <release>2.0.9</release>
   <api>2.0.0</api>
@@ -781,7 +781,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-02-01</date>
+   <date>2016-07-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Drop split() usage (Remi Collet &lt;fedora@famillecollet.com&gt;).
