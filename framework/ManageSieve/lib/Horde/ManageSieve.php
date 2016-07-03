@@ -16,6 +16,7 @@
  */
 
 namespace Horde;
+use Auth_SASL;
 use Horde\Socket\Client;
 use Horde\ManageSieve\Exception;
 
