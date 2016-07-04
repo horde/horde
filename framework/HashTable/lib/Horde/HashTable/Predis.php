@@ -96,7 +96,7 @@ implements Horde_HashTable_Lock
             $pipeline->exists($val);
         }
 
-        return array_combine($keys, $pipeline->execute());
+        return array_combine($keys, array_map('boolval', $pipeline->execute()));
     }
 
     /**
