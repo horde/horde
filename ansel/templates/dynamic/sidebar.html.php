@@ -19,12 +19,12 @@
         <div class="horde-subnavi-point"><?php echo _("All") ?></div>
       </div>
       <!-- TODO -->
-      <div id="anselNavSubscribed" class="horde-subnavi">
+<!--       <div id="anselNavSubscribed" class="horde-subnavi">
         <div class="horde-subnavi-icon">
           <a class="icon"></a>
         </div>
         <div class="horde-subnavi-point"><?php echo _("Subscribed") ?></div>
-      </div>
+      </div> -->
     </div>
   </div>
   <div class="horde-sidebar-split"></div>

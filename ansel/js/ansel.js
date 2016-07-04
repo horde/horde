@@ -146,7 +146,7 @@ AnselCore =
 
         case 'me':
         case 'all':
-        case 'subscribed':
+        //case 'subscribed':
             if (subview != 'image') {
                 $('anselNav' + locCap).addClassName('horde-subnavi-active');
                 if ($('anselMenu' + subview.capitalize())) {
@@ -357,7 +357,8 @@ AnselCore =
      */
     closeView: function(loc, subview)
     {
-        $w('Me All Subscribed').each(function(a) {
+        // $w('Me All Subscribed').each(function(a) {
+        $w('Me All').each(function(a) {
             a = $('anselNav' + a);
             if (a) {
                 a.removeClassName('horde-subnavi-active');
