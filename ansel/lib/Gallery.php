@@ -32,6 +32,12 @@ class Ansel_Gallery implements Serializable
     const VERSION = 3;
 
     /**
+     * Bit masks for the self::toJson method.
+     */
+    const TO_JSON_SUBGALLERIES = 1;
+    const TO_JSON_IMAGES = 2;
+
+    /**
      * The share object for this gallery.
      *
      * @var Horde_Share_Object
@@ -1173,7 +1179,7 @@ class Ansel_Gallery implements Serializable
     /**
      * Returns a json representation of this gallery.
      *
-     * @param boolean $full  Return all information (subgalleries and images)?
+     * @param  integer $level  Bit mask of what information to include.
      *
      * @return StdClass  An object describing the gallery
      * <pre>
@@ -1201,7 +1207,7 @@ class Ansel_Gallery implements Serializable
      *      'url' - the image url
      * </pre>
      */
-    public function toJson($full = false)
+    public function toJson($level = 0)
     {
         // @TODO: Support date grouped galleries
         $vMode = $this->get('view_mode');
@@ -1237,9 +1243,11 @@ class Ansel_Gallery implements Serializable
             $json->pn = $p->get('name');
         }
 
-        if ($full) {
-            $json->tiny = ($GLOBALS['conf']['image']['tiny'] &&
-                           ($GLOBALS['conf']['vfs']['src'] == 'direct' || $this->_share->hasPermission('', Horde_Perms::READ)));
+        if ($level & self::TO_JSON_SUBGALLERIES) {
+            Horde::debug('fo');
+            $json->tiny =
+                ($GLOBALS['conf']['image']['tiny'] &&
+                ($GLOBALS['conf']['vfs']['src'] == 'direct' || $this->_share->hasPermission('', Horde_Perms::READ)));
             $json->sg = array();
             if ($this->hasSubGalleries()) {
                 $sgs = $this->getChildren(
@@ -1250,6 +1258,8 @@ class Ansel_Gallery implements Serializable
                     $json->sg[] = $g->toJson();
                 }
             }
+        }
+        if ($level & self::TO_JSON_IMAGES) {
             $images = $this->getImages();
             foreach ($images as $img) {
                 $json->imgs[] = $img->toJson($style);

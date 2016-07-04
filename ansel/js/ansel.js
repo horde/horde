@@ -464,7 +464,7 @@ AnselCore =
     {
         HordeCore.doAction(
             'listGalleries',
-            { user: r.o },
+            { user: r.o, all_levels: true },
             { callback: this.updateOtherGalleriesCallback.bind(this, r.on) }
         );
     },

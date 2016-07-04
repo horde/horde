@@ -48,7 +48,7 @@ class Ansel_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
         $galleries = $GLOBALS['storage']->listGalleries($params);
         $return = new stdClass();
         foreach ($galleries as $gallery) {
-            $return->{$gallery->id} = $gallery->toJson();
+            $return->{$gallery->id} = $gallery->toJson(Ansel_Gallery::TO_JSON_SUBGALLERIES);
         }
 
         return $return;
@@ -122,7 +122,7 @@ class Ansel_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
         try {
             return $GLOBALS['storage']
                 ->getGallery($id)
-                ->toJson(true);
+                ->toJson(Ansel_Gallery::TO_JSON_SUBGALLERIES | Ansel_Gallery::TO_JSON_IMAGES);
         } catch (Exception $e) {
             Horde::log($e, 'ERR');
             return false;
