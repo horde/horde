@@ -95,8 +95,12 @@ implements Horde_HashTable_Lock
         foreach ($keys as $val) {
             $pipeline->exists($val);
         }
+        $exists = array();
+        foreach ($pipeline->execute() as $key => $val) {
+            $exists[$keys[$key]] = (bool)$val;
+        }
 
-        return array_combine($keys, array_map('boolval', $pipeline->execute()));
+        return $exists;
     }
 
     /**
