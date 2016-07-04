@@ -452,6 +452,9 @@ AnselCore =
                     new Element('img', { title: Ansel.text['download'], src: Ansel.conf.images['download'], 'class': 'ansel-gallery-download' })).insert(
                     new Element('img', { title: Ansel.text['upload'], src: Ansel.conf.images['upload'], 'class': 'ansel-gallery-upload' }))
             );
+        if (r.sg) {
+            this.galleryLayout.galleries = r.sg;
+        }
         this.galleryLayout.addImages(r.imgs);
         this.updateOtherGalleries(r);
     },
