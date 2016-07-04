@@ -29,12 +29,7 @@ class Horde_HashTable_Driver_PredisTest extends Horde_HashTable_Driver_TestBase
         if (class_exists('Predis\Client') &&
             ($config = self::getConfig('HASHTABLE_PREDIS_TEST_CONFIG', __DIR__ . '/..')) &&
             isset($config['hashtable']['predis'])) {
-            $predis = new Predis\Client(
-                array_merge(
-                    $config['hashtable']['predis'],
-                    array('database' => 'horde_hashtable_predistest')
-                )
-            );
+            $predis = new Predis\Client($config['hashtable']['predis']);
             self::$_driver = new Horde_HashTable_Predis(array('predis' => $predis));
         } else {
             self::$_skip = 'Predis or configuration not available.';
