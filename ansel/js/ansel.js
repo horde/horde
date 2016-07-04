@@ -203,7 +203,7 @@ AnselCore =
     {
         var current = this.viewLoading.shift();
         $('anselSidebarOtherGalleries').hide();
-        $('anselSidebarOtherGalleries').down('span').update('');
+        $('anselSidebarOtherGalleries').up().down('span').update('');
         if (this.viewLoading.size()) {
             var next = this.viewLoading.pop();
             this.viewLoading = [];
@@ -470,7 +470,7 @@ AnselCore =
 
     updateOtherGalleriesCallback: function(on, r)
     {
-        $('anselSidebarOtherGalleries').down('span').update(on);
+        $('anselSidebarOtherGalleries').up().down('span').update(on);
         // @todo - need to implement a folder tree manager/objects.
         // $H(r).each(function(g) {
         // });
