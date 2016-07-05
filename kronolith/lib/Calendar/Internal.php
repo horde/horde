@@ -185,7 +185,7 @@ class Kronolith_Calendar_Internal extends Kronolith_Calendar
         $hash['embed'] = Kronolith::embedCode($id);
         $hash['tg']    = array_values(Kronolith::getTagger()->getTags($id, Kronolith_Tagger::TYPE_CALENDAR));
         if ($owner) {
-            $hash['perms'] = Kronolith::permissionToJson($this->_share->getPermission());
+            $hash['perms'] = Kronolith::permissionToJson($this->_share->getPermission(), is_null($this->_share->get('owner')));
         }
 
         return $hash;

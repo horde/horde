@@ -116,7 +116,7 @@ class Kronolith_Calendar_Resource extends Kronolith_Calendar
         $hash['embed'] = null;
         $hash['response_type'] = $this->_resource->get('response_type');
         if ($owner) {
-            $hash['perms'] = Kronolith::permissionToJson($this->_resource->getPermission());
+            $hash['perms'] = Kronolith::permissionToJson($this->_resource->getPermission(), true);
         }
         return $hash;
     }

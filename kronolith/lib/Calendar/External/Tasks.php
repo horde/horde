@@ -87,7 +87,7 @@ class Kronolith_Calendar_External_Tasks extends Kronolith_Calendar_External
             . '/'
             . $this->_share->getName() . '.ics';
         if ($owner) {
-            $hash['perms'] = Kronolith::permissionToJson($this->_share->getPermission());
+            $hash['perms'] = Kronolith::permissionToJson($this->_share->getPermission(), is_null($this->_share->get('owner')));
         }
 
         return $hash;

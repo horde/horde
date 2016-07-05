@@ -84,16 +84,19 @@ class Kronolith
      * user name if necessary.
      *
      * @param Horde_Perms_Permission $perm  A permission object.
+     * @param boolean $systemShare          Is this from a system share?
      *
      * @return array  A hash suitable for json.
      */
-    public static function permissionToJson(Horde_Perms_Permission $perm)
+    public static function permissionToJson(
+        Horde_Perms_Permission $perm, $systemShare = false
+    )
     {
         $json = $perm->data;
         if (isset($json['users'])) {
             $users = array();
             foreach ($json['users'] as $user => $value) {
-                if ($user == $GLOBALS['registry']->getAuth()) {
+                if (!$systemShare && $user == $GLOBALS['registry']->getAuth()) {
                     continue;
                 }
                 $user = $GLOBALS['registry']->convertUsername($user, false);
@@ -1421,8 +1424,12 @@ class Kronolith
         // Process owner and owner permissions.
         if (!($share instanceof Kronolith_Resource_Base)) {
             $old_owner = $share->get('owner');
-            $new_owner_backend = Horde_Util::getFormData('owner_select', Horde_Util::getFormData('owner_input', $old_owner));
-            $new_owner = $GLOBALS['registry']->convertUsername($new_owner_backend, true);
+            if ($old_owner) {
+                $new_owner_backend = Horde_Util::getFormData('owner_select', Horde_Util::getFormData('owner_input', $old_owner));
+                $new_owner = $GLOBALS['registry']->convertUsername($new_owner_backend, true);
+            } else {
+                $new_owner_backend = $new_owner = null;
+            }
 
             // Only set new owner if this isn't a system calendar, and the
             // owner actually changed and the new owner is set at all.

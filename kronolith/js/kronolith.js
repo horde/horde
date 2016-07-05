@@ -3291,7 +3291,7 @@ KronolithCore = {
                     }
                 }
                 if (!Object.isUndefined(info) && info.owner) {
-                    this.setPermsFields(type, info.perms);
+                    this.setPermsFields(type, info.perms, system || (info && info.system));
                 }
             }
             if (type == 'remote' || type == 'internal' || type == 'tasklists') {
@@ -3455,13 +3455,14 @@ KronolithCore = {
     /**
      * Populates the permissions field matrix.
      *
-     * @param string type   The calendar type, 'internal' or 'taskslists'.
-     * @param object perms  An object with the resource permissions.
+     * @param string type     The calendar type, 'internal' or 'taskslists'.
+     * @param object perms    An object with the resource permissions.
+     * @param boolean system  Is this a system resource?
      */
-    setPermsFields: function(type, perms)
+    setPermsFields: function(type, perms, system)
     {
         if (this.groupLoading) {
-            this.setPermsFields.bind(this, type, perms).defer();
+            this.setPermsFields.bind(this, type, perms, system).defer();
             return;
         }
 
@@ -3513,7 +3514,7 @@ KronolithCore = {
             case 'users':
                 if (!Object.isArray(perm.value)) {
                     $H(perm.value).each(function(user) {
-                        if (user.key != Kronolith.conf.user) {
+                        if (system || user.key != Kronolith.conf.user) {
                             this.insertGroupOrUser(type, 'user', user.key);
                             if (!$('kronolithC' + type + 'PUshow_' + user.key)) {
                                 // User doesn't exist anymore.
@@ -3567,7 +3568,7 @@ KronolithCore = {
                 case 'users':
                     $H(perm.value).each(function(user) {
                         if (baseperm.value & user.value &&
-                            user.key != Kronolith.conf.user) {
+                            (system || user.key != Kronolith.conf.user)) {
                             $('kronolithC' + type + 'PU' + baseperm.key + '_' + user.key).setValue(1);
                         }
                     });
