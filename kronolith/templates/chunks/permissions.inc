@@ -103,8 +103,8 @@
           <label for="kronolithC<?php echo $type ?>Pdefaultedit"><?php echo _("Edit") ?></label>
         </td>
         <td>
-          <input type="checkbox" id="kronolithC<?php echo $type ?>Pdefaultdelete" name="default_delete" />
-          <label for="kronolithC<?php echo $type ?>Pdefaultdelete"><?php echo _("Delete") ?></label>
+          <input type="checkbox" id="kronolithC<?php echo $type ?>Pdefaultdel" name="default_delete" />
+          <label for="kronolithC<?php echo $type ?>Pdefaultdel"><?php echo _("Delete") ?></label>
         </td>
         <?php if ($type == 'internal'): ?>
         <td>
@@ -130,8 +130,8 @@
           <label for="kronolithC<?php echo $type ?>Pguestedit"><?php echo _("Edit") ?></label>
         </td>
         <td>
-          <input type="checkbox" id="kronolithC<?php echo $type ?>Pguestdelete" name="guest_delete" />
-          <label for="kronolithC<?php echo $type ?>Pguestdelete"><?php echo _("Delete") ?></label>
+          <input type="checkbox" id="kronolithC<?php echo $type ?>Pguestdel" name="guest_delete" />
+          <label for="kronolithC<?php echo $type ?>Pguestdel"><?php echo _("Delete") ?></label>
         </td>
         <?php if ($type == 'internal'): ?>
         <td>
@@ -158,8 +158,8 @@
           <label for="kronolithC<?php echo $type ?>Pcreatoredit"><?php echo _("Edit") ?></label>
         </td>
         <td>
-          <input type="checkbox" id="kronolithC<?php echo $type ?>Pcreatordelete" name="creator_delete" />
-          <label for="kronolithC<?php echo $type ?>Pcreatordelete"><?php echo _("Delete") ?></label>
+          <input type="checkbox" id="kronolithC<?php echo $type ?>Pcreatordel" name="creator_delete" />
+          <label for="kronolithC<?php echo $type ?>Pcreatordel"><?php echo _("Delete") ?></label>
         </td>
         <?php if ($type == 'internal'): ?>
         <td>
@@ -211,8 +211,8 @@
           <label for="kronolithC<?php echo $type ?>PUedit_new"><?php echo _("Edit") ?></label>
         </td>
         <td>
-          <input type="checkbox" id="kronolithC<?php echo $type ?>PUdelete_new" name="u_delete[||new]" />
-          <label for="kronolithC<?php echo $type ?>PUdelete_new"><?php echo _("Delete") ?></label>
+          <input type="checkbox" id="kronolithC<?php echo $type ?>PUdel_new" name="u_delete[||new]" />
+          <label for="kronolithC<?php echo $type ?>PUdel_new"><?php echo _("Delete") ?></label>
         </td>
         <?php if ($type == 'internal'): ?>
         <td>
@@ -258,8 +258,8 @@
           <label for="kronolithC<?php echo $type ?>PGedit_new"><?php echo _("Edit") ?></label>
         </td>
         <td>
-          <input type="checkbox" id="kronolithC<?php echo $type ?>PGdelete_new" name="g_delete[||new]" />
-          <label for="kronolithC<?php echo $type ?>PGdelete_new"><?php echo _("Delete") ?></label>
+          <input type="checkbox" id="kronolithC<?php echo $type ?>PGdel_new" name="g_delete[||new]" />
+          <label for="kronolithC<?php echo $type ?>PGdel_new"><?php echo _("Delete") ?></label>
         </td>
         <?php if ($type == 'internal'): ?>
         <td>
