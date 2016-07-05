@@ -40,10 +40,10 @@ before_script:
         yes "" | pecl install channel://pecl.php.net/pecl_http;
     else
         phpenv config-add .travis.ini;
-        yes "" | pecl install channel://pecl.php.net/raphf-1.1.2 channel://pecl.php.net/propro-1.0.2 channel://pecl.php.net/pecl_http-2.5.6;
+        yes "" | pecl install channel://pecl.php.net/igbinary channel://pecl.php.net/raphf-1.1.2 channel://pecl.php.net/propro-1.0.2 channel://pecl.php.net/pecl_http-2.5.6;
     fi
   - yes no | pecl install channel://pecl.php.net/lzf
-  - pecl install channel://pecl.php.net/igbinary channel://pecl.php.net/msgpack
+  - pecl install channel://pecl.php.net/msgpack
   - pear install channel://pear.php.net/Math_BigInteger
   - pear install channel://pear.php.net/Net_DNS2
   - pear install channel://pear.horde.org/Horde_Role
