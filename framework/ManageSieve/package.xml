@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
-* 
+* [jan] Fix loading of Auth_SASL class (Ralf Becker &lt;RalfBecker@outdoor-training.de&gt;).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -174,7 +174,7 @@
    <date>2016-02-01</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
-* 
+* [jan] Fix loading of Auth_SASL class (Ralf Becker &lt;RalfBecker@outdoor-training.de&gt;).
    </notes>
   </release>
  </changelog>
