@@ -1429,9 +1429,11 @@ class Kronolith
             if (!is_null($old_owner) &&
                 $old_owner !== $new_owner &&
                 !empty($new_owner)) {
-                if ($old_owner != $GLOBALS['registry']->getAuth() && !$GLOBALS['registry']->isAdmin()) {
+                if ($old_owner != $GLOBALS['registry']->getAuth() &&
+                    !$GLOBALS['registry']->isAdmin()) {
                     $errors[] = _("Only the owner or system administrator may change ownership or owner permissions for a share");
-                } elseif ($auth->hasCapability('list') && !$auth->exists($new_owner_backend)) {
+                } elseif ($auth->hasCapability('list') &&
+                          !$auth->exists($new_owner_backend)) {
                     $errors[] = sprintf(_("The user \"%s\" does not exist."), $new_owner_backend);
                 } else {
                     $share->set('owner', $new_owner);
