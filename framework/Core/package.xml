@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix issue with prototype.js that keeps images in HTML messages from loading.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4199,7 +4199,7 @@
    <date>2016-07-01</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix issue with prototype.js that keeps images in HTML messages from loading.
    </notes>
   </release>
  </changelog>

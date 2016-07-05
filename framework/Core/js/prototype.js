@@ -2138,7 +2138,8 @@ Ajax.PeriodicalUpdater = Class.create(Ajax.Base, {
 
 
   function visible(element) {
-    return $(element).getStyle('display') !== 'none';
+    element = $(element);
+    return (element.getStyle ? element.getStyle('display') : element.style.display) !== 'none';
   }
 
   function toggle(element, bool) {
