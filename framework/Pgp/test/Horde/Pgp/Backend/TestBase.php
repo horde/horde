@@ -300,6 +300,7 @@ extends Horde_Test_Case
      */
     public function testEncryptSymmetric($compress, $cipher, $data, $pass)
     {
+        $this->markTestIncomplete('openpgp-php is broken because it creates symmetrically encrypted data that it cannot decrypt anymore. Sometimes.');
         $result = $this->_pgp->encryptSymmetric(
             $data,
             $pass,
