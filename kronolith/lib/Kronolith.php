@@ -2088,7 +2088,7 @@ class Kronolith
         }
 
         $senderIdentity = $injector->getInstance('Horde_Core_Factory_Identity')
-            ->create($event->creator ?: $owner);
+            ->create($registry->getAuth() ?: $event->creator ?: $owner);
 
         foreach ($share->listUsers(Horde_Perms::READ) as $user) {
             if (empty($recipients[$user])) {
