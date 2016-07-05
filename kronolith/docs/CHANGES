@@ -2,6 +2,7 @@
 v4.2.18-git
 -----------
 
+[jan] Fix sender of event change notification messages.
 
 
 -------
