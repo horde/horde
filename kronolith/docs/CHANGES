@@ -34,6 +34,29 @@ v4.3.0-git
 
 
 -------
+v4.2.17
+-------
+
+[jan] Update Portuguese translation.
+[jan] Update Basque translation.
+[mjr] Fix issue where it is possible to save an event with an empty start or
+      end date on some browsers.
+[mjr] Require Horde_Perms::DELETE for including a calendar as sync-able.
+[mjr] Fix end date when toggling an all day event off (Bug #13979).
+[jan] Fix showing error message if loading of remote calendars failed.
+
+
+-------
+v4.2.16
+-------
+
+[mjr] Fix updating list of resource calendars in resource group dialog (Bug
+      #14281).
+[jan] Fixed several issues with resource management.
+[jan] Update Greek translation (Limperis Antonis <limperis@cti.gr>).
+
+
+-------
 v4.2.15
 -------
 
