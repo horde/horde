@@ -131,10 +131,9 @@ class Horde_SessionHandler_Storage_Mongo extends Horde_SessionHandler_Storage im
                     self::SID => $id,
                     self::LOCK => array('$exists' => $exist_check)
                 ),
-                array($data),
+                array('$set' => $data),
                 array(self::DATA => true),
                 array(
-                    'update' => array('$set' => $data),
                     'upsert' => !$exists
                 )
             );
