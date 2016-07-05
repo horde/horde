@@ -27,7 +27,7 @@ class Horde_Cache_MemcacheTest extends Horde_Cache_TestBase
             $this->reason = 'Horde_Memcache not installed';
             return;
         }
-        if (!extension_loaded('memcache')) {
+        if (!(extension_loaded('memcache') || extension_loaded('memcached'))) {
             $this->reason = 'Memcache extension not loaded';
             return;
         }
