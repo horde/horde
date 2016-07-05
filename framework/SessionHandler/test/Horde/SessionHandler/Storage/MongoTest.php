@@ -65,6 +65,7 @@ class Horde_SessionHandler_Storage_MongoTest extends Horde_SessionHandler_Storag
                 'dbname' => 'horde_sessionhandler_test'
             ));
         }
+        var_dump($config);
         if (empty(self::$mongo)) {
             self::$reason = 'MongoDB not available.';
             return;
