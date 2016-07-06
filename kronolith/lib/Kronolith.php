@@ -649,6 +649,11 @@ class Kronolith
                 }
             }
         } else {
+            // Don't include any results that are outside the query range.
+            if ((!empty($query->end) && $event->start->after($query->end)) ||
+                (!empty($query->start) && $event->start->before($query->start))) {
+                return;
+            }
             $eventStart = $event->start;
             $eventEnd = $event->end;
         }
