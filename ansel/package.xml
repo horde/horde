@@ -22,7 +22,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-06-16</date>
+ <date>2016-07-04</date>
  <version>
   <release>3.0.2</release>
   <api>3.0.0</api>
@@ -128,6 +128,7 @@
      <file name="tagactions.js" role="horde" />
     </dir> <!-- /js/widgets -->
     <file name="ansel.js" role="horde" />
+    <file name="anseltree.js" role="horde" />
     <file name="block.js" role="horde" />
     <file name="carousel.js" role="horde" />
     <file name="cropper.js" role="horde" />
@@ -898,6 +899,7 @@
    <install as="ansel/img/upload.php" name="img/upload.php" />
    <install as="ansel/img/upload_preview.php" name="img/upload_preview.php" />
    <install as="ansel/js/ansel.js" name="js/ansel.js" />
+   <install as="ansel/js/anseltree.js" name="js/anseltree.js" />
    <install as="ansel/js/block.js" name="js/block.js" />
    <install as="ansel/js/carousel.js" name="js/carousel.js" />
    <install as="ansel/js/cropper.js" name="js/cropper.js" />
@@ -1380,7 +1382,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-06-16</date>
+   <date>2016-07-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Keep original file names when PUTing images via WebDAV.

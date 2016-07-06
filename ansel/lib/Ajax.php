@@ -29,6 +29,7 @@ class Ansel_Ajax
         $page_output->addScriptFile('ansel.js');
         $page_output->addScriptFile('layout.js');
         $page_output->addScriptFile('imageview.js');
+        $page_output->addScriptFile('anseltree.js');
         $page_output->addScriptPackage('Horde_Core_Script_Package_Datejs');
 
         $page_output->addScriptFile('plupload/plupload.js', 'horde');

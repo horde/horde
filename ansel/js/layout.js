@@ -107,7 +107,7 @@ AnselLayout = Class.create({
             return;
         }
 
-        var elt = e.element(), id;
+        var elt = e.element();
         while (Object.isElement(elt)) {
             if (elt.hasClassName('ansel-tile-gallery')) {
                 this.opts.parent.fire('AnselLayout:galleryClick', { gid: elt.retrieve('gid') });

@@ -1180,6 +1180,7 @@ class Ansel_Gallery implements Serializable
      * Returns a json representation of this gallery.
      *
      * @param  integer $level  Bit mask of what information to include.
+     * @param  string $mini    Return mini thumbnails for gallery key images.
      *
      * @return StdClass  An object describing the gallery
      * <pre>
@@ -1207,7 +1208,7 @@ class Ansel_Gallery implements Serializable
      *      'url' - the image url
      * </pre>
      */
-    public function toJson($level = 0)
+    public function toJson($level = 0, $mini = false)
     {
         // @TODO: Support date grouped galleries
         $vMode = $this->get('view_mode');
@@ -1224,7 +1225,11 @@ class Ansel_Gallery implements Serializable
         $json->dc = $this->get('date_created');
         $json->dm = $this->get('last_modified');
         $json->d = $this->get('desc');
-        $json->ki = Ansel::getImageUrl($this->getKeyImage($style), 'thumb', false, $style)->toString(true);
+        if ($mini) {
+            $json->ki = Ansel::getImageUrl($this->getKeyImage($style), 'Mini', false)->toString(true);
+        } else {
+            $json->ki = Ansel::getImageUrl($this->getKeyImage($style), 'Thumb', false, $style)->toString(true);
+        }
         $json->kid = $this->getKeyImage($style);
         $json->imgs = array();
         $json->ct = $this->countImages(true);
@@ -1244,7 +1249,6 @@ class Ansel_Gallery implements Serializable
         }
 
         if ($level & self::TO_JSON_SUBGALLERIES) {
-            Horde::debug('fo');
             $json->tiny =
                 ($GLOBALS['conf']['image']['tiny'] &&
                 ($GLOBALS['conf']['vfs']['src'] == 'direct' || $this->_share->hasPermission('', Horde_Perms::READ)));
@@ -1255,7 +1259,7 @@ class Ansel_Gallery implements Serializable
                     Horde_Perms::READ,
                     false);
                 foreach ($sgs as $g) {
-                    $json->sg[] = $g->toJson();
+                    $json->sg[] = $g->toJson($level, $mini);
                 }
             }
         }
@@ -1265,10 +1269,10 @@ class Ansel_Gallery implements Serializable
                 $json->imgs[] = $img->toJson($style);
             }
         }
-
         if ($vMode != 'Normal') {
             $this->_setModeHelper($vMode);
         }
+
         return $json;
     }
 

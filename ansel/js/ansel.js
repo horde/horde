@@ -202,7 +202,7 @@ AnselCore =
     loadNextView: function()
     {
         var current = this.viewLoading.shift();
-        $('anselSidebarOtherGalleries').hide();
+        // $('anselSidebarOtherGalleries').hide();
         $('anselSidebarOtherGalleries').up().down('span').update('');
         if (this.viewLoading.size()) {
             var next = this.viewLoading.pop();
@@ -464,18 +464,21 @@ AnselCore =
     {
         HordeCore.doAction(
             'listGalleries',
-            { user: r.o, all_levels: true },
+            { user: r.o, all_levels: true, mini: true },
             { callback: this.updateOtherGalleriesCallback.bind(this, r.on) }
         );
     },
 
+    /**
+     * [updateOtherGalleriesCallback description]
+     *
+     * @param  {[type]} on  Name of user for other galleries.
+     * @param  {[type]} r   Array of galleries.
+     */
     updateOtherGalleriesCallback: function(on, r)
     {
         $('anselSidebarOtherGalleries').up().down('span').update(on);
-        // @todo - need to implement a folder tree manager/objects.
-        // $H(r).each(function(g) {
-        // });
-        $('anselSidebarOtherGalleries').show();
+        this.tree.create(r);
     },
 
     /**
@@ -622,6 +625,7 @@ AnselCore =
         document.observe('click', AnselCore.clickHandler.bindAsEventListener(AnselCore));
         document.observe('dblclick', AnselCore.clickHandler.bindAsEventListener(AnselCore, true));
         $('anselViewGalleries').observe('AnselLayout:galleryClick', this.onGalleryClick.bindAsEventListener(this));
+        $('anselSidebarOtherGalleries').observe('AnselLayout:galleryClick', this.onGalleryClick.bindAsEventListener(this));
         $('anselViewImage').observe('AnselImageView:close', function() { this.closeImageView(); }.bind(this));
         $('anselViewImage').observe('AnselImageView:next', this.navigateNext.bindAsEventListener(this));
         $('anselViewImage').observe('AnselImageView:previous', this.navigatePrevious.bindAsEventListener(this));
@@ -644,6 +648,7 @@ AnselCore =
             container: 'anselViewImage'
         });
 
+        this.tree = new AnselTree($('anselSidebarOtherGalleries'));
         this.initialized = true;
 
         /* Initialize the starting page. */
