@@ -261,9 +261,12 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
 
         $iterator->next();
         if (!$curr = $iterator->current()) {
-            return null;
+            // application/pkcs-7-mime might be the base part.
+            // See RFC 5751 3.4.2
+           $data_id = $base_id;
+        } else {
+           $data_id = $curr->getMimeId();
         }
-        $data_id = $curr->getMimeId();
 
         $id_ob = new Horde_Mime_Id($data_id);
         $sig_id = $id_ob->idArithmetic($id_ob::ID_NEXT);
@@ -286,16 +289,6 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
             $status->addText(
                 _("S/MIME support is not enabled so the digital signature is unable to be verified.")
             );
-            return null;
-        }
-
-        /* Sanity checking to make sure MIME structure is correct. */
-        if (!$this->_mimepart[$sig_id]) {
-            $status->action(IMP_Mime_Status::ERROR);
-            $cache->smime[$base_id]['wrap'] = 'mimePartWrapInvalid';
-            $status->addText(_("Invalid S/MIME data."));
-            /* This will suppress displaying the invalid part. */
-            $cache->smime[$base_id]['sig'] = $data_id;
             return null;
         }
 
