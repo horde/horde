@@ -370,7 +370,7 @@ EOT;
                     $type = Horde_Mime_Magic::filenameToMime($filename);
                 }
             } elseif (strpos($type, "multipart") !== false) {
-                // Handle mulitpart uploads
+                // Handle multipart uploads
                 $temp = Horde_Util::getTempFile('', true);
                 $out = fopen($temp, 'w+');
                 if ($out) {
@@ -409,7 +409,6 @@ EOT;
                     $notification->push(
                         sprintf(_("There was an error processing the uploaded archive: %s"), $e->getMessage()), 'horde.error');
                 }
-
             } else {
                 // Try and make sure the image is in a recognizeable format.
                 if (getimagesize($temp) === false) {
@@ -443,7 +442,6 @@ EOT;
             header('Content-Type: application/json');
             echo('{ "status" : "200", "error" : {} }');
             exit;
-
         }
     }
 
