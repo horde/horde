@@ -114,7 +114,7 @@ class Horde_ActiveSync_Imap_Adapter
             $imap->subscribeMailbox($mbox, true);
         } catch (Horde_Imap_Client_Exception $e) {
             if ($e->getCode() == Horde_Imap_Client_Exception::ALREADYEXISTS) {
-                $this->_logger(sprintf(
+                $this->_logger->warn(sprintf(
                     '[%s] Mailbox %s already exists, subscribing to it.',
                     $this->_procid,
                     $name
