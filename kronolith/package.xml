@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix displaying tag search results (Bug #14412).
 * [jan] Fix sender of event change notification messages.
  </notes>
  <contents>
@@ -2727,6 +2728,7 @@
    <date>2016-07-01</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix displaying tag search results (Bug #14412).
 * [jan] Fix sender of event change notification messages.
    </notes>
   </release>
