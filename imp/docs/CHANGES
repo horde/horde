@@ -2,6 +2,7 @@
 v6.2.16-git
 -----------
 
+[mjr] Fix display of applicatoin/pkcs-7-mime parts (Bug #14363).
 
 
 -------

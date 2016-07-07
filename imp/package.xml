@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix display of applicatoin/pkcs-7-mime parts (Bug #14363).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3962,7 +3962,7 @@
    <date>2016-07-01</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix display of applicatoin/pkcs-7-mime parts (Bug #14363).
    </notes>
   </release>
  </changelog>
