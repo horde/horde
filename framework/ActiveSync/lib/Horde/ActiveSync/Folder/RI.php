@@ -39,13 +39,6 @@ class Horde_ActiveSync_Folder_RI extends Horde_ActiveSync_Folder_Base implements
     protected $_added = array();
 
     /**
-     * Flag for indicating we have an initial sync for this collection.
-     *
-     * @var boolean
-     */
-    public $haveInitialSync = false;
-
-    /**
      * Set the current Recipient Cache
      *
      * @param array $contacts  An array of email addresses. Ordered by weight.
