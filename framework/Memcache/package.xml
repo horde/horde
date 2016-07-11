@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix setting compression threshold when using the memcache extension (Bug #14421).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -408,7 +408,7 @@
    <date>2016-07-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix setting compression threshold when using the memcache extension (Bug #14421).
    </notes>
   </release>
  </changelog>

@@ -163,9 +163,6 @@ class Horde_Memcache implements Serializable
             // Force consistent hashing
             ini_set('memcache.hash_strategy', 'consistent');
             $this->_memcache = new Memcache();
-            if (!empty($this->_params['c_threshold'])) {
-                $this->_memcache->setCompressThreshold($this->_params['c_threshold']);
-            }
         }
 
         for ($i = 0, $n = count($this->_params['hostspec']); $i < $n; ++$i) {
@@ -196,6 +193,11 @@ class Horde_Memcache implements Serializable
         /* Check if any of the connections worked. */
         if (empty($this->_servers)) {
             throw new Horde_Memcache_Exception('Could not connect to any defined memcache servers.');
+        }
+
+        if ($this->_memcache instanceof Memcache &&
+            !empty($this->_params['c_threshold'])) {
+            $this->_memcache->setCompressThreshold($this->_params['c_threshold']);
         }
 
         if (isset($this->_params['logger'])) {
