@@ -2,6 +2,8 @@
 v7.0.0-git
 ----------
 
+[mjr] Fix SyntaxHighlighter MIME viewer not rendering part after the initial
+      view of a part (Bug 14337).
 [mjr] Display comment attribute in iTip viewer (Request #14407).
 [mjr] Update the user/attendee participation status when accepting/importing
       an iTip.
