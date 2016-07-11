@@ -26,6 +26,7 @@ var HordeCore = {
     audios: [],
     handlers: {},
     jsfiles: [],
+    cssfiles: [],
     loading: {},
     notify_handler: function(m) { HordeCore.showNotifications(m); },
     server_error: 0,
@@ -257,6 +258,19 @@ var HordeCore = {
         }
         this.server_error = 0;
 
+        if (r.cssfiles) {
+            head = $(document.head || document.getElementsByTagName('head')[0]);
+            r.cssfiles.each(function(j) {
+                if (this.cssfiles.indexOf(j) === -1) {
+                    head.insert(new Element('LINK', {
+                        href: j,
+                        type: 'text/css',
+                        rel: 'stylesheet'
+                    }));
+                    this.cssfiles.push(j);
+                }
+            }, this);
+        }
         if (r.jsfiles) {
             head = $(document.head || document.getElementsByTagName('head')[0]);
 

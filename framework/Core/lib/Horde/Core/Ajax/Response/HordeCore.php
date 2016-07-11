@@ -121,11 +121,16 @@ class Horde_Core_Ajax_Response_HordeCore extends Horde_Core_Ajax_Response
             $this->jsfiles[] = strval($val->url);
         }
         $page_output->hsl->clear();
+        foreach ($page_output->css->getStylesheetUrls(array('nobase' => true)) as $val) {
+            $this->cssfiles[] = strval($val->url);
+        }
 
         if (!empty($this->jsfiles)) {
             $ob->jsfiles = array_values(array_unique($this->jsfiles));
         }
-
+        if (!empty($this->cssfiles)) {
+            $ob->cssfiles = array_values(array_unique($this->cssfiles));
+        }
         if (!empty($this->tasks)) {
             $ob->tasks = $this->tasks;
         }
