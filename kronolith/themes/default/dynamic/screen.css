@@ -157,9 +157,7 @@ span.kronolithDialogWarning {
 .kronolithDialog select:focus {
     border-color: #d0d0d0;
 }
-.kronolithLongField {
-    width: 100%;
-}
+.kronolithLongField,
 #kronolithEventTitle,
 #kronolithTaskTitle,
 #kronolithCalendarinternalName,
