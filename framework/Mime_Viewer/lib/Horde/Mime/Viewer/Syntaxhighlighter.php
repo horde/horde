@@ -12,6 +12,7 @@
  * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Mime_Viewer
+ * @todo  remove deprecated version 3.x javascript files.
  */
 class Horde_Mime_Viewer_Syntaxhighlighter extends Horde_Mime_Viewer_Base
 {
