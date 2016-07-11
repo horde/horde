@@ -3435,7 +3435,9 @@ KronolithCore = {
             var users = $F('kronolithC' + type + 'PUList').strip();
             users = users ? users.split(/,\s*/) : [];
             users.each(function(user) {
-                this.insertGroupOrUser(type, 'user', user, true);
+                if (!this.insertGroupOrUser(type, 'user', user, true)) {
+                    return;
+                }
                 $('kronolithC' + type + 'PUshow_' + user).setValue(1);
                 $('kronolithC' + type + 'PUread_' + user).setValue(1);
                 if ($F('kronolithC' + type + 'PUPerms') == 'edit') {
@@ -3492,7 +3494,9 @@ KronolithCore = {
             case 'groups':
                 if (!Object.isArray(perm.value)) {
                     $H(perm.value).each(function(group) {
-                        this.insertGroupOrUser(type, 'group', group.key);
+                        if (!this.insertGroupOrUser(type, 'group', group.key)) {
+                            return;
+                        }
                         if (!$('kronolithC' + type + 'PGshow_' + group.key)) {
                             // Group doesn't exist anymore.
                             delete perm.value[group.key];
@@ -3515,7 +3519,9 @@ KronolithCore = {
                 if (!Object.isArray(perm.value)) {
                     $H(perm.value).each(function(user) {
                         if (system || user.key != Kronolith.conf.user) {
-                            this.insertGroupOrUser(type, 'user', user.key);
+                            if (!this.insertGroupOrUser(type, 'user', user.key)) {
+                                return;
+                            }
                             if (!$('kronolithC' + type + 'PUshow_' + user.key)) {
                                 // User doesn't exist anymore.
                                 delete perm.value[user.key];
@@ -3707,6 +3713,8 @@ KronolithCore = {
      *                             Defaults to the value of the drop down.
      * @param stay_basic boolean   Enforces to NOT switch to the advanced
      *                             permissions screen.
+     *
+     * @return boolean  Whether a row has been inserted.
      */
     insertGroupOrUser: function(type, what, id, stay_basic)
     {
@@ -3716,7 +3724,10 @@ KronolithCore = {
         }
         var value = elm.getValue();
         if (!value) {
-            return;
+            if (id) {
+                HordeCore.notify(Kronolith.text.invalid_user + ': ' + id, 'horde.error');
+            }
+            return false;
         }
 
         var tr = elm.up('tr'),
@@ -3745,6 +3756,8 @@ KronolithCore = {
         if (!stay_basic) {
             this.activateAdvancedPerms(type);
         }
+
+        return true;
     },
 
     /**

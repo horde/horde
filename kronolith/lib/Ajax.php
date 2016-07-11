@@ -155,6 +155,7 @@ class Kronolith_Ajax
             'geocode_error' => _("Unable to locate requested address"),
             'hidelog' => _("Hide Notifications"),
             'import_warning' => _("Importing calendar data. This may take a while..."),
+            'invalid_user' => _("User does not exist"),
             'more' => _("more..."),
             'no_assignee' => _("None"),
             'no_calendar_title' => _("The calendar title must not be empty."),
