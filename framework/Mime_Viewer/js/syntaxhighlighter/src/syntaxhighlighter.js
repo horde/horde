@@ -6,7 +6,7 @@
  * http://alexgorbatchev.com/SyntaxHighlighter/donate.html
  * 
  * @version
- * 4.0.1 (Mon, 11 Jul 2016 16:20:03 GMT)
+ * 4.0.1 (Mon, 11 Jul 2016 19:19:49 GMT)
  * 
  * @copyright
  * Copyright (C) 2004-2016 Alex Gorbatchev.
@@ -93,8 +93,8 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	// configured through the `--compat` parameter.
-	if (false) {
-	  require('./compatibility_layer_v3');
+	if (true) {
+	  __webpack_require__(54);
 	}
 	
 	(0, _domready2.default)(function () {
@@ -5326,6 +5326,25 @@
 	  });
 	  return result;
 	};
+
+/***/ },
+/* 54 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _core = __webpack_require__(1);
+	
+	var _core2 = _interopRequireDefault(_core);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	window.SyntaxHighlighter = _core2.default; // Compatability layer to support V3 brushes. This file is only included when `--compat`
+	// flag is passed to the `gulp build` command.
+	
+	if (typeof window.XRegExp === 'undefined') {
+	  window.XRegExp = __webpack_require__(3).XRegExp;
+	}
 
 /***/ }
 /******/ ]);
