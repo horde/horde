@@ -10,9 +10,9 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-03-21</date>
+ <date>2016-07-11</date>
  <version>
-  <release>2.1.4</release>
+  <release>2.2.0</release>
   <api>2.1.0</api>
  </version>
  <stability>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mjr] Add Scripthightlighter version 4 support.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -65,11 +65,15 @@
       <file name="shBrushXml.js" role="horde" />
       <file name="shCore.js" role="horde" />
       <file name="shLegacy.js" role="horde" />
+      <file name="syntaxhighlighter.js" role="horde" />
+      <file name="syntaxhighlighter.js.map" role="horde" />
      </dir> <!-- /js/syntaxhighlighter/scripts -->
      <dir name="src">
       <file name="shAutoloader.js" role="horde" />
       <file name="shCore.js" role="horde" />
       <file name="shLegacy.js" role="horde" />
+      <file name="syntaxhighlighter.js" role="horde" />
+      <file name="syntaxhighlighter.js.map" role="horde" />
      </dir> <!-- /js/syntaxhighlighter/src -->
      <dir name="styles">
       <file name="shCore.css" role="horde" />
@@ -89,6 +93,7 @@
       <file name="shThemeMDUltra.css" role="horde" />
       <file name="shThemeMidnight.css" role="horde" />
       <file name="shThemeRDark.css" role="horde" />
+      <file name="theme.css" role="horde" />
      </dir> <!-- /js/syntaxhighlighter/styles -->
      <file name="LGPL-LICENSE" role="horde" />
      <file name="MIT-LICENSE" role="horde" />
@@ -526,9 +531,13 @@
    <install as="js/syntaxhighlighter/scripts/shBrushXml.js" name="js/syntaxhighlighter/scripts/shBrushXml.js" />
    <install as="js/syntaxhighlighter/scripts/shCore.js" name="js/syntaxhighlighter/scripts/shCore.js" />
    <install as="js/syntaxhighlighter/scripts/shLegacy.js" name="js/syntaxhighlighter/scripts/shLegacy.js" />
+   <install as="js/syntaxhighlighter/scripts/syntaxhighlighter.js" name="js/syntaxhighlighter/scripts/syntaxhighlighter.js" />
+   <install as="js/syntaxhighlighter/scripts/syntaxhighlighter.js.map" name="js/syntaxhighlighter/scripts/syntaxhighlighter.js.map" />
    <install as="js/syntaxhighlighter/src/shAutoloader.js" name="js/syntaxhighlighter/src/shAutoloader.js" />
    <install as="js/syntaxhighlighter/src/shCore.js" name="js/syntaxhighlighter/src/shCore.js" />
    <install as="js/syntaxhighlighter/src/shLegacy.js" name="js/syntaxhighlighter/src/shLegacy.js" />
+   <install as="js/syntaxhighlighter/src/syntaxhighlighter.js" name="js/syntaxhighlighter/src/syntaxhighlighter.js" />
+   <install as="js/syntaxhighlighter/src/syntaxhighlighter.js.map" name="js/syntaxhighlighter/src/syntaxhighlighter.js.map" />
    <install as="js/syntaxhighlighter/styles/shCore.css" name="js/syntaxhighlighter/styles/shCore.css" />
    <install as="js/syntaxhighlighter/styles/shCoreDefault.css" name="js/syntaxhighlighter/styles/shCoreDefault.css" />
    <install as="js/syntaxhighlighter/styles/shCoreDjango.css" name="js/syntaxhighlighter/styles/shCoreDjango.css" />
@@ -546,6 +555,7 @@
    <install as="js/syntaxhighlighter/styles/shThemeMDUltra.css" name="js/syntaxhighlighter/styles/shThemeMDUltra.css" />
    <install as="js/syntaxhighlighter/styles/shThemeMidnight.css" name="js/syntaxhighlighter/styles/shThemeMidnight.css" />
    <install as="js/syntaxhighlighter/styles/shThemeRDark.css" name="js/syntaxhighlighter/styles/shThemeRDark.css" />
+   <install as="js/syntaxhighlighter/styles/theme.css" name="js/syntaxhighlighter/styles/theme.css" />
    <install as="Horde/Mime/Viewer.php" name="lib/Horde/Mime/Viewer.php" />
    <install as="Horde/Mime/Viewer/Audio.php" name="lib/Horde/Mime/Viewer/Audio.php" />
    <install as="Horde/Mime/Viewer/Base.php" name="lib/Horde/Mime/Viewer/Base.php" />
@@ -1074,15 +1084,15 @@
   </release>
   <release>
    <version>
-    <release>2.1.4</release>
+    <release>2.2.0</release>
     <api>2.1.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-03-21</date>
+   <date>2016-07-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mjr] Add Scripthightlighter version 4 support.
    </notes>
   </release>
  </changelog>
