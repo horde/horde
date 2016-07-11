@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2016-07-01</date>
+ <date>2016-07-11</date>
  <version>
   <release>2.24.1</release>
   <api>2.24.0</api>
@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Use syntaxhighlighter version 4.
 * [jan] Fix issue with prototype.js that keeps images in HTML messages from loading.
  </notes>
  <contents>
@@ -4196,9 +4197,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-07-01</date>
+   <date>2016-07-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Use syntaxhighlighter version 4.
 * [jan] Fix issue with prototype.js that keeps images in HTML messages from loading.
    </notes>
   </release>
