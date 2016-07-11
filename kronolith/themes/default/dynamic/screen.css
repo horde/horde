@@ -115,6 +115,9 @@ html, body {
 .kronolithDialog div {
     margin-bottom: 5px;
 }
+.kronolithDialog input {
+    vertical-align: middle;
+}
 .kronolithDialog td {
     padding-right: 10px;
     vertical-align: top;
