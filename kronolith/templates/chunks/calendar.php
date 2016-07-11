@@ -72,7 +72,7 @@ $accountUrl .= $user;
 <?php if ($GLOBALS['registry']->isAdmin()): ?>
     &nbsp;
     <label><?php echo _("System Calendar") ?>:
-      <input type="checkbox" name="system" id="kronolithCalendarSystem" />
+      <input type="checkbox" name="system" id="kronolithCalendarinternalSystem" />
     </label>
 <?php endif ?>
   </p>

@@ -3250,14 +3250,14 @@ KronolithCore = {
 
         if (newCalendar || info.owner) {
             if (system || (info && info.system)) {
-                $('kronolithOwner').hide();
-                $('kronolithPOwnerInput').hide();
-                $('kronolithCalendarSystem').setValue(1);
+                $('kronolith' + type + 'Owner').hide();
+                $('kronolithPOwner' + type + 'Input').hide();
+                $('kronolithCalendar' + type + 'System').setValue(1);
             } else {
-                $('kronolithOwner').show();
-                $('kronolithPOwnerInput').show();
-                if ($('kronolithCalendarSystem')) {
-                    $('kronolithCalendarSystem').setValue(0);
+                $('kronolith' + type + 'Owner').show();
+                $('kronolithPOwner' + type + 'Input').show();
+                if ($('kronolithCalendar' + type + 'System')) {
+                    $('kronolithCalendar' + type + 'System').setValue(0);
                 }
             }
             if (type == 'internal' || type == 'tasklists' || type == 'resource') {
