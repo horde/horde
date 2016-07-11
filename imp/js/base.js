@@ -1835,7 +1835,9 @@ var ImpBase = {
                         params: msgload
                     });
                 }
-                return this._loadPreview(data.VP_view, data.VP_id);
+                this._loadPreview(data.VP_view, data.VP_id);
+                $('messageBody').fire('IMP_Preview:loadedFromCache');
+                return;
             }
 
             params = {};

@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2016-06-24</date>
+ <date>2016-07-11</date>
  <version>
   <release>7.0.0</release>
   <api>7.0.0</api>
@@ -162,6 +162,7 @@
     <file name="passphrase.js" role="horde" />
     <file name="search.js" role="horde" />
     <file name="smartmobile.js" role="horde" />
+    <file name="syntaxhighlighter.js" role="horde" />
     <file name="viewport.js" role="horde" />
     <file name="viewport_utils.js" role="horde" />
    </dir> <!-- /js -->
@@ -462,6 +463,7 @@
       <file name="Smil.php" role="horde" />
       <file name="Smime.php" role="horde" />
       <file name="Status.php" role="horde" />
+      <file name="Syntaxhighlighter.php" role="horde" />
       <file name="Tgz.php" role="horde" />
       <file name="Vcard.php" role="horde" />
       <file name="Video.php" role="horde" />
@@ -1569,6 +1571,7 @@
    <install as="imp/js/passphrase.js" name="js/passphrase.js" />
    <install as="imp/js/search.js" name="js/search.js" />
    <install as="imp/js/smartmobile.js" name="js/smartmobile.js" />
+   <install as="imp/js/syntaxhighlighter.js" name="js/syntaxhighlighter.js" />
    <install as="imp/js/viewport.js" name="js/viewport.js" />
    <install as="imp/js/viewport_utils.js" name="js/viewport_utils.js" />
    <install as="imp/js/ckeditor/images.js" name="js/ckeditor/images.js" />
@@ -1824,6 +1827,7 @@
    <install as="imp/lib/Mime/Viewer/Smil.php" name="lib/Mime/Viewer/Smil.php" />
    <install as="imp/lib/Mime/Viewer/Smime.php" name="lib/Mime/Viewer/Smime.php" />
    <install as="imp/lib/Mime/Viewer/Status.php" name="lib/Mime/Viewer/Status.php" />
+   <install as="imp/lib/Mime/Viewer/Syntaxhighlighter.php" name="lib/Mime/Viewer/Syntaxhighlighter.php" />
    <install as="imp/lib/Mime/Viewer/Tgz.php" name="lib/Mime/Viewer/Tgz.php" />
    <install as="imp/lib/Mime/Viewer/Vcard.php" name="lib/Mime/Viewer/Vcard.php" />
    <install as="imp/lib/Mime/Viewer/Video.php" name="lib/Mime/Viewer/Video.php" />
@@ -3924,7 +3928,7 @@
    </notes>
   </release>
   <release>
-   <date>2016-06-24</date>
+   <date>2016-07-11</date>
    <version>
     <release>7.0.0</release>
     <api>7.0.0</api>
