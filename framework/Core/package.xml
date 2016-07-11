@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Allow adding CSS files with Ajax response.
 * [mjr] Use syntaxhighlighter version 4.
 * [jan] Fix issue with prototype.js that keeps images in HTML messages from loading.
  </notes>
@@ -4200,6 +4201,7 @@
    <date>2016-07-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Allow adding CSS files with Ajax response.
 * [mjr] Use syntaxhighlighter version 4.
 * [jan] Fix issue with prototype.js that keeps images in HTML messages from loading.
    </notes>
