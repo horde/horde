@@ -1698,10 +1698,25 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-04-05</date>
+   <date>2016-07-01</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [jan] Update Portuguese translation.
+* [jan] Update Basque translation.
 * [jan] Don&apos;t ignore &apos;initial_page&apos; registry setting.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.2.12</release>
+    <api>3.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-07-01</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [jan] Fix creating new spam folders.
    </notes>
   </release>
   <release>

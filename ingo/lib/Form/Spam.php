@@ -72,6 +72,17 @@ class Ingo_Form_Spam extends Ingo_Form_Base
         );
     }
 
+    public function validate($vars = null, $canAutoFill = false)
+    {
+        if (is_null($vars)) {
+            $vars = $this->_vars;
+        }
+        if (strlen($vars->get('folder_new'))) {
+            $this->folder_var->type->newFolderSet = true;
+        }
+        return parent::validate($vars, $canAutoFill);
+    }
+
 }
 
 
@@ -84,10 +95,11 @@ class Ingo_Form_Spam extends Ingo_Form_Base
 class Horde_Form_Type_ingo_folders extends Horde_Form_Type
 {
     var $_folder;
+    var $newFolderSet;
 
     function isValid(&$var, &$vars, $value, &$message)
     {
-        if (strlen($value)) {
+        if ($this->newFolderSet || strlen($value)) {
             return true;
         }
 
