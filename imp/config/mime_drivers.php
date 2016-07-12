@@ -348,7 +348,7 @@ $mime_drivers = array(
         )
     ),
 
-        /* SyntaxHighlighter driver.
+    /* SyntaxHighlighter driver.
      * http://alexgorbatchev.com/SyntaxHighlighter/ */
     'syntaxhighlighter' => array(
         'inline' => true,
