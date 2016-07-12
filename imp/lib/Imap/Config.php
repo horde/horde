@@ -300,8 +300,8 @@ class IMP_Imap_Config implements Serializable
             break;
 
         case 'user_special_mboxes':
-            $out = (isset($out[IMP_Mailbox::MBOX_USERSPECIAL]) && is_array($out[IMP_Mailbox::MBOX_USERSPECIAL]))
-                ? $out[IMP_Mailbox::MBOX_USERSPECIAL]
+            $out = (isset($this->_config['special_mboxes'][IMP_Mailbox::MBOX_USERSPECIAL]) && is_array($this->_config['special_mboxes'][IMP_Mailbox::MBOX_USERSPECIAL]))
+                ? $this->_config['special_mboxes'][IMP_Mailbox::MBOX_USERSPECIAL]
                 : array();
             break;
         }
