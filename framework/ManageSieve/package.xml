@@ -10,7 +10,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-02-01</date>
+ <date>2016-07-12</date>
  <version>
   <release>1.0.2</release>
   <api>1.0.0</api>
@@ -171,7 +171,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-02-01</date>
+   <date>2016-07-12</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * [jan] Fix loading of Auth_SASL class (Ralf Becker &lt;RalfBecker@outdoor-training.de&gt;).
