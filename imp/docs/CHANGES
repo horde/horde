@@ -2,6 +2,7 @@
 v6.2.16-git
 -----------
 
+[jan] Fix the 'special_mboxes' backend configuration (Bug #14423).
 [mjr] Fix display of applicatoin/pkcs-7-mime parts (Bug #14363).
 
 
