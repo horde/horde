@@ -17,7 +17,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-01-08</date>
+ <date>2016-07-12</date>
  <version>
   <release>2.0.7</release>
   <api>2.0.0</api>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Improve PHP 7.1 compatibility.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -757,10 +757,10 @@ Add &apos;default&apos; parameter to Horde_CLI::prompt().
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-01-08</date>
+   <date>2016-07-12</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Improve PHP 7.1 compatibility.
    </notes>
   </release>
  </changelog>
