@@ -12,7 +12,7 @@
  </lead>
  <date>2016-07-12</date>
  <version>
-  <release>1.0.0alpha11</release>
+  <release>1.0.0alpha12</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -21,8 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Add Horde_Pear_Remote#getReleases().
-* [jan] Add Horde_Pear_Package_Xml#getVersions().
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -590,6 +589,19 @@
    <notes>
 * [jan] Add Horde_Pear_Remote#getReleases().
 * [jan] Add Horde_Pear_Package_Xml#getVersions().
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0alpha12</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api></stability>
+   <date>2016-07-12</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
