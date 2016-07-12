@@ -24,7 +24,16 @@
 class Horde_Core_Ajax_Response_HordeCore extends Horde_Core_Ajax_Response
 {
     /**
-     * Javascript files to be loaded by the browser.
+     * CSS files to be loaded by the browser.
+     *
+     * @since 2.25.0
+     *
+     * @var array
+     */
+    public $cssfiles = array();
+
+    /**
+     * JavaScript files to be loaded by the browser.
      *
      * @since 2.10.0
      *
