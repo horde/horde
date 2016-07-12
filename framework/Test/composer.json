@@ -16,16 +16,16 @@
             "role": "lead"
         }
     ],
-    "version": "2.6.0",
-    "time": "2016-02-02",
+    "version": "2.6.1",
+    "time": "2016-07-12",
     "repositories": [
         {
             "type": "pear",
-            "url": "https://pear.horde.org"
+            "url": "http://pear.horde.org"
         }
     ],
     "require": {
-        "php": ">=5.3.0,<=8.0.0alpha1",
+        "php": ">=5.3.3,<=8.0.0alpha1",
         "pear-pear.horde.org/Horde_Support": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Util": ">=2.0.0@stable,<=3.0.0alpha1@stable"
     },
