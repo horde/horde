@@ -160,13 +160,12 @@ class OpenPGP_Crypt_Symmetric {
           $key_block_bytes = 8;
         break;
       case 3:
+        /* Horde change
         if(defined('MCRYPT_CAST_128')) {
           $cipher = new MCryptWrapper(MCRYPT_CAST_128);
         }
-          /* Horde change */
-          else {
-              $cipher = new Horde_Pgp_Crypt_Cast128();
-          }
+        */
+          $cipher = new Horde_Pgp_Crypt_Cast128();
           /* End Horde Change */
         break;
       /* Horde change */
