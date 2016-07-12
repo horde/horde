@@ -133,10 +133,11 @@ class Ingo_Basic_Spam extends Ingo_Basic_Base
 class Horde_Form_Type_ingo_folders extends Horde_Form_Type {
 
     var $_folder;
+    var $newFolderSet;
 
     function isValid(&$var, &$vars, $value, &$message)
     {
-        if (strlen($value)) {
+        if ($this->newFolderSet || strlen($value)) {
             return true;
         }
 

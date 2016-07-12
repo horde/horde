@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* 
+* [jan] Fix creating new spam folders.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1674,7 +1674,7 @@
    <date>2016-07-01</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* 
+* [jan] Fix creating new spam folders.
    </notes>
   </release>
  </changelog>
