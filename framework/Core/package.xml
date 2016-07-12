@@ -28,10 +28,10 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2016-07-11</date>
+ <date>2016-07-12</date>
  <version>
-  <release>2.24.1</release>
-  <api>2.24.0</api>
+  <release>2.25.0</release>
+  <api>2.25.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -4193,12 +4193,12 @@
   </release>
   <release>
    <version>
-    <release>2.24.1</release>
-    <api>2.24.0</api></version>
+    <release>2.25.0</release>
+    <api>2.25.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-07-11</date>
+   <date>2016-07-12</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Allow adding CSS files with Ajax response.
