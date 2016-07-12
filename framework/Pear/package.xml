@@ -10,7 +10,7 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2016-03-08</date>
+ <date>2016-07-12</date>
  <version>
   <release>1.0.0alpha11</release>
   <api>1.0.0</api>
@@ -585,7 +585,7 @@
    <stability>
     <release>alpha</release>
     <api>alpha</api></stability>
-   <date>2016-03-08</date>
+   <date>2016-07-12</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Add Horde_Pear_Remote#getReleases().
