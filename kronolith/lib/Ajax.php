@@ -74,14 +74,15 @@ class Kronolith_Ajax
                 strval($registry->downloadUrl('#{filename}', array('actionID' => 'download_file', 'file' => '#{filename}', 'type' => '#{type}', 'source' => '#{source}', 'key' => '#{key}'))->setRaw(true))),
             'URI_FILE_VIEW' => str_replace(array('%23', '%7B', '%7D'), array('#', '{', '}'), Horde::url('viewer.php', true)->add(array('file' => '#{filename}', 'type' => '#{type}', 'source' => '#{source}', 'key' => '#{key}'))),
             'images' => array(
-                'alarm'     => strval(Horde_Themes::img('alarm-fff.png')),
-                'attendees' => strval(Horde_Themes::img('attendees-fff.png')),
-                'exception' => strval(Horde_Themes::img('exception-fff.png')),
-                'new_event' => strval(Horde_Themes::img('new.png')),
-                'new_task'  => strval(Horde_Themes::img('new_task.png')),
-                'recur'     => strval(Horde_Themes::img('recur-fff.png')),
-                'download'  => strval(Horde_Themes::img('download.png')),
-                'del'       => strval(Horde_Themes::img('delete.png'))
+                'alarm'        => strval(Horde_Themes::img('alarm-fff.png')),
+                'attendees'    => strval(Horde_Themes::img('attendees-fff.png')),
+                'del'          => strval(Horde_Themes::img('delete.png')),
+                'delete_small' => strval(Horde_Themes::img('delete-small.png')),
+                'download'     => strval(Horde_Themes::img('download.png')),
+                'exception'    => strval(Horde_Themes::img('exception-fff.png')),
+                'new_event'    => strval(Horde_Themes::img('new.png')),
+                'new_task'     => strval(Horde_Themes::img('new_task.png')),
+                'recur'        => strval(Horde_Themes::img('recur-fff.png')),
             ),
             'new_event' => $injector->getInstance('Kronolith_View_Sidebar')->newLink
                 . $injector->getInstance('Kronolith_View_Sidebar')->newText

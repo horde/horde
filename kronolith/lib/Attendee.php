@@ -202,6 +202,7 @@ class Kronolith_Attendee implements Serializable
         return (object)array(
             'a' => intval($this->role),
             'e' => $this->addressObject->bare_address,
+            'i' => $this->id,
             'l' => strval($this->displayName),
             'r' => intval($this->response),
             'u' => $this->user,

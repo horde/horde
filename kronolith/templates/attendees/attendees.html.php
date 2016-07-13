@@ -78,13 +78,31 @@ function switchDateView(view, date)
 <br />
 
 <table width="100%" cellspacing="2" class="nowrap control">
- <!-- Add Attendees -->
+ <!-- add users -->
+ <tr>
+  <td class="rightAlign">&nbsp;<strong>
+   <?php echo _("Add user") ?>
+  </strong></td>
+  <td colspan="2" width="100%">
+<?php if ($this->userList): ?>
+   <select id="newUser" name="newUser">
+    <option value=""><?php echo _("Select user")?></option>
+<?php foreach ($this->userList as $user => $name): ?>
+    <option value="<?php echo $this->h($user) ?>"><?php echo $this->h($name) ?></option>
+<?php endforeach ?>
+    </select>
+<?php else: ?>
+   <input type="text" id="newUser" name="newUser" size="40" />
+<?php endif ?>
+  </td>
+ </tr>
+ <!-- add externals -->
  <tr>
   <td class="rightAlign">&nbsp;<strong>
 <?php if ($this->editAttendee): ?>
-   <?php echo _("Edit attendee") ?>
+   <?php echo _("Edit external attendee") ?>
 <?php else: ?>
-   <?php echo _("Add attendees") ?>
+   <?php echo _("Add external attendees") ?>
 <?php endif ?>
   </strong></td>
   <td>
@@ -94,9 +112,10 @@ function switchDateView(view, date)
   <td align="center"><?php echo $this->adressbookLink ?></td>
  </tr>
 <?php if ($this->resourcesEnabled): ?>
+ <!-- add resources -->
  <tr>
   <td class="rightAlign"><strong><?php echo _("Add resource")?></strong></td>
-  <td colspan="2" width="100%">
+  <td colspan="2">
     <select id="resourceselect" name="resourceselect">
      <option value="0"><?php echo _("Select resource")?></option>
 <?php foreach ($this->allResources as $id => $resource): ?>

@@ -909,22 +909,36 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
      * Return fb information for the requested attendee or resource.
      *
      * Uses the following request parameters:
-     *<pre>
-     *  -email:    The attendee's email address.
-     *  -resource: The resource id.
-     *</pre>
+     *  - user:     The attendee's user name.
+     *  - email:    The attendee's email address.
+     *  - resource: The resource id.
      */
     public function getFreeBusy()
     {
+        global $notification;
+
         $result = new stdClass;
-        if ($this->vars->email) {
+        if ($this->vars->user) {
+            try {
+                $result->fb = Kronolith_FreeBusy::getForUser(
+                    $this->vars->user,
+                    array(
+                        'json'  => true,
+                        'start' => $this->vars->start,
+                        'end'   => $this->vars->end
+                    )
+                );
+            } catch (Exception $e) {
+                $notification->push($e->getMessage(), 'horde.warning');
+            }
+        } elseif ($this->vars->email) {
             $rfc822 = new Horde_Mail_Rfc822();
             $res = $rfc822->parseAddressList($this->vars->email);
             if ($res[0] && $res[0]->host) {
                 try {
                     $result->fb = Kronolith_FreeBusy::get($this->vars->email, true);
                 } catch (Exception $e) {
-                    $GLOBALS['notification']->push($e->getMessage(), 'horde.warning');
+                    $notification->push($e->getMessage(), 'horde.warning');
                 }
             }
         } elseif ($this->vars->resource) {
@@ -938,7 +952,7 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
                     $result->fb = null;
                 }
             } catch (Exception $e) {
-                $GLOBALS['notification']->push($e->getMessage(), 'horde.warning');
+                $notification->push($e->getMessage(), 'horde.warning');
             }
         }
 

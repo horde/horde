@@ -4585,8 +4585,11 @@ KronolithCore = {
                 if (!elt.disabled) {
                     this._checkDate($('kronolithEventStartDate'));
                     this._checkDate($('kronolithEventEndDate'));
-                    if ($F('kronolithEventAttendees') && $F('kronolithEventId')
-                        && (!$F('kronolithEventOrganizer') || this.attendanceChanged) &&
+                    if ($F('kronolithEventId') &&
+                        ($F('kronolithEventUsers') ||
+                         $F('kronolithEventAttendees')) &&
+                        (!$F('kronolithEventOrganizer') ||
+                            this.attendanceChanged) &&
                         !Kronolith.conf.itip_silent) {
                         $('kronolithEventSendUpdates').setValue(0);
                         $('kronolithEventDiv').hide();
@@ -5324,9 +5327,10 @@ KronolithCore = {
             }
         }
 
-        if (id != 'kronolithEventSendCancellationNo'
-            && id != 'kronolithEventSendCancellationYes'
-            && $F('kronolithEventAttendees') && !$F('kronolithEventOrganizer') &&
+        if (id != 'kronolithEventSendCancellationNo' &&
+            id != 'kronolithEventSendCancellationYes' &&
+            ($F('kronolithEventUsers') || $F('kronolithEventAttendees')) &&
+            !$F('kronolithEventOrganizer') &&
             !Kronolith.conf.itip_silent) {
             $('kronolithDeleteDiv').hide();
             $('kronolithCancellationDiv').show();
@@ -5787,6 +5791,7 @@ KronolithCore = {
         this.knl.kronolithEventEndTime.markSelected();
         $('kronolithEventForm').reset();
         this.resetMap();
+        HordeImple.AutoCompleter.kronolithEventUsers.reset();
         HordeImple.AutoCompleter.kronolithEventAttendees.reset();
         HordeImple.AutoCompleter.kronolithEventTags.reset();
         HordeImple.AutoCompleter.kronolithEventResources.reset();
@@ -6223,17 +6228,13 @@ KronolithCore = {
 
         /* Attendees */
         if (!Object.isUndefined(ev.at)) {
-            var ea = [];
-            ev.at.each(function(a) {
-                if (a.l && a.e && a.l != a.e) {
-                    ea.push(a.l + ' <' + a.e + '>');
-                } else if (a.e) {
-                    ea.push(a.e);
-                } else if (a.l) {
-                    ea.push(a.l);
-                }
-            });
-            HordeImple.AutoCompleter.kronolithEventAttendees.reset(ea);
+            var filter = function(attendee) { return !!attendee.u; }
+            HordeImple.AutoCompleter.kronolithEventAttendees.reset(
+                ev.at.reject(filter).pluck('l')
+            );
+            HordeImple.AutoCompleter.kronolithEventUsers.reset(
+                ev.at.findAll(filter).pluck('l')
+            );
             ev.at.each(this.addAttendee.bind(this));
             if (this.fbLoading) {
                 $('kronolithFBLoading').show();
@@ -6360,86 +6361,159 @@ KronolithCore = {
     /**
      * Adds an attendee row to the free/busy table.
      *
-     * @param object attendee  An attendee object with the properties:
-     *                         - e: The email address.
-     *                         - l: The display name of the attendee.
-     *                         - o: True if this is the organizer.
+     * @param string|object attendee  An attendee string or an object with the
+     *                                properties:
+     *                                - e: The email address.
+     *                                - l: The display name of the attendee.
+     *                                - o: True if this is the organizer.
      */
     addAttendee: function(attendee)
     {
         if (typeof attendee == 'string') {
-            if (attendee.include('@')) {
-                HordeCore.doAction('parseEmailAddress', {
-                    email: attendee
-                }, {
-                    callback: function (r) {
-                        if (r.email) {
-                            this.addAttendee({ e: r.email, l: attendee });
-                        }
-                    }.bind(this)
-                });
-                return;
-            } else {
-                attendee = { l: attendee };
-            }
+            this.parseAttendee(attendee, this.addAttendee.bind(this));
+            return;
         }
 
-        var id = attendee.l;
+        if (attendee.u) {
+            this.addUser(attendee);
+            return;
+        }
+
         if (attendee.e) {
-            if (!id.include(attendee.e)) {
-                id += " <" + attendee.e + ">";
-            }
             this.attendees.push(attendee);
             this.fbLoading++;
             HordeCore.doAction('getFreeBusy', {
                 email: attendee.e
             }, {
-                callback: function(r) {
-                    this.fbLoading--;
-                    if (!this.fbLoading) {
-                        $('kronolithFBLoading').hide();
-                    }
-                    if (!Object.isUndefined(r.fb)) {
-                        this.freeBusy.get(attendee.l)[1] = r.fb;
-                        this.insertFreeBusy(attendee.l, this.getFBDate());
-                    }
-                }.bind(this)
+                callback: this.getFBCallback.bind(this, attendee.i)
             });
         }
 
+        this.insertFBRow(attendee);
+    },
+
+    /**
+     * Parses an external attendee string into an attendee information object.
+     *
+     * @param string attendee    An attendee string.
+     * @param callable callback  A callback method that the parsed information
+     *                           is passed to.
+     */
+    parseAttendee: function(attendee, callback)
+    {
+        if (this.attendees[attendee]) {
+            callback(this.attendees[attendee]);
+            return;
+        }
+
+        if (attendee.include('@')) {
+            HordeCore.doAction('parseEmailAddress', {
+                email: attendee
+            }, {
+                callback: function (r) {
+                    if (r.email) {
+                        this.attendees[attendee] = {
+                            i: 'email:' + r.email,
+                            e: r.email,
+                            l: attendee
+                        };
+                        callback(this.attendees[attendee]);
+                    }
+                }.bind(this)
+            });
+            return;
+        }
+
+        this.attendees[attendee] = { i: 'name:' + attendee, l: attendee };
+        callback(this.attendees[attendee]);
+    },
+
+    /**
+     * Adds an attendee row for a Horde user to the free/busy table.
+     *
+     * @param string user  A user name.
+     */
+    addUser: function(user)
+    {
+        var m;
+
+        if (typeof user == 'string') {
+            user = this.parseUser(user);
+            user = {
+                i: 'user:' + user.user,
+                u: user.user,
+                l: user.name
+            };
+            this.attendees.push(user);
+            this.fbLoading++;
+            HordeCore.doAction('getFreeBusy', {
+                user: user.u
+            }, {
+                callback: this.getFBCallback.bind(this, user.i)
+            });
+        }
+
+        this.insertFBRow(user);
+    },
+
+    /**
+     * Parses the user string as returned by the autocompleter into a user/real
+     * name tuple.
+     *
+     * @param string user  A user string of the form "Full Name [user]".
+     *
+     * @return Object  An object with the 'user' and 'name' elements.
+     */
+    parseUser: function(user)
+    {
+        var m;
+
+        if (m = user.match(/(.*) \[(.*)\]$/)) {
+            return { user: m[2], name: m[1] };
+        }
+        return { user: user, name: user };
+    },
+
+    /**
+     * Callback method after retrieving an attendees free/busy information.
+     *
+     * @param string attendee  An attendee identifier.
+     * @param object r         The ajax response object.
+     */
+    getFBCallback: function(attendee, r) {
+        this.fbLoading--;
+        if (!this.fbLoading) {
+            $('kronolithFBLoading').hide();
+        }
+        if (!Object.isUndefined(r.fb)) {
+            this.freeBusy.get(attendee)[1] = r.fb;
+            this.insertFreeBusy(attendee, this.getFBDate());
+        }
+    },
+
+    /**
+     * Adds an attendee row to the free/busy table.
+     *
+     * @param object attendee  An attendee object.
+     */
+    insertFBRow: function(attendee)
+    {
         var tr = new Element('tr'), response, i;
-        this.freeBusy.set(id, [ tr ]);
-        attendee.r = attendee.r || 1;
-        switch (attendee.r) {
-            case 1: response = 'None'; break;
-            case 2: response = 'Accepted'; break;
-            case 3: response = 'Declined'; break;
-            case 4: response = 'Tentative'; break;
-        }
-        tr.insert(this.getAttendeeCell(attendee, response));
-        for (i = 0; i < 24; i++) {
-            tr.insert(new Element('td', { className: 'kronolithFBUnknown' }));
-        }
+        this.freeBusy.set(attendee.i, [ tr ]);
+        this.updateFBRow(attendee, tr);
         $('kronolithEventAttendeesList').down('tbody').insert(tr);
     },
 
+    /**
+     * Resets all rows in the free/busy table for the current attendees and
+     * resources.
+     */
     resetFBRows: function()
     {
         this.attendees.each(function(attendee) {
-            var row = this.freeBusy.get(attendee.l)[0];
+            var row = this.freeBusy.get(attendee.i)[0];
             row.update();
-
-            attendee.r = attendee.r || 1;
-            switch (attendee.r) {
-                case 1: response = 'None'; break;
-                case 2: response = 'Accepted'; break;
-                case 3: response = 'Declined'; break;
-                case 4: response = 'Tentative'; break;
-            }
-            row.insert(this.getAttendeeCell(attendee, response));
-            for (i = 0; i < 24; i++) {
-                row.insert(new Element('td', { className: 'kronolithFBUnknown' }));
-            }
+            this.updateFBRow(attendee, row);
         }.bind(this));
         this.resources.each(function(resource) {
             var row = this.freeBusy.get(resource)[0],
@@ -6452,26 +6526,48 @@ KronolithCore = {
         }.bind(this));
     },
 
+    /**
+     * Updates an attendee row to the free/busy table with the response status.
+     *
+     * @param object attendee  An attendee object.
+     * @param Element row      The TR element of an attendee row.
+     */
+    updateFBRow: function(attendee, row)
+    {
+        attendee.r = attendee.r || 1;
+        switch (attendee.r) {
+            case 1: response = 'None'; break;
+            case 2: response = 'Accepted'; break;
+            case 3: response = 'Declined'; break;
+            case 4: response = 'Tentative'; break;
+        }
+        row.insert(this.getAttendeeCell(attendee, response));
+        for (i = 0; i < 24; i++) {
+            row.insert(new Element('td', { className: 'kronolithFBUnknown' }));
+        }
+    },
+
     getAttendeeCell: function(attendee, response)
     {
-        var className, label, title;
+        var className, title;
 
         className = 'kronolithAttendee';
-        title = attendee.l;
+        if (attendee.u) {
+            title = attendee.u;
+        } else if (attendee.e) {
+            title = attendee.e;
+        }
         if (attendee.o) {
             className += 'Organizer';
             title += ' (' + Kronolith.text.organizer + ') ';
         } else {
             className += response;
         }
-        label = attendee.e
-            ? attendee.e.escapeHTML()
-            : attendee.l.escapeHTML();
 
         return new Element('td')
             .writeAttribute('title', title)
             .addClassName(className)
-            .insert(label);
+            .insert(attendee.l.escapeHTML());
     },
 
     addResourceTabLink: function()
@@ -6566,11 +6662,29 @@ KronolithCore = {
     /**
      * Removes an attendee row from the free/busy table.
      *
-     * @param string attendee  The display name of the attendee.
+     * @param string attendee  An attendee identifier.
      */
     removeAttendee: function(attendee)
     {
-        var row = this.freeBusy.get(attendee)[0];
+        if (typeof attendee == 'string') {
+            this.parseAttendee(attendee, this.removeAttendee.bind(this));
+            return;
+        }
+
+        var row = this.freeBusy.get('email:' + attendee.email)[0];
+        row.purge();
+        row.remove();
+    },
+
+    /**
+     * Removes an attendee row from the free/busy table.
+     *
+     * @param string user  An user name.
+     */
+    removeUser: function(user)
+    {
+        user = this.parseUser(user);
+        var row = this.freeBusy.get('user:' + user.user)[0];
         row.purge();
         row.remove();
     },
@@ -6585,12 +6699,22 @@ KronolithCore = {
         return [attendee];
     },
 
+    /**
+     * @todo Add as user, not as email.
+     */
     checkOrganizerAsAttendee: function()
     {
-        var values = HordeImple.AutoCompleter.kronolithEventAttendees.currentValues();
-        if (values.length == 1 && values.first() != Kronolith.conf.email) {
+        var users = HordeImple.AutoCompleter.kronolithEventUsers.currentValues(),
+            attendees = HordeImple.AutoCompleter.kronolithEventAttendees.currentValues();
+        if ((users.length == 0 ||
+             (users.length == 1 &&
+              this.parseUser(users.first()).user != Kronolith.conf.user)) &&
+           (attendees.length == 0 ||
+             (attendees.length == 1 && attendees.first() != Kronolith.conf.email))) {
             // Invite the organizer of this event to the new event.
-            HordeImple.AutoCompleter.kronolithEventAttendees.addNewItemNode(Kronolith.conf.email);
+            HordeImple.AutoCompleter.kronolithEventAttendees.addNewItemNode(
+                Kronolith.conf.email
+            );
             this.addAttendee(Kronolith.conf.email);
         }
     },
@@ -6609,8 +6733,7 @@ KronolithCore = {
     /**
      * Updates rows with free/busy information in the attendees table.
      *
-     * @param string attendee  An attendee display name as the free/busy
-     *                         identifier.
+     * @param string attendee  An attendee identifier.
      * @param date   start     An optinal start date for f/b info. If omitted,
      *                         $('kronolithEventStartDate') is used.
      */
@@ -6704,7 +6827,7 @@ KronolithCore = {
     attendeeStartDateHandler: function(start)
     {
         this.attendees.each(function(attendee) {
-            this.insertFreeBusy(attendee.l, start);
+            this.insertFreeBusy(attendee.i, start);
         }, this);
     },
 

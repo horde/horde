@@ -272,6 +272,7 @@ ul.horde-tags li:hover {
 #kronolithCalendartasklistsUrlWebdav {
     border-bottom: 0;
 }
+#kronolithUsersACBox,
 #kronolithAttendeesACBox,
 #kronolithResourceACBox,
 #kronolithEventACBox,
@@ -324,6 +325,7 @@ ul.horde-tags li:hover {
 #kronolithEventACBox,
 #kronolithTaskACBox,
 #kronolithCalendarinternalACBox,
+#kronolithUsersACBox,
 #kronolithAttendeesACBox,
 #kronolithResourceACBox {
     line-height: 100%;

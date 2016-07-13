@@ -90,26 +90,36 @@ foreach ($injector->getInstance('Horde_Alarm')->handlers() as $method => $handle
     $taskAlarmParams = substr($taskAlarmParams, 0, - 6) . '</div>';
 }
 
-$injector->getInstance('Horde_Core_Factory_Imple')->create('Kronolith_Ajax_Imple_TagAutoCompleter', array(
+$impleFactory = $injector->getInstance('Horde_Core_Factory_Imple');
+$impleFactory->create('Kronolith_Ajax_Imple_TagAutoCompleter', array(
     'box' => 'kronolithEventACBox',
     'id' => 'kronolithEventTags',
     'pretty' => true
 ));
 
-$injector->getInstance('Horde_Core_Factory_Imple')->create('Kronolith_Ajax_Imple_TagAutoCompleter', array(
+$impleFactory->create('Kronolith_Ajax_Imple_TagAutoCompleter', array(
     'box' => 'kronolithCalendarinternalACBox',
     'id' => 'kronolithCalendarinternalTags',
     'pretty' => true,
     'triggerContainer' => 'kronolithACCalendarTriggerContainer'
 ));
 
-$injector->getInstance('Horde_Core_Factory_Imple')->create('Kronolith_Ajax_Imple_TagAutoCompleter', array(
+$impleFactory->create('Kronolith_Ajax_Imple_TagAutoCompleter', array(
     'box' => 'kronolithTaskACBox',
     'id' => 'kronolithTaskTags',
     'pretty' => true
 ));
 
-$injector->getInstance('Horde_Core_Factory_Imple')->create('Kronolith_Ajax_Imple_ContactAutoCompleter', array(
+$impleFactory->create('Kronolith_Ajax_Imple_UserAutoCompleter', array(
+    'box' => 'kronolithUsersACBox',
+    'displayFilter' => 'function(u) { return KronolithCore.parseUser(u).name; }',
+    'id' => 'kronolithEventUsers',
+    'onAdd' => 'function(u) { KronolithCore.addUser(u); KronolithCore.checkOrganizerAsAttendee(); }',
+    'onRemove' => 'KronolithCore.removeUser.bind(KronolithCore)',
+    'pretty' => true,
+));
+
+$impleFactory->create('Kronolith_Ajax_Imple_ContactAutoCompleter', array(
     'box' => 'kronolithAttendeesACBox',
     'id' => 'kronolithEventAttendees',
     'onAdd' => 'function(a) { KronolithCore.addAttendee(a); KronolithCore.checkOrganizerAsAttendee(); }',
@@ -119,7 +129,7 @@ $injector->getInstance('Horde_Core_Factory_Imple')->create('Kronolith_Ajax_Imple
     'beforeUpdate' => 'function(a) { return KronolithCore.normalizeAttendee(a); }'
 ));
 
-$injector->getInstance('Horde_Core_Factory_Imple')->create('Kronolith_Ajax_Imple_ResourceAutoCompleter', array(
+$impleFactory->create('Kronolith_Ajax_Imple_ResourceAutoCompleter', array(
     'box' => 'kronolithResourceACBox',
     'id' => 'kronolithEventResources',
     'onAdd' => 'KronolithCore.addResource.bind(KronolithCore)',

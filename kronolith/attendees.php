@@ -34,9 +34,22 @@ case 'add':
     // Add new attendees and/or resources. Multiple attendees can be seperated
     // on a single line by whitespace and/or commas. Resources are added one
     // at a time (at least for now).
+    $newUser = trim(Horde_Util::getFormData('newUser'));
     $newAttendees = trim(Horde_Util::getFormData('newAttendees'));
     $newResource = trim(Horde_Util::getFormData('resourceselect'));
 
+    $user = $registry->convertUsername($newUser, true);
+    if (strlen($user)) {
+        $auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();
+        if ($auth->hasCapability('list') && !$auth->exists($user)) {
+            $notification->push(sprintf(_("The user \"%s\" does not exist."), $user), 'horde.error');
+        } else {
+            $attendees->add(new Kronolith_Attendee(array(
+                'user' => $user,
+                'identities' => $injector->getInstance('Horde_Core_Factory_Identity')
+            )));
+        }
+    }
     $newAttendees = Kronolith_Attendee_List::parse($newAttendees, $notification);
     $session->set('kronolith', 'attendees', $attendees->add($newAttendees));
 

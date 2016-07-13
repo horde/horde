@@ -28,7 +28,7 @@ class Kronolith_View_Attendees extends Horde_View
      */
     public function __construct($config = array())
     {
-        global $conf, $registry, $session;
+        global $conf, $injector, $registry, $session;
 
         $config['templatePath'] = KRONOLITH_TEMPLATES . '/attendees';
         parent::__construct($config);
@@ -45,6 +45,12 @@ class Kronolith_View_Attendees extends Horde_View
         $this->date = $date->dateString() . $date->format('Hi00');
         $this->end  = $end->dateString() . $end->format('Hi00');
         $this->freeBusy = $config['fbView']->render($date);
+        $auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();
+        if ($auth->hasCapability('list') &&
+            ($conf['auth']['list_users'] == 'list' ||
+             $conf['auth']['list_users'] == 'both')) {
+            $this->userList = $auth->listNames();
+        }
         $this->resourcesEnabled = !empty($conf['resources']['enabled']);
         if ($registry->hasMethod('contacts/search')) {
             $this->addressbookLink = Horde::url('#')
@@ -97,6 +103,8 @@ class Kronolith_View_Attendees extends Horde_View
             $this->attendees = array();
             foreach ($attendees as $attendee) {
                 $viewAttendee = array(
+                    'id' => $attendee->id,
+                    'name' => strval($attendee),
                     'deleteLink' => Horde::url('#')
                         ->link(array(
                             'title' => sprintf(
@@ -105,17 +113,19 @@ class Kronolith_View_Attendees extends Horde_View
                             'onclick' => "performAction('remove', decodeURIComponent('" . rawurlencode($attendee->id) . "')); return false;"
                         ))
                         . Horde::img('delete.png') . '</a>',
-                    'editLink' => Horde::url('#')
+                );
+                if ($attendee->user) {
+                    unset($this->userList[$attendee->user]);
+                } else {
+                    $viewAttendee['editLink'] = Horde::url('#')
                         ->link(array(
                             'title' => sprintf(
                                 _("Edit %s"), $attendee->displayName
                             ),
                             'onclick' => "performAction('edit', decodeURIComponent('" . rawurlencode($attendee->id) . "')); return false;"
                         ))
-                        . Horde::img('edit.png') . '</a>',
-                    'name' => strval($attendee),
-                    'id' => $attendee->id,
-                );
+                        . Horde::img('edit.png') . '</a>';
+                }
                 foreach ($roles as $role) {
                     $viewAttendee['roles'][$role] = array(
                         'selected' => $attendee->role == $role,

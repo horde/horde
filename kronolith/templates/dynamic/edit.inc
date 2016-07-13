@@ -234,7 +234,12 @@
 </div>
 
 <div id="kronolithEventTabAttendees" class="kronolithTabsOption" style="display:none">
-  <label for="kronolithEventAttendees"><?php echo _("Add attendees e-mail addresses") ?>:</label> <span class="kronolithSeparator">&mdash; <?php echo _("separate e-mail addresses with a comma") ?></span><br />
+  <label for="kronolithEventUsers"><?php echo _("Add users") ?>:</label>
+  <span class="kronolithSeparator">&mdash; <?php echo _("separate users with a comma") ?></span>
+  <br />
+  <input id="kronolithEventUsers" name="users" />
+  <span id="kronolithEventUsers_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
+  <label for="kronolithEventAttendees"><?php echo _("Add attendees' e-mail addresses or names") ?>:</label> <span class="kronolithSeparator">&mdash; <?php echo _("separate e-mail addresses with a comma") ?></span><br />
   <input id="kronolithEventAttendees" name="attendees" />
   <span id="kronolithEventAttendees_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
   <br class="clear" />

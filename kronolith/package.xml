@@ -130,6 +130,7 @@
       <file name="ContactAutoCompleter.php" role="horde" />
       <file name="ResourceAutoCompleter.php" role="horde" />
       <file name="TagAutoCompleter.php" role="horde" />
+      <file name="UserAutoCompleter.php" role="horde" />
      </dir> <!-- /lib/Ajax/Imple -->
      <file name="Application.php" role="horde" />
     </dir> <!-- /lib/Ajax -->
@@ -1202,6 +1203,7 @@
    <install as="kronolith/lib/Ajax/Imple/ContactAutoCompleter.php" name="lib/Ajax/Imple/ContactAutoCompleter.php" />
    <install as="kronolith/lib/Ajax/Imple/ResourceAutoCompleter.php" name="lib/Ajax/Imple/ResourceAutoCompleter.php" />
    <install as="kronolith/lib/Ajax/Imple/TagAutoCompleter.php" name="lib/Ajax/Imple/TagAutoCompleter.php" />
+   <install as="kronolith/lib/Ajax/Imple/UserAutoCompleter.php" name="lib/Ajax/Imple/UserAutoCompleter.php" />
    <install as="kronolith/lib/Attendee/List.php" name="lib/Attendee/List.php" />
    <install as="kronolith/lib/Block/Month.php" name="lib/Block/Month.php" />
    <install as="kronolith/lib/Block/Monthlist.php" name="lib/Block/Monthlist.php" />

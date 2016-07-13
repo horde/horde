@@ -1,5 +1,10 @@
  <tr>
-  <td class="nowrap"><?php echo $attendee['deleteLink'] . ' ' . $attendee['editLink'] ?></td>
+  <td class="nowrap">
+   <?php echo $attendee['deleteLink'] ?>
+<?php if (isset($attendee['editLink'])): ?>
+   <?php echo ' ' . $attendee['editLink'] ?>
+<?php endif ?>
+  </td>
   <td><?php echo $this->h($attendee['name']) ?></td>
   <td>
    <label for="attendance_<?php echo $attendeeCounter ?>" class="hidden"><?php echo _("Attendance") ?></label>
