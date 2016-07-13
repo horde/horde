@@ -336,6 +336,7 @@
         <file name="ContactAutoCompleter.php" role="php" />
         <file name="InPlaceEditor.php" role="php" />
         <file name="SpellChecker.php" role="php" />
+        <file name="UserAutoCompleter.php" role="php" />
         <file name="WeatherLocationAutoCompleter.php" role="php" />
        </dir> <!-- /lib/Horde/Core/Ajax/Imple -->
        <dir name="Response">
@@ -1027,7 +1028,7 @@
    <package>
     <name>Horde_Auth</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.2.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1785,6 +1786,7 @@
    <install as="Horde/Core/Ajax/Imple/ContactAutoCompleter.php" name="lib/Horde/Core/Ajax/Imple/ContactAutoCompleter.php" />
    <install as="Horde/Core/Ajax/Imple/InPlaceEditor.php" name="lib/Horde/Core/Ajax/Imple/InPlaceEditor.php" />
    <install as="Horde/Core/Ajax/Imple/SpellChecker.php" name="lib/Horde/Core/Ajax/Imple/SpellChecker.php" />
+   <install as="Horde/Core/Ajax/Imple/UserAutoCompleter.php" name="lib/Horde/Core/Ajax/Imple/UserAutoCompleter.php" />
    <install as="Horde/Core/Ajax/Imple/WeatherLocationAutoCompleter.php" name="lib/Horde/Core/Ajax/Imple/WeatherLocationAutoCompleter.php" />
    <install as="Horde/Core/Ajax/Imple/AutoCompleter/Ajax.php" name="lib/Horde/Core/Ajax/Imple/AutoCompleter/Ajax.php" />
    <install as="Horde/Core/Ajax/Imple/AutoCompleter/Base.php" name="lib/Horde/Core/Ajax/Imple/AutoCompleter/Base.php" />
