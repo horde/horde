@@ -219,7 +219,7 @@ var PrettyAutocompleter = Class.create({
 
     updateSelectedItems: function()
     {
-        this.selecteItems = [];
+        this.selectedItems = [];
         this.currentValues().each(function(item) {
             this.selectedItems.push( { rawValue: item });
         }.bind(this));
