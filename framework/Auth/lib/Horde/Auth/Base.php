@@ -421,6 +421,31 @@ abstract class Horde_Auth_Base
     }
 
     /**
+     * Searches the users for a substring.
+     *
+     * @since Horde_Auth 2.2.0
+     *
+     * @param string $search  The search term.
+     *
+     * @return array  A list of all matching users.
+     */
+    public function searchUsers($search)
+    {
+        try {
+            $users = $this->listUsers();
+        } catch (Horde_Auth_Exception $e) {
+            return array();
+        }
+        $matches = array();
+        foreach ($users as $user) {
+            if (Horde_String::ipos($user, $search) !== false) {
+                $matches[] = $user;
+            }
+        }
+        return $matches;
+    }
+
+    /**
      * Checks if $userId exists in the system.
      *
      * @param string $userId  User ID for which to check
