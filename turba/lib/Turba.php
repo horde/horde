@@ -461,6 +461,9 @@ class Turba
         $out = array();
 
         foreach ($in as $sourceId => $source) {
+            if (!isset($source['type'])) {
+                continue;
+            }
             try {
                 $driver = $factory->create($source, $sourceId);
                 if ($driver->hasPermission($permission) &&
