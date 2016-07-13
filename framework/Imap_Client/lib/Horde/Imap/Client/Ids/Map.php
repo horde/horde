@@ -141,6 +141,12 @@ class Horde_Imap_Client_Ids_Map implements Countable, IteratorAggregate, Seriali
 
         $this->sort();
 
+        if (count($remove) == count($this->_ids) &&
+            !array_diff($remove, array_keys($this->_ids))) {
+            $this->_ids = array();
+            return;
+        }
+
         /* Find the minimum sequence number to remove. We know entries before
          * this are untouched so no need to process them multiple times. */
         $first = min($remove);

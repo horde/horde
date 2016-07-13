@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Optimize deleting or moving a large number of messages.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3037,7 +3037,7 @@
    <date>2016-07-01</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Optimize deleting or moving a large number of messages.
    </notes>
   </release>
  </changelog>

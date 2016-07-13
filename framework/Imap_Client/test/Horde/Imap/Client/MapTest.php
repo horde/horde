@@ -224,7 +224,24 @@ class Horde_Imap_Client_MapTest extends PHPUnit_Framework_TestCase
                     6 => 20,
                     9 => 30
                 )
-            )
+            ),
+            // Shortcut removing all.
+            array(
+                new Horde_Imap_Client_Ids('5:30'),
+                array()
+            ),
+            array(
+                new Horde_Imap_Client_Ids(array('5', '10', '15', '20', '25', '30')),
+                array()
+            ),
+            array(
+                new Horde_Imap_Client_Ids(array('2', '4', '6', '8', '10', '12'), true),
+                array()
+            ),
+            array(
+                new Horde_Imap_Client_Ids(array('12', '10', '8', '6', '4', '2'), true),
+                array()
+            ),
         );
     }
 
