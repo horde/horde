@@ -91,15 +91,17 @@ var PrettyAutocompleter = Class.create({
         this.input.observe('keyup', this.resize.bind(this));
         this.input.observe('keydown', this.keyDownHandler.bindAsEventListener(this));
 
-        // Create the underlaying Autocompleter
-        this.p.uri += '&input=' + this.p.trigger;
+        if (this.p.uri) {
+            // Create the underlaying Autocompleter
+            this.p.uri += '&input=' + this.p.trigger;
 
-        this.p.onShow = this.knlShow.bind(this);
-        this.p.onHide = this.knlHide.bind(this);
+            this.p.onShow = this.knlShow.bind(this);
+            this.p.onHide = this.knlHide.bind(this);
 
-        // Make sure the knl is contained in the overlay
-        this.p.domParent = this.p.box;
-        this.aac = new Ajax.Autocompleter(this.p.trigger, this.p.uri, this.p);
+            // Make sure the knl is contained in the overlay
+            this.p.domParent = this.p.box;
+            this.aac = new Ajax.Autocompleter(this.p.trigger, this.p.uri, this.p);
+        }
         this.initialized = true;
 
         // Prepopulate the items and the container elements?
@@ -305,8 +307,9 @@ var PrettyAutocompleter = Class.create({
 
     honorReturn: function()
     {
-        return (this.aac.knl && !this.aac.knl.getCurrentEntry()) ||
-               !this.aac.knl;
+        return this.aac &&
+            ((this.aac.knl && !this.aac.knl.getCurrentEntry()) ||
+             !this.aac.knl);
     },
 
     clickHandler: function(e)
