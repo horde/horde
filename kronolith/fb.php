@@ -27,31 +27,12 @@ $cache = $injector->getInstance('Horde_Cache');
 $key = 'kronolith.fb.' . ($user ? 'u.' . $user : 'c.' . $cal);
 $fb = $cache->get($key, 360);
 if (!$fb) {
-    if ($user) {
-        $prefs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->create('kronolith', array(
-            'cache' => false,
-            'user' => $user
-        ));
-        $registry->setTimeZone();
-        $cal = @unserialize($prefs->getValue('fb_cals'));
-        if (is_array($cal)) {
-            $cal = implode('|', $cal);
-        }
-
-        // If the free/busy calendars preference is empty, default to
-        // the user's default_share preference, and if that's empty,
-        // to their username.
-        if (!$cal) {
-            $cal = $prefs->getValue('default_share');
-            if (!$cal) {
-                $cal = $user;
-            }
-            $cal = 'internal_' . $cal;
-        }
-    }
-
     try {
-        $fb = Kronolith_FreeBusy::generate(explode('|', $cal), null, null, false, $user);
+        if ($user) {
+            $fb = Kronolith_FreeBusy::getForUser($user)->exportvCalendar();
+        } else {
+            $fb = Kronolith_FreeBusy::generate(explode('|', $cal), null, null, false, $user);
+        }
     } catch (Exception $e) {
         Horde::log($e, 'ERR');
         exit;
