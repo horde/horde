@@ -1337,13 +1337,18 @@ class Turba_Api extends Horde_Registry_Api
                             : $ob->getValue($ob->driver->alternativeName);
                         unset($tdisplay_name);
 
+                        $possible_email_attrs = array();
                         foreach (array_keys($att) as $key) {
                             if ($ob->getValue($key) &&
                                 isset($attributes[$key]) &&
                                 ($attributes[$key]['type'] == 'email')) {
-                                $e_val = $ob->getValue($key);
+                                $possible_email_attrs[] = $key;
+                            }
+                        }
 
-                                if (strlen($trimname)) {
+                        foreach ($possible_email_attrs as $key) {
+                                $e_val = $ob->getValue($key);
+                                if (strlen($trimname) && count($possible_email_attrs) > 1) {
                                     /* Ticket #12480: Don't return email if it
                                      * doesn't contain the search string, since
                                      * an entry can contain multiple e-mail
@@ -1368,7 +1373,6 @@ class Turba_Api extends Horde_Registry_Api
                                         'limit' => (isset($attributes[$key]['params']) && is_array($attributes[$key]['params']) && !empty($attributes[$key]['params']['allow_multi'])) ? 0 : 1
                                     )));
                                 }
-                            }
                         }
 
                         if (count($email)) {
