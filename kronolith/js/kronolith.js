@@ -16,7 +16,7 @@ KronolithCore = {
     // Vars used and defaulting to null/false:
     //   weekSizes, daySizes,
     //   groupLoading, colorPicker, duration, timeMarker, monthDays,
-    //   allDays, eventsWeek, initialized
+    //   allDays, eventsWeek, initialized, fbStart, fbEnd
 
     view: '',
     ecache: $H(),
@@ -918,7 +918,8 @@ KronolithCore = {
 
             // Highlight days currently being displayed.
             if (view &&
-                ((view == 'month' && this.date.between(dates[0], dates[1])) ||
+                ((view == 'month' &&
+                  this.date.between(dates[0], dates[1])) ||
                  (view == 'week' && day.between(week[0], week[1])) ||
                  (view == 'workweek' && day.between(workweek[0], workweek[1])) ||
                  (view == 'day' && day.equals(this.date)) ||
@@ -1318,10 +1319,10 @@ KronolithCore = {
         }
         switch (tab.identify()) {
         case 'kronolithEventTabAttendees':
-            this.attendeeStartDateHandler(this.getFBDate());
+            this.attendeeStartDateHandler(this.fbStart);
             break;
         case 'kronolithEventTabResources':
-            this.resourceStartDateHandler(this.getFBDate());
+            this.resourceStartDateHandler(this.fbStart);
             break;
         }
     },
@@ -6444,14 +6445,17 @@ KronolithCore = {
                 u: user.user,
                 l: user.name
             };
-            this.attendees.push(user);
-            this.fbLoading++;
-            HordeCore.doAction('getFreeBusy', {
-                user: user.u
-            }, {
-                callback: this.getFBCallback.bind(this, user.i)
-            });
         }
+
+        this.attendees.push(user);
+        this.fbLoading++;
+        HordeCore.doAction('getFreeBusy', {
+            user: user.u,
+            start: this.fbStart.getTime() / 1000,
+            end: this.fbEnd.getTime() / 1000
+        }, {
+            callback: this.getFBCallback.bind(this, user.i)
+        });
 
         this.insertFBRow(user);
     },
@@ -6487,7 +6491,7 @@ KronolithCore = {
         }
         if (!Object.isUndefined(r.fb)) {
             this.freeBusy.get(attendee)[1] = r.fb;
-            this.insertFreeBusy(attendee, this.getFBDate());
+            this.insertFreeBusy(attendee, this.fbStart);
         }
     },
 
@@ -6611,7 +6615,9 @@ KronolithCore = {
             case 4: response = 'Tentative'; break;
         }
         var att = {
-            'resource': v
+            'resource': v,
+            start: this.fbStart.getTime() / 1000,
+            end: this.fbEnd.getTime() / 1000
         },
         tr, i;
         if (att.resource) {
@@ -6717,17 +6723,6 @@ KronolithCore = {
             );
             this.addAttendee(Kronolith.conf.email);
         }
-    },
-
-    getFBDate: function()
-    {
-        var startDate = $('kronolithFBDate').innerHTML.split(' ');
-        if (startDate.length > 1) {
-            startDate = startDate[1];
-        } else {
-            startDate = startDate[0];
-        }
-        return Date.parseExact(startDate, Kronolith.conf.date_format);
     },
 
     /**
@@ -6840,12 +6835,12 @@ KronolithCore = {
 
     nextFreebusy: function()
     {
-        this.fbStartDateHandler(this.getFBDate().addDays(1));
+        this.fbStartDateHandler(this.fbStart.addDays(1));
     },
 
     prevFreebusy: function()
     {
-        this.fbStartDateHandler(this.getFBDate().addDays(-1));
+        this.fbStartDateHandler(this.fbStart.addDays(-1));
     },
 
     /**
@@ -6853,6 +6848,8 @@ KronolithCore = {
      */
     updateFBDate: function(start)
     {
+        this.fbStart = start.clone();
+        this.fbEnd = start.clone().addDays(1);
         $('kronolithFBDate').update(start.toString('dddd') + ' ' + start.toString(Kronolith.conf.date_format));
         $('kronolithResourceFBDate').update(start.toString('dddd') + ' ' + start.toString(Kronolith.conf.date_format));
     },
