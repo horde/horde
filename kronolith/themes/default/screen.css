@@ -195,6 +195,9 @@ table.kronolithViewMonth {
     padding: 10px;
     vertical-align: top;
 }
+.kronolith-minical > tbody > tr > td {
+    padding: 0;
+}
 
 /* Mini calendar */
 .kronolith-minical table {
