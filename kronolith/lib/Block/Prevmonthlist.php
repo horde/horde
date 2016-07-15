@@ -95,8 +95,7 @@ class Kronolith_Block_Prevmonthlist extends Horde_Core_Block
         $html = '';
 
         /* How many days do we need to check. */
-        $days = Date_Calc::dateDiff($startDate->mday, $startDate->month, $startDate->year,
-                                    $endDate->mday, $endDate->month, $endDate->year);
+        $days = $startDate->diff($endDate);
 
         /* Loop through the days. */
         for ($i = 0; $i < $days; ++$i) {

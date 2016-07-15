@@ -105,17 +105,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
                         }
                         $start = new Horde_Date($next);
                         $start->min -= $event->alarm;
-                        $diff = Date_Calc::dateDiff(
-                            $event->start->mday,
-                            $event->start->month,
-                            $event->start->year,
-                            $event->end->mday,
-                            $event->end->month,
-                            $event->end->year
-                        );
-                        if ($diff == -1) {
-                            $diff = 0;
-                        }
+                        $diff = $event->start->diff($event->end);
                         $end = new Horde_Date(array(
                             'year' => $next->year,
                             'month' => $next->month,

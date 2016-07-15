@@ -2488,17 +2488,7 @@ abstract class Kronolith_Event
                 return;
             }
             $start = clone $eventDate;
-            $diff = Date_Calc::dateDiff(
-                $this->start->mday,
-                $this->start->month,
-                $this->start->year,
-                $this->end->mday,
-                $this->end->month,
-                $this->end->year
-            );
-            if ($diff == -1) {
-                $diff = 0;
-            }
+            $diff = $this->start->diff($this->end);
             $end = new Horde_Date(array(
                 'year' => $start->year,
                 'month' => $start->month,
@@ -2856,12 +2846,7 @@ abstract class Kronolith_Event
         }
 
         if ($this->start && $this->end) {
-            $dur_day_match = Date_Calc::dateDiff($this->start->mday,
-                                                 $this->start->month,
-                                                 $this->start->year,
-                                                 $this->end->mday,
-                                                 $this->end->month,
-                                                 $this->end->year);
+            $dur_day_match = $this->start->diff($this->end);
             $dur_hour_match = $this->end->hour - $this->start->hour;
             $dur_min_match = $this->end->min - $this->start->min;
             while ($dur_min_match < 0) {

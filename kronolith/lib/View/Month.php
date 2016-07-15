@@ -37,11 +37,6 @@ class Kronolith_View_Month
     /**
      * @var integer
      */
-    protected $_daysInView;
-
-    /**
-     * @var integer
-     */
     protected $_startOfView;
 
     /**
@@ -67,22 +62,8 @@ class Kronolith_View_Month
         $this->date = new Horde_Date($date);
         $this->date->mday = 1;
         $this->_startday = $this->date->dayOfWeek();
-        $this->_daysInView = Date_Calc::weeksInMonth($this->month, $this->year) * 7;
         if (!$prefs->getValue('week_start_monday')) {
             $this->_startOfView = 1 - $this->_startday;
-
-            // We may need to adjust the number of days in the view if
-            // we're starting weeks on Sunday.
-            if ($this->_startday == Horde_Date::DATE_SUNDAY) {
-                $this->_daysInView -= 7;
-            }
-            $endday = new Horde_Date(array('mday' => Horde_Date_Utils::daysInMonth($this->month, $this->year),
-                                           'month' => $this->month,
-                                           'year' => $this->year));
-            $endday = $endday->dayOfWeek();
-            if ($endday == Horde_Date::DATE_SUNDAY) {
-                $this->_daysInView += 7;
-            }
         } else {
             if ($this->_startday == Horde_Date::DATE_SUNDAY) {
                 $this->_startOfView = -5;
@@ -91,12 +72,17 @@ class Kronolith_View_Month
             }
         }
 
-        $startDate = new Horde_Date(array('year' => $this->year,
-                                          'month' => $this->month,
-                                          'mday' => $this->_startOfView));
-        $endDate = new Horde_Date(array('year' => $this->year,
-                                        'month' => $this->month,
-                                        'mday' => $this->_startOfView + $this->_daysInView));
+        $startDate = new Horde_Date(
+            $this->year, $this->month, $this->_startOfView
+        );
+        $endDate = new Horde_Date(
+            $this->year,
+            $this->month,
+            Horde_Date_Utils::daysInMonth($this->month, $this->year) + 1
+        );
+        $endDate->mday +=
+            (7 - ($endDate->format('w') - $prefs->getValue('week_start_monday')))
+            % 7;
 
         if ($prefs->getValue('show_shared_side_by_side')) {
             $allCalendars = Kronolith::listInternalCalendars();
@@ -147,6 +133,7 @@ class Kronolith_View_Month
         $new_url = Horde::url('new.php')->add('url', $this_link);
         $new_img = Horde::img('new_small.png', '+');
         $weekOffset = $prefs->getValue('week_start_monday') ? 0 : 1;
+        $weekStart = $prefs->getValue('week_start_monday');
 
         foreach ($this->_currentCalendars as $id => $cal) {
             if ($sidebyside) {
@@ -154,10 +141,13 @@ class Kronolith_View_Month
             }
 
             $cell = 0;
-            for ($day = $this->_startOfView; $day < $this->_startOfView + $this->_daysInView; ++$day) {
-                $date = new Kronolith_Day($this->month, $day, $this->year);
-                $date->hour = $twentyFour ? 12 : 6;
-
+            $date = new Kronolith_Day($this->month, $this->_startOfView, $this->year);
+            $date->hour = $twentyFour ? 12 : 6;
+            for (;
+                 $date->month <= $this->month ||
+                     ($date->month == 12 && $this->month == 1) ||
+                     $date->format('w') != $weekStart;
+                 $date->mday++) {
                 if ($cell % 7 == 0) {
                     $week = $date->add(array('day' => $weekOffset))->weekOfYear();
                     $weeklink = Horde::url('week.php')

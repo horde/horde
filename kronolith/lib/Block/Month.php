@@ -77,22 +77,11 @@ class Kronolith_Block_Month extends Horde_Core_Block
                                          'month' => $month,
                                          'year' => $year));
         $startday = $startday->dayOfWeek();
-        $daysInView = Date_Calc::weeksInMonth($month, $year) * 7;
         if (!$prefs->getValue('week_start_monday')) {
             $startOfView = 1 - $startday;
-
-            // We may need to adjust the number of days in the view if
-            // we're starting weeks on Sunday.
-            if ($startday == Horde_Date::DATE_SUNDAY) {
-                $daysInView -= 7;
-            }
             $endday = new Horde_Date(array('mday' => Horde_Date_Utils::daysInMonth($month, $year),
                                            'month' => $month,
                                            'year' => $year));
-            $endday = $endday->dayOfWeek();
-            if ($endday == Horde_Date::DATE_SUNDAY) {
-                $daysInView += 7;
-            }
         } else {
             if ($startday == Horde_Date::DATE_SUNDAY) {
                 $startOfView = -5;
@@ -101,9 +90,15 @@ class Kronolith_Block_Month extends Horde_Core_Block
             }
         }
 
-        $startDate = new Horde_Date(array('year' => $year, 'month' => $month, 'mday' => $startOfView));
-        $endDate = new Horde_Date(array('year' => $year, 'month' => $month, 'mday' => $startOfView + $daysInView,
-                                        'hour' => 23, 'min' => 59, 'sec' => 59));
+        $startDate = new Horde_Date($year, $month, $startOfView);
+        $endDate = new Horde_Date(
+            $year,
+            $month,
+            Horde_Date_Utils::daysInMonth($month, $year) + 1
+        );
+        $endDate->mday +=
+            (7 - ($endDate->format('w') - $prefs->getValue('week_start_monday')))
+            % 7;
 
         /* Table start. and current month indicator. */
         $html = '<table cellspacing="1" class="monthgrid" width="100%"><tr>';
@@ -135,7 +130,12 @@ class Kronolith_Block_Month extends Horde_Core_Block
 
         $weekday = 0;
         $week = -1;
-        for ($day = $startOfView; $day < $startOfView + $daysInView; ++$day) {
+        $weekStart = $prefs->getValue('week_start_monday');
+        for ($date_ob = new Kronolith_Day($month, $startOfView, $year);
+             $date_ob->month <= $month ||
+                 ($date_ob->month == 12 && $month == 1) ||
+                 $date_ob->format('w') != $weekStart;
+             $date_ob->mday++) {
             if ($weekday == 7) {
                 $weekday = 0;
             }
@@ -144,7 +144,7 @@ class Kronolith_Block_Month extends Horde_Core_Block
                 $html .= '</tr><tr>';
             }
 
-            $date_ob = new Kronolith_Day($month, $day, $year);
+            ;
             if ($date_ob->isToday()) {
                 $td_class = 'kronolith-today';
             } elseif ($date_ob->month != $month) {

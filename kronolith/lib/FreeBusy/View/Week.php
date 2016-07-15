@@ -90,7 +90,8 @@ class Kronolith_FreeBusy_View_Week extends Kronolith_FreeBusy_View
 
     protected function _render(Horde_Date $day = null)
     {
-        $this->_start = new Horde_Date(Date_Calc::beginOfWeek($day->mday, $day->month, $day->year, '%Y%m%d000000'));
+        $this->_start = clone $day;
+        $this->_start->mday -= ($this->_start->format('w') + 6) % 7;
         $this->_end = new Horde_Date($this->_start);
         $this->_end->hour = 23;
         $this->_end->min = $this->_end->sec = 59;

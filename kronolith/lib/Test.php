@@ -32,11 +32,6 @@ class Kronolith_Test extends Horde_Test
      * @var array
      */
     protected $_pearList = array(
-        'Date' => array(
-            'path' => 'Date/Calc.php',
-            'error' => 'Kronolith requires the Date_Calc class to calculate dates.',
-            'required' => true,
-        ),
         'Date_Holidays' => array(
             'error' => 'Date_Holidays can be used to calculate and display national and/or religious holidays.',
             'required' => false,
