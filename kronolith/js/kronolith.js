@@ -36,7 +36,8 @@ KronolithCore = {
     mapMarker: null,
     map: null,
     mapInitialized: false,
-    freeBusy: $H(),
+    freeBusyRows: $H(),
+    freeBusyData: $H(),
     search: 'future',
     effectDur: 0.4,
     macos: navigator.appVersion.indexOf('Mac') != -1,
@@ -6490,7 +6491,7 @@ KronolithCore = {
             $('kronolithFBLoading').hide();
         }
         if (!Object.isUndefined(r.fb)) {
-            this.freeBusy.get(attendee)[1] = r.fb;
+            this.freeBusyData.set(attendee, r.fb);
             this.insertFreeBusy(attendee, this.fbStart);
         }
     },
@@ -6503,7 +6504,7 @@ KronolithCore = {
     insertFBRow: function(attendee)
     {
         var tr = new Element('tr'), response, i;
-        this.freeBusy.set(attendee.i, [ tr ]);
+        this.freeBusyRows.set(attendee.i, tr);
         this.updateFBRow(attendee, tr);
         $('kronolithEventAttendeesList').down('tbody').insert(tr);
     },
@@ -6515,12 +6516,12 @@ KronolithCore = {
     resetFBRows: function()
     {
         this.attendees.each(function(attendee) {
-            var row = this.freeBusy.get(attendee.i)[0];
+            var row = this.freeBusyRows.get(attendee.i);
             row.update();
             this.updateFBRow(attendee, row);
         }.bind(this));
         this.resources.each(function(resource) {
-            var row = this.freeBusy.get(resource)[0],
+            var row = this.freeBusyRows.get(resource),
                 tdone = row.down('td');
             row.update();
             row.update(tdone);
@@ -6626,7 +6627,7 @@ KronolithCore = {
                 callback: this.addResourceCallback.curry(resource).bind(this)
             });
             tr = new Element('tr');
-            this.freeBusy.set(resource, [ tr ]);
+            this.freeBusyRows.set(resource, tr);
             tr.insert(new Element('td')
                 .writeAttribute('title', resource)
                 .addClassName('kronolithAttendee' + response)
@@ -6644,7 +6645,7 @@ KronolithCore = {
 
     removeResource: function(resource)
     {
-        var row = this.freeBusy.get(resource)[0];
+        var row = this.freeBusyRows.get(resource);
         row.purge();
         row.remove();
         this.resourceACCache.map.unset(resource);
@@ -6661,7 +6662,7 @@ KronolithCore = {
             return;
         }
         this.resources.push(resource);
-        this.freeBusy.get(resource)[1] = r.fb;
+        this.freeBusyData.set(resource, r.fb);
         this.insertFreeBusy(resource);
     },
 
@@ -6677,7 +6678,7 @@ KronolithCore = {
             return;
         }
 
-        var row = this.freeBusy.get('email:' + attendee.email)[0];
+        var row = this.freeBusyRows.get('email:' + attendee.email);
         row.purge();
         row.remove();
     },
@@ -6690,7 +6691,7 @@ KronolithCore = {
     removeUser: function(user)
     {
         user = this.parseUser(user);
-        var row = this.freeBusy.get('user:' + user.user)[0];
+        var row = this.freeBusyRows.get('user:' + user.user);
         row.purge();
         row.remove();
     },
@@ -6735,11 +6736,11 @@ KronolithCore = {
     insertFreeBusy: function(attendee, start)
     {
         if (!$('kronolithEventDialog').visible() ||
-            !this.freeBusy.get(attendee)) {
+            !this.freeBusyRows.get(attendee)) {
             return;
         }
-        var fb = this.freeBusy.get(attendee)[1],
-            tr = this.freeBusy.get(attendee)[0],
+        var fb = this.freeBusyData.get(attendee),
+            tr = this.freeBusyRows.get(attendee),
             td = tr.select('td')[1],
             div = td.down('div'), start;
         if (!fb) {
