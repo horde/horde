@@ -9,6 +9,7 @@ function performAction(id, value)
 
 function switchDate(date)
 {
+    document.attendeesForm.enddate.value = document.attendeesForm.enddate.value - document.attendeesForm.startdate.value + date;
     document.attendeesForm.startdate.value = date;
     document.attendeesForm.submit();
     return false;
@@ -24,6 +25,7 @@ function switchView(view)
 function switchDateView(view, date)
 {
     document.attendeesForm.view.value = view;
+    document.attendeesForm.enddate.value = document.attendeesForm.enddate.value - document.attendeesForm.startdate.value + date;
     document.attendeesForm.startdate.value = date;
     document.attendeesForm.submit();
     return false;

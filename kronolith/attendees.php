@@ -22,6 +22,36 @@ if (!$attendees) {
 $resources = $session->get('kronolith', 'resources', Horde_Session::TYPE_ARRAY);
 $editAttendee = null;
 
+// Get the current Free/Busy view; default to the 'day' view if none specified.
+$view = Horde_Util::getFormData('view', 'Day');
+
+// Get the date information.
+$start = new Horde_Date(
+    Horde_Util::getFormData('startdate'), date_default_timezone_get()
+);
+switch ($view) {
+case 'Day':
+    $end = clone $start;
+    $end->mday++;
+    break;
+case 'Workweek':
+case 'Week':
+    $diff = $start->dayOfWeek()
+        - ($view == 'Workweek' ? 1 : $prefs->getValue('week_start_monday'));
+    if ($diff < 0) {
+        $diff += 7;
+    }
+    $start->mday -= $diff;
+    $end = clone $start;
+    $end->mday += $view == 'Workweek' ? 5 : 7;
+    break;
+case 'Month':
+    $start->mday = 1;
+    $end = clone $start;
+    $end->month++;
+    break;
+}
+
 // Get the action ID and value. This specifies what action the user initiated.
 $actionID = Horde_Util::getFormData('actionID');
 if (Horde_Util::getFormData('clearAll')) {
@@ -61,8 +91,8 @@ case 'add':
         /* Do our best to see what the response will be. Note that this
          * response is only guarenteed once the event is saved. */
         $event = Kronolith::getDriver()->getEvent();
-        $event->start = new Horde_Date(Horde_Util::getFormData('startdate'));
-        $event->end = new Horde_Date(Horde_Util::getFormData('enddate'));
+        $event->start = $start;
+        $event->end = $end;
         $event->start->setTimezone(date_default_timezone_get());
         $event->end->setTimezone(date_default_timezone_get());
         $response = $resource->getResponse($event);
@@ -153,9 +183,8 @@ case 'dismiss':
     if (!empty($url)) {
         $url = new Horde_Url($url, true);
     } else {
-        $date = new Horde_Date(Horde_Util::getFormData('startdate'));
         $url = Horde::url($prefs->getValue('defaultview') . '.php', true)
-            ->add('date', $date->dateString());
+            ->add('date', $start->dateString());
     }
 
     // Make sure URL is unique.
@@ -168,9 +197,6 @@ case 'clear':
     break;
 }
 
-// Get the current Free/Busy view; default to the 'day' view if none specified.
-$view = Horde_Util::getFormData('view', 'Day');
-
 // Pre-format our delete image/link.
 $delimg = Horde::img('delete.png', _("Remove Attendee"));
 
@@ -178,24 +204,12 @@ $ident = $injector->getInstance('Horde_Core_Factory_Identity')->create();
 $identities = $ident->getAll('id');
 
 $fbView = Kronolith_FreeBusy_View::singleton($view);
+$fbOpts = array('start' => $start->datestamp(), 'end' => $end->datestamp());
 
-// Add the creator as a required attendee in the Free/Busy display
-$cal = @unserialize($prefs->getValue('fb_cals'));
-if (!is_array($cal)) {
-    $cal = null;
-}
-
-// If the free/busy calendars preference is empty, default to the user's
-// default_share preference, and if that's empty, to their username.
-if (!$cal) {
-    $cal = 'internal_' . $prefs->getValue('default_share');
-    if (!$cal) {
-        $cal = 'internal_' . $GLOBALS['registry']->getAuth();
-    }
-    $cal = array($cal);
-}
 try {
-    $vfb = Kronolith_FreeBusy::generate($cal, null, null, true, $GLOBALS['registry']->getAuth());
+    $vfb = Kronolith_FreeBusy::getForUser(
+        $GLOBALS['registry']->getAuth(), $fbOpts
+    );
     $fbView->addRequiredMember($vfb);
 } catch (Exception $e) {
     $notification->push(sprintf(_("Error retrieving your free/busy information: %s"), $e->getMessage()));
@@ -203,13 +217,18 @@ try {
 
 // Add the Free/Busy information for each attendee.
 foreach ($session->get('kronolith', 'attendees') as $attendee) {
-    if (is_null($attendee->addressObject->host) ||
-        ($attendee->role != Kronolith::PART_REQUIRED &&
-         $attendee->role != Kronolith::PART_OPTIONAL)) {
+    if ($attendee->role != Kronolith::PART_REQUIRED &&
+        $attendee->role != Kronolith::PART_OPTIONAL) {
         continue;
     }
     try {
-        $vfb = Kronolith_FreeBusy::get($attendee->email);
+        if ($attendee->user) {
+            $vfb = Kronolith_Freebusy::getForUser($attendee->user, $fbOpts);
+        } elseif (is_null($attendee->addressObject->host)) {
+            $vfb = new Horde_Icalendar_Vfreebusy();
+        } else {
+            $vfb = Kronolith_FreeBusy::get($attendee->email);
+        }
     } catch (Exception $e) {
         $notification->push(
             sprintf(
@@ -268,7 +287,11 @@ if (count($resources)) {
 
 $title = _("Edit attendees");
 
-$attendeesView = new Kronolith_View_Attendees(array('fbView' => $fbView));
+$attendeesView = new Kronolith_View_Attendees(array(
+    'fbView' => $fbView,
+    'start' => $start,
+    'end' => $end,
+));
 $attendeesView->assign(compact('editAttendee', 'title'));
 
 $injector->getInstance('Horde_Core_Factory_Imple')->create('Kronolith_Ajax_Imple_ContactAutoCompleter', array(

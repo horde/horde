@@ -36,15 +36,9 @@ class Kronolith_View_Attendees extends Horde_View
 
         $this->formInput = Horde_Util::formInput();
         $this->view = Horde_Util::getFormData('view', 'Day');
-        $date = new Horde_Date(
-            Horde_Util::getFormData('startdate', date('Ymd') . '000000')
-        );
-        $end = new Horde_Date(
-            Horde_Util::getFormData('enddate', date('Ymd') . '000000')
-        );
-        $this->date = $date->dateString() . $date->format('Hi00');
-        $this->end  = $end->dateString() . $end->format('Hi00');
-        $this->freeBusy = $config['fbView']->render($date);
+        $this->date = $config['start']->dateString();
+        $this->end  = $config['end']->dateString();
+        $this->freeBusy = $config['fbView']->render($config['start']);
         $auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();
         if ($auth->hasCapability('list') &&
             ($conf['auth']['list_users'] == 'list' ||

@@ -76,8 +76,7 @@ var KronolithEdit =
         case 'attendees_button':
             HordePopup.popup({
                 params: {
-                    startdate: (('000' + $F('start_year')).slice(-4) + ('0' + $F('start_month')).slice(-2) + ('0' + $F('start_day')).slice(-2) + ('0' + $F('start_hour')).slice(-2) + ('0' + $F('start_min')).slice(-2) + '00'),
-                    enddate: (('000' + $F('end_year')).slice(-4) + ('0' + $F('end_month')).slice(-2) + ('0' + $F('end_day')).slice(-2) + ('0' + $F('end_hour')).slice(-2) + ('0' + $F('end_min')).slice(-2) + '00')
+                    startdate: (('000' + $F('start_year')).slice(-4) + ('0' + $F('start_month')).slice(-2) + ('0' + $F('start_day')).slice(-2)),
                 },
                 url: elt.readAttribute('href')
             });

@@ -111,8 +111,7 @@ abstract class Kronolith_FreeBusy_View
         $template = $GLOBALS['injector']->createInstance('Horde_Template');
         $template->set('title', $this->_title());
 
-        $html = $template->fetch(KRONOLITH_TEMPLATES . '/fbview/header.html') .
-            '<div class="fbgrid">';
+        $html = $template->fetch(KRONOLITH_TEMPLATES . '/fbview/header.html');
 
         $hours_html = $this->_hours();
 
@@ -138,7 +137,6 @@ abstract class Kronolith_FreeBusy_View
             $template->set('rows', $rows);
             $template->set('span', count($this->_timeBlocks));
             $template->set('hours', $hours_html);
-            $template->set('legend', '');
             $html .= $template->fetch(KRONOLITH_TEMPLATES . '/fbview/section.html');
         }
 
@@ -159,7 +157,6 @@ abstract class Kronolith_FreeBusy_View
             $template->set('rows', $rows);
             $template->set('span', count($this->_timeBlocks));
             $template->set('hours', $hours_html);
-            $template->set('legend', '');
             $html .= $template->fetch(KRONOLITH_TEMPLATES . '/fbview/section.html');
         }
 
@@ -188,7 +185,6 @@ abstract class Kronolith_FreeBusy_View
             $template->set('rows', $rows);
             $template->set('span', count($this->_timeBlocks));
             $template->set('hours', $hours_html);
-            $template->set('legend', '');
             $html .= $template->fetch(KRONOLITH_TEMPLATES . '/fbview/section.html');
         }
 
@@ -214,17 +210,6 @@ abstract class Kronolith_FreeBusy_View
         $template->set('blocks', $blocks);
         $rows .= $template->fetch(KRONOLITH_TEMPLATES . '/fbview/row.html');
 
-        // Possible meeting times.
-//        $resource->setAttribute('ORGANIZER', _("Required Attendees"));
-//        $blocks = $this->_getBlocks($required,
-//                                    $required->getFreePeriods($this->_start->timestamp(), $this->_end->timestamp()),
-//                                    'meetingblock.html', _("Required Attendees"));
-//
-//        $template = $GLOBALS['injector']->createInstance('Horde_Template');
-//        $template->set('name', _("Required Attendees"));
-//        $template->set('blocks', $blocks);
-//        $rows .= $template->fetch(KRONOLITH_TEMPLATES . '/fbview/row.html');
-
         // Reset locale.
         setlocale(LC_NUMERIC, $lc);
 
@@ -233,14 +218,19 @@ abstract class Kronolith_FreeBusy_View
         $template->set('title', _("Overview"));
         $template->set('span', count($this->_timeBlocks));
         $template->set('hours', $hours_html);
+        $html .= $template->fetch(KRONOLITH_TEMPLATES . '/fbview/section.html');
+
+        $template = $GLOBALS['injector']->createInstance('Horde_Template');
         if ($prefs->getValue('show_fb_legend')) {
             $template->setOption('gettext', true);
+            $template->set('span', count($this->_timeBlocks));
             $template->set('legend', $template->fetch(KRONOLITH_TEMPLATES . '/fbview/legend.html'));
         } else {
             $template->set('legend', '');
         }
+        $html .= $template->fetch(KRONOLITH_TEMPLATES . '/fbview/footer.html');
 
-        return $html . $template->fetch(KRONOLITH_TEMPLATES . '/fbview/section.html') . '</div>';
+        return $html;
     }
 
     /**
