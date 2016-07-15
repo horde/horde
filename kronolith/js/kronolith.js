@@ -6678,7 +6678,7 @@ KronolithCore = {
             return;
         }
 
-        var row = this.freeBusyRows.get('email:' + attendee.email);
+        var row = this.freeBusyRows.get(attendee.i);
         row.purge();
         row.remove();
     },
