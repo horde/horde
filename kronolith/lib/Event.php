@@ -3278,10 +3278,26 @@ abstract class Kronolith_Event
         if (!$attendees) {
             $attendees = new Kronolith_Attendee_List();
         }
-        if (!is_null($newattendees = Horde_Util::getFormData('attendees'))) {
-            $newattendees = Kronolith_Attendee_List::parse(
-                trim($newattendees), $notification
-            );
+        $newattendees = Horde_Util::getFormData('attendees');
+        $userattendees = Horde_Util::getFormData('users');
+        if (!is_null($newattendees) || !is_null($userattendees)) {
+            if ($newattendees) {
+                $newattendees = Kronolith_Attendee_List::parse(
+                    trim($newattendees), $notification
+                );
+            } else {
+                $newattendees = new Kronolith_Attendee_List();
+            }
+            if ($userattendees) {
+                foreach (explode(',', $userattendees) as $user) {
+                    if (!$newUser = Kronolith::validateUserAttendee($user)) {
+                        $notification->push(sprintf(_("The user \"%s\" does not exist."), $newUser), 'horde.error');
+                    } else {
+                        $newattendees->add($newUser);
+                    }
+                }
+            }
+
             // First add new attendees missing in the current list.
             foreach ($newattendees as $attendee) {
                 if (!$attendees->has($attendee)) {

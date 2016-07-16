@@ -68,16 +68,11 @@ case 'add':
     $newAttendees = trim(Horde_Util::getFormData('newAttendees'));
     $newResource = trim(Horde_Util::getFormData('resourceselect'));
 
-    $user = $registry->convertUsername($newUser, true);
-    if (strlen($user)) {
-        $auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();
-        if ($auth->hasCapability('list') && !$auth->exists($user)) {
-            $notification->push(sprintf(_("The user \"%s\" does not exist."), $user), 'horde.error');
+    if (!is_null($newUser)) {
+        if (!$user = Kronolith::validateUserAttendee($newUser)) {
+            $notification->push(sprintf(_("The user \"%s\" does not exist."), $newUser), 'horde.error');
         } else {
-            $attendees->add(new Kronolith_Attendee(array(
-                'user' => $user,
-                'identities' => $injector->getInstance('Horde_Core_Factory_Identity')
-            )));
+            $attendees->add($user);
         }
     }
     $newAttendees = Kronolith_Attendee_List::parse($newAttendees, $notification);

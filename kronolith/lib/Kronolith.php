@@ -804,6 +804,31 @@ class Kronolith
     }
 
     /**
+     * Return Kronolith_Attendee object for a local user.
+     *
+     * @param string $user  The local username.
+     *
+     * @return mixed Return the Kronolith_Attendee object for $user, or false
+     *               if the auth backend supports user listing and the user
+     *               is not found.
+     */
+    public static function validateUserAttendee($user)
+    {
+        global $injector, $registry;
+
+        $user = $registry->convertUsername($user, true);
+        $auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();
+        if ($auth->hasCapability('list') && !$auth->exists($user)) {
+            return false;
+        } else {
+            return new Kronolith_Attendee(array(
+                'user' => $user,
+                'identities' => $injector->getInstance('Horde_Core_Factory_Identity')
+            ));
+        }
+    }
+
+    /**
      * Maps a Kronolith recurrence value to a translated string suitable for
      * display.
      *
