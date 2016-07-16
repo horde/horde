@@ -2627,8 +2627,8 @@ abstract class Kronolith_Event
      * - ed: formatted end date
      * - et: formatted end time
      * - at: attendees
-     * - rs:  resources
-     * - tg: tag list,
+     * - rs: resources
+     * - tg: tag list
      * - mt: meeting (Boolean true if event has attendees, false otherwise).
      * - cb: created by (string describing when and who created the event).
      * - mb: modified by (string describing when and who last modified event).
