@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] More fixes and improvements related to preventing empty date values.
 * [jan] Fix losing shared users when adding invalid user name (Bug #14415).
 * [mjr] Fix displaying tag search results (Bug #14412).
 * [jan] Fix sender of event change notification messages.
@@ -2729,6 +2730,7 @@
    <date>2016-07-01</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] More fixes and improvements related to preventing empty date values.
 * [jan] Fix losing shared users when adding invalid user name (Bug #14415).
 * [mjr] Fix displaying tag search results (Bug #14412).
 * [jan] Fix sender of event change notification messages.
