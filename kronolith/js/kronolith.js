@@ -4527,9 +4527,9 @@ KronolithCore = {
 
             case 'kronolithEventSave':
                 if (!elt.disabled) {
-                    if ($F('kronolithEventAttendees') && $F('kronolithEventId')) {
                     this._checkDate($('kronolithEventStartDate'));
                     this._checkDate($('kronolithEventEndDate'));
+                    if ($F('kronolithEventAttendees') && $F('kronolithEventId')) {
                         $('kronolithEventSendUpdates').setValue(0);
                         $('kronolithEventDiv').hide();
                         $('kronolithUpdateDiv').show();
