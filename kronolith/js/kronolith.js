@@ -6726,6 +6726,9 @@ KronolithCore = {
                 HordeCore.notify(Kronolith.text.wrong_date_format.interpolate({ wrong: $F(elm), right: new Date().toString(Kronolith.conf.date_format) }), 'horde.warning');
                 this.wrongFormat.set(elm.id, true);
             }
+        } else {
+            HordeCore.notify(Kronolith.text.wrong_date_format.interpolate({ wrong: $F(elm), right: new Date().toString(Kronolith.conf.date_format) }), 'horde.warning');
+            this.wrongFormat.set(elm.id, true);
         }
     },
 
