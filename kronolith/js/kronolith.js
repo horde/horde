@@ -6453,6 +6453,10 @@ KronolithCore = {
 
     fbStartDateOnChange: function()
     {
+        if (!$F('kronolithEventStartDate')) {
+          this._checkDate($('kronolithEventStartDate'));
+          return;
+        }
         this.fbStartDateHandler(Date.parseExact($F('kronolithEventStartDate'), Kronolith.conf.date_format));
     },
 
