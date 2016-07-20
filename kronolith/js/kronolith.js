@@ -6793,6 +6793,9 @@ KronolithCore = {
         if (!date) {
             date = end;
         }
+        if (!date) {
+            return;
+        }
         if (start.isAfter(end)) {
             $('kronolithEventStartDate').setValue(date.toString(Kronolith.conf.date_format));
             $('kronolithEventStartTime').setValue($F('kronolithEventEndTime'));
