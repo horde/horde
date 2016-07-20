@@ -3328,9 +3328,8 @@ abstract class Kronolith_Event
             if ($allDay) {
                 $this->start->hour = $this->start->min = $this->start->sec = 0;
             }
-        } else {
+        } elseif ($start = Horde_Util::getFormData('start')) {
             // From traditional interface.
-            $start = Horde_Util::getFormData('start');
             $start_year = $start['year'];
             $start_month = $start['month'];
             $start_day = $start['day'];
@@ -3385,9 +3384,8 @@ abstract class Kronolith_Event
                                               'month' => $start_month,
                                               'mday' => $start_day + $dur_day,
                                               'year' => $start_year));
-        } else {
+        } elseif ($end = Horde_Util::getFormData('end')) {
             // From traditional interface.
-            $end = Horde_Util::getFormData('end');
             $end_year = $end['year'];
             $end_month = $end['month'];
             $end_day = $end['day'];

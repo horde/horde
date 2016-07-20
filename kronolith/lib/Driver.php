@@ -352,6 +352,10 @@ class Kronolith_Driver
      */
     public function saveEvent(Kronolith_Event $event)
     {
+        if (empty($event->start) || $event->start->year <= 0 ||
+            empty($event->end) || $event->end->year <= 0) {
+            throw new Kronolith_Exception(_("Invalid date"));
+        }
         if ($event->stored || $event->exists()) {
             return $this->_updateEvent($event);
         }
