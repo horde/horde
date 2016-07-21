@@ -18,7 +18,7 @@ class Kronolith_FreeBusy
      * @param string $user             Set organizer to this user.
      *
      * @return string  The free/busy text.
-     * @throws Horde_Exception
+     * @throws Horde_Exception, Kronolith_Exception
      */
     public static function generate($calendars, $startstamp = null,
                                     $endstamp = null, $returnObj = false,
@@ -75,6 +75,11 @@ class Kronolith_FreeBusy
                 @list($type, $calendar) = explode('_', $calendar, 2);
             } else {
                 $type = 'internal';
+            }
+            try {
+                $GLOBALS['injector']->getInstance('Kronolith_Shares')->getShare($calendar);
+            } catch (Horde_Exception $e) {
+                throw new Kronolith_Exception('Share not found.');
             }
             try {
                 $driver = Kronolith::getDriver($type, $calendar);
@@ -180,7 +185,12 @@ class Kronolith_FreeBusy
             }
             $cals = array('internal_' . $cal);
         }
-        $fb = self::generate($cals, $opts['start'], $opts['end'], true, $user);
+
+        try {
+            $fb = self::generate($cals, $opts['start'], $opts['end'], true, $user);
+        } catch (Kronolith_Exception $e) {
+           throw new Kronolith_Exception(sprintf(_("The free/busy data for %s cannot be retrieved."), $user));
+        }
 
         return $opts['json'] ? self::toJson($fb) : $fb;
     }
