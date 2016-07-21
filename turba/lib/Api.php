@@ -1105,6 +1105,13 @@ class Turba_Api extends Horde_Registry_Api
      *   - count_only: (boolean) If true, only return the count of matching
      *                           results.
      *                 DEFAULT: false (Return the full data set).
+     *   - emailSearch: (boolean) If true, indicates this is an email search
+     *                  like e.g., for an autocompleter. Ensures that ALL email
+     *                  fields are both included in 'fields' and returned in the
+     *                  results, regardless of the requested returnFields value.
+     *                  @todo Make this a separate API method in H6 (or separate
+     *                  API "module", e.g., an 'email search' API).
+     *                  @since  4.3.0
      *
      * @return mixed  Either a hash containing the search results or a
      *                Rfc822 List object (if 'rfc822Return' is true).
@@ -1172,11 +1179,26 @@ class Turba_Api extends Horde_Registry_Api
                 continue;
             }
 
+            // Ensure we have search fields for each source.
             if (empty($opts['fields'][$source])) {
-                $opts['fields'][$source] = $GLOBALS['cfgSources'][$source]['search'];
+                $opts['fields'][$source] = $cfgSources[$source]['search'];
             }
-            $sdriver = $driver->create($source);
 
+            // If this is an email search, ensure we are searching for and
+            // returning all email-type fields.
+            if (!empty($opts['emailSearch'])) {
+                $opts['returnFields'] = array_merge(
+                    $opts['returnFields'],
+                    Turba::getAvailableEmailFields($source, false)
+                );
+
+                $opts['fields'][$source] = array_merge(
+                    $opts['fields'][$source],
+                    Turba::getAvailableEmailFields($source)
+                );
+            }
+
+            $sdriver = $driver->create($source);
             foreach ($names as $name) {
                 $trimname = trim($name);
                 $out = $criteria = array();
