@@ -1358,13 +1358,13 @@ class Turba_Api extends Horde_Registry_Api
                             ? Turba::formatName($ob)
                             : $ob->getValue($ob->driver->alternativeName);
                         unset($tdisplay_name);
-
+                        $email_fields = array();
                         foreach (array_keys($att) as $key) {
                             if ($ob->getValue($key) &&
                                 isset($attributes[$key]) &&
                                 ($attributes[$key]['type'] == 'email')) {
                                 $e_val = $ob->getValue($key);
-
+                                $email_fields[$key] = $e_val;
                                 if (strlen($trimname)) {
                                     /* Ticket #12480: Don't return email if it
                                      * doesn't contain the search string, since
@@ -1393,6 +1393,17 @@ class Turba_Api extends Horde_Registry_Api
                             }
                         }
 
+                        // If we haven't added any results yet, add any available
+                        // addresses since the search term might not have matched
+                        // the display_name OR any of the email addresses.
+                        // See Bug: 13945
+                        if (!count($email)) {
+                            foreach ($email_fields as $e_field => $e_value) {
+                                $email->add($rfc822->parseAddressList($e_value, array(
+                                    'limit' => (isset($attributes[$e_field]['params']) && is_array($attributes[$e_field]['params']) && !empty($attributes[$e_field]['params']['allow_multi'])) ? 0 : 1
+                                )));
+                            }
+                        }
                         if (count($email)) {
                             foreach ($email as $val) {
                                 $seen_key = trim(Horde_String::lower($display_name)) . '/' . Horde_String::lower($val->bare_address);
