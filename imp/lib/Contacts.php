@@ -193,7 +193,8 @@ implements IteratorAggregate, Serializable
                 'fields' => $fields,
                 'returnFields' => $returnFields,
                 'rfc822Return' => true,
-                'sources' => $sources
+                'sources' => $sources,
+                'emailSearch' => true,
             )));
         } catch (Horde_Exception $e) {
             Horde::log($e, 'ERR');
