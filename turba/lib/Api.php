@@ -1811,7 +1811,7 @@ class Turba_Api extends Horde_Registry_Api
     public function getField($address = '', $field = '', $sources = array(),
                              $strict = false, $multiple = false)
     {
-        global $cfgSources, $attributes;
+        global $cfgSources, $attributes, $injector;
 
         if (empty($address)) {
             throw new Turba_Exception(_("Invalid email"));
@@ -1825,24 +1825,19 @@ class Turba_Api extends Horde_Registry_Api
             $sources = array(Turba::getDefaultAddressbook());
         }
 
-        $driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver');
         $result = array();
 
         foreach ($sources as $source) {
             if (!isset($cfgSources[$source])) {
                 continue;
             }
-            $criterium = array();
-            $sdriver = $driver->create($source);
-            foreach (Turba::getAvailableEmailFields() as $cfgField) {
-                if (in_array($cfgField, array_keys($sdriver->map)) &&
-                    in_array($cfgField, $cfgSources[$source]['search'])) {
-                    $criterium[$cfgField] = $address;
-                }
-            }
-
+            $criterium = array_fill_keys(
+                Turba::getAvailableEmailFields($source),
+                $address
+            );
+            $driver = $injector->getInstance('Turba_Factory_Driver')->create($source);
             try {
-                $list = $sdriver->search($criterium, null, 'OR', array(), $strict ? array_keys($criterium) : array());
+                $list = $driver->search($criterium, null, 'OR', array(), $strict ? array_keys($criterium) : array());
             } catch (Turba_Exception $e) {
                 Horde::log($e, 'ERR');
                 continue;
