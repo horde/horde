@@ -146,17 +146,21 @@ class Horde_Rdo_Query
             $m->tableAlias = $this->_alias($m->table);
             $this->addFields($m->fields, $m->tableAlias . '.@');
 
+            $args = array('mapper' => $m,
+                          'type' => $rel['type']);
+
             switch ($rel['type']) {
             case Horde_Rdo::ONE_TO_ONE:
             case Horde_Rdo::MANY_TO_ONE:
                 if (isset($rel['query'])) {
-                    $query = $this->_fillJoinPlaceholders($m, $mapper, $rel['query']);
+                    $args['query'] = $this->_fillJoinPlaceholders($m, $mapper, $rel['query']);
                 } else {
-                    $query = array($mapper->table . '.' . $rel['foreignKey'] => new Horde_Rdo_Query_Literal($m->table . '.' . $m->tableDefinition->getPrimaryKey()));
+                    $args['query'] = array($mapper->table . '.' . $rel['foreignKey'] => new Horde_Rdo_Query_Literal($m->table . '.' . $m->tableDefinition->getPrimaryKey()));
                 }
-                $this->addRelationship($relationship, array('mapper' => $m,
-                                                            'type' => $rel['type'],
-                                                            'query' => $query));
+                if (isset($rel['join_type'])) {
+                    $args['join_type'] = $rel['join_type'];
+                }
+                $this->addRelationship($relationship, $args);
                 break;
 
             case Horde_Rdo::ONE_TO_MANY:
@@ -264,6 +268,11 @@ class Horde_Rdo_Query
             } else {
                 $args['tableAlias'] = $this->_alias($args['table']);
             }
+        }
+        // anything other than INNER and LEFT JOINs will cause errors
+        // as the primary object could have all values filled with null
+        if (isset($args['join_type']) && !in_array(Horde_String::upper($args['join_type']), array('INNER JOIN', 'LEFT JOIN'))) {
+            unset($args['join_type']);
         }
         if (!isset($args['type'])) {
             $args['type'] = Horde_Rdo::MANY_TO_MANY;
