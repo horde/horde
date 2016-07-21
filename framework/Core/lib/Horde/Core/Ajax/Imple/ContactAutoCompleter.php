@@ -67,8 +67,7 @@ abstract class Horde_Core_Ajax_Imple_ContactAutoCompleter extends Horde_Core_Aja
                 'returnFields' => array('email', 'name'),
                 'rfc822Return' => true,
                 'sources' => $searchpref->sources,
-                'count_only' => !empty($opts['count_only']),
-                'emailSearch' => true,
+                'count_only' => !empty($opts['count_only'])
             )));
         } catch (Horde_Exception $e) {
             Horde::log($e, 'ERR');
