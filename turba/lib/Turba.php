@@ -722,19 +722,34 @@ class Turba
     }
 
     /**
-     * Return an array of all available attributes of type 'email'.
+     * Return an array of all available attributes of type 'email'. Optionally,
+     * ensure the field is defined in the specified $source.
+     *
+     * @param $source string       An optional source identifier.
+     * @param $searchable boolean  If true, and $source is provided, ensure that
+     *                             the email field is a configured searchable
+     *                             field.
      *
      * @return array  An array of email fields.
      * @since  4.2.9
      */
-    public static function getAvailableEmailFields()
+    public static function getAvailableEmailFields($source = null, $searchable = true)
     {
-        global $attributes;
+        global $attributes, $injector, $cfgSources;
+
+        if (!empty($source)) {
+            $driver = $injector->getInstance('Turba_Factory_Driver')
+                ->create($source);
+        }
 
         $emailFields = array();
         foreach ($attributes as $field => $data) {
             if ($data['type'] == 'email') {
-                $emailFields[] = $field;
+                if (empty($source) || (!empty($source) &&
+                    in_array($field, array_keys($driver->map)) &&
+                    (!$searchable || ($searchable && in_array($field, $cfgSources[$source]['search'])))))
+
+                    $emailFields[] = $field;
             }
         }
 
