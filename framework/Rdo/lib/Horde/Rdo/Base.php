@@ -446,4 +446,44 @@ abstract class Horde_Rdo_Base implements IteratorAggregate, ArrayAccess
         return $query;
     }
 
+    /**
+     * make the Entity convertible to an Array
+     * this method can be used when handing it over to Horde_Variables
+     * so that the database is not unnecessarily queried because of lazyFields/-Relationships
+     *
+     * @param bool $lazy            if lazy elements should be added
+     * @param bool $relationships   if relationships should be added
+     *
+     * @return array containing all selected fields / relationships
+     */
+    public function toArray($lazy = false, $relationships = false)
+    {
+        $array = array();
+
+        $m = $this->getMapper();
+
+        foreach ($m->fields as $field) {
+            $array[$field] = $this->$field;
+        }
+
+        if ($lazy) {
+            foreach ($m->lazyFields as $field) {
+                $array[$field] = $this->$field;
+            }
+        }
+
+        if ($relationships) {
+            foreach ($m->relationships as $rel=>$field) {
+                $array[$rel] = $this->$rel;
+            }
+        }
+
+        if ($lazy && $relationships) {
+            foreach ($m->lazyRelationships as $rel=>$field) {
+                $array[$rel] = $this->$rel;
+            }
+        }
+
+        return $array;
+    }
 }
