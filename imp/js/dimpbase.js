@@ -105,7 +105,21 @@ var DimpBase = {
         this.viewport.select(row, { right: opts.right });
     },
 
-    selectAll: function()
+    selectPage: function()
+    {
+        var tmp = $('msglistHeaderContainer').select('DIV.msCheckAll'),
+            start = this.viewport.currentOffset(),
+            end = start + this.viewport.getPageSize(); 
+        if (tmp.first().hasClassName('msCheckOn')) {
+            this.resetSelected();
+        } else {
+            
+            this.viewport.select($A($R(start, end)), { right: true });
+            DimpCore.toggleCheck(tmp, true);
+        }
+    },
+
+    selectAll: function ()
     {
         var tmp = $('msglistHeaderContainer').select('DIV.msCheckAll');
 
@@ -2896,8 +2910,8 @@ var DimpBase = {
         case 'msglistHeaderHoriz':
             tmp = e.memo.findElement('DIV');
             if (tmp.hasClassName('msCheckAll')) {
-                this.selectAll();
-            } else if (!e.memo.element().hasClassName('horde-popdown')) {
+                this.selectPage();
+            } else if (!tmp.hasClassName('msgStatus') && !e.memo.element().hasClassName('horde-popdown')) {
                 this.sort(tmp.retrieve('sortby'));
             }
             e.memo.stop();
@@ -2906,7 +2920,7 @@ var DimpBase = {
         case 'msglistHeaderVert':
             tmp = e.memo.element();
             if (tmp.hasClassName('msCheckAll')) {
-                this.selectAll();
+                this.selectPage();
             }
             e.memo.stop();
             break;
@@ -3996,6 +4010,14 @@ var DimpBase = {
         DM.addSubMenu('ctx_oa_setflag', 'ctx_flag');
         DM.addSubMenu('ctx_oa_unsetflag', 'ctx_flagunset');
         DM.addSubMenu('ctx_mbox_setflag', 'ctx_mbox_flag');
+
+        DimpCore.addPopdown($('msglistHeaderHoriz').down('.msgStatus').identify(), 'selectmsg', {
+            insert: 'bottom'
+        });
+        
+        DimpCore.addPopdown($('msglistHeaderVert').down('.msgStatus').identify(), 'selectmsg', {
+            insert: 'bottom'
+        });
 
         DimpCore.addPopdown($('msglistHeaderHoriz').down('.msgSubject').identify(), 'subjectsort', {
             insert: 'bottom'

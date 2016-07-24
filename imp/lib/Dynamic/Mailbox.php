@@ -171,6 +171,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             'qsearchid' => IMP_Mailbox::formTo(IMP_Search::MBOX_PREFIX . IMP_Search::DIMP_QUICKSEARCH),
             'refresh_time' => intval($prefs->getValue('refresh_time')),
             'sidebar_width' => max(intval($prefs->getValue('sidebar_width')), 150),
+            'select' => _('Select'),
             'sort' => array(
                 'from' => array(
                     'c' => 'msgFrom',
@@ -262,6 +263,10 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
                 'size' => _("Size"),
                 '_sep1' => null,
                 'sequence' => _("No Sort")
+            ),
+            'ctx_selectmsg' => array(
+                '*page' => _("Select page"),
+                '*all' => _("Select all"),
             ),
             'ctx_subjectsort' => array(
                 'thread' => _("Thread Sort"),
