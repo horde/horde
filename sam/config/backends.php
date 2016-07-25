@@ -109,6 +109,8 @@ $backends['amavisd_sql'] = array(
         // 'database' => 'horde',
         // 'username' => 'horde',
         // 'password' => 'horde',
+        // 'protocol' => 'tcp',
+        // 'socket' => '',
 
         // This parameter maps the SAM-specific table and
         // attribute names to those that Amavisd-new will
