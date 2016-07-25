@@ -79,17 +79,18 @@ class Sam_Driver_Amavisd_Sql extends Sam_Driver_Base
         $userID = $this->_lookupUserID();
 
         /* Find the policy id. */
-        $policyID = $this->_lookupPolicyID();
+        if ($policyID = $this->_lookupPolicyID()) {
 
-        /* Query for SPAM policy. */
-        try {
-            $result = $this->_db->selectOne(
-                sprintf('SELECT * FROM %s WHERE %s = ?',
-                        $this->_mapNameToTable('policies'),
-                        $this->_mapAttributeToField('policies', 'id')),
-                array($policyID));
-        } catch (Horde_Db_Exception $e) {
-            throw new Sam_Exception($e);
+            /* Query for SPAM policy. */
+            try {
+                $result = $this->_db->selectOne(
+                    sprintf('SELECT * FROM %s WHERE %s = ?',
+                            $this->_mapNameToTable('policies'),
+                            $this->_mapAttributeToField('policies', 'id')),
+                    array($policyID));
+            } catch (Horde_Db_Exception $e) {
+                throw new Sam_Exception($e);
+            }
         }
 
         /* Loop through elements of the result, retrieving options. */
