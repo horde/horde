@@ -36,9 +36,11 @@ class Sam_Factory_Driver extends Horde_Core_Factory_Injector
             switch ($backend['driver']) {
             case 'Amavisd_Sql':
             case 'Spamd_Sql':
+                $db_params = array_merge(Horde::getDriverConfig(null, 'sql'), $backend['params']);
+                unset($db_params['table_map']);
                 try {
                     $db = $injector->getInstance('Horde_Core_Factory_Db')
-                        ->create('sam', array_merge(Horde::getDriverConfig(null, 'sql'), $backend['params']));
+                        ->create('sam', $db_params);
                 } catch (Horde_Exception $e) {
                     throw new Sam_Exception($e);
                 }
