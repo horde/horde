@@ -94,7 +94,7 @@ class Sam_Driver_Amavisd_Sql extends Sam_Driver_Base
         }
 
         /* Loop through elements of the result, retrieving options. */
-        if ($result) {
+        if (!empty($result)) {
             foreach ($result as $field => $value) {
                 $attribute = $this->_mapFieldToAttribute('policies', $field);
                 if ($this->hasCapability($attribute) && !is_null($value)) {
