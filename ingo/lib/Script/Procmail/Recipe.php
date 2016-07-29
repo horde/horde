@@ -182,7 +182,7 @@ class Ingo_Script_Procmail_Recipe implements Ingo_Script_Item
                 $this->_action[] = '    SUBJECT=| formail -xSubject:';
                 $this->_action[] = '';
                 $this->_action[] =
-                    '    :0 Whc: ${VACATION_DIR:-.}/vacation.lock';
+                    '    :0 Wc: ${VACATION_DIR:-.}/vacation.lock';
                 if ($timed) {
                     $this->_action[] =
                         '    * ? test $DATE -gt $START && test $END -gt $DATE';
