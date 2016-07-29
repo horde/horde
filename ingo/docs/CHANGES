@@ -2,6 +2,7 @@
 v3.2.12-git
 -----------
 
+[mjr] Fix incorrect flag usage in Procmail vacation recipe (Bug #14397).
 [mjr] Fix escaping mailbox names that contain utf7-imap encodings (Bug #14429).
 [jan] Fix creating new spam folders.
 
