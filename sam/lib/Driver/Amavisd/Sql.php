@@ -479,8 +479,8 @@ class Sam_Driver_Amavisd_Sql extends Sam_Driver_Base
     /**
      * Returns an Amavisd-new policy for storage and retrieval.
      *
-     * @return string  The results of the of the policy lookup. Can be the ID
-     *                 of the policy, false if not found.
+     * @return string|boolean  The results of the of the policy lookup. Can be
+     *                         the ID of the policy, false if not found.
      * @throws Sam_Exception
      */
     protected function _lookupPolicyID()
