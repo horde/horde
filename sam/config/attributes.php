@@ -23,7 +23,7 @@
  *      type     - one of the following:
  *                      - spacer            - header
  *                      - description       - html
- *                      - number            - int
+ *                      - number            - double
  *                      - intlist           - text
  *                      - longtext          - countedtext
  *                      - address           - file
