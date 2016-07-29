@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [mjr] Fix escaping mailbox names that contain utf7-imap encodings (Bug #14429).
 * [jan] Fix creating new spam folders.
  </notes>
  <contents>
@@ -1674,6 +1675,7 @@
    <date>2016-07-01</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [mjr] Fix escaping mailbox names that contain utf7-imap encodings (Bug #14429).
 * [jan] Fix creating new spam folders.
    </notes>
   </release>
