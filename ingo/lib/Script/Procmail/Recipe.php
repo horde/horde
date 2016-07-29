@@ -468,9 +468,9 @@ class Ingo_Script_Procmail_Recipe implements Ingo_Script_Item
                 $folder = substr($folder, 6);
             }
 
-            $mbox = new Horde_Imap_Client_Mailbox($folder);
+            $mbox = new Horde_Imap_Client_Mailbox(escapeshellcmd($folder));
 
-            return '".' . escapeshellcmd($mbox->utf7imap) . '/"';
+            return '".' . $mbox->utf7imap . '/"';
         }
         return str_replace(' ', '\ ', escapeshellcmd($folder));
     }
