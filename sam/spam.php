@@ -52,11 +52,10 @@ if ($form->isSubmitted() &&
 
 if ($form->validate($vars)) {
     $stackedOptions = array();
-
+    $form->getInfo($vars, $info);
     foreach (Sam::getAttributes() as $key => $attribute) {
         if ($sam_driver->hasCapability($key) && $vars->exists($key)) {
-            $data = $vars->get($key);
-
+            $data = $info[$key];
             if (isset($attribute['basepref'])) {
                /* SA docs claim that a null value for a rewrite string merely
                 * removes any previous changes to the specified header.  This
