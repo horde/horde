@@ -188,6 +188,25 @@ class Horde_Prefs implements ArrayAccess
     }
 
     /**
+     * Removes all preference entries for the current user from the $prefs hash
+     * and the backends.
+     *
+     * @since Horde_Prefs 2.8.0
+     * @throws Horde_Prefs_Exception
+     */
+    public function removeAll()
+    {
+        foreach ($this->_scopes as $key => $val) {
+            foreach (array_keys(iterator_to_array($val)) as $prefname) {
+                $this->_scopes[$key]->remove($prefname);
+            }
+        }
+        foreach ($this->_storage as $storage) {
+            $storage->remove();
+        }
+    }
+
+    /**
      * Sets the given preference to the specified value if the preference is
      * modifiable.
      *

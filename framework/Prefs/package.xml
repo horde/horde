@@ -22,10 +22,10 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-03-08</date>
+ <date>2016-08-01</date>
  <version>
-  <release>2.7.7</release>
-  <api>2.7.0</api>
+  <release>2.8.0</release>
+  <api>2.8.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Add Horde_Prefs::removeAll().
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -46,6 +46,7 @@
     <dir name="Horde">
      <dir name="Prefs">
       <file name="COPYING" role="doc" />
+      <file name="UPGRADING" role="doc" />
      </dir> <!-- /doc/Horde/Prefs -->
     </dir> <!-- /doc/Horde -->
    </dir> <!-- /doc -->
@@ -500,6 +501,7 @@
   <filelist>
    <install as="horde-prefs" name="bin/horde-prefs" />
    <install as="COPYING" name="doc/Horde/Prefs/COPYING" />
+   <install as="UPGRADING" name="doc/Horde/Prefs/UPGRADING" />
    <install as="Horde/Prefs.php" name="lib/Horde/Prefs.php" />
    <install as="Horde/Prefs/CategoryManager.php" name="lib/Horde/Prefs/CategoryManager.php" />
    <install as="Horde/Prefs/Exception.php" name="lib/Horde/Prefs/Exception.php" />
@@ -1201,15 +1203,15 @@ Initial release as a PEAR package
   </release>
   <release>
    <version>
-    <release>2.7.7</release>
-    <api>2.7.0</api></version>
+    <release>2.8.0</release>
+    <api>2.8.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-03-08</date>
+   <date>2016-08-01</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Add Horde_Prefs::removeAll().
    </notes>
   </release>
  </changelog>

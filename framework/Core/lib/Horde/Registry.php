@@ -2704,31 +2704,45 @@ class Horde_Registry implements Horde_Shutdown_Task
         }
 
         $applist = empty($app)
-            ? $this->listApps(array('notoolbar', 'hidden', 'active', 'admin', 'noadmin'))
+            ? $this->listApps(
+                array('notoolbar', 'hidden', 'active', 'admin', 'noadmin')
+            )
             : array($app);
         $errApps = array();
         if (!empty($applist)) {
-            $prefs_ob = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->create('horde', array(
-                'user' => $user
-            ));
+            $prefs_ob = $GLOBALS['injector']
+                ->getInstance('Horde_Core_Factory_Prefs')
+                ->create('horde', array('user' => $user));
+
+            // Remove all preference at once, if possible.
+            if (empty($app)) {
+                try {
+                    $prefs_ob->removeAll();
+                } catch (Horde_Exception $e) {
+                    Horde::log($e);
+                }
+            }
         }
 
-        foreach ($applist as $app) {
+        foreach ($applist as $item) {
             try {
-                $this->callAppMethod($app, 'removeUserData', array(
+                $this->callAppMethod($item, 'removeUserData', array(
                     'args' => array($user)
                 ));
             } catch (Exception $e) {
                 Horde::log($e);
-                $errApps[] = $app;
+                $errApps[] = $item;
             }
 
+            if (empty($app)) {
+                continue;
+            }
             try {
-                $prefs_ob->retrieve($app);
+                $prefs_ob->retrieve($item);
                 $prefs_ob->remove();
             } catch (Horde_Exception $e) {
                 Horde::log($e);
-                $errApps[] = $app;
+                $errApps[] = $item;
             }
         }
 
