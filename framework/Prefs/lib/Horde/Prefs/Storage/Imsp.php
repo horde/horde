@@ -1,11 +1,17 @@
 <?php
 /**
- * Preference storage implementation for an IMSP server.
- *
  * Copyright 2004-2016 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author   Michael Rubinsky <mrubinsk@horde.org>
+ * @category Horde
+ * @package  Prefs
+ */
+
+/**
+ * Preference storage implementation for an IMSP server.
  *
  * @author   Michael Rubinsky <mrubinsk@horde.org>
  * @category Horde

@@ -1,13 +1,22 @@
 <?php
 /**
- * The Horde_Prefs:: class provides a common abstracted interface into the
- * various preferences storage mediums.  It also includes all of the
- * functions for retrieving, storing, and checking preference values.
- *
  * Copyright 1999-2016 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author   Jon Parise <jon@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Prefs
+ */
+
+/**
+ * The Horde_Prefs class provides a common abstracted interface into the
+ * various preferences storage mediums.
+ *
+ * It also includes all of the functions for retrieving, storing, and checking
+ * preference values.
  *
  * @author   Jon Parise <jon@horde.org>
  * @category Horde

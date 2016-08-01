@@ -1,11 +1,18 @@
 <?php
 /**
- * Preferences storage implementation for a Kolab IMAP server.
- *
  * Copyright 2007-2016 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author   Gunnar Wrobel <p@rdus.de>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Prefs
+ */
+
+/**
+ * Preferences storage implementation for a Kolab IMAP server.
  *
  * @author   Gunnar Wrobel <p@rdus.de>
  * @category Horde

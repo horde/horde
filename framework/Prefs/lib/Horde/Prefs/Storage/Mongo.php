@@ -20,7 +20,9 @@
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Prefs
  */
-class Horde_Prefs_Storage_Mongo extends Horde_Prefs_Storage_Base implements Horde_Mongo_Collection_Index
+class Horde_Prefs_Storage_Mongo
+extends Horde_Prefs_Storage_Base
+implements Horde_Mongo_Collection_Index
 {
     /* Field names. */
     const UID = 'uid';

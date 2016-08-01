@@ -1,11 +1,18 @@
 <?php
 /**
- * Preferences storage implementation using files in a directory
- *
  * Copyright 2008-2016 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author   Thomas Jarosch <thomas.jarosch@intra2net.com>
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @package  Prefs
+ */
+
+/**
+ * Preferences storage implementation using files in a directory
  *
  * @author   Thomas Jarosch <thomas.jarosch@intra2net.com>
  * @author   Michael Slusarz <slusarz@horde.org>

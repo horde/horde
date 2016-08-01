@@ -1,11 +1,20 @@
 <?php
 /**
- * Preferences storage implementation for LDAP servers.
- *
  * Copyright 1999-2016 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author   Jon Parise <jon@horde.org>
+ * @author   Ben Klang <ben@alkaloid.net>
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @author   Heinz Schweiger <heinz@htl-steyr.ac.at>
+ * @category Horde
+ * @package  Prefs
+ */
+
+/**
+ * Preferences storage implementation for LDAP servers.
  *
  * @author   Jon Parise <jon@horde.org>
  * @author   Ben Klang <ben@alkaloid.net>
