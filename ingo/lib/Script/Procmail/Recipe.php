@@ -462,15 +462,18 @@ class Ingo_Script_Procmail_Recipe implements Ingo_Script_Item
         if (empty($folder) || ($folder == 'INBOX')) {
             return '$DEFAULT';
         }
-        if (isset($this->_params) &&
-            ($this->_params['path_style'] == 'maildir')) {
-            if (substr($folder, 0, 6) == 'INBOX.') {
-                $folder = substr($folder, 6);
+        if (isset($this->_params)) {
+            if ($this->_params['path_style'] == 'maildir') {
+                if (substr($folder, 0, 6) == 'INBOX.') {
+                    $folder = substr($folder, 6);
+                }
+                $mbox = new Horde_Imap_Client_Mailbox($folder);
+                return '".' . $mbox->utf7imap . '/"';
             }
-
-            $mbox = new Horde_Imap_Client_Mailbox($folder);
-
-            return '".' . $mbox->utf7imap . '/"';
+            if ($this->_params['path_style'] == 'mboxutf7') {
+                $mbox = new Horde_Imap_Client_Mailbox($folder);
+                return '"' . $mbox->utf7imap . '/"';
+            }
         }
         return str_replace(' ', '\ ', escapeshellcmd($folder));
     }

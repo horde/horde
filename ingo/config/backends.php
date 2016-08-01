@@ -149,7 +149,10 @@ $backends['maildrop'] = array(
                 // no include the original, quoted message content has been
                 // added with Maildrop 2.5.1/Courier 0.65.1.
                 'mailbotargs' => '-N',
-                // What path style does the IMAP server use ['mbox'|'maildir']?
+                // What path style does the IMAP server use, one of:
+                //   'mbox'     - mbox style pathnames.
+                //   'mboxutf7' - mbox pathnames, with UTF7-imap encoding.
+                //   'maildir'  - Maildir paths (also uses UTF7-imap encoding).
                 'path_style' => 'mbox',
                 // Strip 'INBOX.' from the beginning of folder names in
                 // generated scripts?
@@ -220,7 +223,10 @@ $backends['procmail'] = array(
         Ingo::RULE_ALL => array(
             'driver' => 'procmail',
             'params' => array(
-                // What path style does the IMAP server use ['mbox'|'maildir']?
+                // What path style does the IMAP server use, one of:
+                //   'mbox'     - mbox style pathnames.
+                //   'mboxutf7' - mbox pathnames, with UTF7-imap encoding.
+                //   'maildir'  - Maildir paths (also uses UTF7-imap encoding).
                 'path_style' => 'mbox',
                 // An array of variables to append to every generated script.
                 // Use if you need to set up specific environment variables.
