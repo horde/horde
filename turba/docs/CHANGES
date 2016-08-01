@@ -2,6 +2,7 @@
 v4.2.16-git
 -----------
 
+[jan] Continue removing user data if a source doesn't have an __owner field.
 [mjr] Fix over-agressive filtering of search results when searching via the API
       (Bug #13945).
 

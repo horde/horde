@@ -504,7 +504,7 @@ class Turba_Driver_Sql extends Turba_Driver
             : array($sourceName);
 
         if (empty($this->map['__owner'])) {
-            throw new Turba_Exception('Unable to find __owner field. Cannot delete.');
+            throw new Turba_Exception_NotSupported('Unable to find __owner field. Cannot delete.');
         }
         $owner_field = $this->map['__owner'];
 

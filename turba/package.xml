@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [jan] Continue removing user data if a source doesn&apos;t have an __owner field.
 * [mjr] Fix over-agressive filtering of search results when searching via the API (Bug #13945).
  </notes>
  <contents>
@@ -2136,6 +2137,7 @@
    <date>2016-07-01</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [jan] Continue removing user data if a source doesn&apos;t have an __owner field.
 * [mjr] Fix over-agressive filtering of search results when searching via the API (Bug #13945).
    </notes>
   </release>
