@@ -2084,10 +2084,57 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-02-29</date>
+   <date>2016-03-21</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [mjr] Honor alternative_name mapping (Bug #14280).
+* [mjr] Fix dealing with orphaned virtual address books.
 * [jan] Update Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.14</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-04-05</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [mjr] Fix persisting tags when moving or copying a contact to another address book (Bug #14312).
+* [mjr] Fix resetting state when changing sync_book prefs and device has forced multiplex.
+* [mjr] Fix synchronizing contact notes via ActiveSync when no truncation value is requested by the client (Bug #14307).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.15</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-07-02</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [jan] Update Portuguese translation.
+* [jan] Update Basque translation.
+* [mjr] Fix searching via the API when specifying fields and not specifying source.
+* [mjr] Require Horde_Perms::DELETE for including an address book  as sync-able.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.16</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-07-01</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [jan] Continue removing user data if a source doesn&apos;t have an __owner field.
+* [mjr] Fix over-agressive filtering of search results when searching via the API (Bug #13945).
    </notes>
   </release>
   <release>
