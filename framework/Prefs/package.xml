@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Fix and optimize removing preferences for a single application.
 * [jan] Add Horde_Prefs::removeAll().
  </notes>
  <contents>
@@ -1211,6 +1212,7 @@ Initial release as a PEAR package
    <date>2016-08-01</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Fix and optimize removing preferences for a single application.
 * [jan] Add Horde_Prefs::removeAll().
    </notes>
   </release>
