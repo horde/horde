@@ -31,12 +31,14 @@ class Horde_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
     {
         global $injector, $registry;
 
-        $registry->pushApp($this->vars->app);
+        $pushed = $registry->pushApp($this->vars->app);
         $topbar = $injector->getInstance('Horde_Core_Factory_Topbar')
             ->create('Horde_Tree_Renderer_Menu', array('nosession' => true));
         $hash = $topbar->getHash();
         $tree = $topbar->getTree();
-        $registry->popApp();
+        if ($pushed) {
+            $registry->popApp();
+        }
 
         if ($this->vars->hash == $hash) {
             return false;
