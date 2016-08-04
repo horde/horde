@@ -1535,19 +1535,26 @@ class Nag
      */
     static public function _sortByDue($a, $b)
     {
-        if ($a->due == $b->due) {
-            return self::_sortByIdentity($a, $b);
+        $a_due = empty($a->due)
+            ? 0
+            : $a->getNextDue()->timestamp();
+        $b_due = empty($b->due)
+            ? 0
+            : $b->getNextDue()->timestamp();
+
+        if ($a_due == $b_due) {
+            return self::_sortByName($a, $b);
         }
 
         // Treat empty due dates as farthest into the future.
-        if ($a->due == 0) {
+        if ($a_due == 0) {
             return 1;
         }
-        if ($b->due == 0) {
+        if ($b_due == 0) {
             return -1;
         }
 
-        return ($a->due > $b->due) ? 1 : -1;
+        return ($a_due > $b_due) ? 1 : -1;
     }
 
     /**
