@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix sorting recurring tasks by due date (Bug #14403).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1740,7 +1740,7 @@
    <date>2016-07-01</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix sorting recurring tasks by due date (Bug #14403).
    </notes>
   </release>
  </changelog>
