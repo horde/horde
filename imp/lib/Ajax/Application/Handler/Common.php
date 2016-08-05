@@ -49,7 +49,7 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
     /**
      * AJAX action: Output ViewPort data.
      *
-     * See the list of variables needed for IMP_Ajax_Appication#changed() and
+     * See the list of variables needed for IMP_Ajax_Application#changed() and
      * IMP_Ajax_Application#viewPortData().
      * Additional variables used (contained in 'viewport' parameter):
      *   - checkcache: (integer) If 1, only send data if cache has been
