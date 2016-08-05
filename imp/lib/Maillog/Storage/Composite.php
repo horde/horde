@@ -69,7 +69,7 @@ class IMP_Maillog_Storage_Composite extends IMP_Maillog_Storage_Base
 
     /**
      */
-    public function deleteLogs(array $msgs)
+    public function deleteLogs($msgs)
     {
         foreach ($this->_drivers as $val) {
             $val->deleteLogs($msgs);

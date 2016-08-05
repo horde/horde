@@ -71,9 +71,10 @@ class IMP_Maillog
     /**
      * Delete log entries.
      *
-     * @param array $msgs  An array of message objects to delete.
+     * @param IMP_Maillog_Messages|array $msgs  A list of message objects to
+     *                                         delete.
      */
-    public function deleteLog(array $msgs)
+    public function deleteLog($msgs)
     {
         $this->storage->deleteLogs($msgs);
     }

@@ -40,7 +40,7 @@ class IMP_Maillog_Storage_Null extends IMP_Maillog_Storage_Base
 
     /**
      */
-    public function deleteLogs(array $msgs)
+    public function deleteLogs($msgs)
     {
     }
 

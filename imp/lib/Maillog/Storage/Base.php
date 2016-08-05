@@ -51,9 +51,10 @@ abstract class IMP_Maillog_Storage_Base
     /**
      * Delete log entries.
      *
-     * @param array $msgs  Message objects (IMP_Maillog_Message objects).
+     * @param IMP_Maillog_Messages|array $msgs  Message objects
+     *                                          (IMP_Maillog_Message objects).
      */
-    abstract public function deleteLogs(array $msgs);
+    abstract public function deleteLogs($msgs);
 
     /**
      * Retrieve changes to the maillog since the provided timestamp.
