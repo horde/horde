@@ -82,7 +82,7 @@ class IMP_Maillog_Storage_Mdnsent extends IMP_Maillog_Storage_Base
 
     /**
      */
-    public function deleteLogs(array $msgs)
+    public function deleteLogs($msgs)
     {
         /* Deleting a message takes care of this. */
     }

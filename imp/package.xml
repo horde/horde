@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2016-07-01</date>
+ <date>2016-07-28</date>
  <version>
   <release>6.2.16</release>
   <api>6.2.0</api>
@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Optimize deleting or moving a large number of messages.
 * [jan] Fix the &apos;special_mboxes&apos; backend configuration (Bug #14423).
 * [mjr] Fix display of applicatoin/pkcs-7-mime parts (Bug #14363).
  </notes>
@@ -377,6 +378,7 @@
       <file name="Null.php" role="horde" />
      </dir> <!-- /lib/Maillog/Storage -->
      <file name="Message.php" role="horde" />
+     <file name="Messages.php" role="horde" />
     </dir> <!-- /lib/Maillog -->
     <dir name="Mbox">
      <file name="Generate.php" role="horde" />
@@ -1773,6 +1775,7 @@
    <install as="imp/lib/Mailbox/List/Thread.php" name="lib/Mailbox/List/Thread.php" />
    <install as="imp/lib/Mailbox/List/Virtual.php" name="lib/Mailbox/List/Virtual.php" />
    <install as="imp/lib/Maillog/Message.php" name="lib/Maillog/Message.php" />
+   <install as="imp/lib/Maillog/Messages.php" name="lib/Maillog/Messages.php" />
    <install as="imp/lib/Maillog/Log/Base.php" name="lib/Maillog/Log/Base.php" />
    <install as="imp/lib/Maillog/Log/Forward.php" name="lib/Maillog/Log/Forward.php" />
    <install as="imp/lib/Maillog/Log/Mdn.php" name="lib/Maillog/Log/Mdn.php" />
@@ -3960,9 +3963,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-07-01</date>
+   <date>2016-07-28</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Optimize deleting or moving a large number of messages.
 * [jan] Fix the &apos;special_mboxes&apos; backend configuration (Bug #14423).
 * [mjr] Fix display of applicatoin/pkcs-7-mime parts (Bug #14363).
    </notes>

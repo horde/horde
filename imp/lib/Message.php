@@ -251,13 +251,7 @@ class IMP_Message
                  * don't care about this data and 2) message IDs (used by some
                  * maillog backends) won't be available after deletion. */
                 if ($maillog) {
-                    $delete_ids = array();
-                    foreach ($ids_ob as $val) {
-                        $delete_ids[] = new IMP_Maillog_Message(
-                            new IMP_Indices($ob->mbox, $val)
-                        );
-                    }
-                    $maillog->deleteLog($delete_ids);
+                    $maillog->deleteLog(new IMP_Maillog_Messages($ob->mbox, $ids_ob));
                 }
 
                 /* Delete the messages. */
