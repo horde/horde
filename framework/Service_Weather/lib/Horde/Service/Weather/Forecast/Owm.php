@@ -64,9 +64,8 @@
             throw new Horde_Service_Weather_Exception('No forecast data to parse.');
         }
 
-        foreach ($this->_properties as $period => $values) {
-            $period = new Horde_Service_Weather_Period_Owm($values, $this);
-            $this->_periods[] = $period;
+        foreach ($this->_properties as $values) {
+            $this->_periods[] = new Horde_Service_Weather_Period_Owm($values, $this);
         }
     }
 
