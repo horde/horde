@@ -37,6 +37,18 @@ class Horde_Service_Weather_Current_Metar extends Horde_Service_Weather_Current_
         'temp' => 'temperature',
     );
 
+    /**
+     * Compatibility layer for old PEAR/Services_Weather data.
+     *
+     * @return array  The raw parsed data array - keyed by descriptors that are
+     *                compatible with PEAR/Services_Weather.
+     */
+    public function getRawData()
+    {
+        $this->_properties['update'] = new Horde_Date($this->_properties['update']);
+        return $this->_properties;
+    }
+
     public function __get($property)
     {
         switch ($property) {

@@ -26,10 +26,10 @@
  */
 class Horde_Service_Weather_Metar extends Horde_Service_Weather_Base
 {
-
-
     /**
-     * Database handle
+     * Database handle. Expects to have the following table available:
+     *  - metarAirports
+     *    - icao, name, country.
      *
      * @var Horde_Db_Adapter_Base
      */
@@ -42,6 +42,7 @@ class Horde_Service_Weather_Metar extends Horde_Service_Weather_Base
      */
     protected $_metar_path = 'http://tgftp.nws.noaa.gov/data/observations/metar/stations';
     protected $_taf_path = 'http://tgftp.nws.noaa.gov/data/forecasts/taf/stations';
+    protected $_locations;
 
     /**
      * Constructor.
@@ -169,11 +170,33 @@ class Horde_Service_Weather_Metar extends Horde_Service_Weather_Base
      *
      * @return array The array of supported lengths.
      */
-     public function getSupportedForecastLengths()
-     {
+    public function getSupportedForecastLengths()
+    {
         // There are no "normal" forecast lengths in TAF data.
          return array();
-     }
+    }
+
+    public function getLocations()
+    {
+        if (empty($this->_locations)) {
+            $this->_locations = $this->_getLocations();
+        }
+
+        return $this->_locations;
+    }
+
+    protected function _getLocations()
+    {
+        if (empty($this->_db)) {
+            return array();
+        }
+        $sql = 'SELECT icao, name, country FROM metarAirports ORDER BY country';
+        try {
+            return $this->_db->selectAll($sql);
+        } catch (Horde_Exception $e) {
+            throw new Horde_Services_Weather_Exception($e);
+        }
+    }
 
     protected function _getStation($code)
     {
@@ -183,6 +206,5 @@ class Horde_Service_Weather_Metar extends Horde_Service_Weather_Base
             'name' => $code
         ));
     }
-
 
 }

@@ -37,6 +37,17 @@
     }
 
     /**
+     * Compatibility layer for old PEAR/Services_Weather data.
+     *
+     * @return array  The raw parsed data array - keyed by descriptors that are
+     *                compatible with PEAR/Services_Weather.
+     */
+    public function getRawData()
+    {
+        return $this->_properties;
+    }
+
+    /**
      * Return the time of the forecast, in local (to station) time.
      *
      * @return Horde_Date  The time of the forecast.
