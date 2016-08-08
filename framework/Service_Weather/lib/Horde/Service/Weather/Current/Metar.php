@@ -46,6 +46,8 @@ class Horde_Service_Weather_Current_Metar extends Horde_Service_Weather_Current_
         case 'icon':
         case 'icon_url':
             return null;
+        case 'time':
+            return new Horde_Date($this->_properties['update']);
         case 'pressure_trend':
             return !empty($this->_properties['remark']['presschg'])
                 ? $this->_properties['remark']['presschg']
