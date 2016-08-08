@@ -32,7 +32,7 @@ class Horde_Service_Weather_Current_Metar extends Horde_Service_Weather_Current_
         'wind_direction' => 'windDirection',
         'wind_degrees' => 'windDegrees',
         'wind_speed' => 'wind',
-        'wind_guest' => 'windGust',
+        'wind_gust' => 'windGust',
         'wind_chill' => 'feltTemperature',
         'temp' => 'temperature',
     );
