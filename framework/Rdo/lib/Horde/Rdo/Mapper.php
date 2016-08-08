@@ -253,7 +253,9 @@ abstract class Horde_Rdo_Mapper implements Countable
                     }
                 }
 
-                if (isset($relationships[$m->table])) {
+                // don't only check the table, if there was a match
+                // for LEFT JOINs there may be a "empty" result
+                if (isset($relationships[$m->table], $relationships[$m->table][$m->primaryKey])) {
                     $object->$relationship = $m->map($relationships[$m->table]);
                 }
             }
