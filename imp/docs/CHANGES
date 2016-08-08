@@ -4,7 +4,7 @@ v6.2.16-git
 
 [jan] Optimize deleting or moving a large number of messages.
 [jan] Fix the 'special_mboxes' backend configuration (Bug #14423).
-[mjr] Fix display of applicatoin/pkcs-7-mime parts (Bug #14363).
+[mjr] Fix display of application/pkcs-7-mime parts (Bug #14363).
 
 
 -------
