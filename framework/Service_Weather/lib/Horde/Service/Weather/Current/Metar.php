@@ -58,6 +58,7 @@ class Horde_Service_Weather_Current_Metar extends Horde_Service_Weather_Current_
                 : '') . ' ' . $this->_properties['visibility'];
         case 'condition':
             // @todo - need to build this from other properties.
+            return ' TODO ';
             break;
         default:
             if (!empty($this->_properties[$property])) {

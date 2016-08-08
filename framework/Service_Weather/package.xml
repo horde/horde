@@ -61,6 +61,11 @@
         <file name="Wwo.php" role="php" />
         <file name="Wwov2.php" role="php" />
        </dir> <!-- /lib/Horde/Service/Weather/Forecast -->
+       <dir name="Parser">
+        <file name="Base.php" role="php" />
+        <file name="Metar.php" role="php" />
+        <file name="Taf.php" role="php" />
+       </dir> <!-- /lib/Horde/Service/Weather/Parser -->
        <dir name="Period">
         <file name="Base.php" role="php" />
         <file name="Owm.php" role="php" />
@@ -366,6 +371,9 @@
    <install as="Horde/Service/Weather/Forecast/WeatherUnderground.php" name="lib/Horde/Service/Weather/Forecast/WeatherUnderground.php" />
    <install as="Horde/Service/Weather/Forecast/Wwo.php" name="lib/Horde/Service/Weather/Forecast/Wwo.php" />
    <install as="Horde/Service/Weather/Forecast/Wwov2.php" name="lib/Horde/Service/Weather/Forecast/Wwov2.php" />
+   <install as="Horde/Service/Weather/Parser/Base.php" name="lib/Horde/Service/Weather/Parser/Base.php" />
+   <install as="Horde/Service/Weather/Parser/Metar.php" name="lib/Horde/Service/Weather/Parser/Metar.php" />
+   <install as="Horde/Service/Weather/Parser/Taf.php" name="lib/Horde/Service/Weather/Parser/Taf.php" />
    <install as="Horde/Service/Weather/Period/Base.php" name="lib/Horde/Service/Weather/Period/Base.php" />
    <install as="Horde/Service/Weather/Period/Owm.php" name="lib/Horde/Service/Weather/Period/Owm.php" />
    <install as="Horde/Service/Weather/Period/Taf.php" name="lib/Horde/Service/Weather/Period/Taf.php" />

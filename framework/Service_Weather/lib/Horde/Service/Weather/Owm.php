@@ -344,7 +344,7 @@ class Horde_Service_Weather_Owm extends Horde_Service_Weather_Base
     protected function _makeRequest(Horde_Url $url)
     {
         // Owm returns temperature data in Kelvin by default!
-        if ($this->_units == Horde_Service_Weather::UNITS_METRIC) {
+        if ($this->units == Horde_Service_Weather::UNITS_METRIC) {
             $url->add('units', 'metric');
         } else {
             $url->add('units', 'imperial');
