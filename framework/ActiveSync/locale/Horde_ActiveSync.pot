@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_ActiveSync\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2015-12-28 17:25+0100\n"
+"POT-Creation-Date: 2016-08-08 15:58+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,7 +30,7 @@ msgstr ""
 msgid "Cc"
 msgstr ""
 
-#: lib/Horde/ActiveSync/Device.php:330
+#: lib/Horde/ActiveSync/Device.php:336
 msgid "Common Name"
 msgstr ""
 
@@ -38,11 +38,11 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
-#: lib/Horde/ActiveSync/Device.php:345
+#: lib/Horde/ActiveSync/Device.php:351
 msgid "EAS Version"
 msgstr ""
 
-#: lib/Horde/ActiveSync/Device.php:348
+#: lib/Horde/ActiveSync/Device.php:354
 msgid "Forced Multiplexed Bitmask"
 msgstr ""
 
@@ -50,11 +50,11 @@ msgstr ""
 msgid "From"
 msgstr ""
 
-#: lib/Horde/ActiveSync/Device.php:327
+#: lib/Horde/ActiveSync/Device.php:333
 msgid "IMEI"
 msgstr ""
 
-#: lib/Horde/ActiveSync/Device.php:318
+#: lib/Horde/ActiveSync/Device.php:324
 msgid "Id"
 msgstr ""
 
@@ -66,11 +66,11 @@ msgstr ""
 msgid "Message part"
 msgstr ""
 
-#: lib/Horde/ActiveSync/Device.php:333
+#: lib/Horde/ActiveSync/Device.php:339
 msgid "Mobile Operator"
 msgstr ""
 
-#: lib/Horde/ActiveSync/Device.php:324
+#: lib/Horde/ActiveSync/Device.php:330
 msgid "Model"
 msgstr ""
 
@@ -78,19 +78,19 @@ msgstr ""
 msgid "Multipart part"
 msgstr ""
 
-#: lib/Horde/ActiveSync/Device.php:336
+#: lib/Horde/ActiveSync/Device.php:342
 msgid "OS"
 msgstr ""
 
-#: lib/Horde/ActiveSync/Device.php:339
+#: lib/Horde/ActiveSync/Device.php:345
 msgid "OS Language"
 msgstr ""
 
-#: lib/Horde/ActiveSync/Device.php:342
+#: lib/Horde/ActiveSync/Device.php:348
 msgid "Phone Number"
 msgstr ""
 
-#: lib/Horde/ActiveSync/Device.php:319
+#: lib/Horde/ActiveSync/Device.php:325
 msgid "Policy Key"
 msgstr ""
 
@@ -110,7 +110,7 @@ msgstr ""
 msgid "To"
 msgstr ""
 
-#: lib/Horde/ActiveSync/Device.php:320
+#: lib/Horde/ActiveSync/Device.php:326
 msgid "User Agent"
 msgstr ""
 

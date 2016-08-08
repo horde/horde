@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ansel\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2015-12-28 17:25+0100\n"
+"POT-Creation-Date: 2016-08-08 15:58+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -174,8 +174,8 @@ msgstr ""
 msgid "Access denied downloading full sized photos from this gallery."
 msgstr ""
 
-#: lib/ActionHandler.php:57 lib/ActionHandler.php:232
-#: lib/ActionHandler.php:901 lib/Image.php:921
+#: lib/ActionHandler.php:57 lib/ActionHandler.php:232 lib/ActionHandler.php:901
+#: lib/Image.php:921
 msgid "Access denied downloading photos from this gallery."
 msgstr ""
 
@@ -492,11 +492,11 @@ msgstr ""
 msgid "Copyright infringement"
 msgstr ""
 
-#: lib/View/Upload.php:503
+#: lib/View/Upload.php:501
 msgid "Could not extract image data from zip archive."
 msgstr ""
 
-#: lib/View/Upload.php:489
+#: lib/View/Upload.php:487
 msgid "Could not open zip archive."
 msgstr ""
 
@@ -562,8 +562,7 @@ msgstr ""
 msgid "Default"
 msgstr ""
 
-#: lib/Prefs/Special/GallerySelect.php:27
-#: lib/Prefs/Special/GalleryStyle.php:27
+#: lib/Prefs/Special/GallerySelect.php:27 lib/Prefs/Special/GalleryStyle.php:27
 msgid "Default style for galleries"
 msgstr ""
 
@@ -989,7 +988,7 @@ msgstr ""
 msgid "Image not found in gallery."
 msgstr ""
 
-#: lib/Storage.php:706
+#: lib/Storage.php:707
 msgid "Images not found"
 msgstr ""
 
@@ -1170,8 +1169,7 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-#: faces/search/named.php:14 faces/search/named.php:37
-#: faces/search/tabs.php:23
+#: faces/search/named.php:14 faces/search/named.php:37 faces/search/tabs.php:23
 msgid "Named faces"
 msgstr ""
 
@@ -1193,10 +1191,10 @@ msgstr ""
 msgid "Next"
 msgstr ""
 
-#: faces/image.php:47 faces/search/image.php:71
-#: lib/Ajax/Imple/EditFaces.php:55 lib/Widget/GalleryFaces.php:57
-#: templates/faces/faces.inc:10 templates/faces/index.inc:14
-#: templates/faces/search.inc:23 templates/widgets/imagefaces.html.php:11
+#: faces/image.php:47 faces/search/image.php:71 lib/Ajax/Imple/EditFaces.php:55
+#: lib/Widget/GalleryFaces.php:57 templates/faces/faces.inc:10
+#: templates/faces/index.inc:14 templates/faces/search.inc:23
+#: templates/widgets/imagefaces.html.php:11
 msgid "No faces found"
 msgstr ""
 

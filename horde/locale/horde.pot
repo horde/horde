@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2015-12-28 17:25+0100\n"
+"POT-Creation-Date: 2016-08-08 15:58+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,7 +38,7 @@ msgstr ""
 msgid "%.2fMB used of %.2fMB allowed (%.2f%%)"
 msgstr ""
 
-#: templates/block/weather_content.html.php:43
+#: templates/block/weather_content.html.php:60
 #, php-format
 msgid "%d %s and %s"
 msgstr ""
@@ -65,7 +65,7 @@ msgstr[1] ""
 msgid "%d to %d of %d"
 msgstr ""
 
-#: templates/block/weather_content.html.php:73
+#: templates/block/weather_content.html.php:90
 #, php-format
 msgid "%d-day forecast"
 msgstr ""
@@ -181,6 +181,19 @@ msgstr ""
 #: admin/config/index.php:348 admin/config/index.php:374
 #, php-format
 msgid "A newer version (%s) exists."
+msgstr ""
+
+#: lib/LoginTasks/Task/UpgradeCheck.php:81
+#, php-format
+msgid "A newer version of %s exists."
+msgstr ""
+
+#: lib/LoginTasks/Task/UpgradeCheck.php:106
+msgid "A newer version of a library exists."
+msgstr ""
+
+#: lib/LoginTasks/Task/UpgradeCheck.php:94
+msgid "A newer version of an application exists."
 msgstr ""
 
 #: lib/Prefs/Special/Activesync.php:112
@@ -747,7 +760,7 @@ msgstr ""
 msgid "Computers"
 msgstr ""
 
-#: templates/block/weather_content.html.php:79
+#: templates/block/weather_content.html.php:96
 msgid "Condition"
 msgstr ""
 
@@ -897,7 +910,7 @@ msgstr ""
 msgid "Current Weather"
 msgstr ""
 
-#: templates/block/weather_content.html.php:67
+#: templates/block/weather_content.html.php:84
 msgid "Current condition"
 msgstr ""
 
@@ -951,7 +964,7 @@ msgstr ""
 msgid "Date: %s; time: %s"
 msgstr ""
 
-#: templates/block/weather_content.html.php:77
+#: templates/block/weather_content.html.php:94
 msgid "Day"
 msgstr ""
 
@@ -993,7 +1006,7 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: admin/alarms.php:133 admin/groups.php:208
+#: admin/alarms.php:133 admin/groups.php:207
 #, php-format
 msgid "Delete \"%s\""
 msgstr ""
@@ -1002,7 +1015,7 @@ msgstr ""
 msgid "Delete All SyncML Data"
 msgstr ""
 
-#: admin/groups.php:181
+#: admin/groups.php:180
 msgid "Delete Group"
 msgstr ""
 
@@ -1073,7 +1086,7 @@ msgstr ""
 msgid "Dew Point for last hour: "
 msgstr ""
 
-#: templates/block/weather_content.html.php:34
+#: templates/block/weather_content.html.php:51
 msgid "Dew point"
 msgstr ""
 
@@ -1281,8 +1294,9 @@ msgstr ""
 msgid "Expand"
 msgstr ""
 
-#: templates/block/weather_content.html.php:14
-msgid "Expires: "
+#: templates/block/weather_content.html.php:28
+#: templates/block/weather_content.html.php:30
+msgid "Expires:"
 msgstr ""
 
 #: lib/Block/Iframe.php:38
@@ -1391,12 +1405,12 @@ msgstr ""
 msgid "Friends enabled."
 msgstr ""
 
-#: templates/block/weather_content.html.php:50
+#: templates/block/weather_content.html.php:67
 #, php-format
 msgid "From the %s (%s&deg;) at %s %s"
 msgstr ""
 
-#: templates/block/weather_content.html.php:111
+#: templates/block/weather_content.html.php:128
 #, php-format
 msgid "From the %s at %s %s"
 msgstr ""
@@ -1422,7 +1436,7 @@ msgstr ""
 msgid "Generated Code"
 msgstr ""
 
-#: lib/Block/FbStream.php:152 templates/block/twitter-layout.html.php:35
+#: lib/Block/FbStream.php:150 templates/block/twitter-layout.html.php:35
 msgid "Get More"
 msgstr ""
 
@@ -1446,7 +1460,7 @@ msgstr ""
 msgid "Greek (ISO-8859-7)"
 msgstr ""
 
-#: admin/groups.php:161
+#: admin/groups.php:160
 msgid "Group Administration"
 msgstr ""
 
@@ -1459,7 +1473,7 @@ msgstr ""
 msgid "Group was not created: %s."
 msgstr ""
 
-#: admin/groups.php:221 templates/shares/edit.inc:270
+#: admin/groups.php:220 templates/shares/edit.inc:270
 msgid "Groups"
 msgstr ""
 
@@ -1535,8 +1549,8 @@ msgstr ""
 msgid "How many seconds before we check for new articles?"
 msgstr ""
 
-#: lib/Block/Metar.php:204 templates/block/weather_content.html.php:58
-#: templates/block/weather_content.html.php:85
+#: lib/Block/Metar.php:204 templates/block/weather_content.html.php:75
+#: templates/block/weather_content.html.php:102
 msgid "Humidity"
 msgstr ""
 
@@ -1673,7 +1687,7 @@ msgstr ""
 msgid "Korean (EUC-KR)"
 msgstr ""
 
-#: login.php:365 templates/login/login.inc:61
+#: login.php:367 templates/login/login.inc:61
 msgid "Language"
 msgstr ""
 
@@ -1796,7 +1810,7 @@ msgstr ""
 msgid "Locks"
 msgstr ""
 
-#: login.php:291 templates/login/login.inc:70
+#: login.php:293 templates/login/login.inc:70
 #: templates/topbar/_menubar.html.php:10
 msgid "Log in"
 msgstr ""
@@ -1809,15 +1823,15 @@ msgstr ""
 msgid "Logged in to Facebook"
 msgstr ""
 
-#: login.php:320
+#: login.php:322
 msgid "Login failed because your username or password was entered incorrectly."
 msgstr ""
 
-#: login.php:316
+#: login.php:318
 msgid "Login failed."
 msgstr ""
 
-#: login.php:405
+#: login.php:407
 #, php-format
 msgid "Login to %s"
 msgstr ""
@@ -2002,9 +2016,9 @@ msgstr ""
 msgid "My Portal Layout"
 msgstr ""
 
-#: templates/block/weather_content.html.php:104
-#: templates/block/weather_content.html.php:107
-#: templates/block/weather_content.html.php:113
+#: templates/block/weather_content.html.php:121
+#: templates/block/weather_content.html.php:124
+#: templates/block/weather_content.html.php:130
 msgid "N/A"
 msgstr ""
 
@@ -2264,9 +2278,8 @@ msgstr ""
 msgid "P_HP Shell"
 msgstr ""
 
-#: login.php:211 admin/config/index.php:421 admin/user.php:39
-#: admin/user.php:53 config/registry.php:334
-#: templates/admin/user/update.inc:20
+#: login.php:211 admin/config/index.php:421 admin/user.php:39 admin/user.php:53
+#: config/registry.php:334 templates/admin/user/update.inc:20
 msgid "Password"
 msgstr ""
 
@@ -2354,10 +2367,6 @@ msgstr ""
 msgid "Politics"
 msgstr ""
 
-#: lib/Block/FbStream.php:134
-msgid "Post"
-msgstr ""
-
 #: lib/Ajax/Application/FacebookHandler.php:157
 #, php-format
 msgid "Posted %s"
@@ -2375,12 +2384,12 @@ msgid_plural "Precipitation for last %d hours: "
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/block/weather_content.html.php:82
+#: templates/block/weather_content.html.php:99
 #, php-format
 msgid "Precipitation%schance"
 msgstr ""
 
-#: lib/Block/Metar.php:199 templates/block/weather_content.html.php:39
+#: lib/Block/Metar.php:199 templates/block/weather_content.html.php:56
 msgid "Pressure"
 msgstr ""
 
@@ -2843,8 +2852,9 @@ msgstr ""
 msgid "Start Time"
 msgstr ""
 
-#: templates/block/weather_content.html.php:14
-msgid "Starts: "
+#: templates/block/weather_content.html.php:22
+#: templates/block/weather_content.html.php:24
+msgid "Starts:"
 msgstr ""
 
 #: templates/prefs/activesync.html.php:13
@@ -2930,8 +2940,8 @@ msgstr ""
 msgid "Sunday"
 msgstr ""
 
-#: templates/block/weather_content.html.php:21
-#: templates/block/weather_content.html.php:22
+#: templates/block/weather_content.html.php:38
+#: templates/block/weather_content.html.php:39
 msgid "Sunrise"
 msgstr ""
 
@@ -2939,8 +2949,8 @@ msgstr ""
 msgid "Sunrise/Sunset"
 msgstr ""
 
-#: templates/block/weather_content.html.php:24
-#: templates/block/weather_content.html.php:25
+#: templates/block/weather_content.html.php:41
+#: templates/block/weather_content.html.php:42
 msgid "Sunset"
 msgstr ""
 
@@ -2968,11 +2978,11 @@ msgstr ""
 msgid "Temp for last hour: "
 msgstr ""
 
-#: lib/Block/Metar.php:188 templates/block/weather_content.html.php:31
+#: lib/Block/Metar.php:188 templates/block/weather_content.html.php:48
 msgid "Temperature"
 msgstr ""
 
-#: templates/block/weather_content.html.php:78
+#: templates/block/weather_content.html.php:95
 #, php-format
 msgid "Temperature%s(%sHi%s/%sLo%s)"
 msgstr ""
@@ -2989,9 +2999,25 @@ msgstr ""
 msgid "Thai (TIS-620)"
 msgstr ""
 
+#: admin/sqlshell.php:97
+#, php-format
+msgid ""
+"The DELETE command completed successfully. A total of %d rows were deleted."
+msgstr ""
+
+#: admin/sqlshell.php:89
+msgid "The INSERT command completed successfully."
+msgstr ""
+
 #: lib/Prefs/Special/Activesync.php:118
 #, php-format
 msgid "The Remote Wipe for device id %s has been cancelled."
+msgstr ""
+
+#: admin/sqlshell.php:93
+#, php-format
+msgid ""
+"The UPDATE command completed successfully. A total of %d rows were modified."
 msgstr ""
 
 #: admin/alarms.php:86
@@ -3110,7 +3136,7 @@ msgid ""
 "required field."
 msgstr ""
 
-#: lib/Ajax/Application/FacebookHandler.php:47 lib/Block/FbStream.php:144
+#: lib/Ajax/Application/FacebookHandler.php:47 lib/Block/FbStream.php:142
 #, php-format
 msgid "There was an error making the request: %s"
 msgstr ""
@@ -3182,11 +3208,11 @@ msgid ""
 "clicking."
 msgstr ""
 
-#: templates/block/weather_content.html.php:99
+#: templates/block/weather_content.html.php:116
 msgid "Today"
 msgstr ""
 
-#: templates/block/weather_content.html.php:99
+#: templates/block/weather_content.html.php:116
 msgid "Tomorrow"
 msgstr ""
 
@@ -3366,9 +3392,9 @@ msgstr ""
 msgid "User to add:"
 msgstr ""
 
-#: login.php:206 admin/config/index.php:420 admin/user.php:36
-#: admin/user.php:52 services/resetpassword.php:33
-#: templates/admin/activesync.html.php:9 templates/admin/user/approve.inc:23
+#: login.php:206 admin/config/index.php:420 admin/user.php:36 admin/user.php:52
+#: services/resetpassword.php:33 templates/admin/activesync.html.php:9
+#: templates/admin/user/approve.inc:23
 msgid "Username"
 msgstr ""
 
@@ -3412,7 +3438,7 @@ msgstr ""
 msgid "View an external web page"
 msgstr ""
 
-#: lib/Block/Metar.php:183 templates/block/weather_content.html.php:63
+#: lib/Block/Metar.php:183 templates/block/weather_content.html.php:80
 msgid "Visibility"
 msgstr ""
 
@@ -3428,8 +3454,8 @@ msgstr ""
 msgid "Weather"
 msgstr ""
 
-#: templates/block/weather_content.html.php:123
-#: templates/block/weather_content.html.php:125
+#: templates/block/weather_content.html.php:140
+#: templates/block/weather_content.html.php:142
 msgid "Weather data provided by"
 msgstr ""
 
@@ -3496,8 +3522,8 @@ msgstr ""
 msgid "Wiki"
 msgstr ""
 
-#: templates/block/weather_content.html.php:49
-#: templates/block/weather_content.html.php:88
+#: templates/block/weather_content.html.php:66
+#: templates/block/weather_content.html.php:105
 msgid "Wind"
 msgstr ""
 
@@ -3608,7 +3634,7 @@ msgid ""
 "Facebook settings in your %s."
 msgstr ""
 
-#: lib/Ajax/Application/FacebookHandler.php:48 lib/Block/FbStream.php:145
+#: lib/Ajax/Application/FacebookHandler.php:48 lib/Block/FbStream.php:143
 #, php-format
 msgid "You can also check your Facebook settings in your %s."
 msgstr ""
@@ -3619,7 +3645,7 @@ msgid ""
 "to login."
 msgstr ""
 
-#: login.php:312
+#: login.php:314
 msgid "You have been logged out."
 msgstr ""
 
@@ -3669,7 +3695,7 @@ msgstr ""
 msgid "Your Information"
 msgstr ""
 
-#: login.php:300
+#: login.php:302
 msgid ""
 "Your Internet Address has changed since the beginning of your session. To "
 "protect your security, you must login again."
@@ -3692,7 +3718,7 @@ msgid ""
 "has been disabled for some other reason."
 msgstr ""
 
-#: login.php:304
+#: login.php:306
 msgid ""
 "Your browser appears to have changed since the beginning of your session. To "
 "protect your security, you must login again."
@@ -3710,7 +3736,7 @@ msgstr ""
 msgid "Your full name:"
 msgstr ""
 
-#: login.php:324
+#: login.php:326
 msgid "Your login has expired."
 msgstr ""
 
@@ -3749,11 +3775,11 @@ msgstr ""
 msgid "Your password has expired."
 msgstr ""
 
-#: login.php:296
+#: login.php:298
 msgid "Your session has expired. Please login again."
 msgstr ""
 
-#: login.php:308
+#: login.php:310
 msgid ""
 "Your session length has exceeded the maximum amount of time allowed. Please "
 "login again."
@@ -3809,8 +3835,8 @@ msgstr ""
 msgid "from the %s (%s) at %s %s"
 msgstr ""
 
-#: templates/block/weather_content.html.php:52
-#: templates/block/weather_content.html.php:111
+#: templates/block/weather_content.html.php:69
+#: templates/block/weather_content.html.php:128
 msgid "gusting"
 msgstr ""
 
@@ -3819,7 +3845,7 @@ msgid "inline"
 msgstr ""
 
 #: lib/Ajax/Application/FacebookHandler.php:48 lib/Block/FbStream.php:103
-#: lib/Block/FbStream.php:145 lib/Block/TwitterTimeline.php:168
+#: lib/Block/FbStream.php:143 lib/Block/TwitterTimeline.php:168
 msgid "preferences"
 msgstr ""
 

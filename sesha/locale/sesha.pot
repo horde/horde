@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Sesha\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-11-12 14:05+0100\n"
+"POT-Creation-Date: 2016-08-08 15:58+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -379,8 +379,8 @@ msgid "Stock"
 msgstr ""
 
 #: admin.php:17 config/prefs.php:23 lib/Form/Search.php:31
-#: lib/Form/Stock.php:51 lib/Form/Stock.php:53 lib/View/List.php:99
-#: list.php:31 search.php:20 stock.php:23
+#: lib/Form/Stock.php:51 lib/Form/Stock.php:53 lib/View/List.php:99 list.php:31
+#: search.php:20 stock.php:23
 msgid "Stock ID"
 msgstr ""
 

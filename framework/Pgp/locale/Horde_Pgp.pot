@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Pgp\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2015-12-28 17:25+0100\n"
+"POT-Creation-Date: 2016-08-08 15:58+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,7 +29,8 @@ msgstr ""
 msgid "Could not decrypt PGP data."
 msgstr ""
 
-#: lib/Horde/Pgp/Keyserver.php:92 lib/Horde/Pgp/Keyserver.php:202
+#: lib/Horde/Pgp/Keyserver.php:101 lib/Horde/Pgp/Keyserver.php:178
+#: lib/Horde/Pgp/Keyserver.php:227
 msgid "Could not obtain public key from the keyserver."
 msgstr ""
 
@@ -41,7 +42,7 @@ msgstr ""
 msgid "Could not verify PGP data."
 msgstr ""
 
-#: lib/Horde/Pgp/Keyserver.php:112
+#: lib/Horde/Pgp/Keyserver.php:121
 msgid "Key already exists on the public keyserver."
 msgstr ""
 

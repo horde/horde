@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hermes\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2015-12-28 17:25+0100\n"
+"POT-Creation-Date: 2016-08-08 15:58+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,12 +17,12 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: lib/Hermes.php:357
+#: lib/Hermes.php:353
 #, php-format
 msgid " (%0.2f hours)"
 msgstr ""
 
-#: lib/Hermes.php:359
+#: lib/Hermes.php:355
 #, php-format
 msgid " (%d%%, %0.2f of %0.2f hours)"
 msgstr ""
@@ -32,12 +32,12 @@ msgstr ""
 msgid " (DISABLED)"
 msgstr ""
 
-#: lib/Api.php:109
+#: lib/Api.php:105
 #, php-format
 msgid "\"%s\" is not a defined table."
 msgstr ""
 
-#: lib/Api.php:517
+#: lib/Api.php:513
 #, php-format
 msgid "%.2f hours: %s"
 msgstr ""
@@ -60,7 +60,7 @@ msgstr ""
 msgid "--- General Cost Objects ---"
 msgstr ""
 
-#: lib/Hermes.php:335
+#: lib/Hermes.php:331
 msgid "--- No Cost Object ---"
 msgstr ""
 
@@ -121,12 +121,12 @@ msgstr ""
 msgid "An error occurred listing job types: %s"
 msgstr ""
 
-#: lib/Hermes.php:215
+#: lib/Hermes.php:219
 #, php-format
 msgid "An error occurred listing users: %s"
 msgstr ""
 
-#: lib/Api.php:251
+#: lib/Api.php:247
 msgid "Approved By:"
 msgstr ""
 
@@ -134,18 +134,18 @@ msgstr ""
 msgid "Bill"
 msgstr ""
 
-#: lib/Api.php:66
+#: lib/Api.php:62
 msgid "Bill?"
 msgstr ""
 
-#: lib/Ajax.php:100 lib/Slice.php:150 templates/dynamic/jobtypes.inc:11
+#: lib/Ajax.php:100 lib/Slice.php:151 templates/dynamic/jobtypes.inc:11
 #: templates/dynamic/jobtypes.inc:31 templates/dynamic/search.inc:67
 #: templates/dynamic/sidebar.html.php:40 templates/dynamic/sidebar.html.php:45
 #: templates/dynamic/slices.inc:46
 msgid "Billable"
 msgstr ""
 
-#: lib/Api.php:238 lib/Api.php:273
+#: lib/Api.php:234 lib/Api.php:269
 msgid "Billable Hours"
 msgstr ""
 
@@ -164,23 +164,23 @@ msgstr ""
 msgid "Budget hours"
 msgstr ""
 
-#: lib/Hermes.php:379
+#: lib/Hermes.php:375
 msgid "By Client"
 msgstr ""
 
-#: lib/Hermes.php:381
+#: lib/Hermes.php:377
 msgid "By Cost Object"
 msgstr ""
 
-#: lib/Hermes.php:377
+#: lib/Hermes.php:373
 msgid "By Date"
 msgstr ""
 
-#: lib/Hermes.php:378
+#: lib/Hermes.php:374
 msgid "By Employee"
 msgstr ""
 
-#: lib/Hermes.php:380
+#: lib/Hermes.php:376
 msgid "By Job Type"
 msgstr ""
 
@@ -188,17 +188,17 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: lib/Driver/Sql.php:614
+#: lib/Driver/Sql.php:610
 msgid "Cannot delete deliverable; it has children."
 msgstr ""
 
-#: lib/Driver/Sql.php:625
+#: lib/Driver/Sql.php:621
 msgid "Cannot delete deliverable; there is time entered on it."
 msgstr ""
 
-#: invoicing.php:34 lib/Api.php:52 lib/Form/Admin/EditClientStepTwo.php:36
+#: invoicing.php:34 lib/Api.php:50 lib/Form/Admin/EditClientStepTwo.php:36
 #: lib/Form/Deliverable/ClientSelector.php:21 lib/Form/Time/Entry.php:54
-#: lib/Slice.php:157 templates/dynamic/search.inc:29
+#: lib/Slice.php:158 templates/dynamic/search.inc:29
 #: templates/dynamic/search.inc:93 templates/dynamic/slices.inc:29
 #: templates/dynamic/slices.inc:82 templates/dynamic/timer.inc:13
 msgid "Client"
@@ -228,7 +228,7 @@ msgstr ""
 msgid "Comma-Separated Variable (.csv)"
 msgstr ""
 
-#: invoicing.php:42 lib/Api.php:58 lib/Form/Time/Entry.php:63
+#: invoicing.php:42 lib/Api.php:54 lib/Form/Time/Entry.php:63
 #: templates/dynamic/search.inc:33 templates/dynamic/search.inc:94
 #: templates/dynamic/slices.inc:33 templates/dynamic/slices.inc:83
 #: templates/dynamic/timer.inc:17
@@ -239,7 +239,7 @@ msgstr ""
 msgid "Cost Objects"
 msgstr ""
 
-#: lib/Slice.php:146
+#: lib/Slice.php:147
 msgid "Cost object"
 msgstr ""
 
@@ -302,13 +302,13 @@ msgstr ""
 msgid "Deliverable successfully deleted."
 msgstr ""
 
-#: deliverables.php:49 lib/Api.php:359 lib/Application.php:183
+#: deliverables.php:49 lib/Api.php:355 lib/Application.php:183
 #: templates/dynamic/deliverables.inc:2 templates/dynamic/sidebar.html.php:18
 msgid "Deliverables"
 msgstr ""
 
-#: invoicing.php:41 lib/Api.php:72 lib/Form/Deliverable.php:27
-#: lib/Form/Time/Entry.php:82 lib/Slice.php:147
+#: invoicing.php:41 lib/Api.php:68 lib/Form/Deliverable.php:27
+#: lib/Form/Time/Entry.php:82 lib/Slice.php:148
 #: templates/dynamic/deliverables.inc:16 templates/dynamic/deliverables.inc:32
 #: templates/dynamic/search.inc:96 templates/dynamic/slices.inc:56
 #: templates/dynamic/slices.inc:85
@@ -348,7 +348,7 @@ msgstr ""
 msgid "Edit Deliverables"
 msgstr ""
 
-#: lib/Api.php:198 lib/Api.php:199
+#: lib/Api.php:194 lib/Api.php:195
 msgid "Edit Entry"
 msgstr ""
 
@@ -411,7 +411,7 @@ msgstr ""
 msgid "Error deleting deliverable: %s"
 msgstr ""
 
-#: lib/Form/Search.php:116 lib/Hermes.php:303
+#: lib/Form/Search.php:116 lib/Hermes.php:299
 #, php-format
 msgid "Error retrieving cost objects from \"%s\": %s"
 msgstr ""
@@ -421,7 +421,7 @@ msgstr ""
 msgid "Error saving deliverable: %s"
 msgstr ""
 
-#: lib/Driver/Sql.php:310
+#: lib/Driver/Sql.php:306
 #, php-format
 msgid "Error: %s"
 msgstr ""
@@ -477,8 +477,8 @@ msgstr ""
 msgid "Hourly Rate"
 msgstr ""
 
-#: invoicing.php:38 lib/Ajax.php:102 lib/Api.php:60 lib/Form/Time/Entry.php:66
-#: lib/Slice.php:145 templates/dynamic/search.inc:98
+#: invoicing.php:38 lib/Ajax.php:102 lib/Api.php:56 lib/Form/Time/Entry.php:66
+#: lib/Slice.php:146 templates/dynamic/search.inc:98
 #: templates/dynamic/slices.inc:42 templates/dynamic/slices.inc:87
 msgid "Hours"
 msgstr ""
@@ -507,13 +507,12 @@ msgstr ""
 msgid "Invoicing system is not installed."
 msgstr ""
 
-#: invoicing.php:36 lib/Ajax.php:103 lib/Api.php:56
+#: invoicing.php:36 lib/Ajax.php:103 lib/Api.php:52
 #: lib/Form/Admin/AddJobType.php:21 lib/Form/Admin/DeleteJobType.php:32
 #: lib/Form/Admin/EditJobTypeStepTwo.php:37 lib/Form/JobType/Add.php:15
-#: lib/Form/Time/Entry.php:60 lib/Slice.php:149
-#: templates/dynamic/search.inc:23 templates/dynamic/search.inc:95
-#: templates/dynamic/slices.inc:51 templates/dynamic/slices.inc:84
-#: templates/dynamic/timer.inc:21
+#: lib/Form/Time/Entry.php:60 lib/Slice.php:150 templates/dynamic/search.inc:23
+#: templates/dynamic/search.inc:95 templates/dynamic/slices.inc:51
+#: templates/dynamic/slices.inc:84 templates/dynamic/timer.inc:21
 msgid "Job Type"
 msgstr ""
 
@@ -558,7 +557,7 @@ msgstr ""
 msgid "Microsoft Excel (.xls)"
 msgstr ""
 
-#: lib/Api.php:409
+#: lib/Api.php:405
 msgid "Missing required values: check data and retry"
 msgstr ""
 
@@ -636,19 +635,19 @@ msgstr ""
 msgid "Non-Billable"
 msgstr ""
 
-#: lib/Api.php:244 lib/Api.php:284
+#: lib/Api.php:240 lib/Api.php:280
 msgid "Non-billable Hours"
 msgstr ""
 
-#: lib/Hermes.php:267
+#: lib/Hermes.php:263
 msgid "Not Found"
 msgstr ""
 
-#: lib/Api.php:74 lib/Slice.php:148
+#: lib/Api.php:70 lib/Slice.php:149
 msgid "Notes"
 msgstr ""
 
-#: lib/Api.php:414
+#: lib/Api.php:410
 msgid ""
 "Only time reviewers with edit permissions can post time for other users."
 msgstr ""
@@ -714,7 +713,7 @@ msgstr ""
 msgid "Search For Time"
 msgstr ""
 
-#: lib/Api.php:98 search.php:75 templates/dynamic/search.inc:84
+#: lib/Api.php:94 search.php:75 templates/dynamic/search.inc:84
 msgid "Search Results"
 msgstr ""
 
@@ -815,7 +814,7 @@ msgstr ""
 msgid "Submitted"
 msgstr ""
 
-#: lib/Api.php:481
+#: lib/Api.php:477
 msgid "Submitted time"
 msgstr ""
 
@@ -823,12 +822,12 @@ msgstr ""
 msgid "Submitted?"
 msgstr ""
 
-#: lib/Hermes.php:650
+#: lib/Hermes.php:646
 #, php-format
 msgid "Successfully updated the hours of cost object \"%s\"."
 msgstr ""
 
-#: lib/Hermes.php:376
+#: lib/Hermes.php:372
 msgid "Summary"
 msgstr ""
 
@@ -836,7 +835,7 @@ msgstr ""
 msgid "Tab-Separated Variable (.tsv, .txt)"
 msgstr ""
 
-#: lib/Table.php:142
+#: lib/Table.php:140
 msgid "Table"
 msgstr ""
 
@@ -861,7 +860,7 @@ msgstr ""
 msgid "The job type was not deleted."
 msgstr ""
 
-#: lib/Hermes.php:482
+#: lib/Hermes.php:478
 msgid "The requested timer was not found."
 msgstr ""
 
@@ -978,11 +977,11 @@ msgstr ""
 msgid "Total"
 msgstr ""
 
-#: lib/Api.php:250 templates/dynamic/search.inc:117
+#: lib/Api.php:246 templates/dynamic/search.inc:117
 msgid "Total Hours"
 msgstr ""
 
-#: lib/Api.php:290
+#: lib/Api.php:286
 #, php-format
 msgid "Total Hours for %s"
 msgstr ""
@@ -991,7 +990,7 @@ msgstr ""
 msgid "Unsubmitted Time Summary"
 msgstr ""
 
-#: lib/Api.php:482
+#: lib/Api.php:478
 msgid "Unsubmitted time"
 msgstr ""
 
@@ -1071,6 +1070,6 @@ msgstr ""
 msgid "more..."
 msgstr ""
 
-#: lib/Api.php:153
+#: lib/Api.php:149
 msgid "no client"
 msgstr ""

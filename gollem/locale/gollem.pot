@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gollem\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2015-12-28 17:25+0100\n"
+"POT-Creation-Date: 2016-08-08 15:58+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,12 +27,12 @@ msgstr ""
 msgid "%.2fMB / %.2fMB  (%.2f%%)"
 msgstr ""
 
-#: manager.php:594
+#: manager.php:595
 #, php-format
 msgid "%d item"
 msgstr ""
 
-#: manager.php:594
+#: manager.php:595
 #, php-format
 msgid "%d items"
 msgstr ""
@@ -66,11 +66,11 @@ msgstr ""
 msgid "All"
 msgstr ""
 
-#: manager.php:610
+#: manager.php:611
 msgid "Are you sure you wish to continue?"
 msgstr ""
 
-#: manager.php:608
+#: manager.php:609
 msgid "Are you sure?"
 msgstr ""
 
@@ -94,8 +94,7 @@ msgstr ""
 msgid "Below is the current contents of your clipboard."
 msgstr ""
 
-#: clipboard.php:23 templates/edit.html.php:15
-#: templates/selectlist.html.php:30
+#: clipboard.php:23 templates/edit.html.php:15 templates/selectlist.html.php:30
 msgid "Cancel"
 msgstr ""
 
@@ -108,7 +107,7 @@ msgstr ""
 msgid "Cannot copy items onto clipboard."
 msgstr ""
 
-#: manager.php:224
+#: manager.php:225
 #, php-format
 msgid "Cannot create home directory: %s"
 msgstr ""
@@ -122,7 +121,7 @@ msgstr ""
 msgid "Cannot paste \"%s\" (file cleared from clipboard): %s"
 msgstr ""
 
-#: manager.php:330 manager.php:605
+#: manager.php:331 manager.php:606
 msgid "Change Folder"
 msgstr ""
 
@@ -134,7 +133,7 @@ msgstr ""
 msgid "Check Quota"
 msgstr ""
 
-#: manager.php:590
+#: manager.php:591
 msgid "Check _All/None"
 msgstr ""
 
@@ -166,7 +165,7 @@ msgstr ""
 msgid "Copy"
 msgstr ""
 
-#: manager.php:318 manager.php:606
+#: manager.php:319 manager.php:607
 msgid "Create Folder"
 msgstr ""
 
@@ -209,7 +208,7 @@ msgstr ""
 msgid "Done"
 msgstr ""
 
-#: manager.php:463
+#: manager.php:464
 #, php-format
 msgid "Download %s"
 msgstr ""
@@ -227,7 +226,7 @@ msgstr ""
 msgid "Execute"
 msgstr ""
 
-#: manager.php:611 templates/manager.html.php:146
+#: manager.php:612 templates/manager.html.php:146
 msgid "File"
 msgstr ""
 
@@ -276,7 +275,7 @@ msgstr ""
 msgid "Files must be written inside a VFS backend."
 msgstr ""
 
-#: manager.php:341
+#: manager.php:342
 msgid "Filter"
 msgstr ""
 
@@ -288,7 +287,7 @@ msgstr ""
 msgid "Folders must be created inside a VFS backend."
 msgstr ""
 
-#: manager.php:568 templates/manager.html.php:8
+#: manager.php:569 templates/manager.html.php:8
 msgid "Group"
 msgstr ""
 
@@ -315,11 +314,11 @@ msgstr ""
 msgid "List folders first?"
 msgstr ""
 
-#: manager.php:540
+#: manager.php:541
 msgid "Modified"
 msgstr ""
 
-#: manager.php:514
+#: manager.php:515
 msgid "Name"
 msgstr ""
 
@@ -335,7 +334,7 @@ msgstr ""
 msgid "No quota found."
 msgstr ""
 
-#: manager.php:562 templates/manager.html.php:7
+#: manager.php:563 templates/manager.html.php:7
 msgid "Owner"
 msgstr ""
 
@@ -343,7 +342,7 @@ msgstr ""
 msgid "Paste"
 msgstr ""
 
-#: manager.php:556
+#: manager.php:557
 msgid "Permission"
 msgstr ""
 
@@ -352,7 +351,7 @@ msgstr ""
 msgid "Permission denied to %s: %s"
 msgstr ""
 
-#: manager.php:217
+#: manager.php:218
 #, php-format
 msgid "Permission denied to folder \"%s\": %s"
 msgstr ""
@@ -361,15 +360,15 @@ msgstr ""
 msgid "Permission denied to this backend."
 msgstr ""
 
-#: manager.php:612
+#: manager.php:613
 msgid "Permissions"
 msgstr ""
 
-#: manager.php:614
+#: manager.php:615
 msgid "Please select an item before this action."
 msgstr ""
 
-#: manager.php:615
+#: manager.php:616
 msgid "Please specify at least one file to upload."
 msgstr ""
 
@@ -381,11 +380,11 @@ msgstr ""
 msgid "Read"
 msgstr ""
 
-#: manager.php:287
+#: manager.php:288
 msgid "Refresh"
 msgstr ""
 
-#: manager.php:613 templates/manager.html.php:72
+#: manager.php:614 templates/manager.html.php:72
 msgid "Rename"
 msgstr ""
 
@@ -417,11 +416,11 @@ msgstr ""
 msgid "Select a backend:"
 msgstr ""
 
-#: manager.php:301 manager.php:420
+#: manager.php:302 manager.php:421
 msgid "Share Folder"
 msgstr ""
 
-#: manager.php:420
+#: manager.php:421
 msgid "Shared Folder"
 msgstr ""
 
@@ -429,7 +428,7 @@ msgstr ""
 msgid "Show dotfiles?"
 msgstr ""
 
-#: manager.php:548
+#: manager.php:549
 msgid "Size"
 msgstr ""
 
@@ -441,11 +440,11 @@ msgstr ""
 msgid "The application folder can not be deleted."
 msgstr ""
 
-#: manager.php:609
+#: manager.php:610
 msgid "The following item(s) are folders:"
 msgstr ""
 
-#: manager.php:607
+#: manager.php:608
 msgid "The following items will be permanently deleted:"
 msgstr ""
 
@@ -473,7 +472,7 @@ msgid ""
 "next to the filename and click on &quot;Paste&quot;."
 msgstr ""
 
-#: manager.php:506
+#: manager.php:507
 msgid "Type"
 msgstr ""
 
@@ -501,7 +500,7 @@ msgstr ""
 msgid "Up to %s"
 msgstr ""
 
-#: manager.php:313
+#: manager.php:314
 msgid "Upload File(s)"
 msgstr ""
 

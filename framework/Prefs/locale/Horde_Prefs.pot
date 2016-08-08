@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Prefs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-11-12 14:05+0100\n"
+"POT-Creation-Date: 2016-08-08 15:58+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,19 +26,19 @@ msgstr ""
 msgid "Default Identity"
 msgstr ""
 
-#: lib/Horde/Prefs/CategoryManager.php:54
+#: lib/Horde/Prefs/CategoryManager.php:60
 msgid "New Category"
 msgstr ""
 
-#: lib/Horde/Prefs/CategoryManager.php:82
+#: lib/Horde/Prefs/CategoryManager.php:88
 msgid "Please type the new category name:"
 msgstr ""
 
-#: lib/Horde/Prefs/Storage/KolabImap.php:66
+#: lib/Horde/Prefs/Storage/KolabImap.php:73
 msgid "Preferences"
 msgstr ""
 
-#: lib/Horde/Prefs/CategoryManager.php:63
+#: lib/Horde/Prefs/CategoryManager.php:69
 msgid "Unfiled"
 msgstr ""
 
@@ -46,11 +46,11 @@ msgstr ""
 msgid "Unnamed"
 msgstr ""
 
-#: lib/Horde/Prefs/CategoryManager.php:48
+#: lib/Horde/Prefs/CategoryManager.php:54
 #, php-format
 msgid "Use Current: %s"
 msgstr ""
 
-#: lib/Horde/Prefs/CategoryManager.php:83
+#: lib/Horde/Prefs/CategoryManager.php:89
 msgid "You must type a new category name."
 msgstr ""
