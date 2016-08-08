@@ -82,7 +82,9 @@
 
         <!-- Current conditions -->
         <br /><strong><?php echo _("Current condition")?>: </strong>
-        <?php echo Horde_Themes_Image::tag('weather/32x32/' . $this->current->icon) .  ' ' . $this->current->condition?>
+        <?php if ($this->current->icon):?>
+          <?php echo Horde_Themes_Image::tag('weather/32x32/' . $this->current->icon) .  ' ' . $this->current->condition?>
+        <?php endif;?>
     </div>
 
     <!-- Forecast -->
