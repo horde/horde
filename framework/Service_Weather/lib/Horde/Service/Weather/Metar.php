@@ -925,12 +925,12 @@ class Horde_Service_Weather_Metar extends Horde_Service_Weather_Base
                             !preg_match('/^' . $tafCode['visibility'] . '$/i', $result[1] . ' ' . $taf[$i + 1], $resultVF)) {
                             // No next TAF piece available or not matching.
                             break;
-                        } else {
-                            // Match. Hand over result and advance TAF
-                            $key = 'visibility';
-                            $result = $resultVF;
-                            $i++;
                         }
+                        // Match. Hand over result and advance TAF
+                        $key = 'visibility';
+                        $result = $resultVF;
+                        $i++;
+
                         // Fall through
                     case 'visibility':
                         $pointer['visQualifier'] = Horde_Service_Weather_Translation::t('AT');
