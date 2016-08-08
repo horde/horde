@@ -244,6 +244,8 @@ class Horde_Service_Weather_Metar extends Horde_Service_Weather_Base
      */
     public function getCurrentConditions($location)
     {
+        // @todo - need more info if DB handle is available.
+        $this->_station = $this->_getStation($location);
         $url = sprintf('%s/%s.TXT', $this->_metar_path, $location);
         return new Horde_Service_Weather_Current_Metar(
             $this->_parseMetar($this->_makeRequest($url)),
@@ -288,6 +290,8 @@ class Horde_Service_Weather_Metar extends Horde_Service_Weather_Base
         $length = Horde_Service_Weather::FORECAST_3DAY,
         $type = Horde_Service_Weather::FORECAST_TYPE_STANDARD)
     {
+        // @todo - need more info if DB handle is available.
+        $this->_station = $this->_getStation($location);
         $url = sprintf('%s/%s.TXT', $this->_taf_path, $location);
         return new Horde_Service_Weather_Forecast_Taf(
             $this->_parseTafData($this->_makeRequest($url)),
@@ -311,7 +315,9 @@ class Horde_Service_Weather_Metar extends Horde_Service_Weather_Base
         $location,
         $type = Horde_Service_Weather::SEARCHTYPE_STANDARD)
     {
-
+        return new Horde_Service_Weather_Station(array(
+            'code' => $location
+        ));
     }
 
     /**
@@ -379,6 +385,7 @@ class Horde_Service_Weather_Metar extends Horde_Service_Weather_Base
                 if (preg_match('/^' . $regexp . '$/i', $metar[$i], $result)) {
                     switch ($key) {
                     case 'station':
+                        $this->_station = $this->_getStation($result[0]);
                         $pointer['station'] = $result[0];
                         unset($metarCode['station']);
                         break;
@@ -1267,5 +1274,15 @@ class Horde_Service_Weather_Metar extends Horde_Service_Weather_Base
             'fmc'         => '(PROB|BECMG|TEMPO)(\d{2})?'
         );
     }
+
+    protected function _getStation($code)
+    {
+        // @todo when DB handle is available.
+        return new Horde_Service_Weather_Station(array(
+            'code' => $code,
+            'name' => $code
+        ));
+    }
+
 
 }
