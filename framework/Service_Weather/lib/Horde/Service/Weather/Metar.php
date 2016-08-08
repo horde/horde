@@ -862,7 +862,6 @@ class Horde_Service_Weather_Metar extends Horde_Service_Weather_Base
             $result   = array();
             $resultVF = array();
             $lresult  = array();
-            $found = false;
 
             foreach ($tafCode as $key => $regexp) {
                 // Check if current code matches current taf snippet
@@ -925,7 +924,6 @@ class Horde_Service_Weather_Metar extends Horde_Service_Weather_Base
                         if (!isset($taf[$i + 1]) ||
                             !preg_match('/^' . $tafCode['visibility'] . '$/i', $result[1] . ' ' . $taf[$i + 1], $resultVF)) {
                             // No next TAF piece available or not matching.
-                            $found = false;
                             break;
                         } else {
                             // Match. Hand over result and advance TAF
