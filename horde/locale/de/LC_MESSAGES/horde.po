@@ -1,7 +1,7 @@
 # German translations for Horde.
 # Copyright 2001-2016 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde package.
-# Jan Schneider <jan@horde.org>, 2001-2014.
+# Jan Schneider <jan@horde.org>, 2001-2016.
 #
 # margin: Außenabstand
 # padding: Innenabstand
@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde 5.2-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2015-12-28 17:03+0100\n"
-"PO-Revision-Date: 2014-10-29 12:27+0100\n"
+"POT-Creation-Date: 2016-08-08 15:06+0200\n"
+"PO-Revision-Date: 2016-08-08 15:09+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
 "Language: de\n"
@@ -1415,7 +1415,7 @@ msgstr "%s-Konfiguration erzeugen"
 msgid "Generated Code"
 msgstr "Erzeugter Code"
 
-#: lib/Block/FbStream.php:152 templates/block/twitter-layout.html.php:35
+#: lib/Block/FbStream.php:150 templates/block/twitter-layout.html.php:35
 msgid "Get More"
 msgstr "Mehr holen"
 
@@ -2269,9 +2269,8 @@ msgstr "Die POSIX-Erweiterung fehlt"
 msgid "P_HP Shell"
 msgstr "_PHP Shell"
 
-#: login.php:211 admin/config/index.php:421 admin/user.php:39
-#: admin/user.php:53 config/registry.php:327
-#: templates/admin/user/update.inc:20
+#: login.php:211 admin/config/index.php:421 admin/user.php:39 admin/user.php:53
+#: config/registry.php:327 templates/admin/user/update.inc:20
 msgid "Password"
 msgstr "Passwort"
 
@@ -2369,10 +2368,6 @@ msgstr ""
 "Position des Anworttextes auf Ihrem Gerät, wenn Sie Nachrichten beantworten. "
 "Bitte beachten Sie, dass einige Geräte die Zitatüberschrift immer am Ende "
 "des Antworttextes einfügen."
-
-#: lib/Block/FbStream.php:134
-msgid "Post"
-msgstr "E-Mail schicken"
 
 #: lib/Ajax/Application/FacebookHandler.php:157
 #, php-format
@@ -3019,11 +3014,31 @@ msgstr ""
 msgid "Thai (TIS-620)"
 msgstr "Thailändisch (TIS-620)"
 
+#: admin/sqlshell.php:97
+#, php-format
+msgid ""
+"The DELETE command completed successfully. A total of %d rows were deleted."
+msgstr ""
+"Das DELETE-Kommando wurde erfolgreich ausgeführt. Insgesamt wurden %d Zeilen "
+"gelöscht."
+
+#: admin/sqlshell.php:89
+msgid "The INSERT command completed successfully."
+msgstr "Das INSERT-Kommando wurde erfolgreich ausgeführt."
+
 #: lib/Prefs/Special/Activesync.php:118
 #, php-format
 msgid "The Remote Wipe for device id %s has been cancelled."
 msgstr ""
 "Das ferngesteuerte Löschen für das Gerät mit der ID %s wurde abgebrochen."
+
+#: admin/sqlshell.php:93
+#, php-format
+msgid ""
+"The UPDATE command completed successfully. A total of %d rows were modified."
+msgstr ""
+"Das UPDATE-Kommando wurde erfolgreich ausgeführt. Insgesamt wurden %d Zeilen "
+"aktualisiert."
 
 #: admin/alarms.php:86
 msgid "The alarm has been deleted."
@@ -3159,7 +3174,7 @@ msgstr ""
 "Das Konfigurations-Formular enthielt einen Fehler. Vielleicht haben Sie ein "
 "Pflichtfeld leer gelassen."
 
-#: lib/Ajax/Application/FacebookHandler.php:47 lib/Block/FbStream.php:144
+#: lib/Ajax/Application/FacebookHandler.php:47 lib/Block/FbStream.php:142
 #, php-format
 msgid "There was an error making the request: %s"
 msgstr "Beim Verschicken der Anfrage ist ein Fehler aufgetreten: %s"
@@ -3435,9 +3450,9 @@ msgstr "Benutzerkonto nicht gefunden"
 msgid "User to add:"
 msgstr "Hinzuzufügender Benutzer:"
 
-#: login.php:206 admin/config/index.php:420 admin/user.php:36
-#: admin/user.php:52 services/resetpassword.php:33
-#: templates/admin/activesync.html.php:9 templates/admin/user/approve.inc:23
+#: login.php:206 admin/config/index.php:420 admin/user.php:36 admin/user.php:52
+#: services/resetpassword.php:33 templates/admin/activesync.html.php:9
+#: templates/admin/user/approve.inc:23
 msgid "Username"
 msgstr "Benutzername"
 
@@ -3673,7 +3688,7 @@ msgstr ""
 "Sie sind nicht mit Ihrem Facebook-Konto verbunden. Sie sollten Ihre Facebook-"
 "Einstellungen in Ihren %s überprüfen."
 
-#: lib/Ajax/Application/FacebookHandler.php:48 lib/Block/FbStream.php:145
+#: lib/Ajax/Application/FacebookHandler.php:48 lib/Block/FbStream.php:143
 #, php-format
 msgid "You can also check your Facebook settings in your %s."
 msgstr "Sie können die Facebook-Einstellungen in Ihren %s überprüfen."
@@ -3905,7 +3920,7 @@ msgid "inline"
 msgstr "Inline"
 
 #: lib/Ajax/Application/FacebookHandler.php:48 lib/Block/FbStream.php:103
-#: lib/Block/FbStream.php:145 lib/Block/TwitterTimeline.php:168
+#: lib/Block/FbStream.php:143 lib/Block/TwitterTimeline.php:168
 msgid "preferences"
 msgstr "Benutzereinstellungen"
 

@@ -517,10 +517,9 @@ msgstr "Rechnungssystem ist nicht installiert."
 #: invoicing.php:36 lib/Ajax.php:103 lib/Api.php:56
 #: lib/Form/Admin/AddJobType.php:21 lib/Form/Admin/DeleteJobType.php:32
 #: lib/Form/Admin/EditJobTypeStepTwo.php:37 lib/Form/JobType/Add.php:15
-#: lib/Form/Time/Entry.php:60 lib/Slice.php:149
-#: templates/dynamic/search.inc:23 templates/dynamic/search.inc:95
-#: templates/dynamic/slices.inc:51 templates/dynamic/slices.inc:84
-#: templates/dynamic/timer.inc:21
+#: lib/Form/Time/Entry.php:60 lib/Slice.php:149 templates/dynamic/search.inc:23
+#: templates/dynamic/search.inc:95 templates/dynamic/slices.inc:51
+#: templates/dynamic/slices.inc:84 templates/dynamic/timer.inc:21
 msgid "Job Type"
 msgstr "Arbeitsart"
 

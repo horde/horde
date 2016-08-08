@@ -281,8 +281,7 @@ msgstr "Sortierrichtung:"
 msgid "Tagged with %s"
 msgstr "Getaggt mit %s"
 
-#: lib/Application.php:102 templates/add.html.php:30
-#: templates/edit.html.php:39
+#: lib/Application.php:102 templates/add.html.php:30 templates/edit.html.php:39
 msgid "Tags"
 msgstr "Tags"
 

@@ -429,13 +429,12 @@ msgstr "Dies scheint keine gültige Kartennummer zu sein."
 #: lib/Horde/Core/Form/Type/EmailConfirm.php:10
 #: lib/Horde/Core/Form/Type/Enum.php:28 lib/Horde/Core/Form/Type/Int.php:10
 #: lib/Horde/Core/Form/Type/MultiEnum.php:17
-#: lib/Horde/Core/Form/Type/Number.php:14
-#: lib/Horde/Core/Form/Type/Octal.php:10
+#: lib/Horde/Core/Form/Type/Number.php:14 lib/Horde/Core/Form/Type/Octal.php:10
 #: lib/Horde/Core/Form/Type/Password.php:15
 #: lib/Horde/Core/Form/Type/PasswordConfirm.php:10
-#: lib/Horde/Core/Form/Type/Phone.php:14
-#: lib/Horde/Core/Form/Type/String.php:32 lib/Horde/Core/Form/Type/Time.php:10
-#: lib/Horde/Core/Form/Variable.php:445 lib/Horde/Core/Form/Variable.php:453
+#: lib/Horde/Core/Form/Type/Phone.php:14 lib/Horde/Core/Form/Type/String.php:32
+#: lib/Horde/Core/Form/Type/Time.php:10 lib/Horde/Core/Form/Variable.php:445
+#: lib/Horde/Core/Form/Variable.php:453
 msgid "This field is required."
 msgstr "Dieses Feld ist notwendig."
 

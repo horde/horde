@@ -178,8 +178,8 @@ msgid "Access denied downloading full sized photos from this gallery."
 msgstr ""
 "Zugriff verweigert beim Herunterladen der Originalfotos von dieser Galerie."
 
-#: lib/ActionHandler.php:57 lib/ActionHandler.php:232
-#: lib/ActionHandler.php:901 lib/Image.php:921
+#: lib/ActionHandler.php:57 lib/ActionHandler.php:232 lib/ActionHandler.php:901
+#: lib/Image.php:921
 msgid "Access denied downloading photos from this gallery."
 msgstr "Zugriff verweigert beim Herunterladen der Fotos von dieser Galerie."
 
@@ -583,8 +583,7 @@ msgstr "Datum"
 msgid "Default"
 msgstr "Standard"
 
-#: lib/Prefs/Special/GallerySelect.php:27
-#: lib/Prefs/Special/GalleryStyle.php:27
+#: lib/Prefs/Special/GallerySelect.php:27 lib/Prefs/Special/GalleryStyle.php:27
 msgid "Default style for galleries"
 msgstr "Standardstil für Galerien"
 
@@ -1197,8 +1196,7 @@ msgstr "Meine Fotos :: Inhalt hinzufügen"
 msgid "Name"
 msgstr "Name"
 
-#: faces/search/named.php:14 faces/search/named.php:37
-#: faces/search/tabs.php:23
+#: faces/search/named.php:14 faces/search/named.php:37 faces/search/tabs.php:23
 msgid "Named faces"
 msgstr "Gesichter mit Namen"
 
@@ -1220,10 +1218,10 @@ msgstr "Neue Fotos in %s hochgeladen. %s"
 msgid "Next"
 msgstr "Weiter"
 
-#: faces/image.php:47 faces/search/image.php:71
-#: lib/Ajax/Imple/EditFaces.php:55 lib/Widget/GalleryFaces.php:57
-#: templates/faces/faces.inc:10 templates/faces/index.inc:14
-#: templates/faces/search.inc:23 templates/widgets/imagefaces.html.php:11
+#: faces/image.php:47 faces/search/image.php:71 lib/Ajax/Imple/EditFaces.php:55
+#: lib/Widget/GalleryFaces.php:57 templates/faces/faces.inc:10
+#: templates/faces/index.inc:14 templates/faces/search.inc:23
+#: templates/widgets/imagefaces.html.php:11
 msgid "No faces found"
 msgstr "Keine Gesichter gefunden"
 

@@ -943,9 +943,9 @@ msgstr "Ja, ohne einzurücken"
 msgid "You don't have permission to access messages in forum %s."
 msgstr "Sie haben nicht genügend Rechte, um Beiträge im Forum %s anzuzeigen."
 
-#: lib/Api.php:589 lib/Driver.php:535 lib/Driver.php:722
-#: messages/delete.php:33 messages/lock.php:33 messages/merge.php:31
-#: messages/move.php:31 messages/split.php:31
+#: lib/Api.php:589 lib/Driver.php:535 lib/Driver.php:722 messages/delete.php:33
+#: messages/lock.php:33 messages/merge.php:31 messages/move.php:31
+#: messages/split.php:31
 #, php-format
 msgid "You don't have permission to delete messages in forum %s."
 msgstr "Sie haben nicht genügend Rechte, um Beiträge im Forum %s zu löschen."

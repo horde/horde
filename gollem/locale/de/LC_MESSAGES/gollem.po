@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gollem H5 (3.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2015-12-28 17:03+0100\n"
+"POT-Creation-Date: 2016-08-08 15:06+0200\n"
 "PO-Revision-Date: 2013-01-29 11:58+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
@@ -29,12 +29,12 @@ msgstr "\"%s\" nach \"%s\" umbenannt"
 msgid "%.2fMB / %.2fMB  (%.2f%%)"
 msgstr "%.2fMB / %.2fMB  (%.2f%%)"
 
-#: manager.php:594
+#: manager.php:595
 #, php-format
 msgid "%d item"
 msgstr "%d Element"
 
-#: manager.php:594
+#: manager.php:595
 #, php-format
 msgid "%d items"
 msgstr "%d Elemente"
@@ -68,11 +68,11 @@ msgstr "Hinzufügen"
 msgid "All"
 msgstr "Alle"
 
-#: manager.php:610
+#: manager.php:611
 msgid "Are you sure you wish to continue?"
 msgstr "Sind Sie sicher, dass Sie fortfahren möchten?"
 
-#: manager.php:608
+#: manager.php:609
 msgid "Are you sure?"
 msgstr "Sind Sie sicher?"
 
@@ -96,8 +96,7 @@ msgstr "Backends"
 msgid "Below is the current contents of your clipboard."
 msgstr "Unten sehen Sie den aktuellen Inhalt der Zwischenablage."
 
-#: clipboard.php:23 templates/edit.html.php:15
-#: templates/selectlist.html.php:30
+#: clipboard.php:23 templates/edit.html.php:15 templates/selectlist.html.php:30
 msgid "Cancel"
 msgstr "Abbrechen"
 
@@ -110,7 +109,7 @@ msgstr "Die Zugriffsrechte für \"%s\" konnten nicht geändert werden: %s"
 msgid "Cannot copy items onto clipboard."
 msgstr "Elemente konnten nicht in die Zwischenablage kopiert werden."
 
-#: manager.php:224
+#: manager.php:225
 #, php-format
 msgid "Cannot create home directory: %s"
 msgstr "Das Heimverzeichnis kann nicht erstellt werden: %s"
@@ -125,7 +124,7 @@ msgid "Cannot paste \"%s\" (file cleared from clipboard): %s"
 msgstr ""
 "\"%s\" kann nicht eingefügt werden (Datei aus Zwischenablage entfernt): %s"
 
-#: manager.php:330 manager.php:605
+#: manager.php:331 manager.php:606
 msgid "Change Folder"
 msgstr "Verzeichnis wechseln"
 
@@ -137,7 +136,7 @@ msgstr "Rechte Ändern"
 msgid "Check Quota"
 msgstr "Speicherplatz überprüfen"
 
-#: manager.php:590
+#: manager.php:591
 msgid "Check _All/None"
 msgstr "_Alle/Keine auswählen"
 
@@ -171,7 +170,7 @@ msgstr "Spalten die nicht angezeigt werden:"
 msgid "Copy"
 msgstr "Kopieren"
 
-#: manager.php:318 manager.php:606
+#: manager.php:319 manager.php:607
 msgid "Create Folder"
 msgstr "Verzeichnis erstellen"
 
@@ -216,7 +215,7 @@ msgstr "Absteigend"
 msgid "Done"
 msgstr "Fertig"
 
-#: manager.php:463
+#: manager.php:464
 #, php-format
 msgid "Download %s"
 msgstr "%s Herunterladen"
@@ -234,7 +233,7 @@ msgstr "%s Bearbeiten"
 msgid "Execute"
 msgstr "Ausführen"
 
-#: manager.php:611 templates/manager.html.php:146
+#: manager.php:612 templates/manager.html.php:146
 msgid "File"
 msgstr "Datei"
 
@@ -283,7 +282,7 @@ msgstr "Datei hochgeladen: %s"
 msgid "Files must be written inside a VFS backend."
 msgstr "Dateien müssen innerhalb eines VFS-Backends gespeichert werden."
 
-#: manager.php:341
+#: manager.php:342
 msgid "Filter"
 msgstr "Filter"
 
@@ -295,7 +294,7 @@ msgstr "Verzeichnis gelöscht: "
 msgid "Folders must be created inside a VFS backend."
 msgstr "Ordner müssen innerhalb eines VFS-Backends angelegt werden."
 
-#: manager.php:568 templates/manager.html.php:8
+#: manager.php:569 templates/manager.html.php:8
 msgid "Group"
 msgstr "Gruppe"
 
@@ -322,11 +321,11 @@ msgstr "Elemente pro Seite"
 msgid "List folders first?"
 msgstr "Verzeichnisse zuerst anzeigen?"
 
-#: manager.php:540
+#: manager.php:541
 msgid "Modified"
 msgstr "Geändert"
 
-#: manager.php:514
+#: manager.php:515
 msgid "Name"
 msgstr "Name"
 
@@ -342,7 +341,7 @@ msgstr "Nein"
 msgid "No quota found."
 msgstr "Keine Speicherplatzbegrenzung gefunden."
 
-#: manager.php:562 templates/manager.html.php:7
+#: manager.php:563 templates/manager.html.php:7
 msgid "Owner"
 msgstr "Besitzer"
 
@@ -350,7 +349,7 @@ msgstr "Besitzer"
 msgid "Paste"
 msgstr "Einfügen"
 
-#: manager.php:556
+#: manager.php:557
 msgid "Permission"
 msgstr "Rechte"
 
@@ -359,7 +358,7 @@ msgstr "Rechte"
 msgid "Permission denied to %s: %s"
 msgstr "Zugriff auf %s verweigert: %s"
 
-#: manager.php:217
+#: manager.php:218
 #, php-format
 msgid "Permission denied to folder \"%s\": %s"
 msgstr "Zugriff auf Verzeichnis \"%s\" verweigert: %s"
@@ -368,15 +367,15 @@ msgstr "Zugriff auf Verzeichnis \"%s\" verweigert: %s"
 msgid "Permission denied to this backend."
 msgstr "Zugriff auf dieses Backend verweigert."
 
-#: manager.php:612
+#: manager.php:613
 msgid "Permissions"
 msgstr "Rechte"
 
-#: manager.php:614
+#: manager.php:615
 msgid "Please select an item before this action."
 msgstr "Bitte wählen Sie ein Element aus, bevor Sie diese Aktion durchführen."
 
-#: manager.php:615
+#: manager.php:616
 msgid "Please specify at least one file to upload."
 msgstr "Bitte geben Sie mindestens eine Datei zum Hochladen an."
 
@@ -388,11 +387,11 @@ msgstr "Speicherplatz"
 msgid "Read"
 msgstr "Lesen"
 
-#: manager.php:287
+#: manager.php:288
 msgid "Refresh"
 msgstr "Aktualisieren"
 
-#: manager.php:613 templates/manager.html.php:72
+#: manager.php:614 templates/manager.html.php:72
 msgid "Rename"
 msgstr "Umbenennen"
 
@@ -424,11 +423,11 @@ msgstr "Keine auswählen"
 msgid "Select a backend:"
 msgstr "Backend auswählen:"
 
-#: manager.php:301 manager.php:420
+#: manager.php:302 manager.php:421
 msgid "Share Folder"
 msgstr "Ordner teilen"
 
-#: manager.php:420
+#: manager.php:421
 msgid "Shared Folder"
 msgstr "Gemeinsame Ordner"
 
@@ -436,7 +435,7 @@ msgstr "Gemeinsame Ordner"
 msgid "Show dotfiles?"
 msgstr "Versteckte Dateien anzeigen?"
 
-#: manager.php:548
+#: manager.php:549
 msgid "Size"
 msgstr "Größe"
 
@@ -448,11 +447,11 @@ msgstr "Startordner"
 msgid "The application folder can not be deleted."
 msgstr "Der Anwendungsordner kann nicht gelöscht werden."
 
-#: manager.php:609
+#: manager.php:610
 msgid "The following item(s) are folders:"
 msgstr "Die folgenden Elemente sind Verzeichnisse:"
 
-#: manager.php:607
+#: manager.php:608
 msgid "The following items will be permanently deleted:"
 msgstr "Die folgenden Elemente werden endgültig gelöscht:"
 
@@ -485,7 +484,7 @@ msgstr ""
 "markieren Sie das Kästchen neben dem Dateinamen und klicken Sie auf &quot;"
 "Einfügen&quot;."
 
-#: manager.php:506
+#: manager.php:507
 msgid "Type"
 msgstr "Typ"
 
@@ -513,7 +512,7 @@ msgstr "Das Verzeichnis \"%s\" konnte nicht gelöscht werden: %s"
 msgid "Up to %s"
 msgstr "Hoch nach %s"
 
-#: manager.php:313
+#: manager.php:314
 msgid "Upload File(s)"
 msgstr "Datei(en) Hochladen"
 

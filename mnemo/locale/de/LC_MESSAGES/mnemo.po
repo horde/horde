@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mnemo H5 (4.2-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2015-12-28 17:03+0100\n"
+"POT-Creation-Date: 2016-08-08 15:06+0200\n"
 "PO-Revision-Date: 2014-06-04 11:46+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@horde.org>\n"
@@ -195,7 +195,7 @@ msgstr "Bearbeiten: %s"
 msgid "Empty Note"
 msgstr "Leere Notiz"
 
-#: lib/Driver.php:331
+#: lib/Driver.php:334
 msgid ""
 "Encryption support has not been configured, please contact your "
 "administrator."
