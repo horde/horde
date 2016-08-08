@@ -885,7 +885,12 @@ class Horde_Service_Weather_Metar extends Horde_Service_Weather_Base
                         unset($tafCode['valid']);
                         // Now the groups will start, so initialize the time groups
                         $pointer['time'] = array();
-                        $fromTime = $result[2] . ':00';
+                        $time = new Horde_Date(array(
+                            'year' => $year,
+                            'month' => $month,
+                            'mday' => $result[1],
+                            'hour' => $result[2]));
+                        $fromTime = (string)$time;
                         $pointer['time'][$fromTime] = array();
                         // Set pointer to the first timeperiod
                         $pointer = &$pointer['time'][$fromTime];
