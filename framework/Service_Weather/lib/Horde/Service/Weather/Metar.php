@@ -897,7 +897,7 @@ class Horde_Service_Weather_Metar extends Horde_Service_Weather_Base
                         $pointer['wind'] = Horde_Service_Weather::convertSpeed(
                             $result[2],
                             $result[5],
-                            $this->_unitMap[UNIT_KEY_SPEED]
+                            $this->_unitMap[self::UNIT_KEY_SPEED]
                         );
                         if ($result[1] == 'VAR' || $result[1] == 'VRB') {
                             $pointer['windDegrees'] = Horde_Service_Weather_Translation::t('Variable');
@@ -910,7 +910,7 @@ class Horde_Service_Weather_Metar extends Horde_Service_Weather_Base
                             $pointer['windGust'] = Horde_Service_Weather::convertSpeed(
                                 $result[4],
                                 $result[5],
-                                $this->_unitMap[UNIT_KEY_SPEED]
+                                $this->_unitMap[self::UNIT_KEY_SPEED]
                             );
                         }
                         if (isset($probability)) {
@@ -939,7 +939,7 @@ class Horde_Service_Weather_Metar extends Horde_Service_Weather_Base
                             $visibility = Horde_Service_Weather::convertDistance(
                                 10,
                                 'km',
-                                $this->_unitMap[UNIT_KEY_DISTANCE]
+                                $this->_unitMap[self::UNIT_KEY_DISTANCE]
                             );
                             $pointer['visQualifier'] = Horde_Service_Weather_Translation::t('BEYOND');
                         } elseif (is_numeric($result[1])) {
@@ -947,7 +947,7 @@ class Horde_Service_Weather_Metar extends Horde_Service_Weather_Base
                             $visibility = Horde_Service_Weather::convertDistance(
                                 $result[1],
                                 'm',
-                                $this->_unitMap[UNIT_KEY_DISTANCE]
+                                $this->_unitMap[self::UNIT_KEY_DISTANCE]
                             );
                         } elseif (!isset($result[11]) || $result[11] != 'CAVOK') {
                             if ($result[3] == 'M') {
@@ -960,7 +960,7 @@ class Horde_Service_Weather_Metar extends Horde_Service_Weather_Base
                                 $visibility = Horde_Service_Weather::convertDistance(
                                     $result[5],
                                     $result[10],
-                                    $this->_unitMap[UNIT_KEY_DISTANCE]
+                                    $this->_unitMap[self::UNIT_KEY_DISTANCE]
                                 );
                             } else {
                                 // the y/z part, add if we had a x part (see visibility1)
@@ -968,13 +968,13 @@ class Horde_Service_Weather_Metar extends Horde_Service_Weather_Base
                                     $visibility = Horde_Service_Weather::convertDistance(
                                         $result[7] + $result[8] / $result[9],
                                         $result[10],
-                                        $this->_unitMap[UNIT_KEY_DISTANCE]
+                                        $this->_unitMap[self::UNIT_KEY_DISTANCE]
                                     );
                                 } else {
                                     $visibility = Horde_Service_Weather::convertDistance(
                                         $result[8] / $result[9],
                                         $result[10],
-                                        $this->_unitMap[UNIT_KEY_DISTANCE]
+                                        $this->_unitMap[self::UNIT_KEY_DISTANCE]
                                     );
                                 }
                             }
@@ -983,7 +983,7 @@ class Horde_Service_Weather_Metar extends Horde_Service_Weather_Base
                             $visibility = Horde_Service_Weather::convertDistance(
                                 10,
                                 'km',
-                                $this->_unitMap[UNIT_KEY_DISTANCE]
+                                $this->_unitMap[self::UNIT_KEY_DISTANCE]
                             );
                             $pointer['clouds'] = array(array(
                                 'amount' => Horde_Service_Weather_Translation::t('Clear below'),
@@ -1069,7 +1069,7 @@ class Horde_Service_Weather_Metar extends Horde_Service_Weather_Base
                         $pointer['windshear'] = Horde_Service_Weather::convertSpeed(
                             $result[3],
                             $result[4],
-                            $this->_unitMap[UNIT_KEY_SPEED]
+                            $this->_unitMap[self::UNIT_KEY_SPEED]
                         );
                         $pointer['windshearHeight'] = $result[1] * 100;
                         $pointer['windshearDegrees'] = $result[2];
@@ -1079,7 +1079,7 @@ class Horde_Service_Weather_Metar extends Horde_Service_Weather_Base
                         $forecastData['temperatureHigh'] = Horde_Service_Weather::convertTemperature(
                             $result[1],
                             'c',
-                            $this->_unitMap[UNIT_KEY_TEMP]
+                            $this->_unitMap[self::UNIT_KEY_TEMP]
                         );
                         break;
                     case 'tempmin':
@@ -1087,19 +1087,19 @@ class Horde_Service_Weather_Metar extends Horde_Service_Weather_Base
                         $forecastData['temperatureLow'] = Horde_Service_Weather::convertTemperature(
                             $result[1],
                             'c',
-                            $this->_unitMap[UNIT_KEY_TEMP]
+                            $this->_unitMap[self::UNIT_KEY_TEMP]
                         );
                         break;
                     case 'tempmaxmin':
                         $forecastData['temperatureHigh'] = Horde_Service_Weather::convertTemperature(
                             $result[1],
                             'c',
-                            $this->_unitMap[UNIT_KEY_TEMP]
+                            $this->_unitMap[self::UNIT_KEY_TEMP]
                         );
                         $forecastData['temperatureLow'] = Horde_Service_Weather::convertTemperature(
                             $result[4],
                             'c',
-                            $this->_unitMap[UNIT_KEY_TEMP]
+                            $this->_unitMap[self::UNIT_KEY_TEMP]
                         );
                         break;
                     case 'from':
