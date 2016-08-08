@@ -392,8 +392,8 @@ msgid "Stock"
 msgstr "Bestand"
 
 #: admin.php:17 config/prefs.php:23 lib/Form/Search.php:31
-#: lib/Form/Stock.php:51 lib/Form/Stock.php:53 lib/View/List.php:99
-#: list.php:31 search.php:20 stock.php:23
+#: lib/Form/Stock.php:51 lib/Form/Stock.php:53 lib/View/List.php:99 list.php:31
+#: search.php:20 stock.php:23
 msgid "Stock ID"
 msgstr "Artikelnummer"
 

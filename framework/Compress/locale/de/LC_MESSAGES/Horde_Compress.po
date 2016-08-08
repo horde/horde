@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Compress\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2015-03-24 10:40+0100\n"
+"POT-Creation-Date: 2016-08-08 15:58+0200\n"
 "PO-Revision-Date: 2010-10-13 01:27+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -32,13 +32,13 @@ msgstr "Ungültige ZIP-Daten."
 msgid "Invalid file format"
 msgstr "Ungültiges Dateiformat"
 
-#: test/Horde/Compress/TnefTest.php:44 test/Horde/Compress/TnefTest.php:81
-#: test/Horde/Compress/TnefTest.php:137
+#: test/Horde/Compress/TnefTest.php:43 test/Horde/Compress/TnefTest.php:79
+#: test/Horde/Compress/TnefTest.php:133
 msgid "No iCalendar data was found."
 msgstr "Es wurden keine iCalendar-Daten gefunden."
 
-#: test/Horde/Compress/TnefTest.php:39 test/Horde/Compress/TnefTest.php:76
-#: test/Horde/Compress/TnefTest.php:133
+#: test/Horde/Compress/TnefTest.php:38 test/Horde/Compress/TnefTest.php:74
+#: test/Horde/Compress/TnefTest.php:129
 msgid "There was an error importing the iCalendar data."
 msgstr "Beim Importieren der iCalendar Daten ist ein Fehler aufgetreten."
 

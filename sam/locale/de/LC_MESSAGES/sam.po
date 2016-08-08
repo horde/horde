@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Sam 0.0.2-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-09-20 13:49+0200\n"
+"POT-Creation-Date: 2016-08-08 15:58+0200\n"
 "PO-Revision-Date: 2011-09-20 14:05+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -54,7 +54,7 @@ msgstr "Ausschllusslisten-Verwaltung"
 msgid "Blacklist To"
 msgstr "Ausgeschlossene Empfänger"
 
-#: lib/Driver/Amavisd/Sql.php:443
+#: lib/Driver/Amavisd/Sql.php:447
 #, php-format
 msgid "Cannot create recipient %s: %s"
 msgstr "Empfänger %s konnte nicht erstellt werden: %s"
@@ -64,7 +64,7 @@ msgstr "Empfänger %s konnte nicht erstellt werden: %s"
 msgid "Cannot get options: %s"
 msgstr "Einstellungen können nicht geladen werden: %s"
 
-#: blacklist.php:63 spam.php:100 whitelist.php:63
+#: blacklist.php:63 spam.php:99 whitelist.php:63
 #, php-format
 msgid "Cannot set options: %s"
 msgstr "Einstellungen konnten nicht gespeichert werden: %s"
@@ -114,7 +114,7 @@ msgstr "Spam empfangen"
 msgid "Receive Viruses"
 msgstr "Viren empfangen"
 
-#: lib/Driver/Amavisd/Sql.php:446
+#: lib/Driver/Amavisd/Sql.php:450
 #, php-format
 msgid "Recipient created: %s"
 msgstr "Empfänger erstellt: %s"
@@ -191,7 +191,7 @@ msgstr "Das konfigurierte Backend unterstützt keine globalen Standardwerte."
 msgid "Updated global blacklists"
 msgstr "Globale Ausschlusslisten aktualisiert"
 
-#: spam.php:95
+#: spam.php:94
 msgid "Updated global default rules"
 msgstr "Globale Standardregeln aktualisiert"
 
@@ -203,7 +203,7 @@ msgstr "Globale Positivlisten aktualisiert"
 msgid "Updated user blacklists"
 msgstr "Benutzer-Ausschlusslisten aktualisiert"
 
-#: spam.php:97
+#: spam.php:96
 msgid "Updated user spam rules"
 msgstr "Benutzer-Spamregeln aktualisiert"
 

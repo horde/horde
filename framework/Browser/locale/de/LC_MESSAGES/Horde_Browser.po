@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Browser \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2015-12-28 17:25+0100\n"
+"POT-Creation-Date: 2016-08-08 15:58+0200\n"
 "PO-Revision-Date: 2014-03-26 09:59+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -17,22 +17,22 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde/Browser.php:1123
+#: lib/Horde/Browser.php:1126
 msgid "File uploads not supported."
 msgstr "Das Hochladen von Dateien wird nicht unterstützt."
 
-#: lib/Horde/Browser.php:1140
+#: lib/Horde/Browser.php:1143
 msgid "No file uploaded"
 msgstr "Keine Datei hochgeladen"
 
-#: lib/Horde/Browser.php:1162
+#: lib/Horde/Browser.php:1165
 msgid ""
 "The uploaded file appears to be empty. It may not exist on your computer."
 msgstr ""
 "Die hochgeladene Datei scheint leer zu sein, eventuell existiert sie nicht "
 "auf Ihrem Computer."
 
-#: lib/Horde/Browser.php:1184
+#: lib/Horde/Browser.php:1187
 msgid ""
 "There was a problem with the file upload: Can't write the uploaded data to "
 "the server."
@@ -40,14 +40,14 @@ msgstr ""
 "Beim Hochladen der Datei ist ein Fehler aufgetreten: Die hochgeladene Datei "
 "konnte nicht auf dem Server gespeichert werden."
 
-#: lib/Horde/Browser.php:1158
+#: lib/Horde/Browser.php:1161
 #, php-format
 msgid "There was a problem with the file upload: No %s was uploaded."
 msgstr ""
 "Beim Hochladen der Datei ist ein Fehler aufgetreten: %s wurde nicht "
 "hochgeladen."
 
-#: lib/Horde/Browser.php:1169
+#: lib/Horde/Browser.php:1172
 #, php-format
 msgid ""
 "There was a problem with the file upload: The %s was larger than the maximum "
@@ -56,7 +56,7 @@ msgstr ""
 "Beim Hochladen der Datei ist ein Fehler aufgetreten: %s war größer als die "
 "maximal erlaubte Größe (%d Bytes)."
 
-#: lib/Horde/Browser.php:1172
+#: lib/Horde/Browser.php:1175
 #, php-format
 msgid ""
 "There was a problem with the file upload: The %s was only partially uploaded."
@@ -64,7 +64,7 @@ msgstr ""
 "Beim Hochladen der Datei ist ein Fehler aufgetreten: %s wurde nur teilweise "
 "hochgeladen."
 
-#: lib/Horde/Browser.php:1176
+#: lib/Horde/Browser.php:1179
 msgid ""
 "There was a problem with the file upload: The temporary folder used to store "
 "the upload data is missing."

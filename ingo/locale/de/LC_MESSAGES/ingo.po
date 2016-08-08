@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ingo H5 (3.2-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2015-12-28 17:25+0100\n"
+"POT-Creation-Date: 2016-08-08 15:58+0200\n"
 "PO-Revision-Date: 2015-12-29 17:52+0100\n"
 "Last-Translator: Jan Schneider\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -50,7 +50,7 @@ msgstr "%s Fehlermeldung des Treibers: %s"
 msgid "%s is not supported in the current filtering driver."
 msgstr "%s wird vom aktuellen Filtertreiber nicht unterstützt."
 
-#: lib/Form/Spam.php:94
+#: lib/Form/Spam.php:106
 msgid "A target folder is required."
 msgstr "Ein Zielordner ist notwendig."
 
@@ -138,7 +138,7 @@ msgstr "Ausschlussliste"
 msgid "Blacklist Edit"
 msgstr "Ausschlussliste Bearbeiten"
 
-#: lib/Script/Maildrop.php:193 lib/Script/Procmail.php:261
+#: lib/Script/Maildrop.php:193 lib/Script/Procmail.php:255
 #: lib/Script/Sieve.php:241
 msgid "Blacklisted Addresses"
 msgstr "Ausgeschlossene Adressen"
@@ -384,7 +384,7 @@ msgstr "Filterregeln"
 msgid "Filter Script Display"
 msgstr "Filterskript-Anzeige"
 
-#: lib/Application.php:117
+#: lib/Application.php:118
 msgid "Filter _Rules"
 msgstr "_Filterregeln"
 
@@ -458,7 +458,7 @@ msgstr "Weiterleitung"
 msgid "Forward Keep Action"
 msgstr "Weiterleiten und behalten"
 
-#: lib/Script/Maildrop.php:258 lib/Script/Procmail.php:364
+#: lib/Script/Maildrop.php:258 lib/Script/Procmail.php:358
 #: lib/Script/Sieve.php:195
 msgid "Forwards"
 msgstr "Weiterleitung"
@@ -633,7 +633,7 @@ msgstr "Mobil"
 msgid "My email addresses:"
 msgstr "Meine E-Mail-Adressen:"
 
-#: lib/Application.php:250 lib/Rule/User.php:59
+#: lib/Application.php:256 lib/Rule/User.php:59
 #: templates/basic/filters/filters.html.php:29
 msgid "New Rule"
 msgstr "Neue Regel"
@@ -651,7 +651,7 @@ msgstr "Keine Beschreibung"
 msgid "No backend configured for this host"
 msgstr "Keine Backendkonfiguration für diesen Host angegeben"
 
-#: lib/Ingo.php:119
+#: lib/Ingo.php:117
 msgid "No backends configured in backends.php"
 msgstr "Keine Backends in backends.php konfiguriert"
 
@@ -811,8 +811,7 @@ msgstr "Regelsortierung erfolgreich gespeichert."
 msgid "Rule:"
 msgstr "Regel:"
 
-#: templates/smartmobile/rule.html.php:2
-#: templates/smartmobile/rules.html.php:2
+#: templates/smartmobile/rule.html.php:2 templates/smartmobile/rules.html.php:2
 msgid "Rules"
 msgstr "Regeln"
 
@@ -826,7 +825,7 @@ msgstr "Regeln mit dem Ordner \"%s\""
 msgid "Rules Matching Mailbox \"%s\""
 msgstr "Zum Ordner \"%s\" passende Regeln"
 
-#: lib/Application.php:261
+#: lib/Application.php:267
 msgid "Ruleset"
 msgstr "Regelsatz"
 
@@ -835,7 +834,7 @@ msgstr "Regelsatz"
 msgid "STARTTLS failed: (%s) %s"
 msgstr "STARTTLS fehlgeschlagen: (%s) %s"
 
-#: lib/Application.php:184
+#: lib/Application.php:185
 msgid "S_pam"
 msgstr "Spa_m"
 
@@ -1012,7 +1011,7 @@ msgstr "Benutzerdefinierter Kopfeintrag"
 
 #: lib/Basic/Vacation.php:32 lib/Basic/Vacation.php:116
 #: lib/Block/Overview.php:65 lib/Rule/System/Vacation.php:99
-#: lib/Script/Maildrop.php:287 lib/Script/Procmail.php:328
+#: lib/Script/Maildrop.php:287 lib/Script/Procmail.php:322
 #: lib/Script/Sieve.php:390
 msgid "Vacation"
 msgstr "Abwesenheit"
@@ -1051,7 +1050,7 @@ msgstr "Positivliste"
 msgid "Whitelist Edit"
 msgstr "Positivliste Bearbeiten"
 
-#: lib/Script/Maildrop.php:226 lib/Script/Procmail.php:298
+#: lib/Script/Maildrop.php:226 lib/Script/Procmail.php:292
 #: lib/Script/Sieve.php:307
 msgid "Whitelisted Addresses"
 msgstr "Positivgelistete Adressen"
@@ -1121,7 +1120,7 @@ msgstr "[Kein Absender]"
 msgid "[No Subject]"
 msgstr "[Kein Betreff]"
 
-#: lib/Application.php:145
+#: lib/Application.php:146
 msgid "_Blacklist"
 msgstr "_Ausschlussliste"
 
@@ -1133,7 +1132,7 @@ msgstr "_Ausgeschlossene Adressen:"
 msgid "_Delete message completely"
 msgstr "Nachricht komplett _löschen"
 
-#: lib/Application.php:172
+#: lib/Application.php:173
 msgid "_Forward"
 msgstr "_Weiterleitung"
 
@@ -1141,19 +1140,19 @@ msgstr "_Weiterleitung"
 msgid "_Move message to folder:"
 msgstr "Nachricht in diesen Ordner _verschieben:"
 
-#: lib/Application.php:211
+#: lib/Application.php:218
 msgid "_Permissions"
 msgstr "_Rechte"
 
-#: lib/Application.php:198
+#: lib/Application.php:199
 msgid "_Script"
 msgstr "_Skript"
 
-#: lib/Application.php:160
+#: lib/Application.php:161
 msgid "_Vacation"
 msgstr "A_bwesenheit"
 
-#: lib/Application.php:129
+#: lib/Application.php:130
 msgid "_Whitelist"
 msgstr "_Positivliste"
 

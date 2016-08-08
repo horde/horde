@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ansel 2.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2015-12-28 17:25+0100\n"
+"POT-Creation-Date: 2016-08-08 15:58+0200\n"
 "PO-Revision-Date: 2014-11-14 12:47+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -178,8 +178,8 @@ msgid "Access denied downloading full sized photos from this gallery."
 msgstr ""
 "Zugriff verweigert beim Herunterladen der Originalfotos von dieser Galerie."
 
-#: lib/ActionHandler.php:57 lib/ActionHandler.php:232
-#: lib/ActionHandler.php:901 lib/Image.php:921
+#: lib/ActionHandler.php:57 lib/ActionHandler.php:232 lib/ActionHandler.php:901
+#: lib/Image.php:921
 msgid "Access denied downloading photos from this gallery."
 msgstr "Zugriff verweigert beim Herunterladen der Fotos von dieser Galerie."
 
@@ -507,11 +507,11 @@ msgstr "Kopiere"
 msgid "Copyright infringement"
 msgstr "Copyrightverletzung"
 
-#: lib/View/Upload.php:503
+#: lib/View/Upload.php:501
 msgid "Could not extract image data from zip archive."
 msgstr "Bilderdaten konnten nicht aus dem ZIP-Archiv gelesen werden."
 
-#: lib/View/Upload.php:489
+#: lib/View/Upload.php:487
 msgid "Could not open zip archive."
 msgstr "ZIP-Archiv konnte nicht geöffnet werden."
 
@@ -583,8 +583,7 @@ msgstr "Datum"
 msgid "Default"
 msgstr "Standard"
 
-#: lib/Prefs/Special/GallerySelect.php:27
-#: lib/Prefs/Special/GalleryStyle.php:27
+#: lib/Prefs/Special/GallerySelect.php:27 lib/Prefs/Special/GalleryStyle.php:27
 msgid "Default style for galleries"
 msgstr "Standardstil für Galerien"
 
@@ -1014,7 +1013,7 @@ msgstr "Das Bild hat bereits Attribute."
 msgid "Image not found in gallery."
 msgstr "Bild in der Galerie nicht gefunden."
 
-#: lib/Storage.php:706
+#: lib/Storage.php:707
 msgid "Images not found"
 msgstr "Bilder nicht gefunden"
 
@@ -1197,8 +1196,7 @@ msgstr "Meine Fotos :: Inhalt hinzufügen"
 msgid "Name"
 msgstr "Name"
 
-#: faces/search/named.php:14 faces/search/named.php:37
-#: faces/search/tabs.php:23
+#: faces/search/named.php:14 faces/search/named.php:37 faces/search/tabs.php:23
 msgid "Named faces"
 msgstr "Gesichter mit Namen"
 
@@ -1220,10 +1218,10 @@ msgstr "Neue Fotos in %s hochgeladen. %s"
 msgid "Next"
 msgstr "Weiter"
 
-#: faces/image.php:47 faces/search/image.php:71
-#: lib/Ajax/Imple/EditFaces.php:55 lib/Widget/GalleryFaces.php:57
-#: templates/faces/faces.inc:10 templates/faces/index.inc:14
-#: templates/faces/search.inc:23 templates/widgets/imagefaces.html.php:11
+#: faces/image.php:47 faces/search/image.php:71 lib/Ajax/Imple/EditFaces.php:55
+#: lib/Widget/GalleryFaces.php:57 templates/faces/faces.inc:10
+#: templates/faces/index.inc:14 templates/faces/search.inc:23
+#: templates/widgets/imagefaces.html.php:11
 msgid "No faces found"
 msgstr "Keine Gesichter gefunden"
 

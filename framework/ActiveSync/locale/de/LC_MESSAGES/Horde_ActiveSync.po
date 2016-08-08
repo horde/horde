@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_ActiveSync \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2015-12-28 17:25+0100\n"
+"POT-Creation-Date: 2016-08-08 15:58+0200\n"
 "PO-Revision-Date: 2015-01-08 11:27+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -30,7 +30,7 @@ msgstr "Audio-Nachrichtenteil"
 msgid "Cc"
 msgstr "Cc"
 
-#: lib/Horde/ActiveSync/Device.php:330
+#: lib/Horde/ActiveSync/Device.php:336
 msgid "Common Name"
 msgstr "Eindeutiger Name"
 
@@ -38,11 +38,11 @@ msgstr "Eindeutiger Name"
 msgid "Date"
 msgstr "Datum"
 
-#: lib/Horde/ActiveSync/Device.php:345
+#: lib/Horde/ActiveSync/Device.php:351
 msgid "EAS Version"
 msgstr "EAS-Version"
 
-#: lib/Horde/ActiveSync/Device.php:348
+#: lib/Horde/ActiveSync/Device.php:354
 msgid "Forced Multiplexed Bitmask"
 msgstr ""
 
@@ -50,11 +50,11 @@ msgstr ""
 msgid "From"
 msgstr "Von"
 
-#: lib/Horde/ActiveSync/Device.php:327
+#: lib/Horde/ActiveSync/Device.php:333
 msgid "IMEI"
 msgstr "IMEI"
 
-#: lib/Horde/ActiveSync/Device.php:318
+#: lib/Horde/ActiveSync/Device.php:324
 msgid "Id"
 msgstr "Id"
 
@@ -66,11 +66,11 @@ msgstr "Bild-Nachrichtenteil"
 msgid "Message part"
 msgstr "Nachrichtenteil"
 
-#: lib/Horde/ActiveSync/Device.php:333
+#: lib/Horde/ActiveSync/Device.php:339
 msgid "Mobile Operator"
 msgstr "Mobilfunkanbieter"
 
-#: lib/Horde/ActiveSync/Device.php:324
+#: lib/Horde/ActiveSync/Device.php:330
 msgid "Model"
 msgstr "Modell"
 
@@ -78,19 +78,19 @@ msgstr "Modell"
 msgid "Multipart part"
 msgstr "Multipart-Nachrichtenteil"
 
-#: lib/Horde/ActiveSync/Device.php:336
+#: lib/Horde/ActiveSync/Device.php:342
 msgid "OS"
 msgstr "OS"
 
-#: lib/Horde/ActiveSync/Device.php:339
+#: lib/Horde/ActiveSync/Device.php:345
 msgid "OS Language"
 msgstr "OS-Sprache"
 
-#: lib/Horde/ActiveSync/Device.php:342
+#: lib/Horde/ActiveSync/Device.php:348
 msgid "Phone Number"
 msgstr "Telefonnummer"
 
-#: lib/Horde/ActiveSync/Device.php:319
+#: lib/Horde/ActiveSync/Device.php:325
 msgid "Policy Key"
 msgstr "Richtlinien-Schlüssel"
 
@@ -110,7 +110,7 @@ msgstr "Text-Nachrichtenteil"
 msgid "To"
 msgstr "An"
 
-#: lib/Horde/ActiveSync/Device.php:320
+#: lib/Horde/ActiveSync/Device.php:326
 msgid "User Agent"
 msgstr "Programm"
 

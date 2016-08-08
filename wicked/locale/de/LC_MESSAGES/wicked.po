@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wicked H4 (2.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2015-12-28 17:25+0100\n"
+"POT-Creation-Date: 2016-08-08 15:58+0200\n"
 "PO-Revision-Date: 2015-01-08 11:24+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -249,12 +249,12 @@ msgstr "Unterschiede zu"
 msgid "Diff for %s between %s and %s"
 msgstr "Unterschiede in %s zwischen %s und %s"
 
-#: lib/Page.php:590
+#: lib/Page.php:616
 #, php-format
 msgid "Display %s"
 msgstr "%s anzeigen"
 
-#: lib/Page.php:596 lib/Page/StandardPage.php:388
+#: lib/Page.php:622 lib/Page/StandardPage.php:388
 #, php-format
 msgid "Display Version %s"
 msgstr "Version %s anzeigen"
@@ -638,7 +638,7 @@ msgstr "\"%s\" wurde erfolgreich gelöscht."
 msgid "Successfully deleted version %s of \"%s\" from \"%s\""
 msgstr "Version %s von \"%s\" erfolgreich aus \"%s\" gelöscht"
 
-#: lib/Page.php:520
+#: lib/Page.php:526
 msgid "Table of Contents"
 msgstr "Inhaltsverzeichnis"
 
@@ -684,9 +684,9 @@ msgstr ""
 "Wiki/Home kann nicht erstellt werden. Das Wiki wurde nicht konfiguriert."
 
 #: lib/Page.php:248 lib/Page.php:281 lib/Page.php:286 lib/Page.php:410
-#: lib/Page.php:418 lib/Page.php:426 lib/Page.php:436 lib/Page.php:570
-#: lib/Page.php:609 lib/Page.php:614 lib/Page.php:619 lib/Page.php:624
-#: lib/Page.php:669
+#: lib/Page.php:418 lib/Page.php:426 lib/Page.php:436 lib/Page.php:596
+#: lib/Page.php:635 lib/Page.php:640 lib/Page.php:645 lib/Page.php:650
+#: lib/Page.php:695
 msgid "Unsupported"
 msgstr "Nicht unterstützt"
 

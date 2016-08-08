@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Prefs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-11-12 14:05+0100\n"
+"POT-Creation-Date: 2016-08-08 15:58+0200\n"
 "PO-Revision-Date: 2010-10-13 01:27+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -26,19 +26,19 @@ msgstr "\"%s\" ist keine gültige E-Mail-Adresse."
 msgid "Default Identity"
 msgstr "Standardidentität"
 
-#: lib/Horde/Prefs/CategoryManager.php:54
+#: lib/Horde/Prefs/CategoryManager.php:60
 msgid "New Category"
 msgstr "Neue Kategorie"
 
-#: lib/Horde/Prefs/CategoryManager.php:82
+#: lib/Horde/Prefs/CategoryManager.php:88
 msgid "Please type the new category name:"
 msgstr "Bitte den neuen Kategorienamen eingeben:"
 
-#: lib/Horde/Prefs/Storage/KolabImap.php:66
+#: lib/Horde/Prefs/Storage/KolabImap.php:73
 msgid "Preferences"
 msgstr "Benutzereinstellungen"
 
-#: lib/Horde/Prefs/CategoryManager.php:63
+#: lib/Horde/Prefs/CategoryManager.php:69
 msgid "Unfiled"
 msgstr "Nicht zugeordnet"
 
@@ -46,11 +46,11 @@ msgstr "Nicht zugeordnet"
 msgid "Unnamed"
 msgstr "Unbenannt"
 
-#: lib/Horde/Prefs/CategoryManager.php:48
+#: lib/Horde/Prefs/CategoryManager.php:54
 #, php-format
 msgid "Use Current: %s"
 msgstr "Aktuelle benutzen: %s"
 
-#: lib/Horde/Prefs/CategoryManager.php:83
+#: lib/Horde/Prefs/CategoryManager.php:89
 msgid "You must type a new category name."
 msgstr "Sie müssen einen neuen Kategorienamen angeben."

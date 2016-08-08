@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Date\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2015-12-28 17:25+0100\n"
+"POT-Creation-Date: 2016-08-08 15:58+0200\n"
 "PO-Revision-Date: 2015-12-29 20:43+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -71,7 +71,7 @@ msgstr "Endet nach"
 msgid "Exceptions on"
 msgstr "Ausnahmen am"
 
-#: lib/Horde/Date.php:369 lib/Horde/Date.php:375
+#: lib/Horde/Date.php:506 lib/Horde/Date.php:512
 #, php-format
 msgid "Failed to parse time string (%s)"
 msgstr "Zeitformat (%s) nicht erkannt"
