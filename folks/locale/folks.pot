@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Folks\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-03-25 18:08+0100\n"
+"POT-Creation-Date: 2016-08-08 15:06+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1016,10 +1016,10 @@ msgstr ""
 msgid "Send me my username"
 msgstr ""
 
-#: edit/friends/for.php:46 edit/friends/friends.php:43
-#: edit/friends/from.php:38 edit/friends/index.php:42 edit/friends/know.php:42
-#: edit/friends/of.php:38 lib/Block/Friends.php:77 lib/Block/Know.php:40
-#: lib/Block/New.php:54 lib/Block/Random.php:61 lib/Block/Recent.php:49
+#: edit/friends/for.php:46 edit/friends/friends.php:43 edit/friends/from.php:38
+#: edit/friends/index.php:42 edit/friends/know.php:42 edit/friends/of.php:38
+#: lib/Block/Friends.php:77 lib/Block/Know.php:40 lib/Block/New.php:54
+#: lib/Block/Random.php:61 lib/Block/Recent.php:49
 #: templates/friends/friends.php:32 templates/friends/friends.php:51
 #: templates/user/actions.php:7
 msgid "Send message"
@@ -1101,8 +1101,7 @@ msgstr ""
 msgid "Sort by Video"
 msgstr ""
 
-#: edit/privacy.php:37 templates/edit/friends.php:15
-#: templates/user/user.php:41
+#: edit/privacy.php:37 templates/edit/friends.php:15 templates/user/user.php:41
 msgid "Status"
 msgstr ""
 

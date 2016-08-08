@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trean\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-10-29 12:14+0100\n"
+"POT-Creation-Date: 2016-08-08 15:06+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -273,8 +273,7 @@ msgstr ""
 msgid "Tagged with %s"
 msgstr ""
 
-#: lib/Application.php:102 templates/add.html.php:30
-#: templates/edit.html.php:39
+#: lib/Application.php:102 templates/add.html.php:30 templates/edit.html.php:39
 msgid "Tags"
 msgstr ""
 

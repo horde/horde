@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hermes\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-06-04 11:29+0200\n"
+"POT-Creation-Date: 2016-08-08 15:06+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -506,10 +506,9 @@ msgstr ""
 #: invoicing.php:36 lib/Ajax.php:103 lib/Api.php:56
 #: lib/Form/Admin/AddJobType.php:21 lib/Form/Admin/DeleteJobType.php:32
 #: lib/Form/Admin/EditJobTypeStepTwo.php:37 lib/Form/JobType/Add.php:15
-#: lib/Form/Time/Entry.php:60 lib/Slice.php:149
-#: templates/dynamic/search.inc:23 templates/dynamic/search.inc:95
-#: templates/dynamic/slices.inc:51 templates/dynamic/slices.inc:84
-#: templates/dynamic/timer.inc:21
+#: lib/Form/Time/Entry.php:60 lib/Slice.php:149 templates/dynamic/search.inc:23
+#: templates/dynamic/search.inc:95 templates/dynamic/slices.inc:51
+#: templates/dynamic/slices.inc:84 templates/dynamic/timer.inc:21
 msgid "Job Type"
 msgstr ""
 
