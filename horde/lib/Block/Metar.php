@@ -105,17 +105,6 @@ class Horde_Block_Metar extends Horde_Core_Block
         if (!is_array($metarLocs)) {
             $metarLocs = $this->getParams();
         }
-
-        // $metar = Services_Weather::service('METAR', array('debug' => 0));
-        // $metar->setMetarDB($conf['sql']);
-        // $metar->setUnitsFormat($this->_params['units']);
-        // $metar->setDateTimeFormat('M j, Y', 'H:i');
-        // $metar->setMetarSource('http');
-
-        // $units = $metar->getUnitsFormat($this->_params['units']);
-        // $weather = $metar->getWeather($this->_params['location']);
-
-        //$weather->units = $this->_params['units'];
         $weather = $this->_weather->getCurrentConditions($this->_params['location'])->getRawData();
 
         $html = '<table width="100%" cellspacing="0">' .
@@ -126,7 +115,7 @@ class Horde_Block_Metar extends Horde_Core_Block
                     $this->_params['location']) .
             '</strong></td></tr></table><strong>' . _("Last Updated:") . '</strong> ' .
             $weather['update']. '<br /><br />';
-//return $html;
+
         // Wind.
         if (isset($weather['wind'])) {
             $html .= '<strong>' . _("Wind:") . '</strong> ';
