@@ -333,7 +333,7 @@ class Horde_Service_Weather
         $to   = strtolower($to);
         $from = strtolower($from);
 
-        return ($distance * $factor[$from][$to]);
+        return round($distance * $factor[$from][$to]);
     }
 
     /**
