@@ -28,12 +28,17 @@ class Horde_Service_Weather_Metar extends Horde_Service_Weather_Base
 {
     /**
      * Database handle. Expects to have the following table available:
-     *  - metarAirports
-     *    - icao, name, country.
      *
      * @var Horde_Db_Adapter_Base
      */
     protected $_db;
+
+    /**
+     * Name of table containing the NOAA METAR database.
+     *
+     * @var string
+     */
+    protected $_tableName = 'horde_metar_airports';
 
     /**
      * Default paths to download weather data.
@@ -42,6 +47,12 @@ class Horde_Service_Weather_Metar extends Horde_Service_Weather_Base
      */
     protected $_metar_path = 'http://tgftp.nws.noaa.gov/data/observations/metar/stations';
     protected $_taf_path = 'http://tgftp.nws.noaa.gov/data/forecasts/taf/stations';
+
+    /**
+     * Local cache of locations.
+     *
+     * @var array
+     */
     protected $_locations;
 
     /**
@@ -71,6 +82,9 @@ class Horde_Service_Weather_Metar extends Horde_Service_Weather_Base
         }
         if (!empty($params['taf_path'])) {
             $this->_taf_path = $params['taf_path'];
+        }
+        if (!empty($params['table_name'])) {
+            $this->_tableName = $params['table_name'];
         }
     }
 
@@ -176,6 +190,11 @@ class Horde_Service_Weather_Metar extends Horde_Service_Weather_Base
          return array();
     }
 
+    /**
+     * Return an array containing all available METAR locations/airports.
+     *
+     * @return array
+     */
     public function getLocations()
     {
         if (empty($this->_locations)) {
@@ -185,12 +204,17 @@ class Horde_Service_Weather_Metar extends Horde_Service_Weather_Base
         return $this->_locations;
     }
 
+    /**
+     * Perform DB query to obtain list of airport codes.
+     *
+     * @return array
+     */
     protected function _getLocations()
     {
         if (empty($this->_db)) {
             return array();
         }
-        $sql = 'SELECT icao, name, country FROM metarAirports ORDER BY country';
+        $sql = 'SELECT icao, name, country FROM ' . $this->_tableName . ' ORDER BY country';
         try {
             return $this->_db->selectAll($sql);
         } catch (Horde_Exception $e) {
