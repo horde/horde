@@ -64,10 +64,6 @@ class Horde_Service_Weather_Current_Metar extends Horde_Service_Weather_Current_
             return !empty($this->_properties['remark']['presschg'])
                 ? $this->_properties['remark']['presschg']
                 : null;
-        case 'visibility':
-            return (!empty($this->_properties['visQualifier'])
-                ? $this->_properties['visQualifier']
-                : '') . ' ' . $this->_properties['visibility'];
         case 'condition':
             // @todo - need to build this from other properties.
             return ' TODO ';
