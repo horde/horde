@@ -11,16 +11,24 @@ class Horde_Block_Metar extends Horde_Core_Block
      */
     public $updateable = true;
 
+    protected $_weather;
+
     /**
      */
     public function __construct($app, $params = array())
     {
-        parent::__construct($app, $params);
+        global $injector, $conf;
 
-        $this->enabled = (!empty($GLOBALS['conf']['sql']['phptype']) &&
-                          class_exists('Services_Weather') &&
-                          class_exists('DB'));
+        parent::__construct($app, $params);
         $this->_name = _("Metar Weather");
+        $params = array(
+            'cache' => $injector->getInstance('Horde_Cache'),
+            'cache_lifetime' => $conf['weather']['params']['lifetime'],
+            'http_client' => $injector->createInstance('Horde_Core_Factory_HttpClient')->create(),
+            'db' => $injector->getInstance('Horde_Db_Adapter')
+        );
+        $this->_weather = new Horde_Service_Weather_Metar($params);
+        $this->_weather->units = $this->_params['units'];
     }
 
     /**
@@ -34,15 +42,9 @@ class Horde_Block_Metar extends Horde_Core_Block
      */
     protected function _params()
     {
-        $db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create();
-
-        $result = $db->query('SELECT icao, name, country FROM metarAirports ORDER BY country');
-        if ($result instanceof PEAR_Error) {
-            throw new Horde_Exception($result);
-        }
-
+        $rows = $this->_weather->getLocations();
         $locations = array();
-        while ($row = $result->fetchRow(DB_FETCHMODE_ASSOC)) {
+        foreach ($rows as $row) {
             $locations[$row['country']][$row['icao']] = $row['name'];
         }
 
@@ -56,10 +58,10 @@ class Horde_Block_Metar extends Horde_Core_Block
             'units' => array(
                 'type' => 'enum',
                 'name' => _("Units"),
-                'default' => 's',
+                'default' => Horde_Service_Weather::UNITS_STANDARD,
                 'values' => array(
-                    's' => _("Standard"),
-                    'm' => _("Metric")
+                    Horde_Service_Weather::UNITS_STANDARD => _("Standard"),
+                    Horde_Service_Weather::UNITS_METRIC => _("Metric")
                 )
             ),
             'knots' => array(
@@ -104,18 +106,18 @@ class Horde_Block_Metar extends Horde_Core_Block
             $metarLocs = $this->getParams();
         }
 
-        $metar = Services_Weather::service('METAR', array('debug' => 0));
-        $metar->setMetarDB($conf['sql']);
-        $metar->setUnitsFormat($this->_params['units']);
-        $metar->setDateTimeFormat('M j, Y', 'H:i');
-        $metar->setMetarSource('http');
+        // $metar = Services_Weather::service('METAR', array('debug' => 0));
+        // $metar->setMetarDB($conf['sql']);
+        // $metar->setUnitsFormat($this->_params['units']);
+        // $metar->setDateTimeFormat('M j, Y', 'H:i');
+        // $metar->setMetarSource('http');
 
-        $units = $metar->getUnitsFormat($this->_params['units']);
-        $weather = $metar->getWeather($this->_params['location']);
-        if (is_a($weather, 'PEAR_Error')) {
-            $html = $weather->getMessage();
-            return $html;
-        }
+        // $units = $metar->getUnitsFormat($this->_params['units']);
+        // $weather = $metar->getWeather($this->_params['location']);
+
+        //$weather->units = $this->_params['units'];
+        $weather = $this->_weather->getCurrentConditions($this->_params['location'])->getRawData();
+
         $html = '<table width="100%" cellspacing="0">' .
             '<tr><td class="control"><strong>' .
             sprintf('%s, %s (%s)',
@@ -123,8 +125,8 @@ class Horde_Block_Metar extends Horde_Core_Block
                     $this->_params['__location'],
                     $this->_params['location']) .
             '</strong></td></tr></table><strong>' . _("Last Updated:") . '</strong> ' .
-            $weather['update'] . '<br /><br />';
-
+            $weather['update']. '<br /><br />';
+//return $html;
         // Wind.
         if (isset($weather['wind'])) {
             $html .= '<strong>' . _("Wind:") . '</strong> ';
@@ -302,12 +304,13 @@ class Horde_Block_Metar extends Horde_Core_Block
 
         // TAF
         if (!empty($this->_params['taf'])) {
-            $taf = $metar->getForecast($this->_params['location']);
+            $taf = $this->_weather->getForecast($this->_params['location'])->getRawData();
             if (!is_a($taf, 'PEAR_Error')) {
                 $forecast = '<table width="100%" cellspacing="0">';
                 $forecast .= '<tr><td class="control" colspan="2"><center><strong>' . _("Forecast (TAF)") . '</strong></td></tr></table>';
                 $forecast .= '<strong>Valid: </strong>' . $taf['validFrom'] . ' - ' . $taf['validTo'] . '<br /><br />';
                 $item = 0;
+
                 foreach ($taf['time'] as $time => $entry) {
                     $item++;
                     $forecast .= '<table width="100%" cellspacing="0">';
