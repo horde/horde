@@ -277,7 +277,11 @@ class Horde_Service_Weather_Parser_Metar extends Horde_Service_Weather_Parser_Ba
                         if (isset($pointer['wind'])) {
                             // Now calculate windchill from temperature and windspeed
                             // Note these must be in F and MPH.
-                            $pointer['feltTemperature'] = Horde_Service_Weather::calculateWindChill($temp_f, $wind_mph);
+                            $pointer['feltTemperature'] = Horde_Service_Weather::convertTemperature(
+                                Horde_Service_Weather::calculateWindChill($temp_f, $wind_mph),
+                                'f',
+                                $this->_unitMap[self::UNIT_KEY_TEMP]
+                            );
                         }
                         break;
                     case 'pressure':
