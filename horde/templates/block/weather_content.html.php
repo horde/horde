@@ -82,7 +82,9 @@
 
         <!-- Current conditions -->
         <br /><strong><?php echo _("Current condition")?>: </strong>
-        <?php echo Horde_Themes_Image::tag('weather/32x32/' . $this->current->icon) .  ' ' . $this->current->condition?>
+        <?php if ($this->current->icon):?>
+          <?php echo Horde_Themes_Image::tag('weather/32x32/' . $this->current->icon) .  ' ' . $this->current->condition?>
+        <?php endif;?>
     </div>
 
     <!-- Forecast -->
@@ -95,16 +97,16 @@
            <th><?php echo sprintf(_("Temperature%s(%sHi%s/%sLo%s)"), '<br />', '<span style="color:red">', '</span>', '<span style="color:blue">', '</span>')?></th>
            <th><?php echo _("Condition")?></th>
            <?php if (isset($this->params['detailedForecast'])):?>
-              <?php if (in_array(Horde_Service_Weather::FORECAST_FIELD_PRECIPITATION, $this->forecast->fields)):?>
-                <th><?php echo sprintf(_("Precipitation%schance"), '<br />')?></th>
-              <?php endif;?>
-              <?php if (in_array(Horde_Service_Weather::FORECAST_FIELD_HUMIDITY, $this->forecast->fields)):?>
-                <th><?php echo _("Humidity")?></th>
-              <?php endif;?>
-              <?php if (in_array(Horde_Service_Weather::FORECAST_FIELD_WIND, $this->forecast->fields)):?>
-               <th><?php echo _("Wind")?></th>
-              <?php endif;?>
+            <?php if (in_array(Horde_Service_Weather::FORECAST_FIELD_PRECIPITATION, $this->forecast->fields)):?>
+              <th><?php echo sprintf(_("Precipitation%schance"), '<br />')?></th>
             <?php endif;?>
+            <?php if (in_array(Horde_Service_Weather::FORECAST_FIELD_HUMIDITY, $this->forecast->fields)):?>
+              <th><?php echo _("Humidity")?></th>
+            <?php endif;?>
+            <?php if (in_array(Horde_Service_Weather::FORECAST_FIELD_WIND, $this->forecast->fields)):?>
+              <th><?php echo _("Wind")?></th>
+            <?php endif;?>
+           <?php endif;?>
          </tr>
          <?php $which = -1;?>
          <?php foreach ($this->forecast as $day):
@@ -115,21 +117,21 @@
            <tr class="rowEven">
              <td><strong><?php if ($which == 0): echo _("Today"); elseif ($which == 1): echo _("Tomorrow"); else: echo strftime('%A', mktime(0, 0, 0, date('m'), date('d') + $futureDays, date('Y'))); endif;?></strong><br /><?php echo strftime('%b %d', mktime(0, 0, 0, date('m'), date('d') + $futureDays, date('Y')));?></td>
              <td><span style="color:red"><?php echo $day->high . '&deg;' . Horde_String::upper($this->units['temp'])?></span>/<span style="color:blue"><?php echo $day->low . '&deg;' . Horde_String::upper($this->units['temp'])?></span></td>
-             <td><?php echo Horde_Themes_Image::tag('weather/32x32/' . $day->icon)?><br /><?php echo $day->conditions?></td>
+             <td><?php if ($day->icon): echo Horde_Themes_Image::tag('weather/32x32/' . $day->icon); endif;?><br /><?php echo $day->conditions?></td>
               <?php if (isset($this->params['detailedForecast'])):?>
                <?php if (in_array(Horde_Service_Weather::FORECAST_FIELD_PRECIPITATION, $this->forecast->fields)):?>
                  <td><?php echo ($day->precipitation_percent >= 0 ? $day->precipitation_percent . '%' : _("N/A"))?></td>
                <?php endif;?>
                <?php if (in_array(Horde_Service_Weather::FORECAST_FIELD_HUMIDITY, $this->forecast->fields)):?>
                  <td><?php echo ($day->humidity ? $day->humidity . '%': _("N/A"))?></td>
-                <?php endif;?>
-                <?php if (in_array(Horde_Service_Weather::FORECAST_FIELD_WIND, $this->forecast->fields)):?>
+               <?php endif;?>
+               <?php if (in_array(Horde_Service_Weather::FORECAST_FIELD_WIND, $this->forecast->fields)):?>
                   <?php if ($day->wind_direction):?>
                     <td> <?php echo sprintf(_("From the %s at %s %s"), $day->wind_direction, $day->wind_speed, $this->units['wind']); if ($day->wind_gust && $day->wind_gust > $day->wind_speed): echo ', ' . _("gusting") . ' ' . $day->wind_gust . ' ' . $this->units['wind']; endif?></td>
                   <?php else:?>
                    <td><?php echo _("N/A")?></td>
                   <?php endif;?>
-                <?php endif;?>
+               <?php endif;?>
               <?php endif;?>
            </tr>
            <?php $futureDays++;?>

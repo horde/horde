@@ -234,6 +234,9 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
         // Use the minimum station data provided by forecast request to
         // fetch the full station data.
         $station = $this->_parseStation($results->data->nearest_area[0]);
+        if (empty($station)) {
+            throw new Horde_Service_Weather_Exception('Location not found.');
+        }
         $station = $this->searchLocations($station->lat . ',' . $station->lon);
 
         // Hack some data to allow UTC observation time to be returned.
