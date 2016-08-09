@@ -114,7 +114,7 @@ class Horde_Block_Metar extends Horde_Core_Block
                     $metarLocs['location']['values'][$this->_params['__location']][$this->_params['location']],
                     $this->_params['__location'],
                     $this->_params['location']) .
-            '</strong></td></tr></table><strong>' . _("Last Updated:") . '</strong> ' .
+            '</strong></td></tr></table><div class="horde-content"><strong>' . _("Last Updated:") . '</strong> ' .
             $weather['update']. '<br /><br />';
 
         // Wind.
@@ -290,13 +290,14 @@ class Horde_Block_Metar extends Horde_Core_Block
 
             $html .= $this->_row(_("Remarks"), $remarks . $other);
         }
+        $html .= '</div>';
 
         // TAF
         if (!empty($this->_params['taf'])) {
             $taf = $this->_weather->getForecast($this->_params['location'])->getRawData();
             if (!is_a($taf, 'PEAR_Error')) {
                 $forecast = '<table width="100%" cellspacing="0">';
-                $forecast .= '<tr><td class="control" colspan="2"><center><strong>' . _("Forecast (TAF)") . '</strong></td></tr></table>';
+                $forecast .= '<tr><td class="control" colspan="2"><strong>' . _("Forecast (TAF)") . '</strong></td></tr></table><div class="horde-content">';
                 $forecast .= '<strong>Valid: </strong>' . $taf['validFrom'] . ' - ' . $taf['validTo'] . '<br /><br />';
                 $item = 0;
 
@@ -419,10 +420,10 @@ class Horde_Block_Metar extends Horde_Core_Block
                         }
                     }
 
+                    $forecast .= '</table>';
                 }
-                $forecast .= '</table>';
 
-                $html .= $forecast;
+                $html .= $forecast . '</div>';
             }
         }
 
