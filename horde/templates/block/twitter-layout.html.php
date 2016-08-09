@@ -32,5 +32,5 @@
    <div id="<?php echo $this->instance ?>_mentions"></div>
  </div>
  <br />
- <div class="hordeSmGetmore"><input type="button" class="horde-button" id="<?php echo $this->instance ?>_getmore" value="<?php echo _("Get More") ?>"></div>
+ <div class="hordeSmGetmore"><input type="button" class="horde-button" id="<?php echo $this->instance ?>_getmore" value="<?php echo _("Get More") ?>" /></div>
 </div>

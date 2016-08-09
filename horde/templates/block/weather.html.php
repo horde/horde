@@ -1,6 +1,6 @@
 <?php if (!empty($this->instance)):?>
 <div class="horde-content">
-  <input id="location<?php echo $this->instance?>" name="location<?php echo $this->instance?>">
+  <input id="location<?php echo $this->instance?>" name="location<?php echo $this->instance?>" />
   <input type="button" id="button<?php echo $this->instance?>" class="horde-default" value="<?php echo _("Change Location")?>" />
   <span style="display:none;" id="location<?php echo $this->instance?>_loading_img">
     <?php echo Horde_Themes_Image::tag('loading.gif')?>
