@@ -99,7 +99,7 @@ class Horde_Block_Metar extends Horde_Core_Block
         static $metarLocs;
 
         if (empty($this->_params['location'])) {
-            throw new Horde_Exception(_("No location is set."));
+            return _("No location is set.");
         }
 
         if (!is_array($metarLocs)) {
