@@ -218,7 +218,7 @@ class Horde_Service_Weather_Metar extends Horde_Service_Weather_Base
         try {
             return $this->_db->selectAll($sql);
         } catch (Horde_Exception $e) {
-            throw new Horde_Services_Weather_Exception($e);
+            throw new Horde_Service_Weather_Exception($e);
         }
     }
 
