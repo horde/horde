@@ -123,8 +123,7 @@ class Horde_Block_Metar extends Horde_Core_Block
                 if (!empty($this->_params['knots'])) {
                     $html .= sprintf(_("%s at %s %s"),
                         $weather['windDirection'],
-                        round($metar->convertSpeed($weather['wind'],
-                            $units['wind'], 'kt')),
+                        round(Horde_Service_Weather::convertSpeed($weather['wind'], $units['wind'], 'kt')),
                         'kt');
                 } else {
                     $html .= sprintf(_("%s at %s %s"),
@@ -141,7 +140,7 @@ class Horde_Block_Metar extends Horde_Core_Block
                                  $weather['windDegrees'],
                                  empty($this->_params['knots']) ?
                                  round($weather['wind']) :
-                                 round($metar->convertSpeed($weather['wind'], $units['wind'], 'kt')),
+                                 round(Horde_Service_Weather::convertSpeed($weather['wind'], $units['wind'], 'kt')),
                                  empty($this->_params['knots']) ?
                                  $units['wind'] :
                                  'kt');
@@ -151,7 +150,7 @@ class Horde_Block_Metar extends Horde_Core_Block
             if ($weather['windGust']) {
                 if (!empty($this->_params['knots'])) {
                     $html .= sprintf(_(", gusting %s %s"),
-                        round($metar->convertSpeed($weather['windGust'],
+                        round(Horde_Service_Weather::convertSpeed($weather['windGust'],
                         $units['wind'], 'kt')),
                         'kt');
                 } else {
@@ -310,8 +309,10 @@ class Horde_Block_Metar extends Horde_Core_Block
                             if (!empty($this->_params['knots'])) {
                                 $forecast .= sprintf(_("%s at %s %s"),
                                     strtolower($entry['windDirection']),
-                                    round($metar->convertSpeed($entry['wind'],
-                                        $units['wind'], 'kt')),
+                                    round(Horde_Service_Weather::convertSpeed(
+                                        $entry['wind'],
+                                        $units['wind'],
+                                        'kt')),
                                     'kt');
                             } else {
                                 $forecast .= sprintf(_("%s at %s %s"),
@@ -328,7 +329,7 @@ class Horde_Block_Metar extends Horde_Core_Block
                                              $entry['windDegrees'],
                                              empty($this->_params['knots']) ?
                                              round($entry['wind']) :
-                                             round($metar->convertSpeed($entry['wind'], $units['wind'], 'kt')),
+                                             round(Horde_Service_Weather::convertSpeed($entry['wind'], $units['wind'], 'kt')),
                                              empty($this->_params['knots']) ?
                                              $units['wind'] :
                                              'kt');
