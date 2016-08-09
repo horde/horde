@@ -77,10 +77,11 @@ class Horde_Service_Weather_Parser_Metar extends Horde_Service_Weather_Parser_Ba
             $result   = array();
             $resultVF = array();
             $lresult  = array();
+            $found = false;
 
             foreach ($metarCode as $key => $regexp) {
                 // Check if current code matches current metar snippet
-                if (preg_match('/^' . $regexp . '$/i', $metar[$i], $result)) {
+                if (($found = preg_match('/^' . $regexp . '$/i', $metar[$i], $result)) == true) {
                     switch ($key) {
                     case 'station':
                         $pointer['station'] = $result[0];
@@ -128,6 +129,7 @@ class Horde_Service_Weather_Parser_Metar extends Horde_Service_Weather_Parser_Ba
                         if (!isset($metar[$i + 1]) ||
                             !preg_match('/^' . $metarCode['visibility'] . '$/i', $result[1] . ' ' . $metar[$i + 1], $resultVF)) {
                             // No next METAR piece available or not matching.
+                            $found = false;
                             break;
                         } else {
                             // Match. Hand over result and advance METAR
@@ -498,6 +500,9 @@ class Horde_Service_Weather_Parser_Metar extends Horde_Service_Weather_Parser_Ba
                     default:
                         // Do nothing, just prevent further matching
                         unset($metarCode[$key]);
+                        break;
+                    }
+                    if ($found) {
                         break;
                     }
                 }
