@@ -153,7 +153,6 @@
      <dir name="Service">
       <dir name="Weather">
        <file name="1_horde_service_weather_airports.php" role="data" />
-       <file name="untitled" role="data" />
       </dir> <!-- /migration/Horde/Service/Weather -->
      </dir> <!-- /migration/Horde/Service -->
     </dir> <!-- /migration/Horde -->
@@ -410,7 +409,6 @@
    <install as="locale/nl/LC_MESSAGES/Horde_Service_Weather.mo" name="locale/nl/LC_MESSAGES/Horde_Service_Weather.mo" />
    <install as="locale/nl/LC_MESSAGES/Horde_Service_Weather.po" name="locale/nl/LC_MESSAGES/Horde_Service_Weather.po" />
    <install as="migration/1_horde_service_weather_airports.php" name="migration/Horde/Service/Weather/1_horde_service_weather_airports.php" />
-   <install as="migration/untitled" name="migration/Horde/Service/Weather/untitled" />
    <install as="Horde/Service/Weather/AllTests.php" name="test/Horde/Service/Weather/AllTests.php" />
    <install as="Horde/Service/Weather/bootstrap.php" name="test/Horde/Service/Weather/bootstrap.php" />
    <install as="Horde/Service/Weather/phpunit.xml" name="test/Horde/Service/Weather/phpunit.xml" />
