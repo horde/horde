@@ -3275,11 +3275,10 @@ class Whups_Driver_Sql extends Whups_Driver
                 try {
                     $this->_db->insert(
                         'INSERT INTO whups_logs (transaction_id, '
-                            . 'ticket_id, log_timestamp, log_type, log_value, '
+                            . 'ticket_id, log_type, log_value, '
                             . 'log_value_num) VALUES (?, ?, ?, ?, ?)',
                         array((int)$transactionId,
                               (int)$ticket_id,
-                              time(),
                               $type,
                               $this->_toBackend((string)$value),
                               (int)$value));
