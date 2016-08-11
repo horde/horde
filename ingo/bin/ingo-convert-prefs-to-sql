@@ -51,6 +51,7 @@ while (!feof(STDIN)) {
 
     $prefs_storage->clearCache();
     $sql_storage->clearCache();
+    $injector->getInstance('Horde_Core_Factory_Prefs')->clearCache();
     $registry->setAuth($user, array());
     $session->set('ingo', 'current_share', ':' . $user);
 
