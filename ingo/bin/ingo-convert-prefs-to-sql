@@ -57,6 +57,8 @@ while (!feof(STDIN)) {
 
     echo 'Converting filters for user: ' . $user;
 
+    $prefs_storage->clearCache();
+    $sql_storage->clearCache();
     $registry->setAuth($user, array());
     $session->set('ingo', 'current_share', ':' . $user);
 
