@@ -893,8 +893,6 @@
      <case name="Ldap" desc="LDAP">
       <configsection name="params">
        <configldap switchname="driverconfig">
-        <configstring name="uid" desc="The username search key for finding
-        preferences">uid</configstring>
        </configldap>
       </configsection>
      </case>
