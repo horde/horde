@@ -251,9 +251,7 @@ class Horde_Core_Factory_Prefs extends Horde_Core_Factory_Base
     }
 
     /**
-     * Clear the instances cache.
-     *
-     * @deprecated
+     * Clears the instances cache.
      */
     public function clearCache()
     {
