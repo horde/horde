@@ -120,7 +120,7 @@ class Horde_Core_Factory_Prefs extends Horde_Core_Factory_Base
             case 'Horde_Prefs_Storage_Ldap':
                 $params['ldap'] = $this->_injector
                     ->getInstance('Horde_Core_Factory_Ldap')
-                    ->create('horde', 'ldap');
+                    ->create('horde', 'prefs');
                 break;
 
             case 'Horde_Prefs_Storage_Mongo':

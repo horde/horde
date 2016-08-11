@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Allow to specify user DN search parameters for LDAP with all bind methods (Request #11697, heinz@htl-steyr.ac.at).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4217,7 +4217,7 @@
    <date>2016-07-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Allow to specify user DN search parameters for LDAP with all bind methods (Request #11697, heinz@htl-steyr.ac.at).
    </notes>
   </release>
  </changelog>

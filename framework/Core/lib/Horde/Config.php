@@ -834,7 +834,7 @@ class Horde_Config
                 'switch' => array(
                     'anon' => array(
                         'desc' => 'Bind anonymously',
-                        'fields' => array()
+                        'fields' => $this->_configLDAPUser($ctx, $node)
                     ),
                     'user' => array(
                         'desc' => 'Bind as the currently logged-in user',
@@ -842,25 +842,28 @@ class Horde_Config
                     ),
                     'admin' => array(
                         'desc' => 'Bind with administrative/system credentials',
-                        'fields' => array(
-                            'binddn' => array(
-                                '_type' => 'text',
-                                'required' => true,
-                                'desc' => 'DN used to bind to LDAP',
-                                'default' => $this->_default(
-                                    $ctx . '|binddn',
-                                    $node ? ($xpath->evaluate('string(configsection/configstring[@name="binddn"])', $node) ?: '') : ''
+                        'fields' => array_merge(
+                            array(
+                                'binddn' => array(
+                                    '_type' => 'text',
+                                    'required' => true,
+                                    'desc' => 'DN used to bind to LDAP',
+                                    'default' => $this->_default(
+                                        $ctx . '|binddn',
+                                        $node ? ($xpath->evaluate('string(configsection/configstring[@name="binddn"])', $node) ?: '') : ''
+                                    )
+                                ),
+                                'bindpw' => array(
+                                    '_type' => 'text',
+                                    'required' => true,
+                                    'desc' => 'Password for bind DN',
+                                    'default' => $this->_default(
+                                        $ctx . '|bindpw',
+                                        $node ? ($xpath->evaluate('string(configsection/configstring[@name="bindpw"])', $node) ?: '') : '')
                                 )
                             ),
-                            'bindpw' => array(
-                                '_type' => 'text',
-                                'required' => true,
-                                'desc' => 'Password for bind DN',
-                                'default' => $this->_default(
-                                    $ctx . '|bindpw',
-                                    $node ? ($xpath->evaluate('string(configsection/configstring[@name="bindpw"])', $node) ?: '') : '')
-                            )
-                        )
+                            $this->_configLDAPUser($ctx, $nod)
+                        ),
                     ),
                 )
             ),
@@ -971,24 +974,6 @@ class Horde_Config
                     'default' => $this->_default(
                         $ctx . '|user|basedn',
                         $node ? ($xpath->evaluate('string(configsection/configstring[@name="basedn"])', $node) ?: '') : ''
-                    )
-                ),
-                'binddn' => array(
-                    '_type' => 'text',
-                    'required' => false,
-                    'desc' => 'DN used to bind for searching the user\'s DN (leave empty for anonymous bind)',
-                    'default' => $this->_default(
-                        $ctx . '|user|binddn',
-                        $node ? ($xpath->evaluate('string(configsection/configstring[@name="binddn"])', $node) ?: '') : ''
-                    )
-                ),
-                'bindpw' => array(
-                    '_type' => 'text',
-                    'required' => false,
-                    'desc' => 'Password for bind DN',
-                    'default' => $this->_default(
-                        $ctx . '|user|bindpw',
-                        $node ? ($xpath->evaluate('string(configsection/configstring[@name="bindpw"])', $node) ?: '') : ''
                     )
                 ),
                 'uid' => array(
