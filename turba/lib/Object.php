@@ -605,20 +605,19 @@ class Turba_Object
     }
 
     /**
-     * Ensure we have an email address set, if available. Needed to cover the
-     * case where a contact might have been imported via vCard with email TYPEs
-     * that do not match the configured attributes for this source. E.g., the
-     * vCard contains a TYPE=HOME but we only have the generic 'email' field
-     * available.
+     * Ensures we have an email address set, if available.
      *
-     * @return [type] [description]
+     * Needed to cover the case where a contact might have been imported via
+     * vCard with email TYPEs that do not match the configured attributes for
+     * this source. E.g., the vCard contains a TYPE=HOME but we only have the
+     * generic 'email' field available.
      */
     protected  function _ensureEmail()
     {
         global $attributes;
 
         foreach ($this->attributes as $attribute => $value) {
-            if ($attributes[$attribute]['type'] = 'email') {
+            if ($attributes[$attribute]['type'] == 'email') {
                 // We have an email defined, no need to check.
                 return;
             }
