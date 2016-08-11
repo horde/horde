@@ -399,4 +399,13 @@ implements Countable, IteratorAggregate
         return new ArrayIterator($this->_rules);
     }
 
+    /**
+     * Clears the internal rule cache.
+     *
+     * @since Ingo 3.2.12
+     */
+    public function clearCache()
+    {
+        $this->_cache = array();
+    }
 }
