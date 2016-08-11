@@ -239,6 +239,8 @@ class Horde_Lock_Sql extends Horde_Lock
 
     /**
      * Do garbage collection needed for the driver.
+     *
+     * @todo Rename to gc().
      */
     public function doGC()
     {
@@ -248,9 +250,11 @@ class Horde_Lock_Sql extends Horde_Lock
         $values = array($now, Horde_Lock::PERMANENT);
 
         try {
-            $result = $this->_db->delete($query, $values);
-            if ($this->_logger) {
-                $this->_logger->log(sprintf('Lock garbage collection cleared %d locks.', $result), 'DEBUG');
+            if ($this->_db) {
+                $result = $this->_db->delete($query, $values);
+                if ($this->_logger) {
+                    $this->_logger->log(sprintf('Lock garbage collection cleared %d locks.', $result), 'DEBUG');
+                }
             }
         } catch (Horde_Db_Exception $e) {}
     }
