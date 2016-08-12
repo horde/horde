@@ -64,9 +64,10 @@ class Horde_Queue_Storage_Db extends Horde_Queue_Storage
         $query = 'DELETE FROM horde_queue_tasks WHERE task_id = ?';
         foreach ($rows as $row) {
             $tasks[] = unserialize($row['task_fields']);
-            // TODO: Evaluate if a single call for all IDs is faster for various scenarios
+            // TODO: Evaluate if a single call for all IDs is faster for
+            // various scenarios
             try {
-                $rows = $this->_db->execute($query, array($row['task_id']));
+                $this->_db->execute($query, array($row['task_id']));
             } catch (Horde_Db_Exception $e) {
                 throw new Horde_Queue_Exception($e);
             }
