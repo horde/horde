@@ -34,6 +34,9 @@ class Horde_Core_Factory_Weather extends Horde_Core_Factory_Injector
                 $params['apiVersion'] = $conf['weather']['params']['apiversion'];
             }
             break;
+        case 'Metar':
+            $params['db'] = $injector->getInstance('Horde_Db_Adapter');
+            break;
         }
         $class = $this->_getDriverName($driver, 'Horde_Service_Weather');
 
