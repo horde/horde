@@ -67,7 +67,7 @@ class Horde_Queue_Storage_Db extends Horde_Queue_Storage
             // TODO: Evaluate if a single call for all IDs is faster for
             // various scenarios
             try {
-                $this->_db->execute($query, array($row['task_id']));
+                $this->_db->delete($query, array($row['task_id']));
             } catch (Horde_Db_Exception $e) {
                 throw new Horde_Queue_Exception($e);
             }
