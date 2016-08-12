@@ -265,10 +265,26 @@ class Horde_Service_Weather_Metar extends Horde_Service_Weather_Base
 
     protected function _getStation($code)
     {
-        // @todo when DB handle is available.
+        if (empty($this->_db)) {
+            // @todo when DB handle is available.
+            return new Horde_Service_Weather_Station(array(
+                'code' => $code,
+                'name' => $code
+            ));
+        }
+        $sql = 'SELECT icao, name, country, latitude, longitude from ' . $this->_tableName . ' WHERE icao = ?';
+        try {
+            $result = $this->_db->selectOne($sql, array($code));
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Service_Weather_Exception($e);
+        }
+
         return new Horde_Service_Weather_Station(array(
+            'name' => $result['name'],
             'code' => $code,
-            'name' => $code
+            'country_name' => $result['country'],
+            'lat' => $result['latitude'],
+            'lon' => $result['lon']
         ));
     }
 
