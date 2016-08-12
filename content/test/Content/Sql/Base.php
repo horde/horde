@@ -27,14 +27,14 @@ class Content_Test_Sql_Base extends Content_Test_Base
     public function testCreate()
     {
         $this->_create();
-        $objects = self::$db->selectAll('SELECT * FROM rampage_objects');
+        $objects = self::$db->select('SELECT * FROM rampage_objects');
         $this->assertEquals(4, count($objects));
         // If these aren't strings, then ids were taken as names.
         foreach ($objects as $object) {
             $this->assertInternalType('string', $object['object_name']);
         }
 
-        $types = self::$db->selectAll('SELECT * FROM rampage_types');
+        $types = self::$db->select('SELECT * FROM rampage_types');
         $this->assertEquals(2, count($types));
         foreach ($types as $type) {
             $this->assertInternalType('string', $type['type_name']);

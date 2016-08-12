@@ -364,7 +364,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
 
         /* Run the query. */
         try {
-            $qr = $this->_db->selectAll($q, $values);
+            $qr = $this->_db->select($q, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Kronolith_Exception($e);
         }

@@ -172,7 +172,7 @@ class Content_Objects_Manager
         // Get the ids for any objects that already exist.
         try {
             if (count($objectName)) {
-                $rows = $this->_db->selectAll(
+                $rows = $this->_db->select(
                     'SELECT object_id, object_name FROM ' . $this->_t('objects')
                          . ' WHERE object_name IN ('
                          . implode(',', array_map(array($this->_db, 'quoteString'), array_keys($objectName)))

@@ -123,7 +123,7 @@ class Horde_Lock_Sql extends Horde_Lock
         }
 
         try {
-            $result = $this->_db->selectAll($sql, $values);
+            $result = $this->_db->select($sql, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Lock_Exception($e);
         }

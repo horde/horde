@@ -63,7 +63,7 @@ class Content_Users_Manager
                 $sql = 'SELECT user_id, user_name FROM ' . $this->_t('users')
                     . ' WHERE user_name IN (' . implode(',', array_map(array($this, 'toDriver'), array_keys($userName))) . ')';
 
-                foreach ($this->_db->selectAll($sql) as $row) {
+                foreach ($this->_db->select($sql) as $row) {
                     $userIndex = $userName[$row['user_name']];
                     unset($userName[$row['user_name']]);
                     $userIds[$userIndex] = $row['user_id'];

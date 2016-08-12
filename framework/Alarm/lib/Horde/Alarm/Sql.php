@@ -82,7 +82,7 @@ class Horde_Alarm_Sql extends Horde_Alarm
         }
 
         try {
-            $result = $this->_db->selectAll($query, $values);
+            $result = $this->_db->select($query, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Alarm_Exception(
                 Horde_Alarm_Translation::t("Server error when querying database.")
@@ -109,7 +109,7 @@ class Horde_Alarm_Sql extends Horde_Alarm
                          $this->_params['table']);
 
         try {
-            $result = $this->_db->selectAll($query);
+            $result = $this->_db->select($query);
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Alarm_Exception(
                 Horde_Alarm_Translation::t("Server error when querying database.")

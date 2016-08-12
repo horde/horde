@@ -190,7 +190,7 @@ class Horde_Share_Sql extends Horde_Share_Base
         }
 
         try {
-            $rows = $this->_db->selectAll('SELECT * FROM ' . $this->_table . '_users WHERE share_id = ?', array($share['share_id']));
+            $rows = $this->_db->select('SELECT * FROM ' . $this->_table . '_users WHERE share_id = ?', array($share['share_id']));
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Share_Exception($e->getMessage());
         }
@@ -214,7 +214,7 @@ class Horde_Share_Sql extends Horde_Share_Base
         }
 
         try {
-            $rows = $this->_db->selectAll('SELECT * FROM ' . $this->_table . '_groups WHERE share_id = ?', array($share['share_id']));
+            $rows = $this->_db->select('SELECT * FROM ' . $this->_table . '_groups WHERE share_id = ?', array($share['share_id']));
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Share_Exception($e->getMessage());
         }
@@ -334,7 +334,7 @@ class Horde_Share_Sql extends Horde_Share_Base
     protected function _getShares(array $ids)
     {
         try {
-            $rows = $this->_db->selectAll('SELECT * FROM ' . $this->_table . ' WHERE share_id IN (' . str_repeat('?, ', count($ids) - 1) . '?)', $ids);
+            $rows = $this->_db->select('SELECT * FROM ' . $this->_table . ' WHERE share_id IN (' . str_repeat('?, ', count($ids) - 1) . '?)', $ids);
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Share_Exception($e->getMessage());
         }
@@ -374,7 +374,7 @@ class Horde_Share_Sql extends Horde_Share_Base
         $shares = array();
 
         try {
-            $rows = $this->_db->selectAll('SELECT * FROM ' . $this->_table . ' ORDER BY share_name ASC');
+            $rows = $this->_db->select('SELECT * FROM ' . $this->_table . ' ORDER BY share_name ASC');
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Share_Exception($e->getMessage());
         }
@@ -386,7 +386,7 @@ class Horde_Share_Sql extends Horde_Share_Base
 
         // Get users permissions
         try {
-            $rows = $this->_db->selectAll('SELECT * FROM ' . $this->_table . '_users');
+            $rows = $this->_db->select('SELECT * FROM ' . $this->_table . '_users');
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Share_Exception($e);
         }
@@ -398,7 +398,7 @@ class Horde_Share_Sql extends Horde_Share_Base
 
         // Get groups permissions
         try {
-            $rows = $this->_db->selectAll('SELECT * FROM ' . $this->_table . '_groups');
+            $rows = $this->_db->select('SELECT * FROM ' . $this->_table . '_groups');
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Share_Exception($e->getMessage());
         }
@@ -470,7 +470,7 @@ class Horde_Share_Sql extends Horde_Share_Base
 
         $query = $this->_db->addLimitOffset($query, array('limit' => $params['count'], 'offset' => $params['from']));
         try {
-            $rows = $this->_db->selectAll($query);
+            $rows = $this->_db->select($query);
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Share_Exception($e->getMessage());
         }
@@ -494,7 +494,7 @@ class Horde_Share_Sql extends Horde_Share_Base
                      . '_users WHERE share_id IN (' . str_repeat('?,', count($users) - 1) . '?)';
 
             try {
-                $rows = $this->_db->selectAll($query, $users);
+                $rows = $this->_db->select($query, $users);
             } catch (Horde_Db_Exception $e) {
                 throw new Horde_Share_Exception($e->getMessage());
             }
@@ -508,7 +508,7 @@ class Horde_Share_Sql extends Horde_Share_Base
             $query = 'SELECT share_id, group_uid, perm FROM ' . $this->_table
                      . '_groups WHERE share_id IN (' . str_repeat('?,', count($groups) - 1) . '?)';
             try {
-                $rows = $this->_db->selectAll($query, $groups);
+                $rows = $this->_db->select($query, $groups);
             } catch (Horde_Db_Exception $e) {
                 throw new Horde_Share_Exception($e->getMessage());
             }
@@ -548,7 +548,7 @@ class Horde_Share_Sql extends Horde_Share_Base
                 . $this->_table . ' WHERE share_id IN ('
                 . str_repeat('?,', count($ids) - 1) . '?)';
             try {
-                $rows = $this->_db->selectAll($query, $ids);
+                $rows = $this->_db->select($query, $ids);
                 foreach ($rows as $share_properties) {
                     $this->_convertClobs($share_properties);
                     foreach ($share_properties as $name => $property) {
@@ -673,7 +673,7 @@ class Horde_Share_Sql extends Horde_Share_Base
     {
         $query = 'SELECT * FROM ' . $this->_table . ' WHERE share_owner IS NULL';
         try {
-            $rows = $this->_db->selectAll($query);
+            $rows = $this->_db->select($query);
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Share_Exception($e->getMessage());
         }

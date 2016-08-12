@@ -171,7 +171,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             . 'sync_devid = ? AND sync_user = ? AND sync_folderid = ?';
 
         try {
-            $results = $this->_db->selectAll($sql,
+            $results = $this->_db->select($sql,
                 array($this->_deviceInfo->id, $this->_deviceInfo->user, $uid));
         } catch (Horde_Db_Exception $e) {
             $this->_logger->err(sprintf(
@@ -1362,7 +1362,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             $ids);
 
         try {
-            $rows = $this->_db->selectAll($sql, $values);
+            $rows = $this->_db->select($sql, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }
@@ -1447,7 +1447,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             $this->_deviceInfo->user);
 
         try {
-            $results = $this->_db->selectAll($sql, $values);
+            $results = $this->_db->select($sql, $values);
         } catch (Horde_Db_Exception $e) {
             $this->_logger->err(sprintf(
                 '[%s] %s',

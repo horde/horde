@@ -89,7 +89,7 @@ class Horde_Vfs_Musql extends Horde_Vfs_Sql
                                 WHERE vfs_path = ? AND vfs_name= ?',
                                $this->_params['table']);
                 try {
-                    $results = $this->_db->selectAll($sql, array($previous, $thispath));
+                    $results = $this->_db->select($sql, array($previous, $thispath));
                 } catch (Horde_Db_Exception $e) {
                     throw new Horde_Vfs_Exception($e);
                 }
@@ -131,7 +131,7 @@ class Horde_Vfs_Musql extends Horde_Vfs_Sql
                         WHERE vfs_path = ? AND vfs_name= ? AND vfs_type = ?',
                        $this->_params['table']);
         try {
-            $fileList = $this->_db->selectAll($sql, array($path, $name, self::FILE));
+            $fileList = $this->_db->select($sql, array($path, $name, self::FILE));
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Vfs_Exception($e);
         }
@@ -179,7 +179,7 @@ class Horde_Vfs_Musql extends Horde_Vfs_Sql
                         WHERE vfs_path = ? AND vfs_name= ?',
                        $this->_params['table']);
         try {
-            $fileList = $this->_db->selectAll($sql, array($oldpath, $oldname));
+            $fileList = $this->_db->select($sql, array($oldpath, $oldname));
 
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Vfs_Exception($e);
@@ -240,7 +240,7 @@ class Horde_Vfs_Musql extends Horde_Vfs_Sql
                                 WHERE vfs_path = ? AND vfs_name= ?',
                                $this->_params['table']);
                 try {
-                    $results = $this->_db->selectAll($sql, array($previous, $thispath));
+                    $results = $this->_db->select($sql, array($previous, $thispath));
                 } catch (Horde_Db_Exception $e) {
                     throw new Horde_Vfs_Exception($e);
                 }
@@ -302,7 +302,7 @@ class Horde_Vfs_Musql extends Horde_Vfs_Sql
                         WHERE vfs_path = ? AND vfs_name= ? AND vfs_type = ?',
                        $this->_params['table']);
         try {
-            $fileList = $this->_db->selectAll($sql, array($path, $name, self::FOLDER));
+            $fileList = $this->_db->select($sql, array($path, $name, self::FOLDER));
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Vfs_Exception($e);
         }
@@ -354,7 +354,7 @@ class Horde_Vfs_Musql extends Horde_Vfs_Sql
                         WHERE vfs_path = ? AND (vfs_owner = ? OR vfs_perms \&\& ?)',
                        $length_op, $this->_params['table']);
         try {
-            $fileList = $this->_db->selectAll(
+            $fileList = $this->_db->select(
                 $sql,
                 array($path, $this->_params['user'], self::FLAG_READ));
         } catch (Horde_Db_Exception $e) {
@@ -433,7 +433,7 @@ class Horde_Vfs_Musql extends Horde_Vfs_Sql
                         WHERE vfs_path = ? AND vfs_name= ?',
                        $this->_params['table']);
         try {
-            $fileList = $this->_db->selectAll($sql, array($path, $name));
+            $fileList = $this->_db->select($sql, array($path, $name));
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Vfs_Exception($e);
         }

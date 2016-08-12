@@ -118,7 +118,7 @@ class Horde_Share_Sqlng extends Horde_Share_Sql
         $query = $this->_db->addLimitOffset($query, array('limit' => $params['count'], 'offset' => $params['from']));
 
         try {
-            $rows = $this->_db->selectAll($query);
+            $rows = $this->_db->select($query);
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Share_Exception($e);
         }
@@ -154,7 +154,7 @@ class Horde_Share_Sqlng extends Horde_Share_Sql
     {
         $query = 'SELECT * FROM ' . $this->_table . ' WHERE share_owner IS NULL';
         try {
-            $rows = $this->_db->selectAll($query);
+            $rows = $this->_db->select($query);
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Share_Exception($e->getMessage());
         }
@@ -360,7 +360,7 @@ class Horde_Share_Sqlng extends Horde_Share_Sql
             . '_users WHERE user_uid = ' .  $this->_db->quote($userid)
             . ' AND (' . $this->_getPermsCriteria('perm', $perms) . ')';
         try {
-            $users = $this->_db->selectAll($query);
+            $users = $this->_db->select($query);
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Share_Exception($e->getMessage());
         }
@@ -382,7 +382,7 @@ class Horde_Share_Sqlng extends Horde_Share_Sql
                     . implode(',', $group_ids) . ') AND ('
                     . $this->_getPermsCriteria('perm', $perms) . ')';
                 try {
-                    $groups = $this->_db->selectAll($query);
+                    $groups = $this->_db->select($query);
                 } catch (Horde_Db_Exception $e) {
                     throw new Horde_Share_Exception($e->getMessage());
                 }

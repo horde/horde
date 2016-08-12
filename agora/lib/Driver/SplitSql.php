@@ -122,7 +122,7 @@ class Agora_Driver_SplitSql extends Agora_Driver {
         }
 
         try {
-            $forums = $this->_db->selectAll($sql, $params);
+            $forums = $this->_db->select($sql, $params);
         } catch (Horde_Db_Exception $e) {
             throw new Agora_Exception($e->getMessage());
         }
@@ -180,7 +180,7 @@ class Agora_Driver_SplitSql extends Agora_Driver {
         }
 
         try {
-            $messages = $this->_db->selectAll($bind[0], $bind[1]);
+            $messages = $this->_db->select($bind[0], $bind[1]);
         } catch (Horde_Db_Exception $e) {
             throw new Agora_Exception($e->getMessage());
         }
@@ -226,7 +226,7 @@ class Agora_Driver_SplitSql extends Agora_Driver {
         }
 
         try {
-            $messages = $this->_db->selectAll($bind[0], $bind[1]);
+            $messages = $this->_db->select($bind[0], $bind[1]);
         } catch (Horde_Db_Exception $e) {
             throw new Agora_Exception($e->getMessage());
         }

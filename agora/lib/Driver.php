@@ -324,7 +324,7 @@ class Agora_Driver {
 
         $sql = 'SELECT message_thread, parents, message_id FROM ' . $this->_threads_table . ' WHERE parents LIKE ?';
         try {
-            $children = $this->_db->selectAll($sql, array(":$thread_id:%$message_id%"));
+            $children = $this->_db->select($sql, array(":$thread_id:%$message_id%"));
         } catch (Horde_Db_Exception $e) {
             throw new Agora_Exception($e->getMessage());
         }
@@ -397,7 +397,7 @@ class Agora_Driver {
 
         $sql = 'SELECT message_thread, parents, message_id FROM ' . $this->_threads_table . ' WHERE message_id = ? OR message_thread = ?';
         try {
-            $children = $this->_db->selectAll($sql, array($thread_from, $thread_from));
+            $children = $this->_db->select($sql, array($thread_from, $thread_from));
         } catch (Horde_Db_Exception $e) {
             throw new Agora_Exception($e->getMessage());
         }
@@ -940,7 +940,7 @@ class Agora_Driver {
     /**
      * Formats a message body.
      *
-     * @param string $messages  Messages to format
+     * @param array|Traversable $messages  Messages to format
      * @param string $sort_by   List format order
      * @param boolean $format     Format messages body
      * @param integer $thread_root      Thread root
@@ -1109,7 +1109,7 @@ class Agora_Driver {
             . ($sort_dir ? 'DESC' : 'ASC');
 
         try {
-            $messages = $this->_db->selectAll($sql, array(0));
+            $messages = $this->_db->select($sql, array(0));
         } catch (Horde_Db_Exception $e) {
             throw new Agora_Exception($e->getMessage());
         }
@@ -1635,7 +1635,7 @@ class Agora_Driver {
 
         $sql = 'SELECT file_id, file_name, file_size, file_type FROM agora_files WHERE message_id = ?';
         try {
-            $files = $this->_db->selectAll($sql, array($message_id));
+            $files = $this->_db->select($sql, array($message_id));
         } catch (Horde_Db_Exception $e) {
             throw new Agora_Exception($e->getMessage());
         }
@@ -1880,7 +1880,7 @@ class Agora_Driver {
      *
      * @param integer $forums      Forums to format
      *
-     * @return array  An array of forums.
+     * @return array|Traversable  An array of forums.
      * @throws Agora_Exception
      */
     protected function _formatForums($forums)
@@ -1892,7 +1892,7 @@ class Agora_Driver {
         $sql = 'SELECT forum_id, horde_uid'
             . ' FROM agora_moderators WHERE forum_id IN (' . implode(',', array_values($forums_list)) . ')';
         try {
-            $moderators = $this->_db->selectAll($sql);
+            $moderators = $this->_db->select($sql);
         } catch (Horde_Db_Exception $e) {
             throw new Agora_Exception($e->getMessage());
         }

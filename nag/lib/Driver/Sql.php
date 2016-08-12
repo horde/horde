@@ -486,7 +486,7 @@ class Nag_Driver_Sql extends Nag_Driver
         }
 
         try {
-            $result = $this->_db->selectAll($query, $values);
+            $result = $this->_db->select($query, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Nag_Exception($e->getMessage());
         }
@@ -551,7 +551,7 @@ class Nag_Driver_Sql extends Nag_Driver
         $values = array($this->_tasklist, $parentId);
 
         try {
-            $result = $this->_db->selectAll($query, $values);
+            $result = $this->_db->select($query, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Nag_Exception($e->getMessage());
         }
@@ -590,7 +590,7 @@ class Nag_Driver_Sql extends Nag_Driver
         $values = array($this->_tasklist, $date);
 
         try {
-            $result = $this->_db->selectAll($q, $values);
+            $result = $this->_db->select($q, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Nag_Exception($e->getMessage());
         }

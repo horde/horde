@@ -811,7 +811,7 @@ class Ansel_Storage
             $sql = $this->_db->addLimitOffset($sql, array('limit' => (int)$limit));
         }
         try {
-            $images = $this->_db->selectAll($sql, $criteria);
+            $images = $this->_db->select($sql, $criteria);
         } catch (Horde_Db_Exception $e) {
             throw new Ansel_Exception($e);
         }
@@ -1126,7 +1126,7 @@ class Ansel_Storage
         );
         try {
             if ($field_count > 1) {
-                $results = $this->_db->selectAll($sql);
+                $results = $this->_db->select($sql);
                 $images = array();
                 foreach ($results as $image) {
                     $images[$image['image_id']] = $image;

@@ -2068,7 +2068,7 @@ class Turba_Api extends Horde_Registry_Api
             list($db, $sql) = $this->_getGroupObject($source, 'Group');
 
             try {
-                $results = $db->selectAll($sql);
+                $results = $db->select($sql);
             } catch (Horde_Db_Exception $e) {
                 throw new Horde_Exception(_("Server error when performing search."));
             }

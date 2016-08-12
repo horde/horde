@@ -290,7 +290,7 @@ class Ulaform_Driver_Sql extends Ulaform_Driver {
         $sql .= ' ORDER BY field_order';
 
         try {
-            $results = $this->_db->selectAll($sql, $values);
+            $results = $this->_db->select($sql, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Ulaform_Exception($e);
         }

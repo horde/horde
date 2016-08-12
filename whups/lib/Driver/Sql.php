@@ -1075,7 +1075,7 @@ class Whups_Driver_Sql extends Whups_Driver
             . 'GROUP BY ' . $groupby;
 
         try {
-            $info = $this->_db->selectAll($query);
+            $info = $this->_db->select($query);
         } catch (Horde_Db_Exception $e) {
             throw new Whups_Exception($e);
         }
@@ -1313,7 +1313,7 @@ class Whups_Driver_Sql extends Whups_Driver
         /* Deleting attachments. */
         if (isset($GLOBALS['conf']['vfs']['type'])) {
             try {
-                $attachments = $this->_db->selectAll(
+                $attachments = $this->_db->select(
                     'SELECT ticket_id, log_value FROM whups_logs '
                         . 'WHERE log_type = ? AND transaction_id = ?',
                     array('attachment', $transaction));
@@ -1612,7 +1612,7 @@ class Whups_Driver_Sql extends Whups_Driver
     {
         // Clean up the tickets associated with the queue.
         try {
-            $result = $this->_db->selectAll(
+            $result = $this->_db->select(
                 'SELECT ticket_id FROM whups_tickets WHERE queue_id = ?',
                 array((int)$queueId));
         } catch (Horde_Db_Exception $e) {
@@ -1987,7 +1987,7 @@ class Whups_Driver_Sql extends Whups_Driver
 
         $query = "SELECT $fields FROM $from$where ORDER BY $order";
         try {
-            $states = $this->_db->selectAll($query);
+            $states = $this->_db->select($query);
         } catch (Horde_Db_Exception $e) {
             throw new Whups_Exception($e);
         }
@@ -2293,7 +2293,7 @@ class Whups_Driver_Sql extends Whups_Driver
 
         $query = "SELECT $fields FROM $from$where ORDER BY $order";
         try {
-            $priorities = $this->_db->selectAll($query);
+            $priorities = $this->_db->select($query);
         } catch (Horde_Db_Exception $e) {
             throw new Whups_Exception($e);
         }
@@ -2532,7 +2532,7 @@ class Whups_Driver_Sql extends Whups_Driver
     public function getReplies($type)
     {
         try {
-            $rows = $this->_db->selectAll(
+            $rows = $this->_db->select(
                 'SELECT reply_id, reply_name, reply_text '
                     . 'FROM whups_replies WHERE type_id = ? ORDER BY reply_name',
                 array((int)$type));
@@ -2936,7 +2936,7 @@ class Whups_Driver_Sql extends Whups_Driver
 
         $query = "SELECT $fields FROM $from$where ORDER BY $order";
         try {
-            $attributes = $this->_db->selectAll($query);
+            $attributes = $this->_db->select($query);
         } catch (Horde_Db_Exception $e) {
             throw new Whups_Exception($e);
         }
@@ -3173,7 +3173,7 @@ class Whups_Driver_Sql extends Whups_Driver
     protected function _getAllTicketAttributesWithNames($ticket_id)
     {
         try {
-            $attributes = $this->_db->selectAll(
+            $attributes = $this->_db->select(
                 'SELECT d.attribute_id, d.attribute_name, '
                     . 'd.attribute_description, d.attribute_type, '
                     . 'd.attribute_params, d.attribute_required, '
@@ -3222,7 +3222,7 @@ class Whups_Driver_Sql extends Whups_Driver
             }
 
             try {
-                $owners = $this->_db->selectAll(
+                $owners = $this->_db->select(
                     'SELECT ticket_id AS id, ticket_owner AS owner '
                         . 'FROM whups_ticket_owners WHERE ticket_id IN '
                         . '(' . str_repeat('?, ', count($ticketId) - 1) . '?)',
@@ -3232,7 +3232,7 @@ class Whups_Driver_Sql extends Whups_Driver
             }
         } else {
             try {
-                $owners = $this->_db->selectAll(
+                $owners = $this->_db->select(
                     'SELECT ticket_id as id, ticket_owner as owner '
                         . 'FROM whups_ticket_owners WHERE ticket_id = ?',
                     array((int)$ticketId));

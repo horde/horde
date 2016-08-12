@@ -17,7 +17,7 @@ Horde_Registry::appInit('kronolith', array('cli' => true));
 /* Prepare DB stuff. */
 $db = $injector->getInstance('Horde_Db_Adapter');
 try {
-    $result = $db->selectAll('SELECT event_title, event_id, event_creator_id, event_start, event_end, event_allday, event_recurenddate, event_exceptionoriginaldate FROM kronolith_events ORDER BY event_creator_id');
+    $result = $db->select('SELECT event_title, event_id, event_creator_id, event_start, event_end, event_allday, event_recurenddate, event_exceptionoriginaldate FROM kronolith_events ORDER BY event_creator_id');
 } catch (Horde_Db_Exception $e) {
     echo $e->getMessage() . "\n";
     exit;

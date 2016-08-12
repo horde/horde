@@ -56,7 +56,7 @@ class Horde_Queue_Storage_Db extends Horde_Queue_Storage
         $values[] = $this->_queue;
         $values[] = $num;
         try {
-            $rows = $this->_db->selectAll($query, $values);
+            $rows = $this->_db->select($query, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Queue_Exception($e);
         }

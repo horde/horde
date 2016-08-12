@@ -116,10 +116,7 @@ class Horde_Core_Auth_Signup_Sql extends Horde_Core_Auth_Signup_Base
         $query = 'SELECT * FROM ' . $this->_params['table'] .
                  ' ORDER BY signup_date';
 
-        $result = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Db')->create('horde', 'signup')->selectAll($query);
-        if (empty($result)) {
-            return array();
-        }
+        $result = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Db')->create('horde', 'signup')->select($query);
 
         $signups = array();
         foreach ($result as $signup) {

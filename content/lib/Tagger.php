@@ -216,7 +216,7 @@ class Content_Tagger
                 . $this->_t('tags') . ' t INNER JOIN ' . $this->_t('tagged')
                 . ' tagged ON t.tag_id = tagged.tag_id AND tagged.object_id IN ('
                 . str_repeat('?,', count($object_ids) - 1) . '?)';
-            $tags = $this->_db->selectAll($sql, array_keys($object_ids));
+            $tags = $this->_db->select($sql, array_keys($object_ids));
             foreach ($tags as $tag) {
                 if (empty($results[$object_ids[$tag['object_id']]])) {
                     $results[$object_ids[$tag['object_id']]] = array();
@@ -348,7 +348,7 @@ class Content_Tagger
         }
 
         try {
-            $rows = $this->_db->selectAll($sql);
+            $rows = $this->_db->select($sql);
             $results = array();
             foreach ($rows as $row) {
                 $results[$row['tag_id']] = $row;

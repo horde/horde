@@ -89,7 +89,7 @@ class Trean_Bookmarks
                 ORDER BY bookmark_' . $sortby . ($sortdir ? ' DESC' : '');
         $sql = $GLOBALS['trean_db']->addLimitOffset($sql, array('limit' => $count, 'offset' => $from));
 
-        return $this->_resultSet($GLOBALS['trean_db']->selectAll($sql, $values));
+        return $this->_resultSet($GLOBALS['trean_db']->select($sql, $values));
     }
 
     /**
@@ -121,7 +121,7 @@ class Trean_Bookmarks
                 WHERE user_id = ? AND bookmark_id IN (' . implode(',', $bookmarkIds) . ')';
         $values = array($this->_userId);
 
-        return $this->_resultSet($GLOBALS['trean_db']->selectAll($sql, $values));
+        return $this->_resultSet($GLOBALS['trean_db']->select($sql, $values));
     }
 
     /**
@@ -206,7 +206,7 @@ class Trean_Bookmarks
         }
 
         try {
-            $bookmarks = $GLOBALS['trean_db']->selectAll($sql);
+            $bookmarks = $GLOBALS['trean_db']->select($sql);
         } catch (Horde_Db_Exception $e) {
             throw new Trean_Exception($e);
         }

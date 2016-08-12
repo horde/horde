@@ -44,7 +44,7 @@ class AnselUpgradeStyle extends Horde_Db_Migration_Base
                  'GalleryFaces' => array(),
                  'OwnerFaces' => array()));
 
-        $rows = $this->_connection->selectAll($sql);
+        $rows = $this->_connection->select($sql);
         $update = 'UPDATE ansel_shares SET attribute_style = ? WHERE share_id = ?;';
         foreach ($rows as $row) {
             // Make sure we haven't already migrated

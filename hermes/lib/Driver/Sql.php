@@ -275,7 +275,7 @@ class Hermes_Driver_Sql extends Hermes_Driver
         $sql .= ' ORDER BY timeslice_date DESC, clientjob_id';
 
         try {
-            $hours = $this->_db->selectAll($sql);
+            $hours = $this->_db->select($sql);
         } catch (Horde_Db_Exception $e) {
             throw new Hermes_Exception($e);
         }
@@ -410,7 +410,7 @@ class Hermes_Driver_Sql extends Hermes_Driver
             . ' ORDER BY jobtype_name';
 
         try {
-            $rows = $this->_db->selectAll($sql, $values);
+            $rows = $this->_db->select($sql, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Hermes_Exception($e);
         }
@@ -571,7 +571,7 @@ class Hermes_Driver_Sql extends Hermes_Driver
             . (count($where) ? ' WHERE ' . join(' AND ', $where) : '');
 
         try {
-            $rows = $this->_db->selectAll($sql, $values);
+            $rows = $this->_db->select($sql, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Hermes_Exception($e);
         }
@@ -652,7 +652,7 @@ class Hermes_Driver_Sql extends Hermes_Driver
         $values = array($clientID);
 
         try {
-            $rows = $this->_db->selectAll($sql, $values);
+            $rows = $this->_db->select($sql, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Hermes_Exception($e);
         }

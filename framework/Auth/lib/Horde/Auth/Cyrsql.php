@@ -347,7 +347,7 @@ class Horde_Auth_Cyrsql extends Horde_Auth_Sql
         }
 
         try {
-            $result = $this->_db->selectAll($query);
+            $result = $this->_db->select($query);
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Auth_Exception($e);
         }

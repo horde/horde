@@ -166,7 +166,7 @@ class Turba_Driver_Sql extends Turba_Driver
 
             return $this->_parseRead(
                 $blobFields,
-                $this->_db->selectAll(
+                $this->_db->select(
                     'SELECT ' . implode(', ', $fields) . ' FROM ' . $this->_params['table'] . $where,
                     $values
                 )
@@ -404,7 +404,7 @@ class Turba_Driver_Sql extends Turba_Driver
             . $this->_params['table'] . ' WHERE ' . $where;
 
         try {
-            return $this->_parseRead($blobFields, $this->_db->selectAll($query, $values), $dateFields);
+            return $this->_parseRead($blobFields, $this->_db->selectx($query, $values), $dateFields);
         } catch (Horde_Db_Exception $e) {
             throw new Turba_Exception(_("Server error when performing search."));
         }

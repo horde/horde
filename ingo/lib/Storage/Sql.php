@@ -59,7 +59,7 @@ class Ingo_Storage_Sql extends Ingo_Storage
         $values = array(Ingo::getUser());
 
         try {
-            $result = $this->_params['db']->selectAll($query, $values);
+            $result = $this->_params['db']->select($query, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Ingo_Exception($e);
         }

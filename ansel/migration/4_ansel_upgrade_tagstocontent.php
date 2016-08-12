@@ -44,7 +44,7 @@ class AnselUpgradeTagsToContent extends Horde_Db_Migration_Base
             // tag all tags for a single gallery at once. Probably not worth it for a one
             // time upgrade script.
             $this->announce('Migrating gallery tags. This may take a while.');
-            $rows = $this->_connection->selectAll($sql);
+            $rows = $this->_connection->select($sql);
             foreach ($rows as $row) {
                 $this->_tagger->tag(
                     $row['share_owner'],
@@ -57,7 +57,7 @@ class AnselUpgradeTagsToContent extends Horde_Db_Migration_Base
                 . 'LEFT JOIN ansel_shares ON ansel_shares.share_id = ansel_images.gallery_id '
                 . 'LEFT JOIN ansel_tags ON ansel_tags.tag_id = ansel_images_tags.tag_id';
             $this->announce('Migrating image tags. This may take even longer...');
-            $rows = $this->_connection->selectAll($sql);
+            $rows = $this->_connection->select($sql);
             foreach ($rows as $row) {
                 $this->_tagger->tag(
                     $row['share_owner'],

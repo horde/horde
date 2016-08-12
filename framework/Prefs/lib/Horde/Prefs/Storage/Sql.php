@@ -78,7 +78,7 @@ class Horde_Prefs_Storage_Sql extends Horde_Prefs_Storage_Base
         $values = array($this->_params['user'], $scope_ob->scope);
 
         try {
-            $result = $this->_db->selectAll($query, $values);
+            $result = $this->_db->select($query, $values);
             $columns = $this->_db->columns($this->_params['table']);
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Prefs_Exception($e);

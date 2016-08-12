@@ -46,7 +46,7 @@ class WhupsUpgradeTransactions extends Horde_Db_Migration_Base
     {
         $this->beginDbTransaction();
         $sql = 'SELECT DISTINCT transaction_id, log_timestamp, user_id from whups_logs ORDER BY transaction_id';
-        $rows = $this->selectAll($sql);
+        $rows = $this->select($sql);
         $insert = 'INSERT INTO whups_transactions (transaction_id, '
         . 'transaction_timestamp, transaction_user_id) VALUES(?, ?, ?)';
 
@@ -87,7 +87,7 @@ class WhupsUpgradeTransactions extends Horde_Db_Migration_Base
         $this->addColumn('whups_logs', 'log_timestamp', 'integer', array('null' => false));
 
         $sql = 'SELECT * FROM whups_transactions';
-        $rows = $this->selectAll($sql);
+        $rows = $this->select($sql);
         $sql = 'UPDATE whups_logs SET user_id = ?, log_timestamp = ? WHERE transaction_id = ?';
         $this->beginDbTransaction();
         try {

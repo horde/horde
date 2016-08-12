@@ -38,7 +38,7 @@ try {
 $query = 'SELECT attribute_name, attribute_key, attribute_value FROM horde_datatree_attributes WHERE datatree_id = ?';
 foreach ($shares_result as $share_id => $share_name) {
     $data = array('share_name' => $share_name);
-    $rows = $db->selectAll($query, array($share_id));
+    $rows = $db->select($query, array($share_id));
     $users = array();
     $groups = array();
     foreach ($rows as $row) {

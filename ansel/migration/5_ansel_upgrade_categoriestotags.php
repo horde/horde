@@ -34,7 +34,7 @@ class AnselUpgradeCategoriesToTags extends Horde_Db_Migration_Base
         if (in_array('attribute_category', array_keys($cols))) {
             $sql = 'SELECT share_id, attribute_category, share_owner FROM ansel_shares';
             $this->announce('Migrating gallery categories.');
-            $rows = $this->_connection->selectAll($sql);
+            $rows = $this->_connection->select($sql);
             foreach ($rows as $row) {
                 $this->_tagger->tag(
                     $row['share_owner'],

@@ -66,7 +66,7 @@ class Mnemo_Driver_Sql extends Mnemo_Driver
         $values = array($this->_notepad);
 
         try {
-            $rows = $this->_db->selectAll($query, $values);
+            $rows = $this->_db->select($query, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Mnemo_Exception($e->getMessage());
         }
