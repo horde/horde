@@ -73,6 +73,14 @@ class Horde_Service_Weather_Metar extends Horde_Service_Weather_Base
      */
     public function __construct(array $params = array())
     {
+        // Mini-hack to avoid passing a http_client object if
+        // we really don't need it.
+        if (empty($params['http_client']) &&
+            !empty($params['metar_path']) &&
+            !empty($params['taf_path'])) {
+            $params['http_client'] = true;
+        }
+
         parent::__construct($params);
         if (!empty($params['db'])) {
             $this->_db = $params['db'];
