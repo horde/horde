@@ -102,18 +102,34 @@ class Horde_Service_Weather_Metar extends Horde_Service_Weather_Base
      * @param string $location  The location string.
      *
      * @return Horde_Service_Weather_Current_Base
+     * @throws  Horde_Service_Weather_Exception
      */
     public function getCurrentConditions($location)
     {
-        // @todo - need more info if DB handle is available.
         $this->_station = $this->_getStation($location);
-        $url = sprintf('%s/%s.TXT', $this->_metar_path, $location);
 
-        // @todo Handle different sources of data.
+        // Sniff out type of request.
+        $endpoint = sprintf('%s/%s.TXT', $this->_metar_path, $location);
+        $pathinfo = parse_url($endpoint);
+        if (empty($pathinfo['scheme']) && file_exists($endpoint)) {
+            $pathinfo['scheme'] = 'file';
+        }
+        switch ($pathinfo['scheme']) {
+        case 'http':
+            $data = $this->_makeRequest($endpoint);
+            break;
+        case 'file':
+            $data = file_get_contents(realpath($endpoint));
+            break;
+        }
+        if (empty($data)) {
+            throw new Horde_Service_Weather_Exception('METAR file not found.');
+        }
+
         $parser = new Horde_Service_Weather_Parser_Metar(array('units' => $this->units));
 
         return new Horde_Service_Weather_Current_Metar(
-            $parser->parse($this->_makeRequest($url)),
+            $parser->parse($data),
             $this
         );
     }
@@ -149,19 +165,36 @@ class Horde_Service_Weather_Metar extends Horde_Service_Weather_Base
      *                          (Ignored)
      *
      * @return Horde_Service_Weather_Forecast_Base
+     * @throws  Horde_Service_Weather_Exception
      */
     public function getForecast(
         $location,
         $length = Horde_Service_Weather::FORECAST_3DAY,
         $type = Horde_Service_Weather::FORECAST_TYPE_STANDARD)
     {
-        // @todo - need more info if DB handle is available.
         $this->_station = $this->_getStation($location);
-        $url = sprintf('%s/%s.TXT', $this->_taf_path, $location);
 
+        // Sniff out type of request.
+        $endpoint = sprintf('%s/%s.TXT', $this->_taf_path, $location);
+        $pathinfo = parse_url($endpoint);
+        if (empty($pathinfo['scheme']) && file_exists($endpoint)) {
+            $pathinfo['scheme'] = 'file';
+        }
+        switch ($pathinfo['scheme']) {
+        case 'http':
+            $url = sprintf('%s/%s.TXT', $this->_taf_path, $location);
+            $data = $this->_makeRequest($url);
+            break;
+        case 'file':
+           $data = file_get_contents(realpath($pathinfo['path']));
+            break;
+        }
+        if (empty($data)) {
+            throw new Horde_Service_Weather_Exception('TAF file not found.');
+        }
         $parser = new Horde_Service_Weather_Parser_Taf(array('units' => $this->units));
         return new Horde_Service_Weather_Forecast_Taf(
-            $parser->parse($this->_makeRequest($url)),
+            $parser->parse($data),
             $this
         );
     }
