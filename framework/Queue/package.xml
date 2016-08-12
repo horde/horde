@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix deleting retrieved tasks from SQL storage.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -180,7 +180,7 @@
    <date>2015-10-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix deleting retrieved tasks from SQL storage.
    </notes>
   </release>
  </changelog>
