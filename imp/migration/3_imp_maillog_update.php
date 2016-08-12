@@ -23,7 +23,7 @@ class ImpMaillogUpdate extends Horde_Db_Migration_Base
         if (in_array('horde_histories', $tableList)) {
             $sql = sprintf('SELECT history_id, object_uid FROM horde_histories WHERE object_uid LIKE %s', $this->quote('imp.%'));
             $this->announce('Loading existing history from the maillog.');
-            $rows = $this->_connection->selectAll($sql);
+            $rows = $this->_connection->select($sql);
             $sql = 'UPDATE horde_histories SET object_uid = ? WHERE history_id = ?';
             $this->announce('Updating entries. This may take some time.');
             foreach ($rows as $row) {
@@ -42,7 +42,7 @@ class ImpMaillogUpdate extends Horde_Db_Migration_Base
         if (in_array('horde_histories', $tableList)) {
             $sql = sprintf('SELECT history_id, object_uid FROM horde_histories WHERE object_uid LIKE %s', $this->quote('imp:%'));
             $this->announce('Loading existing history from the maillog.');
-            $rows = $this->_connection->selectAll($sql);
+            $rows = $this->_connection->select($sql);
             $sql = 'UPDATE horde_histories SET object_uid = ? WHERE history_id = ?';
             $this->announce('Updating entries. This may take some time.');
             foreach ($rows as $row) {
