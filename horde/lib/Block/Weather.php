@@ -150,6 +150,8 @@ class Horde_Block_Weather extends Horde_Core_Block
             $view->location = $this->_weather->searchLocations($location);
         } catch (Horde_Service_Weather_Exception $e) {
             return $e->getMessage();
+        } catch (Horde_Exception_NotFound $e) {
+            return _(sprintf("Location %s not found."), $location);
         }
         try {
             $view->forecast = $this->_weather->getForecast($view->location->code, $this->_params['days']);
