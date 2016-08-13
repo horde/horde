@@ -266,10 +266,13 @@ class Horde_Service_Weather_Metar extends Horde_Service_Weather_Base
 
         $sql = 'SELECT icao, name FROM ' . $this->_tableName . ' WHERE '
             . 'name LIKE ? OR icao LIKE ?';
+        try {
+            $rows = $this->_db->select($sql, array($search . '%', $search . '%'));
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Service_Weather_Exception($e);
+        }
 
-        $rows = $this->_db->select($sql, array($search . '%', $search . '%'));
         $results = array();
-
         foreach ($rows as $row) {
             $obj = new stdClass();
             $obj->name = $row['name'];
