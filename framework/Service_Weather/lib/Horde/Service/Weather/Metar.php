@@ -113,6 +113,8 @@ class Horde_Service_Weather_Metar extends Horde_Service_Weather_Base
         $pathinfo = parse_url($endpoint);
         if (empty($pathinfo['scheme']) && file_exists($endpoint)) {
             $pathinfo['scheme'] = 'file';
+        } elseif (empty($pathinfo['scheme'])) {
+            throw new Horde_Service_Weather_Exception('Invalid path to METAR data.');
         }
         switch ($pathinfo['scheme']) {
         case 'http':
@@ -179,6 +181,8 @@ class Horde_Service_Weather_Metar extends Horde_Service_Weather_Base
         $pathinfo = parse_url($endpoint);
         if (empty($pathinfo['scheme']) && file_exists($endpoint)) {
             $pathinfo['scheme'] = 'file';
+        } elseif (empty($pathinfo['scheme'])) {
+            throw new Horde_Service_Weather_Exception('Invalid path to TAF data.');
         }
         switch ($pathinfo['scheme']) {
         case 'http':
@@ -186,7 +190,7 @@ class Horde_Service_Weather_Metar extends Horde_Service_Weather_Base
             $data = $this->_makeRequest($url);
             break;
         case 'file':
-           $data = file_get_contents(realpath($pathinfo['path']));
+            $data = file_get_contents(realpath($pathinfo['path']));
             break;
         }
         if (empty($data)) {
