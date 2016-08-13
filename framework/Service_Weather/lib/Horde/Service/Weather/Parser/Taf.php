@@ -126,11 +126,11 @@ class Horde_Service_Weather_Parser_Taf extends Horde_Service_Weather_Parser_Base
                         if ($result[5] == 'KTS') {
                             $result[5] = 'KT';
                         }
-                        $pointer['wind'] = Horde_Service_Weather::convertSpeed(
+                        $pointer['wind'] = round(Horde_Service_Weather::convertSpeed(
                             $result[2],
                             $result[5],
                             $this->_unitMap[self::UNIT_KEY_SPEED]
-                        );
+                        ));
                         if ($result[1] == 'VAR' || $result[1] == 'VRB') {
                             $pointer['windDegrees'] = Horde_Service_Weather_Translation::t('Variable');
                             $pointer['windDirection'] = Horde_Service_Weather_Translation::t('Variable');
@@ -139,11 +139,11 @@ class Horde_Service_Weather_Parser_Taf extends Horde_Service_Weather_Parser_Base
                             $pointer['windDirection'] = Horde_Service_Weather::degToDirection($result[1]);
                         }
                         if (is_numeric($result[4])) {
-                            $pointer['windGust'] = Horde_Service_Weather::convertSpeed(
+                            $pointer['windGust'] = round(Horde_Service_Weather::convertSpeed(
                                 $result[4],
                                 $result[5],
                                 $this->_unitMap[self::UNIT_KEY_SPEED]
-                            );
+                            ));
                         }
                         if (isset($probability)) {
                             $pointer['windProb'] = $probability;
@@ -300,11 +300,11 @@ class Horde_Service_Weather_Parser_Taf extends Horde_Service_Weather_Parser_Base
                         if ($result[4] == 'KTS') {
                             $result[4] = 'KT';
                         }
-                        $pointer['windshear'] = Horde_Service_Weather::convertSpeed(
+                        $pointer['windshear'] = round(Horde_Service_Weather::convertSpeed(
                             $result[3],
                             $result[4],
                             $this->_unitMap[self::UNIT_KEY_SPEED]
-                        );
+                        ));
                         $pointer['windshearHeight'] = $result[1] * 100;
                         $pointer['windshearDegrees'] = $result[2];
                         $pointer['windshearDirection'] = Horde_Service_Weather::degToDirection($result[2]);

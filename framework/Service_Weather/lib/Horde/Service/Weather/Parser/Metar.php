@@ -88,11 +88,11 @@ class Horde_Service_Weather_Parser_Metar extends Horde_Service_Weather_Parser_Ba
                         unset($metarCode['station']);
                         break;
                     case 'wind':
-                        $pointer['wind'] = Horde_Service_Weather::convertSpeed(
+                        $pointer['wind'] = round(Horde_Service_Weather::convertSpeed(
                             $result[2],
                             $result[5],
                             $this->_unitMap[self::UNIT_KEY_SPEED]
-                        );
+                        ));
                         $wind_mph = Horde_Service_Weather::convertSpeed(
                             $result[2],
                             $result[5],
@@ -101,7 +101,7 @@ class Horde_Service_Weather_Parser_Metar extends Horde_Service_Weather_Parser_Ba
                         );
                         if ($result[1] == 'VAR' || $result[1] == 'VRB') {
                             // Variable winds
-                            $pointer['windDegrees']   = Horde_Service_Weather_Translation::t('Variable');
+                            $pointer['windDegrees']   = round(Horde_Service_Weather_Translation::t('Variable'));
                             $pointer['windDirection'] = Horde_Service_Weather_Translation::t('Variable');
                         } else {
                             // Save wind degree and calc direction
@@ -110,11 +110,11 @@ class Horde_Service_Weather_Parser_Metar extends Horde_Service_Weather_Parser_Ba
                         }
                         if (is_numeric($result[4])) {
                             // Wind with gusts...
-                            $pointer['windGust'] = Horde_Service_Weather::convertSpeed(
+                            $pointer['windGust'] = round(Horde_Service_Weather::convertSpeed(
                                 $result[4],
                                 $result[5],
                                 $this->_unitMap[self::UNIT_KEY_SPEED]
-                            );
+                            ));
                         }
                         break;
                     case 'windVar':
@@ -256,45 +256,50 @@ class Horde_Service_Weather_Parser_Metar extends Horde_Service_Weather_Parser_Ba
                         if ($result[1] == 'M') {
                             $result[2] *= -1;
                         }
-                        $pointer['temperature'] = Horde_Service_Weather::convertTemperature(
+                        $pointer['temperature'] = round(Horde_Service_Weather::convertTemperature(
                             $result[2],
                             'c',
                             $this->_unitMap[self::UNIT_KEY_TEMP]
-                        );
+                        ));
                         $temp_f = Horde_Service_Weather::convertTemperature($result[2], 'c', 'f');
                         if (sizeof($result) > 4) {
                             // same for dewpoint
                             if ($result[4] == 'M') {
                                 $result[5] *= -1;
                             }
-                            $pointer['dewPoint'] = Horde_Service_Weather::convertTemperature(
+                            $pointer['dewPoint'] = round(Horde_Service_Weather::convertTemperature(
                                 $result[5],
                                 'c',
                                 $this->_unitMap[self::UNIT_KEY_TEMP]
-                            );
-                            $pointer['humidity'] = Horde_Service_Weather::calculateHumidity($result[2], $result[5]);
+                            ));
+
+                            $pointer['humidity'] = round(Horde_Service_Weather::calculateHumidity($result[2], $result[5])) . '%';
                         }
                         if (isset($pointer['wind'])) {
                             // Now calculate windchill from temperature and windspeed
                             // Note these must be in F and MPH.
-                            $pointer['feltTemperature'] = Horde_Service_Weather::convertTemperature(
+                            $pointer['feltTemperature'] = round(Horde_Service_Weather::convertTemperature(
                                 Horde_Service_Weather::calculateWindChill($temp_f, $wind_mph),
                                 'f',
                                 $this->_unitMap[self::UNIT_KEY_TEMP]
-                            );
+                            ));
                         }
                         break;
                     case 'pressure':
                         if ($result[1] == 'A') {
                             // Pressure provided in inches
-                            $pointer['pressure'] = $result[2] / 100;
+                            $pointer['pressure'] = round(Horde_Service_Weather::convertPressure(
+                                $result[2] / 100,
+                                'in',
+                                $this->_unitMap[self::UNIT_KEY_PRESSURE]
+                            ), 2);
                         } elseif ($result[3] == 'Q') {
                             // ... in hectopascal
-                            $pointer['pressure'] = Horde_Service_Weather::convertPressure(
+                            $pointer['pressure'] = round(Horde_Service_Weather::convertPressure(
                                 $result[4],
                                 'hpa',
                                 $this->_unitMap[self::UNIT_KEY_PRESSURE]
-                            );
+                            ), 2);
                         }
                         break;
                     case 'trend':
