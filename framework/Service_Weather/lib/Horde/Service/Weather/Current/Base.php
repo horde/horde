@@ -27,7 +27,8 @@
  * @property string heat_index        Heat index.
  * @property string temp              The temperature.
  * @property string icon              Icon name to represent conditions.
- * @property string condition         The condition string.
+ * @property string condition         The condition string (for BC).
+ * @property string conditions        The condition string.
  * @property string humidity          The humidity.
  * @property string wind              Full wind description string.
  * @property string icon_url          Url to icon.

@@ -65,6 +65,7 @@ class Horde_Service_Weather_Current_Metar extends Horde_Service_Weather_Current_
                 ? $this->_properties['remark']['presschg']
                 : null;
         case 'condition':
+        case 'conditions':
             // Not really translatable from METAR data...but try to generate
             // some sensible human readable data.
             $units = $this->_weather->getUnits();

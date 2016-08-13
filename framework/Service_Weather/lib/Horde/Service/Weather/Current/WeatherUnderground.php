@@ -22,6 +22,7 @@
  {
     protected $_map = array(
         'condition' => 'weather',
+        'conditions' => 'weather',
         'humidity' => 'relative_humidity',
         'wind_direction' => 'wind_dir',
         'wind_degrees' => 'wind_degrees',

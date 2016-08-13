@@ -45,6 +45,7 @@
             return null;
 
         case 'condition':
+        case 'conditions':
             return Horde_Service_Weather_Translation::t($this->_properties->weatherDesc[0]->value);
 
         // Note that even though this is "localObsDateTime", the timezone set

@@ -44,6 +44,7 @@
             return null;
 
         case 'condition':
+        case 'conditions':
             return Horde_Service_Weather_Translation::t($this->_properties->weather[0]->main);
 
         case 'time':
