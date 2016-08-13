@@ -261,7 +261,6 @@ class Horde_Service_Weather_Metar extends Horde_Service_Weather_Base
     public function autocompleteLocation($search)
     {
         if (empty($this->_db)) {
-            // @todo - use the entire result set?
             return array();
         }
 
