@@ -250,6 +250,38 @@ class Horde_Service_Weather_Metar extends Horde_Service_Weather_Base
     }
 
     /**
+     * Searches for locations that begin with the text in $search.
+     *
+     * @param string $search  The text to search.
+     *
+     * @return array  An array of stdClass objects with 'name' and 'code'
+     *                properties.
+     * @throws Horde_Service_Weather_Exception
+     */
+    public function autocompleteLocation($search)
+    {
+        if (empty($this->_db)) {
+            // @todo - use the entire result set?
+            return array();
+        }
+
+        $sql = 'SELECT icao, name FROM ' . $this->_tableName . ' WHERE '
+            . 'name LIKE ? OR icao LIKE ?';
+
+        $rows = $this->_db->select($sql, array($search . '%', $search . '%'));
+        $results = array();
+
+        foreach ($rows as $row) {
+            $obj = new stdClass();
+            $obj->name = $row['name'];
+            $obj->code = $row['icao'];
+            $results[] = $obj;
+        }
+
+        return $results;
+    }
+
+    /**
      * Perform DB query to obtain list of airport codes.
      *
      * @return array
