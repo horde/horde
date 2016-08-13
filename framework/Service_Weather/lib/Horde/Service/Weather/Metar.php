@@ -222,9 +222,13 @@ class Horde_Service_Weather_Metar extends Horde_Service_Weather_Base
         $location,
         $type = Horde_Service_Weather::SEARCHTYPE_STANDARD)
     {
-        return new Horde_Service_Weather_Station(array(
-            'code' => $location
-        ));
+        try {
+            return $this->_getStation($location);
+        } catch (Horde_Exception_NotFound $e) {
+            return new Horde_Service_Weather_Station(array(
+                'code' => $location
+            ));
+        }
     }
 
     /**
@@ -319,6 +323,7 @@ class Horde_Service_Weather_Metar extends Horde_Service_Weather_Base
      *
      * @return Horde_Service_Weather_Station  The station object.
      * @throws  Horde_Service_Weather_Exception
+     * @throws  Horde_Exception_NotFound
      */
     protected function _getStation($code)
     {
@@ -334,6 +339,10 @@ class Horde_Service_Weather_Metar extends Horde_Service_Weather_Base
             $result = $this->_db->selectOne($sql, array($code));
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Service_Weather_Exception($e);
+        }
+
+        if (empty($result)) {
+            throw new Horde_Exception_NotFound();
         }
 
         return new Horde_Service_Weather_Station(array(
