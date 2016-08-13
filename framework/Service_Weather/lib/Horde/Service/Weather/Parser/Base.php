@@ -86,7 +86,7 @@ abstract class Horde_Service_Weather_Parser_Base
         $this->_unitMap = array(
             self::UNIT_KEY_TEMP => $this->_units == Horde_Service_Weather::UNITS_METRIC ? 'c' : 'f',
             self::UNIT_KEY_SPEED => $this->_units == Horde_Service_Weather::UNITS_METRIC ? 'kph' : 'mph',
-            self::UNIT_KEY_PRESSURE => $this->_units == Horde_Service_Weather::UNITS_METRIC ? 'mm' : 'in',
+            self::UNIT_KEY_PRESSURE => $this->_units == Horde_Service_Weather::UNITS_METRIC ? 'mb' : 'in',
             self::UNIT_KEY_DISTANCE => $this->_units == Horde_Service_Weather::UNITS_METRIC ? 'km' : 'sm'
         );
 
