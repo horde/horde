@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2016-07-28</date>
+ <date>2016-08-13</date>
  <version>
   <release>2.25.1</release>
   <api>2.25.0</api>
@@ -329,12 +329,16 @@
         <dir name="Geocoder">
          <file name="Geonames.php" role="php" />
         </dir> <!-- /lib/Horde/Core/Ajax/Imple/Geocoder -->
+        <dir name="WeatherLocationAutoCompleter">
+         <file name="Base.php" role="php" />
+         <file name="Metar.php" role="php" />
+         <file name="Weather.php" role="php" />
+        </dir> <!-- /lib/Horde/Core/Ajax/Imple/WeatherLocationAutoCompleter -->
         <file name="AutoCompleter.php" role="php" />
         <file name="ContactAutoCompleter.php" role="php" />
         <file name="InPlaceEditor.php" role="php" />
         <file name="SpellChecker.php" role="php" />
         <file name="UserAutoCompleter.php" role="php" />
-        <file name="WeatherLocationAutoCompleter.php" role="php" />
        </dir> <!-- /lib/Horde/Core/Ajax/Imple -->
        <dir name="Response">
         <dir name="HordeCore">
@@ -1784,12 +1788,14 @@
    <install as="Horde/Core/Ajax/Imple/InPlaceEditor.php" name="lib/Horde/Core/Ajax/Imple/InPlaceEditor.php" />
    <install as="Horde/Core/Ajax/Imple/SpellChecker.php" name="lib/Horde/Core/Ajax/Imple/SpellChecker.php" />
    <install as="Horde/Core/Ajax/Imple/UserAutoCompleter.php" name="lib/Horde/Core/Ajax/Imple/UserAutoCompleter.php" />
-   <install as="Horde/Core/Ajax/Imple/WeatherLocationAutoCompleter.php" name="lib/Horde/Core/Ajax/Imple/WeatherLocationAutoCompleter.php" />
    <install as="Horde/Core/Ajax/Imple/AutoCompleter/Ajax.php" name="lib/Horde/Core/Ajax/Imple/AutoCompleter/Ajax.php" />
    <install as="Horde/Core/Ajax/Imple/AutoCompleter/Base.php" name="lib/Horde/Core/Ajax/Imple/AutoCompleter/Base.php" />
    <install as="Horde/Core/Ajax/Imple/AutoCompleter/Local.php" name="lib/Horde/Core/Ajax/Imple/AutoCompleter/Local.php" />
    <install as="Horde/Core/Ajax/Imple/AutoCompleter/Pretty.php" name="lib/Horde/Core/Ajax/Imple/AutoCompleter/Pretty.php" />
    <install as="Horde/Core/Ajax/Imple/Geocoder/Geonames.php" name="lib/Horde/Core/Ajax/Imple/Geocoder/Geonames.php" />
+   <install as="Horde/Core/Ajax/Imple/WeatherLocationAutoCompleter/Base.php" name="lib/Horde/Core/Ajax/Imple/WeatherLocationAutoCompleter/Base.php" />
+   <install as="Horde/Core/Ajax/Imple/WeatherLocationAutoCompleter/Metar.php" name="lib/Horde/Core/Ajax/Imple/WeatherLocationAutoCompleter/Metar.php" />
+   <install as="Horde/Core/Ajax/Imple/WeatherLocationAutoCompleter/Weather.php" name="lib/Horde/Core/Ajax/Imple/WeatherLocationAutoCompleter/Weather.php" />
    <install as="Horde/Core/Ajax/Response/HordeCore.php" name="lib/Horde/Core/Ajax/Response/HordeCore.php" />
    <install as="Horde/Core/Ajax/Response/Notifications.php" name="lib/Horde/Core/Ajax/Response/Notifications.php" />
    <install as="Horde/Core/Ajax/Response/Prototypejs.php" name="lib/Horde/Core/Ajax/Response/Prototypejs.php" />
@@ -4214,7 +4220,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-07-28</date>
+   <date>2016-08-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Allow to specify user DN search parameters for LDAP with all bind methods (Request #11697, heinz@htl-steyr.ac.at).

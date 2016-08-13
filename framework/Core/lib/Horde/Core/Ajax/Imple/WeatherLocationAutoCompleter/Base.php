@@ -1,6 +1,6 @@
 <?php
 /**
- * Imple to provide weather/location autocompletion.
+ * Base class Imple to provide weather/location autocompletion.
  *
  * Copyright 2011-2016 Horde LLC (http://www.horde.org/)
  *
@@ -11,15 +11,21 @@
  * @category Horde
  * @license  http://www.horde.org/licenses/gpl GPL
  */
-class Horde_Core_Ajax_Imple_WeatherLocationAutoCompleter extends Horde_Core_Ajax_Imple_AutoCompleter
+abstract class Horde_Core_Ajax_Imple_WeatherLocationAutoCompleter_Base
+  extends Horde_Core_Ajax_Imple_AutoCompleter
 {
     /**
+     *
+     * @param  string $block  The block type containing this autocompleter.
+     *
+     * @return  Horde_Core_Ajax_Imple_AutoCompleter_Ajax
      */
-    protected function _getAutoCompleter()
+    protected function _getAutoCompleterForBlock($block)
     {
-        $indicator = $this->_params['id'] . '_loading_img';
+        global $injector;
 
-        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineScript(
+        $indicator = $this->_params['id'] . '_loading_img';
+        $injector->getInstance('Horde_PageOutput')->addInlineScript(
             array(
                 'window.weatherupdate = window.weatherupdate || {}',
                 'window.weatherupdate["' . $this->_params['instance'] . '"] = {
@@ -34,7 +40,7 @@ class Horde_Core_Ajax_Imple_WeatherLocationAutoCompleter extends Horde_Core_Ajax
                         }
                         $("' . $indicator . '").toggle();
                         HordeCore.doAction("blockRefresh",
-                            { blockid: "Horde_Block_Weather", location: v },
+                            { blockid: "' . $block . '", location: v },
                             { callback: function(r) {
                                 var point = v.split(",");
                                 var p = { lat: point[0], lon: point[1] };
@@ -83,12 +89,4 @@ class Horde_Core_Ajax_Imple_WeatherLocationAutoCompleter extends Horde_Core_Ajax
             }'
         ));
     }
-
-    /**
-     */
-    protected function _handleAutoCompleter($input)
-    {
-        return $GLOBALS['injector']->getInstance('Horde_Weather')->autocompleteLocation($input);
-    }
-
 }
