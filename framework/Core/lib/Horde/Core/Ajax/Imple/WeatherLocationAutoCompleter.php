@@ -58,7 +58,7 @@ class Horde_Core_Ajax_Imple_WeatherLocationAutoCompleter extends Horde_Core_Ajax
         );
 
         return new Horde_Core_Ajax_Imple_AutoCompleter_Ajax(array(
-            'minChars' => 5,
+            'minChars' => 3,
             'tokens' => array(),
             'domParent' => 'horde-content',
             'filterCallback' => 'function(c) {
