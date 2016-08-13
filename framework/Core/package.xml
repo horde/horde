@@ -30,8 +30,8 @@
  </developer>
  <date>2016-08-13</date>
  <version>
-  <release>2.25.1</release>
-  <api>2.25.0</api>
+  <release>2.26.0</release>
+  <api>2.26.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Refactor ajax weather location autocompleter and add support for metar data.
 * [jan] Allow to specify user DN search parameters for LDAP with all bind methods (Request #11697, heinz@htl-steyr.ac.at).
  </notes>
  <contents>
@@ -4215,14 +4216,15 @@
   </release>
   <release>
    <version>
-    <release>2.25.1</release>
-    <api>2.25.0</api></version>
+    <release>2.26.0</release>
+    <api>2.26.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
    <date>2016-08-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Refactor ajax weather location autocompleter and add support for metar data.
 * [jan] Allow to specify user DN search parameters for LDAP with all bind methods (Request #11697, heinz@htl-steyr.ac.at).
    </notes>
   </release>
