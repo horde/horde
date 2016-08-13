@@ -10,7 +10,13 @@ class Horde_Block_Metar extends Horde_Core_Block
     /**
      */
     public $updateable = true;
+    public $autoUpdateMethod = 'refreshContent';
+    protected $_refreshParams;
 
+    /**
+     *
+     * @var Horde_Service_Weather_Metar
+     */
     protected $_weather;
 
     /**
@@ -42,6 +48,9 @@ class Horde_Block_Metar extends Horde_Core_Block
      */
     protected function _params()
     {
+        // @todo Find a way to allow not loading the entire metar location
+        // database in memory. I.e., allow entering free-form text like
+        // the other weather block.
         $rows = $this->_weather->getLocations();
         $locations = array();
         foreach ($rows as $row) {
@@ -79,6 +88,26 @@ class Horde_Block_Metar extends Horde_Core_Block
     }
 
     /**
+     * Handle user initiated block refresh. Set a private member to avoid
+     * BC issues with having to add a parameter to the _content method.
+     *
+     * @param Horde_Variables $vars
+     *
+     * @return string
+     */
+    public function refreshContent($vars = null)
+    {
+        // if (empty($vars) || empty($vars->location)) {
+        //     $this->_refreshParams = Horde_Variables::getDefaultVariables();
+        //     $this->_refreshParams->set('location', $this->_params['location']);
+        // } else {
+        //     $this->_refreshParams = $vars;
+        // }
+
+        // return $this->_content();
+    }
+
+    /**
      */
     private function _row($label, $content)
     {
@@ -96,338 +125,303 @@ class Horde_Block_Metar extends Horde_Core_Block
      */
     protected function _content()
     {
-        global $conf;
+        global $conf, $injector;
         static $metarLocs;
 
         if (empty($this->_params['location'])) {
             return _("No location is set.");
         }
 
+        // @todo - refactor this out.
         if (!is_array($metarLocs)) {
             $metarLocs = $this->getParams();
         }
-        $weather = $this->_weather->getCurrentConditions($this->_params['location'])->getRawData();
 
-        $html = '<table width="100%" cellspacing="0">' .
-            '<tr><td class="control"><strong>' .
-            sprintf('%s, %s (%s)',
-                    $metarLocs['location']['values'][$this->_params['__location']][$this->_params['location']],
-                    $this->_params['__location'],
-                    $this->_params['location']) .
-            '</strong></td></tr></table><div class="horde-content"><strong>' . _("Last Updated:") . '</strong> ' .
-            $weather['update']. '<br /><br />';
+        // Get the data.
+        $weather = $this->_weather->getCurrentConditions($this->_params['location'])->getRawData();
+        $units = $this->_weather->getUnits();
+
+        // Get the view object.
+        $view = $injector->getInstance('Horde_View');
+        $view->weather = $weather;
+        $view->units = $units;
+
+        // @todo - Use the station object.
+        $view->location_title = sprintf('%s, %s (%s)',
+            $metarLocs['location']['values'][$this->_params['__location']][$this->_params['location']],
+            $this->_params['__location'],
+            $this->_params['location']
+        );
 
         // Wind.
         if (isset($weather['wind'])) {
-            $html .= '<strong>' . _("Wind:") . '</strong> ';
             if ($weather['windDirection'] == 'Variable') {
                 if (!empty($this->_params['knots'])) {
-                    $html .= sprintf(_("%s at %s %s"),
+                    $view->wind = sprintf(_("%s at %s %s"),
                         $weather['windDirection'],
                         round(Horde_Service_Weather::convertSpeed($weather['wind'], $units['wind'], 'kt')),
-                        'kt');
+                        'kt'
+                    );
                 } else {
-                    $html .= sprintf(_("%s at %s %s"),
+                    $view->wind = sprintf(_("%s at %s %s"),
                         $weather['windDirection'],
                         round($weather['wind']),
-                        $units['wind']);
+                        $units['wind']
+                    );
                 }
-            } elseif (($weather['windDegrees'] == '000') &&
-                        ($weather['wind'] == '0')) {
-                $html .= sprintf(_("calm"));
+            } elseif (($weather['windDegrees'] == '000') && ($weather['wind'] == '0')) {
+                $view->wind = _("Calm");
             } else {
-                $html .= sprintf(_("from the %s (%s) at %s %s"),
-                                 $weather['windDirection'],
-                                 $weather['windDegrees'],
-                                 empty($this->_params['knots']) ?
-                                 round($weather['wind']) :
-                                 round(Horde_Service_Weather::convertSpeed($weather['wind'], $units['wind'], 'kt')),
-                                 empty($this->_params['knots']) ?
-                                 $units['wind'] :
-                                 'kt');
+                $view->wind = sprintf(_("from the %s (%s) at %s %s"),
+                    $weather['windDirection'],
+                    $weather['windDegrees'],
+                    empty($this->_params['knots'])
+                        ? round($weather['wind'])
+                        : round(Horde_Service_Weather::convertSpeed($weather['wind'], $units['wind'], 'kt')),
+                    empty($this->_params['knots'])
+                        ? $units['wind']
+                        : 'kt'
+                );
             }
         }
+
+        // Gusts
         if (isset($weather['windGust'])) {
             if ($weather['windGust']) {
                 if (!empty($this->_params['knots'])) {
-                    $html .= sprintf(_(", gusting %s %s"),
-                        round(Horde_Service_Weather::convertSpeed($weather['windGust'],
-                        $units['wind'], 'kt')),
-                        'kt');
+                    $view->wind .= sprintf(_(", gusting %s %s"),
+                        round(
+                            Horde_Service_Weather::convertSpeed(
+                                $weather['windGust'],
+                                $units['wind'],
+                                'kt'
+                            )
+                        ),
+                        'kt'
+                    );
                 } else {
-                    $html .= sprintf(_(", gusting %s %s"),
+                    $view->wind .= sprintf(_(", gusting %s %s"),
                         round($weather['windGust']),
-                        $units['wind']);
+                        $units['wind']
+                    );
                 }
             }
         }
+
+        // Variability
         if (isset($weather['windVariability'])) {
             if ($weather['windVariability']['from']) {
-                $html .= sprintf(_(", variable from %s to %s"),
+                $view->wind .= sprintf(_(", variable from %s to %s"),
                     $weather['windVariability']['from'],
-                    $weather['windVariability']['to']);
+                    $weather['windVariability']['to']
+                );
             }
-        }
-
-        // Visibility.
-        if (isset($weather['visibility'])) {
-            $html .= $this->_sameRow(_("Visibility"), $weather['visibility'] . ' ' . $units['vis']);
-        }
-
-        // Temperature/DewPoint.
-        if (isset($weather['temperature'])) {
-            $html .= $this->_row(_("Temperature"), round($weather['temperature']) . '&deg;' . Horde_String::upper($units['temp']));
-        }
-        if (isset($weather['dewPoint'])) {
-            $html .= $this->_sameRow(_("Dew Point"), round($weather['dewPoint']) . '&deg;' . Horde_String::upper($units['temp']));
-        }
-        if (isset($weather['feltTemperature'])) {
-            $html .= $this->_sameRow(_("Feels Like"), round($weather['feltTemperature']) . '&deg;' . Horde_String::upper($units['temp']));
-        }
-
-        // Pressure.
-        if (isset($weather['pressure'])) {
-            $html .= $this->_row(_("Pressure"), $weather['pressure'] . ' ' . $units['pres']);
-        }
-
-        // Humidity.
-        if (isset($weather['humidity'])) {
-            $html .= $this->_sameRow(_("Humidity"), round($weather['humidity']) . '%');
         }
 
         // Clouds.
+        // @todo - fix units, fix indentation
         if (isset($weather['clouds'])) {
-            $clouds = '';
+            $view->clouds = '';
             foreach ($weather['clouds'] as $cloud) {
-                $clouds .= '<br />';
+                if (!empty($view->clouds)) {
+                    $view->clouds .= '<br />  ';
+                }
                 if (isset($cloud['height'])) {
-                    $clouds .= sprintf(_("%s at %s %s"), $cloud['amount'], $cloud['height'], $units['height']);
+                    $view->clouds .= sprintf(
+                        _("%s at %s %s"),
+                        $cloud['amount'],
+                        $cloud['height'],
+                        $units['height']
+                    );
                 } else {
-                    $clouds .= $cloud['amount'];
+                    $view->clouds .= $cloud['amount'];
                 }
             }
-            $html .= $this->_row(_("Clouds"), $clouds);
-        }
-
-        // Conditions.
-        if (isset($weather['condition'])) {
-            $html .= $this->_row(_("Conditions"), $weather['condition']);
         }
 
         // Remarks.
         if (isset($weather['remark'])) {
-            $remarks = '';
-            $other = '';
+            $view->remarks = '';
+            $view->other = '';
             foreach ($weather['remark'] as $remark => $value) {
                 switch ($remark) {
                 case 'seapressure':
-                    $remarks .= '<br />' . _("Pressure at sea level: ") . $value . ' ' . $units['pres'];
+                    $view->remarks .= '<br />'
+                        . _("Pressure at sea level: ")
+                        . $value . ' ' . $units['pres'];
                     break;
-
                 case 'precipitation':
                     foreach ($value as $precip) {
                         if (is_numeric($precip['amount'])) {
-                            $remarks .= '<br />' .
-                                sprintf(ngettext("Precipitation for last %d hour: ", "Precipitation for last %d hours: ", $precip['hours']),
-                                        $precip['hours']) .
-                                $precip['amount'] . ' ' . $units['rain'];
+                            $view->remarks .= '<br />'
+                                . sprintf(
+                                    ngettext("Precipitation for last %d hour: ", "Precipitation for last %d hours: ", $precip['hours']),
+                                    $precip['hours'])
+                                . $precip['amount'] . ' ' . $units['rain'];
                         } else {
-                            $remarks .= '<br />' .
-                                sprintf(ngettext("Precipitation for last %d hour: ", "Precipitation for last %d hours: ", $precip['hours']),
-                                        $precip['hours']) . $precip['amount'];
+                            $view->remarks .= '<br />'
+                                . sprintf(
+                                    ngettext("Precipitation for last %d hour: ", "Precipitation for last %d hours: ", $precip['hours']),
+                                    $precip['hours'])
+                                . $precip['amount'];
                         }
                     }
                     break;
-
                 case 'snowdepth':
-                    $remarks .= '<br />' . _("Snow depth: ") . $value . ' ' . $units['rain'];
+                    $view->remarks .= '<br />'
+                        . _("Snow depth: ") . $value . ' ' . $units['rain'];
                     break;
-
                 case 'snowequiv':
-                    $remarks .= '<br />' . _("Snow equivalent in water: ") . $value . ' ' . $units['rain'];
+                    $view->remarks .= '<br />'
+                        . _("Snow equivalent in water: ")
+                        . $value . ' ' . $units['rain'];
                     break;
-
                 case 'sunduration':
-                    $remarks .= '<br />' . sprintf(_("%d minutes"), $value);
+                    $view->remarks .= '<br />'
+                        . sprintf(_("%d minutes"), $value);
                     break;
-
                 case '1htemp':
-                    $remarks .= '<br />' . _("Temp for last hour: ") . round($value) . '&deg;' . Horde_String::upper($units['temp']);
+                    $view->remarks .= '<br />'
+                        . _("Temp for last hour: ")
+                        . round($value) . '&deg;'
+                        . Horde_String::upper($units['temp']);
                     break;
-
                 case '1hdew':
-                    $remarks .= '<br />' . _("Dew Point for last hour: ") . round($value) . '&deg;' . Horde_String::upper($units['temp']);
+                    $view->remarks .= '<br />'
+                        . _("Dew Point for last hour: ")
+                        . round($value) . '&deg;'
+                        . Horde_String::upper($units['temp']);
                     break;
-
                 case '6hmaxtemp':
-                    $remarks .= '<br />' . _("Max temp last 6 hours: ") . round($value) . '&deg;' . Horde_String::upper($units['temp']);
+                    $view->remarks .= '<br />'
+                        . _("Max temp last 6 hours: ")
+                        . round($value) . '&deg;'
+                        . Horde_String::upper($units['temp']);
                     break;
-
                 case '6hmintemp':
-                    $remarks .= '<br />' . _("Min temp last 6 hours: ") . round($value) . '&deg;' . Horde_String::upper($units['temp']);
+                    $view->remarks .= '<br />'
+                        . _("Min temp last 6 hours: ")
+                            . round($value) . '&deg;'
+                            . Horde_String::upper($units['temp']);
                     break;
-
                 case '24hmaxtemp':
-                    $remarks .= '<br />' . _("Max temp last 24 hours: ") . round($value) . '&deg;' . Horde_String::upper($units['temp']);
+                    $view->remarks .= '<br />'
+                        . _("Max temp last 24 hours: ")
+                        . round($value) . '&deg;'
+                        . Horde_String::upper($units['temp']);
                     break;
-
                 case '24hmintemp':
-                    $remarks .= '<br />' . _("Min temp last 24 hours: ") . round($value) . '&deg;' . Horde_String::upper($units['temp']);
+                    $view->remarks .= '<br />'
+                        . _("Min temp last 24 hours: ")
+                        . round($value) . '&deg;'
+                        . Horde_String::upper($units['temp']);
                     break;
-
                 case 'sensors':
                     foreach ($value as $sensor) {
-                        $remarks .= '<br />' .
-                            _("Sensor: ") . $sensor;
+                        $view->remarks .= '<br />'
+                            . _("Sensor: ") . $sensor;
                     }
                     break;
-
                 default:
-                    $other .= '<br />' . $value;
+                    $view->other .= '<br />' . $value;
                     break;
                 }
             }
-
-            $html .= $this->_row(_("Remarks"), $remarks . $other);
         }
-        $html .= '</div>';
 
         // TAF
         if (!empty($this->_params['taf'])) {
             $taf = $this->_weather->getForecast($this->_params['location'])->getRawData();
-            if (!is_a($taf, 'PEAR_Error')) {
-                $forecast = '<table width="100%" cellspacing="0">';
-                $forecast .= '<tr><td class="control" colspan="2"><strong>' . _("Forecast (TAF)") . '</strong></td></tr></table><div class="horde-content">';
-                $forecast .= '<strong>Valid: </strong>' . $taf['validFrom'] . ' - ' . $taf['validTo'] . '<br /><br />';
-                $item = 0;
-
-                foreach ($taf['time'] as $time => $entry) {
-                    $item++;
-                    $forecast .= '<table width="100%" cellspacing="0">';
-                    $forecast .= '<tr class="item' . ($item % 2) . '">';
-                    $forecast .= '<td align="center" width="50">' . $time . '</td><td><strong>Wind:</strong> ';
-                    if (isset($entry['wind'])) {
-                        if ($entry['windDirection'] == 'Variable') {
-                            if (!empty($this->_params['knots'])) {
-                                $forecast .= sprintf(_("%s at %s %s"),
-                                    strtolower($entry['windDirection']),
-                                    round(Horde_Service_Weather::convertSpeed(
-                                        $entry['wind'],
-                                        $units['wind'],
-                                        'kt')),
-                                    'kt');
-                            } else {
-                                $forecast .= sprintf(_("%s at %s %s"),
-                                    $entry['windDirection'],
-                                    round($entry['wind']),
-                                    $units['wind']);
-                            }
-                        } elseif (($entry['windDegrees'] == '000') &&
-                                    ($entry['wind'] == '0')) {
-                            $forecast .= sprintf(_("calm"));
+            $view->item = 0;
+            $view->periods = array();
+            foreach ($taf['time'] as $time => $entry) {
+                $period = array('time' => $time);
+                // Wind
+                if (isset($entry['wind'])) {
+                    if ($entry['windDirection'] == 'Variable') {
+                        if (!empty($this->_params['knots'])) {
+                            $period['wind'] = sprintf(
+                                _("%s at %s %s"),
+                                strtolower($entry['windDirection']),
+                                round(Horde_Service_Weather::convertSpeed(
+                                    $entry['wind'],
+                                    $units['wind'],
+                                    'kt')),
+                                'kt'
+                            );
                         } else {
-                            $forecast .= sprintf(_("from the %s (%s) at %s %s"),
-                                             $entry['windDirection'],
-                                             $entry['windDegrees'],
-                                             empty($this->_params['knots']) ?
-                                             round($entry['wind']) :
-                                             round(Horde_Service_Weather::convertSpeed($entry['wind'], $units['wind'], 'kt')),
-                                             empty($this->_params['knots']) ?
-                                             $units['wind'] :
-                                             'kt');
+                            $period['wind'] = sprintf(
+                                _("%s at %s %s"),
+                                $entry['windDirection'],
+                                round($entry['wind']),
+                                $units['wind']
+                            );
                         }
-                        $forecast .= '<br />';
+                    } elseif (($entry['windDegrees'] == '000') && ($entry['wind'] == '0')) {
+                        $period['wind'] = _("Calm");
+                    } else {
+                        $period['wind'] = sprintf(
+                            _("from the %s (%s) at %s %s"),
+                            $entry['windDirection'],
+                            $entry['windDegrees'],
+                            empty($this->_params['knots'])
+                                ? round($entry['wind'])
+                                : round(Horde_Service_Weather::convertSpeed($entry['wind'], $units['wind'], 'kt')),
+                            empty($this->_params['knots'])
+                                ? $units['wind']
+                                : 'kt'
+                        );
                     }
-                    if (isset($entry['temperatureLow']) || isset($entry['temperatureHigh'])) {
-                        $forecast .= '<strong>Temperature</strong>';
-                        if (isset($entry['temperatureLow'])) {
-                            $forecast .= '<strong> Low:</strong>';
-                            $forecast .= $entry['temperatureLow'];
-                        }
-                        if (isset($entry['temperatureHigh'])) {
-                            $forecast .= '<strong> High:</strong>';
-                            $forecast .= $entry['temperatureHigh'];
-                        }
-                        $forecast .= '<br />';
-                    }
-                    if (isset($entry['windshear'])) {
-                        $forecast .= '<strong>Windshear:</strong>';
-                        $forecast .= sprintf(_("from the %s (%s) at %s %s"),
-                                        $entry['windshearDirection'],
-                                        $entry['windshearDegrees'],
-                                        $entry['windshearHeight'],
-                                        $units['height']);
-                        $forecast .= '<br />';
-                    }
-                    if (isset($entry['visibility'])) {
-                        $forecast .= '<strong>Visibility:</strong> ';
-                        $forecast .= strtolower($entry['visQualifier']) . ' ' . $entry['visibility'] . ' ' . $units['vis'];
-                        $forecast .= '<br />';
-                    }
-                    if (isset($entry['condition'])) {
-                        $forecast .= '<strong>Conditions:</strong> ';
-                        $forecast .= $entry['condition'];
-                        $forecast .= '<br />';
-                    }
-                    $forecast .= '<strong>Clouds:</strong> ';
-                    foreach ($entry['clouds'] as $clouds) {
-                        if (isset($clouds['type'])) {
-                            $forecast .= ' ' . $clouds['type'];
-                        }
-                        $forecast .= ' ' . $clouds['amount'];
-                        if (isset($clouds['height'])) {
-                            $forecast .= ' at ' . $clouds['height'] . ' ' . $units['height'];
-                        } else {
-                            $forecast .= ' ';
-                        }
-                    }
-                    $forecast .= '</td></tr>';
-                    if (isset($entry['fmc'])) {
-                        $item++;
-                        foreach ($entry['fmc'] as $fmcEntry) {
-                            $forecast .= '<tr class="item' . ($item % 2) . '">';
-                            $forecast .= '<td align="center" width="50">';
-                            $forecast .= '* ' . $fmcEntry['from'] . '<br /> - ' . $fmcEntry['to'] . '</td>';
-                            $forecast .= '<td>';
-                            $forecast .= '<strong>Type: </strong>' . $fmcEntry['type'];
-                            if (isset($fmcEntry['probability'])) {
-                                $forecast .= ' <strong> Prob: </strong>' . $fmcEntry['probability'] . '%';
-                            }
-                            if (isset($fmcEntry['condition'])) {
-                                $forecast .= ' <strong> Conditions: </strong>' . $fmcEntry['condition'];
-                            }
-                            if (isset($fmcEntry['clouds'])) {
-                                $forecast .= ' <strong>Clouds:</strong>';
-                                foreach ($fmcEntry['clouds'] as $fmcClouds) {
-                                    if (isset($fmcClouds['type'])) {
-                                        $forecast .= ' ' . $fmcClouds['type'];
-                                    }
-                                    if (isset($fmcClouds['height'])) {
-                                        $forecast .= ' ' . $fmcClouds['amount'];
-                                        $forecast .= ' ' . $fmcClouds['height'];
-                                        $forecast .= ' ' . $units['height'];
-                                    } else {
-                                        $forecast .= ' ' . $fmcClouds['amount'];
-                                    }
-                                }
-                            }
-                            if (isset($fmcEntry['visQualifier'])) {
-                                $forecast .= ' <strong>Visibility:</strong> ';
-                                $forecast .= strtolower($fmcEntry['visQualifier']) . ' ';
-                                $forecast .= $fmcEntry['visibility'] . ' ' . $units['vis'];
-                            }
-                            $forecast .= '</td></tr>';
-                        }
-                    }
-
-                    $forecast .= '</table>';
                 }
 
-                $html .= $forecast . '</div>';
+                // Temp
+                if (isset($entry['temperatureLow']) ||
+                    isset($entry['temperatureHigh'])) {
+                    if (isset($entry['temperatureLow'])) {
+                        $period['temperatureLow'] = $entry['temperatureLow'];
+                    }
+                    if (isset($entry['temperatureHigh'])) {
+                        $period['temperatureHigh'] =  $entry['temperatureHigh'];
+                    }
+                }
+
+                // Wind Shear
+                if (isset($entry['windshear'])) {
+                    $period['shear'] = sprintf(
+                        _("from the %s (%s) at %s %s"),
+                        $entry['windshearDirection'],
+                        $entry['windshearDegrees'],
+                        $entry['windshearHeight'],
+                        $units['height']
+                    );
+                }
+
+                // Visibility
+                if (isset($entry['visibility'])) {
+                    $period['visibility'] = strtolower($entry['visQualifier']) . ' ' . $entry['visibility'] . ' ' . $units['vis'];
+                }
+
+                // Conditions
+                if (isset($entry['condition'])) {
+                    $period['condition'] = $entry['condition'];
+                }
+                // Clouds
+                $period['clouds'] = $entry['clouds'];
+
+                // FMC
+                if (isset($entry['fmc'])) {
+                    $period['fmc'] = $entry['fmc'];
+                    $period['fmc']['clouds'] = !empty($period['fmc']['clouds'])
+                        ? $period['fmc']['clouds']
+                        : array();
+                }
+
+                // Set the period in the view.
+                $view->periods[] = $period;
             }
         }
 
-        return $html;
+        return $view->render('block/metar_content');
     }
 
 }
