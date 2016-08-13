@@ -111,13 +111,7 @@ class Horde_Block_Metar extends Horde_Core_Block
      */
     protected function _content()
     {
-        global $conf, $injector;
-        static $metarLocs;
-
-        // @todo - refactor this out.
-        if (!is_array($metarLocs)) {
-            $metarLocs = $this->getParams();
-        }
+        global $injector;
 
         // Set up the weather driver.
         $this->_weather->units = $this->_params['units'];
@@ -147,11 +141,12 @@ class Horde_Block_Metar extends Horde_Core_Block
         $weather = $this->_weather->getCurrentConditions($location)->getRawData();
         $view->weather = $weather;
 
-        // @todo - Use the station object.
+        // Station information.
+        $station = $this->_weather->getStation();
         $view->location_title = sprintf('%s, %s (%s)',
-            $metarLocs['location']['values'][$this->_params['__location']][$location],
-            $this->_params['__location'],
-            $location
+            $station->name,
+            $station->country_name,
+            $station->code
         );
 
         // Wind.
