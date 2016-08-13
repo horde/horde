@@ -17,9 +17,6 @@ class Horde_Core_Ajax_Imple_WeatherLocationAutoCompleter extends Horde_Core_Ajax
      */
     protected function _getAutoCompleter()
     {
-        $url = $GLOBALS['registry']->getServiceLink('ajax')->setRaw(true);
-        $url->url .= 'blockRefresh';
-        $url->add('blockid', 'Horde_Block_Weather');
         $indicator = $this->_params['id'] . '_loading_img';
 
         $GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineScript(
