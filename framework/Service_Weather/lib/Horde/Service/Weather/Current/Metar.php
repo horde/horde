@@ -65,9 +65,37 @@ class Horde_Service_Weather_Current_Metar extends Horde_Service_Weather_Current_
                 ? $this->_properties['remark']['presschg']
                 : null;
         case 'condition':
-            // @todo - need to build this from other properties.
-            return ' TODO ';
-            break;
+            // Not really translatable from METAR data...but try to generate
+            // some sensible human readable data.
+            $units = $this->_weather->getUnits();
+            $conds = '';
+            if (!empty($this->_properties['wind'])) {
+                $conds .= sprintf(
+                    Horde_Service_Weather_Translation::t('Wind from %s at %s%s '),
+                    $this->_properties['windDirection'],
+                    $this->_properties['wind'],
+                    $units['wind']
+                );
+            }
+
+            // Visibility - this *should* always be here.
+            $conds .= sprintf(
+                Horde_Service_Weather_Translation::t('Visibility %s %s %s '),
+                $this->_properties['visQualifier'],
+                $this->_properties['visibility'],
+                $units['vis']
+            );
+
+            // @todo This isn't totally acurate since you could have e.g., BKN
+            // clouds below OVC cloud cover. Probably should iterate over all
+            // layers and just include the highest coverage.
+            if (!empty($this->_properties['clouds'])) {
+                $conds .= sprintf('Sky %s ',
+                    $this->_properties['clouds'][0]['amount']
+                );
+            }
+            return trim($conds);
+
         default:
             if (!empty($this->_properties[$property])) {
                 return $this->_properties[$property];

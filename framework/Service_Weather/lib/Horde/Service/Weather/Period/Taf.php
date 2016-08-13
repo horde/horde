@@ -57,7 +57,41 @@ class Horde_Service_Weather_Period_Taf extends Horde_Service_Weather_Period_Base
             return false;
 
         case 'conditions':
-            return 'foo ';//Horde_Service_Weather_Translation::t($this->_properties->weather[0]->main);
+            $units = $this->_forecast->weather->getUnits();
+            $conds = '';
+            // Note that most of these properties will only
+            // be included if different from the main MFC section.
+            // Wind
+            if (!empty($this->_properties['wind'])) {
+                $conds .= sprintf(
+                    Horde_Service_Weather_Translation::t('Wind from %s at %s%s '),
+                    $this->_properties['windDirection'],
+                    $this->_properties['wind'],
+                    $units['wind']
+                );
+            }
+
+            // Visibility - this *should* always be here.
+            $conds .= sprintf(
+                Horde_Service_Weather_Translation::t('Visibility %s %s %s '),
+                $this->_properties['visQualifier'],
+                $this->_properties['visibility'],
+                $units['vis']
+            );
+
+            if (!empty($this->_properties['condition'])) {
+                $conds .= $this->_properties['condition'] . ' ';
+            }
+
+            // @todo This isn't totally acurate since you could have e.g., BKN
+            // clouds below OVC cloud cover. Probably should iterate over all
+            // layers and just include the highest coverage.
+            if (!empty($this->_properties['clouds'])) {
+                $conds .= sprintf('Sky %s ',
+                    $this->_properties['clouds'][0]['amount']
+                );
+            }
+            return trim($conds);
 
         case 'date':
             return new Horde_Date($this->_forecast->validFrom);
