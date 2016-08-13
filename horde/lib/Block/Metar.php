@@ -215,25 +215,9 @@ class Horde_Block_Metar extends Horde_Core_Block
         }
 
         // Clouds.
-        // @todo - fix units, fix indentation
-        if (isset($weather['clouds'])) {
-            $view->clouds = '';
-            foreach ($weather['clouds'] as $cloud) {
-                if (!empty($view->clouds)) {
-                    $view->clouds .= '<br />  ';
-                }
-                if (isset($cloud['height'])) {
-                    $view->clouds .= sprintf(
-                        _("%s at %s %s"),
-                        $cloud['amount'],
-                        $cloud['height'],
-                        $units['height']
-                    );
-                } else {
-                    $view->clouds .= $cloud['amount'];
-                }
-            }
-        }
+        $view->clouds = isset($weather['clouds'])
+            ? $weather['clouds']
+            : array();
 
         // Remarks.
         if (isset($weather['remark'])) {

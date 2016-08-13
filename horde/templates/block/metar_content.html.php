@@ -24,7 +24,15 @@
     <strong><?php echo _("Humidity")?>:</strong> <?php echo $this->weather['humidity']?>
   <?php endif;?>
   <?php if (isset($this->clouds)):?>
-    <br /><strong><?php echo _("Clouds")?>:</strong> <?php echo $this->clouds ?>
+    <br /><strong><?php echo _("Clouds")?>:</strong>
+     <?php foreach ($this->clouds as $clouds): ?>
+        <div style="margin-left: 8px;">
+          <?php if (isset($clouds['height'])):?>
+            <?php echo sprintf(_("%s at %s %s"), $clouds['amount'], $clouds['height'], $this->units['height']);?></div>
+          <?php elseif (!empty($clouds)): ?>
+            <?php echo $clouds['amount']?>
+         <?php endif;?>
+     <?php endforeach;?>
   <?php endif;?>
   <?php if (isset($this->weather['conditions'])):?>
     <br /><strong><?php echo _("Conditions")?>:</strong> <?php echo $this->weather['conditions'] ?>
