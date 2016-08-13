@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
+* [mjr] Refactor the Metar weather block to use Horde_Service_Weather and remove PEAR_Services_Weather dependency.
 * [jan] Add a weekly login task to check for newer versions.
 * [mjr] Use more flexible Encryption property for Outlook Autodiscovery responses.
 * [jan] Add hook to customize user names for DAV clients.
@@ -4214,6 +4215,7 @@
    <date>2016-06-21</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
+* [mjr] Refactor the Metar weather block to use Horde_Service_Weather and remove PEAR_Services_Weather dependency.
 * [jan] Add a weekly login task to check for newer versions.
 * [mjr] Use more flexible Encryption property for Outlook Autodiscovery responses.
 * [jan] Add hook to customize user names for DAV clients.
