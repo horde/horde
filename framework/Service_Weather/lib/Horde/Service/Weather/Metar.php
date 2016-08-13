@@ -13,13 +13,6 @@
  *
  * Responsible for parsing encoded METAR and TAF data.
  *
- * Parsing code adapted from PEAR's Services_Weather_Metar class. Original
- * phpdoc attributes as follows:
- * @author      Alexander Wirtz <alex@pc4p.net>
- * @copyright   2005-2011 Alexander Wirtz
- * @link        http://pear.php.net/package/Services_Weather
- * @license     http://www.opensource.org/licenses/bsd-license.php  BSD License
- *
  * @author   Michael J Rubinsky <mrubinsk@horde.org>
  * @category Horde
  * @package  Service_Weather
@@ -129,13 +122,21 @@ class Horde_Service_Weather_Metar extends Horde_Service_Weather_Base
         }
 
         $parser = new Horde_Service_Weather_Parser_Metar(array('units' => $this->units));
-
         return new Horde_Service_Weather_Current_Metar(
             $parser->parse($data),
             $this
         );
     }
 
+    /**
+     * Performs a HTTP request.
+     *
+     * @param string $url        The URL endpoint.
+     * @param integer $lifetime  The cache lifetime.
+     *
+     * @return string  The response body of the request.
+     * @throws Horde_Service_Weather_Exception
+     */
     protected function _makeRequest($url, $lifetime = 86400)
     {
         $cachekey = md5('hordeweather' . $url);
@@ -184,6 +185,7 @@ class Horde_Service_Weather_Metar extends Horde_Service_Weather_Base
         } elseif (empty($pathinfo['scheme'])) {
             throw new Horde_Service_Weather_Exception('Invalid path to TAF data.');
         }
+
         switch ($pathinfo['scheme']) {
         case 'http':
             $url = sprintf('%s/%s.TXT', $this->_taf_path, $location);
@@ -196,13 +198,14 @@ class Horde_Service_Weather_Metar extends Horde_Service_Weather_Base
         if (empty($data)) {
             throw new Horde_Service_Weather_Exception('TAF file not found.');
         }
+
+        // Parse the data.
         $parser = new Horde_Service_Weather_Parser_Taf(array('units' => $this->units));
         return new Horde_Service_Weather_Forecast_Taf(
             $parser->parse($data),
             $this
         );
     }
-
 
     /**
      * Searches locations.
@@ -238,7 +241,10 @@ class Horde_Service_Weather_Metar extends Horde_Service_Weather_Base
     /**
      * Return an array containing all available METAR locations/airports.
      *
-     * @return array
+     * @return array  An array of station information. Each entry contains:
+     *   - icao: The ICAO identifier of the location.
+     *   - name: The human readable name of the station.
+     *   - country: The country the station is located in (if available).
      */
     public function getLocations()
     {
@@ -286,7 +292,12 @@ class Horde_Service_Weather_Metar extends Horde_Service_Weather_Base
     /**
      * Perform DB query to obtain list of airport codes.
      *
-     * @return array
+     * @return array  An array of station information. Each entry contains:
+     *   - icao: The ICAO identifier of the location.
+     *   - name: The human readable name of the station.
+     *   - country: The country the station is located in (if available).
+     *
+     * @throws  Horde_Service_Weather_Exception
      */
     protected function _getLocations()
     {
@@ -301,6 +312,14 @@ class Horde_Service_Weather_Metar extends Horde_Service_Weather_Base
         }
     }
 
+    /**
+     * Return a station object matching $code.
+     *
+     * @param string $code  The ICAO station identifier.
+     *
+     * @return Horde_Service_Weather_Station  The station object.
+     * @throws  Horde_Service_Weather_Exception
+     */
     protected function _getStation($code)
     {
         if (empty($this->_db)) {

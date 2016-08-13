@@ -40,7 +40,40 @@
      * Compatibility layer for old PEAR/Services_Weather data.
      *
      * @return array  The raw parsed data array - keyed by descriptors that are
-     *                compatible with PEAR/Services_Weather.
+     *                compatible with PEAR/Services_Weather. Structure of data:
+     *                Data is converted into the appropriate units based on
+     *                the Horde_Service_Weather_Base::units setting at the time
+     *                or parsing.
+     *
+     * - station:         The station identifier.
+     * - dataRaw:         The raw TAF data.
+     * - update:          The update timestamp.
+     * - updateRaw:       The raw TAF encoded update time.
+     * - validRaw:        The raw TAF encoded valid forecast times.
+     * - validFrom:       The valid forecast FROM time.
+     * - validTo:         The valid forecast TO time.
+     * - time:            Array containing an entry for each FMC section.
+     *                    Basically each entry contains forcasted changes
+     *                    beginning at the time of the key to the entry.
+     *   - wind:              The wind speed.
+     *   - windDegrees:       The wind direction in degrees.
+     *   - windDirection:     The wind direction in a cardinal compass direction.
+     *   - windGust:          The wind gust speed.
+     *   - windProb:          Probability of forecast wind.
+     *   - visibility:        Visibility distance.
+     *   - visQualifier:      Qualifier of visibility. I.e., "AT", "BEYOND", "BELOW"
+     *   - visProb:           Probability of forecast visibility.
+     *   - clouds:            Array containing cloud layer information:
+     *     - amount:            Amount of sky cover. I.e., "BROKEN", "OVERCAST"
+     *     - height:            The height of the base of the cloud layer.
+     *     - type:              The type of clouds if available.
+     *   - condition:         The weather condition. I.e., "RAIN", "MIST"
+     *   - windshear:         Windshear delta.
+     *   - windshearHeight:   The height of windshear.
+     *   - windshearDegrees:  The degrees of windshear.
+     *   - windshearDirection:The compass direction of windshear.
+     *   - temperatureLow:    The forecast low temperature.
+     *   - temperatureHigh:   The forecast high temperature.
      */
     public function getRawData()
     {

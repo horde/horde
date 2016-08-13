@@ -9,9 +9,9 @@
  */
 
 /**
- * Horde_Service_Weather_Parser_Metar
+ * Horde_Service_Weather_Parser_Base
  *
- * Responsible for parsing encoded METAR data.
+ * Base class for parsing TAF/METAR data.
  *
  * Parsing code adapted from PEAR's Services_Weather_Metar class. Original
  * phpdoc attributes as follows:

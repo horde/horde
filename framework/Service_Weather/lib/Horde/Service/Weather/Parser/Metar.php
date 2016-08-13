@@ -26,7 +26,6 @@
  */
 class Horde_Service_Weather_Parser_Metar extends Horde_Service_Weather_Parser_Base
 {
-
     /**
      * Map of hours descriptors.
      *
@@ -38,6 +37,61 @@ class Horde_Service_Weather_Parser_Metar extends Horde_Service_Weather_Parser_Ba
         '7' => '24'
     );
 
+    /**
+     * Parses METAR
+     *
+     * @param array $data  An array of METAR data lines.
+     *
+     * @return array  An array of weather data. Possible keys include:
+     *  - station:
+     *  - dataRaw:
+     *  - update:
+     *  - updateRaw:
+     *  - wind:
+     *  - windDegrees:
+     *  - windDirection:
+     *  - windGust:
+     *  - windVariability:
+     *  - visibility:
+     *  - visQualifier:
+     *  - clouds:
+     *    - amount
+     *    - height
+     *    - type
+     *  - temperature
+     *  - dewpoint
+     *  - humidity
+     *  - felttemperature
+     *  - pressure
+     *  - trend
+     *    - type
+     *    - from
+     *    - to
+     *    - at
+     *  - remark
+     *    - autostation
+     *    - seapressure
+     *    - presschg
+     *    - snowdepth
+     *    - snowequiv
+     *    - cloudtypes
+     *    - sunduration
+     *    - 1hrtemp
+     *    - 1hrdew
+     *    - 6hmaxtemp
+     *    - 6hmintemp
+     *    - 24hmaxtemp
+     *    - 24hmintemp
+     *    - 3hpresstrend
+     *    - nospeci
+     *    - sensors
+     *    - maintain
+     *  - precipitation
+     *    - amount
+     *    - hours
+     *
+     *    -
+     */
     protected function _parse(array $data)
     {
         // Eliminate trailing information

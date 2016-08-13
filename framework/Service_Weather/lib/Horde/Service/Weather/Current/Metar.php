@@ -42,6 +42,8 @@ class Horde_Service_Weather_Current_Metar extends Horde_Service_Weather_Current_
      *
      * @return array  The raw parsed data array - keyed by descriptors that are
      *                compatible with PEAR/Services_Weather.
+     * @see  Horde_Service_Weather_Parser_Metar for description of data
+     *       structure returned.
      */
     public function getRawData()
     {
