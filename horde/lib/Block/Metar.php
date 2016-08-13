@@ -97,28 +97,14 @@ class Horde_Block_Metar extends Horde_Core_Block
      */
     public function refreshContent($vars = null)
     {
-        // if (empty($vars) || empty($vars->location)) {
-        //     $this->_refreshParams = Horde_Variables::getDefaultVariables();
-        //     $this->_refreshParams->set('location', $this->_params['location']);
-        // } else {
-        //     $this->_refreshParams = $vars;
-        // }
+        if (empty($vars) || empty($vars->location)) {
+            $this->_refreshParams = Horde_Variables::getDefaultVariables();
+            $this->_refreshParams->set('location', $this->_params['location']);
+        } else {
+            $this->_refreshParams = $vars;
+        }
 
-        // return $this->_content();
-    }
-
-    /**
-     */
-    private function _row($label, $content)
-    {
-        return '<br /><strong>' . $label . ':</strong> ' . $content;
-    }
-
-    /**
-     */
-    private function _sameRow($label, $content)
-    {
-        return ' <strong>' . $label . ':</strong> ' . $content;
+        return $this->_content();
     }
 
     /**
@@ -128,29 +114,44 @@ class Horde_Block_Metar extends Horde_Core_Block
         global $conf, $injector;
         static $metarLocs;
 
-        if (empty($this->_params['location'])) {
-            return _("No location is set.");
-        }
-
         // @todo - refactor this out.
         if (!is_array($metarLocs)) {
             $metarLocs = $this->getParams();
         }
 
-        // Get the data.
-        $weather = $this->_weather->getCurrentConditions($this->_params['location'])->getRawData();
+        // Set up the weather driver.
+        $this->_weather->units = $this->_params['units'];
         $units = $this->_weather->getUnits();
 
-        // Get the view object.
+        // Set up the view object.
         $view = $injector->getInstance('Horde_View');
-        $view->weather = $weather;
         $view->units = $units;
+
+        if (!empty($this->_refreshParams) && !empty($this->_refreshParams->location)) {
+            $location = $this->_refreshParams->location;
+            $view->instance = '';
+        } else {
+            $view->instance = hash('md5', mt_rand());
+            $injector->getInstance('Horde_Core_Factory_Imple')->create(
+                'WeatherLocationAutoCompleter_Metar',
+                array(
+                    'id' => 'location' . $view->instance,
+                    'instance' => $view->instance
+                )
+            );
+            $view->requested_location = $this->_params['location'];
+            $location = $this->_params['location'];
+        }
+
+        // Get the data.
+        $weather = $this->_weather->getCurrentConditions($location)->getRawData();
+        $view->weather = $weather;
 
         // @todo - Use the station object.
         $view->location_title = sprintf('%s, %s (%s)',
-            $metarLocs['location']['values'][$this->_params['__location']][$this->_params['location']],
+            $metarLocs['location']['values'][$this->_params['__location']][$location],
             $this->_params['__location'],
-            $this->_params['location']
+            $location
         );
 
         // Wind.
@@ -331,7 +332,7 @@ class Horde_Block_Metar extends Horde_Core_Block
 
         // TAF
         if (!empty($this->_params['taf'])) {
-            $taf = $this->_weather->getForecast($this->_params['location'])->getRawData();
+            $taf = $this->_weather->getForecast($location)->getRawData();
             $view->item = 0;
             $view->periods = array();
             foreach ($taf['time'] as $time => $entry) {
@@ -421,7 +422,11 @@ class Horde_Block_Metar extends Horde_Core_Block
             }
         }
 
-        return $view->render('block/metar_content');
+        if (!empty($view->instance)) {
+            return $view->render('block/metar');
+        } else {
+            return $view->render('block/metar_content');
+        }
     }
 
 }

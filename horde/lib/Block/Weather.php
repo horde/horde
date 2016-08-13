@@ -127,7 +127,7 @@ class Horde_Block_Weather extends Horde_Core_Block
         } else {
             $view->instance = hash('md5', mt_rand());
             $injector->getInstance('Horde_Core_Factory_Imple')->create(
-                'WeatherLocationAutoCompleter',
+                'WeatherLocationAutoCompleter_Weather',
                 array(
                     'id' => 'location' . $view->instance,
                     'instance' => $view->instance
