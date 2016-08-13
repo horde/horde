@@ -218,7 +218,7 @@ class Horde_Service_Weather
     }
 
     /**
-     * Convert speed between mph, kmh, kt, mps, fps and bft
+     * Convert speed between mph, kph, kt, mps, fps and bft
      *
      * Function will return 'false' when trying to convert from
      * Beaufort, as it is a scale and not a true measurement
@@ -235,35 +235,35 @@ class Horde_Service_Weather
         $factor = array(
             'mph' => array(
                 'mph' => 1,
-                'kmh' => 1.609344,
+                'kph' => 1.609344,
                 'kt' => 0.8689762,
                 'mps' => 0.44704,
                 'fps' => 1.4666667
             ),
-            'kmh' => array(
+            'kph' => array(
                 'mph' => 0.6213712,
-                'kmh' => 1,
+                'kph' => 1,
                 'kt' => 0.5399568,
                 'mps' => 0.2777778,
                 'fps' => 0.9113444
             ),
             'kt'  => array(
                 'mph' => 1.1507794,
-                'kmh' => 1.852,
+                'kph' => 1.852,
                 'kt' => 1,
                 'mps' => 0.5144444,
                 'fps' => 1.6878099
             ),
             'mps' => array(
                 'mph' => 2.2369363,
-                'kmh' => 3.6,
+                'kph' => 3.6,
                 'kt' => 1.9438445,
                 'mps' => 1,
                 'fps' => 3.2808399
             ),
             'fps' => array(
                 'mph' => 0.6818182,
-                'kmh' => 1.09728,
+                'kph' => 1.09728,
                 'kt' => 0.5924838,
                 'mps' => 0.3048,
                 'fps' => 1
