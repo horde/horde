@@ -4,7 +4,7 @@
 
 <div class="horde-content">
   <?php if (isset($this->wind)): ?>
-    <strong><?php echo sprintf(_("Wind: %s"), $this->wind)?> </strong>
+    <strong><?php echo _("Wind")?>:</strong> <?php echo $this->wind?>
   <?php endif; ?>
   <?php if (isset($this->weather['visibility'])): ?>
     <strong><?php echo _("Visibility")?>:</strong> <?php echo sprintf('%s %s', $this->weather['visibility'], $this->units['distance'])?>
