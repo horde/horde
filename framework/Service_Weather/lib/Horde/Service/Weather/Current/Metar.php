@@ -41,9 +41,55 @@ class Horde_Service_Weather_Current_Metar extends Horde_Service_Weather_Current_
      * Compatibility layer for old PEAR/Services_Weather data.
      *
      * @return array  The raw parsed data array - keyed by descriptors that are
-     *                compatible with PEAR/Services_Weather.
-     * @see  Horde_Service_Weather_Parser_Metar for description of data
-     *       structure returned.
+     *   compatible with PEAR/Services_Weather. The following  keys may be
+     *   returned:
+     *
+     *  - station:
+     *  - dataRaw:
+     *  - update:
+     *  - updateRaw:
+     *  - wind:
+     *  - windDegrees:
+     *  - windDirection:
+     *  - windGust:
+     *  - windVariability:
+     *  - visibility:
+     *  - visQualifier:
+     *  - clouds:
+     *    - amount
+     *    - height
+     *    - type
+     *  - temperature
+     *  - dewpoint
+     *  - humidity
+     *  - felttemperature
+     *  - pressure
+     *  - trend
+     *    - type
+     *    - from
+     *    - to
+     *    - at
+     *  - remark
+     *    - autostation
+     *    - seapressure
+     *    - presschg
+     *    - snowdepth
+     *    - snowequiv
+     *    - cloudtypes
+     *    - sunduration
+     *    - 1hrtemp
+     *    - 1hrdew
+     *    - 6hmaxtemp
+     *    - 6hmintemp
+     *    - 24hmaxtemp
+     *    - 24hmintemp
+     *    - 3hpresstrend
+     *    - nospeci
+     *    - sensors
+     *    - maintain
+     *  - precipitation
+     *    - amount
+     *    - hours
      */
     public function getRawData()
     {
