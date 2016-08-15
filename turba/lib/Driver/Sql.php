@@ -404,7 +404,7 @@ class Turba_Driver_Sql extends Turba_Driver
             . $this->_params['table'] . ' WHERE ' . $where;
 
         try {
-            return $this->_parseRead($blobFields, $this->_db->selectx($query, $values), $dateFields);
+            return $this->_parseRead($blobFields, $this->_db->select($query, $values), $dateFields);
         } catch (Horde_Db_Exception $e) {
             throw new Turba_Exception(_("Server error when performing search."));
         }
