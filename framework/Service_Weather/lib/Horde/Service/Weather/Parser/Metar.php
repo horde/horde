@@ -89,8 +89,6 @@ class Horde_Service_Weather_Parser_Metar extends Horde_Service_Weather_Parser_Ba
      *  - precipitation
      *    - amount
      *    - hours
-     *
-     *    -
      */
     protected function _parse(array $data)
     {
