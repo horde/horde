@@ -302,6 +302,11 @@ class Horde_Block_Metar extends Horde_Core_Block
                             . _("Sensor: ") . $sensor;
                     }
                     break;
+                case '3hpresstend':
+                    $view->remarks .= '<br />'
+                    . sprintf(_("Pressure tendency last 3 hours: %s (%s %s)"),
+                      $value['description'], $value['presschng'], $units['pres']);
+                    break;
                 default:
                     $view->other .= '<br />' . $value;
                     break;
