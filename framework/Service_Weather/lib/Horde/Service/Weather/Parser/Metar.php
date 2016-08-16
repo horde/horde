@@ -540,7 +540,13 @@ class Horde_Service_Weather_Parser_Metar extends Horde_Service_Weather_Parser_Ba
                         // no special processing, just passing the data
                         $weatherData['remark']['3hpresstend'] = array(
                             'presscode' => $result[1],
-                            'presschng' => Horde_Service_Weather::convertPressure($result[2] / 10, 'hpa', $this->_unitMap[self::UNIT_KEY_PRESSURE])
+                            'presschng' => Horde_Service_Weather::convertPressure($result[2] / 10, 'hpa', $this->_unitMap[self::UNIT_KEY_PRESSURE]),
+                            'description' => ($result[1] >= 0 && $result[1] <=3)
+                                ? Horde_Service_Weather_Translation::t('Rising')
+                                : ($result[1] == 4)
+                                    ? Horde_Service_Weather_Translation::t('Steady')
+                                    : ($result[1] > 4)
+                                        ? Horde_Service_Weather_Translation::t('Falling') : ''
                         );
                         unset($metarCode['3hpresstend']);
                         break;
