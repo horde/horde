@@ -139,7 +139,10 @@ EOT;
             array('<body/onload=alert(/xss/)>', ''),
             array('<img src=""> <BODY ONLOAD="a();"><SCRIPT>function a(){alert(\'XSS\');}</SCRIPT><"" />', '<img src=""/>'),
             array('<img src=\'blank.jpg\'style=\'width:expression(alert("xssed"))\'>', '<img src="blank.jpg"/>'),
-            array($framedata, '')
+            array($framedata, ''),
+            array('<svg><a xlink:href="data:text/html,<script>alert(/XSS/)</script>"><rect width="1000" height="1000" fill="white"/></a></svg>', '<svg><a><rect width="1000" height="1000" fill="white"/></a></svg>'),
+            array('<math><a xlink:href="data:text/html,<script>alert(/XSS/)</script>">click</a></math>', '<math><a>click</a></math>'),
+            array('<form action="data:text/html,<script>alert(/XSS/)</script>"><button></form>', '<form><button/></form>'),
         );
     }
 

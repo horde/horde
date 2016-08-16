@@ -109,11 +109,19 @@ class Horde_Text_Filter_Xss extends Horde_Text_Filter_Base
 
             switch (Horde_String::lower($node->tagName)) {
             case 'a':
-                /* Strip out data URLs living in an A HREF element
+            case 'form':
+                /* Strip out data URLs living in link-like elements
                  * (Bug #8715). */
-                if ($node->hasAttribute('href') &&
-                    preg_match("/\s*data:/i", $node->getAttribute('href'))) {
-                    $remove[] = 'href';
+                if (Horde_String::lower($node->tagName) == 'form') {
+                    $attributes = array('action');
+                } else {
+                    $attributes = array('href', 'xlink:href');
+                }
+                foreach ($attributes as $attribute) {
+                    if ($node->hasAttribute($attribute) &&
+                        preg_match("/\s*data:/i", $node->getAttribute($attribute))) {
+                        $remove[] = $attribute;
+                    }
                 }
                 break;
 
