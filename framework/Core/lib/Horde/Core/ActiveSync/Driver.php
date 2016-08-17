@@ -2767,7 +2767,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         $ident = $GLOBALS['injector']
             ->getInstance('Horde_Core_Factory_Identity')
             ->create($this->_user);
-        $cn= $ident->getValue('fullname');
+        $cn = $ident->getValue('fullname');
         $email = $ident->getValue('from_addr');
         switch ($response['response']) {
         case Horde_ActiveSync_Request_MeetingResponse::RESPONSE_ACCEPTED:
