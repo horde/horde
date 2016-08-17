@@ -6736,6 +6736,7 @@ KronolithCore = {
     insertFreeBusy: function(attendee, start)
     {
         if (!$('kronolithEventDialog').visible() ||
+            !$('kronolithEventTabAttendees').visible() ||
             !this.freeBusyRows.get(attendee)) {
             return;
         }
