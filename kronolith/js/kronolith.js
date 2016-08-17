@@ -5783,6 +5783,8 @@ KronolithCore = {
             }
             RedBox.onDisplay = this.redBoxOnDisplay;
         }.bind(this);
+        HordeImple.AutoCompleter.kronolithEventUsers.reset();
+        HordeImple.AutoCompleter.kronolithEventAttendees.reset();
         this.attendees = [];
         this.resources = [];
         this.updateCalendarDropDown('kronolithEventTarget');
@@ -5793,8 +5795,6 @@ KronolithCore = {
         this.knl.kronolithEventEndTime.markSelected();
         $('kronolithEventForm').reset();
         this.resetMap();
-        HordeImple.AutoCompleter.kronolithEventUsers.reset();
-        HordeImple.AutoCompleter.kronolithEventAttendees.reset();
         HordeImple.AutoCompleter.kronolithEventTags.reset();
         HordeImple.AutoCompleter.kronolithEventResources.reset();
         if (Kronolith.conf.maps.driver) {
