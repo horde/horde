@@ -6403,19 +6403,28 @@ KronolithCore = {
      */
     parseAttendee: function(attendee, callback)
     {
+        var found;
+
         this.attendees.each(function(a) {
             if (a.i == attendee) {
-                callback(a);
+                found = a;
             }
         });
-
+        if (found) {
+            callback(found);
+            return;
+        }
         // If no match yet, see if it's a displayname (as would be the case
         // when removing attendees via autocompleter reset).
         this.attendees.each(function(a) {
             if (a.l == attendee) {
-                callback(a);
+                found = a;
             }
         });
+        if (found) {
+            callback(found);
+            return;
+        }
 
         if (attendee.include('@')) {
             HordeCore.doAction('parseEmailAddress', {
