@@ -129,7 +129,7 @@ class Horde_ActiveSync_Request_MeetingResponse extends Horde_ActiveSync_Request_
                 // Outlook seems to sometimes send the response from the
                 // calendar folder instead of the mailbox regardless of where
                 // the message is replied to from this will obviously fail,
-                // so we should try one last time to get the folder from the
+                // so we should try one last time to get the message from the
                 // INBOX. If it was moved to some other mail folder, we have to
                 // just give up.
                 $this->_logger->info(sprintf('[%s] Trying to find meeting request in INBOX.', $this->_procid));
