@@ -45,6 +45,11 @@ class Kronolith_View_Month
     protected $_startday;
 
     /**
+     * @var  Horde_Date
+     */
+    protected $_endDate;
+
+    /**
      *
      * @global Horde_Prefs $prefs
      * @param Horde_Date $date
@@ -75,15 +80,14 @@ class Kronolith_View_Month
         $startDate = new Horde_Date(
             $this->year, $this->month, $this->_startOfView
         );
-        $endDate = new Horde_Date(
+        $this->_endDate = new Horde_Date(
             $this->year,
             $this->month,
             Horde_Date_Utils::daysInMonth($this->month, $this->year) + 1
         );
-        $endDate->mday +=
-            (7 - ($endDate->format('w') - $prefs->getValue('week_start_monday')))
+        $this->_endDate->mday +=
+            (7 - ($this->_endDate->format('w') - $prefs->getValue('week_start_monday')))
             % 7;
-
         if ($prefs->getValue('show_shared_side_by_side')) {
             $allCalendars = Kronolith::listInternalCalendars();
             $this->_currentCalendars = array();
@@ -93,9 +97,8 @@ class Kronolith_View_Month
         } else {
             $this->_currentCalendars = array('internal_0' => true);
         }
-
         try {
-            $this->_events = Kronolith::listEvents($startDate, $endDate);
+            $this->_events = Kronolith::listEvents($startDate, $this->_endDate);
         } catch (Exception $e) {
             $GLOBALS['notification']->push($e, 'horde.error');
             $this->_events = array();
@@ -143,11 +146,7 @@ class Kronolith_View_Month
             $cell = 0;
             $date = new Kronolith_Day($this->month, $this->_startOfView, $this->year);
             $date->hour = $twentyFour ? 12 : 6;
-            for (;
-                 $date->month <= $this->month ||
-                     ($date->month == 12 && $this->month == 1) ||
-                     $date->format('w') != $weekStart;
-                 $date->mday++) {
+            for (;$date->compareDate($this->_endDate) < 0; $date->mday++) {
                 if ($cell % 7 == 0) {
                     $week = $date->add(array('day' => $weekOffset))->weekOfYear();
                     $weeklink = Horde::url('week.php')
