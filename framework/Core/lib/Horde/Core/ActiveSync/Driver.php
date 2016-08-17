@@ -2771,15 +2771,15 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         $email = $ident->getValue('from_addr');
         switch ($response['response']) {
         case Horde_ActiveSync_Request_MeetingResponse::RESPONSE_ACCEPTED:
-            $response = 'ACCEPTED';
+            $itip_response = 'ACCEPTED';
             break;
         case Horde_ActiveSync_Request_MeetingResponse::RESPONSE_TENTATIVE:
-            $response = 'TENTATIVE';
+            $itip_response = 'TENTATIVE';
             break;
         case Horde_ActiveSync_Request_MeetingResponse::RESPONSE_DECLINED:
-            $response = 'DECLINED';
+            $itip_response = 'DECLINED';
         }
-        $vEvent->updateAttendee($email, $response);
+        $vEvent->updateAttendee($email, $itip_response);
 
         // Create an event from the vEvent.
         // Note we don't use self::changeMessage since we don't want to treat
