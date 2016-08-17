@@ -6403,10 +6403,19 @@ KronolithCore = {
      */
     parseAttendee: function(attendee, callback)
     {
-        if (this.attendees[attendee]) {
-            callback(this.attendees[attendee]);
-            return;
-        }
+        this.attendees.each(function(a) {
+            if (a.i == attendee) {
+                callback(a);
+            }
+        });
+
+        // If no match yet, see if it's a displayname (as would be the case
+        // when removing attendees via autocompleter reset).
+        this.attendees.each(function(a) {
+            if (a.l == attendee) {
+                callback(a);
+            }
+        });
 
         if (attendee.include('@')) {
             HordeCore.doAction('parseEmailAddress', {
@@ -6414,20 +6423,21 @@ KronolithCore = {
             }, {
                 callback: function (r) {
                     if (r.email) {
-                        this.attendees[attendee] = {
+                        var obj = {
                             i: 'email:' + r.email,
                             e: r.email,
                             l: attendee
                         };
-                        callback(this.attendees[attendee]);
+                        this.attendees.push(obj);
+                        callback(obj);
                     }
                 }.bind(this)
             });
             return;
         }
-
-        this.attendees[attendee] = { i: 'name:' + attendee, l: attendee };
-        callback(this.attendees[attendee]);
+        var obj = { i: 'name:' + attendee, l: attendee };
+        this.attendees[attendee] = obj;
+        callback(obj);
     },
 
     /**
