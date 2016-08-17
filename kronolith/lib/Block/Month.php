@@ -132,9 +132,7 @@ class Kronolith_Block_Month extends Horde_Core_Block
         $week = -1;
         $weekStart = $prefs->getValue('week_start_monday');
         for ($date_ob = new Kronolith_Day($month, $startOfView, $year);
-             $date_ob->month <= $month ||
-                 ($date_ob->month == 12 && $month == 1) ||
-                 $date_ob->format('w') != $weekStart;
+             $date_ob->compareDate($endDate) < 0;
              $date_ob->mday++) {
             if ($weekday == 7) {
                 $weekday = 0;
