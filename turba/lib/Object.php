@@ -194,17 +194,13 @@ class Turba_Object
             } catch (Turba_Exception $e) {}
         }
 
-        if (isset($this->driver->map[$attribute]) &&
-            is_array($this->driver->map[$attribute]) &&
-            !isset($this->driver->map[$attribute]['attribute'])) {
-
-            // If we don't know the attribute, and it's an email field, save it
-            // in case we need to populate an email field on save.
+        // If we don't know the attribute, and it's an email field, save it
+        // in case we need to populate an email field on save.
+        if (!isset($this->driver->map[$attribute])) {
             if (isset($attributes[$attribute]) &&
                 $attributes[$attribute]['type'] == 'email') {
                 $this->_emailFields[$attribute] = $value;
             }
-
             return;
         }
 
@@ -601,21 +597,26 @@ class Turba_Object
     {
         global $attributes;
 
-        foreach ($this->attributes as $attribute => $value) {
-            if ($attributes[$attribute]['type'] = 'email') {
-                // We have an email defined, no need to check.
-                return;
-            }
-        }
-
-        // No email defined yet, see if we have any available:
+        // If an email type attribute is not known to this object's driver map
+        // then attempt to fill in any email attributes we DO know about that
+        // are currently empty. Not ideal, but if a client is sending unknown
+        // email fields, we have no way of knowing where to put them and this
+        // is better than dropping them.
         foreach ($this->_emailFields as $attribute => $email) {
-            if (!empty($this->driver->map[$attribute])) {
-                $this->attributes[$attribute] = $email;
-                break;
-            } elseif (!empty($this->driver->map['email'])) {
-                $this->attribute['email'] = $email;
-                break;
+            if (empty($this->driver->map[$attribute])) {
+                foreach ($this->driver->map as $driver_att => $driver_value) {
+                    if ($attributes[$driver_att]['type'] == 'email' &&
+                        empty($this->attributes[$driver_att])) {
+                        // Hackish way of preventing the 'emails' attribute
+                        // from interfering since it is ALWAYS populated in
+                        // Turba_Driver::toHash()
+                        if (empty($attributes[$driver_att]['allow_multi']) &&
+                            strpos($email, ',') !== false) {
+                            continue;
+                        }
+                        $this->attributes[$driver_att] = $email;
+                    }
+                }
             }
         }
     }
