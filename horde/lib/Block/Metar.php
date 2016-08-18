@@ -111,7 +111,7 @@ class Horde_Block_Metar extends Horde_Core_Block
      */
     protected function _content()
     {
-        global $injector;
+        global $injector, $prefs;
 
         // Set up the weather driver.
         $this->_weather->units = $this->_params['units'];
@@ -120,7 +120,9 @@ class Horde_Block_Metar extends Horde_Core_Block
         // Set up the view object.
         $view = $injector->getInstance('Horde_View');
         $view->units = $units;
-
+        $view->timezone = $prefs->getValue('timezone');
+        $view->date_format = $prefs->getValue('date_format');
+        $view->time_format = $prefs->getValue('time_format');
         if (!empty($this->_refreshParams) && !empty($this->_refreshParams->location)) {
             $location = $this->_refreshParams->location;
             $view->instance = '';
@@ -319,8 +321,11 @@ class Horde_Block_Metar extends Horde_Core_Block
             $taf = $this->_weather->getForecast($location)->getRawData();
             $view->item = 0;
             $view->periods = array();
+            $view->taf = $taf;
+            unset($view->taf['time']);
             foreach ($taf['time'] as $time => $entry) {
-                $period = array('time' => $time);
+                $time_obj = new Horde_Date($time, 'UTC');
+                $period = array('time' => $time_obj);
                 // Wind
                 if (isset($entry['wind'])) {
                     if ($entry['windDirection'] == 'Variable') {

@@ -1,5 +1,6 @@
 <div class="control">
-  <strong><?php echo $this->location_title?></strong> <?php echo sprintf(_("Last Updated: %s"), $this->weather['update'])?>
+  <strong><?php echo $this->location_title?></strong><br />
+  <?php echo sprintf(_("Last Updated: %s"), $this->weather['update'])?>
 </div>
 
 <div class="horde-content">
@@ -42,13 +43,20 @@
   <?php endif;?>
   <?php if (!empty($this->periods)): ?>
      <div class="control">
-       <strong><?php echo _("Forecast (TAF)")?></strong>
-     </div>
+       <strong><?php echo _("Forecast (TAF)")?></strong><br />
+       <?php echo sprintf(
+        _("Valid from %s %s to %s %s"),
+        $this->taf['validFrom']->setTimezone($this->timezone)->strftime($this->date_format),
+        $this->taf['validFrom']->setTimezone($this->timezone)->strftime($this->time_format),
+        $this->taf['validTo']->setTimezone($this->timezone)->strftime($this->date_format),
+        $this->taf['validTo']->setTimezone($this->timezone)->strftime($this->time_format)
+        )?>
+      </div>
      <table width="100%" cellspacing="0">
      <?php foreach ($this->periods as $entry):?>
         <?php $this->item++?>
         <tr class="row<?php echo ($this->item % 2) ? 'Odd' : 'Even' ?>">
-          <td align="center" width="50"><?php echo $entry['time']?></td>
+          <td align="center" width="50"><?php echo $entry['time']->setTimezone($this->timezone)->strftime($this->time_format)?></td>
           <td>
             <?php if (isset($entry['wind'])):?>
                 <strong><?php echo _("Wind")?>:</strong>
@@ -90,7 +98,9 @@
             <?php $this->item++;?>
             <tr class="row<?php echo ($this->item % 2) ? 'Odd' : 'Even' ?>">
               <td align="center" width="50">
-                * <?php echo $fmcEntry['from'];?><br /> - <?php echo $fmcEntry['to'];?>
+                * <?php echo $fmcEntry['from']->setTimezone($this->timezone)->strftime($this->time_format)?>
+                <br /> -
+                <?php echo $fmcEntry['to']->setTimezone($this->timezone)->strftime($this->time_format)?>
               </td>
               <td>
                 <strong><?php echo _("Type")?>: </strong> <?php echo $fmcEntry['type'];?>
