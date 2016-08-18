@@ -3385,7 +3385,7 @@ KronolithCore = {
             } else {
                 $('kronolithC' + type + 'PGedit_' + group).setValue(0);
             }
-            $('kronolithC' + type + 'PGdelete_' + group).setValue(0);
+            $('kronolithC' + type + 'PGdel_' + group).setValue(0);
             if ($('kronolithC' + type + 'PGdelegate_' + group)) {
                 $('kronolithC' + type + 'PGdelegate_' + group).setValue(0);
             }
@@ -3411,7 +3411,7 @@ KronolithCore = {
                 } else {
                     $('kronolithC' + type + 'PUedit_' + user).setValue(0);
                 }
-                $('kronolithC' + type + 'PUdelete_' + user).setValue(0);
+                $('kronolithC' + type + 'PUdel_' + user).setValue(0);
                 if ($('kronolithC' + type + 'PUdelegate_' + user)) {
                     $('kronolithC' + type + 'PUdelegate_' + user).setValue(0);
                 }
