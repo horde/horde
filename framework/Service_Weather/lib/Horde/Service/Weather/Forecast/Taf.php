@@ -52,7 +52,7 @@
      * - validRaw:        The raw TAF encoded valid forecast times.
      * - validFrom:       The valid forecast FROM time.
      * - validTo:         The valid forecast TO time.
-     * - time:            Array containing an entry for each FMC section.
+     * - time:            Array containing an entry for each weather section.
      *                    Basically each entry contains forcasted changes
      *                    beginning at the time of the key to the entry.
      *   - wind:              The wind speed.
@@ -74,6 +74,12 @@
      *   - windshearDirection:The compass direction of windshear.
      *   - temperatureLow:    The forecast low temperature.
      *   - temperatureHigh:   The forecast high temperature.
+     *   - fmc:               Array containing any FMC changes. I.e, "TEMPO", or
+     *                        "BECMG" lines.
+     *     - from:            Horde_Date representing the starting time of the
+     *                        FMC change.
+     *     - to:              Horde_Date representing the ending time of the FMC
+     *                        period.
      */
     public function getRawData()
     {

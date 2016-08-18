@@ -63,7 +63,7 @@ class Horde_Service_Weather_Parser_Taf extends Horde_Service_Weather_Parser_Base
         $forecastData = array();
         $forecastData['station'] = '';
         $forecastData['dataRaw'] = implode(' ', $data);
-        $forecastData['update'] = strtotime(trim($data[0]) .' GMT');
+        $forecastData['update'] = strtotime(trim($data[0]) . ' GMT');
         $forecastData['updateRaw'] = trim($data[0]);
 
         // and prepare the rest for stepping through
