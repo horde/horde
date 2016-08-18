@@ -41,8 +41,8 @@ class Horde_Service_Weather_Parser_Taf extends Horde_Service_Weather_Parser_Base
      *    - station: (string) The station identifier.
      *    - dataRaw: (string) The raw TAF data.
      *    - update:  (timestamp) Timestamp of last update.
-     *    - validFrom: (timestamp) The valid FROM time.
-     *    - validTo: (timestamp) The valid TO time.
+     *    - validFrom: (Horde_Date) The valid FROM time.
+     *    - validTo: (Horde_Date) The valid TO time.
      *    - time: (array) An array of Horde_Service_Weather_Period objects for
      *      each available valid time provided by the TAF report.
      */
@@ -107,17 +107,25 @@ class Horde_Service_Weather_Parser_Taf extends Horde_Service_Weather_Parser_Base
                         if ($result[1] < $day) {
                             $month++;
                         }
-                        $pointer['validFrom'] = gmmktime($result[2], 0, 0, $month, $result[1], $year);
-                        $pointer['validTo']   = gmmktime($result[4], 0, 0, $month, $result[3], $year);
+                        $pointer['validFrom'] = new Horde_Date(array(
+                            'hour' => $result[2],
+                            'month' => $month,
+                            'mday' => $result[1],
+                            'year' => $year), 'GMT');
+                        $pointer['validTo'] = new Horde_Date(array(
+                            'hour' => $result[4],
+                            'month' => $month,
+                            'mday' => $result[3],
+                            'year' => $year), 'GMT');
                         unset($tafCode['valid']);
                         // Now the groups will start, so initialize the time groups
                         $pointer['time'] = array();
-                        $time = new Horde_Date(array(
+                        $start_time = new Horde_Date(array(
                             'year' => $year,
                             'month' => $month,
                             'mday' => $result[1],
-                            'hour' => $result[2]));
-                        $fromTime = (string)$time;
+                            'hour' => $result[2]), 'UTC');
+                        $fromTime = (string)$start_time;
                         $pointer['time'][$fromTime] = array();
                         // Set pointer to the first timeperiod
                         $pointer = &$pointer['time'][$fromTime];
@@ -339,13 +347,19 @@ class Horde_Service_Weather_Parser_Taf extends Horde_Service_Weather_Parser_Base
                     case 'from':
                         // Next timeperiod is coming up, prepare array and
                         // set pointer accordingly
+                        $fromTime = clone $start_time;
                         if (sizeof($result) > 2) {
                             // The ICAO way
-                            $fromTime = $result[2] . ':' . $result[3];
+                            $fromTime->hour = $result[2];
+                            $fromTime->min = $result[3];
                         } else {
                             // The Australian way (Hey mates!)
-                            $fromTime = $result[1] . ':00';
+                            $fromTime->hour = $result[1];
                         }
+                        if ($start_time->compareDateTime($fromTime) >= 1) {
+                            $fromTime->mday++;
+                        }
+                        $fromTime = (string)$fromTime;
                         $forecastData['time'][$fromTime] = array();
                         $fmcCount = 0;
                         $pointer = &$forecastData['time'][$fromTime];
@@ -359,9 +373,16 @@ class Horde_Service_Weather_Parser_Taf extends Horde_Service_Weather_Parser_Base
                             $probability = $result[2];
                             // Now extract time for this group
                             if (preg_match('/^(\d{2})(\d{2})$/i', $taf[$i + 2], $lresult)) {
-                                $from = $lresult[1] . ':00';
-                                $to = $lresult[2] . ':00';
-                                $to = ($to == '24:00') ? '00:00' : $to;
+                                $from = clone($start_time);
+                                $from->hour = $lresult[1];
+                                if ($start_time->compareDateTime($from) >= 1) {
+                                    $from->mday++;
+                                }
+                                $to = clone($from);
+                                $to->hour = $lresult[2];
+                                if ($start_time->compareDateTime($to) >= 1) {
+                                    $to->mday++;
+                                }
                                 // As we now have type, probability and time for this FMC
                                 // from our TAF, increase field-counter
                                 $i += 2;
@@ -376,9 +397,16 @@ class Horde_Service_Weather_Parser_Taf extends Horde_Service_Weather_Parser_Base
                             if (isset($result[2])) {
                                 $probability = $result[2];
                             }
-                            $from = $lresult[2] . ':00';
-                            $to = $lresult[4] . ':00';
-                            $to = ($to == '24:00') ? '00:00' : $to;
+                            $from = clone($start_time);
+                            $from->hour = $lresult[2];
+                            if ($start_time->compareDateTime($from) >= 1) {
+                                $from->mday++;
+                            }
+                            $to = clone($from);
+                            $to->hour = $lresult[4];
+                            if ($start_time->compareDateTime($to) >= 1) {
+                                $to->mday++;
+                            }
                             // Same as above, we have a time for this FMC from our TAF,
                             // increase field-counter
                             $i += 1;
