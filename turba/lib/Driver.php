@@ -2168,8 +2168,11 @@ class Turba_Driver implements Countable
      */
     public function toHash(Horde_Icalendar_Vcard $vcard)
     {
+        global $attributes;
+
         $hash = array();
         $attr = $vcard->getAllAttributes();
+
         foreach ($attr as $item) {
             switch ($item['name']) {
             case 'UID':
@@ -2423,12 +2426,14 @@ class Turba_Driver implements Countable
             case 'EMAIL':
                 $email_set = false;
                 if (isset($item['params']['HOME']) &&
+                    !empty($this->map['homeEmail']) &&
                     (!isset($hash['homeEmail']) ||
                      isset($item['params']['PREF']))) {
                     $e = Horde_Icalendar_Vcard::getBareEmail($item['value']);
                     $hash['homeEmail'] = $e ? $e : '';
                     $email_set = true;
                 } elseif (isset($item['params']['WORK']) &&
+                          !empty($this->map['workEmail']) &&
                           (!isset($hash['workEmail']) ||
                            isset($item['params']['PREF']))) {
                     $e = Horde_Icalendar_Vcard::getBareEmail($item['value']);
@@ -2442,12 +2447,14 @@ class Turba_Driver implements Countable
                         $type = Horde_String::upper($type);
                     }
                     if (in_array('HOME', $item['params']['TYPE']) &&
+                        !empty($this->map['homeEmail']) &&
                         (!isset($hash['homeEmail']) ||
                          in_array('PREF', $item['params']['TYPE']))) {
                         $e = Horde_Icalendar_Vcard::getBareEmail($item['value']);
                         $hash['homeEmail'] = $e ? $e : '';
                         $email_set = true;
                     } elseif (in_array('WORK', $item['params']['TYPE']) &&
+                              !empty($this->map['workEmail']) &&
                               (!isset($hash['workEmail']) ||
                          in_array('PREF', $item['params']['TYPE']))) {
                         $e = Horde_Icalendar_Vcard::getBareEmail($item['value']);
