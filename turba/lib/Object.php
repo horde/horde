@@ -618,18 +618,12 @@ class Turba_Object
         // email fields, we have no way of knowing where to put them and this
         // is better than dropping them.
         foreach ($this->_emailFields as $attribute => $email) {
-            if (empty($this->driver->map[$attribute])) {
+            if (empty($this->driver->map[$attribute]) && $attribute != 'emails') {
                 foreach ($this->driver->map as $driver_att => $driver_value) {
                     if ($attributes[$driver_att]['type'] == 'email' &&
                         empty($this->attributes[$driver_att])) {
-                        // Hackish way of preventing the 'emails' attribute
-                        // from interfering since it is ALWAYS populated in
-                        // Turba_Driver::toHash()
-                        if (empty($attributes[$driver_att]['allow_multi']) &&
-                            strpos($email, ',') !== false) {
-                            continue;
-                        }
                         $this->attributes[$driver_att] = $email;
+                        break;
                     }
                 }
             }
