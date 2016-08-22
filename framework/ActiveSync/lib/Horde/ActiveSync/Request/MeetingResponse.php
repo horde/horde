@@ -130,9 +130,9 @@ class Horde_ActiveSync_Request_MeetingResponse extends Horde_ActiveSync_Request_
                         $body = Horde_ActiveSync::messageFactory('AirSyncBaseBody');
                         $body->decodeStream($this->_decoder);
                         $req['sendresponse'] = $body;
-                    }
-                    if (!$this->_decoder->getElementEndTag()) {
-                        throw new Horde_ActiveSync_Exception('Protocol Error');
+                        if (!$this->_decoder->getElementEndTag()) {
+                            throw new Horde_ActiveSync_Exception('Protocol Error');
+                        }
                     }
                     break;
                 }
