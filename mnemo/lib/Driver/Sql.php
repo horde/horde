@@ -289,7 +289,7 @@ class Mnemo_Driver_Sql extends Mnemo_Driver
      * @param array $row           Hash of the note data, db keys.
      * @param string  $passphrase  The encryption passphrase.
      *
-     * @return array a Task hash.
+     * @return array a Note hash.
      * @throws Mnemo_Exception
      */
     protected function _buildNote($row, $passphrase = null)
