@@ -50,7 +50,7 @@ class Horde_ActiveSync_Request_MeetingResponse extends Horde_ActiveSync_Request_
     const MEETINGRESPONSE_INSTANCEID      = 'MeetingResponse:InstanceId';
 
     // 16.0 @todo
-    const MEETINGRESPONSE_SENDRESPONSE    = 'MeetingResponse:SendResposne';
+    const MEETINGRESPONSE_SENDRESPONSE    = 'MeetingResponse:SendResponse';
 
     // Response constants
     const RESPONSE_ACCEPTED               = 1;
