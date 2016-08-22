@@ -78,7 +78,10 @@ class Horde_ActiveSync_Request_MeetingResponse extends Horde_ActiveSync_Request_
             $req = array();
             while (($tag = ($this->_decoder->getElementStartTag(self::MEETINGRESPONSE_USERRESPONSE) ? self::MEETINGRESPONSE_USERRESPONSE :
                    ($this->_decoder->getElementStartTag(self::MEETINGRESPONSE_FOLDERID) ? self::MEETINGRESPONSE_FOLDERID :
-                   ($this->_decoder->getElementStartTag(self::MEETINGRESPONSE_REQUESTID) ? self::MEETINGRESPONSE_REQUESTID : -1)))) != -1) {
+                   ($this->_decoder->getElementStartTag(self::MEETINGRESPONSE_REQUESTID) ? self::MEETINGRESPONSE_REQUESTID :
+                   ($this->_decoder->getElementStartTag(Horde_ActiveSync_Request_Search::SEARCH_LONGID) ? Horde_ActiveSync_Request_Search::SEARCH_LONGID :
+                   ($this->_decoder->getElementStartTag(self::MEETINGRESPONSE_INSTANCEID) ? self::MEETINGRESPONSE_INSTANCEID :
+                   ($this->_decoder->getElementStartTag(self::MEETINGRESPONSE_SENDRESPONSE) ? self::MEETINGRESPONSE_SENDRESPONSE : -1))))))) != -1) {
 
                 switch ($tag) {
                 case self::MEETINGRESPONSE_USERRESPONSE:
@@ -100,8 +103,41 @@ class Horde_ActiveSync_Request_MeetingResponse extends Horde_ActiveSync_Request_
                         throw new Horde_ActiveSync_Exception('Protocol Error');
                     }
                     break;
+                case self::MEETINGRESPONSE_INSTANCEID:
+                    // Original UTC time of appointment instance to be modified
+                    // sent in EAS 16 to indicate which instance we are
+                    // responding to.
+                    $req['instanceid'] = $this->_decoder->getElementContent();
+                    if (!$this->_decoder->getElementEndTag()) {
+                        throw new Horde_ActiveSync_Exception('Protocol Error');
+                    }
+                    break;
+                case Horde_ActiveSync_Request_Search::SEARCH_LONGID:
+                    // Used in EAS 16 when responding from a search result.
+                    $req['longid'] = $this->_decoder->getElementContent();
+                    if (!$this->_decoder->getElementEndTag()) {
+                        throw new Horde_ActiveSync_Exception('Protocol Error');
+                    }
+                    break;
+                case self::MEETINGRESPONSE_SENDRESPONSE:
+                    // Used in EAS 16 as either a flag to indicate the server
+                    // should send the iTip response email, and/or to contain
+                    // the body of such an email.
+                    if ($this->_decoder->isEmptyElement($this->_decoder->getLastStartElement())) {
+                        $req['sendresponse'] = true;
+                    } else {
+                        // elementContent is an AirSyncBaseBody object.
+                        $body = Horde_ActiveSync::messageFactory('AirSyncBaseBody');
+                        $body->decodeStream($this->_decoder);
+                        $req['sendresponse'] = $body;
+                    }
+                    if (!$this->_decoder->getElementEndTag()) {
+                        throw new Horde_ActiveSync_Exception('Protocol Error');
+                    }
+                    break;
                 }
             }
+
             $requests[] = $req;
             // </self::MEETINGRESPONSE_REQUEST>
             if (!$this->_decoder->getElementEndTag()) {
