@@ -14,10 +14,10 @@ database or Kolab server for backend storage. For more information on Mnemo,
 visit http://www.horde.org/apps/mnemo.
 
 For upgrading instructions, please see
-http://www.horde.org/apps/nag/docs/UPGRADING
+http://www.horde.org/apps/mnemo/docs/UPGRADING
 
 For detailed installation and configuration instructions, please see
-http://www.horde.org/apps/nag/docs/INSTALL
+http://www.horde.org/apps/mnemo/docs/INSTALL
 
 The major changes compared to the Mnemo version H5 (4.2.10) are:
     * Update Portuguese translation.
