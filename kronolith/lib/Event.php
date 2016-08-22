@@ -1877,28 +1877,31 @@ abstract class Kronolith_Event
         if (!$message->isGhosted('attendees')) {
             $attendees = $message->getAttendees();
             foreach ($attendees as $attendee) {
-                switch ($attendee->status) {
-                case Horde_ActiveSync_Message_Attendee::STATUS_ACCEPT:
-                    $response_code = Kronolith::RESPONSE_ACCEPTED;
-                    break;
-                case Horde_ActiveSync_Message_Attendee::STATUS_DECLINE:
-                    $response_code = Kronolith::RESPONSE_DECLINED;
-                    break;
-                case Horde_ActiveSync_Message_Attendee::STATUS_TENTATIVE:
-                    $response_code = Kronolith::RESPONSE_TENTATIVE;
-                    break;
-                default:
-                    $response_code = Kronolith::RESPONSE_NONE;
-                }
-                switch ($attendee->type) {
-                case Horde_ActiveSync_Message_Attendee::TYPE_REQUIRED:
-                    $part_type = Kronolith::PART_REQUIRED;
-                    break;
-                case Horde_ActiveSync_Message_Attendee::TYPE_OPTIONAL:
-                    $part_type = Kronolith::PART_OPTIONAL;
-                    break;
-                case Horde_ActiveSync_Message_Attendee::TYPE_RESOURCE:
-                    $part_type = Kronolith::PART_REQUIRED;
+                $response_code == false;
+                if ($message->getProtocolVersion < Horde_ActiveSync::VERSION_SIXTEEN) {
+                    switch ($attendee->status) {
+                    case Horde_ActiveSync_Message_Attendee::STATUS_ACCEPT:
+                        $response_code = Kronolith::RESPONSE_ACCEPTED;
+                        break;
+                    case Horde_ActiveSync_Message_Attendee::STATUS_DECLINE:
+                        $response_code = Kronolith::RESPONSE_DECLINED;
+                        break;
+                    case Horde_ActiveSync_Message_Attendee::STATUS_TENTATIVE:
+                        $response_code = Kronolith::RESPONSE_TENTATIVE;
+                        break;
+                    default:
+                        $response_code = Kronolith::RESPONSE_NONE;
+                    }
+                    switch ($attendee->type) {
+                    case Horde_ActiveSync_Message_Attendee::TYPE_REQUIRED:
+                        $part_type = Kronolith::PART_REQUIRED;
+                        break;
+                    case Horde_ActiveSync_Message_Attendee::TYPE_OPTIONAL:
+                        $part_type = Kronolith::PART_OPTIONAL;
+                        break;
+                    case Horde_ActiveSync_Message_Attendee::TYPE_RESOURCE:
+                        $part_type = Kronolith::PART_REQUIRED;
+                    }
                 }
 
                 $this->addAttendee($attendee->email,
@@ -3067,10 +3070,10 @@ abstract class Kronolith_Event
      * This will overwrite an existing attendee if one exists with the same
      * email address.
      *
-     * @param string $email      The email address of the attendee.
-     * @param integer $role      The role code of the attendee.
-     * @param integer $response  The response code of the attendee.
-     * @param string $name       The name of the attendee.
+     * @param string $email              The email address of the attendee.
+     * @param integer $role              The role code of the attendee.
+     * @param integer|boolean $response  The response code of the attendee.
+     * @param string $name               The name of the attendee.
      */
     public function addAttendee($email, $role, $response, $name = null)
     {
@@ -3095,7 +3098,9 @@ abstract class Kronolith_Event
             );
         }
 
-        $attendee->response = $response;
+        if ($response !== false) {
+            $attendee->response = $response;
+        }
         if (strlen($name)) {
             $attendee->name = $name;
         }
