@@ -2795,8 +2795,17 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         }
 
         if (!empty($response['sendresponse'])) {
-            if ($response['sendresponse'] === true) {
-
+            if ($response['sendresponse'] !== true) {
+                $comment = $response['sendresponse']->data;
+                if ($response['sendresponse']->type == Horde_ActiveSync::BODYPREF_TYPE_HTML) {
+                    $comment = Horde_Text_Filter::filter(
+                        $comment,
+                        'Html2text',
+                        array('charset' => 'UTF-8', 'nestingLimit' => 1000)
+                    );
+                }
+            } else {
+                $comment = '';
             }
            // Start building the iTip response email.
             try {
@@ -2819,13 +2828,13 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             );
             switch ($response['response']) {
             case Horde_ActiveSync_Request_MeetingResponse::RESPONSE_ACCEPTED:
-                $type = new Horde_Itip_Response_Type_Accept($resource);
+                $type = new Horde_Itip_Response_Type_Accept($resource, $comment);
                 break;
             case Horde_ActiveSync_Request_MeetingResponse::RESPONSE_DECLINED:
-                $type = new Horde_Itip_Response_Type_Decline($resource);
+                $type = new Horde_Itip_Response_Type_Decline($resource, $comment);
                 break;
             case Horde_ActiveSync_Request_MeetingResponse::RESPONSE_TENTATIVE:
-                $type = new Horde_Itip_Response_Type_Tentative($resource);
+                $type = new Horde_Itip_Response_Type_Tentative($resource, $comment);
                 break;
             }
             try {
