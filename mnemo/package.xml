@@ -27,6 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [mjr] Add tag browsing/searching (Request #14178).
 * [jan] Keep original file names when PUTing notes via WebDAV.
 * [jan] Remove configuration option for database table.
 * [jan] Return ETags with browse() API method.
@@ -1378,6 +1379,7 @@
    <date>2016-08-23</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [mjr] Add tag browsing/searching (Request #14178).
 * [jan] Keep original file names when PUTing notes via WebDAV.
 * [jan] Remove configuration option for database table.
 * [jan] Return ETags with browse() API method.
