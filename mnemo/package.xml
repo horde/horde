@@ -16,7 +16,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2016-01-13</date>
+ <date>2016-08-23</date>
  <version>
   <release>4.3.0</release>
   <api>4.1.0</api>
@@ -86,6 +86,7 @@
     <dir name="Factory">
      <file name="Driver.php" role="horde" />
      <file name="Notepads.php" role="horde" />
+     <file name="TagBrowser.php" role="horde" />
     </dir> <!-- /lib/Factory -->
     <dir name="Form">
      <file name="CreateNotepad.php" role="horde" />
@@ -98,12 +99,16 @@
      <file name="Default.php" role="horde" />
      <file name="Kolab.php" role="horde" />
     </dir> <!-- /lib/Notepads -->
+    <dir name="View">
+     <file name="List.php" role="horde" />
+    </dir> <!-- /lib/View -->
     <file name=".htaccess" role="horde" />
     <file name="Api.php" role="horde" />
     <file name="Application.php" role="horde" />
     <file name="Driver.php" role="horde" />
     <file name="Exception.php" role="horde" />
     <file name="Mnemo.php" role="horde" />
+    <file name="TagBrowser.php" role="horde" />
     <file name="Tagger.php" role="horde" />
    </dir> <!-- /lib -->
    <dir name="locale">
@@ -624,6 +629,7 @@
    <install as="mnemo/lib/Driver.php" name="lib/Driver.php" />
    <install as="mnemo/lib/Exception.php" name="lib/Exception.php" />
    <install as="mnemo/lib/Mnemo.php" name="lib/Mnemo.php" />
+   <install as="mnemo/lib/TagBrowser.php" name="lib/TagBrowser.php" />
    <install as="mnemo/lib/Tagger.php" name="lib/Tagger.php" />
    <install as="mnemo/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
    <install as="mnemo/lib/Ajax/Imple/EditNote.php" name="lib/Ajax/Imple/EditNote.php" />
@@ -634,6 +640,7 @@
    <install as="mnemo/lib/Driver/Sql.php" name="lib/Driver/Sql.php" />
    <install as="mnemo/lib/Factory/Driver.php" name="lib/Factory/Driver.php" />
    <install as="mnemo/lib/Factory/Notepads.php" name="lib/Factory/Notepads.php" />
+   <install as="mnemo/lib/Factory/TagBrowser.php" name="lib/Factory/TagBrowser.php" />
    <install as="mnemo/lib/Form/CreateNotepad.php" name="lib/Form/CreateNotepad.php" />
    <install as="mnemo/lib/Form/DeleteNotepad.php" name="lib/Form/DeleteNotepad.php" />
    <install as="mnemo/lib/Form/EditNotepad.php" name="lib/Form/EditNotepad.php" />
@@ -641,6 +648,7 @@
    <install as="mnemo/lib/Notepads/Base.php" name="lib/Notepads/Base.php" />
    <install as="mnemo/lib/Notepads/Default.php" name="lib/Notepads/Default.php" />
    <install as="mnemo/lib/Notepads/Kolab.php" name="lib/Notepads/Kolab.php" />
+   <install as="mnemo/lib/View/List.php" name="lib/View/List.php" />
    <install as="mnemo/locale/.htaccess" name="locale/.htaccess" />
    <install as="mnemo/locale/mnemo.pot" name="locale/mnemo.pot" />
    <install as="mnemo/locale/bg/LC_MESSAGES/mnemo.mo" name="locale/bg/LC_MESSAGES/mnemo.mo" />
@@ -1367,7 +1375,7 @@
    <stability>
     <release>alpha</release>
     <api>alpha</api></stability>
-   <date>2016-01-13</date>
+   <date>2016-08-23</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Keep original file names when PUTing notes via WebDAV.

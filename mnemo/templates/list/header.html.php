@@ -11,3 +11,5 @@
  </div>
 <?php endif ?>
 </div>
+<br />
+<div class="mnemo-tags-related"><?php echo $this->browser?></div>

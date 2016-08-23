@@ -91,6 +91,15 @@ table#notepad-list th.sortdown {
     width: 1%;
 }
 
+.mnemo-tags-related, .mnemo-tags-browsing {
+    padding-bottom: 12px;
+    padding-left: 5px;
+}
+
+.horde-tags li a img {
+    padding-left: 5px;
+}
+
 /* Icons. */
 .mnemo-list {
     background-image: url('graphics/mnemo.png');
