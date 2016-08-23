@@ -281,6 +281,7 @@ class Mnemo_View_List
             } else {
                 $this->_loadNotes();
             }
+            $this->_showTagBrowser = true;
             break;
         }
     }
@@ -306,6 +307,17 @@ class Mnemo_View_List
                 }
             }
             $this->_notes = $search_result;
+        } elseif ($search_type == 'tags') {
+            // Tag search, use the browser.
+            $this->_browser->clearSearch();
+            $tags = $GLOBALS['injector']->getInstance('Mnemo_Tagger')
+                ->split($this->_vars->get('search_pattern'));
+            foreach ($tags as $tag) {
+                $this->_browser->addTag($tag);
+            }
+            $this->_notes = $this->_browser->getSlice();
+            $this->_handleActions(false);
+            return;
         }
         $this->_baseurl->add(array(
             'actionID' => 'search_memos',

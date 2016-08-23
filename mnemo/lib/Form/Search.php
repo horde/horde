@@ -24,7 +24,11 @@ class Mnemo_Form_Search extends Horde_Form
         $this->addVariable(_("For"), 'search_pattern', 'text', false);
         $v = $this->addVariable(
             _("In"), 'search_type', 'radio', false, false, null,
-            array(array('desc' => _("Title"), 'body' => _("Body")))
+            array(array(
+                'desc' => _("Title"),
+                'body' => _("Body"),
+                'tags' => _("Tags"))
+            )
         );
         $v->setDefault('desc');
         $this->setButtons(_("Search"));
