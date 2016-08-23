@@ -5,12 +5,12 @@ class Nag_Factory_TagBrowser extends Horde_Core_Factory_Base
 
     public function create()
     {
-        if (empty($instance)) {
-            $instance = new Nag_TagBrowser(
+        if (empty($this->_instance)) {
+            $this->_instance = new Nag_TagBrowser(
                 $GLOBALS['injector']->getInstance('Nag_Tagger'));
         }
 
-        return $instance;
+        return $this->_instance;
     }
 
 }
