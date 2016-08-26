@@ -364,7 +364,7 @@ class Kronolith
                                                       $event->start->month,
                                                       $event->start->mday)) {
                     if ($coverDates) {
-                        self::addCoverDates($results, $event, $event->start, $event->end, $json, $endDate);
+                        self::addCoverDates($results, $event, $event->start, $event->end, $json);
                     } else {
                         $results[$event->start->dateString()][$event->id] = $json ? $event->toJson() : $event;
                     }
@@ -406,7 +406,7 @@ class Kronolith
                     $addEvent->start = $addEvent->originalStart = $next;
                     $addEvent->end = $addEvent->originalEnd = $nextEnd;
                     if ($coverDates) {
-                        self::addCoverDates($results, $addEvent, $next, $nextEnd, $json, $endDate);
+                        self::addCoverDates($results, $addEvent, $next, $nextEnd, $json);
                     } else {
                         $addEvent->start = $next;
                         $addEvent->end = $nextEnd;
@@ -519,8 +519,7 @@ class Kronolith
                 $loopDate = new Horde_Date(array('month' => $eventStart->month,
                                                  'mday' => $i,
                                                  'year' => $eventStart->year));
-                while ($loopDate->compareDateTime($eventEnd) <= 0 &&
-                       $loopDate->compareDateTime($endDate) <=0) {
+                while ($loopDate->compareDateTime($eventEnd) <= 0) {
                     if (!$allDay ||
                         $loopDate->compareDateTime($eventEnd) != 0) {
                         $addEvent = clone $event;
@@ -572,16 +571,13 @@ class Kronolith
      * @param Horde_Date $eventEnd    The event's end at the actual recurrence.
      * @param boolean $json           Store the results of the events' toJson()
      *                                method?
-     * @param Horde_Date $endDate     The ending date of the current view.
      */
     static public function addCoverDates(&$results, $event, $eventStart,
-                                         $eventEnd, $json, Horde_Date $endDate = null)
+                                         $eventEnd, $json)
     {
         $loopDate = new Horde_Date($eventStart->year, $eventStart->month, $eventStart->mday);
         $allDay = $event->isAllDay();
-        $endDate = empty($endDate) ? $eventEnd : $endDate;
-        while ($loopDate->compareDateTime($eventEnd) <= 0 &&
-               $loopDate->compareDateTime($endDate) <= 0) {
+        while ($loopDate->compareDateTime($eventEnd) <= 0) {
             if (!$allDay ||
                 $loopDate->compareDateTime($eventEnd) != 0) {
                 $addEvent = clone $event;
