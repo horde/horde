@@ -377,7 +377,7 @@ class Kronolith
                                                       $event->start->month,
                                                       $event->start->mday)) {
                     if ($coverDates) {
-                        self::addCoverDates($results, $event, $event->start, $event->end, $json, null, null, $endDate);
+                        self::addCoverDates($results, $event, $event->start, $event->end, $json);
                     } else {
                         $results[$event->start->dateString()][$event->id] = $json ? $event->toJson() : $event;
                     }
@@ -419,7 +419,7 @@ class Kronolith
                     $addEvent->start = $addEvent->originalStart = $next;
                     $addEvent->end = $addEvent->originalEnd = $nextEnd;
                     if ($coverDates) {
-                        self::addCoverDates($results, $addEvent, $next, $nextEnd, $json, null, null, $endDate);
+                        self::addCoverDates($results, $addEvent, $next, $nextEnd, $json);
                     } else {
                         $addEvent->start = $next;
                         $addEvent->end = $nextEnd;
@@ -523,8 +523,8 @@ class Kronolith
                     }
                 }
 
-               self::addCoverDates($results, $event, $eventStart,
-                    $eventEnd, $json, $originalStart, $originalEnd, $endDate);
+                Kronolith::addCoverDates($results, $event, $eventStart,
+                    $eventEnd, $json, $originalStart, $originalEnd);
             }
         }
         ksort($results);
@@ -547,7 +547,7 @@ class Kronolith
      *                                   event spanning multiple days.
      */
     public static function addCoverDates(&$results, $event, $eventStart,
-        $eventEnd, $json, $originalStart = null, $originalEnd = null, Horde_Date $endDate = null)
+        $eventEnd, $json, $originalStart = null, $originalEnd = null)
     {
         $loopDate = new Horde_Date(array(
             'month' => $eventStart->month,
@@ -555,9 +555,7 @@ class Kronolith
             'year' => $eventStart->year)
         );
         $allDay = $event->isAllDay();
-        $endDate = empty($endDate) ? $eventEnd : $endDate;
-        while ($loopDate->compareDateTime($eventEnd) <= 0 &&
-               $loopDate->compareDateTime($endDate) <= 0) {
+        while ($loopDate->compareDateTime($eventEnd) <= 0) {
             if (!$allDay ||
                 $loopDate->compareDateTime($eventEnd) != 0) {
                 $addEvent = clone $event;
