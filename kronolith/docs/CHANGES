@@ -2,7 +2,6 @@
 v4.2.18-git
 -----------
 
-[mjr] Fix potential memory issue with really long events (Bug #14453).
 [mjr] Fix setting DELETE permissions (Bug #14447).
 [mjr] More fixes and improvements related to preventing empty date values.
 [jan] Fix losing shared users when adding invalid user name (Bug #14415).
