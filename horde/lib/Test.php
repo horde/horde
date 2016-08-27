@@ -286,9 +286,6 @@ class Horde_Test
         'Net_DNS2' => array(
             'error' => 'Net_DNS2 can speed up hostname lookups against broken DNS servers.'
         ),
-        'Services_Weather' => array(
-            'error' => 'Services_Weather is used by the METAR weather applet/block on the portal page.'
-        ),
         'Math_BigInteger' => array(
             'error' => 'The Math_BigInteger library is used in decoding certain embedded attachments in TNEF data.',
         ),
