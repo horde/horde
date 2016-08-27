@@ -564,8 +564,9 @@ class Components_Component_Source extends Components_Component_Base
         $old_dir = getcwd();
         chdir($destination);
         try {
+            $pear_common = new PEAR_Common();
             $result = Components_Exception_Pear::catchError(
-                $pkg->getDefaultGenerator()->toTgz(new PEAR_Common())
+                $pkg->getDefaultGenerator()->toTgz($pear_common)
             );
         } catch (Components_Exception_Pear $e) {
             $errors[] = $e->getMessage();
