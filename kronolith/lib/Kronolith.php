@@ -335,6 +335,15 @@ class Kronolith
             $timezone = date_default_timezone_get();
         }
 
+        // If we are adding coverDates, but have no $endDate, default to
+        // +5 years from $startDate. This protects against hitting memory
+        // limit and other issues due to extremely long loops if a single event
+        // was added with a duration of thousands of years while still
+        // providing for reasonable alarm trigger times.
+        if ($coverDates && empty($endDate)) {
+            $endDate = clone $startDate;
+            $endDate->year += 5;
+        }
         if ($event->recurs() && $showRecurrence) {
             /* Recurring Event. */
 
@@ -555,7 +564,6 @@ class Kronolith
             'year' => $eventStart->year)
         );
         $allDay = $event->isAllDay();
-        $endDate = empty($endDate) ? $eventEnd : $endDate;
         while ($loopDate->compareDateTime($eventEnd) <= 0 &&
                $loopDate->compareDateTime($endDate) <= 0) {
             if (!$allDay ||
