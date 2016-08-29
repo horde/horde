@@ -1048,9 +1048,9 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     case Horde_ActiveSync::CLASS_CALENDAR:
                         $appdata = Horde_ActiveSync::messageFactory('Appointment');
                         $appdata->decodeStream($this->_decoder);
+                        // EAS 16.0 sends instanceid/serverid for exceptions.
                         if (!empty($instanceid) &&
                             $commandType == Horde_ActiveSync::SYNC_MODIFY) {
-                            // EAS 16.0 sends instanceid/serverid for exceptions.
                             $appdata->instanceid = $instanceid;
                         }
                         break;

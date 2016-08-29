@@ -375,7 +375,8 @@ class Horde_ActiveSync_Message_Base
                         // Handle arrays of attribute values
                         while (1) {
                             // Do not get start tag for an array without a container
-                            if (!(isset($map[self::KEY_PROPERTY]) && $map[self::KEY_PROPERTY] == self::PROPERTY_NO_CONTAINER) &&
+                            if (!(isset($map[self::KEY_PROPERTY]) &&
+                                $map[self::KEY_PROPERTY] == self::PROPERTY_NO_CONTAINER) &&
                                 !$decoder->getElementStartTag($map[self::KEY_VALUES])) {
                                 break;
                             }

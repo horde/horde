@@ -1967,7 +1967,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
 
                 if ($message->read !== '') {
                     $this->setReadFlag($folderid, $id, $message->read);
-                    $stat['flags'] = array_merge($stat['flags'], array('read' => $message->read));
+                    $stat['flags'] = array_merge(
+                        $stat['flags'],
+                        array('read' => $message->read)
+                    );
 
                     // Do RFC 3798 MDN checks. If $message->read is being set to
                     // FLAG_READ_SEEN, then we *might* be able to send one.
@@ -1976,7 +1979,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                             "[%s] Checking for MDN",
                             $this->_pid)
                         );
-                        $mdn = new Horde_Core_ActiveSync_Mdn($folderid, $id, $this->_imap, $this->_connector);
+                        $mdn = new Horde_Core_ActiveSync_Mdn(
+                            $folderid, $id, $this->_imap, $this->_connector
+                        );
                         if ($mdn->mdnCheck()) {
                             $this->_logger->info(sprintf(
                                 "[%s] Sending MDN",
@@ -1991,7 +1996,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                         $message->flag = Horde_ActiveSync::messageFactory('Flag');
                     }
                     $this->_imap->setMessageFlag($folderid, $id, $message->flag);
-                    $stat['flags'] = array_merge($stat['flags'], array('flagged' => $message->flag->flagstatus));
+                    $stat['flags'] = array_merge(
+                        $stat['flags'],
+                        array('flagged' => $message->flag->flagstatus)
+                    );
                 }
                 if ($message->propertyExists('categories')) {
                     // We *try* to make sure the category is added as a custom

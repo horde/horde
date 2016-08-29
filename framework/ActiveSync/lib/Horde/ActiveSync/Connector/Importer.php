@@ -152,7 +152,8 @@ class Horde_ActiveSync_Connector_Importer
     {
         // Don't support SMS, but can't tell client that. Send back a phoney
         // UID for any imported SMS objects.
-        if ($class == Horde_ActiveSync::CLASS_SMS || strpos($id, 'IGNORESMS_') === 0) {
+        if ($class == Horde_ActiveSync::CLASS_SMS ||
+            strpos($id, 'IGNORESMS_') === 0) {
             return 'IGNORESMS_' . $clientid;
         }
 
