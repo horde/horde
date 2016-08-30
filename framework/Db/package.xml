@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* 
+* [jan] Fix failing transactions if retrieving last INSERT ID from PostgreSQL fails on PHP 7.2.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -942,7 +942,7 @@
    <date>2016-07-02</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* 
+* [jan] Fix failing transactions if retrieving last INSERT ID from PostgreSQL fails on PHP 7.2.
    </notes>
   </release>
  </changelog>

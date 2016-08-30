@@ -144,9 +144,9 @@ class Horde_Db_Adapter_Pdo_Pgsql extends Horde_Db_Adapter_Pdo_Base
         }
 
         // Otherwise, insert then grab last_insert_id.
-        if ($insertId = parent::insert($sql, $arg1, $arg2, $pk, $idValue, $sequenceName)) {
-            $this->resetPkSequence($table, $pk, $sequenceName);
-            return $insertId;
+        $this->execute($sql, $arg1, $arg2);
+        if ($idValue) {
+            return $idValue;
         }
 
         // If a pk is given, fallback to default sequence name.
