@@ -10,7 +10,9 @@ php:
   - nightly
 matrix:
   allow_failures:
-    - php: nightly
+    - php:
+      - 7.1
+      - nightly
 services:
   - memcached
   - mongodb
