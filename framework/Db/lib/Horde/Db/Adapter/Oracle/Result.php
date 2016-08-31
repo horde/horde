@@ -38,7 +38,9 @@ class Horde_Db_Adapter_Oracle_Result extends Horde_Db_Adapter_Base_Result
      */
     protected function _fetchArray()
     {
-        $array = oci_fetch_array($this->_result, $this->_map[$this->_fetchMode]);
+        $array = oci_fetch_array(
+            $this->_result, $this->_map[$this->_fetchMode] | OCI_RETURN_NULLS
+        );
         if ($array) {
             $array = array_change_key_case($array, CASE_LOWER);
         }
