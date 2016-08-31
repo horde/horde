@@ -136,7 +136,36 @@ class Horde_Core_ActiveSync_Connector
     public function calendar_import(
         Horde_ActiveSync_Message_Appointment $content, $calendar = null)
     {
-        return $this->_registry->calendar->import($content, 'activesync', $calendar);
+        return $this->_registry->calendar->import(
+            $content, 'activesync', $calendar);
+    }
+
+    /**
+     * Version of calendar_import capable of returning an array of values.
+     * Needed for EAS 16 support in order to deal with the fact that
+     * attachment actions are handled within the Message object.
+     *
+     * @param Horde_ActiveSync_Message_Appointment $content  The event content
+     * @param string $calendar                               The calendar id.
+     *
+     * @return  array
+     * @since  2.27.0
+     * @todo  Remove for H6 and make calendar_import return this structure.
+     */
+    public function calendar_import16(
+        Horde_ActiveSync_Message_Appointment $content, $calendar = null)
+    {
+        $result = $this->_registry->calendar->import(
+            $content, 'activesync', $calendar, true);
+
+        if (!is_array($result)) {
+            $result = array(
+                'uid' => $result,
+                'atchash' => false
+            );
+        }
+
+        return $result;
     }
 
     /**
