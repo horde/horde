@@ -1677,8 +1677,14 @@ abstract class Kronolith_Event
             }
         }
 
-        if (!$message->isGhosted('location') &&
-            strlen($location = $message->getLocation())) {
+        // EAS 16 location property is an AirSyncBaseLocation object, not
+        // a string.
+        $location = $message->getLocation();
+        if (is_object($location)) {
+            // @todo - maybe build a more complete name based on city/country?
+            $location = $location->displayname;
+        }
+        if (!$message->isGhosted('location') && strlen($location)) {
             $this->location = $location;
         }
 
@@ -2037,7 +2043,19 @@ abstract class Kronolith_Event
             } else {
                 $message->setBody($this->description);
             }
-            $message->setLocation($this->location);
+            if ($options['protocolversion'] >= Horde_ActiveSync::VERSION_SIXTEEN && !empty($this->location)) {
+                $message->location = new Horde_ActiveSync_Message_AirSyncBaseLocation(
+                    array(
+                        'logger' => $GLOBALS['injector']->getInstance('Horde_Log_Logger'),
+                        'protocolversion' => $options['protocolversion']
+                    )
+                );
+                // @todo - worth it to try to get full city/country etc...
+                // from geotagging service if available??
+                $message->location->displayname = $this->location;
+            } else {
+                $message->setLocation($this->location);
+            }
         }
 
         $message->setSubject($this->getTitle());
