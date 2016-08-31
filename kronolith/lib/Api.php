@@ -1011,6 +1011,43 @@ class Kronolith_Api extends Horde_Registry_Api
     }
 
     /**
+     * Return an event attachment.
+     *
+     * @param string $calendar  The calendar ID.
+     * @param string $uid       The UID of the event the file is attached to.
+     * @param string $filename  The name of the file.
+     *
+     * @return array  An array containing the following keys:
+     *   data (stream):  A file pointer to the attachment data.
+     *   content-type (string): The mime-type of the contents.
+     *
+     * @throws Kronolith_Exception
+     * @since  4.3.0
+     */
+    public function getAttachment($calendar, $uid, $filename)
+    {
+        $event = $this->eventFromUID($uid, $calendar);
+        // Use localfile so we can use a stream.
+        try {
+            $local_file = $event->vfsInit()->readFile(
+                Kronolith::VFS_PATH . '/' . $event->getVfsUid(),
+                $filename
+            );
+            if (!$fp = @fopen($local_file, 'rb')) {
+                throw new Kronolith_Exception('Unable to open attachment.');
+            }
+        } catch (Horde_Vfs_Exception $e) {
+            throw new Kronolith_Exception($e);
+        }
+
+        // Try to determine type.
+        return array(
+            'data' => $fp,
+            'content-type' => Horde_Mime_Magic::filenameToMime($filename, false)
+        );
+    }
+
+    /**
      * Deletes an event identified by UID.
      *
      * @param string|array $uid     A single UID or an array identifying the
@@ -1251,14 +1288,18 @@ class Kronolith_Api extends Horde_Registry_Api
     /**
      * Retrieves a Kronolith_Event object, given an event UID.
      *
-     * @param string $uid  The event's UID.
+     * @param string $uid       The event's UID.
+     * @param string $claendar  The calendar id to restrict to. @since 4.3.0
      *
      * @return Kronolith_Event  A valid Kronolith_Event.
      * @throws Kronolith_Exception
      */
-    public function eventFromUID($uid)
+    public function eventFromUID($uid, $calendar = null)
     {
-        $event = Kronolith::getDriver()->getByUID($uid);
+        if (!empty($calendar)) {
+            $calendar = array($calendar);
+        }
+        $event = Kronolith::getDriver()->getByUID($uid, $calendar);
         if (!$event->hasPermission(Horde_Perms::SHOW)) {
             throw new Horde_Exception_PermissionDenied();
         }
