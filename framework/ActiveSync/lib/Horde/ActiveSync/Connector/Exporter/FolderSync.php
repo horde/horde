@@ -24,7 +24,7 @@
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
-class Horde_ActiveSync_Connector_Exporter_Sync extends Horde_ActiveSync_Connector_Exporter_Base
+class Horde_ActiveSync_Connector_Exporter_FolderSync extends Horde_ActiveSync_Connector_Exporter_Base
 {
 
     /**
