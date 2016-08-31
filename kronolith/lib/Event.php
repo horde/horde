@@ -1927,6 +1927,60 @@ abstract class Kronolith_Event
     }
 
     /**
+     * @todo  Do we need to update History here too?
+     */
+    public function addEASFiles($message)
+    {
+        $results = array(
+            'add' => array(),
+            'delete' => array()
+        );
+        // EAS 16.0
+        $supported = true;
+        if ($message->getProtocolVersion() < Horde_ActiveSync::VERSION_SIXTEEN ||
+            !$this->id) {
+            $not_supported = true;
+        }
+
+        if ($att = $message->airsyncbaseattachments) {
+            if ($att->add) {
+                foreach ($att->add as $add) {
+                    if (!$supported) {
+                        $results['add'][$add->clientid] = false;
+                        continue;
+                    }
+                    $info = $this->_addEASFile($add);
+                    $results['add'][$add->clientid] = $this->_getEASFileReference($info['name']);
+                }
+            }
+            if ($att->delete) {
+               foreach ($atcs->delete as $del_ob) {
+                    $file_parts = explode(':', $del_ob->filereference, 4);
+                    $this->deleteFile($file_parts[3]);
+                }
+            }
+        }
+
+        return $results;
+    }
+
+    protected function _getEASFileReference($filename)
+    {
+        return sprintf('calendar:%s:%s:%s', $this->calendar, $this->uid, $filename);
+    }
+
+    protected function _addEASFile(Horde_ActiveSync_Message_AirSyncBaseAdd $add)
+    {
+        $info = array(
+            'name' => empty($add->displayname) ? 'Untitled' : $add->displayname,
+            'data' => $add->content
+        );
+        $this->addFileFromData($info);
+
+        return $info;
+    }
+
+    /**
      * Export this event as a MS ActiveSync Message
      *
      * @param array $options  Options:
@@ -2276,6 +2330,33 @@ abstract class Kronolith_Event
         // 14.1
         if ($options['protocolversion'] >= Horde_ActiveSync::VERSION_FOURTEENONE) {
             $message->onlinemeetingexternallink = $this->url;
+        }
+
+        // 16.0
+        if ($options['protocolversion'] >= Horde_ActiveSync::VERSION_SIXTEEN) {
+            $files = $this->listFiles();
+            if (count($files)) {
+                $message->airsyncbaseattachments = new Horde_ActiveSync_Message_AirSyncBaseAttachments(
+                    array(
+                        'logger' => $GLOBALS['injector']->getInstance('Horde_Log_Logger'),
+                        'protocolversion' => $options['protocolversion']
+                    )
+                );
+                $message->airsyncbaseattachments->attachment = array();
+                foreach ($files as $file) {
+                    $atc = new Horde_ActiveSync_Message_AirSyncBaseAttachment(
+                        array(
+                            'logger' => $GLOBALS['injector']->getInstance('Horde_Log_Logger'),
+                            'protocolversion' => $options['protocolversion']
+                        )
+                    );
+                    $atc->displayname = $file['name'];
+                    $atc->attname = $this->_getEASFileReference($file['name']);
+                    $atc->attmethod = Horde_ActiveSync_Message_AirSyncBaseAttachment::ATT_TYPE_NORMAL;
+                    $atc->attsize = $file['size'];
+                    $message->airsyncbaseattachments->attachment[] = $atc;
+                }
+            }
         }
 
         return $message;
@@ -4206,6 +4287,34 @@ abstract class Kronolith_Event
         }
         try {
             $vfs->write($dir, $file, $info['tmp_name'], true);
+        } catch (Horde_Vfs_Exception $e) {
+            throw new Kronolith_Exception($e);
+        }
+    }
+
+    public function addFileFromData($info)
+    {
+        if (empty($this->uid)) {
+            throw new Kronolith_Exception("VFS not supported until object saved");
+        }
+
+        $vfs = $this->vfsInit();
+        $dir = Kronolith::VFS_PATH . '/' . $this->getVfsUid();
+        $file = $info['name'];
+        while ($vfs->exists($dir, $file)) {
+            if (preg_match('/(.*)\[(\d+)\](\.[^.]*)?$/', $file, $match)) {
+                $file = $match[1] . '[' . ++$match[2] . ']' . $match[3];
+            } else {
+                $dot = strrpos($file, '.');
+                if ($dot === false) {
+                    $file .= '[1]';
+                } else {
+                    $file = substr($file, 0, $dot) . '[1]' . substr($file, $dot);
+                }
+            }
+        }
+        try {
+            $vfs->writeData($dir, $file, $info['data'], true);
         } catch (Horde_Vfs_Exception $e) {
             throw new Kronolith_Exception($e);
         }
