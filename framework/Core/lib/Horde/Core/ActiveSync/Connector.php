@@ -295,6 +295,32 @@ class Horde_Core_ActiveSync_Connector
     }
 
     /**
+     * Return an event attachment.
+     *
+     * @param string $filereference  A filereference pointing to the file:
+     *                           calendar:{calendar_id}:{event_uid}:{filename}
+     *
+     * @return array  An array containing:
+     *                   'content-type' and 'data'.
+     */
+    public function calendar_getAttachment($filereference)
+    {
+        if (!$this->_registry->hasMethod(
+            'getAttachment',
+            $this->_registry->hasInterface('calendar'))) {
+            return false;
+        }
+        $fileinfo = explode(':', $filereference, 4);
+        try {
+            return $this->_registry->calendar->getAttachment(
+                $fileinfo[1], $fileinfo[2], $fileinfo[3]
+            );
+        } catch (Horde_Exception $e) {
+            return false;
+        }
+    }
+
+    /**
      * Get a list of all contacts a user can see
      *
      * @param string $source  The source to list. If null, use multiplex.
