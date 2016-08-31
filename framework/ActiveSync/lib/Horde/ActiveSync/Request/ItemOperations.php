@@ -210,6 +210,11 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_S
             case 'fetch' :
                 switch(Horde_String::lower($value['store'])) {
                 case 'mailbox' :
+                    // Yes, even though this is a "mailbox" store, this is
+                    // how EAS identifies calendar attachments too since
+                    // they are not documentLibrary items. The backend
+                    // needs to be able to identify where to get the
+                    // item from based solely on the filereference.
                     $this->_encoder->startTag(self::ITEMOPERATIONS_FETCH);
                     if (isset($value['airsyncbasefilereference'])) {
                         // filereference is already in the backend serverid format

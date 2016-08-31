@@ -142,8 +142,8 @@ class Horde_ActiveSync_Connector_Importer
      * @todo Revisit passing $class for SMS. Probably pass class in the
      *       const'r.
      *
-     * @return string|array|boolean The server message id, an array containing
-     *                              the serverid and failure code, or false
+     * @return array|boolean  A stat array, or an array containing the 'error'
+     *                        key on error, or false on duplicate addition.
      */
     public function importMessageChange(
         $id, Horde_ActiveSync_Message_Base $message,
@@ -178,7 +178,10 @@ class Horde_ActiveSync_Connector_Importer
                         '[%s] Conflict when updating %s, will overwrite client version on next sync.',
                         $this->_procid, $id)
                     );
-                    return array($id, Horde_ActiveSync_Request_Sync::STATUS_CONFLICT);
+                    return array(
+                        $id,
+                        'error' => array(Horde_ActiveSync_Request_Sync::STATUS_CONFLICT)
+                    );
                 }
             }
         } elseif (!$id && $uid = $this->_state->isDuplicatePIMAddition($clientid)) {
@@ -202,8 +205,8 @@ class Horde_ActiveSync_Connector_Importer
                 $this->_procid, $id)
             );
             return $id
-                ? array($id, Horde_ActiveSync_Request_Sync::STATUS_NOTFOUND)
-                : array(false, Horde_ActiveSync_Request_Sync::STATUS_SERVERERROR);
+                ? array(0 => $id, 'error' => Horde_ActiveSync_Request_Sync::STATUS_NOTFOUND)
+                : array(0 => false, 'error' => Horde_ActiveSync_Request_Sync::STATUS_SERVERERROR);
         }
         $stat['serverid'] = $this->_folderId;
 
@@ -221,7 +224,7 @@ class Horde_ActiveSync_Connector_Importer
             $this->_as->driver->getUser(),
             $clientid);
 
-        return $stat['id'];
+        return $stat;
     }
 
     /**

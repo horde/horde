@@ -513,7 +513,8 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 }
 
                 if (!empty($collection['clientids']) || !empty($collection['fetchids'])
-                    || !empty($collection['missing']) || !empty($collection['importfailures'])) {
+                    || !empty($collection['missing']) || !empty($collection['importfailures'])
+                    || !empty($collection['modifiedids'])) {
 
                     $this->_encoder->startTag(Horde_ActiveSync::SYNC_REPLIES);
 
@@ -538,6 +539,47 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                         }
                     }
 
+                    // EAS 16. CHANGED responses for items that need one. This
+                    // is basically the results of any AirSyncBaseAttachments
+                    // actions on Appointment or Draft Email items.
+                    if (!empty($collection['modifiedids'])) {
+                        $this->_encoder->startTag(Horde_ActiveSync::SYNC_MODIFY);
+
+                        foreach ($collection['modifiedids'] as $serverid) {
+                            // @TODO FIXME - don't do this here, make $collection
+                            // a full object and have it be responsible for
+                            // returning the necessary message objects for the
+                            // response. @todo Instanceid?
+                            if ($collection['class'] == Horde_ActiveSync::CLASS_CALENDAR &&
+                                $this->_activeSync->device->version >= Horde_ActiveSync::VERSION_SIXTEEN &&
+                                !empty($collection['atchash'][$serverid])) {
+
+                                $this->_encoder->startTag(Horde_ActiveSync::SYNC_SERVERENTRYID);
+                                $this->_encoder->content($serverid);
+                                $this->_encoder->endTag();
+
+                                $msg = $this->_activeSync->messageFactory('Appointment');
+                                $msg->uid = $serverid;
+                                $msg->airsyncbaseattachments = $this->_activeSync->messageFactory('AirSyncBaseAttachments');
+                                $msg->airsyncbaseattachments->attachment = array();
+                                foreach ($collection['atchash'][$serverid]['add'] as $clientid => $filereference) {
+                                    $atc = $this->_activeSync->messageFactory('AirSyncBaseAttachment');
+                                    $atc->clientid = $clientid;
+                                    $atc->attname = $filereference;
+                                    $msg->airsyncbaseattachments->attachment[] = $atc;
+                                }
+                                $this->_encoder->startTag(Horde_ActiveSync::SYNC_DATA);
+                                $msg->encodeStream($this->_encoder);
+                                $this->_encoder->endTag();
+
+                                $this->_encoder->startTag(Horde_ActiveSync::SYNC_STATUS);
+                                $this->_encoder->content(self::STATUS_SUCCESS);
+                                $this->_encoder->endTag();
+                            }
+                        }
+                        $this->_encoder->endTag();
+                    }
+
                     // Server IDs for new items we received from client
                     if (!empty($collection['clientids'])) {
                         foreach ($collection['clientids'] as $clientid => $serverid) {
@@ -549,6 +591,8 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                             $this->_encoder->startTag(Horde_ActiveSync::SYNC_ADD);
                             // If we have clientids and a CLASS_EMAIL, this is
                             // a SMS response.
+                            // @TODO: have collection classes be able to
+                            // generate their own responses??
                             if ($collection['class'] == Horde_ActiveSync::CLASS_EMAIL) {
                                 $this->_encoder->startTag(Horde_ActiveSync::SYNC_FOLDERTYPE);
                                 $this->_encoder->content(Horde_ActiveSync::CLASS_SMS);
@@ -562,6 +606,27 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                                 $this->_encoder->content($serverid);
                                 $this->_encoder->endTag();
                             }
+
+                            // @TODO. FIX ME. Don't do this here.
+                            if ($collection['class'] == Horde_ActiveSync::CLASS_CALENDAR &&
+                                $this->_activeSync->device->version >= Horde_ActiveSync::VERSION_SIXTEEN) {
+                                $msg = $this->_activeSync->messageFactory('Appointment');
+                                $msg->uid = $serverid;
+                                if (!empty($collection['atchash'][$serverid])) {
+                                    $msg->airsyncbaseattachments = $this->_activeSync->messageFactory('AirSyncBaseAttachments');
+                                    $msg->airsyncbaseattachments->attachment = array();
+                                    foreach ($collection['atchash'][$serverid]['add'] as $clientid => $filereference) {
+                                        $atc = $this->_activeSync->messageFactory('AirSyncBaseAttachment');
+                                        $atc->clientid = $clientid;
+                                        $atc->attname = $filereference;
+                                        $msg->airsyncbaseattachments->attachment[] = $atc;
+                                    }
+                                }
+                                $this->_encoder->startTag(Horde_ActiveSync::SYNC_DATA);
+                                $msg->encodeStream($this->_encoder);
+                                $this->_encoder->endTag();
+                            }
+
                             $this->_encoder->startTag(Horde_ActiveSync::SYNC_STATUS);
                             $this->_encoder->content($status);
                             $this->_encoder->endTag();
@@ -1082,24 +1147,38 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 switch ($commandType) {
                 case Horde_ActiveSync::SYNC_MODIFY:
                     if (isset($appdata)) {
-                        $id = $importer->importMessageChange(
+                        $ires = $importer->importMessageChange(
                             $serverid, $appdata, $this->_device, false,
                             $collection['class'], $collection['synckey']
                         );
-                        if ($id && !is_array($id)) {
+                        if (is_array($ires) && !empty($ires['error'])) {
+                            $collection['importedfailures'][$ires[0]] = $ires['error'];
+                        } elseif (is_array($ires)) {
                             $collection['importedchanges'] = true;
-                        } elseif (is_array($id)) {
-                            $collection['importfailures'][$id[0]] = $id[1];
+                            if (empty($collection['modifiedids'])) {
+                                $collection['modifiedids'] = array();
+                            }
+                            $collection['modifiedids'][] = $ires['id'];
+                            $collection['atchash'][$serverid] = !empty($ires['atchash'])
+                                ? $ires['atchash']
+                                : array();
                         }
                     }
                     break;
 
                 case Horde_ActiveSync::SYNC_ADD:
                     if (isset($appdata)) {
-                        $id = $importer->importMessageChange(
-                            false, $appdata, $this->_device, $clientid, $collection['class']);
-                        if ($clientid && $id && !is_array($id)) {
-                            $collection['clientids'][$clientid] = $id;
+                        $ires = $importer->importMessageChange(
+                            false, $appdata, $this->_device, $clientid,
+                            $collection['class']
+                        );
+                        if (!$ires || !empty($ires['error'])) {
+                            $collection['clientids'][$clientid] = false;
+                        } elseif ($clientid && is_array($ires)) {
+                            $collection['clientids'][$clientid] = $ires['id'];
+                            $collection['atchash'][$ires['id']] = !empty($ires['atchash'])
+                                ? $ires['atchash']
+                                : array();
                             $collection['importedchanges'] = true;
                         } elseif (!$id || is_array($id)) {
                             $collection['clientids'][$clientid] = false;

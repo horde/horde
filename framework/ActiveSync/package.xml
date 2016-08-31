@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-07-01</date>
+ <date>2016-08-27</date>
  <version>
   <release>2.35.1</release>
   <api>2.35.0</api>
@@ -72,9 +72,12 @@
        <file name="LoggerFactory.php" role="php" />
       </dir> <!-- /lib/Horde/ActiveSync/Interface -->
       <dir name="Message">
+       <file name="AirSyncBaseAdd.php" role="php" />
        <file name="AirSyncBaseAttachment.php" role="php" />
+       <file name="AirSyncBaseAttachments.php" role="php" />
        <file name="AirSyncBaseBody.php" role="php" />
        <file name="AirSyncBaseBodypart.php" role="php" />
+       <file name="AirSyncBaseDelete.php" role="php" />
        <file name="AirSyncBaseFileAttachment.php" role="php" />
        <file name="AirSyncBaseLocation.php" role="php" />
        <file name="Appointment.php" role="php" />
@@ -473,9 +476,12 @@
    <install as="Horde/ActiveSync/Imap/MessageBodyData.php" name="lib/Horde/ActiveSync/Imap/MessageBodyData.php" />
    <install as="Horde/ActiveSync/Interface/ImapFactory.php" name="lib/Horde/ActiveSync/Interface/ImapFactory.php" />
    <install as="Horde/ActiveSync/Interface/LoggerFactory.php" name="lib/Horde/ActiveSync/Interface/LoggerFactory.php" />
+   <install as="Horde/ActiveSync/Message/AirSyncBaseAdd.php" name="lib/Horde/ActiveSync/Message/AirSyncBaseAdd.php" />
    <install as="Horde/ActiveSync/Message/AirSyncBaseAttachment.php" name="lib/Horde/ActiveSync/Message/AirSyncBaseAttachment.php" />
+   <install as="Horde/ActiveSync/Message/AirSyncBaseAttachments.php" name="lib/Horde/ActiveSync/Message/AirSyncBaseAttachments.php" />
    <install as="Horde/ActiveSync/Message/AirSyncBaseBody.php" name="lib/Horde/ActiveSync/Message/AirSyncBaseBody.php" />
    <install as="Horde/ActiveSync/Message/AirSyncBaseBodypart.php" name="lib/Horde/ActiveSync/Message/AirSyncBaseBodypart.php" />
+   <install as="Horde/ActiveSync/Message/AirSyncBaseDelete.php" name="lib/Horde/ActiveSync/Message/AirSyncBaseDelete.php" />
    <install as="Horde/ActiveSync/Message/AirSyncBaseFileAttachment.php" name="lib/Horde/ActiveSync/Message/AirSyncBaseFileAttachment.php" />
    <install as="Horde/ActiveSync/Message/AirSyncBaseLocation.php" name="lib/Horde/ActiveSync/Message/AirSyncBaseLocation.php" />
    <install as="Horde/ActiveSync/Message/Appointment.php" name="lib/Horde/ActiveSync/Message/Appointment.php" />
@@ -3214,7 +3220,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-07-01</date>
+   <date>2016-08-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * 

@@ -179,7 +179,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
         'exceptions'     => array(),
         'organizeremail' => false,
         'organizername'  => false,
-        'meetingstatus'  => self::MEETING_NOT_MEETING,
+        'meetingstatus'  => false,
         'recurrence'     => false,
         'reminder'       => false,
         'sensitivity'    => false,
@@ -259,11 +259,13 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
                     Horde_ActiveSync::AIRSYNCBASE_LOCATION => array(self::KEY_ATTRIBUTE => 'location', self::KEY_TYPE => 'Horde_ActiveSync_Message_AirSyncBaseLocation'),
                     self::POOMCAL_CLIENTUID => array(self::KEY_ATTRIBUTE => 'clientuid'),
                     Horde_ActiveSync::AIRSYNCBASE_INSTANCEID => array(self::KEY_ATTRIBUTE => 'instanceid', self::KEY_TYPE => self::TYPE_DATE),
+                    Horde_ActiveSync::AIRSYNCBASE_ATTACHMENTS => array(self::KEY_ATTRIBUTE => 'airsyncbaseattachments', self::KEY_TYPE => 'Horde_ActiveSync_Message_AirSyncBaseAttachments')
                 );
                 $this->_properties += array(
                     'location' => false,
                     'clientuid' => false,
                     'instanceid' => false,
+                    'airsyncbaseattachments' => false
                 );
             }
         }
@@ -899,7 +901,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      */
     public function getMeetingStatus()
     {
-        return $this->_getAttribute('meetingstatus', self::MEETING_NOT_MEETING);
+        return $this->_getAttribute('meetingstatus');
     }
 
     /**

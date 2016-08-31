@@ -80,6 +80,9 @@ BC BREAKING (i.e., Horde 6).
   living in the RPC layer (sending back certain headers, etc...) into this
   class.
 
+- Split out code for sending response in Sync.php to it's own class, or at the
+  very least, it's own method. ??
+
 - Implement a Horde_ActiveSync_Change_Filter class/interface. Used to implement
   workarounds for broken clients. E.g., filter out the ADD commands sent in
   response to MOVEITEMS for Outlook clients. Use a similar pattern for other
@@ -112,7 +115,8 @@ BC BREAKING (i.e., Horde 6).
   and transporting the various collection options/bodyprefs around.
 
 - Likewise, implement a collection object instead of using an array to define
-  each collection.
+  each collection and have it be responsible for providing some of the return
+  objects/values (See comments in Sync.php).
 
 - Implement Horde_ActiveSync_SyncKey.
 

@@ -50,8 +50,8 @@ class Horde_ActiveSync_Message_Base
     const TYPE_MAPI_STREAM      = 4;
     const TYPE_MAPI_GOID        = 5;
     const TYPE_DATE_LOCAL       = 6;
-
     const PROPERTY_NO_CONTAINER = 7;
+    const PROPERTY_MULTI_ARRAY      = 8;
 
     /**
      * Holds the mapping for object properties
@@ -455,7 +455,18 @@ class Horde_ActiveSync_Message_Base
                             );
                             throw new Horde_ActiveSync_Exception('Missing expected wbxml end tag');
                         }
-                        $this->{$map[self::KEY_ATTRIBUTE]} = $decoded;
+                        // If we have a container that can hold multiple
+                        // properties that are also containers, but not all of
+                        // the same type, we have to hanlde separately.
+                        if (isset($map[self::KEY_PROPERTY]) &&
+                            $map[self::KEY_PROPERTY] == self::PROPERTY_MULTI_ARRAY) {
+                            if (!is_array($this->{$map[self::KEY_ATTRIBUTE]})) {
+                                $this->{$map[self::KEY_ATTRIBUTE]} = array();
+                            }
+                            $this->{$map[self::KEY_ATTRIBUTE]}[] = $decoded;
+                        } else {
+                            $this->{$map[self::KEY_ATTRIBUTE]} = $decoded;
+                        }
                     }
                 }
             } elseif ($entity[Horde_ActiveSync_Wbxml::EN_TYPE] == Horde_ActiveSync_Wbxml::EN_TYPE_ENDTAG) {
