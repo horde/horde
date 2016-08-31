@@ -784,11 +784,14 @@ class Kronolith_Api extends Horde_Registry_Api
      *                             activesync
      *                             </pre>
      * @param string $calendar     What calendar should the event be added to?
+     * @param boolean $hash        If true, return a hash for EAS additions.
+     *                             @since  4.3.0 @todo Remove for 5.0 and make
+     *                             this the normal return.
      *
      * @return array  The event's UID.
      * @throws Kronolith_Exception
      */
-    public function import($content, $contentType, $calendar = null)
+    public function import($content, $contentType, $calendar = null, $hash = false)
     {
         if (!isset($calendar)) {
             $calendar = Kronolith::getDefaultCalendar(Horde_Perms::EDIT);
@@ -818,7 +821,21 @@ class Kronolith_Api extends Horde_Registry_Api
             $event = $kronolith_driver->getEvent();
             $event->fromASAppointment($content);
             $event->save();
-            return $event->uid;
+            // Handle attachment data after we commit changes since we
+            // are required to have a saved event to attach files. Also,
+            // we can only handle files if we are returning a hash since EAS
+            // needs the information returned to attach filereferences to
+            // the attachments.
+            if (!$hash) {
+                return $event->uid;
+            }
+            $atc_hash = $event->addEASFiles($content);
+            return array(
+                'uid' => $event->uid,
+                'atchash' => $atc_hash,
+                // See Bug #12567
+                //'syncstamp' => $stamp
+            );
         }
 
         throw new Kronolith_Exception(sprintf(_("Unsupported Content-Type: %s"), $contentType));
@@ -994,6 +1011,43 @@ class Kronolith_Api extends Horde_Registry_Api
     }
 
     /**
+     * Return an event attachment.
+     *
+     * @param string $calendar  The calendar ID.
+     * @param string $uid       The UID of the event the file is attached to.
+     * @param string $filename  The name of the file.
+     *
+     * @return array  An array containing the following keys:
+     *   data (stream):  A file pointer to the attachment data.
+     *   content-type (string): The mime-type of the contents.
+     *
+     * @throws Kronolith_Exception
+     * @since  4.3.0
+     */
+    public function getAttachment($calendar, $uid, $filename)
+    {
+        $event = $this->eventFromUID($uid, $calendar);
+        // Use localfile so we can use a stream.
+        try {
+            $local_file = $event->vfsInit()->readFile(
+                Kronolith::VFS_PATH . '/' . $event->getVfsUid(),
+                $filename
+            );
+            if (!$fp = @fopen($local_file, 'rb')) {
+                throw new Kronolith_Exception('Unable to open attachment.');
+            }
+        } catch (Horde_Vfs_Exception $e) {
+            throw new Kronolith_Exception($e);
+        }
+
+        // Try to determine type.
+        return array(
+            'data' => $fp,
+            'content-type' => Horde_Mime_Magic::filenameToMime($filename, false)
+        );
+    }
+
+    /**
      * Deletes an event identified by UID.
      *
      * @param string|array $uid     A single UID or an array identifying the
@@ -1133,6 +1187,8 @@ class Kronolith_Api extends Horde_Registry_Api
      * @param string $calendar     Ensure the event is replaced in the specified
      *                             calendar. @since 4.2.0
      *
+     * @return  mixed  For EAS operations, an array of 'uid' and 'atchash'
+     *                 are returned. @since 4.3.0
      * @throws Kronolith_Exception
      */
     public function replace($uid, $content, $contentType, $calendar = null)
@@ -1148,8 +1204,15 @@ class Kronolith_Api extends Horde_Registry_Api
             $component = $content;
         } elseif ($content instanceof Horde_ActiveSync_Message_Appointment) {
             $event->fromASAppointment($content);
+            $atc_hash = $event->addEASFiles($content);
             $event->save();
             $event->uid = $uid;
+            return array(
+                'uid' => $event->uid,
+                'atchash' => $atc_hash,
+                // See Bug #12567
+                //'syncstamp' => $stamp
+            );
             return;
         } else {
             switch ($contentType) {
@@ -1234,14 +1297,18 @@ class Kronolith_Api extends Horde_Registry_Api
     /**
      * Retrieves a Kronolith_Event object, given an event UID.
      *
-     * @param string $uid  The event's UID.
+     * @param string $uid       The event's UID.
+     * @param string $claendar  The calendar id to restrict to. @since 4.3.0
      *
      * @return Kronolith_Event  A valid Kronolith_Event.
      * @throws Kronolith_Exception
      */
-    public function eventFromUID($uid)
+    public function eventFromUID($uid, $calendar = null)
     {
-        $event = Kronolith::getDriver()->getByUID($uid);
+        if (!empty($calendar)) {
+            $calendar = array($calendar);
+        }
+        $event = Kronolith::getDriver()->getByUID($uid, $calendar);
         if (!$event->hasPermission(Horde_Perms::SHOW)) {
             throw new Horde_Exception_PermissionDenied();
         }

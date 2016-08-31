@@ -1559,7 +1559,22 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function itemOperationsGetAttachmentData($filereference)
     {
-        $att = $this->getAttachment($filereference);
+        // @todo Slight issue here. Since the filereferences that had previously
+        // been returned to the client for email attachments only contain
+        // the mailbox name/uid/part of the message, leaving things as-is would
+        // mean that a mailbox named 'calendar' would break this code.
+        // To deal with that cleanly, we really need to prepend 'mail'
+        // to all email attachments, but this would require a resync of all
+        // clients to be sure the new filereferences are sent. For now, do
+        // some sniffing to try to figure it out.
+        //
+        // Calendar would have 4 parts, so check that first.
+        $name_parts = explode(':', $filereference, 4);
+        if ($name_parts[0] == 'calendar' && !empty($name_parts[3])) {
+            $att = $atc = $this->_connector->calendar_getAttachment($filereference);
+        } else {
+            $att = $this->getAttachment($filereference);
+        }
         $airatt = Horde_ActiveSync::messageFactory('AirSyncBaseFileAttachment');
         $airatt->data = $att['data'];
         $airatt->contenttype = $att['content-type'];
@@ -1816,8 +1831,12 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      *   Contains the following keys:
      *   - id: (mixed)  The UID of the message/item.
      *   - mod: (mixed) A value to indicate the last modification.
-     *   - flags: (array) an empty array if no flag changes.
-     *   - categories: (array|boolean) false if no changes.
+     *   - flags: (array) An array of flag chagnes, empty array if no changes.
+     *   - categories: (array|boolean) An array of EAS categories for email
+     *        messages that exist as IMAP flags, false if no changes.
+     *   - atchash: (array|boolean) An array of clientid->filereference
+     *         mappings for file attachment changes made to appointment
+     *         or draft email folders. @since 2.27.0
      */
     public function changeMessage($folderid, $id, Horde_ActiveSync_Message_Base $message, $device)
     {
@@ -1849,25 +1868,37 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         case Horde_ActiveSync::CLASS_CALENDAR:
             if (!$id) {
                 try {
-                    $id = $this->_connector->calendar_import($message, $server_id);
+                    // @todo, remove 'import16' hack for H6
+                    $results  = $this->_connector->calendar_import16($message, $server_id);
                 } catch (Horde_Exception $e) {
                     $this->_logger->err($e->getMessage());
                     $this->_endBuffer();
                     return false;
                 }
-                $stat = array('mod' => $this->getSyncStamp($folderid), 'id' => $id, 'flags' => 1);
+                $stat = array(
+                    'mod' => $this->getSyncStamp($folderid),
+                    'id' => $results['uid'],
+                    'flags' => 1,
+                    'atchash' => $results['atchash']
+                );
             } else {
                 // ActiveSync messages do NOT contain the serverUID value, put
                 // it in ourselves so we can have it during import/change.
                 $message->setServerUID($id);
                 try {
-                    $this->_connector->calendar_replace($id, $message, $server_id);
+                    $results = $this->_connector->calendar_replace($id, $message, $server_id);
                 } catch (Horde_Exception $e) {
                     $this->_logger->err($e->getMessage());
                     $this->_endBuffer();
                     return false;
                 }
                 $stat = $this->_smartStatMessage($folderid, $id, false);
+                // @todo Remove this check in H6, when the API always returns.
+                if (!empty($results)) {
+                    $stat['atchash'] = !empty($results['atchash'])
+                        ? $results['atchash']
+                        : false;
+                }
             }
             break;
 
@@ -1967,7 +1998,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
 
                 if ($message->read !== '') {
                     $this->setReadFlag($folderid, $id, $message->read);
-                    $stat['flags'] = array_merge($stat['flags'], array('read' => $message->read));
+                    $stat['flags'] = array_merge(
+                        $stat['flags'],
+                        array('read' => $message->read)
+                    );
 
                     // Do RFC 3798 MDN checks. If $message->read is being set to
                     // FLAG_READ_SEEN, then we *might* be able to send one.
@@ -1976,7 +2010,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                             "[%s] Checking for MDN",
                             $this->_pid)
                         );
-                        $mdn = new Horde_Core_ActiveSync_Mdn($folderid, $id, $this->_imap, $this->_connector);
+                        $mdn = new Horde_Core_ActiveSync_Mdn(
+                            $folderid, $id, $this->_imap, $this->_connector
+                        );
                         if ($mdn->mdnCheck()) {
                             $this->_logger->info(sprintf(
                                 "[%s] Sending MDN",
@@ -1991,7 +2027,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                         $message->flag = Horde_ActiveSync::messageFactory('Flag');
                     }
                     $this->_imap->setMessageFlag($folderid, $id, $message->flag);
-                    $stat['flags'] = array_merge($stat['flags'], array('flagged' => $message->flag->flagstatus));
+                    $stat['flags'] = array_merge(
+                        $stat['flags'],
+                        array('flagged' => $message->flag->flagstatus)
+                    );
                 }
                 if ($message->propertyExists('categories')) {
                     // We *try* to make sure the category is added as a custom

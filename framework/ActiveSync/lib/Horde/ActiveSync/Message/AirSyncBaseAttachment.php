@@ -84,6 +84,27 @@ class Horde_ActiveSync_Message_AirSyncBaseAttachment extends Horde_ActiveSync_Me
     );
 
     /**
+     * Const'r
+     *
+     * @see Horde_ActiveSync_Message_Base::__construct()
+     */
+    public function __construct(array $options = array())
+    {
+        parent::__construct($options);
+        if ($this->_version >= Horde_ActiveSync::VERSION_SIXTEEN) {
+            $this->_mapping += array(
+                Horde_ActiveSync::AIRSYNCBASE_CLIENTID=> array(self::KEY_ATTRIBUTE => 'clientid')
+            );
+
+            $this->_properties += array(
+                'clientid'                  => false,
+                'filereference'               => false,
+            );
+        }
+    }
+
+
+    /**
      * Return the type of message.
      *
      * @return string

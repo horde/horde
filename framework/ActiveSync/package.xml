@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-07-01</date>
+ <date>2016-08-31</date>
  <version>
   <release>2.35.1</release>
   <api>2.35.0</api>
@@ -37,7 +37,11 @@
     <dir name="Horde">
      <dir name="ActiveSync">
       <dir name="Connector">
-       <file name="Exporter.php" role="php" />
+       <dir name="Exporter">
+        <file name="Base.php" role="php" />
+        <file name="FolderSync.php" role="php" />
+        <file name="Sync.php" role="php" />
+       </dir> <!-- /lib/Horde/ActiveSync/Connector/Exporter -->
        <file name="Importer.php" role="php" />
       </dir> <!-- /lib/Horde/ActiveSync/Connector -->
       <dir name="Device">
@@ -72,9 +76,12 @@
        <file name="LoggerFactory.php" role="php" />
       </dir> <!-- /lib/Horde/ActiveSync/Interface -->
       <dir name="Message">
+       <file name="AirSyncBaseAdd.php" role="php" />
        <file name="AirSyncBaseAttachment.php" role="php" />
+       <file name="AirSyncBaseAttachments.php" role="php" />
        <file name="AirSyncBaseBody.php" role="php" />
        <file name="AirSyncBaseBodypart.php" role="php" />
+       <file name="AirSyncBaseDelete.php" role="php" />
        <file name="AirSyncBaseFileAttachment.php" role="php" />
        <file name="AirSyncBaseLocation.php" role="php" />
        <file name="Appointment.php" role="php" />
@@ -452,8 +459,10 @@
    <install as="Horde/ActiveSync/Translation.php" name="lib/Horde/ActiveSync/Translation.php" />
    <install as="Horde/ActiveSync/Utils.php" name="lib/Horde/ActiveSync/Utils.php" />
    <install as="Horde/ActiveSync/Wbxml.php" name="lib/Horde/ActiveSync/Wbxml.php" />
-   <install as="Horde/ActiveSync/Connector/Exporter.php" name="lib/Horde/ActiveSync/Connector/Exporter.php" />
    <install as="Horde/ActiveSync/Connector/Importer.php" name="lib/Horde/ActiveSync/Connector/Importer.php" />
+   <install as="Horde/ActiveSync/Connector/Exporter/Base.php" name="lib/Horde/ActiveSync/Connector/Exporter/Base.php" />
+   <install as="Horde/ActiveSync/Connector/Exporter/FolderSync.php" name="lib/Horde/ActiveSync/Connector/Exporter/FolderSync.php" />
+   <install as="Horde/ActiveSync/Connector/Exporter/Sync.php" name="lib/Horde/ActiveSync/Connector/Exporter/Sync.php" />
    <install as="Horde/ActiveSync/Device/Ios.php" name="lib/Horde/ActiveSync/Device/Ios.php" />
    <install as="Horde/ActiveSync/Driver/Base.php" name="lib/Horde/ActiveSync/Driver/Base.php" />
    <install as="Horde/ActiveSync/Driver/Mock.php" name="lib/Horde/ActiveSync/Driver/Mock.php" />
@@ -473,9 +482,12 @@
    <install as="Horde/ActiveSync/Imap/MessageBodyData.php" name="lib/Horde/ActiveSync/Imap/MessageBodyData.php" />
    <install as="Horde/ActiveSync/Interface/ImapFactory.php" name="lib/Horde/ActiveSync/Interface/ImapFactory.php" />
    <install as="Horde/ActiveSync/Interface/LoggerFactory.php" name="lib/Horde/ActiveSync/Interface/LoggerFactory.php" />
+   <install as="Horde/ActiveSync/Message/AirSyncBaseAdd.php" name="lib/Horde/ActiveSync/Message/AirSyncBaseAdd.php" />
    <install as="Horde/ActiveSync/Message/AirSyncBaseAttachment.php" name="lib/Horde/ActiveSync/Message/AirSyncBaseAttachment.php" />
+   <install as="Horde/ActiveSync/Message/AirSyncBaseAttachments.php" name="lib/Horde/ActiveSync/Message/AirSyncBaseAttachments.php" />
    <install as="Horde/ActiveSync/Message/AirSyncBaseBody.php" name="lib/Horde/ActiveSync/Message/AirSyncBaseBody.php" />
    <install as="Horde/ActiveSync/Message/AirSyncBaseBodypart.php" name="lib/Horde/ActiveSync/Message/AirSyncBaseBodypart.php" />
+   <install as="Horde/ActiveSync/Message/AirSyncBaseDelete.php" name="lib/Horde/ActiveSync/Message/AirSyncBaseDelete.php" />
    <install as="Horde/ActiveSync/Message/AirSyncBaseFileAttachment.php" name="lib/Horde/ActiveSync/Message/AirSyncBaseFileAttachment.php" />
    <install as="Horde/ActiveSync/Message/AirSyncBaseLocation.php" name="lib/Horde/ActiveSync/Message/AirSyncBaseLocation.php" />
    <install as="Horde/ActiveSync/Message/Appointment.php" name="lib/Horde/ActiveSync/Message/Appointment.php" />
@@ -3214,7 +3226,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-07-01</date>
+   <date>2016-08-31</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * 

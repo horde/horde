@@ -136,7 +136,36 @@ class Horde_Core_ActiveSync_Connector
     public function calendar_import(
         Horde_ActiveSync_Message_Appointment $content, $calendar = null)
     {
-        return $this->_registry->calendar->import($content, 'activesync', $calendar);
+        return $this->_registry->calendar->import(
+            $content, 'activesync', $calendar);
+    }
+
+    /**
+     * Version of calendar_import capable of returning an array of values.
+     * Needed for EAS 16 support in order to deal with the fact that
+     * attachment actions are handled within the Message object.
+     *
+     * @param Horde_ActiveSync_Message_Appointment $content  The event content
+     * @param string $calendar                               The calendar id.
+     *
+     * @return  array
+     * @since  2.27.0
+     * @todo  Remove for H6 and make calendar_import return this structure.
+     */
+    public function calendar_import16(
+        Horde_ActiveSync_Message_Appointment $content, $calendar = null)
+    {
+        $result = $this->_registry->calendar->import(
+            $content, 'activesync', $calendar, true);
+
+        if (!is_array($result)) {
+            $result = array(
+                'uid' => $result,
+                'atchash' => false
+            );
+        }
+
+        return $result;
     }
 
     /**
@@ -201,10 +230,12 @@ class Horde_Core_ActiveSync_Connector
      * @param Horde_ActiveSync_Message_Appointment $content
      *        The new event.
      * @param string $calendar  The calendar id. @since 2.12.0
+     *
+     * @return null|array  May return an array of 'uid' and 'atchash' or null.
      */
     public function calendar_replace($uid, Horde_ActiveSync_Message_Appointment $content, $calendar = null)
     {
-        $this->_registry->calendar->replace($uid, $content, 'activesync', $calendar);
+        return $this->_registry->calendar->replace($uid, $content, 'activesync', $calendar);
     }
 
     /**
@@ -261,6 +292,32 @@ class Horde_Core_ActiveSync_Connector
         }
 
         return $uid;
+    }
+
+    /**
+     * Return an event attachment.
+     *
+     * @param string $filereference  A filereference pointing to the file:
+     *                           calendar:{calendar_id}:{event_uid}:{filename}
+     *
+     * @return array  An array containing:
+     *                   'content-type' and 'data'.
+     */
+    public function calendar_getAttachment($filereference)
+    {
+        if (!$this->_registry->hasMethod(
+            'getAttachment',
+            $this->_registry->hasInterface('calendar'))) {
+            return false;
+        }
+        $fileinfo = explode(':', $filereference, 4);
+        try {
+            return $this->_registry->calendar->getAttachment(
+                $fileinfo[1], $fileinfo[2], $fileinfo[3]
+            );
+        } catch (Horde_Exception $e) {
+            return false;
+        }
     }
 
     /**

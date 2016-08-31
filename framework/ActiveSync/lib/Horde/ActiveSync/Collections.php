@@ -708,10 +708,10 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
      * Validate and perform some sanity checks on the hierarchy changes before
      * being sent to the client.
      *
-     * @param Horde_ActiveSync_Connector_Exporter $exporter  The exporter.
+     * @param Horde_ActiveSync_Connector_Exporter_FolderSync $exporter  The exporter.
      * @param array $seenFolders                             An array of folders.
      */
-    public function validateHierarchyChanges(Horde_ActiveSync_Connector_Exporter $exporter, array $seenFolders)
+    public function validateHierarchyChanges(Horde_ActiveSync_Connector_Exporter_FolderSync $exporter, array $seenFolders)
     {
         if ($this->_as->device->version < Horde_ActiveSync::VERSION_TWELVEONE ||
             count($exporter->changed)) {
