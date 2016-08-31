@@ -784,11 +784,14 @@ class Kronolith_Api extends Horde_Registry_Api
      *                             activesync
      *                             </pre>
      * @param string $calendar     What calendar should the event be added to?
+     * @param boolean $hash        If true, return a hash for EAS additions.
+     *                             @since  4.3.0 @todo Remove for 5.0 and make
+     *                             this the normal return.
      *
      * @return array  The event's UID.
      * @throws Kronolith_Exception
      */
-    public function import($content, $contentType, $calendar = null)
+    public function import($content, $contentType, $calendar = null, $hash = false)
     {
         if (!isset($calendar)) {
             $calendar = Kronolith::getDefaultCalendar(Horde_Perms::EDIT);
@@ -818,7 +821,21 @@ class Kronolith_Api extends Horde_Registry_Api
             $event = $kronolith_driver->getEvent();
             $event->fromASAppointment($content);
             $event->save();
-            return $event->uid;
+            // Handle attachment data after we commit changes since we
+            // are required to have a saved event to attach files. Also,
+            // we can only handle files if we are returning a hash since EAS
+            // needs the information returned to attach filereferences to
+            // the attachments.
+            if (!$hash) {
+                return $event->uid;
+            }
+            $atc_hash = $event->addEASFiles($content);
+            return array(
+                'uid' => $event->uid,
+                'atchash' => $atc_hash,
+                // See Bug #12567
+                //'syncstamp' => $stamp
+            );
         }
 
         throw new Kronolith_Exception(sprintf(_("Unsupported Content-Type: %s"), $contentType));
