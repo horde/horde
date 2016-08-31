@@ -230,10 +230,12 @@ class Horde_Core_ActiveSync_Connector
      * @param Horde_ActiveSync_Message_Appointment $content
      *        The new event.
      * @param string $calendar  The calendar id. @since 2.12.0
+     *
+     * @return null|array  May return an array of 'uid' and 'atchash' or null.
      */
     public function calendar_replace($uid, Horde_ActiveSync_Message_Appointment $content, $calendar = null)
     {
-        $this->_registry->calendar->replace($uid, $content, 'activesync', $calendar);
+        return $this->_registry->calendar->replace($uid, $content, 'activesync', $calendar);
     }
 
     /**
