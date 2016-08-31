@@ -10,7 +10,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-03-21</date>
+ <date>2016-08-31</date>
  <version>
   <release>2.2.8</release>
   <api>1.2.0</api>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Use more efficient database access in SQL backend.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -995,10 +995,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-03-21</date>
+   <date>2016-08-31</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Use more efficient database access in SQL backend.
    </notes>
   </release>
  </changelog>
