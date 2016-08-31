@@ -338,9 +338,10 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
         $this->_encoder->endTag();
         $this->_encoder->startTag(Horde_ActiveSync::SYNC_FOLDERS);
 
-        $exporter = new Horde_ActiveSync_Connector_Exporter(
+        $exporter = new Horde_ActiveSync_Connector_Exporter_Sync(
             $this->_activeSync,
-            $this->_encoder);
+            $this->_encoder
+        );
 
         $cnt_global = 0;
         $over_window = false;
@@ -542,96 +543,14 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     // EAS 16. CHANGED responses for items that need one. This
                     // is basically the results of any AirSyncBaseAttachments
                     // actions on Appointment or Draft Email items.
-                    if (!empty($collection['modifiedids'])) {
-                        $this->_encoder->startTag(Horde_ActiveSync::SYNC_MODIFY);
-
-                        foreach ($collection['modifiedids'] as $serverid) {
-                            // @TODO FIXME - don't do this here, make $collection
-                            // a full object and have it be responsible for
-                            // returning the necessary message objects for the
-                            // response. @todo Instanceid?
-                            if ($collection['class'] == Horde_ActiveSync::CLASS_CALENDAR &&
-                                $this->_activeSync->device->version >= Horde_ActiveSync::VERSION_SIXTEEN &&
-                                !empty($collection['atchash'][$serverid])) {
-
-                                $this->_encoder->startTag(Horde_ActiveSync::SYNC_SERVERENTRYID);
-                                $this->_encoder->content($serverid);
-                                $this->_encoder->endTag();
-
-                                $msg = $this->_activeSync->messageFactory('Appointment');
-                                $msg->uid = $serverid;
-                                $msg->airsyncbaseattachments = $this->_activeSync->messageFactory('AirSyncBaseAttachments');
-                                $msg->airsyncbaseattachments->attachment = array();
-                                foreach ($collection['atchash'][$serverid]['add'] as $clientid => $filereference) {
-                                    $atc = $this->_activeSync->messageFactory('AirSyncBaseAttachment');
-                                    $atc->clientid = $clientid;
-                                    $atc->attname = $filereference;
-                                    $msg->airsyncbaseattachments->attachment[] = $atc;
-                                }
-                                $this->_encoder->startTag(Horde_ActiveSync::SYNC_DATA);
-                                $msg->encodeStream($this->_encoder);
-                                $this->_encoder->endTag();
-
-                                $this->_encoder->startTag(Horde_ActiveSync::SYNC_STATUS);
-                                $this->_encoder->content(self::STATUS_SUCCESS);
-                                $this->_encoder->endTag();
-                            }
-                        }
-                        $this->_encoder->endTag();
+                    if ($this->_device->version >= Horde_ActiveSync::VERSION_SIXTEEN &&
+                        !empty($collection['modifiedids'])) {
+                        $exporter->syncModifiedResponse($collection);
                     }
 
                     // Server IDs for new items we received from client
                     if (!empty($collection['clientids'])) {
-                        foreach ($collection['clientids'] as $clientid => $serverid) {
-                            if ($serverid) {
-                                $status = self::STATUS_SUCCESS;
-                            } else {
-                                $status = self::STATUS_INVALID;
-                            }
-                            $this->_encoder->startTag(Horde_ActiveSync::SYNC_ADD);
-                            // If we have clientids and a CLASS_EMAIL, this is
-                            // a SMS response.
-                            // @TODO: have collection classes be able to
-                            // generate their own responses??
-                            if ($collection['class'] == Horde_ActiveSync::CLASS_EMAIL) {
-                                $this->_encoder->startTag(Horde_ActiveSync::SYNC_FOLDERTYPE);
-                                $this->_encoder->content(Horde_ActiveSync::CLASS_SMS);
-                                $this->_encoder->endTag();
-                            }
-                            $this->_encoder->startTag(Horde_ActiveSync::SYNC_CLIENTENTRYID);
-                            $this->_encoder->content($clientid);
-                            $this->_encoder->endTag();
-                            if ($status == self::STATUS_SUCCESS) {
-                                $this->_encoder->startTag(Horde_ActiveSync::SYNC_SERVERENTRYID);
-                                $this->_encoder->content($serverid);
-                                $this->_encoder->endTag();
-                            }
-
-                            // @TODO. FIX ME. Don't do this here.
-                            if ($collection['class'] == Horde_ActiveSync::CLASS_CALENDAR &&
-                                $this->_activeSync->device->version >= Horde_ActiveSync::VERSION_SIXTEEN) {
-                                $msg = $this->_activeSync->messageFactory('Appointment');
-                                $msg->uid = $serverid;
-                                if (!empty($collection['atchash'][$serverid])) {
-                                    $msg->airsyncbaseattachments = $this->_activeSync->messageFactory('AirSyncBaseAttachments');
-                                    $msg->airsyncbaseattachments->attachment = array();
-                                    foreach ($collection['atchash'][$serverid]['add'] as $clientid => $filereference) {
-                                        $atc = $this->_activeSync->messageFactory('AirSyncBaseAttachment');
-                                        $atc->clientid = $clientid;
-                                        $atc->attname = $filereference;
-                                        $msg->airsyncbaseattachments->attachment[] = $atc;
-                                    }
-                                }
-                                $this->_encoder->startTag(Horde_ActiveSync::SYNC_DATA);
-                                $msg->encodeStream($this->_encoder);
-                                $this->_encoder->endTag();
-                            }
-
-                            $this->_encoder->startTag(Horde_ActiveSync::SYNC_STATUS);
-                            $this->_encoder->content($status);
-                            $this->_encoder->endTag();
-                            $this->_encoder->endTag();
-                        }
+                        $exporter->syncAddResponse($collection);
                     }
 
                     // Errors from missing messages in REMOVE requests.
