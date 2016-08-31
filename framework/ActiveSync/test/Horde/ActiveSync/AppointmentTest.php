@@ -242,6 +242,7 @@ class Horde_ActiveSync_AppointmentTest extends Horde_Test_Case
         $message->starttime = $start;
         $message->endtime = $end;
         $message->setTimezone($start);
+        $message->meetingstatus = Horde_ActiveSync_Message_Appointment::MEETING_NOT_MEETING;
         $message->encodeStream($encoder);
 
         $fixture = file_get_contents(__DIR__ . '/fixtures/allday_appointment.wbxml');
