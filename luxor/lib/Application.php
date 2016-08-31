@@ -46,7 +46,7 @@ class Luxor_Application extends Horde_Registry_Application
 
     /**
      */
-    public function menu(Horde_Menu $menu)
+    public function menu($menu)
     {
         $menu->add(Horde::url('source.php'), _("_Browse"), 'luxor.png');
     }
