@@ -1960,9 +1960,14 @@ abstract class Kronolith_Event
                 }
             }
             if ($att->delete) {
-               foreach ($atcs->delete as $del_ob) {
+               foreach ($att->delete as $del_ob) {
                     $file_parts = explode(':', $del_ob->filereference, 4);
-                    $this->deleteFile($file_parts[3]);
+                    try {
+                        $this->deleteFile($file_parts[3]);
+                        $results['delete'][] = $del_ob->filereference;
+                    } catch (Kronolith_Exception $e) {
+                        Horde::log('Unable to remove VFS file.', 'ERR');
+                    }
                 }
             }
         }
