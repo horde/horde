@@ -336,13 +336,18 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
         $this->_encoder->startTag(Horde_ActiveSync::SYNC_STATUS);
         $this->_encoder->content(self::STATUS_SUCCESS);
         $this->_encoder->endTag();
+
+        // Start SYNC_FOLDERS
         $this->_encoder->startTag(Horde_ActiveSync::SYNC_FOLDERS);
 
+        // Get the exporter.
         $exporter = new Horde_ActiveSync_Connector_Exporter_Sync(
             $this->_activeSync,
             $this->_encoder
         );
 
+        // Loop through each collection and send all changes, replies, fetchids
+        // etc...
         $cnt_global = 0;
         $over_window = false;
         foreach ($this->_collections as $id => $collection) {
@@ -448,33 +453,22 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 }
             }
 
+            // Start SYNC_FOLDER
             $this->_encoder->startTag(Horde_ActiveSync::SYNC_FOLDER);
 
-            // Not sent in > 12.0
-            if ($this->_device->version <= Horde_ActiveSync::VERSION_TWELVE) {
-                $this->_encoder->startTag(Horde_ActiveSync::SYNC_FOLDERTYPE);
-                $this->_encoder->content($collection['class']);
-                $this->_encoder->endTag();
-            }
+            //SYNC_FOLDERTYPE
+            $exporter->syncFolderType($collection);
 
-            $this->_encoder->startTag(Horde_ActiveSync::SYNC_SYNCKEY);
-            if (!empty($collection['newsynckey'])) {
-                $this->_encoder->content($collection['newsynckey']);
-            } else {
-                $this->_encoder->content($collection['synckey']);
-            }
-            $this->_encoder->endTag();
+            // SYNC_KEY
+            $exporter->syncKey($collection);
 
-            $this->_encoder->startTag(Horde_ActiveSync::SYNC_FOLDERID);
-            $this->_encoder->content($collection['id']);
-            $this->_encoder->endTag();
+            // SYNC_FOLDERID
+            $exporter->syncFolderId($collection);
 
-            $this->_encoder->startTag(Horde_ActiveSync::SYNC_STATUS);
-            $this->_encoder->content($statusCode);
-            $this->_encoder->endTag();
+            // SYNC_STATUS
+            $exporter->syncStatus($statusCode);
 
             if ($statusCode == self::STATUS_SUCCESS) {
-
                 // Server changes
                 if ($statusCode == self::STATUS_SUCCESS &&
                     empty($forceChanges) &&
@@ -484,6 +478,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                         ? min($collection['windowsize'], $pingSettings['maximumwindowsize'])
                         : $collection['windowsize'];
 
+                    // MOREAVAILABLE?
                     if (!empty($changecount) &&
                         (($changecount > $max_windowsize) || $cnt_global + $changecount > $this->_collections->getDefaultWindowSize())) {
                         $this->_logger->info(sprintf(
@@ -493,14 +488,15 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                         $over_window = ($cnt_global + $changecount > $this->_collections->getDefaultWindowSize());
                     }
 
+                    // Send each message now.
                     if (!empty($changecount)) {
                         $exporter->setChanges($this->_collections->getCollectionChanges(false), $collection);
+                        // Start SYNC_COMMANDS
                         $this->_encoder->startTag(Horde_ActiveSync::SYNC_COMMANDS);
                         $cnt_collection = 0;
                         while ($cnt_collection < $max_windowsize &&
                                $cnt_global < $this->_collections->getDefaultWindowSize() &&
                                $progress = $exporter->sendNextChange()) {
-
                             $this->_logger->info(sprintf(
                                 '[%s] Peak memory usage after message: %d',
                                 $this->_procid, memory_get_peak_usage(true)));
@@ -509,6 +505,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                                 ++$cnt_global;
                             }
                         }
+                        // End SYNC_COMMANDS
                         $this->_encoder->endTag();
                     }
                 }
@@ -517,27 +514,12 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     || !empty($collection['missing']) || !empty($collection['importfailures'])
                     || !empty($collection['modifiedids'])) {
 
+                    // Start SYNC_REPLIES
                     $this->_encoder->startTag(Horde_ActiveSync::SYNC_REPLIES);
 
                     // SYNC_MODIFY failures
                     if (!empty($collection['importfailures'])) {
-                        foreach ($collection['importfailures'] as $id => $reason) {
-                            $this->_encoder->startTag(Horde_ActiveSync::SYNC_MODIFY);
-
-                            $this->_encoder->startTag(Horde_ActiveSync::SYNC_FOLDERTYPE);
-                            $this->_encoder->content($collection['class']);
-                            $this->_encoder->endTag();
-
-                            $this->_encoder->startTag(Horde_ActiveSync::SYNC_SERVERENTRYID);
-                            $this->_encoder->content($id);
-                            $this->_encoder->endTag();
-
-                            $this->_encoder->startTag(Horde_ActiveSync::SYNC_STATUS);
-                            $this->_encoder->content($reason);
-                            $this->_encoder->endTag();
-
-                            $this->_encoder->endTag();
-                        }
+                        $exporter->modifyFailures($collection);
                     }
 
                     // EAS 16. CHANGED responses for items that need one. This
@@ -555,51 +537,14 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
 
                     // Errors from missing messages in REMOVE requests.
                     if (!empty($collection['missing'])) {
-                        foreach ($collection['missing'] as $uid) {
-                            $this->_encoder->startTag(Horde_ActiveSync::SYNC_REMOVE);
-                            $this->_encoder->startTag(Horde_ActiveSync::SYNC_CLIENTENTRYID);
-                            $this->_encoder->content($uid);
-                            $this->_encoder->endTag();
-                            $this->_encoder->startTag(Horde_ActiveSync::SYNC_STATUS);
-                            $this->_encoder->content(self::STATUS_NOTFOUND);
-                            $this->_encoder->endTag();
-                            $this->_encoder->endTag();
-                        }
+                        $exporter->missingRemove($collection);
                     }
 
                     if (!empty($collection['fetchids'])) {
-                        foreach ($collection['fetchids'] as $fetch_id) {
-                            try {
-                                $data = $this->_driver->fetch($collection['serverid'], $fetch_id, $collection);
-                                $this->_encoder->startTag(Horde_ActiveSync::SYNC_FETCH);
-                                $this->_encoder->startTag(Horde_ActiveSync::SYNC_SERVERENTRYID);
-                                $this->_encoder->content($fetch_id);
-                                $this->_encoder->endTag();
-                                $this->_encoder->startTag(Horde_ActiveSync::SYNC_STATUS);
-                                $this->_encoder->content(self::STATUS_SUCCESS);
-                                $this->_encoder->endTag();
-                                $this->_encoder->startTag(Horde_ActiveSync::SYNC_DATA);
-                                $data->encodeStream($this->_encoder);
-                                $this->_encoder->endTag();
-                                $this->_encoder->endTag();
-                            } catch (Horde_Exception_NotFound $e) {
-                                $this->_logger->err(sprintf(
-                                    '[%s] Unable to fetch %s',
-                                    $this->_procid,
-                                    $fetch_id)
-                                );
-                                $this->_encoder->startTag(Horde_ActiveSync::SYNC_FETCH);
-                                $this->_encoder->startTag(Horde_ActiveSync::SYNC_SERVERENTRYID);
-                                $this->_encoder->content($fetch_id);
-                                $this->_encoder->endTag();
-                                $this->_encoder->startTag(Horde_ActiveSync::SYNC_STATUS);
-                                $this->_encoder->content(self::STATUS_NOTFOUND);
-                                $this->_encoder->endTag();
-                                $this->_encoder->endTag();
-                            }
-                        }
+                        $exporter->fetchIds($this->_driver, $collection);
                     }
 
+                    // End SYNC_REPLIES
                     $this->_encoder->endTag();
                 }
 
@@ -626,13 +571,17 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 }
             }
 
+            // End SYNC_FOLDER
             $this->_encoder->endTag();
             $this->_logger->info(sprintf(
                 '[%s] Collection output peak memory usage: %d',
                 $this->_procid, memory_get_peak_usage(true)));
         }
 
+        // End SYNC_FOLDERS
         $this->_encoder->endTag();
+
+        // End SYNC_SYNCHRONIZE
         $this->_encoder->endTag();
 
         if ($this->_device->version >= Horde_ActiveSync::VERSION_TWELVEONE) {

@@ -152,6 +152,11 @@ class Horde_ActiveSync_Connector_Exporter_Sync extends Horde_ActiveSync_Connecto
     {
     }
 
+    /**
+     * Send the SYNC_ADD response for any items added from the client.
+     *
+     * @param array $collection  The collection array.
+     */
     public function syncAddResponse($collection)
     {
         foreach ($collection['clientids'] as $clientid => $serverid) {
@@ -198,6 +203,180 @@ class Horde_ActiveSync_Connector_Exporter_Sync extends Horde_ActiveSync_Connecto
         }
     }
 
+    /**
+     * Send the SYNC_MODIFY response for each modified item that requires this
+     * response. @see self::syncAddResponse()
+     *
+     * @param array $collection  The collection array.
+     */
+    public function syncModifiedResponse($collection)
+    {
+        foreach ($collection['modifiedids'] as $serverid) {
+            // Start SYNC_MODIFY
+            $this->_encoder->startTag(Horde_ActiveSync::SYNC_MODIFY);
+
+            // EAS 16?
+            $this->_sendEas16MessageResponse($serverid, $collection);
+
+            // SYNC_STATUS
+            $this->_encoder->startTag(Horde_ActiveSync::SYNC_STATUS);
+            $this->_encoder->content(Horde_ActiveSync_Request_Sync::STATUS_SUCCESS);
+            $this->_encoder->endTag();
+
+            // End SYNC_MODIFY
+            $this->_encoder->endTag();
+        }
+    }
+
+    /**
+     * Send the SYNC_MODIFY response for any items modified from the client
+     * that require this response. Basically any items that have
+     * AirSyncBaseAttachments changes.
+     *
+     * @param array $collection  The collection array.
+     */
+    public function modifyFailures($collection)
+    {
+        foreach ($collection['importfailures'] as $id => $reason) {
+            $this->_encoder->startTag(Horde_ActiveSync::SYNC_MODIFY);
+
+            $this->_encoder->startTag(Horde_ActiveSync::SYNC_FOLDERTYPE);
+            $this->_encoder->content($collection['class']);
+            $this->_encoder->endTag();
+
+            $this->_encoder->startTag(Horde_ActiveSync::SYNC_SERVERENTRYID);
+            $this->_encoder->content($id);
+            $this->_encoder->endTag();
+
+            $this->_encoder->startTag(Horde_ActiveSync::SYNC_STATUS);
+            $this->_encoder->content($reason);
+            $this->_encoder->endTag();
+
+            $this->_encoder->endTag();
+        }
+    }
+
+    /**
+     * Send the SYNC_REMOVE response for any items deleted from the client but
+     * were unable to be removed on the server. Usually due to not being found.
+     *
+     * @param array $collection  The collection array.
+     */
+    public function missingRemove($collection)
+    {
+        foreach ($collection['missing'] as $uid) {
+            $this->_encoder->startTag(Horde_ActiveSync::SYNC_REMOVE);
+            $this->_encoder->startTag(Horde_ActiveSync::SYNC_CLIENTENTRYID);
+            $this->_encoder->content($uid);
+            $this->_encoder->endTag();
+            $this->_encoder->startTag(Horde_ActiveSync::SYNC_STATUS);
+            $this->_encoder->content(Horde_ActiveSync_Request_Sync::STATUS_NOTFOUND);
+            $this->_encoder->endTag();
+            $this->_encoder->endTag();
+        }
+    }
+
+    /**
+     * Send the SYNC_FETCH response for any items requested by the client.
+     *
+     * @param array $collection  The collection array.
+     */
+    public function fetchIds($driver, $collection)
+    {
+        foreach ($collection['fetchids'] as $fetch_id) {
+            try {
+                $data = $driver->fetch($collection['serverid'], $fetch_id, $collection);
+                $this->_encoder->startTag(Horde_ActiveSync::SYNC_FETCH);
+                $this->_encoder->startTag(Horde_ActiveSync::SYNC_SERVERENTRYID);
+                $this->_encoder->content($fetch_id);
+                $this->_encoder->endTag();
+                $this->_encoder->startTag(Horde_ActiveSync::SYNC_STATUS);
+                $this->_encoder->content(Horde_ActiveSync_Request_Sync::STATUS_SUCCESS);
+                $this->_encoder->endTag();
+                $this->_encoder->startTag(Horde_ActiveSync::SYNC_DATA);
+                $data->encodeStream($this->_encoder);
+                $this->_encoder->endTag();
+                $this->_encoder->endTag();
+            } catch (Horde_Exception_NotFound $e) {
+                $this->_logger->err(sprintf(
+                    '[%s] Unable to fetch %s',
+                    getmypid(),
+                    $fetch_id)
+                );
+                $this->_encoder->startTag(Horde_ActiveSync::SYNC_FETCH);
+                $this->_encoder->startTag(Horde_ActiveSync::SYNC_SERVERENTRYID);
+                $this->_encoder->content($fetch_id);
+                $this->_encoder->endTag();
+                $this->_encoder->startTag(Horde_ActiveSync::SYNC_STATUS);
+                $this->_encoder->content(Horde_ActiveSync_Request_Sync::STATUS_NOTFOUND);
+                $this->_encoder->endTag();
+                $this->_encoder->endTag();
+            }
+        }
+    }
+
+    /**
+     * Send the SYNC_FOLDERTYPE node if needed.
+     *
+     * @param array $collection  The collection array.
+     */
+    public function syncFolderType($collection)
+    {
+        // Not sent in > 12.0
+        if ($this->_device->version <= Horde_ActiveSync::VERSION_TWELVE) {
+            $this->_encoder->startTag(Horde_ActiveSync::SYNC_FOLDERTYPE);
+            $this->_encoder->content($collection['class']);
+            $this->_encoder->endTag();
+        }
+    }
+
+    /**
+     * Send the SYNC_SYNCKEY response appropriate for this response.
+     *
+     * @param array $collection  The collection array.
+     */
+    public function syncKey($collection)
+    {
+        $this->_encoder->startTag(Horde_ActiveSync::SYNC_SYNCKEY);
+        if (!empty($collection['newsynckey'])) {
+            $this->_encoder->content($collection['newsynckey']);
+        } else {
+            $this->_encoder->content($collection['synckey']);
+        }
+        $this->_encoder->endTag();
+    }
+
+    /**
+     * Send the SYNC_FOLDERID value.
+     *
+     * @param array $collection  The collection array.
+     */
+    public function syncFolderId($collection)
+    {
+        $this->_encoder->startTag(Horde_ActiveSync::SYNC_FOLDERID);
+        $this->_encoder->content($collection['id']);
+        $this->_encoder->endTag();
+    }
+
+    /**
+     * Send the SYNC_STATUS value.
+     *
+     * @param array $collection  The collection array.
+     */
+    public function syncStatus($statusCode)
+    {
+        $this->_encoder->startTag(Horde_ActiveSync::SYNC_STATUS);
+        $this->_encoder->content($statusCode);
+        $this->_encoder->endTag();
+    }
+
+    /**
+     * Sends the appropriate message object reply within a SYNC_ADD or
+     * SYNC_MODIFY block in a SYNC_REPLIES block for EAS >= 16 clients.
+     *
+     * @param string $serverid   The serverid of the message being sent.
+     * @param array $collection  The collection array.
+     */
     protected function _sendEas16MessageResponse($serverid, $collection)
     {
         if ($this->_as->device->version >= Horde_ActiveSync::VERSION_SIXTEEN &&
@@ -220,25 +399,6 @@ class Horde_ActiveSync_Connector_Exporter_Sync extends Horde_ActiveSync_Connecto
             }
             $this->_encoder->startTag(Horde_ActiveSync::SYNC_DATA);
             $msg->encodeStream($this->_encoder);
-            $this->_encoder->endTag();
-        }
-    }
-
-    public function syncModifiedResponse($collection)
-    {
-        foreach ($collection['modifiedids'] as $serverid) {
-            // Start SYNC_MODIFY
-            $this->_encoder->startTag(Horde_ActiveSync::SYNC_MODIFY);
-
-            // EAS 16?
-            $this->_sendEas16MessageResponse($serverid, $collection);
-
-            // SYNC_STATUS
-            $this->_encoder->startTag(Horde_ActiveSync::SYNC_STATUS);
-            $this->_encoder->content(Horde_ActiveSync_Request_Sync::STATUS_SUCCESS);
-            $this->_encoder->endTag();
-
-            // End SYNC_MODIFY
             $this->_encoder->endTag();
         }
     }
