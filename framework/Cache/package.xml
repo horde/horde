@@ -18,7 +18,7 @@
  </lead>
  <date>2016-08-31</date>
  <version>
-  <release>2.5.4</release>
+  <release>2.5.5</release>
   <api>2.5.0</api>
  </version>
  <stability>
@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Run Memcache and Mongo tests on PHP 7 too.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -690,6 +690,19 @@ Initial packaging.
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Run Memcache and Mongo tests on PHP 7 too.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.5.5</release>
+    <api>2.5.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-08-31</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
