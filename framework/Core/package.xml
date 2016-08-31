@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Changes to support EAS attachment sync support for Appointment objects.
 * [mjr] Refactor ajax weather location autocompleter and add support for metar data.
 * [jan] Allow to specify user DN search parameters for LDAP with all bind methods (Request #11697, heinz@htl-steyr.ac.at).
  </notes>
@@ -4224,6 +4225,7 @@
    <date>2016-08-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Changes to support EAS attachment sync support for Appointment objects.
 * [mjr] Refactor ajax weather location autocompleter and add support for metar data.
 * [jan] Allow to specify user DN search parameters for LDAP with all bind methods (Request #11697, heinz@htl-steyr.ac.at).
    </notes>

@@ -2,6 +2,7 @@
 v4.3.0-git
 ----------
 
+[mjr] Changes to support EAS attachment sync support.
 [jan] Remove dependency on PEAR's Date package.
 [mjr] Fix display of recurring multi-day events ("Pascal Rigaux"
       <pascal.rigaux@univ-paris1.fr>).
