@@ -1187,6 +1187,8 @@ class Kronolith_Api extends Horde_Registry_Api
      * @param string $calendar     Ensure the event is replaced in the specified
      *                             calendar. @since 4.2.0
      *
+     * @return  mixed  For EAS operations, an array of 'uid' and 'atchash'
+     *                 are returned. @since 4.3.0
      * @throws Kronolith_Exception
      */
     public function replace($uid, $content, $contentType, $calendar = null)
@@ -1202,8 +1204,15 @@ class Kronolith_Api extends Horde_Registry_Api
             $component = $content;
         } elseif ($content instanceof Horde_ActiveSync_Message_Appointment) {
             $event->fromASAppointment($content);
+            $atc_hash = $event->addEASFiles($content);
             $event->save();
             $event->uid = $uid;
+            return array(
+                'uid' => $event->uid,
+                'atchash' => $atc_hash,
+                // See Bug #12567
+                //'syncstamp' => $stamp
+            );
             return;
         } else {
             switch ($contentType) {
