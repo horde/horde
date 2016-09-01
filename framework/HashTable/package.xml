@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-07-02</date>
+ <date>2016-09-01</date>
  <version>
   <release>1.2.6</release>
   <api>1.2.0</api>
@@ -21,7 +21,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Run Memcache tests on PHP 7 too.
+* [jan] Fix Redis tests.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -340,10 +341,11 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-07-02</date>
+   <date>2016-09-01</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Run Memcache tests on PHP 7 too.
+* [jan] Fix Redis tests.
    </notes>
   </release>
  </changelog>
