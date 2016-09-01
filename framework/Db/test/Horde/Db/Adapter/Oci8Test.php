@@ -336,6 +336,9 @@ class Horde_Db_Adapter_Oci8Test extends Horde_Db_Adapter_TestBase
 
     public function testBug14163()
     {
+        $table = $this->_conn->createTable('binary_testings');
+        $table->column('data', 'binary', array('null' => false));
+        $table->end();
         $blob = new Horde_Db_Value_Binary('foo');
         $this->_conn->insertBlob('binary_testings', array('data' => $blob));
         $this->_conn->updateBlob('binary_testings', array('data' => ''));
