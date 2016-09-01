@@ -12,7 +12,7 @@
  </lead>
  <date>2016-09-01</date>
  <version>
-  <release>2.29.9</release>
+  <release>2.29.10</release>
   <api>2.29.0</api>
  </version>
  <stability>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Optimize deleting or moving a large number of messages.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3038,6 +3038,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Optimize deleting or moving a large number of messages.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.29.10</release>
+    <api>2.29.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-09-01</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
