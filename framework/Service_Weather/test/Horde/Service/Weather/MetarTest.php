@@ -45,7 +45,7 @@ class Horde_Service_Weather_MetarTest extends Horde_Test_Case
         // Wind
         $this->assertEquals('SW', $conditions->wind_direction);
         $this->assertEquals(220, $conditions->wind_degrees);
-        $this->assertEquals('2016-08-12 15:54:00', (string)$conditions->time);
+        $this->assertEquals('2016-08-12 19:54:00', (string)$conditions->time);
 
         // METAR specific stuff.
         $this->assertEquals(Horde_Service_Weather_Translation::t('scattered'), $conditions->clouds[0]['amount']);
@@ -77,7 +77,7 @@ class Horde_Service_Weather_MetarTest extends Horde_Test_Case
         $weather = $this->_getWeatherDriver();
 
         $forecast = $weather->getForecast('KSAW');
-        $this->assertEquals('2016-08-12 23:59:00', (string)$forecast->getForecastTime());
+        $this->assertEquals('2016-08-13 03:59:00', (string)$forecast->getForecastTime());
 
         $dayOne = $forecast->getForecastDay(0);
         $this->assertInstanceOf('Horde_Service_Weather_Period_Taf', $dayOne);
