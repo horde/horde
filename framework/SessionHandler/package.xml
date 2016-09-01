@@ -24,7 +24,7 @@
  </lead>
  <date>2016-09-01</date>
  <version>
-  <release>2.2.8</release>
+  <release>2.2.9</release>
   <api>2.2.0</api>
  </version>
  <stability>
@@ -33,9 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Fix tests for PHP 7.1.
-* [jan] Add Mongo test.
-* [jan] Run Memcache tests on PHP 7 too.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -624,6 +622,19 @@ Initial release as a PEAR package
 * [jan] Fix tests for PHP 7.1.
 * [jan] Add Mongo test.
 * [jan] Run Memcache tests on PHP 7 too.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.9</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-09-01</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
