@@ -23,7 +23,7 @@ owns or has access to.</description>
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-07-01</date>
+ <date>2016-09-01</date>
  <version>
   <release>2.1.1</release>
   <api>1.4.0</api>
@@ -34,7 +34,7 @@ owns or has access to.</description>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Use more efficient database access in SQL backends.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1063,10 +1063,10 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-07-01</date>
+   <date>2016-09-01</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Use more efficient database access in SQL backends.
    </notes>
   </release>
  </changelog>
