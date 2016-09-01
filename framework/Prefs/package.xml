@@ -24,7 +24,7 @@
  </lead>
  <date>2016-09-01</date>
  <version>
-  <release>2.8.0</release>
+  <release>2.8.1</release>
   <api>2.8.0</api>
  </version>
  <stability>
@@ -33,9 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Use more efficient database access in SQL backend.
-* [jan] Fix and optimize removing preferences for a single application.
-* [jan] Add Horde_Prefs::removeAll().
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1216,6 +1214,19 @@ Initial release as a PEAR package
 * [jan] Use more efficient database access in SQL backend.
 * [jan] Fix and optimize removing preferences for a single application.
 * [jan] Add Horde_Prefs::removeAll().
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.8.1</release>
+    <api>2.8.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-09-01</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
