@@ -105,12 +105,15 @@ class Turba_Driver_Vbook extends Turba_Driver
     /**
      * Returns a Turba_List object containing $objects filtered by $tags.
      *
-     * @param  array $objects  A hash of objects, as returned by self::_search.
-     * @param  array $tags     An array of tags to filter by.
+     * @param  array $objects     A hash of objects, as returned by
+     *                            self::_search.
+     * @param  array $tags        An array of tags to filter by.
+     * @param  Array $sort_order  The sort order to pass to Turba_List::sort.
+     *                            (Unused).
      *
      * @return Turba_List  The filtered Turba_List object.
      */
-    protected function _filterTags($objects, $tags)
+    protected function _filterTags($objects, $tags, $sort_order = null)
     {
         global $injector;
 
