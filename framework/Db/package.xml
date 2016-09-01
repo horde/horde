@@ -9,13 +9,13 @@
   <name>Mike Naberezny</name>
   <user>mnaberez</user>
   <email>mike@naberezny.com</email>
-  <active>yes</active>
+  <active>no</active>
  </lead>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
   <email>chuck@horde.org</email>
-  <active>yes</active>
+  <active>no</active>
  </lead>
  <lead>
   <name>Jan Schneider</name>
