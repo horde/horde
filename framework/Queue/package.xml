@@ -10,7 +10,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-10-20</date>
+ <date>2016-09-01</date>
  <version>
    <release>1.1.4</release>
    <api>1.1.0</api>
@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Use more efficient database access in SQL backend.
 * [jan] Fix deleting retrieved tasks from SQL storage.
  </notes>
  <contents>
@@ -177,9 +178,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-10-20</date>
+   <date>2016-09-01</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Use more efficient database access in SQL backend.
 * [jan] Fix deleting retrieved tasks from SQL storage.
    </notes>
   </release>
