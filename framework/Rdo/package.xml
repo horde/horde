@@ -11,10 +11,10 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-02-02</date>
+ <date>2016-09-02</date>
  <version>
-  <release>2.0.6</release>
-  <api>1.2.0</api>
+  <release>2.1.0</release>
+  <api>1.3.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Add Horde_Rdo_Base#toArray() (Neal Thomas Oakey &lt;oakey@b1-systems.de&gt;).
 * [jan] Make the JOIN type settable by mapper relationships (Neal Thomas Oakey &lt;oakey@b1-systems.de&gt;).
  </notes>
  <contents>
@@ -45,6 +46,7 @@
       </dir> <!-- /doc/Horde/Rdo/examples -->
       <file name="COPYING" role="doc" />
       <file name="TODO" role="doc" />
+      <file name="UPGRADING" role="doc" />
      </dir> <!-- /doc/Horde/Rdo -->
     </dir> <!-- /doc/Horde -->
    </dir> <!-- /doc -->
@@ -144,6 +146,7 @@
   <filelist>
    <install as="COPYING" name="doc/Horde/Rdo/COPYING" />
    <install as="TODO" name="doc/Horde/Rdo/TODO" />
+   <install as="UPGRADING" name="doc/Horde/Rdo/UPGRADING" />
    <install as="examples/clotho.data.php" name="doc/Horde/Rdo/examples/clotho.data.php" />
    <install as="examples/clotho.mysql.sql" name="doc/Horde/Rdo/examples/clotho.mysql.sql" />
    <install as="examples/Clotho.php" name="doc/Horde/Rdo/examples/Clotho.php" />
@@ -404,14 +407,15 @@ Major improvements including inflection, eager or lazy loading of relationships 
   </release>
   <release>
    <version>
-    <release>2.0.6</release>
-    <api>1.2.0</api></version>
+    <release>2.1.0</release>
+    <api>1.3.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-02-02</date>
+   <date>2016-09-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Add Horde_Rdo_Base#toArray() (Neal Thomas Oakey &lt;oakey@b1-systems.de&gt;).
 * [jan] Make the JOIN type settable by mapper relationships (Neal Thomas Oakey &lt;oakey@b1-systems.de&gt;).
    </notes>
   </release>
