@@ -13,7 +13,7 @@
  </lead>
  <date>2016-09-02</date>
  <version>
-  <release>2.1.0</release>
+  <release>2.1.1</release>
   <api>1.3.0</api>
  </version>
  <stability>
@@ -22,8 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Add Horde_Rdo_Base#toArray() (Neal Thomas Oakey &lt;oakey@b1-systems.de&gt;).
-* [jan] Make the JOIN type settable by mapper relationships (Neal Thomas Oakey &lt;oakey@b1-systems.de&gt;).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -417,6 +416,19 @@ Major improvements including inflection, eager or lazy loading of relationships 
    <notes>
 * [jan] Add Horde_Rdo_Base#toArray() (Neal Thomas Oakey &lt;oakey@b1-systems.de&gt;).
 * [jan] Make the JOIN type settable by mapper relationships (Neal Thomas Oakey &lt;oakey@b1-systems.de&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.1</release>
+    <api>1.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-09-02</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
