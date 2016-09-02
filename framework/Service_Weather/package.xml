@@ -12,7 +12,7 @@
  </lead>
  <date>2016-09-02</date>
  <version>
-  <release>2.4.0</release>
+  <release>2.4.1</release>
   <api>1.4.0</api>
  </version>
  <stability>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* [mjr] Added support for METAR/TAF weather sources.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -966,6 +966,19 @@
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [mjr] Added support for METAR/TAF weather sources.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.4.1</release>
+    <api>1.4.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-09-02</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
