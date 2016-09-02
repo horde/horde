@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-08-09</date>
+ <date>2016-09-02</date>
  <version>
   <release>2.4.0</release>
   <api>1.4.0</api>
@@ -162,6 +162,12 @@
      <dir name="Service">
       <dir name="Weather">
        <dir name="fixtures">
+        <dir name="metar">
+         <file name="KPHL.TXT" role="test" />
+        </dir> <!-- /test/Horde/Service/Weather/fixtures/metar -->
+        <dir name="taf">
+         <file name="KSAW.TXT" role="test" />
+        </dir> <!-- /test/Horde/Service/Weather/fixtures/taf -->
         <file name="boston_location_wwo.json" role="test" />
         <file name="boston_wunderground.json" role="test" />
         <file name="boston_wwo.json" role="test" />
@@ -169,6 +175,7 @@
        </dir> <!-- /test/Horde/Service/Weather/fixtures -->
        <file name="AllTests.php" role="test" />
        <file name="bootstrap.php" role="test" />
+       <file name="MetarTest.php" role="test" />
        <file name="phpunit.xml" role="test" />
        <file name="WundergroundTest.php" role="test" />
        <file name="WwoTest.php" role="test" />
@@ -411,6 +418,7 @@
    <install as="migration/1_horde_service_weather_airports.php" name="migration/Horde/Service/Weather/1_horde_service_weather_airports.php" />
    <install as="Horde/Service/Weather/AllTests.php" name="test/Horde/Service/Weather/AllTests.php" />
    <install as="Horde/Service/Weather/bootstrap.php" name="test/Horde/Service/Weather/bootstrap.php" />
+   <install as="Horde/Service/Weather/MetarTest.php" name="test/Horde/Service/Weather/MetarTest.php" />
    <install as="Horde/Service/Weather/phpunit.xml" name="test/Horde/Service/Weather/phpunit.xml" />
    <install as="Horde/Service/Weather/WundergroundTest.php" name="test/Horde/Service/Weather/WundergroundTest.php" />
    <install as="Horde/Service/Weather/WwoTest.php" name="test/Horde/Service/Weather/WwoTest.php" />
@@ -419,6 +427,8 @@
    <install as="Horde/Service/Weather/fixtures/boston_wunderground.json" name="test/Horde/Service/Weather/fixtures/boston_wunderground.json" />
    <install as="Horde/Service/Weather/fixtures/boston_wwo.json" name="test/Horde/Service/Weather/fixtures/boston_wwo.json" />
    <install as="Horde/Service/Weather/fixtures/wwov2.json" name="test/Horde/Service/Weather/fixtures/wwov2.json" />
+   <install as="Horde/Service/Weather/fixtures/metar/KPHL.TXT" name="test/Horde/Service/Weather/fixtures/metar/KPHL.TXT" />
+   <install as="Horde/Service/Weather/fixtures/taf/KSAW.TXT" name="test/Horde/Service/Weather/fixtures/taf/KSAW.TXT" />
    <install as="themes/default/graphics/weather/wundergroundlogo.png" name="themes/default/graphics/weather/wundergroundlogo.png" />
    <install as="themes/default/graphics/weather/23x23/0.png" name="themes/default/graphics/weather/23x23/0.png" />
    <install as="themes/default/graphics/weather/23x23/1.png" name="themes/default/graphics/weather/23x23/1.png" />
@@ -952,7 +962,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-08-09</date>
+   <date>2016-09-02</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [mjr] Added support for METAR/TAF weather sources.
