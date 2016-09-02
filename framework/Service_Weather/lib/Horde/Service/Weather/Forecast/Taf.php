@@ -93,7 +93,7 @@
      */
     public function getForecastTime()
     {
-        return new Horde_Date($this->_properties['update']);
+        return new Horde_Date($this->_properties['update'], 'GMT');
     }
 
     protected function _parsePeriods()
