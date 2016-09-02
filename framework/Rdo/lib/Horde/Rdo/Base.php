@@ -447,14 +447,18 @@ abstract class Horde_Rdo_Base implements IteratorAggregate, ArrayAccess
     }
 
     /**
-     * make the Entity convertible to an Array
-     * this method can be used when handing it over to Horde_Variables
-     * so that the database is not unnecessarily queried because of lazyFields/-Relationships
+     * Converts the entity to an Array.
      *
-     * @param bool $lazy            if lazy elements should be added
-     * @param bool $relationships   if relationships should be added
+     * This method can be used when handing it over to Horde_Variables so that
+     * the database is not unnecessarily queried because of
+     * lazyFields/lazyRelationships.
      *
-     * @return array containing all selected fields / relationships
+     * @since Horde_Rdo 2.1.0
+     *
+     * @param bool $lazy           Whether lazy elements should be added.
+     * @param bool $relationships  Whether relationships should be added.
+     *
+     * @return array  All selected fields and relationships.
      */
     public function toArray($lazy = false, $relationships = false)
     {
@@ -473,13 +477,13 @@ abstract class Horde_Rdo_Base implements IteratorAggregate, ArrayAccess
         }
 
         if ($relationships) {
-            foreach ($m->relationships as $rel=>$field) {
+            foreach (array_keys($m->relationships) as $rel) {
                 $array[$rel] = $this->$rel;
             }
         }
 
         if ($lazy && $relationships) {
-            foreach ($m->lazyRelationships as $rel=>$field) {
+            foreach (array_keys($m->lazyRelationships) as $rel) {
                 $array[$rel] = $this->$rel;
             }
         }
