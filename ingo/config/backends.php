@@ -116,9 +116,10 @@ $backends['maildrop'] = array(
                 // The path to the .mailfilter filter file, defaults to the
                 // filters' owner's home directory.
                 // You can use the following variables:
-                //   %u = name of the filters' owner
+                //   %u = name of the filters' owner requests Ingo::getUser(false)
                 //   %d = domain name of the filters' owner
                 //   %U = the transport 'username'
+                //   %u_full = returns the full username requests Ingo::getUser(true)
                 // Example:
                 //   '/data/maildrop/filters/%d/%u'
                 //   This would be translated into:
