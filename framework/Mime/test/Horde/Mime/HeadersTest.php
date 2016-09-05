@@ -110,6 +110,42 @@ class Horde_Mime_HeadersTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @dataProvider mimeEncodedAddressProvider
+     */
+    public function testBug14456($header, $value, $decoded)
+    {
+        $hdrs = new Horde_Mime_Headers();
+        $hdrs->addHeader($header, $value);
+        $this->assertEquals($decoded, $hdrs->getValue($header));
+    }
+
+    public function mimeEncodedAddressProvider()
+    {
+        return array(
+            array(
+                'To',
+                '=?utf-8?Q?"Mike,_H=C3=A5vard"?= <mike@example.com>',
+                '"Mike, Håvard" <mike@example.com>'
+            ),
+            array(
+                'To',
+                '=?utf-8?Q?"Steve,_H=C3=A5vard"?= <steve@example.com>, =?utf-8?Q?"Bob,_H=C3=A5vard"?= <bob@example.com>',
+                '"Steve, Håvard" <steve@example.com>, "Bob, Håvard" <bob@example.com>'
+            ),
+            array(
+                'To',
+                'sheldon@example.com',
+                'sheldon@example.com'
+            ),
+            array(
+                'From',
+                '=?utf-8?Q?"Mike,_H=C3=A5vard"?= <mike@example.com>',
+                '"Mike, Håvard" <mike@example.com>'
+            )
+        );
+    }
+
+    /**
      * @dataProvider normalHeaderDecodeProvider
      */
     public function testNormalHeaderDecode($header, $value, $decoded)
