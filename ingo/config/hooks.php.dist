@@ -23,9 +23,9 @@ class Ingo_Hooks
                       (DEFAULT). Otherwise, an array with the following keys
      *                (non-existent keys will use default values):
      *  - euser: (string; SIEVE ONLY) For the sieve driver, the effective
-     *           user to use.
+     *           user to use (authorization ID).
      *  - password: (string) Password.
-     *  - username: (string) User name.
+     *  - username: (string) User name (authentication ID).
      */
 //    public function transport_auth($driver)
 //    {
