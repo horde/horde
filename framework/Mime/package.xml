@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mjr] Fix parsing headers containing MIME encoded email addresses (Bug #14456).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1794,7 +1794,7 @@
    <date>2016-07-01</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mjr] Fix parsing headers containing MIME encoded email addresses (Bug #14456).
    </notes>
   </release>
  </changelog>
