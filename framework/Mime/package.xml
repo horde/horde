@@ -19,7 +19,7 @@
  </lead>
  <date>2016-09-05</date>
  <version>
-  <release>2.10.1</release>
+  <release>2.10.2</release>
   <api>2.10.0</api>
  </version>
  <stability>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Fix parsing headers containing MIME encoded email addresses (Bug #14456).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1795,6 +1795,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Fix parsing headers containing MIME encoded email addresses (Bug #14456).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.10.2</release>
+    <api>2.10.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-09-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
