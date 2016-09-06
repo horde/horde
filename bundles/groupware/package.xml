@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/">OSI certified</license>
  <notes>
-* 
+* [jan] Update Horde, Turba, Kronolith, and Nag.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -92,14 +92,14 @@
    <package>
     <name>horde</name>
     <channel>pear.horde.org</channel>
-    <min>5.2.11</min>
+    <min>5.2.12</min>
     <max>6.0.0alpha1</max>
     <exclude>6.0.0alpha1</exclude>
    </package>
    <package>
     <name>kronolith</name>
     <channel>pear.horde.org</channel>
-    <min>4.2.17</min>
+    <min>4.2.18</min>
     <max>5.0.0alpha1</max>
     <exclude>5.0.0alpha1</exclude>
    </package>
@@ -113,7 +113,7 @@
    <package>
     <name>nag</name>
     <channel>pear.horde.org</channel>
-    <min>4.2.10</min>
+    <min>4.2.11</min>
     <max>5.0.0alpha1</max>
     <exclude>5.0.0alpha1</exclude>
    </package>
@@ -134,7 +134,7 @@
    <package>
     <name>turba</name>
     <channel>pear.horde.org</channel>
-    <min>4.2.15</min>
+    <min>4.2.16</min>
     <max>5.0.0alpha1</max>
     <exclude>5.0.0alpha1</exclude>
    </package>

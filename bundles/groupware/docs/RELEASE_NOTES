@@ -1,11 +1,11 @@
 <?php
 /* Security release? */
-$notes['security'] = false;
+$notes['security'] = true;
 
 /* Mailing list release notes. */
 $notes['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Horde Groupware
-version 5.2.15.
+version 5.2.16.
 
 Horde Groupware is a free, enterprise ready, browser based collaboration
 suite. Users can manage and share calendars, contacts, tasks, notes, files, and
@@ -17,35 +17,31 @@ http://www.horde.org/apps/groupware/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/groupware/docs/INSTALL
 
-The major changes compared to the Horde Groupware version 5.2.14 are:
+Thanks to Liuzhu for reporting the XSS vulnerability via data:text/html
+content.
 
-    * Update Portuguese translation.
-    * Update Basque translation.
+Thanks to Dawid Gounski for reporting the missing CSRF token in the
+configuration form and the XSS vulnerability with SVG images via Beyond
+Security's SecuriTeam Secure Disclosure program.
 
-Address Book changes:
-    * Fix searching via the API when specifying fields and not specifying
-      a source.
-    * Require Horde_Perms::DELETE for including an address book  as sync-able.
+Thanks to Florian Köllich <florian.koellich@tirol.gv.at> for reporting the XSS
+vulnerability and open URL redirection in the portal forms.
 
-Bookmarks changes:
-    * Honor ['content_index']['enabled'] setting (Bug #14345).
+The major changes compared to the Horde Groupware version 5.2.15 are:
 
-Calendar changes:
-    * Fix issue where it is possible to save an event with an empty start or
-      end date on some browsers.
-    * Require Horde_Perms::DELETE for including a calendar as sync-able.
-    * Fix end date when toggling an all day event off (Bug #13979).
-    * Fix showing error message if loading of remote calendars failed.
+Security fixes:
+    * Fixed an XSS vulnerability via data:text/html content of form action and
+      xlink attributes.
+    * Added CSRF protection tokens to the portal layout forms.
+    * Fixed an open URL redirection in the portal layout forms.
+    * Enabled CSRF tokens in the configuration forms.
+    * Don't render SVG images in the browser to avoid XSS attacks
 
-Notes changes:
-    * Require Horde_Perms::DELETE for including a notebook as sync-able.
+General changes:
+    * Several bugfixes and improvements.
 
 Tasks changes:
-    * Fix handling of start and due dates when syncing via EAS.
-    * Avoid fatal errors if tasks don't have a UID.
-    * Fix parsing certain date formats (Bug #14348).
-    * Fix deleteing alarms when completing a task.
-    * Require Horde_Perms::DELETE for including a tasklist as sync-able.
+    * Fixed sorting of recurring tasks by due date.
 ML;
 
 $notes['name'] = 'Horde Groupware';

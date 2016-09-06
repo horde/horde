@@ -1,11 +1,11 @@
 <?php
 /* Security release? */
-$notes['security'] = false;
+$notes['security'] = true;
 
 /* Mailing list release notes. */
 $notes['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Horde Groupware
-Webmail Edition version 5.2.15.
+Webmail Edition version 5.2.16.
 
 Horde Groupware Webmail Edition is a free, enterprise ready, browser based
 communication suite. Users can read, send and organize email messages with four
@@ -19,49 +19,35 @@ http://www.horde.org/apps/webmail/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/webmail/docs/INSTALL
 
+Thanks to Liuzhu for reporting the XSS vulnerability via data:text/html
+content.
+
+Thanks to Dawid Gounski for reporting the missing CSRF token in the
+configuration form and the XSS vulnerability with SVG images via Beyond
+Security's SecuriTeam Secure Disclosure program.
+
+Thanks to Florian Köllich <florian.koellich@tirol.gv.at> for reporting the XSS
+vulnerability and open URL redirection in the portal forms.
+
 The major changes compared to the Horde Groupware Webmail Edition version
-5.2.14 are:
+5.2.15 are:
 
-    * Update Portuguese translation.
-    * Update Basque translation.
+Security fixes:
+    * Fixed an XSS vulnerability via data:text/html content of form action and
+      xlink attributes.
+    * Added CSRF protection tokens to the portal layout forms.
+    * Fixed an open URL redirection in the portal layout forms.
+    * Enabled CSRF tokens in the configuration forms.
+    * Don't render SVG images in the browser to avoid XSS attacks
 
-Address Book changes:
-    * Fix searching via the API when specifying fields and not specifying
-      a source.
-    * Require Horde_Perms::DELETE for including an address book  as sync-able.
-
-Bookmarks changes:
-    * Honor ['content_index']['enabled'] setting (Bug #14345).
-
-Calendar changes:
-    * Fix issue where it is possible to save an event with an empty start or
-      end date on some browsers.
-    * Require Horde_Perms::DELETE for including a calendar as sync-able.
-    * Fix end date when toggling an all day event off (Bug #13979).
-    * Fix showing error message if loading of remote calendars failed.
+General changes:
+    * Several bugfixes and improvements.
 
 Filter changes:
-    * Don't ignore 'initial_page' registry setting.
-
-Mail changes:
-    * Remove <link rel=""> tags with "Previous" and "Next" from basic message
-      view (Bug #14400).
-    * Display translated mailbox names in drop down lists too.
-    * Consistently display the raw mailbox name in mailbox element titles.
-    * Unset window opener when opening new windows from HTML messages (
-      João Machado <geral@jpaulo.eu>).
-    * Fix re-adding an attachment after it has been removed from the compose
-      window (Bug #14329).
-
-Notes changes:
-    * Require Horde_Perms::DELETE for including a notebook as sync-able.
+    * Fixed creating of new spam folders.
 
 Tasks changes:
-    * Fix handling of start and due dates when syncing via EAS.
-    * Avoid fatal errors if tasks don't have a UID.
-    * Fix parsing certain date formats (Bug #14348).
-    * Fix deleteing alarms when completing a task.
-    * Require Horde_Perms::DELETE for including a tasklist as sync-able.
+    * Fixed sorting of recurring tasks by due date.
 ML;
 
 $notes['name'] = 'Horde Groupware Webmail Edition';
