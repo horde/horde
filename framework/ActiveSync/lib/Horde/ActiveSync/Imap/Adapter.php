@@ -1074,7 +1074,7 @@ class Horde_ActiveSync_Imap_Adapter
         // angry. And we don't like angry clients.
         $eas_message->subject = Horde_ActiveSync_Utils::ensureUtf8(
             $imap_message->getSubject(),
-            $imap_message->getStructure()->getHeaderCharset()
+            'UTF-8'
         );
         $eas_message->threadtopic = $eas_message->subject;
         $eas_message->datereceived = $imap_message->getDate();
