@@ -72,6 +72,9 @@ class Horde_Mime_Viewer_Images extends Horde_Mime_Viewer_Base
             /* image/x-png == image/png. */
             return 'image/png';
 
+        case 'image/svg+xml':
+            return 'application/octet-stream';
+
         default:
             return $type;
         }

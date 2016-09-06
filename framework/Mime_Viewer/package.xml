@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] SECURITY: Don&apos;t render SVG images in the browser to avoid XSS attacks (Reported by Dawid Gounski via Beyond Security&apos;s SecuriTeam Secure Disclosure program).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1105,7 +1105,7 @@
    <date>2016-07-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] SECURITY: Don&apos;t render SVG images in the browser to avoid XSS attacks (Reported by Dawid Gounski via Beyond Security&apos;s SecuriTeam Secure Disclosure program).
    </notes>
   </release>
  </changelog>
