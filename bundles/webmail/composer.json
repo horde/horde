@@ -11,8 +11,8 @@
             "role": "lead"
         }
     ],
-    "version": "5.2.15",
-    "time": "2016-07-02",
+    "version": "5.2.16",
+    "time": "2016-09-06",
     "repositories": [
         {
             "type": "pear",
@@ -24,14 +24,14 @@
         "pear-pear.horde.org/groupware": "*",
         "pear-pear.horde.org/content": ">=2.0.5@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/gollem": ">=3.0.9@stable,<=4.0.0alpha1@stable",
-        "pear-pear.horde.org/horde": ">=5.2.11@stable,<=6.0.0alpha1@stable",
-        "pear-pear.horde.org/imp": ">=6.2.15@stable,<=7.0.0alpha1@stable",
-        "pear-pear.horde.org/ingo": ">=3.2.11@stable,<=4.0.0alpha1@stable",
-        "pear-pear.horde.org/kronolith": ">=4.2.17@stable,<=5.0.0alpha1@stable",
+        "pear-pear.horde.org/horde": ">=5.2.12@stable,<=6.0.0alpha1@stable",
+        "pear-pear.horde.org/imp": ">=6.2.16@stable,<=7.0.0alpha1@stable",
+        "pear-pear.horde.org/ingo": ">=3.2.12@stable,<=4.0.0alpha1@stable",
+        "pear-pear.horde.org/kronolith": ">=4.2.18@stable,<=5.0.0alpha1@stable",
         "pear-pear.horde.org/mnemo": ">=4.2.11@stable,<=5.0.0alpha1@stable",
-        "pear-pear.horde.org/nag": ">=4.2.10@stable,<=5.0.0alpha1@stable",
+        "pear-pear.horde.org/nag": ">=4.2.11@stable,<=5.0.0alpha1@stable",
         "pear-pear.horde.org/timeobjects": ">=2.1.2@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/trean": ">=1.1.6@stable,<=2.0.0alpha1@stable",
-        "pear-pear.horde.org/turba": ">=4.2.15@stable,<=5.0.0alpha1@stable"
+        "pear-pear.horde.org/turba": ">=4.2.16@stable,<=5.0.0alpha1@stable"
     }
 }
