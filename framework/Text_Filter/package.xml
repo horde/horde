@@ -24,7 +24,7 @@
  </developer>
  <date>2016-09-06</date>
  <version>
-  <release>2.3.5</release>
+  <release>2.3.6</release>
   <api>2.3.0</api>
  </version>
  <stability>
@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] SECURITY: Fix XSS via data:text/html content of form action and xlink attributes (Reported by Liuzhu &lt;fantasy7082@hotmail.com&gt;).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1112,6 +1112,19 @@ Initial release as a PEAR package
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] SECURITY: Fix XSS via data:text/html content of form action and xlink attributes (Reported by Liuzhu &lt;fantasy7082@hotmail.com&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.3.6</release>
+    <api>2.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-09-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
