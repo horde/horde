@@ -12,7 +12,7 @@
  </lead>
  <date>2016-09-06</date>
  <version>
-  <release>2.2.1</release>
+  <release>2.2.2</release>
   <api>2.1.0</api>
  </version>
  <stability>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] SECURITY: Don&apos;t render SVG images in the browser to avoid XSS attacks (Reported by Dawid Gounski via Beyond Security&apos;s SecuriTeam Secure Disclosure program).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1106,6 +1106,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] SECURITY: Don&apos;t render SVG images in the browser to avoid XSS attacks (Reported by Dawid Gounski via Beyond Security&apos;s SecuriTeam Secure Disclosure program).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.2</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-09-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
