@@ -207,6 +207,9 @@ class Horde_Core_Block_Layout_Manager extends Horde_Core_Block_Layout implements
         case 'save':
         // Save the changes made to a block and continue editing.
         case 'save-resume':
+            // Check form token.
+            $GLOBALS['session']->checkToken(Horde_Util::getFormData('token'));
+
             // Get requested block type.
             list($newapp, $newtype) = explode(':', Horde_Util::getFormData('app'));
 

@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] SECURITY: Add CSRF protection tokens to portal layout forms and fix open URL redirection (Reported by Florian Köllich &lt;florian.koellich@tirol.gv.at&gt;).
 * [jan] SECURITY: enable CSRF token for configuration form again (Reported by Dawid Gounski via Beyond Security&apos;s SecuriTeam Secure Disclosure program).
 * [mjr] Changes to support EAS attachment sync support for Appointment objects.
 * [mjr] Refactor ajax weather location autocompleter and add support for metar data.
@@ -4226,6 +4227,7 @@
    <date>2016-08-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] SECURITY: Add CSRF protection tokens to portal layout forms (Reported by Florian Köllich &lt;florian.koellich@tirol.gv.at&gt;).
 * [jan] SECURITY: enable CSRF token for configuration form again (Reported by Dawid Gounski via Beyond Security&apos;s SecuriTeam Secure Disclosure program).
 * [mjr] Changes to support EAS attachment sync support for Appointment objects.
 * [mjr] Refactor ajax weather location autocompleter and add support for metar data.
