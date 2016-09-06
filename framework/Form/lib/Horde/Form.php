@@ -609,10 +609,14 @@ class Horde_Form {
         $this->_autofilled = true;
 
         if ($this->_useFormToken) {
-            $tokenSource = $GLOBALS['injector']->getInstance('Horde_Token');
-            $passedToken = $vars->get($this->_name . '_formToken');
-            if (!empty($passedToken) && !$tokenSource->verify($passedToken)) {
-                $this->_errors['_formToken'] = Horde_Form_Translation::t("This form has already been processed.");
+            try {
+                $tokenSource = $GLOBALS['injector']->getInstance('Horde_Token');
+                $passedToken = $vars->get($this->_name . '_formToken');
+                if (!empty($passedToken) &&
+                    !$tokenSource->verify($passedToken)) {
+                    $this->_errors['_formToken'] = Horde_Form_Translation::t("This form has already been processed.");
+                }
+            } catch (Horde_Exception $e) {
             }
             if (!$GLOBALS['session']->get('horde', 'form_secrets/' . $passedToken)) {
                 $this->_errors['_formSecret'] = Horde_Form_Translation::t("Required secret is invalid - potentially malicious request.");
