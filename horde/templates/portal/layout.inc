@@ -63,6 +63,7 @@
     <td valign="middle" class="leftAlign" width="100%">
       <form action="<?php echo Horde::selfUrl() ?>#block" method="post" name="blockform">
         <?php Horde_Util::pformInput() ?>
+        <input type="hidden" name="token" value="<?php echo $session->getToken() ?>" />
         <input type="hidden" name="row" value="<?php echo $row ?>" />
         <input type="hidden" name="col" value="<?php echo $col ?>" />
         <input type="hidden" name="url" value="<?php echo htmlspecialchars(Horde_Util::getFormData('url')) ?>" />
