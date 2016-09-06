@@ -15,15 +15,6 @@
 class Horde_Config_Form extends Horde_Form
 {
     /**
-     * Don't use form tokens for the configuration form - while
-     * generating configuration info, things like the Token system
-     * might not work correctly. This saves some headaches.
-     *
-     * @var boolean
-     */
-    protected $_useFormToken = false;
-
-    /**
      * Contains the Horde_Config object that this form represents.
      *
      * @var Horde_Config

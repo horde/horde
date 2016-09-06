@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] SECURITY: enable CSRF token for configuration form again (Reported by Dawid Gounski via Beyond Security&apos;s SecuriTeam Secure Disclosure program).
 * [mjr] Changes to support EAS attachment sync support for Appointment objects.
 * [mjr] Refactor ajax weather location autocompleter and add support for metar data.
 * [jan] Allow to specify user DN search parameters for LDAP with all bind methods (Request #11697, heinz@htl-steyr.ac.at).
@@ -1348,7 +1349,7 @@
    <package>
     <name>Horde_Form</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.0.16</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -4225,6 +4226,7 @@
    <date>2016-08-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] SECURITY: enable CSRF token for configuration form again (Reported by Dawid Gounski via Beyond Security&apos;s SecuriTeam Secure Disclosure program).
 * [mjr] Changes to support EAS attachment sync support for Appointment objects.
 * [mjr] Refactor ajax weather location autocompleter and add support for metar data.
 * [jan] Allow to specify user DN search parameters for LDAP with all bind methods (Request #11697, heinz@htl-steyr.ac.at).
