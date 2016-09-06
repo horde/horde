@@ -17,6 +17,11 @@ class Turba_Unit_ImportTest extends Turba_TestCase
         )
     );
 
+    protected static $emailMap = array(
+        'homeEmail' => 'object_homeemail',
+        'workEmail' => 'object_workemail'
+    );
+
     public static function setUpBeforeClass()
     {
         self::createBasicTurbaSetup(new Horde_Test_Setup());
@@ -528,7 +533,7 @@ PHOTO;TYPE=JPEG;ENCODING=BASE64:wolQTkcNChoKAAAADUlIRFIAAAAJAAAACQIDAAAAwp3
 END:VCARD
 ';
 
-        $hash = $this->toHash($vcard);
+        $hash = $this->toHash($vcard, self::$emailMap);
         $this->assertEquals(136, strlen($hash['photo']));
 
         unset($hash['photo']);
