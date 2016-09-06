@@ -22,7 +22,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2016-03-21</date>
+ <date>2016-09-06</date>
  <version>
   <release>2.3.5</release>
   <api>2.3.0</api>
@@ -1108,7 +1108,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-03-21</date>
+   <date>2016-09-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] SECURITY: Fix XSS via data:text/html content of form action and xlink attributes (Reported by Liuzhu &lt;fantasy7082@hotmail.com&gt;).
