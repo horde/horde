@@ -1,6 +1,6 @@
------------
-v4.2.18-git
------------
+-------
+v4.2.18
+-------
 
 [mjr] Fix potential memory issue with really long events (Bug #14453).
 [mjr] Fix setting DELETE permissions (Bug #14447).
