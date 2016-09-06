@@ -24,7 +24,7 @@
  </lead>
  <date>2016-09-06</date>
  <version>
-  <release>3.2.12</release>
+  <release>3.2.13</release>
   <api>3.2.0</api>
  </version>
  <stability>
@@ -33,10 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* [jan] Fix using ingo-convert-prefs-to-sql for multiple users.
-* [mjr] Fix incorrect flag usage in Procmail vacation recipe (Bug #14397).
-* [mjr] Fix escaping mailbox names that contain utf7-imap encodings (Bug #14429).
-* [jan] Fix creating new spam folders.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1681,6 +1678,19 @@
 * [mjr] Fix incorrect flag usage in Procmail vacation recipe (Bug #14397).
 * [mjr] Fix escaping mailbox names that contain utf7-imap encodings (Bug #14429).
 * [jan] Fix creating new spam folders.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.2.13</release>
+    <api>3.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-09-06</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
