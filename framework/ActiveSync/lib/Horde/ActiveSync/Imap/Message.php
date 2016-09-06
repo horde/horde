@@ -36,7 +36,7 @@ class Horde_ActiveSync_Imap_Message
     /**
      * Message data.
      *
-     * @var Horde_Imap_Client_Fetch_Data
+     * @var Horde_Imap_Client_Data_Fetch
      */
     protected $_data;
 
