@@ -26,8 +26,8 @@
             "role": "developer"
         }
     ],
-    "version": "2.25.0",
-    "time": "2016-07-28",
+    "version": "2.26.0",
+    "time": "2016-09-06",
     "repositories": [
         {
             "type": "pear",
@@ -62,7 +62,7 @@
         "pear-pear.horde.org/Horde_Notification": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Pack": ">=1.0.0@stable,<=2.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Perms": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Prefs": ">=2.6.0@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Prefs": ">=2.8.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Secret": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Serialize": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_SessionHandler": ">=2.0.0@stable,<=3.0.0alpha1@stable",
@@ -85,7 +85,7 @@
         "pear-pear.horde.org/Horde_Db": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Editor": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_ElasticSearch": ">=1.0.0@stable,<=2.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Form": ">=2.0.0@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Form": ">=2.0.16@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Http": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Icalendar": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Image": ">=2.3.0@stable,<=3.0.0alpha1@stable",
