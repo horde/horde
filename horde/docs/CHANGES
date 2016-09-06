@@ -2,6 +2,8 @@
 v5.2.12-git
 -----------
 
+[jan] SECURITY: Add CSRF protection tokens to portal layout forms (Reported by
+      Florian Köllich <florian.koellich@tirol.gv.at>).
 [jan] Fix double loading of hooks.php.
 
 

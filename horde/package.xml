@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
+* [jan] SECURITY: Add CSRF protection tokens to portal layout forms (Reported by Florian Köllich &lt;florian.koellich@tirol.gv.at&gt;).
 * [jan] Fix double loading of hooks.php.
  </notes>
  <contents>
@@ -4121,6 +4122,7 @@
    <date>2016-07-01</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
+* [jan] SECURITY: Add CSRF protection tokens to portal layout forms (Reported by Florian Köllich &lt;florian.koellich@tirol.gv.at&gt;).
 * [jan] Fix double loading of hooks.php.
    </notes>
   </release>
