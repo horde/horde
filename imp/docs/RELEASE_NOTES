@@ -5,7 +5,7 @@ $notes['security'] = false;
 /* Mailing list release notes. */
 $notes['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Internet Mail
-Program (IMP) version H5 (6.2.15).
+Program (IMP) version H5 (6.2.16).
 
 IMP, the Internet Mail Program, is one of the most popular and widely deployed
 open source webmail applications in the world. It allows universal, web-based
@@ -20,13 +20,8 @@ http://www.horde.org/apps/imp/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/imp/docs/INSTALL
 
-The major changes compared to IMP version H5 (6.2.14) are:
-    * Fix bug in Basic view causing messages to be marked as read incorrectly.
-    * Display translated mailbox names in drop down lists.
-    * Fix re-adding attachment after it has been removed from compose window.
-    * Update Portuguese translation.
-    * Update Basque translation.
-    * Further bugfixes and improvements.
+The major changes compared to IMP version H5 (6.2.15) are:
+    * Small bugfixes and improvements.
 ML;
 
 $notes['name'] = 'IMP';

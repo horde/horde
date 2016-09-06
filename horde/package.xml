@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
-* 
+* [jan] Fix double loading of hooks.php.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4121,7 +4121,7 @@
    <date>2016-07-01</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
-* 
+* [jan] Fix double loading of hooks.php.
    </notes>
   </release>
  </changelog>

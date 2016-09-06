@@ -5,7 +5,7 @@ $notes['security'] = false;
 /* Mailing list release notes. */
 $notes['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Ingo Email
-Filter Rules Manager version H5 (3.2.11).
+Filter Rules Manager version H5 (3.2.12).
 
 Ingo is an email-filter management application. It is fully internationalized,
 integrated with Horde and the IMP Webmail client, and supports both server-side
@@ -18,11 +18,9 @@ http://www.horde.org/apps/ingo/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/ingo/docs/INSTALL
 
-The major changes compared to Ingo version H5 (3.2.10) are:
-    * Fix honoring initial_page setting.
-    * Update Portuguese translation.
-    * Update Basque translation.
-    * Further bugfixes and improvements.
+The major changes compared to Ingo version H5 (3.2.11) are:
+    * Fixed creating of new spam folders.
+    * Further bugfixes.
 ML;
 
 $notes['name'] = 'Ingo';
