@@ -2427,7 +2427,7 @@ class Turba_Driver implements Countable
                 if (!$email_set &&
                     (!isset($hash['email']) ||
                      isset($item['params']['PREF']) ||
-                     (is_array($item['params']['TYPE']) && in_array('PREF', $item['params']['TYPE'])))) {
+                     (!empty($item['params']['TYPE']) && is_array($item['params']['TYPE']) && in_array('PREF', $item['params']['TYPE'])))) {
                     $e = Horde_Icalendar_Vcard::getBareEmail($item['value']);
                     $hash['email'] = $e ? $e : '';
                 }
