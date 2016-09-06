@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>false</active>
  </lead>
- <date>2016-07-02</date>
+ <date>2016-09-06</date>
  <version>
   <release>4.2.11</release>
   <api>4.2.0</api>
@@ -1737,7 +1737,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-07-01</date>
+   <date>2016-09-06</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix sorting recurring tasks by due date (Bug #14403).
