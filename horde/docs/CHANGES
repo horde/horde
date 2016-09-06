@@ -1,6 +1,6 @@
------------
-v5.2.12-git
------------
+-------
+v5.2.12
+-------
 
 [jan] SECURITY: Add CSRF protection tokens to portal layout forms (Reported by
       Florian Köllich <florian.koellich@tirol.gv.at>).

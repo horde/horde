@@ -28,7 +28,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2016-07-01</date>
+ <date>2016-09-06</date>
  <version>
   <release>5.2.12</release>
   <api>5.2.0</api>
@@ -4119,7 +4119,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-07-01</date>
+   <date>2016-09-06</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [jan] SECURITY: Add CSRF protection tokens to portal layout forms (Reported by Florian Köllich &lt;florian.koellich@tirol.gv.at&gt;).
