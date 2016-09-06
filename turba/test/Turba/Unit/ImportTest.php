@@ -393,7 +393,7 @@ Foobar, Sachsen 01234',
                 'birthday' => '',
                 'notes' => '',
             ),
-            $this->toHash($vcard)
+            $this->toHash($vcard, self::$emailMap)
         );
     }
 
@@ -506,7 +506,7 @@ END:VCARD
                 'email' => 'pref@example.com',
                 '__uid' => 'nhCnPyv0u7',
             ),
-            $this->toHash($vcard)
+            $this->toHash($vcard, self::$emailMap)
         );
     }
 
@@ -591,7 +591,7 @@ EMAIL;TYPE=WORK:mrubinsk@horde.org
 N:Rubinsky;Michael;Joseph;;
 END:VCARD';
 
-    $hash = $this->toHash($vcard);
+    $hash = $this->toHash($vcard, self::$emailMap);
     $this->assertEquals($hash['workEmail'], 'mrubinsk@horde.org');
     $this->assertTrue(empty($hash['email']));
     }
