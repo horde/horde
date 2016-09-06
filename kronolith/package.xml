@@ -24,7 +24,7 @@
  </lead>
  <date>2016-09-06</date>
  <version>
-  <release>4.2.18</release>
+  <release>4.2.19</release>
   <api>4.2.0</api>
  </version>
  <stability>
@@ -33,12 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Fix potential memory issue with really long events (Bug #14453).
-* [mjr] Fix setting DELETE permissions (Bug #14447).
-* [mjr] More fixes and improvements related to preventing empty date values.
-* [jan] Fix losing shared users when adding invalid user name (Bug #14415).
-* [mjr] Fix displaying tag search results (Bug #14412).
-* [jan] Fix sender of event change notification messages.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2738,6 +2733,19 @@
 * [jan] Fix losing shared users when adding invalid user name (Bug #14415).
 * [mjr] Fix displaying tag search results (Bug #14412).
 * [jan] Fix sender of event change notification messages.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.19</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-09-06</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
