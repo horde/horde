@@ -24,7 +24,7 @@
  </lead>
  <date>2016-09-06</date>
  <version>
-  <release>6.2.16</release>
+  <release>6.2.17</release>
   <api>6.2.0</api>
  </version>
  <stability>
@@ -33,9 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Optimize deleting or moving a large number of messages.
-* [jan] Fix the &apos;special_mboxes&apos; backend configuration (Bug #14423).
-* [mjr] Fix display of application/pkcs-7-mime parts (Bug #14363).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3969,6 +3967,19 @@
 * [jan] Optimize deleting or moving a large number of messages.
 * [jan] Fix the &apos;special_mboxes&apos; backend configuration (Bug #14423).
 * [mjr] Fix display of application/pkcs-7-mime parts (Bug #14363).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>6.2.17</release>
+    <api>6.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-09-06</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
