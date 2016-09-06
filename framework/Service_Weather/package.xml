@@ -965,7 +965,7 @@
    <date>2016-09-02</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* [mjr] Added support for METAR/TAF weather sources.
+* [mjr] Add support for METAR/TAF weather sources.
    </notes>
   </release>
   <release>
