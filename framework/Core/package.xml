@@ -30,7 +30,7 @@
  </developer>
  <date>2016-09-06</date>
  <version>
-  <release>2.26.0</release>
+  <release>2.26.1</release>
   <api>2.26.0</api>
  </version>
  <stability>
@@ -39,11 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] SECURITY: Add CSRF protection tokens to portal layout forms and fix open URL redirection (Reported by Florian Köllich &lt;florian.koellich@tirol.gv.at&gt;).
-* [jan] SECURITY: enable CSRF token for configuration form again (Reported by Dawid Gounski via Beyond Security&apos;s SecuriTeam Secure Disclosure program).
-* [mjr] Changes to support EAS attachment sync support for Appointment objects.
-* [mjr] Refactor ajax weather location autocompleter and add support for metar data.
-* [jan] Allow to specify user DN search parameters for LDAP with all bind methods (Request #11697, heinz@htl-steyr.ac.at).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4232,6 +4228,19 @@
 * [mjr] Changes to support EAS attachment sync support for Appointment objects.
 * [mjr] Refactor ajax weather location autocompleter and add support for metar data.
 * [jan] Allow to specify user DN search parameters for LDAP with all bind methods (Request #11697, heinz@htl-steyr.ac.at).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.26.1</release>
+    <api>2.26.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-09-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
