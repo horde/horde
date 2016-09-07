@@ -29,6 +29,33 @@ v5.3.0-git
       #13200).
 
 
+-------
+v5.2.12
+-------
+
+[jan] SECURITY: Add CSRF protection tokens to portal layout forms (Reported by
+      ssys GmbH).
+[jan] Fix double loading of hooks.php.
+
+
+-------
+v5.2.11
+-------
+
+[jan] Update Portuguese translation.
+[jan] Update Basque translation.
+
+
+-------
+v5.2.10
+-------
+
+[mjr] Remove broken Facebook posting functionality from the Facebook block.
+[jan] Update Greek translation (Limperis Antonis <limperis@cti.gr>).
+[jan] Check if temporary directory is writable
+      (skhorde@smail.inf.fh-bonn-rhein-sieg.de, Request #14237).
+
+
 ------
 v5.2.9
 ------

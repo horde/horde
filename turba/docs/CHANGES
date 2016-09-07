@@ -18,6 +18,16 @@ v4.3.0-git
 
 
 -------
+v4.2.16
+-------
+
+[mjr] Fix synchronizing email fields in certain cases (Bug #14301).
+[jan] Continue removing user data if a source doesn't have an __owner field.
+[mjr] Fix over-agressive filtering of search results when searching via the API
+      (Bug #13945).
+
+
+-------
 v4.2.15
 -------
 

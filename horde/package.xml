@@ -4198,11 +4198,53 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-02-02</date>
+   <date>2016-03-21</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
+* [mjr] Remove broken Facebook posting functionality from the Facebook block.
 * [jan] Update Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
 * [jan] Check if temporary directory is writable (skhorde@smail.inf.fh-bonn-rhein-sieg.de, Request #14237).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.2.11</release>
+    <api>5.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-07-01</date>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
+   <notes>
+* [jan] Update Portuguese translation.
+* [jan] Update Basque translation.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.2.12</release>
+    <api>5.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-09-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
+   <notes>
+* [jan] SECURITY: Add CSRF protection tokens to portal layout forms (Reported by Florian Köllich &lt;florian.koellich@tirol.gv.at&gt;).
+* [jan] Fix double loading of hooks.php.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.2.13</release>
+    <api>5.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-09-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
+   <notes>
+* 
    </notes>
   </release>
   <release>

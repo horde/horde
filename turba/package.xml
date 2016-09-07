@@ -2130,11 +2130,25 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-07-01</date>
+   <date>2016-09-06</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [mjr] Fix synchronizing email fields in certain cases (Bug #14301).
 * [jan] Continue removing user data if a source doesn&apos;t have an __owner field.
 * [mjr] Fix over-agressive filtering of search results when searching via the API (Bug #13945).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.17</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-09-06</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
   <release>
