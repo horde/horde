@@ -31,7 +31,7 @@ class HordeServiceWeatherAirports extends Horde_Db_Migration_Base
         if (file_exists($file_name)) {
             $file_h = @fopen($file_name, 'rb');
         } else {
-            $file_location = 'http://weather.noaa.gov/data/nsd_cccc.txt';
+            $file_location = 'http://tgftp.nws.noaa.gov/data/nsd_cccc.txt';
             $file_h = @fopen($file_location, 'rb');
         }
         if (!$file_h) {
