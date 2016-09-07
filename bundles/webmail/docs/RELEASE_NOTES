@@ -26,8 +26,7 @@ Thanks to Dawid Gounski for reporting the missing CSRF token in the
 configuration form and the XSS vulnerability with SVG images via Beyond
 Security's SecuriTeam Secure Disclosure program.
 
-Thanks to Florian Köllich for reporting the XSS vulnerability and open URL
-redirection in the portal forms.
+Thanks to ssys GmbH for reporting the XSS vulnerability.
 
 The major changes compared to the Horde Groupware Webmail Edition version
 5.2.15 are:

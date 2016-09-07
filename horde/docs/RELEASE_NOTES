@@ -20,8 +20,7 @@ http://www.horde.org/apps/horde/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/horde/docs/INSTALL
 
-Thanks to Florian Köllich <florian.koellich@tirol.gv.at> for reporting the XSS
-vulnerability.
+Thanks to ssys GmbH for reporting the XSS vulnerability.
 
 The major changes compared to the Horde version 5.2.11 are:
     * Fixed a XSS vulnerability in the portal edit forms.
