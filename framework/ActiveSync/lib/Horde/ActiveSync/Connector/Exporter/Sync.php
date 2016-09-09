@@ -323,7 +323,7 @@ class Horde_ActiveSync_Connector_Exporter_Sync extends Horde_ActiveSync_Connecto
     public function syncFolderType($collection)
     {
         // Not sent in > 12.0
-        if ($this->_device->version <= Horde_ActiveSync::VERSION_TWELVE) {
+        if ($this->_as->device->version <= Horde_ActiveSync::VERSION_TWELVE) {
             $this->_encoder->startTag(Horde_ActiveSync::SYNC_FOLDERTYPE);
             $this->_encoder->content($collection['class']);
             $this->_encoder->endTag();
