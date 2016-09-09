@@ -42,7 +42,10 @@ class Sam_Driver_Amavisd_Sql extends Sam_Driver_Base
                                      'skip_banned',
                                      'skip_header',
                                      'whitelist_from',
-                                     'blacklist_from');
+                                     'blacklist_from',
+                                     'subject_tag',
+                                     'subject_tag2',
+                                     'subject_tag3');
 
     /**
      * Constructor.
