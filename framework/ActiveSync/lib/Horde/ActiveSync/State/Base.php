@@ -1132,4 +1132,15 @@ abstract class Horde_ActiveSync_State_Base
      */
      abstract public function isDuplicatePIMAddition($id);
 
+     /**
+      * Close the underlying backend storage connection.
+      * To be used during PING or looping SYNC operations.
+      */
+     abstract public function disconnect();
+
+     /**
+      * (Re)open backend storage connection.
+      */
+     abstract public function connect();
+
 }

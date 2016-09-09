@@ -1270,7 +1270,7 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
                         $this->_procid,
                         $e->getMessage())
                     );
-                    sleep(30);
+                    $this->_sleep(30);
                     continue;
                 }
             }
@@ -1283,10 +1283,8 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
                 break;
             }
 
-            // Wait.
-            $this->_logger->info(sprintf(
-                '[%s] Sleeping for %s seconds.', $this->_procid, $interval));
-            sleep ($interval);
+            // Wait a bit...
+            $this->_sleep($interval);
 
             // Refresh the collections.
             $this->updateCollectionsFromCache();
@@ -1308,6 +1306,24 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
         );
 
         return $dataavailable;
+    }
+
+    /**
+     * Wait for specified interval, and close any backend connections while
+     * we wait.
+     *
+     * @param integer $interval  The number of seconds to sleep.
+     */
+    protected function _sleep($interval)
+    {
+        // Wait.
+        $this->_logger->info(sprintf(
+            '[%s] Sleeping for %s seconds.', $this->_procid, $interval));
+
+        // Close any backend connections.
+        $this->_cache->state->disconnect();
+        sleep ($interval);
+        $this->_cache->state->connect();
     }
 
     /**
