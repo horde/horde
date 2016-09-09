@@ -1573,4 +1573,21 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         $cache->save();
     }
 
+     /**
+      * Close the underlying backend storage connection.
+      * To be used during PING or looping SYNC operations.
+      */
+     public function disconnect()
+     {
+        $this->_db->disconnect();
+     }
+
+     /**
+      * (Re)open backend storage connection.
+      */
+     public function connect()
+     {
+        $this->_db->connect();
+     }
+
 }

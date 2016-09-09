@@ -131,6 +131,14 @@ class Horde_ActiveSync_SyncCache
 
     public function __get($property)
     {
+        // @todo. Fixme. This is here to allow the Collections object access
+        // to be able to close/reopen the backend connection. For H6 refactor
+        // things so we don't need to expose this protected property. State and
+        // Storage will be uncoupled in that refactor anyway.
+        if ($property == 'state') {
+            return $this->_state;
+        }
+
         if (!$this->_isValidProperty($property)) {
             throw new InvalidArgumentException($property . ' is not a valid property');
         }

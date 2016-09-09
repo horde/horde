@@ -1562,4 +1562,19 @@ EOT;
         }
     }
 
+     /**
+      * Close the underlying backend storage connection.
+      * To be used during PING or looping SYNC operations.
+      */
+     public function disconnect()
+     {
+     }
+
+     /**
+      * (Re)open backend storage connection.
+      */
+     public function connect()
+     {
+     }
+
 }
