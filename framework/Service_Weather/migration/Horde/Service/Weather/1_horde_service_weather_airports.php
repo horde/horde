@@ -1,8 +1,17 @@
 <?php
 class HordeServiceWeatherAirports extends Horde_Db_Migration_Base
 {
+    protected $_handle;
+
     public function up()
     {
+        // Check for the file before attempting to populate the table. Will
+        // save us from having to rollback the transaction.
+        if (!$this->_checkForMetarData()) {
+            throw new Horde_Exception('Unable to locate METAR data.');
+        }
+
+        $this->beginDbTransaction();
         $t = $this->createTable('horde_metar_airports', array('autoincrementKey' => array('id')));
         $t->column('id', 'integer');
         $t->column('block', 'integer');
@@ -20,24 +29,30 @@ class HordeServiceWeatherAirports extends Horde_Db_Migration_Base
         $t->column('z', 'float');
         $t->end();
         $this->_populateTable();
+        $this->commitDbTransaction();
+    }
+
+    protected function _checkForMetarData()
+    {
+        // First see if we have a local copy in the same directory.
+        $file_name = __DIR__ . PATH_SEPARATOR . 'nsf_cccc.txt';
+        if (file_exists($file_name)) {
+            $this->_handle = @fopen($file_name, 'rb');
+        } else {
+            $file_location = 'http://tgftp.nws.noaa.gov/data/nsd_cccc.txt';
+            $this->_handle = @fopen($file_location, 'rb');
+        }
+        if (!$this->_handle) {
+             $this->announce('ERROR: Unable to populate METAR database.');
+             return false;
+        }
+
+        return true;
     }
 
     protected function _populateTable()
     {
         $dataOrder = array('b' => 1, 's' => 2, 'i' => 0);
-
-        // First see if we have a local copy in the same directory.
-        $file_name = __DIR__ . PATH_SEPARATOR . 'nsf_cccc.txt';
-        if (file_exists($file_name)) {
-            $file_h = @fopen($file_name, 'rb');
-        } else {
-            $file_location = 'http://tgftp.nws.noaa.gov/data/nsd_cccc.txt';
-            $file_h = @fopen($file_location, 'rb');
-        }
-        if (!$file_h) {
-             $this->announce('ERROR: Unable to populate METAR database.');
-        }
-
         $line = 0;
         $error = 0;
         $insert = 'INSERT INTO horde_metar_airports '
@@ -45,7 +60,7 @@ class HordeServiceWeatherAirports extends Horde_Db_Migration_Base
             . 'longitude, elevation, x, y, z) '
             . 'VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 
-        while ($data = fgetcsv($file_h, 1000, ';')) {
+        while ($data = fgetcsv($this->_handle, 1000, ';')) {
             // Check for valid data
             if ((sizeof($data) < 9) || !$this->_checkData($data, $dataOrder)) {
                     $this->announce('ERROR: Invalid data in file!');
@@ -104,6 +119,8 @@ class HordeServiceWeatherAirports extends Horde_Db_Migration_Base
                     );
                 } catch (Horde_Db_Exception $e) {
                     $this->announce('ERROR: ' . $e->getMessage());
+                    $this->rollbackDbTransaction();
+                    return;
                 }
             }
             $line++;
