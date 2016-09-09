@@ -3223,14 +3223,16 @@
   </release>
   <release>
    <version>
-    <release>2.35.1</release>
-    <api>2.35.0</api></version>
+    <release>2.36.0</release>
+    <api>2.36.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
    <date>2016-08-31</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Close database connections while sleeping during PING requests.
+* [mjr] Fix converting charset of subject and attachment names in certain cases (Bug #14457).
 * [mjr] Changes to support attachment sync support for Appointment objects.
    </notes>
   </release>
