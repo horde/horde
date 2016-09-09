@@ -430,9 +430,10 @@ class Horde_ActiveSync_Connector_Exporter_Sync extends Horde_ActiveSync_Connecto
             return false;
         }
 
+        // Get the next change.
         $change = $this->_getNextChange();
-        // Ignore this change, no UID value, keep trying until we get a
-        // good entry or we run out of entries.
+
+        // Ignore entries with no UID.
         while (empty($change['id']) && $this->_step < count($this->_changes) - 1) {
             $this->_logger->notice(sprintf(
                 'Missing UID value for an entry in: %s. Details: %s.',

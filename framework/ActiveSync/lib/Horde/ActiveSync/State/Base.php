@@ -386,7 +386,7 @@ abstract class Horde_ActiveSync_State_Base
     public function getChanges(array $options = array())
     {
         if (!empty($this->_collection['id'])) {
-            // How far back to sync (for those collections that use this)
+            // How far back to sync for those collections that use this.
             $cutoffdate = self::_getCutOffDate(!empty($this->_collection['filtertype'])
                 ? $this->_collection['filtertype']
                 : 0);
@@ -398,20 +398,25 @@ abstract class Horde_ActiveSync_State_Base
                 $this->_folder->serverid()
                 ));
 
+            // Check for previously found changes first.
             if (!empty($this->_changes)) {
                 $this->_logger->info(sprintf(
                     '[%s] Returning previously found changes.',
-                    $this->_procid));
+                    $this->_procid)
+                );
                 return $this->_changes;
             }
 
             // Get the current syncStamp from the backend.
             $this->_thisSyncStamp = $this->_backend->getSyncStamp(
                 $this->_folder->serverid(),
-                $this->_lastSyncStamp);
+                $this->_lastSyncStamp
+            );
+
             if ($this->_thisSyncStamp === false) {
                 throw new Horde_ActiveSync_Exception_StaleState(
-                    'Detecting a change in timestamp or modification sequence. Reseting state.');
+                    'Detecting a change in timestamp or modification sequence. Reseting state.'
+                );
             }
 
             $this->_logger->info(sprintf(
@@ -518,7 +523,8 @@ abstract class Horde_ActiveSync_State_Base
                             $this->_logger->info(sprintf(
                                 '[%s] Ignoring client initiated change for %s (client TS: %s Stat TS: %s)',
                                 $this->_procid,
-                                $changes[$i]['id'], $client_timestamps[$changes[$i]['id']], $stat['mod']));
+                                $changes[$i]['id'], $client_timestamps[$changes[$i]['id']], $stat['mod'])
+                            );
                         } else {
                             $this->_changes[] = $changes[$i];
                         }
@@ -527,10 +533,12 @@ abstract class Horde_ActiveSync_State_Base
             } elseif (count($changes)) {
                 $this->_logger->info(sprintf(
                     '[%s] No client changes present, returning all messages.',
-                    $this->_procid));
+                    $this->_procid)
+                );
                 $this->_changes = $changes;
             }
         } else {
+            // FOLDERSYNC changes.
             $this->_getFolderChanges();
         }
 
