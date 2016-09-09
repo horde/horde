@@ -161,6 +161,9 @@ $backends['amavisd_sql'] = array(
                     'spam_extension' => 'addr_extension_spam',
                     'virus_extension' => 'addr_extension_virus',
                     'banned_extension' => 'addr_extension_banned',
+                    'subject_tag' => 'spam_subject_tag',
+                    'subject_tag2' => 'spam_subject_tag2',
+                    'subject_tag3' => 'spam_subject_tag3'
                 ),
             ),
         ),

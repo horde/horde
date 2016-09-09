@@ -163,6 +163,21 @@ $_attributes['kill_level'] = array(
 //    'required' => false,
 //);
 
+/**
+ * Amavis uses SA 2.x style subject rewriting, but adds tag2 and tag3 to
+ * define rules for each of the 3 spam classes. Uncomment the subject_tag
+ * attribute above as well as the following two attributes to support these.
+ */
+// $_attributes['subject_tag2'] = array(
+//    'label' => _("Subject Tag Level 2"),
+//    'type' => 'text',
+//    'required' => false,
+// );
+// $_attributes['subject_tag3'] = array(
+//    'label' => _("Subject Tag Level 3"),
+//    'type' => 'text',
+//    'required' => false,
+// );
 
 // For SpamAssassin 3+
 // Comment or remove the subject_tag and rewrite_sub attributes if you use
