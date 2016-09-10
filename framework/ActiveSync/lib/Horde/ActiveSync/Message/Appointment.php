@@ -971,6 +971,15 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
         return $this->_properties['categories'];
     }
 
+    public function addAttachment(Horde_ActiveSync_Message_AirSyncBaseAttachment $atc)
+    {
+        if ($this->_version >= Horde_ActiveSync::VERSION_SIXTEEN) {
+            $this->_properties['airsyncbaseattachments'][] = $atc;
+        } else {
+            throw new Horde_ActiveSync_Exception('Property unavailable');
+        }
+    }
+
     /**
      * Override parent class' method. In EAS 16.0, top level appointment
      * properties are ALWAYS ghosted if they are not explicitly sent.
