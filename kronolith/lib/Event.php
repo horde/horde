@@ -1948,26 +1948,23 @@ abstract class Kronolith_Event
             $not_supported = true;
         }
 
-        if ($att = $message->airsyncbaseattachments) {
-            if ($att->add) {
-                foreach ($att->add as $add) {
-                    if (!$supported) {
-                        $results['add'][$add->clientid] = false;
-                        continue;
-                    }
-                    $info = $this->_addEASFile($add);
-                    $results['add'][$add->clientid] = $this->_getEASFileReference($info['name']);
+        foreach ($message->airsyncbaseattachments as $atc) {
+            switch (get_class($atc)) {
+            case 'Horde_ActiveSync_Message_AirSyncBaseAdd':
+                if (!$supported) {
+                    $results['add'][$atc->clientid] = false;
+                    continue 2;
                 }
-            }
-            if ($att->delete) {
-               foreach ($att->delete as $del_ob) {
-                    $file_parts = explode(':', $del_ob->filereference, 4);
-                    try {
-                        $this->deleteFile($file_parts[3]);
-                        $results['delete'][] = $del_ob->filereference;
-                    } catch (Kronolith_Exception $e) {
-                        Horde::log('Unable to remove VFS file.', 'ERR');
-                    }
+                $info = $this->_addEASFile($atc);
+                $results['add'][$atc->clientid] = $this->_getEASFileReference($info['name']);
+                break;
+            case 'Horde_ActiveSync_Message_AirSyncBaseDelete':
+                $file_parts = explode(':', $atc->filereference, 4);
+                try {
+                    $this->deleteFile($file_parts[3]);
+                    $results['delete'][] = $atc->filereference;
+                } catch (Kronolith_Exception $e) {
+                    Horde::log('Unable to remove VFS file.', 'ERR');
                 }
             }
         }
@@ -2359,13 +2356,6 @@ abstract class Kronolith_Event
         if ($options['protocolversion'] >= Horde_ActiveSync::VERSION_SIXTEEN) {
             $files = $this->listFiles();
             if (count($files)) {
-                $message->airsyncbaseattachments = new Horde_ActiveSync_Message_AirSyncBaseAttachments(
-                    array(
-                        'logger' => $GLOBALS['injector']->getInstance('Horde_Log_Logger'),
-                        'protocolversion' => $options['protocolversion']
-                    )
-                );
-                $message->airsyncbaseattachments->attachment = array();
                 foreach ($files as $file) {
                     $atc = new Horde_ActiveSync_Message_AirSyncBaseAttachment(
                         array(
@@ -2377,7 +2367,7 @@ abstract class Kronolith_Event
                     $atc->attname = $this->_getEASFileReference($file['name']);
                     $atc->attmethod = Horde_ActiveSync_Message_AirSyncBaseAttachment::ATT_TYPE_NORMAL;
                     $atc->attsize = $file['size'];
-                    $message->airsyncbaseattachments->attachment[] = $atc;
+                    $message->addAttachment($atc);
                 }
             }
         }
