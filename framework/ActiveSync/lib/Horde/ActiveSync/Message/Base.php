@@ -51,7 +51,6 @@ class Horde_ActiveSync_Message_Base
     const TYPE_MAPI_GOID        = 5;
     const TYPE_DATE_LOCAL       = 6;
     const PROPERTY_NO_CONTAINER = 7;
-    const PROPERTY_MULTI_ARRAY      = 8;
 
     /**
      * Holds the mapping for object properties
@@ -374,13 +373,38 @@ class Horde_ActiveSync_Message_Base
                     if (isset($map[self::KEY_VALUES])) {
                         // Handle arrays of attribute values
                         while (1) {
-                            // Do not get start tag for an array without a container
-                            if (!(isset($map[self::KEY_PROPERTY]) &&
-                                $map[self::KEY_PROPERTY] == self::PROPERTY_NO_CONTAINER) &&
-                                !$decoder->getElementStartTag($map[self::KEY_VALUES])) {
+                            // If we can have multiple types of objects in this
+                            // container, or we are parsing a NO_CONTAINER,
+                            // check that we are not at the end tag of the
+                            // or we have a valid start tag for the NO_CONTAINER
+                            // object. If not, break out of loop.
+                            if (is_array($map[self::KEY_VALUES])) {
+                                $token = $decoder->peek();
+                                if ($token[Horde_ActiveSync_Wbxml_Decoder::EN_TYPE] == Horde_ActiveSync_Wbxml_Decoder::EN_TYPE_ENDTAG) {
+                                    break;
+                                }
+                            } elseif (!(isset($map[self::KEY_PROPERTY]) && $map[self::KEY_PROPERTY] == self::PROPERTY_NO_CONTAINER) &&
+                                      !$decoder->getElementStartTag($map[self::KEY_VALUES])) {
                                 break;
                             }
-                            if (isset($map[self::KEY_TYPE])) {
+
+                            // We know we have some valid value, parse out what
+                            // it is. Either an array of (possibly varied)
+                            // objects, a single object, or simple value.
+                            if (is_array($map[self::KEY_VALUES])) {
+                                $token = $decoder->getToken();
+                                if (($idx = array_search($token[Horde_ActiveSync_Wbxml_Decoder::EN_TAG], $map[self::KEY_VALUES])) !== false) {
+                                    $class = $map[self::KEY_TYPE][$idx];
+                                    $decoded = new $class(array(
+                                        'protocolversion' => $this->_version,
+                                        'logger' => $this->_logger)
+                                    );
+                                    $decoded->commandType = $this->commandType;
+                                    $decoded->decodeStream($decoder);
+                                } else {
+                                    throw new Horde_ActiveSync_Exception('Error in message map configuration');
+                                }
+                            } elseif (isset($map[self::KEY_TYPE])) {
                                 $class = $map[self::KEY_TYPE];
                                 $decoded = new $class(array(
                                     'protocolversion' => $this->_version,
@@ -391,14 +415,21 @@ class Horde_ActiveSync_Message_Base
                             } else {
                                 $decoded = $decoder->getElementContent();
                             }
+
+                            // Assign the parsed value to the mapped attribute.
                             if (!isset($this->{$map[self::KEY_ATTRIBUTE]})) {
                                 $this->{$map[self::KEY_ATTRIBUTE]} = array($decoded);
                             } else {
                                 $this->{$map[self::KEY_ATTRIBUTE]}[] = $decoded;
                             }
+
+                            // Get the end tag of this attribute node.
                             if (!$decoder->getElementEndTag()) {
                                 throw new Horde_ActiveSync_Exception('Missing expected wbxml end tag');
                             }
+
+                            // For NO_CONTAINER attributes, need some magic to
+                            // make sure we break out properly.
                             if (isset($map[self::KEY_PROPERTY]) && $map[self::KEY_PROPERTY] == self::PROPERTY_NO_CONTAINER) {
                                 $e = $decoder->peek();
                                 // Go back to the initial while if another block
@@ -455,18 +486,7 @@ class Horde_ActiveSync_Message_Base
                             );
                             throw new Horde_ActiveSync_Exception('Missing expected wbxml end tag');
                         }
-                        // If we have a container that can hold multiple
-                        // properties that are also containers, but not all of
-                        // the same type, we have to hanlde separately.
-                        if (isset($map[self::KEY_PROPERTY]) &&
-                            $map[self::KEY_PROPERTY] == self::PROPERTY_MULTI_ARRAY) {
-                            if (!is_array($this->{$map[self::KEY_ATTRIBUTE]})) {
-                                $this->{$map[self::KEY_ATTRIBUTE]} = array();
-                            }
-                            $this->{$map[self::KEY_ATTRIBUTE]}[] = $decoded;
-                        } else {
-                            $this->{$map[self::KEY_ATTRIBUTE]} = $decoded;
-                        }
+                        $this->{$map[self::KEY_ATTRIBUTE]} = $decoded;
                     }
                 }
             } elseif ($entity[Horde_ActiveSync_Wbxml::EN_TYPE] == Horde_ActiveSync_Wbxml::EN_TYPE_ENDTAG) {
@@ -525,8 +545,15 @@ class Horde_ActiveSync_Message_Base
                         }
                         foreach ($this->{$map[self::KEY_ATTRIBUTE]} as $element) {
                             if (is_object($element)) {
+                                // Hanlde multi-typed array containers.
+                                if (is_array($map[self::KEY_VALUES])) {
+                                    $idx = array_search(get_class($element), $map[self::KEY_TYPE]);
+                                    $tag = $map[self::KEY_VALUES][$idx];
+                                } else {
+                                    $tag = $map[self::KEY_VALUES];
+                                }
                                 // Outputs object container (eg Attachment)
-                                $encoder->startTag($map[self::KEY_VALUES]);
+                                $encoder->startTag($tag);
                                 $element->encodeStream($encoder);
                                 $encoder->endTag();
                             } else {
