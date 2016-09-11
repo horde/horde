@@ -359,6 +359,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 continue;
             }
 
+            // Initialize this collection's state.
             try {
                 $this->_collections->initCollectionState($collection);
             } catch (Horde_ActiveSync_Exception_StateGone $e) {
@@ -394,6 +395,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     $this->_procid));
             }
 
+            // Check for server-side changes, if requested.
             if ($statusCode == self::STATUS_SUCCESS && !empty($collection['getchanges'])) {
                 try {
                     $changecount = $this->_collections->getCollectionChangeCount();

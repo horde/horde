@@ -448,31 +448,34 @@ abstract class Horde_ActiveSync_State_Base
                 count($changes),
                 $this->_collection['id']));
 
-            // Check changes for mirrored client chagnes, but only if we KNOW
-            // we have some client changes.
+            // Check for mirrored client changes.
             $this->_changes = array();
             if (count($changes) && $this->_havePIMChanges()) {
                 $this->_logger->info(sprintf(
                     '[%s] Checking for client initiated changes.',
-                    $this->_procid));
+                    $this->_procid)
+                );
 
+                // As usual, Email is handled differently than other collections
                 switch ($this->_collection['class']) {
                 case Horde_ActiveSync::CLASS_EMAIL:
                     // @todo Fix me with a changes object that transparently
                     // deals with different data structure for initial sync.
-                    // ...or come up with better solution for dealing with
-                    // memory usage.
                     if (!empty($changes) && !is_array($changes[0])) {
                         $this->_changes = $changes;
                         break;
                     }
 
+                    // Map of client-sourced changes
                     $mailmap = $this->_getMailMapChanges($changes);
+
+                    // Map constants to more human readable/loggable text.
                     $flag_map = array(
                         Horde_ActiveSync::CHANGE_TYPE_FLAGS =>  'flag change',
                         Horde_ActiveSync::CHANGE_TYPE_DELETE => 'deletion',
                         Horde_ActiveSync::CHANGE_TYPE_CHANGE => 'move'
                     );
+
                     $cnt = count($changes);
                     for ($i = 0; $i < $cnt; $i++) {
                         if (!empty($mailmap[$changes[$i]['id']][$changes[$i]['type']])) {
