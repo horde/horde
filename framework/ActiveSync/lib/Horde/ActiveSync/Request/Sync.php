@@ -359,6 +359,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 continue;
             }
 
+            // Initialize this collection's state.
             try {
                 $this->_collections->initCollectionState($collection);
             } catch (Horde_ActiveSync_Exception_StateGone $e) {
@@ -394,6 +395,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     $this->_procid));
             }
 
+            // Check for server-side changes, if requested.
             if ($statusCode == self::STATUS_SUCCESS && !empty($collection['getchanges'])) {
                 try {
                     $changecount = $this->_collections->getCollectionChangeCount();
@@ -499,7 +501,8 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                                $progress = $exporter->sendNextChange()) {
                             $this->_logger->info(sprintf(
                                 '[%s] Peak memory usage after message: %d',
-                                $this->_procid, memory_get_peak_usage(true)));
+                                $this->_procid, memory_get_peak_usage(true))
+                            );
                             if ($progress === true) {
                                 ++$cnt_collection;
                                 ++$cnt_global;
@@ -510,6 +513,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     }
                 }
 
+                // Check for SYNC_REPLIES
                 if (!empty($collection['clientids']) || !empty($collection['fetchids'])
                     || !empty($collection['missing']) || !empty($collection['importfailures'])
                     || !empty($collection['modifiedids'])) {
@@ -1047,6 +1051,11 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                             $collection['atchash'][$ires['id']] = !empty($ires['atchash'])
                                 ? $ires['atchash']
                                 : array();
+                            if (!empty($ires['conversationid'])) {
+                                $collection['conversations'][$ires['id']] =
+                                    array($ires['conversationid'],
+                                          $ires['conversationindex']);
+                            }
                             $collection['importedchanges'] = true;
                         } elseif (!$id || is_array($id)) {
                             $collection['clientids'][$clientid] = false;

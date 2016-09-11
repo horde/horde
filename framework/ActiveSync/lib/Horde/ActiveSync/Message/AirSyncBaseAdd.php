@@ -62,6 +62,7 @@ class Horde_ActiveSync_Message_AirSyncBaseAdd extends Horde_ActiveSync_Message_B
      * Return the type of message.
      *
      * @return string
+     * @deprecated
      */
     public function getClass()
     {

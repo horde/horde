@@ -259,13 +259,17 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
                     Horde_ActiveSync::AIRSYNCBASE_LOCATION => array(self::KEY_ATTRIBUTE => 'location', self::KEY_TYPE => 'Horde_ActiveSync_Message_AirSyncBaseLocation'),
                     self::POOMCAL_CLIENTUID => array(self::KEY_ATTRIBUTE => 'clientuid'),
                     Horde_ActiveSync::AIRSYNCBASE_INSTANCEID => array(self::KEY_ATTRIBUTE => 'instanceid', self::KEY_TYPE => self::TYPE_DATE),
-                    Horde_ActiveSync::AIRSYNCBASE_ATTACHMENTS => array(self::KEY_ATTRIBUTE => 'airsyncbaseattachments', self::KEY_TYPE => 'Horde_ActiveSync_Message_AirSyncBaseAttachments')
+                    Horde_ActiveSync::AIRSYNCBASE_ATTACHMENTS => array(
+                        self::KEY_ATTRIBUTE => 'airsyncbaseattachments',
+                        self::KEY_TYPE => array('Horde_ActiveSync_Message_AirSyncBaseAttachment', 'Horde_ActiveSync_Message_AirSyncBaseAdd', 'Horde_ActiveSync_Message_AirSyncBaseDelete'),
+                        self::KEY_VALUES => array(Horde_ActiveSync::AIRSYNCBASE_ATTACHMENT, Horde_ActiveSync::AIRSYNCBASE_ADD, Horde_ActiveSync::AIRSYNCBASE_DELETE)
+                    ),
                 );
                 $this->_properties += array(
                     'location' => false,
                     'clientuid' => false,
                     'instanceid' => false,
-                    'airsyncbaseattachments' => false
+                    'airsyncbaseattachments' => array(),
                 );
             }
         }
@@ -965,6 +969,15 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
     public function getCategories()
     {
         return $this->_properties['categories'];
+    }
+
+    public function addAttachment(Horde_ActiveSync_Message_AirSyncBaseAttachment $atc)
+    {
+        if ($this->_version >= Horde_ActiveSync::VERSION_SIXTEEN) {
+            $this->_properties['airsyncbaseattachments'][] = $atc;
+        } else {
+            throw new Horde_ActiveSync_Exception('Property unavailable');
+        }
     }
 
     /**

@@ -255,7 +255,11 @@ class Horde_ActiveSync_Message_Mail extends Horde_ActiveSync_Message_Base
             $this->_mapping += array(
                 Horde_ActiveSync::AIRSYNCBASE_NATIVEBODYTYPE => array(self::KEY_ATTRIBUTE => 'airsyncbasenativebodytype'),
                 Horde_ActiveSync::AIRSYNCBASE_BODY           => array(self::KEY_ATTRIBUTE => 'airsyncbasebody', self::KEY_TYPE=> 'Horde_ActiveSync_Message_AirSyncBaseBody'),
-                Horde_ActiveSync::AIRSYNCBASE_ATTACHMENTS    => array(self::KEY_ATTRIBUTE => 'airsyncbaseattachments', self::KEY_TYPE => 'Horde_ActiveSync_Message_AirSyncBaseAttachment', self::KEY_VALUES => Horde_ActiveSync::AIRSYNCBASE_ATTACHMENT),
+                Horde_ActiveSync::AIRSYNCBASE_ATTACHMENTS    => array(
+                    self::KEY_ATTRIBUTE => 'airsyncbaseattachments',
+                    self::KEY_TYPE => array('Horde_ActiveSync_Message_AirSyncBaseAttachment', 'Horde_ActiveSync_Message_AirSyncBaseAdd', 'Horde_ActiveSync_Message_AirSyncBaseDelete'),
+                    self::KEY_VALUES => array(Horde_ActiveSync::AIRSYNCBASE_ATTACHMENT, Horde_ActiveSync::AIRSYNCBASE_ADD, Horde_ActiveSync::AIRSYNCBASE_DELETE),
+                ),
                 self::POOMMAIL_FLAG                          => array(self::KEY_ATTRIBUTE => 'flag', self::KEY_TYPE => 'Horde_ActiveSync_Message_Flag'),
                 self::POOMMAIL_CONTENTCLASS                  => array(self::KEY_ATTRIBUTE => 'contentclass'),
             );
@@ -263,7 +267,7 @@ class Horde_ActiveSync_Message_Mail extends Horde_ActiveSync_Message_Base
             $this->_properties += array(
                 'airsyncbasenativebodytype' => false,
                 'airsyncbasebody'           => false,
-                'airsyncbaseattachments'    => false,
+                'airsyncbaseattachments'    => array(),
                 'contentclass'              => false,
                 'flag'                      => false,
             );
@@ -350,6 +354,70 @@ class Horde_ActiveSync_Message_Mail extends Horde_ActiveSync_Message_Base
                     'uid'      => false,
                 );
             }
+        }
+    }
+
+    /**
+     * Get a Horde_Mime object representint the data contained in this object.
+     *
+     * [MS_ASEMAIL 3.1.53]
+     *
+     * @return array An array containing:
+     *         - part: Horde_Mime_Part containing the body data NO ATTACHMENTS.
+     *         - headers: Horde_Mime_Headers containing the envelope headers.
+     */
+    public function draftToMime()
+    {
+        // Main text body.
+        $text = new Horde_Mime_Part();
+        $body = $this->airsyncbasebody;
+
+        $text->setContents($body->data);
+        if ($body->type == Horde_ActiveSync::BODYPREF_TYPE_HTML) {
+            $text->setType('text/html');
+        } else {
+            $text->setType('text/plain');
+        }
+
+        // Add headers that are sent with ADD;
+        $headers = new Horde_Mime_Headers();
+        if ($this->to) {
+            $headers->addHeader('To', $this->to);
+        }
+        if ($this->cc) {
+            $headers->addHeader('Cc', $this->cc);
+        }
+        if ($this->subject) {
+            $headers->addHeader('Subject', $this->subject);
+        }
+        if ($this->bcc) {
+            $headers->addHeader('Bcc', $this->bcc);
+        }
+        if ($this->reply_to) {
+            $headers->addHeader('reply-to', $this->reply_to);
+        }
+        if ($this->importance) {
+            $headers->addHeader('importance', $this->importance);
+        }
+
+        return array(
+            'part' => $text,
+            'headers' => $headers
+        );
+    }
+
+    /**
+     * Add an AirSyncBaseAttachment object to this message.
+     *
+     * @param Horde_ActiveSync_Message_AirSyncBaseAttachment $atc
+     * @throws  Horde_ActiveSync_Exception
+     */
+    public function addAttachment(Horde_ActiveSync_Message_AirSyncBaseAttachment $atc)
+    {
+        if (!is_null($this->_properties['airsyncbaseattachments'])) {
+            $this->_properties['airsyncbaseattachments'][] = $atc;
+        } else {
+            throw new Horde_ActiveSync_Exception('Property unavailable');
         }
     }
 

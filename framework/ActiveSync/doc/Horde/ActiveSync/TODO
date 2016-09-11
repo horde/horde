@@ -44,9 +44,6 @@ BC BREAKING (i.e., Horde 6).
 - Clean up logger creation/setting/log_level setting and provide a single
   access point for the logger instead of injecting it everywhere.
 
-- Consolidate folderUid <-> backend id mapping methods into a single place.
-  Currently they live in both the collection handler and the backend driver.
-
 - Refactor out the need for the various static ::_* properties in the main
   ActiveSync class.
 
@@ -59,6 +56,9 @@ BC BREAKING (i.e., Horde 6).
   that contains the pertinent information. Use temporary streams to hold any
   incoming message data to preserve the low memory footprint from dealing with
   changes as we read them.
+
+- Consolidate folderUid <-> backend id mapping methods into a single place.
+  Currently they live in both the collection handler and the backend driver.
 
 - Maintain the serverid -> backendid map in a single place and stop storing
   backend ids (i.e., IMAP folder names) in collection/state/folder cache etc...
@@ -79,9 +79,6 @@ BC BREAKING (i.e., Horde 6).
 - Implmement A Horde_ActiveSync_Response object and move functionality currently
   living in the RPC layer (sending back certain headers, etc...) into this
   class.
-
-- Split out code for sending response in Sync.php to it's own class, or at the
-  very least, it's own method. ??
 
 - Implement a Horde_ActiveSync_Change_Filter class/interface. Used to implement
   workarounds for broken clients. E.g., filter out the ADD commands sent in
@@ -143,3 +140,10 @@ BC BREAKING (i.e., Horde 6).
   logic such as NormalizePoomContactsDate etc...
 
 - Clean up exception types, add Horde_ActiveSync_Protocol_Exception etc...
+
+- Implement some type of SYNC_REPLY object that is responsible for outputing
+  the SYNC_REPLY data for itself. E.g., return such an object from the
+  H_A_S_Driver::changeMessage either instead of a $stat array, or as part
+  of the $stat array. Move functionality in H_A_S_Exporter_Sync::syncAddResponse
+  and ::syncModifiedResponse() into these new objects. Probably need concrete
+  classes for Calendar and Email etc...

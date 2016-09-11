@@ -168,15 +168,13 @@ class Horde_ActiveSync_Connector_Exporter_Sync extends Horde_ActiveSync_Connecto
             // Start SYNC_ADD
             $this->_encoder->startTag(Horde_ActiveSync::SYNC_ADD);
 
-            // If we have clientids and a CLASS_EMAIL, this is
-            // a SMS response.
-            // @TODO: have collection classes be able to
-            // generate their own responses??
-            if ($collection['class'] == Horde_ActiveSync::CLASS_EMAIL) {
-                $this->_encoder->startTag(Horde_ActiveSync::SYNC_FOLDERTYPE);
-                $this->_encoder->content(Horde_ActiveSync::CLASS_SMS);
-                $this->_encoder->endTag();
-            }
+            // @todo. Need to use correct CLASS_SMS value here. CLASS_EMAIL
+            // now interferes with Draft sync.
+            // if ($collection['class'] == Horde_ActiveSync::CLASS_EMAIL) {
+            //     $this->_encoder->startTag(Horde_ActiveSync::SYNC_FOLDERTYPE);
+            //     $this->_encoder->content(Horde_ActiveSync::CLASS_SMS);
+            //     $this->_encoder->endTag();
+            // }
 
             // CLIENTENTRYID
             $this->_encoder->startTag(Horde_ActiveSync::SYNC_CLIENTENTRYID);
@@ -211,7 +209,23 @@ class Horde_ActiveSync_Connector_Exporter_Sync extends Horde_ActiveSync_Connecto
      */
     public function syncModifiedResponse($collection)
     {
+        if ($this->_as->device->version < Horde_ActiveSync::VERSION_SIXTEEN) {
+            return;
+        }
+
         foreach ($collection['modifiedids'] as $serverid) {
+            switch ($collection['class']) {
+            case Horde_ActiveSync::CLASS_CALENDAR:
+                if (empty($collection['atchash'][$serverid])) {
+                    continue 2;
+                }
+                break;
+            case Horde_ActiveSync::CLASS_EMAIL:
+                if (empty($collection['conversations'])) {
+                    continue 2;
+                }
+                break;
+            }
             // Start SYNC_MODIFY
             $this->_encoder->startTag(Horde_ActiveSync::SYNC_MODIFY);
 
@@ -379,6 +393,7 @@ class Horde_ActiveSync_Connector_Exporter_Sync extends Horde_ActiveSync_Connecto
      */
     protected function _sendEas16MessageResponse($serverid, $collection)
     {
+        // @todo. Use a Exporter_Sync_Response_[Mail|Message|] object.
         if ($this->_as->device->version >= Horde_ActiveSync::VERSION_SIXTEEN &&
             $collection['class'] == Horde_ActiveSync::CLASS_CALENDAR &&
             !empty($collection['atchash'][$serverid])) {
@@ -397,6 +412,28 @@ class Horde_ActiveSync_Connector_Exporter_Sync extends Horde_ActiveSync_Connecto
                 $atc->attname = $filereference;
                 $msg->airsyncbaseattachments->attachment[] = $atc;
             }
+            $this->_encoder->startTag(Horde_ActiveSync::SYNC_DATA);
+            $msg->encodeStream($this->_encoder);
+            $this->_encoder->endTag();
+        } elseif ($this->_as->device->version >= Horde_ActiveSync::VERSION_SIXTEEN &&
+                  $collection['class'] == Horde_ActiveSync::CLASS_EMAIL &&
+                  !empty($collection['conversations'][$serverid])) {
+            $msg = $this->_as->messageFactory('Mail');
+            $msg->conversationid = $collection['conversations'][$serverid][0];
+            $msg->conversationindex = $collection['conversations'][$serverid][1];
+
+            if (!empty($collection['atchash'][$serverid]['add'])) {
+                foreach ($collection['atchash'][$serverid]['add'] as $clientid => $filereference) {
+                    $atc = $this->_as->messageFactory('AirSyncBaseAttachment');
+                    $atc->clientid = $clientid;
+                    $atc->attname = $filereference;
+                    $msg->addAttachment($atc);
+                }
+            }
+            $this->_encoder->startTag(Horde_ActiveSync::SYNC_SERVERENTRYID);
+            $this->_encoder->content($serverid);
+            $this->_encoder->endTag();
+
             $this->_encoder->startTag(Horde_ActiveSync::SYNC_DATA);
             $msg->encodeStream($this->_encoder);
             $this->_encoder->endTag();
@@ -430,9 +467,10 @@ class Horde_ActiveSync_Connector_Exporter_Sync extends Horde_ActiveSync_Connecto
             return false;
         }
 
+        // Get the next change.
         $change = $this->_getNextChange();
-        // Ignore this change, no UID value, keep trying until we get a
-        // good entry or we run out of entries.
+
+        // Ignore entries with no UID.
         while (empty($change['id']) && $this->_step < count($this->_changes) - 1) {
             $this->_logger->notice(sprintf(
                 'Missing UID value for an entry in: %s. Details: %s.',
@@ -448,6 +486,7 @@ class Horde_ActiveSync_Connector_Exporter_Sync extends Horde_ActiveSync_Connecto
         if (empty($change['ignore'])) {
             switch($change['type']) {
             case Horde_ActiveSync::CHANGE_TYPE_CHANGE:
+            case Horde_ActiveSync::CHANGE_TYPE_DRAFT:
                 try {
                     $message = $this->_as->driver->getMessage(
                         $this->_currentCollection['serverid'],

@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2016-09-06</date>
+ <date>2016-09-11</date>
  <version>
   <release>2.26.2</release>
   <api>2.26.0</api>
@@ -301,6 +301,9 @@
        <dir name="Logger">
         <file name="Factory.php" role="php" />
        </dir> <!-- /lib/Horde/Core/ActiveSync/Logger -->
+       <dir name="Mail">
+        <file name="Draft.php" role="php" />
+       </dir> <!-- /lib/Horde/Core/ActiveSync/Mail -->
        <file name="Auth.php" role="php" />
        <file name="Connector.php" role="php" />
        <file name="Driver.php" role="php" />
@@ -1773,6 +1776,7 @@
    <install as="Horde/Core/ActiveSync/Mdn.php" name="lib/Horde/Core/ActiveSync/Mdn.php" />
    <install as="Horde/Core/ActiveSync/Imap/Factory.php" name="lib/Horde/Core/ActiveSync/Imap/Factory.php" />
    <install as="Horde/Core/ActiveSync/Logger/Factory.php" name="lib/Horde/Core/ActiveSync/Logger/Factory.php" />
+   <install as="Horde/Core/ActiveSync/Mail/Draft.php" name="lib/Horde/Core/ActiveSync/Mail/Draft.php" />
    <install as="Horde/Core/Ajax/Application.php" name="lib/Horde/Core/Ajax/Application.php" />
    <install as="Horde/Core/Ajax/Imple.php" name="lib/Horde/Core/Ajax/Imple.php" />
    <install as="Horde/Core/Ajax/Response.php" name="lib/Horde/Core/Ajax/Response.php" />
@@ -4237,7 +4241,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-09-06</date>
+   <date>2016-09-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix Horde_Form dependency (Bug #14460).

@@ -1171,7 +1171,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                             'sincedate' => (int)$cutoffdate,
                             'protocolversion' => $this->_version,
                             'softdelete' => $soft,
-                            'refreshfilter' => $refreshFilter)
+                            'refreshfilter' => $refreshFilter
+                        )
                     );
                     // Poll the maillog for reply/forward state changes.
                     if (empty($GLOBALS['conf']['activesync']['no_maillogsync'])) {
@@ -1209,15 +1210,20 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             return $add;
         } else {
             foreach ($changes['add'] as $add) {
+                $type = ($folder->collectionClass() == Horde_ActiveSync::CLASS_EMAIL &&
+                         $folder->serverid() == $this->getSpecialFolderNameByType(self::SPECIAL_DRAFTS))
+                    ? Horde_ActiveSync::CHANGE_TYPE_DRAFT
+                    : Horde_ActiveSync::CHANGE_TYPE_CHANGE;
                 $results[] = array(
                     'id' => $add,
-                    'type' => Horde_ActiveSync::CHANGE_TYPE_CHANGE,
-                    'flags' => Horde_ActiveSync::FLAG_NEWMESSAGE);
+                    'type' => $type,
+                    'flags' => Horde_ActiveSync::FLAG_NEWMESSAGE
+                );
             }
         }
 
         // For CLASS_EMAIL, all changes are a change in flags, categories or
-        // softdelete.
+        // softdelete. @todo: draft edits?
         if ($folder->collectionClass() == Horde_ActiveSync::CLASS_EMAIL) {
             $flags = $folder->flags();
             $categories = $folder->categories();
@@ -1837,6 +1843,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      *   - atchash: (array|boolean) An array of clientid->filereference
      *         mappings for file attachment changes made to appointment
      *         or draft email folders. @since 2.27.0
+     *  - conversationid: (hex encoded opaque value) The conversationid value
+     *         if adding Draft email message. @since 2.28.0
+     *  - conversationindex: (integer) The conversation index value if adding
+     *         Draft email message @since 2.28.0
      */
     public function changeMessage($folderid, $id, Horde_ActiveSync_Message_Base $message, $device)
     {
@@ -1977,21 +1987,40 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     'categories' => false
                 );
 
-                // Check for draft sync. @todo Not yet implemented since there
-                // are currently no available clients that support this to
-                // test and reverse engineer.
-                if ($this->_version >= Horde_ActiveSync::VERSION_SIXTEEN && !$id) {
+                // Check for draft sync.
+                if ($this->_version >= Horde_ActiveSync::VERSION_SIXTEEN &&
+                    $folderid == $this->getSpecialFolderNameByType(self::SPECIAL_DRAFTS)) {
+
+                    // @todo Does this only happen on drafts?
                     if ($message->send) {
-                        // @todo. Need a client that supports this to test.
                         $this->_logger->err('NOT YET SUPPORTED.');
                         return $stat;
                     }
-                    // If some non-flag related property is set, we must be
-                    // setting a draft. Should probably sanity check the folder
-                    // type too. @todo Need a client that actually does this
-                    // in order to see exactly what is sent.
-                    if ($message->to) {
-                        $this->_logger->err('NOT YET SUPPORTED.');
+
+                    // Are we addding/changing a draft email?
+                    if ($message->airsyncbasebody) {
+                        $draft_folder = $this->getSpecialFolderNameByType(
+                            self::SPECIAL_DRAFTS
+                        );
+                        $draft = new Horde_Core_ActiveSync_Mail_Draft(
+                            $this->_imap,
+                            $this->_user,
+                            $this->_version
+                        );
+                        $draft->setDraftMessage($message);
+
+                        // Do we need an existing Draft message?
+                        if ($id && !empty($message->airsyncbaseattachments)) {
+                            $draft->getExistingDraftMessage($draft_folder, $id);
+                        }
+
+                        // Append the message and return results.
+                        $results = $draft->append($draft_folder);
+                        $stat['id'] = $results['uid'];
+                        $stat['atchash'] = $results['atchash'];
+                        $stat['conversationid'] = bin2hex($message->subject);
+                        $stat['conversationindex'] = time();
+
                         return $stat;
                     }
                 }

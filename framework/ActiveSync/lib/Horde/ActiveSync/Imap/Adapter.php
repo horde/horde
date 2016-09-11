@@ -75,6 +75,8 @@ class Horde_ActiveSync_Imap_Adapter
      * @param string|stream $msg   The message
      * @param array $flags         Any flags to set on the newly appended message.
      *
+     * @return integer|boolean     The imap uid of the appended message or false
+     *                             on failure. @since 2.37.0
      * @throws new Horde_ActiveSync_Exception, Horde_ActiveSync_Exception_FolderGone
      */
     public function appendMessage($folderid, $msg, array $flags = array())
@@ -82,13 +84,18 @@ class Horde_ActiveSync_Imap_Adapter
         $message = array(array('data' => $msg, 'flags' => $flags));
         $mbox = new Horde_Imap_Client_Mailbox($folderid);
         try {
-            $this->_getImapOb()->append($mbox, $message);
+            $ids = $this->_getImapOb()->append($mbox, $message);
         } catch (Horde_Imap_Client_Exception $e) {
             if (!$this->_mailboxExists($folderid)) {
                 throw new Horde_ActiveSync_Exception_FolderGone();
             }
             throw new Horde_ActiveSync_Exception($e);
         }
+        if (!count($ids->ids)) {
+            return false;
+        }
+
+        return array_pop($ids->ids);
     }
 
     /**

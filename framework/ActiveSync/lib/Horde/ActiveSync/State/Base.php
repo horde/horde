@@ -386,7 +386,7 @@ abstract class Horde_ActiveSync_State_Base
     public function getChanges(array $options = array())
     {
         if (!empty($this->_collection['id'])) {
-            // How far back to sync (for those collections that use this)
+            // How far back to sync for those collections that use this.
             $cutoffdate = self::_getCutOffDate(!empty($this->_collection['filtertype'])
                 ? $this->_collection['filtertype']
                 : 0);
@@ -398,20 +398,25 @@ abstract class Horde_ActiveSync_State_Base
                 $this->_folder->serverid()
                 ));
 
+            // Check for previously found changes first.
             if (!empty($this->_changes)) {
                 $this->_logger->info(sprintf(
                     '[%s] Returning previously found changes.',
-                    $this->_procid));
+                    $this->_procid)
+                );
                 return $this->_changes;
             }
 
             // Get the current syncStamp from the backend.
             $this->_thisSyncStamp = $this->_backend->getSyncStamp(
                 $this->_folder->serverid(),
-                $this->_lastSyncStamp);
+                $this->_lastSyncStamp
+            );
+
             if ($this->_thisSyncStamp === false) {
                 throw new Horde_ActiveSync_Exception_StaleState(
-                    'Detecting a change in timestamp or modification sequence. Reseting state.');
+                    'Detecting a change in timestamp or modification sequence. Reseting state.'
+                );
             }
 
             $this->_logger->info(sprintf(
@@ -443,57 +448,64 @@ abstract class Horde_ActiveSync_State_Base
                 count($changes),
                 $this->_collection['id']));
 
-            // Check changes for mirrored client chagnes, but only if we KNOW
-            // we have some client changes.
+            // Check for mirrored client changes.
             $this->_changes = array();
             if (count($changes) && $this->_havePIMChanges()) {
                 $this->_logger->info(sprintf(
                     '[%s] Checking for client initiated changes.',
-                    $this->_procid));
+                    $this->_procid)
+                );
 
+                // As usual, Email is handled differently than other collections
                 switch ($this->_collection['class']) {
                 case Horde_ActiveSync::CLASS_EMAIL:
                     // @todo Fix me with a changes object that transparently
                     // deals with different data structure for initial sync.
-                    // ...or come up with better solution for dealing with
-                    // memory usage.
                     if (!empty($changes) && !is_array($changes[0])) {
                         $this->_changes = $changes;
                         break;
                     }
 
+                    // Map of client-sourced changes
                     $mailmap = $this->_getMailMapChanges($changes);
+
+                    // Map constants to more human readable/loggable text.
                     $flag_map = array(
                         Horde_ActiveSync::CHANGE_TYPE_FLAGS =>  'flag change',
                         Horde_ActiveSync::CHANGE_TYPE_DELETE => 'deletion',
-                        Horde_ActiveSync::CHANGE_TYPE_CHANGE => 'move'
+                        Horde_ActiveSync::CHANGE_TYPE_CHANGE => 'move',
+                        Horde_ActiveSync::CHANGE_TYPE_DRAFT => 'draft'
                     );
+
                     $cnt = count($changes);
                     for ($i = 0; $i < $cnt; $i++) {
-                        if (!empty($mailmap[$changes[$i]['id']][$changes[$i]['type']])) {
-                            // @todo For 3.0, create a Changes and
-                            // ChangeFilter classes to abstract out a bunch of
-                            // this stuff. (Needs BC breaking changes in
-                            // storage/state classes).
-                            //
-                            // OL2013 is broken and duplicates the destination
-                            // email during MOVEITEMS requests (instead it
-                            // reassigns the existing email the new UID). Don't
-                            // send the ADD command for these changes.
-                            if ($changes[$i]['type'] == Horde_ActiveSync::CHANGE_TYPE_CHANGE &&
-                                $changes[$i]['flags'] == Horde_ActiveSync::FLAG_NEWMESSAGE &&
-                                $this->_deviceInfo->deviceType != 'WindowsOutlook15') {
-                                $this->_changes[] = $changes[$i];
-                                continue;
-                            }
-                            $this->_logger->info(sprintf(
-                                '[%s] Ignoring client initiated %s for %s',
-                                $this->_procid,
-                                $flag_map[$changes[$i]['type']],
-                                $changes[$i]['id']));
-                            $changes[$i]['ignore'] = true;
+                        if (empty($mailmap[$changes[$i]['id']][$changes[$i]['type']])) {
+                            $this->_changes[] = $changes[$i];
+                            continue;
                         }
+                        // @todo For 3.0, create a Changes and
+                        // ChangeFilter classes to abstract out a bunch of
+                        // this stuff. (Needs BC breaking changes in
+                        // storage/state classes).
+
+                        // OL2013 is broken and duplicates the destination
+                        // email during MOVEITEMS requests (instead it
+                        // reassigns the existing email the new UID). Don't
+                        // send the ADD command for these changes.
+                        if ($changes[$i]['type'] == Horde_ActiveSync::CHANGE_TYPE_CHANGE &&
+                            $changes[$i]['flags'] == Horde_ActiveSync::FLAG_NEWMESSAGE &&
+                            $this->_deviceInfo->deviceType != 'WindowsOutlook15') {
+                            $this->_changes[] = $changes[$i];
+                            continue;
+                        }
+                        $changes[$i]['ignore'] = true;
                         $this->_changes[] = $changes[$i];
+                        $this->_logger->info(sprintf(
+                            '[%s] Ignoring client initiated %s for %s',
+                            $this->_procid,
+                            $flag_map[$changes[$i]['type']],
+                            $changes[$i]['id'])
+                        );
                     }
                     break;
 
@@ -518,7 +530,8 @@ abstract class Horde_ActiveSync_State_Base
                             $this->_logger->info(sprintf(
                                 '[%s] Ignoring client initiated change for %s (client TS: %s Stat TS: %s)',
                                 $this->_procid,
-                                $changes[$i]['id'], $client_timestamps[$changes[$i]['id']], $stat['mod']));
+                                $changes[$i]['id'], $client_timestamps[$changes[$i]['id']], $stat['mod'])
+                            );
                         } else {
                             $this->_changes[] = $changes[$i];
                         }
@@ -527,10 +540,12 @@ abstract class Horde_ActiveSync_State_Base
             } elseif (count($changes)) {
                 $this->_logger->info(sprintf(
                     '[%s] No client changes present, returning all messages.',
-                    $this->_procid));
+                    $this->_procid)
+                );
                 $this->_changes = $changes;
             }
         } else {
+            // FOLDERSYNC changes.
             $this->_getFolderChanges();
         }
 
