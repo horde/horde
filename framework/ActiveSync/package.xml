@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-08-31</date>
+ <date>2016-09-11</date>
  <version>
   <release>2.35.1</release>
   <api>2.35.0</api>
@@ -78,7 +78,6 @@
       <dir name="Message">
        <file name="AirSyncBaseAdd.php" role="php" />
        <file name="AirSyncBaseAttachment.php" role="php" />
-       <file name="AirSyncBaseAttachments.php" role="php" />
        <file name="AirSyncBaseBody.php" role="php" />
        <file name="AirSyncBaseBodypart.php" role="php" />
        <file name="AirSyncBaseDelete.php" role="php" />
@@ -484,7 +483,6 @@
    <install as="Horde/ActiveSync/Interface/LoggerFactory.php" name="lib/Horde/ActiveSync/Interface/LoggerFactory.php" />
    <install as="Horde/ActiveSync/Message/AirSyncBaseAdd.php" name="lib/Horde/ActiveSync/Message/AirSyncBaseAdd.php" />
    <install as="Horde/ActiveSync/Message/AirSyncBaseAttachment.php" name="lib/Horde/ActiveSync/Message/AirSyncBaseAttachment.php" />
-   <install as="Horde/ActiveSync/Message/AirSyncBaseAttachments.php" name="lib/Horde/ActiveSync/Message/AirSyncBaseAttachments.php" />
    <install as="Horde/ActiveSync/Message/AirSyncBaseBody.php" name="lib/Horde/ActiveSync/Message/AirSyncBaseBody.php" />
    <install as="Horde/ActiveSync/Message/AirSyncBaseBodypart.php" name="lib/Horde/ActiveSync/Message/AirSyncBaseBodypart.php" />
    <install as="Horde/ActiveSync/Message/AirSyncBaseDelete.php" name="lib/Horde/ActiveSync/Message/AirSyncBaseDelete.php" />
@@ -3226,7 +3224,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-08-31</date>
+   <date>2016-09-11</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Changes to support attachment sync support for Appointment objects.

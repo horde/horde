@@ -210,19 +210,36 @@ class Horde_ActiveSync_Connector_Importer
         }
         $stat['serverid'] = $this->_folderId;
 
-        // Record the state of the message, but only if we aren't updating
-        // categories. @todo This should be fixed, but for now we can't
-        // differentiate between different flag changes. Note that categories
-        // only exists for email changes so for non email this will still
-        // work as before.
+        // Record the state of the message.
+        // Email messages are only changed if they are Drafts or if we are
+        // updating flags.
+        // When CHANGING a draft message, we are actually deleting the old one
+        // and replacing it with a message (since we can't edit an existing
+        // IMAP message while keeping the UID the same). So, do not call
+        // updateState() for these messages since we don't want to ignore
+        // this as a PIM sourced change - the change will be caught during
+        // normal ping/sync cycle.
+        if ($message instanceof Horde_ActiveSync_Message_Mail) {
+            if (!empty($message->airsyncbasebody) && !empty($id)) {
+                // Changing an existing Draft mail.
+                return $stat;
+            }
+
+            // Either a flag change, or adding a new Draft mail.
+            $changeType = !empty($message->airsyncbasebody)
+                ? Horde_ActiveSync::CHANGE_TYPE_DRAFT
+                : Horde_ActiveSync::CHANGE_TYPE_FLAGS;
+        } else {
+            $changeType = Horde_ActiveSync::CHANGE_TYPE_CHANGE;
+        }
+
         $this->_state->updateState(
-            ($message instanceof Horde_ActiveSync_Message_Mail
-                ? Horde_ActiveSync::CHANGE_TYPE_FLAGS
-                : Horde_ActiveSync::CHANGE_TYPE_CHANGE),
+            $changeType,
             $stat,
             Horde_ActiveSync::CHANGE_ORIGIN_PIM,
             $this->_as->driver->getUser(),
-            $clientid);
+            $clientid
+        );
 
         return $stat;
     }

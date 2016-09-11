@@ -1051,6 +1051,11 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                             $collection['atchash'][$ires['id']] = !empty($ires['atchash'])
                                 ? $ires['atchash']
                                 : array();
+                            if (!empty($ires['conversationid'])) {
+                                $collection['conversations'][$ires['id']] =
+                                    array($ires['conversationid'],
+                                          $ires['conversationindex']);
+                            }
                             $collection['importedchanges'] = true;
                         } elseif (!$id || is_array($id)) {
                             $collection['clientids'][$clientid] = false;

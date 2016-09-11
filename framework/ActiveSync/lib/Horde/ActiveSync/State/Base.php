@@ -473,7 +473,8 @@ abstract class Horde_ActiveSync_State_Base
                     $flag_map = array(
                         Horde_ActiveSync::CHANGE_TYPE_FLAGS =>  'flag change',
                         Horde_ActiveSync::CHANGE_TYPE_DELETE => 'deletion',
-                        Horde_ActiveSync::CHANGE_TYPE_CHANGE => 'move'
+                        Horde_ActiveSync::CHANGE_TYPE_CHANGE => 'move',
+                        Horde_ActiveSync::CHANGE_TYPE_DRAFT => 'draft'
                     );
 
                     $cnt = count($changes);

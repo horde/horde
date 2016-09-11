@@ -1210,15 +1210,20 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             return $add;
         } else {
             foreach ($changes['add'] as $add) {
+                $type = ($folder->collectionClass() == Horde_ActiveSync::CLASS_EMAIL &&
+                         $folder->serverid() == $this->getSpecialFolderNameByType(self::SPECIAL_DRAFTS))
+                    ? Horde_ActiveSync::CHANGE_TYPE_DRAFT
+                    : Horde_ActiveSync::CHANGE_TYPE_CHANGE;
                 $results[] = array(
                     'id' => $add,
-                    'type' => Horde_ActiveSync::CHANGE_TYPE_CHANGE,
-                    'flags' => Horde_ActiveSync::FLAG_NEWMESSAGE);
+                    'type' => $type,
+                    'flags' => Horde_ActiveSync::FLAG_NEWMESSAGE
+                );
             }
         }
 
         // For CLASS_EMAIL, all changes are a change in flags, categories or
-        // softdelete.
+        // softdelete. @todo: draft edits?
         if ($folder->collectionClass() == Horde_ActiveSync::CLASS_EMAIL) {
             $flags = $folder->flags();
             $categories = $folder->categories();
@@ -1838,6 +1843,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      *   - atchash: (array|boolean) An array of clientid->filereference
      *         mappings for file attachment changes made to appointment
      *         or draft email folders. @since 2.27.0
+     *  - conversationid: (hex encoded opaque value) The conversationid value
+     *         if adding Draft email message. @since 2.28.0
+     *  - conversationindex: (integer) The conversation index value if adding
+     *         Draft email message @since 2.28.0
      */
     public function changeMessage($folderid, $id, Horde_ActiveSync_Message_Base $message, $device)
     {
@@ -1978,21 +1987,91 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     'categories' => false
                 );
 
-                // Check for draft sync. @todo Not yet implemented since there
-                // are currently no available clients that support this to
-                // test and reverse engineer.
-                if ($this->_version >= Horde_ActiveSync::VERSION_SIXTEEN && !$id) {
+                // Check for draft sync.
+                if ($this->_version >= Horde_ActiveSync::VERSION_SIXTEEN &&
+                    $folderid == $this->getSpecialFolderNameByType(self::SPECIAL_DRAFTS)) {
+
+                    // @todo Does this only happen on drafts?
                     if ($message->send) {
-                        // @todo. Need a client that supports this to test.
                         $this->_logger->err('NOT YET SUPPORTED.');
                         return $stat;
                     }
-                    // If some non-flag related property is set, we must be
-                    // setting a draft. Should probably sanity check the folder
-                    // type too. @todo Need a client that actually does this
-                    // in order to see exactly what is sent.
-                    if ($message->to) {
-                        $this->_logger->err('NOT YET SUPPORTED.');
+
+                    // Are we addding/changing a draft email?
+                    if ($message->airsyncbasebody) {
+
+                        $msg = $message->draftToMime();
+                        $msg['headers']->addHeader(
+                            'From',
+                            Horde_Core_ActiveSync_Mail::getFromAddress($this->_user)
+                        );
+                        $msg['headers']->addHeaderOb(Horde_Mime_Headers_Date::create());
+                        $msg['headers']->addHeaderOb(Horde_Mime_Headers_ContentId::create());
+                        $msg['headers']->addHeader('X-IMP-Draft', 'Yes');
+
+                        $base = new Horde_Mime_Part();
+                        $base->setType('multipart/mixed');
+
+                        // If we have a change to attachments we need to
+                        // download the existing IMAP message.
+                        if ($id && !empty($message->airsyncbaseattachments)) {
+                            $imap_msg = $this->_imap->getImapMessage(
+                                $this->getSpecialFolderNameByType(self::SPECIAL_DRAFTS),
+                                $id
+                            );
+                            foreach ($imap_msg[$id]->getStructure() as $part) {
+                                if ($part->isAttachment()) {
+                                    $base->addPart($imap_msg[$id]->getMimePart($part->getMimeId()));
+                                }
+                            }
+                        }
+                        $base->addPart($msg['part']);
+                        $base->addMimeHeaders(array('headers' => $msg['headers']));
+
+                        // Attachments.
+                        $delete = array();
+                        foreach ($message->airsyncbaseattachments as $atc) {
+                            switch (get_class($atc)) {
+                            case 'Horde_ActiveSync_Message_AirSyncBaseAdd':
+                                $atc_map[$atc->displayname] = $atc->clientid;
+                                $atc_mime = new Horde_Mime_Part();
+                                $atc_mime->setType($atc->contenttype);
+                                $atc_mime->setName($atc->displayname);
+                                $atc_mime->setContents($atc->content);
+                                $base->addPart($atc_mime);
+                                break;
+                            case 'Horde_ActiveSync_Message_AirSyncBaseDelete':
+                                list($mailbox, $uid, $part) = explode(':', $name, 3);
+                                $base->removePart($part);
+                            }
+                        }
+                        $stream = $base->toString(array(
+                                'stream' => true,
+                                'headers' => $msg['headers']->toString()
+                        ));
+
+                        $stat['id'] = $this->_imap->appendMessage(
+                            $this->getSpecialFolderNameByType(self::SPECIAL_DRAFTS),
+                            $stream,
+                            array('\draft', '\seen')
+                        );
+
+                        $atc_hash = array();
+                        foreach ($base as $mid => $part) {
+                            if ($part->isAttachment() &&
+                                !empty($atc_map[$part->getName()])) {
+                                $atc_hash['add'][$atc_map[$part->getName()]] = $folderid . ':' . $stat['id'] . ':' . $mid;
+                            }
+                        }
+                        $stat['conversationid'] = bin2hex($message->subject);
+                        $stat['conversationindex'] = time();
+                        $stat['atchash'] = $atc_hash;
+
+                        if (!empty($id)) {
+                            // Delete.
+                            $this->_imap->deleteMessages(array($id), $folderid);
+                        }
+
                         return $stat;
                     }
                 }

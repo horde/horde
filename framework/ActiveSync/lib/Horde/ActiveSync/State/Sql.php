@@ -478,6 +478,8 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
 
             // This is an incoming change from the client, store it so we
             // don't mirror it back to device.
+            // @todo: Use bitmask for the change type so we don't have to
+            // maintain a separate field for each type.
             switch ($this->_collection['class']) {
             case Horde_ActiveSync::CLASS_EMAIL:
                 if ($type == Horde_ActiveSync::CHANGE_TYPE_CHANGE &&
@@ -522,6 +524,14 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                     $sql = 'INSERT INTO ' . $this->_syncMailMapTable
                         . ' (message_uid, sync_key, sync_devid,'
                         . ' sync_folderid, sync_user, sync_changed)'
+                        . ' VALUES (?, ?, ?, ?, ?, ?)';
+                    $flag_value = true;
+                    break;
+                case Horde_ActiveSync::CHANGE_TYPE_DRAFT:
+                    // Incoming draft messge.
+                    $sql = 'INSERT INTO ' . $this->_syncMailMapTable
+                        . ' (message_uid, sync_key, sync_devid,'
+                        . ' sync_folderid, sync_user, sync_draft)'
                         . ' VALUES (?, ?, ?, ?, ?, ?)';
                     $flag_value = true;
                     break;
@@ -1339,13 +1349,15 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      * @return array  An array of hashes, each in the form of
      *   {uid} => array(
      *     Horde_ActiveSync::CHANGE_TYPE_FLAGS => true|false,
-     *     Horde_ActiveSync::CHANGE_TYPE_DELETE => true|false
+     *     Horde_ActiveSync::CHANGE_TYPE_DELETE => true|false,
+     *     Horde_ActiveSync::CHANGE_TYPE_DRAFT  => true|false,
      *   )
      */
     protected function _getMailMapChanges(array $changes)
     {
         $sql = 'SELECT message_uid, sync_read, sync_flagged, sync_deleted,'
-            . 'sync_changed, sync_category FROM ' . $this->_syncMailMapTable
+            . 'sync_changed, sync_category, sync_draft FROM '
+            . $this->_syncMailMapTable
             . ' WHERE sync_folderid = ? AND sync_devid = ?'
             . ' AND sync_user = ? AND message_uid IN '
             . '(' . implode(',', array_fill(0, count($changes), '?')) . ')';
@@ -1384,6 +1396,10 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                     case Horde_ActiveSync::CHANGE_TYPE_CHANGE:
                         $results[$row['message_uid']][$change['type']] =
                             !is_null($row['sync_changed']) && $row['sync_changed'] == true;
+                        continue 3;
+                    case Horde_ActiveSync::CHANGE_TYPE_DRAFT:
+                        $results[$row['message_uid']][$change['type']] =
+                            !is_null($row['sync_draft']) && $row['sync_draft'] == true;
                         continue 3;
                     }
                 }

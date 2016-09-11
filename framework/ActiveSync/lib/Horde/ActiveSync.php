@@ -257,6 +257,9 @@ class Horde_ActiveSync
     const CHANGE_TYPE_FOLDERSYNC                = 'foldersync';
     const CHANGE_TYPE_SOFTDELETE                = 'softdelete';
 
+    // @since 2.36.0
+    const CHANGE_TYPE_DRAFT                     = 'draft';
+
     /* Internal flags to indicate change is a change in reply/forward state */
     const CHANGE_REPLY_STATE                    = '@--reply--@';
     const CHANGE_REPLYALL_STATE                 = '@--replyall--@';
