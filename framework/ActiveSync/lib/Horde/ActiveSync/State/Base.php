@@ -478,30 +478,33 @@ abstract class Horde_ActiveSync_State_Base
 
                     $cnt = count($changes);
                     for ($i = 0; $i < $cnt; $i++) {
-                        if (!empty($mailmap[$changes[$i]['id']][$changes[$i]['type']])) {
-                            // @todo For 3.0, create a Changes and
-                            // ChangeFilter classes to abstract out a bunch of
-                            // this stuff. (Needs BC breaking changes in
-                            // storage/state classes).
-                            //
-                            // OL2013 is broken and duplicates the destination
-                            // email during MOVEITEMS requests (instead it
-                            // reassigns the existing email the new UID). Don't
-                            // send the ADD command for these changes.
-                            if ($changes[$i]['type'] == Horde_ActiveSync::CHANGE_TYPE_CHANGE &&
-                                $changes[$i]['flags'] == Horde_ActiveSync::FLAG_NEWMESSAGE &&
-                                $this->_deviceInfo->deviceType != 'WindowsOutlook15') {
-                                $this->_changes[] = $changes[$i];
-                                continue;
-                            }
-                            $this->_logger->info(sprintf(
-                                '[%s] Ignoring client initiated %s for %s',
-                                $this->_procid,
-                                $flag_map[$changes[$i]['type']],
-                                $changes[$i]['id']));
-                            $changes[$i]['ignore'] = true;
+                        if (empty($mailmap[$changes[$i]['id']][$changes[$i]['type']])) {
+                            $this->_changes[] = $changes[$i];
+                            continue;
                         }
+                        // @todo For 3.0, create a Changes and
+                        // ChangeFilter classes to abstract out a bunch of
+                        // this stuff. (Needs BC breaking changes in
+                        // storage/state classes).
+
+                        // OL2013 is broken and duplicates the destination
+                        // email during MOVEITEMS requests (instead it
+                        // reassigns the existing email the new UID). Don't
+                        // send the ADD command for these changes.
+                        if ($changes[$i]['type'] == Horde_ActiveSync::CHANGE_TYPE_CHANGE &&
+                            $changes[$i]['flags'] == Horde_ActiveSync::FLAG_NEWMESSAGE &&
+                            $this->_deviceInfo->deviceType != 'WindowsOutlook15') {
+                            $this->_changes[] = $changes[$i];
+                            continue;
+                        }
+                        $changes[$i]['ignore'] = true;
                         $this->_changes[] = $changes[$i];
+                        $this->_logger->info(sprintf(
+                            '[%s] Ignoring client initiated %s for %s',
+                            $this->_procid,
+                            $flag_map[$changes[$i]['type']],
+                            $changes[$i]['id'])
+                        );
                     }
                     break;
 
