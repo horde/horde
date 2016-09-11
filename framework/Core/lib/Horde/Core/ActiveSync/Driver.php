@@ -1999,78 +1999,27 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
 
                     // Are we addding/changing a draft email?
                     if ($message->airsyncbasebody) {
-
-                        $msg = $message->draftToMime();
-                        $msg['headers']->addHeader(
-                            'From',
-                            Horde_Core_ActiveSync_Mail::getFromAddress($this->_user)
+                        $draft_folder = $this->getSpecialFolderNameByType(
+                            self::SPECIAL_DRAFTS
                         );
-                        $msg['headers']->addHeaderOb(Horde_Mime_Headers_Date::create());
-                        $msg['headers']->addHeaderOb(Horde_Mime_Headers_ContentId::create());
-                        $msg['headers']->addHeader('X-IMP-Draft', 'Yes');
+                        $draft = new Horde_Core_ActiveSync_Mail_Draft(
+                            $this->_imap,
+                            $this->_user,
+                            $this->_version
+                        );
+                        $draft->setDraftMessage($message);
 
-                        $base = new Horde_Mime_Part();
-                        $base->setType('multipart/mixed');
-
-                        // If we have a change to attachments we need to
-                        // download the existing IMAP message.
+                        // Do we need an existing Draft message?
                         if ($id && !empty($message->airsyncbaseattachments)) {
-                            $imap_msg = $this->_imap->getImapMessage(
-                                $this->getSpecialFolderNameByType(self::SPECIAL_DRAFTS),
-                                $id
-                            );
-                            foreach ($imap_msg[$id]->getStructure() as $part) {
-                                if ($part->isAttachment()) {
-                                    $base->addPart($imap_msg[$id]->getMimePart($part->getMimeId()));
-                                }
-                            }
+                            $draft->getExistingDraftMessage($draft_folder, $id);
                         }
-                        $base->addPart($msg['part']);
-                        $base->addMimeHeaders(array('headers' => $msg['headers']));
 
-                        // Attachments.
-                        $delete = array();
-                        foreach ($message->airsyncbaseattachments as $atc) {
-                            switch (get_class($atc)) {
-                            case 'Horde_ActiveSync_Message_AirSyncBaseAdd':
-                                $atc_map[$atc->displayname] = $atc->clientid;
-                                $atc_mime = new Horde_Mime_Part();
-                                $atc_mime->setType($atc->contenttype);
-                                $atc_mime->setName($atc->displayname);
-                                $atc_mime->setContents($atc->content);
-                                $base->addPart($atc_mime);
-                                break;
-                            case 'Horde_ActiveSync_Message_AirSyncBaseDelete':
-                                list($mailbox, $uid, $part) = explode(':', $name, 3);
-                                $base->removePart($part);
-                            }
-                        }
-                        $stream = $base->toString(array(
-                                'stream' => true,
-                                'headers' => $msg['headers']->toString()
-                        ));
-
-                        $stat['id'] = $this->_imap->appendMessage(
-                            $this->getSpecialFolderNameByType(self::SPECIAL_DRAFTS),
-                            $stream,
-                            array('\draft', '\seen')
-                        );
-
-                        $atc_hash = array();
-                        foreach ($base as $mid => $part) {
-                            if ($part->isAttachment() &&
-                                !empty($atc_map[$part->getName()])) {
-                                $atc_hash['add'][$atc_map[$part->getName()]] = $folderid . ':' . $stat['id'] . ':' . $mid;
-                            }
-                        }
+                        // Append the message and return results.
+                        $results = $draft->append($draft_folder);
+                        $stat['id'] = $results['uid'];
+                        $stat['atchash'] = $results['atchash'];
                         $stat['conversationid'] = bin2hex($message->subject);
                         $stat['conversationindex'] = time();
-                        $stat['atchash'] = $atc_hash;
-
-                        if (!empty($id)) {
-                            // Delete.
-                            $this->_imap->deleteMessages(array($id), $folderid);
-                        }
 
                         return $stat;
                     }
