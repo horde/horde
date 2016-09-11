@@ -12,8 +12,8 @@
  </lead>
  <date>2016-09-11</date>
  <version>
-  <release>2.36.1</release>
-  <api>2.36.0</api>
+  <release>2.37.0</release>
+  <api>2.37.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-*
+* [mjr] Add support for EAS 16 draft email sync.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3234,15 +3234,15 @@
   </release>
   <release>
    <version>
-    <release>2.36.1</release>
-    <api>2.36.0</api></version>
+    <release>2.37.0</release>
+    <api>2.37.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
    <date>2016-09-09</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-*
+* [mjr] Add support for EAS 16 draft email sync.
    </notes>
   </release>
  </changelog>
