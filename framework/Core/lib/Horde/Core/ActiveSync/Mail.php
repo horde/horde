@@ -510,18 +510,17 @@ class Horde_Core_ActiveSync_Mail
     }
 
     /**
-     * Return the user's configured From address.
+     * Return the current user's From address.
      *
-     * @return RFC822 valid email string.
-     * @since  2.27.0
+     * @return string  A RFC822 valid email string.
      */
-    public static function getFromAddress($user)
+    protected function _getIdentityFromAddress()
     {
         global $prefs;
 
         $ident = $GLOBALS['injector']
             ->getInstance('Horde_Core_Factory_Identity')
-            ->create($user);
+            ->create($this->_user);
 
         $as_ident = $prefs->getValue('activesync_identity');
         $name = $ident->getValue('fullname', $as_ident == 'horde' ? $prefs->getValue('default_identity') : $prefs->getValue('activesync_identity'));
@@ -533,16 +532,6 @@ class Horde_Core_ActiveSync_Mail
         $rfc822->personal = $name;
 
         return $rfc822->encoded;
-    }
-
-    /**
-     * Return the current user's From address.
-     *
-     * @return string  A RFC822 valid email string.
-     */
-    protected function _getIdentityFromAddress()
-    {
-        return self::getFromAddress($this->_user);
     }
 
     /**
