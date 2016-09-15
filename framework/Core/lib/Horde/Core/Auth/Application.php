@@ -228,8 +228,6 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
         }
 
         if ($this->hasCapability('lock')) {
-            $GLOBALS['registry']->callAppMethod($this->_app, 'authLockUser', array('args' => array($userId, $time)));
-        } else {
             parent::lockUser($userId, $time);
         }
     }
@@ -250,8 +248,6 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
         }
 
         if ($this->hasCapability('lock')) {
-            $GLOBALS['registry']->callAppMethod($this->_app, 'authUnlockUser', array('args' => array($userId, $resetBadLogins)));
-        } else {
             parent::unlockUser($userId, $resetBadLogins);
         }
     }
@@ -271,8 +267,6 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
         }
 
         if ($this->hasCapability('lock')) {
-            return $GLOBALS['registry']->callAppMethod($this->_app, 'authIsLocked', array('args' => array($userId, $show_details)));
-        } else {
             return parent::isLocked($userId, $show_details);
         }
     }
