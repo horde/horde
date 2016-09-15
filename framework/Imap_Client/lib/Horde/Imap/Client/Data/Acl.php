@@ -79,11 +79,19 @@ class Horde_Imap_Client_Data_Acl extends Horde_Imap_Client_Data_AclCommon implem
          * we are abstracting out use of ACL_CREATE/ACL_DELETE to their
          * component RFC 4314 rights. */
         foreach ($this->_virtual as $key => $val) {
+            foreach ($val as $right) {
+                if ($this[$right]) {
+                    foreach (array_keys($this->_virtual) as $virtual) {
+                        unset($this[$virtual]);
+                    }
+                    return;
+                }
+            }
+        }
+        foreach ($this->_virtual as $key => $val) {
             if ($this[$key]) {
                 unset($this[$key]);
-                if (!$this[reset($val)]) {
-                    $this->_rights = array_unique(array_merge($this->_rights, $val));
-                }
+                $this->_rights = array_unique(array_merge($this->_rights, $val));
             }
         }
     }
