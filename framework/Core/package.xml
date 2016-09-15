@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Fix locking user account after bad logins (Bug #14467).
 * [mjr] Add support for EAS 16 draft email sync.
  </notes>
  <contents>
@@ -4257,6 +4258,7 @@
    <date>2016-09-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Fix locking user account after bad logins (Bug #14467).
 * [mjr] Add support for EAS 16 draft email sync.
    </notes>
   </release>
