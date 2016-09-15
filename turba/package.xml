@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* 
+* [mjr] Fix regression in saving tags (Bug #14463).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2151,7 +2151,7 @@
    <date>2016-09-06</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* 
+* [mjr] Fix regression in saving tags (Bug #14463).
    </notes>
   </release>
  </changelog>
