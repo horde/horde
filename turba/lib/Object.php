@@ -196,7 +196,7 @@ class Turba_Object
 
         // If we don't know the attribute, and it's an email field, save it
         // in case we need to populate an email field on save.
-        if (!isset($this->driver->map[$attribute])) {
+        if (!isset($this->driver->map[$attribute]) && $attribute != '__tags') {
             if (isset($attributes[$attribute]) &&
                 $attributes[$attribute]['type'] == 'email') {
                 $this->_emailFields[$attribute] = $value;
