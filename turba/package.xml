@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [mjr] Fix regression in sorting contacts by a name field (Bug #14471).
 * [mjr] Fix regression in saving tags (Bug #14463).
  </notes>
  <contents>
@@ -2151,6 +2152,7 @@
    <date>2016-09-06</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [mjr] Fix regression in sorting contacts by a name field (Bug #14471).
 * [mjr] Fix regression in saving tags (Bug #14463).
    </notes>
   </release>
