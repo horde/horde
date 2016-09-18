@@ -194,9 +194,10 @@ class Turba_Object
             } catch (Turba_Exception $e) {}
         }
 
-        // If we don't know the attribute, and it's an email field, save it
-        // in case we need to populate an email field on save.
-        if (!isset($this->driver->map[$attribute]) && $attribute != '__tags') {
+        // If we don't know the attribute, it's not a private attribute,
+        // and it's an email field, save it in case we need to populate an email
+        // field on save.
+        if (!isset($this->driver->map[$attribute]) && strpos($attribute, '__') === false) {
             if (isset($attributes[$attribute]) &&
                 $attributes[$attribute]['type'] == 'email') {
                 $this->_emailFields[$attribute] = $value;
