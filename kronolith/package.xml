@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [jan] Split shared users by linebreaks too.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2745,7 +2745,7 @@
    <date>2016-09-06</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [jan] Split shared users by linebreaks too.
    </notes>
   </release>
  </changelog>

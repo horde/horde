@@ -3399,7 +3399,7 @@ KronolithCore = {
             $('kronolithC' + type + 'PUList').enable();
             $('kronolithC' + type + 'PUPerms').enable();
             var users = $F('kronolithC' + type + 'PUList').strip();
-            users = users ? users.split(/,\s*/) : [];
+            users = users ? users.split(/\s*(?:,|\n)\s*/) : [];
             users.each(function(user) {
                 if (!this.insertGroupOrUser(type, 'user', user, true)) {
                     return;
