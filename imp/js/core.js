@@ -300,6 +300,7 @@ var ImpCore = {
                     .wrap('A', {
                         className: 'imp-maillog-sent'
                     })
+                    .store('folder', entry.f)
                     .store('msgid', entry.s)
                     .store('type', entry.t);
             }
@@ -467,6 +468,7 @@ var ImpCore = {
             }
         } else if (cnames.indexOf('imp-maillog-sent') !== -1) {
             HordeCore.popupWindow(this.conf.URI_MAILLOG, {
+                folder: elt.retrieve('folder'),
                 msgid: elt.retrieve('msgid'),
                 type: elt.retrieve('type')
             }, {

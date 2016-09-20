@@ -2,6 +2,7 @@
 v7.0.0-git
 ----------
 
+[jan] Find logged replies in other than default sent-mail folders too.
 [mjr] Fix SyntaxHighlighter MIME viewer not rendering part after the initial
       view of a part (Bug 14337).
 [mjr] Display comment attribute in iTip viewer (Request #14407).

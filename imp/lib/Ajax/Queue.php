@@ -814,6 +814,8 @@ class IMP_Ajax_Queue
 
                     foreach ($l as $v3) {
                         $tmp[] = array_filter(array(
+                            // 'f' = folder
+                            'f' => $v3->folder,
                             // 'm' = message
                             'm' => $v3->message,
                             // 's' = sent message-id

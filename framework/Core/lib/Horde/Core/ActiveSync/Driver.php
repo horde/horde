@@ -2265,15 +2265,21 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 'Logging LASTVERBEXECUTED to Maillog: %s, %s, %s',
                 $mailer->reply ? 'reply' : 'forward',
                 $mailer->imapMessage->getHeaders()->getValue('Message-ID'),
-                $mailer->headers->getValue('To')));
+                $mailer->headers->getValue('To'))
+            );
             $this->_connector->mail_logMaillog(
                 $mailer->reply ? 'reply' : 'forward',
                 $mailer->imapMessage->getHeaders()->getValue('Message-ID'),
-                $mailer->forward ? $mailer->headers->getValue('To') : null);
+                $mailer->forward ? $mailer->headers->getValue('To') : null,
+                $save ? $sf : null
+            );
             $this->_imap->setImapFlag(
                 $mailer->parentFolder,
                 $mailer->id,
-                $mailer->reply ? Horde_ActiveSync::IMAP_FLAG_REPLY : Horde_ActiveSync::IMAP_FLAG_FORWARD);
+                $mailer->reply
+                    ? Horde_ActiveSync::IMAP_FLAG_REPLY
+                    : Horde_ActiveSync::IMAP_FLAG_FORWARD
+            );
         }
 
         // Attempt to log the recipient.

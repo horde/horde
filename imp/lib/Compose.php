@@ -888,7 +888,12 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         if ($this->_replytype) {
             /* Log the reply. */
             if ($indices = $this->getMetadata('indices')) {
-                $log_data = array('msgid' => $msgid);
+                $log_data = array(
+                    'msgid' => $msgid,
+                    'folder' => empty($opts['sent_mail'])
+                        ? null
+                        : $opts['sent_mail'],
+                );
 
                 switch ($this->_replytype) {
                 case self::FORWARD:

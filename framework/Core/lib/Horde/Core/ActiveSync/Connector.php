@@ -1001,15 +1001,22 @@ class Horde_Core_ActiveSync_Connector
      *                            'reply_all'.
      * @param string $mid         The Message-ID to log.
      * @param string $recipients  The recipients the mail was forwarded to.
+     * @param string $folder      The sent-mail folder. @since Horde_Core 2.27.0
      */
-    public function mail_logMaillog($action, $mid, $recipients = null)
+    public function mail_logMaillog(
+        $action, $mid, $recipients = null, $folder = null
+    )
     {
+        $data = array();
         if (!empty($recipients)) {
-            $recipients = array('recipients' => $recipients);
+            $data['recipients'] = $recipients;
+        }
+        if (!empty($folder)) {
+            $data['folder'] = $folder;
         }
         if ($this->_registry->hasMethod('logMaillog', $this->_registry->hasInterface('mail'))) {
             try {
-                $this->_registry->mail->logMaillog($action, $mid, $recipients);
+                $this->_registry->mail->logMaillog($action, $mid, $data);
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->getMessage());
             }

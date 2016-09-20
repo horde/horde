@@ -37,6 +37,7 @@ class IMP_Dynamic_Maillog extends IMP_Dynamic_Base
             isset($this->vars->type) &&
             isset(IMP_Maillog_Storage_History::$drivers[$this->vars->type])) {
             $log = new IMP_Maillog_Storage_History::$drivers[$this->vars->type](array(
+                'folder' => $this->vars->folder,
                 'msgid' => $this->vars->msgid
             ));
 
