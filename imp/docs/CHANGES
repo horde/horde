@@ -2,6 +2,8 @@
 v6.2.17-git
 -----------
 
+[jan] Update preview cache after permanently unblocking images from a sender
+      (Bug #14446).
 
 
 -------
