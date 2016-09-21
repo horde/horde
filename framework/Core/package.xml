@@ -30,7 +30,7 @@
  </developer>
  <date>2016-09-21</date>
  <version>
-  <release>2.27.0</release>
+  <release>2.27.1</release>
   <api>2.27.0</api>
  </version>
  <stability>
@@ -39,9 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Fix BC break in Weather block (Bug #14473).
-* [mjr] Fix locking user account after bad logins (Bug #14467).
-* [mjr] Add support for EAS 16 draft email sync.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4264,6 +4262,19 @@
 * [mjr] Fix BC break in Weather block (Bug #14473).
 * [mjr] Fix locking user account after bad logins (Bug #14467).
 * [mjr] Add support for EAS 16 draft email sync.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.27.1</release>
+    <api>2.27.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-09-21</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
