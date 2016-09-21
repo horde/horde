@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2016-09-11</date>
+ <date>2016-09-21</date>
  <version>
   <release>2.27.0</release>
   <api>2.27.0</api>
@@ -344,6 +344,7 @@
         <file name="InPlaceEditor.php" role="php" />
         <file name="SpellChecker.php" role="php" />
         <file name="UserAutoCompleter.php" role="php" />
+        <file name="WeatherLocationAutoCompleter.php" role="php" />
        </dir> <!-- /lib/Horde/Core/Ajax/Imple -->
        <dir name="Response">
         <dir name="HordeCore">
@@ -1794,6 +1795,7 @@
    <install as="Horde/Core/Ajax/Imple/InPlaceEditor.php" name="lib/Horde/Core/Ajax/Imple/InPlaceEditor.php" />
    <install as="Horde/Core/Ajax/Imple/SpellChecker.php" name="lib/Horde/Core/Ajax/Imple/SpellChecker.php" />
    <install as="Horde/Core/Ajax/Imple/UserAutoCompleter.php" name="lib/Horde/Core/Ajax/Imple/UserAutoCompleter.php" />
+   <install as="Horde/Core/Ajax/Imple/WeatherLocationAutoCompleter.php" name="lib/Horde/Core/Ajax/Imple/WeatherLocationAutoCompleter.php" />
    <install as="Horde/Core/Ajax/Imple/AutoCompleter/Ajax.php" name="lib/Horde/Core/Ajax/Imple/AutoCompleter/Ajax.php" />
    <install as="Horde/Core/Ajax/Imple/AutoCompleter/Base.php" name="lib/Horde/Core/Ajax/Imple/AutoCompleter/Base.php" />
    <install as="Horde/Core/Ajax/Imple/AutoCompleter/Local.php" name="lib/Horde/Core/Ajax/Imple/AutoCompleter/Local.php" />
@@ -4256,7 +4258,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-09-06</date>
+   <date>2016-09-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Fix BC break in Weather block (Bug #14473).
