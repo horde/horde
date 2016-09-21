@@ -26,7 +26,7 @@ class Sesha_Entity_Value extends Horde_Rdo_Base
         case 'monthdayyear':
         case 'monthyear':
         case 'time':
-            if (is_int($this->txt_datavalue)) {
+            if (strval(intval($this->txt_datavalue)) === $this->txt_datavalue) {
                 return new Horde_Date($this->txt_datavalue);
             }
             $dt = new Horde_Date;
