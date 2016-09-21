@@ -86,7 +86,7 @@ class IMP_Indices_Mailbox extends IMP_Indices
         }
 
         if (!isset($this->buids)) {
-            $this->buids = new IMP_Indices();
+            $this->buids = new IMP_Indices($this->_indices);
         }
 
         if (!isset($this->mailbox)) {
