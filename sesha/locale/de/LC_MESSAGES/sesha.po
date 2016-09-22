@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Sesha H4 (1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2014-11-12 14:05+0100\n"
-"PO-Revision-Date: 2014-11-14 12:29+0100\n"
+"PO-Revision-Date: 2016-09-21 14:18+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: de\n"
@@ -281,7 +281,7 @@ msgstr ""
 
 #: config/prefs.php:25 lib/Form/Stock.php:96 lib/View/List.php:117
 msgid "Note"
-msgstr "Notiz"
+msgstr "Bemerkung"
 
 #: lib/Form/Search.php:36
 msgid "Only exact matches"
