@@ -354,10 +354,10 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
 
    c. File_Fstab
 
-     Required only if you use the localhost driver for the Accounts block.
-     To install, enter the following at the command prompt::
+      Required only if you use the localhost driver for the Accounts block.
+      To install, enter the following at the command prompt::
 
-       pear install File_Fstab
+        pear install File_Fstab
 
    This method of installing PEAR packages requires that you have a PHP version
    that has been compiled as a static binary.  All versions of PHP build both
@@ -414,7 +414,7 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
 
       To install, enter the following at the command prompt::
 
-        pecl install horde_lz4
+        pecl install horde/horde_lz4
 
    c. memcache
 
