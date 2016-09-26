@@ -45,18 +45,6 @@ The following are not required, but are strongly recommended:
    Build PHP with whichever LDAP or SQL drivers you require; see the Horde
    INSTALL_ file for details.
 
-2. The following PEAR packages:
-   (See `horde/docs/INSTALL`_ for instructions on installing PEAR packages)
-
-   .. Important:: If you are going to install Turba the recommended way,
-                  i.e. using the PEAR installer, you can skip the remainder of
-                  this section. Installing Turba through PEAR will
-                  automatically download and install all required PEAR modules.
-
-   a. Net_LDAP [OPTIONAL]
-
-      Net_LDAP is required when doing schema checks with LDAP address books.
-
 
 Installing Turba
 ================
