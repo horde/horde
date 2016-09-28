@@ -1062,17 +1062,26 @@ class Horde_ActiveSync_Imap_Adapter
 
         // Fill in other header data
         try {
-            $eas_message->from = Horde_ActiveSync_Utils::ensureUtf8($imap_message->getFromAddress(), 'UTF-8');
+            $eas_message->from = Horde_ActiveSync_Utils::ensureUtf8(
+                $imap_message->getFromAddress(),
+                'UTF-8'
+            );
         } catch (Horde_ActiveSync_Exception $e) {
             $this->_logger->err($e->getMessage());
         }
         try {
-            $eas_message->cc = Horde_ActiveSync_Utils::ensureUtf8($imap_message->getCc());
+            $eas_message->cc = Horde_ActiveSync_Utils::ensureUtf8(
+                $imap_message->getCc(),
+                'UTF-8'
+            );
         } catch (Horde_ActiveSync_Exception $e) {
             $this->_logger->err($e->getMessage());
         }
         try {
-            $eas_message->reply_to = Horde_ActiveSync_Utils::ensureUtf8($imap_message->getReplyTo());
+            $eas_message->reply_to = Horde_ActiveSync_Utils::ensureUtf8(
+                $imap_message->getReplyTo(),
+                'UTF-8'
+            );
         } catch (Horde_ActiveSync_Exception $e) {
             $this->_logger->err($e->getMessage());
         }
@@ -1317,7 +1326,10 @@ class Horde_ActiveSync_Imap_Adapter
         if ($version >= Horde_ActiveSync::VERSION_TWELVE) {
             $eas_message->contentclass = 'urn:content-classes:message';
             if ($mime_part = $imap_message->hasiCalendar()) {
-                $data = Horde_ActiveSync_Utils::ensureUtf8($mime_part->getContents(), $mime_part->getCharset());
+                $data = Horde_ActiveSync_Utils::ensureUtf8(
+                    $mime_part->getContents(),
+                    $mime_part->getCharset()
+                );
                 $vCal = new Horde_Icalendar();
                 if ($vCal->parsevCalendar($data, 'VCALENDAR', $mime_part->getCharset())) {
                     $classes = $vCal->getComponentClasses();
