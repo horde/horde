@@ -1062,17 +1062,17 @@ class Horde_ActiveSync_Imap_Adapter
 
         // Fill in other header data
         try {
-            $eas_message->from = $imap_message->getFromAddress();
+            $eas_message->from = Horde_ActiveSync_Utils::ensureUtf8($imap_message->getFromAddress(), 'UTF-8');
         } catch (Horde_ActiveSync_Exception $e) {
             $this->_logger->err($e->getMessage());
         }
         try {
-            $eas_message->cc = $imap_message->getCc();
+            $eas_message->cc = Horde_ActiveSync_Utils::ensureUtf8($imap_message->getCc());
         } catch (Horde_ActiveSync_Exception $e) {
             $this->_logger->err($e->getMessage());
         }
         try {
-            $eas_message->reply_to = $imap_message->getReplyTo();
+            $eas_message->reply_to = Horde_ActiveSync_Utils::ensureUtf8($imap_message->getReplyTo());
         } catch (Horde_ActiveSync_Exception $e) {
             $this->_logger->err($e->getMessage());
         }

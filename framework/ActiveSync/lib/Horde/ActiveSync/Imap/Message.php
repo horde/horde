@@ -590,15 +590,15 @@ class Horde_ActiveSync_Imap_Message
      * Return the To addresses from this message.
      *
      * @return array  An array containing arrays of 'to' and 'displayto'
-     *                addresses.
+     *                addresses. @since 2.37.1, ensures the text is UTF8.
      */
     public function getToAddresses()
     {
         $to = $this->envelope->to;
         $dtos = $tos = array();
         foreach ($to->raw_addresses as $e) {
-            $tos[] = $e->bare_address;
-            $dtos[] = $e->label;
+            $tos[] = Horde_ActiveSync_Utils::ensureUtf8($e->bare_address, 'UTF-8');
+            $dtos[] = Horde_ActiveSync_Utils::ensureUtf8($e->label, 'UTF-8');
         }
 
         return array('to' => $tos, 'displayto' => $dtos);
