@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-09-21</date>
+ <date>2016-09-28</date>
  <version>
   <release>2.37.1</release>
   <api>2.37.0</api>
@@ -3254,7 +3254,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-09-21</date>
+   <date>2016-09-28</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Prevent invalid UTF-8 text in address fields.
