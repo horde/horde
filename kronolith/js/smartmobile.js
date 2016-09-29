@@ -729,6 +729,32 @@ var KronolithMobile = {
         }
     },
 
+    handleSubmit: function(e)
+    {
+        var form = $('#eventform'),
+            data = HordeJquery.formToObject(form);
+        HordeMobile.doAction('saveEvent', data, KronolithMobile.handleSubmitCallback);
+    },
+
+    handleSubmitCallback: function(r)
+    {
+        // console.log(r);
+    },
+
+    prepareFormForNew: function()
+    {
+        $("#eventform")[0].reset();
+        try {
+            $("targetcalendar").selectmenu("refresh");
+        } catch(e) {}
+        $("eventform #title").val('');
+        $("eventform #start_date").val('');
+        $("eventform #start_time").val('');
+        $("eventform #end_date").val('');
+        $("eventform #end_time").val('');
+        $("eventform #whole_day").val(0);
+    },
+
     /**
      */
     loadPage: function()
@@ -752,6 +778,10 @@ var KronolithMobile = {
             break;
 
         case null:
+            break;
+        case 'eventform-view':
+            KronolithMobile.view = 'event_form';
+            KronolithMobile.prepareFormForNew();
             break;
 
         case 'dayview':
@@ -788,6 +818,12 @@ var KronolithMobile = {
         $('#kronolith-minical').on('click', 'td', function(e) {
             KronolithMobile.selectMonthDay($(e.target).jqmData('date'));
         });
+
+        //$('#nag-list :jqmData(role="footer") a[href^="#nag-taskform-view"]').on('click', NagMobile.prepareFormForNew);
+        $('#eventform-view a[href^="#event-submit"]').on('click', KronolithMobile.handleSubmit);
+      //  $('eventform-view a[href^="#event-cancel"]').on('click', NagMobile.handleCancel);
+     //   $('#eventform-view a[href^="#event-delete"]').on('click', NagMobile.handleDelete);
+
 
         // Load initial view.
         KronolithMobile.loadPage();

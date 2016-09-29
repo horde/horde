@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2016-05-12</date>
+ <date>2016-09-29</date>
  <version>
   <release>4.3.0</release>
   <api>4.2.0</api>
@@ -646,6 +646,7 @@
     <dir name="smartmobile">
      <file name="day.html.php" role="horde" />
      <file name="event.html.php" role="horde" />
+     <file name="event_form.html.php" role="horde" />
      <file name="javascript_defs.php" role="horde" />
      <file name="month.html.php" role="horde" />
      <file name="summary.html.php" role="horde" />
@@ -1461,6 +1462,7 @@
    <install as="kronolith/templates/share/notification.plain.php" name="templates/share/notification.plain.php" />
    <install as="kronolith/templates/smartmobile/day.html.php" name="templates/smartmobile/day.html.php" />
    <install as="kronolith/templates/smartmobile/event.html.php" name="templates/smartmobile/event.html.php" />
+   <install as="kronolith/templates/smartmobile/event_form.html.php" name="templates/smartmobile/event_form.html.php" />
    <install as="kronolith/templates/smartmobile/javascript_defs.php" name="templates/smartmobile/javascript_defs.php" />
    <install as="kronolith/templates/smartmobile/month.html.php" name="templates/smartmobile/month.html.php" />
    <install as="kronolith/templates/smartmobile/summary.html.php" name="templates/smartmobile/summary.html.php" />
@@ -2824,7 +2826,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2016-05-12</date>
+   <date>2016-09-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Changes to support EAS attachment sync support.
