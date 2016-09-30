@@ -3173,7 +3173,7 @@ class Whups_Driver_Sql extends Whups_Driver
     protected function _getAllTicketAttributesWithNames($ticket_id)
     {
         try {
-            $attributes = $this->_db->select(
+            $attributes = $this->_db->selectAll(
                 'SELECT d.attribute_id, d.attribute_name, '
                     . 'd.attribute_description, d.attribute_type, '
                     . 'd.attribute_params, d.attribute_required, '
