@@ -107,9 +107,29 @@ class Whups_Application extends Horde_Registry_Application
 
     public function sidebar($sidebar)
     {
+        global $registry, $session;
+
         $sidebar->addNewButton(
             _("_New Ticket"),
             Horde::url('ticket/create.php'));
+        $sidebar->containers['queries'] = array(
+            'header' => array(
+                'id' => 'whups-toggle-queries',
+                'label' => _("Saved Queries"),
+            ),
+        );
+        $manager = new Whups_Query_Manager();
+        $queries = $manager->listQueries($registry->getAuth(), true);
+        foreach ($queries as $id => $query) {
+            $row = array(
+                'selected' => strpos(strval(Horde::selfUrl()), $registry->get('webroot') . '/query') === 0 &&
+                    $id == $session->get('whups', 'query'),
+                'cssClass' => 'whups-sidebar-query',
+                'url' => Whups::urlFor('query', empty($query['slug']) ? array('id' => $id) : array('slug' => $query['slug'])),
+                'label' => $query['name'],
+            );
+            $sidebar->addRow($row, 'queries');
+        }
     }
 
     /**

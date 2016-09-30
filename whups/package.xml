@@ -16,7 +16,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-06-23</date>
+ <date>2016-09-30</date>
  <version>
   <release>3.1.0</release>
   <api>3.0.0</api>
@@ -27,6 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
  <notes>
+* [jan] Add saved queries to sidebar menu.
 * [jan] Store incoming email messages separately from attachments.
 * [jan] Return due dates in API methods.
 * [jan] Add batch-deletion of tickets from result lists.
@@ -455,6 +456,7 @@
       <file name="favicon.ico" role="horde" />
       <file name="query.png" role="horde" />
       <file name="reports.png" role="horde" />
+      <file name="save.png" role="horde" />
       <file name="whups.png" role="horde" />
       <file name="za.png" role="horde" />
      </dir> <!-- /themes/default/graphics -->
@@ -902,6 +904,7 @@
    <install as="whups/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
    <install as="whups/themes/default/graphics/query.png" name="themes/default/graphics/query.png" />
    <install as="whups/themes/default/graphics/reports.png" name="themes/default/graphics/reports.png" />
+   <install as="whups/themes/default/graphics/save.png" name="themes/default/graphics/save.png" />
    <install as="whups/themes/default/graphics/whups.png" name="themes/default/graphics/whups.png" />
    <install as="whups/themes/default/graphics/za.png" name="themes/default/graphics/za.png" />
    <install as="whups/ticket/.htaccess" name="ticket/.htaccess" />
@@ -1235,9 +1238,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-06-23</date>
+   <date>2016-09-30</date>
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
    <notes>
+* [jan] Add saved queries to sidebar menu.
 * [jan] Store incoming email messages separately from attachments.
 * [jan] Return due dates in API methods.
 * [jan] Add batch-deletion of tickets from result lists.

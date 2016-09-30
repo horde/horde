@@ -27,6 +27,7 @@ try {
     } else {
         $whups_query = $session->get('whups', 'query');
     }
+    $session->set('whups', 'query', $whups_query);
 } catch (Whups_Exception $e) {
     $notification->push($e->getMessage());
 }
@@ -107,5 +108,3 @@ if (!is_null($tickets)) {
 }
 
 $page_output->footer();
-
-$session->set('whups', 'query', $whups_query);
