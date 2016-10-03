@@ -102,7 +102,7 @@ var KronolithMobile = {
                                    'end': end,
                                    'cal': cal.join('|'),
                                    'view': view,
-                                   'sig': start + end + (Math.random() + '').slice(2)
+                                   'sig': start + end
                                  },
                                  KronolithMobile.loadEventsCallback
             );
@@ -318,6 +318,8 @@ var KronolithMobile = {
 
          var loc = false;
 
+         KronolithMobile.event = e;
+
          // Title and calendar
          var title = $('<div>').addClass('kronolithEventDetailTitle').append($('<h2>').text(e.t));
          var calendar = $('<p>').addClass('kronolithEventDetailCalendar').text(Kronolith.conf.calendars[e.ty][e.c]['name']);
@@ -379,6 +381,13 @@ var KronolithMobile = {
            list.append($('<li>').append($('<a>').attr({'rel': 'external', 'href': e.u}).text(e.u)));
          }
 
+         // @todo For now, don't allow editing recurring events.
+         if (e.pe && !e.r) {
+             list.append($('<li>').append($('<input type="button" value="Edit" />'))
+                .click(function(evt) {
+                    HordeMobile.changePage('eventform-view');
+                })) ;
+         }
          return list;
     },
 
@@ -732,13 +741,24 @@ var KronolithMobile = {
     handleSubmit: function(e)
     {
         var form = $('#eventform'),
-            data = HordeJquery.formToObject(form);
-        HordeMobile.doAction('saveEvent', data, KronolithMobile.handleSubmitCallback);
-    },
+            data = HordeJquery.formToObject(form),
+            viewdates;
 
-    handleSubmitCallback: function(r)
-    {
-        // console.log(r);
+        data['view'] = KronolithMobile.view;
+        viewdates = KronolithMobile.viewDates(KronolithMobile.date, KronolithMobile.view);
+        if (!viewdates) {
+            // Day view
+            viewdates = [KronolithMobile.date, KronolithMobile.date];
+        }
+        data['sig'] = viewdates[0].dateString() + viewdates[1].dateString();
+        data['view_start'] = KronolithMobile.cacheStart.dateString();
+        data['view_end'] = KronolithMobile.cacheEnd.dateString();
+        HordeMobile.doAction('saveEvent', data, KronolithMobile.loadEventsCallback);
+
+        if ($('#eventform #event').val()) {
+            $.mobile.back();
+        }
+       $.mobile.back();
     },
 
     prepareFormForNew: function()
@@ -748,16 +768,34 @@ var KronolithMobile = {
             $("targetcalendar").selectmenu("refresh");
         } catch(e) {}
         $("eventform #title").val('');
-        $("eventform #start_date").val('');
-        $("eventform #start_time").val('');
-        $("eventform #end_date").val('');
-        $("eventform #end_time").val('');
-        $("eventform #whole_day").val(0);
+        $("#eventform #start_date").val(Date.parse(KronolithMobile.date).toString('yyyy-MM-dd'));
+        $("#eventform #start_time").val('');
+        $("#eventform #end_date").val(KronolithMobile.date.toString('yyyy-MM-dd'));
+        $("#eventform #end_time").val('');
+        $("#eventform #whole_day").val(0);
     },
+
+    prepareFormForEdit: function()
+    {
+        var event = KronolithMobile.event;
+        $("#eventform")[0].reset();
+        try {
+            $("targetcalendar").selectmenu("refresh");
+        } catch(e) {}
+        $("#eventform #title").val(event.t);
+        $("#eventform #start_date").val(Date.parse(event.s).toString('yyyy-MM-dd'));
+        $("#eventform #start_time").val(Date.parse(event.s).toString('t'));
+        $("#eventform #end_date").val(Date.parse(event.e).toString('yyyy-MM-dd'));
+        $("#eventform #end_time").val(Date.parse(event.e).toString('t'));
+        //$("#eventform #whole_day").val(event.al);
+        $("#eventform #description").val(event.d);
+        $("#eventform #event").val(event.id);
+    },
+
 
     /**
      */
-    loadPage: function()
+    loadPage: function(d)
     {
         switch (HordeMobile.currentPage()) {
         case 'monthview':
@@ -779,9 +817,14 @@ var KronolithMobile = {
 
         case null:
             break;
+
         case 'eventform-view':
-            KronolithMobile.view = 'event_form';
-            KronolithMobile.prepareFormForNew();
+            if (KronolithMobile.event) {
+                KronolithMobile.prepareFormForEdit();
+                KronolithMobile.event = null;
+            } else {
+                KronolithMobile.prepareFormForNew();
+            }
             break;
 
         case 'dayview':
@@ -818,12 +861,7 @@ var KronolithMobile = {
         $('#kronolith-minical').on('click', 'td', function(e) {
             KronolithMobile.selectMonthDay($(e.target).jqmData('date'));
         });
-
-        //$('#nag-list :jqmData(role="footer") a[href^="#nag-taskform-view"]').on('click', NagMobile.prepareFormForNew);
         $('#eventform-view a[href^="#event-submit"]').on('click', KronolithMobile.handleSubmit);
-      //  $('eventform-view a[href^="#event-cancel"]').on('click', NagMobile.handleCancel);
-     //   $('#eventform-view a[href^="#event-delete"]').on('click', NagMobile.handleDelete);
-
 
         // Load initial view.
         KronolithMobile.loadPage();

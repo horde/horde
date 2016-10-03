@@ -1,7 +1,8 @@
 <div data-role="page" id="eventform-view">
-<?php echo $this->smartmobileHeader(array('logout' => true, 'backlink' => true,  'title' => _("Event"))) ?>
+<?php echo $this->smartmobileHeader(array('logout' => true, 'backlink' => false,  'title' => _("Event"))) ?>
   <div data-role="content">
-    <form id="eventform">
+    <form id="eventform" name="eventform">
+      <input type="hidden" id="event" name="event" />
       <div id="kronolith-event-data" data-role="collapsible-set" data-content-theme="d">
         <div data-role="collapsible">
           <h3><?php echo _("Basic")?></h3>

@@ -137,7 +137,8 @@ $code['text'] = array(
     'noevents' => _("No events to display"),
     'yesterday' => _("Yesterday"),
     'today' => _("Today"),
-    'tomorrow' => _("Tomorrow")
+    'tomorrow' => _("Tomorrow"),
+    'edit' => _("Edit"),
 );
 
 /* Map day masks to localized day names for recursion */
