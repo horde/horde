@@ -314,19 +314,16 @@ var KronolithMobile = {
     {
          var list = $('<ul>')
             .addClass('kronolithEventDetail')
-            .attr({'data-role': 'listview', 'data-inset': true});
-
-         var loc = false;
-
-         KronolithMobile.event = e;
+            .attr({'data-role': 'listview', 'data-inset': true}),
+            loc = false, item = $('<div>');
 
          // Title and calendar
          var title = $('<div>').addClass('kronolithEventDetailTitle').append($('<h2>').text(e.t));
          var calendar = $('<p>').addClass('kronolithEventDetailCalendar').text(Kronolith.conf.calendars[e.ty][e.c]['name']);
          list.append($('<li>').append(title).append(calendar));
 
-         // Time
-         var item = $('<div>');
+         KronolithMobile.event = e;
+
          if (e.r) {
              var recurText = Kronolith.text.recur.desc[e.r.t][(e.r.i > 1) ? 1 : 0],
                  date = Date.parse(e.s);
