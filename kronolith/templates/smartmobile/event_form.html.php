@@ -3,6 +3,8 @@
   <div data-role="content">
     <form id="eventform" name="eventform">
       <input type="hidden" id="event" name="event" />
+      <input type="hidden" id="sendupdates" name="sendupdates" value="1" />
+      <input type="hidden" id="organizer" name="organizer" />
       <div id="kronolith-event-data" data-role="collapsible-set" data-content-theme="d">
         <div data-role="collapsible">
           <h3><?php echo _("Basic")?></h3>

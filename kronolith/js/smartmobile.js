@@ -804,8 +804,13 @@ var KronolithMobile = {
         //$("#eventform #whole_day").val(event.al);
         $("#eventform #description").val(event.d);
         $("#eventform #event").val(event.id);
+        if (!event.oy && event.o) {
+            $("#eventform #organizer").val(event.o);
+            $("#eventform #sendupdates").val(0);
+        } else if (event.oy) {
+            $("#eventform #sendupdates").val(1);
+        }
     },
-
 
     /**
      */
