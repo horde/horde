@@ -787,12 +787,6 @@ var KronolithMobile = {
         try {
             $("targetcalendar").selectmenu("refresh");
         } catch(e) {}
-        $("eventform #title").val('');
-        $("#eventform #start_date").val(Date.parse(KronolithMobile.date).toString('yyyy-MM-dd'));
-        $("#eventform #start_time").val('');
-        $("#eventform #end_date").val(KronolithMobile.date.toString('yyyy-MM-dd'));
-        $("#eventform #end_time").val('');
-        $("#eventform #whole_day").val(0);
     },
 
     prepareFormForEdit: function()
