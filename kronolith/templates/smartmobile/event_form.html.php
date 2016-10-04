@@ -55,7 +55,7 @@
         <div data-role="collapsible">
           <h3><?php echo _("Attendees")?></h3>
           <label for="attendees"><?php echo _("Attendees")?></label>
-          <input id="attendees" name="attendeees" type="email" />
+          <input id="attendees" name="attendees" type="email" />
         </div>
         <div data-role="collapsible">
           <h3><?php echo _("Alarm")?>
