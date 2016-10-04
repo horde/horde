@@ -42,7 +42,12 @@ $code['conf'] = array(
                      'read' => Horde_Perms::READ,
                      'edit' => Horde_Perms::EDIT,
                      'delete' => Horde_Perms::DELETE,
-                     'delegate' => Kronolith::PERMS_DELEGATE)
+                     'delegate' => Kronolith::PERMS_DELEGATE),
+    'URI_FILE_DOWNLOAD' => str_replace(
+        array('%23', '%2523', '%7B', '%257B', '%7D', '%257D'),
+        array('#', '#', '{', '{', '}', '}'),
+        strval($registry->downloadUrl('#{filename}', array('actionID' => 'download_file', 'file' => '#{filename}', 'type' => '#{type}', 'source' => '#{source}', 'key' => '#{key}'))->setRaw(true))),
+
 );
 if ($has_tasks) {
     $code['conf']['tasks'] = $registry->tasks->ajaxDefaults();

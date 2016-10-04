@@ -29,6 +29,7 @@ if (!file_exists($GLOBALS['registry']->get('jsfs', 'horde') . '/date/' . $datejs
 $page_output->addScriptFile('date/' . $datejs, 'horde');
 $page_output->addScriptFile('date/date.js', 'horde');
 $page_output->addScriptFile('smartmobile.js');
+$page_output->addScriptFile('jquery.mobile/plugins/interpolate.js', 'horde');
 require KRONOLITH_TEMPLATES . '/smartmobile/javascript_defs.php';
 
 $page_output->header(array(

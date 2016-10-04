@@ -378,6 +378,13 @@ var KronolithMobile = {
            list.append($('<li>').append($('<a>').attr({'rel': 'external', 'href': e.u}).text(e.u)));
          }
 
+         // Files
+         if (e.fs) {
+            $.each(e.fs, function(k, f) {
+                list.append($('<li>').append(KronolithMobile.insertFile(e, f)));
+            });
+         }
+
          // @todo For now, don't allow editing recurring events.
          if (e.pe && !e.r) {
              list.append($('<li>').append($('<input type="button" value="Edit" />'))
@@ -385,7 +392,23 @@ var KronolithMobile = {
                     HordeMobile.changePage('eventform-view');
                 })) ;
          }
+
          return list;
+    },
+
+    insertFile: function (e, f)
+    {
+        var u = $.interpolate(
+            Kronolith.conf.URI_FILE_DOWNLOAD,
+            {
+                filename: f.name,
+                type: encodeURIComponent(f.type),
+                source: 'internal|' + e.c,
+                key: e.id
+            }
+        );
+
+        return $('<a>').attr({ href: u, target: '__blank' }).text(f.name);
     },
 
     clearView: function(view)
