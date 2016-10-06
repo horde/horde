@@ -174,6 +174,9 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
                     if ($action == 'accept-import') {
                         try {
                             $a = $components[$key]->getAttribute('ATTENDEE');
+                            if (!is_array($a)) {
+                                $a = array($a);
+                            }
                             $a_params = $components[$key]->getAttribute('ATTENDEE', true);
                             foreach ($a as $a_key => $attendee) {
                                 $attendee_email = preg_replace('/mailto:/i', '', $attendee);
