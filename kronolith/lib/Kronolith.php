@@ -1958,7 +1958,8 @@ class Kronolith
 
             case self::ITIP_REPLY:
                 $filename = 'event-reply.ics';
-                $vEvent = array_shift($event->toiCalendar(new Horde_Icalendar()));
+                $events = $event->toiCalendar(new Horde_Icalendar());
+                $vEvent = array_shift($events);
                 $itipIdentity = new Horde_Itip_Resource_Identity(
                         $ident,
                         $vEvent->getAttribute('ATTENDEE'),
