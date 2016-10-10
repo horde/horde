@@ -12,7 +12,7 @@ Date.CultureInfo = {
 
     /* Month Name Strings */
     monthNames: ["januar", "februar", "mars", "april", "mai", "juni", "juli", "august", "september", "oktober", "november", "desember"],
-    abbreviatedMonthNames: ["jan", "feb", "mar", "apr", "mai", "jun", "jul", "aug", "sep", "okt", "nov", "des"],
+    abbreviatedMonthNames: ["jan.", "feb.", "mar.", "apr.", "mai.", "jun.", "jul.", "aug.", "sep.", "okt.", "nov.", "des."],
 
 	/* AM/PM Designators */
     amDesignator: "AM",
