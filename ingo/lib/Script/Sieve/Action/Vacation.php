@@ -66,73 +66,89 @@ class Ingo_Script_Sieve_Action_Vacation extends Ingo_Script_Sieve_Action
         if (empty($this->_vars['start']) || empty($this->_vars['end'])) {
             return $this->_vacationCode();
         } elseif ($end_year > $start_year + 1) {
-            $code .= $this->_yearCheck($start_year + 1, $end_year - 1)
-                . $this->_vacationCode()
-                . "\n}\n"
-                . $this->_yearCheck($start_year, $start_year);
+            $code .= 'if ' . $this->_yearCheck($start_year + 1, $end_year - 1)
+                . " {\n"
+                . '    ' . $this->_vacationCode()
+                . "\n    } elsif "
+                . $this->_yearCheck($start_year, $start_year) . " {\n";
+            $code .= '        if anyof ( ';
             if ($start_month < 12) {
                 $code .= $this->_monthCheck($start_month + 1, 12)
-                    . $this->_vacationCode()
-                    . "\n}\n";
+                    . ",\n                   ";
             }
-            $code .= $this->_monthCheck($start_month, $start_month)
-                . $this->_dayCheck($start_day, 31)
-                . $this->_vacationCode()
-                . "\n}\n}\n}\n"
-                . $this->_yearCheck($end_year, $end_year);
+            $code .= 'allof ( '
+                . $this->_monthCheck($start_month, $start_month) . ",\n"
+                . '                           '
+                . $this->_dayCheck($start_day, 31) . " ) ) {\n"
+                . '        ' . $this->_vacationCode()
+                . "\n        }\n    } elsif "
+                . $this->_yearCheck($end_year, $end_year) . " {\n"
+                . '        if anyof ( ';
             if ($end_month > 1) {
                 $code .= $this->_monthCheck(1, $end_month - 1)
-                    . $this->_vacationCode()
-                    . "\n}\n";
+                    . ",\n                   ";
             }
-            $code .= $this->_monthCheck($end_month, $end_month)
-                . $this->_dayCheck(1, $end_day)
-                . $this->_vacationCode()
-                . "\n}\n}\n}";
+            $code .= 'allof ( '
+                . $this->_monthCheck($end_month, $end_month) . ",\n"
+                . '                           '
+                . $this->_dayCheck(1, $end_day) . " ) ) {\n"
+                . '        ' . $this->_vacationCode()
+                . "\n        }\n    }";
         } elseif ($end_year == $start_year + 1) {
-            $code .= $this->_yearCheck($start_year, $start_year);
+            $code .= 'if allof ( '
+                . $this->_yearCheck($start_year, $start_year) . ",\n"
+                . '           anyof ( ';
             if ($start_month < 12) {
-                $code .= $this->_monthCheck($start_month + 1, 12)
-                    . $this->_vacationCode()
-                    . "\n}\n";
+                $code .= $this->_monthCheck($start_month + 1, 12) . ",\n"
+                    . '                   ';
             }
-            $code .= $this->_monthCheck($start_month, $start_month)
-                . $this->_dayCheck($start_day, 31)
-                . $this->_vacationCode()
-                . "\n}\n}\n}\n"
-                . $this->_yearCheck($end_year, $end_year);
+            $code .= 'allof ( '
+                . $this->_monthCheck($start_month, $start_month) . ",\n"
+                    . '                           '
+                . $this->_dayCheck($start_day, 31) . " ) ) ) {\n"
+                . '    ' . $this->_vacationCode()
+                . "\n    } elsif allof ( "
+                . $this->_yearCheck($end_year, $end_year) . ",\n"
+                . '                    anyof ( ';
             if ($end_month > 1) {
-                $code .= $this->_monthCheck(1, $end_month - 1)
-                    . $this->_vacationCode()
-                    . "\n}\n";
+                $code .= $this->_monthCheck(1, $end_month - 1) . ",\n"
+                    . '                            ';
             }
-            $code .= $this->_monthCheck($end_month, $end_month)
-                . $this->_dayCheck(1, $end_day)
-                . $this->_vacationCode()
-                . "\n}\n}\n}";
+            $code .= 'allof ( '
+                . $this->_monthCheck($end_month, $end_month) . ",\n"
+                . '                                    '
+                . $this->_dayCheck(1, $end_day) . " ) ) ) {\n"
+                . '    ' . $this->_vacationCode()
+                . "\n    }";
         } elseif ($end_year == $start_year) {
-            $code .= $this->_yearCheck($start_year, $start_year);
+            $code .= 'if ' . $this->_yearCheck($start_year, $start_year) . " {\n";
             if ($end_month > $start_month) {
+                $code .= '        if anyof ( ';
                 if ($end_month > $start_month + 1) {
                     $code .= $this->_monthCheck($start_month + 1, $end_month - 1)
-                        . $this->_vacationCode()
-                        . "\n}\n";
+                        . ",\n                   ";
                 }
-                $code .= $this->_monthCheck($start_month, $start_month)
-                    . $this->_dayCheck($start_day, 31)
+                $code .= 'allof ( '
+                    . $this->_monthCheck($start_month, $start_month) . ",\n"
+                    . '                           '
+                    . $this->_dayCheck($start_day, 31) . " ),\n"
+                    . '                   allof ( '
+                    . $this->_monthCheck($end_month, $end_month) . ",\n"
+                    . '                           '
+                    . $this->_dayCheck(1, $end_day) . " ) ) {\n"
+                    . '        '
                     . $this->_vacationCode()
-                    . "\n}\n}\n"
-                    . $this->_monthCheck($end_month, $end_month)
-                    . $this->_dayCheck(1, $end_day)
-                    . $this->_vacationCode()
-                    . "\n}\n}\n";
+                    . "\n        }\n";
             } elseif ($end_month == $start_month) {
-                $code .= $this->_monthCheck($start_month, $start_month)
-                    . $this->_dayCheck($start_day, $end_day)
+                $code .= '        if allof ( '
+                    . $this->_monthCheck($start_month, $start_month) . ",\n"
+                    . '                   '
+                    . $this->_dayCheck($start_day, $end_day) . " ) {\n"
+                    . '        '
                     . $this->_vacationCode()
-                    . "\n}\n}\n";
+                    . "\n        }\n";
             }
-            $code .= "}";
+            $code .= "    }";
         }
 
         return $code;
@@ -166,7 +182,7 @@ class Ingo_Script_Sieve_Action_Vacation extends Ingo_Script_Sieve_Action
      */
     protected function _vacationCode()
     {
-        $code = 'vacation ';
+        $code = '    vacation ';
         if (!empty($this->_vars['days'])) {
             $code .= ':days ' . $this->_vars['days'] . ' ';
         }
@@ -208,13 +224,12 @@ class Ingo_Script_Sieve_Action_Vacation extends Ingo_Script_Sieve_Action
      */
     protected function _yearCheck($begin, $end)
     {
-        $code = 'if header :regex "Received" "^.*(' . $begin;
+        $code = 'header :regex "Received" "^.*(' . $begin;
         for ($i = $begin + 1; $i <= $end; $i++) {
             $code .= '|' . $i;
         }
         return $code
-            . ') (\\\\(.*\\\\) )?..:..:.. (\\\\(.*\\\\) )?((\\\\+|\\\\-)[[:digit:]]{4}|.{1,5})( \\\\(.*\\\\))?$" {'
-            . "\n    ";
+            . ') (\\\\(.*\\\\) )?..:..:.. (\\\\(.*\\\\) )?((\\\\+|\\\\-)[[:digit:]]{4}|.{1,5})( \\\\(.*\\\\))?$"';
     }
 
     /**
@@ -223,25 +238,23 @@ class Ingo_Script_Sieve_Action_Vacation extends Ingo_Script_Sieve_Action
     {
         $months = array('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
                         'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec');
-        $code = 'if header :regex "Received" "^.*(' . $months[$begin - 1];
+        $code = 'header :regex "Received" "^.*(' . $months[$begin - 1];
         for ($i = $begin + 1; $i <= $end; $i++) {
             $code .= '|' . $months[$i - 1];
         }
         return $code
-            . ') (\\\\(.*\\\\) )?.... (\\\\(.*\\\\) )?..:..:.. (\\\\(.*\\\\) )?((\\\\+|\\\\-)[[:digit:]]{4}|.{1,5})( \\\\(.*\\\\))?$" {'
-            . "\n    ";
+            . ') (\\\\(.*\\\\) )?.... (\\\\(.*\\\\) )?..:..:.. (\\\\(.*\\\\) )?((\\\\+|\\\\-)[[:digit:]]{4}|.{1,5})( \\\\(.*\\\\))?$"';
     }
 
     /**
      */
     protected function _dayCheck($begin, $end)
     {
-        $code = 'if header :regex "Received" "^.*(' . str_repeat('[0 ]', 2 - strlen($begin)) . $begin;
+        $code = 'header :regex "Received" "^.*(' . str_repeat('[0 ]', 2 - strlen($begin)) . $begin;
         for ($i = $begin + 1; $i <= $end; $i++) {
             $code .= '|' . str_repeat('[0 ]', 2 - strlen($i)) . $i;
         }
         return $code
-            . ') (\\\\(.*\\\\) )?... (\\\\(.*\\\\) )?.... (\\\\(.*\\\\) )?..:..:.. (\\\\(.*\\\\) )?((\\\\+|\\\\-)[[:digit:]]{4}|.{1,5})( \\\\(.*\\\\))?$" {'
-            . "\n    ";
+            . ') (\\\\(.*\\\\) )?... (\\\\(.*\\\\) )?.... (\\\\(.*\\\\) )?..:..:.. (\\\\(.*\\\\) )?((\\\\+|\\\\-)[[:digit:]]{4}|.{1,5})( \\\\(.*\\\\))?$"';
     }
 }
