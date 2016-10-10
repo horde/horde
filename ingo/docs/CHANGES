@@ -2,6 +2,8 @@
 v3.2.13-git
 -----------
 
+[jan] Fix some edge cases with Sieve vacation rules with date limits (Bug
+      #14486).
 
 
 -------
