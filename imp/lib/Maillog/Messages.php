@@ -75,7 +75,6 @@ class IMP_Maillog_Messages implements IteratorAggregate
         foreach ($ret as $ob) {
             $this->_msgids[] = $ob->getEnvelope()->message_id;
         }
-        Horde::debug($this->_msgids);
 
         return $this->_msgids;
     }
