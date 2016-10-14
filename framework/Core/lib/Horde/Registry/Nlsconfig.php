@@ -135,7 +135,17 @@ class Horde_Registry_Nlsconfig
                 if (setlocale(LC_ALL, $lang . '.UTF-8')) {
                     $valid = true;
                 }
-                setlocale(LC_ALL, $locale);
+                if (strlen($locale) <= 255) {
+                    setlocale(LC_ALL, $locale);
+                } else {
+                    // Locale length is limited to 255 characters.
+                    foreach (explode(';', $locale) as $lc) {
+                        list($category, $catLocale) = explode('=', $lc);
+                        if (defined($category)) {
+                            setlocale(constant($category), $catLocale);
+                        }
+                    }
+                }
             }
             $GLOBALS['session']->set('horde', 'nls/valid_' . $lang, $valid);
         }
