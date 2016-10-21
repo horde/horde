@@ -2228,6 +2228,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             );
         } catch (Horde_ActiveSync_Exception $e) {
             $this->_logger->err($e->getMessage());
+            $this->_logger->err(sprintf(
+                'Message headers: %s',
+                $mailer->headers->toString())
+            );
             $this->_endBuffer();
             throw $e;
         }
