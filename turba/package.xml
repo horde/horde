@@ -28,7 +28,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2015-11-20</date>
+ <date>2016-10-21</date>
  <version>
   <release>4.3.0</release>
   <api>4.0.0</api>
@@ -138,7 +138,6 @@
      <file name="Ldif.php" role="horde" />
     </dir> <!-- /lib/Data -->
     <dir name="Driver">
-     <file name="Facebook.php" role="horde" />
      <file name="Favourites.php" role="horde" />
      <file name="Group.php" role="horde" />
      <file name="Imsp.php" role="horde" />
@@ -945,7 +944,6 @@
    <install as="turba/lib/Ajax/Imple/TagAutoCompleter.php" name="lib/Ajax/Imple/TagAutoCompleter.php" />
    <install as="turba/lib/Block/Minisearch.php" name="lib/Block/Minisearch.php" />
    <install as="turba/lib/Data/Ldif.php" name="lib/Data/Ldif.php" />
-   <install as="turba/lib/Driver/Facebook.php" name="lib/Driver/Facebook.php" />
    <install as="turba/lib/Driver/Favourites.php" name="lib/Driver/Favourites.php" />
    <install as="turba/lib/Driver/Group.php" name="lib/Driver/Group.php" />
    <install as="turba/lib/Driver/Imsp.php" name="lib/Driver/Imsp.php" />
@@ -2152,7 +2150,7 @@
    </notes>
   </release>
   <release>
-   <date>2015-11-20</date>
+   <date>2016-10-21</date>
    <version>
     <release>4.3.0</release>
     <api>4.0.0</api>
