@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Log message headers on error when sending email via ActiveSync.
 * [jan] Fix warning if an old locale is longer than 255 characters (Bug #14489).
 * [jan] Fix abbreviated Norwegian month names in JavaScript to include trailing dot (Bug #14488).
 * [jan] Fix reading session data from the command line with PHP 7.
@@ -4276,6 +4277,7 @@
    <date>2016-09-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Log message headers on error when sending email via ActiveSync.
 * [jan] Fix warning if an old locale is longer than 255 characters (Bug #14489).
 * [jan] Fix abbreviated Norwegian month names in JavaScript to include trailing dot (Bug #14488).
 * [jan] Fix reading session data from the command line with PHP 7.
