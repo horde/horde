@@ -110,7 +110,8 @@ class Passwd_Factory_Driver extends Horde_Core_Factory_Base
 
             case 'Passwd_Driver_Sql':
             case 'Passwd_Driver_Vpopmail':
-                if (!($backend['params']['db'] instanceof Horde_Db_Adapter)) {
+                if (empty($backend['params']['db']) ||
+                    !($backend['params']['db'] instanceof Horde_Db_Adapter)) {
                     try {
                         if (empty($backend['params'])) {
                             $backend['params']['db'] = $this->_injector
