@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Colorize PHPUnit output.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2648,7 +2648,7 @@
    <date>2016-07-12</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Colorize PHPUnit output.
    </notes>
   </release>
  </changelog>

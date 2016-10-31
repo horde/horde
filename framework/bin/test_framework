@@ -42,6 +42,7 @@ require_once 'Horde/Test/Autoload.php';
 Horde_Test_Autoload::init();
 
 $_SERVER['argv'][] = '--verbose';
+$_SERVER['argv'][] = '--color=auto';
 $_SERVER['argv'][] = 'Horde_Test_Runner';
 $_SERVER['argv'][] = __FILE__;
 PHPUnit_TextUI_Command::main();
