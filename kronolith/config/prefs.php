@@ -179,7 +179,7 @@ $_prefs['day_hour_end'] = array(
 $_prefs['day_hour_force'] = array(
     'value' => 0,
     'type' => 'checkbox',
-    'desc' => _("Restrict day and week views to these time slots, even if there <strong>are</strong> earlier or later events?"),
+    'desc' => _("Restrict day and week views to these time slots, even if there <strong>are</strong> earlier or later events?") . ' (<em>' . _("Basic view only") . '</em>',
 );
 
 // number of slots in each hour:
