@@ -29,6 +29,8 @@ case Horde_Registry::VIEW_DYNAMIC:
 /* Load Ajax interface. */
 $today = new Horde_Date($_SERVER['REQUEST_TIME']);
 $ampm = !$prefs->getValue('twentyFour');
+$dayStart = $prefs->getValue('day_hour_start') / 2;
+$dayEnd = $prefs->getValue('day_hour_end') / 2;
 
 $eventAlarmMethods = $eventAlarmParams = $taskAlarmMethods = $taskAlarmParams = '';
 foreach ($injector->getInstance('Horde_Alarm')->handlers() as $method => $handler) {

@@ -40,7 +40,7 @@
 <table class="kronolith-view kronolithViewDay">
   <tbody id="kronolithViewWeekBody">
     <?php for ($i = 0; $i < 24; $i++): ?>
-    <tr<?php if ($i < 9 || $i > 19) echo ' class="kronolithNight"' ?>>
+    <tr<?php if ($i < $dayStart || $i >= $dayEnd) echo ' class="kronolithNight"' ?>>
       <td class="kronolith-first-col"><span><?php echo $ampm ? ($i % 12 ? ($i % 12): 12) : $i ?>:00</span></td>
       <td<?php if ($w == 6 || $w == 0) echo ' class="kronolith-weekend"' ?>>&nbsp;</td>
       <td<?php if ($w == 5 || $w == 6) echo ' class="kronolith-weekend"' ?>>&nbsp;</td>
