@@ -2,6 +2,8 @@
 v4.3.0-git
 ----------
 
+[jan] Automatically scroll to preferred start of day (heinz@htl-steyr.ac.at,
+      Request #14498).
 [mjr] Changes to support EAS attachment sync support.
 [jan] Remove dependency on PEAR's Date package.
 [mjr] Fix display of recurring multi-day events ("Pascal Rigaux"

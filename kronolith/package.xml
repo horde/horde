@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Automatically scroll to preferred start of day (heinz@htl-steyr.ac.at, Request #14498).
 * [mjr] Changes to support EAS attachment sync support.
 * [jan] Remove dependency on PEAR&apos;s Date package.
 * [mjr] Fix display of recurring multi-day events ("Pascal Rigaux" &lt;pascal.rigaux@univ-paris1.fr&gt;).
@@ -2827,6 +2828,7 @@
    <date>2016-05-12</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Automatically scroll to preferred start of day (heinz@htl-steyr.ac.at, Request #14498).
 * [mjr] Changes to support EAS attachment sync support.
 * [jan] Remove dependency on PEAR&apos;s Date package.
 * [mjr] Fix display of recurring multi-day events ("Pascal Rigaux" &lt;pascal.rigaux@univ-paris1.fr&gt;).

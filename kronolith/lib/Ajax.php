@@ -101,6 +101,7 @@ class Kronolith_Ajax
             'login_view' => $prefs->getValue('defaultview'),
             'default_calendar' => 'internal|' . Kronolith::getDefaultCalendar(Horde_Perms::EDIT),
             'max_events' => intval($prefs->getValue('max_events')),
+            'day_hour_start' => $prefs->getValue('day_hour_start'),
             'date_format' => Horde_Core_Script_Package_Datejs::translateFormat(
                 Horde_Nls::getLangInfo(D_FMT)
             ),
