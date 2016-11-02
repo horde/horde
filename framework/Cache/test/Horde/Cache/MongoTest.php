@@ -45,13 +45,12 @@ class Horde_Cache_MongoTest extends Horde_Cache_TestBase
             $this->reason = 'MongoDB not available.';
             return;
         }
-        $this->mongo->setLogger(new Horde_Log_Logger(new Horde_Log_Handler_Cli()));
-        return new Horde_Cache(
-            new Horde_Cache_Storage_Mongo(array(
-                'mongo_db' => $this->mongo,
-                'collection' => 'horde_cache_test'
-            ))
-        );
+        $storage = new Horde_Cache_Storage_Mongo(array(
+            'mongo_db' => $this->mongo,
+            'collection' => 'horde_cache_test'
+        ));
+        $storage->setLogger(new Horde_Log_Logger(new Horde_Log_Handler_Cli()));
+        return new Horde_Cache($storage);
     }
 
     public function tearDown()
