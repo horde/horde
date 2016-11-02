@@ -80,7 +80,11 @@ class Horde_Core_LoginTasks_Backend_Horde extends Horde_LoginTasks_Backend
      */
     public function getLastRun()
     {
-        $lasttask_pref = @unserialize($GLOBALS['prefs']->getValue('last_logintasks'));
+        try {
+            $lasttask_pref = @unserialize($GLOBALS['prefs']->getValue('last_logintasks'));
+        } catch (Horde_Prefs_Exception $e) {
+            return array();
+        }
 
         return is_array($lasttask_pref)
             ? $lasttask_pref
