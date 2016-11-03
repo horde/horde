@@ -114,7 +114,6 @@ class Horde_Cache_Storage_Mongo extends Horde_Cache_Storage_Base
             return false;
         }
 
-        var_dump($result);
         if ($this->_logger) {
             $this->_logger->log(sprintf('Cache hit: %s (cache ID %s)', $okey, $key), 'DEBUG');
         }
