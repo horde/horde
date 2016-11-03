@@ -16,12 +16,12 @@ matrix:
     env: WITH_MONGO=false
   - php: 5.6
     env: WITH_MONGO=false
-  - php: 7.0
-    env: WITH_MONGO=true
-  - php: 7.1
-    env: WITH_MONGO=true
   allow_failures:
     - php: nightly
+    - php: 7.0
+      env: WITH_MONGO=true
+    - php: 7.1
+      env: WITH_MONGO=true
 services:
 - memcached
 - mongodb
