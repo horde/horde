@@ -69,6 +69,7 @@ abstract class Horde_Cache_TestBase extends Horde_Test_Case
 
     public function testOutput()
     {
+        $this->markTestSkipped();
         $this->assertFalse($this->cache->output('key1', 0));
         $this->cache->set('key1', 'data1', 0);
         ob_start();
