@@ -28,7 +28,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2016-09-06</date>
+ <date>2016-11-03</date>
  <version>
   <release>4.2.17</release>
   <api>4.0.0</api>
@@ -2149,7 +2149,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-09-06</date>
+   <date>2016-11-03</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [mjr] Fix regression in sorting contacts by a name field (Bug #14471).
