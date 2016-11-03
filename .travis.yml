@@ -9,6 +9,7 @@ php:
 - 7.1
 - nightly
 matrix:
+  fast_finish: true
   exclude:
   - php: 5.4
     env: WITH_MONGO=false
