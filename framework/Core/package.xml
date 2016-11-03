@@ -30,7 +30,7 @@
  </developer>
  <date>2016-11-03</date>
  <version>
-  <release>2.27.1</release>
+  <release>2.27.2</release>
   <api>2.27.0</api>
  </version>
  <stability>
@@ -39,11 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Allow administrators to log in if preference backend is not available.
-* [mjr] Log message headers on error when sending email via ActiveSync.
-* [jan] Fix warning if an old locale is longer than 255 characters (Bug #14489).
-* [jan] Fix abbreviated Norwegian month names in JavaScript to include trailing dot (Bug #14488).
-* [jan] Fix reading session data from the command line with PHP 7.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4283,6 +4279,19 @@
 * [jan] Fix warning if an old locale is longer than 255 characters (Bug #14489).
 * [jan] Fix abbreviated Norwegian month names in JavaScript to include trailing dot (Bug #14488).
 * [jan] Fix reading session data from the command line with PHP 7.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.27.2</release>
+    <api>2.27.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-11-03</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
