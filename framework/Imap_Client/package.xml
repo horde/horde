@@ -12,7 +12,7 @@
  </lead>
  <date>2016-11-03</date>
  <version>
-  <release>2.29.10</release>
+  <release>2.29.11</release>
   <api>2.29.0</api>
  </version>
  <stability>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Fix parsing GETACL responses from RFC 4314 capable IMAP servers (Bug #14466).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3051,6 +3051,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix parsing GETACL responses from RFC 4314 capable IMAP servers (Bug #14466).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.29.11</release>
+    <api>2.29.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-11-03</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
