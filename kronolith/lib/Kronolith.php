@@ -1564,33 +1564,33 @@ class Kronolith
             } else {
                 $perm->removeGuestPermission(self::PERMS_DELEGATE, false);
             }
-        }
 
-        // Process creator permissions.
-        if (Horde_Util::getFormData('creator_show')) {
-            $perm->addCreatorPermission(Horde_Perms::SHOW, false);
-        } else {
-            $perm->removeCreatorPermission(Horde_Perms::SHOW, false);
-        }
-        if (Horde_Util::getFormData('creator_read')) {
-            $perm->addCreatorPermission(Horde_Perms::READ, false);
-        } else {
-            $perm->removeCreatorPermission(Horde_Perms::READ, false);
-        }
-        if (Horde_Util::getFormData('creator_edit')) {
-            $perm->addCreatorPermission(Horde_Perms::EDIT, false);
-        } else {
-            $perm->removeCreatorPermission(Horde_Perms::EDIT, false);
-        }
-        if (Horde_Util::getFormData('creator_delete')) {
-            $perm->addCreatorPermission(Horde_Perms::DELETE, false);
-        } else {
-            $perm->removeCreatorPermission(Horde_Perms::DELETE, false);
-        }
-        if (Horde_Util::getFormData('creator_delegate')) {
-            $perm->addCreatorPermission(self::PERMS_DELEGATE, false);
-        } else {
-            $perm->removeCreatorPermission(self::PERMS_DELEGATE, false);
+            // Process creator permissions.
+            if (Horde_Util::getFormData('creator_show')) {
+                $perm->addCreatorPermission(Horde_Perms::SHOW, false);
+            } else {
+                $perm->removeCreatorPermission(Horde_Perms::SHOW, false);
+            }
+            if (Horde_Util::getFormData('creator_read')) {
+                $perm->addCreatorPermission(Horde_Perms::READ, false);
+            } else {
+                $perm->removeCreatorPermission(Horde_Perms::READ, false);
+            }
+            if (Horde_Util::getFormData('creator_edit')) {
+                $perm->addCreatorPermission(Horde_Perms::EDIT, false);
+            } else {
+                $perm->removeCreatorPermission(Horde_Perms::EDIT, false);
+            }
+            if (Horde_Util::getFormData('creator_delete')) {
+                $perm->addCreatorPermission(Horde_Perms::DELETE, false);
+            } else {
+                $perm->removeCreatorPermission(Horde_Perms::DELETE, false);
+            }
+            if (Horde_Util::getFormData('creator_delegate')) {
+                $perm->addCreatorPermission(self::PERMS_DELEGATE, false);
+            } else {
+                $perm->removeCreatorPermission(self::PERMS_DELEGATE, false);
+            }
         }
 
         // Process user permissions.

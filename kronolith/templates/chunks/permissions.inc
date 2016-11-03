@@ -140,7 +140,6 @@
         </td>
         <?php endif; ?>
       </tr>
-      <?php endif; ?>
 
       <!-- Creator Permissions -->
       <tr>
@@ -168,6 +167,7 @@
         </td>
         <?php endif; ?>
       </tr>
+      <?php endif; ?>
       </tbody>
     </table>
     </div>

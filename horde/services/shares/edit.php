@@ -142,28 +142,28 @@ case 'editform':
         } else {
             $perm->removeGuestPermission(Horde_Perms::DELETE, false);
         }
-    }
 
-    // Process creator permissions.
-    if ($vars->creator_show) {
-        $perm->addCreatorPermission(Horde_Perms::SHOW, false);
-    } else {
-        $perm->removeCreatorPermission(Horde_Perms::SHOW, false);
-    }
-    if ($vars->creator_read) {
-        $perm->addCreatorPermission(Horde_Perms::READ, false);
-    } else {
-        $perm->removeCreatorPermission(Horde_Perms::READ, false);
-    }
-    if ($vars->creator_edit) {
-        $perm->addCreatorPermission(Horde_Perms::EDIT, false);
-    } else {
-        $perm->removeCreatorPermission(Horde_Perms::EDIT, false);
-    }
-    if ($vars->creator_delete) {
-        $perm->addCreatorPermission(Horde_Perms::DELETE, false);
-    } else {
-        $perm->removeCreatorPermission(Horde_Perms::DELETE, false);
+        // Process creator permissions.
+        if ($vars->creator_show) {
+            $perm->addCreatorPermission(Horde_Perms::SHOW, false);
+        } else {
+            $perm->removeCreatorPermission(Horde_Perms::SHOW, false);
+        }
+        if ($vars->creator_read) {
+            $perm->addCreatorPermission(Horde_Perms::READ, false);
+        } else {
+            $perm->removeCreatorPermission(Horde_Perms::READ, false);
+        }
+        if ($vars->creator_edit) {
+            $perm->addCreatorPermission(Horde_Perms::EDIT, false);
+        } else {
+            $perm->removeCreatorPermission(Horde_Perms::EDIT, false);
+        }
+        if ($vars->creator_delete) {
+            $perm->addCreatorPermission(Horde_Perms::DELETE, false);
+        } else {
+            $perm->removeCreatorPermission(Horde_Perms::DELETE, false);
+        }
     }
 
     foreach ($vars->u_names as $key => $user_backend) {

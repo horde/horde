@@ -126,7 +126,6 @@ ksort($userperms);
   </td>
   <td>&nbsp;</td>
 </tr>
-<?php endif; ?>
 
 <!-- Spacer -->
 <tr><td colspan="7">&nbsp;</td></tr>
@@ -168,6 +167,7 @@ ksort($userperms);
   </td>
   <td>&nbsp;</td>
 </tr>
+<?php endif; ?>
 
 <!-- Spacer -->
 <tr><td colspan="7">&nbsp;</td></tr>
