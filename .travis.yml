@@ -10,6 +10,12 @@ php:
 - nightly
 matrix:
   exclude:
+  - php: 5.4
+    env: WITH_MONGO=false
+  - php: 5.5
+    env: WITH_MONGO=false
+  - php: 5.6
+    env: WITH_MONGO=false
   - php: 7.0
     env: WITH_MONGO=true
   - php: 7.1
