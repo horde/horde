@@ -2085,6 +2085,7 @@ class Horde_Registry implements Horde_Shutdown_Task
         $logout = new Horde_Registry_Logout();
         $logout->run();
 
+        // @suspicious shouldn't this be 'auth/'
         $session->remove('horde', 'auth');
         $session->remove('horde', 'auth_app/');
 

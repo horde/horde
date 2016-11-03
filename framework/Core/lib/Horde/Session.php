@@ -304,6 +304,7 @@ class Horde_Session
         if (isset($_SESSION)) {
             session_destroy();
         }
+        // @suspicious shouldn't we empty $this->_data here too?
         $this->_cleansession = true;
         $GLOBALS['injector']->getInstance('Horde_Secret_Cbc')->clearKey();
     }
