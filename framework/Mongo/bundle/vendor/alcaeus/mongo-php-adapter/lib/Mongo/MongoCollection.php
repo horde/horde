@@ -555,6 +555,7 @@ class MongoCollection
         $options = ['projection' => TypeConverter::fromLegacy($fields)] + $options;
         try {
             $document = $this->collection->findOne(TypeConverter::fromLegacy($query), $options);
+            var_dump($document);
         } catch (\MongoDB\Driver\Exception\Exception $e) {
             throw ExceptionConverter::toLegacy($e);
         }
