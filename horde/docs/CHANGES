@@ -2,6 +2,8 @@
 v5.2.13-git
 -----------
 
+[jan] Disallow setting of creator permissions too if sharing with world is
+      disabled.
 
 
 -------

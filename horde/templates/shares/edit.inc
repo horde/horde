@@ -122,7 +122,6 @@ $operm = isset($userperms[$owner])
     <label for="guest_delete" class="hidden"><?php echo _("Delete") ?></label>
   </td>
 </tr>
-<?php endif; ?>
 
 <!-- Spacer -->
 <tr><td>&nbsp;</td></tr>
@@ -158,6 +157,7 @@ $operm = isset($userperms[$owner])
     <label for="creator_delete" class="hidden"><?php echo _("Delete") ?></label>
   </td>
 </tr>
+<?php endif; ?>
 
 <!-- Spacer -->
 <tr><td>&nbsp;</td></tr>
