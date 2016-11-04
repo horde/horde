@@ -283,8 +283,8 @@ Edition to function properly.
 
    .. Important:: Make sure you are running a supported (i.e. new enough)
                   version of PEAR: use the test script described below under
-                  "`Configuring Horde`_".  Do **not** use the PEAR version
-                  from ftp.horde.org.
+                  "`Testing Horde Groupware Webmail Edition`_".  Do **not** use
+                  the PEAR version from ftp.horde.org.
 
    Check that the path where the PEAR packages are installed are part of the
    ``include_path`` parameter that PHP uses to find PEAR packages.
@@ -866,6 +866,8 @@ The Horde Team
 .. _docs/PERFORMANCE: PERFORMANCE
 .. _docs/SECURITY: ../../horde/docs/SECURITY
 .. _docs/TRANSLATIONS: ../../horde/docs/TRANSLATIONS
+.. _`curl extension`: http://php.net/curl
+.. _`http extension`: http://php.net/http
 .. _`File Uploads`: http://wiki.horde.org/FAQ/Admin/FileUploads
 .. _`session.gc_probability`: http://www.php.net/manual/en/session.configuration.php#ini.session.gc-probability
 .. _`session.gc_divisor`: http://www.php.net/manual/en/session.configuration.php#ini.session.gc-divisor
