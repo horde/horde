@@ -277,8 +277,8 @@ properly.
 
    .. Important:: Make sure you are running a supported (i.e. new enough)
                   version of PEAR: use the test script described below under
-                  "`Configuring Horde`_".  Do **not** use the PEAR version
-                  from ftp.horde.org.
+                  "`Testing Horde Groupware`_".  Do **not** use the PEAR
+                  version from ftp.horde.org.
 
    Check that the path where the PEAR packages are installed are part of the
    ``include_path`` parameter that PHP uses to find PEAR packages.
