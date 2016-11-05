@@ -347,16 +347,15 @@ class Horde_ActiveSync_Imap_Adapter
             $this->_procid,
             serialize($status))
         );
-
         $current_modseq = $status[Horde_ActiveSync_Folder_Imap::HIGHESTMODSEQ];
+        $folder->checkValidity($status);
 
         if (($current_modseq && $folder->modseq() > 0) &&
             (($folder->modseq() < $current_modseq) ||
-             !empty($options['softdelete']) || !empty($options['refreshfilter']) )) {
+             !empty($options['softdelete']) || !empty($options['refreshfilter']))) {
 
             $this->_logger->info(sprintf(
                 '[%s] CONDSTORE and CHANGES', $this->_procid));
-            $folder->checkValidity($status);
 
             // Catch all *changes* since the provided MODSEQ value.
             $query = new Horde_Imap_Client_Search_Query();
@@ -508,7 +507,6 @@ class Horde_ActiveSync_Imap_Adapter
             $this->_logger->info(sprintf(
                 '[%s] NO CONDSTORE or per mailbox MODSEQ. minuid: %s, total_messages: %s',
                 $this->_procid, $folder->minuid(), $status['messages']));
-            $folder->checkValidity($status);
             $query = new Horde_Imap_Client_Search_Query();
             if (!empty($options['sincedate'])) {
                 $query->dateSearch(
