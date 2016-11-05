@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Prevent building invalid HTML when building an email from a SMART_REPLY (Bug #14500).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3270,7 +3270,7 @@
    <date>2016-09-28</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Prevent building invalid HTML when building an email from a SMART_REPLY (Bug #14500).
    </notes>
   </release>
  </changelog>
