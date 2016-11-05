@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* 
+* [mjr] Replace defunct data source for surface station data (Bug #14502).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -991,7 +991,7 @@
    <date>2016-11-03</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* 
+* [mjr] Replace defunct data source for surface station data (Bug #14502).
    </notes>
   </release>
  </changelog>
