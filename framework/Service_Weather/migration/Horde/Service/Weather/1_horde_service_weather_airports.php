@@ -7,12 +7,16 @@ class HordeServiceWeatherAirports extends Horde_Db_Migration_Base
     {
         // Check for the file before attempting to populate the table. Will
         // save us from having to rollback the transaction.
+        $t = $this->createTable('horde_metar_airports', array('autoincrementKey' => array('id')));
         if (!$this->_checkForMetarData()) {
-            throw new Horde_Exception('Unable to locate METAR data.');
+            // Return instead of failing since this will always fail if
+            // the data isn't present locally (the data source is defunct).
+            // The '2' migration will populate the table with the new data
+            // source.
+            return;
         }
 
         $this->beginDbTransaction();
-        $t = $this->createTable('horde_metar_airports', array('autoincrementKey' => array('id')));
         $t->column('id', 'integer');
         $t->column('block', 'integer');
         $t->column('station', 'integer');
