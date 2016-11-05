@@ -108,6 +108,10 @@ class Horde_Service_Weather_Parser_Metar extends Horde_Service_Weather_Parser_Ba
         $weatherData['update'] = strtotime(trim($data[0]) . ' GMT');
         $weatherData['updateRaw'] = trim($data[0]);
 
+        if (empty($weatherData['update'])) {
+            throw new Horde_Service_Weather_Exception('Unable to parse data.');
+        }
+
         // and prepare the rest for stepping through
         array_shift($data);
         $metar = explode(' ', preg_replace('/\s{2,}/', ' ', implode(' ', $data)));
