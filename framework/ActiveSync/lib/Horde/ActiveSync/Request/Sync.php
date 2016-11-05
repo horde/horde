@@ -420,6 +420,13 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                         '[%s] FOLDERSYNC required, collection gone.',
                         $this->_procid));
                     $statusCode = self::STATUS_FOLDERSYNC_REQUIRED;
+                } catch (Horde_ActiveSync_Exception_TemporaryFailure $e) {
+                    $this->_logger->err(sprintf(
+                        '[%s] Failure in polling for changes: "%s".',
+                        $this->_procid,
+                        $e->getMessage())
+                    );
+                    $statusCode = Horde_ActiveSync_Status::SERVER_ERROR_RETRY;
                 } catch (Horde_Exception_AuthenticationFailure $e) {
                     $this->_logger->err(sprintf(
                         '[%s] Lost authentication during SYNC!!',

@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-09-28</date>
+ <date>2016-11-05</date>
  <version>
   <release>2.37.2</release>
   <api>2.37.0</api>
@@ -60,6 +60,7 @@
        <file name="InvalidRequest.php" role="php" />
        <file name="StaleState.php" role="php" />
        <file name="StateGone.php" role="php" />
+       <file name="TemporaryFailure.php" role="php" />
       </dir> <!-- /lib/Horde/ActiveSync/Exception -->
       <dir name="Folder">
        <file name="Base.php" role="php" />
@@ -474,6 +475,7 @@
    <install as="Horde/ActiveSync/Exception/InvalidRequest.php" name="lib/Horde/ActiveSync/Exception/InvalidRequest.php" />
    <install as="Horde/ActiveSync/Exception/StaleState.php" name="lib/Horde/ActiveSync/Exception/StaleState.php" />
    <install as="Horde/ActiveSync/Exception/StateGone.php" name="lib/Horde/ActiveSync/Exception/StateGone.php" />
+   <install as="Horde/ActiveSync/Exception/TemporaryFailure.php" name="lib/Horde/ActiveSync/Exception/TemporaryFailure.php" />
    <install as="Horde/ActiveSync/Folder/Base.php" name="lib/Horde/ActiveSync/Folder/Base.php" />
    <install as="Horde/ActiveSync/Folder/Collection.php" name="lib/Horde/ActiveSync/Folder/Collection.php" />
    <install as="Horde/ActiveSync/Folder/Imap.php" name="lib/Horde/ActiveSync/Folder/Imap.php" />
@@ -3268,7 +3270,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-09-28</date>
+   <date>2016-11-05</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Attempt to work around IMAP servers that report broken HIGHESTMODSEQ values.
