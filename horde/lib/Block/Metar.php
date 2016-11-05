@@ -130,7 +130,7 @@ class Horde_Block_Metar extends Horde_Core_Block
         $view->date_format = $prefs->getValue('date_format');
         $view->time_format = $prefs->getValue('time_format');
         if (!empty($this->_refreshParams) && !empty($this->_refreshParams->location)) {
-            $location = $this->_refreshParams->location;
+            $location = $view->requested_location = $this->_refreshParams->location;
             $view->instance = '';
         } else {
             $view->instance = hash('md5', mt_rand());
