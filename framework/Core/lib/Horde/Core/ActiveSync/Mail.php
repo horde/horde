@@ -624,6 +624,19 @@ class Horde_Core_ActiveSync_Mail
                 $flowed = new Horde_Text_Flowed($msg, 'UTF-8');
                 $msg = $flowed->toFlowed(true);
             }
+        } else {
+            // This filter requires the tidy extenstion.
+            if (Horde_Util::extensionExists('tidy')) {
+                return Horde_Text_Filter::filter(
+                    $msg,
+                    'Cleanhtml',
+                    array('body_only' => true)
+                );
+            } else {
+                // If no tidy, use Horde_Dom.
+                $dom = new Horde_Domhtml($msg, 'UTF-8');
+                return $dom->returnBody();
+            }
         }
 
         return $msg;
