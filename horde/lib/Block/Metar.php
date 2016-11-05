@@ -146,7 +146,11 @@ class Horde_Block_Metar extends Horde_Core_Block
         }
 
         // Get the data.
-        $weather = $this->_weather->getCurrentConditions($location)->getRawData();
+        try {
+            $weather = $this->_weather->getCurrentConditions($location)->getRawData();
+        } catch (Horde_Service_Weather_Exception $e) {
+            $view->error = true;
+        }
         $view->weather = $weather;
 
         // Station information.

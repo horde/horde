@@ -1,8 +1,13 @@
 <div class="control">
-  <strong><?php echo $this->location_title?></strong><br />
-  <?php echo sprintf(_("Last Updated: %s"), $this->weather['update'])?>
+  <?php if ($this->error):?>
+    <strong><?php echo sprintf(_("No weather information provided for %s."), $this->requested_location)?></strong>
+  <?php else: ?>
+    <strong><?php echo $this->location_title?></strong><br />
+    <?php echo sprintf(_("Last Updated: %s"), $this->weather['update'])?>
+  <?php endif;?>
 </div>
 
+<?php if (empty($this->error)):?>
 <div class="horde-content">
   <?php if (isset($this->wind)): ?>
     <strong><?php echo _("Wind")?>:</strong> <?php echo $this->wind?>
@@ -126,3 +131,4 @@
      </table>
   <?php endif;?>
 </div>
+<?php endif;?>
