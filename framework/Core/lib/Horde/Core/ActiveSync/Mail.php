@@ -605,10 +605,9 @@ class Horde_Core_ActiveSync_Mail
     {
         $subtype = $html == true ? 'html' : 'plain';
         $msg = Horde_String::convertCharset(
-            $body_data[$subtype]['body'],
+            (string)$body_data[$subtype]['body'],
             $body_data[$subtype]['charset'],
             'UTF-8');
-        trim($msg);
         if (!$html) {
             if ($part->getContentTypeParameter('format') == 'flowed') {
                 $flowed = new Horde_Text_Flowed($msg, 'UTF-8');
