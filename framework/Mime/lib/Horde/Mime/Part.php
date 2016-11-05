@@ -1721,7 +1721,6 @@ implements ArrayAccess, Countable, RecursiveIterator, Serializable
         }
     }
 
-
     /**
      * Write data to a stream.
      *
