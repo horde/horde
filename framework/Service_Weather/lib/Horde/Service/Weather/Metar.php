@@ -274,10 +274,10 @@ class Horde_Service_Weather_Metar extends Horde_Service_Weather_Base
             return array();
         }
 
-        $sql = 'SELECT icao, name FROM ' . $this->_tableName . ' WHERE '
-            . 'name LIKE ? OR icao LIKE ?';
+        $sql = 'SELECT icao, name, state, municipality, country FROM ' . $this->_tableName . ' WHERE '
+            . 'name LIKE ? OR icao LIKE ? OR state LIKE ? OR municipality LIKE ?';
         try {
-            $rows = $this->_db->select($sql, array($search . '%', $search . '%'));
+            $rows = $this->_db->select($sql, array_fill(0, 4, $search . '%'));
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Service_Weather_Exception($e);
         }
@@ -285,7 +285,7 @@ class Horde_Service_Weather_Metar extends Horde_Service_Weather_Base
         $results = array();
         foreach ($rows as $row) {
             $obj = new stdClass();
-            $obj->name = $row['name'];
+            $obj->name = sprintf('%s (%s, %s, %s)', $row['name'], $row['municipality'], $row['state'], $row['country']);
             $obj->code = $row['icao'];
             $results[] = $obj;
         }
@@ -308,7 +308,7 @@ class Horde_Service_Weather_Metar extends Horde_Service_Weather_Base
         if (empty($this->_db)) {
             return array();
         }
-        $sql = 'SELECT icao, name, country FROM ' . $this->_tableName . ' ORDER BY country';
+        $sql = 'SELECT icao, name, state, municipality, country FROM ' . $this->_tableName . ' ORDER BY country';
         try {
             return $this->_db->selectAll($sql);
         } catch (Horde_Exception $e) {
