@@ -348,7 +348,14 @@ class Horde_ActiveSync_Imap_Adapter
             serialize($status))
         );
         $current_modseq = $status[Horde_ActiveSync_Folder_Imap::HIGHESTMODSEQ];
+
+        // Sanity checks.
         $folder->checkValidity($status);
+        if ($folder->modseq() > $current_modseq) {
+            throw new Horde_ActiveSync_Exception_StaleState(
+                'IMAP Server error: Current HIGHESTMODSEQ is lower than previously reported.'
+            );
+        }
 
         if (($current_modseq && $folder->modseq() > 0) &&
             (($folder->modseq() < $current_modseq) ||
