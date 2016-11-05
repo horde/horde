@@ -57,7 +57,7 @@ class Horde_Block_Metar extends Horde_Core_Block
             $locations[Horde_Nls_Translation::t(Horde_Nls::getCountryISO($row['country']))][$row['icao']] = sprintf(
                 '%s (%s, %s, %s)',
                 $row['name'],
-                $row['municipality'],
+                !empty($row['municipality']) ? $row['municipality'] : '',
                 $row['state'],
                 $row['country']
             );
