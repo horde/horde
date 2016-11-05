@@ -54,7 +54,13 @@ class Horde_Block_Metar extends Horde_Core_Block
         $rows = $this->_weather->getLocations();
         $locations = array();
         foreach ($rows as $row) {
-            $locations[Horde_Nls_Translation::t($row['country'])][$row['icao']] = $row['name'];
+            $locations[Horde_Nls_Translation::t(Horde_Nls::getCountryISO($row['country']))][$row['icao']] = sprintf(
+                '%s (%s, %s, %s)',
+                $row['name'],
+                $row['municipality'],
+                $row['state'],
+                $row['country']
+            );
         }
         uksort($locations, 'strcoll');
 
