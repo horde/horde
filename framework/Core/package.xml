@@ -30,7 +30,7 @@
  </developer>
  <date>2016-11-06</date>
  <version>
-  <release>2.27.2</release>
+  <release>2.27.3</release>
   <api>2.27.0</api>
  </version>
  <stability>
@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Prevent building invalid HTML when building an email from a SMART_REPLY (Bug #14500).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4292,6 +4292,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Prevent building invalid HTML when building an email from a SMART_REPLY (Bug #14500).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.27.3</release>
+    <api>2.27.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-11-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
