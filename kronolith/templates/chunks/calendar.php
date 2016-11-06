@@ -150,6 +150,7 @@ $accountUrl = Horde::url($accountUrl, true, -1)
                  '<label for="kronolithCalendarinternalImportOver">', '</label>') ?>
     <span class="kronolithDialogWarning"><?php printf(_("%sWarning:%s also %sdeletes all events%s currently in the calendar."), '<strong>', '</strong>', '<strong>', '</strong>') ?></span>
   </div>
+  <input id="kronolithCalendarinternalImportButton" type="button" value="<?php echo _("Import") ?>" class="kronolithCalendarImport button" style="display:none;" />
 </div>
 
 <div id="kronolithCalendarinternalTabExport" class="kronolithTabsOption" style="display:none">
