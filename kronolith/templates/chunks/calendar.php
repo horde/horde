@@ -159,6 +159,7 @@ $accountUrl .= $user;
                  '<label for="kronolithCalendarinternalImportOver">', '</label>') ?>
     <span class="kronolithDialogWarning"><?php printf(_("%sWarning:%s also %sdeletes all events%s currently in the calendar."), '<strong>', '</strong>', '<strong>', '</strong>') ?></span>
   </p>
+  <input id="kronolithCalendarinternalImportButton" type="button" value="<?php echo _("Import") ?>" class="kronolithCalendarImport button" style="display:none;" />
   <p class="kronolithDialogInfo"><?php echo _("iCalendar is a computer file format which allows internet users to send meeting requests and tasks to other internet users, via email, or sharing files with an extension of .ics.") ?></p>
 </div>
 

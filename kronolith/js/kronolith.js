@@ -3195,12 +3195,14 @@ KronolithCore = {
             }
             $('kronolithCalendar' + type + 'Color').setValue(color).setStyle({ backgroundColor: color, color: Color.brightness(Color.hex2rgb(color)) < 125 ? '#fff' : '#000' });
             form.down('.kronolithCalendarDelete').hide();
+            $('kronolithCalendarinternalImportButton').hide();
         } else {
             info = Kronolith.conf.calendars[type][calendar];
 
             $('kronolithCalendar' + type + 'Id').setValue(calendar);
             $('kronolithCalendar' + type + 'Name').setValue(info.name);
             $('kronolithCalendar' + type + 'Color').setValue(info.bg).setStyle({ backgroundColor: info.bg, color: info.fg });
+            $('kronolithCalendarinternalImportButton').hide();
 
             switch (type) {
             case 'internal':
@@ -3325,6 +3327,7 @@ KronolithCore = {
                         if (info.del) {
                             $('kronolithCalendarinternalImportOver').enable();
                         }
+                        $('kronolithCalendarinternalImportButton').show().enable();
                     }
                 }
                 HordeImple.AutoCompleter.kronolithCalendarinternalTags.disable();
@@ -3840,6 +3843,30 @@ KronolithCore = {
         return true;
     },
 
+    calendarImport: function(form, disableForm)
+    {
+        if ($F('kronolithCalendarinternalImport') ||
+            $F('kronolithCalendarinternalImportUrl')) {
+            $('kronolithCalendarinternalImportAction').setValue(
+                $F('kronolithCalendarinternalImport')
+                    ? Kronolith.conf.import_file
+                    : Kronolith.conf.import_url
+            );
+            HordeCore.notify(Kronolith.text.import_warning, 'horde.message');
+            this.loading++;
+            $('kronolithLoading').show();
+            var name = 'kronolithIframe' + Math.round(Math.random() * 1000),
+                iframe = new Element('iframe', { src: 'about:blank', name: name, id: name }).setStyle({ display: 'none' });
+            document.body.insert(iframe);
+            form.enable();
+            form.target = name;
+            form.submit();
+            if (disableForm) {
+                form.disable();
+            }
+        }
+    },
+
     /**
      * Callback method after saving a calendar.
      *
@@ -3858,22 +3885,7 @@ KronolithCore = {
             delete data.calendar;
         }
         if (r.saved) {
-            if ($F('kronolithCalendarinternalImport') ||
-                $F('kronolithCalendarinternalImportUrl')) {
-                $('kronolithCalendarinternalImportAction').setValue(
-                    $F('kronolithCalendarinternalImport')
-                        ? Kronolith.conf.import_file
-                        : Kronolith.conf.import_url
-                );
-                HordeCore.notify(Kronolith.text.import_warning, 'horde.message');
-                this.loading++;
-                $('kronolithLoading').show();
-                var name = 'kronolithIframe' + Math.round(Math.random() * 1000),
-                    iframe = new Element('iframe', { src: 'about:blank', name: name, id: name }).setStyle({ display: 'none' });
-                document.body.insert(iframe);
-                form.target = name;
-                form.submit();
-            }
+            this.calendarImport(form, false);
             var cal = r.calendar, id;
             if (data.calendar) {
                 var color = {
@@ -4947,6 +4959,10 @@ KronolithCore = {
                 $('kronolithEventUrl').show();
                 e.stop();
                 return;
+            case 'kronolithCalendarinternalImportButton':
+                // Used when user has edit perms to a shared calendar.
+                this.calendarImport(elt.up('form'), true);
+                break;
             }
 
             // Caution, this only works if the element has definitely only a
