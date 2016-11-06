@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-11-05</date>
+ <date>2016-11-06</date>
  <version>
   <release>2.5.0</release>
   <api>1.5.0</api>
@@ -990,7 +990,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-11-05</date>
+   <date>2016-11-06</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [mjr] Replace defunct data source for surface station data (Bug #14502).
