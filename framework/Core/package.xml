@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2016-11-03</date>
+ <date>2016-11-06</date>
  <version>
   <release>2.27.2</release>
   <api>2.27.0</api>
@@ -4288,7 +4288,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-11-03</date>
+   <date>2016-11-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Prevent building invalid HTML when building an email from a SMART_REPLY (Bug #14500).
