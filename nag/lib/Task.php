@@ -710,7 +710,7 @@ class Nag_Task
      *
      * Takes recurring tasks into account.
      *
-     * @return Horde_Date  The next due date.
+     * @return Horde_Date|null  The next due date or null if no due date.
      */
     public function getNextDue()
     {
