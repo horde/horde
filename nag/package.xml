@@ -24,7 +24,7 @@
  </lead>
  <date>2016-11-08</date>
  <version>
-  <release>4.2.12</release>
+  <release>4.2.13</release>
   <api>4.2.0</api>
  </version>
  <stability>
@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Fix fatal error caused by regression in sorting recurring tasks with due dates (Bug #14504).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1754,6 +1754,19 @@
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix fatal error caused by regression in sorting recurring tasks with due dates (Bug #14504).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.13</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-11-08</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
