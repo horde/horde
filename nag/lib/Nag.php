@@ -1565,10 +1565,10 @@ class Nag
      */
     public static function _sortByDue($a, $b)
     {
-        $a_due = empty($a->due)
+        $a_due = empty($a->getNextDue())
             ? 0
             : $a->getNextDue()->timestamp();
-        $b_due = empty($b->due)
+        $b_due = empty($b->getNextDue())
             ? 0
             : $b->getNextDue()->timestamp();
 
