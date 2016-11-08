@@ -676,7 +676,10 @@ class Nag_Task
         if (!$this->recurs()) {
             return new Horde_Date($this->due);
         }
-        return $this->recurrence->nextActiveRecurrence($this->due);
+        if (!($nextActive = $this->recurrence->nextActiveRecurrence($this->due))) {
+            return null;
+        }
+        return $nextActive;
     }
 
     /**
