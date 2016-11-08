@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix fatal error caused by regression in sorting recurring tasks with due dates (Bug #14504).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1753,7 +1753,7 @@
    <date>2016-09-06</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix fatal error caused by regression in sorting recurring tasks with due dates (Bug #14504).
    </notes>
   </release>
  </changelog>
