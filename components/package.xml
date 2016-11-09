@@ -21,6 +21,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Add --sentinel argument to &apos;update&apos; command.
+* [jan] Fix using --pretend with --new-version or --new-state.
 * [jan] Allow to set component and release information via YAML files.
 * [jan] Add Components_Helper_Version::parsePearVersion().
 * [jan] Add Components_Component#getPreviousVersion().
@@ -3430,6 +3432,8 @@
    <date>2016-06-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Add --sentinel argument to &apos;update&apos; command.
+* [jan] Fix using --pretend with --new-version or --new-state.
 * [jan] Allow to set component and release information via YAML files.
 * [jan] Add Components_Helper_Version::parsePearVersion().
 * [jan] Add Components_Component#getPreviousVersion().
