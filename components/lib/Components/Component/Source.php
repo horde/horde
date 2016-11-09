@@ -297,7 +297,9 @@ class Components_Component_Source extends Components_Component_Base
      *
      * @return NULL
      */
-    public function setVersion($rel_version = null, $api_version = null)
+    public function setVersion(
+        $rel_version = null, $api_version = null, $options = array()
+    )
     {
         if (empty($options['pretend'])) {
             $package = $this->getPackageXml();
@@ -331,7 +333,9 @@ class Components_Component_Source extends Components_Component_Base
      * @param string $rel_state  The new release state.
      * @param string $api_state  The new api state.
      */
-    public function setState($rel_state = null, $api_state = null)
+    public function setState(
+        $rel_state = null, $api_state = null, $options = array()
+    )
     {
         if (empty($options['pretend'])) {
             $package = $this->getPackageXml();
