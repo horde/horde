@@ -141,6 +141,11 @@ class Horde_Mime_HeadersTest extends PHPUnit_Framework_TestCase
                 'To',
                 '=?utf-8?B?IklsZ2EginVwbGluc2thIg==?= <foo@example.com>',
                 'Ilga Šuplinska <foo@example.com>'
+            ),
+            array(
+                'From',
+                'Firstname =?utf-8?b?U2Vjb25kw5Es?= Third <correct.email@host.com>',
+                '"Firstname SecondÑ, Third" <correct.email@host.com>'
             )
         );
     }
