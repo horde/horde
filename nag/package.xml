@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [jan] Fix sorting by due date with PHP &lt; 5.5 (Bug #14507).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1766,7 +1766,7 @@
    <date>2016-11-08</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [jan] Fix sorting by due date with PHP &lt; 5.5 (Bug #14507).
    </notes>
   </release>
  </changelog>
