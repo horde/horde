@@ -67,8 +67,8 @@ class Components_Runner_Update
             'new_apistate' => false,
         ), $this->_config->getOptions());
 
-        if (!empty($options['updatexml'])
-            || (isset($arguments[0]) && $arguments[0] == 'update')) {
+        if (!empty($options['updatexml']) ||
+            (isset($arguments[0]) && $arguments[0] == 'update')) {
             $action = !empty($options['action']) ? $options['action'] : 'update';
             if (!empty($options['pretend']) && $action == 'update') {
                 $action = 'diff';
@@ -85,6 +85,22 @@ class Components_Runner_Update
                 $this->_config->getComponent()->setVersion(
                     $options['new_version'], $options['new_api'], $options
                 );
+                if (!empty($options['new_version']) &&
+                    !empty($options['sentinel'])) {
+                    $notes = new Components_Release_Notes($this->_output);
+                    $notes->setComponent($this->_config->getComponent());
+                    $application_version = Components_Helper_Version::pearToHordeWithBranch(
+                        $options['new_version'] . '-git', $notes->getBranch()
+                    );
+                    $sentinel_result = $this->_config->getComponent()->currentSentinel(
+                        $options['new_version'] . '-git',
+                        $application_version,
+                        $options
+                    );
+                    foreach ($sentinel_result as $file) {
+                        $this->_output->ok($file);
+                    }
+                }
             }
             if (!empty($options['new_state']) || !empty($options['new_apistate'])) {
                 $this->_config->getComponent()->setState(

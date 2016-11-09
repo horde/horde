@@ -97,6 +97,13 @@ extends Components_Module_Base
                     'help'   => 'Set a new api state in the package.xml.'
                 )
             ),
+            new Horde_Argv_Option(
+                '--sentinel',
+                array(
+                    'action' => 'store_true',
+                    'help'   => 'Update the sentinels in docs/CHANGES and lib/Application.php too.'
+                )
+            ),
         );
     }
 
