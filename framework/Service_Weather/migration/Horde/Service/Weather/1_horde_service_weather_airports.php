@@ -164,6 +164,8 @@ class HordeServiceWeatherAirports extends Horde_Db_Migration_Base
 
     public function down()
     {
-        $this->dropTable('horde_metar_airports');
+        if (in_array('horde_metar_airports', $tableList)) {
+            $this->dropTable('horde_metar_airports');
+        }
     }
 }
