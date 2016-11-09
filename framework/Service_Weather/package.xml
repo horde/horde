@@ -12,7 +12,7 @@
  </lead>
  <date>2016-11-09</date>
  <version>
-  <release>2.5.1</release>
+  <release>2.5.2</release>
   <api>1.5.0</api>
  </version>
  <stability>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* [mjr] Fix migration for Postgres (Bug #14508).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1007,6 +1007,19 @@
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [mjr] Fix migration for Postgres (Bug #14508).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.5.2</release>
+    <api>1.5.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-11-09</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
