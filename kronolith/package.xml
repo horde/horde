@@ -2815,6 +2815,7 @@
    <date>2016-09-06</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix allowing ics import on when user has edit permissions on a shared calendar (Bug #14501).
 * [jan] Disallow setting of creator permissions too if sharing with world is disabled.
 * [jan] Split shared users by linebreaks too.
    </notes>

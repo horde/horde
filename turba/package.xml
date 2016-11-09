@@ -2143,7 +2143,21 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-09-06</date>
+   <date>2016-11-03</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [mjr] Fix regression in sorting contacts by a name field (Bug #14471).
+* [mjr] Fix regression in saving tags (Bug #14463).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.18</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-11-03</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * 

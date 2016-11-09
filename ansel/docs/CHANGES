@@ -11,6 +11,25 @@ v4.0.0-git
 
 
 ------
+v3.0.5
+------
+
+[mjr] Fix creating new galleries (Bug #14372).
+[jan] Fix fatal error in upload screen with PHP 7 (Michael Cramer
+      <michael@bigmichi1.de>).
+
+
+------
+v3.0.4
+------
+
+[jan] Use access rules compatible with both Apache 2.2 and 2.4.
+[jan] Improve Oracle compatibility.
+[mjr] Fix content-type for screen images to be compatible with some versions
+      of IE.
+
+
+------
 v3.0.3
 ------
 
