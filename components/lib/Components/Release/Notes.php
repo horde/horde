@@ -116,11 +116,34 @@ class Components_Release_Notes
                     $changes .= "\n    * " . $change;
                 }
             }
+            switch ($version->description) {
+            case 'Final':
+                $prerelease = '';
+                break;
+            case 'Alpha':
+            case 'Beta':
+                $prerelease = '
+This is a preview version that should not be used on production systems. This version is considered feature complete but there might still be a few bugs. You should not use this preview version over existing production data.
+
+We encourage widespread testing and feedback via the mailing lists or our bug tracking system. Updated translations are very welcome, though some strings might still change before the final release.
+';
+                break;
+            case 'Release Candidate':
+                $prerelease = sprintf(
+                    '
+Barring any problems, this code will be released as %s %s.
+Testing is requested and comments are encouraged. Updated translations would also be great.
+',
+                    $info['name'],
+                    $version->version
+                );
+                break;
+            }
             $this->_notes['changes'] = sprintf(
                 'The Horde Team is pleased to announce the %s%s of the %s version %s.
 
 %s
-
+%s
 For upgrading instructions, please see
 http://www.horde.org/apps/%s/docs/UPGRADING
 
@@ -136,6 +159,7 @@ The major changes compared to the %s version %s are:%s',
                 $info['full'],
                 $version->version,
                 $info['description'],
+                $prerelease,
                 $info['id'],
                 $info['id'],
                 $release['additional']
