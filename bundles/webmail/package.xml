@@ -10,14 +10,14 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-10-29</date>
+ <date>2016-11-09</date>
  <version>
-  <release>5.1.4</release>
-  <api>5.1.0</api>
+  <release>6.0.0</release>
+  <api>6.0.0</api>
  </version>
  <stability>
-  <release>stable</release>
-  <api>stable</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
  <license uri="http://www.horde.org/licenses/">OSI certified</license>
  <notes>
@@ -492,15 +492,15 @@
   </release>
   <release>
    <version>
-    <release>5.1.4</release>
-    <api>5.1.0</api></version>
+    <release>6.0.0</release>
+    <api>6.0.0</api></version>
    <stability>
-    <release>stable</release>
-    <api>stable</api></stability>
-   <date>2014-03-10</date>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2016-11-09</date>
    <license uri="http://www.horde.org/licenses/">OSI certified</license>
    <notes>
-* [jan] Update Horde, IMP, Ingo, Turba, Kronolith, Nag, Mnemo, and Gollem.
+*
    </notes>
   </release>
   <release>

@@ -16,14 +16,14 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-10-21</date>
+ <date>2016-11-09</date>
  <version>
-  <release>5.1.0</release>
-  <api>5.1.0</api>
+  <release>6.0.0</release>
+  <api>6.0.0</api>
  </version>
  <stability>
-  <release>stable</release>
-  <api>stable</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
@@ -760,12 +760,12 @@
   </release>
   <release>
    <version>
-    <release>5.1.0</release>
-    <api>5.1.0</api></version>
+    <release>6.0.0</release>
+    <api>6.0.0</api></version>
    <stability>
-    <release>stable</release>
-    <api>stable</api></stability>
-   <date>2015-10-20</date>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2016-11-09</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Add ISPConfig driver (Thomas Basler &lt;thomas@familie-basler.net&gt;).

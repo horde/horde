@@ -32,7 +32,7 @@ extends Horde_Core_LoginTasks_SystemTask_Upgrade
     /**
      */
     protected $_versions = array(
-        '3.1'
+        '4.0'
     );
 
     /**
@@ -55,7 +55,7 @@ extends Horde_Core_LoginTasks_SystemTask_Upgrade
     protected function _upgrade($version)
     {
         switch ($version) {
-        case '3.1':
+        case '4.0':
             try {
                 $this->_upgradeVfs();
             } catch (Horde_Exception $e) {

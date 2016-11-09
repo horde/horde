@@ -28,14 +28,14 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2016-10-21</date>
+ <date>2016-11-09</date>
  <version>
-  <release>4.3.0</release>
-  <api>4.0.0</api>
+  <release>5.0.0</release>
+  <api>5.0.0</api>
  </version>
  <stability>
   <release>beta</release>
-  <api>stable</api>
+  <api>beta</api>
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
@@ -2150,14 +2150,14 @@
    </notes>
   </release>
   <release>
-   <date>2016-10-21</date>
+   <date>2016-11-09</date>
    <version>
-    <release>4.3.0</release>
-    <api>4.0.0</api>
+    <release>5.0.0</release>
+    <api>5.0.0</api>
    </version>
    <stability>
     <release>beta</release>
-    <api>stable</api>
+    <api>beta</api>
    </stability>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>

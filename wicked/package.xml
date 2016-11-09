@@ -16,14 +16,14 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-02-23</date>
+ <date>2016-11-09</date>
  <version>
-  <release>2.1.0</release>
-  <api>2.0.0</api>
+  <release>3.0.0</release>
+  <api>3.0.0</api>
  </version>
  <stability>
-  <release>stable</release>
-  <api>stable</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
@@ -1130,12 +1130,12 @@
   </release>
   <release>
    <version>
-    <release>2.1.0</release>
-    <api>2.0.0</api></version>
+    <release>3.0.0</release>
+    <api>3.0.0</api></version>
    <stability>
-    <release>stable</release>
-    <api>stable</api></stability>
-   <date>2016-02-23</date>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2016-11-09</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Complete the reST renderer.

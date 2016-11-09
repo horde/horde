@@ -1,5 +1,5 @@
 ----------
-v5.3.0-git
+v6.0.0-git
 ----------
 
 [mjr] Refactor the Metar weather block to use Horde_Service_Weather and remove

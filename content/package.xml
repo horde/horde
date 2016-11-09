@@ -16,14 +16,14 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-01-13</date>
+ <date>2016-11-09</date>
  <version>
-  <release>2.0.6</release>
-  <api>2.0.0</api>
+  <release>3.0.0</release>
+  <api>3.0.0</api>
  </version>
  <stability>
-  <release>stable</release>
-  <api>stable</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
@@ -511,12 +511,12 @@
   </release>
   <release>
    <version>
-    <release>2.0.6</release>
-    <api>2.0.0</api></version>
+    <release>3.0.0</release>
+    <api>3.0.0</api></version>
    <stability>
-    <release>stable</release>
-    <api>stable</api></stability>
-   <date>2016-01-13</date>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2016-11-09</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * 

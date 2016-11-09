@@ -22,14 +22,14 @@
   <email>chuck@horde.org</email>
   <active>false</active>
  </lead>
- <date>2016-01-13</date>
+ <date>2016-11-09</date>
  <version>
-  <release>4.3.0</release>
-  <api>4.2.0</api>
+  <release>5.0.0</release>
+  <api>5.0.0</api>
  </version>
  <stability>
   <release>beta</release>
-  <api>alpha</api>
+  <api>beta</api>
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
@@ -1804,12 +1804,12 @@
   </release>
   <release>
    <version>
-    <release>4.3.0</release>
-    <api>4.2.0</api></version>
+    <release>5.0.0</release>
+    <api>5.0.0</api></version>
    <stability>
     <release>beta</release>
-    <api>alpha</api></stability>
-   <date>2016-01-13</date>
+    <api>beta</api></stability>
+   <date>2016-11-09</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Add support for monthly recurrence on last weekday (Request #1922).

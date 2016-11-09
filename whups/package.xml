@@ -16,14 +16,14 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-09-30</date>
+ <date>2016-11-09</date>
  <version>
-  <release>3.1.0</release>
-  <api>3.0.0</api>
+  <release>4.0.0</release>
+  <api>4.0.0</api>
  </version>
  <stability>
-  <release>stable</release>
-  <api>stable</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
  <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
  <notes>
@@ -1233,12 +1233,12 @@
   </release>
   <release>
    <version>
-    <release>3.1.0</release>
-    <api>3.0.0</api></version>
+    <release>4.0.0</release>
+    <api>4.0.0</api></version>
    <stability>
-    <release>stable</release>
-    <api>stable</api></stability>
-   <date>2016-09-30</date>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2016-11-09</date>
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
    <notes>
 * [jan] Add saved queries to sidebar menu.
