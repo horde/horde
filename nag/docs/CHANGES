@@ -17,6 +17,14 @@ v4.3.0-git
 
 
 -------
+v4.2.12
+-------
+
+[mjr] Fix fatal error caused by regression in sorting recurring tasks with due
+      dates (Bug #14504).
+
+
+-------
 v4.2.11
 -------
 
