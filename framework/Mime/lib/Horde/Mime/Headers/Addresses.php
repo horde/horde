@@ -64,14 +64,6 @@ implements Horde_Mime_Headers_Element_Address
             : array($this->_values);
     }
 
-    protected function _decodeMime($value)
-    {
-        if (is_object($value)) {
-            return $value;
-        }
-        return Horde_Mime::decode($value);
-    }
-
     /**
      *
      * @throws Horde_Mime_Exception
@@ -80,16 +72,6 @@ implements Horde_Mime_Headers_Element_Address
     {
         /* @todo Implement with traits */
         $rfc822 = new Horde_Mail_Rfc822();
-
-        // Ensure values are MIME decoded.
-        // @see Bug 14456
-        if (is_array($value)) {
-            foreach ($value as &$adr) {
-                $adr = $this->_decodeMime($adr);
-            }
-        } else {
-            $value = $this->_decodeMime($value);
-        }
 
         try {
             $addr_list = $rfc822->parseAddressList($value);
