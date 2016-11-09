@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix regression in initial synchronization.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3285,7 +3285,7 @@
    <date>2016-11-06</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix regression in initial synchronization.
    </notes>
   </release>
  </changelog>
