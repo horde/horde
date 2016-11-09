@@ -1,6 +1,6 @@
------------
-v4.2.13-git
------------
+-------
+v4.2.13
+-------
 
 [jan] Fix sorting by due date with PHP < 5.5 (Bug #14507).
 
