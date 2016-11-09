@@ -84,9 +84,9 @@ class HordeServiceWeatherAirportsChange extends Horde_Db_Migration_Base
                     str_replace($data[7] . '-', '', $data[8]),
                     $data[7],
                     $data[9],
-                    round($data[3], 4),
-                    round($data[4], 4),
-                    $data[5])
+                    !empty($data[3]) ? round($data[3], 4) : 0,
+                    !empty($data[4]) ? round($data[4], 4) : 0,
+                    !empty($data[5]) ? $data[5] : 0)
                 );
             } catch (Horde_Db_Exception $e) {
                 $this->announce('ERROR: ' . $e->getMessage());
