@@ -70,6 +70,8 @@ class HordeServiceWeatherAirportsChange extends Horde_Db_Migration_Base
          * iata_code,
          * local_code
          */
+        // Pop the first line off, which contains field names.
+        fgetcsv($this->_handle);
         while (($data = fgetcsv($this->_handle)) !== false) {
             if (sizeof($data) < 13) {
                 continue;
