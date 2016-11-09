@@ -21,9 +21,9 @@ class HordeServiceWeatherAirportsChange extends Horde_Db_Migration_Base
         $t->column('state', 'string', array('limit' => 2));
         $t->column('country', 'string', array('limit' => 50));
         $t->column('municipality', 'string', array('limit' => 80));
-        $t->column('latitude', 'float');
-        $t->column('longitude', 'float');
-        $t->column('elevation', 'float');
+        $t->column('latitude', 'float', array('default' => 0));
+        $t->column('longitude', 'float', array('default' => 0));
+        $t->column('elevation', 'float', array('default' => 0));
         $t->end();
         $this->_populateTable();
         $this->commitDbTransaction();
