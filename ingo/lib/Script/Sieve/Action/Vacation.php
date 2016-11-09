@@ -53,6 +53,24 @@ class Ingo_Script_Sieve_Action_Vacation extends Ingo_Script_Sieve_Action
      */
     public function generate()
     {
+        if (empty($this->_vars['start']) || empty($this->_vars['end'])) {
+            return $this->_vacationCode();
+        }
+
+        if ($this->_vars['date']) {
+            return $this->_dateCheck();
+        }
+
+        return $this->_regexCheck();
+    }
+
+    /**
+     * Uses regular expression parsing to limit vacation messages by date.
+     *
+     * @return string  A Sieve script snippet.
+     */
+    protected function _regexCheck()
+    {
         $start_year = $this->_vars['start_year'];
         $start_month = $this->_vars['start_month'];
         $start_day = $this->_vars['start_day'];
@@ -63,9 +81,7 @@ class Ingo_Script_Sieve_Action_Vacation extends Ingo_Script_Sieve_Action
 
         $code = '';
 
-        if (empty($this->_vars['start']) || empty($this->_vars['end'])) {
-            return $this->_vacationCode();
-        } elseif ($end_year > $start_year + 1) {
+        if ($end_year > $start_year + 1) {
             $code .= 'if ' . $this->_yearCheck($start_year + 1, $end_year - 1)
                 . " {\n"
                 . '    ' . $this->_vacationCode()
@@ -148,10 +164,29 @@ class Ingo_Script_Sieve_Action_Vacation extends Ingo_Script_Sieve_Action
                     . $this->_vacationCode()
                     . "\n        }\n";
             }
-            $code .= "    }";
+            $code .= '    }';
         }
 
         return $code;
+    }
+
+    /**
+     * Uses 'date' and 'relative' extensions to limit vacation messages by
+     * date.
+     *
+     * @return string  A Sieve script snippet.
+     */
+    protected function _dateCheck()
+    {
+        return 'if allof ( currentdate :zone '
+            . date('O', $this->_vars['start']) . ' :value "ge" "date" "'
+            . date('Y-m-d', $this->_vars['start']) . "\",\n"
+            . '               currentdate :zone '
+            . date('O', $this->_vars['end']) . ' :value "le" "date" "'
+            . date('Y-m-d', $this->_vars['end']) . "\" ) {\n"
+            . '    '
+            . $this->_vacationCode()
+            . "\n    }";
     }
 
     /**
@@ -175,6 +210,10 @@ class Ingo_Script_Sieve_Action_Vacation extends Ingo_Script_Sieve_Action
      */
     public function requires()
     {
+        if ($this->_vars['date']) {
+            return array('vacation', 'date', 'relational');
+        }
+
         return array('vacation', 'regex');
     }
 

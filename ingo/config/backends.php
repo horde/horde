@@ -289,6 +289,11 @@ $backends['sieve'] = array(
         Ingo::RULE_ALL => array(
             'driver' => 'sieve',
             'params' => array(
+                // If false, use less reliable regular expression parsing of
+                // Received: headers instead of the standardized 'date' and
+                // 'relational' extensions for date-limiting vacation messages.
+                'date' => true,
+
                 // If true, use the deprecated 'imapflags' extension to set
                 // flag status instead of the newer, standardized
                 // 'imap4flags'.

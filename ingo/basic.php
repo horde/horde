@@ -18,7 +18,7 @@
  */
 
 require_once __DIR__ . '/lib/Application.php';
-Horde_Registry::appInit('ingo');
+Horde_Registry::appInit('ingo', array('timezone' => true));
 
 $vars = $injector->getInstance('Horde_Variables');
 

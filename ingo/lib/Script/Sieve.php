@@ -345,7 +345,8 @@ class Ingo_Script_Sieve extends Ingo_Script_Base
             'end_year' => $rule->end_year,
             'end_month' => $rule->end_month,
             'end_day' => $rule->end_day,
-            'reason' => $rule->reason
+            'reason' => $rule->reason,
+            'date' => !empty($this->_params['date']),
         ));
 
         if ($rule->ignore_list) {

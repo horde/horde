@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [jan] Add support for Sieve date extension to vacation messages (Request #12520).
 * [mjr] Export active vacation messages via the timeObjects API (Request #10885).
 * [mms] Added a NoSQL (MongoDB) driver for the storage backend.
 * [mms] Rule code has been separated from the storage backend drivers.
@@ -1747,6 +1748,7 @@
    </stability>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [jan] Add support for Sieve date extension to vacation messages (Request #12520).
 * [mjr] Export active vacation messages via the timeObjects API (Request #10885).
 * [mms] Added a NoSQL (MongoDB) driver for the storage backend.
 * [mms] Rule code has been separated from the storage backend drivers.
