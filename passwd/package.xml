@@ -56,6 +56,7 @@
      <file name="Expectpecl.php" role="horde" />
      <file name="Horde.php" role="horde" />
      <file name="Http.php" role="horde" />
+     <file name="Ispconfig.php" role="horde" />
      <file name="Kolab.php" role="horde" />
      <file name="Ldap.php" role="horde" />
      <file name="Null.php" role="horde" />
@@ -468,6 +469,7 @@
    <install as="passwd/lib/Driver/Expectpecl.php" name="lib/Driver/Expectpecl.php" />
    <install as="passwd/lib/Driver/Horde.php" name="lib/Driver/Horde.php" />
    <install as="passwd/lib/Driver/Http.php" name="lib/Driver/Http.php" />
+   <install as="passwd/lib/Driver/Ispconfig.php" name="lib/Driver/Ispconfig.php" />
    <install as="passwd/lib/Driver/Kolab.php" name="lib/Driver/Kolab.php" />
    <install as="passwd/lib/Driver/Ldap.php" name="lib/Driver/Ldap.php" />
    <install as="passwd/lib/Driver/Null.php" name="lib/Driver/Null.php" />

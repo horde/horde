@@ -147,6 +147,13 @@
      </dir> <!-- /locale/es/LC_MESSAGES -->
      <file name="help.xml" role="horde" />
     </dir> <!-- /locale/es -->
+    <dir name="eu">
+     <dir name="LC_MESSAGES">
+      <file name="trean.mo" role="horde" />
+      <file name="trean.po" role="horde" />
+     </dir> <!-- /locale/eu/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/eu -->
     <dir name="fi">
      <dir name="LC_MESSAGES">
       <file name="trean.mo" role="horde" />
@@ -518,6 +525,9 @@
    <install as="trean/locale/es/help.xml" name="locale/es/help.xml" />
    <install as="trean/locale/es/LC_MESSAGES/trean.mo" name="locale/es/LC_MESSAGES/trean.mo" />
    <install as="trean/locale/es/LC_MESSAGES/trean.po" name="locale/es/LC_MESSAGES/trean.po" />
+   <install as="trean/locale/eu/help.xml" name="locale/eu/help.xml" />
+   <install as="trean/locale/eu/LC_MESSAGES/trean.mo" name="locale/eu/LC_MESSAGES/trean.mo" />
+   <install as="trean/locale/eu/LC_MESSAGES/trean.po" name="locale/eu/LC_MESSAGES/trean.po" />
    <install as="trean/locale/fi/help.xml" name="locale/fi/help.xml" />
    <install as="trean/locale/fi/LC_MESSAGES/trean.mo" name="locale/fi/LC_MESSAGES/trean.mo" />
    <install as="trean/locale/fi/LC_MESSAGES/trean.po" name="locale/fi/LC_MESSAGES/trean.po" />

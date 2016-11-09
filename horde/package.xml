@@ -749,6 +749,8 @@
     <dir name="block">
      <file name="cloud.inc" role="horde" />
      <file name="facebook_story.html.php" role="horde" />
+     <file name="metar.html.php" role="horde" />
+     <file name="metar_content.html.php" role="horde" />
      <file name="twitter-layout.html.php" role="horde" />
      <file name="twitter_tweet.html.php" role="horde" />
      <file name="weather.html.php" role="horde" />
@@ -2352,6 +2354,8 @@
    <install as="templates/admin/user/update.inc" name="templates/admin/user/update.inc" />
    <install as="templates/block/cloud.inc" name="templates/block/cloud.inc" />
    <install as="templates/block/facebook_story.html.php" name="templates/block/facebook_story.html.php" />
+   <install as="templates/block/metar.html.php" name="templates/block/metar.html.php" />
+   <install as="templates/block/metar_content.html.php" name="templates/block/metar_content.html.php" />
    <install as="templates/block/twitter-layout.html.php" name="templates/block/twitter-layout.html.php" />
    <install as="templates/block/twitter_tweet.html.php" name="templates/block/twitter_tweet.html.php" />
    <install as="templates/block/weather.html.php" name="templates/block/weather.html.php" />

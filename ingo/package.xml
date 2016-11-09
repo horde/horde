@@ -193,6 +193,7 @@
        <file name="True.php" role="horde" />
       </dir> <!-- /lib/Script/Sieve/Test -->
       <file name="Action.php" role="horde" />
+      <file name="Base.php" role="horde" />
       <file name="Comment.php" role="horde" />
       <file name="Else.php" role="horde" />
       <file name="Elsif.php" role="horde" />
@@ -785,6 +786,7 @@
    <install as="ingo/lib/Script/Procmail/Recipe.php" name="lib/Script/Procmail/Recipe.php" />
    <install as="ingo/lib/Script/Procmail/Variable.php" name="lib/Script/Procmail/Variable.php" />
    <install as="ingo/lib/Script/Sieve/Action.php" name="lib/Script/Sieve/Action.php" />
+   <install as="ingo/lib/Script/Sieve/Base.php" name="lib/Script/Sieve/Base.php" />
    <install as="ingo/lib/Script/Sieve/Comment.php" name="lib/Script/Sieve/Comment.php" />
    <install as="ingo/lib/Script/Sieve/Else.php" name="lib/Script/Sieve/Else.php" />
    <install as="ingo/lib/Script/Sieve/Elsif.php" name="lib/Script/Sieve/Elsif.php" />
