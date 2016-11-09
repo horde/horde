@@ -238,7 +238,7 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
      */
     public function checkValidity(array $params = array())
     {
-        if ($this->uidnext() && !$this->uidvalidity()) {
+        if (!$this->uidvalidity()) {
             throw new Horde_ActiveSync_Exception('State not initialized.');
         }
         if (!empty($params[self::UIDVALIDITY]) && $this->uidvalidity() != $params[self::UIDVALIDITY]) {
