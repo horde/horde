@@ -22,7 +22,7 @@ class HordeServiceWeatherAirportsChange extends Horde_Db_Migration_Base
         $t->column('id', 'integer');
         $t->column('icao', 'string', array('limit' => 4));
         $t->column('name', 'string', array('limit' => 80));
-        $t->column('state', 'string', array('limit' => 2));
+        $t->column('state', 'string', array('limit' => 4));
         $t->column('country', 'string', array('limit' => 50));
         $t->column('municipality', 'string', array('limit' => 80));
         $t->column('latitude', 'float', array('default' => 0));
