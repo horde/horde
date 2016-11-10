@@ -1,4 +1,8 @@
 <?php
+/**
+ * Migration to move from retired NOAA dataset to the station list provided by
+ * https://github.com/datasets/airport-codes.
+ */
 class HordeServiceWeatherAirportsChange extends Horde_Db_Migration_Base
 {
     protected $_handle;
