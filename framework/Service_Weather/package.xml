@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* 
+* [mjr] More fixes for Postgres, and more robust data validation during migration.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1019,7 +1019,7 @@
    <date>2016-11-09</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* 
+* [mjr] More fixes for Postgres, and more robust data validation during migration.
    </notes>
   </release>
  </changelog>
