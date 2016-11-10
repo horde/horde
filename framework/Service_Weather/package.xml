@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-11-09</date>
+ <date>2016-11-10</date>
  <version>
   <release>2.5.2</release>
   <api>1.5.0</api>
@@ -1016,7 +1016,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-11-09</date>
+   <date>2016-11-10</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [mjr] More fixes for Postgres, and more robust data validation during migration.
