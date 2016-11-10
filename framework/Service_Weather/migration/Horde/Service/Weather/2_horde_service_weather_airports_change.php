@@ -76,24 +76,34 @@ class HordeServiceWeatherAirportsChange extends Horde_Db_Migration_Base
          */
         // Pop the first line off, which contains field names.
         fgetcsv($this->_handle);
-        while (($data = fgetcsv($this->_handle)) !== false) {
-            if (sizeof($data) < 13) {
+        while (($fields = fgetcsv($this->_handle)) !== false) {
+            // Minimum field count. Continue since this is probably a comment
+            // or some other incomplete data.
+            if (sizeof($fields) < 13) {
+                continue;
+            }
+            $data = array(
+                $line,
+                $fields[0],
+                $fields[2],
+                str_replace($fields[7] . '-', '', $fields[8]),
+                $fields[7],
+                $fields[9],
+                !empty($fields[3]) ? round($fields[3], 4) : 0,
+                !empty($fields[4]) ? round($fields[4], 4) : 0,
+                !empty($fields[5]) ? $fields[5] : 0
+            );
+            // Only add lines that have a valid ICAO identifier. The dataset
+            // seems to have a number of entries with broken identifiers. E.g.,
+            // Corydon airport.
+            if (strlen(trim($data[1])) > 4) {
                 continue;
             }
             try {
-                $this->_connection->insert($insert, array(
-                    $line,
-                    $data[0],
-                    $data[2],
-                    str_replace($data[7] . '-', '', $data[8]),
-                    $data[7],
-                    $data[9],
-                    !empty($data[3]) ? round($data[3], 4) : 0,
-                    !empty($data[4]) ? round($data[4], 4) : 0,
-                    !empty($data[5]) ? $data[5] : 0)
-                );
+                $this->_connection->insert($insert, $data);
             } catch (Horde_Db_Exception $e) {
                 $this->announce('ERROR: ' . $e->getMessage());
+                $this->announce('SQL: ' . $insert . ' with the following data: ' . print_r($data, true));
                 $this->rollbackDbTransaction();
                 return;
             }
