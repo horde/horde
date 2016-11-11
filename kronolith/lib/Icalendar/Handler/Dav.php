@@ -139,8 +139,8 @@ class Kronolith_Icalendar_Handler_Dav extends Kronolith_Icalendar_Handler_Base
             $organizer = $component->getAttribute('ORGANIZER');
             $organizer_params = $component->getAttribute('ORGANIZER', true);
             if (!empty($organizer_params[0]['SCHEDULE-AGENT']) &&
-                $organizer_params[0]['SCHEDULE-AGENT'] == 'CLIENT' ||
-                $organizer_params[0]['SCHEDULE-AGENT'] == 'NONE') {
+                ($organizer_params[0]['SCHEDULE-AGENT'] == 'CLIENT' ||
+                 $organizer_params[0]['SCHEDULE-AGENT'] == 'NONE')) {
                 $tmp = str_replace(array('MAILTO:', 'mailto:'), '', $organizer);
                 $tmp = new Horde_Mail_Rfc822_Address($tmp);
                 $this->_noItips[] = $tmp->bare_address;
@@ -151,8 +151,8 @@ class Kronolith_Icalendar_Handler_Dav extends Kronolith_Icalendar_Handler_Base
             $params = $component->getAttribute('ATTENDEE', true);
             for ($i = 0; $i < count($attendee); ++$i) {
                 if (!empty($params[$i]['SCHEDULE-AGENT']) &&
-                    $params[$i]['SCHEDULE-AGENT'] == 'CLIENT' ||
-                    $params[$i]['SCHEDULE-AGENT'] == 'NONE') {
+                    ($params[$i]['SCHEDULE-AGENT'] == 'CLIENT' ||
+                     $params[$i]['SCHEDULE-AGENT'] == 'NONE')) {
                     $tmp = str_replace(array('MAILTO:', 'mailto:'), '', $attendee[$i]);
                     $tmp = new Horde_Mail_Rfc822_Address($tmp);
                     $this->_noItips[] = $tmp->bare_address;
