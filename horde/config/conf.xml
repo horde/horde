@@ -1384,7 +1384,8 @@
   <configsection name="davstorage">
    <configheader>DAV Settings</configheader>
    <configswitch name="driver" desc="If you want to use CalDAV or CardDAV,
-   select a driver here.">Sql
+   select a driver here. Please note that History system needs to be enabled
+   too.">Sql
     <case name="Null" desc="Disable CalDAV/CardDAV support"/>
     <case name="Sql" desc="SQL-based metadata storage">
      <configsection name="params">
@@ -2167,8 +2168,8 @@
    due to patent issues. If you are NOT in the United States, or you have a
    license to use ActiveSync, you may enable ActiveSync below and create an
    alias on your webserver to redirect /Microsoft-Server-ActiveSync to
-   /horde/rpc.php.
-   See http://wiki.horde.org/ActiveSync for more information.
+   /horde/rpc.php. See http://wiki.horde.org/ActiveSync for more
+   information. Please note that History system needs to be enabled too.
    </configdescription>
    <configswitch name="enabled" quote="false" desc="Enable ActiveSync server?">false
     <case name="false" desc="Disabled" />
