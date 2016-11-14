@@ -426,6 +426,7 @@ class Horde_ActiveSync_Connector_Importer
             $folderid = $results->_serverid;
             $uid = $results->serverid;
         } else {
+            $this->_logger->info('Using older BC codepath.');
             // @TODO Remove for 3.0 Need to build a message folder object here
             // for BC reasons.
             $serverid = $results;
