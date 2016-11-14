@@ -634,7 +634,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         }
 
         throw new Horde_ActiveSync_Exception(sprintf(
-            '[%s] Folder: %s not found!'.
+            '[%s] Folder: %s not found!',
             $this->_pid,
             $id)
         );
