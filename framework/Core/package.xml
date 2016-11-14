@@ -30,7 +30,7 @@
  </developer>
  <date>2016-11-14</date>
  <version>
-  <release>2.27.3</release>
+  <release>2.27.4</release>
   <api>2.27.0</api>
  </version>
  <stability>
@@ -39,8 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Improve handling of certain ActiveSync failures.
-* [jan] Fix parsing abbreviated Norwegian month names too (Bug #14503).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4307,6 +4306,19 @@
    <notes>
 * [mjr] Improve handling of certain ActiveSync failures.
 * [jan] Fix parsing abbreviated Norwegian month names too (Bug #14503).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.27.4</release>
+    <api>2.27.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-11-14</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
