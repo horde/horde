@@ -622,9 +622,22 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         $folders = $this->getFolders();
         foreach ($folders as $folder) {
             if ($folder->_serverid == $id) {
+                $this->_logger->info(sprintf(
+                    '[%s] Returning folder %s (%s type %s) from Horde_Core_ActiveSync_Driver::getFolder()',
+                    $this->_pid,
+                    $id,
+                    $folder->serverid,
+                    $folder->type)
+                );
                 return $folder;
             }
         }
+
+        throw new Horde_ActiveSync_Exception(sprintf(
+            '[%s] Folder: %s not found!'.
+            $this->_pid,
+            $id)
+        );
     }
 
     /**
@@ -715,6 +728,11 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             if (!$old_name) {
                 try {
                     $serverid = $this->_imap->createMailbox($new_name, $parent);
+                    $this->_logger->info(sprintf(
+                        '[%s] New IMAP folder created: %s',
+                        $this->_pid,
+                        $serverid)
+                    );
                 } catch (Horde_ActiveSync_Exception $e) {
                     $this->_logger->err($e->getMessage());
                     throw $e;
