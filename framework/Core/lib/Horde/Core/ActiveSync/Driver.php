@@ -829,7 +829,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         case Horde_ActiveSync::CLASS_EMAIL:
         case Horde_ActiveSync::FOLDER_TYPE_USER_MAIL:
             try {
-                $this->_logger->info($folder_id);
                 $this->_imap->deleteMailbox($folder_id);
             } catch (Horde_ActiveSync_Exception $e) {
                 $this->_logger->err($e->getMessage());
