@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Improve handling of certain ActiveSync failures.
 * [jan] Fix parsing abbreviated Norwegian month names too (Bug #14503).
  </notes>
  <contents>
@@ -4304,6 +4305,7 @@
    <date>2016-11-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Improve handling of certain ActiveSync failures.
 * [jan] Fix parsing abbreviated Norwegian month names too (Bug #14503).
    </notes>
   </release>
