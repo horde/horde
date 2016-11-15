@@ -27,3 +27,4 @@ require_once __DIR__ . '/Objects/ManyToManyA.php';
 require_once __DIR__ . '/Objects/ManyToManyB.php';
 require_once __DIR__ . '/Objects/ManyToManyAMapper.php';
 require_once __DIR__ . '/Objects/ManyToManyBMapper.php';
+require_once __DIR__ . '/Objects/SimpleMapper.php';
