@@ -85,7 +85,9 @@ class IMP_Api extends Horde_Registry_Api
      *
      * @param array $opts  Additional options:
      * <pre>
-     *   - unsub: (boolean) If true, return unsubscribed mailboxes.
+     *   - unsub: (boolean)  If true, return unsubscribed mailboxes.
+     *   - reload: (boolean) If true, force reloading the folder tree from
+     *                       the IMAP server. DEFAULT: false
      * </pre>
      *
      * @return array  The list of IMAP mailboxes. A list of arrays with the
@@ -103,7 +105,9 @@ class IMP_Api extends Horde_Registry_Api
         global $injector;
 
         $ftree = $injector->getInstance('IMP_Ftree');
-
+        if (!empty($opts['reload'])) {
+            $ftree->init();
+        }
         if (!empty($opts['unsub'])) {
             /* Make sure unsubscribed mailboxes are loaded. */
             $ftree->loadUnsubscribed();
