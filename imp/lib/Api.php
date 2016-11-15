@@ -83,6 +83,10 @@ class IMP_Api extends Horde_Registry_Api
     /**
      * Returns the list of mailboxes.
      *
+     * @param  array  $opts  Additional options:
+     *   - reload: (boolean) If true, force reloading the folder tree from
+     *                       the IMAP server. DEFAULT: false
+     *                       @since 6.2.17
      * @return array  The list of IMAP mailboxes. A list of arrays with the
      *                following keys:
      *   - d: (string) The namespace delimiter.
@@ -91,13 +95,16 @@ class IMP_Api extends Horde_Registry_Api
      *   - ob: (Horde_Imap_Client_Mailbox) A mailbox object.
      *   - subscribed: (boolean) True if mailbox is subscribed (@since 6.2.0).
      */
-    public function mailboxList()
+    public function mailboxList($opts = array())
     {
         global $injector;
 
-        $iterator = new IMP_Ftree_IteratorFilter(
-            $injector->getInstance('IMP_Ftree')
-        );
+        $ftree = $injector->getInstance('IMP_Ftree');
+        if (!empty($opts['reload'])) {
+            $ftree->init();
+        }
+
+        $iterator = new IMP_Ftree_IteratorFilter($ftree);
         $iterator->add(array(
             $iterator::CONTAINERS,
             $iterator::REMOTE,
