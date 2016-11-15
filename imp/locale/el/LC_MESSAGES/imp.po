@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: IMP: 3.2-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2015-10-01 19:22+0300\n"
-"PO-Revision-Date: 2016-02-29 12:21+0100\n"
+"POT-Creation-Date: 2016-11-15 18:36+0200\n"
+"PO-Revision-Date: 2016-11-15 18:48+0200\n"
 "Last-Translator: Antonis Limperis <limperis@cti.gr>\n"
 "Language-Team: Greek <i18n@lists.horde.org>\n"
 "Language: el\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.7.6\n"
+"X-Generator: Poedit 1.8.11\n"
 
 #: lib/Notification/Handler/Decorator/NewmailNotify.php:93
 msgid " and "
@@ -57,7 +57,7 @@ msgstr ""
 msgid "%.0f%% of %.0f %s"
 msgstr "%.0f%% από %.0f %s"
 
-#: lib/Basic/Folders.php:302 lib/Basic/Folders.php:317 lib/Mbox/Size.php:51
+#: lib/Basic/Folders.php:317 lib/Mbox/Size.php:51
 #, php-format
 msgid "%.2fMB"
 msgstr "%.2fMB"
@@ -74,8 +74,7 @@ msgstr[1] "%d Συνημμένα"
 msgid "%d Attachments"
 msgstr "%d Συνημμένα"
 
-#: lib/Basic/Mailbox.php:397 lib/Basic/Mailbox.php:398
-#: lib/Basic/Thread.php:180
+#: lib/Basic/Mailbox.php:397 lib/Basic/Mailbox.php:398 lib/Basic/Thread.php:180
 #, php-format
 msgid "%d Messages"
 msgstr "%d Μηνύματα"
@@ -264,7 +263,7 @@ msgid "%s wishes to amend \"%s\"."
 msgstr "%s επιθυμεί να τροποποιήσει \"%s\"."
 
 #: lib/Mime/Viewer/Itip.php:277 lib/Mime/Viewer/Itip.php:290
-#: lib/Mime/Viewer/Itip.php:683
+#: lib/Mime/Viewer/Itip.php:684
 #, php-format
 msgid "%s wishes to make you aware of \"%s\"."
 msgstr "%s επιθυμεί να σας ενημερώσει για το \"%s\"."
@@ -285,7 +284,7 @@ msgid "%s: This message may not be from whom it claims to be."
 msgstr ""
 "%s: Αυτό το μήνυμα μπορεί να μην είναι από αυτόν που υποστηρίζει ότι είναι."
 
-#: lib/Compose.php:2559
+#: lib/Compose.php:2570
 #, php-format
 msgid "%u Forwarded Messages"
 msgstr "%u Προωθημένα Μηνύματα"
@@ -309,19 +308,19 @@ msgstr "(Μήνυμα %d από %d)"
 msgid "1 message"
 msgstr "1 μήνύμα"
 
-#: config/prefs.php:1562
+#: config/prefs.php:1563
 msgid "100 characters"
 msgstr "100 χαρακτήρες"
 
-#: config/prefs.php:1565
+#: config/prefs.php:1566
 msgid "1000 characters"
 msgstr "1000 χαρακτήρες"
 
-#: config/prefs.php:1563
+#: config/prefs.php:1564
 msgid "250 characters"
 msgstr "250 χαρακτήρες"
 
-#: config/prefs.php:1564
+#: config/prefs.php:1565
 msgid "500 characters"
 msgstr "500 χαρακτήρες"
 
@@ -337,7 +336,7 @@ msgstr ""
 "Ενα μήνυμα που αποστείλατε είχε σαν αποτέλεσμα την επιστροφή αυτού του "
 "μηνήματος ενημέρωσης από τον παραλήπτη."
 
-#: lib/Compose.php:3369
+#: lib/Compose.php:3386
 msgid ""
 "A message you were composing when your session expired has been recovered. "
 "You may resume composing your message by going to your Drafts mailbox."
@@ -346,12 +345,12 @@ msgstr ""
 "συνεχίσεις να συνθέτεις το μήνυμα, αναζητώντας το στη θυρίδα με τα Πρόχειρα "
 "(Drafts)."
 
-#: lib/Prefs/Special/Acl.php:171
+#: lib/Prefs/Special/Acl.php:175
 #, php-format
 msgid "ACL for \"%s\" successfully created for the mailbox \"%s\"."
 msgstr "ACL για \"%s\" δημιουργήθηκε με επιτυχία για τη θυρίδα \"%s\"."
 
-#: lib/Prefs/Special/Acl.php:196
+#: lib/Prefs/Special/Acl.php:200
 #, php-format
 msgid "ACL rights for \"%s\" updated for the mailbox \"%s\"."
 msgstr "Τα ACL δικαιώματα για \"%s\" ενημερώθηκαν για τη θυρίδα \"%s\"."
@@ -368,7 +367,7 @@ msgstr "Αποδοχή και ενημέρωση στο ημερολόγιό μ�
 msgid "Accept request"
 msgstr "Αποδοχή αιτήματος"
 
-#: lib/Mime/Viewer/Itip.php:743
+#: lib/Mime/Viewer/Itip.php:744
 msgid "Accepted"
 msgstr "Έγινε αποδεκτό"
 
@@ -380,12 +379,12 @@ msgstr "Συνδιασμός πλήκτρων πρόσβασης: Ctrl-Enter"
 msgid "Accesskey Esc"
 msgstr "Πλήκτρο πρόσβασης Esc"
 
-#: lib/Prefs/Special/Remote.php:136
+#: lib/Prefs/Special/Remote.php:144
 #, php-format
 msgid "Account \"%s\" added."
 msgstr "Ο λογαριασμός \"%s\" προστέθηκε."
 
-#: lib/Prefs/Special/Remote.php:148
+#: lib/Prefs/Special/Remote.php:156
 #, php-format
 msgid "Account \"%s\" deleted."
 msgstr "Ο λογαριασμός \"%s\" διαγράφηκε."
@@ -399,7 +398,7 @@ msgstr "Ενέργεια"
 msgid "Actions"
 msgstr "Ενέργειες"
 
-#: lib/Message/Ui.php:255 lib/Message/Ui.php:284
+#: lib/Message/Ui.php:262 lib/Message/Ui.php:291
 #, php-format
 msgid "Add %s to my Address Book"
 msgstr "Προσθήκη %s στο βιβλίο διευθύνσεών μου"
@@ -425,7 +424,7 @@ msgstr "Προσθήκη Kοινοποίησης (cc)"
 msgid "Add OR clause"
 msgstr "Προσθήκη του φίλτρου OR"
 
-#: config/prefs.php:1426
+#: config/prefs.php:1427
 msgid "Add a \"Printed By\" header to the top of printed messages?"
 msgstr ""
 "Προσθήκη της Επικεφαλίδας \"Printed By\" στο πάνω μέρος των εκτυπωμένων "
@@ -447,7 +446,7 @@ msgstr "Προσθήκη αυτών επιλέγοντας το πλήκτρο \
 msgid "Add this to my calendar"
 msgstr "Προσθήκη αυτού στο ημερολόγιό μου"
 
-#: lib/Mime/Viewer/Itip.php:685
+#: lib/Mime/Viewer/Itip.php:686
 msgid "Add this to my tasklist"
 msgstr "Προσθήκη αυτού στη λίστα εργασιών μου"
 
@@ -474,7 +473,7 @@ msgstr "Προσθήκη σήμανσης \"%s\"."
 msgid "Adding group lists not currently supported."
 msgstr "Η προσθήκη λιστών ομάδων δεν υποστηρίζεται."
 
-#: config/prefs.php:1096
+#: config/prefs.php:1097
 msgid ""
 "Additional headers to display when viewing: <em>(enter each header on a new "
 "line)</em>"
@@ -488,7 +487,7 @@ msgstr ""
 msgid "Address Book"
 msgstr "Επαφές"
 
-#: config/prefs.php:890
+#: config/prefs.php:891
 msgid "Address Books"
 msgstr "Διευθυνσιογράφοι"
 
@@ -584,17 +583,17 @@ msgid "All old sent-mail mailboxes more than %s months old will be deleted."
 msgstr ""
 "Όλες οι παλιές θυρίδες απεσταλμένων, παλιότερες από %s μήνες θα διαγραφούν."
 
-#: lib/Prefs/Special/Acl.php:206
+#: lib/Prefs/Special/Acl.php:210
 #, php-format
 msgid "All rights on mailbox \"%s\" successfully removed for \"%s\"."
 msgstr ""
 "Όλα τα δικαιώματα στη θυρίδα \"%s\" αφαιρέθηκαν επιτυχώς για τον \"%s\"."
 
-#: config/prefs.php:997
+#: config/prefs.php:998
 msgid "Allow attachments to be stripped from messages?"
 msgstr "Να επιτρέπεται ο διαχωρισμός συνημμένων από τα μηνύματα;"
 
-#: config/prefs.php:283
+#: config/prefs.php:284
 msgid "Allow filter rules to be applied in any mailbox?"
 msgstr ""
 "Να επιτρέπεται κανόνες φίλτρων να εφαρμόζονται σε οποιαδήποτε γραμματοθυρίδα "
@@ -612,7 +611,7 @@ msgstr "Επιτρέπεται η δημιουργία θυρίδων;"
 msgid "Allow remote account access?"
 msgstr "Να επιτραπεί η πρόσβαση σε εξωτερικό λογαριασμό;"
 
-#: config/prefs.php:1105
+#: config/prefs.php:1106
 msgid "Always prompt"
 msgstr "Ερώτηση πάντα"
 
@@ -651,7 +650,7 @@ msgstr ""
 msgid "An unknown error occured while creating the new task."
 msgstr "Προέκυψε άγνωστο λάθος κατά τη δημιουργία νέας εργασίας."
 
-#: lib/Mime/Viewer/Itip.php:678
+#: lib/Mime/Viewer/Itip.php:679
 msgid "An unknown person"
 msgstr "Ένας άγνωστος"
 
@@ -667,11 +666,11 @@ msgstr "Προσάρτηση"
 msgid "Apply Filters"
 msgstr "Εφαρμογή Φίλτρων"
 
-#: config/prefs.php:263
+#: config/prefs.php:264
 msgid "Apply filter rules upon logging on?"
 msgstr "Εφαρμογή των κανόνων φίλτρων κάθε φορά που κάνετε εισαγωγή;"
 
-#: config/prefs.php:273
+#: config/prefs.php:274
 msgid "Apply filter rules whenever Inbox is displayed?"
 msgstr ""
 "Εφαρμογή των κανόνων φίλτρων όποτε προβάλλεται η θυρίδα με τα Εισερχόμενα;"
@@ -694,7 +693,7 @@ msgstr ""
 msgid "Are you sure you want to delete this Virtual Folder Definition?"
 msgstr "Είστε σίγουρος ότι θέλετε να διαγράψετε αυτόν τον Ιδεατό Φάκελο;"
 
-#: lib/Prefs/Special/Remote.php:42
+#: lib/Prefs/Special/Remote.php:46
 msgid "Are you sure you want to delete this account?"
 msgstr "Είστε σίγουρος ότι θέλετε να διαγράψετε αυτό το λογαριασμό;"
 
@@ -772,7 +771,7 @@ msgstr "Είστε σίγουροι ότι θέλετε να αναφέρετε 
 msgid "Arrival Time"
 msgstr "Ώρα Λήψης"
 
-#: config/prefs.php:1516
+#: config/prefs.php:1517
 msgid "Arrival time on server"
 msgstr "Ώρα άφιξης στον server"
 
@@ -780,15 +779,15 @@ msgstr "Ώρα άφιξης στον server"
 msgid "As Attachment"
 msgstr "Σαν Συνημμένο"
 
-#: config/prefs.php:746
+#: config/prefs.php:747
 msgid "As attachment"
 msgstr "Σαν Συνημμένο"
 
-#: config/prefs.php:748
+#: config/prefs.php:749
 msgid "As both body text and an attachment"
 msgstr "Και σαν κείμενο και σαν επισυναπτόμενο"
 
-#: config/prefs.php:1496
+#: config/prefs.php:1497
 msgid "Ascending"
 msgstr "Αύξουσα"
 
@@ -817,7 +816,7 @@ msgstr "Θέλετε να επισυνάψετε τις πληροφορίες �
 msgid "Attach:"
 msgstr "Επισύναψη:"
 
-#: lib/Compose.php:3297
+#: lib/Compose.php:3314
 #, php-format
 msgid ""
 "Attached file \"%s\" exceeds the attachment size limits. File NOT attached."
@@ -825,7 +824,7 @@ msgstr ""
 "Το επισυναπτόμενο αρχείο \"%s\" υπερβαίνει το όριο μεγέθους επισυναπτόμενου. "
 "ΔΕΝ θα επισυναφθεί."
 
-#: lib/Compose.php:3297
+#: lib/Compose.php:3314
 msgid "Attached file exceeds the attachment size limits. File NOT attached."
 msgstr ""
 "Το επισυναπτόμενο αρχείο \"%s\" υπερβαίνει το επιτρεπόμενο μεγέθους "
@@ -852,7 +851,7 @@ msgstr "Κυρίως Κείμενο με Συνημμένα"
 msgid "Attachment doesn't exist."
 msgstr "Δεν υπάρχει συνημμένο"
 
-#: lib/Compose.php:1000
+#: lib/Compose.php:1003
 msgid "Attachment stripped: Original attachment type"
 msgstr "Το συνημμένο αποσπάστηκε: Πραγματικός τύπος δεδομένων"
 
@@ -862,7 +861,7 @@ msgid "Attachment successfully stripped."
 msgstr "Το συνημμένο επιτυχώς αφαιρέθηκε."
 
 #: lib/Basic/Compose.php:909 lib/Basic/Message.php:849
-#: lib/Basic/Message.php:881 lib/Compose.php:2899 lib/Compose.php:2906
+#: lib/Basic/Message.php:881 lib/Compose.php:2910 lib/Compose.php:2917
 #: templates/basic/compose/compose.html.php:271
 #: templates/dynamic/message.html.php:82
 #: templates/smartmobile/compose.html.php:79
@@ -900,7 +899,7 @@ msgstr "Η αυτόματη ρύθμιση του λογαριασμού ολο�
 msgid "Automatically Generated Messages"
 msgstr "Αυτόματα Δημιουργημένα Μηνύματα"
 
-#: lib/Mime/Viewer/Itip.php:822
+#: lib/Mime/Viewer/Itip.php:823
 msgid "Awaiting Response"
 msgstr "Σε Αναμονή Απάντησης"
 
@@ -917,9 +916,9 @@ msgstr "Επιστροφή στο Ευρετήριο Πολλαπλών Μηνυ
 msgid "Backends"
 msgstr "Υποδομές"
 
-#: config/prefs.php:293 config/prefs.php:599 config/prefs.php:605
-#: config/prefs.php:1135 config/prefs.php:1200 config/prefs.php:1302
-#: config/prefs.php:1525 config/prefs.php:1554
+#: config/prefs.php:294 config/prefs.php:600 config/prefs.php:606
+#: config/prefs.php:1136 config/prefs.php:1201 config/prefs.php:1303
+#: config/prefs.php:1526 config/prefs.php:1555
 msgid "Basic view only"
 msgstr "Mόνο στη βασική προβολή."
 
@@ -952,7 +951,7 @@ msgstr ""
 msgid "Blacklist"
 msgstr "Ενοχλητική Αλληλογραφία"
 
-#: config/prefs.php:1018
+#: config/prefs.php:1019
 msgid ""
 "Block images in messages unless they are specifically requested to be loaded?"
 msgstr ""
@@ -963,7 +962,7 @@ msgstr ""
 msgid "Body"
 msgstr "Κείμενο Μηνύματος"
 
-#: config/prefs.php:541
+#: config/prefs.php:542
 msgid "Bottom"
 msgstr "Κάτω Μέρος"
 
@@ -980,7 +979,7 @@ msgstr "Οι προκαθορισμένοι εικονικοί φάκελοι δ
 msgid "Bulk Messages"
 msgstr "Μαζικά Μηνύματα"
 
-#: lib/Compose.php:1666
+#: lib/Compose.php:1677
 #, php-format
 msgid "Can't attach contact information: %s"
 msgstr "δεν είναι δυνατή η επισύναψη των  πληροφοριών επαφής: %s"
@@ -989,9 +988,8 @@ msgstr "δεν είναι δυνατή η επισύναψη των  πληρο�
 #: templates/basic/folders/folders_confirm.html.php:27
 #: templates/basic/folders/import.html.php:17
 #: templates/contacts/contacts.html.php:69
-#: templates/minimal/compose.html.php:59
-#: templates/minimal/redirect.html.php:29 templates/pgp/import_key.html.php:69
-#: templates/prefs/remote.html.php:80
+#: templates/minimal/compose.html.php:59 templates/minimal/redirect.html.php:29
+#: templates/pgp/import_key.html.php:69 templates/prefs/remote.html.php:80
 #: templates/saveimage/saveimage.html.php:20
 #: templates/search/search.html.php:103
 #: templates/smartmobile/compose.html.php:54
@@ -1066,7 +1064,7 @@ msgstr ""
 "Δεν μπορούν να αφαιρεθούν τα MIME μέρη του μηνύματος καθώς η θυρίδα αυτή "
 "είναι μόνο ανάγνωσης."
 
-#: lib/Basic/Contacts.php:112 lib/Basic/Search.php:69 lib/Compose.php:2603
+#: lib/Basic/Contacts.php:112 lib/Basic/Search.php:69 lib/Compose.php:2614
 #: lib/Message/Ui.php:36 templates/contacts/contacts.html.php:42
 #: templates/dynamic/compose.html.php:123
 #: templates/dynamic/mailbox.html.php:140
@@ -1081,7 +1079,7 @@ msgstr "Κοινοποίηση:"
 msgid "Cc: "
 msgstr "Κοινοποίηση(cc):"
 
-#: lib/Mime/Viewer/Itip.php:804
+#: lib/Mime/Viewer/Itip.php:805
 msgid "Chair Person"
 msgstr "Πρόεδρος"
 
@@ -1089,13 +1087,13 @@ msgstr "Πρόεδρος"
 msgid "Change"
 msgstr "Αλλαγή"
 
-#: config/prefs.php:1436
+#: config/prefs.php:1437
 msgid ""
 "Change display preferences for viewing the listing of messages in a mailbox."
 msgstr ""
 "Αλλάξτε τις επιλογές εμφάνισης, όταν προβάλλονται τα μηνύματα μιας θυρίδας."
 
-#: config/prefs.php:1602
+#: config/prefs.php:1603
 msgid "Change folder navigation display preferences."
 msgstr "Αλλάξτε τις επιλογές εμφάνισης που αφορούν την περιήγηση σε φακέλους."
 
@@ -1107,7 +1105,7 @@ msgstr ""
 "Μπορείτε να αλλάξετε το όνομα, τη διεύθυνση και την υπογραφή σας, στοιχεία "
 "που βλέπουν οι παραλήπτες σας όταν διαβάζουν ή απαντάνε στα μηνύματά σας."
 
-#: config/prefs.php:1567
+#: config/prefs.php:1568
 msgid "Characters to display in preview:"
 msgstr "Χαρακτήρες που θα εμφανίζονται κατά την προεπισκόπηση:"
 
@@ -1129,11 +1127,11 @@ msgstr "Επιλογή Όλων/Κανενός"
 msgid "Check for New Mail"
 msgstr "Έλεγχος για νέα μηνύματα"
 
-#: config/prefs.php:372
+#: config/prefs.php:373
 msgid "Check for valid recipient PGP public keys while replying?"
 msgstr "Θέλετε να ελεγχθούν τα PGP κλειδιά των παραληπτών όσο απαντάτε;"
 
-#: config/prefs.php:496
+#: config/prefs.php:497
 msgid "Check spelling before sending a message?"
 msgstr "Ελεγχος ορθογραφίας πριν την αποστολή;"
 
@@ -1146,7 +1144,7 @@ msgstr "Έλεγχος..."
 msgid "Choose Action"
 msgstr "Επιλογή Ενέργειας"
 
-#: config/prefs.php:958
+#: config/prefs.php:959
 msgid "Choose the address book to use when adding addresses."
 msgstr ""
 "Επιλέξτε τον Διευθυνσιογράφο που θα χρησιμοποιείτε όταν προσθέτετε νέες "
@@ -1184,7 +1182,7 @@ msgstr "Πατήστε %s για μετάβαση στη σελίδα διαχε
 msgid "Click %s to send the notification message."
 msgstr "Κάντε κλικ %s για να στείλετε το μήνυμα ειδοποίσησης."
 
-#: lib/Mime/Viewer/Smime.php:350 lib/Mime/Viewer/Smime.php:354
+#: lib/Mime/Viewer/Smime.php:364 lib/Mime/Viewer/Smime.php:368
 msgid "Click HERE to verify the data."
 msgstr "Κάντε κλικ ΕΔΩ για να ελεγχθούν τα δεδομένα."
 
@@ -1232,13 +1230,13 @@ msgstr ""
 "Προβολή  των στοιχείων εμπλουτισμένου κειμένου (HTML) σε νέο παράθυρο,  "
 "αυτό  είναι πιθανό να σας επιτρέψει να δείτε σωστά το μήνυμα."
 
-#: config/prefs.php:1532
+#: config/prefs.php:1533
 msgid "Clicking on the address will compose a new message to the sender"
 msgstr ""
 "Κάνοντας κλικ στη διεύθυνση να ανοίξει σύνθεση νέου μηνύματος για τον "
 "αποστολέα"
 
-#: config/prefs.php:1533
+#: config/prefs.php:1534
 msgid "Clicking on the address will open the message to be read"
 msgstr "Κάνοντας κλικ στη διεύθυνση να ανοίξει το μήνυμα για ανάγνωση"
 
@@ -1246,7 +1244,7 @@ msgstr "Κάνοντας κλικ στη διεύθυνση να ανοίξει 
 msgid "Close"
 msgstr "Κλείσιμο"
 
-#: config/prefs.php:792
+#: config/prefs.php:793
 msgid "Close the compose window after saving a draft?"
 msgstr ""
 "Να κλείνει το παράθυρο σύνθεσης μετά την αποθήκευση του μηνύματος στα "
@@ -1273,7 +1271,7 @@ msgstr "Χρώμα"
 msgid "Color Picker"
 msgstr "Επιλογή χρώματος"
 
-#: config/prefs.php:1637
+#: config/prefs.php:1638
 msgid "Combine all namespaces"
 msgstr "Συνδυασμός όλων των περιοχών ονομάτων"
 
@@ -1281,13 +1279,13 @@ msgstr "Συνδυασμός όλων των περιοχών ονομάτων"
 msgid "Comment"
 msgstr "Σχόλιο"
 
-#: lib/Mime/Viewer/Itip.php:755
+#: lib/Mime/Viewer/Itip.php:756
 msgid "Completed"
 msgstr "Ολοκληρωμένο"
 
-#: config/prefs.php:475 config/prefs.php:629 config/prefs.php:675
-#: config/prefs.php:732 config/prefs.php:766 config/prefs.php:820
-#: config/prefs.php:889
+#: config/prefs.php:476 config/prefs.php:630 config/prefs.php:676
+#: config/prefs.php:733 config/prefs.php:767 config/prefs.php:821
+#: config/prefs.php:890
 msgid "Compose"
 msgstr "Σύνθεση"
 
@@ -1295,7 +1293,7 @@ msgstr "Σύνθεση"
 msgid "Compose Message"
 msgstr "Σύνθεση Μηνύματος"
 
-#: config/prefs.php:630
+#: config/prefs.php:631
 msgid "Compose Templates"
 msgstr "Σύνθεση Προτύπων"
 
@@ -1309,47 +1307,47 @@ msgstr ""
 "Η λειτουργία σύνθεσης ολοκληρώθηκε. Μπορείτε τώρα να κλείσετε με ασφάλεια "
 "αυτό το παράθυρο."
 
-#: config/prefs.php:599
+#: config/prefs.php:600
 msgid "Compose messages in a separate window?"
 msgstr "Η σύνθεση των μηνυμάτων να γίνεται σε νέο παράθυρο;"
 
-#: config/prefs.php:476
+#: config/prefs.php:477
 msgid "Composition"
 msgstr "Σύνθεση"
 
-#: config/prefs.php:321
+#: config/prefs.php:322
 msgid "Configure PGP encryption support."
 msgstr "Ρυθμίστε την υποστήριξη PGP κρυπτογράφησης."
 
-#: config/prefs.php:404
+#: config/prefs.php:405
 msgid "Configure S/MIME encryption support."
 msgstr "Ρυθμίστε την υποστήριξη S/MIME κρυπτογράφησης."
 
-#: config/prefs.php:1384
+#: config/prefs.php:1385
 msgid "Configure flag highlighting."
 msgstr "Ρυθμίστε την έμφαση των  σημάνσεων."
 
-#: config/prefs.php:304
+#: config/prefs.php:305
 msgid "Configure how event or meeting requests should be handled."
 msgstr "Ρύθμιση για το χειρισμό των αιτημάτων για γεγονότα ή συναντήσεις."
 
-#: config/prefs.php:978
+#: config/prefs.php:979
 msgid "Configure how messages are displayed."
 msgstr "Ρυθμίστε πως θα εμφανίζονται τα μηνύματα."
 
-#: config/prefs.php:734
+#: config/prefs.php:735
 msgid "Configure how you forward mail."
 msgstr "Ρυθμίστε πως θα κάνετε προώθηση μηνυμάτων. "
 
-#: config/prefs.php:677
+#: config/prefs.php:678
 msgid "Configure how you reply to mail."
 msgstr "Ρύθμιση των επιλογών για την αποστολή μηνυμάτων. "
 
-#: config/prefs.php:477
+#: config/prefs.php:478
 msgid "Configure how you send mail."
 msgstr "Ρύθμιση των επιλογών για την αποστολή μηνυμάτων. "
 
-#: config/prefs.php:1418
+#: config/prefs.php:1419
 msgid "Configure message printing."
 msgstr "Ρυθμίστε την εκτύπωση μηνυμάτων."
 
@@ -1357,7 +1355,7 @@ msgstr "Ρυθμίστε την εκτύπωση μηνυμάτων."
 msgid "Configure remote mail accounts to display."
 msgstr "Ρυθμίστε την εμφάνιση εξωτερικών λογαριασμών αλληλογραφίας."
 
-#: config/prefs.php:1245
+#: config/prefs.php:1246
 msgid "Configure spam reporting."
 msgstr "Ρυθμίσεις για την αναφορά SPAM μηνυμάτων."
 
@@ -1365,7 +1363,7 @@ msgstr "Ρυθμίσεις για την αναφορά SPAM μηνυμάτων.
 msgid "Contains Attachment(s)"
 msgstr "Περιέχει Συνημμένο(α)"
 
-#: config/prefs.php:1337
+#: config/prefs.php:1338
 msgid ""
 "Control when new mail will be checked for, and whether or not to notify you "
 "when it arrives."
@@ -1378,7 +1376,7 @@ msgid "Convert HTML data to plain text and view in new window."
 msgstr ""
 "Μετατροπή HTML περιεχόμενο σε απλό κείμενο και προβολή σε νέο παράθυρο."
 
-#: config/prefs.php:1075
+#: config/prefs.php:1076
 msgid "Convert textual emoticons into graphical ones?"
 msgstr "Να μετατρέπονται χαιρετισμοί συμβόλων σε αντίστοιχα εικονίδια;"
 
@@ -1415,7 +1413,7 @@ msgstr ""
 "Δεν ήταν δυνατή η προσθήκη δικαιωμάτων για τον χρήστη  \"%s\" στη θυρίδα \"%s"
 "\"."
 
-#: lib/Compose.php:3155
+#: lib/Compose.php:3172
 #, php-format
 msgid "Could not attach %s to the message."
 msgstr "Δεν ήταν δυνατή η επισύναψη του %s στο μήνυμα."
@@ -1429,7 +1427,7 @@ msgstr "Δεν ήταν δυνατή η ταυτοποίηση  σε %s."
 msgid "Could not auto-determine data type."
 msgstr "Δεν ήταν δυνατός ο καθορισμός του τύπου των δεδομένων."
 
-#: lib/Mailbox.php:818
+#: lib/Mailbox.php:822
 #, php-format
 msgid "Could not delete Virtual Folder \"%s\"."
 msgstr "Δεν ήταν δυνατή η διαγραφή του Ιδεατού Φακέλου \"%s\"."
@@ -1491,7 +1489,7 @@ msgstr ""
 "Δεν ήταν δυνατή η αφαίρεση δικαιωμάτων για τον χρήστη  \"%s\" στη θυρίδα \"%s"
 "\"."
 
-#: lib/Basic/Compose.php:1104 lib/Compose.php:1820 lib/Compose.php:2193
+#: lib/Basic/Compose.php:1104 lib/Compose.php:1831 lib/Compose.php:2204
 #: lib/Dynamic/Compose.php:277 lib/Minimal/Compose.php:531
 msgid "Could not retrieve message data from the mail server."
 msgstr "Δεν ήταν δυνατή η ανάκτηση μηνυμάτων από τον mail server."
@@ -1509,7 +1507,7 @@ msgstr "Δημιουργία"
 msgid "Create Filter"
 msgstr "Δημιουργία Φίλτρου"
 
-#: templates/prefs/pgpprivatekey.html.php:125
+#: templates/prefs/pgpprivatekey.html.php:126
 msgid "Create Keys"
 msgstr "Δημιουργία κλειδιών"
 
@@ -1534,7 +1532,7 @@ msgstr "Δημιουργία Υποφακέλων/Μετονομασία Θυρ�
 msgid "Create a new sent-mail mailbox"
 msgstr "Δημιουργία μιας νέας θυρίδας απεσταλμένων"
 
-#: config/prefs.php:199
+#: config/prefs.php:200
 msgid ""
 "Create filtering rules to organize your incoming mail, sort it into "
 "mailboxes, and delete spam."
@@ -1546,7 +1544,7 @@ msgstr ""
 msgid "Create mailbox:"
 msgstr "Δημιουργία Θυρίδας:"
 
-#: config/prefs.php:649
+#: config/prefs.php:650
 msgid "Create new Template"
 msgstr "Δημιουργία Νέου Προτύπου"
 
@@ -1567,7 +1565,7 @@ msgstr "Δημιουργία υποφακέλων και μετονομασία 
 msgid "Creating New Flag..."
 msgstr "Δημιουργία Νέας Σήμανσης..."
 
-#: config/prefs.php:1519
+#: config/prefs.php:1520
 msgid "Criteria to use when sorting by date:"
 msgstr "Κριτήρια για την ταξινόμηση βάση ημερομηνίας:"
 
@@ -1575,7 +1573,7 @@ msgstr "Κριτήρια για την ταξινόμηση βάση ημερο�
 msgid "Current Attachments"
 msgstr "Τρέχοντα Συνημμένα"
 
-#: lib/Prefs/Special/Acl.php:71
+#: lib/Prefs/Special/Acl.php:75
 #, php-format
 msgid "Current access to %s"
 msgstr "Τρέχουσα πρόσβαση σε %s"
@@ -1592,7 +1590,7 @@ msgstr "Προσαρμοσμένη Κεφαλίδα:"
 msgid "Dat_e"
 msgstr "Ημερομηνία"
 
-#: config/prefs.php:1482 lib/Basic/Search.php:93 lib/Compose.php:2583
+#: config/prefs.php:1483 lib/Basic/Search.php:93 lib/Compose.php:2594
 #: lib/Dynamic/Mailbox.php:197 lib/Message/Ui.php:33
 #: templates/dynamic/mailbox.html.php:132
 msgid "Date"
@@ -1626,7 +1624,7 @@ msgstr "Ημερομηνία Από"
 msgid "Date Until"
 msgstr "Ημερομηνία Μέχρι"
 
-#: config/prefs.php:1517
+#: config/prefs.php:1518
 msgid "Date in message headers"
 msgstr "Ημερομηνία μέσα στην κεφαλίδα του μηνύματος"
 
@@ -1634,29 +1632,29 @@ msgstr "Ημερομηνία μέσα στην κεφαλίδα του μηνύ�
 msgid "Days"
 msgstr "Μέρες"
 
-#: lib/Mime/Viewer/Itip.php:746
+#: lib/Mime/Viewer/Itip.php:747
 msgid "Declined"
 msgstr "Απορρίφθηκε"
 
-#: config/prefs.php:513
+#: config/prefs.php:514
 msgid "Default method to compose messages:"
 msgstr "Προκαθορισμένη μέθοδος σύνθεσης μηνυμάτων:"
 
-#: config/prefs.php:1489
+#: config/prefs.php:1490
 msgid "Default sorting criteria:"
 msgstr "Προεπιλεγμένα κριτήρια ταξινόμησης:"
 
-#: config/prefs.php:1499
+#: config/prefs.php:1500
 msgid "Default sorting direction:"
 msgstr "Προεπιλεγμένη κατεύθυνση ταξινόμησης:"
 
-#: lib/Mime/Viewer/Itip.php:752
+#: lib/Mime/Viewer/Itip.php:753
 msgid "Delegated"
 msgstr "Μεταβιβάσθηκε"
 
 #: lib/Dynamic/Compose/Common.php:186 lib/Dynamic/Mailbox.php:327
-#: lib/Dynamic/Mailbox.php:358 lib/Imap/Acl.php:196
-#: lib/Minimal/Message.php:218 templates/basic/folders/actions.html.php:26
+#: lib/Dynamic/Mailbox.php:358 lib/Imap/Acl.php:196 lib/Minimal/Message.php:218
+#: templates/basic/folders/actions.html.php:26
 #: templates/dynamic/mailbox.html.php:51 templates/dynamic/message.html.php:29
 #: templates/minimal/mailbox.html.php:30 templates/prefs/acl.html.php:43
 #: templates/prefs/acl.html.php:78 templates/prefs/pgppublickey.html.php:22
@@ -1706,13 +1704,13 @@ msgstr "Διαγραφή και μετονομασία θυρίδας"
 msgid "Delete from my calendar"
 msgstr "Διαγραφή από το Ημερολόγιό μου"
 
-#: config/prefs.php:563
+#: config/prefs.php:564
 msgid "Delete linked attachments after this many months (0 to never delete):"
 msgstr ""
 "Διαγραφή των συνδεδεμένων συνημμένων μετά από αριθμό μηνών (0 για να μη "
 "διαγράφονται):"
 
-#: config/prefs.php:1276
+#: config/prefs.php:1277
 msgid "Delete message"
 msgstr "Διαγραφή μηνύματος"
 
@@ -1720,7 +1718,7 @@ msgstr "Διαγραφή μηνύματος"
 msgid "Delete messages"
 msgstr "Διαγραφή Μηνυμάτων"
 
-#: config/prefs.php:855
+#: config/prefs.php:856
 msgid ""
 "Delete old sent mail mailboxes after this many months (0 to never delete):"
 msgstr ""
@@ -1743,7 +1741,7 @@ msgstr "Διαγραφή;"
 msgid "Deleted"
 msgstr "Διαγραμμένα"
 
-#: lib/Mailbox.php:814
+#: lib/Mailbox.php:818
 #, php-format
 msgid "Deleted Virtual Folder \"%s\"."
 msgstr "Διαγραφή Ιδεατού Φακέλου \"%s\"."
@@ -1758,7 +1756,7 @@ msgstr "Διαγραφή συνημμένου \"%s\"."
 msgid "Deleted flag \"%s\"."
 msgstr "Διαγραφή σήμανσης \"%s\"."
 
-#: config/prefs.php:1123
+#: config/prefs.php:1124
 msgid "Deleting and Moving Messages"
 msgstr "Διαγραφή και Μεταφορά Μηνυμάτων"
 
@@ -1770,7 +1768,7 @@ msgstr "Αρνηση αιτήματος"
 msgid "Deny request for free/busy information"
 msgstr "Αρνηση αιτήματος για πληροφορίες ελεύθερου/απασχολημένου"
 
-#: config/prefs.php:1497
+#: config/prefs.php:1498
 msgid "Descending"
 msgstr "Φθίνουσα"
 
@@ -1787,7 +1785,7 @@ msgstr "Περιγραφή"
 msgid "Details"
 msgstr "Λεπτομέρειες"
 
-#: config/prefs.php:1069
+#: config/prefs.php:1070
 msgid "Dim signatures?"
 msgstr "Η υπογραφή σας;"
 
@@ -1806,21 +1804,21 @@ msgstr ""
 "μετατροπής από εμπλουτισμένο-HTML σε απλό κείμενο); Αυτή η μετατροπή δεν "
 "είναι αναστρέψιμη."
 
-#: config/prefs.php:605
+#: config/prefs.php:606
 msgid "Display confirmation in popup window after sending a message?"
 msgstr ""
 "Θέλετε να εμφανίζεται μήνυμα επιβεβαίωσης σε αναδυόμενο παράθυρο, όταν "
 "στέλνετε ένα μήνυμα;"
 
-#: config/prefs.php:1361
+#: config/prefs.php:1362
 msgid "Display notification when new mail arrives?"
 msgstr "Θέλετε να εμφανίζεται ειδοποίηση όταν ένα νέο μήνυμα φθάνει;"
 
-#: config/prefs.php:1302
+#: config/prefs.php:1303
 msgid "Display the \"Empty Spam\" link in the menubar?"
 msgstr "Εμφάνιση του \"Άδειασμα SPAM\" συνδέσμου στο menu;"
 
-#: config/prefs.php:1200
+#: config/prefs.php:1201
 msgid "Display the \"Empty Trash\" link in the menubar?"
 msgstr "Εμφάνιση του \"Άδειασμα Κάδου Απορριμάτων\" συνδέσμου στο menu;"
 
@@ -1837,11 +1835,11 @@ msgstr "Να μην ταιριάζουν"
 msgid "Do Not Check for New Mail"
 msgstr "Να μην γίνει έλεγχος νέων μηνυμάτων"
 
-#: config/prefs.php:835
+#: config/prefs.php:836
 msgid "Do not save attachments"
 msgstr "Nα μην αποθηκεύονται τα συνημμένα"
 
-#: config/prefs.php:1084
+#: config/prefs.php:1085
 msgid "Do not show parts"
 msgstr "Να μην εμφανίζονται τα μέρη"
 
@@ -1891,11 +1889,11 @@ msgstr "Λήψη σε αρχείου τύπου MBOX"
 msgid "Download into a MBOX file (ZIP compressed)"
 msgstr "Λήψη σε αρχείου τύπου MBOX( με συμπίεση ZIP)"
 
-#: lib/Compose.php:2926
+#: lib/Compose.php:2937
 msgid "Download link"
 msgstr "Σύνδεσμος λήψης"
 
-#: lib/Compose.php:2919
+#: lib/Compose.php:2930
 #, php-format
 msgid "Download link: %s"
 msgstr "Σύνδεσμος λήψης: %s"
@@ -1908,7 +1906,7 @@ msgstr "Πρόχειρα"
 msgid "Draft automatically saved."
 msgstr "Αποθηκεύτηκε αυτόματα στα πρόχειρα."
 
-#: config/prefs.php:767 lib/Mailbox.php:1573 lib/Mailbox.php:1661
+#: config/prefs.php:768 lib/Mailbox.php:1577 lib/Mailbox.php:1665
 msgid "Drafts"
 msgstr "Πρόχειρα"
 
@@ -1974,24 +1972,24 @@ msgstr "Επεξεργασία Ιδεατού Φακέλου"
 msgid "Edit Virtual Folders"
 msgstr "Επεξεργασία Ιδεατών Φακέλων"
 
-#: config/prefs.php:749 lib/Basic/Message.php:632 lib/Dynamic/Base.php:178
+#: config/prefs.php:750 lib/Basic/Message.php:632 lib/Dynamic/Base.php:178
 #: lib/Minimal/Message.php:245
 msgid "Edit as New"
 msgstr "Επεξεργασία σαν Νέο"
 
-#: config/prefs.php:631
+#: config/prefs.php:632
 msgid "Edit compose templates."
 msgstr "Επεξεργασία προτύπου σύνθεσης."
 
-#: config/prefs.php:228
+#: config/prefs.php:229
 msgid "Edit your Blacklist"
 msgstr "Επεξεργασία της Μαύρης Λίστας σας"
 
-#: config/prefs.php:210
+#: config/prefs.php:211
 msgid "Edit your Filter Rules"
 msgstr "Επεξεργασία των Κανόνων Φίλτρων σας"
 
-#: config/prefs.php:246
+#: config/prefs.php:247
 msgid "Edit your Whitelist"
 msgstr "Επεξεργασία της Λευκής Λίστας σας"
 
@@ -2028,15 +2026,15 @@ msgstr "Άδειασμα SPAM"
 msgid "Empty _Trash"
 msgstr "Αδειασμα Κάδου"
 
-#: config/prefs.php:342
+#: config/prefs.php:343
 msgid "Enable PGP functionality?"
 msgstr "Ενεργοποίηση λειτουργιών PGP;"
 
-#: config/prefs.php:426
+#: config/prefs.php:427
 msgid "Enable S/MIME functionality?"
 msgstr "Ενεργοποίηση λειτουργιών S/MIME;"
 
-#: config/prefs.php:1554
+#: config/prefs.php:1555
 msgid "Enable message previews?"
 msgstr "Ενεργοποίηση προεπισκόπισης μηνυμάτων;"
 
@@ -2056,15 +2054,15 @@ msgstr "Κρυπτογράφηση"
 msgid "End"
 msgstr "Τέλος"
 
-#: lib/Compose.php:2287
+#: lib/Compose.php:2298
 msgid "End forwarded message"
 msgstr "Τέλος προωθημένου μηνύματος"
 
-#: lib/Compose.php:2098
+#: lib/Compose.php:2109
 msgid "End message"
 msgstr "Τέλος μηνύματος"
 
-#: lib/Compose.php:2098
+#: lib/Compose.php:2109
 #, php-format
 msgid "End message from %s"
 msgstr "Τέλος μηνύματος από %s"
@@ -2113,7 +2111,7 @@ msgstr "Ολόκληρο το Μήνυμα"
 msgid "Entire Message (including Headers)"
 msgstr "Ολόκληρο το Μήνυμα (συμπεριλαμβανομένων των Κεφαλίδων)"
 
-#: lib/Basic/Message.php:161 lib/Basic/Thread.php:57 lib/Compose.php:1361
+#: lib/Basic/Message.php:161 lib/Basic/Thread.php:57 lib/Compose.php:1372
 #, php-format
 msgid "Entry \"%s\" was successfully added to the address book"
 msgstr "Η εγγραφή \"%s\" προστέθηκε με επιτυχία στον βιβλίο διευθύνσεων."
@@ -2146,7 +2144,7 @@ msgstr ""
 "Σφάλμα κατά την εισαγωγή των μηνυμάτων.  Επιτυχημένη εισαγωγή για %u "
 "μηνύματα  πριν από το σφάλμα."
 
-#: lib/Compose.php:2403
+#: lib/Compose.php:2414
 msgid "Error when redirecting message."
 msgstr "Σφάλμα κατά την ανακατεύθυνση του μηνύματος."
 
@@ -2158,7 +2156,7 @@ msgstr ""
 "Σφάλμα! Αυτή η εφαρμογή απαιτεί ο περιηγητής σας να υποστηρίζει και να έχει "
 "ενεργοποιημένη javascript."
 
-#: config/prefs.php:303
+#: config/prefs.php:304
 msgid "Event Requests"
 msgstr "Αιτήσεις γεγονότων"
 
@@ -2166,23 +2164,23 @@ msgstr "Αιτήσεις γεγονότων"
 msgid "Event successfully deleted."
 msgstr "Το γεγονός διαγράφηκε επιτυχώς."
 
-#: config/prefs.php:1352
+#: config/prefs.php:1353
 msgid "Every 15 minutes"
 msgstr "Κάθε 15 Λεπτά"
 
-#: config/prefs.php:1349
+#: config/prefs.php:1350
 msgid "Every 30 seconds"
 msgstr "Κάθε 30 Λεπτά"
 
-#: config/prefs.php:810 config/prefs.php:1351
+#: config/prefs.php:811 config/prefs.php:1352
 msgid "Every 5 minutes"
 msgstr "Κάθε 5 Λεπτά"
 
-#: config/prefs.php:1353
+#: config/prefs.php:1354
 msgid "Every half hour"
 msgstr "Κάθε μισή ώρα"
 
-#: config/prefs.php:809 config/prefs.php:1350
+#: config/prefs.php:810 config/prefs.php:1351
 msgid "Every minute"
 msgstr "Κάθε λεπτό"
 
@@ -2204,12 +2202,11 @@ msgid "Expand Headers"
 msgstr "Επέκταση Κεφαλίδων"
 
 #: lib/Minimal/Compose.php:107 lib/Minimal/Compose.php:162
-#: templates/minimal/compose.html.php:58
-#: templates/minimal/redirect.html.php:28
+#: templates/minimal/compose.html.php:58 templates/minimal/redirect.html.php:28
 msgid "Expand Names"
 msgstr "Ανάπτυξη Ονομάτων"
 
-#: config/prefs.php:1626
+#: config/prefs.php:1627
 msgid "Expand the entire folder tree by default in the folders view?"
 msgstr "Να γίνεται πάντα ανάπτυξη όλου του δέντρου των φακέλων;"
 
@@ -2266,13 +2263,13 @@ msgstr "Φιλτράρισμα Μηνυμάτων"
 msgid "Filter mailboxes..."
 msgstr "Φιλτράρισμα γραμματοκιβωτίων..."
 
-#: config/prefs.php:991
+#: config/prefs.php:992
 msgid "Filter message content for unwanted text (e.g. profanity)?"
 msgstr ""
 "Φιλτράρισμα του περιεχομένου των μηνυμάτων για ανεπιθύμητο περιεχόμενο (π.χ. "
 "βλασφημία);"
 
-#: config/prefs.php:198
+#: config/prefs.php:199
 msgid "Filters"
 msgstr "Κανόνες"
 
@@ -2285,11 +2282,11 @@ msgstr "Φίλτρα: %s σελίδα διαχείρισης"
 msgid "Find"
 msgstr "Εύρεση"
 
-#: config/prefs.php:1466
+#: config/prefs.php:1467
 msgid "First (oldest) Unseen Message"
 msgstr "Πρώτο (παλιότερο) μη αναγνωσμένο μήνυμα"
 
-#: config/prefs.php:1468 lib/Minimal/Mailbox.php:204
+#: config/prefs.php:1469 lib/Minimal/Mailbox.php:204
 #: templates/basic/mailbox/navbar.html.php:8
 msgid "First Page"
 msgstr "Αρχική Σελίδα "
@@ -2314,7 +2311,7 @@ msgstr "Σήμανση:"
 msgid "Flagged for Followup"
 msgstr "Σήμανση για Παρακολούθηση"
 
-#: config/prefs.php:1383
+#: config/prefs.php:1384
 msgid "Flags"
 msgstr "Σημάνσεις"
 
@@ -2336,7 +2333,7 @@ msgstr ""
 msgid "Fo_rward"
 msgstr "Προώθηση"
 
-#: lib/Mailbox.php:1635
+#: lib/Mailbox.php:1639
 msgid "Folder"
 msgstr "Φάκελος"
 
@@ -2344,12 +2341,11 @@ msgstr "Φάκελος"
 msgid "Folder Actions"
 msgstr "Ενέργειες Φακέλων"
 
-#: lib/Basic/Folders.php:274
-#: templates/basic/folders/folders_confirm.html.php:6
+#: lib/Basic/Folders.php:274 templates/basic/folders/folders_confirm.html.php:6
 msgid "Folder Actions - Confirmation"
 msgstr "Ενέργειες Φακέλου - Επιβεβαίωση"
 
-#: config/prefs.php:1601
+#: config/prefs.php:1602
 msgid "Folder Display"
 msgstr "Εμφάνιση Φακέλων"
 
@@ -2363,7 +2359,7 @@ msgstr "Πλοήγηση Φάκελων"
 msgid "Folders"
 msgstr "Φάκελοι"
 
-#: config/prefs.php:1007
+#: config/prefs.php:1008
 msgid ""
 "For messages with alternative representations of a text part, which part "
 "should be displayed?"
@@ -2371,7 +2367,7 @@ msgstr ""
 "Για τα μηνύματα με εναλλακτικές αναπαραστάσεις ενός τμήματος κειμένου, ποιο "
 "τμήμα θα πρέπει να εμφανιστεί;"
 
-#: lib/Compose.php:2229 lib/Compose.php:2232 lib/Dynamic/Mailbox.php:315
+#: lib/Compose.php:2240 lib/Compose.php:2243 lib/Dynamic/Mailbox.php:315
 #: lib/Minimal/Compose.php:228 lib/Minimal/Message.php:243
 #: lib/Notification/Event/Status.php:27 templates/dynamic/mailbox.html.php:32
 #: templates/dynamic/message.html.php:15
@@ -2383,15 +2379,15 @@ msgstr "Προώθηση"
 msgid "Forwarded"
 msgstr "Προωθημένα"
 
-#: lib/Compose.php:2544
+#: lib/Compose.php:2555
 msgid "Forwarded Message"
 msgstr "Προωθημένο Μήνυμα"
 
-#: lib/Compose.php:2285
+#: lib/Compose.php:2296
 msgid "Forwarded message"
 msgstr "Προωθημένο μήνυμα"
 
-#: lib/Compose.php:2285
+#: lib/Compose.php:2296
 #, php-format
 msgid "Forwarded message from %s"
 msgstr "Προώθηση μηνύματος από %s"
@@ -2402,11 +2398,11 @@ msgstr ""
 "Το προωθημένο μήνυμα θα προστεθεί αυτόματα στο φάκελο με τα εξερχόμενα "
 "μηνύματα."
 
-#: config/prefs.php:733
+#: config/prefs.php:734
 msgid "Forwards"
 msgstr "Προωθήσεις"
 
-#: lib/Compose.php:1485
+#: lib/Compose.php:1496
 #, php-format
 msgid ""
 "Found the word %s in the message text although there are no files attached "
@@ -2425,18 +2421,17 @@ msgstr "Απάντηση σε αίτημα Ελεύθερου/Απασχολημ
 msgid "Fro_m"
 msgstr "Από"
 
-#: lib/Basic/Search.php:57 lib/Compose.php:2587 lib/Dynamic/Mailbox.php:177
+#: lib/Basic/Search.php:57 lib/Compose.php:2598 lib/Dynamic/Mailbox.php:177
 #: lib/Dynamic/Mailbox.php:256 lib/Dynamic/Mailbox.php:497
 #: lib/Message/Ui.php:34 templates/basic/compose/compose.html.php:38
 #: templates/basic/search/search-basic.html.php:16
 #: templates/dynamic/compose.html.php:102
 #: templates/dynamic/mailbox.html.php:128 templates/minimal/mailbox.html.php:9
-#: templates/smartmobile/search.html.php:11
-#: templates/thread/thread.html.php:21
+#: templates/smartmobile/search.html.php:11 templates/thread/thread.html.php:21
 msgid "From"
 msgstr "Από"
 
-#: config/prefs.php:1483
+#: config/prefs.php:1484
 msgid "From Address"
 msgstr "Διεύθυνση Αποστολέα"
 
@@ -2450,8 +2445,8 @@ msgid "Gallery"
 msgstr "Γκάλερι"
 
 #: config/prefs.php:14 config/prefs.php:109 config/prefs.php:135
-#: config/prefs.php:161 config/prefs.php:197 config/prefs.php:302
-#: config/prefs.php:319 config/prefs.php:402
+#: config/prefs.php:162 config/prefs.php:198 config/prefs.php:303
+#: config/prefs.php:320 config/prefs.php:403
 msgid "General"
 msgstr "Γενικά"
 
@@ -2484,7 +2479,7 @@ msgstr "Μετάβαση στα Εισερχόμενα"
 msgid "HERE"
 msgstr "ΕΔΩ"
 
-#: lib/Compose.php:1588
+#: lib/Compose.php:1599
 msgid "HTML Message"
 msgstr "Μήνυμα  εμπλουτισμένου κειμένου (HTML)"
 
@@ -2492,7 +2487,7 @@ msgstr "Μήνυμα  εμπλουτισμένου κειμένου (HTML)"
 msgid "HTML composition"
 msgstr "Σύνθεση εμπλουτισμένου κειμένου (HTML)"
 
-#: config/prefs.php:1004
+#: config/prefs.php:1005
 msgid "HTML part"
 msgstr "Τμήμα HTML "
 
@@ -2500,23 +2495,23 @@ msgstr "Τμήμα HTML "
 msgid "Headers"
 msgstr "Επικεφαλίδες"
 
-#: config/prefs.php:1060
+#: config/prefs.php:1061
 msgid "Hidden"
 msgstr "Απόκρυψη"
 
-#: config/prefs.php:1058
+#: config/prefs.php:1059
 msgid "Hidden in List Messages"
 msgstr "Απόκρυψη στη Λίστα Μηνυμάτων"
 
-#: config/prefs.php:1057
+#: config/prefs.php:1058
 msgid "Hidden in Thread View"
 msgstr "Απόκρυψη σε εμφάνιση Νήματος"
 
-#: config/prefs.php:1059
+#: config/prefs.php:1060
 msgid "Hidden in Thread View and List Messages"
 msgstr "Απόκρυψη στην Προβολή Νήματος και στη Λίστα Μηνυμάτων"
 
-#: lib/Message/Ui.php:307 templates/dynamic/header.html.php:5
+#: lib/Message/Ui.php:314 templates/dynamic/header.html.php:5
 msgid "Hide Addresses"
 msgstr "Απόκρυψη Διευθύνσεων"
 
@@ -2532,7 +2527,7 @@ msgstr "Απόκρυψη Προεπισκόπησης"
 msgid "Hide Unsubscribed"
 msgstr "Απόκρυψη μή συνδεμένων"
 
-#: config/prefs.php:1194
+#: config/prefs.php:1195
 msgid "Hide deleted messages even if using the Trash mailbox?"
 msgstr ""
 "Απόκρυψη διαγραμμένων μηνυμάτων, ακόμα και εάν χρησιμοποιείτε τον Κάδο "
@@ -2551,7 +2546,7 @@ msgstr "Υψηλή προτεραιότητα"
 msgid "Horizontal Layout"
 msgstr "Οριζόντια Προβολή"
 
-#: config/prefs.php:1062
+#: config/prefs.php:1063
 msgid ""
 "How should large blocks of quoted text be shown by default? (Toggling the "
 "block will always be available)."
@@ -2559,17 +2554,17 @@ msgstr ""
 "Πως θα εμφανίζονται μεγάλα τμήματα κειμένου σε εισαγωγικά; (Μπορείτε να "
 "εναλλάσσετε την εμφάνιση του τμήματος  όποτε το επιθυμείτε)."
 
-#: config/prefs.php:751
+#: config/prefs.php:752
 msgid "How should messages be forwarded by default?"
 msgstr "Με ποιον τρόπο επιθυμείτε να προωθείτε κάποιο μήνυμα;"
 
-#: config/prefs.php:1640
+#: config/prefs.php:1641
 msgid "How should namespaces be displayed in the folder tree view?"
 msgstr ""
 "Πώς θα πρέπει να εμφανίζονται οι περιοχές  ονομάτων στην προβολή δέντρου "
 "φακέλων;"
 
-#: config/prefs.php:714
+#: config/prefs.php:715
 msgid "How to attribute quoted lines in a reply?"
 msgstr "Πως να σηματοδοτούνται οι εισαγόμενες γραμμές σε μιά απάντηση;"
 
@@ -2605,7 +2600,7 @@ msgstr "Οι εικόνες έχουν μπλοκαριστεί σε αυτό τ
 msgid "Import"
 msgstr "Εισαγωγή"
 
-#: templates/prefs/pgpprivatekey.html.php:127
+#: templates/prefs/pgpprivatekey.html.php:129
 msgid "Import Key"
 msgstr "Εισαγωγή Κλειδιού"
 
@@ -2626,7 +2621,7 @@ msgstr "Εισαγωγή Προσωπικού Πιστοποιητικού"
 msgid "Import Personal Key"
 msgstr "Εισαγωγή Προσωπικών Κλειδιών"
 
-#: lib/Basic/Smime.php:131 templates/smime/import_key.html.php:9
+#: lib/Basic/Smime.php:134 templates/smime/import_key.html.php:9
 msgid "Import Personal S/MIME Certificate"
 msgstr "Εισαγωγή Προσωπικού Πιστοποιητικού S/MIME "
 
@@ -2670,30 +2665,30 @@ msgstr "Εισαγωγή (θα χρειαστεί λίγος χρόνος)..."
 msgid "In Body Text"
 msgstr "Στο Σώμα Κειμένου"
 
-#: lib/Mime/Viewer/Itip.php:758
+#: lib/Mime/Viewer/Itip.php:759
 msgid "In Process"
 msgstr "Σε εξέλιξη"
 
-#: config/prefs.php:747
+#: config/prefs.php:748
 msgid "In the body text"
 msgstr "Στο σώμα κειμένου"
 
-#: lib/Mailbox.php:1598 lib/Mailbox.php:1602 lib/Mailbox.php:1649
+#: lib/Mailbox.php:1602 lib/Mailbox.php:1606 lib/Mailbox.php:1653
 #: lib/Minimal/Base.php:83 lib/Remote.php:107
 msgid "Inbox"
 msgstr "Εισερχόμενα"
 
-#: config/prefs.php:698
+#: config/prefs.php:699
 msgid "Include a brief summary of the original message's header in a reply?"
 msgstr ""
 "Να συμπεριλαμβάνεται μια σύντομη περίληψη της κεφαλίδας του αρχικού "
 "μηνύματος στην απάντηση;"
 
-#: config/prefs.php:707
+#: config/prefs.php:708
 msgid "Include original message in a reply?"
 msgstr "Ενσωμάτωση του αρχικού μηνύματος στις απαντήσεις;"
 
-#: config/prefs.php:1545
+#: config/prefs.php:1546
 msgid "Indicate whether attachments exist in a message in the mailbox listing?"
 msgstr ""
 "Ένδειξη εάν υπάρχουν συνημμένα σε ένα μήνυμα στη λίστα του γραμματοκιβώτιου;"
@@ -2755,16 +2750,16 @@ msgstr "Άκυρα στοιχεία S/MIME."
 msgid "Invalid Subject"
 msgstr "Λανθασμένo Θέμα"
 
-#: lib/Compose.php:1302
+#: lib/Compose.php:1305
 #, php-format
 msgid "Invalid e-mail address (%s)."
 msgstr "Λανθασμένη Διεύθυνση e-mail (%s)"
 
-#: lib/Compose.php:744 lib/Compose.php:2388
+#: lib/Compose.php:744 lib/Compose.php:2399
 msgid "Invalid e-mail address."
 msgstr "Λανθασμένη Διεύθυνση e-mail."
 
-#: lib/Basic/Smime.php:190
+#: lib/Basic/Smime.php:193
 msgid "Invalid key"
 msgstr "Μη έγκυρο κλειδί"
 
@@ -2775,13 +2770,13 @@ msgstr "Δώσατε λανθασμένο κωδικό."
 
 #: lib/Flag/Imap/Junk.php:42
 msgid "Junk"
-msgstr ""
+msgstr "Ανεπιθύμητο (Junk)"
 
 #: templates/basic/compose/compose.html.php:332
 msgid "KB"
 msgstr "KB"
 
-#: lib/Prefs/Special/PgpPrivateKey.php:91
+#: lib/Prefs/Special/PgpPrivateKey.php:92
 msgid ""
 "Key generation may take a long time to complete.  Continue with key "
 "generation?"
@@ -2805,7 +2800,7 @@ msgstr ""
 "Η εισαγωγή κλειδιού δεν είναι διαθέσιμη. Δεν έχετε ορίσει κάποιο βιβλίο "
 "διευθύνσεων που θέλετε να προσθέσετε τις επαφές σας."
 
-#: lib/Prefs/Special/PgpPrivateKey.php:163
+#: lib/Prefs/Special/PgpPrivateKey.php:164
 msgid "Key successfully sent to the public keyserver."
 msgstr "Το κλειδί απεστάλη επιτυχώς στο εξυπηρετητή Δημοσίων Κλειδιών."
 
@@ -2814,11 +2809,11 @@ msgstr "Το κλειδί απεστάλη επιτυχώς στο εξυπηρ�
 msgid "Label"
 msgstr "Ετικέτα"
 
-#: config/prefs.php:1467
+#: config/prefs.php:1468
 msgid "Last (newest) Unseen Message"
 msgstr "Τελευταίο (νεότερο) μη αναγνωσμένο μήνυμα"
 
-#: config/prefs.php:1469 lib/Minimal/Mailbox.php:209
+#: config/prefs.php:1470 lib/Minimal/Mailbox.php:209
 #: templates/basic/mailbox/navbar.html.php:25
 msgid "Last Page"
 msgstr "Τελευταία Σελίδα"
@@ -2831,7 +2826,7 @@ msgstr "Λίστα"
 msgid "List Info"
 msgstr "Πληροφορίες Λίστας"
 
-#: config/prefs.php:913
+#: config/prefs.php:914
 msgid ""
 "List all contacts when loading the contacts screen? (if disabled, you will "
 "only see contacts that you search for explicitly)"
@@ -2905,8 +2900,8 @@ msgstr "Αρχείο Macintosh"
 msgid "Mail"
 msgstr "Αλληλογραφία"
 
-#: config/prefs.php:1434 config/prefs.php:1600 lib/Block/Summary.php:107
-#: lib/Mailbox.php:1686 templates/basic/folders/folders_size.html.php:9
+#: config/prefs.php:1435 config/prefs.php:1601 lib/Block/Summary.php:107
+#: lib/Mailbox.php:1690 templates/basic/folders/folders_size.html.php:9
 #: templates/smartmobile/message.html.php:2
 msgid "Mailbox"
 msgstr "Γραμματοκιβώτιο"
@@ -2921,7 +2916,7 @@ msgstr "Η Θυρίδα \"%s\" υπάρχει ήδη."
 msgid "Mailbox %s does not exist."
 msgstr "Η Θυρίδα %s δεν υπάρχει."
 
-#: config/prefs.php:1435
+#: config/prefs.php:1436
 msgid "Mailbox Display"
 msgstr "Εμφάνιση Γραμματοθυρίδας"
 
@@ -2937,7 +2932,7 @@ msgstr "Μεγέθη Θυρίδων"
 msgid "Mailbox Summary"
 msgstr "Σύνοψη Γραμματοκιβωτίου"
 
-#: lib/Mailbox.php:678
+#: lib/Mailbox.php:682
 msgid "Mailbox structure on server has changed."
 msgstr "Η δομή των Θυρίδων στον server έχει αλλάξει."
 
@@ -2962,15 +2957,15 @@ msgstr "Μηνύματα Λίστας Αλληλογραφίας"
 msgid "Manage Remote Accounts"
 msgstr "Διαχείριση απομακρυσμένων Λογαριασμών"
 
-#: config/prefs.php:768
+#: config/prefs.php:769
 msgid "Manage message drafts."
 msgstr "Ρύθμιση των επιλογών για τα προσχέδια μηνυμάτων."
 
-#: config/prefs.php:822
+#: config/prefs.php:823
 msgid "Manage sent mail."
 msgstr "Διαχείριση  απεσταλμένης αλληλογραφίας."
 
-#: config/prefs.php:163
+#: config/prefs.php:164
 msgid "Manage your saved searches"
 msgstr "Διαχείριση των αποθηκευμένων αναζητήσεων"
 
@@ -3013,15 +3008,15 @@ msgstr "Σήμανση ως"
 msgid "Mark as:"
 msgstr "Χαρακτηρισμός ως:"
 
-#: config/prefs.php:1042
+#: config/prefs.php:1043
 msgid "Mark different levels of quoting with different colors?"
 msgstr "Να εμφανίζονται οι απαντήσεις με διαφορετικά χρώματα;"
 
-#: config/prefs.php:1142
+#: config/prefs.php:1143
 msgid "Mark messages as seen when deleting?"
 msgstr "Σήμανση μηνυμάτων ως αναγνωσμένα όταν διαγράφονται;"
 
-#: config/prefs.php:1049
+#: config/prefs.php:1050
 msgid "Mark simple markup?"
 msgstr "Να σημειώνονται απλές σημειώσεις;"
 
@@ -3065,9 +3060,9 @@ msgstr "Mbox ή .eml αρχείο:"
 msgid "Menu"
 msgstr "Μενού"
 
-#: config/prefs.php:976 config/prefs.php:1122 config/prefs.php:1243
-#: config/prefs.php:1335 config/prefs.php:1382 config/prefs.php:1416
-#: lib/Compose.php:2092 lib/Contents.php:1380 lib/Dynamic/Message.php:113
+#: config/prefs.php:977 config/prefs.php:1123 config/prefs.php:1244
+#: config/prefs.php:1336 config/prefs.php:1383 config/prefs.php:1417
+#: lib/Compose.php:2103 lib/Contents.php:1380 lib/Dynamic/Message.php:113
 msgid "Message"
 msgstr "Μήνυμα"
 
@@ -3098,7 +3093,7 @@ msgstr "Ημερομηνία Μηνύματος"
 msgid "Message Log"
 msgstr "Καταγραφή (log) μηνύματος"
 
-#: config/prefs.php:1486
+#: config/prefs.php:1487
 msgid "Message Size"
 msgstr "Μέγεθος Μηνύματος"
 
@@ -3111,7 +3106,7 @@ msgstr "Πηγαίος Κώδικας"
 msgid "Message Successfully Sent"
 msgstr "Το μήνυμα στάλθηκε με επιτυχία."
 
-#: lib/Compose.php:2092
+#: lib/Compose.php:2103
 #, php-format
 msgid "Message from %s"
 msgstr "Μήνυμα από %s"
@@ -3135,7 +3130,7 @@ msgid_plural "Messages redirected successfully"
 msgstr[0] "Το μήνυμα ανακατευθύνθηκε επιτυχώς."
 msgstr[1] "Τα μηνύματα ανακατευθύνθηκαν επιτυχώς."
 
-#: lib/Compose.php:1026
+#: lib/Compose.php:1029
 #, php-format
 msgid "Message sent successfully, but not saved to %s."
 msgstr "Το Μήνυμα στάλθηκε επιτυχώς, αλλά δεν αποθηκεύτηκε στο %s."
@@ -3167,7 +3162,7 @@ msgstr "(Μηνύματα %d - %d)"
 msgid "Messages From Personal Contacts"
 msgstr "Μηνύματα από Προσωπικές Επαφές"
 
-#: config/prefs.php:1525
+#: config/prefs.php:1526
 msgid "Messages per page in the mailbox view."
 msgstr "Μηνύματα ανά σελίδα στην προβολή του Γραμματοκιβώτιου."
 
@@ -3179,7 +3174,7 @@ msgstr "προς"
 msgid "Messages with Attachments"
 msgstr "Μηνύματα με Συνημμένα"
 
-#: config/prefs.php:311
+#: config/prefs.php:312
 msgid "Minutes needed to consider a event as non-conflicting in iTip"
 msgstr ""
 "Τα λεπτά που απαιτούνται για να θεωρηθεί μια εκδήλωση ως μη συγκρουόμενη σε "
@@ -3204,7 +3199,7 @@ msgstr "Μεταφορά"
 msgid "Move %s to %s"
 msgstr "Μεταφορά %s σε %s"
 
-#: config/prefs.php:1148
+#: config/prefs.php:1149
 msgid ""
 "Move deleted messages to your Trash mailbox instead of marking them as "
 "deleted in the current mailbox?"
@@ -3216,11 +3211,11 @@ msgstr ""
 msgid "Move to Base Level"
 msgstr "Μετακίνηση στο Αρχικό Επίπεδο"
 
-#: config/prefs.php:1290
+#: config/prefs.php:1291
 msgid "Move to Inbox"
 msgstr "Μετακίνηση στα Εισερχόμενα"
 
-#: config/prefs.php:1279
+#: config/prefs.php:1280
 msgid "Move to Spam mailbox"
 msgstr "Μετακίνηση στο φάκελο  SPAM"
 
@@ -3240,7 +3235,7 @@ msgstr "Πολλά μηνύματα μαζί μπορούν να προωθηθ�
 msgid "Must enter a non-empty name for the new destination mailbox."
 msgstr "Θα πρέπει  να ορίσετε ένα  όνομα για τη νέα θυρίδα προορισμού."
 
-#: config/prefs.php:1481
+#: config/prefs.php:1482
 msgid "NONE"
 msgstr "ΚΑΝΕΝΑ"
 
@@ -3248,7 +3243,7 @@ msgstr "ΚΑΝΕΝΑ"
 msgid "Name"
 msgstr "Όνομα"
 
-#: lib/Prefs/Special/PgpPrivateKey.php:133
+#: lib/Prefs/Special/PgpPrivateKey.php:134
 msgid "Name and/or email cannot be empty"
 msgstr "Το όνομα και/ή το email δεν μπορούν να είναι κενά"
 
@@ -3263,11 +3258,11 @@ msgstr ""
 "Χρειάζεται να εισάγετε τουλάχιστον μία ημερομηνία για να κάνετε αναζήτηση "
 "για μια χρονική περίοδο."
 
-#: lib/Compose.php:746 lib/Compose.php:2390
+#: lib/Compose.php:746 lib/Compose.php:2401
 msgid "Need at least one message recipient."
 msgstr "Πρέπει να εισάγετε τουλάχιστον ένα παραλήπτη του μηνύματος."
 
-#: lib/Mime/Viewer/Itip.php:763
+#: lib/Mime/Viewer/Itip.php:764
 msgid "Needs Action"
 msgstr "Απαιτούνται ενέργειες"
 
@@ -3275,12 +3270,12 @@ msgstr "Απαιτούνται ενέργειες"
 msgid "Negative Right"
 msgstr "Αρνητικό Δικαίωμα"
 
-#: config/prefs.php:865 config/prefs.php:1211 config/prefs.php:1311
-#: config/prefs.php:1348
+#: config/prefs.php:866 config/prefs.php:1212 config/prefs.php:1312
+#: config/prefs.php:1349
 msgid "Never"
 msgstr "Ποτέ"
 
-#: config/prefs.php:1104
+#: config/prefs.php:1105
 msgid "Never send read receipt"
 msgstr "Ποτέ να μη στέλνεται απόδειξη ανάγνωσης"
 
@@ -3288,14 +3283,13 @@ msgstr "Ποτέ να μη στέλνεται απόδειξη ανάγνωση�
 msgid "New Flag"
 msgstr "Νέα Σήμανση"
 
-#: config/prefs.php:1336
+#: config/prefs.php:1337
 msgid "New Mail"
 msgstr "Νέο Μήνυμα"
 
-#: lib/Application.php:430 lib/Basic/Compose.php:207
-#: lib/Basic/Compose.php:1152 lib/Compose.php:2209 lib/Dynamic/Base.php:157
-#: lib/Dynamic/Compose.php:78 lib/Dynamic/Mailbox.php:109
-#: lib/Minimal/Base.php:88 lib/Smartmobile.php:177
+#: lib/Application.php:430 lib/Basic/Compose.php:207 lib/Basic/Compose.php:1152
+#: lib/Compose.php:2220 lib/Dynamic/Base.php:157 lib/Dynamic/Compose.php:78
+#: lib/Dynamic/Mailbox.php:109 lib/Minimal/Base.php:88 lib/Smartmobile.php:177
 #: templates/dynamic/mailbox.html.php:54
 #: templates/smartmobile/compose.html.php:2
 #: templates/smartmobile/folders.html.php:13
@@ -3303,7 +3297,7 @@ msgstr "Νέο Μήνυμα"
 msgid "New Message"
 msgstr "Νέο Μήνυμα"
 
-#: lib/Basic/Mailbox.php:942 lib/Message/Ui.php:245 lib/Message/Ui.php:274
+#: lib/Basic/Mailbox.php:942 lib/Message/Ui.php:252 lib/Message/Ui.php:281
 #, php-format
 msgid "New Message to %s"
 msgstr "Νέο Μήνυμα σε %s"
@@ -3317,7 +3311,7 @@ msgstr "Νέα Αναζήτηση σε %s"
 msgid "New User"
 msgstr "Νέος Χρήστης"
 
-#: config/prefs.php:1355
+#: config/prefs.php:1356
 msgid "New mail poll interval on mailbox page:"
 msgstr "Περίοδος ελέγχου για νέα μηνύματα στη σελίδα του γραμματοκιβωτίου:"
 
@@ -3329,7 +3323,7 @@ msgstr "Όνομα νέας θυρίδας:"
 msgid "Newest Unseen Messages"
 msgstr "Πιο πρόσφατα μη αναγνωσμένα μηνύματα"
 
-#: lib/Prefs/Special/Remote.php:45 templates/prefs/remote.html.php:78
+#: lib/Prefs/Special/Remote.php:49 templates/prefs/remote.html.php:78
 #: templates/smartmobile/message.html.php:77
 msgid "Next"
 msgstr "Επόμενο"
@@ -3342,7 +3336,7 @@ msgstr "Επόμενο Μήνυμα"
 msgid "Next Page"
 msgstr "Επόμενη Σελίδα"
 
-#: config/prefs.php:575 config/prefs.php:808 config/prefs.php:1622
+#: config/prefs.php:576 config/prefs.php:809 config/prefs.php:1623
 #: lib/Basic/Mailbox.php:367 templates/basic/compose/compose.html.php:309
 msgid "No"
 msgstr "Όχι"
@@ -3416,7 +3410,7 @@ msgstr "Δεν οριστεί θυρίδες"
 msgid "No mailboxes with unseen messages"
 msgstr "Δεν υπάρχουν θυρίδες με μη αναγνωσμένα μηνήματα"
 
-#: lib/Compose.php:2123
+#: lib/Compose.php:2134
 msgid "No message body text"
 msgstr "Δεν υπάρχει σώμα κειμένου"
 
@@ -3471,12 +3465,12 @@ msgstr "Δεν βρέθηκαν ορθογραφικά λάθη."
 msgid "No unread messages"
 msgstr "Δεν υπάρχουν μη αναγνωσμένα μηνυματα."
 
-#: lib/Mime/Viewer/Itip.php:812
+#: lib/Mime/Viewer/Itip.php:813
 msgid "Non Participant"
 msgstr "Κανείς Συμμετέχων"
 
-#: lib/Compose/Ui.php:223 lib/Mime/Viewer/Itip.php:403
-#: lib/Mime/Viewer/Itip.php:577 lib/Mime/Viewer/Itip.php:700
+#: lib/Compose/Ui.php:223 lib/Mime/Viewer/Itip.php:404
+#: lib/Mime/Viewer/Itip.php:578 lib/Mime/Viewer/Itip.php:701
 #: templates/basic/search/search-basic.html.php:14
 #: templates/basic/search/search-basic.html.php:31
 #: templates/prefs/acl.html.php:38 templates/prefs/acl.html.php:73
@@ -3508,7 +3502,7 @@ msgstr "Μη έγκυρο δημόσιο κλειδί."
 msgid "Notepads"
 msgstr "Σημειοματάρια"
 
-#: config/prefs.php:1275 config/prefs.php:1289
+#: config/prefs.php:1276 config/prefs.php:1290
 msgid "Nothing"
 msgstr "Τίποτα"
 
@@ -3550,11 +3544,11 @@ msgstr "Μόνο μία θυρίδα πρέπει να επιλεχθεί για
 msgid "Open in new window"
 msgstr "Άνοιγμα σε νέο Παράθυρο"
 
-#: lib/Mailbox.php:1631
+#: lib/Mailbox.php:1635
 msgid "Opened Folder"
 msgstr "Ανοικτός φάκελος"
 
-#: lib/Mime/Viewer/Itip.php:808
+#: lib/Mime/Viewer/Itip.php:809
 msgid "Optional Participant"
 msgstr "Προαιρετικοί Συμμετέχοντες"
 
@@ -3567,11 +3561,11 @@ msgstr "Άλλες Ενέργειες"
 msgid "Other Options"
 msgstr "Αλλες Επιλογές"
 
-#: lib/Mailbox.php:1530
+#: lib/Mailbox.php:1534
 msgid "Other Users"
 msgstr "Άλλοι Χρήστες"
 
-#: config/prefs.php:320
+#: config/prefs.php:321
 msgid "PGP"
 msgstr "PGP"
 
@@ -3583,7 +3577,7 @@ msgstr "Κρυπτογραφημένο μήνυμα (PGP)"
 msgid "PGP Encrypt Message with passphrase"
 msgstr "PGP κρυπτογράφηση του μηνύματος με κωδικό"
 
-#: lib/Compose.php:1743
+#: lib/Compose.php:1754
 msgid "PGP Error: "
 msgstr "Λάθος PGP: "
 
@@ -3629,11 +3623,11 @@ msgstr ""
 msgid "PGP passhprase stored in session."
 msgstr "Ο κωδικός PGP αποθηκεύτηκε στη σύνοδο."
 
-#: lib/Prefs/Special/PgpPrivateKey.php:169
+#: lib/Prefs/Special/PgpPrivateKey.php:170
 msgid "PGP passphrase successfully unloaded."
 msgstr "Ο κωδικός PGP αφαιρέθηκε με επιτυχία."
 
-#: config/prefs.php:347
+#: config/prefs.php:348
 msgid ""
 "PGP support requires popup windows to be used.  If your browser is currently "
 "set to disable popup windows, you must change this setting or else the PGP "
@@ -3643,11 +3637,11 @@ msgstr ""
 "σας έχει απενεργοποιημένα τα αναδυόμενα παράθυρα, θα πρέπει να αλλάξετε αυτή "
 "τη ρύθμιση, διαφορετικά τα χαρακτηριστικά PGP δεν θα λειτουργούν σωστά."
 
-#: lib/Compose.php:1697
+#: lib/Compose.php:1708
 msgid "PGP: Need passphrase for personal private key."
 msgstr "PGP: Χρειάζεται κωδικό για το προσωπικό ιδιωτικό κλειδί."
 
-#: lib/Compose.php:1709
+#: lib/Compose.php:1720
 msgid "PGP: Need passphrase to encrypt your message with."
 msgstr "PGP: Χρειάζεται κωδικό για την κρυπτογράφηση του μηνύματος."
 
@@ -3678,11 +3672,11 @@ msgstr "Λέξη-κλειδί"
 msgid "Passphrase (Again)"
 msgstr "Λέξη-κλειδί (ξανά)"
 
-#: lib/Prefs/Special/PgpPrivateKey.php:136
+#: lib/Prefs/Special/PgpPrivateKey.php:137
 msgid "Passphrases cannot be empty"
 msgstr "Οι κωδικοί δεν μπορούν να είναι άδειοι"
 
-#: lib/Prefs/Special/PgpPrivateKey.php:138
+#: lib/Prefs/Special/PgpPrivateKey.php:139
 msgid "Passphrases do not match"
 msgstr "Η λέξη-κλειδί δεν ταιριάζει"
 
@@ -3743,19 +3737,19 @@ msgstr "Δεν έγινε εισαγωγή του προσωπικού κλει�
 msgid "Personal PGP key successfully added."
 msgstr "Το προσωπικό σας PGP κλειδί προστέθηκε με επιτυχία."
 
-#: lib/Prefs/Special/PgpPrivateKey.php:155
+#: lib/Prefs/Special/PgpPrivateKey.php:156
 msgid "Personal PGP keypair generated successfully."
 msgstr "Προσωπικό ζεύγος κλειδιών PGP δημιουργήθηκε επιτυχώς."
 
-#: lib/Prefs/Special/PgpPrivateKey.php:117
+#: lib/Prefs/Special/PgpPrivateKey.php:118
 msgid "Personal PGP keys deleted successfully."
 msgstr "Προσωπικό ζεύγος κλειδιών PGP διαγράφηκε επιτυχώς."
 
-#: lib/Basic/Smime.php:99
+#: lib/Basic/Smime.php:102
 msgid "Personal S/MIME certificates NOT imported."
 msgstr "Το προσωπικό σας S/MIME πιστοποιητικό ΔΕΝ εισάχθηκε."
 
-#: lib/Basic/Smime.php:101
+#: lib/Basic/Smime.php:104
 msgid "Personal S/MIME certificates NOT imported: "
 msgstr "Προσωπικά πιστοποιητικά S/MIME ΔΕΝ εισήχθησαν: "
 
@@ -3763,15 +3757,15 @@ msgstr "Προσωπικά πιστοποιητικά S/MIME ΔΕΝ εισήχθ
 msgid "Personal S/MIME keys deleted successfully."
 msgstr "Προσωπικά κλειδιά S/MIME διαγράφηκαν επιτυχώς."
 
-#: config/prefs.php:510
+#: config/prefs.php:511
 msgid "Plain Text"
 msgstr "Απλό Κείμενο"
 
-#: lib/Compose.php:1620
+#: lib/Compose.php:1631
 msgid "Plaintext Message"
 msgstr "Μήνυμα απλού κειμένου"
 
-#: config/prefs.php:1005
+#: config/prefs.php:1006
 msgid "Plaintext part"
 msgstr "Μέρος απλού κειμένου"
 
@@ -3818,11 +3812,11 @@ msgstr ""
 msgid "Please select at least one search criteria."
 msgstr "Παρακαλούμε επιλέξτε τουλάχιστον κριτήριο αναζήτησης."
 
-#: lib/Prefs/Special/Remote.php:46
+#: lib/Prefs/Special/Remote.php:50
 msgid "Please wait..."
 msgstr "Παρακαλώ περιμένετε..."
 
-#: config/prefs.php:1659
+#: config/prefs.php:1660
 msgid "Poll all mailboxes for new mail?"
 msgstr "Έλεγχος Θυρίδων για Νέα Μηνύματα; "
 
@@ -3875,7 +3869,7 @@ msgstr "Εκτύπωση"
 msgid "Printed By"
 msgstr "Εκτύπωση Από"
 
-#: config/prefs.php:1417
+#: config/prefs.php:1418
 msgid "Printing"
 msgstr "Εκτύπωση"
 
@@ -3889,11 +3883,7 @@ msgstr "Προτεραιότητα"
 msgid "Private Key Password"
 msgstr "Κωδικός προσωπικού κλειδιού"
 
-#: config/menu.php:51
-msgid "Problem Report"
-msgstr "Αναφορά Προβλήματος"
-
-#: config/prefs.php:1110
+#: config/prefs.php:1111
 msgid ""
 "Prompt to send read receipt (a/k/a message disposition notification) when "
 "requested by the sender?"
@@ -3917,11 +3907,11 @@ msgstr "Οριστική Διαγραφή"
 msgid "Purge Deleted"
 msgstr "Οριστική Διαγραφή"
 
-#: config/prefs.php:1312
+#: config/prefs.php:1313
 msgid "Purge Spam mailbox how often:"
 msgstr "Οριστική διαγραφή μηνυμάτων στο φάκελο Spam:"
 
-#: config/prefs.php:1212
+#: config/prefs.php:1213
 msgid "Purge Trash how often:"
 msgstr "Να Αδειάζει ο κάδος κάθε:"
 
@@ -3929,23 +3919,23 @@ msgstr "Να Αδειάζει ο κάδος κάθε:"
 msgid "Purge messages"
 msgstr "Οριστική Διαγραφή Μηνυμάτων"
 
-#: config/prefs.php:1322
+#: config/prefs.php:1323
 msgid "Purge messages in Spam mailbox older than this amount of days."
 msgstr ""
 "Διαγραφή μηνυμάτων στη θυρίδα με τα Spam όταν είναι παλιότερα από τόσες "
 "μέρες."
 
-#: config/prefs.php:1224
+#: config/prefs.php:1225
 msgid "Purge messages in Trash mailbox older than this amount of days."
 msgstr "Διαγραφή μηνυμάτων στο φάκελο Trash  παλαιότερα από αριθμό ημερών."
 
-#: config/prefs.php:876
+#: config/prefs.php:877
 msgid "Purge messages in sent mail mailbox(es) older than this amount of days."
 msgstr ""
 "Οριστική διαγραφή μηνυμάτων από τους φακέλους απεσταλμένων παλαιότερα από "
 "τον συγκεκριμένο αριθμό ημερών."
 
-#: config/prefs.php:866
+#: config/prefs.php:867
 msgid "Purge sent mail how often:"
 msgstr "Περίοδος οριστικής διαγραφής των απεσταλμένων μηνυμάτων:"
 
@@ -3973,10 +3963,10 @@ msgstr "Οριστική  διαγραφή για  %d μήνυμα(τα) από 
 msgid "Purging 1 message from sent-mail mailbox %s."
 msgstr "Οριστική  διαγραφή ενός μηνύματος από το φάκελο  των απεσταλμένων %s. "
 
-#: config/prefs.php:711
+#: config/prefs.php:712
 #, php-format
 msgid "Quoting %f:"
-msgstr "Περιορίζοντας %f:"
+msgstr "Παραθέτοντας από %f:"
 
 #: lib/Imap/Acl.php:164 templates/prefs/acl.html.php:39
 #: templates/prefs/acl.html.php:74
@@ -4032,13 +4022,12 @@ msgstr "Επανάληψη"
 msgid "Redirec_t"
 msgstr "Ανακατεύθυνση"
 
-#: lib/Basic/Compose.php:421 lib/Basic/Mailbox.php:685
-#: lib/Dynamic/Base.php:180 lib/Dynamic/Compose.php:148
-#: lib/Minimal/Compose.php:234 lib/Minimal/Compose.php:237
-#: lib/Minimal/Message.php:244 lib/Notification/Event/Status.php:32
+#: lib/Basic/Compose.php:421 lib/Basic/Mailbox.php:685 lib/Dynamic/Base.php:180
+#: lib/Dynamic/Compose.php:148 lib/Minimal/Compose.php:234
+#: lib/Minimal/Compose.php:237 lib/Minimal/Message.php:244
+#: lib/Notification/Event/Status.php:32
 #: templates/basic/compose/redirect.html.php:51
-#: templates/dynamic/redirect.html.php:7
-#: templates/minimal/redirect.html.php:27
+#: templates/dynamic/redirect.html.php:7 templates/minimal/redirect.html.php:27
 #: templates/smartmobile/message.html.php:55
 msgid "Redirect"
 msgid_plural "Redirect Messages"
@@ -4061,15 +4050,15 @@ msgstr "Ανανέωση Αποτελεσμάτων Αναζήτησης"
 msgid "Remember the free/busy information."
 msgstr "Να θυμάμαι τις πληροφορίες ελεύθερου/απασχολημένου."
 
-#: config/prefs.php:1624
+#: config/prefs.php:1625
 msgid "Remember the last view"
 msgstr "Να παραμένει η τελευταία προβολή"
 
-#: lib/Mailbox.php:1641
+#: lib/Mailbox.php:1645
 msgid "Remote Account"
 msgstr "Εξωτερικός Λογαριασμός"
 
-#: config/prefs.php:136 lib/Mailbox.php:1526
+#: config/prefs.php:136 lib/Mailbox.php:1530
 msgid "Remote Accounts"
 msgstr "Εξωτερικοί Λογαριασμοί"
 
@@ -4087,18 +4076,18 @@ msgstr "Μετονομασία"
 msgid "Rename %s to:"
 msgstr "Μετονομασία %s σε:"
 
-#: config/prefs.php:844
+#: config/prefs.php:845
 msgid "Rename sent mail mailbox at beginning of month?"
 msgstr "Μετονομασία της θυρίδας απεσταλμένων στην αρχή κάθε μήνα;"
 
-#: lib/Mailbox.php:883
+#: lib/Mailbox.php:887
 #, php-format
 msgid "Renaming \"%s\" to \"%s\" failed. This is what the server said"
 msgstr ""
 "Η μετονομασία του φακέλου \"%s\" σε \"%s\" απέτυχε. Το σύστημα έβγαλε το "
 "ακόλουθο μήνυμα"
 
-#: config/prefs.php:676
+#: config/prefs.php:677
 msgid "Replies"
 msgstr "Απαντήσεις"
 
@@ -4169,7 +4158,7 @@ msgstr ""
 msgid "Reply with requested free/busy information."
 msgstr "Απάντηση με πληροφορίες ελεύθερου/απασχολημένου που ζητήθηκαν."
 
-#: lib/Compose.php:2591 lib/Message/Ui.php:38
+#: lib/Compose.php:2602 lib/Message/Ui.php:38
 msgid "Reply-To"
 msgstr "Απάντηση-Προς"
 
@@ -4210,7 +4199,7 @@ msgstr "Αναφορά μηνύματος ως 'Spam'"
 msgid "Request a _Read Receipt"
 msgstr "Να ζητηθεί Επιβεβαίωση ότι διαβάσθηκε"
 
-#: config/prefs.php:578
+#: config/prefs.php:579
 msgid "Request read receipts?"
 msgstr "Να ζητηθεί Επιβεβαίωση ότι διαβάσθηκε;"
 
@@ -4222,13 +4211,12 @@ msgstr "Το μήνυμα που ζητήθηκε δεν βρέθηκε."
 msgid "Required"
 msgstr "Απαιτούμενοι"
 
-#: lib/Mime/Viewer/Itip.php:800
+#: lib/Mime/Viewer/Itip.php:801
 msgid "Required Participant"
 msgstr "Ζητήθηκε Συμμετέχων"
 
 #: templates/basic/search/search-basic.html.php:50
-#: templates/contacts/contacts.html.php:25
-#: templates/search/search.html.php:106
+#: templates/contacts/contacts.html.php:25 templates/search/search.html.php:106
 msgid "Reset"
 msgstr "Καθαρισμός Φόρμας"
 
@@ -4266,14 +4254,14 @@ msgstr "Επιστροφή στην προβολή φακέλων"
 msgid "Return to message view"
 msgstr "Επιστροφή στην προβολή μηνυμάτων"
 
-#: config/prefs.php:1135
+#: config/prefs.php:1136
 msgid ""
 "Return to the mailbox listing after deleting, moving, or copying a message?"
 msgstr ""
 "Επιστροφή στον φάκελο Εισερχόμενα μετά από διαγραφή, μεταφορά ή αντιγραφή "
 "μηνύματος?"
 
-#: config/prefs.php:511
+#: config/prefs.php:512
 msgid "Rich Text (HTML)"
 msgstr "Εμπλουτισμένο Κείμενο (HTML)"
 
@@ -4285,7 +4273,7 @@ msgstr "Ρόλος"
 msgid "Run Search"
 msgstr "Αναζήτηση"
 
-#: config/prefs.php:403
+#: config/prefs.php:404
 msgid "S/MIME"
 msgstr "S/MIME"
 
@@ -4293,16 +4281,16 @@ msgstr "S/MIME"
 msgid "S/MIME Encrypt Message"
 msgstr "Κρυπτογραφημένο μήνυμα (S/MIME)"
 
-#: lib/Compose.php:1776
+#: lib/Compose.php:1787
 msgid "S/MIME Error: "
 msgstr "S/MIME Λάθος: "
 
-#: lib/Compose.php:1753
+#: lib/Compose.php:1764
 msgid "S/MIME Error: Need passphrase for personal private key."
 msgstr ""
 "S/MIME Λάθος: Απαιτείται λέξη-κλειδί για το προσωπικό ιδιωτικό κλειδί σας."
 
-#: lib/Basic/Smime.php:189
+#: lib/Basic/Smime.php:192
 msgid "S/MIME Key Information"
 msgstr "Πληροφορίες Κλειδιού S/MIME"
 
@@ -4319,7 +4307,7 @@ msgstr "Το Δημόσιο κλειδί S/MIME για \"%s\" διαγράφηκ
 msgid "S/MIME Public Keyring"
 msgstr "Δημόσια κλειδοθήκη S/MIME"
 
-#: lib/Basic/Smime.php:96
+#: lib/Basic/Smime.php:99
 msgid "S/MIME Public/Private Keypair successfully added."
 msgstr "Το ζεύγος Δημόσιου/Ιδιωτικού κλειδιού S/MIME προστέθηκε επιτυχώς."
 
@@ -4359,7 +4347,7 @@ msgstr ""
 "Η υποστήριξη S/MIME δεν έχει ενεργοποιηθεί και συνεπώς η ψηφιακή υπογραφή "
 "είναι αδύνατο να επαληθευθεί."
 
-#: config/prefs.php:431
+#: config/prefs.php:432
 msgid ""
 "S/MIME support requires popup windows to be used.  If your browser is "
 "currently set to disable popup windows, you must change this setting or else "
@@ -4430,11 +4418,11 @@ msgstr "Αποθήκευση στο Πρόχειρο"
 msgid "Save as Draft"
 msgstr "Αποθήκευση στα Πρόχειρα"
 
-#: config/prefs.php:834
+#: config/prefs.php:835
 msgid "Save attachments"
 msgstr "Aποθήκευση συνημμένων"
 
-#: config/prefs.php:837
+#: config/prefs.php:838
 msgid "Save attachments in the sent-mail message?"
 msgstr "Αποθήκευση συνημμένων μαζί με το μήνυμα στα  Απεσταλμένα"
 
@@ -4442,11 +4430,11 @@ msgstr "Αποθήκευση συνημμένων μαζί με το μήνυμ�
 msgid "Save attachments with message in sent-mail mailbox?"
 msgstr "Αποθήκευση συνημμένων μαζί με το μήνυμα στη θυρίδα Απεσταλμένων"
 
-#: config/prefs.php:799
+#: config/prefs.php:800
 msgid "Save drafts as unseen?"
 msgstr "Αποθήκευση πρόχειρων σαν μη αναγνωσμένα;"
 
-#: config/prefs.php:812
+#: config/prefs.php:813
 msgid "Save drafts automatically while composing?"
 msgstr "Αποθήκευση αυτόματα στα πρόχειρα, κατά τη σύνθεση μηνύματος;"
 
@@ -4454,7 +4442,7 @@ msgstr "Αποθήκευση αυτόματα στα πρόχειρα, κατά 
 msgid "Save in"
 msgstr "Αποθήκευση σε"
 
-#: config/prefs.php:905
+#: config/prefs.php:906
 msgid "Save recipients automatically to the default address book?"
 msgstr ""
 "Αποθήκευση των παραληπτών αυτόματα στον προκαθορισμένο Διευθυνσιογράφο σας;"
@@ -4467,7 +4455,7 @@ msgstr "Αποθήκευση απεσταλμένου μηνύματος"
 msgid "Save sent mail?"
 msgstr "Αποθήκευση απεσταλμένου μηνύματος;"
 
-#: lib/Mime/Viewer/Smime.php:337
+#: lib/Mime/Viewer/Smime.php:347
 msgid "Save the certificate to your Address Book."
 msgstr "Αποθήκευση του Πιστοποιητικού στο Βιβλίο Διευθύνσεων."
 
@@ -4475,7 +4463,7 @@ msgstr "Αποθήκευση του Πιστοποιητικού στο Βιβλ
 msgid "Save the key to your address book."
 msgstr "Αποθήκευση του κλειδιού στο Βιβλίο Διευθύνσεων."
 
-#: config/prefs.php:162
+#: config/prefs.php:163
 msgid "Saved Searches"
 msgstr "Αποθηκευμένες Αναζητήσεις"
 
@@ -4598,7 +4586,7 @@ msgstr "Επιλογή"
 msgid "Select All"
 msgstr "Επιλογή Όλων"
 
-#: config/prefs.php:891
+#: config/prefs.php:892
 msgid "Select address book sources for adding/searching."
 msgstr "Επιλέξτε τα  διαθέσιμα βιβλία διευθύνσεων για καταχώρηση ή αναζήτηση."
 
@@ -4643,12 +4631,12 @@ msgstr "Αποστολή μηνύματος χωρίς Θέμα;"
 msgid "Send message without a subject?"
 msgstr "Αποστολή μηνύματος χωρίς Θέμα;"
 
-#: lib/Mime/Viewer/Smime.php:321 lib/Mime/Viewer/Smime.php:340
+#: lib/Mime/Viewer/Smime.php:320 lib/Mime/Viewer/Smime.php:354
 #, php-format
 msgid "Sender: %s"
 msgstr "Αποστολέας: %s"
 
-#: lib/Mailbox.php:1579 lib/Mailbox.php:1680
+#: lib/Mailbox.php:1583 lib/Mailbox.php:1684
 msgid "Sent"
 msgstr "Απεσταλμένα"
 
@@ -4657,7 +4645,7 @@ msgstr "Απεσταλμένα"
 msgid "Sent Date: %s"
 msgstr "Ημερομηνία Αποστολής: %s"
 
-#: config/prefs.php:821
+#: config/prefs.php:822
 msgid "Sent Mail"
 msgstr "Απεσταλμένα Μηνύματα"
 
@@ -4674,7 +4662,7 @@ msgstr "Διακομιστής"
 msgid "Server Suggestion"
 msgstr "Πρόταση Διακομιστή"
 
-#: config/prefs.php:503
+#: config/prefs.php:504
 msgid "Set a priority header when composing messages?"
 msgstr "Ορισμός μιας κεφαλίδας προτεραιότητας κατά τη σύνθεση μηνυμάτων;"
 
@@ -4682,7 +4670,7 @@ msgstr "Ορισμός μιας κεφαλίδας προτεραιότητας 
 msgid "Set permissions for other users"
 msgstr "Ορισμός δικαιωμάτων για άλλους χρήστες"
 
-#: config/prefs.php:1124
+#: config/prefs.php:1125
 msgid "Set preferences for what happens when you move and delete messages."
 msgstr "Επιλογές για τη μεταφορά και διαγραφή μηνυμάτων."
 
@@ -4694,26 +4682,26 @@ msgstr "Διαμοιρασμός Θυρίδων"
 msgid "Share your mailboxes with other users."
 msgstr "Διαμοιρασμός των θυρίδων σας με άλλους χρήστες."
 
-#: lib/Mailbox.php:1532
+#: lib/Mailbox.php:1536
 msgid "Shared"
 msgstr "Κοινόχρηστα"
 
-#: config/prefs.php:363
+#: config/prefs.php:364
 msgid "Should PGP signed messages be automatically verified when viewed?"
 msgstr ""
 "Να επαληθεύεται αυτόματα με τον προβολή τους τα PGP υπογεγραμμένα μηνύματα ;"
 
-#: config/prefs.php:439
+#: config/prefs.php:440
 msgid "Should S/MIME signed messages be automatically verified when viewed?"
 msgstr ""
 "Να επαληθεύεται αυτόματα με τον προβολή τους τα S/MIME  υπογεγραμμένα "
 "μηνύματα;"
 
-#: config/prefs.php:355
+#: config/prefs.php:356
 msgid "Should your PGP public key to be attached to your messages by default?"
 msgstr "Να επισυνάπτεται εξορισμού το δημόσιο κλειδί σας στα μηνύματα;"
 
-#: lib/Message/Ui.php:306 templates/dynamic/header.html.php:4
+#: lib/Message/Ui.php:313 templates/dynamic/header.html.php:4
 #, php-format
 msgid "Show Addresses (%d)"
 msgstr "Προβολή Διευθύνσεων (%d)"
@@ -4783,17 +4771,17 @@ msgstr "Εμφάνιση  των  εγεγραμμένων (subscribed) φακέ
 msgid "Show Unsubscribed Mailboxes"
 msgstr "Εμφάνιση των ασύνδετων (Unsubscribed) φακέλων"
 
-#: config/prefs.php:1083
+#: config/prefs.php:1084
 msgid "Show all attachments"
 msgstr "Προβολή όλων των συνημμένων"
 
-#: config/prefs.php:1408
+#: config/prefs.php:1409
 msgid "Show all flags (including flags set by other mail programs)?"
 msgstr ""
 "Προβολή όλων των σημάνσεων  (ακόμα και σημάνσεων που έχουν οριστεί από "
 "κάποιο άλλο πρόγραμμα αλληλογραφίας);"
 
-#: config/prefs.php:1082
+#: config/prefs.php:1083
 msgid "Show all parts"
 msgstr "Εμφάνιση Όλων"
 
@@ -4801,19 +4789,19 @@ msgstr "Εμφάνιση Όλων"
 msgid "Show images..."
 msgstr "Εμφάνιση Εικόνων.."
 
-#: config/prefs.php:1638
+#: config/prefs.php:1639
 msgid "Show non-private mailboxes in separate folders"
 msgstr "Εμφάνιση των μη ιδιωτικών θυρίδων σε ξεχωριστούς φακέλους"
 
-#: config/prefs.php:1583
+#: config/prefs.php:1584
 msgid "Show previews for unread messages only?"
 msgstr "Εμφάνιση προηγούμενων για μη αναγνωσμένα μηνύματα μόνο;"
 
-#: config/prefs.php:1591
+#: config/prefs.php:1592
 msgid "Show previews in tooltips?"
 msgstr "Εμφάνιση προηγούμενου στα 'tooltips';"
 
-#: config/prefs.php:293
+#: config/prefs.php:294
 msgid "Show the filter icon on the menubar?"
 msgstr "Εμφάνιση του εικονιδίου φίλτρων στο μενού;"
 
@@ -4821,7 +4809,7 @@ msgstr "Εμφάνιση του εικονιδίου φίλτρων στο με�
 msgid "Show the signature on the compose screen?"
 msgstr "Εμφάνιση της υπογραφής στην οθόνη σύνθεσης μηνύματος΄;"
 
-#: config/prefs.php:1056
+#: config/prefs.php:1057
 msgid "Shown"
 msgstr "Εμφανίσθηκε"
 
@@ -4884,7 +4872,7 @@ msgstr "Ταξινόμηση κατά Νήμα"
 msgid "Sort by To Address"
 msgstr "Ταξινόμηση κατά Διεύθυνση Παραλήπτη"
 
-#: lib/Mailbox.php:1585 lib/Mailbox.php:1667
+#: lib/Mailbox.php:1589 lib/Mailbox.php:1671
 #: templates/dynamic/mailbox.html.php:36 templates/dynamic/message.html.php:19
 #: templates/smartmobile/mailbox.html.php:21
 #: templates/smartmobile/mailbox.html.php:31
@@ -4892,7 +4880,7 @@ msgstr "Ταξινόμηση κατά Διεύθυνση Παραλήπτη"
 msgid "Spam"
 msgstr "Spam"
 
-#: config/prefs.php:1244
+#: config/prefs.php:1245
 msgid "Spam Reporting"
 msgstr "Αναφορά Spam"
 
@@ -4924,11 +4912,11 @@ msgstr "Αφαίρεση όλων των  Συνημμένων"
 msgid "Strip Attachment"
 msgstr "Απόσπαση Συνημμένου"
 
-#: config/prefs.php:1575
+#: config/prefs.php:1576
 msgid "Strip linebreaks in preview?"
 msgstr "Αφαίρεση αλλαγών γραμμής;"
 
-#: config/prefs.php:720
+#: config/prefs.php:721
 msgid "Strip the sender's signature from plaintext replies?"
 msgstr ""
 "Απαλοιφή της  υπογραφής του αποστολέα από τις  απαντήσεις απλού κειμένου;"
@@ -4937,12 +4925,11 @@ msgstr ""
 msgid "Sub_ject"
 msgstr "Θέμα"
 
-#: config/prefs.php:1485 lib/Basic/Search.php:77 lib/Compose.php:2595
+#: config/prefs.php:1486 lib/Basic/Search.php:77 lib/Compose.php:2606
 #: lib/Dynamic/Mailbox.php:188 lib/Dynamic/Mailbox.php:258
 #: lib/Dynamic/Mailbox.php:499 lib/Message/Ui.php:39 lib/Smartmobile.php:181
 #: templates/basic/search/search-basic.html.php:18
-#: templates/dynamic/compose.html.php:147
-#: templates/minimal/mailbox.html.php:10
+#: templates/dynamic/compose.html.php:147 templates/minimal/mailbox.html.php:10
 #: templates/smartmobile/search.html.php:13
 msgid "Subject"
 msgstr "Θέμα"
@@ -5047,7 +5034,7 @@ msgstr "Μπορείτε να δείτε τις λεπτομέρειες για 
 msgid "Technical message details can be viewed %s."
 msgstr "Μπορείτε να δείτε τις λεπτομέρειες για το τεχνικό μήνυμα %s."
 
-#: lib/Mailbox.php:1567 templates/prefs/acl.html.php:36
+#: lib/Mailbox.php:1571 templates/prefs/acl.html.php:36
 #: templates/prefs/acl.html.php:71
 msgid "Templates"
 msgstr "Πρότυπα"
@@ -5056,7 +5043,7 @@ msgstr "Πρότυπα"
 msgid "Tentatively Accept request"
 msgstr "Προσωρινή Αποδοχή Αιτήματος"
 
-#: lib/Mime/Viewer/Itip.php:749
+#: lib/Mime/Viewer/Itip.php:750
 msgid "Tentatively Accepted"
 msgstr "Έγινε αποδοχή Προσωρινά"
 
@@ -5068,7 +5055,7 @@ msgstr "Κείμενο"
 msgid "Text:"
 msgstr "Κείμενο:"
 
-#: config/prefs.php:1535
+#: config/prefs.php:1536
 msgid "The From: column of the message should be linked:"
 msgstr "Η στήλη Από: του μηνύματος πρέπει να συνδεθεί:"
 
@@ -5143,13 +5130,13 @@ msgstr "Τα δεδομένα σε αυτό το τμήμα  έχουν κρυπ
 msgid "The data in this part has been encrypted via S/MIME."
 msgstr "Τα δεδομένα σε αυτό το τμήμα  έχουν κρυπτογραφηθεί μέσω S/MIME."
 
-#: config/prefs.php:523
+#: config/prefs.php:524
 msgid "The default font family to use in the HTML editor."
 msgstr ""
 "Η προεπιλεγμένη οικογένεια γραμματοσειράς που θα χρησιμοποιηθεί στην "
 "επεξεργασία εμπλουτισμένου κειμένου (HTML)."
 
-#: config/prefs.php:532
+#: config/prefs.php:533
 msgid "The default font size to use in the HTML editor (in pixels)."
 msgstr ""
 "Το  προεπιλεγμένο μέγεθος γραμματοσειράς που θα χρησιμοποιηθεί στην "
@@ -5164,7 +5151,7 @@ msgstr "Το σχέδιο  αποθηκεύτηκε στο φάκελο \"%s\"."
 msgid "The draft was not successfully saved."
 msgstr "Το σχέδιο δεν αποθηκεύτηκε επιτυχώς."
 
-#: lib/Prefs/Special/Remote.php:43
+#: lib/Prefs/Special/Remote.php:47
 msgid "The e-mail field cannot be empty."
 msgstr "Το πεδίο του μηνύματος δεν μπορεί να μείνει κενό."
 
@@ -5215,7 +5202,7 @@ msgstr "Ο διακομιστής αλληλογραφίας  δεν είναι 
 msgid "The mailbox \"%s\" is already empty."
 msgstr "Η γραμματοθυρίδα %s είναι ήδη άδεια. "
 
-#: lib/Basic/Folders.php:241 lib/Mailbox.php:834
+#: lib/Basic/Folders.php:241 lib/Mailbox.php:838
 #, php-format
 msgid "The mailbox \"%s\" may not be deleted."
 msgstr "Η θυρίδα \"%s\" δεν πρέπει να διαγραφεί."
@@ -5225,35 +5212,35 @@ msgstr "Η θυρίδα \"%s\" δεν πρέπει να διαγραφεί."
 msgid "The mailbox \"%s\" may not be emptied."
 msgstr "Η θυρίδα \"%s\" δεν πρέπει να αδειάσει."
 
-#: lib/Mailbox.php:873
+#: lib/Mailbox.php:877
 #, php-format
 msgid "The mailbox \"%s\" may not be renamed."
 msgstr "Η θυρίδα \"%s\" δεν πρέπει να μετονομαστεί."
 
-#: lib/Mailbox.php:773
+#: lib/Mailbox.php:777
 #, php-format
 msgid "The mailbox \"%s\" was not created. This is what the server said"
 msgstr ""
 "Ο φάκελος \"%s\" δεν δημιουργήθηκε. Ο διακομιστής επέστρεψε το ακόλουθο "
 "μήνυμα"
 
-#: lib/Mailbox.php:843
+#: lib/Mailbox.php:847
 #, php-format
 msgid "The mailbox \"%s\" was not deleted. This is what the server said"
 msgstr ""
 "Ο φάκελος \"%s\" δεν διαγράφηκε. Ο εξυπηρετητής επέστρεψε το ακόλουθο μήνυμα:"
 
-#: lib/Mailbox.php:777
+#: lib/Mailbox.php:781
 #, php-format
 msgid "The mailbox \"%s\" was successfully created."
 msgstr "Ο φάκελος \"%s\" δημιουργήθηκε με επιτυχία."
 
-#: lib/Mailbox.php:840
+#: lib/Mailbox.php:844
 #, php-format
 msgid "The mailbox \"%s\" was successfully deleted."
 msgstr "Ο φάκελος \"%s\" διαγράφηκε με επιτυχία."
 
-#: lib/Mailbox.php:887
+#: lib/Mailbox.php:891
 #, php-format
 msgid "The mailbox \"%s\" was successfully renamed to \"%s\"."
 msgstr "Ο φάκελος \"%s\" μετονομάστηκε  σε \"%s\" με επιτυχία."
@@ -5314,7 +5301,7 @@ msgstr ""
 msgid "The number of unseen messages to show"
 msgstr "Αριθμός μη αναγνωσμένων μηνυμάτων που θα προβάλλονται"
 
-#: lib/Prefs/Special/Remote.php:44
+#: lib/Prefs/Special/Remote.php:48
 msgid "The password field cannot be empty."
 msgstr "Το πεδίο του κωδικού πρόσβασης δεν μπορεί να είναι κενό."
 
@@ -5420,8 +5407,7 @@ msgstr "Οι πληροφορίες ελεύθερου/απασχολημένο�
 msgid "There are no alternative parts that can be displayed inline."
 msgstr "Δεν υπάρχουν εναλλακτικά μέρη που μπορούν να εμφανισθούν."
 
-#: lib/Dynamic/Mailbox.php:561
-#: templates/basic/mailbox/empty_mailbox.html.php:6
+#: lib/Dynamic/Mailbox.php:561 templates/basic/mailbox/empty_mailbox.html.php:6
 msgid "There are no messages in this mailbox."
 msgstr "Δεν υπάρχουν μηνύματα σε αυτό το γραμματοκιβώτιο."
 
@@ -5604,7 +5590,7 @@ msgstr "Το μέρος αυτό είναι κενό."
 msgid "This video file is reported to be %s in length."
 msgstr "Αυτό το αρχείο video αναφέρεται ότι έχει διάρκεια %s."
 
-#: config/prefs.php:1487 lib/Dynamic/Mailbox.php:259
+#: config/prefs.php:1488 lib/Dynamic/Mailbox.php:259
 msgid "Thread"
 msgstr "Νήμα"
 
@@ -5624,10 +5610,9 @@ msgstr "Ταξινόμηση Νήματος"
 msgid "Thread View"
 msgstr "Προβολή νημάτων"
 
-#: lib/Basic/Contacts.php:111 lib/Basic/Mailbox.php:725
-#: lib/Basic/Search.php:65 lib/Compose.php:2599 lib/Dynamic/Mailbox.php:183
-#: lib/Dynamic/Mailbox.php:257 lib/Message/Ui.php:35
-#: templates/basic/compose/redirect.html.php:30
+#: lib/Basic/Contacts.php:111 lib/Basic/Mailbox.php:725 lib/Basic/Search.php:65
+#: lib/Compose.php:2610 lib/Dynamic/Mailbox.php:183 lib/Dynamic/Mailbox.php:257
+#: lib/Message/Ui.php:35 templates/basic/compose/redirect.html.php:30
 #: templates/contacts/contacts.html.php:40
 #: templates/dynamic/compose.html.php:114
 #: templates/dynamic/mailbox.html.php:136 templates/thread/thread.html.php:21
@@ -5639,7 +5624,7 @@ msgstr "Προς"
 msgid "To %s"
 msgstr "Προς %s"
 
-#: config/prefs.php:1484
+#: config/prefs.php:1485
 msgid "To Address"
 msgstr "Διεύθυνση Παραλήπτη"
 
@@ -5674,12 +5659,12 @@ msgstr "Προς:"
 msgid "To: "
 msgstr "Προς:"
 
-#: lib/Message/Ui.php:171
+#: lib/Message/Ui.php:178
 #, php-format
 msgid "Today, %s %s"
 msgstr "Σήμερα, %s %s"
 
-#: config/prefs.php:540
+#: config/prefs.php:541
 msgid "Top"
 msgstr "Πάνω μέρος"
 
@@ -5687,7 +5672,7 @@ msgstr "Πάνω μέρος"
 msgid "Total"
 msgstr "Σύνολο"
 
-#: lib/Mailbox.php:1591 lib/Mailbox.php:1673
+#: lib/Mailbox.php:1595 lib/Mailbox.php:1677
 msgid "Trash"
 msgstr "Κάδος"
 
@@ -5720,7 +5705,7 @@ msgid "Undelete"
 msgstr "Επαναφορά"
 
 #: lib/Ajax/Application/ShowMessage.php:452 lib/Mailbox/Ui.php:84
-#: lib/Message/Ui.php:299
+#: lib/Message/Ui.php:306
 msgid "Undisclosed Recipients"
 msgstr "Μη Υπαρκτοί Παραλήπτες"
 
@@ -5729,7 +5714,7 @@ msgstr "Μη Υπαρκτοί Παραλήπτες"
 msgid "Unhandled component of type: %s"
 msgstr "Συστατικό μη χειριζόμενο τύπου: %s"
 
-#: lib/Mime/Viewer/Itip.php:796
+#: lib/Mime/Viewer/Itip.php:797
 msgid "Unknown"
 msgstr "Άγνωστο"
 
@@ -5737,11 +5722,11 @@ msgstr "Άγνωστο"
 msgid "Unknown Date"
 msgstr "Άγνωστη Ημερομηνία"
 
-#: lib/Mime/Viewer/Itip.php:402 lib/Mime/Viewer/Itip.php:576
+#: lib/Mime/Viewer/Itip.php:403 lib/Mime/Viewer/Itip.php:577
 msgid "Unknown Meeting"
 msgstr "Άγνωστη Συνάντηση"
 
-#: lib/Mime/Viewer/Itip.php:699
+#: lib/Mime/Viewer/Itip.php:700
 msgid "Unknown Task"
 msgstr "Άγνωστη εργασία"
 
@@ -5811,7 +5796,7 @@ msgstr "Μεταφόρτωση..."
 msgid "Use Default Value"
 msgstr "Χρήση προκαθορισμένης τιμής"
 
-#: config/prefs.php:1612
+#: config/prefs.php:1613
 msgid "Use IMAP mailbox subscriptions?"
 msgstr "Χρήσης της συνδρομή στους φακέλους  IMAP;"
 
@@ -5832,7 +5817,7 @@ msgstr "Χρησιμοποιήστε εάν είναι διαθέσιμο"
 msgid "Use secure connection?"
 msgstr "Χρήση ασφαλούς σύνδεσης;"
 
-#: config/prefs.php:691
+#: config/prefs.php:692
 msgid "Use the charset of the original message when replying?"
 msgstr ""
 "Χρήση  της κωδικοποίηση χαρακτήρων (charset) του αρχικού μηνύματος στην "
@@ -5942,7 +5927,7 @@ msgstr "Πηγαίο Μήνυμα"
 msgid "View Thread"
 msgstr "Εμφάνιση Νήματος"
 
-#: lib/Mime/Viewer/Smime.php:322
+#: lib/Mime/Viewer/Smime.php:321
 msgid "View certificate details"
 msgstr "Προβολή Λεπτομερειών Πιστοποιητικού. "
 
@@ -5969,7 +5954,7 @@ msgstr ""
 msgid "View task"
 msgstr "Εμάνιση εργασίας"
 
-#: config/prefs.php:977
+#: config/prefs.php:978
 msgid "Viewing"
 msgstr "Εμφάνιση Μηνυμάτων"
 
@@ -5998,7 +5983,7 @@ msgstr "Έγινε επεξεργασία του Ιδεατού Φακέλου \
 msgid "Virtual Folder: %s"
 msgstr "Ιδεατός Φάκελος: %s"
 
-#: lib/Dynamic/Mailbox.php:274 lib/Mailbox.php:1528
+#: lib/Dynamic/Mailbox.php:274 lib/Mailbox.php:1532
 #: templates/basic/flist/flist.html.php:27
 msgid "Virtual Folders"
 msgstr "Ιδεατοί φάκελοι"
@@ -6019,7 +6004,7 @@ msgstr "ΠΡΟΕΙΔΟΠΟΙΗΣΗ"
 msgid "Warning"
 msgstr "Προειδοποίηση"
 
-#: config/prefs.php:588
+#: config/prefs.php:589
 msgid ""
 "What language(s) do you prefer replies to your messages to be in? (Hold down "
 "the CTRL key when clicking to add multiple languages)"
@@ -6027,16 +6012,16 @@ msgstr ""
 "Ποια γλώσσα (-ες), προτιμάτε στις απαντήσεις στα μηνύματά σας; (Κρατήστε "
 "πατημένο το πλήκτρο CTRL για να επιλέξετε πολλαπλές γλώσσες)"
 
-#: config/prefs.php:1292
+#: config/prefs.php:1293
 msgid "What to do with messages after they have been reported as innocent?"
 msgstr ""
 "Τι πρέπει να γίνεται με τα μηνύματα  μετά την αναφορά τους ως ακίνδυνα;"
 
-#: config/prefs.php:1271
+#: config/prefs.php:1272
 msgid "What to do with messages after they have been reported as spam?"
 msgstr "Τι πρέπει να γίνεται με τα μηνύματα μετά την αναφορά τους ως spam;"
 
-#: config/prefs.php:758
+#: config/prefs.php:759
 msgid ""
 "When forwarding a message in the body text, should the same format as the "
 "original message be used?"
@@ -6044,24 +6029,24 @@ msgstr ""
 "Κατά την προώθηση ενός μηνύματος  στο σώμα του κειμένου, να χρησιμοποιείται "
 "η ίδια μορφοποίηση με το αρχικό μήνυμα;  "
 
-#: config/prefs.php:1471
+#: config/prefs.php:1472
 msgid "When opening a mailbox for the first time, where do you want to start?"
 msgstr ""
 "Όταν ένα γραμματοκιβώτιο ανοιχτεί για πρώτη φορά, πως θέλετε να εμφανίζονται "
 "τα μηνύματα;"
 
-#: config/prefs.php:687
+#: config/prefs.php:688
 msgid "When replying, use the same format as the original message?"
 msgstr ""
 "Όταν απαντάτε, να χρησιμοποιείται η ίδια μορφοποίηση με το αρχικό μήνυμα;  "
 
-#: config/prefs.php:543
+#: config/prefs.php:544
 msgid "Where should the cursor be located in the compose text area by default?"
 msgstr ""
 "Πού πρέπει να τοποθετείται  ο δρομέας  στην  περιοχή σύνθεσης  κειμένου από "
 "προεπιλογή;"
 
-#: config/prefs.php:1086
+#: config/prefs.php:1087
 msgid "Which message parts do you want to display in the summary?"
 msgstr ""
 "Ποια μέρη του μηνύματος θέλετε να προβάλλονται στην περίληψη του μηνύματος;"
@@ -6078,7 +6063,7 @@ msgstr "Εγγραφή"
 msgid "Years"
 msgstr "Χρόνια"
 
-#: config/prefs.php:576 config/prefs.php:1623
+#: config/prefs.php:577 config/prefs.php:1624
 #: templates/basic/compose/compose.html.php:308
 msgid "Yes"
 msgstr "Ναι"
@@ -6112,16 +6097,16 @@ msgstr "Δημιουργείτε ένα φάκελο κάτω από τον "
 msgid "You are creating a top-level mailbox."
 msgstr "Δημιουργείτε ένα φάκελο πρώτου επιπέδου"
 
-#: lib/Mailbox.php:746
+#: lib/Mailbox.php:750
 msgid "You are not allowed to create mailboxes."
 msgstr "Δεν έχετε το δικαίωμα να δημιουργήσετε γραμματοθυρίδες."
 
-#: lib/Mailbox.php:754
+#: lib/Mailbox.php:758
 #, php-format
 msgid "You are not allowed to create more than %d mailboxes."
 msgstr "Δεν επιτρέπεται να δημιουργήσετε περισσότερα από% d γραμματοθυρίδες."
 
-#: lib/Compose.php:1217
+#: lib/Compose.php:1220
 #, php-format
 msgid ""
 "You are not allowed to send messages to more than %d recipient within %d "
@@ -6136,7 +6121,7 @@ msgstr[1] ""
 "Δεν επιτρέπεται η αποστολή μηνυμάτων σε περισσότερους από% d παραλήπτες σε "
 "διάστημα  % d  ωρών."
 
-#: lib/Compose.php:1232
+#: lib/Compose.php:1235
 #, php-format
 msgid "You are not allowed to send messages to more than %d recipient."
 msgid_plural "You are not allowed to send messages to more than %d recipients."
@@ -6162,12 +6147,12 @@ msgstr "Μετονομάζετε τη θυρίδα:"
 msgid "You are replying to a mailing list"
 msgstr "Απαντάτε σε μία Λίστα (mailing list)"
 
-#: lib/Mailbox.php:918
+#: lib/Mailbox.php:922
 #, php-format
 msgid "You cannot unsubscribe from \"%s\"."
 msgstr "Δεν μπορείτε να απεγγραφείτε από \"%s\"."
 
-#: lib/Prefs/Special/Acl.php:48
+#: lib/Prefs/Special/Acl.php:52
 msgid "You do not have permission to change access to this mailbox."
 msgstr ""
 "Δεν έχετε δικαιώματα να αλλάξετε τις ρυθμίσεις πρόσβασης στη θυρίδα αυτή."
@@ -6190,7 +6175,7 @@ msgid_plural "You have %d new mail messages in %s."
 msgstr[0] "Έχετε %d νέο μήνυμα στον %s."
 msgstr[1] "Έχετε %d νέα μηνύματα στον %s."
 
-#: config/prefs.php:1154 config/prefs.php:1179
+#: config/prefs.php:1155 config/prefs.php:1180
 msgid ""
 "You have activated move to Trash but no Trash mailbox is defined. You will "
 "be unable to delete messages until you set a Trash mailbox in the "
@@ -6296,32 +6281,32 @@ msgid "You replied to this message via the mailing list on %s."
 msgstr "Απαντήσατε σε αυτό το μήνυμα μέσω της λίστας (mailing list) %s."
 
 # lib/Folder.php:590, c-format
-#: lib/Mailbox.php:928
+#: lib/Mailbox.php:932
 #, php-format
 msgid "You were not subscribed to \"%s\". Here is what the server said"
 msgstr "Δεν συνδεθήκατε στο \"%s\". Το σύστημα έβγαλε το ακόλουθο μήνυμα"
 
-#: lib/Mailbox.php:930
+#: lib/Mailbox.php:934
 #, php-format
 msgid "You were not unsubscribed from \"%s\". Here is what the server said"
 msgstr "Δεν αποσυνδεθήκατε από \"%s\". Το σύστημα έβγαλε το ακόλουθο μήνυμα"
 
-#: lib/Mailbox.php:966
+#: lib/Mailbox.php:970
 #, php-format
 msgid "You were successfully subscribed to \"%s\" and all subfolders."
 msgstr "Εγγραφήκατε με επιτυχία στο \"%s\" και σε όλους τους υποφακέλους."
 
-#: lib/Mailbox.php:944
+#: lib/Mailbox.php:948
 #, php-format
 msgid "You were successfully subscribed to \"%s\"."
 msgstr "Εγγραφήκατε με επιτυχία στο \"%s\"."
 
-#: lib/Mailbox.php:967
+#: lib/Mailbox.php:971
 #, php-format
 msgid "You were successfully unsubscribed from \"%s\" and all subfolders."
 msgstr "Απεγγραφήκατε με επιτυχία από τον \"%s\" και όλους τους υποφακέλους."
 
-#: lib/Mailbox.php:945
+#: lib/Mailbox.php:949
 #, php-format
 msgid "You were successfully unsubscribed from \"%s\"."
 msgstr "Απεγγραφήκατε με επιτυχία από \"%s\"."
@@ -6453,12 +6438,12 @@ msgstr "Το συννημένο επεξεργάστηκε: Πρωτότυπου
 
 #: lib/Ajax/Application/ShowMessage.php:245
 #: lib/Ajax/Application/ShowMessage.php:247 lib/Basic/Message.php:298
-#: lib/Compose.php:2565 lib/Mailbox/Ui.php:183 lib/Minimal/Message.php:147
+#: lib/Compose.php:2576 lib/Mailbox/Ui.php:183 lib/Minimal/Message.php:147
 #: lib/Prefs/AttribText.php:66
 msgid "[No Subject]"
 msgstr "[Δεν υπάρχει θέμα]"
 
-#: lib/Compose.php:3015
+#: lib/Compose.php:3032
 msgid "[Truncated Text]"
 msgstr "κείμενο που έχει περικοπεί"
 
@@ -6548,7 +6533,7 @@ msgid_plural "and %d more mailboxes"
 msgstr[0] "και %d επιπλέον θυρίδα"
 msgstr[1] "και %d επιπλέον θυρίδες"
 
-#: lib/Compose.php:3181
+#: lib/Compose.php:3198
 msgid "attachment"
 msgstr "Συνημμένο"
 
@@ -6582,11 +6567,11 @@ msgstr "από"
 msgid "into mailbox"
 msgstr "μέσα στη θυρίδα"
 
-#: lib/Basic/Pgp.php:47 lib/Basic/Pgp.php:75 lib/Basic/Smime.php:209
+#: lib/Basic/Pgp.php:47 lib/Basic/Pgp.php:75 lib/Basic/Smime.php:212
 msgid "key"
 msgstr "κλειδί"
 
-#: lib/Compose.php:2896
+#: lib/Compose.php:2907
 #, php-format
 msgid "links will expire on %s"
 msgstr "οι σύνδεσμοι θα λήξουν στις  %s"
@@ -6625,7 +6610,7 @@ msgstr "μηνύματα χωρίς συνημμένα"
 msgid "months"
 msgstr "μήνες"
 
-#: lib/Compose.php:1000
+#: lib/Compose.php:1003
 msgid "name"
 msgstr "Όνομα"
 
