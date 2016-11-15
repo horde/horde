@@ -3231,7 +3231,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     $this->_pid));
                 $folders = array();
                 try {
-                    $imap_folders = $this->_imap->getMailboxes();
+                    $imap_folders = $this->_imap->getMailboxes(true);
                 } catch (Horde_ActiveSync_Exception $e) {
                     $this->_logger->err(sprintf(
                         "[%s] Problem loading mail folders from IMAP server: %s",
