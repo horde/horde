@@ -10,6 +10,8 @@
 /**
  * @category Horde
  * @package  Rdo
+ *
+ * @property-read $sortby
  */
 class Horde_Rdo_Query
 {
@@ -74,6 +76,8 @@ class Horde_Rdo_Query
      * object in, it will be cloned before it's returned so that it
      * can be safely modified.
      *
+     * @todo Make $mapper non-optional in H6
+     *
      * @param mixed $query The query to convert to an object.
      * @param Horde_Rdo_Mapper $mapper The Mapper object governing this query.
      *
@@ -105,6 +109,10 @@ class Horde_Rdo_Query
     }
 
     /**
+     * Constructor.
+     *
+     * @todo Make $mapper non-optional in H6
+     *
      * @param  Horde_Rdo_Mapper  $mapper  Rdo mapper base class
      */
     public function __construct($mapper = null)
@@ -186,7 +194,10 @@ class Horde_Rdo_Query
     }
 
     /**
-     * @param array $fields The fields to load with this query.
+     * Sets the fields to return with the query.
+     *
+     * @param array $fields        The fields to load with this query.
+     * @param string $fieldPrefix  Prefix all field names with this string.
      *
      * @return Horde_Rdo_Query Returns self for fluent method chaining.
      */
@@ -203,7 +214,10 @@ class Horde_Rdo_Query
     }
 
     /**
-     * @param array $fields Additional Fields to load with this query.
+     * Adds fields to return with the query.
+     *
+     * @param array $fields        Additional fields to load with this query.
+     * @param string $fieldPrefix  Prefix all field names with this string.
      *
      * @return Horde_Rdo_Query Returns self for fluent method chaining.
      */
@@ -340,8 +354,7 @@ class Horde_Rdo_Query
         switch ($key) {
         case 'sortby':
             if (!$this->_sortby && $this->mapper->defaultSort) {
-                // Add in any default sort values, if none are already
-                // set.
+                // Add in any default sort values, if none are already set.
                 $this->sortBy($this->mapper->defaultSort);
             }
             return $this->_sortby;
