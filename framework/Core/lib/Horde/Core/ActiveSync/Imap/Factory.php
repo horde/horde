@@ -66,7 +66,7 @@ class Horde_Core_ActiveSync_Imap_Factory implements Horde_ActiveSync_Interface_I
                 'subscribe'
             );
             try {
-                foreach ($registry->mail->mailboxList(array('unsub' => !$subscriptions)) as $mbox) {
+                foreach ($registry->mail->mailboxList(array('reload' => true,'unsub' => !$subscriptions)) as $mbox) {
                     if (isset($mbox['subscribed'])) {
                         /* IMP 7. Guaranteed that return will match what was
                          * asked for in 'unsub' argument. */
