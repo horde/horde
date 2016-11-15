@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mjr] Refresh mailbox list when retrieving for ActiveSync.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4318,7 +4318,7 @@
    <date>2016-11-14</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mjr] Refresh mailbox list when retrieving for ActiveSync.
    </notes>
   </release>
  </changelog>
