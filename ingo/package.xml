@@ -1735,6 +1735,7 @@
    <date>2016-09-06</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [jan] Convert vacation rules in preference backend from Ingo &lt; 2.0.
 * [jan] Fix some edge cases with Sieve vacation rules with date limits (Bug #14486).
    </notes>
   </release>

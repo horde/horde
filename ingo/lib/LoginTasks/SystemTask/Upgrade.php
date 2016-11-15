@@ -44,7 +44,8 @@ extends Horde_Core_LoginTasks_SystemTask_Upgrade
         case '2.0':
             /* Upgrade to the new preferences storage format. */
             $upgrade_prefs = array(
-                'rules'
+                'rules',
+                'vacation',
             );
 
             $GLOBALS['injector']->getInstance('Horde_Core_Prefs_Storage_Upgrade')->upgradeSerialized($GLOBALS['prefs'], $upgrade_prefs);
