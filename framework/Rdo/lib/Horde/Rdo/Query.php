@@ -85,8 +85,7 @@ class Horde_Rdo_Query
      */
     public static function create($query, $mapper = null)
     {
-        if ($query instanceof Horde_Rdo_Query ||
-            $query instanceof Horde_Rdo_Query_Literal) {
+        if ($query instanceof Horde_Rdo_Query) {
             $query = clone $query;
             if (!is_null($mapper)) {
                 $query->setMapper($mapper);
