@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix parsing inline signed PGP messages with PHP 7+ (Bug #14352).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1173,7 +1173,7 @@ Initial release as a PEAR package
    <date>2016-04-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix parsing inline signed PGP messages with PHP 7+ (Bug #14352).
    </notes>
   </release>
  </changelog>
