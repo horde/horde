@@ -65,8 +65,15 @@ class Horde_Core_Factory_Db extends Horde_Core_Factory_Base
         if (!is_array($backend) && ($backend == 'auth')) {
             unset(
                 $config['count_bad_logins'],
+                $config['cyradmin'],
+                $config['cyrhost'],
+                $config['cyrpass'],
+                $config['cyrport'],
+                $config['domain_field'],
                 $config['driverconfig'],
                 $config['encryption'],
+                $config['folders'],
+                $config['hidden_accounts'],
                 $config['login_block'],
                 $config['login_block_count'],
                 $config['login_block_time'],
@@ -81,7 +88,8 @@ class Horde_Core_Factory_Db extends Horde_Core_Factory_Base
                 $config['query_exists'],
                 $config['show_encryption'],
                 $config['table'],
-                $config['username_field'],
+                $config['userhierarchy'],
+                $config['username_field']
             );
         }
         unset($config['umask']);

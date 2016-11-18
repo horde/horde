@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Don&apos;t pollute DB DSN with unknown parameters when using Cyrsql authentication driver.
 * [mjr] Refresh mailbox list when retrieving for ActiveSync.
  </notes>
  <contents>
@@ -4318,6 +4319,7 @@
    <date>2016-11-14</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Don&apos;t pollute DB DSN with unknown parameters when using Cyrsql authentication driver.
 * [mjr] Refresh mailbox list when retrieving for ActiveSync.
    </notes>
   </release>
