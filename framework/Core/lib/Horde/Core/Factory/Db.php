@@ -64,7 +64,13 @@ class Horde_Core_Factory_Db extends Horde_Core_Factory_Base
          * @todo Fix with Horde 6. */
         if (!is_array($backend) && ($backend == 'auth')) {
             unset(
+                $config['count_bad_logins'],
                 $config['driverconfig'],
+                $config['encryption'],
+                $config['login_block'],
+                $config['login_block_count'],
+                $config['login_block_time'],
+                $config['password_field'],
                 $config['query_auth'],
                 $config['query_add'],
                 $config['query_getpw'],
@@ -73,15 +79,9 @@ class Horde_Core_Factory_Db extends Horde_Core_Factory_Base
                 $config['query_remove'],
                 $config['query_list'],
                 $config['query_exists'],
-                $config['encryption'],
                 $config['show_encryption'],
-                $config['username_field'],
-                $config['password_field'],
                 $config['table'],
-                $config['login_block'],
-                $config['login_block_count'],
-                $config['login_block_time'],
-                $config['count_bad_logins']
+                $config['username_field'],
             );
         }
         unset($config['umask']);
