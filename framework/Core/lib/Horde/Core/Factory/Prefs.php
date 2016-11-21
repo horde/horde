@@ -67,7 +67,7 @@ class Horde_Core_Factory_Prefs extends Horde_Core_Factory_Base
                   $conf['prefs']['driver'] == 'Session') {
             $driver = 'Horde_Prefs_Storage_Null';
             $params = array();
-            $opts['cache'] = false;
+            $opts['cache'] = $conf['prefs']['driver'] == 'Session';
         } else {
             $driver = $conf['prefs']['driver'];
             switch (Horde_String::lower($driver)) {
