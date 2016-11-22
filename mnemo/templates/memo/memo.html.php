@@ -28,7 +28,8 @@
  <?php echo $this->help ?>
 
  <p class="horde-form-buttons">
-  <input type="submit" class="horde-default" value="<?php echo _("Save") ?>" />
+  <input type="submit" class="horde-default" value="<?php echo _("Save and Close") ?>" />
+  <input type="submit" class="horde-create" value="<?php echo _("Save")?>" name="save_only" />
 <?php if ($this->delete): ?>
   <a class="horde-delete" href="<?php echo $this->delete ?>"><?php echo _("Delete") ?></a>
 <?php endif ?>

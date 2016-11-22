@@ -233,7 +233,10 @@ case 'save_memo':
     }
 
     /* Return to the notepad view. */
-    Horde::url('list.php', true)->redirect();
+    if (!Horde_Util::getFormData('save_only')) {
+        Horde::url('list.php', true)->redirect();
+    }
+    break;
 
 case 'delete_memos':
     /* Delete the note if we're provided with a valid note ID. */
