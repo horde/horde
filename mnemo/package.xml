@@ -27,6 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [mjr] Add ability to save note without redirecting to notebook (Request #14085).
 * [mjr] Add tag browsing/searching (Request #14178).
 * [jan] Keep original file names when PUTing notes via WebDAV.
 * [jan] Remove configuration option for database table.
@@ -1407,6 +1408,7 @@
    <date>2016-11-09</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [mjr] Add ability to save note without redirecting to notebook (Request #14085).
 * [mjr] Add tag browsing/searching (Request #14178).
 * [jan] Keep original file names when PUTing notes via WebDAV.
 * [jan] Remove configuration option for database table.
