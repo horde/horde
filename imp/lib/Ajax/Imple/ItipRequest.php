@@ -154,8 +154,8 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
                             }
                         } catch (Horde_Icalendar_Exception $e) {}
                     }
-
                     break;
+
                 case 'vFreebusy':
                     // Import into Kronolith.
                     if ($registry->hasMethod('calendar/import_vfreebusy')) {
@@ -440,6 +440,7 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
 
             } catch (Horde_Exception $e) {
                 $notification->push(sprintf(_("There was an error importing the event: %s"), $e->getMessage()), 'horde.error');
+                return false;
             }
         }
 
