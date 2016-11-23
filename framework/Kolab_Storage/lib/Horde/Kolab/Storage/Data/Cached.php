@@ -262,7 +262,7 @@ extends Horde_Kolab_Storage_Data_Base
                 '[KOLAB_STORAGE] Complete folder sync: user: %s, folder: %s, is_reset: %d',
                 $user, $folder_path, $is_reset)
             );
-            $this->_completeSynchronization($current);
+            $this->_completeSynchronization($current, array('is_reset' => $is_reset));
             return;
         }
 
