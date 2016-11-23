@@ -114,6 +114,7 @@ class IMP_Factory_MimeViewer extends Horde_Core_Factory_MimeViewer
         }
 
         $params['imp_contents'] = $this->_contents;
+        $params['type'] = $type;
 
         return array($driver, $params);
     }
