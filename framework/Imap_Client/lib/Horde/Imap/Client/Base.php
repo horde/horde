@@ -249,7 +249,7 @@ implements Serializable, SplObserver
             'timeout' => 30
         ), array_filter($params));
 
-        if (!isset($params['port'])) {
+        if (!isset($params['port']) && strpos($params['hostspec'], 'unix://') !== 0) {
             $params['port'] = (!empty($params['secure']) && in_array($params['secure'], array('ssl', 'sslv2', 'sslv3'), true))
                 ? $this->_defaultPorts[1]
                 : $this->_defaultPorts[0];
