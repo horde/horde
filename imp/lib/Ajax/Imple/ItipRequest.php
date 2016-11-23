@@ -41,8 +41,9 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
     protected function _attach($init)
     {
         return array(
+            'ctype' => $this->_params['ctype'],
             'mime_id' => $this->_params['mime_id'],
-            'muid' => $this->_params['muid']
+            'muid' => $this->_params['muid'],
         );
     }
 
@@ -70,7 +71,12 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
                 throw new IMP_Exception(
                     _("Cannot retrieve calendar data from message.")
                 );
-            } elseif (!$vCal->parsevCalendar($mime_part->getContents(), 'VCALENDAR', $mime_part->getCharset())) {
+            }
+            if ($vars->ctype) {
+                $mime_part = clone $mime_part;
+                $mime_part->setType($vars->ctype);
+            }
+            if (!$vCal->parsevCalendar($mime_part->getContents(), 'VCALENDAR', $mime_part->getCharset())) {
                 throw new IMP_Exception(_("The calendar data is invalid"));
             }
 

@@ -119,8 +119,9 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
         }
 
         $imple = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create('IMP_Ajax_Imple_ItipRequest', array(
+            'ctype' => $this->_conf['type'],
             'mime_id' => $mime_id,
-            'muid' => strval($imp_contents->getIndicesOb())
+            'muid' => strval($imp_contents->getIndicesOb()),
         ));
 
         // Get the method type.
