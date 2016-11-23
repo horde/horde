@@ -2,6 +2,7 @@
 v6.2.17-git
 -----------
 
+[jan] Fix iTip MIME viewer actions if attachment type hasn't been specified.
 [mjr] Add option to reload folder tree when fetching via the API.
 [jan] Update preview cache after permanently unblocking images from a sender
       (Bug #14446).

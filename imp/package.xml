@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Fix iTip MIME viewer actions if attachment type hasn&apos;t been specified.
 * [mjr] Add option to reload folder tree when fetching via the API.
 * [jan] Update preview cache after permanently unblocking images from a sender (Bug #14446).
  </notes>
@@ -3980,6 +3981,7 @@
    <date>2016-09-06</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix iTip MIME viewer actions if attachment type hasn&apos;t been specified.
 * [mjr] Add option to reload folder tree when fetching via the API.
 * [jan] Update preview cache after permanently unblocking images from a sender (Bug #14446).
    </notes>
