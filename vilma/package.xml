@@ -12,12 +12,12 @@
  </lead>
  <date>2016-11-24</date>
  <version>
-  <release>1.0.0alpha1</release>
-  <api>1.0.0alpha1</api>
+  <release>1.0.0</release>
+  <api>1.0.0</api>
  </version>
  <stability>
-  <release>alpha</release>
-  <api>alpha</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
@@ -250,12 +250,12 @@
  <changelog>
   <release>
    <version>
-    <release>1.0.0alpha1</release>
-    <api>1.0.0alpha1</api>
+    <release>1.0.0</release>
+    <api>1.0.0</api>
    </version>
    <stability>
-    <release>alpha</release>
-    <api>alpha</api>
+    <release>beta</release>
+    <api>beta</api>
    </stability>
    <date>2016-11-24</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
