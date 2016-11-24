@@ -350,6 +350,7 @@ class Nag_Driver_Kolab extends Nag_Driver
      */
     protected function _modify($taskId, array $task)
     {
+        $this->synchronize();
         $object = $this->_getObject($task);
         $object['uid'] = Horde_Url::uriB64Decode($taskId);
         try {
