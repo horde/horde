@@ -2,20 +2,27 @@
 <?php
 /**
  * This script will check the user table and create any mail directories on the
- * system for any new users. A cron job can be set up to run this periodically.
+ * system for any new users.
+ *
+ * A cron job can be set up to run this periodically.
+ *
+ * Copyright 2004-2016 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file LICENSE for license information (BSD). If you did not
+ * receive this file, see http://www.horde.org/licenses/bsd.
+ *
+ * @author    Marko Djukic <marko@oblo.com>
+ * @category  Horde
+ * @copyright 2004-2016 Horde LLC
+ * @license   http://www.horde.org/licenses/bsd BSD
+ * @package   Vilma
  */
 
 require_once __DIR__ . '/../lib/Application.php';
-$vilma = Horde_Registry::appInit('vilma', array('authentication' => 'none'));
-
-// Make sure no one runs this from the web.
-if (!Horde_Cli::runningFromCLI()) {
-    exit("Must be run from the command line\n");
-}
-
-// Load the CLI environment - make sure there's no time limit, init
-// some variables, etc.
-Horde_Cli::init();
+$vilma = Horde_Registry::appInit(
+    'vilma',
+    array('authentication' => 'none', 'cli' => true)
+);
 
 foreach ($vilma->driver->getAllUsers() as $domain => $users) {
     foreach ($users as $user) {
