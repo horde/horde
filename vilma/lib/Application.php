@@ -56,8 +56,7 @@ class Vilma_Application extends Horde_Registry_Application
 
         if (!empty($domain_id)) {
             $domain = $this->driver->getDomain($domain_id);
-            if (!is_a($domain, 'PEAR_Error') &&
-                !empty($domain['domain_name'])) {
+            if (!empty($domain['domain_name'])) {
                 $this->curdomain = $domain;
                 Vilma::setCurDomain($domain);
             }
