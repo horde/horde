@@ -4,7 +4,7 @@
  *
  * This file defines Vilma's external API interface.
  *
- * Copyright 2006-2010 Alkaloid Networks <http://www.alkaloid.net/>
+ * Copyright 2006-2016 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you did not
  * did not receive this file, see http://www.horde.org/licenses/bsd.
