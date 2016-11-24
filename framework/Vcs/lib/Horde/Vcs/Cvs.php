@@ -148,7 +148,14 @@ class Horde_Vcs_Cvs extends Horde_Vcs_Rcs
         $tmpfile = Horde_Util::getTempFile('vc', true, $this->_paths['temp']);
         $where = $fileob->getSourcerootPath();
 
-        $pipe = $this->popen(escapeshellcmd($this->getPath('cvs')) . ' -n server > ' . escapeshellarg($tmpfile), 'w');
+        $proc = $this->proc_open(
+            escapeshellcmd($this->getPath('cvs')) . ' -n server',
+            array(array('pipe', 'r'), array('pipe', 'w'), array('pipe', 'w')),
+            $pipes
+        );
+        if (!$proc) {
+            throw new Horde_Vcs_Exception('Unable to annotate');
+        }
 
         $out = array(
             'Root ' . $this->sourceroot,
@@ -171,16 +178,21 @@ class Horde_Vcs_Cvs extends Horde_Vcs_Rcs
         $out[] = 'annotate';
 
         foreach ($out as $line) {
-            fwrite($pipe, "$line\n");
+            fwrite($pipes[0], "$line\n");
         }
-        pclose($pipe);
+        fclose($pipes[0]);
 
-        if (!($fl = fopen($tmpfile, VC_WINDOWS ? 'rb' : 'r'))) {
-            return false;
+        stream_set_blocking($pipes[2], 0);
+        if ($error = stream_get_contents($pipes[2])) {
+            fclose($pipes[2]);
+            fclose($pipes[1]);
+            proc_close($proc);
+            throw new Horde_Vcs_Exception($error);
         }
+        fclose($pipes[2]);
 
         $lines = array();
-        $line = fgets($fl, 4096);
+        $line = fgets($pipes[1]);
 
         // Windows versions of cvs always return $where with forwards slashes.
         if (VC_WINDOWS) {
@@ -188,15 +200,16 @@ class Horde_Vcs_Cvs extends Horde_Vcs_Rcs
         }
 
         while ($line && !preg_match("|^E\s+Annotations for $where|", $line)) {
-            $line = fgets($fl, 4096);
+            $line = fgets($pipes[1]);
         }
-
         if (!$line) {
-            throw new Horde_Vcs_Exception('Unable to annotate; server said: ' . $line);
+            fclose($pipes[1]);
+            proc_close($proc);
+            throw new Horde_Vcs_Exception('Unable to annotate');
         }
 
         $lineno = 1;
-        while ($line = fgets($fl, 4096)) {
+        while ($line = fgets($pipes[1])) {
             if (preg_match('/^M\s+([\d\.]+)\s+\((.+)\s+(\d+-\w+-\d+)\):.(.*)$/', $line, $regs)) {
                 $lines[] = array(
                     'rev' => $regs[1],
@@ -208,7 +221,9 @@ class Horde_Vcs_Cvs extends Horde_Vcs_Rcs
             }
         }
 
-        fclose($fl);
+        fclose($pipes[1]);
+        proc_close($proc);
+
         return $lines;
     }
 
