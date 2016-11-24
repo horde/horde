@@ -16,7 +16,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-01-13</date>
+ <date>2016-11-24</date>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -31,6 +31,11 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="bin">
+    <file name="vilma-create-mailboxes" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+   </dir> <!-- /bin -->
    <dir name="config">
     <file name=".htaccess" role="horde" />
     <file name="conf.xml" role="horde" />
@@ -122,10 +127,6 @@
     <file name="1_vilma_base_tables.php" role="horde" />
     <file name="2_vilma_drop_domainkey.php" role="horde" />
    </dir> <!-- /migration -->
-   <dir name="scripts">
-    <file name=".htaccess" role="horde" />
-    <file name="create_mailboxes.php" role="horde" />
-   </dir> <!-- /scripts -->
    <dir name="templates">
     <dir name="domains">
      <file name="index.html" role="horde" />
@@ -181,6 +182,7 @@
    <install as="vilma/index.php" name="index.php" />
    <install as="LICENSE" name="LICENSE" />
    <install as="README" name="README" />
+   <install as="vilma-create-mailboxes" name="bin/vilma-create-mailboxes" />
    <install as="vilma/config/.htaccess" name="config/.htaccess" />
    <install as="vilma/config/conf.xml" name="config/conf.xml" />
    <install as="vilma/config/hooks.php.dist" name="config/hooks.php.dist" />
@@ -228,8 +230,6 @@
    <install as="vilma/locale/lv/LC_MESSAGES/vilma.po" name="locale/lv/LC_MESSAGES/vilma.po" />
    <install as="vilma/migration/1_vilma_base_tables.php" name="migration/1_vilma_base_tables.php" />
    <install as="vilma/migration/2_vilma_drop_domainkey.php" name="migration/2_vilma_drop_domainkey.php" />
-   <install as="vilma/scripts/.htaccess" name="scripts/.htaccess" />
-   <install as="vilma/scripts/create_mailboxes.php" name="scripts/create_mailboxes.php" />
    <install as="vilma/templates/.htaccess" name="templates/.htaccess" />
    <install as="vilma/templates/domains/index.html" name="templates/domains/index.html" />
    <install as="vilma/templates/users/index.html" name="templates/users/index.html" />
@@ -259,7 +259,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2016-01-13</date>
+   <date>2016-11-24</date>
    <license uri="TODO">TODO</license>
    <notes>
 * Initial release.
