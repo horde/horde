@@ -21,12 +21,13 @@ try {
 
 /* Retrieve the desired revision from the GET variable. */
 $rev = Horde_Util::getFormData('rev');
-if (!$rev || !$VC->isValidRevision($rev)) {
-    Chora::fatal(sprintf(_("Revision %s not found"), $rev), '404 Not Found');
+if (!$rev) {
+    Chora::fatal(_("No revision specified"));
 }
 
 switch (Horde_Util::getFormData('actionID')) {
 case 'log':
+    $VC->assertValidRevision($rev);
     $log = $fl->getLog($rev);
     if (!is_null($log)) {
         echo '<em>' . _("Author") . ':</em> ' . Chora::showAuthorName($log->getAuthor(), true) . '<br />' .
@@ -34,6 +35,10 @@ case 'log':
             Chora::formatLogMessage($log->getMessage());
     }
     exit;
+}
+
+if (!$VC->isValidRevision($rev)) {
+    Chora::fatal(sprintf(_("Revision %s not found"), $rev), '404 Not Found');
 }
 
 try {
