@@ -3,7 +3,7 @@
  * Copyright 2006-2007 Alkaloid Networks <http://www.alkaloid.net/>
  *
  * See the enclosed file LICENSE for license information (BSD). If you did not
- * did not receive this file, see http://cvs.horde.org/co.php/vilma/LICENSE.
+ * did not receive this file, see http://www.horde.org/licenses/bsd.
  *
  * @author  Ben Klang <bklang@alkaloid.net>
  * @package Vilma

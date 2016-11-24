@@ -3,7 +3,7 @@
  * Copyright 2004-2016 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you did not
- * did not receive this file, see http://cvs.horde.org/co.php/vilma/LICENSE.
+ * did not receive this file, see http://www.horde.org/licenses/bsd.
  *
  * @author  Jason M. Felice <jason.m.felice@gmail.com>
  * @package Vilma
