@@ -102,8 +102,12 @@ class Components_Release_Notes
                 $this->_notes['branch'] = $release['branch'];
             }
             $this->_notes['security'] = $release['security'];
-            if (!is_array(reset($release['changes']))) {
-                $release['changes'] = array($release['changes']);
+            if (is_array($release['changes'])) {
+                if (!is_array(reset($release['changes']))) {
+                    $release['changes'] = array($release['changes']);
+                }
+            } else {
+                $release['changes'] = array();
             }
             $currentSection = null;
             $changes = '';
@@ -162,7 +166,7 @@ The major changes compared to the %s version %s are:%s',
                 $prerelease,
                 $info['id'],
                 $info['id'],
-                $release['additional']
+                !empty($release['additional'])
                     ? "\n" . implode("\n\n", $release['additional']) . "\n"
                     : '',
                 $info['name'],
