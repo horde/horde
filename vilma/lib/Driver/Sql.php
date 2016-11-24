@@ -11,7 +11,7 @@
 class Vilma_Driver_Sql extends Vilma_Driver
 {
     /**
-     * @var DB
+     * @var Horde_Db
      */
     protected $_db;
 
@@ -36,8 +36,7 @@ class Vilma_Driver_Sql extends Vilma_Driver
         $sql = 'SELECT ' . $this->_getTableFields('domains')
             . ' FROM ' . $this->_params['tables']['domains']
             . ' ORDER BY ' . $this->_getTableField('domains', 'domain_name');
-        Horde::log($sql, 'DEBUG');
-        return $this->_db->getAll($sql, null, DB_FETCHMODE_ASSOC);
+        return $this->_db->selectAll($sql);
     }
 
     /**
@@ -52,8 +51,7 @@ class Vilma_Driver_Sql extends Vilma_Driver
         $sql = 'SELECT ' . $this->_getTableFields('domains')
             . ' FROM ' . $this->_params['tables']['domains']
             . ' WHERE ' . $this->_getTableField('domains', 'domain_id') . ' = ?';
-        Horde::log($sql, 'DEBUG');
-        return $this->_db->getRow($sql, array((int)$domain_id), DB_FETCHMODE_ASSOC);
+        return $this->_db->selectOne($sql, array((int)$domain_id));
     }
 
     /**
@@ -68,8 +66,7 @@ class Vilma_Driver_Sql extends Vilma_Driver
         $sql = 'SELECT ' . $this->_getTableFields('domains')
             . ' FROM ' . $this->_params['tables']['domains']
             . ' WHERE ' . $this->_getTableField('domains', 'domain_name') . ' = ?';
-        Horde::log($sql, 'DEBUG');
-        return $this->_db->getRow($sql, array($domain_name), DB_FETCHMODE_ASSOC);
+        return $this->_db->selectOne($sql, array($domain_name));
     }
 
     /**
@@ -83,10 +80,8 @@ class Vilma_Driver_Sql extends Vilma_Driver
                         'domain_transport' => $info['transport'],
                         'domain_max_users' => (int)$info['max_users'],
                         'domain_quota' => (int)$info['quota']);
-
+        $values = $this->_prepareRecord('domains', $record);
         if (empty($info['domain_id'])) {
-            $record['domain_id'] = $this->_db->nextId($this->_params['tables']['domains']);
-            $values = $this->_prepareRecord('domains', $record);
             $sql = sprintf('INSERT INTO %s (%s) VALUES (%s)',
                            $this->_params['tables']['domains'],
                            implode(', ', array_keys($values)),
@@ -115,25 +110,35 @@ class Vilma_Driver_Sql extends Vilma_Driver
         $domain_record = $this->getDomain($domain_id);
         $domain_name = $domain_record['domain_name'];
 
-        /* Delete all virtual emails for this domain. */
-        $sql = 'DELETE FROM ' . $this->_params['tables']['virtuals'] .
-               ' WHERE ' . $this->_getTableField('virtuals', 'virtual_email') . ' LIKE ?';
-        $values = array('%@' . $domain_name);
-        Horde_Exception_Pear::catchError($this->_db->query($sql, $values));
+        try {
+            $this->_db->beginDbTransaction();
 
-        /* Delete all users for this domain. */
-        $sql = 'DELETE FROM ' . $this->_params['tables']['users'] .
-               ' WHERE ' . $this->_getTableField('users', 'user_name') . ' LIKE ?';
-        $values = array('%@' . $domain_name);
-        Horde_Exception_Pear::catchError($this->_db->query($sql, $values));
+            /* Delete all virtual emails for this domain. */
+            $sql = 'DELETE FROM ' . $this->_params['tables']['virtuals']
+                . ' WHERE ' . $this->_getTableField('virtuals', 'virtual_email')
+                . ' LIKE ?';
+            $values = array('%@' . $domain_name);
+            $this->_db->delete($sql, $values);
 
-        /* Finally delete the domain. */
-        $sql = 'DELETE FROM ' . $this->_params['tables']['domains'] .
-               ' WHERE ' . $this->_getTableField('domains', 'domain_id') . ' = ?';
-        $values = array((int)$domain_id);
+            /* Delete all users for this domain. */
+            $sql = 'DELETE FROM ' . $this->_params['tables']['users']
+                . ' WHERE ' . $this->_getTableField('users', 'user_name')
+                . ' LIKE ?';
+            $values = array('%@' . $domain_name);
+            $this->_db->delete($sql, $values);
 
-        Horde::log($sql, 'DEBUG');
-        return $this->_db->query($sql, $values);
+            /* Finally delete the domain. */
+            $sql = 'DELETE FROM ' . $this->_params['tables']['domains']
+                . ' WHERE ' . $this->_getTableField('domains', 'domain_id')
+                . ' = ?';
+            $values = array((int)$domain_id);
+            $this->_db->delete($sql, $values);
+
+            $this->_db->commitDbTransaction();
+        } catch (Horde_Db_Exception $e) {
+            $this->_db->rollbackDbTransaction();
+            throw new Vilma_Exception($e);
+        }
     }
 
     /**
@@ -149,8 +154,7 @@ class Vilma_Driver_Sql extends Vilma_Driver
         $sql = 'SELECT count(' . $this->_getTableField('users', 'user_name') . ')'
             . ' FROM ' . $this->_params['tables']['users']
             . ' WHERE ' . $this->_getTableField('users', 'user_name') . ' LIKE ?';
-        Horde::log($sql, 'DEBUG');
-        return $this->_db->getOne($sql, array('%@' . $domain_name));
+        return $this->_db->selectValue($sql, array('%@' . $domain_name));
     }
 
     /**
@@ -179,8 +183,7 @@ class Vilma_Driver_Sql extends Vilma_Driver
                 . ' ORDER BY ' . $user_field;
             $values = array('%@' . $domain);
         }
-        Horde::log($sql, 'DEBUG');
-        return $this->_db->getAll($sql, $values, DB_FETCHMODE_ASSOC);
+        return $this->_db->selectAll($sql, $values);
     }
 
     /**
@@ -196,8 +199,7 @@ class Vilma_Driver_Sql extends Vilma_Driver
         $sql = 'SELECT ' . $this->_getTableFields('users')
             . ' FROM ' . $this->_params['tables']['users']
             . ' WHERE ' . $this->_getTableField('users', 'user_id') . ' = ?';
-        Horde::log($sql, 'DEBUG');
-        return $this->_db->getRow($sql, array((int)$user_id), DB_FETCHMODE_ASSOC);
+        return $this->_db->selectOne($sql, array((int)$user_id));
     }
 
     /**
@@ -215,7 +217,6 @@ class Vilma_Driver_Sql extends Vilma_Driver
         $this->getDomainByName($domain);
 
         if (empty($info['user_id'])) {
-            $info['user_id'] = $this->_db->nextId($this->_params['tables']['users']);
             $create = true;
         } else {
             $create = false;
@@ -229,7 +230,6 @@ class Vilma_Driver_Sql extends Vilma_Driver
         }
 
         $tuple = array(
-            'user_id'         => (int)$info['user_id'],
             'user_name'       => $info['user_name'],
             'user_full_name'  => $info['user_full_name'],
             'user_home_dir'   => $mail_dir_base,
@@ -237,14 +237,19 @@ class Vilma_Driver_Sql extends Vilma_Driver
             'user_mail_quota' => $this->getDomainQuota($domain) * 1024 * 1024,
             'user_enabled'    => (int)$info['user_enabled']);
 
-        // UID and GID are slightly hackish (specific to maildrop driver), too.
-        $tuple['user_uid'] = $mailboxes->getParam('uid');
-        if (is_null($tuple['user_uid'])) {
-            $tuple['user_uid'] = -1;
-        }
-        $tuple['user_gid'] = $mailboxes->getParam('gid');
-        if (is_null($tuple['user_gid'])) {
-            $tuple['user_gid'] = -1;
+        if (!$create) {
+            $tuple['user_id'] = (int)$info['user_id'];
+
+            // UID and GID are slightly hackish (specific to maildrop driver),
+            // too.
+            $tuple['user_uid'] = $mailboxes->getParam('uid');
+            if (is_null($tuple['user_uid'])) {
+                $tuple['user_uid'] = -1;
+            }
+            $tuple['user_gid'] = $mailboxes->getParam('gid');
+            if (is_null($tuple['user_gid'])) {
+                $tuple['user_gid'] = -1;
+            }
         }
 
         if (!empty($info['password'])) {
@@ -261,7 +266,7 @@ class Vilma_Driver_Sql extends Vilma_Driver
                            $this->_params['tables']['users'],
                            implode(', ', array_keys($values)),
                            implode(', ', array_fill(0, count($values), '?')));
-            $this->_db->insert($sql, $values);
+            $info['user_id'] = $this->_db->insert($sql, $values);
         } else {
             $sql = sprintf('UPDATE %s SET %s WHERE %s = ?',
                            $this->_params['tables']['users'],
@@ -283,27 +288,37 @@ class Vilma_Driver_Sql extends Vilma_Driver
      */
     public function deleteUser($user_id)
     {
-        Horde_Exception_Pear::catchError($user = $this->getUser($user_id));
+        $user = $this->getUser($user_id);
 
-        /* Delete all virtual emails for this user. */
-        $sql = 'DELETE FROM ' . $this->_params['tables']['virtuals'] .
-               ' WHERE ' . $this->_getTableField('virtuals', 'virtual_destination') . ' = ?';
-        $values = array($user['user_name']);
+        try {
+            $this->_db->beginDbTransaction();
 
-        Horde::log($sql, 'DEBUG');
-        Horde_Exception_Pear::catchError($this->_db->query($sql, $values));
+            /* Delete all virtual emails for this user. */
+            $sql = 'DELETE FROM ' . $this->_params['tables']['virtuals']
+                . ' WHERE '
+                . $this->_getTableField('virtuals', 'virtual_destination')
+                . ' = ?';
+            $values = array($user['user_name']);
+            $this->_db->delete($sql, $values);
 
-        /* Delete the actual user. */
-        $sql = 'DELETE FROM ' . $this->_params['tables']['users'] .
-               ' WHERE ' . $this->_getTableField('users', 'user_id') . ' = ?';
-        $values = array((int)$user_id);
+            /* Delete the actual user. */
+            $sql = 'DELETE FROM ' . $this->_params['tables']['users']
+                . ' WHERE ' . $this->_getTableField('users', 'user_id')
+                . ' = ?';
+            $values = array((int)$user_id);
+            $this->_db->delete($sql, $values);
 
-        Horde::log($sql, 'DEBUG');
-        Horde_Exception_Pear::catchError($this->_db->query($sql, $values));
+            $this->_db->commitDbTransaction();
+        } catch (Horde_Db_Exception $e) {
+            $this->_db->rollbackDbTransaction();
+            throw new Vilma_Exception($e);
+        }
 
         Vilma_MailboxDriver::factory()
-            ->deleteMailbox(Vilma::stripUser($user['user_name']),
-                            Vilma::stripDomain($user['user_name']));
+            ->deleteMailbox(
+                Vilma::stripUser($user['user_name']),
+                Vilma::stripDomain($user['user_name'])
+            );
     }
 
     /**
@@ -358,8 +373,7 @@ class Vilma_Driver_Sql extends Vilma_Driver
             . ' WHERE ' . $where
             . ' ORDER BY ' . $destination_field . ', ' . $email_field;
 
-        Horde::log($sql, 'DEBUG');
-        return $this->_db->getAll($sql, $values, DB_FETCHMODE_ASSOC);
+        return $this->_db->selectAll($sql, $values);
     }
 
     /**
@@ -376,8 +390,7 @@ class Vilma_Driver_Sql extends Vilma_Driver
             . ' FROM ' . $this->_params['tables']['virtuals']
             . ' WHERE ' . $this->_getTableField('virtuals', 'virtual_id') . ' = ?';
 
-        Horde::log($sql, 'DEBUG');
-        $virtual = $this->_db->getRow($sql, array((int)$virtual_id), DB_FETCHMODE_ASSOC);
+        $virtual = $this->_db->selectOne($sql, array((int)$virtual_id));
         $virtual['stripped_email'] = Vilma::stripUser($virtual['virtual_email']);
 
         return $virtual;
@@ -396,24 +409,23 @@ class Vilma_Driver_Sql extends Vilma_Driver
         /* Access check (for domainkey) */
         $this->getDomainByName($domain);
 
+        $values = array(
+            $info['stripped_email'] . '@' . $domain,
+            $info['virtual_destination'],
+        );
         if (empty($info['virtual_id'])) {
-            $info['virtual_id'] = $this->_db->nextId($this->_params['tables']['virtuals']);
             $sql = 'INSERT INTO ' . $this->_params['tables']['virtuals']
                 . ' (' . $this->_getTableField('virtuals', 'virtual_email') . ', '
-                       . $this->_getTableField('virtuals', 'virtual_destination') . ', '
-                       . $this->_getTableField('virtuals', 'virtual_id') . ') VALUES (?, ?, ?)';
+                       . $this->_getTableField('virtuals', 'virtual_destination') . ') VALUES (?, ?)';
+            $this->_db->insert($sql, $values);
         } else {
             $sql = 'UPDATE ' . $this->_params['tables']['virtuals']
                 . ' SET ' . $this->_getTableField('virtuals', 'virtual_email') . ' = ?, '
                           . $this->_getTableField('virtuals', 'virtual_destination') . ' = ?'
                 . ' WHERE ' . $this->_getTableField('virtuals', 'virtual_id') . ' = ?';
+            $values[] = $info['virtual_id'];
+            $this->_db->update($sql, $values);
         }
-        $values = array($info['stripped_email'] . '@' . $domain,
-                        $info['virtual_destination'],
-                        $info['virtual_id']);
-
-        Horde::log($sql, 'DEBUG');
-        return $this->_db->query($sql, $values);
     }
 
     /**
@@ -425,8 +437,7 @@ class Vilma_Driver_Sql extends Vilma_Driver
     {
         $sql = 'DELETE FROM ' . $this->_params['tables']['virtuals']
             . ' WHERE ' . $this->_getTableField('virtuals', 'virtual_id') . ' = ?';
-        Horde::log($sql, 'DEBUG');
-        return $this->_db->query($sql, array($virtual_id));
+        $this->_db->delete($sql, array($virtual_id));
     }
 
     /**
@@ -494,7 +505,7 @@ class Vilma_Driver_Sql extends Vilma_Driver
     protected function _initialize()
     {
         try {
-            $this->_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create('rw', 'vilma', 'storage');
+            $this->_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Db')->create('vilma', 'storage');
         } catch (Exception $e) {
             throw new Vilma_Exception($e);
         }
