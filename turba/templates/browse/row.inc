@@ -82,7 +82,6 @@ for ($c = 1; $c <= count($this->columns); $c++) {
     }
     if ($ob->hasValue($this->columns[$c - 1])) {
         $value = $ob->getValue($this->columns[$c - 1]);
-        $shown_columns[$c] = htmlspecialchars($value);
         if ($type == 'email') {
             $value = Turba::formatEmailAddresses($value,
                                                  $ob->getValue('name'));
