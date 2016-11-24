@@ -2,14 +2,8 @@
 <package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>vilma</name>
  <channel>pear.horde.org</channel>
- <summary>TODO</summary>
- <description>TODO</description>
- <lead>
-  <name>Chuck Hagenbuch</name>
-  <user>chuck</user>
-  <email>chuck@horde.org</email>
-  <active>yes</active>
- </lead>
+ <summary>Domain and User Administration</summary>
+ <description>Vilma is a tool for administrators who need to handle various aspects of domain, user, and email administration.</description>
  <lead>
   <name>Jan Schneider</name>
   <user>jan</user>
@@ -25,7 +19,7 @@
   <release>alpha</release>
   <api>alpha</api>
  </stability>
- <license uri="TODO">TODO</license>
+ <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
 * Initial release.
  </notes>
@@ -45,7 +39,9 @@
    <dir name="docs">
     <file name="CHANGES" role="doc" />
     <file name="CREDITS" role="doc" />
+    <file name="horde.yml" role="doc" />
     <file name="INSTALL" role="doc" />
+    <file name="release.yml" role="doc" />
     <file name="TODO" role="doc" />
    </dir> <!-- /docs -->
    <dir name="domains">
@@ -189,7 +185,9 @@
    <install as="vilma/config/prefs.php" name="config/prefs.php" />
    <install as="CHANGES" name="docs/CHANGES" />
    <install as="CREDITS" name="docs/CREDITS" />
+   <install as="horde.yml" name="docs/horde.yml" />
    <install as="INSTALL" name="docs/INSTALL" />
+   <install as="release.yml" name="docs/release.yml" />
    <install as="TODO" name="docs/TODO" />
    <install as="vilma/domains/delete.php" name="domains/delete.php" />
    <install as="vilma/domains/edit.php" name="domains/edit.php" />
@@ -260,7 +258,7 @@
     <api>alpha</api>
    </stability>
    <date>2016-11-24</date>
-   <license uri="TODO">TODO</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * Initial release.
    </notes>
