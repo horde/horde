@@ -47,7 +47,7 @@ $title = sprintf(_("Source Annotation (revision %s) for:"), $rev);
 $page_output->addScriptFile('annotate.js');
 $page_output->addInlineJsVars(array(
     'var Chora' => array(
-        'ANNOTATE_URL' => (string)Horde::url('annotate.php', true)->add(array('actionID' => 'log', 'f' => $where, 'rev' => '')),
+        'ANNOTATE_URL' => (string)Horde::url('annotate.php', true)->add(array('actionID' => 'log', 'rt' => $sourceroot, 'f' => $where, 'rev' => '')),
         'loading_text' => _("Loading...")
     )
 ));
