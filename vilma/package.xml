@@ -142,8 +142,10 @@
       <file name="domain.png" role="horde" />
       <file name="favicon.ico" role="horde" />
       <file name="sort.png" role="horde" />
+      <file name="user.png" role="horde" />
       <file name="vilma.png" role="horde" />
      </dir> <!-- /themes/default/graphics -->
+     <file name="screen.css" role="horde" />
     </dir> <!-- /themes/default -->
    </dir> <!-- /themes -->
    <dir name="users">
@@ -232,10 +234,12 @@
    <install as="vilma/templates/domains/index.html" name="templates/domains/index.html" />
    <install as="vilma/templates/users/index.html" name="templates/users/index.html" />
    <install as="vilma/templates/virtuals/index.html" name="templates/virtuals/index.html" />
+   <install as="vilma/themes/default/screen.css" name="themes/default/screen.css" />
    <install as="vilma/themes/default/graphics/display.png" name="themes/default/graphics/display.png" />
    <install as="vilma/themes/default/graphics/domain.png" name="themes/default/graphics/domain.png" />
    <install as="vilma/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
    <install as="vilma/themes/default/graphics/sort.png" name="themes/default/graphics/sort.png" />
+   <install as="vilma/themes/default/graphics/user.png" name="themes/default/graphics/user.png" />
    <install as="vilma/themes/default/graphics/vilma.png" name="themes/default/graphics/vilma.png" />
    <install as="vilma/users/delete.php" name="users/delete.php" />
    <install as="vilma/users/edit.php" name="users/edit.php" />
