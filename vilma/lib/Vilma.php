@@ -70,7 +70,7 @@ class Vilma
      *
      * @return Horde_Core_Ui_Tabs
      */
-    public static function getUserMgrTabs(Variables $vars)
+    public static function getUserMgrTabs(Horde_Variables $vars)
     {
         $url = Horde::url('users/index.php');
         $tabs = new Horde_Core_Ui_Tabs('section', $vars);

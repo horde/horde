@@ -17,7 +17,7 @@ $vilma = Horde_Registry::appInit('vilma');
 if (!Vilma::hasPermission($domain)) {
     throw new Horde_Exception_AuthenticationFailure();
 }
-$vars = Variables::getDefaultVariables();
+$vars = Horde_Variables::getDefaultVariables();
 
 /* If the form is submitted, $vars['mode'] will be set. Catch this and process
  * the submission so that the displayed form accurately indicates the result of
