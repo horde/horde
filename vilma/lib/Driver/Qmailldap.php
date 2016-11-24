@@ -268,7 +268,7 @@ class Vilma_Driver_Qmailldap extends Vilma_Driver_Sql
         if (isset($info['password'])) {
             if (!empty($user['password'])) {
                 // FIXME: Allow choice of hash
-                $info['user_password'] = Horde_Auth::getCryptedPassowrd($info['password'], '', 'ssha', true);
+                $info['user_password'] = Horde_Auth::getCryptedPassword($info['password'], '', 'ssha', true);
             }
             unset($info['password']);
         }
