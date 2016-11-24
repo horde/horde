@@ -148,7 +148,9 @@ class Horde_Vcs_Cvs extends Horde_Vcs_Rcs
         $tmpfile = Horde_Util::getTempFile('vc', true, $this->_paths['temp']);
         $where = $fileob->getSourcerootPath();
 
-        $proc = $this->proc_open(
+        $language = getenv('LC_MESSAGES');
+        putenv('LC_MESSAGES=C');
+        $proc = proc_open(
             escapeshellcmd($this->getPath('cvs')) . ' -n server',
             array(array('pipe', 'r'), array('pipe', 'w'), array('pipe', 'w')),
             $pipes
@@ -181,6 +183,7 @@ class Horde_Vcs_Cvs extends Horde_Vcs_Rcs
             fwrite($pipes[0], "$line\n");
         }
         fclose($pipes[0]);
+        putenv('LC_MESSAGES=' . $language);
 
         stream_set_blocking($pipes[2], 0);
         if ($error = stream_get_contents($pipes[2])) {
