@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Catch errors from NoSQL preference backend.
 * [jan] Make &apos;hostspec&apos; parameter for MongoDB configuration optional again on PHP 7.
 * [jan] Fix session preference driver.
 * [jan] Don&apos;t pollute DB DSN with unknown parameters when using Cyrsql authentication driver.
@@ -4321,6 +4322,7 @@
    <date>2016-11-14</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Catch errors from NoSQL preference backend.
 * [jan] Make &apos;hostspec&apos; parameter for MongoDB configuration optional again on PHP 7.
 * [jan] Fix session preference driver.
 * [jan] Don&apos;t pollute DB DSN with unknown parameters when using Cyrsql authentication driver.
