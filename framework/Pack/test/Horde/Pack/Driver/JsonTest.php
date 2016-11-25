@@ -26,4 +26,13 @@
 class Horde_Pack_Driver_JsonTest extends Horde_Pack_Driver_TestBase
 {
     protected $drivername = 'Horde_Pack_Driver_Json';
+
+    /**
+     * @expectedException Horde_Pack_Exception
+     * @expectedExceptionMessage Could not pack data.
+     */
+    public function testInvalidUtf8()
+    {
+        $this->_runTest(chr(228));
+    }
 }

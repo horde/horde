@@ -39,7 +39,9 @@ class Horde_Pack_Driver_Json extends Horde_Pack_Driver
     {
         static $jsonc_bug = null;
 
+        $old_error = error_reporting(0);
         $d = json_encode($data);
+        error_reporting($old_error);
         // TODO: JSON_ERROR_UTF8 = 5; available as of PHP 5.3.3
         if (json_last_error() === 5) {
             throw new Horde_Pack_Exception(
