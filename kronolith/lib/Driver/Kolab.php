@@ -506,7 +506,7 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
     public function delete($calendar)
     {
         $this->open($calendar);
-        $result = $this->synchronize();
+        $this->synchronize();
 
         $result = $this->_data->deleteAll($calendar);
         if (is_callable('Kolab', 'triggerFreeBusyUpdate')) {
