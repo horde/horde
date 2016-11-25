@@ -48,7 +48,6 @@ class Horde_Prefs_Unit_IdentityTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @depends testIdentityAdd
      */
     public function testIdentityGet()
     {
@@ -59,7 +58,6 @@ class Horde_Prefs_Unit_IdentityTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @depends testIdentityAdd
      */
     public function testIdentityDelete()
     {
@@ -74,7 +72,6 @@ class Horde_Prefs_Unit_IdentityTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @depends testIdentityAdd
      */
     public function testArrayAccessExists()
     {
@@ -85,7 +82,6 @@ class Horde_Prefs_Unit_IdentityTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @depends testIdentityAdd
      */
     public function testArrayAccessGet()
     {
@@ -96,7 +92,6 @@ class Horde_Prefs_Unit_IdentityTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @depends testIdentityAdd
      */
     public function testArrayAccessUnset()
     {
@@ -110,7 +105,6 @@ class Horde_Prefs_Unit_IdentityTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @depends testIdentityAdd
      */
     public function testCountable()
     {
@@ -120,7 +114,6 @@ class Horde_Prefs_Unit_IdentityTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @depends testIdentityAdd
      */
     public function testIterator()
     {
