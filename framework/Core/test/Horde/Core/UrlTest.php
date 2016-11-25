@@ -8,9 +8,6 @@
  */
 class Horde_Core_UrlTest extends PHPUnit_Framework_TestCase
 {
-    /**
-     * @runInSeparateProcess
-     */
     public function testUrl()
     {
         $sname = session_name();
@@ -321,9 +318,6 @@ class Horde_Core_UrlTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @runInSeparateProcess
-     */
     public function testSelfUrl()
     {
         $GLOBALS['registry'] = new Registry();

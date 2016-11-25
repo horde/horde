@@ -7,8 +7,6 @@ require_once dirname(__FILE__) . '/Base.php';
 /**
  * Copyright 2012-2016 Horde LLC (http://www.horde.org/)
  *
- * @runTestsInSeparateProcesses
- *
  * @author     Jan Schneider <jan@horde.org>
  * @category   Horde
  * @package    Horde_SessionHandler
