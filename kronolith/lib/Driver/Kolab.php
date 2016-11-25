@@ -125,6 +125,7 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
                     ->share()->get('folder'),
                 'event'
             );
+            $this->_data->synchronize();
         } catch (Kolab_Storage_Exception $e) {
             throw new Kronolith_Exception($e);
         }
