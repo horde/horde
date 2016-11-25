@@ -117,7 +117,7 @@ abstract class Horde_Db_Adapter_TestBase extends Horde_Test_Case
         $sql = "SELECT * FROM unit_tests WHERE id='1'";
         $result = $this->_conn->select($sql);
         $this->assertInstanceOf('Traversable', $result);
-        $this->assertGreaterThan(0, count($result));
+        $this->assertGreaterThan(0, count(iterator_to_array($result)));
 
         foreach ($result as $row) break;
         $this->assertInternalType('array', $row);
@@ -131,7 +131,7 @@ abstract class Horde_Db_Adapter_TestBase extends Horde_Test_Case
         $sql = "SELECT * FROM unit_tests WHERE id=?";
         $result = $this->_conn->select($sql, array(1));
         $this->assertInstanceOf('Traversable', $result);
-        $this->assertGreaterThan(0, count($result));
+        $this->assertGreaterThan(0, count(iterator_to_array($result)));
 
         foreach ($result as $row) break;
         $this->assertInternalType('array', $row);
@@ -145,7 +145,7 @@ abstract class Horde_Db_Adapter_TestBase extends Horde_Test_Case
         $sql = "SELECT * FROM unit_tests WHERE string_value=?";
         $result = $this->_conn->select($sql, array('name a'));
         $this->assertInstanceOf('Traversable', $result);
-        $this->assertGreaterThan(0, count($result));
+        $this->assertGreaterThan(0, count(iterator_to_array($result)));
 
         foreach ($result as $row) break;
         $this->assertInternalType('array', $row);
@@ -466,7 +466,7 @@ abstract class Horde_Db_Adapter_TestBase extends Horde_Test_Case
         $this->_conn->insert('INSERT INTO testings (bar) VALUES (1)');
 
         $sql = 'SELECT * FROM testings WHERE foo = 1';
-        $result = $this->_conn->select($sql);
+        $result = $this->_conn->selectAll($sql);
         $this->assertEquals(1, count($result));
 
         // Manually insert a primary key value.

@@ -180,7 +180,7 @@ class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
                 }
             }
 
-            $this->_sorted = (count($this->_ids) === 1);
+            $this->_sorted = is_array($this->_ids) && (count($this->_ids) === 1);
         }
     }
 
