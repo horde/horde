@@ -310,7 +310,7 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
     public function getObjectIds()
     {
         $result = $this->_data->getObjectIds();
-        if (count($result < 20)) {
+        if (count($result) < 20) {
             $ids = '[' . join(', ', $result) . ']';
         } else {
             $ids = '[too many to list]';
@@ -334,7 +334,7 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
     public function getObjects()
     {
         $result = $this->_data->getObjects();
-        if (count($result < 20)) {
+        if (count($result) < 20) {
             $ids = '[' . join(', ', array_keys($result)) . ']';
         } else {
             $ids = '[too many to list]';
@@ -358,7 +358,7 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
     public function getObjectsByBackendId()
     {
         $result = $this->_data->getObjectsByBackendId();
-        if (count($result < 20)) {
+        if (count($result) < 20) {
             $ids = '[backend ids: ' . join(', ', array_keys($result)) . ']';
         } else {
             $ids = '[too many to list]';
