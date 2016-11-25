@@ -1023,7 +1023,7 @@ class Turba_Driver_Kolab extends Turba_Driver
      */
     public function synchronize($token = false)
     {
-        $data = $this->_getData(true);
+        $data = $this->_getData();
         $last_token = $GLOBALS['session']->get('turba', 'kolab/token/' . $this->_name);
         if (empty($token) || empty($last_token) || $last_token != $token) {
             $GLOBALS['session']->set('turba', 'kolab/token/' . $this->_name, $token);
