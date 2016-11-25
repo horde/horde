@@ -32,7 +32,9 @@ class Horde_Prefs_Unit_IdentityTest extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->identity = new Horde_Prefs_Identity(array(
-            'prefs' => new Horde_Prefs('foo'),
+            'prefs' => new Horde_Prefs(
+                'foo', new Horde_Prefs_Stub_Storage('foo')
+            ),
             'user' => 'foo'
         ));
     }

@@ -20,6 +20,7 @@ class Horde_Prefs_Stub_Storage extends Horde_Prefs_Storage_Base
     {
         /** Provide dummy pref */
         $scope_ob->set('a', 'b');
+        $scope_ob->set('identities', array('v' => array()));
         return $scope_ob;
     }
 
