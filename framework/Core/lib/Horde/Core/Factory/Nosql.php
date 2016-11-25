@@ -101,7 +101,7 @@ class Horde_Core_Factory_Nosql extends Horde_Core_Factory_Base
 
         switch ($config['phptype']) {
         case 'mongo':
-            $ob = new Horde_Mongo_Client(empty($config['hostspec']) ? null : $config['hostspec']);
+            $ob = new Horde_Mongo_Client(empty($config['hostspec']) ? 'localhost' : $config['hostspec']);
             if (isset($config['dbname']) && strlen($config['dbname'])) {
                 $ob->dbname = $config['dbname'];
             }
