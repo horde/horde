@@ -2,6 +2,7 @@
 v6.2.17-git
 -----------
 
+[mjr] Fix issue when forwarding an email to multiple recipients in Mobile view (Bug #14060).
 [jan] Fix iTip MIME viewer actions if attachment type hasn't been specified.
 [mjr] Add option to reload folder tree when fetching via the API.
 [jan] Update preview cache after permanently unblocking images from a sender
