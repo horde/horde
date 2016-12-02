@@ -4,7 +4,7 @@
  * This file is responsible for loading the javascript for the map driver we are
  * using. Horde ships with a Horde driver that relies on OpenLayers.js. The
  * Horde driver is able to support any mapping provider that can serve map
- * tiles. We have built in support for Google, Yahoo, and Bing as well as built
+ * tiles. We have built in support for Google, and Bing as well as built
  * in support for OpenStreetMaps. To write a new driver to support a new
  * provider, include a new {drivername}.js file in the same directory as this
  * file. Your js file is responsible for including any additional javascript
@@ -25,7 +25,7 @@ HordeMap = {
      * @param object opts  Hash containing:
      *      'driver':    HordeMap driver to use (Horde)
      *      'geocoder':  Geocoder driver to use
-     *      'providers': Default provider layers to add (Google, Yahoo etc...)
+     *      'providers': Default provider layers to add (Google, Bing, Osm ... )
      *      'jsuri':     The uri to the hordemap directory
             'ssl':       Use SSL for provider endpoints if possible.
      *
@@ -132,9 +132,6 @@ HordeMap = {
         switch (p) {
         case 'Google':
             return prot + '://maps.googleapis.com/maps/api/js?v=3&key=' + this.conf['apikeys']['google'];
-        case 'Yahoo':
-            return prot + '://api.maps.yahoo.com/ajaxymap?v=3.8&appid=' + this.conf['apikeys']['yahoo'];
-
         default:
             return '';
         }
