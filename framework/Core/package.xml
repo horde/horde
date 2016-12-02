@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Fix Google Map API warnings (Bug #14525, arjen+horde@de-korte.org).
 * [jan] Catch errors from NoSQL preference backend.
 * [jan] Make &apos;hostspec&apos; parameter for MongoDB configuration optional again on PHP 7.
 * [jan] Fix session preference driver.
@@ -4322,6 +4323,7 @@
    <date>2016-11-14</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Fix Google Map API warnings (Bug #14525, arjen+horde@de-korte.org).
 * [jan] Catch errors from NoSQL preference backend.
 * [jan] Make &apos;hostspec&apos; parameter for MongoDB configuration optional again on PHP 7.
 * [jan] Fix session preference driver.
