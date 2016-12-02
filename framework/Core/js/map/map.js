@@ -131,7 +131,7 @@ HordeMap = {
         var prot = this._opts.ssl ? 'https' : 'http';
         switch (p) {
         case 'Google':
-           return  prot + '://maps.google.com/maps/api/js?v=3.5&amp;sensor=false';
+            return prot + '://maps.googleapis.com/maps/api/js?v=3&key=' + this.conf['apikeys']['google'];
         case 'Yahoo':
             return prot + '://api.maps.yahoo.com/ajaxymap?v=3.8&appid=' + this.conf['apikeys']['yahoo'];
 
