@@ -471,8 +471,6 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
      */
     protected function _move($eventId, $newCalendar)
     {
-        $this->synchronize();
-
         $event = $this->getEvent($eventId);
 
         $target = $GLOBALS['injector']
