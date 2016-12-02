@@ -125,6 +125,7 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
                     ->share()->get('folder'),
                 'event'
             );
+            $this->_data->synchronize();
         } catch (Kolab_Storage_Exception $e) {
             throw new Kronolith_Exception($e);
         }
@@ -470,8 +471,9 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
      */
     protected function _move($eventId, $newCalendar)
     {
-        $event = $this->getEvent($eventId);
         $this->synchronize();
+
+        $event = $this->getEvent($eventId);
 
         $target = $GLOBALS['injector']
             ->getInstance('Kronolith_Shares')
@@ -504,7 +506,7 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
     public function delete($calendar)
     {
         $this->open($calendar);
-        $result = $this->synchronize();
+        $this->synchronize();
 
         $result = $this->_data->deleteAll($calendar);
         if (is_callable('Kolab', 'triggerFreeBusyUpdate')) {
