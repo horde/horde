@@ -49,6 +49,7 @@
      <dir name="Group">
       <file name="Base.php" role="php" />
       <file name="Exception.php" role="php" />
+      <file name="File.php" role="php" />
       <file name="Kolab.php" role="php" />
       <file name="Ldap.php" role="php" />
       <file name="Mock.php" role="php" />
@@ -87,6 +88,7 @@
       <file name="conf.php.dist" role="test" />
       <file name="LdapTest.php" role="test" />
       <file name="MockTest.php" role="test" />
+      <file name="FileTest.php" role="test" />
       <file name="phpunit.xml" role="test" />
       <file name="TestBase.php" role="test" />
      </dir> <!-- /test/Horde/Group -->
@@ -165,6 +167,7 @@
    <install as="ldap/group.schema" name="doc/Horde/Group/ldap/group.schema" />
    <install as="Horde/Group/Base.php" name="lib/Horde/Group/Base.php" />
    <install as="Horde/Group/Exception.php" name="lib/Horde/Group/Exception.php" />
+   <install as="Horde/Group/File.php" name="lib/Horde/Group/File.php" />
    <install as="Horde/Group/Kolab.php" name="lib/Horde/Group/Kolab.php" />
    <install as="Horde/Group/Ldap.php" name="lib/Horde/Group/Ldap.php" />
    <install as="Horde/Group/Mock.php" name="lib/Horde/Group/Mock.php" />
@@ -177,6 +180,7 @@
    <install as="Horde/Group/conf.php.dist" name="test/Horde/Group/conf.php.dist" />
    <install as="Horde/Group/LdapTest.php" name="test/Horde/Group/LdapTest.php" />
    <install as="Horde/Group/MockTest.php" name="test/Horde/Group/MockTest.php" />
+   <install as="Horde/Group/FileTest.php" name="test/Horde/Group/FileTest.php" />
    <install as="Horde/Group/phpunit.xml" name="test/Horde/Group/phpunit.xml" />
    <install as="Horde/Group/TestBase.php" name="test/Horde/Group/TestBase.php" />
    <install as="Horde/Group/Sql/Base.php" name="test/Horde/Group/Sql/Base.php" />

@@ -1016,6 +1016,16 @@
       <configsql switchname="driverconfig" />
      </configsection>
     </case>
+    <case name="File" desc="File based">
+     <configsection name="params">
+      <configstring name="filename" required="true" desc="Text file to look up group
+      information in. Format is similiar to /etc/group">/etc/group</configstring>
+      <configboolean name="use_gid" required="false" desc="If you enable this
+      option, the driver will use the (numeric) group ids from file instead of the
+      group names as id. This is not recommended on Kolab servers with folders
+      shared by group IMAP ACLs.">false</configboolean>
+     </configsection>
+    </case>
    </configswitch>
   </configsection>
  </configtab>
