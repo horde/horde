@@ -348,9 +348,8 @@ class Horde_ActiveSync_Imap_Adapter
             $this->_procid,
             serialize($status))
         );
-        $current_modseq = $status[Horde_ActiveSync_Folder_Imap::HIGHESTMODSEQ];
 
-        // Sanity checks.
+        // UIDVALIDITY
         if ($folder->uidnext() != 0) {
             $folder->checkValidity($status);
         }
@@ -363,6 +362,7 @@ class Horde_ActiveSync_Imap_Adapter
         // otherwise corrupted. Normally this would be handled as a loss of
         // server state and handled by a complete resync, but a majority of
         // EAS clients do not properly handle the status codes that report this.
+        $current_modseq = $status[Horde_ActiveSync_Folder_Imap::HIGHESTMODSEQ];
         if ($modseq_corrupted = $folder->modseq() > $current_modseq) {
             $this->_logger->err(sprintf(
                 '[%s] IMAP Server error: Current HIGHESTMODSEQ is lower than previously reported.',
