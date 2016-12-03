@@ -10,16 +10,18 @@ class Horde_ActiveSync_UtilsTest extends Horde_Test_Case
 {
     public function testBase64Uri()
     {
-        /* Provision Request for version 12.1 */
-        $url = 'eRQJBBCuTs0Z9ZK6Vldwb/dM8JusBHx8TOgDUFBD';
+        /* Settings Request for versions >= 12.1 */
+        $url = 'oBEJBBBOaW5lMkVDN0VDMEJCNTREBAGJpmIHQW5kcm9pZAcBAA==';
         $results = Horde_ActiveSync_Utils::decodeBase64($url);
         $fixture = array(
-            'ProtVer' => '12.1',
-            'Cmd' => 'Provision',
+            'ProtVer' => '16.0',
+            'Cmd' => 'Settings',
             'Locale' => 1033,
-            'DeviceId' => 'ae4ecd19f592ba5657706ff74cf09bac',
-            'PolicyKey' => 3897326716,
-            'DeviceType' => 'PPC'
+            'DeviceId' => '4e696e65324543374543304242353444',
+            'PolicyKey' => 1655081217,
+            'DeviceType' => 'Android',
+            'SaveInSent' => false,
+            'AcceptMultiPart' => false
         );
         $this->assertEquals($fixture, $results);
 
