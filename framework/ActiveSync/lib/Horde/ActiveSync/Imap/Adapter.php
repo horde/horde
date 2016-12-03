@@ -342,6 +342,7 @@ class Horde_ActiveSync_Imap_Adapter
             // If we can't status the mailbox, assume it's gone.
             throw new Horde_ActiveSync_Exception_FolderGone($e);
         }
+
         $this->_logger->info(sprintf(
             '[%s] IMAP status: %s',
             $this->_procid,
@@ -353,25 +354,25 @@ class Horde_ActiveSync_Imap_Adapter
         if ($folder->uidnext() != 0) {
             $folder->checkValidity($status);
         }
-        if ($folder->modseq() > $current_modseq) {
-            throw new Horde_ActiveSync_Exception_TemporaryFailure(
-                'IMAP Server error: Current HIGHESTMODSEQ is lower than previously reported.'
-            );
-        }
+        $modseq_corrupted = $folder->modseq() > $current_modseq;
 
-        if (($current_modseq && $folder->modseq() > 0) &&
+        if ($modseq_corrupted || (($current_modseq && $folder->modseq() > 0) &&
             (($folder->modseq() < $current_modseq) ||
-             !empty($options['softdelete']) || !empty($options['refreshfilter']))) {
+             !empty($options['softdelete']) || !empty($options['refreshfilter'])))) {
 
-            $this->_logger->info(sprintf(
-                '[%s] CONDSTORE and CHANGES', $this->_procid));
-
-            // Catch all *changes* since the provided MODSEQ value.
             $query = new Horde_Imap_Client_Search_Query();
-            // $imap->search uses a >= comparison for MODSEQ, so we must
-            // increment by one so we don't continuously receive the same change
-            // set.
-            $query->modseq($folder->modseq() + 1);
+
+            if ($modseq_corrupted) {
+                $this->_logger->err(sprintf('[%s] IMAP Server error: Current HIGHESTMODSEQ is lower than previously reported.', $this->_procid));
+            } else {
+                $this->_logger->info(sprintf(
+                    '[%s] CONDSTORE and CHANGES', $this->_procid));
+                // Catch all *changes* since the provided MODSEQ value.
+                // $imap->search uses a >= comparison for MODSEQ, so we must
+                // increment by one so we don't continuously receive the same change
+                // set.
+                $query->modseq($folder->modseq() + 1);
+            }
             if (!empty($options['sincedate'])) {
                 $query->dateSearch(
                     new Horde_Date($options['sincedate']),
@@ -382,6 +383,7 @@ class Horde_ActiveSync_Imap_Adapter
                 $query,
                 array('results' => array(Horde_Imap_Client::SEARCH_RESULTS_MATCH))
             );
+
             $search_uids = $search_ret['count'] ?
                 $search_ret['match']->ids :
                 array();
@@ -411,7 +413,9 @@ class Horde_ActiveSync_Imap_Adapter
             // to no filter at all.
             $cnt = (count($search_uids) / self::MAX_FETCH) + 1;
             $query = new Horde_Imap_Client_Fetch_Query();
-            $query->modseq();
+            if (!$modseq_corrupted) {
+                $query->modseq();
+            }
             $query->flags();
             $changes = array();
             $categories = array();
