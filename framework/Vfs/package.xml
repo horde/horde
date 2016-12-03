@@ -38,7 +38,7 @@ Reading, writing and listing of files are all supported.</description>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Use more efficient database access in SQL backend.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1296,7 +1296,7 @@ Added a class for providing garbage collection; removed all Horde dependancies.
    <date>2016-07-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Use more efficient database access in SQL backend.
    </notes>
   </release>
  </changelog>
