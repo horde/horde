@@ -69,6 +69,7 @@ extends Horde_Crypt_Pgp_Backend
         /* Store the location of GnuPG and set common options. */
         $this->_gnupg = array(
             $gnupg,
+            '--emit-version',
             '--no-tty',
             '--no-secmem-warning',
             '--no-options',
