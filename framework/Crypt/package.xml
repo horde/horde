@@ -27,6 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Ensure version information is output in ASCII armored output.
 * [jan] Fix parsing inline signed PGP messages with PHP 7+ (Bug #14352).
  </notes>
  <contents>
@@ -1173,6 +1174,7 @@ Initial release as a PEAR package
    <date>2016-04-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Ensure version information is output in ASCII armored output.
 * [jan] Fix parsing inline signed PGP messages with PHP 7+ (Bug #14352).
    </notes>
   </release>
