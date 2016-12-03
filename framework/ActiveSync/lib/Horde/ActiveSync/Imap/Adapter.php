@@ -355,7 +355,14 @@ class Horde_ActiveSync_Imap_Adapter
             $folder->checkValidity($status);
         }
 
-
+        // If IMAP server reports invalid MODSEQ, this can lead to the client
+        // no longer ever able to detect changes therefore never receiving new
+        // email even if the value is restored at some point in the future.
+        //
+        // This can happen, e.g., if the IMAP server index files are lost or
+        // otherwise corrupted. Normally this would be handled as a loss of
+        // server state and handled by a complete resync, but a majority of
+        // EAS clients do not properly handle the status codes that report this.
         if ($modseq_corrupted = $folder->modseq() > $current_modseq) {
             $this->_logger->err(sprintf(
                 '[%s] IMAP Server error: Current HIGHESTMODSEQ is lower than previously reported.',
