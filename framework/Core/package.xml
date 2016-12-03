@@ -30,7 +30,7 @@
  </developer>
  <date>2016-12-03</date>
  <version>
-  <release>2.27.4</release>
+  <release>2.27.5</release>
   <api>2.27.0</api>
  </version>
  <stability>
@@ -39,12 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Fix Google Map API warnings (Bug #14525, arjen+horde@de-korte.org).
-* [jan] Catch errors from NoSQL preference backend.
-* [jan] Make &apos;hostspec&apos; parameter for MongoDB configuration optional again on PHP 7.
-* [jan] Fix session preference driver.
-* [jan] Don&apos;t pollute DB DSN with unknown parameters when using Cyrsql authentication driver.
-* [mjr] Refresh mailbox list when retrieving for ActiveSync.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4329,6 +4324,19 @@
 * [jan] Fix session preference driver.
 * [jan] Don&apos;t pollute DB DSN with unknown parameters when using Cyrsql authentication driver.
 * [mjr] Refresh mailbox list when retrieving for ActiveSync.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.27.5</release>
+    <api>2.27.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-12-03</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
