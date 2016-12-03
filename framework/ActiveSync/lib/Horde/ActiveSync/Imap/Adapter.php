@@ -559,7 +559,7 @@ class Horde_ActiveSync_Imap_Adapter
             }
             $folder->setRemoved($imap->vanished($mbox, null, array('ids' => new Horde_Imap_Client_Ids($folder->messages())))->ids);
         } elseif ($current_modseq > 0 && $folder->modseq() == 0) {
-                throw new Horde_ActiveSync_Exception_StaleState('Transition to MODSEQ enabled server');
+            throw new Horde_ActiveSync_Exception_StaleState('Transition to MODSEQ enabled server');
         }
         $folder->setStatus($status);
 
@@ -795,6 +795,12 @@ class Horde_ActiveSync_Imap_Adapter
             }
             throw new Horde_ActiveSync_Exception($e);
         }
+
+        $this->_logger->info(sprintf(
+            '[%s] IMAP status: %s',
+            $this->_procid,
+            serialize($status))
+        );
 
         // If we have per mailbox MODSEQ then we can pick up flag changes too.
         $modseq = $status[Horde_ActiveSync_Folder_Imap::HIGHESTMODSEQ];
