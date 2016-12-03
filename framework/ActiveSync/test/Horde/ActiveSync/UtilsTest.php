@@ -28,6 +28,7 @@ class Horde_ActiveSync_UtilsTest extends Horde_Test_Case
         /* Smart Forward */
         $url = 'eQIJBBCuTs0Z9ZK6Vldwb/dM8JusBHVeHIQDUFBDBwEBAwYxMTkyODEBBUlOQk9Y';
         $results = Horde_ActiveSync_Utils::decodeBase64($url);
+        $results['PolicyKey'] = sprintf('%u', $results['PolicyKey']);
 
         // This is binary data, test it separately.
         $fixture = array(
@@ -35,7 +36,7 @@ class Horde_ActiveSync_UtilsTest extends Horde_Test_Case
             'Cmd' => 'SmartForward',
             'Locale' => 1033,
             'DeviceId' => 'ae4ecd19f592ba5657706ff74cf09bac',
-            'PolicyKey' => 2216451701,
+            'PolicyKey' => '2216451701',
             'DeviceType' => 'PPC',
             'ItemId' => '119281',
             'CollectionId' => 'INBOX',
