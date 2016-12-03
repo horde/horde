@@ -354,7 +354,14 @@ class Horde_ActiveSync_Imap_Adapter
         if ($folder->uidnext() != 0) {
             $folder->checkValidity($status);
         }
-        $modseq_corrupted = $folder->modseq() > $current_modseq;
+
+
+        if ($modseq_corrupted = $folder->modseq() > $current_modseq) {
+            $this->_logger->err(sprintf(
+                '[%s] IMAP Server error: Current HIGHESTMODSEQ is lower than previously reported.',
+                 $this->_procid)
+            );
+        }
 
         if ($modseq_corrupted || (($current_modseq && $folder->modseq() > 0) &&
             (($folder->modseq() < $current_modseq) ||
@@ -362,9 +369,7 @@ class Horde_ActiveSync_Imap_Adapter
 
             $query = new Horde_Imap_Client_Search_Query();
 
-            if ($modseq_corrupted) {
-                $this->_logger->err(sprintf('[%s] IMAP Server error: Current HIGHESTMODSEQ is lower than previously reported.', $this->_procid));
-            } else {
+            if (!$modseq_corrupted) {
                 $this->_logger->info(sprintf(
                     '[%s] CONDSTORE and CHANGES', $this->_procid));
                 // Catch all *changes* since the provided MODSEQ value.
@@ -373,6 +378,7 @@ class Horde_ActiveSync_Imap_Adapter
                 // set.
                 $query->modseq($folder->modseq() + 1);
             }
+
             if (!empty($options['sincedate'])) {
                 $query->dateSearch(
                     new Horde_Date($options['sincedate']),
