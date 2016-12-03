@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2016-11-14</date>
+ <date>2016-12-03</date>
  <version>
   <release>2.27.4</release>
   <api>2.27.0</api>
@@ -4320,7 +4320,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-11-14</date>
+   <date>2016-12-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Fix Google Map API warnings (Bug #14525, arjen+horde@de-korte.org).
