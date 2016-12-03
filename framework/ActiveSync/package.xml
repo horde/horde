@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-11-09</date>
+ <date>2016-12-03</date>
  <version>
   <release>2.37.4</release>
   <api>2.37.0</api>
@@ -21,7 +21,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix test issue on 32bit systems (Bug #14532).
+* [mjr] Improve handling of case when IMAP server returns invalid HIGHESTMODSEQ values (DVT - Daten-Verarbeitung-Tirol GmbH).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3295,10 +3296,11 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-11-09</date>
+   <date>2016-12-03</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix test issue on 32bit systems (Bug #14532).
+* [mjr] Improve handling of case when IMAP server returns invalid HIGHESTMODSEQ values (DVT - Daten-Verarbeitung-Tirol GmbH).
    </notes>
   </release>
  </changelog>
