@@ -165,11 +165,11 @@ abstract class Horde_ActiveSync_State_Base
     /**
      * Generate a random 10 digit policy key
      *
-     * @return unknown
+     * @return integer
      */
     public function generatePolicyKey()
     {
-        return mt_rand(1000000000, 9999999999);
+            return mt_rand(1000000000, mt_getrandmax());
     }
 
     /**
