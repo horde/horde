@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-12-03</date>
+ <date>2016-12-04</date>
  <version>
   <release>2.37.5</release>
   <api>2.37.0</api>
@@ -68,6 +68,12 @@
        <file name="RI.php" role="php" />
       </dir> <!-- /lib/Horde/ActiveSync/Folder -->
       <dir name="Imap">
+       <dir name="Strategy">
+        <file name="Base.php" role="php" />
+        <file name="Initial.php" role="php" />
+        <file name="Modseq.php" role="php" />
+        <file name="Plain.php" role="php" />
+       </dir> <!-- /lib/Horde/ActiveSync/Imap/Strategy -->
        <file name="Adapter.php" role="php" />
        <file name="Message.php" role="php" />
        <file name="MessageBodyData.php" role="php" />
@@ -482,6 +488,10 @@
    <install as="Horde/ActiveSync/Imap/Adapter.php" name="lib/Horde/ActiveSync/Imap/Adapter.php" />
    <install as="Horde/ActiveSync/Imap/Message.php" name="lib/Horde/ActiveSync/Imap/Message.php" />
    <install as="Horde/ActiveSync/Imap/MessageBodyData.php" name="lib/Horde/ActiveSync/Imap/MessageBodyData.php" />
+   <install as="Horde/ActiveSync/Imap/Strategy/Base.php" name="lib/Horde/ActiveSync/Imap/Strategy/Base.php" />
+   <install as="Horde/ActiveSync/Imap/Strategy/Initial.php" name="lib/Horde/ActiveSync/Imap/Strategy/Initial.php" />
+   <install as="Horde/ActiveSync/Imap/Strategy/Modseq.php" name="lib/Horde/ActiveSync/Imap/Strategy/Modseq.php" />
+   <install as="Horde/ActiveSync/Imap/Strategy/Plain.php" name="lib/Horde/ActiveSync/Imap/Strategy/Plain.php" />
    <install as="Horde/ActiveSync/Interface/ImapFactory.php" name="lib/Horde/ActiveSync/Interface/ImapFactory.php" />
    <install as="Horde/ActiveSync/Interface/LoggerFactory.php" name="lib/Horde/ActiveSync/Interface/LoggerFactory.php" />
    <install as="Horde/ActiveSync/Message/AirSyncBaseAdd.php" name="lib/Horde/ActiveSync/Message/AirSyncBaseAdd.php" />
@@ -3309,7 +3319,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-12-03</date>
+   <date>2016-12-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * 
