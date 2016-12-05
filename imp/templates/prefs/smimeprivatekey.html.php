@@ -21,8 +21,8 @@
      <?php echo _("Your Public Certificate") ?>:
     </td>
     <td>
-     [<?php echo $this->viewpublic ?><?php echo _("View") ?></a>]
-     [<?php echo $this->infopublic ?><?php echo _("Details") ?></a>]
+     [<?php echo $this->viewpublic ?>]
+     [<?php echo $this->infopublic ?>]
     </td>
    </tr>
    <tr>
@@ -30,8 +30,8 @@
      <?php echo _("Your Private Certificate") ?>:
     </td>
     <td>
-     [<?php echo $this->passphrase ?></a>]
-     [<?php echo $this->viewprivate ?><?php echo _("View") ?></a>]
+     [<?php echo $this->passphrase ?>]
+     [<?php echo $this->viewprivate ?>]
     </td>
    </tr>
   </table>

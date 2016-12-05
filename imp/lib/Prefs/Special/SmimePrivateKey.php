@@ -49,7 +49,8 @@ class IMP_Prefs_Special_SmimePrivateKey implements Horde_Core_Prefs_Ui_Special
         } else {
             $smime_url = IMP_Basic_Smime::url();
 
-            $view->has_key = ($prefs->getValue('smime_public_key') && $prefs->getValue('smime_private_key'));
+            $view->has_key = $prefs->getValue('smime_public_key') &&
+                $prefs->getValue('smime_private_key');
 
             if ($view->has_key) {
                 $smime = $injector->getInstance('IMP_Smime');
@@ -57,30 +58,70 @@ class IMP_Prefs_Special_SmimePrivateKey implements Horde_Core_Prefs_Ui_Special
                 if (!empty($cert['validity']['notafter'])) {
                     $expired = new Horde_Date($cert['validity']['notafter']);
                     if ($expired->before(time())) {
-                        $view->expiredate = $expired->strftime($prefs->getValue('date_format'));
-                        $view->expiretime = $expired->strftime($prefs->getValue('time_format'));
+                        $view->expiredate = $expired->strftime(
+                            $prefs->getValue('date_format')
+                        );
+                        $view->expiretime = $expired->strftime(
+                            $prefs->getValue('time_format')
+                        );
                     }
                 }
 
-                $view->viewpublic = Horde::link($smime_url->copy()->add('actionID', 'view_personal_public_key'), _("View Personal Public Certificate"), null, 'view_key');
-                $view->infopublic = Horde::link($smime_url->copy()->add('actionID', 'info_personal_public_key'), _("Information on Personal Public Certificate"), null, 'info_key');
+                $view->viewpublic = $smime_url->copy()
+                    ->add('actionID', 'view_personal_public_key')
+                    ->link(array(
+                        'title' => _("View Personal Public Certificate"),
+                        'target' => 'view_key'
+                    ))
+                    . _("View") . '</a>';
+                $view->infopublic = $smime_url->copy()
+                    ->add('actionID', 'info_personal_public_key')
+                    ->link(array(
+                        'title' => _("Information on Personal Public Certificate"),
+                        'target' => 'info_key'
+                    ))
+                    . _("Details") . '</a>';
 
                 if ($smime->getPassphrase()) {
-                    $view->passphrase = Horde::link($ui->selfUrl(array(
+                    $view->passphrase = $ui->selfUrl(array(
                         'special' => true,
                         'token' => true
-                    ))->add('unset_smime_passphrase', 1), _("Unload Passphrase")) . _("Unload Passphrase");
+                    ))
+                    ->add('unset_smime_passphrase', 1)
+                    ->link(array(
+                        'title' => _("Unload Passphrase")
+                    ))
+                    . _("Unload Passphrase") . '</a>';
                 } else {
-                    $imple = $injector->getInstance('Horde_Core_Factory_Imple')->create('IMP_Ajax_Imple_PassphraseDialog', array(
-                        'params' => array(
-                            'reload' => $ui->selfUrl()->setRaw(true)
-                        ),
-                        'type' => 'smimePersonal'
-                    ));
-                    $view->passphrase = Horde::link('#', _("Enter Passphrase"), null, null, null, null, null, array('id' => $imple->getDomId())) . _("Enter Passphrase");
+                    $imple = $injector->getInstance('Horde_Core_Factory_Imple')
+                        ->create(
+                            'IMP_Ajax_Imple_PassphraseDialog',
+                            array(
+                                'params' => array(
+                                    'reload' => $ui->selfUrl()->setRaw(true)
+                                ),
+                                'type' => 'smimePersonal'
+                            )
+                        );
+                    $view->passphrase = Horde::link(
+                        '#',
+                        _("Enter Passphrase"),
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        array('id' => $imple->getDomId())
+                    ) . _("Enter Passphrase");
                 }
 
-                $view->viewprivate = Horde::link($smime_url->copy()->add('actionID', 'view_personal_private_key'), _("View Personal Private Key"), null, 'view_key');
+                $view->viewprivate = $smime_url->copy()
+                    ->add('actionID', 'view_personal_private_key')
+                    ->link(array(
+                        'title' => _("View Personal Private Key"),
+                        'target' => 'view_key'
+                    ))
+                    . _("View") . '</a>';
                 $page_output->addInlineScript(array(
                     '$("delete_smime_personal").observe("click", function(e) { if (!window.confirm(' . json_encode(_("Are you sure you want to delete your keypair? (This is NOT recommended!)")) . ')) { e.stop(); } })'
                 ), true);
@@ -103,10 +144,16 @@ class IMP_Prefs_Special_SmimePrivateKey implements Horde_Core_Prefs_Ui_Special
 
         if (isset($ui->vars->delete_smime_personal)) {
             $injector->getInstance('IMP_Smime')->deletePersonalKeys();
-            $notification->push(_("Personal S/MIME keys deleted successfully."), 'horde.success');
+            $notification->push(
+                _("Personal S/MIME keys deleted successfully."),
+                'horde.success'
+            );
         } elseif (isset($ui->vars->unset_smime_passphrase)) {
             $injector->getInstance('IMP_Smime')->unsetPassphrase();
-            $notification->push(_("S/MIME passphrase successfully unloaded."), 'horde.success');
+            $notification->push(
+                _("S/MIME passphrase successfully unloaded."),
+                'horde.success'
+            );
         }
 
         return false;
