@@ -33,7 +33,7 @@
  *   - change any incoming auth to syncmltest:syncmltest
  *   - identify twowaysync and create fake anchors for that */
 
-require_once 'SyncML.php';
+require_once 'SyncMl.php';
 
 define('SYNCMLTEST_USERNAME', 'syncmltest');
 
