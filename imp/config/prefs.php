@@ -438,22 +438,22 @@ $_prefs['smime_verify'] = array(
     'requires' => array('use_smime')
 );
 
-// S/MIME public key management widget
+// S/MIME public keys management widget
 $_prefs['smimepublickey'] = array(
     'type' => 'special',
     'handler' => 'IMP_Prefs_Special_SmimePublicKey',
     'requires' => array('use_smime')
 );
 
-$_prefs['smime_public_key'] = array(
-    'value' => ''
-);
-
-// S/MIME private key management widget
+// S/MIME personal key management widget
 $_prefs['smimeprivatekey'] = array(
     'type' => 'special',
     'handler' => 'IMP_Prefs_Special_SmimePrivateKey',
     'requires' => array('use_smime')
+);
+
+$_prefs['smime_public_key'] = array(
+    'value' => ''
 );
 
 $_prefs['smime_private_key'] = array(

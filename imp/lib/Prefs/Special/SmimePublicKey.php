@@ -12,7 +12,8 @@
  */
 
 /**
- * Special prefs handling for the 'smimepublickey' preference.
+ * Special prefs handling for the 'smimepublickey' preference, the list of
+ * public certificates from the user's address book(s).
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
