@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2016-07-11</date>
+ <date>2016-12-05</date>
  <version>
   <release>7.0.0</release>
   <api>7.0.0</api>
@@ -1002,7 +1002,8 @@
      <file name="search.html.php" role="horde" />
     </dir> <!-- /templates/smartmobile -->
     <dir name="smime">
-     <file name="import_key.html.php" role="horde" />
+     <file name="import_personal_key.html.php" role="horde" />
+     <file name="import_public_key.html.php" role="horde" />
     </dir> <!-- /templates/smime -->
     <dir name="subinfo">
      <file name="subinfo.html.php" role="horde" />
@@ -2088,7 +2089,8 @@
    <install as="imp/templates/smartmobile/mailbox.html.php" name="templates/smartmobile/mailbox.html.php" />
    <install as="imp/templates/smartmobile/message.html.php" name="templates/smartmobile/message.html.php" />
    <install as="imp/templates/smartmobile/search.html.php" name="templates/smartmobile/search.html.php" />
-   <install as="imp/templates/smime/import_key.html.php" name="templates/smime/import_key.html.php" />
+   <install as="imp/templates/smime/import_personal_key.html.php" name="templates/smime/import_personal_key.html.php" />
+   <install as="imp/templates/smime/import_public_key.html.php" name="templates/smime/import_public_key.html.php" />
    <install as="imp/templates/subinfo/subinfo.html.php" name="templates/subinfo/subinfo.html.php" />
    <install as="imp/templates/test/mailserver.inc" name="templates/test/mailserver.inc" />
    <install as="imp/templates/thread/thread.html.php" name="templates/thread/thread.html.php" />
@@ -3963,7 +3965,7 @@
    </notes>
   </release>
   <release>
-   <date>2016-07-11</date>
+   <date>2016-12-05</date>
    <version>
     <release>7.0.0</release>
     <api>7.0.0</api>

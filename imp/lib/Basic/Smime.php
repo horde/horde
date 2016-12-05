@@ -39,7 +39,7 @@ class IMP_Basic_Smime extends IMP_Basic_Base
         /* Run through the action handlers */
         switch ($this->vars->actionID) {
         case 'import_public_key':
-            $this->_importKeyDialog('process_import_public_key');
+            $this->_importKeyDialog('public');
             break;
 
         case 'process_import_public_key':
@@ -57,7 +57,7 @@ class IMP_Basic_Smime extends IMP_Basic_Base
             }
 
             $this->vars->actionID = 'import_public_key';
-            $this->_importKeyDialog('process_import_public_key');
+            $this->_importKeyDialog('public');
             break;
 
         case 'view_public_key':
@@ -86,7 +86,7 @@ class IMP_Basic_Smime extends IMP_Basic_Base
             break;
 
         case 'import_personal_certs':
-            $this->_importKeyDialog('process_import_personal_certs');
+            $this->_importKeyDialog('personal');
             break;
 
         case 'process_import_personal_certs':
@@ -102,7 +102,7 @@ class IMP_Basic_Smime extends IMP_Basic_Base
             }
 
             $this->vars->actionID = 'import_personal_certs';
-            $this->_importKeyDialog('process_import_personal_certs');
+            $this->_importKeyDialog('personal');
             break;
         }
     }
@@ -115,9 +115,10 @@ class IMP_Basic_Smime extends IMP_Basic_Base
     }
 
     /**
-     * Generate import key dialog.
+     * Generates import key dialog.
      *
-     * @param string $target  Action ID for the UI screen.
+     * @param string $target  Which dialog to generate, either 'personal' or
+     *                        'public'.
      */
     protected function _importKeyDialog($target)
     {
@@ -132,7 +133,9 @@ class IMP_Basic_Smime extends IMP_Basic_Base
         $p_css = new Horde_Themes_Element('prefs.css');
         $page_output->addStylesheet($p_css->fs, $p_css->uri);
 
-        $this->title = _("Import Personal S/MIME Certificate");
+        $this->title = $target == 'personal'
+            ? _("Import Personal S/MIME Certificate")
+            : _("Import Public S/MIME Key");
 
         /* Need to use regular status notification - AJAX notifications won't
          * show in popup windows. */
@@ -148,9 +151,8 @@ class IMP_Basic_Smime extends IMP_Basic_Base
 
         $view->reload = $this->vars->reload;
         $view->selfurl = self::url();
-        $view->target = $target;
 
-        $this->output = $view->render('import_key');
+        $this->output = $view->render('import_' . $target . '_key');
     }
 
     /**
