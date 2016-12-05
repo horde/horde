@@ -62,17 +62,19 @@ class IMP_Smime
     }
 
     /**
-     * Return the list of available encryption options for composing.
+     * Returns the list of available encryption options for composing.
      *
      * @return array  Keys are encryption type constants, values are gettext
      *                strings describing the encryption type.
      */
     public function encryptList()
     {
+        global $injector, $registry;
+
         $ret = array();
 
-        if ($GLOBALS['registry']->hasMethod('contacts/getField') ||
-            $GLOBALS['injector']->getInstance('Horde_Core_Hooks')->hookExists('smime_key', 'imp')) {
+        if ($registry->hasMethod('contacts/getField') ||
+            $injector->getInstance('Horde_Core_Hooks')->hookExists('smime_key', 'imp')) {
             $ret += array(
                 self::ENCRYPT => _("S/MIME Encrypt Message")
             );
@@ -89,37 +91,46 @@ class IMP_Smime
     }
 
     /**
-     * Add the personal public key to the prefs.
+     * Adds the personal public key to the prefs.
      *
-     * @param mixed $key  The public key to add (either string or array).
+     * @param string|array $key  The public key to add.
      */
     public function addPersonalPublicKey($key)
     {
-        $GLOBALS['prefs']->setValue('smime_public_key', (is_array($key)) ? implode('', $key) : $key);
+        $GLOBALS['prefs']->setValue(
+            'smime_public_key',
+            is_array($key) ? implode('', $key) : $key
+        );
     }
 
     /**
-     * Add the personal private key to the prefs.
+     * Adds the personal private key to the prefs.
      *
-     * @param mixed $key  The private key to add (either string or array).
+     * @param string|array $key  The private key to add.
      */
     public function addPersonalPrivateKey($key)
     {
-        $GLOBALS['prefs']->setValue('smime_private_key', (is_array($key)) ? implode('', $key) : $key);
+        $GLOBALS['prefs']->setValue(
+            'smime_private_key',
+            is_array($key) ? implode('', $key) : $key
+        );
     }
 
     /**
-     * Add the list of additional certs to the prefs.
+     * Adds a list of additional certs to the prefs.
      *
-     * @param mixed $key  The private key to add (either string or array).
+     * @param string|array $key  The additional certifcate(s) to add.
      */
     public function addAdditionalCert($key)
     {
-        $GLOBALS['prefs']->setValue('smime_additional_cert', (is_array($key)) ? implode('', $key) : $key);
+        $GLOBALS['prefs']->setValue(
+            'smime_additional_cert',
+            is_array($key) ? implode('', $key) : $key
+        );
     }
 
     /**
-     * Get the personal public key from the prefs.
+     * Returns the personal public key from the prefs.
      *
      * @return string  The personal S/MIME public key.
      */
@@ -129,7 +140,7 @@ class IMP_Smime
     }
 
     /**
-     * Get the personal private key from the prefs.
+     * Returns the personal private key from the prefs.
      *
      * @return string  The personal S/MIME private key.
      */
@@ -139,7 +150,7 @@ class IMP_Smime
     }
 
     /**
-     * Get any additional certificates from the prefs.
+     * Returns any additional certificates from the prefs.
      *
      * @return string  Additional signing certs for inclusion.
      */
@@ -153,14 +164,16 @@ class IMP_Smime
      */
     public function deletePersonalKeys()
     {
-        $GLOBALS['prefs']->setValue('smime_public_key', '');
-        $GLOBALS['prefs']->setValue('smime_private_key', '');
-        $GLOBALS['prefs']->setValue('smime_additional_cert', '');
+        global $prefs;
+
+        $prefs->setValue('smime_public_key', '');
+        $prefs->setValue('smime_private_key', '');
+        $prefs->setValue('smime_additional_cert', '');
         $this->unsetPassphrase();
     }
 
     /**
-     * Add a public key to an address book.
+     * Adds a public key to an address book.
      *
      * @param string $cert  A public certificate to add.
      *
@@ -168,13 +181,24 @@ class IMP_Smime
      */
     public function addPublicKey($cert)
     {
+        global $prefs, $registry;
+
         list($name, $email) = $this->publicKeyInfo($cert);
 
-        $GLOBALS['registry']->call('contacts/addField', array($email, $name, self::PUBKEY_FIELD, $cert, $GLOBALS['prefs']->getValue('add_source')));
+        $registry->call(
+            'contacts/addField',
+            array(
+                $email,
+                $name,
+                self::PUBKEY_FIELD,
+                $cert,
+                $prefs->getValue('add_source')
+            )
+        );
     }
 
     /**
-     * Get information about a public certificate.
+     * Returns information about a public certificate.
      *
      * @param string $cert  The public certificate.
      *
@@ -192,7 +216,9 @@ class IMP_Smime
         /* Add key to the user's address book. */
         $email = $this->_smime->getEmailFromKey($cert);
         if (is_null($email)) {
-            throw new Horde_Crypt_Exception(_("No email information located in the public key."));
+            throw new Horde_Crypt_Exception(
+                _("No email information located in the public key.")
+            );
         }
 
         /* Get the name corresponding to this key. */
@@ -219,13 +245,17 @@ class IMP_Smime
     protected function _encryptParameters(Horde_Mail_Rfc822_List $addr)
     {
         return array(
-            'pubkey' => array_map(array($this, 'getPublicKey'), $addr->bare_addresses),
+            'pubkey' => array_map(
+                array($this, 'getPublicKey'),
+                $addr->bare_addresses
+            ),
             'type' => 'message'
         );
     }
 
     /**
      * Retrieves a public key by e-mail.
+     *
      * The key will be retrieved from a user's address book(s).
      *
      * @param string $address  The e-mail address to search for.
@@ -251,7 +281,16 @@ class IMP_Smime
         $contacts = $injector->getInstance('IMP_Contacts');
 
         try {
-            $key = $registry->call('contacts/getField', array($address, self::PUBKEY_FIELD, $contacts->sources, true, true));
+            $key = $registry->call(
+                'contacts/getField',
+                array(
+                    $address,
+                    self::PUBKEY_FIELD,
+                    $contacts->sources,
+                    true,
+                    true
+                )
+            );
         } catch (Horde_Exception $e) {
             /* See if the address points to the user's public key. */
             $personal_pubkey = $this->getPersonalPublicKey();
@@ -277,11 +316,18 @@ class IMP_Smime
      */
     public function listPublicKeys()
     {
-        $sources = $GLOBALS['injector']->getInstance('IMP_Contacts')->sources;
+        global $injector, $registry;
 
-        return empty($sources)
-            ? array()
-            : $GLOBALS['registry']->call('contacts/getAllAttributeValues', array(self::PUBKEY_FIELD, $sources));
+        $sources = $injector->getInstance('IMP_Contacts')->sources;
+
+        if (empty($sources)) {
+            return array();
+        }
+
+        return $registry->call(
+            'contacts/getAllAttributeValues',
+            array(self::PUBKEY_FIELD, $sources)
+        );
     }
 
     /**
@@ -341,7 +387,7 @@ class IMP_Smime
     }
 
     /**
-     * Decrypt a message with user's public/private keypair.
+     * Decrypts a message with user's public/private keypair.
      *
      * @param string $text  The text to decrypt.
      *
@@ -359,7 +405,7 @@ class IMP_Smime
     }
 
     /**
-     * Gets the user's passphrase from the session cache.
+     * Returns the user's passphrase from the session cache.
      *
      * @return mixed  The passphrase, if set.  Returns false if the passphrase
      *                has not been loaded yet.  Returns null if no passphrase
@@ -367,9 +413,9 @@ class IMP_Smime
      */
     public function getPassphrase()
     {
-        global $session;
+        global $prefs, $session;
 
-        $private_key = $GLOBALS['prefs']->getValue('smime_private_key');
+        $private_key = $prefs->getValue('smime_private_key');
         if (empty($private_key)) {
             return false;
         }
@@ -390,7 +436,7 @@ class IMP_Smime
     }
 
     /**
-     * Store's the user's passphrase in the session cache.
+     * Stores the user's passphrase in the session cache.
      *
      * @param string $passphrase  The user's passphrase.
      *
@@ -401,7 +447,9 @@ class IMP_Smime
         global $session;
 
         if ($this->_smime->verifyPassphrase($this->getPersonalPrivateKey(), $passphrase) !== false) {
-            $session->set('imp', 'smime_passphrase', $passphrase, $session::ENCRYPT);
+            $session->set(
+                'imp', 'smime_passphrase', $passphrase, $session::ENCRYPT
+            );
             return true;
         }
 
@@ -409,7 +457,7 @@ class IMP_Smime
     }
 
     /**
-     * Clear the passphrase from the session cache.
+     * Clears the passphrase from the session cache.
      */
     public function unsetPassphrase()
     {
@@ -420,7 +468,7 @@ class IMP_Smime
     }
 
     /**
-     * Encrypt a MIME_Part using S/MIME using IMP defaults.
+     * Encrypts a MIME part using S/MIME using IMP defaults.
      *
      * @param Horde_Mime_Part $mime_part     The object to encrypt.
      * @param Horde_Mail_Rfc822_List $recip  The recipient address(es).
@@ -438,11 +486,11 @@ class IMP_Smime
     }
 
     /**
-     * Sign a MIME_Part using S/MIME using IMP defaults.
+     * Signs a MIME part using S/MIME using IMP defaults.
      *
      * @param MIME_Part $mime_part  The MIME_Part object to sign.
      *
-     * @return MIME_Part  See Horde_Crypt_Smime::signMIMEPart().
+     * @return Horde_Mime_Part  See Horde_Crypt_Smime::signMIMEPart().
      * @throws Horde_Crypt_Exception
      */
     public function signMimePart($mime_part)
@@ -454,7 +502,7 @@ class IMP_Smime
     }
 
     /**
-     * Sign and encrypt a MIME_Part using S/MIME using IMP defaults.
+     * Signs and encrypts a MIME part using S/MIME using IMP defaults.
      *
      * @param Horde_Mime_Part $mime_part     The object to sign and encrypt.
      * @param Horde_Mail_Rfc822_List $recip  The recipient address(es).
@@ -474,7 +522,7 @@ class IMP_Smime
     }
 
     /**
-     * Store the public/private/additional certificates in the preferences
+     * Stores the public/private/additional certificates in the preferences
      * from a given PKCS 12 file.
      *
      * @param string $pkcs12    The PKCS 12 data.
@@ -503,7 +551,7 @@ class IMP_Smime
     }
 
     /**
-     * Extract the contents from signed S/MIME data.
+     * Extracts the contents from signed S/MIME data.
      *
      * @param string $data  The signed S/MIME data.
      *
@@ -522,7 +570,7 @@ class IMP_Smime
     }
 
     /**
-     * Check for the presence of the OpenSSL extension to PHP.
+     * Checks for the presence of the OpenSSL extension to PHP.
      *
      * @throws Horde_Crypt_Exception
      */
@@ -532,9 +580,9 @@ class IMP_Smime
     }
 
     /**
-     * Convert a PEM format certificate to readable HTML version.
+     * Converts a PEM format certificate to readable HTML version.
      *
-     * @param string $cert   PEM format certificate.
+     * @param string $cert  PEM format certificate.
      *
      * @return string  HTML detailing the certificate.
      */
@@ -544,7 +592,7 @@ class IMP_Smime
     }
 
     /**
-     * Extract the contents of a PEM format certificate to an array.
+     * Extracts the contents of a PEM format certificate to an array.
      *
      * @param string $cert  PEM format certificate.
      *
@@ -554,5 +602,4 @@ class IMP_Smime
     {
         return $this->_smime->parseCert($cert);
     }
-
 }
