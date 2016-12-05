@@ -11,8 +11,7 @@
  */
 
 /**
- * Horde_ActiveSync_Imap_Adapter_Initial handles fetching initial set of message
- * changes for the first sync.
+ * Handles fetching initial set of message changes for the first sync.
  *
  * @license   http://www.horde.org/licenses/gpl GPLv2
  *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
@@ -23,7 +22,8 @@
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
-class Horde_ActiveSync_Imap_Strategy_Initial extends Horde_ActiveSync_Imap_Strategy_Base
+class Horde_ActiveSync_Imap_Strategy_Initial
+extends Horde_ActiveSync_Imap_Strategy_Base
 {
     /**
      * Return a folder object containing all IMAP server change information.

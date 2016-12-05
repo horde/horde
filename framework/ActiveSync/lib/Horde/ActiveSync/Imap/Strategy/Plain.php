@@ -11,8 +11,7 @@
  */
 
 /**
- * Horde_ActiveSync_Imap_Adapter_Modseq handles fetching changes for servers
- * that do NOT support CONDSTORE/QRESYNC.
+ * Handles fetching changes for servers that do NOT support CONDSTORE/QRESYNC.
  *
  * @license   http://www.horde.org/licenses/gpl GPLv2
  *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
@@ -23,7 +22,8 @@
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
-class Horde_ActiveSync_Imap_Strategy_Plain extends Horde_ActiveSync_Imap_Strategy_Base
+class Horde_ActiveSync_Imap_Strategy_Plain
+extends Horde_ActiveSync_Imap_Strategy_Base
 {
     /**
      * Return a folder object containing all IMAP server change information.

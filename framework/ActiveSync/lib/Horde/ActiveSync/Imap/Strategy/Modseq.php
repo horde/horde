@@ -11,8 +11,8 @@
  */
 
 /**
- * Horde_ActiveSync_Imap_Adapter_Modseq handles fetching changes using the
- * HIGHESTMODSEQ value of a QRESYNC/CONDSTORE enabled IMAP server.
+ * Handles fetching changes using the HIGHESTMODSEQ value of a
+ * QRESYNC/CONDSTORE enabled IMAP server.
  *
  * @license   http://www.horde.org/licenses/gpl GPLv2
  *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
