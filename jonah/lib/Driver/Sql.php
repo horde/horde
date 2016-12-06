@@ -706,7 +706,7 @@ class Jonah_Driver_Sql extends Jonah_Driver
             $sql .= ' WHERE tn.tag_id IN (' . implode(',', $tags) . ')';
             $haveWhere = true;
         }
-        if (!is_null($channel_id)) {
+        if (is_array($channel_id) & !empty($channel_id)) {
             if (!$haveWhere) {
                 $sql .= ' WHERE';
             } else {
