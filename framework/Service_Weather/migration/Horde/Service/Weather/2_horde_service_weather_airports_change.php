@@ -5,7 +5,7 @@
  */
 class HordeServiceWeatherAirportsChange extends Horde_Db_Migration_Base
 {
-    protected $_handle;
+    protected $_fileContents;
 
     public function up()
     {
@@ -37,13 +37,13 @@ class HordeServiceWeatherAirportsChange extends Horde_Db_Migration_Base
     {
         // First see if we have a local copy in the same directory.
         $file_name = __DIR__ . DIRECTORY_SEPARATOR . 'airport-codes.csv';
+        $file_location = 'https://raw.githubusercontent.com/datasets/airport-codes/master/data/airport-codes.csv';
         if (file_exists($file_name)) {
-            $this->_handle = @fopen($file_name, 'rb');
+            $this->_fileContents = file($file_name);
         } else {
-            $file_location = 'https://raw.githubusercontent.com/datasets/airport-codes/master/data/airport-codes.csv';
-            $this->_handle = @fopen($file_location, 'rb');
+            $this->_fileContents = file($file_location);
         }
-        if (!$this->_handle) {
+        if (empty($this->_fileContents)) {
              $this->announce('ERROR: Unable to populate METAR database.');
              return false;
         }
@@ -74,9 +74,11 @@ class HordeServiceWeatherAirportsChange extends Horde_Db_Migration_Base
          * iata_code,
          * local_code
          */
-        // Pop the first line off, which contains field names.
-        fgetcsv($this->_handle);
-        while (($fields = fgetcsv($this->_handle)) !== false) {
+
+        // Using array_map('str_getcsv', file($file_location)) leads to memory
+        // exhaustion on my dev boxes, so iterate to be safe.
+        for ($i = 1; $i <= count($this->_fileContents) + 1; $i++) {
+            $fields = str_getcsv(trim($this->_fileContents[$i]));
             // Minimum field count. Continue since this is probably a comment
             // or some other incomplete data.
             if (sizeof($fields) < 13) {
