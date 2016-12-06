@@ -42,12 +42,9 @@ class HordeServiceWeatherAirports extends Horde_Db_Migration_Base
         $file_name = __DIR__ . PATH_SEPARATOR . 'nsf_cccc.txt';
         if (file_exists($file_name)) {
             $this->_handle = @fopen($file_name, 'rb');
-        } else {
-            $file_location = 'http://tgftp.nws.noaa.gov/data/nsd_cccc.txt';
-            $this->_handle = @fopen($file_location, 'rb');
         }
-        if (!$this->_handle) {
-             $this->announce('ERROR: Unable to populate METAR database.');
+        if (empty($this->_handle)) {
+             $this->announce('ERROR: Unable to populate METAR database (defunct data source, trying next migration.');
              return false;
         }
 
