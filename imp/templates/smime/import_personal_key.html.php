@@ -9,20 +9,52 @@
 <div class="horde-content">
   <label class="importKeyUpload">
     <?php echo _("Upload") ?>:
-    <input id="upload_key" name="upload_key" type="file" size="40" />
+    <input name="upload_key" type="file" size="40" />
   </label>
 </div>
 
 <div class="horde-content">
   <label class="importKeyText">
     <?php echo _("Password of Uploaded Certificate") ?>:<br />
-    <input id="upload_key_pass" name="upload_key_pass" type="password" size="30" />
+    <input name="upload_key_pass" type="password" size="30" />
   </label>
 </div>
 <div class="horde-content">
   <label class="importKeyText">
     <?php echo _("New Password for Private Key") ?>:<br />
-    <input id="upload_key_pk_pass" name="upload_key_pk_pass" type="password" size="30" />
+    <input name="upload_key_pk_pass" type="password" size="30" />
+  </label>
+</div>
+
+<br class="spacer" />
+
+<h1 class="header">
+<div class="smallheader">
+  <?php echo _("Optional Secondary S/MIME Certificate") ?>
+</div>
+</h1>
+
+<div class="horde-content">
+  <em><?php echo _("If present, this certificate will be used for signing messages only, while the first certificate will be used for message decryption only. If left empty, the first certificate will be used for all purposes.") ?></em>
+</div>
+
+<div class="horde-content">
+  <label class="importKeyUpload">
+    <?php echo _("Upload") ?>:
+    <input name="upload_key2" type="file" size="40" />
+  </label>
+</div>
+
+<div class="horde-content">
+  <label class="importKeyText">
+    <?php echo _("Password of Uploaded Certificate") ?>:<br />
+    <input name="upload_key_pass2" type="password" size="30" />
+  </label>
+</div>
+<div class="horde-content">
+  <label class="importKeyText">
+    <?php echo _("New Password for Private Key") ?>:<br />
+    <input name="upload_key_pk_pass2" type="password" size="30" />
   </label>
 </div>
 

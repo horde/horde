@@ -16,6 +16,7 @@
  *
  * @author    Mike Cochrane <mike@graftonhall.co.nz>
  * @author    Michael Slusarz <slusarz@horde.org>
+ * @author    Jan Schneider <jan@horde.org>
  * @category  Horde
  * @copyright 2002-2016 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
@@ -44,7 +45,7 @@ class IMP_Basic_Smime extends IMP_Basic_Base
 
         case 'process_import_public_key':
             try {
-                $publicKey = $this->_getImportKey($this->vars->import_key);
+                $publicKey = $this->_getImportKey('upload_key', $this->vars->import_key);
 
                 /* Add the public key to the storage system. */
                 $this->_smime->addPublicKey($publicKey);
@@ -74,15 +75,32 @@ class IMP_Basic_Smime extends IMP_Basic_Base
             break;
 
         case 'view_personal_public_key':
-            $this->_textWindowOutput('S/MIME Personal Public Key', $this->_smime->getPersonalPublicKey());
+        case 'view_personal_public_sign_key':
+            $this->_textWindowOutput(
+                'S/MIME Personal Public Key',
+                $this->_smime->getPersonalPublicKey(
+                    $this->vars->actionID == 'view_personal_public_sign_key'
+                )
+            );
             break;
 
         case 'info_personal_public_key':
-            $this->_printCertInfo($this->_smime->getPersonalPublicKey());
+        case 'info_personal_public_sign_key':
+            $this->_printCertInfo(
+                $this->_smime->getPersonalPublicKey(
+                    $this->vars->actionID == 'info_personal_public_sign_key'
+                )
+            );
             break;
 
         case 'view_personal_private_key':
-            $this->_textWindowOutput('S/MIME Personal Private Key', $this->_smime->getPersonalPrivateKey());
+        case 'view_personal_private_sign_key':
+            $this->_textWindowOutput(
+                'S/MIME Personal Private Key',
+                $this->_smime->getPersonalPrivateKey(
+                    $this->vars->actionID == 'view_personal_private_sign_key'
+                )
+            );
             break;
 
         case 'import_personal_certs':
@@ -90,15 +108,42 @@ class IMP_Basic_Smime extends IMP_Basic_Base
             break;
 
         case 'process_import_personal_certs':
+            $reload = false;
+            $pkcs12_2nd = false;
             try {
-                $pkcs12 = $this->_getImportKey($this->vars->import_key);
+                $pkcs12 = $this->_getImportKey('upload_key');
                 $this->_smime->addFromPKCS12($pkcs12, $this->vars->upload_key_pass, $this->vars->upload_key_pk_pass);
                 $notification->push(_("S/MIME Public/Private Keypair successfully added."), 'horde.success');
-                $this->_reloadWindow();
+                if ($pkcs12_2nd = $this->_getSecondaryKey()) {
+                    $this->_smime->addFromPKCS12($pkcs12, $this->vars->upload_key_pass2, $this->vars->upload_key_pk_pass2, true);
+                    $notification->push(_("Secondary S/MIME Public/Private Keypair successfully added."), 'horde.success');
+                }
+                $reload = true;
             } catch (Horde_Browser_Exception $e) {
-                $notification->push(_("Personal S/MIME certificates NOT imported."), 'horde.error');
+                if ($e->getCode() != UPLOAD_ERR_NO_FILE ||
+                    !($pkcs12_2nd = $this->_getSecondaryKey())) {
+                    $notification->push(_("Personal S/MIME certificates NOT imported."), 'horde.error');
+                }
             } catch (Horde_Exception $e) {
                 $notification->push(_("Personal S/MIME certificates NOT imported: ") . $e->getMessage(), 'horde.error');
+            }
+            if (!$reload &&
+                ($pkcs12_2nd || ($pkcs12_2nd = $this->_getSecondaryKey()))) {
+                if (!$this->_smime->getPersonalPublicKey()) {
+                    $notification->push(_("Cannot import secondary personal S/MIME certificates without primary certificates."), 'horde.error');
+                } else {
+                    try {
+                        $this->_smime->addFromPKCS12($pkcs12_2nd, $this->vars->upload_key_pass2, $this->vars->upload_key_pk_pass2, true);
+                        $notification->push(_("Secondary S/MIME Public/Private Keypair successfully added."), 'horde.success');
+                        $reload = true;
+                    } catch (Horde_Exception $e) {
+                        $notification->push(_("Personal S/MIME certificates NOT imported: ") . $e->getMessage(), 'horde.error');
+                    }
+                }
+            }
+
+            if ($reload) {
+                $this->_reloadWindow();
             }
 
             $this->vars->actionID = 'import_personal_certs';
@@ -112,6 +157,36 @@ class IMP_Basic_Smime extends IMP_Basic_Base
     public static function url(array $opts = array())
     {
         return Horde::url('basic.php')->add('page', 'smime');
+    }
+
+    /**
+     * Returns the secondary key if uploaded.
+     *
+     * @return string|boolean  The key contents or false if not uploaded.
+     */
+    protected function _getSecondaryKey()
+    {
+        global $notification;
+
+        try {
+            return $this->_getImportKey('upload_key2');
+        } catch (Horde_Browser_Exception $e) {
+            if ($e->getCode() == UPLOAD_ERR_NO_FILE) {
+                return false;
+            }
+            $notification->push(
+                _("Secondary personal S/MIME certificates NOT imported."),
+                'horde.error'
+            );
+        } catch (Horde_Exception $e) {
+            $notification->push(
+                _("Secondary personal S/MIME certificates NOT imported: ")
+                    . $e->getMessage(),
+                'horde.error'
+            );
+        }
+
+        return false;
     }
 
     /**
@@ -201,19 +276,20 @@ class IMP_Basic_Smime extends IMP_Basic_Base
     /**
      * Attempt to import a key from form/uploaded data.
      *
-     * @param string $key  Key string.
+     * @param string $filename  Key file name.
+     * @param string $key       Key string.
      *
      * @return string  The key contents.
      * @throws Horde_Browser_Exception
      */
-    protected function _getImportKey($key)
+    protected function _getImportKey($filename, $key = null)
     {
         if (!empty($key)) {
             return $key;
         }
 
-        $GLOBALS['browser']->wasFileUploaded('upload_key', _("key"));
-        return file_get_contents($_FILES['upload_key']['tmp_name']);
+        $GLOBALS['browser']->wasFileUploaded($filename, _("key"));
+        return file_get_contents($_FILES[$filename]['tmp_name']);
     }
 
 }

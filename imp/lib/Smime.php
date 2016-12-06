@@ -15,6 +15,7 @@
  * Contains code related to handling S/MIME messages within IMP.
  *
  * @author    Mike Cochrane <mike@graftonhall.co.nz>
+ * @author    Jan Schneider <jan@horde.org>
  * @category  Horde
  * @copyright 2002-2016 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
@@ -94,11 +95,12 @@ class IMP_Smime
      * Adds the personal public key to the prefs.
      *
      * @param string|array $key  The public key to add.
+     * @param boolean $signkey   Is this the secondary key for signing?
      */
-    public function addPersonalPublicKey($key)
+    public function addPersonalPublicKey($key, $signkey = false)
     {
         $GLOBALS['prefs']->setValue(
-            'smime_public_key',
+            $signkey ? 'smime_public_sign_key' : 'smime_public_key',
             is_array($key) ? implode('', $key) : $key
         );
     }
@@ -107,11 +109,12 @@ class IMP_Smime
      * Adds the personal private key to the prefs.
      *
      * @param string|array $key  The private key to add.
+     * @param boolean $signkey   Is this the secondary key for signing?
      */
-    public function addPersonalPrivateKey($key)
+    public function addPersonalPrivateKey($key, $signkey = false)
     {
         $GLOBALS['prefs']->setValue(
-            'smime_private_key',
+            $signkey ? 'smime_private_sign_key' : 'smime_private_key',
             is_array($key) ? implode('', $key) : $key
         );
     }
@@ -120,11 +123,12 @@ class IMP_Smime
      * Adds a list of additional certs to the prefs.
      *
      * @param string|array $key  The additional certifcate(s) to add.
+     * @param boolean $signkey   Is this the secondary key for signing?
      */
-    public function addAdditionalCert($key)
+    public function addAdditionalCert($key, $signkey = false)
     {
         $GLOBALS['prefs']->setValue(
-            'smime_additional_cert',
+            $signkey ? 'smime_additional_sign_cert' : 'smime_additional_cert',
             is_array($key) ? implode('', $key) : $key
         );
     }
@@ -132,44 +136,65 @@ class IMP_Smime
     /**
      * Returns the personal public key from the prefs.
      *
+     * @param boolean $signkey  Return the secondary key for signing?
+     *
      * @return string  The personal S/MIME public key.
      */
-    public function getPersonalPublicKey()
+    public function getPersonalPublicKey($signkey = false)
     {
-        return $GLOBALS['prefs']->getValue('smime_public_key');
+        return $GLOBALS['prefs']->getValue(
+            $signkey ? 'smime_public_sign_key' : 'smime_public_key'
+        );
     }
 
     /**
      * Returns the personal private key from the prefs.
      *
+     * @param boolean $signkey  Return the secondary key for signing?
+     *
      * @return string  The personal S/MIME private key.
      */
-    public function getPersonalPrivateKey()
+    public function getPersonalPrivateKey($signkey = false)
     {
-        return $GLOBALS['prefs']->getValue('smime_private_key');
+        return $GLOBALS['prefs']->getValue(
+            $signkey ? 'smime_private_sign_key' : 'smime_private_key'
+        );
     }
 
     /**
      * Returns any additional certificates from the prefs.
      *
+     * @param boolean $signkey  Return the secondary key for signing?
+     *
      * @return string  Additional signing certs for inclusion.
      */
-    public function getAdditionalCert()
+    public function getAdditionalCert($signkey = false)
     {
-        return $GLOBALS['prefs']->getValue('smime_additional_cert');
+        return $GLOBALS['prefs']->getValue(
+            $signkey ? 'smime_additional_sign_cert' : 'smime_additional_cert'
+        );
     }
 
     /**
      * Deletes the specified personal keys from the prefs.
+     *
+     * @param boolean $signkey  Return the secondary key for signing?
      */
-    public function deletePersonalKeys()
+    public function deletePersonalKeys($signkey = false)
     {
         global $prefs;
 
-        $prefs->setValue('smime_public_key', '');
-        $prefs->setValue('smime_private_key', '');
-        $prefs->setValue('smime_additional_cert', '');
-        $this->unsetPassphrase();
+        // We always delete the secondary keys because we cannot have them
+        // without primary keys.
+        $prefs->setValue('smime_public_sign_key', '');
+        $prefs->setValue('smime_private_sign_key', '');
+        $prefs->setValue('smime_additional_sign_cert', '');
+        if (!$signkey) {
+            $prefs->setValue('smime_public_key', '');
+            $prefs->setValue('smime_private_key', '');
+            $prefs->setValue('smime_additional_cert', '');
+        }
+        $this->unsetPassphrase($signkey);
     }
 
     /**
@@ -407,48 +432,59 @@ class IMP_Smime
     /**
      * Returns the user's passphrase from the session cache.
      *
+     * @param boolean $signkey   Is this the secondary key for signing?
+     *
      * @return mixed  The passphrase, if set.  Returns false if the passphrase
      *                has not been loaded yet.  Returns null if no passphrase
      *                is needed.
      */
-    public function getPassphrase()
+    public function getPassphrase($signkey = false)
     {
         global $prefs, $session;
 
-        $private_key = $prefs->getValue('smime_private_key');
+        $private_key = $prefs->getValue(
+            $signkey ? 'smime_private_sign_key' : 'smime_private_key'
+        );
         if (empty($private_key)) {
             return false;
         }
 
-        if ($session->exists('imp', 'smime_passphrase')) {
-            return $session->get('imp', 'smime_passphrase');
-        } elseif (!$session->exists('imp', 'smime_null_passphrase')) {
+        $suffix = $signkey ? '_sign' : '';
+        if ($session->exists('imp', 'smime_passphrase' . $suffix)) {
+            return $session->get('imp', 'smime_passphrase' . $suffix);
+        }
+
+        if (!$session->exists('imp', 'smime_null_passphrase' . $suffix)) {
             $session->set(
                 'imp',
-                'smime_null_passphrase',
+                'smime_null_passphrase' . $suffix,
                 $this->_smime->verifyPassphrase($private_key, null)
                     ? null
                     : false
             );
         }
 
-        return $session->get('imp', 'smime_null_passphrase');
+        return $session->get('imp', 'smime_null_passphrase' . $suffix);
     }
 
     /**
      * Stores the user's passphrase in the session cache.
      *
      * @param string $passphrase  The user's passphrase.
+     * @param boolean $signkey    Is this the secondary key for signing?
      *
      * @return boolean  Returns true if correct passphrase, false if incorrect.
      */
-    public function storePassphrase($passphrase)
+    public function storePassphrase($passphrase, $signkey = false)
     {
         global $session;
 
-        if ($this->_smime->verifyPassphrase($this->getPersonalPrivateKey(), $passphrase) !== false) {
+        if ($this->_smime->verifyPassphrase($this->getPersonalPrivateKey($signkey), $passphrase) !== false) {
             $session->set(
-                'imp', 'smime_passphrase', $passphrase, $session::ENCRYPT
+                'imp',
+                $signkey ? 'smime_passphrase_sign' : 'smime_passphrase',
+                $passphrase,
+                $session::ENCRYPT
             );
             return true;
         }
@@ -458,13 +494,20 @@ class IMP_Smime
 
     /**
      * Clears the passphrase from the session cache.
+     *
+     * @param boolean $signkey    Is this the secondary key for signing?
      */
-    public function unsetPassphrase()
+    public function unsetPassphrase($signkey = false)
     {
         global $session;
 
-        $session->remove('imp', 'smime_null_passphrase');
-        $session->remove('imp', 'smime_passphrase');
+        if ($signkey) {
+            $session->remove('imp', 'smime_null_passphrase_sign');
+            $session->remove('imp', 'smime_passphrase_sign');
+        } else {
+            $session->remove('imp', 'smime_null_passphrase');
+            $session->remove('imp', 'smime_passphrase');
+        }
     }
 
     /**
@@ -528,10 +571,13 @@ class IMP_Smime
      * @param string $pkcs12    The PKCS 12 data.
      * @param string $password  The password of the PKCS 12 file.
      * @param string $pkpass    The password to use to encrypt the private key.
+     * @param boolean $signkey  Is this the secondary key for signing?
      *
      * @throws Horde_Crypt_Exception
      */
-    public function addFromPKCS12($pkcs12, $password, $pkpass = null)
+    public function addFromPKCS12(
+        $pkcs12, $password, $pkpass = null, $signkey = false
+    )
     {
         global $conf;
 
@@ -545,9 +591,9 @@ class IMP_Smime
         }
 
         $result = $this->_smime->parsePKCS12Data($pkcs12, $params);
-        $this->addPersonalPrivateKey($result->private);
-        $this->addPersonalPublicKey($result->public);
-        $this->addAdditionalCert($result->certs);
+        $this->addPersonalPrivateKey($result->private, $signkey);
+        $this->addPersonalPublicKey($result->public, $signkey);
+        $this->addAdditionalCert($result->certs, $signkey);
     }
 
     /**

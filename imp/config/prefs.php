@@ -456,11 +456,23 @@ $_prefs['smime_public_key'] = array(
     'value' => ''
 );
 
+$_prefs['smime_public_sign_key'] = array(
+    'value' => ''
+);
+
 $_prefs['smime_private_key'] = array(
     'value' => ''
 );
 
+$_prefs['smime_private_sign_key'] = array(
+    'value' => ''
+);
+
 $_prefs['smime_additional_cert'] = array(
+    'value' => ''
+);
+
+$_prefs['smime_additional_sign_cert'] = array(
     'value' => ''
 );
 
