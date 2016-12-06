@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* 
+* [mjr] Improve migration performance.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1032,7 +1032,7 @@
    <date>2016-11-10</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* 
+* [mjr] Improve migration performance.
    </notes>
   </release>
  </changelog>
