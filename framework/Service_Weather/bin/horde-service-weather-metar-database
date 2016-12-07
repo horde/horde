@@ -1,0 +1,284 @@
+#!/usr/bin/env php
+<?php
+/**
+ * Script to create/recreate the metar database.
+ *
+ * For TCP connections:
+ * Usage: horde-service-weather-metar-database
+ *        --adapter=pdo_mysql
+ *        [--host=db.example.com]
+ *        [--username=user]
+ *        [--password=secret]
+ *        [--database=db]
+ *        [--debug]
+ *
+ * For Unix sockets:
+ *
+  * Usage: horde-service-weather-metar-database
+ *        --adapter=pdo_mysql
+ *        [--protocol=unix]
+ *        [--socket=/path/to/mysql/mysqld.sock]
+ *        [--username=user]
+ *        [--password=secret]
+ *        [--database=db]
+ *        [--debug]
+ *
+ * Copyright 2010-2016 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (BSD). If you did
+ * not receive this file, see http://www.horde.org/licenses/bsd
+ *
+ * @author Chuck Hagenbuch <chuck@horde.org>
+ * @author Jan Schneider <jan@horde.org>
+ * @author
+ */
+
+require_once 'Horde/Autoloader/Default.php';
+
+/**
+ * Ensure we can get the data file.
+ *
+ */
+function _checkForMetarData()
+{
+    // First see if we have a local copy in the same directory.
+    $file_name = __DIR__ . DIRECTORY_SEPARATOR . 'airport-codes.csv';
+    $file_location = 'https://raw.githubusercontent.com/datasets/airport-codes/master/data/airport-codes.csv';
+    if (file_exists($file_name)) {
+        return file($file_name);
+    }
+    return file($file_location);
+}
+
+/**
+ * Drop the horde_metar_airports table.
+ *
+ */
+function _down($db)
+{
+    $tableList = $db->tables();
+    if (in_array('horde_metar_airports', $tableList)) {
+        $db->dropTable('horde_metar_airports');
+    }
+}
+
+/**
+ * Create table
+ *
+ */
+function _createTable($db, $cli)
+{
+    // Create table
+    try {
+        $t = $db->createTable('horde_metar_airports', array('autoincrementKey' => array('id')));
+    } catch (Horde_Db_Exception $e) {
+        $cli->fatal($e->getMessage());
+    }
+    $t->column('id', 'integer');
+    $t->column('icao', 'string', array('limit' => 4));
+    $t->column('name', 'string', array('limit' => 80));
+    $t->column('state', 'string', array('limit' => 4));
+    $t->column('country', 'string', array('limit' => 50));
+    $t->column('municipality', 'string', array('limit' => 80));
+    $t->column('latitude', 'float', array('default' => 0));
+    $t->column('longitude', 'float', array('default' => 0));
+    $t->column('elevation', 'float', array('default' => 0));
+    $t->end();
+}
+
+/**
+ * Parse metar data into database. Each row has the following fields:
+ *
+ * ident
+ * type
+ * name
+ * latitude_deg
+ * longitude_deg
+ * elevation_ft
+ * continent
+ * iso_country
+ * iso_region
+ * municipality
+ * gps_code
+ * iata_code
+ * local_code
+ */
+function _parse($db, $cli, $metar_rows)
+{
+    // Parse data
+    $line = 0;
+    $insert = 'INSERT INTO horde_metar_airports '
+        . '(id, icao, name, state, country, municipality, latitude,'
+        . 'longitude, elevation) '
+        . 'VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)';
+
+    // Using array_map('str_getcsv', file($file_location)) leads to memory
+    // exhaustion on my dev boxes, so iterate to be safe.
+    for ($i = 1; $i <= count($metar_rows) - 1; $i++) {
+
+        // Get csv fields.
+        $fields = str_getcsv(trim($metar_rows[$i]));
+
+        // Comment or some other broken row.
+        if (sizeof($fields) < 13) {
+            continue;
+        }
+
+        // Build param array
+        $data = array(
+            $line,
+            $fields[0],
+            $fields[2],
+            str_replace($fields[7] . '-', '', $fields[8]),
+            $fields[7],
+            $fields[9],
+            !empty($fields[3]) ? round($fields[3], 4) : 0,
+            !empty($fields[4]) ? round($fields[4], 4) : 0,
+            !empty($fields[5]) ? $fields[5] : 0
+        );
+
+        // Only add lines that have a valid ICAO identifier. The dataset
+        // seems to have a number of entries with broken identifiers. E.g.,
+        // Corydon airport.
+        if (strlen(trim($data[1])) > 4) {
+            continue;
+        }
+
+        // Insert
+        try {
+            $db->insert($insert, $data);
+            $line++;
+        } catch (Horde_Db_Exception $e) {
+            $cli->message('ERROR: ' . $e->getMessage(), 'cli.error');
+            $cli->message('SQL: ' . $insert . ' with the following data: ' . print_r($data, true), 'cli.error');
+        }
+    }
+
+    return $i;
+}
+
+// Init Cli
+$cli = new Horde_Cli();
+if (!$cli->runningFromCLI()) {
+    $cli->fatal('Must be run from the command line.');
+}
+$cli->init();
+
+// Setup the Argv Parser.
+$parser = new Horde_Argv_Parser(
+    array(
+        'usage' =>  "%prog\n\t--adapter=phptype\n\t[--host=db.example.com]\n\t[--socket=/path/to/mysqld.sock]\n\t[--username=username]\n\t[--password=secret]\n\t[--database=dbname]\n\t[--debug]",
+        'optionList' => array(
+            new Horde_Argv_Option('-a', '--adapter', array(
+                'action' => 'store',
+                'help' => 'Type of database adapter to use E.g., pdo_mysql',
+                'dest' => 'adapter'
+            )),
+            new Horde_Argv_Option('', '--host', array(
+                'action' => 'store',
+                'help' => 'Database host, if using TCP connections',
+                'dest' => 'host'
+            )),
+            new Horde_Argv_Option('-s', '--socket', array(
+                'action' => 'store',
+                'help' => 'Location of unix socket',
+                'dest' => 'socket'
+            )),
+            new Horde_Argv_Option('-u', '--username', array(
+                'action' => 'store',
+                'help' => 'Username to connect to database with',
+                'dest' => 'username'
+            )),
+            new Horde_Argv_Option('-p', '--password', array(
+                'action' => 'store',
+                'help' => 'Password',
+                'dest' => 'password'
+            )),
+            new Horde_Argv_Option('-d', '--database', array(
+                'action' => 'store',
+                'help' => 'Database name to connect to',
+                'dest' => 'database',
+                'default' => 'horde'
+            )),
+            new Horde_Argv_Option('', '--debug', array(
+                'action' => 'store_true',
+                'help' => 'Enable debug output from database',
+                'dest' => 'debug'
+            )),
+        )
+    )
+);
+list($params, $argv) = $parser->parseArgs();
+
+// Sanity check parameters.
+if (empty($params['adapter'])) {
+    $cli->message(
+        'The --adapter parameter is required.',
+        'cli.error'
+    );
+    $parser->printHelp();
+    exit;
+}
+if (empty($params['host']) && empty($params['socket'])) {
+    $cli->message(
+        'You must provide either a --host or --socket parameter.',
+        'cli.error'
+    );
+    $parser->printHelp();
+    exit;
+}
+
+// $params is a Horde_Argv_Values object, db object needs array.
+$params = (array)$params;
+if (!empty($params['socket'])) {
+    $params['protocol'] = 'unix';
+    unset($params['host']);
+} else {
+    unset($params['socket']);
+}
+
+// Build Horde_Db adapter.
+$class = 'Horde_Db_Adapter_' . str_replace(' ', '_', Horde_String::ucwords(str_replace('_', ' ', basename($params['adapter']))));
+if (!class_exists($class)) {
+    $cli->fatal($params['adapter'] . 'is not a valid adapter name.');
+}
+unset($params['adapter']);
+
+try {
+    $db = new $class($params);
+} catch (Exception $e) {
+    $cli->fatal($e->getMessage());
+}
+
+// Setup any logging.
+if (!empty($params['debug'])) {
+    $logger = new Horde_Log_Logger(new Horde_Log_Handler_Stream(STDOUT));
+    $db->setLogger($logger);
+}
+$logger = new Horde_Log_Logger(
+    new Horde_Log_Handler_Stream(
+        STDOUT,
+        null,
+        new Horde_Log_Formatter_Simple('%message%' . PHP_EOL)
+    )
+);
+
+// Start building.
+$cli->message('Creating METAR database.', 'cli.message');
+$metar_rows = _checkForMetarData();
+if (empty($metar_rows)) {
+    $cli->message('Unable to locate METAR data.', 'cli.error');
+    exit;
+}
+
+// Drop any current data in case we are regenerating/updating.
+_down($db);
+
+// Create the table
+_createTable($db, $cli);
+
+// Parse data and add to datebase.
+$cnt = _parse($db, $cli, $metar_rows);
+
+// Done!
+$cli->message(sprintf('Added %d airport identifiers to the database.', $cnt), 'cli.success');
