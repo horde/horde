@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-11-10</date>
+ <date>2016-12-07</date>
  <version>
   <release>2.5.3</release>
   <api>1.5.0</api>
@@ -21,10 +21,14 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* [mjr] Improve migration performance.
+* [mjr] Remove migrations for the Metar provider and replace with standalone CLI script.
+* [mjr] Improve metar table creation performance.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="bin">
+    <file name="horde-service-weather-metar-database" role="script" />
+   </dir> <!-- /bin -->
    <dir name="doc">
     <dir name="Horde">
      <dir name="Service">
@@ -148,16 +152,6 @@
     </dir> <!-- /locale/nl -->
     <file name="Horde_Service_Weather.pot" role="data" />
    </dir> <!-- /locale -->
-   <dir name="migration">
-    <dir name="Horde">
-     <dir name="Service">
-      <dir name="Weather">
-       <file name="1_horde_service_weather_airports.php" role="data" />
-       <file name="2_horde_service_weather_airports_change.php" role="data" />
-      </dir> <!-- /migration/Horde/Service/Weather -->
-     </dir> <!-- /migration/Horde/Service -->
-    </dir> <!-- /migration/Horde -->
-   </dir> <!-- /migration -->
    <dir name="test">
     <dir name="Horde">
      <dir name="Service">
@@ -361,6 +355,7 @@
  </usesrole>
  <phprelease>
   <filelist>
+   <install as="horde-service-weather-metar-database" name="bin/horde-service-weather-metar-database" />
    <install as="COPYING" name="doc/Horde/Service/Weather/COPYING" />
    <install as="UPGRADING" name="doc/Horde/Service/Weather/UPGRADING" />
    <install as="Horde/Service/Weather.php" name="lib/Horde/Service/Weather.php" />
@@ -416,8 +411,6 @@
    <install as="locale/lv/LC_MESSAGES/Horde_Service_Weather.po" name="locale/lv/LC_MESSAGES/Horde_Service_Weather.po" />
    <install as="locale/nl/LC_MESSAGES/Horde_Service_Weather.mo" name="locale/nl/LC_MESSAGES/Horde_Service_Weather.mo" />
    <install as="locale/nl/LC_MESSAGES/Horde_Service_Weather.po" name="locale/nl/LC_MESSAGES/Horde_Service_Weather.po" />
-   <install as="migration/1_horde_service_weather_airports.php" name="migration/Horde/Service/Weather/1_horde_service_weather_airports.php" />
-   <install as="migration/2_horde_service_weather_airports_change.php" name="migration/Horde/Service/Weather/2_horde_service_weather_airports_change.php" />
    <install as="Horde/Service/Weather/AllTests.php" name="test/Horde/Service/Weather/AllTests.php" />
    <install as="Horde/Service/Weather/bootstrap.php" name="test/Horde/Service/Weather/bootstrap.php" />
    <install as="Horde/Service/Weather/MetarTest.php" name="test/Horde/Service/Weather/MetarTest.php" />
@@ -1029,10 +1022,11 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-11-10</date>
+   <date>2016-12-07</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* [mjr] Improve migration performance.
+* [mjr] Remove migrations for the Metar provider and replace with standalone CLI script.
+* [mjr] Improve metar table creation performance.
    </notes>
   </release>
  </changelog>
