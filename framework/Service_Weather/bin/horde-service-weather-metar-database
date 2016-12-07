@@ -23,14 +23,12 @@
  *        [--database=db]
  *        [--debug]
  *
- * Copyright 2010-2016 Horde LLC (http://www.horde.org/)
+ * Copyright 2016 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (BSD). If you did
  * not receive this file, see http://www.horde.org/licenses/bsd
  *
- * @author Chuck Hagenbuch <chuck@horde.org>
- * @author Jan Schneider <jan@horde.org>
- * @author
+ * @author Michael J Rubinsky <mrubinsk@horde.org>
  */
 
 require_once 'Horde/Autoloader/Default.php';
