@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Allow to specify a secondary S/MIME certificate for signatures only.
 * [jan] Find logged replies in other than default sent-mail folders too.
 * [mjr] Fix SyntaxHighlighter MIME viewer not rendering part after the initial view of a part (Bug 14337).
 * [mjr] Display comment attribute in iTip viewer (Request #14407).
@@ -3976,6 +3977,7 @@
    </stability>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Allow to specify a secondary S/MIME certificate for signatures only.
 * [jan] Find logged replies in other than default sent-mail folders too.
 * [mjr] Fix SyntaxHighlighter MIME viewer not rendering part after the initial view of a part (Bug 14337).
 * [mjr] Display comment attribute in iTip viewer (Request #14407).
