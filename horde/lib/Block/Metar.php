@@ -123,6 +123,13 @@ class Horde_Block_Metar extends Horde_Core_Block
     {
         global $injector, $prefs;
 
+        try {
+            $this->_weather->autocompleteLocation('test');
+        } catch (Horde_Db_Exception $e) {
+            return _("No metar station data found. Contact administrator to
+                run the horde-service-weather-metar-database script.");
+        }
+
         // Set up the weather driver.
         $this->_weather->units = $this->_params['units'];
         $units = $this->_weather->getUnits();
