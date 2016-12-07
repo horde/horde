@@ -55,7 +55,12 @@ class Horde_Block_Metar extends Horde_Core_Block
         // @todo Find a way to allow not loading the entire metar location
         // database in memory. I.e., allow entering free-form text like
         // the other weather block.
-        $rows = $this->_weather->getLocations();
+        try {
+            $rows = $this->_weather->getLocations();
+        } catch (Horde_Exception $e) {
+            // No data available.
+            return;
+        }
         $locations = array();
         foreach ($rows as $row) {
             $locations[Horde_Nls_Translation::t(Horde_Nls::getCountryISO($row['country']))][$row['icao']] = sprintf(
