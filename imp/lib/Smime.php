@@ -383,13 +383,20 @@ class IMP_Smime
      */
     protected function _signParameters()
     {
+        $pubkey = $this->getPersonalPublicKey(true);
+        if ($pubkey) {
+            $secondary = true;
+        } else {
+            $pubkey = $this->getPersonalPublicKey();
+            $secondary = false;
+        }
         return array(
             'type' => 'signature',
-            'pubkey' => $this->getPersonalPublicKey(),
-            'privkey' => $this->getPersonalPrivateKey(),
-            'passphrase' => $this->getPassphrase(),
+            'pubkey' => $pubkey,
+            'privkey' => $this->getPersonalPrivateKey($secondary),
+            'passphrase' => $this->getPassphrase($secondary),
             'sigtype' => 'detach',
-            'certs' => $this->getAdditionalCert()
+            'certs' => $this->getAdditionalCert($secondary),
         );
     }
 
@@ -407,7 +414,9 @@ class IMP_Smime
 
         return $this->_smime->verify(
             $text,
-            empty($conf['openssl']['cafile']) ? array() : $conf['openssl']['cafile']
+            empty($conf['openssl']['cafile'])
+                ? array()
+                : $conf['openssl']['cafile']
         );
     }
 
