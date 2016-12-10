@@ -334,6 +334,20 @@
  *   [Horde_ActiveSync_Mime] - Replaces the outgoing message with the contents
  *       of this MIME object.
  *
+ * activesync_mailboxlist
+ * ----------------------
+ *
+ * This hook gives the chance to filter the mailbox list before it is sent to
+ * the client. Possible use would be to prevent shared mailboxes from being
+ * synchronized, or only allowing the INBOX to be synchronized etc...
+ *
+ * Parameters in:
+ *     $mailboxList (array)  An array of mailboxes available to be synchronized.
+ *
+ * The return value for this hook is as follows:
+ *   [throw Horde_Exception] - Fatal error.
+ *   [array]  An array of mailboxes that will be sent to the client.
+ *
  * activesync_provisioning_check
  * -----------------------------
  *
@@ -1207,6 +1221,25 @@ class Horde_Hooks
   //
   //       return true;
   // }
+
+   /**
+    * Hook for altering the mailbox list sent to the client.
+    *
+    * @param array $mailboxList  A hash of mailbox arrays, keyed by mailbox name
+    *     and having the following array keys:
+    *       'd' => the delimiter
+    *       'label' => mailbox lable
+    *       'level' => nesting level
+    *       'ob' => A Horde_Imap_Client_Mailbox object
+    *       'subscribed' => boolean indicating subscription status.
+    *
+    * @return  array  An array of mailboxes to send to the client. Structure of
+    *     array is the same as the array passed in.
+    */
+   // public function activesync_mailboxlist(array $mailboxList)
+   // {
+   //      return $mailboxList;
+   // }
 
    /**
     * Hook for altering the provisioning requirement more atomically than can be
