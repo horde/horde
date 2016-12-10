@@ -12,7 +12,7 @@
  </lead>
  <date>2016-12-10</date>
  <version>
-  <release>2.5.3</release>
+  <release>2.5.4</release>
   <api>1.5.0</api>
  </version>
  <stability>
@@ -21,8 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* [mjr] Create standalone CLI script for generation of metar station data.
-* [mjr] Improve metar table creation performance.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1039,6 +1038,19 @@
    <notes>
 * [mjr] Create standalone CLI script for generation of metar station data.
 * [mjr] Improve metar table creation performance.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.5.4</release>
+    <api>1.5.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-12-10</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
