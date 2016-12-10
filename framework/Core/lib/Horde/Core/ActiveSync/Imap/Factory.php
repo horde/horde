@@ -58,7 +58,7 @@ class Horde_Core_ActiveSync_Imap_Factory implements Horde_ActiveSync_Interface_I
      */
     public function getMailboxes($force = false)
     {
-        global $registry;
+        global $registry, $injector;
 
         if (empty($this->_mailboxlist) || $force) {
             $subscriptions = $registry->horde->getPreference(
@@ -66,7 +66,7 @@ class Horde_Core_ActiveSync_Imap_Factory implements Horde_ActiveSync_Interface_I
                 'subscribe'
             );
             try {
-                foreach ($registry->mail->mailboxList(array('reload' => true,'unsub' => !$subscriptions)) as $mbox) {
+                foreach ($registry->mail->mailboxList(array('reload' => true, 'unsub' => !$subscriptions)) as $mbox) {
                     if (isset($mbox['subscribed'])) {
                         /* IMP 7. Guaranteed that return will match what was
                          * asked for in 'unsub' argument. */
@@ -91,6 +91,13 @@ class Horde_Core_ActiveSync_Imap_Factory implements Horde_ActiveSync_Interface_I
                 throw new Horde_ActiveSync_Exception($e);
             }
         }
+        try {
+            $this->_mailboxlist = $injector->getInstance('Horde_Core_Hooks')->callHook(
+                'activesync_mailboxlist',
+                'horde',
+                array($this->_mailboxlist)
+            );
+        } catch (Horde_Exception_HookNotSet $e) {}
 
         return $this->_mailboxlist;
     }
