@@ -30,7 +30,7 @@
  </developer>
  <date>2016-12-11</date>
  <version>
-  <release>2.27.5</release>
+  <release>2.27.6</release>
   <api>2.27.0</api>
  </version>
  <stability>
@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Add support for a activesync_mailboxlist hook.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4337,6 +4337,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Add support for a activesync_mailboxlist hook.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.27.6</release>
+    <api>2.27.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-12-11</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
