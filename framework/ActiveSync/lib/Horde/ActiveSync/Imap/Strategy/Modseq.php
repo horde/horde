@@ -79,6 +79,7 @@ class Horde_ActiveSync_Imap_Strategy_Modseq extends Horde_ActiveSync_Imap_Strate
             '[%s] CONDSTORE and CHANGES',
             $this->_procid)
         );
+        $flags = array();
         $current_modseq = $this->_status[Horde_ActiveSync_Folder_Imap::HIGHESTMODSEQ];
         $query = new Horde_Imap_Client_Search_Query();
 

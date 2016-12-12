@@ -62,6 +62,7 @@ extends Horde_ActiveSync_Imap_Strategy_Base
         $cnt = ($search_ret['count'] / Horde_ActiveSync_Imap_Adapter::MAX_FETCH) + 1;
         $query = new Horde_Imap_Client_Fetch_Query();
         $query->flags();
+        $flags = array();
         for ($i = 0; $i <= $cnt; $i++) {
             $ids = new Horde_Imap_Client_Ids(
                 array_slice(
