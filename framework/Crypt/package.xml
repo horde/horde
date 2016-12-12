@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix label for S/MIME Encrypted Key Usage attribute.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1187,7 +1187,7 @@ Initial release as a PEAR package
    <date>2016-12-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix label for S/MIME Encrypted Key Usage attribute.
    </notes>
   </release>
  </changelog>

@@ -506,10 +506,10 @@ class Horde_Crypt_Smime extends Horde_Crypt
             'givenName' => Horde_Crypt_Translation::t("Given Name"),
 
             /* X590v3 Extensions */
-            'exendedtKeyUsage' => Horde_Crypt_Translation::t("X509v3 Extended Key Usage"),
-            'basicConstraints' => Horde_Crypt_Translation::t("X509v3 Basic Constraints"),
-            'subjectAltName' => Horde_Crypt_Translation::t("X509v3 Subject Alternative Name"),
-            'subjectKeyIdentifier' => Horde_Crypt_Translation::t("X509v3 Subject Key Identifier"),
+            'extendedKeyUsage' => Horde_Crypt_Translation::t("Extended Key Usage"),
+            'basicConstraints' => Horde_Crypt_Translation::t("Basic Constraints"),
+            'subjectAltName' => Horde_Crypt_Translation::t("Subject Alternative Name"),
+            'subjectKeyIdentifier' => Horde_Crypt_Translation::t("Subject Key Identifier"),
             'certificatePolicies' => Horde_Crypt_Translation::t("Certificate Policies"),
             'crlDistributionPoints' => Horde_Crypt_Translation::t("CRL Distribution Points"),
             'keyUsage' => Horde_Crypt_Translation::t("Key Usage")
