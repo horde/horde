@@ -31,6 +31,11 @@ class IMP_Smime
     const SIGN = 'smime_sign';
     const SIGNENC = 'smime_signenc';
 
+    /* Which key to use. */
+    const KEY_PRIMARY = 0;
+    const KEY_SECONDARY = 1;
+    const KEY_SECONDARY_OR_PRIMARY = 2;
+
     /**
      * S/MIME object.
      *
@@ -136,43 +141,64 @@ class IMP_Smime
     /**
      * Returns the personal public key from the prefs.
      *
-     * @param boolean $signkey  Return the secondary key for signing?
+     * @param integer $signkey  One of the IMP_Sime::KEY_* constants.
      *
      * @return string  The personal S/MIME public key.
      */
-    public function getPersonalPublicKey($signkey = false)
+    public function getPersonalPublicKey($signkey = self::KEY_PRIMARY)
     {
-        return $GLOBALS['prefs']->getValue(
+        global $prefs;
+
+        $key = $prefs->getValue(
             $signkey ? 'smime_public_sign_key' : 'smime_public_key'
         );
+        if (!$key && $signkey == self::KEY_SECONDARY_OR_PRIMARY) {
+            $key = $prefs->getValue('smime_public_key');
+        }
+
+        return $key;
     }
 
     /**
      * Returns the personal private key from the prefs.
      *
-     * @param boolean $signkey  Return the secondary key for signing?
+     * @param integer $signkey  One of the IMP_Sime::KEY_* constants.
      *
      * @return string  The personal S/MIME private key.
      */
-    public function getPersonalPrivateKey($signkey = false)
+    public function getPersonalPrivateKey($signkey = self::KEY_PRIMARY)
     {
-        return $GLOBALS['prefs']->getValue(
+        global $prefs;
+
+        $key = $prefs->getValue(
             $signkey ? 'smime_private_sign_key' : 'smime_private_key'
         );
+        if (!$key && $signkey == self::KEY_SECONDARY_OR_PRIMARY) {
+            $key = $prefs->getValue('smime_private_key');
+        }
+
+        return $key;
     }
 
     /**
      * Returns any additional certificates from the prefs.
      *
-     * @param boolean $signkey  Return the secondary key for signing?
+     * @param integer $signkey  One of the IMP_Sime::KEY_* constants.
      *
      * @return string  Additional signing certs for inclusion.
      */
-    public function getAdditionalCert($signkey = false)
+    public function getAdditionalCert($signkey = self::KEY_PRIMARY)
     {
-        return $GLOBALS['prefs']->getValue(
+        global $prefs;
+
+        $key = $prefs->getValue(
             $signkey ? 'smime_additional_sign_cert' : 'smime_additional_cert'
         );
+        if (!$key && $signkey == self::KEY_SECONDARY_OR_PRIMARY) {
+            $key = $prefs->getValue('smime_additional_cert');
+        }
+
+        return $key;
     }
 
     /**
@@ -384,11 +410,17 @@ class IMP_Smime
     protected function _signParameters()
     {
         $pubkey = $this->getPersonalPublicKey(true);
+        $additional = array();
         if ($pubkey) {
+            $additional[] = $this->getPersonalPublicKey();
             $secondary = true;
         } else {
             $pubkey = $this->getPersonalPublicKey();
             $secondary = false;
+        }
+        $additional[] = $this->getAdditionalCert($secondary);
+        if ($secondary) {
+            $additional[] = $this->getAdditionalCert();
         }
         return array(
             'type' => 'signature',
@@ -396,7 +428,7 @@ class IMP_Smime
             'privkey' => $this->getPersonalPrivateKey($secondary),
             'passphrase' => $this->getPassphrase($secondary),
             'sigtype' => 'detach',
-            'certs' => $this->getAdditionalCert($secondary),
+            'certs' => implode("\n", $additional),
         );
     }
 
@@ -441,19 +473,27 @@ class IMP_Smime
     /**
      * Returns the user's passphrase from the session cache.
      *
-     * @param boolean $signkey   Is this the secondary key for signing?
+     * @param integer $signkey  One of the IMP_Sime::KEY_* constants.
      *
      * @return mixed  The passphrase, if set.  Returns false if the passphrase
      *                has not been loaded yet.  Returns null if no passphrase
      *                is needed.
      */
-    public function getPassphrase($signkey = false)
+    public function getPassphrase($signkey = self::KEY_PRIMARY)
     {
         global $prefs, $session;
 
-        $private_key = $prefs->getValue(
-            $signkey ? 'smime_private_sign_key' : 'smime_private_key'
-        );
+        if ($signkey == self::KEY_SECONDARY_OR_PRIMARY) {
+            if ($private_key = $this->getPersonalPrivateKey(self::KEY_SECONDARY)) {
+                $signkey = self::KEY_SECONDARY;
+            } else {
+                $private_key = $this->getPersonalPrivateKey();
+                $signkey = self::KEY_PRIMARY;
+            }
+        } else {
+            $private_key = $this->getPersonalPrivateKey($signkey);
+        }
+
         if (empty($private_key)) {
             return false;
         }
@@ -480,15 +520,25 @@ class IMP_Smime
      * Stores the user's passphrase in the session cache.
      *
      * @param string $passphrase  The user's passphrase.
-     * @param boolean $signkey    Is this the secondary key for signing?
+     * @param integer $signkey    One of the IMP_Sime::KEY_* constants.
      *
      * @return boolean  Returns true if correct passphrase, false if incorrect.
      */
-    public function storePassphrase($passphrase, $signkey = false)
+    public function storePassphrase($passphrase, $signkey = self::KEY_PRIMARY)
     {
         global $session;
 
-        if ($this->_smime->verifyPassphrase($this->getPersonalPrivateKey($signkey), $passphrase) !== false) {
+        if ($signkey == self::KEY_SECONDARY_OR_PRIMARY) {
+            if ($key = $this->getPersonalPrivateKey(self::KEY_SECONDARY)) {
+                $signkey = self::KEY_SECONDARY;
+            } else {
+                $key = $this->getPersonalPrivateKey();
+                $signkey = self::KEY_PRIMARY;
+            }
+        } else {
+            $key = $this->getPersonalPrivateKey($signkey);
+        }
+        if ($this->_smime->verifyPassphrase($key, $passphrase) !== false) {
             $session->set(
                 'imp',
                 $signkey ? 'smime_passphrase_sign' : 'smime_passphrase',

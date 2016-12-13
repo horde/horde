@@ -1103,7 +1103,11 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             switch ($encrypt) {
             case IMP_Smime::SIGN:
             case IMP_Smime::SIGNENC:
-                if (($passphrase = $imp_smime->getPassphrase()) === false) {
+                $passphrase_required = $imp_smime->getPassphrase(IMP_Smime::KEY_SECONDARY_OR_PRIMARY) === false;
+                if ($encrypt == IMP_Smime::SIGNENC) {
+                    $passphrase_required |= $imp_smime->getPassphrase(IMP_Smime::KEY_PRIMARY) === false;
+                }
+                if ($passphrase_required) {
                     $e = new IMP_Compose_Exception(
                         _("S/MIME Error: Need passphrase for personal private key.")
                     );

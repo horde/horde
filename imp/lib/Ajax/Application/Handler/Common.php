@@ -773,6 +773,7 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
 
         case 'smime':
             $type = 'smimePersonal';
+            $params['secondary'] = IMP_Smime::KEY_SECONDARY_OR_PRIMARY;
             break;
         }
 
