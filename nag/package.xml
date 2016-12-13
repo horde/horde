@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>false</active>
  </lead>
- <date>2016-11-09</date>
+ <date>2016-12-13</date>
  <version>
   <release>5.0.0</release>
   <api>5.0.0</api>
@@ -425,6 +425,7 @@
     <file name="14_nag_upgrade_search.php" role="horde" />
     <file name="15_nag_upgrade_addorganizer.php" role="horde" />
     <file name="16_nag_upgrade_addactual.php" role="horde" />
+    <file name="17_nag_upgrade_task_parent.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="task">
     <file name="complete.php" role="horde" />
@@ -964,6 +965,7 @@
    <install as="nag/migration/14_nag_upgrade_search.php" name="migration/14_nag_upgrade_search.php" />
    <install as="nag/migration/15_nag_upgrade_addorganizer.php" name="migration/15_nag_upgrade_addorganizer.php" />
    <install as="nag/migration/16_nag_upgrade_addactual.php" name="migration/16_nag_upgrade_addactual.php" />
+   <install as="nag/migration/17_nag_upgrade_task_parent.php" name="migration/17_nag_upgrade_task_parent.php" />
    <install as="nag/task/complete.php" name="task/complete.php" />
    <install as="nag/task/save.php" name="task/save.php" />
    <install as="nag/tasklists/create.php" name="tasklists/create.php" />
@@ -1809,7 +1811,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2016-11-09</date>
+   <date>2016-12-13</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Add support for monthly recurrence on last weekday (Request #1922).
