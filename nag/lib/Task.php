@@ -1528,8 +1528,11 @@ class Nag_Task
 
         try {
             $name = $vTodo->getAttribute('SUMMARY');
-            if (!is_array($name)) { $this->name = $name; }
-        } catch (Horde_Icalendar_Exception $e) {}
+            if (!is_array($name)) {
+                $this->name = $name;
+            }
+        } catch (Horde_Icalendar_Exception $e) {
+        }
 
         // Not sure why we were mapping the ORGANIZER to the person the
         // task is assigned to? If anything, this needs to be mapped to
