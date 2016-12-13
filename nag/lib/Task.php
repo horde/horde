@@ -1432,8 +1432,11 @@ class Nag_Task
 
         try {
             $name = $vTodo->getAttribute('SUMMARY');
-            if (!is_array($name)) { $this->name = $name; }
-        } catch (Horde_Icalendar_Exception $e) {}
+            if (!is_array($name)) {
+                $this->name = $name;
+            }
+        } catch (Horde_Icalendar_Exception $e) {
+        }
 
         try {
             $assignee = $vTodo->getAttribute('ORGANIZER');
