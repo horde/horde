@@ -348,19 +348,15 @@ class Horde_Crypt_Smime extends Horde_Crypt
      * Sign a message in S/MIME format using a private key.
      *
      * @param string $text   The text to be signed.
-     * @param array $params  The parameters needed for signing.
-     * <pre>
-     * Parameters:
-     * ===========
-     * 'certs'       =>  Additional signing certs (Optional)
-     * 'passphrase'  =>  Passphrase for key (REQUIRED)
-     * 'privkey'     =>  Private key (REQUIRED)
-     * 'pubkey'      =>  Public key (REQUIRED)
-     * 'sigtype'     =>  Determine the signature type to use. (Optional)
-     *                   'cleartext'  --  Make a clear text signature
-     *                   'detach'     --  Make a detached signature (DEFAULT)
-     * 'type'        =>  'signature' (REQUIRED)
-     * </pre>
+     * @param array $params  The (string) parameters needed for signing:
+     *     - 'certs':      Additional signing certs (Optional)
+     *     - 'passphrase': Passphrase for key (REQUIRED)
+     *     - 'privkey':    Private key (REQUIRED)
+     *     - 'pubkey':     Public key (REQUIRED)
+     *     - 'sigtype':    Determine the signature type to use. (Optional):
+     *       - 'cleartext': Make a clear text signature
+     *       - 'detach':    Make a detached signature (DEFAULT)
+     *     - 'type': 'signature' (REQUIRED)
      *
      * @return string  The signed message.
      * @throws Horde_Crypt_Exception
