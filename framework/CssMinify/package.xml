@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix minifying @font-face src attributes.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -143,7 +143,7 @@
    <date>2014-10-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix minifying @font-face src attributes.
    </notes>
   </release>
  </changelog>

@@ -88,7 +88,7 @@ class Horde_CssMinify_CssParser extends Horde_CssMinify
 
             $url = array();
             foreach ($parser->doc->getAllRuleSets() as $val) {
-                foreach ($val->getRules('background-') as $val2) {
+                foreach (array_merge($val->getRules('background-'), $val->getRules('src')) as $val2) {
                     $item = $val2->getValue();
 
                     if ($item instanceof Sabberworm\CSS\Value\URL) {
@@ -97,6 +97,12 @@ class Horde_CssMinify_CssParser extends Horde_CssMinify
                         foreach ($item->getListComponents() as $val3) {
                             if ($val3 instanceof Sabberworm\CSS\Value\URL) {
                                 $url[] = $val3;
+                            } elseif ($val3 instanceof Sabberworm\CSS\Value\RuleValueList) {
+                                foreach ($val3->getListComponents() as $val4) {
+                                    if ($val4 instanceof Sabberworm\CSS\Value\URL) {
+                                        $url[] = $val4;
+                                    }
+                                }
                             }
                         }
                     }
