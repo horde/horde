@@ -23,7 +23,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-09-01</date>
+ <date>2016-12-14</date>
  <version>
   <release>2.3.4</release>
   <api>2.3.0</api>
@@ -47,6 +47,7 @@
     <dir name="Horde">
      <dir name="Db">
       <file name="COPYING" role="doc" />
+      <file name="README" role="doc" />
       <file name="README_TESTING" role="doc" />
       <file name="TODO" role="doc" />
       <file name="UPGRADING" role="doc" />
@@ -284,6 +285,7 @@
   <filelist>
    <install as="horde-db-migrate-component" name="bin/horde-db-migrate-component" />
    <install as="COPYING" name="doc/Horde/Db/COPYING" />
+   <install as="README" name="doc/Horde/Db/README" />
    <install as="README_TESTING" name="doc/Horde/Db/README_TESTING" />
    <install as="TODO" name="doc/Horde/Db/TODO" />
    <install as="UPGRADING" name="doc/Horde/Db/UPGRADING" />
@@ -953,7 +955,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-09-01</date>
+   <date>2016-12-14</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * 

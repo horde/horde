@@ -1,0 +1,67 @@
+Horde_Db
+
+Horde_Db provides database connection abstraction and SQL compatibility tools for a number of database systems and PHP extensions. It currently supports the following databases and extensions:
+
++-------------+----------+
+|Database     |Extension |
++-------------+----------+
+|MySQL/MariaDB|mysql     |
+|             +----------+
+|             |mysqli    |
+|             +----------+
+|             |PDO_mysql |
++-------------+----------+
+|PostgreSQL   |PDO_pgsql |
++-------------+----------+
+|SQLite       |PDO_sqlite|
++-------------+----------+
+|Oracle       |oci8      |
++-------------+----------+
+
+Advanced features include:
+
+- Connection abstraction
+- SQL compatibility tools
+- Database schema management
+- Master/server configuration with queries split to write and read instances
+- BLOB/CLOB handling
+- Caching
+- Query logging
+
+Connection management
+
+Connecting to a database is as simple as instantiating a class implementing the Horde_Db_Adapter interface, providing the necessary connection parameters:
+
+MySQL
+
+Please note that the mysql PHP extension is deprecated as of PHP 7, as is the Horde_Db_Adapter_Mysql backend.
+
+$config = [
+    'host'     => 'localhost',
+    'username' => 'user',
+    'password' => 'secret',
+    'database' => 'db',
+];
+$db = new Horde_Db_Adapter_Mysqli($config);
+$db = new Horde_Db_Adapter_Pdo_Mysql($config);
+$db = new Horde_Db_Adapter_Mysql($config);
+
+Full list of connection parameters:
+
++---------------+---------+--------------------------------------+
+|Parameter      |Mandatory|Meaning                               |
++---------------+---------+--------------------------------------+
+|charset        |         |Connection character set              |
++---------------+---------+--------------------------------------+
+|database/dbname|         |Database name                         |
++---------------+---------+--------------------------------------+
+|host           |         |Host name, if using TCP connection (1)|
++---------------+---------+--------------------------------------+
+|port           |         |Port number, if using TCP connection  |
++---------------+---------+--------------------------------------+
+|socket         |         |Socket location, if using Unix sockets|
++---------------+---------+--------------------------------------+
+|username       |X        |Database user                         |
++---------------+---------+--------------------------------------+
+
+.:1 To workaround MySQL automatically using the unix socket if setting the host to 'localhost', the hostname will be translated from 'localhost' to '127.0.0.1' if using the TCP protocol
