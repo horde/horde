@@ -1,0 +1,116 @@
+#!/usr/bin/env php
+<?php
+/**
+ * This script validates all email addresses of an address book.
+ *
+ * Copyright 2016 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file LICENSE for license information (ASL).  If you
+ * did not receive this file, see http://www.horde.org/licenses/apache.
+ *
+ * @author Jan Schneider <jan@horde.org>
+ */
+
+if (file_exists(__DIR__ . '/../../turba/lib/Application.php')) {
+    $baseDir = __DIR__ . '/../';
+} else {
+    require_once 'PEAR/Config.php';
+    $baseDir = PEAR_Config::singleton()
+        ->get('horde_dir', null, 'pear.horde.org') . '/turba/';
+}
+require_once $baseDir . 'lib/Application.php';
+Horde_Registry::appInit('turba', array('cli' => true));
+
+$parser = new Horde_Argv_Parser(
+    array(
+        'optionList' => array(
+            new Horde_Argv_Option(
+                '-p',
+                '--parser',
+                array(
+                    'help' => 'Email address parser to use. Either "horde_form" or "horde_mail"',
+                    'choices' => array('horde_form', 'horde_mail'),
+                    'default' => 'horde_form'
+                )
+            ),
+            new Horde_Argv_Option(
+                '-s',
+                '--source',
+                array(
+                    'help' => 'Turba source to use.',
+                )
+            )
+        )
+    )
+);
+list($values,) = $parser->parseArgs();
+
+$config = new Horde_Registry_Loadconfig('turba', 'backends.php', 'cfgSources');
+$cfgSources = $config->config['cfgSources'];
+if (!isset($cfgSources[$values->source])) {
+    $cli->fatal("Source $values->source not found");
+}
+$cfgSource = $cfgSources[$values->source];
+if ($cfgSource['type'] != 'sql') {
+    $cli->fatal('Only SQL sources are supported');
+}
+if (!isset($cfgSource['map']['__key'])) {
+    $cli->fatal('No __key attribute in source definition');
+}
+$ownerColumn = isset($cfgSource['map']['__owner'])
+    ? $cfgSource['map']['__owner'] : null;
+
+$db = empty($cfgSource['params']['sql'])
+    ? $injector->getInstance('Horde_Db_Adapter')
+    : $injector->getInstance('Horde_Core_Factory_Db')
+        ->create('turba', $cfgSource['params']['sql']);
+
+switch ($values->parser) {
+case 'horde_form':
+    require 'Horde/Form/Type.php';
+    $type = new Horde_Form_Type_email();
+    $parser = function($email) use ($type) {
+        if (!$type->validateEmailAddress($email)) {
+            throw new Turba_Exception(
+                sprintf('"%s" is an invalid email address.', $email)
+            );
+        }
+    };
+    break;
+case 'horde_mail':
+    $mail = new Horde_Mail_Rfc822();
+    $parser = function($email) use ($mail) {
+        try {
+            $mail->parseAddressList($email, array('validate' => true));
+        } catch (Horde_Mail_Exception $e) {
+            throw new Turba_Exception($e);
+        }
+    };
+    break;
+default:
+    $cli->fatal('Invalid parser name: ' . $values->parser);
+}
+
+foreach ($cfgSource['map'] as $attribute => $column) {
+    if (!isset($attributes[$attribute]) ||
+        $attributes[$attribute]['type'] != 'email') {
+        continue;
+    }
+    $columns = array($cfgSource['map']['__key'], $column);
+    if ($ownerColumn) {
+        $columns[] = $ownerColumn;
+    }
+    $stm = $db->select(
+        'SELECT ' . implode(', ', $columns) . ' FROM ' . $cfgSource['params']['table']
+    );
+    foreach ($stm as $row) {
+        if (!strlen($row[$column])) {
+            continue;
+        }
+        try {
+            $parser($row[$column]);
+        } catch (Turba_Exception $e) {
+            fputcsv(STDOUT, $row);
+        }
+    }
+}

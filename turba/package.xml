@@ -28,7 +28,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2016-11-09</date>
+ <date>2016-12-14</date>
  <version>
   <release>5.0.0</release>
   <api>5.0.0</api>
@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [jan] Add CLI script to search for invalid email addresses.
 * [mjr] Remove Facebook driver.
 * [jan] Add second home and business phone fields to Kolab backend (Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;, Request #12776).
 * [jan] Change sort direction of birthday/anniversary year picker (Request #11837).
@@ -79,6 +80,7 @@
     <file name="turba-public-to-horde-share" role="script">
      <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
     </file>
+    <file name="turba-validate-email" role="script" />
    </dir> <!-- /bin -->
    <dir name="config">
     <file name=".htaccess" role="horde" />
@@ -897,6 +899,7 @@
    <install as="turba-import-squirrelmail-sql-abook" name="bin/turba-import-squirrelmail-sql-abook" />
    <install as="turba-import-vcards" name="bin/turba-import-vcards" />
    <install as="turba-public-to-horde-share" name="bin/turba-public-to-horde-share" />
+   <install as="turba-validate-email" name="bin/turba-validate-email" />
    <install as="turba/config/.htaccess" name="config/.htaccess" />
    <install as="turba/config/attributes.php" name="config/attributes.php" />
    <install as="turba/config/backends.php" name="config/backends.php" />
@@ -2164,7 +2167,7 @@
    </notes>
   </release>
   <release>
-   <date>2016-11-09</date>
+   <date>2016-12-14</date>
    <version>
     <release>5.0.0</release>
     <api>5.0.0</api>
@@ -2175,6 +2178,7 @@
    </stability>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [jan] Add CLI script to search for invalid email addresses.
 * [mjr] Remove Facebook driver.
 * [jan] Add second home and business phone fields to Kolab backend (Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;, Request #12776).
 * [jan] Change sort direction of birthday/anniversary year picker (Request #11837).
