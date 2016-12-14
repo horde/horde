@@ -155,7 +155,7 @@ $pkg_ob = new PEAR_Package_Parse();
 $pkgs = $pkg_ob->getPackages(array($srcDir));
 
 $cli->writeLn();
-$cli->message('Package(s) to install: ' . ((count($pkgs) === 1) ? reset($pkg) : 'ALL (' . count($pkgs) . ' packages)'));
+$cli->message('Package(s) to install: ' . ((count($pkgs) === 1) ? reset($pkgs) : 'ALL (' . count($pkgs) . ' packages)'));
 
 foreach ($pkgs as $key => $val) {
     if ($debug) {
