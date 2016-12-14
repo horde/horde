@@ -93,7 +93,7 @@ class Horde_Themes
             $theme_name = null;
 
             if ($val->isDir() &&
-                !$di->isDot() &&
+                !$val->isDot() &&
                 (@include $val->getPathname() . '/info.php')) {
                 $out[strval($val)] = $theme_name;
             }
