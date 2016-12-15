@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Don&apos;t show apps with &apos;admin&apos; status in menu (Bug #14526).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4349,7 +4349,7 @@
    <date>2016-12-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Don&apos;t show apps with &apos;admin&apos; status in menu (Bug #14526).
    </notes>
   </release>
  </changelog>

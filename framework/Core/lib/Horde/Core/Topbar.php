@@ -75,6 +75,7 @@ class Horde_Core_Topbar
                  (in_array($params['status'], array('heading', 'link')) ||
                   (in_array($params['status'], array('active', 'admin', 'noadmin', 'topbar')) &&
                   !($isAdmin && ($params['status'] == 'noadmin')) &&
+                  !(!$isAdmin && ($params['status'] == 'admin')) &&
                   $registry->hasPermission((!empty($params['app']) ? $params['app'] : $app), Horde_Perms::SHOW)))) {
                 $menu[$app] = $params;
             }
@@ -145,7 +146,11 @@ class Horde_Core_Topbar
             );
 
             /* Get a list of configurable applications. */
-            $prefs_apps = $registry->listApps(array('active', 'admin'), true, Horde_Perms::READ);
+            $prefs_apps = $registry->listApps(
+                array('active', $isAdmin ? 'admin' : 'noadmin'),
+                true,
+                Horde_Perms::READ
+            );
 
             if (!empty($prefs_apps['horde'])) {
                 $menu['prefs_' . 'horde'] = array(
