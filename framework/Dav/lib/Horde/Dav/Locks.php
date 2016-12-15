@@ -11,7 +11,8 @@
  * @package  Dav
  */
 
-use \Sabre\DAV\Locks;
+use Sabre\DAV;
+use Sabre\DAV\Locks;
 
 /**
  * A locking backend.
