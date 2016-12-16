@@ -12,7 +12,7 @@
  </lead>
  <date>2016-12-16</date>
  <version>
-  <release>1.0.7</release>
+  <release>1.0.8</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Avoid notice if packing an invalid UTF-8 string (Bug #14522).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -249,6 +249,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Avoid notice if packing an invalid UTF-8 string (Bug #14522).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.8</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-12-16</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
