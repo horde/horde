@@ -28,7 +28,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2016-09-06</date>
+ <date>2016-12-16</date>
  <version>
   <release>5.2.13</release>
   <api>5.2.0</api>
@@ -4132,7 +4132,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-09-06</date>
+   <date>2016-12-16</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [jan] Disallow setting of creator permissions too if sharing with world is disabled.
