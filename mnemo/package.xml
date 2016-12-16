@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* 
+* [jan] Update German translation.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1382,7 +1382,7 @@
    <date>2016-07-01</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* 
+* [jan] Update German translation.
    </notes>
   </release>
  </changelog>

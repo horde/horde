@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* 
+* [jan] Remove left over from 10-years-old code (Bug #14521).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2165,7 +2165,7 @@
    <date>2016-11-03</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* 
+* [jan] Remove left over from 10-years-old code (Bug #14521).
    </notes>
   </release>
  </changelog>
