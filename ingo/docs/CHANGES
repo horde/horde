@@ -1,6 +1,6 @@
------------
-v3.2.13-git
------------
+-------
+v3.2.13
+-------
 
 [jan] Convert vacation rules in preference backend from Ingo < 2.0.
 [jan] Fix some edge cases with Sieve vacation rules with date limits (Bug

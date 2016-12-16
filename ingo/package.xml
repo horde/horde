@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2016-09-06</date>
+ <date>2016-12-16</date>
  <version>
   <release>3.2.13</release>
   <api>3.2.0</api>
@@ -1688,7 +1688,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-09-06</date>
+   <date>2016-12-16</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Convert vacation rules in preference backend from Ingo &lt; 2.0.
