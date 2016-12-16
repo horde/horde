@@ -24,7 +24,7 @@
  </lead>
  <date>2016-12-16</date>
  <version>
-  <release>4.2.19</release>
+  <release>4.2.20</release>
   <api>4.2.0</api>
  </version>
  <stability>
@@ -33,9 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Fix allowing ics import on when user has edit permissions on a shared calendar (Bug #14501).
-* [jan] Disallow setting of creator permissions too if sharing with world is disabled.
-* [jan] Split shared users by linebreaks too.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2750,6 +2748,19 @@
 * [mjr] Fix allowing ics import on when user has edit permissions on a shared calendar (Bug #14501).
 * [jan] Disallow setting of creator permissions too if sharing with world is disabled.
 * [jan] Split shared users by linebreaks too.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.20</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-12-16</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
