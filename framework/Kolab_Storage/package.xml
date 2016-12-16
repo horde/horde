@@ -19,7 +19,7 @@
  </lead>
  <date>2016-12-16</date>
  <version>
-  <release>2.2.3</release>
+  <release>2.2.4</release>
   <api>2.2.0</api>
  </version>
  <stability>
@@ -28,9 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Fix detecting large number of messages when logging.
-* [jan] Update German translation.
-* [jan] Update Portuguese translation.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1455,6 +1453,19 @@
 * [jan] Fix detecting large number of messages when logging.
 * [jan] Update German translation.
 * [jan] Update Portuguese translation.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.4</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-12-16</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
