@@ -16,7 +16,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-12-03</date>
+ <date>2016-12-16</date>
  <version>
   <release>2.7.5</release>
   <api>2.7.0</api>
@@ -1184,7 +1184,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-12-03</date>
+   <date>2016-12-16</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix label for S/MIME Encrypted Key Usage attribute.
