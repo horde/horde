@@ -28,7 +28,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2016-11-03</date>
+ <date>2016-12-16</date>
  <version>
   <release>4.2.18</release>
   <api>4.0.0</api>
@@ -2162,7 +2162,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-11-03</date>
+   <date>2016-12-16</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Remove left over from 10-years-old code (Bug #14521).

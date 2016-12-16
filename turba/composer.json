@@ -26,8 +26,8 @@
             "role": "developer"
         }
     ],
-    "version": "4.2.17",
-    "time": "2016-11-03",
+    "version": "4.2.18",
+    "time": "2016-12-16",
     "repositories": [
         {
             "type": "pear",
