@@ -16,7 +16,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-07-02</date>
+ <date>2016-12-16</date>
  <version>
   <release>3.0.9</release>
   <api>3.0.0</api>
@@ -1230,7 +1230,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-07-01</date>
+   <date>2016-12-16</date>
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
    <notes>
 * [jan] Update German translation.
