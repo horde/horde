@@ -24,7 +24,7 @@
  </lead>
  <date>2016-12-16</date>
  <version>
-  <release>3.2.13</release>
+  <release>3.2.14</release>
   <api>3.2.0</api>
  </version>
  <stability>
@@ -33,8 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* [jan] Convert vacation rules in preference backend from Ingo &lt; 2.0.
-* [jan] Fix some edge cases with Sieve vacation rules with date limits (Bug #14486).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1693,6 +1692,19 @@
    <notes>
 * [jan] Convert vacation rules in preference backend from Ingo &lt; 2.0.
 * [jan] Fix some edge cases with Sieve vacation rules with date limits (Bug #14486).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.2.14</release>
+    <api>3.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-12-16</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
