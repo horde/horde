@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Update German translation.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -903,7 +903,7 @@ Initial packaging
    <date>2016-03-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Update German translation.
    </notes>
   </release>
  </changelog>
