@@ -1,11 +1,11 @@
 <?php
 /* Security release? */
-$notes['security'] = true;
+$notes['security'] = false;
 
 /* Mailing list release notes. */
 $notes['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Horde Groupware
-Webmail Edition version 5.2.16.
+Webmail Edition version 5.2.17.
 
 Horde Groupware Webmail Edition is a free, enterprise ready, browser based
 communication suite. Users can read, send and organize email messages with four
@@ -19,34 +19,44 @@ http://www.horde.org/apps/webmail/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/webmail/docs/INSTALL
 
-Thanks to Liuzhu for reporting the XSS vulnerability via data:text/html
-content.
-
-Thanks to Dawid Gounski for reporting the missing CSRF token in the
-configuration form and the XSS vulnerability with SVG images via Beyond
-Security's SecuriTeam Secure Disclosure program.
-
-Thanks to ssys GmbH for reporting the XSS vulnerability.
-
 The major changes compared to the Horde Groupware Webmail Edition version
-5.2.15 are:
-
-Security fixes:
-    * Fixed an XSS vulnerability via data:text/html content of form action and
-      xlink attributes.
-    * Added CSRF protection tokens to the portal layout forms.
-    * Fixed an open URL redirection in the portal layout forms.
-    * Enabled CSRF tokens in the configuration forms.
-    * Don't render SVG images in the browser to avoid XSS attacks
+5.2.16 are:
 
 General changes:
-    * Several bugfixes and improvements.
+    * Update German translation.
+    * Other minor bugfixes and improvements.
 
-Filter changes:
-    * Fixed creating of new spam folders.
+Horde changes:
+    * Disallow setting of creator permissions too if sharing with world is
+      disabled.
 
-Tasks changes:
-    * Fixed sorting of recurring tasks by due date.
+Mail Changes:
+    * Fix issue when forwarding an email to multiple recipients in Mobile view
+      (Bug #14060).
+    * Fix iTip MIME viewer actions if attachment type hasn't been specified.
+    * Add option to reload folder tree when fetching via the API.
+    * Update preview cache after permanently unblocking images from a sender
+      (Bug #14446).
+
+Filter Changes:
+    * Convert vacation rules in preference backend from Ingo < 2.0.
+    * Fix some edge cases with Sieve vacation rules with date limits
+      (Bug #14486).
+
+Address Book Changes:
+    * Fix regression in sorting contacts by a name field (Bug #14471).
+    * Fix regression in saving tags (Bug #14463).
+
+Calendar Changes:
+    * Fix allowing ics import on when user has edit permissions on a shared
+      calendar (Bug #14501).
+    * Disallow setting of creator permissions too if sharing with world is
+      disabled.
+    * Split shared users by linebreaks too.
+
+Files Changes:
+    * Use access rules compatible with both Apache 2.2 and 2.4.
+    * Fix fatal error when cutting and pasting files on the same backend.
 ML;
 
 $notes['name'] = 'Horde Groupware Webmail Edition';

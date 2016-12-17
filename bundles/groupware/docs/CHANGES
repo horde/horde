@@ -2,7 +2,124 @@
 v5.2.17-git
 -----------
 
+Horde Changes
+-------------
+[jan] Disallow setting of creator permissions too if sharing with world is
+      disabled.
 
+Address Book Changes
+--------------------
+
+[jan] Remove left over from 10-years-old code (Bug #14521).
+[mjr] Fix regression in sorting contacts by a name field (Bug #14471).
+[mjr] Fix regression in saving tags (Bug #14463).
+
+Bookmarks Changes
+-----------------
+
+[jan] Update German translation.
+
+
+Calendar Changes
+----------------
+
+[mjr] Fix allowing ics import on when user has edit permissions on a shared
+      calendar (Bug #14501).
+[jan] Disallow setting of creator permissions too if sharing with world is
+      disabled.
+[jan] Split shared users by linebreaks too.
+
+Files Changes
+-------------
+
+[jan] Update German translation.
+[jan] Update Portuguese translation.
+[jan] Update Basque translation.
+[jan] Add Greek translation (Limperis Antonis <limperis@cti.gr>).
+[jan] Use access rules compatible with both Apache 2.2 and 2.4.
+[jan] Fix fatal error when cutting and pasting files on the same backend.
+[jan] Update Italian translation.
+
+Notes Changes
+-------------
+
+[jan] Update German translation.
+
+Timeobject Changes
+------------------
+
+[jan] Update Basque translation.
+[jan] Update German translation.
+[jan] Add Greek translation (Limperis Antonis <limperis@cti.gr>).
+
+Library Changes
+---------------
+
+ActiveSync
+[mjr] Fix test issue on 32bit systems (Bug #14532).
+[mjr] Improve handling of case when IMAP server returns invalid HIGHESTMODSEQ values (DVT - Daten-Verarbeitung-Tirol GmbH).
+[mjr] Fix regression in initial synchronization.
+[mjr] Attempt to work around IMAP servers that report broken HIGHESTMODSEQ values.
+[mjr] Prevent invalid UTF-8 text in address fields.
+[mjr] Add support for EAS 16 draft email sync.
+[mjr] Close database connections while sleeping during PING requests.
+[mjr] Fix converting charset of subject and attachment names in certain cases (Bug #14457).
+[mjr] Changes to support attachment sync support for Appointment objects.
+
+Auth
+[jan] Use more efficient database access in SQL backend.
+
+Core
+[jan] Fix Horde_Form dependency (Bug #14460).
+[mjr] Fix BC break in Weather block (Bug #14473).
+[mjr] Fix locking user account after bad logins (Bug #14467).
+[mjr] Add support for EAS 16 draft email sync.
+[jan] Allow administrators to log in if preference backend is not available.
+[mjr] Log message headers on error when sending email via ActiveSync.
+[jan] Fix warning if an old locale is longer than 255 characters (Bug #14489).
+[jan] Fix abbreviated Norwegian month names in JavaScript to include trailing dot (Bug #14488).
+[jan] Fix reading session data from the command line with PHP 7.
+[mjr] Prevent building invalid HTML when building an email from a SMART_REPLY (Bug #14500).
+[mjr] Improve handling of certain ActiveSync failures.
+[jan] Fix parsing abbreviated Norwegian month names too (Bug #14503).
+[mjr] Fix Google Map API warnings (Bug #14525, arjen+horde@de-korte.org).
+[jan] Catch errors from NoSQL preference backend.
+[jan] Make &apos;hostspec&apos; parameter for MongoDB configuration optional again on PHP 7.
+[jan] Fix session preference driver.
+[jan] Don&apos;t pollute DB DSN with unknown parameters when using Cyrsql authentication driver.
+[mjr] Refresh mailbox list when retrieving for ActiveSync.
+[mjr] Add support for a activesync_mailboxlist hook.
+[jan] Don't show apps with 'admin' status in menu (Bug #14526).
+
+Crypt
+[mjr] Ensure version information is output in ASCII armored output.
+[jan] Fix parsing inline signed PGP messages with PHP 7+ (Bug #14352).
+[jan] Fix label for S/MIME Encrypted Key Usage attribute.
+
+Db
+[jan] Fix some PHP 7.2 issues.
+
+Imap_Client
+[jan] Fix parsing GETACL responses from RFC 4314 capable IMAP servers (Bug #14466).
+[mjr] Fix failed connections when using unix sockets (Thomas Jarosch <thomas.jarosch@intra2net.com>).
+[mjr] Fix command syntax for CREATE-SPECIAL-USE support.
+
+Mime
+[mjr] Fix regression caused by incorrect fix and test for Bug #14456 (Bug #14505).
+
+Nls
+[jan] Update country list.
+
+Pack
+[jan] Avoid notice if packing an invalid UTF-8 string (Bug #14522).
+
+Service_Weather
+[mjr] Replace defunct data source for surface station data (Bug #14502).
+[mjr] Create standalone CLI script for generation of metar station data.
+[mjr] Improve metar table creation performance.
+
+Vfs
+[jan] Use more efficient database access in SQL backend.
 
 -------
 v5.2.16

@@ -1,11 +1,11 @@
 <?php
 /* Security release? */
-$notes['security'] = true;
+$notes['security'] = false;
 
 /* Mailing list release notes. */
 $notes['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Horde Groupware
-version 5.2.16.
+version 5.2.17.
 
 Horde Groupware is a free, enterprise ready, browser based collaboration
 suite. Users can manage and share calendars, contacts, tasks, notes, files, and
@@ -17,30 +17,31 @@ http://www.horde.org/apps/groupware/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/groupware/docs/INSTALL
 
-Thanks to Liuzhu for reporting the XSS vulnerability via data:text/html
-content.
-
-Thanks to Dawid Gounski for reporting the missing CSRF token in the
-configuration form and the XSS vulnerability with SVG images via Beyond
-Security's SecuriTeam Secure Disclosure program.
-
-Thanks to ssys GmbH for reporting the XSS vulnerability.
-
-The major changes compared to the Horde Groupware version 5.2.15 are:
-
-Security fixes:
-    * Fixed an XSS vulnerability via data:text/html content of form action and
-      xlink attributes.
-    * Added CSRF protection tokens to the portal layout forms.
-    * Fixed an open URL redirection in the portal layout forms.
-    * Enabled CSRF tokens in the configuration forms.
-    * Don't render SVG images in the browser to avoid XSS attacks
+The major changes compared to the Horde Groupware version 5.2.16 are:
 
 General changes:
-    * Several bugfixes and improvements.
+    * Update German translation.
+    * Other minor bugfixes and improvements.
 
-Tasks changes:
-    * Fixed sorting of recurring tasks by due date.
+Horde changes:
+    * Disallow setting of creator permissions too if sharing with world is
+      disabled.
+
+Address Book Changes:
+    * Fix regression in sorting contacts by a name field (Bug #14471).
+    * Fix regression in saving tags (Bug #14463).
+
+Calendar Changes:
+    * Fix allowing ics import on when user has edit permissions on a shared
+      calendar (Bug #14501).
+    * Disallow setting of creator permissions too if sharing with world is
+      disabled.
+    * Split shared users by linebreaks too.
+
+Files Changes:
+    * Use access rules compatible with both Apache 2.2 and 2.4.
+    * Fix fatal error when cutting and pasting files on the same backend.
+
 ML;
 
 $notes['name'] = 'Horde Groupware';
