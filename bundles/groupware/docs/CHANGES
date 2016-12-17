@@ -9,20 +9,16 @@ Horde Changes
 
 Address Book Changes
 --------------------
-
 [jan] Remove left over from 10-years-old code (Bug #14521).
 [mjr] Fix regression in sorting contacts by a name field (Bug #14471).
 [mjr] Fix regression in saving tags (Bug #14463).
 
 Bookmarks Changes
 -----------------
-
 [jan] Update German translation.
-
 
 Calendar Changes
 ----------------
-
 [mjr] Fix allowing ics import on when user has edit permissions on a shared
       calendar (Bug #14501).
 [jan] Disallow setting of creator permissions too if sharing with world is
@@ -31,7 +27,6 @@ Calendar Changes
 
 Files Changes
 -------------
-
 [jan] Update German translation.
 [jan] Update Portuguese translation.
 [jan] Update Basque translation.
@@ -42,12 +37,15 @@ Files Changes
 
 Notes Changes
 -------------
-
 [jan] Update German translation.
+
+Tasks Changes
+-------------
+[mjr] Fix fatal error caused by regression in sorting recurring tasks with due
+      dates (Bug #14504).
 
 Timeobject Changes
 ------------------
-
 [jan] Update Basque translation.
 [jan] Update German translation.
 [jan] Add Greek translation (Limperis Antonis <limperis@cti.gr>).

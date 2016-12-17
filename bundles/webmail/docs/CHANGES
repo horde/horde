@@ -55,6 +55,12 @@ Notes Changes
 -------------
 [jan] Update German translation.
 
+Tasks Changes
+-------------
+[jan] Fix sorting by due date with PHP < 5.5 (Bug #14507).
+[mjr] Fix fatal error caused by regression in sorting recurring tasks with due
+      dates (Bug #14504).
+
 Timeobject Changes
 ------------------
 [jan] Update Basque translation.

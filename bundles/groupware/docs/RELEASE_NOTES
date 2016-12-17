@@ -38,6 +38,11 @@ Calendar Changes:
       disabled.
     * Split shared users by linebreaks too.
 
+Tasks Changes:
+  * Fix sorting by due date with PHP < 5.5 (Bug #14507).
+  * Fix fatal error caused by regression in sorting recurring tasks with due
+    dates (Bug #14504).
+
 Files Changes:
     * Use access rules compatible with both Apache 2.2 and 2.4.
     * Fix fatal error when cutting and pasting files on the same backend.
