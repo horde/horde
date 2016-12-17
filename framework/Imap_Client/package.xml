@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mjr] Fix command syntax for CREATE-SPECIAL-USE support.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3076,7 +3076,7 @@
    <date>2016-12-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mjr] Fix command syntax for CREATE-SPECIAL-USE support.
    </notes>
   </release>
  </changelog>
