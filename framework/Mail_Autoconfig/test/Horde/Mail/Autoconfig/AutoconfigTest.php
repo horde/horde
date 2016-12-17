@@ -43,9 +43,9 @@ class Horde_Mail_Autoconfig_AutoconfigTest extends Horde_Test_Case
      */
     public function testGetMsaConfigWithoutAuth($email, $success)
     {
-        if (!$email) {
+       // if (!$email) {
             $this->markTestSkipped();
-        }
+        //}
 
         $config = $this->aconfig->getMsaConfig($email);
 
@@ -61,9 +61,9 @@ class Horde_Mail_Autoconfig_AutoconfigTest extends Horde_Test_Case
      */
     public function testGetMailConfigWithoutAuth($email, $success)
     {
-        if (!$email) {
+        //if (!$email) {
             $this->markTestSkipped();
-        }
+        //}
 
         $config = $this->aconfig->getMailConfig($email);
 
