@@ -1260,11 +1260,13 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $this->_getMboxFormatOb($mailbox)
         );
 
+        // RFC 6154 Sec. 3
         if (!empty($opts['special_use'])) {
-            $cmd->add(array(
-                'USE',
+            $use = new Horde_Imap_Client_Data_Format_List('USE');
+            $use->add(
                 new Horde_Imap_Client_Data_Format_List($opts['special_use'])
-            ));
+            );
+            $cmd->add($use);
         }
 
         // CREATE returns no untagged information (RFC 3501 [6.3.3])
