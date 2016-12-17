@@ -27,12 +27,14 @@ class Horde_Imap_Client_Live_Imap extends Horde_Imap_Client_Live_Base
 {
     const DEFAULT_MBOX = '_____TestMailboxTest';
     const DEFAULT_MBOX_UTF8 = '_____TestMailboxTest1è';
+    const DEFAULT_SPAM_MBOX = '____TestMailboxSpam';
 
     public static $config;
 
     private static $created;
     private static $test_mbox;
     private static $test_mbox_utf8;
+    private static $test_spam_mailbox;
 
     public static function setUpBeforeClass()
     {
@@ -45,7 +47,9 @@ class Horde_Imap_Client_Live_Imap extends Horde_Imap_Client_Live_Base
         self::$test_mbox_utf8 = isset($c['test_mbox_utf8'])
             ? $c['test_mbox_utf8']
             : self::DEFAULT_MBOX_UTF8;
-
+        self::$test_spam_mailbox = isset($c['test_spam_mailbox'])
+            ? $c['test_spam_mailbox']
+            : self::DEFAULT_SPAM_MBOX;
         try {
             $c['client_config']['cache'] = array(
                 'cacheob' => new Horde_Cache(
@@ -172,7 +176,24 @@ class Horde_Imap_Client_Live_Imap extends Horde_Imap_Client_Live_Base
 
         self::$test_mbox = $ns_prefix . self::$test_mbox;
         self::$test_mbox_utf8 = $ns_prefix . self::$test_mbox_utf8;
+        self::$test_spam_mailbox = $ns_prefix . self::$test_spam_mailbox;
         self::$created = true;
+    }
+
+    /**
+     * @depends testNamespaces
+     */
+    public function testCreateSpecialMailbox()
+    {
+        // Delete if it exists
+        try {
+            self::$live->deleteMailbox(self::$test_spam_mailbox);
+        } catch (Horde_Imap_Client_Exception $e) {}
+        // @todo check rfc support
+        self::$live->createMailbox(
+            self::$test_spam_mailbox,
+            array('special_use' => '\Junk')
+        );
     }
 
     /**
