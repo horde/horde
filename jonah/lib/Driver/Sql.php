@@ -66,39 +66,48 @@ class Jonah_Driver_Sql extends Jonah_Driver
     public function saveChannel(&$info)
     {
         if (empty($info['channel_id'])) {
-            $info['channel_id'] = $this->_db->nextId('jonah_channels');
-            if ($info['channel_id'] instanceof PEAR_Error) {
-                Horde::log($info['channel_id'], 'ERR');
-                throw new Jonah_Exception($info['channel_id']);
-            }
-            $sql = 'INSERT INTO jonah_channels' .
-                   ' (channel_id, channel_slug, channel_name, channel_type, channel_desc, channel_interval, channel_url, channel_link, channel_page_link, channel_story_url, channel_img)' .
-                   ' VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+            $sql = 'INSERT INTO jonah_channels'
+               . ' (channel_slug, channel_name, channel_type,'
+               . ' channel_desc, channel_interval, channel_url,'
+               . ' channel_link, channel_page_link, channel_story_url,'
+               . ' channel_img)' .
+               ' VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
             $values = array();
         } else {
-            $sql = 'UPDATE jonah_channels' .
-                   ' SET channel_id = ?, channel_slug = ?, channel_name = ?, channel_type = ?, channel_desc = ?, channel_interval = ?, channel_url = ?, channel_link = ?, channel_page_link = ?, channel_story_url = ?, channel_img = ?' .
-                   ' WHERE channel_id = ?';
+            $sql = 'UPDATE jonah_channels '
+                . 'SET channel_slug = ?, channel_name = ?, channel_type = ?,'
+                . 'channel_desc = ?, channel_interval = ?, channel_url = ?,'
+                . 'channel_link = ?, channel_page_link = ?,'
+                . 'channel_story_url = ?, channel_img = ? '
+                . 'WHERE channel_id = ?';
             $values = array((int)$info['channel_id']);
         }
-
         array_unshift($values,
-                      (int)$info['channel_id'],
-                      Horde_String::convertCharset($info['channel_slug'], 'UTF-8', $this->_params['charset']),
-                      Horde_String::convertCharset($info['channel_name'], 'UTF-8', $this->_params['charset']),
-                      (int)$info['channel_type'],
-                      isset($info['channel_desc']) ? $info['channel_desc'] : null,
-                      isset($info['channel_interval']) ? (int)$info['channel_interval'] : null,
-                      isset($info['channel_url']) ? $info['channel_url'] : null,
-                      isset($info['channel_link']) ? $info['channel_link'] : null,
-                      isset($info['channel_page_link']) ? $info['channel_page_link'] : null,
-                      isset($info['channel_story_url']) ? $info['channel_story_url'] : null,
-                      isset($info['channel_img']) ? $info['channel_img'] : null);
+            Horde_String::convertCharset($info['channel_slug'], 'UTF-8', $this->_params['charset']),
+            Horde_String::convertCharset($info['channel_name'], 'UTF-8', $this->_params['charset']),
+            (int)$info['channel_type'],
+            isset($info['channel_desc']) ? $info['channel_desc'] : null,
+            isset($info['channel_interval']) ? (int)$info['channel_interval'] : null,
+            isset($info['channel_url']) ? $info['channel_url'] : null,
+            isset($info['channel_link']) ? $info['channel_link'] : null,
+            isset($info['channel_page_link']) ? $info['channel_page_link'] : null,
+            isset($info['channel_story_url']) ? $info['channel_story_url'] : null,
+            isset($info['channel_img']) ? $info['channel_img'] : null
+        );
+
         Horde::log('SQL Query by Jonah_Driver_sql::saveChannel(): ' . $sql, 'DEBUG');
-        $result = $this->_db->query($sql, $values);
-        if ($result instanceof PEAR_Error) {
-            Horde::log($result, 'ERR');
-            throw new Jonah_Exception($result);
+        if (empty($info['channel_id'])) {
+            try {
+                return $this->_db->insert($sql, $values);
+            } catch (Horde_Db_Exception $e) {
+                throw new Jonah_Exception($e);
+            }
+        }
+        try {
+            $this->_db->update($sql, $values);
+        } catch (Horde_Db_Exception $e) {
+            Horde::log($e->getMessage(), 'ERR');
+            throw new Jonah_Exception($e);
         }
 
         return $info['channel_id'];
@@ -107,24 +116,32 @@ class Jonah_Driver_Sql extends Jonah_Driver
     /**
      * Get a list of stored channels.
      *
-     * @return mixed         An array of channels.
+     * @return mixed  An array of channels.
      * @throws Jonah_Exception
      */
     public function getChannels()
     {
         // @TODO: Remove channel_type filter when tables are updated.
-        $sql = 'SELECT channel_id, channel_name, channel_type, channel_updated FROM jonah_channels WHERE channel_type = ' . Jonah::INTERNAL_CHANNEL . ' ORDER BY channel_name';
+        $sql = 'SELECT channel_id, channel_name, channel_type, channel_updated '
+            . 'FROM jonah_channels '
+            . 'WHERE channel_type = ' . Jonah::INTERNAL_CHANNEL
+            . ' ORDER BY channel_name';
         Horde::log('SQL Query by Jonah_Driver_sql::getChannels(): ' . $sql, 'DEBUG');
-        $result = $this->_db->getAll($sql, DB_FETCHMODE_ASSOC);
-        if ($result instanceof PEAR_Error) {
-            Horde::log($result, 'ERR');
-            throw new Jonah_Exception($result);
+        try {
+            $rows = $this->_db->selectAll($sql);
+        } catch (Horde_Db_Exception $e) {
+            Horde::log($e->getMessage(), 'ERR');
+            throw new Jonah_Exception($e);
         }
-        for ($i = 0; $i < count($result); $i++) {
-            $result[$i]['channel_name'] = Horde_String::convertCharset($result[$i]['channel_name'], $this->_params['charset'], 'UTF-8');
+        foreach ($rows as &$row) {
+            $row['channel_name'] = Horde_String::convertCharset(
+                $row['channel_name'],
+                $this->_params['charset'],
+                'UTF-8'
+            );
         }
 
-        return $result;
+        return $rows;
     }
 
     /**
@@ -136,17 +153,17 @@ class Jonah_Driver_Sql extends Jonah_Driver
      */
     protected function _getChannel($channel_id)
     {
-        $sql = 'SELECT * FROM jonah_channels WHERE channel_id = ' . (int)$channel_id;
-
+        $sql = 'SELECT * FROM jonah_channels WHERE channel_id = ?';
         Horde::log('SQL Query by Jonah_Driver_sql::_getChannel(): ' . $sql, 'DEBUG');
-        $result = $this->_db->getRow($sql, DB_FETCHMODE_ASSOC);
-        if ($result instanceof PEAR_Error) {
-            Horde::log($result, 'ERR');
-            throw new Jonah_Exception($result);
-        } elseif (empty($result)) {
+        try {
+            $result = $this->_db->selectOne($sql, array((int)$channel_id));
+        } catch (Horde_Db_Exception $e) {
+            Horde::log($e->getMessage(), 'ERR');
+            throw new Jonah_Exception($e);
+        }
+        if (empty($result)) {
             throw new Horde_Exception_NotFound(sprintf(_("Channel id \"%s\" not found."), $channel_id));
         }
-
         return $result;
     }
 
@@ -161,17 +178,15 @@ class Jonah_Driver_Sql extends Jonah_Driver
      */
     protected function _timestampChannel($channel_id, $timestamp)
     {
-        $sql = sprintf('UPDATE jonah_channels SET channel_updated = %s WHERE channel_id = %s',
-                       (int)$timestamp,
-                       (int)$channel_id);
+        $sql = 'UPDATE jonah_channels SET channel_updated = ? WHERE channel_id = ?';
+        $params = array((int)$timestamp, (int)$channel_id);
         Horde::log('SQL Query by Jonah_Driver_sql::_timestampChannel(): ' . $sql, 'DEBUG');
-        $result = $this->_db->query($sql);
-        if ($result instanceof PEAR_Error) {
-            Horde::log($result, 'ERR');
-            throw new Jonah_Exception($result);
+        try {
+            return $this->_db->update($sql, $params);
+        } catch (Horde_Db_Exception $e) {
+            Horde::log($e->getMessage(), 'ERR');
+            throw new Jonah_Exception($e);
         }
-
-        return $result;
     }
 
     /**
@@ -182,15 +197,16 @@ class Jonah_Driver_Sql extends Jonah_Driver
      */
     protected function _readStory($story_id)
     {
-        $sql = 'UPDATE jonah_stories SET story_read = story_read + 1 WHERE story_id = ' . (int)$story_id;
+        $sql = 'UPDATE jonah_stories SET '
+            . 'story_read = story_read + 1 '
+            . 'WHERE story_id = ?';
         Horde::log('SQL Query by Jonah_Driver_sql::_readStory(): ' . $sql, 'DEBUG');
-        $result = $this->_db->query($sql);
-        if ($result instanceof PEAR_Error) {
-            Horde::log($result, 'ERR');
-            throw new Jonah_Exception($result);
+        try {
+            return $this->_db->update($sql, array((int)$story_id));
+        } catch (Horde_Db_Exception $e) {
+            Horde::log($e->getMessage(), 'ERR');
+            throw new Jonah_Exception($e);
         }
-
-        return $result;
     }
 
     /**
@@ -200,21 +216,17 @@ class Jonah_Driver_Sql extends Jonah_Driver
      *
      * @return boolean.
      * @throws Jonah_Exception
-     *
      */
     protected function _deleteChannel($channel_id)
     {
         $sql = 'DELETE FROM jonah_channels WHERE channel_id = ?';
-        $values = array($channel_id);
-
         Horde::log('SQL Query by Jonah_Driver_sql::deleteChannel(): ' . $sql, 'DEBUG');
-        $result = $this->_db->query($sql, $values);
-        if ($result instanceof PEAR_Error) {
-            Horde::log($result, 'ERR');
-            throw new Jonah_Exception($result);
+        try {
+           return $this->_db->delete($sql,  array($channel_id));
+        } catch (Horde_Db_Exception $e) {
+            Horde::log($e->getMessage(), 'ERR');
+            throw new Jonah_Exception($e);
         }
-
-        return $result;
     }
 
     /**
@@ -225,19 +237,48 @@ class Jonah_Driver_Sql extends Jonah_Driver
      */
     protected function _saveStory(&$info)
     {
+        $values = array(
+            (int)$info['channel_id'],
+            Horde_String::convertCharset($info['author'], 'UTF-8', $this->_params['charset']),
+            Horde_String::convertCharset($info['title'], 'UTF-8', $this->_params['charset']),
+            Horde_String::convertCharset($info['description'], 'UTF-8', $this->_params['charset']),
+            $info['body_type'],
+            isset($info['body']) ? Horde_String::convertCharset($info['body'], 'UTF-8', $this->_params['charset']) : null,
+            isset($info['url']) ? $info['url'] : null,
+            isset($info['published']) ? (int)$info['published'] : null,
+            time(),
+            (int)$info['read']
+        );
         if (empty($info['id'])) {
-            $info['id'] = $this->_db->nextId('jonah_stories');
-            if ($info['id'] instanceof PEAR_Error) {
-                Horde::log($info['id'], 'ERR');
-                throw new Jonah_Exception($info['id']);
-            }
             $channel = $this->getChannel($info['channel_id']);
-            $permalink = $this->getStoryLink($channel, $info);
-            $sql = 'INSERT INTO jonah_stories (story_id, channel_id, story_author, story_title, story_desc, story_body_type, story_body, story_url, story_published, story_updated, story_read, story_permalink) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-            $values = array($permalink);
+            $sql = 'INSERT INTO jonah_stories (channel_id, '
+            . 'story_author, story_title, story_desc, story_body_type, '
+            . 'story_body, story_url, story_published, story_updated, '
+            . 'story_read) '
+            . 'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+            Horde::log('SQL Query by Jonah_Driver_sql::_saveStory(): ' . $sql, 'DEBUG');
+            try {
+                $id = $this->_db->insert($sql, $values);
+                $info['story_id'] = (int)$id;
+            } catch (Horde_Db_Exception $e) {
+                Horde::log($e->getMessage(), 'ERR');
+                throw new Jonah_Exception($e);
+            }
+            $this->_addPermalink($info);
         } else {
-            $sql = 'UPDATE jonah_stories SET story_id = ?, channel_id = ?, story_author = ?, story_title = ?, story_desc = ?, story_body_type = ?, story_body = ?, story_url = ?, story_published = ?, story_updated = ?, story_read = ? WHERE story_id = ?';
-            $values = array((int)$info['id']);
+            $values[] = $info['id'];
+            $sql = 'UPDATE jonah_stories SET channel_id = ?, '
+                . 'story_author = ?, story_title = ?, story_desc = ?, '
+                . 'story_body_type = ?, story_body = ?, story_url = ?, '
+                . 'story_published = ?, story_updated = ?, story_read = ? '
+                . 'WHERE story_id = ?';
+            Horde::log('SQL Query by Jonah_Driver_sql::_saveStory(): ' . $sql, 'DEBUG');
+            try {
+                $this->_db->update($sql, $values);
+            } catch (Horde_Db_Exception $e) {
+                Horde::log($e->getMessage(), 'ERR');
+                throw new Jonah_Exception($e);
+            }
         }
 
         if (empty($info['read'])) {
@@ -251,26 +292,6 @@ class Jonah_Driver_Sql extends Jonah_Driver
             $tags = array();
         }
         $this->writeTags($info['id'], $info['channel_id'], $tags);
-
-        array_unshift($values,
-                      (int)$info['id'],
-                      (int)$info['channel_id'],
-                      Horde_String::convertCharset($info['author'], 'UTF-8', $this->_params['charset']),
-                      Horde_String::convertCharset($info['title'], 'UTF-8', $this->_params['charset']),
-                      Horde_String::convertCharset($info['description'], 'UTF-8', $this->_params['charset']),
-                      $info['body_type'],
-                      isset($info['body']) ? Horde_String::convertCharset($info['body'], 'UTF-8', $this->_params['charset']) : null,
-                      isset($info['url']) ? $info['url'] : null,
-                      isset($info['published']) ? (int)$info['published'] : null,
-                      time(),
-                      (int)$info['read']);
-
-        Horde::log('SQL Query by Jonah_Driver_sql::_saveStory(): ' . $sql, 'DEBUG');
-        $result = $this->_db->query($sql, $values);
-        if ($result instanceof PEAR_Error) {
-            Horde::log($result, 'ERR');
-            throw new Jonah_Exception($result);
-        }
         $this->_timestampChannel($info['id'], time());
 
         return true;
@@ -286,13 +307,28 @@ class Jonah_Driver_Sql extends Jonah_Driver
      */
     protected function _convertFromBackend($story)
     {
-        $story['title'] = Horde_String::convertCharset($story['title'], $this->_params['charset'], 'UTF-8');
-        $story['description'] = Horde_String::convertCharset($story['description'], $this->_params['charset'], 'UTF-8');
+        $story['title'] = Horde_String::convertCharset(
+            $story['title'],
+            $this->_params['charset'], 'UTF-8'
+        );
+        $story['description'] = Horde_String::convertCharset(
+            $story['description'],
+            $this->_params['charset'],
+            'UTF-8'
+        );
         if (isset($story['body'])) {
-            $story['body'] = Horde_String::convertCharset($story['body'], $this->_params['charset'], 'UTF-8');
+            $story['body'] = Horde_String::convertCharset(
+                $story['body'],
+                $this->_params['charset'],
+                'UTF-8'
+            );
         }
         if (isset($story['tags'])) {
-            $story['tags'] = Horde_String::convertCharset($story['tags'], $this->_params['charset'], 'UTF-8');
+            $story['tags'] = Horde_String::convertCharset(
+                $story['tags'],
+                $this->_params['charset'],
+                'UTF-8'
+            );
         }
 
         return $story;
@@ -308,10 +344,10 @@ class Jonah_Driver_Sql extends Jonah_Driver
     public function getChannelId($channel)
     {
         $sql = 'SELECT channel_id FROM jonah_channels WHERE channel_slug = ?';
-        $values = array($channel);
-        $result = $this->_db->getOne($sql, $values);
-        if ($result instanceof PEAR_Error) {
-            throw new Jonah_Exception($result);
+        try {
+            return $this->_db->selectValue($sql, array($channel));
+        } catch (Horde_Db_Exception $e) {
+            throw new Jonah_Exception($e);
         }
 
         return $result;
@@ -327,9 +363,10 @@ class Jonah_Driver_Sql extends Jonah_Driver
     public function getStoryCount($channel_id)
     {
         $sql = 'SELECT count(*) FROM jonah_stories WHERE channel_id = ?';
-        $result = $this->_db->getOne($sql, $channel_id);
-        if ($result instanceof PEAR_Error) {
-            throw new Jonah_Exception($result);
+        try {
+            return $this->_db->selectValue($sql, array($channel_id));
+        } catch (Horde_Db_Exception $e) {
+            throw new Jonah_Exception($e);
         }
 
         return (int)$result;
@@ -455,24 +492,18 @@ class Jonah_Driver_Sql extends Jonah_Driver
         $start = isset($criteria['startnumber']) ? $criteria['startnumber'] : 0;
         Horde::log('SQL Query by Jonah_Driver_sql::_getStories(): ' . $sql, 'DEBUG');
         if ($limit || $start != 0) {
-            $results = array();
-            $rows = $this->_db->limitQuery($sql, $start, $limit, $values);
-            if ($rows instanceof PEAR_Error) {
-                throw new Jonah_Exception($rows);
-            }
-            while ($rows->fetchInto($row, DB_FETCHMODE_ASSOC)) {
-                $results[] = $row;
-            }
-        } else {
-            $results = $this->_db->getAll($sql, $values, DB_FETCHMODE_ASSOC);
-            if ($results instanceof PEAR_Error) {
-                throw new Jonah_Exception($results);
-            }
+            $sql = $this->_db->addLimitOffset($sql, array('limit' => $limit, 'offset' => $start));
+        }
+        try {
+           $results = $this->_db->selectAll($sql, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Jonah_Exception($e);
         }
 
         foreach ($results as &$row) {
             $row['tags'] = $this->readTags($row['id']);
         }
+
         return $results;
     }
 
@@ -516,14 +547,14 @@ class Jonah_Driver_Sql extends Jonah_Driver
            'stories.story_read AS readcount ' .
            'FROM jonah_stories AS stories WHERE stories.story_id=?';
 
-        $values = array((int)$story_id);
-
         Horde::log('SQL Query by Jonah_Driver_sql::_getStory(): ' . $sql, 'DEBUG');
-        $result = $this->_db->getRow($sql, $values, DB_FETCHMODE_ASSOC);
-        if ($result instanceof PEAR_Error) {
-            Horde::log($result, 'ERR');
-            throw new Jonah_Exception($result);
-        } elseif (empty($result)) {
+        try {
+            $result = $this->_db->selectOne($sql, array((int)$story_id));
+        } catch (Horde_Db_Exception $e) {
+            Horde::log($e->getMessage(), 'ERR');
+            throw new Jonah_Exception($e);
+        }
+        if (empty($result)) {
             throw new Horde_Exception_NotFound(sprintf(_("Story id \"%s\" not found."), $story_id));
         }
         $result['tags'] = $this->readTags($story_id);
@@ -539,19 +570,24 @@ class Jonah_Driver_Sql extends Jonah_Driver
      * Adds a missing permalink to a story.
      *
      * @param array $story  A story hash.
+     *
      * @throws Jonah_Exception
      */
     protected function _addPermalink(&$story)
     {
         $channel = $this->getChannel($story['channel_id']);
         $sql = 'UPDATE jonah_stories SET story_permalink = ? WHERE story_id = ?';
-        $values = array($this->getStoryLink($channel, $story), $story['id']);
+        $link = $this->getStoryLink($channel, $story);
         Horde::log('SQL Query by Jonah_Driver_sql::_addPermalink(): ' . $sql, 'DEBUG');
-        $result = $this->_db->query($sql, $values);
-        if ($result instanceof PEAR_Error) {
+        try {
+            $this->_db->update(
+                $sql,
+                array($link, $story['id'])
+            );
+        } catch (Horde_Db_Exception $e) {
             throw new Jonah_Exception($result);
         }
-        $story['permalink'] = $values[0];
+        $story['permalink'] = $link;
     }
 
     /**
@@ -568,18 +604,19 @@ class Jonah_Driver_Sql extends Jonah_Driver
         $sql = 'SELECT story_id FROM jonah_stories' .
                ' WHERE channel_id = ? AND story_published <= ?' .
                ' ORDER BY story_updated DESC';
-        $values = array((int)$channel_id, time());
 
         Horde::log('SQL Query by Jonah_Driver_sql::getLatestStoryId(): ' . $sql, 'DEBUG');
-        $result = $this->_db->getRow($sql, $values, DB_FETCHMODE_ASSOC);
-        if ($result instanceof PEAR_Error) {
-            Horde::log($result, 'ERR');
-            throw new Jonah_Exception($result);
-        } elseif (empty($result)) {
+        try {
+            $result = $this->_db->selectValue($sql, array((int)$channel_id, time()));
+        } catch (Horde_Db_Exception $e) {
+            Horde::log($e->getMessage(), 'ERR');
+            throw new Jonah_Exception($e);
+        }
+        if (empty($result)) {
             return Horde_Exception_NotFound(sprintf(_("Channel \"%s\" not found."), $channel_id));
         }
 
-        return $result['story_id'];
+        return $result;
     }
 
     /**
@@ -591,21 +628,21 @@ class Jonah_Driver_Sql extends Jonah_Driver
         $values = array((int)$channel_id, (int)$story_id);
 
         Horde::log('SQL Query by Jonah_Driver_sql::deleteStory(): ' . $sql, 'DEBUG');
-        $result = $this->_db->query($sql, $values);
-        if ($result instanceof PEAR_Error) {
-            Horde::log($result->getMessage(), 'ERR');
-            throw new Jonah_Exception($result);
+        try {
+            $this->_db->delete($sql, $values);
+        } catch (Horde_Db_Exception $e) {
+            Horde::log($e->getMessage(), 'ERR');
+            throw new Jonah_Exception($e);
         }
 
         $sql = 'DELETE FROM jonah_stories_tags ' .
                'WHERE channel_id = ? AND story_id = ?';
-        $result = $this->_db->query($sql, $values);
-        if ($result instanceof PEAR_Error) {
-            Horde::log($result->getMessage(), 'ERR');
-            throw new Jonah_Exception($result);
+        try {
+            $this->_db->delete($sql, $values);
+        } catch (Horde_Db_Exception $e) {
+            Horde::log($e->getMessage(), 'ERR');
+            throw new Jonah_Exception($e);
         }
-
-        return true;
     }
 
     /**
@@ -625,35 +662,34 @@ class Jonah_Driver_Sql extends Jonah_Driver
 
         // First, make sure all tag names exist in the DB.
         $tagkeys = array();
-        $insert = $this->_db->prepare('INSERT INTO jonah_tags (tag_id, tag_name) VALUES(?, ?)');
-        $query = $this->_db->prepare('SELECT tag_id FROM jonah_tags WHERE tag_name = ?');
+        $insert_sql = 'INSERT INTO jonah_tags (tag_id, tag_name) VALUES(?, ?)';
+        $query_sql = 'SELECT tag_id FROM jonah_tags WHERE tag_name = ?';
         foreach ($tags as $tag) {
             $tag = Horde_String::lower(trim($tag));
-            $results = $this->_db->execute($query, $this->_db->escapeSimple($tag));
-            if ($results instanceof PEAR_Error) {
-                throw new Jonah_Exception($results);
-            } elseif ($results->numRows() == 0) {
-                $id = $this->_db->nextId('jonah_tags');
-                $result = $this->_db->execute($insert, array($id, $tag));
+            try {
+                $id = $this->_db->selectValue($query_sql, array($tag));
+            } catch (Horde_Db_Exception $e) {
+                throw new Jonah_Exception($e);
+            }
+            if (empty($id)) {
+                try {
+                    $id = $this->_db->insert($insert_sql, array($id, $tag));
+                } catch (Horde_Db_Exception $e) {
+                    throw new Jonah_Exception($e);
+                }
                 $tagkeys[] = $id;
             } else {
-                $row = $results->fetchRow(DB_FETCHMODE_ASSOC);
-                $tagkeys[] = $row['tag_id'];
+                $tagkeys[] = $id;
             }
         }
 
-        // Free our resources.
-        $this->_db->freePrepared($insert, true);
-        $this->_db->freePrepared($query, true);
-
-        $sql = 'DELETE FROM jonah_stories_tags WHERE story_id = ' . (int)$resource_id;
-        $query = $this->_db->prepare('INSERT INTO jonah_stories_tags (story_id, channel_id, tag_id) VALUES(?, ?, ?)');
+        $delete_sql = 'DELETE FROM jonah_stories_tags WHERE story_id = ?';
+        $query_sql =  'INSERT INTO jonah_stories_tags (story_id, channel_id, tag_id) VALUES(?, ?, ?)';
         Horde::log('SQL query by Jonah_Driver_sql::writeTags: ' . $sql, 'DEBUG');
-        $this->_db->query($sql);
+        $this->_db->delete($delete_sql, array((int)$resource_id));
         foreach ($tagkeys as $key) {
-            $this->_db->execute($query, array($resource_id, $channel_id, $key));
+            $this->_db->insert($query_sql, array($resource_id, $channel_id, $key));
         }
-        $this->_db->freePrepared($query, true);
 
         /* @TODO We should clear at least any of our cached counts */
         return true;
@@ -672,9 +708,11 @@ class Jonah_Driver_Sql extends Jonah_Driver
     {
         $sql = 'SELECT jonah_tags.tag_id, tag_name FROM jonah_tags INNER JOIN jonah_stories_tags ON jonah_stories_tags.tag_id = jonah_tags.tag_id WHERE jonah_stories_tags.story_id = ?';
         Horde::log('SQL query by Jonah_Driver_sql::readTags ' . $sql, 'DEBUG');
-       $tags = $this->_db->getAssoc($sql, false, array($resource_id), false);
-
-       return $tags;
+        try {
+            return $this->_db->selectAssoc($sql, array($resource_id));
+        } catch (Horde_Db_Exception $e) {
+            throw new Jonah_Exception($e);
+        }
     }
 
     /**
@@ -720,9 +758,10 @@ class Jonah_Driver_Sql extends Jonah_Driver
             $sql .= ' t.channel_id IN (' . implode(', ', $channel_id) . ')';
         }
         $sql .= ' GROUP BY tn.tag_id, tag_name ORDER BY total DESC;';
-        $results = $this->_db->getAssoc($sql,true, array(), DB_FETCHMODE_ASSOC, false);
-        if ($results instanceof PEAR_Error) {
-            throw new Jonah_Exception($results);
+        try {
+            $results = $this->_db->selectAll($sql);
+        } catch (Horde_Db_Exception $e) {
+            throw new Jonah_Exception($e);
         }
         $cache->set($cache_key, serialize($results));
 
@@ -737,7 +776,7 @@ class Jonah_Driver_Sql extends Jonah_Driver
      * @param integer $max         The maximum number of stories to get. If
      *                             null, all stories will be returned.
      * @param integer $from        The number of the story to start with.
-     * @param array $channel       Limit the result set to resources
+     * @param array $channel_id    Limit the result set to resources
      *                             present in these channels
      * @param integer $order       How to order the results for internal
      *                             channels. Possible values are the
@@ -794,21 +833,16 @@ class Jonah_Driver_Sql extends Jonah_Driver
                 $channel = $this->getChannel($channel_id[0]);
             }
             Horde::log('SQL query by Jonah_Driver_sql::searchTags: ' . $sql, 'DEBUG');
-            $results = $this->_db->limitQuery($sql, $from, $max);
-            if ($results instanceof PEAR_Error) {
-                throw new Jonah_Exception($results);
+            $sql = $this->_db->addLimitOffset($sql, array('offset' => $from, 'limit' => $max));
+            try {
+                $results = $this->_db->select($sql);
+            } catch (Horde_Db_Adapter $e) {
+                throw new Jonah_Exception($e);
             }
-
-            for ($i = 0; $i < $results->numRows(); $i++) {
-                $row = $results->fetchRow();
-                $story = $this->_getStory($row[0], false);
-                if (count($channel_id > 1)) {
-                    // Make sure we get the correct channel info for composites
-                    if (!empty($cchannels[$story['channel_id']])) {
-                        $channel = $this->getChannel($cchannels[$story['channel_id']]);
-                    } else {
-                        $channel = $this->getChannel($story['channel_id']);
-                    }
+            foreach ($results as $row) {
+                $story = $this->_getStory($row['story_id'], false);
+                if (count($channel_id) > 1) {
+                    $channel = $this->getChannel($story['channel_id']);
                 }
 
                 /* Format story link. */
@@ -834,14 +868,10 @@ class Jonah_Driver_Sql extends Jonah_Driver
      *
      * @see Jonah_Driver_sql::searchTagsById()
      */
-    public function searchTags($names, $max = 10, $from = 0, $channel_id = array(),
-                        $order = Jonah::ORDER_PUBLISHED)
+    public function searchTags(
+        $names, $max = 10, $from = 0, $channel_id = array(), $order = Jonah::ORDER_PUBLISHED)
     {
         $ids = $this->getTagIds($names);
-        if ($ids instanceof PEAR_Error) {
-            throw new Jonah_Exception($ids);
-        }
-
         return $this->searchTagsById(array_values($ids), $max, $from, $channel_id, $order);
     }
 
@@ -860,9 +890,10 @@ class Jonah_Driver_Sql extends Jonah_Driver
         }
 
         $sql = 'SELECT t.tag_name FROM jonah_tags as t WHERE t.tag_id IN (' . implode(',', array_map(function($v) { return '?'; }, $ids)) . ')';
-        $tags = $this->_db->getCol($sql, 0, $ids);
-        if ($tags instanceof PEAR_Error) {
-            throw new Jonah_Exception($tags);
+        try {
+            return $this->_db->selectValues($sql, $ids);
+        } catch (Horde_Db_Exception $e) {
+            throw new Jonah_Exception($e);
         }
 
         return $tags;
@@ -882,12 +913,11 @@ class Jonah_Driver_Sql extends Jonah_Driver
         }
 
         $sql = 'SELECT t.tag_name, t.tag_id FROM jonah_tags as t WHERE t.tag_name IN (' . implode(',', array_map(function($v) { return '?'; }, $names)) . ')';
-        $tags = $this->_db->getAssoc($sql, false, $names);
-        if ($tags instanceof PEAR_Error) {
-            throw new Jonah_Exception($tags);
+        try {
+            return $this->_db->selectAssoc($sql, $names);
+        } catch (Horde_Db_Adapter $e) {
+            throw new Jonah_Exception($e);
         }
-
-        return $tags;
     }
 
     /**
@@ -900,14 +930,16 @@ class Jonah_Driver_Sql extends Jonah_Driver
      */
     protected function _connect()
     {
+        global $injector;
+
         if ($this->_connected) {
             return true;
         }
 
         try {
-            $this->_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create('rw', 'jonah', 'news');
+            $this->_db = $injector->getInstance('Horde_Db_Adapter');
         } catch (Horde_Exception $e) {
-            return PEAR::raiseError($e->getMessage());
+            throw new Jonah_Exception($e);
         }
         $this->_connected = true;
 

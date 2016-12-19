@@ -227,6 +227,10 @@ class Jonah_Driver
         } else {
             $url = Horde::url('stories/view.php', true, -1)->add(array('channel_id' => '%c', 'id' => '%s'))->setRaw(false);
         }
+        Horde::debug($channel);
+        Horde::debug(str_replace(array('%25c', '%25s', '%c', '%s'),
+                                         array('%c', '%s', $channel['channel_id'], $story['id']),
+                                         $url));
         return new Horde_Url(str_replace(array('%25c', '%25s', '%c', '%s'),
                                          array('%c', '%s', $channel['channel_id'], $story['id']),
                                          $url));
