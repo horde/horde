@@ -185,16 +185,15 @@ class Jonah_Driver
     /**
      * Retrieve the requested story from storage.
      *
-     * @param integer $channel_id  The channel id to obtain story from.
      * @param integer $story_id    The story id to obtain.
      * @param boolean $read        Increment the read counter?
      *
      * @return array  The story information array
      */
-    public function getStory($channel_id, $story_id, $read = false)
+    public function getStory($story_id, $read = false)
     {
-        $channel = $this->getChannel($channel_id);
         $story = $this->_getStory($story_id, $read);
+        $channel = $this->getChannel($story['channel_id']);
 
         /* Format story link. */
         $story['link'] = $this->getStoryLink($channel, $story);

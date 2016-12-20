@@ -41,7 +41,7 @@ class Jonah_View_StoryDelete extends Jonah_View_Base
         }
 
         try {
-            $story = $driver->getStory($channel_id, $story_id);
+            $story = $driver->getStory($story_id);
         } catch (Exception $e) {
             $notification->push(_("No valid story requested for deletion."), 'horde.message');
             Horde::url('channels/index.php', true)->redirect();

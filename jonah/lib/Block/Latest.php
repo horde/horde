@@ -103,9 +103,10 @@ class Jonah_Block_Latest extends Horde_Core_Block
 
         if (is_null($this->_story)) {
             $driver = $GLOBALS['injector']->getInstance('Jonah_Driver');
-            $this->_story = $driver->getStory($this->_params['source'],
-                                            $driver->getLatestStoryId($this->_params['source']),
-                                            !empty($this->_params['countReads']));
+            $this->_story = $driver->getStory(
+                $driver->getLatestStoryId($this->_params['source']),
+                !empty($this->_params['countReads'])
+            );
         }
 
         return $this->_story;

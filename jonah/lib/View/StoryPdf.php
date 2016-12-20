@@ -23,7 +23,7 @@ class Jonah_View_StoryPdf extends Jonah_View
             }
         }
         try {
-            $story = $driver->getStory($channel_id, $story_id, !$browser->isRobot());
+            $story = $driver->getStory($story_id, !$browser->isRobot());
         } catch (Exception $e) {
             $this->_exit($e->getMessage());
         }

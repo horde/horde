@@ -111,9 +111,9 @@ class Jonah_Block_Story extends Horde_Core_Block
     {
         if (is_null($this->_story)) {
             $this->_story = $GLOBALS['injector']->getInstance('Jonah_Driver')->getStory(
-                    $this->_params['source'],
-                    $this->_params['story'],
-                    !empty($this->_params['countReads']));
+                $this->_params['story'],
+                !empty($this->_params['countReads'])
+            );
         }
 
         return $this->_story;
