@@ -114,7 +114,7 @@ class Jonah_Driver_Sql extends Jonah_Driver
     /**
      * Get a list of stored channels.
      *
-     * @return mixed  An array of channels.
+     * @return array  An array of channel hashes.
      * @throws Jonah_Exception
      */
     public function getChannels()
