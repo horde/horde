@@ -65,7 +65,7 @@ if (!$conf['sharing']['allow']) {
     exit;
 }
 
-$story = $GLOBALS['injector']->getInstance('Jonah_Driver')->getStory($channel_id, $story_id);
+$story = $GLOBALS['injector']->getInstance('Jonah_Driver')->getStory($story_id);
 if (is_a($story, 'PEAR_Error')) {
     $notification->push(sprintf(_("Error fetching story: %s"), $story->getMessage()), 'horde.warning');
     $story = '';

@@ -50,7 +50,7 @@ class Jonah_View_StoryEdit extends Jonah_View_Base
         /* Check if a story is being edited. */
         $story_id = $vars->get('id');
         if ($story_id && !$vars->get('formname')) {
-            $story = $driver->getStory($channel_id, $story_id);
+            $story = $driver->getStory($story_id);
             $story['tags'] = implode(',', array_values($story['tags']));
             $vars = new Horde_Variables($story);
         }

@@ -75,7 +75,7 @@ class Jonah_Api extends Horde_Registry_Api
      */
     public function story($channel_id, $story_id, $read = true)
     {
-        $story = $GLOBALS['injector']->getInstance('Jonah_Driver')->getStory($channel_id, $story_id, $read);
+        $story = $GLOBALS['injector']->getInstance('Jonah_Driver')->getStory($story_id, $read);
         if (empty($story['body_type']) || $story['body_type'] == 'text') {
             $story['body_html'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($story['body'], 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
         } else {
@@ -131,7 +131,7 @@ class Jonah_Api extends Horde_Registry_Api
         if (!$GLOBALS['conf']['comments']['allow']) {
             return false;
         }
-        $story = $GLOBALS['injector']->getInstance('Jonah_Driver')->getStory(null, $story_id);
+        $story = $GLOBALS['injector']->getInstance('Jonah_Driver')->getStory($story_id);
 
         return $story['title'];
     }

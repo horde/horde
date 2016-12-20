@@ -72,7 +72,7 @@ EOT;
 
         $driver = $GLOBALS['injector']->getInstance('Jonah_Driver');
         try {
-            $story = $driver->getStory($channel_id, $story_id, !$browser->isRobot());
+            $story = $driver->getStory($story_id, !$browser->isRobot());
         } catch (Exception $e) {
             $notification->push(sprintf(_("Error fetching story: %s"), $e->getMessage()), 'horde.warning');
             $page_output->header();
