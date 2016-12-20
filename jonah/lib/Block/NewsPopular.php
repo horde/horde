@@ -27,29 +27,36 @@ class Jonah_Block_NewsPopular extends Horde_Core_Block
     protected function _params()
     {
         $templates = Horde::loadConfiguration('templates.php', 'templates', 'jonah');
-        $params['source'] = array('name' => _("Feed"),
-                                  'type' => 'enum',
-                                  'values' => array());
+        $params['source'] = array(
+            'name' => _("Feed"),
+            'type' => 'enum',
+            'values' => array()
+        );
 
-        $channels = $GLOBALS['injector']->getInstance('Jonah_Driver')->getChannels();
-        foreach ($channels as  $channel) {
-            if ($channel['channel_type'] == Jonah::INTERNAL_CHANNEL) {
-                $params['source']['values'][$channel['channel_id']] = $channel['channel_name'];
-            }
+        $channels = $GLOBALS['injector']
+            ->getInstance('Jonah_Driver')
+            ->getChannels();
+
+        foreach ($channels as $channel) {
+            $params['source']['values'][$channel['channel_id']] = $channel['channel_name'];
         }
         natcasesort($params['source']['values']);
 
-        $params['view'] = array('name' => _("View"),
-                                'type' => 'enum',
-                                'values' => array());
+        $params['view'] = array(
+            'name' => _("View"),
+            'type' => 'enum',
+            'values' => array()
+        );
         foreach ($templates as $key => $template) {
             $params['view']['values'][$key] = $template['name'];
         }
 
-        $params['max'] = array('name' => _("Maximum Stories"),
-                               'type' => 'int',
-                               'default' => 10,
-                               'required' => false);
+        $params['max'] = array(
+            'name' => _("Maximum Stories"),
+            'type' => 'int',
+            'default' => 10,
+            'required' => false
+        );
 
         return $params;
     }

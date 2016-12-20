@@ -45,15 +45,9 @@ class Jonah_View_ChannelList extends Jonah_View_Base
                 $channels[$key]['addstory_link'] = '';
                 $channels[$key]['refresh_link'] = '';
 
-                switch ($channel['channel_type']) {
-                case Jonah::INTERNAL_CHANNEL:
-                    /* Add story link. */
-                    $url = Horde::url('stories/edit.php')->add('channel_id', $channel['channel_id']);
-                    $channels[$key]['addstory_link'] = $url->link(array('title' => _("Add story"))) . Horde::img('new.png') . '</a>';
-                    break;
-                }
-                $channels[$key]['channel_type'] = Jonah::getChannelTypeLabel($channel['channel_type']);
-                $channels[$key]['channel_updated'] = ($channel['channel_updated'] ? strftime($prefs->getValue('date_format'), (int)$channel['channel_updated']) : '-');
+                /* Add story link. */
+                $url = Horde::url('stories/edit.php')->add('channel_id', $channel['channel_id']);
+                $channels[$key]['addstory_link'] = $url->link(array('title' => _("Add story"))) . Horde::img('new.png') . '</a>';
             }
         }
 

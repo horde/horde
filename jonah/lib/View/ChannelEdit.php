@@ -37,7 +37,7 @@ class Jonah_View_ChannelEdit extends Jonah_View_Base
         $channel_type = $vars->get('channel_type');
 
         /* Check permissions and deny if not allowed. */
-        if (!Jonah::checkPermissions(Jonah::typeToPermName($channel_type), Horde_Perms::EDIT, $channel_id)) {
+        if (!Jonah::checkPermissions('channels', Horde_Perms::EDIT, $channel_id)) {
             $notification->push(_("You are not authorised for this action."), 'horde.warning');
             throw new Horde_Exception_AuthenticationFailure();
         }

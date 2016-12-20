@@ -16,19 +16,11 @@ Horde_Registry::appInit('jonah', array(
     'permission' => array('jonah:news', Horde_Perms::EDIT)
 ));
 
-$have_news = Jonah::getAvailableTypes();
-if (empty($have_news)) {
-    $notification->push(_("News is not enabled."), 'horde.warning');
-
-    $url = Horde::url('index.php');
-    header('Location: ' . $url);
-    exit;
-}
-
-$params = array('notification' => &$notification,
-                'prefs' => &$prefs,
-                'registry' => &$registry
-          );
+$params = array(
+    'notification' => $notification,
+    'prefs' => $prefs,
+    'registry' => $registry
+);
 
 $view = new Jonah_View_ChannelList($params);
 $view->run();

@@ -39,7 +39,7 @@ class Jonah_View_TagSearchList extends Jonah_View_Base
             $channel_ids = array();
             $channels = $driver->getChannels();
             foreach ($channels as $ch) {
-                if (Jonah::checkPermissions(Jonah::typeToPermName($ch['channel_type']), Horde_Perms::SHOW, $ch['channel_id'])) {
+                if (Jonah::checkPermissions('channels', Horde_Perms::SHOW, $ch['channel_id'])) {
                     $channel_ids[] = $ch['channel_id'];
                 }
             }
@@ -81,13 +81,13 @@ class Jonah_View_TagSearchList extends Jonah_View_Base
             $stories[$key]['pdf_link'] = $url->link(array('title' => _("PDF version"))) . Horde::img('mime/pdf.png') . '</a>';
 
             /* Edit story link. */
-            if (Jonah::checkPermissions(Jonah::typeToPermName(Jonah::INTERNAL_CHANNEL), Horde_Perms::EDIT, $channel_id)) {
+            if (Jonah::checkPermissions('channels', Horde_Perms::EDIT, $channel_id)) {
                 $url = Horde::url('stories/edit.php')->add(array('id' => $story['id'], 'channel_id' => $channel_id));
                 $stories[$key]['edit_link'] = $url->link(array('title' => _("Edit story"))) . Horde::img('edit.png') . '</a>';
             }
 
             /* Delete story link. */
-            if (Jonah::checkPermissions(Jonah::typeToPermName(Jonah::INTERNAL_CHANNEL), Horde_Perms::DELETE, $channel_id)) {
+            if (Jonah::checkPermissions('channels', Horde_Perms::DELETE, $channel_id)) {
                 $url = Horde::url('stories/delete.php')->add(array('id' => $story['id'], 'channel_id' => $channel_id));
                 $stories[$key]['delete_link'] = $url->link(array('title' => _("Delete story"))) . Horde::img('delete.png') . '</a>';
             }
@@ -107,7 +107,7 @@ class Jonah_View_TagSearchList extends Jonah_View_Base
         $view = new Horde_View(array('templatePath' => JONAH_TEMPLATES . '/stories'));
         $view->stories = $stories;
         $view->read = true;
-        $view->comments = $conf['comments']['allow'] && $registry->hasMethod('forums/numMessages') && $channel['channel_type'] == Jonah::INTERNAL_CHANNEL;
+        $view->comments = $conf['comments']['allow'] && $registry->hasMethod('forums/numMessages');
 
         $GLOBALS['page_output']->header(array(
             'title' => $title

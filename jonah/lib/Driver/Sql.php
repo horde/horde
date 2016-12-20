@@ -52,7 +52,6 @@ class Jonah_Driver_Sql extends Jonah_Driver
      * 'channel_slug'     The channel slug.
      * 'channel_name'     The headline.
      * 'channel_desc'     A description of this channel.
-     * 'channel_type'     Whether internal or external.
      * 'channel_interval' If external then interval at which to refresh.
      * 'channel_link'     The link to the source.
      * 'channel_url'      The url from where to fetch the story list.
@@ -67,7 +66,6 @@ class Jonah_Driver_Sql extends Jonah_Driver
         $values = array(
             Horde_String::convertCharset($info['channel_slug'], 'UTF-8', $this->_params['charset']),
             Horde_String::convertCharset($info['channel_name'], 'UTF-8', $this->_params['charset']),
-            (int)$info['channel_type'],
             isset($info['channel_desc']) ? $info['channel_desc'] : null,
             isset($info['channel_interval']) ? (int)$info['channel_interval'] : null,
             isset($info['channel_url']) ? $info['channel_url'] : null,
@@ -79,14 +77,14 @@ class Jonah_Driver_Sql extends Jonah_Driver
 
         if (empty($info['channel_id'])) {
             $sql = 'INSERT INTO jonah_channels'
-               . ' (channel_slug, channel_name, channel_type,'
+               . ' (channel_slug, channel_name, '
                . ' channel_desc, channel_interval, channel_url,'
                . ' channel_link, channel_page_link, channel_story_url,'
                . ' channel_img)' .
-               ' VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+               ' VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
         } else {
             $sql = 'UPDATE jonah_channels '
-                . 'SET channel_slug = ?, channel_name = ?, channel_type = ?,'
+                . 'SET channel_slug = ?, channel_name = ?, '
                 . 'channel_desc = ?, channel_interval = ?, channel_url = ?,'
                 . 'channel_link = ?, channel_page_link = ?,'
                 . 'channel_story_url = ?, channel_img = ? '
@@ -119,11 +117,9 @@ class Jonah_Driver_Sql extends Jonah_Driver
      */
     public function getChannels()
     {
-        // @TODO: Remove channel_type filter when tables are updated.
-        $sql = 'SELECT channel_id, channel_name, channel_type, channel_updated '
+        $sql = 'SELECT channel_id, channel_name, channel_updated '
             . 'FROM jonah_channels '
-            . 'WHERE channel_type = ' . Jonah::INTERNAL_CHANNEL
-            . ' ORDER BY channel_name';
+            . 'ORDER BY channel_name';
         Horde::log('SQL Query by Jonah_Driver_sql::getChannels(): ' . $sql, 'DEBUG');
         try {
             $rows = $this->_db->selectAll($sql);

@@ -104,7 +104,7 @@ class Jonah_View_StoryList extends Jonah_View_Base
         $view = new Horde_View(array('templatePath' => JONAH_TEMPLATES . '/stories'));
         $view->stories = $stories;
         $view->read = true;
-        $view->comments = $conf['comments']['allow'] && $registry->hasMethod('forums/numMessages') && $channel['channel_type'] == Jonah::INTERNAL_CHANNEL;
+        $view->comments = $conf['comments']['allow'] && $registry->hasMethod('forums/numMessages');
 
         $GLOBALS['page_output']->header(array(
             'title' => $title

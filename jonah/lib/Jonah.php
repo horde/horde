@@ -15,16 +15,6 @@
 class Jonah
 {
     /**
-     * Internal Jonah channel.
-     */
-    const INTERNAL_CHANNEL = 0;
-
-    /**
-     * Composite channel.
-     */
-    const COMPOSITE_CHANNEL = 3;
-
-    /**
      */
     const ORDER_PUBLISHED = 0;
     const ORDER_READ = 1;
@@ -65,17 +55,6 @@ class Jonah
     }
 
     /**
-     * @deprecated Remove when external channels moved to hippo.
-     */
-    public static function getChannelTypeLabel($type)
-    {
-        switch ($type) {
-        case Jonah::INTERNAL_CHANNEL:
-            return _("Local Feed");
-        }
-    }
-
-    /**
      *
      *
      * @param string $filter       The type of channel
@@ -107,9 +86,8 @@ class Jonah
         switch ($filter) {
         case 'channels':
             foreach ($in as $key => $val) {
-                $perm_name = Jonah::typeToPermName($val['channel_type']);
-                if ($perms->hasPermission('jonah:news:' . $perm_name,  $registry->getAuth(), $permission) ||
-                    $perms->hasPermission('jonah:news:' . $perm_name . ':' . $val['channel_id'], $registry->getAuth(), $permission)) {
+                if ($perms->hasPermission('jonah:news',  $registry->getAuth(), $permission) ||
+                    $perms->hasPermission('jonah:news:' . $val['channel_id'], $registry->getAuth(), $permission)) {
                     $out[$key] = $in[$key];
                 }
             }
@@ -120,20 +98,6 @@ class Jonah
         }
 
         return $out;
-    }
-
-    /**
-     * @deprecated Remove when external channels removed.
-     *
-     * @param string $type  The Jonah::* constant for the channel type.
-     *
-     * @return string  The string representation of the channel type.
-     */
-    public static function typeToPermName($type)
-    {
-        if ($type == Jonah::INTERNAL_CHANNEL) {
-            return 'internal_channels';
-        }
     }
 
     /**
@@ -179,26 +143,6 @@ class Jonah
         /* The two most common body types have not been found, so just return
          * the first one that is in the array. */
         return array_shift(array_keys($types));
-    }
-
-    /**
-     * Returns the available channel types based on what was set in the
-     * configuration.
-     *
-     * @return array  The available news channel types.
-     */
-    public static function getAvailableTypes()
-    {
-        $types = array();
-
-        if (empty($GLOBALS['conf']['news']['enable'])) {
-            return $types;
-        }
-        if (in_array('internal', $GLOBALS['conf']['news']['enable'])) {
-            $types[Jonah::INTERNAL_CHANNEL] = _("Local Feed");
-        }
-
-        return $types;
     }
 
 }
