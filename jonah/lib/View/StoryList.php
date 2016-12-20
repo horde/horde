@@ -28,7 +28,7 @@ class Jonah_View_StoryList extends Jonah_View_Base
         extract($this->_params, EXTR_REFS);
 
         $channel = $GLOBALS['injector']->getInstance('Jonah_Driver')->getChannel($channel_id);
-        if (!Jonah::checkPermissions(Jonah::typeToPermName($channel['channel_type']), Horde_Perms::EDIT, $channel_id)) {
+        if (!Jonah::checkPermissions('channels', Horde_Perms::EDIT, $channel_id)) {
             $notification->push(_("You are not authorised for this action."), 'horde.warning');
             throw new Horde_Exception_AuthenticationFailure();
         }
@@ -60,7 +60,7 @@ class Jonah_View_StoryList extends Jonah_View_Base
         }
 
         /* Get channel details, for title, etc. */
-        $allow_delete = Jonah::checkPermissions(Jonah::typeToPermName($channel['channel_type']), Horde_Perms::DELETE, $channel_id);
+        $allow_delete = Jonah::checkPermissions('channels', Horde_Perms::DELETE, $channel_id);
 
         /* Build story specific fields. */
         foreach ($stories as $key => $story) {

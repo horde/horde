@@ -107,7 +107,7 @@ class Jonah_Api extends Horde_Registry_Api
         $driver = $GLOBALS['injector']->getInstance('Jonah_Driver');
         $channel = $driver->getChannel($channel_id);
         /* Check permissions. */
-        if (!Jonah::checkPermissions(Jonah::typeToPermName($channel['channel_type']), Horde_Perms::EDIT, $channel_id)) {
+        if (!Jonah::checkPermissions('channels', Horde_Perms::EDIT, $channel_id)) {
             throw new Horde_Exception_PermissionDenied(_("You are not authorised for this action."));
         }
         $story['author'] = $GLOBALS['registry']->getAuth();

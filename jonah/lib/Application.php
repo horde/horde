@@ -92,22 +92,18 @@ class Jonah_Application extends Horde_Registry_Application
                 'text' => _("_Feeds"),
                 'url' => Horde::url('channels/index.php')
             ));
+            $menu->addArray(array(
+                'icon' => 'new.png',
+                'text' => _("New Feed"),
+                'url' => Horde::url('channels/edit.php')
+            ));
         }
-        foreach ($GLOBALS['conf']['news']['enable'] as $channel_type) {
-            if (Jonah::checkPermissions($channel_type, Horde_Perms::EDIT)) {
-                $menu->addArray(array(
-                    'icon' => 'new.png',
-                    'text' => _("New Feed"),
-                    'url' => Horde::url('channels/edit.php')
-                ));
-                break;
-            }
-        }
+
+        /* If viewing a channel, show new story links if authorized */
         if ($channel_id = Horde_Util::getFormData('channel_id')) {
             $news = $GLOBALS['injector']->getInstance('Jonah_Driver');
             $channel = $news->getChannel($channel_id);
-            if ($channel['channel_type'] == Jonah::INTERNAL_CHANNEL &&
-                Jonah::checkPermissions(Jonah::typeToPermName($channel['channel_type']), Horde_Perms::EDIT, $channel_id)) {
+            if (Jonah::checkPermissions('channels', Horde_Perms::EDIT, $channel_id)) {
                 $menu->addArray(array(
                     'icon' => 'new.png',
                     'text' => _("_New Story"),

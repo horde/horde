@@ -4,13 +4,6 @@
 
  <configsection name="news">
   <configheader>Feed Settings</configheader>
-  <configmultienum name="enable" desc="Select which types of feeds to allow.">internal
-   <values>
-    <value desc="Local Feed">internal</value>
-    <value desc="Composite Feed">composite</value>
-   </values>
-  </configmultienum>
-
   <configsection name="storage">
    <configswitch name="driver" desc="What driver should we use for local feeds?">sql
     <case name="sql" desc="SQL">
