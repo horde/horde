@@ -59,9 +59,6 @@ class Jonah_View_StoryList extends Jonah_View_Base
             exit;
         }
 
-        /* Get channel details, for title, etc. */
-        $allow_delete = Jonah::checkPermissions('channels', Horde_Perms::DELETE, $channel_id);
-
         /* Build story specific fields. */
         foreach ($stories as $key => $story) {
             /* published is the publication/release date, updated is the last change date. */
@@ -86,7 +83,7 @@ class Jonah_View_StoryList extends Jonah_View_Base
             $stories[$key]['edit_link'] = $url->link(array('title' => _("Edit story"))) . Horde::img('edit.png') . '</a>';
 
             /* Delete story link. */
-            if ($allow_delete) {
+            if (Jonah::checkPermissions('channels', Horde_Perms::DELETE, $channel_id)) {
                 $url = Horde::url('stories/delete.php')->add(array('id' => $story['id'], 'channel_id' => $channel_id));
                 $stories[$key]['delete_link'] = $url->link(array('title' => _("Delete story"))) . Horde::img('delete.png') . '</a>';
             }
