@@ -22,8 +22,7 @@ class Jonah_Driver_Sql extends Jonah_Driver
     /**
      * Handle for the current database connection.
      *
-     * @TODO: Refactor to use Horde_Db
-     * @var DB
+     * @var Horde_Db_Adapter_Base
      */
     protected $_db;
 
