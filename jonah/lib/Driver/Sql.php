@@ -64,24 +64,7 @@ class Jonah_Driver_Sql extends Jonah_Driver
      */
     public function saveChannel(&$info)
     {
-        if (empty($info['channel_id'])) {
-            $sql = 'INSERT INTO jonah_channels'
-               . ' (channel_slug, channel_name, channel_type,'
-               . ' channel_desc, channel_interval, channel_url,'
-               . ' channel_link, channel_page_link, channel_story_url,'
-               . ' channel_img)' .
-               ' VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-            $values = array();
-        } else {
-            $sql = 'UPDATE jonah_channels '
-                . 'SET channel_slug = ?, channel_name = ?, channel_type = ?,'
-                . 'channel_desc = ?, channel_interval = ?, channel_url = ?,'
-                . 'channel_link = ?, channel_page_link = ?,'
-                . 'channel_story_url = ?, channel_img = ? '
-                . 'WHERE channel_id = ?';
-            $values = array((int)$info['channel_id']);
-        }
-        array_unshift($values,
+        $values = array(
             Horde_String::convertCharset($info['channel_slug'], 'UTF-8', $this->_params['charset']),
             Horde_String::convertCharset($info['channel_name'], 'UTF-8', $this->_params['charset']),
             (int)$info['channel_type'],
@@ -94,6 +77,22 @@ class Jonah_Driver_Sql extends Jonah_Driver
             isset($info['channel_img']) ? $info['channel_img'] : null
         );
 
+        if (empty($info['channel_id'])) {
+            $sql = 'INSERT INTO jonah_channels'
+               . ' (channel_slug, channel_name, channel_type,'
+               . ' channel_desc, channel_interval, channel_url,'
+               . ' channel_link, channel_page_link, channel_story_url,'
+               . ' channel_img)' .
+               ' VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+        } else {
+            $sql = 'UPDATE jonah_channels '
+                . 'SET channel_slug = ?, channel_name = ?, channel_type = ?,'
+                . 'channel_desc = ?, channel_interval = ?, channel_url = ?,'
+                . 'channel_link = ?, channel_page_link = ?,'
+                . 'channel_story_url = ?, channel_img = ? '
+                . 'WHERE channel_id = ?';
+            $values[] = (int)$info['channel_id'];
+        }
         Horde::log('SQL Query by Jonah_Driver_sql::saveChannel(): ' . $sql, 'DEBUG');
         if (empty($info['channel_id'])) {
             try {
