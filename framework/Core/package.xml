@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Only show $conf[sql][ca] if $conf[sql][ssl] is enabled.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4362,7 +4362,7 @@
    <date>2016-12-16</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Only show $conf[sql][ca] if $conf[sql][ssl] is enabled.
    </notes>
   </release>
  </changelog>
