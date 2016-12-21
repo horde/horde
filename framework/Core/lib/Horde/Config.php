@@ -1243,16 +1243,23 @@ class Horde_Config
             'desc' => 'Use SSL to connect to the server?',
             'default' => $this->_default(
                 $ctx . '|ssl',
-                $node ? ($xpath->evaluate('string(configboolean[@name="ssl"])', $node) ?: false) : false)
-        );
-
-        $ca = array(
-            '_type' => 'text',
-            'required' => false,
-            'desc' => 'Certification Authority to use for SSL connections',
-            'default' => $this->_default(
-                $ctx . '|ca',
-                $node ? ($xpath->evaluate('string(configstring[@name="ca"])', $node) ?: '') : ''
+                $node ? ($xpath->evaluate('string(configboolean[@name="ssl"])', $node) ?: false) : false),
+            'switch' => array(
+                'false' => array('desc' => 'No'),
+                'true' => array(
+                    'desc' => 'Yes',
+                    'fields' => array(
+                        'ca' => array(
+                            '_type' => 'text',
+                            'required' => false,
+                            'desc' => 'Certification Authority to use for SSL connections',
+                            'default' => $this->_default(
+                                $ctx . '|ca',
+                                $node ? ($xpath->evaluate('string(configstring[@name="ca"])', $node) ?: '') : ''
+                            )
+                        )
+                    )
+                )
             )
         );
 
