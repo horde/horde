@@ -21,10 +21,12 @@ if (empty($channel_id)) {
     exit;
 }
 
-$params = array('registry' => &$registry,
-                'notification' => &$notification,
-                'prefs' => &$prefs,
-                'conf' => &$conf,
-                'channel_id' => $channel_id);
+$params = array(
+    'registry' => &$registry,
+    'notification' => &$notification,
+    'prefs' => &$prefs,
+    'conf' => &$conf,
+    'channel_id' => $channel_id
+);
 $view = new Jonah_View_StoryList($params);
 $view->run();
