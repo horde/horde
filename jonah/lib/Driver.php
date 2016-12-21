@@ -446,7 +446,7 @@ class Jonah_Driver
     public function listTagInfo($channel_id = null)
     {
         global $injector;
-var_dump($channel_id);
+
         // All channels
         if (!isset($channel_id)) {
             return $injector
