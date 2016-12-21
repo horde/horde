@@ -1263,33 +1263,6 @@ class Horde_Config
             )
         );
 
-        $splitread = array(
-            '_type' => 'boolean',
-            'required' => false,
-            'desc' => 'Split reads to a different server?',
-            'default' => $this->_default(
-                $ctx . '|splitread',
-                $node ? ($xpath->evaluate('normalize-space(configswitch[@name="splitread"]/text())', $node) ?: 'false') : 'false'),
-            'switch' => array(
-                'false' => array(
-                    'desc' => 'Disabled',
-                    'fields' => array()
-                ),
-                'true' => array(
-                    'desc' => 'Enabled',
-                    'fields' => array(
-                        'read' => array(
-                            'username' => $username,
-                            'password' => $password,
-                            'protocol' => $protocol,
-                            'database' => $database,
-                            'charset' => $charset
-                        )
-                    )
-                )
-            )
-        );
-
         $custom_fields = array(
             'required' => true,
             'desc' => 'What database backend should we use?',
@@ -1312,20 +1285,7 @@ class Horde_Config
                         'charset' => $charset,
                         'ssl' => $ssl,
                         'ca' => $ca,
-                        'splitread' => array_replace_recursive(
-                            $splitread,
-                            array(
-                                'switch' => array(
-                                    'true' => array(
-                                        'fields' => array(
-                                            'read' => array(
-                                                'protocol' => $mysql_protocol,
-                                            )
-                                        )
-                                    )
-                                )
-                            )
-                        )
+                        'splitread' => $this->_configSQLSplitRead($ctx, $node, 'mysql'),
                     )
                 ),
                 'mysqli' => array(
@@ -1338,20 +1298,7 @@ class Horde_Config
                         'charset' => $charset,
                         'ssl' => $ssl,
                         'ca' => $ca,
-                        'splitread' => array_replace_recursive(
-                            $splitread,
-                            array(
-                                'switch' => array(
-                                    'true' => array(
-                                        'fields' => array(
-                                            'read' => array(
-                                                'protocol' => $mysql_protocol,
-                                            )
-                                        )
-                                    )
-                                )
-                            )
-                        )
+                        'splitread' => $this->_configSQLSplitRead($ctx, $node, 'mysqli'),
                     )
                 ),
                 'oci8' => array(
@@ -1422,7 +1369,7 @@ class Horde_Config
                         'protocol' => $pgsql_protocol,
                         'database' => $database,
                         'charset' => $charset,
-                        'splitread' => $splitread,
+                        'splitread' => $this->_configSQLSplitRead($ctx, $node, 'pgsql'),
                     )
                 ),
                 'sqlite' => array(
@@ -1474,6 +1421,49 @@ class Horde_Config
         }
 
         return $config;
+    }
+
+    /**
+     * Returns the configuration items for split-read database setups.
+     *
+     * @param string $ctx         The context of the <configsql> tag.
+     * @param DomNode $node       The DomNode representation of the <configsql>
+     *                            tag.
+     * @param string $phptype     The SQL backend name.
+     *
+     * @return array  An associative array with the split-read SQL
+     *                configuration tree.
+     */
+    protected function _configSQLSplitRead($ctx, $node, $phptype)
+    {
+        if (preg_match('/\|read$/', $ctx)) {
+            return null;
+        }
+
+        if ($node) {
+            $xpath = new DOMXPath($node->ownerDocument);
+        }
+
+        $splitread_fields = $this->configSQL($ctx . '|read');
+        $splitread_fields = $splitread_fields['switch']['custom']['fields']['phptype']['switch'][$phptype]['fields'];
+        return array(
+            '_type' => 'boolean',
+            'required' => false,
+            'desc' => 'Split reads to a different server?',
+            'default' => $this->_default(
+                $ctx . '|splitread',
+                $node ? ($xpath->evaluate('normalize-space(configswitch[@name="splitread"]/text())', $node) ?: 'false') : 'false'),
+            'switch' => array(
+                'false' => array(
+                    'desc' => 'Disabled',
+                    'fields' => array()
+                ),
+                'true' => array(
+                    'desc' => 'Enabled',
+                    'fields' => array('read' => $splitread_fields)
+                )
+            )
+        );
     }
 
     /**
