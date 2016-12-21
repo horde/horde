@@ -42,7 +42,7 @@ class Jonah_View_StoryEdit extends Jonah_View_Base
         }
 
         /* Check permissions. */
-        if (!Jonah::checkPermissions('channels', Horde_Perms::EDIT, $channel_id)) {
+        if (!Jonah::checkPermissions('channels', Horde_Perms::EDIT, array($channel_id))) {
             $notification->push(_("You are not authorised for this action."), 'horde.warning');
             throw new Horde_Exception_AuthenticationFailure();
         }

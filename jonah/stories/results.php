@@ -15,17 +15,20 @@ Horde_Registry::appInit('jonah');
 $driver = $GLOBALS['injector']->getInstance('Jonah_Driver');
 
 /* Make sure we actually requested a tag search */
-$tag_id = Horde_Util::getFormData('tag_id');
-if (empty($tag_id)) {
+$tag = Horde_Util::getFormData('tag');
+if (empty($tag)) {
     $notification->push(_("No tag requested."), 'horde.error');
     Horde::url('channels/index.php', true)->redirect();
 }
 
-$params = array('registry' => $registry,
-                'notification' => $notification,
-                'prefs' => $prefs,
-                'conf' => $conf,
-                'tag_id' => $tag_id,
-                'channel_id' => Horde_Util::getFormData('channel_id'));
+// @todo - use an actual Horde_View
+$params = array(
+    'registry' => $registry,
+    'notification' => $notification,
+    'prefs' => $prefs,
+    'conf' => $conf,
+    'tag' => $tag,
+    'channel_id' => Horde_Util::getFormData('channel_id')
+);
 $view = new Jonah_View_TagSearchList($params);
 $view->run();

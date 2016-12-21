@@ -11,7 +11,6 @@
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Jonah
  */
-
 class Jonah_View_TagSearchList extends Jonah_View_Base
 {
     /**
@@ -27,34 +26,34 @@ class Jonah_View_TagSearchList extends Jonah_View_Base
         extract($this->_params, EXTR_REFS);
         $driver = $GLOBALS['injector']->getInstance('Jonah_Driver');
 
-        /* Use the passed channel_id, or use all public channels */
-        if (!is_null($channel_id)) {
-            $channel = $driver->getChannel($channel_id);
-            if (!Jonah::checkPermissions('channels', Horde_Perms::SHOW, $channel_id)) {
+        // Require a channel to be selected.
+        if (is_null($channel_id)) {
+            $channels = $driver->getChannels();
+        } else {
+            $channels = array($channel_id);
+        }
+
+        $stories = array();
+        foreach ($channels as $channel) {
+            if (!Jonah::checkPermissions('channels', Horde_Perms::SHOW, array($channel['channel_id']))) {
                 $notification->push(_("You are not authorised for this action."), 'horde.warning');
                 throw new Horde_Exception_AuthenticationFailure();
             }
-            $channel_ids = array($channel_id);
-        } else {
-            $channel_ids = array();
-            $channels = $driver->getChannels();
-            foreach ($channels as $ch) {
-                if (Jonah::checkPermissions('channels', Horde_Perms::SHOW, $ch['channel_id'])) {
-                    $channel_ids[] = $ch['channel_id'];
-                }
+            try {
+                $criteria = array(
+                    'tags' => array($tag),
+                    'limit' => 10,
+                    'channel_id' => $channel['channel_id']
+                );
+                $cstories = $driver->getStories($criteria);
+            } catch (Exception $e) {
+                $notification->push(sprintf(_("Invalid channel requested. %s"), $e->getMessage()), 'horde.error');
+                Horde::url('channels/index.php', true)->redirect();
+                exit;
             }
+            $stories = array_merge($stories, $cstories);
         }
 
-        $tag_name = array_shift($driver->getTagNames(array($tag_id)));
-        try {
-            $stories = $driver->searchTagsById(array($tag_id), 10, 0, $channel_ids);
-        } catch (Exception $e) {
-            $notification->push(sprintf(_("Invalid channel requested. %s"), $e->getMessage()), 'horde.error');
-            Horde::url('channels/index.php', true)->redirect();
-            exit;
-        }
-
-        /* Do some state tests. */
         if (empty($stories)) {
             $notification->push(_("No available stories."), 'horde.warning');
         }
@@ -81,13 +80,13 @@ class Jonah_View_TagSearchList extends Jonah_View_Base
             $stories[$key]['pdf_link'] = $url->link(array('title' => _("PDF version"))) . Horde::img('mime/pdf.png') . '</a>';
 
             /* Edit story link. */
-            if (Jonah::checkPermissions('channels', Horde_Perms::EDIT, $channel_id)) {
+            if (Jonah::checkPermissions('channels', Horde_Perms::EDIT, array($channel_id))) {
                 $url = Horde::url('stories/edit.php')->add(array('id' => $story['id'], 'channel_id' => $channel_id));
                 $stories[$key]['edit_link'] = $url->link(array('title' => _("Edit story"))) . Horde::img('edit.png') . '</a>';
             }
 
             /* Delete story link. */
-            if (Jonah::checkPermissions('channels', Horde_Perms::DELETE, $channel_id)) {
+            if (Jonah::checkPermissions('channels', Horde_Perms::DELETE, array($channel_id))) {
                 $url = Horde::url('stories/delete.php')->add(array('id' => $story['id'], 'channel_id' => $channel_id));
                 $stories[$key]['delete_link'] = $url->link(array('title' => _("Delete story"))) . Horde::img('delete.png') . '</a>';
             }

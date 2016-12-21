@@ -115,7 +115,7 @@ class Jonah_Driver_Sql extends Jonah_Driver
      * @return array  An array of channel hashes.
      * @throws Jonah_Exception
      */
-    public function getChannels()
+    protected function _getChannels()
     {
         $sql = 'SELECT channel_id, channel_name, channel_updated '
             . 'FROM jonah_channels '
@@ -253,7 +253,7 @@ class Jonah_Driver_Sql extends Jonah_Driver
             Horde::log('SQL Query by Jonah_Driver_sql::_saveStory(): ' . $sql, 'DEBUG');
             try {
                 $id = $this->_db->insert($sql, $values);
-                $info['story_id'] = (int)$id;
+                $info['id'] = (int)$id;
             } catch (Horde_Db_Exception $e) {
                 Horde::log($e->getMessage(), 'ERR');
                 throw new Jonah_Exception($e);
@@ -285,7 +285,14 @@ class Jonah_Driver_Sql extends Jonah_Driver
         } else {
             $tags = array();
         }
-        $this->writeTags($info['id'], $info['channel_id'], $tags);
+        $GLOBALS['injector']
+            ->getInstance('Jonah_Tagger')
+            ->tag(
+                $info['id'],
+                $tags,
+                $GLOBALS['registry']->getAuth(),
+                Jonah_Tagger::TYPE_STORY
+            );
         $this->_timestampChannel($info['id'], time());
 
         return true;
@@ -366,6 +373,18 @@ class Jonah_Driver_Sql extends Jonah_Driver
         return (int)$result;
     }
 
+    protected function _getStoryIdsByChannel($channel_id)
+    {
+        $sql = 'SELECT story_id as id FROM jonah_stories '
+            . 'WHERE channel_id = ?';
+
+        try {
+            return $this->_db->selectValues($sql, array($channel_id));
+        } catch (Horde_Db_Exception $e) {
+            throw new Jonah_Exception($e);
+        }
+    }
+
     /**
      * Returns a list of stories from the storage backend filtered by
      * arbitrary criteria.
@@ -379,7 +398,7 @@ class Jonah_Driver_Sql extends Jonah_Driver
      */
     protected function _getStories($criteria, $order = Jonah::ORDER_PUBLISHED)
     {
-        $sql = 'SELECT DISTINCT(stories.story_id) AS id, ' .
+        $sql = 'SELECT stories.story_id AS id, ' .
            'stories.channel_id, ' .
            'stories.story_author AS author, ' .
            'stories.story_title AS title, ' .
@@ -392,7 +411,6 @@ class Jonah_Driver_Sql extends Jonah_Driver
            'stories.story_updated AS updated, ' .
            'stories.story_read AS readcount ' .
            'FROM jonah_stories AS stories ' .
-           'LEFT JOIN jonah_stories_tags tags ON (stories.story_id = tags.story_id) ' .
            'WHERE stories.channel_id=?';
 
         $values = array($criteria['channel_id']);
@@ -418,33 +436,6 @@ class Jonah_Driver_Sql extends Jonah_Driver
             $sql .= ' AND story_published IS NOT NULL';
         }
 
-        // Apply tag filtering
-        if (isset($criteria['tags'])) {
-            $tagSql = array();
-            foreach ($criteria['tags'] as $tag) {
-                if (!empty($criteria['tagIDs'][$tag])) {
-                    $tagSql[] = 'tags.tag_id = ?';
-                    $values[] = $criteria['tagIDs'][$tag];
-                }
-            }
-            if (count($tagSql)) {
-                $sql .= ' AND (' . implode(' OR ', $tagSql) . ')';
-            }
-        }
-
-        if (isset($criteria['alltags'])) {
-            $tagSql = array();
-            foreach ($criteria['alltags'] as $tag) {
-                if (!empty($criteria['tagIDs'][$tag])) {
-                    $tagSql[] = 'tags.tag_id = ?';
-                    $values[] = $criteria['tagIDs'][$tag];
-                }
-            }
-            if (count($tagSql)) {
-                $sql .= ' AND (' . implode(' AND ', $tagSql) . ')';
-            }
-        }
-
         // Filter by story author
         if (isset($criteria['author'])) {
             $sql .= ' AND stories.story_author = ?';
@@ -463,6 +454,14 @@ class Jonah_Driver_Sql extends Jonah_Driver
                 $sql .= ' AND stories.story_body NOT LIKE ?';
                 $values[] = '%' . $keyword . '%';
             }
+        }
+
+        // Ensure any results are in the following story_id list.
+        if (!empty($criteria['ids'])) {
+            $sql .= 'AND stories.story_id IN ('
+                . implode(',', array_map(function($v) { return '?'; }, $criteria['ids']))
+                . ')';
+            $values = array_merge($values, $criteria['ids']);
         }
 
         switch ($order) {
@@ -495,7 +494,9 @@ class Jonah_Driver_Sql extends Jonah_Driver
         }
 
         foreach ($results as &$row) {
-            $row['tags'] = $this->readTags($row['id']);
+            $row['tags'] = $GLOBALS['injector']
+                ->getInstance('Jonah_Tagger')
+                ->getTags($row['id'], Jonah_Tagger::TYPE_STORY);
         }
 
         return $results;
@@ -551,7 +552,9 @@ class Jonah_Driver_Sql extends Jonah_Driver
         if (empty($result)) {
             throw new Horde_Exception_NotFound(sprintf(_("Story id \"%s\" not found."), $story_id));
         }
-        $result['tags'] = $this->readTags($story_id);
+        $result['tags'] = $GLOBALS['injector']
+            ->getInstance('Jonah_Tagger')
+            ->getTags($story_id, Jonah_Tagger::TYPE_STORY);
         $result = $this->_convertFromBackend($result);
         if ($read) {
             $this->_readStory($story_id);
@@ -626,290 +629,6 @@ class Jonah_Driver_Sql extends Jonah_Driver
             $this->_db->delete($sql, $values);
         } catch (Horde_Db_Exception $e) {
             Horde::log($e->getMessage(), 'ERR');
-            throw new Jonah_Exception($e);
-        }
-
-        $sql = 'DELETE FROM jonah_stories_tags ' .
-               'WHERE channel_id = ? AND story_id = ?';
-        try {
-            $this->_db->delete($sql, $values);
-        } catch (Horde_Db_Exception $e) {
-            Horde::log($e->getMessage(), 'ERR');
-            throw new Jonah_Exception($e);
-        }
-    }
-
-    /**
-     * Write out the tags for a specific resource.
-     *
-     * @param int    $resource_id    The story we are tagging.
-     * @param int    $channel_id     The channel id for the story we are tagging
-     * @param array  $tags           An array of tags.
-     *
-     * @TODO: Move this to a tagger class that uses Content_Tagger
-     * @return boolean
-     * @throws Jonah_Exception
-     */
-    public function writeTags($resource_id, $channel_id, $tags)
-    {
-        global $conf;
-
-        // First, make sure all tag names exist in the DB.
-        $tagkeys = array();
-        $insert_sql = 'INSERT INTO jonah_tags (tag_id, tag_name) VALUES(?, ?)';
-        $query_sql = 'SELECT tag_id FROM jonah_tags WHERE tag_name = ?';
-        foreach ($tags as $tag) {
-            $tag = Horde_String::lower(trim($tag));
-            try {
-                $id = $this->_db->selectValue($query_sql, array($tag));
-            } catch (Horde_Db_Exception $e) {
-                throw new Jonah_Exception($e);
-            }
-            if (empty($id)) {
-                try {
-                    $id = $this->_db->insert($insert_sql, array($id, $tag));
-                } catch (Horde_Db_Exception $e) {
-                    throw new Jonah_Exception($e);
-                }
-                $tagkeys[] = $id;
-            } else {
-                $tagkeys[] = $id;
-            }
-        }
-
-        $delete_sql = 'DELETE FROM jonah_stories_tags WHERE story_id = ?';
-        $query_sql =  'INSERT INTO jonah_stories_tags (story_id, channel_id, tag_id) VALUES(?, ?, ?)';
-        Horde::log('SQL query by Jonah_Driver_sql::writeTags: ' . $sql, 'DEBUG');
-        $this->_db->delete($delete_sql, array((int)$resource_id));
-        foreach ($tagkeys as $key) {
-            $this->_db->insert($query_sql, array($resource_id, $channel_id, $key));
-        }
-
-        /* @TODO We should clear at least any of our cached counts */
-        return true;
-    }
-
-    /**
-     * Retrieve the tags for a specified resource.
-     *
-     * @TODO: Move this to a tagger class that uses content_tagger
-     *
-     * @param integer     $resource_id    The resource to get tags for.
-     *
-     * @return array  An array of tags
-     */
-    public function readTags($resource_id)
-    {
-        $sql = 'SELECT jonah_tags.tag_id, tag_name FROM jonah_tags INNER JOIN jonah_stories_tags ON jonah_stories_tags.tag_id = jonah_tags.tag_id WHERE jonah_stories_tags.story_id = ?';
-        Horde::log('SQL query by Jonah_Driver_sql::readTags ' . $sql, 'DEBUG');
-        try {
-            return $this->_db->selectAssoc($sql, array($resource_id));
-        } catch (Horde_Db_Exception $e) {
-            throw new Jonah_Exception($e);
-        }
-    }
-
-    /**
-     * Retrieve the list of used tag_names, tag_ids and the total number
-     * of resources that are linked to that tag.
-     *
-     * @param array $tags  An optional array of tag_ids. If omitted, all tags
-     *                     will be included.
-     *
-     * @param array $channel_id  An optional array of channel_ids.
-     *
-     * @return array  An array containing tag_name, and total
-     */
-    public function listTagInfo($tags = array(), $channel_id = null)
-    {
-        if (!is_array($channel_id) && is_numeric($channel_id)) {
-            $channel_id = array($channel_id);
-        }
-        $cache = $GLOBALS['injector']->getInstance('Horde_Cache');
-        $cache_key = 'jonah_tags_' . md5(serialize($tags) . md5(serialize($channel_id)));
-        $cache_value = $cache->get($cache_key, $GLOBALS['conf']['cache']['default_lifetime']);
-        if ($cache_value) {
-            return unserialize($cache_value);
-        }
-
-        $haveWhere = false;
-        $sql = 'SELECT tn.tag_id, tag_name, COUNT(tag_name) total FROM jonah_tags as tn INNER JOIN jonah_stories_tags as t ON t.tag_id = tn.tag_id';
-        if (count($tags)) {
-            $sql .= ' WHERE tn.tag_id IN (' . implode(',', $tags) . ')';
-            $haveWhere = true;
-        }
-        if (is_array($channel_id) & !empty($channel_id)) {
-            if (!$haveWhere) {
-                $sql .= ' WHERE';
-            } else {
-                $sql .= ' AND';
-            }
-            $channels = array();
-            foreach ($channel_id as $cid) {
-                $c = $this->_getChannel($cid);
-            }
-            $channel_id = array_merge($channel_id, $channels);
-            $sql .= ' t.channel_id IN (' . implode(', ', $channel_id) . ')';
-        }
-        $sql .= ' GROUP BY tn.tag_id, tag_name ORDER BY total DESC;';
-        try {
-            $results = $this->_db->selectAll($sql);
-        } catch (Horde_Db_Exception $e) {
-            throw new Jonah_Exception($e);
-        }
-        $cache->set($cache_key, serialize($results));
-
-        return $results;
-    }
-
-    /**
-     * Search for resources matching the specified criteria
-     *
-     * @param array  $ids          An array of tag_ids to search for. Note that
-     *                             these are AND'd together.
-     * @param integer $max         The maximum number of stories to get. If
-     *                             null, all stories will be returned.
-     * @param integer $from        The number of the story to start with.
-     * @param array $channel_id    Limit the result set to resources
-     *                             present in these channels
-     * @param integer $order       How to order the results for internal
-     *                             channels. Possible values are the
-     *                             JONAH_ORDER_* constants.
-     *
-     * @return mixed  Array of stories
-     */
-    public function searchTagsById($ids, $max = 10, $from = 0, $channel_id = array(), $order = Jonah::ORDER_PUBLISHED)
-    {
-        if (!is_array($ids) || !count($ids)) {
-            $stories[] = array();
-        } else {
-            $stories = array();
-            $sql = 'SELECT DISTINCT s.story_id, s.channel_id FROM jonah_stories'
-                   . ' s, jonah_stories_tags t';
-            for ($i = 0; $i < count($ids); $i++) {
-                $sql .= ', jonah_stories_tags t' . $i;
-            }
-            $sql .= ' WHERE s.story_id = t.story_id';
-            for ($i = 0 ; $i < count($ids); $i++) {
-                $sql .= ' AND t' . $i . '.tag_id = ' . $ids[$i] . ' AND t'
-                        . $i . '.story_id = t.story_id';
-            }
-
-            /* Limit to particular channels if requested */
-            if (count($channel_id) > 0) {
-                // Have to find out if we are a composite channel or not.
-                $channels = array();
-                foreach ($channel_id as $cid) {
-                    $c = $this->_getChannel($cid);
-                }
-                $channels = array_merge($channel_id, $channels);
-                $timestamp = time();
-                $sql .= ' AND t.channel_id IN (' . implode(', ', $channels)
-                        . ') AND s.story_published IS NOT NULL AND '
-                        . 's.story_published < ' . $timestamp;
-            }
-
-            switch ($order) {
-            case Jonah::ORDER_PUBLISHED:
-                $sql .= ' ORDER BY story_published DESC';
-                break;
-            case Jonah::ORDER_READ:
-                $sql .= ' ORDER BY story_read DESC';
-                break;
-            case Jonah::ORDER_COMMENTS:
-                //@TODO
-                break;
-            }
-
-            /* Instantiate the channel object outside the loop if we
-             * are only limiting to one channel. */
-            if (count($channel_id) == 1) {
-                $channel = $this->getChannel($channel_id[0]);
-            }
-            Horde::log('SQL query by Jonah_Driver_sql::searchTags: ' . $sql, 'DEBUG');
-            $sql = $this->_db->addLimitOffset($sql, array('offset' => $from, 'limit' => $max));
-            try {
-                $results = $this->_db->select($sql);
-            } catch (Horde_Db_Adapter $e) {
-                throw new Jonah_Exception($e);
-            }
-            foreach ($results as $row) {
-                $story = $this->_getStory($row['story_id'], false);
-                if (count($channel_id) > 1) {
-                    $channel = $this->getChannel($story['channel_id']);
-                }
-
-                /* Format story link. */
-                $story['link'] = $this->getStoryLink($channel, $story);
-                $story = array_merge($story, $channel);
-
-                /* Format dates. */
-                $date_format = $GLOBALS['prefs']->getValue('date_format');
-                $story['updated_date'] = strftime($date_format, $story['updated']);
-                if (!empty($story['published'])) {
-                    $story['published_date'] = strftime($date_format, $story['published']);
-                }
-
-                $stories[] = $story;
-            }
-        }
-
-        return $stories;
-    }
-
-    /**
-     * Search for articles matching specific tag name(s).
-     *
-     * @see Jonah_Driver_sql::searchTagsById()
-     */
-    public function searchTags(
-        $names, $max = 10, $from = 0, $channel_id = array(), $order = Jonah::ORDER_PUBLISHED)
-    {
-        $ids = $this->getTagIds($names);
-        return $this->searchTagsById(array_values($ids), $max, $from, $channel_id, $order);
-    }
-
-
-    /**
-     * Return a set of tag names given the tag_ids.
-     *
-     * @param array $ids  An array of tag_ids to get names for.
-     *
-     * @return mixed  An array of tag names | PEAR_Error.
-     */
-    public function getTagNames($ids)
-    {
-        if (empty($ids)) {
-            return array();
-        }
-
-        $sql = 'SELECT t.tag_name FROM jonah_tags as t WHERE t.tag_id IN (' . implode(',', array_map(function($v) { return '?'; }, $ids)) . ')';
-        try {
-            return $this->_db->selectValues($sql, $ids);
-        } catch (Horde_Db_Exception $e) {
-            throw new Jonah_Exception($e);
-        }
-
-        return $tags;
-    }
-
-    /**
-     * Return a set of tag_ids, given the tag name
-     *
-     * @param array $names  An array of names to search for
-     *
-     * @return mixed  An array of tag_name => tag_ids | PEAR_Error
-     */
-    public function getTagIds($names)
-    {
-        if (empty($names)) {
-            return array();
-        }
-
-        $sql = 'SELECT t.tag_name, t.tag_id FROM jonah_tags as t WHERE t.tag_name IN (' . implode(',', array_map(function($v) { return '?'; }, $names)) . ')';
-        try {
-            return $this->_db->selectAssoc($sql, $names);
-        } catch (Horde_Db_Adapter $e) {
             throw new Jonah_Exception($e);
         }
     }

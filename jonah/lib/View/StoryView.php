@@ -83,26 +83,39 @@ EOT;
 
         /* Grab tag related content for entire channel */
         $cloud = new Horde_Core_Ui_TagCloud();
-        $allTags = $driver->listTagInfo(array(), $channel_id);
+        $allTags = $GLOBALS['injector']
+            ->getInstance('Jonah_Driver')
+            ->listTagInfo($channel_id);
         foreach ($allTags as $tag_id => $taginfo) {
-            $cloud->addElement($taginfo['tag_name'], Horde::url('stories/results.php')->add(array('tag_id' => $tag_id, 'channel_id' => $channel_id)), $taginfo['total']);
+            $cloud->addElement(
+                $taginfo['tag_name'],
+                Horde::url('stories/results.php')->add(
+                    array(
+                        'tag' => trim($taginfo['tag_name']),
+                        'channel_id' => $channel_id
+                    )
+                ),
+                $taginfo['total']
+            );
         }
 
         /* Prepare the story's tags for display */
         // FIXME - need to actually use these.
-        $tag_html = array();
-        $tag_link = Horde::url('stories/results.php')->add('channel_id', $channel_id);
-        foreach ($story['tags'] as $id => $tag) {
-            $link = $tag_link->copy()->add('tag_id', $id);
-            $tag_html[] = $link->link() . $tag . '</a>';
-        }
+        // $tag_html = array();
+        // $tag_link = Horde::url('stories/results.php')->add('channel_id', $channel_id);
+        // foreach ($story['tags'] as $id => $tag) {
+        //     $link = $tag_link->copy()->add('tag_id', $id);
+        //     $tag_html[] = $link->link() . $tag . '</a>';
+        // }
 
         /* Filter and prepare story content. */
         if (!empty($story['body_type']) && $story['body_type'] == 'text') {
             $story['body'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($story['body'], 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
         }
 
-        // @TODO: Where is this used and what for?
+        // If URL is present, it's used instead of a story body. I.e., Provides
+        // a mechanism for a story title, with a link to e.g., a mailing list
+        // archive ...
         if (!empty($story['url'])) {
             $story['body'] .= Horde::link(Horde::externalUrl($story['url'])) . htmlspecialchars($story['url']) . '</a></p>';
         }
