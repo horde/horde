@@ -46,6 +46,17 @@ class Jonah_Driver
     }
 
     /**
+     * Get a list of stored channels.
+     *
+     * @return array  An array of channel hashes.
+     * @throws Jonah_Exception
+     */
+    public function getChannels()
+    {
+        return $this->_getChannels();
+    }
+
+    /**
      * Fetches the requested channel, while actually passing on the request to
      * the backend _getChannel() function to do the real work.
      *
@@ -83,48 +94,29 @@ class Jonah_Driver
      *
      * @param integer $criteria    An associative array of attributes on which
      *                             the resulting stories should be filtered.
-     *                             Examples:
-     *                             'channel' => string Channel slug
-     *                             'channel_id' => int Channel ID
-     *                             'author' => string Story author
-     *                             'updated-min' => Horde_Date Only return
-     *                                                         stories updated
-     *                                                         on or after this
-     *                                                         date
-     *                             'updated-max' => Horde_Date Only return
-     *                                                         stories updated
-     *                                                         on or before this
-     *                                                         date
-     *                             'published-min' => Horde_Date Only return
-     *                                                           stories
-     *                                                           published on or
-     *                                                           after this date
-     *                             'published-max' => Horde_Date Only return
-     *                                                           stories
-     *                                                           published on or
-     *                                                           before date
-     *                             'tags' => array Array of tag names ANY of
-     *                                             which may match the story to
-     *                                             be included
-     *                             'alltags' => array Array of tag names ALL of
-     *                                                which must be associated
-     *                                                with the story to be
-     *                                                included
-     *                             'keywords' => array Array of strings ALL of
-     *                                                 which matching must
-     *                                                 include
-     *                             'published' => boolean Whether to return only
-     *                                                    published stories;
-     *                                                    null will return both
-     *                                                    published and
-     *                                                    unpublished
-     *                             'startnumber' => int Story number to begin
-     *                             'endnumber' => int Story number to end
-     *                             'limit' => int Max number of stories
-     *
-     * @param integer $order       How to order the results for internal
-     *                             channels. Possible values are the
-     *                             Jonah::ORDER_* constants.
+     *  Examples:
+     *      'channel' => (string) Channel slug
+     *      'channel_id' => (integer) Channel ID (Either an id or slug is required)
+     *      'author' => (string) Story author
+     *      'updated-min' => (Horde_Date) Only return stories updated on or
+     *          after this date
+     *      'updated-max' => (Horde_Date) Only return stories updatedon or
+     *          before this date
+     *      'published-min' => (Horde_Date) Only return stories published on or
+     *          after this date
+     *      'published-max' => (Horde_Date) Only return stories published on or
+     *          before date
+     *      'tags' => (array) Tag names that must match to be included
+     *      'keywords' => (array) Strings which must match to be included
+     *      'published' => (boolean) Whether to return only published stories:
+     *          Possible values:
+     *              null          return both
+     *              'published'   returns publised
+     *              'unpublished' returns unpublished
+     *      'startnumber' => (integer) Story number to start at
+     *      'limit' => (integer) Max number of stories
+     * @param integer $order  How to order the results. A Jonah::ORDER_*
+     *                        constant.
      *
      * @return array  The specified number (or less, if there are fewer) of
      *                stories from the given channel.
@@ -137,35 +129,37 @@ class Jonah_Driver
             $criteria['channel_id'] = $this->getIdBySlug($criteria['channel']);
         }
 
+        if (empty($criteria['channel_id'])) {
+            throw InvalidArgumentException('Missing expected channel_id parameter.');
+        }
+
         // Validate that we have proper Horde_Date objects
         if (isset($criteria['updated-min'])) {
             if (!is_a($criteria['updated-min'], 'Horde_Date')) {
-                throw new InvalidArgumentException("Invalid date object provided for update start date.");
+                throw new InvalidArgumentException('Invalid date object provided for update start date.');
             }
         }
         if (isset($criteria['updated-max'])) {
             if (!is_a($criteria['updated-max'], 'Horde_Date')) {
-                throw new InvalidArgumentException("Invalid date object provided for update end date.");
+                throw new InvalidArgumentException('Invalid date object provided for update end date.');
             }
         }
         if (isset($criteria['published-min'])) {
             if (!is_a($criteria['published-min'], 'Horde_Date')) {
-                throw new InvalidArgumentException("Invalid date object provided for published start date.");
+                throw new InvalidArgumentException('Invalid date object provided for published start date.');
             }
         }
         if (isset($criteria['published-max'])) {
             if (!is_a($criteria['published-max'], 'Horde_Date')) {
-                throw new InvalidArgumentException("Invalid date object provided for published end date.");
+                throw new InvalidArgumentException('Invalid date object provided for published end date.');
             }
         }
 
-        // Collect the applicable tag IDs
-        $criteria['tagIDs'] = array();
-        if (isset($criteria['tags'])) {
-            $criteria['tagIDs'] = array_merge($criteria['tagIDs'], $this->getTagIds($criteria['tags']));
-        }
-        if (isset($criteria['alltags'])) {
-            $criteria['tagIDs'] = array_merge($criteria['tagIDs'], $this->getTagIds($criteria['alltags']));
+        if (!empty($criteria['tags'])) {
+            $criteria['ids'] = $GLOBALS['injector']
+                ->getInstance('Jonah_Tagger')
+                ->search($criteria['tags'], array('channel_ids' => $criteria['channel_id']));
+            unset($criteria['tags']);
         }
 
         return $this->_getStories($criteria, $order);
@@ -226,10 +220,7 @@ class Jonah_Driver
         } else {
             $url = Horde::url('stories/view.php', true, -1)->add(array('channel_id' => '%c', 'id' => '%s'))->setRaw(false);
         }
-        Horde::debug($channel);
-        Horde::debug(str_replace(array('%25c', '%25s', '%c', '%s'),
-                                         array('%c', '%s', $channel['channel_id'], $story['id']),
-                                         $url));
+
         return new Horde_Url(str_replace(array('%25c', '%25s', '%c', '%s'),
                                          array('%c', '%s', $channel['channel_id'], $story['id']),
                                          $url));
@@ -440,39 +431,37 @@ class Jonah_Driver
     }
 
     /**
-     * Stubs for the tag functions. If supported by the backend, these need
-     * to be implemented in the concrete Jonah_Driver_* class.
+     * Return a list of story_ids contained in the specified
+     * channel.
      *
-     * @TODO: These will be moved to a new Tagger class and will interface
-     * with the Content_Tagger api.
+     * @param integer $channel_id  The channel_id
+     *
+     * @return array  An array of story_ids.
      */
-    function writeTags($resource_id, $channel_id, $tags)
+    public function getStoryIdsByChannel($channel_id)
     {
-        return PEAR::raiseError(_("Tag support not enabled in backend."));
+        return $this->_getStoryIdsByChannel($channel_id);
     }
 
-    function readTags($resource_id)
+    public function listTagInfo($channel_id = null)
     {
-        return PEAR::raiseError(_("Tag support not enabled in backend."));
+        global $injector;
+var_dump($channel_id);
+        // All channels
+        if (!isset($channel_id)) {
+            return $injector
+                ->getInstance('Jonah_Tagger')
+                ->getCloud(null, null);
+        }
+
+        // Limit by channel_id
+        $story_ids = $this->_getStoryIdsByChannel($channel_id);
+        return $injector
+            ->getInstance('Jonah_Tagger')
+            ->getTagCountsByObjects($story_ids, Jonah_Tagger::TYPE_STORY);
     }
 
-    function listTagInfo($tags = array(), $channel_id = null)
-    {
-        return PEAR::raiseError(_("Tag support not enabled in backend."));
-    }
-
-    function searchTagsById($ids, $max = 10, $from = 0, $channel_id = array(),
-                            $order = Jonah::ORDER_PUBLISHED)
-    {
-        return PEAR::raiseError(_("Tag support not enabled in backend."));
-    }
-
-    function getTagNames($ids)
-    {
-        return PEAR::raiseError(_("Tag support not enabled in backend."));
-    }
-
-    function getIdBySlug($channel)
+    public function getIdBySlug($channel)
     {
         return $this->_getIdBySlug($channel);
     }

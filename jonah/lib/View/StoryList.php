@@ -28,7 +28,7 @@ class Jonah_View_StoryList extends Jonah_View_Base
         extract($this->_params, EXTR_REFS);
 
         $channel = $GLOBALS['injector']->getInstance('Jonah_Driver')->getChannel($channel_id);
-        if (!Jonah::checkPermissions('channels', Horde_Perms::EDIT, $channel_id)) {
+        if (!Jonah::checkPermissions('channels', Horde_Perms::EDIT, array($channel_id))) {
             $notification->push(_("You are not authorised for this action."), 'horde.warning');
             throw new Horde_Exception_AuthenticationFailure();
         }
@@ -83,7 +83,7 @@ class Jonah_View_StoryList extends Jonah_View_Base
             $stories[$key]['edit_link'] = $url->link(array('title' => _("Edit story"))) . Horde::img('edit.png') . '</a>';
 
             /* Delete story link. */
-            if (Jonah::checkPermissions('channels', Horde_Perms::DELETE, $channel_id)) {
+            if (Jonah::checkPermissions('channels', Horde_Perms::DELETE, array($channel_id))) {
                 $url = Horde::url('stories/delete.php')->add(array('id' => $story['id'], 'channel_id' => $channel_id));
                 $stories[$key]['delete_link'] = $url->link(array('title' => _("Delete story"))) . Horde::img('delete.png') . '</a>';
             }

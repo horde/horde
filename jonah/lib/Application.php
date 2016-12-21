@@ -103,7 +103,7 @@ class Jonah_Application extends Horde_Registry_Application
         if ($channel_id = Horde_Util::getFormData('channel_id')) {
             $news = $GLOBALS['injector']->getInstance('Jonah_Driver');
             $channel = $news->getChannel($channel_id);
-            if (Jonah::checkPermissions('channels', Horde_Perms::EDIT, $channel_id)) {
+            if (Jonah::checkPermissions('channels', Horde_Perms::EDIT, array($channel_id))) {
                 $menu->addArray(array(
                     'icon' => 'new.png',
                     'text' => _("_New Story"),
@@ -120,8 +120,7 @@ class Jonah_Application extends Horde_Registry_Application
     public function topbarCreate(Horde_Tree_Renderer_Base $tree, $parent = null,
                                  array $params = array())
     {
-        if (!Jonah::checkPermissions('jonah:news', Horde_Perms::EDIT) ||
-            !in_array('internal', $GLOBALS['conf']['news']['enable'])) {
+        if (!Jonah::checkPermissions('jonah:news', Horde_Perms::EDIT)) {
             return;
         }
 
