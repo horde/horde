@@ -40,7 +40,7 @@ class Horde_Smtp_Connection extends Horde\Socket\Client
     {
         if (is_resource($data)) {
             $this->_params['debug']->client('', false);
-
+            $max_size = $size;
             while (!feof($data) && (is_null($size) || ($size > 0))) {
                 if (is_null($size)) {
                     $c_size = 65536;
@@ -60,7 +60,14 @@ class Horde_Smtp_Connection extends Horde\Socket\Client
                 }
             }
 
-            $this->_write("\r\n");
+            // If we are chunking with BDAT (RFC 3030),
+            // we can't send any additional data after
+            // the binary data since the server expects
+            // the next command immediately after the
+            // end of data.
+            if (!$max_size) {
+                $this->_write("\r\n");
+            }
             $this->_params['debug']->raw("\n");
         } else {
             if (!is_array($data)) {
