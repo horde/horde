@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-03-21</date>
+ <date>2016-12-21</date>
  <version>
   <release>1.9.4</release>
   <api>1.9.0</api>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mjr] Fix RFC 3030 (CHUNKING) support.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -549,10 +549,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-03-21</date>
+   <date>2016-12-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mjr] Fix RFC 3030 (CHUNKING) support.
    </notes>
   </release>
  </changelog>
