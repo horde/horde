@@ -275,7 +275,8 @@ class Kronolith_Event_Sql extends Kronolith_Event
             }
             $properties['event_exceptionoriginaldate'] = $eod->strftime('%Y-%m-%d %H:%M:%S');
         } else {
-            unset($properties['event_baseid']);
+            /* This must be an empty string. */
+            $properties['event_baseid'] = '';
             $properties['event_exceptionoriginaldate'] = null;
         }
 
