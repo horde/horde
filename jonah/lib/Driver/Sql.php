@@ -458,12 +458,11 @@ class Jonah_Driver_Sql extends Jonah_Driver
 
         // Ensure any results are in the following story_id list.
         if (!empty($criteria['ids'])) {
-            $sql .= 'AND stories.story_id IN ('
+            $sql .= ' AND stories.story_id IN ('
                 . implode(',', array_map(function($v) { return '?'; }, $criteria['ids']))
                 . ')';
             $values = array_merge($values, $criteria['ids']);
         }
-
         switch ($order) {
         case Jonah::ORDER_PUBLISHED:
             $sql .= ' ORDER BY story_published DESC';
