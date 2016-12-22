@@ -486,13 +486,15 @@ class Jonah_Driver_Sql extends Jonah_Driver
         if ($limit || $start != 0) {
             $sql = $this->_db->addLimitOffset($sql, array('limit' => $limit, 'offset' => $start));
         }
+
         try {
            $results = $this->_db->selectAll($sql, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Jonah_Exception($e);
         }
-
+        $channel = $this->_getChannel($criteria['channel_id']);
         foreach ($results as &$row) {
+            $row['link'] = (string)$this->getStoryLink($channel, $row);
             $row['tags'] = $GLOBALS['injector']
                 ->getInstance('Jonah_Tagger')
                 ->getTags($row['id'], Jonah_Tagger::TYPE_STORY);
