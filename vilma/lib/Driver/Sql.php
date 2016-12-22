@@ -183,7 +183,13 @@ class Vilma_Driver_Sql extends Vilma_Driver
                 . ' ORDER BY ' . $user_field;
             $values = array('%@' . $domain);
         }
-        return $this->_db->selectAll($sql, $values);
+        return array_map(
+            function (&$row) {
+                $row['id'] = $row['user_id'];
+                $row['type'] = 'user';
+            },
+            $this->_db->selectAll($sql, $values)
+        );
     }
 
     /**

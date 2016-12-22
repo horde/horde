@@ -8,10 +8,10 @@
  <tr class="item">
   <th>&nbsp;</th>
   <th>
-   <gettext>Virtual Email Address</gettext>
+   <?php echo _("Virtual Email Address") ?>
   </th>
   <th>
-   <gettext>Destination</gettext>
+   <?php echo _("Destination") ?>
   </th>
  </tr>
  <loop:virtuals>

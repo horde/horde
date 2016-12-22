@@ -10,7 +10,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-11-24</date>
+ <date>2016-12-19</date>
  <version>
   <release>1.0.0</release>
   <api>1.0.0</api>
@@ -126,13 +126,13 @@
    </dir> <!-- /migration -->
    <dir name="templates">
     <dir name="domains">
-     <file name="index.html" role="horde" />
+     <file name="index.html.php" role="horde" />
     </dir> <!-- /templates/domains -->
     <dir name="users">
-     <file name="index.html" role="horde" />
+     <file name="index.html.php" role="horde" />
     </dir> <!-- /templates/users -->
     <dir name="virtuals">
-     <file name="index.html" role="horde" />
+     <file name="index.html.php" role="horde" />
     </dir> <!-- /templates/virtuals -->
     <file name=".htaccess" role="horde" />
    </dir> <!-- /templates -->
@@ -233,9 +233,9 @@
    <install as="vilma/migration/2_vilma_drop_domainkey.php" name="migration/2_vilma_drop_domainkey.php" />
    <install as="vilma/migration/3_vilma_upgrade_autoincrement.php" name="migration/3_vilma_upgrade_autoincrement.php" />
    <install as="vilma/templates/.htaccess" name="templates/.htaccess" />
-   <install as="vilma/templates/domains/index.html" name="templates/domains/index.html" />
-   <install as="vilma/templates/users/index.html" name="templates/users/index.html" />
-   <install as="vilma/templates/virtuals/index.html" name="templates/virtuals/index.html" />
+   <install as="vilma/templates/domains/index.html.php" name="templates/domains/index.html.php" />
+   <install as="vilma/templates/users/index.html.php" name="templates/users/index.html.php" />
+   <install as="vilma/templates/virtuals/index.html.php" name="templates/virtuals/index.html.php" />
    <install as="vilma/themes/default/screen.css" name="themes/default/screen.css" />
    <install as="vilma/themes/default/graphics/display.png" name="themes/default/graphics/display.png" />
    <install as="vilma/themes/default/graphics/domain.png" name="themes/default/graphics/domain.png" />
@@ -263,7 +263,7 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2016-11-24</date>
+   <date>2016-12-19</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * Initial release.

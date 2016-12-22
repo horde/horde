@@ -14,15 +14,15 @@
 require_once __DIR__ . '/../lib/Application.php';
 $vilma = Horde_Registry::appInit('vilma');
 
-/* Only admin should be using this. */
-if (!Vilma::hasPermission($domain)) {
-    throw new Horde_Exception_AuthenticationFailure();
-}
-
 $vars = Horde_Variables::getDefaultVariables();
 $address = $vars->address;
 $section = $vars->get('section', 'all');
 $domain = Vilma::stripDomain($address);
+
+/* Only admin should be using this. */
+if (!Vilma::hasPermission($domain)) {
+    throw new Horde_Exception_AuthenticationFailure();
+}
 
 /* Check if a form is being edited. */
 if (!isset($vars->mode)) {
@@ -53,8 +53,7 @@ if (!isset($vars->mode)) {
 }
 
 $domain = Vilma::stripDomain($address['address']);
-$tmp = $vars->domain;
-if (!$tmp) {
+if (!$vars->domain) {
     $vars->domain = $domain;
 }
 

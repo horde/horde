@@ -70,12 +70,8 @@ foreach ($addresses as &$address) {
             ->add($params);
         break;
     }
-    $currentAddress = $address['address'];
-    if (empty($currentAddress)) {
-        $currentAddress = $address['user_name'] . $address['domain'];
-    }
     $address['del_url'] = $url = Horde::url('users/delete.php')
-        ->add(array('address' => $currentAddress, 'section' => $section));
+        ->add(array('address' => $id, 'section' => $section));
 
     switch ($type) {
     case 'alias':
@@ -96,22 +92,22 @@ foreach ($addresses as &$address) {
 }
 
 /* Set up the template fields. */
-$template = $injector->createInstance('Horde_Template');
-$template->setOption('gettext', true);
-$template->set('addresses', $addresses);
+$view = $injector->createInstance('Horde_View');
+$view->addresses = $addresses;
 if (!$vilma->driver->isBelowMaxUsers($curdomain['domain_name'])) {
-    $template->set('maxusers', _("Maximum Users"));
+    $view->maxusers = _("Maximum Users");
 }
-$template->set('tabs', $tabs->render());
-$template->set('pager', $pager->render());
+$view->tabs = $tabs->render();
+$view->pager = $pager->render();
 
 /* Set up the field list. */
-$images = array('delete' => Horde::img('delete.png', _("Delete User")),
-                'edit' => Horde::img('edit.png', _("Edit User")));
-$template->set('images', $images);
+$view->images = array(
+    'delete' => Horde::img('delete.png', _("Delete User")),
+    'edit' => Horde::img('edit.png', _("Edit User"))
+);
 
 /* Render the page. */
 $page_output->header();
 $notification->notify(array('listeners' => 'status'));
-echo $template->fetch(VILMA_TEMPLATES . '/users/index.html');
+echo $view->render('users/index');
 $page_output->footer();
