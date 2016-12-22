@@ -74,7 +74,7 @@ abstract class Kronolith_Event
      *
      * @var string
      */
-    public  $organizer = null;
+    public $organizer = null;
 
     /**
      * The title of this event.
@@ -533,7 +533,7 @@ abstract class Kronolith_Event
         }
 
         $trace = debug_backtrace();
-        trigger_error('Undefined property via __set(): ' . $name
+        trigger_error('Undefined property via __get(): ' . $name
                       . ' in ' . $trace[0]['file']
                       . ' on line ' . $trace[0]['line'],
                       E_USER_NOTICE);
@@ -1539,7 +1539,7 @@ abstract class Kronolith_Event
         // Unbind the event from the base event, but don't delete it to avoid
         // any unpleasent user surprises.
         foreach ($exceptions as $exception) {
-            unset($exception->baseid);
+            $exception->baseid = null;
             $exception->exceptionoriginaldate = null;
             $exception->save();
             // Must delete after the baseid was removed so it doesn't alter
