@@ -95,7 +95,7 @@ EOT;
                         'channel_id' => $channel_id
                     )
                 ),
-                $taginfo['total']
+                $taginfo['count']
             );
         }
 
