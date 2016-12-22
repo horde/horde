@@ -210,13 +210,16 @@ class Jonah_Api extends Horde_Registry_Api
     {
         global $registry, $injector;
 
-        // @TODO: Refactor when moving tag to content_tagger
         $filter = new Horde_Support_Array($filter);
+        $channel_id = is_array($filter->channel_id)
+            ? array_pop($filter->channel_id)
+            : $filter->channel_id;
+
         $criteria = array(
             'tags' => $names,
             'startnumber' => $filter->from,
             'limit' => $filter->max,
-            'channel_id' => $filter->channel_id
+            'channel_id' => $channel_id
         );
         $results = $injector
             ->getInstance('Jonah_Driver')
