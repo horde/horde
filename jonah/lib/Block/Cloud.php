@@ -43,7 +43,15 @@ class Jonah_Block_Cloud extends Horde_Core_Block
         if (count($tags)) {
             $cloud = new Horde_Core_Ui_TagCloud();
             foreach ($tags as $id => $tag) {
-                $cloud->addElement($tag['tag_name'], str_replace(array('%40id%40', '%40tag%40', '@id@', '@tag@'), array($id, $tag['tag_name']), $this->_params['results_url']), $tag['total']);
+                $cloud->addElement(
+                    $tag['tag_name'],
+                    str_replace(
+                        array('%40id%40', '%40tag%40', '@id@', '@tag@'),
+                        array($id, $tag['tag_name']),
+                        $this->_params['results_url']
+                    ),
+                    $tag['count']
+                );
             }
             $html = $cloud->buildHTML();
         } else {
