@@ -29,7 +29,7 @@ class Vilma_Form_EditUser extends Horde_Form
             break;
         }
         if (!$editing) {
-            $title = sprintf(_("New User @%s"), $vars->get('domain'));
+            $title = sprintf(_("New User for \"%s\""), $vars->get('domain'));
         }
         parent::__construct($vars, $title);
 

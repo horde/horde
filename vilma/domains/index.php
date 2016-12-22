@@ -30,23 +30,26 @@ $editurl   = Horde::url('domains/edit.php');
 $deleteurl = Horde::url('domains/delete.php');
 $userurl   = Horde::url('users/index.php');
 foreach ($domains as &$domain) {
-    $domain['edit_url'] = $editurl->copy()->add('domain_id', $domain['domain_id']);
-    $domain['del_url']  = $deleteurl->copy()->add('domain_id', $domain['domain_id']);
-    $domain['view_url'] = $userurl->copy()->add('domain_id', $domain['domain_id']);
+    $domain['edit_url'] = $editurl->copy()
+        ->add('domain_id', $domain['domain_id']);
+    $domain['del_url']  = $deleteurl->copy()
+        ->add('domain_id', $domain['domain_id']);
+    $domain['view_url'] = $userurl->copy()
+        ->add('domain_id', $domain['domain_id']);
 }
 
 /* Set up the template fields. */
-$template = $injector->createInstance('Horde_Template');
-$template->setOption('gettext', true);
-$template->set('domains', $domains);
+$view = $injector->createInstance('Horde_View');
+$view->domains = $domains;
 
 /* Set up the field list. */
-$images = array('delete' => Horde::img('delete.png', _("Delete Domain")),
-                'edit' => Horde::img('edit.png', _("Edit Domain")));
-$template->set('images', $images);
+$view->images = array(
+    'delete' => Horde::img('delete.png', _("Delete Domain")),
+    'edit' => Horde::img('edit.png', _("Edit Domain"))
+);
 
 /* Render the page. */
 $page_output->header();
 $notification->notify(array('listeners' => 'status'));
-echo $template->fetch(VILMA_TEMPLATES . '/domains/index.html');
+echo $view->render('domains/index');
 $page_output->footer();

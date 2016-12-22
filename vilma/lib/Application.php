@@ -54,7 +54,7 @@ class Vilma_Application extends Horde_Registry_Application
         // the same as the actual DNS domain name.
         $domain_id = Horde_Util::getFormData('domain_id');
 
-        if (!empty($domain_id)) {
+        if (strlen($domain_id)) {
             $domain = $this->driver->getDomain($domain_id);
             if (!empty($domain['domain_name'])) {
                 $this->curdomain = $domain;
@@ -89,7 +89,11 @@ class Vilma_Application extends Horde_Registry_Application
      */
     public function menu($menu)
     {
-        $menu->add(Horde::url('domains/index.php'), _("_Domains"), 'vilma-domain');
+        $menu->add(
+            Horde::url('domains/index.php')->add('domain_id', 0),
+            _("_List Domains"),
+            'vilma-domain'
+        );
         if ($this->curdomain) {
             $domain = $GLOBALS['session']->get('vilma', 'domain');
             $menu->add(
@@ -98,16 +102,25 @@ class Vilma_Application extends Horde_Registry_Application
                 $domain['domain_name'],
                 'vilma-domain'
             );
-            $menu->add(
-                Horde::url('users/edit.php'),
-                _("New _Address"),
-                'vilma-user'
+        }
+    }
+
+    /**
+     * Adds additional items to the sidebar.
+     *
+     * @param Horde_View_Sidebar $sidebar  The sidebar object.
+     */
+    public function sidebar($sidebar)
+    {
+        if ($this->curdomain) {
+            $sidebar->addNewButton(
+                _("_New User"),
+                Horde::url('users/edit.php')
             );
         } else {
-            $menu->add(
-                Horde::url('domains/edit.php'),
+            $sidebar->addNewButton(
                 _("_New Domain"),
-                'vilma-domain'
+                Horde::url('domains/edit.php')
             );
         }
     }
