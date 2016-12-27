@@ -10,7 +10,6 @@
  * @license http://www.horde.org/licenses/lgpl21 LGPL-2.1
  * @package  Auth
  */
-
 /**
  * The Horde_Auth_Fallback class provides a way to combine two separate
  * drivers for failover and legacy support cases, for example
@@ -32,21 +31,23 @@ class Horde_Auth_Fallback extends Horde_Auth_Base
      * <pre>
      * 'primary_driver' - (Horde_Auth_Base) The primary driver.
      * 'fallback_driver' - (Horde_Auth_Base) The auth driver.
+     * 'capabilities' -  (array) Keys each 'adduser', 'removeuser', 'updateuser', 'listusers', 'resetpassword'
+     *                   Values "both", "primary", "fallback", "none"
+     *                   See method doc for "both" case on resetpassword and listusers
+     *                   Also overrides capabilities exposed
      * </pre>
      *
      * @throws InvalidArgumentException
      */
     public function __construct(array $params = array())
     {
-        foreach (array('primary_driver', 'fallback_driver') as $val) {
+        foreach (array('primary_driver', 'fallback_driver', 'capabilities') as $val) {
             if (!isset($params[$val])) {
                 throw new InvalidArgumentException('Missing ' . $val . ' parameter.');
             }
         }
-
         parent::__construct($params);
     }
-
     /**
      * Find out if a set of login credentials are valid.
      *
@@ -61,8 +62,8 @@ class Horde_Auth_Fallback extends Horde_Auth_Base
             throw new Horde_Auth_Exception($this->_params['primary_driver']->getError(true), $this->_params['primary_driver']->getError());
         }
     }
-
     /**
+     * Trust user-supplied capabilities for writing operations. Else,
      * Query the primary Auth object to find out if it supports the given
      * capability.
      *
@@ -72,13 +73,25 @@ class Horde_Auth_Fallback extends Horde_Auth_Base
      */
     public function hasCapability($capability)
     {
+        $lcCapability = strtolower($capability);
+        switch ($lcCapability) {
+        case 'adduser':
+        case 'removeuser':
+        case 'updateuser':
+        case 'listusers':
+        case 'resetpassword':
+            if (!empty($this->_params['capabilities'][$lcCapability])) {
+                return ($this->_params['capabilities'][$lcCapability] == 'none') ? false : true;
+            }
+            break;
+        }
+
         try {
             return $this->_params['primary_driver']->hasCapability($capability);
         } catch (Horde_Auth_Exception $e) {
             return false;
         }
     }
-
     /**
      * Automatic authentication.
      *
@@ -92,7 +105,6 @@ class Horde_Auth_Fallback extends Horde_Auth_Base
             return false;
         }
     }
-
     /**
      * Add a set of authentication credentials.
      *
@@ -103,9 +115,15 @@ class Horde_Auth_Fallback extends Horde_Auth_Base
      */
     public function addUser($userId, $credentials)
     {
-        $this->_params['primary_driver']->addUser($userId, $credentials);
+        if (($this->_params['capabilities']['adduser'] == 'both') ||
+            ($this->_params['capabilities']['adduser'] == 'primary')) {
+            $this->_params['primary_driver']->addUser($userId, $credentials);
+        }
+        if (($this->_params['capabilities']['adduser'] == 'both') ||
+            ($this->_params['capabilities']['adduser'] == 'fallback')) {
+            $this->_params['fallback_driver']->addUser($userId, $credentials);
+        }
     }
-
     /**
      * Update a set of authentication credentials.
      *
@@ -117,12 +135,20 @@ class Horde_Auth_Fallback extends Horde_Auth_Base
      */
     public function updateUser($oldID, $newID, $credentials)
     {
-        $this->_params['primary_driver']->updateUser($oldID, $newID, $credentials);
+        if (($this->_params['capabilities']['updateuser'] == 'both') ||
+            ($this->_params['capabilities']['updateuser'] == 'primary')) {
+            $this->_params['primary_driver']->updateUser($oldID, $newID, $credentials);
+        }
+        if (($this->_params['capabilities']['updateuser'] == 'both') ||
+            ($this->_params['capabilities']['updateuser'] == 'fallback')) {
+            $this->_params['fallback_driver']->updateUser($oldID, $newID, $credentials);
+        }
     }
-
     /**
      * Reset a user's password. Used for example when the user does not
      * remember the existing password.
+     * For "both" mode, only the primary backend's generation method is used
+     * Secondary backend will perform an "update" instead with the password
      *
      * @param string $userId  The user id for which to reset the password.
      *
@@ -131,9 +157,19 @@ class Horde_Auth_Fallback extends Horde_Auth_Base
      */
     public function resetPassword($userId)
     {
-        return $this->_params['primary_driver']->resetPassword($userId);
+        $password = null;
+        if (($this->_params['capabilities']['resetpassword'] == 'both') ||
+            ($this->_params['capabilities']['resetpassword'] == 'primary')) {
+            $password = $this->_params['primary_driver']->resetPassword($userId);
+        }
+        if ($this->_params['capabilities']['resetpassword'] == 'both') {
+            $this->_params['fallback_driver']->updateUser($userId, $userId, array('password' => $password));
+        }
+        if ($this->_params['capabilities']['resetpassword'] == 'fallback') {
+            $password = $this->_params['fallback_driver']->resetPassword($userId);
+        }
+        return $password;
     }
-
     /**
      * Delete a set of authentication credentials.
      *
@@ -143,9 +179,15 @@ class Horde_Auth_Fallback extends Horde_Auth_Base
      */
     public function removeUser($userId)
     {
-        $this->_params['primary_driver']->removeUser($userId);
+        if (($this->_params['capabilities']['removeuser'] == 'both') ||
+            ($this->_params['capabilities']['removeuser'] == 'primary')) {
+            $this->_params['primary_driver']->removeUser($userId);
+        }
+        if (($this->_params['capabilities']['removeuser'] == 'both') ||
+            ($this->_params['capabilities']['removeuser'] == 'fallback')) {
+            $this->_params['fallback_driver']->removeUser($userId);
+        }
     }
-
     /**
      * Lists all users in the system.
      *
@@ -156,10 +198,19 @@ class Horde_Auth_Fallback extends Horde_Auth_Base
      */
     public function listUsers($sort = false)
     {
+        if ($this->_params['capabilities']['listusers'] == 'primary') {
+            return $this->_params['primary_driver']->listUsers($sort);
+        }
+        if ($this->_params['capabilities']['listusers'] == 'fallback') {
+            return $this->_params['fallback_driver']->listUsers($sort);
+        }
+        if ($this->_params['capabilities']['listusers'] == 'none') {
+            return array();
+        }
+        // In most cases, having the driver's native sort before the composite sort should not hurt performance
         $res = array_unique(array_merge($this->_params['primary_driver']->listUsers($sort), $this->_params['fallback_driver']->listUsers($sort)));
         return ($sort) ? sort($res) : $res;
     }
-
     /**
      * Checks if a userId exists in the system.
      *
@@ -175,5 +226,4 @@ class Horde_Auth_Fallback extends Horde_Auth_Base
             return false;
         }
     }
-
 }
