@@ -1,5 +1,5 @@
 # Greek messages for Ingo.
-# Copyright 2003-2016 Horde LLC (http://www.horde.org/)
+# Copyright 2003-2017 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Ingo package.
 # Milosis C. Konstantinos, 2005.
 # Terpou Maria <mterpou@cti.gr>, 2015

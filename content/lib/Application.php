@@ -5,7 +5,7 @@
  * This file defines Horde's core API interface. Other core Horde libraries
  * can interact with Content through this API.
  *
- * Copyright 2011-2016 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
  *
  * @license  http://www.horde.org/licenses/bsd BSD
  * @package Content

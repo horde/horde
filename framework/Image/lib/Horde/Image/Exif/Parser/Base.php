@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2009-2016 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -15,7 +15,7 @@
  *
  * @author    Michael J. Rubinsky <mrubinsk@horde.org>
  * @category  Horde
- * @copyright 2009-2016 Horde LLC
+ * @copyright 2009-2017 Horde LLC
  * @package   Image
  */
 class Horde_Image_Exif_Parser_Base

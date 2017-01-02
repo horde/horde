@@ -1,5 +1,5 @@
 # IMP Greek translation.
-# Copyright 2002-2016 Horde LLC (http://www.horde.org/)
+# Copyright 2002-2017 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the IMP package.
 # Stefanos I. Dimitriou <sdimitri_webmail@teiath.gr>, 2002.
 # Silligardos Xristoforos, 2002.

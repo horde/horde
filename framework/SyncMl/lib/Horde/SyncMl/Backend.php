@@ -165,7 +165,7 @@
  *    to create a clean (empty) enviroment for the test user "syncmltest".  See
  *    the Horde_SyncMl_Backend_Sql implementation for details.
  *
- * Copyright 2005-2016 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.

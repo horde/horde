@@ -1,5 +1,5 @@
 # Catalan translations for Kronolith package.
-# Copyright 2005-2016 Horde LLC (http://www.horde.org/)
+# Copyright 2005-2017 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Kronolith package.
 # Automatically generated, 2005.
 #

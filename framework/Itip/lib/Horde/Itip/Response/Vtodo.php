@@ -18,7 +18,7 @@
 /**
  * Handles Itip response data for vTodo.
  *
- * Copyright 2002-2016 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
  * Copyright 2004-2010 Klarälvdalens Datakonsult AB
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not

@@ -1,6 +1,6 @@
 # Polish translations for Kronolith package.
 # Polskie tłumaczenia dla pakietu Kronolith.
-# Copyright 2007-2016 Horde LLC (http://www.horde.org/)
+# Copyright 2007-2017 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Kronolith package.
 # Mariusz Zynel <mariusz@math.uwb.edu.pl>, 2001.
 # Piotr Roszatycki <dexter@debian.org>, 2001.

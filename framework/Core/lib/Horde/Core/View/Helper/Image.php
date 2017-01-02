@@ -2,7 +2,7 @@
 /**
  * View helper class to allow access to the Horde_Themes_Image::tag() method.
  *
- * Copyright 2012-2016 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.

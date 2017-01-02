@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2006 Anish Mistry
- * Copyright 2009-2016 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsd.
@@ -21,7 +21,7 @@ use \Horde\ManageSieve, \Horde\ManageSieve\Exception;
  * @author    Anish Mistry <amistry@am-productions.biz>
  * @author    Jan Schneider <jan@horde.org>
  * @copyright 2006 Anish Mistry
- * @copyright 2009-2016 Horde LLC
+ * @copyright 2009-2017 Horde LLC
  * @license   http://www.horde.org/licenses/bsd BSD
  */
 class ManageSieveTest extends Horde_Test_Case

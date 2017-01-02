@@ -6,7 +6,7 @@
  * This Auth driver is useful if you have a shadow password system
  * where the Horde_Auth_Passwd driver doesn't work.
  *
- * Copyright 2004-2016 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, http://www.horde.org/licenses/lgpl21

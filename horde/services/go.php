@@ -3,14 +3,14 @@
  * A script to redirect to a given URL, used to hide any referrer data being
  * passed to the remote server and potentially exposing any session IDs.
  *
- * Copyright 2003-2016 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL-2). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl.
  *
  * @author    Marko Djukic <marko@oblo.com>
  * @category  Horde
- * @copyright 2003-2016 Horde LLC
+ * @copyright 2003-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl LGPL-2
  * @package   Horde
  */

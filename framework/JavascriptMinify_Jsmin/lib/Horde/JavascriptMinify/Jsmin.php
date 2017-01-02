@@ -1,11 +1,11 @@
 <?php
 /**
- * Copyright 2014-2016 Horde LLC (http://www.horde.org/)
+ * Copyright 2014-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (JSMin).
  *
  * @category  Horde
- * @copyright 2014-2016 Horde LLC
+ * @copyright 2014-2017 Horde LLC
  * @license   JSMin
  * @package   JavascriptMinify
  */
@@ -15,7 +15,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2014-2016 Horde LLC
+ * @copyright 2014-2017 Horde LLC
  * @license   JSMin
  * @package   JavascriptMinify_Jsmin
  */

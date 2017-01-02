@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2016 Horde LLC (http://www.horde.org/)
+ * Copyright 2016-2017 Horde LLC (http://www.horde.org/)
  *
  * @author     Jan Schneider <jan@horde.org>
  * @category   Horde

@@ -2,7 +2,7 @@
 /**
  * Factory for creating Horde_Perms objects
  *
- * Copyright 2010-2016 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * @category Horde
  * @package  Core

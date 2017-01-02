@@ -2,7 +2,7 @@
 /**
  * Exception handler for the horde/Servcie_Weather package.
  *
- * Copyright 2011-2016 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
  *
  * @author   Michael J Rubinsky <mrubinsk@horde.org>
  * @category Horde

@@ -3,7 +3,7 @@
  * Ansel_GalleryMode_Date:: Class for encapsulating gallery methods that
  * depend on the current display mode of the gallery being Date.
  *
- * Copyright 2008-2016 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.

@@ -2,7 +2,7 @@
 /**
  * Identity confirmation script.
  *
- * Copyright 2005-2016 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL-2). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl.

@@ -2,7 +2,7 @@
 /**
  * Basic example for fetching a page with Horde_Http_Client
  *
- * Copyright 2007-2016 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2017 Horde LLC (http://www.horde.org/)
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://www.horde.org/licenses/bsd BSD

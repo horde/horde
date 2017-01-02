@@ -2,7 +2,7 @@
 /**
  * Basic example for adding data to ElasticSearch
  *
- * Copyright 2011-2016 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://www.horde.org/licenses/bsd BSD

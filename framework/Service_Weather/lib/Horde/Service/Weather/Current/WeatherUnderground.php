@@ -3,7 +3,7 @@
  * This file contains the Horde_Service_Weather_Current class for abstracting
  * access to current observations from Wunderground.
  *
- * Copyright 2011-2016 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
  *
  * @author   Michael J Rubinsky <mrubinsk@horde.org>
  * @license  http://www.horde.org/licenses/bsd BSD

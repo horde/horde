@@ -2,7 +2,7 @@
 /**
  * Horde_Core_ActiveSync_Mail_Draft::
  *
- * @copyright 2016 Horde LLC (http://www.horde.org/)
+ * @copyright 2016-2017 Horde LLC (http://www.horde.org/)
  * @license http://www.horde.org/licenses/lgpl21 LGPL
  * @author  Michael J Rubinsky <mrubinsk@horde.org>
  * @package Core
@@ -12,7 +12,7 @@
  *
  * Wraps functionality related to handling Draft email messages during sync.
  *
- * @copyright 2016 Horde LLC (http://www.horde.org/)
+ * @copyright 2016-2017 Horde LLC (http://www.horde.org/)
  * @license http://www.horde.org/licenses/lgpl21 LGPL
  * @author  Michael J Rubinsky <mrubinsk@horde.org>
  * @package Core

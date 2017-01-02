@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2015-2016 Horde LLC (http://www.horde.org/)
+ * Copyright 2015-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsd.
@@ -18,7 +18,7 @@ namespace Horde\ManageSieve;
  *
  * @author    Jan Schneider <jan@horde.org>
  * @category  Horde
- * @copyright 2015-2016 Horde LLC
+ * @copyright 2015-2017 Horde LLC
  * @license   http://www.horde.org/licenses/bsd BSD
  * @package   ManageSieve
  */

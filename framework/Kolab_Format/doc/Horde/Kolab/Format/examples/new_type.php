@@ -19,7 +19,7 @@ require_once 'Horde/Autoloader/Default.php';
 /**
  * Kolab XML handler for a string value
  *
- * Copyright 2008-2016 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.

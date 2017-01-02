@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright (c) 2001-2010, Richard Heyes
- * Copyright 2011-2016 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -37,7 +37,7 @@
  * @category  Horde
  * @copyright 2001-2010 Richard Heyes
  * @copyright 2002-2011 Timo Sirainen
- * @copyright 2011-2016 Horde LLC
+ * @copyright 2011-2017 Horde LLC
  * @license   http://www.horde.org/licenses/bsd New BSD License
  * @package   Mail
  */
@@ -52,7 +52,7 @@
  * @category  Horde
  * @copyright 2001-2010 Richard Heyes
  * @copyright 2002-2011 Timo Sirainen
- * @copyright 2011-2016 Horde LLC
+ * @copyright 2011-2017 Horde LLC
  * @license   http://www.horde.org/licenses/bsd New BSD License
  * @package   Mail
  */

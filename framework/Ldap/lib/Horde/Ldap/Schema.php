@@ -8,7 +8,7 @@
  * You will find portions of their implementation in here.
  *
  * Copyright 2009 Jan Wagner, Benedikt Hallinger
- * Copyright 2010-2016 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * @category  Horde
  * @package   Ldap

@@ -7,7 +7,7 @@
  * $id = (string)new Horde_Support_Randomid();
  * </code>
  *
- * Copyright 2010-2016 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde

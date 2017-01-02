@@ -5,7 +5,7 @@
  * This file defines Trean's external API interface. Other
  * applications can interact with Trean through this API.
  *
- * Copyright 2002-2016 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.

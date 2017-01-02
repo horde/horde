@@ -4,7 +4,7 @@
  * Implements the IKImageBrowserItem protocol for displaying images from a
  * remote Ansel gallery in an IKImageBrowser.
  *
- * Copyright 2009-2016 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2017 Horde LLC (http://www.horde.org/)
  *
  * @implements IKImageBrowserItem
  * @license http://www.horde.org/licenses/bsd

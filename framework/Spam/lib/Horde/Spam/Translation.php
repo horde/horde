@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2016 Horde LLC (http://www.horde.org/)
+ * Copyright 2016-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl.
  *
  * @category  Horde
- * @copyright 2016 Horde LLC
+ * @copyright 2016-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl LGPL
  * @package   Spam
  */
@@ -16,7 +16,7 @@
  *
  * @author    Jan Schneider <jan@horde.org>
  * @category  Horde
- * @copyright 2016 Horde LLC
+ * @copyright 2016-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl LGPL
  * @package   Spam
  */

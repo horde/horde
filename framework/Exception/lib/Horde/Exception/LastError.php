@@ -3,7 +3,7 @@
  * Horde exception class that accepts output of error_get_last() as $code and
  * mask itself as that error.
  *
- * Copyright 2008-2016 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.

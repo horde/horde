@@ -4,7 +4,7 @@
  *
  * This file defines information about Horde bundles.
  *
- * Copyright 2011-2016 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
  *
  * @package kolab_webmail
  */

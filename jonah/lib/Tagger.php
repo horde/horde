@@ -2,7 +2,7 @@
 /**
  * Jonah interface to the Horde_Content tagger
  *
- * Copyright 2016 Horde LLC (http://www.horde.org/)
+ * Copyright 2016-2017 Horde LLC (http://www.horde.org/)
  *
  * @author Michael J Rubinsky <mrubinsk@horde.org>
  */

@@ -5,7 +5,7 @@
  * This file defines Vilma's external API interface. Other applications
  * can interact with Vilma through this API.
  *
- * Copyright 2006-2016 Horde LLC (http://www.horde.org/)
+ * Copyright 2006-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you did not
  * did not receive this file, see http://www.horde.org/licenses/bsd.

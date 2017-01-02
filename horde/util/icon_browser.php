@@ -4,14 +4,14 @@
  *
  * This script requires the user to be authenticated (to prevent abuses).
  *
- * Copyright 2004-2016 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL-2). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl.
  *
  * @author    Chuck Hagenbuch <chuck@horde.org>
  * @category  Horde
- * @copyright 2004-2016 Horde LLC
+ * @copyright 2004-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl LGPL-2
  * @package   Horde
  */

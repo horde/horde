@@ -6,7 +6,7 @@
  * (http://maintainable.com).
  *
  * Copyright 2001-2003 Olivier Plathey <olivier@fpdf.org>
- * Copyright 2003-2016 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2017 Horde LLC (http://www.horde.org/)
  *
  * @author   Olivier Plathey <olivier@fpdf.org>
  * @author   Marko Djukic <marko@oblo.com>
