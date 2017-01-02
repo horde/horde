@@ -1,5 +1,5 @@
 # Turba Slovak translation.
-# Copyright 2002-2016 Horde LLC (http://www.horde.org/)
+# Copyright 2002-2017 Horde LLC (http://www.horde.org/)
 # Leo Mrafko <leo@oel.sk>, 2002
 # Ivan Noris <vix@vazka.sk>, 2002, 2003
 # Martin Matuška <martin@matuska.org>, 2008

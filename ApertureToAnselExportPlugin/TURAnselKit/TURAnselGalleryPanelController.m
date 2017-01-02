@@ -3,7 +3,7 @@
  *
  * Controller for handling the form that creates new remote Ansel galleries.
  *
- * Copyright 2009-2016 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2017 Horde LLC (http://www.horde.org/)
  *
  * @license http://www.horde.org/licenses/bsd
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>

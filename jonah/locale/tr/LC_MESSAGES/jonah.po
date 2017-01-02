@@ -1,5 +1,5 @@
 # Turkish translations for Jonah.
-# Copyright 2002-2016 Horde LLC (http://www.horde.org/)
+# Copyright 2002-2017 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Jonah package.
 # horde-tr team <horde-tr@metu.edu.tr>, 2008.
 #

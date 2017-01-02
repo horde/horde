@@ -1,6 +1,6 @@
 # Kronolith Dutch translation.
 # This file is distributed under the same license as the Kronolith package.
-# Copyright 2001-2016 Horde LLC (http://www.horde.org/)
+# Copyright 2001-2017 Horde LLC (http://www.horde.org/)
 #
 # Jan Kuipers <jrkuipers@lauwerscollege.nl>, 2001-2007.
 # Han Spruyt, 2005.

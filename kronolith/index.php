@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 1999-2016 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * not receive such a file, see also http://www.horde.org/licenses/gpl.

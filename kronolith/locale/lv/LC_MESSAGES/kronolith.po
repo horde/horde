@@ -1,6 +1,6 @@
 # Latviešu valodas tulkojums Horde Framework komponentei.
 # Kronolith - Kalendārs
-# Copyright 2004-2016 Horde LLC (http://www.horde.org/)
+# Copyright 2004-2017 Horde LLC (http://www.horde.org/)
 # Ivars Stivriņš <ivars@kraslava.lv>, 2004.
 # Jānis Eisaks <jancs@dv.lv>, 2011.
 #

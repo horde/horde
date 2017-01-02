@@ -2,7 +2,7 @@
 /**
  * Kronolith_Resource implementation to represent a group of similar resources.
  *
- * Copyright 2009-2016 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.

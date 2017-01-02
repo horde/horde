@@ -9,7 +9,7 @@
  * - user:     The user name for HTTP Basic Authentication.
  * - password: The password for HTTP Basic Authentication.
  *
- * Copyright 2004-2016 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.

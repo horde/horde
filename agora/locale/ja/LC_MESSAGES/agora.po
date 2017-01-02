@@ -1,5 +1,5 @@
 # Japanese translations for Agora package.
-# Copyright 2008-2016 Horde LLC (http://www.horde.org/)
+# Copyright 2008-2017 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Agora package.
 # Automatically generated, 2008.
 #

@@ -2,7 +2,7 @@
 /**
  * Renders quoted text for a Wiki page.
  *
- * Copyright 2013-2016 Horde LLC (http://www.horde.org/)
+ * Copyright 2013-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPLv2). If
  * you did not receive this file, see http://www.horde.org/licenses/gpl

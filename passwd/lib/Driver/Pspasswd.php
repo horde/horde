@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2004-2016 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
- * @copyright 2004-2016 Horde LLC
+ * @copyright 2004-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   Passwd
  */
@@ -62,7 +62,7 @@
  *
  * @author    Luiz R Malheiros (malheiros@gmail.com)
  * @category  Horde
- * @copyright 2000-2016 Horde LLC
+ * @copyright 2000-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   Passwd
  */

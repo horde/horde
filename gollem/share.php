@@ -5,7 +5,7 @@
  * This script is just a proxy for horde/services/shares/edit.php that
  * makes sure that a folder share exists before trying to edit it.
  *
- * Copyright 2012-2016 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did notcan receive this file, see http://www.horde.org/licenses/gpl.

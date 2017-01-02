@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2003-2016 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @category  Horde
- * @copyright 2003-2016 Horde LLC
+ * @copyright 2003-2017 Horde LLC
  * @license   http://www.horde.org/licenses/apache ASL
  * @package   Ingo
  */
@@ -17,7 +17,7 @@
  * @author    Todd Merritt <tmerritt@email.arizona.edu>
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2003-2016 Horde LLC
+ * @copyright 2003-2017 Horde LLC
  * @license   http://www.horde.org/licenses/apache ASL
  * @package   Ingo
  */

@@ -3,7 +3,7 @@
  * The Kronolith_Driver_Holidays implements support for the PEAR package
  * Date_Holidays.
  *
- * Copyright 2006-2016 Horde LLC (http://www.horde.org/)
+ * Copyright 2006-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
