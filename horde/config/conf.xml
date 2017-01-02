@@ -225,6 +225,16 @@
      </configdescription>
     </case>
 
+    <case name="fallback" desc="Fallback authentication">
+     <configdescription>
+      Try a second authentication if the first fails.
+      This authentication driver needs manual configuration not possible
+      through this interface. Add the appropriate configuration lines at the
+      end of the generated configuration file. See
+      http://wiki.horde.org/AuthCompositeHowTo for details.
+     </configdescription>
+    </case>
+
     <case name="ftp" desc="FTP authentication">
      <configsection name="params">
       <configstring name="hostspec" desc="The hostname or IP address of the

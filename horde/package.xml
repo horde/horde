@@ -28,7 +28,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2016-11-09</date>
+ <date>2016-12-27</date>
  <version>
   <release>6.0.0</release>
   <api>6.0.0</api>
@@ -4258,7 +4258,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2016-11-09</date>
+   <date>2016-12-27</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [mjr] Refactor the Metar weather block to use Horde_Service_Weather and remove PEAR_Services_Weather dependency.

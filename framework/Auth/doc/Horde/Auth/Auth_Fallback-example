@@ -1,0 +1,35 @@
+<?php
+// Define fallback as the horde auth driver.
+$conf['auth']['driver'] = 'fallback';
+
+// Define the primary driver in $conf['auth']['params']['primary_diver'] just as you would normally do in $conf['auth']
+// This example has an ldap driver as primary driver
+$conf['auth']['params']['primary_driver']['driverconfig'] = 'horde';
+$conf['auth']['params']['primary_driver']['encryption'] = 'ssha';
+$conf['auth']['params']['primary_driver']['show_encryption'] = false;
+$conf['auth']['params']['primary_driver']['driver'] = 'ldap';
+
+// And an sql driver as fallback
+$conf['auth']['params']['fallback_driver']['driverconfig'] = 'horde';
+$conf['auth']['params']['fallback_driver']['encryption'] = 'ssha';
+$conf['auth']['params']['fallback_driver']['show_encryption'] = false;
+$conf['auth']['params']['fallback_driver']['driver'] = 'sql';
+
+// Now we want users only to be added / updated / removed in SQL, but listed from both SQL and ldap
+// In our scenario, ldap user changes are handled outside of horde
+// but we have local users for mostly system/admin roles
+
+$conf['auth']['params']['capabilities']['adduser'] = 'fallback';
+$conf['auth']['params']['capabilities']['updateuser'] = 'fallback';
+$conf['auth']['params']['capabilities']['removeuser'] = 'fallback';
+$conf['auth']['params']['capabilities']['resetpassword'] = 'fallback';
+// If we want, we could hide local-only users from listing, but this time we want to merge
+$conf['auth']['params']['capabilities']['listusers'] = 'both';
+
+// Now the driver-agnostic optional parts. We want to count bad logins but we don't want to block
+$conf['auth']['params']['count_bad_logins'] = true;
+$conf['auth']['params']['login_block'] = false;
+$conf['auth']['params']['login_block_count'] = 5;
+$conf['auth']['params']['login_block_time'] = 5;
+
+

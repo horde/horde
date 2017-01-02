@@ -23,7 +23,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-12-03</date>
+ <date>2016-12-27</date>
  <version>
   <release>2.2.2</release>
   <api>2.2.0</api>
@@ -34,13 +34,14 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [rla] Add new Fallback auth driver.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="doc">
     <dir name="Horde">
      <dir name="Auth">
+      <file name="Auth_Fallback-example" role="doc" />
       <file name="COPYING" role="doc" />
      </dir> <!-- /doc/Horde/Auth -->
     </dir> <!-- /doc/Horde -->
@@ -57,6 +58,7 @@
       <file name="Customsql.php" role="php" />
       <file name="Cyrsql.php" role="php" />
       <file name="Exception.php" role="php" />
+      <file name="Fallback.php" role="php" />
       <file name="Ftp.php" role="php" />
       <file name="Http.php" role="php" />
       <file name="Imap.php" role="php" />
@@ -305,6 +307,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="Auth_Fallback-example" name="doc/Horde/Auth/Auth_Fallback-example" />
    <install as="COPYING" name="doc/Horde/Auth/COPYING" />
    <install as="Horde/Auth.php" name="lib/Horde/Auth.php" />
    <install as="Horde/Auth/Auto.php" name="lib/Horde/Auth/Auto.php" />
@@ -313,6 +316,7 @@
    <install as="Horde/Auth/Customsql.php" name="lib/Horde/Auth/Customsql.php" />
    <install as="Horde/Auth/Cyrsql.php" name="lib/Horde/Auth/Cyrsql.php" />
    <install as="Horde/Auth/Exception.php" name="lib/Horde/Auth/Exception.php" />
+   <install as="Horde/Auth/Fallback.php" name="lib/Horde/Auth/Fallback.php" />
    <install as="Horde/Auth/Ftp.php" name="lib/Horde/Auth/Ftp.php" />
    <install as="Horde/Auth/Http.php" name="lib/Horde/Auth/Http.php" />
    <install as="Horde/Auth/Imap.php" name="lib/Horde/Auth/Imap.php" />
@@ -1106,10 +1110,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-12-03</date>
+   <date>2016-12-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [rla] Add new Fallback auth driver.
    </notes>
   </release>
  </changelog>

@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2016-12-16</date>
+ <date>2016-12-27</date>
  <version>
   <release>2.27.7</release>
   <api>2.27.0</api>
@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [rla] Add Fallback driver support to Core_Factory_Auth.
 * [jan] Remember the configuration values of split-read database environments.
 * [jan] Only show $conf[sql][ca] if $conf[sql][ssl] is enabled.
  </notes>
@@ -4360,9 +4361,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-12-16</date>
+   <date>2016-12-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [rla] Add Fallback driver support to Core_Factory_Auth.
 * [jan] Remember the configuration values of split-read database environments.
 * [jan] Only show $conf[sql][ca] if $conf[sql][ssl] is enabled.
    </notes>
