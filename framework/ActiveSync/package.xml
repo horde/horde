@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix loading event file attachments on iOS.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3322,7 +3322,7 @@
    <date>2016-12-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix loading event file attachments on iOS.
    </notes>
   </release>
  </changelog>
