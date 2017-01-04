@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Fix fatal error screen for PHP 7 error objects.
 * [jan] Remember the configuration values of split-read database environments.
 * [jan] Only show $conf[sql][ca] if $conf[sql][ssl] is enabled.
  </notes>
@@ -4363,6 +4364,7 @@
    <date>2016-12-16</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Fix fatal error screen for PHP 7 error objects.
 * [jan] Remember the configuration values of split-read database environments.
 * [jan] Only show $conf[sql][ca] if $conf[sql][ssl] is enabled.
    </notes>

@@ -107,9 +107,18 @@ HTML;
             }
 
             if ($admin) {
-                $trace = ($error instanceof Exception)
-                    ? $error
-                    : debug_backtrace();
+                if ($error instanceof Throwable ||
+                    $error instanceof Exception) {
+                    $trace = $error;
+                    $file = $error->getFile();
+                    $line = $error->getLine();
+                } else {
+                    $trace = debug_backtrace();
+                    $calling = array_shift($trace);
+                    $file = $calling['file'];
+                    $line = $calling['line'];
+                }
+                printf(Horde_Core_Translation::t("in %s:%d"), $file, $line);
                 echo '<div id="backtrace"><pre>' .
                     strval(new Horde_Support_Backtrace($trace)) .
                     '</pre></div>';
