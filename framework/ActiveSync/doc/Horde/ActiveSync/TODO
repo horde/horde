@@ -42,7 +42,8 @@ BC BREAKING (i.e., Horde 6).
   and to take the object property names as filters instead of backend field names.
 
 - Clean up logger creation/setting/log_level setting and provide a single
-  access point for the logger instead of injecting it everywhere.
+  access point for the logger instead of injecting it everywhere. Possibly
+  implement Horde_ActiveSync_Debug to handle all logging duties.
 
 - Refactor out the need for the various static ::_* properties in the main
   ActiveSync class.
