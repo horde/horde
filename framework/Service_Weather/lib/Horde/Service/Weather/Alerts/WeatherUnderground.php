@@ -49,15 +49,13 @@
                     $expires = null;
                 }
             }
+            $description = trim($alert->description);
+            $meteo_name = trim($alert->wtype_meteo_name);
             $alert = array(
                 'type' => empty($this->_typeMap[$alert->type])
                     ? ''
                     : $this->_typeMap[$alert->type],
-                'desc' => empty(trim($alert->description))
-                    ? (empty(trim($alert->wtype_meteo_name))
-                       ? ''
-                       : trim($alert->wtype_meteo_name))
-                    : trim($alert->description),
+                'desc' => $description ?: ($meteo_name ?: ''),
                 // Euro only returns this, not epoch, but it's in UTC.
                 'date_text' => $alert->date,
                 'date' => $date,
