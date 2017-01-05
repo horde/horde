@@ -80,7 +80,7 @@ class Horde_ActiveSync_Imap_MessageBodyData
 
     /**
      *
-     * @var arary
+     * @var array
      */
     protected $_plain;
 

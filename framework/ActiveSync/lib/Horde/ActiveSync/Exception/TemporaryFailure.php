@@ -1,6 +1,6 @@
 <?php
 /**
- * Horde_ActiveSync_Exception_FolderGone::
+ * Horde_ActiveSync_Exception_TemporaryFailure::
  *
  * @license   http://www.horde.org/licenses/gpl GPLv2
  *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
