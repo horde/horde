@@ -516,12 +516,14 @@ class Horde_ActiveSync_Imap_EasMessageBuilder
         switch ($mbd->getBodyTypePreference()) {
         case Horde_ActiveSync::BODYPREF_TYPE_MIME:
             $class = 'Mime';
+            break;
         case Horde_ActiveSync::BODYPREF_TYPE_HTML:
             $class = 'Html';
+            break;
         case Horde_ActiveSync::BODYPREF_TYPE_PLAIN:
             $class = 'Plain';
         }
-        $class_name = 'Horde_ActiveSync_Imap_EasMessageBodyType_' . $class;
+        $class_name = 'Horde_ActiveSync_Imap_EasMessageBuilder_' . $class;
 
         return new $class_name($imap_message, $options, $logger);
     }

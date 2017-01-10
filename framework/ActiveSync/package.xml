@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-12-04</date>
+ <date>2017-01-10</date>
  <version>
   <release>2.37.5</release>
   <api>2.37.0</api>
@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Add Horde_ActiveSync_Imap_EasMessageBuilder classes.
 * [mjr] Fix loading event file attachments on iOS.
  </notes>
  <contents>
@@ -68,6 +69,12 @@
        <file name="RI.php" role="php" />
       </dir> <!-- /lib/Horde/ActiveSync/Folder -->
       <dir name="Imap">
+       <dir name="EasMessageBuilder">
+        <file name="Html.php" role="php" />
+        <file name="Mime.php" role="php" />
+        <file name="Plain.php" role="php" />
+        <file name="TwoFive.php" role="php" />
+       </dir> <!-- /lib/Horde/ActiveSync/Imap/EasMessageBuilder -->
        <dir name="Strategy">
         <file name="Base.php" role="php" />
         <file name="Initial.php" role="php" />
@@ -75,6 +82,7 @@
         <file name="Plain.php" role="php" />
        </dir> <!-- /lib/Horde/ActiveSync/Imap/Strategy -->
        <file name="Adapter.php" role="php" />
+       <file name="EasMessageBuilder.php" role="php" />
        <file name="Message.php" role="php" />
        <file name="MessageBodyData.php" role="php" />
       </dir> <!-- /lib/Horde/ActiveSync/Imap -->
@@ -486,8 +494,13 @@
    <install as="Horde/ActiveSync/Folder/Imap.php" name="lib/Horde/ActiveSync/Folder/Imap.php" />
    <install as="Horde/ActiveSync/Folder/RI.php" name="lib/Horde/ActiveSync/Folder/RI.php" />
    <install as="Horde/ActiveSync/Imap/Adapter.php" name="lib/Horde/ActiveSync/Imap/Adapter.php" />
+   <install as="Horde/ActiveSync/Imap/EasMessageBuilder.php" name="lib/Horde/ActiveSync/Imap/EasMessageBuilder.php" />
    <install as="Horde/ActiveSync/Imap/Message.php" name="lib/Horde/ActiveSync/Imap/Message.php" />
    <install as="Horde/ActiveSync/Imap/MessageBodyData.php" name="lib/Horde/ActiveSync/Imap/MessageBodyData.php" />
+   <install as="Horde/ActiveSync/Imap/EasMessageBuilder/Html.php" name="lib/Horde/ActiveSync/Imap/EasMessageBuilder/Html.php" />
+   <install as="Horde/ActiveSync/Imap/EasMessageBuilder/Mime.php" name="lib/Horde/ActiveSync/Imap/EasMessageBuilder/Mime.php" />
+   <install as="Horde/ActiveSync/Imap/EasMessageBuilder/Plain.php" name="lib/Horde/ActiveSync/Imap/EasMessageBuilder/Plain.php" />
+   <install as="Horde/ActiveSync/Imap/EasMessageBuilder/TwoFive.php" name="lib/Horde/ActiveSync/Imap/EasMessageBuilder/TwoFive.php" />
    <install as="Horde/ActiveSync/Imap/Strategy/Base.php" name="lib/Horde/ActiveSync/Imap/Strategy/Base.php" />
    <install as="Horde/ActiveSync/Imap/Strategy/Initial.php" name="lib/Horde/ActiveSync/Imap/Strategy/Initial.php" />
    <install as="Horde/ActiveSync/Imap/Strategy/Modseq.php" name="lib/Horde/ActiveSync/Imap/Strategy/Modseq.php" />
@@ -3319,9 +3332,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-12-04</date>
+   <date>2017-01-10</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Add Horde_ActiveSync_Imap_EasMessageBuilder classes.
 * [mjr] Fix loading event file attachments on iOS.
    </notes>
   </release>

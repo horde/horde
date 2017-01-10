@@ -798,7 +798,7 @@ class Horde_ActiveSync_Imap_Adapter
         $imap_message = new Horde_ActiveSync_Imap_Message($this->_getImapOb(), $mbox, $data);
 
         // Build the message body.
-        $easBodyBuilder = Horde_ActiveSync_Imap_EasMessageBodyType::create(
+        $easBodyBuilder = Horde_ActiveSync_Imap_EasMessageBuilder::create(
             $imap_message,
             $options,
             $this->_logger
