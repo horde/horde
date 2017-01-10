@@ -150,7 +150,7 @@ class Horde_ActiveSync_Imap_EasMessageBuilder_Mime extends Horde_ActiveSync_Imap
     {
         $part = new Horde_Mime_Part();
         $part->setType('text/plain');
-        $part->setContents($this->_mbd->plain['body']->stream, array('usestream' -> true));
+        $part->setContents($this->_mbd->plain['body']->stream, array('usestream' => true));
         $part->setCharset('UTF-8');
 
         return $part;
