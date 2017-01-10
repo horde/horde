@@ -251,6 +251,7 @@ class Horde_ActiveSync_Imap_Message
      * @return array  An array of one or both of 'plain' and 'html' content.
      *
      * @throws Horde_ActiveSync_Exception, Horde_Exception_NotFound
+     * @deprecated - no longer used and will be removed in Horde 6.
      */
     public function getMessageBodyData(array $options = array())
     {
