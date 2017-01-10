@@ -103,7 +103,7 @@ class Horde_ActiveSync_Imap_EasMessageBuilder_Mime extends Horde_ActiveSync_Imap
 
         // Populate the EAS body structure with the MIME data.
         $this->_airsyncBody->data = $base->toString(array(
-            'headers' => $this->_getHeaders,
+            'headers' => $this->_getHeaders(),
             'stream' => true)
         );
         $this->_airsyncBody->estimateddatasize = $base->getBytes();
