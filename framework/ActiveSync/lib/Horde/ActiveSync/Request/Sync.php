@@ -500,7 +500,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     // Send each message now.
                     if (!empty($changecount)) {
                         $exporter->setChanges($this->_collections->getCollectionChanges(false), $collection);
-                        // Start SYNC_COMMANDS
                         $this->_encoder->startTag(Horde_ActiveSync::SYNC_COMMANDS);
                         $cnt_collection = 0;
                         while ($cnt_collection < $max_windowsize &&
@@ -515,7 +514,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                                 ++$cnt_global;
                             }
                         }
-                        // End SYNC_COMMANDS
                         $this->_encoder->endTag();
                     }
                 }
