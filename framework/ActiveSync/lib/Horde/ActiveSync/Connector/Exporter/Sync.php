@@ -501,6 +501,12 @@ class Horde_ActiveSync_Connector_Exporter_Sync extends Horde_ActiveSync_Connecto
                     $this->_as->state->updateState($change['type'], $change);
                     $this->_step++;
                     return $e;
+                } catch (Horde_ActiveSync_Exception_TemporaryFailure $e) {
+                    $this->_logger->err(sprintf(
+                        '[%s] Backend server reported an error: %s.',
+                        $this->_procid,
+                        $e->getMessage()));
+                        throw $e;
                 } catch (Horde_ActiveSync_Exception $e) {
                     $this->_logger->err(sprintf(
                         '[%s] Unknown backend error skipping message: %s',
