@@ -347,6 +347,8 @@ class Horde_ActiveSync_Imap_MessageBodyData
      *     - text_id (string)  The MIME id of the plain part, if any.
      *
      * @return Horde_Imap_Client_Data_Fetch  The results.
+     * @throws  Horde_ActiveSync_Exception,
+     *          Horde_ActiveSync_Exception_EmailFatalFailure
      */
     protected function _fetchData(array $params)
     {
@@ -378,6 +380,10 @@ class Horde_ActiveSync_Imap_MessageBodyData
                 array('ids' => new Horde_Imap_Client_Ids(array($this->_uid)))
             );
         } catch (Horde_Imap_Client_Exception $e) {
+            // If we lost the connection, don't continue to try.
+            if ($e->getCode() == Horde_Imap_Client_Exception::DISCONNECT) {
+                throw new Horde_ActiveSync_Exception_TemporaryFailure($e->getMessage());
+            }
             throw new Horde_ActiveSync_Exception($e);
         }
         if (!$data = $fetch_ret->first()) {
