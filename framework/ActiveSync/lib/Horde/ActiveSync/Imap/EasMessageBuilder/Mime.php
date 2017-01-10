@@ -60,7 +60,7 @@ class Horde_ActiveSync_Imap_EasMessageBuilder_Mime extends Horde_ActiveSync_Imap
     protected function _buildMessage()
     {
         $this->_logger->info(sprintf(
-            '[%s] Sending MIME Message.',
+            '[%s] Building MIME Message.',
             $this->_procid)
         );
 
@@ -91,8 +91,6 @@ class Horde_ActiveSync_Imap_EasMessageBuilder_Mime extends Horde_ActiveSync_Imap
             $mime->addPart($plain_mime);
             $mime->addPart($html_mime);
         }
-        $html_mime = null;
-        $plain_mime = null;
 
         // If we have attachments, create a multipart/mixed wrapper.
         if ($this->_imapMessage->hasAttachments()) {
@@ -102,7 +100,6 @@ class Horde_ActiveSync_Imap_EasMessageBuilder_Mime extends Horde_ActiveSync_Imap
         } else {
             $base = $mime;
         }
-        $mime = null;
 
         // Populate the EAS body structure with the MIME data.
         $this->_airsyncBody->data = $base->toString(array(
@@ -130,10 +127,10 @@ class Horde_ActiveSync_Imap_EasMessageBuilder_Mime extends Horde_ActiveSync_Imap
                 : false);
 
         $this->_logger->info(sprintf(
-            '[%s] Checking MIMETRUNCATION: %s, ServerData: %s',
+            '[%s] Checking MIMETRUNCATION: %d, ServerData: %d',
             $this->_procid,
             $mime_truncation,
-            $airsync_body->estimateddatasize));
+            $this->_airsyncBody->estimateddatasize));
 
         if (!empty($mime_truncation) &&
             $this->_airsyncBody->estimateddatasize > $mime_truncation) {
