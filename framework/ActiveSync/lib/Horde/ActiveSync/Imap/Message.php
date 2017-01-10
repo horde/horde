@@ -59,14 +59,21 @@ class Horde_ActiveSync_Imap_Message
      *
      * @var boolean
      */
-    protected $_lastBodyPartDecode = null;
+    protected $_lastBodyPartDecode;
 
     /**
      * Flag to indicate if this message contains attachments.
      *
      * @var boolean
      */
-    protected $_hasAttachments = null;
+    protected $_hasAttachments;
+
+    /**
+     * Local cache of MessageBodyData object.
+     *
+     * @var Horde_ActiveSync_Imap_MessageBodyData
+     */
+    protected $_mbd;
 
     /**
      * Constructor
@@ -270,14 +277,18 @@ class Horde_ActiveSync_Imap_Message
      */
     public function getMessageBodyDataObject(array $options = array())
     {
-        return new Horde_ActiveSync_Imap_MessageBodyData(
-            array(
-                'imap' => $this->_imap,
-                'mbox' => $this->_mbox,
-                'uid' => $this->uid,
-                'mime' => $this->basePart),
-            $options
-        );
+        if (empty($this->_mbd)) {
+           $this->_mbd = new Horde_ActiveSync_Imap_MessageBodyData(
+                array(
+                    'imap' => $this->_imap,
+                    'mbox' => $this->_mbox,
+                    'uid' => $this->uid,
+                    'mime' => $this->basePart),
+                $options
+            );
+        }
+
+        return $this->_mbd;
     }
 
     /**
