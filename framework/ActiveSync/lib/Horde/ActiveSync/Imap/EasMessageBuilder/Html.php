@@ -69,10 +69,10 @@ class Horde_ActiveSync_Imap_EasMessageBuilder_Html extends Horde_ActiveSync_Imap
      */
     protected function _buildHtmlPart()
     {
-        if (!empty($mbd->html['estimated_size'])) {
-            $this->_airsyncBody->estimateddatasize = $mbd->html['estimated_size'];
-            $this->_airsyncBody->truncated = $mbd->html['truncated'];
-            $this->_airsyncBody->data = $mbd->html['body']->stream;
+        if (!empty($this->_mbd->html['estimated_size'])) {
+            $this->_airsyncBody->estimateddatasize = $this->_mbd->html['estimated_size'];
+            $this->_airsyncBody->truncated = $this->_mbd->html['truncated'];
+            $this->_airsyncBody->data = $this->_mbd->html['body']->stream;
         }
     }
 
