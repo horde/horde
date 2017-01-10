@@ -50,6 +50,14 @@ class Jonah_Application extends Horde_Registry_Application
                 'title' => 'RSS 0.91'
             ));
         }
+
+       /* For now, autoloading the Content_* classes depend on there being a
+         * registry entry for the 'content' application that contains at least
+         * the fileroot entry. */
+        $GLOBALS['injector']->getInstance('Horde_Autoloader')
+            ->addClassPathMapper(
+                new Horde_Autoloader_ClassPathMapper_Prefix('/^Content_/', $GLOBALS['registry']->get('fileroot', 'content') . '/lib/'));
+
     }
 
     /**
