@@ -79,7 +79,7 @@ class Horde_ActiveSync_Imap_EasMessageBuilder
         Horde_ActiveSync_Imap_Message $imap_message, array $options, $logger)
     {
         $this->_imapMessage = $imap_message;
-        $this->_mbd = $this->_imapMessage->getMessageBodyData($options);
+        $this->_mbd = $this->_imapMessage->getMessageBodyDataObject($options);
         $this->_easMessage = Horde_ActiveSync::messageFactory('Mail');
 
         $this->_version = empty($options['protocolversion'])
