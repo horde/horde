@@ -711,7 +711,8 @@ class Ingo_Script_Sieve extends Ingo_Script_Base
                                   'comparator' => $comparator);
                     $use_address_test = false;
 
-                    if ($condition['match'] != 'regex') {
+                    if ($condition['match'] != 'regex' &&
+                        $condition['field'] != 'Body') {
                         $condition['value'] = preg_replace('/(.)(?<!\\\)\,(.)/',
                                                            "$1\n$2",
                                                            $condition['value']);
