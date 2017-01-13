@@ -332,12 +332,10 @@ class Gollem_Auth
     {
         global $session;
 
-        if ($backends = $session->get('gollem', 'backends', $session::TYPE_ARRAY)) {
-            $passwords = $session->get('gollem', 'backends_password', $session::ENCRYPT);
-            if ($passwords) {
-                foreach ($passwords as $key => $val) {
-                    $backends[$key]['params']['password'] = $val;
-                }
+        if (($backends = $session->get('gollem', 'backends', $session::TYPE_ARRAY)) &&
+            ($passwords = $session->get('gollem', 'backends_password', $session::TYPE_ARRAY))) {
+            foreach ($passwords as $key => $val) {
+                $backends[$key]['params']['password'] = $val;
             }
         }
 
@@ -362,9 +360,7 @@ class Gollem_Auth
         }
 
         $session->set('gollem', 'backends', $backends);
-        if (!empty($passwords)) {
-            $session->set('gollem', 'backends_password', $passwords, $session::ENCRYPT);
-        }
+        $session->set('gollem', 'backends_password', $passwords, $session::ENCRYPT);
     }
 
 }
