@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
-* 
+* [mjr] Remove configuration for defunct Yahoo, CloudMade, and MyTopo mapping providers.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4148,7 +4148,7 @@
    <date>2016-12-16</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
-* 
+* [mjr] Remove configuration for defunct Yahoo, CloudMade, and MyTopo mapping providers.
    </notes>
   </release>
  </changelog>
