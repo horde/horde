@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* 
+* [jan] Fix fatal error if group contacts from an LDAP server don&apos;t exist anymore.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2178,7 +2178,7 @@
    <date>2016-12-16</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* 
+* [jan] Fix fatal error if group contacts from an LDAP server don&apos;t exist anymore.
    </notes>
   </release>
  </changelog>

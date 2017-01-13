@@ -538,13 +538,13 @@ class Turba_Driver_Ldap extends Turba_Driver
      * @param resource $res     Result identifier.
      *
      * @return array  Hash containing the results.
-     * @throws Turba_Exception
+     * @throws Horde_Exception_NotFound
      */
     protected function _getResults(array $fields, $res)
     {
         $entries = @ldap_get_entries($this->_ds, $res);
         if ($entries === false) {
-            throw new Turba_Exception(sprintf(_("Read failed: (%s) %s"), ldap_errno($this->_ds), ldap_error($this->_ds)));
+            throw new Horde_Exception_NotFound(sprintf(_("Read failed: (%s) %s"), ldap_errno($this->_ds), ldap_error($this->_ds)));
         }
 
         /* Return only the requested fields (from $fields, above). */
