@@ -165,6 +165,11 @@ class Horde_Vfs_Ssh2Test extends Horde_Vfs_TestBase
         $this->_chmod();
     }
 
+    public function testNullRoot()
+    {
+        $this->_nullRoot();
+    }
+
     public static function setUpBeforeClass()
     {
         if (!extension_loaded('ssh2')) {

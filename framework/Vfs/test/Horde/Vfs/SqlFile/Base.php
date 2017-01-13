@@ -159,6 +159,11 @@ class Horde_Vfs_Test_SqlFile_Base extends Horde_Vfs_TestBase
         $this->_listFolder();
     }
 
+    public function testNullRoot()
+    {
+        $this->_nullRoot();
+    }
+
     public static function setUpBeforeClass()
     {
         // The SqlFile VFS driver needs to be refactored to a real composite

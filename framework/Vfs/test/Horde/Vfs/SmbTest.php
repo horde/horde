@@ -202,6 +202,11 @@ class Horde_Vfs_SmbTest extends Horde_Vfs_TestBase
         $this->_listFolder();
     }
 
+    public function testNullRoot()
+    {
+        $this->_nullRoot();
+    }
+
     public function testHostspecWithPath()
     {
         self::$vfs->createFolder('', 'hostspectest');

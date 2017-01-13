@@ -29,6 +29,7 @@ class Horde_Vfs_TestBase extends Horde_Test_Case
     {
         $this->assertEquals(array(), self::$vfs->listFolder(''));
         $this->assertEquals(array(), self::$vfs->listFolder('/'));
+        $this->assertEquals(array(), self::$vfs->listFolder(null));
     }
 
     /**
@@ -417,6 +418,13 @@ class Horde_Vfs_TestBase extends Horde_Test_Case
         self::$vfs->changePermissions('chmodtest', 'chmod', '640');
         $folder = self::$vfs->listFolder('chmodtest');
         $this->assertEquals('-rw-r-----', $folder['chmod']['perms']);
+    }
+
+    protected function _nullRoot()
+    {
+        self::$vfs->writeData(null, 'nulltest', 'abc');
+        $this->assertEquals('abc', self::$vfs->read(null, 'nulltest'));
+        $this->assertEquals('abc', self::$vfs->read('', 'nulltest'));
     }
 
     protected function _sort($folders)

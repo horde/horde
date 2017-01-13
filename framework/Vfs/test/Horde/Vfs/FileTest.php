@@ -189,6 +189,11 @@ class Horde_Vfs_FileTest extends Horde_Vfs_TestBase
         $this->_chmod();
     }
 
+    public function testNullRoot()
+    {
+        $this->_nullRoot();
+    }
+
     public function testDeleteUnusalFileNames()
     {
         $file = '高&执&行&力&的&打&造.txt';

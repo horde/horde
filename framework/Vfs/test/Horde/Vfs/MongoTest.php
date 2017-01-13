@@ -181,6 +181,11 @@ class Horde_Vfs_MongoTest extends Horde_Vfs_TestBase
         $this->_listFolder();
     }
 
+    public function testNullRoot()
+    {
+        $this->_nullRoot();
+    }
+
     public static function setUpBeforeClass()
     {
         if (($config = self::getConfig('VFS_MONGO_TEST_CONFIG', __DIR__)) &&

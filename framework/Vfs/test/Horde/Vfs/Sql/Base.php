@@ -159,6 +159,11 @@ class Horde_Vfs_Test_Sql_Base extends Horde_Vfs_TestBase
         $this->_listFolder();
     }
 
+    public function testNullRoot()
+    {
+        $this->_nullRoot();
+    }
+
     public static function setUpBeforeClass()
     {
         $logger = new Horde_Log_Logger(new Horde_Log_Handler_Cli());

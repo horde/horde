@@ -692,18 +692,23 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
         }
 
         $where = '';
+        $values = array();
         foreach ($criteria as $key => $value) {
             if (!empty($where)) {
                 $where .= ' AND ';
             }
-            $where .= $key . ' = ' . $this->_db->quote($value);
+            list($op, $val) = $this->_nullString($value);
+            $where .= $key . ' ' . $op;
+            $values = array_merge($values, $val);
         }
 
-        $sql = sprintf('SELECT %s FROM %s WHERE %s',
-                       $field, $table, $where);
+        $sql = sprintf(
+            'SELECT %s FROM %s WHERE %s',
+            $field, $table, $where
+        );
 
         try {
-            $result = $this->_db->selectValue($sql);
+            $result = $this->_db->selectValue($sql, $values);
             $columns = $this->_db->columns($table);
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Vfs_Exception($e);
