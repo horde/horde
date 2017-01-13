@@ -125,10 +125,6 @@ class Horde_Application extends Horde_Registry_Application
             return array(
                 'Google' => 'Google',
                 'Bing' => 'Bing',
-                'Cloudmade' => 'CloudMade',
-                // @TODO: API has evidently changed somewhat. Disable until
-                // I can get an API key to fully test.
-                'Mytopo' => 'MyTopo',
                 'Osm' => 'OpenStreetMap',
                 'Ocm' => 'OpenCycleMap',
                 'Mapquest' => 'OpenMapquest'
