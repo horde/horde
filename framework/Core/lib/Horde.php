@@ -319,9 +319,24 @@ class Horde
 
         if (!is_null($c) && isset($c['params'])) {
             $c['params']['umask'] = $conf['umask'];
-            return (!is_null($type) && isset($conf[$type]))
+
+            $result = (!is_null($type) && isset($conf[$type]))
                 ? array_merge($conf[$type], $c['params'])
                 : $c['params'];
+
+            // HOTFIX for Bug #14547. If using different protocols for the
+            // base SQL config and the explicit driver we are creating, we
+            // need to remove the not-used connection config since they use
+            // different keys.
+            if (!is_null($type) && $type == 'sql') {
+                if ($c['params']['protocol'] == 'unix') {
+                    unset($result['hostspec'], $result['port']);
+                } else {
+                    unset($result['socket']);
+                }
+            }
+
+            return $result;
         }
 
         return (!is_null($type) && isset($conf[$type]))
