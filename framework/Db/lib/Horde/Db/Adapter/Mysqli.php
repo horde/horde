@@ -420,6 +420,10 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Base
             $this->_config['host'] = '127.0.0.1';
         }
 
+        if (!empty($this->_config['host']) && !empty($this->_config['socket'])) {
+            throw new Horde_Db_Exception('Can only specify host or socket, not both');
+        }
+
         if (isset($this->_config['port'])) {
             if (empty($this->_config['host'])) {
                 throw new Horde_Db_Exception('Host is required if port is specified');
