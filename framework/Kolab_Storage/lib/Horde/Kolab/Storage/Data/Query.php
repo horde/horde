@@ -14,7 +14,7 @@
 /**
  * Represents a data query.
  *
- * Copyright 2011-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -28,5 +28,6 @@
 interface Horde_Kolab_Storage_Data_Query
 extends Horde_Kolab_Storage_Query
 {
+    public function setLogger(Horde_Log_Logger $logger);
 }
 

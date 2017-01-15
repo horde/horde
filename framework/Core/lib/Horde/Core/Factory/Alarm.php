@@ -14,7 +14,7 @@
 /**
  * A Horde_Injector:: based Horde_Core_Ajax_Application:: factory.
  *
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -62,7 +62,14 @@ class Horde_Core_Factory_Alarm extends Horde_Core_Factory_Base
 
         switch (Horde_String::lower($driver)) {
         case 'sql':
-            $params['db'] = $this->_injector->getInstance('Horde_Core_Factory_Db')->create('horde', 'alarms');
+            try {
+                $params['db'] = $this->_injector
+                    ->getInstance('Horde_Core_Factory_Db')
+                    ->create('horde', 'alarms');
+            } catch (Horde_Exception $e) {
+                $driver = 'null';
+                $params = Horde::getDriverConfig('alarms', $driver);
+            }
             break;
         }
 
@@ -148,7 +155,7 @@ class Horde_Core_Factory_Alarm extends Horde_Core_Factory_Base
 
         foreach ($apps as $app) {
             if ($changed) {
-                if (!$registry->hasFeature('alarmHandler')) {
+                if (!$registry->hasFeature('alarmHandler', $app)) {
                     continue;
                 }
                 $save[] = $app;

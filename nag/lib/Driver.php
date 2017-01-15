@@ -97,47 +97,53 @@ abstract class Nag_Driver
      * Adds a task and handles notification.
      *
      * @param array $task  A hash with the following possible properties:
-     *     - name: (string) The name (short) of the task.
      *     - desc: (string) The description (long) of the task.
-     *     - start: (OPTIONAL, integer) The start date of the task.
+     *     - name: (string) The name (short) of the task.
+     *     - actual: (OPTIONAL, float) The actual time spent on the task.
+     *     - alarm: (OPTIONAL, integer) The alarm associated with the task.
+     *     - assignee: (OPTIONAL, string) The assignee of the event.
+     *     - completed: (OPTIONAL, integer) The completion state of the task.
+     *     - completed_date: (OPTIONAL, integer) The task's completion date.
      *     - due: (OPTIONAL, integer) The due date of the task.
-     *     - priority: (OPTIONAL, integer) The priority of the task.
      *     - estimate: (OPTIONAL, float) The estimated time to complete the
      *                 task.
-     *     - completed: (OPTIONAL, integer) The completion state of the task.
-     *     - tags: (OPTIONAL, string) The comma delimited list of tags.
-     *     - alarm: (OPTIONAL, integer) The alarm associated with the task.
      *     - methods: (OPTIONAL, array) The overridden alarm notification
      *                methods.
-     *     - uid: (OPTIONAL, string) A Unique Identifier for the task.
-     *     - parent: (OPTIONAL, string) The parent task.
-     *     - private: (OPTIONAL, boolean) Whether the task is private.
      *     - owner: (OPTIONAL, string) The owner of the event.
-     *     - assignee: (OPTIONAL, string) The assignee of the event.
-     *     - completed_date: (OPTIONAL, integer) The task's completion date.
+     *     - parent: (OPTIONAL, string) The parent task.
+     *     - priority: (OPTIONAL, integer) The priority of the task.
+     *     - private: (OPTIONAL, boolean) Whether the task is private.
      *     - recurrence: (OPTIONAL, Horde_Date_Recurrence|array) Recurrence
      *                   information.
+     *     - start: (OPTIONAL, integer) The start date of the task.
+     *     - tags: (OPTIONAL, string) The comma delimited list of tags.
+     *     - uid: (OPTIONAL, string) A Unique Identifier for the task.
      *
      * @return array  array(ID,UID) of new task
      */
     public function add(array $task)
     {
         $task = array_merge(
-            array('start' => 0,
-                  'due' => 0,
-                  'priority' => 3,
-                  'estimate' => 0.0,
-                  'completed' => 0,
-                  'tags' => '',
-                  'alarm' => 0,
-                  'methods' => null,
-                  'uid' => strval(new Horde_Support_Guid()),
-                  'parent' => '',
-                  'private' => false,
-                  'owner' => $GLOBALS['registry']->getAuth(),
-                  'assignee' => null,
-                  'completed_date' => 0,
-                  'recurrence' => null),
+            array(
+                'actual' => 0.0,
+                'alarm' => 0,
+                'assignee' => null,
+                'completed' => 0,
+                'completed_date' => 0,
+                'due' => 0,
+                'estimate' => 0.0,
+                'methods' => null,
+                'organizer' => null,
+                'owner' => $GLOBALS['registry']->getAuth(),
+                'parent' => '',
+                'priority' => 3,
+                'private' => false,
+                'recurrence' => null,
+                'start' => 0,
+                'status' => null,
+                'tags' => '',
+                'uid' => strval(new Horde_Support_Guid()),
+            ),
             $task
         );
 
@@ -170,7 +176,7 @@ abstract class Nag_Driver
         $result = Nag::sendNotification('add', $task);
 
         /* Add an alarm if necessary. */
-        if (!empty($task->alarm) &&
+        if (!empty($task->due) && !empty($task->alarm) &&
             ($alarm = $task->toAlarm())) {
             $hordeAlarm = $GLOBALS['injector']->getInstance('Horde_Alarm');
             $hordeAlarm->set($alarm);
@@ -191,28 +197,7 @@ abstract class Nag_Driver
      * Modifies an existing task and handles notification.
      *
      * @param string $taskId  The task to modify.
-     * @param array $properties  A hash with the following possible properties:
-     *     - name: (string) The name (short) of the task.
-     *     - desc: (string) The description (long) of the task.
-     *     - start: (OPTIONAL, integer) The start date of the task.
-     *     - due: (OPTIONAL, integer) The due date of the task.
-     *     - priority: (OPTIONAL, integer) The priority of the task.
-     *     - estimate: (OPTIONAL, float) The estimated time to complete the
-     *                 task.
-     *     - completed: (OPTIONAL, integer) The completion state of the task.
-     *     - tags: (OPTIONAL, string) The tags of the task.
-     *     - alarm: (OPTIONAL, integer) The alarm associated with the task.
-     *     - methods: (OPTIONAL, array) The overridden alarm notification
-     *                methods.
-     *     - uid: (OPTIONAL, string) A Unique Identifier for the task.
-     *     - parent: (OPTIONAL, string) The parent task.
-     *     - private: (OPTIONAL, boolean) Whether the task is private.
-     *     - owner: (OPTIONAL, string) The owner of the event.
-     *     - assignee: (OPTIONAL, string) The assignee of the event.
-     *     - completed_date: (OPTIONAL, integer) The task's completion date.
-     *     - tasklist: (OPTIONAL, string) The new tasklist.
-     *     - recurrence: (OPTIONAL, Horde_Date_Recurrence|array) Recurrence
-     *                   information.
+     * @param array $properties  A hash with properties. @see add().
      *
      * @throws Nag_Exception
      */
@@ -232,8 +217,10 @@ abstract class Nag_Driver
          * task complete might only shift the due date to the next
          * recurrence. */
         $task_completed = $task->completed;
-        if (isset($properties['completed']) &&
-            $properties['completed'] != $task->completed) {
+        $completed_changed = isset($properties['completed']) &&
+            $properties['completed'] != $task->completed;
+        $new_completed = !empty($properties['completed']);
+        if ($completed_changed) {
             if (isset($properties['recurrence'])) {
                 if ($task->recurs()) {
                     $completions = $task->recurrence->completions;
@@ -303,12 +290,20 @@ abstract class Nag_Driver
                 }
                 $log_tasklist = $properties['tasklist'];
             }
+            $task->loadChildren();
+            if ($task->hasSubTasks()) {
+                foreach ($task->children as $child_task) {
+                    $child_task = $child_task->toHash();
+                    $child_task['tasklist'] = $properties['tasklist'];
+                    $this->modify($child_task['task_id'], $child_task);
+                }
+            }
         }
 
         /* Update alarm if necessary. */
         $horde_alarm = $GLOBALS['injector']->getInstance('Horde_Alarm');
         if ((isset($properties['alarm']) && empty($properties['alarm'])) ||
-            !empty($properties['completed'])) {
+            $new_completed || empty($task->due)) {
             $horde_alarm->delete($task->uid);
         } else {
             $task = $this->get($taskId);
@@ -357,10 +352,9 @@ abstract class Nag_Driver
         }
 
         /* Log completion status changes. */
-        if (isset($properties['completed']) &&
-            $task->completed != $properties['completed']) {
+        if ($completed_changed) {
             $attributes = array('action' => 'complete');
-            if (!$properties['completed']) {
+            if (!$new_completed) {
                 $attributes['ts'] = 0;
             }
             try {
@@ -395,7 +389,20 @@ abstract class Nag_Driver
     {
         /* Get the task's details for use later. */
         $task = $this->get($taskId);
+        $task->loadChildren();
+        if ($task->hasSubTasks()) {
+            throw new Nag_Exception(_("Sub tasks exist, delete them first"));
+        }
+
         $delete = $this->_delete($taskId);
+
+        /* Remove tags */
+        $task->tags = array();
+        $this->_updateTags($task->toHash());
+
+        /* Tell content we removed the object */
+        $GLOBALS['injector']->getInstance('Content_Objects_Manager')
+            ->delete(array($task->uid), 'task');
 
         /* Log the deletion of this item in the history log. */
         if (!empty($task->uid)) {
@@ -420,11 +427,15 @@ abstract class Nag_Driver
 
         /* Remove any CalDAV mappings. */
         try {
-            $GLOBALS['injector']
-                ->getInstance('Horde_Dav_Storage')
-                ->deleteInternalObjectId($task->id, $task->tasklist);
+            $davStorage = $GLOBALS['injector']
+                ->getInstance('Horde_Dav_Storage');
+            try {
+                $davStorage
+                    ->deleteInternalObjectId($task->id, $task->tasklist);
+            } catch (Horde_Exception $e) {
+                Horde::log($e);
+            }
         } catch (Horde_Exception $e) {
-            Horde::log($e);
         }
     }
 
@@ -437,14 +448,21 @@ abstract class Nag_Driver
     {
         $ids = $this->_deleteAll();
 
-        // Update History.
+        // Update History and Tagger
         $history = $GLOBALS['injector']->getInstance('Horde_History');
         try {
-            foreach ($ids as $id) {
+            foreach ($ids as $uid) {
                 $history->log(
-                    'nag:' . $this->_tasklist . ':' . $id,
+                    'nag:' . $this->_tasklist . ':' . $uid,
                     array('action' => 'delete'),
                     true);
+
+                $GLOBALS['injector']->getInstance('Nag_Tagger')
+                    ->replaceTags($uid, array(), $GLOBALS['registry']->getAuth(), 'task');
+
+                /* Tell content we removed the object */
+                $GLOBALS['injector']->getInstance('Content_Objects_Manager')
+                    ->delete(array($uid), 'task');
             }
         } catch (Exception $e) {
             Horde::log($e, 'ERR');
@@ -504,6 +522,16 @@ abstract class Nag_Driver
     public function getByUID($uids, array $tasklists = null, $getall = true)
     {
         throw new Nag_Exception($this->_errormsg);
+    }
+
+    /**
+     * Synchronize with the Kolab backend.
+     *
+     * @param mixed  $token  A value indicating the last synchronization point,
+     *                       if available.
+     */
+    public function synchronize($token = false)
+    {
     }
 
     /**

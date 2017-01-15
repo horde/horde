@@ -5,7 +5,7 @@
  * This file defines Jonah's external API interface. Other
  * applications can interact with Jonah through this API.
  *
- * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you did not
  * did not receive this file, see http://cvs.horde.org/co.php/jonah/LICENSE.
@@ -75,7 +75,7 @@ class Jonah_Api extends Horde_Registry_Api
      */
     public function story($channel_id, $story_id, $read = true)
     {
-        $story = $GLOBALS['injector']->getInstance('Jonah_Driver')->getStory($channel_id, $story_id, $read);
+        $story = $GLOBALS['injector']->getInstance('Jonah_Driver')->getStory($story_id, $read);
         if (empty($story['body_type']) || $story['body_type'] == 'text') {
             $story['body_html'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($story['body'], 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
         } else {
@@ -107,7 +107,7 @@ class Jonah_Api extends Horde_Registry_Api
         $driver = $GLOBALS['injector']->getInstance('Jonah_Driver');
         $channel = $driver->getChannel($channel_id);
         /* Check permissions. */
-        if (!Jonah::checkPermissions(Jonah::typeToPermName($channel['channel_type']), Horde_Perms::EDIT, $channel_id)) {
+        if (!Jonah::checkPermissions('channels', Horde_Perms::EDIT, array($channel_id))) {
             throw new Horde_Exception_PermissionDenied(_("You are not authorised for this action."));
         }
         $story['author'] = $GLOBALS['registry']->getAuth();
@@ -131,7 +131,7 @@ class Jonah_Api extends Horde_Registry_Api
         if (!$GLOBALS['conf']['comments']['allow']) {
             return false;
         }
-        $story = $GLOBALS['injector']->getInstance('Jonah_Driver')->getStory(null, $story_id);
+        $story = $GLOBALS['injector']->getInstance('Jonah_Driver')->getStory($story_id);
 
         return $story['title'];
     }
@@ -151,15 +151,18 @@ class Jonah_Api extends Horde_Registry_Api
      * of resources that are linked to that tag.
      *
      * @param array $tags  An optional array of tag_ids. If omitted, all tags
-     *                     will be included.
+     *                     will be included.@deprecated and currently ignored.
      *
-     * @param array $channel_id  An optional array of channel_ids.
+     * @param array $channel_id  An optional array of channel_ids. @todo - only
+     *                           the first requested channel is honored.
      *
      * @return array  An array containing tag_name, and total
      */
     public function listTagInfo($tags = array(), $channel_id = null)
     {
-        return $GLOBALS['injector']->getInstance('Jonah_Driver')->listTagInfo($tags, $channel_id);
+        return $GLOBALS['injector']
+            ->getInstance('Jonah_Driver')
+            ->listTagInfo(current($channel_id));
     }
 
     /**
@@ -188,7 +191,7 @@ class Jonah_Api extends Horde_Registry_Api
      *   <pre>
      *     max       The maximum number of stories to return.
      *     from      The number of the story to start with.
-     *     channel_id  An array of channel_ids to limit the search to.
+     *     channel_id  (integer) A channel_id to restrict to.
      *     order     How to order the results (a Jonah::ORDER_* constant)
      *  </pre>
      * @param boolean $raw       Return the raw story data?
@@ -205,42 +208,62 @@ class Jonah_Api extends Horde_Registry_Api
      */
     public function searchTags($names, $filter = array(), $raw = false)
     {
-        global $registry;
+        global $registry, $injector;
 
-        // @TODO: Refactor when moving tag to content_tagger
         $filter = new Horde_Support_Array($filter);
-        $results = $GLOBALS['injector']
-            ->getInstance('Jonah_Driver')
-            ->searchTags($names, $filter->max, $filter->from, $filter->channel_id, $filter->order);
+        $channel_id = is_array($filter->channel_id)
+            ? array_pop($filter->channel_id)
+            : $filter->channel_id;
 
+        $criteria = array(
+            'tags' => $names,
+            'startnumber' => $filter->from,
+            'limit' => $filter->max,
+            'channel_id' => $channel_id
+        );
+        $results = $injector
+            ->getInstance('Jonah_Driver')
+            ->getStories($criteria, $filter->order);
         $return = array();
+
         if ($raw) {
             // Requesting the raw story information as returned from searchTags,
             // but add some additional information that external apps might
             // find useful.
-            $comments = $GLOBALS['conf']['comments']['allow'] && $registry->hasMethod('forums/numMessages');
+            $comments = $GLOBALS['conf']['comments']['allow']
+                && $registry->hasMethod('forums/numMessages');
+
             foreach ($results as $story) {
                 if (empty($story['body_type']) || $story['body_type'] == 'text') {
-                    $story['body_html'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($story['body'], 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
+                    $story['body_html'] = $injector
+                        ->getInstance('Horde_Core_Factory_TextFilter')
+                        ->filter(
+                            $story['body'],
+                            'text2html',
+                            array('parselevel' => Horde_Text_Filter_Text2html::MICRO)
+                        );
                 } else {
                     $story['body_html'] = $story['body'];
                 }
 
                 if ($comments) {
-                    $story['num_comments'] = $registry->call('forums/numMessages',
-                                                             array($story['id'],
-                                                                   $registry->getApp()));
+                    $story['num_comments'] = $registry->call(
+                        'forums/numMessages',
+                         array($story['id'],
+                         $registry->getApp())
+                    );
                 }
-
                 $return[$story['id']] = $story;
             }
         } else {
             foreach($results as $story) {
                 if (!empty($story)) {
-                    $return[] = array('title' => $story['title'],
-                                                        'desc' => $story['desc'],
-                                                        'view_url' => $story['link'],
-                                                        'app' => 'jonah');
+                    $return[] = array(
+                        'title' => $story['title'],
+                        'desc' => $story['desc'],
+                        'view_url' => $story['link'],
+                        'app' => 'jonah'
+                    );
                 }
             }
         }

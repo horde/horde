@@ -2,7 +2,7 @@
 /**
  * Renders Wiki page paragraphs to restructured text.
  *
- * Copyright 2011-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPLv2). If
  * you did not receive this file, see
@@ -45,8 +45,7 @@ class Text_Wiki_Render_Rst_Paragraph extends Text_Wiki_Render
         }
         
         if ($type == 'end') {
-            $result = Text_Wiki_Render_Rst_Links::append();
-            return $result . "\n\n";
+            return Text_Wiki_Render_Rst_Links::append() . "\n\n";
         }
     }
 }

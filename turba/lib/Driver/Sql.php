@@ -3,7 +3,7 @@
  * Turba directory driver implementation for the Horde_Db database abstraction
  * layer.
  *
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you did
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -166,7 +166,7 @@ class Turba_Driver_Sql extends Turba_Driver
 
             return $this->_parseRead(
                 $blobFields,
-                $this->_db->selectAll(
+                $this->_db->select(
                     'SELECT ' . implode(', ', $fields) . ' FROM ' . $this->_params['table'] . $where,
                     $values
                 )
@@ -404,7 +404,7 @@ class Turba_Driver_Sql extends Turba_Driver
             . $this->_params['table'] . ' WHERE ' . $where;
 
         try {
-            return $this->_parseRead($blobFields, $this->_db->selectAll($query, $values), $dateFields);
+            return $this->_parseRead($blobFields, $this->_db->select($query, $values), $dateFields);
         } catch (Horde_Db_Exception $e) {
             throw new Turba_Exception(_("Server error when performing search."));
         }
@@ -419,15 +419,20 @@ class Turba_Driver_Sql extends Turba_Driver
      *
      * @throws Turba_Exception
      */
-    protected function _add(array $attributes, array $blob_fields = array(), array $date_fields = array())
+    protected function _add(array $attributes, array $blob_fields = array(),
+                            array $date_fields = array())
     {
-        list($fields, $values) = $this->_prepareWrite($attributes, $blob_fields, $date_fields);
-        $query  = 'INSERT INTO ' . $this->_params['table']
-            . ' (' . implode(', ', $fields) . ')'
-            . ' VALUES (' . str_repeat('?, ', count($values) - 1) . '?)';
+        list($fields, $values) = $this->_prepareWrite(
+            $attributes,
+            $blob_fields,
+            $date_fields
+        );
 
         try {
-            $this->_db->insert($query, $values);
+            $this->_db->insertBlob(
+                $this->_params['table'],
+                array_combine($fields, $values)
+            );
         } catch (Horde_Db_Exception $e) {
             throw new Turba_Exception(_("Server error when adding data."));
         }
@@ -498,9 +503,14 @@ class Turba_Driver_Sql extends Turba_Driver
             ? array($GLOBALS['registry']->getAuth())
             : array($sourceName);
 
+        if (empty($this->map['__owner'])) {
+            throw new Turba_Exception_NotSupported('Unable to find __owner field. Cannot delete.');
+        }
+        $owner_field = $this->map['__owner'];
+
         /* Need a list of UIDs so we can notify History */
-        $query = 'SELECT '. $this->map['__uid'] . ' FROM '
-            . $this->_params['table'] . ' WHERE owner_id = ?';
+        $query = sprintf('SELECT %s FROM %s WHERE %s = ?',
+            $this->map['__uid'], $this->_params['table'], $owner_field);
 
         try {
             $ids = $this->_db->selectValues($query, $values);
@@ -509,8 +519,7 @@ class Turba_Driver_Sql extends Turba_Driver
         }
 
         /* Do the deletion */
-        $query = 'DELETE FROM ' . $this->_params['table'] . ' WHERE owner_id = ?';
-
+        $query = sprintf('DELETE FROM %s WHERE %s = ?', $this->_params['table'], $owner_field);
         try {
             $this->_db->delete($query, $values);
         } catch (Horde_Db_Exception $e) {
@@ -530,22 +539,25 @@ class Turba_Driver_Sql extends Turba_Driver
      */
     protected function _save(Turba_Object $object)
     {
-        list($object_key, $object_id) = each($this->toDriverKeys(array('__key' => $object->getValue('__key'))));
+        list($object_key, $object_id) = each(
+            $this->toDriverKeys(array('__key' => $object->getValue('__key')))
+        );
         $attributes = $this->toDriverKeys($object->getAttributes());
         $blob_fields = $this->toDriverKeys($this->getBlobs());
         $date_fields = $this->toDriverKeys($this->getDateFields());
-
-        $where = $object_key . ' = ?';
         unset($attributes[$object_key]);
-
-        list($fields, $values) = $this->_prepareWrite($attributes, $blob_fields, $date_fields);
-
-        $values[] = $object_id;
-
-        $query = 'UPDATE ' . $this->_params['table'] . ' SET ' . implode(' = ?, ', $fields) . ' = ? WHERE ' . $where;
+        list($fields, $values) = $this->_prepareWrite(
+            $attributes,
+            $blob_fields,
+            $date_fields
+        );
 
         try {
-            $this->_db->update($query, $values);
+            $this->_db->updateBlob(
+                $this->_params['table'],
+                array_combine($fields, $values),
+                array($object_key . ' = ?', array($object_id))
+            );
         } catch (Horde_Db_Exception $e) {
             throw new Turba_Exception(_("Server error when saving data."));
         }

@@ -3,7 +3,7 @@
  * Kronolith_Driver defines an API for implementing storage backends for
  * Kronolith.
  *
- * Copyright 1999-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -148,7 +148,9 @@ class Kronolith_Driver
      * @param object $query  An object with the criteria to search for.
      * @param boolean $json  Store the results of the events' toJson() method?
      *
-     * @return mixed  An array of Kronolith_Events.
+     * @return array An array of search results keyed by date, with each date
+     *               containing an array of Kronolith_Events occuring on that
+     *               date.
      * @throws Kronolith_Exception
      */
     public function search($query, $json = false)
@@ -350,17 +352,11 @@ class Kronolith_Driver
      */
     public function saveEvent(Kronolith_Event $event)
     {
+        if (empty($event->start) || $event->start->year <= 0 ||
+            empty($event->end) || $event->end->year <= 0) {
+            throw new Kronolith_Exception(_("Invalid date"));
+        }
         if ($event->stored || $event->exists()) {
-            // If this event recurs and has bound exceptions, we must make sure
-            // that the exceptionoriginaldate is updated in those exceptions as
-            // well. See Bug: 13512
-            if ($event->recurs()) {
-                foreach ($event->boundExceptions() as $bound) {
-                    $t = $event->start->strftime('%T');
-                    $bound->exceptionoriginaldate = new Horde_Date($bound->start->strftime('%Y-%m-%d') . 'T' . $t);
-                    $bound->save();
-                }
-            }
             return $this->_updateEvent($event);
         }
 
@@ -441,6 +437,9 @@ class Kronolith_Driver
     /**
      * Stub to be overridden in the child class.
      *
+     * Note: This method only "Purges" the calendar - removing the
+     * events, it doesn't remove the calendar itself.
+     *
      * @throws Kronolith_Exception
      */
     public function delete($calendar)
@@ -483,8 +482,10 @@ class Kronolith_Driver
             foreach ($resources as $uid => $resource) {
                 if ($resource['response'] !== Kronolith::RESPONSE_DECLINED &&
                     $resource['response'] !== Kronolith::RESPONSE_NONE) {
-                    $r = $rd->getResource($uid);
-                    $r->removeEvent($event);
+                    try {
+                        $r = $rd->getResource($uid);
+                        $r->removeEvent($event);
+                    } catch (Kronolith_Exception $e) {}
                 }
             }
         }
@@ -496,6 +497,10 @@ class Kronolith_Driver
         $tagger = Kronolith::getTagger();
         $tagger->replaceTags($event->uid, array(), $event->creator, Kronolith_Tagger::TYPE_EVENT);
 
+        /* Tell content we removed the object */
+        $GLOBALS['injector']->getInstance('Content_Objects_Manager')
+            ->delete(array($event->uid), Kronolith_Tagger::TYPE_EVENT);
+
         /* Remove any geolocation data. */
         try {
             $GLOBALS['injector']->getInstance('Kronolith_Geo')->deleteLocation($event->id);
@@ -504,11 +509,15 @@ class Kronolith_Driver
 
         /* Remove any CalDAV mappings. */
         try {
-            $GLOBALS['injector']
-                ->getInstance('Horde_Dav_Storage')
-                ->deleteInternalObjectId($event->id, $event->calendar);
+            $davStorage = $GLOBALS['injector']
+                ->getInstance('Horde_Dav_Storage');
+            try {
+                $davStorage
+                    ->deleteInternalObjectId($event->id, $event->calendar);
+            } catch (Horde_Exception $e) {
+                Horde::log($e);
+            }
         } catch (Horde_Exception $e) {
-            Horde::log($e);
         }
 
         /* See if this event represents an exception - if so, touch the base
@@ -625,5 +634,18 @@ class Kronolith_Driver
         if ($cal->get('owner') != $event->creator) {
             $tagger->tag($event->uid, $event->tags, $cal->get('owner'), 'event');
         }
+    }
+
+    /**
+     * Synchronize if driver needs to.
+     *
+     * @param boolean $force  If true, forces synchronization, even if we have
+     *                        already done so.
+     *
+     * @param string $token  A synchroniziation token, if available.
+     */
+    public function synchronize($force = false, $token = false)
+    {
+        // noop
     }
 }

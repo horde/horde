@@ -1,23 +1,21 @@
 <?php
 /**
- * An PEAR-Net_Imap based Kolab storage driver.
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
- * PHP version 5
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Kolab
  * @package  Kolab_Storage
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
+ * @deprecated This class is not maintained and will be removed in future
+ *             releases.
  */
 
 /**
  * An PEAR-Net_Imap based Kolab storage driver.
- *
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Kolab
  * @package  Kolab_Storage
@@ -231,7 +229,7 @@ extends Horde_Kolab_Storage_Driver_Base
             $this->getBackend()->getAnnotation(
                 $entry, $type, $this->encodePath($folder)
             )
-        );var_dump($result);
+        );
         foreach ($result as $element) {
             if (isset($element['ATTRIBUTES'][$type])) {
                 return $element['ATTRIBUTES'][$type];
@@ -310,7 +308,8 @@ extends Horde_Kolab_Storage_Driver_Base
      *
      * @param string $folder Check the status of this folder.
      *
-     * @return array  An array that contains 'uidvalidity' and 'uidnext'.
+     * @return array  An array that contains 'uidvalidity', 'uidnext', and
+     *                'token'.
      */
     public function status($folder)
     {
@@ -319,7 +318,8 @@ extends Horde_Kolab_Storage_Driver_Base
         );
         return array(
             'uidvalidity' => $result['UIDVALIDITY'],
-            'uidnext' => $result['UIDNEXT']
+            'uidnext' => $result['UIDNEXT'],
+            'token' => false
         );
     }
 
@@ -489,13 +489,13 @@ extends Horde_Kolab_Storage_Driver_Base
     {
         $ob = new Horde_Mime_Part();
 
-        $ob->setType(strtolower($data->type) . '/' . strtolower($data->subType));
+        $ob->setType(Horde_String::lower($data->type) . '/' . Horde_String::lower($data->subType));
 
         // Optional for multipart-parts, required for all others
         if (isset($data->parameters)) {
             $params = array();
             foreach ($data->parameters as $key => $value) {
-                $params[strtolower($key)] = $value;
+                $params[Horde_String::lower($key)] = $value;
             }
 
             $params = Horde_Mime::decodeParam('content-type', $params);
@@ -510,7 +510,7 @@ extends Horde_Kolab_Storage_Driver_Base
             if (isset($data->dparameters)) {
                 $dparams = array();
                 foreach ($data->dparameters as $key => $value) {
-                    $dparams[strtolower($key)] = $value;
+                    $dparams[Horde_String::lower($key)] = $value;
                 }
 
                 $dparams = Horde_Mime::decodeParam('content-disposition', $dparams);
@@ -531,7 +531,7 @@ extends Horde_Kolab_Storage_Driver_Base
                 $ob->setContentId($data->partID);
             }
 
-            $ob->setTransferEncoding(strtolower($data->encoding));
+            $ob->setTransferEncoding(Horde_String::lower($data->encoding));
             $ob->setBytes($data->bytes);
 
             if ($ob->getType() == 'message/rfc822') {

@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2009-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsd.
  *
  * @category  Horde
- * @copyright 2009-2015 Horde LLC
+ * @copyright 2009-2017 Horde LLC
  * @license   http://www.horde.org/licenses/bsd BSD
  * @package   Stream_Wrapper
  */
@@ -17,7 +17,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2009-2015 Horde LLC
+ * @copyright 2009-2017 Horde LLC
  * @license   http://www.horde.org/licenses/bsd BSD
  * @package   Stream_Wrapper
  */
@@ -184,7 +184,10 @@ class Horde_Stream_Wrapper_Combine
                     $tmp['p'] += $curr_read;
                 }
             } elseif ($count) {
-                $tmp = &$this->_data[++$this->_datapos];
+                if (!isset($this->_data[++$this->_datapos])) {
+                    return false;
+                }
+                $tmp = &$this->_data[$this->_datapos];
                 rewind($tmp['fp']);
                 $tmp['p'] = 0;
             } else {

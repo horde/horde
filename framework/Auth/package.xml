@@ -23,10 +23,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-01-08</date>
+ <date>2016-12-03</date>
  <version>
-  <release>2.1.7</release>
-  <api>2.1.0</api>
+  <release>2.2.2</release>
+  <api>2.2.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Improve salt generation for Blowfish hashes.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -190,8 +190,8 @@
   <required>
    <php>
     <min>5.3.0</min>
-    <max>6.0.0alpha1</max>
-    <exclude>6.0.0alpha1</exclude>
+    <max>8.0.0alpha1</max>
+    <exclude>8.0.0alpha1</exclude>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -1002,10 +1002,114 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-01-08</date>
+   <date>2015-04-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Improve salt generation for Blowfish hashes.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.8</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-04-28</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix issues with certain locales like Turkish.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.9</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-06-29</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Ensure we rebind as configured user after testing auth user credentials.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.10</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-07-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] SECURITY: Don&apos;t allow to login to LDAP with an emtpy password.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.11</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-02-01</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Mark PHP 7 as supported.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.12</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-04-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Fix creating/removing mailbox in cyrsql driver (federico.mennite@lifeware.ch, Bug #14295).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.0</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-07-28</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Add searchUsers() method.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.1</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-12-03</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Use more efficient database access in SQL backend.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.2</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-12-03</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

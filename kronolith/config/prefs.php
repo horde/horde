@@ -78,6 +78,13 @@ $prefGroups['addressbooks'] = array(
     }
 );
 
+$prefGroups['itip'] = array(
+    'column' => _("Events"),
+    'label' => _("iTip/Meeting request preferences"),
+    'desc' => _("Set preferences for dealing with iTip notifications."),
+    'members' => array('itip_silent')
+);
+
 // Show dynamic view?
 $_prefs['dynamic_view'] = array(
    'value' => 1,
@@ -116,7 +123,7 @@ $_prefs['max_events'] = array(
 $_prefs['time_between_days'] = array(
     'value' => 0,
     'type' => 'checkbox',
-    'desc' => _("Show time of day between each day in week views?")
+    'desc' => _("Show time of day between each day in week views?") . ' (<em>' . _("Basic view only") . '</em>'
 );
 
 // what day does the week start with
@@ -136,7 +143,7 @@ $_prefs['day_hour_start'] = array(
     'value' => 16,
     'type' => 'enum',
     'enum' => array(),
-    'desc' => _("What time should day and week views start, when there are no earlier events?"),
+    'desc' => _("What time should day and week views start, when there are no earlier events?") . ' (<em>' . _("Basic view only") . '</em>',
     'on_init' => function($ui) {
         $enum = array();
         $fmt = $GLOBALS['prefs']->getValue('twentyFour')
@@ -155,7 +162,7 @@ $_prefs['day_hour_end'] = array(
     'value' => 48,
     'type' => 'enum',
     'enum' => array(),
-    'desc' => _("What time should day and week views end, when there are no later events?"),
+    'desc' => _("What time should day and week views end, when there are no later events?") . ' (<em>' . _("Basic view only") . '</em>',
     'on_init' => function($ui) {
         $enum = array();
         $fmt = $GLOBALS['prefs']->getValue('twentyFour')
@@ -172,14 +179,14 @@ $_prefs['day_hour_end'] = array(
 $_prefs['day_hour_force'] = array(
     'value' => 0,
     'type' => 'checkbox',
-    'desc' => _("Restrict day and week views to these time slots, even if there <strong>are</strong> earlier or later events?"),
+    'desc' => _("Restrict day and week views to these time slots, even if there <strong>are</strong> earlier or later events?") . ' (<em>' . _("Basic view only") . '</em>',
 );
 
 // number of slots in each hour:
 $_prefs['slots_per_hour'] = array(
     'value' => 1,
     'type' => 'enum',
-    'desc' => _("How long should the time slots on the day and week views be?"),
+    'desc' => _("How long should the time slots on the day and week views be?") . ' (<em>' . _("Basic view only") . '</em>',
     'enum' => array(
         4 => _("15 minutes"),
         3 => _("20 minutes"),
@@ -192,7 +199,7 @@ $_prefs['slots_per_hour'] = array(
 $_prefs['show_icons'] = array(
     'value' => 1,
     'type' => 'checkbox',
-    'desc' => _("Show delete, alarm, and recurrence icons in calendar views?"),
+    'desc' => _("Show delete, alarm, and recurrence icons in calendar views?") . ' (<em>' . _("Basic view only") . '</em>',
 );
 
 // show event start/end times in the calendar and/or print views?
@@ -214,7 +221,7 @@ $_prefs['show_location'] = array(
         'screen' => _("Month, Week, and Day Views"),
         'print' => _("Print Views")
      ),
-    'desc' => _("Choose the views to show event locations in:"),
+    'desc' => _("Choose the views to show event locations in:") . ' (<em>' . _("Basic view only") . '</em>',
 );
 
 // show Free/Busy legend?
@@ -222,14 +229,14 @@ $_prefs['show_location'] = array(
 $_prefs['show_fb_legend'] = array(
     'value' => 1,
     'type' => 'checkbox',
-    'desc' => _("Show Free/Busy legend?"),
+    'desc' => _("Show Free/Busy legend?") . ' (<em>' . _("Basic view only") . '</em>',
 );
 
 // collapsed or side by side view
 $_prefs['show_shared_side_by_side'] = array(
     'value' => 0,
     'type' => 'checkbox',
-    'desc' => _("Show shared calendars side-by-side?"),
+    'desc' => _("Show shared calendars side-by-side?") . ' (<em>' . _("Basic view only") . '</em>',
 );
 
 // default calendar
@@ -275,10 +282,10 @@ $_prefs['sync_calendars'] = array(
         $enum = array();
         $sync = @unserialize($GLOBALS['prefs']->getValue('sync_calendars'));
         if (empty($sync)) {
-            $GLOBALS['prefs']->setValue('sync_calendars', serialize(array(Kronolith::getDefaultCalendar())));
+            $GLOBALS['prefs']->setValue('sync_calendars', serialize(array(Kronolith::getDefaultCalendar(Horde_Perms::EDIT))));
         }
-        foreach (Kronolith::listInternalCalendars(!$GLOBALS['prefs']->getValue('activesync_no_multiplex'), Horde_Perms::EDIT) as $key => $cal) {
-            if ($cal->getName() != Kronolith::getDefaultCalendar(Horde_Perms::EDIT)) {
+        foreach (Kronolith::listInternalCalendars(false, Horde_Perms::DELETE) as $key => $cal) {
+            if ($cal->getName() != Kronolith::getDefaultCalendar(Horde_Perms::DELETE)) {
                 $enum[$key] = Kronolith::getLabel($cal);
             }
         }
@@ -287,7 +294,7 @@ $_prefs['sync_calendars'] = array(
     'on_change' => function() {
         $sync = @unserialize($GLOBALS['prefs']->getValue('sync_calendars'));
         $haveDefault = false;
-        $default = Kronolith::getDefaultCalendar(Horde_Perms::EDIT);
+        $default = Kronolith::getDefaultCalendar(Horde_Perms::DELETE);
         foreach ($sync as $cid) {
             if ($cid == $default) {
                 $haveDefault = true;
@@ -298,7 +305,7 @@ $_prefs['sync_calendars'] = array(
             $sync[] = $default;
             $GLOBALS['prefs']->setValue('sync_calendars', serialize($sync));
         }
-        if ($GLOBALS['conf']['activesync']['enabled'] && !$GLOBALS['prefs']->getValue('activesync_no_multiplex')) {
+        if ($GLOBALS['conf']['activesync']['enabled']) {
             try {
                 $sm = $GLOBALS['injector']->getInstance('Horde_ActiveSyncState');
                 $sm->setLogger($GLOBALS['injector']->getInstance('Horde_Log_Logger'));
@@ -318,12 +325,10 @@ $_prefs['sync_calendars'] = array(
     }
 );
 
-// @todo We default to using multiplex since that is the current behavior
-// For Kronolith 5 we should default to separate.
 $_prefs['activesync_no_multiplex'] = array(
     'type' => 'checkbox',
     'desc' => _("Support separate calendars?"),
-    'value' => 0);
+    'value' => 1);
 
 // Which drivers are we supposed to use to examine holidays?
 $_prefs['holiday_drivers'] = array(
@@ -526,4 +531,10 @@ $_prefs['activesync_identity'] = array(
                 ->getInstance('Horde_Core_Factory_Identity')
                 ->create($GLOBALS['registry']->getAuth())->getAll('id'), array('horde' => _("Use Horde Default"))),
     'desc' => _("Choose the identity to use for ActiveSync. This determines the email address used as the ORGANIZER for events you create.")
+);
+
+$_prefs['itip_silent'] = array(
+    'value' => 0,
+    'type' => 'checkbox',
+    'desc' => _("If checked, NEVER SEND any iTip messages. This means invitees will NOT receive meeting requests and organizers will NOT receive any messages when an existing meeting is altered.")
 );

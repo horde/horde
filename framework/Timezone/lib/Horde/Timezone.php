@@ -1,10 +1,20 @@
 <?php
 /**
+ * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author  Jan Schneider <jan@horde.org>
+ * @package Timezone
+ */
+
+/**
  * Base class for loading, parsing, and working with timezones.
  *
- * This class is the central point to fetch timezone information from
- * the timezone (Olson) database, parse it, cached it, and generate
- * VTIMEZONE objects.
+ * This class is the central point to fetch timezone information from the
+ * timezone (Olson) database, parse it, cache it, and generate VTIMEZONE
+ * objects.
  *
  * Usage:
  * <code>
@@ -12,10 +22,8 @@
  * $tz->getZone('America/New_York')->toVtimezone()->exportVcalendar();
  * </code>
  *
- * Copyright 2011-2015 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * Documentation on the database file formats can be found at
+ * ftp://ftp.iana.org/tz/tz-how-to.html
  *
  * @author  Jan Schneider <jan@horde.org>
  * @package Timezone
@@ -114,7 +122,7 @@ class Horde_Timezone
      * Returns an object representing an invidual timezone.
      *
      * Maps to a "Zone" entry in the timezone database. Works with
-     * zone aliases too.
+     * zone aliases and other common timezone names too.
      *
      * @param string $zone  A timezone name.
      *
@@ -125,6 +133,7 @@ class Horde_Timezone
         if (!$this->_zones) {
             $this->_extractAndParse();
         }
+        $zone = Horde_Date::getTimezoneAlias($zone);
         $alias = isset($this->_links[$zone]) ? $this->_links[$zone] : $zone;
         if (!isset($this->_zones[$alias])) {
             throw new Horde_Timezone_Exception(sprintf('Timezone %s not found', $zone));

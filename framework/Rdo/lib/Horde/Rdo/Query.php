@@ -10,6 +10,8 @@
 /**
  * @category Horde
  * @package  Rdo
+ *
+ * @property-read $sortby
  */
 class Horde_Rdo_Query
 {
@@ -74,6 +76,8 @@ class Horde_Rdo_Query
      * object in, it will be cloned before it's returned so that it
      * can be safely modified.
      *
+     * @todo Make $mapper non-optional in H6
+     *
      * @param mixed $query The query to convert to an object.
      * @param Horde_Rdo_Mapper $mapper The Mapper object governing this query.
      *
@@ -81,8 +85,7 @@ class Horde_Rdo_Query
      */
     public static function create($query, $mapper = null)
     {
-        if ($query instanceof Horde_Rdo_Query ||
-            $query instanceof Horde_Rdo_Query_Literal) {
+        if ($query instanceof Horde_Rdo_Query) {
             $query = clone $query;
             if (!is_null($mapper)) {
                 $query->setMapper($mapper);
@@ -105,6 +108,10 @@ class Horde_Rdo_Query
     }
 
     /**
+     * Constructor.
+     *
+     * @todo Make $mapper non-optional in H6
+     *
      * @param  Horde_Rdo_Mapper  $mapper  Rdo mapper base class
      */
     public function __construct($mapper = null)
@@ -146,17 +153,21 @@ class Horde_Rdo_Query
             $m->tableAlias = $this->_alias($m->table);
             $this->addFields($m->fields, $m->tableAlias . '.@');
 
+            $args = array('mapper' => $m,
+                          'type' => $rel['type']);
+
             switch ($rel['type']) {
             case Horde_Rdo::ONE_TO_ONE:
             case Horde_Rdo::MANY_TO_ONE:
                 if (isset($rel['query'])) {
-                    $query = $this->_fillJoinPlaceholders($m, $mapper, $rel['query']);
+                    $args['query'] = $this->_fillJoinPlaceholders($m, $mapper, $rel['query']);
                 } else {
-                    $query = array($mapper->table . '.' . $rel['foreignKey'] => new Horde_Rdo_Query_Literal($m->table . '.' . $m->tableDefinition->getPrimaryKey()));
+                    $args['query'] = array($mapper->table . '.' . $rel['foreignKey'] => new Horde_Rdo_Query_Literal($m->table . '.' . $m->tableDefinition->getPrimaryKey()));
                 }
-                $this->addRelationship($relationship, array('mapper' => $m,
-                                                            'type' => $rel['type'],
-                                                            'query' => $query));
+                if (isset($rel['join_type'])) {
+                    $args['join_type'] = $rel['join_type'];
+                }
+                $this->addRelationship($relationship, $args);
                 break;
 
             case Horde_Rdo::ONE_TO_MANY:
@@ -182,7 +193,10 @@ class Horde_Rdo_Query
     }
 
     /**
-     * @param array $fields The fields to load with this query.
+     * Sets the fields to return with the query.
+     *
+     * @param array $fields        The fields to load with this query.
+     * @param string $fieldPrefix  Prefix all field names with this string.
      *
      * @return Horde_Rdo_Query Returns self for fluent method chaining.
      */
@@ -199,7 +213,10 @@ class Horde_Rdo_Query
     }
 
     /**
-     * @param array $fields Additional Fields to load with this query.
+     * Adds fields to return with the query.
+     *
+     * @param array $fields        Additional fields to load with this query.
+     * @param string $fieldPrefix  Prefix all field names with this string.
      *
      * @return Horde_Rdo_Query Returns self for fluent method chaining.
      */
@@ -265,6 +282,15 @@ class Horde_Rdo_Query
                 $args['tableAlias'] = $this->_alias($args['table']);
             }
         }
+        /* Anything other than INNER and LEFT JOINs will cause errors as the
+         * primary object could have all values filled with null */
+        if (isset($args['join_type']) &&
+            !in_array(
+                Horde_String::upper($args['join_type']),
+                array('INNER JOIN', 'LEFT JOIN')
+            )) {
+            unset($args['join_type']);
+        }
         if (!isset($args['type'])) {
             $args['type'] = Horde_Rdo::MANY_TO_MANY;
         }
@@ -327,8 +353,7 @@ class Horde_Rdo_Query
         switch ($key) {
         case 'sortby':
             if (!$this->_sortby && $this->mapper->defaultSort) {
-                // Add in any default sort values, if none are already
-                // set.
+                // Add in any default sort values, if none are already set.
                 $this->sortBy($this->mapper->defaultSort);
             }
             return $this->_sortby;

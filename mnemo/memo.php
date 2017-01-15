@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2001-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -233,7 +233,10 @@ case 'save_memo':
     }
 
     /* Return to the notepad view. */
-    Horde::url('list.php', true)->redirect();
+    if (!Horde_Util::getFormData('save_only')) {
+        Horde::url('list.php', true)->redirect();
+    }
+    break;
 
 case 'delete_memos':
     /* Delete the note if we're provided with a valid note ID. */

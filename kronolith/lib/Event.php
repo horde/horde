@@ -1,11 +1,17 @@
 <?php
 /**
- * Kronolith_Event defines a generic API for events.
- *
- * Copyright 1999-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
+ *
+ * @author  Chuck Hagenbuch <chuck@horde.org>
+ * @author  Jan Schneider <jan@horde.org>
+ * @package Kronolith
+ */
+
+/**
+ * Kronolith_Event defines a generic API for events.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Jan Schneider <jan@horde.org>
@@ -62,6 +68,13 @@ abstract class Kronolith_Event
      * @var string
      */
     protected $_creator = null;
+
+    /**
+     * The email address of the organizer of the event, if known.
+     *
+     * @var string
+     */
+    public $organizer = null;
 
     /**
      * The title of this event.
@@ -159,14 +172,9 @@ abstract class Kronolith_Event
     /**
      * All the attendees of this event.
      *
-     * This is an associative array where the keys are the email addresses
-     * of the attendees, and the values are also associative arrays with
-     * keys 'attendance' and 'response' pointing to the attendees' attendance
-     * and response values, respectively.
-     *
-     * @var array
+     * @var Kronolith_Attendee_List
      */
-    public $attendees = array();
+    public $attendees;
 
     /**
      * All resources of this event.
@@ -376,6 +384,13 @@ abstract class Kronolith_Event
     protected $_duration;
 
     /**
+     * VFS handler
+     *
+     * @var Horde_Vfs
+     */
+    protected $_vfs;
+
+    /**
      * Constructor.
      *
      * @param Kronolith_Driver $driver  The backend driver that this event is
@@ -385,6 +400,7 @@ abstract class Kronolith_Event
      */
     public function __construct(Kronolith_Driver $driver, $eventObject = null)
     {
+        $this->attendees = new Kronolith_Attendee_List();
         $this->calendar = $driver->calendar;
         list($this->_backgroundColor, $this->_foregroundColor) = $driver->colors();
 
@@ -517,7 +533,7 @@ abstract class Kronolith_Event
         }
 
         $trace = debug_backtrace();
-        trigger_error('Undefined property via __set(): ' . $name
+        trigger_error('Undefined property via __get(): ' . $name
                       . ' in ' . $trace[0]['file']
                       . ' on line ' . $trace[0]['line'],
                       E_USER_NOTICE);
@@ -567,6 +583,10 @@ abstract class Kronolith_Event
         } catch (Exception $e) {
             return false;
         }
+
+        if ($share->get('owner') == null && $GLOBALS['registry']->isAdmin()) {
+            return true;
+        }
         return $share->hasPermission($user, $permission, $this->creator);
     }
 
@@ -583,73 +603,7 @@ abstract class Kronolith_Event
         }
 
         /* Check for acceptance/denial of this event's resources. */
-        $accepted_resources = array();
-        $locks = $GLOBALS['injector']->getInstance('Horde_Lock');
-        $lock = array();
-        // Don't waste time with resource acceptance if the status is cancelled,
-        // the event will be removed from the resource calendar anyway.
-        if ($this->status != Kronolith::STATUS_CANCELLED) {
-            foreach (array_keys($this->getResources()) as $id) {
-                /* Get the resource and protect against infinite recursion in case
-                 * someone is silly enough to add a resource to it's own event.*/
-
-                $resource = Kronolith::getDriver('Resource')->getResource($id);
-                $rcal = $resource->get('calendar');
-                if ($rcal == $this->calendar) {
-                    continue;
-                }
-                Kronolith::getDriver('Resource')->open($rcal);
-
-                /* Lock the resource and get the response */
-                if ($resource->get('response_type') == Kronolith_Resource::RESPONSETYPE_AUTO) {
-                    $principle = 'calendar/' . $rcal;
-                    $lock[$resource->getId()] = $locks->setLock($GLOBALS['registry']->getAuth(), 'kronolith', $principle, 5, Horde_Lock::TYPE_EXCLUSIVE);
-                    $haveLock = true;
-                } else {
-                    $haveLock = false;
-                }
-                if ($haveLock && !$lock[$resource->getId()]) {
-                    // Already locked
-                    // For now, just fail. Not sure how else to capture the locked
-                    // resources and notify the user.
-                    throw new Kronolith_Exception(sprintf(_("The resource \"%s\" was locked. Please try again."), $resource->get('name')));
-                } else {
-                    $response = $resource->getResponse($this);
-                }
-
-                /* Remember accepted resources so we can add the event to their
-                 * calendars. Otherwise, clear the lock. */
-                if ($response == Kronolith::RESPONSE_ACCEPTED) {
-                    $accepted_resources[] = $resource;
-                } elseif ($haveLock) {
-                    $locks->clearLock($lock[$resource->getId()]);
-                }
-
-                if ($response == Kronolith::RESPONSE_DECLINED && $this->uid) {
-                    $r_driver = Kronolith::getDriver('Resource');
-                    $r_event = $r_driver->getByUID($this->uid, array($resource->get('calendar')));
-                    $r_driver->deleteEvent($r_event, true, true);
-                }
-
-                /* Add the resource to the event */
-                $this->addResource($resource, $response);
-            }
-        } else {
-            // If event is cancelled, and actually exists, we need to mark it
-            // as cancelled in resource calendar.
-            foreach (array_keys($this->getResources()) as $id) {
-                $resource = Kronolith::getDriver('Resource')->getResource($id);
-                $rcal = $resource->get('calendar');
-                if ($rcal == $this->calendar) {
-                    continue;
-                }
-                try {
-                    Kronolith::getDriver('Resource')->open($rcal);
-                    $resource->addEvent($this);
-                } catch (Exception $e) {
-                }
-            }
-        }
+        $accepted_resources = Kronolith_Resource::checkResources($this);
 
         /* Save */
         $result = $this->getDriver()->saveEvent($this);
@@ -662,9 +616,6 @@ abstract class Kronolith_Event
          * hence no longer refer to the same event. */
         foreach ($accepted_resources as $resource) {
             $resource->addEvent($this);
-            if ($resource->get('response_type') == Kronolith_Resource::RESPONSETYPE_AUTO) {
-                $locks->clearLock($lock[$resource->getId()]);
-            }
         }
 
         $hordeAlarm = $GLOBALS['injector']->getInstance('Horde_Alarm');
@@ -695,10 +646,12 @@ abstract class Kronolith_Event
      *
      * @param Horde_Icalendar $calendar  A Horde_Icalendar object that acts as
      *                                   a container.
+     * @param boolean  $includeFiles     Include attached files in the iCalendar
+     *                                   file? @since 4.3.0
      *
      * @return array  An array of Horde_Icalendar_Vevent objects for this event.
      */
-    public function toiCalendar($calendar)
+    public function toiCalendar($calendar, $includeFiles = true)
     {
         $vEvent = Horde_Icalendar::newComponent('vevent', $calendar);
         $v1 = $calendar->getAttribute('VERSION') == '1.0';
@@ -712,6 +665,7 @@ abstract class Kronolith_Event
             case Horde_Date_Recurrence::RECUR_WEEKLY:
             case Horde_Date_Recurrence::RECUR_YEARLY_WEEKDAY:
             case Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY:
+            case Horde_Date_Recurrence::RECUR_MONTHLY_LAST_WEEKDAY:
                 if (!$this->timezone) {
                     $this->timezone = date_default_timezone_get();
                 }
@@ -729,7 +683,7 @@ abstract class Kronolith_Event
                 try {
                     if (!$this->baseid) {
                         $tz = $GLOBALS['injector']->getInstance('Horde_Timezone');
-                        $vEvents[] = $tz->getZone($this->timezone)->toVtimezone();
+                        $vEvents[] = $tz->getZone($this->timezone)->toVtimezone($this->start, $this->end);
                     }
                     $params['TZID'] = $this->timezone;
                 } catch (Horde_Exception $e) {
@@ -775,7 +729,9 @@ abstract class Kronolith_Event
         $vEvent->setAttribute('SUMMARY', $this->getTitle());
 
         // Organizer
-        if (count($this->attendees)) {
+        if ($this->organizer) {
+            $vEvent->setAttribute('ORGANIZER', 'mailto:' . $this->organizer, array());
+        } elseif (count($this->attendees)) {
             $name = Kronolith::getUserName($this->creator);
             $email = Kronolith::getUserEmail($this->creator);
             $params = array();
@@ -849,9 +805,9 @@ abstract class Kronolith_Event
         }
 
         // Attendees.
-        foreach ($this->attendees as $email => $status) {
+        foreach ($this->attendees as $attendee) {
             $params = array();
-            switch ($status['attendance']) {
+            switch ($attendee->role) {
             case Kronolith::PART_REQUIRED:
                 if ($v1) {
                     $params['EXPECT'] = 'REQUIRE';
@@ -877,7 +833,7 @@ abstract class Kronolith_Event
                 break;
             }
 
-            switch ($status['response']) {
+            switch ($attendee->response) {
             case Kronolith::RESPONSE_NONE:
                 if ($v1) {
                     $params['STATUS'] = 'NEEDS ACTION';
@@ -913,31 +869,41 @@ abstract class Kronolith_Event
                 break;
             }
 
+            $email = $attendee->email;
             if (strpos($email, '@') === false) {
                 $email = '';
             }
             if ($v1) {
-                if (empty($email)) {
-                    if (!empty($status['name'])) {
-                        $email = $status['name'];
+                if ($attendee->user) {
+                    $attribute = 'X-HORDE-ATTENDEE';
+                    $email = $attendee->user;
+                } elseif (empty($email)) {
+                    $attribute = 'ATTENDEE';
+                    if (strlen($attendee->name)) {
+                        $email = $attendee->name;
                     }
                 } else {
+                    $attribute = 'ATTENDEE';
                     $tmp = new Horde_Mail_Rfc822_Address($email);
-                    if (!empty($status['name'])) {
-                        $tmp->personal = $status['name'];
+                    if (strlen($attendee->name)) {
+                        $tmp->personal = $attendee->name;
                     }
                     $email = strval($tmp);
                 }
             } else {
-                if (!empty($status['name'])) {
-                    $params['CN'] = $status['name'];
+                if (strlen($attendee->name)) {
+                    $params['CN'] = $attendee->name;
                 }
-                if (!empty($email)) {
+                if ($attendee->user) {
+                    $attribute = 'X-HORDE-ATTENDEE';
+                    $email = $attendee->user;
+                } elseif (!empty($email)) {
+                    $attribute = 'ATTENDEE';
                     $email = 'mailto:' . $email;
                 }
             }
 
-            $vEvent->setAttribute('ATTENDEE', $email, $params);
+            $vEvent->setAttribute($attribute, $email, $params);
         }
 
         // Alarms.
@@ -968,6 +934,25 @@ abstract class Kronolith_Event
             }
         }
 
+        // Attached files
+        if ($includeFiles && count($this->listFiles())) {
+            $vfs = $this->vfsInit();
+            foreach ($this->listFiles() as $file) {
+                try {
+                    $data = $vfs->read(Kronolith::VFS_PATH . '/' . $this->getVfsUid(), $file['name']);
+                } catch (Horde_Vfs_Exception $e) {
+                    Horde::log($e->getMessage, 'ERR');
+                }
+                if ($data) {
+                    try {
+                        $vEvent->setAttribute('ATTACH', $data, array('FMTTYPE' => $file['type'], 'VALUE' => 'BINARY', 'ENCODING' => 'BASE64'));
+                    } catch (Horde_Icalendar_Exception $e) {
+                        Horde::log($e->getMessage(), 'ERR');
+                    }
+                }
+            }
+        }
+
         // Recurrence.
         if ($this->recurs()) {
             if ($v1) {
@@ -986,10 +971,9 @@ abstract class Kronolith_Event
             // exceptions. Any exceptions left should represent exceptions with
             // no replacement.
             $exceptions = $this->recurrence->getExceptions();
-            $kronolith_driver = Kronolith::getDriver(null, $this->calendar);
             $search = new stdClass();
             $search->baseid = $this->uid;
-            $results = $kronolith_driver->search($search);
+            $results = $this->getDriver()->search($search);
             foreach ($results as $days) {
                 foreach ($days as $exceptionEvent) {
                     // Need to change the UID so it links to the original
@@ -1075,6 +1059,14 @@ abstract class Kronolith_Event
             $uid = $vEvent->getAttribute('UID');
             if (!empty($uid)) {
                 $this->uid = $uid;
+            }
+        } catch (Horde_Icalendar_Exception $e) {}
+
+        // Organizer
+        try {
+            $organizer = $vEvent->getAttribute('ORGANIZER');
+            if (!empty($organizer)) {
+                $this->organizer = str_replace(array('MAILTO:', 'mailto:'), '', $organizer);
             }
         } catch (Horde_Icalendar_Exception $e) {}
 
@@ -1315,6 +1307,41 @@ abstract class Kronolith_Event
             }
         }
 
+        // Attached files, we require a UID so we can attach the file in VFS.
+        if ($this->uid) {
+            $attach = false;
+            $attach_params = array();
+            try {
+                $attach = $vEvent->getAttribute('ATTACH');
+                $attach_params = $vEvent->getAttribute('ATTACH', true);
+                if (!is_array($attach)) {
+                    $attach = array($attach);
+                }
+                foreach ($attach as $key => $attribute) {
+                    if (isset($attach_params[$key]['VALUE']) &&
+                        Horde_String::lower($attach_params[$key]['VALUE']) == 'uri') {
+                        // @todo
+                    } elseif (Horde_String::upper($attach_params[$key]['ENCODING']) == 'BASE64') {
+                        $mime_type = !empty($attach_params[$key]['FMTTYPE'])
+                            ? $attach_params[$key]['FMTTYPE']
+                            : '';
+                        // @todo We really should add stream support to VFS
+                        $file_data = base64_decode($attribute);
+                        $vfs = $this->vfsInit();
+                        $dir = Kronolith::VFS_PATH . '/' . $this->getVfsUid();
+                        // @todo - Is there a way to get a filename from a
+                        // non-uri ATTACH attribute??
+                        $filename = sprintf(_("File %d.%s"), $key, Horde_Mime_Magic::mimeToExt($mime_type));
+                        try {
+                            $vfs->writeData($dir, $filename, $file_data, true);
+                        } catch (Horde_Vfs_Exception $e) {
+                            Horde::log($e->getMessage(), 'ERR');
+                        }
+                    }
+                }
+            } catch (Horde_Icalendar_Exception $e) {}
+        }
+
         // Attendance.
         // Importing attendance may result in confusion: editing an imported
         // copy of an event can cause invitation updates to be sent from
@@ -1323,7 +1350,7 @@ abstract class Kronolith_Event
         // can be overriden.
         // X-ATTENDEE is there for historical reasons. @todo remove in
         // Kronolith 5.
-        $attendee = null;
+        $attendee = $users = null;
         if ($parseAttendees) {
             try {
                 $attendee = $vEvent->getAttribute('ATTENDEE');
@@ -1335,19 +1362,34 @@ abstract class Kronolith_Event
                 } catch (Horde_Icalendar_Exception $e) {
                 }
             }
-        }
-        if ($attendee) {
-            if (!is_array($attendee)) {
+            if ($attendee && !is_array($attendee)) {
                 $attendee = array($attendee);
-            }
-            if (!is_array($params)) {
                 $params = array($params);
             }
+            try {
+                $users = $vEvent->getAttribute('X-HORDE-ATTENDEE');
+                $userParams = $vEvent->getAttribute('X-HORDE-ATTENDEE', true);
+                if (!is_array($users)) {
+                    $users = array($users);
+                    $userParams = array($userParams);
+                }
+                foreach ($userParams as &$param) {
+                    $param['hordeUser'] = true;
+                }
+                if ($attendee) {
+                    $attendee = array_merge($attendee, $users);
+                    $params = array_merge($params, $userParams);
+                } else {
+                    $attendee = $users;
+                    $params = $userParams;
+                }
+            } catch (Horde_Icalendar_Exception $e) {
+            }
+        }
+        if ($attendee) {
+            // Clear the attendees since we might be editing/replacing the event
+            $this->attendees = new Kronolith_Attendee_List();
             for ($i = 0; $i < count($attendee); ++$i) {
-                $attendee[$i] = str_replace(array('MAILTO:', 'mailto:'), '',
-                                            $attendee[$i]);
-                $tmp = new Horde_Mail_Rfc822_Address($attendee[$i]);
-                $email = $tmp->bare_address;
                 // Default according to rfc2445:
                 $attendance = Kronolith::PART_REQUIRED;
                 // vCalendar 2.0 style:
@@ -1395,9 +1437,21 @@ abstract class Kronolith_Event
                         break;
                     }
                 }
-                $name = isset($params[$i]['CN']) ? $params[$i]['CN'] : null;
 
-                $this->addAttendee($email, $attendance, $response, $name);
+                if (!empty($params[$i]['hordeUser'])) {
+                    $this->attendees->add(new Kronolith_Attendee(array(
+                        'user' => $attendee[$i],
+                        'role' => $attendance,
+                        'response' => $response
+                    )));
+                } else {
+                    $tmp = new Horde_Mail_Rfc822_Address(
+                        str_replace(array('MAILTO:', 'mailto:'), '', $attendee[$i])
+                    );
+                    $email = $tmp->bare_address;
+                    $name = isset($params[$i]['CN']) ? $params[$i]['CN'] : null;
+                    $this->addAttendee($email, $attendance, $response, $name);
+                }
             }
         }
 
@@ -1425,22 +1479,6 @@ abstract class Kronolith_Event
                     $this->recurrence->fromRRule10($rrule);
                 }
 
-                /* Delete all existing exceptions to this event if it
-                 * already exists */
-                if (!empty($this->uid)) {
-                    $kronolith_driver = Kronolith::getDriver(null, $this->calendar);
-                    $search = new StdClass();
-                    $search->start = $this->recurrence->getRecurStart();
-                    $search->end = $this->recurrence->getRecurEnd();
-                    $search->baseid = $this->uid;
-                    $results = $kronolith_driver->search($search);
-                    foreach ($results as $days) {
-                        foreach ($days as $exception) {
-                            $kronolith_driver->deleteEvent($exception->id);
-                        }
-                    }
-                }
-
                 // Exceptions. EXDATE represents deleted events, just add the
                 // exception, no new event is needed.
                 $exdates = $vEvent->getAttributeValues('EXDATE');
@@ -1460,19 +1498,20 @@ abstract class Kronolith_Event
         // RECURRENCE-ID indicates that this event represents an exception
         try {
             $this->recurrenceid = $vEvent->getAttribute('RECURRENCE-ID');
-            $kronolith_driver = Kronolith::getDriver(null, $this->calendar);
             $originaldt = new Horde_Date($this->recurrenceid);
             $this->exceptionoriginaldate = $originaldt;
             $this->baseid = $this->uid;
             $this->uid = null;
             try {
-                $originalEvent = $kronolith_driver->getByUID($this->baseid);
-                $originalEvent->recurrence->addException(
-                    $originaldt->format('Y'),
-                    $originaldt->format('m'),
-                    $originaldt->format('d')
-                );
-                $originalEvent->save();
+                $originalEvent = $this->getDriver()->getByUID($this->baseid);
+                if ($originalEvent->recurrence) {
+                    $originalEvent->recurrence->addException(
+                        $originaldt->format('Y'),
+                        $originaldt->format('m'),
+                        $originaldt->format('d')
+                    );
+                    $originalEvent->save();
+                }
             } catch (Horde_Exception_NotFound $e) {
                 throw new Kronolith_Exception(_("Unable to locate original event series."));
             }
@@ -1480,9 +1519,106 @@ abstract class Kronolith_Event
     }
 
     /**
+     * Disconnect any existing exceptions.
+     *
+     * @param boolean $delete  If true, disconnected exceptions will be deleted
+     *                         completely.
+     */
+    public function disconnectExceptions($delete = false)
+    {
+        // Get exceptions that we have bound events for.
+        $exceptions = $this->boundExceptions();
+
+        // Remove all exception dates from the recurrence object.
+        $ex_dates = $this->recurrence->getExceptions();
+        foreach ($ex_dates as $ex_date) {
+            list($year, $month, $day) = sscanf($ex_date, '%04d%02d%02d');
+            $this->recurrence->deleteException($year, $month, $day);
+        }
+
+        // Unbind the event from the base event, but don't delete it to avoid
+        // any unpleasent user surprises.
+        foreach ($exceptions as $exception) {
+            $exception->baseid = null;
+            $exception->exceptionoriginaldate = null;
+            $exception->save();
+            // Must delete after the baseid was removed so it doesn't alter
+            // the old base event's history.
+            if ($delete) {
+                $this->getDriver()->deleteEvent($exception, true);
+            }
+        }
+    }
+
+    /**
+     * Handle adding/editing exceptions from EAS 16.0 clients.
+     *
+     * @param  Horde_ActiveSync_Message_Appointment $message
+     *
+     * @return boolean
+     */
+    protected function _handleEas16Exception(Horde_ActiveSync_Message_Appointment $message)
+    {
+        if (!$this->recurs()) {
+            return false;
+        }
+        $tz = $message->getTimezone();
+        $kronolith_driver = $this->getDriver();
+
+        // Do we already have an exception for this day? If so, remove the
+        // bound exception (but don't need to remove it from the recurrence
+        // object since we are just replacing it).
+        $search = new StdClass();
+        $search->baseid = $this->uid;
+        $results = $kronolith_driver->search($search);
+        foreach ($results as $days) {
+            foreach ($days as $exception) {
+                if ($exception->exceptionoriginaldate->setTimezone('UTC')->format('Ymd\THis\Z') == $message->instanceid) {
+                    $kronolith_driver->deleteEvent($exception->id);
+                    break;
+                }
+            }
+        }
+
+        // Ensure the exception is added to the recurrence object.
+        $original = new Horde_Date($message->instanceid, 'UTC');
+        $original->setTimezone($tz);
+        $this->recurrence->addException($original->format('Y'), $original->format('m'), $original->format('d'));
+
+        // Create the new exception event.
+        $event = $kronolith_driver->getEvent();
+        if ($message->starttime) {
+            $event->start = clone($message->starttime);
+            $event->start->setTimezone($tz);
+        } else {
+            $event->start = clone($this->start);
+        }
+        if ($message->endtime) {
+            $event->end = clone($message->endtime);
+            $event->end->setTimezone($tz);
+        } else {
+            $event->end = clone($this->end);
+        }
+        $event->title = $message->subject ? $message->subject : $this->title;
+        $event->description = $message->getBody();
+        $event->description = empty($event->description) ? $this->description : $event->description;
+        $event->baseid = $this->uid;
+        $event->exceptionoriginaldate = new Horde_Date($message->instanceid, 'UTC');
+        $event->exceptionoriginaldate->setTimezone($tz);
+        $event->initialized = true;
+        if ($tz != date_default_timezone_get()) {
+            $event->timezone = $tz;
+        }
+        $event->save();
+
+        return true;
+    }
+
+    /**
      * Imports the values for this event from a MS ActiveSync Message.
      *
-     * @see Horde_ActiveSync_Message_Appointment
+     * @param Horde_ActiveSync_Message_Appointment $message
+     * @throws  Kronolith_Exception
      */
     public function fromASAppointment(Horde_ActiveSync_Message_Appointment $message)
     {
@@ -1491,86 +1627,195 @@ abstract class Kronolith_Event
             $this->creator = $GLOBALS['registry']->getAuth();
         }
 
-        /* Meeting requests come with their own UID value. */
-        $client_uid = $message->getUid();
-        if (empty($this->uid) && !empty($client_uid)) {
-            $this->uid = $message->getUid();
+        // EAS 16.0 sends new/changed exceptions as "orphaned" instances so
+        // they need to be handled separately.
+        if ($message->getProtocolVersion() >= Horde_ActiveSync::VERSION_SIXTEEN &&
+            !empty($message->instanceid)) {
+            if (!$this->_handleEas16Exception($message)) {
+                throw new Kronolith_Exception('Error handling EAS 16 exceptions.');
+            }
+            return;
         }
 
-        if (strlen($title = $message->getSubject())) {
+         // Meeting requests come with their own UID value, but only if we
+         // are not using EAS 16.0 (16 sends a ClientUID value, but it's only
+         // purpose is to prevent duplicate events. We currently don't store
+         // this value.
+        if ($message->getProtocolVersion < Horde_ActiveSync::VERSION_SIXTEEN) {
+            $client_uid = $message->getUid();
+            if (empty($this->uid) && !empty($client_uid)) {
+                $this->uid = $message->getUid();
+            }
+        }
+
+        // EAS 16 disallows the client to send/set the ORGANIZER.
+        // Even so, add the extra check of not allowing the organizer to
+        // be changed by the client.
+        if (!$message->isGhosted('organizer')) {
+            $organizer = $message->getOrganizer();
+            if ($message->getProtocolVersion() < Horde_ActiveSync::VERSION_SIXTEEN) {
+                if ($organizer['email'] && empty($this->organizer)) {
+                    $this->organizer =  $organizer['email'];
+                }
+            }
+        }
+
+        if (!$message->isGhosted('subject') &&
+            strlen($title = $message->getSubject())) {
             $this->title = $title;
         }
+
         if ($message->getProtocolVersion() == Horde_ActiveSync::VERSION_TWOFIVE &&
+            !$message->isGhosted('body') &&
             strlen($description = $message->getBody())) {
             $this->description = $description;
-        } elseif ($message->getProtocolVersion() > Horde_ActiveSync::VERSION_TWOFIVE) {
+        } elseif ($message->getProtocolVersion() > Horde_ActiveSync::VERSION_TWOFIVE && !$message->isGhosted('airsyncbasebody')) {
             if ($message->airsyncbasebody->type == Horde_ActiveSync::BODYPREF_TYPE_HTML) {
                 $this->description = Horde_Text_Filter::filter($message->airsyncbasebody->data, 'Html2text');
             } else {
                 $this->description = $message->airsyncbasebody->data;
             }
         }
-        if (strlen($location = $message->getLocation())) {
+
+        // EAS 16 location property is an AirSyncBaseLocation object, not
+        // a string.
+        $location = $message->getLocation();
+        if (is_object($location)) {
+            // @todo - maybe build a more complete name based on city/country?
+            $location = $location->displayname;
+        }
+        if (!$message->isGhosted('location') && strlen($location)) {
             $this->location = $location;
         }
 
         /* Date/times */
-        $tz = $message->getTimezone();
         $dates = $message->getDatetime();
-        $this->start = clone($dates['start']);
-        $this->start->setTimezone($tz);
-        $this->end = clone($dates['end']);
-        $this->end->setTimezone($tz);
-        $this->allday = $dates['allday'];
-        if ($tz != date_default_timezone_get()) {
-            $this->timezone = $tz;
+        if (!$message->isGhosted('alldayevent')) {
+            $this->allday = $dates['allday'];
+        }
+
+        if (!empty($this->id) &&
+            $dates['allday'] &&
+            $message->getProtocolVersion() == Horde_ActiveSync::VERSION_SIXTEEN) {
+            // allday events are handled differently when updating vs creating
+            // new when using EAS 16.0
+            $this->start = new Horde_Date(array(
+                'year' => !$message->isGhosted('starttime') ? $dates['start']->year : $this->start->year,
+                'month' => !$message->isGhosted('starttime') ? $dates['start']->month : $this->start->month,
+                'mday' => !$message->isGhosted('starttime') ? $dates['start']->mday : $this->start->mday),
+                !empty($this->timezone) ? $this->timezone : date_default_timezone_get()
+            );
+            $this->end = new Horde_Date(array(
+                'year' => !$message->isGhosted('endtime') ? $dates['end']->year : $this->end->year,
+                'month' => !$message->isGhosted('endtime') ? $dates['end']->month : $this->end->month,
+                'mday' => !$message->isGhosted('endtime') ? $dates['end']->mday : $this->end->mday),
+                !empty($this->timezone) ? $this->timezone : date_default_timezone_get()
+            );
+        } else {
+            $tz = !$message->isGhosted('timezone') ? $message->getTimezone() : $this->timezone;
+            $this->start = !$message->isGhosted('starttime') ? clone($dates['start']) : $this->start;
+            try {
+                $this->start->setTimezone($tz);
+            } catch (Horde_Date_Exception $e) {
+                $tz = date_default_timezone_get();
+                Horde::log(sprintf('Unable to set timezone. Using %s.', $tz), 'WARN');
+                $this->start->setTimezone($tz);
+            }
+            $this->end = !$message->isGhosted('endtime') ? clone($dates['end']) : $this->end;
+            $this->end->setTimezone($tz);
+            if ($tz != date_default_timezone_get()) {
+                $this->timezone = $tz;
+            }
         }
 
         /* Sensitivity */
-        $this->private = ($message->getSensitivity() == Horde_ActiveSync_Message_Appointment::SENSITIVITY_PRIVATE || $message->getSensitivity() == Horde_ActiveSync_Message_Appointment::SENSITIVITY_CONFIDENTIAL) ? true :  false;
+        if (!$message->isGhosted('sensitivity')) {
+            $this->private = ($message->getSensitivity() == Horde_ActiveSync_Message_Appointment::SENSITIVITY_PRIVATE || $message->getSensitivity() == Horde_ActiveSync_Message_Appointment::SENSITIVITY_CONFIDENTIAL) ? true :  false;
+        }
 
         /* Busy Status */
-        $status = $message->getBusyStatus();
-        switch ($status) {
-        case Horde_ActiveSync_Message_Appointment::BUSYSTATUS_BUSY:
-            $status = Kronolith::STATUS_CONFIRMED;
-            break;
+        if (!$message->isGhosted('meetingstatus')) {
+            if ($message->getMeetingStatus() == Horde_ActiveSync_Message_Appointment::MEETING_CANCELLED) {
+                $status = Kronolith::STATUS_CANCELLED;
+            } else {
+                $status = $message->getBusyStatus();
+                switch ($status) {
+                case Horde_ActiveSync_Message_Appointment::BUSYSTATUS_BUSY:
+                case Horde_ActiveSync_Message_Appointment::BUSYSTATUS_ELSEWHERE;
+                    $status = Kronolith::STATUS_CONFIRMED;
+                    break;
 
-        case Horde_ActiveSync_Message_Appointment::BUSYSTATUS_FREE:
-            $status = Kronolith::STATUS_FREE;
-            break;
+                case Horde_ActiveSync_Message_Appointment::BUSYSTATUS_FREE:
+                    $status = Kronolith::STATUS_FREE;
+                    break;
 
-        case Horde_ActiveSync_Message_Appointment::BUSYSTATUS_TENTATIVE:
-            $status = Kronolith::STATUS_TENTATIVE;
-            break;
-        // @TODO: not sure how "Out" should show in kronolith...
-        case Horde_ActiveSync_Message_Appointment::BUSYSTATUS_OUT:
-            $status = Kronolith::STATUS_CONFIRMED;
-        default:
-            // EAS Specifies default should be free.
-            $status = Kronolith::STATUS_FREE;
+                case Horde_ActiveSync_Message_Appointment::BUSYSTATUS_TENTATIVE:
+                    $status = Kronolith::STATUS_TENTATIVE;
+                    break;
+                // @TODO: not sure how "Out" should show in kronolith...
+                case Horde_ActiveSync_Message_Appointment::BUSYSTATUS_OUT:
+                    $status = Kronolith::STATUS_CONFIRMED;
+                default:
+                    // EAS Specifies default should be free.
+                    $status = Kronolith::STATUS_FREE;
+                }
+            }
+            $this->status = $status;
         }
-        $this->status = $status;
 
-        /* Alarm */
-        if ($alarm = $message->getReminder()) {
-            $this->alarm = $alarm;
+
+        // Alarms:
+        // EAS allows setting an alarm at the time of the event, and
+        // signifies this with a '0' minutes before. Kronolith does not
+        // support this, and uses '0' to mean no alarm. Make these fire
+        // at 1 minute prior.
+        if (!$message->isGhosted('reminder')) {
+            $alarm = $message->getReminder();
+            if ($alarm === 0 || $alarm === "0") {
+                // "At time of event"
+                $this->alarm = 1;
+            } elseif ($message->getProtocolVersion() >= Horde_ActiveSync::VERSION_SIXTEEN) {
+                if (empty($alarm)) {
+                    // Client sent an empty reminder tag meaning no alarm.
+                    $this->alarm = 0;
+                } else {
+                    // It was either missing (no alarm) or set with a value.
+                    $this->alarm = $alarm;
+                }
+            } elseif ($alarm) {
+               $this->alarm = $alarm;
+            } else {
+                $this->alarm = 0;
+            }
         }
 
         /* Recurrence */
-        if ($rrule = $message->getRecurrence()) {
-
+        if (!$message->isGhosted('recurrence') && ($rrule = $message->getRecurrence())) {
             /* Exceptions */
-            /* Since AS keeps exceptions as part of the original event, we need to
-             * delete all existing exceptions and re-create them. The only drawback
-             * to this is that the UIDs will change.
-             */
-            $kronolith_driver = Kronolith::getDriver(null, $this->calendar);
-            $this->recurrence = $rrule;
-            if (!empty($this->uid)) {
+            /* Since AS keeps exceptions as part of the original event, we need
+             * to delete all existing exceptions and re-create them. The only
+             * drawback to this is that the UIDs will change. */
+            $kronolith_driver = $this->getDriver();
+
+            // EAS 16 doesn't update exception data on edits of the base event
+            // but still sends the recurrence rule. We need to replace the
+            // recurrence rule if it changed (and overwrite any exceptions),
+            // otherwise leave it alone.
+            if ($message->getProtocolVersion() >= Horde_ActiveSync::VERSION_SIXTEEN) {
+                if (!empty($this->uid) &&
+                    !empty($this->recurrence) &&
+                    !$this->recurrence->isEqual($rrule)) {
+                    $this->disconnectExceptions(true);
+                    $this->recurrence = $rrule;
+                }
+            }
+
+            if (!empty($this->uid) &&
+                $message->getProtocolVersion() < Horde_ActiveSync::VERSION_SIXTEEN) {
+                // EAS 16.0 NEVER adds exceptions from withing the base event,
+                // so we can't delete the existing exceptions - we don't have
+                // the current list to replace them with.
                 $search = new StdClass();
-                $search->start = $rrule->getRecurStart();
-                $search->end = $rrule->getRecurEnd();
                 $search->baseid = $this->uid;
                 $results = $kronolith_driver->search($search);
                 foreach ($results as $days) {
@@ -1578,85 +1823,169 @@ abstract class Kronolith_Event
                         $kronolith_driver->deleteEvent($exception->id);
                     }
                 }
-            }
 
-            $erules = $message->getExceptions();
-            foreach ($erules as $rule){
-                /* Readd the exception event, but only if not deleted */
-                if (!$rule->deleted) {
-                    $event = $kronolith_driver->getEvent();
-                    $times = $rule->getDatetime();
-                    $original = $rule->getExceptionStartTime();
-                    $original->setTimezone($tz);
-                    $this->recurrence->addException($original->format('Y'), $original->format('m'), $original->format('d'));
-                    $event->start = $times['start'];
-                    $event->end = $times['end'];
-                    $event->start->setTimezone($tz);
-                    $event->end->setTimezone($tz);
-                    $event->allday = $times['allday'];
-                    $event->title = $rule->getSubject();
-                    $event->title = empty($event->title) ? $this->title : $event->title;
-                    $event->description = $rule->getBody();
-                    $event->description = empty($event->description) ? $this->description : $event->description;
-                    $event->baseid = $this->uid;
-                    $event->exceptionoriginaldate = $original;
-                    $event->initialized = true;
-                    if ($tz != date_default_timezone_get()) {
-                        $event->timezone = $tz;
-                    }
-                    $event->save();
-                } else {
-                    /* For exceptions that are deletions, just add the exception */
-                    $exceptiondt = $rule->getExceptionStartTime();
-                    $exceptiondt->setTimezone($tz);
-                    $this->recurrence->addException($exceptiondt->format('Y'), $exceptiondt->format('m'), $exceptiondt->format('d'));
+                $erules = $message->getExceptions();
+                foreach ($erules as $rule){
+                    /* Readd the exception event, but only if not deleted */
+                    if (!$rule->deleted) {
+                        $event = $kronolith_driver->getEvent();
+                        $times = $rule->getDatetime();
+                        if ($message->getProtocolVersion() < Horde_ActiveSync::VERSION_SIXTEEN) {
+                            $original = $rule->getExceptionStartTime();
+                        } else {
+                            $original = $rule->instanceid;
+                        }
+                        try {
+                            $original->setTimezone($tz);
+                        } catch (Horde_Date_Exception $e) {
+                            $tz = date_default_timezone_get();
+                            Horde::log(sprintf('Unable to set timezone. Using %s.', $tz), 'WARN');
+                            $original->setTimezone($tz);
+                        }
+                        $this->recurrence->addException($original->format('Y'), $original->format('m'), $original->format('d'));
+                        $event->start = $times['start'];
+                        $event->end = $times['end'];
+                        $event->start->setTimezone($tz);
+                        $event->end->setTimezone($tz);
+                        $event->allday = $times['allday'];
+                        $event->title = $rule->getSubject();
+                        $event->title = empty($event->title) ? $this->title : $event->title;
+                        $event->description = $rule->getBody();
+                        $event->description = empty($event->description) ? $this->description : $event->description;
+                        $event->baseid = $this->uid;
+                        $event->exceptionoriginaldate = $original;
+                        $event->initialized = true;
+                        if ($tz != date_default_timezone_get()) {
+                            $event->timezone = $tz;
+                        }
+                        $event->save();
+                    } else {
+                        /* For exceptions that are deletions, just add the exception */
+                        if ($message->getProtocolVersion() < Horde_ActiveSync::VERSION_SIXTEEN) {
+                            $exceptiondt = $rule->getExceptionStartTime();
+                        } else {
+                            $exceptiondt = $rule->instanceid;
+                        }
+                        try {
+                            $exceptiondt->setTimezone($tz);
+                        } catch (Horde_Date_Exception $e) {
+                            $tz = date_default_timezone_get();
+                            Horde::log(sprintf('Unable to set timezone. Using %s.', $tz), 'WARN');
+                            $exceptiondt->setTimezone($tz);
+                        }
+                        $this->recurrence->addException($exceptiondt->format('Y'), $exceptiondt->format('m'), $exceptiondt->format('d'));
+                   }
                }
             }
         }
 
         /* Attendees */
-        $attendees = $message->getAttendees();
-        foreach ($attendees as $attendee) {
-            switch ($attendee->status) {
-            case Horde_ActiveSync_Message_Attendee::STATUS_ACCEPT:
-                $response_code = Kronolith::RESPONSE_ACCEPTED;
-                break;
-            case Horde_ActiveSync_Message_Attendee::STATUS_DECLINE:
-                $response_code = Kronolith::RESPONSE_DECLINED;
-                break;
-            case Horde_ActiveSync_Message_Attendee::STATUS_TENTATIVE:
-                $response_code = Kronolith::RESPONSE_TENTATIVE;
-                break;
-            default:
-                $response_code = Kronolith::RESPONSE_NONE;
-            }
-            switch ($attendee->type) {
-            case Horde_ActiveSync_Message_Attendee::TYPE_REQUIRED:
-                $part_type = Kronolith::PART_REQUIRED;
-                break;
-            case Horde_ActiveSync_Message_Attendee::TYPE_OPTIONAL:
-                $part_type = Kronolith::PART_OPTIONAL;
-                break;
-            case Horde_ActiveSync_Message_Attendee::TYPE_RESOURCE:
-                $part_type = Kronolith::PART_REQUIRED;
-            }
+        if (!$message->isGhosted('attendees')) {
+            $attendees = $message->getAttendees();
+            foreach ($attendees as $attendee) {
+                $response_code == false;
+                if ($message->getProtocolVersion < Horde_ActiveSync::VERSION_SIXTEEN) {
+                    switch ($attendee->status) {
+                    case Horde_ActiveSync_Message_Attendee::STATUS_ACCEPT:
+                        $response_code = Kronolith::RESPONSE_ACCEPTED;
+                        break;
+                    case Horde_ActiveSync_Message_Attendee::STATUS_DECLINE:
+                        $response_code = Kronolith::RESPONSE_DECLINED;
+                        break;
+                    case Horde_ActiveSync_Message_Attendee::STATUS_TENTATIVE:
+                        $response_code = Kronolith::RESPONSE_TENTATIVE;
+                        break;
+                    default:
+                        $response_code = Kronolith::RESPONSE_NONE;
+                    }
+                    switch ($attendee->type) {
+                    case Horde_ActiveSync_Message_Attendee::TYPE_REQUIRED:
+                        $part_type = Kronolith::PART_REQUIRED;
+                        break;
+                    case Horde_ActiveSync_Message_Attendee::TYPE_OPTIONAL:
+                        $part_type = Kronolith::PART_OPTIONAL;
+                        break;
+                    case Horde_ActiveSync_Message_Attendee::TYPE_RESOURCE:
+                        $part_type = Kronolith::PART_REQUIRED;
+                    }
+                }
 
-            $this->addAttendee($attendee->email,
-                               $part_type,
-                               $response_code,
-                               $attendee->name);
+                $this->addAttendee($attendee->email,
+                                   $part_type,
+                                   $response_code,
+                                   $attendee->name);
+            }
         }
 
         /* Categories (Tags) */
-        $this->_tags = $message->getCategories();
+        if (!$message->isGhosted('categories')) {
+            $this->_tags = $message->getCategories();
+        }
 
         // 14.1
-        if ($message->getProtocolVersion() >= Horde_ActiveSync::VERSION_FOURTEENONE) {
+        if ($message->getProtocolVersion() >= Horde_ActiveSync::VERSION_FOURTEENONE &&
+            !$message->isGhosted('onlinemeetingexternallink')) {
             $this->url = $message->onlinemeetingexternallink;
         }
 
         /* Flag that we are initialized */
         $this->initialized = true;
+    }
+
+    /**
+     * @todo  Do we need to update History here too?
+     */
+    public function addEASFiles($message)
+    {
+        $results = array(
+            'add' => array(),
+            'delete' => array()
+        );
+        // EAS 16.0
+        $supported = true;
+        if ($message->getProtocolVersion() < Horde_ActiveSync::VERSION_SIXTEEN ||
+            !$this->id) {
+            $not_supported = true;
+        }
+
+        foreach ($message->airsyncbaseattachments as $atc) {
+            switch (get_class($atc)) {
+            case 'Horde_ActiveSync_Message_AirSyncBaseAdd':
+                if (!$supported) {
+                    $results['add'][$atc->clientid] = false;
+                    continue 2;
+                }
+                $info = $this->_addEASFile($atc);
+                $results['add'][$atc->clientid] = $this->_getEASFileReference($info['name']);
+                break;
+            case 'Horde_ActiveSync_Message_AirSyncBaseDelete':
+                $file_parts = explode(':', $atc->filereference, 4);
+                try {
+                    $this->deleteFile($file_parts[3]);
+                    $results['delete'][] = $atc->filereference;
+                } catch (Kronolith_Exception $e) {
+                    Horde::log('Unable to remove VFS file.', 'ERR');
+                }
+            }
+        }
+
+        return $results;
+    }
+
+    protected function _getEASFileReference($filename)
+    {
+        return sprintf('calendar:%s:%s:%s', $this->calendar, $this->uid, $filename);
+    }
+
+    protected function _addEASFile(Horde_ActiveSync_Message_AirSyncBaseAdd $add)
+    {
+        $info = array(
+            'name' => empty($add->displayname) ? 'Untitled' : $add->displayname,
+            'data' => $add->content
+        );
+        $this->addFileFromData($info);
+
+        return $info;
     }
 
     /**
@@ -1675,6 +2004,11 @@ abstract class Kronolith_Event
     public function toASAppointment(array $options = array())
     {
         global $prefs, $registry;
+
+        // @todo This should be a required option.
+        if (empty($options['protocolversion'])) {
+            $options['protocolversion'] = 2.5;
+        }
 
         $message = new Horde_ActiveSync_Message_Appointment(
             array(
@@ -1700,7 +2034,7 @@ abstract class Kronolith_Event
                         $truncation = false;
                     }
                     if ($truncation && Horde_String::length($this->description) > $truncation) {
-                        $note->data = Horde_String::substr($this->desciption, 0, $truncation);
+                        $note->data = Horde_String::substr($this->description, 0, $truncation);
                         $note->truncated = 1;
                     } else {
                         $note->data = $this->description;
@@ -1711,17 +2045,55 @@ abstract class Kronolith_Event
             } else {
                 $message->setBody($this->description);
             }
-            $message->setLocation($this->location);
+            if ($options['protocolversion'] >= Horde_ActiveSync::VERSION_SIXTEEN && !empty($this->location)) {
+                $message->location = new Horde_ActiveSync_Message_AirSyncBaseLocation(
+                    array(
+                        'logger' => $GLOBALS['injector']->getInstance('Horde_Log_Logger'),
+                        'protocolversion' => $options['protocolversion']
+                    )
+                );
+                // @todo - worth it to try to get full city/country etc...
+                // from geotagging service if available??
+                $message->location->displayname = $this->location;
+            } else {
+                $message->setLocation($this->location);
+            }
         }
 
         $message->setSubject($this->getTitle());
-        $message->starttime = clone($this->start);
-        $message->endtime = clone($this->end);
         $message->alldayevent = $this->isAllDay();
+        $st = clone($this->start);
+        $et = clone($this->end);
+        if ($this->isAllDay()) {
+            // EAS requires all day to be from 12:00 to 12:00.
+            if ($this->start->hour != 0 || $this->start->min != 0 || $this->start->sec != 0) {
+                $st->hour = 0;
+                $st->min = 0;
+                $st->sec = 0;
+            }
+            // For end it's a bit trickier. If it's 11:59pm, bump it up to 12:00
+            // am of the next day. Otherwise, if it's not 12:00am, make it 12:00
+            // am of the same day. This *shouldn't* happen, but protect against
+            // issues with EAS just in case.
+            if ($this->end->hour != 0 || $this->end->min != 0 || $this->end->sec != 0) {
+                if ($this->end->hour == 23 && $this->end->min == 59) {
+                    $et->mday++;
+                }
+                $et->hour = 0;
+                $et->min = 0;
+                $et->sec = 0;
+            }
+        }
+        $message->starttime = $st;
+        $message->endtime = $et;
         $message->setTimezone($this->start);
 
         // Organizer
-        if (count($this->attendees)) {
+        $attendees = $this->attendees;
+        $skipOrganizer = null;
+        if ($this->organizer) {
+            $message->setOrganizer(array('email' => $this->organizer));
+        } elseif (count($attendees)) {
             if ($this->creator == $registry->getAuth()) {
                 $as_ident = $prefs->getValue('activesync_identity') == 'horde'
                     ? $prefs->getValue('default_identity')
@@ -1741,6 +2113,7 @@ abstract class Kronolith_Event
                 'name' => $name,
                 'email' => $email)
             );
+            $skipOrganizer = $email;
         }
 
         // Privacy
@@ -1749,8 +2122,17 @@ abstract class Kronolith_Event
             Horde_ActiveSync_Message_Appointment::SENSITIVITY_NORMAL);
 
         // Busy Status
+        // This is the *busy* status of the time for this meeting. This is NOT
+        // the Kronolith_Event::status or the attendance response for this
+        // meeting. Kronolith does not (yet) support sepcifying the busy status
+        // of the event time separate from the STATUS_FREE value of the
+        // Kronolith_Event::status field, so for now we map these values the
+        // best we can by assuming that STATUS_CONFIRMED meetings should always
+        // show as BUSYSTATUS_BUSY etc...
         switch ($this->status) {
         case Kronolith::STATUS_CANCELLED:
+        case Kronolith::STATUS_FREE:
+        case Kronolith::STATUS_NONE:
             $status = Horde_ActiveSync_Message_Appointment::BUSYSTATUS_FREE;
             break;
         case Kronolith::STATUS_CONFIRMED:
@@ -1758,9 +2140,6 @@ abstract class Kronolith_Event
             break;
         case Kronolith::STATUS_TENTATIVE:
             $status = Horde_ActiveSync_Message_Appointment::BUSYSTATUS_TENTATIVE;
-        case Kronolith::STATUS_FREE:
-        case Kronolith::STATUS_NONE:
-            $status = Horde_ActiveSync_Message_Appointment::BUSYSTATUS_FREE;
         }
         $message->setBusyStatus($status);
 
@@ -1788,8 +2167,14 @@ abstract class Kronolith_Event
                         'end' => $exception->end,
                         'allday' => $exception->isAllDay()));
 
-                    // The start time of the *original* recurring event
-                    $e->setExceptionStartTime($exception->exceptionoriginaldate);
+                    // The start time of the *original* recurring event.
+                    // EAS < 16.0 uses 'exceptionstarttime'. Otherwise it's
+                    // 'instanceid'.
+                    if ($options['protocolversion'] < Horde_ActiveSync::VERSION_SIXTEEN) {
+                        $e->setExceptionStartTime($exception->exceptionoriginaldate);
+                    } else {
+                        $e->instanceid = $exception->exceptionoriginaldate;
+                    }
                     $originaldate = $exception->exceptionoriginaldate->format('Ymd');
                     $key = array_search($originaldate, $exceptions);
                     if ($key !== false) {
@@ -1846,7 +2231,11 @@ abstract class Kronolith_Event
                     $st->year = $year;
                     $st->month = $month;
                     $st->mday = $mday;
-                    $e->setExceptionStartTime($st);
+                    if ($options['protocolversion'] < Horde_ActiveSync::VERSION_SIXTEEN) {
+                        $e->setExceptionStartTime($st);
+                    } else {
+                        $e->instanceid = $st;
+                    }
                     $e->deleted = true;
                     $message->addException($e);
                 }
@@ -1854,41 +2243,49 @@ abstract class Kronolith_Event
         }
 
         // Attendees
-        if (!$this->isPrivate() && count($this->attendees)) {
-            $message->setMeetingStatus(Horde_ActiveSync_Message_Appointment::MEETING_IS_MEETING);
-            foreach ($this->attendees as $email => $properties) {
-                $attendee = new Horde_ActiveSync_Message_Attendee(array(
+        if (!$this->isPrivate() && count($attendees)) {
+            $message->setMeetingStatus(
+                $this->status == Kronolith::STATUS_CANCELLED
+                    ? Horde_ActiveSync_Message_Appointment::MEETING_CANCELLED
+                    : Horde_ActiveSync_Message_Appointment::MEETING_IS_MEETING
+            );
+            foreach ($attendees as $attendee) {
+                if ($skipOrganizer && $attendee->email == $skipOrganizer) {
+                    continue;
+                }
+                $attendeeAS = new Horde_ActiveSync_Message_Attendee(array(
                     'protocolversion' => $options['protocolversion']));
-                $adr_obj = new Horde_Mail_Rfc822_Address($email);
-                $attendee->name = $adr_obj->label;
-                $attendee->email = $adr_obj->bare_address;
+                $attendeeAS->name = $attendee->addressObject->label;
+                $attendeeAS->email = $attendee->addressObject->bare_address;
 
                 // AS only has required or optional, and only EAS Version > 2.5
                 if ($options['protocolversion'] > Horde_ActiveSync::VERSION_TWOFIVE) {
-                    $attendee->type = ($properties['attendance'] !== Kronolith::PART_REQUIRED
+                    $attendeeAS->type = ($attendee->role !== Kronolith::PART_REQUIRED
                         ? Horde_ActiveSync_Message_Attendee::TYPE_OPTIONAL
                         : Horde_ActiveSync_Message_Attendee::TYPE_REQUIRED);
 
-                    switch ($properties['response']) {
+                    switch ($attendee->response) {
                     case Kronolith::RESPONSE_NONE:
-                        $attendee->status = Horde_ActiveSync_Message_Attendee::STATUS_NORESPONSE;
+                        $attendeeAS->status = Horde_ActiveSync_Message_Attendee::STATUS_NORESPONSE;
                         break;
                     case Kronolith::RESPONSE_ACCEPTED:
-                        $attendee->status = Horde_ActiveSync_Message_Attendee::STATUS_ACCEPT;
+                        $attendeeAS->status = Horde_ActiveSync_Message_Attendee::STATUS_ACCEPT;
                         break;
                     case Kronolith::RESPONSE_DECLINED:
-                        $attendee->status = Horde_ActiveSync_Message_Attendee::STATUS_DECLINE;
+                        $attendeeAS->status = Horde_ActiveSync_Message_Attendee::STATUS_DECLINE;
                         break;
                     case Kronolith::RESPONSE_TENTATIVE:
-                        $attendee->status = Horde_ActiveSync_Message_Attendee::STATUS_TENTATIVE;
+                        $attendeeAS->status = Horde_ActiveSync_Message_Attendee::STATUS_TENTATIVE;
                         break;
                     default:
-                        $attendee->status = Horde_ActiveSync_Message_Attendee::STATUS_UNKNOWN;
+                        $attendeeAS->status = Horde_ActiveSync_Message_Attendee::STATUS_UNKNOWN;
                     }
                 }
 
-                $message->addAttendee($attendee);
+                $message->addAttendee($attendeeAS);
             }
+        } elseif ($this->status == Kronolith::STATUS_CANCELLED) {
+            $message->setMeetingStatus(Horde_ActiveSync_Message_Appointment::MEETING_CANCELLED);
         } else {
             $message->setMeetingStatus(Horde_ActiveSync_Message_Appointment::MEETING_NOT_MEETING);
         }
@@ -1901,13 +2298,13 @@ abstract class Kronolith_Event
                 // EAS *REQUIRES* an email field for Resources. If it is missing
                 // a number of clients will fail, losing push.
                 if ($resource->get('email')) {
-                    $attendee = new Horde_ActiveSync_Message_Attendee(array(
+                    $attendeeAS = new Horde_ActiveSync_Message_Attendee(array(
                         'protocolversion' => $options['protocolversion']));
-                    $attendee->email = $resource->get('email');
-                    $attendee->type = Horde_ActiveSync_Message_Attendee::TYPE_RESOURCE;
-                    $attendee->name = $data['name'];
-                    $attendee->status = $data['response'];
-                    $message->addAttendee($attendee);
+                    $attendeeAS->email = $resource->get('email');
+                    $attendeeAS->type = Horde_ActiveSync_Message_Attendee::TYPE_RESOURCE;
+                    $attendeeAS->name = $data['name'];
+                    $attendeeAS->status = $data['response'];
+                    $message->addAttendee($attendeeAS);
                 }
            }
         }
@@ -1927,6 +2324,11 @@ abstract class Kronolith_Event
         // EAS 14, and only if it is a meeting.
         if ($options['protocolversion'] > Horde_ActiveSync::VERSION_TWELVEONE &&
             $message->getMeetingStatus() == Horde_ActiveSync_Message_Appointment::MEETING_IS_MEETING) {
+
+            // Are we the
+            if (empty($this->organizer) && $this->creator == $registry->getAuth()) {
+                $message->responsetype = Horde_ActiveSync_Message_Appointment::RESPONSE_ORGANIZER;
+            }
 
             // We don't track the actual responses we sent to other's invitations.
             // Set this based on the status flag.
@@ -1948,6 +2350,26 @@ abstract class Kronolith_Event
         // 14.1
         if ($options['protocolversion'] >= Horde_ActiveSync::VERSION_FOURTEENONE) {
             $message->onlinemeetingexternallink = $this->url;
+        }
+
+        // 16.0
+        if ($options['protocolversion'] >= Horde_ActiveSync::VERSION_SIXTEEN) {
+            $files = $this->listFiles();
+            if (count($files)) {
+                foreach ($files as $file) {
+                    $atc = new Horde_ActiveSync_Message_AirSyncBaseAttachment(
+                        array(
+                            'logger' => $GLOBALS['injector']->getInstance('Horde_Log_Logger'),
+                            'protocolversion' => $options['protocolversion']
+                        )
+                    );
+                    $atc->displayname = $file['name'];
+                    $atc->attname = $this->_getEASFileReference($file['name']);
+                    $atc->attmethod = Horde_ActiveSync_Message_AirSyncBaseAttachment::ATT_TYPE_NORMAL;
+                    $atc->attsize = $file['size'];
+                    $message->addAttachment($atc);
+                }
+            }
         }
 
         return $message;
@@ -2082,12 +2504,9 @@ abstract class Kronolith_Event
             $this->location = $hash['location'];
         }
 
-        // Import once we support organizers.
-        /*
         if (!empty($hash['organizer'])) {
             $this->organizer = $hash['organizer'];
         }
-        */
 
         if (!empty($hash['private'])) {
             $this->private = true;
@@ -2166,17 +2585,7 @@ abstract class Kronolith_Event
                 return;
             }
             $start = clone $eventDate;
-            $diff = Date_Calc::dateDiff(
-                $this->start->mday,
-                $this->start->month,
-                $this->start->year,
-                $this->end->mday,
-                $this->end->month,
-                $this->end->year
-            );
-            if ($diff == -1) {
-                $diff = 0;
-            }
+            $diff = $this->start->diff($this->end);
             $end = new Horde_Date(array(
                 'year' => $start->year,
                 'month' => $start->month,
@@ -2244,9 +2653,7 @@ abstract class Kronolith_Event
             if (!$prefs->isLocked('event_reminder')) {
                 $view->prefsUrl = Horde::url($GLOBALS['registry']->getServiceLink('prefs', 'kronolith'), true)->remove(session_name());
             }
-            if ($this->attendees) {
-                $view->attendees = Kronolith::getAttendeeEmailList($this->attendees)->addresses;
-            }
+            $view->attendees = $this->attendees;
 
             $methods['mail']['mimepart'] = Kronolith::buildMimeMessage($view, 'mail', $image);
         }
@@ -2317,19 +2724,41 @@ abstract class Kronolith_Event
      * - ed: formatted end date
      * - et: formatted end time
      * - at: attendees
-     * - rs:  resources
-     * - tg: tag list,
+     * - rs: resources
+     * - tg: tag list
      * - mt: meeting (Boolean true if event has attendees, false otherwise).
+     * - cb: created by (string describing when and who created the event).
+     * - mb: modified by (string describing when and who last modified event).
+     * - o: organizer (if known)
+     * - oy: organizer you
+     * - cr: creator's attendance response
+     * - fs: Array of attached files.
      *
-     * @param boolean $allDay      If not null, overrides whether the event is
-     *                             an all-day event.
-     * @param boolean $full        Whether to return all event details.
-     * @param string $time_format  The date() format to use for time formatting.
+     * @param array $options  An array of options:
+     *
+     *  - all_day: (boolean)    If not null, overrides whether the event is an
+     *                          all-day event.
+     *                          DEFAULT: null (Do not override).
+     *  - full: (boolean)       Whether to return all event details.
+     *                          DEFAULT: false (Do not return all details).
+     *  - time_format: (string) The date() format to use for time formatting.
+     *                          DEFAULT: 'H:i'
+     *  - history: (boolean)    If true, ensures that this event's history is
+     *                          loaded from the History backend.
+     *                          DEFAULT: false (Do not ensure history is loaded).
      *
      * @return stdClass  A simple object.
      */
-    public function toJson($allDay = null, $full = false, $time_format = 'H:i')
+    public function toJson(array $options = array())
     {
+        $options = array_merge(array(
+            'all_day' => null,
+            'full' => false,
+            'time_format' => 'H:i',
+            'history' => false),
+            $options
+        );
+
         $json = new stdClass;
         $json->uid = $this->uid;
         $json->t = $this->getTitle();
@@ -2339,11 +2768,11 @@ abstract class Kronolith_Event
         $json->fi = $this->first;
         $json->la = $this->last;
         $json->x = (int)$this->status;
-        $json->al = is_null($allDay) ? $this->isAllDay() : $allDay;
+        $json->al = is_null($options['all_day']) ? $this->isAllDay() : $options['all_day'];
         $json->pe = $this->hasPermission(Horde_Perms::EDIT);
         $json->pd = $this->hasPermission(Horde_Perms::DELETE);
         $json->l = $this->getLocation();
-        $json->mt = !empty($this->attendees);
+        $json->mt = (bool)count($this->attendees);
         $json->sort = sprintf(
             '%010s%06s',
             $this->originalStart->timestamp(),
@@ -2379,13 +2808,41 @@ abstract class Kronolith_Event
         if ($this->_resources) {
             $json->rs = $this->_resources;
         }
-        if ($full) {
+
+        if ($options['history']) {
+            $this->loadHistory();
+            if (!empty($this->created)) {
+                $json->cb = sprintf(
+                    '%s %s %s',
+                    $this->created->strftime($GLOBALS['prefs']->getValue('date_format')),
+                    $this->created->strftime(($GLOBALS['prefs']->getValue('twentyFour') ? '%H:%M' : '%I:%M %p')),
+                    $this->createdby);
+            } else {
+                $json->cb = '';
+            }
+            if (!empty($this->modified)) {
+                $json->mb = sprintf(
+                    '%s %s %s',
+                    $this->modified->strftime($GLOBALS['prefs']->getValue('date_format')),
+                    $this->modified->strftime(($GLOBALS['prefs']->getValue('twentyFour') ? '%H:%M' : '%I:%M %p')),
+                    $this->modifiedby);
+            } else {
+                $json->mb = '';
+            }
+        }
+        if ($this->organizer) {
+            $json->o = $this->organizer;
+            $json->oy = Kronolith::isUserEmail($this->creator, $this->organizer);
+        } else {
+            $json->oy = true;
+        }
+        if ($options['full']) {
             $json->id = $this->id;
             $json->ty = $this->calendarType;
             $json->sd = $this->start->strftime('%x');
-            $json->st = $this->start->format($time_format);
+            $json->st = $this->start->format($options['time_format']);
             $json->ed = $this->end->strftime('%x');
-            $json->et = $this->end->format($time_format);
+            $json->et = $this->end->format($options['time_format']);
             $json->tz = $this->timezone;
             $json->a = $this->alarm;
             $json->pv = $this->private;
@@ -2398,26 +2855,36 @@ abstract class Kronolith_Event
                 $json->uhl = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($this->url, 'linkurls');
                 $json->tg = array_values($this->tags);
                 $json->gl = $this->geoLocation;
-                if ($this->attendees) {
+                if (count($this->attendees)) {
                     $attendees = array();
-                    foreach ($this->attendees as $email => $info) {
-                        $tmp = new Horde_Mail_Rfc822_Address($email);
-                        if (!empty($info['name'])) {
-                            $tmp->personal = $info['name'];
+                    foreach ($this->attendees as $attendee) {
+                        if (Kronolith::isUserEmail($this->creator, $attendee->email)) {
+                            $json->cr = intval($attendee->response);
                         }
-
-                        $attendees[] = array(
-                            'a' => intval($info['attendance']),
-                            'e' => $tmp->bare_address,
-                            'r' => intval($info['response']),
-                            'l' => strval($tmp)
-                        );
-                        $json->at = $attendees;
+                        $attendeeJson = $attendee->toJson();
+                        $attendeeJson->o =
+                            ($json->oy &&
+                             Kronolith::isUserEmail(
+                                 $this->creator,
+                                 $attendee->addressObject->bare_address
+                             )) ||
+                            (!empty($this->organizer) &&
+                             $this->organizer == $attendee->addressObject->bare_address);
+                        $attendees[] = $attendeeJson;
                     }
+                    $json->at = $attendees;
                 }
             }
+
             if ($this->methods) {
                 $json->m = $this->methods;
+            }
+
+            if ($this->vfsInit()) {
+                $files = $this->listFiles();
+                $json->fs = count($files)
+                    ? $files
+                    : false;
             }
         }
 
@@ -2476,12 +2943,7 @@ abstract class Kronolith_Event
         }
 
         if ($this->start && $this->end) {
-            $dur_day_match = Date_Calc::dateDiff($this->start->mday,
-                                                 $this->start->month,
-                                                 $this->start->year,
-                                                 $this->end->mday,
-                                                 $this->end->month,
-                                                 $this->end->year);
+            $dur_day_match = $this->start->diff($this->end);
             $dur_hour_match = $this->end->hour - $this->start->hour;
             $dur_min_match = $this->end->min - $this->start->min;
             while ($dur_min_match < 0) {
@@ -2594,16 +3056,13 @@ abstract class Kronolith_Event
      */
     public function boundExceptions($flat = true)
     {
-        if (!$this->recurrence) {
+        if (!$this->recurrence || !$this->uid) {
             return array();
         }
         $return = array();
-        $kronolith_driver = Kronolith::getDriver(null, $this->calendar);
-        $search = new StdClass();
-        $search->start = $this->recurrence->getRecurStart();
-        $search->end = $this->recurrence->getRecurEnd();
+        $search = new stdClass();
         $search->baseid = $this->uid;
-        $results = $kronolith_driver->search($search);
+        $results = $this->getDriver()->search($search);
         if (!$flat) {
             return $results;
         }
@@ -2619,11 +3078,6 @@ abstract class Kronolith_Event
     /**
      * Returns whether the event should be considered private.
      *
-     * The event's private flag can be overriden if the current user
-     * is an administrator and the code is run from command line, and no
-     * $user parameter was passed. This is to allow full event notifications in
-     * alarm messages (agendas know the user the agenda is being prepared for).
-     *
      * @param string $user  The current user. If omitted, uses the current user.
      *
      * @return boolean  Whether to consider the event as private.
@@ -2632,21 +3086,16 @@ abstract class Kronolith_Event
     {
         global $registry;
 
-        $haveNullUser = false;
         if ($user === null) {
             $user = $registry->getAuth();
-            $haveNullUser = true;
         }
 
-        if (!(Horde_Cli::runningFromCLI() && $registry->isAdmin()) &&
-            $this->private && $this->creator != $user) {
-            return true;
-        }
-
-        if (($registry->isAdmin() && $haveNullUser) ||
-             $this->hasPermission(Horde_Perms::READ, $user)) {
+        // Never private if private is not true or if the current user is the
+        // event creator.
+        if (!$this->private || $this->creator == $user) {
             return false;
         }
+
         return true;
     }
 
@@ -2687,15 +3136,21 @@ abstract class Kronolith_Event
      * @param string $email            The email address of the attendee.
      * @param boolean $case_sensitive  Match in a case sensitive manner.
      *                                 @since 4.3.0
+     * @param array $attendees         Search that attendee list instead of
+     *                                 this event's. @since 4.3.0
+     *
      * @return boolean  True if the specified attendee is present for this
      *                  event.
      */
-    public function hasAttendee($email, $case_sensitive = false)
+    public function hasAttendee(
+        $email, $case_sensitive = false, $attendees = null
+    )
     {
-        $email = new Horde_Mail_Rfc822_Address($email);
-        foreach (array_keys($this->attendees) as $attendee) {
-            if (($case_sensitive && $email->match($attendee)) ||
-                (!$case_sensitive && $email->matchInsensitive($email))) {
+        if (is_null($attendees)) {
+            $attendees = $this->attendees;
+        }
+        foreach ($attendees as $attendee) {
+            if ($attendee->matchesEmail($email, $case_sensitive)) {
                 return true;
             }
         }
@@ -2709,30 +3164,42 @@ abstract class Kronolith_Event
      * This will overwrite an existing attendee if one exists with the same
      * email address.
      *
-     * @param string $email        The email address of the attendee.
-     * @param integer $attendance  The attendance code of the attendee.
-     * @param integer $response    The response code of the attendee.
-     * @param string $name         The name of the attendee.
+     * @param string $email              The email address of the attendee.
+     * @param integer $role              The role code of the attendee.
+     * @param integer|boolean $response  The response code of the attendee.
+     * @param string $name               The name of the attendee.
      */
-    public function addAttendee($email, $attendance, $response, $name = null)
+    public function addAttendee($email, $role, $response, $name = null)
     {
-        if ($attendance == Kronolith::PART_IGNORE) {
-            if (isset($this->attendees[$email])) {
-                $attendance = $this->attendees[$email]['attendance'];
-            } else {
-                $attendance = Kronolith::PART_REQUIRED;
+        $found = false;
+        foreach ($this->attendees as $key => &$attendee) {
+            if ($attendee->email == $email) {
+                $found = true;
+                unset($this->attendees[$key]);
+                break;
             }
         }
-        if (empty($name) && isset($this->attendees[$email]) &&
-            !empty($this->attendees[$email]['name'])) {
-            $name = $this->attendees[$email]['name'];
+        if ($found) {
+            if ($role != Kronolith::PART_IGNORE) {
+                $attendee->role = $role;
+            }
+        } else {
+            if ($role == Kronolith::PART_IGNORE) {
+                $role = Kronolith::PART_REQUIRED;
+            }
+            $attendee = new Kronolith_Attendee(
+                array('email' => $email, 'role' => $role)
+            );
         }
 
-        $this->attendees[$email] = array(
-            'attendance' => $attendance,
-            'response' => $response,
-            'name' => $name
-        );
+        if ($response !== false) {
+            $attendee->response = $response;
+        }
+        if (strlen($name)) {
+            $attendee->name = $name;
+        }
+
+        $this->attendees->add($attendee);
     }
 
     /**
@@ -2775,6 +3242,17 @@ abstract class Kronolith_Event
         return $this->_resources;
     }
 
+    /**
+     * Set the entire resource array. Only used when copying an Event.
+     *
+     * @param array  $resources  The resource array.
+     * @since 4.2.6
+     */
+    public function setResources(array $resources)
+    {
+        $this->_resources = $resources;
+    }
+
     public function isAllDay()
     {
         return $this->allday ||
@@ -2813,16 +3291,24 @@ abstract class Kronolith_Event
         }
     }
 
-    public function readForm()
+    /**
+     * Reads form/post data and updates this event's properties.
+     *
+     * @param  Kronolith_Event|null $existing  If this is an exception event
+     *                                         this is taken as the base event.
+     *                                         @since 4.2.6
+     *
+     */
+    public function readForm(Kronolith_Event $existing = null)
     {
-        global $prefs, $session;
+        global $notification, $prefs, $registry, $session;
 
         // Event owner.
         $targetcalendar = Horde_Util::getFormData('targetcalendar');
         if (strpos($targetcalendar, '\\')) {
             list(, $this->creator) = explode('\\', $targetcalendar, 2);
         } elseif (!isset($this->_id)) {
-            $this->creator = $GLOBALS['registry']->getAuth();
+            $this->creator = $registry->getAuth();
         }
 
         // Basic fields.
@@ -2831,6 +3317,9 @@ abstract class Kronolith_Event
         $this->location = Horde_Util::getFormData('location', $this->location);
         $this->timezone = Horde_Util::getFormData('timezone', $this->timezone);
         $this->private = (bool)Horde_Util::getFormData('private');
+
+        // if the field is empty you are the organizer (and so organizer should be null)
+        $this->organizer = Horde_Util::getFormData('organizer', $this->organizer) ?: null;
 
         // URL.
         $url = Horde_Util::getFormData('eventurl', $this->url);
@@ -2884,19 +3373,49 @@ abstract class Kronolith_Event
         $this->status = Horde_Util::getFormData('status', $this->status);
 
         // Attendees.
-        $attendees = $session->get('kronolith', 'attendees', Horde_Session::TYPE_ARRAY);
-        if (!is_null($newattendees = Horde_Util::getFormData('attendees'))) {
-            $newattendees = Kronolith::parseAttendees(trim($newattendees));
-            foreach ($newattendees as $email => $attendee) {
-                if (!isset($attendees[$email])) {
-                    $attendees[$email] = $attendee;
+        $attendees = $session->get('kronolith', 'attendees');
+        if (!$attendees) {
+            $attendees = new Kronolith_Attendee_List();
+        }
+        $newattendees = Horde_Util::getFormData('attendees');
+        $userattendees = Horde_Util::getFormData('users');
+        if (!is_null($newattendees) || !is_null($userattendees)) {
+            if ($newattendees) {
+                $newattendees = Kronolith_Attendee_List::parse(
+                    trim($newattendees), $notification
+                );
+            } else {
+                $newattendees = new Kronolith_Attendee_List();
+            }
+            if ($userattendees) {
+                foreach (explode(',', $userattendees) as $user) {
+                    if (!$newUser = Kronolith::validateUserAttendee($user)) {
+                        $notification->push(sprintf(_("The user \"%s\" does not exist."), $newUser), 'horde.error');
+                    } else {
+                        $newattendees->add($newUser);
+                    }
                 }
             }
-            foreach (array_keys($attendees) as $email) {
-                if (!isset($newattendees[$email])) {
-                    unset($attendees[$email]);
+
+            // First add new attendees missing in the current list.
+            foreach ($newattendees as $attendee) {
+                if (!$attendees->has($attendee)) {
+                    $attendees->add($attendee);
                 }
             }
+            // Now check for attendees in the current list that don't exist in
+            // the new attendee list anymore.
+            $finalAttendees = new Kronolith_Attendee_List();
+            foreach ($attendees as $attendee) {
+                if (!$newattendees->has($attendee)) {
+                    continue;
+                }
+                if (Kronolith::isUserEmail($this->creator, $attendee->email)) {
+                    $attendee->response = Horde_Util::getFormData('attendance');
+                }
+                $finalAttendees->add($attendee);
+            }
+            $attendees = $finalAttendees;
         }
         $this->attendees = $attendees;
 
@@ -2908,9 +3427,8 @@ abstract class Kronolith_Event
             if ($allDay) {
                 $this->start->hour = $this->start->min = $this->start->sec = 0;
             }
-        } else {
+        } elseif ($start = Horde_Util::getFormData('start')) {
             // From traditional interface.
-            $start = Horde_Util::getFormData('start');
             $start_year = $start['year'];
             $start_month = $start['month'];
             $start_day = $start['day'];
@@ -2965,9 +3483,8 @@ abstract class Kronolith_Event
                                               'month' => $start_month,
                                               'mday' => $start_day + $dur_day,
                                               'year' => $start_year));
-        } else {
+        } elseif ($end = Horde_Util::getFormData('end')) {
             // From traditional interface.
-            $end = Horde_Util::getFormData('end');
             $end_year = $end['year'];
             $end_month = $end['month'];
             $end_day = $end['day'];
@@ -3043,52 +3560,7 @@ abstract class Kronolith_Event
         // Convert to local timezone.
         $this->setTimezone(false);
 
-        // Resources
-        $existingResources = $this->_resources;
-        if (Horde_Util::getFormData('isajax', false)) {
-            $resources = array();
-        } else {
-            $resources = $session->get('kronolith', 'resources', Horde_Session::TYPE_ARRAY);
-        }
-        $newresources = Horde_Util::getFormData('resources');
-        if (!empty($newresources)) {
-            foreach (explode(',', $newresources) as $id) {
-                try {
-                    $resource = Kronolith::getDriver('Resource')->getResource($id);
-                } catch (Kronolith_Exception $e) {
-                    $GLOBALS['notification']->push($e->getMessage(), 'horde.error');
-                    continue;
-                }
-                if (!($resource instanceof Kronolith_Resource_Group) ||
-                    $resource->isFree($this)) {
-                    $resources[$resource->getId()] = array(
-                        'attendance' => Kronolith::PART_REQUIRED,
-                        'response'   => Kronolith::RESPONSE_NONE,
-                        'name'       => $resource->get('name')
-                    );
-                } else {
-                    $GLOBALS['notification']->push(_("No resources from this group were available"), 'horde.error');
-                }
-            }
-        }
-        $this->_resources = $resources;
-
-        // Check if we need to remove any resources
-        $merged = $existingResources + $this->_resources;
-        $delete = array_diff(array_keys($existingResources), array_keys($this->_resources));
-        foreach ($delete as $key) {
-            // Resource might be declined, in which case it won't have the event
-            // on it's calendar.
-            if ($merged[$key]['response'] != Kronolith::RESPONSE_DECLINED) {
-                try {
-                    Kronolith::getDriver('Resource')
-                        ->getResource($key)
-                        ->removeEvent($this);
-                } catch (Kronolith_Exception $e) {
-                    $GLOBALS['notification']->push('foo', 'horde.error');
-                }
-            }
-        }
+        $this->_handleResources($existing);
 
         // Tags.
         $this->tags = Horde_Util::getFormData('tags', $this->tags);
@@ -3185,7 +3657,8 @@ abstract class Kronolith_Event
         case Horde_Date_Recurrence::RECUR_MONTHLY_DATE:
             switch (Horde_Util::getFormData('recur_monthly_scheme')) {
             case Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY:
-                $recurrence->setRecurType(Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY);
+            case Horde_Date_Recurrence::RECUR_MONTHLY_LAST_WEEKDAY:
+                $recurrence->setRecurType(Horde_Util::getFormData('recur_monthly_scheme'));
             case Horde_Date_Recurrence::RECUR_MONTHLY_DATE:
                 $recurrence->setRecurInterval(
                     Horde_Util::getFormData('recur_monthly')
@@ -3201,6 +3674,10 @@ abstract class Kronolith_Event
 
         case Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY:
             $recurrence->setRecurInterval(Horde_Util::getFormData('recur_week_of_month_interval', 1));
+            break;
+
+        case Horde_Date_Recurrence::RECUR_MONTHLY_LAST_WEEKDAY:
+            $recurrence->setRecurInterval(Horde_Util::getFormData('recur_last_week_of_month_interval', 1));
             break;
 
         case Horde_Date_Recurrence::RECUR_YEARLY_DATE:
@@ -3230,16 +3707,102 @@ abstract class Kronolith_Event
             break;
         }
 
-        if ($exceptions = Horde_Util::getFormData('exceptions')) {
-            foreach ($exceptions as $exception) {
-                $recurrence->addException(
-                    (int)substr($exception, 0, 4),
-                    (int)substr($exception, 4, 2),
-                    (int)substr($exception, 6, 2));
+        foreach (array('exceptions', 'completions') as $what) {
+            if ($data = Horde_Util::getFormData($what)) {
+                if (!is_array($data)) {
+                    $data = explode(',', $data);
+                }
+                foreach ($data as $date) {
+                    list($year, $month, $mday) = sscanf($date, '%04d%02d%02d');
+                    if ($what == 'exceptions') {
+                        $recurrence->addException($year, $month, $mday);
+                    } else {
+                        $recurrence->addCompletion($year, $month, $mday);
+                    }
+                }
             }
         }
 
         return $recurrence;
+    }
+
+    /**
+     * Handles updating/saving this event's resources. Unless this event recurs,
+     * this will delete this event from any resource calendars that are no
+     * longer needed (as when a resource is removed from an existing event). If
+     * this event is an exception, i.e., contains a baseid, AND $existing is
+     * provided, the resources from the original event are used for purposes
+     * of determining any resources that need to be removed.
+     *
+     *
+     * @param  Kronolith_Event|null $existing  An existing base event.
+     * @since 4.2.6
+     */
+    protected function _handleResources(Kronolith_Event $existing = null)
+    {
+        global $notification, $session;
+
+        if (Horde_Util::getFormData('isajax', false)) {
+            $resources = array();
+        } else {
+            $resources = $session->get('kronolith', 'resources', Horde_Session::TYPE_ARRAY);
+        }
+
+        $existingResources = $this->_resources;
+        $newresources = Horde_Util::getFormData('resources');
+        if (!empty($newresources)) {
+            foreach (explode(',', $newresources) as $id) {
+                try {
+                    $resource = Kronolith::getDriver('Resource')->getResource($id);
+                } catch (Kronolith_Exception $e) {
+                    $notification->push($e->getMessage(), 'horde.error');
+                    continue;
+                }
+                if (!($resource instanceof Kronolith_Resource_Group) ||
+                    $resource->isFree($this)) {
+                    $resources[$resource->getId()] = array(
+                        'attendance' => Kronolith::PART_REQUIRED,
+                        'response'   => Kronolith::RESPONSE_NONE,
+                        'name'       => $resource->get('name')
+                    );
+                } else {
+                    $notification->push(_("No resources from this group were available"), 'horde.error');
+                }
+            }
+        }
+        $this->_resources = $resources;
+
+
+        // Have the base event, and this is an exception so we must
+        // match the recurrence in the resource's copy of the base event.
+        if (!empty($existing) && $existing->recurs() && !$this->recurs()) {
+            foreach ($existing->getResources() as $rid => $data) {
+                $resource = Kronolith::getDriver('Resource')->getResource($key);
+                $r_event = Kronolith::getDriver('Resource')->getByUID($existing->uid, $resource->calendar);
+                $r_event->recurrence = $event->recurrence;
+                $r_event->save();
+            }
+        }
+
+        // If we don't recur, check for removal of any resources so we can
+        // update those resources' calendars.
+        if (!$this->recurs()) {
+            $merged = $existingResources + $this->_resources;
+            $delete = array_diff(array_keys($existingResources), array_keys($this->_resources));
+            foreach ($delete as $key) {
+                // Resource might be declined, in which case it won't have the event
+                // on it's calendar.
+                if ($merged[$key]['response'] != Kronolith::RESPONSE_DECLINED) {
+                    try {
+                        Kronolith::getDriver('Resource')
+                            ->getResource($key)
+                            ->removeEvent($this);
+                    } catch (Kronolith_Exception $e) {
+                        $notification->push('foo', 'horde.error');
+                    }
+                }
+            }
+        }
     }
 
     public function html($property)
@@ -3539,7 +4102,7 @@ abstract class Kronolith_Event
                 $status .= Horde::fullSrcImg('private-' . $icon_color . '.png', array('attr' => array('alt' => $title, 'title' => $title, 'class' => 'iconPrivate')));
             }
 
-            if (!empty($this->attendees)) {
+            if (count($this->attendees)) {
                 $status .= Horde::fullSrcImg('attendees-' . $icon_color . '.png', array('attr' => array('alt' => _("Meeting"), 'title' => _("Meeting"), 'class' => 'iconPeople')));
             }
 
@@ -3672,4 +4235,224 @@ abstract class Kronolith_Event
                            array('_', ''),
                            $id);
     }
+
+    /**
+     * Loads the VFS configuration and initializes the VFS backend.
+     *
+     * @return Horde_Vfs  A VFS object.
+     * @throws Kronolith_Exception
+     */
+    public function vfsInit()
+    {
+        if (!isset($this->_vfs)) {
+            try {
+                $this->_vfs = $GLOBALS['injector']
+                    ->getInstance('Horde_Core_Factory_Vfs')
+                    ->create('documents');
+            } catch (Horde_Exception $e) {
+                throw new Kronolith_Exception($e);
+            }
+        }
+
+        return $this->_vfs;
+    }
+
+    /**
+     * Return a unique id suitable for identifying this event in the VFS. Takes
+     * into account there may be multiple users with access to the same UID in
+     * different calendars.
+     *
+     * @return string  The unique id.
+     */
+    public function getVfsUid()
+    {
+        return $this->calendar . ':' . $this->uid;
+    }
+
+    /**
+     * Saves a file into the VFS backend associated with this event.
+     *
+     * @param array $info  A hash with the file information as returned from a
+     *                     Horde_Form_Type_file.
+     * @throws Kronolith_Exception
+     */
+    public function addFile(array $info)
+    {
+        if (empty($this->uid)) {
+            throw new Kronolith_Exception('VFS not supported for this object.');
+        }
+
+        $vfs = $this->vfsInit();
+
+        $dir = Kronolith::VFS_PATH . '/' . $this->getVfsUid();
+        $file = $info['name'];
+        while ($vfs->exists($dir, $file)) {
+            if (preg_match('/(.*)\[(\d+)\](\.[^.]*)?$/', $file, $match)) {
+                $file = $match[1] . '[' . ++$match[2] . ']' . $match[3];
+            } else {
+                $dot = strrpos($file, '.');
+                if ($dot === false) {
+                    $file .= '[1]';
+                } else {
+                    $file = substr($file, 0, $dot) . '[1]' . substr($file, $dot);
+                }
+            }
+        }
+        try {
+            $vfs->write($dir, $file, $info['tmp_name'], true);
+        } catch (Horde_Vfs_Exception $e) {
+            throw new Kronolith_Exception($e);
+        }
+    }
+
+    public function addFileFromData($info)
+    {
+        if (empty($this->uid)) {
+            throw new Kronolith_Exception("VFS not supported until object saved");
+        }
+
+        $vfs = $this->vfsInit();
+        $dir = Kronolith::VFS_PATH . '/' . $this->getVfsUid();
+        $file = $info['name'];
+        while ($vfs->exists($dir, $file)) {
+            if (preg_match('/(.*)\[(\d+)\](\.[^.]*)?$/', $file, $match)) {
+                $file = $match[1] . '[' . ++$match[2] . ']' . $match[3];
+            } else {
+                $dot = strrpos($file, '.');
+                if ($dot === false) {
+                    $file .= '[1]';
+                } else {
+                    $file = substr($file, 0, $dot) . '[1]' . substr($file, $dot);
+                }
+            }
+        }
+        try {
+            $vfs->writeData($dir, $file, $info['data'], true);
+        } catch (Horde_Vfs_Exception $e) {
+            throw new Kronolith_Exception($e);
+        }
+    }
+
+    /**
+     * Deletes a file from the VFS backend associated with this event.
+     *
+     * @param string $file  The file name.
+     * @throws Kronolith_Exception
+     */
+    public function deleteFile($file)
+    {
+        if (empty($this->uid)) {
+            throw new Kronolith_Exception('VFS not supported for this object.');
+        }
+
+        try {
+            $this->vfsInit()->deleteFile(Kronolith::VFS_PATH . '/' . $this->getVfsUid(), $file);
+        } catch (Horde_Vfs_Exception $e) {
+            throw new Kronolith_Exception($e);
+        }
+    }
+
+    /**
+     * Deletes all files from the VFS backend associated with this event.
+     *
+     * @throws Kronolith_Exception
+     */
+    public function deleteFiles()
+    {
+        if (empty($this->uid)) {
+            throw new Kronolith_Exception('VFS not supported for this object.');
+        }
+
+        $vfs = $this->vfsInit();
+
+        if ($vfs->exists(Kronolith::VFS_PATH, $this->getVfsUid())) {
+            try {
+                $vfs->deleteFolder(Kronolith::VFS_PATH, $this->getVfsUid(), true);
+            } catch (Horde_Vfs_Exception $e) {
+                throw new Kronolith_Exception($e);
+            }
+        }
+    }
+
+    /**
+     * Returns all files from the VFS backend associated with this event.
+     *
+     * @return array  A list of hashes with file informations.
+     */
+    public function listFiles()
+    {
+        if ($this->uid) {
+            try {
+                $vfs = $this->vfsInit();
+                if ($vfs->exists(Kronolith::VFS_PATH, $this->getVfsUid())) {
+                    return $vfs->listFolder(Kronolith::VFS_PATH . '/' . $this->getVfsUid());
+                }
+            } catch (Kronolith_Exception $e) {}
+        }
+
+        return array();
+    }
+
+    /**
+     * Returns a link to display and download a file from the VFS backend
+     * associated with this object.
+     *
+     * @param array $file  The file information hash as returned from self::listFiles.
+     *
+     * @return string  The HTML code of the generated link.
+     */
+    public function vfsDisplayUrl($file)
+    {
+        global $registry;
+
+        $mime_part = new Horde_Mime_Part();
+        $mime_part->setType(Horde_Mime_Magic::extToMime($file['type']));
+        $viewer = $GLOBALS['injector']->getInstance('Horde_Core_Factory_MimeViewer')->create($mime_part);
+
+        // We can always download files.
+        $url_params = array(
+            'actionID' => 'download_file',
+            'file' => $file['name'],
+            'type' => $file['type'],
+            'source' => $this->calendarType . '|' . $this->calendar,
+            'key' => $this->_id
+        );
+        $dl = Horde::link($registry->downloadUrl($file['name'], $url_params), $file['name']) . Horde_Themes_Image::tag('download.png', array('alt' => _("Download"))) . '</a>';
+
+        // Let's see if we can view this one, too.
+        if ($viewer && !($viewer instanceof Horde_Mime_Viewer_Default)) {
+            $url = Horde::url('viewer.php')
+                ->add($url_params)
+                ->add('actionID', 'view_file');
+            $link = Horde::link($url, $file['name'], null, '_blank') . $file['name'] . '</a>';
+        } else {
+            $link = $file['name'];
+        }
+
+        return $link . ' ' . $dl;
+    }
+
+    /**
+     * Returns a link to display, download, and delete a file from the VFS
+     * backend associated with this object.
+     *
+     * @param array $file  The file information hash as returned from self::listFiles.
+     *
+     * @return string  The HTML code of the generated link.
+     */
+    public function vfsEditUrl($file)
+    {
+        $delform = '<form action="' .
+            Horde::url('deletefile.php') .
+            '" style="display:inline" method="post">' .
+            Horde_Util::formInput() .
+            '<input type="hidden" name="file" value="' . htmlspecialchars($file['name']) . '" />' .
+            '<input type="hidden" name="source" value="' . htmlspecialchars($this->calendar) . '" />' .
+            '<input type="hidden" name="key" value="' . htmlspecialchars($this->_id) . '" />' .
+            '<input type="image" class="img" src="' . Horde_Themes::img('delete.png') . '" />' .
+            '</form>';
+
+        return $this->vfsDisplayUrl($file) . ' ' . $delform;
+    }
+
 }

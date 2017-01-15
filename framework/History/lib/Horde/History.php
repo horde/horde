@@ -16,7 +16,7 @@
  * The Horde_History:: class provides a method of tracking changes in Horde
  * objects, stored in a SQL table.
  *
- * Copyright 2003-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -169,7 +169,7 @@ abstract class Horde_History
 
         $history = $this->_getHistory($guid);
         if ($this->_cache) {
-            $this->_cache->set('horde:history:' . $guid, serialize($history), 0);
+            $this->_cache->set('horde:history:' . $guid, serialize($history));
         }
 
         return $history;

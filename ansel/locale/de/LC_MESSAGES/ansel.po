@@ -1,5 +1,5 @@
 # German translations for Ansel.
-# Copyright 2003-2015 Horde LLC (http://www.horde.org/)
+# Copyright 2003-2017 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Ansel package.
 # Jan Schneider <jan@horde.org>, 2003-2014.
 #
@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ansel 2.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-11-12 14:05+0100\n"
+"POT-Creation-Date: 2016-08-08 15:58+0200\n"
 "PO-Revision-Date: 2014-11-14 12:47+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -113,7 +113,7 @@ msgstr "Galerien von %s"
 msgid "%s: faces %s"
 msgstr "%s: %s Gesichter"
 
-#: lib/Image.php:1080
+#: lib/Image.php:1083
 #, php-format
 msgid "(c) %s %s"
 msgstr "(c) %s %s"
@@ -130,7 +130,7 @@ msgstr "Ein von Lightbox inspirierter Stil (Kein Hintergrund)"
 msgid "A Lightbox Inspired Style (White Background)"
 msgstr "Ein von Lightbox inspirierter Stil (Weißer Hintergrund)"
 
-#: lib/Api.php:318
+#: lib/Api.php:346
 msgid "A gallery to add this photo to is required."
 msgstr ""
 "Die Galerie, zu der dieses Foto hinzugefügt werden soll, muss angegeben "
@@ -141,15 +141,15 @@ msgid "Access denied adding a sub gallery to this gallery."
 msgstr ""
 "Zugriff verweigert beim Hinzufügen einer Untergalerie zu dieser Galerie."
 
-#: lib/Api.php:176 lib/Api.php:328 xppublish.php:178
+#: lib/Api.php:201 lib/Api.php:356 xppublish.php:178
 msgid "Access denied adding photos to this gallery."
 msgstr "Zugriff verweigert beim Hinzufügen von Fotos zu dieser Galerie."
 
-#: lib/Gallery.php:876
+#: lib/Gallery.php:887
 msgid "Access denied adding tags to this gallery."
 msgstr "Zugriff verweigert beim Hinzufügen von Tags zu dieser Galerie."
 
-#: lib/Image.php:1228
+#: lib/Image.php:1231
 msgid "Access denied adding tags to this photo."
 msgstr "Zugriff verweigert beim Hinzufügen von Tags zu diesem Foto."
 
@@ -157,29 +157,29 @@ msgstr "Zugriff verweigert beim Hinzufügen von Tags zu diesem Foto."
 msgid "Access denied copying photos to this gallery."
 msgstr "Zugriff verweigert beim Kopieren von Fotos zu dieser Galerie."
 
-#: lib/Api.php:435
+#: lib/Api.php:463
 msgid "Access denied creating new galleries."
 msgstr "Zugriff verweigert beim Erstellen neuer Galerien."
 
-#: lib/Api.php:395 lib/Api.php:481
+#: lib/Api.php:423 lib/Api.php:509
 msgid "Access denied deleting galleries."
 msgstr "Zugriff verweigert beim Löschen der Galerien."
 
-#: lib/ActionHandler.php:122 lib/Api.php:406
+#: lib/ActionHandler.php:122 lib/Api.php:434
 msgid "Access denied deleting photos from this gallery."
 msgstr "Zugriff verweigert beim Löschen der Fotos aus dieser Galerie."
 
-#: lib/ActionHandler.php:948 lib/ActionHandler.php:973 lib/Api.php:493
+#: lib/ActionHandler.php:948 lib/ActionHandler.php:973 lib/Api.php:521
 msgid "Access denied deleting this gallery."
 msgstr "Löschen dieser Galerie verweigert."
 
-#: lib/Api.php:641
+#: lib/Api.php:669
 msgid "Access denied downloading full sized photos from this gallery."
 msgstr ""
 "Zugriff verweigert beim Herunterladen der Originalfotos von dieser Galerie."
 
-#: lib/ActionHandler.php:57 lib/ActionHandler.php:232
-#: lib/ActionHandler.php:901 lib/Image.php:921
+#: lib/ActionHandler.php:57 lib/ActionHandler.php:232 lib/ActionHandler.php:901
+#: lib/Image.php:921
 msgid "Access denied downloading photos from this gallery."
 msgstr "Zugriff verweigert beim Herunterladen der Fotos von dieser Galerie."
 
@@ -192,7 +192,7 @@ msgstr "Zugriff verweigert beim Bearbeiten der Galerien."
 msgid "Access denied editing the photo."
 msgstr "Zugriff verweigert beim Bearbeiten des Fotos."
 
-#: faces/gallery.php:32 gallery/sort.php:30 lib/Faces/Base.php:711
+#: faces/gallery.php:32 gallery/sort.php:30 lib/Faces/Base.php:716
 msgid "Access denied editing this gallery."
 msgstr "Bearbeiten dieser Galerie verweigert."
 
@@ -223,12 +223,12 @@ msgid "Access denied to this gallery."
 msgstr "Zugriff auf diese Galerie verweigert."
 
 #: lib/Block/Gallery.php:162 lib/Block/RecentComments.php:175
-#: lib/Block/RecentlyAdded.php:205 lib/Gallery.php:843
+#: lib/Block/RecentlyAdded.php:205 lib/Gallery.php:854
 msgid "Access denied viewing this gallery."
 msgstr "Zugriff auf diese Galerie verweigert."
 
 #: img/download.php:17 img/full.php:17 img/index.php:17 img/mini.php:17
-#: img/screen.php:17 img/thumb.php:31 lib/Image.php:1190
+#: img/screen.php:17 img/thumb.php:31 lib/Image.php:1193
 msgid "Access denied viewing this photo."
 msgstr "Zugriff auf dieses Foto verweigert."
 
@@ -252,7 +252,7 @@ msgstr "Inhalt hinzufügen"
 msgid "Add Images"
 msgstr "Bilder hinzufügen"
 
-#: img/upload.php:55
+#: img/upload.php:57
 msgid "Add Photo"
 msgstr "Foto Hinzufügen"
 
@@ -316,7 +316,7 @@ msgstr ""
 "Beim Lesen des Bildes ist ein Fehler aufgetreten. Details wurden "
 "protokolliert."
 
-#: config/prefs.php:183 templates/gallery/properties.html.php:110
+#: config/prefs.php:185 templates/gallery/properties.html.php:110
 msgid "Anyone"
 msgstr "Jeder"
 
@@ -336,11 +336,11 @@ msgstr "Aufsteigend"
 msgid "Attempt to edit a non-existent share."
 msgstr "Es wurde versucht, ein nicht existierendes Recht zu bearbeiten."
 
-#: config/prefs.php:185 templates/gallery/properties.html.php:111
+#: config/prefs.php:187 templates/gallery/properties.html.php:111
 msgid "Authenticated users"
 msgstr "Angemeldete Benutzer"
 
-#: config/prefs.php:176
+#: config/prefs.php:178
 msgid "Automatically watermark photos?"
 msgstr "Fotos automatisch mit Wasserzeichen markieren?"
 
@@ -366,7 +366,7 @@ msgstr "Fehlerhafte Eingabe."
 msgid "Basic Thumbnails"
 msgstr "Einfache Vorschau"
 
-#: config/prefs.php:155 lib/Form/Watermark.php:49
+#: config/prefs.php:157 lib/Form/Watermark.php:49
 msgid "Bottom"
 msgstr "Unten"
 
@@ -426,7 +426,7 @@ msgstr "Editor für Fotounterschriften"
 msgid "Captions Saved."
 msgstr "Fotounterschriften gespeichert."
 
-#: config/prefs.php:143 config/prefs.php:154 lib/Form/Watermark.php:41
+#: config/prefs.php:145 config/prefs.php:156 lib/Form/Watermark.php:41
 #: lib/Form/Watermark.php:48
 msgid "Center"
 msgstr "Zentriert"
@@ -507,11 +507,11 @@ msgstr "Kopiere"
 msgid "Copyright infringement"
 msgstr "Copyrightverletzung"
 
-#: lib/View/Upload.php:503
+#: lib/View/Upload.php:501
 msgid "Could not extract image data from zip archive."
 msgstr "Bilderdaten konnten nicht aus dem ZIP-Archiv gelesen werden."
 
-#: lib/View/Upload.php:489
+#: lib/View/Upload.php:487
 msgid "Could not open zip archive."
 msgstr "ZIP-Archiv konnte nicht geöffnet werden."
 
@@ -570,7 +570,7 @@ msgstr ""
 "Frei wählbarer Text, der Ihre Galerien beschreibt. Dieser wird anstelle "
 "Ihres Namens angezeigt, wenn Galerien nach Benutzernamen gruppiert werden."
 
-#: config/prefs.php:135
+#: config/prefs.php:137
 msgid "Custom watermark to use for photos"
 msgstr "Standard-Wasserzeichentext für Fotos"
 
@@ -583,8 +583,7 @@ msgstr "Datum"
 msgid "Default"
 msgstr "Standard"
 
-#: lib/Prefs/Special/GallerySelect.php:27
-#: lib/Prefs/Special/GalleryStyle.php:27
+#: lib/Prefs/Special/GallerySelect.php:27 lib/Prefs/Special/GalleryStyle.php:27
 msgid "Default style for galleries"
 msgstr "Standardstil für Galerien"
 
@@ -629,7 +628,7 @@ msgstr "Anzeigemodus"
 msgid "Display Preferences"
 msgstr "Anzeige-Einstellungen"
 
-#: config/prefs.php:242
+#: config/prefs.php:244
 msgid ""
 "Do not use the ajax-enabled uploader? Select this if your browser is having "
 "trouble uploading images with the ajax uploader."
@@ -802,7 +801,7 @@ msgstr "Gesichter"
 msgid "File %s"
 msgstr "Datei %s"
 
-#: lib/Api.php:89 lib/Api.php:144
+#: lib/Api.php:103 lib/Api.php:163
 msgid "File not found."
 msgstr "Datei nicht gefunden."
 
@@ -844,7 +843,7 @@ msgstr "Ähnliche suchen"
 msgid "Flip"
 msgstr "Umdrehen"
 
-#: config/prefs.php:170
+#: config/prefs.php:172
 msgid "Font Size"
 msgstr "Schriftgröße"
 
@@ -965,7 +964,7 @@ msgstr "Die Galerie wurde gemeldet."
 msgid "General Preferences"
 msgstr "Allgemeine Einstellungen"
 
-#: config/prefs.php:168 lib/Form/Watermark.php:35
+#: config/prefs.php:170 lib/Form/Watermark.php:35
 msgid "Giant"
 msgstr "Riesig"
 
@@ -994,7 +993,7 @@ msgstr "Galerien gruppieren nach"
 msgid "Height of map (width automatically adjusts to block)"
 msgstr "Höhe der Karte (Breite passt sich automatisch an den Block an)"
 
-#: config/prefs.php:146 lib/Form/Watermark.php:43
+#: config/prefs.php:148 lib/Form/Watermark.php:43
 msgid "Horizontal Alignment"
 msgstr "Horizontale Ausrichtung"
 
@@ -1014,7 +1013,7 @@ msgstr "Das Bild hat bereits Attribute."
 msgid "Image not found in gallery."
 msgstr "Bild in der Galerie nicht gefunden."
 
-#: lib/Storage.php:704
+#: lib/Storage.php:707
 msgid "Images not found"
 msgstr "Bilder nicht gefunden"
 
@@ -1035,7 +1034,7 @@ msgstr "Ungültige Eingabe %s"
 msgid "Landscape"
 msgstr "Quer"
 
-#: config/prefs.php:167 lib/Form/Watermark.php:34
+#: config/prefs.php:169 lib/Form/Watermark.php:34
 msgid "Large"
 msgstr "Groß"
 
@@ -1047,7 +1046,7 @@ msgstr "Letzte Änderung"
 msgid "Learn how to publish photos directly from Windows."
 msgstr "Anleitung um Fotos direkt aus Windows hochzuladen."
 
-#: config/prefs.php:142 lib/Form/Watermark.php:40
+#: config/prefs.php:144 lib/Form/Watermark.php:40
 msgid "Left"
 msgstr "Links"
 
@@ -1080,7 +1079,7 @@ msgstr "Bild verorten in:"
 msgid "Location"
 msgstr "Ort"
 
-#: lib/Api.php:634 lib/View/Gallery.php:78 lib/View/Image.php:141
+#: lib/Api.php:662 lib/View/Gallery.php:78 lib/View/Image.php:141
 msgid "Locked galleries are not viewable via the api."
 msgstr "Gesperrte Galerien können nicht über die API betrachtet werden."
 
@@ -1134,7 +1133,7 @@ msgstr "Maximale Fotogröße:"
 msgid "Maximum photo size: %s; with a total of: %s"
 msgstr "Maximale Fotogröße: %s; mit einer Gesamtgröße von: %s"
 
-#: config/prefs.php:166 lib/Form/Watermark.php:33
+#: config/prefs.php:168 lib/Form/Watermark.php:33
 msgid "Medium"
 msgstr "Mittel"
 
@@ -1197,8 +1196,7 @@ msgstr "Meine Fotos :: Inhalt hinzufügen"
 msgid "Name"
 msgstr "Name"
 
-#: faces/search/named.php:14 faces/search/named.php:37
-#: faces/search/tabs.php:23
+#: faces/search/named.php:14 faces/search/named.php:37 faces/search/tabs.php:23
 msgid "Named faces"
 msgstr "Gesichter mit Namen"
 
@@ -1220,10 +1218,10 @@ msgstr "Neue Fotos in %s hochgeladen. %s"
 msgid "Next"
 msgstr "Weiter"
 
-#: faces/image.php:47 faces/search/image.php:71
-#: lib/Ajax/Imple/EditFaces.php:55 lib/Widget/GalleryFaces.php:57
-#: templates/faces/faces.inc:10 templates/faces/index.inc:14
-#: templates/faces/search.inc:23 templates/widgets/imagefaces.html.php:11
+#: faces/image.php:47 faces/search/image.php:71 lib/Ajax/Imple/EditFaces.php:55
+#: lib/Widget/GalleryFaces.php:57 templates/faces/faces.inc:10
+#: templates/faces/index.inc:14 templates/faces/search.inc:23
+#: templates/widgets/imagefaces.html.php:11
 msgid "No faces found"
 msgstr "Keine Gesichter gefunden"
 
@@ -1266,13 +1264,13 @@ msgstr ""
 msgid "No location data present. You may add some %s."
 msgstr "Keine Ortsangaben vorhanden. Sie können diese %s hinzufügen."
 
-#: config/prefs.php:73 config/prefs.php:194 config/prefs.php:215
-#: config/prefs.php:234 templates/view/gallery.html.php:34
+#: config/prefs.php:73 config/prefs.php:196 config/prefs.php:217
+#: config/prefs.php:236 templates/view/gallery.html.php:34
 #: templates/view/results.html.php:26
 msgid "None"
 msgstr "Keine"
 
-#: config/prefs.php:205
+#: config/prefs.php:207
 msgid "None (Owner only)"
 msgstr "Keine (Nur Besitzer)"
 
@@ -1284,11 +1282,11 @@ msgstr "Normal"
 msgid "Not Authorized. Details have been logged for the server administrator."
 msgstr "Nicht autorisiert. Details wurden für den Administrator mitgeloggt."
 
-#: config/prefs.php:95
+#: config/prefs.php:94
 msgid "Number of faces per page"
 msgstr "Anzahl der Gesichter pro Seite"
 
-#: config/prefs.php:101
+#: config/prefs.php:103
 msgid "Number of groups per page"
 msgstr "Anzahl der Gruppen pro Seite"
 
@@ -1414,7 +1412,7 @@ msgid "Photo is too small. Search photo must be at least 50x50 pixels."
 msgstr ""
 "Das Foto ist zu klein. Suchfotos müssen mindestens 50x50 Pixel groß sein."
 
-#: lib/Storage.php:491
+#: lib/Storage.php:493
 msgid "Photo not found"
 msgstr "Foto nicht gefunden"
 
@@ -1431,7 +1429,7 @@ msgstr "Fotosuche"
 msgid "Photos by %s"
 msgstr "Fotos nach %s"
 
-#: lib/Api.php:97
+#: lib/Api.php:111
 #, php-format
 msgid "Photos from %s"
 msgstr "Fotos aus %s"
@@ -1531,15 +1529,15 @@ msgstr "Zufällige Galerie"
 msgid "Random photo"
 msgstr "Zufälliges Foto"
 
-#: config/prefs.php:196 config/prefs.php:217
+#: config/prefs.php:198 config/prefs.php:219
 msgid "Read and write"
 msgstr "Lesen und Schreiben"
 
-#: config/prefs.php:218
+#: config/prefs.php:220
 msgid "Read, write, and delete"
 msgstr "Lesen, Schreiben und Löschen"
 
-#: config/prefs.php:195 config/prefs.php:206 config/prefs.php:216
+#: config/prefs.php:197 config/prefs.php:208 config/prefs.php:218
 msgid "Read-only"
 msgstr "Nur Lesen"
 
@@ -1722,7 +1720,7 @@ msgstr "Größe ändern"
 msgid "Return to image view"
 msgstr "Zurück zum Foto"
 
-#: config/prefs.php:144 lib/Form/Watermark.php:42
+#: config/prefs.php:146 lib/Form/Watermark.php:42
 msgid "Right"
 msgstr "Rechts"
 
@@ -1864,7 +1862,7 @@ msgstr "Rechte festlegen"
 msgid "Shadowed Thumbnails (White Background)"
 msgstr "Vorschau mit Schatten (Weißer Hintergrund)"
 
-#: config/prefs.php:236
+#: config/prefs.php:238
 msgid ""
 "Should we automatically set the image title on upload if able? If so, choose "
 "the field to obtain the title from."
@@ -1872,7 +1870,7 @@ msgstr ""
 "Soll der Fototitel beim Hochladen wenn möglich automatisch gesetzt werden? "
 "Falls ja, wählen Sie das Feld aus, von dem der Titel übernommen werden soll."
 
-#: config/prefs.php:107
+#: config/prefs.php:109
 msgid "Show EXIF data"
 msgstr "EXIF-Daten anzeigen"
 
@@ -1905,7 +1903,7 @@ msgstr ""
 msgid "Slugs allows direct access to this gallery by visiting:"
 msgstr "Kurznamen ermöglichen den direkten Zugriff auf diese Galerie über:"
 
-#: config/prefs.php:165 lib/Form/Watermark.php:32
+#: config/prefs.php:167 lib/Form/Watermark.php:32
 msgid "Small"
 msgstr "Klein"
 
@@ -1979,7 +1977,7 @@ msgstr "AGB-Verletzung"
 msgid "The file \"%s\" doesn't exist."
 msgstr "Die Datei \"%s\" existiert nicht."
 
-#: lib/ActionHandler.php:374 lib/Api.php:315 lib/View/Upload.php:219
+#: lib/ActionHandler.php:374 lib/Api.php:343 lib/View/Upload.php:219
 msgid "The file you uploaded does not appear to be a valid photo."
 msgstr ""
 "Die Datei, die Sie hochgeladen haben, scheint kein gültiges Foto zu sein."
@@ -2131,11 +2129,11 @@ msgstr ""
 msgid "Thumbnail Style"
 msgstr "Vorschaustil"
 
-#: config/prefs.php:164 lib/Form/Watermark.php:31
+#: config/prefs.php:166 lib/Form/Watermark.php:31
 msgid "Tiny"
 msgstr "Winzig"
 
-#: config/prefs.php:153 lib/Form/Watermark.php:47
+#: config/prefs.php:155 lib/Form/Watermark.php:47
 msgid "Top"
 msgstr "Oben"
 
@@ -2228,11 +2226,11 @@ msgstr "Benutzername"
 msgid "Username or password are incorrect."
 msgstr "Benutzername oder Passwort sind nicht richtig."
 
-#: config/prefs.php:184 templates/gallery/properties.html.php:112
+#: config/prefs.php:186 templates/gallery/properties.html.php:112
 msgid "Users with edit permissions"
 msgstr "Benutzer mit Leserechten"
 
-#: config/prefs.php:157 lib/Form/Watermark.php:50
+#: config/prefs.php:159 lib/Form/Watermark.php:50
 msgid "Vertical Alignment"
 msgstr "Vertikale Ausrichtung"
 
@@ -2283,7 +2281,7 @@ msgstr "Wasserzeichen-Schriftart"
 msgid "Watermark Preferences"
 msgstr "Wasserzeichen-Einstellungen"
 
-#: config/prefs.php:220
+#: config/prefs.php:222
 msgid ""
 "When a new gallery is created, what default permissions should be given to "
 "groups that the user is a member of?"
@@ -2291,7 +2289,7 @@ msgstr ""
 "Welche Rechte sollen den Mitgliedern aller Gruppen, zu denen Sie gehören, "
 "erteilt werden, wenn eine neue Galerie angelegt wird?"
 
-#: config/prefs.php:198
+#: config/prefs.php:200
 msgid ""
 "When a new gallery is created, what permissions should be given to "
 "authenticated users by default?"
@@ -2299,7 +2297,7 @@ msgstr ""
 "Welche Rechte sollen angemeldeten Benutzer erteilt werden, wenn eine neue "
 "Galerie angelegt wird?"
 
-#: config/prefs.php:208
+#: config/prefs.php:210
 msgid ""
 "When a new gallery is created, what permissions should be given to guests by "
 "default?"
@@ -2307,7 +2305,7 @@ msgstr ""
 "Welche Rechte sollen Gästen erteilt werden, wenn eine neue Galerie angelegt "
 "wird?"
 
-#: config/prefs.php:187
+#: config/prefs.php:189
 msgid ""
 "When a new gallery is created, what should the default be for allowing users "
 "to download original photos?"
@@ -2315,7 +2313,7 @@ msgstr ""
 "Sollen Benutzer standardmäßig die Erlaubnis haben Originalfotos "
 "herunterzuladen, wenn eine neue Galerie angelegt wird?"
 
-#: config/prefs.php:227
+#: config/prefs.php:229
 msgid ""
 "Which metadata fields should we automatically add as image tags during "
 "upload?"
@@ -2441,7 +2439,7 @@ msgstr "_Meine Galerien"
 msgid "_New Gallery"
 msgstr "_Neue Galerie"
 
-#: lib/Api.php:1001
+#: lib/Api.php:1029
 msgid "from"
 msgstr "von"
 

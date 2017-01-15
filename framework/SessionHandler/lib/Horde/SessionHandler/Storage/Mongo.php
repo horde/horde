@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2013-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2013-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category  Horde
- * @copyright 2013-2015 Horde LLC
+ * @copyright 2013-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   SessionHandler
  */
@@ -16,7 +16,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2013-2015 Horde LLC
+ * @copyright 2013-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   SessionHandler
  */
@@ -88,11 +88,10 @@ class Horde_SessionHandler_Storage_Mongo extends Horde_SessionHandler_Storage im
     {
         if ($this->_locked) {
             try {
-                $this->_db->update(array(
-                    self::SID => $this->_locked
-                ), array(
-                    '$unset' => array(self::LOCK => '')
-                ));
+                $this->_db->update(
+                    array(self::SID => $this->_locked),
+                    array('$unset' => array(self::LOCK => ''))
+                );
             } catch (MongoException $e) {}
             $this->_locked = false;
         }
@@ -108,9 +107,7 @@ class Horde_SessionHandler_Storage_Mongo extends Horde_SessionHandler_Storage im
          * we need findAndModify() for its atomicity for locking, but this
          * atomicity means we can't tell the difference between a
          * non-existent session and a locked session. */
-        $exists = $this->_db->count(array(
-            self::SID => $id
-        ));
+        $exists = $this->_db->count(array(self::SID => $id));
 
         $exist_check = false;
         $i = 0;
@@ -129,19 +126,17 @@ class Horde_SessionHandler_Storage_Mongo extends Horde_SessionHandler_Storage im
              * locked. If a session exists, and is locked, $res will contain
              * an empty set and we need to sleep and wait for lock to be
              * removed. */
-            $res = $this->_db->findAndModify(array(
-                self::SID => $id,
-                self::LOCK => array(
-                    '$exists' => $exist_check
-                )
-            ), array($data), array(
-                self::DATA => true
-            ), array(
-                'update' => array(
-                    '$set' => $data
+            $res = $this->_db->findAndModify(
+                array(
+                    self::SID => $id,
+                    self::LOCK => array('$exists' => $exist_check)
                 ),
-                'upsert' => !$exists
-            ));
+                array('$set' => $data),
+                array(self::DATA => true),
+                array(
+                    'upsert' => !$exists
+                )
+            );
 
             if (!$exists || isset($res[self::DATA])) {
                 break;
@@ -151,11 +146,10 @@ class Horde_SessionHandler_Storage_Mongo extends Horde_SessionHandler_Storage im
              * a stale session. This can prevent long waits on a busted PHP
              * process. */
             if ($i == 10) {
-                $res = $this->_db->findOne(array(
-                    self::SID => $id
-                ), array(
-                    self::LOCK => true
-                ));
+                $res = $this->_db->findOne(
+                    array(self::SID => $id),
+                    array(self::LOCK => true)
+                );
 
                 $max = isset($res[self::LOCK])
                     ? ((time() - $res[self::LOCK]) * 10)
@@ -267,5 +261,4 @@ class Horde_SessionHandler_Storage_Mongo extends Horde_SessionHandler_Storage im
     {
         $this->_params['mongo_db']->createIndices($this->_db, $this->_indices);
     }
-
 }

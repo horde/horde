@@ -77,7 +77,7 @@ class Horde_Block_Sunrise extends Horde_Core_Block
     /**
      * http://www.zend.com/codex.php?id=135&single=1
      */
-    private function _calculateSunset($date, $latitude, $longitude, $sunset = true, $timezone)
+    protected function _calculateSunset($date, $latitude, $longitude, $sunset, $timezone)
     {
         $yday = date('z', $date);
         $mon = date('n', $date);

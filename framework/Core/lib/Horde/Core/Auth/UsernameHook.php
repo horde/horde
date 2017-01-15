@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2015-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, see http://opensource.org/licenses/lgpl-2.1.php

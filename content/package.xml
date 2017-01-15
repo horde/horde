@@ -16,18 +16,18 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-06-04</date>
+ <date>2016-11-09</date>
  <version>
-  <release>2.0.5</release>
-  <api>2.0.0</api>
+  <release>3.0.0</release>
+  <api>3.0.0</api>
  </version>
  <stability>
-  <release>stable</release>
-  <api>stable</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* [jan] Add unit tests for Oracle.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -64,6 +64,7 @@
     </file>
    </dir> <!-- /bin -->
    <dir name="config">
+    <file name=".htaccess" role="horde" />
     <file name="routes.php" role="horde" />
    </dir> <!-- /config -->
    <dir name="docs">
@@ -79,7 +80,6 @@
     <dir name="Objects">
      <file name="Manager.php" role="horde" />
      <file name="Object.php" role="horde" />
-     <file name="ObjectMapper.php" role="horde" />
     </dir> <!-- /lib/Objects -->
     <dir name="Relationships">
      <file name="Relationship.php" role="horde" />
@@ -95,9 +95,11 @@
     <dir name="Users">
      <file name="Manager.php" role="horde" />
     </dir> <!-- /lib/Users -->
+    <file name=".htaccess" role="horde" />
     <file name="Application.php" role="horde" />
     <file name="Exception.php" role="horde" />
     <file name="Indexer.php" role="horde" />
+    <file name="ObjectMapper.php" role="horde" />
     <file name="Tagger.php" role="horde" />
    </dir> <!-- /lib -->
    <dir name="migration">
@@ -235,19 +237,21 @@
    <install as="content-tag-add" name="bin/content-tag-add" />
    <install as="content-tag-delete" name="bin/content-tag-delete" />
    <install as="content-untag" name="bin/content-untag" />
+   <install as="content/config/.htaccess" name="config/.htaccess" />
    <install as="content/config/routes.php" name="config/routes.php" />
    <install as="CHANGES" name="docs/CHANGES" />
    <install as="RELEASE_NOTES" name="docs/RELEASE_NOTES" />
    <install as="TODO.txt" name="docs/TODO.txt" />
+   <install as="content/lib/.htaccess" name="lib/.htaccess" />
    <install as="content/lib/Application.php" name="lib/Application.php" />
    <install as="content/lib/Exception.php" name="lib/Exception.php" />
    <install as="content/lib/Indexer.php" name="lib/Indexer.php" />
+   <install as="content/lib/ObjectMapper.php" name="lib/ObjectMapper.php" />
    <install as="content/lib/Tagger.php" name="lib/Tagger.php" />
    <install as="content/lib/Linkbacks/Linkback.php" name="lib/Linkbacks/Linkback.php" />
    <install as="content/lib/Linkbacks/LinkbackMapper.php" name="lib/Linkbacks/LinkbackMapper.php" />
    <install as="content/lib/Objects/Manager.php" name="lib/Objects/Manager.php" />
    <install as="content/lib/Objects/Object.php" name="lib/Objects/Object.php" />
-   <install as="content/lib/Objects/ObjectMapper.php" name="lib/Objects/ObjectMapper.php" />
    <install as="content/lib/Relationships/Relationship.php" name="lib/Relationships/Relationship.php" />
    <install as="content/lib/Relationships/RelationshipMapper.php" name="lib/Relationships/RelationshipMapper.php" />
    <install as="content/lib/Tags/Tag.php" name="lib/Tags/Tag.php" />
@@ -497,10 +501,38 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-06-04</date>
+   <date>2015-10-21</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
+* [mjr] Fix bug that was causing tag stats to be incorrectly incremented (Bug #14112).
+* [mjr] Add Content_Objects_Manager::delete().
 * [jan] Add unit tests for Oracle.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.6</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-01-13</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+*
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.0</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2016-11-09</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

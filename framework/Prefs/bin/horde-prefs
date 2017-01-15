@@ -64,7 +64,7 @@
  * </pre>
  *
  *
- * Copyright 2011-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -96,7 +96,7 @@ if (empty($conf)) {
 if (!isset($conf['driver'])) {
     die(sprintf('%s did not provide the expected driver configuration ($conf[\'driver\'])!', $args[0]) . "\n");
 }
-$storage_class = 'Horde_Prefs_Storage_' . ucfirst($conf['driver']);
+$storage_class = 'Horde_Prefs_Storage_' . Horde_String::ucfirst($conf['driver']);
 
 if (empty($args[1])) {
    die('You must specify a the id of the user you want to work with as second argument!' . "\n");

@@ -2,7 +2,7 @@
 /**
  * Turba directory driver implementation for virtual address books.
  *
- * Copyright 2005-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -48,7 +48,9 @@ class Turba_Driver_Vbook extends Turba_Driver
         $this->_share = $this->_params['share'];
 
         /* Load the underlying driver. */
-        $this->_driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($this->_params['source']);
+        $this->_driver = $GLOBALS['injector']
+            ->getInstance('Turba_Factory_Driver')
+            ->create($this->_params['source']);
 
         $this->searchCriteria = empty($this->_params['criteria'])
             ? array()
@@ -80,32 +82,48 @@ class Turba_Driver_Vbook extends Turba_Driver
      * @return array  Hash containing the search results.
      * @throws Turba_Exception
      */
-    protected function _search(array $criteria, array $fields, array $blobFields = array(), $count_only = false)
+    protected function _search(
+        array $criteria, array $fields, array $blobFields = array(), $count_only = false)
     {
         /* Add the passed in search criteria to the vbook criteria
          * (which need to be mapped from turba fields to
          * driver-specific fields). */
-        $criteria['AND'][] = $this->makeSearch($this->searchCriteria, 'AND', array());
-        $results = $this->_driver->_search($criteria, $fields, $blobFields);
+        $new_criteria = array();
+        if (empty($criteria['AND'])) {
+            $new_criteria['AND'] = array(
+                $criteria,
+                $this->makeSearch($this->searchCriteria, 'AND', array())
+            );
+        } else {
+            $new_criteria = $criteria;
+            $new_criteria['AND'][] = $this->makeSearch($this->searchCriteria, 'AND', array());
+        }
+        $results = $this->_driver->_search($new_criteria, $fields, $blobFields);
         return $count_only ? count($results) : $results;
     }
 
     /**
      * Returns a Turba_List object containing $objects filtered by $tags.
      *
-     * @param  array $objects  A hash of objects, as returned by self::_search.
-     * @param  array $tags     An array of tags to filter by.
+     * @param  array $objects     A hash of objects, as returned by
+     *                            self::_search.
+     * @param  array $tags        An array of tags to filter by.
+     * @param  Array $sort_order  The sort order to pass to Turba_List::sort.
+     *                            (Unused).
      *
      * @return Turba_List  The filtered Turba_List object.
      */
-    protected function _filterTags($objects, $tags)
+    protected function _filterTags($objects, $tags, $sort_order = null)
     {
         global $injector;
 
         // Overridden in this class so we can grab the internally stored
         // tag criteria.
         if (isset($this->searchCriteria['tags'])) {
-            $tags = array_merge($injector->getInstance('Turba_Tagger')->split($this->searchCriteria['tags']), $tags);
+            $tags = array_merge(
+                $injector->getInstance('Turba_Tagger')->split($this->searchCriteria['tags']),
+                $tags
+            );
 
         }
 

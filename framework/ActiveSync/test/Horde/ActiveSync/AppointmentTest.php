@@ -27,7 +27,7 @@ class Horde_ActiveSync_AppointmentTest extends Horde_Test_Case
      */
     public function testEncoding()
     {
-        $this->markTestSkipped('Needs updated fixture.');
+        $this->markTestIncomplete('Needs updated fixture.');
         $l = new Horde_Test_Log();
         $logger = $l->getLogger();
 
@@ -94,7 +94,7 @@ class Horde_ActiveSync_AppointmentTest extends Horde_Test_Case
 
     public function testEncodingRecurrence()
     {
-        $this->markTestSkipped('Needs updated fixture.');
+        $this->markTestIncomplete('Needs updated fixture.');
         $l = new Horde_Test_Log();
         $logger = $l->getLogger();
 
@@ -175,7 +175,7 @@ class Horde_ActiveSync_AppointmentTest extends Horde_Test_Case
 
     public function testEncodingSimpleExceptions()
     {
-        $this->markTestSkipped('Needs updated fixture.');
+        $this->markTestIncomplete('Needs updated fixture.');
         $l = new Horde_Test_Log();
         $logger = $l->getLogger();
         //$logger = new Horde_Log_Logger(new Horde_Log_Handler_Stream(fopen('/tmp/test.log', 'a')));
@@ -222,6 +222,157 @@ class Horde_ActiveSync_AppointmentTest extends Horde_Test_Case
         fclose($stream);
 
         $this->assertEquals($fixture, $results);
+    }
+
+    public function testAlldayEncoding()
+    {
+        $l = new Horde_Test_Log();
+        $logger = $l->getLogger();
+
+        // Check that the encoded wbxml looks correct.
+        $stream_out = fopen('php://memory', 'w+');
+        $encoder = new Horde_ActiveSync_Wbxml_Encoder($stream_out);
+        $message = new Horde_ActiveSync_Message_Appointment(
+            array('logger' => $logger, 'protocolversion' => Horde_ActiveSync::VERSION_FOURTEEN)
+        );
+        $message->setSubject('Test Event');
+        $message->alldayevent = true;
+        $start = new Horde_Date('1970-03-20T00:00:00', 'America/New_York');
+        $end = new Horde_Date('1970-03-21T00:00:00', 'America/New_York');
+        $message->starttime = $start;
+        $message->endtime = $end;
+        $message->setTimezone($start);
+        $message->meetingstatus = Horde_ActiveSync_Message_Appointment::MEETING_NOT_MEETING;
+        $message->encodeStream($encoder);
+
+        $fixture = file_get_contents(__DIR__ . '/fixtures/allday_appointment.wbxml');
+        rewind($stream_out);
+        $this->assertEquals($fixture, stream_get_contents($stream_out));
+
+        // Make sure EAS versions work properly.
+        rewind($stream_out);
+        $message = new Horde_ActiveSync_Message_Appointment(
+            array('logger' => $logger, 'protocolversion' => Horde_ActiveSync::VERSION_FOURTEEN)
+        );
+        $decoder = new Horde_ActiveSync_Wbxml_Decoder($stream_out);
+        $decoder->getElementStartTag(Horde_ActiveSync::SYNC_DATA);
+        $message->decodeStream($decoder);
+        $end = $message->endtime;
+        $end->setTimezone('America/New_York');
+        $start->setTimezone('America/New_York');
+        $this->assertEquals('1970-03-21 00:00:00', (string)$end);
+        $this->assertEquals('1970-03-20 00:00:00', (string)$start);
+
+        rewind($stream_out);
+        $message = new Horde_ActiveSync_Message_Appointment(
+            array('logger' => $logger, 'protocolversion' => Horde_ActiveSync::VERSION_SIXTEEN)
+        );
+        $decoder = new Horde_ActiveSync_Wbxml_Decoder($stream_out);
+        $decoder->getElementStartTag(Horde_ActiveSync::SYNC_DATA);
+        $message->decodeStream($decoder);
+        $end = $message->endtime;
+        $end->setTimezone('America/New_York');
+        $start->setTimezone('America/New_York');
+        $this->assertEquals('1970-03-21 00:00:00', (string)$end);
+        $this->assertEquals('1970-03-20 00:00:00', (string)$start);
+    }
+
+    /**
+     * Test deprecated setDatetime method since it's still used in FW_52.
+     */
+    public function testSetDatetimeAlldayHandling()
+    {
+        $l = new Horde_Test_Log();
+        $logger = $l->getLogger();
+
+        // Test the deprecated setDatetime method's ability to properly detect
+        // and set properties.
+        // Single day 00:00 to 00:00
+        $message = new Horde_ActiveSync_Message_Appointment(
+            array('logger' => $logger, 'protocolversion' => Horde_ActiveSync::VERSION_FOURTEEN)
+        );
+        $start = new Horde_Date('1970-03-20T00:00:00', 'America/New_York');
+        $end = new Horde_Date('1970-03-21T00:00:00', 'America/New_York');
+        $message->setDatetime(array('start' => $start, 'end' => $end));
+        $this->assertEquals(true, $message->alldayevent);
+
+        // Multiday 00:00 to 23:59
+        $message = new Horde_ActiveSync_Message_Appointment(
+            array('logger' => $logger, 'protocolversion' => Horde_ActiveSync::VERSION_FOURTEEN)
+        );
+        $start = new Horde_Date('1970-03-20T00:00:00', 'America/New_York');
+        $end = new Horde_Date('1970-03-21T23:59:00', 'America/New_York');
+        $message->setDatetime(array('start' => $start, 'end' => $end));
+        $this->assertEquals(true, $message->alldayevent);
+        $end = $message->endtime;
+        $end->setTimezone('America/New_York');
+        $this->assertEquals('1970-03-22 00:00:00', (string)$end);
+
+        // Single day with incorrect time part, no endtime given.
+        $message = new Horde_ActiveSync_Message_Appointment(
+            array('logger' => $logger, 'protocolversion' => Horde_ActiveSync::VERSION_FOURTEEN)
+        );
+        $start = new Horde_Date('1970-03-20T04:00:00', 'America/New_York');
+        $message->setDatetime(array('start' => $start, 'allday' => true));
+        $this->assertEquals(true, $message->alldayevent);
+        $start = $message->starttime;
+        $start->setTimezone('America/New_York');
+        $this->assertEquals('1970-03-20 00:00:00', (string)$start);
+        $end = $message->endtime;
+        $end->setTimezone('America/New_York');
+        $this->assertEquals('1970-03-21 00:00:00', (string)$end);
+
+        // Single day, no endtime given.
+        $message = new Horde_ActiveSync_Message_Appointment(
+            array('logger' => $logger, 'protocolversion' => Horde_ActiveSync::VERSION_FOURTEEN)
+        );
+        $start = new Horde_Date('1970-03-20T00:00:00', 'America/New_York');
+        $message->setDatetime(array('start' => $start, 'allday' => true));
+        $this->assertEquals(true, $message->alldayevent);
+        $end = $message->endtime;
+        $end->setTimezone('America/New_York');
+        $this->assertEquals('1970-03-21 00:00:00', (string)$end);
+
+        // Make sure non-all day events don't inadvertently get converted to one
+        $message = new Horde_ActiveSync_Message_Appointment(
+            array('logger' => $logger, 'protocolversion' => Horde_ActiveSync::VERSION_FOURTEEN)
+        );
+        $start = new Horde_Date('1970-03-20T05:00:00', 'America/New_York');
+        $end = new Horde_Date('1970-03-21T00:00:00', 'America/New_York');
+        $message->setDatetime(array('start' => $start, 'end' => $end));
+        $this->assertEquals(false, $message->alldayevent);
+        $start = $message->starttime;
+        $start->setTimezone('America/New_York');
+        $this->assertEquals('1970-03-20 05:00:00', (string)$start);
+
+        // Incorrect timeparts given, but allday flag is set.
+        $message = new Horde_ActiveSync_Message_Appointment(
+            array('logger' => $logger, 'protocolversion' => Horde_ActiveSync::VERSION_FOURTEEN)
+        );
+        $start = new Horde_Date('1970-03-20T00:00:00', 'America/New_York');
+        $end = new Horde_Date('1970-03-21T05:00:00', 'America/New_York');
+        $message->setDatetime(array('start' => $start, 'end' => $end, 'allday' => true));
+        $this->assertEquals(true, $message->alldayevent);
+        $start = $message->starttime;
+        $start->setTimezone('America/New_York');
+        $end = $message->endtime;
+        $end->setTimezone('America/New_York');
+        $this->assertEquals('1970-03-20 00:00:00', (string)$start);
+        $this->assertEquals('1970-03-22 00:00:00', (string)$end);
+
+        $message = new Horde_ActiveSync_Message_Appointment(
+            array('logger' => $logger, 'protocolversion' => Horde_ActiveSync::VERSION_FOURTEEN)
+        );
+        $start = new Horde_Date('1970-03-20T08:00:00', 'America/New_York');
+        $end = new Horde_Date('1970-03-21T05:00:00', 'America/New_York');
+        $message->setDatetime(array('start' => $start, 'end' => $end, 'allday' => true));
+        $this->assertEquals(true, $message->alldayevent);
+        $start = $message->starttime;
+        $start->setTimezone('America/New_York');
+        $end = $message->endtime;
+        $end->setTimezone('America/New_York');
+        $this->assertEquals('1970-03-20 00:00:00', (string)$start);
+        $this->assertEquals('1970-03-22 00:00:00', (string)$end);
     }
 
     public function testDecodingSimpleExceptions()
@@ -299,6 +450,46 @@ class Horde_ActiveSync_AppointmentTest extends Horde_Test_Case
         // Now get an occurence after the transition to EST.
         $next = $rrule->nextActiveRecurrence(new Horde_Date('2011-12-01'));
         $this->assertEquals('2011-12-10 15:00:00', (string)$next->setTimezone('America/New_York'));
+    }
+
+    public function testMissingSupportedTag()
+    {
+        $state = $this->getMockSkipConstructor('Horde_ActiveSync_State_Base');
+        $fixture = array(
+            'userAgent' => 'Apple-iPad3C6/1202.435',
+            'properties' => array(Horde_ActiveSync_Device::OS => 'iOS 8.1.1')
+        );
+        $device = new Horde_ActiveSync_Device($state, $fixture);
+        $contact = new Horde_ActiveSync_Message_Appointment(array('device' => $device, 'protocolversion' => Horde_ActiveSync::VERSION_FOURTEEN));
+        $contact->setSupported(array());
+        $this->assertEquals(false, $contact->isGhosted('subject'));
+        $this->assertEquals(false, $contact->isGhosted('body'));
+
+        $device = new Horde_ActiveSync_Device($state, $fixture);
+        $contact = new Horde_ActiveSync_Message_Appointment(array('device' => $device, 'protocolversion' => Horde_ActiveSync::VERSION_SIXTEEN));
+        $contact->setSupported(array());
+        $this->assertEquals(true, $contact->isGhosted('subject'));
+        $this->assertEquals(true, $contact->isGhosted('body'));
+    }
+
+    public function testEmptySupportedTag()
+    {
+        $state = $this->getMockSkipConstructor('Horde_ActiveSync_State_Base');
+        $fixture = array(
+            'userAgent' => 'Apple-iPad3C6/1202.435',
+            'properties' => array(Horde_ActiveSync_Device::OS => 'iOS 8.1.1')
+        );
+        $device = new Horde_ActiveSync_Device($state, $fixture);
+        $contact = new Horde_ActiveSync_Message_Appointment(array('device' => $device, 'protocolversion' => Horde_ActiveSync::VERSION_FOURTEEN));
+        $contact->setSupported(array(Horde_ActiveSync::ALL_GHOSTED));
+        $this->assertEquals(true, $contact->isGhosted('subject'));
+        $this->assertEquals(true, $contact->isGhosted('body'));
+
+        $device = new Horde_ActiveSync_Device($state, $fixture);
+        $contact = new Horde_ActiveSync_Message_Appointment(array('device' => $device, 'protocolversion' => Horde_ActiveSync::VERSION_SIXTEEN));
+        $contact->setSupported(array(Horde_ActiveSync::ALL_GHOSTED));
+        $this->assertEquals(true, $contact->isGhosted('subject'));
+        $this->assertEquals(true, $contact->isGhosted('body'));
     }
 
 }

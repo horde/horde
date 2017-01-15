@@ -2,7 +2,7 @@
 /**
  * The Gollem_Auth class provides authentication for Gollem.
  *
- * Copyright 2004-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -332,12 +332,10 @@ class Gollem_Auth
     {
         global $session;
 
-        if ($backends = $session->get('gollem', 'backends', $session::TYPE_ARRAY)) {
-            $passwords = $session->get('gollem', 'backends_password', $session::TYPE_ARRAY);
-            if ($passwords) {
-                foreach ($passwords as $key => $val) {
-                    $backends[$key]['params']['password'] = $val;
-                }
+        if (($backends = $session->get('gollem', 'backends', $session::TYPE_ARRAY)) &&
+            ($passwords = $session->get('gollem', 'backends_password', $session::TYPE_ARRAY))) {
+            foreach ($passwords as $key => $val) {
+                $backends[$key]['params']['password'] = $val;
             }
         }
 
@@ -362,9 +360,7 @@ class Gollem_Auth
         }
 
         $session->set('gollem', 'backends', $backends);
-        if (!empty($passwords)) {
-            $session->set('gollem', 'backends_password', $passwords, $session::ENCRYPT);
-        }
+        $session->set('gollem', 'backends_password', $passwords, $session::ENCRYPT);
     }
 
 }

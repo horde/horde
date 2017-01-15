@@ -1,27 +1,23 @@
 <?php
 /**
- * Horde_Core_ActiveSync_Imap_Factory
- *
- * PHP Version 5
- *
  * @license   http://www.horde.org/licenses/gpl GPLv2
- * @copyright 2010-2015 Horde LLC (http://www.horde.org/)
- * @author    Michael J Rubinsky <mrubinsk@horde.org>
- * @link      http://pear.horde.org/index.php?package=Core
- * @package   Core
- */
-/**
- * Horde_Core_ActiveSync_Imap_Factory:: Implements a factory/builder for
- * providing a Horde_ActiveSync_Imap_Adapter object as well as building
- * a tree of available mailboxes.
- *
- * @license   http://www.horde.org/licenses/gpl GPLv2
- * @copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * @copyright 2010-2017 Horde LLC (http://www.horde.org/)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @link      http://pear.horde.org/index.php?package=Core
  * @package   Core
  */
 
+/**
+ * Horde_Core_ActiveSync_Imap_Factory implements a factory/builder for
+ * providing a Horde_ActiveSync_Imap_Adapter object as well as building a tree
+ * of available mailboxes.
+ *
+ * @license   http://www.horde.org/licenses/gpl GPLv2
+ * @copyright 2010-2017 Horde LLC (http://www.horde.org/)
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
+ * @link      http://pear.horde.org/index.php?package=Core
+ * @package   Core
+ */
 class Horde_Core_ActiveSync_Imap_Factory implements Horde_ActiveSync_Interface_ImapFactory
 {
     protected $_adapter;
@@ -62,7 +58,7 @@ class Horde_Core_ActiveSync_Imap_Factory implements Horde_ActiveSync_Interface_I
      */
     public function getMailboxes($force = false)
     {
-        global $registry;
+        global $registry, $injector;
 
         if (empty($this->_mailboxlist) || $force) {
             $subscriptions = $registry->horde->getPreference(
@@ -70,7 +66,7 @@ class Horde_Core_ActiveSync_Imap_Factory implements Horde_ActiveSync_Interface_I
                 'subscribe'
             );
             try {
-                foreach ($registry->mail->mailboxList(array('unsub' => !$subscriptions)) as $mbox) {
+                foreach ($registry->mail->mailboxList(array('reload' => true, 'unsub' => !$subscriptions)) as $mbox) {
                     if (isset($mbox['subscribed'])) {
                         /* IMP 7. Guaranteed that return will match what was
                          * asked for in 'unsub' argument. */
@@ -95,6 +91,13 @@ class Horde_Core_ActiveSync_Imap_Factory implements Horde_ActiveSync_Interface_I
                 throw new Horde_ActiveSync_Exception($e);
             }
         }
+        try {
+            $this->_mailboxlist = $injector->getInstance('Horde_Core_Hooks')->callHook(
+                'activesync_mailboxlist',
+                'horde',
+                array($this->_mailboxlist)
+            );
+        } catch (Horde_Exception_HookNotSet $e) {}
 
         return $this->_mailboxlist;
     }
@@ -144,8 +147,24 @@ class Horde_Core_ActiveSync_Imap_Factory implements Horde_ActiveSync_Interface_I
 
         $msgFlags = array();
         $flags = unserialize($registry->horde->getPreference($registry->hasInterface('mail'), 'msgflags'));
+
+        // Remove any system flags, as these should never be user (un)set.
+        $system_flags = array(
+            Horde_Imap_Client::FLAG_ANSWERED,
+            Horde_Imap_Client::FLAG_DELETED,
+            Horde_Imap_Client::FLAG_DRAFT,
+            Horde_Imap_Client::FLAG_FLAGGED,
+            Horde_Imap_Client::FLAG_RECENT,
+            Horde_Imap_Client::FLAG_SEEN
+        );
+        foreach ($system_flags as $flag) {
+            unset($flags[$flag]);
+        }
+
         foreach ($flags as $flag) {
-            $msgFlags[strtolower($flag->imapflag)] = $flag->label;
+            if ($flag->imapflag) {
+                   $msgFlags[Horde_String::lower($flag->imapflag)] = $flag->label;
+            }
         }
 
         return $msgFlags;

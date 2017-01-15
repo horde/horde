@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2013-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2013-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category  Horde
- * @copyright 2013-2015 Horde LLC
+ * @copyright 2013-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Smtp
  */
@@ -20,7 +20,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2013-2015 Horde LLC
+ * @copyright 2013-2017 Horde LLC
  * @internal
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Smtp
@@ -40,7 +40,7 @@ class Horde_Smtp_Connection extends Horde\Socket\Client
     {
         if (is_resource($data)) {
             $this->_params['debug']->client('', false);
-
+            $max_size = $size;
             while (!feof($data) && (is_null($size) || ($size > 0))) {
                 if (is_null($size)) {
                     $c_size = 65536;
@@ -60,7 +60,14 @@ class Horde_Smtp_Connection extends Horde\Socket\Client
                 }
             }
 
-            $this->_write("\r\n");
+            // If we are chunking with BDAT (RFC 3030),
+            // we can't send any additional data after
+            // the binary data since the server expects
+            // the next command immediately after the
+            // end of data.
+            if (!$max_size) {
+                $this->_write("\r\n");
+            }
             $this->_params['debug']->raw("\n");
         } else {
             if (!is_array($data)) {

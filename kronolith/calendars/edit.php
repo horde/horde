@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -36,7 +36,13 @@ if (!$owner &&
     $notification->push(_("You are not allowed to see this calendar."), 'horde.error');
     $default->redirect();
 }
-$form = new Kronolith_Form_EditCalendar($vars, $calendar);
+
+try {
+    $form = new Kronolith_Form_EditCalendar($vars, $calendar);
+} catch (Horde_Exception_NotFound $e) {
+    $notification->push(_("The calendar could not be found."), 'horde.error');
+    $default->redirect();
+}
 
 // Execute if the form is valid.
 if ($owner && $form->validate($vars)) {

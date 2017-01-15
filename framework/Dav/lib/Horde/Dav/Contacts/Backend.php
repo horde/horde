@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2013-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2013-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsd.
@@ -66,19 +66,14 @@ class Horde_Dav_Contacts_Backend extends Backend\AbstractBackend
     }
 
     /**
-     * Updates an addressbook's properties
+     * Updates properties for an address book.
      *
-     * See Sabre\DAV\IProperties for a description of the mutations array, as
-     * well as the return value.
-     *
-     * @param mixed $addressBookId
-     * @param array $mutations
-     * @see Sabre\DAV\IProperties::updateProperties
-     * @return bool|array
+     * @param string $addressBookId
+     * @param \Sabre\DAV\PropPatch $propPatch
+     * @return void
      */
-    public function updateAddressBook($addressBookId, array $mutations)
+    public function updateAddressBook($addressBookId, \Sabre\DAV\PropPatch $propPatch) 
     {
-        return false;
     }
 
     /**

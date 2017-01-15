@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2001-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category  Horde
- * @copyright 2001-2015 Horde LLC
+ * @copyright 2001-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Core
  */
@@ -23,7 +23,7 @@
  * @author    Chuck Hagenbuch <chuck@horde.org>
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2001-2015 Horde LLC
+ * @copyright 2001-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Core
  */
@@ -995,6 +995,9 @@ class Horde_Core_Prefs_Ui
 
         $new_from = $identity->getValue('from_addr');
         if (!empty($conf['user']['verify_from_addr']) &&
+            empty($new_from)) {
+            $notification->push(Horde_Core_Translation::t("The e-mail field cannot be empty."), 'horde.error');
+        } elseif (!empty($conf['user']['verify_from_addr']) &&
             ($current_from != $new_from) &&
             !in_array($new_from, $from_addresses)) {
             try {

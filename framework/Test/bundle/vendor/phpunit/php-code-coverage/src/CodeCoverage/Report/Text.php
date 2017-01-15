@@ -13,13 +13,7 @@
  *
  * The output gets put into a text file our written to the CLI.
  *
- * @category   PHP
- * @package    CodeCoverage
- * @author     Sebastian Bergmann <sebastian@phpunit.de>
- * @copyright  Sebastian Bergmann <sebastian@phpunit.de>
- * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
- * @link       http://github.com/sebastianbergmann/php-code-coverage
- * @since      Class available since Release 1.1.0
+ * @since Class available since Release 1.1.0
  */
 class PHP_CodeCoverage_Report_Text
 {
@@ -119,12 +113,12 @@ class PHP_CodeCoverage_Report_Text
         $padding = max(array_map('strlen', array($classes, $methods, $lines)));
 
         if ($this->showOnlySummary) {
-            $title = 'Code Coverage Report Summary:';
+            $title   = 'Code Coverage Report Summary:';
             $padding = max($padding, strlen($title));
 
             $output .= $this->format($colors['header'], $padding, $title);
         } else {
-            $date = date('  Y-m-d H:i:s', $_SERVER['REQUEST_TIME']);
+            $date  = date('  Y-m-d H:i:s', $_SERVER['REQUEST_TIME']);
             $title = 'Code Coverage Report:';
 
             $output .= $this->format($colors['header'], $padding, $title);
@@ -157,8 +151,9 @@ class PHP_CodeCoverage_Report_Text
                 $classMethods           = 0;
 
                 foreach ($class['methods'] as $method) {
-                    if ($method['executableLines'] == 0)
+                    if ($method['executableLines'] == 0) {
                         continue;
+                    }
 
                     $classMethods++;
                     $classStatements        += $method['executableLines'];
@@ -196,7 +191,6 @@ class PHP_CodeCoverage_Report_Text
         foreach ($classCoverage as $fullQualifiedPath => $classInfo) {
             if ($classInfo['statementsCovered'] != 0 ||
                 $this->showUncoveredFiles) {
-
                 if ($showColors) {
                     $methodColor = $this->getCoverageColor($classInfo['methodsCovered'], $classInfo['methodCount']);
                     $linesColor  = $this->getCoverageColor($classInfo['statementsCovered'], $classInfo['statementCount']);
@@ -216,10 +210,11 @@ class PHP_CodeCoverage_Report_Text
     protected function getCoverageColor($numberOfCoveredElements, $totalNumberOfElements)
     {
         $coverage = PHP_CodeCoverage_Util::percent(
-            $numberOfCoveredElements, $totalNumberOfElements
+            $numberOfCoveredElements,
+            $totalNumberOfElements
         );
 
-        if ($coverage > $this->highLowerBound) {
+        if ($coverage >= $this->highLowerBound) {
             return $this->colors['green'];
         } elseif ($coverage > $this->lowUpperBound) {
             return $this->colors['yellow'];
@@ -233,7 +228,10 @@ class PHP_CodeCoverage_Report_Text
         $format = '%' . $presicion . 's';
 
         return PHP_CodeCoverage_Util::percent(
-            $numberOfCoveredElements, $totalNumberOfElements, true, true
+            $numberOfCoveredElements,
+            $totalNumberOfElements,
+            true,
+            true
         ) .
         ' (' . sprintf($format, $numberOfCoveredElements) . '/' .
         sprintf($format, $totalNumberOfElements) . ')';

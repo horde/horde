@@ -8,7 +8,7 @@
  *                                  present.
  *   - wsdl: TODO
  *
- * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL-2). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl.
@@ -36,6 +36,9 @@ if ((!empty($_SERVER['CONTENT_TYPE']) &&
    (stripos($_SERVER['REQUEST_URI'], 'autodiscover/autodiscover.xml') !== false)) {
     /* ActiveSync Request */
     $conf['cookie']['path'] = '/Microsoft-Server-ActiveSync';
+    // Avoid session timeout errors for short max_time values and potentially
+    // long running EAS ping requests.
+    $conf['session']['max_time'] = 0;
     $serverType = 'ActiveSync';
     $nocompress = true;
     $session_control = 'none';
@@ -43,6 +46,7 @@ if ((!empty($_SERVER['CONTENT_TYPE']) &&
 } elseif (!empty($_SERVER['PATH_INFO']) ||
           in_array($_SERVER['REQUEST_METHOD'], array('DELETE', 'PROPFIND', 'PUT', 'OPTIONS', 'REPORT'))) {
     $serverType = 'Webdav';
+    $session_control = 'none';
 } elseif (!empty($_SERVER['CONTENT_TYPE'])) {
     if (strpos($_SERVER['CONTENT_TYPE'], 'application/vnd.syncml+xml') !== false) {
         $serverType = 'Syncml';
@@ -68,6 +72,7 @@ if ((!empty($_SERVER['CONTENT_TYPE']) &&
     $serverType = 'Phpgw';
 } else {
     $serverType = 'Webdav';
+    $session_control = 'none';
 }
 
 /* Initialize Horde environment. */

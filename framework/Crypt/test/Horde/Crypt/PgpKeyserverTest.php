@@ -12,17 +12,25 @@
 class Horde_Crypt_PgpKeyserverTest extends Horde_Test_Case
 {
     protected $_ks;
+    protected $_gnupg;
 
     protected function setUp()
     {
-        if (!is_executable('/usr/bin/gpg')) {
-            $this->markTestSkipped('GPG binary not found at /usr/bin/gpg.');
+        $c = self::getConfig('CRYPTPGP_TEST_CONFIG', __DIR__);
+        $this->_gnupg = isset($c['gnupg'])
+            ? $c['gnupg']
+            : '/usr/bin/gpg';
+
+        if (!is_executable($this->_gnupg)) {
+            $this->markTestSkipped(sprintf(
+                'GPG binary not found at %s.',
+                $this->_gnupg
+            ));
         }
 
         $this->_ks = new Horde_Crypt_Pgp_Keyserver(
             Horde_Crypt::factory('Pgp', array(
-                'program' => '/usr/bin/gpg',
-                'temp' => sys_get_temp_dir()
+                'program' => $this->_gnupg
             ))
         );
     }
@@ -32,7 +40,7 @@ class Horde_Crypt_PgpKeyserverTest extends Horde_Test_Case
         try {
             $this->_ks->get('4DE5B969');
         } catch (Horde_Crypt_Exception $e) {
-            if (strpos($e->getMessage(), 'Operation timed out') === 0) {
+            if ($e->getPrevious() instanceof Horde_Http_Exception) {
                 $this->markTestSkipped($e->getMessage());
             } else {
                 throw $e;
@@ -48,7 +56,7 @@ class Horde_Crypt_PgpKeyserverTest extends Horde_Test_Case
                 $this->_ks->getKeyID('jan@horde.org')
             );
         } catch (Horde_Crypt_Exception $e) {
-            if (strpos($e->getMessage(), 'Operation timed out') === 0) {
+            if ($e->getPrevious() instanceof Horde_Http_Exception) {
                 $this->markTestSkipped($e->getMessage());
             } else {
                 throw $e;
@@ -56,4 +64,25 @@ class Horde_Crypt_PgpKeyserverTest extends Horde_Test_Case
         }
     }
 
+    public function testBrokenKeyserver()
+    {
+        $ks = new Horde_Crypt_Pgp_Keyserver(
+            Horde_Crypt::factory('Pgp', array(
+                'program' => $this->_gnupg
+            )),
+            array('keyserver' => 'http://pgp.key-server.io')
+        );
+        try {
+            $this->assertEquals(
+                '4DE5B969',
+                $ks->getKeyID('jan@horde.org')
+            );
+        } catch (Horde_Crypt_Exception $e) {
+            if ($e->getPrevious() instanceof Horde_Http_Exception) {
+                $this->markTestSkipped($e->getMessage());
+            } else {
+                throw $e;
+            }
+        }
+    }
 }

@@ -2,10 +2,10 @@
 /**
  * The Vilma script to add/edit aliases.
  *
- * Copyright 2003-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you did
- * did not receive this file, see http://cvs.horde.org/co.php/vilma/LICENSE.
+ * did not receive this file, see http://www.horde.org/licenses/bsd.
  *
  * @author Daniel Collins <horde_dev@argentproductions.com>
  */
@@ -17,7 +17,7 @@ $vilma = Horde_Registry::appInit('vilma');
 if (!Vilma::hasPermission($domain)) {
     throw new Horde_Exception_AuthenticationFailure();
 }
-$vars = Variables::getDefaultVariables();
+$vars = Horde_Variables::getDefaultVariables();
 
 /* If the form is submitted, $vars['mode'] will be set. Catch this and process
  * the submission so that the displayed form accurately indicates the result of

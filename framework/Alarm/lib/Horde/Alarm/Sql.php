@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2007-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -19,7 +19,7 @@
  *
  * @author    Jan Schneider <jan@horde.org>
  * @category  Horde
- * @copyright 2007-2015 Horde LLC
+ * @copyright 2007-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
  * @package   Alarm
  */
@@ -82,7 +82,7 @@ class Horde_Alarm_Sql extends Horde_Alarm
         }
 
         try {
-            $result = $this->_db->selectAll($query, $values);
+            $result = $this->_db->select($query, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Alarm_Exception(
                 Horde_Alarm_Translation::t("Server error when querying database.")
@@ -109,7 +109,7 @@ class Horde_Alarm_Sql extends Horde_Alarm
                          $this->_params['table']);
 
         try {
-            $result = $this->_db->selectAll($query);
+            $result = $this->_db->select($query);
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Alarm_Exception(
                 Horde_Alarm_Translation::t("Server error when querying database.")

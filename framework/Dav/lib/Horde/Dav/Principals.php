@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2013-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2013-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsd.
@@ -122,12 +122,11 @@ class Horde_Dav_Principals extends DAVACL\PrincipalBackend\AbstractBackend
      * Updates one ore more webdav properties on a principal.
      *
      * @param string $path
-     * @param array $mutations
-     * @return array|bool
+     * @param \Sabre\DAV\PropPatch $propPatch
+     * @return void
      */
-    public function updatePrincipal($path, $mutations)
+    public function updatePrincipal($path, \Sabre\DAV\PropPatch $propPatch)
     {
-        return false;
     }
 
     /**
@@ -136,9 +135,10 @@ class Horde_Dav_Principals extends DAVACL\PrincipalBackend\AbstractBackend
      *
      * @param string $prefixPath
      * @param array $searchProperties
+     * @param string $test
      * @return array
      */
-    public function searchPrincipals($prefixPath, array $searchProperties)
+    public function searchPrincipals($prefixPath, array $searchProperties, $test = 'allof')
     {
         return array();
     }

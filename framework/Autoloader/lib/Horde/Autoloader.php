@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2008-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category  Horde
- * @copyright 2008-2015 Horde LLC
+ * @copyright 2008-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Autoloader
  */
@@ -20,7 +20,7 @@
  * @author    Bob Mckee <bmckee@bywires.com>
  * @author    Chuck Hagenbuch <chuck@horde.org>
  * @category  Horde
- * @copyright 2008-2015 Horde LLC
+ * @copyright 2008-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Autoloader
  */
@@ -63,7 +63,7 @@ class Horde_Autoloader
     {
         if (($path = $this->mapToPath($className)) &&
             $this->_include($path)) {
-            $className = strtolower($className);
+            $className = $this->_lower($className);
             if (isset($this->_callbacks[$className])) {
                 call_user_func($this->_callbacks[$className]);
             }
@@ -94,7 +94,7 @@ class Horde_Autoloader
      */
     public function addCallback($class, $callback)
     {
-        $this->_callbacks[strtolower($class)] = $callback;
+        $this->_callbacks[$this->_lower($class)] = $callback;
     }
 
     /**
@@ -138,6 +138,22 @@ class Horde_Autoloader
     protected function _fileExists($path)
     {
         return file_exists($path);
+    }
+
+    /**
+     * Locale independant strtolower() implementation.
+     *
+     * @param string $string The string to convert to lowercase.
+     *
+     * @return string  The lowercased string, based on ASCII encoding.
+     */
+    protected function _lower($string)
+    {
+        $language = setlocale(LC_CTYPE, 0);
+        setlocale(LC_CTYPE, 'C');
+        $string = strtolower($string);
+        setlocale(LC_CTYPE, $language);
+        return $string;
     }
 
 }

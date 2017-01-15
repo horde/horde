@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 1999-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL-2). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl.
@@ -27,8 +27,9 @@ $view->addHelper('Text');
 $view->action = Horde::url('admin/cmdshell.php');
 $view->command = trim(Horde_Util::getFormData('cmd'));
 $view->title = $title;
-
+$view->session = $session;
 if ($view->command) {
+    $session->checkToken(Horde_Util::getPost('token'));
     $cmds = explode("\n", $view->command);
     $out = array();
 

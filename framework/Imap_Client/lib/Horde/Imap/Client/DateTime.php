@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2012-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category  Horde
- * @copyright 2012-2015 Horde LLC
+ * @copyright 2012-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Imap_Client
  */
@@ -18,7 +18,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2012-2015 Horde LLC
+ * @copyright 2012-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Imap_Client
  */
@@ -33,6 +33,19 @@ class Horde_Imap_Client_DateTime extends DateTime
                      in_array(PHP_VERSION, array('5.4.29', '5.5.13'));
         $tz = new DateTimeZone('UTC');
 
+        /* Bug #14381 Catch malformed offset - which doesn't cause
+           DateTime to throw exception. */
+        if (substr(rtrim($time), -5) === ' 0000') {
+            $time = substr(trim($time), 0, strlen(trim($time)) - 5) . ' +0000';
+            try {
+                if ($bug_67118) {
+                    new DateTime($time, $tz);
+                }
+                parent::__construct($time, $tz);
+                return;
+            } catch (Exception $e) {}
+        }
+
         try {
             if ($bug_67118) {
                 new DateTime($time, $tz);
@@ -40,6 +53,21 @@ class Horde_Imap_Client_DateTime extends DateTime
             parent::__construct($time, $tz);
             return;
         } catch (Exception $e) {}
+
+        /* Check for malformed day-of-week parts, usually incorrectly
+         *  localized. E.g. Fr, 15 Apr 2016 15:15:09 +0000 */
+        if (!preg_match("/^(Mon|Tue|Wed|Thu|Fri|Sat|Sun),/", $time)) {
+            $time = preg_replace("/^(\S*,)/", '', $time, 1, $i);
+            if ($i) {
+                try {
+                    if ($bug_67118) {
+                        new DateTime($time, $tz);
+                    }
+                    parent::__construct($time, $tz);
+                    return;
+                } catch (Exception $e) {}
+            }
+        }
 
         /* Bug #5717 - Check for UT vs. UTC. */
         if (substr(rtrim($time), -3) === ' UT') {

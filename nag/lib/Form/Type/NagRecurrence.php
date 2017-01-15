@@ -62,7 +62,8 @@ class Nag_Form_Type_NagRecurrence extends Horde_Form_Type
         case Horde_Date_Recurrence::RECUR_MONTHLY_DATE:
             switch ($vars->recur_monthly_scheme) {
             case Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY:
-                $recurrence->setRecurType(Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY);
+            case Horde_Date_Recurrence::RECUR_MONTHLY_LAST_WEEKDAY:
+                $recurrence->setRecurType($vars->recur_monthly_scheme);
             case Horde_Date_Recurrence::RECUR_MONTHLY_DATE:
                 $recurrence->setRecurInterval(
                     $vars->recur_monthly
@@ -78,6 +79,10 @@ class Nag_Form_Type_NagRecurrence extends Horde_Form_Type
 
         case Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY:
             $recurrence->setRecurInterval($vars->get('recur_week_of_month_interval', 1));
+            break;
+
+        case Horde_Date_Recurrence::RECUR_MONTHLY_LAST_WEEKDAY:
+            $recurrence->setRecurInterval($vars->get('recur_last_week_of_month_interval', 1));
             break;
 
         case Horde_Date_Recurrence::RECUR_YEARLY_DATE:
@@ -107,12 +112,16 @@ class Nag_Form_Type_NagRecurrence extends Horde_Form_Type
             break;
         }
 
-        if ($vars->exceptions) {
-            foreach ($vars->exceptions as $exception) {
-                $recurrence->addException(
-                    (int)substr($exception, 0, 4),
-                    (int)substr($exception, 4, 2),
-                    (int)substr($exception, 6, 2));
+        foreach (array('exceptions', 'completions') as $what) {
+            if ($vars->$what) {
+                foreach ($vars->$what as $date) {
+                    list($year, $month, $mday) = sscanf($date, '%04d%02d%02d');
+                    if ($what == 'exceptions') {
+                        $recurrence->addException($year, $month, $mday);
+                    } else {
+                        $recurrence->addCompletion($year, $month, $mday);
+                    }
+                }
             }
         }
 

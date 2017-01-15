@@ -22,17 +22,18 @@
   <email>chuck@horde.org</email>
   <active>false</active>
  </lead>
- <date>2015-02-27</date>
+ <date>2016-12-13</date>
  <version>
-  <release>4.3.0</release>
-  <api>4.2.0</api>
+  <release>5.0.0</release>
+  <api>5.0.0</api>
  </version>
  <stability>
   <release>beta</release>
-  <api>alpha</api>
+  <api>beta</api>
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Add support for monthly recurrence on last weekday (Request #1922).
 * [jan] Keep original file names when PUTing tasks via WebDAV.
 * [mjr] Add an "actual" field for tracking actual time spent.
 * [mjr] Add support for task organizer and iTip functionality.
@@ -423,6 +424,8 @@
     <file name="13_nag_upgrade_parents.php" role="horde" />
     <file name="14_nag_upgrade_search.php" role="horde" />
     <file name="15_nag_upgrade_addorganizer.php" role="horde" />
+    <file name="16_nag_upgrade_addactual.php" role="horde" />
+    <file name="17_nag_upgrade_task_parent.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="task">
     <file name="complete.php" role="horde" />
@@ -463,6 +466,7 @@
     <dir name="view">
      <file name="task.inc" role="horde" />
     </dir> <!-- /templates/view -->
+    <file name=".htaccess" role="horde" />
     <file name="javascript_defs.php" role="horde" />
     <file name="list.html.php" role="horde" />
     <file name="quick.inc" role="horde" />
@@ -574,7 +578,7 @@
    <package>
     <name>content</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.3</min>
+    <min>2.0.5</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -609,7 +613,7 @@
    <package>
     <name>Horde_Date</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.1.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -960,6 +964,8 @@
    <install as="nag/migration/13_nag_upgrade_parents.php" name="migration/13_nag_upgrade_parents.php" />
    <install as="nag/migration/14_nag_upgrade_search.php" name="migration/14_nag_upgrade_search.php" />
    <install as="nag/migration/15_nag_upgrade_addorganizer.php" name="migration/15_nag_upgrade_addorganizer.php" />
+   <install as="nag/migration/16_nag_upgrade_addactual.php" name="migration/16_nag_upgrade_addactual.php" />
+   <install as="nag/migration/17_nag_upgrade_task_parent.php" name="migration/17_nag_upgrade_task_parent.php" />
    <install as="nag/task/complete.php" name="task/complete.php" />
    <install as="nag/task/save.php" name="task/save.php" />
    <install as="nag/tasklists/create.php" name="tasklists/create.php" />
@@ -967,6 +973,7 @@
    <install as="nag/tasklists/edit.php" name="tasklists/edit.php" />
    <install as="nag/tasklists/index.html" name="tasklists/index.html" />
    <install as="nag/tasks/index.php" name="tasks/index.php" />
+   <install as="nag/templates/.htaccess" name="templates/.htaccess" />
    <install as="nag/templates/javascript_defs.php" name="templates/javascript_defs.php" />
    <install as="nag/templates/list.html.php" name="templates/list.html.php" />
    <install as="nag/templates/quick.inc" name="templates/quick.inc" />
@@ -1572,7 +1579,7 @@
    <date>2014-07-01</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-*
+* 
    </notes>
   </release>
   <release>
@@ -1596,7 +1603,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-07-08</date>
+   <date>2014-08-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Don&apos;t include external tasks with WebDAV task list.
@@ -1614,9 +1621,12 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-08-04</date>
+   <date>2014-10-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Export nicer display names for users and resources via WebDAV.
+* [jan] Export custom owner and read-only properties via WebDAV.
+* [jan] Fix search attribute of SQL shares on Oracle.
 * [mjr] Fix adding a new tasklist to the syncronized tasklists (Bug #13642).
 * [jan] Pass current start date of recurring tasks to dynamic interface.
 * [jan] Fix setting task list name for external tasks.
@@ -1634,7 +1644,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-11-18</date>
+   <date>2014-11-21</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix issue with initially creating nag_shares table.
@@ -1642,14 +1652,169 @@
   </release>
   <release>
    <version>
-    <release>4.3.0</release>
+    <release>4.2.4</release>
     <api>4.2.0</api></version>
    <stability>
-    <release>beta</release>
-    <api>alpha</api></stability>
-   <date>2015-02-27</date>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-02-10</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Don&apos;t list task lists without SHOW permissions (Bug #13837).
+* [jan] Use consistent checkbox.
+* [jan] Don&apos;t allow deletion of tasks with sub-tasks (Bug #13809).
+* [jan] Don&apos;t allow completion of tasks with incomplete sub-tasks and vice versa.
+* [jan] Don&apos;t wipe out whole task lists when PUTing individual tasks via WebDAV.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.5</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-06-18</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Fix positioning of dialog windows.
+* [jan] Don&apos;t delete existing completions when editing a recurring task.
+* [jan] Only delete the last completion when toggling a recurring task to incomplete.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.6</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-10-21</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Update Italian translation.
+* [mjr] Fix indentation level when searching (Bug #14138).
+* [mjr] Remove object reference from Content when object is deleted (Bug #14112).
+* [mjr] Remove tags from Content when tagged object is deleted (Bug #14112).
+* [jan] Fix linking to external tasks from smartmobile view.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.7</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-02-02</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Enforce child tasks must be completed before parent tasks in edit form (Bug #12308).
+* [jan] Use access rules compatible with both Apache 2.2 and 2.4.
+* [mjr] Fix possible fatal error due to tasks created with an alarm but no due date (Bug #14214).
+* [mjr] Fix storage of parent field when using Kolab driver (Bug #14197, mike.gabriel@das-netzwerkteam.de).
+* [mjr] Fix switching tab/filters when using Kolab driver (Bug #14196, mike.gabriel@das-netzwerkteam.de).
+* [mjr] Fix moving subtasks to another tasklist when parent task is moved (Bug #14209).
+* [mjr] Fix fatal error when saving tasks when system shares are present in certain cases.
+* [mjr] Return recurring tasks via listTimeObjects API (Bug #14137).
+* [mjr] Prevent orphaning tasks via the API.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.8</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-03-21</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Honor date_format prefs in Task form (Bug #14287).
+* [jan] Update Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.9</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-04-05</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Fix regression with date picker in tasks form (Bug #14303).
+* [mjr] Fix handling EAS categories/tags.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.10</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-07-01</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix handling of start and due dates when synching via EAS.
+* [jan] Avoid fatal errors if tasks don&apos;t have a UID.
+* [mjr] Fix parsing certain date formats (Bug #14348).
+* [jan] Fix deleteing alarms when completing a task.
+* [mjr] Require Horde_Perms::DELETE for including a tasklist as sync-able.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.11</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-09-06</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix sorting recurring tasks by due date (Bug #14403).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.12</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-11-08</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix fatal error caused by regression in sorting recurring tasks with due dates (Bug #14504).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.13</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-11-08</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Fix sorting by due date with PHP &lt; 5.5 (Bug #14507).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.0</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2016-12-13</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Add support for monthly recurrence on last weekday (Request #1922).
 * [jan] Keep original file names when PUTing tasks via WebDAV.
 * [mjr] Add an "actual" field for tracking actual time spent.
 * [mjr] Add support for task organizer and iTip functionality.

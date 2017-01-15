@@ -14,7 +14,7 @@
 /**
  * A Horde_Injector:: based Turba_Driver:: factory.
  *
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (APL). If you
  * did not receive this file, see http://www.horde.org/licenses/apl.html.
@@ -63,6 +63,9 @@ class Turba_Factory_Driver extends Horde_Core_Factory_Base
         }
 
         if (!isset($this->_instances[$key])) {
+            if (!isset($srcConfig['type'])) {
+                throw new Turba_Exception(sprintf(_("The address book \"%s\" does not exist."), $srcName));
+            }
             $class = 'Turba_Driver_' . ucfirst(basename($srcConfig['type']));
             if (!class_exists($class)) {
                 throw new Turba_Exception(sprintf(_("Unable to load the definition of %s."), $class));
@@ -88,10 +91,6 @@ class Turba_Factory_Driver extends Horde_Core_Factory_Base
 
             case 'Turba_Driver_Kolab':
                 $srcConfig['params']['storage'] = $this->_injector->getInstance('Horde_Kolab_Storage');
-                break;
-
-            case 'Turba_Driver_Facebook':
-                $srcConfig['params']['storage'] = $this->_injector->getInstance('Horde_Service_Facebook');
                 break;
             }
 

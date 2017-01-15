@@ -15,7 +15,7 @@
 /**
  * A folder stamp that includes a list of UIDs.
  *
- * Copyright 2011-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -36,19 +36,22 @@ implements Horde_Kolab_Storage_Folder_Stamp
     /** The next UID status */
     const UIDNEXT = 'uidnext';
 
+    /** The sync token  */
+    const TOKEN = 'token';
+
     /**
      * The folder status.
      *
      * @var array
      */
-    private $_status;
+    protected $_status;
 
     /**
      * The list of backend object IDs.
      *
      * @var array
      */
-    private $_ids;
+    protected $_ids;
 
     /**
      * Constructor.
@@ -93,6 +96,19 @@ implements Horde_Kolab_Storage_Folder_Stamp
     }
 
     /**
+     * Return the sync token.
+     *
+     * @return string|boolen The token provided by the IMAP client, or false
+     *                       if unavailable.
+     */
+    public function getToken()
+    {
+        return !empty($this->_status[self::TOKEN])
+            ? $this->_status[self::TOKEN]
+            : false;
+    }
+
+    /**
      * Indicate if there was a complete folder reset.
      *
      * @param Horde_Kolab_Storage_Folder_Stamp_Uids The stamp to compare against.
@@ -102,7 +118,7 @@ implements Horde_Kolab_Storage_Folder_Stamp
      */
     public function isReset(Horde_Kolab_Storage_Folder_Stamp $stamp)
     {
-        if (!$stamp instanceOf Horde_Kolab_Storage_Folder_Stamp_Uids) {
+        if (!$stamp instanceof Horde_Kolab_Storage_Folder_Stamp_Uids) {
             throw new Horde_Kolab_Storage_Exception('This stamp can only be compared against stamps of its own type.');
         }
         if ($this->uidvalidity() != $stamp->uidvalidity()) {
@@ -122,7 +138,7 @@ implements Horde_Kolab_Storage_Folder_Stamp
      */
     public function getChanges(Horde_Kolab_Storage_Folder_Stamp $stamp)
     {
-        if (!$stamp instanceOf Horde_Kolab_Storage_Folder_Stamp_Uids) {
+        if (!$stamp instanceof Horde_Kolab_Storage_Folder_Stamp_Uids) {
             throw new Horde_Kolab_Storage_Exception('This stamp can only be compared against stamps of its own type.');
         }
         return array(
@@ -163,10 +179,11 @@ implements Horde_Kolab_Storage_Folder_Stamp
     public function __toString()
     {
         return sprintf(
-            "uidvalidity: %s\nuidnext: %s\nuids: %s",
+            "uidvalidity: %s\nuidnext: %s\nuids: %s\ntoken: %s",
             $this->uidvalidity(),
             $this->uidnext(),
-            join(', ', $this->ids())
+            join(', ', $this->ids()),
+            !empty($this->_status[self::TOKEN]) ? $this->_status[self::TOKEN] : '--'
         );
     }
 }

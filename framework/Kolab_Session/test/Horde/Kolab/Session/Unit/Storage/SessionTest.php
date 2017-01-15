@@ -14,7 +14,7 @@
 /**
  * Test the session based storage driver.
  *
- * Copyright 2009-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -40,19 +40,19 @@ class Horde_Kolab_Session_Unit_Storage_SessionTest extends Horde_Kolab_Session_T
     public function testLoad()
     {
         $_SESSION['kolab_session'] = array('data');
-        $storage = new Horde_Kolab_Session_Storage_Session($session);
+        $storage = new Horde_Kolab_Session_Storage_Session();
         $this->assertEquals($storage->load(), array('data'));
     }
 
     public function testEmpty()
     {
-        $storage = new Horde_Kolab_Session_Storage_Session($session);
+        $storage = new Horde_Kolab_Session_Storage_Session();
         $this->assertEquals($storage->load(), array());
     }
 
     public function testSave()
     {
-        $storage = new Horde_Kolab_Session_Storage_Session($session);
+        $storage = new Horde_Kolab_Session_Storage_Session();
         $storage->save(array('data'));
         $this->assertEquals($_SESSION['kolab_session'], array('data'));
     }

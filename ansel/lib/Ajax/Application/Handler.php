@@ -13,7 +13,7 @@
 /**
  * Defines the AJAX actions used in Ansel.
  *
- * Copyright 2012-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -459,8 +459,13 @@ class Ansel_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
             throw new Ansel_Exception(sprintf("Class definition for %s not found.", $class));
         }
 
+        $params = array();
+        foreach ($this->vars as $key => $value) {
+            $params[$key] = $value;
+        }
+
         try {
-            $view = new $class($this->vars);
+            $view = new $class($params);
             return new Horde_Core_Ajax_Response_Raw($view->html(), 'text/javascript');
         } catch (Exception $e) {}
     }

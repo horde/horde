@@ -9,7 +9,7 @@
  *
  *   Created   :   01.10.2007
  *
- *   � Zarafa Deutschland GmbH, www.zarafaserver.de
+ *   © Zarafa Deutschland GmbH, www.zarafaserver.de
  *   This file is distributed under GPL-2.0.
  *   Consult COPYING file for details
  *
@@ -18,7 +18,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2012-2015 Horde LLC (http://www.horde.org)
+ * @copyright 2012-2017 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -30,7 +30,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2012-2015 Horde LLC (http://www.horde.org)
+ * @copyright 2012-2017 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  * @internal
@@ -208,8 +208,13 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_S
         foreach($itemoperations as $value) {
             switch($value['type']) {
             case 'fetch' :
-                switch(strtolower($value['store'])) {
+                switch(Horde_String::lower($value['store'])) {
                 case 'mailbox' :
+                    // Yes, even though this is a "mailbox" store, this is
+                    // how EAS identifies calendar attachments too since
+                    // they are not documentLibrary items. The backend
+                    // needs to be able to identify where to get the
+                    // item from based solely on the filereference.
                     $this->_encoder->startTag(self::ITEMOPERATIONS_FETCH);
                     if (isset($value['airsyncbasefilereference'])) {
                         // filereference is already in the backend serverid format

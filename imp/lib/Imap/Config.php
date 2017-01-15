@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2013-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2013-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
- * @copyright 2013-2015 Horde LLC
+ * @copyright 2013-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -16,7 +16,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2013-2015 Horde LLC
+ * @copyright 2013-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  *
@@ -193,7 +193,7 @@ class IMP_Imap_Config implements Serializable
      */
     public function __get($name)
     {
-        global $injector;
+        global $injector, $registry;
 
         if (in_array($name, $this->_aoptions)) {
             /* Array options. */
@@ -271,6 +271,15 @@ class IMP_Imap_Config implements Serializable
             $out = array('backend' => $ob);
             break;
 
+        case 'id':
+            $out = array_merge(array(
+                'name' => 'IMP',
+                'support-url' => 'http://www.horde.org/imp/',
+                'vendor' => 'Horde',
+                'version' => $registry->getVersion('imp')
+            ), $out);
+            break;
+
         case 'import_limit':
             $out = is_null($out)
                 ? 2500
@@ -279,9 +288,11 @@ class IMP_Imap_Config implements Serializable
 
         case 'innocent_params':
             $p = $this->spam;
-            $out = isset($p['innocent'])
-                ? $p['innocent']
-                : array();
+            $out = array_merge(array(
+                'digest_limit_msgs' => 1,
+                'digest_limit_size' => 10485760, // Default is 10 MB
+                'email_format' => 'digest'
+            ), isset($p['innocent']) ? $p['innocent'] : array());
             break;
 
         case 'maildomain':
@@ -322,9 +333,11 @@ class IMP_Imap_Config implements Serializable
 
         case 'spam_params':
             $p = $this->spam;
-            $out = isset($p['spam'])
-                ? $p['spam']
-                : array();
+            $out = array_merge(array(
+                'digest_limit_msgs' => 1,
+                'digest_limit_size' => 10485760, // Default is 10 MB
+                'email_format' => 'digest'
+            ), isset($p['spam']) ? $p['spam'] : array());
             break;
 
         case 'thread':
@@ -334,8 +347,8 @@ class IMP_Imap_Config implements Serializable
             break;
 
         case 'user_special_mboxes':
-            $out = (isset($out[IMP_Mailbox::MBOX_USERSPECIAL]) && is_array($out[IMP_Mailbox::MBOX_USERSPECIAL]))
-                ? $out[IMP_Mailbox::MBOX_USERSPECIAL]
+            $out = (isset($this->_config['special_mboxes'][IMP_Mailbox::MBOX_USERSPECIAL]) && is_array($this->_config['special_mboxes'][IMP_Mailbox::MBOX_USERSPECIAL]))
+                ? $this->_config['special_mboxes'][IMP_Mailbox::MBOX_USERSPECIAL]
                 : array();
             break;
         }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2009-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -43,7 +43,7 @@
  *
  * @category  Horde
  * @copyright 2002 Richard Heyes
- * @copyright 2009-2015 Horde LLC
+ * @copyright 2009-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Imap_Client
  */
@@ -64,6 +64,7 @@
  *   - RFC 3206: AUTH/SYS response codes
  *   - RFC 4616: AUTH=PLAIN
  *   - RFC 5034: POP3 SASL
+ *   - RFC 5802: AUTH=SCRAM-SHA-1
  *   - RFC 6856: UTF8, LANG
  * </pre>
  *
@@ -71,7 +72,7 @@
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
  * @copyright 2002 Richard Heyes
- * @copyright 2009-2015 Horde LLC
+ * @copyright 2009-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Imap_Client
  */
@@ -354,7 +355,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             // RFC 5034: CRAM-MD5
             // CRAM-SHA1 & CRAM-SHA256 supported by Courier SASL library
             $challenge = $this->_sendLine('AUTH ' . $method);
-            $response = base64_encode($username . ' ' . hash_hmac(strtolower(substr($method, 5)), base64_decode(substr($challenge['resp'], 2)), $password, true));
+            $response = base64_encode($username . ' ' . hash_hmac(Horde_String::lower(substr($method, 5)), base64_decode(substr($challenge['resp'], 2)), $password, true));
             $this->_sendLine($response, array(
                 'debug' => sprintf('[AUTH Response (username: %s)]', $username)
             ));
@@ -466,6 +467,50 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             $this->_sendLine('PASS ' . $password, array(
                 'debug' => 'PASS [Password]'
             ));
+            break;
+
+        case 'SCRAM-SHA-1':
+            $scram = new Horde_Imap_Client_Auth_Scram(
+                $username,
+                $password,
+                'SHA1'
+            );
+
+            $c1 = $this->_sendLine(
+                'AUTH ' . $method . ' ' . base64_encode($scram->getClientFirstMessage())
+            );
+
+            $sr1 = base64_decode(substr($c1['resp'], 2));
+            if (!$scram->parseServerFirstMessage($sr1)) {
+                throw new Horde_Imap_Client_Exception(
+                    Horde_Imap_Client_Translation::r("Authentication failed."),
+                    Horde_Imap_Client_Exception::LOGIN_AUTHENTICATIONFAILED
+                );
+            }
+
+            $c2 = $this->_sendLine(
+                base64_encode($scram->getClientFinalMessage())
+            );
+
+            $sr2 = base64_decode(substr($c2['resp'], 2));
+            if (!$scram->parseServerFirstMessage($sr)) {
+                throw new Horde_Imap_Client_Exception(
+                    Horde_Imap_Client_Translation::r("Authentication failed."),
+                    Horde_Imap_Client_Exception::LOGIN_AUTHENTICATIONFAILED
+                );
+
+                /* This means authentication passed, according to the server,
+                 * but the server signature is incorrect. This indicates that
+                 * server verification has failed. Immediately disconnect from
+                 * the server, since this is a possible security issue. */
+                $this->logout();
+                throw new Horde_Imap_Client_Exception(
+                    Horde_Imap_Client_Translation::r("Server failed verification check."),
+                    Horde_Imap_Client_Exception::LOGIN_SERVER_VERIFICATION_FAILED
+                );
+            }
+
+            $this->_sendLine('');
             break;
 
         default:
@@ -1482,9 +1527,9 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             $pos = strpos($text, ' ', 2);
             $end_pos = strpos($text, ']', 2);
             if ($pos > $end_pos) {
-                $ret->code = strtoupper(substr($text, 1, $end_pos - 1));
+                $ret->code = Horde_String::upper(substr($text, 1, $end_pos - 1));
             } else {
-                $ret->code = strtoupper(substr($text, 1, $pos - 1));
+                $ret->code = Horde_String::upper(substr($text, 1, $pos - 1));
                 $ret->data = substr($text, $pos + 1, $end_pos - $pos - 1);
             }
             $ret->text = trim(substr($text, $end_pos + 1));

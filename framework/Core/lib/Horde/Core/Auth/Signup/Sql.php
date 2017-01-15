@@ -2,7 +2,7 @@
 /**
  * The SQL implementation of Horde_Core_Auth_Signup.
  *
- * Copyright 2008-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, see http://opensource.org/licenses/lgpl-2.1.php
@@ -116,10 +116,7 @@ class Horde_Core_Auth_Signup_Sql extends Horde_Core_Auth_Signup_Base
         $query = 'SELECT * FROM ' . $this->_params['table'] .
                  ' ORDER BY signup_date';
 
-        $result = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Db')->create('horde', 'signup')->selectAll($query);
-        if (empty($result)) {
-            return array();
-        }
+        $result = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Db')->create('horde', 'signup')->select($query);
 
         $signups = array();
         foreach ($result as $signup) {

@@ -4,7 +4,7 @@
  *
  * PHP Version 5
  *
- * Copyright (c) 2008-2013, Manuel Pichler <mapi@pdepend.org>.
+ * Copyright (c) 2008-2015, Manuel Pichler <mapi@pdepend.org>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -36,7 +36,7 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @copyright 2008-2013 Manuel Pichler. All rights reserved.
+ * @copyright 2008-2015 Manuel Pichler. All rights reserved.
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
  */
 
@@ -67,7 +67,7 @@ use PDepend\Source\AST\ASTNamespace;
  * This analyzer is based on the following metric set:
  * - http://www.aivosto.com/project/help/pm-oo-misc.html
  *
- * @copyright 2008-2013 Manuel Pichler. All rights reserved.
+ * @copyright 2008-2015 Manuel Pichler. All rights reserved.
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
  */
 class HierarchyAnalyzer extends AbstractAnalyzer implements AnalyzerFilterAware, AnalyzerNodeAware, AnalyzerProjectAware
@@ -154,13 +154,12 @@ class HierarchyAnalyzer extends AbstractAnalyzer implements AnalyzerFilterAware,
     /**
      * Processes all {@link \PDepend\Source\AST\ASTNamespace} code nodes.
      *
-     * @param \PDepend\Source\AST\ASTNamespace[] $namespaces
+     * @param  \PDepend\Source\AST\ASTNamespace[] $namespaces
      * @return void
      */
     public function analyze($namespaces)
     {
         if ($this->nodeMetrics === null) {
-
             $this->fireStartAnalyzer();
 
             // Init node metrics
@@ -198,7 +197,7 @@ class HierarchyAnalyzer extends AbstractAnalyzer implements AnalyzerFilterAware,
      * for the given <b>$node</b> instance. If there are no metrics for the
      * requested node, this method will return an empty <b>array</b>.
      *
-     * @param \PDepend\Source\AST\ASTArtifact $artifact
+     * @param  \PDepend\Source\AST\ASTArtifact $artifact
      * @return array(string=>mixed)
      */
     public function getNodeMetrics(ASTArtifact $artifact)
@@ -212,7 +211,7 @@ class HierarchyAnalyzer extends AbstractAnalyzer implements AnalyzerFilterAware,
     /**
      * Calculates metrics for the given <b>$class</b> instance.
      *
-     * @param \PDepend\Source\AST\ASTClass $class
+     * @param  \PDepend\Source\AST\ASTClass $class
      * @return void
      */
     public function visitClass(ASTClass $class)
@@ -253,7 +252,7 @@ class HierarchyAnalyzer extends AbstractAnalyzer implements AnalyzerFilterAware,
     /**
      * Calculates metrics for the given <b>$function</b> instance.
      *
-     * @param \PDepend\Source\AST\ASTFunction $function
+     * @param  \PDepend\Source\AST\ASTFunction $function
      * @return void
      */
     public function visitFunction(ASTFunction $function)
@@ -266,7 +265,7 @@ class HierarchyAnalyzer extends AbstractAnalyzer implements AnalyzerFilterAware,
     /**
      * Calculates metrics for the given <b>$interface</b> instance.
      *
-     * @param \PDepend\Source\AST\ASTInterface $interface
+     * @param  \PDepend\Source\AST\ASTInterface $interface
      * @return void
      */
     public function visitInterface(ASTInterface $interface)
@@ -285,7 +284,7 @@ class HierarchyAnalyzer extends AbstractAnalyzer implements AnalyzerFilterAware,
     /**
      * Visits a method node.
      *
-     * @param \PDepend\Source\AST\ASTMethod $method
+     * @param  \PDepend\Source\AST\ASTMethod $method
      * @return void
      */
     public function visitMethod(ASTMethod $method)
@@ -298,7 +297,7 @@ class HierarchyAnalyzer extends AbstractAnalyzer implements AnalyzerFilterAware,
     /**
      * Calculates metrics for the given <b>$namespace</b> instance.
      *
-     * @param \PDepend\Source\AST\ASTNamespace $namespace
+     * @param  \PDepend\Source\AST\ASTNamespace $namespace
      * @return void
      */
     public function visitNamespace(ASTNamespace $namespace)

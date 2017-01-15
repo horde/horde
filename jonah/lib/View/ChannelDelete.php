@@ -2,7 +2,7 @@
 /**
  * View for handling deletion of channels.
  *
- * Copyright 2003-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://cvs.horde.org/co.php/jonah/LICENSE
@@ -43,7 +43,7 @@ class Jonah_View_ChannelDelete extends Jonah_View_Base
         }
 
         /* Check permissions and deny if not allowed. */
-        if (!Jonah::checkPermissions(Jonah::typeToPermName($channel['channel_type']), Horde_Perms::DELETE, $channel_id)) {
+        if (!Jonah::checkPermissions('channels', Horde_Perms::DELETE, array($channel_id))) {
             $notification->push(_("You are not authorised for this action."), 'horde.warning');
             throw new Horde_Exception_AuthenticationFailure();
         }

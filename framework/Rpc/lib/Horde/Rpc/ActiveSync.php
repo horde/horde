@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2009-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -109,7 +109,7 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
                         throw new Horde_Exception('Unknown Error');
                     }
                 } catch (Horde_Exception_AuthenticationFailure $e) {
-                    $this->_sendAuthenticationFailedHeaders();
+                    $this->_sendAuthenticationFailedHeaders($e);
                     exit;
                 } catch (Horde_Exception $e) {
                     $this->_handleError($e);
@@ -123,7 +123,7 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
                     throw new Horde_Exception('Unknown Error');
                 }
             } catch (Horde_Exception_AuthenticationFailure $e) {
-                $this->_sendAuthenticationFailedHeaders();
+                $this->_sendAuthenticationFailedHeaders($e);
                 exit;
             } catch (Horde_Exception $e) {
                 $this->_handleError($e);
@@ -155,7 +155,7 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
                header('HTTP/1.1 400 Invalid Request');
                exit;
             } catch (Horde_Exception_AuthenticationFailure $e) {
-                $this->_sendAuthenticationFailedHeaders();
+                $this->_sendAuthenticationFailedHeaders($e);
                 exit;
             } catch (Horde_Exception $e) {
                 $this->_logger->err(sprintf(
@@ -172,7 +172,7 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
 
     /**
      * Override the authorize method and always return true. The ActiveSync
-     * server classes handld authentication directly since we need complete
+     * server classes handle authentication directly since we need complete
      * control over what responses are sent.
      *
      * @return boolean
@@ -231,10 +231,21 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
 
     /**
      * Send 401 Unauthorized headers.
+     *
+     * @param Horde_Exception_AuthenticationFailure
      */
-    protected function _sendAuthenticationFailedHeaders()
+    protected function _sendAuthenticationFailedHeaders($e)
     {
-        header('HTTP/1.1 401 Unauthorized');
-        header('WWW-Authenticate: Basic realm="Horde ActiveSync"');
+        switch ($e->getCode()) {
+        case Horde_ActiveSync_Status::SYNC_NOT_ALLOWED:
+        case Horde_ActiveSync_Status::DEVICE_BLOCKED_FOR_USER:
+            $this->_logger->err('Sending HTTP 403 Forbidden header response.');
+            header('HTTP/1.1 403 Forbidden');
+            break;
+        default:
+        $this->_logger->err('Sending HTTP 401 Unauthorized header response.');
+            header('HTTP/1.1 401 Unauthorized');
+            header('WWW-Authenticate: Basic realm="Horde ActiveSync"');
+        }
     }
 }

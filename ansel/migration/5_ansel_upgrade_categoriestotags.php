@@ -2,7 +2,7 @@
 /**
  * Move tags from ansel to content storage.
  *
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -34,7 +34,7 @@ class AnselUpgradeCategoriesToTags extends Horde_Db_Migration_Base
         if (in_array('attribute_category', array_keys($cols))) {
             $sql = 'SELECT share_id, attribute_category, share_owner FROM ansel_shares';
             $this->announce('Migrating gallery categories.');
-            $rows = $this->_connection->selectAll($sql);
+            $rows = $this->_connection->select($sql);
             foreach ($rows as $row) {
                 $this->_tagger->tag(
                     $row['share_owner'],

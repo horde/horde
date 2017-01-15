@@ -3,14 +3,14 @@
  * Horde_Mapi_Util_Timezone::
  *
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @copyright 2009-2015 Horde LLC (http://www.horde.org)
+ * @copyright 2009-2017 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   Mapi_Utils
  */
 /**
  * Utility functions for dealing with Microsoft MAPI Timezone format.
  *
- * Copyright 2009-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -19,7 +19,7 @@
  * blob inspired by code in the Tine20 Project (http://tine20.org).
  *
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @copyright 2009-2015 Horde LLC (http://www.horde.org)
+ * @copyright 2009-2017 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   Mapi_Utils
  */
@@ -55,7 +55,7 @@ class Horde_Mapi_Timezone
      *     WORD wYear;
      *     WORD wMonth;
      *     WORD wDayOfWeek;
-     *     WORD wDay;
+     *     WORD wDay; (Used as week number)
      *     WORD wHour;
      *     WORD wMinute;
      *     WORD wSecond;
@@ -252,12 +252,20 @@ class Horde_Mapi_Timezone
     /**
      * Attempt to guess the timezone identifier from the $offsets array.
      *
+     * Since it's impossible to know exactly which olson timezone name a
+     * specific set of offsets represent (multiple timezone names may be
+     * described by the same offsets for any given year) we allow passing an
+     * expected timezone. If this matches one of the timezones that matches the
+     * offsets, we return that. Otherwise, we attempt to get the full timezone
+     * name from Horde_Date and if that fails, return the abbreviated timezone
+     * name of the first timezone that matches the provided offsets.
+     *
      * @param array|string $offsets     The timezone to check. Either an array
      *                                  of offsets or an activesynz tz blob.
      * @param string $expectedTimezone  The expected timezone. If not empty, and
      *                                  present in the results, will return.
      *
-     * @return string  The timezone identifier
+     * @return string  The timezone identifier.
      */
     public function getTimezone($offsets, $expectedTimezone = null)
     {
@@ -265,7 +273,7 @@ class Horde_Mapi_Timezone
         if (isset($timezones[$expectedTimezone])) {
             return $expectedTimezone;
         } else {
-            return current($timezones);
+            return Horde_Date::getTimezoneAlias(current($timezones));
         }
     }
 
@@ -308,7 +316,7 @@ class Horde_Mapi_Timezone
     /**
      * Set default value for $_startDate.
      *
-     * Tries to guess the correct startDate depending on object property falls
+     * Tries to guess the correct startDate depending on object property. Falls
      * back to current date.
      *
      * @param array $offsets  Offsets may be avaluated for a given start year

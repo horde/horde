@@ -2,7 +2,7 @@
 /**
  * The Agora script merge two threads.
  *
- * Copyright 2003-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -47,7 +47,7 @@ foreach ($messages->getThreads(0, false, 'message_subject', 0) as $thread) {
     $threads_list[$thread['message_id']] = $thread['message_subject'];
 }
 
-$v = &$form->addVariable(_("With Thread: "), 'new_thread_id', 'enum', true, false, null, array($threads_list));
+$v = $form->addVariable(_("With Thread: "), 'new_thread_id', 'enum', true, false, null, array($threads_list));
 $v->setAction($action_submit);
 $v->setOption('trackchange', true);
 

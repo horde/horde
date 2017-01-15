@@ -460,7 +460,7 @@ class Horde_Form_Type_phone extends Horde_Form_Type {
                 $message = Horde_Form_Translation::t("This field is required.");
                 return false;
             }
-        } elseif (!preg_match('/^\+?[\d()\-\/. ]*$/', $value)) {
+        } elseif (!preg_match('/^\+?[\d()\-\/.\s]*$/u', $value)) {
             $message = Horde_Form_Translation::t("You must enter a valid phone number, digits only with an optional '+' for the international dialing prefix.");
             return false;
         }
@@ -1544,6 +1544,9 @@ class Horde_Form_Type_email extends Horde_Form_Type {
      */
     function splitEmailAddresses($string)
     {
+        // Trim off any trailing delimiters
+        $string = trim($string, $this->_delimiters . ' ');
+
         $quotes = array('"', "'");
         $emails = array();
         $pos = 0;
@@ -3015,10 +3018,15 @@ class Horde_Form_Type_monthdayyear extends Horde_Form_Type {
         /* If any component is empty consider it a bad date and return the
          * default. */
         if ($this->emptyDateArray($value) == 1) {
-            return $var->getDefault();
+            $value = $var->getDefault();
+        }
+
+        // If any component is empty consider it a bad date and return null
+        if ($this->emptyDateArray($value) != 0) {
+            return null;
         } else {
             $date = $this->getDateOb($value);
-            if ($this->_format_in === null) {
+            if (!strlen($this->_format_in)) {
                 return $date->timestamp();
             } else {
                 return $date->strftime($this->_format_in);
@@ -3115,7 +3123,18 @@ class Horde_Form_Type_datetime extends Horde_Form_Type {
          * default. */
         $value = $var->getValue($vars);
         if ($this->emptyDateArray($value) == 1 || $this->emptyTimeArray($value)) {
-            $info = $var->getDefault();
+            $this->_getInfo($var->getDefault(), $info);
+            return;
+        }
+
+        $this->_getInfo($value, $info);
+    }
+
+    function _getInfo($value, &$info)
+    {
+        // If any component is empty consider it a bad date and return null 
+        if ($this->emptyDateArray($value) != 0 || $this->emptyTimeArray($value)) {
+            $info = null;
             return;
         }
 

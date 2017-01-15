@@ -94,14 +94,14 @@ class Whups_Form_TicketDetails extends Horde_Form
                 case 'owner':
                     $owner = $this->addVariable(
                         _("Owners"), 'user_id_owner', 'email', false, false,
-                         null, array(true, true));
+                         null, array(true, $GLOBALS['conf']['prefs']['obfuscate_email']));
                     $owner->setDefault(_("Unassigned"));
                     break;
 
                 case 'requester':
                     $this->addVariable(
                         _("Requester"), 'user_id_requester', 'email', false,
-                         false, null, array(false, true));
+                         false, null, array(false, $GLOBALS['conf']['prefs']['obfuscate_email']));
                     break;
 
                 case 'created':

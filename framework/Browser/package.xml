@@ -16,9 +16,9 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2014-11-18</date>
+ <date>2016-12-16</date>
  <version>
-  <release>2.0.9</release>
+  <release>2.0.14</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -847,7 +847,73 @@ Initial packaging
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-11-18</date>
+   <date>2015-04-28</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix issues with certain locales like Turkish.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.10</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-07-31</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix Composer file.
+* [jan] Updated UK translation.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.11</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-02-01</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Don&apos;t set the empty_file_input_value quirk for recent Safari versions (Bug #14207).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.12</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-03-21</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Update Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.13</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-12-16</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Update German translation.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.14</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-12-16</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

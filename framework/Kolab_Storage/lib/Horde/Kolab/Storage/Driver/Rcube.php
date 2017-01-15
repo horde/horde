@@ -1,23 +1,21 @@
 <?php
 /**
- * A Roundcube Imap based Kolab storage driver.
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
- * PHP version 5
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Kolab
  * @package  Kolab_Storage
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
+ * @deprecated This class is not maintained and will be removed in future
+ *             releases.
  */
 
 /**
  * A Roundcube Imap based Kolab storage driver.
- *
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Kolab
  * @package  Kolab_Storage
@@ -441,7 +439,8 @@ extends Horde_Kolab_Storage_Driver_Base
      *
      * @param string $folder Check the status of this folder.
      *
-     * @return array  An array that contains 'uidvalidity' and 'uidnext'.
+     * @return array  An array that contains 'uidvalidity', 'uidnext', and
+     *                'token'.
      */
     public function status($folder)
     {
@@ -464,7 +463,8 @@ extends Horde_Kolab_Storage_Driver_Base
         }
         return array(
             'uidvalidity' => $result['UIDVALIDITY'],
-            'uidnext' => $result['UIDNEXT']
+            'uidnext' => $result['UIDNEXT'],
+            'token' => false
         );
     }
 
@@ -875,7 +875,7 @@ extends Horde_Kolab_Storage_Driver_Base
 
         if (is_array($data)) {
             for ($i = 0, $cnt = count($data); $i < $cnt; ++$i) {
-                $params[strtolower($data[$i])] = $data[++$i];
+                $params[Horde_String::lower($data[$i])] = $data[++$i];
             }
         }
 

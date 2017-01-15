@@ -2,7 +2,7 @@
 /**
  * Create Hermes base tables
  *
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -82,17 +82,13 @@ class HermesBaseTables extends Horde_Db_Migration_Base
     }
 
     /**
-     * Downgrade
-     *
+     * Downgrade.
      */
     public function down()
     {
-        $tableList = $this->tables();
-
         $this->dropTable('hermes_timeslices');
         $this->dropTable('hermes_jobtypes');
         $this->dropTable('hermes_clientjobs');
         $this->dropTable('hermes_deliverables');
     }
-
 }

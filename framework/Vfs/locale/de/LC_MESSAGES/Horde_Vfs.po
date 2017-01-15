@@ -1,5 +1,5 @@
 # German translations for Horde_VFS module.
-# Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+# Copyright 2010-2017 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_VFS module.
 # Automatically generated, 2010.
 #
@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_VFS\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-01-29 11:43+0100\n"
+"POT-Creation-Date: 2016-08-08 15:58+0200\n"
 "PO-Revision-Date: 2010-10-13 01:27+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde/Vfs/Smb.php:586
+#: lib/Horde/Vfs/Smb.php:623
 msgid "No such file"
 msgstr "Datei nicht gefunden"
 
-#: lib/Horde/Vfs/Smb.php:589
+#: lib/Horde/Vfs/Smb.php:626
 msgid "Permission Denied"
 msgstr "Zugriff verweigert"
 

@@ -1,5 +1,5 @@
 {
     "require": {
-        "sabberworm/php-css-parser": "@dev"
+        "sabberworm/php-css-parser": "7.*"
     }
 }

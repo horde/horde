@@ -1,18 +1,17 @@
 <?php
 /**
- * Horde_ActiveSync_Imap_Adapter::
- *
  * @license   http://www.horde.org/licenses/gpl GPLv2
  *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2012-2015 Horde LLC (http://www.horde.org)
+ * @copyright 2012-2017 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
+
 /**
- * Horde_ActiveSync_Imap_Adapter:: Contains methods for communicating with
+ * Horde_ActiveSync_Imap_Adapter contains methods for communicating with
  * Horde's Horde_Imap_Client library.
  *
  * @license   http://www.horde.org/licenses/gpl GPLv2
@@ -20,12 +19,17 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2012-2015 Horde LLC (http://www.horde.org)
+ * @copyright 2012-2017 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
 class Horde_ActiveSync_Imap_Adapter
 {
+    /**
+     * Maximum number of of messages to fetch from the IMAP server in one go.
+     */
+    const MAX_FETCH = 2000;
+
     /**
      * @var Horde_ActiveSync_Interface_ImapFactory
      */
@@ -61,7 +65,7 @@ class Horde_ActiveSync_Imap_Adapter
         Horde_Mime_Part::$defaultCharset = 'UTF-8';
         Horde_Mime_Headers::$defaultCharset = 'UTF-8';
         $this->_procid = getmypid();
-        $this->_logger = new Horde_Support_Stub();
+        $this->_logger = new Horde_Log_Logger(new Horde_Log_Handler_Null());
     }
 
     /**
@@ -71,6 +75,8 @@ class Horde_ActiveSync_Imap_Adapter
      * @param string|stream $msg   The message
      * @param array $flags         Any flags to set on the newly appended message.
      *
+     * @return integer|boolean     The imap uid of the appended message or false
+     *                             on failure. @since 2.37.0
      * @throws new Horde_ActiveSync_Exception, Horde_ActiveSync_Exception_FolderGone
      */
     public function appendMessage($folderid, $msg, array $flags = array())
@@ -78,13 +84,18 @@ class Horde_ActiveSync_Imap_Adapter
         $message = array(array('data' => $msg, 'flags' => $flags));
         $mbox = new Horde_Imap_Client_Mailbox($folderid);
         try {
-            $this->_getImapOb()->append($mbox, $message);
+            $ids = $this->_getImapOb()->append($mbox, $message);
         } catch (Horde_Imap_Client_Exception $e) {
             if (!$this->_mailboxExists($folderid)) {
                 throw new Horde_ActiveSync_Exception_FolderGone();
             }
             throw new Horde_ActiveSync_Exception($e);
         }
+        if (!count($ids->ids)) {
+            return false;
+        }
+
+        return array_pop($ids->ids);
     }
 
     /**
@@ -110,7 +121,7 @@ class Horde_ActiveSync_Imap_Adapter
             $imap->subscribeMailbox($mbox, true);
         } catch (Horde_Imap_Client_Exception $e) {
             if ($e->getCode() == Horde_Imap_Client_Exception::ALREADYEXISTS) {
-                $this->_logger(sprintf(
+                $this->_logger->warn(sprintf(
                     '[%s] Mailbox %s already exists, subscribing to it.',
                     $this->_procid,
                     $name
@@ -186,7 +197,11 @@ class Horde_ActiveSync_Imap_Adapter
         // the client of the error.
         $search_q = new Horde_Imap_Client_Search_Query();
         $search_q->ids($ids_obj);
-        $fetch_res = $imap->search($mbox, $search_q);
+        try {
+            $fetch_res = $imap->search($mbox, $search_q);
+        } catch (Horde_Imap_Client_Exception $e) {
+            throw new Horde_ActiveSync_Exception($e);
+        }
         if ($fetch_res['count'] != count($uids)) {
             $ids_obj = $fetch_res['match'];
         }
@@ -262,6 +277,8 @@ class Horde_ActiveSync_Imap_Adapter
      *                DEFAULT: false (Do not fetch headers).
      *
      * @return array  An array of Horde_ActiveSync_Imap_Message objects.
+     * @todo This should be renamed to getImapMessages since we can now accept
+     *       an array of $uids.
      */
     public function getImapMessage($mailbox, $uid, array $options = array())
     {
@@ -288,14 +305,15 @@ class Horde_ActiveSync_Imap_Adapter
      *
      * @param Horde_ActiveSync_Folder_Imap $folder  The folder object.
      * @param array $options                        Additional options:
-     *  - sincedate: (integer)  Timestamp of earliest message to retrieve.
-     *               DEFAULT: 0 (Don't filter).
-     *  - protocolversion: (float)  EAS protocol version to support.
-     *                     DEFAULT: none REQUIRED
-     *  - softdelete: (boolean)  If true, calculate SOFTDELETE data.
-     *                           @since 2.8.0 @todo Rename this to something
-     *                           more appropriate now that it's not just for
-     *                           triggering SOFTDELETE.
+     *  - sincedate: (integer)       Timestamp of earliest message to retrieve.
+     *                               DEFAULT: 0 (Don't filter).
+     *  - protocolversion: (float)   EAS protocol version to support.
+     *                               DEFAULT: none REQUIRED
+     *  - softdelete: (boolean)      If true, calculate SOFTDELETE data.
+     *                               @since 2.8.0
+     *  - refreshfilter: (boolean)   If true, force refresh the query to reflect
+     *                               changes in FILTERTYPE (using the sincedate)
+     *                               @since 2.28.0
      *
      * @return Horde_ActiveSync_Folder_Imap  The folder object, containing any
      *                                       change instructions for the device.
@@ -308,6 +326,8 @@ class Horde_ActiveSync_Imap_Adapter
     {
         $imap = $this->_getImapOb();
         $mbox = new Horde_Imap_Client_Mailbox($folder->serverid());
+        $flags = array();
+        $search_uids = array();
 
         // Note: non-CONDSTORE servers will return a highestmodseq of 0
         $status_flags = Horde_Imap_Client::STATUS_HIGHESTMODSEQ |
@@ -322,291 +342,43 @@ class Horde_ActiveSync_Imap_Adapter
             // If we can't status the mailbox, assume it's gone.
             throw new Horde_ActiveSync_Exception_FolderGone($e);
         }
+
         $this->_logger->info(sprintf(
             '[%s] IMAP status: %s',
             $this->_procid,
             serialize($status))
         );
 
-        $modseq = $status[Horde_ActiveSync_Folder_Imap::HIGHESTMODSEQ];
-        if ($modseq && $folder->modseq() > 0 && ($folder->modseq() < $modseq || !empty($options['softdelete']))) {
-            $this->_logger->info(sprintf(
-                '[%s] CONDSTORE and CHANGES', $this->_procid));
+        // UIDVALIDITY
+        if ($folder->uidnext() != 0) {
             $folder->checkValidity($status);
-            $query = new Horde_Imap_Client_Fetch_Query();
-            $query->modseq();
-            $query->flags();
-            $query->headerText(array('peek' => true));
-            try {
-                $fetch_ret = $imap->fetch($mbox, $query, array(
-                    'changedsince' => $folder->modseq()
-                ));
-            } catch (Horde_Imap_Client_Exception $e) {
-                $this->_logger->err($e->getMessage());
-                throw new Horde_ActiveSync_Exception($e);
-            }
+        }
 
-            $changes = array();
-            $flags = array();
-            $categories = array();
-
-            // "Normal" changes.
-            $this->_buildModSeqChanges($changes, $flags, $categories, $fetch_ret, $options, $modseq);
-
-            // Check for mail outside of the time restriction if the filtertype
-            // changed.
-            if ($options['softdelete']) {
-                $this->_logger->info(sprintf(
-                    '[%s] Checking for additional messages within the new FilterType parameters.',
-                    $this->_procid));
-                if ($fetch_ret = $this->_refreshFilterQuery($folder, $options, $mbox, false)) {
-                    $this->_buildModSeqChanges($changes, $flags, $categories, $fetch_ret, $options, $modseq);
-                } else {
-                    $this->_logger->info(sprintf(
-                        '[%s] Found NO additional messages.',
-                        $this->_procid));
-                }
-            }
-
-            // Set the changes in the folder object.
-            $folder->setChanges($changes, $flags, $categories, !empty($options['softdelete']));
-
-            // Check for deleted.
-            try {
-                $deleted = $imap->vanished(
-                    $mbox,
-                    $folder->modseq(),
-                    array('ids' => new Horde_Imap_Client_Ids($folder->messages())));
-            } catch (Horde_Imap_Client_Excetion $e) {
-                $this->_logger->err($e->getMessage());
-                throw new Horde_ActiveSync_Exception($e);
-            }
-            $folder->setRemoved($deleted->ids);
-
-            // Check for SOFTDELETE messages.
-            if (!empty($options['softdelete']) && !empty($options['sincedate'])) {
-                $this->_logger->info(sprintf(
-                    '[%s] Polling for SOFTDELETE in %s before %d',
-                    $this->_procid, $folder->serverid(), $options['sincedate']));
-                $search_ret = $this->_buildSearchQuery($folder, $options, $mbox, true);
-                if ($search_ret['count']) {
-                    $this->_logger->info(sprintf(
-                        '[%s] Found %d messages to SOFTDELETE.',
-                        $this->_procid, count($search_ret['match']->ids)));
-                    $folder->setSoftDeleted($search_ret['match']->ids);
-                } else {
-                     $this->_logger->info(sprintf(
-                        '[%s] Found NO messages to SOFTDELETE.',
-                        $this->_procid));
-                }
-                $folder->setSoftDeleteTimes($options['sincedate'], time());
-            }
-
+        $current_modseq = $status[Horde_ActiveSync_Folder_Imap::HIGHESTMODSEQ];
+        $modseq_corrupted = $folder->modseq() > $current_modseq;
+        if ($modseq_corrupted || (($current_modseq && $folder->modseq() > 0) &&
+            (($folder->modseq() < $current_modseq) ||
+             !empty($options['softdelete']) || !empty($options['refreshfilter'])))) {
+            $strategy = new Horde_ActiveSync_Imap_Strategy_Modseq(
+                $this->_imap, $status, $folder, $this->_logger
+            );
+            $folder = $strategy->getChanges($options);
         } elseif ($folder->uidnext() == 0) {
-            $this->_logger->info(sprintf(
-                '[%s] INITIAL SYNC', $this->_procid));
-            $query = new Horde_Imap_Client_Search_Query();
-            if (!empty($options['sincedate'])) {
-                $query->dateSearch(
-                    new Horde_Date($options['sincedate']),
-                    Horde_Imap_Client_Search_Query::DATE_SINCE);
-            }
-            $search_ret = $imap->search(
-                $mbox,
-                $query,
-                array('results' => array(Horde_Imap_Client::SEARCH_RESULTS_MATCH)));
-            if ($modseq && $folder->modseq() > 0 && $search_ret['count']) {
-                $folder->setChanges($search_ret['match']->ids, array());
-            } elseif (count($search_ret['match']->ids)) {
-                $query = new Horde_Imap_Client_Fetch_Query();
-                $query->flags();
-                $fetch_ret = $imap->fetch($mbox, $query, array('ids' => $search_ret['match']));
-                foreach ($fetch_ret as $uid => $data) {
-                    $flags[$uid] = array(
-                        'read' => (array_search(Horde_Imap_Client::FLAG_SEEN, $data->getFlags()) !== false) ? 1 : 0
-                    );
-                    if (($options['protocolversion']) > Horde_ActiveSync::VERSION_TWOFIVE) {
-                        $flags[$uid]['flagged'] = (array_search(Horde_Imap_Client::FLAG_FLAGGED, $data->getFlags()) !== false) ? 1 : 0;
-                    }
-                }
-                $folder->setChanges($search_ret['match']->ids, $flags);
-            }
-        } elseif ($modseq == 0) {
-            $this->_logger->info(sprintf(
-                '[%s] NO CONDSTORE or per mailbox MODSEQ. minuid: %s, total_messages: %s',
-                $this->_procid, $folder->minuid(), $status['messages']));
-            $folder->checkValidity($status);
-            $query = new Horde_Imap_Client_Search_Query();
-            if (!empty($options['sincedate'])) {
-                $query->dateSearch(
-                    new Horde_Date($options['sincedate']),
-                    Horde_Imap_Client_Search_Query::DATE_SINCE);
-            }
-            try {
-                $search_ret = $imap->search(
-                    $mbox,
-                    $query,
-                    array('results' => array(Horde_Imap_Client::SEARCH_RESULTS_MATCH)));
-            } catch (Horde_Imap_Client_Exception $e) {
-                $this->_logger->err($e->getMessage());
-                throw new Horde_ActiveSync_Exception($e);
-            }
-
-            if (count($search_ret['match']->ids)) {
-                // Update flags.
-                $query = new Horde_Imap_Client_Fetch_Query();
-                $query->flags();
-                try {
-                    $fetch_ret = $imap->fetch($mbox, $query, array('ids' => $search_ret['match']));
-                } catch (Horde_Imap_Client_Exception $e) {
-                    $this->_logger->err($e->getMessage());
-                    throw new Horde_ActiveSync_Exception($e);
-                }
-                foreach ($fetch_ret as $uid => $data) {
-                    $flags[$uid] = array(
-                        'read' => (array_search(Horde_Imap_Client::FLAG_SEEN, $data->getFlags()) !== false) ? 1 : 0
-                    );
-                    if (($options['protocolversion']) > Horde_ActiveSync::VERSION_TWOFIVE) {
-                        $flags[$uid]['flagged'] = (array_search(Horde_Imap_Client::FLAG_FLAGGED, $data->getFlags()) !== false) ? 1 : 0;
-                    }
-                }
-                $folder->setChanges($search_ret['match']->ids, $flags);
-            }
-            $folder->setRemoved($imap->vanished($mbox, null, array('ids' => new Horde_Imap_Client_Ids($folder->messages())))->ids);
-        } elseif ($modseq > 0 && $folder->modseq() == 0) {
-                throw new Horde_ActiveSync_Exception_StaleState('Transition to MODSEQ enabled server');
+            $strategy = new Horde_ActiveSync_Imap_Strategy_Initial(
+                $this->_imap, $status, $folder, $this->_logger
+            );
+            $folder = $strategy->getChanges($options);
+        } elseif ($current_modseq == 0) {
+            $strategy = new Horde_ActiveSync_Imap_Strategy_Plain(
+                $this->_imap, $status, $folder, $this->_logger
+            );
+            $folder = $strategy->getChanges($options);
+        } elseif ($current_modseq > 0 && $folder->modseq() == 0) {
+            throw new Horde_ActiveSync_Exception_StaleState('Transition to MODSEQ enabled server');
         }
         $folder->setStatus($status);
 
         return $folder;
-    }
-
-    /**
-     * Return messages that are now either within or outside of the current
-     * FILTERTYPE value.
-     *
-     * @param  Horde_ActiveSync_Folder_Imap $folder    The IMAP folder object.
-     * @param  array                        $options   Options array.
-     * @param  Horde_Imap_Client_Mailbox    $mbox      The current mailbox.
-     * @param  boolean                      $is_delete If true, return messages
-     *                                                 to SOFTDELETE.
-     *
-     * @return mixed Horde_Imap_Client_Fetch_Results | false if no message found.
-     */
-    protected function _refreshFilterQuery(
-        Horde_ActiveSync_Folder_Imap $folder, array $options, Horde_Imap_Client_Mailbox $mbox, $is_delete)
-    {
-        $search_ret = $this->_buildSearchQuery($folder, $options, $mbox, $is_delete);
-        if ($search_ret['count']) {
-            $this->_logger->info(sprintf(
-                '[%s] Found %d messages that are now outside FilterType.',
-                $this->_procid, count($search_ret['match']->ids)));
-            $query = new Horde_Imap_Client_Fetch_Query();
-            $query->modseq();
-            $query->flags();
-            $query->headerText(array('peek' => true));
-            try {
-                $fetch_ret = $this->_getImapOb()->fetch($mbox, $query, array(
-                    'ids' => $search_ret['match']
-                ));
-            } catch (Horde_Imap_Client_Exception $e) {
-                $this->_logger->err($e->getMessage());
-                throw new Horde_ActiveSync_Exception($e);
-            }
-
-            return $fetch_ret;
-        }
-
-        return false;
-    }
-
-    /**
-     * Return message UIDs that are now within the cureent FILTERTYPE value.
-     *
-     * @param  Horde_ActiveSync_Folder_Imap $folder    The IMAP folder object.
-     * @param  array                        $options   Options array.
-     * @param  Horde_Imap_Client_Mailbox    $mbox      The current mailbox.
-     * @param  boolean                      $is_delete If true, return messages
-     *                                                 to SOFTDELETE.
-     *
-     * @return Horde_Imap_Client_Search_Results
-     */
-    protected function _buildSearchQuery($folder, $options, $mbox, $is_delete)
-    {
-        $query = new Horde_Imap_Client_Search_Query();
-        $query->dateSearch(
-            new Horde_Date($options['sincedate']),
-            $is_delete
-                ? Horde_Imap_Client_Search_Query::DATE_BEFORE
-                : Horde_Imap_Client_Search_Query::DATE_SINCE
-        );
-        $query->ids(new Horde_Imap_Client_Ids($folder->messages()), !$is_delete);
-        try {
-            return $this->_getImapOb()->search(
-                $mbox,
-                $query,
-                array('results' => array(Horde_Imap_Client::SEARCH_RESULTS_MATCH)));
-        } catch (Horde_Imap_Client_Exception $e) {
-            $this->_logger->err($e->getMessage());
-            throw new Horde_ActiveSync_Exception($e);
-        }
-    }
-
-    /**
-     * Populates the changes, flags, and categories arrays with data from
-     * any messages added/changed on the IMAP server since the last poll.
-     *
-     * @param array &$changes                             Changes array.
-     * @param array &$flags                               Flags array.
-     * @param array &$categories                          Categories array.
-     * @param Horde_Imap_Client_Fetch_Results $fetch_ret  Fetch results.
-     * @param array $options                              Options array.
-     * @param integer $modseq                             Current MODSEQ.
-     */
-    protected function _buildModSeqChanges(
-        &$changes, &$flags, &$categories, $fetch_ret, $options, $modseq)
-    {
-        // Get custom flags to use as categories.
-        $msgFlags = $this->_getMsgFlags();
-
-        foreach ($fetch_ret as $uid => $data) {
-            if ($options['sincedate']) {
-                $since = new Horde_Date($options['sincedate']);
-                $headers = Horde_Mime_Headers::parseHeaders($data->getHeaderText());
-                try {
-                    $date = new Horde_Date($headers->getValue('Date'));
-                    if ($date->compareDate($since) <= -1) {
-                        // Ignore, it's out of the FILTERTYPE range.
-                        $this->_logger->info(sprintf(
-                            '[%s] Ignoring UID %s since it is outside of the FILTERTYPE (%s)',
-                            $this->_procid,
-                            $uid,
-                            $headers->getValue('Date')));
-                        continue;
-                    }
-                } catch (Horde_Date_Exception $e) {}
-            }
-
-            // Ensure no changes after $modseq sneak in
-            // (they will be caught on the next PING or SYNC).
-            if ($data->getModSeq() <= $modseq) {
-                $changes[] = $uid;
-                $flags[$uid] = array(
-                    'read' => (array_search(Horde_Imap_Client::FLAG_SEEN, $data->getFlags()) !== false) ? 1 : 0
-                );
-                if (($options['protocolversion']) > Horde_ActiveSync::VERSION_TWOFIVE) {
-                    $flags[$uid]['flagged'] = (array_search(Horde_Imap_Client::FLAG_FLAGGED, $data->getFlags()) !== false) ? 1 : 0;
-                }
-                if ($options['protocolversion'] > Horde_ActiveSync::VERSION_TWELVEONE) {
-                    $categories[$uid] = array();
-                    foreach ($data->getFlags() as $flag) {
-                        if (!empty($msgFlags[strtolower($flag)])) {
-                            $categories[$uid][] = $msgFlags[strtolower($flag)];
-                        }
-                    }
-                }
-            }
-        }
     }
 
     /**
@@ -763,6 +535,12 @@ class Horde_ActiveSync_Imap_Adapter
             throw new Horde_ActiveSync_Exception($e);
         }
 
+        $this->_logger->info(sprintf(
+            '[%s] IMAP status: %s',
+            $this->_procid,
+            serialize($status))
+        );
+
         // If we have per mailbox MODSEQ then we can pick up flag changes too.
         $modseq = $status[Horde_ActiveSync_Folder_Imap::HIGHESTMODSEQ];
         if ($modseq && $folder->modseq() > 0 && $folder->modseq() < $modseq) {
@@ -912,7 +690,7 @@ class Horde_ActiveSync_Imap_Adapter
         foreach ($categories as $category) {
             // Do our best to make sure the imap flag is a RFC 3501 compliant.
             $atom = new Horde_Imap_Client_Data_Format_Atom(strtr(Horde_String_Transliterate::toAscii($category), ' ', '_'));
-            $imapflag = strtolower($atom->stripNonAtomCharacters());
+            $imapflag = Horde_String::lower($atom->stripNonAtomCharacters());
             if (!empty($msgFlags[$imapflag])) {
                 $options['add'][] = $imapflag;
                 unset($msgFlags[$imapflag]);
@@ -1013,383 +791,27 @@ class Horde_ActiveSync_Imap_Adapter
         Horde_Imap_Client_Data_Fetch $data,
         $options = array())
     {
-        $version = empty($options['protocolversion']) ?
-            Horde_ActiveSync::VERSION_TWOFIVE :
-            $options['protocolversion'];
+        $version = $options['protocolversion'] = empty($options['protocolversion'])
+            ? Horde_ActiveSync::VERSION_TWOFIVE
+            : $options['protocolversion'];
 
         $imap_message = new Horde_ActiveSync_Imap_Message($this->_getImapOb(), $mbox, $data);
-        $eas_message = Horde_ActiveSync::messageFactory('Mail');
 
-        // Build To: data (POOMMAIL_TO has a max length of 32768).
-        $to = $imap_message->getToAddresses();
-        $eas_message->to = array_pop($to['to']);
-        foreach ($to['to'] as $to_atom) {
-            if (strlen($eas_message->to) + strlen($to_atom) > 32768) {
-                break;
-            }
-            $eas_message->to .= ',' . $to_atom;
-        }
-        $eas_message->displayto = implode(';', $to['displayto']);
-        if (empty($eas_message->displayto)) {
-            $eas_message->displayto = $eas_message->to;
-        }
-
-        // Ensure we don't send broken UTF8 data to the client. It makes clients
-        // angry. And we don't like angry clients.
-        $hdr_charset = $imap_message->getStructure()->getHeaderCharset();
-
-        // Fill in other header data
-        $eas_message->from = $imap_message->getFromAddress();
-        $eas_message->subject = Horde_ActiveSync_Utils::ensureUtf8($imap_message->getSubject(), $hdr_charset);
-        $eas_message->threadtopic = $eas_message->subject;
-        $eas_message->datereceived = $imap_message->getDate();
-        $eas_message->read = $imap_message->getFlag(Horde_Imap_Client::FLAG_SEEN);
-        $eas_message->cc = $imap_message->getCc();
-        $eas_message->reply_to = $imap_message->getReplyTo();
-
-        // Default to IPM.Note - may change below depending on message content.
-        $eas_message->messageclass = 'IPM.Note';
-
-        // Codepage id. MS recommends to always set to UTF-8 when possible.
-        // See http://msdn.microsoft.com/en-us/library/windows/desktop/dd317756%28v=vs.85%29.aspx
-        $eas_message->cpid = Horde_ActiveSync_Message_Mail::INTERNET_CPID_UTF8;
-
-        // Message importance. First try X-Priority, then Importance since
-        // Outlook sends the later.
-        if ($priority = $imap_message->getHeaders()->getValue('X-priority')) {
-            $priority = preg_replace('/\D+/', '', $priority);
-        } else {
-            $priority = $imap_message->getHeaders()->getValue('Importance');
-        }
-        $eas_message->importance = $this->_getEASImportance($priority);
-
-        // Get the body data.
-        $mbd = $imap_message->getMessageBodyDataObject($options);
-
-        if ($version == Horde_ActiveSync::VERSION_TWOFIVE) {
-            $eas_message->body = $mbd->plain['body']->stream;
-            $eas_message->bodysize = $mbd->plain['body']->length(true);
-            $eas_message->bodytruncated = $mbd->plain['truncated'];
-            $eas_message->attachments = $imap_message->getAttachments($version);
-        } else {
-            // Get the message body and determine original type.
-            if ($mbd->html) {
-                $eas_message->airsyncbasenativebodytype = Horde_ActiveSync::BODYPREF_TYPE_HTML;
-            } else {
-                $eas_message->airsyncbasenativebodytype = Horde_ActiveSync::BODYPREF_TYPE_PLAIN;
-            }
-            $airsync_body = Horde_ActiveSync::messageFactory('AirSyncBaseBody');
-            $body_type_pref = $mbd->getBodyTypePreference();
-
-            if ($body_type_pref == Horde_ActiveSync::BODYPREF_TYPE_MIME) {
-                $this->_logger->info(sprintf(
-                    '[%s] Sending MIME Message.', $this->_procid));
-                // ActiveSync *REQUIRES* all data sent to be in UTF-8, so we
-                // must convert the body parts to UTF-8. Unfortunately if the
-                // email is signed (or encrypted for that matter) we can't
-                // alter the data in anyway or the signature will not be
-                // verified, so we fetch the entire message and hope for the best.
-                if (!$imap_message->isSigned() && !$imap_message->isEncrypted()) {
-                    $mime = new Horde_Mime_Part();
-
-                    if ($mbd->plain) {
-                        $plain_mime = new Horde_Mime_Part();
-                        $plain_mime->setType('text/plain');
-                        $plain_mime->setContents($mbd->plain['body']->stream, array('usestream' => true));
-                        $plain_mime->setCharset('UTF-8');
-                    }
-
-                    if ($mbd->html) {
-                        $html_mime = new Horde_Mime_Part();
-                        $html_mime->setType('text/html');
-                        $html_mime->setContents($mbd->html['body']->stream, array('usestream' => true));
-                        $html_mime->setCharset('UTF-8');
-                    }
-
-                    // Sanity check the mime type
-                    if (!$mbd->html && !empty($plain_mime)) {
-                        $mime = $plain_mime;
-                    } elseif (!$mbd->plain && !empty($html_mime)) {
-                        $mime = $html_mime;
-                    } elseif (!empty($plain_mime) && !empty($html_mime)) {
-                        $mime->setType('multipart/alternative');
-                        $mime->addPart($plain_mime);
-                        $mime->addPart($html_mime);
-                    }
-
-                    // If we have attachments, create a multipart/mixed wrapper.
-                    if ($imap_message->hasAttachments()) {
-                        $base = new Horde_Mime_Part();
-                        $base->setType('multipart/mixed');
-                        $base->addPart($mime);
-                        $atc = $imap_message->getAttachmentsMimeParts();
-                        foreach ($atc as $atc_part) {
-                            $base->addPart($atc_part);
-                        }
-                        $eas_message->airsyncbaseattachments = $imap_message->getAttachments($version);
-                    } else {
-                        $base = $mime;
-                    }
-
-                    // Populate the EAS body structure with the MIME data, but
-                    // remove the Content-Type and Content-Transfer-Encoding
-                    // headers since we are building this ourselves.
-                    $headers = $imap_message->getHeaders();
-                    $headers->removeHeader('Content-Type');
-                    $headers->removeHeader('Content-Transfer-Encoding');
-                    $airsync_body->data = $base->toString(array(
-                        'headers' => $headers,
-                        'stream' => true)
-                    );
-                    $airsync_body->estimateddatasize = $base->getBytes();
-                } else {
-                    // Signed/Encrypted message - can't mess with it at all.
-                    $raw = new Horde_ActiveSync_Rfc822($imap_message->getFullMsg(true), false);
-                    $airsync_body->estimateddatasize = $raw->getBytes();
-                    $airsync_body->data = $raw->getString();
-                    $eas_message->airsyncbaseattachments = $imap_message->getAttachments($version);
-                }
-
-                $airsync_body->type = Horde_ActiveSync::BODYPREF_TYPE_MIME;
-
-                // MIME Truncation
-                // @todo Remove this sanity-check hack in 3.0. This is needed
-                // since truncationsize incorrectly defaulted to a
-                // MIME_TRUNCATION constant and could be cached in the sync-cache.
-                $ts = !empty($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_MIME]['truncationsize'])
-                    ? $options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_MIME]['truncationsize']
-                    : false;
-                $mime_truncation = (!empty($ts) && $ts > 9)
-                    ? $ts
-                    : (!empty($options['truncation']) && $options['truncation'] > 9
-                        ? $options['truncation']
-                        : false);
-
-                $this->_logger->info(sprintf(
-                    '[%s] Checking MIMETRUNCATION: %s, ServerData: %s',
-                    $this->_procid,
-                    $mime_truncation,
-                    $airsync_body->estimateddatasize));
-
-                if (!empty($mime_truncation) &&
-                    $airsync_body->estimateddatasize > $mime_truncation) {
-                    ftruncate($airsync_body->data, $mime_truncation);
-                    $airsync_body->truncated = '1';
-                } else {
-                    $airsync_body->truncated = '0';
-                }
-                $eas_message->airsyncbasebody = $airsync_body;
-            } elseif ($body_type_pref == Horde_ActiveSync::BODYPREF_TYPE_HTML) {
-                // Sending non MIME encoded HTML message text.
-                $eas_message->airsyncbasebody = $this->_buildHtmlPart($mbd, $airsync_body);
-                $eas_message->airsyncbaseattachments = $imap_message->getAttachments($version);
-            } elseif ($body_type_pref == Horde_ActiveSync::BODYPREF_TYPE_PLAIN) {
-                // Non MIME encoded plaintext
-                $this->_logger->info(sprintf(
-                    '[%s] Sending PLAINTEXT Message.', $this->_procid));
-                if (!empty($mbd->plain['size'])) {
-                    $airsync_body->estimateddatasize = $mbd->plain['size'];
-                    $airsync_body->truncated = $mbd->plain['truncated'];
-                    $airsync_body->data = $mbd->plain['body']->stream;
-                    $airsync_body->type = Horde_ActiveSync::BODYPREF_TYPE_PLAIN;
-                    $eas_message->airsyncbasebody = $airsync_body;
-                }
-                $eas_message->airsyncbaseattachments = $imap_message->getAttachments($version);
-            }
-
-            // It's legal to have both a BODY and a BODYPART, so we must also
-            // check for that.
-            if ($version > Horde_ActiveSync::VERSION_FOURTEEN && !empty($options['bodypartprefs'])) {
-                $body_part = Horde_ActiveSync::messageFactory('AirSyncBaseBodypart');
-                $eas_message->airsyncbasebodypart = $this->_buildBodyPart($mbd, $options, $body_part);
-            }
-
-            if ($version > Horde_ActiveSync::VERSION_TWELVEONE) {
-                $flags = array();
-                $msgFlags = $this->_getMsgFlags();
-                foreach ($imap_message->getFlags() as $flag) {
-                    if (!empty($msgFlags[strtolower($flag)])) {
-                        $flags[] = $msgFlags[strtolower($flag)];
-                    }
-                }
-                $eas_message->categories = $flags;
-            }
-        }
-
-        // Body Preview? Note that this is different from BodyPart's preview
-        if ($version >= Horde_ActiveSync::VERSION_FOURTEEN && !empty($options['bodyprefs']['preview'])) {
-            $mbd->plain['body']->rewind();
-            $eas_message->airsyncbasebody->preview =
-                $mbd->plain['body']->substring(0, $options['bodyprefs']['preview']);
-        }
-
-        // Check for special message types.
-        if ($imap_message->isEncrypted()) {
-            $eas_message->messageclass = 'IPM.Note.SMIME';
-        } elseif ($imap_message->isSigned()) {
-            $eas_message->messageclass = 'IPM.Note.SMIME.MultipartSigned';
-        }
-        $part = $imap_message->getStructure();
-        if ($part->getType() == 'multipart/report') {
-            $ids = array_keys($imap_message->contentTypeMap());
-            reset($ids);
-            $part1_id = next($ids);
-            $part2_id = Horde_Mime::mimeIdArithmetic($part1_id, 'next');
-            $lines = explode(chr(13), $imap_message->getBodyPart($part2_id, array('decode' => true)));
-            switch ($part->getContentTypeParameter('report-type')) {
-            case 'delivery-status':
-                foreach ($lines as $line) {
-                    if (strpos(trim($line), 'Action:') === 0) {
-                        switch (trim(substr(trim($line), 7))) {
-                        case 'failed':
-                            $eas_message->messageclass = 'REPORT.IPM.NOTE.NDR';
-                            break 2;
-                        case 'delayed':
-                            $eas_message->messageclass = 'REPORT.IPM.NOTE.DELAYED';
-                            break 2;
-                        case 'delivered':
-                            $eas_message->messageclass = 'REPORT.IPM.NOTE.DR';
-                            break 2;
-                        }
-                    }
-                }
-                break;
-            case 'disposition-notification':
-                foreach ($lines as $line) {
-                    if (strpos(trim($line), 'Disposition:') === 0) {
-                        if (strpos($line, 'displayed') !== false) {
-                            $eas_message->messageclass = 'REPORT.IPM.NOTE.IPNRN';
-                        } elseif (strpos($line, 'deleted') !== false) {
-                            $eas_message->messageclass = 'REPORT.IPM.NOTE.IPNNRN';
-                        }
-                        break;
-                    }
-                }
-            }
-        }
-
-        // Check for meeting requests and POOMMAIL_FLAG data
-        if ($version >= Horde_ActiveSync::VERSION_TWELVE) {
-            $eas_message->contentclass = 'urn:content-classes:message';
-            if ($mime_part = $imap_message->hasiCalendar()) {
-                $data = Horde_ActiveSync_Utils::ensureUtf8($mime_part->getContents(), $mime_part->getCharset());
-                $vCal = new Horde_Icalendar();
-                if ($vCal->parsevCalendar($data, 'VCALENDAR', $mime_part->getCharset())) {
-                    $classes = $vCal->getComponentClasses();
-                } else {
-                    $classes = array();
-                }
-                if (!empty($classes['horde_icalendar_vevent'])) {
-                    try {
-                        $method = $vCal->getAttribute('METHOD');
-                        $eas_message->contentclass = 'urn:content-classes:calendarmessage';
-                    } catch (Horde_Icalendar_Exception $e) {
-                    }
-                    switch ($method) {
-                    case 'REQUEST':
-                    case 'PUBLISH':
-                        $eas_message->messageclass = 'IPM.Schedule.Meeting.Request';
-                        $mtg = Horde_ActiveSync::messageFactory('MeetingRequest');
-                        $mtg->fromvEvent($vCal);
-                        $eas_message->meetingrequest = $mtg;
-                        break;
-                    case 'REPLY':
-                        try {
-                            $reply_status = $this->_getiTipStatus($vCal);
-                            switch ($reply_status) {
-                            case 'ACCEPTED':
-                                $eas_message->messageclass = 'IPM.Schedule.Meeting.Resp.Pos';
-                                break;
-                            case 'DECLINED':
-                                $eas_message->messageclass = 'IPM.Schedule.Meeting.Resp.Neg';
-                                break;
-                            case 'TENTATIVE':
-                                $eas_message->messageclass = 'IPM.Schedule.Meeting.Resp.Tent';
-                            }
-                            $mtg = Horde_ActiveSync::messageFactory('MeetingRequest');
-                            $mtg->fromvEvent($vCal);
-                            $eas_message->meetingrequest = $mtg;
-                        } catch (Horde_ActiveSync_Exception $e) {
-                            $this->_logger->err($e->getMessage());
-                        }
-                    }
-                }
-            }
-
-            if ($imap_message->getFlag(Horde_Imap_Client::FLAG_FLAGGED)) {
-                $poommail_flag = Horde_ActiveSync::messageFactory('Flag');
-                $poommail_flag->subject = $imap_message->getSubject();
-                $poommail_flag->flagstatus = Horde_ActiveSync_Message_Flag::FLAG_STATUS_ACTIVE;
-                $poommail_flag->flagtype = Horde_Imap_Client::FLAG_FLAGGED;
-                $eas_message->flag = $poommail_flag;
-            }
-        }
-
-        if ($version >= Horde_ActiveSync::VERSION_FOURTEEN) {
-            $eas_message->messageid = $imap_message->getHeaders()->getValue('Message-ID');
-            $eas_message->forwarded = $imap_message->getFlag(Horde_Imap_Client::FLAG_FORWARDED);
-            $eas_message->answered  = $imap_message->getFlag(Horde_Imap_Client::FLAG_ANSWERED);
-        }
-
-        return $eas_message;
-    }
-
-    /**
-     * Build the HTML body and populate the appropriate message object.
-     *
-     * @param Horde_ActiveSync_Imap_MessageBodyData $mbd  The body data array.
-     * @param array $options    The options array.
-     * @param Horde_ActiveSync_Message_AirSyncBaseBody $message
-     *            The body or bodypart object.
-     */
-    protected function _buildHtmlPart(
-        Horde_ActiveSync_Imap_MessageBodyData $mbd,
-        Horde_ActiveSync_Message_AirSyncBaseBody $message)
-    {
-        // Sending non MIME encoded HTML message text.
-        $this->_logger->info(sprintf(
-            '[%s] Sending HTML Message.',
-            $this->_procid));
-
-        if (!$mbd->html) {
-            $message->type = Horde_ActiveSync::BODYPREF_TYPE_PLAIN;
-            $mbd->html = array(
-                'body' => $mbd->plain['body'],
-                'estimated_size' => $mbd->plain['size'],
-                'truncated' => $mbd->plain['truncated']
-            );
-        } else {
-            $message->type = Horde_ActiveSync::BODYPREF_TYPE_HTML;
-        }
-
-        if (!empty($mbd->html['estimated_size'])) {
-            $message->estimateddatasize = $mbd->html['estimated_size'];
-            $message->truncated = $mbd->html['truncated'];
-            $message->data = $mbd->html['body']->stream;
-        }
-
-        return $message;
-    }
-
-    protected function _buildBodyPart(
-        Horde_ActiveSync_Imap_MessageBodyData $mbd,
-        array $options,
-        Horde_ActiveSync_Message_AirSyncBaseBodypart $message)
-    {
-        $this->_logger->info(sprintf(
-            '[%s] Preparing BODYPART data.',
-            $this->_procid)
+        // Build the message body.
+        $easBodyBuilder = Horde_ActiveSync_Imap_EasMessageBuilder::create(
+            $imap_message,
+            $options,
+            $this->_logger
         );
 
-        $message->status = Horde_ActiveSync_Message_AirSyncBaseBodypart::STATUS_SUCCESS;
-        if (!empty($options['bodypartprefs']['preview']) && $mbd->plain) {
-            $mbd->plain['body']->rewind();
-            $message->preview = $mbd->plain['body']->substring(0, $options['bodypartprefs']['preview']);
+        // Inject flags since this saves us from having to inject the imapOb
+        // into the builder.
+        $params = array();
+        if ($version > Horde_ActiveSync::VERSION_TWELVEONE) {
+            $params['flags'] = $this->_getMsgFlags();
         }
-        $message->data = $mbd->bodyPart['body']->stream;
-        $message->truncated = $mbd->bodyPart['truncated'];
 
-        return $message;
+        return $easBodyBuilder->getMessageObject($params);
     }
 
     /**
@@ -1476,6 +898,7 @@ class Horde_ActiveSync_Imap_Adapter
     protected function _doQuery(array $query)
     {
         $imap_query = new Horde_Imap_Client_Search_Query();
+        $imap_query->charset('UTF-8', false);
         $mboxes = array();
         $results = array();
         foreach ($query as $q) {
@@ -1548,29 +971,6 @@ class Horde_ActiveSync_Imap_Adapter
     }
 
     /**
-     * Map Importance header values to EAS importance values.
-     *
-     * @param string $importance  The importance [high|normal|low].
-     *
-     * @return integer  The EAS importance value [0|1|2].
-     */
-    protected function _getEASImportance($importance)
-    {
-        switch (strtolower($importance)) {
-        case '1':
-        case 'high':
-            return 2;
-        case '5':
-        case 'low':
-            return 0;
-        case 'normal':
-        case '3':
-        default:
-            return 1;
-        }
-    }
-
-    /**
      * Helper to obtain a valid IMAP client. Can't inject it since the user
      * is not yet authenticated at the time of object creation.
      *
@@ -1583,34 +983,6 @@ class Horde_ActiveSync_Imap_Adapter
             return $this->_imap->getImapOb();
         } catch (Horde_ActiveSync_Exception $e) {
             throw new Horde_Exception_AuthenticationFailure('EMERGENCY - Unable to obtain the IMAP Client');
-        }
-    }
-
-    /**
-     * Return the attendee participation status.
-     *
-     * @param Horde_Icalendar $vCal  The vCalendar component.
-     *
-     * @param Horde_Icalendar
-     * @throws Horde_ActiveSync_Exception
-     */
-    protected function _getiTipStatus($vCal)
-    {
-        foreach ($vCal->getComponents() as $component) {
-            switch ($component->getType()) {
-            case 'vEvent':
-                try {
-                    $atparams = $component->getAttribute('ATTENDEE', true);
-                } catch (Horde_Icalendar_Exception $e) {
-                    throw new Horde_ActiveSync_Exception($e);
-                }
-
-                if (!is_array($atparams)) {
-                    throw new Horde_Icalendar_Exception('Unexpected value');
-                }
-
-                return $atparams[0]['PARTSTAT'];
-            }
         }
     }
 
@@ -1656,9 +1028,12 @@ class Horde_ActiveSync_Imap_Adapter
         if (!empty($options['headers'])) {
             $query->headerText(array('peek' => true));
         }
-        $ids = new Horde_Imap_Client_Ids($uids);
         try {
-            return $this->_getImapOb()->fetch($mbox, $query, array('ids' => $ids, 'exists' => true));
+            return $this->_getImapOb()->fetch(
+                $mbox,
+                $query,
+                array('ids' => new Horde_Imap_Client_Ids($uids), 'exists' => true)
+            );
         } catch (Horde_Imap_Client_Exception $e) {
             $this->_logger->err(sprintf(
                 '[%s] Unable to fetch message: %s',

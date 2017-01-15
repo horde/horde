@@ -3,7 +3,7 @@
  * This file contains all Horde_Form classes to create a new ticket.
  *
  * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
- * Copyright 2001-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -59,13 +59,13 @@ class Whups_Form_Ticket_CreateStepThree extends Horde_Form
             $f_state = &$this->addHidden(
                 _("Ticket State"), 'state', 'enum', true, false, null, array($states));
         } else {
-            $f_state = &$this->addVariable(
+            $f_state = $this->addVariable(
                 _("Ticket State"), 'state', 'enum', true, false, null, array($states));
             $f_state->setDefault(
                 $whups_driver->getDefaultState($vars->get('type')));
         }
 
-        $f_priority = &$this->addVariable(
+        $f_priority = $this->addVariable(
             _("Priority"), 'priority', 'enum', true, false, null,
             array($whups_driver->getPriorities($vars->get('type'))));
         $f_priority->setDefault(

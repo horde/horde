@@ -12,7 +12,7 @@
  * The table structure for the VFS can be created with the horde-db-migrate
  * script from the Horde_Db package.
  *
- * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -692,18 +692,23 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
         }
 
         $where = '';
+        $values = array();
         foreach ($criteria as $key => $value) {
             if (!empty($where)) {
                 $where .= ' AND ';
             }
-            $where .= $key . ' = ' . $this->_db->quote($value);
+            list($op, $val) = $this->_nullString($value);
+            $where .= $key . ' ' . $op;
+            $values = array_merge($values, $val);
         }
 
-        $sql = sprintf('SELECT %s FROM %s WHERE %s',
-                       $field, $table, $where);
+        $sql = sprintf(
+            'SELECT %s FROM %s WHERE %s',
+            $field, $table, $where
+        );
 
         try {
-            $result = $this->_db->selectValue($sql);
+            $result = $this->_db->selectValue($sql, $values);
             $columns = $this->_db->columns($table);
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Vfs_Exception($e);
@@ -753,32 +758,26 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
      */
     protected function _updateBlob($table, $field, $data, $where, $alsoupdate)
     {
-        $updatestring = '';
-        $values = array();
-        foreach ($alsoupdate as $key => $value) {
-            $updatestring .= $key . ' = ?, ';
-            $values[] = $value;
-        }
-        $updatestring .= $field . ' = ?';
-        $values[] = new Horde_Db_Value_Binary($data);
-
         $wherestring = '';
+        $wherevalues = array();
         foreach ($where as $key => $value) {
             if (!empty($wherestring)) {
                 $wherestring .= ' AND ';
             }
             $wherestring .= $key . ' = ?';
-            $values[] = $value;
+            $wherevalues[] = $value;
         }
-
-        $query = sprintf('UPDATE %s SET %s WHERE %s',
-                         $table,
-                         $updatestring,
-                         $wherestring);
 
         /* Execute the query. */
         try {
-            $this->_db->update($query, $values);
+            $this->_db->updateBlob(
+                $table,
+                array_merge(
+                    $alsoupdate,
+                    array($field => new Horde_Db_Value_Binary($data))
+                ),
+                array($wherestring, $wherevalues)
+            );
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Vfs_Exception($e);
         }

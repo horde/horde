@@ -2,7 +2,7 @@
 /**
  * Kronolith_Resource implementation to represent a single resource.
  *
- * Copyright 2009-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -12,6 +12,26 @@
  */
 class Kronolith_Resource_Single extends Kronolith_Resource_Base
 {
+    protected $_type = 'single';
+
+    /**
+     *
+     *
+     * @param string $property  The property to get
+     *
+     * @return mixed  The value of $property
+     */
+    public function get($property)
+    {
+        $property = str_replace('resource_', '', $property);
+
+        if ($property == 'calendar') {
+            return $this->_share->getName();
+        }
+
+        return parent::get($property);
+    }
+
     /**
      * Determine if the resource is free during the time period for the
      * supplied event.
@@ -79,6 +99,8 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
             $this->_copyEvent($event, $resource_event);
             $resource_event->save();
         }
+
+        $this->unlock();
     }
 
     /**

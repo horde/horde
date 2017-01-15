@@ -6,4 +6,21 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Znerol\\Component\\Stringprep\\RFC3454\\A_1' => $vendorDir . '/znerol/php-stringprep/Znerol/Component/Stringprep/RFC3454/A_1.php',
+    'Znerol\\Component\\Stringprep\\RFC3454\\B_1' => $vendorDir . '/znerol/php-stringprep/Znerol/Component/Stringprep/RFC3454/B_1.php',
+    'Znerol\\Component\\Stringprep\\RFC3454\\B_2' => $vendorDir . '/znerol/php-stringprep/Znerol/Component/Stringprep/RFC3454/B_2.php',
+    'Znerol\\Component\\Stringprep\\RFC3454\\B_3' => $vendorDir . '/znerol/php-stringprep/Znerol/Component/Stringprep/RFC3454/B_3.php',
+    'Znerol\\Component\\Stringprep\\RFC3454\\C_1_1' => $vendorDir . '/znerol/php-stringprep/Znerol/Component/Stringprep/RFC3454/C_1_1.php',
+    'Znerol\\Component\\Stringprep\\RFC3454\\C_1_2' => $vendorDir . '/znerol/php-stringprep/Znerol/Component/Stringprep/RFC3454/C_1_2.php',
+    'Znerol\\Component\\Stringprep\\RFC3454\\C_2_1' => $vendorDir . '/znerol/php-stringprep/Znerol/Component/Stringprep/RFC3454/C_2_1.php',
+    'Znerol\\Component\\Stringprep\\RFC3454\\C_2_2' => $vendorDir . '/znerol/php-stringprep/Znerol/Component/Stringprep/RFC3454/C_2_2.php',
+    'Znerol\\Component\\Stringprep\\RFC3454\\C_3' => $vendorDir . '/znerol/php-stringprep/Znerol/Component/Stringprep/RFC3454/C_3.php',
+    'Znerol\\Component\\Stringprep\\RFC3454\\C_4' => $vendorDir . '/znerol/php-stringprep/Znerol/Component/Stringprep/RFC3454/C_4.php',
+    'Znerol\\Component\\Stringprep\\RFC3454\\C_5' => $vendorDir . '/znerol/php-stringprep/Znerol/Component/Stringprep/RFC3454/C_5.php',
+    'Znerol\\Component\\Stringprep\\RFC3454\\C_6' => $vendorDir . '/znerol/php-stringprep/Znerol/Component/Stringprep/RFC3454/C_6.php',
+    'Znerol\\Component\\Stringprep\\RFC3454\\C_7' => $vendorDir . '/znerol/php-stringprep/Znerol/Component/Stringprep/RFC3454/C_7.php',
+    'Znerol\\Component\\Stringprep\\RFC3454\\C_8' => $vendorDir . '/znerol/php-stringprep/Znerol/Component/Stringprep/RFC3454/C_8.php',
+    'Znerol\\Component\\Stringprep\\RFC3454\\C_9' => $vendorDir . '/znerol/php-stringprep/Znerol/Component/Stringprep/RFC3454/C_9.php',
+    'Znerol\\Component\\Stringprep\\RFC3454\\D_1' => $vendorDir . '/znerol/php-stringprep/Znerol/Component/Stringprep/RFC3454/D_1.php',
+    'Znerol\\Component\\Stringprep\\RFC3454\\D_2' => $vendorDir . '/znerol/php-stringprep/Znerol/Component/Stringprep/RFC3454/D_2.php',
 );

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2012-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -376,6 +376,44 @@ abstract class Ingo_Script_Base
             get_class($rule),
             array_merge($this->_categories, $this->_actions)
         );
+    }
+
+    /**
+     * Connects to the backend, uploads the scripts and sets them active.
+     *
+     * @param boolean $activate     Activate the script?
+     * @param boolean $auto_update  Only update if auto_update is active?
+     *
+     * @throws Ingo_Exception
+     */
+    public function activate($activate = true, $auto_update = true)
+    {
+        global $injector, $prefs;
+
+        if (!$this->hasFeature('script_file') ||
+            ($auto_update && !$prefs->getValue('auto_update'))) {
+            return;
+        }
+
+        $transport = $injector->getInstance('Ingo_Factory_Transport');
+
+        foreach ($this->generate() as $val) {
+            if (!$activate) {
+                $val['script'] = '';
+            }
+            try {
+                $transport->create($val['transport'])->setScriptActive($val);
+            } catch (Ingo_Exception $e) {
+                $msg = $activate
+                  ? _("There was an error activating the script.")
+                  : _("There was an error deactivating the script.");
+                throw new Ingo_Exception(sprintf(
+                    _("%s The driver said: %s"),
+                    $msg,
+                    $e->getMessage()
+                ));
+            }
+        }
     }
 
 }

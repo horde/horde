@@ -14,7 +14,7 @@
 /**
  * Handles a directory in the contents list.
  *
- * Copyright 2011-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -121,7 +121,7 @@ class Horde_Pear_Package_Xml_Directory
      */
     private function _getRoot()
     {
-        if ($this->_parent instanceOf Horde_Pear_Package_Xml_Directory) {
+        if ($this->_parent instanceof Horde_Pear_Package_Xml_Directory) {
             return $this->_parent->_getRoot();
         } else {
             return $this->_parent;
@@ -235,7 +235,7 @@ class Horde_Pear_Package_Xml_Directory
     {
         if (empty($this->_files) && empty($this->_subdirectories)) {
             $this->_element->delete();
-            if ($this->_parent instanceOf Horde_Pear_Package_Xml_Directory) {
+            if ($this->_parent instanceof Horde_Pear_Package_Xml_Directory) {
                 $this->_parent->_deleteSubdirectory($this->_element->getName());
             }
         }

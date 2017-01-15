@@ -18,7 +18,7 @@
  * modifications are
  *
  * Copyright 2003 Jake Olefsky
- * Copyright 2009-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2017 Horde LLC (http://www.horde.org/)
  *
  * @author   Jake Olefsky <jake@olefsky.com>
  * @author   Michael J. Rubinsky <mrubinsk@horde.org>
@@ -34,7 +34,7 @@
  * @author    Jake Olefsky <jake@olefsky.com>
  * @author    Michael J. Rubinsky <mrubinsk@horde.org>
  * @category  Horde
- * @copyright 2009-2015 Horde LLC
+ * @copyright 2009-2017 Horde LLC
  * @package   Image
  */
 class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
@@ -270,7 +270,7 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
         }
 
         // seek to SubIFD (Value of ExifOffset tag) above.
-        $ExitOffset = $result['IFD0']['ExifOffset'];
+        $ExifOffset = $result['IFD0']['ExifOffset'];
         if (!$in->seek($globalOffset + $ExifOffset, false)) {
             $result['Errors'] = $result['Errors'] + 1;
             $result['Error'][$result['Errors']] = Horde_Image_Translation::t("Couldnt Find SubIFD");
@@ -414,7 +414,7 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
         if ($intel == 1) {
             $type = Horde_Image_Exif::intel2Moto($type);
         }
-        $this->_lookupType($type, $size);
+        list($type, $size) = $this->_lookupType($type);
 
         // 4 byte number of elements
         $count = bin2hex($in->substring(0, 4));
@@ -774,7 +774,7 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
             }
             // Format certain kinds of strings nicely (Camera make etc.)
             if ($tag == '010f') {
-                $data = ucwords(strtolower(trim($data)));
+                $data = Horde_String::ucwords(Horde_String::lower(trim($data)));
             }
             break;
 
@@ -866,12 +866,14 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
     }
 
     /**
+     * Look up the data type.
      *
-     * @param $type
-     * @param $size
-     * @return unknown_type
+     * @param string  The string representation of the hex type code.
+     *
+     * @return array  An array containing the string type name in the 0 index
+     *                and the integer size in the 1 index.
      */
-    protected function _lookupType(&$type, &$size)
+    protected function _lookupType($type)
     {
         switch ($type) {
         case '0001': $type = 'UBYTE'; $size = 1; break;
@@ -889,7 +891,7 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
         default: $type = 'error:'.$type; $size = 0; break;
         }
 
-        return $type;
+        return array($type, $size);
     }
 
     public function supportedCategories()

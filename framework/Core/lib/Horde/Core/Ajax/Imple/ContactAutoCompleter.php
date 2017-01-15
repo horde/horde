@@ -1,11 +1,18 @@
 <?php
 /**
- * Javascript autocompleter for contacts.
- *
- * Copyright 2012-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Core
+ */
+
+/**
+ * JavaScript autocompleter for contacts.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
@@ -67,7 +74,8 @@ abstract class Horde_Core_Ajax_Imple_ContactAutoCompleter extends Horde_Core_Aja
                 'returnFields' => array('email', 'name'),
                 'rfc822Return' => true,
                 'sources' => $searchpref->sources,
-                'count_only' => !empty($opts['count_only'])
+                'count_only' => !empty($opts['count_only']),
+                'emailSearch' => true
             )));
         } catch (Horde_Exception $e) {
             Horde::log($e, 'ERR');

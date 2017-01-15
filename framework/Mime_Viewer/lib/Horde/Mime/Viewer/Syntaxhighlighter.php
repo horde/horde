@@ -3,7 +3,7 @@
  * The Horde_Mime_Viewer_Syntaxhighlighter class renders source code appropriate
  * for highlighting with http://alexgorbatchev.com/SyntaxHighlighter/.
  *
- * Copyright 2003-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -12,6 +12,7 @@
  * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Mime_Viewer
+ * @todo  remove deprecated version 3.x javascript files.
  */
 class Horde_Mime_Viewer_Syntaxhighlighter extends Horde_Mime_Viewer_Base
 {

@@ -58,10 +58,7 @@ var ImpMessage = {
             type: type,
             view: this.mbox
         }, {
-            callback: function(r) {
-                ImpCompose.fillForm(r);
-                $(document).fire('AutoComplete:reset');
-            },
+            callback: ImpCompose.fillForm.bind(ImpCompose),
             uids: [ this.buid ]
         });
     },

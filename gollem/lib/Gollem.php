@@ -2,7 +2,7 @@
 /**
  * Gollem base library.
  *
- * Copyright 1999-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -524,6 +524,7 @@ class Gollem
             } catch (Horde_Vfs_Exception $e) {
                 throw new Gollem_Exception($e);
             }
+            return;
         }
 
         /* Else, get the two VFS objects and copy/move the files. */
@@ -694,7 +695,7 @@ class Gollem
                     if ($i == $parts_count) {
                         $label[] = $parts[($i - 1)];
                     } else {
-                        $label[] = Horde::link($url->add('dir', $dir), sprintf(_("Up to %s"), $dir)) . $parts[($i - 1)] . '</a>';
+                        $label[] = Horde::link($url->add('dir', $dir), sprintf(_("Up to %s"), $dir)) . htmlspecialchars($parts[($i - 1)]) . '</a>';
                     }
                 }
             }

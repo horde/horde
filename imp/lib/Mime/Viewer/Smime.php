@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
- * @copyright 2000-2015 Horde LLC
+ * @copyright 2000-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -27,7 +27,7 @@
  * @author    Mike Cochrane <mike@graftonhall.co.nz>
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2000-2015 Horde LLC
+ * @copyright 2000-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -57,9 +57,9 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
     );
 
     /**
-     * IMP_Crypt_Smime object.
+     * IMP_Smime object.
      *
-     * @var IMP_Crypt_Smime
+     * @var IMP_Smime
      */
     protected $_impsmime = null;
 
@@ -68,10 +68,10 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
      */
     protected function _initSmime()
     {
-        if (is_null($this->_impsmime) && IMP_Crypt_Smime::enabled()) {
+        if (is_null($this->_impsmime) && IMP_Smime::enabled()) {
             try {
-                $this->_impsmime = $GLOBALS['injector']->getInstance('IMP_Crypt_Smime');
-                $this->_impsmime->checkForOpenSSL();
+                $this->_impsmime = $GLOBALS['injector']->getInstance('IMP_Smime');
+                $this->_impsmime->checkForOpenSsl();
             } catch (Horde_Exception $e) {
                 $this->_impsmime = null;
             }
@@ -254,9 +254,19 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
         $iterator = $this->_mimepart->partIterator();
         $iterator->rewind();
 
-        $base_id = $iterator->current()->getMimeId();
+        if (!$curr = $iterator->current()) {
+            return null;
+        }
+        $base_id = $curr->getMimeId();
+
         $iterator->next();
-        $data_id = $iterator->current()->getMimeId();
+        if (!$curr = $iterator->current()) {
+            // application/pkcs-7-mime might be the base part.
+            // See RFC 5751 3.4.2
+           $data_id = $base_id;
+        } else {
+           $data_id = $curr->getMimeId();
+        }
 
         $id_ob = new Horde_Mime_Id($data_id);
         $sig_id = $id_ob->idArithmetic($id_ob::ID_NEXT);
@@ -275,20 +285,10 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
             'wrap' => 'mimePartWrap'
         );
 
-        if (!IMP_Crypt_Smime::enabled()) {
+        if (!IMP_Smime::enabled()) {
             $status->addText(
                 _("S/MIME support is not enabled so the digital signature is unable to be verified.")
             );
-            return null;
-        }
-
-        /* Sanity checking to make sure MIME structure is correct. */
-        if (!$this->_mimepart[$sig_id]) {
-            $status->action(IMP_Mime_Status::ERROR);
-            $cache->smime[$base_id]['wrap'] = 'mimePartWrapInvalid';
-            $status->addText(_("Invalid S/MIME data."));
-            /* This will suppress displaying the invalid part. */
-            $cache->smime[$base_id]['sig'] = $data_id;
             return null;
         }
 
@@ -310,12 +310,11 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
                 } else {
                     $status->action(IMP_Mime_Status::WARNING);
                 }
+                if (!is_array($sig_result->email)) {
+                    $sig_result->email = array($sig_result->email);
+                }
+                $email = implode(', ', $sig_result->email);
                 $cache->smime[$base_id]['wrap'] = 'mimePartWrapValid';
-
-                $email = is_array($sig_result->email)
-                    ? implode(', ', $sig_result->email)
-                    : $sig_result->email;
-
                 $status->addText($sig_result->msg);
 
                 if (!empty($sig_result->cert)) {
@@ -330,7 +329,7 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
                     isset($sig_result->email) &&
                     $GLOBALS['registry']->hasMethod('contacts/addField') &&
                     $GLOBALS['prefs']->getValue('add_source')) {
-                    $status->addText(sprintf(_("Sender: %s"), $imp_contents->linkViewJS($this->_mimepart, 'view_attach', htmlspecialchars(strlen($email) ? $email : $sig_result->email), array(
+                    $status->addText(sprintf(_("Sender: %s"), $imp_contents->linkViewJS($this->_mimepart, 'view_attach', htmlspecialchars($email), array(
                         'jstext' => _("View certificate details"),
                         'params' => array(
                             'mode' => IMP_Contents::RENDER_INLINE,
@@ -338,15 +337,30 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
                         )
                     ))));
 
-                    try {
-                        $this->_impsmime->getPublicKey($sig_result->email);
-                    } catch (Horde_Exception $e) {
-                        $imple = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create('IMP_Ajax_Imple_ImportEncryptKey', array(
-                            'mime_id' => $base_id,
-                            'muid' => strval($imp_contents->getIndicesOb()),
-                            'type' => 'smime'
-                        ));
-                        $status->addText(Horde::link('#', '', '', '', '', '', '', array('id' => $imple->getDomId())) . _("Save the certificate to your Address Book.") . '</a>');
+                    foreach ($sig_result->email as $single_email) {
+                        try {
+                            $this->_impsmime->getPublicKey($single_email);
+                        } catch (Horde_Exception $e) {
+                            $imple = $GLOBALS['injector']
+                                ->getInstance('Horde_Core_Factory_Imple')
+                                ->create(
+                                    'IMP_Ajax_Imple_ImportEncryptKey',
+                                    array(
+                                        'mime_id' => $base_id,
+                                        'muid' => strval($imp_contents->getIndicesOb()),
+                                        'type' => 'smime'
+                                    )
+                                );
+                            $status->addText(
+                                Horde::link(
+                                    '#', '', '', '', '', '', '',
+                                    array('id' => $imple->getDomId())
+                                )
+                                . _("Save the certificate to your Address Book.")
+                                . '</a>'
+                            );
+                            break;
+                        }
                     }
                 } elseif (strlen($email)) {
                     $status->addText(sprintf(_("Sender: %s"), htmlspecialchars($email)));

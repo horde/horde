@@ -7,7 +7,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2010-2015 Horde LLC (http://www.horde.org)
+ * @copyright 2010-2017 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -22,7 +22,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2010-2015 Horde LLC (http://www.horde.org)
+ * @copyright 2010-2017 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -128,7 +128,7 @@ abstract class Horde_ActiveSync_Driver_Base
             $this->_logger = $params['logger'];
             unset($params['logger']);
         } else {
-            $this->_logger = new Horde_Support_Stub;
+            $this->_logger = new Horde_Log_Logger(new Horde_Log_Handler_Null());
         }
 
         $this->_state = $params['state'];
@@ -582,6 +582,17 @@ abstract class Horde_ActiveSync_Driver_Base
      *
      * @return array A list of messge uids that have chnaged in the specified
      *               time period.
+     *
+     * @todo Horde 6
+     * - Change return structure to (optionally) include the actual $to_ts value
+     *   that was used. This is needed because if using something like
+     *   Kolab/IMAP storage backend in Horde, then we must synchronize
+     *   Horde <-> Kolab to get any changes from external Kolab clients and this
+     *   may cause new/changed entries that would change the current MODSEQ.
+     *   Not critical, since without this it only results in having to wait
+     *   until the next SYNC cycle. By returning the actual $to_ts value we can
+     *   update the state with THIS value instead of the one we were originally
+     *   sent.
      */
     abstract public function getServerChanges(
         $folderId, $from_ts, $to_ts, $cutoffdate, $ping);

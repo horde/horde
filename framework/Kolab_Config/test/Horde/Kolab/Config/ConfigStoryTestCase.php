@@ -117,7 +117,7 @@ extends PHPUnit_Extensions_Story_TestCase
             );
             break;
         case 'the result will be':
-            if ($world['result'] instanceOf Exception) {
+            if ($world['result'] instanceof Exception) {
                 $this->assertEquals(
                     '', $world['result']->getMessage()
                 );

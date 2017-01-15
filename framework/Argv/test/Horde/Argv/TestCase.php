@@ -67,7 +67,7 @@ class Horde_Argv_TestCase extends PHPUnit_Framework_TestCase
      *
      *  Returns the exception raised for further testing.
      */
-    public function assertRaises($func, $args = array(),
+    public function assertRaises($func, $args,
                                  $expected_exception, $expected_message) {
         $caught = false;
         try {

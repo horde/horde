@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2013-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2013-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsd.
@@ -11,7 +11,8 @@
  * @package  Dav
  */
 
-use \Sabre\DAV\Locks;
+use Sabre\DAV;
+use Sabre\DAV\Locks;
 
 /**
  * A locking backend.

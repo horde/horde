@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2006-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2006-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
- * @copyright 2006-2015 Horde LLC
+ * @copyright 2006-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -16,7 +16,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2006-2015 Horde LLC
+ * @copyright 2006-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -43,12 +43,12 @@ class IMP_Compose_Ui
         $enc_opts = array();
         $output = '';
 
-        if (IMP_Crypt_Pgp::enabled()) {
-            $enc_opts += $injector->getInstance('IMP_Crypt_Pgp')->encryptList();
+        if (IMP_Pgp::enabled()) {
+            $enc_opts += $injector->getInstance('IMP_Pgp')->encryptList();
         }
 
-        if (IMP_Crypt_Smime::enabled()) {
-            $enc_opts += $injector->getInstance('IMP_Crypt_Smime')->encryptList();
+        if (IMP_Smime::enabled()) {
+            $enc_opts += $injector->getInstance('IMP_Smime')->encryptList();
         }
 
         if (!empty($enc_opts)) {

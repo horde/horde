@@ -1,8 +1,9 @@
 <?php
 /**
- * Represents a single Kolab object.
+ * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
  *
- * PHP version 5
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Kolab
  * @package  Kolab_Storage
@@ -14,10 +15,7 @@
 /**
  * Represents a single Kolab object.
  *
- * Copyright 2011-2015 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * @todo Clean up _attachments mess.
  *
  * @category Kolab
  * @package  Kolab_Storage
@@ -49,81 +47,81 @@ class Horde_Kolab_Storage_Object implements ArrayAccess, Serializable
      *
      * @var Horde_Kolab_Storage_Driver
      */
-    private $_driver;
+    protected $_driver;
 
     /**
      * The folder that holds the object within the backend.
      *
      * @var string
      */
-    private $_folder;
+    protected $_folder;
 
     /**
      * The object ID within the backend.
      *
      * @var string
      */
-    private $_backend_id;
+    protected $_backend_id;
 
     /**
      * The ID of the MIME part carrying the object data.
      *
      * @var string
      */
-    private $_mime_part_id;
+    protected $_mime_part_id;
 
     /**
      * The object type.
      *
      * @var string
      */
-    private $_type;
+    protected $_type;
 
     /**
      * The MIME headers of the object envelope.
      *
      * @var Horde_Mime_Headers
      */
-    private $_headers;
+    protected $_headers;
 
     /**
      * The message structure.
      *
      * @var Horde_Mime_Part
      */
-    private $_structure;
+    protected $_structure;
 
     /**
      * The content string representing the object data.
      *
      * @var resource
      */
-    private $_content;
+    protected $_content;
 
     /**
      * The object data.
      *
      * @var array
      */
-    private $_data = array();
+    protected $_data = array();
 
     /**
      * The collection of parse errors (if any).
      *
      * @var array
      */
-    private $_errors = array();
+    protected $_errors = array();
 
     /**
      * Return the driver for accessing the backend.
      *
      * @return Horde_Kolab_Storage_Driver The driver.
      */
-    private function _getDriver()
+    protected function _getDriver()
     {
         if ($this->_driver === null) {
             throw new Horde_Kolab_Storage_Object_Exception(
-'The driver has not been set!'
+                'The driver has not been set!'
             );
         }
         return $this->_driver;
@@ -139,7 +137,7 @@ class Horde_Kolab_Storage_Object implements ArrayAccess, Serializable
         $this->_driver = $driver;
     }
 
-    private function _getFolder()
+    protected function _getFolder()
     {
         if (empty($this->_folder)) {
             throw new Horde_Kolab_Storage_Object_Exception(
@@ -162,7 +160,7 @@ class Horde_Kolab_Storage_Object implements ArrayAccess, Serializable
         return $this->_backend_id;
     }
 
-    private function _getMimePartId()
+    protected function _getMimePartId()
     {
         if (empty($this->_mime_part_id)) {
             throw new Horde_Kolab_Storage_Object_Exception(
@@ -283,7 +281,7 @@ class Horde_Kolab_Storage_Object implements ArrayAccess, Serializable
         return strval(new Horde_Support_Uuid());
     }
 
-    private function addParseError($error, $message = '')
+    protected function addParseError($error, $message = '')
     {
         $this->_errors[$error] = $message;
     }
@@ -377,9 +375,9 @@ class Horde_Kolab_Storage_Object implements ArrayAccess, Serializable
             return;
         }
         $this->_mime_part_id = $result[0];
-        $mime_part->setContents($this->getContent());
+        $mime_part->setContents($this->getContent(), array('encoding' => '8bit'));
         $result = $data->load($mime_part->getContents(array('stream' => true)), $this);
-        if ($result instanceOf Exception) {
+        if ($result instanceof Exception) {
             $this->addParseError(self::ERROR_INVALID_KOLAB_PART, $result->getMessage());
         } else {
             foreach ($structure->getParts() as $part) {
@@ -410,6 +408,7 @@ class Horde_Kolab_Storage_Object implements ArrayAccess, Serializable
      * @param Horde_Mime_Part $structure The MIME message structure of the object.
      *
      * @return boolean|string The return value of the append operation.
+     * @throws Horde_Kolab_Storage_Object_Exception
      */
     public function save(Horde_Kolab_Storage_Object_Writer $data)
     {
@@ -430,16 +429,7 @@ class Horde_Kolab_Storage_Object implements ArrayAccess, Serializable
             );
         }
 
-        // Replace Kolab part.
-        $original = $body->getPart($mime_id);
-        $original->setContents(
-            $this->_getDriver()->fetchBodypart(
-                $this->_getFolder(),
-                $this->getBackendId(),
-                $mime_id
-            )
-        );
-        $this->_content = $original->getContents(array('stream' => true));
+        $this->_content = $body->getPart($mime_id)->getContents(array('stream' => true));
         $body->alterPart($mime_id, $this->createFreshKolabPart($data->save($this)));
         $body->buildMimeIds();
 
@@ -482,8 +472,9 @@ class Horde_Kolab_Storage_Object implements ArrayAccess, Serializable
      * @param Horde_Mime_Headers $headers The message headers.
      *
      * @return boolean|string The return value of the append operation.
+     * @throws Horde_Kolab_Storage_Object_Exception
      */
-    private function _appendMessage(Horde_Mime_Part $message,
+    protected function _appendMessage(Horde_Mime_Part $message,
                                     Horde_Mime_Headers $headers)
     {
         $result = $this->_getDriver()->appendMessage(
@@ -515,7 +506,7 @@ class Horde_Kolab_Storage_Object implements ArrayAccess, Serializable
      *
      * @return Horde_Mime_Part The new MIME message.
      */
-    private function createEnvelope()
+    protected function createEnvelope()
     {
         $envelope = new Horde_Mime_Part();
         $envelope->setName('Kolab Groupware Data');
@@ -545,7 +536,7 @@ class Horde_Kolab_Storage_Object implements ArrayAccess, Serializable
      *
      * @return Horde_Mime_Headers The headers for the MIME envelope.
      */
-    private function createEnvelopeHeaders()
+    protected function createEnvelopeHeaders()
     {
         $headers = new Horde_Mime_Headers();
         $headers->setEOL("\r\n");
@@ -569,7 +560,7 @@ class Horde_Kolab_Storage_Object implements ArrayAccess, Serializable
      *
      * @return Horde_Mime_Part The MIME part that encapsules the Kolab content.
      */
-    private function createFreshKolabPart($content)
+    protected function createFreshKolabPart($content)
     {
         $part = new Horde_Mime_Part();
 
@@ -636,7 +627,7 @@ class Horde_Kolab_Storage_Object implements ArrayAccess, Serializable
      *
      * @param string $data  Serialized data.
      *
-     * @throws Exception
+     * @throws Horde_Kolab_Storage_Object_Exception
      */
     public function unserialize($data)
     {

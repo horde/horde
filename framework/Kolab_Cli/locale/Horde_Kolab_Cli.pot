@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Horde_Kolab_Cli \n"
+"Project-Id-Version: Horde_Kolab_Cli\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"POT-Creation-Date: 2015-12-28 17:25+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,7 +33,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: lib/Horde/Kolab/Cli/Module/Data.php:38
+#: lib/Horde/Kolab/Cli/Module/Data.php:34
 msgid ""
 "  data - Handle Kolab data (the default action is \"info\"). PATH refers to "
 "the path of the folder that holds the data and the optional TYPE argument "
@@ -133,7 +133,7 @@ msgid "%s is no local file!"
 msgstr ""
 
 #: lib/Horde/Kolab/Cli/Module/Account.php:240
-#: lib/Horde/Kolab/Cli/Module/Data.php:235
+#: lib/Horde/Kolab/Cli/Module/Data.php:231
 #: lib/Horde/Kolab/Cli/Module/Folder.php:228
 #: lib/Horde/Kolab/Cli/Module/Format.php:165
 #: lib/Horde/Kolab/Cli/Module/Ledger.php:152
@@ -214,7 +214,7 @@ msgid ""
 "the log output to the screen."
 msgstr ""
 
-#: lib/Horde/Kolab/Cli.php:115
+#: lib/Horde/Kolab/Cli.php:110
 msgid ""
 "[options] MODULE ACTION\n"
 "\n"

@@ -2,7 +2,7 @@
 /**
  * Ensures that all known style definitions have a hash entry.
  *
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -19,13 +19,13 @@ class AnselUpgradeComputestylehashes extends Horde_Db_Migration_Base
         // Migrate existing data for share
         $sql = 'SELECT attribute_style, share_id FROM ansel_shares';
         $this->announce('Computing style hashes from ansel_shares.', 'cli.message');
-        $rows = $this->_connection->selectAll($sql);
+        $rows = $this->_connection->select($sql);
         $this->_ensureHashes($rows);
 
          // Migrate existing data for shareng
         $sql = 'SELECT attribute_style, share_id FROM ansel_sharesng';
         $this->announce('Computing style hashes from ansel_sharesng.', 'cli.message');
-        $rows = $this->_connection->selectAll($sql);
+        $rows = $this->_connection->select($sql);
         $this->_ensureHashes($rows);
     }
 

@@ -15,7 +15,7 @@
 /**
  * Test the synchronization machinery.
  *
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -286,7 +286,7 @@ extends PHPUnit_Framework_TestCase
         $cache->expects($this->once())
             ->method('store')
             ->with(
-                array(0 => 'INBOX/Foo', 2 => 'INBOX/FooBar'),
+                array('INBOX/Foo', 'INBOX/FooBar'),
                 array('INBOX/Foo' => 'contact', 'INBOX/FooBar' => 'note')
             );
         $list = new Horde_Kolab_Storage_List_Query_List_Cache_Synchronization(

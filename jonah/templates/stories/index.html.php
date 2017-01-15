@@ -47,4 +47,4 @@
    </tr>
   <?php endforeach; ?>
 </table>
-<?php endif; ?>
+<?php else: ?>&nbsp;<?php endif;?>

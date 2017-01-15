@@ -2,7 +2,7 @@
 /**
  * PHP Shell.
  *
- * Copyright 1999-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL-2). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl.
@@ -48,8 +48,10 @@ $view->application = $application;
 $view->apps = $apps;
 $view->command = $command;
 $view->title = $title;
+$view->session = $session;
 
 if ($command) {
+    $session->checkToken($vars->token);
     $pushed = $registry->pushApp($application);
 
     $part = new Horde_Mime_Part();

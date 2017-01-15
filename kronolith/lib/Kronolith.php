@@ -1,8 +1,6 @@
 <?php
 /**
- * Kronolith base library.
- *
- * Copyright 1999-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -13,7 +11,9 @@
  */
 
 /**
- * The Kronolith:: class provides functionality common to all of Kronolith.
+ * Kronolith base library.
+ *
+ * The Kronolith class provides functionality common to all of Kronolith.
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @category Horde
@@ -44,6 +44,7 @@ class Kronolith
     /** iTip requests */
     const ITIP_REQUEST = 1;
     const ITIP_CANCEL  = 2;
+    const ITIP_REPLY   = 3;
 
     const RANGE_THISANDFUTURE = 'THISANDFUTURE';
 
@@ -62,6 +63,15 @@ class Kronolith
     const ALL_HOLIDAYS              = 'allHolidays';
     const ALL_RESOURCE_CALENDARS    = 'allResource';
 
+    /** Share Types */
+    const SHARE_TYPE_USER          = 1;
+    const SHARE_TYPE_RESOURCE      = 2;
+
+    /**
+     * The virtual path to use for VFS data.
+     */
+    const VFS_PATH = '.horde/kronolith/documents';
+
     /**
      * @var Kronolith_Tagger
      */
@@ -74,16 +84,19 @@ class Kronolith
      * user name if necessary.
      *
      * @param Horde_Perms_Permission $perm  A permission object.
+     * @param boolean $systemShare          Is this from a system share?
      *
      * @return array  A hash suitable for json.
      */
-    public static function permissionToJson(Horde_Perms_Permission $perm)
+    public static function permissionToJson(
+        Horde_Perms_Permission $perm, $systemShare = false
+    )
     {
         $json = $perm->data;
         if (isset($json['users'])) {
             $users = array();
             foreach ($json['users'] as $user => $value) {
-                if ($user == $GLOBALS['registry']->getAuth()) {
+                if (!$systemShare && $user == $GLOBALS['registry']->getAuth()) {
                     continue;
                 }
                 $user = $GLOBALS['registry']->convertUsername($user, false);
@@ -222,7 +235,7 @@ class Kronolith
 
         // Resource calendars
         if (count($GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_RESOURCE_CALENDARS)) &&
-            !empty($GLOBALS['conf']['resource']['driver'])) {
+            !empty($GLOBALS['conf']['resources']['enabled'])) {
 
             $driver = self::getDriver('Resource');
             foreach ($GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_RESOURCE_CALENDARS) as $calendar) {
@@ -322,6 +335,15 @@ class Kronolith
             $timezone = date_default_timezone_get();
         }
 
+        // If we are adding coverDates, but have no $endDate, default to
+        // +5 years from $startDate. This protects against hitting memory
+        // limit and other issues due to extremely long loops if a single event
+        // was added with a duration of thousands of years while still
+        // providing for reasonable alarm trigger times.
+        if ($coverDates && empty($endDate)) {
+            $endDate = clone $startDate;
+            $endDate->year += 5;
+        }
         if ($event->recurs() && $showRecurrence) {
             /* Recurring Event. */
 
@@ -364,7 +386,7 @@ class Kronolith
                                                       $event->start->month,
                                                       $event->start->mday)) {
                     if ($coverDates) {
-                        self::addCoverDates($results, $event, $event->start, $event->end, $json);
+                        self::addCoverDates($results, $event, $event->start, $event->end, $json, null, null, $endDate);
                     } else {
                         $results[$event->start->dateString()][$event->id] = $json ? $event->toJson() : $event;
                     }
@@ -406,7 +428,7 @@ class Kronolith
                     $addEvent->start = $addEvent->originalStart = $next;
                     $addEvent->end = $addEvent->originalEnd = $nextEnd;
                     if ($coverDates) {
-                        self::addCoverDates($results, $addEvent, $next, $nextEnd, $json);
+                        self::addCoverDates($results, $addEvent, $next, $nextEnd, $json, null, null, $endDate);
                     } else {
                         $addEvent->start = $next;
                         $addEvent->end = $nextEnd;
@@ -510,52 +532,8 @@ class Kronolith
                     }
                 }
 
-                /* Add the event to all the days it covers. This is similar to
-                 * Kronolith::addCoverDates(), but for days in between the
-                 * start and end day, the range is midnight to midnight, and
-                 * for the edge days it's start to midnight, and midnight to
-                 * end. */
-                $i = $eventStart->mday;
-                $loopDate = new Horde_Date(array('month' => $eventStart->month,
-                                                 'mday' => $i,
-                                                 'year' => $eventStart->year));
-                while ($loopDate->compareDateTime($eventEnd) <= 0) {
-                    if (!$allDay ||
-                        $loopDate->compareDateTime($eventEnd) != 0) {
-                        $addEvent = clone $event;
-                        $addEvent->originalStart = $originalStart;
-                        $addEvent->originalEnd = $originalEnd;
-
-                        /* If this is the start day, set the start time to
-                         * the real start time, otherwise set it to
-                         * 00:00 */
-                        if ($loopDate->compareDate($eventStart) == 0) {
-                            $addEvent->start = $eventStart;
-                        } else {
-                            $addEvent->start = clone $loopDate;
-                            $addEvent->start->hour = $addEvent->start->min = $addEvent->start->sec = 0;
-                            $addEvent->first = false;
-                        }
-
-                        /* If this is the end day, set the end time to the
-                         * real event end, otherwise set it to 23:59. */
-                        if ($loopDate->compareDate($eventEnd) == 0) {
-                            $addEvent->end = $eventEnd;
-                        } else {
-                            $addEvent->end = clone $loopDate;
-                            $addEvent->end->hour = 23;
-                            $addEvent->end->min = $addEvent->end->sec = 59;
-                            $addEvent->last = false;
-                        }
-
-                        $results[$loopDate->dateString()][$addEvent->id] = $json ? $addEvent->toJson($allDay) : $addEvent;
-                    }
-
-                    $loopDate = new Horde_Date(
-                        array('month' => $eventStart->month,
-                              'mday' => ++$i,
-                              'year' => $eventStart->year));
-                }
+               self::addCoverDates($results, $event, $eventStart,
+                    $eventEnd, $json, $originalStart, $originalEnd, $endDate);
             }
         }
         ksort($results);
@@ -564,36 +542,68 @@ class Kronolith
     /**
      * Adds an event to all the days it covers.
      *
-     * @param array $result           The current result list.
-     * @param Kronolith_Event $event  An event object.
-     * @param Horde_Date $eventStart  The event's start at the actual
-     *                                recurrence.
-     * @param Horde_Date $eventEnd    The event's end at the actual recurrence.
-     * @param boolean $json           Store the results of the events' toJson()
-     *                                method?
+     * @param array $result              The current result list.
+     * @param Kronolith_Event $event     An event object.
+     * @param Horde_Date $eventStart     The event's start of the actual
+     *                                   recurrence.
+     * @param Horde_Date $eventEnd       The event's end of the actual
+     *                                   recurrence.
+     * @param boolean $json              Store the results of the events'
+     *                                   toJson() method?
+     * @param Horde_Date $originalStart  The actual starting time of a single
+     *                                   event spanning multiple days.
+     * @param Horde_Date $originalEnd    The actual ending time of a single
+     *                                   event spanning multiple days.
      */
     public static function addCoverDates(&$results, $event, $eventStart,
-                                         $eventEnd, $json)
+        $eventEnd, $json, $originalStart = null, $originalEnd = null, Horde_Date $endDate = null)
     {
-        $loopDate = new Horde_Date($eventStart->year, $eventStart->month, $eventStart->mday);
+        $loopDate = new Horde_Date(array(
+            'month' => $eventStart->month,
+            'mday' => $eventStart->mday,
+            'year' => $eventStart->year)
+        );
         $allDay = $event->isAllDay();
-        while ($loopDate->compareDateTime($eventEnd) <= 0) {
+        while ($loopDate->compareDateTime($eventEnd) <= 0 &&
+               $loopDate->compareDateTime($endDate) <= 0) {
             if (!$allDay ||
                 $loopDate->compareDateTime($eventEnd) != 0) {
                 $addEvent = clone $event;
-                $addEvent->start = $eventStart;
-                $addEvent->end = $eventEnd;
-                if ($loopDate->compareDate($eventStart) != 0) {
-                    $addEvent->first = false;
+                if ($originalStart) {
+                    $addEvent->originalStart = $originalStart;
                 }
+                if ($originalEnd) {
+                    $addEvent->originalEnd = $originalEnd;
+                }
+
+                /* If this is the start day, set the start time to
+                 * the real start time, otherwise set it to
+                 * 00:00 */
+                if ($loopDate->compareDate($eventStart) != 0) {
+                    $addEvent->start = clone $loopDate;
+                    $addEvent->start->hour = $addEvent->start->min = $addEvent->start->sec = 0;
+                    $addEvent->first = false;
+                } else {
+                    $addEvent->start = $eventStart;
+                }
+
+                /* If this is the end day, set the end time to the
+                 * real event end, otherwise set it to 23:59. */
                 if ($loopDate->compareDate($eventEnd) != 0) {
+                    $addEvent->end = clone $loopDate;
+                    $addEvent->end->hour = 23;
+                    $addEvent->end->min = $addEvent->end->sec = 59;
                     $addEvent->last = false;
+                } else {
+                    $addEvent->end = $eventEnd;
                 }
                 if ($addEvent->recurs() &&
                     $addEvent->recurrence->hasCompletion($loopDate->year, $loopDate->month, $loopDate->mday)) {
                     $addEvent->status = Kronolith::STATUS_CANCELLED;
                 }
-                $results[$loopDate->dateString()][$addEvent->id] = $json ? $addEvent->toJson($allDay) : $addEvent;
+                $results[$loopDate->dateString()][$addEvent->id] = $json
+                    ? $addEvent->toJson(array('all_day' => $allDay))
+                    : $addEvent;
             }
             $loopDate->mday++;
         }
@@ -649,6 +659,11 @@ class Kronolith
                 }
             }
         } else {
+            // Don't include any results that are outside the query range.
+            if ((!empty($query->end) && $event->start->after($query->end)) ||
+                (!empty($query->start) && $event->end->before($query->start))) {
+                return;
+            }
             $eventStart = $event->start;
             $eventEnd = $event->end;
         }
@@ -778,6 +793,9 @@ class Kronolith
 
     /**
      * Checks if an email address belongs to a user.
+     *
+     * @param string  $uid    user id to check
+     * @param string  $email  email address to check
      */
     public static function isUserEmail($uid, $email)
     {
@@ -793,6 +811,31 @@ class Kronolith
         }
 
         return in_array($email, $emails[$uid]);
+    }
+
+    /**
+     * Return Kronolith_Attendee object for a local user.
+     *
+     * @param string $user  The local username.
+     *
+     * @return mixed Return the Kronolith_Attendee object for $user, or false
+     *               if the auth backend supports user listing and the user
+     *               is not found.
+     */
+    public static function validateUserAttendee($user)
+    {
+        global $injector, $registry;
+
+        $user = $registry->convertUsername($user, true);
+        $auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();
+        if ($auth->hasCapability('list') && !$auth->exists($user)) {
+            return false;
+        } else {
+            return new Kronolith_Attendee(array(
+                'user' => $user,
+                'identities' => $injector->getInstance('Horde_Core_Factory_Identity')
+            ));
+        }
     }
 
     /**
@@ -818,6 +861,7 @@ class Kronolith
 
         case Horde_Date_Recurrence::RECUR_MONTHLY_DATE:
         case Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY:
+        case Horde_Date_Recurrence::RECUR_MONTHLY_LAST_WEEKDAY:
             return _("Recurs monthly");
 
         case Horde_Date_Recurrence::RECUR_YEARLY_DATE:
@@ -1061,26 +1105,21 @@ class Kronolith
      * Returns all calendars a user has access to, according to several
      * parameters/permission levels.
      *
-     * @param boolean $owneronly   Only return calenders that this user owns?
-     *                             Defaults to false.
+     * @param integer $permission  The permission to filter calendars by.
      * @param boolean $display     Only return calendars that are supposed to
      *                             be displayed per configuration and user
      *                             preference.
-     * @param integer $permission  The permission to filter calendars by.
      *
      * @return array  The calendar list.
      */
     public static function listCalendars($permission = Horde_Perms::SHOW,
-                                         $display = false,
-                                         $flat = true)
+                                         $display = false)
     {
         $calendars = array();
         foreach ($GLOBALS['calendar_manager']->get(Kronolith::ALL_CALENDARS) as $id => $calendar) {
             if ($calendar->hasPermission($permission) &&
                 (!$display || $calendar->display())) {
-                if ($flat) {
-                    $calendars['internal_' . $id] = $calendar;
-                }
+                $calendars['internal_' . $id] = $calendar;
             }
         }
 
@@ -1088,9 +1127,7 @@ class Kronolith
             try {
                 if ($calendar->hasPermission($permission) &&
                     (!$display || $calendar->display())) {
-                    if ($flat) {
-                        $calendars['remote_' . $id] = $calendar;
-                    }
+                    $calendars['remote_' . $id] = $calendar;
                 }
             } catch (Kronolith_Exception $e) {
                 $GLOBALS['notification']->push(sprintf(_("The calendar %s returned the error: %s"), $calendar->name(), $e->getMessage()), 'horde.error');
@@ -1100,18 +1137,14 @@ class Kronolith
         foreach ($GLOBALS['calendar_manager']->get(Kronolith::ALL_EXTERNAL_CALENDARS) as $id => $calendar) {
             if ($calendar->hasPermission($permission) &&
                 (!$display || $calendar->display())) {
-                if ($flat) {
-                    $calendars['external_' . $id] = $calendar;
-                }
+                $calendars['external_' . $id] = $calendar;
             }
         }
 
         foreach ($GLOBALS['calendar_manager']->get(Kronolith::ALL_HOLIDAYS) as $id => $calendar) {
             if ($calendar->hasPermission($permission) &&
                 (!$display || $calendar->display())) {
-                if ($flat) {
-                    $calendars['holiday_' . $id] = $calendar;
-                }
+                $calendars['holiday_' . $id] = $calendar;
             }
         }
 
@@ -1170,7 +1203,7 @@ class Kronolith
         $cs = unserialize($GLOBALS['prefs']->getValue('sync_calendars'));
         if (!empty($cs)) {
             if ($prune) {
-                $calendars = self::listInternalCalendars(true, Horde_Perms::EDIT);
+                $calendars = self::listInternalCalendars(false, Horde_Perms::DELETE);
                 $cscopy = array_flip($cs);
                 foreach ($cs as $c) {
                     if (empty($calendars[$c])) {
@@ -1237,6 +1270,9 @@ class Kronolith
         try {
             $share = $GLOBALS['injector']->getInstance('Kronolith_Shares')->getShare($calendar);
             if (!$share->hasPermission($GLOBALS['registry']->getAuth(), $perm)) {
+                if ($share->get('owner') == null && $GLOBALS['registry']->isAdmin()) {
+                    return true;
+                }
                 throw new Horde_Exception_NotFound();
             }
         } catch (Horde_Exception_NotFound $e) {
@@ -1274,6 +1310,7 @@ class Kronolith
         if (!empty($info['system'])) {
             $calendar->set('owner', null);
         }
+        $calendar->set('calendar_type', Kronolith::SHARE_TYPE_USER);
         $tagger = self::getTagger();
         $tagger->tag(
             $calendar->getName(),
@@ -1319,7 +1356,6 @@ class Kronolith
         $calendar->set('color', $info['color']);
         $calendar->set('desc', $info['description']);
         $calendar->set('owner', empty($info['system']) ? $GLOBALS['registry']->getAuth() : null);
-
         try {
             $calendar->save();
         } catch (Horde_Share_Exception $e) {
@@ -1331,7 +1367,7 @@ class Kronolith
     }
 
     /**
-     * Deletes a share.
+     * Deletes a share and removes all events associated with it.
      *
      * @param Horde_Share $calendar  The share to delete.
      *
@@ -1399,7 +1435,7 @@ class Kronolith
     /**
      * Reads a submitted permissions form and updates the share permissions.
      *
-     * @param Horde_Share_Object $share  The share to update.
+     * @param Horde_Share_Object|Kronolith_Resource_Base $share  The share to update.
      *
      * @return array  A list of error messages.
      * @throws Kronolith_Exception
@@ -1426,29 +1462,42 @@ class Kronolith
         }
 
         // Process owner and owner permissions.
-        $old_owner = $share->get('owner');
-        $new_owner_backend = Horde_Util::getFormData('owner_select', Horde_Util::getFormData('owner_input', $old_owner));
-        $new_owner = $GLOBALS['registry']->convertUsername($new_owner_backend, true);
-        if ($old_owner !== $new_owner && !empty($new_owner)) {
-            if ($old_owner != $GLOBALS['registry']->getAuth() && !$GLOBALS['registry']->isAdmin()) {
-                $errors[] = _("Only the owner or system administrator may change ownership or owner permissions for a share");
-            } elseif ($auth->hasCapability('list') && !$auth->exists($new_owner_backend)) {
-                $errors[] = sprintf(_("The user \"%s\" does not exist."), $new_owner_backend);
+        if (!($share instanceof Kronolith_Resource_Base)) {
+            $old_owner = $share->get('owner');
+            if ($old_owner) {
+                $new_owner_backend = Horde_Util::getFormData('owner_select', Horde_Util::getFormData('owner_input', $old_owner));
+                $new_owner = $GLOBALS['registry']->convertUsername($new_owner_backend, true);
             } else {
-                $share->set('owner', $new_owner);
-                $share->save();
-                if ($GLOBALS['conf']['share']['notify']) {
-                    $view->ownerChange = true;
-                    $multipart = self::buildMimeMessage($view, 'notification', $image);
-                    $to = $GLOBALS['injector']
-                        ->getInstance('Horde_Core_Factory_Identity')
-                        ->create($new_owner)
-                        ->getDefaultFromAddress(true);
-                    $mail->addHeader('Subject', _("Ownership assignment"));
-                    $mail->addHeader('To', $to);
-                    $mail->setBasePart($multipart);
-                    $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
-                    $view->ownerChange = false;
+                $new_owner_backend = $new_owner = null;
+            }
+
+            // Only set new owner if this isn't a system calendar, and the
+            // owner actually changed and the new owner is set at all.
+            if (!is_null($old_owner) &&
+                $old_owner !== $new_owner &&
+                !empty($new_owner)) {
+                if ($old_owner != $GLOBALS['registry']->getAuth() &&
+                    !$GLOBALS['registry']->isAdmin()) {
+                    $errors[] = _("Only the owner or system administrator may change ownership or owner permissions for a share");
+                } elseif ($auth->hasCapability('list') &&
+                          !$auth->exists($new_owner_backend)) {
+                    $errors[] = sprintf(_("The user \"%s\" does not exist."), $new_owner_backend);
+                } else {
+                    $share->set('owner', $new_owner);
+                    $share->save();
+                    if ($GLOBALS['conf']['share']['notify']) {
+                        $view->ownerChange = true;
+                        $multipart = self::buildMimeMessage($view, 'notification', $image);
+                        $to = $GLOBALS['injector']
+                            ->getInstance('Horde_Core_Factory_Identity')
+                            ->create($new_owner)
+                            ->getDefaultFromAddress(true);
+                        $mail->addHeader('Subject', _("Ownership assignment"));
+                        $mail->addHeader('To', $to);
+                        $mail->setBasePart($multipart);
+                        $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
+                        $view->ownerChange = false;
+                    }
                 }
             }
         }
@@ -1515,33 +1564,33 @@ class Kronolith
             } else {
                 $perm->removeGuestPermission(self::PERMS_DELEGATE, false);
             }
-        }
 
-        // Process creator permissions.
-        if (Horde_Util::getFormData('creator_show')) {
-            $perm->addCreatorPermission(Horde_Perms::SHOW, false);
-        } else {
-            $perm->removeCreatorPermission(Horde_Perms::SHOW, false);
-        }
-        if (Horde_Util::getFormData('creator_read')) {
-            $perm->addCreatorPermission(Horde_Perms::READ, false);
-        } else {
-            $perm->removeCreatorPermission(Horde_Perms::READ, false);
-        }
-        if (Horde_Util::getFormData('creator_edit')) {
-            $perm->addCreatorPermission(Horde_Perms::EDIT, false);
-        } else {
-            $perm->removeCreatorPermission(Horde_Perms::EDIT, false);
-        }
-        if (Horde_Util::getFormData('creator_delete')) {
-            $perm->addCreatorPermission(Horde_Perms::DELETE, false);
-        } else {
-            $perm->removeCreatorPermission(Horde_Perms::DELETE, false);
-        }
-        if (Horde_Util::getFormData('creator_delegate')) {
-            $perm->addCreatorPermission(self::PERMS_DELEGATE, false);
-        } else {
-            $perm->removeCreatorPermission(self::PERMS_DELEGATE, false);
+            // Process creator permissions.
+            if (Horde_Util::getFormData('creator_show')) {
+                $perm->addCreatorPermission(Horde_Perms::SHOW, false);
+            } else {
+                $perm->removeCreatorPermission(Horde_Perms::SHOW, false);
+            }
+            if (Horde_Util::getFormData('creator_read')) {
+                $perm->addCreatorPermission(Horde_Perms::READ, false);
+            } else {
+                $perm->removeCreatorPermission(Horde_Perms::READ, false);
+            }
+            if (Horde_Util::getFormData('creator_edit')) {
+                $perm->addCreatorPermission(Horde_Perms::EDIT, false);
+            } else {
+                $perm->removeCreatorPermission(Horde_Perms::EDIT, false);
+            }
+            if (Horde_Util::getFormData('creator_delete')) {
+                $perm->addCreatorPermission(Horde_Perms::DELETE, false);
+            } else {
+                $perm->removeCreatorPermission(Horde_Perms::DELETE, false);
+            }
+            if (Horde_Util::getFormData('creator_delegate')) {
+                $perm->addCreatorPermission(self::PERMS_DELEGATE, false);
+            } else {
+                $perm->removeCreatorPermission(self::PERMS_DELEGATE, false);
+            }
         }
 
         // Process user permissions.
@@ -1563,7 +1612,9 @@ class Kronolith
             $user = $GLOBALS['registry']->convertUsername($user_backend, true);
             // If the user is empty, or we've already set permissions
             // via the owner_ options, don't do anything here.
-            if (empty($user) || $user == $new_owner) {
+            if (empty($user) ||
+                (!($share instanceof Kronolith_Resource_Base) &&
+                 $user == $new_owner)) {
                 continue;
             }
             if ($auth->hasCapability('list') && !$auth->exists($user_backend)) {
@@ -1769,7 +1820,7 @@ class Kronolith
     public static function embedCode($calendar)
     {
         /* Get the base url */
-        $url = $GLOBALS['registry']->getServiceLink('ajax', 'kronolith')->add(array(
+        $url = $GLOBALS['registry']->getServiceLink('ajax', 'kronolith', true)->add(array(
             'calendar' => 'internal_' . $calendar,
             'container' => 'kronolithCal',
             'view' => 'Month'
@@ -1781,81 +1832,21 @@ class Kronolith
     }
 
     /**
-     * Parses a comma separated list of names and e-mail addresses into a list
-     * of attendee hashes.
-     *
-     * @param string $newAttendees  A comma separated attendee list.
-     *
-     * @return array  The attendee list with e-mail addresses as keys and
-     *                attendee information as values.
-     */
-    public static function parseAttendees($newAttendees)
-    {
-        global $injector, $notification;
-
-        if (empty($newAttendees)) {
-            return array();
-        }
-
-        $parser = $injector->getInstance('Horde_Mail_Rfc822');
-        $attendees = array();
-
-        /* Parse the address without validation to see what we can get out
-         * of it. We allow email addresses (john@example.com), email
-         * address with user information (John Doe <john@example.com>),
-         * and plain names (John Doe). */
-        $result = $parser->parseAddressList($newAttendees);
-        $result->setIteratorFilter(Horde_Mail_Rfc822_List::HIDE_GROUPS);
-
-        foreach ($result as $newAttendee) {
-            if (!$newAttendee->valid) {
-                // If we can't even get a mailbox out of the address, then it
-                // is likely unuseable. Reject it entirely.
-                $notification->push(
-                    sprintf(_("Unable to recognize \"%s\" as an email address."), $newAttendee),
-                    'horde.error'
-                );
-                continue;
-            }
-
-            // If there is only a mailbox part, then it is just a local name.
-            if (!is_null($newAttendee->host)) {
-                // Build a full email address again and validate it.
-                try {
-                    $parser->parseAddressList($newAttendee->writeAddress(true));
-                } catch (Horde_Mail_Exception $e) {
-                    $notification->push($e, 'horde.error');
-                    continue;
-                }
-                $name = $newAttendee->label != $newAttendee->bare_address ? $newAttendee->label : '';
-            } else {
-                $name = $newAttendee->bare_address;
-            }
-
-            // Avoid overwriting existing attendees with the default
-            // values.
-            $attendees[$newAttendee->bare_address] = array(
-                'attendance' => self::PART_REQUIRED,
-                'response'   => self::RESPONSE_NONE,
-                'name'       => $name
-            );
-        }
-
-        return $attendees;
-    }
-
-    /**
      * Returns a comma separated list of attendees and resources
      *
      * @return string  Attendee/Resource list.
      */
     public static function attendeeList()
     {
+        global $session;
+
         /* Attendees */
-        $attendees = self::getAttendeeEmailList($GLOBALS['session']->get('kronolith', 'attendees', Horde_Session::TYPE_ARRAY))->addresses;
+        $attendees = array(strval(
+            $session->get('kronolith', 'attendees')
+        ));
 
         /* Resources */
-        foreach ($GLOBALS['session']->get('kronolith', 'resources', Horde_Session::TYPE_ARRAY) as $resource) {
+        foreach ($session->get('kronolith', 'resources', Horde_Session::TYPE_ARRAY) as $resource) {
             $attendees[] = $resource['name'];
         }
 
@@ -1881,14 +1872,24 @@ class Kronolith
      *        this instance.
      * @param  string $range  The range parameter if this is a recurring event.
      *                        Possible values are self::RANGE_THISANDFUTURE
+     * @param Kronolith_Attendee_List $cancellations  If $action is 'CANCEL',
+     *                                                but it is due to removing
+     *                                                attendees and not
+     *                                                canceling the entire
+     *                                                event, these are the
+     *                                                uninvited attendees and
+     *                                                are the ONLY people that
+     *                                                will receive the CANCEL
+     *                                                iTIP.  @since 4.2.10
      */
     public static function sendITipNotifications(
         Kronolith_Event $event, Horde_Notification_Handler $notification,
-        $action, Horde_Date $instance = null, $range = null)
+        $action, Horde_Date $instance = null, $range = null,
+        Kronolith_Attendee_List $cancellations = null)
     {
-        global $injector, $registry;
+        global $injector, $prefs, $registry;
 
-        if (!$event->attendees) {
+        if (!count($event->attendees) || $prefs->getValue('itip_silent')) {
             return;
         }
 
@@ -1909,12 +1910,35 @@ class Kronolith
         $view->event = $event;
         $view->imageId = $image->getContentId();
 
-        foreach ($event->attendees as $email => $status) {
+        if ($action == self::ITIP_CANCEL && count($cancellations)) {
+            $mail_attendees = $cancellations;
+        } elseif ($event->organizer &&
+                  !self::isUserEmail($event->creator, $event->organizer)) {
+            /* Only send updates to organizer if the user is not the
+             * organizer */
+            if (isset($event->attendees['email:' . $event->organizer])) {
+                $organizer = $event->attendees['email:' . $event->organizer];
+	        } else {
+                $organizer = new Kronolith_Attendee(array('email' => $event->organizer));
+            }
+            $mail_attendees = new Kronolith_Attendee_List(array($organizer));
+        } else {
+            $mail_attendees = $event->attendees;
+        }
+
+        foreach ($mail_attendees as $attendee) {
+            /* Don't send notifications to the ORGANIZER if this is the
+             * ORGANIZER's copy of the event. */
+            if (!$event->organizer &&
+                Kronolith::isUserEmail($event->creator, $attendee->email)) {
+                continue;
+            }
+
             /* Don't bother sending an invitation/update if the recipient does
              * not need to participate, or has declined participating, or
              * doesn't have an email address. */
-            if (strpos($email, '@') === false ||
-                $status['response'] == self::RESPONSE_DECLINED) {
+            if (strpos($attendee->email, '@') === false ||
+                $attendee->response == self::RESPONSE_DECLINED) {
                 continue;
             }
 
@@ -1932,10 +1956,49 @@ class Kronolith
                 }
                 break;
 
+            case self::ITIP_REPLY:
+                $filename = 'event-reply.ics';
+                $events = $event->toiCalendar(new Horde_Icalendar());
+                $vEvent = array_shift($events);
+                $itipIdentity = new Horde_Itip_Resource_Identity(
+                        $ident,
+                        $vEvent->getAttribute('ATTENDEE'),
+                        (string)$ident->getFromAddress()
+                );
+                /* Find which of the creator's mail addresses is used here */
+                foreach ($event->attendees as $attendee) {
+                    if (self::isUserEmail($event->creator, $attendee->email)) {
+                        switch ($attendee->response) {
+                        case self::RESPONSE_ACCEPTED:
+                            $type = new Horde_Itip_Response_Type_Accept($itipIdentity);
+                        break;
+                        case self::RESPONSE_DECLINED:
+                            $type = new Horde_Itip_Response_Type_Decline($itipIdentity);
+                        break;
+                        case self::RESPONSE_TENTATIVE:
+                            $type = new Horde_Itip_Response_Type_Tentative($itipIdentity);
+                        break;
+                        default:
+                            return;
+                        }
+                        try {
+                            // Send the reply.
+                            Horde_Itip::factory($vEvent, $itipIdentity)->sendMultiPartResponse(
+                                $type,
+                                new Horde_Core_Itip_Response_Options_Horde('UTF-8', array()),
+                                $injector->getInstance('Horde_Mail')
+                            );
+                        } catch (Horde_Itip_Exception $e) {
+                            $notification->push(sprintf(_("Error sending reply: %s."), $e->getMessage()), 'horde.error');
+                        }
+                    }
+                }
+                return;
+
             case self::ITIP_REQUEST:
             default:
                 $method = 'REQUEST';
-                if ($status['response'] == self::RESPONSE_NONE) {
+                if ($attendee->response == self::RESPONSE_NONE) {
                     /* Invitation. */
                     $filename = 'event-invitation.ics';
                     $view->subject = $event->getTitle();
@@ -1949,14 +2012,13 @@ class Kronolith
                 break;
             }
 
-            $view->attendees = strval(self::getAttendeeEmailList($event->attendees));
             $view->organizer = $registry->convertUserName($event->creator, false);
 
             if ($action == self::ITIP_REQUEST) {
                 $attend_link = Horde::url('attend.php', true, -1)
                     ->add(array('c' => $event->calendar,
                                 'e' => $event->id,
-                                'u' => $email));
+                                'u' => $attendee->email));
                 $view->linkAccept    = (string)$attend_link->add('a', 'accept');
                 $view->linkTentative = (string)$attend_link->add('a', 'tentative');
                 $view->linkDecline   = (string)$attend_link->add('a', 'decline');
@@ -1998,7 +2060,7 @@ class Kronolith
             $ics->setType('text/calendar');
             $ics->setContents($iCal->exportvCalendar());
             $ics->setName($filename);
-            $ics->setContentTypeParameter('METHOD', $method);
+            $ics->setContentTypeParameter('method', $method);
             $ics->setCharset('UTF-8');
             $ics->setEOL("\r\n");
 
@@ -2014,11 +2076,7 @@ class Kronolith
             $multipart->addPart($inner);
             $multipart->addPart($ics2);
 
-            $recipient = new Horde_Mail_Rfc822_Address($email);
-            if (!empty($status['name'])) {
-                $recipient->personal = $status['name'];
-            }
-
+            $recipient = $attendee->addressObject;
             $mail = new Horde_Mime_Mail(
                 array('Subject' => $view->subject,
                       'To' => $recipient,
@@ -2054,7 +2112,7 @@ class Kronolith
      */
     public static function sendNotification($event, $action)
     {
-        global $injector, $registry;
+        global $injector, $prefs, $registry;
 
         if (!in_array($action, array('add', 'edit', 'delete'))) {
             throw new Kronolith_Exception('Unknown event action: ' . $action);
@@ -2080,10 +2138,10 @@ class Kronolith
         }
 
         $senderIdentity = $injector->getInstance('Horde_Core_Factory_Identity')
-            ->create($event->creator ?: $owner);
+            ->create($registry->getAuth() ?: $event->creator ?: $owner);
 
         foreach ($share->listUsers(Horde_Perms::READ) as $user) {
-            if (!isset($recipients[$user])) {
+            if (empty($recipients[$user])) {
                 $recipients[$user] = self::_notificationPref($user, 'read', $calendar);
             }
         }
@@ -2097,7 +2155,7 @@ class Kronolith
             }
 
             foreach ($group_users as $user) {
-                if (!isset($recipients[$user])) {
+                if (empty($recipients[$user])) {
                     $recipients[$user] = self::_notificationPref($user, 'read', $calendar);
                 }
             }
@@ -2113,6 +2171,7 @@ class Kronolith
             if (strpos($email, '@') === false) {
                 continue;
             }
+
             if (!isset($addresses[$vals['lang']][$vals['tf']][$vals['df']])) {
                 $addresses[$vals['lang']][$vals['tf']][$vals['df']] = array();
             }
@@ -2126,44 +2185,46 @@ class Kronolith
             return;
         }
 
+        $image = self::getImagePart('big_new.png');
+        $view = new Horde_View(array('templatePath' => KRONOLITH_TEMPLATES . '/update'));
+        $view->event = $event;
+        $view->calendar = Kronolith::getLabel($share);
+        $view->imageId = $image->getContentId();
+        if (!$prefs->isLocked('event_notification')) {
+            $view->prefsUrl = Horde::url($registry->getServiceLink('prefs', 'kronolith'), true)->remove(session_name());
+        }
+        new Horde_View_Helper_Text($view);
+
         foreach ($addresses as $lang => $twentyFour) {
             $registry->setLanguageEnvironment($lang);
 
             switch ($action) {
             case 'add':
                 $subject = _("Event added:");
-                $notification_message = _("You requested to be notified when events are added to your calendars.") . "\n\n" . _("The event \"%s\" has been added to \"%s\" calendar, which is on %s at %s.");
                 break;
 
             case 'edit':
                 $subject = _("Event edited:");
-                $notification_message = _("You requested to be notified when events are edited in your calendars.") . "\n\n" . _("The event \"%s\" has been edited on \"%s\" calendar, which is on %s at %s.");
                 break;
 
             case 'delete':
                 $subject = _("Event deleted:");
-                $notification_message = _("You requested to be notified when events are deleted from your calendars.") . "\n\n" . _("The event \"%s\" has been deleted from \"%s\" calendar, which was on %s at %s.");
                 break;
             }
 
             foreach ($twentyFour as $tf => $dateFormat) {
                 foreach ($dateFormat as $df => $df_recipients) {
-                    $message = "\n"
-                        . sprintf($notification_message,
-                                  $event->title,
-                                  Kronolith::getLabel($share),
-                                  $event->start->strftime($df),
-                                  $event->start->strftime($tf ? '%R' : '%I:%M%p'))
-                        . "\n\n" . $event->description;
-
-                    $mime_mail = new Horde_Mime_Mail(array(
-                        'Subject' => $subject . ' ' . $event->title,
+                    $view->header = $subject . ' ' . $event->title;
+                    $mail = new Horde_Mime_Mail(array(
+                        'Subject' => $view->header,
                         'To' => implode(',', $df_recipients),
                         'From' => $senderIdentity->getDefaultFromAddress(true),
                         'User-Agent' => 'Kronolith ' . $registry->getVersion(),
-                        'body' => $message));
+                    ));
+                    $multipart = self::buildMimeMessage($view, 'notification', $image);
+                    $mail->setBasePart($multipart);
                     Horde::log(sprintf('Sending event notifications for %s to %s', $event->title, implode(', ', $df_recipients)), 'DEBUG');
-                    $mime_mail->send($injector->getInstance('Horde_Mail'));
+                    $mail->send($injector->getInstance('Horde_Mail'));
                 }
             }
         }
@@ -2855,7 +2916,7 @@ class Kronolith
      */
     public static function getInternalCalendar($target)
     {
-        if ($GLOBALS['conf']['resource']['driver'] && self::getDriver('Resource')->isResourceCalendar($target)) {
+        if ($GLOBALS['conf']['resources']['enabled'] && self::getDriver('Resource')->isResourceCalendar($target)) {
             $driver = self::getDriver('Resource');
             $id = $driver->getResourceIdByCalendar($target);
             return $driver->getResource($id);
@@ -2942,28 +3003,6 @@ class Kronolith
                 }
             }
         }
-    }
-
-    /**
-     * TODO
-     *
-     * @param array $attendees
-     *
-     * @return Horde_Mail_Rfc822_List
-     */
-    public static function getAttendeeEmailList($attendees)
-    {
-        $a_list = new Horde_Mail_Rfc822_List();
-
-        foreach ($attendees as $mail => $attendee) {
-            $tmp = new Horde_Mail_Rfc822_Address($mail);
-            if (!empty($attendee['name'])) {
-                $tmp->personal = $attendee['name'];
-            }
-            $a_list->add($tmp);
-        }
-
-        return $a_list;
     }
 
     /**

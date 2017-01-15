@@ -198,14 +198,12 @@ var IMP_JS = {
             return;
         }
 
-        imgs = Prototype.Selector.select('IMG[data-src]', doc).findAll(Element.visible);
-        mb_height = mb.getHeight();
-
         /* Load messages within 1 scrolled page of range boundaries. */
+        mb_height = mb.getHeight();
         range_top = mb.scrollTop - mb_height;
         range_bottom = mb.scrollTop + (2 * mb_height);
 
-        imgs = Prototype.Selector.select('IMG[data-src]', this.iframeDoc(iframe)).findAll(Element.visible);
+        imgs = Prototype.Selector.select('IMG[data-src]', doc).findAll(Element.visible);
 
         if (imgs.size()) {
             iframe.setStyle({ overflowY: 'hidden' });

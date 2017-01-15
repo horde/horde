@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2013-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2013-2017 Horde LLC (http://www.horde.org/)
  *
  * @author     Jan Schneider <jan@horde.org>
  * @license    http://www.horde.org/licenses/bsd
@@ -383,9 +383,14 @@ class Horde_Db_Adapter_Oci8 extends Horde_Db_Adapter_Base
                 ', ',
                 array_map(array($this, 'quoteColumnName'), array_keys($fields))
             )
-            . ') VALUES (' . implode(', ', $fields)
-            . ') RETURNING ' . implode(', ', array_keys($blobs)) . ' INTO '
-            . implode(', ', $locators);
+            . ') VALUES (' . implode(', ', $fields) . ')';
+
+        // Protect against empty values being passed for blobs.
+        if (!empty($blobs)) {
+            $sql .= ' RETURNING ' . implode(', ', array_keys($blobs)) . ' INTO '
+                . implode(', ', $locators);
+        }
+
         $this->execute($sql, null, null, $blobs);
 
         return $idValue
@@ -422,13 +427,19 @@ class Horde_Db_Adapter_Oci8 extends Horde_Db_Adapter_Base
         }
 
         $sql = sprintf(
-            'UPDATE %s SET %s%s RETURNING %s INTO %s',
+            'UPDATE %s SET %s%s',
             $this->quoteTableName($table),
             implode(', ', $fnames),
-            strlen($where) ? ' WHERE ' . $where : '',
-            implode(', ', array_keys($blobs)),
-            implode(', ', $locators)
+            strlen($where) ? ' WHERE ' . $where : ''
         );
+
+        // Protect against empty values for blobs.
+        if (!empty($blobs)) {
+            $sql .= sprintf(' RETURNING %s INTO %s',
+                implode(', ', array_keys($blobs)),
+                implode(', ', $locators)
+            );
+        }
 
         $this->execute($sql, null, null, $blobs);
 
@@ -547,7 +558,6 @@ class Horde_Db_Adapter_Oci8 extends Horde_Db_Adapter_Base
                 'iso-8859-7',
                 'iso-8859-8',
                 'iso-8859-9',
-                'iso-8859-1',
                 'iso-8859-10',
                 'iso-8859-13',
                 'iso-8859-15',

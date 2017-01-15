@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2004-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.php.
@@ -59,7 +59,7 @@ class Sesha_Form_Category extends Horde_Form
         } else {
             $fieldtype = 'multienum';
         }
-        $mp = &$this->addVariable(_("Properties"), 'properties', $fieldtype, true, false, null, array($a));
+        $mp = $this->addVariable(_("Properties"), 'properties', $fieldtype, true, false, null, array($a));
         if (!empty($current)) {
             $mp->setDefault(array_keys($current));
         }

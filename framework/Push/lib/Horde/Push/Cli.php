@@ -14,7 +14,7 @@
 /**
  * Command line tool for pushing content to social networks.
  *
- * Copyright 2011-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -139,7 +139,7 @@ class Horde_Push_Cli
 
             $cli = Horde_Cli::init();
             foreach ($results as $result) {
-                if ($result instanceOf Exception) {
+                if ($result instanceof Exception) {
                     $cli->message($result->getMessage(), 'cli.error');
                     $fail = true;
                 } else {

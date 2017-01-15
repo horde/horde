@@ -2,7 +2,7 @@
     "name": "horde/horde-lz4",
     "description": "Horde LZ4 Compression Extension",
     "type": "library",
-    "homepage": "http://pear.horde.org",
+    "homepage": "https://pear.horde.org",
     "license": "MIT (Expat)",
     "authors": [
         {
@@ -11,15 +11,15 @@
             "role": "lead"
         }
     ],
-    "version": "1.0.7",
-    "time": "2014-09-16",
+    "version": "1.0.10",
+    "time": "2016-03-08",
     "repositories": [
         {
             "type": "pear",
-            "url": "http://pear.horde.org"
+            "url": "https://pear.horde.org"
         }
     ],
     "require": {
-        "php": ">=5.0.0,<=6.0.0alpha1"
+        "php": ">=5.0.0,<=8.0.0alpha1"
     }
 }

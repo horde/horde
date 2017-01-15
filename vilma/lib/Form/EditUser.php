@@ -3,7 +3,7 @@
  * Copyright 2006-2007 Alkaloid Networks <http://www.alkaloid.net>
  *
  * See the enclosed file LICENSE for license information (BSD). If you did
- * did not receive this file, see http://cvs.horde.org/co.php/vilma/LICENSE.
+ * did not receive this file, see http://www.horde.org/licenses/bsd.
  *
  * @author  Ben Klang <ben@alkaloid.net>
  * @package Vilma
@@ -29,7 +29,7 @@ class Vilma_Form_EditUser extends Horde_Form
             break;
         }
         if (!$editing) {
-            $title = sprintf(_("New User @%s"), $vars->get('domain'));
+            $title = sprintf(_("New User for \"%s\""), $vars->get('domain'));
         }
         parent::__construct($vars, $title);
 

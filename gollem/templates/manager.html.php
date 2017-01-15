@@ -39,7 +39,7 @@
 <input type="hidden" id="old_names" name="old_names" value="" />
 <input type="hidden" id="renamefrm_oldname" name="oldname" value="" />
 <input type="hidden" id="chmod" name="chmod" value="" />
-<input type="hidden" id="dir" name="dir" value="<?php echo $this->dir ?>" />
+<input type="hidden" id="dir" name="dir" value="<?php echo htmlspecialchars($this->dir) ?>" />
 <input type="hidden" name="targetFolder" value="" />
 
 <div class="header">

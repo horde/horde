@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 1999-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, http://www.horde.org/licenses/lgpl21
@@ -184,7 +184,7 @@ class Horde_Auth_Imap extends Horde_Auth_Base
     {
         $sig = hash('md5', serialize(array($user, $pass)));
 
-        if (!isset($this->_ob[$sig])) {
+        if (!isset($this->_imap[$sig])) {
             $imap_config = array(
                 'hostspec' => empty($this->_params['hostspec']) ? null : $this->_params['hostspec'],
                 'password' => $pass,
@@ -194,13 +194,13 @@ class Horde_Auth_Imap extends Horde_Auth_Base
             );
 
             try {
-                $this->_ob[$sig] = new Horde_Imap_Client_Socket($imap_config);
+                $this->_imap[$sig] = new Horde_Imap_Client_Socket($imap_config);
             } catch (InvalidArgumentException $e) {
                 throw new Horde_Auth_Exception($e);
             }
         }
 
-        return $this->_ob[$sig];
+        return $this->_imap[$sig];
     }
 
 }

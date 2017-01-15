@@ -2,7 +2,7 @@
 /**
  * Factory for creating Horde_SessionHandler objects.
  *
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * @category Horde
  * @package  Core
@@ -127,12 +127,12 @@ class Horde_Core_Factory_SessionHandler extends Horde_Core_Factory_Injector
             $stub = new Horde_Support_Stub();
 
             session_set_save_handler(
-                array($stub, 'open'),
-                array($stub, 'close'),
+                array($this, '_returnTrue'),
+                array($this, '_returnTrue'),
                 array($stub, 'read'),
                 array($stub, 'write'),
-                array($stub, 'destroy'),
-                array($stub, 'gc')
+                array($this, '_returnTrue'),
+                array($this, '_returnTrue')
             );
 
             ob_start();
@@ -165,4 +165,13 @@ class Horde_Core_Factory_SessionHandler extends Horde_Core_Factory_Injector
             : false;
     }
 
+    /**
+     * Stub method.
+     *
+     * @return boolean True
+     */
+    protected function _returnTrue()
+    {
+        return true;
+    }
 }

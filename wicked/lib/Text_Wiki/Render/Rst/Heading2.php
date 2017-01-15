@@ -1,14 +1,9 @@
 <?php
 /**
- * Renders Wiki page headers to restructured text.
- *
- * Copyright 2011-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPLv2). If
- * you did not receive this file, see
- * http://www.horde.org/licenses/gpl
- *
- * PHP version 5
+ * you did not receive this file, see http://www.horde.org/licenses/gpl
  *
  * @category Horde
  * @package  Wicked
@@ -77,7 +72,10 @@ class Text_Wiki_Render_Rst_Heading2 extends Text_Wiki_Render
                 $underline = '`';
                 break;
             }
-            $output = '';
+            $output = Text_Wiki_Render_Rst_Links::append();
+            if ($output) {
+                $output = trim($output) . "\n\n";
+            }
             if ($overline !== null) {
                 $output .= str_repeat($overline, $length) . "\n ";
             }

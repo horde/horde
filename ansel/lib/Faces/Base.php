@@ -2,7 +2,7 @@
 /**
  * Face recognition class
  *
- * Copyright 2007-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -628,10 +628,14 @@ class Ansel_Faces_Base
             return;
         }
         // save compressed signature
-        $sql = 'UPDATE ansel_faces SET face_signature = ? WHERE face_id = ?';
-        $params = array(new Horde_Db_Value_Binary(puzzle_compress_cvec($signature)), $face_id);
         try {
-            $GLOBALS['ansel_db']->update($sql, $params);
+            $GLOBALS['ansel_db']->updateBlob(
+                'ansel_faces',
+                array('face_signature' => new Horde_Db_Value_Binary(
+                     puzzle_compress_cvec($signature))
+                ),
+                array('face_id = ?', $face_id)
+            );
         } catch (Horde_Db_Exception $e) {
             throw new Ansel_Exception($result);
         }
@@ -640,15 +644,16 @@ class Ansel_Faces_Base
         $word_len = $GLOBALS['conf']['faces']['search'];
         $str_len = strlen($signature);
         $GLOBALS['ansel_db']->delete('DELETE FROM ansel_faces_index WHERE face_id = ' . $face_id);
-        $q = 'INSERT INTO ansel_faces_index (face_id, index_position, index_part) VALUES (?, ?, ?)';
+        $q = 'INSERT INTO  () VALUES (?, ?, ?)';
         $c = $str_len - $word_len;
         for ($i = 0; $i <= $c; $i++) {
             $data = array(
-                $face_id,
-                $i,
-                new Horde_Db_Value_Binary(substr($signature, $i, $word_len)));
+                'face_id' => $face_id,
+                'index_position' => $i,
+                'index_part' => new Horde_Db_Value_Binary(substr($signature, $i, $word_len))
+            );
             try {
-                $GLOBALS['ansel_db']->insert($q, $data);
+                $GLOBALS['ansel_db']->insertBlob('ansel_faces_index', $data);
             } catch (Horde_Db_Exception $e) {
                 throw new Ansel_Exception($e);
             }
@@ -753,7 +758,8 @@ class Ansel_Faces_Base
 
         if ($full && $GLOBALS['conf']['faces']['search'] &&
             function_exists('puzzle_uncompress_cvec')) {
-            $face['face_signature'] = puzzle_uncompress_cvec($face['face_signature']);
+            $columns = $GLOBALS['ansel_db']->columns('ansel_faces');
+            $face['face_signature'] = puzzle_uncompress_cvec($columns['face_signature']->binaryToString($face['face_signature']));
         }
 
         if (empty($face['face_name'])) {
@@ -820,6 +826,7 @@ class Ansel_Faces_Base
             ));
 
         try {
+            $columns = $GLOBALS['ansel_db']->columns('ansel_faces');
             $faces = $GLOBALS['ansel_db']->selectAll($sql);
         } catch (Horde_Db_Exception $e) {
             throw new Ansel_Exception($e);
@@ -831,7 +838,7 @@ class Ansel_Faces_Base
         foreach ($faces as &$face) {
             $face['similarity'] = puzzle_vector_normalized_distance(
                 $signature,
-                puzzle_uncompress_cvec($face['face_signature']));
+                puzzle_uncompress_cvec($columns['face_signature']->binaryToString($face['face_signature'])));
         }
         uasort($faces, array($this, '_getSignatureMatches'));
 

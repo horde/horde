@@ -79,9 +79,12 @@ class Horde_Util_TransliterateTest extends PHPUnit_Framework_TestCase
             // No normalization
             array('ABC123abc', 'ABC123abc'),
             // Non-ascii can all be transliterated
-            array('AÀBÞEÉSß', 'AAB?EESss'),
+            // Note: We removed the 'Þ' character from the test explicitly,
+            // since different versions of glibc transliterate it differently.
+            // See https://github.com/horde/horde/pull/144
+            array('AÀBEÉSß', 'AABEESss'),
             // Some non-ascii cannot be transliterated
-            array('AÀ黾BÞ', 'AA?B?')
+            array('AÀ黾B', 'AA?B')
         );
     }
 

@@ -4,7 +4,7 @@
  * configuration of Horde applications, writing conf.php files from
  * conf.xml source files, generating user interfaces, etc.
  *
- * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -762,15 +762,16 @@ class Horde_Config
             $xpath = new DOMXPath($node->ownerDocument);
         }
 
+        $host = $node
+            ? explode(',', ($xpath->evaluate('string(configstring[@name="hostspec"])', $node) ?: ''))
+            : array();
+        $host = $this->_default($ctx . '|hostspec', $host);
         $fields = array(
             'hostspec' => array(
                 '_type' => 'stringlist',
                 'required' => true,
                 'desc' => 'LDAP server(s)/hostname(s)',
-                'default' => implode(',', $this->_default(
-                    $ctx . '|hostspec',
-                    $node ? ($xpath->evaluate('string(configstring[@name="hostspec"])', $node) ?: array()) : array()
-                ))
+                'default' => is_array($host) ? implode(',', $host) : $host,
             ),
 
             'port' => array(
@@ -798,7 +799,7 @@ class Horde_Config
                 'required' => false,
                 'desc' => 'Connection timeout',
                 'default' => $this->_default(
-                    $ctx . '|port',
+                    $ctx . '|timeout',
                     $node ? ($xpath->evaluate('string(configinteger[@name="timeout"])', $node) ?: 5) : 5
                 )
             ),
@@ -833,7 +834,7 @@ class Horde_Config
                 'switch' => array(
                     'anon' => array(
                         'desc' => 'Bind anonymously',
-                        'fields' => array()
+                        'fields' => $this->_configLDAPUser($ctx, $node)
                     ),
                     'user' => array(
                         'desc' => 'Bind as the currently logged-in user',
@@ -841,25 +842,28 @@ class Horde_Config
                     ),
                     'admin' => array(
                         'desc' => 'Bind with administrative/system credentials',
-                        'fields' => array(
-                            'binddn' => array(
-                                '_type' => 'text',
-                                'required' => true,
-                                'desc' => 'DN used to bind to LDAP',
-                                'default' => $this->_default(
-                                    $ctx . '|binddn',
-                                    $node ? ($xpath->evaluate('string(configsection/configstring[@name="binddn"])', $node) ?: '') : ''
+                        'fields' => array_merge(
+                            array(
+                                'binddn' => array(
+                                    '_type' => 'text',
+                                    'required' => true,
+                                    'desc' => 'DN used to bind to LDAP',
+                                    'default' => $this->_default(
+                                        $ctx . '|binddn',
+                                        $node ? ($xpath->evaluate('string(configsection/configstring[@name="binddn"])', $node) ?: '') : ''
+                                    )
+                                ),
+                                'bindpw' => array(
+                                    '_type' => 'text',
+                                    'required' => true,
+                                    'desc' => 'Password for bind DN',
+                                    'default' => $this->_default(
+                                        $ctx . '|bindpw',
+                                        $node ? ($xpath->evaluate('string(configsection/configstring[@name="bindpw"])', $node) ?: '') : '')
                                 )
                             ),
-                            'bindpw' => array(
-                                '_type' => 'text',
-                                'required' => true,
-                                'desc' => 'Password for bind DN',
-                                'default' => $this->_default(
-                                    $ctx . '|bindpw',
-                                    $node ? ($xpath->evaluate('string(configsection/configstring[@name="bindpw"])', $node) ?: '') : '')
-                            )
-                        )
+                            $this->_configLDAPUser($ctx, $nod)
+                        ),
                     ),
                 )
             ),
@@ -970,24 +974,6 @@ class Horde_Config
                     'default' => $this->_default(
                         $ctx . '|user|basedn',
                         $node ? ($xpath->evaluate('string(configsection/configstring[@name="basedn"])', $node) ?: '') : ''
-                    )
-                ),
-                'binddn' => array(
-                    '_type' => 'text',
-                    'required' => false,
-                    'desc' => 'DN used to bind for searching the user\'s DN (leave empty for anonymous bind)',
-                    'default' => $this->_default(
-                        $ctx . '|user|binddn',
-                        $node ? ($xpath->evaluate('string(configsection/configstring[@name="binddn"])', $node) ?: '') : ''
-                    )
-                ),
-                'bindpw' => array(
-                    '_type' => 'text',
-                    'required' => false,
-                    'desc' => 'Password for bind DN',
-                    'default' => $this->_default(
-                        $ctx . '|user|bindpw',
-                        $node ? ($xpath->evaluate('string(configsection/configstring[@name="bindpw"])', $node) ?: '') : ''
                     )
                 ),
                 'uid' => array(
@@ -1257,40 +1243,20 @@ class Horde_Config
             'desc' => 'Use SSL to connect to the server?',
             'default' => $this->_default(
                 $ctx . '|ssl',
-                $node ? ($xpath->evaluate('string(configboolean[@name="ssl"])', $node) ?: false) : false)
-        );
-
-        $ca = array(
-            '_type' => 'text',
-            'required' => false,
-            'desc' => 'Certification Authority to use for SSL connections',
-            'default' => $this->_default(
-                $ctx . '|ca',
-                $node ? ($xpath->evaluate('string(configstring[@name="ca"])', $node) ?: '') : ''
-            )
-        );
-
-        $splitread = array(
-            '_type' => 'boolean',
-            'required' => false,
-            'desc' => 'Split reads to a different server?',
-            'default' => $this->_default(
-                $ctx . '|splitread',
-                $node ? ($xpath->evaluate('normalize-space(configswitch[@name="splitread"]/text())', $node) ?: 'false') : 'false'),
+                $node ? ($xpath->evaluate('string(configboolean[@name="ssl"])', $node) ?: false) : false),
             'switch' => array(
-                'false' => array(
-                    'desc' => 'Disabled',
-                    'fields' => array()
-                ),
+                'false' => array('desc' => 'No'),
                 'true' => array(
-                    'desc' => 'Enabled',
+                    'desc' => 'Yes',
                     'fields' => array(
-                        'read' => array(
-                            'username' => $username,
-                            'password' => $password,
-                            'protocol' => $protocol,
-                            'database' => $database,
-                            'charset' => $charset
+                        'ca' => array(
+                            '_type' => 'text',
+                            'required' => false,
+                            'desc' => 'Certification Authority to use for SSL connections',
+                            'default' => $this->_default(
+                                $ctx . '|ca',
+                                $node ? ($xpath->evaluate('string(configstring[@name="ca"])', $node) ?: '') : ''
+                            )
                         )
                     )
                 )
@@ -1319,20 +1285,7 @@ class Horde_Config
                         'charset' => $charset,
                         'ssl' => $ssl,
                         'ca' => $ca,
-                        'splitread' => array_replace_recursive(
-                            $splitread,
-                            array(
-                                'switch' => array(
-                                    'true' => array(
-                                        'fields' => array(
-                                            'read' => array(
-                                                'protocol' => $mysql_protocol,
-                                            )
-                                        )
-                                    )
-                                )
-                            )
-                        )
+                        'splitread' => $this->_configSQLSplitRead($ctx, $node, 'mysql'),
                     )
                 ),
                 'mysqli' => array(
@@ -1345,20 +1298,7 @@ class Horde_Config
                         'charset' => $charset,
                         'ssl' => $ssl,
                         'ca' => $ca,
-                        'splitread' => array_replace_recursive(
-                            $splitread,
-                            array(
-                                'switch' => array(
-                                    'true' => array(
-                                        'fields' => array(
-                                            'read' => array(
-                                                'protocol' => $mysql_protocol,
-                                            )
-                                        )
-                                    )
-                                )
-                            )
-                        )
+                        'splitread' => $this->_configSQLSplitRead($ctx, $node, 'mysqli'),
                     )
                 ),
                 'oci8' => array(
@@ -1429,7 +1369,7 @@ class Horde_Config
                         'protocol' => $pgsql_protocol,
                         'database' => $database,
                         'charset' => $charset,
-                        'splitread' => $splitread,
+                        'splitread' => $this->_configSQLSplitRead($ctx, $node, 'pgsql'),
                     )
                 ),
                 'sqlite' => array(
@@ -1481,6 +1421,49 @@ class Horde_Config
         }
 
         return $config;
+    }
+
+    /**
+     * Returns the configuration items for split-read database setups.
+     *
+     * @param string $ctx         The context of the <configsql> tag.
+     * @param DomNode $node       The DomNode representation of the <configsql>
+     *                            tag.
+     * @param string $phptype     The SQL backend name.
+     *
+     * @return array  An associative array with the split-read SQL
+     *                configuration tree.
+     */
+    protected function _configSQLSplitRead($ctx, $node, $phptype)
+    {
+        if (preg_match('/\|read$/', $ctx)) {
+            return null;
+        }
+
+        if ($node) {
+            $xpath = new DOMXPath($node->ownerDocument);
+        }
+
+        $splitread_fields = $this->configSQL($ctx . '|read');
+        $splitread_fields = $splitread_fields['switch']['custom']['fields']['phptype']['switch'][$phptype]['fields'];
+        return array(
+            '_type' => 'boolean',
+            'required' => false,
+            'desc' => 'Split reads to a different server?',
+            'default' => $this->_default(
+                $ctx . '|splitread',
+                $node ? ($xpath->evaluate('normalize-space(configswitch[@name="splitread"]/text())', $node) ?: 'false') : 'false'),
+            'switch' => array(
+                'false' => array(
+                    'desc' => 'Disabled',
+                    'fields' => array()
+                ),
+                'true' => array(
+                    'desc' => 'Enabled',
+                    'fields' => array('read' => $splitread_fields)
+                )
+            )
+        );
     }
 
     /**

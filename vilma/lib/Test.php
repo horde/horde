@@ -2,10 +2,10 @@
 /**
  * This class provides the Vilma configuration for the test script.
  *
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you did not
- * did not receive this file, see http://cvs.horde.org/co.php/vilma/LICENSE.
+ * did not receive this file, see http://www.horde.org/licenses/bsd.
  *
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Vilma

@@ -14,7 +14,7 @@
 /**
  * Handles date attributes.
  *
- * Copyright 2011-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see
@@ -84,7 +84,7 @@ extends Horde_Kolab_Format_Xml_Type_String
         $old_node = false
     )
     {
-        if (!isset($value) || !$value instanceOf DateTime) {
+        if (!isset($value) || !$value instanceof DateTime) {
             throw new Horde_Kolab_Format_Exception(
                 sprintf(
                     'Missing or invalid date for the "%s" entry!',

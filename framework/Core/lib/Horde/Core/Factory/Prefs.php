@@ -14,7 +14,7 @@
 /**
  * A Horde_Injector:: based Horde_Prefs:: factory.
  *
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -67,18 +67,24 @@ class Horde_Core_Factory_Prefs extends Horde_Core_Factory_Base
                   $conf['prefs']['driver'] == 'Session') {
             $driver = 'Horde_Prefs_Storage_Null';
             $params = array();
-            $opts['cache'] = false;
+            $opts['cache'] = $conf['prefs']['driver'] == 'Session';
         } else {
-            $driver = $conf['prefs']['driver'];
-            switch (Horde_String::lower($driver)) {
-            case 'nosql':
-                $nosql = $this->_injector->getInstance('Horde_Core_Factory_Nosql')->create('horde', 'prefs');
-                if ($nosql instanceof Horde_Mongo_Client) {
-                    $driver = 'mongo';
+            try {
+                $driver = $conf['prefs']['driver'];
+                switch (Horde_String::lower($driver)) {
+                case 'nosql':
+                    $nosql = $this->_injector->getInstance('Horde_Core_Factory_Nosql')->create('horde', 'prefs');
+                    if ($nosql instanceof Horde_Mongo_Client) {
+                        $driver = 'mongo';
+                    }
+                    break;
                 }
-                break;
+                $driver = $this->_getDriverName($driver, 'Horde_Prefs_Storage');
+            } catch (Horde_Exception $e) {
+                $this->_notifyError($e);
+                $driver = 'Horde_Prefs_Storage_Null';
+                $opts['cache'] = false;
             }
-            $driver = $this->_getDriverName($driver, 'Horde_Prefs_Storage');
             $params = Horde::getDriverConfig('prefs', $driver);
         }
 
@@ -120,7 +126,7 @@ class Horde_Core_Factory_Prefs extends Horde_Core_Factory_Base
             case 'Horde_Prefs_Storage_Ldap':
                 $params['ldap'] = $this->_injector
                     ->getInstance('Horde_Core_Factory_Ldap')
-                    ->create('horde', 'ldap');
+                    ->create('horde', 'prefs');
                 break;
 
             case 'Horde_Prefs_Storage_Mongo':
@@ -251,9 +257,7 @@ class Horde_Core_Factory_Prefs extends Horde_Core_Factory_Base
     }
 
     /**
-     * Clear the instances cache.
-     *
-     * @deprecated
+     * Clears the instances cache.
      */
     public function clearCache()
     {

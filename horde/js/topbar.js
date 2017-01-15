@@ -27,7 +27,8 @@ var HordeTopbar = {
     {
         HordeCore.doAction('topbarUpdate', {
             app: this.conf.app,
-            hash: this.conf.hash
+            hash: this.conf.hash,
+            location: window.location.href
         }, {
             callback: this.onUpdateTopbar.bind(this),
             uri: this.conf.URI_AJAX

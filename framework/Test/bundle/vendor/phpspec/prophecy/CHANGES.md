@@ -1,3 +1,55 @@
+1.6.1 / 2016-06-07
+==================
+
+  * Ignored empty method names in invalid `@method` phpdoc
+  * Fixed the mocking of SplFileObject
+  * Added compatibility with phpdocumentor/reflection-docblock 3
+
+1.6.0 / 2016-02-15
+==================
+
+  * Add Variadics support (thanks @pamil)
+  * Add ProphecyComparator for comparing objects that need revealing (thanks @jon-acker)
+  * Add ApproximateValueToken (thanks @dantleech)
+  * Add support for 'self' and 'parent' return type (thanks @bendavies)
+  * Add __invoke to allowed reflectable methods list (thanks @ftrrtf)
+  * Updated ExportUtil to reflect the latest changes by Sebastian (thanks @jakari)
+  * Specify the required php version for composer (thanks @jakzal)
+  * Exclude 'args' in the generated backtrace (thanks @oradwell)
+  * Fix code generation for scalar parameters (thanks @trowski)
+  * Fix missing sprintf in InvalidArgumentException __construct call (thanks @emmanuelballery)
+  * Fix phpdoc for magic methods (thanks @Tobion)
+  * Fix PhpDoc for interfaces usage (thanks @ImmRanneft)
+  * Prevent final methods from being manually extended (thanks @kamioftea)
+  * Enhance exception for invalid argument to ThrowPromise (thanks @Tobion)
+
+1.5.0 / 2015-04-27
+==================
+
+  * Add support for PHP7 scalar type hints (thanks @trowski)
+  * Add support for PHP7 return types (thanks @trowski)
+  * Update internal test suite to support PHP7
+
+1.4.1 / 2015-04-27
+==================
+
+  * Fixed bug in closure-based argument tokens (#181)
+
+1.4.0 / 2015-03-27
+==================
+
+  * Fixed errors in return type phpdocs (thanks @sobit)
+  * Fixed stringifying of hash containing one value (thanks @avant1)
+  * Improved clarity of method call expectation exception (thanks @dantleech)
+  * Add ability to specify which argument is returned in willReturnArgument (thanks @coderbyheart)
+  * Add more information to MethodNotFound exceptions (thanks @ciaranmcnulty)
+  * Support for mocking classes with methods that return references (thanks @edsonmedina)
+  * Improved object comparison (thanks @whatthejeff)
+  * Adopted '^' in composer dependencies (thanks @GrahamCampbell)
+  * Fixed non-typehinted arguments being treated as optional (thanks @whatthejeff)
+  * Magic methods are now filtered for keywords (thanks @seagoj)
+  * More readable errors for failure when expecting single calls (thanks @dantleech)
+
 1.3.1 / 2014-11-17
 ==================
 

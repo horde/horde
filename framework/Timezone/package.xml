@@ -10,10 +10,10 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-01-09</date>
+ <date>2016-03-23</date>
  <version>
-  <release>1.0.10</release>
-  <api>1.0.0</api>
+  <release>1.1.0</release>
+  <api>1.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -21,7 +21,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix generating TZOFFSETFROM attributes for certain rules.
+* [jan] Add parameters to Horde_Timezone_Zone#toVtimezone() to limit the generated STANDARD and DAYLIGHT sections.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -46,12 +47,18 @@
     <dir name="Horde">
      <dir name="Timezone">
       <dir name="fixtures">
+       <file name="budapest" role="test" />
+       <file name="budapest.ics" role="test" />
        <file name="etcetera" role="test" />
        <file name="etcetera.ics" role="test" />
-       <file name="europe" role="test" />
-       <file name="europe.ics" role="test" />
+       <file name="europe_berlin" role="test" />
+       <file name="europe_berlin.ics" role="test" />
+       <file name="europe_jersey" role="test" />
+       <file name="europe_jersey.ics" role="test" />
        <file name="losangeles.ics" role="test" />
        <file name="northamerica" role="test" />
+       <file name="uruguay" role="test" />
+       <file name="uruguay.ics" role="test" />
       </dir> <!-- /test/Horde/Timezone/fixtures -->
       <file name="AllTests.php" role="test" />
       <file name="bootstrap.php" role="test" />
@@ -68,8 +75,8 @@
   <required>
    <php>
     <min>5.3.0</min>
-    <max>6.0.0alpha1</max>
-    <exclude>6.0.0alpha1</exclude>
+    <max>8.0.0alpha1</max>
+    <exclude>8.0.0alpha1</exclude>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -77,7 +84,7 @@
    <package>
      <name>Horde_Date</name>
      <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.3.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -119,12 +126,18 @@
    <install as="Horde/Timezone/Mock.php" name="test/Horde/Timezone/Mock.php" />
    <install as="Horde/Timezone/ParseTest.php" name="test/Horde/Timezone/ParseTest.php" />
    <install as="Horde/Timezone/phpunit.xml" name="test/Horde/Timezone/phpunit.xml" />
+   <install as="Horde/Timezone/fixtures/budapest" name="test/Horde/Timezone/fixtures/budapest" />
+   <install as="Horde/Timezone/fixtures/budapest.ics" name="test/Horde/Timezone/fixtures/budapest.ics" />
    <install as="Horde/Timezone/fixtures/etcetera" name="test/Horde/Timezone/fixtures/etcetera" />
    <install as="Horde/Timezone/fixtures/etcetera.ics" name="test/Horde/Timezone/fixtures/etcetera.ics" />
-   <install as="Horde/Timezone/fixtures/europe" name="test/Horde/Timezone/fixtures/europe" />
-   <install as="Horde/Timezone/fixtures/europe.ics" name="test/Horde/Timezone/fixtures/europe.ics" />
+   <install as="Horde/Timezone/fixtures/europe_berlin" name="test/Horde/Timezone/fixtures/europe_berlin" />
+   <install as="Horde/Timezone/fixtures/europe_berlin.ics" name="test/Horde/Timezone/fixtures/europe_berlin.ics" />
+   <install as="Horde/Timezone/fixtures/europe_jersey" name="test/Horde/Timezone/fixtures/europe_jersey" />
+   <install as="Horde/Timezone/fixtures/europe_jersey.ics" name="test/Horde/Timezone/fixtures/europe_jersey.ics" />
    <install as="Horde/Timezone/fixtures/losangeles.ics" name="test/Horde/Timezone/fixtures/losangeles.ics" />
    <install as="Horde/Timezone/fixtures/northamerica" name="test/Horde/Timezone/fixtures/northamerica" />
+   <install as="Horde/Timezone/fixtures/uruguay" name="test/Horde/Timezone/fixtures/uruguay" />
+   <install as="Horde/Timezone/fixtures/uruguay.ics" name="test/Horde/Timezone/fixtures/uruguay.ics" />
   </filelist>
  </phprelease>
  <changelog>
@@ -284,10 +297,38 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-01-09</date>
+   <date>2016-02-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mjr] Fix generation of broken VTIMEZONE components for certain Rules (Bug #14221).
+* [jan] Mark PHP 7 as supported.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.11</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-03-21</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Support more timezone names in Horde_Timezone#getZone().
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.0</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-03-23</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix generating TZOFFSETFROM attributes for certain rules.
+* [jan] Add parameters to Horde_Timezone_Zone#toVtimezone() to limit the generated STANDARD and DAYLIGHT sections.
    </notes>
   </release>
  </changelog>

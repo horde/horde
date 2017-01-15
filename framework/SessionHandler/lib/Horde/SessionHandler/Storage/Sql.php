@@ -17,7 +17,7 @@
  * CREATE INDEX session_lastmodified_idx ON horde_sessionhandler (session_lastmodified);
  * </pre>
  *
- * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -65,6 +65,7 @@ class Horde_SessionHandler_Storage_Sql extends Horde_SessionHandler_Storage
      */
     public function open($save_path = null, $session_name = null)
     {
+        return true;
     }
 
     /**
@@ -127,32 +128,22 @@ class Horde_SessionHandler_Storage_Sql extends Horde_SessionHandler_Storage
         }
 
         /* Update or insert session data. */
-        $session_data = new Horde_Db_Value_Binary($session_data);
+        $values = array(
+            'session_data' => new Horde_Db_Value_Binary($session_data),
+            'session_lastmodified' => time()
+        );
         try {
             if ($exists) {
-                $query = sprintf(
-                    'UPDATE %s '
-                    . 'SET session_data = ?, session_lastmodified = ? '
-                    . 'WHERE session_id = ?',
-                    $this->_params['table']);
-                $values = array(
-                    $session_data,
-                    time(),
-                    $id
+                $this->_db->updateBlob(
+                    $this->_params['table'],
+                    $values,
+                    array('session_id = ?', array($id))
                 );
-                $this->_db->update($query, $values);
             } else {
-                $query = sprintf(
-                    'INSERT INTO %s '
-                    . '(session_id, session_data, session_lastmodified) '
-                    . 'VALUES (?, ?, ?)',
-                    $this->_params['table']);
-                $values = array(
-                    $id,
-                    $session_data,
-                    time()
+                $this->_db->insertBlob(
+                    $this->_params['table'],
+                    array_merge(array('session_id' => $id), $values)
                 );
-                $this->_db->insert($query, $values);
             }
             $this->_db->commitDbTransaction();
         } catch (Horde_Db_Exception $e) {

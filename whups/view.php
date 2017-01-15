@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2003-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -11,8 +11,9 @@
 require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('whups');
 
-$id = Horde_Util::getFormData('ticket');
+$id = (int)Horde_Util::getFormData('ticket');
 $filename = Horde_Util::getFormData('file');
+$message = (int)Horde_Util::getFormData('message');
 $type = Horde_Util::getFormData('type');
 
 // Get the ticket details first.
@@ -39,18 +40,31 @@ try {
     throw new Horde_Exception(_("The VFS backend needs to be configured to enable attachment uploads."));
 }
 
-try {
-    $data = $vfs->read(Whups::VFS_ATTACH_PATH . '/' . $id, $filename);
-} catch (Horde_Vfs_Exception $e) {
-    throw Horde_Exception(sprintf(_("Access denied to %s"), $filename));
-}
+if ($message) {
+    try {
+        $data = $vfs->read(Whups::VFS_MESSAGE_PATH . '/' . $id, $message);
+    } catch (Horde_Vfs_Exception $e) {
+        throw Horde_Exception(sprintf(_("Access denied to message %d"), $message));
+    }
 
-$mime_part = new Horde_Mime_Part();
-$mime_part->setType(Horde_Mime_Magic::extToMime($type));
-$mime_part->setContents($data);
-$mime_part->setName($filename);
-// We don't know better.
-$mime_part->setCharset('US-ASCII');
+    $mime_part = new Horde_Mime_Part();
+    $mime_part->setType('message/rfc822');
+    $mime_part->setContents($data);
+    $filename = _("Original message") . '.eml';
+} else {
+    try {
+        $data = $vfs->read(Whups::VFS_ATTACH_PATH . '/' . $id, $filename);
+    } catch (Horde_Vfs_Exception $e) {
+        throw Horde_Exception(sprintf(_("Access denied to %s"), $filename));
+    }
+
+    $mime_part = new Horde_Mime_Part();
+    $mime_part->setType(Horde_Mime_Magic::extToMime($type));
+    $mime_part->setContents($data);
+    $mime_part->setName($filename);
+    // We don't know better.
+    $mime_part->setCharset('US-ASCII');
+}
 
 $ret = $injector
     ->getInstance('Horde_Core_Factory_MimeViewer')

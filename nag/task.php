@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2001-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -24,8 +24,6 @@ function _delete($task_id, $tasklist_id)
             }
             if (!$share->hasPermission($registry->getAuth(), Horde_Perms::DELETE)) {
                 $notification->push(_("Access denied deleting task."), 'horde.error');
-            } elseif ($task->hasSubTasks()) {
-                $notification->push(_("Sub tasks exist, delete them first"), 'horde.error');
             } else {
                 $storage = $injector->getInstance('Nag_Factory_Driver')->create($tasklist_id);
                 try {
@@ -111,17 +109,17 @@ case 'modify_task':
             $vars = new Horde_Variables($h);
             $vars->set('old_tasklist', $task->tasklist);
             $vars->set('url', Horde_Util::getFormData('url'));
-            if ($u = Horde_Util::getFormData('url')) {
-                $vars->set('url', $u);
-            }
             if ($sl = Horde_Util::getFormData('list')) {
                 $vars->set('list', $sl);
             }
             if ($tn = Horde_Util::getFormData('tab_name')) {
                 $vars->set('tab_name', $tn);
             }
-
             $form = new Nag_Form_Task($vars, sprintf(_("Edit: %s"), $task->name));
+            if (!$task->completed) {
+                $task->loadChildren();
+                $form->setTask($task);
+            }
             break;
         }
     }

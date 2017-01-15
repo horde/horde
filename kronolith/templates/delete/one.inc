@@ -14,15 +14,19 @@ if (empty($url)) {
 <input type="hidden" name="calendar" value="<?php echo htmlspecialchars(Horde_Util::getFormData('calendar')) ?>" />
 <input type="hidden" name="type" value="<?php echo htmlspecialchars($this->event->calendarType) ?>" />
 
-<div class="headerbox">
-<?php if (!empty($this->event->attendees)): ?>
- <p><input id="sendupdates_del" type="checkbox" class="checkbox" name="sendupdates" checked="checked" /><label for="sendupdates_del"> <?php echo _("Send a cancel notification to all attendees when deleting this event?") ?></label></p>
+<?php if (count($this->event->attendees)): ?>
+<p class="horde-content">
+ <label>
+  <input id="sendupdates_del" type="checkbox" class="checkbox" name="sendupdates" checked="checked" />
+  <?php echo _("Send a cancel notification to all attendees when deleting this event?") ?>
+ </label>
+</p>
 <?php endif ?>
 
- <p><?php echo _("Permanently delete this event?") ?></p>
+<p class="horde-content"><?php echo _("Permanently delete this event?") ?></p>
 
+<p class="horde-form-buttons">
  <input type="submit" class="horde-delete" name="delete" value="<?php echo _("Delete") ?>" />
  <a class="horde-cancel" href="<?php echo htmlspecialchars($url) ?>"><?php echo _("Cancel") ?></a>
-</div>
 
 </form>

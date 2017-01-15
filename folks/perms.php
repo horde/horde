@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -223,12 +223,7 @@ if (is_a($share, 'PEAR_Error')) {
 }
 
 if ($auth->hasCapability('list')) {
-    $userList = $auth->listUsers();
-    if (is_a($userList, 'PEAR_Error')) {
-        Horde::log($userList, 'ERR');
-        $userList = array();
-    }
-    sort($userList);
+    $userList = $auth->listNames();
 } else {
     $userList = array();
 }

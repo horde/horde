@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
- * @copyright 2002-2015 Horde LLC
+ * @copyright 2002-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -17,7 +17,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2002-2015 Horde LLC
+ * @copyright 2002-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -774,7 +774,7 @@ class IMP_Contents
         $part['type'] = $mime_type;
 
         /* Is this part an attachment? */
-        $is_atc = IMP_Mime_Attachment::isAttachment($mime_part);
+        $is_atc = $mime_part->isAttachment();
 
         /* Get bytes/size information. */
         if (($mask & self::SUMMARY_BYTES) ||
@@ -1191,7 +1191,7 @@ class IMP_Contents
         $this->_buildMessage();
 
         foreach ($this->_message->partIterator() as $val) {
-            if (IMP_Mime_Attachment::isAttachment($val)) {
+            if ($val->isAttachment()) {
                 $ret[] = $val->getMimeId();
             }
         }

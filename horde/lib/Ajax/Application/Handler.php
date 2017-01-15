@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2012-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL-2). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl.
  *
  * @category  Horde
- * @copyright 2012-2015 Horde LLC
+ * @copyright 2012-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl LGPL-2
  * @package   Horde
  */
@@ -16,7 +16,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2012-2015 Horde LLC
+ * @copyright 2012-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl LGPL-2
  * @package   Horde
  */
@@ -31,12 +31,14 @@ class Horde_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
     {
         global $injector, $registry;
 
-        $registry->pushApp($this->vars->app);
+        $pushed = $registry->pushApp($this->vars->app);
         $topbar = $injector->getInstance('Horde_Core_Factory_Topbar')
             ->create('Horde_Tree_Renderer_Menu', array('nosession' => true));
         $hash = $topbar->getHash();
         $tree = $topbar->getTree();
-        $registry->popApp();
+        if ($pushed) {
+            $registry->popApp();
+        }
 
         if ($this->vars->hash == $hash) {
             return false;

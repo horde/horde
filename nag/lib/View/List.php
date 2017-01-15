@@ -2,7 +2,7 @@
 /**
  * Task list view.
  *
- * Copyright 2011-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you did not
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -392,7 +392,9 @@ class Nag_View_List
         $this->_tasks->reset();
         $ids = array();
         while ($t = $this->_tasks->each()) {
-            $ids[] = $t->uid;
+            if ($t->uid) {
+                $ids[] = $t->uid;
+            }
         }
         $rtags = $this->_browser->getRelatedTags($ids);
         if (count($rtags)) {

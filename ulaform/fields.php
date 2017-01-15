@@ -4,7 +4,7 @@
  * It recognises what extra parameters need to be instered for a particular
  * field and adjusts the form accordingly.
  *
- * Copyright 2003-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -40,7 +40,7 @@ $fieldform->addVariable(_("Internal name"), 'field_name', 'text', false, false, 
 
 /* Set up the field type selection, with a submit action. */
 $fields = Ulaform::getFieldTypes();
-$v = &$fieldform->addVariable(_("Type"), 'field_type', 'enum', true, false, null, array($fields, true));
+$v = $fieldform->addVariable(_("Type"), 'field_type', 'enum', true, false, null, array($fields, true));
 $v->setAction(Horde_Form_Action::factory('submit'));
 $v->setOption('trackchange', true);
 

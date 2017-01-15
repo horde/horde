@@ -2,7 +2,7 @@
 /**
  * Test the file based virtual file system.
  *
- * Copyright 2008-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -171,9 +171,27 @@ class Horde_Vfs_FileTest extends Horde_Vfs_TestBase
         $this->_listFolder();
     }
 
+    /**
+     * @expectedException Horde_Vfs_Exception
+     * @expectedExceptionMessage Unable to access VFS directory root.
+     */
+    public function testListFolderWithoutPermissions()
+    {
+        if (!is_dir('/root')) {
+            $this->markTestSkipped('No /root folder to test permissions.');
+        }
+        $vfs = Horde_Vfs::factory('File', array('vfsroot' => '/'));
+        $vfs->listFolder('root');
+    }
+
     public function testChmod()
     {
         $this->_chmod();
+    }
+
+    public function testNullRoot()
+    {
+        $this->_nullRoot();
     }
 
     public function testDeleteUnusalFileNames()

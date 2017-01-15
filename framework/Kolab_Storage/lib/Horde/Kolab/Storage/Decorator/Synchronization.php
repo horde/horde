@@ -14,7 +14,7 @@
 /**
  * A synchronization decorator for the Kolab storage handler.
  *
- * Copyright 2011-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -33,14 +33,14 @@ implements Horde_Kolab_Storage
      *
      * @var Horde_Kolab_Storage
      */
-    private $_storage;
+    protected $_storage;
 
     /**
      * The synchronization strategy
      *
      * @var Horde_Kolab_Storage_Synchronization
      */
-    private $_synchronization;
+    protected $_synchronization;
 
     /**
      * Constructor.
@@ -49,7 +49,7 @@ implements Horde_Kolab_Storage
      * @param Horde_Kolab_Storage_Synchronization $synchronization The synchronization strategy.
      */
     public function __construct(Horde_Kolab_Storage $storage,
-                                Horde_Kolab_Storage_Synchronization $synchronization)
+        Horde_Kolab_Storage_Synchronization $synchronization)
     {
         $this->_storage = $storage;
         $this->_synchronization = $synchronization;
@@ -112,4 +112,5 @@ implements Horde_Kolab_Storage
         $this->_synchronization->synchronizeData($data);
         return $data;
     }
+
 }

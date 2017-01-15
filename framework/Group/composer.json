@@ -2,7 +2,7 @@
     "name": "horde/horde-group",
     "description": "Horde User Groups System",
     "type": "library",
-    "homepage": "http://pear.horde.org",
+    "homepage": "https://pear.horde.org",
     "license": "LGPL-2.1",
     "authors": [
         {
@@ -16,20 +16,22 @@
             "role": "lead"
         }
     ],
-    "version": "2.0.5",
-    "time": "2015-03-03",
+    "version": "2.1.1",
+    "time": "2016-03-21",
     "repositories": [
         {
             "type": "pear",
-            "url": "http://pear.horde.org"
+            "url": "https://pear.horde.org"
         }
     ],
     "require": {
-        "php": ">=5.3.0,<=6.0.0alpha1",
+        "php": ">=5.3.0,<=8.0.0alpha1",
         "pear-pear.horde.org/Horde_Exception": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Util": ">=2.0.0@stable,<=3.0.0alpha1@stable"
+        "pear-pear.horde.org/Horde_Util": ">=2.0.0@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Support": ">=2.0.0@stable,<=3.0.0alpha1@stable"
     },
     "suggest": {
+        "pear-pear.horde.org/Horde_Cache": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Db": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Ldap": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Test": ">=2.1.0@stable,<=3.0.0alpha1@stable"

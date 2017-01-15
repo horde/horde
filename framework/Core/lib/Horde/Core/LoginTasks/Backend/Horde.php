@@ -3,7 +3,7 @@
  * This class provides the Horde specific implementation of the LoginTasks
  * backend.
  *
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -80,7 +80,11 @@ class Horde_Core_LoginTasks_Backend_Horde extends Horde_LoginTasks_Backend
      */
     public function getLastRun()
     {
-        $lasttask_pref = @unserialize($GLOBALS['prefs']->getValue('last_logintasks'));
+        try {
+            $lasttask_pref = @unserialize($GLOBALS['prefs']->getValue('last_logintasks'));
+        } catch (Horde_Prefs_Exception $e) {
+            return array();
+        }
 
         return is_array($lasttask_pref)
             ? $lasttask_pref

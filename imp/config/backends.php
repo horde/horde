@@ -87,7 +87,7 @@
  *   another mail agent while the IMP session is active will not be updated.)
  *
  *   The following values are recognized:
- *     - false: Caching is disabled (DEFAULT)
+ *     - false: [DEFAULT] Caching is disabled
  *     - true: Caching is enabled using the Horde cache (configured in
  *             horde/config/conf.php). (This option is DEPRECATED; use one of
  *             the below options instead.)
@@ -150,9 +150,6 @@
  *   Horde-wide SMTP configuration, 'horde_auth' must be true (see below).
  *
  *   These configuration parameters are available:
- *     - auth: [*] (integer|boolean) Authentication method to use. Set to
- *             boolean true to choose the best available authenticate method
- *             (RECOMMENDED).
  *     - debug: (string) If set, enables SMTP debugging. See the 'debug'
  *              parameter below (under the 'Debugging Properties' header)
  *              for acceptable values.
@@ -165,6 +162,18 @@
  *     - localhost: [*] (string) The local hostname.
  *     - password: (string) Password to use for SMTP server authentication.
  *     - port: [*] (integer) SMTP server port.
+ *     - secure: [*] (string) Use SSL or TLS to connect.
+ *               Possible options:
+ *                 - false (No encryption)
+ *                 - 'ssl' (Auto-detect SSL version)
+ *                 - 'sslv2' (Force SSL version 2)
+ *                 - 'sslv3' (Force SSL version 3)
+ *                 - 'tls' (TLS) [DEFAULT]
+ *                 - 'tlsv1' (TLS direct version 1.x connection to server)
+ *                   [@since Horde_Smtp 1.3.0]
+ *                 - true (Use TLS, if available) [@since Horde_Smtp 1.2.0]
+ *     - timeout: (integer) Connection timeout, in seconds. Defaults to 30
+ *                seconds
  *     - username: (string) Username to use for SMTP server authentication.
  *
  * spam: (array) Spam reporting configuration. This array can contain two
@@ -193,8 +202,27 @@
  *       - email_format: (string) Either 'digest' or 'redirect'.
  *         - digest: [DEFAULT; RECOMMENDED] Packages the raw data of all
  *                   messages reported by the user in their marking action and
- *                   sends to the reporting e-mail address in a single
- *                   multipart/digest message.
+ *                   sends to the reporting e-mail address in a
+ *                   multipart/digest message(s).
+ *
+ *                   If this option is selected, two additional config options
+ *                   are available:
+ *
+ *                   - digest_limit_msgs: (integer) The maximum number of
+ *                                        messages that will be sent in a
+ *                                        multpart/digest message. If the
+ *                                        number of messages to report exceeds
+ *                                        this value, multiple digest messages
+ *                                        will be sent. The default is to send
+ *                                        a single message. If 0, there is no
+ *                                        limit.
+ *                   - digest_limit_size: (integer) The maximum size (in
+ *                                        bytes) of a single digest message.
+ *                                        If the size of messages to report
+ *                                        exceeds this value, multiple digest
+ *                                        messages will be sent. The default
+ *                                        is 10 MB. If 0, there is no limit.
+ *
  *         - redirect: Redirects the message to the reporting e-mail address
  *                     Note that this alters the original message's headers
  *                     and may break embedded spam reporting signature

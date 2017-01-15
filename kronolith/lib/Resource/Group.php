@@ -2,7 +2,7 @@
 /**
  * Kronolith_Resource implementation to represent a group of similar resources.
  *
- * Copyright 2009-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -12,6 +12,8 @@
  */
 class Kronolith_Resource_Group extends Kronolith_Resource_Base
 {
+    protected $_type = 'group';
+
     /**
      *
      * @var Kronolith_Driver_Resource
@@ -100,7 +102,11 @@ class Kronolith_Resource_Group extends Kronolith_Resource_Base
         /* Iterate over all resources until one with no conflicts is found */
         foreach ($resources as $resource_id) {
             $conflict = false;
-            $resource = $this->_driver->getResource($resource_id);
+            try {
+                $resource = $this->_driver->getResource($resource_id);
+            } catch (Horde_Exception_NotFound $e) {
+                continue;
+            }
             $busy = Kronolith::getDriver('Resource', $resource->get('calendar'))
                 ->listEvents($start, $end, array('show_recurrence' => true));
 
@@ -181,7 +187,7 @@ class Kronolith_Resource_Group extends Kronolith_Resource_Base
      */
     public function getFreeBusy($startstamp = null, $endstamp = null, $asObject = false, $json = false)
     {
-        throw new BadMethodCallException('Unsupported');
+        throw new Kronolith_Exception('Unsupported');
     }
 
     /**

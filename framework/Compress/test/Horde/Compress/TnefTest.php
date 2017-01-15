@@ -22,7 +22,6 @@ class Horde_Compress_TnefTest extends Horde_Test_Case
     }
 
     /**
-     * @requires extension bcmath
      */
     public function testItipReply()
     {
@@ -56,7 +55,6 @@ class Horde_Compress_TnefTest extends Horde_Test_Case
     }
 
     /**
-     * @requires extension bcmath
      */
     public function testvTodo()
     {
@@ -93,7 +91,6 @@ class Horde_Compress_TnefTest extends Horde_Test_Case
     }
 
     /**
-     * @requires extension bcmath
      */
     public function testMeetingInvitation()
     {
@@ -114,7 +111,6 @@ class Horde_Compress_TnefTest extends Horde_Test_Case
     }
 
     /**
-     * @requires extension bcmath
      */
     public function testMeetingTnef()
     {

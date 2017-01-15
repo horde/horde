@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2008-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category  Horde
- * @copyright 2008-2015 Horde LLC
+ * @copyright 2008-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Imap_Client
  */
@@ -16,7 +16,7 @@
  *
  * @author     Michael Slusarz <slusarz@horde.org>
  * @category   Horde
- * @copyright  2008-2015 Horde LLC
+ * @copyright  2008-2016 Horde LLC
  * @deprecated Use Horde_Imap_Client_Url_Base instead
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package    Imap_Client
@@ -223,7 +223,7 @@ class Horde_Imap_Client_Url implements Serializable
         $data = parse_url(trim($url));
 
         if (isset($data['scheme'])) {
-            $protocol = strtolower($data['scheme']);
+            $protocol = Horde_String::lower($data['scheme']);
             if (!in_array($protocol, array('imap', 'pop'))) {
                 return;
             }
@@ -276,7 +276,7 @@ class Horde_Imap_Client_Url implements Serializable
             if (count($parts)) {
                 foreach ($parts as $val) {
                     list($k, $v) = explode('=', $val);
-                    $property = strtolower($k);
+                    $property = Horde_String::lower($k);
                     $this->$property = $v;
                 }
             }

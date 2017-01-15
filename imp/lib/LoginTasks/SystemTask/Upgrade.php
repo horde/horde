@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2009-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
- * @copyright 2009-2015 Horde LLC
+ * @copyright 2009-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -16,7 +16,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2009-2015 Horde LLC
+ * @copyright 2009-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -535,7 +535,7 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
                     $mbox = IMP_Mailbox::get(
                         new Horde_Imap_Client_Mailbox($old_pref, true)
                     );
-                    $prefs->setValue($val, $old_pref->$mbox->pref_to);
+                    $prefs->setValue($val, $mbox->pref_to);
                 }
             }
         }

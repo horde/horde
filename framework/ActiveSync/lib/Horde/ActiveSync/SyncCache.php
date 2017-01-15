@@ -7,7 +7,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2010-2015 Horde LLC (http://www.horde.org)
+ * @copyright 2010-2017 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -20,24 +20,30 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2010-2015 Horde LLC (http://www.horde.org)
+ * @copyright 2010-2017 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  * @internal  Not intended for use outside of the Horde_ActiveSync library.
  *
- * @property array   $folders              The folders cache.
- * @property integer   $hbinterval         The heartbeat interval (in seconds).
- * @property integer   $wait               The wait interval (in minutes).
- * @property integer   $pingheartbeat      The heartbeat used in PING requests.
+ * The SyncCache maintains a number of "caches" - which are really more of a
+ * shared memory store for keeping all relevant data from all running sync
+ * requests up-to-date and available to other running requests:
+ *
+ * @property array    $folders             The folders cache: the list of
+ *     current folders, keyed by their internal uid and containing 'class',
+ *     'serverid' and 'type'.
+ * @property integer  $hbinterval          The heartbeat interval (in seconds).
+ * @property integer  $wait                The wait interval (in minutes).
+ * @property integer  $pingheartbeat       The heartbeat used in PING requests.
  * @property string   $hierarchy           The hierarchy synckey.
- * @property array   $confirmed_synckeys   Array of synckeys being confirmed during
- *                                       a looping sync.
- * @property integer   $lastuntil          Timestamp representing the last planned
- *                                       looping sync end time.
- * @property integer   $lasthbsyncstarted  Timestamp of the start of the last
- *                                       looping sync.
- * @property integer   $lastsyncendnormal  Timestamp of the last looping sync that
- *                                       ended normally.
+ * @property array    $confirmed_synckeys  Array of synckeys being confirmed
+ *     during a looping sync.
+ * @property integer  $lastuntil           Timestamp representing the last
+ *     planned looping sync end time.
+ * @property integer  $lasthbsyncstarted   Timestamp of the start of the last
+ *     looping sync.
+ * @property integer  $lastsyncendnormal   Timestamp of the last looping sync
+ *     that ended normally.
  */
 class Horde_ActiveSync_SyncCache
 {
@@ -96,6 +102,7 @@ class Horde_ActiveSync_SyncCache
      * @param Horde_ActiveSync_State_Base $state  The state driver
      * @param string $devid                       The device id
      * @param string $user                        The username
+     * @param Horde_Log_Logger $logger            The logger object
      *
      * @return Horde_ActiveSync_SyncCache
      */
@@ -111,10 +118,27 @@ class Horde_ActiveSync_SyncCache
         $this->_logger = $logger;
         $this->loadCacheFromStorage();
         $this->_procid = getmypid();
+
+        $this->_logger = empty($logger)
+            ? new Horde_Log_Logger(new Horde_Log_Handler_Null())
+            : $logger;
+
+        $this->_logger->info(sprintf(
+            '[%s] Creating new Horde_ActiveSync_SyncCache.',
+            $this->_procid)
+        );
     }
 
     public function __get($property)
     {
+        // @todo. Fixme. This is here to allow the Collections object access
+        // to be able to close/reopen the backend connection. For H6 refactor
+        // things so we don't need to expose this protected property. State and
+        // Storage will be uncoupled in that refactor anyway.
+        if ($property == 'state') {
+            return $this->_state;
+        }
+
         if (!$this->_isValidProperty($property)) {
             throw new InvalidArgumentException($property . ' is not a valid property');
         }
@@ -131,7 +155,7 @@ class Horde_ActiveSync_SyncCache
         $this->_dirty[$property] = true;
     }
 
-    public function  __isset($property)
+    public function __isset($property)
     {
         if (!$this->_isValidProperty($property)) {
             throw new InvalidArgumentException($property . ' is not a valid property');
@@ -477,7 +501,6 @@ class Horde_ActiveSync_SyncCache
 
     /**
      * Clear all synckeys from the known collections.
-     *
      */
     public function clearCollectionKeys()
     {
@@ -621,6 +644,10 @@ class Horde_ActiveSync_SyncCache
                 $collections[$key]['class'] = $this->_data['folders'][$values['id']]['class'];
                 $this->_markCollectionsDirty($key);
             }
+            if (!isset($values['type']) && isset($this->_data['folders'][$values['id']]['type'])) {
+                $collections[$key]['type'] = $this->_data['folders'][$values['id']]['type'];
+                $this->_markCollectionsDirty($key);
+            }
             if (!isset($values['filtertype']) && isset($this->_data['collections'][$values['id']]['filtertype'])) {
                 $collections[$key]['filtertype'] = $this->_data['collections'][$values['id']]['filtertype'];
                 $this->_markCollectionsDirty($key);
@@ -654,8 +681,7 @@ class Horde_ActiveSync_SyncCache
                 $this->_markCollectionsDirty($key);
             }
 
-            // in case the maxitems (windowsize) is above 512 or 0 it should be
-            // interpreted as 512 according to specs.
+            // According to specs, if WINDOWSIZE is out of bounds, interpret as 512.
             if ($collections[$key]['windowsize'] > Horde_ActiveSync_Request_Sync::MAX_WINDOW_SIZE ||
                 $collections[$key]['windowsize'] == 0) {
 
@@ -691,7 +717,6 @@ class Horde_ActiveSync_SyncCache
 
     /**
      * Clear the folder cache
-     *
      */
     public function clearFolders()
     {
@@ -739,6 +764,8 @@ class Horde_ActiveSync_SyncCache
             $this->_data['folders'][$folder->serverid] = array('class' => 'Email');
         }
         $this->_data['folders'][$folder->serverid]['serverid'] = $folder->_serverid;
+        $this->_data['folders'][$folder->serverid]['type'] = $folder->type;
+
         $this->_dirty['folders'] = true;
     }
 

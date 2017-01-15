@@ -2,7 +2,7 @@
     "name": "horde/horde-service-facebook",
     "description": "Horde Facebook client",
     "type": "library",
-    "homepage": "http://pear.horde.org",
+    "homepage": "https://pear.horde.org",
     "license": "BSD-2-Clause",
     "authors": [
         {
@@ -11,12 +11,12 @@
             "role": "lead"
         }
     ],
-    "version": "2.0.7",
-    "time": "2015-01-09",
+    "version": "2.0.9",
+    "time": "2016-04-05",
     "repositories": [
         {
             "type": "pear",
-            "url": "http://pear.horde.org"
+            "url": "https://pear.horde.org"
         }
     ],
     "require": {
@@ -25,6 +25,7 @@
         "pear-pear.horde.org/Horde_Http": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Translation": ">=2.2.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Support": ">=2.0.0@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Util": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "ext-json": "*",
         "ext-SimpleXML": "*"
     }

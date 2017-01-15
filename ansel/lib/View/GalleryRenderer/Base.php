@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright 2008-2015 Horde LLC (http://www.horde.org)
+ * @copyright 2008-2017 Horde LLC (http://www.horde.org)
  * @author Michael J Rubinsky <mrubinsk@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/gpl GPL
@@ -9,12 +9,12 @@
 /**
  * Ansel_View_GalleryRenderer::  Base class for all gallery renderers.
  *
- * Copyright 2008-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @copyright 2008-2015 Horde LLC (http://www.horde.org)
+ * @copyright 2008-2017 Horde LLC (http://www.horde.org)
  * @author Michael J Rubinsky <mrubinsk@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/gpl GPL
@@ -122,7 +122,7 @@ abstract class Ansel_View_GalleryRenderer_Base
      *
      * @param Ansel_View_Gallery  The view object for this renderer.
      */
-    public function __construct(Ansel_View_Gallery $view)
+    public function __construct(Ansel_View_Gallery $view = null)
     {
         $this->view = $view;
         Ansel_ActionHandler::imageActions(Horde_Util::getFormData('actionID'));

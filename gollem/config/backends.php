@@ -348,6 +348,8 @@ $backends['smb'] = array(
         // IP address of server (only needed if hostname is different from
         // NetBIOS name).
         // 'ipaddress' => '127.0.0.1',
+        // Domain name to use
+        // 'domain' => 'example',
         // The default permissions to set for newly created folders and
         // files.
         // 'permissions' => '750'

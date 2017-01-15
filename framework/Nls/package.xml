@@ -17,10 +17,10 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-01-09</date>
+ <date>2016-11-03</date>
  <version>
-  <release>2.0.6</release>
-  <api>1.1.0</api>
+  <release>2.2.2</release>
+  <api>1.3.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -42,6 +42,7 @@
    <dir name="lib">
     <dir name="Horde">
      <dir name="Nls">
+      <file name="Alpha3.php" role="php" />
       <file name="Carsigns.php" role="php" />
       <file name="Coordinates.php" role="php" />
       <file name="Countries.php" role="php" />
@@ -316,8 +317,8 @@
   <required>
    <php>
     <min>5.3.0</min>
-    <max>6.0.0alpha1</max>
-    <exclude>6.0.0alpha1</exclude>
+    <max>8.0.0alpha1</max>
+    <exclude>8.0.0alpha1</exclude>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -353,6 +354,7 @@
   <filelist>
    <install as="COPYING" name="doc/Horde/Nls/COPYING" />
    <install as="Horde/Nls.php" name="lib/Horde/Nls.php" />
+   <install as="Horde/Nls/Alpha3.php" name="lib/Horde/Nls/Alpha3.php" />
    <install as="Horde/Nls/Carsigns.php" name="lib/Horde/Nls/Carsigns.php" />
    <install as="Horde/Nls/Coordinates.php" name="lib/Horde/Nls/Coordinates.php" />
    <install as="Horde/Nls/Countries.php" name="lib/Horde/Nls/Countries.php" />
@@ -822,12 +824,65 @@ Converted to package.xml 2.0 for pear.horde.org
   </release>
   <release>
    <version>
-    <release>2.0.6</release>
-    <api>1.1.0</api></version>
+    <release>2.1.0</release>
+    <api>1.2.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-01-09</date>
+   <date>2015-10-20</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Add ALPHA-3 country codes.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.1</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-02-18</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Mark PHP 7 as supported.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.0</release>
+    <api>1.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-04-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Add Horde_Nls::getTimezonesWithAbbreviations().
+* [jan] Update Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.1</release>
+    <api>1.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-11-03</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Update country list.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.2</release>
+    <api>1.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-11-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

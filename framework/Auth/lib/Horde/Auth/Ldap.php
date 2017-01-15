@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 1999-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, http://www.horde.org/licenses/lgpl21
@@ -195,6 +195,10 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
      */
     protected function _authenticate($userId, $credentials)
     {
+        if (!strlen($credentials['password'])) {
+            throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
+        }
+
         /* Search for the user's full DN. */
         $this->_ldap->bind();
         try {
@@ -208,7 +212,11 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
         /* Attempt to bind to the LDAP server as the user. */
         try {
             $this->_ldap->bind($dn, $credentials['password']);
+            // Be sure we rebind as the configured user.
+            $this->_ldap->bind();
         } catch (Horde_Ldap_Exception $e) {
+            // Be sure we rebind as the configured user.
+            $this->_ldap->bind();
             if (Horde_Ldap::errorName($e->getCode() == 'LDAP_INVALID_CREDENTIALS')) {
                 throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
             }

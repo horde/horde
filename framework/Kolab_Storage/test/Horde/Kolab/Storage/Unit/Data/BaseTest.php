@@ -15,7 +15,7 @@
 /**
  * Test the basic data handler.
  *
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -109,7 +109,7 @@ extends Horde_Kolab_Storage_TestCase
     {
         $data = $this->getMessageStorage()
             ->getData('INBOX/Calendar');
-        $this->assertTrue($data instanceOf Horde_Kolab_Storage_Queriable);
+        $this->assertTrue($data instanceof Horde_Kolab_Storage_Queriable);
     }
 
     public function testQuerySynchronization()
@@ -384,7 +384,7 @@ extends Horde_Kolab_Storage_TestCase
         $object = $data->getObject('UID');
         $this->assertEquals('modified', $object['summary']);
     }
-     
+
     public function testDuplicatesAddedObjects()
     {
         $data = $this->getMessageStorage()->getData('INBOX/Notes');

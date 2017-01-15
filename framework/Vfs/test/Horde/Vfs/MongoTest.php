@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2013-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2013-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -179,6 +179,11 @@ class Horde_Vfs_MongoTest extends Horde_Vfs_TestBase
     public function testListFolder()
     {
         $this->_listFolder();
+    }
+
+    public function testNullRoot()
+    {
+        $this->_nullRoot();
     }
 
     public static function setUpBeforeClass()

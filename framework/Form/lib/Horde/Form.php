@@ -9,7 +9,7 @@ require_once 'Horde/Form/Type.php';
  * other functionality for the Horde Application Framework.
  *
  * Copyright 2001-2007 Robert E. Coyle <robertecoyle@hotmail.com>
- * Copyright 2001-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -293,9 +293,9 @@ class Horde_Form {
                 if ((is_a($var, 'Horde_Form_Variable') && $this->_variables[$section][$i] === $var) ||
                     ($this->_variables[$section][$i]->getVarName() == $var)) {
                     // Slice out the variable to be removed.
-                    $this->_variables[$this->_currentSection] = array_merge(
-                        array_slice($this->_variables[$this->_currentSection], 0, $i),
-                        array_slice($this->_variables[$this->_currentSection], $i + 1));
+                    $this->_variables[$section] = array_merge(
+                        array_slice($this->_variables[$section], 0, $i),
+                        array_slice($this->_variables[$section], $i + 1));
 
                     return true;
                 }
@@ -609,10 +609,14 @@ class Horde_Form {
         $this->_autofilled = true;
 
         if ($this->_useFormToken) {
-            $tokenSource = $GLOBALS['injector']->getInstance('Horde_Token');
-            $passedToken = $vars->get($this->_name . '_formToken');
-            if (!empty($passedToken) && !$tokenSource->verify($passedToken)) {
-                $this->_errors['_formToken'] = Horde_Form_Translation::t("This form has already been processed.");
+            try {
+                $tokenSource = $GLOBALS['injector']->getInstance('Horde_Token');
+                $passedToken = $vars->get($this->_name . '_formToken');
+                if (!empty($passedToken) &&
+                    !$tokenSource->verify($passedToken)) {
+                    $this->_errors['_formToken'] = Horde_Form_Translation::t("This form has already been processed.");
+                }
+            } catch (Horde_Exception $e) {
             }
             if (!$GLOBALS['session']->get('horde', 'form_secrets/' . $passedToken)) {
                 $this->_errors['_formSecret'] = Horde_Form_Translation::t("Required secret is invalid - potentially malicious request.");

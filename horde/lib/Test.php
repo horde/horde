@@ -3,7 +3,7 @@
  * The Horde_Test:: class provides functions used in the test scripts
  * used in the various applications (test.php).
  *
- * Copyright 1999-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL-2). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl.
@@ -41,7 +41,9 @@ class Horde_Test
     protected $_supported = array(
         '5.3',
         '5.4',
-        '5.5'
+        '5.5',
+        '5.6',
+        '7.0',
     );
 
     /**
@@ -62,11 +64,6 @@ class Horde_Test
      * @var array
      */
     protected $_moduleList = array(
-        'bcmath' => array(
-            'descrip' => 'Bcmath Support',
-            'error' => 'The bcmath functions are used in decoding certain embedded attachments in TNEF data.',
-            'fatal' => false
-        ),
         'ctype' => array(
             'descrip' => 'Ctype Support',
             'error' => 'The ctype functions are required by various Horde libraries. Don\t compile PHP with <code>--disable-all/--disable-ctype</code>.',
@@ -290,8 +287,8 @@ class Horde_Test
         'Net_DNS2' => array(
             'error' => 'Net_DNS2 can speed up hostname lookups against broken DNS servers.'
         ),
-        'Services_Weather' => array(
-            'error' => 'Services_Weather is used by the METAR weather applet/block on the portal page.'
+        'Math_BigInteger' => array(
+            'error' => 'The Math_BigInteger library is used in decoding certain embedded attachments in TNEF data.',
         ),
     );
 
@@ -522,6 +519,9 @@ class Horde_Test
      */
     protected function _checkMongo()
     {
+        if (extension_loaded('mongodb')) {
+            return true;
+        }
         if (!extension_loaded('mongo')) {
             return false;
         }
@@ -752,7 +752,7 @@ class Horde_Test
                                 if (preg_match("/<?php\s+/", $contents)) {
                                     $entry[] = 'The file <code>' . htmlspecialchars($key) . '</code> is outputting a non-empty string when parsed. Configuration files should not output anything. Output string:' . "\n<pre>" . htmlspecialchars($parse_contents) . '</pre>';
                                 } else {
-                                    $entry[] = 'The file <code>' . htmlspecialchars($key) . '</code> appears to be missing the \'<?php\' opening tag.';
+                                    $entry[] = 'The file <code>' . htmlspecialchars($key) . '</code> appears to be missing the \'&lt;?php\' opening tag.';
                                 }
                             } else {
                                 $entry[] = $this->_status(true);
@@ -940,6 +940,26 @@ class Horde_Test
             'This value should be several times the expect largest upload size (notwithstanding any upload limits present in an application). Any upload that exceeds this size will cause any state information sent along with the uploaded data to be lost. This is a PHP limitation and can not be worked around.'.
             '</li></ul>';
 
+        /* Check for supported translations. */
+        $ret .= '<h1>Supported locales</h1><ul>';
+        $missing = false;
+        foreach ($GLOBALS['registry']->nlsconfig->languages as $code => $language) {
+            if ($GLOBALS['registry']->nlsconfig->validLang($code)) {
+                $color = 'green';
+            } else {
+                $color = 'red';
+                $missing = true;
+            }
+            $ret .= sprintf(
+                '<li>%s &#x202d;(%s): <strong style="color:%s">%s</strong></li>',
+                $language,
+                $code,
+                $color,
+                $color == 'green' ? 'Yes' : 'No'
+            );
+        }
+        $ret .= '</ul>';
+
         /* Determine if 'static' is writable by the web user. */
         $user = function_exists('posix_getuid') ? posix_getpwuid(posix_getuid()) : null;
         $static_dir = $GLOBALS['registry']->get('staticfs', 'horde');
@@ -951,6 +971,17 @@ class Horde_Test
         $ret .= is_writable($static_dir)
             ? '<strong style="color:green">Yes</strong>'
             : '<strong style="color:red">No</strong><br /><strong style="color:orange">If caching javascript and CSS files by storing them in static files (HIGHLY RECOMMENDED), this directory must be writable as the user the web server runs as%s.</strong>';
+
+        /* Determine if 'tmpdir' is writable by the web user. */
+        $tmpdir = Horde::getTempDir();
+        $ret .= sprintf(
+            '<li>Is tmpdir <tt>%s</tt> writable by the web server user%s? ',
+            htmlspecialchars($tmpdir),
+            $user ? (' (' . $user['name'] . ')') : ''
+        );
+        $ret .= is_writable($tmpdir)
+            ? '<strong style="color:green">Yes</strong>'
+            : '<strong style="color:red">No</strong><br />';
 
         if (extension_loaded('imagick')) {
             $im = new Imagick();

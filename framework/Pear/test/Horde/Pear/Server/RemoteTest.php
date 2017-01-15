@@ -1,21 +1,6 @@
 <?php
 /**
- * Test the remote server handler.
- *
- * PHP version 5
- *
- * @category   Horde
- * @package    Pear
- * @subpackage UnitTests
- * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link       http://pear.horde.org/index.php?package=Pear
- */
-
-/**
- * Test the remote server handler.
- *
- * Copyright 2011-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -25,7 +10,16 @@
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link       http://pear.horde.org/index.php?package=Pear
+ */
+
+/**
+ * Test the remote server handler.
+ *
+ * @category   Horde
+ * @package    Pear
+ * @subpackage UnitTests
+ * @author     Gunnar Wrobel <wrobel@pardus.de>
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  */
 class Horde_Pear_Server_RemoteTest
 extends Horde_Pear_TestCase
@@ -53,13 +47,10 @@ extends Horde_Pear_TestCase
         );
     }
 
-    /**
-     * CAUTION: Will fail with each new Horde_Autoloader release!
-     */
     public function testLatestUri()
     {
         $this->assertEquals(
-            'http://pear.horde.org/get/Horde_DataTree-2.0.1.tgz',
+            'https://pear.horde.org/get/Horde_DataTree-2.0.1.tgz',
             $this->_getRemote()->getLatestDownloadUri('Horde_DataTree')
         );
     }

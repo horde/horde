@@ -1,13 +1,22 @@
 <?php
 /**
- * The Horde_Prefs:: class provides a common abstracted interface into the
- * various preferences storage mediums.  It also includes all of the
- * functions for retrieving, storing, and checking preference values.
- *
- * Copyright 1999-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author   Jon Parise <jon@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Prefs
+ */
+
+/**
+ * The Horde_Prefs class provides a common abstracted interface into the
+ * various preferences storage mediums.
+ *
+ * It also includes all of the functions for retrieving, storing, and checking
+ * preference values.
  *
  * @author   Jon Parise <jon@horde.org>
  * @category Horde
@@ -149,16 +158,14 @@ class Horde_Prefs implements ArrayAccess
      * Removes a preference entry from the $prefs hash.
      *
      * @param string $pref  The name of the preference to remove.  If null,
-     *                      removes all prefs.
+     *                      removes all preferences from the current scope.
      */
     public function remove($pref = null)
     {
         $to_remove = array();
 
         if (is_null($pref)) {
-            foreach ($this->_scopes as $key => $val) {
-                $to_remove[$key] = array_keys(iterator_to_array($val));
-            }
+            $to_remove[$this->_scope] = array_keys(iterator_to_array($this->_scopes[$this->_scope]));
         } elseif ($scope = $this->_getScope($pref)) {
             $to_remove[$scope] = array($pref);
         }
@@ -169,12 +176,44 @@ class Horde_Prefs implements ArrayAccess
             foreach ($val as $prefname) {
                 $scope->remove($prefname);
 
+                // We remove all prefs at once in the backends below.
+                if (is_null($pref)) {
+                    continue;
+                }
+
                 foreach ($this->_storage as $storage) {
                     try {
-                        $storage->remove($scope->scope, $prefname);
+                        $storage->remove($key, $prefname);
                     } catch (Exception $e) {}
                 }
             }
+
+            if (is_null($pref)) {
+                foreach ($this->_storage as $storage) {
+                    try {
+                        $storage->remove($key);
+                    } catch (Exception $e) {}
+                }
+            }
+        }
+    }
+
+    /**
+     * Removes all preference entries for the current user from the $prefs hash
+     * and the backends.
+     *
+     * @since Horde_Prefs 2.8.0
+     * @throws Horde_Prefs_Exception
+     */
+    public function removeAll()
+    {
+        foreach ($this->_scopes as $key => $val) {
+            foreach (array_keys(iterator_to_array($val)) as $prefname) {
+                $this->_scopes[$key]->remove($prefname);
+            }
+        }
+        foreach ($this->_storage as $storage) {
+            $storage->remove();
         }
     }
 

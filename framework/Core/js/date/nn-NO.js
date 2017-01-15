@@ -12,7 +12,7 @@ Date.CultureInfo = {
 
     /* Month Name Strings */
     monthNames: ["januar", "februar", "mars", "april", "mai", "juni", "juli", "august", "september", "oktober", "november", "desember"],
-    abbreviatedMonthNames: ["jan", "feb", "mar", "apr", "mai", "jun", "jul", "aug", "sep", "okt", "nov", "des"],
+    abbreviatedMonthNames: ["jan.", "feb.", "mar.", "apr.", "mai.", "jun.", "jul.", "aug.", "sep.", "okt.", "nov.", "des."],
 
 	/* AM/PM Designators */
     amDesignator: "AM",
@@ -82,18 +82,18 @@ Date.CultureInfo = {
      * As well, please review the list of "Future Strings" section below.
      */
     regexPatterns: {
-        jan: /^jan(uar)?/i,
-        feb: /^feb(ruar)?/i,
-        mar: /^mar(s)?/i,
-        apr: /^apr(il)?/i,
-        may: /^mai/i,
-        jun: /^jun(i)?/i,
-        jul: /^jul(i)?/i,
-        aug: /^aug(ust)?/i,
-        sep: /^sep(t(ember)?)?/i,
-        oct: /^okt(ober)?/i,
-        nov: /^nov(ember)?/i,
-        dec: /^des(ember)?/i,
+        jan: /^jan(\.|uar)?/i,
+        feb: /^feb(\.|ruar)?/i,
+        mar: /^mar(\.|s)?/i,
+        apr: /^apr(\.|il)?/i,
+        may: /^mai\.?/i,
+        jun: /^jun(\.|i)?/i,
+        jul: /^jul(\.|i)?/i,
+        aug: /^aug(\.|ust)?/i,
+        sep: /^sep(\.|t(ember)?)?/i,
+        oct: /^okt(\.|ober)?/i,
+        nov: /^nov(\.|ember)?/i,
+        dec: /^des(\.|ember)?/i,
 
         sun: /^søndag/i,
         mon: /^måndag/i,

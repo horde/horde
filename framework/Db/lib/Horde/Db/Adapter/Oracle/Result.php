@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2013-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2013-2017 Horde LLC (http://www.horde.org/)
  *
  * @author     Jan Schneider <jan@horde.org>
  * @license    http://www.horde.org/licenses/bsd
@@ -38,7 +38,9 @@ class Horde_Db_Adapter_Oracle_Result extends Horde_Db_Adapter_Base_Result
      */
     protected function _fetchArray()
     {
-        $array = oci_fetch_array($this->_result, $this->_map[$this->_fetchMode]);
+        $array = oci_fetch_array(
+            $this->_result, $this->_map[$this->_fetchMode] | OCI_RETURN_NULLS
+        );
         if ($array) {
             $array = array_change_key_case($array, CASE_LOWER);
         }

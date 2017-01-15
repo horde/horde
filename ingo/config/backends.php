@@ -116,9 +116,10 @@ $backends['maildrop'] = array(
                 // The path to the .mailfilter filter file, defaults to the
                 // filters' owner's home directory.
                 // You can use the following variables:
-                //   %u = name of the filters' owner
+                //   %u = name of the filters' owner requests Ingo::getUser(false)
                 //   %d = domain name of the filters' owner
                 //   %U = the transport 'username'
+                //   %u_full = returns the full username requests Ingo::getUser(true)
                 // Example:
                 //   '/data/maildrop/filters/%d/%u'
                 //   This would be translated into:
@@ -149,7 +150,10 @@ $backends['maildrop'] = array(
                 // no include the original, quoted message content has been
                 // added with Maildrop 2.5.1/Courier 0.65.1.
                 'mailbotargs' => '-N',
-                // What path style does the IMAP server use ['mbox'|'maildir']?
+                // What path style does the IMAP server use, one of:
+                //   'mbox'     - mbox style pathnames.
+                //   'mboxutf7' - mbox pathnames, with UTF7-imap encoding.
+                //   'maildir'  - Maildir paths (also uses UTF7-imap encoding).
                 'path_style' => 'mbox',
                 // Strip 'INBOX.' from the beginning of folder names in
                 // generated scripts?
@@ -220,7 +224,10 @@ $backends['procmail'] = array(
         Ingo::RULE_ALL => array(
             'driver' => 'procmail',
             'params' => array(
-                // What path style does the IMAP server use ['mbox'|'maildir']?
+                // What path style does the IMAP server use, one of:
+                //   'mbox'     - mbox style pathnames.
+                //   'mboxutf7' - mbox pathnames, with UTF7-imap encoding.
+                //   'maildir'  - Maildir paths (also uses UTF7-imap encoding).
                 'path_style' => 'mbox',
                 // An array of variables to append to every generated script.
                 // Use if you need to set up specific environment variables.
@@ -282,6 +289,11 @@ $backends['sieve'] = array(
         Ingo::RULE_ALL => array(
             'driver' => 'sieve',
             'params' => array(
+                // If false, use less reliable regular expression parsing of
+                // Received: headers instead of the standardized 'date' and
+                // 'relational' extensions for date-limiting vacation messages.
+                'date' => true,
+
                 // If true, use the deprecated 'imapflags' extension to set
                 // flag status instead of the newer, standardized
                 // 'imap4flags'.

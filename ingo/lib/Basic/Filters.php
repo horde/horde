@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @category  Horde
- * @copyright 2002-2015 Horde LLC
+ * @copyright 2002-2017 Horde LLC
  * @license   http://www.horde.org/licenses/apache ASL
  * @package   Ingo
  */
@@ -17,7 +17,7 @@
  * @author    Mike Cochrane <mike@graftonhall.co.nz>
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2002-2015 Horde LLC
+ * @copyright 2002-2017 Horde LLC
  * @license   http://www.horde.org/licenses/apache ASL
  * @package   Ingo
  */
@@ -140,7 +140,7 @@ class Ingo_Basic_Filters extends Ingo_Basic_Base
             /* Save changes */
             if ($success) {
                 try {
-                    Ingo_Script_Util::update();
+                    $factory->activateAll();
                 } catch (Ingo_Exception $e) {
                     $notification->push($e->getMessage(), 'horde.error');
                 }

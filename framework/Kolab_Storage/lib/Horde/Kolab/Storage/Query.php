@@ -14,7 +14,7 @@
 /**
  * Represents a query.
  *
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -30,9 +30,11 @@ interface Horde_Kolab_Storage_Query
     /**
      * Synchronize the query data with the information from the backend.
      *
-     * @param array $params Additional parameters.
-     *
-     * @return NULL
+     * @param array $params Additional parameters may contain:
+     *   - current_sync: (integer) Timestamp of the current sync.
+     *   - last_sync:    (integer) Timestamp containing the time of last sync.
+     *   - changes:      (array)   An array of arrays keyed by backend id
+     *                             containing information about each change.
      */
     public function synchronize($params = array());
 }

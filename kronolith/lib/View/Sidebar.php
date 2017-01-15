@@ -5,7 +5,7 @@
  * This is for the dynamic view. For traditional the view, see
  * Kronolith_Application::sidebar().
  *
- * Copyright 2012-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -58,9 +58,12 @@ class Kronolith_View_Sidebar extends Horde_View_Sidebar
         /* Calendars. */
         $sidebar->newShares = $registry->getAuth() &&
             !$prefs->isLocked('default_share');
+        $sidebar->admin = $registry->isAdmin();
         $sidebar->resourceAdmin = $registry->isAdmin() || $GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission('resource_management');
-        $sidebar->resources = $GLOBALS['conf']['resource']['driver'] == 'sql';
-
+        $sidebar->resources = $GLOBALS['conf']['resources']['enabled'];
+        $sidebar->addRemote = !$prefs->isLocked('remote_cals');
+        $remotes = unserialize($prefs->getValue('remote_cals'));
+        $sidebar->showRemote = !($prefs->isLocked('remote_cals') && empty($remotes));
         $this->content = $sidebar->render('dynamic/sidebar');
     }
 }

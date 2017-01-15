@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2012-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -21,7 +21,7 @@
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
  */
-class Ingo_Script_Sieve_If implements Ingo_Script_Item
+class Ingo_Script_Sieve_If extends Ingo_Script_Sieve_Base
 {
     /**
      * The Ingo_Script_Sieve_Test object for the if test.

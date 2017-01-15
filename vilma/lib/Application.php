@@ -4,10 +4,10 @@
  *
  * This file defines Vilma's external API interface.
  *
- * Copyright 2006-2010 Alkaloid Networks <http://www.alkaloid.net/>
+ * Copyright 2006-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you did not
- * did not receive this file, see http://cvs.horde.org/co.php/vilma/LICENSE.
+ * did not receive this file, see http://www.horde.org/licenses/bsd.
  *
  * @author  Ben Klang <ben@alkaloid.net>
  * @package Vilma
@@ -39,7 +39,7 @@ class Vilma_Application extends Horde_Registry_Application
      *
      * @var string
      */
-    public $version = 'H5 (1.0-git)';
+    public $version = 'H5 (1.0.0-git)';
 
     public $driver = null;
     public $curdomain = null;
@@ -54,10 +54,9 @@ class Vilma_Application extends Horde_Registry_Application
         // the same as the actual DNS domain name.
         $domain_id = Horde_Util::getFormData('domain_id');
 
-        if (!empty($domain_id)) {
+        if (strlen($domain_id)) {
             $domain = $this->driver->getDomain($domain_id);
-            if (!is_a($domain, 'PEAR_Error') &&
-                !empty($domain['domain_name'])) {
+            if (!empty($domain['domain_name'])) {
                 $this->curdomain = $domain;
                 Vilma::setCurDomain($domain);
             }
@@ -90,13 +89,39 @@ class Vilma_Application extends Horde_Registry_Application
      */
     public function menu($menu)
     {
-        $menu->add(Horde::url('domains/index.php'), _("_Domains"), 'domain.png');
-        if ($GLOBALS['vilma']->curdomain) {
+        $menu->add(
+            Horde::url('domains/index.php')->add('domain_id', 0),
+            _("_List Domains"),
+            'vilma-domain'
+        );
+        if ($this->curdomain) {
             $domain = $GLOBALS['session']->get('vilma', 'domain');
-            $menu->add(Horde::url('users/index.php')->add('domain_id', $domain['domain_id']), $domain['domain_name'], 'domain.png');
-            $menu->add(Horde::url('users/edit.php'), _("New _Address"), 'user.png');
+            $menu->add(
+                Horde::url('users/index.php')
+                    ->add('domain_id', $domain['domain_id']),
+                $domain['domain_name'],
+                'vilma-domain'
+            );
+        }
+    }
+
+    /**
+     * Adds additional items to the sidebar.
+     *
+     * @param Horde_View_Sidebar $sidebar  The sidebar object.
+     */
+    public function sidebar($sidebar)
+    {
+        if ($this->curdomain) {
+            $sidebar->addNewButton(
+                _("_New User"),
+                Horde::url('users/edit.php')
+            );
         } else {
-            $menu->add(Horde::url('domains/edit.php'), _("_New Domain"), 'domain.png');
+            $sidebar->addNewButton(
+                _("_New Domain"),
+                Horde::url('domains/edit.php')
+            );
         }
     }
 }

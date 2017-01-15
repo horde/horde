@@ -5,7 +5,6 @@ namespace Znerol\Component\Stringprep;
 use Znerol\Component\Stringprep\UnicodeUtil;
 use Znerol\Component\Stringprep\ProfileException;
 use Znerol\Component\Stringprep\RFC3454;
-use Normalizer;
 
 require_once('RFC3454/A_1.php');
 
@@ -104,7 +103,7 @@ class Profile{
    */
   protected function normalize($codepoints) {
     $string = UnicodeUtil::codepointsToString($codepoints, 'UTF-8');
-    $string = Normalizer::normalize($string, Normalizer::FORM_KC);
+    $string = \Normalizer::normalize($string, \Normalizer::FORM_KC);
     return UnicodeUtil::stringToCodepoints($string, 'UTF-8');
   }
 

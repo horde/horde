@@ -14,7 +14,7 @@
 /**
  * The basic driver decorator definition for accessing Kolab storage.
  *
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -322,6 +322,23 @@ implements Horde_Kolab_Storage_Driver
     public function getStamp($folder)
     {
         return $this->_driver->getStamp($folder);
+    }
+
+    /**
+     * Returns a stamp for the current folder status. This stamp can be used to
+     * identify changes in the folder data. This method, as opposed to
+     * self::getStamp(), uses the IMAP client's token to calculate the changes.
+     *
+     * @param string $folder Return the stamp for this folder.
+     * @param string $token  A sync token provided by the IMAP server.
+     * @param array $ids     An array of UIDs that we know about.
+     *
+     * @return Horde_Kolab_Storage_Folder_Stamp A stamp indicating the current
+     *                                          folder status.
+     */
+    public function getStampFromToken($folder, $token, array $ids)
+    {
+        return $this->_driver->getStampFromToken($folder, $token, $ids);
     }
 
     /**

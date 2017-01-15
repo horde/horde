@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category  Horde
- * @copyright 2010-2015 Horde LLC
+ * @copyright 2010-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Core
  */
@@ -17,7 +17,7 @@
  * @author    Michael Slusarz <slusarz@horde.org>
  * @author    Jan Schneider <jan@horde.org>
  * @category  Horde
- * @copyright 2010-2015 Horde LLC
+ * @copyright 2010-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Core
  */
@@ -75,6 +75,7 @@ class Horde_Core_Topbar
                  (in_array($params['status'], array('heading', 'link')) ||
                   (in_array($params['status'], array('active', 'admin', 'noadmin', 'topbar')) &&
                   !($isAdmin && ($params['status'] == 'noadmin')) &&
+                  !(!$isAdmin && ($params['status'] == 'admin')) &&
                   $registry->hasPermission((!empty($params['app']) ? $params['app'] : $app), Horde_Perms::SHOW)))) {
                 $menu[$app] = $params;
             }
@@ -145,7 +146,11 @@ class Horde_Core_Topbar
             );
 
             /* Get a list of configurable applications. */
-            $prefs_apps = $registry->listApps(array('active', 'admin'), true, Horde_Perms::READ);
+            $prefs_apps = $registry->listApps(
+                array('active', $isAdmin ? 'admin' : 'noadmin'),
+                true,
+                Horde_Perms::READ
+            );
 
             if (!empty($prefs_apps['horde'])) {
                 $menu['prefs_' . 'horde'] = array(

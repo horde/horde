@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2014-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2014-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category  Horde
- * @copyright 2014-2015 Horde LLC
+ * @copyright 2014-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Core
  */
@@ -16,7 +16,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2014-2015 Horde LLC
+ * @copyright 2014-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Core
  * @since     2.12.0
@@ -78,13 +78,15 @@ class Horde_Themes_Css_Cache_File extends Horde_Themes_Css_Cache
         $static_dir = $registry->get('fileroot', 'horde') . '/static';
         $static_stat = $static_dir . '/gc_cachecss';
 
-        $next_run = !is_readable($static_stat) ?: @file_get_contents($static_stat);
+        $next_run = is_readable($static_stat)
+            ? @file_get_contents($static_stat)
+            : false;
 
         if (!$next_run || ($curr_time > $next_run)) {
             file_put_contents($static_stat, $curr_time + 86400);
         }
 
-        if (!$next_run || ($curr_time < $next_run)) {
+        if ($next_run && ($curr_time < $next_run)) {
             return;
         }
 

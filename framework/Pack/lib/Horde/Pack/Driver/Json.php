@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2013-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2013-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category  Horde
- * @copyright 2013-2015 Horde LLC
+ * @copyright 2013-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Pack
  */
@@ -16,7 +16,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2013-2015 Horde LLC
+ * @copyright 2013-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Pack
  */
@@ -39,7 +39,9 @@ class Horde_Pack_Driver_Json extends Horde_Pack_Driver
     {
         static $jsonc_bug = null;
 
+        $old_error = error_reporting(0);
         $d = json_encode($data);
+        error_reporting($old_error);
         // TODO: JSON_ERROR_UTF8 = 5; available as of PHP 5.3.3
         if (json_last_error() === 5) {
             throw new Horde_Pack_Exception(

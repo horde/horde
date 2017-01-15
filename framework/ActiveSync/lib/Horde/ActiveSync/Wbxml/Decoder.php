@@ -18,7 +18,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2009-2015 Horde LLC (http://www.horde.org)
+ * @copyright 2009-2017 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -30,7 +30,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2009-2015 Horde LLC (http://www.horde.org)
+ * @copyright 2009-2017 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -129,7 +129,9 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
     {
         // Ensure the buffer was created
         $this->_getTempStream();
-        $this->_buffer->add($this->_stream);
+        // Need to read the stream into memeory since php://input isn't
+        // always seekable (Bug: 13160);
+        $this->_buffer->add($this->_stream->getString());
         $this->_buffer->rewind();
         return $this->_buffer->stream;
     }

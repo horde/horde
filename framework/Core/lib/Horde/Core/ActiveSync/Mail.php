@@ -2,7 +2,7 @@
 /**
  * Horde_Core_ActiveSync_Mail::
  *
- * @copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * @copyright 2010-2017 Horde LLC (http://www.horde.org/)
  * @license http://www.horde.org/licenses/lgpl21 LGPL
  * @author  Michael J Rubinsky <mrubinsk@horde.org>
  * @package Core
@@ -13,13 +13,13 @@
  * Wraps functionality related to sending/replying/forwarding email from
  * EAS clients.
  *
- * @copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * @copyright 2010-2017 Horde LLC (http://www.horde.org/)
  * @license http://www.horde.org/licenses/lgpl21 LGPL
  * @author  Michael J Rubinsky <mrubinsk@horde.org>
  * @package Core
  *
  * @property-read Horde_ActiveSync_Imap_Adapter $imapAdapter  The imap adapter.
- * @property-read boolean $replacemime  Flag to indicate we are to replace the MIME contents of a SMART request.
+ * @property      boolean $replacemime  Flag to indicate we are to replace the MIME contents of a SMART request.
  * @property-read integer $id  The UID of the source email for any SMARTREPLY or SMARTFORWARD requests.
  * @property-read boolean $reply  Flag indicating a SMARTREPLY request.
  * @property-read boolean $forward  Flag indicating a SMARTFORWARD request.
@@ -79,7 +79,7 @@ class Horde_Core_ActiveSync_Mail
      *
      * @var boolean
      */
-    protected $_replaceMime = false;
+    protected $_replacemime = false;
 
     /**
      * The current EAS user.
@@ -99,7 +99,7 @@ class Horde_Core_ActiveSync_Mail
      * Internal cache of the mailer used when sending SMART[REPLY|FORWARD].
      * Used to fetch the raw message used to save to sent mail folder.
      *
-     * @var Horde_Mail
+     * @var Horde_Mime_Mail
      */
     protected $_mailer;
 
@@ -117,6 +117,21 @@ class Horde_Core_ActiveSync_Mail
      * @var Horde_ActiveSync_Imap_Adapter
      */
     protected $_imap;
+
+    /**
+     * EAS version in use.
+     *
+     * @var string
+     */
+    protected $_version;
+
+    /**
+     * Array of email addresses to forward message to, if using SMART_FORWARD.
+     *
+     * @var array
+     * @since  2.31.0
+     */
+    protected $_forwardees = array();
 
     /**
      * Const'r
@@ -152,6 +167,14 @@ class Horde_Core_ActiveSync_Mail
         }
     }
 
+    public function __set($property, $value)
+    {
+        if ($property == 'replacemime') {
+            $this->_replacemime = $value;
+        }
+    }
+
+
     /**
      * Set the raw message content received from the EAS client to send.
      *
@@ -181,9 +204,13 @@ class Horde_Core_ActiveSync_Mail
      *
      * @param string $parent  The folder containing the source message.
      * @param integer $id     The source message UID.
+     * @param  array $params  Additional parameters: @since 2.31.0
+     *   - forwardees: An array of email addresses that this message will be
+     *                 forwarded to. DEFAULT: Recipients are taken from raw
+     *                 message.
      * @throws Horde_ActiveSync_Exception
      */
-    public function setForward($parent, $id)
+    public function setForward($parent, $id, $params = array())
     {
         if (!empty($this->_reply)) {
             throw new Horde_ActiveSync_Exception('Cannot set both Forward and Reply.');
@@ -191,6 +218,10 @@ class Horde_Core_ActiveSync_Mail
         $this->_id = $id;
         $this->_parentFolder = $parent;
         $this->_forward = true;
+
+        if (!empty($params['forwardees'])) {
+            $this->_forwardees = $params['forwardees'];
+        }
     }
 
     /**
@@ -221,7 +252,7 @@ class Horde_Core_ActiveSync_Mail
             throw new Horde_ActiveSync_Exception('No data set or received from EAS client.');
         }
         $this->_callPreSendHook();
-        if (!$this->_parentFolder || ($this->_parentFolder && $this->_replaceMime)) {
+        if (!$this->_parentFolder || ($this->_parentFolder && $this->_replacemime)) {
             $this->_sendRaw();
         } else {
             $this->_sendSmart();
@@ -258,7 +289,9 @@ class Horde_Core_ActiveSync_Mail
         if (!empty($this->_mailer)) {
             return $this->_mailer->getRaw();
         }
-        return $this->_headers->toString(array('charset' => 'UTF-8')) . $this->_raw->getMessage();
+        $stream = new Horde_Stream_Temp(array('max_memory' => 262144));
+        $stream->add($this->_headers->toString(array('charset' => 'UTF-8')) . $this->_raw->getMessage(), true);
+        return $stream;
     }
 
     /**
@@ -283,17 +316,50 @@ class Horde_Core_ActiveSync_Mail
                 ->send($recipients, $h_array, $this->_raw->getMessage()->stream);
         } catch (Horde_Mail_Exception $e) {
             throw new Horde_ActiveSync_Exception($e->getMessage());
+        } catch (InvalidArgumentException $e) {
+            // Some clients (HTC One devices, for one) generate HTML signatures
+            // that contain line lengths too long for servers without BINARYMIME
+            // to send. If we are here, see if that's the reason why by trying
+            // to wrap any text/html parts.
+            if (!$this->_tryWithoutBinary($recipients, $h_array)) {
+                throw new Horde_ActiveSync_Exception($e->getMessage());
+            }
         }
 
         // Replace MIME? Don't have original body, but still need headers.
         // @TODO: Get JUST the headers?
-        if ($this->_replaceMime) {
+        if ($this->_replacemime) {
             try {
                 $this->_getImapMessage();
             } catch (Horde_Exception_NotFound $e) {
                 throw new Horde_ActiveSync_Exception($e->getMessage());
             }
         }
+    }
+
+    /**
+     * Some clients (HTC One devices, for one) generate HTML signatures
+     * that contain line lengths too long for servers without BINARYMIME to
+     * send. If we are here, see if that's the reason by checking content
+     * encoding and trying again.
+     *
+     * @return boolean
+     */
+    protected function _tryWithoutBinary($recipients, array $headers)
+    {
+        // All we need to do is re-assign the mime object. This will cause the
+        // content transfer encoding to be re-evaulated and set to an approriate
+        // value if needed.
+        $mime = $this->_raw->getMimeObject();
+        $this->_raw->replaceMime($mime);
+        try {
+            $GLOBALS['injector']->getInstance('Horde_Mail')
+                ->send($recipients, $headers, $this->_raw->getMessage()->stream);
+        } catch (Exception $e) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -310,6 +376,18 @@ class Horde_Core_ActiveSync_Mail
         // text sent from the client, not the fully generated MIME message.
         $this->_headers->removeHeader('Content-Type');
         $this->_headers->removeHeader('Content-Transfer-Encoding');
+
+        // Check for EAS 16.0 Forwardees
+        if (!empty($this->_forwardees)) {
+            $list = new Horde_Mail_Rfc822_List();
+            foreach ($this->_forwardees as $forwardee) {
+                $to = new Horde_Mail_Rfc822_Address($forwardee->email);
+                $to->personal = $forwardee->name;
+                $list->add($to);
+            }
+            $this->_headers->add('To', $list->writeAddress());
+        }
+
         $mail = new Horde_Mime_Mail($this->_headers->toArray(array('charset' => 'UTF-8')));
         $base_part = $this->imapMessage->getStructure();
         $plain_id = $base_part->findBody('plain');
@@ -527,10 +605,9 @@ class Horde_Core_ActiveSync_Mail
     {
         $subtype = $html == true ? 'html' : 'plain';
         $msg = Horde_String::convertCharset(
-            $body_data[$subtype]['body'],
+            (string)$body_data[$subtype]['body'],
             $body_data[$subtype]['charset'],
             'UTF-8');
-        trim($msg);
         if (!$html) {
             if ($part->getContentTypeParameter('format') == 'flowed') {
                 $flowed = new Horde_Text_Flowed($msg, 'UTF-8');
@@ -546,6 +623,19 @@ class Horde_Core_ActiveSync_Mail
             if ($flow) {
                 $flowed = new Horde_Text_Flowed($msg, 'UTF-8');
                 $msg = $flowed->toFlowed(true);
+            }
+        } else {
+            // This filter requires the tidy extenstion.
+            if (Horde_Util::extensionExists('tidy')) {
+                return Horde_Text_Filter::filter(
+                    $msg,
+                    'Cleanhtml',
+                    array('body_only' => true)
+                );
+            } else {
+                // If no tidy, use Horde_Dom.
+                $dom = new Horde_Domhtml($msg, 'UTF-8');
+                return $dom->returnBody();
             }
         }
 
@@ -572,7 +662,7 @@ class Horde_Core_ActiveSync_Mail
 
     public static function html2text($msg)
     {
-        return Horde_Text_Filter::filter($msg, 'Html2text');
+        return Horde_Text_Filter::filter($msg, 'Html2text', array('nestingLimit' => 1000));
     }
 
 }

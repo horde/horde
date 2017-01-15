@@ -14,7 +14,7 @@
 /**
  * A helper class to determine an LDAP changeset.
  *
- * Copyright 2008-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -77,9 +77,8 @@ class Horde_Kolab_Server_Ldap_Changes
                 $cs['delete'][] = $attribute;
                 continue;
             }
-            if (count($new[$attribute]) == 1
-                && count($old[$attribute]) == 1
-            ) {
+            if ((!is_array($new[$attribute]) || count($new[$attribute]) == 1) &&
+                (!is_array($old[$attribute]) || count($old[$attribute]) == 1)) {
                 if ($new[$attribute][0] == $old[$attribute][0]) {
                     continue;
                 } else {

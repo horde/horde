@@ -3,7 +3,7 @@
  * The Ulaform script to generate the HTML to display a form in an external
  * HTML page.
  *
- * Copyright 2003-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -42,7 +42,7 @@ $form->addHidden('', 'form_id', 'int', false);
 $form->addHidden('', 'old_type', 'text', false);
 
 $embed_types = array('php_pear' => _("PHP using PEAR classes"), 'iframe' => _("iframe"));
-$v = &$form->addVariable(_("Select how you wish to embed the form"), 'type', 'enum', true, false, null, array($embed_types, true));
+$v = $form->addVariable(_("Select how you wish to embed the form"), 'type', 'enum', true, false, null, array($embed_types, true));
 $v->setAction(Horde_Form_Action::factory('submit'));
 
 switch ($type) {

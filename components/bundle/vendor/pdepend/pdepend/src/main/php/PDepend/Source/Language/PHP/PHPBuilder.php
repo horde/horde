@@ -4,7 +4,7 @@
  *
  * PHP Version 5
  *
- * Copyright (c) 2008-2013, Manuel Pichler <mapi@pdepend.org>.
+ * Copyright (c) 2008-2015, Manuel Pichler <mapi@pdepend.org>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -36,7 +36,7 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @copyright 2008-2013 Manuel Pichler. All rights reserved.
+ * @copyright 2008-2015 Manuel Pichler. All rights reserved.
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
  */
 
@@ -46,6 +46,7 @@ use PDepend\Source\AST\AbstractASTClassOrInterface;
 use PDepend\Source\AST\ASTArtifactList;
 use PDepend\Source\AST\ASTClass;
 use PDepend\Source\AST\ASTClassOrInterfaceReference;
+use PDepend\Source\AST\ASTClassReference;
 use PDepend\Source\AST\ASTCompilationUnit;
 use PDepend\Source\AST\ASTFunction;
 use PDepend\Source\AST\ASTInterface;
@@ -62,7 +63,7 @@ use PDepend\Util\Type;
 /**
  * Default code tree builder implementation.
  *
- * @copyright 2008-2013 Manuel Pichler. All rights reserved.
+ * @copyright 2008-2015 Manuel Pichler. All rights reserved.
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
  */
 class PHPBuilder implements Builder
@@ -70,7 +71,7 @@ class PHPBuilder implements Builder
     /**
      * The internal used cache instance.
      *
-     * @var \PDepend\Util\Cache\CacheDriver
+     * @var   \PDepend\Util\Cache\CacheDriver
      * @since 0.10.0
      */
     protected $cache = null;
@@ -78,7 +79,7 @@ class PHPBuilder implements Builder
     /**
      * The ast builder context.
      *
-     * @var \PDepend\Source\Builder\BuilderContext
+     * @var   \PDepend\Source\Builder\BuilderContext
      * @since 0.10.0
      */
     protected $context = null;
@@ -109,7 +110,7 @@ class PHPBuilder implements Builder
     /**
      * All generated {@link \PDepend\Source\AST\ASTTrait} objects
      *
-     * @var array
+     * @var \PDepend\Source\AST\ASTTrait[]
      */
     private $traits = array();
 
@@ -151,7 +152,7 @@ class PHPBuilder implements Builder
     /**
      * Cache of all traits created during the regular parsing process.
      *
-     * @var array
+     * @var \PDepend\Source\AST\ASTTrait[]
      */
     private $frozenTraits = array();
 
@@ -185,9 +186,9 @@ class PHPBuilder implements Builder
     /**
      * Setter method for the currently used token cache.
      *
-     * @param \PDepend\Util\Cache\CacheDriver $cache
+     * @param  \PDepend\Util\Cache\CacheDriver $cache
      * @return \PDepend\Source\Language\PHP\PHPBuilder
-     * @since 0.10.0
+     * @since  0.10.0
      */
     public function setCache(CacheDriver $cache)
     {
@@ -201,7 +202,7 @@ class PHPBuilder implements Builder
      * @param string $qualifiedName The qualified name of the referenced type.
      *
      * @return ASTClassOrInterfaceReference
-     * @since 0.9.5
+     * @since  0.9.5
      */
     public function buildAstClassOrInterfaceReference($qualifiedName)
     {
@@ -222,9 +223,9 @@ class PHPBuilder implements Builder
      * qualified name. It will create a new {@link \PDepend\Source\AST\ASTClass}
      * instance when no matching type exists.
      *
-     * @param string $qualifiedName
+     * @param  string $qualifiedName
      * @return \PDepend\Source\AST\AbstractASTClassOrInterface
-     * @since 0.9.5
+     * @since  0.9.5
      */
     public function getClassOrInterface($qualifiedName)
     {
@@ -265,9 +266,9 @@ class PHPBuilder implements Builder
      * qualified name. It will create a new {@link \PDepend\Source\AST\ASTTrait}
      * instance when no matching type exists.
      *
-     * @param string $qualifiedName
+     * @param  string $qualifiedName
      * @return \PDepend\Source\AST\ASTTrait
-     * @since 1.0.0
+     * @since  1.0.0
      */
     public function getTrait($qualifiedName)
     {
@@ -284,7 +285,7 @@ class PHPBuilder implements Builder
      * @param string $qualifiedName The full qualified trait name.
      *
      * @return \PDepend\Source\AST\ASTTraitReference
-     * @since 1.0.0
+     * @since  1.0.0
      */
     public function buildAstTraitReference($qualifiedName)
     {
@@ -345,7 +346,7 @@ class PHPBuilder implements Builder
      * @param string $qualifiedName The full qualified type identifier.
      *
      * @return \PDepend\Source\AST\ASTClass
-     * @since 0.9.5
+     * @since  0.9.5
      */
     public function getClass($qualifiedName)
     {
@@ -357,12 +358,22 @@ class PHPBuilder implements Builder
     }
 
     /**
+     * Builds an anonymous class instance.
+     *
+     * @return \PDepend\Source\AST\ASTAnonymousClass
+     */
+    public function buildAnonymousClass()
+    {
+        return $this->buildAstNodeInstance('ASTAnonymousClass');
+    }
+
+    /**
      * Builds a new code type reference instance.
      *
      * @param string $qualifiedName The qualified name of the referenced type.
      *
      * @return \PDepend\Source\AST\ASTClassReference
-     * @since 0.9.5
+     * @since  0.9.5
      */
     public function buildAstClassReference($qualifiedName)
     {
@@ -373,7 +384,7 @@ class PHPBuilder implements Builder
             'Creating: \PDepend\Source\AST\ASTClassReference(' . $qualifiedName . ')'
         );
 
-        return new \PDepend\Source\AST\ASTClassReference($this->context, $qualifiedName);
+        return new ASTClassReference($this->context, $qualifiedName);
     }
 
     /**
@@ -406,7 +417,7 @@ class PHPBuilder implements Builder
      *   <li>Create a new instance for the specified package.</li>
      * </ol>
      *
-     * @param string $name The interface name.
+     * @param  string $name The interface name.
      * @return \PDepend\Source\AST\ASTInterface
      */
     public function buildInterface($name)
@@ -426,9 +437,9 @@ class PHPBuilder implements Builder
      * qualified name. It will create a new {@link \PDepend\Source\AST\ASTInterface}
      * instance when no matching type exists.
      *
-     * @param string $qualifiedName
+     * @param  string $qualifiedName
      * @return \PDepend\Source\AST\ASTInterface
-     * @since 0.9.5
+     * @since  0.9.5
      */
     public function getInterface($qualifiedName)
     {
@@ -442,7 +453,7 @@ class PHPBuilder implements Builder
     /**
      * Builds a new method instance.
      *
-     * @param string $name
+     * @param  string $name
      * @return \PDepend\Source\AST\ASTMethod
      */
     public function buildMethod($name)
@@ -462,7 +473,7 @@ class PHPBuilder implements Builder
     /**
      * Builds a new package instance.
      *
-     * @param string $name The package name.
+     * @param  string $name The package name.
      * @return \PDepend\Source\AST\ASTNamespace
      */
     public function buildNamespace($name)
@@ -481,7 +492,7 @@ class PHPBuilder implements Builder
     /**
      * Builds a new function instance.
      *
-     * @param string $name The function name.
+     * @param  string $name The function name.
      * @return ASTFunction
      */
     public function buildFunction($name)
@@ -503,9 +514,9 @@ class PHPBuilder implements Builder
     /**
      * Builds a new self reference instance.
      *
-     * @param \PDepend\Source\AST\AbstractASTClassOrInterface $type
+     * @param  \PDepend\Source\AST\AbstractASTClassOrInterface $type
      * @return \PDepend\Source\AST\ASTSelfReference
-     * @since 0.9.6
+     * @since  0.9.6
      */
     public function buildAstSelfReference(AbstractASTClassOrInterface $type)
     {
@@ -523,7 +534,7 @@ class PHPBuilder implements Builder
      *        instance that reference the concrete target of parent.
      *
      * @return ASTParentReference
-     * @since 0.9.6
+     * @since  0.9.6
      */
     public function buildAstParentReference(ASTClassOrInterfaceReference $reference)
     {
@@ -535,9 +546,9 @@ class PHPBuilder implements Builder
     /**
      * Builds a new static reference instance.
      *
-     * @param \PDepend\Source\AST\AbstractASTClassOrInterface $owner
+     * @param  \PDepend\Source\AST\AbstractASTClassOrInterface $owner
      * @return \PDepend\Source\AST\ASTStaticReference
-     * @since 0.9.6
+     * @since  0.9.6
      */
     public function buildAstStaticReference(AbstractASTClassOrInterface $owner)
     {
@@ -550,7 +561,7 @@ class PHPBuilder implements Builder
      * Builds a new field declaration node.
      *
      * @return \PDepend\Source\AST\ASTFieldDeclaration
-     * @since 0.9.6
+     * @since  0.9.6
      */
     public function buildAstFieldDeclaration()
     {
@@ -563,7 +574,7 @@ class PHPBuilder implements Builder
      * @param string $image The source image for the variable declarator.
      *
      * @return \PDepend\Source\AST\ASTVariableDeclarator
-     * @since 0.9.6
+     * @since  0.9.6
      */
     public function buildAstVariableDeclarator($image)
     {
@@ -576,7 +587,7 @@ class PHPBuilder implements Builder
      * @param string $image The source image for the statuc declaration.
      *
      * @return \PDepend\Source\AST\ASTStaticVariableDeclaration
-     * @since 0.9.6
+     * @since  0.9.6
      */
     public function buildAstStaticVariableDeclaration($image)
     {
@@ -589,7 +600,7 @@ class PHPBuilder implements Builder
      * @param string $image The source image for the constant.
      *
      * @return \PDepend\Source\AST\ASTConstant
-     * @since 0.9.6
+     * @since  0.9.6
      */
     public function buildAstConstant($image)
     {
@@ -602,7 +613,7 @@ class PHPBuilder implements Builder
      * @param string $image The source image for the variable.
      *
      * @return \PDepend\Source\AST\ASTVariable
-     * @since 0.9.6
+     * @since  0.9.6
      */
     public function buildAstVariable($image)
     {
@@ -615,7 +626,7 @@ class PHPBuilder implements Builder
      * @param string $image The source image for the variable variable.
      *
      * @return \PDepend\Source\AST\ASTVariableVariable
-     * @since 0.9.6
+     * @since  0.9.6
      */
     public function buildAstVariableVariable($image)
     {
@@ -628,7 +639,7 @@ class PHPBuilder implements Builder
      * @param string $image The source image for the compound variable.
      *
      * @return \PDepend\Source\AST\ASTCompoundVariable
-     * @since 0.9.6
+     * @since  0.9.6
      */
     public function buildAstCompoundVariable($image)
     {
@@ -639,7 +650,7 @@ class PHPBuilder implements Builder
      * Builds a new compound expression node.
      *
      * @return \PDepend\Source\AST\ASTCompoundExpression
-     * @since 0.9.6
+     * @since  0.9.6
      */
     public function buildAstCompoundExpression()
     {
@@ -650,7 +661,7 @@ class PHPBuilder implements Builder
      * Builds a new closure node.
      *
      * @return \PDepend\Source\AST\ASTClosure
-     * @since 0.9.12
+     * @since  0.9.12
      */
     public function buildAstClosure()
     {
@@ -661,7 +672,7 @@ class PHPBuilder implements Builder
      * Builds a new formal parameters node.
      *
      * @return \PDepend\Source\AST\ASTFormalParameters
-     * @since 0.9.6
+     * @since  0.9.6
      */
     public function buildAstFormalParameters()
     {
@@ -672,7 +683,7 @@ class PHPBuilder implements Builder
      * Builds a new formal parameter node.
      *
      * @return \PDepend\Source\AST\ASTFormalParameter
-     * @since 0.9.6
+     * @since  0.9.6
      */
     public function buildAstFormalParameter()
     {
@@ -682,12 +693,13 @@ class PHPBuilder implements Builder
     /**
      * Builds a new expression node.
      *
+     * @param string $image
      * @return \PDepend\Source\AST\ASTExpression
      * @since 0.9.8
      */
-    public function buildAstExpression()
+    public function buildAstExpression($image = null)
     {
-        return $this->buildAstNodeInstance('ASTExpression');
+        return $this->buildAstNodeInstance('ASTExpression', $image);
     }
 
     /**
@@ -696,7 +708,7 @@ class PHPBuilder implements Builder
      * @param string $image The assignment operator.
      *
      * @return \PDepend\Source\AST\ASTAssignmentExpression
-     * @since 0.9.8
+     * @since  0.9.8
      */
     public function buildAstAssignmentExpression($image)
     {
@@ -709,7 +721,7 @@ class PHPBuilder implements Builder
      * @param string $image The source image of this expression.
      *
      * @return \PDepend\Source\AST\ASTAllocationExpression
-     * @since 0.9.6
+     * @since  0.9.6
      */
     public function buildAstAllocationExpression($image)
     {
@@ -722,7 +734,7 @@ class PHPBuilder implements Builder
      * @param string $image The source image of this expression.
      *
      * @return \PDepend\Source\AST\ASTEvalExpression
-     * @since 0.9.12
+     * @since  0.9.12
      */
     public function buildAstEvalExpression($image)
     {
@@ -735,7 +747,7 @@ class PHPBuilder implements Builder
      * @param string $image The source code image for this node.
      *
      * @return \PDepend\Source\AST\ASTExitExpression
-     * @since 0.9.12
+     * @since  0.9.12
      */
     public function buildAstExitExpression($image)
     {
@@ -748,7 +760,7 @@ class PHPBuilder implements Builder
      * @param string $image The source image of this expression.
      *
      * @return \PDepend\Source\AST\ASTCloneExpression
-     * @since 0.9.12
+     * @since  0.9.12
      */
     public function buildAstCloneExpression($image)
     {
@@ -761,7 +773,7 @@ class PHPBuilder implements Builder
      * @param string $image The source image of this expression.
      *
      * @return \PDepend\Source\AST\ASTListExpression
-     * @since 0.9.12
+     * @since  0.9.12
      */
     public function buildAstListExpression($image)
     {
@@ -772,7 +784,7 @@ class PHPBuilder implements Builder
      * Builds a new include- or include_once-expression.
      *
      * @return \PDepend\Source\AST\ASTIncludeExpression
-     * @since 0.9.12
+     * @since  0.9.12
      */
     public function buildAstIncludeExpression()
     {
@@ -783,7 +795,7 @@ class PHPBuilder implements Builder
      * Builds a new require- or require_once-expression.
      *
      * @return \PDepend\Source\AST\ASTRequireExpression
-     * @since 0.9.12
+     * @since  0.9.12
      */
     public function buildAstRequireExpression()
     {
@@ -794,7 +806,7 @@ class PHPBuilder implements Builder
      * Builds a new array-expression node.
      *
      * @return \PDepend\Source\AST\ASTArrayIndexExpression
-     * @since 0.9.12
+     * @since  0.9.12
      */
     public function buildAstArrayIndexExpression()
     {
@@ -811,7 +823,7 @@ class PHPBuilder implements Builder
      * </code>
      *
      * @return \PDepend\Source\AST\ASTStringIndexExpression
-     * @since 0.9.12
+     * @since  0.9.12
      */
     public function buildAstStringIndexExpression()
     {
@@ -822,7 +834,7 @@ class PHPBuilder implements Builder
      * Builds a new php array node.
      *
      * @return \PDepend\Source\AST\ASTArray
-     * @since 1.0.0
+     * @since  1.0.0
      */
     public function buildAstArray()
     {
@@ -833,7 +845,7 @@ class PHPBuilder implements Builder
      * Builds a new array element node.
      *
      * @return \PDepend\Source\AST\ASTArrayElement
-     * @since 1.0.0
+     * @since  1.0.0
      */
     public function buildAstArrayElement()
     {
@@ -847,7 +859,7 @@ class PHPBuilder implements Builder
      * @param string $image The source image of this expression.
      *
      * @return \PDepend\Source\AST\ASTInstanceOfExpression
-     * @since 0.9.6
+     * @since  0.9.6
      */
     public function buildAstInstanceOfExpression($image)
     {
@@ -870,7 +882,7 @@ class PHPBuilder implements Builder
      * </code>
      *
      * @return \PDepend\Source\AST\ASTIssetExpression
-     * @since 0.9.12
+     * @since  0.9.12
      */
     public function buildAstIssetExpression()
     {
@@ -887,7 +899,7 @@ class PHPBuilder implements Builder
      * </code>
      *
      * @return \PDepend\Source\AST\ASTConditionalExpression
-     * @since 0.9.8
+     * @since  0.9.8
      */
     public function buildAstConditionalExpression()
     {
@@ -895,10 +907,27 @@ class PHPBuilder implements Builder
     }
 
     /**
+     * Builds a new print-expression.
+     *
+     * <code>
+     * -------------
+     * print "qafoo";
+     * -------------
+     * </code>
+     *
+     * @return \PDepend\Source\AST\ASTConditionalExpression
+     * @since 2.3
+     */
+    public function buildAstPrintExpression()
+    {
+        return $this->buildAstNodeInstance('ASTPrintExpression', 'print');
+    }
+
+    /**
      * Build a new shift left expression.
      *
      * @return \PDepend\Source\AST\ASTShiftLeftExpression
-     * @since 1.0.1
+     * @since  1.0.1
      */
     public function buildAstShiftLeftExpression()
     {
@@ -909,7 +938,7 @@ class PHPBuilder implements Builder
      * Build a new shift right expression.
      *
      * @return \PDepend\Source\AST\ASTShiftRightExpression
-     * @since 1.0.1
+     * @since  1.0.1
      */
     public function buildAstShiftRightExpression()
     {
@@ -920,7 +949,7 @@ class PHPBuilder implements Builder
      * Builds a new boolean and-expression.
      *
      * @return \PDepend\Source\AST\ASTBooleanAndExpression
-     * @since 0.9.8
+     * @since  0.9.8
      */
     public function buildAstBooleanAndExpression()
     {
@@ -931,7 +960,7 @@ class PHPBuilder implements Builder
      * Builds a new boolean or-expression.
      *
      * @return \PDepend\Source\AST\ASTBooleanOrExpression
-     * @since 0.9.8
+     * @since  0.9.8
      */
     public function buildAstBooleanOrExpression()
     {
@@ -942,7 +971,7 @@ class PHPBuilder implements Builder
      * Builds a new logical <b>and</b>-expression.
      *
      * @return \PDepend\Source\AST\ASTLogicalAndExpression
-     * @since 0.9.8
+     * @since  0.9.8
      */
     public function buildAstLogicalAndExpression()
     {
@@ -953,7 +982,7 @@ class PHPBuilder implements Builder
      * Builds a new logical <b>or</b>-expression.
      *
      * @return \PDepend\Source\AST\ASTLogicalOrExpression
-     * @since 0.9.8
+     * @since  0.9.8
      */
     public function buildAstLogicalOrExpression()
     {
@@ -964,7 +993,7 @@ class PHPBuilder implements Builder
      * Builds a new logical <b>xor</b>-expression.
      *
      * @return \PDepend\Source\AST\ASTLogicalXorExpression
-     * @since 0.9.8
+     * @since  0.9.8
      */
     public function buildAstLogicalXorExpression()
     {
@@ -975,7 +1004,7 @@ class PHPBuilder implements Builder
      * Builds a new trait use-statement node.
      *
      * @return \PDepend\Source\AST\ASTTraitUseStatement
-     * @since 1.0.0
+     * @since  1.0.0
      */
     public function buildAstTraitUseStatement()
     {
@@ -986,7 +1015,7 @@ class PHPBuilder implements Builder
      * Builds a new trait adaptation scope
      *
      * @return \PDepend\Source\AST\ASTTraitAdaptation
-     * @since 1.0.0
+     * @since  1.0.0
      */
     public function buildAstTraitAdaptation()
     {
@@ -999,7 +1028,7 @@ class PHPBuilder implements Builder
      * @param string $image The trait method name.
      *
      * @return \PDepend\Source\AST\ASTTraitAdaptationAlias
-     * @since 1.0.0
+     * @since  1.0.0
      */
     public function buildAstTraitAdaptationAlias($image)
     {
@@ -1012,7 +1041,7 @@ class PHPBuilder implements Builder
      * @param string $image The trait method name.
      *
      * @return \PDepend\Source\AST\ASTTraitAdaptationPrecedence
-     * @since 1.0.0
+     * @since  1.0.0
      */
     public function buildAstTraitAdaptationPrecedence($image)
     {
@@ -1023,7 +1052,7 @@ class PHPBuilder implements Builder
      * Builds a new switch-statement-node.
      *
      * @return \PDepend\Source\AST\ASTSwitchStatement
-     * @since 0.9.8
+     * @since  0.9.8
      */
     public function buildAstSwitchStatement()
     {
@@ -1036,7 +1065,7 @@ class PHPBuilder implements Builder
      * @param string $image The source image of this label.
      *
      * @return \PDepend\Source\AST\ASTSwitchLabel
-     * @since 0.9.8
+     * @since  0.9.8
      */
     public function buildAstSwitchLabel($image)
     {
@@ -1047,7 +1076,7 @@ class PHPBuilder implements Builder
      * Builds a new global-statement instance.
      *
      * @return \PDepend\Source\AST\ASTGlobalStatement
-     * @since 0.9.12
+     * @since  0.9.12
      */
     public function buildAstGlobalStatement()
     {
@@ -1058,7 +1087,7 @@ class PHPBuilder implements Builder
      * Builds a new unset-statement instance.
      *
      * @return \PDepend\Source\AST\ASTUnsetStatement
-     * @since 0.9.12
+     * @since  0.9.12
      */
     public function buildAstUnsetStatement()
     {
@@ -1068,9 +1097,9 @@ class PHPBuilder implements Builder
     /**
      * Builds a new catch-statement node.
      *
-     * @param string $image
+     * @param  string $image
      * @return \PDepend\Source\AST\ASTCatchStatement
-     * @since 0.9.8
+     * @since  0.9.8
      */
     public function buildAstCatchStatement($image)
     {
@@ -1081,7 +1110,7 @@ class PHPBuilder implements Builder
      * Builds a new finally-statement node.
      *
      * @return \PDepend\Source\AST\ASTFinallyStatement
-     * @since 2.0.0
+     * @since  2.0.0
      */
     public function buildAstFinallyStatement()
     {
@@ -1094,7 +1123,7 @@ class PHPBuilder implements Builder
      * @param string $image The source image of this statement.
      *
      * @return \PDepend\Source\AST\ASTIfStatement
-     * @since 0.9.8
+     * @since  0.9.8
      */
     public function buildAstIfStatement($image)
     {
@@ -1107,7 +1136,7 @@ class PHPBuilder implements Builder
      * @param string $image The source image of this statement.
      *
      * @return \PDepend\Source\AST\ASTElseIfStatement
-     * @since 0.9.8
+     * @since  0.9.8
      */
     public function buildAstElseIfStatement($image)
     {
@@ -1120,7 +1149,7 @@ class PHPBuilder implements Builder
      * @param string $image The source image of this statement.
      *
      * @return \PDepend\Source\AST\ASTForStatement
-     * @since 0.9.8
+     * @since  0.9.8
      */
     public function buildAstForStatement($image)
     {
@@ -1137,7 +1166,7 @@ class PHPBuilder implements Builder
      * </code>
      *
      * @return \PDepend\Source\AST\ASTForInit
-     * @since 0.9.8
+     * @since  0.9.8
      */
     public function buildAstForInit()
     {
@@ -1154,7 +1183,7 @@ class PHPBuilder implements Builder
      * </code>
      *
      * @return \PDepend\Source\AST\ASTForUpdate
-     * @since 0.9.12
+     * @since  0.9.12
      */
     public function buildAstForUpdate()
     {
@@ -1167,7 +1196,7 @@ class PHPBuilder implements Builder
      * @param string $image The source image of this statement.
      *
      * @return \PDepend\Source\AST\ASTForeachStatement
-     * @since 0.9.8
+     * @since  0.9.8
      */
     public function buildAstForeachStatement($image)
     {
@@ -1180,7 +1209,7 @@ class PHPBuilder implements Builder
      * @param string $image The source image of this statement.
      *
      * @return \PDepend\Source\AST\ASTWhileStatement
-     * @since 0.9.8
+     * @since  0.9.8
      */
     public function buildAstWhileStatement($image)
     {
@@ -1193,7 +1222,7 @@ class PHPBuilder implements Builder
      * @param string $image The source image of this statement.
      *
      * @return \PDepend\Source\AST\ASTDoWhileStatement
-     * @since 0.9.12
+     * @since  0.9.12
      */
     public function buildAstDoWhileStatement($image)
     {
@@ -1222,7 +1251,7 @@ class PHPBuilder implements Builder
      * </code>
      *
      * @return \PDepend\Source\AST\ASTDeclareStatement
-     * @since 0.10.0
+     * @since  0.10.0
      */
     public function buildAstDeclareStatement()
     {
@@ -1253,7 +1282,7 @@ class PHPBuilder implements Builder
      * @param string $image The source image of this expression.
      *
      * @return \PDepend\Source\AST\ASTMemberPrimaryPrefix
-     * @since 0.9.6
+     * @since  0.9.6
      */
     public function buildAstMemberPrimaryPrefix($image)
     {
@@ -1266,7 +1295,7 @@ class PHPBuilder implements Builder
      * @param string $image The image of this identifier.
      *
      * @return \PDepend\Source\AST\ASTIdentifier
-     * @since 0.9.6
+     * @since  0.9.6
      */
     public function buildAstIdentifier($image)
     {
@@ -1289,7 +1318,7 @@ class PHPBuilder implements Builder
      * @param string $image The image of this node.
      *
      * @return \PDepend\Source\AST\ASTFunctionPostfix
-     * @since 0.9.6
+     * @since  0.9.6
      */
     public function buildAstFunctionPostfix($image)
     {
@@ -1312,7 +1341,7 @@ class PHPBuilder implements Builder
      * @param string $image The image of this node.
      *
      * @return \PDepend\Source\AST\ASTMethodPostfix
-     * @since 0.9.6
+     * @since  0.9.6
      */
     public function buildAstMethodPostfix($image)
     {
@@ -1331,7 +1360,7 @@ class PHPBuilder implements Builder
      * @param string $image The image of this node.
      *
      * @return \PDepend\Source\AST\ASTConstantPostfix
-     * @since 0.9.6
+     * @since  0.9.6
      */
     public function buildAstConstantPostfix($image)
     {
@@ -1354,7 +1383,7 @@ class PHPBuilder implements Builder
      * @param string $image The image of this node.
      *
      * @return \PDepend\Source\AST\ASTPropertyPostfix
-     * @since 0.9.6
+     * @since  0.9.6
      */
     public function buildAstPropertyPostfix($image)
     {
@@ -1375,7 +1404,7 @@ class PHPBuilder implements Builder
      * </code>
      *
      * @return \PDepend\Source\AST\ASTClassFqnPostfix
-     * @since 2.0.0
+     * @since  2.0.0
      */
     public function buildAstClassFqnPostfix()
     {
@@ -1396,7 +1425,7 @@ class PHPBuilder implements Builder
      * </code>
      *
      * @return \PDepend\Source\AST\ASTArguments
-     * @since 0.9.6
+     * @since  0.9.6
      */
     public function buildAstArguments()
     {
@@ -1407,7 +1436,7 @@ class PHPBuilder implements Builder
      * Builds a new array type node.
      *
      * @return \PDepend\Source\AST\ASTTypeArray
-     * @since 0.9.6
+     * @since  0.9.6
      */
     public function buildAstTypeArray()
     {
@@ -1418,7 +1447,7 @@ class PHPBuilder implements Builder
      * Builds a new node for the callable type.
      *
      * @return \PDepend\Source\AST\ASTTypeCallable
-     * @since 1.0.0
+     * @since  1.0.0
      */
     public function buildAstTypeCallable()
     {
@@ -1430,12 +1459,12 @@ class PHPBuilder implements Builder
      *
      * @param string $image The source image for the primitive type.
      *
-     * @return \PDepend\Source\AST\ASTPrimitiveType
-     * @since 0.9.6
+     * @return \PDepend\Source\AST\ASTScalarType
+     * @since  0.9.6
      */
-    public function buildAstPrimitiveType($image)
+    public function buildAstScalarType($image)
     {
-        return $this->buildAstNodeInstance('ASTPrimitiveType', $image);
+        return $this->buildAstNodeInstance('ASTScalarType', $image);
     }
 
     /**
@@ -1444,7 +1473,7 @@ class PHPBuilder implements Builder
      * @param string $image The source image for the literal node.
      *
      * @return \PDepend\Source\AST\ASTLiteral
-     * @since 0.9.6
+     * @since  0.9.6
      */
     public function buildAstLiteral($image)
     {
@@ -1467,7 +1496,7 @@ class PHPBuilder implements Builder
      * </code>
      *
      * @return \PDepend\Source\AST\ASTString
-     * @since 0.9.10
+     * @since  0.9.10
      */
     public function buildAstString()
     {
@@ -1478,7 +1507,7 @@ class PHPBuilder implements Builder
      * Builds a new heredoc node.
      *
      * @return \PDepend\Source\AST\ASTHeredoc
-     * @since 0.9.12
+     * @since  0.9.12
      */
     public function buildAstHeredoc()
     {
@@ -1500,7 +1529,7 @@ class PHPBuilder implements Builder
      * @param string $image The source code image for this node.
      *
      * @return \PDepend\Source\AST\ASTConstantDefinition
-     * @since 0.9.6
+     * @since  0.9.6
      */
     public function buildAstConstantDefinition($image)
     {
@@ -1541,7 +1570,7 @@ class PHPBuilder implements Builder
      * @param string $image The source code image for this node.
      *
      * @return \PDepend\Source\AST\ASTConstantDeclarator
-     * @since 0.9.6
+     * @since  0.9.6
      */
     public function buildAstConstantDeclarator($image)
     {
@@ -1554,7 +1583,7 @@ class PHPBuilder implements Builder
      * @param string $cdata The comment text.
      *
      * @return \PDepend\Source\AST\ASTComment
-     * @since 0.9.8
+     * @since  0.9.8
      */
     public function buildAstComment($cdata)
     {
@@ -1567,7 +1596,7 @@ class PHPBuilder implements Builder
      * @param string $image The unary expression image/character.
      *
      * @return \PDepend\Source\AST\ASTUnaryExpression
-     * @since 0.9.11
+     * @since  0.9.11
      */
     public function buildAstUnaryExpression($image)
     {
@@ -1580,7 +1609,7 @@ class PHPBuilder implements Builder
      * @param string $image The cast-expression image/character.
      *
      * @return \PDepend\Source\AST\ASTCastExpression
-     * @since 0.10.0
+     * @since  0.10.0
      */
     public function buildAstCastExpression($image)
     {
@@ -1593,7 +1622,7 @@ class PHPBuilder implements Builder
      * @param string $image The postfix-expression image/character.
      *
      * @return \PDepend\Source\AST\ASTPostfixExpression
-     * @since 0.10.0
+     * @since  0.10.0
      */
     public function buildAstPostfixExpression($image)
     {
@@ -1604,7 +1633,7 @@ class PHPBuilder implements Builder
      * Builds a new pre-increment-expression node instance.
      *
      * @return \PDepend\Source\AST\ASTPreIncrementExpression
-     * @since 0.10.0
+     * @since  0.10.0
      */
     public function buildAstPreIncrementExpression()
     {
@@ -1615,7 +1644,7 @@ class PHPBuilder implements Builder
      * Builds a new pre-decrement-expression node instance.
      *
      * @return \PDepend\Source\AST\ASTPreDecrementExpression
-     * @since 0.10.0
+     * @since  0.10.0
      */
     public function buildAstPreDecrementExpression()
     {
@@ -1626,7 +1655,7 @@ class PHPBuilder implements Builder
      * Builds a new function/method scope instance.
      *
      * @return \PDepend\Source\AST\ASTScope
-     * @since 0.9.12
+     * @since  0.9.12
      */
     public function buildAstScope()
     {
@@ -1637,7 +1666,7 @@ class PHPBuilder implements Builder
      * Builds a new statement instance.
      *
      * @return \PDepend\Source\AST\ASTStatement
-     * @since 0.9.12
+     * @since  0.9.12
      */
     public function buildAstStatement()
     {
@@ -1650,7 +1679,7 @@ class PHPBuilder implements Builder
      * @param string $image The source code image for this node.
      *
      * @return \PDepend\Source\AST\ASTReturnStatement
-     * @since 0.9.12
+     * @since  0.9.12
      */
     public function buildAstReturnStatement($image)
     {
@@ -1663,7 +1692,7 @@ class PHPBuilder implements Builder
      * @param string $image The source code image for this node.
      *
      * @return \PDepend\Source\AST\ASTBreakStatement
-     * @since 0.9.12
+     * @since  0.9.12
      */
     public function buildAstBreakStatement($image)
     {
@@ -1676,7 +1705,7 @@ class PHPBuilder implements Builder
      * @param string $image The source code image for this node.
      *
      * @return \PDepend\Source\AST\ASTContinueStatement
-     * @since 0.9.12
+     * @since  0.9.12
      */
     public function buildAstContinueStatement($image)
     {
@@ -1687,7 +1716,7 @@ class PHPBuilder implements Builder
      * Builds a new scope-statement instance.
      *
      * @return \PDepend\Source\AST\ASTScopeStatement
-     * @since 0.9.12
+     * @since  0.9.12
      */
     public function buildAstScopeStatement()
     {
@@ -1700,7 +1729,7 @@ class PHPBuilder implements Builder
      * @param string $image The source code image for this node.
      *
      * @return \PDepend\Source\AST\ASTTryStatement
-     * @since 0.9.12
+     * @since  0.9.12
      */
     public function buildAstTryStatement($image)
     {
@@ -1713,7 +1742,7 @@ class PHPBuilder implements Builder
      * @param string $image The source code image for this node.
      *
      * @return \PDepend\Source\AST\ASTThrowStatement
-     * @since 0.9.12
+     * @since  0.9.12
      */
     public function buildAstThrowStatement($image)
     {
@@ -1726,7 +1755,7 @@ class PHPBuilder implements Builder
      * @param string $image The source code image for this node.
      *
      * @return \PDepend\Source\AST\ASTGotoStatement
-     * @since 0.9.12
+     * @since  0.9.12
      */
     public function buildAstGotoStatement($image)
     {
@@ -1739,7 +1768,7 @@ class PHPBuilder implements Builder
      * @param string $image The source code image for this node.
      *
      * @return \PDepend\Source\AST\ASTLabelStatement
-     * @since 0.9.12
+     * @since  0.9.12
      */
     public function buildAstLabelStatement($image)
     {
@@ -1752,7 +1781,7 @@ class PHPBuilder implements Builder
      * @param string $image The source code image for this node.
      *
      * @return \PDepend\Source\AST\ASTEchoStatement
-     * @since 0.9.12
+     * @since  0.9.12
      */
     public function buildAstEchoStatement($image)
     {
@@ -1765,7 +1794,7 @@ class PHPBuilder implements Builder
      * @param string $image The source code image for this node.
      *
      * @return \PDepend\Source\AST\ASTYieldStatement
-     * @since $version$
+     * @since  $version$
      */
     public function buildAstYieldStatement($image)
     {
@@ -1802,7 +1831,7 @@ class PHPBuilder implements Builder
      * objects.
      *
      * @return \PDepend\Source\AST\ASTArtifactList
-     * @since 0.9.12
+     * @since  0.9.12
      */
     private function getPreparedNamespaces()
     {
@@ -1842,9 +1871,9 @@ class PHPBuilder implements Builder
      *   <li>Create a new instance for the specified package.</li>
      * </ol>
      *
-     * @param string $qualifiedName
+     * @param  string $qualifiedName
      * @return \PDepend\Source\AST\ASTTrait
-     * @since 0.9.5
+     * @since  0.9.5
      */
     protected function buildTraitInternal($qualifiedName)
     {
@@ -1865,9 +1894,9 @@ class PHPBuilder implements Builder
      * qualified name in all scopes already processed. It will return the best
      * matching instance or <b>null</b> if no match exists.
      *
-     * @param string $qualifiedName
+     * @param  string $qualifiedName
      * @return \PDepend\Source\AST\ASTTrait
-     * @since 0.9.5
+     * @since  0.9.5
      */
     protected function findTrait($qualifiedName)
     {
@@ -1914,9 +1943,9 @@ class PHPBuilder implements Builder
      *   <li>Create a new instance for the specified package.</li>
      * </ol>
      *
-     * @param string $qualifiedName
+     * @param  string $qualifiedName
      * @return \PDepend\Source\AST\ASTInterface
-     * @since 0.9.5
+     * @since  0.9.5
      */
     protected function buildInterfaceInternal($qualifiedName)
     {
@@ -1937,9 +1966,9 @@ class PHPBuilder implements Builder
      * qualified name in all scopes already processed. It will return the best
      * matching instance or <b>null</b> if no match exists.
      *
-     * @param string $qualifiedName
+     * @param  string $qualifiedName
      * @return \PDepend\Source\AST\ASTInterface
-     * @since 0.9.5
+     * @since  0.9.5
      */
     protected function findInterface($qualifiedName)
     {
@@ -1983,9 +2012,9 @@ class PHPBuilder implements Builder
      *   <li>Create a new instance for the specified package.</li>
      * </ol>
      *
-     * @param string $qualifiedName
+     * @param  string $qualifiedName
      * @return \PDepend\Source\AST\ASTClass
-     * @since 0.9.5
+     * @since  0.9.5
      */
     protected function buildClassInternal($qualifiedName)
     {
@@ -2006,9 +2035,9 @@ class PHPBuilder implements Builder
      * qualified name in all scopes already processed. It will return the best
      * matching instance or <b>null</b> if no match exists.
      *
-     * @param string $qualifiedName
+     * @param  string $qualifiedName
      * @return \PDepend\Source\AST\ASTClass
-     * @since 0.9.5
+     * @since  0.9.5
      */
     protected function findClass($qualifiedName)
     {
@@ -2030,10 +2059,10 @@ class PHPBuilder implements Builder
      * given qualified name in all scopes already processed. It will return the
      * best matching instance or <b>null</b> if no match exists.
      *
-     * @param array $instances
-     * @param string $qualifiedName
+     * @param  array  $instances
+     * @param  string $qualifiedName
      * @return \PDepend\Source\AST\AbstractASTType
-     * @since 0.9.5
+     * @since  0.9.5
      */
     protected function findType(array $instances, $qualifiedName)
     {
@@ -2064,7 +2093,7 @@ class PHPBuilder implements Builder
      * runtime scope.
      *
      * @return void
-     * @since 0.9.5
+     * @since  0.9.5
      */
     protected function freeze()
     {
@@ -2110,9 +2139,9 @@ class PHPBuilder implements Builder
     /**
      * Restores a function within the internal type scope.
      *
-     * @param \PDepend\Source\AST\ASTFunction $function
+     * @param  \PDepend\Source\AST\ASTFunction $function
      * @return void
-     * @since 0.10.0
+     * @since  0.10.0
      */
     public function restoreFunction(ASTFunction $function)
     {
@@ -2123,9 +2152,9 @@ class PHPBuilder implements Builder
     /**
      * Restores a trait within the internal type scope.
      *
-     * @param \PDepend\Source\AST\ASTTrait $trait
+     * @param  \PDepend\Source\AST\ASTTrait $trait
      * @return void
-     * @since 0.10.0
+     * @since  0.10.0
      */
     public function restoreTrait(ASTTrait $trait)
     {
@@ -2139,9 +2168,9 @@ class PHPBuilder implements Builder
     /**
      * Restores a class within the internal type scope.
      *
-     * @param \PDepend\Source\AST\ASTClass $class
+     * @param  \PDepend\Source\AST\ASTClass $class
      * @return void
-     * @since 0.10.0
+     * @since  0.10.0
      */
     public function restoreClass(ASTClass $class)
     {
@@ -2155,9 +2184,9 @@ class PHPBuilder implements Builder
     /**
      * Restores an interface within the internal type scope.
      *
-     * @param \PDepend\Source\AST\ASTInterface $interface
+     * @param  \PDepend\Source\AST\ASTInterface $interface
      * @return void
-     * @since 0.10.0
+     * @since  0.10.0
      */
     public function restoreInterface(ASTInterface $interface)
     {
@@ -2171,9 +2200,9 @@ class PHPBuilder implements Builder
     /**
      * This method will persist a trait instance for later reuse.
      *
-     * @param string $traitName
-     * @param string $namespaceName
-     * @param \PDepend\Source\AST\ASTTrait $trait
+     * @param  string                       $traitName
+     * @param  string                       $namespaceName
+     * @param  \PDepend\Source\AST\ASTTrait $trait
      * @return void
      * @@since 1.0.0
      */
@@ -2192,9 +2221,9 @@ class PHPBuilder implements Builder
     /**
      * This method will persist a class instance for later reuse.
      *
-     * @param string $className
-     * @param string $namespaceName
-     * @param \PDepend\Source\AST\ASTClass $class
+     * @param  string                       $className
+     * @param  string                       $namespaceName
+     * @param  \PDepend\Source\AST\ASTClass $class
      * @return void
      * @@since 0.9.5
      */
@@ -2213,9 +2242,9 @@ class PHPBuilder implements Builder
     /**
      * This method will persist an interface instance for later reuse.
      *
-     * @param string $interfaceName
-     * @param string $namespaceName
-     * @param \PDepend\Source\AST\ASTInterface $interface
+     * @param  string                           $interfaceName
+     * @param  string                           $namespaceName
+     * @param  \PDepend\Source\AST\ASTInterface $interface
      * @return void
      * @@since 0.9.5
      */
@@ -2235,10 +2264,10 @@ class PHPBuilder implements Builder
     /**
      * Checks that the parser is not frozen or a request is flagged as internal.
      *
-     * @param boolean $internal The new internal flag value.
+     * @param  boolean $internal The new internal flag value.
      * @return void
      * @throws \BadMethodCallException
-     * @since 0.9.5
+     * @since  0.9.5
      */
     protected function checkBuilderState($internal = false)
     {
@@ -2254,7 +2283,7 @@ class PHPBuilder implements Builder
     /**
      * Returns <b>true</b> if the given package is the default package.
      *
-     * @param string $namespaceName The package name.
+     * @param  string $namespaceName The package name.
      * @return boolean
      */
     protected function isDefault($namespaceName)
@@ -2319,9 +2348,8 @@ class PHPBuilder implements Builder
     /**
      * Creates a {@link \PDepend\Source\AST\ASTNode} instance.
      *
-     * @param string $className Local name of the ast node class.
-     * @param string $image     Optional image for the created ast node.
-     *
+     * @param string $className
+     * @param string $image
      * @return \PDepend\Source\AST\ASTNode
      * @since 0.9.12
      */

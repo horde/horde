@@ -22,10 +22,10 @@ tracking system.  Updated translations are very welcome, though some strings
 might still change before the final release.
 
 For upgrading instructions, please see
-http://www.horde.org/apps/nag/docs/UPGRADING
+http://www.horde.org/apps/mnemo/docs/UPGRADING
 
 For detailed installation and configuration instructions, please see
-http://www.horde.org/apps/nag/docs/INSTALL
+http://www.horde.org/apps/mnemo/docs/INSTALL
 
 The major changes compared to the Mnemo H5 (4.1) versions are:
     * Replaced categories with tags.

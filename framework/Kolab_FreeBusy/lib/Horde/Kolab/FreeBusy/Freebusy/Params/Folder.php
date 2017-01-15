@@ -16,7 +16,7 @@
  * This class provides the folder name requested from the free/busy system.
  *
  * Copyright 2004-2007 Klarälvdalens Datakonsult AB
- * Copyright 2009-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see
@@ -68,7 +68,7 @@ implements Horde_Kolab_FreeBusy_Params_Owner,
                 );
             }
 
-            $folder[0] = strtolower($folder[0]);
+            $folder[0] = Horde_String::lower($folder[0]);
             $this->_owner = $folder[0];
             unset($folder[0]);
             $this->_folder = join('/', $folder);

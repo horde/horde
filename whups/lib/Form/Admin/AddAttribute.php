@@ -2,7 +2,7 @@
 /**
  * This file contains all Horde_Form classes for attribute administration.
  *
- * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -20,11 +20,11 @@ class Whups_Form_Admin_AddAttribute extends Horde_Form
         $this->addHidden('', 'type', 'int', true, true);
         $this->addVariable(_("Attribute Name"), 'attribute_name', 'text', true);
         $this->addVariable(
-          _("Attribute Description"), 'attribute_description', 'text', true);
+          _("Attribute Description"), 'attribute_description', 'text', false);
         $this->addVariable(
           _("Required Attribute?"), 'attribute_required', 'boolean', false);
 
-        $v = &$this->addVariable(
+        $v = $this->addVariable(
           _("Attribute Type"), 'attribute_type', 'enum', true, false, null,
           array(Whups::fieldTypeNames()));
         $v->setDefault('text');

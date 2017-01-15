@@ -2,7 +2,7 @@
 /**
  * Test the FTP based virtual file system.
  *
- * Copyright 2012-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -163,6 +163,11 @@ class Horde_Vfs_FtpTest extends Horde_Vfs_TestBase
     public function testChmod()
     {
         $this->_chmod();
+    }
+
+    public function testNullRoot()
+    {
+        $this->_nullRoot();
     }
 
     public static function setUpBeforeClass()

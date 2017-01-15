@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2006-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -43,7 +43,7 @@ class Horde_Perms_Permission_Kolab_AclIterator implements IteratorAggregate
                     $rights, substr($user, 6)
                 );
             } elseif ($user == 'anyone' || $user == 'anonymous'){
-                $class = 'Horde_Perms_Permission_Kolab_Acl_' . ucfirst($user);
+                $class = 'Horde_Perms_Permission_Kolab_Acl_' . Horde_String::ucfirst($user);
                 $this->_acl[] = new $class(
                     $rights
                 );

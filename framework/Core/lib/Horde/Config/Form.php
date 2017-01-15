@@ -3,7 +3,7 @@
  * A Horde_Form:: form that implements a user interface for the config
  * system.
  *
- * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -14,15 +14,6 @@
  */
 class Horde_Config_Form extends Horde_Form
 {
-    /**
-     * Don't use form tokens for the configuration form - while
-     * generating configuration info, things like the Token system
-     * might not work correctly. This saves some headaches.
-     *
-     * @var boolean
-     */
-    protected $_useFormToken = false;
-
     /**
      * Contains the Horde_Config object that this form represents.
      *
@@ -110,7 +101,7 @@ class Horde_Config_Form extends Horde_Form
                 $name = '$conf[' . implode('][', explode('|', $prefixedname)) . ']';
                 $desc = $configitem['desc'];
 
-                $v = &$this->addVariable($name, $varname, 'enum', true, false, $desc, array($var_params, $select_option));
+                $v = $this->addVariable($name, $varname, 'enum', true, false, $desc, array($var_params, $select_option));
                 if (array_key_exists('default', $configitem)) {
                     $v->setDefault($configitem['default']);
                     if ($this->_fillvars) {
@@ -149,7 +140,7 @@ class Horde_Config_Form extends Horde_Form
                     }
                 }
 
-                $v = &$this->addVariable($name, $varname, $type, $required, false, $desc, $var_params);
+                $v = $this->addVariable($name, $varname, $type, $required, false, $desc, $var_params);
                 if (isset($configitem['default'])) {
                     $v->setDefault($configitem['default']);
                     if ($this->_fillvars) {

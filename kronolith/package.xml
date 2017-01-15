@@ -22,10 +22,10 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2014-06-04</date>
+ <date>2016-11-09</date>
  <version>
-  <release>4.3.0</release>
-  <api>4.2.0</api>
+  <release>5.0.0</release>
+  <api>5.0.0</api>
  </version>
  <stability>
   <release>beta</release>
@@ -33,9 +33,27 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Use preferred start and end of day for color shades in dynamic view.
+* [jan] Automatically scroll to preferred start of day (heinz@htl-steyr.ac.at, Request #14498).
+* [mjr] Changes to support EAS attachment sync support.
+* [jan] Remove dependency on PEAR&apos;s Date package.
+* [mjr] Fix display of recurring multi-day events ("Pascal Rigaux" &lt;pascal.rigaux@univ-paris1.fr&gt;).
+* [jan] Only export the timezone rules required for an event to iCalendar objects.
+* [jan] Show timezone abbreviations in event dialog too.
+* [jan] Show users&apos; full names in share dialogs.
+* [mjr] Support for subset of features of ActiveSync 16.0.
+* [mjr] Disconnect exceptions from base event when series changes.
+* [mjr] Support file attachments to events (Request #2009).
+* [mjr] Add ability to prevent any iTip notifications from being sent (Request #14157).
+* [mjr] Remove maps configuration, replaced by global maps configuration (Bug #14168).
+* [mjr] Show created/last-modified info on event view (Request #10715).
+* [jan] Allow to edit system calendars in dynamic view.
+* [jan] Add support for monthly recurrence on last weekday (Request #1922).
+* [jan] Send event update notifications with HTML part.
+* [mjr] Resource permissions have been implemented (Request #13647).
+* [jan] Add refresh button to individual calendars and task lists.
 * [mjr] Enforce case on attendee user part, but add attendee to event if only only the case differs (Bug #13905).
 * [jan] Keep original file names when PUTing events via WebDAV.
-* [jan] Add hook to customize CalDAV URLs.
 * [jan] Remove configuration options for database tables.
 * [mjr] Honor the UID value sent from EAS clients directly in the message structure.
 * [jan] Add entries for Tasks and Agenda to top menu.
@@ -116,9 +134,13 @@
       <file name="ContactAutoCompleter.php" role="horde" />
       <file name="ResourceAutoCompleter.php" role="horde" />
       <file name="TagAutoCompleter.php" role="horde" />
+      <file name="UserAutoCompleter.php" role="horde" />
      </dir> <!-- /lib/Ajax/Imple -->
      <file name="Application.php" role="horde" />
     </dir> <!-- /lib/Ajax -->
+    <dir name="Attendee">
+     <file name="List.php" role="horde" />
+    </dir> <!-- /lib/Attendee -->
     <dir name="Block">
      <file name="Month.php" role="horde" />
      <file name="Monthlist.php" role="horde" />
@@ -142,24 +164,21 @@
      <file name="Kolab.php" role="horde" />
     </dir> <!-- /lib/Calendars -->
     <dir name="Driver">
-     <dir name="Resource">
-      <file name="Sql.php" role="horde" />
-     </dir> <!-- /lib/Driver/Resource -->
      <file name="Holidays.php" role="horde" />
      <file name="Horde.php" role="horde" />
      <file name="Ical.php" role="horde" />
      <file name="Kolab.php" role="horde" />
      <file name="Mock.php" role="horde" />
+     <file name="Resource.php" role="horde" />
      <file name="Sql.php" role="horde" />
     </dir> <!-- /lib/Driver -->
     <dir name="Event">
-     <dir name="Resource">
-      <file name="Sql.php" role="horde" />
-     </dir> <!-- /lib/Event/Resource -->
      <file name="Holidays.php" role="horde" />
      <file name="Horde.php" role="horde" />
      <file name="Ical.php" role="horde" />
      <file name="Kolab.php" role="horde" />
+     <file name="Mock.php" role="horde" />
+     <file name="Resource.php" role="horde" />
      <file name="Sql.php" role="horde" />
     </dir> <!-- /lib/Event -->
     <dir name="Factory">
@@ -200,6 +219,12 @@
      <file name="Mysql.php" role="horde" />
      <file name="Sql.php" role="horde" />
     </dir> <!-- /lib/Geo -->
+    <dir name="Icalendar">
+     <dir name="Handler">
+      <file name="Base.php" role="horde" />
+      <file name="Dav.php" role="horde" />
+     </dir> <!-- /lib/Icalendar/Handler -->
+     </dir> <!-- /lib/Icalendar -->
     <dir name="LoginTasks">
      <dir name="SystemTask">
       <file name="Upgrade.php" role="horde" />
@@ -230,6 +255,7 @@
      </dir> <!-- /lib/Ui/VarRenderer -->
     </dir> <!-- /lib/Ui -->
     <dir name="View">
+     <file name="Attendees.php" role="horde" />
      <file name="Day.php" role="horde" />
      <file name="DeleteEvent.php" role="horde" />
      <file name="EditEvent.php" role="horde" />
@@ -246,6 +272,7 @@
     <file name="Ajax.php" role="horde" />
     <file name="Api.php" role="horde" />
     <file name="Application.php" role="horde" />
+    <file name="Attendee.php" role="horde" />
     <file name="Calendar.php" role="horde" />
     <file name="CalendarsManager.php" role="horde" />
     <file name="Day.php" role="horde" />
@@ -255,6 +282,7 @@
     <file name="FreeBusy.php" role="horde" />
     <file name="Kronolith.php" role="horde" />
     <file name="Resource.php" role="horde" />
+    <file name="Shares.php" role="horde" />
     <file name="Storage.php" role="horde" />
     <file name="Tagger.php" role="horde" />
     <file name="Test.php" role="horde" />
@@ -504,6 +532,11 @@
     <file name="20_kronolith_upgrade_timezone.php" role="horde" />
     <file name="21_kronolith_upgrade_exceptionutc.php" role="horde" />
     <file name="22_kronolith_upgrade_parents.php" role="horde" />
+    <file name="23_kronolith_upgrade_baseidindex.php" role="horde" />
+    <file name="24_kronolith_upgrade_resourcestoshares.php" role="horde" />
+    <file name="25_kronolith_upgrade_typetocalendartype.php" role="horde" />
+    <file name="26_kronolith_event_organizer.php" role="horde" />
+    <file name="27_kronolith_upgrade_description_to_text.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="resources">
     <dir name="groups">
@@ -527,7 +560,9 @@
      <file name="mail.plain.php" role="horde" />
     </dir> <!-- /templates/alarm -->
     <dir name="attendees">
-     <file name="attendees.inc" role="horde" />
+     <file name="attendees.html.php" role="horde" />
+     <file name="_attendee.html.php" role="horde" />
+     <file name="_resource.html.php" role="horde" />
     </dir> <!-- /templates/attendees -->
     <dir name="chunks">
      <file name="calendar.php" role="horde" />
@@ -617,6 +652,10 @@
      <file name="month.html.php" role="horde" />
      <file name="summary.html.php" role="horde" />
     </dir> <!-- /templates/smartmobile -->
+    <dir name="update">
+     <file name="notification.html.php" role="horde" />
+     <file name="notification.plain.php" role="horde" />
+    </dir> <!-- /templates/update -->
     <dir name="view">
      <file name="view.inc" role="horde" />
     </dir> <!-- /templates/view -->
@@ -624,6 +663,7 @@
      <file name="head.inc" role="horde" />
      <file name="head_side_by_side.inc" role="horde" />
     </dir> <!-- /templates/week -->
+    <file name=".htaccess" role="horde" />
     <file name="buttonbar.html.php" role="horde" />
     <file name="calendar_titles.inc" role="horde" />
     <file name="javascript_defs.php" role="horde" />
@@ -632,6 +672,9 @@
     <dir name="Kronolith">
      <dir name="fixtures">
       <file name="allday.ics" role="test" />
+      <file name="attendees.php" role="test" />
+      <file name="attendees1.ics" role="test" />
+      <file name="attendees2.ics" role="test" />
       <file name="bug7068.ics" role="test" />
       <file name="bug11688.ics" role="test" />
       <file name="export1.ics" role="test" />
@@ -668,11 +711,16 @@
      <dir name="Stub">
       <file name="CalendarManager.php" role="test" />
       <file name="Driver.php" role="test" />
+      <file name="Objects.php" role="test" />
       <file name="Registry.php" role="test" />
       <file name="ShareFactory.php" role="test" />
       <file name="Tagger.php" role="test" />
       <file name="Types.php" role="test" />
      </dir> <!-- /test/Kronolith/Stub -->
+     <dir name="Unit">
+      <file name="AttendeeListTest.php" role="test" />
+      <file name="AttendeeTest.php" role="test" />
+     </dir> <!-- /test/Kronolith/Unit -->
      <file name="AllTests.php" role="test" />
      <file name="Autoload.php" role="test" />
      <file name="bootstrap.php" role="test" />
@@ -713,6 +761,7 @@
       <file name="big_agenda.png" role="horde" />
       <file name="big_alarm.png" role="horde" />
       <file name="big_invitation.png" role="horde" />
+      <file name="big_new.png" role="horde" />
       <file name="big_share.png" role="horde" />
       <file name="calendars.png" role="horde" />
       <file name="checkbox_off.png" role="horde" />
@@ -743,6 +792,7 @@
       <file name="new_small.png" role="horde" />
       <file name="new_small_fade.png" role="horde" />
       <file name="new_task.png" role="horde" />
+      <file name="organizer.png" role="horde" />
       <file name="picker.png" role="horde" />
       <file name="plus.png" role="horde" />
       <file name="prefs.png" role="horde" />
@@ -751,6 +801,8 @@
       <file name="private-fff.png" role="horde" />
       <file name="recur-000.png" role="horde" />
       <file name="recur-fff.png" role="horde" />
+      <file name="refresh-sidebar-000.png" role="horde" />
+      <file name="refresh-sidebar-fff.png" role="horde" />
       <file name="right.png" role="horde" />
       <file name="search.png" role="horde" />
       <file name="tasks.png" role="horde" />
@@ -789,6 +841,7 @@
    <file name="search.php" role="horde" />
    <file name="smartmobile.php" role="horde" />
    <file name="view.php" role="horde" />
+   <file name="viewer.php" role="horde" />
    <file name="week.php" role="horde" />
    <file name="workweek.php" role="horde" />
    <file name="year.php" role="horde" />
@@ -797,7 +850,7 @@
  <dependencies>
   <required>
    <php>
-    <min>5.3.0</min>
+    <min>5.3.4</min>
     <max>6.0.0alpha1</max>
     <exclude>6.0.0alpha1</exclude>
    </php>
@@ -807,7 +860,7 @@
    <package>
     <name>content</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.0.5</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -835,7 +888,7 @@
    <package>
     <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
-    <min>2.5.0</min>
+    <min>2.23.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -849,7 +902,7 @@
    <package>
     <name>Horde_Date</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.8</min>
+    <min>2.2.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -947,7 +1000,7 @@
    <package>
     <name>Horde_Nls</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.2.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -975,7 +1028,7 @@
    <package>
     <name>Horde_Share</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.1.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1021,10 +1074,6 @@
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
-   <package>
-    <name>Date</name>
-    <channel>pear.php.net</channel>
-   </package>
    <extension>
     <name>gettext</name>
    </extension>
@@ -1039,7 +1088,7 @@
    <package>
     <name>nag</name>
     <channel>pear.horde.org</channel>
-    <min>4.2.0alpha1</min>
+    <min>4.2.0</min>
     <max>5.0.0alpha1</max>
     <exclude>5.0.0alpha1</exclude>
    </package>
@@ -1053,7 +1102,7 @@
    <package>
     <name>Horde_ActiveSync</name>
     <channel>pear.horde.org</channel>
-    <min>2.20.6</min>
+    <min>2.31.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1135,6 +1184,7 @@
    <install as="kronolith/lib/Ajax.php" name="lib/Ajax.php" />
    <install as="kronolith/lib/Api.php" name="lib/Api.php" />
    <install as="kronolith/lib/Application.php" name="lib/Application.php" />
+   <install as="kronolith/lib/Attendee.php" name="lib/Attendee.php" />
    <install as="kronolith/lib/Calendar.php" name="lib/Calendar.php" />
    <install as="kronolith/lib/CalendarsManager.php" name="lib/CalendarsManager.php" />
    <install as="kronolith/lib/Day.php" name="lib/Day.php" />
@@ -1144,6 +1194,7 @@
    <install as="kronolith/lib/FreeBusy.php" name="lib/FreeBusy.php" />
    <install as="kronolith/lib/Kronolith.php" name="lib/Kronolith.php" />
    <install as="kronolith/lib/Resource.php" name="lib/Resource.php" />
+   <install as="kronolith/lib/Shares.php" name="lib/Shares.php" />
    <install as="kronolith/lib/Storage.php" name="lib/Storage.php" />
    <install as="kronolith/lib/Tagger.php" name="lib/Tagger.php" />
    <install as="kronolith/lib/Test.php" name="lib/Test.php" />
@@ -1152,6 +1203,8 @@
    <install as="kronolith/lib/Ajax/Imple/ContactAutoCompleter.php" name="lib/Ajax/Imple/ContactAutoCompleter.php" />
    <install as="kronolith/lib/Ajax/Imple/ResourceAutoCompleter.php" name="lib/Ajax/Imple/ResourceAutoCompleter.php" />
    <install as="kronolith/lib/Ajax/Imple/TagAutoCompleter.php" name="lib/Ajax/Imple/TagAutoCompleter.php" />
+   <install as="kronolith/lib/Ajax/Imple/UserAutoCompleter.php" name="lib/Ajax/Imple/UserAutoCompleter.php" />
+   <install as="kronolith/lib/Attendee/List.php" name="lib/Attendee/List.php" />
    <install as="kronolith/lib/Block/Month.php" name="lib/Block/Month.php" />
    <install as="kronolith/lib/Block/Monthlist.php" name="lib/Block/Monthlist.php" />
    <install as="kronolith/lib/Block/Prevmonthlist.php" name="lib/Block/Prevmonthlist.php" />
@@ -1171,14 +1224,15 @@
    <install as="kronolith/lib/Driver/Ical.php" name="lib/Driver/Ical.php" />
    <install as="kronolith/lib/Driver/Kolab.php" name="lib/Driver/Kolab.php" />
    <install as="kronolith/lib/Driver/Mock.php" name="lib/Driver/Mock.php" />
+   <install as="kronolith/lib/Driver/Resource.php" name="lib/Driver/Resource.php" />
    <install as="kronolith/lib/Driver/Sql.php" name="lib/Driver/Sql.php" />
-   <install as="kronolith/lib/Driver/Resource/Sql.php" name="lib/Driver/Resource/Sql.php" />
    <install as="kronolith/lib/Event/Holidays.php" name="lib/Event/Holidays.php" />
    <install as="kronolith/lib/Event/Horde.php" name="lib/Event/Horde.php" />
    <install as="kronolith/lib/Event/Ical.php" name="lib/Event/Ical.php" />
    <install as="kronolith/lib/Event/Kolab.php" name="lib/Event/Kolab.php" />
+   <install as="kronolith/lib/Event/Mock.php" name="lib/Event/Mock.php" />
+   <install as="kronolith/lib/Event/Resource.php" name="lib/Event/Resource.php" />
    <install as="kronolith/lib/Event/Sql.php" name="lib/Event/Sql.php" />
-   <install as="kronolith/lib/Event/Resource/Sql.php" name="lib/Event/Resource/Sql.php" />
    <install as="kronolith/lib/Factory/Calendars.php" name="lib/Factory/Calendars.php" />
    <install as="kronolith/lib/Factory/Driver.php" name="lib/Factory/Driver.php" />
    <install as="kronolith/lib/Factory/Geo.php" name="lib/Factory/Geo.php" />
@@ -1205,6 +1259,8 @@
    <install as="kronolith/lib/Geo/Base.php" name="lib/Geo/Base.php" />
    <install as="kronolith/lib/Geo/Mysql.php" name="lib/Geo/Mysql.php" />
    <install as="kronolith/lib/Geo/Sql.php" name="lib/Geo/Sql.php" />
+   <install as="kronolith/lib/Icalendar/Handler/Base.php" name="lib/Icalendar/Handler/Base.php" />
+   <install as="kronolith/lib/Icalendar/Handler/Dav.php" name="lib/Icalendar/Handler/Dav.php" />
    <install as="kronolith/lib/LoginTasks/SystemTask/Upgrade.php" name="lib/LoginTasks/SystemTask/Upgrade.php" />
    <install as="kronolith/lib/LoginTasks/Task/PurgeEvents.php" name="lib/LoginTasks/Task/PurgeEvents.php" />
    <install as="kronolith/lib/Prefs/Special/DefaultAlarm.php" name="lib/Prefs/Special/DefaultAlarm.php" />
@@ -1216,6 +1272,7 @@
    <install as="kronolith/lib/Storage/Kolab.php" name="lib/Storage/Kolab.php" />
    <install as="kronolith/lib/Storage/Sql.php" name="lib/Storage/Sql.php" />
    <install as="kronolith/lib/Ui/VarRenderer/Kronolith.php" name="lib/Ui/VarRenderer/Kronolith.php" />
+   <install as="kronolith/lib/View/Attendees.php" name="lib/View/Attendees.php" />
    <install as="kronolith/lib/View/Day.php" name="lib/View/Day.php" />
    <install as="kronolith/lib/View/DeleteEvent.php" name="lib/View/DeleteEvent.php" />
    <install as="kronolith/lib/View/EditEvent.php" name="lib/View/EditEvent.php" />
@@ -1331,6 +1388,11 @@
    <install as="kronolith/migration/20_kronolith_upgrade_timezone.php" name="migration/20_kronolith_upgrade_timezone.php" />
    <install as="kronolith/migration/21_kronolith_upgrade_exceptionutc.php" name="migration/21_kronolith_upgrade_exceptionutc.php" />
    <install as="kronolith/migration/22_kronolith_upgrade_parents.php" name="migration/22_kronolith_upgrade_parents.php" />
+   <install as="kronolith/migration/23_kronolith_upgrade_baseidindex.php" name="migration/23_kronolith_upgrade_baseidindex.php" />
+   <install as="kronolith/migration/24_kronolith_upgrade_resourcestoshares.php" name="migration/24_kronolith_upgrade_resourcestoshares.php" />
+   <install as="kronolith/migration/25_kronolith_upgrade_typetocalendartype.php" name="migration/25_kronolith_upgrade_typetocalendartype.php" />
+   <install as="kronolith/migration/26_kronolith_event_organizer.php" name="migration/26_kronolith_event_organizer.php" />
+   <install as="kronolith/migration/27_kronolith_upgrade_description_to_text.php" name="migration/27_kronolith_upgrade_description_to_text.php" />
    <install as="kronolith/resources/create.php" name="resources/create.php" />
    <install as="kronolith/resources/delete.php" name="resources/delete.php" />
    <install as="kronolith/resources/edit.php" name="resources/edit.php" />
@@ -1339,6 +1401,7 @@
    <install as="kronolith/resources/groups/delete.php" name="resources/groups/delete.php" />
    <install as="kronolith/resources/groups/edit.php" name="resources/groups/edit.php" />
    <install as="kronolith/resources/groups/index.html" name="resources/groups/index.html" />
+   <install as="kronolith/templates/.htaccess" name="templates/.htaccess" />
    <install as="kronolith/templates/buttonbar.html.php" name="templates/buttonbar.html.php" />
    <install as="kronolith/templates/calendar_titles.inc" name="templates/calendar_titles.inc" />
    <install as="kronolith/templates/javascript_defs.php" name="templates/javascript_defs.php" />
@@ -1346,7 +1409,9 @@
    <install as="kronolith/templates/agenda/notification.plain.php" name="templates/agenda/notification.plain.php" />
    <install as="kronolith/templates/alarm/mail.html.php" name="templates/alarm/mail.html.php" />
    <install as="kronolith/templates/alarm/mail.plain.php" name="templates/alarm/mail.plain.php" />
-   <install as="kronolith/templates/attendees/attendees.inc" name="templates/attendees/attendees.inc" />
+   <install as="kronolith/templates/attendees/attendees.html.php" name="templates/attendees/attendees.html.php" />
+   <install as="kronolith/templates/attendees/_attendee.html.php" name="templates/attendees/_attendee.html.php" />
+   <install as="kronolith/templates/attendees/_resource.html.php" name="templates/attendees/_resource.html.php" />
    <install as="kronolith/templates/chunks/calendar.php" name="templates/chunks/calendar.php" />
    <install as="kronolith/templates/chunks/permissions.inc" name="templates/chunks/permissions.inc" />
    <install as="kronolith/templates/contacts/contacts.inc" name="templates/contacts/contacts.inc" />
@@ -1401,6 +1466,8 @@
    <install as="kronolith/templates/smartmobile/javascript_defs.php" name="templates/smartmobile/javascript_defs.php" />
    <install as="kronolith/templates/smartmobile/month.html.php" name="templates/smartmobile/month.html.php" />
    <install as="kronolith/templates/smartmobile/summary.html.php" name="templates/smartmobile/summary.html.php" />
+   <install as="kronolith/templates/update/notification.html.php" name="templates/update/notification.html.php" />
+   <install as="kronolith/templates/update/notification.plain.php" name="templates/update/notification.plain.php" />
    <install as="kronolith/templates/view/view.inc" name="templates/view/view.inc" />
    <install as="kronolith/templates/week/head.inc" name="templates/week/head.inc" />
    <install as="kronolith/templates/week/head_side_by_side.inc" name="templates/week/head_side_by_side.inc" />
@@ -1410,6 +1477,9 @@
    <install as="Kronolith/phpunit.xml" name="test/Kronolith/phpunit.xml" />
    <install as="Kronolith/TestCase.php" name="test/Kronolith/TestCase.php" />
    <install as="Kronolith/fixtures/allday.ics" name="test/Kronolith/fixtures/allday.ics" />
+   <install as="Kronolith/fixtures/attendees.php" name="test/Kronolith/fixtures/attendees.php" />
+   <install as="Kronolith/fixtures/attendees1.ics" name="test/Kronolith/fixtures/attendees1.ics" />
+   <install as="Kronolith/fixtures/attendees2.ics" name="test/Kronolith/fixtures/attendees2.ics" />
    <install as="Kronolith/fixtures/bug7068.ics" name="test/Kronolith/fixtures/bug7068.ics" />
    <install as="Kronolith/fixtures/bug11688.ics" name="test/Kronolith/fixtures/bug11688.ics" />
    <install as="Kronolith/fixtures/export1.ics" name="test/Kronolith/fixtures/export1.ics" />
@@ -1430,10 +1500,13 @@
    <install as="Kronolith/Integration/Kronolith/Sql/Pdo/SqliteTest.php" name="test/Kronolith/Integration/Kronolith/Sql/Pdo/SqliteTest.php" />
    <install as="Kronolith/Stub/CalendarManager.php" name="test/Kronolith/Stub/CalendarManager.php" />
    <install as="Kronolith/Stub/Driver.php" name="test/Kronolith/Stub/Driver.php" />
+   <install as="Kronolith/Stub/Objects.php" name="test/Kronolith/Stub/Objects.php" />
    <install as="Kronolith/Stub/Registry.php" name="test/Kronolith/Stub/Registry.php" />
    <install as="Kronolith/Stub/ShareFactory.php" name="test/Kronolith/Stub/ShareFactory.php" />
    <install as="Kronolith/Stub/Tagger.php" name="test/Kronolith/Stub/Tagger.php" />
    <install as="Kronolith/Stub/Types.php" name="test/Kronolith/Stub/Types.php" />
+   <install as="Kronolith/Unit/AttendeeListTest.php" name="test/Kronolith/Unit/AttendeeListTest.php" />
+   <install as="Kronolith/Unit/AttendeeTest.php" name="test/Kronolith/Unit/AttendeeTest.php" />
    <install as="kronolith/themes/default/embed.css" name="themes/default/embed.css" />
    <install as="kronolith/themes/default/ie8.css" name="themes/default/ie8.css" />
    <install as="kronolith/themes/default/opera.css" name="themes/default/opera.css" />
@@ -1458,6 +1531,7 @@
    <install as="kronolith/themes/default/graphics/big_agenda.png" name="themes/default/graphics/big_agenda.png" />
    <install as="kronolith/themes/default/graphics/big_alarm.png" name="themes/default/graphics/big_alarm.png" />
    <install as="kronolith/themes/default/graphics/big_invitation.png" name="themes/default/graphics/big_invitation.png" />
+   <install as="kronolith/themes/default/graphics/big_new.png" name="themes/default/graphics/big_new.png" />
    <install as="kronolith/themes/default/graphics/big_share.png" name="themes/default/graphics/big_share.png" />
    <install as="kronolith/themes/default/graphics/calendars.png" name="themes/default/graphics/calendars.png" />
    <install as="kronolith/themes/default/graphics/checkbox_off.png" name="themes/default/graphics/checkbox_off.png" />
@@ -1488,6 +1562,7 @@
    <install as="kronolith/themes/default/graphics/new_small.png" name="themes/default/graphics/new_small.png" />
    <install as="kronolith/themes/default/graphics/new_small_fade.png" name="themes/default/graphics/new_small_fade.png" />
    <install as="kronolith/themes/default/graphics/new_task.png" name="themes/default/graphics/new_task.png" />
+   <install as="kronolith/themes/default/graphics/organizer.png" name="themes/default/graphics/organizer.png" />
    <install as="kronolith/themes/default/graphics/picker.png" name="themes/default/graphics/picker.png" />
    <install as="kronolith/themes/default/graphics/plus.png" name="themes/default/graphics/plus.png" />
    <install as="kronolith/themes/default/graphics/prefs.png" name="themes/default/graphics/prefs.png" />
@@ -1496,6 +1571,8 @@
    <install as="kronolith/themes/default/graphics/private-fff.png" name="themes/default/graphics/private-fff.png" />
    <install as="kronolith/themes/default/graphics/recur-000.png" name="themes/default/graphics/recur-000.png" />
    <install as="kronolith/themes/default/graphics/recur-fff.png" name="themes/default/graphics/recur-fff.png" />
+   <install as="kronolith/themes/default/graphics/refresh-sidebar-000.png" name="themes/default/graphics/refresh-sidebar-000.png" />
+   <install as="kronolith/themes/default/graphics/refresh-sidebar-fff.png" name="themes/default/graphics/refresh-sidebar-fff.png" />
    <install as="kronolith/themes/default/graphics/right.png" name="themes/default/graphics/right.png" />
    <install as="kronolith/themes/default/graphics/search.png" name="themes/default/graphics/search.png" />
    <install as="kronolith/themes/default/graphics/tasks.png" name="themes/default/graphics/tasks.png" />
@@ -1529,6 +1606,7 @@
    <install as="kronolith/search.php" name="search.php" />
    <install as="kronolith/smartmobile.php" name="smartmobile.php" />
    <install as="kronolith/view.php" name="view.php" />
+   <install as="kronolith/viewer.php" name="viewer.php" />
    <install as="kronolith/week.php" name="week.php" />
    <install as="kronolith/workweek.php" name="workweek.php" />
    <install as="kronolith/year.php" name="year.php" />
@@ -2426,7 +2504,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-07-08</date>
+   <date>2014-08-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Fix displayed CalDAV URLs for shared calendars (Bug #12380).
@@ -2446,7 +2524,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-08-04</date>
+   <date>2014-09-05</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix removing resource event when editing the bound event causes the resource to reject the event (Bug #13466).
@@ -2467,9 +2545,18 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-08-04</date>
+   <date>2014-10-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Export nicer display names for users and resources via WebDAV.
+* [jan] Export custom owner and read-only properties via WebDAV.
+* [jan] Fix finding modification times of shared calendars via WebDAV.
+* [jan] Support time label rotation in week and day views on IE 11.
+* [jan] Fix updating of task list view if no tasks are returned from server.
+* [jan] Fix ordering of sub-tasks.
+* [jan] Send iTip notifications even to attendees that are not required to attend (Bug #13600).
+* [jan] Fix notification and alarm issues if alarm is longer than a day (Bug #13584).
+* [jan] Fix closure compiler errors (Bug #13593).
 * [mjr] Fix checking resource availability when adding multiple resources (Bug #13561).
    </notes>
   </release>
@@ -2480,9 +2567,12 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-08-04</date>
+   <date>2014-12-03</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Make access to non-CalDAV remote calendars faster (Bug #12379).
+* [jan] Continue with further events if parsing of one remote event date fails.
+* [jan] Fix JS error in month view with more events today than the maximum threshold.
 * [mjr] Fix fatal error when creating or modifying an entry via PUT.
 * [mjr] Don&apos;t show private event details in daily agenda emails if not the owner (Bug #13660).
    </notes>
@@ -2494,7 +2584,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-01-24</date>
+   <date>2015-02-10</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix generating calendar embed code (Bug #13828).
@@ -2508,9 +2598,17 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-01-24</date>
+   <date>2015-04-28</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix building recipient list for event update notifications.
+* [mjr] Honor background color for listTimeObjects API calendars (Bug #13951).
+* [jan] Always sort users in advanced sharing dialog (Bug #13938).
+* [mjr] Fix saving recurring event after a change in resources (Bug #13921).
+* [mjr] Fix creating recurrence exceptions from CalDAV clients.
+* [jan] Added an index to find base events of recurrence exceptions faster.
+* [jan] Fix finding duplicate events by UID.
+* [mjr] Fix updating FB data when start date changes.
 * [mjr] Fix detecting attendees when email address is not lowercase (Bug #13905).
 * [jan] Fix duplicate group names in sharing dialog.
 * [jan] Fix JavaScript error when saving an unselected calendar.
@@ -2519,17 +2617,241 @@
   </release>
   <release>
    <version>
-    <release>4.3.0</release>
+    <release>4.2.7</release>
     <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-05-18</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Fix importing iCalendar events via the API (Bug #13975).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.8</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-06-18</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Don&apos;t delete existing exceptions and completions when editing recurring events or tasks.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.9</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-08-01</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix enabling deletion of resources for non-admin users (Bug #14069).
+* [mjr] Honor workweek view as the login_view (Bug #14042).
+* [mjr] Fix Permission Denied error after removing a currently displayed timeObject (Bug #14022).
+* [jan] Enable purge calendar checkbox if user has delete permissions.
+* [mjr] Honor locking the remote_cals preference.
+* [mjr] Fix detecting duplicate events during import via the API (Bug #14018).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.10</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-10-21</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix exporting events from Horde_Perms::SHOW calendars over DAV (Bug #14128).
+* [mjr] Send CANCEL iTip when attendee is removed from a meeting (Request #14118).
+* [mjr] Remove object reference from Content when object is deleted (Bug #14112).
+* [mjr] Fix incorrect offset of freebusy times in certain cases (Bug #14084).
+* [mjr] Fix handling of email groups as attendees (Bug #14093).
+* [mjr] Fix importing text/calendar data via API (Bug #14089).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.11</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-10-22</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix issue when replacing an event via the API and the attendee list changes (Bug #14118).
+* [mjr] Fix fatal test error related to Content_Tagger.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.12</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-02-02</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix missing truncated event description when using ActiveSync.
+* [jan] Fix week number in basic view if week starts on Sundays.
+* [mjr] Fix issue where new event could be created with exceptions from previously edited event.
+* [jan] Mark preferences only available in basic mode.
+* [jan] Use access rules compatible with both Apache 2.2 and 2.4.
+* [jan] Fix accidental deletion of events if importing recurring events without a UID attribute (Bug #14208).
+* [mjr] Honor confirm_delete preference in dynamic view (Bug #14188).
+* [mjr] Correctly deal with cancelled meetings via ActiveSync.
+* [mjr] Fix visibility of alarm titles when alarm is generated via CLI (Bug #14154).
+* [mjr] Fix display of embed code by adding the full url.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.13</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-02-04</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Add missing EAS ghosted property support for all EAS versions. Prevents potential loss of event data during synchronization.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.14</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-02-11</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix issue deleting and closing event dialog during event deletion.
+* [mjr] Honor the SCHEDULE-AGENT attribute during CalDAV import.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.15</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-02-17</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix typo preventing deletion of events from dynamic view (Bug #14256).
+* [jan] Handle gracefully if the base event of an imported recurrence exception is no longer recurring (Bug #14249).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.16</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-03-21</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix updating list of resource calendars in resource group dialog (Bug #14281).
+* [jan] Fixed several issues with resource management.
+* [jan] Update Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.17</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-07-01</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Update Portuguese translation.
+* [jan] Update Basque translation.
+* [mjr] Fix issue where it is possible to save an event with an empty start or end date on some browsers.
+* [mjr] Require Horde_Perms::DELETE for including a calendar as sync-able.
+* [mjr] Fix end date when toggling an all day event off (Bug #13979).
+* [jan] Fix showing error message if loading of remote calendars failed.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.18</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-09-06</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix potential memory issue with really long events (Bug #14453).
+* [mjr] Fix setting DELETE permissions (Bug #14447).
+* [mjr] More fixes and improvements related to preventing empty date values.
+* [jan] Fix losing shared users when adding invalid user name (Bug #14415).
+* [mjr] Fix displaying tag search results (Bug #14412).
+* [jan] Fix sender of event change notification messages.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.19</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-09-06</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix allowing ics import on when user has edit permissions on a shared calendar (Bug #14501).
+* [jan] Disallow setting of creator permissions too if sharing with world is disabled.
+* [jan] Split shared users by linebreaks too.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.0</release>
+    <api>5.0.0</api>
+   </version>
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2014-06-04</date>
+   <date>2016-11-09</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Use preferred start and end of day for color shades in dynamic view.
+* [jan] Automatically scroll to preferred start of day (heinz@htl-steyr.ac.at, Request #14498).
+* [mjr] Changes to support EAS attachment sync support.
+* [jan] Remove dependency on PEAR&apos;s Date package.
+* [mjr] Fix display of recurring multi-day events ("Pascal Rigaux" &lt;pascal.rigaux@univ-paris1.fr&gt;).
+* [jan] Only export the timezone rules required for an event to iCalendar objects.
+* [jan] Show timezone abbreviations in event dialog too.
+* [jan] Show users&apos; full names in share dialogs.
+* [mjr] Support for subset of features of ActiveSync 16.0.
+* [mjr] Disconnect exceptions from base event when series changes.
+* [mjr] Support file attachments to events (Request #2009).
+* [mjr] Add ability to prevent any iTip notifications from being sent (Request #14157).
+* [mjr] Remove maps configuration, replaced by global maps configuration (Bug #14168).
+* [mjr] Show created/last-modified info on event view (Request #10715).
+* [jan] Allow to edit system calendars in dynamic view.
+* [jan] Add support for monthly recurrence on last weekday (Request #1922).
+* [jan] Send event update notifications with HTML part.
+* [mjr] Resource permissions have been implemented (Request #13647).
+* [jan] Add refresh button to individual calendars and task lists.
 * [mjr] Enforce case on attendee user part, but add attendee to event if only only the case differs (Bug #13905).
 * [jan] Keep original file names when PUTing events via WebDAV.
-* [jan] Add hook to customize CalDAV URLs.
 * [jan] Remove configuration options for database tables.
 * [mjr] Honor the UID value sent from EAS clients directly in the message structure.
 * [jan] Add entries for Tasks and Agenda to top menu.

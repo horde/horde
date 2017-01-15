@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2014-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2014-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category  Horde
- * @copyright 2014-2015 Horde LLC
+ * @copyright 2014-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link      http://pear.horde.org/index.php?package=Prefs
  * @package   Prefs
@@ -17,7 +17,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2014-2015 Horde LLC
+ * @copyright 2014-2017 Horde LLC
  * @internal
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link      http://pear.horde.org/index.php?package=Prefs
@@ -32,7 +32,9 @@ class Horde_Prefs_Unit_IdentityTest extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->identity = new Horde_Prefs_Identity(array(
-            'prefs' => new Horde_Prefs('foo'),
+            'prefs' => new Horde_Prefs(
+                'foo', new Horde_Prefs_Stub_Storage('foo')
+            ),
             'user' => 'foo'
         ));
     }
@@ -48,7 +50,6 @@ class Horde_Prefs_Unit_IdentityTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @depends testIdentityAdd
      */
     public function testIdentityGet()
     {
@@ -59,7 +60,6 @@ class Horde_Prefs_Unit_IdentityTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @depends testIdentityAdd
      */
     public function testIdentityDelete()
     {
@@ -74,7 +74,6 @@ class Horde_Prefs_Unit_IdentityTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @depends testIdentityAdd
      */
     public function testArrayAccessExists()
     {
@@ -85,7 +84,6 @@ class Horde_Prefs_Unit_IdentityTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @depends testIdentityAdd
      */
     public function testArrayAccessGet()
     {
@@ -96,7 +94,6 @@ class Horde_Prefs_Unit_IdentityTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @depends testIdentityAdd
      */
     public function testArrayAccessUnset()
     {
@@ -110,7 +107,6 @@ class Horde_Prefs_Unit_IdentityTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @depends testIdentityAdd
      */
     public function testCountable()
     {
@@ -120,7 +116,6 @@ class Horde_Prefs_Unit_IdentityTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @depends testIdentityAdd
      */
     public function testIterator()
     {

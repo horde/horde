@@ -21,6 +21,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Mark PHP 7 as supported.
+* [jan] Fix issues with certain locales like Turkish.
 * [jan] Add Hungarian translation (Andras Galos &lt;galosa@netinform.hu&gt;).
 * [jan] Add Danish translation (Erling Preben Hansen &lt;erling@eph.dk&gt;).
 * [jan] Add French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
@@ -36,6 +38,7 @@
   <dir baseinstalldir="/" name="/">
    <dir name="bin">
     <file name="horde-push" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
      <tasks:replace from="@php_dir@" to="php_dir" type="pear-config" />
     </file>
    </dir> <!-- /bin -->
@@ -172,8 +175,8 @@
   <required>
    <php>
     <min>5.3.0</min>
-    <max>6.0.0alpha1</max>
-    <exclude>6.0.0alpha1</exclude>
+    <max>8.0.0alpha1</max>
+    <exclude>8.0.0alpha1</exclude>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -182,6 +185,13 @@
     <name>Horde_Translation</name>
     <channel>pear.horde.org</channel>
     <min>2.2.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Util</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -330,6 +340,8 @@
    <date>2014-06-23</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Mark PHP 7 as supported.
+* [jan] Fix issues with certain locales like Turkish.
 * [jan] Add Hungarian translation (Andras Galos &lt;galosa@netinform.hu&gt;).
 * [jan] Add Danish translation (Erling Preben Hansen &lt;erling@eph.dk&gt;).
 * [jan] Add French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).

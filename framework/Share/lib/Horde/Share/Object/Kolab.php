@@ -16,7 +16,7 @@
  * Extension of the Horde_Share_Object class for handling Kolab share
  * information.
  *
- * Copyright 2004-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -389,7 +389,7 @@ implements Serializable, Horde_Perms_Permission_Kolab_Storage
      */
     public function setPermission($perms, $update = true)
     {
-        if (!$perms instanceOf Horde_Perms_Permission_Kolab) {
+        if (!$perms instanceof Horde_Perms_Permission_Kolab) {
             $this->getPermission()->setData($perms->getData());
         } else {
             $this->_permission = $perms;

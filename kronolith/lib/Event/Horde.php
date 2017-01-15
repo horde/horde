@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2009-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -328,16 +328,31 @@ class Kronolith_Event_Horde extends Kronolith_Event
      * Returns a simple object suitable for json transport representing this
      * event.
      *
-     * @param boolean $allDay      If not null, overrides whether the event is
-     *                             an all-day event.
-     * @param boolean $full        Whether to return all event details.
-     * @param string $time_format  The date() format to use for time formatting.
+     * @param array $options  An array of options:
      *
-     * @return object  A simple object.
+     *  - all_day: (boolean)    If not null, overrides whether the event is an
+     *                          all-day event.
+     *                          DEFAULT: null (Do not override).
+     *  - full: (boolean)       Whether to return all event details.
+     *                          DEFAULT: false (Do not return all details).
+     *  - time_format: (string) The date() format to use for time formatting.
+     *                          DEFAULT: 'H:i'
+     *  - history: (boolean)    If true, ensures that this event's history is
+     *                          loaded from the History backend.
+     *                          DEFAULT: false (Do not ensure history is loaded).
+     *
+     * @return stdClass  A simple object.
      */
-    public function toJson($allDay = null, $full = false, $time_format = 'H:i')
+    public function toJson(array $options = array())
     {
-        $json = parent::toJson($allDay, $full, $time_format);
+        $options = array_merge(array(
+            'all_day' => null,
+            'full' => false,
+            'time_format' => 'H:i',
+            'history' => false),
+            $options
+        );
+        $json = parent::toJson($options);
         if ($this->_ajaxLink) {
             $json->aj = $this->_ajaxLink;
         } elseif ($link = (string)$this->getViewUrl(array(), true, false)) {

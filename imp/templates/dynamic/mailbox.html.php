@@ -65,7 +65,9 @@
     </div>
 
     <div id="viewport_error" style="display:none">
+     <span class="iconImg closeImg" id="search_error_close" title="<?php echo _("Clear Search") ?>"></span>
      <span class="iconImg actionRefresh" id="viewport_error_refresh" title="<?php echo _("Retry") ?>"></span>
+     <span class="iconImg actionEditsearch" id="search_error_edit" title="<?php echo _("Edit Search Query") ?>"></span>
      <div><?php echo _("Error loading message list.") ?></div>
     </div>
    </div>
@@ -241,13 +243,19 @@
  <div>
   <input name="remote_password" type="password"></input>
   <input name="remote_id" type="hidden"></input>
+  <div>
+   <?php echo _("Save password?") ?>
+   <input name="remote_password_save" type="checkbox"></input>
+  </div>
  </div>
 </div>
 
 <div id="delete_mbox_redbox" style="display:none">
  <div>
-  <input name="delete_subfolders" type="checkbox"></input>
-  <?php echo _("Delete all subfolders?") ?>
+   <label>
+     <input name="delete_subfolders" type="checkbox"></input>
+     <?php echo _("Delete all subfolders?") ?>
+   </label>
  </div>
 </div>
 

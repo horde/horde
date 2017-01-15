@@ -7,7 +7,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2010-2015 Horde LLC (http://www.horde.org)
+ * @copyright 2010-2017 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -65,7 +65,7 @@
  *          - pingheartbeat:
  *
  * @license   http://www.horde.org/licenses/gpl GPLv2
- * @copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * @copyright 2010-2017 Horde LLC (http://www.horde.org/)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @link      http://pear.horde.org/index.php?package=ActiveSync
  * @package   ActiveSync
@@ -269,16 +269,13 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
     /**
      * Load the state represented by $syncKey from storage.
      *
-     * @param string $type  The type of state a
-     *                      Horde_ActiveSync::REQUEST_TYPE constant.
-     *
      * @throws Horde_ActiveSync_Exception, Horde_ActiveSync_Exception_StateGone
      */
-    protected function _loadState($type)
+    protected function _loadState()
     {
         try {
             $results = $this->_db->selectCollection(self::COLLECTION_STATE)->findOne(
-                array(self::MONGO_ID => $this->_syncKey),
+                array(self::MONGO_ID => $this->_syncKey, self::SYNC_FOLDERID => $this->_collection['id']),
                 array(self::SYNC_DATA, self::SYNC_DEVID, self::SYNC_MOD, self::SYNC_PENDING));
         } catch (Exception $e) {
             $this->_logger->err('Error in loading state from DB: ' . $e->getMessage());
@@ -286,25 +283,24 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
         }
 
         if (empty($results)) {
-            $this->_logger->err(sprintf(
+            $this->_logger->warn(sprintf(
                 '[%s] Could not find state for synckey %s.',
                 $this->_procid,
                 $this->_syncKey));
             throw new Horde_ActiveSync_Exception_StateGone();
         }
 
-        $this->_loadStateFromResults($results, $type);
+        $this->_loadStateFromResults($results);
     }
 
     /**
      * Actually load the state data into the object from the query results.
      *
      * @param array $results  The results array from the state query.
-     * @param string $type    The type of request we are handling.
      *
      * @throws Horde_ActiveSync_Exception_StateGone
      */
-    protected function _loadStateFromResults(array $results, $type = Horde_ActiveSync::REQUEST_TYPE_SYNC)
+    protected function _loadStateFromResults(array $results)
     {
         // Load the last known sync time for this collection
         $this->_lastSyncStamp = !empty($results[self::SYNC_MOD])
@@ -319,13 +315,13 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
         $data = unserialize($results[self::SYNC_DATA]);
         $pending = $results[self::SYNC_PENDING];
 
-        if ($type == Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC) {
+        if ($this->_type == Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC) {
             $this->_folder = ($data !== false) ? $data : array();
             $this->_logger->info(
                 sprintf('[%s] Loading FOLDERSYNC state containing %d folders.',
                 $this->_procid,
                 count($this->_folder)));
-        } elseif ($type == Horde_ActiveSync::REQUEST_TYPE_SYNC) {
+        } elseif ($this->_type == Horde_ActiveSync::REQUEST_TYPE_SYNC) {
             $this->_folder = $data;
             $this->_changes = ($pending !== false) ? $pending : null;
             if ($this->_changes) {
@@ -558,17 +554,23 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
      *
      * @param string $devId   The device id to obtain
      * @param string $user    The user to retrieve user-specific device info for
+     * @param array  $params  Additional parameters:
+     *   - force: (boolean)  If true, reload the device info even if it's
+     *     already loaded. Used to refresh values such as device_rwstatus that
+     *     may have changed during a long running PING/SYNC. DEFAULT: false.
+     *     @since  2.31.0
      *
      * @return Horde_ActiveSync_Device  The device object
      * @throws Horde_ActiveSync_Exception
      */
-    public function loadDeviceInfo($devId, $user = null)
+    public function loadDeviceInfo($devId, $user = null, $params = array())
     {
         // See if we already have this device, for this user loaded
-        if (!empty($this->_deviceInfo) && $this->_deviceInfo->id == $devId &&
+        if (empty($params['force']) &&
+            !empty($this->_deviceInfo) &&
+            $this->_deviceInfo->id == $devId &&
             !empty($this->_deviceInfo) &&
             $user == $this->_deviceInfo->user) {
-
             return $this->_deviceInfo;
         }
 
@@ -714,6 +716,17 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
             $this->_logger->err($e->getMessage());
             throw new Horde_ActiveSync_Exception($e);
         }
+    }
+
+    /**
+     * @todo
+     *
+     * @param  [type] $guid [description]
+     * @return [type]       [description]
+     */
+    protected function _checkCollision($guid)
+    {
+        return false;
     }
 
     /**
@@ -1166,10 +1179,10 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
         $projection = array();
         if (!is_null($fields)) {
             foreach ($fields as $field) {
-                $projection[] = 'cache_data.' . $field;
+                $projection[self::CACHE_DATA . '.' . $field] = true;
             }
         } else {
-            $projection = array(self::CACHE_DATA);
+            $projection = array(self::CACHE_DATA => true);
         }
         try {
             $data = $this->_db->selectCollection(self::COLLECTION_CACHE)->findOne(
@@ -1548,5 +1561,20 @@ EOT;
             $this->_mongo->createIndices($collection, $indices);
         }
     }
+
+     /**
+      * Close the underlying backend storage connection.
+      * To be used during PING or looping SYNC operations.
+      */
+     public function disconnect()
+     {
+     }
+
+     /**
+      * (Re)open backend storage connection.
+      */
+     public function connect()
+     {
+     }
 
 }

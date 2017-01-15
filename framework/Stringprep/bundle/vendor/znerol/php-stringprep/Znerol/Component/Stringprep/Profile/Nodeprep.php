@@ -1,6 +1,7 @@
 <?php
 
 namespace Znerol\Component\Stringprep\Profile;
+use Znerol\Component\Stringprep\Profile;
 
 /**
  * XMPP Nodeprep profile for nameprep defined in RFC 6122, Appendix A

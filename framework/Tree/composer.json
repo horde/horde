@@ -2,7 +2,7 @@
     "name": "horde/horde-tree",
     "description": "Horde Tree API",
     "type": "library",
-    "homepage": "http://pear.horde.org",
+    "homepage": "https://pear.horde.org",
     "license": "LGPL-2.1",
     "authors": [
         {
@@ -14,19 +14,19 @@
             "name": "Jan Schneider",
             "email": "jan@horde.org",
             "role": "lead"
-        }
+        },
         {
             "name": "Michael Slusarz",
             "email": "slusarz@horde.org",
             "role": "developer"
         }
     ],
-    "version": "2.0.3",
-    "time": "2015-01-09",
+    "version": "2.0.5",
+    "time": "2015-04-28",
     "repositories": [
         {
             "type": "pear",
-            "url": "http://pear.horde.org"
+            "url": "https://pear.horde.org"
         }
     ],
     "require": {

@@ -2,7 +2,7 @@
 /**
  * Copyright 2002-2003 Richard Heyes
  * Copyright 2006-2008 Anish Mistry
- * Copyright 2009-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsd.
@@ -16,8 +16,8 @@
  */
 
 namespace Horde;
+use Auth_SASL;
 use Horde\Socket\Client;
-use Horde\ManageSieve;
 use Horde\ManageSieve\Exception;
 
 /**
@@ -30,7 +30,7 @@ use Horde\ManageSieve\Exception;
  * @author    Jan Schneider <jan@horde.org>
  * @copyright 2002-2003 Richard Heyes
  * @copyright 2006-2008 Anish Mistry
- * @copyright 2009-2015 Horde LLC
+ * @copyright 2009-2017 Horde LLC
  * @license   http://www.horde.org/licenses/bsd BSD
  * @link      http://tools.ietf.org/html/rfc5804 RFC 5804 A Protocol for
  *            Remotely Managing Sieve Scripts
@@ -157,7 +157,7 @@ class ManageSieve
      *   - user: Login username (optional).
      *   - password: Login password (optional).
      *   - authmethod: Type of login to perform (see $supportedAuthMethods)
-                       (DEFAULT: AUTH_AUTOMATIC).
+     *                 (DEFAULT: AUTH_AUTOMATIC).
      *   - euser: Effective user. If authenticating as an administrator, login
      *            as this user.
      *   - bypassauth: Skip the authentication phase. Useful if passing an
@@ -258,7 +258,7 @@ class ManageSieve
      * @param string  $port    Port of server.
      * @param array   $context List of options to pass to
      *                         stream_context_create().
-     * @param boolean $secure: Security layer requested. @see __construct().
+     * @param boolean $secure Security layer requested. @see __construct().
      *
      * @throws \Horde\ManageSieve\Exception
      */
@@ -283,7 +283,7 @@ class ManageSieve
         }
 
         if (self::STATE_DISCONNECTED != $this->_state) {
-            throw new NotDisconnected();
+            throw new Exception\NotDisconnected();
         }
 
         try {
@@ -295,7 +295,7 @@ class ManageSieve
                 $this->_params['context']
             );
         } catch (Client\Exception $e) {
-            throw new Exception($e);
+            throw new Exception\ConnectionFailed($e);
         }
 
         if ($this->_params['bypassauth']) {
@@ -310,12 +310,11 @@ class ManageSieve
         try {
             $this->_cmdCapability();
         } catch (Exception $e) {
-            throw new ConnectionFailed($e);
+            throw new Exception\ConnectionFailed($e);
         }
 
         // Check if we can enable TLS via STARTTLS.
         if ($this->_params['secure'] === 'tls' ||
-            $this->_params['secure'] === 'tlsv1' ||
             ($this->_params['secure'] === true &&
              !empty($this->_capability['starttls']))) {
             $this->_doCmd('STARTTLS');
@@ -338,7 +337,7 @@ class ManageSieve
             try {
                 $this->_cmdCapability();
             } catch (Exception $e) {
-                throw new ConnectionFailed($e);
+                throw new Exception\ConnectionFailed($e);
             }
         }
     }
@@ -362,7 +361,7 @@ class ManageSieve
      * Defaults from the constructor are used for missing parameters.
      *
      * @param string $user        Login username.
-     * @param string $pass        Login password.
+     * @param string $password    Login password.
      * @param string $authmethod  Type of login method to use.
      * @param string $euser       Effective UID (perform on behalf of $euser).
      *
@@ -375,13 +374,13 @@ class ManageSieve
         if (isset($user)) {
             $this->_params['user'] = $user;
         }
-        if (isset($user)) {
+        if (isset($password)) {
             $this->_params['password'] = $password;
         }
-        if (isset($user)) {
+        if (isset($authmethod)) {
             $this->_params['authmethod'] = $authmethod;
         }
-        if (isset($user)) {
+        if (isset($euser)) {
             $this->_params['euser'] = $euser;
         }
 
@@ -527,7 +526,7 @@ class ManageSieve
     {
         $this->_checkConnected();
 
-        $extension = trim($this->_toUpper($extension));
+        $extension = trim(\Horde_String::upper($extension));
         if (is_array($this->_capability['extensions'])) {
             foreach ($this->_capability['extensions'] as $ext) {
                 if ($ext == $extension) {
@@ -563,7 +562,7 @@ class ManageSieve
     {
         $this->_checkConnected();
 
-        $method = trim($this->_toUpper($method));
+        $method = trim(\Horde_String::upper($method));
         if (is_array($this->_capability['sasl'])) {
             foreach ($this->_capability['sasl'] as $sasl) {
                 if ($sasl == $method) {
@@ -621,7 +620,7 @@ class ManageSieve
         try {
             $this->_cmdCapability();
         } catch (Exception $e) {
-            throw new ConnectionFailed($e);
+            throw new Exception\ConnectionFailed($e);
         }
     }
 
@@ -705,7 +704,7 @@ class ManageSieve
 
         $this->_sendStringResponse(base64_encode($response));
         $this->_doCmd('', true);
-        if ($this->_toUpper(substr($result, 0, 2)) == 'OK') {
+        if (\Horde_String::upper(substr($result, 0, 2)) == 'OK') {
             return;
         }
 
@@ -872,7 +871,7 @@ class ManageSieve
 
         $data = preg_split(
             '/\r?\n/',
-            $this->_toUpper($data),
+            \Horde_String::upper($data),
             -1,
             PREG_SPLIT_NO_EMPTY
         );
@@ -968,7 +967,7 @@ class ManageSieve
      *
      * @throws \Horde\ManageSieve\Exception if a NO response.
      * @return string  Reponse string if an OK response.
-     *                            
+     *
      */
     protected function _doCmd($cmd = '', $auth = false)
     {
@@ -993,7 +992,7 @@ class ManageSieve
                             );
                     }
 
-                    if ('OK' == $this->_toUpper($tag[1])) {
+                    if ('OK' == \Horde_String::upper($tag[1])) {
                         $response .= $line;
                         return rtrim($response);
                     }
@@ -1023,7 +1022,7 @@ class ManageSieve
                         try {
                             $this->_handleConnectAndLogin();
                         } catch (Exception $e) {
-                            throw new Referral(
+                            throw new Exception\Referral(
                                 'Cannot follow referral to '
                                 . $this->_params['host'] . ', the error was: '
                                 . $e->getMessage()
@@ -1058,7 +1057,7 @@ class ManageSieve
             }
         }
 
-        throw new Referral('Max referral count (' . $referralCount . ') reached.');
+        throw new Exception\Referral('Max referral count (' . $referralCount . ') reached.');
     }
 
     /**
@@ -1119,7 +1118,7 @@ class ManageSieve
     protected function _checkConnected()
     {
         if (self::STATE_DISCONNECTED == $this->_state) {
-            throw new NotConnected();
+            throw new Exception\NotConnected();
         }
     }
 
@@ -1131,24 +1130,8 @@ class ManageSieve
     protected function _checkAuthenticated()
     {
         if (self::STATE_AUTHENTICATED != $this->_state) {
-            throw new NotAuthenticated();
+            throw new Exception\NotAuthenticated();
         }
-    }
-
-    /**
-     * Locale independant strtoupper() implementation.
-     *
-     * @param string $string The string to convert to lowercase.
-     *
-     * @return string  The lowercased string, based on ASCII encoding.
-     */
-    protected function _toUpper($string)
-    {
-        $language = setlocale(LC_CTYPE, 0);
-        setlocale(LC_CTYPE, 'C');
-        $string = strtoupper($string);
-        setlocale(LC_CTYPE, $language);
-        return $string;
     }
 
     /**

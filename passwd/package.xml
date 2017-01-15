@@ -16,22 +16,18 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-08-27</date>
- <time>16:08:42</time>
+ <date>2016-11-09</date>
  <version>
-  <release>5.0.2</release>
-  <api>5.0.0</api>
+  <release>6.0.0</release>
+  <api>6.0.0</api>
  </version>
  <stability>
-  <release>stable</release>
-  <api>stable</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Fix syntax error in HTTP driver (Bug #13464).
-* [mms] Re-add &apos;userdn&apos; hook.
-* [jan] Update Danish translation (Erling Preben Hansen &lt;erling@eph.dk&gt;).
-* [mms] Fix usage of &apos;query_lookup&apos; and &apos;query_modify&apos; backend parameters (Michael Cramer &lt;michael@bigmichi1.de&gt;).
+* [jan] Add ISPConfig driver (Thomas Basler &lt;thomas@familie-basler.net&gt;).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -60,6 +56,7 @@
      <file name="Expectpecl.php" role="horde" />
      <file name="Horde.php" role="horde" />
      <file name="Http.php" role="horde" />
+     <file name="Ispconfig.php" role="horde" />
      <file name="Kolab.php" role="horde" />
      <file name="Ldap.php" role="horde" />
      <file name="Null.php" role="horde" />
@@ -472,6 +469,7 @@
    <install as="passwd/lib/Driver/Expectpecl.php" name="lib/Driver/Expectpecl.php" />
    <install as="passwd/lib/Driver/Horde.php" name="lib/Driver/Horde.php" />
    <install as="passwd/lib/Driver/Http.php" name="lib/Driver/Http.php" />
+   <install as="passwd/lib/Driver/Ispconfig.php" name="lib/Driver/Ispconfig.php" />
    <install as="passwd/lib/Driver/Kolab.php" name="lib/Driver/Kolab.php" />
    <install as="passwd/lib/Driver/Ldap.php" name="lib/Driver/Ldap.php" />
    <install as="passwd/lib/Driver/Null.php" name="lib/Driver/Null.php" />
@@ -708,13 +706,86 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-08-27</date>
+   <date>2014-09-05</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Fix syntax error in HTTP driver (Bug #13464).
 * [mms] Re-add &apos;userdn&apos; hook.
 * [jan] Update Danish translation (Erling Preben Hansen &lt;erling@eph.dk&gt;).
 * [mms] Fix usage of &apos;query_lookup&apos; and &apos;query_modify&apos; backend parameters (Michael Cramer &lt;michael@bigmichi1.de&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.3</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-08-01</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Update Italian translation.
+* [jan] Update Galician translation.
+* [jan] Update Catalan translation.
+* [jan] Update German translation.
+* [jan] Update Czech translation.
+* [jan] Update Brazilian Portuguese translation (Luis Felipe Marzagao &lt;duli@easylifeproject.org&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.4</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-10-21</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix changing password using Kolab driver (Mike Gabriel &lt;mike.gabriel@das-netzwerkteam.de&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.5</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-07-02</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Update German translation.
+* [jan] Update Portuguese translation.
+* [jan] Fix changing passwords with the SOAP driver.
+* [jan] Use access rules compatible with both Apache 2.2 and 2.4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.6</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-07-01</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+*
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>6.0.0</release>
+    <api>6.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2016-11-09</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Add ISPConfig driver (Thomas Basler &lt;thomas@familie-basler.net&gt;).
    </notes>
   </release>
  </changelog>

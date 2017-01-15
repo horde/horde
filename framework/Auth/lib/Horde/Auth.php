@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 1999-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, http://www.horde.org/licenses/lgpl21
@@ -74,7 +74,7 @@ class Horde_Auth
     public static function factory($driver, $params = null)
     {
         /* Base drivers (in Auth/ directory). */
-        $class = __CLASS__ . '_' . ucfirst($driver);
+        $class = __CLASS__ . '_' . Horde_String::ucfirst($driver);
         if (@class_exists($class)) {
             return new $class($params);
         }

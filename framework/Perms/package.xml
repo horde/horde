@@ -17,9 +17,9 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-01-09</date>
+ <date>2016-03-08</date>
  <version>
-  <release>2.1.4</release>
+  <release>2.1.8</release>
   <api>2.1.0</api>
  </version>
  <stability>
@@ -337,6 +337,7 @@
      <dir name="Perms">
       <file name="1_horde_perms_base_tables.php" role="data" />
       <file name="2_horde_perms_upgrade_autoincrement.php" role="data" />
+      <file name="3_horde_perms_upgrade_parent_null.php" role="data" />
      </dir> <!-- /migration/Horde/Perms -->
     </dir> <!-- /migration/Horde -->
    </dir> <!-- /migration -->
@@ -356,8 +357,8 @@
   <required>
    <php>
     <min>5.3.0</min>
-    <max>6.0.0alpha1</max>
-    <exclude>6.0.0alpha1</exclude>
+    <max>8.0.0alpha1</max>
+    <exclude>8.0.0alpha1</exclude>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -527,6 +528,7 @@
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Perms.po" name="locale/zh_TW/LC_MESSAGES/Horde_Perms.po" />
    <install as="migration/1_horde_perms_base_tables.php" name="migration/Horde/Perms/1_horde_perms_base_tables.php" />
    <install as="migration/2_horde_perms_upgrade_autoincrement.php" name="migration/Horde/Perms/2_horde_perms_upgrade_autoincrement.php" />
+   <install as="migration/3_horde_perms_upgrade_parent_null.php" name="migration/Horde/Perms/3_horde_perms_upgrade_parent_null.php" />
    <install as="Horde/Perms/AllTests.php" name="test/Horde/Perms/AllTests.php" />
    <install as="Horde/Perms/bootstrap.php" name="test/Horde/Perms/bootstrap.php" />
    <install as="Horde/Perms/KolabTest.php" name="test/Horde/Perms/KolabTest.php" />
@@ -952,7 +954,59 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-01-09</date>
+   <date>2015-04-28</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix issues with certain locales like Turkish.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.5</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-06-24</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Fix issues when a value of 0 is a valid value for the permission (Bug #14025).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.6</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-12-04</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Use NULL instead of an empty string in the perms_parents field for root permissions.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.7</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-03-08</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Mark PHP 7 as supported.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.8</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-03-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

@@ -2,7 +2,7 @@
 /**
  * Horde Kronolith driver for the Kolab IMAP Server.
  *
- * Copyright 2004-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -90,21 +90,42 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
         $this->_synchronized = false;
     }
 
-    // We delay initial synchronization to the first use
-    // so multiple calendars don't add to the total latency.
-    // This function must be called before all internal driver functions
-    public function synchronize($force = false)
+    /**
+     * Synchronize kolab storage backend.
+     *
+     * We delay initial synchronization to the first use so multiple calendars
+     * don't add to the total latency. This function must be called before all
+     * internal driver functions.
+     *
+     * @param boolean $force  If true, forces synchronization, even if we have
+     *                        already done so.
+     */
+    public function synchronize($force = false, $token = false)
     {
+        // Only sync once unless $force.
         if ($this->_synchronized && !$force) {
             return;
+        }
+
+        // If we are synching and have a token, only synch if it is different.
+        $last_token = $GLOBALS['session']->get('kronolith', 'kolab/token/' . $this->calendar);
+        if (!empty($token) && $last_token == $token) {
+            return;
+        }
+
+        if (!empty($token)) {
+            $GLOBALS['session']->set('kronolith', 'kolab/token/' . $this->calendar, $token);
         }
 
         // Connect to the Kolab backend
         try {
             $this->_data = $this->_kolab->getData(
-                $GLOBALS['calendar_manager']->getEntry(Kronolith::ALL_CALENDARS, $this->calendar)->share()->get('folder'),
+                $GLOBALS['calendar_manager']
+                    ->getEntry(Kronolith::ALL_CALENDARS, $this->calendar)
+                    ->share()->get('folder'),
                 'event'
             );
+            $this->_data->synchronize();
         } catch (Kolab_Storage_Exception $e) {
             throw new Kronolith_Exception($e);
         }
@@ -241,10 +262,10 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
             $endDate = new Horde_Date(
                 array('mday' => 31, 'month' => 12, 'year' => 9999));
         }
-        if (!($startDate instanceOf Horde_Date)) {
+        if (!($startDate instanceof Horde_Date)) {
             $startDate = new Horde_Date($startDate);
         }
-        if (!($endDate instanceOf Horde_Date)) {
+        if (!($endDate instanceof Horde_Date)) {
             $endDate = new Horde_Date($endDate);
         }
 
@@ -451,7 +472,6 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
     protected function _move($eventId, $newCalendar)
     {
         $event = $this->getEvent($eventId);
-        $this->synchronize();
 
         $target = $GLOBALS['injector']
             ->getInstance('Kronolith_Shares')
@@ -475,7 +495,7 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
     }
 
     /**
-     * Delete a calendar and all its events.
+     * Delete all of a calendar's events.
      *
      * @param string $calendar  The name of the calendar to delete.
      *
@@ -484,7 +504,7 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
     public function delete($calendar)
     {
         $this->open($calendar);
-        $result = $this->synchronize();
+        $this->synchronize();
 
         $result = $this->_data->deleteAll($calendar);
         if (is_callable('Kolab', 'triggerFreeBusyUpdate')) {

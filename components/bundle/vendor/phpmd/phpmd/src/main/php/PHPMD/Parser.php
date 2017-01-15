@@ -2,8 +2,6 @@
 /**
  * This file is part of PHP Mess Detector.
  *
- * PHP Version 5
- *
  * Copyright (c) 2008-2012, Manuel Pichler <mapi@phpmd.org>.
  * All rights reserved.
  *
@@ -39,7 +37,6 @@
  * @author    Manuel Pichler <mapi@phpmd.org>
  * @copyright 2008-2014 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php BSD License
- * @version   @project.version@
  */
 
 namespace PHPMD;
@@ -64,7 +61,6 @@ use PHPMD\Node\MethodNode;
  * @author    Manuel Pichler <mapi@phpmd.org>
  * @copyright 2008-2014 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php BSD License
- * @version   @project.version@
  */
 class Parser extends AbstractASTVisitor implements CodeAwareGenerator
 {
@@ -78,7 +74,7 @@ class Parser extends AbstractASTVisitor implements CodeAwareGenerator
     /**
      * The metric containing analyzer instances.
      *
-     * @var \PDepend\Metrics\Analyzer[]
+     * @var \PDepend\Metrics\AnalyzerNodeAware[]
      */
     private $analyzers = array();
 
@@ -170,7 +166,7 @@ class Parser extends AbstractASTVisitor implements CodeAwareGenerator
      * Closes the logger process and writes the output file.
      *
      * @return void
-     * @throws PDepend\Report\NoLogOutputException If the no log target exists.
+     * @throws \PDepend\Report\NoLogOutputException If the no log target exists.
      */
     public function close()
     {
@@ -270,7 +266,7 @@ class Parser extends AbstractASTVisitor implements CodeAwareGenerator
     /**
      * Sets the context code nodes.
      *
-     * @param \PDepend\Source\AST\ASTArtifactList $code
+     * @param \PDepend\Source\AST\ASTArtifactList $artifacts
      * @return void
      */
     public function setArtifacts(ASTArtifactList $artifacts)

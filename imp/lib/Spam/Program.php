@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2013-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2013-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
- * @copyright 2013-2015 Horde LLC
+ * @copyright 2013-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -16,7 +16,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2013-2015 Horde LLC
+ * @copyright 2013-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -41,7 +41,25 @@ class IMP_Spam_Program implements IMP_Spam_Base
 
     /**
      */
-    public function report(IMP_Contents $contents, $action)
+    public function report(array $msgs, $action)
+    {
+        foreach ($msgs as $val) {
+            if (!$this->_report($val)) {
+                return 0;
+            }
+        }
+
+        return count($msgs);
+    }
+
+    /**
+     * Report a single spam message.
+     *
+     * @param IMP_Contents $contents  Contents object.
+     *
+     * @return boolean  False on error, true on success.
+     */
+    protected function _report(IMP_Contents $contents)
     {
         /* Use a pipe to write the message contents. This should be
          * secure. */
@@ -55,7 +73,10 @@ class IMP_Spam_Program implements IMP_Spam_Base
             $pipes
         );
         if (!is_resource($proc)) {
-            Horde::log(sprintf('Cannot open spam reporting program: %s', $proc), 'ERR');
+            Horde::log(
+                sprintf('Cannot open spam reporting program: %s', $proc),
+                'ERR'
+            );
             return false;
         }
 

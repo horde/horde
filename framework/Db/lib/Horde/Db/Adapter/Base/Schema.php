@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2007 Maintainable Software, LLC
- * Copyright 2008-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2017 Horde LLC (http://www.horde.org/)
  *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
@@ -180,7 +180,7 @@ abstract class Horde_Db_Adapter_Base_Schema
     public function __get($key)
     {
         if ($key == '_cache' || $key == '_logger') {
-            $getter = 'get' . ucfirst(substr($key, 1));
+            $getter = 'get' . Horde_String::ucfirst(substr($key, 1));
             return $this->_adapter->$getter();
         }
     }

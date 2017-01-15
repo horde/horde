@@ -1,11 +1,19 @@
 <?php
 /**
- * Preferences storage implementation for a SQL database.
- *
- * Copyright 1999-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author   Jon Parise <jon@horde.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Prefs
+ */
+
+/**
+ * Preferences storage implementation for a SQL database.
  *
  * @author   Jon Parise <jon@horde.org>
  * @author   Michael Slusarz <slusarz@horde.org>
@@ -26,12 +34,11 @@ class Horde_Prefs_Storage_Sql extends Horde_Prefs_Storage_Base
      * Constructor.
      *
      * @param string $user   The username.
-     * @param array $params  Configuration parameters.
-     * <pre>
-     * 'db' - (Horde_Db_Adapter) [REQUIRED] The DB instance.
-     * 'table' - (string) The name of the prefs table.
-     *           DEFAULT: 'horde_prefs'
-     * </pre>
+     * @param array $params  Configuration parameters:
+     *                       - db: (Horde_Db_Adapter) [REQUIRED] The DB
+     *                         instance.
+     *                       - table: (string) The name of the prefs table.
+     *                         DEFAULT: 'horde_prefs'
      *
      * @throws InvalidArgumentException
      */
@@ -71,7 +78,7 @@ class Horde_Prefs_Storage_Sql extends Horde_Prefs_Storage_Base
         $values = array($this->_params['user'], $scope_ob->scope);
 
         try {
-            $result = $this->_db->selectAll($query, $values);
+            $result = $this->_db->select($query, $values);
             $columns = $this->_db->columns($this->_params['table']);
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Prefs_Exception($e);
@@ -123,37 +130,29 @@ class Horde_Prefs_Storage_Sql extends Horde_Prefs_Storage_Base
 
                 if (empty($check)) {
                     // Insert a new row.
-                    $query = 'INSERT INTO ' . $this->_params['table'] . ' ' .
-                        '(pref_uid, pref_scope, pref_name, pref_value) VALUES' .
-                        '(?, ?, ?, ?)';
                     $values = array(
-                        $this->_params['user'],
-                        $scope_ob->scope,
-                        $name,
-                        $value
+                        'pref_uid' => $this->_params['user'],
+                        'pref_scope' => $scope_ob->scope,
+                        'pref_name' => $name,
+                        'pref_value' => $value
                     );
 
                     try {
-                        $this->_db->insert($query, $values);
+                        $this->_db->insertBlob($this->_params['table'], $values);
                     } catch (Horde_Db_Exception $e) {
                         throw new Horde_Prefs_Exception($e);
                     }
                 } else {
                     // Update the existing row.
-                    $query = 'UPDATE ' . $this->_params['table'] .
-                        ' SET pref_value = ?' .
-                        ' WHERE pref_uid = ?' .
-                        ' AND pref_name = ?' .
-                        ' AND pref_scope = ?';
-                    $values = array(
-                        $value,
-                        $this->_params['user'],
-                        $name,
-                        $scope_ob->scope
-                    );
-
                     try {
-                        $this->_db->update($query, $values);
+                        $this->_db->updateBlob(
+                            $this->_params['table'],
+                            array('pref_value' => $value),
+                            array(
+                                'pref_uid = ? AND pref_name = ? AND pref_scope = ?',
+                                array($this->_params['user'], $name, $scope_ob->scope)
+                            )
+                        );
                     } catch (Horde_Db_Exception $e) {
                         throw new Horde_Prefs_Exception($e);
                     }

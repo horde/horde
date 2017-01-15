@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -49,7 +49,7 @@ class Ingo_Application extends Horde_Registry_Application
 
     /**
      */
-    public $version = 'H5 (3.3.0-git)';
+    public $version = 'H5 (4.0.0-git)';
 
     /**
      * Cached list of all rulesets.
@@ -83,7 +83,8 @@ class Ingo_Application extends Horde_Registry_Application
             $ruleset = Horde_Util::getFormData('ruleset');
 
             /* Select current share. */
-            if (is_null($curr_share) || ($ruleset != $curr_share)) {
+            if (is_null($curr_share) ||
+                (!empty($ruleset) && $ruleset != $curr_share)) {
                 $session->set('ingo', 'current_share', $ruleset);
                 $all_rulesets = $this->_listRulesets();
 
@@ -204,8 +205,14 @@ class Ingo_Application extends Horde_Registry_Application
             );
         }
 
-        if ($injector->getInstance('Ingo_Shares') &&
+        if (($shares = $injector->getInstance('Ingo_Shares')) &&
             empty($conf['share']['no_sharing'])) {
+            if ($shares->getShare($session->get('ingo', 'current_share'))->get('owner') == $registry->getAuth()) {
+                $share = $session->get('ingo', 'current_share');
+            } else {
+                $share = $session->get('ingo', 'backend/id')
+                    . ':' . $registry->getAuth();
+            }
             $menu->add(
                 '#',
                 _("_Permissions"),
@@ -221,8 +228,7 @@ class Ingo_Application extends Horde_Registry_Application
                     array(
                         'params' => array(
                             'app' => 'ingo',
-                            'share' => $session->get('ingo', 'backend/id')
-                                . ':' . $registry->getAuth()
+                            'share' => $share
                         ),
                         'urlencode' => true
                     )

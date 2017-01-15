@@ -1,11 +1,19 @@
 <?php
 /**
- * Provides the base functionality shared by all Horde applications.
- *
- * Copyright 1999-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Jon Parise <jon@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL
+ * @package  Core
+ */
+
+/**
+ * Provides the base functionality shared by all Horde applications.
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Jon Parise <jon@horde.org>
@@ -311,9 +319,24 @@ class Horde
 
         if (!is_null($c) && isset($c['params'])) {
             $c['params']['umask'] = $conf['umask'];
-            return (!is_null($type) && isset($conf[$type]))
+
+            $result = (!is_null($type) && isset($conf[$type]))
                 ? array_merge($conf[$type], $c['params'])
                 : $c['params'];
+
+            // HOTFIX for Bug #14547. If using different protocols for the
+            // base SQL config and the explicit driver we are creating, we
+            // need to remove the not-used connection config since they use
+            // different keys.
+            if (!is_null($type) && $type == 'sql') {
+                if ($c['params']['protocol'] == 'unix') {
+                    unset($result['hostspec'], $result['port']);
+                } else {
+                    unset($result['socket']);
+                }
+            }
+
+            return $result;
         }
 
         return (!is_null($type) && isset($conf[$type]))

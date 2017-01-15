@@ -1,31 +1,27 @@
 <?php
 /**
- * Test exporting iCalendar events.
+ * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
  *
- * PHP version 5
+ * See the enclosed file COPYING for license information (GPLv2). If you
+ * did not receive this file, see http://www.horde.org/licenses/gpl
  *
  * @category   Horde
  * @package    Kronolith
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
  * @link       http://www.horde.org/apps/kronolith
- * @license    http://www.horde.org/licenses/gpl GNU General Public License, version 2
+ * @license    http://www.horde.org/licenses/gpl GPLv2
  */
 
 /**
  * Test exporting iCalendar events.
  *
- * Copyright 2011-2015 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (GPLv2). If you did not
- * receive this file, see http://www.horde.org/licenses/gpl
- *
  * @category   Horde
  * @package    Kronolith
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
  * @link       http://www.horde.org/apps/kronolith
- * @license    http://www.horde.org/licenses/gpl GNU General Public License, version 2
+ * @license    http://www.horde.org/licenses/gpl GPLv2
  */
 class Kronolith_Integration_ToIcalendarTest extends Kronolith_TestCase
 {
@@ -91,7 +87,7 @@ class Kronolith_Integration_ToIcalendarTest extends Kronolith_TestCase
     private function _getEvent()
     {
         $GLOBALS['registry']->admin = true;
-        $event = new Kronolith_Event_Sql(new Kronolith_Stub_Driver(''));
+        $event = new Kronolith_Event_Mock(new Kronolith_Stub_Driver(''));
         $event->start = new Horde_Date('2007-03-15 13:10:20');
         $event->end = new Horde_Date('2007-03-15 14:20:00');
         $event->uid = '20070315143732.4wlenqz3edq8@horde.org';
@@ -120,22 +116,9 @@ class Kronolith_Integration_ToIcalendarTest extends Kronolith_TestCase
         $event->recurrence->setRecurInterval(1);
         $event->recurrence->addException(2007, 4, 15);
         $event->recurrence->addException(2007, 6, 15);
-        $event->attendees =
-            array('juergen@example.com' =>
-                  array('attendance' => Kronolith::PART_REQUIRED,
-                        'response' => Kronolith::RESPONSE_NONE,
-                        'name' => 'Jürgen Doe'),
-                  0 =>
-                  array('attendance' => Kronolith::PART_OPTIONAL,
-                        'response' => Kronolith::RESPONSE_ACCEPTED,
-                        'name' => 'Jane Doe'),
-                  'jack@example.com' =>
-                  array('attendance' => Kronolith::PART_NONE,
-                        'response' => Kronolith::RESPONSE_DECLINED,
-                        'name' => 'Jack Doe'),
-                  'jenny@example.com' =>
-                  array('attendance' => Kronolith::PART_NONE,
-                        'response' => Kronolith::RESPONSE_TENTATIVE));
+        $event->attendees = new Kronolith_Attendee_List(
+            include __DIR__ . '/../fixtures/attendees.php'
+        );
         return $event;
     }
 

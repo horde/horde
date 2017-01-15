@@ -16,10 +16,10 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-02-10</date>
+ <date>2016-12-16</date>
  <version>
-  <release>2.5.4</release>
-  <api>2.5.0</api>
+  <release>2.7.6</release>
+  <api>2.7.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] S/MIME encryption is now done only with AES (if using PHP 5.4+) or 3DES.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -42,6 +42,10 @@
     <dir name="Horde">
      <dir name="Crypt">
       <dir name="Pgp">
+       <dir name="Backend">
+        <file name="Binary.php" role="php" />
+       </dir> <!-- /lib/Horde/Crypt/Pgp/Backend -->
+       <file name="Backend.php" role="php" />
        <file name="Keyserver.php" role="php" />
        <file name="Parse.php" role="php" />
       </dir> <!-- /lib/Horde/Crypt/Pgp -->
@@ -325,10 +329,15 @@
        <file name="pgp_signed2.txt" role="test" />
        <file name="smime_subjectAltName.pem" role="test" />
       </dir> <!-- /test/Horde/Crypt/fixtures -->
+      <dir name="Pgp">
+       <file name="BinaryTest.php" role="test" />
+       <file name="TestBase.php" role="test" />
+      </dir> <!-- /test/Horde/Crypt/Pgp -->
       <file name="AllTests.php" role="test" />
       <file name="bootstrap.php" role="test" />
+      <file name="conf.php.dist" role="test" />
       <file name="PgpKeyserverTest.php" role="test" />
-      <file name="PgpTest.php" role="test" />
+      <file name="PgpParseTest.php" role="test" />
       <file name="phpunit.xml" role="test" />
       <file name="SmimeTest.php" role="test" />
      </dir> <!-- /test/Horde/Crypt -->
@@ -340,8 +349,8 @@
   <required>
    <php>
     <min>5.3.0</min>
-    <max>6.0.0alpha1</max>
-    <exclude>6.0.0alpha1</exclude>
+    <max>8.0.0alpha1</max>
+    <exclude>8.0.0alpha1</exclude>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -427,8 +436,10 @@
    <install as="Horde/Crypt/Pgp.php" name="lib/Horde/Crypt/Pgp.php" />
    <install as="Horde/Crypt/Smime.php" name="lib/Horde/Crypt/Smime.php" />
    <install as="Horde/Crypt/Translation.php" name="lib/Horde/Crypt/Translation.php" />
+   <install as="Horde/Crypt/Pgp/Backend.php" name="lib/Horde/Crypt/Pgp/Backend.php" />
    <install as="Horde/Crypt/Pgp/Keyserver.php" name="lib/Horde/Crypt/Pgp/Keyserver.php" />
    <install as="Horde/Crypt/Pgp/Parse.php" name="lib/Horde/Crypt/Pgp/Parse.php" />
+   <install as="Horde/Crypt/Pgp/Backend/Binary.php" name="lib/Horde/Crypt/Pgp/Backend/Binary.php" />
    <install as="locale/Horde_Crypt.pot" name="locale/Horde_Crypt.pot" />
    <install as="locale/ar/LC_MESSAGES/Horde_Crypt.mo" name="locale/ar/LC_MESSAGES/Horde_Crypt.mo" />
    <install as="locale/ar/LC_MESSAGES/Horde_Crypt.po" name="locale/ar/LC_MESSAGES/Horde_Crypt.po" />
@@ -516,8 +527,9 @@
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Crypt.po" name="locale/zh_TW/LC_MESSAGES/Horde_Crypt.po" />
    <install as="Horde/Crypt/AllTests.php" name="test/Horde/Crypt/AllTests.php" />
    <install as="Horde/Crypt/bootstrap.php" name="test/Horde/Crypt/bootstrap.php" />
+   <install as="Horde/Crypt/conf.php.dist" name="test/Horde/Crypt/conf.php.dist" />
    <install as="Horde/Crypt/PgpKeyserverTest.php" name="test/Horde/Crypt/PgpKeyserverTest.php" />
-   <install as="Horde/Crypt/PgpTest.php" name="test/Horde/Crypt/PgpTest.php" />
+   <install as="Horde/Crypt/PgpParseTest.php" name="test/Horde/Crypt/PgpParseTest.php" />
    <install as="Horde/Crypt/phpunit.xml" name="test/Horde/Crypt/phpunit.xml" />
    <install as="Horde/Crypt/SmimeTest.php" name="test/Horde/Crypt/SmimeTest.php" />
    <install as="Horde/Crypt/fixtures/bug_6601.asc" name="test/Horde/Crypt/fixtures/bug_6601.asc" />
@@ -530,6 +542,8 @@
    <install as="Horde/Crypt/fixtures/pgp_signed.txt" name="test/Horde/Crypt/fixtures/pgp_signed.txt" />
    <install as="Horde/Crypt/fixtures/pgp_signed2.txt" name="test/Horde/Crypt/fixtures/pgp_signed2.txt" />
    <install as="Horde/Crypt/fixtures/smime_subjectAltName.pem" name="test/Horde/Crypt/fixtures/smime_subjectAltName.pem" />
+   <install as="Horde/Crypt/Pgp/BinaryTest.php" name="test/Horde/Crypt/Pgp/BinaryTest.php" />
+   <install as="Horde/Crypt/Pgp/TestBase.php" name="test/Horde/Crypt/Pgp/TestBase.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -1066,15 +1080,127 @@ Initial release as a PEAR package
   </release>
   <release>
    <version>
-    <release>2.5.4</release>
-    <api>2.5.0</api></version>
+    <release>2.6.0</release>
+    <api>2.6.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-02-10</date>
+   <date>2015-07-31</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Updated UK translation.
+* [jan] Fix issues with certain locales like Turkish.
+* [mms] Split gnupg command-line binary specific code out into a separate PGP backend driver.
 * [mms] S/MIME encryption is now done only with AES (if using PHP 5.4+) or 3DES.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.6.1</release>
+    <api>2.6.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-08-20</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Fix PHP 5.3 incompatibility (Bug #14090).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.7.0</release>
+    <api>2.7.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-02-01</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Add Horde_Crypt_Pgp::pgpPacketInformationMultiple() and Horde_Crypt_Pgp_Backend_Binary::packetInfoMultiple() (Request #13190).
+* [jan] Fix retrieving PGP keys from the keyserver with certain HTTP client backends.
+* [jan] Fix creating PGP keys with comments (Bug #14125).
+* [jan] Mark PHP 7 as supported.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.7.1</release>
+    <api>2.7.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-03-08</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Update Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
+* [jan] Try three times to retrieve public PGP if the keyserver pool contains broken servers.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.7.2</release>
+    <api>2.7.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-03-11</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix throwing exception if verifying a PGP signature failed.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.7.3</release>
+    <api>2.7.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-04-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Work around broken PGP key servers.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.7.4</release>
+    <api>2.7.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-12-03</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Ensure version information is output in ASCII armored output.
+* [jan] Fix parsing inline signed PGP messages with PHP 7+ (Bug #14352).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.7.5</release>
+    <api>2.7.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-12-16</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix label for S/MIME Encrypted Key Usage attribute.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.7.6</release>
+    <api>2.7.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-12-16</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

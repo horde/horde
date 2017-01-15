@@ -2,7 +2,7 @@
 /**
  * The Horde_Mime_Viewer_Images class allows images to be displayed.
  *
- * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -71,6 +71,9 @@ class Horde_Mime_Viewer_Images extends Horde_Mime_Viewer_Base
         case 'image/x-png':
             /* image/x-png == image/png. */
             return 'image/png';
+
+        case 'image/svg+xml':
+            return 'application/octet-stream';
 
         default:
             return $type;

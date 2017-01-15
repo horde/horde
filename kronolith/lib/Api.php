@@ -667,6 +667,8 @@ class Kronolith_Api extends Horde_Registry_Api
 
         foreach ($cs as $c) {
              // New events
+            $driver = Kronolith::getDriver(null, $c);
+            $driver->synchronize(true);
             $uids = $this->listBy('add', $start, $c, $end, $isModSeq);
             if ($ignoreExceptions) {
                 foreach ($uids as $uid) {
@@ -782,11 +784,14 @@ class Kronolith_Api extends Horde_Registry_Api
      *                             activesync
      *                             </pre>
      * @param string $calendar     What calendar should the event be added to?
+     * @param boolean $hash        If true, return a hash for EAS additions.
+     *                             @since  4.3.0 @todo Remove for 5.0 and make
+     *                             this the normal return.
      *
      * @return array  The event's UID.
      * @throws Kronolith_Exception
      */
-    public function import($content, $contentType, $calendar = null)
+    public function import($content, $contentType, $calendar = null, $hash = false)
     {
         if (!isset($calendar)) {
             $calendar = Kronolith::getDefaultCalendar(Horde_Perms::EDIT);
@@ -808,43 +813,29 @@ class Kronolith_Api extends Horde_Registry_Api
                 $iCal->addComponent($content);
             }
 
-            $components = $iCal->getComponents();
-            if (count($components) == 0) {
-                throw new Kronolith_Exception(_("No iCalendar data was found."));
-            }
+            $ical_importer = new Kronolith_Icalendar_Handler_Base($iCal, $kronolith_driver);
+            $result = array_flip($ical_importer->process());
+            return current($result);
 
-            $ids = array();
-            $recurrences = array();
-            foreach ($components as $content) {
-                if ($content instanceof Horde_Icalendar_Vevent) {
-                    // Need to ensure that the original recurring event is
-                    // added before any of the instance exceptions. Easiest way
-                    // to do that is just add all the recurrence-id entries last
-                    try {
-                        $content->getAttribute('RECURRENCE-ID');
-                        $recurrences[] = $content;
-                    } catch (Horde_Icalendar_Exception $e) {
-                        $ids[] = $this->_addiCalEvent($content, $kronolith_driver);
-                    }
-                }
-            }
-
-            if (count($ids) == 0) {
-                throw new Kronolith_Exception(_("No iCalendar data was found."));
-            }
-
-            // Now add all the exception instances
-            foreach ($recurrences as $recurrence) {
-                $ids[] = $this->_addiCalEvent($recurrence, $kronolith_driver, true);
-            }
-
-            return $ids;
-
-            case 'activesync':
-                $event = $kronolith_driver->getEvent();
-                $event->fromASAppointment($content);
-                $event->save();
+        case 'activesync':
+            $event = $kronolith_driver->getEvent();
+            $event->fromASAppointment($content);
+            $event->save();
+            // Handle attachment data after we commit changes since we
+            // are required to have a saved event to attach files. Also,
+            // we can only handle files if we are returning a hash since EAS
+            // needs the information returned to attach filereferences to
+            // the attachments.
+            if (!$hash) {
                 return $event->uid;
+            }
+            $atc_hash = $event->addEASFiles($content);
+            return array(
+                'uid' => $event->uid,
+                'atchash' => $atc_hash,
+                // See Bug #12567
+                //'syncstamp' => $stamp
+            );
         }
 
         throw new Kronolith_Exception(sprintf(_("Unsupported Content-Type: %s"), $contentType));
@@ -863,22 +854,21 @@ class Kronolith_Api extends Horde_Registry_Api
     protected function _addiCalEvent($content, $driver, $exception = false)
     {
         $event = $driver->getEvent();
-        $event->fromiCalendar($content);
-        // Check if the entry already exists in the data source,
-        // first by UID.
+        $event->fromiCalendar($content, true);
+        // Check if the entry already exists in the data source, first by UID.
         if (!$exception) {
             try {
-                $driver->getByUID($uid, array($driver->calendar));
+                $driver->getByUID($event->uid, array($driver->calendar));
                 throw new Kronolith_Exception(sprintf(_("%s Already Exists"), $event->uid));
             } catch (Horde_Exception $e) {}
         }
 
         $result = $driver->search($event);
         // Check if the match really is an exact match:
-        if (is_array($result) && count($result) > 0) {
-            foreach($result as $match) {
-                if ($match->start == $event->start &&
-                    $match->end == $event->end &&
+        foreach ($result as $days) {
+            foreach ($days as $match) {
+                if ($match->start->compareDateTime($event->start) == 0 &&
+                    $match->end->compareDateTime($event->end) == 0 &&
                     $match->title == $event->title &&
                     $match->location == $event->location &&
                     $match->hasPermission(Horde_Perms::EDIT)) {
@@ -1021,14 +1011,52 @@ class Kronolith_Api extends Horde_Registry_Api
     }
 
     /**
+     * Return an event attachment.
+     *
+     * @param string $calendar  The calendar ID.
+     * @param string $uid       The UID of the event the file is attached to.
+     * @param string $filename  The name of the file.
+     *
+     * @return array  An array containing the following keys:
+     *   data (stream):  A file pointer to the attachment data.
+     *   content-type (string): The mime-type of the contents.
+     *
+     * @throws Kronolith_Exception
+     * @since  4.3.0
+     */
+    public function getAttachment($calendar, $uid, $filename)
+    {
+        $event = $this->eventFromUID($uid, $calendar);
+        // Use localfile so we can use a stream.
+        try {
+            $local_file = $event->vfsInit()->readFile(
+                Kronolith::VFS_PATH . '/' . $event->getVfsUid(),
+                $filename
+            );
+            if (!$fp = @fopen($local_file, 'rb')) {
+                throw new Kronolith_Exception('Unable to open attachment.');
+            }
+        } catch (Horde_Vfs_Exception $e) {
+            throw new Kronolith_Exception($e);
+        }
+
+        // Try to determine type.
+        return array(
+            'data' => $fp,
+            'content-type' => Horde_Mime_Magic::filenameToMime($filename, false)
+        );
+    }
+
+    /**
      * Deletes an event identified by UID.
      *
      * @param string|array $uid     A single UID or an array identifying the
      *                              event(s) to delete.
      *
-     * @param string $recurrenceId  The reccurenceId for the event instance, if
+     * @param mixed $recurrenceId   The reccurenceId for the event instance, if
      *                              this is a deletion of a recurring event
      *                              instance ($uid must not be an array).
+     *                              Either a string or Horde_Date object.
      * @param string $range         The range value if deleting a recurring
      *                              event instance. Only supported values are
      *                              null or Kronolith::RANGE_THISANDFUTURE.
@@ -1050,10 +1078,6 @@ class Kronolith_Api extends Horde_Registry_Api
         $kronolith_driver = Kronolith::getDriver();
         $events = $kronolith_driver->getByUID($uid, null, true);
         $event = null;
-
-        if ($GLOBALS['registry']->isAdmin()) {
-            $event = $events[0];
-        }
 
         // First try the user's own calendars.
         if (empty($event)) {
@@ -1079,12 +1103,23 @@ class Kronolith_Api extends Horde_Registry_Api
             }
         }
 
+        // Are we an admin cleaing up user data?
+        if (empty($event) && $GLOBALS['registry']->isAdmin()) {
+            $event = $events[0];
+        }
+
         if (empty($event)) {
             throw new Horde_Exception_PermissionDenied();
         }
 
+        if ($recurrenceId instanceof Horde_Date) {
+            $recurrenceId->setTimezone($event->timezone ? $event->timezone : date_default_timezone_get());
+        }
+
         if ($recurrenceId && $event->recurs() && empty($range)) {
-            $deleteDate = new Horde_Date($recurrenceId);
+            $deleteDate = ($recurrenceId instanceof Horde_Date)
+                ? $recurrenceId
+                : new Horde_Date($recurrenceId);
             $event->recurrence->addException($deleteDate->format('Y'), $deleteDate->format('m'), $deleteDate->format('d'));
             $event->save();
         } elseif ($range == Kronolith::RANGE_THISANDFUTURE) {
@@ -1152,6 +1187,8 @@ class Kronolith_Api extends Horde_Registry_Api
      * @param string $calendar     Ensure the event is replaced in the specified
      *                             calendar. @since 4.2.0
      *
+     * @return  mixed  For EAS operations, an array of 'uid' and 'atchash'
+     *                 are returned. @since 4.3.0
      * @throws Kronolith_Exception
      */
     public function replace($uid, $content, $contentType, $calendar = null)
@@ -1167,8 +1204,15 @@ class Kronolith_Api extends Horde_Registry_Api
             $component = $content;
         } elseif ($content instanceof Horde_ActiveSync_Message_Appointment) {
             $event->fromASAppointment($content);
+            $atc_hash = $event->addEASFiles($content);
             $event->save();
             $event->uid = $uid;
+            return array(
+                'uid' => $event->uid,
+                'atchash' => $atc_hash,
+                // See Bug #12567
+                //'syncstamp' => $stamp
+            );
             return;
         } else {
             switch ($contentType) {
@@ -1206,7 +1250,7 @@ class Kronolith_Api extends Horde_Registry_Api
             $component->getAttribute('RECURRENCE-ID');
             $this->_addiCalEvent($component, Kronolith::getDriver(null, $calendar), true);
         } catch (Horde_Icalendar_Exception $e) {
-            $event->fromiCalendar($component);
+            $event->fromiCalendar($component, true);
             // Ensure we keep the original UID, even when content does not
             // contain one and fromiCalendar creates a new one.
             $event->uid = $uid;
@@ -1253,14 +1297,18 @@ class Kronolith_Api extends Horde_Registry_Api
     /**
      * Retrieves a Kronolith_Event object, given an event UID.
      *
-     * @param string $uid  The event's UID.
+     * @param string $uid       The event's UID.
+     * @param string $claendar  The calendar id to restrict to. @since 4.3.0
      *
      * @return Kronolith_Event  A valid Kronolith_Event.
      * @throws Kronolith_Exception
      */
-    public function eventFromUID($uid)
+    public function eventFromUID($uid, $calendar = null)
     {
-        $event = Kronolith::getDriver()->getByUID($uid);
+        if (!empty($calendar)) {
+            $calendar = array($calendar);
+        }
+        $event = Kronolith::getDriver()->getByUID($uid, $calendar);
         if (!$event->hasPermission(Horde_Perms::SHOW)) {
             throw new Horde_Exception_PermissionDenied();
         }

@@ -24,7 +24,6 @@
      <tr>
       <th width="1%">&nbsp;</th>
       <th class="sortdown"><?php echo _("Name")?></th>
-      <th><?php echo _("Type")?></th>
       <th><?php echo _("Last Update")?></th>
      </tr>
     </thead>
@@ -38,7 +37,6 @@
       <td>
        <a href="<?php echo $channel['stories_url']?>"><?php echo $channel['channel_name']?></a>
       </td>
-      <td><?php echo $channel['channel_type']?></td>
       <td class="linedRow"><?php echo $channel['channel_updated']?></td>
      </tr>
      <?php endforeach?>

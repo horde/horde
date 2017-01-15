@@ -15,7 +15,7 @@
 /**
  * Basic Kronolith test case.
  *
- * Copyright 2011-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you did
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -67,6 +67,7 @@ extends PHPUnit_Framework_TestCase
                 'session' => 'Horde_Session',
             )
         );
+        $GLOBALS['injector']->setInstance('Content_Objects_Manager', new Content_Objects_Manager());
         $GLOBALS['injector']->setInstance('Content_Tagger', new Content_Tagger());
         $GLOBALS['injector']->setInstance('Content_Types_Manager', new Content_Types_Manager());
         $GLOBALS['conf']['prefs']['driver'] = 'Null';

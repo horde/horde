@@ -4,7 +4,7 @@
  *
  * PHP Version 5
  *
- * Copyright (c) 2008-2013, Manuel Pichler <mapi@pdepend.org>.
+ * Copyright (c) 2008-2015, Manuel Pichler <mapi@pdepend.org>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -36,21 +36,21 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @copyright 2008-2013 Manuel Pichler. All rights reserved.
+ * @copyright 2008-2015 Manuel Pichler. All rights reserved.
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
  */
 
 namespace PDepend\Source\AST\ASTArtifactList;
 
-use PDepend\Source\AST\ASTArtifact;
 use PDepend\Source\AST\AbstractASTClassOrInterface;
+use PDepend\Source\AST\ASTArtifact;
 use PDepend\Source\AST\ASTFunction;
 use PDepend\Source\AST\ASTNamespace;
 
 /**
  * This class implements a filter that is based on the namespace.
  *
- * @copyright 2008-2013 Manuel Pichler. All rights reserved.
+ * @copyright 2008-2015 Manuel Pichler. All rights reserved.
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
  */
 class PackageArtifactFilter implements ArtifactFilter
@@ -80,7 +80,7 @@ class PackageArtifactFilter implements ArtifactFilter
      * Returns <b>true</b> if the given node should be part of the node iterator,
      * otherwise this method will return <b>false</b>.
      *
-     * @param \PDepend\Source\AST\ASTArtifact $node
+     * @param  \PDepend\Source\AST\ASTArtifact $node
      * @return boolean
      */
     public function accept(ASTArtifact $node)

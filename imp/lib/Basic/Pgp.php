@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
- * @copyright 2002-2015 Horde LLC
+ * @copyright 2002-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -16,14 +16,14 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2002-2015 Horde LLC
+ * @copyright 2002-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
 class IMP_Basic_Pgp extends IMP_Basic_Base
 {
     /**
-     * @var IMP_Crypt_Pgp
+     * @var IMP_Pgp
      */
     protected $_pgp;
 
@@ -33,7 +33,7 @@ class IMP_Basic_Pgp extends IMP_Basic_Base
     {
         global $browser, $injector, $notification;
 
-        $this->_pgp = $injector->getInstance('IMP_Crypt_Pgp');
+        $this->_pgp = $injector->getInstance('IMP_Pgp');
 
         /* Run through the action handlers */
         switch ($this->vars->actionID) {
@@ -50,9 +50,12 @@ class IMP_Basic_Pgp extends IMP_Basic_Base
 
             if (count($import_keys['public'])) {
                 foreach ($import_keys['public'] as $val) {
-                    $key_info = $this->_pgp->addPublicKey($val);
-                    foreach ($key_info['signature'] as $sig) {
-                        $notification->push(sprintf(_("PGP Public Key for \"%s (%s)\" was successfully added."), $sig['name'], $sig['email']), 'horde.success');
+                    foreach ($this->_pgp->addPublicKey($val) as $key_info) {
+                        foreach ($key_info['signature'] as $sig) {
+                            if (isset($sig['email'])) {
+                                $notification->push(sprintf(_("PGP Public Key for \"%s (%s)\" was successfully added."), $sig['name'], $sig['email']), 'horde.success');
+                            }
+                        }
                     }
                 }
                 $this->_reloadWindow();
@@ -194,7 +197,7 @@ class IMP_Basic_Pgp extends IMP_Basic_Base
     protected function _printKeyInfo($key = '')
     {
         try {
-            $key_info = $this->_pgp->pgpPrettyKey($key);
+            $key_info = $this->_pgp->prettyKey($key);
         } catch (Horde_Crypt_Exception $e) {
             Horde::log($e, 'INFO');
             $key_info = $e->getMessage();

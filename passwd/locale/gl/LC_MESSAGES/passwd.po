@@ -1,140 +1,408 @@
-# passwd 2.2 Galician translation
-#
-# Version inicial de:
+# Galician translations for Passwd
+# Copyright 2006-2015 Universidade de Santiago de Compostela
+# This file is distributed under the same license as the Passwd package.
 #
 # Rafael Varela <rafael.varela@usc.es>
-# Guillermo Mendez <guille@usc.es>
-# Servicio de atencion a usuarios e sistemas
+# Gloria Presedo <gloria.presedo@usc.es>
+#
+# Unidade de Sistemas. ATIC.
 # Universidade de Santiago de Compostela
 #
-# Revisada y corregida por:
+# Revisada por:
 #
-# Servicio de normalizacion linguistica <snlusc@usc.es>
+# Servizo de normalización linguística <snlusc@usc.es>
 # Universidade de Santiago de Compostela
+#
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: passwd\n"
-"POT-Creation-Date: 2002-02-28 00:14-0600\n"
-"PO-Revision-Date: 2003-08-19 12:42GMT+1\n"
-"Last-Translator: guille <guille@usc.es>\n"
-"Language-Team: Galego\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2009-03-19 10:37+0100\n"
+"PO-Revision-Date: 2015-04-16 12:32+0200\n"
+"Last-Translator: Xusto <snlxusto@lugo.usc.es>\n"
+"Language-Team: Unidade de Sistemas ATIC <atic.sistemas@usc.es>\n"
+"Language: gl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 0.9.5\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: KBabel 1.11.2\n"
 
+#: lib/Driver/expect.php:34
+#, php-format
+msgid "%s does not exist or is not executable."
+msgstr ""
+
+#: lib/Driver/expectpecl.php:73
+#, php-format
+msgid "%s extension cannot be loaded!"
+msgstr ""
+
+#: lib/Driver/composite.php:63
+#, fuzzy, php-format
+msgid "%s: unable to load driver: %s"
+msgstr "%s: non se pode cargar o controlador: %s"
+
+#: lib/Driver/adsi.php:61
+#, php-format
+msgid "ADSI error %s."
+msgstr ""
+
+#: lib/Driver/pspasswd.php:105 lib/Driver/adsi.php:64
+msgid "Access Denied."
+msgstr ""
+
+#: lib/Driver.php:101
+msgid "Backend not correctly implemented."
+msgstr "Non se desenvolveu adecuadamente o motor."
+
+#: lib/Driver/poppassd.php:90
+msgid "Cannot send command to server."
+msgstr ""
+
+#: main.php:268 templates/main/main.inc:141
+msgid "Change Password"
+msgstr "Cambie o contrasinal"
+
+#: templates/main/main.inc:126
+#, fuzzy
+msgid "Change password for:"
+msgstr "Cambie o contrasinal en:"
+
+#: templates/main/main.inc:67
 msgid "Change your password"
-msgstr "Cambie a súa chave de acceso"
+msgstr "Cambie o contrasinal"
 
+#: templates/main/main.inc:65
+#, fuzzy, php-format
+msgid "Changing password for %s"
+msgstr "Estase cambiando o contrasinal en %s"
+
+#: templates/main/main.inc:113
 msgid "Confirm new password:"
-msgstr "Confirme o nova chave de acceso"
+msgstr "Confirme o novo contrasinal:"
 
-msgid "Error"
-msgstr "Erro"
+#: lib/Driver/ldap.php:114 lib/Driver/kolab.php:60
+#, fuzzy
+msgid "Could not bind to LDAP server"
+msgstr "Non se pode ligar ao servidor ldap"
 
-msgid "Failure in changing password : "
-msgstr "Fallou o cambio de chave de acceso"
+#: lib/Driver/expectpecl.php:118
+#, fuzzy
+msgid "Could not change password (bad old password?)"
+msgstr "Non pode cambiar o contrasinal do usuario %s"
 
-msgid "Help"
-msgstr "Axuda"
+#: lib/Driver/expectpecl.php:138
+#, fuzzy
+msgid "Could not change password."
+msgstr "Cambie o contrasinal"
 
-msgid "Language"
-msgstr "Lingua"
+#: lib/Driver/ldap.php:80 lib/Driver/kolab.php:46
+#, fuzzy
+msgid "Could not connect to LDAP server"
+msgstr "Non se pode conectar ao servidor ldap"
 
-msgid "Logout"
-msgstr "Finalizar a sesión"
+#: lib/Driver/expectpecl.php:98
+#, fuzzy
+msgid "Could not login to system (no password prompt)"
+msgstr "Non se pode abrir unha canalización a smbpasswd."
 
-msgid "Message"
-msgstr "Mensaxe"
+#: lib/Driver/smbpasswd.php:57
+msgid "Could not open pipe to smbpasswd."
+msgstr "Non se pode abrir unha canalización a smbpasswd."
 
+#: lib/Driver/ldap.php:86
+#, fuzzy
+msgid "Could not start TLS connection to LDAP server"
+msgstr "Non se pode conectar ao servidor ldap"
+
+#: lib/Driver/expectpecl.php:108
+msgid "Could not start passwd program (no old password prompt)"
+msgstr ""
+
+#: lib/Driver/expectpecl.php:44
+msgid "End of file."
+msgstr ""
+
+#: lib/Driver/smbpasswd.php:79
+#, fuzzy
+msgid "Error sending data to smbpasswd."
+msgstr "Houbo un erro ao enviar os datos a smbpasswd."
+
+#: lib/Driver/pspasswd.php:93
+#, fuzzy
+msgid "Failed to verify old password."
+msgstr "Ten que comprobar o novo contrasinal"
+
+#: main.php:222 lib/Driver/composite.php:102
+#, fuzzy, php-format
+msgid "Failure in changing password for %s: %s"
+msgstr "Produciuse un fallo ao cambiar o contrasinal en %s: %s"
+
+#: lib/Driver/expectpecl.php:50
+msgid "Full buffer."
+msgstr ""
+
+#: lib/Driver.php:72 lib/Driver/ldap.php:131 lib/Driver/http.php:72
+#: lib/Driver/vmailmgr.php:42 lib/Driver/kolab.php:84
+#: lib/Driver/poppassd.php:120
+#, fuzzy
+msgid "Incorrect old password."
+msgstr "O contrasinal é incorrecto"
+
+#: lib/Driver/ldap.php:190
+msgid "Minimum password age has not yet expired"
+msgstr ""
+
+#: lib/Driver/expectpecl.php:128
+msgid "New password not valid (too short, bad password, too similar, ...)"
+msgstr ""
+
+#: templates/main/main.inc:101
 msgid "New password:"
-msgstr "Chave de acceso nova:"
+msgstr "Contrasinal novo:"
 
+#: lib/Driver/poppassd.php:67
+msgid "No prompt returned from server."
+msgstr ""
+
+#: lib/Driver.php:128
+#, fuzzy, php-format
+msgid "No such backend \"%s\" found."
+msgstr "Non se atopou o sistema traseiro '%s'."
+
+#: templates/main/main.inc:89
 msgid "Old password:"
-msgstr "Chave de acceso anterior:"
+msgstr "Contrasinal antigo:"
 
-msgid "Password changed!"
-msgstr "¡Chave de acceso cambiada!"
+#: lib/Driver/smbpasswd.php:47
+msgid "Passwd is not properly configured."
+msgstr "Passwd non está ben configurado."
 
+#: main.php:214
+#, php-format
+msgid "Password changed on %s."
+msgstr "Cambiouse o contrasinal en %s."
+
+#: lib/Driver/sql.php:127
+#, php-format
+msgid "Password column \"%s\" not found in password table."
+msgstr ""
+
+#: lib/Driver/pspasswd.php:75
+#, fuzzy
+msgid "Password module can't find the supplied bin."
+msgstr "O módulo do contrasinal non está ben configurado."
+
+#: lib/Driver/pspasswd.php:73
+#, fuzzy
+msgid "Password module is missing required parameters."
+msgstr "O módulo do contrasinal non está ben configurado."
+
+#: lib/Driver/adsi.php:51
+#, fuzzy
+msgid "Password module is missing target parameter."
+msgstr "O módulo do contrasinal non está ben configurado."
+
+#: main.php:188 lib/Driver/servuftp.php:71
 msgid "Password module is not properly configured"
-msgstr "O módulo para cambiar a chave de acceso non se configurou"
+msgstr "O módulo do contrasinal non está ben configurado"
 
-msgid "Problem?"
-msgstr "¿Problemas?"
+#: lib/Driver/servuftp.php:98
+msgid "Password module is not properly configured."
+msgstr "O módulo do contrasinal non está ben configurado."
 
+#: templates/main/main.inc:11
+#, fuzzy
+msgid "Please provide a new password"
+msgstr "Confirme o novo contrasinal:"
+
+#: templates/main/main.inc:7
+#, fuzzy
+msgid "Please provide your current password"
+msgstr "Ten que introducir o seu contrasinal actual"
+
+#: templates/main/main.inc:15
+#, fuzzy
+msgid "Please verify your new password"
+msgstr "Ten que comprobar o novo contrasinal"
+
+#: lib/Driver/composite.php:41
+msgid "Required 'drivers' is misconfigured in Composite configuration."
+msgstr ""
+"Os controladores requiridos están desconfigurados na configuración de "
+"Redacción."
+
+#: lib/Driver/sql.php:46
+msgid "Required 'phptype' not specified in Passwd SQL configuration."
+msgstr ""
+"O 'phptype' requirido non se especificou na configuración de Passwd SQL."
+
+#: lib/Driver/vpopmail.php:49
+msgid "Required 'phptype' not specified in SQL configuration."
+msgstr "O 'phptype' requirido non se especificou na configuración de SQL."
+
+#: templates/main/main.inc:142
 msgid "Reset"
-msgstr "Reiniciar"
+msgstr "Limpar"
 
-msgid "Select your preferred language:"
-msgstr "Seleccione a lingua:"
-
-msgid "Set the language that menu items, explanations, and help are in."
-msgstr "Establece a lingua dos menús, das explicacións e da axuda."
-
-msgid "Some of Password module's configuration files are missing:"
+#: lib/Driver/http.php:65
+msgid "The requested website for changing user passwords could not be reached."
 msgstr ""
-"Algúns dos arquivos de configuración do módulo para cambiar a chave non se "
-"dan atopado:"
 
-msgid "Success"
-msgstr "Correctamente"
-
-msgid ""
-"This file controls the default preferences for Password module, and also "
-"controls which preferences users can alter."
+#: lib/Driver/http.php:74
+msgid "The username could not be found."
 msgstr ""
-"Este arquivo controla as preferencias predeterminadas do módulo para cambiar "
-"a chavee ademais controla que preferencias pode mudar o usuario."
 
-msgid ""
-"This file controls the stylesheet that is used to set colors and fonts in "
-"addition to or overriding Horde defaults."
+#: lib/Driver/expectpecl.php:47
+msgid "Time out."
 msgstr ""
-"Este arquivo controla as follas de estilo que se usan para establecer as "
-"cores e tipos de letra, e complemententa ou substitúe os valores "
-"predeterminados de Horde."
 
-msgid ""
-"This is the main Password module configuration file. It contains paths and "
-"options for all Password module scripts."
-msgstr ""
-"Este é o arquivo principal de configuración do módulo para cambiar a chave "
-"de acceso. Contén as rutas e opcións para tódolos programas (deste módulo)."
+#: lib/Driver/sql.php:75 lib/Driver/vpopmail.php:83
+msgid "Unable to connect to SQL server."
+msgstr "Non se puido conectar co servidor SQL."
 
+#: lib/Driver/expectpecl.php:93
+#, fuzzy
+msgid "Unable to open expect stream!"
+msgstr "Non se puido conectar co servidor SQL."
+
+#: lib/Driver/sql.php:135 lib/Driver/poppassd.php:114
+#: lib/Driver/vpopmail.php:150
+msgid "User not found"
+msgstr "Non se atopou o usuario"
+
+#: lib/Driver/ldap.php:167 lib/Driver/ldap.php:249 lib/Driver/kolab.php:76
+#: lib/Driver/pine.php:231 lib/Driver/smbldap.php:160
+msgid "User not found."
+msgstr "Non se atopou o usuario."
+
+#: templates/main/main.inc:76
 msgid "Username:"
 msgstr "Usuario:"
 
-msgid "Warning"
-msgstr "Advertencia"
-
-msgid "You can not change passwd for other user"
-msgstr "Non pode mudar a chave de acceso doutro usuario"
-
-#, c-format
+#: main.php:52
+#, php-format
 msgid "You can't change password for user %s"
-msgstr "Non pode cambiar a chave de acceso do usuario %s"
+msgstr "Non pode cambiar o contrasinal do usuario %s"
 
+#: main.php:60
+msgid "You must give your current password"
+msgstr "Ten que introducir o seu contrasinal actual"
+
+#: main.php:69
 msgid "You must give your new password"
-msgstr "Escriba a nova chave de acceso"
+msgstr "Ten que introducir o seu novo contrasinal"
 
-msgid "You must give your old password"
-msgstr "Escriba a chave de acceso anterior"
-
-msgid "You must give your userid"
-msgstr "Escriba o seu nome de usuario"
-
+#: main.php:73
 msgid "You must verify your new password"
-msgstr "Repita a nova chave de acceso"
+msgstr "Ten que comprobar o novo contrasinal"
 
-msgid "Your Information"
-msgstr "A súa información"
+#: main.php:93
+#, php-format
+msgid ""
+"Your new password is too long; passwords may not be more than %d characters "
+"long!"
+msgstr "O novo contrasinal é longo de máis; non pode ter máis de %d caracteres"
 
+#: main.php:177
+msgid "Your new password is too simple to guess!  Not changed!"
+msgstr "O novo contrasinal é demasiado doado de adiviñar! Non se cambiou!"
+
+#: main.php:168
+msgid "Your new password is too simple to guess. Not changed!"
+msgstr "O novo contrasinal é demasiado doado de adiviñar! Non se cambiou!"
+
+#: main.php:88
+#, php-format
+msgid "Your new password must be at least %d characters long!"
+msgstr "O novo contrasinal ten que ter polo menos %d caracteres"
+
+#: main.php:81
+msgid "Your new password must be different from your current password"
+msgstr "O novo contrasinal ten que ser distinto do actual"
+
+#: main.php:133
+#, fuzzy, php-format
+msgid "Your new password must contain at least %d alphabetic character."
+msgid_plural ""
+"Your new password must contain at least %d alphabetic characters."
+msgstr[0] ""
+"O novo contrasinal ten que ter polo menos %d caracteres alfabéticos."
+msgstr[1] ""
+"O novo contrasinal ten que ter polo menos %d caracteres alfabéticos."
+
+#: main.php:138
+#, fuzzy, php-format
+msgid "Your new password must contain at least %d alphanumeric character."
+msgid_plural ""
+"Your new password must contain at least %d alphanumeric characters."
+msgstr[0] ""
+"O novo contrasinal ten que ter polo menos %d caracteres alfanuméricos."
+msgstr[1] ""
+"O novo contrasinal ten que ter polo menos %d caracteres alfanuméricos."
+
+#: main.php:143
+#, php-format
+msgid ""
+"Your new password must contain at least %d different types of characters. "
+"The types are: lower, upper, numeric, and symbols."
+msgstr ""
+"O novo contrasinal ten que ter polo menos %d tipos distintos de caracteres. "
+"Os tipos son: minúsculas, maiúsculas, números e símbolos."
+
+#: main.php:123
+#, fuzzy, php-format
+msgid "Your new password must contain at least %d lowercase character."
+msgid_plural "Your new password must contain at least %d lowercase characters."
+msgstr[0] ""
+"O novo contrasinal ten que ter polo menos %d caracteres en minúsculas."
+msgstr[1] ""
+"O novo contrasinal ten que ter polo menos %d caracteres en minúsculas."
+
+#: main.php:128
+#, fuzzy, php-format
+msgid "Your new password must contain at least %d numeric character."
+msgid_plural "Your new password must contain at least %d numeric characters."
+msgstr[0] "O novo contrasinal ten que ter polo menos %d caracteres numéricos."
+msgstr[1] "O novo contrasinal ten que ter polo menos %d caracteres numéricos."
+
+#: main.php:157
+#, fuzzy, php-format
+msgid "Your new password must contain at least %d symbol character."
+msgid_plural "Your new password must contain at least %d symbol characters."
+msgstr[0] "O novo contrasinal ten que ter polo menos %d caracteres numéricos."
+msgstr[1] "O novo contrasinal ten que ter polo menos %d caracteres numéricos."
+
+#: main.php:118
+#, fuzzy, php-format
+msgid "Your new password must contain at least %d uppercase character."
+msgid_plural "Your new password must contain at least %d uppercase characters."
+msgstr[0] ""
+"O novo contrasinal ten que ter polo menos %d caracteres en maiúsculas."
+msgstr[1] ""
+"O novo contrasinal ten que ter polo menos %d caracteres en maiúsculas."
+
+#: main.php:149
+#, php-format
+msgid "Your new password must contain less than %d whitespace characters."
+msgstr "O novo contrasinal ten que ter menos de %d espazos en branco."
+
+#: main.php:151
+msgid "Your new password must not contain whitespace characters."
+msgstr "O novo contrasinal non pode ter espazos en branco."
+
+#: main.php:77
 msgid "Your new passwords didn't match"
-msgstr "As novas chaves de acceso son diferentes"
+msgstr "Os novos contrasinais son diferentes"
 
-msgid "Account Manager"
-msgstr "Xestor da conta"
+#: lib/Driver/http.php:76
+#, fuzzy
+msgid "Your password could not be changed."
+msgstr "O novo contrasinal é demasiado doado de adiviñar! Non se cambiou!"
 
-msgid "Changing Password on %s"
-msgstr "Cambiando a chave de acceso en %s"
+#: templates/main/main.inc:19
+#, fuzzy
+msgid "Your passwords do not match"
+msgstr "Os novos contrasinais son diferentes"

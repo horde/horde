@@ -1,6 +1,7 @@
 <?php
 
 namespace Znerol\Component\Stringprep\Profile;
+use Znerol\Component\Stringprep\Profile;
 
 /**
  * The "trace" Profile of "Stringprep" as defined in RFC 4505

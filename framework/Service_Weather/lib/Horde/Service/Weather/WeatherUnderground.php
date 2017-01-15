@@ -3,7 +3,7 @@
  * This file contains the Horde_Service_Weather class for communicating with
  * the weather underground service.
  *
- * Copyright 2011-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
  *
  * @author   Michael J Rubinsky <mrubinsk@horde.org>
  * @license  http://www.horde.org/licenses/bsd BSD
@@ -19,7 +19,7 @@
  * @package  Service_Weather
  */
 class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Base
- {
+{
 
     const API_URL = 'http://api.wunderground.com';
 
@@ -109,7 +109,7 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
      */
     public function getCurrentConditions($location)
     {
-        $this->_getCommonElements(rawurlencode($location));
+        $this->_getCommonElements(rawurlencode($location), !empty($this->_lastLength) ? $this->_lastLength : null);
         return $this->_current;
     }
 
@@ -128,6 +128,25 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
         $this->_getCommonElements(rawurlencode($location), $length);
         return $this->_forecast;
     }
+
+    public function getAlerts($location)
+    {
+        $this->_getCommonElements(rawurlencode($location), !empty($this->_lastLength) ? $this->_lastLength : null);
+        return $this->_alerts;
+    }
+
+     /**
+      * Return the URL to a (possibly animated) radar image.
+      *
+      * @param  string $location  The location
+      *
+      * @return string|boolean The Url, or false if not available.
+      */
+     public function getRadarImageUrl($location)
+     {
+        $this->_getCommonElements(rawurlencode($location), !empty($this->_lastLength) ? $this->_lastLength : null);
+        return $this->_radar;
+     }
 
     /**
      * Search for a valid location code.
@@ -214,9 +233,10 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
      * a bit of request time/traffic for a smaller number of requests to obtain
      * information for e.g., a typical weather portal display.
      */
-    protected function _getCommonElements($location, $length = Horde_Service_Weather::FORECAST_10DAY)
+    protected function _getCommonElements($location, $length = null)
     {
-        if (!empty($this->_current) && $location == $this->_lastLocation
+        $length = empty($length) ? Horde_Service_Weather::FORECAST_10DAY : $length;
+        if (!empty($this->_forecast) && $location == $this->_lastLocation
             && $this->_lastLength >= $length) {
 
             if ($this->_lastLength > $length) {
@@ -241,11 +261,17 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
             $l = 'forecast10day';
             break;
         }
+
         $url = self::API_URL . '/api/' . $this->_apiKey
-            . '/geolookup/conditions/' . $l . '/astronomy/q/' . $location . '.json';
+            . '/geolookup/conditions/animatedradar/alerts/'
+            . $l . '/astronomy/q/' . $location . '.json';
         $results = $this->_makeRequest($url, $this->_cache_lifetime);
+
         $station = $this->_parseStation($results->location);
         $this->_current = $this->_parseCurrent($results->current_observation);
+        if (!empty($results->alerts)) {
+            $this->_alerts = $this->_parseAlerts($results->alerts);
+        }
         $astronomy = $results->moon_phase;
         $date = clone $this->_current->time;
         $date->hour = $astronomy->sunrise->hour;
@@ -264,6 +290,11 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
         $this->_forecast->limitLength($length);
         $this->link = $results->current_observation->image->link;
         $this->title = $results->current_observation->image->title;
+
+        // Radar
+        if (isset($results->radar->image_url)) {
+            $this->_radar = $results->radar->image_url;
+        }
     }
 
     /**
@@ -361,6 +392,12 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
         }
 
         return $return;
+    }
+
+    protected function _parseAlerts($alerts)
+    {
+        $alerts_ob = new Horde_Service_Weather_Alerts_WeatherUnderground($alerts, $this);
+        return $alerts_ob->getAlerts();
     }
 
     protected function _makeRequest($url, $lifetime = 86400)

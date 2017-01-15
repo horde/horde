@@ -7,7 +7,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2009-2015 Horde LLC (http://www.horde.org)
+ * @copyright 2009-2017 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -19,7 +19,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2009-2015 Horde LLC (http://www.horde.org)
+ * @copyright 2009-2017 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -135,7 +135,7 @@ abstract class Horde_ActiveSync_State_Base
     {
         $this->_params = $params;
         if (empty($params['logger'])) {
-            $this->_logger = new Horde_Support_Stub();
+            $this->_logger =  new Horde_Log_Logger(new Horde_Log_Handler_Null());
         } else {
             $this->_logger = $params['logger'];
         }
@@ -143,19 +143,9 @@ abstract class Horde_ActiveSync_State_Base
     }
 
     /**
-     * Destructor
-     */
-    public function __destruct()
-    {
-        unset($this->_backend);
-    }
-
-    /**
      * Update the $oldKey syncState to $newKey.
      *
      * @param string $newKey
-     *
-     * @return void
      */
     public function setNewSyncKey($newKey)
     {
@@ -175,11 +165,11 @@ abstract class Horde_ActiveSync_State_Base
     /**
      * Generate a random 10 digit policy key
      *
-     * @return unknown
+     * @return integer
      */
     public function generatePolicyKey()
     {
-        return mt_rand(1000000000, 9999999999);
+            return mt_rand(1000000000, mt_getrandmax());
     }
 
     /**
@@ -204,14 +194,23 @@ abstract class Horde_ActiveSync_State_Base
      * Return a device wipe status
      *
      * @param string $devId
+     * @param boolean $refresh  If true, reload the device's rwstatus flag.
+     *        @since  2.31.0
      *
      * @return integer
      */
-    public function getDeviceRWStatus($devId)
+    public function getDeviceRWStatus($devId, $refresh = false)
     {
         /* See if we have it already */
         if (empty($this->_deviceInfo) || $this->_deviceInfo->id != $devId) {
             throw new Horde_ActiveSync_Exception('Device not loaded.');
+        }
+
+        /* Should we refresh? */
+        if ($refresh) {
+            $this->loadDeviceInfo(
+                $this->_deviceInfo->id, $this->_deviceInfo->user, array('force' => true)
+            );
         }
 
         return $this->_deviceInfo->rwstatus;
@@ -387,7 +386,7 @@ abstract class Horde_ActiveSync_State_Base
     public function getChanges(array $options = array())
     {
         if (!empty($this->_collection['id'])) {
-            // How far back to sync (for those collections that use this)
+            // How far back to sync for those collections that use this.
             $cutoffdate = self::_getCutOffDate(!empty($this->_collection['filtertype'])
                 ? $this->_collection['filtertype']
                 : 0);
@@ -399,20 +398,25 @@ abstract class Horde_ActiveSync_State_Base
                 $this->_folder->serverid()
                 ));
 
+            // Check for previously found changes first.
             if (!empty($this->_changes)) {
                 $this->_logger->info(sprintf(
                     '[%s] Returning previously found changes.',
-                    $this->_procid));
+                    $this->_procid)
+                );
                 return $this->_changes;
             }
 
             // Get the current syncStamp from the backend.
             $this->_thisSyncStamp = $this->_backend->getSyncStamp(
                 $this->_folder->serverid(),
-                $this->_lastSyncStamp);
+                $this->_lastSyncStamp
+            );
+
             if ($this->_thisSyncStamp === false) {
                 throw new Horde_ActiveSync_Exception_StaleState(
-                    'Detecting a change in timestamp or modification sequence. Reseting state.');
+                    'Detecting a change in timestamp or modification sequence. Reseting state.'
+                );
             }
 
             $this->_logger->info(sprintf(
@@ -430,7 +434,7 @@ abstract class Horde_ActiveSync_State_Base
                 !empty($options['ping']),
                 $this->_folder->haveInitialSync,
                 !empty($options['maxitems']) ? $options['maxitems'] : 100,
-                !empty($this->_collection['soft'])
+                !empty($this->_collection['forcerefresh'])
             );
 
             // Only update the folderstate if we are not PINGing.
@@ -444,83 +448,104 @@ abstract class Horde_ActiveSync_State_Base
                 count($changes),
                 $this->_collection['id']));
 
-            // Check changes for mirrored client chagnes, but only if we KNOW
-            // we have some client changes.
+            // Check for mirrored client changes.
             $this->_changes = array();
             if (count($changes) && $this->_havePIMChanges()) {
                 $this->_logger->info(sprintf(
                     '[%s] Checking for client initiated changes.',
-                    $this->_procid));
+                    $this->_procid)
+                );
 
+                // As usual, Email is handled differently than other collections
                 switch ($this->_collection['class']) {
                 case Horde_ActiveSync::CLASS_EMAIL:
+                    // @todo Fix me with a changes object that transparently
+                    // deals with different data structure for initial sync.
+                    if (!empty($changes) && !is_array($changes[0])) {
+                        $this->_changes = $changes;
+                        break;
+                    }
+
+                    // Map of client-sourced changes
                     $mailmap = $this->_getMailMapChanges($changes);
+
+                    // Map constants to more human readable/loggable text.
                     $flag_map = array(
                         Horde_ActiveSync::CHANGE_TYPE_FLAGS =>  'flag change',
                         Horde_ActiveSync::CHANGE_TYPE_DELETE => 'deletion',
-                        Horde_ActiveSync::CHANGE_TYPE_CHANGE => 'move'
+                        Horde_ActiveSync::CHANGE_TYPE_CHANGE => 'move',
+                        Horde_ActiveSync::CHANGE_TYPE_DRAFT => 'draft'
                     );
-                    foreach ($changes as $change) {
-                        if (!empty($mailmap[$change['id']][$change['type']])) {
-                            // @todo For 3.0, create a Changes and
-                            // ChangeFilter classes to abstract out a bunch of
-                            // this stuff. (Needs BC breaking changes in
-                            // storage/state classes).
-                            //
-                            // OL2013 is broken and duplicates the destination
-                            // email during MOVEITEMS requests (instead it
-                            // reassigns the existing email the new UID). Don't
-                            // send the ADD command for these changes.
-                            if ($change['type'] == Horde_ActiveSync::CHANGE_TYPE_CHANGE &&
-                                $change['flags'] == Horde_ActiveSync::FLAG_NEWMESSAGE &&
-                                $this->_deviceInfo->deviceType != 'WindowsOutlook15') {
-                                $this->_changes[] = $change;
-                                continue;
-                            }
-                            $this->_logger->info(sprintf(
-                                '[%s] Ignoring client initiated %s for %s',
-                                $this->_procid,
-                                $flag_map[$change['type']],
-                                $change['id']));
-                            $change['ignore'] = true;
+
+                    $cnt = count($changes);
+                    for ($i = 0; $i < $cnt; $i++) {
+                        if (empty($mailmap[$changes[$i]['id']][$changes[$i]['type']])) {
+                            $this->_changes[] = $changes[$i];
+                            continue;
                         }
-                        $this->_changes[] = $change;
+                        // @todo For 3.0, create a Changes and
+                        // ChangeFilter classes to abstract out a bunch of
+                        // this stuff. (Needs BC breaking changes in
+                        // storage/state classes).
+
+                        // OL2013 is broken and duplicates the destination
+                        // email during MOVEITEMS requests (instead it
+                        // reassigns the existing email the new UID). Don't
+                        // send the ADD command for these changes.
+                        if ($changes[$i]['type'] == Horde_ActiveSync::CHANGE_TYPE_CHANGE &&
+                            $changes[$i]['flags'] == Horde_ActiveSync::FLAG_NEWMESSAGE &&
+                            $this->_deviceInfo->deviceType != 'WindowsOutlook15') {
+                            $this->_changes[] = $changes[$i];
+                            continue;
+                        }
+                        $changes[$i]['ignore'] = true;
+                        $this->_changes[] = $changes[$i];
+                        $this->_logger->info(sprintf(
+                            '[%s] Ignoring client initiated %s for %s',
+                            $this->_procid,
+                            $flag_map[$changes[$i]['type']],
+                            $changes[$i]['id'])
+                        );
                     }
                     break;
 
                 default:
                     $client_timestamps = $this->_getPIMChangeTS($changes);
-                    foreach ($changes as $change) {
-                        if (empty($client_timestamps[$change['id']])) {
-                            $this->_changes[] = $change;
+                    $cnt = count($changes);
+                    for ($i = 0; $i < $cnt; $i++) {
+                        if (empty($client_timestamps[$changes[$i]['id']])) {
+                            $this->_changes[] = $changes[$i];
                             continue;
                         }
-                        if ($change['type'] == Horde_ActiveSync::CHANGE_TYPE_DELETE) {
+                        if ($changes[$i]['type'] == Horde_ActiveSync::CHANGE_TYPE_DELETE) {
                             // If we have a delete, don't bother stating the message,
                             // the entry should already be deleted on the client.
                             $stat['mod'] = 0;
                         } else {
                             // stat only returns MODIFY times, not deletion times,
                             // so will return (int)0 for ADD or DELETE.
-                            $stat = $this->_backend->statMessage($this->_folder->serverid(), $change['id']);
+                            $stat = $this->_backend->statMessage($this->_folder->serverid(), $changes[$i]['id']);
                         }
-                        if ($client_timestamps[$change['id']] >= $stat['mod']) {
+                        if ($client_timestamps[$changes[$i]['id']] >= $stat['mod']) {
                             $this->_logger->info(sprintf(
                                 '[%s] Ignoring client initiated change for %s (client TS: %s Stat TS: %s)',
                                 $this->_procid,
-                                $change['id'], $client_timestamps[$change['id']], $stat['mod']));
+                                $changes[$i]['id'], $client_timestamps[$changes[$i]['id']], $stat['mod'])
+                            );
                         } else {
-                            $this->_changes[] = $change;
+                            $this->_changes[] = $changes[$i];
                         }
                     }
                 }
             } elseif (count($changes)) {
                 $this->_logger->info(sprintf(
                     '[%s] No client changes present, returning all messages.',
-                    $this->_procid));
+                    $this->_procid)
+                );
                 $this->_changes = $changes;
             }
         } else {
+            // FOLDERSYNC changes.
             $this->_getFolderChanges();
         }
 
@@ -568,6 +593,51 @@ abstract class Horde_ActiveSync_State_Base
     }
 
     /**
+     * Non-static wrapper for getNewSyncKey.
+     *
+     * @param string $syncKey  The old syncKey
+     *
+     * @return string  The new synckey
+     * @throws Horde_ActiveSync_Exception
+     *
+     * @todo  Remove/replace in H6 with Horde_ActiveSync_SyncKey
+     */
+    public function getNewSyncKeyWrapper($syncKey)
+    {
+        if ($this->checkCollision($newKey = self::getNewSyncKey($syncKey))) {
+            $this->_logger->err(sprintf(
+                '[%s] Found collision when generating synckey %s. Trying again.',
+                $this->_procid, $newKey));
+            return $this->getNewSyncKeyWrapper($synckey);
+        }
+
+        return $newKey;
+    }
+
+    /**
+     * Check for the (rare) possibility of a synckey collision between
+     * collections.
+     *
+     * @param string $syncKey  The synckey to check.
+     *
+     * @return boolean  True if there was a collision.
+     */
+    public function checkCollision($syncKey)
+    {
+        if (!preg_match('/^\{([0-9A-Za-z-]+)\}([0-9]+)$/', $syncKey, $matches)) {
+            return false;
+        }
+        $guid = $matches[1];
+
+        // We only need to check for collisions on the first save.
+        if ($matches[2] != 1) {
+            return false;
+        }
+
+        return $this->_checkCollision($guid);
+    }
+
+    /**
      * Gets the new sync key for a specified sync key. You must save the new
      * sync state under this sync key when done sync'ing by calling
      * setNewSyncKey(), then save().
@@ -601,7 +671,7 @@ abstract class Horde_ActiveSync_State_Base
      */
     public static function getSyncKeyCounter($syncKey)
     {
-       if (preg_match('/^\{([a-fA-F0-9-]+)\}([0-9]+)$/', $syncKey, $matches)) {
+        if (preg_match('/^\{([a-fA-F0-9-]+)\}([0-9]+)$/', $syncKey, $matches)) {
             $n = $matches[2];
             return $n;
         }
@@ -814,9 +884,11 @@ abstract class Horde_ActiveSync_State_Base
                 $syncKey)
         );
 
-        // Check if synckey is allowed
+        // Check if synckey is allowed. Throw a StateGone exception if it
+        // doesn't match to give the client a chance to reset it's internal
+        // state.
         if (!preg_match('/^\{([0-9A-Za-z-]+)\}([0-9]+)$/', $syncKey, $matches)) {
-            throw new Horde_ActiveSync_Exception('Invalid sync key');
+            throw new Horde_ActiveSync_Exception_StateGone('Invalid synckey');
         }
         $this->_syncKey = $syncKey;
 
@@ -824,7 +896,7 @@ abstract class Horde_ActiveSync_State_Base
         $this->_gc($syncKey);
 
         // Load the state
-        $this->_loadState($type);
+        $this->_loadState();
     }
 
     /**
@@ -848,12 +920,9 @@ abstract class Horde_ActiveSync_State_Base
     /**
      * Load the state represented by $syncKey from storage.
      *
-     * @param string $type       The type of state a
-     *                           Horde_ActiveSync::REQUEST_TYPE constant.
-     *
      * @throws Horde_ActiveSync_Exception, Horde_ActiveSync_Exception_StateGone
      */
-    protected function _loadState($type)
+    protected function _loadState()
     {
         throw new Horde_ActiveSync_Exception('Must be implemented in concrete class.');
     }
@@ -890,6 +959,15 @@ abstract class Horde_ActiveSync_State_Base
         throw new Horde_ActiveSync_Exception('Must be implemented in concrete class.');
     }
 
+    /**
+     * Update the syncStamp in the collection state, outside of any other changes.
+     * Used to prevent extremely large differences in syncStamps for clients
+     * and collections that don't often have changes.
+     */
+    public function updateSyncStamp()
+    {
+        throw new Horde_ActiveSync_Exception('Not supported in this state driver.');
+    }
 
     /**
      * Save the current syncstate to storage
@@ -950,12 +1028,17 @@ abstract class Horde_ActiveSync_State_Base
     /**
      * Obtain the device object.
      *
-     * @param object $device
+     * @param string $devId   The device id to obtain
      * @param string $user
+     * @param array  $params  Additional parameters:
+     *   - force: (boolean)  If true, reload the device info even if it's
+     *     already loaded. Used to refresh values such as device_rwstatus that
+     *     may have changed during a long running PING/SYNC. DEFAULT: false.
+     *     @since  2.31.0
      *
      * @return Horde_ActiveSync_Device
      */
-    abstract public function loadDeviceInfo($device, $user = null);
+    abstract public function loadDeviceInfo($device, $user = null, $params = array());
 
     /**
      * Check that a given device id is known to the server. This is regardless
@@ -1040,7 +1123,7 @@ abstract class Horde_ActiveSync_State_Base
      *
      * @throws Horde_ActiveSync_Exception
      */
-    abstract public function saveSyncCache(array $cache, $devid, $user, array $dirty = null);
+    abstract public function saveSyncCache(array $cache, $devid, $user, array $dirty = array());
 
     /**
      * Delete a complete sync cache
@@ -1063,5 +1146,16 @@ abstract class Horde_ActiveSync_State_Base
      * @throws Horde_ActiveSync_Exception
      */
      abstract public function isDuplicatePIMAddition($id);
+
+     /**
+      * Close the underlying backend storage connection.
+      * To be used during PING or looping SYNC operations.
+      */
+     abstract public function disconnect();
+
+     /**
+      * (Re)open backend storage connection.
+      */
+     abstract public function connect();
 
 }

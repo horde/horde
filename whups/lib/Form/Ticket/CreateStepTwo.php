@@ -3,7 +3,7 @@
  * This file contains all Horde_Form classes to create a new ticket.
  *
  * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
- * Copyright 2001-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -39,7 +39,7 @@ class Whups_Form_Ticket_CreateStepTwo extends Horde_Form
                 $type_params[] = _("Choose:");
             }
         }
-        $types = &$this->addVariable(
+        $types = $this->addVariable(
             _("Ticket Type"), 'type', $typetype, true, false, null, $type_params);
         $types->setDefault($type);
 

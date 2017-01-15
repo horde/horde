@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2012-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
- * @copyright 2012-2015 Horde LLC
+ * @copyright 2012-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -16,7 +16,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2012-2015 Horde LLC
+ * @copyright 2012-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -59,7 +59,6 @@ class IMP_Prefs_Special_Trash extends IMP_Prefs_Special_SpecialMboxes implements
         $iterator->mboxes = array('INBOX');
 
         $view->flist = new IMP_Ftree_Select(array(
-            'basename' => true,
             'iterator' => $iterator,
             'new_mbox' => true,
             'selected' => $trash
@@ -69,7 +68,9 @@ class IMP_Prefs_Special_Trash extends IMP_Prefs_Special_SpecialMboxes implements
 
         if (!$prefs->isLocked('vfolder') || $imp_search['vtrash']->enabled) {
             $view->vtrash = IMP_Mailbox::formTo($imp_search->createSearchId('vtrash'));
-            $view->vtrash_select = $trash->vtrash;
+            if ($trash) {
+                $view->vtrash_select = $trash->vtrash;
+            }
         }
 
         return $view->render('trash');
@@ -82,12 +83,13 @@ class IMP_Prefs_Special_Trash extends IMP_Prefs_Special_SpecialMboxes implements
         global $injector, $prefs;
 
         $imp_search = $injector->getInstance('IMP_Search');
-        $curr_vtrash = IMP_Mailbox::getPref(IMP_Mailbox::MBOX_TRASH)->vtrash;
+        $curr_trash = IMP_Mailbox::getPref(IMP_Mailbox::MBOX_TRASH);
+        $curr_vtrash = $curr_trash && $curr_trash->vtrash;
         $trash = IMP_Mailbox::formFrom($ui->vars->trash);
 
         if (!$prefs->isLocked('vfolder')) {
             $vtrash = $imp_search['vtrash'];
-            $vtrash->enabled = $trash->vtrash;
+            $vtrash->enabled = $trash && $trash->vtrash;
             $imp_search['vtrash'] = $vtrash;
         }
 
@@ -99,7 +101,7 @@ class IMP_Prefs_Special_Trash extends IMP_Prefs_Special_SpecialMboxes implements
 
         /* Switching to/from Virtual Trash requires us to expire all currently
          * cached mailbox lists (hide deleted status may have changed). */
-        if ($curr_vtrash || $trash->vtrash) {
+        if ($curr_vtrash || ($trash && $trash->vtrash)) {
             $injector->getInstance('IMP_Factory_MailboxList')->expireAll();
         }
 

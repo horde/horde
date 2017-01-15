@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2007-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2017 Horde LLC (http://www.horde.org/)
  *
  * @author   Michael Cramer <michael@bigmichi1.de>
  * @license  http://www.horde.org/licenses/bsd BSD
@@ -82,11 +82,16 @@ abstract class Horde_Http_Request_PeclhttpBase extends Horde_Http_Request_Base {
     protected function _httpOptions()
     {
         // Set options
-        $httpOptions = array('headers' => $this->headers,
+        $httpOptions = array(
+            'headers' => $this->headers,
             'redirect' => (int)$this->redirects,
-            'ssl' => array('verifypeer' => $this->verifyPeer),
+            'ssl' => array(
+                'verifypeer' => $this->verifyPeer,
+                'verifyhost' => $this->verifyPeer
+            ),
             'timeout' => $this->timeout,
-            'useragent' => $this->userAgent);
+            'useragent' => $this->userAgent
+        );
 
         // Proxy settings
         if ($this->proxyServer) {

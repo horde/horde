@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2013-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2013-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @category  Horde
- * @copyright 2013-2015 Horde LLC
+ * @copyright 2013-2017 Horde LLC
  * @license   http://www.horde.org/licenses/apache ASL
  * @package   Ingo
  */
@@ -16,7 +16,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2013-2015 Horde LLC
+ * @copyright 2013-2017 Horde LLC
  * @license   http://www.horde.org/licenses/apache ASL
  * @package   Ingo
  */
@@ -84,8 +84,8 @@ abstract class Ingo_Basic_Base
 
         if (strlen($new_mbox)) {
             if ($registry->hasMethod('mail/createMailbox') &&
-                $registry->call('mail/createMailbox', array($new_mbox))) {
-                return $new_mbox;
+                $created = $registry->call('mail/createMailbox', array($new_mbox))) {
+                return strval($created);
             }
         } elseif (strlen($this->vars->$name)) {
             return $this->vars->$name;

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -965,7 +965,7 @@ case 'whups_form_admin_editattributesteptwo_reload':
     break;
 
 case 'whups_form_admin_deleteattribute':
-    $form = new DeleteAttributeDescForm($vars);
+    $form = new Whups_Form_Admin_DeleteAttribute($vars);
     if ($form->validate($vars)) {
         if ($vars->get('yesno') == 1) {
             try {
@@ -989,7 +989,7 @@ case 'whups_form_admin_deleteattribute':
         _open();
         $form1 = new Whups_Form_Admin_EditAttributeStepOne($vars);
         $form1->renderActive($renderer, $vars, $adminurl, 'post');
-        $form2 = new Whups_From_Admin_AddAttribute($vars);
+        $form2 = new Whups_Form_Admin_AddAttribute($vars);
         $form2->renderActive($renderer, $vars, $adminurl, 'post');
     } else {
         _open();

@@ -52,12 +52,13 @@
      </div>
 <?php endif; ?>
 <?php endforeach; ?>
-   </div>
-  </fieldset>
+    </div>
+   </fieldset>
 
    <fieldset data-role="controlgroup">
     <input type="submit" name="login_button" value="<?php echo $this->h($this->title) ?>" />
    </fieldset>
   </form>
+  <?php echo $this->motd ?>
  </div>
 </div>

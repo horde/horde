@@ -2,7 +2,7 @@
 /**
  * This class represent a month of free busy information sets.
  *
- * Copyright 2004-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information.
  *
@@ -49,7 +49,7 @@ class Kronolith_FreeBusy_View_Month extends Kronolith_FreeBusy_View
         $hours_html = '';
         $dayWidth = round(100 / $this->_days);
 
-        $week = Date_Calc::weekOfYear(1, $this->_start->month, $this->_start->year);
+        $week = $this->_start->weekOfYear();
         $span = (7 - $week) % 7 + 1;
         $span_left = $this->_days;
         $t = new Horde_Date($this->_start);

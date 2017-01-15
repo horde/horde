@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2012-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -185,4 +185,17 @@ class Ingo_Factory_Script extends Horde_Core_Factory_Base
         }
         return false;
     }
+
+    /**
+     * Activate all scripts.
+     *
+     * @param boolean $auto_update  Only update if auto_update is active?
+     */
+    public function activateAll($auto_update = true)
+    {
+        foreach ($this->createAll() as $driver) {
+            $driver->activate(true, $auto_update);
+        }
+    }
+
 }

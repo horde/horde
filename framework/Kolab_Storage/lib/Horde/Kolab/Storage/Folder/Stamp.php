@@ -16,7 +16,7 @@
  * Defines unique stamps that allow to determine if folder data has changed or
  * not.
  *
- * Copyright 2011-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -62,4 +62,12 @@ extends Serializable
      *                       elements (added IDs, deleted IDs) otherwise.
      */
     public function getChanges(Horde_Kolab_Storage_Folder_Stamp $stamp);
+
+    /**
+     * Return the sync token.
+     *
+     * @return string|boolen The token provided by the IMAP client, or false
+     *                       if unavailable.
+     */
+    public function getToken();
 }

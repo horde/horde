@@ -1,5 +1,6 @@
 {
     "require": {
+        "phpdocumentor/reflection-docblock": "^2",
         "phpunit/phpunit": "~4",
         "phpunit/phpunit-story": "~1.0"
     }

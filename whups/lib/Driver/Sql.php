@@ -3,7 +3,7 @@
  * Whups backend driver for the Horde_Db abstraction layer.
  *
  * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
- * Copyright 2001-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -862,15 +862,17 @@ class Whups_Driver_Sql extends Whups_Driver
     /**
      * Returns tickets by searching for its properties.
      *
-     * @param array $info        An array of properties to search for.
-     * @param boolean $munge     Munge the query (?)
-     * @param boolean $perowner  Group the results per owner?
+     * @param array $info           An array of properties to search for.
+     * @param boolean $munge        Munge the query (?)
+     * @param boolean $perowner     Group the results per owner?
+     * @param boolean $format_name  If false, do not format the username.
+     *                              @since 3.1.0
      *
      * @return array  An array of ticket information hashes.
      * @throws Whups_Exception
      */
-    public function getTicketsByProperties(array $info, $munge = true,
-                                           $perowner = false)
+    public function getTicketsByProperties(
+        array $info, $munge = true, $perowner = false, $format_name = true)
     {
         if (isset($info['queue']) && !count($info['queue'])) {
             return array();
@@ -1073,7 +1075,7 @@ class Whups_Driver_Sql extends Whups_Driver
             . 'GROUP BY ' . $groupby;
 
         try {
-            $info = $this->_db->selectAll($query);
+            $info = $this->_db->select($query);
         } catch (Horde_Db_Exception $e) {
             throw new Whups_Exception($e);
         }
@@ -1109,7 +1111,9 @@ class Whups_Driver_Sql extends Whups_Driver
                         $ticket['version_link'] = $versions[$ticket['version']]['link'];
                     }
                 }
-                $ticket['requester_formatted'] = Whups::formatUser($ticket['user_id_requester'], false, true, true);
+                $ticket['requester_formatted'] = $format_name
+                    ? Whups::formatUser($ticket['user_id_requester'], false, true, true)
+                    : $ticket['user_id_requester'];
             }
             $tickets[$ticket['id']] = $ticket;
         }
@@ -1117,19 +1121,15 @@ class Whups_Driver_Sql extends Whups_Driver
         foreach ($this->getOwners(array_keys($tickets)) as $id => $owners) {
             $tickets[$id]['owners'] = $owners;
             foreach($owners as $owner) {
-                $tickets[$id]['owners_formatted'][] = Whups::formatUser($owner, false, true, true);
+                $tickets[$id]['owners_formatted'][] = $format_name
+                    ? Whups::formatUser($owner, false, true, true)
+                    : $owner;
             }
         }
         $attributes = $this->getTicketAttributesWithNames(array_keys($tickets));
         foreach ($attributes as $row) {
             $attribute_id = 'attribute_' . $row['attribute_id'];
-            try {
-                $tickets[$row['id']][$attribute_id] =
-                    Horde_Serialize::unserialize($row['attribute_value'],
-                                                 Horde_Serialize::JSON);
-            } catch (Horde_Serialize_Exception $e) {
-                $tickets[$row['id']][$attribute_id] = $row['attribute_value'];
-            }
+            $tickets[$row['id']][$attribute_id] = $this->_json_decode($row['attribute_value']);
             $tickets[$row['id']][$attribute_id . '_name'] = $row['attribute_name'];
         }
 
@@ -1313,7 +1313,7 @@ class Whups_Driver_Sql extends Whups_Driver
         /* Deleting attachments. */
         if (isset($GLOBALS['conf']['vfs']['type'])) {
             try {
-                $attachments = $this->_db->selectAll(
+                $attachments = $this->_db->select(
                     'SELECT ticket_id, log_value FROM whups_logs '
                         . 'WHERE log_type = ? AND transaction_id = ?',
                     array('attachment', $transaction));
@@ -1612,7 +1612,7 @@ class Whups_Driver_Sql extends Whups_Driver
     {
         // Clean up the tickets associated with the queue.
         try {
-            $result = $this->_db->selectAll(
+            $result = $this->_db->select(
                 'SELECT ticket_id FROM whups_tickets WHERE queue_id = ?',
                 array((int)$queueId));
         } catch (Horde_Db_Exception $e) {
@@ -1987,7 +1987,7 @@ class Whups_Driver_Sql extends Whups_Driver
 
         $query = "SELECT $fields FROM $from$where ORDER BY $order";
         try {
-            $states = $this->_db->selectAll($query);
+            $states = $this->_db->select($query);
         } catch (Horde_Db_Exception $e) {
             throw new Whups_Exception($e);
         }
@@ -2293,7 +2293,7 @@ class Whups_Driver_Sql extends Whups_Driver
 
         $query = "SELECT $fields FROM $from$where ORDER BY $order";
         try {
-            $priorities = $this->_db->selectAll($query);
+            $priorities = $this->_db->select($query);
         } catch (Horde_Db_Exception $e) {
             throw new Whups_Exception($e);
         }
@@ -2532,7 +2532,7 @@ class Whups_Driver_Sql extends Whups_Driver
     public function getReplies($type)
     {
         try {
-            $rows = $this->_db->selectAll(
+            $rows = $this->_db->select(
                 'SELECT reply_id, reply_name, reply_text '
                     . 'FROM whups_replies WHERE type_id = ? ORDER BY reply_name',
                 array((int)$type));
@@ -2633,6 +2633,36 @@ class Whups_Driver_Sql extends Whups_Driver
     }
 
     /**
+     * Adds a ticket listener if it doesn't exist yet.
+     *
+     * @param Whups_Ticket $ticket  A ticket.
+     * @param string $user          An email address.
+     *
+     * @throws Whups_Exception
+     */
+    public function addUniqueListener($ticket, $user)
+    {
+        $id = (int)$ticket->getId();
+        $requester = Whups::formatUser(
+            $ticket->get('user_id_requester'), true, false
+        );
+        if ($user == (string)$requester) {
+            return;
+        }
+        try {
+            $exists = $this->_db->selectValue(
+                'SELECT 1 FROM whups_ticket_listeners WHERE ticket_id = ? AND user_uid = ?',
+                array($id, $user)
+            );
+            if (!$exists) {
+                $this->addListener($id, $user);
+            }
+        } catch (Horde_Db_Exception $e) {
+            throw new Whups_Exception($e);
+        }
+    }
+
+    /**
      * Deletes a ticket listener.
      *
      * @param integer $ticket  A ticket ID.
@@ -2670,8 +2700,7 @@ class Whups_Driver_Sql extends Whups_Driver
     {
         try {
             $listeners = $this->_db->selectValues(
-                'SELECT DISTINCT l.user_uid FROM whups_ticket_listeners l, '
-                    . 'whups_tickets t WHERE (l.ticket_id = ?)',
+                'SELECT DISTINCT user_uid FROM whups_ticket_listeners WHERE (ticket_id = ?)',
                 array((int)$ticket));
         } catch (Horde_Db_Exception $e) {
             throw new Whups_Exception($e);
@@ -2907,7 +2936,7 @@ class Whups_Driver_Sql extends Whups_Driver
 
         $query = "SELECT $fields FROM $from$where ORDER BY $order";
         try {
-            $attributes = $this->_db->selectAll($query);
+            $attributes = $this->_db->select($query);
         } catch (Horde_Db_Exception $e) {
             throw new Whups_Exception($e);
         }
@@ -3103,12 +3132,7 @@ class Whups_Driver_Sql extends Whups_Driver
             $attributes = $this->_fromBackend($attributes);
 
             foreach ($attributes as &$ticket) {
-                try {
-                    $ticket['attribute_value'] = Horde_Serialize::unserialize(
-                        $ticket['attribute_value'],
-                        Horde_Serialize::JSON);
-                } catch (Horde_Serialize_Exception $e) {
-                }
+                $ticket['attribute_value'] = $this->_json_decode($ticket['attribute_value']);
             }
         } else {
             try {
@@ -3176,12 +3200,7 @@ class Whups_Driver_Sql extends Whups_Driver
                 $this->_fromBackend(@unserialize($attribute['attribute_params']));
             $attribute['attribute_required'] =
                 (bool)$attribute['attribute_required'];
-            try {
-                $attribute['attribute_value'] = Horde_Serialize::unserialize(
-                    $attribute['attribute_value'],
-                    Horde_Serialize::JSON);
-            } catch (Horde_Serialize_Exception $e) {
-            }
+            $attribute['attribute_value'] = $this->_json_decode($attribute['attribute_value']);
         }
 
         return $attributes;
@@ -3203,7 +3222,7 @@ class Whups_Driver_Sql extends Whups_Driver
             }
 
             try {
-                $owners = $this->_db->selectAll(
+                $owners = $this->_db->select(
                     'SELECT ticket_id AS id, ticket_owner AS owner '
                         . 'FROM whups_ticket_owners WHERE ticket_id IN '
                         . '(' . str_repeat('?, ', count($ticketId) - 1) . '?)',
@@ -3213,7 +3232,7 @@ class Whups_Driver_Sql extends Whups_Driver
             }
         } else {
             try {
-                $owners = $this->_db->selectAll(
+                $owners = $this->_db->select(
                     'SELECT ticket_id as id, ticket_owner as owner '
                         . 'FROM whups_ticket_owners WHERE ticket_id = ?',
                     array((int)$ticketId));

@@ -2,7 +2,7 @@
 /**
  * This object represents the user defined portal layout.
  *
- * Copyright 2003-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -36,7 +36,7 @@ class Horde_Core_Block_Layout_View extends Horde_Core_Block_Layout
      * @param Horde_Url $editUrl
      * @param Horde_Url $viewUrl
      */
-    public function __construct($layout = array(), $editUrl, $viewUrl)
+    public function __construct($layout, $editUrl, $viewUrl)
     {
         $this->_layout = $layout;
         $this->_editUrl = $editUrl;

@@ -10,9 +10,9 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-01-13</date>
+ <date>2016-07-02</date>
  <version>
-  <release>1.0.7</release>
+  <release>1.0.12</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -32,8 +32,10 @@
       <file name="autoload_namespaces.php" role="php" />
       <file name="autoload_psr4.php" role="php" />
       <file name="autoload_real.php" role="php" />
+      <file name="autoload_static.php" role="php" />
       <file name="ClassLoader.php" role="php" />
       <file name="installed.json" role="php" />
+      <file name="LICENSE" role="php" />
      </dir> <!-- /bundle/vendor/composer -->
      <dir name="sabberworm">
       <dir name="php-css-parser">
@@ -69,10 +71,10 @@
           <dir name="Value">
            <file name="Color.php" role="php" />
            <file name="CSSFunction.php" role="php" />
+           <file name="CSSString.php" role="php" />
            <file name="PrimitiveValue.php" role="php" />
            <file name="RuleValueList.php" role="php" />
            <file name="Size.php" role="php" />
-           <file name="String.php" role="php" />
            <file name="URL.php" role="php" />
            <file name="Value.php" role="php" />
            <file name="ValueList.php" role="php" />
@@ -86,6 +88,7 @@
        </dir> <!-- /bundle/vendor/sabberworm/php-css-parser/lib -->
        <dir name="tests">
         <dir name="files">
+         <file name="-empty.css" role="php" />
          <file name="-end-token-2.css" role="php" />
          <file name="-end-token.css" role="php" />
          <file name="-fault-tolerance.css" role="php" />
@@ -170,9 +173,9 @@
  <dependencies>
   <required>
    <php>
-    <min>5.3.0</min>
-    <max>6.0.0alpha1</max>
-    <exclude>6.0.0alpha1</exclude>
+    <min>5.3.2</min>
+    <max>8.0.0alpha1</max>
+    <exclude>8.0.0alpha1</exclude>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -191,8 +194,10 @@
    <install as="Horde/Css/Parser/vendor/composer/autoload_namespaces.php" name="bundle/vendor/composer/autoload_namespaces.php" />
    <install as="Horde/Css/Parser/vendor/composer/autoload_psr4.php" name="bundle/vendor/composer/autoload_psr4.php" />
    <install as="Horde/Css/Parser/vendor/composer/autoload_real.php" name="bundle/vendor/composer/autoload_real.php" />
+   <install as="Horde/Css/Parser/vendor/composer/autoload_static.php" name="bundle/vendor/composer/autoload_static.php" />
    <install as="Horde/Css/Parser/vendor/composer/ClassLoader.php" name="bundle/vendor/composer/ClassLoader.php" />
    <install as="Horde/Css/Parser/vendor/composer/installed.json" name="bundle/vendor/composer/installed.json" />
+   <install as="Horde/Css/Parser/vendor/composer/LICENSE" name="bundle/vendor/composer/LICENSE" />
    <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/.travis.yml" name="bundle/vendor/sabberworm/php-css-parser/.travis.yml" />
    <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/CHANGELOG.md" name="bundle/vendor/sabberworm/php-css-parser/CHANGELOG.md" />
    <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/Doxyfile" name="bundle/vendor/sabberworm/php-css-parser/Doxyfile" />
@@ -220,16 +225,17 @@
    <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/RuleSet/RuleSet.php" name="bundle/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/RuleSet/RuleSet.php" />
    <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Value/Color.php" name="bundle/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Value/Color.php" />
    <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Value/CSSFunction.php" name="bundle/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Value/CSSFunction.php" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Value/CSSString.php" name="bundle/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Value/CSSString.php" />
    <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Value/PrimitiveValue.php" name="bundle/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Value/PrimitiveValue.php" />
    <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Value/RuleValueList.php" name="bundle/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Value/RuleValueList.php" />
    <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Value/Size.php" name="bundle/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Value/Size.php" />
-   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Value/String.php" name="bundle/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Value/String.php" />
    <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Value/URL.php" name="bundle/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Value/URL.php" />
    <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Value/Value.php" name="bundle/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Value/Value.php" />
    <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Value/ValueList.php" name="bundle/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Value/ValueList.php" />
    <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/tests/bootstrap.php" name="bundle/vendor/sabberworm/php-css-parser/tests/bootstrap.php" />
    <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/tests/phpunit.xml" name="bundle/vendor/sabberworm/php-css-parser/tests/phpunit.xml" />
    <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/tests/quickdump.php" name="bundle/vendor/sabberworm/php-css-parser/tests/quickdump.php" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/tests/files/-empty.css" name="bundle/vendor/sabberworm/php-css-parser/tests/files/-empty.css" />
    <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/tests/files/-end-token-2.css" name="bundle/vendor/sabberworm/php-css-parser/tests/files/-end-token-2.css" />
    <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/tests/files/-end-token.css" name="bundle/vendor/sabberworm/php-css-parser/tests/files/-end-token.css" />
    <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/tests/files/-fault-tolerance.css" name="bundle/vendor/sabberworm/php-css-parser/tests/files/-fault-tolerance.css" />
@@ -369,7 +375,73 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-01-13</date>
+   <date>2015-07-31</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Prevent segfault due to non-ascii characters on some systems.
+* [jan] Fix PHP7 error because of reserved "String".
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.8</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-02-01</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Mark PHP 7 as supported.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.9</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-04-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Update to PHP-CSS-Parser 7.0.2 (Request #14297).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.10</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-04-14</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix upstream regression causing infite loops with empty CSS documents (Bug #14318).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.11</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-07-02</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Update to PHP-CSS-Parser 7.0.3.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.12</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-07-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

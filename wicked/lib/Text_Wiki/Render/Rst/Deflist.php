@@ -2,7 +2,7 @@
 /**
  * Renders a definition list for a Wiki page.
  *
- * Copyright 2011-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPLv2). If
  * you did not receive this file, see
@@ -45,7 +45,7 @@ class Text_Wiki_Render_Rst_Deflist extends Text_Wiki_Render
             return '';
         case 'list_end':
             $this->wiki->popRenderCallback();
-            return Text_Wiki_Render_Rst_Links::append();
+            return '';
         case 'term_end':
         case 'narr_end':
             return $this->wiki->delim;

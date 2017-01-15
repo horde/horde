@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2001-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -537,7 +537,7 @@ class Mnemo
         $cs = unserialize($GLOBALS['prefs']->getValue('sync_notepads'));
         if (!empty($cs)) {
             if ($prune) {
-                $notepads =  self::listNotepads(true, Horde_Perms::EDIT);
+                $notepads =  self::listNotepads(true, Horde_Perms::DELETE);
                 $cscopy = array_flip($cs);
                 foreach ($cs as $c) {
                     if (empty($notepads[$c])) {
@@ -552,7 +552,7 @@ class Mnemo
             return $cs;
         }
 
-        if ($cs = self::getDefaultNotepad(Horde_Perms::EDIT)) {
+        if ($cs = self::getDefaultNotepad(Horde_Perms::DELETE)) {
             return array($cs);
         }
 

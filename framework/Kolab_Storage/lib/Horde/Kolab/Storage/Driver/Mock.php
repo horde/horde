@@ -14,7 +14,7 @@
 /**
  * An Kolab storage mock driver.
  *
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -586,7 +586,8 @@ extends Horde_Kolab_Storage_Driver_Base
      *
      * @param string $folder Check the status of this folder.
      *
-     * @return array  An array that contains 'uidvalidity' and 'uidnext'.
+     * @return array  An array that contains 'uidvalidity', 'uidnext', and
+     *                'token'.
      */
     public function status($folder)
     {

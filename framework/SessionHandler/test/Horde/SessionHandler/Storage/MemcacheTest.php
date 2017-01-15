@@ -5,7 +5,7 @@
 require_once dirname(__FILE__) . '/Base.php';
 
 /**
- * Copyright 2012-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
  * @author     Jan Schneider <jan@horde.org>
  * @category   Horde
@@ -56,7 +56,7 @@ class Horde_SessionHandler_Storage_MemcacheTest extends Horde_SessionHandler_Sto
 
     public static function setUpBeforeClass()
     {
-        if (!extension_loaded('memcache')) {
+        if (!(extension_loaded('memcache') || extension_loaded('memcached'))) {
             self::$reason = 'No memcache extension.';
             return;
         }

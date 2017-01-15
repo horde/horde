@@ -49,16 +49,14 @@ Upgrading Kronolith from 4.x to 5.x
 Configuration
 -------------
 
+The 'maps' configuration options have been moved to the ``horde`` application
+configuration.
+
 The 'table' configuration options have been removed, the database tables have
 fixed names now.
 
-
-Hooks (hooks.php)
------------------
-
-The following hooks have been added::
-
-   caldav_url
+Resources are now share-based and no longer require an explicit driver
+selection. The configuration options have been changed to reflect this.
 
 
 Upgrading Kronolith from 2.3.x to 3.x

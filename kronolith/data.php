@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2001-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -156,6 +156,8 @@ if (is_array($next_step)) {
     }
 
     $recurrences = array();
+    $ical = null;
+
     foreach ($next_step as $row) {
         if ($max_events !== true && $num_events >= $max_events) {
             Horde::permissionDeniedError(
@@ -165,6 +167,18 @@ if (is_array($next_step)) {
             );
             break;
         }
+
+        if ($row instanceof Horde_Icalendar_Vevent) {
+            if (!$ical) {
+                $ical = new Horde_Icalendar();
+            }
+            $ical->addComponent($row);
+            if ($max_events !== true) {
+                $num_events++;
+            }
+            continue;
+        }
+
         try {
             $event = $kronolith_driver->getEvent();
         } catch (Exception $e) {
@@ -174,17 +188,7 @@ if (is_array($next_step)) {
             $error = true;
             break;
         }
-        if ($row instanceof Horde_Icalendar_Vevent) {
-            // RECURRENCE-ID entries must be imported after the original
-            // recurring event is imported.
-            try {
-                $row->getAttribute('RECURRENCE-ID');
-                $recurrences[] = $row;
-                continue;
-            } catch (Horde_Icalendar_Exception $e) {
-                $event->fromiCalendar($row);
-            }
-        } elseif ($row instanceof Horde_Icalendar) {
+        if ($row instanceof Horde_Icalendar) {
             // Skip other iCalendar components for now.
             continue;
         } else {
@@ -210,16 +214,15 @@ if (is_array($next_step)) {
         }
     }
 
-    // Any RECURRENCE-ID entries?
-    foreach ($recurrences as $recurrence) {
-        $event = $kronolith_driver->getEvent();
+    if (!empty($ical)) {
+        $ical_importer = new Kronolith_Icalendar_Handler_Base($ical, $kronolith_driver);
         try {
-            $event->fromiCalendar($recurrence);
-            $event->save();
-        } catch (Exception $e) {
-            $notification->push($e, 'horde.error');
+            $ical_importer->process();
+        } catch (Kronolith_Exception $e) {
+            $msg = _("Can't create a new event.")
+                . ' ' . sprintf(_("This is what the server said: %s"), $e->getMessage());
+            $notification->push($msg, 'horde.error');
             $error = true;
-            break;
         }
     }
 

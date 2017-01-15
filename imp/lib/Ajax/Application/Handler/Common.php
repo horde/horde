@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2012-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
- * @copyright 2012-2015 Horde LLC
+ * @copyright 2012-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -17,7 +17,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2012-2015 Horde LLC
+ * @copyright 2012-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -49,7 +49,7 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
     /**
      * AJAX action: Output ViewPort data.
      *
-     * See the list of variables needed for IMP_Ajax_Appication#changed() and
+     * See the list of variables needed for IMP_Ajax_Application#changed() and
      * IMP_Ajax_Application#viewPortData().
      * Additional variables used (contained in 'viewport' parameter):
      *   - checkcache: (integer) If 1, only send data if cache has been
@@ -773,6 +773,7 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
 
         case 'smime':
             $type = 'smimePersonal';
+            $params['secondary'] = IMP_Smime::KEY_SECONDARY_OR_PRIMARY;
             break;
         }
 

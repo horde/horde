@@ -3,13 +3,13 @@
 namespace Horde\Socket;
 
 /**
- * Copyright 2013-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2013-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category  Horde
- * @copyright 2013-2015 Horde LLC
+ * @copyright 2013-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Socket_Client
  */
@@ -20,7 +20,7 @@ namespace Horde\Socket;
  * @author    Michael Slusarz <slusarz@horde.org>
  * @author    Jan Schneider <jan@horde.org>
  * @category  Horde
- * @copyright 2013-2015 Horde LLC
+ * @copyright 2013-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Socket_Client
  *
@@ -142,11 +142,18 @@ class Client
      */
     public function startTls()
     {
-        if ($this->connected &&
-            !$this->secure &&
-            (@stream_socket_enable_crypto($this->_stream, true, STREAM_CRYPTO_METHOD_TLS_CLIENT) === true)) {
-            $this->_secure = true;
-            return true;
+        if ($this->connected && !$this->secure) {
+            if (defined('STREAM_CRYPTO_METHOD_TLSv1_0_CLIENT')) {
+                $mode = STREAM_CRYPTO_METHOD_TLSv1_0_CLIENT
+                    | STREAM_CRYPTO_METHOD_TLSv1_1_CLIENT
+                    | STREAM_CRYPTO_METHOD_TLSv1_2_CLIENT;
+            } else {
+                $mode = STREAM_CRYPTO_METHOD_TLS_CLIENT;
+            }
+            if (@stream_socket_enable_crypto($this->_stream, true, $mode) === true) {
+                $this->_secure = true;
+                return true;
+            }
         }
 
         return false;

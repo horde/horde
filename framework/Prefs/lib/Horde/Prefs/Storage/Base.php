@@ -1,11 +1,18 @@
 <?php
 /**
- * Storage driver for the preferences system.
- *
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Prefs
+ */
+
+/**
+ * Storage driver for the preferences system.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
@@ -31,7 +38,7 @@ abstract class Horde_Prefs_Storage_Base
     public function __construct($user, array $params = array())
     {
         $this->_params = array_merge($this->_params, $params);
-        $this->_params['user'] = $user;
+        $this->_params['user'] = (string)$user;
     }
 
     /**

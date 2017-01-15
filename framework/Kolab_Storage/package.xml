@@ -11,10 +11,16 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2015-01-09</date>
+ <lead>
+  <name>Michael J Rubinsky</name>
+  <user>mrubinsk</user>
+  <email>mrubinsk@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2016-12-16</date>
  <version>
-  <release>2.1.3</release>
-  <api>2.1.0</api>
+  <release>2.2.4</release>
+  <api>2.2.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -188,6 +194,7 @@
        <dir name="Synchronization">
         <file name="OncePerSession.php" role="php" />
         <file name="TimeBased.php" role="php" />
+        <file name="Token.php" role="php" />
        </dir> <!-- /lib/Horde/Kolab/Storage/Synchronization -->
        <file name="Base.php" role="php" />
        <file name="Cache.php" role="php" />
@@ -197,6 +204,7 @@
        <file name="Exception.php" role="php" />
        <file name="Factory.php" role="php" />
        <file name="Folder.php" role="php" />
+       <file name="HistoryPrefix.php" role="php" />
        <file name="Object.php" role="php" />
        <file name="Queriable.php" role="php" />
        <file name="Query.php" role="php" />
@@ -502,6 +510,7 @@
         <file name="event.php" role="test" />
         <file name="event.xml.qp" role="test" />
         <file name="note.eml" role="test" />
+        <file name="note2.eml" role="test" />
         <file name="preferences.1" role="test" />
         <file name="preferences.2" role="test" />
        </dir> <!-- /test/Horde/Kolab/Storage/fixtures -->
@@ -511,6 +520,7 @@
        <dir name="Stub">
         <file name="DataQuery.php" role="test" />
         <file name="Driver.php" role="test" />
+        <file name="HistoryPrefix.php" role="test" />
        </dir> <!-- /test/Horde/Kolab/Storage/Stub -->
        <dir name="Unit">
         <dir name="Cache">
@@ -631,8 +641,8 @@
   <required>
    <php>
     <min>5.3.0</min>
-    <max>6.0.0alpha1</max>
-    <exclude>6.0.0alpha1</exclude>
+    <max>8.0.0alpha1</max>
+    <exclude>8.0.0alpha1</exclude>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -741,6 +751,7 @@
    <install as="Horde/Kolab/Storage/Exception.php" name="lib/Horde/Kolab/Storage/Exception.php" />
    <install as="Horde/Kolab/Storage/Factory.php" name="lib/Horde/Kolab/Storage/Factory.php" />
    <install as="Horde/Kolab/Storage/Folder.php" name="lib/Horde/Kolab/Storage/Folder.php" />
+   <install as="Horde/Kolab/Storage/HistoryPrefix.php" name="lib/Horde/Kolab/Storage/HistoryPrefix.php" />
    <install as="Horde/Kolab/Storage/Object.php" name="lib/Horde/Kolab/Storage/Object.php" />
    <install as="Horde/Kolab/Storage/Queriable.php" name="lib/Horde/Kolab/Storage/Queriable.php" />
    <install as="Horde/Kolab/Storage/Query.php" name="lib/Horde/Kolab/Storage/Query.php" />
@@ -826,6 +837,7 @@
    <install as="Horde/Kolab/Storage/QuerySet/Uncached.php" name="lib/Horde/Kolab/Storage/QuerySet/Uncached.php" />
    <install as="Horde/Kolab/Storage/Synchronization/OncePerSession.php" name="lib/Horde/Kolab/Storage/Synchronization/OncePerSession.php" />
    <install as="Horde/Kolab/Storage/Synchronization/TimeBased.php" name="lib/Horde/Kolab/Storage/Synchronization/TimeBased.php" />
+   <install as="Horde/Kolab/Storage/Synchronization/Token.php" name="lib/Horde/Kolab/Storage/Synchronization/Token.php" />
    <install as="locale/Horde_Kolab_Storage.pot" name="locale/Horde_Kolab_Storage.pot" />
    <install as="locale/ar/LC_MESSAGES/Horde_Kolab_Storage.mo" name="locale/ar/LC_MESSAGES/Horde_Kolab_Storage.mo" />
    <install as="locale/ar/LC_MESSAGES/Horde_Kolab_Storage.po" name="locale/ar/LC_MESSAGES/Horde_Kolab_Storage.po" />
@@ -931,11 +943,13 @@
    <install as="Horde/Kolab/Storage/fixtures/event.php" name="test/Horde/Kolab/Storage/fixtures/event.php" />
    <install as="Horde/Kolab/Storage/fixtures/event.xml.qp" name="test/Horde/Kolab/Storage/fixtures/event.xml.qp" />
    <install as="Horde/Kolab/Storage/fixtures/note.eml" name="test/Horde/Kolab/Storage/fixtures/note.eml" />
+   <install as="Horde/Kolab/Storage/fixtures/note2.eml" name="test/Horde/Kolab/Storage/fixtures/note2.eml" />
    <install as="Horde/Kolab/Storage/fixtures/preferences.1" name="test/Horde/Kolab/Storage/fixtures/preferences.1" />
    <install as="Horde/Kolab/Storage/fixtures/preferences.2" name="test/Horde/Kolab/Storage/fixtures/preferences.2" />
    <install as="Horde/Kolab/Storage/Server/DriverTest.php" name="test/Horde/Kolab/Storage/Server/DriverTest.php" />
    <install as="Horde/Kolab/Storage/Stub/DataQuery.php" name="test/Horde/Kolab/Storage/Stub/DataQuery.php" />
    <install as="Horde/Kolab/Storage/Stub/Driver.php" name="test/Horde/Kolab/Storage/Stub/Driver.php" />
+   <install as="Horde/Kolab/Storage/Stub/HistoryPrefix.php" name="test/Horde/Kolab/Storage/Stub/HistoryPrefix.php" />
    <install as="Horde/Kolab/Storage/Unit/CachedTest.php" name="test/Horde/Kolab/Storage/Unit/CachedTest.php" />
    <install as="Horde/Kolab/Storage/Unit/CacheTest.php" name="test/Horde/Kolab/Storage/Unit/CacheTest.php" />
    <install as="Horde/Kolab/Storage/Unit/FactoryTest.php" name="test/Horde/Kolab/Storage/Unit/FactoryTest.php" />
@@ -1364,7 +1378,91 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-01-09</date>
+   <date>2015-04-13</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix deleting object attachments from cache (Bug #13268).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.4</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-04-28</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix issues with certain locales like Turkish.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.0</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-01-02</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Fix decoding base64 encoded Kolab objects (Bug #14199, mike.gabriel@das-netzwerkteam.de).
+* [mjr] Fix updating Kolab data that contains non 7-bit data (Bug #14201).
+* [mjr] Implement a token based syncronization strategy for servers with QRESYNC/MODSEQ support.
+* [mjr] Improve debug logging.
+* [mjr] Add full Horde_History support for better Kolab&lt;-&gt;Horde&lt;-&gt;Sync client support.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.1</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-02-01</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Mark PHP 7 as supported.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.2</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-04-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Update Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.3</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-12-16</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix detecting large number of messages when logging.
+* [jan] Update German translation.
+* [jan] Update Portuguese translation.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.4</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-12-16</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

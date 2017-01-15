@@ -1,6 +1,34 @@
 ----------
-v5.0.2-git
+v6.0.0-git
 ----------
+
+[jan] Add ISPConfig driver (Thomas Basler <thomas@familie-basler.net>).
+
+
+------
+v5.0.4
+------
+
+[mjr] Fix changing password using Kolab driver (Mike Gabriel
+      <mike.gabriel@das-netzwerkteam.de>).
+
+
+------
+v5.0.3
+------
+
+[jan] Update Italian translation.
+[jan] Update Galician translation.
+[jan] Update Catalan translation.
+[jan] Update German translation.
+[jan] Update Czech translation.
+[jan] Update Brazilian Portuguese translation (Luis Felipe Marzagao
+      <duli@easylifeproject.org>).
+
+
+------
+v5.0.2
+------
 
 [jan] Fix syntax error in HTTP driver (Bug #13464).
 [mms] Re-add 'userdn' hook.
@@ -138,7 +166,7 @@ v3.1-RC1
 [jan] Add new expect driver that uses the expect PECL PHP extension (Duck
       <duck@obala.net>).
 [mjr] Add new http driver for changing passwords via an existing web form.
-[mjr] Pass reference to driver to the _passwd_hook_username call. 
+[mjr] Pass reference to driver to the _passwd_hook_username call.
 [jan] Add Turkish translation (METU <horde-tr@metu.edu.tr>).
 
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2003-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you did
  * did not receive this file, see http://cvs.horde.org/co.php/jonah/LICENSE.
@@ -24,7 +24,8 @@ if (!$criteria) {
         'limit' => 10,
     );
     if ($tag_id = Horde_Util::getFormData('tag_id')) {
-        $criteria['tags'] = $driver->getTagNames(explode(':', $tag_id));
+        $criteria['tags'] = $injector->getInstance('Jonah_Tagger')
+            ->getTagNames(explode(':', $tag_id));
     }
     if ($tag = Horde_Util::getFormData('tag')) {
         $criteria['tags'] = explode(':', $tag);

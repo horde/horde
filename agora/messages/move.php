@@ -2,7 +2,7 @@
 /**
  * The Agora script move thread another forum.
  *
- * Copyright 2003-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -42,7 +42,7 @@ $form->addHidden('', 'agora', 'text', false);
 $form->addHidden('', 'scope', 'text', false);
 
 $forums_list = Agora::formatCategoryTree($messages->getForums(0, false));
-$v = &$form->addVariable(_("Forum"), 'new_forum_id', 'enum', true, false, null, array($forums_list));
+$v = $form->addVariable(_("Forum"), 'new_forum_id', 'enum', true, false, null, array($forums_list));
 $v->setDefault($forum_id);
 
 /* Validate the form. */

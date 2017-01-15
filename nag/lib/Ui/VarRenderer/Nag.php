@@ -109,7 +109,7 @@ class Horde_Core_Ui_VarRenderer_Nag extends Horde_Core_Ui_VarRenderer_Html
             $on ? ' checked="checked"' : '',
             _("Due date specified."),
             _("Date"),
-            htmlspecialchars(strftime('%x', $due_dt))
+            htmlspecialchars(strftime($GLOBALS['prefs']->getValue('date_format_mini'), $due_dt))
         );
 
         if ($GLOBALS['browser']->hasFeature('javascript')) {
@@ -284,6 +284,21 @@ class Horde_Core_Ui_VarRenderer_Nag extends Horde_Core_Ui_VarRenderer_Html
             Horde::label('recur_week_of_month_interval', _("month(s)") . ' ' . _("on the same weekday"))
         );
 
+        /* Monthly on same last weekday. */
+        $on = $recur && $recur->hasRecurType(Horde_Date_Recurrence::RECUR_MONTHLY_LAST_WEEKDAY);
+        $html .= sprintf(
+            '<input id="recurmonthlastweek" type="radio" class="checkbox" name="recurrence" value="%d"%s />
+<label id="recurmonthlastweek_label" for="recurmonthlastweek">%s</label>
+<input type="text" id="recur_last_week_of_month_interval" name="recur_last_week_of_month_interval" size="2" value="%d" />
+%s
+<br />',
+            Horde_Date_Recurrence::RECUR_MONTHLY_LAST_WEEKDAY,
+            $on ? ' checked="checked"' : '',
+            _("Monthly: Recurs every"),
+            $on ? $recur->getRecurInterval() : '',
+            Horde::label('recur_last_week_of_month_interval', _("month(s)") . ' ' . _("on the same last weekday"))
+        );
+
         /* Yearly on same date. */
         $on = $recur && $recur->hasRecurType(Horde_Date_Recurrence::RECUR_YEARLY_DATE);
         $html .= sprintf(
@@ -368,6 +383,22 @@ class Horde_Core_Ui_VarRenderer_Nag extends Horde_Core_Ui_VarRenderer_Html
             Horde::label('recur_count', _("recurrences"))
         );
 
+        /* Exceptions and completions. */
+        if ($recur) {
+            foreach ($recur->getExceptions() as $exception) {
+                $html .= sprintf(
+                    '<input type="hidden" name="exceptions[]" value="%s" />',
+                    $exception
+                );
+            }
+            foreach ($recur->getCompletions() as $completion) {
+                $html .= sprintf(
+                    '<input type="hidden" name="completions[]" value="%s" />',
+                    $completion
+                );
+            }
+        }
+
         return $html;
     }
 
@@ -409,7 +440,7 @@ class Horde_Core_Ui_VarRenderer_Nag extends Horde_Core_Ui_VarRenderer_Html
             $on ? ' checked="checked"' : '',
             _("Start date specified."),
             _("Date"),
-            htmlspecialchars(strftime('%x', $start_dt))
+            htmlspecialchars(strftime($GLOBALS['prefs']->getValue('time_format_mini'), $start_dt))
         );
 
         if ($GLOBALS['browser']->hasFeature('javascript')) {

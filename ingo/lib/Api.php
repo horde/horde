@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2012-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @category  Horde
- * @copyright 2012-2015 Horde LLC
+ * @copyright 2012-2017 Horde LLC
  * @license   http://www.horde.org/licenses/apache ASL
  * @package   Ingo
  */
@@ -18,7 +18,7 @@
  * can interact with Ingo through this API.
  *
  * @category  Horde
- * @copyright 2012-2015 Horde LLC
+ * @copyright 2012-2017 Horde LLC
  * @license   http://www.horde.org/licenses/apache ASL
  * @package   Ingo
  */
@@ -93,18 +93,20 @@ class Ingo_Api extends Horde_Registry_Api
     {
         global $injector, $notification;
 
-        if (!empty($addresses)) {
-            try {
-                $bl = $injector->getInstance('Ingo_Factory_Storage')->create()
-                    ->getSystemRule('Ingo_Rule_System_Blacklist')->addresses;
-                $bl->addAddresses($addresses);
-                Ingo_Script_Util::update(false);
-                foreach ($addresses as $from) {
-                    $notification->push(sprintf(_("The address \"%s\" has been added to your blacklist."), $from));
-                }
-            } catch (Ingo_Exception $e) {
-                $notification->push($e);
+        if (empty($addresses)) {
+            return;
+        }
+
+        try {
+            $injector->getInstance('Ingo_Factory_Storage')->create()
+                ->getSystemRule('Ingo_Rule_System_Blacklist')
+                ->addAddresses($addresses);
+            $injector->getInstance('Ingo_Factory_Script')->activateAll(false);
+            foreach ($addresses as $from) {
+                $notification->push(sprintf(_("The address \"%s\" has been added to your blacklist."), $from));
             }
+        } catch (Ingo_Exception $e) {
+            $notification->push($e);
         }
     }
 
@@ -118,10 +120,10 @@ class Ingo_Api extends Horde_Registry_Api
         global $injector, $notification;
 
         try {
-            $wl = $injector->getInstance('Ingo_Factory_Storage')->create()
-                ->getSystemRule('Ingo_Rule_System_Whitelist')->addresses;
-            $wl->addAddresses($addresses);
-            Ingo_Script_Util::update(false);
+            $injector->getInstance('Ingo_Factory_Storage')->create()
+                ->getSystemRule('Ingo_Rule_System_Whitelist')
+                ->addAddresses($addresses);
+            $injector->getInstance('Ingo_Factory_Script')->activateAll(false);
             foreach ($addresses as $from) {
                 $notification->push(sprintf(_("The address \"%s\" has been added to your whitelist."), $from));
             }
@@ -231,7 +233,7 @@ class Ingo_Api extends Horde_Registry_Api
 
         $ingo_storage->updateRule($vacation);
 
-        Ingo_Script_Util::update();
+        $injector->getInstance('Ingo_Factory_Script')->activateAll();
     }
 
     /**
@@ -276,7 +278,76 @@ class Ingo_Api extends Horde_Registry_Api
         $v = $ingo_storage->getSystemRule('Ingo_Rule_System_Vacation');
         $v->disable = true;
         $ingo_storage->updateRule($v);
-        Ingo_Script_Util::update();
+
+        $injector->getInstance('Ingo_Factory_Script')->activateAll();
+    }
+
+    /**
+     * Retrieves a list of available time objects categories.
+     *
+     * @return array  An array of all configured time object categories.
+     */
+    public function listTimeObjectCategories()
+    {
+        // @todo check if available
+        return array(
+            'vacation' => array(
+                'title' => _("Vacations"),
+                'type' => 'single'
+            )
+        );
+    }
+
+    /**
+     * Lists vacation rules as timeobject.
+     *
+     * @param array $time_categories  The time categories (from
+     *                                listTimeObjectCategories) to list.
+     * @param mixed $start            The start date of the period.
+     * @param mixed $end              The end date of the period.
+     *
+     * @return array  An array of timeObject results.
+     * @throws Turba_Exception
+     */
+    public function listTimeObjects(array $time_categories, $start, $end)
+    {
+        global $injector;
+
+        if (!in_array('vacation', $time_categories)) {
+            return array();
+        }
+
+        $vacation = $injector->getInstance('Ingo_Factory_Storage')
+            ->create()
+            ->getSystemRule('Ingo_Rule_System_Vacation');
+
+        // Don't return any inactive rules.
+        if ($vacation->disable) {
+            return array();
+        }
+
+        // Ensure these are Horde_Dates
+        $start = new Horde_Date($start);
+        $end = new Horde_Date($end);
+
+        // Use the vacation dates if possible otherwise use the full range
+        // asked for.
+        $vac_start = $vacation->start ? $vacation->start : $start->timestamp();
+        $vac_end = $vacation->end ? $vacation->end : $end->timestamp();
+
+        if ($vac_start <= $end->timestamp() && $vac_end >= $start->timestamp()) {
+            return array(
+                $vacation->uid => array(
+                    'id' => $vacation->uid,
+                    'title' => $vacation->subject,
+                    'start' => $vacation->start,
+                    'end' => $vacation->end,
+                    'link' => Ingo_Basic_Vacation::url()
+                )
+            );
+        }
+
+        return array();
     }
 
 }

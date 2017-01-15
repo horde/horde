@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2015-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
- * @copyright 2015 Horde LLC
+ * @copyright 2015-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -16,7 +16,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2015 Horde LLC
+ * @copyright 2015-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  *
@@ -25,6 +25,13 @@
 abstract class IMP_Maillog_Log_Sentmail
 extends IMP_Maillog_Log_Base
 {
+    /**
+     * Sent-mail folder.
+     *
+     * @var string
+     */
+    protected $_folder;
+
     /**
      * Message ID.
      *
@@ -43,10 +50,14 @@ extends IMP_Maillog_Log_Base
      * Constructor.
      *
      * @param array $params  Parameters:
+     *   - folder: (IMP_Mailbox|string) Potential sent-mail folder.
      *   - msgid: (string) Message ID of the message sent.
      */
     public function __construct(array $params = array())
     {
+        if (isset($params['folder'])) {
+            $this->_folder = strval($params['folder']);
+        }
         if (isset($params['msgid'])) {
             $this->_msgId = strval($params['msgid']);
         }
@@ -58,6 +69,8 @@ extends IMP_Maillog_Log_Base
     public function __get($name)
     {
         switch ($name) {
+        case 'folder':
+            return $this->_folder;
         case 'msg_id':
             return $this->_msgId;
         }
@@ -73,6 +86,7 @@ extends IMP_Maillog_Log_Base
     public function addData()
     {
         return array_merge(parent::addData(), array_filter(array(
+            'folder' => $this->folder,
             'msgid' => $this->msg_id
         )));
     }
@@ -87,7 +101,11 @@ extends IMP_Maillog_Log_Base
         $special = IMP_Mailbox::getSpecialMailboxes();
 
         /* Check for sent-mail mailbox(es) first. */
-        $out = $special[IMP_Mailbox::SPECIAL_SENT];
+        $out = array();
+        if ($this->folder) {
+            $out[] = new IMP_Mailbox($this->folder);
+        }
+        $out = array_unique(array_merge($out, $special[IMP_Mailbox::SPECIAL_SENT]));
 
         /* Add trash mailbox as backup. */
         if (!empty($special[IMP_Mailbox::SPECIAL_TRASH]) &&

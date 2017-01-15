@@ -2,7 +2,7 @@
 /**
  * This file contains all Horde_Form classes for priority administration.
  *
- * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -29,7 +29,7 @@ class Whups_Form_Admin_DefaultPriority extends Horde_Form
         }
 
         $this->addHidden('', 'type', 'int', true, true);
-        $var = &$this->addVariable(_("Priority Name"), 'priority', $stype, false,
+        $var = $this->addVariable(_("Priority Name"), 'priority', $stype, false,
                                    false, null, $type_params);
         $var->setDefault($GLOBALS['whups_driver']->getDefaultPriority($vars->get('type')));
     }

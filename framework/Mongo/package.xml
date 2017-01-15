@@ -10,9 +10,9 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-01-09</date>
+ <date>2016-07-12</date>
  <version>
-  <release>1.0.4</release>
+  <release>1.1.1</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -25,6 +25,168 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="bundle">
+    <dir name="vendor">
+     <dir name="alcaeus">
+      <dir name="mongo-php-adapter">
+       <dir name="lib">
+        <dir name="Alcaeus">
+         <dir name="MongoDbAdapter">
+          <dir name="Helper">
+           <file name="ReadPreference.php" role="php" />
+           <file name="SlaveOkay.php" role="php" />
+           <file name="WriteConcern.php" role="php" />
+           <file name="WriteConcernConverter.php" role="php" />
+          </dir> <!-- /bundle/vendor/alcaeus/mongo-php-adapter/lib/Alcaeus/MongoDbAdapter/Helper -->
+          <file name="AbstractCursor.php" role="php" />
+          <file name="ExceptionConverter.php" role="php" />
+          <file name="TypeConverter.php" role="php" />
+          <file name="TypeInterface.php" role="php" />
+         </dir> <!-- /bundle/vendor/alcaeus/mongo-php-adapter/lib/Alcaeus/MongoDbAdapter -->
+        </dir> <!-- /bundle/vendor/alcaeus/mongo-php-adapter/lib/Alcaeus -->
+        <dir name="Mongo">
+         <file name="functions.php" role="php" />
+         <file name="Mongo.php" role="php" />
+         <file name="MongoBinData.php" role="php" />
+         <file name="MongoClient.php" role="php" />
+         <file name="MongoCode.php" role="php" />
+         <file name="MongoCollection.php" role="php" />
+         <file name="MongoCommandCursor.php" role="php" />
+         <file name="MongoConnectionException.php" role="php" />
+         <file name="MongoCursor.php" role="php" />
+         <file name="MongoCursorException.php" role="php" />
+         <file name="MongoCursorInterface.php" role="php" />
+         <file name="MongoCursorTimeoutException.php" role="php" />
+         <file name="MongoDate.php" role="php" />
+         <file name="MongoDB.php" role="php" />
+         <file name="MongoDBRef.php" role="php" />
+         <file name="MongoDeleteBatch.php" role="php" />
+         <file name="MongoDuplicateKeyException.php" role="php" />
+         <file name="MongoException.php" role="php" />
+         <file name="MongoExecutionTimeoutException.php" role="php" />
+         <file name="MongoGridFS.php" role="php" />
+         <file name="MongoGridFSCursor.php" role="php" />
+         <file name="MongoGridFSException.php" role="php" />
+         <file name="MongoGridFSFile.php" role="php" />
+         <file name="MongoId.php" role="php" />
+         <file name="MongoInsertBatch.php" role="php" />
+         <file name="MongoInt32.php" role="php" />
+         <file name="MongoInt64.php" role="php" />
+         <file name="MongoLog.php" role="php" />
+         <file name="MongoMaxKey.php" role="php" />
+         <file name="MongoMinKey.php" role="php" />
+         <file name="MongoPool.php" role="php" />
+         <file name="MongoProtocolException.php" role="php" />
+         <file name="MongoRegex.php" role="php" />
+         <file name="MongoResultException.php" role="php" />
+         <file name="MongoTimestamp.php" role="php" />
+         <file name="MongoUpdateBatch.php" role="php" />
+         <file name="MongoWriteBatch.php" role="php" />
+         <file name="MongoWriteConcernException.php" role="php" />
+        </dir> <!-- /bundle/vendor/alcaeus/mongo-php-adapter/lib/Mongo -->
+       </dir> <!-- /bundle/vendor/alcaeus/mongo-php-adapter/lib -->
+       <file name=".gitignore" role="php" />
+       <file name=".scrutinizer.yml" role="php" />
+       <file name=".travis.yml" role="php" />
+       <file name="CHANGELOG-1.0.md" role="php" />
+       <file name="LICENSE" role="php" />
+       <file name="phpunit.xml.dist" role="php" />
+       <file name="README.md" role="php" />
+      </dir> <!-- /bundle/vendor/alcaeus/mongo-php-adapter -->
+     </dir> <!-- /bundle/vendor/alcaeus -->
+     <dir name="composer">
+      <file name="autoload_classmap.php" role="php" />
+      <file name="autoload_files.php" role="php" />
+      <file name="autoload_namespaces.php" role="php" />
+      <file name="autoload_psr4.php" role="php" />
+      <file name="autoload_real.php" role="php" />
+      <file name="autoload_static.php" role="php" />
+      <file name="ClassLoader.php" role="php" />
+      <file name="installed.json" role="php" />
+      <file name="LICENSE" role="php" />
+     </dir> <!-- /bundle/vendor/composer -->
+     <dir name="mongodb">
+      <dir name="mongodb">
+       <dir name="src">
+        <dir name="Exception">
+         <file name="BadMethodCallException.php" role="php" />
+         <file name="Exception.php" role="php" />
+         <file name="InvalidArgumentException.php" role="php" />
+         <file name="RuntimeException.php" role="php" />
+         <file name="UnexpectedValueException.php" role="php" />
+        </dir> <!-- /bundle/vendor/mongodb/mongodb/src/Exception -->
+        <dir name="Model">
+         <file name="BSONArray.php" role="php" />
+         <file name="BSONDocument.php" role="php" />
+         <file name="CollectionInfo.php" role="php" />
+         <file name="CollectionInfoCommandIterator.php" role="php" />
+         <file name="CollectionInfoIterator.php" role="php" />
+         <file name="CollectionInfoLegacyIterator.php" role="php" />
+         <file name="DatabaseInfo.php" role="php" />
+         <file name="DatabaseInfoIterator.php" role="php" />
+         <file name="DatabaseInfoLegacyIterator.php" role="php" />
+         <file name="IndexInfo.php" role="php" />
+         <file name="IndexInfoIterator.php" role="php" />
+         <file name="IndexInfoIteratorIterator.php" role="php" />
+         <file name="IndexInput.php" role="php" />
+        </dir> <!-- /bundle/vendor/mongodb/mongodb/src/Model -->
+        <dir name="Operation">
+         <file name="Aggregate.php" role="php" />
+         <file name="BulkWrite.php" role="php" />
+         <file name="Count.php" role="php" />
+         <file name="CreateCollection.php" role="php" />
+         <file name="CreateIndexes.php" role="php" />
+         <file name="DatabaseCommand.php" role="php" />
+         <file name="Delete.php" role="php" />
+         <file name="DeleteMany.php" role="php" />
+         <file name="DeleteOne.php" role="php" />
+         <file name="Distinct.php" role="php" />
+         <file name="DropCollection.php" role="php" />
+         <file name="DropDatabase.php" role="php" />
+         <file name="DropIndexes.php" role="php" />
+         <file name="Executable.php" role="php" />
+         <file name="Find.php" role="php" />
+         <file name="FindAndModify.php" role="php" />
+         <file name="FindOne.php" role="php" />
+         <file name="FindOneAndDelete.php" role="php" />
+         <file name="FindOneAndReplace.php" role="php" />
+         <file name="FindOneAndUpdate.php" role="php" />
+         <file name="InsertMany.php" role="php" />
+         <file name="InsertOne.php" role="php" />
+         <file name="ListCollections.php" role="php" />
+         <file name="ListDatabases.php" role="php" />
+         <file name="ListIndexes.php" role="php" />
+         <file name="ReplaceOne.php" role="php" />
+         <file name="Update.php" role="php" />
+         <file name="UpdateMany.php" role="php" />
+         <file name="UpdateOne.php" role="php" />
+        </dir> <!-- /bundle/vendor/mongodb/mongodb/src/Operation -->
+        <file name="BulkWriteResult.php" role="php" />
+        <file name="Client.php" role="php" />
+        <file name="Collection.php" role="php" />
+        <file name="Database.php" role="php" />
+        <file name="DeleteResult.php" role="php" />
+        <file name="functions.php" role="php" />
+        <file name="InsertManyResult.php" role="php" />
+        <file name="InsertOneResult.php" role="php" />
+        <file name="UpdateResult.php" role="php" />
+       </dir> <!-- /bundle/vendor/mongodb/mongodb/src -->
+       <file name=".gitignore" role="php" />
+       <file name=".travis.yml" role="php" />
+       <file name="apigen.neon" role="php" />
+       <file name="LICENSE" role="php" />
+       <file name="Makefile" role="php" />
+       <file name="mkdocs.yml" role="php" />
+       <file name="phpunit.xml.dist" role="php" />
+       <file name="README.md" role="php" />
+       <file name="RELEASE-0.1.0" role="php" />
+       <file name="RELEASE-0.2.0" role="php" />
+       <file name="RELEASE-1.0" role="php" />
+      </dir> <!-- /bundle/vendor/mongodb/mongodb -->
+     </dir> <!-- /bundle/vendor/mongodb -->
+     <file name="autoload.php" role="php" />
+    </dir> <!-- /bundle/vendor -->
+   </dir> <!-- /bundle -->
    <dir name="doc">
     <dir name="Horde">
      <dir name="Mongo">
@@ -48,22 +210,159 @@
   <required>
    <php>
     <min>5.3.0</min>
-    <max>6.0.0alpha1</max>
-    <exclude>6.0.0alpha1</exclude>
+    <max>8.0.0alpha1</max>
+    <exclude>8.0.0alpha1</exclude>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
    </pearinstaller>
+  </required>
+  <optional>
    <package>
     <name>mongo</name>
     <channel>pecl.php.net</channel>
     <min>1.3.0</min>
     <providesextension>mongo</providesextension>
    </package>
-  </required>
+   <package>
+    <name>mongodb</name>
+    <channel>pecl.php.net</channel>
+    <providesextension>mongodb</providesextension>
+   </package>
+  </optional>
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="Horde/Mongo/vendor/autoload.php" name="bundle/vendor/autoload.php" />
+   <install as="Horde/Mongo/vendor/alcaeus/mongo-php-adapter/.gitignore" name="bundle/vendor/alcaeus/mongo-php-adapter/.gitignore" />
+   <install as="Horde/Mongo/vendor/alcaeus/mongo-php-adapter/.scrutinizer.yml" name="bundle/vendor/alcaeus/mongo-php-adapter/.scrutinizer.yml" />
+   <install as="Horde/Mongo/vendor/alcaeus/mongo-php-adapter/.travis.yml" name="bundle/vendor/alcaeus/mongo-php-adapter/.travis.yml" />
+   <install as="Horde/Mongo/vendor/alcaeus/mongo-php-adapter/CHANGELOG-1.0.md" name="bundle/vendor/alcaeus/mongo-php-adapter/CHANGELOG-1.0.md" />
+   <install as="Horde/Mongo/vendor/alcaeus/mongo-php-adapter/LICENSE" name="bundle/vendor/alcaeus/mongo-php-adapter/LICENSE" />
+   <install as="Horde/Mongo/vendor/alcaeus/mongo-php-adapter/phpunit.xml.dist" name="bundle/vendor/alcaeus/mongo-php-adapter/phpunit.xml.dist" />
+   <install as="Horde/Mongo/vendor/alcaeus/mongo-php-adapter/README.md" name="bundle/vendor/alcaeus/mongo-php-adapter/README.md" />
+   <install as="Horde/Mongo/vendor/alcaeus/mongo-php-adapter/lib/Alcaeus/MongoDbAdapter/AbstractCursor.php" name="bundle/vendor/alcaeus/mongo-php-adapter/lib/Alcaeus/MongoDbAdapter/AbstractCursor.php" />
+   <install as="Horde/Mongo/vendor/alcaeus/mongo-php-adapter/lib/Alcaeus/MongoDbAdapter/ExceptionConverter.php" name="bundle/vendor/alcaeus/mongo-php-adapter/lib/Alcaeus/MongoDbAdapter/ExceptionConverter.php" />
+   <install as="Horde/Mongo/vendor/alcaeus/mongo-php-adapter/lib/Alcaeus/MongoDbAdapter/TypeConverter.php" name="bundle/vendor/alcaeus/mongo-php-adapter/lib/Alcaeus/MongoDbAdapter/TypeConverter.php" />
+   <install as="Horde/Mongo/vendor/alcaeus/mongo-php-adapter/lib/Alcaeus/MongoDbAdapter/TypeInterface.php" name="bundle/vendor/alcaeus/mongo-php-adapter/lib/Alcaeus/MongoDbAdapter/TypeInterface.php" />
+   <install as="Horde/Mongo/vendor/alcaeus/mongo-php-adapter/lib/Alcaeus/MongoDbAdapter/Helper/ReadPreference.php" name="bundle/vendor/alcaeus/mongo-php-adapter/lib/Alcaeus/MongoDbAdapter/Helper/ReadPreference.php" />
+   <install as="Horde/Mongo/vendor/alcaeus/mongo-php-adapter/lib/Alcaeus/MongoDbAdapter/Helper/SlaveOkay.php" name="bundle/vendor/alcaeus/mongo-php-adapter/lib/Alcaeus/MongoDbAdapter/Helper/SlaveOkay.php" />
+   <install as="Horde/Mongo/vendor/alcaeus/mongo-php-adapter/lib/Alcaeus/MongoDbAdapter/Helper/WriteConcern.php" name="bundle/vendor/alcaeus/mongo-php-adapter/lib/Alcaeus/MongoDbAdapter/Helper/WriteConcern.php" />
+   <install as="Horde/Mongo/vendor/alcaeus/mongo-php-adapter/lib/Alcaeus/MongoDbAdapter/Helper/WriteConcernConverter.php" name="bundle/vendor/alcaeus/mongo-php-adapter/lib/Alcaeus/MongoDbAdapter/Helper/WriteConcernConverter.php" />
+   <install as="Horde/Mongo/vendor/alcaeus/mongo-php-adapter/lib/Mongo/functions.php" name="bundle/vendor/alcaeus/mongo-php-adapter/lib/Mongo/functions.php" />
+   <install as="Horde/Mongo/vendor/alcaeus/mongo-php-adapter/lib/Mongo/Mongo.php" name="bundle/vendor/alcaeus/mongo-php-adapter/lib/Mongo/Mongo.php" />
+   <install as="Horde/Mongo/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoBinData.php" name="bundle/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoBinData.php" />
+   <install as="Horde/Mongo/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoClient.php" name="bundle/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoClient.php" />
+   <install as="Horde/Mongo/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoCode.php" name="bundle/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoCode.php" />
+   <install as="Horde/Mongo/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoCollection.php" name="bundle/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoCollection.php" />
+   <install as="Horde/Mongo/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoCommandCursor.php" name="bundle/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoCommandCursor.php" />
+   <install as="Horde/Mongo/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoConnectionException.php" name="bundle/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoConnectionException.php" />
+   <install as="Horde/Mongo/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoCursor.php" name="bundle/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoCursor.php" />
+   <install as="Horde/Mongo/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoCursorException.php" name="bundle/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoCursorException.php" />
+   <install as="Horde/Mongo/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoCursorInterface.php" name="bundle/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoCursorInterface.php" />
+   <install as="Horde/Mongo/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoCursorTimeoutException.php" name="bundle/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoCursorTimeoutException.php" />
+   <install as="Horde/Mongo/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoDate.php" name="bundle/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoDate.php" />
+   <install as="Horde/Mongo/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoDB.php" name="bundle/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoDB.php" />
+   <install as="Horde/Mongo/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoDBRef.php" name="bundle/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoDBRef.php" />
+   <install as="Horde/Mongo/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoDeleteBatch.php" name="bundle/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoDeleteBatch.php" />
+   <install as="Horde/Mongo/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoDuplicateKeyException.php" name="bundle/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoDuplicateKeyException.php" />
+   <install as="Horde/Mongo/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoException.php" name="bundle/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoException.php" />
+   <install as="Horde/Mongo/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoExecutionTimeoutException.php" name="bundle/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoExecutionTimeoutException.php" />
+   <install as="Horde/Mongo/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoGridFS.php" name="bundle/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoGridFS.php" />
+   <install as="Horde/Mongo/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoGridFSCursor.php" name="bundle/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoGridFSCursor.php" />
+   <install as="Horde/Mongo/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoGridFSException.php" name="bundle/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoGridFSException.php" />
+   <install as="Horde/Mongo/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoGridFSFile.php" name="bundle/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoGridFSFile.php" />
+   <install as="Horde/Mongo/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoId.php" name="bundle/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoId.php" />
+   <install as="Horde/Mongo/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoInsertBatch.php" name="bundle/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoInsertBatch.php" />
+   <install as="Horde/Mongo/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoInt32.php" name="bundle/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoInt32.php" />
+   <install as="Horde/Mongo/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoInt64.php" name="bundle/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoInt64.php" />
+   <install as="Horde/Mongo/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoLog.php" name="bundle/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoLog.php" />
+   <install as="Horde/Mongo/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoMaxKey.php" name="bundle/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoMaxKey.php" />
+   <install as="Horde/Mongo/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoMinKey.php" name="bundle/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoMinKey.php" />
+   <install as="Horde/Mongo/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoPool.php" name="bundle/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoPool.php" />
+   <install as="Horde/Mongo/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoProtocolException.php" name="bundle/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoProtocolException.php" />
+   <install as="Horde/Mongo/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoRegex.php" name="bundle/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoRegex.php" />
+   <install as="Horde/Mongo/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoResultException.php" name="bundle/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoResultException.php" />
+   <install as="Horde/Mongo/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoTimestamp.php" name="bundle/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoTimestamp.php" />
+   <install as="Horde/Mongo/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoUpdateBatch.php" name="bundle/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoUpdateBatch.php" />
+   <install as="Horde/Mongo/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoWriteBatch.php" name="bundle/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoWriteBatch.php" />
+   <install as="Horde/Mongo/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoWriteConcernException.php" name="bundle/vendor/alcaeus/mongo-php-adapter/lib/Mongo/MongoWriteConcernException.php" />
+   <install as="Horde/Mongo/vendor/composer/autoload_classmap.php" name="bundle/vendor/composer/autoload_classmap.php" />
+   <install as="Horde/Mongo/vendor/composer/autoload_files.php" name="bundle/vendor/composer/autoload_files.php" />
+   <install as="Horde/Mongo/vendor/composer/autoload_namespaces.php" name="bundle/vendor/composer/autoload_namespaces.php" />
+   <install as="Horde/Mongo/vendor/composer/autoload_psr4.php" name="bundle/vendor/composer/autoload_psr4.php" />
+   <install as="Horde/Mongo/vendor/composer/autoload_real.php" name="bundle/vendor/composer/autoload_real.php" />
+   <install as="Horde/Mongo/vendor/composer/autoload_static.php" name="bundle/vendor/composer/autoload_static.php" />
+   <install as="Horde/Mongo/vendor/composer/ClassLoader.php" name="bundle/vendor/composer/ClassLoader.php" />
+   <install as="Horde/Mongo/vendor/composer/installed.json" name="bundle/vendor/composer/installed.json" />
+   <install as="Horde/Mongo/vendor/composer/LICENSE" name="bundle/vendor/composer/LICENSE" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/.gitignore" name="bundle/vendor/mongodb/mongodb/.gitignore" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/.travis.yml" name="bundle/vendor/mongodb/mongodb/.travis.yml" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/apigen.neon" name="bundle/vendor/mongodb/mongodb/apigen.neon" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/LICENSE" name="bundle/vendor/mongodb/mongodb/LICENSE" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/Makefile" name="bundle/vendor/mongodb/mongodb/Makefile" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/mkdocs.yml" name="bundle/vendor/mongodb/mongodb/mkdocs.yml" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/phpunit.xml.dist" name="bundle/vendor/mongodb/mongodb/phpunit.xml.dist" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/README.md" name="bundle/vendor/mongodb/mongodb/README.md" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/RELEASE-0.1.0" name="bundle/vendor/mongodb/mongodb/RELEASE-0.1.0" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/RELEASE-0.2.0" name="bundle/vendor/mongodb/mongodb/RELEASE-0.2.0" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/RELEASE-1.0" name="bundle/vendor/mongodb/mongodb/RELEASE-1.0" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/src/BulkWriteResult.php" name="bundle/vendor/mongodb/mongodb/src/BulkWriteResult.php" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/src/Client.php" name="bundle/vendor/mongodb/mongodb/src/Client.php" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/src/Collection.php" name="bundle/vendor/mongodb/mongodb/src/Collection.php" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/src/Database.php" name="bundle/vendor/mongodb/mongodb/src/Database.php" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/src/DeleteResult.php" name="bundle/vendor/mongodb/mongodb/src/DeleteResult.php" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/src/functions.php" name="bundle/vendor/mongodb/mongodb/src/functions.php" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/src/InsertManyResult.php" name="bundle/vendor/mongodb/mongodb/src/InsertManyResult.php" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/src/InsertOneResult.php" name="bundle/vendor/mongodb/mongodb/src/InsertOneResult.php" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/src/UpdateResult.php" name="bundle/vendor/mongodb/mongodb/src/UpdateResult.php" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/src/Exception/BadMethodCallException.php" name="bundle/vendor/mongodb/mongodb/src/Exception/BadMethodCallException.php" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/src/Exception/Exception.php" name="bundle/vendor/mongodb/mongodb/src/Exception/Exception.php" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/src/Exception/InvalidArgumentException.php" name="bundle/vendor/mongodb/mongodb/src/Exception/InvalidArgumentException.php" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/src/Exception/RuntimeException.php" name="bundle/vendor/mongodb/mongodb/src/Exception/RuntimeException.php" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/src/Exception/UnexpectedValueException.php" name="bundle/vendor/mongodb/mongodb/src/Exception/UnexpectedValueException.php" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/src/Model/BSONArray.php" name="bundle/vendor/mongodb/mongodb/src/Model/BSONArray.php" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/src/Model/BSONDocument.php" name="bundle/vendor/mongodb/mongodb/src/Model/BSONDocument.php" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/src/Model/CollectionInfo.php" name="bundle/vendor/mongodb/mongodb/src/Model/CollectionInfo.php" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/src/Model/CollectionInfoCommandIterator.php" name="bundle/vendor/mongodb/mongodb/src/Model/CollectionInfoCommandIterator.php" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/src/Model/CollectionInfoIterator.php" name="bundle/vendor/mongodb/mongodb/src/Model/CollectionInfoIterator.php" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/src/Model/CollectionInfoLegacyIterator.php" name="bundle/vendor/mongodb/mongodb/src/Model/CollectionInfoLegacyIterator.php" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/src/Model/DatabaseInfo.php" name="bundle/vendor/mongodb/mongodb/src/Model/DatabaseInfo.php" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/src/Model/DatabaseInfoIterator.php" name="bundle/vendor/mongodb/mongodb/src/Model/DatabaseInfoIterator.php" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/src/Model/DatabaseInfoLegacyIterator.php" name="bundle/vendor/mongodb/mongodb/src/Model/DatabaseInfoLegacyIterator.php" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/src/Model/IndexInfo.php" name="bundle/vendor/mongodb/mongodb/src/Model/IndexInfo.php" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/src/Model/IndexInfoIterator.php" name="bundle/vendor/mongodb/mongodb/src/Model/IndexInfoIterator.php" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/src/Model/IndexInfoIteratorIterator.php" name="bundle/vendor/mongodb/mongodb/src/Model/IndexInfoIteratorIterator.php" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/src/Model/IndexInput.php" name="bundle/vendor/mongodb/mongodb/src/Model/IndexInput.php" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/src/Operation/Aggregate.php" name="bundle/vendor/mongodb/mongodb/src/Operation/Aggregate.php" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/src/Operation/BulkWrite.php" name="bundle/vendor/mongodb/mongodb/src/Operation/BulkWrite.php" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/src/Operation/Count.php" name="bundle/vendor/mongodb/mongodb/src/Operation/Count.php" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/src/Operation/CreateCollection.php" name="bundle/vendor/mongodb/mongodb/src/Operation/CreateCollection.php" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/src/Operation/CreateIndexes.php" name="bundle/vendor/mongodb/mongodb/src/Operation/CreateIndexes.php" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/src/Operation/DatabaseCommand.php" name="bundle/vendor/mongodb/mongodb/src/Operation/DatabaseCommand.php" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/src/Operation/Delete.php" name="bundle/vendor/mongodb/mongodb/src/Operation/Delete.php" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/src/Operation/DeleteMany.php" name="bundle/vendor/mongodb/mongodb/src/Operation/DeleteMany.php" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/src/Operation/DeleteOne.php" name="bundle/vendor/mongodb/mongodb/src/Operation/DeleteOne.php" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/src/Operation/Distinct.php" name="bundle/vendor/mongodb/mongodb/src/Operation/Distinct.php" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/src/Operation/DropCollection.php" name="bundle/vendor/mongodb/mongodb/src/Operation/DropCollection.php" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/src/Operation/DropDatabase.php" name="bundle/vendor/mongodb/mongodb/src/Operation/DropDatabase.php" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/src/Operation/DropIndexes.php" name="bundle/vendor/mongodb/mongodb/src/Operation/DropIndexes.php" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/src/Operation/Executable.php" name="bundle/vendor/mongodb/mongodb/src/Operation/Executable.php" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/src/Operation/Find.php" name="bundle/vendor/mongodb/mongodb/src/Operation/Find.php" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/src/Operation/FindAndModify.php" name="bundle/vendor/mongodb/mongodb/src/Operation/FindAndModify.php" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/src/Operation/FindOne.php" name="bundle/vendor/mongodb/mongodb/src/Operation/FindOne.php" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/src/Operation/FindOneAndDelete.php" name="bundle/vendor/mongodb/mongodb/src/Operation/FindOneAndDelete.php" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/src/Operation/FindOneAndReplace.php" name="bundle/vendor/mongodb/mongodb/src/Operation/FindOneAndReplace.php" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/src/Operation/FindOneAndUpdate.php" name="bundle/vendor/mongodb/mongodb/src/Operation/FindOneAndUpdate.php" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/src/Operation/InsertMany.php" name="bundle/vendor/mongodb/mongodb/src/Operation/InsertMany.php" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/src/Operation/InsertOne.php" name="bundle/vendor/mongodb/mongodb/src/Operation/InsertOne.php" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/src/Operation/ListCollections.php" name="bundle/vendor/mongodb/mongodb/src/Operation/ListCollections.php" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/src/Operation/ListDatabases.php" name="bundle/vendor/mongodb/mongodb/src/Operation/ListDatabases.php" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/src/Operation/ListIndexes.php" name="bundle/vendor/mongodb/mongodb/src/Operation/ListIndexes.php" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/src/Operation/ReplaceOne.php" name="bundle/vendor/mongodb/mongodb/src/Operation/ReplaceOne.php" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/src/Operation/Update.php" name="bundle/vendor/mongodb/mongodb/src/Operation/Update.php" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/src/Operation/UpdateMany.php" name="bundle/vendor/mongodb/mongodb/src/Operation/UpdateMany.php" />
+   <install as="Horde/Mongo/vendor/mongodb/mongodb/src/Operation/UpdateOne.php" name="bundle/vendor/mongodb/mongodb/src/Operation/UpdateOne.php" />
    <install as="COPYING" name="doc/Horde/Mongo/COPYING" />
    <install as="Horde/Mongo/Client.php" name="lib/Horde/Mongo/Client.php" />
    <install as="Horde/Mongo/Collection/Index.php" name="lib/Horde/Mongo/Collection/Index.php" />
@@ -153,12 +452,25 @@
   </release>
   <release>
    <version>
-    <release>1.0.4</release>
+    <release>1.1.0</release>
     <api>1.0.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-01-09</date>
+   <date>2016-07-12</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Support mongodb extension too (Remi Collet &lt;fedora@famillecollet.com&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-07-12</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

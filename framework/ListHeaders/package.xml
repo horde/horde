@@ -10,9 +10,9 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-01-09</date>
+ <date>2016-04-05</date>
  <version>
-  <release>1.2.2</release>
+  <release>1.2.5</release>
   <api>1.2.0</api>
  </version>
  <stability>
@@ -59,6 +59,12 @@
       <file name="Horde_ListHeaders.po" role="data" />
      </dir> <!-- /locale/de/LC_MESSAGES -->
     </dir> <!-- /locale/de -->
+    <dir name="el">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_ListHeaders.mo" role="data" />
+      <file name="Horde_ListHeaders.po" role="data" />
+     </dir> <!-- /locale/el/LC_MESSAGES -->
+    </dir> <!-- /locale/el -->
     <dir name="es">
      <dir name="LC_MESSAGES">
       <file name="Horde_ListHeaders.mo" role="data" />
@@ -95,8 +101,8 @@
   <required>
    <php>
     <min>5.3.0</min>
-    <max>6.0.0alpha1</max>
-    <exclude>6.0.0alpha1</exclude>
+    <max>8.0.0alpha1</max>
+    <exclude>8.0.0alpha1</exclude>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -112,6 +118,13 @@
     <name>Horde_Translation</name>
     <channel>pear.horde.org</channel>
     <min>2.2.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Util</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -147,6 +160,8 @@
    <install as="locale/da/LC_MESSAGES/Horde_ListHeaders.po" name="locale/da/LC_MESSAGES/Horde_ListHeaders.po" />
    <install as="locale/de/LC_MESSAGES/Horde_ListHeaders.mo" name="locale/de/LC_MESSAGES/Horde_ListHeaders.mo" />
    <install as="locale/de/LC_MESSAGES/Horde_ListHeaders.po" name="locale/de/LC_MESSAGES/Horde_ListHeaders.po" />
+   <install as="locale/el/LC_MESSAGES/Horde_ListHeaders.mo" name="locale/el/LC_MESSAGES/Horde_ListHeaders.mo" />
+   <install as="locale/el/LC_MESSAGES/Horde_ListHeaders.po" name="locale/el/LC_MESSAGES/Horde_ListHeaders.po" />
    <install as="locale/es/LC_MESSAGES/Horde_ListHeaders.mo" name="locale/es/LC_MESSAGES/Horde_ListHeaders.mo" />
    <install as="locale/es/LC_MESSAGES/Horde_ListHeaders.po" name="locale/es/LC_MESSAGES/Horde_ListHeaders.po" />
    <install as="locale/hu/LC_MESSAGES/Horde_ListHeaders.mo" name="locale/hu/LC_MESSAGES/Horde_ListHeaders.mo" />
@@ -327,7 +342,46 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-01-09</date>
+   <date>2015-04-28</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix issues with certain locales like Turkish.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.3</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-02-01</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Mark PHP 7 as supported.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.4</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-04-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Add Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.5</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-04-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

@@ -2,7 +2,7 @@
 /**
  * Factory for creating Horde_Perms objects
  *
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * @category Horde
  * @package  Core
@@ -28,7 +28,13 @@ class Horde_Core_Factory_Perms extends Horde_Core_Factory_Injector
 
         switch (Horde_String::lower($driver)) {
         case 'sql':
-            $params['db'] = $injector->getInstance('Horde_Core_Factory_Db')->create('horde', 'perms');
+            try {
+                $params['db'] = $injector
+                    ->getInstance('Horde_Core_Factory_Db')
+                    ->create('horde', 'perms');
+            } catch (Horde_Exception $e) {
+                $driver = 'Null';
+            }
             break;
         }
 

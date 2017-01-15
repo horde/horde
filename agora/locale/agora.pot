@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Agora\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-03-25 18:08+0100\n"
+"POT-Creation-Date: 2016-08-08 15:58+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -919,9 +919,9 @@ msgstr ""
 msgid "You don't have permission to access messages in forum %s."
 msgstr ""
 
-#: lib/Api.php:589 lib/Driver.php:535 lib/Driver.php:722
-#: messages/delete.php:33 messages/lock.php:33 messages/merge.php:31
-#: messages/move.php:31 messages/split.php:31
+#: lib/Api.php:589 lib/Driver.php:535 lib/Driver.php:722 messages/delete.php:33
+#: messages/lock.php:33 messages/merge.php:31 messages/move.php:31
+#: messages/split.php:31
 #, php-format
 msgid "You don't have permission to delete messages in forum %s."
 msgstr ""

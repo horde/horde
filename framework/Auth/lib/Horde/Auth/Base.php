@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 1999-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, http://www.horde.org/licenses/lgpl21
@@ -418,6 +418,31 @@ abstract class Horde_Auth_Base
     public function listUsers($sort = false)
     {
         throw new Horde_Auth_Exception('Unsupported.');
+    }
+
+    /**
+     * Searches the users for a substring.
+     *
+     * @since Horde_Auth 2.2.0
+     *
+     * @param string $search  The search term.
+     *
+     * @return array  A list of all matching users.
+     */
+    public function searchUsers($search)
+    {
+        try {
+            $users = $this->listUsers();
+        } catch (Horde_Auth_Exception $e) {
+            return array();
+        }
+        $matches = array();
+        foreach ($users as $user) {
+            if (Horde_String::ipos($user, $search) !== false) {
+                $matches[] = $user;
+            }
+        }
+        return $matches;
     }
 
     /**

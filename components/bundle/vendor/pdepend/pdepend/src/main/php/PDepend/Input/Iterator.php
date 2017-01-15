@@ -4,7 +4,7 @@
  *
  * PHP Version 5
  *
- * Copyright (c) 2008-2013, Manuel Pichler <mapi@pdepend.org>.
+ * Copyright (c) 2008-2015, Manuel Pichler <mapi@pdepend.org>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -36,7 +36,7 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @copyright 2008-2013 Manuel Pichler. All rights reserved.
+ * @copyright 2008-2015 Manuel Pichler. All rights reserved.
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
  */
 
@@ -45,7 +45,7 @@ namespace PDepend\Input;
 /**
  * Simple utility filter iterator for php source files.
  *
- * @copyright 2008-2013 Manuel Pichler. All rights reserved.
+ * @copyright 2008-2015 Manuel Pichler. All rights reserved.
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
  */
 class Iterator extends \FilterIterator
@@ -60,7 +60,7 @@ class Iterator extends \FilterIterator
     /**
      * Optional root path for the files.
      *
-     * @var string
+     * @var   string
      * @since 0.10.0
      */
     protected $rootPath = null;
@@ -68,9 +68,9 @@ class Iterator extends \FilterIterator
     /**
      * Constructs a new file filter iterator.
      *
-     * @param \Iterator $iterator The inner iterator.
+     * @param \Iterator             $iterator The inner iterator.
      * @param \PDepend\Input\Filter $filter   The filter object.
-     * @param string $rootPath Optional root path for the files.
+     * @param string                $rootPath Optional root path for the files.
      */
     public function __construct(\Iterator $iterator, Filter $filter, $rootPath = null)
     {
@@ -94,7 +94,7 @@ class Iterator extends \FilterIterator
      * Returns the full qualified realpath for the currently active file.
      *
      * @return string
-     * @since 0.10.0
+     * @since  0.10.0
      */
     protected function getFullPath()
     {
@@ -106,7 +106,7 @@ class Iterator extends \FilterIterator
      * set. If not, this method returns the absolute file path.
      *
      * @return string
-     * @since 0.10.0
+     * @since  0.10.0
      */
     protected function getLocalPath()
     {

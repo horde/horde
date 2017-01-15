@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
- * @copyright 2010-2015 Horde LLC
+ * @copyright 2010-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -16,7 +16,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2010-2015 Horde LLC
+ * @copyright 2010-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -49,6 +49,7 @@ implements Horde_Shutdown_Task
 
         switch ($registry->getView()) {
         case $registry::VIEW_DYNAMIC:
+        case $registry::VIEW_BASIC:
         case $registry::VIEW_SMARTMOBILE:
             $this->_instance->eltdiff->track = true;
             break;

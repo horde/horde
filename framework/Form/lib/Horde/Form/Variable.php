@@ -130,7 +130,7 @@ class Horde_Form_Variable {
     {
         $this->humanName   = $humanName;
         $this->varName     = $varName;
-        $this->type        = &$type;
+        $this->type        = $type;
         $this->required    = $required;
         $this->readonly    = $readonly;
         $this->description = $description;
@@ -172,7 +172,7 @@ class Horde_Form_Variable {
      *
      * Example:
      * <code>
-     * $v = &$form->addVariable('My Variable', 'var1', 'text', false);
+     * $v = $form->addVariable('My Variable', 'var1', 'text', false);
      * $v->setAction(Horde_Form_Action::factory('submit'));
      * </code>
      *

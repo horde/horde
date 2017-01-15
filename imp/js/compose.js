@@ -110,7 +110,11 @@ var ImpCompose = {
 
     closeQReply: function()
     {
-        this.hash_hdrs = this.hash_msg = this.hash_msgOrig = this.hash_sig = this.hash_sigOrig = '';
+        delete this.hash_hdrs;
+        delete this.hash_msg;
+        delete this.hash_msgOrig;
+        delete this.hash_sig;
+        delete this.hash_sigOrig;
 
         this.attachlist.reset();
         this.getCacheElt().clear();
@@ -147,12 +151,18 @@ var ImpCompose = {
 
         identity = this.identities[identity_id];
 
-        this.setPopdownLabel('sm', identity.sm_name, identity.sm_display, {
-            opts: {
-                input: 'save_sent_mail_mbox',
-                label: 'sent_mail_label'
+        this.setPopdownLabel(
+            'sm',
+            identity.sm_name,
+            identity.sm_display,
+            identity.sm_title,
+            {
+                opts: {
+                    input: 'save_sent_mail_mbox',
+                    label: 'sent_mail_label'
+                }
             }
-        });
+        );
 
         if (this.old_bcc) {
             this.ac.get('bcc').removeEntry(this.old_bcc);
@@ -242,7 +252,7 @@ var ImpCompose = {
         });
     },
 
-    setPopdownLabel: function(id, s, l, k)
+    setPopdownLabel: function(id, s, l, t, k)
     {
         var input;
 
@@ -272,8 +282,20 @@ var ImpCompose = {
                 : l.l;
         }
 
+        if (!t) {
+            t = (k.opts.data || []).find(function(f) {
+                return f.v == s;
+            });
+            if (t && id == 'sm') {
+                t = t.f;
+            }
+            if (!t) {
+                t = '';
+            }
+        }
+
         input.setValue(s);
-        $(k.opts.label).writeAttribute('title', l.escapeHTML()).setText(l.truncate(11)).up(1).show();
+        $(k.opts.label).writeAttribute('title', t).setText(l.truncate(11)).up(1).show();
 
         if (k.knl) {
             k.knl.setSelected(s);
@@ -358,7 +380,7 @@ var ImpCompose = {
 
     uniqueSubmitCallback: function(d)
     {
-        var base;
+        var base, tmp;
 
         if (d.success) {
             switch (d.action) {
@@ -396,7 +418,10 @@ var ImpCompose = {
                     }
                 }
 
-                $('attach_list').childElements().invoke('remove');
+                tmp = $('attach_list');
+                if (tmp) {
+                    tmp.childElements().invoke('remove');
+                }
                 return this.closeCompose();
 
             case 'redirectMessage':
@@ -1046,7 +1071,7 @@ var ImpCompose = {
                         val = val.substr(1);
                     } else if (!in_group && !in_quote) {
                         ob.push(new IMP_Autocompleter_Elt(val.substr(0, orig_pos)));
-                        val = val.substr(orig_pos + 2);
+                        val = val.substr(orig_pos + 1).strip();
                         pos = 0;
                     }
                     break;
@@ -1462,7 +1487,7 @@ var ImpCompose = {
                     boxClass: 'hordeACBox impACBox',
                     boxClassFocus: 'impACBoxFocus',
                     deleteIcon: ImpCore.conf.ac_delete,
-                    displayFilter: function(t) { return t.sub(/<[^>]*>$/, "").strip().escapeHTML(); },
+                    displayFilter: function(t) { return t.sub(/<[^>]*(?:>|\\.{3})$/, '').strip().escapeHTML(); },
                     growingInputClass: 'hordeACTrigger impACTrigger',
                     listClass: 'hordeACList impACList',
                     loadingText: ImpCore.text.loading,

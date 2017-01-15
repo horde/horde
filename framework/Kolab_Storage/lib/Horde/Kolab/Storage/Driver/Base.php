@@ -14,7 +14,7 @@
 /**
  * The base driver definition for accessing Kolab storage drivers.
  *
- * Copyright 2009-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -292,6 +292,23 @@ implements Horde_Kolab_Storage_Driver
 
     /**
      * Returns a stamp for the current folder status. This stamp can be used to
+     * identify changes in the folder data. This method, as opposed to
+     * self::getStamp(), uses the IMAP client's token to calculate the changes.
+     *
+     * @param string $folder Return the stamp for this folder.
+     * @param string $token  A sync token provided by the IMAP server.
+     * @param array $ids     An array of UIDs that we know about.
+     *
+     * @return Horde_Kolab_Storage_Folder_Stamp A stamp indicating the current
+     *                                          folder status.
+     */
+    public function getStampFromToken($folder, $token, array $ids)
+    {
+        throw new Horde_Kolab_Storage_Exception('Not supported with this driver.');
+    }
+
+    /**
+     * Returns a stamp for the current folder status. This stamp can be used to
      * identify changes in the folder data.
      *
      * @param string $folder Return the stamp for this folder.
@@ -328,7 +345,8 @@ implements Horde_Kolab_Storage_Driver
      * @param array  $uid     The message UID.
      * @param array  $id      The mime part ID.
      *
-     * @return resource  The body part, as a stream resource.
+     * @return resource  The transfer-decoded body part data, as a stream
+     *                   resource presented as 8bit data.
      */
     public function fetchBodypart($mailbox, $uid, $id)
     {

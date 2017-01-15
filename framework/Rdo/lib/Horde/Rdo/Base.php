@@ -70,7 +70,7 @@ abstract class Horde_Rdo_Base implements IteratorAggregate, ArrayAccess
     public function __get($field)
     {
         // Honor any explicit getters.
-        $fieldMethod = 'get' . ucfirst($field);
+        $fieldMethod = 'get' . Horde_String::ucfirst($field);
         // If an Rdo_Base subclass has a __call() method, is_callable
         // returns true on every method name, so use method_exists
         // instead.
@@ -173,7 +173,7 @@ abstract class Horde_Rdo_Base implements IteratorAggregate, ArrayAccess
     public function __set($field, $value)
     {
         // Honor any explicit setters.
-        $fieldMethod = 'set' . ucfirst($field);
+        $fieldMethod = 'set' . Horde_String::ucfirst($field);
         // If an Rdo_Base subclass has a __call() method, is_callable
         // returns true on every method name, so use method_exists
         // instead.
@@ -446,4 +446,48 @@ abstract class Horde_Rdo_Base implements IteratorAggregate, ArrayAccess
         return $query;
     }
 
+    /**
+     * Converts the entity to an Array.
+     *
+     * This method can be used when handing it over to Horde_Variables so that
+     * the database is not unnecessarily queried because of
+     * lazyFields/lazyRelationships.
+     *
+     * @since Horde_Rdo 2.1.0
+     *
+     * @param bool $lazy           Whether lazy elements should be added.
+     * @param bool $relationships  Whether relationships should be added.
+     *
+     * @return array  All selected fields and relationships.
+     */
+    public function toArray($lazy = false, $relationships = false)
+    {
+        $array = array();
+
+        $m = $this->getMapper();
+
+        foreach ($m->fields as $field) {
+            $array[$field] = $this->$field;
+        }
+
+        if ($lazy) {
+            foreach ($m->lazyFields as $field) {
+                $array[$field] = $this->$field;
+            }
+        }
+
+        if ($relationships) {
+            foreach (array_keys($m->relationships) as $rel) {
+                $array[$rel] = $this->$rel;
+            }
+        }
+
+        if ($lazy && $relationships) {
+            foreach (array_keys($m->lazyRelationships) as $rel) {
+                $array[$rel] = $this->$rel;
+            }
+        }
+
+        return $array;
+    }
 }

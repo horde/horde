@@ -1,8 +1,9 @@
 <?php
 /**
- * Handles package.xml files.
+ * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
  *
- * PHP version 5
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
  * @package  Pear
@@ -13,11 +14,6 @@
 
 /**
  * Handles package.xml files.
- *
- * Copyright 2011-2015 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
  * @package  Pear
@@ -133,7 +129,7 @@ class Horde_Pear_Package_Xml
         }
         if (!is_object($type)) {
             if ($type == 'horde' || !class_exists($type)) {
-                $type = 'Horde_Pear_Package_Type_' . ucfirst($type);
+                $type = 'Horde_Pear_Package_Type_' . Horde_String::ucfirst($type);
             }
             $type = new $type(dirname($this->_path));
         }
@@ -188,6 +184,27 @@ class Horde_Pear_Package_Xml
     public function getVersion()
     {
         return $this->getNodeText('/p:package/p:version/p:release');
+    }
+
+    /**
+     * Returns all package versions from the changelog.
+     *
+     * @return array A list of versions and stabilities.
+     */
+    public function getVersions()
+    {
+        $versions = array();
+        foreach ($this->findNodes('/p:package/p:changelog/p:release') as $release) {
+            $versions[] = array(
+                'version' => $this->getNodeTextRelativeTo(
+                    'p:version/p:release', $release
+                ),
+                'stability' => $this->getNodeTextRelativeTo(
+                    'p:stability/p:release', $release
+                ),
+            );
+        }
+        return $versions;
     }
 
     /**

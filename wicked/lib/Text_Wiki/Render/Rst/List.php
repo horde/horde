@@ -1,14 +1,9 @@
 <?php
 /**
- * Renders a list for a Wiki page.
- *
- * Copyright 2011-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPLv2). If
- * you did not receive this file, see
- * http://www.horde.org/licenses/gpl
- *
- * PHP version 5
+ * you did not receive this file, see http://www.horde.org/licenses/gpl
  *
  * @category Horde
  * @package  Wicked
@@ -28,6 +23,8 @@
  */
 class Text_Wiki_Render_Rst_List
 {
+    protected $_indent;
+
     /**
      * Render the list.
      *
@@ -43,17 +40,26 @@ class Text_Wiki_Render_Rst_List
         switch ($type) {
         case 'bullet_list_start':
         case 'number_list_start':
+            if ($level == 0) {
+                $this->_indent = array(1 => 0);
+            }
             return '';
         case 'bullet_list_end':
         case 'number_list_end':
-            return "\n";
+            return '';
         case 'bullet_item_start':
-            return str_repeat(' ', ($level - 1) * 2) . '* ';
+            if (!isset($this->_indent[$level + 1])) {
+                $this->_indent[$level + 1] = $this->_indent[$level] + 2;
+            }
+            return str_repeat(' ', $this->_indent[$level]) . '* ';
         case 'number_item_start':
-            return str_repeat(' ', ($level - 1) * 2) . ($count + 1) . '. ';
+            if (!isset($this->_indent[$level + 1])) {
+                $this->_indent[$level + 1] = $this->_indent[$level] + strlen($count + 1) + 2;
+            }
+            return str_repeat(' ', $this->_indent[$level]) . ($count + 1) . '. ';
         case 'bullet_item_end':
         case 'number_item_end':
-            return "\n";
+            return "\n\n";
         default:
             // ignore item endings and all other types.
             // item endings are taken care of by the other types

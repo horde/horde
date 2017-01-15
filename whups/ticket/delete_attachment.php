@@ -3,7 +3,7 @@
  * Displays and handles the form to delete an attachment from the ticket.
  *
  * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
- * Copyright 2001-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -20,10 +20,18 @@ if (!Whups::hasPermission($ticket->get('queue'), 'queue', Horde_Perms::DELETE)) 
 }
 
 $file = basename(Horde_Util::getFormData('file'));
-$ticket->change('delete-attachment', $file);
+if ($file) {
+    $ticket->change('delete-attachment', $file);
+} else {
+    $ticket->change('delete-message', (int)Horde_Util::getFormData('message'));
+}
 try {
     $ticket->commit();
-    $notification->push(sprintf(_("Attachment %s deleted."), $file), 'horde.success');
+    if ($file) {
+        $notification->push(sprintf(_("Attachment %s deleted."), $file), 'horde.success');
+    } else {
+        $notification->push(_("Original message deleted."), 'horde.success');
+    }
 } catch (Whups_Exception $e) {
     $notification->push($e, 'horde.error');
 }

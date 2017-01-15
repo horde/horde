@@ -1,11 +1,48 @@
 ----------
-v1.2.0-git
+v2.0.0-git
 ----------
 
+[mjr] Support import of HTML bookmark files.
 [mjr] Added removeUserData API (Request #13688).
 [mjr] Fix missing CSS rules for blocks.
 [mjr] Add new block for displaying bookmarks tagged with a certain set of tags
       (Request #13020).
+
+
+------
+v1.1.4
+------
+
+[jan] Use access rules compatible with both Apache 2.2 and 2.4.
+[mjr] Fix tag links when tags contain URL special characters.
+
+
+------
+v1.1.3
+------
+
+[jan] Update Italian translation.
+[mjr] Remove object reference from Content when object is deleted (Bug #14112).
+
+
+------
+v1.1.2
+------
+
+[jan] Update Italian translation.
+[jan] Update German translation.
+[jan] Update Hungarian translation.
+[mjr] Fix shebang (after install) for trean scripts (Remi Collet
+      <fedora@famillecollet.com>).
+[mjr] Use the favicon when returning tag search results via the API if
+      possible.
+
+
+------
+v1.1.1
+------
+
+[mjr] Fix fatal error due to botched merge.
 
 
 ------

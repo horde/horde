@@ -2,7 +2,7 @@
 /**
  * Jonah Base Class.
  *
- * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you did not
  * did not receive this file, see http://cvs.horde.org/co.php/jonah/LICENSE.
@@ -14,16 +14,6 @@
  */
 class Jonah
 {
-    /**
-     * Internal Jonah channel.
-     */
-    const INTERNAL_CHANNEL = 0;
-
-    /**
-     * Composite channel.
-     */
-    const COMPOSITE_CHANNEL = 3;
-
     /**
      */
     const ORDER_PUBLISHED = 0;
@@ -65,17 +55,6 @@ class Jonah
     }
 
     /**
-     * @deprecated Remove when external channels moved to hippo.
-     */
-    public static function getChannelTypeLabel($type)
-    {
-        switch ($type) {
-        case Jonah::INTERNAL_CHANNEL:
-            return _("Local Feed");
-        }
-    }
-
-    /**
      *
      *
      * @param string $filter       The type of channel
@@ -86,7 +65,9 @@ class Jonah
      */
     public static function checkPermissions($filter, $permission = Horde_Perms::READ, $in = null)
     {
-        if ($GLOBALS['registry']->isAdmin(array('permission' => 'jonah:admin', 'permlevel' =>  $permission))) {
+        global $registry, $injector;
+
+        if ($registry->isAdmin(array('permission' => 'jonah:admin', 'permlevel' =>  $permission))) {
             if (empty($in)) {
                 // Calls with no $in parameter are checking whether this user
                 // has permission.  Since this user is an admin, they always
@@ -98,54 +79,25 @@ class Jonah
             }
         }
 
-        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
+        $perms = $injector->getInstance('Horde_Perms');
 
         $out = array();
 
         switch ($filter) {
-        case 'internal_channels':
-            if (empty($in) || !$perms->exists('jonah:news:' . $filter . ':' . $in)) {
-                return $perms->hasPermission('jonah:news:' . $filter, $GLOBALS['registry']->getAuth(), $permission);
-            } elseif (!is_array($in)) {
-                return $perms->hasPermission('jonah:news:' . $filter . ':' . $in, $GLOBALS['registry']->getAuth(), $permission);
-            } else {
-                foreach ($in as $key => $val) {
-                    if ($perms->hasPermission('jonah:news:' . $filter . ':' . $val, $GLOBALS['registry']->getAuth(), $permission)) {
-                        $out[$key] = $val;
-                    }
-                }
-            }
-            break;
-
         case 'channels':
             foreach ($in as $key => $val) {
-                $perm_name = Jonah::typeToPermName($val['channel_type']);
-                if ($perms->hasPermission('jonah:news:' . $perm_name,  $GLOBALS['registry']->getAuth(), $permission) ||
-                    $perms->hasPermission('jonah:news:' . $perm_name . ':' . $val['channel_id'], $GLOBALS['registry']->getAuth(), $permission)) {
+                if ($perms->hasPermission('jonah:news',  $registry->getAuth(), $permission) ||
+                    $perms->hasPermission('jonah:news:' . $val['channel_id'], $registry->getAuth(), $permission)) {
                     $out[$key] = $in[$key];
                 }
             }
             break;
 
         default:
-            return $perms->hasPermission($filter, $GLOBALS['registry']->getAuth(), Horde_Perms::EDIT);
+            return $perms->hasPermission($filter, $registry->getAuth(), Horde_Perms::EDIT);
         }
 
         return $out;
-    }
-
-    /**
-     * @deprecated Remove when external channels removed.
-     *
-     * @param string $type  The Jonah::* constant for the channel type.
-     *
-     * @return string  The string representation of the channel type.
-     */
-    public static function typeToPermName($type)
-    {
-        if ($type == Jonah::INTERNAL_CHANNEL) {
-            return 'internal_channels';
-        }
     }
 
     /**
@@ -191,29 +143,6 @@ class Jonah
         /* The two most common body types have not been found, so just return
          * the first one that is in the array. */
         return array_shift(array_keys($types));
-    }
-
-    /**
-     * Returns the available channel types based on what was set in the
-     * configuration.
-     *
-     * @return array  The available news channel types.
-     */
-    public static function getAvailableTypes()
-    {
-        $types = array();
-
-        if (empty($GLOBALS['conf']['news']['enable'])) {
-            return $types;
-        }
-        if (in_array('internal', $GLOBALS['conf']['news']['enable'])) {
-            $types[Jonah::INTERNAL_CHANNEL] = _("Local Feed");
-        }
-        if (in_array('composite', $GLOBALS['conf']['news']['enable'])) {
-            $types[Jonah::COMPOSITE_CHANNEL] = _("Composite Feed");
-        }
-
-        return $types;
     }
 
 }

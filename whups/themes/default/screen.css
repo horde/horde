@@ -105,3 +105,6 @@ div#comments div {
 .whups-admin {
     background-image: url('graphics/admin.png');
 }
+.whups-sidebar-query {
+    background-image: url('graphics/save.png');
+}

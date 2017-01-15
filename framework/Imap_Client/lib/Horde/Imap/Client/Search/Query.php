@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2008-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category  Horde
- * @copyright 2008-2015 Horde LLC
+ * @copyright 2008-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Imap_Client
  */
@@ -18,7 +18,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2008-2015 Horde LLC
+ * @copyright 2008-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Imap_Client
  */
@@ -81,10 +81,18 @@ class Horde_Imap_Client_Search_Query implements Serializable
     public function charset($charset, $convert = true)
     {
         $oldcharset = $this->_charset;
-        $this->_charset = strtoupper($charset);
+        $this->_charset = Horde_String::upper($charset);
 
         if (!$convert || ($oldcharset == $this->_charset)) {
             return;
+        }
+
+        foreach (array('and', 'or') as $item) {
+            if (isset($this->_search[$item])) {
+                foreach ($this->_search[$item] as &$val) {
+                    $val->charset($charset, $convert);
+                }
+            }
         }
 
         foreach (array('header', 'text') as $item) {
@@ -149,11 +157,11 @@ class Horde_Imap_Client_Search_Query implements Serializable
         );
         $cmds = &$temp['cmds'];
         $charset = $charset_cname = null;
+        $default_search = true;
         $exts_used = &$temp['exts_used'];
         $ptr = &$this->_search;
 
-        $charset_get = function($c) use (&$charset, &$charset_cname)
-        {
+        $charset_get = function ($c) use (&$charset, &$charset_cname) {
             $charset = is_null($c)
                 ? 'US-ASCII'
                 : strval($c);
@@ -161,6 +169,44 @@ class Horde_Imap_Client_Search_Query implements Serializable
                 ? 'Horde_Imap_Client_Data_Format_Astring'
                 : 'Horde_Imap_Client_Data_Format_Astring_Nonascii';
         };
+        $create_return = function ($charset, $exts_used, $cmds) {
+            return array(
+                'charset' => $charset,
+                'exts' => array_keys(array_flip($exts_used)),
+                'query' => $cmds
+            );
+        };
+
+        /* Do IDs check first. If there is an empty ID query (without a NOT
+         * qualifier), the rest of this query is irrelevant since we already
+         * know the search will return no results. */
+        if (isset($ptr['ids'])) {
+            if (!count($ptr['ids']['ids']) && !$ptr['ids']['ids']->special) {
+                if (empty($ptr['ids']['not'])) {
+                    /* This is a match on an empty list of IDs. We do need to
+                     * process any OR queries that may exist, since they are
+                     * independent of this result. */
+                    if (isset($ptr['or'])) {
+                        $this->_buildAndOr(
+                            'OR', $ptr['or'], $charset, $exts_used, $cmds
+                        );
+                    }
+                    return $create_return($charset, $exts_used, $cmds);
+                }
+
+                /* If reached here, this a NOT search of an empty list. We can
+                 * safely discard this from the output. */
+            } else {
+                $this->_addFuzzy(!empty($ptr['ids']['fuzzy']), $temp);
+                if (!empty($ptr['ids']['not'])) {
+                    $cmds->add('NOT');
+                }
+                if (!$ptr['ids']['ids']->sequence) {
+                    $cmds->add('UID');
+                }
+                $cmds->add(strval($ptr['ids']['ids']));
+            }
+        }
 
         if (isset($ptr['new'])) {
             $this->_addFuzzy(!empty($ptr['newfuzzy']), $temp);
@@ -253,21 +299,11 @@ class Horde_Imap_Client_Search_Query implements Serializable
                 }
                 $cmds->add(array(
                     $key,
-                    new Horde_Imap_Client_Data_Format_Number($val['size'])
+                    new Horde_Imap_Client_Data_Format_Number(
+                        empty($val['size']) ? 0 : $val['size']
+                    )
                 ));
             }
-        }
-
-        if (isset($ptr['ids']) &&
-            (count($ptr['ids']['ids']) || $ptr['ids']['ids']->special)) {
-            $this->_addFuzzy(!empty($ptr['ids']['fuzzy']), $temp);
-            if (!empty($ptr['ids']['not'])) {
-                $cmds->add('NOT');
-            }
-            if (!$ptr['ids']['ids']->sequence) {
-                $cmds->add('UID');
-            }
-            $cmds->add(strval($ptr['ids']['ids']));
         }
 
         if (!empty($ptr['date'])) {
@@ -353,26 +389,82 @@ class Horde_Imap_Client_Search_Query implements Serializable
 
         // Add AND'ed queries
         if (!empty($ptr['and'])) {
-            foreach ($ptr['and'] as $val) {
-                $ret = $val->build();
-                if ($ret['charset'] != 'US-ASCII') {
-                    $charset = $ret['charset'];
-                }
-                $exts_used = array_merge($exts_used, $ret['exts']);
-                $cmds->add($ret['query'], true);
-            }
+            $default_search = $this->_buildAndOr(
+                'AND', $ptr['and'], $charset, $exts_used, $cmds
+            );
         }
 
         // Add OR'ed queries
         if (!empty($ptr['or'])) {
-            foreach ($ptr['or'] as $val) {
-                $ret = $val->build();
+            $default_search = $this->_buildAndOr(
+                'OR', $ptr['or'], $charset, $exts_used, $cmds
+            );
+        }
 
-                if ($ret['charset'] != 'US-ASCII') {
-                    $charset = $ret['charset'];
+        // Default search is 'ALL'
+        if ($default_search && !count($cmds)) {
+            $cmds->add('ALL');
+        }
+
+        return $create_return($charset, $exts_used, $cmds);
+    }
+
+    /**
+     * Builds the AND/OR query.
+     *
+     * @param string $type                               'AND' or 'OR'.
+     * @param array $data                                Query data.
+     * @param string &$charset                           Search charset.
+     * @param array &$exts_used                          IMAP extensions used.
+     * @param Horde_Imap_Client_Data_Format_List &$cmds  Command list.
+     *
+     * @return boolean  True if query might return results.
+     */
+    protected function _buildAndOr($type, $data, &$charset, &$exts_used,
+                                   &$cmds)
+    {
+        $results = false;
+
+        foreach ($data as $val) {
+            $ret = $val->build();
+
+            /* Empty sub-query. */
+            if (!count($ret['query'])) {
+                switch ($type) {
+                case 'AND':
+                    /* Any empty sub-query means that the query MUST return
+                     * no results. */
+                    $cmds = new Horde_Imap_Client_Data_Format_List();
+                    $exts_used = array();
+                    return false;
+
+                case 'OR':
+                    /* Skip this query. */
+                    continue 2;
                 }
-                $exts_used = array_merge($exts_used, $ret['exts']);
+            }
 
+            $results = true;
+
+            if (!is_null($ret['charset']) && ($ret['charset'] != 'US-ASCII')) {
+                if (!is_null($charset) &&
+                    ($charset != 'US-ASCII') &&
+                    ($charset != $ret['charset'])) {
+                    throw new InvalidArgumentException(
+                        'AND/OR queries must all have the same charset.'
+                    );
+                }
+                $charset = $ret['charset'];
+            }
+
+            $exts_used = array_merge($exts_used, $ret['exts']);
+
+            switch ($type) {
+            case 'AND':
+                $cmds->add($ret['query'], true);
+                break;
+
+            case 'OR':
                 // First OR'd query
                 if (count($cmds)) {
                     $new_cmds = new Horde_Imap_Client_Data_Format_List();
@@ -385,19 +477,11 @@ class Horde_Imap_Client_Search_Query implements Serializable
                 } else {
                     $cmds = $ret['query'];
                 }
+                break;
             }
         }
 
-        // Default search is 'ALL'
-        if (!count($cmds)) {
-            $cmds->add('ALL');
-        }
-
-        return array(
-            'charset' => $charset,
-            'exts' => array_keys(array_flip($exts_used)),
-            'query' => $cmds
-        );
+        return $results;
     }
 
     /**
@@ -432,7 +516,7 @@ class Horde_Imap_Client_Search_Query implements Serializable
      */
     public function flag($name, $set = true, array $opts = array())
     {
-        $name = strtoupper(ltrim($name, '\\'));
+        $name = Horde_String::upper(ltrim($name, '\\'));
         if (!isset($this->_search['flag'])) {
             $this->_search['flag'] = array();
         }
@@ -498,7 +582,7 @@ class Horde_Imap_Client_Search_Query implements Serializable
         }
         $this->_search['header'][] = array_filter(array(
             'fuzzy' => !empty($opts['fuzzy']),
-            'header' => strtoupper($header),
+            'header' => Horde_String::upper($header),
             'text' => $text,
             'not' => $not
         ));
@@ -569,13 +653,11 @@ class Horde_Imap_Client_Search_Query implements Serializable
     public function ids(Horde_Imap_Client_Ids $ids, $not = false,
                         array $opts = array())
     {
-        if (!$ids->isEmpty()) {
-            $this->_search['ids'] = array_filter(array(
-                'fuzzy' => !empty($opts['fuzzy']),
-                'ids' => $ids,
-                'not' => $not
-            ));
-        }
+        $this->_search['ids'] = array_filter(array(
+            'fuzzy' => !empty($opts['fuzzy']),
+            'ids' => $ids,
+            'not' => $not
+        ));
     }
 
     /**
@@ -704,7 +786,7 @@ class Horde_Imap_Client_Search_Query implements Serializable
                            array $opts = array())
     {
         if (!is_null($type)) {
-            $type = strtolower($type);
+            $type = Horde_String::lower($type);
             if (!in_array($type, array('shared', 'priv', 'all'))) {
                 $type = 'all';
             }

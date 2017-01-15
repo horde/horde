@@ -9,7 +9,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2012-2015 Horde LLC (http://www.horde.org)
+ * @copyright 2012-2017 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -22,7 +22,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2012-2015 Horde LLC (http://www.horde.org)
+ * @copyright 2012-2017 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -103,18 +103,27 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
     protected $_categories = array();
 
     /**
+     * Internal flag to indicate initial first sync/prime.
+     *
+     * @var boolean
+     */
+    protected $_primed = false;
+
+    /**
      * Set message changes.
      *
-     * @param array $messages    An array of message UIDs.
-     * @param array $flags       A hash of message read flags, keyed by UID.
-     * @param array $categories  A hash of custom message flags, keyed by UID.
-     *                           @since 2.17.0
+     * @param array $messages       An array of message UIDs.
+     * @param array $flags          A hash of message read flags, keyed by UID.
+     * @param array $categories     A hash of custom message flags, keyed by UID.
+     *                              @since 2.17.0
      * @param boolean $resetMinUid  If true, reset the minimum UID. Should be
      *                              used when FilterType has widened and
      *                              messages older than originally selected are
      *                              being returned. @since 2.24.0
      */
-    public function setChanges(array $messages, array $flags = array(), array $categories = array(), $resetMinUid = false)
+    public function setChanges(
+        array $messages, array $flags = array(), array $categories = array(),
+        $resetMinUid = false)
     {
         $uidnext = $this->uidnext();
         $minuid = $this->minuid();
@@ -162,6 +171,20 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
                 $this->_categories[$uid] = $data;
             }
         }
+    }
+
+    /**
+     * Sets initial message collection for servers that support MODSEQ. Much
+     * more effecient than using setChanges() when we know this is the initial
+     * folder "priming".
+     *
+     * @param array $messages  Array of message UIDs for the initial message
+     *                         set for this folder.
+     */
+    public function primeFolder($messages)
+    {
+        $this->_added = $messages;
+        $this->_primed = true;
     }
 
     /**
@@ -256,10 +279,15 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
             }
             $this->_messages = $this->_flags + array_flip($this->_messages);
         } else {
-            foreach ($this->_added as $add) {
-                $this->_messages[] = $add;
+            if ($this->_primed) {
+                $this->_messages = $this->_added;
+                $this->_primed = false;
+            } else {
+                foreach ($this->_added as $add) {
+                    $this->_messages[] = $add;
+                }
+                $this->_messages = array_diff($this->_messages, $this->_removed);
             }
-            $this->_messages = array_diff($this->_messages, $this->_removed);
         }
 
         // Clean up
@@ -268,6 +296,7 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
         $this->_changed = array();
         $this->_flags = array();
         $this->_softDeleted = array();
+        $this->haveInitialSync = true;
     }
 
     /**
@@ -422,6 +451,7 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
             'c' => $this->_class,
             'lsd' => $this->_lastSinceDate,
             'sd' => $this->_softDelete,
+            'hi' => $this->haveInitialSync,
             'v' => self::VERSION)
         );
     }
@@ -448,6 +478,7 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
         $this->_class = $d_data['c'];
         $this->_lastSinceDate = $d_data['lsd'];
         $this->_softDelete = $d_data['sd'];
+        $this->haveInitialSync = empty($d_data['hi']) ? !empty($this->_messages) : $d_data['hi'];
 
         if (!empty($this->_status[self::HIGHESTMODSEQ]) && is_string($this->_messages)) {
             $this->_messages = $this->_fromSequenceString($this->_messages);

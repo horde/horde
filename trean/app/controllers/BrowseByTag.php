@@ -5,7 +5,7 @@ class Trean_BrowseByTag_Controller extends Horde_Controller_Base
     {
         $path = $request->getPath();
         $pathParts = explode('/', $path);
-        $tag = array_pop($pathParts);
+        $tag = urldecode(array_pop($pathParts));
 
         $tagBrowser = new Trean_TagBrowser($this->getInjector()->getInstance('Trean_Tagger'), $tag);
         $view = new Trean_View_BookmarkList(null, $tagBrowser);

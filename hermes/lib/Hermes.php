@@ -26,8 +26,8 @@ class Hermes
      */
     public static function listClients($name = '')
     {
-        if (isset(self::$_clients['name'])) {
-            return self::$_clients['name'];
+        if (isset(self::$_clients[$name])) {
+            return self::$_clients[$name];
         }
 
         self::$_clients[$name] = array();
@@ -204,34 +204,32 @@ class Hermes
      */
     public static function getEmployeesType($enumtype = 'multienum')
     {
-        $auth = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create();
+        $auth = $GLOBALS['injector']
+            ->getInstance('Horde_Core_Factory_Auth')
+            ->create();
         if (!$auth->hasCapability('list')) {
             return array('text', array());
         }
         try {
-            $users = $auth->listUsers();
+            $employees = $auth->listNames();
         } catch (Exception $e) {
-            return array('invalid',
-                         sprintf(_("An error occurred listing users: %s"), $e->getMessage()));
+            return array(
+                'invalid',
+                sprintf(
+                    _("An error occurred listing users: %s"),
+                    $e->getMessage()
+                )
+            );
         }
-
-        $employees = array();
-        foreach ($users as $user) {
-            $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($user);
-            $label = $identity->getValue('fullname');
-            if (empty($label)) {
-                $label = $user;
-            }
-            $employees[$user] = $label;
-        }
-
         return array($enumtype, $employees);
     }
 
     /**
      * Return a cost object hash.
      *
-     * @param string $id  The cost object id.
+     * @param string $id                The cost object id.
+     * @param string|boolean $employee  Employee hint - if known. False
+     *                                  otherwise.
      *
      * @return array  The cost object hash. Keys differ depending on the
      *                API queried, but should always contain:
@@ -240,22 +238,21 @@ class Hermes
      *
      * @throws Horde_ExceptionNotFound
      */
-    public static function getCostObjectByID($id)
+    public static function getCostObjectByID($id, $employee = false)
     {
-        static $cost_objects;
-
         if (strpos($id, ':') !== false) {
             list($app, $app_id) = explode(':', $id, 2);
-
-            if (!isset($cost_objects[$app])) {
-                $results = $GLOBALS['registry']->callByPackage($app, 'listCostObjects', array(array()));
-                $cost_objects[$app] = $results;
+            $filter = array();
+            if ($employee) {
+                $filter['user'] = $employee;
             }
+            $results = $GLOBALS['registry']->callByPackage($app, 'listCostObjects', array($filter));
+            $cost_objects = $results;
 
-            foreach (array_keys($cost_objects[$app]) as $catkey) {
-                foreach (array_keys($cost_objects[$app][$catkey]['objects']) as $objkey) {
-                    if ($cost_objects[$app][$catkey]['objects'][$objkey]['id'] == $app_id) {
-                        return $cost_objects[$app][$catkey]['objects'][$objkey];
+            foreach (array_keys($cost_objects) as $catkey) {
+                foreach (array_keys($cost_objects[$catkey]['objects']) as $objkey) {
+                    if ($cost_objects[$catkey]['objects'][$objkey]['id'] == $app_id) {
+                        return $cost_objects[$catkey]['objects'][$objkey];
                     }
                 }
             }
@@ -395,7 +392,9 @@ class Hermes
      */
     public static function listTimers($running_only = false)
     {
-        $timers = $GLOBALS['prefs']->getValue('running_timers');
+        global $registry, $prefs;
+
+        $timers = $prefs->getValue('running_timers');
         if (!empty($timers)) {
             $timers = @unserialize($timers);
         } else {
@@ -410,7 +409,7 @@ class Hermes
             $timer['elapsed'] = round((float)$elapsed / 3600, 2);
             $timer['id'] = $id;
             try {
-                $text = Hermes::getCostObjectByID($timer['deliverable_id']);
+                $text = Hermes::getCostObjectByID($timer['deliverable_id'], $registry->getAuth());
                 $timer['deliverable_text'] = $text['name'];
             } catch (Horde_Exception_NotFound $e) {}
             $return[] = $timer;
@@ -469,7 +468,9 @@ class Hermes
      */
     public static function getTimer($id)
     {
-        $timers = $GLOBALS['prefs']->getValue('running_timers');
+        global $registry, $prefs;
+
+        $timers = $prefs->getValue('running_timers');
         if (!empty($timers)) {
             $timers = @unserialize($timers);
         }
@@ -479,7 +480,7 @@ class Hermes
         $timers[$id]['id'] = $id;
 
         try {
-            $text = Hermes::getCostObjectByID($timers[$id]['deliverable_id']);
+            $text = Hermes::getCostObjectByID($timers[$id]['deliverable_id'], $registry->getAuth());
             $timers[$id]['deliverable_text'] = $text['name'];
         } catch (Horde_Exception_NotFound $e) {}
 

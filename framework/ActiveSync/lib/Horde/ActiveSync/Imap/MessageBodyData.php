@@ -7,7 +7,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2012-2015 Horde LLC (http://www.horde.org)
+ * @copyright 2012-2017 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -17,7 +17,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2012-2015 Horde LLC (http://www.horde.org)
+ * @copyright 2012-2017 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  *
@@ -80,33 +80,33 @@ class Horde_ActiveSync_Imap_MessageBodyData
 
     /**
      *
-     * @var string
+     * @var array
      */
     protected $_plain;
 
     /**
      *
-     * @var string
+     * @var array
      */
     protected $_html;
 
     /**
      *
-     * @var string
+     * @var array
      */
     protected $_bodyPart;
 
     /**
-     * Cached validated text/plain data.
+     * Flag to indicate self::$_Plain is validated.
      *
-     * @var array
+     * @var boolean
      */
     protected $_validatedPlain;
 
     /**
-     * Cached validated text/html data
+     * Flag to indicate self::$_html is validated.
      *
-     * @var array
+     * @var boolean
      */
     protected $_validatedHtml;
 
@@ -136,6 +136,18 @@ class Horde_ActiveSync_Imap_MessageBodyData
             $options['protocolversion'];
 
         $this->_getParts();
+    }
+
+    public function __destruct()
+    {
+        $this->_basePart = null;
+        $this->_imap = null;
+        if (!empty($this->_plain) && ($this->_plain['body'] instanceof Horde_Stream)) {
+            $this->_plain['body'] = null;
+        }
+        if (!empty($this->_html) && ($this->_html['body'] instanceof Horde_Stream)) {
+            $this->_html['body'] = null;
+        }
     }
 
     public function &__get($property)
@@ -170,7 +182,7 @@ class Horde_ActiveSync_Imap_MessageBodyData
      * Return the BODYTYPE to return to the client. Takes BODYPREF and available
      * parts into account.
      *
-     * @param  boolean $save_bandwith  IF true, saves bandwidth usage by
+     * @param  boolean $save_bandwith  If true, saves bandwidth usage by
      *                                 favoring HTML over MIME BODYTYPE if able.
      *
      * @return integer  A Horde_ActiveSync::BODYPREF_TYPE_* constant.
@@ -210,8 +222,33 @@ class Horde_ActiveSync_Imap_MessageBodyData
         // we need, while ensuring we have something to return. So, e.g., if we
         // don't have BODYPREF_TYPE_HTML, we only request plain text, but if we
         // can't find plain text but we have a html body, fetch that anyway.
-        $text_id = $this->_basePart->findBody('plain');
-        $html_id = $this->_basePart->findBody('html');
+        //
+        // If this is any type of Report (like a NDR) we can't use findBody
+        // since some MTAs generate MDRs with no explicit mime type in the
+        // human readable portion (the first part). We assume the MDR contains
+        // three parts as specified in the RFC: (1) A human readable part, (2)
+        // A machine parsable body Machine parsable body part
+        // [message/disposition-notification] and (3) The (optional) original
+        // message [message/rfc822]
+        switch ($this->_basePart->getType()) {
+        case 'message/disposition-notification':
+            // OL may send this without an appropriate multipart/report wrapper.
+            // Not sure what to do about this yet. Probably parse the machine
+            // part and write out some basic text?
+            break;
+        case 'multipart/report':
+            $iterator = $this->_basePart->partIterator(false);
+            $iterator->rewind();
+            if (!$curr = $iterator->current()) {
+                break;
+            }
+            $text_id = $curr->getMimeId();
+            $html_id = null;
+            break;
+        default:
+            $text_id = $this->_basePart->findBody('plain');
+            $html_id = $this->_basePart->findBody('html');
+        }
 
         // Deduce which part(s) we need to request.
         $want_html_text = $this->_wantHtml();
@@ -242,30 +279,29 @@ class Horde_ActiveSync_Imap_MessageBodyData
 
         // Fetch the data from the IMAP client.
         $data = $this->_fetchData(array('html_id' => $html_id, 'text_id' => $text_id));
-
-        // @todo can we get the text_id from the body part?
         if (!empty($text_id) && $want_plain_text) {
-            $this->_plain = $this->_getPlainPart($data, $text_body_part, $text_id);
+            $this->_plain = $this->_getPlainPart($data, $text_body_part);
         }
 
         if (!empty($html_id) && $want_html_text) {
-            $results = $this->_getHtmlPart($data, $html_body_part, $html_id, $want_html_as_plain);
-            if (!empty($results['html'])) {
-                $this->_html = $results['html'];
-            }
-            if (!empty($results['plain'])) {
-                $this->_plain = $results['plain'];
-            }
+            $results = $this->_getHtmlPart($data, $html_body_part, $want_html_as_plain);
+            $this->_html = !empty($results['html'])
+                ? $results['html']
+                : null;
+            $this->_plain = !empty($results['plain'])
+                ? $results['plain']
+                : null;
         }
 
         if (!empty($this->_options['bodypartprefs'])) {
             $this->_bodyPart = $this->_getBodyPart(
                 $data,
                 !empty($html_id) ? $html_body_part : $text_body_part,
-                !empty($html_id) ? $html_id : $text_id,
                 empty($html_id)
             );
         }
+        $text_body_part = null;
+        $html_body_part = null;
 
     }
 
@@ -311,6 +347,8 @@ class Horde_ActiveSync_Imap_MessageBodyData
      *     - text_id (string)  The MIME id of the plain part, if any.
      *
      * @return Horde_Imap_Client_Data_Fetch  The results.
+     * @throws  Horde_ActiveSync_Exception,
+     *          Horde_ActiveSync_Exception_EmailFatalFailure
      */
     protected function _fetchData(array $params)
     {
@@ -342,6 +380,10 @@ class Horde_ActiveSync_Imap_MessageBodyData
                 array('ids' => new Horde_Imap_Client_Ids(array($this->_uid)))
             );
         } catch (Horde_Imap_Client_Exception $e) {
+            // If we lost the connection, don't continue to try.
+            if ($e->getCode() == Horde_Imap_Client_Exception::DISCONNECT) {
+                throw new Horde_ActiveSync_Exception_TemporaryFailure($e->getMessage());
+            }
             throw new Horde_ActiveSync_Exception($e);
         }
         if (!$data = $fetch_ret->first()) {
@@ -357,8 +399,7 @@ class Horde_ActiveSync_Imap_MessageBodyData
      *
      * @param  Horde_Imap_Client_Data_Fetch $data  The FETCH results.
      * @param  Horde_Mime_Part $text_mime          The plaintext MIME part.
-     * @param  string $text_id                     The MIME id for this part on
-     *                                             the IMAP server.
+     *
      * @return array  The plain part data.
      *     - charset:  (string)   The charset of the text.
      *     - body: (string)       The body text.
@@ -366,8 +407,9 @@ class Horde_ActiveSync_Imap_MessageBodyData
      *     - size: (integer)      The original part size, in bytes.
      */
     protected function _getPlainPart(
-        Horde_Imap_Client_Data_Fetch $data, Horde_Mime_Part $text_mime, $text_id)
+        Horde_Imap_Client_Data_Fetch $data, Horde_Mime_Part $text_mime)
     {
+        $text_id = $text_mime->getMimeId();
         $text = $data->getBodyPart($text_id);
         if (!$data->getBodyPartDecode($text_id)) {
             $text_mime->setContents($text);
@@ -403,9 +445,8 @@ class Horde_ActiveSync_Imap_MessageBodyData
     /**
      * Build the data needed for the html part.
      *
-     * @param  Horde_Imap_Client_Data_Fetch $data             FETCH results.
-     * @param  Horde_Mime_Part  $html_mime        text/html part.
-     * @param  string           $html_id          MIME id.
+     * @param  Horde_Imap_Client_Data_Fetch $data  FETCH results.
+     * @param  Horde_Mime_Part  $html_mime         The text/html MIME part.
      * @param  boolean          $convert_to_plain Convert text to plain text
      *                          also? If true, will also return a 'plain' array.
      *
@@ -414,7 +455,7 @@ class Horde_ActiveSync_Imap_MessageBodyData
      *                structure of each entry.
      */
     protected function _getHtmlPart(
-        Horde_Imap_Client_Data_Fetch $data, Horde_Mime_Part $html_mime, $html_id, $convert_to_plain)
+        Horde_Imap_Client_Data_Fetch $data, Horde_Mime_Part $html_mime, $convert_to_plain)
     {
         // @todo The length stuff in this method should really be done after
         // we validate the text since it might change if there was an incorrect
@@ -424,6 +465,7 @@ class Horde_ActiveSync_Imap_MessageBodyData
         // charset MAY cause an email to be reported as truncated when it's not,
         // causing an additional reload on the client when viewing.
         $results = array();
+        $html_id = $html_mime->getMimeId();
         $html = $data->getBodyPart($html_id);
         if (!$data->getBodyPartDecode($html_id)) {
             $html_mime->setContents($html);
@@ -446,7 +488,7 @@ class Horde_ActiveSync_Imap_MessageBodyData
 
         if ($convert_to_plain) {
             $html_plain = Horde_Text_Filter::filter(
-                $html, 'Html2text', array('charset' => $charset));
+                $html, 'Html2text', array('charset' => $charset, 'nestingLimit' => 1000));
 
             // Get the new size, since it probably changed.
             $html_plain_size = strlen($html_plain);
@@ -485,8 +527,6 @@ class Horde_ActiveSync_Imap_MessageBodyData
      *
      * @param  Horde_Imap_Client_Data_Fetch $data  The FETCH results.
      * @param  Horde_Mime_Part $mime  The plaintext MIME part.
-     * @param  string $id             The MIME id for this part on the IMAP
-     *                                server.
      * @param boolean $to_html        If true, $id is assumed to be a text/plain
      *                                part and is converted to html.
      *
@@ -497,8 +537,9 @@ class Horde_ActiveSync_Imap_MessageBodyData
      *     - size: (integer)      The original part size, in bytes.
      */
     protected function _getBodyPart(
-        Horde_Imap_Client_Data_Fetch $data, Horde_Mime_Part $mime, $id, $to_html)
+        Horde_Imap_Client_Data_Fetch $data, Horde_Mime_Part $mime, $to_html)
     {
+        $id = $mime->getMimeId();
         $text = $data->getBodyPart($id);
         if (!$data->getBodyPartDecode($id)) {
             $mime->setContents($text);
@@ -543,10 +584,11 @@ class Horde_ActiveSync_Imap_MessageBodyData
     public function plainBody()
     {
         if (!empty($this->_plain) && empty($this->_validatedPlain)) {
-            $this->_validatedPlain = $this->_validateBodyData($this->_plain);
+            $this->_validateBodyData($this->_plain);
+            $this->_validatedPlain = true;
         }
-        if ($this->_validatedPlain) {
-            return $this->_validatedPlain;
+        if ($this->_plain['body'] instanceof Horde_Stream) {
+            return $this->_plain;
         }
 
         return false;
@@ -564,10 +606,11 @@ class Horde_ActiveSync_Imap_MessageBodyData
     public function htmlBody()
     {
         if (!empty($this->_html) && empty($this->_validatedHtml)) {
-            $this->_validatedHtml = $this->_validateBodyData($this->_html);
+            $this->_validateBodyData($this->_html);
+            $this->_validatedHtml = true;
         }
-        if ($this->_validatedHtml) {
-            return $this->_validatedHtml;
+        if ($this->_html['body'] instanceof Horde_Stream) {
+            return $this->_html;
         }
 
         return false;
@@ -585,7 +628,8 @@ class Horde_ActiveSync_Imap_MessageBodyData
     public function bodyPartBody()
     {
         if (!empty($this->_bodyPart)) {
-            return $this->_validateBodyData($this->_bodyPart);
+            $this->_validateBodyData($this->_bodyPart);
+            return $this->_bodyPart;
         }
 
         return false;
@@ -600,7 +644,7 @@ class Horde_ActiveSync_Imap_MessageBodyData
      *
      * @return array  The validated body data array. @see self::_bodyPartText()
      */
-    protected function _validateBodyData($data)
+    protected function _validateBodyData(&$data)
     {
         $stream = new Horde_Stream_Temp(array('max_memory' => 1048576));
         $filter_h = stream_filter_append($stream->stream, 'horde_eol', STREAM_FILTER_WRITE);
@@ -608,8 +652,6 @@ class Horde_ActiveSync_Imap_MessageBodyData
         stream_filter_remove($filter_h);
 
         $data['body'] = $stream;
-
-        return $data;
     }
 
     /**

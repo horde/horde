@@ -63,3 +63,8 @@ table.time tfoot td {
     font-weight: bold;
     padding: 1px;
 }
+
+/* Deliverables */
+.hermes-inactive {
+    text-decoration: line-through;
+}

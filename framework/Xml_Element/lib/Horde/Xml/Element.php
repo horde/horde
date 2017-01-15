@@ -1,7 +1,7 @@
 <?php
 /**
  * Portions Copyright 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
- * Copyright 2007-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2017 Horde LLC (http://www.horde.org/)
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://www.horde.org/licenses/bsd BSD
@@ -506,7 +506,7 @@ class Horde_Xml_Element implements ArrayAccess
         // Honor any explicit getters. Because Horde_Xml_Element has a __call()
         // method, is_callable returns true on every method name. Use
         // method_exists instead.
-        $varMethod = 'get' . ucfirst($var);
+        $varMethod = 'get' . Horde_String::ucfirst($var);
         if (method_exists($this, $varMethod)) {
             $children = call_user_func(array($this, $varMethod));
             if (is_null($children)) {

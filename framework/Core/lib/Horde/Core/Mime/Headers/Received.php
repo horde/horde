@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2014-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2014-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category  Horde
- * @copyright 2014-2015 Horde LLC
+ * @copyright 2014-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Core
  */
@@ -16,7 +16,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2014-2015 Horde LLC
+ * @copyright 2014-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Core
  * @since     2.17.0
@@ -30,7 +30,7 @@ extends Horde_Mime_Headers_Received
      */
     public static function createHordeHop()
     {
-        global $conf, $registry;
+        global $conf, $registry, $injector;
 
         $remote = $registry->remoteHost();
 
@@ -52,13 +52,14 @@ extends Horde_Mime_Headers_Received
             $server_name = 'unknown';
         }
 
+        $is_ssl = $injector->getInstance('Horde_Browser')->usingSSLConnection();
 
         return new self(
             null,
             'from ' . $remote->host . ' (' . $remote_ident .
             '[' . $remote->addr . ']) ' .
-            'by ' . $server_name . ' (Horde Framework) with HTTP; ' .
-            date('r')
+            'by ' . $server_name . ' (Horde Framework) with HTTP' .
+            ($is_ssl ? 'S' : '') . '; ' . date('r')
         );
     }
 

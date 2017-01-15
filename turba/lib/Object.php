@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2000-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2000-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you did
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @category  Horde
- * @copyright 2000-2015 Horde LLC
+ * @copyright 2000-2017 Horde LLC
  * @license   http://www.horde.org/licenses/apache ASL
  * @package   Turba
  */
@@ -17,7 +17,7 @@
  * @author    Chuck Hagenbuch <chuck@horde.org>
  * @author    Jon Parise <jon@csh.rit.edu>
  * @category  Horde
- * @copyright 2000-2015 Horde LLC
+ * @copyright 2000-2017 Horde LLC
  * @license   http://www.horde.org/licenses/apache ASL
  * @package   Turba
  */
@@ -57,6 +57,15 @@ class Turba_Object
      * @var VFS
      */
     protected $_vfs;
+
+    /**
+     * Local cache of available email addresses. Needed to ensure we
+     * populate the email field correctly. See See Bug: 12955 and Bug: 14046.
+     * A hash with turba attribute names as key.
+     *
+     * @var array
+     */
+    protected $_emailFields = array();
 
     /**
      * Constructs a new Turba_Object object.
@@ -116,7 +125,7 @@ class Turba_Object
      */
     public function getValue($attribute)
     {
-        global $attributes, $injector;
+        global $attributes, $injector, $conf;
 
         if (isset($this->attributes[$attribute]) &&
             ($hooks = $injector->getInstance('Horde_Core_Hooks')) &&
@@ -135,16 +144,24 @@ class Turba_Object
                 $args[] = $this->getValue($field);
             }
             return Turba::formatCompositeField($this->driver->map[$attribute]['format'], $args);
-        } elseif (!isset($this->attributes[$attribute])) {
-            if (isset($attributes[$attribute]) &&
-                ($attributes[$attribute]['type'] == 'Turba:TurbaTags') &&
-                ($uid = $this->getValue('__uid'))) {
-                $this->synchronizeTags($injector->getInstance('Turba_Tagger')->getTags($uid, 'contact'));
-            } else {
-                return null;
-            }
         } elseif (isset($attributes[$attribute]) &&
             ($attributes[$attribute]['type'] == 'image')) {
+            // If there is no [$attribute], but we have a $attribute . '_orig',
+            // then populate the $attribute data using default resizing config.
+            if (empty($this->attributes[$attribute])) {
+                if (!empty($this->attributes[$attribute . '_orig']) &&
+                    (!empty($conf['photos']['height']) || !empty($conf['photos']['width']))) {
+                    // Do resizing
+                    $img = $injector->getInstance('Horde_Core_Factory_Image')->create(
+                        array(
+                            'data' => $this->attributes[$attribute . '_orig'],
+                            'type' => 'jpeg'
+                        ));
+                    $img->resize($conf['photos']['width'], $conf['photos']['height']);
+                    $this->attributes[$attribute] = $img->raw(true);
+                    $this->store();
+                }
+            }
             return empty($this->attributes[$attribute])
                 ? null
                 : array(
@@ -153,6 +170,14 @@ class Turba_Object
                           'file' => basename(Horde::getTempFile('horde_form_', false, '', false, true))
                       )
                   );
+        } elseif (!isset($this->attributes[$attribute])) {
+            if (isset($attributes[$attribute]) &&
+                ($attributes[$attribute]['type'] == 'Turba:TurbaTags') &&
+                ($uid = $this->getValue('__uid'))) {
+                $this->synchronizeTags($injector->getInstance('Turba_Tagger')->getTags($uid, 'contact'));
+            } else {
+                return null;
+            }
         }
 
         return $this->attributes[$attribute];
@@ -166,7 +191,7 @@ class Turba_Object
      */
     public function setValue($attribute, $value)
     {
-        global $injector;
+        global $injector, $attributes;
 
         $hooks = $injector->getInstance('Horde_Core_Hooks');
 
@@ -185,9 +210,14 @@ class Turba_Object
             } catch (Turba_Exception $e) {}
         }
 
-        if (isset($this->driver->map[$attribute]) &&
-            is_array($this->driver->map[$attribute]) &&
-            !isset($this->driver->map[$attribute]['attribute'])) {
+        // If we don't know the attribute, it's not a private attribute,
+        // and it's an email field, save it in case we need to populate an email
+        // field on save.
+        if (!isset($this->driver->map[$attribute]) && strpos($attribute, '__') === false) {
+            if (isset($attributes[$attribute]) &&
+                $attributes[$attribute]['type'] == 'email') {
+                $this->_emailFields[$attribute] = $value;
+            }
             return;
         }
 
@@ -548,6 +578,7 @@ class Turba_Object
      */
     public function store()
     {
+        $this->_ensureEmail();
         return $this->setValue('__key', $this->driver->save($this));
     }
 
@@ -568,6 +599,36 @@ class Turba_Object
         }
 
         return $this->_vfs;
+    }
+
+    /**
+     * Ensures we have an email address set, if available.
+     *
+     * Needed to cover the case where a contact might have been imported via
+     * vCard with email TYPEs that do not match the configured attributes for
+     * this source. E.g., the vCard contains a TYPE=HOME but we only have the
+     * generic 'email' field available.
+     */
+    protected  function _ensureEmail()
+    {
+        global $attributes;
+
+        // If an email type attribute is not known to this object's driver map
+        // then attempt to fill in any email attributes we DO know about that
+        // are currently empty. Not ideal, but if a client is sending unknown
+        // email fields, we have no way of knowing where to put them and this
+        // is better than dropping them.
+        foreach ($this->_emailFields as $attribute => $email) {
+            if (empty($this->driver->map[$attribute]) && $attribute != 'emails') {
+                foreach ($this->driver->map as $driver_att => $driver_value) {
+                    if ($attributes[$driver_att]['type'] == 'email' &&
+                        empty($this->attributes[$driver_att])) {
+                        $this->attributes[$driver_att] = $email;
+                        break;
+                    }
+                }
+            }
+        }
     }
 
 }

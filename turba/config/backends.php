@@ -183,8 +183,8 @@
  *
  * approximate: (array) Only applies to LDAP servers. If set, should be an
  *              array of native field/attribute names to search
- *              "approximately" (for example, "Sánchez", "Sanchez", and
- *              "Sanchéz" will all match a search string of "sanchez").
+ *              "approximately" (for example, "SÃ¡nchez", "Sanchez", and
+ *              "SanchÃ©z" will all match a search string of "sanchez").
  *
  * export: (boolean) If true, this source will appear on the Export menu,
  *         allowing users to export the contacts to a CSV (etc.) file.
@@ -283,6 +283,7 @@ $cfgSources['localsql'] = array(
         'spouse' => 'object_spouse',
         'photo' => 'object_photo',
         'phototype' => 'object_phototype',
+        'photo_orig' => 'object_photoorig',
         'homeStreet' => 'object_homestreet',
         'homePOBox' => 'object_homepob',
         'homeCity' => 'object_homecity',
@@ -667,7 +668,9 @@ $cfgSources['kolab'] = array(
         /* Communications */
         'emails'            => 'emails',
         'homePhone'         => 'phone-home1',
+        'homePhone2'        => 'phone-home2',
         'workPhone'         => 'phone-business1',
+        'workPhone2'        => 'phone-business2',
         'cellPhone'         => 'phone-mobile',
         'fax'               => 'phone-businessfax',
         'imaddress'         => 'im-address',
@@ -698,8 +701,9 @@ $cfgSources['kolab'] = array(
                                'workPostalCode', 'workCountryFree',
                                'homeStreet', 'homeCity', 'homeProvince',
                                'homePostalCode', 'homeCountryFree'),
-        _("Communications") => array('emails', 'homePhone', 'workPhone',
-                                     'cellPhone', 'fax', 'imaddress'),
+        _("Communications") => array('emails', 'homePhone', 'homePhone2',
+                                     'workPhone', 'workPhone2', 'cellPhone',
+                                     'fax', 'imaddress'),
         _("Organization") => array('title', 'role', 'company', 'department',
                                    'office', 'manager', 'assistant'),
         _("Other") => array('notes', 'website', 'freebusyUrl',
@@ -771,7 +775,7 @@ $cfgSources['prefs'] = array(
 $cfgSources['favourites'] = array(
     // ENABLED by default
     'disabled' => false,
-    'title' => _("Favourite Recipients"),
+    'title' => _("Favorite Recipients"),
     'type' => 'favourites',
     'params' => array(
         'limit' => 10
@@ -785,54 +789,10 @@ $cfgSources['favourites'] = array(
         'email'
     ),
     'strict' => array(
-        'id',
     ),
     'export' => true,
     'browse' => true,
 );
-
-/**
- * A driver to show a user's Facebook friends as a turba address book. Some
- * data (like email) is not readily available via the API, but other data, like
- * birthdays (which will show up via the listTimeObjects API) may still be
- * useful to some
- */
-if (!empty($GLOBALS['conf']['facebook']['id'])) {
-    $cfgSources['facebook'] = array(
-        // Disabled if no provisioning with the Facebook API.
-        'disabled' => !$GLOBALS['injector']->getInstance('Horde_Service_Facebook')->auth->getSessionKey(),
-        'title' => _("Facebook Friends"),
-        'type' => 'facebook',
-        'params' => array(
-            'limit' => 10
-        ),
-        'map' => array(
-            '__key' => 'uid',
-            'name' => 'name',
-            'lastname' => 'last_name',
-            'firstname' => 'first_name',
-            'middlenames' => 'middle_name',
-            // 'email' => 'email',
-            'birthday' => 'birthday_date',
-            'homeCity' => 'current_location.city',
-            'homeProvince' => 'current_location.state',
-            'homePostalCode' => 'current_location.zip',
-            'homeCountry' => 'current_location.country',
-            'homeAddress' => array('fields' => array('homeCity',
-                                                     'homeProvince',
-                                                     'homePostalCode'),
-                                   'format' => "%s, %s %s"),
-            'notes' => 'about_me',
-            // 'website' => 'website',
-        ),
-        'search' => array(
-            'name',
-            'email',
-        ),
-        'export' => true,
-        'browse' => true,
-    );
-}
 
 /**
  * This source creates an address book for each group the current user is a

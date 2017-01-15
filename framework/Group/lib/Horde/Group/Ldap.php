@@ -1,11 +1,19 @@
 <?php
 /**
- * This class provides an LDAP driver for the Horde group system.
- *
- * Copyright 2005-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author   Ben Chavet <ben@horde.org>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Group
+ */
+
+/**
+ * This class provides an LDAP driver for the Horde group system.
  *
  * @author   Ben Chavet <ben@horde.org>
  * @author   Jan Schneider <jan@horde.org>
@@ -43,6 +51,8 @@ class Horde_Group_Ldap extends Horde_Group_Base
      */
     public function __construct($params)
     {
+        parent::__construct($params);
+
         $params = array_merge(
             array('binddn'               => '',
                   'bindpw'               => '',
@@ -114,7 +124,7 @@ class Horde_Group_Ldap extends Horde_Group_Base
      * @return mixed  The ID of the created group.
      * @throws Horde_Group_Exception
      */
-    public function create($name, $email = null)
+    protected function _create($name, $email = null)
     {
         if ($this->readOnly()) {
             throw new Horde_Group_Exception('This group backend is read-only.');
@@ -123,35 +133,24 @@ class Horde_Group_Ldap extends Horde_Group_Base
         $attributes = array(
             $this->_params['gid'] => $name,
             'objectclass'         => $this->_params['newgroup_objectclass'],
-            'gidnumber'           => $this->_nextGid());
+            'gidnumber'           => $this->_nextGid()
+        );
         if (!empty($email)) {
             $attributes['mail'] = $email;
         }
 
-        return $this->_create($name, $attributes);
-    }
-
-    /**
-     * Creates a new group.
-     *
-     * @param string $name       A group name.
-     * @param array $attributes  The group's attributes.
-     *
-     * @return mixed  The ID of the created group.
-     * @throws Horde_Group_Exception
-     */
-    protected function _create($name, array $attributes)
-    {
-        $dn = Horde_Ldap::quoteDN(array(array($this->_params['gid'], $name))) . ',' . $this->_params['basedn'];
+        $dn = Horde_Ldap::quoteDN(array(array($this->_params['gid'], $name)))
+            . ',' . $this->_params['basedn'];
         try {
             $entry = Horde_Ldap_Entry::createFresh($dn, $attributes);
             $this->_rebind(true);
             $this->_ldap->add($entry);
             $this->_rebind(false);
-            return $dn;
         } catch (Horde_Ldap_Exception $e) {
             throw new Horde_Group_Exception($e);
         }
+
+        return $dn;
     }
 
     /**
@@ -162,7 +161,7 @@ class Horde_Group_Ldap extends Horde_Group_Base
      *
      * @throws Horde_Group_Exception
      */
-    public function rename($gid, $name)
+    protected function _rename($gid, $name)
     {
         throw new Horde_Group_Exception('Renaming groups is not supported with the LDAP driver.');
     }
@@ -174,7 +173,7 @@ class Horde_Group_Ldap extends Horde_Group_Base
      *
      * @throws Horde_Group_Exception
      */
-    public function remove($gid)
+    protected function _remove($gid)
     {
         if ($this->readOnly()) {
             throw new Horde_Group_Exception('This group backend is read-only.');
@@ -197,7 +196,7 @@ class Horde_Group_Ldap extends Horde_Group_Base
      * @return boolean  True if the group exists.
      * @throws Horde_Group_Exception
      */
-    public function exists($gid)
+    protected function _exists($gid)
     {
         try {
             return $this->_ldap->exists($gid);
@@ -215,7 +214,7 @@ class Horde_Group_Ldap extends Horde_Group_Base
      * @throws Horde_Group_Exception
      * @throws Horde_Exception_NotFound
      */
-    public function getName($gid)
+    protected function _getName($gid)
     {
         try {
             $entry = $this->_ldap->getEntry($gid);
@@ -234,7 +233,7 @@ class Horde_Group_Ldap extends Horde_Group_Base
      * @throws Horde_Group_Exception
      * @throws Horde_Exception_NotFound
      */
-    public function getData($gid)
+    protected function _getData($gid)
     {
         try {
             $entry = $this->_ldap->getEntry($gid);
@@ -269,7 +268,7 @@ class Horde_Group_Ldap extends Horde_Group_Base
      * @throws Horde_Group_Exception
      * @throws Horde_Exception_NotFound
      */
-    public function setData($gid, $attribute, $value = null)
+    protected function _setData($gid, $attribute, $value = null)
     {
         if ($this->readOnly()) {
             throw new Horde_Group_Exception('This group backend is read-only.');
@@ -303,17 +302,11 @@ class Horde_Group_Ldap extends Horde_Group_Base
      * Returns a list of all groups a user may see, with IDs as keys and names
      * as values.
      *
-     * @param string $member  Only return groups that this user is a member of.
-     *
      * @return array  All existing groups.
      * @throws Horde_Group_Exception
      */
-    public function listAll($member = null)
+    protected function _listAll()
     {
-        if (!is_null($member)) {
-            return $this->listGroups($member);
-        }
-
         $attr = $this->_params['gid'];
         try {
             $search = $this->_ldap->search($this->_params['basedn'],
@@ -339,7 +332,7 @@ class Horde_Group_Ldap extends Horde_Group_Base
      * @throws Horde_Group_Exception
      * @throws Horde_Exception_NotFound
      */
-    public function listUsers($gid)
+    protected function _listUsers($gid)
     {
         $attr = $this->_params['memberuid'];
         try {
@@ -381,7 +374,7 @@ class Horde_Group_Ldap extends Horde_Group_Base
      * @return array  A list of groups, with IDs as keys and names as values.
      * @throws Horde_Group_Exception
      */
-    public function listGroups($user)
+    protected function _listGroups($user)
     {
         $attr = $this->_params['gid'];
         try {
@@ -412,7 +405,7 @@ class Horde_Group_Ldap extends Horde_Group_Base
      * @throws Horde_Group_Exception
      * @throws Horde_Exception_NotFound
      */
-    public function addUser($gid, $user)
+    protected function _addUser($gid, $user)
     {
         if ($this->readOnly()) {
             throw new Horde_Group_Exception('This group backend is read-only.');
@@ -442,7 +435,7 @@ class Horde_Group_Ldap extends Horde_Group_Base
      * @throws Horde_Group_Exception
      * @throws Horde_Exception_NotFound
      */
-    public function removeUser($gid, $user)
+    protected function _removeUser($gid, $user)
     {
         if ($this->readOnly()) {
             throw new Horde_Group_Exception('This group backend is read-only.');
@@ -472,7 +465,7 @@ class Horde_Group_Ldap extends Horde_Group_Base
      *                values.
      * @throws Horde_Group_Exception
      */
-    public function search($name)
+    protected function _search($name)
     {
         $attr = $this->_params['gid'];
         try {

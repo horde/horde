@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2012-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category  Horde
- * @copyright 2012-2015 Horde LLC
+ * @copyright 2012-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Imap_Client
  */
@@ -16,7 +16,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2012-2015 Horde LLC
+ * @copyright 2012-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Imap_Client
  * @since     2.10.0
@@ -53,11 +53,31 @@ extends Horde_Imap_Client_Data_Format_List
     /**
      * A callback to run on error.
      *
+     * If callback returns true, the command will be treated as successful.
+     *
      * @since 2.24.0
      *
      * @var callback
      */
     public $on_error = null;
+
+    /**
+     * A callback to run on success.
+     *
+     * @since 2.28.0
+     *
+     * @var callback
+     */
+    public $on_success = null;
+
+    /**
+     * Pipeline object associated with this command.
+     *
+     * @since 2.28.0
+     *
+     * @var Horde_Imap_Client_Interaction_Pipeline
+     */
+    public $pipeline;
 
     /**
      * Server response.

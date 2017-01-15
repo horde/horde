@@ -13,7 +13,7 @@
 /**
  * Class to encapsulate a single gallery.
  *
- * Copyright 2001-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -425,7 +425,7 @@ class Ansel_Gallery implements Serializable
                     $this->removeImage($imageId, true);
                 }
             } catch (Horde_Exception_NotFound $e) {
-                throw new Ansel_Exception($e);
+                Horde::log($e, 'ERR');
             }
         }
 
@@ -833,9 +833,10 @@ class Ansel_Gallery implements Serializable
         }
         if ($this->hasSubGalleries()) {
             try {
-                $galleries = $GLOBALS['injector']
-                    ->getInstance('Ansel_Storage')
-                    ->listGalleries(array('parent' => $this->id, 'all_levels' => false));
+                $galleries = $GLOBALS['storage']
+                    ->listGalleries(array(
+                        'parent' => $this->id,
+                        'all_levels' => false));
 
                 foreach ($galleries as $gallery) {
                     if ($default_img = $gallery->getKeyImage()) {

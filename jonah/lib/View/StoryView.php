@@ -2,7 +2,7 @@
 /**
  * Jonah_View_StoryView:: class to display an individual story.
  *
- * Copyright 2003-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://cvs.horde.org/co.php/jonah/LICENSE.
@@ -72,7 +72,7 @@ EOT;
 
         $driver = $GLOBALS['injector']->getInstance('Jonah_Driver');
         try {
-            $story = $driver->getStory($channel_id, $story_id, !$browser->isRobot());
+            $story = $driver->getStory($story_id, !$browser->isRobot());
         } catch (Exception $e) {
             $notification->push(sprintf(_("Error fetching story: %s"), $e->getMessage()), 'horde.warning');
             $page_output->header();
@@ -83,26 +83,39 @@ EOT;
 
         /* Grab tag related content for entire channel */
         $cloud = new Horde_Core_Ui_TagCloud();
-        $allTags = $driver->listTagInfo(array(), $channel_id);
+        $allTags = $GLOBALS['injector']
+            ->getInstance('Jonah_Driver')
+            ->listTagInfo($channel_id);
         foreach ($allTags as $tag_id => $taginfo) {
-            $cloud->addElement($taginfo['tag_name'], Horde::url('stories/results.php')->add(array('tag_id' => $tag_id, 'channel_id' => $channel_id)), $taginfo['total']);
+            $cloud->addElement(
+                $taginfo['tag_name'],
+                Horde::url('stories/results.php')->add(
+                    array(
+                        'tag' => trim($taginfo['tag_name']),
+                        'channel_id' => $channel_id
+                    )
+                ),
+                $taginfo['count']
+            );
         }
 
         /* Prepare the story's tags for display */
         // FIXME - need to actually use these.
-        $tag_html = array();
-        $tag_link = Horde::url('stories/results.php')->add('channel_id', $channel_id);
-        foreach ($story['tags'] as $id => $tag) {
-            $link = $tag_link->copy()->add('tag_id', $id);
-            $tag_html[] = $link->link() . $tag . '</a>';
-        }
+        // $tag_html = array();
+        // $tag_link = Horde::url('stories/results.php')->add('channel_id', $channel_id);
+        // foreach ($story['tags'] as $id => $tag) {
+        //     $link = $tag_link->copy()->add('tag_id', $id);
+        //     $tag_html[] = $link->link() . $tag . '</a>';
+        // }
 
         /* Filter and prepare story content. */
         if (!empty($story['body_type']) && $story['body_type'] == 'text') {
             $story['body'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($story['body'], 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
         }
 
-        // @TODO: Where is this used and what for?
+        // If URL is present, it's used instead of a story body. I.e., Provides
+        // a mechanism for a story title, with a link to e.g., a mailing list
+        // archive ...
         if (!empty($story['url'])) {
             $story['body'] .= Horde::link(Horde::externalUrl($story['url'])) . htmlspecialchars($story['url']) . '</a></p>';
         }

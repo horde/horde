@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2007-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2017 Horde LLC (http://www.horde.org/)
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://www.horde.org/licenses/bsd BSD
@@ -34,6 +34,7 @@
  *                                   one of the Horde_Http::AUTH_* constants.
  * @property integer $redirects      Maximum number of redirects to follow.
  * @property integer $timeout        Timeout in seconds.
+ * @property string $userAgent       User-Agent: request header contents.
  * @property boolean $verifyPeer     Verify SSL peer certificates?
  */
 abstract class Horde_Http_Request_Base

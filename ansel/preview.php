@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2007-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -17,6 +17,9 @@ try {
     $gal = $storage->getGallery(abs($image->gallery));
     $img = Ansel::getImageUrl($imageId, 'thumb', false, Ansel::getStyleDefinition('ansel_default'));
 } catch (Ansel_Exception $e) {
+    Horde::log($e->getMessage(), 'ERR');
+    exit;
+} catch (Horde_Exception_NotFound $e) {
     Horde::log($e->getMessage(), 'ERR');
     exit;
 }

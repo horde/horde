@@ -852,7 +852,7 @@ class Nag_Api extends Horde_Registry_Api
      *
      * @param string  $action     The action to check for - add, modify, or delete.
      * @param integer $timestamp  The time to start the search.
-     * @param mixed   $tasklists  The tasklists to be used. If 'null', the
+     * @param string  $tasklist   The tasklist to be used. If 'null', the
      *                            user's default tasklist will be used.
      * @param integer $end        The optional ending timestamp.
      * @param boolean $isModSeq   If true, $timestamp and $end are modification
@@ -897,37 +897,43 @@ class Nag_Api extends Horde_Registry_Api
      * a wrapper around listBy(), but returns an array containing all adds,
      * edits and deletions.
      *
-     * @param integer $start             The starting timestamp
-     * @param integer $end               The ending timestamp.
-     * @param boolean $isModSeq          If true, $timestamp and $end are
-     *                                   modification sequences and not
-     *                                   timestamps. @since 4.1.1
-     * @param string|array $tasklists    The sources to check. @since 4.2.0
+     * @param integer $start     The starting timestamp
+     * @param integer $end       The ending timestamp.
+     * @param boolean $isModSeq  If true, $timestamp and $end are modification
+     *                           sequences and not timestamps. @since 4.1.1
+     * @param string $tasklist   The sources to check. @since 4.2.0
      *
      * @return array  An hash with 'add', 'modify' and 'delete' arrays.
      */
-    public function getChanges($start, $end, $isModSeq = false, $tasklists = null)
+    public function getChanges($start, $end, $isModSeq = false, $tasklist = null)
     {
+        if (empty($tasklist)) {
+            $tasklist = Nag::getDefaultTasklist();
+        }
+        $GLOBALS['injector']->getInstance('Nag_Factory_Driver')
+            ->create($tasklist)
+            ->synchronize();
+
         return array(
-            'add' => $this->listBy('add', $start, $tasklists, $end, $isModSeq),
-            'modify' => $this->listBy('modify', $start, $tasklists, $end, $isModSeq),
-            'delete' => $this->listBy('delete', $start, $tasklists, $end, $isModSeq));
+            'add' => $this->listBy('add', $start, $tasklist, $end, $isModSeq),
+            'modify' => $this->listBy('modify', $start, $tasklist, $end, $isModSeq),
+            'delete' => $this->listBy('delete', $start, $tasklist, $end, $isModSeq));
     }
 
     /**
      * Return all changes occuring between the specified modification
      * sequences.
      *
-     * @param integer $start             The starting modseq.
-     * @param integer $end               The ending modseq.
-     * @param string|array $tasklists    The sources to check. @since 4.2.0
+     * @param integer $start    The starting modseq.
+     * @param integer $end      The ending modseq.
+     * @param string $tasklist  The sources to check. @since 4.2.0
      *
      * @return array  The changes @see getChanges()
      * @since 4.1.1
      */
-    public function getChangesByModSeq($start, $end, $tasklists = null)
+    public function getChangesByModSeq($start, $end, $tasklist = null)
     {
-        return $this->getChanges($start, $end, true, $tasklists);
+        return $this->getChanges($start, $end, true, $tasklist);
     }
 
     /**
@@ -1125,7 +1131,8 @@ class Nag_Api extends Horde_Registry_Api
      * @param string $tasklist_id  The tasklist that contains the task.
      *
      * @return boolean|string  True if the task has been toggled, a due date if
-     *                         there are still incomplete recurrences.
+     *                         there are still incomplete recurrences, otherwise
+     *                         false.
      */
     public function toggleCompletion($task_id, $tasklist_id)
     {
@@ -1140,7 +1147,12 @@ class Nag_Api extends Horde_Registry_Api
         }
         $task = Nag::getTask($tasklist_id, $task_id);
         $completed = $task->completed;
-        $task->toggleComplete();
+        try {
+            $task->toggleComplete();
+        } catch (Nag_Exception $e) {
+            Horde::log($e->getMessage(), 'DEBUG');
+            return false;
+        }
         $task->save();
         $due = $task->getNextDue();
         if ($task->completed == $completed) {
@@ -1172,7 +1184,7 @@ class Nag_Api extends Horde_Registry_Api
         $task = $GLOBALS['injector']
             ->getInstance('Nag_Factory_Driver')
             ->create('')
-            ->getByUID($uid);
+            ->getByUID($uid, null, false);
         if (!Nag::hasPermission($task->tasklist, Horde_Perms::READ)) {
             throw new Horde_Exception_PermissionDenied();
         }
@@ -1380,6 +1392,7 @@ class Nag_Api extends Horde_Registry_Api
             $task = new Nag_Task();
             $task->fromASTask($content);
             $task->owner = $owner;
+            $task->uid = $uid;
             $factory->create($existing->tasklist)->modify($taskId, $task->toHash());
             break;
         default:
@@ -1507,10 +1520,11 @@ class Nag_Api extends Horde_Registry_Api
 
         // List incomplete tasks.
         $tasks = Nag::listTasks(array(
+            'completed' => Nag::VIEW_FUTURE_INCOMPLETE,
+            'external' => false,
+            'include_history' => false,
             'tasklists' => $categories,
-            'completed' => Nag::VIEW_INCOMPLETE,
-            'include_history' => false)
-        );
+        ));
 
         $tasks->reset();
         while ($task = $tasks->each()) {

@@ -10,9 +10,9 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2015-01-13</date>
+ <date>2016-07-12</date>
  <version>
-  <release>1.0.0alpha8</release>
+  <release>1.0.0alpha12</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -21,8 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix generating the install path for composer packages installed within a Horde component.
-* [mms] Ignore .git directories in composer bundle directories when creating package.xml file.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -268,14 +267,21 @@
   <required>
    <php>
     <min>5.3.0</min>
-    <max>6.0.0alpha1</max>
-    <exclude>6.0.0alpha1</exclude>
+    <max>8.0.0alpha1</max>
+    <exclude>8.0.0alpha1</exclude>
    </php>
    <pearinstaller>
     <min>1.9.0</min>
    </pearinstaller>
    <package>
     <name>Horde_Exception</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
     <max>3.0.0alpha1</max>
@@ -538,11 +544,64 @@
    <stability>
     <release>alpha</release>
     <api>alpha</api></stability>
-   <date>2015-01-13</date>
+   <date>2015-04-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix generating the install path for composer packages installed within a Horde component.
 * [mms] Ignore .git directories in composer bundle directories when creating package.xml file.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0alpha9</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api></stability>
+   <date>2015-04-28</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix issues with certain locales like Turkish.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0alpha10</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api></stability>
+   <date>2016-03-08</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Mark PHP 7 as supported.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0alpha11</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api></stability>
+   <date>2016-07-12</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Add Horde_Pear_Remote#getReleases().
+* [jan] Add Horde_Pear_Package_Xml#getVersions().
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0alpha12</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api></stability>
+   <date>2016-07-12</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

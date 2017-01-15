@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
- * @copyright 2002-2015 Horde LLC
+ * @copyright 2002-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -17,7 +17,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2002-2015 Horde LLC
+ * @copyright 2002-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -99,6 +99,7 @@ class IMP_Basic_Contacts extends IMP_Basic_Base
                     'bcc' => _("Bcc")
                 ),
                 'closed' => _("The message being composed has been closed."),
+                'no_contacts_selected' => _("No addresses were selected."),
                 'searching' => _("Searching..."),
                 'select' => _("You must select an address first.")
             )

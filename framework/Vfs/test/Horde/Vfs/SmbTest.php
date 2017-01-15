@@ -2,7 +2,7 @@
 /**
  * Test the SMB based virtual file system.
  *
- * Copyright 2011-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -200,6 +200,25 @@ class Horde_Vfs_SmbTest extends Horde_Vfs_TestBase
     public function testListFolder()
     {
         $this->_listFolder();
+    }
+
+    public function testNullRoot()
+    {
+        $this->_nullRoot();
+    }
+
+    public function testHostspecWithPath()
+    {
+        self::$vfs->createFolder('', 'hostspectest');
+        self::$vfs->createFolder('hostspectest', 'directory');
+        self::$vfs->createFolder('hostspectest/directory', 'subdir');
+        $config = self::getConfig('VFS_FTP_TEST_CONFIG', __DIR__);
+        $config['vfs']['smb']['share'] .= '/hostspectest';
+        $vfs = Horde_Vfs::factory('Smb', $config['vfs']['smb']);
+        $this->assertEquals(
+            array('subdir'),
+            array_keys($vfs->listFolder('directory'))
+        );
     }
 
     public function testParseListing()

@@ -5,7 +5,7 @@
  * This file defines Horde's core API interface. Other core Horde libraries
  * can interact with Kronolith through this API.
  *
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -47,7 +47,7 @@ class Kronolith_Application extends Horde_Registry_Application
 
     /**
      */
-    public $version = 'H5 (4.3.0-git)';
+    public $version = 'H5 (5.0.0-git)';
 
     /**
      * Global variables defined:
@@ -158,14 +158,18 @@ class Kronolith_Application extends Horde_Registry_Application
      */
     public function sidebar($sidebar)
     {
-        $perms = $GLOBALS['injector']->getInstance('Horde_Core_Perms');
+        global $calendar_manager, $conf, $injector, $prefs, $registry, $session;
+
+        $admin = $registry->isAdmin();
+        $perms = $injector->getInstance('Horde_Core_Perms');
+
         if (Kronolith::getDefaultCalendar(Horde_Perms::EDIT) &&
             ($perms->hasAppPermission('max_events') === true ||
              $perms->hasAppPermission('max_events') > Kronolith::countEvents())) {
             $sidebar->addNewButton(_("_New Event"), Horde::url('new.php')->add('url', Horde::selfUrl(true, false, true)));
         }
 
-        if (strlen($GLOBALS['session']->get('kronolith', 'display_cal'))) {
+        if (strlen($session->get('kronolith', 'display_cal'))) {
             $calendars = Kronolith::displayedCalendars();
             $sidebar->containers['calendars'] = array(
                 'header' => array(
@@ -185,7 +189,7 @@ class Kronolith_Application extends Horde_Registry_Application
             return;
         }
 
-        $user = $GLOBALS['registry']->getAuth();
+        $user = $registry->getAuth();
         $url = Horde::selfUrl();
         $edit = Horde::url('calendars/edit.php');
 
@@ -196,13 +200,13 @@ class Kronolith_Application extends Horde_Registry_Application
                 'collapsed' => false,
             ),
         );
-        if (!$GLOBALS['prefs']->isLocked('default_share')) {
+        if (!$prefs->isLocked('default_share')) {
             $sidebar->containers['my']['header']['add'] = array(
                 'url' => Horde::url('calendars/create.php'),
                 'label' => _("Create a new Local Calendar"),
             );
         }
-        if ($GLOBALS['registry']->isAdmin()) {
+        if ($admin) {
             $sidebar->containers['system'] = array(
                 'header' => array(
                     'id' => 'kronolith-toggle-system',
@@ -223,8 +227,12 @@ class Kronolith_Application extends Horde_Registry_Application
             ),
         );
         foreach (Kronolith::listInternalCalendars() as $id => $calendar) {
+            $owner = $calendar->get('owner');
+            if ($admin && empty($owner)) {
+                continue;
+            }
             $row = array(
-                'selected' => in_array($id, $GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_CALENDARS)),
+                'selected' => in_array($id, $calendar_manager->get(Kronolith::DISPLAY_CALENDARS)),
                 'url' => $url->copy()->add('toggle_calendar', $id),
                 'label' => Kronolith::getLabel($calendar),
                 'color' => Kronolith::backgroundColor($calendar),
@@ -238,10 +246,10 @@ class Kronolith_Application extends Horde_Registry_Application
             }
         }
 
-        if ($GLOBALS['registry']->isAdmin()) {
-            foreach ($GLOBALS['injector']->getInstance('Kronolith_Shares')->listSystemShares() as $id => $calendar) {
+        if ($admin) {
+            foreach ($injector->getInstance('Kronolith_Shares')->listSystemShares() as $id => $calendar) {
                 $row = array(
-                    'selected' => in_array($id, $GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_CALENDARS)),
+                    'selected' => in_array($id, $calendar_manager->get(Kronolith::DISPLAY_CALENDARS)),
                     'url' => $url->copy()->add('toggle_calendar', $id),
                     'label' => $calendar->get('name'),
                     'color' => Kronolith::backgroundColor($calendar),
@@ -251,8 +259,8 @@ class Kronolith_Application extends Horde_Registry_Application
                 $sidebar->addRow($row, 'system');
             }
         }
-        if (!empty($GLOBALS['conf']['resource']['driver']) &&
-            ($GLOBALS['registry']->isAdmin() || $GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission('resource_management'))) {
+        if (!empty($conf['resources']['enabled']) &&
+            ($admin || $perms->hasAppPermission('resource_management'))) {
 
             $sidebar->containers['groups'] = array(
                 'header' => array(
@@ -279,7 +287,7 @@ class Kronolith_Application extends Horde_Registry_Application
             );
             $edit = Horde::url('resources/edit.php');
             foreach (Kronolith::getDriver('Resource')->listResources() as $resource) {
-                if ($resource->get('type') == Kronolith_Resource::TYPE_GROUP) {
+                if ($resource->get('isgroup')) {
                     $row = array(
                         'label' => $resource->get('name'),
                         'color' => '#dddddd',
@@ -292,7 +300,7 @@ class Kronolith_Application extends Horde_Registry_Application
                         'resource' => $resource
                     ));
                     $row = array(
-                        'selected' => in_array($resource->get('calendar'), $GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_RESOURCE_CALENDARS)),
+                        'selected' => in_array($resource->get('calendar'), $calendar_manager->get(Kronolith::DISPLAY_RESOURCE_CALENDARS)),
                         'url' => $url->copy()->add('toggle_calendar', 'resource_' . $resource->get('calendar')),
                         'label' => $calendar->name(),
                         'color' => $calendar->background(),
@@ -304,13 +312,13 @@ class Kronolith_Application extends Horde_Registry_Application
             }
         }
 
-        foreach ($GLOBALS['calendar_manager']->get(Kronolith::ALL_EXTERNAL_CALENDARS) as $id => $calendar) {
+        foreach ($calendar_manager->get(Kronolith::ALL_EXTERNAL_CALENDARS) as $id => $calendar) {
             if (!$calendar->display()) {
                 continue;
             }
-            $app = $GLOBALS['registry']->get(
+            $app = $registry->get(
                 'name',
-                $GLOBALS['registry']->hasInterface($calendar->api()));
+                $registry->hasInterface($calendar->api()));
             if (!strlen($app)) {
                 $app = _("Other events");
             }
@@ -325,7 +333,7 @@ class Kronolith_Application extends Horde_Registry_Application
                 );
             }
             $row = array(
-                'selected' => in_array($id, $GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_EXTERNAL_CALENDARS)),
+                'selected' => in_array($id, $calendar_manager->get(Kronolith::DISPLAY_EXTERNAL_CALENDARS)),
                 'url' => $url->copy()->add('toggle_calendar', 'external_' . $id),
                 'label' => $calendar->name(),
                 'color' => $calendar->background(),
@@ -346,9 +354,9 @@ class Kronolith_Application extends Horde_Registry_Application
             ),
         );
         $edit = Horde::url('calendars/remote_edit.php');
-        foreach ($GLOBALS['calendar_manager']->get(Kronolith::ALL_REMOTE_CALENDARS) as $calendar) {
+        foreach ($calendar_manager->get(Kronolith::ALL_REMOTE_CALENDARS) as $calendar) {
             $row = array(
-                'selected' => in_array($calendar->url(), $GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_REMOTE_CALENDARS)),
+                'selected' => in_array($calendar->url(), $calendar_manager->get(Kronolith::DISPLAY_REMOTE_CALENDARS)),
                 'url' => $url->copy()->add('toggle_calendar', 'remote_' . $calendar->url()),
                 'label' => $calendar->name(),
                 'color' => $calendar->background(),
@@ -358,7 +366,7 @@ class Kronolith_Application extends Horde_Registry_Application
             $sidebar->addRow($row, 'remote');
         }
 
-        if (!empty($GLOBALS['conf']['holidays']['enable'])) {
+        if (!empty($conf['holidays']['enable'])) {
             $sidebar->containers['holidays'] = array(
                 'header' => array(
                     'id' => 'kronolith-toggle-holidays',
@@ -366,9 +374,9 @@ class Kronolith_Application extends Horde_Registry_Application
                     'collapsed' => true,
                 ),
             );
-            foreach ($GLOBALS['calendar_manager']->get(Kronolith::ALL_HOLIDAYS) as $id => $calendar) {
+            foreach ($calendar_manager->get(Kronolith::ALL_HOLIDAYS) as $id => $calendar) {
                 $row = array(
-                    'selected' => in_array($id, $GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_HOLIDAYS)),
+                    'selected' => in_array($id, $calendar_manager->get(Kronolith::DISPLAY_HOLIDAYS)),
                     'url' => $url->copy()->add('toggle_calendar', 'holiday_' . $id),
                     'label' => $calendar->name(),
                     'color' => $calendar->background(),
@@ -528,6 +536,10 @@ class Kronolith_Application extends Horde_Registry_Application
                             'user' => $alarm_user
                         ));
                     }
+                    // Don't show alarms for private events if not the owner.
+                    if ($event->isPrivate($alarm_user)) {
+                        continue;
+                    }
                     $shown_calendars = unserialize($prefs->getValue('display_cals'));
                     $reminder = $prefs->getValue('event_reminder');
                     if (($reminder == 'owner' && $alarm_user == $owner) ||
@@ -556,6 +568,50 @@ class Kronolith_Application extends Horde_Registry_Application
         global $display_calendars, $injector;
 
         switch ($vars->actionID) {
+        case 'download_file':
+            $source = Horde_Util::getFormData('source');
+            $key = Horde_Util::getFormData('key');
+            $filename = Horde_Util::getFormData('file');
+            $type = Horde_Util::getFormData('type');
+
+            list($driver_type, $calendar) = explode('|', $source);
+            if ($driver_type == 'internal' &&
+                !Kronolith::hasPermission($calendar, Horde_Perms::SHOW)) {
+                $GLOBALS['notification']->push(_("Permission Denied"), 'horde.error');
+                return false;
+            }
+
+            try {
+                $driver = Kronolith::getDriver($driver_type, $calendar);
+            } catch (Exception $e) {
+                $GLOBALS['notification']->push($e, 'horde.error');
+                return false;
+            }
+            $event = $driver->getEvent($key);
+
+            /* Check permissions. */
+            if (!$event->hasPermission(Horde_Perms::READ)) {
+                throw new Kronolith_Exception(_("You do not have permission to view this event."));
+            }
+
+            try {
+                $data = $event->vfsInit()->read(Kronolith::VFS_PATH . '/' . $event->getVfsUid(), $filename);
+            } catch (Horde_Vfs_Exception $e) {
+                Horde::log($e, 'ERR');
+                throw new Kronolith_Exception(sprintf(_("Access denied to %s"), $filename));
+            }
+
+            try {
+                return array(
+                    'data' => $data,
+                    'name' => $vars->file,
+                    'type' => $type
+                );
+            } catch (Horde_Vfs_Exception $e) {
+                Horde::log($e, 'ERR');
+                throw new Kronolith_Exception(sprintf(_("Access denied to %s"), $vars->file));
+            }
+
         case 'export':
             if ($vars->all_events) {
                 $end = $start = null;
@@ -678,7 +734,13 @@ class Kronolith_Application extends Horde_Registry_Application
     {
         global $calendar_manager, $injector, $registry;
 
-        $hordeUser = $registry->convertUsername($user, true);
+        $hordeUser = $user;
+        try {
+            $hordeUser = $injector->getInstance('Horde_Core_Hooks')
+                ->callHook('davusername', 'horde', array($hordeUser, true));
+        } catch (Horde_Exception_HookNotSet $e) {
+        }
+        $hordeUser = $registry->convertUsername($hordeUser, true);
         $shares = $injector->getInstance('Kronolith_Shares')
             ->listShares($hordeUser);
         $dav = $injector->getInstance('Horde_Dav_Storage');
@@ -726,7 +788,7 @@ class Kronolith_Application extends Horde_Registry_Application
             ->getInstance('Horde_Dav_Storage');
 
         $internal = $dav->getInternalCollectionId($collection, 'calendar') ?: $collection;
-        if (!Kronolith::hasPermission($internal, Horde_Perms::READ)) {
+        if (!Kronolith::hasPermission($internal, Horde_Perms::SHOW)) {
             throw new Kronolith_Exception(_("Calendar does not exist or no permission to edit"));
         }
 
@@ -767,7 +829,7 @@ class Kronolith_Application extends Horde_Registry_Application
             ->getInstance('Horde_Dav_Storage');
 
         $internal = $dav->getInternalCollectionId($collection, 'calendar') ?: $collection;
-        if (!Kronolith::hasPermission($internal, Horde_Perms::READ)) {
+        if (!Kronolith::hasPermission($internal, Horde_Perms::SHOW)) {
             throw new Kronolith_Exception(_("Calendar does not exist or no permission to edit"));
         }
 
@@ -806,6 +868,11 @@ class Kronolith_Application extends Horde_Registry_Application
     }
 
     /**
+     * Add or update an event from DAV
+     *
+     * @param string $collection  An external collection ID.
+     * @param string $object      An external object ID.
+     * @param string $data        Icalendar data
      */
     public function davPutObject($collection, $object, $data)
     {
@@ -821,62 +888,10 @@ class Kronolith_Application extends Horde_Registry_Application
         if (!$ical->parsevCalendar($data)) {
             throw new Kronolith_Exception(_("There was an error importing the iCalendar data."));
         }
-
-        $kronolith_driver = Kronolith::getDriver(null, $internal);
-
-        foreach ($ical->getComponents() as $content) {
-            if (!($content instanceof Horde_Icalendar_Vevent)) {
-                continue;
-            }
-
-            $event = $kronolith_driver->getEvent();
-            $event->fromiCalendar($content, true);
-
-            try {
-                try {
-                    $existing_id = $dav->getInternalObjectId($object, $internal)
-                        ?: preg_replace('/\.ics$/', '', $object);
-                } catch (Horde_Dav_Exception $e) {
-                    $existing_id = $object;
-                }
-                $existing_event = $kronolith_driver->getEvent($existing_id);
-                /* Check if our event is newer then the existing - get the
-                 * event's history. */
-                $existing_event->loadHistory();
-                $modified = $existing_event->modified
-                    ?: $existing_event->created;
-                try {
-                    if (!empty($modified) &&
-                        $content->getAttribute('LAST-MODIFIED') < $modified->timestamp()) {
-                        /* LAST-MODIFIED timestamp of existing entry is newer:
-                         * don't replace it. */
-                        continue;
-                    }
-                } catch (Horde_Icalendar_Exception $e) {
-                }
-
-                // Don't change creator/owner.
-                $event->creator = $existing_event->creator;
-            } catch (Horde_Exception_NotFound $e) {
-                $existing_event = null;
-            }
-
-            // Save entry.
-            $id = $event->save();
-
-            if (!$existing_event) {
-                $dav->addObjectMap($id, $object, $internal);
-            }
-
-            // Send iTip messages.
-            // Notifications will get lost, there is no way to return messages
-            // to clients.
-            Kronolith::sendITipNotifications(
-                $event,
-                new Horde_Notification_Handler(new Horde_Notification_Storage_Object()),
-                Kronolith::ITIP_REQUEST
-            );
-        }
+        $importer = new Kronolith_Icalendar_Handler_Dav(
+            $ical, Kronolith::getDriver(null, $internal), array('object' => $object)
+        );
+        $importer->process();
     }
 
     /**
@@ -905,9 +920,12 @@ class Kronolith_Application extends Horde_Registry_Application
         } catch (Horde_Dav_Exception $e) {
         }
 
-        // Send iTip messages.
+        // Send iTip messages unless organizer is external.
         // Notifications will get lost, there is no way to return messages to
         // clients.
+        if ($event->organizer && !Kronolith::isUserEmail($event->creator, $event->organizer)) {
+            return;
+        }
         Kronolith::sendITipNotifications(
             $event,
             new Horde_Notification_Handler(new Horde_Notification_Storage_Object()),

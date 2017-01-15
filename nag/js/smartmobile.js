@@ -1,7 +1,7 @@
 /**
  * Base smartmobile application logic for Nag.
  *
- * Copyright 2011-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -290,13 +290,36 @@ var NagMobile = {
         var params = {
             task_id: t.id,
             tasklist: t.l
-        }, item;
+        }, item, view_link, toggle_link;
+
+        view_link = $('<a>');
+        if (!!t.vl) {
+            view_link = view_link.attr({
+                href: t.vl,
+                'data-ajax': 'false'
+            });
+        } else {
+            view_link = view_link.attr({
+                href: HordeMobile.createUrl('nag-taskform-view', params)
+            });
+        }
+        view_link = view_link.addClass('nag-task');
+
+        toggle_link = $('<a>');
+        if (!!t.cl) {
+            toggle_link = toggle_link.attr({
+                href: t.cl,
+                'data-ajax': 'false'
+            });
+        } else {
+            toggle_link = toggle_link.attr({
+                href: HordeMobile.createUrl('nag-toggle', params)
+            });
+        }
 
         item = $('<li>').jqmData('icon', t.cp ? 'check' : 'nag-unchecked')
             .append(
-                $('<a>').attr({
-                    href: HordeMobile.createUrl('nag-taskform-view', params)
-                }).addClass('nag-task')
+                view_link
                 .append(
                     $('<h3>').text(t.n)
                 ).append(
@@ -306,9 +329,7 @@ var NagMobile = {
                     $('<p>').text((t.de ? t.de : ''))
                 )
             ).append(
-                $('<a>').attr({
-                    href: HordeMobile.createUrl('nag-toggle', params)
-                })
+                toggle_link
             );
         item.jqmData('task_id', t.id);
         item.jqmData('tasklist', t.l);

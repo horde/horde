@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2007-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -16,7 +16,7 @@
  *
  * @author    Michael J. Rubinsky <mrubinsk@horde.org>
  * @category  Horde
- * @copyright 2007-2015 Horde LLC
+ * @copyright 2007-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
  * @package   Image
  *
@@ -696,6 +696,8 @@ class Horde_Image_Imagick extends Horde_Image_Base
     {
         // Need to jump through these hoops in order to preserve any
         // transparency.
+        // @TODO Imagick::clone is deprecated as of 3.1.0. For H6 use the clone
+        // keyword instead.
         try {
             $border = $image->clone();
             $border->borderImage(new ImagickPixel($color), $width, $height);

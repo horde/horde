@@ -3,7 +3,7 @@
  * Base class for Whups' storage backend.
  *
  * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
- * Copyright 2001-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -145,11 +145,7 @@ abstract class Whups_Driver
 
             default:
                 if (strpos($type, 'attribute_') === 0) {
-                    try {
-                        $value = Horde_Serialize::unserialize(
-                            $value, Horde_Serialize::JSON);
-                    } catch (Horde_Serialize_Exception $e) {
-                    }
+                    $value = $this->_json_decode($value);
                     $attribute = substr($type, 10);
                     if (isset($attributes[$attribute])) {
                         $label = $attributes[$attribute];
@@ -192,6 +188,44 @@ abstract class Whups_Driver
         }
 
         return $history;
+    }
+
+    /**
+     * Helper to decode attribute value, which may be a bare scalar value, or
+     * a json encoded structure that may contain large numeric strings that
+     * should not be taken as integers.
+     *
+     * @param string  The value to decode.
+     *
+     * @return mixed  The decoded value.
+     */
+    protected function _json_decode($value)
+    {
+        if (is_string($value) && defined('JSON_BIGINT_AS_STRING')) {
+            $result = json_decode(
+                $value, true, 512, constant('JSON_BIGINT_AS_STRING')
+            );
+            // If we failed above, see if it was a bare scalar value. Note we
+            // need to encode it first to be sure we escape any characters that
+            // need escaping and we properly quote strings.
+            if (!isset($result)) {
+                $result = json_decode(
+                    json_encode($value),
+                    true,
+                    512,
+                    constant('JSON_BIGINT_AS_STRING')
+                );
+            }
+        } else {
+            try {
+                $result = Horde_Serialize::unserialize(
+                    $value, Horde_Serialize::JSON);
+            } catch (Horde_Serialize_Exception $e) {
+                $result = $value;
+            }
+        }
+
+        return $result;
     }
 
     /**
@@ -309,13 +343,6 @@ abstract class Whups_Driver
 
         $attributes = array();
         foreach ($ta as $id => $attribute) {
-            try {
-                $value = Horde_Serialize::unserialize(
-                    $attribute['attribute_value'],
-                    Horde_Serialize::JSON);
-            } catch (Horde_Serialize_Exception $e) {
-                $value = $attribute['attribute_value'];
-            }
             $attributes[$attribute['attribute_id']] = array(
                 'id'         => $attribute['attribute_id'],
                 'human_name' => $attribute['attribute_name'],
@@ -324,8 +351,9 @@ abstract class Whups_Driver
                 'readonly'   => false,
                 'desc'       => $attribute['attribute_description'],
                 'params'     => $attribute['attribute_params'],
-                'value'      => $value);
+                'value'      => $attribute['attribute_value']);
         }
+
         return $attributes;
     }
 

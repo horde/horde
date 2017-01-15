@@ -3,7 +3,7 @@
  * Portal block for displaying weather information obtained via
  * Horde_Service_Weather.
  *
- * Copyright 2011-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
  *
  * @author   Michael J Rubinsky <mrubinsk@horde.org>
  * @license  http://www.horde.org/licenses/bsd BSD
@@ -95,15 +95,19 @@ class Horde_Block_Weather extends Horde_Core_Block
             ),
             'days' => array(
                 'type' => 'enum',
-                'name' => _("Forecast Days (note that the returned forecast returns both day and night; a large number here could result in a wide block)"),
+                'name' => _("Forecast Days (note that the returned forecast returns both day and night; a large number here could result in a wide block.)"),
                 'default' => 3,
                 'values' => $lengths
             ),
             'detailedForecast' => array(
                 'type' => 'checkbox',
-                'name' => _("Display detailed forecast"),
+                'name' => _("Display detailed forecast?"),
                 'default' => 0
-            )
+            ),
+            'showMap' => array(
+                'type' => 'checkbox',
+                'name' => _("Display the OpenWeatherMap map?"),
+                'default' => 0)
         );
     }
 
@@ -111,263 +115,73 @@ class Horde_Block_Weather extends Horde_Core_Block
      */
     protected function _content()
     {
+        global $injector, $language, $page_output, $prefs, $registry;
+
         // Set the requested units.
         $this->_weather->units = $this->_params['units'];
+        $view = $injector->getInstance('Horde_View');
 
         if (!empty($this->_refreshParams) && !empty($this->_refreshParams->location)) {
             $location = $this->_refreshParams->location;
-            $html = '';
-            $instance = '';
+            $view->instance = '';
         } else {
-            $instance = hash('md5', mt_rand());
-            $GLOBALS['injector']
-                ->getInstance('Horde_Core_Factory_Imple')
-                ->create(
-                    'WeatherLocationAutoCompleter',
-                    array(
-                        'id' => 'location' . $instance,
-                        'instance' => $instance
-                    )
-                );
-
-            $html = '<div class="horde-content"><input id="location' . $instance . '" name="location' . $instance . '"> <input type="button" id="button' . $instance . '" class="horde-default" value="'
-                . _("Change Location") . '" /><span style="display:none;" id="location' . $instance . '_loading_img">'
-                . Horde_Themes_Image::tag('loading.gif') . '</span></div>';
+            $view->instance = hash('md5', mt_rand());
+            $injector->getInstance('Horde_Core_Factory_Imple')->create(
+                'WeatherLocationAutoCompleter_Weather',
+                array(
+                    'id' => 'location' . $view->instance,
+                    'instance' => $view->instance
+                )
+            );
+            $view->requested_location = $this->_params['location'];
             $location = $this->_params['location'];
+        }
+
+        $view->units = $this->_weather->getUnits($this->_weather->units);
+        $view->params = $this->_params;
+        $view->link = $this->_weather->link;
+        $view->title = $this->_weather->title;
+        if ($this->_weather->logo) {
+            $view->logo = $this->_weather->logo;
         }
 
         // Test location
         try {
-            $location = $this->_weather->searchLocations($location);
+            $view->location = $this->_weather->searchLocations($location);
         } catch (Horde_Service_Weather_Exception $e) {
             return $e->getMessage();
-        }
-
-        $html .= '<div id="weathercontent' . $instance . '">';
-
-        if (is_array($location)) {
-            // Several locations returned due to imprecise location parameter.
-            $html = sprintf(_("Several locations possible with the parameter: %s"), $this->_params['location'])
-                . '<br />';
-            foreach ($location as $real_location) {
-                $html .= '<li>' . $real_location->city . ', ' . $real_location->state . '(' . $real_location->code . ")</li>\n";
-            }
-            $html .= '</ul>';
-            return $html;
+        } catch (Horde_Exception_NotFound $e) {
+            return _(sprintf("Location %s not found."), $location);
         }
         try {
-            $forecast = $this->_weather->getForecast($location->code, $this->_params['days']);
-            $station = $this->_weather->getStation();
-            $current = $this->_weather->getCurrentConditions($location->code);
+            $view->forecast = $this->_weather->getForecast($view->location->code, $this->_params['days']);
+            $view->station = $this->_weather->getStation();
+            $view->current = $this->_weather->getCurrentConditions($view->location->code);
+            // @todo: Add link to put alert text in redbox.
+            $view->timezone = $prefs->getValue('timezone');
+            $view->dateFormat = $prefs->getValue('date_format');
+            $view->timeFormat = $prefs->getValue('time_format');
+            $view->alerts = $this->_weather->getAlerts($view->location->code);
+            $view->radar = $this->_weather->getRadarImageUrl($location);
         } catch (Horde_Service_Weather_Exception $e) {
             return $e->getMessage();
         }
+        $view->languageFilter = '/^'
+            . $registry->nlsconfig->languages[$language] . ': /i';
 
-        // Units to display as
-        $units = $this->_weather->getUnits($this->_weather->units);
-
-        // Location and local time.
-        $html .= '<div class="control">'
-            . '<strong>' . $station->name . '</strong>';
-        if ($current->time->timestamp()) {
-            $html .= ' ' . sprintf(_("Local time: %s %s (UTC %s)"), $current->time->strftime($GLOBALS['prefs']->getValue('date_format')), $current->time->strftime($GLOBALS['prefs']->getValue('time_format')), $station->getOffset());
+        if (!empty($this->_params['showMap']) && !empty($view->instance)) {
+            $view->map = true;
+            $page_output->addScriptFile('weatherblockmap.js', 'horde');
+            Horde_Core_HordeMap::init(array('providers' => array('owm', 'osm')));
+            $page_output->addInlineScript(array(
+                'WeatherBlockMap.initializeMap("' . $view->instance . '", { lat: "' . $view->location->lat . '", lon: "' . $view->location->lon . '"});$("weathermaplayer_' . $view->instance . '").show();'
+            ), true);
         }
-        $html .= '</div>';
-
-        $html .= '<div class="horde-content">';
-        // Sunrise/sunset.
-        if ($station->sunrise) {
-            $html .= '<strong>' . _("Sunrise") . ': </strong>'
-                . Horde_Themes_Image::tag('block/sunrise/sunrise.png', array('alt' => _("Sunrise")))
-                . sprintf("%s %s", $station->sunrise->strftime($GLOBALS['prefs']->getValue('date_format')), $station->sunrise->strftime($GLOBALS['prefs']->getValue('time_format')));
-            $html .= ' <strong>' . _("Sunset") . ': </strong>'
-                . Horde_Themes_Image::tag('block/sunrise/sunset.png', array('alt' => _("Sunset")))
-                . sprintf("%s %s", $station->sunset->strftime($GLOBALS['prefs']->getValue('date_format')), $station->sunset->strftime($GLOBALS['prefs']->getValue('time_format')));
-            $html .= '<br />';
-        }
-
-        // Temperature.
-        $html .= '<strong>' . _("Temperature") . ': </strong>' .
-            $current->temp . '&deg;' . Horde_String::upper($units['temp']);
-
-        // Dew point.
-        if (is_numeric($current->dewpoint)) {
-            $html .= ' <strong>' . _("Dew point") . ': </strong>' .
-                    round($current->dewpoint) . '&deg;' . Horde_String::upper($units['temp']);
-        }
-
-        // Feels like temperature.
-        // @TODO: Need to parse if wind chill/heat index etc..
-        // $html .= ' <strong>' . _("Feels like: ") . '</strong>' .
-        //     round($this->_weather['feltTemperature']) . '&deg;' . Horde_String::upper($units['temp']);
-
-        // Pressure and trend.
-        if ($current->pressure) {
-            $html .= '<br /><strong>' . _("Pressure") . ': </strong>';
-            $trend = $current->pressure_trend;
-            if (empty($trend)) {
-                $html .= sprintf('%d %s',
-                                 round($current->pressure), $units['pres']);
-            } else {
-                $html .= sprintf(_("%d %s and %s"),
-                                 round($current->pressure), $units['pres'],
-                                 _($trend));
-            }
-        }
-        if ($current->wind_direction) {
-            // Wind.
-            $html .= '<br /><strong>' . _("Wind") . ': </strong>';
-            $html .= sprintf(
-                _("From the %s (%s &deg;) at %s %s"),
-                $current->wind_direction,
-                $current->wind_degrees,
-                $current->wind_speed,
-                $units['wind']);
-            if ($current->wind_gust > 0) {
-                $html .= ', ' . _("gusting") . ' ' . $current->wind_gust . ' ' . $units['wind'];
-            }
-        }
-
-        // Humidity.
-        if ($current->humidity) {
-            $html .= '<br /><strong>' . _("Humidity") . ': </strong>' . $current->humidity;
-        }
-
-        if ($current->visibility) {
-            // Visibility.
-            $html .= ' <strong>' . _("Visibility") . ': </strong>'
-                . round($current->visibility) . ' ' . $units['vis'];
-        }
-
-        // Current condition.
-        $condition = $current->condition;
-        $html .= '<br /><strong>' . _("Current condition") . ': </strong>'
-            . Horde_Themes_Image::tag('weather/32x32/' . $current->icon)
-            .  ' ' . $condition
-            . '</div>';
-
-        // Forecast
-        if ($this->_params['days'] > 0) {
-            $html .= '<div class="control"><strong>' .
-                sprintf(_("%d-day forecast"), $this->_params['days']) .
-                '</strong></div>';
-
-            $futureDays = 0;
-            $html .= '<table class="horde-block-weather">';
-
-            // Headers.
-            $html .= '<tr>';
-            $html .= '<th>' . _("Day") . '</th><th>' .
-            sprintf(_("Temperature%s(%sHi%s/%sLo%s)"),
-                        '<br />',
-                        '<span style="color:red">', '</span>',
-                        '<span style="color:blue">', '</span>') .
-                '</th><th>' . _("Condition") . '</th>';
-
-            if (isset($this->_params['detailedForecast'])) {
-                if (in_array(Horde_Service_Weather::FORECAST_FIELD_PRECIPITATION, $forecast->fields)) {
-                    $html .= '<th>' . sprintf(_("Precipitation%schance"), '<br />') . '</th>';
-                }
-
-                if (in_array(Horde_Service_Weather::FORECAST_FIELD_HUMIDITY, $forecast->fields)) {
-                    $html .= '<th>' . _("Humidity") . '</th>';
-                }
-
-                if (in_array(Horde_Service_Weather::FORECAST_FIELD_WIND, $forecast->fields)) {
-                    $html .= '<th>' . _("Wind") . '</th>';
-                }
-            }
-
-            $html .= '</tr>';
-            $which = -1;
-            foreach ($forecast as $day) {
-                 $which++;
-                 if ($which > $this->_params['days']) {
-                     break;
-                 }
-                 $html .= '<tr class="rowEven">';
-
-                 // Day name.
-                 $html .= '<td><strong>';
-
-                 if ($which == 0) {
-                     $html .= _("Today");
-                 } elseif ($which == 1) {
-                     $html .= _("Tomorrow");
-                 } else {
-                     $html .= strftime('%A', mktime(0, 0, 0, date('m'), date('d') + $futureDays, date('Y')));
-                 }
-                $html .= '</strong><br />' .
-                    strftime('%b %d', mktime(0, 0, 0, date('m'), date('d') + $futureDays, date('Y'))) .
-                    '</td>';
-
-                // Forecast condition.
-                $condition = $day->conditions;
-
-                // Temperature.
-                $html .= '<td>'
-                    . '<span style="color:red">' . $day->high . '&deg;'
-                    . Horde_String::upper($units['temp']) . '</span>/'
-                    . '<span style="color:blue">' . $day->low . '&deg;'
-                    . Horde_String::upper($units['temp']) . '</span></td>';
-
-                // Condition.
-                $html .= '<td>'
-                    . Horde_Themes_Image::tag('weather/32x32/' . $day->icon)
-                    . '<br />' . $condition . '</td>';
-
-                if (isset($this->_params['detailedForecast'])) {
-                    if (in_array(Horde_Service_Weather::FORECAST_FIELD_PRECIPITATION, $forecast->fields)) {
-                        $html .= '<td>'
-                            . ($day->precipitation_percent >= 0 ? $day->precipitation_percent . '%' : _("N/A")) . '</td>';
-                    }
-                    if (in_array(Horde_Service_Weather::FORECAST_FIELD_HUMIDITY, $forecast->fields)) {
-                        $html .= '<td>'
-                            . ($day->humidity ? $day->humidity . '%': _("N/A")) . '</td>';
-                    }
-                    if (in_array(Horde_Service_Weather::FORECAST_FIELD_WIND, $forecast->fields)) {
-                        // Winds.
-                        if ($day->wind_direction) {
-                            $html .= '<td>' . ' '
-                                . sprintf(_("From the %s at %s %s"),
-                                          $day->wind_direction,
-                                          $day->wind_speed,
-                                          $units['wind']);
-                            if ($day->wind_gust && $day->wind_gust > $day->wind_speed) {
-                                $html .= ', ' . _("gusting") . ' '
-                                    . $day->wind_gust . ' ' . $units['wind'];
-                            }
-                            $html .= '</td>';
-                        } else {
-                            $html .= '<td>' . _("N/A") . '</td>';
-                        }
-                    }
-                }
-                $html .= '</tr>';
-                $futureDays++;
-            }
-            $html .= '</table>';
-        }
-
-        if ($this->_weather->logo) {
-            $html .= '<div class="rightAlign">'
-                . _("Weather data provided by") . ' '
-                . Horde::link(
-                    Horde::externalUrl($this->_weather->link),
-                    $this->_weather->title, '', '_blank', '', $this->_weather->title)
-                . Horde_Themes_Image::tag($this->_weather->logo)
-                . '</a></div>';
+        if (!empty($view->instance)) {
+            return $view->render('block/weather');
         } else {
-            $html .= '<div class="rightAlign">'
-                . _("Weather data provided by") . ' '
-                . Horde::link(
-                    Horde::externalUrl($this->_weather->link),
-                    $this->_weather->title, '', '_blank', '', $this->_weather->title)
-                . '<em>' . $this->_weather->title . '</em>'
-                . '</a></div>';
+            return $view->render('block/weather_content');
         }
-
-        return $html . '</div>';
     }
 
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2003-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -39,9 +39,11 @@ class Ansel_Form_Image extends Horde_Form
             'monthdayyear', true, false, null, array('start_year' => 1900));
 
         $this->addVariable(_("Tags"), 'image_tags', 'text', false);
-        $upload = &$this->addVariable(
+
+        $upload = $this->addVariable(
             _("Replace photo with this file"), 'file0', 'file', false, false,
             _("Maximum photo size:") . ' '  . $filesize, array(false));
+
         $upload->setHelp('upload');
     }
 

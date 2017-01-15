@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @category  Horde
- * @copyright 2002-2015 Horde LLC
+ * @copyright 2002-2017 Horde LLC
  * @license   http://www.horde.org/licenses/apache ASL
  * @package   Ingo
  */
@@ -17,7 +17,7 @@
  * @author    Mike Cochrane <mike@graftonhall.co.nz>
  * @author    Jan Schneider <jan@horde.org>
  * @category  Horde
- * @copyright 2002-2015 Horde LLC
+ * @copyright 2002-2017 Horde LLC
  * @license   http://www.horde.org/licenses/apache ASL
  * @package   Ingo
  */
@@ -96,10 +96,8 @@ class Ingo
         global $injector, $registry, $session;
 
         return ($share = $injector->getInstance('Ingo_Shares'))
-            ? ($share->getPermissions(
-                  $session->get('ingo', 'current_share'),
-                  $registry->getAuth()
-              ) & $mask)
+            ? $share->getShare($session->get('ingo', 'current_share'))
+                ->hasPermission($registry->getAuth(), $mask)
             : true;
     }
 
@@ -143,6 +141,9 @@ class Ingo
             return Horde::url('smartmobile.php');
 
         default:
+            if ($initial_page = $registry->get('initial_page')) {
+                return Horde::url($registry->get('webroot') . '/' . $initial_page);
+            }
             return Ingo_Basic_Filters::url();
         }
     }

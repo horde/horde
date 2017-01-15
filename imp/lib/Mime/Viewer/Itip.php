@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
- * @copyright 2002-2015 Horde LLC
+ * @copyright 2002-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -21,7 +21,7 @@
  * @author    Gunnar Wrobel <wrobel@pardus.de>
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @category  Horde
- * @copyright 2002-2015 Horde LLC
+ * @copyright 2002-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -119,8 +119,9 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
         }
 
         $imple = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create('IMP_Ajax_Imple_ItipRequest', array(
+            'ctype' => $this->_conf['type'],
             'mime_id' => $mime_id,
-            'muid' => strval($imp_contents->getIndicesOb())
+            'muid' => strval($imp_contents->getIndicesOb()),
         ));
 
         // Get the method type.
@@ -220,9 +221,18 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
 
         try {
             $end = $vfb->getAttribute('DTEND');
-            $view->end = is_array($end)
-                ? strftime($prefs->getValue('date_format'), mktime(0, 0, 0, $end['month'], $end['mday'], $end['year']))
-                : strftime($prefs->getValue('date_format'), $end) . ' ' . date($prefs->getValue('twentyFour') ? ' G:i' : ' g:i a', $end);
+            if (is_array($end)) {
+                $view->end = strftime(
+                    $prefs->getValue('date_format'),
+                    mktime(0, 0, 0, $end['month'], $end['mday'], $end['year'])
+                );
+            } elseif (is_int($end)) {
+                $view->end = strftime($prefs->getValue('date_format'), $end) .
+                    ' ' .
+                    date($prefs->getValue('twentyFour') ? ' G:i' : ' g:i a', $end);
+            } else {
+                $view->end = '';
+            }
         } catch (Horde_Icalendar_Exception $e) {}
 
         $options = array();
@@ -297,7 +307,7 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
             // Check if this is an update.
             try {
                 $calendars = $registry->calendar->listCalendars(true);
-                $registry->call('calendar/export', array($vevent->getAttribute('UID'), 'text/calendar', array(), $calendars));
+                $registry->call('calendar/export', array($vevent->getAttributeSingle('UID'), 'text/calendar', array(), $calendars));
                 $desc = _("%s wants to notify you about changes in \"%s\".");
                 $is_update = true;
             } catch (Horde_Exception $e) {
@@ -368,7 +378,7 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
 
         case 'CANCEL':
             try {
-                $vevent->getAttribute('RECURRENCE-ID');
+                $vevent->getAttributeSingle('RECURRENCE-ID');
                 $params = $vevent->getAttribute('RECURRENCE-ID', true);
                 foreach ($params as $param) {
                     if (array_key_exists('RANGE', $param)) {
@@ -398,6 +408,7 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
             $view->start = is_array($start)
                 ? strftime($prefs->getValue('date_format'), mktime(0, 0, 0, $start['month'], $start['mday'], $start['year']))
                 : strftime($prefs->getValue('date_format'), $start) . ' ' . date($prefs->getValue('twentyFour') ? ' G:i' : ' g:i a', $start);
+            $start_date = new Horde_Date($start);
         } catch (Horde_Icalendar_Exception $e) {
             $start = null;
         }
@@ -412,7 +423,7 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
         }
 
         try {
-            $summary = $vevent->getAttribute('SUMMARY');
+            $summary = $vevent->getAttributeSingle('SUMMARY');
             $view->summary = $summary;
         } catch (Horde_Icalendar_Exception $e) {
             $summary = _("Unknown Meeting");
@@ -422,11 +433,15 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
         $view->desc = sprintf($desc, $sender, $summary);
 
         try {
-            $view->desc2 = $vevent->getAttribute('DESCRIPTION');
+            $view->desc2 = $vevent->getAttributeSingle('DESCRIPTION');
         } catch (Horde_Icalendar_Exception $e) {}
 
         try {
-            $view->loc = $vevent->getAttribute('LOCATION');
+            $view->comment = $vevent->getAttributeSingle('COMMENT');
+        } catch (Horde_Icalendar_Exception $e) {}
+
+        try {
+            $view->loc = $vevent->getAttributeSingle('LOCATION');
         } catch (Horde_Icalendar_Exception $e) {}
 
         try {
@@ -435,7 +450,7 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
             $rrule = array();
         }
         if (!is_array($rrule)) {
-            $recurrence = new Horde_Date_Recurrence(new Horde_Date($view->start));
+            $recurrence = new Horde_Date_Recurrence($start_date);
             if (strpos($rrule, '=') !== false) {
                 $recurrence->fromRRule20($rrule);
             } else {
@@ -461,7 +476,7 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
             $view->exceptions = array();
             foreach ($components as $key => $component) {
                 try {
-                    if ($component->getAttribute('RECURRENCE-ID') && $component->getAttribute('UID') == $vevent->getAttribute('UID')) {
+                    if ($component->getAttribute('RECURRENCE-ID') && $component->getAttributeSingle('UID') == $vevent->getAttributeSingle('UID')) {
                         if ($ex = $this->_vEventException($component, $key, $method)) {
                             $view->exceptions[] = $ex;
                         }

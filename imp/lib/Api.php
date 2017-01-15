@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2009-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
- * @copyright 2009-2015 Horde LLC
+ * @copyright 2009-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -19,7 +19,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2009-2015 Horde LLC
+ * @copyright 2009-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -85,7 +85,9 @@ class IMP_Api extends Horde_Registry_Api
      *
      * @param array $opts  Additional options:
      * <pre>
-     *   - unsub: (boolean) If true, return unsubscribed mailboxes.
+     *   - unsub: (boolean)  If true, return unsubscribed mailboxes.
+     *   - reload: (boolean) If true, force reloading the folder tree from
+     *                       the IMAP server. DEFAULT: false
      * </pre>
      *
      * @return array  The list of IMAP mailboxes. A list of arrays with the
@@ -103,7 +105,9 @@ class IMP_Api extends Horde_Registry_Api
         global $injector;
 
         $ftree = $injector->getInstance('IMP_Ftree');
-
+        if (!empty($opts['reload'])) {
+            $ftree->init();
+        }
         if (!empty($opts['unsub'])) {
             /* Make sure unsubscribed mailboxes are loaded. */
             $ftree->loadUnsubscribed();
@@ -497,6 +501,20 @@ class IMP_Api extends Horde_Registry_Api
             'strval',
             $GLOBALS['injector']->getInstance('IMP_Maillog')->getChanges($ts)
         );
+    }
+
+    /**
+     * Check if we need to send a MDN, and send if needed/able. Will only send
+     * MDN if the request does NOT need to be confirmed by the user.
+     *
+     * @param Horde_Mime_Headers $headers  The headers of the message.
+     *
+     * @return boolean  True if the MDN request was able to be sent.
+     */
+    public function mdnSend(Horde_Mime_Headers $headers, $mailbox, $uid)
+    {
+        $indices = new IMP_Indices($mailbox, $uid);
+        return !$indices->mdnCheck($headers);
     }
 
 }

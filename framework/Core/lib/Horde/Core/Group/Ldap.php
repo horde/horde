@@ -2,11 +2,12 @@
 /**
  * This class provides Horde-specific code that extends the base LDAP driver.
  *
- * Copyright 2011-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
+ * @todo     Remove
  * @author   Jan Schneider <jan@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
@@ -26,7 +27,7 @@ class Horde_Core_Group_Ldap extends Horde_Group_Ldap
     public function create($name, $email = null)
     {
         try {
-            return $this->_create(
+            return parent::create(
                 $name,
                 $GLOBALS['injector']->getInstance('Horde_Core_Hooks')->callHook('groupldap', 'horde', array($name, $email))
             );

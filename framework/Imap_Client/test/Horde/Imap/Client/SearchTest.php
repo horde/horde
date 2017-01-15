@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2011-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category   Horde
- * @copyright  2011-2015 Horde LLC
+ * @copyright  2011-2016 Horde LLC
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package    Imap_Client
  * @subpackage UnitTests
@@ -17,7 +17,7 @@
  *
  * @author     Michael Slusarz <slusarz@horde.org>
  * @category   Horde
- * @copyright  2011-2015 Horde LLC
+ * @copyright  2011-2016 Horde LLC
  * @ignore
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package    Imap_Client
@@ -584,9 +584,82 @@ class Horde_Imap_Client_SearchTest extends PHPUnit_Framework_TestCase
         $ob->charset('US-ASCII', false);
 
         $this->assertEquals(
-            'BODY foo NOT UID 1:3',
+            'NOT UID 1:3 BODY foo',
             strval(unserialize(serialize($ob)))
         );
+    }
+
+    public function testBug13971()
+    {
+        $ob = new Horde_Imap_Client_Search_Query();
+        $ob->ids(new Horde_Imap_Client_Ids(array()));
+        $ob->text('foo');
+
+        $this->assertEquals(
+            '',
+            strval($ob)
+        );
+
+        $ob2 = new Horde_Imap_Client_Search_Query();
+        $ob2->text('foo2');
+        $ob2->andSearch($ob);
+
+        $this->assertEquals(
+            '',
+            strval($ob2)
+        );
+
+        $ob3 = new Horde_Imap_Client_Search_Query();
+        $ob3->text('foo3');
+        $ob3->orSearch($ob);
+
+        $this->assertEquals(
+            'BODY foo3',
+            strval($ob3)
+        );
+
+        $ob2->orSearch($ob3);
+
+        $this->assertEquals(
+            'BODY foo3',
+            strval($ob2)
+        );
+
+        /* A NOT qualifier on an empty ID list should ignore the list. */
+        $ob->ids(new Horde_Imap_Client_Ids(array()), true);
+
+        $this->assertEquals(
+            'BODY foo',
+            strval($ob)
+        );
+    }
+
+    /**
+     * @dataProvider inconsistentCharsetsInAndOrSearchesProvider
+     * @expectedException InvalidArgumentException
+     */
+    public function testInconsistentCharsetsInAndOrSearches($query)
+    {
+        $query->build(null);
+    }
+
+    public function inconsistentCharsetsInAndOrSearchesProvider()
+    {
+        $ob = new Horde_Imap_Client_Search_Query();
+        $ob->text('foo');
+        $ob->charset('UTF-8', false);
+
+        $ob2 = new Horde_Imap_Client_Search_Query();
+        $ob2->text('foo2');
+        $ob2->charset('ISO-8859-1', false);
+        $ob2->andSearch($ob);
+
+        $ob3 = new Horde_Imap_Client_Search_Query();
+        $ob3->text('foo2');
+        $ob3->charset('ISO-8859-1', false);
+        $ob3->orSearch($ob);
+
+        return array(array($ob2), array($ob3));
     }
 
     private function _fuzzy($ob, array $exts = array())

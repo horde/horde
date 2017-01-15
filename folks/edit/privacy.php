@@ -34,16 +34,16 @@ $types = array('all' => _("All visitors"),
 
 $form = new Horde_Form($vars, $title, 'privacy');
 
-$v = &$form->addVariable(_("Status"), 'user_status', 'radio', true, false, null, array($statuses));
+$v = $form->addVariable(_("Status"), 'user_status', 'radio', true, false, null, array($statuses));
 $v->setDefault($profile['user_status']);
 
-$v = &$form->addVariable(_("Who can see when I was last time online"), 'last_online', 'radio', false, false, null, array($types));
+$v = $form->addVariable(_("Who can see when I was last time online"), 'last_online', 'radio', false, false, null, array($types));
 $v->setDefault($profile['last_online']);
 
-$v = &$form->addVariable(_("Who can see my acticity log on my profile"), 'activity_log', 'radio', false, false, null, array($types));
+$v = $form->addVariable(_("Who can see my acticity log on my profile"), 'activity_log', 'radio', false, false, null, array($types));
 $v->setDefault($profile['activity_log']);
 
-$v = &$form->addVariable(_("Notify online friends that I logged in"), 'login_notify', 'radio', false, false, null, array(array(_("No"), _("Yes"))));
+$v = $form->addVariable(_("Notify online friends that I logged in"), 'login_notify', 'radio', false, false, null, array(array(_("No"), _("Yes"))));
 $v->setDefault($prefs->getValue('login_notify'));
 
 if ($form->validate()) {

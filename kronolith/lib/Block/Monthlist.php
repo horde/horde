@@ -113,9 +113,7 @@ class Kronolith_Block_Monthlist extends Horde_Core_Block
         }
 
         /* How many days do we need to check. */
-        $days = Date_Calc::dateDiff(
-            $startDate->mday, $startDate->month, $startDate->year,
-            $endDate->mday, $endDate->month, $endDate->year);
+        $days = $startDate->diff($endDate);
 
         /* Loop through the days. */
         $totalevents = 0;

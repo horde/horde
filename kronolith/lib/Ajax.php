@@ -2,7 +2,7 @@
 /**
  * Kronolith wrapper for the base AJAX framework handler.
  *
- * Copyright 2012-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -68,13 +68,21 @@ class Kronolith_Ajax
                 array('#', '#', '{', '{', '}', '}'),
                 strval($registry->downloadUrl('#{calendar}.ics', array('actionID' => 'export', 'all_events' => 1, 'exportID' => Horde_Data::EXPORT_ICALENDAR, 'exportCal' => 'resource_#{calendar}'))->setRaw(true))),
             'URI_EVENT_EXPORT' => str_replace(array('%23', '%7B', '%7D'), array('#', '{', '}'), Horde::url('event.php', true)->add(array('view' => 'ExportEvent', 'eventID' => '#{id}', 'calendar' => '#{calendar}', 'type' => '#{type}'))),
+            'URI_FILE_DOWNLOAD' => str_replace(
+                array('%23', '%2523', '%7B', '%257B', '%7D', '%257D'),
+                array('#', '#', '{', '{', '}', '}'),
+                strval($registry->downloadUrl('#{filename}', array('actionID' => 'download_file', 'file' => '#{filename}', 'type' => '#{type}', 'source' => '#{source}', 'key' => '#{key}'))->setRaw(true))),
+            'URI_FILE_VIEW' => str_replace(array('%23', '%7B', '%7D'), array('#', '{', '}'), Horde::url('viewer.php', true)->add(array('file' => '#{filename}', 'type' => '#{type}', 'source' => '#{source}', 'key' => '#{key}'))),
             'images' => array(
-                'alarm'     => strval(Horde_Themes::img('alarm-fff.png')),
-                'attendees' => strval(Horde_Themes::img('attendees-fff.png')),
-                'exception' => strval(Horde_Themes::img('exception-fff.png')),
-                'new_event' => strval(Horde_Themes::img('new.png')),
-                'new_task'  => strval(Horde_Themes::img('new_task.png')),
-                'recur'     => strval(Horde_Themes::img('recur-fff.png')),
+                'alarm'        => strval(Horde_Themes::img('alarm-fff.png')),
+                'attendees'    => strval(Horde_Themes::img('attendees-fff.png')),
+                'del'          => strval(Horde_Themes::img('delete.png')),
+                'delete_small' => strval(Horde_Themes::img('delete-small.png')),
+                'download'     => strval(Horde_Themes::img('download.png')),
+                'exception'    => strval(Horde_Themes::img('exception-fff.png')),
+                'new_event'    => strval(Horde_Themes::img('new.png')),
+                'new_task'     => strval(Horde_Themes::img('new_task.png')),
+                'recur'        => strval(Horde_Themes::img('recur-fff.png')),
             ),
             'new_event' => $injector->getInstance('Kronolith_View_Sidebar')->newLink
                 . $injector->getInstance('Kronolith_View_Sidebar')->newText
@@ -89,10 +97,11 @@ class Kronolith_Ajax
             'app_urls' => $app_urls,
             'name' => $registry->get('name'),
             'has_tasks' => intval($has_tasks),
-            'has_resources' => intval(!empty($conf['resource']['driver'])),
-            'login_view' => ($prefs->getValue('defaultview') == 'workweek') ? 'week' : $prefs->getValue('defaultview'),
+            'has_resources' => intval(!empty($conf['resources']['enabled'])),
+            'login_view' => $prefs->getValue('defaultview'),
             'default_calendar' => 'internal|' . Kronolith::getDefaultCalendar(Horde_Perms::EDIT),
             'max_events' => intval($prefs->getValue('max_events')),
+            'day_hour_start' => $prefs->getValue('day_hour_start'),
             'date_format' => Horde_Core_Script_Package_Datejs::translateFormat(
                 Horde_Nls::getLangInfo(D_FMT)
             ),
@@ -113,6 +122,7 @@ class Kronolith_Ajax
                 Horde_Date_Recurrence::RECUR_WEEKLY => 'Weekly',
                 Horde_Date_Recurrence::RECUR_MONTHLY_DATE => 'Monthly',
                 Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY => 'Monthly',
+                Horde_Date_Recurrence::RECUR_MONTHLY_LAST_WEEKDAY => 'Monthly',
                 Horde_Date_Recurrence::RECUR_YEARLY_DATE => 'Yearly',
                 Horde_Date_Recurrence::RECUR_YEARLY_DAY => 'Yearly',
                 Horde_Date_Recurrence::RECUR_YEARLY_WEEKDAY => 'Yearly'
@@ -122,10 +132,12 @@ class Kronolith_Ajax
                 'show' => Horde_Perms::SHOW,
                 'read' => Horde_Perms::READ,
                 'edit' => Horde_Perms::EDIT,
-                'delete' => Horde_Perms::DELETE,
+                'del'  => Horde_Perms::DELETE,
                 'delegate' => Kronolith::PERMS_DELEGATE
             ),
-            'tasks' => $has_tasks ? $registry->tasks->ajaxDefaults() : null
+            'tasks' => $has_tasks ? $registry->tasks->ajaxDefaults() : null,
+            'confirm_delete' => $prefs->getValue('confirm_delete'),
+            'itip_silent' => $prefs->getValue('itip_silent')
         ));
 
         /* Make sure this value is not optimized out by array_filter(). */
@@ -137,19 +149,24 @@ class Kronolith_Ajax
             'alerts' => _("Notifications"),
             'allday' => _("All day"),
             'delete_calendar' => _("Are you sure you want to delete this calendar and all the events in it?"),
+            'delete_file' => _("Delete file"),
             'delete_tasklist' => _("Are you sure you want to delete this task list and all the tasks in it?"),
+            'download_file' => _("Download file"),
             'external_category' => _("Other events"),
             'fix_form_values' => _("Please enter correct values in the form first."),
             'geocode_error' => _("Unable to locate requested address"),
             'hidelog' => _("Hide Notifications"),
             'import_warning' => _("Importing calendar data. This may take a while..."),
+            'invalid_user' => _("User does not exist"),
             'more' => _("more..."),
             'no_assignee' => _("None"),
             'no_calendar_title' => _("The calendar title must not be empty."),
             'no_parent' => _("No parent task"),
             'no_tasklist_title' => _("The task list title must not be empty."),
             'no_url' => _("You must specify a URL."),
+            'organizer' => _("Organizer"),
             'prefs' => _("Preferences"),
+            'resources' => _("Resources"),
             'searching' => sprintf(_("Events matching \"%s\""), '#{term}'),
             'shared' => _("Shared"),
             'tasks' => _("Tasks"),
@@ -157,6 +174,13 @@ class Kronolith_Ajax
             'wrong_auth' => _("The authentication information you specified wasn't accepted."),
             'wrong_date_format' => sprintf(_("You used an unknown date format \"%s\". Please try something like \"%s\"."), '#{wrong}', '#{right}'),
             'wrong_time_format' => sprintf(_("You used an unknown time format \"%s\". Please try something like \"%s\"."), '#{wrong}', '#{right}'),
+            'none' => _("You have not responded to this meeting request."),
+            'accepted' => _("You have accepted this meeting request."),
+            'tentative' => _("You have tentatively accepted this meeting request."),
+            'declined' => _("You have declined this meeting request."),
+            'update_attendees' => _("Send updates to attendees?"),
+            'update_organizer' => _("Send attendance update to organizer?"),
+            'uploading' => _("Uploading")
         );
 
         for ($i = 1; $i <= 12; ++$i) {
@@ -173,7 +197,9 @@ class Kronolith_Ajax
         $js_vars['text']['recur']['exception'] = _("Exception");
 
         // Maps
-        $js_vars['conf']['maps'] = $conf['maps'];
+        $js_vars['conf']['maps'] = !empty($conf['maps'])
+            ? $conf['maps']
+            : array();
 
         return $js_vars;
     }

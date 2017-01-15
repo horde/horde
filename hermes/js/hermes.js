@@ -1,7 +1,7 @@
 /**
  * hermes.js - Base Hermes application logic.
  *
- * Copyright 2010-2015 Horde LLC (http://www.horde.org)
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -355,23 +355,23 @@ HermesCore = {
                 return;
 
             case 'hermesDeliverablesClose':
-                RedBox.close();
+                this.closeRedBox()
                 return;
 
             // Log Timer
             case 'hermesLogTimerCancel':
-                RedBox.close();
+                this.closeRedBox();
                 this.temp_timer = null;
                 return;
 
             case 'hermesLogTimerLogClose':
-                RedBox.close();
+                this.closeRedBox();
                 this.doStopTimer(this.temp_timer, false);
                 this.temp_timer = null;
                 return;
 
             case 'hermesLogTimerLogRestart':
-                RedBox.close();
+                this.closeRedBox();
                 this.doStopTimer(this.temp_timer, true);
                 this.temp_timer = null;
                 return;
@@ -1076,8 +1076,9 @@ HermesCore = {
      */
      deliverableEdit: function(id)
      {
+        id = id.split(':');
         HordeCore.doAction('listDeliverables',
-            { 'id': id },
+            { 'id': id[1] },
             { 'callback': this.deliverableEditCallback.bind(this) }
         );
      },
@@ -1260,6 +1261,7 @@ HermesCore = {
         cell = row.down().update(jt.name);
         cell = cell.next().update((jt.active == 1) ? 'Y' : 'N');
         cell = cell.next().update(jt.estimate);
+        cell = cell.next().update(jt.hours);
         cell = cell.next().update(jt.description);
         if (!Hermes.conf.has_deliverableadmin) {
             // No delverabile admin perms

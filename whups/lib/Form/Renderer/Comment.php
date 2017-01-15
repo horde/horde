@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
- * Copyright 2001-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -49,6 +49,25 @@ class Whups_Form_Renderer_Comment extends Horde_Form_Renderer
             case 'summary':
                 $changes[] = sprintf(
                     _("Summary &rArr; %s"), htmlspecialchars($change['value']));
+                break;
+
+            case 'message':
+                $ticket = $vars->get('ticket_id');
+                try {
+                    if (Whups::hasMessage($ticket, $change['value'])) {
+                        $changes[] = implode(
+                            ' ',
+                            Whups::messageUrls(
+                                $ticket, $change['value'], $vars->get('queue')
+                            )
+                        );
+                    }
+                } catch (Whups_Exception $e) {
+                }
+                break;
+
+            case 'delete-attachment':
+                $changes[] = _("Deleted Original Message");
                 break;
 
             case 'attachment':

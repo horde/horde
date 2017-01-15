@@ -2,7 +2,7 @@
     "name": "horde/horde-activesync",
     "description": "Horde ActiveSync Server Library",
     "type": "library",
-    "homepage": "http://pear.horde.org",
+    "homepage": "https://pear.horde.org",
     "license": "GPL-2.0",
     "authors": [
         {
@@ -11,8 +11,8 @@
             "role": "lead"
         }
     ],
-    "version": "2.26.1",
-    "time": "2015-03-04",
+    "version": "2.37.4",
+    "time": "2016-12-03",
     "repositories": [
         {
             "type": "pear",
@@ -20,9 +20,9 @@
         }
     ],
     "require": {
-        "php": ">=5.3.0,<=6.0.0alpha1",
+        "php": ">=5.3.0,<=8.0.0alpha1",
         "pear-pear.horde.org/Horde_Compress": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Date": ">=2.0.0@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Date": ">=2.3.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Exception": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Icalendar": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Mapi": ">=1.0.0@stable,<=2.0.0alpha1@stable",
@@ -34,8 +34,8 @@
         "ext-ctype": "*"
     },
     "suggest": {
-        "pear-pear.horde.org/Horde_Db": ">=2.0.3@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Imap_Client": ">=2.19.0@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Db": ">=2.1.0@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Imap_Client": ">=2.28.1@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Mail": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Mongo": ">=1.0.2@stable,<=2.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Text_Filter": ">=2.0.0@stable,<=3.0.0alpha1@stable",

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 1999-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -22,12 +22,12 @@ class Kronolith_Event_Sql extends Kronolith_Event
     /**
      * Constructor.
      *
-     * @param Kronolith_Driver_Sql $driver  The backend driver that this event
-     *                                      is stored in.
-     * @param mixed $eventObject            Backend specific event object
-     *                                      that this will represent.
+     * @param Kronolith_Driver $driver  The backend driver that this event
+     *                                  is stored in.
+     * @param mixed $eventObject        Backend specific event object
+     *                                  that this will represent.
      */
-    public function __construct(Kronolith_Driver_Sql $driver, $eventObject = null)
+    public function __construct(Kronolith_Driver $driver, $eventObject = null)
     {
         /* Set default alarm value. */
         if (isset($GLOBALS['prefs'])) {
@@ -79,6 +79,7 @@ class Kronolith_Event_Sql extends Kronolith_Event
         $this->id = $SQLEvent['event_id'];
         $this->uid = $SQLEvent['event_uid'];
         $this->creator = $SQLEvent['event_creator_id'];
+        $this->organizer = $SQLEvent['event_organizer'];
 
         if (!empty($SQLEvent['event_recurtype'])) {
             $this->recurrence = new Horde_Date_Recurrence($this->start);
@@ -131,7 +132,16 @@ class Kronolith_Event_Sql extends Kronolith_Event
         if (isset($SQLEvent['event_attendees'])) {
             $attendees = unserialize($SQLEvent['event_attendees']);
             if ($attendees) {
-                $this->attendees = $driver->convertFromDriver($attendees);
+                if (!is_object($attendees)) {
+                    $this->attendees = new Kronolith_Attendee_List();
+                    foreach ($attendees as $email => $attendee) {
+                        $this->attendees->add(Kronolith_Attendee::migrate(
+                            $email, $driver->convertFromDriver($attendee)
+                        ));
+                    }
+                } else {
+                    $this->attendees = new Kronolith_Attendee_List(iterator_to_array($attendees));
+                }
             }
         }
         if (isset($SQLEvent['event_resources'])) {
@@ -195,9 +205,10 @@ class Kronolith_Event_Sql extends Kronolith_Event
         $properties['event_url'] = (string)$this->url;
         $properties['event_private'] = (int)$this->private;
         $properties['event_status'] = $this->status;
-        $properties['event_attendees'] = serialize($driver->convertToDriver($this->attendees));
+        $properties['event_attendees'] = serialize($this->attendees);
         $properties['event_resources'] = serialize($driver->convertToDriver($this->getResources()));
         $properties['event_modified'] = $_SERVER['REQUEST_TIME'];
+        $properties['event_organizer'] = $this->organizer;
 
         if ($this->isAllDay()) {
             $properties['event_start'] = $this->start->strftime('%Y-%m-%d %H:%M:%S');
@@ -263,6 +274,10 @@ class Kronolith_Event_Sql extends Kronolith_Event
                 $eod = $this->exceptionoriginaldate;
             }
             $properties['event_exceptionoriginaldate'] = $eod->strftime('%Y-%m-%d %H:%M:%S');
+        } else {
+            /* This must be an empty string. */
+            $properties['event_baseid'] = '';
+            $properties['event_exceptionoriginaldate'] = null;
         }
 
         return $properties;

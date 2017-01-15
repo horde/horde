@@ -54,7 +54,7 @@ var HordePopup = {
         win = window.open(
             url + '?' + params.toQueryString(),
             opts.name || uniq,
-            'menubar=' + menu + ',toolbar=no,location=no,status=yes,scrollbars=yes,resizable=yes,width=' + width + ',height=' + height + ',left=' + (window.screenLeft || window.screenX) + ',top=' + (window.screnTop || window.screenY)
+            'menubar=' + menu + ',toolbar=no,location=no,status=yes,scrollbars=yes,resizable=yes,width=' + width + ',height=' + height + ',left=' + (window.screenLeft || window.screenX) + ',top=' + (window.screenTop || window.screenY)
         );
 
         if (!win) {

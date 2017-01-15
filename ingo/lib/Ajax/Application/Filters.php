@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2014-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2014-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @category  Horde
- * @copyright 2014-2015 Horde LLC
+ * @copyright 2014-2017 Horde LLC
  * @license   http://www.horde.org/licenses/apache ASL
  * @package   Ingo
  */
@@ -16,7 +16,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2014-2015 Horde LLC
+ * @copyright 2014-2017 Horde LLC
  * @license   http://www.horde.org/licenses/apache ASL
  * @package   Ingo
  */
@@ -50,7 +50,7 @@ class Ingo_Ajax_Application_Filters extends Horde_Core_Ajax_Application_Handler
         }
 
         try {
-            Ingo_Script_Util::update();
+            $injector->getInstance('Ingo_Factory_Script')->activateAll();
         } catch (Ingo_Exception $e) {
             $notification->push($e, 'horde.warning');
         }

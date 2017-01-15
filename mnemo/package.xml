@@ -16,17 +16,19 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2014-05-05</date>
+ <date>2016-11-09</date>
  <version>
-  <release>4.3.0</release>
-  <api>4.1.0</api>
+  <release>5.0.0</release>
+  <api>5.0.0</api>
  </version>
  <stability>
-  <release>alpha</release>
-  <api>alpha</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [mjr] Add ability to save note without redirecting to notebook (Request #14085).
+* [mjr] Add tag browsing/searching (Request #14178).
 * [jan] Keep original file names when PUTing notes via WebDAV.
 * [jan] Remove configuration option for database table.
 * [jan] Return ETags with browse() API method.
@@ -86,6 +88,7 @@
     <dir name="Factory">
      <file name="Driver.php" role="horde" />
      <file name="Notepads.php" role="horde" />
+     <file name="TagBrowser.php" role="horde" />
     </dir> <!-- /lib/Factory -->
     <dir name="Form">
      <file name="CreateNotepad.php" role="horde" />
@@ -98,11 +101,16 @@
      <file name="Default.php" role="horde" />
      <file name="Kolab.php" role="horde" />
     </dir> <!-- /lib/Notepads -->
+    <dir name="View">
+     <file name="List.php" role="horde" />
+    </dir> <!-- /lib/View -->
+    <file name=".htaccess" role="horde" />
     <file name="Api.php" role="horde" />
     <file name="Application.php" role="horde" />
     <file name="Driver.php" role="horde" />
     <file name="Exception.php" role="horde" />
     <file name="Mnemo.php" role="horde" />
+    <file name="TagBrowser.php" role="horde" />
     <file name="Tagger.php" role="horde" />
    </dir> <!-- /lib -->
    <dir name="locale">
@@ -323,6 +331,7 @@
     <file name="5_mnemo_upgrade_sqlnghierarchical.php" role="horde" />
     <file name="6_mnemo_upgrade_categoriestotags.php" role="horde" />
     <file name="7_mnemo_upgrade_parents.php" role="horde" />
+    <file name="8_mnemo_fix_desc_size.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="note">
     <file name="index.php" role="horde" />
@@ -355,6 +364,7 @@
     <dir name="view">
      <file name="view.html.php" role="horde" />
     </dir> <!-- /templates/view -->
+    <file name=".htaccess" role="horde" />
    </dir> <!-- /templates -->
    <dir name="test">
     <dir name="Mnemo">
@@ -426,7 +436,7 @@
    <package>
     <name>content</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.3</min>
+    <min>2.0.5</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -615,11 +625,13 @@
    <install as="mnemo/js/list.js" name="js/list.js" />
    <install as="mnemo/js/memo.js" name="js/memo.js" />
    <install as="mnemo/js/view.js" name="js/view.js" />
+   <install as="mnemo/lib/.htaccess" name="lib/.htaccess" />
    <install as="mnemo/lib/Api.php" name="lib/Api.php" />
    <install as="mnemo/lib/Application.php" name="lib/Application.php" />
    <install as="mnemo/lib/Driver.php" name="lib/Driver.php" />
    <install as="mnemo/lib/Exception.php" name="lib/Exception.php" />
    <install as="mnemo/lib/Mnemo.php" name="lib/Mnemo.php" />
+   <install as="mnemo/lib/TagBrowser.php" name="lib/TagBrowser.php" />
    <install as="mnemo/lib/Tagger.php" name="lib/Tagger.php" />
    <install as="mnemo/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
    <install as="mnemo/lib/Ajax/Imple/EditNote.php" name="lib/Ajax/Imple/EditNote.php" />
@@ -630,6 +642,7 @@
    <install as="mnemo/lib/Driver/Sql.php" name="lib/Driver/Sql.php" />
    <install as="mnemo/lib/Factory/Driver.php" name="lib/Factory/Driver.php" />
    <install as="mnemo/lib/Factory/Notepads.php" name="lib/Factory/Notepads.php" />
+   <install as="mnemo/lib/Factory/TagBrowser.php" name="lib/Factory/TagBrowser.php" />
    <install as="mnemo/lib/Form/CreateNotepad.php" name="lib/Form/CreateNotepad.php" />
    <install as="mnemo/lib/Form/DeleteNotepad.php" name="lib/Form/DeleteNotepad.php" />
    <install as="mnemo/lib/Form/EditNotepad.php" name="lib/Form/EditNotepad.php" />
@@ -637,6 +650,7 @@
    <install as="mnemo/lib/Notepads/Base.php" name="lib/Notepads/Base.php" />
    <install as="mnemo/lib/Notepads/Default.php" name="lib/Notepads/Default.php" />
    <install as="mnemo/lib/Notepads/Kolab.php" name="lib/Notepads/Kolab.php" />
+   <install as="mnemo/lib/View/List.php" name="lib/View/List.php" />
    <install as="mnemo/locale/.htaccess" name="locale/.htaccess" />
    <install as="mnemo/locale/mnemo.pot" name="locale/mnemo.pot" />
    <install as="mnemo/locale/bg/LC_MESSAGES/mnemo.mo" name="locale/bg/LC_MESSAGES/mnemo.mo" />
@@ -722,6 +736,7 @@
    <install as="mnemo/migration/5_mnemo_upgrade_sqlnghierarchical.php" name="migration/5_mnemo_upgrade_sqlnghierarchical.php" />
    <install as="mnemo/migration/6_mnemo_upgrade_categoriestotags.php" name="migration/6_mnemo_upgrade_categoriestotags.php" />
    <install as="mnemo/migration/7_mnemo_upgrade_parents.php" name="migration/7_mnemo_upgrade_parents.php" />
+   <install as="mnemo/migration/8_mnemo_fix_desc_size.php" name="migration/8_mnemo_fix_desc_size.php" />
    <install as="mnemo/note/index.php" name="note/index.php" />
    <install as="mnemo/note/pdf.php" name="note/pdf.php" />
    <install as="mnemo/notepads/create.php" name="notepads/create.php" />
@@ -729,6 +744,7 @@
    <install as="mnemo/notepads/edit.php" name="notepads/edit.php" />
    <install as="mnemo/notepads/index.php" name="notepads/index.php" />
    <install as="mnemo/notes/index.php" name="notes/index.php" />
+   <install as="mnemo/templates/.htaccess" name="templates/.htaccess" />
    <install as="mnemo/templates/data/export.inc" name="templates/data/export.inc" />
    <install as="mnemo/templates/data/import.inc" name="templates/data/import.inc" />
    <install as="mnemo/templates/list/empty.html.php" name="templates/list/empty.html.php" />
@@ -1146,7 +1162,7 @@
    <date>2014-03-10</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-*
+* 
    </notes>
   </release>
   <release>
@@ -1206,7 +1222,7 @@
    <date>2014-07-08</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-*
+* 
    </notes>
   </release>
   <release>
@@ -1216,7 +1232,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-07-08</date>
+   <date>2014-08-04</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [mjr] Ensure default share attribute is set when auto determining a default share.
@@ -1233,7 +1249,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-08-16</date>
+   <date>2014-10-29</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [mjr] Fix adding new notepads via the API.
@@ -1248,9 +1264,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-08-16</date>
+   <date>2014-12-03</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [jan] SECURITY: Fix permission check when editing notes (found by Christopher Neuhaus &lt;cne@ruhrverband.de&gt;).
 * [mms] Added ability to link to note via API.
    </notes>
   </release>
@@ -1261,15 +1278,17 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-12-15</date>
+   <date>2015-02-10</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [jan] Don&apos;t list notepads without SHOW permissions (Bug #13838).
+* [jan] Fix using custom SQL driver configuration.
 * [mjr] Fix truncation of body text when synchronizing over EAS when no truncationsize option is sent from client (Bug #13755).
    </notes>
   </release>
   <release>
    <version>
-    <release>4.2.3</release>
+    <release>4.2.5</release>
     <api>4.0.0</api></version>
    <stability>
     <release>stable</release>
@@ -1282,12 +1301,12 @@
   </release>
   <release>
    <version>
-    <release>4.2.4</release>
+    <release>4.2.6</release>
     <api>4.0.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-02-10</date>
+   <date>2015-04-28</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [mjr] Fix using custom SQL configuration parameters.
@@ -1295,14 +1314,102 @@
   </release>
   <release>
    <version>
-    <release>4.3.0</release>
-    <api>4.1.0</api></version>
+    <release>4.2.7</release>
+    <api>4.0.0</api></version>
    <stability>
-    <release>alpha</release>
-    <api>alpha</api></stability>
-   <date>2014-05-06</date>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-08-01</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [jan] Update Italian translation.
+* [jan] Update Czech translation.
+* [mjr] Fix inconsistent handling of incoming HTML notes from ActiveSync clients (Bug #14045).
+* [mjr] Allow more reasonable length of description field to interop better with synchronized clients (Bug #14041).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.8</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-10-21</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [jan] Update Italian translation.
+* [mjr] Remove object reference from Content when object is deleted (Bug #14112).
+* [mjr] Remove tags from Content when tagged object is deleted (Bug #14112).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.9</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-02-02</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [jan] Use access rules compatible with both Apache 2.2 and 2.4.
+* [mjr] Fix fatal error when removing notepads in certain cases.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.10</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-03-21</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [jan] Update Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.11</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-07-01</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [jan] Update Portuguese translation.
+* [jan] Update Basque translation.
+* [mjr] Require Horde_Perms::DELETE for including a notebook as sync-able.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.12</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-07-01</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+*
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.0</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2016-11-09</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [mjr] Add ability to save note without redirecting to notebook (Request #14085).
+* [mjr] Add tag browsing/searching (Request #14178).
 * [jan] Keep original file names when PUTing notes via WebDAV.
 * [jan] Remove configuration option for database table.
 * [jan] Return ETags with browse() API method.

@@ -12,7 +12,7 @@ class Horde_ActiveSync_ServerTest extends Horde_Test_Case
     {
         $factory = new Horde_ActiveSync_Factory_TestServer();
 
-        $this->assertEquals('2.5,12.0,12.1,14.0,14.1', $factory->server->getSupportedVersions());
+        $this->assertEquals('2.5,12.0,12.1,14.0,14.1,16.0', $factory->server->getSupportedVersions());
         $factory->server->setSupportedVersion(Horde_ActiveSync::VERSION_TWELVEONE);
         $this->assertEquals('2.5,12.0,12.1', $factory->server->getSupportedVersions());
 

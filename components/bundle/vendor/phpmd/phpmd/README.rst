@@ -1,10 +1,48 @@
-==================
-Command line usage
-==================
+PHPMD
+=====
 
-Type phpmd [filename|directory] [report format] [ruleset file], i.e: ::
+PHPMD is a spin-off project of PHP Depend and aims to be a PHP equivalent of the well known Java tool PMD. PHPMD can be seen as an user friendly frontend application for the raw metrics stream measured by PHP Depend.
+
+http://phpmd.org
+
+.. image:: https://poser.pugx.org/phpmd/phpmd/v/stable.svg
+   :target: https://packagist.org/packages/phpmd/phpmd
+   :alt: Latest Stable Version
+
+.. image:: https://poser.pugx.org/phpmd/phpmd/license.svg
+   :target: https://packagist.org/packages/phpmd/phpmd
+   :alt: License
+
+.. image:: https://travis-ci.org/phpmd/phpmd.svg?branch=master
+   :target: https://travis-ci.org/phpmd/phpmd
+   :alt: Travis Build Status
+
+.. image:: https://ci.appveyor.com/api/projects/status/pc08owbun2y00kwk?svg=true
+   :target: https://ci.appveyor.com/project/phpmd/phpmd
+   :alt: AppVeyor Build Status
+
+.. image:: https://scrutinizer-ci.com/g/phpmd/phpmd/badges/build.png?b=master
+   :target: https://scrutinizer-ci.com/g/phpmd/phpmd/build-status/master
+   :alt: Scrutinizer Build Status
+
+.. image:: https://scrutinizer-ci.com/g/phpmd/phpmd/badges/quality-score.png?b=master
+   :target: https://scrutinizer-ci.com/g/phpmd/phpmd/?branch=master
+   :alt: Scrutinizer Code Quality
+
+Installation
+------------
+
+See http://phpmd.org/download/index.html
+
+Command line usage
+------------------
+
+Type ``phpmd [filename|directory] [report format] [ruleset file]``, i.e: ::
 
   mapi@arwen ~ $ phpmd PHP/Depend/DbusUI/ xml rulesets/codesize.xml
+
+While the ``rulesets/codesize.xml`` ruleset file could look like this::
+
   <?xml version="1.0" encoding="UTF-8" ?>
   <pmd version="0.0.1" timestamp="2009-12-19T22:17:18+01:00">
     <file name="/projects/pdepend/PHP/Depend/DbusUI/ResultPrinter.php">
@@ -23,12 +61,14 @@ Type phpmd [filename|directory] [report format] [ruleset file], i.e: ::
 You can pass a file name or a directory name containing PHP source
 code to PHPMD.
 
-The PHPMD Phar distribution includes the rule set files inside
+The `PHPMD Phar distribution`__ includes the rule set files inside
 its archive, even if the "rulesets/codesize.xml" parameter above looks
 like a filesystem reference.
 
+__ http://phpmd.org/download/index.html
+
 Command line options
-====================
+--------------------
 
 - Notice that the default output is in XML, so you can redirect it to
   a file and XSLT it or whatever
@@ -47,7 +87,7 @@ Command line options
     instead of the default output target ``STDOUT``.
 
   - ``--suffixes`` - Comma-separated string of valid source code filename
-    extensions.
+    extensions, e.g. php,phtml.
 
   - ``--exclude`` - Comma-separated string of patterns that are used to ignore
     directories.
@@ -56,7 +96,7 @@ Command line options
 
   An example command line: ::
 
-    phpmd PHP/Depend/DbusUI xml codesize --reportfile phpmd.xml --suffixes .php
+    phpmd PHP/Depend/DbusUI xml codesize --reportfile phpmd.xml --suffixes php,phtml
 
 Using multiple rule sets
 ````````````````````````
@@ -78,7 +118,7 @@ You can also mix custom `rule set files`__ with build-in rule sets: ::
 
   ~ $ phpmd /path/to/source text codesize,/my/rules.xml
 
-__ /documentation/creating-a-ruleset.html
+__ http://phpmd.org/documentation/creating-a-ruleset.html
 
 That's it. With this behavior you can specify you own combination of rule sets
 that will check the source code.
@@ -93,7 +133,7 @@ to create one output for certain parts of your code ::
 
 
 Exit codes
-==========
+----------
 
 PHPMD's command line tool currently defines three different exit codes.
 
@@ -107,7 +147,7 @@ PHPMD's command line tool currently defines three different exit codes.
   violations in the analyzed source code.
 
 Renderers
-=========
+---------
 
 At the moment PHPMD comes with the following three renderers:
 

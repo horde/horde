@@ -2,7 +2,7 @@
 /**
  * Turba directory driver implementation for an IMSP server.
  *
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you did
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -69,10 +69,11 @@ class Turba_Driver_Imsp extends Turba_Driver
     /**
      * Constructs a new Turba imsp driver object.
      *
+     * @param string $name   Source name
      * @param array $params  Hash containing additional configuration
      *                       parameters.
      */
-    public function __construct($name = '', $params)
+    public function __construct($name = '', array $params = array())
     {
         parent::__construct($name, $params);
 
@@ -102,7 +103,7 @@ class Turba_Driver_Imsp extends Turba_Driver
      *
      * @return array  Hash containing the search results.
      */
-    protected function _search(array $criteria, array $fields, array $blobFields = array(), $count_only)
+    protected function _search(array $criteria, array $fields, array $blobFields = array(), $count_only = false)
     {
         $query = $results = array();
 

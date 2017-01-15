@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2013-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2013-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
- * @copyright 2010-2015 Horde LLC
+ * @copyright 2010-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -16,7 +16,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2013-2015 Horde LLC
+ * @copyright 2013-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -63,7 +63,11 @@ class IMP_Factory_Spam extends Horde_Core_Factory_Base
             if (!empty($config['email'])) {
                 $drivers[] = new IMP_Spam_Email(
                     $this->_expand($config['email']),
-                    empty($config['email_format']) ? 'digest' : $config['email_format']
+                    $config['email_format'],
+                    array(
+                        'digest_limit_msgs' => $config['digest_limit_msgs'],
+                        'digest_limit_size' => $config['digest_limit_size']
+                    )
                 );
             }
 

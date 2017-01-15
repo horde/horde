@@ -18,7 +18,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2010-2015 Horde LLC (http://www.horde.org)
+ * @copyright 2010-2017 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -30,7 +30,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2010-2015 Horde LLC (http://www.horde.org)
+ * @copyright 2010-2017 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  *
@@ -124,14 +124,14 @@ class Horde_ActiveSync_Message_Task extends Horde_ActiveSync_Message_Base
     protected $_mapping = array (
         self::POOMTASKS_COMPLETE      => array (self::KEY_ATTRIBUTE => 'complete'),
         self::POOMTASKS_DATECOMPLETED => array (self::KEY_ATTRIBUTE => 'datecompleted', self::KEY_TYPE => self::TYPE_DATE_DASHES),
-        self::POOMTASKS_DUEDATE       => array (self::KEY_ATTRIBUTE => 'duedate', self::KEY_TYPE => self::TYPE_DATE_DASHES),
+        self::POOMTASKS_DUEDATE       => array (self::KEY_ATTRIBUTE => 'duedate', self::KEY_TYPE => self::TYPE_DATE_LOCAL),
         self::POOMTASKS_UTCDUEDATE    => array (self::KEY_ATTRIBUTE => 'utcduedate', self::KEY_TYPE => self::TYPE_DATE_DASHES),
         self::POOMTASKS_IMPORTANCE    => array (self::KEY_ATTRIBUTE => 'importance'),
         self::POOMTASKS_RECURRENCE    => array (self::KEY_ATTRIBUTE => 'recurrence', self::KEY_TYPE => 'Horde_ActiveSync_Message_TaskRecurrence'),
         self::POOMTASKS_REMINDERSET   => array (self::KEY_ATTRIBUTE => 'reminderset'),
         self::POOMTASKS_REMINDERTIME  => array (self::KEY_ATTRIBUTE => 'remindertime', self::KEY_TYPE => self::TYPE_DATE_DASHES),
         self::POOMTASKS_SENSITIVITY   => array (self::KEY_ATTRIBUTE => 'sensitiviy'),
-        self::POOMTASKS_STARTDATE     => array (self::KEY_ATTRIBUTE => 'startdate', self::KEY_TYPE => self::TYPE_DATE_DASHES),
+        self::POOMTASKS_STARTDATE     => array (self::KEY_ATTRIBUTE => 'startdate', self::KEY_TYPE => self::TYPE_DATE_LOCAL),
         self::POOMTASKS_UTCSTARTDATE  => array (self::KEY_ATTRIBUTE => 'utcstartdate', self::KEY_TYPE => self::TYPE_DATE_DASHES),
         self::POOMTASKS_SUBJECT       => array (self::KEY_ATTRIBUTE => 'subject'),
         self::POOMTASKS_CATEGORIES    => array (self::KEY_ATTRIBUTE => 'categories', self::KEY_VALUES => self::POOMTASKS_CATEGORY),

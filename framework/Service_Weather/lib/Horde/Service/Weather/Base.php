@@ -3,7 +3,7 @@
  * This file contains the Horde_Service_Weather_Base class for abstracting
  * access to various weather providers.
  *
- * Copyright 2011-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
  *
  * @author   Michael J Rubinsky <mrubinsk@horde.org>
  * @license  http://www.horde.org/licenses/bsd BSD
@@ -93,9 +93,9 @@ abstract class Horde_Service_Weather_Base
     /**
      * Local cache of forecast
      *
-     * @var array
+     * @var  Horde_Service_Weather_Forecast_Base
      */
-    protected $_forecast = array();
+    protected $_forecast;
 
     /**
      * Local cache of station data
@@ -117,6 +117,10 @@ abstract class Horde_Service_Weather_Base
      * @var integer
      */
     protected $_lastLength;
+
+    protected $_alerts = array();
+
+    protected $_radar;
 
     /**
      * Constructor.
@@ -177,8 +181,8 @@ abstract class Horde_Service_Weather_Base
      * @param integer $type     The type of search to perform, a
      *                          Horde_Service_Weather::SEARCHTYPE_* constant.
      *
-     * @return string  The search location suitable to use directly in a
-     *                 weather request.
+     * @return Horde_Service_Weather_Station The search location suitable to use
+     *                                       directly in a weather request.
      * @throws Horde_Service_Weather_Exception
      */
     abstract public function searchLocations(
@@ -191,6 +195,41 @@ abstract class Horde_Service_Weather_Base
      * @return array The array of supported lengths.
      */
      abstract public function getSupportedForecastLengths();
+
+     /**
+      * Return array of weather alerts, if available.
+      *
+      * @return array
+      */
+     public function getAlerts($location)
+     {
+        return $this->_alerts;
+     }
+
+     /**
+      * Return the URL to a (possibly animated) radar image.
+      *
+      * @param  string $location  The location
+      *
+      * @return string|boolean The Url, or false if not available.
+      */
+     public function getRadarImageUrl($location)
+     {
+        return false;
+     }
+
+     /**
+      * Return the URL a OpenLayers suitable tile server.
+      *
+      * @param string $location  The location.
+      * @param string $type      The optional layer type.
+      *
+      * @return string|boolean The Url, or false if not available.
+      */
+     public function getTileServerUrl($location, $type = null)
+     {
+        return false;
+     }
 
     /**
      * Searches for locations that begin with the text in $search.

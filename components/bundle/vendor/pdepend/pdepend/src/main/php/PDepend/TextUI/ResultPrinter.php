@@ -4,7 +4,7 @@
  *
  * PHP Version 5
  *
- * Copyright (c) 2008-2013, Manuel Pichler <mapi@pdepend.org>.
+ * Copyright (c) 2008-2015, Manuel Pichler <mapi@pdepend.org>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -36,7 +36,7 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @copyright 2008-2013 Manuel Pichler. All rights reserved.
+ * @copyright 2008-2015 Manuel Pichler. All rights reserved.
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
  */
 
@@ -45,14 +45,14 @@ namespace PDepend\TextUI;
 use PDepend\Metrics\Analyzer;
 use PDepend\ProcessListener;
 use PDepend\Source\AST\AbstractASTArtifact;
+use PDepend\Source\ASTVisitor\AbstractASTVisitListener;
 use PDepend\Source\Builder\Builder;
 use PDepend\Source\Tokenizer\Tokenizer;
-use PDepend\Source\ASTVisitor\AbstractASTVisitListener;
 
 /**
  * Prints current the PDepend status information.
  *
- * @copyright 2008-2013 Manuel Pichler. All rights reserved.
+ * @copyright 2008-2015 Manuel Pichler. All rights reserved.
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
  */
 class ResultPrinter extends AbstractASTVisitListener implements ProcessListener
@@ -72,7 +72,7 @@ class ResultPrinter extends AbstractASTVisitListener implements ProcessListener
     /**
      * Is called when PDepend starts the file parsing process.
      *
-     * @param \PDepend\Source\Builder\Builder $builder
+     * @param  \PDepend\Source\Builder\Builder $builder
      * @return void
      */
     public function startParseProcess(Builder $builder)
@@ -85,7 +85,7 @@ class ResultPrinter extends AbstractASTVisitListener implements ProcessListener
     /**
      * Is called when PDepend has finished the file parsing process.
      *
-     * @param \PDepend\Source\Builder\Builder $builder
+     * @param  \PDepend\Source\Builder\Builder $builder
      * @return void
      */
     public function endParseProcess(Builder $builder)
@@ -96,7 +96,7 @@ class ResultPrinter extends AbstractASTVisitListener implements ProcessListener
     /**
      * Is called when PDepend starts parsing of a new file.
      *
-     * @param \PDepend\Source\Tokenizer\Tokenizer $tokenizer
+     * @param  \PDepend\Source\Tokenizer\Tokenizer $tokenizer
      * @return void
      */
     public function startFileParsing(Tokenizer $tokenizer)
@@ -107,7 +107,7 @@ class ResultPrinter extends AbstractASTVisitListener implements ProcessListener
     /**
      * Is called when PDepend has finished a file.
      *
-     * @param \PDepend\Source\Tokenizer\Tokenizer $tokenizer
+     * @param  \PDepend\Source\Tokenizer\Tokenizer $tokenizer
      * @return void
      */
     public function endFileParsing(Tokenizer $tokenizer)
@@ -155,7 +155,7 @@ class ResultPrinter extends AbstractASTVisitListener implements ProcessListener
     /**
      * Is called when PDepend starts a new analyzer.
      *
-     * @param \PDepend\Metrics\Analyzer $analyzer
+     * @param  \PDepend\Metrics\Analyzer $analyzer
      * @return void
      */
     public function startAnalyzer(Analyzer $analyzer)
@@ -173,7 +173,7 @@ class ResultPrinter extends AbstractASTVisitListener implements ProcessListener
     /**
      * Is called when PDepend has finished one analyzing process.
      *
-     * @param \PDepend\Metrics\Analyzer $analyzer
+     * @param  \PDepend\Metrics\Analyzer $analyzer
      * @return void
      */
     public function endAnalyzer(Analyzer $analyzer)
@@ -184,7 +184,7 @@ class ResultPrinter extends AbstractASTVisitListener implements ProcessListener
     /**
      * Generic notification method that is called for every node start.
      *
-     * @param \PDepend\Source\AST\AbstractASTArtifact $node
+     * @param  \PDepend\Source\AST\AbstractASTArtifact $node
      * @return void
      */
     public function startVisitNode(AbstractASTArtifact $node)
@@ -195,7 +195,7 @@ class ResultPrinter extends AbstractASTVisitListener implements ProcessListener
     /**
      * Prints a single dot for the current step.
      *
-     * @param integer $size
+     * @param  integer $size
      * @return void
      */
     protected function step($size = 1)
@@ -212,7 +212,7 @@ class ResultPrinter extends AbstractASTVisitListener implements ProcessListener
     /**
      * Closes the current dot line.
      *
-     * @param integer $size
+     * @param  integer $size
      * @return void
      */
     protected function finish($size = 1)

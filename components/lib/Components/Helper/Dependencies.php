@@ -16,7 +16,7 @@
  * Components_Helper_Dependencies:: provides a utility that produces a dependency
  * list and records what has already been listed.
  *
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -247,7 +247,7 @@ class Components_Helper_Dependencies
         }
         array_multisort($channels, $names, $colors);
         foreach ($names as $key => $name) {
-            $this->_output->$colors[$key](
+            $this->_output->{$colors[$key]}(
                 Horde_String::pad($name, 28) .
                 Horde_String::pad('[' . $channels[$key] . ']', 20)
             );

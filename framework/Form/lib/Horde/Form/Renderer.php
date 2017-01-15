@@ -136,7 +136,7 @@ class Horde_Form_Renderer {
         $page->addInlineScript(
             sprintf('var sections_%1$s = new Horde_Form_Sections(\'%1$s\', \'%2$s\');',
                     $form->getName(),
-                    $open_section));
+                    addslashes($open_section)));
 
         /* Loop through the sections and print out a tab for each. */
         echo "<div class=\"tabset\"><ul>\n";

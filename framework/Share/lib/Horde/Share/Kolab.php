@@ -15,7 +15,7 @@
 /**
  * Horde_Share_Kolab:: provides the Kolab backend for the horde share driver.
  *
- * Copyright 2004-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -443,7 +443,7 @@ class Horde_Share_Kolab extends Horde_Share_Base
             if (isset($params['parent'])) {
                 foreach ($shares as $share) {
                     $object = $this->getShareById($share);
-                    if ($params['parent'] instanceOf Horde_Share_Object) {
+                    if ($params['parent'] instanceof Horde_Share_Object) {
                         $parent = $params['parent'];
                     } else {
                         $parent = $this->getShare($params['parent']);

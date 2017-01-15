@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2009-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -15,18 +15,20 @@
  *
  * @author    Michael J. Rubinsky <mrubinsk@horde.org>
  * @category  Horde
- * @copyright 2009-2015 Horde LLC
+ * @copyright 2009-2017 Horde LLC
  * @package   Image
  */
 class Horde_Image_Exif_Parser_Base
 {
     /**
+     * Look up the data type.
      *
-     * @param $type
-     * @param $size
-     * @return unknown_type
+     * @param string  The string representation of the hex type code.
+     *
+     * @return array  An array containing the string type name in the 0 index
+     *                and the integer size in the 1 index.
      */
-    protected function _lookupType(&$type, &$size)
+    protected function _lookupType($type)
     {
         switch($type) {
         case '0001': $type = 'UBYTE';          $size = 1; break;
@@ -43,5 +45,7 @@ class Horde_Image_Exif_Parser_Base
         case '000c': $type = 'DOUBLE';         $size = 8; break;
         default:     $type = 'error:' . $type; $size = 0; break;
         }
+
+        return array($type, $size);
     }
 }

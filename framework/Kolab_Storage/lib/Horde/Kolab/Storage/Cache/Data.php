@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2007-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -448,24 +448,41 @@ class Horde_Kolab_Storage_Cache_Data
      * @param array $delete                            Backend IDs that were
      *                                                 removed.
      */
-    public function store(array $objects,
-                          Horde_Kolab_Storage_Folder_Stamp $stamp,
-                          $version,
-                          array $delete = array())
+    public function store(
+        array $objects, Horde_Kolab_Storage_Folder_Stamp $stamp, $version,
+        array $delete = array())
     {
         $this->_load();
         if (!empty($delete)) {
             foreach ($delete as $obid => $object_id) {
                 $object = $this->_data[self::OBJECTS][$object_id];
-                if (!empty($object['_attachments'])) {
-                    foreach ($object['_attachments']['id'] as $id) {
-                        $this->_cache->deleteAttachment(
-                            $this->getDataId(), $obid, $id
-                        );
+
+                // Check if the delete request is for the last version of an object.
+                // Otherwise the removal of a duplicate might remove the
+                // current version of an object.
+                $cached_obid = $this->_data[self::O2B][$object_id];
+                if ($cached_obid == $obid) {
+                    if (!empty($object['_attachments'])) {
+                        // @todo clean up attachment formatting mess.
+                        if (isset($object['_attachments']['id'])) {
+                            $ids = $object['_attachments']['id'];
+                        } else {
+                            $ids = array_keys($object['_attachments']);
+                        }
+                        foreach ($ids as $id) {
+                            $this->_cache->deleteAttachment(
+                                $this->getDataId(), $obid, $id
+                            );
+                        }
                     }
+
+                    unset($this->_data[self::O2B][$object_id]);
+                    unset($this->_data[self::OBJECTS][$object_id]);
+                } else {
+                    Horde::log(sprintf("[KOLAB_STORAGE] Keeping object %s".
+                               " with uid %d, duplicate object with uid %d was removed",
+                               $object_id, $cached_obid, $obid), 'DEBUG');
                 }
-                unset($this->_data[self::O2B][$object_id]);
-                unset($this->_data[self::OBJECTS][$object_id]);
                 unset($this->_data[self::B2O][$obid]);
             }
         }
@@ -514,4 +531,5 @@ class Horde_Kolab_Storage_Cache_Data
     {
         $this->_data = array();
     }
+
 }

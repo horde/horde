@@ -1,4 +1,4 @@
-<?PHP
+<?php
 /**
  * @package Kolab_Filter
  */

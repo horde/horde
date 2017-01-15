@@ -2,7 +2,7 @@
 /**
  * Jonah_View_StoryDelete:: handle story deletion
  *
- * Copyright 2003-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://cvs.horde.org/co.php/jonah/LICENSE.
@@ -35,13 +35,13 @@ class Jonah_View_StoryDelete extends Jonah_View_Base
         }
 
         /* Check permissions. */
-        if (!Jonah::checkPermissions(Jonah::typeToPermName($channel['channel_type']), Horde_Perms::DELETE, $channel_id)) {
+        if (!Jonah::checkPermissions('channels', Horde_Perms::DELETE, array($channel_id))) {
             $notification->push(_("You are not authorised for this action."), 'horde.warning');
             throw new Horde_Exception_AuthenticationFailure();
         }
 
         try {
-            $story = $driver->getStory($channel_id, $story_id);
+            $story = $driver->getStory($story_id);
         } catch (Exception $e) {
             $notification->push(_("No valid story requested for deletion."), 'horde.message');
             Horde::url('channels/index.php', true)->redirect();
@@ -65,7 +65,7 @@ class Jonah_View_StoryDelete extends Jonah_View_Base
             if ($form->validate($vars)) {
                 $form->getInfo($vars, $info);
                 try {
-                    $delete = $driver->deleteStory($info['channel_id'], $info['id']);
+                    $driver->deleteStory($info['channel_id'], $info['id']);
                     $notification->push(_("The story has been deleted."), 'horde.success');
                     Horde::url('stories/index.php', true)->add('channel_id', $channel_id)->setRaw(true)->redirect();
                     exit;

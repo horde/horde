@@ -2,7 +2,7 @@
 /**
  * Kronolith_Calendar defines an API for single calendars.
  *
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -141,30 +141,29 @@ abstract class Kronolith_Calendar
     {
         global $conf, $injector, $registry;
 
+        $user = $registry->convertUsername($registry->getAuth(), false);
         try {
-            $parts = array(
-                Horde::url(
-                    $registry->get('webroot', 'horde')
-                        . ($conf['urls']['pretty'] == 'rewrite'
-                            ? '/rpc/calendars'
-                            : '/rpc.php/calendars'),
-                    true,
-                    -1
-                ),
-                $registry->convertUsername($registry->getAuth(), false),
-                $injector->getInstance('Horde_Dav_Storage')
-                    ->getExternalCollectionId($id, $interface) . '/'
+            $user = $injector->getInstance('Horde_Core_Hooks')
+                ->callHook('davusername', 'horde', array($user, false));
+        } catch (Horde_Exception_HookNotSet $e) {
+        }
+        try {
+            $url = Horde::url(
+                $registry->get('webroot', 'horde')
+                    . ($conf['urls']['pretty'] == 'rewrite'
+                        ? '/rpc/calendars/'
+                        : '/rpc.php/calendars/'),
+                true,
+                -1
             );
+            $url .= $user . '/';
+            $url .= $injector->getInstance('Horde_Dav_Storage')
+                ->getExternalCollectionId($id, $interface) . '/';
         } catch (Horde_Exception $e) {
             return null;
         }
-        try {
-            return $GLOBALS['injector']
-                ->getInstance('Horde_Core_Hooks')
-                ->callHook('caldav_url', 'kronolith', $parts);
-        } catch (Horde_Exception_HookNotSet $e) {
-            return implode('/', $parts);
-        }
+
+        return $url;
     }
 
     /**

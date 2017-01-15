@@ -3,16 +3,17 @@
  * The Horde_Tree_Renderer_Jquerymobile class provides rendering of a
  * tree as a jQuery Mobile list view.
  *
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @author   Jan Schneider <jan@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Tree
+ * @author     Michael Slusarz <slusarz@horde.org>
+ * @author     Jan Schneider <jan@horde.org>
+ * @category   Horde
+ * @deprecated API of _buildTree() fails strict PHP code check
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package    Tree
  */
 class Horde_Tree_Renderer_Jquerymobile extends Horde_Tree_Renderer_Base
 {

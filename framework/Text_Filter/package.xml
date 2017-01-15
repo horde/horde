@@ -22,10 +22,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2015-01-29</date>
+ <date>2016-09-06</date>
  <version>
-  <release>2.2.3</release>
-  <api>2.2.0</api>
+  <release>2.3.6</release>
+  <api>2.3.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -33,8 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Add &apos;html&apos; hint to Simplemarkup filter to indicate the input format.
-* [jan] Match simple markup spanning a complete line too.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -64,6 +63,7 @@
        <file name="Html2text.php" role="php" />
        <file name="JavascriptMinify.php" role="php" />
        <file name="Linkurls.php" role="php" />
+       <file name="Msoffice.php" role="php" />
        <file name="Simplemarkup.php" role="php" />
        <file name="Space2html.php" role="php" />
        <file name="Tabs2spaces.php" role="php" />
@@ -346,6 +346,7 @@
        <file name="EnvironmentTest.php" role="test" />
        <file name="Html2textTest.php" role="test" />
        <file name="LinkurlsTest.php" role="test" />
+       <file name="MsofficeTest.php" role="test" />
        <file name="phpunit.xml" role="test" />
        <file name="SimplemarkupTest.php" role="test" />
        <file name="Space2htmlTest.php" role="test" />
@@ -362,8 +363,8 @@
   <required>
    <php>
     <min>5.3.0</min>
-    <max>6.0.0alpha1</max>
-    <exclude>6.0.0alpha1</exclude>
+    <max>8.0.0alpha1</max>
+    <exclude>8.0.0alpha1</exclude>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -441,6 +442,7 @@
    <install as="Horde/Text/Filter/Html2text.php" name="lib/Horde/Text/Filter/Html2text.php" />
    <install as="Horde/Text/Filter/JavascriptMinify.php" name="lib/Horde/Text/Filter/JavascriptMinify.php" />
    <install as="Horde/Text/Filter/Linkurls.php" name="lib/Horde/Text/Filter/Linkurls.php" />
+   <install as="Horde/Text/Filter/Msoffice.php" name="lib/Horde/Text/Filter/Msoffice.php" />
    <install as="Horde/Text/Filter/Simplemarkup.php" name="lib/Horde/Text/Filter/Simplemarkup.php" />
    <install as="Horde/Text/Filter/Space2html.php" name="lib/Horde/Text/Filter/Space2html.php" />
    <install as="Horde/Text/Filter/Tabs2spaces.php" name="lib/Horde/Text/Filter/Tabs2spaces.php" />
@@ -539,6 +541,7 @@
    <install as="Horde/Text/Filter/EnvironmentTest.php" name="test/Horde/Text/Filter/EnvironmentTest.php" />
    <install as="Horde/Text/Filter/Html2textTest.php" name="test/Horde/Text/Filter/Html2textTest.php" />
    <install as="Horde/Text/Filter/LinkurlsTest.php" name="test/Horde/Text/Filter/LinkurlsTest.php" />
+   <install as="Horde/Text/Filter/MsofficeTest.php" name="test/Horde/Text/Filter/MsofficeTest.php" />
    <install as="Horde/Text/Filter/phpunit.xml" name="test/Horde/Text/Filter/phpunit.xml" />
    <install as="Horde/Text/Filter/SimplemarkupTest.php" name="test/Horde/Text/Filter/SimplemarkupTest.php" />
    <install as="Horde/Text/Filter/Space2htmlTest.php" name="test/Horde/Text/Filter/Space2htmlTest.php" />
@@ -1031,16 +1034,97 @@ Initial release as a PEAR package
   </release>
   <release>
    <version>
-    <release>2.2.3</release>
-    <api>2.2.0</api></version>
+    <release>2.3.0</release>
+    <api>2.3.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-01-29</date>
+   <date>2015-04-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Fix failing tests on MacOS related to mulitbyte data contained in links.
+* [mjr] Add nestingLimit parameter to Html2text filter.
 * [jan] Add &apos;html&apos; hint to Simplemarkup filter to indicate the input format.
 * [jan] Match simple markup spanning a complete line too.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.3.1</release>
+    <api>2.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-04-28</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Prevent malformed urls from leaking exceptions (Bug #13965).
+* [jan] Fix issues with certain locales like Turkish.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.3.2</release>
+    <api>2.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-07-31</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix Composer file.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.3.3</release>
+    <api>2.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-02-02</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Mark PHP 7 as supported.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.3.4</release>
+    <api>2.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-03-21</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Update Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.3.5</release>
+    <api>2.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-09-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] SECURITY: Fix XSS via data:text/html content of form action and xlink attributes (Reported by Liuzhu &lt;fantasy7082@hotmail.com&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.3.6</release>
+    <api>2.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-09-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

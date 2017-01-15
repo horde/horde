@@ -3,7 +3,7 @@
  * inline "slippy" maps. You must also include the file for the specific
  * provider support you want included.
  *
- * Copyright 2009-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -15,7 +15,7 @@
  * Class for dealing with OpenLayers based inline mapping.
  *
  * Requires that the openlayer.js file has been included, as well as any js files
- * specific to any commercial mapping providers, such as google/yahoo etc...
+ * specific to any commercial mapping providers, such as google/bing/osm etc...
  *
  * var options = {};
  * // opts.defaultBase      - Id of the baselayer to enable by default.
@@ -87,7 +87,7 @@ HordeMap.Map.Horde = Class.create({
 
         // Generate the base map object. Always use EPSG:4326 (WGS84) for display
         // and EPSG:900913 (spherical mercator) for projection for compatibility
-        // with commercial mapping services such as Google, Yahoo etc...
+        // with commercial mapping services such as Google etc...
         var options = {
             projection: new OpenLayers.Projection("EPSG:900913"),
             displayProjection: new OpenLayers.Projection("EPSG:4326"),
@@ -386,6 +386,12 @@ HordeMap.Map.Horde = Class.create({
     getMap: function()
     {
         return this.map;
+    },
+
+    updateMapSize: function()
+    {
+        this.map.updateSize();
+        this.map.calculateBounds();
     },
 
     getMapNodeId: function()

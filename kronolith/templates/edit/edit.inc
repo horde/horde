@@ -37,8 +37,7 @@ $hide_img = Horde::img('minus.png', _("Hide"), 'style="display:none"');
            $GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission('max_events') > Kronolith::countEvents())): ?>
 <!-- recurrence editing -->
 <tr>
- <td></td>
- <td colspan="4" class="warning">
+ <td colspan="5" class="warning">
   <?php echo _("This is a recurring event. Edit the current event only, this occurrence<br />and all future occurences, all occurences, or save this event as new?") ?><br /><br />
   <input type="radio" name="edit_recur" value="current" id="edit_current" /> <?php echo Horde::label('edit_current', _("Current")) ?>
   <input type="radio" name="edit_recur" value="future" id="edit_future" /> <?php echo Horde::label('edit_future', _("Future")) ?>
@@ -87,10 +86,10 @@ $hide_img = Horde::img('minus.png', _("Hide"), 'style="display:none"');
                    htmlspecialchars($delegate_id), $sel, $cal_name) . "\n";
         }
     }
-    if (count($GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_RESOURCE_CALENDARS))) {
+    if (count($resources = $GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_RESOURCE_CALENDARS))) {
         // We are editing/viewing resource calendars
-        foreach ($GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_RESOURCE_CALENDARS) as $cal) {
-            $rd = Kronolith::getDriver('Resource');
+        $rd = Kronolith::getDriver('Resource');
+        foreach ($resources as $cal) {
             try {
                 $rc = $rd->getResource($rd->getResourceIdByCalendar($cal));
                 printf('<option value="%s">%s (%s)</option>',
@@ -327,6 +326,12 @@ if ($event->alarm) {
     <td class="nowrap">
      <input id="recurmonthweek" type="radio" class="checkbox" name="recur" value="<?php echo Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY ?>"<?php if ($event->recurs() && $event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY)) echo ' checked="checked"' ?> /><label id="recurmonthweek_label" for="recurmonthweek"> <?php echo _("Monthly: Recurs every") ?>&nbsp;</label>
      <input type="text" id="recur_week_of_month_interval" name="recur_week_of_month_interval" size="2" value="<?php echo $event->recurs() && $event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY) ? $event->recurrence->getRecurInterval() : '' ?>" />&nbsp;<?php echo Horde::label('recur_week_of_month_interval', _("month(s)") . ' ' . _("on the same weekday")) ?>
+    </td>
+   </tr>
+   <tr>
+    <td class="nowrap">
+     <input id="recurmonthlastweek" type="radio" class="checkbox" name="recur" value="<?php echo Horde_Date_Recurrence::RECUR_MONTHLY_LAST_WEEKDAY ?>"<?php if ($event->recurs() && $event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_MONTHLY_LAST_WEEKDAY)) echo ' checked="checked"' ?> /><label id="recurmonthlastweek_label" for="recurmonthlastweek"> <?php echo _("Monthly: Recurs every") ?>&nbsp;</label>
+     <input type="text" id="recur_last_week_of_month_interval" name="recur_last_week_of_month_interval" size="2" value="<?php echo $event->recurs() && $event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_MONTHLY_LAST_WEEKDAY) ? $event->recurrence->getRecurInterval() : '' ?>" />&nbsp;<?php echo Horde::label('recur_last_week_of_month_interval', _("month(s)") . ' ' . _("on the same last weekday")) ?>
     </td>
    </tr>
    <tr>

@@ -3,7 +3,7 @@
  * Move tags from Kronolith to content storage. This migration ONLY migrates
  * categories from the Horde_Share_Sql backend.
  *
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -52,7 +52,7 @@ class KronolithUpgradeCategoriesToTags extends Horde_Db_Migration_Base
                         $row['event_category']
                     );
                 }
-            } catch (Exception $e) {
+            } catch (Horde_Exception_NotFound $e) {
                 $this->announce('Unable to find Share: ' . $row['calendar_id'] . ' Skipping.');
             }
         }

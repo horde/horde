@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 1999-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
- * @copyright 1999-2015 Horde LLC
+ * @copyright 1999-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -18,7 +18,7 @@
  * @author    Jon Parise <jon@horde.org>
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 1999-2015 Horde LLC
+ * @copyright 1999-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -187,7 +187,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         /* We are done processing if converting to text. */
         if ($convert_text) {
             $data = $this->_textFilter($data, 'Html2text', array(
-                'wrap' => false
+                'width' => 0
             ));
 
             // Filter bad language.
@@ -340,6 +340,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                     $node->removeAttribute('target');
                 } else {
                     $node->setAttribute('target', strval(new Horde_Support_Randomid()));
+                    $node->setAttribute('rel', 'noopener noreferrer');
                 }
             }
             break;
@@ -391,8 +392,12 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                         $this->_imptmp['imgbroken'] = true;
                     }
                 } else {
-                    $node->removeAttribute('src');
-                    $node->setAttribute('data-src', $val);
+                    if (empty($this->_imptmp['inline'])) {
+                        $node->setAttribute('src', $val);
+                    } else {
+                        $node->removeAttribute('src');
+                        $node->setAttribute('data-src', $val);
+                    }
                 }
             }
 

@@ -3,7 +3,7 @@
  * Horde_Widget_ImageFaces:: class to display a widget containing mini
  * thumbnails of faces in the image.
  *
- * Copyright 2008-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2017 Horde LLC (http://www.horde.org/)
  *
  * @author Duck <duck@obala.net>
  * @author Michael J. Rubinsky <mrubinsk@horde.org>

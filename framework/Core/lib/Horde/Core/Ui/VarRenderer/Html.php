@@ -2,7 +2,7 @@
 /**
  * The Horde_Core_Ui_VarRenderer_html:: class renders variables to HTML.
  *
- * Copyright 2003-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -48,7 +48,7 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
         return sprintf('<input type="text" size="5" name="%s" id="%s" value="%s"%s />',
                        htmlspecialchars($var->getVarName()),
                        $this->_genID($var->getVarName(), false),
-                       $value,
+                       htmlspecialchars($value),
                        $this->_getActionScripts($form, $var)
                );
     }
@@ -910,8 +910,9 @@ EOT;
 
     protected function _renderVarInput_boolean($form, &$var, &$vars)
     {
-        $html = '<input type="checkbox" class="checkbox" name="' .  htmlspecialchars($var->getVarName()) . '"' .
-            ' id="' . $this->_genID($var->getVarName(), false) . '"' . ($var->getValue($vars) ? ' checked="checked"' : '');
+        $html = '<input type="checkbox" class="checkbox" name="' .  htmlspecialchars($var->getVarName()) . '"'
+            . ' id="' . $this->_genID($var->getVarName(), false) . '"' . ($var->getValue($vars) ? ' checked="checked"' : '')
+            . ($var->isDisabled() ? ' disabled="disabled" ' : '');
         if ($var->hasAction()) {
             $html .= $this->_genActionScript($form, $var->_action,
                                              $var->getVarName());
@@ -1268,28 +1269,6 @@ function obrowserCallback(name, oid)
                         $mapurl .= '&country=CA';
                     }
                     $mapurl .= '&zipcode=' . urlencode($info['zip']);
-                }
-
-                /* Yahoo! generated map. */
-                $mapurl2 = 'http://us.rd.yahoo.com/maps/home/submit_a/*-http://maps.yahoo.com/maps?srchtype=a&getmap=Get+Map&';
-                $desc2 = Horde_Core_Translation::t("Yahoo! map");
-                $icon2 = 'map.png';
-                if (!empty($info['street'])) {
-                    $mapurl2 .= '&addr=' . urlencode($info['street']);
-                }
-                /* Give precedence to zipcode over city/state */
-                if (empty($info['zip']) &&
-                    !empty($info['city']) && !empty($info['state'])) {
-                    $mapurl2 .= '&csz='
-                        . urlencode($info['city'] . ' ' . $info['state']);
-                }
-                if (!empty($info['zip'])) {
-                    if (preg_match('|([a-zA-Z]\d[a-zA-Z])\s?(\d[a-zA-Z]\d)|', $info['zip'], $pcParts)) {
-                        $mapurl2 .= '&country=ca';
-                        /* make sure the postal-code has a space */
-                        $info['zip'] = $pcParts[1] . ' ' . $pcParts[2];
-                    }
-                    $mapurl2 .= '&csz=' . urlencode($info['zip']);
                 }
                 break;
 

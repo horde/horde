@@ -1,16 +1,18 @@
 <?php
 /**
+ * Copyright 2003-2017 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author   Mike Cochrane <mike@graftonhall.co.nz>
  * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Icalendar
  */
 
 /**
  * Class representing iCalendar files.
- *
- * Copyright 2003-2015 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Mike Cochrane <mike@graftonhall.co.nz>
  * @category Horde
@@ -239,6 +241,27 @@ class Horde_Icalendar
     }
 
     /**
+     * Get a single value of an attribute.
+     *
+     * If multiple values, is auto-determined by library which is preferred
+     * value to return.
+     *
+     * @since 2.1.0
+     *
+     * @param string $name  The name of the attribute.
+     *
+     * @return string  The value of the attribute.
+     * @throws Horde_Icalendar_Exception
+     */
+    public function getAttributeSingle($name)
+    {
+        $out = $this->getAttribute($name, false);
+        return is_array($out)
+            ? reset($out)
+            : $out;
+    }
+
+    /**
      * Gets the values of an attribute as an array.  Multiple values
      * are possible due to:
      *
@@ -277,7 +300,7 @@ class Horde_Icalendar
      * @param mixed $default  What to return if the attribute specified by
      *                        $name does not exist.
      *
-     * @return mixed (string) The value of $name.
+     * @return mixed (mixed)  The value of $name.
      *               (mixed)  $default if $name does not exist.
      */
     public function getAttributeDefault($name, $default = '')
@@ -378,7 +401,7 @@ class Horde_Icalendar
         $r = array();
 
         foreach ($this->_components as $c) {
-            $cn = strtolower(get_class($c));
+            $cn = Horde_String::lower(get_class($c));
             if (empty($r[$cn])) {
                 $r[$cn] = 1;
             } else {
@@ -1279,8 +1302,13 @@ class Horde_Icalendar
         }
 
         for ($i = 0, $n = count($change_times); $i < $n - 1; $i++) {
+            // See Bug: 14153. Some timezone definitions may be such that a
+            // transition will incorrectly match due to the way we parse the
+            // 'end' times. There *may* be a more correct way to do this by
+            // sorting the transitions/handling 'end' values differently.
             if (($t >= $change_times[$i]['time']) &&
-                ($t < $change_times[$i + 1]['time'])) {
+                ($t < $change_times[$i + 1]['time']) &&
+                $this->_checkEndDate($t, $change_times[$i + 1])) {
                 return $change_times[$i]['to'];
             }
         }
@@ -1290,6 +1318,33 @@ class Horde_Icalendar
         }
 
         return false;
+    }
+
+    /**
+     * Utility method to aid in checking the end date of a transition.
+     *
+     * @param  integer $t    The timestamp of the date we are checking.
+     * @param  array $times  A transition array.
+     *
+     * @return boolean  True if $t is before the end date of the transition
+     *                  otherwise false.
+     */
+    protected function _checkEndDate($t, $times)
+    {
+        if (empty($times['end'])) {
+            return true;
+        }
+        if (strlen($times['end']) == 4) {
+            $date = @gmmktime(0, 0, 0, 1, 1, $times['end']);
+            if ($date && $t < $date) {
+                return true;
+            }
+            return false;
+        }
+
+        if ($t < $times['end']) {
+            return true;
+        }
     }
 
     /**
@@ -1516,6 +1571,10 @@ class Horde_Icalendar
             if ($value) {
                 $duration .= $value . 'S';
             }
+        } elseif ($duration === 'P') {
+            // Duration without time ("P") is NOT valid, append 0 seconds
+            // ("T0S").
+            $duration .= 'T0S';
         }
 
         return $duration;

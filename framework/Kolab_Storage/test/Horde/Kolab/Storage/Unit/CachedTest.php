@@ -15,7 +15,7 @@
 /**
  * Test the cache decorator for the storage handler.
  *
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -60,7 +60,7 @@ extends Horde_Kolab_Storage_TestCase
     public function testGetData()
     {
         $this->assertInstanceOf(
-            'Horde_Kolab_Storage_Data_Cached',
+            'Horde_Kolab_Storage_Data',
             $this->createCachedStorage($this->getAnnotatedMock())->getData('INBOX')
         );
     }

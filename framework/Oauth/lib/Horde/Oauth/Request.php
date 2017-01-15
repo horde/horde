@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2008-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2017 Horde LLC (http://www.horde.org/)
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://www.horde.org/licenses/bsd BSD
@@ -174,7 +174,7 @@ class Horde_Oauth_Request
      */
     protected function _getNormalizedHttpMethod()
     {
-        return strtoupper($this->_method);
+        return Horde_String::upper($this->_method);
     }
 
     /**

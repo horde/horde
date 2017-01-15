@@ -133,8 +133,10 @@ class Horde_Date
     protected $_timezone;
 
     /**
-     * These aliases map Windows and Lotus Timezone IDs to those understood by PHP
-     * This list better moves somewhere else
+     * These aliases map Windows, Lotus, and other Timezone IDs to those
+     * understood by PHP.
+     *
+     * @todo This list better moves somewhere else
      * @var array
      */
     protected static $_timezoneAliases = array(
@@ -239,8 +241,143 @@ class Horde_Date
         // Found from Lotus Notes
         'W. Europe' => 'Europe/Berlin',
         'E. Europe' => 'Asia/Nicosia',
+        // Old Olsen names, from the "backward" file.
+        'Africa/Asmera' => 'Africa/Nairobi',
+        'Africa/Timbuktu' => 'Africa/Abidjan',
+        'America/Argentina/ComodRivadavia' => 'America/Argentina/Catamarca',
+        'America/Atka' => 'America/Adak',
+        'America/Buenos_Aires' => 'America/Argentina/Buenos_Aires',
+        'America/Catamarca' => 'America/Argentina/Catamarca',
+        'America/Coral_Harbour' => 'America/Atikokan',
+        'America/Cordoba' => 'America/Argentina/Cordoba',
+        'America/Ensenada' => 'America/Tijuana',
+        'America/Fort_Wayne' => 'America/Indiana/Indianapolis',
+        'America/Indianapolis' => 'America/Indiana/Indianapolis',
+        'America/Jujuy' => 'America/Argentina/Jujuy',
+        'America/Knox_IN' => 'America/Indiana/Knox',
+        'America/Louisville' => 'America/Kentucky/Louisville',
+        'America/Mendoza' => 'America/Argentina/Mendoza',
+        'America/Montreal' => 'America/Toronto',
+        'America/Porto_Acre' => 'America/Rio_Branco',
+        'America/Rosario' => 'America/Argentina/Cordoba',
+        'America/Santa_Isabel' => 'America/Tijuana',
+        'America/Shiprock' => 'America/Denver',
+        'America/Virgin' => 'America/Port_of_Spain',
+        'Antarctica/South_Pole' => 'Pacific/Auckland',
+        'Asia/Ashkhabad' => 'Asia/Ashgabat',
+        'Asia/Calcutta' => 'Asia/Kolkata',
+        'Asia/Chongqing' => 'Asia/Shanghai',
+        'Asia/Chungking' => 'Asia/Shanghai',
+        'Asia/Dacca' => 'Asia/Dhaka',
+        'Asia/Harbin' => 'Asia/Shanghai',
+        'Asia/Kashgar' => 'Asia/Urumqi',
+        'Asia/Katmandu' => 'Asia/Kathmandu',
+        'Asia/Macao' => 'Asia/Macau',
+        'Asia/Saigon' => 'Asia/Ho_Chi_Minh',
+        'Asia/Tel_Aviv' => 'Asia/Jerusalem',
+        'Asia/Thimbu' => 'Asia/Thimphu',
+        'Asia/Ujung_Pandang' => 'Asia/Makassar',
+        'Asia/Ulan_Bator' => 'Asia/Ulaanbaatar',
+        'Atlantic/Faeroe' => 'Atlantic/Faroe',
+        'Atlantic/Jan_Mayen' => 'Europe/Oslo',
+        'Australia/ACT' => 'Australia/Sydney',
+        'Australia/Canberra' => 'Australia/Sydney',
+        'Australia/LHI' => 'Australia/Lord_Howe',
+        'Australia/NSW' => 'Australia/Sydney',
+        'Australia/North' => 'Australia/Darwin',
+        'Australia/Queensland' => 'Australia/Brisbane',
+        'Australia/South' => 'Australia/Adelaide',
+        'Australia/Tasmania' => 'Australia/Hobart',
+        'Australia/Victoria' => 'Australia/Melbourne',
+        'Australia/West' => 'Australia/Perth',
+        'Australia/Yancowinna' => 'Australia/Broken_Hill',
+        'Brazil/Acre' => 'America/Rio_Branco',
+        'Brazil/DeNoronha' => 'America/Noronha',
+        'Brazil/East' => 'America/Sao_Paulo',
+        'Brazil/West' => 'America/Manaus',
+        'Canada/Atlantic' => 'America/Halifax',
+        'Canada/Central' => 'America/Winnipeg',
+        'Canada/East-Saskatchewan' => 'America/Regina',
+        'Canada/Eastern' => 'America/Toronto',
+        'Canada/Mountain' => 'America/Edmonton',
+        'Canada/Newfoundland' => 'America/St_Johns',
+        'Canada/Pacific' => 'America/Vancouver',
+        'Canada/Saskatchewan' => 'America/Regina',
+        'Canada/Yukon' => 'America/Whitehorse',
+        'Chile/Continental' => 'America/Santiago',
+        'Chile/EasterIsland' => 'Pacific/Easter',
+        'Cuba' => 'America/Havana',
+        'Egypt' => 'Africa/Cairo',
+        'Eire' => 'Europe/Dublin',
+        'Europe/Belfast' => 'Europe/London',
+        'Europe/Tiraspol' => 'Europe/Chisinau',
+        'GB' => 'Europe/London',
+        'GB-Eire' => 'Europe/London',
+        'GMT+0' => 'Etc/GMT',
+        'GMT-0' => 'Etc/GMT',
+        'GMT0' => 'Etc/GMT',
+        'Greenwich' => 'Etc/GMT',
+        'Hongkong' => 'Asia/Hong_Kong',
+        'Iceland' => 'Atlantic/Reykjavik',
+        'Iran' => 'Asia/Tehran',
+        'Israel' => 'Asia/Jerusalem',
+        'Jamaica' => 'America/Jamaica',
+        'Japan' => 'Asia/Tokyo',
+        'Kwajalein' => 'Pacific/Kwajalein',
+        'Libya' => 'Africa/Tripoli',
+        'Mexico/BajaNorte' => 'America/Tijuana',
+        'Mexico/BajaSur' => 'America/Mazatlan',
+        'Mexico/General' => 'America/Mexico_City',
+        'NZ' => 'Pacific/Auckland',
+        'NZ-CHAT' => 'Pacific/Chatham',
+        'Navajo' => 'America/Denver',
+        'PRC' => 'Asia/Shanghai',
+        'Pacific/Ponape' => 'Pacific/Pohnpei',
+        'Pacific/Samoa' => 'Pacific/Pago_Pago',
+        'Pacific/Truk' => 'Pacific/Chuuk',
+        'Pacific/Yap' => 'Pacific/Chuuk',
+        'Poland' => 'Europe/Warsaw',
+        'Portugal' => 'Europe/Lisbon',
+        'ROC' => 'Asia/Taipei',
+        'ROK' => 'Asia/Seoul',
+        'Singapore' => 'Asia/Singapore',
+        'Turkey' => 'Europe/Istanbul',
+        'UCT' => 'Etc/UCT',
+        'US/Alaska' => 'America/Anchorage',
+        'US/Aleutian' => 'America/Adak',
+        'US/Arizona' => 'America/Phoenix',
+        'US/Central' => 'America/Chicago',
+        'US/East-Indiana' => 'America/Indiana/Indianapolis',
+        'US/Eastern' => 'America/New_York',
+        'US/Hawaii' => 'Pacific/Honolulu',
+        'US/Indiana-Starke' => 'America/Indiana/Knox',
+        'US/Michigan' => 'America/Detroit',
+        'US/Mountain' => 'America/Denver',
+        'US/Pacific' => 'America/Los_Angeles',
+        'US/Samoa' => 'Pacific/Pago_Pago',
+        'UTC' => 'UTC',
+        'Universal' => 'UTC',
+        'W-SU' => 'Europe/Moscow',
+        'Zulu' => 'UTC',
     );
 
+    /**
+     * These aliases map timezone abbreviations to those understood by PHP.
+     *
+     * @todo This list better moves somewhere else
+     * @see getTimezoneAlias()
+     * @var array
+     */
+    protected static $_timezoneAbbreviations = array();
+
+    /**
+     * A list of (Olson) timezone identifiers understood by PHP.
+     *
+     * @todo This list better moves somewhere else
+     * @see getTimezoneAlias()
+     * @var array
+     */
+    protected static $_timezoneIdentifiers = array();
 
     /**
      * Default format for __toString()
@@ -645,20 +782,58 @@ class Horde_Date
     }
 
     /**
+     * Returns the normalized (Olson) timezone name of a timezone alias.
+     *
+     * We currently support Windows and Lotus timezone names, and timezone
+     * abbreviations.
+     *
+     * @since Horde_Date 2.3.0
+     *
+     * @param string $timezone  Some timezone alias.
+     *
+     * @return string  The Olson timezone name, or the original value, if no
+     *                 alias found.
+     */
+    public static function getTimezoneAlias($timezone)
+    {
+        if (empty(self::$_timezoneIdentifiers)) {
+            self::$_timezoneIdentifiers = array_flip(DateTimeZone::listIdentifiers());
+        }
+        if (isset(self::$_timezoneIdentifiers[$timezone])) {
+            return $timezone;
+        }
+        /* Workaround for standard cases of bug #11688 */
+        if (isset(self::$_timezoneAliases[$timezone])) {
+            $timezone = self::$_timezoneAliases[$timezone];
+        }
+        if (empty(self::$_timezoneAbbreviations)) {
+            self::$_timezoneAbbreviations = DateTimeZone::listAbbreviations();
+        }
+        $lower = Horde_String::lower($timezone);
+        if (isset(self::$_timezoneAbbreviations[$lower])) {
+            $timezone = reset(self::$_timezoneAbbreviations[$lower]);
+            $timezone = $timezone['timezone_id'];
+        }
+        return $timezone;
+    }
+
+    /**
      * Converts this object to a different timezone.
      *
      * @param string $timezone  The new timezone.
      *
      * @return Horde_Date  This object.
+     * @throws Horde_Date_Exception
      */
     public function setTimezone($timezone)
     {
         $date = $this->toDateTime();
-        /* Workaround for standard cases of bug #11688 */
-        if (array_key_exists($timezone, self::$_timezoneAliases)) {
-            $timezone = self::$_timezoneAliases[$timezone];
+        $timezone = self::getTimezoneAlias($timezone);
+        try {
+            $date->setTimezone(new DateTimeZone($timezone));
+        } catch (Exception $e) {
+            throw new Horde_Date_Exception($e->getMessage());
         }
-        $date->setTimezone(new DateTimeZone($timezone));
         $this->_timezone = $timezone;
         $this->_year     = (int)$date->format('Y');
         $this->_month    = (int)$date->format('m');
@@ -756,6 +931,8 @@ class Horde_Date
      *
      * @param integer $weekday  The day of the week (0 = Sunday, etc).
      * @param integer $nth      The $nth $weekday to set to (defaults to 1).
+     *                          Negative values count from end of the month
+     *                          (@since Horde_Date 2.1.0).
      */
     public function setNthWeekday($weekday, $nth = 1)
     {
@@ -763,16 +940,28 @@ class Horde_Date
             return;
         }
 
-        $this->_mday = 1;
-        $first = $this->dayOfWeek();
-        if ($weekday < $first) {
-            $this->_mday = 8 + $weekday - $first;
-        } else {
+        if ($nth >= 0) {
+            $this->_mday = 1;
+            $first = $this->dayOfWeek();
             $this->_mday = $weekday - $first + 1;
+            if ($weekday < $first) {
+                $this->_mday += 7;
+            }
+            $diff = 7 * $nth - 7;
+            $this->_mday += $diff;
+            $this->_correct(self::MASK_DAY, false);
+        } else {
+            $this->_mday = Horde_Date_Utils::daysInMonth($this->_month, $this->_year);
+            $last = $this->dayOfWeek();
+            $this->_mday -= $last - $weekday;
+            if ($last < $weekday) {
+                $this->_mday -= 7;
+            }
+            $diff = -7 * $nth - 7;
+            $this->_mday -= $diff;
+            $this->_correct(self::MASK_DAY, true);
+            $this->_formatCache = array();
         }
-        $diff = 7 * $nth - 7;
-        $this->_mday += $diff;
-        $this->_correct(self::MASK_DAY, $diff < 0);
     }
 
     /**

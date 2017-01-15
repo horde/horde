@@ -2,8 +2,6 @@
 /**
  * This file is part of PHP Mess Detector.
  *
- * PHP Version 5
- *
  * Copyright (c) 2008-2012, Manuel Pichler <mapi@phpmd.org>.
  * All rights reserved.
  *
@@ -39,7 +37,6 @@
  * @author    Manuel Pichler <mapi@phpmd.org>
  * @copyright 2008-2014 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php BSD License
- * @version   @project.version@
  */
 
 namespace PHPMD;
@@ -55,7 +52,6 @@ use PDepend\Input\ExtensionFilter;
  * @author    Manuel Pichler <mapi@phpmd.org>
  * @copyright 2008-2014 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php BSD License
- * @version   @project.version@
  */
 class ParserFactory
 {
@@ -90,6 +86,13 @@ class ParserFactory
     private function createInstance()
     {
         $application = new Application();
+
+        if (file_exists(getcwd() . '/pdepend.xml')) {
+            $application->setConfigurationFile(getcwd() . '/pdepend.xml');
+        } elseif (file_exists(getcwd() . '/pdepend.xml.dist')) {
+            $application->setConfigurationFile(getcwd() . '/pdepend.xml.dist');
+        }
+
         return $application->getEngine();
     }
 

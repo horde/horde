@@ -3,7 +3,7 @@
  * The Kronolith_Driver_Sql class implements the Kronolith_Driver API for a
  * SQL backend.
  *
- * Copyright 1999-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -105,17 +105,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
                         }
                         $start = new Horde_Date($next);
                         $start->min -= $event->alarm;
-                        $diff = Date_Calc::dateDiff(
-                            $event->start->mday,
-                            $event->start->month,
-                            $event->start->year,
-                            $event->end->mday,
-                            $event->end->month,
-                            $event->end->year
-                        );
-                        if ($diff == -1) {
-                            $diff = 0;
-                        }
+                        $diff = $event->start->diff($event->end);
                         $end = new Horde_Date(array(
                             'year' => $next->year,
                             'month' => $next->month,
@@ -343,7 +333,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             }
         }
         $q = 'SELECT event_id, event_uid, event_description, event_location,' .
-            ' event_private, event_status, event_attendees,' .
+            ' event_private, event_status, event_attendees, event_organizer,' .
             ' event_title, event_recurcount, event_url, event_timezone,' .
             ' event_recurtype, event_recurenddate, event_recurinterval,' .
             ' event_recurdays, event_start, event_end, event_allday,' .
@@ -374,7 +364,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
 
         /* Run the query. */
         try {
-            $qr = $this->_db->selectAll($q, $values);
+            $qr = $this->_db->select($q, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Kronolith_Exception($e);
         }
@@ -458,7 +448,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             ' event_recurdays, event_start, event_end, event_allday,' .
             ' event_alarm, event_alarm_methods, event_modified,' .
             ' event_exceptions, event_creator_id, event_resources,' .
-            ' event_baseid, event_exceptionoriginaldate FROM ' .
+            ' event_baseid, event_exceptionoriginaldate, event_organizer FROM ' .
             'kronolith_events WHERE event_id = ? AND calendar_id = ?';
 
         $values = array($eventId, $this->calendar);
@@ -499,7 +489,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             ' event_recurdays, event_start, event_end, event_allday,' .
             ' event_alarm, event_alarm_methods, event_modified,' .
             ' event_exceptions, event_creator_id, event_resources, event_baseid,' .
-            ' event_exceptionoriginaldate FROM kronolith_events' .
+            ' event_exceptionoriginaldate, event_organizer FROM kronolith_events' .
             ' WHERE event_uid = ?';
         $values = array((string)$uid);
 
@@ -752,7 +742,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
     }
 
     /**
-     * Delete a calendar and all its events.
+     * Delete all of a calendar's events.
      *
      * @param string $calendar  The name of the calendar to delete.
      *

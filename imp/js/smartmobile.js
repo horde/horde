@@ -91,7 +91,7 @@ var ImpMobile = {
 
         switch (view) {
         case 'compose':
-            $('#imp-compose-to-addr,#imp-compose-cc-addr').empty();
+            $('#imp-compose-to-addr,#imp-compose-cc-addr,#imp-redirect-to-addr').empty();
             if (!IMP.conf.disable_compose) {
                 $('#imp-compose-cache,#imp-compose-hmac').val('');
                 ImpMobile.compose(data);
@@ -645,6 +645,10 @@ var ImpMobile = {
                 from.push(v2.p || v2.g || v2.b);
             });
 
+            if (!from.length) {
+                from.push('[' + IMP.text.nofrom + ']');
+            }
+
             list.append(
                 c.append(
                     $('<a href="' + url + '"></a>').text(val.data.subject)
@@ -752,28 +756,21 @@ var ImpMobile = {
      */
     messageLoaded: function(r)
     {
-        // TODO: Error handling.
-        if (r.error ||
-            !ImpMobile.message ||
-            (r.view != ImpMobile.mailbox)) {
-            return;
-        }
+        var tmp,
+            cache = ImpMobile.cache[ImpMobile.mailbox],
+            data = ImpMobile.message;
 
-        var cache = ImpMobile.cache[ImpMobile.mailbox],
-            data = ImpMobile.message,
-            tmp;
+        /* Mailbox has changed. */
+        if (r.view != ImpMobile.mailbox) {
+        }
 
         // TODO: Remove once we can pass viewport parameters directly to the
         // showMessage request.
+        cache = ImpMobile.cache[ImpMobile.mailbox];
         if (!cache) {
             window.setTimeout(function() { ImpMobile.messageLoaded(r); }, 0);
             return;
         }
-
-        ImpMobile.buid = r.buid;
-
-        document.title = data.title || data.subject;
-        $('#message .smartmobile-title').text(data.title || data.subject);
 
         tmp = (ImpMobile.mailbox == IMP.conf.qsearchid);
         $('#message .smartmobile-back').attr(
@@ -785,6 +782,19 @@ var ImpMobile = {
         ).find('.ui-btn-text').text(
             tmp ? IMP.text.searchresults : cache.label
         );
+
+        if (r.error || !data || data.error) {
+            HordeMobile.showNotifications([ {
+                message: IMP.text.msg_error,
+                type: 'horde.warning'
+            } ]);
+            return;
+        }
+
+        ImpMobile.buid = r.buid;
+
+        document.title = data.title || data.subject;
+        $('#message .smartmobile-title').text(data.title || data.subject);
 
         $('#imp-message-from').text(
             data.from
@@ -1033,8 +1043,8 @@ var ImpMobile = {
         $('#compose .smartmobile-title').html(IMP.text.new_message);
 
         if (purl.params.to || purl.params.cc) {
-            ImpMobile.addAddress('to', purl.params.to);
-            ImpMobile.addAddress('cc', purl.params.cc);
+            ImpMobile.addAddress('compose-to', purl.params.to);
+            ImpMobile.addAddress('compose-cc', purl.params.cc);
         }
 
         $('#imp-compose-form').show();
@@ -1113,10 +1123,10 @@ var ImpMobile = {
 
             if (r.addr) {
                 $.each(r.addr.to, function(k, v) {
-                    ImpMobile.addAddress('to', v.v);
+                    ImpMobile.addAddress('compose-to', v.v);
                 });
                 $.each(r.addr.cc, function(k, v) {
-                    ImpMobile.addAddress('cc', v.v);
+                    ImpMobile.addAddress('compose-cc', v.v);
                 });
             }
 
@@ -1171,9 +1181,9 @@ var ImpMobile = {
     addAddress: function(f, addr)
     {
         if (addr) {
-            $('#imp-compose-' + f + '-addr').prepend(
+            $('#imp-' + f + '-addr').prepend(
                 $('<input></input>')
-                    .attr('name', f + '[]')
+                    .attr('name', (f == 'redirect-to' ? 'redirect_to' : f.substr(8)) + '[]')
                     .attr('type', 'hidden')
                     .val(addr)
             ).prepend(
@@ -1213,7 +1223,7 @@ var ImpMobile = {
                     if (!pos) {
                         val = val.substr(1);
                     } else if (val.charAt(pos - 1) != '\\') {
-                        ImpMobile.addAddress($(this).attr('id') == 'imp-compose-to' ? 'to' : 'cc', $.trim(val.substr(0, chr == ';' ? pos + 1 : pos)));
+                        ImpMobile.addAddress($(this).attr('id').substr(4), $.trim(val.substr(0, chr == ';' ? pos + 1 : pos)));
                         val = val.substr(pos + 2);
                         pos = 0;
                     }
@@ -1276,8 +1286,10 @@ var ImpMobile = {
 
     closeCompose: function()
     {
-        $('#imp-compose-form')[0].reset();
-        $.each($('#imp-compose-to,#imp-compose-cc'), function(undefined, v) {
+        $.each($('#imp-compose-form,#imp-redirect-form'), function(k, form) {
+            form.reset();
+        });
+        $.each($('#imp-compose-to,#imp-compose-cc,#imp-redirect-to'), function(undefined, v) {
             $(v).autocomplete('clear');
         });
         window.history.back();
@@ -1479,7 +1491,7 @@ var ImpMobile = {
         if ((v = d['imp:compose'])) {
             $.fn[v.atclimit === 0 ? 'hide' : 'show'].call($('#imp-compose-attach-form'));
             if (v.cacheid) {
-                if ($('#imp-redirect-form:visible').length) {
+                if ($('#imp-redirect-form').css('display') != 'none') {
                     $('#imp-redirect-cache').val(v.cacheid);
                 } else {
                     $('#imp-compose-cache').val(v.cacheid);
@@ -1647,17 +1659,17 @@ var ImpMobile = {
                 });
             });
 
-            $.each([ 'to', 'cc' ], function(undefined, v) {
-                $('#imp-compose-' + v)
+            $.each([ 'compose-to', 'compose-cc', 'redirect-to' ], function(undefined, v) {
+                $('#imp-' + v)
                     .autocomplete({
                         callback: function(e) {
                             ImpMobile.addAddress(v, $.trim($(e.currentTarget).text()));
-                            $('#imp-compose-' + v).val('');
+                            $('#imp-' + v).val('');
                         },
                         link: '#',
                         minLength: 3,
                         source: 'smartmobileAutocomplete',
-                        target: $('#imp-compose-' + v + '-suggestions')
+                        target: $('#imp-' + v + '-suggestions')
                     })
                     // textchange plugin requires bind()
                     .bind('textchange', ImpMobile.processComposeAddress);

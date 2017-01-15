@@ -7,6 +7,7 @@
 <div style="padding:2px">
  <form action="<?php echo Horde::selfUrl() ?>#block" method="post">
  <?php Horde_Util::pformInput() ?>
+ <input type="hidden" name="token" value="<?php echo $session->getToken() ?>" />
  <input type="hidden" name="row" value="<?php echo $row ?>" />
  <input type="hidden" name="col" value="<?php echo $col ?>" />
  <input type="hidden" name="action" value="save-resume" />

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<help>
+
+<entry id="Overview" md5="874d0785840aa202c81187da4d7e8043" state="uptodate">
+    <title>Ikuspegi orokorra</title>
+    <heading>Sarrera</heading>
+    <para>
+	Laster-markak gorde, antolatu eta kudeatzeko balio du aplikazio honek, on-line eta zentralizatutako leku batean gordeta daudela.
+    </para>
+    <para>
+	Laster-markak hemen gordez gero, edozein ordenagailutik eta edozein nabigatzailetik atzitu ditzakezu. Horrek esan nahi du erraz atzitu ditzakezula zure laster-markak edozein tokitik.
+	Nabigatzailea eguneratu, aldatu edo probatuz gero, ez duzu zertan laster-markekin kezkatu behar.
+    </para>
+</entry>
+</help>

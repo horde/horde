@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2008-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category  Horde
- * @copyright 2008-2015 Horde LLC
+ * @copyright 2008-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Imap_Client
  */
@@ -17,7 +17,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2008-2015 Horde LLC
+ * @copyright 2008-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Imap_Client
  */
@@ -158,12 +158,11 @@ class Horde_Imap_Client_Data_Thread implements Countable, Serializable
     {
         $out = array();
 
-        reset($this->_thread);
-        while (list(,$v) = each($this->_thread)) {
-            $out = array_merge($out, array_keys($v));
+        foreach ($this->_thread as $val) {
+            $out += $val;
         }
 
-        return $out;
+        return array_keys($out);
     }
 
 }

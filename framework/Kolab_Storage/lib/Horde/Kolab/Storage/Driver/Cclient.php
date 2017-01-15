@@ -1,23 +1,21 @@
 <?php
 /**
- * An cclient based Kolab storage driver.
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
- * PHP version 5
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Kolab
  * @package  Kolab_Storage
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
+ * @deprecated This class is not maintained and will be removed in future
+ *             releases.
  */
 
 /**
  * An cclient based Kolab storage driver.
- *
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Kolab
  * @package  Kolab_Storage
@@ -531,7 +529,8 @@ extends Horde_Kolab_Storage_Driver_Base
      *
      * @param string $folder Check the status of this folder.
      *
-     * @return array  An array that contains 'uidvalidity' and 'uidnext'.
+     * @return array  An array that contains 'uidvalidity', 'uidnext', and
+     *                'token'.
      */
     public function status($folder)
     {
@@ -556,7 +555,8 @@ extends Horde_Kolab_Storage_Driver_Base
         }
         return array(
             'uidvalidity' => $status->uidvalidity,
-            'uidnext' => $status->uidnext
+            'uidnext' => $status->uidnext,
+            'token' => false,
         );
     }
 
@@ -831,7 +831,7 @@ extends Horde_Kolab_Storage_Driver_Base
     {
         $ob = new Horde_Mime_Part();
 
-        $ob->setType($this->_mimeTypes[$data->type] . '/' . ($data->ifsubtype ? strtolower($data->subtype) : Horde_Mime_Part::UNKNOWN));
+        $ob->setType($this->_mimeTypes[$data->type] . '/' . ($data->ifsubtype ? Horde_String::lower($data->subtype) : Horde_Mime_Part::UNKNOWN));
 
         // Optional for multipart-parts, required for all others
         if ($data->ifparameters) {

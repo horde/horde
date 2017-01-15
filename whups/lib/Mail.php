@@ -2,7 +2,7 @@
 /**
  * Whups mail processing library.
  *
- * Copyright 2004-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -64,6 +64,19 @@ class Whups_Mail
             $headers->getValue('X-List-Administrivia') == 'Yes') {
             return true;
         }
+        if ($reply_to = $headers->getValue('reply-to')) {
+            $from = $reply_to;
+        }
+        $fromAddress = new Horde_Mail_Rfc822_Address($from);
+        $listeners = array($fromAddress->bare_address);
+        if ($cc = $headers->getValue('cc')) {
+            $rfc822 = new Horde_Mail_Rfc822();
+            foreach ($rfc822->parseAddressList($cc) as $address) {
+                if ($address->valid) {
+                    $listeners[] = $address->bare_address;
+                }
+            }
+        }
 
         // Use the message subject as the ticket summary.
         $info['summary'] = trim($headers->getValue('subject'));
@@ -115,8 +128,7 @@ class Whups_Mail
 
         // Try to determine the Horde user for creating the ticket.
         if (empty($auth_user)) {
-            $tmp = new Horde_Mail_Rfc822_Address($from);
-            $auth_user = self::_findAuthUser($tmp->bare_address);
+            $auth_user = self::_findAuthUser($fromAddress->bare_address);
         }
         $author = $auth_user;
 
@@ -139,29 +151,9 @@ class Whups_Mail
             $GLOBALS['registry']->setAuth($auth_user, array());
         }
 
-        // Attach message.
-        $attachments = array();
-        if (!empty($GLOBALS['conf']['mail']['attach_message'])) {
-            $tmp_name = Horde::getTempFile('whups');
-            $fp = @fopen($tmp_name, 'wb');
-            if (!$fp) {
-                throw new Whups_Exception(
-                    sprintf('Cannot open file %s for writing.', $tmp_name));
-            }
-            fwrite($fp, $text);
-            fclose($fp);
-            $attachments[] = array(
-                'name' => _("Original Message") . '.eml',
-                'tmp_name' => $tmp_name);
-        }
-
         // Extract attachments.
-        $dl_list = array_slice(array_keys($message->contentTypeMap()), 1);
-        foreach ($dl_list as $key) {
-            $part = $message->getPart($key);
-            if (($key == $body_id && $part->getType() == 'text/plain') ||
-                $part->getType() == 'multipart/alternative' ||
-                $part->getType() == 'multipart/mixed') {
+        foreach ($message->partIterator() as $part) {
+            if (!$part->isAttachment()) {
                 continue;
             }
             $tmp_name = Horde::getTempFile('whups');
@@ -197,8 +189,12 @@ class Whups_Mail
         if ($ticket = self::_findTicket($info)) {
             $ticket->change('comment', $info['comment']);
             $ticket->change('comment-email', $from);
+            $ticket->change('message', $text);
             if ($attachments) {
                 $ticket->change('attachments', $attachments);
+            }
+            foreach ($listeners as $listener) {
+                $GLOBALS['whups_driver']->addUniqueListener($ticket, $listener);
             }
             $ticket->commit($author);
         } elseif (!empty($info['ticket'])) {
@@ -219,7 +215,9 @@ class Whups_Mail
                     }
                 }
             }
+            $info['message'] = $text;
             $info['attachments'] = $attachments;
+            $info['listeners'] = $listeners;
 
             // Create a new ticket.
             $ticket = Whups_Ticket::newTicket($info, $author);

@@ -300,6 +300,7 @@ var ImpCore = {
                     .wrap('A', {
                         className: 'imp-maillog-sent'
                     })
+                    .store('folder', entry.f)
                     .store('msgid', entry.s)
                     .store('type', entry.t);
             }
@@ -467,6 +468,7 @@ var ImpCore = {
             }
         } else if (cnames.indexOf('imp-maillog-sent') !== -1) {
             HordeCore.popupWindow(this.conf.URI_MAILLOG, {
+                folder: elt.retrieve('folder'),
                 msgid: elt.retrieve('msgid'),
                 type: elt.retrieve('type')
             }, {
@@ -500,7 +502,7 @@ var ImpCore = {
 
         case 'ctx_contacts_new':
             this.compose('new', {
-                to_json: Object.toJSON(baseelt.retrieve('email'))
+                to: baseelt.retrieve('email').v
             });
             break;
         }
@@ -513,7 +515,7 @@ var ImpCore = {
         switch (e.memo) {
         case 'ctx_contacts':
             tmp = $(e.memo).down('DIV');
-            tmp2 = e.element().retrieve('email');
+            tmp2 = e.findElement('A').retrieve('email');
             tmp.hide().childElements().invoke('remove');
 
             if (!tmp2) {

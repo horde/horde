@@ -18,7 +18,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2009-2015 Horde LLC (http://www.horde.org)
+ * @copyright 2009-2017 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -31,7 +31,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2009-2015 Horde LLC (http://www.horde.org)
+ * @copyright 2009-2017 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -220,6 +220,7 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
 
         if (is_resource($content)) {
             fclose($content);
+            $content = null;
         }
     }
 
@@ -308,7 +309,13 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
                 $this->_logContent($content);
             }
         } else {
-            $this->_logContent('[STREAM]');
+            if ($this->_logLevel == self::LOG_DETAILED) {
+                rewind($content);
+                $this->_logContent(stream_get_contents($content));
+                rewind($content);
+            } else {
+                $this->_logContent('[STREAM]');
+            }
         }
         $this->_outByte(self::STR_I);
         $this->_outTermStr($content);

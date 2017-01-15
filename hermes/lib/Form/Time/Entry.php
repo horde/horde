@@ -2,7 +2,7 @@
 /**
  * TimeEntryForm Class.
  *
- * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -47,11 +47,11 @@ class Hermes_Form_Time_Entry extends Hermes_Form_Time
             $this->addHidden('', 'url', 'text', true);
         }
 
-        $var = &$this->addVariable(_("Date"), 'date', 'monthdayyear', true,
+        $var = $this->addVariable(_("Date"), 'date', 'monthdayyear', true,
                                    false, null, array(date('Y') - 1));
         $var->setDefault(date('Y-m-d'));
 
-        $cli = &$this->addVariable(_("Client"), 'client', $clienttype, true, false, null, $clientparams);
+        $cli = $this->addVariable(_("Client"), 'client', $clienttype, true, false, null, $clientparams);
         if (isset($action)) {
             $cli->setAction($action);
             $cli->setOption('trackchange', true);
@@ -59,7 +59,7 @@ class Hermes_Form_Time_Entry extends Hermes_Form_Time
 
         $this->addVariable(_("Job Type"), 'type', $typetype, true, false, null, $typeparams);
 
-        $this->_costObjects = &$this->addVariable(
+        $this->_costObjects = $this->addVariable(
             _("Cost Object"), 'costobject', 'enum', false, false, null,
             array(array()));
 
@@ -79,7 +79,7 @@ class Hermes_Form_Time_Entry extends Hermes_Form_Time
                 $vars->set('description', _("See Attached Timesheet"));
             }
         }
-        $descvar = &$this->addVariable(_("Description"), 'description', 'longtext', true, false, null, array(4, 60));
+        $descvar = $this->addVariable(_("Description"), 'description', 'longtext', true, false, null, array(4, 60));
         $this->addVariable(_("Additional Notes"), 'note', 'longtext', false, false, null, array(4, 60));
     }
 

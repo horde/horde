@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2013-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2013-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
- * @copyright 2013-2015 Horde LLC
+ * @copyright 2013-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -16,7 +16,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2013-2015 Horde LLC
+ * @copyright 2013-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -42,12 +42,25 @@ class IMP_Ftree_Account_Remote extends IMP_Ftree_Account_Imap
     {
         global $injector;
 
+        $init = false;
         $out = array();
-
-        $init = $this->imp_imap->init;
 
         $remote = $injector->getInstance('IMP_Remote');
         $raccount = $remote[strval($this)];
+
+        switch ($raccount->login()) {
+        case $raccount::LOGIN_BAD_CHANGED:
+            $remote[strval($this)] = $raccount;
+            break;
+
+        case $raccount::LOGIN_OK_CHANGED:
+            $remote[strval($this)] = $raccount;
+            // Fall-through
+
+        case $raccount::LOGIN_OK:
+            $init = true;
+            break;
+        }
 
         $query = array_filter(
             array_map(array($remote, 'getMailboxById'), $query)

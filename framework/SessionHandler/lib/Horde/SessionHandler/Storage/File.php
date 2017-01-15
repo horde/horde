@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category  Horde
- * @copyright 2010-2015 Horde LLC
+ * @copyright 2010-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   SessionHandler
  */
@@ -16,7 +16,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2010-2015 Horde LLC
+ * @copyright 2010-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   SessionHandler
  */
@@ -56,6 +56,7 @@ class Horde_SessionHandler_Storage_File extends Horde_SessionHandler_Storage
      */
     public function open($save_path = null, $session_name = null)
     {
+        return true;
     }
 
     /**
@@ -97,7 +98,7 @@ class Horde_SessionHandler_Storage_File extends Horde_SessionHandler_Storage
         $this->_open($id);
 
         if (!$this->_fp) {
-            return '';
+            return false;
         }
 
         $data = '';

@@ -24,7 +24,7 @@ As fDOMDocument is a library and does not provide any cli tools, you can only ad
 
     {
         "require": {
-            "theseer/fdomdocument": "1.6.0"
+            "theseer/fdomdocument": "1.6.*"
         }
     }
 
@@ -55,7 +55,7 @@ Usage Samples
 
     require 'TheSeer/fDOMDocument/autoload.php';
 
-    $dom = new TheSeer\fDOM\fDOMDOcument();
+    $dom = new TheSeer\fDOM\fDOMDocument();
     try {
         $dom->loadXML('<?xml version="1.0" ?><root><child name="foo" /></root>');
     } catch (fDOMException $e) {
@@ -70,6 +70,9 @@ Usage Samples
 
 Changelog
 ---------
+#####Release 1.6.1
+* Added Workaround for [HHVM Issue #5412](https://github.com/facebook/hhvm/issues/5412)
+
 #####Release 1.6.0
 * Added <code>createElement*</code> to <code>fDOMEmenet<code> and <code>fDOMDocumentFragment</code> as shortcuts
 * Added <code>appendElement*</code> to <code>fDOMDocumentFragment</code> as shortcuts

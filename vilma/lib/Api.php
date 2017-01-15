@@ -5,10 +5,10 @@
  * This file defines Vilma's external API interface. Other applications
  * can interact with Vilma through this API.
  *
- * Copyright 2006-2007 Alkaloid Networks <http://www.alkaloid.net/>
+ * Copyright 2006-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you did not
- * did not receive this file, see http://cvs.horde.org/co.php/vilma/LICENSE.
+ * did not receive this file, see http://www.horde.org/licenses/bsd.
  *
  * @author  Ben Klang <ben@alkaloid.net>
  * @package Vilma

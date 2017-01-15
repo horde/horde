@@ -121,8 +121,8 @@ class Horde_Date_Parser_Locale_Base
     public function componentFactory($component, $args = null)
     {
         $locale = isset($this->args['locale']) ? $this->args['locale'] : null;
-        if ($locale && strtolower($locale) != 'base') {
-            $locale = str_replace(' ', '_', ucwords(str_replace('_', ' ', strtolower($locale))));
+        if ($locale && Horde_String::lower($locale) != 'base') {
+            $locale = str_replace(' ', '_', Horde_String::ucwords(str_replace('_', ' ', Horde_String::lower($locale))));
             $class = 'Horde_Date_Parser_Locale_' . $locale . '_' . $component;
             if (class_exists($class)) {
                 return new $class($args);

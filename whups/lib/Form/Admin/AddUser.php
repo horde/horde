@@ -3,7 +3,7 @@
  * This file contains all Horde_Form classes for administrating responsible
  * users.
  *
- * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -29,19 +29,18 @@ class Whups_Form_Admin_AddUser extends Horde_Form
             $current = $whups_driver->getQueueUsers($queue);
 
             try {
-                $list = $auth->listUsers();
-                sort($list);
+                $list = $auth->listNames();
                 $users = array();
-                foreach ($list as $user) {
+                foreach ($list as $user => $name) {
                     if (!in_array($user, $current)) {
-                        $users[$user] = $GLOBALS['registry']->convertUsername($user, false);
+                        $users[$user] = $name;
                     }
                 }
                 $this->addVariable(_("User"), 'user', 'multienum', true, false, null, array($users));
             } catch (Horde_Auth_Exception $e) {
                 $this->addVariable(
                     _("User"), 'user', 'invalid', true, false, null,
-                    array(sprintf(_("There was an error listing users: %s; %s"), $list->getMessage(), $list->getUserInfo())));
+                    array(sprintf(_("There was an error listing users: %s"), $e->getMessage())));
             }
         } else {
             $this->addVariable(_("User"), 'user', 'text', true);

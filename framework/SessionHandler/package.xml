@@ -22,9 +22,9 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-03-03</date>
+ <date>2016-09-01</date>
  <version>
-  <release>2.2.5</release>
+  <release>2.2.9</release>
   <api>2.2.0</api>
  </version>
  <stability>
@@ -91,6 +91,7 @@
        <file name="ExternalTest.php" role="test" />
        <file name="FileTest.php" role="test" />
        <file name="MemcacheTest.php" role="test" />
+       <file name="MongoTest.php" role="test" />
        <file name="StackTest.php" role="test" />
       </dir> <!-- /test/Horde/SessionHandler/Storage -->
       <file name="AllTests.php" role="test" />
@@ -106,8 +107,8 @@
   <required>
    <php>
     <min>5.3.0</min>
-    <max>6.0.0alpha1</max>
-    <exclude>6.0.0alpha1</exclude>
+    <max>8.0.0alpha1</max>
+    <exclude>8.0.0alpha1</exclude>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -131,7 +132,7 @@
    <package>
     <name>Horde_Db</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.3</min>
+    <min>2.2.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -190,6 +191,7 @@
    <install as="Horde/SessionHandler/Storage/ExternalTest.php" name="test/Horde/SessionHandler/Storage/ExternalTest.php" />
    <install as="Horde/SessionHandler/Storage/FileTest.php" name="test/Horde/SessionHandler/Storage/FileTest.php" />
    <install as="Horde/SessionHandler/Storage/MemcacheTest.php" name="test/Horde/SessionHandler/Storage/MemcacheTest.php" />
+   <install as="Horde/SessionHandler/Storage/MongoTest.php" name="test/Horde/SessionHandler/Storage/MongoTest.php" />
    <install as="Horde/SessionHandler/Storage/StackTest.php" name="test/Horde/SessionHandler/Storage/StackTest.php" />
    <install as="Horde/SessionHandler/Storage/Sql/Base.php" name="test/Horde/SessionHandler/Storage/Sql/Base.php" />
    <install as="Horde/SessionHandler/Storage/Sql/MysqliTest.php" name="test/Horde/SessionHandler/Storage/Sql/MysqliTest.php" />
@@ -573,7 +575,63 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-03-03</date>
+   <date>2015-10-20</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Catch possible exceptions in shutdown methods.
+* [jan] Test environment improvements.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.6</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-01-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix updating large files in Oracle backends.
+* [jan] Fix writing big session data to Oracle (Bug #14175).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.7</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-02-02</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Mark PHP 7 as supported.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.8</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-09-01</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix tests for PHP 7.1.
+* [jan] Add Mongo test.
+* [jan] Run Memcache tests on PHP 7 too.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.9</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-09-01</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

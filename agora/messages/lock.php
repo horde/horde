@@ -2,7 +2,7 @@
 /**
  * The Agora script to lock a message and prevent further posts to this thread.
  *
- * Copyright 2003-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -41,7 +41,7 @@ $vars = Horde_Variables::getDefaultVariables();
 $form = new Horde_Form($vars, sprintf(_("Locking thread \"%s\""), $message['message_subject']));
 $form->setButtons(_("Update"), true);
 $form->addHidden('', 'agora', 'text', false);
-$v = &$form->addVariable(_("Allow replies in this thread"), 'message_lock', 'radio', true, false, null, array(array('0' => _("Yes, allow replies"), '1' => _("No, do not allow replies"))));
+$v = $form->addVariable(_("Allow replies in this thread"), 'message_lock', 'radio', true, false, null, array(array('0' => _("Yes, allow replies"), '1' => _("No, do not allow replies"))));
 $v->setDefault('0');
 
 if ($form->validate()) {

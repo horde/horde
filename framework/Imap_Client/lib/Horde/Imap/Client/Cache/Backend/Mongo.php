@@ -1,23 +1,24 @@
 <?php
 /**
- * Copyright 2013-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2013-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category  Horde
- * @copyright 2013-2015 Horde LLC
+ * @copyright 2013-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Imap_Client
  */
 
 /**
  * A MongoDB database implementation for caching IMAP/POP data.
+ *
  * Requires the Horde_Mongo class.
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2013-2015 Horde LLC
+ * @copyright 2013-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Imap_Client
  */
@@ -121,10 +122,7 @@ implements Horde_Mongo_Collection_Index
         try {
             $cursor = $this->_db->selectCollection(self::MSG)->find(
                 $query,
-                array(
-                    self::MSG_DATA => true,
-                    self::MSG_MSGUID => true
-                )
+                array(self::MSG_DATA => true, self::MSG_MSGUID => true)
             );
             foreach ($cursor as $val) {
                 try {
@@ -153,10 +151,7 @@ implements Horde_Mongo_Collection_Index
 
         try {
             $cursor = $this->_db->selectCollection(self::MSG)->find(
-                $query,
-                array(
-                    self::MSG_MSGUID => true
-                )
+                $query, array(self::MSG_MSGUID => true)
             );
             foreach ($cursor as $val) {
                 $out[] = $val[self::MSG_MSGUID];
@@ -191,11 +186,12 @@ implements Horde_Mongo_Collection_Index
                         self::MSG_UID => $uid
                     ));
                 } else {
-                    $coll->insert(array(
+                    $doc = array(
                         self::MSG_DATA => $this->_value($val),
                         self::MSG_MSGUID => strval($key),
                         self::MSG_UID => $uid
-                    ));
+                    );
+                    $coll->insert($doc);
                 }
             } catch (MongoException $e) {}
         }
@@ -235,10 +231,7 @@ implements Horde_Mongo_Collection_Index
         try {
             $cursor = $this->_db->selectCollection(self::MD)->find(
                 $query,
-                array(
-                    self::MD_DATA => true,
-                    self::MD_FIELD => true
-                )
+                array(self::MD_DATA => true, self::MD_FIELD => true)
             );
             foreach ($cursor as $val) {
                 try {
@@ -293,7 +286,9 @@ implements Horde_Mongo_Collection_Index
         if (!empty($uids) && ($uid = $this->_getUid($mailbox))) {
             try {
                 $this->_db->selectCollection(self::MSG)->remove(array(
-                    self::MSG_MSGUID => array('$in' => array_map('strval', $uids)),
+                    self::MSG_MSGUID => array(
+                        '$in' => array_map('strval', $uids)
+                    ),
                     self::MSG_UID => $uid
                 ));
             } catch (MongoException $e) {}
@@ -310,9 +305,8 @@ implements Horde_Mongo_Collection_Index
 
         foreach (array(self::BASE, self::MD, self::MSG) as $val) {
             try {
-                $this->_db->selectCollection($val)->remove(array(
-                    'uid' => $uid
-                ));
+                $this->_db->selectCollection($val)
+                    ->remove(array('uid' => $uid));
             } catch (MongoException $e) {}
         }
     }
@@ -346,9 +340,8 @@ implements Horde_Mongo_Collection_Index
 
         foreach (array(self::BASE, self::MD, self::MSG) as $val) {
             try {
-                $this->_db->selectCollection($val)->remove(array(
-                    'uid' => array('$in' => $uids)
-                ));
+                $this->_db->selectCollection($val)
+                    ->remove(array('uid' => array('$in' => $uids)));
             } catch (MongoException $e) {}
         }
     }
@@ -387,12 +380,13 @@ implements Horde_Mongo_Collection_Index
      */
     protected function _createUid($mailbox)
     {
-        $this->_db->selectCollection(self::BASE)->insert(array(
+        $doc = array(
             self::BASE_HOSTSPEC => $this->_params['hostspec'],
             self::BASE_MAILBOX => $mailbox,
             self::BASE_PORT => $this->_params['port'],
             self::BASE_USERNAME => $this->_params['username']
-        ));
+        );
+        $this->_db->selectCollection(self::BASE)->insert($doc);
 
         return $this->_getUid($mailbox);
     }
@@ -414,7 +408,9 @@ implements Horde_Mongo_Collection_Index
 
         return ($data instanceof MongoBinData)
             ? @unserialize($compress->decompress($data->bin))
-            : new MongoBinData($compress->compress(serialize($data)), MongoBinData::BYTE_ARRAY);
+            : new MongoBinData(
+                $compress->compress(serialize($data)), MongoBinData::BYTE_ARRAY
+            );
     }
 
     /* Horde_Mongo_Collection_Index methods. */

@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @category  Horde
- * @copyright 2002-2015 Horde LLC
+ * @copyright 2002-2017 Horde LLC
  * @license   http://www.horde.org/licenses/apache ASL
  * @package   Ingo
  */
@@ -18,7 +18,7 @@
  * @author    Jan Schneider <jan@horde.org>
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2002-2015 Horde LLC
+ * @copyright 2002-2017 Horde LLC
  * @license   http://www.horde.org/licenses/apache ASL
  * @package   Ingo
  */
@@ -36,12 +36,6 @@ class Ingo_Basic_Script extends Ingo_Basic_Base
             Ingo_Basic_Filters::url()->redirect();
         }
 
-        /* Generate the script. */
-        $scripts = array();
-        foreach ($script->createAll() as $script) {
-            $scripts = array_merge($scripts, $script->generate());
-        }
-
         /* Token checking. */
         $actionID = $this->_checkToken(array(
             'action_activate',
@@ -52,12 +46,18 @@ class Ingo_Basic_Script extends Ingo_Basic_Base
         switch ($actionID) {
         case 'action_activate':
         case 'action_deactivate':
-            if (!empty($scripts)) {
-                try {
-                    Ingo_Script_Util::activate($scripts, $actionID == 'action_deactivate');
-                } catch (Ingo_Exception $e) {
-                    $notification->push($e);
+            try {
+                foreach ($script->createAll() as $val) {
+                    $val->activate($actionID == 'action_activate', false);
+                    $notification->push(
+                        ($actionID == 'action_activate')
+                            ? _("Script successfully activated.")
+                            : _("Script successfully deactivated."),
+                        'horde.success'
+                    );
                 }
+            } catch (Ingo_Exception $e) {
+                $notification->push($e);
             }
             break;
 
@@ -75,6 +75,14 @@ class Ingo_Basic_Script extends Ingo_Basic_Base
                 }
             }
             break;
+        }
+
+        /* Generate the script. */
+        if (!isset($scripts)) {
+            $scripts = array();
+            foreach ($script->createAll() as $script) {
+                $scripts = array_merge($scripts, $script->generate());
+            }
         }
 
         /* Prepare the view. */

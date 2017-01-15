@@ -4,7 +4,7 @@
  * various directory search drivers.  It includes functions for searching,
  * adding, removing, and modifying directory entries.
  *
- * Copyright 2009-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you did
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -47,6 +47,17 @@ class Turba_Driver_Share extends Turba_Driver
         $this->_driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($this->_params['config'], $name);
         $this->_driver->setContactOwner($this->_getContactOwner());
         $this->_driver->setSourceName($name);
+    }
+
+    /**
+     * Synchronize, if needed.
+     *
+     * @param mixed  $token  A value indicating the last synchronization point,
+     *                       if available.
+     */
+    public function synchronize($token = false)
+    {
+        $this->_driver->synchronize($token);
     }
 
     /**

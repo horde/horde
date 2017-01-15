@@ -4,7 +4,7 @@
  *
  * PHP Version 5
  *
- * Copyright (c) 2008-2013, Manuel Pichler <mapi@pdepend.org>.
+ * Copyright (c) 2008-2015, Manuel Pichler <mapi@pdepend.org>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -36,7 +36,7 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @copyright 2008-2013 Manuel Pichler. All rights reserved.
+ * @copyright 2008-2015 Manuel Pichler. All rights reserved.
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
  */
 
@@ -48,7 +48,7 @@ use PDepend\Source\ASTVisitor\ASTVisitListener;
  * An implementation of this listener can be used to recieve informations about
  * the current metric analyzer.
  *
- * @copyright 2008-2013 Manuel Pichler. All rights reserved.
+ * @copyright 2008-2015 Manuel Pichler. All rights reserved.
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
  */
 interface AnalyzerListener extends ASTVisitListener
@@ -56,7 +56,7 @@ interface AnalyzerListener extends ASTVisitListener
     /**
      * This method is called when the analyzer starts code processing.
      *
-     * @param \PDepend\Metrics\Analyzer $analyzer The context analyzer instance.
+     * @param  \PDepend\Metrics\Analyzer $analyzer The context analyzer instance.
      * @return void
      */
     public function startAnalyzer(Analyzer $analyzer);
@@ -64,7 +64,7 @@ interface AnalyzerListener extends ASTVisitListener
     /**
      * This method is called when the analyzer has finished code processing.
      *
-     * @param \PDepend\Metrics\Analyzer $analyzer The context analyzer instance.
+     * @param  \PDepend\Metrics\Analyzer $analyzer The context analyzer instance.
      * @return void
      */
     public function endAnalyzer(Analyzer $analyzer);

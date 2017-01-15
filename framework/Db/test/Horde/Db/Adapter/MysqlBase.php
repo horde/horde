@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2007 Maintainable Software, LLC
- * Copyright 2008-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2017 Horde LLC (http://www.horde.org/)
  *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
@@ -336,7 +336,7 @@ abstract class Horde_Db_Adapter_MysqlBase extends Horde_Db_Adapter_TestBase
 
             $afterChange = $this->_getColumn('testings', 'foo');
             $this->assertTrue($afterChange->isUnsigned());
-    
+
             $row = (object)$this->_conn->selectOne('SELECT * FROM testings');
             $this->assertEquals(0, $row->foo);
         } catch (Horde_Db_Exception $e) {

@@ -111,9 +111,8 @@ class Kronolith_Day extends Horde_Date
 
     public function diff($other = null)
     {
-        $day2 = new Kronolith_Day();
-        return Date_Calc::dateDiff($this->mday, $this->month, $this->year,
-                                   $day2->mday, $day2->month, $day2->year);
+        $other = new Kronolith_Day();
+        return abs($this->toDays() - $other->toDays());
     }
 
 }

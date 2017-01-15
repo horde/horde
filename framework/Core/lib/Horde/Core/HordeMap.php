@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2009-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category  Horde
- * @copyright 2009-2015 Horde LLC (http://www.horde.org/)
+ * @copyright 2009-2017 Horde LLC (http://www.horde.org/)
  * @license   http://www.horde.org/licenses/lgpl21 LGPL
  * @package   Core
  */
@@ -14,7 +14,7 @@
 /**
  * HordeMap.
  *
- * Copyright 2009-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -22,7 +22,7 @@
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2009-2015 Horde LLC (http://www.horde.org/)
+ * @copyright 2009-2017 Horde LLC (http://www.horde.org/)
  * @license   http://www.horde.org/licenses/lgpl21 LGPL
  * @package   Core
  * @since     2.12.0
@@ -63,20 +63,6 @@ class Horde_Core_HordeMap
             case 'Google':
                 $params['conf']['apikeys']['google'] = $conf['api']['googlemaps'];
                 break;
-
-            case 'Cloudmade':
-                $params['conf']['apikeys']['cloudmade'] = $conf['api']['cloudmade'];
-                break;
-
-            case 'Mytopo':
-                /* Mytopo requires a hash of the *client* IP address and the
-                 * key. Note that this also causes Mytopo to break if the
-                 * client's IP address presented as an internal address. */
-                $params['conf']['apikeys']['mytopo'] = array(
-                    'id' => $conf['api']['mytopo_partnerID'],
-                    'hash' => strtoupper(md5($conf['api']['mytopo'] . $browser->getIpAddress()))
-                );
-                break;
             }
         }
 
@@ -84,10 +70,6 @@ class Horde_Core_HordeMap
             switch ($params['geocoder']) {
             case 'Google':
                 $params['conf']['apikeys']['google'] = $conf['api']['googlemaps'];
-                break;
-
-            case 'Cloudmade':
-                $params['conf']['apikeys']['cloudmade'] = $conf['api']['cloudmade'];
                 break;
             }
         }

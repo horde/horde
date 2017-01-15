@@ -16,7 +16,7 @@
  * The Components:: class is the entry point for the various component actions
  * provided by the package.
  *
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -124,7 +124,7 @@ This is a list of available actions (use "help ACTION" to get additional informa
     private static function _prepareDependencies($parameters)
     {
         if (isset($parameters['dependencies'])
-            && $parameters['dependencies'] instanceOf Components_Dependencies) {
+            && $parameters['dependencies'] instanceof Components_Dependencies) {
             return $parameters['dependencies'];
         } else {
             return new Components_Dependencies_Injector();

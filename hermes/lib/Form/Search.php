@@ -2,7 +2,7 @@
 /**
  * @package Hermes
  *
- * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -29,7 +29,7 @@ class Hermes_Form_Search extends Horde_Form
                 _("Employees"), 'employees', $type[0], false, false, null, array($type[1]));
         }
         $type = $this->getClientsType();
-        $cli = &$this->addVariable(_("Clients"), 'clients', $type[0], false, false, null, $type[1]);
+        $cli = $this->addVariable(_("Clients"), 'clients', $type[0], false, false, null, $type[1]);
         $cli->setAction(Horde_Form_Action::factory('submit'));
         $cli->setOption('trackchange', true);
 

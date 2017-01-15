@@ -1071,15 +1071,20 @@ var ImpBase = {
                     var params,
                         val = $F(h.down('INPUT'));
 
-                    if (val) {
-                        params = { mbox: val };
-                        val = h.down('INPUT[name=poll]');
-                        if (val && $F(val)) {
-                            params.create_poll = 1;
-                        }
-                        ImpCore.doAction('createMailbox', params);
+                    if (val.empty()) {
+                        HordeCore.notify(
+                            ImpCore.text.no_folder_name,
+                            'horde.warning'
+                        );
+                        return;
                     }
 
+                    params = { mbox: val };
+                    val = h.down('INPUT[name=poll]');
+                    if (val && $F(val)) {
+                        params.create_poll = 1;
+                    }
+                    ImpCore.doAction('createMailbox', params);
                     HordeDialog.close();
                 },
                 text: ImpCore.text.create_prompt
@@ -1830,7 +1835,9 @@ var ImpBase = {
                         params: msgload
                     });
                 }
-                return this._loadPreview(data.VP_view, data.VP_id);
+                this._loadPreview(data.VP_view, data.VP_id);
+                $('messageBody').fire('IMP_Preview:loadedFromCache');
+                return;
             }
 
             params = {};
@@ -2256,6 +2263,9 @@ var ImpBase = {
             if (this.search.query != $F(q)) {
                 this.viewswitch = true;
                 this.search.query = $F(q);
+                /* Remove any existing filter/flag search. */
+                delete this.search.filter;
+                delete this.search.flag;
             }
             this.resetSelected();
             this.viewport.reload();
@@ -2652,7 +2662,7 @@ var ImpBase = {
                 pp = $('previewPane');
                 pp.scrollTop = prev
                     ? Math.max(pp.scrollTop - 10, 0)
-                    : Math.min(pp.scrollTop + 10, pp.getHeight());
+                    : Math.min(pp.scrollTop + 10, pp.scrollHeight - pp.getHeight() + 1);
             } else if (e.shiftKey && tmp) {
                 row = this.viewport.createSelection('rownum', tmp.get('rownum').first() + ((prev) ? -1 : 1));
                 if (row.size()) {
@@ -2710,8 +2720,24 @@ var ImpBase = {
 
         case Event.KEY_HOME:
         case Event.KEY_END:
-            this.moveSelected(kc == Event.KEY_HOME ? 1 : this.viewport.getMetaData('total_rows'), true);
-            e.stop();
+            if (e.altKey) {
+                pp = $('previewPane');
+                h = pp.getHeight();
+                if (h != pp.scrollHeight) {
+                    switch (kc) {
+                    case Event.KEY_HOME:
+                        pp.scrollTop = 0;
+                        break;
+                    case Event.KEY_END:
+                        pp.scrollTop = pp.scrollHeight;
+                        break;
+                    }
+                }
+                e.stop();
+            } else {
+              this.moveSelected(kc == Event.KEY_HOME ? 1 : this.viewport.getMetaData('total_rows'), true);
+              e.stop();
+            }
             break;
 
         case Event.KEY_RETURN:
@@ -2902,6 +2928,7 @@ var ImpBase = {
             break;
 
         case 'search_edit':
+        case 'search_error_edit':
             this.go('search', {
                 edit_query: 1,
                 mailbox: this.view
@@ -3029,7 +3056,13 @@ var ImpBase = {
             break;
 
         case 'search_close':
-            this.quicksearchClear();
+        case 'search_error_close':
+            if (this.isSearch()) {
+                this.quicksearchClear();
+            } else {
+                // If search fails, send to INBOX
+                this.go('mbox', this.INBOX);
+            }
             e.memo.stop();
             break;
 
@@ -3102,6 +3135,7 @@ var ImpBase = {
                             // event of some sort of data dump.
                             password: Base64.encode($F(h.down('INPUT[name="remote_password"]'))),
                             password_base64: true,
+                            password_save: $F(h.down('INPUT[name="remote_password_save"]')),
                             remoteid: $F(h.down('INPUT[name="remote_id"]')),
                             unsub: this.showUnsub()
                         }, {
@@ -3184,15 +3218,20 @@ var ImpBase = {
                         var params,
                             val = $F(h.down('INPUT'));
 
-                        if (val) {
-                            params = { mbox: val, parent: elt.value() };
-                            val = h.down('INPUT[name=poll]');
-                            if (val && $F(val)) {
-                                params.create_poll = 1;
-                            }
-                            ImpCore.doAction('createMailbox', params);
+                        if (val.empty()) {
+                            HordeCore.notify(
+                                ImpCore.text.no_folder_name,
+                                'horde.warning'
+                            );
+                            return;
                         }
 
+                        params = { mbox: val, parent: elt.value() };
+                        val = h.down('INPUT[name=poll]');
+                        if (val && $F(val)) {
+                            params.create_poll = 1;
+                        }
+                        ImpCore.doAction('createMailbox', params);
                         HordeDialog.close();
                     },
                     text: ImpCore.text.createsub_prompt.sub('%s', elt.fullMboxDisplay())
@@ -3242,7 +3281,13 @@ var ImpBase = {
                     input_val: elt.label().unescapeHTML(),
                     onSuccess: function(h) {
                         var val = $F(h.down('INPUT'));
-                        if (val && elt.label() != val) {
+                        if (val.empty()) {
+                            HordeCore.notify(
+                                ImpCore.text.no_folder_name,
+                                'horde.warning'
+                            );
+                            return;
+                        } else if (elt.label() != val) {
                             ImpCore.doAction('renameMailbox', {
                                 old_name: elt.value(),
                                 new_name: val
@@ -3487,7 +3532,7 @@ var ImpBase = {
             return;
         }
 
-        if (mode == 'tog' || mode == 'expall') {
+        if (!opts.noexpand && (mode == 'tog' || mode == 'expall')) {
             subs.invoke('previous').each(function(s) {
                 var s2 = this.flist.getMbox(s);
                 if (!s2.loaded()) {

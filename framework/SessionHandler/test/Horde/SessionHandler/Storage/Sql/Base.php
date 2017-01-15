@@ -5,7 +5,7 @@
 require_once dirname(__FILE__) . '/../Base.php';
 
 /**
- * Copyright 2012-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
  * @author     Jan Schneider <jan@horde.org>
  * @category   Horde
@@ -84,7 +84,7 @@ class Horde_SessionHandler_Storage_Sql_Base extends Horde_SessionHandler_Storage
             self::$db,
             null,//$logger,
             array('migrationsPath' => $dir,
-                  'schemaTableName' => 'horde_sessionhandler_schema_info'));
+                  'schemaTableName' => 'horde_sh_schema_info'));
         self::$migrator->up();
 
         self::$handler = new Horde_SessionHandler_Storage_Sql(array('db' => self::$db));

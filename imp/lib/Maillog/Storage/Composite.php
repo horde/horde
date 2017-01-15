@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2014-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2014-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
- * @copyright 2014-2015 Horde LLC
+ * @copyright 2014-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -16,7 +16,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2014-2015 Horde LLC
+ * @copyright 2014-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -69,7 +69,7 @@ class IMP_Maillog_Storage_Composite extends IMP_Maillog_Storage_Base
 
     /**
      */
-    public function deleteLogs(array $msgs)
+    public function deleteLogs($msgs)
     {
         foreach ($this->_drivers as $val) {
             $val->deleteLogs($msgs);

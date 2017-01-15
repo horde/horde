@@ -2,7 +2,7 @@
 /**
  * Mnemo_Driver:: defines an API for implementing storage backends for Mnemo.
  *
- * Copyright 2001-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -261,7 +261,16 @@ abstract class Mnemo_Driver
                           array('action' => 'delete'), true);
             } catch (Horde_Exception $e) {
             }
+
+            // Remove tags
+            $GLOBALS['injector']->getInstance('Mnemo_Tagger')
+                ->replaceTags($uid, array(), $GLOBALS['registry']->getAuth(), 'note');
+
+            /* Tell content we removed the object */
+            $GLOBALS['injector']->getInstance('Content_Objects_Manager')
+                ->delete(array($uid), 'note');
         }
+
     }
 
     /**
@@ -281,16 +290,26 @@ abstract class Mnemo_Driver
      */
     public function deleteAll()
     {
+        global $injector, $registry;
+
         $uids = $this->_deleteAll();
 
         // Update History.
-        $history = $GLOBALS['injector']->getInstance('Horde_History');
+        $history = $injector->getInstance('Horde_History');
+        $tagger  = $injector->getInstance('Mnemo_Tagger');
+        $manager = $injector->getInstance('Content_Objects_Manager');
         try {
             foreach ($uids as $uid) {
                 $history->log(
                     'mnemo:' . $this->_notepad . ':' . $uid,
                     array('action' => 'delete'),
                     true);
+                $tagger->replaceTags(
+                    $uid, array(), $registry->getAuth(), 'note'
+                );
+
+                /* Tell content we removed the object */
+                $manager->delete(array($uid), 'note');
             }
         } catch (Horde_Exception $e) {
         }
@@ -511,6 +530,17 @@ abstract class Mnemo_Driver
         }
 
         return $memo;
+    }
+
+    /**
+     * Perform any synchronization with backend data handlers that may be
+     * necessary for the driver.
+     *
+     * @param mixed  $token  A value indicating the last synchronization point,
+     *                       if available.
+     */
+    public function synchronize($token = false)
+    {
     }
 
     /**

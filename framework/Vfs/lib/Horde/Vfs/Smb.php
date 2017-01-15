@@ -1,26 +1,5 @@
 <?php
 /**
- * Stateless VFS implementation for a SMB server, based on smbclient.
- *
- * Required values for $params:
- * <pre>
- * username - (string)The username with which to connect to the SMB server.
- * password - (string) The password with which to connect to the SMB server.
- * hostspec - (string) The SMB server to connect to.
- * port' - (integer) The SMB port number to connect to.
- * share - (string) The share to access on the SMB server.
- * smbclient - (string) The path to the 'smbclient' executable.
- * </pre>
- *
- * Optional values for $params:
- * <pre>
- * ipaddress - (string) The address of the server to connect to.
- * </pre>
- *
- * Functions not implemented:
- * - changePermissions(): The SMB permission style does not fit with the
- *                        module.
- *
  * Codebase copyright 2002 Paul Gareau <paul@xhawk.net>.  Adapted with
  * permission by Patrice Levesque <wayne@ptaff.ca> from phpsmb-0.8 code, and
  * converted to the LGPL.  Please do not taunt original author, contact
@@ -28,6 +7,36 @@
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author  Paul Gareau <paul@xhawk.net>
+ * @author  Patrice Levesque <wayne@ptaff.ca>
+ * @package Vfs
+ * @todo    Add driver for smbclient extension https://github.com/eduardok/libsmbclient-php
+ */
+
+/**
+ * Stateless VFS implementation for a SMB server, based on smbclient.
+ *
+ * Required values for $params:
+ *  - username:  (string) The username with which to connect to the SMB server.
+ *  - password:  (string) The password with which to connect to the SMB server.
+ *  - hostspec:  (string) The SMB server to connect to.
+ *  - share:     (string) The share to access on the SMB server. Any trailing
+ *               paths will removed from the share and prepended to each path
+ *               in further requests. Example: a share of 'myshare/basedir' and
+ *               a request to 'dir/subdir' will result in a request to
+ *               'basedir/dir/subdir' on myshare.
+ *  - smbclient: (string) The path to the 'smbclient' executable.
+ *
+ * Optional values for $params:
+ *  - port:      (integer) The SMB port number to connect to.
+ *  - ipaddress: (string) The address of the server to connect to.
+ *
+ * Functions not implemented:
+ *  - changePermissions(): The SMB permission style does not fit with the
+ *                         module.
+ *
+ * All paths need to use forward slashes!
  *
  * @author  Paul Gareau <paul@xhawk.net>
  * @author  Patrice Levesque <wayne@ptaff.ca>
@@ -43,11 +52,38 @@ class Horde_Vfs_Smb extends Horde_Vfs_Base
     protected $_credentials = array('username', 'password');
 
     /**
+     * Prefix to use for every path.
+     *
+     * Passed as a path suffix to the share parameter.
+     *
+     * @var string
+     */
+    protected $_prefix = '';
+
+    /**
      * Has the vfsroot already been created?
      *
      * @var boolean
      */
     protected $_rootCreated = false;
+
+    /**
+     * Constructor.
+     *
+     * @param array $params  A hash containing connection parameters.
+     */
+    public function __construct($params = array())
+    {
+        parent::__construct($params);
+        if (!isset($this->_params['share'])) {
+            return;
+        }
+        $share_parts = explode('/', $this->_params['share']);
+        $this->_params['share'] = array_shift($share_parts);
+        if ($share_parts) {
+            $this->_prefix = implode('/', $share_parts);
+        }
+    }
 
     /**
      * Retrieves the size of a file from the VFS.
@@ -493,14 +529,15 @@ class Horde_Vfs_Smb extends Horde_Vfs_Base
      */
     protected function _getNativePath($path)
     {
+        $parts = array($path);
+        if (strlen($this->_prefix)) {
+            array_unshift($parts, $this->_prefix);
+        }
         if (isset($this->_params['vfsroot']) &&
             strlen($this->_params['vfsroot'])) {
-            if (strlen($path)) {
-                $path = $this->_params['vfsroot'] . '/' . $path;
-            } else {
-                $path = $this->_params['vfsroot'];
-            }
+            array_unshift($parts, $this->_params['vfsroot']);
         }
+        $path = implode('/', $parts);
 
         // In some samba versions after samba-3.0.25-pre2, $path must
         // end in a trailing slash.
@@ -611,14 +648,24 @@ class Horde_Vfs_Smb extends Horde_Vfs_Base
     protected function _command($path, $cmd)
     {
         list($share) = $this->_escapeShellCommand($this->_params['share']);
+
         putenv('PASSWD=' . $this->_params['password']);
-        $ipoption = (isset($this->_params['ipaddress'])) ? (' -I ' . $this->_params['ipaddress']) : null;
+        $port = isset($this->_params['port'])
+            ? (' "-p' . $this->_params['port'] . '"')
+            : '';
+        $ipoption = isset($this->_params['ipaddress'])
+            ? (' -I ' . $this->_params['ipaddress'])
+            : '';
+        $domain = isset($this->_params['domain'])
+            ? (' -W ' . $this->_params['domain'])
+            : '';
         $fullcmd = $this->_params['smbclient'] .
             ' "//' . $this->_params['hostspec'] . '/' . $share . '"' .
-            ' "-p' . $this->_params['port'] . '"' .
+            $port .
             ' "-U' . $this->_params['username'] . '"' .
-            ' -D "' . $path . '" ' .
+            ' -D "' . $path . '"' .
             $ipoption .
+            $domain .
             ' -c "';
         foreach ($cmd as $c) {
             $fullcmd .= $c . ";";
@@ -651,23 +698,22 @@ class Horde_Vfs_Smb extends Horde_Vfs_Base
             return;
         }
 
-        if (!empty($this->_params['vfsroot'])) {
-            $path = '';
-            foreach (explode('/', $this->_params['vfsroot']) as $dir) {
+        $root = trim($this->_params['vfsroot'] . '/' . $this->_prefix, '/');
+        $path = '';
+        foreach (explode('/', $root) as $dir) {
+            try {
+                $this->_command($path . '/' . $dir . '/', array());
+            } catch (Horde_Vfs_Exception $e) {
                 try {
-                    $this->_command($path . $dir, array());
+                    $this->_command('/' . $path . '/', array('mkdir \"' . $dir . '\"'));
                 } catch (Horde_Vfs_Exception $e) {
-                    try {
-                        $this->_command($path, array('mkdir \"' . $dir . '\"'));
-                    } catch (Horde_Vfs_Exception $e) {
-                        throw new Horde_Vfs_Exception(sprintf('Unable to create VFS root directory "%s".', $this->_params['vfsroot']));
-                    }
+                    echo $e;
+                    throw new Horde_Vfs_Exception(sprintf('Unable to create VFS root directory "%s".', $this->_params['vfsroot']));
                 }
-                $path .= '/' . $dir;
             }
+            $path .= '/' . $dir;
         }
 
         $this->_rootCreated = true;
     }
-
 }

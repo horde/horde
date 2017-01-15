@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Horde_Spam</name>
+ <channel>pear.horde.org</channel>
+ <summary>Spam reporting abstraction</summary>
+ <description>Horde_Spam is an abstraction library for systems that allow the reporting of spam or innocent email messages. Supported systems include reporting via email redirection and digest reports, and through an executable.</description>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2016-06-20</date>
+ <version>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0alpha1</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.horde.org/licenses/lgpl">LGPL</license>
+ <notes>
+* Initial release.
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <dir name="lib">
+    <dir name="Horde">
+     <dir name="Spam">
+      <file name="Base.php" role="php" />
+      <file name="Email.php" role="php" />
+      <file name="Exception.php" role="php" />
+      <file name="Null.php" role="php" />
+      <file name="Program.php" role="php" />
+      <file name="Translation.php" role="php" />
+     </dir> <!-- /lib/Horde/Spam -->
+     <file name="Spam.php" role="php" />
+    </dir> <!-- /lib/Horde -->
+   </dir> <!-- /lib -->
+   <dir name="locale">
+    <dir name="de">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Spam.mo" role="data" />
+      <file name="Horde_Spam.po" role="data" />
+     </dir> <!-- /locale/de/LC_MESSAGES -->
+    </dir> <!-- /locale/de -->
+    <file name="Horde_Spam.pot" role="data" />
+   </dir> <!-- /locale -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="Spam">
+      <dir name="fixtures">
+       <file name="sample-nonspam.txt" role="test" />
+       <file name="sample-spam.txt" role="test" />
+      </dir> <!-- /test/Horde/Spam/fixtures -->
+      <file name="AllTests.php" role="test" />
+      <file name="bootstrap.php" role="test" />
+      <file name="EmailTest.php" role="test" />
+      <file name="NullTest.php" role="test" />
+      <file name="phpunit.xml" role="test" />
+      <file name="ProgramTest.php" role="test" />
+      <file name="TestBase.php" role="test" />
+     </dir> <!-- /test/Horde/Spam -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.3.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.7.0</min>
+   </pearinstaller>
+   <package>
+    <name>Horde_Exception</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Support</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+  </required>
+  <optional>
+   <package>
+    <name>Horde_Log</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Mail</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Mime</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Translation</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+  </optional>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install as="Horde/Spam.php" name="lib/Horde/Spam.php" />
+   <install as="Horde/Spam/Base.php" name="lib/Horde/Spam/Base.php" />
+   <install as="Horde/Spam/Email.php" name="lib/Horde/Spam/Email.php" />
+   <install as="Horde/Spam/Exception.php" name="lib/Horde/Spam/Exception.php" />
+   <install as="Horde/Spam/Null.php" name="lib/Horde/Spam/Null.php" />
+   <install as="Horde/Spam/Program.php" name="lib/Horde/Spam/Program.php" />
+   <install as="Horde/Spam/Translation.php" name="lib/Horde/Spam/Translation.php" />
+   <install as="locale/Horde_Spam.pot" name="locale/Horde_Spam.pot" />
+   <install as="locale/de/LC_MESSAGES/Horde_Spam.mo" name="locale/de/LC_MESSAGES/Horde_Spam.mo" />
+   <install as="locale/de/LC_MESSAGES/Horde_Spam.po" name="locale/de/LC_MESSAGES/Horde_Spam.po" />
+   <install as="Horde/Spam/AllTests.php" name="test/Horde/Spam/AllTests.php" />
+   <install as="Horde/Spam/bootstrap.php" name="test/Horde/Spam/bootstrap.php" />
+   <install as="Horde/Spam/EmailTest.php" name="test/Horde/Spam/EmailTest.php" />
+   <install as="Horde/Spam/NullTest.php" name="test/Horde/Spam/NullTest.php" />
+   <install as="Horde/Spam/phpunit.xml" name="test/Horde/Spam/phpunit.xml" />
+   <install as="Horde/Spam/ProgramTest.php" name="test/Horde/Spam/ProgramTest.php" />
+   <install as="Horde/Spam/TestBase.php" name="test/Horde/Spam/TestBase.php" />
+   <install as="Horde/Spam/fixtures/sample-nonspam.txt" name="test/Horde/Spam/fixtures/sample-nonspam.txt" />
+   <install as="Horde/Spam/fixtures/sample-spam.txt" name="test/Horde/Spam/fixtures/sample-spam.txt" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0alpha1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2016-06-20</date>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL</license>
+   <notes>
+* Initial release.
+   </notes>
+  </release>
+ </changelog>
+</package>

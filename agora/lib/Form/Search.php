@@ -2,7 +2,7 @@
 /**
  * Agora_Form_Search:: class provides the functions & forms for search.
  *
- * Copyright 2005-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -39,11 +39,11 @@ class Agora_Form_Search extends Horde_Form {
         }
 
         $this->addVariable(_("Keywords"), 'keywords', 'text', false);
-        $var = &$this->addVariable(_("Require all keywords?"), 'allkeywords',
+        $var = $this->addVariable(_("Require all keywords?"), 'allkeywords',
                                    'boolean', false);
         $var->setDefault(true);
 
-        $var = &$this->addVariable(_("Search in subjects?"),
+        $var = $this->addVariable(_("Search in subjects?"),
                                    'searchsubjects', 'boolean', false);
         $var->setDefault(true);
 

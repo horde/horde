@@ -14,7 +14,7 @@
 /**
  * Remote access to a PEAR server.
  *
- * Copyright 2011-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -90,6 +90,20 @@ class Horde_Pear_Remote
             $result = $this->_rest->fetchLatestPackageReleases($package);
             return isset($result[$stability]) ? $result[$stability] : false;
         }
+    }
+
+    /**
+     * Returns all release for a specific package.
+     *
+     * @param string $package The name of the package.
+     *
+     * @return Horde_Pear_Rest_Releases A list of releases.
+     */
+    public function getReleases($package)
+    {
+        return new Horde_Pear_Rest_Releases(
+            $this->_rest->fetchPackageReleases($package)
+        );
     }
 
     /**

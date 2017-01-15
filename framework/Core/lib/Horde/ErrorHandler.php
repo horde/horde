@@ -2,7 +2,7 @@
 /**
  * Provides methods used to handle error reporting.
  *
- * Copyright 2012-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -107,9 +107,18 @@ HTML;
             }
 
             if ($admin) {
-                $trace = ($error instanceof Exception)
-                    ? $error
-                    : debug_backtrace();
+                if ($error instanceof Throwable ||
+                    $error instanceof Exception) {
+                    $trace = $error;
+                    $file = $error->getFile();
+                    $line = $error->getLine();
+                } else {
+                    $trace = debug_backtrace();
+                    $calling = array_shift($trace);
+                    $file = $calling['file'];
+                    $line = $calling['line'];
+                }
+                printf(Horde_Core_Translation::t("in %s:%d"), $file, $line);
                 echo '<div id="backtrace"><pre>' .
                     strval(new Horde_Support_Backtrace($trace)) .
                     '</pre></div>';

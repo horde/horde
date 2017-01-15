@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2005-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
- * @copyright 2005-2015 Horde LLC
+ * @copyright 2005-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -16,7 +16,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2005-2015 Horde LLC
+ * @copyright 2005-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -49,9 +49,7 @@ class IMP_Dynamic_Compose_Common
 
         $page_output->addScriptPackage('Horde_Core_Script_Package_Keynavlist');
         $page_output->addScriptPackage('IMP_Script_Package_Compose');
-        if ($registry->hasMethod('contacts/search')) {
-            $page_output->addScriptPackage('IMP_Script_Package_Autocomplete');
-        }
+        $page_output->addScriptPackage('IMP_Script_Package_Autocomplete');
 
         $page_output->addThemeStylesheet('compose.css');
 
@@ -134,7 +132,7 @@ class IMP_Dynamic_Compose_Common
 
         $view->priority = $prefs->getValue('set_priority');
         if (!$prefs->isLocked('default_encrypt') &&
-            (IMP_Crypt_Pgp::enabled() || IMP_Crypt_Smime::enabled())) {
+            (IMP_Pgp::enabled() || IMP_Smime::enabled())) {
             $view->encrypt = $prefs->getValue('default_encrypt');
         }
 
@@ -319,6 +317,8 @@ class IMP_Dynamic_Compose_Common
                 'sm_name' => $sm ? $sm->form_to : '',
                 // Save in sent mail mailbox by default?
                 'sm_save' => (bool)$identity->saveSentmail($ident),
+                // Sent mail title
+                'sm_title' => $sm ? $sm->display_notranslate : '',
                 // Sent mail display name
                 'sm_display' => $sm ? $sm->display_html : '',
                 // Bcc addresses to add

@@ -2,7 +2,7 @@
 /**
  * Library to interact with the OpenSSL library and implement S/MIME.
  *
- * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -15,6 +15,17 @@
  */
 class Horde_Crypt_Smime extends Horde_Crypt
 {
+    /**
+     * Constructor.
+     *
+     * @param array $params  Configuration parameters:
+     *   - temp: (string) Location of temporary directory.
+     */
+    public function __construct($params = array())
+    {
+        parent::__construct($params);
+    }
+
     /**
      * Verify a passphrase for a given private key.
      *
@@ -337,19 +348,15 @@ class Horde_Crypt_Smime extends Horde_Crypt
      * Sign a message in S/MIME format using a private key.
      *
      * @param string $text   The text to be signed.
-     * @param array $params  The parameters needed for signing.
-     * <pre>
-     * Parameters:
-     * ===========
-     * 'certs'       =>  Additional signing certs (Optional)
-     * 'passphrase'  =>  Passphrase for key (REQUIRED)
-     * 'privkey'     =>  Private key (REQUIRED)
-     * 'pubkey'      =>  Public key (REQUIRED)
-     * 'sigtype'     =>  Determine the signature type to use. (Optional)
-     *                   'cleartext'  --  Make a clear text signature
-     *                   'detach'     --  Make a detached signature (DEFAULT)
-     * 'type'        =>  'signature' (REQUIRED)
-     * </pre>
+     * @param array $params  The (string) parameters needed for signing:
+     *     - 'certs':      Additional signing certs (Optional)
+     *     - 'passphrase': Passphrase for key (REQUIRED)
+     *     - 'privkey':    Private key (REQUIRED)
+     *     - 'pubkey':     Public key (REQUIRED)
+     *     - 'sigtype':    Determine the signature type to use. (Optional):
+     *       - 'cleartext': Make a clear text signature
+     *       - 'detach':    Make a detached signature (DEFAULT)
+     *     - 'type': 'signature' (REQUIRED)
      *
      * @return string  The signed message.
      * @throws Horde_Crypt_Exception
@@ -495,10 +502,10 @@ class Horde_Crypt_Smime extends Horde_Crypt
             'givenName' => Horde_Crypt_Translation::t("Given Name"),
 
             /* X590v3 Extensions */
-            'exendedtKeyUsage' => Horde_Crypt_Translation::t("X509v3 Extended Key Usage"),
-            'basicConstraints' => Horde_Crypt_Translation::t("X509v3 Basic Constraints"),
-            'subjectAltName' => Horde_Crypt_Translation::t("X509v3 Subject Alternative Name"),
-            'subjectKeyIdentifier' => Horde_Crypt_Translation::t("X509v3 Subject Key Identifier"),
+            'extendedKeyUsage' => Horde_Crypt_Translation::t("Extended Key Usage"),
+            'basicConstraints' => Horde_Crypt_Translation::t("Basic Constraints"),
+            'subjectAltName' => Horde_Crypt_Translation::t("Subject Alternative Name"),
+            'subjectKeyIdentifier' => Horde_Crypt_Translation::t("Subject Key Identifier"),
             'certificatePolicies' => Horde_Crypt_Translation::t("Certificate Policies"),
             'crlDistributionPoints' => Horde_Crypt_Translation::t("CRL Distribution Points"),
             'keyUsage' => Horde_Crypt_Translation::t("Key Usage")
@@ -816,6 +823,20 @@ class Horde_Crypt_Smime extends Horde_Crypt
             $to = 'application/pkcs7-signature';
         }
         return str_replace('Content-Type: ' . $from, 'Content-Type: ' . $to, $text);
+    }
+
+    /**
+     * Create a temporary file that will be deleted at the end of this
+     * process.
+     *
+     * @param string $descrip  Description string to use in filename.
+     * @param boolean $delete  Delete the file automatically?
+     *
+     * @return string Filename of a temporary file.
+     */
+    protected function _createTempFile($descrip = 'horde-crypt', $delete = true)
+    {
+        return Horde_Util::getTempFile($descrip, $delete, $this->_params['temp'], true);
     }
 
 }

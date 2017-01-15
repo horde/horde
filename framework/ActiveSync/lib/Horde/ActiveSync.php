@@ -1,26 +1,25 @@
 <?php
 /**
- * Horde_ActiveSync::
- *
  * @license   http://www.horde.org/licenses/gpl GPLv2
  *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2009-2015 Horde LLC (http://www.horde.org)
+ * @copyright 2009-2017 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
+
 /**
- * Horde_ActiveSync:: The Horde ActiveSync server. Entry point for performing
- * all ActiveSync operations.
+ * The Horde ActiveSync server. Entry point for performing all ActiveSync
+ * operations.
  *
  * @license   http://www.horde.org/licenses/gpl GPLv2
  *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2009-2015 Horde LLC (http://www.horde.org)
+ * @copyright 2009-2017 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  *
@@ -140,12 +139,35 @@ class Horde_ActiveSync
     const AIRSYNCBASE_ISINLINE                  = 'AirSyncBase:IsInline';
     const AIRSYNCBASE_NATIVEBODYTYPE            = 'AirSyncBase:NativeBodyType';
     const AIRSYNCBASE_CONTENTTYPE               = 'AirSyncBase:ContentType';
+    const AIRSYNCBASE_LOCATION                  = 'AirSyncBase:Location';
+
     // 14.0
     const AIRSYNCBASE_PREVIEW                   = 'AirSyncBase:Preview';
+
     // 14.1
     const AIRSYNCBASE_BODYPARTPREFERENCE        = 'AirSyncBase:BodyPartPreference';
     const AIRSYNCBASE_BODYPART                  = 'AirSyncBase:BodyPart';
     const AIRSYNCBASE_STATUS                    = 'AirSyncBase:Status';
+
+    // 16.0
+    const AIRSYNCBASE_ADD                       = 'AirSyncBase:Add';
+    const AIRSYNCBASE_DELETE                    = 'AirSyncBase:Delete';
+    const AIRSYNCBASE_CLIENTID                  = 'AirSyncBase:ClientId';
+    const AIRSYNCBASE_CONTENT                   = 'AirSyncBase:Content';
+    const AIRSYNCBASE_ANNOTATION                = 'AirSyncBase:Annotation';
+    const AIRSYNCBASE_STREET                    = 'AirSyncBase:Street';
+    const AIRSYNCBASE_CITY                      = 'AirSyncBase:City';
+    const AIRSYNCBASE_STATE                     = 'AirSyncBase:State';
+    const AIRSYNCBASE_COUNTRY                   = 'AirSyncBase:Country';
+    const AIRSYNCBASE_POSTALCODE                = 'AirSyncBase:PostalCode';
+    const AIRSYNCBASE_LATITUDE                  = 'AirSyncBase:Latitude';
+    const AIRSYNCBASE_LONGITUDE                 = 'AirSyncBase:Longitude';
+    const AIRSYNCBASE_ACCURACY                  = 'AirSyncBase:Accuracy';
+    const AIRSYNCBASE_ALTITUDE                  = 'AirSyncBase:Altitude';
+    const AIRSYNCBASE_ALTITUDEACCURACY          = 'AirSyncBase:AltitudeAccuracy';
+    const AIRSYNCBASE_LOCATIONURI               = 'AirSyncBase:LocationUri';
+    const AIRSYNCBASE_INSTANCEID                = 'AirSyncBase:InstanceId';
+
 
     /* Body type prefs */
     const BODYPREF_TYPE_PLAIN                   = 1;
@@ -235,6 +257,9 @@ class Horde_ActiveSync
     const CHANGE_TYPE_FOLDERSYNC                = 'foldersync';
     const CHANGE_TYPE_SOFTDELETE                = 'softdelete';
 
+    // @since 2.36.0
+    const CHANGE_TYPE_DRAFT                     = 'draft';
+
     /* Internal flags to indicate change is a change in reply/forward state */
     const CHANGE_REPLY_STATE                    = '@--reply--@';
     const CHANGE_REPLYALL_STATE                 = '@--replyall--@';
@@ -275,6 +300,7 @@ class Horde_ActiveSync
     const VERSION_TWELVEONE                     = '12.1';
     const VERSION_FOURTEEN                      = '14.0';
     const VERSION_FOURTEENONE                   = '14.1';
+    const VERSION_SIXTEEN                       = '16.0';
 
     const MIME_SUPPORT_NONE                     = 0;
     const MIME_SUPPORT_SMIME                    = 1;
@@ -290,6 +316,9 @@ class Horde_ActiveSync
     /* Auth failure reasons */
     const AUTH_REASON_USER_DENIED               = 'user';
     const AUTH_REASON_DEVICE_DENIED             = 'device';
+
+    /* Internal flag indicates all possible fields are ghosted */
+    const ALL_GHOSTED                           = 'allghosted';
 
     const LIBRARY_VERSION                       = '2.x.y-git';
 
@@ -319,7 +348,7 @@ class Horde_ActiveSync
      *
      * @var float
      */
-    protected $_maxVersion = self::VERSION_FOURTEENONE;
+    protected $_maxVersion = self::VERSION_SIXTEEN;
 
     /**
      * The actual version we are supporting.
@@ -398,6 +427,13 @@ class Horde_ActiveSync
     protected $_procid;
 
     /**
+     * Flag to  indicate we need to update the device version.
+     *
+     * @var boolean
+     */
+    protected $_needMsRp = false;
+
+    /**
      * Supported EAS versions.
      *
      * @var array
@@ -407,7 +443,8 @@ class Horde_ActiveSync
         self::VERSION_TWELVE,
         self::VERSION_TWELVEONE,
         self::VERSION_FOURTEEN,
-        self::VERSION_FOURTEENONE
+        self::VERSION_FOURTEENONE,
+        self::VERSION_SIXTEEN
     );
 
     /**
@@ -677,9 +714,9 @@ class Horde_ActiveSync
             $cmd = $get['Cmd'];
         }
         if (empty($devId)) {
-            $devId = !empty($get['DeviceId']) ? strtoupper($get['DeviceId']) : null;
+            $devId = !empty($get['DeviceId']) ? Horde_String::upper($get['DeviceId']) : null;
         } else {
-            $devId = strtoupper($devId);
+            $devId = Horde_String::upper($devId);
         }
         $this->_setLogger($get);
 
@@ -712,7 +749,7 @@ class Horde_ActiveSync
         self::$_logger->info(sprintf(
             '[%s] %s request received for user %s',
             $this->_procid,
-            strtoupper($cmd),
+            Horde_String::upper($cmd),
             $this->_driver->getUser())
         );
 
@@ -733,6 +770,98 @@ class Horde_ActiveSync
         }
 
         // EAS Version
+        $version = $this->getProtocolVersion();
+
+        // Device. Even though versions of EAS > 12.1 are supposed to send
+        // EAS status codes back to indicate various errors in allowing a client
+        // to connect, we just throw an exception (thus causing a HTTP error
+        // code to be sent as in versions 12.1 and below). Until we refactor for
+        // Horde 6, we don't know the response type to wrap the status code in
+        // until we load the request handler, which requires we start to parse
+        // the WBXML stream and device information etc... This saves resources
+        // as well as keeps things cleaner until we refactor.
+        $device_result = $this->_handleDevice($devId);
+
+        // Don't bother with everything else if all we want are Options
+        if ($cmd == 'Options') {
+            $this->_doOptionsRequest();
+            $this->_driver->clearAuthentication();
+            return true;
+        }
+
+        // Set provisioning support now that we are authenticated.
+        $this->setProvisioning($this->_driver->getProvisioning(self::$_device));
+
+        // Read the initial Wbxml header
+        $this->_decoder->readWbxmlHeader();
+
+        // Support Multipart response for ITEMOPERATIONS requests?
+        $headers = $this->_request->getHeaders();
+        if ((!empty($headers['ms-asacceptmultipart']) && $headers['ms-asacceptmultipart'] == 'T') ||
+            !empty($get['AcceptMultiPart'])) {
+            $this->_multipart = true;
+            self::$_logger->info(sprintf(
+                '[%s] Requesting multipart data.',
+                $this->_procid)
+            );
+        }
+
+        // Load the request handler to handle the request
+        // We must send the EAS header here, since some requests may start
+        // output and be large enough to flush the buffer (e.g., GetAttachment)
+        // See Bug: 12486
+        $this->activeSyncHeader();
+        if ($cmd != 'GetAttachment') {
+            $this->contentTypeHeader();
+        }
+
+        // Should we announce a new version is available to the client?
+        if (!empty($this->_needMsRp)) {
+            self::$_logger->info(sprintf(
+                '[%s] Announcing X-MS-RP to client.',
+                $this->_procid)
+            );
+            header("X-MS-RP: ". $this->getSupportedVersions());
+        }
+
+        // @TODO: Look at getting rid of having to set the version in the driver
+        //        and get it from the device object for H6.
+        $this->_driver->setDevice(self::$_device);
+        $class = 'Horde_ActiveSync_Request_' . basename($cmd);
+        if (class_exists($class)) {
+            $request = new $class($this);
+            $request->setLogger(self::$_logger);
+            $result = $request->handle();
+            self::$_logger->info(sprintf(
+                '[%s] Maximum memory usage for ActiveSync request: %d bytes.',
+                $this->_procid,
+                memory_get_peak_usage(true))
+            );
+
+            return $result;
+        }
+
+        $this->_driver->clearAuthentication();
+        throw new Horde_ActiveSync_Exception_InvalidRequest(basename($cmd) . ' not supported.');
+    }
+
+    /**
+     * Handle device checks. Takes into account permissions and restrictions
+     * via various callback methods.
+     *
+     * @param  string $devId  The client provided device id.
+     *
+     * @return boolean  If EAS version is > 12.1 returns false on any type of
+     *                  failure in allowing the device to connect. Sets
+     *                  appropriate internal variables to indicate the type of
+     *                  error to return to the client. Failure on EAS version
+     *                  < 12.1 results in throwing exceptions. Otherwise, return
+     *                  true.
+     * @throws Horde_ActiveSync_Exception, Horde_Exception_AuthenticationFailure
+     */
+    protected function _handleDevice($devId)
+    {
+        $get = $this->getGetVars();
         $version = $this->getProtocolVersion();
 
         // Does device exist AND does the user have an account on the device?
@@ -762,11 +891,9 @@ class Horde_ActiveSync
                         self::$_device->id,
                         self::$_device->user);
                     self::$_logger->err($msg);
-                    if ($version > self::VERSION_TWELVEONE) {
-                        $this->_globalError = $callback_ret;
-                    } else {
-                        throw new Horde_ActiveSync_Exception($msg);
-                    }
+                    // Always throw exception in place of status code since we
+                    // won't have a version number before the device is created.
+                    throw new Horde_Exception_AuthenticationFailure($msg, $callback_ret);
                 } else {
                     // Give the driver a chance to modify device properties.
                     if (is_callable(array($this->_driver, 'modifyDeviceCallback'))) {
@@ -791,7 +918,7 @@ class Horde_ActiveSync
             }
             if (self::$_device->version < $this->_maxVersion &&
                 self::$_device->needsVersionUpdate($this->getSupportedVersions())) {
-                $needMsRp = true;
+                $this->_needMsRp = true;
             }
 
             // Give the driver a chance to modify device properties.
@@ -800,6 +927,8 @@ class Horde_ActiveSync
             }
         }
 
+        // Save the device now that we know it is at least allowed to connect,
+        // or it has connected successfully at least once in the past.
         self::$_device->save();
         if (is_callable(array($this->_driver, 'deviceCallback'))) {
             $callback_ret = $this->_driver->deviceCallback(self::$_device);
@@ -810,9 +939,12 @@ class Horde_ActiveSync
                     self::$_device->user);
                 self::$_logger->err($msg);
                 if ($version > self::VERSION_TWELVEONE) {
+                    // Use a status code here, since the device has already
+                    // connected.
                     $this->_globalError = $callback_ret;
+                    return false;
                 } else {
-                    throw new Horde_ActiveSync_Exception($msg);
+                    throw new Horde_Exception_AuthenticationFailure($msg, $callback_ret);
                 }
             }
         }
@@ -825,77 +957,17 @@ class Horde_ActiveSync
             self::$_logger->err($msg);
             if ($version > self::VERSION_TWELVEONE) {
                 $this->_globalError = Horde_ActiveSync_Status::DEVICE_BLOCKED_FOR_USER;
+                return false;
             } else {
                 throw new Horde_ActiveSync_Exception($msg);
             }
         }
 
-        // Don't bother with everything else if all we want are Options
-        if ($cmd == 'Options') {
-            $this->_doOptionsRequest();
-            $this->_driver->clearAuthentication();
-            return true;
-        }
-
-        // Set provisioning support now that we are authenticated.
-        $this->setProvisioning($this->_driver->getProvisioning(self::$_device));
-
-        // Read the initial Wbxml header
-        $this->_decoder->readWbxmlHeader();
-
-        // Support Multipart response for ITEMOPERATIONS requests?
-        $headers = $this->_request->getHeaders();
-        if ((!empty($headers['ms-asacceptmultipart']) && $headers['ms-asacceptmultipart'] == 'T') ||
-            !empty($get['AcceptMultiPart'])) {
-            $this->_multipart = true;
-            self::$_logger->info(sprintf(
-                '[%s] Requesting multipart data.',
-                $this->_procid)
-            );
-        }
-
-        // Load the request handler to handle the request
-        // We must send the eas header here, since some requests may start
-        // output and be large enough to flush the buffer (e.g., GetAttachment)
-        // See Bug: 12486
-        $this->activeSyncHeader();
-        if ($cmd != 'GetAttachment') {
-            $this->contentTypeHeader();
-        }
-
-        // Should we announce a new version is available to the client?
-        if (!empty($needMsRp)) {
-            self::$_logger->info(sprintf(
-                '[%s] Announcing X-MS-RP to client.',
-                $this->_procid)
-            );
-            header("X-MS-RP: ". $this->getSupportedVersions());
-        }
-
-        // @TODO: Look at getting rid of having to set the version in the driver
-        //        and get it from the device object for H6.
-        $this->_driver->setDevice(self::$_device);
-        $class = 'Horde_ActiveSync_Request_' . basename($cmd);
-        if (class_exists($class)) {
-            $request = new $class($this);
-            $request->setLogger(self::$_logger);
-            $result = $request->handle();
-            self::$_logger->info(sprintf(
-                '[%s] Maximum memory usage for ActiveSync request: %d bytes.',
-                $this->_procid,
-                memory_get_peak_usage())
-            );
-
-            return $result;
-        }
-
-        $this->_driver->clearAuthentication();
-        throw new Horde_ActiveSync_Exception_InvalidRequest(basename($cmd) . ' not supported.');
+        return true;
     }
 
     /**
      * Send the MS_Server-ActiveSync header.
-     *
      */
     public function activeSyncHeader()
     {
@@ -917,13 +989,15 @@ class Horde_ActiveSync
             header('MS-Server-ActiveSync: 14.0');
             break;
         case self::VERSION_FOURTEENONE:
-            header('MS-Server-ActiveSync: 14.2');
+            header('MS-Server-ActiveSync: 14.1');
+            break;
+        case self::VERSION_SIXTEEN:
+            header('MS-Server-ActiveSync: 16.0');
         }
     }
 
     /**
      * Send the protocol versions header.
-     *
      */
     public function versionHeader()
     {
@@ -943,7 +1017,6 @@ class Horde_ActiveSync
 
     /**
      * Send protocol commands header.
-     *
      */
     public function commandsHeader()
     {
@@ -966,13 +1039,13 @@ class Horde_ActiveSync
         case self::VERSION_TWELVEONE:
         case self::VERSION_FOURTEEN:
         case self::VERSION_FOURTEENONE:
+        case self::VERSION_SIXTEEN:
             return 'Sync,SendMail,SmartForward,SmartReply,GetAttachment,GetHierarchy,CreateCollection,DeleteCollection,MoveCollection,FolderSync,FolderCreate,FolderDelete,FolderUpdate,MoveItems,GetItemEstimate,MeetingResponse,Search,Settings,Ping,ItemOperations,Provision,ResolveRecipients,ValidateCert';
         }
     }
 
     /**
      * Send provision header
-     *
      */
     public function provisionHeader()
     {
@@ -1093,7 +1166,6 @@ class Horde_ActiveSync
 
     /**
      * Send the OPTIONS request response headers.
-     *
      */
     protected function _doOptionsRequest()
     {

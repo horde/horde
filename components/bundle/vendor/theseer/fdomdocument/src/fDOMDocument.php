@@ -52,6 +52,7 @@ namespace TheSeer\fDOM {
      * @package   TheSeer\fDOM
      * @author    Arne Blankerts <arne@blankerts.de>
      * @access    public
+     * @property  fDOMDocument $ownerDocument
      *
      */
     class fDOMDocument extends \DOMDocument {
@@ -86,10 +87,7 @@ namespace TheSeer\fDOM {
             libxml_use_internal_errors(TRUE);
             $rc = parent::__construct($version, $encoding);
 
-            $this->registerNodeClass('DOMDocument', get_called_class());
-            $this->registerNodeClass('DOMNode', 'TheSeer\fDOM\fDOMNode');
-            $this->registerNodeClass('DOMElement', 'TheSeer\fDOM\fDOMElement');
-            $this->registerNodeClass('DOMDocumentFragment', 'TheSeer\fDOM\fDOMDocumentFragment');
+            $this->registerNodeClasses();
 
             return $rc;
         }
@@ -98,12 +96,16 @@ namespace TheSeer\fDOM {
          * Reset XPath object so the clone gets a new instance when needed
          */
         public function __clone() {
+            $this->registerNodeClasses();
             $this->xp = new fDOMXPath($this);
             foreach($this->prefixes as $prefix => $uri) {
                 $this->xp->registerNamespace($prefix, $uri);
             }
         }
 
+        /**
+         * @return string
+         */
         public function __toString() {
             return $this->C14N();
         }
@@ -141,6 +143,7 @@ namespace TheSeer\fDOM {
             if (!$tmp || libxml_get_last_error()) {
                 throw new fDOMException("loading file '$fname' failed.", fDOMException::LoadError);
             }
+            $this->registerNodeClasses();
             return TRUE;
         }
 
@@ -161,6 +164,7 @@ namespace TheSeer\fDOM {
             if (!$tmp || libxml_get_last_error()) {
                 throw new fDOMException('parsing string failed', fDOMException::ParseError);
             }
+            $this->registerNodeClasses();
             return TRUE;
         }
 
@@ -188,6 +192,7 @@ namespace TheSeer\fDOM {
             if (!$tmp || libxml_get_last_error()) {
                 throw new fDOMException("loading html file '$fname' failed", fDOMException::LoadError);
             }
+            $this->registerNodeClasses();
             return TRUE;
         }
 
@@ -215,6 +220,7 @@ namespace TheSeer\fDOM {
             if (!$tmp || libxml_get_last_error()) {
                 throw new fDOMException('parsing html string failed', fDOMException::ParseError);
             }
+            $this->registerNodeClasses();
             return TRUE;
         }
 
@@ -239,9 +245,10 @@ namespace TheSeer\fDOM {
         /**
          * Wrapper to DOMDocument::saveHTML with exception handling
          *
-         * @param DOMNode|null $node Context DOMNode (optional)
+         * @param \DOMNode|null $node Context DOMNode (optional)
          *
          * @throws fDOMException
+         *
          * @return string html content
          */
         public function saveHTML(\DOMNode $node = NULL) {
@@ -461,7 +468,7 @@ namespace TheSeer\fDOM {
          *
          * @param string $name Name of node to create
          * @param null $content Content to set (optional)
-         * @param bool $asTextNode Create content as textNode rather then setting nodeValue
+         * @param bool $asTextnode Create content as textNode rather then setting nodeValue
          *
          * @throws fDOMException
          *
@@ -495,7 +502,7 @@ namespace TheSeer\fDOM {
          *
          * @param string $namespace Namespace URI for node to create
          * @param string $name Name of node to create
-         * @param null $content Content to set (optional)
+         * @param string $content Content to set (optional)
          * @param bool $asTextNode Create content as textNode rather then setting nodeValue
          *
          * @throws fDOMException
@@ -520,6 +527,9 @@ namespace TheSeer\fDOM {
             return $this->ensureIntance($node);
         }
 
+        /**
+         * @return fDOMDocumentFragment
+         */
         public function createDocumentFragment() {
             return $this->ensureIntance(parent::createDocumentFragment());
         }
@@ -542,8 +552,9 @@ namespace TheSeer\fDOM {
         /**
          * Create a new element and append it as documentElement
          *
-         * @param $name     Name of not element to create
-         * @param $content  Optional content to be set
+         * @param string $name Name of not element to create
+         * @param string $content Optional content to be set
+         * @param bool $asTextNode
          *
          * @return fDOMElement Reference to created fDOMElement
          */
@@ -556,9 +567,10 @@ namespace TheSeer\fDOM {
         /**
          * Create a new element in given namespace and append it as documentElement
          *
-         * @param $ns       Namespace of node to create
-         * @param $name     Name of not element to create
-         * @param $content  Optional content to be set
+         * @param string $ns Namespace of node to create
+         * @param string $name Name of not element to create
+         * @param string $content Optional content to be set
+         * @param bool $asTextNode
          *
          * @return fDOMElement Reference to created fDOMElement
          */
@@ -581,6 +593,19 @@ namespace TheSeer\fDOM {
                 return $node;
             }
             return $this->importNode($node, TRUE);
+        }
+
+        /**
+         * Register replacements
+         *
+         * Called from constructor and, as a workaround for (https://github.com/facebook/hhvm/issues/5412),
+         * after load(), loadXML(), loadHTML() and loadHTMLFile()
+         */
+        private function registerNodeClasses() {
+            $this->registerNodeClass('DOMDocument', get_called_class());
+            $this->registerNodeClass('DOMNode', 'TheSeer\fDOM\fDOMNode');
+            $this->registerNodeClass('DOMElement', 'TheSeer\fDOM\fDOMElement');
+            $this->registerNodeClass('DOMDocumentFragment', 'TheSeer\fDOM\fDOMDocumentFragment');
         }
 
     } // fDOMDocument

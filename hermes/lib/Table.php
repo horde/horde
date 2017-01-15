@@ -44,12 +44,10 @@ class Hermes_Table extends Horde_Core_Ui_Widget
                     $title = isset($col['title']) ? $col['title'] : '';
                     $typename = isset($col['type']) ? $col['type'] : 'text';
                     $params = isset($col['params']) ? $col['params'] : array();
-
                     // Column types which begin with % are pseudo-types handled
                     // directly.
                     if (substr($typename, 0, 1) != '%') {
-                        // This type needs to be assigned by reference!
-                        $type = &Horde_Form::getType($typename, $params);
+                        $type = Horde_Form::getType($typename, $params);
                         $var = new Horde_Form_Variable(
                             $title, $col['name'], $type, false, true, '');
                         $this->_formVars[$secname][$col['name']] = $var;

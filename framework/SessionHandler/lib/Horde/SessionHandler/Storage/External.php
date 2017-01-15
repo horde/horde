@@ -3,7 +3,7 @@
  * SessionHandler storage implementation for an external save handler defined
  * via configuration parameters.
  *
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -45,14 +45,14 @@ class Horde_SessionHandler_Storage_External extends Horde_SessionHandler_Storage
      */
     public function open($save_path = null, $session_name = null)
     {
-        call_user_func($this->_params['open'], $save_path, $session_name);
+        return call_user_func($this->_params['open'], $save_path, $session_name);
     }
 
     /**
      */
     public function close()
     {
-        call_user_func($this->_params['close']);
+        return call_user_func($this->_params['close']);
     }
 
     /**

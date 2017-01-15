@@ -18,7 +18,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2010-2015 Horde LLC (http://www.horde.org)
+ * @copyright 2010-2017 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -30,7 +30,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2010-2015 Horde LLC (http://www.horde.org)
+ * @copyright 2010-2017 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  *
@@ -187,55 +187,55 @@ class Horde_ActiveSync_Message_Contact extends Horde_ActiveSync_Message_Base
      */
     protected $_mapping = array(
         self::ANNIVERSARY           => array(self::KEY_ATTRIBUTE => 'anniversary', self::KEY_TYPE => self::TYPE_DATE_DASHES),
-        self::ASSISTANTNAME         => array(self::KEY_ATTRIBUTE => 'assistantname'),
-        self::ASSISTNAMEPHONENUMBER => array(self::KEY_ATTRIBUTE => 'assistnamephonenumber'),
         self::BIRTHDAY              => array(self::KEY_ATTRIBUTE => 'birthday', self::KEY_TYPE => self::TYPE_DATE_DASHES),
-        self::BUSINESS2PHONENUMBER  => array(self::KEY_ATTRIBUTE => 'business2phonenumber'),
-        self::BUSINESSCITY          => array(self::KEY_ATTRIBUTE => 'businesscity'),
-        self::BUSINESSCOUNTRY       => array(self::KEY_ATTRIBUTE => 'businesscountry'),
-        self::BUSINESSPOSTALCODE    => array(self::KEY_ATTRIBUTE => 'businesspostalcode'),
-        self::BUSINESSSTATE         => array(self::KEY_ATTRIBUTE => 'businessstate'),
-        self::BUSINESSSTREET        => array(self::KEY_ATTRIBUTE => 'businessstreet'),
-        self::BUSINESSFAXNUMBER     => array(self::KEY_ATTRIBUTE => 'businessfaxnumber'),
-        self::BUSINESSPHONENUMBER   => array(self::KEY_ATTRIBUTE => 'businessphonenumber'),
-        self::CARPHONENUMBER        => array(self::KEY_ATTRIBUTE => 'carphonenumber'),
+        self::WEBPAGE               => array(self::KEY_ATTRIBUTE => 'webpage'),
         self::CHILDREN              => array(self::KEY_ATTRIBUTE => 'children', self::KEY_VALUES => self::CHILD),
-        self::COMPANYNAME           => array(self::KEY_ATTRIBUTE => 'companyname'),
+        self::BUSINESSCOUNTRY       => array(self::KEY_ATTRIBUTE => 'businesscountry'),
         self::DEPARTMENT            => array(self::KEY_ATTRIBUTE => 'department'),
         self::EMAIL1ADDRESS         => array(self::KEY_ATTRIBUTE => 'email1address'),
         self::EMAIL2ADDRESS         => array(self::KEY_ATTRIBUTE => 'email2address'),
         self::EMAIL3ADDRESS         => array(self::KEY_ATTRIBUTE => 'email3address'),
+        self::BUSINESSFAXNUMBER     => array(self::KEY_ATTRIBUTE => 'businessfaxnumber'),
         self::FILEAS                => array(self::KEY_ATTRIBUTE => 'fileas'),
         self::FIRSTNAME             => array(self::KEY_ATTRIBUTE => 'firstname'),
-        self::HOME2PHONENUMBER      => array(self::KEY_ATTRIBUTE => 'home2phonenumber'),
         self::HOMECITY              => array(self::KEY_ATTRIBUTE => 'homecity'),
         self::HOMECOUNTRY           => array(self::KEY_ATTRIBUTE => 'homecountry'),
+        self::HOMEFAXNUMBER         => array(self::KEY_ATTRIBUTE => 'homefaxnumber'),
+        self::HOMEPHONENUMBER       => array(self::KEY_ATTRIBUTE => 'homephonenumber'),
+        self::HOME2PHONENUMBER      => array(self::KEY_ATTRIBUTE => 'home2phonenumber'),
         self::HOMEPOSTALCODE        => array(self::KEY_ATTRIBUTE => 'homepostalcode'),
         self::HOMESTATE             => array(self::KEY_ATTRIBUTE => 'homestate'),
         self::HOMESTREET            => array(self::KEY_ATTRIBUTE => 'homestreet'),
-        self::HOMEFAXNUMBER         => array(self::KEY_ATTRIBUTE => 'homefaxnumber'),
-        self::HOMEPHONENUMBER       => array(self::KEY_ATTRIBUTE => 'homephonenumber'),
-        self::JOBTITLE              => array(self::KEY_ATTRIBUTE => 'jobtitle'),
-        self::LASTNAME              => array(self::KEY_ATTRIBUTE => 'lastname'),
+        self::BUSINESSCITY          => array(self::KEY_ATTRIBUTE => 'businesscity'),
         self::MIDDLENAME            => array(self::KEY_ATTRIBUTE => 'middlename'),
         self::MOBILEPHONENUMBER     => array(self::KEY_ATTRIBUTE => 'mobilephonenumber'),
-        self::OFFICELOCATION        => array(self::KEY_ATTRIBUTE => 'officelocation'),
+        self::SUFFIX                => array(self::KEY_ATTRIBUTE => 'suffix'),
+        self::COMPANYNAME           => array(self::KEY_ATTRIBUTE => 'companyname'),
         self::OTHERCITY             => array(self::KEY_ATTRIBUTE => 'othercity'),
         self::OTHERCOUNTRY          => array(self::KEY_ATTRIBUTE => 'othercountry'),
+        self::CARPHONENUMBER        => array(self::KEY_ATTRIBUTE => 'carphonenumber'),
         self::OTHERPOSTALCODE       => array(self::KEY_ATTRIBUTE => 'otherpostalcode'),
         self::OTHERSTATE            => array(self::KEY_ATTRIBUTE => 'otherstate'),
         self::OTHERSTREET           => array(self::KEY_ATTRIBUTE => 'otherstreet'),
         self::PAGERNUMBER           => array(self::KEY_ATTRIBUTE => 'pagernumber'),
-        self::RADIOPHONENUMBER      => array(self::KEY_ATTRIBUTE => 'radiophonenumber'),
-        self::SPOUSE                => array(self::KEY_ATTRIBUTE => 'spouse'),
-        self::SUFFIX                => array(self::KEY_ATTRIBUTE => 'suffix'),
         self::TITLE                 => array(self::KEY_ATTRIBUTE => 'title'),
-        self::WEBPAGE               => array(self::KEY_ATTRIBUTE => 'webpage'),
-        self::YOMICOMPANYNAME       => array(self::KEY_ATTRIBUTE => 'yomicompanyname'),
+        self::BUSINESSPOSTALCODE    => array(self::KEY_ATTRIBUTE => 'businesspostalcode'),
+        self::ASSISTANTNAME         => array(self::KEY_ATTRIBUTE => 'assistantname'),
+        self::ASSISTNAMEPHONENUMBER => array(self::KEY_ATTRIBUTE => 'assistnamephonenumber'),
+        self::LASTNAME              => array(self::KEY_ATTRIBUTE => 'lastname'),
+        self::SPOUSE                => array(self::KEY_ATTRIBUTE => 'spouse'),
+        self::BUSINESSSTATE         => array(self::KEY_ATTRIBUTE => 'businessstate'),
+        self::BUSINESSSTREET        => array(self::KEY_ATTRIBUTE => 'businessstreet'),
+        self::BUSINESSPHONENUMBER   => array(self::KEY_ATTRIBUTE => 'businessphonenumber'),
+        self::BUSINESS2PHONENUMBER  => array(self::KEY_ATTRIBUTE => 'business2phonenumber'),
+        self::JOBTITLE              => array(self::KEY_ATTRIBUTE => 'jobtitle'),
         self::YOMIFIRSTNAME         => array(self::KEY_ATTRIBUTE => 'yomifirstname'),
         self::YOMILASTNAME          => array(self::KEY_ATTRIBUTE => 'yomilastname'),
-        self::PICTURE               => array(self::KEY_ATTRIBUTE => 'picture'),
+        self::YOMICOMPANYNAME       => array(self::KEY_ATTRIBUTE => 'yomicompanyname'),
+        self::OFFICELOCATION        => array(self::KEY_ATTRIBUTE => 'officelocation'),
+        self::RADIOPHONENUMBER      => array(self::KEY_ATTRIBUTE => 'radiophonenumber'),
         self::CATEGORIES            => array(self::KEY_ATTRIBUTE => 'categories', self::KEY_VALUES => self::CATEGORY),
+        self::PICTURE               => array(self::KEY_ATTRIBUTE => 'picture'),
 
         // POOMCONTACTS2
         self::CUSTOMERID            => array(self::KEY_ATTRIBUTE => 'customerid'),
@@ -432,6 +432,45 @@ class Horde_ActiveSync_Message_Contact extends Horde_ActiveSync_Message_Base
             $date = $this->_device->normalizePoomContactsDates($dt, true);
         }
         return parent::_formatDate($date, $type);
+    }
+
+    /**
+     * Determines if the property specified has been ghosted by the client.
+     * A property is ghosted if it is NOT listed in the SUPPORTED list sent
+     * by the client AND is NOT present in the request data.
+     *
+     * @param string $property  The property to check
+     * @param array  $options   An array of options:
+     *     - ignoreEmptyPictureTagCheck: boolean If true, will not check for the
+     *       QUIRK_INCORRECTLY_SENDS_EMPTY_PICTURE_TAG quirk. @since  2.32.0
+     *
+     * @return boolean
+     */
+    public function isGhosted($property, $options = array())
+    {
+        // MS-ASCMD 2.2.3.168:
+        // An empty SUPPORTED container indicates that ALL elements able to be
+        // ghosted ARE ghosted. A *missing* SUPPORTED tag indicates that NO
+        // fields are ghosted - any ghostable properties are always considered
+        // NOT ghosted. Some clients like iOS 4.x screw this up by not sending
+        // any SUPPORTED container and also not sending the picture field during
+        // edits.
+        if ($property == $this->_mapping[self::PICTURE][self::KEY_ATTRIBUTE]) {
+            if (empty($options['ignoreEmptyPictureTagCheck']) &&
+                $this->_device->hasQuirk(Horde_ActiveSync_Device::QUIRK_INCORRECTLY_SENDS_EMPTY_PICTURE_TAG) &&
+                ((!empty($this->_exists[$property]) &&
+                $this->{$property} == '') || empty($this->_exists[$property]))) {
+                return true;
+            }
+
+            if (empty($this->_exists[$property]) &&
+                empty($this->_supported) &&
+                $this->_device->hasQuirk(Horde_ActiveSync_Device::QUIRK_NEEDS_SUPPORTED_PICTURE_TAG)) {
+                return true;
+            }
+        }
+
+        return parent::isGhosted($property);
     }
 
 }

@@ -1,12 +1,44 @@
 ----------
-v4.3.0-git
+v5.0.0-git
 ----------
 
+[mjr] Add ability to save note without redirecting to notebook (Request
+      #14085).
+[mjr] Add tag browsing/searching (Request #14178).
 [jan] Keep original file names when PUTing notes via WebDAV.
 [jan] Remove configuration option for database table.
 [jan] Return ETags with browse() API method.
 [jan] Add browse(), put(), and path_delete() methods to API to support WebDAV
       access.
+
+
+------
+v4.2.9
+------
+
+[jan] Use access rules compatible with both Apache 2.2 and 2.4.
+[mjr] Fix fatal error when removing notepads in certain cases.
+
+
+------
+v4.2.8
+------
+
+[jan] Update Italian translation.
+[mjr] Remove object reference from Content when object is deleted (Bug #14112).
+[mjr] Remove tags from Content when tagged object is deleted (Bug #14112).
+
+
+------
+v4.2.7
+------
+
+[jan] Update Italian translation.
+[jan] Update Czech translation.
+[mjr] Fix inconsistent handling of incoming HTML notes from ActiveSync clients
+      (Bug #14045).
+[mjr] Allow more reasonable length of description field to interop better with
+      synchronized clients (Bug #14041).
 
 
 ------
@@ -27,6 +59,8 @@ v4.2.5
 v4.2.4
 ------
 
+[jan] Don't list notepads without SHOW permissions (Bug #13838).
+[jan] Fix using custom SQL driver configuration.
 [mjr] Fix truncation of body text when synchronizing over EAS when no
       truncationsize option is sent from client (Bug #13755).
 
@@ -35,6 +69,8 @@ v4.2.4
 v4.2.3
 ------
 
+[jan] SECURITY: Fix permission check when editing notes (found by Christopher
+      Neuhaus <cne@ruhrverband.de>).
 [mms] Added ability to link to note via API.
 
 
@@ -42,7 +78,6 @@ v4.2.3
 v4.2.2
 ------
 
-[mjr] Fix replacing tags in existing notes (Bug# 13417).
 [mjr] Fix adding new notepads via the API.
 [jan] Hide PDF button if Horde_Pdf_Writer is not installed (Bug #13624).
 [mjr] Fix replacing tags in existing notes (Bug #13417).

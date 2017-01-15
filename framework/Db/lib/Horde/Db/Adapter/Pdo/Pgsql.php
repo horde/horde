@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2007 Maintainable Software, LLC
- * Copyright 2008-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2017 Horde LLC (http://www.horde.org/)
  *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
@@ -66,7 +66,7 @@ class Horde_Db_Adapter_Pdo_Pgsql extends Horde_Db_Adapter_Pdo_Base
 
     public function supportsInsertWithReturning()
     {
-        return $this->postgresqlVersion() >= 80200;
+        return true;
     }
 
 
@@ -93,11 +93,6 @@ class Horde_Db_Adapter_Pdo_Pgsql extends Horde_Db_Adapter_Pdo_Base
             $error = $this->_connection->errorInfo();
             throw new Horde_Db_Exception($error[2]);
         }
-
-        // Money type has a fixed precision of 10 in PostgreSQL 8.2 and below, and as of
-        // PostgreSQL 8.3 it has a fixed precision of 19. PostgreSQLColumn.extract_precision
-        // should know about this but can't detect it there, so deal with it here.
-        Horde_Db_Adapter_Postgresql_Column::$moneyPrecision = ($this->postgresqlVersion() >= 80300) ? 19 : 10;
 
         $this->_configureConnection();
     }
@@ -149,9 +144,9 @@ class Horde_Db_Adapter_Pdo_Pgsql extends Horde_Db_Adapter_Pdo_Base
         }
 
         // Otherwise, insert then grab last_insert_id.
-        if ($insertId = parent::insert($sql, $arg1, $arg2, $pk, $idValue, $sequenceName)) {
-            $this->resetPkSequence($table, $pk, $sequenceName);
-            return $insertId;
+        $this->execute($sql, $arg1, $arg2);
+        if ($idValue) {
+            return $idValue;
         }
 
         // If a pk is given, fallback to default sequence name.
@@ -197,6 +192,10 @@ class Horde_Db_Adapter_Pdo_Pgsql extends Horde_Db_Adapter_Pdo_Base
     protected function _parseConfig()
     {
         $this->_config['adapter'] = 'pgsql';
+
+        if (!empty($this->_config['socket']) && !empty($this->_config['host'])) {
+            throw new Horde_Db_Exception('Can only specify host or socket, not both');
+        }
 
         // PDO for PostgreSQL does not accept a socket argument
         // in the connection string; the location can be set via the

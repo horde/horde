@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2009-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category  Horde
- * @copyright 2009-2015 Horde LLC
+ * @copyright 2009-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Core
  */
@@ -16,7 +16,7 @@
  *
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @category  Horde
- * @copyright 2009-2015 Horde LLC
+ * @copyright 2009-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Core
  */
@@ -88,7 +88,13 @@ abstract class Horde_Core_Tagger
      */
     public function split($tags)
     {
+        // Short circuit empty tags since explode() will return an array
+        // such as [ 0 => '' ] in this case. See Bug #14203
+        if (empty($tags)) {
+            return array();
+        }
         $split_tags = explode(',', $tags);
+
         return array_map('trim', $split_tags);
     }
 
@@ -139,6 +145,9 @@ abstract class Horde_Core_Tagger
      */
     public function getTags($localId, $type = null)
     {
+        if (empty($localId)) {
+            return array();
+        }
         if (empty($type)) {
             $type = $this->_types[0];
         }

@@ -1,9 +1,6 @@
 <?php
 /**
- * Base class for Kronolith resources. Partially presents a Horde_Share_Object
- * interface.
- *
- * Copyright 2009-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -11,22 +8,38 @@
  * @author Michael J Rubinsky <mrubinsk@horde.org>
  * @package Kronolith
  */
+
+/**
+ * Base class for Kronolith resources.
+ *
+ * Partially presents a Horde_Share_Object interface.
+ *
+ * @author Michael J Rubinsky <mrubinsk@horde.org>
+ * @package Kronolith
+ */
 abstract class Kronolith_Resource_Base
 {
     /**
-     * Instance copy of parameters
+     * Instance copy of parameters.
+     *
      * Contains:
-     *<pre>
-     *   -:name          - Display name of resource.
-     *   -:calendar      - The calendar associated with this resource.
-     *   -:description   - Resource description.
-     *   -:email         - An email address for the resource. (Currently not used)
-     *   -:members       - Member resources, if this is a group.
-     *   -:response_type - A RESPONSETYPE_* constant
-     *</pre>
+     *   - name:          Display name of resource.
+     *   - calendar:      The calendar associated with this resource.
+     *   - description:   Resource description.
+     *   - email:         An email address for the resource. (Currently not
+     *                    used)
+     *   - members:       Member resources, if this is a group.
+     *   - response_type: A RESPONSETYPE_* constant
+     *
      * @var array
      */
     protected $_params = array();
+
+    /**
+     *
+     * @var Horde_Share_Object
+     */
+    protected $_share;
 
     /**
      * Resource's internal id
@@ -34,6 +47,13 @@ abstract class Kronolith_Resource_Base
      * @var integer
      */
     protected $_id = '';
+
+    /**
+     * Cache the lock of this resource. If not locked, is false.
+     *
+     * @var boolean|integer
+     */
+    protected $_lock;
 
     /**
      * Const'r
@@ -44,24 +64,38 @@ abstract class Kronolith_Resource_Base
      */
     public function __construct(array $params = array())
     {
-        if (!empty($params['id'])) {
-            // Existing resource
-            $this->_id = $params['id'];
-        }
+        $this->_share = $params['share'];
+        $this->_id = $this->_share->getId();
+    }
 
-        // Names are required.
-        if (empty($params['name'])) {
-            throw new BadMethodCallException('Required \'name\' attribute missing from resource calendar');
+    /**
+     * Locks the resource.
+     *
+     * @return boolean  True if lock succeeded, otherwise false.
+     */
+    public function lock()
+    {
+        $locks = $GLOBALS['injector']->getInstance('Horde_Lock');
+        $principle = 'calendar/' . $this->_id;
+        $this->_lock = $locks->setLock(
+            $GLOBALS['registry']->getAuth(),
+            'kronolith',
+            $principle, 5, Horde_Lock::TYPE_EXCLUSIVE);
+
+        return !empty($this->_lock);
+    }
+
+    /**
+     * Remove a previous lock.
+     *
+     */
+    public function unlock()
+    {
+        if ($this->_lock) {
+            $GLOBALS['injector']->getInstance('Horde_Lock')
+                ->clearLock($this->_lock);
         }
-        $this->_params = array_merge(
-            array('description' => '',
-                  'response_type' => Kronolith_Resource::RESPONSETYPE_MANUAL,
-                  'members' => '',
-                  'calendar' => '',
-                  'email' => ''
-            ),
-            $params
-        );
+        $this->_lock = false;
     }
 
     /**
@@ -84,7 +118,10 @@ abstract class Kronolith_Resource_Base
      */
     public function set($property, $value)
     {
-        $this->_params[$property] = $value;
+        if ($property == 'members') {
+            $value = serialize($value);
+        }
+        $this->_share->set($property, $value);
     }
 
     /**
@@ -98,13 +135,20 @@ abstract class Kronolith_Resource_Base
      */
     public function hasPermission($user, $permission = Horde_Perms::READ, $restrict = null)
     {
-        if (($permission & (Horde_Perms::EDIT | Horde_Perms::DELETE)) &&
-            !$GLOBALS['registry']->isAdmin() &&
-            !$GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission('resource_management')) {
-            return false;
+        if ($user === null) {
+            $user = $GLOBALS['registry']->getAuth();
         }
+        return $this->_share->hasPermission($user, $permission);
+    }
 
-        return true;
+    public function getPermission()
+    {
+        return $this->_share->getPermission();
+    }
+
+    public function setPermission($perm)
+    {
+        $this->_share->setPermission($perm);
     }
 
     /**
@@ -120,10 +164,11 @@ abstract class Kronolith_Resource_Base
         if ($property == 'type' && empty($this->_params['type'])) {
             return ($this instanceof Kronolith_Resource_Single) ? 'Single' : 'Group';
         }
-        if (!array_key_exists($property, $this->_params)) {
-            throw new LogicException(sprintf('The property \'%s\' does not exist', $property));
-        }
-        return $this->_params[$property];
+        $value = $this->_share->get($property);
+
+        return $property == 'members'
+            ? unserialize($value)
+            : $value;
     }
 
     /**
@@ -134,6 +179,12 @@ abstract class Kronolith_Resource_Base
     public function save()
     {
         return $this->getDriver()->save($this);
+
+    }
+
+    public function share()
+    {
+        return $this->_share;
     }
 
     /**
@@ -229,15 +280,6 @@ abstract class Kronolith_Resource_Base
      *                                                 the iCalendar text.
      */
     abstract public function getFreeBusy($startstamp = null, $endstamp = null, $asObject = false, $json = false);
-
-    /**
-     * Sets the current resource's id. Must not be an existing resource.
-     *
-     * @param integer $id  The id for this resource
-     *
-     * @throws Kronolith_Exception
-     */
-    abstract public function setId($id);
 
     /**
      * Get ResponseType for this resource.

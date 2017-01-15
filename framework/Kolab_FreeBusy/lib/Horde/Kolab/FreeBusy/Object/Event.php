@@ -18,7 +18,7 @@
  * A reduced event representation derived from the Kronolith event
  * representation.
  *
- * Copyright 1999-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2017 Horde LLC (http://www.horde.org/)
  * Copyright 2004-2008 Klarälvdalens Datakonsult AB
  * Copyright 2011 Kolab Systems AG
  *
@@ -105,13 +105,13 @@ class Horde_Kolab_FreeBusy_Object_Event {
             $this->_event_id = $event['uid'];
         }
 
-        if (!($event['start-date'] instanceOf Horde_Date)) {
+        if (!($event['start-date'] instanceof Horde_Date)) {
             $this->_start = new Horde_Date($event['start-date']);
         } else {
             $this->_start = $event['start-date'];
         }
 
-        if (!($event['end-date'] instanceOf Horde_Date)) {
+        if (!($event['end-date'] instanceof Horde_Date)) {
             $this->_end = new Horde_Date($event['end-date']);
         } else {
             $this->_end = $event['end-date'];

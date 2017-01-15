@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2012-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -13,7 +13,7 @@
 /**
  * Nag_TagBrowser:: class provides logic for dealing with tag browsing.
  *
- * Copyright 2012-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -68,7 +68,14 @@ class Nag_TagBrowser extends Horde_Core_TagBrowser
     {
         // Refresh the search
         $this->runSearch();
-        return $this->_tasks->getSlice($page, $perpage);
+        // @todo. The paging stuff isn't used anywhere yet (i.e., we don't page)
+        //  and this was screwing up parent/child task relationships. Instead,
+        //  we need to somehow pass the $page/$perpage stuff to the $tasks
+        //  iterator so it knows when to stop.
+        // $tasks = $this->_tasks->getSlice($page, $perpage);
+        // $tasks->process();
+
+        return $this->_tasks;
     }
 
     /**

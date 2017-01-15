@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL-2). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl.
@@ -142,28 +142,28 @@ case 'editform':
         } else {
             $perm->removeGuestPermission(Horde_Perms::DELETE, false);
         }
-    }
 
-    // Process creator permissions.
-    if ($vars->creator_show) {
-        $perm->addCreatorPermission(Horde_Perms::SHOW, false);
-    } else {
-        $perm->removeCreatorPermission(Horde_Perms::SHOW, false);
-    }
-    if ($vars->creator_read) {
-        $perm->addCreatorPermission(Horde_Perms::READ, false);
-    } else {
-        $perm->removeCreatorPermission(Horde_Perms::READ, false);
-    }
-    if ($vars->creator_edit) {
-        $perm->addCreatorPermission(Horde_Perms::EDIT, false);
-    } else {
-        $perm->removeCreatorPermission(Horde_Perms::EDIT, false);
-    }
-    if ($vars->creator_delete) {
-        $perm->addCreatorPermission(Horde_Perms::DELETE, false);
-    } else {
-        $perm->removeCreatorPermission(Horde_Perms::DELETE, false);
+        // Process creator permissions.
+        if ($vars->creator_show) {
+            $perm->addCreatorPermission(Horde_Perms::SHOW, false);
+        } else {
+            $perm->removeCreatorPermission(Horde_Perms::SHOW, false);
+        }
+        if ($vars->creator_read) {
+            $perm->addCreatorPermission(Horde_Perms::READ, false);
+        } else {
+            $perm->removeCreatorPermission(Horde_Perms::READ, false);
+        }
+        if ($vars->creator_edit) {
+            $perm->addCreatorPermission(Horde_Perms::EDIT, false);
+        } else {
+            $perm->removeCreatorPermission(Horde_Perms::EDIT, false);
+        }
+        if ($vars->creator_delete) {
+            $perm->addCreatorPermission(Horde_Perms::DELETE, false);
+        } else {
+            $perm->removeCreatorPermission(Horde_Perms::DELETE, false);
+        }
     }
 
     foreach ($vars->u_names as $key => $user_backend) {
@@ -253,8 +253,7 @@ if ($auth->hasCapability('list') &&
     ($conf['auth']['list_users'] == 'list' ||
      $conf['auth']['list_users'] == 'both')) {
     try {
-        $userList = $auth->listUsers();
-        sort($userList);
+        $userList = $auth->listNames();
     } catch (Horde_Auth_Exception $e) {
         Horde::log($e, 'ERR');
     }

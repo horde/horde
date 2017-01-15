@@ -22,10 +22,10 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-02-10</date>
+ <date>2016-09-01</date>
  <version>
-  <release>2.7.3</release>
-  <api>2.7.0</api>
+  <release>2.8.1</release>
+  <api>2.8.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -46,6 +46,7 @@
     <dir name="Horde">
      <dir name="Prefs">
       <file name="COPYING" role="doc" />
+      <file name="UPGRADING" role="doc" />
      </dir> <!-- /doc/Horde/Prefs -->
     </dir> <!-- /doc/Horde -->
    </dir> <!-- /doc -->
@@ -385,8 +386,8 @@
   <required>
    <php>
     <min>5.3.0</min>
-    <max>6.0.0alpha1</max>
-    <exclude>6.0.0alpha1</exclude>
+    <max>8.0.0alpha1</max>
+    <exclude>8.0.0alpha1</exclude>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -448,7 +449,7 @@
    <package>
     <name>Horde_Db</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.3</min>
+    <min>2.2.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -500,6 +501,7 @@
   <filelist>
    <install as="horde-prefs" name="bin/horde-prefs" />
    <install as="COPYING" name="doc/Horde/Prefs/COPYING" />
+   <install as="UPGRADING" name="doc/Horde/Prefs/UPGRADING" />
    <install as="Horde/Prefs.php" name="lib/Horde/Prefs.php" />
    <install as="Horde/Prefs/CategoryManager.php" name="lib/Horde/Prefs/CategoryManager.php" />
    <install as="Horde/Prefs/Exception.php" name="lib/Horde/Prefs/Exception.php" />
@@ -1153,7 +1155,75 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-02-10</date>
+   <date>2015-04-28</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix issues with certain locales like Turkish.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.7.4</release>
+    <api>2.7.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-07-31</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Updated UK translation.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.7.5</release>
+    <api>2.7.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-01-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Improve Oracle compatibility.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.7.6</release>
+    <api>2.7.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-03-08</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Update Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
+* [jan] Mark PHP 7 as supported.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.8.0</release>
+    <api>2.8.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-09-01</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Use more efficient database access in SQL backend.
+* [jan] Fix and optimize removing preferences for a single application.
+* [jan] Add Horde_Prefs::removeAll().
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.8.1</release>
+    <api>2.8.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-09-01</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

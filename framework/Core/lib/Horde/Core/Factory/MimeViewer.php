@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category  Horde
- * @copyright 2010-2015 Horde LLC
+ * @copyright 2010-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link      http://pear.horde.org/index.php?package=Core
  * @package   Core
@@ -17,7 +17,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2010-2015 Horde LLC
+ * @copyright 2010-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link      http://pear.horde.org/index.php?package=Core
  * @package   Core
@@ -74,7 +74,7 @@ class Horde_Core_Factory_MimeViewer extends Horde_Core_Factory_Base
     {
         $config = $this->_getDriver($type, $app);
 
-        $config['driver'] = ucfirst($config['driver']);
+        $config['driver'] = Horde_String::ucfirst($config['driver']);
         $driver = ($config['app'] == 'horde')
             ? $config['driver']
             : $config['app'] . '_Mime_Viewer_' . $config['driver'];
@@ -100,6 +100,7 @@ class Horde_Core_Factory_MimeViewer extends Horde_Core_Factory_Base
             break;
 
         case 'Ooo':
+            $params['temp_dir'] = Horde::getTempDir();
             $params['zip'] = Horde_Compress::factory('Zip');
             break;
 

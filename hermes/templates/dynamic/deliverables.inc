@@ -28,6 +28,7 @@
     <div class="hermesDeliverablesName hermesBorderLeft"><?php echo _("Name") ?></div>
     <div class="hermesDeliverablesActive hermesBorderLeft"><?php echo _("Active") ?></div>
     <div class="hermesDeliverablesEstimate hermesBorderLeft"><?php echo _("Estimate") ?></div>
+    <div class="hermesDeliverablesActual hermesBorderLeft"><?php echo _("Actual") ?></div>
     <div class="hermesDeliverablesDesc hermesBorderLeft"><?php echo _("Description") ?></div>
     <div class="hermesDeliverablesOptions">&nbsp;</div>
   </div>
@@ -36,6 +37,7 @@
       <div class="hermesDeliverablesName hermesBorderLeft"></div>
       <div class="hermesDeliverablesActive hermesBorderLeft"></div>
       <div class="hermesDeliverablesEstimate hermesBorderLeft"></div>
+      <div class="hermesDeliverablesActual hermesBorderLeft"></div>
       <div class="hermesDeliverablesDesc hermesBorderLeft"></div>
       <div class="hermesDeliverablesOptions"><span class="deliverableEdit sliceControl">&nbsp;</span><span class="deliverableDelete sliceControl">&nbsp;</span><span class="deliverableDetail sliceControl">&nbsp;</span></div>
     </div>

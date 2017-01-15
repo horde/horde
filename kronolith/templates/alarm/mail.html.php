@@ -26,7 +26,7 @@
       </tr>
       <?php endif ?>
       <?php if (!$this->event->isPrivate($this->user)): ?>
-      <?php if ($this->attendees): ?>
+      <?php if (count($this->attendees)): ?>
 
       <tr<?php if ($i++ % 2) echo ' bgcolor="#f1f1f1"' ?>>
         <td nowrap="nowrap" align="right" valign="top">
@@ -35,12 +35,12 @@
         <td width="5">&nbsp;</td>
         <td width="100%"><font size="2"><strong>
           <?php foreach ($this->attendees as $attendee): ?>
-          <?php if (strpos('@', $attendee) === false): ?>
-          <?php echo $this->h($attendee) ?><br />
+          <?php if (is_null($attendee->email)): ?>
+          <?php echo $this->h($attendee->displayName) ?><br />
           <?php else: ?>
-          <a href="mailto:<?php echo $attendee ?>"><?php echo $this->h($attendee) ?></a><br />
-          <?php endif; ?>
-          <?php endforeach; ?>
+          <a href="mailto:<?php echo $this->h($attendee->email) ?>"><?php echo $this->h($attendee->displayName) ?></a><br />
+          <?php endif ?>
+          <?php endforeach ?>
 
         </strong></font></td>
       </tr>

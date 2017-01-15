@@ -7,7 +7,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2013-2015 Horde LLC (http://www.horde.org)
+ * @copyright 2013-2017 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -20,7 +20,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2013-2015 Horde LLC (http://www.horde.org)
+ * @copyright 2013-2017 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -51,6 +51,7 @@ class Horde_ActiveSync_Status
     const SYNC_NOT_ALLOWED                       = 126;
     const DEVICE_BLOCKED_FOR_USER                = 129;
     const DENIED                                 = 130;
+    const DISABLED                               = 131;
     const STATEFILE_NOT_FOUND                    = 132;  // was 500 in 12.0
     const STATEVERSION_INVALID                   = 136;
     const DEVICE_NOT_FULLY_PROVISIONABLE         = 139;  // Device uses version that doesn't support policies defined on server.
@@ -83,7 +84,5 @@ class Horde_ActiveSync_Status
     const PICTURE_LIMIT_REACHED                  = 175;
     const BODYPART_CONVERSATION_TOO_LARGE        = 176;
     const MAXIMUM_DEVICES_REACHED                = 177;
-
-
 
 }

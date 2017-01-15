@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2004-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you did not
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -11,8 +11,9 @@
  * @license  http://www.horde.org/licenses/bsdl.php
  * @package  Trean
  */
+
 /**
- * Trean_Bookmarks:: Handles basic management of bookmark storage.
+ * Trean_Bookmarks handles basic management of bookmark storage.
  *
  * @author   Ben Chavet <ben@horde.org>
  * @author   Chuck Hagenbuch <chuck@horde.org>
@@ -88,7 +89,7 @@ class Trean_Bookmarks
                 ORDER BY bookmark_' . $sortby . ($sortdir ? ' DESC' : '');
         $sql = $GLOBALS['trean_db']->addLimitOffset($sql, array('limit' => $count, 'offset' => $from));
 
-        return $this->_resultSet($GLOBALS['trean_db']->selectAll($sql, $values));
+        return $this->_resultSet($GLOBALS['trean_db']->select($sql, $values));
     }
 
     /**
@@ -120,7 +121,7 @@ class Trean_Bookmarks
                 WHERE user_id = ? AND bookmark_id IN (' . implode(',', $bookmarkIds) . ')';
         $values = array($this->_userId);
 
-        return $this->_resultSet($GLOBALS['trean_db']->selectAll($sql, $values));
+        return $this->_resultSet($GLOBALS['trean_db']->select($sql, $values));
     }
 
     /**
@@ -205,7 +206,7 @@ class Trean_Bookmarks
         }
 
         try {
-            $bookmarks = $GLOBALS['trean_db']->selectAll($sql);
+            $bookmarks = $GLOBALS['trean_db']->select($sql);
         } catch (Horde_Db_Exception $e) {
             throw new Trean_Exception($e);
         }
@@ -229,6 +230,8 @@ class Trean_Bookmarks
         /* Untag */
         $tagger = $GLOBALS['injector']->getInstance('Trean_Tagger');
         $tagger->replaceTags((string)$bookmark->id, array(), $GLOBALS['registry']->getAuth(), 'bookmark');
+        $GLOBALS['injector']->getInstance('Content_ObjectMapper')
+            ->delete($bookmark->id, 'bookmark');
 
         /* @TODO delete from content index? */
         //$indexer->index('horde-user-' . $this->_userId, 'trean-bookmark', $this->_bookmarkId, json_encode(array(
@@ -260,6 +263,7 @@ class Trean_Bookmarks
         $tagger = $GLOBALS['injector']->getInstance('Trean_Tagger');
         $charset = $GLOBALS['trean_db']->getOption('charset');
         foreach ($bookmarks as $bookmark) {
+            $cvBookmarks = array();
             foreach ($bookmark as $key => $value) {
                 if (!empty($value) && !is_numeric($value)) {
                     $cvBookmarks[$key] = Horde_String::convertCharset($value, $charset, 'UTF-8');

@@ -2,8 +2,6 @@
 /**
  * This file is part of PHPMD.
  *
- * PHP Version 5
- *
  * Copyright (c) 2008-2012, Manuel Pichler <mapi@phpmd.org>.
  * All rights reserved.
  *
@@ -39,7 +37,6 @@
  * @author    Manuel Pichler <mapi@phpmd.org>
  * @copyright 2008-2014 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php BSD License
- * @version   @project.version@
  */
 
 namespace PHPMD;
@@ -53,7 +50,6 @@ use PHPMD\Node\ASTNode;
  * @author    Manuel Pichler <mapi@phpmd.org>
  * @copyright 2008-2014 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php BSD License
- * @version   @project.version@
  */
 abstract class AbstractNode
 {
@@ -284,6 +280,14 @@ abstract class AbstractNode
      * @return boolean
      */
     abstract public function hasSuppressWarningsAnnotationFor(Rule $rule);
+
+    /**
+     * Returns the full qualified name of a class, an interface, a method or
+     * a function.
+     *
+     * @return string
+     */
+    abstract public function getFullQualifiedName();
 
     /**
      * Returns the name of the parent type or <b>null</b> when this node has no

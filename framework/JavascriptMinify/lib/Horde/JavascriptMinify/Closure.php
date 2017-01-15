@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2014-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2014-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category  Horde
- * @copyright 2014-2015 Horde LLC
+ * @copyright 2014-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   JavascriptMinify
  */
@@ -16,7 +16,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2014-2015 Horde LLC
+ * @copyright 2014-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   JavascriptMinify
  */
@@ -58,9 +58,10 @@ class Horde_JavascriptMinify_Closure extends Horde_JavascriptMinify_Null
             return parent::minify();
         }
 
-        /* -W QUIET - closure default is "DEFAULT" which will cause code with
-         * compiler warnings to output bad js (see Bug #13789) */
-        $cmd = trim(escapeshellcmd($this->_opts['java']) . ' -W QUIET -jar ' . escapeshellarg($this->_opts['closure']));
+        /* --warning_level QUIET - closure default is "DEFAULT" which will
+         * cause code with compiler warnings to output bad js (see Bug
+         * #13789) */
+        $cmd = trim(escapeshellcmd($this->_opts['java']) . ' -jar ' . escapeshellarg($this->_opts['closure']) . ' --warning_level QUIET');
         if (isset($this->_opts['sourcemap']) && is_array($this->_data)) {
             $this->_sourcemap = Horde_Util::getTempFile();
             $cmd .= ' --create_source_map ' .

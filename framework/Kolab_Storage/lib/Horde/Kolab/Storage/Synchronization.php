@@ -14,7 +14,7 @@
 /**
  * Handles synchronization with the backend.
  *
- * Copyright 2011-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -32,7 +32,7 @@ class Horde_Kolab_Storage_Synchronization
      *
      * @var Horde_Kolab_Storage_Synchronization
      */
-    private $_strategy;
+    protected $_strategy;
 
     /**
      * Constructor.

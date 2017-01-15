@@ -1,14 +1,14 @@
 <?php
 /**
- * Rdo Mapper base class.
- *
  * @category Horde
  * @package  Rdo
  */
 
 /**
- * Rdo Mapper class. Controls mapping of entity obects (instances of
- * Horde_Rdo_Base) from and to Horde_Db_Adapters.
+ * Rdo Mapper class.
+ *
+ * Controls mapping of entity obects (instances of Horde_Rdo_Base) from and to
+ * Horde_Db_Adapters.
  *
  * Public properties:
  *   $adapter - Horde_Db_Adapter that stores this Mapper's objects.
@@ -253,7 +253,9 @@ abstract class Horde_Rdo_Mapper implements Countable
                     }
                 }
 
-                if (isset($relationships[$m->table])) {
+                // Don't check the table only. If there was a match for LEFT
+                // JOINs, there may be a "empty" result
+                if (isset($relationships[$m->table], $relationships[$m->table][$m->primaryKey])) {
                     $object->$relationship = $m->map($relationships[$m->table]);
                 }
             }
@@ -269,7 +271,7 @@ abstract class Horde_Rdo_Mapper implements Countable
      */
     public function tableToMapper($table)
     {
-        if (class_exists(($class = ucwords($table) . 'Mapper'))) {
+        if (class_exists(($class = Horde_String::ucwords($table) . 'Mapper'))) {
             return new $class;
         }
         return null;
@@ -282,7 +284,7 @@ abstract class Horde_Rdo_Mapper implements Countable
      */
     public function mapperToTable()
     {
-        return $this->inflector->pluralize(strtolower(str_replace('Mapper', '', get_class($this))));
+        return $this->inflector->pluralize(Horde_String::lower(str_replace('Mapper', '', get_class($this))));
     }
 
     /**

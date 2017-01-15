@@ -71,22 +71,12 @@ class Kronolith_View_Year
                                              'year' => $this->year));
             $startday = $startday->dayOfWeek();
 
-            $daysInView = Date_Calc::weeksInMonth($month, $this->year) * 7;
             if (!$prefs->getValue('week_start_monday')) {
                 $startOfView = 1 - $startday;
-
-                // We may need to adjust the number of days in the
-                // view if we're starting weeks on Sunday.
-                if ($startday == Horde_Date::DATE_SUNDAY) {
-                    $daysInView -= 7;
-                }
                 $endday = new Horde_Date(array('mday' => Horde_Date_Utils::daysInMonth($month, $this->year),
                                                'month' => $month,
                                                'year' => $this->year));
                 $endday = $endday->dayOfWeek();
-                if ($endday == Horde_Date::DATE_SUNDAY) {
-                    $daysInView += 7;
-                }
             } else {
                 if ($startday == Horde_Date::DATE_SUNDAY) {
                     $startOfView = -5;
@@ -98,7 +88,7 @@ class Kronolith_View_Year
             $currentCalendars = array(true);
             foreach ($currentCalendars as $id => $cal) {
                 $cell = 0;
-                for ($day = $startOfView; $day < $startOfView + $daysInView; ++$day) {
+                for ($day = $startOfView; $day < $startOfView + 42; ++$day) {
                     $date = new Kronolith_Day($month, $day, $this->year);
                     $date->hour = $prefs->getValue('twentyFour') ? 12 : 6;
                     $week = $date->weekOfYear();

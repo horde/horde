@@ -259,12 +259,125 @@ Edition to function properly.
       The intl module is required to handle display of Internationalized
       Domain Names (see RFC 3490), e.g in e-mail addresses.
 
-   i. FTP support ``--with-ftp``
+   i. _`curl` ``--with-curl``
+
+      The `curl extension`_, if installed, will be used instead of PHP's
+      fopen() when retrieving data from external HTTP servers (remote
+      calendars, web APIs, etc.). This is much more reliable and flexible, so
+      it is recommended to either enable it or install the http_ extension.
+
+      This extension can be enabled by adding the ``--with-curl`` option when
+      compiling PHP.
+
+   j. FTP support ``--with-ftp``
 
       If using the FTP VFS driver for the file manager, the FTP PHP module is
       **required**.
 
-4. Additional PECL Modules
+4. PEAR Modules
+
+   PEAR is short for "PHP Extension and Application Repository".  The goal of
+   PEAR is to provide a means of distributing reusable code.
+
+   For more information, see http://pear.php.net/
+
+   .. Important:: Make sure you are running a supported (i.e. new enough)
+                  version of PEAR: use the test script described below under
+                  "`Testing Horde Groupware Webmail Edition`_".  Do **not** use
+                  the PEAR version from ftp.horde.org.
+
+   Check that the path where the PEAR packages are installed are part of the
+   ``include_path`` parameter that PHP uses to find PEAR packages.
+
+   Run the command::
+
+     pear config-show
+
+   You will see something like::
+
+     PEAR directory   php_dir   /usr/share/php
+
+   Now open the php.ini file of your system, for example ``/etc/php.ini``,
+   find the ``include_path`` and make sure that ``/usr/share/php`` is part of
+   the list.  If you had to change that value, restart the web server after
+   saving ``php.ini``.
+
+   .. Important:: If you are going to install Horde the recommended way,
+                  i.e. using the PEAR installer, you can skip the remainder of
+                  this section. Installing Horde through PEAR will
+                  automatically download and install all required PEAR
+                  packages.
+
+   These PEAR packages are **REQUIRED** to be installed:
+
+   a. Date
+
+      Horde Groupware Webmail Edition uses the Date package for various date
+      calculations.
+      To install, enter the following at the command prompt::
+
+        pear install Date
+
+   These PEAR packages are **RECOMMENDED** to be installed:
+
+   a. Net_DNS2
+
+      If installed, it will be used instead of the built-in PHP function
+      gethostbyaddr() for host name lookups. This has the advantage that
+      Net_DNS2 has configurable timeouts and retries.
+      To install, enter the following at the command prompt::
+
+        pear install Net_DNS2
+
+   b. Services_Weather (>= 1.3.1)
+
+      **REQUIRED** only if you wish to use the weather.com block on the portal
+      page.
+      To install, enter the following at the command prompt::
+
+        pear install Services_Weather
+
+      Additional steps are required if you want use the METAR weather block on
+      the portal page. See the file ``data/Services_Weather/buildMetarDB.php``
+      in your PEAR directory for details.
+
+   c. File_Fstab
+
+     Required only if you use the localhost driver for the Accounts block.
+     To install, enter the following at the command prompt::
+
+       pear install File_Fstab
+
+   These PEAR packages are **OPTIONAL** to be installed:
+
+   a. Date_Holidays
+
+      Horde Groupware Webmail Edition can use the Date_Holidays package to show
+      several sets of national and religious holidays and memorial days. Since
+      Date_Holidays consists of a number of sub-packages, one for each country,
+      you should install all packages at once::
+
+         pear install Date_Holidays-alpha#all
+
+   b. Net_Sieve
+
+      Horde Groupware Webmail Edition uses the Net_Sieve class for
+      communicating with timsieved running on Cyrus mail servers.  You will
+      only need to install this class if you are using Sieve for filtering.
+      To install, enter the following at the command prompt::
+
+        pear install Net_Sieve
+
+   This method of installing PEAR packages requires that you have a PHP version
+   that has been compiled as a static binary.  All versions of PHP build both
+   both a SAPI module (Apache, CGI, etc.) and a command-line (CLI) binary.
+   Check if you have a php binary in ``/usr/local/bin`` (``/usr/bin`` if you
+   installed from an operating system package) before recompiling.
+
+   For more detailed directions on installing PEAR packages, see the PEAR
+   documentation at http://pear.php.net/manual/
+
+5. Additional PECL Modules
 
    PECL is short for "PHP Extension Community Library".  The goal of PECL is
    to provide a means of easily distributing PHP extensions.
@@ -296,15 +409,15 @@ Edition to function properly.
 
         pecl install imagick
 
-   b. lzf
+   b. horde_lz4
 
-      If the lzf module is available, Horde Groupware Webmail Edition can
-      compress some cached data in the current session, thus reducing the size
-      of the current session.
+      If the horde_lz4 extension is available, Horde can perform real-time
+      compression on data, resulting in reduced storage load on the server for
+      things like cache storage and session data. It is highly recommended.
 
       To install, enter the following at the command prompt::
 
-        pecl install lzf
+        pecl install horde/horde_lz4
 
    c. memcache
 
@@ -315,7 +428,21 @@ Edition to function properly.
 
         pecl install memcache
 
-5. At least one IMAP or POP3 server.
+   d. _`http`
+
+      The `http extension`_, if installed, will be used instead of PHP's
+      fopen() when retrieving data from external HTTP servers (remote
+      calendars, web APIs, etc.). This is much more reliable and flexible, so
+      it recommended to either install this or enable the curl_ extension.
+
+      To install, enter the following at the command prompt::
+
+        pecl install http
+
+   For additional help on using the pear command-line program to install PECL
+   extensions, see the PEAR installation section above.
+
+6. At least one IMAP or POP3 server.
 
    While Horde Groupware Webmail Edition is an application that is installed
    on a Web server and is run from a Web browser, it is only an IMAP and POP3
@@ -348,7 +475,7 @@ Edition to function properly.
              Caching, on-demand filtering, searching, and sorting will be
              disabled.
 
-6. Sendmail or SMTP server.
+7. Sendmail or SMTP server.
 
    Horde Groupware Webmail Edition sends mail via either a local sendmail or a
    remote SMTP server.  It is **RECOMMENDED** that SMTP be used.
@@ -739,6 +866,8 @@ The Horde Team
 .. _docs/PERFORMANCE: PERFORMANCE
 .. _docs/SECURITY: ../../horde/docs/SECURITY
 .. _docs/TRANSLATIONS: ../../horde/docs/TRANSLATIONS
+.. _`curl extension`: http://php.net/curl
+.. _`http extension`: http://php.net/http
 .. _`File Uploads`: http://wiki.horde.org/FAQ/Admin/FileUploads
 .. _`session.gc_probability`: http://www.php.net/manual/en/session.configuration.php#ini.session.gc-probability
 .. _`session.gc_divisor`: http://www.php.net/manual/en/session.configuration.php#ini.session.gc-divisor

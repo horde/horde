@@ -21,7 +21,7 @@ $remove = $auth->hasCapability('remove');
 $total = 0;
 $admin_url = Horde::url('admin/user.php');
 
-foreach ($users as $user):
+foreach ($users as $user => $name):
     if ($total++ < $min || $total > $max) {
         continue;
     }
@@ -33,7 +33,7 @@ foreach ($users as $user):
 <?php endif; ?>
   <td width="1%"><?php echo Horde::link($user_url->add('form', 'update_f'), _("Update")) .  Horde_Themes_Image::tag('edit.png', array('alt' => _("Update"))) ?></a></td>
   <td width="1%"><?php echo Horde::link($user_url->add('form', 'clear_f'), _("Clear user data")) .  Horde_Themes_Image::tag('reload.png', array('alt' => _("Clear user data"))) ?></a></td>
-  <td><?php echo $user ?></td>
+  <td><?php echo htmlspecialchars($name . ' (' . $user . ')') ?></td>
  </tr>
 <?php endforeach; ?>
 </table>

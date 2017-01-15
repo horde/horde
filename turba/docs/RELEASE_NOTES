@@ -9,8 +9,8 @@ Contact Manager version H5 (4.2.0).
 
 Turba is the Horde contact management application. Leveraging the Horde
 framework to provide seamless integration with IMP and other Horde
-applications, it supports contacts in SQL, LDAP, Kolab, IMSP, and Facebook
-address books, and works as a CardDAV server. For more information on Turba,
+applications, it supports contacts in SQL, LDAP, Kolab, and IMSP address books,
+and works as a CardDAV server. For more information on Turba,
 visit http://www.horde.org/apps/turba.
 
 This is a preview version that should not be used on production systems.  This

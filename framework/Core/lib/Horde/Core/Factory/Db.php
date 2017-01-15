@@ -14,7 +14,7 @@
 /**
  * A Horde_Injector:: based factory for creating Horde_Db_Adapter objects.
  *
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -60,11 +60,24 @@ class Horde_Core_Factory_Db extends Horde_Core_Factory_Base
 
         /* Prevent DSN from getting polluted (this only applies to non-custom
          * auth type connections. All other custom sql configurations MUST be
-         * cleansed prior to passing to the factory (at least until Horde
-         * 5). @todo Still needed? */
+         * cleansed prior to passing to the factory (at least until Horde 5).
+         * @todo Fix with Horde 6. */
         if (!is_array($backend) && ($backend == 'auth')) {
             unset(
+                $config['count_bad_logins'],
+                $config['cyradmin'],
+                $config['cyrhost'],
+                $config['cyrpass'],
+                $config['cyrport'],
+                $config['domain_field'],
                 $config['driverconfig'],
+                $config['encryption'],
+                $config['folders'],
+                $config['hidden_accounts'],
+                $config['login_block'],
+                $config['login_block_count'],
+                $config['login_block_time'],
+                $config['password_field'],
                 $config['query_auth'],
                 $config['query_add'],
                 $config['query_getpw'],
@@ -73,14 +86,10 @@ class Horde_Core_Factory_Db extends Horde_Core_Factory_Base
                 $config['query_remove'],
                 $config['query_list'],
                 $config['query_exists'],
-                $config['encryption'],
                 $config['show_encryption'],
-                $config['username_field'],
-                $config['password_field'],
                 $config['table'],
-                $config['login_block'],
-                $config['login_block_count'],
-                $config['login_block_time']
+                $config['userhierarchy'],
+                $config['username_field']
             );
         }
         unset($config['umask']);
@@ -167,7 +176,7 @@ class Horde_Core_Factory_Db extends Horde_Core_Factory_Base
                     break;
 
                 default:
-                    $class = 'Horde_Db_Adapter_Pdo_' . ucfirst($config['phptype']);
+                    $class = 'Horde_Db_Adapter_Pdo_' . Horde_String::ucfirst($config['phptype']);
                     break;
                 }
             }

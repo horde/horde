@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2013-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2013-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category  Horde
- * @copyright 2013-2015 Horde LLC
+ * @copyright 2013-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Smtp
  */
@@ -54,7 +54,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2013-2015 Horde LLC
+ * @copyright 2013-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Smtp
  *
@@ -141,8 +141,8 @@ class Horde_Smtp implements Serializable
      *             DEFAULT: true (use 'tls' option, if available)
      *     - false (No encryption)
      *     - 'ssl' (Auto-detect SSL version)
-     *     - 'sslv2' (Force SSL version 3)
-     *     - 'sslv3' (Force SSL version 2)
+     *     - 'sslv2' (Force SSL version 2)
+     *     - 'sslv3' (Force SSL version 3)
      *     - 'tls' (TLS; started via protocol-level negotation over
      *       unencrypted channel; RECOMMENDED way of initiating secure
      *       connection)
@@ -339,7 +339,7 @@ class Horde_Smtp implements Serializable
             return false;
         }
 
-        $ext = strtoupper($ext);
+        $ext = Horde_String::upper($ext);
 
         return isset($this->_extensions[$ext])
             ? $this->_extensions[$ext]
@@ -496,6 +496,7 @@ class Horde_Smtp implements Serializable
      *
      * @throws Horde_Smtp_Exception
      * @throws Horde_Smtp_Exception_Recipients
+     * @throws InvalidArgumentException
      */
     public function send($from, $to, $data, array $opts = array())
     {
@@ -915,7 +916,7 @@ class Horde_Smtp implements Serializable
 
             $this->_debug->active = false;
             $this->_connection->write(
-                base64_encode($user . ' ' . hash_hmac(strtolower(substr($method, 5)), base64_decode(reset($resp)), $pass, false))
+                base64_encode($user . ' ' . hash_hmac(Horde_String::lower(substr($method, 5)), base64_decode(reset($resp)), $pass, false))
             );
             $this->_debug->active = true;
 

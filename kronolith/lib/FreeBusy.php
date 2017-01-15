@@ -8,8 +8,7 @@
 class Kronolith_FreeBusy
 {
     /**
-     * Generates the free/busy text for $calendars. Cache it for at least an
-     * hour, as well.
+     * Generates the free/busy text for $calendars.
      *
      * @param string|array $calendars  The calendar to view free/busy slots for.
      * @param integer $startstamp      The start of the time period to retrieve.
@@ -19,7 +18,7 @@ class Kronolith_FreeBusy
      * @param string $user             Set organizer to this user.
      *
      * @return string  The free/busy text.
-     * @throws Horde_Exception
+     * @throws Horde_Exception, Kronolith_Exception
      */
     public static function generate($calendars, $startstamp = null,
                                     $endstamp = null, $returnObj = false,
@@ -76,6 +75,11 @@ class Kronolith_FreeBusy
                 @list($type, $calendar) = explode('_', $calendar, 2);
             } else {
                 $type = 'internal';
+            }
+            try {
+                $GLOBALS['injector']->getInstance('Kronolith_Shares')->getShare($calendar);
+            } catch (Horde_Exception $e) {
+                throw new Kronolith_Exception('Share not found.');
             }
             try {
                 $driver = Kronolith::getDriver($type, $calendar);
@@ -141,6 +145,57 @@ class Kronolith_FreeBusy
     }
 
     /**
+     * Retrieves the free/busy information for a given user.
+     *
+     * @since Kronolith 4.3.0
+     *
+     * @param string $user   The user to look for.
+     * @param array $opts    Options:
+     *                       - json: (boolean) Whether to return the free/busy
+     *                               data as a simple object suitable to be
+     *                               transferred as json. DEFAULT: false
+     *                       - start: (integer) The start of the time period to
+     *                                retrieve. DEFAULT: now
+     *                       - end: (integer) The end of the time period to
+     *                              retrieve. DEFAULT: now + freebusy_days pref
+     *
+     * @return Horde_Icalendar_Vfreebusy|object  Free/busy component.
+     * @throws Kronolith_Exception
+     */
+    public static function getForUser($user, $opts = array())
+    {
+        global $injector, $registry;
+
+        $opts = array_merge(
+            array('json' => false, 'start' => null, 'end' => null),
+            $opts
+        );
+        $prefs = $injector->getInstance('Horde_Core_Factory_Prefs')
+            ->create('kronolith', array('cache' => false, 'user' => $user));
+        $registry->setTimeZone();
+        $cals = @unserialize($prefs->getValue('fb_cals'));
+
+        // If the free/busy calendars preference is empty, default to the
+        // user's default_share preference, and if that's empty, to their
+        // username.
+        if (!$cals) {
+            $cal = $prefs->getValue('default_share');
+            if (!$cal) {
+                $cal = $user;
+            }
+            $cals = array('internal_' . $cal);
+        }
+
+        try {
+            $fb = self::generate($cals, $opts['start'], $opts['end'], true, $user);
+        } catch (Kronolith_Exception $e) {
+           throw new Kronolith_Exception(sprintf(_("The free/busy data for %s cannot be retrieved."), $user));
+        }
+
+        return $opts['json'] ? self::toJson($fb) : $fb;
+    }
+
+    /**
      * Retrieves the free/busy information for a given email address, if any
      * information is available.
      *
@@ -148,7 +203,7 @@ class Kronolith_FreeBusy
      * @param boolean $json  Whether to return the free/busy data as a simple
      *                       object suitable to be transferred as json.
      *
-     * @return Horde_Icalendar_Vfreebusy  Free/busy component.
+     * @return Horde_Icalendar_Vfreebusy|object  Free/busy component.
      * @throws Kronolith_Exception
      */
     public static function get($email, $json = false)
@@ -282,7 +337,13 @@ class Kronolith_FreeBusy
         if (empty($b)) {
             $b = new StdClass();
         }
-        $json->b = $b;
+        $new = new StdClass();
+        foreach ($b as $from => $to) {
+            $from = new Horde_Date($from);
+            $to = new Horde_Date($to);
+            $new->{$from->toJson()} = $to->toJson();
+        }
+        $json->b = $new;
         return $json;
     }
 

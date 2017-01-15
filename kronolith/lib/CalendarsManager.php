@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2013-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2013-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -68,7 +68,7 @@ class Kronolith_CalendarsManager
      *
      * @var array
      */
-    protected $_displayResource;
+    protected $_displayResource = array();
 
     /**
      * Lazy loaded list of all resource calendars.
@@ -285,9 +285,12 @@ class Kronolith_CalendarsManager
                 'display_cals' => 'displayCalendars',
                 'display_remote_cals' => 'displayRemote',
                 'display_external_cals' => 'displayExternal',
-                'holiday_drivers' => 'displayHolidaysInternal',
-                'display_resource_cals' => 'displayResource'
-            );
+                'holiday_drivers' => 'displayHolidaysInternal');
+
+            if (!empty($GLOBALS['conf']['resource']['driver'])) {
+                $display_prefs['display_resource_cals'] = 'displayResource';
+            }
+
             foreach ($display_prefs as $key => $val) {
                 $pref_val = @unserialize($prefs->getValue($key));
                 $val = '_' . $val;
@@ -295,6 +298,10 @@ class Kronolith_CalendarsManager
                     ? $pref_val
                     : array();
             }
+
+            // Run through getDisplayExternal to trim any that no longer exist.
+            $this->_getDisplayExternal();
+
             if (empty($conf['holidays']['enable'])) {
                 $this->_displayHolidays = array();
                 $this->_displayHolidaysInternal = array();
@@ -475,13 +482,21 @@ class Kronolith_CalendarsManager
                 }
 
                 foreach ($categories as $name => $description) {
-                    $this->_allExternal[$api . '/' . $name] = new Kronolith_Calendar_External(array('api' => $api, 'name' => $description['title'], 'id' => $name, 'type' => $description['type']));
+                    if (empty($description['background'])) {
+                        $description['background'] = '#dddddd';
+                    }
+                    $this->_allExternal[$api . '/' . $name] = new Kronolith_Calendar_External(array(
+                        'api' => $api,
+                        'name' => $description['title'],
+                        'id' => $name,
+                        'type' => $description['type'],
+                        'background' => $description['background']));
                     $ext_cals[] = array(
                         'a' => $api,
                         'n' => $name,
                         'd' => $description['title'],
                         't' => $description['type'],
-                        'b' => empty($description['background']) ? '#dddddd' : $description['background']
+                        'b' => $description['background']
                     );
                 }
             }
@@ -519,7 +534,7 @@ class Kronolith_CalendarsManager
         }
         $prefs->setValue('display_external_cals', serialize($this->_displayExternal));
 
-        return $this->displayExternal;
+        return $this->_displayExternal;
     }
 
     /**
@@ -572,8 +587,8 @@ class Kronolith_CalendarsManager
     protected function _getAllResource()
     {
         $this->_allResource = array();
-        if (!empty($GLOBALS['conf']['resource']['driver'])) {
-            foreach (Kronolith::getDriver('Resource')->listResources(Horde_Perms::READ, array('type' => Kronolith_Resource::TYPE_SINGLE)) as $resource) {
+        if (!empty($GLOBALS['conf']['resources']['enabled'])) {
+            foreach (Kronolith::getDriver('Resource')->listResources(Horde_Perms::READ, array('isgroup' => 0)) as $resource) {
                 $rcal = new Kronolith_Calendar_Resource(array(
                     'resource' => $resource
                 ));

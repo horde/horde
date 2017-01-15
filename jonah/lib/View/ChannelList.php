@@ -2,7 +2,7 @@
 /**
  * View for displaying Jonah channels.
  *
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://cvs.horde.org/co.php/jonah/LICENSE
@@ -45,15 +45,9 @@ class Jonah_View_ChannelList extends Jonah_View_Base
                 $channels[$key]['addstory_link'] = '';
                 $channels[$key]['refresh_link'] = '';
 
-                switch ($channel['channel_type']) {
-                case Jonah::INTERNAL_CHANNEL:
-                    /* Add story link. */
-                    $url = Horde::url('stories/edit.php')->add('channel_id', $channel['channel_id']);
-                    $channels[$key]['addstory_link'] = $url->link(array('title' => _("Add story"))) . Horde::img('new.png') . '</a>';
-                    break;
-                }
-                $channels[$key]['channel_type'] = Jonah::getChannelTypeLabel($channel['channel_type']);
-                $channels[$key]['channel_updated'] = ($channel['channel_updated'] ? strftime($prefs->getValue('date_format'), (int)$channel['channel_updated']) : '-');
+                /* Add story link. */
+                $url = Horde::url('stories/edit.php')->add('channel_id', $channel['channel_id']);
+                $channels[$key]['addstory_link'] = $url->link(array('title' => _("Add story"))) . Horde::img('new.png') . '</a>';
             }
         }
 

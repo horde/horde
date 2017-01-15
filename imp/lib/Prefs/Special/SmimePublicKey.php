@@ -1,22 +1,23 @@
 <?php
 /**
- * Copyright 2012-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
- * @copyright 2012-2015 Horde LLC
+ * @copyright 2012-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
 
 /**
- * Special prefs handling for the 'smimepublickey' preference.
+ * Special prefs handling for the 'smimepublickey' preference, the list of
+ * public certificates from the user's address book(s).
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2012-2015 Horde LLC
+ * @copyright 2012-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -39,7 +40,7 @@ class IMP_Prefs_Special_SmimePublicKey implements Horde_Core_Prefs_Ui_Special
         $p_css = new Horde_Themes_Element('prefs.css');
         $page_output->addStylesheet($p_css->fs, $p_css->uri);
 
-        $imp_smime = $injector->getInstance('IMP_Crypt_Smime');
+        $imp_smime = $injector->getInstance('IMP_Smime');
 
         /* Get list of Public Keys on keyring. */
         try {
@@ -93,7 +94,7 @@ class IMP_Prefs_Special_SmimePublicKey implements Horde_Core_Prefs_Ui_Special
 
         if (isset($ui->vars->delete_smime_pubkey)) {
             try {
-                $injector->getInstance('IMP_Crypt_Smime')->deletePublicKey($ui->vars->email);
+                $injector->getInstance('IMP_Smime')->deletePublicKey($ui->vars->email);
                 $notification->push(sprintf(_("S/MIME Public Key for \"%s\" was successfully deleted."), $ui->vars->email), 'horde.success');
             } catch (Horde_Exception $e) {
                 $notification->push($e);

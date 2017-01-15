@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2000-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2000-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you did
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @category  Horde
- * @copyright 2000-2015 Horde LLC
+ * @copyright 2000-2017 Horde LLC
  * @license   http://www.horde.org/licenses/apache ASL
  * @package   Turba
  */
@@ -19,7 +19,7 @@
  * @author    Chuck Hagenbuch <chuck@horde.org>
  * @author    Jon Parise <jon@csh.rit.edu>
  * @category  Horde
- * @copyright 2000-2015 Horde LLC
+ * @copyright 2000-2017 Horde LLC
  * @license   http://www.horde.org/licenses/apache ASL
  * @package   Turba
  */
@@ -137,7 +137,6 @@ class Turba_Driver implements Countable
         'lastname' => 'lastname',
         'firstname' => 'firstname',
         'middlenames' => 'middlename',
-        'alias' => 'nickname',
         'nickname' => 'nickname',
         'namePrefix' => 'title',
         'nameSuffix' => 'suffix',
@@ -358,11 +357,16 @@ class Turba_Driver implements Countable
      * @param array  $strict        Fields that must be matched exactly.
      * @param boolean $match_begin  Whether to match only at beginning of
      *                              words.
+     * @param array $custom_strict  Custom set of fields that are to matched
+     *                              exactly, but are glued using $search_type
+     *                              and 'AND' together with $strict fields.
+     *                              Allows an 'OR' search pm a custom set of
+     *                              $strict fields.
      *
      * @return array  An array of search criteria.
      */
     public function makeSearch($criteria, $search_type, array $strict,
-                               $match_begin = false)
+                               $match_begin = false, array $custom_strict = array())
     {
         $search = $search_terms = $subsearch = $strict_search = array();
         $glue = $temp = '';
@@ -418,6 +422,12 @@ class Turba_Driver implements Countable
                         /* For strict matches, use the original search
                          * vals. */
                         $strict_search[] = array(
+                            'field' => $field,
+                            'op' => '=',
+                            'test' => $val,
+                        );
+                    } elseif (!empty($custom_strict[$field])) {
+                        $search[] = array(
                             'field' => $field,
                             'op' => '=',
                             'test' => $val,
@@ -478,6 +488,12 @@ class Turba_Driver implements Countable
                         'op' => '=',
                         'test' => $val,
                     );
+                } elseif (!empty($custom_strict[$this->map[$key]])) {
+                    $search[] = array(
+                        'field' => $this->map[$key],
+                        'op' => '=',
+                        'test' => $val,
+                    );
                 } else {
                     $search[] = array(
                         'field' => $this->map[$key],
@@ -501,7 +517,7 @@ class Turba_Driver implements Countable
             );
         } elseif (count($strict_search)) {
             return array(
-                'AND' => $strict_search
+                $search_type => $strict_search
             );
         } elseif (count($search)) {
             return array(
@@ -586,32 +602,52 @@ class Turba_Driver implements Countable
     {
         global $injector;
 
-        /* If we are not using Horde_Share, enforce the requirement that the
-         * current user must be the owner of the addressbook. */
-        $search_criteria['__owner'] = $this->getContactOwner();
-        $strict_fields = array($this->toDriver('__owner') => true);
-
         /* Add any fields that must match exactly for this source to the
          * $strict_fields array. */
+        $strict_fields = $custom_strict_fields = array();
         foreach ($this->strict as $strict_field) {
             $strict_fields[$strict_field] = true;
         }
+
+        /* Differentiate between provided $custom_strict fields - which honor
+         * the $search_type and $strict fields which are not
+         * explicitly requested as part of this search, and as such, are not
+         * constrained by the requested $search_type. */
         foreach ($custom_strict as $strict_field) {
             if (isset($this->map[$strict_field])) {
-                $strict_fields[$this->map[$strict_field]] = true;
+                $custom_strict_fields[$this->map[$strict_field]] = true;
             }
         }
 
         /* Translate the Turba attributes to driver-specific attributes. */
         $fields = $this->makeSearch($search_criteria, $search_type,
-                                    $strict_fields, $match_begin);
+                                    $strict_fields, $match_begin, $custom_strict_fields);
+
+        /* If we are not using Horde_Share, enforce the requirement that the
+         * current user must be the owner of the addressbook. */
+        if (isset($this->map['__owner'])) {
+            $fields = array(
+                'AND' => array(
+                    $fields,
+                    array(
+                        'field' => $this->toDriver('__owner'),
+                        'op' => '=',
+                        'test' => $this->getContactOwner()
+                    )
+                )
+            );
+        }
 
         if (in_array('email', $return_fields) &&
             !in_array('emails', $return_fields)) {
             $return_fields[] = 'emails';
         }
         if (count($return_fields)) {
-            $return_fields_pre = array_unique(array_merge(array('__key', '__type', '__owner', '__members', 'name'), $return_fields));
+            $default_fields = array('__key', '__type', '__owner', '__members', 'name');
+            if ($this->alternativeName) {
+                $default_fields[] = $this->alternativeName;
+            }
+            $return_fields_pre = array_unique(array_merge($default_fields, $return_fields));
             $return_fields = array();
             foreach ($return_fields_pre as $field) {
                 $result = $this->toDriver($field);
@@ -640,7 +676,8 @@ class Turba_Driver implements Countable
         /* Need some magic if we are searching tags */
         $list = $this->_filterTags(
             $objects,
-            !empty($search_criteria['tags']) ? $injector->getInstance('Turba_Tagger')->split($search_criteria['tags']) : array()
+            !empty($search_criteria['tags']) ? $injector->getInstance('Turba_Tagger')->split($search_criteria['tags']) : array(),
+            $sort_order
         );
 
         if ($count_only) {
@@ -652,17 +689,19 @@ class Turba_Driver implements Countable
     /**
      * Returns a Turba_List object containing $objects filtered by $tags.
      *
-     * @param  array $objects  A hash of objects, as returned by self::_search.
-     * @param  array $tags     An array of tags to filter by.
+     * @param  array $objects     A hash of objects, as returned by
+     *                            self::_search.
+     * @param  array $tags        An array of tags to filter by.
+     * @param  Array $sort_order  The sort order to pass to Turba_List::sort.
      *
      * @return Turba_List  The filtered Turba_List object.
      */
-    protected function _filterTags($objects, $tags)
+    protected function _filterTags($objects, $tags, $sort_order = null)
     {
         global $injector;
 
         if (empty($tags)) {
-            return $this->_toTurbaObjects($objects);
+            return $this->_toTurbaObjects($objects, $sort_order);
         }
         $tag_results = $injector->getInstance('Turba_Tagger')
             ->search($tags, array('list' => $this->_name));
@@ -672,7 +711,7 @@ class Turba_Driver implements Countable
             return new Turba_List();
         }
 
-        $list = $this->_toTurbaObjects($objects);
+        $list = $this->_toTurbaObjects($objects, $sort_order);
         return $list->filter('__uid', $tag_results);
     }
 
@@ -996,12 +1035,13 @@ class Turba_Driver implements Countable
     /**
      * Deletes the specified entry from the contact source.
      *
-     * @param string $object_id  The ID of the object to delete.
+     * @param string $object_id      The ID of the object to delete.
+     * @param  boolean $remove_tags  Remove tags if true.
      *
      * @throws Turba_Exception
      * @throws Horde_Exception_NotFound
      */
-    public function delete($object_id)
+    public function delete($object_id, $remove_tags = true)
     {
         $object = $this->getObject($object_id);
 
@@ -1032,11 +1072,29 @@ class Turba_Driver implements Countable
 
         /* Remove any CalDAV mappings. */
         try {
-            $GLOBALS['injector']
-                ->getInstance('Horde_Dav_Storage')
-                ->deleteInternalObjectId($object_id, $this->_name);
+            $davStorage = $GLOBALS['injector']
+                ->getInstance('Horde_Dav_Storage');
+            try {
+                $davStorage
+                    ->deleteInternalObjectId($object_id, $this->_name);
+            } catch (Horde_Exception $e) {
+                Horde::log($e);
+            }
         } catch (Horde_Exception $e) {
-            Horde::log($e);
+        }
+
+        /* Remove tags */
+        if ($remove_tags) {
+            $GLOBALS['injector']->getInstance('Turba_Tagger')
+                ->replaceTags($object->getValue('__uid'), array(), $this->getContactOwner(), 'contact');
+
+            /* Tell content we removed the object
+            /* (Might have tags disabled, hence no Content_* objects autoloadable).
+             */
+            try {
+                $GLOBALS['injector']->getInstance('Content_Objects_Manager')
+                    ->delete(array($object->getValue('__uid')), 'contact');
+            } catch (Horde_Exception $e) {}
         }
     }
 
@@ -1058,16 +1116,24 @@ class Turba_Driver implements Countable
 
         $ids = $this->_deleteAll($sourceName);
 
-        // Update Horde_History
+        // Update Horde_History and Tagger
         $history = $GLOBALS['injector']->getInstance('Horde_History');
         try {
-            foreach ($ids as $id) {
+            foreach ($ids as $uid) {
                 // This is slightly hackish, but it saves us from having to
                 // create and save an array of Turba_Objects before we delete
                 // them, just to be able to calculate this using
                 // Turba_Object#getGuid
-                $guid = 'turba:' . $this->getName() . ':' . $id;
+                $guid = 'turba:' . $this->getName() . ':' . $uid;
                 $history->log($guid, array('action' => 'delete'), true);
+
+                // Remove tags.
+                $GLOBALS['injector']->getInstance('Turba_Tagger')
+                    ->replaceTags($uid, array(), $this->getContactOwner(), 'contact');
+
+                /* Tell content we removed the object */
+               $GLOBALS['injector']->getInstance('Content_Objects_Manager')
+                    ->delete(array($uid), 'contact');
             }
         } catch (Exception $e) {
             Horde::log($e, 'ERR');
@@ -2102,8 +2168,11 @@ class Turba_Driver implements Countable
      */
     public function toHash(Horde_Icalendar_Vcard $vcard)
     {
+        global $attributes;
+
         $hash = array();
         $attr = $vcard->getAllAttributes();
+
         foreach ($attr as $item) {
             switch ($item['name']) {
             case 'UID':
@@ -2357,12 +2426,14 @@ class Turba_Driver implements Countable
             case 'EMAIL':
                 $email_set = false;
                 if (isset($item['params']['HOME']) &&
+                    !empty($this->map['homeEmail']) &&
                     (!isset($hash['homeEmail']) ||
                      isset($item['params']['PREF']))) {
                     $e = Horde_Icalendar_Vcard::getBareEmail($item['value']);
                     $hash['homeEmail'] = $e ? $e : '';
                     $email_set = true;
                 } elseif (isset($item['params']['WORK']) &&
+                          !empty($this->map['workEmail']) &&
                           (!isset($hash['workEmail']) ||
                            isset($item['params']['PREF']))) {
                     $e = Horde_Icalendar_Vcard::getBareEmail($item['value']);
@@ -2376,12 +2447,14 @@ class Turba_Driver implements Countable
                         $type = Horde_String::upper($type);
                     }
                     if (in_array('HOME', $item['params']['TYPE']) &&
+                        !empty($this->map['homeEmail']) &&
                         (!isset($hash['homeEmail']) ||
                          in_array('PREF', $item['params']['TYPE']))) {
                         $e = Horde_Icalendar_Vcard::getBareEmail($item['value']);
                         $hash['homeEmail'] = $e ? $e : '';
                         $email_set = true;
                     } elseif (in_array('WORK', $item['params']['TYPE']) &&
+                              !empty($this->map['workEmail']) &&
                               (!isset($hash['workEmail']) ||
                          in_array('PREF', $item['params']['TYPE']))) {
                         $e = Horde_Icalendar_Vcard::getBareEmail($item['value']);
@@ -2389,9 +2462,11 @@ class Turba_Driver implements Countable
                         $email_set = true;
                     }
                 }
+
                 if (!$email_set &&
                     (!isset($hash['email']) ||
-                     isset($item['params']['PREF']))) {
+                     isset($item['params']['PREF']) ||
+                     (!empty($item['params']['TYPE']) && is_array($item['params']['TYPE']) && in_array('PREF', $item['params']['TYPE'])))) {
                     $e = Horde_Icalendar_Vcard::getBareEmail($item['value']);
                     $hash['email'] = $e ? $e : '';
                 }
@@ -2466,7 +2541,8 @@ class Turba_Driver implements Countable
                     break;
                 }
                 $type = Horde_String::lower($item['name']);
-                $hash[$type] = base64_decode($item['value']);
+                $type_key = $type . (!empty($this->map[$type . '_orig']) ? '_orig' : '');
+                $hash[$type_key] = base64_decode($item['value']);
                 if (isset($item['params']['TYPE'])) {
                     $hash[$type . 'type'] = $item['params']['TYPE'];
                 }
@@ -2528,19 +2604,6 @@ class Turba_Driver implements Countable
                     $hash['name'] .= ' ' . $hash['lastname'];
                 }
                 $hash['name'] = trim($hash['name']);
-            }
-        }
-
-        // Ensure we have an 'email' field since we don't know for sure what
-        // the source is, therefore we don't know the mappings available. Fixes
-        // importing vCards that have all EMAIL properties with a TYPE
-        // attribute.
-        // See Bug: 12955
-        if (!isset($hash['email'])) {
-            if (!empty($hash['homeEmail'])) {
-                $hash['email'] = Horde_Icalendar_Vcard::getBareEmail($hash['homeEmail']);
-            } else if (!empty($hash['workEmail'])) {
-                $hash['email'] = Horde_Icalendar_Vcard::getBareEmail($hash['workEmail']);
             }
         }
 
@@ -2686,22 +2749,21 @@ class Turba_Driver implements Countable
                 break;
 
             case 'notes':
-                if ($options['protocolversion'] > Horde_ActiveSync::VERSION_TWOFIVE) {
+                if (strlen($value) && $options['protocolversion'] > Horde_ActiveSync::VERSION_TWOFIVE) {
                     $bp = $options['bodyprefs'];
                     $note = new Horde_ActiveSync_Message_AirSyncBaseBody();
                     // No HTML supported in Turba's notes. Always use plaintext.
                     $note->type = Horde_ActiveSync::BODYPREF_TYPE_PLAIN;
-                    if (isset($bp[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize'])) {
-                        if (Horde_String::length($value) > $bp[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize']) {
+                    if (isset($bp[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize']) &&
+                        Horde_String::length($value) > $bp[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize']) {
                             $note->data = Horde_String::substr($value, 0, $bp[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize']);
                             $note->truncated = 1;
-                        } else {
-                            $note->data = $value;
-                        }
-                        $note->estimateddatasize = Horde_String::length($value);
+                    } else {
+                        $note->data = $value;
                     }
+                    $note->estimateddatasize = Horde_String::length($value);
                     $message->airsyncbasebody = $note;
-                } else {
+                } elseif (strlen($value)) {
                     // EAS 2.5
                     $message->body = $value;
                     $message->bodysize = strlen($message->body);
@@ -2732,7 +2794,8 @@ class Turba_Driver implements Countable
         }
 
         /* Get tags. */
-        $message->categories = explode(',', $object->getValue('__tags'));
+        $message->categories = $injector->getInstance('Turba_Tagger')
+            ->split($object->getValue('__tags'));
 
         if (empty($this->fileas)) {
             $message->fileas = Turba::formatName($object);
@@ -2778,6 +2841,11 @@ class Turba_Driver implements Countable
         // picture ($message->picture *should* already be base64 encdoed)
         if (!$message->isGhosted('picture')) {
             $hash['photo'] = base64_decode($message->picture);
+            if (!empty($hash['photo'])) {
+                $hash['phototype'] = Horde_Mime_Magic::analyzeData($hash['photo']);
+            } else {
+                $hash['phototype'] = null;
+            }
         }
 
         /* Email addresses */
@@ -3160,6 +3228,17 @@ class Turba_Driver implements Countable
             $hash['lastname'] = $hash['name'];
             $hash['firstname'] = '';
         }
+    }
+
+    /**
+     * Synchronize, if needed.
+     *
+     * @param mixed  $token  A value indicating the last synchronization point,
+     *                       if available.
+     */
+    public function synchronize($token = false)
+    {
+        // noop
     }
 
 }

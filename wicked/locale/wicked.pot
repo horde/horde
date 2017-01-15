@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wicked\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2015-01-08 11:22+0100\n"
+"POT-Creation-Date: 2016-08-08 15:58+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -240,12 +240,12 @@ msgstr ""
 msgid "Diff for %s between %s and %s"
 msgstr ""
 
-#: lib/Page.php:590
+#: lib/Page.php:616
 #, php-format
 msgid "Display %s"
 msgstr ""
 
-#: lib/Page.php:596 lib/Page/StandardPage.php:388
+#: lib/Page.php:622 lib/Page/StandardPage.php:388
 #, php-format
 msgid "Display Version %s"
 msgstr ""
@@ -341,7 +341,7 @@ msgstr ""
 msgid "Internal error viewing requested page: %s"
 msgstr ""
 
-#: lib/Api.php:258
+#: lib/Api.php:256
 msgid "Invalid page requested."
 msgstr ""
 
@@ -429,7 +429,7 @@ msgstr ""
 msgid "New name is the same as old name."
 msgstr ""
 
-#: lib/Api.php:196 lib/Page/EditPage.php:212
+#: lib/Api.php:194 lib/Page/EditPage.php:212
 msgid "No changes made"
 msgstr ""
 
@@ -477,7 +477,7 @@ msgstr ""
 msgid "Page failed to unlock: %s"
 msgstr ""
 
-#: lib/Driver/Sql.php:598 lib/Page/AddPage.php:61 lib/Page/NewPage.php:72
+#: lib/Driver/Sql.php:613 lib/Page/AddPage.php:61 lib/Page/NewPage.php:72
 msgid "Page name must not be empty"
 msgstr ""
 
@@ -497,7 +497,7 @@ msgstr ""
 msgid "Permissio_ns"
 msgstr ""
 
-#: lib/Api.php:254
+#: lib/Api.php:252
 msgid "Permission denied."
 msgstr ""
 
@@ -545,7 +545,7 @@ msgstr ""
 msgid "Renamed \"%s\" to \"%s\". New page: %s\n"
 msgstr ""
 
-#: lib/Driver/Sql.php:666
+#: lib/Driver/Sql.php:681
 #, php-format
 msgid "Renamed page from %s"
 msgstr ""
@@ -572,7 +572,7 @@ msgstr ""
 msgid "Reverted to version %s of \"%s\"."
 msgstr ""
 
-#: lib/Driver/Sql.php:602
+#: lib/Driver/Sql.php:617
 msgid "Robots are not allowed to create pages"
 msgstr ""
 
@@ -629,7 +629,7 @@ msgstr ""
 msgid "Successfully deleted version %s of \"%s\" from \"%s\""
 msgstr ""
 
-#: lib/Page.php:520
+#: lib/Page.php:526
 msgid "Table of Contents"
 msgstr ""
 
@@ -674,9 +674,9 @@ msgid "Unable to create Wiki/Home. The wiki is not configured."
 msgstr ""
 
 #: lib/Page.php:248 lib/Page.php:281 lib/Page.php:286 lib/Page.php:410
-#: lib/Page.php:418 lib/Page.php:426 lib/Page.php:436 lib/Page.php:570
-#: lib/Page.php:609 lib/Page.php:614 lib/Page.php:619 lib/Page.php:624
-#: lib/Page.php:664
+#: lib/Page.php:418 lib/Page.php:426 lib/Page.php:436 lib/Page.php:596
+#: lib/Page.php:635 lib/Page.php:640 lib/Page.php:645 lib/Page.php:650
+#: lib/Page.php:695
 msgid "Unsupported"
 msgstr ""
 
@@ -703,7 +703,7 @@ msgstr ""
 msgid "View page: "
 msgstr ""
 
-#: lib/Api.php:213
+#: lib/Api.php:211
 msgid "Wiki Templates"
 msgstr ""
 
@@ -739,7 +739,7 @@ msgstr ""
 msgid "You don't have permission to delete \"%s\"."
 msgstr ""
 
-#: lib/Api.php:178 lib/Page/EditPage.php:194 lib/Page/RevertPage.php:133
+#: lib/Api.php:176 lib/Page/EditPage.php:194 lib/Page/RevertPage.php:133
 #, php-format
 msgid "You don't have permission to edit \"%s\"."
 msgstr ""
@@ -752,7 +752,7 @@ msgstr ""
 msgid "You must enter a change description to attach this file."
 msgstr ""
 
-#: lib/Api.php:182 lib/Page/EditPage.php:205
+#: lib/Api.php:180 lib/Page/EditPage.php:205
 msgid "You must provide a change log."
 msgstr ""
 

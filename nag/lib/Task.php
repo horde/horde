@@ -302,7 +302,7 @@ class Nag_Task
     /**
      * Task tags (lazy loaded).
      *
-     * @var array
+     * @var string
      */
     protected $_tags;
 
@@ -372,6 +372,17 @@ class Nag_Task
     }
 
     /**
+     * Deep clone so we can clone the child objects too.
+     *
+     */
+    public function __clone()
+    {
+        foreach ($this->children as $key => $value) {
+            $this->children[$key] = clone $value;
+        }
+    }
+
+    /**
      * Merges a task hash into this task object.
      *
      * @param array $task  A task hash.
@@ -392,6 +403,20 @@ class Nag_Task
             }
             $this->$key = $val;
         }
+    }
+
+    /**
+     * Disconnect this task from any child tasks. Used when building search
+     * result sets since child tasks will be re-added if they actually match
+     * the result, and there is no guarentee that a tasks's parent will
+     * be present in the result set.
+     */
+    public function orphan()
+    {
+        $this->children = array();
+        $this->_dict = array();
+        $this->lastChild = null;
+        $this->indent = null;
     }
 
     /**
@@ -422,12 +447,14 @@ class Nag_Task
      *
      * @param Nag_Task $task  A sub task.
      */
-    public function add(Nag_Task $task)
+    public function add(Nag_Task $task, $replace = false)
     {
         if (!isset($this->_dict[$task->id])) {
             $this->_dict[$task->id] = count($this->children);
             $task->parent = $this;
             $this->children[] = $task;
+        } elseif ($replace) {
+            $this->children[$this->_dict[$task->id]]= $task;
         }
     }
 
@@ -591,22 +618,35 @@ class Nag_Task
 
     /**
      * Toggles completion status of this task. Moves a recurring task
-     * to the next occurence on completion.
+     * to the next occurence on completion. Enforces the rule that sub
+     * tasks must be completed before parent tasks.
      */
-    public function toggleComplete()
+    public function toggleComplete($ignore_children = false)
     {
+        if ($ignore_children) {
+            $this->loadChildren();
+            if (!$this->completed && !$this->childrenCompleted()) {
+                throw new Nag_Exception(_("Must complete all children tasks."));
+            }
+        }
         if ($this->completed) {
             $this->completed_date = null;
             $this->completed = false;
-            if ($this->recurs()) {
-                /* What do we want do delete here? All completions?  The latest
-                 * completion? Any completion in the future? */
-                foreach ($this->recurrence->getCompletions() as $completion) {
-                    $this->recurrence->deleteCompletion(
-                        substr($completion, 0, 4),
-                        substr($completion, 4, 2),
-                        substr($completion, 6, 2));
+            if ($parent = $this->getParent()) {
+                if ($parent->completed) {
+                    $parent->toggleComplete(true);
+                    $parent->save();
                 }
+            }
+            if ($this->recurs()) {
+                /* Only delete the latest completion. */
+                $completions = $this->recurrence->getCompletions();
+                sort($completions);
+                list($year, $month, $mday) = sscanf(
+                    end($completions),
+                    '%04d%02d%02d'
+                );
+                $this->recurrence->deleteCompletion($year, $month, $mday);
             }
             return;
         }
@@ -670,7 +710,7 @@ class Nag_Task
      *
      * Takes recurring tasks into account.
      *
-     * @return Horde_Date  The next due date.
+     * @return Horde_Date|null  The next due date or null if no due date.
      */
     public function getNextDue()
     {
@@ -680,7 +720,10 @@ class Nag_Task
         if (!$this->recurs()) {
             return new Horde_Date($this->due);
         }
-        return $this->recurrence->nextActiveRecurrence($this->due);
+        if (!($nextActive = $this->recurrence->nextActiveRecurrence($this->due))) {
+            return null;
+        }
+        return $nextActive;
     }
 
     /**
@@ -716,6 +759,26 @@ class Nag_Task
         }
         $this->_pointer = 0;
         $this->_inlist = false;
+    }
+
+    /**
+     * Return the task, if present anywhere in this tasklist, regardless of
+     * child depth.
+     *
+     * @param  string $taskId  The task id we are looking for.
+     *
+     * @return Nag_Task|false  The task object, if found. Otherwise false.
+     */
+    public function hasTask($taskId)
+    {
+        $this->reset();
+        while ($task = $this->each()) {
+            if ($task->id == $taskId) {
+                return $task;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -949,8 +1012,10 @@ class Nag_Task
     public function synchronizeTags(array $tags)
     {
         if (isset($this->internaltags)) {
-            usort($tags, 'strcoll');
-            if (array_diff($this->internaltags, $tags)) {
+            $lower_internaltags = array_map('Horde_String::lower', $this->internaltags);
+            $lower_tags = array_map('Horde_String::lower', $tags);
+
+            if (array_diff($lower_internaltags, $lower_tags)) {
                 $GLOBALS['injector']->getInstance('Nag_Tagger')->replaceTags(
                     $this->uid,
                     $this->internaltags,
@@ -958,7 +1023,7 @@ class Nag_Task
                     'task'
                 );
             }
-            $this->_tags = $this->internaltags;
+            $this->_tags = implode(',', $this->internaltags);
         } else {
             $this->_tags = $tags;
         }
@@ -1120,14 +1185,26 @@ class Nag_Task
                 $json->r = $this->recurrence->toJson();
             }
 
-            try {
-                $share = $GLOBALS['nag_shares']->getShare($this->tasklist);
-            } catch (Horde_Share_Exception $e) {
-                Horde::log($e->getMessage(), 'ERR');
-                throw new Nag_Exception($e);
+            if ($this->tasklist == '**EXTERNAL**') {
+                $json->vl = (string)$this->view_link;
+                $json->cl = (string)$this->complete_link;
+                $json->pe = $json->pd = false;
+            } else {
+                try {
+                    $share = $GLOBALS['nag_shares']->getShare($this->tasklist);
+                } catch (Horde_Share_Exception $e) {
+                    Horde::log($e->getMessage(), 'ERR');
+                    throw new Nag_Exception($e);
+                }
+                $json->pe = $share->hasPermission(
+                    $GLOBALS['registry']->getAuth(),
+                    Horde_Perms::EDIT
+                );
+                $json->pd = $share->hasPermission(
+                    $GLOBALS['registry']->getAuth(),
+                    Horde_Perms::DELETE
+                );
             }
-            $json->pe = $share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT);
-            $json->pd = $share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE);
         }
 
         return $json;
@@ -1396,13 +1473,13 @@ class Nag_Task
         /* Due Date */
         if (!empty($this->due)) {
             $message->utcduedate = new Horde_Date($this->due);
-            $message->duedate = new Horde_Date($this->due, 'UTC');
+            $message->duedate = clone($message->utcduedate);
         }
 
         /* Start Date */
         if (!empty($this->start)) {
             $message->utcstartdate = new Horde_Date($this->start);
-            $message->startdate = new Horde_Date($this->start, 'UTC');
+            $message->startdate = clone($message->utcstartdate);
         }
 
         /* Priority */
@@ -1451,8 +1528,11 @@ class Nag_Task
 
         try {
             $name = $vTodo->getAttribute('SUMMARY');
-            if (!is_array($name)) { $this->name = $name; }
-        } catch (Horde_Icalendar_Exception $e) {}
+            if (!is_array($name)) {
+                $this->name = $name;
+            }
+        } catch (Horde_Icalendar_Exception $e) {
+        }
 
         // Not sure why we were mapping the ORGANIZER to the person the
         // task is assigned to? If anything, this needs to be mapped to
@@ -1524,9 +1604,11 @@ class Nag_Task
             foreach ($relations as $id => $relation) {
                 if (empty($params[$id]['RELTYPE']) ||
                     Horde_String::upper($params[$id]['RELTYPE']) == 'PARENT') {
-
-                    $parent = $this->_storage->getByUID($relation, $this->tasklist);
-                    $this->parent_id = $parent->id;
+                    try {
+                        $parent = $this->_storage->getByUID($relation, $this->tasklist);
+                        $this->parent_id = $parent->id;
+                    } catch (Horde_Exception_NotFound $e) {
+                    }
                     break;
                 }
             }
@@ -1569,7 +1651,7 @@ class Nag_Task
                 if (is_array($exdates)) {
                     foreach ($exdates as $exdate) {
                         if (is_array($exdate)) {
-                            $this->recurrence->addException(
+                            $this->recurrence->addCompletion(
                                 (int)$exdate['year'],
                                 (int)$exdate['month'],
                                 (int)$exdate['mday']);
@@ -1710,6 +1792,12 @@ class Nag_Task
         /* Owner is always current user. */
         $this->owner = $GLOBALS['registry']->getAuth();
 
+        /* Must set _tags so we don't lazy load tags from the backend in the
+         * case that this is an edit. For edits, all current tags will be passed
+         * from the client.
+         */
+        $this->_tags = array();
+
         /* Notes and Title */
         if ($message->getProtocolVersion() >= Horde_ActiveSync::VERSION_TWELVE) {
             if ($message->airsyncbasebody->type == Horde_ActiveSync::BODYPREF_TYPE_HTML) {
@@ -1735,14 +1823,43 @@ class Nag_Task
         }
 
         /* Due Date */
-        if (($due = $message->utcduedate) || ($due = $message->duedate)) {
+        if ($due = $message->utcduedate) {
             $due->setTimezone($tz);
+            $this->due = $due->timestamp();
+        } elseif ($due = $message->duedate) {
+            // "Local" date, sent as a UTC datetime string,
+            // but must be interpreted as a local time. Since
+            // we have no timezone information we have to assume it's the
+            // same as $tz.
+            $due = new Horde_Date(
+                array(
+                    'year' => $due->year,
+                    'month' => $due->month,
+                    'mday' => $due->mday,
+                    'hour' => $due->hour,
+                    'min' => $due->min
+                ),
+                $tz
+            );
             $this->due = $due->timestamp();
         }
 
         /* Start Date */
-        if (($start = $message->utcstartdate) || ($start = $message->startdate)) {
+        if ($start = $message->utcstartdate) {
             $start->setTimezone($tz);
+            $this->start = $start->timestamp();
+        } elseif ($start = $message->startdate) {
+            // See note above regarding utc vs local times.
+            $start = new Horde_Date(
+                array(
+                    'year' => $start->year,
+                    'month' => $start->month,
+                    'mday' => $start->mday,
+                    'hour' => $start->hour,
+                    'min' => $start->min
+                ),
+                $tz
+            );
             $this->start = $start->timestamp();
         }
 
@@ -1774,7 +1891,7 @@ class Nag_Task
 
         /* Categories */
         if (is_array($message->categories) && count($message->categories)) {
-            $this->tags = $message->categories;
+            $this->tags = implode(',', $message->categories);
         }
     }
 

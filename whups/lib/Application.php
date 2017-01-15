@@ -5,7 +5,7 @@
  * This file defines Horde's core API interface. Other core Horde libraries
  * can interact with Whups through this API.
  *
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -36,7 +36,7 @@ class Whups_Application extends Horde_Registry_Application
 {
     /**
      */
-    public $version = 'H5 (3.0.1-git)';
+    public $version = 'H5 (4.0.0-git)';
 
     /**
      * Global variables defined:
@@ -107,9 +107,29 @@ class Whups_Application extends Horde_Registry_Application
 
     public function sidebar($sidebar)
     {
+        global $registry, $session;
+
         $sidebar->addNewButton(
             _("_New Ticket"),
             Horde::url('ticket/create.php'));
+        $sidebar->containers['queries'] = array(
+            'header' => array(
+                'id' => 'whups-toggle-queries',
+                'label' => _("Saved Queries"),
+            ),
+        );
+        $manager = new Whups_Query_Manager();
+        $queries = $manager->listQueries($registry->getAuth(), true);
+        foreach ($queries as $id => $query) {
+            $row = array(
+                'selected' => strpos(strval(Horde::selfUrl()), $registry->get('webroot') . '/query') === 0 &&
+                    $id == $session->get('whups', 'query'),
+                'cssClass' => 'whups-sidebar-query',
+                'url' => Whups::urlFor('query', empty($query['slug']) ? array('id' => $id) : array('slug' => $query['slug'])),
+                'label' => $query['name'],
+            );
+            $sidebar->addRow($row, 'queries');
+        }
     }
 
     /**
@@ -166,6 +186,7 @@ class Whups_Application extends Horde_Registry_Application
 
         switch ($vars->actionID) {
         case 'download_file':
+        case 'download_message':
             // Get the ticket details first.
             if (empty($vars->ticket)) {
                 exit;
@@ -175,22 +196,41 @@ class Whups_Application extends Horde_Registry_Application
 
             // Check permissions on this ticket.
             if (!count(Whups::permissionsFilter($whups_driver->getHistory($vars->ticket), 'comment', Horde_Perms::READ))) {
-                throw new Whups_Exception(sprintf(_("You are not allowed to view ticket %d."), $vars->ticket));
+                throw new Whups_Exception(sprintf(
+                    _("You are not allowed to view ticket %d."),
+                    $vars->ticket
+                ));
             }
 
             try {
-                $vfs = $injector->getInstance('Horde_Core_Factory_Vfs')->create();
+                $vfs = $injector->getInstance('Horde_Core_Factory_Vfs')
+                    ->create();
             } catch (Horde_Exception $e) {
                 throw new Whups_Exception(_("The VFS backend needs to be configured to enable attachment uploads."));
             }
 
             try {
-                return array(
-                    'data' => $vfs->read(Whups::VFS_ATTACH_PATH . '/' . $vars->ticket, $vars->file),
-                    'name' => $vars->file
-                );
+                if ($vars->actionID == 'download_message') {
+                    return array(
+                        'data' => $vfs->read(
+                            Whups::VFS_MESSAGE_PATH . '/' . $vars->ticket,
+                            $vars->message
+                        ),
+                        'name' => _("Original message") . '.eml'
+                    );
+                } else {
+                    return array(
+                        'data' => $vfs->read(
+                            Whups::VFS_ATTACH_PATH . '/' . $vars->ticket,
+                            $vars->file
+                        ),
+                        'name' => $vars->file
+                    );
+                }
             } catch (Horde_Vfs_Exception $e) {
-                throw new Whups_Exception(sprintf(_("Access denied to %s"), $vars->file));
+                throw new Whups_Exception(
+                    sprintf(_("Access denied to %s"), $vars->file)
+                );
             }
             break;
 

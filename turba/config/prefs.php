@@ -55,7 +55,7 @@ $_prefs['sync_books'] = array(
         if (empty($sync_books)) {
             $GLOBALS['prefs']->setValue('sync_books', serialize(array(Turba::getDefaultAddressbook())));
         }
-        foreach (Turba::getAddressBooks() as $key => $val) {
+        foreach (Turba::getAddressBooks(Horde_Perms::DELETE) as $key => $val) {
             if (!empty($val['map']['__uid']) &&
                 !empty($val['browse'])) {
                 $enum[$key] = $val['title'];
@@ -64,17 +64,22 @@ $_prefs['sync_books'] = array(
         $ui->prefs['sync_books']['enum'] = $enum;
     },
     'on_change' => function() {
-        if ($GLOBALS['conf']['activesync']['enabled'] && !$GLOBALS['prefs']->getValue('activesync_no_multiplex')) {
+        if ($GLOBALS['conf']['activesync']['enabled']) {
             try {
                 $sm = $GLOBALS['injector']->getInstance('Horde_ActiveSyncState');
                 $sm->setLogger($GLOBALS['injector']->getInstance('Horde_Log_Logger'));
                 $devices = $sm->listDevices($GLOBALS['registry']->getAuth());
                 foreach ($devices as $device) {
-                    $sm->removeState(array(
-                        'devId' => $device['device_id'],
-                        'id' => Horde_Core_ActiveSync_Driver::CONTACTS_FOLDER_UID,
-                        'user' => $GLOBALS['registry']->getAuth()
-                    ));
+                    $device_ob = $sm->loadDeviceInfo($device['device_id'], $device['device_user']);
+                    if (!$GLOBALS['prefs']->getValue('activesync_no_multiplex') ||
+                        ($device_ob->multiplex & Horde_ActiveSync_Device::MULTIPLEX_CONTACTS)) {
+                        $map = $sm->getFolderUidToBackendIdMap();
+                        $sm->removeState(array(
+                            'devId' => $device['device_id'],
+                            'id' => (!empty($map[Horde_Core_ActiveSync_Driver::CONTACTS_FOLDER_UID]) ? $map[Horde_Core_ActiveSync_Driver::CONTACTS_FOLDER_UID] : Horde_Core_ActiveSync_Driver::CONTACTS_FOLDER_UID),
+                            'user' => $GLOBALS['registry']->getAuth()
+                        ));
+                    }
                 }
                 $GLOBALS['notification']->push(_("All state removed for your ActiveSync devices. They will resynchronize next time they connect to the server."));
             } catch (Horde_ActiveSync_Exception $e) {

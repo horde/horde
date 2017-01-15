@@ -11,13 +11,7 @@
 /**
  * This class defines the current version of PHPUnit.
  *
- * @package    PHPUnit
- * @subpackage Runner
- * @author     Sebastian Bergmann <sebastian@phpunit.de>
- * @copyright  Sebastian Bergmann <sebastian@phpunit.de>
- * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
- * @link       http://www.phpunit.de/
- * @since      Class available since Release 2.0.0
+ * @since Class available since Release 2.0.0
  */
 class PHPUnit_Runner_Version
 {
@@ -36,11 +30,28 @@ class PHPUnit_Runner_Version
         }
 
         if (self::$version === null) {
-            $version = new SebastianBergmann\Version('4.5.0', dirname(dirname(__DIR__)));
+            $version       = new SebastianBergmann\Version('4.8.26', dirname(dirname(__DIR__)));
             self::$version = $version->getVersion();
         }
 
         return self::$version;
+    }
+
+    /**
+     * @return string
+     *
+     * @since Method available since Release 4.8.13
+     */
+    public static function series()
+    {
+        if (strpos(self::id(), '-')) {
+            $tmp     = explode('-', self::id());
+            $version = $tmp[0];
+        } else {
+            $version = self::id();
+        }
+
+        return implode('.', array_slice(explode('.', $version), 0, 2));
     }
 
     /**
@@ -53,16 +64,13 @@ class PHPUnit_Runner_Version
 
     /**
      * @return string
+     *
      * @since  Method available since Release 4.0.0
      */
     public static function getReleaseChannel()
     {
-        if (strpos(self::$pharVersion, 'alpha') !== false) {
-            return '-alpha';
-        }
-
-        if (strpos(self::$pharVersion, 'beta') !== false) {
-            return '-beta';
+        if (strpos(self::$pharVersion, '-') !== false) {
+            return '-nightly';
         }
 
         return '';

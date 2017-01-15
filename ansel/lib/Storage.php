@@ -11,7 +11,7 @@
 /**
  * Class for interfacing with back end data storage.
  *
- * Copyright 2001-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -395,7 +395,9 @@ class Ansel_Storage
             try {
                 $gallery->removeImage($image, true);
             } catch (Horde_Exception_NotFound $e) {
-                throw new Ansel_Exception($e);
+                // Don't worry about missing images since we are deleting them
+                // anyway.
+                Horde::log($e->getMessage(), 'ERR');
             }
         }
         $gallery->set('images', 0, true);
@@ -490,12 +492,13 @@ class Ansel_Storage
         if (!$image) {
             throw new Horde_Exception_NotFound(_("Photo not found"));
         } else {
+            $columns = $this->_db->columns('ansel_images');
             $image['image_filename'] = Horde_String::convertCharset(
                 $image['image_filename'],
                 $GLOBALS['conf']['sql']['charset'],
                 'UTF-8');
             $image['image_caption'] = Horde_String::convertCharset(
-                $image['image_caption'],
+                $columns['image_caption']->binaryToString($image['image_caption']),
                 $GLOBALS['conf']['sql']['charset'],
                 'UTF-8');
             $this->_images[$id] = new Ansel_Image($image);
@@ -705,9 +708,10 @@ class Ansel_Storage
         }
 
         $return = array();
+        $columns = $this->_db->columns('ansel_images');
         foreach ($images as $image) {
             $image['image_filename'] = Horde_String::convertCharset($image['image_filename'], $GLOBALS['conf']['sql']['charset'], 'UTF-8');
-            $image['image_caption'] = Horde_String::convertCharset($image['image_caption'], $GLOBALS['conf']['sql']['charset'], 'UTF-8');
+            $image['image_caption'] = Horde_String::convertCharset($columns['image_caption']->binaryToString($image['image_caption']), $GLOBALS['conf']['sql']['charset'], 'UTF-8');
             $return[$image['image_id']] = new Ansel_Image($image);
             $this->_images[(int)$image['image_id']] = &$return[$image['image_id']];
         }
@@ -834,14 +838,14 @@ class Ansel_Storage
             $sql = $this->_db->addLimitOffset($sql, array('limit' => (int)$limit));
         }
         try {
-            $images = $this->_db->selectAll($sql, $criteria);
+            $images = $this->_db->select($sql, $criteria);
         } catch (Horde_Db_Exception $e) {
             throw new Ansel_Exception($e);
         }
-
+        $columns = $this->_db->columns('ansel_images');
         foreach($images as $image) {
             $image['image_filename'] = Horde_String::convertCharset($image['image_filename'], $GLOBALS['conf']['sql']['charset'], 'UTF-8');
-            $image['image_caption'] = Horde_String::convertCharset($image['image_caption'], $GLOBALS['conf']['sql']['charset'], 'UTF-8');
+            $image['image_caption'] = Horde_String::convertCharset($columns['image_caption']->binaryToString($image['image_caption']), $GLOBALS['conf']['sql']['charset'], 'UTF-8');
             $results[] = new Ansel_Image($image);
         }
 
@@ -1149,7 +1153,7 @@ class Ansel_Storage
 
         try {
             if ($field_count > 1) {
-                $results = $this->_db->selectAll($sql);
+                $results = $this->_db->select($sql);
                 $images = array();
                 foreach ($results as $image) {
                     $images[$image['image_id']] = $image;

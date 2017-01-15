@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2012-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
- * @copyright 2012-2015 Horde LLC
+ * @copyright 2012-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -16,7 +16,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2012-2015 Horde LLC
+ * @copyright 2012-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -58,7 +58,7 @@ class IMP_Prefs_Special_PgpPrivateKey implements Horde_Core_Prefs_Ui_Special
                     'token' => true
                 ))->add('send_pgp_key', 1), _("Send Key to Public Keyserver"));
 
-                if ($injector->getInstance('IMP_Crypt_Pgp')->getPassphrase('personal')) {
+                if ($injector->getInstance('IMP_Pgp')->getPassphrase('personal')) {
                     $view->passphrase = Horde::link($ui->selfUrl(array(
                         'special' => true,
                         'token' => true
@@ -90,6 +90,7 @@ class IMP_Prefs_Special_PgpPrivateKey implements Horde_Core_Prefs_Ui_Special
                 $view->fromaddr = $imp_identity->getFromAddress()->bare_address;
 
                 if (!empty($conf['pgp']['keylength'])) {
+                    $view->create_pgp_keypair = true;
                     $page_output->addInlineScript(array(
                         '$("create_pgp_key").observe("click", function(e) { if (!window.confirm(' . json_encode(_("Key generation may take a long time to complete.  Continue with key generation?")) . ')) { e.stop(); } })'
                     ), true);
@@ -98,7 +99,7 @@ class IMP_Prefs_Special_PgpPrivateKey implements Horde_Core_Prefs_Ui_Special
                 if ($browser->allowFileUploads()) {
                     $view->import_pgp_private = true;
                     $page_output->addInlineScript(array(
-                        '$("import_pgp_personal").observe("click", function(e) { ' . Horde::popupJs($pgp_url, array('params' => array('actionID' => 'import_personal_key', 'reload' => base64_encode($ui->selfUrl()->setRaw(true))), 'height' => 275, 'width' => 750, 'urlencode' => true)) . '; e.stop(); })'
+                        '$("import_pgp_personal").observe("click", function(e) { ' . Horde::popupJs($pgp_url, array('params' => array('actionID' => 'import_personal_key', 'reload' => base64_encode($ui->selfUrl()->setRaw(true))), 'height' => 300, 'width' => 750, 'urlencode' => true)) . '; e.stop(); })'
                     ), true);
                 }
             }
@@ -113,7 +114,7 @@ class IMP_Prefs_Special_PgpPrivateKey implements Horde_Core_Prefs_Ui_Special
     {
         global $conf, $injector, $notification;
 
-        $imp_pgp = $injector->getInstance('IMP_Crypt_Pgp');
+        $imp_pgp = $injector->getInstance('IMP_Pgp');
 
         if (isset($ui->vars->delete_pgp_privkey)) {
             $imp_pgp->deletePersonalKeys();

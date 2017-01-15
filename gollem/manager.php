@@ -2,7 +2,7 @@
 /**
  * Gollem main file manager script.
  *
- * Copyright 1999-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did notcan receive this file, see http://www.horde.org/licenses/gpl.
@@ -202,6 +202,7 @@ case 'change_sortdir':
 
 /* First loop through getting folder lists, setting the directory,
  * etc., to make sure we can catch any errors. */
+$list = null;
 try {
     $list = Gollem::listFolder(Gollem::$backend['dir']);
 } catch (Horde_Exception $e) {

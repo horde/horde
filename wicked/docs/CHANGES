@@ -1,8 +1,28 @@
 ----------
-v2.0.3-git
+v3.0.0-git
 ----------
 
+[jan] Complete the reST renderer.
 [jan] Add navigation between pages from the same hierarchy.
+
+
+------
+v2.0.4
+------
+
+[jan] Update Italian translation.
+[jan] Update Brazilian Portuguese translation (Luis Felipe Marzagao
+      <duli@easylifeproject.org>).
+[mjr] Fix fatal error in API due to incorrect access of protected member.
+[mjr] Fix fatal error in Whups_Api::getMultiplePageInfo due to erroneous
+      include.
+
+
+------
+v2.0.3
+------
+
+[jan] Fix updating annotated links when renaming pages.
 [jan] Add ReST rendering rule for horizontal rulers.
 
 

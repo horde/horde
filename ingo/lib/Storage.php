@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -399,4 +399,13 @@ implements Countable, IteratorAggregate
         return new ArrayIterator($this->_rules);
     }
 
+    /**
+     * Clears the internal rule cache.
+     *
+     * @since Ingo 3.2.12
+     */
+    public function clearCache()
+    {
+        $this->_cache = array();
+    }
 }

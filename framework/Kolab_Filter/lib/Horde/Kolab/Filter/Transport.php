@@ -41,7 +41,7 @@ class Horde_Kolab_Filter_Transport
     /**
      * Constructor.
      */
-    function Horde_Kolab_Filter_Transport($params)
+    function __construct($params)
     {
         $this->_params = $params;
         $this->_transport = false;

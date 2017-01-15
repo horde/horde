@@ -3,7 +3,7 @@
  * This class extends Horde_Form to provide the form to add/edit
  * feeds.
  *
- * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://cvs.horde.org/co.php/jonah/LICENSE.
@@ -24,13 +24,6 @@ class Jonah_Form_Feed extends Horde_Form
         parent::__construct($vars, ($editing ? _("Edit Feed") : _("New Feed")));
 
         $this->addHidden('', 'channel_id', 'int', false);
-        $this->addHidden('', 'old_channel_type', 'text', false);
-
-        $select_type =& $this->addVariable(_("Type"), 'channel_type', 'enum', true, false, null, array(Jonah::getAvailableTypes()));
-        $select_type->setDefault(Jonah::INTERNAL_CHANNEL);
-        $select_type->setHelp('feed-type');
-        $select_type->setAction(Horde_Form_Action::factory('submit'));
-
         $this->addVariable(_("Name"), 'channel_name', 'text', true);
         $this->addVariable(_("Extra information for this feed type"), 'extra_info', 'header', false);
     }

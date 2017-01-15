@@ -14,7 +14,7 @@
 /**
  * Represents a component.
  *
- * Copyright 2011-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -54,6 +54,13 @@ interface Components_Component
      * @return string The component version.
      */
     public function getVersion();
+
+    /**
+     * Returns the previous version of the component.
+     *
+     * @return string The previous component version.
+     */
+    public function getPreviousVersion();
 
     /**
      * Return the last release date of the component.

@@ -3,7 +3,7 @@
  * Kronolith_Calendar_Internal defines an API for single internal (share)
  * calendars.
  *
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -96,6 +96,9 @@ class Kronolith_Calendar_Internal extends Kronolith_Calendar
         if ($user === null) {
             $user = $GLOBALS['registry']->getAuth();
         }
+        if ($this->_share->get('user') == null && $GLOBALS['registry']->isAdmin()) {
+            return true;
+        }
         return $this->_share->hasPermission($user, $permission, $creator);
     }
 
@@ -132,6 +135,17 @@ class Kronolith_Calendar_Internal extends Kronolith_Calendar
     }
 
     /**
+     * Returns if this is a system calendar.
+     *
+     * @return boolean  True if system calendar, otherwise false.
+     */
+    public function isSystem()
+    {
+        $owner = $this->owner();
+        return empty($owner) && ($this->_share->get('calendar_type') == Kronolith::SHARE_TYPE_USER);
+    }
+
+    /**
      * Returns a hash representing this calendar.
      *
      * @return array  A simple hash.
@@ -142,17 +156,20 @@ class Kronolith_Calendar_Internal extends Kronolith_Calendar
 
         $id = $this->_share->getName();
         $owner = $registry->getAuth() &&
-            $this->owner() == $registry->getAuth();
+            ($this->owner() == $registry->getAuth() ||
+             $this->isSystem() && $registry->isAdmin());
 
         $hash = parent::toHash();
         $hash['name']  = $this->name();
         $hash['owner'] = $owner;
+        $hash['system'] = $this->isSystem();
         $hash['users'] = Kronolith::listShareUsers($this->_share);
         $hash['show']  = in_array(
             $id,
             $calendar_manager->get(Kronolith::DISPLAY_CALENDARS)
         );
         $hash['edit']  = $this->hasPermission(Horde_Perms::EDIT);
+        $hash['delete']  = $this->hasPermission(Horde_Perms::DELETE);
         $hash['caldav'] = $this->caldavUrl();
         $hash['sub'] = Horde::url(
             $registry->get('webroot', 'horde')
@@ -168,7 +185,7 @@ class Kronolith_Calendar_Internal extends Kronolith_Calendar
         $hash['embed'] = Kronolith::embedCode($id);
         $hash['tg']    = array_values(Kronolith::getTagger()->getTags($id, Kronolith_Tagger::TYPE_CALENDAR));
         if ($owner) {
-            $hash['perms'] = Kronolith::permissionToJson($this->_share->getPermission());
+            $hash['perms'] = Kronolith::permissionToJson($this->_share->getPermission(), is_null($this->_share->get('owner')));
         }
 
         return $hash;

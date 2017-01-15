@@ -14,7 +14,7 @@
 /**
  * Defines the Kolab data handler.
  *
- * Copyright 2011-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -77,10 +77,12 @@ extends Horde_Kolab_Storage_Queriable
     /**
      * Report the status of this folder.
      *
+     * @param Horde_Kolab_Storage_Folder_Stamp $previous  The previous stamp,
+     *                                                    if available.
      * @return Horde_Kolab_Storage_Folder_Stamp The stamp that can be used for
      *                                          detecting folder changes.
      */
-    public function getStamp();
+    public function getStamp(Horde_Kolab_Storage_Folder_Stamp $previous = null);
 
     /**
      * Create a new object.
@@ -253,4 +255,11 @@ extends Horde_Kolab_Storage_Queriable
      * @return NULL
      */
     public function deleteBackendIds($uids);
+
+    /**
+     * Set a logger.
+     *
+     * @param Horde_Log_Logger $logger  The logger instance.
+     */
+    public function setLogger(Horde_Log_Logger $logger);
 }

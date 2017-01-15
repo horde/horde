@@ -4,7 +4,7 @@ require_once __DIR__ . '/../lib/Style.php';
 /**
  * Upgrade to Ansel 2 style schema
  *
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -44,7 +44,7 @@ class AnselUpgradeStyle extends Horde_Db_Migration_Base
                  'GalleryFaces' => array(),
                  'OwnerFaces' => array()));
 
-        $rows = $this->_connection->selectAll($sql);
+        $rows = $this->_connection->select($sql);
         $update = 'UPDATE ansel_shares SET attribute_style = ? WHERE share_id = ?;';
         foreach ($rows as $row) {
             // Make sure we haven't already migrated

@@ -14,7 +14,7 @@
 /**
  * Basic query for preferences data.
  *
- * Copyright 2011-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -33,14 +33,14 @@ implements Horde_Kolab_Storage_Data_Query_Preferences
      *
      * @var Horde_Kolab_Storage_Data
      */
-    private $_data;
+    protected $_data;
 
     /**
      * The cached preference mapping.
      *
      * @var array
      */
-    private $_mapping;
+    protected $_mapping;
 
     /**
      * Constructor.
@@ -114,4 +114,10 @@ implements Horde_Kolab_Storage_Data_Query_Preferences
     public function synchronize($params = array())
     {
     }
+
+    public function setLogger(Horde_Log_Logger $logger = null)
+    {
+
+    }
+
 }

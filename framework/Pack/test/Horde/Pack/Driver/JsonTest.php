@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2013-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2013-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -26,4 +26,13 @@
 class Horde_Pack_Driver_JsonTest extends Horde_Pack_Driver_TestBase
 {
     protected $drivername = 'Horde_Pack_Driver_Json';
+
+    /**
+     * @expectedException Horde_Pack_Exception
+     * @expectedExceptionMessage Could not pack data.
+     */
+    public function testInvalidUtf8()
+    {
+        $this->_runTest(chr(228));
+    }
 }

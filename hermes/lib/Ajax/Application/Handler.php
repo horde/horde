@@ -2,7 +2,7 @@
 /**
  * Defines the AJAX actions used in Hermes.
  *
- * Copyright 2012-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -225,6 +225,10 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
                 ->listDeliverables(array('client_id' => $client_id)));
             foreach ($objs as &$obj) {
                 $obj['id'] = 'hermes:' . $obj['id'];
+                $obj['hours'] = 0;
+                foreach($injector->getInstance('Hermes_Driver')->getHours(array('costobject' => $obj['id'])) as $slice) {
+                    $obj['hours'] += $slice['hours'];
+                }
             }
 
             return $objs;
@@ -234,6 +238,10 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
         foreach (Hermes::getCostObjects($client_id, true) as $category) {
             Horde_Array::arraySort($category['objects'], 'name');
             foreach ($category['objects'] as $object) {
+                $hours = 0;
+                foreach($injector->getInstance('Hermes_Driver')->getHours(array('costobject' => $object['id'])) as $slice) {
+                    $hours += $slice['hours'];
+                }
                 $elts[] = array(
                     'id' => $object['id'],
                     'client_id' => false,
@@ -241,7 +249,8 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
                     'parent' => empty($object['parent']) ? 0 : $object['parent'],
                     'estimate' => empty($object['estimate']) ? 0 : $object['estimate'],
                     'active' => true,
-                    'is_external' => true
+                    'is_external' => true,
+                    'hours' => $hours
                 );
             }
         }
@@ -422,8 +431,19 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
         $tname = $timer['name'];
         $elapsed = ((!$timer['paused']) ? time() - $timer['time'] : 0 ) + $timer['elapsed'];
         $results['h'] = round((float)$elapsed / 3600, 2);
+        $started = new Horde_Date($this->vars->t, 'UTC');
+        $started->setTimezone(date_default_timezone_get());
+        $now = new Horde_Date(time(), 'UTC');
+        $now->setTimezone(date_default_timezone_get());
         if ($prefs->getValue('add_description')) {
-            $results['n'] = sprintf(_("Using the \"%s\" stop watch from %s %s to %s %s"), $tname, strftime($prefs->getValue('date_format_mini'), $this->vars->t), strftime($prefs->getValue('time_format'), $this->vars->t), strftime($prefs->getValue('date_format_mini'), time()), strftime($prefs->getValue('time_format'), time()));
+            $results['n'] = sprintf(
+                _("Using the \"%s\" stop watch from %s %s to %s %s"),
+                $tname,
+                $started->strftime($prefs->getValue('date_format_mini')),
+                $started->strftime($prefs->getValue('time_format')),
+                $now->strftime($prefs->getValue('date_format_mini')),
+                $now->strftime($prefs->getValue('time_format'))
+            );
         } else {
             $results['n'] = '';
         }

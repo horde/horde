@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2012-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
- * @copyright 2012-2015 Horde LLC
+ * @copyright 2012-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -16,7 +16,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2012-2015 Horde LLC
+ * @copyright 2012-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -412,6 +412,12 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
                 $context['ctx_mbox']['search']
             );
         }
+        if (!$imp_imap->access(IMP_Imap::ACCESS_FLAGS) ||
+            $prefs->isLocked('acl')) {
+            unset(
+                $context['ctx_mbox']['_sub2']
+            );
+        }
 
         /* Other Actions context menu. */
         $context['ctx_oa'] = array(
@@ -538,6 +544,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             'moveto' => _("Move %s to %s"),
             'newflag_name' => _("Flag Name:"),
             'newflag_wait' => _("Creating New Flag..."),
+            'no_folder_name' => _("Must enter a folder name"),
             'onlogout' => _("Logging Out..."),
             'portal' => _("Portal"),
             'prefs' => _("User Options"),

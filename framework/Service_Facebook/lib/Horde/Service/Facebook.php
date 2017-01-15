@@ -8,7 +8,7 @@
  * of the original code or design is left. I left the original copyright notice
  * intact below.
  *
- * Copyright 2009-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2017 Horde LLC (http://www.horde.org/)
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @category Horde
@@ -149,7 +149,7 @@ class Horde_Service_Facebook
         }
 
         // If not, assume it's a method/action class...
-        $class = 'Horde_Service_Facebook_' . ucfirst($value);
+        $class = 'Horde_Service_Facebook_' . Horde_String::ucfirst($value);
         if (!class_exists($class)) {
             throw new Horde_Service_Facebook_Exception(sprintf("%s class not found", $class));
         }

@@ -5,15 +5,6 @@
 #portal .horde-content {
     padding: 5px;
 }
-table.horde-block-weather {
-    border: 1px solid transparent;
-    border-collapse: collapse;
-    width: 100%;
-}
-table.horde-block-weather td {
-    border: 1px solid #ddd;
-    text-align: center;
-}
 
 #googlesearch {
     padding: .3em;
@@ -71,4 +62,42 @@ table.horde-block-weather td {
     opacity: 0.8;
     z-index: 9000;
     background-color: #000000;
+}
+
+/* Weather Block Related CSS */
+table.hordeBlockWeather, table.hordeBlockWeatherForecast {
+    border: 1px solid transparent;
+    border-collapse: collapse;
+    width: 100%;
+}
+table.hordeBlockWeather td, table.hordeBlockWeatherForecast td {
+    border: 1px solid #ddd;
+}
+table.hordeBlockWeatherForecast td {
+    text-align: center;
+}
+
+
+.horde-block-weathermap .olMapViewport {
+    top: -15px;
+}
+.horde-block-weathermap {
+    border: 1px solid #ddd;
+}
+.hordeWeatherAlert, .hordeWeatherAdvisory {
+    background-color: #ffdf4d;
+    border: 1px solid #e1c444;
+}
+.hordeWeatherStatement {
+    background-color: #689fb4;
+    border: 1px solid #5c8c9f;
+}
+.hordeWeatherWatch {
+    background-color: #ffdf4d;
+    border: 1px solid #e1c444;
+}
+.hordeWeatherWarning {
+    background-color: #f03232;
+    border: 1px solid #cb2a2a;
+    color: #fff;
 }

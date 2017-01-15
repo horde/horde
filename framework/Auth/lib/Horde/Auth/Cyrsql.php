@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, http://www.horde.org/licenses/lgpl21
@@ -252,7 +252,7 @@ class Horde_Auth_Cyrsql extends Horde_Auth_Sql
             parent::addUser($userId, $credentials);
         }
 
-        $mailbox = $this->_params['userhierarchy'];
+        $mailbox = $this->_params['userhierarchy'] . $userId;
 
         try {
             $this->_imap->createMailbox($mailbox);
@@ -309,7 +309,7 @@ class Horde_Auth_Cyrsql extends Horde_Auth_Sql
         /* Set ACL for mailbox deletion. */
         list($admin) = explode('@', $this->_params['cyradmin']);
 
-        $mailbox = $this->_params['userhierarchy'];
+        $mailbox = $this->_params['userhierarchy'] . $userId;
 
         try {
             $this->_imap->setACL($mailbox, $admin, array('rights' => 'lrswipcda'));
@@ -347,7 +347,7 @@ class Horde_Auth_Cyrsql extends Horde_Auth_Sql
         }
 
         try {
-            $result = $this->_db->selectAll($query);
+            $result = $this->_db->select($query);
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Auth_Exception($e);
         }

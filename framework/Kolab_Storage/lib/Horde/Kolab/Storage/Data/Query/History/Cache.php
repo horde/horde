@@ -16,7 +16,7 @@
  * The cache based hook that updates the Horde history information once data
  * gets synchronized with the Kolab backend.
  *
- * Copyright 2011-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -34,27 +34,49 @@ extends Horde_Kolab_Storage_Data_Query_History_Base
      * Synchronize the preferences information with the information from the
      * backend.
      *
-     * @param array $params Additional parameters.
-     *
-     * @return NULL
+     * @param array $params Additional parameters:
+     *   - current_sync: (integer) Timestamp of the current sync.
+     *   - last_sync:    (integer) Timestamp containing the time of last sync.
+     *   - changes:      (array)   An array of arrays keyed by backend id
+     *                             containing information about each change.
      */
     public function synchronize($params = array())
     {
+        $timestamp_key = 'Kolab_History_Sync:' . $this->_data->getId();
+
+        /**
+         * Check if we need to do a full synchronization. If our stored 'last_sync'
+         * timestamp is newer than the logged 'sync' action in the history database,
+         * the last history update aborted for some reason.
+         *
+         * If the 'sync' action from the history database is newer, it means
+         * our in-memory version of the data_cache was outdated
+         * and already updated by another process.
+         */
         if (isset($params['last_sync']) &&
             ($params['last_sync'] === false ||
-             $params['last_sync'] !== $this->history->getActionTimestamp(__CLASS__ , 'sync'))) {
-            /**
-             * Ignore current changeset and do a full synchronization as we are
-             * out of sync
-             */
+             $params['last_sync'] > $this->_history->getActionTimestamp($timestamp_key, 'sync')))
+        {
+            $folder_id = $this->_data->getIdParameters();
+            unset($folder_id['type']);
+
+            $this->_logger->debug(sprintf(
+                '[KOLAB_STORAGE] Resyncing Horde_History for Kolab: last_sync: %d, logged sync: %d, folder. %s',
+                $params['last_sync'],
+                $this->_history->getActionTimestamp($timestamp_key, 'sync'),
+                print_r($folder_id, true))
+            );
+
             unset($params['changes']);
         }
+        // Sync. Base class takes care of UIDVALIDITY changes.
         parent::synchronize($params);
         if (isset($params['current_sync'])) {
-            $this->history->log(
-                __CLASS__ ,
-                array('action' => 'sync', 'ts' => $params['current_sync'])
+            $this->_history->log(
+                $timestamp_key,
+                array('action' => 'sync', 'ts' => $params['current_sync']), true
             );
         }
     }
+
 }

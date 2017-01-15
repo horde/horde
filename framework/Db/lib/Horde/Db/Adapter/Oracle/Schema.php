@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2013-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2013-2017 Horde LLC (http://www.horde.org/)
  *
  * @author     Jan Schneider <jan@horde.org>
  * @license    http://www.horde.org/licenses/bsd
@@ -435,8 +435,10 @@ class Horde_Db_Adapter_Oracle_Schema extends Horde_Db_Adapter_Base_Schema
         $columnOptions = array(
             'limit' => $column->getLimit(),
             'default' => $column->getDefault(),
-            'null' => $column->isNull()
         );
+        if (!$column->isNull()) {
+            $columnOptions['null'] = false;
+        }
         $old = $this->addColumnOptions(
             $this->typeToSql(
                 $column->getType(),

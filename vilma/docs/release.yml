@@ -1,0 +1,11 @@
+# Security release?
+security: false
+
+# Main changes
+changes:
+
+# Additional notes like security reports
+additional:
+
+# Horde compatibility branch
+branch: Horde 5

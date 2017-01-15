@@ -2,7 +2,7 @@
 /**
  * The Horde_SyncMl_State class provides a SyncML state object.
  *
- * Copyright 2003-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -108,6 +108,15 @@ class Horde_SyncMl_State
      * @var integer
      */
     public $maxMsgSize = 1000000000;
+
+    /**
+     * The maximum allowed object size in bytes.
+     *
+     * @todo Change to PHP_INT_MAX.
+     *
+     * @var integer
+     */
+    public $maxObjSize = 1000000000;
 
     /**
      * Array of Horde_SyncMl_Sync objects.
@@ -284,9 +293,6 @@ class Horde_SyncMl_State
                 /* The Morola A1000 has a similar (UIQ) firmware as the
                  * P800: */
                 $this->_deviceDriver = 'P800';
-            } elseif (!empty($di->Man) &&
-                      stristr($di->Man, 'synthesis') !== false) {
-                $this->_deviceDriver = 'Synthesis';
             } elseif (!empty($di->Man) &&
                       stristr($di->Man, 'nokia') !== false) {
                 $this->_deviceDriver = 'Nokia';

@@ -14,7 +14,7 @@
 /**
  * Kolab XML handler for IMAP folder annotations.
  *
- * Copyright 2008-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see
@@ -59,7 +59,7 @@ class Horde_Kolab_Format_Xml_Annotation extends Horde_Kolab_Format_Xml
 
         $result = array();
         foreach ($object['annotation'] as $annotation) {
-            list($key, $value)           = split('#', $annotation, 2);
+            list($key, $value)           = explode('#', $annotation, 2);
             $result[base64_decode($key)] = base64_decode($value);
         }
 

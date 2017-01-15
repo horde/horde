@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2011-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
  *
  * @author     Jan Schneider <jan@horde.org>
  * @category   Horde
@@ -57,7 +57,7 @@ class Horde_Prefs_Test_Sql_Base extends Horde_Test_Case
 
     public static function setUpBeforeClass()
     {
-        //$logger = new Horde_Log_Logger(new Horde_Log_Handler_Cli());
+        $logger = new Horde_Log_Logger(new Horde_Log_Handler_Cli());
         //self::$db->setLogger($logger);
         $dir = __DIR__ . '/../../../../../../migration/Horde/Prefs';
         if (!is_dir($dir)) {
@@ -84,6 +84,9 @@ class Horde_Prefs_Test_Sql_Base extends Horde_Test_Case
     public static function tearDownAfterClass()
     {
         self::$prefs = null;
+        if (self::$db) {
+            self::$db->delete('DELETE FROM horde_prefs');
+        }
         if (self::$migrator) {
             self::$migrator->down();
             self::$migrator = null;

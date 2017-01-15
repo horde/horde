@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2012-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
- * @copyright 2012-2015 Horde LLC
+ * @copyright 2012-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -16,7 +16,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2012-2015 Horde LLC
+ * @copyright 2012-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -52,7 +52,6 @@ class IMP_Prefs_Special_InitialPage implements Horde_Core_Prefs_Ui_Special
         $view->folder_page = IMP_Mailbox::formTo(IMP::INITIAL_FOLDERS);
         $view->folder_sel = ($initial_page == IMP::INITIAL_FOLDERS);
         $view->flist = new IMP_Ftree_Select(array(
-            'basename' => true,
             'inc_vfolder' => true,
             'iterator' => $iterator,
             'selected' => $initial_page

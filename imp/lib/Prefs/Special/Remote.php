@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2013-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2013-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
- * @copyright 2013-2015 Horde LLC
+ * @copyright 2013-2017 Horde LLC
  * @license   http://www.fsf.org/copyleft/gpl.html GPL
  * @package   IMP
  */
@@ -16,7 +16,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2013-2015 Horde LLC
+ * @copyright 2013-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -32,7 +32,11 @@ class IMP_Prefs_Special_Remote implements Horde_Core_Prefs_Ui_Special
      */
     public function display(Horde_Core_Prefs_Ui $ui)
     {
-        global $injector, $page_output;
+        global $injector, $page_output, $prefs;
+
+        if ($prefs->isLocked('remote')) {
+            return;
+        }
 
         $ui->nobuttons = true;
 
@@ -72,7 +76,11 @@ class IMP_Prefs_Special_Remote implements Horde_Core_Prefs_Ui_Special
      */
     public function update(Horde_Core_Prefs_Ui $ui)
     {
-        global $injector, $notification;
+        global $injector, $notification, $prefs;
+
+        if ($prefs->isLocked('remote')) {
+            return false;
+        }
 
         $remote = $injector->getInstance('IMP_Remote');
 

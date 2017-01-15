@@ -2,7 +2,7 @@
 /**
  * Jonah_View_StoryEdit:: to add/edit stories.
  *
- * Copyright 2003-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you did not
  * did not receive this file, see http://cvs.horde.org/co.php/jonah/LICENSE.
@@ -42,7 +42,7 @@ class Jonah_View_StoryEdit extends Jonah_View_Base
         }
 
         /* Check permissions. */
-        if (!Jonah::checkPermissions(Jonah::typeToPermName($channel['channel_type']), Horde_Perms::EDIT, $channel_id)) {
+        if (!Jonah::checkPermissions('channels', Horde_Perms::EDIT, array($channel_id))) {
             $notification->push(_("You are not authorised for this action."), 'horde.warning');
             throw new Horde_Exception_AuthenticationFailure();
         }
@@ -50,7 +50,7 @@ class Jonah_View_StoryEdit extends Jonah_View_Base
         /* Check if a story is being edited. */
         $story_id = $vars->get('id');
         if ($story_id && !$vars->get('formname')) {
-            $story = $driver->getStory($channel_id, $story_id);
+            $story = $driver->getStory($story_id);
             $story['tags'] = implode(',', array_values($story['tags']));
             $vars = new Horde_Variables($story);
         }

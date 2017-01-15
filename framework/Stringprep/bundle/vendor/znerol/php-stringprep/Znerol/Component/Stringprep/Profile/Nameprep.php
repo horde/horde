@@ -1,6 +1,7 @@
 <?php
 
 namespace Znerol\Component\Stringprep\Profile;
+use Znerol\Component\Stringprep\Profile;
 
 /**
  * Stringprep profile for nameprep defined in RFC 3491

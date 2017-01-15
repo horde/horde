@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2015-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @category  Horde
- * @copyright 2015 Horde LLC
+ * @copyright 2015-2017 Horde LLC
  * @license   http://www.horde.org/licenses/apache ASL
  * @package   Ingo
  */
@@ -16,7 +16,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2015 Horde LLC
+ * @copyright 2015-2017 Horde LLC
  * @license   http://www.horde.org/licenses/apache ASL
  * @package   Ingo
  */
@@ -43,7 +43,7 @@ implements Ingo_Rule_System
     protected function _setAddressesException($addr_count, $max)
     {
         return new Ingo_Exception(sprintf(
-            _("Maximum number of whitelisted addresses exceeded (Total addresses: %s, Maximum addresses: %s). Could not add new addresses to whitelist."),
+            _("Maximum number of whitelisted addresses exceeded (Total addresses: %d, Maximum addresses: %d). Could not add new addresses to whitelist."),
             $addr_count,
             $max
         ));

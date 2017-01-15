@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2015-03-09</date>
+ <date>2016-12-05</date>
  <version>
   <release>7.0.0</release>
   <api>7.0.0</api>
@@ -33,6 +33,19 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Allow to specify a secondary S/MIME certificate for signatures only.
+* [jan] Find logged replies in other than default sent-mail folders too.
+* [mjr] Fix SyntaxHighlighter MIME viewer not rendering part after the initial view of a part (Bug 14337).
+* [mjr] Display comment attribute in iTip viewer (Request #14407).
+* [mjr] Update the user/attendee participation status when accepting/importing an iTip.
+* [jan] Allow to import multiple PGP keys in a single PGP packet (Request #13190).
+* [jan] Add Alt+Home and Alt+End hotkeys to navigate in preview pane (michael.menge@zdv.uni-tuebingen.de, Request #13983).
+* [mjr] Add support for sending MDN via the API.
+* [mjr] Add imap_preauthenticate hook.
+* [mms] Report multiple spam/innocent messages in a single digest.
+* [mms] Remove mailbox from polled list when unsubscribing from it.
+* [mms] Allow remote account passwords to be saved encrypted in user&apos;s preferences (Request #13168).
+* [mms] Send IMP MUA information to IMAP servers that support the ID extension.
 * [mms] Send S/MIME encrypted data to multiple recipients in a single outgoing message.
 * [mms] Sent-mail maillog entries are now linked to a viewable representation of the sent message, if it still exists on the server.
 * [mms] Store message ID of the sent message when saving maillog history.
@@ -152,6 +165,7 @@
     <file name="passphrase.js" role="horde" />
     <file name="search.js" role="horde" />
     <file name="smartmobile.js" role="horde" />
+    <file name="syntaxhighlighter.js" role="horde" />
     <file name="viewport.js" role="horde" />
     <file name="viewport_utils.js" role="horde" />
    </dir> <!-- /js -->
@@ -243,14 +257,9 @@
      <file name="Image.php" role="horde" />
     </dir> <!-- /lib/Contacts -->
     <dir name="Contents">
-     <file name="InlineOutput.php" role="horde" />
      <file name="Message.php" role="horde" />
      <file name="View.php" role="horde" />
     </dir> <!-- /lib/Contents -->
-    <dir name="Crypt">
-     <file name="Pgp.php" role="horde" />
-     <file name="Smime.php" role="horde" />
-    </dir> <!-- /lib/Crypt -->
     <dir name="Dynamic">
      <dir name="Compose">
       <file name="Common.php" role="horde" />
@@ -422,6 +431,7 @@
       <file name="Null.php" role="horde" />
      </dir> <!-- /lib/Maillog/Storage -->
      <file name="Message.php" role="horde" />
+     <file name="Messages.php" role="horde" />
     </dir> <!-- /lib/Maillog -->
     <dir name="Mbox">
      <file name="Generate.php" role="horde" />
@@ -457,12 +467,12 @@
       <file name="Smil.php" role="horde" />
       <file name="Smime.php" role="horde" />
       <file name="Status.php" role="horde" />
+      <file name="Syntaxhighlighter.php" role="horde" />
       <file name="Tgz.php" role="horde" />
       <file name="Vcard.php" role="horde" />
       <file name="Video.php" role="horde" />
       <file name="Zip.php" role="horde" />
      </dir> <!-- /lib/Mime/Viewer -->
-     <file name="Attachment.php" role="horde" />
      <file name="Headers.php" role="horde" />
      <file name="Status.php" role="horde" />
     </dir> <!-- /lib/Mime -->
@@ -604,11 +614,13 @@
     <file name="Mailbox.php" role="horde" />
     <file name="Maillog.php" role="horde" />
     <file name="Perms.php" role="horde" />
+    <file name="Pgp.php" role="horde" />
     <file name="Quota.php" role="horde" />
     <file name="Remote.php" role="horde" />
     <file name="Search.php" role="horde" />
     <file name="Sentmail.php" role="horde" />
     <file name="Smartmobile.php" role="horde" />
+    <file name="Smime.php" role="horde" />
     <file name="Spam.php" role="horde" />
     <file name="Test.php" role="horde" />
    </dir> <!-- /lib -->
@@ -991,7 +1003,8 @@
      <file name="search.html.php" role="horde" />
     </dir> <!-- /templates/smartmobile -->
     <dir name="smime">
-     <file name="import_key.html.php" role="horde" />
+     <file name="import_personal_key.html.php" role="horde" />
+     <file name="import_public_key.html.php" role="horde" />
     </dir> <!-- /templates/smime -->
     <dir name="subinfo">
      <file name="subinfo.html.php" role="horde" />
@@ -1252,9 +1265,16 @@
    <package>
     <name>Horde_Crypt</name>
     <channel>pear.horde.org</channel>
-    <min>2.5.0</min>
+    <min>2.7.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Crypt_Blowfish</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Css_Parser</name>
@@ -1287,7 +1307,7 @@
    <package>
     <name>Horde_Icalendar</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.1.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1336,14 +1356,14 @@
    <package>
     <name>Horde_Mail_Autoconfig</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0alpha1</max>
     <exclude>2.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Mime</name>
     <channel>pear.horde.org</channel>
-    <min>2.8.0</min>
+    <min>2.10.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1495,9 +1515,16 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
+    <name>Horde_Mongo</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
+   </package>
+   <package>
     <name>Horde_Service_Gravatar</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0alpha1</min>
+    <min>1.0.0</min>
     <max>2.0.0alpha1</max>
     <exclude>2.0.0alpha1</exclude>
    </package>
@@ -1549,6 +1576,7 @@
    <install as="imp/js/passphrase.js" name="js/passphrase.js" />
    <install as="imp/js/search.js" name="js/search.js" />
    <install as="imp/js/smartmobile.js" name="js/smartmobile.js" />
+   <install as="imp/js/syntaxhighlighter.js" name="js/syntaxhighlighter.js" />
    <install as="imp/js/viewport.js" name="js/viewport.js" />
    <install as="imp/js/viewport_utils.js" name="js/viewport_utils.js" />
    <install as="imp/js/ckeditor/images.js" name="js/ckeditor/images.js" />
@@ -1589,11 +1617,13 @@
    <install as="imp/lib/Mailbox.php" name="lib/Mailbox.php" />
    <install as="imp/lib/Maillog.php" name="lib/Maillog.php" />
    <install as="imp/lib/Perms.php" name="lib/Perms.php" />
+   <install as="imp/lib/Pgp.php" name="lib/Pgp.php" />
    <install as="imp/lib/Quota.php" name="lib/Quota.php" />
    <install as="imp/lib/Remote.php" name="lib/Remote.php" />
    <install as="imp/lib/Search.php" name="lib/Search.php" />
    <install as="imp/lib/Sentmail.php" name="lib/Sentmail.php" />
    <install as="imp/lib/Smartmobile.php" name="lib/Smartmobile.php" />
+   <install as="imp/lib/Smime.php" name="lib/Smime.php" />
    <install as="imp/lib/Spam.php" name="lib/Spam.php" />
    <install as="imp/lib/Test.php" name="lib/Test.php" />
    <install as="imp/lib/Ajax/Addresses.php" name="lib/Ajax/Addresses.php" />
@@ -1652,11 +1682,8 @@
    <install as="imp/lib/Contacts/Avatar/Unknown.php" name="lib/Contacts/Avatar/Unknown.php" />
    <install as="imp/lib/Contacts/Flag/Backend.php" name="lib/Contacts/Flag/Backend.php" />
    <install as="imp/lib/Contacts/Flag/Host.php" name="lib/Contacts/Flag/Host.php" />
-   <install as="imp/lib/Contents/InlineOutput.php" name="lib/Contents/InlineOutput.php" />
    <install as="imp/lib/Contents/Message.php" name="lib/Contents/Message.php" />
    <install as="imp/lib/Contents/View.php" name="lib/Contents/View.php" />
-   <install as="imp/lib/Crypt/Pgp.php" name="lib/Crypt/Pgp.php" />
-   <install as="imp/lib/Crypt/Smime.php" name="lib/Crypt/Smime.php" />
    <install as="imp/lib/Dynamic/AddressList.php" name="lib/Dynamic/AddressList.php" />
    <install as="imp/lib/Dynamic/Base.php" name="lib/Dynamic/Base.php" />
    <install as="imp/lib/Dynamic/Compose.php" name="lib/Dynamic/Compose.php" />
@@ -1766,6 +1793,7 @@
    <install as="imp/lib/Mailbox/List/Thread.php" name="lib/Mailbox/List/Thread.php" />
    <install as="imp/lib/Mailbox/List/Virtual.php" name="lib/Mailbox/List/Virtual.php" />
    <install as="imp/lib/Maillog/Message.php" name="lib/Maillog/Message.php" />
+   <install as="imp/lib/Maillog/Messages.php" name="lib/Maillog/Messages.php" />
    <install as="imp/lib/Maillog/Log/Base.php" name="lib/Maillog/Log/Base.php" />
    <install as="imp/lib/Maillog/Log/Forward.php" name="lib/Maillog/Log/Forward.php" />
    <install as="imp/lib/Maillog/Log/Mdn.php" name="lib/Maillog/Log/Mdn.php" />
@@ -1783,7 +1811,6 @@
    <install as="imp/lib/Mbox/Import.php" name="lib/Mbox/Import.php" />
    <install as="imp/lib/Mbox/Size.php" name="lib/Mbox/Size.php" />
    <install as="imp/lib/Message/Date.php" name="lib/Message/Date.php" />
-   <install as="imp/lib/Mime/Attachment.php" name="lib/Mime/Attachment.php" />
    <install as="imp/lib/Mime/Headers.php" name="lib/Mime/Headers.php" />
    <install as="imp/lib/Mime/Status.php" name="lib/Mime/Status.php" />
    <install as="imp/lib/Mime/Status/RenderIssue.php" name="lib/Mime/Status/RenderIssue.php" />
@@ -1806,6 +1833,7 @@
    <install as="imp/lib/Mime/Viewer/Smil.php" name="lib/Mime/Viewer/Smil.php" />
    <install as="imp/lib/Mime/Viewer/Smime.php" name="lib/Mime/Viewer/Smime.php" />
    <install as="imp/lib/Mime/Viewer/Status.php" name="lib/Mime/Viewer/Status.php" />
+   <install as="imp/lib/Mime/Viewer/Syntaxhighlighter.php" name="lib/Mime/Viewer/Syntaxhighlighter.php" />
    <install as="imp/lib/Mime/Viewer/Tgz.php" name="lib/Mime/Viewer/Tgz.php" />
    <install as="imp/lib/Mime/Viewer/Vcard.php" name="lib/Mime/Viewer/Vcard.php" />
    <install as="imp/lib/Mime/Viewer/Video.php" name="lib/Mime/Viewer/Video.php" />
@@ -2062,7 +2090,8 @@
    <install as="imp/templates/smartmobile/mailbox.html.php" name="templates/smartmobile/mailbox.html.php" />
    <install as="imp/templates/smartmobile/message.html.php" name="templates/smartmobile/message.html.php" />
    <install as="imp/templates/smartmobile/search.html.php" name="templates/smartmobile/search.html.php" />
-   <install as="imp/templates/smime/import_key.html.php" name="templates/smime/import_key.html.php" />
+   <install as="imp/templates/smime/import_personal_key.html.php" name="templates/smime/import_personal_key.html.php" />
+   <install as="imp/templates/smime/import_public_key.html.php" name="templates/smime/import_public_key.html.php" />
    <install as="imp/templates/subinfo/subinfo.html.php" name="templates/subinfo/subinfo.html.php" />
    <install as="imp/templates/test/mailserver.inc" name="templates/test/mailserver.inc" />
    <install as="imp/templates/thread/thread.html.php" name="templates/thread/thread.html.php" />
@@ -3613,7 +3642,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2014-06-04</date>
+   <date>2014-06-17</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] Fix saving attachments to sent-mail message in smartmobile view (Bug #13257).
@@ -3678,7 +3707,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-    <date>2014-09-05</date>
+   <date>2014-09-05</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] Ensure that search/POP3 mailbox listings are saved even if there is an issue with the underlying cache backend.
@@ -3701,7 +3730,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-09-05</date>
+   <date>2014-10-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] Fix handling authentication errors when they take place during an attempt to determine a mailbox&apos;s namespace.
@@ -3718,7 +3747,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-10-29</date>
+   <date>2014-12-03</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] Don&apos;t persist dynamic filter views across page reloads.
@@ -3734,7 +3763,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-12-03</date>
+   <date>2015-01-14</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] Fix advanced search (Bug #13773).
@@ -3751,7 +3780,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-01-14</date>
+   <date>2015-01-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Fix adding addresses from address book popup (Bug #13806).
@@ -3767,9 +3796,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-01-20</date>
+   <date>2015-02-10</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix regression with not being able to list users (Bug #13808).
 * [mms] Fix rebuilding the folder tree translations when the language is changed in a session (Bug #13821).
    </notes>
   </release>
@@ -3780,12 +3810,225 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-02-10</date>
+   <date>2015-04-28</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] SECURITY: Fix XSS vulnerability when manually switching between plaintext -&gt; HTML compose mode.
+* [jan] Update Bcc address when switching identities (João Machado &lt;geral@jpaulo.eu&gt;, Bug #13922).
 * [jan] Fix protocol name in POP3 example backend configuration.
 * [mms] Don&apos;t honor linked attachment limit configuration options if linked attachments are disabled (Bug #13665).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>6.2.9</release>
+    <api>6.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-06-18</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Don&apos;t focus body field when composing message with HTML editor.
+* [jan] Protect against infinite request loop if expanding all mailboxes.
+* [jan] Don&apos;t show ACL context menu if ACL preferences are locked.
+* [jan] Fix redirecting in smartmobile mode (Bug #14002).
+* [jan] Fix address autocompletion in redirection window of smartmobile mode (Bug #14002).
+* [jan] Fix setting single recipients in redirection window in basic mode (Bug #14002).
+* [jan] Don&apos;t switch to regular compose view after an error in the redirection view in basic mode.
+* [jan] Fix cancelling redirection window in basic mode (Bug #14002).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>6.2.10</release>
+    <api>6.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-08-01</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mms] Ensure mailbox name is a valid string (Bug #14049).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>6.2.11</release>
+    <api>6.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-10-21</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Request that the contacts API only consider email fields when detecting duplicates during automatic saving of attendees to the address book (Bug #14119).
+* [jan] Don&apos;t show "Create Keys" button if creating PGP keys is disabled (steffen.hau@rz.uni-mannheim.de, Request #14096).
+* [mjr] Fix displaying iTips with certain locale/date_format preference combinations (Bug #14076).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>6.2.12</release>
+    <api>6.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-02-02</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Don&apos;t strip PGP mime parts when saving sent messages (Bug #14233).
+* [jan] Fix retrieving public PGP keys with certain HTTP client backends.
+* [jan] Send MDNs from the correct identity (Bug #14034).
+* [jan] Fix autocompleter filtering if items exceed the maximum size (jsveiga@it.eng.br, Bug #13984).
+* [jan] Use access rules compatible with both Apache 2.2 and 2.4.
+* [jan] Allow to disable remote accounts by locking the preference.
+* [jan] Fix setting title with newmail count in IE11 and Edge (Bug #14189).
+* [jan] Fix wrapping of plain text converted from HTML MIME parts.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>6.2.13</release>
+    <api>6.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-03-21</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix opening compose window on IE when uploads are disabled (Bug #14267).
+* [jan] Update Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
+* [jan] Fix creating new trash folder from preference screen.
+* [jan] Fix finding reply or forward text from signed or encrypted messages with HTML content.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>6.2.14</release>
+    <api>6.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-04-05</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix renaming subfolders in basic view (Bug #14254).
+* [mjr] Fix display of mailbox sizes in basic view (Bug #14308).
+* [mjr] Fix fatal error when deleting messages in basic view when IMAP server does not support QRESYNC or CONDSTORE (Bug #14257).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>6.2.15</release>
+    <api>6.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-07-01</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Update Portuguese translation.
+* [jan] Update Basque translation.
+* [jan] Remove &lt;link rel=""&gt; tags with "Previous" and "Next" from basic message view (Bug #14400).
+* [jan] Display translated mailbox names in drop down lists too.
+* [jan] Consistently display the raw mailbox name in mailbox element titles.
+* [jan] Unset window opener when opening new windows from HTML messages (João Machado &lt;geral@jpaulo.eu&gt;).
+* [mjr] Fix re-adding an attachment after it has been removed from the compose window (Bug #14329).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>6.2.16</release>
+    <api>6.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-09-06</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Optimize deleting or moving a large number of messages.
+* [jan] Fix the &apos;special_mboxes&apos; backend configuration (Bug #14423).
+* [mjr] Fix display of application/pkcs-7-mime parts (Bug #14363).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>6.2.17</release>
+    <api>6.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-09-06</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Update preview cache after permanently unblocking images from a sender (Bug #14446).
+   </notes>
+  </release>
+  <release>
+   <date>2016-12-05</date>
+   <version>
+    <release>7.0.0</release>
+    <api>7.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Allow to specify a secondary S/MIME certificate for signatures only.
+* [jan] Find logged replies in other than default sent-mail folders too.
+* [mjr] Fix SyntaxHighlighter MIME viewer not rendering part after the initial view of a part (Bug 14337).
+* [mjr] Display comment attribute in iTip viewer (Request #14407).
+* [mjr] Update the user/attendee participation status when accepting/importing an iTip.
+* [jan] Allow to import multiple PGP keys in a single PGP packet (Request #13190).
+* [jan] Add Alt+Home and Alt+End hotkeys to navigate in preview pane (michael.menge@zdv.uni-tuebingen.de, Request #13983).
+* [mjr] Add support for sending MDN via the API.
+* [mjr] Add imap_preauthenticate hook.
+* [mms] Report multiple spam/innocent messages in a single digest.
+* [mms] Remove mailbox from polled list when unsubscribing from it.
+* [mms] Allow remote account passwords to be saved encrypted in user&apos;s preferences (Request #13168).
+* [mms] Send IMP MUA information to IMAP servers that support the ID extension.
+* [mms] Send S/MIME encrypted data to multiple recipients in a single outgoing message.
+* [mms] Sent-mail maillog entries are now linked to a viewable representation of the sent message, if it still exists on the server.
+* [mms] Store message ID of the sent message when saving maillog history.
+* [mms] Add backend configuration option to use body structure data to more accurately determine whether a message contains attachments.
+* [jan] Show warning on S/MIME page if personal certificate has expired.
+* [mjr] Improve support for vTodo iTip handling.
+* [mms] Add resent information to message header display.
+* [mms] Added an option to the mailboxList API call to force inclusion of unsubscribed mailboxes.
+* [mms] Asynchronously load the mailbox list on the advanced search page.
+* [mms] Automatically try to rotate embedded inline images when displaying a message.
+* [mms] Add ability to add email groups to the address book.
+* [mms] Improved contacts loading - all contacts are never shown by default, but provide simple method for user to load all contacts.
+* [mms] Add dynamically updating relative time display for messages in dynamic view.
+* [mms] Add Purge Deleted button in smartmobile view (Request #13155).
+* [mms] Improved display of attachments and message log information in dynamic view.
+* [mms] IMP no longer uses MDN status stored in the maillog backend by default.
+* [mms] Add ability to download individual files from within a .tgz attachment.
+* [mms] Improved display of contents of ZIP attachments.
+* [mms] Contacts popup now does address search dynamically, without the need to reload the page.
+* [mms] Remove &apos;mailboxarray&apos; hook.
+* [mms] Remove &apos;display_folder&apos; hook.
+* [mms] Auto-detect EAI support on mail backends and provide validation feedback without the need to submit to the backend.
+* [mms] Removed basic view.
+* [mms] Do autocomplete search on browser, if sufficient data exists, to save calls to contacts backend.
+* [mms] Removed minimal view.
+* [mms] Allow auto-completed e-mail groups to be expanded on the dynamic compose page.
+* [mms] Add class of message part rendering display errors that aren&apos;t shown to the user by default.
+* [mms] Throttle message list keypresses in dynamic view to prevent avalanche of preview requests sent to server (Request #13574).
+* [mms] Filter out relative image URLs in HTML message data.
+* [mms] Implement lazy loading for images in HTML messages.
+* [mms] Add &apos;dynamic_prefs&apos; hook to allow for changing of default values for browser-based preferences in dynamic view.
+* [mms] Removed compose &apos;use_vfs&apos; configuration option.
+* [mjr] Add IMP_Api::addFlags().
+* [mms] Allow multiple independent attachment actions on the dynamic compose screen.
+* [mms] Add upload progress bar in dynamic compose screen when adding attachments.
+* [mms] Uniquely identify sent-mail mailboxes by identity in main folder tree (Request #12721).
+* [mms] Don&apos;t send empty text part if a message contains attachments.
+* [mms] Add button to allow folder tree to be rebuilt in smartmobile view.
+* [mms] Add option to poll mailbox for new mailbox when creating a mailbox (Request #13227).
    </notes>
   </release>
  </changelog>

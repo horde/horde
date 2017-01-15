@@ -18,7 +18,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2010-2015 Horde LLC (http://www.horde.org)
+ * @copyright 2010-2017 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -30,7 +30,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2010-2015 Horde LLC (http://www.horde.org)
+ * @copyright 2010-2017 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  *
@@ -125,7 +125,7 @@ class Horde_ActiveSync_Message_Recurrence extends Horde_ActiveSync_Message_Base
                 'calendartype' => false,
                 'isleapmonth' => false);
         }
-        if ($this->_version == Horde_ActiveSync::VERSION_FOURTEENONE) {
+        if ($this->_version >= Horde_ActiveSync::VERSION_FOURTEENONE) {
             $this->_mapping += array(
                 Horde_ActiveSync_Message_Appointment::POOMCAL_FIRSTDAYOFWEEK => array(self::KEY_ATTRIBUTE => 'firstdayofweek')
             );

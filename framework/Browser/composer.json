@@ -2,22 +2,22 @@
     "name": "horde/horde-browser",
     "description": "Horde Browser API",
     "type": "library",
-    "homepage": "http://pear.horde.org",
+    "homepage": "https://pear.horde.org",
     "license": "LGPL-2.1",
     "authors": [
         {
             "name": "Chuck Hagenbuch",
             "email": "chuck@horde.org",
             "role": "lead"
-        }
+        },
         {
             "name": "Michael Slusarz",
             "email": "slusarz@horde.org",
             "role": "developer"
         }
     ],
-    "version": "2.0.8",
-    "time": "2014-11-18",
+    "version": "2.0.13",
+    "time": "2016-12-16",
     "repositories": [
         {
             "type": "pear",

@@ -34,7 +34,7 @@ class Kronolith_Form_CreateResource extends Horde_Form
         /* Get a list of available resource groups */
         $groups = Kronolith::getDriver('Resource')
             ->listResources(Horde_Perms::READ,
-                            array('type' => Kronolith_Resource::TYPE_GROUP));
+                            array('isgroup' => 1));
         $enum = array();
         foreach ($groups as $id => $group) {
             $enum[$id] = $group->get('name');

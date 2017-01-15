@@ -5,13 +5,13 @@ require_once __DIR__ . '/TestBase.php';
 /**
  * API tests for Whups.
  *
- * Copyright 2007-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2017 Horde LLC (http://www.horde.org/)
  *
  * @author     Michael J. Rubinsky <mrubinsk@horde.org>
  * @package    Whups
  * @subpackage UnitTests
  */
-class Whups_ApiTest Extends Whups_TestBase {
+class Whups_ApiTest extends Whups_TestBase {
     function setUp()
     {
         parent::setUp();

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2008-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2017 Horde LLC (http://www.horde.org/)
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Michael J. Rubinsky <mrubinsk@horde.org>
@@ -117,16 +117,16 @@ class Content_Tagger
                 } catch (Horde_Db_Exception $e) {
                     throw new Content_Exception($e);
                 }
-            }
 
-            // increment tag stats
-            if (!$this->_db->update('UPDATE ' . $this->_t('tag_stats') . ' SET count = count + 1 WHERE tag_id = ' . (int)$tagId)) {
-                $this->_db->insert('INSERT INTO ' . $this->_t('tag_stats') . ' (tag_id, count) VALUES (' . (int)$tagId . ', 1)', null, null, 'tag_id', $tagId);
-            }
+                // increment tag stats
+                if (!$this->_db->update('UPDATE ' . $this->_t('tag_stats') . ' SET count = count + 1 WHERE tag_id = ' . (int)$tagId)) {
+                    $this->_db->insert('INSERT INTO ' . $this->_t('tag_stats') . ' (tag_id, count) VALUES (' . (int)$tagId . ', 1)', null, null, 'tag_id', $tagId);
+                }
 
-            // increment user-tag stats
-            if (!$this->_db->update('UPDATE ' . $this->_t('user_tag_stats') . ' SET count = count + 1 WHERE user_id = ' . (int)$userId . ' AND tag_id = ' . (int)$tagId)) {
-                $this->_db->insert('INSERT INTO ' . $this->_t('user_tag_stats') . ' (user_id, tag_id, count) VALUES (' . (int)$userId . ', ' . (int)$tagId . ', 1)');
+                // increment user-tag stats
+                if (!$this->_db->update('UPDATE ' . $this->_t('user_tag_stats') . ' SET count = count + 1 WHERE user_id = ' . (int)$userId . ' AND tag_id = ' . (int)$tagId)) {
+                    $this->_db->insert('INSERT INTO ' . $this->_t('user_tag_stats') . ' (user_id, tag_id, count) VALUES (' . (int)$userId . ', ' . (int)$tagId . ', 1)');
+                }
             }
         }
     }
@@ -216,7 +216,7 @@ class Content_Tagger
                 . $this->_t('tags') . ' t INNER JOIN ' . $this->_t('tagged')
                 . ' tagged ON t.tag_id = tagged.tag_id AND tagged.object_id IN ('
                 . str_repeat('?,', count($object_ids) - 1) . '?)';
-            $tags = $this->_db->selectAll($sql, array_keys($object_ids));
+            $tags = $this->_db->select($sql, array_keys($object_ids));
             foreach ($tags as $tag) {
                 if (empty($results[$object_ids[$tag['object_id']]])) {
                     $results[$object_ids[$tag['object_id']]] = array();
@@ -348,7 +348,7 @@ class Content_Tagger
         }
 
         try {
-            $rows = $this->_db->selectAll($sql);
+            $rows = $this->_db->select($sql);
             $results = array();
             foreach ($rows as $row) {
                 $results[$row['tag_id']] = $row;

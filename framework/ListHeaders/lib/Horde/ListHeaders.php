@@ -1,8 +1,6 @@
 <?php
 /**
- * Class to parse List Header fields (RFC 2369/2919).
- *
- * Copyright 2012-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -83,7 +81,7 @@ class Horde_ListHeaders extends Horde_Mail_Rfc822
         $this->_datalen = strlen($this->_data);
         $this->_params['validate'] = true;
 
-        switch (strtolower($id)) {
+        switch (Horde_String::lower($id)) {
         case 'list-archive':
         case 'list-help':
         case 'list-owner':

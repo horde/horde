@@ -163,7 +163,7 @@ Object.extend(Date.prototype, {
     {
         var day = this.getDate(),
             month = this.getMonth() + 1,
-            year = this.getYear() + 1900;
+            year = this.getFullYear();
 
         if (month > 2) {
             // March = 0, April = 1, ..., December = 9, January = 10,

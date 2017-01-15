@@ -14,7 +14,7 @@
 /**
  * Converts between Kolab MIME parts and data arrays.
  *
- * Copyright 2011-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -83,8 +83,8 @@ class Horde_Kolab_Storage_Object_Writer_Format extends Horde_Kolab_Storage_Objec
      *
      * @param Horde_Kolab_Storage_Object $object The object that should receive the parsed data.
      *
-     * @return resource The encoded object data, ready to be written into the
-     *                  backend.
+     * @return string The encoded object data, ready to be written into the
+     *                backend.
      */
     public function save(Horde_Kolab_Storage_Object $object)
     {

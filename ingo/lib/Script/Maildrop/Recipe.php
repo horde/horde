@@ -364,24 +364,26 @@ class Ingo_Script_Maildrop_Recipe implements Ingo_Script_Item
     public function maildropPath($folder)
     {
         /* NOTE: '$DEFAULT' here is a literal, not a PHP variable. */
-        if (isset($this->_params) &&
-            ($this->_params['path_style'] == 'maildir')) {
-            if (empty($folder) || ($folder == 'INBOX')) {
-                return '"${DEFAULT}"';
+        if (isset($this->_params)) {
+            if ($this->_params['path_style'] == 'maildir') {
+                if (empty($folder) || ($folder == 'INBOX')) {
+                    return '"${DEFAULT}"';
+                }
+                if ($this->_params['strip_inbox'] &&
+                    substr($folder, 0, 6) == 'INBOX.') {
+                    $folder = substr($folder, 6);
+                }
+                $mbox = new Horde_Imap_Client_Mailbox($folder);
+                return '"${DEFAULT}/.' . $mbox->utf7imap . '/"';
             }
-            if ($this->_params['strip_inbox'] &&
-                substr($folder, 0, 6) == 'INBOX.') {
-                $folder = substr($folder, 6);
+            if ($this->_params['path_style'] == 'mboxutf7') {
+                $mbox = new Horde_Imap_Client_Mailbox($folder);
+                return '"' . $mbox->utf7imap . '/"';
             }
-
-            $mbox = new Horde_Imap_Client_Mailbox($folder);
-
-            return '"${DEFAULT}/.' . $mbox->utf7imap . '/"';
-        } else {
-            if (empty($folder) || ($folder == 'INBOX')) {
-                return '${DEFAULT}';
-            }
-            return str_replace(' ', '\ ', $folder);
         }
+        if (empty($folder) || ($folder == 'INBOX')) {
+            return '${DEFAULT}';
+        }
+        return str_replace(' ', '\ ', $folder);
     }
 }

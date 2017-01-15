@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2003-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -112,8 +112,8 @@ class Ingo_Transport_Vfs extends Ingo_Transport_Base
         /* Do variable substitution. */
         if (!empty($this->_params['vfs_path'])) {
             $this->_params['vfs_path'] = str_replace(
-                array('%u', '%d', '%U'),
-                array(Ingo::getUser(), Ingo::getDomain(), $this->_params['username']),
+                array('%u', '%d', '%U', '%u_full'),
+                array(Ingo::getUser(), Ingo::getDomain(), $this->_params['username'], Ingo::getUser(true)),
                 $this->_params['vfs_path']);
         }
 

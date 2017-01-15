@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2011-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category   Horde
- * @copyright  2011-2015 Horde LLC
+ * @copyright  2011-2016 Horde LLC
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package    Imap_Client
  * @subpackage UnitTests
@@ -17,7 +17,7 @@
  *
  * @author     Michael Slusarz <slusarz@horde.org>
  * @category   Horde
- * @copyright  2011-2015 Horde LLC
+ * @copyright  2011-2016 Horde LLC
  * @ignore
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package    Imap_Client
@@ -36,7 +36,9 @@ class Horde_Imap_Client_DateTimeTest extends PHPUnit_Framework_TestCase
             // current year.
             array('Apr 13 20:4:48', gmmktime(20, 4, 48, 4, 13)),
             // Bad date input
-            array('This is a bad date', 0)
+            array('This is a bad date', 0),
+            // Bug #14381
+            array('Thu, 1 Aug 2013 20:22:47 0000', 1375388567)
         );
     }
 

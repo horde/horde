@@ -168,7 +168,7 @@ class Luxor_Driver_sql extends Luxor_Driver {
      *
      * @return integer              A unique ID for this file or PEAR_Error on error.
      */
-    function createFileId($filename, $tag = '', $lastmodified)
+    function createFileId($filename, $tag = '', $lastmodified = false)
     {
         $this->_connect();
 
@@ -176,6 +176,9 @@ class Luxor_Driver_sql extends Luxor_Driver {
         if (is_a($fileId, 'PEAR_Error')) {
             return $fileId;
         }
+
+        if ($lastmodified === false)
+            $lastmodified = time();
 
         /* Create an ID for this file. */
         $query = 'INSERT INTO luxor_files (fileid, filename, source, tag, lastmodified) VALUES (?, ?, ?, ?, ?)';

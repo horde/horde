@@ -1,6 +1,7 @@
 <?php
 
 namespace Znerol\Component\Stringprep\Profile;
+use Znerol\Component\Stringprep\Profile;
 
 /**
  * SASLprep: Stringprep Profile for User Names and Passwords, RFC 4013

@@ -14,7 +14,7 @@
 /**
  * The basic handler for accessing data from Kolab storage.
  *
- * Copyright 2004-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -66,13 +66,20 @@ extends Horde_Kolab_Storage_Base
                                    $object_type = null,
                                    $data_version = 1)
     {
-        return new Horde_Kolab_Storage_Data_Base(
+        $data = new Horde_Kolab_Storage_Data_Base(
             $folder,
             $master,
             $factory,
             $object_type,
             $data_version
         );
+
+        if (!empty($this->_logger)) {
+            return new Horde_Kolab_Storage_Data_Decorator_Log(
+                $data, $this->_logger);
+        }
+
+        return $data;
     }
 
 }

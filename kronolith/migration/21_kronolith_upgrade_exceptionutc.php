@@ -2,7 +2,7 @@
 /**
  * Fix exceptionoriginaldate field to be UTC time.
  *
- * Copyright 2011-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -36,7 +36,7 @@ class KronolithUpgradeExceptionUtc extends Horde_Db_Migration_Base
 
         $sql = 'SELECT event_creator_id, event_uid, event_exceptionoriginaldate FROM kronolith_events WHERE event_exceptionoriginaldate IS NOT NULL';
         $update = 'UPDATE kronolith_events SET event_exceptionoriginaldate = ? WHERE event_uid = ?';
-        $rows = $this->selectAll($sql);
+        $rows = $this->select($sql);
         $creator = null;
         $utc = new DateTimeZone('UTC');
         foreach ($rows as $row) {
@@ -90,23 +90,31 @@ class KronolithUpgradeExceptionUtc extends Horde_Db_Migration_Base
         }
         $sql = 'SELECT event_creator_id, event_uid, event_exceptionoriginaldate FROM kronolith_events WHERE event_exceptionoriginaldate IS NOT NULL';
         $update = 'UPDATE kronolith_events SET event_exceptionoriginaldate = ? WHERE event_uid = ?';
-        $rows = $this->selectAll($sql);
+        $rows = $this->select($sql);
         $creator = null;
         $utc = new DateTimeZone('UTC');
         foreach ($rows as $row) {
             if ($row['event_creator_id'] != $creator) {
-                $prefs = $GLOBALS['injector']
-                    ->getInstance('Horde_Core_Factory_Prefs')
-                    ->create('horde', array(
-                        'cache' => false,
-                        'user' => $row['event_creator_id'])
-                );
-                $tz = $prefs->getValue('timezone');
-                if (empty($tz)) {
-                    $tz = date_default_timezone_get();
+                try {
+                    $prefs = $GLOBALS['injector']
+                        ->getInstance('Horde_Core_Factory_Prefs')
+                        ->create('horde', array(
+                            'cache' => false,
+                            'user' => $row['event_creator_id'])
+                    );
+                    $tz = $prefs->getValue('timezone');
+                    if (empty($tz)) {
+                        $tz = date_default_timezone_get();
+                    }
+                    $tz = new DateTimeZone($tz);
+                    $creator = $row['event_creator_id'];
+                } catch (Exception $e) {
+                    // Fallback to UTC if prefs is unavailable since if prefs
+                    // is unavailable this most likely means we are down
+                    // migrating everything, or at the very least don't have
+                    // a working horde install.
+                    $tz = new DateTimeZone('UTC');
                 }
-                $tz = new DateTimeZone($tz);
-                $creator = $row['event_creator_id'];
             }
 
             $eod = new DateTime($row['event_exceptionoriginaldate'], $utc);

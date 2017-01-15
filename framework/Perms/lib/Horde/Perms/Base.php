@@ -2,7 +2,7 @@
 /**
  * The Horde_Perms_Base class provides the Horde permissions system.
  *
- * Copyright 2001-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -11,6 +11,7 @@
  * @author   Jan Schneider <jan@horde.org>
  * @category Horde
  * @package  Perms
+ * @todo     Remove $GLOBALS references here and in Sql backend for Horde 6.
  */
 abstract class Horde_Perms_Base
 {

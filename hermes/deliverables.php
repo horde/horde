@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2005-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -76,9 +76,15 @@ if ($vars->exists('deliverable_id') || $vars->exists('new')) {
                            'alternate'   => true));
 
     foreach ($deliverables as $deliverable) {
-        $params = array();
-        $params['url'] = Horde::url('deliverables.php')->add(array('deliverable_id' => $deliverable['id'], 'client_id' => $vars->get('client_id')));
-        $params['title'] = sprintf(_("Edit %s"), $deliverable['name']);
+        $params = array(
+            'url' => Horde::url('deliverables.php')
+                ->add(array(
+                    'deliverable_id' => $deliverable['id'],
+                    'client_id' => $vars->get('client_id')
+            )),
+            'title' => sprintf(_("Edit %s"), $deliverable['name']),
+            'urlclass' => $deliverable['active'] ? '' : 'hermes-inactive',
+        );
 
         $newdeliv = '&nbsp;' . Horde::link(
             Horde::url('deliverables.php')

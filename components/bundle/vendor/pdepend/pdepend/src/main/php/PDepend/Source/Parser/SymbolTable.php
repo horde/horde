@@ -4,7 +4,7 @@
  *
  * PHP Version 5
  *
- * Copyright (c) 2008-2013, Manuel Pichler <mapi@pdepend.org>.
+ * Copyright (c) 2008-2015, Manuel Pichler <mapi@pdepend.org>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -36,7 +36,7 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @copyright 2008-2013 Manuel Pichler. All rights reserved.
+ * @copyright 2008-2015 Manuel Pichler. All rights reserved.
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
  */
 
@@ -45,7 +45,7 @@ namespace PDepend\Source\Parser;
 /**
  * This class provides a simple hashmap for name mappings done by the parser.
  *
- * @copyright 2008-2013 Manuel Pichler. All rights reserved.
+ * @copyright 2008-2015 Manuel Pichler. All rights reserved.
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
  */
 class SymbolTable
@@ -92,8 +92,8 @@ class SymbolTable
     /**
      * Adds a new value to the top most scope.
      *
-     * @param string $key   The key of this scope value.
-     * @param mixed  $value A new scope value.
+     * @param  string $key   The key of this scope value.
+     * @param  mixed  $value A new scope value.
      * @return void
      */
     public function add($key, $value)
@@ -122,7 +122,7 @@ class SymbolTable
      * exists in the current scope. The returned value will <b>null</b> if no
      * value exists for the given key.
      *
-     * @param string $key The key for a searched scope value.
+     * @param  string $key The key for a searched scope value.
      * @return mixed
      */
     public function lookup($key)

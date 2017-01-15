@@ -18,7 +18,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2009-2015 Horde LLC (http://www.horde.org)
+ * @copyright 2009-2017 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -30,7 +30,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2009-2015 Horde LLC (http://www.horde.org)
+ * @copyright 2009-2017 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  * @internal
@@ -56,7 +56,7 @@ class Horde_ActiveSync_Request_SendMail extends Horde_ActiveSync_Request_Base
                 return $result;
             } catch (Horde_ActiveSync_Exception $e) {
                 $this->_logger->err($e->getMessage());
-                $this->_handError(
+                $this->_handleError(
                     Horde_ActiveSync_Status::MAIL_SUBMISSION_FAILED,
                     Horde_ActiveSync_Message_SendMail::COMPOSEMAIL_SENDMAIL);
 
@@ -107,7 +107,9 @@ class Horde_ActiveSync_Request_SendMail extends Horde_ActiveSync_Request_Base
         $mail = Horde_ActiveSync::messageFactory('SendMail');
         $mail->decodeStream($this->_decoder);
         if ($smartreply || $smartforward) {
-            $mail->source->folderid = $this->_activeSync->getCollectionsObject()->getBackendIdForFolderUid($mail->source->folderid);
+            $mail->source->folderid =
+                $this->_activeSync->getCollectionsObject()
+                    ->getBackendIdForFolderUid($mail->source->folderid);
         }
 
         try {

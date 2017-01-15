@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2005-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -15,7 +15,7 @@
  *
  * @category  Horde
  * @copyright 1999-2007 The SquirrelMail Project Team
- * @copyright 2005-2015 Horde LLC
+ * @copyright 2005-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Imap_Client
  */
@@ -55,6 +55,7 @@
  *   - RFC 5267: ESORT; PARTIAL search return option
  *   - RFC 5464: METADATA
  *   - RFC 5530: IMAP Response Codes
+ *   - RFC 5802: AUTH=SCRAM-SHA-1
  *   - RFC 5819: LIST-STATUS
  *   - RFC 5957: SORT=DISPLAY
  *   - RFC 6154: SPECIAL-USE/CREATE-SPECIAL-USE
@@ -96,7 +97,7 @@
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
  * @copyright 1999-2007 The SquirrelMail Project Team
- * @copyright 2005-2015 Horde LLC
+ * @copyright 2005-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Imap_Client
  */
@@ -325,7 +326,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
                 // RFC 4466: NAMESPACE extensions
                 while (($ext = $data->next()) !== false) {
-                    switch (strtoupper($ext)) {
+                    switch (Horde_String::upper($ext)) {
                     case 'TRANSLATION':
                         // RFC 5255 [3.4] - TRANSLATION extension
                         $data->next();
@@ -438,17 +439,40 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
             unset($auth['XOAUTH2']);
 
-            /* 'PLAIN' authentication always exists if under TLS (RFC
-             *  3501 [7.2.1]; RFC 2595). Use it over all other authentication
-             *  methods, although we need to do sanity checking since broken
-             *  IMAP servers may not support as required - fallback to
-             *  LOGIN instead. */
+            /* 'AUTH=PLAIN' authentication always exists if under TLS (RFC 3501
+             *  [7.2.1]; RFC 2595), even though we might get here with a
+             *  non-TLS secure connection too. Use it over all other
+             *  authentication methods, although we need to do sanity checking
+             *  since broken IMAP servers may not support as required -
+             *  fallback to LOGIN instead, if not explicitly disabled. */
             if ($secure) {
                 if (isset($auth['PLAIN'])) {
                     $auth_mech[] = 'PLAIN';
                     unset($auth['PLAIN']);
-                } else {
+                } elseif (!$this->_capability('LOGINDISABLED')) {
                     $auth_mech[] = 'LOGIN';
+                }
+            }
+
+            // Check for supported SCRAM AUTH mechanisms. Preferred because it
+            // provides verificaion of server authenticity.
+            foreach (array_keys($auth) as $key) {
+                switch ($key) {
+                case 'SCRAM-SHA-1':
+                    $auth_mech[] = $key;
+                    unset($auth[$key]);
+                    break;
+                }
+            }
+
+            // Check for supported CRAM AUTH mechanisms.
+            foreach (array_keys($auth) as $key) {
+                switch ($key) {
+                case 'CRAM-SHA1':
+                case 'CRAM-SHA256':
+                    $auth_mech[] = $key;
+                    unset($auth[$key]);
+                    break;
                 }
             }
 
@@ -461,8 +485,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
             unset($auth['CRAM-MD5'], $auth['DIGEST-MD5']);
 
-            // Fall back to 'LOGIN' if available.
+            // Add other auth mechanisms.
             $auth_mech = array_merge($auth_mech, array_keys($auth));
+
+            // Fall back to 'LOGIN' if available.
             if (!$secure && !$this->_capability('LOGINDISABLED')) {
                 $auth_mech[] = 'LOGIN';
             }
@@ -640,8 +666,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $username = $this->getParam('username');
         $password = $this->getParam('password');
 
-        $authenticate_cmd = false;
-
         switch ($method) {
         case 'CRAM-MD5':
         case 'CRAM-SHA1':
@@ -649,11 +673,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             // RFC 2195: CRAM-MD5
             // CRAM-SHA1 & CRAM-SHA256 supported by Courier SASL library
 
-            // Need $args because PHP 5.3 doesn't allow access to $this in
-            // anonymous functions.
             $args = array(
                 $username,
-                strtolower(substr($method, 5)),
+                Horde_String::lower(substr($method, 5)),
                 $password
             );
 
@@ -738,18 +760,78 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         case 'PLAIN':
             // RFC 2595/4616 - PLAIN SASL mechanism
-            $auth = base64_encode(implode("\0", array(
+            $cmd = $this->_authInitialResponse(
+                $method,
+                base64_encode(implode("\0", array(
+                    $username,
+                    $username,
+                    $password
+                ))),
+                $username
+            );
+            break;
+
+        case 'SCRAM-SHA-1':
+            $scram = new Horde_Imap_Client_Auth_Scram(
                 $username,
-                $username,
-                $password
-            )));
-            $authenticate_cmd = true;
+                $password,
+                'SHA1'
+            );
+
+            $cmd = $this->_authInitialResponse(
+                $method,
+                base64_encode($scram->getClientFirstMessage())
+            );
+
+            $cmd->add(
+                new Horde_Imap_Client_Interaction_Command_Continuation(function($ob) use ($scram) {
+                    $sr1 = base64_decode($ob->token->current());
+                    return new Horde_Imap_Client_Data_Format_List(
+                        $scram->parseServerFirstMessage($sr1)
+                            ? base64_encode($scram->getClientFinalMessage())
+                            : '*'
+                    );
+                })
+            );
+
+            $self = $this;
+            $cmd->add(
+                new Horde_Imap_Client_Interaction_Command_Continuation(function($ob) use ($scram, $self) {
+                    $sr2 = base64_decode($ob->token->current());
+                    if (!$scram->parseServerFinalMessage($sr2)) {
+                        /* This means authentication passed, according to the
+                         * server, but the server signature is incorrect.
+                         * This indicates that server verification has failed.
+                         * Immediately disconnect from the server, since this
+                         * is a possible security issue. */
+                        $self->logout();
+                        throw new Horde_Imap_Client_Exception(
+                            Horde_Imap_Client_Translation::r("Server failed verification check."),
+                            Horde_Imap_Client_Exception::LOGIN_SERVER_VERIFICATION_FAILED
+                        );
+                    }
+
+                    return new Horde_Imap_Client_Data_Format_List();
+                })
+            );
             break;
 
         case 'XOAUTH2':
             // Google XOAUTH2
-            $auth = $this->getParam('xoauth2_token');
-            $authenticate_cmd = true;
+            $cmd = $this->_authInitialResponse(
+                $method,
+                $this->getParam('xoauth2_token')
+            );
+
+            /* This is an optional command continuation. XOAUTH2 will return
+             * error information in continuation response. */
+            $error_continuation = new Horde_Imap_Client_Interaction_Command_Continuation(
+                function($ob) {
+                    return new Horde_Imap_Client_Data_Format_List();
+                }
+            );
+            $error_continuation->optional = true;
+            $cmd->add($error_continuation);
             break;
 
         default:
@@ -761,35 +843,46 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             throw $e;
         }
 
-        if ($authenticate_cmd) {
-            $cmd = $this->_command('AUTHENTICATE')->add($method);
+        return $this->_sendCmd($this->_pipeline($cmd));
+    }
 
-            if ($this->_capability('SASL-IR')) {
-                // IMAP Extension for SASL Initial Client Response (RFC 4959)
-                $cmd->add($auth);
+    /**
+     * Create the AUTHENTICATE command for the initial client response.
+     *
+     * @param string $method    AUTHENTICATE SASL method.
+     * @param string $ir        Initial client response.
+     * @param string $username  If set, log a username message in debug log
+     *                          instead of raw data.
+     *
+     * @return Horde_Imap_Client_Interaction_Command  A command object.
+     */
+    protected function _authInitialResponse($method, $ir, $username = null)
+    {
+        $cmd = $this->_command('AUTHENTICATE')->add($method);
+
+        if ($this->_capability('SASL-IR')) {
+            // IMAP Extension for SASL Initial Client Response (RFC 4959)
+            $cmd->add($ir);
+            if ($username) {
                 $cmd->debug = array(
                     sprintf('AUTHENTICATE %s [INITIAL CLIENT RESPONSE (username: %s)]', $method, $username)
                 );
-            } else {
-                $cmd->add(new Horde_Imap_Client_Interaction_Command_Continuation(function($ob) use ($auth) {
-                    return new Horde_Imap_Client_Data_Format_List($auth);
-                }));
+            }
+        } else {
+            $cmd->add(
+                new Horde_Imap_Client_Interaction_Command_Continuation(function($ob) use ($ir) {
+                    return new Horde_Imap_Client_Data_Format_List($ir);
+                })
+            );
+            if ($username) {
                 $cmd->debug = array(
                     null,
                     sprintf('[INITIAL CLIENT RESPONSE (username: %s)]', $username)
                 );
             }
-
-            /* This is an optional command continuation. E.g. XOAUTH2 will
-             * return error information in continuation response. */
-            $error_continuation = new Horde_Imap_Client_Interaction_Command_Continuation(function($ob) {
-                return new Horde_Imap_Client_Data_Format_List();
-            });
-            $error_continuation->optional = true;
-            $cmd->add($error_continuation);
         }
 
-        return $this->_sendCmd($this->_pipeline($cmd));
+        return $cmd;
     }
 
     /**
@@ -888,21 +981,27 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $tmp = new Horde_Imap_Client_Data_Format_List();
             foreach ($info as $key => $val) {
                 $tmp->add(array(
-                    new Horde_Imap_Client_Data_Format_String(strtolower($key)),
+                    new Horde_Imap_Client_Data_Format_String(Horde_String::lower($key)),
                     new Horde_Imap_Client_Data_Format_Nstring($val)
                 ));
             }
             $cmd->add($tmp);
         }
 
-        try {
-            $this->_temp['id'] = $this->_sendCmd($cmd)->data['id'];
-        } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
+        $temp = &$this->_temp;
+
+        /* Add to queue - this doesn't need to be sent immediately. */
+        $cmd->on_error = function() use (&$temp) {
             /* Ignore server errors. E.g. Cyrus returns this:
              *   001 NO Only one Id allowed in non-authenticated state
              * even though NO is not allowed in RFC 2971[3.1]. */
-            $this->_temp['id'] = array();
-        }
+            $temp['id'] = array();
+            return true;
+        };
+        $cmd->on_success = function() use ($cmd, &$temp) {
+            $temp['id'] = $cmd->pipeline->data['id'];
+        };
+        $this->_cmdQueue[] = $cmd;
     }
 
     /**
@@ -917,17 +1016,17 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         Horde_Imap_Client_Tokenize $data
     )
     {
-        $ids = array();
+        if (!isset($pipeline->data['id'])) {
+            $pipeline->data['id'] = array();
+        }
 
         if (!is_null($data->next())) {
             while (($curr = $data->next()) !== false) {
                 if (!is_null($id = $data->next())) {
-                    $ids[$curr] = $id;
+                    $pipeline->data['id'][$curr] = $id;
                 }
             }
         }
-
-        $pipeline->data['id'] = $ids;
     }
 
     /**
@@ -936,6 +1035,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     {
         if (!isset($this->_temp['id'])) {
             $this->sendID();
+            /* ID is queued - force sending the queued command. */
+            $this->_sendCmd($this->_pipeline());
         }
 
         return $this->_temp['id'];
@@ -1159,11 +1260,13 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $this->_getMboxFormatOb($mailbox)
         );
 
+        // RFC 6154 Sec. 3
         if (!empty($opts['special_use'])) {
-            $cmd->add(array(
-                'USE',
+            $use = new Horde_Imap_Client_Data_Format_List('USE');
+            $use->add(
                 new Horde_Imap_Client_Data_Format_List($opts['special_use'])
-            ));
+            );
+            $cmd->add($use);
         }
 
         // CREATE returns no untagged information (RFC 3501 [6.3.3])
@@ -1400,7 +1503,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 $return_opts->add(array(
                     'STATUS',
                     new Horde_Imap_Client_Data_Format_List(
-                        array_map('strtoupper', $status_opts)
+                        array_map('Horde_String::upper', $status_opts)
                     )
                 ));
             }
@@ -1436,7 +1539,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         }
 
         /* Add in STATUS return, if needed. */
-        if (!empty($options['status'])) {
+        if (!empty($options['status']) && $this->_capability('LIST-STATUS')) {
             foreach ($pattern as $val) {
                 $val_utf8 = Horde_Imap_Client_Utf7imap::Utf7ImapToUtf8($val);
                 if (isset($lr[$val_utf8])) {
@@ -1477,7 +1580,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         case Horde_Imap_Client::MBOX_ALL_SUBSCRIBED:
         case Horde_Imap_Client::MBOX_SUBSCRIBED_EXISTS:
         case Horde_Imap_Client::MBOX_UNSUBSCRIBED:
-            $attr = array_flip(array_map('strtolower', $attr_raw));
+            $attr = array_flip(array_map('Horde_String::lower', $attr_raw));
 
             /* Subscribed list is in UTF-8. */
             if (is_null($ml['sub']) &&
@@ -1517,7 +1620,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         if ($attr || !empty($ml['opts']['attributes'])) {
             if (is_null($attr)) {
-                $attr = array_flip(array_map('strtolower', $attr_raw));
+                $attr = array_flip(array_map('Horde_String::lower', $attr_raw));
             }
 
             /* RFC 5258 [3.4]: inferred attributes. */
@@ -1634,7 +1737,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 $cmd = $this->_command('STATUS')->add(array(
                     $this->_getMboxFormatOb($mailbox),
                     new Horde_Imap_Client_Data_Format_List(
-                        array_map('strtoupper', $query)
+                        array_map('Horde_String::upper', $query)
                     )
                 ));
                 $cmd->on_error = $on_error;
@@ -1662,16 +1765,19 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      */
     protected function _parseStatus(Horde_Imap_Client_Tokenize $data)
     {
-        // Mailbox name is in UTF7-IMAP
+        // Mailbox name is in UTF7-IMAP (unless UTF8 has been enabled).
         $mbox_ob = $this->_mailboxOb(
-            Horde_Imap_Client_Mailbox::get($data->next(), true)
+            Horde_Imap_Client_Mailbox::get(
+                $data->next(),
+                !$this->_capability()->isEnabled('UTF8=ACCEPT')
+            )
         );
 
         $data->next();
 
         while (($k = $data->next()) !== false) {
             $mbox_ob->setStatus(
-                $this->_statusFields[strtolower($k)],
+                $this->_statusFields[Horde_String::lower($k)],
                 $data->next()
             );
         }
@@ -2007,13 +2113,14 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $expunged_ob = $modseq = null;
         $ids = $options['ids'];
         $list_msgs = !empty($options['list']);
+        $mailbox = $this->_selected;
         $uidplus = $this->_capability('UIDPLUS');
         $unflag = array();
         $use_cache = $this->_initCache(true);
 
         if ($ids->all) {
             if (!$uidplus || $list_msgs || $use_cache) {
-                $ids = $this->resolveIds($this->_selected, $ids, 2);
+                $ids = $this->resolveIds($mailbox, $ids, 2);
             }
         } elseif ($uidplus) {
             /* If QRESYNC is not available, and we are returning the list of
@@ -2024,12 +2131,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
              * vanished() to grab the list. */
             unset($this->_temp['search_save']);
             if ($this->_capability()->isEnabled('QRESYNC')) {
-                $ids = $this->resolveIds($this->_selected, $ids, 1);
+                $ids = $this->resolveIds($mailbox, $ids, 1);
                 if ($list_msgs) {
                     $modseq = $this->_mailboxOb()->getStatus(Horde_Imap_Client::STATUS_HIGHESTMODSEQ);
                 }
             } else {
-                $ids = $this->resolveIds($this->_selected, $ids, ($list_msgs || $use_cache) ? 2 : 1);
+                $ids = $this->resolveIds($mailbox, $ids, ($list_msgs || $use_cache) ? 2 : 1);
             }
             if (!empty($this->_temp['search_save'])) {
                 $ids = $this->getIdsOb(Horde_Imap_Client_Ids::SEARCH_RES);
@@ -2042,14 +2149,14 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $squery->flag(Horde_Imap_Client::FLAG_DELETED, true);
             $squery->ids($ids, true);
 
-            $s_res = $this->search($this->_selected, $squery, array(
+            $s_res = $this->search($mailbox, $squery, array(
                 'results' => array(
                     Horde_Imap_Client::SEARCH_RESULTS_MATCH,
                     Horde_Imap_Client::SEARCH_RESULTS_SAVE
                 )
             ));
 
-            $this->store($this->_selected, array(
+            $this->store($mailbox, array(
                 'ids' => empty($s_res['save']) ? $s_res['match'] : $this->getIdsOb(Horde_Imap_Client_Ids::SEARCH_RES),
                 'remove' => array(Horde_Imap_Client::FLAG_DELETED)
             ));
@@ -2086,7 +2193,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $resp = $this->_sendCmd($pipeline);
         } else {
             if (!empty($options['delete'])) {
-                $this->store($this->_selected, array(
+                $this->store($mailbox, array(
                     'add' => array(Horde_Imap_Client::FLAG_DELETED),
                     'ids' => $ids
                 ));
@@ -2105,7 +2212,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         unset($this->_temp['expunged']);
 
         if (!empty($unflag)) {
-            $this->store($this->_selected, array(
+            $this->store($mailbox, array(
                 'add' => array(Horde_Imap_Client::FLAG_DELETED),
                 'ids' => $unflag
             ));
@@ -2115,10 +2222,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             /* There's a chance we actually did a full map of sequence -> UID,
              * but this code should never be reached in the first place so
              * be ultra-safe and just do a full VANISHED search. */
-            $expunged_ob = $this->vanished($this->_selected, $modseq, array(
+            $expunged_ob = $this->vanished($mailbox, $modseq, array(
                 'ids' => $ids
             ));
-            $this->_deleteMsgs($this->_selected, $expunged_ob, array(
+            $this->_deleteMsgs($mailbox, $expunged_ob, array(
                 'pipeline' => $resp
             ));
         }
@@ -2145,7 +2252,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
          * enabled). HIGHESTMODSEQ information will be updated via the tagged
          * response. */
         if (($curr = $data->next()) === true) {
-            if (strtoupper($data->next()) === 'EARLIER') {
+            if (Horde_String::upper($data->next()) === 'EARLIER') {
                 /* Caching is guaranteed to be active if we are using
                  * QRESYNC. */
                 $data->next();
@@ -2433,7 +2540,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
             $sr->sort();
             $sr = $this->getIdsOb(
-                array_slice($sr->ids(), $min, $partial->max - $min),
+                array_slice($sr->ids, $min, $partial->max - $min),
                 !empty($options['sequence'])
             );
         }
@@ -2525,13 +2632,13 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         // Ignore UID tag
         $current = $data->next();
-        if (strtoupper($current) === 'UID') {
+        if (Horde_String::upper($current) === 'UID') {
             $current = $data->next();
         }
 
         do {
             $val = $data->next();
-            $tag = strtoupper($current);
+            $tag = Horde_String::upper($current);
 
             switch ($tag) {
             case 'ALL':
@@ -2543,7 +2650,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             case 'MIN':
             case 'MODSEQ':
             case 'RELEVANCY':
-                $pipeline->data['esearchresp'][strtolower($tag)] = $val;
+                $pipeline->data['esearchresp'][Horde_String::lower($tag)] = $val;
                 break;
 
             case 'PARTIAL':
@@ -2605,7 +2712,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         );
 
         $tsort = (isset($options['criteria']))
-            ? (is_string($options['criteria']) ? strtoupper($options['criteria']) : $thread_criteria[$options['criteria']])
+            ? (is_string($options['criteria']) ? Horde_String::upper($options['criteria']) : $thread_criteria[$options['criteria']])
             : 'ORDEREDSUBJECT';
 
         if (!$this->_capability('THREAD', $tsort)) {
@@ -2869,7 +2976,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                         if (!empty($val['notsearch'])) {
                             $cmd .= '.NOT';
                         }
-                        $cmd .= ' (' . implode(' ', array_map('strtoupper', $val['headers'])) . ')';
+                        $cmd .= ' (' . implode(' ', array_map('Horde_String::upper', $val['headers'])) . ')';
 
                         // Maintain a command -> label lookup so we can put
                         // the results in the proper location.
@@ -3020,7 +3127,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $flags = $modseq = $uid = false;
 
         while (($tag = $data->next()) !== false) {
-            $tag = strtoupper($tag);
+            $tag = Horde_String::upper($tag);
 
             /* Catch equivalent RFC822 tags, in case server returns them
              * (in error, since we only use BODY in FETCH requests). */
@@ -3095,7 +3202,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     if (!empty($pipeline->data['fetch_lookup']) &&
                         (strpos($tag, 'HEADER.FIELDS') !== false)) {
                         $data->next();
-                        $sig = $tag . ' (' . implode(' ', array_map('strtoupper', $data->flushIterator())) . ')';
+                        $sig = $tag . ' (' . implode(' ', array_map('Horde_String::upper', $data->flushIterator())) . ')';
 
                         // Ignore the trailing bracket
                         $data->next();
@@ -3107,12 +3214,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
                         if (!strlen($tag)) {
                             // BODY[] request
-                            if (!is_null($tmp = $data->next())) {
+                            if (!is_null($tmp = $data->nextStream())) {
                                 $ob->setFullMsg($tmp);
                             }
                         } elseif (is_numeric(substr($tag, -1))) {
                             // BODY[MIMEID] request
-                            if (!is_null($tmp = $data->next())) {
+                            if (!is_null($tmp = $data->nextStream())) {
                                 $ob->setBodyPart($tag, $tmp);
                             }
                         } else {
@@ -3124,7 +3231,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                                 $tag = substr($tag, $last_dot + 1);
                             }
 
-                            if (!is_null($tmp = $data->next())) {
+                            if (!is_null($tmp = $data->nextStream())) {
                                 switch ($tag) {
                                 case 'HEADER':
                                     $ob->setHeaderText($mime_id, $tmp);
@@ -3146,7 +3253,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     // Remove the beginning 'BINARY[' and the trailing bracket
                     // and octet start info
                     $tag = substr($tag, 7, strrpos($tag, ']') - 7);
-                    $body = $data->next();
+                    $body = $data->nextStream();
 
                     if (is_null($body)) {
                         /* Dovecot bug (as of 2.2.12): binary fetch of body
@@ -3348,7 +3455,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         }
 
         while (($name = $data->next()) !== false) {
-            $params[strtolower($name)] = $data->next();
+            $params[Horde_String::lower($name)] = $data->next();
         }
 
         $cp = new Horde_Mime_Headers_ContentParam('Unused', $params);
@@ -3606,7 +3713,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         foreach ($resources as $key => $val) {
             $limits->add(array(
-                strtoupper($key),
+                Horde_String::upper($key),
                 new Horde_Imap_Client_Data_Format_Number($val)
             ));
         }
@@ -3653,7 +3760,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $data->next();
 
         while (($curr = $data->next()) !== false) {
-            $c[$root][strtolower($curr)] = array(
+            $c[$root][Horde_String::lower($curr)] = array(
                 'usage' => $data->next(),
                 'limit' => $data->next()
             );
@@ -4172,6 +4279,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $exception = null;
 
         foreach ($chunk as $val) {
+            $val->pipeline = $pipeline;
+
             try {
                 if ($this->_processCmd($pipeline, $val, $val)) {
                     $this->_connection->write('', true);
@@ -4445,6 +4554,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 ));
             }
             $this->_responseCode($pipeline, $server);
+
+            if (is_callable($cmd->on_success)) {
+                call_user_func($cmd->on_success);
+            }
             break;
 
         case 'Horde_Imap_Client_Interaction_Server_Untagged':
@@ -4468,10 +4581,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
              * catch this if able to workaround this issue (RFC 3501
              * [7.1.2]). */
             if ($server instanceof Horde_Imap_Client_Interaction_Server_Tagged) {
-                /* Check for a on_error callback. */
+                /* Check for a on_error callback. If function returns true,
+                 * ignore the error. */
                 if (($cmd = $pipeline->getCmd($server->tag)) &&
-                    is_callable($cmd->on_error)) {
-                    call_user_func($cmd->on_error);
+                    is_callable($cmd->on_error) &&
+                    call_user_func($cmd->on_error)) {
+                    break;
                 }
 
                 throw new Horde_Imap_Client_Exception_ServerResponse(
@@ -4523,7 +4638,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         /* First, catch untagged responses where the name appears first on the
          * line. */
-        switch ($first = strtoupper($token->current())) {
+        switch ($first = Horde_String::upper($token->current())) {
         case 'CAPABILITY':
             $this->_parseCapability($pipeline, $token->flushIterator());
             break;
@@ -4551,7 +4666,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         case 'FLAGS':
             $token->next();
-            $this->_mailboxOb()->setStatus(Horde_Imap_Client::STATUS_FLAGS, array_map('strtolower', $token->flushIterator()));
+            $this->_mailboxOb()->setStatus(Horde_Imap_Client::STATUS_FLAGS, array_map('Horde_String::lower', $token->flushIterator()));
             break;
 
         case 'QUOTA':
@@ -4620,7 +4735,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         default:
             // Next, look for responses where the keywords occur second.
-            switch (strtoupper($token->next())) {
+            switch (Horde_String::upper($token->next())) {
             case 'EXISTS':
                 // EXISTS response - RFC 3501 [7.3.2]
                 $mbox_ob = $this->_mailboxOb();
@@ -4735,7 +4850,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             break;
 
         case 'PERMANENTFLAGS':
-            $this->_mailboxOb()->setStatus(Horde_Imap_Client::STATUS_PERMFLAGS, array_map('strtolower', $rc->data[0]));
+            $this->_mailboxOb()->setStatus(Horde_Imap_Client::STATUS_PERMFLAGS, array_map('Horde_String::lower', $rc->data[0]));
             break;
 
         case 'UIDNEXT':

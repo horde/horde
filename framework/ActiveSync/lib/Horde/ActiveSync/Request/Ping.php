@@ -18,7 +18,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2009-2015 Horde LLC (http://www.horde.org)
+ * @copyright 2009-2017 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -30,7 +30,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2009-2015 Horde LLC (http://www.horde.org)
+ * @copyright 2009-2017 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  * @internal
@@ -238,6 +238,15 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                     return true;
                 case Horde_ActiveSync_Collections::COLLECTION_ERR_FOLDERSYNC_REQUIRED;
                     $this->_statusCode = self::STATUS_FOLDERSYNCREQD;
+                    $this->_handleGlobalError();
+                    return true;
+                case Horde_ActiveSync_Collections::COLLECTION_ERR_AUTHENTICATION;
+                    // If we loose authentication here, it means it was
+                    // successful initially, but later failed for some reason.
+                    // Send it as a general ping error, which should allow the
+                    // client to retry later. If the auth is still bad, it will
+                    // be caught during initial login,
+                    $this->_statusCode = self::STATUS_SERVERERROR;
                     $this->_handleGlobalError();
                     return true;
                 case Horde_ActiveSync_Collections::COLLECTION_ERR_SYNC_REQUIRED;

@@ -1,8 +1,9 @@
 <?php
 /**
- * A generic factory for the various Kolab_Storage classes.
+ * Copyright 2004-2017 Horde LLC (http://www.horde.org/)
  *
- * PHP version 5
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Kolab
  * @package  Kolab_Storage
@@ -13,11 +14,6 @@
 
 /**
  * A generic factory for the various Kolab_Storage classes.
- *
- * Copyright 2004-2015 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Kolab
  * @package  Kolab_Storage
@@ -32,7 +28,7 @@ class Horde_Kolab_Storage_Factory
      *
      * @var array
      */
-    private $_params;
+    protected $_params;
 
     /**
      * Stores the driver once created.
@@ -42,21 +38,35 @@ class Horde_Kolab_Storage_Factory
      *
      * @var Horde_Kolab_Storage_Driver
      */
-    private $_driver;
+    protected $_driver;
 
     /**
      * Constructor.
      *
      * @param array $params A set of parameters.
      * <pre>
-     *  - driver : The type of backend driver. One of "mock", "php", "pear",
-     *             "horde", "horde-socket", and "roundcube".
-     *  - params : Backend specific connection parameters.
-     *  - logger : An optional log handler.
-     *  - timelog : An optional time keeping log handler.
-     *  - format : Array
+     *  - storage:
+     *  - cache:
+     *  - queries:
+     *  - queryset:
+     *  - driver: (string) The type of backend driver. One of "mock", "php",
+     *       "pear", "horde", "horde-socket", and "roundcube".
+     *  - params: (array) Backend specific connection parameters.
+     *  - logger: (Horde_Log_Logger) An optional log handler.
+     *  - log: (array) An array of log decorators. Possible values include:
+     *       'debug', 'driver_time', 'driver'.
+     *  - format : (array)
      *     - factory: Name of the format parser factory class.
-     * </pre>
+     *  - history: (Horde_History) A Horde_History driver.
+     *  - history_prefix_generator: (Horde_Kolab_Storage_HistoryPrefix) An
+     *        object that can provide prefix/collection mapping of the
+     *        History system.
+     * - sync_strategy: (Horde_Kolab_Storage_Synchronization) The strategy
+     *         object to use for determining when we should synchronize
+     *         with the Kolab backend. If omitted,
+     *         Horde_Kolab_Storage_Synchronization_OncePerSession strategy is
+     *         used.
+     *  </pre>
      */
     public function __construct($params = array())
     {
@@ -104,9 +114,15 @@ class Horde_Kolab_Storage_Factory
                 $sparams
             );
         }
+        if (empty($this->_params['sync_strategy'])) {
+            $strategy = new Horde_Kolab_Storage_Synchronization_OncePerSession();
+        } else {
+            $strategy = $this->_params['sync_strategy'];
+        }
         $storage = new Horde_Kolab_Storage_Decorator_Synchronization(
-            $storage, new Horde_Kolab_Storage_Synchronization()
+            $storage, new Horde_Kolab_Storage_Synchronization($strategy)
         );
+
         return $storage;
     }
 
@@ -182,11 +198,8 @@ class Horde_Kolab_Storage_Factory
             $driver = new Horde_Kolab_Storage_Driver_Decorator_Log(
                 $driver, $params['logger']
             );
-            //$parser->setLogger($params['logger']);
         }
-        /* if (!empty($params['ignore_parse_errors'])) { */
-        /*     $parser->setLogger(false); */
-        /* } */
+
         if (isset($this->_params['log'])
             && (in_array('debug', $this->_params['log'])
                 || in_array('driver_time', $this->_params['log']))) {
@@ -203,13 +216,13 @@ class Horde_Kolab_Storage_Factory
      *
      * @param string $type   The namespace type.
      * @param string $user   The current user.
-     * @param array  $params The parameters for the namespace. 
+     * @param array  $params The parameters for the namespace.
      *
      * @return Horde_Kolab_Storage_Folder_Namespace The namespace handler.
      */
     public function createNamespace($type, $user, array $params = array())
     {
-        $class = 'Horde_Kolab_Storage_Folder_Namespace_' . ucfirst($type);
+        $class = 'Horde_Kolab_Storage_Folder_Namespace_' . Horde_String::ucfirst($type);
         if (!class_exists($class)) {
             throw new Horde_Kolab_Storage_Exception(
                 sprintf(
@@ -235,7 +248,7 @@ class Horde_Kolab_Storage_Factory
         } else {
             $params = array();
         }
-        if ($params instanceOf Horde_Cache) {
+        if ($params instanceof Horde_Cache) {
             return new Horde_Kolab_Storage_Cache($params);
         } else {
             $cache = new Horde_Cache(
@@ -258,10 +271,29 @@ class Horde_Kolab_Storage_Factory
     public function createHistory($user)
     {
         if (isset($this->_params['history']) &&
-            $this->_params['history'] instanceOf Horde_History) {
+            $this->_params['history'] instanceof Horde_History) {
             return $this->_params['history'];
         }
         return new Horde_History_Mock($user);
+    }
+
+    /**
+     * Create a prefix factory.
+     *
+     * @todo This should probably be implemented by decorating/wrapping the
+     *       Horde_History object but that can't be done in a clean BC way
+     *       until Horde 6. So, until then implement a
+     *       Horde_Kolab_Storage_History_Prefix interface.
+     *
+     * @return Horde_Kolab_Storage_HistoryPrefix|Horde_Support_Stub
+     */
+    public function getHistoryPrefixGenerator()
+    {
+        if (isset($this->_params['history_prefix_generator'])) {
+            return $this->_params['history_prefix_generator'];
+        }
+
+        return new Horde_Support_Stub();
     }
 
     public function getDriver()

@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2012-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @category  Horde
- * @copyright 2012-2015 Horde LLC
+ * @copyright 2012-2017 Horde LLC
  * @license   http://www.horde.org/licenses/apache ASL
  * @package   Ingo
  */
@@ -19,7 +19,7 @@
  * @author    Mike Cochrane <mike@graftonhall.co.nz>
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2012-2015 Horde LLC
+ * @copyright 2012-2017 Horde LLC
  * @license   http://www.horde.org/licenses/apache ASL
  * @package   Ingo
  */
@@ -59,7 +59,7 @@ class Ingo_Storage_Sql extends Ingo_Storage
         $values = array(Ingo::getUser());
 
         try {
-            $result = $this->_params['db']->selectAll($query, $values);
+            $result = $this->_params['db']->select($query, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Ingo_Exception($e);
         }
@@ -108,6 +108,9 @@ class Ingo_Storage_Sql extends Ingo_Storage
 
                 try {
                     $data = $this->_params['db']->selectOne($query, $values);
+                    $columns = $this->_params['db']->columns(
+                        $this->_params['table_forwards']
+                    );
                 } catch (Horde_Db_Exception $e) {
                     throw new Ingo_Exception($e);
                 }
@@ -115,7 +118,12 @@ class Ingo_Storage_Sql extends Ingo_Storage
                 if (empty($data)) {
                     $disable = true;
                 } else {
-                    $ob->addresses = explode("\n", $data['forward_addresses']);
+                    $ob->addresses = explode(
+                        "\n",
+                        $columns['forward_addresses']->binaryToString(
+                            $data['forward_addresses']
+                        )
+                    );
                     $ob->keep = $data['forward_keep'];
                 }
                 break;
@@ -150,6 +158,9 @@ class Ingo_Storage_Sql extends Ingo_Storage
 
                 try {
                     $data = $this->_params['db']->selectOne($query, $values);
+                    $columns = $this->_params['db']->columns(
+                        $this->_params['table_vacations']
+                    );
                 } catch (Horde_Db_Exception $e) {
                     throw new Ingo_Exception($e);
                 }
@@ -157,13 +168,25 @@ class Ingo_Storage_Sql extends Ingo_Storage
                 if (empty($data)) {
                     $disable = true;
                 } else {
-                    $ob->addresses = explode("\n", $data['vacation_addresses']);
+                    $ob->addresses = explode(
+                        "\n",
+                        $columns['vacation_addresses']->binaryToString(
+                            $data['vacation_addresses']
+                        )
+                    );
                     $ob->days = $data['vacation_days'];
                     $ob->end = $data['vacation_end'];
-                    $ob->exclude = explode("\n", $data['vacation_excludes']);
+                    $ob->exclude = explode(
+                        "\n",
+                        $columns['vacation_excludes']->binaryToString(
+                            $data['vacation_excludes']
+                        )
+                    );
                     $ob->ignore_list = $data['vacation_ignorelists'];
                     $ob->reason = Horde_String::convertCharset(
-                        $data['vacation_reason'],
+                        $columns['vacation_reason']->binaryToString(
+                            $data['vacation_reason']
+                        ),
                         $this->_params['charset'],
                         'UTF-8'
                     );
@@ -195,11 +218,16 @@ class Ingo_Storage_Sql extends Ingo_Storage
                 break;
 
             default:
+                $columns = $this->_params['db']->columns($this->_params['table_rules']);
                 $ob->combine = intval($row['rule_combine']);
                 $ob->conditions = empty($row['rule_conditions'])
                     ? null :
                     Horde_String::convertCharset(
-                        unserialize($row['rule_conditions']),
+                        unserialize(
+                            $columns['rule_conditions']->binaryToString(
+                                $row['rule_conditions']
+                            )
+                        ),
                         $this->_params['charset'],
                         'UTF-8'
                     );
@@ -257,20 +285,16 @@ class Ingo_Storage_Sql extends Ingo_Storage
      */
     protected function _storeBackend($action, $rule)
     {
-        // TODO: Code is not tested; prevent against destructive action
-        $GLOBALS['notification']->push(
-            'Saving rules to the SQL driver is currently disabled, as this code is untested and may destroy your data. Uncomment the code in Ingo_Storage_Sql to enable testing and allow rules to be saved.',
-            'horde.error'
-        );
-        return;
-
         switch ($action) {
         case self::STORE_ADD:
             try {
-                $max = $this->_params['db']->selectValue(
-                    'SELECT MAX(rule_order) FROM %s',
+                $query = sprintf(
+                    'SELECT MAX(rule_order) FROM %s WHERE rule_owner = ?',
                     $this->_params['table_rules']
                 );
+                $values = array(Ingo::getUser());
+
+                $max = $this->_params['db']->selectValue($query, $values);
             } catch (Horde_Db_Exception $e) {
                 throw new Ingo_Exception($e);
             }
@@ -290,7 +314,7 @@ class Ingo_Storage_Sql extends Ingo_Storage
                 $d['action'],
                 $d['value'],
                 $d['flags'],
-                $d['conditions'],
+                new Horde_Db_Value_Text($d['conditions']),
                 $d['combine'],
                 $d['stop'],
                 $d['active'],
@@ -412,13 +436,17 @@ class Ingo_Storage_Sql extends Ingo_Storage
                     }
                 } catch (Horde_Db_Exception $e) {
                     Horde::log($e, 'ERR');
+                    $this->_params['db']->rollbackDbTransaction();
                     throw new Ingo_Exception($e);
                 }
+                $this->_params['db']->commitDbTransaction();
                 break;
 
             case 'Ingo_Rule_System_Forward':
                 $values = array(
-                    implode("\n", $rule->addresses),
+                    new Horde_Db_Value_Text(
+                        implode("\n", $rule->addresses)
+                    ),
                     intval($rule->keep),
                     Ingo::getUser()
                 );
@@ -474,21 +502,21 @@ class Ingo_Storage_Sql extends Ingo_Storage
 
             case 'Ingo_Rule_System_Vacation':
                 $values = array(
-                    implode("\n", $rule->addresses),
+                    new Horde_Db_Value_Text(implode("\n", $rule->addresses)),
                     Horde_String::convertCharset(
                         $rule->subject,
                         'UTF-8',
                         $this->_params['charset']
                     ),
-                    Horde_String::convertCharset(
+                    new Horde_Db_Value_Text(Horde_String::convertCharset(
                         $rule->reason,
                         'UTF-8',
                         $this->_params['charset']
-                    ),
+                    )),
                     $rule->days,
                     $rule->start,
                     $rule->end,
-                    implode("\n", $rule->exclude),
+                    new Horde_Db_Value_Text(implode("\n", $rule->exclude)),
                     intval($rule->ignore_list),
                     Ingo::getUser()
                 );
@@ -556,13 +584,11 @@ class Ingo_Storage_Sql extends Ingo_Storage
                   ))
                 : null,
             'flags' => $user_rule ? $rule->flags : null,
-            'name' => $user_rule
-                ? Horde_String::convertCharset(
-                    $rule->name,
-                    'UTF-8',
-                    $this->_params['charset']
-                  )
-                : null,
+            'name' => Horde_String::convertCharset(
+                $rule->name,
+                'UTF-8',
+                $this->_params['charset']
+            ),
             'stop' => $user_rule ? intval($rule->stop) : null,
             'value' => is_null($value)
                 ? null
@@ -570,7 +596,7 @@ class Ingo_Storage_Sql extends Ingo_Storage
                     $value,
                     'UTF-8',
                     $this->_params['charset']
-                  )
+                )
         );
     }
 

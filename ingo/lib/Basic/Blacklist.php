@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2013-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2013-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @category  Horde
- * @copyright 2013-2015 Horde LLC
+ * @copyright 2013-2017 Horde LLC
  * @license   http://www.horde.org/licenses/apache ASL
  * @package   Ingo
  */
@@ -17,7 +17,7 @@
  * @author    Mike Cochrane <mike@graftonhall.co.nz>
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2013-2015 Horde LLC
+ * @copyright 2013-2017 Horde LLC
  * @license   http://www.horde.org/licenses/apache ASL
  * @package   Ingo
  */
@@ -31,7 +31,8 @@ class Ingo_Basic_Blacklist extends Ingo_Basic_Base
 
         $this->_assertCategory('Ingo_Rule_System_Blacklist', _("Blacklist"));
 
-        $ingo_script = $injector->getInstance('Ingo_Factory_Script')->create(Ingo::RULE_BLACKLIST);
+        $ingo_script_factory = $injector->getInstance('Ingo_Factory_Script');
+        $ingo_script = $ingo_script_factory->create(Ingo::RULE_BLACKLIST);
         $ingo_storage = $injector->getInstance('Ingo_Factory_Storage')->create();
         $flagonly = ($ingo_script && in_array('Ingo_Rule_User_FlagOnly', $ingo_script->availableActions()));
 
@@ -66,7 +67,8 @@ class Ingo_Basic_Blacklist extends Ingo_Basic_Base
                     $bl->mailbox = $folder;
                     $ingo_storage->updateRule($bl);
                     $notification->push(_("Changes saved."), 'horde.success');
-                    Ingo_Script_Util::update();
+
+                    $ingo_script_factory->activateAll();
                 } catch (Ingo_Exception $e) {
                     $notification->push($e, $e->getCode());
                 }

@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you did
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @category  Horde
- * @copyright 2010-2015 Horde LLC
+ * @copyright 2010-2017 Horde LLC
  * @license   http://www.horde.org/licenses/apache ASL
  * @package   Turba
  */
@@ -19,7 +19,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org?
  * @category  Horde
- * @copyright 2010-2015 Horde LLC
+ * @copyright 2010-2017 Horde LLC
  * @license   http://www.horde.org/licenses/apache ASL
  * @package   Turba
  */
@@ -57,7 +57,7 @@ class Turba_Application extends Horde_Registry_Application
 
     /**
      */
-    public $version = 'H5 (4.3.0-git)';
+    public $version = 'H5 (5.0.0-git)';
 
     /**
      */
@@ -85,17 +85,19 @@ class Turba_Application extends Horde_Registry_Application
      */
     protected function _init()
     {
-        global $injector, $registry, $session;
+        global $conf, $injector, $registry, $session;
 
-        /* For now, autoloading the Content_* classes depend on there being a
-         * registry entry for the 'content' application that contains at least
-         * the fileroot entry. */
-        $injector->getInstance('Horde_Autoloader')
-            ->addClassPathMapper(
-                new Horde_Autoloader_ClassPathMapper_Prefix('/^Content_/', $registry->get('fileroot', 'content') . '/lib/'));
+        if ($conf['tags']['enabled']) {
+            /* For now, autoloading the Content_* classes depend on there being
+             * a registry entry for the 'content' application that contains at
+             * least the fileroot entry. */
+            $injector->getInstance('Horde_Autoloader')
+                ->addClassPathMapper(
+                    new Horde_Autoloader_ClassPathMapper_Prefix('/^Content_/', $registry->get('fileroot', 'content') . '/lib/'));
 
-        if (!class_exists('Content_Tagger')) {
-            throw new Horde_Exception(_("The Content_Tagger class could not be found. Make sure the Content application is installed."));
+            if (!class_exists('Content_Tagger')) {
+                throw new Horde_Exception(_("The Content_Tagger class could not be found. Make sure the Content application is installed."));
+            }
         }
 
         // Turba source and attribute configuration.
@@ -213,13 +215,15 @@ class Turba_Application extends Horde_Registry_Application
      */
     public function sidebar($sidebar)
     {
+        global $conf, $cfgSources;
+
         if (count($GLOBALS['addSources'])) {
             $sidebar->addNewButton(_("_New Contact"), Horde::url('add.php'));
         }
 
         $user = $GLOBALS['registry']->getAuth();
-        $url = Horde::url('');
         $edit = Horde::url('addressbooks/edit.php');
+        $url = Horde::url('');
 
         $sidebar->containers['my'] = array(
             'header' => array(
@@ -229,26 +233,22 @@ class Turba_Application extends Horde_Registry_Application
             ),
         );
         if ($GLOBALS['registry']->getAuth() &&
-            $GLOBALS['session']->get('turba', 'has_share')) {
+            $GLOBALS['session']->get('turba', 'has_share') &&
+            !empty($conf['shares']['source'])) {
+            $create = true;
             $sidebar->containers['my']['header']['add'] = array(
                 'url' => Horde::url('addressbooks/create.php'),
                 'label' => _("Create a new Address Book"),
             );
         }
-        $sidebar->containers['shared'] = array(
-            'header' => array(
-                'id' => 'turba-toggle-shared',
-                'label' => _("Shared Address Books"),
-                'collapsed' => true,
-            ),
-        );
         $shares = array();
+        $shared = array();
         foreach (Turba::listShares(false, Horde_Perms::SHOW) as $id => $abook) {
             $row = array(
                 'selected' => $id == Turba::$source,
-                'url' => $url->add('source', $id),
+                'url' => $url->copy()->add('source', $id),
                 'label' => $abook->get('name'),
-                'edit' => $edit->add('a', $abook->getName()),
+                'edit' => $edit->copy()->add('a', $abook->getName()),
                 'type' => 'radiobox',
             );
             if ($abook->get('owner') && $abook->get('owner') == $user) {
@@ -260,12 +260,25 @@ class Turba_Application extends Horde_Registry_Application
                 if ($abook->get('owner')) {
                     $row['label'] .= ' [' . $GLOBALS['registry']->convertUsername($abook->get('owner'), false) . ']';
                 }
+                $shared[] = $row;
+            }
+            $shares[$id] = true;
+        }
+
+        if (!empty($create) || count($shared)) {
+            $sidebar->containers['shared'] = array(
+                'header' => array(
+                    'id' => 'turba-toggle-shared',
+                    'label' => _("Shared Address Books"),
+                    'collapsed' => true,
+                ),
+            );
+            foreach ($shared as $row) {
                 $sidebar->addRow($row, 'shared');
                 if ($row['selected']) {
                     $sidebar->containers['shared']['header']['collapsed'] = false;
                 }
             }
-            $shares[$id] = true;
         }
 
         $sidebar->containers['other'] = array(
@@ -281,7 +294,7 @@ class Turba_Application extends Horde_Registry_Application
             }
             $row = array(
                 'selected' => $id == Turba::$source,
-                'url' => $url->add('source', $id),
+                'url' => $url->copy()->add('source', $id),
                 'label' => $abook['title'],
                 'type' => 'radiobox',
             );
@@ -548,12 +561,27 @@ class Turba_Application extends Horde_Registry_Application
                     } else {
                         $row = array();
                         foreach ($fields as $field) {
-                            if (substr($field, 0, 2) == '__' ||
+                            if ((substr($field, 0, 2) == '__' && $field != '__members' && $field != '__uid') ||
                                 isset($blobs[$field])) {
                                 continue;
                             }
                             $attribute = $ob->getValue($field);
-                            if ($attributes[$field]['type'] == 'date') {
+                            if ($field == '__members') {
+                                if (empty($attribute)) {
+                                    $row['kind'] = '';
+                                    $row['members'] = '';
+                                    continue;
+                                }
+                                $row['kind'] = 'group';
+                                $members = $ob->listMembers();
+                                $uids = array();
+                                foreach ($members->objects as $member) {
+                                    $uids[] = $member->getValue('__uid');
+                                }
+                                $row['members'] = implode(',', $uids);
+                            } elseif ($field == '__uid') {
+                                $row['uid'] = !empty($attribute) ? $attribute : '';
+                            } elseif ($attributes[$field]['type'] == 'date') {
                                 $row[$field] = strftime('%Y-%m-%d', $attribute);
                             } elseif ($attributes[$field]['type'] == 'time') {
                                 $row[$field] = strftime('%R', $attribute);
@@ -692,16 +720,15 @@ class Turba_Application extends Horde_Registry_Application
                     ($user != '-system-' &&
                      $hordeUser != $share->get('owner') &&
                      $hordeUser != $registry->getAuth())) {
-                    continue;
+                    continue 2;
                 }
                 $readOnly = !$share->hasPermission($hordeUser, Horde_Perms::EDIT);
                 break;
 
-            case 'facebook':
             case 'favourites':
             case 'vbook':
                 if ($user == '-system-') {
-                    continue;
+                    continue 2;
                 }
                 $readOnly = true;
                 break;

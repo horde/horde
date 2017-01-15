@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>folks</name>
+ <channel>pear.horde.org</channel>
+ <summary>TODO</summary>
+ <description>TODO</description>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2016-01-13</date>
+ <version>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0alpha1</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="TODO">TODO</license>
+ <notes>
+* Initial release.
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <dir name="account">
+    <file name=".directory" role="horde" />
+    <file name="approve.php" role="horde" />
+    <file name="renew.php" role="horde" />
+    <file name="resetpassword.php" role="horde" />
+    <file name="signup.php" role="horde" />
+    <file name="tabs.php" role="horde" />
+    <file name="username.php" role="horde" />
+   </dir> <!-- /account -->
+   <dir name="config">
+    <file name=".htaccess" role="horde" />
+    <file name="conf.xml" role="horde" />
+    <file name="hooks.php.dist" role="horde" />
+    <file name="invite.php.dist" role="horde" />
+    <file name="prefs.php" role="horde" />
+   </dir> <!-- /config -->
+   <dir name="docs">
+    <file name="CHANGES" role="doc" />
+    <file name="CREDITS" role="doc" />
+    <file name="lighttpd-folks.conf" role="doc" />
+    <file name="RELEASE_NOTES" role="doc" />
+    <file name="TODO" role="doc" />
+   </dir> <!-- /docs -->
+   <dir name="edit">
+    <dir name="friends">
+     <file name="add.php" role="horde" />
+     <file name="approve.php" role="horde" />
+     <file name="blacklist.php" role="horde" />
+     <file name="for.php" role="horde" />
+     <file name="friends.php" role="horde" />
+     <file name="from.php" role="horde" />
+     <file name="groups.php" role="horde" />
+     <file name="index.php" role="horde" />
+     <file name="invite.php" role="horde" />
+     <file name="know.php" role="horde" />
+     <file name="of.php" role="horde" />
+     <file name="reject.php" role="horde" />
+    </dir> <!-- /edit/friends -->
+    <file name=".directory" role="horde" />
+    <file name="activity.php" role="horde" />
+    <file name="comments.php" role="horde" />
+    <file name="edit.php" role="horde" />
+    <file name="facebook.php" role="horde" />
+    <file name="password.php" role="horde" />
+    <file name="privacy.php" role="horde" />
+    <file name="tabs.php" role="horde" />
+   </dir> <!-- /edit -->
+   <dir name="js">
+    <file name="search.js" role="horde" />
+   </dir> <!-- /js -->
+   <dir name="lib">
+    <dir name="Block">
+     <file name="Activities.php" role="horde" />
+     <file name="Friends.php" role="horde" />
+     <file name="Know.php" role="horde" />
+     <file name="MyComments.php" role="horde" />
+     <file name="New.php" role="horde" />
+     <file name="Random.php" role="horde" />
+     <file name="Recent.php" role="horde" />
+    </dir> <!-- /lib/Block -->
+    <dir name="Driver">
+     <file name="sql.php" role="horde" />
+    </dir> <!-- /lib/Driver -->
+    <dir name="Forms">
+     <file name="Activity.php" role="horde" />
+     <file name="AddFriend.php" role="horde" />
+     <file name="Login.php" role="horde" />
+     <file name="Search.php" role="horde" />
+    </dir> <!-- /lib/Forms -->
+    <dir name="Friends">
+     <file name="application.php" role="horde" />
+     <file name="facebook.php" role="horde" />
+     <file name="prefs.php" role="horde" />
+     <file name="shared.php" role="horde" />
+     <file name="sql.php" role="horde" />
+    </dir> <!-- /lib/Friends -->
+    <dir name="Notification">
+     <file name="facebook.php" role="horde" />
+     <file name="letter.php" role="horde" />
+     <file name="mail.php" role="horde" />
+     <file name="tickets.php" role="horde" />
+    </dir> <!-- /lib/Notification -->
+    <file name=".htaccess" role="horde" />
+    <file name="Api.php" role="horde" />
+    <file name="Application.php" role="horde" />
+    <file name="base.php" role="horde" />
+    <file name="Driver.php" role="horde" />
+    <file name="Folks.php" role="horde" />
+    <file name="Friends.php" role="horde" />
+    <file name="Notification.php" role="horde" />
+   </dir> <!-- /lib -->
+   <dir name="locale">
+    <dir name="es">
+     <dir name="LC_MESSAGES">
+      <file name="folks.mo" role="horde" />
+      <file name="folks.po" role="horde" />
+     </dir> <!-- /locale/es/LC_MESSAGES -->
+    </dir> <!-- /locale/es -->
+    <dir name="fi">
+     <dir name="LC_MESSAGES">
+      <file name="folks.mo" role="horde" />
+      <file name="folks.po" role="horde" />
+     </dir> <!-- /locale/fi/LC_MESSAGES -->
+    </dir> <!-- /locale/fi -->
+    <dir name="lv">
+     <dir name="LC_MESSAGES">
+      <file name="folks.mo" role="horde" />
+      <file name="folks.po" role="horde" />
+     </dir> <!-- /locale/lv/LC_MESSAGES -->
+    </dir> <!-- /locale/lv -->
+    <dir name="sl">
+     <dir name="LC_MESSAGES">
+      <file name=".directory" role="horde" />
+      <file name="folks.mo" role="horde" />
+      <file name="folks.po" role="horde" />
+     </dir> <!-- /locale/sl/LC_MESSAGES -->
+    </dir> <!-- /locale/sl -->
+    <file name=".htaccess" role="horde" />
+    <file name="folks.pot" role="horde" />
+   </dir> <!-- /locale -->
+   <dir name="rss">
+    <file name="activity.php" role="horde" />
+    <file name="friends.php" role="horde" />
+    <file name="know.php" role="horde" />
+    <file name="online.php" role="horde" />
+   </dir> <!-- /rss -->
+   <dir name="scripts">
+    <dir name="sql">
+     <file name="folks.mysql.sql" role="horde" />
+     <file name="folks.sharedfriends.sql" role="horde" />
+    </dir> <!-- /scripts/sql -->
+    <dir name="upgrades">
+     <file name="2009-02-16_friends.sql" role="horde" />
+    </dir> <!-- /scripts/upgrades -->
+    <file name=".directory" role="horde" />
+    <file name="activity.php" role="horde" />
+    <file name="activity.sql" role="horde" />
+    <file name="counts.sql" role="horde" />
+    <file name="import_letter.php" role="horde" />
+    <file name="mail-filter.php" role="horde" />
+    <file name="mail.php" role="horde" />
+    <file name="online.php" role="horde" />
+    <file name="online.sql" role="horde" />
+    <file name="popularity.php" role="horde" />
+   </dir> <!-- /scripts -->
+   <dir name="templates">
+    <dir name="block">
+     <file name="activities.php" role="horde" />
+     <file name="users.php" role="horde" />
+    </dir> <!-- /templates/block -->
+    <dir name="edit">
+     <file name=".directory" role="horde" />
+     <file name="activity.php" role="horde" />
+     <file name="add.php" role="horde" />
+     <file name="footer.php" role="horde" />
+     <file name="friends.php" role="horde" />
+     <file name="groups.php" role="horde" />
+     <file name="header.php" role="horde" />
+     <file name="invite.php" role="horde" />
+    </dir> <!-- /templates/edit -->
+    <dir name="feed">
+     <file name="activities.php" role="horde" />
+     <file name="feed.php" role="horde" />
+    </dir> <!-- /templates/feed -->
+    <dir name="friends">
+     <file name="friends.php" role="horde" />
+    </dir> <!-- /templates/friends -->
+    <dir name="list">
+     <file name="list.php" role="horde" />
+     <file name="search.php" role="horde" />
+    </dir> <!-- /templates/list -->
+    <dir name="login">
+     <file name="login.php" role="horde" />
+     <file name="signup.php" role="horde" />
+    </dir> <!-- /templates/login -->
+    <dir name="services">
+     <file name="services.php" role="horde" />
+    </dir> <!-- /templates/services -->
+    <dir name="user">
+     <file name=".directory" role="horde" />
+     <file name="actions.php" role="horde" />
+     <file name="authenticated.php" role="horde" />
+     <file name="deleted.php" role="horde" />
+     <file name="friends.php" role="horde" />
+     <file name="inactive.php" role="horde" />
+     <file name="private.php" role="horde" />
+     <file name="user.php" role="horde" />
+    </dir> <!-- /templates/user -->
+    <file name=".htaccess" role="horde" />
+   </dir> <!-- /templates -->
+   <dir name="themes">
+    <dir name="default">
+     <dir name="graphics">
+      <file name="folks.png" role="horde" />
+     </dir> <!-- /themes/default/graphics -->
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/default -->
+   </dir> <!-- /themes -->
+   <file name="activity.php" role="horde" />
+   <file name="birthday.php" role="horde" />
+   <file name="friends.php" role="horde" />
+   <file name="index.php" role="horde" />
+   <file name="list.php" role="horde" />
+   <file name="login.php" role="horde" />
+   <file name="new.php" role="horde" />
+   <file name="online.php" role="horde" />
+   <file name="perms.php" role="horde" />
+   <file name="popularity.php" role="horde" />
+   <file name="report.php" role="horde" />
+   <file name="save_search.php" role="horde" />
+   <file name="search.php" role="horde" />
+   <file name="services.php" role="horde" />
+   <file name="user.php" role="horde" />
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.3.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.7.0</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install as="folks/activity.php" name="activity.php" />
+   <install as="folks/birthday.php" name="birthday.php" />
+   <install as="folks/friends.php" name="friends.php" />
+   <install as="folks/index.php" name="index.php" />
+   <install as="folks/list.php" name="list.php" />
+   <install as="folks/login.php" name="login.php" />
+   <install as="folks/new.php" name="new.php" />
+   <install as="folks/online.php" name="online.php" />
+   <install as="folks/perms.php" name="perms.php" />
+   <install as="folks/popularity.php" name="popularity.php" />
+   <install as="folks/report.php" name="report.php" />
+   <install as="folks/save_search.php" name="save_search.php" />
+   <install as="folks/search.php" name="search.php" />
+   <install as="folks/services.php" name="services.php" />
+   <install as="folks/user.php" name="user.php" />
+   <install as="folks/account/.directory" name="account/.directory" />
+   <install as="folks/account/approve.php" name="account/approve.php" />
+   <install as="folks/account/renew.php" name="account/renew.php" />
+   <install as="folks/account/resetpassword.php" name="account/resetpassword.php" />
+   <install as="folks/account/signup.php" name="account/signup.php" />
+   <install as="folks/account/tabs.php" name="account/tabs.php" />
+   <install as="folks/account/username.php" name="account/username.php" />
+   <install as="folks/config/.htaccess" name="config/.htaccess" />
+   <install as="folks/config/conf.xml" name="config/conf.xml" />
+   <install as="folks/config/hooks.php.dist" name="config/hooks.php.dist" />
+   <install as="folks/config/invite.php.dist" name="config/invite.php.dist" />
+   <install as="folks/config/prefs.php" name="config/prefs.php" />
+   <install as="CHANGES" name="docs/CHANGES" />
+   <install as="CREDITS" name="docs/CREDITS" />
+   <install as="lighttpd-folks.conf" name="docs/lighttpd-folks.conf" />
+   <install as="RELEASE_NOTES" name="docs/RELEASE_NOTES" />
+   <install as="TODO" name="docs/TODO" />
+   <install as="folks/edit/.directory" name="edit/.directory" />
+   <install as="folks/edit/activity.php" name="edit/activity.php" />
+   <install as="folks/edit/comments.php" name="edit/comments.php" />
+   <install as="folks/edit/edit.php" name="edit/edit.php" />
+   <install as="folks/edit/facebook.php" name="edit/facebook.php" />
+   <install as="folks/edit/password.php" name="edit/password.php" />
+   <install as="folks/edit/privacy.php" name="edit/privacy.php" />
+   <install as="folks/edit/tabs.php" name="edit/tabs.php" />
+   <install as="folks/edit/friends/add.php" name="edit/friends/add.php" />
+   <install as="folks/edit/friends/approve.php" name="edit/friends/approve.php" />
+   <install as="folks/edit/friends/blacklist.php" name="edit/friends/blacklist.php" />
+   <install as="folks/edit/friends/for.php" name="edit/friends/for.php" />
+   <install as="folks/edit/friends/friends.php" name="edit/friends/friends.php" />
+   <install as="folks/edit/friends/from.php" name="edit/friends/from.php" />
+   <install as="folks/edit/friends/groups.php" name="edit/friends/groups.php" />
+   <install as="folks/edit/friends/index.php" name="edit/friends/index.php" />
+   <install as="folks/edit/friends/invite.php" name="edit/friends/invite.php" />
+   <install as="folks/edit/friends/know.php" name="edit/friends/know.php" />
+   <install as="folks/edit/friends/of.php" name="edit/friends/of.php" />
+   <install as="folks/edit/friends/reject.php" name="edit/friends/reject.php" />
+   <install as="folks/js/search.js" name="js/search.js" />
+   <install as="folks/lib/.htaccess" name="lib/.htaccess" />
+   <install as="folks/lib/Api.php" name="lib/Api.php" />
+   <install as="folks/lib/Application.php" name="lib/Application.php" />
+   <install as="folks/lib/base.php" name="lib/base.php" />
+   <install as="folks/lib/Driver.php" name="lib/Driver.php" />
+   <install as="folks/lib/Folks.php" name="lib/Folks.php" />
+   <install as="folks/lib/Friends.php" name="lib/Friends.php" />
+   <install as="folks/lib/Notification.php" name="lib/Notification.php" />
+   <install as="folks/lib/Block/Activities.php" name="lib/Block/Activities.php" />
+   <install as="folks/lib/Block/Friends.php" name="lib/Block/Friends.php" />
+   <install as="folks/lib/Block/Know.php" name="lib/Block/Know.php" />
+   <install as="folks/lib/Block/MyComments.php" name="lib/Block/MyComments.php" />
+   <install as="folks/lib/Block/New.php" name="lib/Block/New.php" />
+   <install as="folks/lib/Block/Random.php" name="lib/Block/Random.php" />
+   <install as="folks/lib/Block/Recent.php" name="lib/Block/Recent.php" />
+   <install as="folks/lib/Driver/sql.php" name="lib/Driver/sql.php" />
+   <install as="folks/lib/Forms/Activity.php" name="lib/Forms/Activity.php" />
+   <install as="folks/lib/Forms/AddFriend.php" name="lib/Forms/AddFriend.php" />
+   <install as="folks/lib/Forms/Login.php" name="lib/Forms/Login.php" />
+   <install as="folks/lib/Forms/Search.php" name="lib/Forms/Search.php" />
+   <install as="folks/lib/Friends/application.php" name="lib/Friends/application.php" />
+   <install as="folks/lib/Friends/facebook.php" name="lib/Friends/facebook.php" />
+   <install as="folks/lib/Friends/prefs.php" name="lib/Friends/prefs.php" />
+   <install as="folks/lib/Friends/shared.php" name="lib/Friends/shared.php" />
+   <install as="folks/lib/Friends/sql.php" name="lib/Friends/sql.php" />
+   <install as="folks/lib/Notification/facebook.php" name="lib/Notification/facebook.php" />
+   <install as="folks/lib/Notification/letter.php" name="lib/Notification/letter.php" />
+   <install as="folks/lib/Notification/mail.php" name="lib/Notification/mail.php" />
+   <install as="folks/lib/Notification/tickets.php" name="lib/Notification/tickets.php" />
+   <install as="folks/locale/.htaccess" name="locale/.htaccess" />
+   <install as="folks/locale/folks.pot" name="locale/folks.pot" />
+   <install as="folks/locale/es/LC_MESSAGES/folks.mo" name="locale/es/LC_MESSAGES/folks.mo" />
+   <install as="folks/locale/es/LC_MESSAGES/folks.po" name="locale/es/LC_MESSAGES/folks.po" />
+   <install as="folks/locale/fi/LC_MESSAGES/folks.mo" name="locale/fi/LC_MESSAGES/folks.mo" />
+   <install as="folks/locale/fi/LC_MESSAGES/folks.po" name="locale/fi/LC_MESSAGES/folks.po" />
+   <install as="folks/locale/lv/LC_MESSAGES/folks.mo" name="locale/lv/LC_MESSAGES/folks.mo" />
+   <install as="folks/locale/lv/LC_MESSAGES/folks.po" name="locale/lv/LC_MESSAGES/folks.po" />
+   <install as="folks/locale/sl/LC_MESSAGES/.directory" name="locale/sl/LC_MESSAGES/.directory" />
+   <install as="folks/locale/sl/LC_MESSAGES/folks.mo" name="locale/sl/LC_MESSAGES/folks.mo" />
+   <install as="folks/locale/sl/LC_MESSAGES/folks.po" name="locale/sl/LC_MESSAGES/folks.po" />
+   <install as="folks/rss/activity.php" name="rss/activity.php" />
+   <install as="folks/rss/friends.php" name="rss/friends.php" />
+   <install as="folks/rss/know.php" name="rss/know.php" />
+   <install as="folks/rss/online.php" name="rss/online.php" />
+   <install as="folks/scripts/.directory" name="scripts/.directory" />
+   <install as="folks/scripts/activity.php" name="scripts/activity.php" />
+   <install as="folks/scripts/activity.sql" name="scripts/activity.sql" />
+   <install as="folks/scripts/counts.sql" name="scripts/counts.sql" />
+   <install as="folks/scripts/import_letter.php" name="scripts/import_letter.php" />
+   <install as="folks/scripts/mail-filter.php" name="scripts/mail-filter.php" />
+   <install as="folks/scripts/mail.php" name="scripts/mail.php" />
+   <install as="folks/scripts/online.php" name="scripts/online.php" />
+   <install as="folks/scripts/online.sql" name="scripts/online.sql" />
+   <install as="folks/scripts/popularity.php" name="scripts/popularity.php" />
+   <install as="folks/scripts/sql/folks.mysql.sql" name="scripts/sql/folks.mysql.sql" />
+   <install as="folks/scripts/sql/folks.sharedfriends.sql" name="scripts/sql/folks.sharedfriends.sql" />
+   <install as="folks/scripts/upgrades/2009-02-16_friends.sql" name="scripts/upgrades/2009-02-16_friends.sql" />
+   <install as="folks/templates/.htaccess" name="templates/.htaccess" />
+   <install as="folks/templates/block/activities.php" name="templates/block/activities.php" />
+   <install as="folks/templates/block/users.php" name="templates/block/users.php" />
+   <install as="folks/templates/edit/.directory" name="templates/edit/.directory" />
+   <install as="folks/templates/edit/activity.php" name="templates/edit/activity.php" />
+   <install as="folks/templates/edit/add.php" name="templates/edit/add.php" />
+   <install as="folks/templates/edit/footer.php" name="templates/edit/footer.php" />
+   <install as="folks/templates/edit/friends.php" name="templates/edit/friends.php" />
+   <install as="folks/templates/edit/groups.php" name="templates/edit/groups.php" />
+   <install as="folks/templates/edit/header.php" name="templates/edit/header.php" />
+   <install as="folks/templates/edit/invite.php" name="templates/edit/invite.php" />
+   <install as="folks/templates/feed/activities.php" name="templates/feed/activities.php" />
+   <install as="folks/templates/feed/feed.php" name="templates/feed/feed.php" />
+   <install as="folks/templates/friends/friends.php" name="templates/friends/friends.php" />
+   <install as="folks/templates/list/list.php" name="templates/list/list.php" />
+   <install as="folks/templates/list/search.php" name="templates/list/search.php" />
+   <install as="folks/templates/login/login.php" name="templates/login/login.php" />
+   <install as="folks/templates/login/signup.php" name="templates/login/signup.php" />
+   <install as="folks/templates/services/services.php" name="templates/services/services.php" />
+   <install as="folks/templates/user/.directory" name="templates/user/.directory" />
+   <install as="folks/templates/user/actions.php" name="templates/user/actions.php" />
+   <install as="folks/templates/user/authenticated.php" name="templates/user/authenticated.php" />
+   <install as="folks/templates/user/deleted.php" name="templates/user/deleted.php" />
+   <install as="folks/templates/user/friends.php" name="templates/user/friends.php" />
+   <install as="folks/templates/user/inactive.php" name="templates/user/inactive.php" />
+   <install as="folks/templates/user/private.php" name="templates/user/private.php" />
+   <install as="folks/templates/user/user.php" name="templates/user/user.php" />
+   <install as="folks/themes/default/screen.css" name="themes/default/screen.css" />
+   <install as="folks/themes/default/graphics/folks.png" name="themes/default/graphics/folks.png" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0alpha1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2016-01-13</date>
+   <license uri="TODO">TODO</license>
+   <notes>
+* Initial release.
+   </notes>
+  </release>
+ </changelog>
+</package>

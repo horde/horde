@@ -1,6 +1,7 @@
 <?php
 
 namespace Znerol\Component\Stringprep\Profile;
+use Znerol\Component\Stringprep\Profile;
 
 /**
  * XMPP PolicyMIB profile for stringprep defined in RFC 4011, Section 9.1.1

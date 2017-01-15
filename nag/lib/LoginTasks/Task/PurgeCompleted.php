@@ -2,7 +2,7 @@
 /**
  * Login tasks module that purges completed tasks.
  *
- * Copyright 2012-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -63,7 +63,7 @@ class Nag_LoginTasks_Task_PurgeCompleted extends Horde_LoginTasks_Task
         }
 
         $GLOBALS['notification']->push(
-            sprintf(ngettext("Purging %d completed task.", "Purging %d completed tasks.", $count), $count), 'horde.message');
+            sprintf(ngettext("Purged %d completed task.", "Purged %d completed tasks.", $count), $count), 'horde.message');
 
         return true;
     }

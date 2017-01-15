@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2015-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @category  Horde
- * @copyright 2015 Horde LLC
+ * @copyright 2015-2017 Horde LLC
  * @license   http://www.horde.org/licenses/apache ASL
  * @package   Ingo
  */
@@ -16,7 +16,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2015 Horde LLC
+ * @copyright 2015-2017 Horde LLC
  * @license   http://www.horde.org/licenses/apache ASL
  * @package   Ingo
  *
@@ -204,6 +204,39 @@ implements Ingo_Rule_System
             parent::__set($name, $data);
             break;
         }
+    }
+
+    /**
+     * Returns the vacation reason with all placeholder replaced.
+     *
+     * @param string $reason  The vacation reason including placeholders.
+     * @param integer $start  The vacation start timestamp.
+     * @param integer $end    The vacation end timestamp.
+     *
+     * @return string  The vacation reason suitable for usage in the filter
+     *                 scripts.
+     */
+    public static function vacationReason($reason, $start, $end)
+    {
+        global $injector, $prefs;
+
+        $format = $prefs->getValue('date_format');
+        $identity = $injector->getInstance('Horde_Core_Factory_Identity')
+            ->create(Ingo::getUser());
+
+        $replace = array(
+            '%NAME%' => $identity->getName(),
+            '%EMAIL%' => $identity->getDefaultFromAddress(),
+            '%SIGNATURE%' => $identity->getValue('signature'),
+            '%STARTDATE%' => $start ? strftime($format, $start) : '',
+            '%ENDDATE%' => $end ? strftime($format, $end) : ''
+        );
+
+        return str_replace(
+            array_keys($replace),
+            array_values($replace),
+            $reason
+        );
     }
 
 }

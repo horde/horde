@@ -25,29 +25,6 @@
    when loading Ansel, try turning this off.">true</configboolean>
   </configsection>
  </configtab>
- <configtab name="anselmap" desc="Map Settings">
-  <configsection name="maps">
-  <configheader>Maps</configheader>
-  <configswitch name="driver" desc="Which driver should we use for inline
-   maps?">
-   <case name="false" desc="No inline map support" />
-   <case name="Horde" desc="Horde driver (support for various map providers)">
-    <configmultienum name="providers" desc="Which layers should we add to the
-    map?">
-     <values>
-       <configspecial application="horde" name="mapsources"/>
-     </values>
-    </configmultienum>
-    <configenum default="false" name="geocoder" desc="Which Geocoder service
-    should we use?">
-     <values>
-       <configspecial application="horde" name="geocoders"/>
-     </values>
-    </configenum>
-   </case>
-  </configswitch>
- </configsection>
-</configtab>
  <configtab name="vfs" desc="VFS and Photo">
   <configheader>VFS Settings</configheader>
   <configsection name="images">

@@ -14,7 +14,7 @@
 /**
  * A log decorator for the data handlers.
  *
- * Copyright 2011-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -40,7 +40,7 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
      *
      * @var mixed
      */
-    private $_logger;
+    protected $_logger;
 
     /**
      * Constructor.
@@ -55,6 +55,27 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
     {
         $this->_data = $data;
         $this->_logger = $logger;
+        $this->_data->setLogger($logger);
+    }
+
+    public function __call($method, $args)
+    {
+        if (!is_callable(array($this->_data, $method))) {
+            throw new InvalidArgumentException(sprintf(
+                'Invalid method call: %s in Horde_Kolab_Storage_Data_Decorator_Log.',
+                $method));
+        }
+        return call_user_func_array(array($this->_data, $method), $args);
+    }
+
+    /**
+     * Set the logger for this object.
+     *
+     * @param Horde_Log_Logger $logger  The logger.
+     */
+    public function setLogger(Horde_Log_Logger $logger)
+    {
+        // noop. Needed to satisfy the interface.
     }
 
     /**
@@ -120,12 +141,15 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
     /**
      * Report the status of this folder.
      *
+     * @param Horde_Kolab_Storage_Folder_Stamp $previous  The previous stamp,
+     *                                                    if available.
+     *
      * @return Horde_Kolab_Storage_Folder_Stamp The stamp that can be used for
      *                                          detecting folder changes.
      */
-    public function getStamp()
+    public function getStamp(Horde_Kolab_Storage_Folder_Stamp $previous = null)
     {
-        return $this->_data->getStamp();
+        return $this->_data->getStamp($previous);
     }
 
     /**
@@ -147,6 +171,7 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
             sprintf('Creating new data object in %s.', $this->_data->getPath())
         );
         $result = $this->_data->create($object, $raw);
+
         $this->_logger->debug(
             sprintf(
                 'Created data object %s in %s [backend: %s].',
@@ -165,20 +190,11 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
      * @param boolean $raw    True if the data to be stored has been provided in
      *                        raw format.
      *
-     * @return NULL
-     *
      * @throws Horde_Kolab_Storage_Exception In case an error occured while
      *                                       saving the data.
      */
     public function modify($object, $raw = false)
     {
-        $this->_logger->debug(
-            sprintf(
-                'Modifying data object %s in %s.',
-                $object['uid'],
-                $this->_data->getPath()
-            )
-        );
         $this->_data->modify($object, $raw);
         $this->_logger->debug(
             sprintf(
@@ -294,7 +310,7 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
     public function getObjectIds()
     {
         $result = $this->_data->getObjectIds();
-        if (count($result < 20)) {
+        if (count($result) < 20) {
             $ids = '[' . join(', ', $result) . ']';
         } else {
             $ids = '[too many to list]';
@@ -318,7 +334,7 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
     public function getObjects()
     {
         $result = $this->_data->getObjects();
-        if (count($result < 20)) {
+        if (count($result) < 20) {
             $ids = '[' . join(', ', array_keys($result)) . ']';
         } else {
             $ids = '[too many to list]';
@@ -342,7 +358,7 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
     public function getObjectsByBackendId()
     {
         $result = $this->_data->getObjectsByBackendId();
-        if (count($result < 20)) {
+        if (count($result) < 20) {
             $ids = '[backend ids: ' . join(', ', array_keys($result)) . ']';
         } else {
             $ids = '[too many to list]';
@@ -517,13 +533,18 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
     /**
      * Synchronize the list information with the information from the backend.
      *
-     * @param array $params Additional parameters.
+     * @see  Horde_Kolab_Storage_Query
      *
      * @return NULL
      */
     public function synchronize($params = array())
     {
-        $this->_data->synchronize();
+        $params = array_merge(
+            array('logger' => $this->_logger),
+            $params
+        );
+
+        $this->_data->synchronize($params);
         $this->_logger->debug(
             sprintf(
                 'Synchronized data cache for %s.',
@@ -542,6 +563,7 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
      */
     public function registerQuery($name, Horde_Kolab_Storage_Query $query)
     {
+        $query->setLogger($this->_logger);
         $this->_data->registerQuery($name, $query);
     }
 
@@ -557,6 +579,10 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
      */
     public function getQuery($name = null)
     {
-        return $this->_data->getQuery($name);
+        $query = $this->_data->getQuery($name);
+        $query->setLogger($this->_logger);
+
+        return $query;
     }
+
 }

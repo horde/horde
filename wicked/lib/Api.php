@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -56,11 +56,11 @@ class Wicked_Api extends Horde_Registry_Api
     {
         $page = Wicked_Page::getPage($pagename);
         return array(
-            'page_version' => $page->_page['page_version'],
+            'page_version' => $page->version(),
             'page_checksum' => md5($page->getText()),
-            'version_created' => $page->_page['version_created'],
-            'change_author' => $page->_page['change_author'],
-            'change_log' => $page->_page['change_log'],
+            'version_created' => $page->versionCreated(),
+            'change_author' => $page->author(),
+            'change_log' => $page->changeLog(),
         );
     }
 
@@ -74,8 +74,6 @@ class Wicked_Api extends Horde_Registry_Api
      */
     public function getMultiplePageInfo($pagenames = array())
     {
-        require_once __DIR__ . '/base.php';
-
         if (empty($pagenames)) {
             $pagenames = $GLOBALS['wicked']->getPages(false);
         }
@@ -85,11 +83,11 @@ class Wicked_Api extends Horde_Registry_Api
         foreach ($pagenames as $pagename) {
             $page = Wicked_Page::getPage($pagename);
             $info[$pagename] = array(
-                'page_version' => $page->_page['page_version'],
+                'page_version' => $page->version(),
                 'page_checksum' => md5($page->getText()),
-                'version_created' => $page->_page['version_created'],
-                'change_author' => $page->_page['change_author'],
-                'change_log' => $page->_page['change_log']
+                'version_created' => $page->versionCreated(),
+                'change_author' => $page->author(),
+                'change_log' => $page->changeLog()
             );
         }
 

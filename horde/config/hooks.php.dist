@@ -120,6 +120,22 @@
  *   [throw Horde_Auth_Exception] - Fatal error.
  *   (string) - The converted username.
  *
+ * davusername
+ * -----------
+ * This hook is used to dynamically convert between a username for DAV clients
+ * and a Horde username.
+ *
+ * May for example be used to add some realm to user names referring to an IMAP
+ * server that would otherwise be picked from the login screen.
+ *
+ * Parameters in:
+ *   $userId (string): The username.
+ *   $toHorde (boolean): If true, convert from DAV ID to Horde ID.
+ *                       Otherwise, do the reverse conversion.
+ *
+ * The return value from this hook is as follows:
+ *   (string) - The converted username.
+ *
  * x509_validate
  * -------------
  * This hook is called during initial authentication when using the X509 client
@@ -318,6 +334,20 @@
  *   [Horde_ActiveSync_Mime] - Replaces the outgoing message with the contents
  *       of this MIME object.
  *
+ * activesync_mailboxlist
+ * ----------------------
+ *
+ * This hook gives the chance to filter the mailbox list before it is sent to
+ * the client. Possible use would be to prevent shared mailboxes from being
+ * synchronized, or only allowing the INBOX to be synchronized etc...
+ *
+ * Parameters in:
+ *     $mailboxList (array)  An array of mailboxes available to be synchronized.
+ *
+ * The return value for this hook is as follows:
+ *   [throw Horde_Exception] - Fatal error.
+ *   [array]  An array of mailboxes that will be sent to the client.
+ *
  * activesync_provisioning_check
  * -----------------------------
  *
@@ -347,72 +377,29 @@ class Horde_Hooks
 //    {
 //        switch ($pref) {
 //        case 'from_addr':
-//            // Example from_addr init. THIS FUNCTION ASSUMES THAT YOU ARE
-//            // USING A LDAP SERVER and that your /etc/ldap.conf is correctly
-//            // set to a valid host.
-//            //
-//            // You are responsible for bringing in to the local scope any
-//            // information you need. You can "global" anything else you
-//            // need.
-//            //
-//            // Returns an address: either just the user@ side or a full
-//            // address.
+//            // Example from_addr init hook. This function assumes that you are
+//            // using an LDAP server and have it configured in the Horde
+//            // configuration.
 //
-//            // Example #1
 //            if (is_null($username)) {
 //                return $value;
 //            }
 //
-//            $base_context = 'o=myorg';
-//            $scope = 'sub';
-//
-//            // You will probably need to replace cd= with uid=; this
-//            // syntax is for Netware 5.1 nldap.
-//            $cmd = '/usr/bin/ldapsearch -b ' . $base_context .
-//                ' -s ' . $scope . ' cn=' .
-//                escapeshellcmd($username) .
-//                ' | /bin/grep mail | /usr/bin/awk \'{print $2}\'';
-//            $mails = `$cmd`;
-//            $mail_array = explode("\n", $mails);
-//
-//            // Send back the first email found, not the whole list.
-//            $mail = $mail_array[0];
-//
-//            // If no email address is found, then the login name will
-//            // be used.
-//            return empty($mail)
-//                ? ''
-//                : $mail;
-//
-//
-//            // Example #2
-//            if (is_null($username)) {
-//                return $value;
+//            $ldap = $GLOBALS['injector']->getInstance('Horde_Ldap');
+//            try {
+//                $result = $ldap->search(
+//                    $GLOBALS['conf']['ldap']['user']['basedn'],
+//                    Horde_Ldap_Filter::create('uid', 'equals', $username),
+//                    array('attributes' => array('mail'))
+//                );
+//                if ($result->count()) {
+//                    $entry = $result->shiftEntry();
+//                    return $entry->getValue('mail', 'single');
+//                }
+//            } catch (Horde_Ldap_Exception $e) {
 //            }
 //
-//            $ldapServer = '172.31.0.236';
-//            $ldapPort = '389';
-//            $searchBase = 'o=myorg';
-//
-//            $ds = @ldap_connect($ldapServer, $ldapPort);
-//
-//            // You will probably need to replace cn= with uid=; this syntax
-//            // is for Netware 5.1 nldap.
-//            $searchResult = @ldap_search($ds, $searchBase, 'cn=' . $username);
-//            $information = @ldap_get_entries($ds, $searchResult);
-//            if (($information === false) || ($information['count'] == 0)) {
-//               $user = '';
-//            } else {
-//                $user = ($information[0]['mail'][0] != '')
-//                    ? $information[0]['mail'][0]
-//                    : $information[0]['cn'][0];
-//            }
-//
-//            ldap_close($ds);
-//
-//            return empty($user)
-//                ? $username
-//                : $user;
+//            return $value;
 //
 //
 //        case 'fullname':
@@ -433,34 +420,27 @@ class Horde_Hooks
 //                : $gecos_array[0];
 //
 //
-//            // Example #2: Set the fullname from LDAP information. In this
-//            // example we look if a Spanish name exists and return this or
-//            // the standard 'cn' entry if not.
+//            // Example #2: Set the fullname from LDAP information.
 //            if (is_null($username)) {
 //                return $value;
 //            }
 //
-//            $ldapServer = 'ldap.example.com';
-//            $ldapPort = '389';
-//            $searchBase = 'ou=people,o=example.com';
-//
-//            $ds = @ldap_connect($ldapServer, $ldapPort);
-//
-//            $searchResult = @ldap_search($ds, $searchBase, 'uid=' . $username);
-//            $information = @ldap_get_entries($ds, $searchResult);
-//            if (($information === false) || ($information['count'] == 0)) {
-//                $name = '';
-//            } else {
-//                $name = ($information[0]['cn;lang-es'][0] != '')
-//                    ? $information[0]['cn;lang-es'][0]
-//                    : $information[0]['cn'][0];
+//            $ldap = $GLOBALS['injector']->getInstance('Horde_Ldap');
+//            try {
+//                $result = $ldap->search(
+//                    $GLOBALS['conf']['ldap']['user']['basedn'],
+//                    Horde_Ldap_Filter::create('uid', 'equals', $username),
+//                    array('attributes' => array('cn', 'cn;lang-es'))
+//                );
+//                if ($result->count()) {
+//                    $entry = $result->shiftEntry();
+//                    return $entry->getValue('cn;lang-es', 'single')
+//                        ?: $entry->getValue('cn', 'single');
+//                }
+//            } catch (Horde_Ldap_Exception $e) {
 //            }
 //
-//            ldap_close($ds);
-//
-//            return empty($name)
-//                ? $username
-//                : $name;
+//            return $username;
 //        }
 //    }
 
@@ -537,7 +517,7 @@ class Horde_Hooks
 //            'userId' => $userId,
 //            'credentials' => $entry
 //        );
-//     }
+//    }
 
 
 //    // POSTAUTHENTICATE HOOK: See above for description of format.
@@ -591,24 +571,26 @@ class Horde_Hooks
 //
 //        return $ret;
 //
-//      // Example #2: Providing a client certificate <-> horde username store.
-//      // Normally, the following would be looked up in a persistent storage
-//      // backend. Note this example also stores a plaintext password to avoid
-//      // cluttering up the example. DO NOT DO THIS. If your x509 client
-//      // certificate setup requires that you still pass a password to the IMAP
-//      // server, the password MUST be stored encrypted. In this example, we
-//      // store a unique identifier for the certificate to add an additional level
-//      // of security. It wouldn't be too hard to create a admin UI for managing
-//      // client certificates and "registering" them to the user.
-//      $mapping = array('user@example.com' => array(
-//         'credentials' => array('password' => 'passw0rd'), 'certificate_id' => '123456'));
+//        // Example #2: Providing a client certificate <-> horde username
+//        // store.
+//        // Normally, the following would be looked up in a persistent storage
+//        // backend. Note this example also stores a plaintext password to
+//        // avoid cluttering up the example. DO NOT DO THIS. If your x509
+//        // client certificate setup requires that you still pass a password
+//        // to the IMAP server, the password MUST be stored encrypted. In this
+//        // example, we store a unique identifier for the certificate to add
+//        // an additional level of security. It wouldn't be too hard to create
+//        // a admin UI for managing client certificates and "registering" them
+//        // to the user.
+//        $mapping = array('user@example.com' => array(
+//           'credentials' => array('password' => 'passw0rd'), 'certificate_id' => '123456'));
 //
-//      if (empty($mapping[$userId]) || $credentials['certificate_id'] != $mapping[$userId]['certificate_id']) {
-//         return false;
-//      }
+//        if (empty($mapping[$userId]) || $credentials['certificate_id'] != $mapping[$userId]['certificate_id']) {
+//           return false;
+//        }
 //
-//     return $mapping[$userId]['credentials'];
-//     }
+//        return $mapping[$userId]['credentials'];
+//    }
 
 
 //    // USERNAME HOOK: See above for description of format.
@@ -629,17 +611,7 @@ class Horde_Hooks
 //            : $userId;
 //
 //
-//        // Example #2: Convert username to all lowercase. This might be
-//        // necessary if an authentication backend is case insensitive to
-//        // take into account that Horde's preference system is case
-//        // sensitive.
-//        // ex. $userId = 'MyName' returns: 'myname'
-//        return $toHorde
-//            ? Horde_String::lower($userId)
-//            : $userId;
-//
-//
-//        // Example #3: Map the LDAP "uid" back to the LDAP "mail"
+//        // Example #2: Map the LDAP "uid" back to the LDAP "mail"
 //        // attribute in case both are allowed user IDs for login.
 //        if (!$toHorde) {
 //            return $userId;
@@ -658,7 +630,7 @@ class Horde_Hooks
 //        }
 //        return $userId;
 //
-//       // Example #4: Essentially the same as Example #1, but in the reverse
+//       // Example #3: Essentially the same as Example #1, but in the reverse
 //       // direction. This is used, e.g., when using x509 client certificates
 //       // that provide the username as an email address and you want Horde
 //       // logins to be usernames only.
@@ -675,6 +647,64 @@ class Horde_Hooks
 //             : $userId;
 //       }
 //    }
+
+
+//    // DAV USERNAME HOOK: See above for description of format.
+//    public function davusername($userId, $toHorde)
+//    {
+//        // Example: append realm to user name
+//        global $registry;
+//
+//        if (!$userId) {
+//            return $userId;
+//        }
+//
+//        $server = $registry->mail->server();
+//        $realm = $server['hostspec'];
+//        if ($toHorde) {
+//            return (substr($userId, -strlen($realm)) == $realm)
+//                ? substr($userId, 0, -strlen($realm) - 1)
+//                : $userId;
+//        }
+//
+//        return Horde_String::lower($userId) . '@' . $realm;
+//    }
+//
+//    // The following hook examples may pick up the realm information from
+//    // above:
+//    //
+//    // public function pushapp()
+//    // {
+//    //     if (strpos($_SERVER['REQUEST_URI'], '/rpc') &&
+//    //         preg_match('/@([^\/]*)/', $_SERVER['REQUEST_URI'], $m)) {
+//    //         // Parse the domain part from the user name in the URL, and
+//    //         // save it as the realm.
+//    //         putenv('REALM=' . basename($m[1]));
+//    //     }
+//    // }
+//    //
+//    // public function preauthenticate($userId, $credentials)
+//    // {
+//    //     global $registry;
+//    //     $result = array('userId' => $userId, 'credentials' => $credentials);
+//    //     if ($credentials['authMethod'] == 'authenticate' &&
+//    //         strpos($_SERVER['REQUEST_URI'], '/rpc') &&
+//    //         ($realm = getenv('REALM'))) {
+//    //         // If this was realm'ed RPC request, pick the correct server
+//    //         // from IMP's backend configuration.
+//    //         $servers = $registry
+//    //             ->loadConfigFile('backends.php', 'servers', 'imp')
+//    //             ->config['servers'];
+//    //         foreach ($servers as $key => $server) {
+//    //             if (empty($server['disabled']) &&
+//    //                 $server['hostspec'] == $realm) {
+//    //                 $result['credentials']['server'] = $key;
+//    //                 break;
+//    //             }
+//    //         }
+//    //     }
+//    //     return $result;
+//    // }
 
 
 //    // APPLICATION AUTHENTICATED HOOK: See above for format.
@@ -1191,6 +1221,35 @@ class Horde_Hooks
   //
   //       return true;
   // }
+
+   /**
+    * Hook for altering the mailbox list sent to the client.
+    *
+    * @param array $mailboxList  A hash of mailbox arrays, keyed by mailbox name
+    *     and having the following array keys:
+    *       'd' => the delimiter
+    *       'label' => mailbox lable
+    *       'level' => nesting level
+    *       'ob' => A Horde_Imap_Client_Mailbox object
+    *       'subscribed' => boolean indicating subscription status.
+    *
+    * @return  array  An array of mailboxes to send to the client. Structure of
+    *     array is the same as the array passed in.
+    */
+   // public function activesync_mailboxlist(array $mailboxList)
+   // {
+   //   // Example for filtering out any shared mailboxes.  Assumes that
+   //   // shared mailboxes are prefixed with 'shared/' where '/' is the delimter.
+        // $filtered = array();
+        // foreach ($mailboxList as $key => $mbox) {
+        //   if (strpos($mbox['label'], 'shared' . $mbox['d']) === 0) {
+        //     continue;
+        //   }
+        //   $filtered[$key] = $mbox;
+        // }
+
+        // return $filtered;
+   // }
 
    /**
     * Hook for altering the provisioning requirement more atomically than can be

@@ -3,7 +3,7 @@
  * Horde_Imsp_Book Class - provides api for dealing with IMSP
  * address books.
  *
- * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -161,7 +161,7 @@ class Horde_Imsp_Book
 
         // Get the response.
         $server_response = $this->_imsp->receive();
-        $abookNames = Array();
+        $abookNames = array();
 
         while (preg_match("/^\* SEARCHADDRESS/", $server_response)) {
             $chopped_response = preg_replace("/^\* SEARCHADDRESS/", '', $server_response);

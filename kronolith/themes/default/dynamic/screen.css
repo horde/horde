@@ -77,6 +77,26 @@ html, body {
 #kronolithQuickEvent.kronolithNewTask {
     background-image: url("../graphics/new_task.png");
 }
+#horde-sidebar div.horde-resources .horde-resource-edit-000,
+#horde-sidebar div.horde-resources .horde-resource-edit-fff {
+    margin-right: 5px;
+}
+/* @todo move to horde. */
+#horde-sidebar div.horde-resources .horde-resource-refresh-000,
+#horde-sidebar div.horde-resources .horde-resource-refresh-fff {
+    float: right;
+    display: block;
+    background: url("../graphics/refresh-sidebar-000.png") no-repeat;
+    margin: 2px 10px 0 0;
+    width: 17px;
+    height: 17px;
+    text-indent: -10000px;
+    overflow: hidden;
+    cursor: pointer;
+}
+#horde-sidebar div.horde-resources .horde-resource-refresh-fff {
+    background-image: url("../graphics/refresh-sidebar-fff.png");
+}
 
 /* Quick edit */
 #kronolithQuickinsert {
@@ -137,9 +157,7 @@ span.kronolithDialogWarning {
 .kronolithDialog select:focus {
     border-color: #d0d0d0;
 }
-.kronolithLongField {
-    width: 100%;
-}
+.kronolithLongField,
 #kronolithEventTitle,
 #kronolithTaskTitle,
 #kronolithCalendarinternalName,
@@ -254,6 +272,7 @@ ul.horde-tags li:hover {
 #kronolithCalendartasklistsUrlWebdav {
     border-bottom: 0;
 }
+#kronolithUsersACBox,
 #kronolithAttendeesACBox,
 #kronolithResourceACBox,
 #kronolithEventACBox,
@@ -275,10 +294,10 @@ ul.horde-tags li:hover {
 #kronolithEventTabAttendees td, #kronolithEventTabAttendees th,
 #kronolithEventTabResources td, #kronolithEventTabResources th {
     border: 1px solid #999;
-    padding: 1px;
-    width: 22px;
     font-size: 85%;
-    line-height: 140%;
+    padding: 1px;
+    height: 18px;
+    width: 18px;
 }
 #kronolithEventTabAttendees td:first-child, #kronolithEventTabAttendees th:first-child,
 #kronolithEventTabResources td:first-child, #kronolithEventTabResources th:first-child {
@@ -306,37 +325,41 @@ ul.horde-tags li:hover {
 #kronolithEventACBox,
 #kronolithTaskACBox,
 #kronolithCalendarinternalACBox,
+#kronolithUsersACBox,
 #kronolithAttendeesACBox,
 #kronolithResourceACBox {
     line-height: 100%;
 }
-#kronolithEventTabAttendees td.kronolithAttendeeNone ,
+#kronolithEventTabAttendees td.kronolithAttendeeNone,
+#kronolithEventTabResources td.kronolithAttendeeNone,
+#kronolithEventTabAttendees td.kronolithAttendeeAccepted,
+#kronolithEventTabResources td.kronolithAttendeeAccepted,
+#kronolithEventTabAttendees td.kronolithAttendeeDeclined,
+#kronolithEventTabResources td.kronolithAttendeeDeclined,
+#kronolithEventTabAttendees td.kronolithAttendeeTentative,
+#kronolithEventTabAttendees td.kronolithAttendeeOrganizer {
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    padding-left: 21px;
+}
+#kronolithEventTabAttendees td.kronolithAttendeeNone,
 #kronolithEventTabResources td.kronolithAttendeeNone {
     background-image: url("../graphics/attendee-none.png");
-    background-position: 0 center;
-    background-repeat: no-repeat;
-    padding-left: 18px;
 }
 #kronolithEventTabAttendees td.kronolithAttendeeAccepted,
 #kronolithEventTabResources td.kronolithAttendeeAccepted {
     background-image: url("../graphics/attendee-accepted.png");
-    background-position: 0 center;
-    background-repeat: no-repeat;
-    padding-left: 18px;
 }
 #kronolithEventTabAttendees td.kronolithAttendeeDeclined,
 #kronolithEventTabResources td.kronolithAttendeeDeclined {
     background-image: url("../graphics/attendee-declined.png");
     text-decoration: line-through;
-    background-position: 0 center;
-    background-repeat: no-repeat;
-    padding-left: 18px;
 }
 #kronolithEventTabAttendees td.kronolithAttendeeTentative {
     background-image: url("../graphics/attendee-tentative.png");
-    background-position: 0 center;
-    background-repeat: no-repeat;
-    padding-left: 18px;
+}
+#kronolithEventTabAttendees td.kronolithAttendeeOrganizer {
+    background-image: url("../graphics/organizer.png");
 }
 
 .kronolithFBFree {
@@ -806,6 +829,61 @@ div.kronolithEditable:hover .kronolithDragger,
     background-image: url("../graphics/warning.png");
     border-color: #807b00;
     color: #000;
+}
+
+#kronolithEventFileList {
+    list-style: none;
+    max-height: 125px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+#kronolithEventFileList canvas {
+    margin-bottom: -4px;
+    padding-right: 4px;
+}
+#kronolithEventFileList li {
+    padding: 5px 0 1px;
+}
+#kronolithEventFileList div.fileName.a {
+    color: #36525d;
+    cursor: pointer;
+}
+#kronolithEventFileList div.fileName:hover {
+    color: red;
+}
+
+#kronolithEventFileList span.file_upload_text {
+    display: inline-block;
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    white-space: nowrap;
+}
+#kronolithEventFileList span.file_upload_text span {
+    padding-left: 5px;
+}
+#kronolithEventFileList span.file_upload_text_progress {
+    max-width: 290px;
+    margin-right: 8px;
+}
+#kronolithEventFileList span.file_upload_progress {
+    background-color: #1a1a1a;
+    border-radius: 5px;
+    bottom: 4px;
+    display: inline-block;
+    height: 6px;
+    padding: 2px;
+    position: relative;
+    width: 200px;
+}
+#kronolithEventFileList span.file_upload_progress span {
+    background-color: #34c2e3;
+    border-radius: 3px;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, .5) inset;
+    display: inline-block;
+    height: 100%;
+    transition: width 0.2s ease-in-out 0s;
 }
 
 @media print {

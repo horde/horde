@@ -67,8 +67,10 @@ class Nag_Driver_Sql extends Nag_Driver
         }
 
         $owner_lists = Nag::listTasklists(true);
+
         $task = null;
-        foreach ($results as $row) {
+        $results->reset();
+        while ($row =  $results->each()) {
             if (isset($owner_lists[$row->tasklist])) {
                 $task = $row;
                 break;
@@ -107,7 +109,9 @@ class Nag_Driver_Sql extends Nag_Driver
             $values = array($taskIds);
         } else {
             if (empty($taskIds)) {
-                throw new InvalidArgumentException('Must specify at least one task id');
+                throw new InvalidArgumentException(
+                    'Must specify at least one task id'
+                );
             }
             $query = 'SELECT * FROM nag_tasks WHERE ' . $column . ' IN ('
                 . implode(',', array_fill(0, count($taskIds), '?')) . ')';
@@ -115,7 +119,8 @@ class Nag_Driver_Sql extends Nag_Driver
         }
 
         if (!empty($tasklists)) {
-            $query .= ' AND task_owner IN (' . implode(',', array_fill(0, count($tasklists), '?')) . ')';
+            $query .= ' AND task_owner IN ('
+                . implode(',', array_fill(0, count($tasklists), '?')) . ')';
             $values = array_merge($values, $tasklists);
         }
 
@@ -145,26 +150,24 @@ class Nag_Driver_Sql extends Nag_Driver
      * Adds a task to the backend storage.
      *
      * @param array $task  A hash with the following possible properties:
-     *     - name: (string) The name (short) of the task.
+     *     - actual: (float) The actual time spent on the task.
+     *     - alarm: (integer) The alarm associated with the task.
+     *     - assignee: (string) The assignee of the event.
+     *     - completed: (integer) The completion state of the task.
      *     - desc: (string) The description (long) of the task.
-     *     - start: (OPTIONAL, integer) The start date of the task.
-     *     - due: (OPTIONAL, integer) The due date of the task.
-     *     - priority: (OPTIONAL, integer) The priority of the task.
-     *     - estimate: (OPTIONAL, float) The estimated time to complete the
-     *                 task.
-     *     - completed: (OPTIONAL, integer) The completion state of the task.
-     *     - tags: (OPTIONAL, array) The task tags.
-     *     - alarm: (OPTIONAL, integer) The alarm associated with the task.
-     *     - methods: (OPTIONAL, array) The overridden alarm notification
-     *                methods.
-     *     - uid: (OPTIONAL, string) A Unique Identifier for the task.
-     *     - parent: (OPTIONAL, string) The parent task.
-     *     - private: (OPTIONAL, boolean) Whether the task is private.
-     *     - owner: (OPTIONAL, string) The owner of the event.
-     *     - assignee: (OPTIONAL, string) The assignee of the event.
-     *     - recurrence: (OPTIONAL, Horde_Date_Recurrence|array) Recurrence
-     *                   information.
-     *     - organizer: (OPTIONAL, string) The organizer/owner of the task.
+     *     - due: (integer) The due date of the task.
+     *     - estimate: (float) The estimated time to complete the task.
+     *     - methods: (array) The overridden alarm notification methods.
+     *     - name: (string) The name (short) of the task.
+     *     - organizer: (string) The organizer/owner of the task.
+     *     - owner: (string) The owner of the event.
+     *     - parent: (string) The parent task.
+     *     - priority: (integer) The priority of the task.
+     *     - private: (boolean) Whether the task is private.
+     *     - recurrence: (Horde_Date_Recurrence|array) Recurrence information.
+     *     - start: (integer) The start date of the task.
+     *     - tags: (array) The task tags.
+     *     - uid: (string) A Unique Identifier for the task.
      *
      * @return string  The Nag ID of the new task.
      * @throws Nag_Exception
@@ -178,30 +181,40 @@ class Nag_Driver_Sql extends Nag_Driver
             . 'task_id, task_name, task_uid, task_desc, task_start, task_due, '
             . 'task_priority, task_estimate, task_completed, '
             . 'task_alarm, task_alarm_methods, task_private, task_parent, '
-            . 'task_organizer, task_status, task_actual, task_recurtype, task_recurinterval, task_recurenddate, '
-            . 'task_recurcount, task_recurdays, task_exceptions, '
-            . 'task_completions) '
+            . 'task_organizer, task_status, task_actual, task_recurtype, '
+            . 'task_recurinterval, task_recurenddate, task_recurcount, '
+            . 'task_recurdays, task_exceptions, task_completions) '
             . 'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 
-        $values = array($this->_tasklist,
-                        $task['owner'],
-                        $task['assignee'],
-                        $taskId,
-                        Horde_String::convertCharset($task['name'], 'UTF-8', $this->_params['charset']),
-                        Horde_String::convertCharset($task['uid'], 'UTF-8', $this->_params['charset']),
-                        Horde_String::convertCharset($task['desc'], 'UTF-8', $this->_params['charset']),
-                        (int)$task['start'],
-                        (int)$task['due'],
-                        (int)$task['priority'],
-                        number_format(floatval($task['estimate']), 2),
-                        (int)$task['completed'],
-                        (int)$task['alarm'],
-                        serialize(Horde_String::convertCharset($task['methods'], 'UTF-8', $this->_params['charset'])),
-                        (int)$task['private'],
-                        $task['parent'],
-                        $task['organizer'],
-                        $task['status'],
-                        $task['actual']);
+        $values = array(
+            $this->_tasklist,
+            $task['owner'],
+            $task['assignee'],
+            $taskId,
+            Horde_String::convertCharset(
+                $task['name'], 'UTF-8', $this->_params['charset']
+            ),
+            Horde_String::convertCharset(
+                $task['uid'], 'UTF-8', $this->_params['charset']
+            ),
+            Horde_String::convertCharset(
+                $task['desc'], 'UTF-8', $this->_params['charset']
+            ),
+            (int)$task['start'],
+            (int)$task['due'],
+            (int)$task['priority'],
+            number_format(floatval($task['estimate']), 2),
+            (int)$task['completed'],
+            (int)$task['alarm'],
+            serialize(Horde_String::convertCharset(
+                $task['methods'], 'UTF-8', $this->_params['charset']
+            )),
+            (int)$task['private'],
+            $task['parent'],
+            $task['organizer'],
+            $task['status'],
+            number_format(floatval($task['actual']), 2),
+        );
 
         $this->_addRecurrenceFields($values, $task);
 
@@ -221,29 +234,25 @@ class Nag_Driver_Sql extends Nag_Driver
      *
      * @param string $taskId  The task to modify.
      * @param array $properties  A hash with the following possible properties:
-     *     - id: (string) The task to modify.
-     *     - name: (string) The name (short) of the task.
+     *     - actual: (float) The actual number of hours accumulated.
+     *     - alarm: (integer) The alarm associated with the task.
+     *     - assignee: (string) The assignee of the event.
+     *     - completed: (integer) The completion state of the task.
+     *     - completed_date: (integer) The task's completion date.
      *     - desc: (string) The description (long) of the task.
-     *     - start: (OPTIONAL, integer) The start date of the task.
-     *     - due: (OPTIONAL, integer) The due date of the task.
-     *     - priority: (OPTIONAL, integer) The priority of the task.
-     *     - estimate: (OPTIONAL, float) The estimated time to complete the
-     *                 task.
-     *     - completed: (OPTIONAL, integer) The completion state of the task.
-     *     - tags: (OPTIONAL, array) The task tags.
-     *     - alarm: (OPTIONAL, integer) The alarm associated with the task.
-     *     - methods: (OPTIONAL, array) The overridden alarm notification
-     *                methods.
-     *     - uid: (OPTIONAL, string) A Unique Identifier for the task.
-     *     - parent: (OPTIONAL, string) The parent task.
-     *     - private: (OPTIONAL, boolean) Whether the task is private.
-     *     - owner: (OPTIONAL, string) The owner of the event.
-     *     - assignee: (OPTIONAL, string) The assignee of the event.
-     *     - completed_date: (OPTIONAL, integer) The task's completion date.
-     *     - recurrence: (OPTIONAL, Horde_Date_Recurrence|array) Recurrence
-     *                   information.
-     *     - organizer: (OPTIONAL, string) The organizer/owner of the task.
-     *     - actual: (OPTIONAL, float) The actual number of hours accumulated.
+     *     - due: (integer) The due date of the task.
+     *     - estimate: (float) The estimated time to complete the task.
+     *     - methods: (array) The overridden alarm notification methods.
+     *     - name: (string) The name (short) of the task.
+     *     - organizer: (string) The organizer/owner of the task.
+     *     - owner: (string) The owner of the event.
+     *     - parent: (string) The parent task.
+     *     - priority: (integer) The priority of the task.
+     *     - private: (boolean) Whether the task is private.
+     *     - recurrence: (Horde_Date_Recurrence|array) Recurrence information.
+     *     - start: (integer) The start date of the task.
+     *     - tags: (array) The task tags.
+     *     - uid: (string) A Unique Identifier for the task.
      *
      * @throws Nag_Exception
      */
@@ -276,23 +285,31 @@ class Nag_Driver_Sql extends Nag_Driver
                  'task_completions = ? ' .
                  'WHERE task_owner = ? AND task_id = ?';
 
-        $values = array($task['owner'],
-                        $task['assignee'],
-                        Horde_String::convertCharset($task['name'], 'UTF-8', $this->_params['charset']),
-                        Horde_String::convertCharset($task['desc'], 'UTF-8', $this->_params['charset']),
-                        (int)$task['start'],
-                        (int)$task['due'],
-                        (int)$task['priority'],
-                        number_format($task['estimate'], 2),
-                        (int)$task['completed'],
-                        (int)$task['completed_date'],
-                        (int)$task['alarm'],
-                        serialize(Horde_String::convertCharset($task['methods'], 'UTF-8', $this->_params['charset'])),
-                        $task['parent'],
-                        (int)$task['private'],
-                        $task['organizer'],
-                        $task['status'],
-                        $task['actual']);
+        $values = array(
+            $task['owner'],
+            $task['assignee'],
+            Horde_String::convertCharset(
+                $task['name'], 'UTF-8', $this->_params['charset']
+            ),
+            Horde_String::convertCharset(
+                $task['desc'], 'UTF-8', $this->_params['charset']
+            ),
+            (int)$task['start'],
+            (int)$task['due'],
+            (int)$task['priority'],
+            number_format(floatval($task['estimate']), 2),
+            (int)$task['completed'],
+            (int)$task['completed_date'],
+            (int)$task['alarm'],
+            serialize(Horde_String::convertCharset(
+                $task['methods'], 'UTF-8', $this->_params['charset']
+            )),
+            $task['parent'],
+            (int)$task['private'],
+            $task['organizer'],
+            $task['status'],
+            number_format(floatval($task['actual']), 2)
+        );
         $this->_addRecurrenceFields($values, $task);
         $values[] = $this->_tasklist;
         $values[] = $taskId;
@@ -331,7 +348,14 @@ class Nag_Driver_Sql extends Nag_Driver
                 $recur_end = clone $recurrence->recurEnd;
                 $recur_end->setTimezone('UTC');
             } else {
-                $recur_end = new Horde_Date(array('year' => 9999, 'month' => 12, 'mday' => 31, 'hour' => 23, 'min' => 59, 'sec' => 59));
+                $recur_end = new Horde_Date(array(
+                    'year' => 9999,
+                    'month' => 12,
+                    'mday' => 31,
+                    'hour' => 23,
+                    'min' => 59,
+                    'sec' => 59
+                ));
             }
 
             $values[] = $recur;
@@ -462,7 +486,7 @@ class Nag_Driver_Sql extends Nag_Driver
         }
 
         try {
-            $result = $this->_db->selectAll($query, $values);
+            $result = $this->_db->select($query, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Nag_Exception($e->getMessage());
         }
@@ -472,7 +496,9 @@ class Nag_Driver_Sql extends Nag_Driver
         $dict = array();
 
         foreach ($result as $row) {
-            $task = new Nag_Task($this, $this->_buildTask($row, $include_history));
+            $task = new Nag_Task(
+                $this, $this->_buildTask($row, $include_history)
+            );
             if (($completed == Nag::VIEW_INCOMPLETE ||
                  $completed == Nag::VIEW_FUTURE) &&
                 $task->start &&
@@ -525,7 +551,7 @@ class Nag_Driver_Sql extends Nag_Driver
         $values = array($this->_tasklist, $parentId);
 
         try {
-            $result = $this->_db->selectAll($query, $values);
+            $result = $this->_db->select($query, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Nag_Exception($e->getMessage());
         }
@@ -533,7 +559,9 @@ class Nag_Driver_Sql extends Nag_Driver
         // Store the retrieved values in a fresh task list.
         $tasks = array();
         foreach ($result as $row) {
-            $task = new Nag_Task($this, $this->_buildTask($row, $include_history));
+            $task = new Nag_Task(
+                $this, $this->_buildTask($row, $include_history)
+            );
             $children = $this->getChildren($task->id);
             $task->mergeChildren($children);
             $tasks[] = $task;
@@ -552,15 +580,17 @@ class Nag_Driver_Sql extends Nag_Driver
      */
     public function listAlarms($date)
     {
+        // Check for non-empty alarm AND a non-empty due date.
+        // See Bug: 14214
         $q = 'SELECT * FROM nag_tasks' .
             ' WHERE task_owner = ?' .
-            ' AND task_alarm > 0' .
+            ' AND task_alarm > 0 AND task_due > 0' .
             ' AND (task_due - (task_alarm * 60) <= ?)' .
             ' AND task_completed = 0';
         $values = array($this->_tasklist, $date);
 
         try {
-            $result = $this->_db->selectAll($q, $values);
+            $result = $this->_db->select($q, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Nag_Exception($e->getMessage());
         }
@@ -593,7 +623,11 @@ class Nag_Driver_Sql extends Nag_Driver
             $query = 'UPDATE nag_tasks' .
                 ' SET task_uid = ?' .
                 ' WHERE task_owner = ? AND task_id = ?';
-            $values = array($row['task_uid'], $row['task_owner'], $row['task_id']);
+            $values = array(
+                $row['task_uid'],
+                $row['task_owner'],
+                $row['task_id']
+            );
 
             try {
                 $this->_db->update($query, $values);
@@ -630,20 +664,32 @@ class Nag_Driver_Sql extends Nag_Driver
         $task = array(
             'tasklist_id' => $row['task_owner'],
             'task_id' => $row['task_id'],
-            'uid' => Horde_String::convertCharset($row['task_uid'], $this->_params['charset'], 'UTF-8'),
+            'uid' => Horde_String::convertCharset(
+                $row['task_uid'], $this->_params['charset'], 'UTF-8'
+            ),
             'parent' => $row['task_parent'],
             'owner' => $row['task_creator'],
             'assignee' => $row['task_assignee'],
-            'name' => Horde_String::convertCharset($row['task_name'], $this->_params['charset'], 'UTF-8'),
-            'desc' => Horde_String::convertCharset($row['task_desc'], $this->_params['charset'], 'UTF-8'),
+            'name' => Horde_String::convertCharset(
+                $row['task_name'], $this->_params['charset'], 'UTF-8'
+            ),
+            'desc' => Horde_String::convertCharset(
+                $row['task_desc'], $this->_params['charset'], 'UTF-8'
+            ),
             'start' => $row['task_start'],
             'due' => $row['task_due'],
             'priority' => $row['task_priority'],
             'estimate' => (float)$row['task_estimate'],
             'completed' => $row['task_completed'],
-            'completed_date' => isset($row['task_completed_date']) ? $row['task_completed_date'] : null,
+            'completed_date' => isset($row['task_completed_date'])
+                ? $row['task_completed_date']
+                : null,
             'alarm' => $row['task_alarm'],
-            'methods' => Horde_String::convertCharset(@unserialize($row['task_alarm_methods']), $this->_params['charset'], 'UTF-8'),
+            'methods' => Horde_String::convertCharset(
+                @unserialize($row['task_alarm_methods']),
+                $this->_params['charset'],
+                'UTF-8'
+            ),
             'private' => $row['task_private'],
             'recurrence' => $recurrence,
             'organizer' => $row['task_organizer'],
@@ -655,13 +701,17 @@ class Nag_Driver_Sql extends Nag_Driver
             try {
                 $userId = $GLOBALS['registry']->getAuth();
                 $log = $GLOBALS['injector']->getInstance('Horde_History')
-                    ->getHistory('nag:' . $row['task_owner'] . ':' . $row['task_uid']);
+                    ->getHistory(
+                        'nag:' . $row['task_owner'] . ':' . $row['task_uid']
+                    );
                 foreach ($log as $entry) {
                     switch ($entry['action']) {
                     case 'add':
                         $task['created'] = new Horde_Date($entry['ts']);
                         if ($userId != $entry['who']) {
-                            $task['createdby'] = sprintf(_("by %s"), Nag::getUserName($entry['who']));
+                            $task['createdby'] = sprintf(
+                                _("by %s"), Nag::getUserName($entry['who'])
+                            );
                         } else {
                             $task['createdby'] = _("by me");
                         }
@@ -670,7 +720,9 @@ class Nag_Driver_Sql extends Nag_Driver
                     case 'modify':
                         $task['modified'] = new Horde_Date($entry['ts']);
                         if ($userId != $entry['who']) {
-                            $task['modifiedby'] = sprintf(_("by %s"), Nag::getUserName($entry['who']));
+                            $task['modifiedby'] = sprintf(
+                                _("by %s"), Nag::getUserName($entry['who'])
+                            );
                         } else {
                             $task['modifiedby'] = _("by me");
                         }
@@ -683,5 +735,4 @@ class Nag_Driver_Sql extends Nag_Driver
 
         return $task;
     }
-
 }

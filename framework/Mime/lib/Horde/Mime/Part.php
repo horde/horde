@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 1999-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category  Horde
- * @copyright 1999-2015 Horde LLC
+ * @copyright 1999-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Mime
  */
@@ -17,7 +17,7 @@
  * @author    Chuck Hagenbuch <chuck@horde.org>
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 1999-2015 Horde LLC
+ * @copyright 1999-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Mime
  */
@@ -158,6 +158,13 @@ implements ArrayAccess, Countable, RecursiveIterator, Serializable
      * @var string
      */
     protected $_transferEncoding = self::DEFAULT_ENCODING;
+
+    /**
+     * Flag to detect if a message failed to send at least once.
+     *
+     * @var boolean
+     */
+    protected $_failed = false;
 
     /**
      * Constructor.
@@ -470,9 +477,16 @@ implements ArrayAccess, Countable, RecursiveIterator, Serializable
             ));
 
         case 'quoted-printable':
+            // PHP Bug 65776 - Must normalize the EOL characters.
+            stream_filter_register('horde_eol', 'Horde_Stream_Filter_Eol');
             $stream = new Horde_Stream_Existing(array(
                 'stream' => $fp
             ));
+            $stream->stream = $this->_writeStream($stream->stream, array(
+                'filter' => array(
+                    'horde_eol' => array('eol' => $stream->getEOL()
+                )
+            )));
 
             /* Quoted-Printable Encoding: See RFC 2045, section 6.7 */
             return $this->_writeStream($fp, array(
@@ -1033,6 +1047,13 @@ implements ArrayAccess, Countable, RecursiveIterator, Serializable
 
                     $boundary = trim($this->getContentTypeParameter('boundary'), '"');
 
+                    /* If base part is multipart/digest, children should not
+                     * have content-type (automatically treated as
+                     * message/rfc822; RFC 2046 [5.1.5]). */
+                    if ($this->getSubType() === 'digest') {
+                        $options['is_digest'] = true;
+                    }
+
                     foreach ($this as $part) {
                         $parts[] = $eol . '--' . $boundary . $eol;
                         $tmp = $part->toString($options);
@@ -1055,6 +1076,9 @@ implements ArrayAccess, Countable, RecursiveIterator, Serializable
                     'encode' => $options['encode'],
                     'headers' => ($headers === true) ? null : $headers
                 ));
+                if (!$isbase && !empty($options['is_digest'])) {
+                    unset($hdr_ob['content-type']);
+                }
                 if (!empty($this->_temp['toString'])) {
                     $hdr_ob->addHeader(
                         'Content-Transfer-Encoding',
@@ -1420,6 +1444,67 @@ implements ArrayAccess, Countable, RecursiveIterator, Serializable
     }
 
     /**
+     * Determines if this MIME part is an attachment for display purposes.
+     *
+     * @since Horde_Mime 2.10.0
+     *
+     * @return boolean  True if this part should be considered an attachment.
+     */
+    public function isAttachment()
+    {
+        $type = $this->getType();
+
+        switch ($type) {
+        case 'application/ms-tnef':
+        case 'application/pgp-keys':
+        case 'application/vnd.ms-tnef':
+            return false;
+        }
+
+        if ($this->parent) {
+            switch ($this->parent->getType()) {
+            case 'multipart/encrypted':
+                switch ($type) {
+                case 'application/octet-stream':
+                    return false;
+                }
+                break;
+
+            case 'multipart/signed':
+                switch ($type) {
+                case 'application/pgp-signature':
+                case 'application/pkcs7-signature':
+                case 'application/x-pkcs7-signature':
+                    return false;
+                }
+                break;
+            }
+        }
+
+        switch ($this->getDisposition()) {
+        case 'attachment':
+            return true;
+        }
+
+        switch ($this->getPrimaryType()) {
+        case 'application':
+            if (strlen($this->getName())) {
+                return true;
+            }
+            break;
+
+        case 'audio':
+        case 'video':
+            return true;
+
+        case 'multipart':
+            return false;
+        }
+
+        return false;
+    }
+
+    /**
      * Set a piece of metadata on this object.
      *
      * @param string $key  The metadata key.
@@ -1540,6 +1625,19 @@ implements ArrayAccess, Countable, RecursiveIterator, Serializable
                 'canonical' => $canonical,
                 'charset' => $this->getHeaderCharset()
             )), $msg);
+        } catch (InvalidArgumentException $e) {
+            // Try to rebuild the part in case it was due to
+            // an invalid line length in a rfc822/message attachment.
+            if ($this->_failed) {
+                throw $e;
+            }
+            $this->_failed = true;
+            $this->_sanityCheckRfc822Attachments();
+            try {
+                $this->send($email, $headers, $mailer, $opts);
+            } catch (Horde_Mail_Exception $e) {
+                throw new Horde_Mime_Exception($e);
+            }
         } catch (Horde_Mail_Exception $e) {
             throw new Horde_Mime_Exception($e);
         }
@@ -1574,7 +1672,6 @@ implements ArrayAccess, Countable, RecursiveIterator, Serializable
 
     /**
      * Returns the recursive iterator needed to iterate through this part.
-     * The first entry will be this part itself.
      *
      * @since 2.8.0
      *
@@ -1584,20 +1681,44 @@ implements ArrayAccess, Countable, RecursiveIterator, Serializable
      */
     public function partIterator($current = true)
     {
-        $ri = new RecursiveIteratorIterator(
-            $this,
-            RecursiveIteratorIterator::SELF_FIRST
-        );
+        $this->_reindex(true);
+        return new Horde_Mime_Part_Iterator($this, $current);
+    }
 
-        if ($current) {
-            $i = new AppendIterator();
-            $i->append(new ArrayIterator(array($this)));
-            $i->append($ri);
-        } else {
-            $i = $ri;
+    /**
+     * Returns a subpart by index.
+     *
+     * @return Horde_Mime_Part  Part, or null if not found.
+     */
+    public function getPartByIndex($index)
+    {
+        if (!isset($this->_parts[$index])) {
+            return null;
         }
 
-        return $i;
+        $part = $this->_parts[$index];
+        $part->parent = $this;
+
+        return $part;
+    }
+
+    /**
+     * Reindexes the MIME IDs, if necessary.
+     *
+     * @param boolean $force  Reindex if the current part doesn't have an ID.
+     */
+    protected function _reindex($force = false)
+    {
+        $id = $this->getMimeId();
+
+        if (($this->_status & self::STATUS_REINDEX) ||
+            ($force && is_null($id))) {
+            $this->buildMimeIds(
+                is_null($id)
+                    ? (($this->getPrimaryType() === 'multipart') ? '0' : '1')
+                    : $id
+            );
+        }
     }
 
     /**
@@ -2072,6 +2193,39 @@ implements ArrayAccess, Countable, RecursiveIterator, Serializable
         return $out;
     }
 
+    /**
+     * Re-enocdes message/rfc822 parts in case there was e.g., some broken
+     * line length in the headers of the message in the part. Since we shouldn't
+     * alter the original message in any way, we simply reset cause the part to
+     * be encoded as base64 and sent as a application/octet part.
+     */
+    protected function _sanityCheckRfc822Attachments()
+    {
+        if ($this->getType() == 'message/rfc822') {
+            $this->_reEncodeMessageAttachment($this);
+            return;
+        }
+        foreach ($this->getParts() as $part) {
+            if ($part->getType() == 'message/rfc822') {
+                $this->_reEncodeMessageAttachment($part);
+            }
+        }
+        return;
+    }
+
+    /**
+     * Rebuilds $part and forces it to be a base64 encoded
+     * application/octet-stream part.
+     *
+     * @param  Horde_Mime_Part $part   The MIME part.
+     */
+    protected function _reEncodeMessageAttachment(Horde_Mime_Part $part)
+    {
+        $new_part = Horde_Mime_Part::parseMessage($part->getContents());
+        $part->setContents($new_part->getContents(array('stream' => true)), array('encoding' => self::ENCODE_BINARY));
+        $part->setTransferEncoding('base64', array('send' => true));
+    }
+
     /* ArrayAccess methods. */
 
     /**
@@ -2085,9 +2239,21 @@ implements ArrayAccess, Countable, RecursiveIterator, Serializable
      */
     public function offsetGet($offset)
     {
-        foreach ($this->partIterator() as $val) {
+        $this->_reindex();
+
+        if (strcmp($offset, $this->getMimeId()) === 0) {
+            $this->parent = null;
+            return $this;
+        }
+
+        foreach ($this->_parts as $val) {
             if (strcmp($offset, $val->getMimeId()) === 0) {
+                $val->parent = $this;
                 return $val;
+            }
+
+            if ($found = $val[$offset]) {
+                return $found;
             }
         }
 
@@ -2121,6 +2287,7 @@ implements ArrayAccess, Countable, RecursiveIterator, Serializable
             if ($part->parent === $this) {
                 if (($k = array_search($part, $this->_parts, true)) !== false) {
                     unset($this->_parts[$k]);
+                    $this->_parts = array_values($this->_parts);
                 }
             } else {
                 unset($part->parent[$offset]);
@@ -2149,14 +2316,9 @@ implements ArrayAccess, Countable, RecursiveIterator, Serializable
      */
     public function current()
     {
-        if (($key = $this->key()) === null) {
-            return null;
-        }
-
-        $part = $this->_parts[$key];
-        $part->parent = $this;
-
-        return $part;
+        return (($key = $this->key()) === null)
+            ? null
+            : $this->getPartByIndex($key);
     }
 
     /**
@@ -2182,12 +2344,7 @@ implements ArrayAccess, Countable, RecursiveIterator, Serializable
      */
     public function rewind()
     {
-        if ($this->_status & self::STATUS_REINDEX) {
-            $id = $this->getMimeId();
-            $this->buildMimeIds(is_null($id) ? '1' : $id);
-        }
-
-        $this->_parts = array_values($this->_parts);
+        $this->_reindex();
         reset($this->_parts);
         $this->_temp['iterate'] = key($this->_parts);
     }

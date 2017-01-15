@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2013-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2013-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -24,7 +24,11 @@ class Mnemo_Form_Search extends Horde_Form
         $this->addVariable(_("For"), 'search_pattern', 'text', false);
         $v = $this->addVariable(
             _("In"), 'search_type', 'radio', false, false, null,
-            array(array('desc' => _("Title"), 'body' => _("Body")))
+            array(array(
+                'desc' => _("Title"),
+                'body' => _("Body"),
+                'tags' => _("Tags"))
+            )
         );
         $v->setDefault('desc');
         $this->setButtons(_("Search"));

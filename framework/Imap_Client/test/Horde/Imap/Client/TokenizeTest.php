@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2012-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category   Horde
- * @copyright  2011-2015 Horde LLC
+ * @copyright  2011-2016 Horde LLC
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package    Imap_Client
  * @subpackage UnitTests
@@ -17,7 +17,7 @@
  *
  * @author     Michael Slusarz <slusarz@horde.org>
  * @category   Horde
- * @copyright  2011-2015 Horde LLC
+ * @copyright  2011-2016 Horde LLC
  * @ignore
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package    Imap_Client
@@ -464,6 +464,94 @@ EOT;
             100,
             $len['length']
         );
+
+        // Test non-binary-marker tilde.
+        $test = '* LIST () "" ~foo';
+        $token = new Horde_Imap_Client_Tokenize($test);
+        $token->rewind();
+
+        $this->assertEquals(
+            '*',
+            $token->next()
+        );
+        $this->assertEquals(
+            'LIST',
+            $token->next()
+        );
+        $this->assertTrue($token->next());
+        $this->assertFalse($token->next());
+        $this->assertEquals(
+            '',
+            $token->next()
+        );
+        $this->assertEquals(
+            '~foo',
+            $token->next()
+        );
+    }
+
+    public function testLiteralStream()
+    {
+        $token = new Horde_Imap_Client_Tokenize();
+        $token->add('FOO {10}');
+        $token->addLiteralStream('1234567890');
+        $token->add(' BAR');
+
+        $token->rewind();
+
+        $this->assertEquals(
+            'FOO',
+            $token->next()
+        );
+
+        /* Internal stream is converted to string. */
+        $this->assertEquals(
+            '1234567890',
+            $token->next()
+        );
+
+        $this->assertEquals(
+            'BAR',
+            $token->next()
+        );
+
+        $this->assertTrue($token->eos);
+
+        /* Check to see stream is returned if nextStream() is called and
+         * a literal is encountered. */
+        $token->rewind();
+
+        $this->assertEquals(
+            'FOO',
+            $token->nextStream()
+        );
+
+        $stream = $token->nextStream();
+        $this->assertInstanceOf('Horde_Stream_Temp', $stream);
+        $this->assertEquals(
+            '1234567890',
+            strval($stream)
+        );
+
+        $this->assertEquals(
+            'BAR',
+            $token->nextStream()
+        );
+
+        $token = new Horde_Imap_Client_Tokenize();
+        $token->add('{200}' . str_repeat('Z', 200));
+        $token->rewind();
+
+        $this->assertEquals(
+            str_repeat('Z', 200),
+            $token->next()
+        );
+
+        $token->rewind();
+
+        $stream = $token->nextStream();
+        $this->assertInstanceOf('Horde_Stream_Temp', $stream);
+        $this->assertEquals(str_repeat('Z', 200), strval($stream));
     }
 
     /**

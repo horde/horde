@@ -5,7 +5,7 @@
  * This file defines Horde's core API interface. Other core Horde libraries
  * can interact with Mnemo through this API.
  *
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -43,7 +43,7 @@ class Mnemo_Application extends Horde_Registry_Application
 
     /**
      */
-    public $version = 'H5 (4.3.0-git)';
+    public $version = 'H5 (5.0.0-git)';
 
     /**
      * Global variables defined:

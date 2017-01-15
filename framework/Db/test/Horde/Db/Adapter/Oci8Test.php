@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2013-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2013-2017 Horde LLC (http://www.horde.org/)
  *
  * @author     Jan Schneider <jan@horde.org>
  * @license    http://www.horde.org/licenses/bsd
@@ -332,6 +332,17 @@ class Horde_Db_Adapter_Oci8Test extends Horde_Db_Adapter_TestBase
         $options = array('null' => false);
         $result = $this->_conn->addColumnOptions('test', $options);
         $this->assertEquals('test NOT NULL', $result);
+    }
+
+    public function testBug14163()
+    {
+        $table = $this->_conn->createTable('binary_testings');
+        $table->column('data', 'binary', array('null' => false));
+        $table->end();
+        $blob = new Horde_Db_Value_Binary('foo');
+        $this->_conn->insertBlob('binary_testings', array('data' => $blob));
+        $this->_conn->updateBlob('binary_testings', array('data' => ''));
+        $this->_conn->insertBlob('binary_testings', array('data' => ''));
     }
 
     public function testModifyDate()

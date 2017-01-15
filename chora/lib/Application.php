@@ -5,7 +5,7 @@
  * This file defines Horde's core API interface. Other core Horde libraries
  * can interact with Chora through this API.
  *
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -229,21 +229,20 @@ class Chora_Application extends Horde_Registry_Application
     public function topbarCreate(Horde_Tree_Renderer_Base $tree, $parent = null,
                                  array $params = array())
     {
-        asort($GLOBALS['sourceroots']);
+        $sourceroots = Chora::sourceroots();
+        asort($sourceroots);
 
-        foreach ($GLOBALS['sourceroots'] as $key => $val) {
-            if (Chora::checkPerms($key)) {
-                $tree->addNode(array(
-                    'id' => $parent . $key,
-                    'parent' => $parent,
-                    'label' => $val['name'],
-                    'expanded' => false,
-                    'params' => array(
-                        'icon' => Horde_Themes::img('tree/folder.png'),
-                        'url' => Chora::url('browsedir', '', array('rt' => $key))
-                    )
-                ));
-            }
+        foreach ($sourceroots as $key => $val) {
+            $tree->addNode(array(
+                'id' => $parent . $key,
+                'parent' => $parent,
+                'label' => $val['name'],
+                'expanded' => false,
+                'params' => array(
+                    'icon' => Horde_Themes::img('tree/folder.png'),
+                    'url' => Chora::url('browsedir', '', array('rt' => $key))
+                )
+            ));
         }
     }
 

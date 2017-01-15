@@ -1,9 +1,9 @@
 <?php
-    $o = $this->optionTag(null, _("Select target folder:")) .
+    $o = $this->optionTag('', _("Select target folder:")) .
          $this->optionTag(null, '- - - - - - - - - -', false, array('disabled' => true));
 
     if ($this->create) {
-        $o .= $this->optionTag(null, _("Create new folder"), false, array('class' => 'flistCreate')) .
+        $o .= $this->optionTag('', _("Create new folder"), false, array('class' => 'flistCreate')) .
               $this->optionTag(null, '- - - - - - - - - -', false, array('disabled' => true));
     }
 

@@ -1,11 +1,98 @@
 ----------
-v3.3.0-git
+v4.0.0-git
 ----------
 
+[jan] Add support for Sieve date extension to vacation messages (Request
+      #12520).
+[mjr] Export active vacation messages via the timeObjects API (Request #10885).
 [mms] Added a NoSQL (MongoDB) driver for the storage backend.
 [mms] Rule code has been separated from the storage backend drivers.
 [jan] Use Horde\ManageSieve instead of Net_Sieve.
 [mms] Rearrange the default order of filter rules.
+
+
+-------
+v3.2.12
+-------
+
+[jan] Fix using ingo-convert-prefs-to-sql for multiple users.
+[mjr] Fix incorrect flag usage in Procmail vacation recipe (Bug #14397).
+[mjr] Fix escaping mailbox names that contain utf7-imap encodings (Bug #14429).
+[jan] Fix creating new spam folders.
+
+
+-------
+v3.2.11
+-------
+
+[jan] Update Portuguese translation.
+[jan] Update Basque translation.
+[jan] Don't ignore 'initial_page' registry setting.
+
+
+-------
+v3.2.10
+-------
+
+[jan] Don't duplicate messages in Procmail's vacation recipe if excluding email
+      addresses (Michael.Martin@warp-it.com, Bug #14275).
+[jan] Remove stop-script feature from Procmail driver.
+
+
+------
+v3.2.9
+------
+
+[mjr] Fix PHP deprecated warnings in unit test (PR #176, Mathieu Parent
+      <math.parent@gmail.com>).
+[mjr] Honor 'date', 'echo', and 'ls' path overrides (Bug #14284).
+[jan] Update Greek translation (Limperis Antonis <limperis@cti.gr>).
+[jan] Fix Oracle compatibility (Bug #14262).
+
+
+------
+v3.2.8
+------
+
+[jan] Fix editing shared rulesets (Bug #12694).
+[jan] Allow to edit permissions of another user's rules if that user assigned
+      ownership.
+[jan] Use access rules compatible with both Apache 2.2 and 2.4.
+[jan] Fix variable name in vacation_addresses hook example.
+[jan] Correctly save names of mailbox created from the rule form (Bug #14150).
+[mjr] Fix invalid URLs in certain forms when cookies are disabled (Bug #14148).
+
+
+------
+v3.2.7
+------
+
+[jan] Update Italian translation.
+[mjr] Add database migration for fixing corrupt rule ordering.
+[mjr] Fix corruption of rule order when reordering rules in certain cases.
+
+
+------
+v3.2.6
+------
+
+[mjr] Fix using transport parameters in Procmail driver.
+[jan] Update Czech translation.
+[jan] Update Italian translation.
+[mjr] Fix selecting incorrect rule when performing any action after reordering
+      (Bug #14064 and Bug #13643).
+[jan] Fix duplicate messages when using the redirect-and-keep rule with
+      Procmail backends.
+
+
+------
+v3.2.5
+------
+
+[jan] Add Galician translation.
+[mms] Enforce selection of a target folder for the spam filter in the UI (Bug
+      #13917).
+[jan] Fix Sieve error if days of vacation is unset (Bug #13890).
 
 
 ------
@@ -29,6 +116,7 @@ v3.2.3
 v3.2.2
 ------
 
+[jan] Disable forward rule by default.
 [mms] Fix checking the 'max_forward' permission (Bug #13568).
 [mms] IMAP driver needs to explicitly search for UTF-8 text, since we don't
       restrict charset input at the UI level (Bug #13554).
@@ -42,10 +130,10 @@ v3.2.1
 [mms] Fix performing more than one filter drag/drop action on a single page
       (Bug #13434).
 [mms] Add support for a negative regex test to the Maildrop driver.
-[mms] Add support for a negative regex test to the Sieve driver (Request
-      #12671; Pete Beardmore <pete.beardmore@msn.com>).
-[mms] Fix vacation in the maildrop driver (Bug #13415;
-      balestrieri@mag-data.com).
+[mms] Add support for a negative regex test to the Sieve driver (Pete Beardmore
+      <pete.beardmore@msn.com>, Request #12671).
+[mms] Fix vacation in the maildrop driver (balestrieri@mag-data.com, Bug
+      #13415).
 
 
 ------

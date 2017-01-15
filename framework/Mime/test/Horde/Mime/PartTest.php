@@ -1,9 +1,9 @@
 <?php
 /**
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * @category   Horde
- * @copyright  2010-2015 Horde LLC
+ * @copyright  2010-2016 Horde LLC
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package    Mime
  * @subpackage UnitTests
@@ -14,7 +14,7 @@
  *
  * @author     Michael Slusarz <slusarz@horde.org>
  * @category   Horde
- * @copyright  2010-2015 Horde LLC
+ * @copyright  2010-2016 Horde LLC
  * @internal
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package    Mime
@@ -953,6 +953,42 @@ C
         }
 
         $this->assertFalse(current($ids));
+    }
+
+    public function testMultipartDigest()
+    {
+        $part = new Horde_Mime_Part();
+        $part->setType('multipart/digest');
+        $part->isBasePart(true);
+
+        $part2 = new Horde_Mime_Part();
+        $part2->setType('message/rfc822');
+        $part2->setContents(
+            file_get_contents(__DIR__ . '/fixtures/sample_msg4.txt')
+        );
+        $part[] = $part2;
+
+        $this->assertStringMatchesFormat(
+            "Content-Type: multipart/digest; boundary=\"=_%s\"
+MIME-Version: 1.0
+
+This message is in MIME format.
+
+--=_%s
+
+Message-ID: <asdl8ahwhoadsadl@example.com>
+Date: Tue, 07 Jul 2013 10:21:48 -0600
+From: \"Test Q. User\" <test@example.com>
+To: foo@example.com
+Subject: Test
+MIME-Version: 1.0
+
+
+Test.
+
+--=_%s--",
+            $part->toString(array('headers' => true))
+        );
     }
 
     protected function _getTestPart()

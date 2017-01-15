@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2011-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
  *
  * @author     Jan Schneider <jan@horde.org>
  * @category   Horde
@@ -122,6 +122,136 @@ class Horde_Group_MockTest extends Horde_Group_TestBase
     public function testRemove()
     {
         $this->_remove();
+    }
+
+    public function testCache()
+    {
+        if (!class_exists('Horde_Cache')) {
+            $this->markTestSkipped('Horde_Cache not installed');
+        }
+
+        foreach (self::$groupids as $id) {
+            self::$group->remove($id);
+        }
+
+        $id = self::$group->create('Cached Group');
+        $this->assertTrue(self::$group->exists($id));
+        self::$group->setCache(new Horde_Cache(new Horde_Cache_Storage_Memory()));
+
+        $this->assertTrue(self::$group->exists($id));
+        $log = self::$group->getLog();
+        $this->assertEquals('_exists', array_pop($log));
+        self::$group->clearLog();
+        $this->assertTrue(self::$group->exists($id));
+        $this->assertEquals(array(), self::$group->getLog());
+
+        $this->assertEquals('Cached Group', self::$group->getName($id));
+        $log = self::$group->getLog();
+        $this->assertEquals('_getName', array_pop($log));
+        self::$group->clearLog();
+        $this->assertEquals('Cached Group', self::$group->getName($id));
+        $this->assertEquals(array(), self::$group->getLog());
+        self::$group->rename($id, 'Cached Group 2');
+        self::$group->clearLog();
+        $this->assertEquals('Cached Group 2', self::$group->getName($id));
+        $this->assertEquals(array(), self::$group->getLog());
+
+        $data = self::$group->getData($id);
+        $this->assertEquals('Cached Group 2', $data['name']);
+        $this->assertNull($data['email']);
+        $log = self::$group->getLog();
+        $this->assertEquals('_getData', array_pop($log));
+        self::$group->clearLog();
+        $data = self::$group->getData($id);
+        $this->assertEquals('Cached Group 2', $data['name']);
+        $this->assertNull($data['email']);
+        $this->assertEquals(array(), self::$group->getLog());
+        self::$group->setData($id, 'email', 'test@example.com');
+        self::$group->clearLog();
+        $data = self::$group->getData($id);
+        $this->assertEquals('Cached Group 2', $data['name']);
+        $this->assertEquals('test@example.com', $data['email']);
+        $this->assertEquals(array(), self::$group->getLog());
+
+        $this->assertEquals(
+            array($id => 'Cached Group 2'),
+            self::$group->listAll()
+        );
+        $log = self::$group->getLog();
+        $this->assertEquals('_listAll', array_pop($log));
+        self::$group->clearLog();
+        $this->assertEquals(
+            array($id => 'Cached Group 2'),
+            self::$group->listAll()
+        );
+        $this->assertEquals(array(), self::$group->getLog());
+
+        $this->assertEquals(
+            array($id => 'Cached Group 2'),
+            self::$group->search('Group')
+        );
+        $log = self::$group->getLog();
+        $this->assertEquals('_search', array_pop($log));
+        self::$group->clearLog();
+        $this->assertEquals(
+            array($id => 'Cached Group 2'),
+            self::$group->search('Group')
+        );
+        $this->assertEquals(array(), self::$group->getLog());
+
+        $this->assertEquals(array(), self::$group->listUsers($id));
+        $log = self::$group->getLog();
+        $this->assertEquals('_listUsers', array_pop($log));
+        self::$group->clearLog();
+        $this->assertEquals(array(), self::$group->listUsers($id));
+        $this->assertEquals(array(), self::$group->getLog());
+
+        self::$group->addUser($id, 'user1');
+        self::$group->addUser($id, 'user2');
+        self::$group->clearLog();
+
+        $this->assertEquals(
+            array('user1', 'user2'),
+            self::$group->listUsers($id)
+        );
+        $this->assertEquals(array(), self::$group->getLog());
+        self::$group->removeUser($id, 'user2');
+        self::$group->clearLog();
+        $this->assertEquals(array('user1'), self::$group->listUsers($id));
+        $this->assertEquals(array(), self::$group->getLog());
+
+        $this->assertEquals(
+            array($id => 'Cached Group 2'),
+            self::$group->listGroups('user1')
+        );
+        $log = self::$group->getLog();
+        $this->assertEquals('_listGroups', array_pop($log));
+        self::$group->clearLog();
+        $this->assertEquals(
+            array($id => 'Cached Group 2'),
+            self::$group->listGroups('user1')
+        );
+        $this->assertEquals(array(), self::$group->getLog());
+        $this->assertEquals(
+            array($id => 'Cached Group 2'),
+            self::$group->listAll('user1')
+        );
+        $this->assertEquals(array(), self::$group->getLog());
+
+        self::$group->remove($id);
+        self::$group->clearLog();
+        $this->assertFalse(self::$group->exists($id));
+        try {
+            self::$group->getName($id);
+            $this->markTestFailed('Should have thrown an exception');
+        } catch (Horde_Exception_NotFound $e) {
+        }
+        try {
+            self::$group->getData($id);
+            $this->markTestFailed('Should have thrown an exception');
+        } catch (Horde_Exception_NotFound $e) {
+        }
+        $this->assertEquals(array(), self::$group->getLog());
     }
 
     public static function setUpBeforeClass()

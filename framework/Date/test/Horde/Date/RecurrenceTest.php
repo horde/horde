@@ -10,7 +10,7 @@
  * @package    Date
  * @subpackage UnitTests
  */
-class Horde_Date_RecurrenceTest extends PHPUnit_Framework_TestCase
+class Horde_Date_RecurrenceTest extends Horde_Test_Case
 {
     protected function setUp()
     {
@@ -410,6 +410,27 @@ class Horde_Date_RecurrenceTest extends PHPUnit_Framework_TestCase
         $next->mday++;
         $next = $r->nextRecurrence($next);
         $this->assertEquals('2013-01-31 10:00:00', (string)$next);
+    }
+
+    public function testMonthlyLastWeekday()
+    {
+        $r = new Horde_Date_Recurrence('2012-05-31 10:00:00');
+        $r->setRecurType(Horde_Date_Recurrence::RECUR_MONTHLY_LAST_WEEKDAY);
+        $r->setRecurInterval(1);
+        $this->assertEquals('MP1 1- TH #0', $r->toRRule10($this->ical));
+        $this->assertEquals('FREQ=MONTHLY;INTERVAL=1;BYDAY=-1TH', $r->toRRule20($this->ical));
+        $next = new Horde_Date('2012-06-01 00:00:00');
+        $next = $r->nextRecurrence($next);
+        $this->assertEquals('2012-06-28 10:00:00', (string)$next);
+        $next->mday++;
+        $next = $r->nextRecurrence($next);
+        $this->assertEquals('2012-07-26 10:00:00', (string)$next);
+        $next->mday++;
+        $next = $r->nextRecurrence($next);
+        $this->assertEquals('2012-08-30 10:00:00', (string)$next);
+        $next->mday++;
+        $next = $r->nextRecurrence($next);
+        $this->assertEquals('2012-09-27 10:00:00', (string)$next);
     }
 
     public function testYearlyDateNoEnd()

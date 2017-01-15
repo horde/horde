@@ -14,7 +14,7 @@
 /**
  * The IMAP driver class for accessing Kolab storage.
  *
- * Copyright 2009-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -351,23 +351,97 @@ extends Horde_Kolab_Storage_Driver_Base
      *
      * @param string $folder Check the status of this folder.
      *
-     * @return array An array that contains 'uidvalidity' and 'uidnext'.
+     * @return array An array that contains 'uidvalidity', 'uidnext', and
+     *               'token'.
      */
     public function status($folder)
     {
-        // @todo: Condstore
         try {
-            return $this->getBackend()->status(
+            $status = $this->getBackend()->status(
                 $folder,
                 Horde_Imap_Client::STATUS_UIDNEXT |
                 Horde_Imap_Client::STATUS_UIDVALIDITY |
                 Horde_Imap_Client::STATUS_FORCE_REFRESH
             );
+            $status['token'] = $this->getBackend()->getSyncToken($folder);
         } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
             throw new Horde_Kolab_Storage_Exception($e->details);
         } catch (Horde_Imap_Client_Exception $e) {
             throw new Horde_Kolab_Storage_Exception($e);
         }
+
+        return $status;
+    }
+
+    /**
+     * Synchrozine using a token provided by the IMAP client.
+     *
+     * @param string $folder  The folder to synchronize.
+     * @param string $token   The sync token provided by the IMAP client.
+     * @param array  $ids     The list of IMAP message UIDs we currently know
+     *                        about. If omitted, the server will return
+     *                        VANISHED data only if it supports QRESYNC.
+     *
+     * @return array  An array containing the following keys and values:
+     *   Horde_Kolab_Storage_Folder_Stamp_Uids::DELETED - Contains the UIDs that
+     *       have VANISHED from the IMAP server.
+     *   Horde_Kolab_Storage_Folder_Stamp_Uids::ADDED   - Contains the UIDs that
+     *       have been added to the IMAP server since the last sync.
+     */
+    public function sync($folder, $token, array $ids = array())
+    {
+        $mbox = new Horde_Imap_Client_Mailbox($folder);
+        $options = array('ids' => new Horde_Imap_Client_Ids($ids));
+        $sync_data = $this->getBackend()->sync($mbox, $token, $options);
+        if ($sync_data->flags) {
+            // Flag changes, we must check for /deleted since some Kolab clients
+            // like e.g., Kontact only flag as /deleted and do not automatially
+            // expunge.
+            $query = new Horde_Imap_Client_Search_Query();
+            $query->flag(Horde_Imap_Client::FLAG_DELETED);
+            $query->ids($sync_data->flagsuids);
+            $search_ret = $this->getBackend()->search($mbox, $query);
+            $deleted = array_merge($sync_data->vanisheduids->ids, $search_ret['match']->ids);
+        } else {
+            $deleted = $sync_data->vanisheduids->ids;
+        }
+
+        return array(
+            Horde_Kolab_Storage_Folder_Stamp_Uids::DELETED => $deleted,
+            Horde_Kolab_Storage_Folder_Stamp_Uids::ADDED => $sync_data->newmsgsuids->ids
+        );
+    }
+
+    /**
+     * Returns a stamp for the current folder status. This stamp can be used to
+     * identify changes in the folder data. This method, as opposed to
+     * self::getStamp(), uses the IMAP client's token to calculate the changes.
+     *
+     * @param string $folder Return the stamp for this folder.
+     * @param string $token  A sync token provided by the IMAP server.
+     * @param array $ids     An array of UIDs that we know about.
+     *
+     * @return Horde_Kolab_Storage_Folder_Stamp A stamp indicating the current
+     *                                          folder status.
+     */
+    public function getStampFromToken($folder, $token, array $ids)
+    {
+        // always get folder status first, then sync()
+        $status = $this->status($folder);
+        $sync = $this->sync($folder, $token, $ids);
+
+        $ids = array_diff(
+            $ids,
+            $sync[Horde_Kolab_Storage_Folder_Stamp_Uids::DELETED]
+        );
+        $ids = array_merge(
+            $ids,
+            $sync[Horde_Kolab_Storage_Folder_Stamp_Uids::ADDED]
+        );
+        return new Horde_Kolab_Storage_Folder_Stamp_Uids(
+            $status,
+            $ids
+        );
     }
 
     /**
@@ -389,6 +463,7 @@ extends Horde_Kolab_Storage_Driver_Base
             throw new Horde_Kolab_Storage_Exception($e);
         }
         $uids = $uidsearch['match'];
+
         return $uids->ids;
     }
 
@@ -508,7 +583,8 @@ extends Horde_Kolab_Storage_Driver_Base
      * @param array  $uid                 The message UID.
      * @param array  $id                  The mime part ID.
      *
-     * @return resource  The body part, as a stream resource.
+     * @return resource  The body part, as a stream resource. The contents are
+     *                   already transfer decoded and presented as 8bit data.
      */
     public function fetchBodypart($folder, $uid, $id)
     {
@@ -522,6 +598,13 @@ extends Horde_Kolab_Storage_Driver_Base
                 $query,
                 array('ids' => new Horde_Imap_Client_Ids($uid))
             );
+
+            // Already decoded?
+            if ($ret[$uid]->getBodyPartDecode($id)) {
+                return $ret[$uid]->getBodyPart($id, true);
+            }
+
+            // Not already decoded, let Horde_Mime do it.
             $part = $ret[$uid]->getStructure()->getPart($id);
             $part->setContents(
                 $ret[$uid]->getBodyPart($id, true),

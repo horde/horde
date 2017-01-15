@@ -7,7 +7,7 @@
  * SyncHdr is not really a sync command, but this class takes advantage of the
  * XML parser in Horde_SyncMl_Command.
  *
- * Copyright 2006-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2006-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -105,7 +105,15 @@ class Horde_SyncMl_Command_SyncHdr extends Horde_SyncMl_Command
      * @var integer
      */
     protected $_maxMsgSize;
-
+    
+    /**
+     * Maximum size of a SyncML object in bytes as specified by the
+     * <Meta><MaxObjSize> element.
+     *
+     * @var integer
+     */
+    protected $_maxObjSize;
+ 
     /**
      * End element handler for the XML parser, delegated from
      * Horde_SyncMl_ContentHandler::endElement().
@@ -157,6 +165,9 @@ class Horde_SyncMl_Command_SyncHdr extends Horde_SyncMl_Command
             } elseif ($element == 'MaxMsgSize') {
                 // </MaxMsgSize></Meta></SyncHdr></SyncML>
                 $this->_maxMsgSize = intval($this->_chars);
+            } elseif ($element == 'MaxObjSize') {
+                // </MaxObjSize></Meta></SyncHdr></SyncML>
+                $this->_maxObjSize = intval($this->_chars);
             }
             break;
 
@@ -204,7 +215,10 @@ class Horde_SyncMl_Command_SyncHdr extends Horde_SyncMl_Command
         if (!empty($this->_maxMsgSize)) {
             $backend->state->maxMsgSize = $this->_maxMsgSize;
         }
-
+        if (!empty($this->_maxObjSize)) {
+            $backend->state->maxObjSize = $this->_maxObjSize;
+        }
+ 
         $backend->setupState();
     }
 }

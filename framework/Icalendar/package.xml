@@ -23,10 +23,10 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2014-11-25</date>
+ <date>2016-03-21</date>
  <version>
-  <release>2.0.11</release>
-  <api>1.1.0</api>
+  <release>2.1.5</release>
+  <api>2.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -376,10 +376,14 @@
         <file name="wicca.txt" role="test" />
        </dir> <!-- /test/Horde/Icalendar/fixtures/vTimezone -->
        <file name="bug7423.ics" role="test" />
+       <file name="bug14132.ics" role="test" />
+       <file name="bug14132_2.ics" role="test" />
+       <file name="bug14153.ics" role="test" />
        <file name="charset1.ics" role="test" />
        <file name="charset2.ics" role="test" />
        <file name="charset3.ics" role="test" />
        <file name="date.ics" role="test" />
+       <file name="duration0.ics" role="test" />
        <file name="empty.ics" role="test" />
        <file name="escapes1.ics" role="test" />
        <file name="escapes2.ics" role="test" />
@@ -391,8 +395,13 @@
        <file name="line-folding-4.ics" role="test" />
        <file name="line-folding-5.ics" role="test" />
        <file name="line-folding-6.ics" role="test" />
+       <file name="multiple-summary.ics" role="test" />
        <file name="org.vcf" role="test" />
        <file name="quoted-params.ics" role="test" />
+       <file name="timezone1.ics" role="test" />
+       <file name="timezone2.ics" role="test" />
+       <file name="timezone3.ics" role="test" />
+       <file name="timezone4.ics" role="test" />
        <file name="vcal20.ics" role="test" />
        <file name="vfreebusy1.ics" role="test" />
        <file name="vfreebusy2.ics" role="test" />
@@ -415,8 +424,8 @@
   <required>
    <php>
     <min>5.3.0</min>
-    <max>6.0.0alpha1</max>
-    <exclude>6.0.0alpha1</exclude>
+    <max>8.0.0alpha1</max>
+    <exclude>8.0.0alpha1</exclude>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -591,10 +600,14 @@
    <install as="Horde/Icalendar/phpunit.xml" name="test/Horde/Icalendar/phpunit.xml" />
    <install as="Horde/Icalendar/TimezonesTest.php" name="test/Horde/Icalendar/TimezonesTest.php" />
    <install as="Horde/Icalendar/fixtures/bug7423.ics" name="test/Horde/Icalendar/fixtures/bug7423.ics" />
+   <install as="Horde/Icalendar/fixtures/bug14132.ics" name="test/Horde/Icalendar/fixtures/bug14132.ics" />
+   <install as="Horde/Icalendar/fixtures/bug14132_2.ics" name="test/Horde/Icalendar/fixtures/bug14132_2.ics" />
+   <install as="Horde/Icalendar/fixtures/bug14153.ics" name="test/Horde/Icalendar/fixtures/bug14153.ics" />
    <install as="Horde/Icalendar/fixtures/charset1.ics" name="test/Horde/Icalendar/fixtures/charset1.ics" />
    <install as="Horde/Icalendar/fixtures/charset2.ics" name="test/Horde/Icalendar/fixtures/charset2.ics" />
    <install as="Horde/Icalendar/fixtures/charset3.ics" name="test/Horde/Icalendar/fixtures/charset3.ics" />
    <install as="Horde/Icalendar/fixtures/date.ics" name="test/Horde/Icalendar/fixtures/date.ics" />
+   <install as="Horde/Icalendar/fixtures/duration0.ics" name="test/Horde/Icalendar/fixtures/duration0.ics" />
    <install as="Horde/Icalendar/fixtures/empty.ics" name="test/Horde/Icalendar/fixtures/empty.ics" />
    <install as="Horde/Icalendar/fixtures/escapes1.ics" name="test/Horde/Icalendar/fixtures/escapes1.ics" />
    <install as="Horde/Icalendar/fixtures/escapes2.ics" name="test/Horde/Icalendar/fixtures/escapes2.ics" />
@@ -606,8 +619,13 @@
    <install as="Horde/Icalendar/fixtures/line-folding-4.ics" name="test/Horde/Icalendar/fixtures/line-folding-4.ics" />
    <install as="Horde/Icalendar/fixtures/line-folding-5.ics" name="test/Horde/Icalendar/fixtures/line-folding-5.ics" />
    <install as="Horde/Icalendar/fixtures/line-folding-6.ics" name="test/Horde/Icalendar/fixtures/line-folding-6.ics" />
+   <install as="Horde/Icalendar/fixtures/multiple-summary.ics" name="test/Horde/Icalendar/fixtures/multiple-summary.ics" />
    <install as="Horde/Icalendar/fixtures/org.vcf" name="test/Horde/Icalendar/fixtures/org.vcf" />
    <install as="Horde/Icalendar/fixtures/quoted-params.ics" name="test/Horde/Icalendar/fixtures/quoted-params.ics" />
+   <install as="Horde/Icalendar/fixtures/timezone1.ics" name="test/Horde/Icalendar/fixtures/timezone1.ics" />
+   <install as="Horde/Icalendar/fixtures/timezone2.ics" name="test/Horde/Icalendar/fixtures/timezone2.ics" />
+   <install as="Horde/Icalendar/fixtures/timezone3.ics" name="test/Horde/Icalendar/fixtures/timezone3.ics" />
+   <install as="Horde/Icalendar/fixtures/timezone4.ics" name="test/Horde/Icalendar/fixtures/timezone4.ics" />
    <install as="Horde/Icalendar/fixtures/vcal20.ics" name="test/Horde/Icalendar/fixtures/vcal20.ics" />
    <install as="Horde/Icalendar/fixtures/vfreebusy1.ics" name="test/Horde/Icalendar/fixtures/vfreebusy1.ics" />
    <install as="Horde/Icalendar/fixtures/vfreebusy2.ics" name="test/Horde/Icalendar/fixtures/vfreebusy2.ics" />
@@ -1148,7 +1166,85 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-11-25</date>
+   <date>2015-04-28</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix issues with certain locales like Turkish.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.0</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-06-18</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Add Horde_Icalendar#getAttributeSingle().
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.1</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-07-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix generated VALARM TRIGGER attributes with empty duration (Ralf Becker &lt;RalfBecker@outdoor-training.de&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.2</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-11-17</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Fix cases where incorrect transition times were being returned (Bug #14153).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.3</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-02-01</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Mark PHP 7 as supported.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.4</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-03-21</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Update Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.5</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-03-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -69,7 +69,7 @@ $form = new Horde_Form($vars, $title, 'create_invoice');
 
 $type_params = array(array(1 => _("Yes"), 0 => _("No")));
 $form->addVariable(_("Combine same clients in one invoice"), 'combine', 'enum', true, false, null, $type_params);
-$v = &$form->addVariable(_("Select hours to be invoiced"), 'hours', 'tableset', true, false, false, array($list, $headers));
+$v = $form->addVariable(_("Select hours to be invoiced"), 'hours', 'tableset', true, false, false, array($list, $headers));
 $v->setDefault(array_keys($list));
 
 if ($form->validate()) {

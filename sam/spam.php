@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -52,11 +52,10 @@ if ($form->isSubmitted() &&
 
 if ($form->validate($vars)) {
     $stackedOptions = array();
-
+    $form->getInfo($vars, $info);
     foreach (Sam::getAttributes() as $key => $attribute) {
         if ($sam_driver->hasCapability($key) && $vars->exists($key)) {
-            $data = $vars->get($key);
-
+            $data = $info[$key];
             if (isset($attribute['basepref'])) {
                /* SA docs claim that a null value for a rewrite string merely
                 * removes any previous changes to the specified header.  This

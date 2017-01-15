@@ -10,7 +10,7 @@ class Horde_ActiveSync_DeviceTest extends Horde_Test_Case
 {
     public function testDeviceDetection()
     {
-        // iOS
+        // // iOS
         $state = $this->getMockSkipConstructor('Horde_ActiveSync_State_Base');
         $fixture = array(
             'deviceType' => 'iPod',
@@ -20,18 +20,62 @@ class Horde_ActiveSync_DeviceTest extends Horde_Test_Case
         $device = new Horde_ActiveSync_Device($state, $fixture);
         $this->assertEquals(7, $device->getMajorVersion());
         $this->assertEquals(0, $device->getMinorVersion());
-        $this->assertEquals(Horde_ActiveSync_Device::TYPE_IPOD, strtolower($device->deviceType));
+        $this->assertEquals(Horde_ActiveSync_Device::TYPE_IPOD, Horde_String::lower($device->deviceType));
         $this->assertEquals(Horde_ActiveSync_Device::MULTIPLEX_NOTES, $device->multiplex);
 
         $fixture = array(
             'deviceType' => 'iPhone',
-            'userAgent' => 'iOS/6.1.3 (10B329)'
+            'userAgent' => 'iOS/1002.329'
         );
         $device = new Horde_ActiveSync_Device($state, $fixture);
         $this->assertEquals(6, $device->getMajorVersion());
         $this->assertEquals(1, $device->getMinorVersion());
-        $this->assertEquals(Horde_ActiveSync_Device::TYPE_IPHONE, strtolower($device->deviceType));
+        $this->assertEquals(Horde_ActiveSync_Device::TYPE_IPHONE, Horde_String::lower($device->deviceType));
         $this->assertEquals(Horde_ActiveSync_Device::MULTIPLEX_NOTES, $device->multiplex);
+        $this->assertEquals(false, $device->hasQuirk(Horde_ActiveSync_Device::QUIRK_NEEDS_SUPPORTED_PICTURE_TAG));
+
+        $fixture = array(
+            'deviceType' => 'iPod',
+            'userAgent' => 'Apple-iPod2C1/803.148'
+        );
+        $device = new Horde_ActiveSync_Device($state, $fixture);
+        $this->assertEquals(4, $device->getMajorVersion());
+        $this->assertEquals(2, $device->getMinorVersion());
+        $this->assertEquals(true, $device->hasQuirk(Horde_ActiveSync_Device::QUIRK_NEEDS_SUPPORTED_PICTURE_TAG));
+
+        $fixture = array(
+            'deviceType' => 'iPad',
+            'userAgent' => 'Apple-iPad3C6/1202.435',
+            'properties' => array(Horde_ActiveSync_Device::OS => 'iOS 8.1.1')
+        );
+        $device = new Horde_ActiveSync_Device($state, $fixture);
+        $this->assertEquals(8, $device->getMajorVersion());
+        $this->assertEquals(1, $device->getMinorVersion());
+        $this->assertEquals(Horde_ActiveSync_Device::TYPE_IPAD, Horde_String::lower($device->deviceType));
+        $this->assertEquals(Horde_ActiveSync_Device::MULTIPLEX_NOTES, $device->multiplex);
+
+        $fixture = array(
+            'deviceType' => 'iPad',
+            'userAgent' => 'Apple-iPad4C5/1206.69',
+            'properties' => array(Horde_ActiveSync_Device::OS => 'iOS 8.3 12F69')
+        );
+        $device = new Horde_ActiveSync_Device($state, $fixture);
+        $this->assertEquals(8, $device->getMajorVersion());
+        $this->assertEquals(3, $device->getMinorVersion());
+        $this->assertEquals(Horde_ActiveSync_Device::TYPE_IPAD, Horde_String::lower($device->deviceType));
+        $this->assertEquals(Horde_ActiveSync_Device::MULTIPLEX_NOTES, $device->multiplex);
+
+        $fixture = array(
+            'deviceType' => 'iPhone',
+            'userAgent' => 'Apple-iPhone6C1/1104.201',
+            'properties' => array(Horde_ActiveSync_Device::OS => 'iOS 9.0.2 13A452')
+        );
+        $device = new Horde_ActiveSync_Device($state, $fixture);
+        $this->assertEquals(9, $device->getMajorVersion());
+        $this->assertEquals(0, $device->getMinorVersion());
+        $this->assertEquals(Horde_ActiveSync_Device::TYPE_IPHONE, Horde_String::lower($device->deviceType));
+        $this->assertEquals(Horde_ActiveSync_Device::MULTIPLEX_NOTES, $device->multiplex);
+
 
         // Old Android.
         $fixture = array(
@@ -40,8 +84,8 @@ class Horde_ActiveSync_DeviceTest extends Horde_Test_Case
         $device = new Horde_ActiveSync_Device($state, $fixture);
         $this->assertEquals(0, $device->getMajorVersion());
         $this->assertEquals(3, $device->getMinorVersion());
-        $this->assertEquals(Horde_ActiveSync_Device::TYPE_ANDROID, strtolower($device->deviceType));
-        $this->assertEquals(Horde_ActiveSync_Device::TYPE_ANDROID, strtolower($device->clientType));
+        $this->assertEquals(Horde_ActiveSync_Device::TYPE_ANDROID, Horde_String::lower($device->deviceType));
+        $this->assertEquals(Horde_ActiveSync_Device::TYPE_ANDROID, Horde_String::lower($device->clientType));
         $this->assertEquals(Horde_ActiveSync_Device::MULTIPLEX_CONTACTS |
                     Horde_ActiveSync_Device::MULTIPLEX_CALENDAR |
                     Horde_ActiveSync_Device::MULTIPLEX_NOTES |
@@ -54,8 +98,8 @@ class Horde_ActiveSync_DeviceTest extends Horde_Test_Case
         $device = new Horde_ActiveSync_Device($state, $fixture);
         $this->assertEquals(7, $device->getMajorVersion());
         $this->assertEquals(1, $device->getMinorVersion());
-        $this->assertEquals(Horde_ActiveSync_Device::TYPE_ANDROID, strtolower($device->deviceType));
-        $this->assertEquals(Horde_ActiveSync_Device::TYPE_TOUCHDOWN, strtolower($device->clientType));
+        $this->assertEquals(Horde_ActiveSync_Device::TYPE_ANDROID, Horde_String::lower($device->deviceType));
+        $this->assertEquals(Horde_ActiveSync_Device::TYPE_TOUCHDOWN, Horde_String::lower($device->clientType));
         $this->assertEquals(0, $device->multiplex);
 
         // Not-so-old-but-still-old Android.
@@ -65,8 +109,8 @@ class Horde_ActiveSync_DeviceTest extends Horde_Test_Case
         $device = new Horde_ActiveSync_Device($state, $fixture);
         $this->assertEquals(2, $device->getMajorVersion());
         $this->assertEquals(1707, $device->getMinorVersion());
-        $this->assertEquals(Horde_ActiveSync_Device::TYPE_ANDROID, strtolower($device->deviceType));
-        $this->assertEquals(Horde_ActiveSync_Device::TYPE_ANDROID, strtolower($device->clientType));
+        $this->assertEquals(Horde_ActiveSync_Device::TYPE_ANDROID, Horde_String::lower($device->deviceType));
+        $this->assertEquals(Horde_ActiveSync_Device::TYPE_ANDROID, Horde_String::lower($device->clientType));
         $this->assertEquals(15, $device->multiplex);
 
 
@@ -79,8 +123,8 @@ class Horde_ActiveSync_DeviceTest extends Horde_Test_Case
         $device = new Horde_ActiveSync_Device($state, $fixture);
         $this->assertEquals(4, $device->getMajorVersion());
         $this->assertEquals(4, $device->getMinorVersion());
-        $this->assertEquals(Horde_ActiveSync_Device::TYPE_ANDROID, strtolower($device->deviceType));
-        $this->assertEquals(Horde_ActiveSync_Device::TYPE_ANDROID, strtolower($device->clientType));
+        $this->assertEquals(Horde_ActiveSync_Device::TYPE_ANDROID, Horde_String::lower($device->deviceType));
+        $this->assertEquals(Horde_ActiveSync_Device::TYPE_ANDROID, Horde_String::lower($device->clientType));
         $this->assertEquals(13, $device->multiplex);
 
         // Devices like this (from a Note 3) we simply can't sniff multiplex for
@@ -95,8 +139,8 @@ class Horde_ActiveSync_DeviceTest extends Horde_Test_Case
         // These are useless values, but still tests the reliability of the code
         $this->assertEquals(101, $device->getMajorVersion());
         $this->assertEquals(403, $device->getMinorVersion());
-        $this->assertEquals('samsungsmn900v', strtolower($device->deviceType));
-        $this->assertEquals(Horde_ActiveSync_Device::TYPE_ANDROID, strtolower($device->clientType));
+        $this->assertEquals('samsungsmn900v', Horde_String::lower($device->deviceType));
+        $this->assertEquals(Horde_ActiveSync_Device::TYPE_ANDROID, Horde_String::lower($device->clientType));
         $this->assertEquals(15, $device->multiplex);
 
         // Nine (From Note 3 running 4.4.2).
@@ -109,8 +153,8 @@ class Horde_ActiveSync_DeviceTest extends Horde_Test_Case
         $device->id = '6E696E656331393035333833303331';
 
         $this->assertEquals(4, $device->getMajorVersion());
-        $this->assertEquals('android', strtolower($device->deviceType));
-        $this->assertEquals(Horde_ActiveSync_Device::TYPE_NINE, strtolower($device->clientType));
+        $this->assertEquals('android', Horde_String::lower($device->deviceType));
+        $this->assertEquals(Horde_ActiveSync_Device::TYPE_NINE, Horde_String::lower($device->clientType));
         $this->assertEquals(0, $device->multiplex);
 
         // HTCOneMini2
@@ -122,8 +166,8 @@ class Horde_ActiveSync_DeviceTest extends Horde_Test_Case
         $device = new Horde_ActiveSync_Device($state, $fixture);
         $this->assertEquals(4, $device->getMajorVersion());
         $this->assertEquals(4, $device->getMinorVersion());
-        $this->assertEquals('htconemini2', strtolower($device->deviceType));
-        $this->assertEquals(Horde_ActiveSync_Device::TYPE_ANDROID, strtolower($device->clientType));
+        $this->assertEquals('htconemini2', Horde_String::lower($device->deviceType));
+        $this->assertEquals(Horde_ActiveSync_Device::TYPE_ANDROID, Horde_String::lower($device->clientType));
         $this->assertEquals(15, $device->multiplex);
     }
 
@@ -212,6 +256,20 @@ class Horde_ActiveSync_DeviceTest extends Horde_Test_Case
         $this->assertEquals(Horde_ActiveSync_Device::TYPE_ANDROID, $device->clientType);
         $device->clientType = 'Samsung';
         $this->assertEquals('Samsung', $device->clientType);
+    }
+
+    public function testSupported()
+    {
+        $fixture = array(
+            'deviceType' => 'SAMSUNGSMN900V',
+            'userAgent' => 'SAMSUNG-SM-N900V/101.403',
+            'properties' => array(Horde_ActiveSync_Device::OS => 'Android')
+        );
+        $device = new Horde_ActiveSync_Device($this->getMockSkipConstructor('Horde_ActiveSync_State_Base'), $fixture);
+        $this->assertEmpty($device->supported);
+        $device->supported = array();
+        $device->supported['contacts'] = array('one', 'two');
+        $this->assertEquals($device->supported, array('contacts' => array('one', 'two')));
     }
 
 }

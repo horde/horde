@@ -2,7 +2,7 @@
     "name": "horde/horde-css-parser",
     "description": "Horde CSS Parser",
     "type": "library",
-    "homepage": "http://pear.horde.org",
+    "homepage": "https://pear.horde.org",
     "license": "LGPL-2.1",
     "authors": [
         {
@@ -11,8 +11,8 @@
             "role": "lead"
         }
     ],
-    "version": "1.0.6",
-    "time": "2015-01-13",
+    "version": "1.0.11",
+    "time": "2016-07-02",
     "repositories": [
         {
             "type": "pear",
@@ -20,7 +20,7 @@
         }
     ],
     "require": {
-        "php": ">=5.3.0,<=6.0.0alpha1"
+        "php": ">=5.3.2,<=8.0.0alpha1"
     },
     "suggest": {
         "ext-mbstring": "*"

@@ -2,7 +2,7 @@
 /**
  * Horde_Service_Twitter_Account class for calling account methods
  *
- * Copyright 2009-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2017 Horde LLC (http://www.horde.org/)
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @license  http://www.horde.org/licenses/bsd BSD
@@ -71,8 +71,7 @@ class Horde_Service_Twitter_Account
      */
     public function endSession()
     {
-        $url = $this->_endpoint . 'end_session.' . $this->_format;
-        return $this->_twitter->request->post($url);
+        // NOOP - no longer part of the Twitter API, no replacement.
     }
 
     /**

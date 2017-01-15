@@ -1,14 +1,9 @@
 <?php
 /**
- * Renders collected links for a Wiki page.
- *
- * Copyright 2011-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPLv2). If
- * you did not receive this file, see
- * http://www.horde.org/licenses/gpl
- *
- * PHP version 5
+ * you did not receive this file, see http://www.horde.org/licenses/gpl
  *
  * @category Horde
  * @package  Wicked
@@ -30,18 +25,24 @@ class Text_Wiki_Render_Rst_Links
 {
     public static function append()
     {
+        // Don't include Text_Wiki_Render_Rst_Freelink2 because it extends
+        // Text_Wiki_Render_Rst_Wikilink.
         $result = '';
         $links = array_merge(
+            Text_Wiki_Render_Rst_Interwiki::$paragraph_links,
+            Text_Wiki_Render_Rst_Phplookup::$paragraph_links,
             Text_Wiki_Render_Rst_Url::$paragraph_links,
-            Text_Wiki_Render_Rst_Freelink::$paragraph_links
+            Text_Wiki_Render_Rst_Wikilink::$paragraph_links
         );
         if (!empty($links)) {
             $result .= "\n";
             foreach ($links as $link) {
                 $result .= "\n" . $link ;
             }
+            Text_Wiki_Render_Rst_Interwiki::$paragraph_links = array();
+            Text_Wiki_Render_Rst_Phplookup::$paragraph_links = array();
             Text_Wiki_Render_Rst_Url::$paragraph_links = array();
-            Text_Wiki_Render_Rst_Freelink::$paragraph_links = array();
+            Text_Wiki_Render_Rst_Wikilink::$paragraph_links = array();
         }
         return $result;
     }

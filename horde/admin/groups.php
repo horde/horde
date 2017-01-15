@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 1999-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL-2). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl.
@@ -145,12 +145,11 @@ case 'edit.inc':
 
     if ($auth->hasCapability('list')) {
         try {
-            $user_list = $auth->listUsers();
+            $user_list = $auth->listNames();
         } catch (Horde_Auth_Exception $e) {
             $notification->push($e, 'horde.error');
             $user_list = array();
         }
-        sort($user_list);
     } else {
         $user_list = array();
     }
@@ -211,7 +210,7 @@ foreach ($nodes as $id => $node) {
     $tree->addNode(array(
         'id' => $id,
         'parent' => null,
-        'label' => $node,
+        'label' => htmlspecialchars($node),
         'expanded' => false,
         'params' => $group_node + $node_params,
         'right' => array($spacer, $delete_link)

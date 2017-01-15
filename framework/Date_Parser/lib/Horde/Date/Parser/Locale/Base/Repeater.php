@@ -66,7 +66,7 @@ class Horde_Date_Parser_Locale_Base_Repeater
             } elseif ($t = $this->scanForTimes($token, $options)) {
                 $token->tag('repeater_time', $t);
             } elseif ($t = $this->scanForUnits($token)) {
-                $token->tag(strtolower(str_replace('Horde_Date_', '', get_class($t))), $t);
+                $token->tag(Horde_String::lower(str_replace('Horde_Date_', '', get_class($t))), $t);
             }
         }
         return $tokens;
@@ -110,7 +110,7 @@ class Horde_Date_Parser_Locale_Base_Repeater
     {
         foreach ($this->unitScanner as $scannerItem => $scannerTag) {
             if (preg_match($scannerItem, $token->word)) {
-                $class = 'Horde_Date_Repeater_' . ucfirst($scannerTag);
+                $class = 'Horde_Date_Repeater_' . Horde_String::ucfirst($scannerTag);
                 return new $class($scannerTag);
             }
         }

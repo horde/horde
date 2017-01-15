@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 1999-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category  Horde
- * @copyright 1999-2015 Horde LLC
+ * @copyright 1999-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Cache
  */
@@ -18,7 +18,7 @@
  * @author    Chuck Hagenbuch <chuck@horde.org>
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 1999-2015 Horde LLC
+ * @copyright 1999-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Cache
  */
@@ -77,33 +77,7 @@ class Horde_Cache_Storage_File extends Horde_Cache_Storage_Base
             return;
         }
 
-        $filename = $this->_params['dir'] . '/' . self::GC_FILE;
-        $excepts = array();
-
-        if (is_readable($filename)) {
-            $gc_file = file($filename, FILE_IGNORE_NEW_LINES);
-            reset($gc_file);
-            next($gc_file);
-            while (list(,$data) = each($gc_file)) {
-                $parts = explode("\t", $data, 2);
-                $excepts[$parts[0]] = $parts[1];
-            }
-        }
-
-        foreach ($this->_getCacheFiles() as $fname => $pname) {
-            if (!empty($excepts[$fname]) &&
-                (($c_time - $excepts[$fname]) > filemtime($pname))) {
-                @unlink($pname);
-                unset($excepts[$fname]);
-            }
-        }
-
-        if ($fp = @fopen($filename, 'w')) {
-            foreach ($excepts as $key => $val) {
-                fwrite($fp, $key . "\t" . $val . "\n");
-            }
-            fclose($fp);
-        }
+        $this->_gc();
     }
 
     /**
@@ -140,7 +114,7 @@ class Horde_Cache_Storage_File extends Horde_Cache_Storage_Base
         @rename($tmp_file, $filename);
 
         if ($lifetime &&
-            ($fp = @fopen($this->_params['dir'] . '/' . self::GC_FILE, 'a'))) {
+            ($fp = @fopen(dirname($filename) . '/' . self::GC_FILE, 'a'))) {
             // This may result in duplicate entries in GC_FILE, but we
             // will take care of these whenever we do GC and this is quicker
             // than having to check every time we access the file.
@@ -185,22 +159,26 @@ class Horde_Cache_Storage_File extends Horde_Cache_Storage_Base
         foreach ($this->_getCacheFiles() as $val) {
             @unlink($val);
         }
-        @unlink($this->_params['dir'] . '/' . self::GC_FILE);
+        foreach ($this->_getGCFiles() as $val) {
+            @unlink($val);
+        }
     }
 
     /**
      * Return a list of cache files.
      *
+     * @param string $start  The directory to start searching.
+     *
      * @return array  Pathnames to cache files.
      */
-    protected function _getCacheFiles()
+    protected function _getCacheFiles($start = null)
     {
         $paths = array();
 
         try {
             $it = empty($this->_params['sub'])
                 ? new DirectoryIterator($this->_params['dir'])
-                : new RecursiveIteratorIterator(new RecursiveDirectoryIterator($this->_params['dir']), RecursiveIteratorIterator::CHILD_FIRST);
+                : new RecursiveIteratorIterator(new RecursiveDirectoryIterator($start ?: $this->_params['dir']), RecursiveIteratorIterator::CHILD_FIRST);
         } catch (UnexpectedValueException $e) {
             return $paths;
         }
@@ -214,6 +192,22 @@ class Horde_Cache_Storage_File extends Horde_Cache_Storage_Base
         }
 
         return $paths;
+    }
+
+    /**
+     * Return a list of GC indexes.
+     *
+     * @return array  Pathnames to GC indexes.
+     */
+    protected function _getGCFiles()
+    {
+        $glob = $this->_params['dir'];
+        if (!empty($this->_params['sub'])) {
+            $glob .= '/'
+                . implode('/', array_fill(0, $this->_params['sub'], '*'));
+        }
+        $glob .= '/' . self::GC_FILE;
+        return glob($glob);
     }
 
     /**
@@ -251,4 +245,99 @@ class Horde_Cache_Storage_File extends Horde_Cache_Storage_Base
         return $this->_file[$key];
     }
 
+    /**
+     * Garbage collector.
+     */
+    protected function _gc()
+    {
+        $c_time = time();
+
+        if (!empty($this->_params['sub']) &&
+            file_exists($this->_params['dir'] . '/' . self::GC_FILE)) {
+            // If we cannot migrate, we cannot GC either, because we expect the
+            // new format.
+            try {
+                $this->_migrateGc();
+            } catch (Horde_Cache_Exception $e) {
+                return;
+            }
+        }
+
+        foreach ($this->_getGCFiles() as $filename) {
+            $excepts = array();
+            if (is_readable($filename)) {
+                $fp = fopen($filename, 'r');
+                while (!feof($fp) && ($data = fgets($fp))) {
+                    $parts = explode("\t", trim($data), 2);
+                    $excepts[$parts[0]] = $parts[1];
+                }
+            }
+
+            foreach ($this->_getCacheFiles(dirname($filename)) as $pname) {
+                if (!empty($excepts[$pname]) &&
+                    ($c_time > $excepts[$pname])) {
+                    @unlink($pname);
+                    unset($excepts[$pname]);
+                }
+            }
+
+            if ($fp = @fopen($filename, 'w')) {
+                foreach ($excepts as $key => $val) {
+                    fwrite($fp, $key . "\t" . $val . "\n");
+                }
+                fclose($fp);
+            }
+        }
+    }
+
+    /**
+     * Migrates single GC indexes to per-directory indexes.
+     */
+    protected function _migrateGc()
+    {
+        // Read the old GC index.
+        $filename = $this->_params['dir'] . '/' . self::GC_FILE;
+        if (!is_readable($filename)) {
+            return;
+        }
+
+        $fhs = array();
+        $fp = fopen($filename, 'r');
+        if (!flock($fp, LOCK_EX)) {
+            throw new Horde_Cache_Exception('Cannot acquire lock for old garbage collection index');
+        }
+
+        // Loops through all cached files from the old index and write their GC
+        // information to the new GC indexes.
+        while (!feof($fp) && ($data = fgets($fp))) {
+            list($path, $time) = explode("\t", trim($data), 2);
+            $dir = dirname($path);
+            if ($dir == $this->_params['dir']) {
+                continue;
+            }
+            if (!isset($fhs[$dir])) {
+                $fhs[$dir] = @fopen($dir . '/' . self::GC_FILE, 'a');
+                // Maybe too many open file handles?
+                if (!$fhs[$dir] && count($fhs)) {
+                    unset($fhs[$dir]);
+                    foreach ($fhs as $fh) {
+                        fclose($fh);
+                    }
+                    $fhs = array();
+                    $fhs[$dir] = @fopen($dir . '/' . self::GC_FILE, 'a');
+                }
+                if (!$fhs[$dir]) {
+                    throw new Horde_Cache_Exception('Cannot migrate to new garbage collection index format');
+                }
+            }
+            fwrite($fhs[$dir], $path . "\t" . $time . "\n");
+        }
+
+        // Clean up.
+        foreach ($fhs as $fh) {
+            fclose($fh);
+        }
+        fclose($fp);
+        unlink($filename);
+    }
 }

@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Sam H4 (1.0-git)\n"
+"Project-Id-Version: Sam\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"POT-Creation-Date: 2016-08-08 15:58+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -53,7 +53,7 @@ msgstr ""
 msgid "Blacklist To"
 msgstr ""
 
-#: lib/Driver/Amavisd/Sql.php:443
+#: lib/Driver/Amavisd/Sql.php:447
 #, php-format
 msgid "Cannot create recipient %s: %s"
 msgstr ""
@@ -63,7 +63,7 @@ msgstr ""
 msgid "Cannot get options: %s"
 msgstr ""
 
-#: blacklist.php:63 spam.php:100 whitelist.php:63
+#: blacklist.php:63 spam.php:99 whitelist.php:63
 #, php-format
 msgid "Cannot set options: %s"
 msgstr ""
@@ -113,7 +113,7 @@ msgstr ""
 msgid "Receive Viruses"
 msgstr ""
 
-#: lib/Driver/Amavisd/Sql.php:446
+#: lib/Driver/Amavisd/Sql.php:450
 #, php-format
 msgid "Recipient created: %s"
 msgstr ""
@@ -190,7 +190,7 @@ msgstr ""
 msgid "Updated global blacklists"
 msgstr ""
 
-#: spam.php:95
+#: spam.php:94
 msgid "Updated global default rules"
 msgstr ""
 
@@ -202,7 +202,7 @@ msgstr ""
 msgid "Updated user blacklists"
 msgstr ""
 
-#: spam.php:97
+#: spam.php:96
 msgid "Updated user spam rules"
 msgstr ""
 

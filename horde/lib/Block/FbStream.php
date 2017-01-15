@@ -4,7 +4,7 @@
  * filter it using the same Facebook filters available on facebook.com.  Also
  * provides ability to update the current user's status.
  *
- * Copyright 2009-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2017 Horde LLC (http://www.horde.org/)
  *
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Horde
@@ -128,17 +128,15 @@ EOT;
         $html .= '<div style="padding: 8px 8px 0 8px">';
 
         try {
-            $fbperms = $facebook->users->getAppPermissions();
-            if (!empty($fbperms[Horde_Service_Facebook_Auth::EXTEND_PERMS_PUBLISHSTREAM])) {
-                $html .= '<input style="width:98%;margin-top:4px;margin-bottom:4px;" type="text" class="fbinput" id="' . $instance . '_newStatus" name="newStatus" />'
-                    . '<div><a class="horde-default" href="#" id="' . $instance . '_button">' . _("Post") . '</a></div>'
-                    . Horde_Themes_Image::tag('loading.gif', array(
-                          'attr' => array(
-                              'id' => $instance. '_loading',
-                              'style' => 'display:none;'
-                          )
-                      ));
-            }
+            $html .= Horde_Themes_Image::tag(
+                'loading.gif',
+                array(
+                    'attr' => array(
+                        'id' => $instance. '_loading',
+                        'style' => 'display:none;'
+                    )
+                )
+            );
         } catch (Horde_Service_Facebook_Exception $e) {
             $prefs = $GLOBALS['registry']->getServiceLink('prefs');
             $html .= sprintf(_("There was an error making the request: %s"), $e->getMessage());

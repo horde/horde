@@ -177,42 +177,12 @@
   <configsection name="auth">
    <configheader>Authentication Settings</configheader>
    <configlist name="admins" desc="Which users should be treated as
-   administrators (root, super-user) by Horde?" required="false"/>
-   <configboolean name="checkip" desc="Should we always store and validate
-   the IP address of the client (as seen by the web server) in the session?
-   Doing so will help increase security by making it harder for an attacker
-   from another host to hijack the session.">true</configboolean>
-   <configboolean name="checkbrowser" desc="Should we always store and
-   validate the browser string of the client (as seen by the web server) in
-   the session? Doing so will help increase security by making it harder for
-   an attacker to hijack the session.">true</configboolean>
-   <configswitch name="resetpassword" desc="Allow users to reset passwords and
-   provide a link on the login screen?">true
-    <case name="true" desc="Yes">
-     <configstring name="resetpassword_from" required="false" desc="The e-mail
-     address to send password reset e-mails from. If empty, is sent from the
-     user's e-mail address."/>
-    </case>
-    <case name="false" desc="No"/>
-   </configswitch>
-   <configstring name="alternate_login" desc="If this is not false, it is
-   assumed to be the URL of an alternate login screen which will be used in
-   place of horde's default login screen. The URL will have an &quot;app&quot;
-   parameter appended that contains the application that redirected to the
-   login screen, and a &quot;url&quot; parameter with the originally requested
-   URL. The alternate login screen should redirect to that URL after
-   authentication. Alternatively you can include a &quot;%u&quot; place holder
-   in the alternate URL that will be replaced by that original
-   URL. Optionally appended URL parameters are &quot;logout_reason&quot; that
-   contains a number with the logout reason (see the Horde_Auth::REASON_*
-   constants for possible values), and &quot;logout_msg&quot; that contains an
-   error message describing the logout reason.">false</configstring>
-   <configstring name="redirect_on_logout" desc="If this is not false, it is
-   assumed to be the URL of an alternate logout page which users will be sent
-   to when they log out.">false</configstring>
-   <configenum name="list_users" desc="If the authentication backend is
-   capable of listing all users, should we show this list to the users,
-   e.g. in the permissions screen?">list
+   administrators (root, super-user) by Horde? If using a user name hook, these
+   have to be internal Horde user names after the conversion."
+   required="false"/>
+   <configenum name="list_users" desc="If the authentication backend is capable
+   of listing all users, should we show this list to the users, e.g. in the
+   permissions screen?">list
     <values>
      <value desc="Show a drop down list">list</value>
      <value desc="Show an input field">input</value>
@@ -723,6 +693,7 @@
       </configsection>
     </case>
    </configswitch>
+
    <configsection name="params">
     <configboolean name="count_bad_logins" required="false" desc="Should Horde
     count the number of bad logins?">false</configboolean>
@@ -735,13 +706,55 @@
     minutes should the login be blocked? Setting 0 means permanent
     blocking">5</configinteger>
    </configsection>
-  </configsection>
 
-  <configsection name="tos">
-   <configheader>Terms of Service Agreement</configheader>
-   <configstring name="file" required="false" desc="If you want to require
-   users to accept certain terms before they can use the system, enter the
-   path of the agreement file to display here."/>
+   <configboolean name="lowercase" required="false" desc="Lowercase all user
+   names after logging in? Horde is case sensitive while many authentication
+   backends are case insensitive. Enabling this setting will normalize all user
+   names. If you need all user names internally to be exactly like entered in
+   the login screen, or if you allowed this in versions prior to Horde 6,
+   disable this flag.">true</configboolean>
+
+   <configswitch name="resetpassword" desc="Allow users to reset passwords and
+   provide a link on the login screen?">true
+    <case name="true" desc="Yes">
+     <configstring name="resetpassword_from" required="false" desc="The e-mail
+     address to send password reset e-mails from. If empty, is sent from the
+     user's e-mail address."/>
+    </case>
+    <case name="false" desc="No"/>
+   </configswitch>
+
+   <configboolean name="checkip" desc="Should we always store and validate
+   the IP address of the client (as seen by the web server) in the session?
+   Doing so will help increase security by making it harder for an attacker
+   from another host to hijack the session.">true</configboolean>
+   <configboolean name="checkbrowser" desc="Should we always store and
+   validate the browser string of the client (as seen by the web server) in
+   the session? Doing so will help increase security by making it harder for
+   an attacker to hijack the session.">true</configboolean>
+
+   <configstring name="alternate_login" desc="If this is not false, it is
+   assumed to be the URL of an alternate login screen which will be used in
+   place of horde's default login screen. The URL will have an &quot;app&quot;
+   parameter appended that contains the application that redirected to the
+   login screen, and a &quot;url&quot; parameter with the originally requested
+   URL. The alternate login screen should redirect to that URL after
+   authentication. Alternatively you can include a &quot;%u&quot; place holder
+   in the alternate URL that will be replaced by that original
+   URL. Optionally appended URL parameters are &quot;logout_reason&quot; that
+   contains a number with the logout reason (see the Horde_Auth::REASON_*
+   constants for possible values), and &quot;logout_msg&quot; that contains an
+   error message describing the logout reason.">false</configstring>
+   <configstring name="redirect_on_logout" desc="If this is not false, it is
+   assumed to be the URL of an alternate logout page which users will be sent
+   to when they log out.">false</configstring>
+
+   <configsection name="tos">
+    <configheader>Terms of Service Agreement</configheader>
+    <configstring name="file" required="false" desc="If you want to require
+    users to accept certain terms before they can use the system, enter the
+    path of the agreement file to display here."/>
+   </configsection>
   </configsection>
  </configtab>
 
@@ -880,8 +893,6 @@
      <case name="Ldap" desc="LDAP">
       <configsection name="params">
        <configldap switchname="driverconfig">
-        <configstring name="uid" desc="The username search key for finding
-        preferences">uid</configstring>
        </configldap>
       </configsection>
      </case>
@@ -914,10 +925,53 @@
 
  <configtab name="group" desc="Groups">
   <configsection name="group">
-   <configheader>Groups Settings</configheader>
+   <configheader>Group Caching</configheader>
+   <configdescription>Enabling group caching improves performance because the
+   group backend will only be queried once per TTL. But group changes will only
+   take effect if applied from the Horde group interface.</configdescription>
+   <configboolean name="cache" required="false" desc="Enable group
+   caching?">false</configboolean>
+   <configheader>Groups Driver</configheader>
    <configswitch name="driver" desc="What backend should we use for Horde
    Groups?">Sql
-    <case name="Kolab" desc="Kolab"/>
+    <case name="Kolab" desc="Kolab">
+     <configsection name="params">
+      <configldap switchname="driverconfig">
+       <configstring name="gid" desc="The group search key">cn</configstring>
+       <configstring name="memberuid" desc="Group membership field">
+       memberUid</configstring>
+       <configswitch name="attrisdn" required="false" desc="Are the user member
+       attributes returned from LDAP expected to be fully qualified DNs?">false
+        <case name="false" desc="No"/>
+        <case name="true" desc="Yes">
+          <configldapuser/>
+        </case>
+       </configswitch>
+       <configlist name="newgroup_objectclass" desc="What objectclasses should
+       a new group be member of? These objectclasses should cover the mail and
+       gidnumber attributes as well as the group search key">
+       posixGroup,hordeGroup</configlist>
+       <configstring name="writedn" desc="DN used to bind for creating and
+       editing LDAP groups." required="false"/>
+       <configstring name="writepw" desc="Password for bind DN."
+       required="false"/>
+       <configsection name="search">
+        <configswitch name="filter_type" desc="How to specify a filter for the
+        group lists">objectclass
+         <case name="objectclass" desc="One or more objectclass filters">
+          <configlist name="objectclass" desc="The objectclass filter used to
+          search for groups. Can be a single objectclass or a list.">
+          posixGroup</configlist>
+         </case>
+         <case name="filter" desc="A complete LDAP filter expression">
+          <configstring name="filter" desc="The LDAP RFC formatted filter used
+          to search for groups."/>
+         </case>
+        </configswitch>
+       </configsection>
+      </configldap>
+     </configsection>
+    </case>
     <case name="Ldap" desc="LDAP">
      <configsection name="params">
       <configldap switchname="driverconfig">
@@ -958,7 +1012,9 @@
     </case>
     <case name="Mock" desc="No Groups"/>
     <case name="Sql" desc="SQL">
-     <configsql switchname="driverconfig" />
+     <configsection name="params">
+      <configsql switchname="driverconfig" />
+     </configsection>
     </case>
    </configswitch>
   </configsection>
@@ -1352,7 +1408,8 @@
   <configsection name="davstorage">
    <configheader>DAV Settings</configheader>
    <configswitch name="driver" desc="If you want to use CalDAV or CardDAV,
-   select a driver here.">Sql
+   select a driver here. Please note that History system needs to be enabled
+   too.">Sql
     <case name="Null" desc="Disable CalDAV/CardDAV support"/>
     <case name="Sql" desc="SQL-based metadata storage">
      <configsection name="params">
@@ -1394,9 +1451,13 @@
       <configenum name="secure" desc="The encryption to use to connect to
       the SMTP server.">tls
        <values>
-        <value>none</value>
-        <value>tls</value>
-        <value>ssl</value>
+        <value desc="No encryption">none</value>
+        <value desc="Auto-detect SSL version">ssl</value>
+        <value desc="Force SSL version 2">sslv2</value>
+        <value desc="Force SSL version 3">sslv3</value>
+        <value desc="TLS">tls</value>
+        <value desc="TLS direct version 1.x connection to server (Since Horde_Smtp 1.3.0)">tlsv1</value>
+        <value desc="Use TLS, if available (Since Horde_Smtp 1.2.0)">true</value>
        </values>
       </configenum>
       <configstring name="localhost" required="false" desc="The local hostname
@@ -1842,10 +1903,6 @@
    required="false"/>
    <configstring name="googlesearch" desc="Google AJAX Search API Key"
    required="false"/>
-   <configstring name="yahoomaps" desc="Yahoo Maps API Key" required="false" />
-   <configstring name="cloudmade" desc="Cloudmade API Key" required="false" />
-   <configstring name="mytopo" desc="Mytopo Maps API Key" required="false" />
-   <configstring name="mytopo_partnerID" desc="Mytopo partner id" required="false" />
    <configstring name="bing" desc="Bing Maps API Key" required="false" />
   </configsection>
   <configsection name="facebook">
@@ -1906,6 +1963,13 @@
         <configstring name="key" desc="API Key. For information on registration
         and obtaining an API key for this driver, see
         http://worldweatheronline.com"></configstring>
+        <configenum name="apiversion" desc="Select the API version to use.
+        See your WWO registration details if you are not sure which to choose.">1
+          <values>
+            <value>1</value>
+            <value>2</value>
+          </values>
+        </configenum>
        <configinteger name="lifetime" desc="Lifetime of the cached weather information, in seconds.">21600
        </configinteger>
       </configsection>
@@ -1913,7 +1977,34 @@
    </configswitch>
   </configsection>
  </configtab>
-
+ <configtab name="maps" desc="Maps">
+  <configsection name="maps">
+    <configheader>Maps</configheader>
+    <configswitch name="driver" desc="Which driver should we use for inline maps?">
+     <case name="false" desc="No inline map support" />
+     <case name="Horde" desc="Horde driver (support for various map providers)">
+      <configmultienum name="providers" desc="Which layers should we add to the map?">
+       <values>
+         <configspecial application="horde" name="mapsources"/>
+       </values>
+      </configmultienum>
+      <configenum default="false" name="geocoder" desc="Which Geocoder service should we use?">
+       <values>
+         <configspecial application="horde" name="geocoders"/>
+       </values>
+      </configenum>
+      <configenum default="false" name="geodriver" desc="Which driver should we
+      use for storing geolocation information?">
+       <values>
+        <value desc="None" default="true">false</value>
+        <value desc="MySQL spatial extensions">Mysql</value>
+        <value desc="General SQL (no spatial index support)">Sql</value>
+       </values>
+      </configenum>
+     </case>
+    </configswitch>
+  </configsection>
+ </configtab>
  <configtab name="imap" desc="IMAP Server">
   <configsection name="imap">
    <configheader>IMAP Server Settings</configheader>
@@ -1939,10 +2030,30 @@
        <value>ssl</value>
       </values>
      </configenum>
+     <configstring required="false" name="debug" desc="A path to a IMAP
+     protocol debug file. Leave empty for no protocol level debug
+     logging."></configstring>
      <configstring name="maildomain" desc="Default
      maildomain">example.com</configstring>
+     <configheader>Caching</configheader>
      <configboolean name="cache_folders" desc="Cache IMAP folders?"
       required="true">true</configboolean>
+     <configenum name="cache" desc="The caching backend for the IMAP cache.">Mock
+       <values>
+        <value desc="None">Mock</value>
+        <value desc="Horde_Cache (Requires a properly configured Horde_Cache backend.">Horde</value>
+      </values>
+     </configenum>
+     <configenum name="strategy" desc="The synchronization strategy to use. This
+      determines how often the local cache is synchronized against the IMAP
+      server. If you have a CONDSTORE and QRESYNC capable IMAP server you should
+      choose 'Synchronization Token'.">Token
+      <values>
+         <value desc="Synchronization Token">Token</value>
+         <value desc="Once Per Session">OncePerSession</value>
+         <value desc="Time-based">TimeBased</value>
+      </values>
+    </configenum>
     </case>
    </configswitch>
   </configsection>
@@ -2114,7 +2225,7 @@
       </configswitch>
       <configstring name="password" required="false" desc="Password to
       authenticate to the Redis server with."/>
-      <configstring name="database" required="false" desc="Database
+      <configinteger name="database" required="false" desc="Database
       index to select when connected to Redis server."/>
       <configboolean name="persistent" required="false" desc="Enable
       persistent connections to Redis server(s)?">false</configboolean>
@@ -2130,8 +2241,8 @@
    due to patent issues. If you are NOT in the United States, or you have a
    license to use ActiveSync, you may enable ActiveSync below and create an
    alias on your webserver to redirect /Microsoft-Server-ActiveSync to
-   /horde/rpc.php.
-   See http://wiki.horde.org/ActiveSync for more information.
+   /horde/rpc.php. See http://wiki.horde.org/ActiveSync for more
+   information. Please note that History system needs to be enabled too.
    </configdescription>
    <configswitch name="enabled" quote="false" desc="Enable ActiveSync server?">false
     <case name="false" desc="Disabled" />
@@ -2176,6 +2287,7 @@
        <value desc="Exchange 2007sp1 (EAS 12.1)">12.1</value>
        <value desc="Exchange 2010sp1 (EAS 14.0)">14</value>
        <value desc="Exchange 2010sp2 (EAS 14.1)">14.1</value>
+       <value desc="Exchange 2013 (EAS 16.0) EXPERIMENTAL">16.0</value>
       </values>
      </configenum>
      <configheader>Authentication</configheader>
@@ -2258,18 +2370,36 @@
            <configsection name="imap">
              <configstring name="host" desc="IMAP host" required="false"></configstring>
              <configinteger name="port" desc="IMAP port" required="false"></configinteger>
-             <configboolean name="ssl" desc="Use SSL?" />
+             <configenum name="encryption" desc="Encryption level">
+               <values>
+                <value desc="None">None</value>
+                <value desc="SSL">SSL</value>
+                <value desc="TLS">TLS</value>
+               </values>
+             </configenum>
            </configsection>
            <configsection name="pop">
              <configstring name="host" desc="POP3 host" required="false"></configstring>
              <configinteger name="port" desc="POP3 port" required="false"></configinteger>
-             <configboolean name="ssl" desc="Use SSL?" />
+             <configenum name="encryption" desc="Encryption level">
+               <values>
+                <value desc="None">None</value>
+                <value desc="SSL">SSL</value>
+                <value desc="TLS">TLS</value>
+               </values>
+             </configenum>
            </configsection>
            <configsection name="smtp">
              <configstring name="host" desc="SMTP host"></configstring>
              <configinteger name="port" desc="SMTP port" required="false"></configinteger>
              <configboolean name="popauth" desc="Require Pop Auth?" required="false" />
-             <configboolean name="ssl" desc="Use SSL?" />
+             <configenum name="encryption" desc="Encryption level">
+               <values>
+                <value desc="None">None</value>
+                <value desc="SSL">SSL</value>
+                <value desc="TLS">TLS</value>
+               </values>
+             </configenum>
            </configsection>
          </configsection>
        </case>
@@ -2288,7 +2418,7 @@
            in the Wbxml log stream? If set to Detailed, the entire raw content
            is logged. If set to Protocol, all protocol level detail is included,
            but any Wbxml tag content over 50 bytes is logged only as the size of
-           the data." required="false">protocol
+           the data." required="false">2
              <values>
                <value desc="Protocol">2</value>
                <value desc="Detailed">1</value>
@@ -2298,10 +2428,24 @@
          <case name="onefile" desc="Single file">
            <configstring name="path" desc="Log file name." />
          </case>
+         <case name="perrequest" desc="Per Request: Recommended only for
+          ocassional debugging use as this will generate many log files.">
+          <configstring name="path" desc="Path to custom log directory." />
+           <configenum name="level" desc="Should Horde include all the raw data
+           in the Wbxml log stream? If set to Detailed, the entire raw content
+           is logged. If set to Protocol, all protocol level detail is included,
+           but any Wbxml tag content over 50 bytes is logged only as the size of
+           the data." required="false">1
+             <values>
+               <value desc="Protocol">2</value>
+               <value desc="Detailed">1</value>
+             </values>
+          </configenum>
+        </case>
        </configswitch>
      </configsection>
      <configsection name="ping">
-      <configheader>Ping Settings</configheader>
+      <configheader>Heartbeat and Server Limitation Settings</configheader>
       <configdescription>The Heartbeat Interval specifies the length of time, in
       seconds, that the server SHOULD wait before notifying the client of
       changes in a folder on the server.  These settings allow you to indicate
@@ -2336,6 +2480,46 @@
       essentially reducing the number of checks done during each heartbeat.
       Lowering this value will increase the number of checks that are down
       during each heartbeat.">15</configinteger>
+      <configheader>Maximum Collection Window Size</configheader>
+      <configdescription>The Maximum Collection Window Size specifies the
+      maximum number of messages from a single collection/folder that can be
+      sent to the client in a single request before a MOREAVAILABLE flag is sent
+      (indicating the remaining messages should be fetched in the next request).
+      This is normally automatically handled by the client but it may be helpful
+      to explicitly limit this if the server is hitting against PHP's memory
+      limit. This is especially true when synchronizing with Outlook, which has
+      an extremely high default window size.
+      There is also a per-REQUEST limit that can be enforced. The server will
+      NEVER send more than the per-request value in a single HTTP request. If
+      the server reaches the per-COLLECTION value, but not the per-REQUEST
+      value, a MOREAVAILABLE flag will be sent and processing will move on to
+      the next collection. This continues until the per-request value is
+      reached. So, for example, you may limit the total number of responses per
+      request to 100, but the per-collection limit to 10. This will limit the
+      size of the total response, while allowing more collections to begin to
+      populate sooner. Setting the per-request closer to or equal to the
+      per-collection value will still limit the total number of responses, but
+      it will take more requests to begin to populate each collection.
+      In Outlook, for example, it will take longer for individual email folders
+      to BEGIN to populate during initial sync.
+
+      If you need to set this, start with a total per-REQUEST limit of 100 and
+      increase/decrease as necessary after testing. A value of 0 indicates that
+      the client's value will be honored. Setting the per-REQUEST limit, but
+      leaving the per-COLLECTION limit at 0 will attempt to honor the
+      per-collection limit of the client, while still limiting the total number
+      of responses sent during a single HTTP request.
+
+      Setting this to lower values will also make it appear that the client is
+      performing the initial sync quicker, at the expense of needing more server
+      requests.
+      </configdescription>
+      <configinteger name="maximumwindowsize" desc="The Maximum Collection
+      Window Size to use, overriding the client sent value. Set to 0 to use
+      the client value.">0</configinteger>
+      <configinteger name="maximumrequestwindowsize" desc="The Maximum Request
+      Window Size to use, overriding the client sent value. Set to 0 to use the
+      client value.">0</configinteger>
      </configsection>
     </case>
    </configswitch>

@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category  Horde
- * @copyright 2002-2015 Horde LLC
+ * @copyright 2002-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Crypt
  */
@@ -16,7 +16,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2002-2015 Horde LLC
+ * @copyright 2002-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Crypt
  * @since     2.4.0
@@ -159,7 +159,7 @@ class Horde_Crypt_Pgp_Parse
         $new_part = new Horde_Mime_Part();
         $new_part->setType('multipart/mixed');
 
-        foreach ($parts as $val) {
+        while (list(,$val) = each($parts)) {
             switch ($val['type']) {
             case self::ARMOR_TEXT:
                 $part = new Horde_Mime_Part();
@@ -198,7 +198,7 @@ class Horde_Crypt_Pgp_Parse
                 break;
 
             case self::ARMOR_SIGNED_MESSAGE:
-                if (($sig = current($parts)) &&
+                if ((list(,$sig) = each($parts)) &&
                     ($sig['type'] == self::ARMOR_SIGNATURE)) {
                     $part = new Horde_Mime_Part();
                     $part->setType('multipart/signed');

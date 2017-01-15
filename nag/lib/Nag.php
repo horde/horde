@@ -172,7 +172,7 @@ class Nag
         // strptime() is locale dependent, i.e. %p is not always matching
         // AM/PM. Set the locale to C to workaround this, but grab the
         // locale's D_FMT before that.
-        $format = Horde_Nls::getLangInfo(D_FMT);
+        $format = $GLOBALS['prefs']->getValue('date_format_mini');
         if ($withtime) {
             $format .= ' '
                 . ($GLOBALS['prefs']->getValue('twentyFour') ? '%H:%M' : '%I:%M %p');
@@ -1565,19 +1565,26 @@ class Nag
      */
     public static function _sortByDue($a, $b)
     {
-        if ($a->due == $b->due) {
+        $a_due = $a->getNextDue();
+        $b_due = $b->getNextDue();
+
+        if (!$a_due && !$b_due) {
             return self::_sortByName($a, $b);
         }
 
         // Treat empty due dates as farthest into the future.
-        if ($a->due == 0) {
+        if (!$a_due) {
             return 1;
         }
-        if ($b->due == 0) {
+        if (!$b_due) {
             return -1;
         }
 
-        return ($a->due > $b->due) ? 1 : -1;
+        if ($a_due->equals($b_due)) {
+            return self::_sortByName($a, $b);
+        }
+
+        return ($a_due->after($b_due)) ? 1 : -1;
     }
 
     /**
@@ -1728,7 +1735,7 @@ class Nag
         $cs = unserialize($GLOBALS['prefs']->getValue('sync_lists'));
         if (!empty($cs)) {
             // Have a pref, make sure it's still available
-            $lists = self::listTasklists(false, Horde_Perms::EDIT);
+            $lists = self::listTasklists(false, Horde_Perms::DELETE);
             $cscopy = array_flip($cs);
             foreach ($cs as $c) {
                 if (empty($lists[$c])) {
@@ -1825,13 +1832,13 @@ class Nag
 
         $email = Nag::getUserEmail($task->assignee);
         if (strpos($email, '@') === false) {
-            continue;
+            return;
         }
 
-       /* Determine all notification-specific strings. */
-       $method = 'REQUEST';
-       switch ($action) {
-       case self::ITIP_CANCEL:
+        /* Determine all notification-specific strings. */
+        $method = 'REQUEST';
+        switch ($action) {
+        case self::ITIP_CANCEL:
             /* Cancellation. */
             $method = 'CANCEL';
             $filename = 'task-cancellation.ics';

@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2012-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
- * @copyright 2012-2015 Horde LLC
+ * @copyright 2012-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -16,7 +16,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2012-2015 Horde LLC
+ * @copyright 2012-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -41,8 +41,9 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
     protected function _attach($init)
     {
         return array(
+            'ctype' => $this->_params['ctype'],
             'mime_id' => $this->_params['mime_id'],
-            'muid' => $this->_params['muid']
+            'muid' => $this->_params['muid'],
         );
     }
 
@@ -70,11 +71,17 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
                 throw new IMP_Exception(
                     _("Cannot retrieve calendar data from message.")
                 );
-            } elseif (!$vCal->parsevCalendar($mime_part->getContents(), 'VCALENDAR', $mime_part->getCharset())) {
+            }
+            if ($vars->ctype) {
+                $mime_part = clone $mime_part;
+                $mime_part->setType($vars->ctype);
+            }
+            if (!$vCal->parsevCalendar($mime_part->getContents(), 'VCALENDAR', $mime_part->getCharset())) {
                 throw new IMP_Exception(_("The calendar data is invalid"));
             }
 
             $components = $vCal->getComponents();
+            $v1 = $vCal->getAttribute('VERSION') == '1.0';
         } catch (Exception $e) {
             $notification->push($e, 'horde.error');
             $actions = array();
@@ -88,13 +95,13 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
             case 'delete':
                 // vEvent cancellation.
                 if ($registry->hasMethod('calendar/delete')) {
-                    $guid = $components[$key]->getAttribute('UID');
+                    $guid = $components[$key]->getAttributeSingle('UID');
                     $recurrenceId = null;
+                    $range = null;
                     try {
                         // This is a cancellation of a recurring event instance.
-                        $recurrenceId = $components[$key]->getAttribute('RECURRENCE-ID');
+                        $recurrenceId = $components[$key]->getAttributeSingle('RECURRENCE-ID');
                         $atts = $components[$key]->getAttribute('RECURRENCE-ID', true);
-                        $range = null;
                         foreach ($atts as $att) {
                             if (array_key_exists('RANGE', $att)) {
                                 $range = $att['RANGE'];
@@ -167,20 +174,55 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
                 // vJournal publish.
                 switch ($components[$key]->getType()) {
                 case 'vEvent':
+                    // If we have accepted and are importing, update the
+                    // user's attendance status in the vCal so it will be
+                    // reflected when it is imported.
+                    if ($action == 'accept-import') {
+                        try {
+                            $a = $components[$key]->getAttribute('ATTENDEE');
+                            if (!is_array($a)) {
+                                $a = array($a);
+                            }
+                            $a_params = $components[$key]->getAttribute('ATTENDEE', true);
+                            foreach ($a as $a_key => $attendee) {
+                                $attendee_email = preg_replace('/mailto:/i', '', $attendee);
+                                $identity = $injector->getInstance('IMP_Identity');
+                                if (!is_null($id = $identity->getMatchingIdentity($attendee_email))) {
+                                    $components[$key]->removeAttribute('ATTENDEE');
+                                    if ($v1) {
+                                        $a_params[$a_key]['STATUS'] = 'ACCEPTED';
+                                    } else {
+                                        $a_params[$a_key]['PARTSTAT'] = 'ACCEPTED';
+                                    }
+                                    foreach ($a as $ai_key => $i_attendee) {
+                                        $components[$key]->setAttribute(
+                                            'ATTENDEE',
+                                            $i_attendee,
+                                            $a_params[$ai_key]
+                                        );
+                                    }
+                                    break;
+                                }
+                            }
+                        } catch (Horde_Icalendar_Exception $e) {
+                            $notification->push(sprintf(_("There was an error updating attendee status: %s"), $e->getMessage()), 'horde.error');
+                        }
+                    }
+
+                    // Handle the import, and check for exceptions.
                     $result = $this->_handlevEvent($key, $components, $mime_part);
-                    // Must check for exceptions.
                     foreach ($components as $k => $component) {
                         try {
                             if ($component->getType() == 'vEvent' && $component->getAttribute('RECURRENCE-ID')) {
-                                $uid = $component->getAttribute('UID');
-                                if ($uid == $components[$key]->getAttribute('UID')) {
+                                $uid = $component->getAttributeSingle('UID');
+                                if ($uid == $components[$key]->getAttributeSingle('UID')) {
                                     $this->_handlevEvent($k, $components, $mime_part);
                                 }
                             }
                         } catch (Horde_Icalendar_Exception $e) {}
                     }
-
                     break;
+
                 case 'vFreebusy':
                     // Import into Kronolith.
                     if ($registry->hasMethod('calendar/import_vfreebusy')) {
@@ -301,14 +343,14 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
 
                     // Get the organizer details.
                     try {
-                        $organizer = parse_url($vFb->getAttribute('ORGANIZER'));
+                        $organizer = parse_url($vFb->getAttributeSingle('ORGANIZER'));
                     } catch (Horde_Icalendar_Exception $e) {
                         break;
                     }
 
                     $organizerEmail = $organizer['path'];
 
-                    $organizer = $vFb->getAttribute('ORGANIZER', true);
+                    $organizer = $vFb->getAttributeSingle('ORGANIZER', true);
                     $organizerFullEmail = new Horde_Mail_Rfc822_Address($organizerEmail);
                     if (isset($organizer['cn'])) {
                         $organizerFullEmail->personal = $organizer['cn'];
@@ -319,18 +361,18 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
                         $endStamp = $startStamp + (60 * 24 * 3600);
                     } else {
                         try {
-                            $startStamp = $vFb->getAttribute('DTSTART');
+                            $startStamp = $vFb->getAttributeSingle('DTSTART');
                         } catch (Horde_Icalendar_Exception $e) {
                             $startStamp = time();
                         }
 
                         try {
-                            $endStamp = $vFb->getAttribute('DTEND');
+                            $endStamp = $vFb->getAttributeSingle('DTEND');
                         } catch (Horde_Icalendar_Exception $e) {}
 
                         if (!$endStamp) {
                             try {
-                                $duration = $vFb->getAttribute('DURATION');
+                                $duration = $vFb->getAttributeSingle('DURATION');
                                 $endStamp = $startStamp + $duration;
                             } catch (Horde_Icalendar_Exception $e) {
                                 $endStamp = $startStamp + (60 * 24 * 3600);
@@ -419,7 +461,7 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
         global $notification, $registry;
 
         try {
-            $guid = $components[$key]->getAttribute('UID');
+            $guid = $components[$key]->getAttributeSingle('UID');
         } catch (Horde_Icalendar_Exception $e) {
             /* If required UID parameter doesn't exist, make one
              * up so the user can at least add the event to the
@@ -480,6 +522,7 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
 
             } catch (Horde_Exception $e) {
                 $notification->push(sprintf(_("There was an error importing the event: %s"), $e->getMessage()), 'horde.error');
+                return false;
             }
         }
 

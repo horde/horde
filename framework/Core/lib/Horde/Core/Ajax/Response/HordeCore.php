@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2012-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category  Horde
- * @copyright 2012-2015 Horde LLC
+ * @copyright 2012-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Core
  */
@@ -17,14 +17,23 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2012-2015 Horde LLC
+ * @copyright 2012-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Core
  */
 class Horde_Core_Ajax_Response_HordeCore extends Horde_Core_Ajax_Response
 {
     /**
-     * Javascript files to be loaded by the browser.
+     * CSS files to be loaded by the browser.
+     *
+     * @since 2.25.0
+     *
+     * @var array
+     */
+    public $cssfiles = array();
+
+    /**
+     * JavaScript files to be loaded by the browser.
      *
      * @since 2.10.0
      *
@@ -121,11 +130,16 @@ class Horde_Core_Ajax_Response_HordeCore extends Horde_Core_Ajax_Response
             $this->jsfiles[] = strval($val->url);
         }
         $page_output->hsl->clear();
+        foreach ($page_output->css->getStylesheetUrls(array('nobase' => true)) as $val) {
+            $this->cssfiles[] = strval($val->url);
+        }
 
         if (!empty($this->jsfiles)) {
             $ob->jsfiles = array_values(array_unique($this->jsfiles));
         }
-
+        if (!empty($this->cssfiles)) {
+            $ob->cssfiles = array_values(array_unique($this->cssfiles));
+        }
         if (!empty($this->tasks)) {
             $ob->tasks = $this->tasks;
         }

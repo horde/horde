@@ -17,6 +17,17 @@
   </configswitch>
  </configsection>
 
+ <configsection name="documents">
+  <configheader>Virtual File Storage</configheader>
+  <configvfs switchname="type" />
+   <configinteger name="size_limit" desc="The maximum total size of
+   documents allowed per event (in bytes)? Set to 0 for no limit. [The
+   maximum allowable size of any individual attachment is set via the PHP
+   'upload_max_filesize' parameter; see kronolith/docs/INSTALL]">0</configinteger>
+   <configinteger name="count_limit" desc="The maximum total number of
+   documents allowed per event? Set to 0 for no limit.">0</configinteger>
+ </configsection>
+
  <configsection name="storage">
   <configheader>Free/Busy Driver Settings</configheader>
   <configstring name="default_domain" desc="Default domain to add to attendee
@@ -51,19 +62,10 @@
   </configswitch>
  </configsection>
 
-  <configsection name="resource">
-   <configheader>Resource Handler Settings</configheader>
-   <configswitch name="driver" desc="What type of resource handler should we use?">sql
-    <case name="sql" desc="SQL">
-     <configsection name="params">
-      <configsql switchname="driverconfig"/>
-      <configboolean name="utc" desc="Store the dates in UTC format? If your
-      calendar driver has this option, you should choose the same value here as
-      well.">true</configboolean>
-       </configsection>
-    </case>
-    <case name="false" desc="No Resource Support" />
-   </configswitch>
+  <configsection name="resources">
+   <configheader>Resource Settings</configheader>
+   <configboolean name="enabled" desc="Should resource scheduling be enabled?">
+   true</configboolean>
   </configsection>
 
  <configsection name="reminder">
@@ -106,33 +108,4 @@
    link in the Horde application menus?">true</configboolean>
  </configsection>
 
- <configsection name="maps">
-  <configheader>Maps</configheader>
-  <configswitch name="driver" desc="Which driver should we use for inline
-   maps?">
-   <case name="false" desc="No inline map support" />
-   <case name="Horde" desc="Horde driver (support for various map providers)">
-    <configmultienum name="providers" desc="Which layers should we add to the
-    map?">
-     <values>
-       <configspecial application="horde" name="mapsources"/>
-     </values>
-    </configmultienum>
-    <configenum default="false" name="geocoder" desc="Which Geocoder service
-    should we use?">
-     <values>
-       <configspecial application="horde" name="geocoders"/>
-     </values>
-    </configenum>
-    <configenum default="false" name="geodriver" desc="Which driver should we
-    use for storing geolocation information?">
-     <values>
-      <value desc="None" default="true">false</value>
-      <value desc="MySQL spatial extensions">Mysql</value>
-      <value desc="General SQL (no spatial index support)">Sql</value>
-     </values>
-    </configenum>
-   </case>
-  </configswitch>
- </configsection>
 </configuration>

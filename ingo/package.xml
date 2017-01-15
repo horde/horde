@@ -22,10 +22,10 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2015-02-25</date>
+ <date>2016-11-09</date>
  <version>
-  <release>3.3.0</release>
-  <api>3.2.0</api>
+  <release>4.0.0</release>
+  <api>4.0.0</api>
  </version>
  <stability>
   <release>beta</release>
@@ -33,6 +33,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [jan] Add support for Sieve date extension to vacation messages (Request #12520).
+* [mjr] Export active vacation messages via the timeObjects API (Request #10885).
 * [mms] Added a NoSQL (MongoDB) driver for the storage backend.
 * [mms] Rule code has been separated from the storage backend drivers.
 * [jan] Use Horde\ManageSieve instead of Net_Sieve.
@@ -191,6 +193,7 @@
        <file name="True.php" role="horde" />
       </dir> <!-- /lib/Script/Sieve/Test -->
       <file name="Action.php" role="horde" />
+      <file name="Base.php" role="horde" />
       <file name="Comment.php" role="horde" />
       <file name="Else.php" role="horde" />
       <file name="Elsif.php" role="horde" />
@@ -207,7 +210,6 @@
      <file name="Procmail.php" role="horde" />
      <file name="Sieve.php" role="horde" />
      <file name="String.php" role="horde" />
-     <file name="Util.php" role="horde" />
     </dir> <!-- /lib/Script -->
     <dir name="Storage">
      <dir name="FilterIterator">
@@ -235,6 +237,7 @@
       <file name="Ingo.php" role="horde" />
      </dir> <!-- /lib/Ui/VarRenderer -->
     </dir> <!-- /lib/Ui -->
+    <file name=".htaccess" role="horde" />
     <file name="Api.php" role="horde" />
     <file name="Application.php" role="horde" />
     <file name="Exception.php" role="horde" />
@@ -317,6 +320,12 @@
      </dir> <!-- /locale/fr/LC_MESSAGES -->
      <file name="help.xml" role="horde" />
     </dir> <!-- /locale/fr -->
+    <dir name="gl">
+     <dir name="LC_MESSAGES">
+      <file name="ingo.mo" role="horde" />
+      <file name="ingo.po" role="horde" />
+     </dir> <!-- /locale/gl/LC_MESSAGES -->
+    </dir> <!-- /locale/gl -->
     <dir name="hr">
      <dir name="LC_MESSAGES">
       <file name="ingo.mo" role="horde" />
@@ -455,6 +464,7 @@
     <file name="4_ingo_upgrade_sqlhierarchical.php" role="horde" />
     <file name="5_ingo_upgrade_sqlnghierarchical.php" role="horde" />
     <file name="6_ingo_upgrade_parents.php" role="horde" />
+    <file name="7_ingo_fix_rule_order.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="templates">
     <dir name="basic">
@@ -486,6 +496,7 @@
      <file name="rule.html.php" role="horde" />
      <file name="rules.html.php" role="horde" />
     </dir> <!-- /templates/smartmobile -->
+    <file name=".htaccess" role="horde" />
     </dir> <!-- /templates -->
    <dir name="test">
     <dir name="Ingo">
@@ -571,7 +582,7 @@
    <package>
     <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
-    <min>2.12.0alpha1</min>
+    <min>2.12.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -658,6 +669,13 @@
     <exclude>2.0.0alpha1</exclude>
    </package>
    <package>
+    <name>Horde_Mongo</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
+   </package>
+   <package>
     <name>Horde_Vfs</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
@@ -695,6 +713,7 @@
    <install as="ingo/js/rule.js" name="js/rule.js" />
    <install as="ingo/js/smartmobile.js" name="js/smartmobile.js" />
    <install as="ingo/js/whitelist.js" name="js/whitelist.js" />
+   <install as="ingo/lib/.htaccess" name="lib/.htaccess" />
    <install as="ingo/lib/Api.php" name="lib/Api.php" />
    <install as="ingo/lib/Application.php" name="lib/Application.php" />
    <install as="ingo/lib/Exception.php" name="lib/Exception.php" />
@@ -755,7 +774,6 @@
    <install as="ingo/lib/Script/Procmail.php" name="lib/Script/Procmail.php" />
    <install as="ingo/lib/Script/Sieve.php" name="lib/Script/Sieve.php" />
    <install as="ingo/lib/Script/String.php" name="lib/Script/String.php" />
-   <install as="ingo/lib/Script/Util.php" name="lib/Script/Util.php" />
    <install as="ingo/lib/Script/Imap/Api.php" name="lib/Script/Imap/Api.php" />
    <install as="ingo/lib/Script/Imap/Live.php" name="lib/Script/Imap/Live.php" />
    <install as="ingo/lib/Script/Imap/Mock.php" name="lib/Script/Imap/Mock.php" />
@@ -768,6 +786,7 @@
    <install as="ingo/lib/Script/Procmail/Recipe.php" name="lib/Script/Procmail/Recipe.php" />
    <install as="ingo/lib/Script/Procmail/Variable.php" name="lib/Script/Procmail/Variable.php" />
    <install as="ingo/lib/Script/Sieve/Action.php" name="lib/Script/Sieve/Action.php" />
+   <install as="ingo/lib/Script/Sieve/Base.php" name="lib/Script/Sieve/Base.php" />
    <install as="ingo/lib/Script/Sieve/Comment.php" name="lib/Script/Sieve/Comment.php" />
    <install as="ingo/lib/Script/Sieve/Else.php" name="lib/Script/Sieve/Else.php" />
    <install as="ingo/lib/Script/Sieve/Elsif.php" name="lib/Script/Sieve/Elsif.php" />
@@ -841,6 +860,8 @@
    <install as="ingo/locale/fr/help.xml" name="locale/fr/help.xml" />
    <install as="ingo/locale/fr/LC_MESSAGES/ingo.mo" name="locale/fr/LC_MESSAGES/ingo.mo" />
    <install as="ingo/locale/fr/LC_MESSAGES/ingo.po" name="locale/fr/LC_MESSAGES/ingo.po" />
+   <install as="ingo/locale/gl/LC_MESSAGES/ingo.mo" name="locale/gl/LC_MESSAGES/ingo.mo" />
+   <install as="ingo/locale/gl/LC_MESSAGES/ingo.po" name="locale/gl/LC_MESSAGES/ingo.po" />
    <install as="ingo/locale/hr/help.xml" name="locale/hr/help.xml" />
    <install as="ingo/locale/hr/LC_MESSAGES/ingo.mo" name="locale/hr/LC_MESSAGES/ingo.mo" />
    <install as="ingo/locale/hr/LC_MESSAGES/ingo.po" name="locale/hr/LC_MESSAGES/ingo.po" />
@@ -891,6 +912,8 @@
    <install as="ingo/migration/4_ingo_upgrade_sqlhierarchical.php" name="migration/4_ingo_upgrade_sqlhierarchical.php" />
    <install as="ingo/migration/5_ingo_upgrade_sqlnghierarchical.php" name="migration/5_ingo_upgrade_sqlnghierarchical.php" />
    <install as="ingo/migration/6_ingo_upgrade_parents.php" name="migration/6_ingo_upgrade_parents.php" />
+   <install as="ingo/migration/7_ingo_fix_rule_order.php" name="migration/7_ingo_fix_rule_order.php" />
+   <install as="ingo/templates/.htaccess" name="templates/.htaccess" />
    <install as="ingo/templates/basic/blacklist/blacklist.html.php" name="templates/basic/blacklist/blacklist.html.php" />
    <install as="ingo/templates/basic/filters/filters.html.php" name="templates/basic/filters/filters.html.php" />
    <install as="ingo/templates/basic/menu/menu.html.php" name="templates/basic/menu/menu.html.php" />
@@ -1480,8 +1503,8 @@
     <release>3.2.0RC1</release>
     <api>3.2.0</api></version>
    <stability>
-     <release>beta</release>
-     <api>beta</api></stability>
+    <release>beta</release>
+    <api>beta</api></stability>
    <date>2014-06-17</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
@@ -1513,7 +1536,7 @@
    <date>2014-07-08</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-*
+* 
    </notes>
   </release>
   <release>
@@ -1523,7 +1546,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-07-08</date>
+   <date>2014-09-05</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [mms] Fix performing more than one filter drag/drop action on a single page (Bug #13434).
@@ -1539,9 +1562,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-09-05</date>
+   <date>2014-10-29</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [jan] Disable forward rule by default.
 * [mms] Fix checking the &apos;max_forward&apos; permission (Bug #13568).
 * [mms] IMAP driver needs to explicitly search for UTF-8 text, since we don&apos;t restrict charset input at the UI level (Bug #13554).
 * [mjr] Fix issues when preferred configuration contains an array (Bug #13548).
@@ -1554,7 +1578,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-10-29</date>
+   <date>2014-12-03</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [mms] Fix determination of preferred backend (Bug #13548).
@@ -1582,17 +1606,157 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-02-10</date>
+   <date>2015-04-28</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [jan] Add Galician translation.
+* [mms] Enforce selection of a target folder for the spam filter in the UI (Bug #13917).
 * [jan] Fix Sieve error if days of vacation is unset (Bug #13890).
    </notes>
   </release>
   <release>
-   <date>2015-02-25</date>
    <version>
-    <release>3.3.0</release>
-    <api>3.2.0</api>
+    <release>3.2.6</release>
+    <api>3.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-08-01</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [mjr] Fix using transport parameters in Procmail driver.
+* [jan] Update Czech translation.
+* [jan] Update Italian translation.
+* [mjr] Fix selecting incorrect rule when performing any action after reordering (Bug #14064 and Bug #13643).
+* [jan] Fix duplicate messages when using the redirect-and-keep rule with Procmail backends.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.2.7</release>
+    <api>3.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-10-21</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [jan] Update Italian translation.
+* [mjr] Add database migration for fixing corrupt rule ordering.
+* [mjr] Fix corruption of rule order when reordering rules in certain cases.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.2.8</release>
+    <api>3.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-02-02</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [jan] Fix editing shared rulesets (Bug #12694).
+* [jan] Allow to edit permissions of another user&apos;s rules if that user assigned ownership.
+* [jan] Use access rules compatible with both Apache 2.2 and 2.4.
+* [jan] Fix variable name in vacation_addresses hook example.
+* [jan] Correctly save names of mailbox created from the rule form (Bug #14150).
+* [mjr] Fix invalid URLs in certain forms when cookies are disabled (Bug #14148).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.2.9</release>
+    <api>3.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-03-21</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [mjr] Fix PHP deprecated warnings in unit test (PR #176, Mathieu Parent &lt;math.parent@gmail.com&gt;).
+* [mjr] Honor &apos;date&apos;, &apos;echo&apos;, and &apos;ls&apos; path overrides (Bug #14284).
+* [jan] Update Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
+* [jan] Fix Oracle compatibility (Bug #14262).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.2.10</release>
+    <api>3.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-04-05</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [jan] Don&apos;t duplicate messages in Procmail&apos;s vacation recipe if excluding email addresses (Michael.Martin@warp-it.com, Bug #14275).
+* [jan] Remove stop-script feature from Procmail driver.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.2.11</release>
+    <api>3.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-07-01</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [jan] Update Portuguese translation.
+* [jan] Update Basque translation.
+* [jan] Don&apos;t ignore &apos;initial_page&apos; registry setting.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.2.12</release>
+    <api>3.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-09-06</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [jan] Fix using ingo-convert-prefs-to-sql for multiple users.
+* [mjr] Fix incorrect flag usage in Procmail vacation recipe (Bug #14397).
+* [mjr] Fix escaping mailbox names that contain utf7-imap encodings (Bug #14429).
+* [jan] Fix creating new spam folders.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.2.13</release>
+    <api>3.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-12-16</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [jan] Convert vacation rules in preference backend from Ingo &lt; 2.0.
+* [jan] Fix some edge cases with Sieve vacation rules with date limits (Bug #14486).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.2.14</release>
+    <api>3.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-12-16</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [jan] Don&apos;t split sieve body tests on commas (Bug #14546).
+   </notes>
+  </release>
+  <release>
+   <date>2016-11-09</date>
+   <version>
+    <release>4.0.0</release>
+    <api>4.0.0</api>
    </version>
    <stability>
     <release>beta</release>
@@ -1600,6 +1764,8 @@
    </stability>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [jan] Add support for Sieve date extension to vacation messages (Request #12520).
+* [mjr] Export active vacation messages via the timeObjects API (Request #10885).
 * [mms] Added a NoSQL (MongoDB) driver for the storage backend.
 * [mms] Rule code has been separated from the storage backend drivers.
 * [jan] Use Horde\ManageSieve instead of Net_Sieve.

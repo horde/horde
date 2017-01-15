@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
- * @copyright 2010-2015 Horde LLC
+ * @copyright 2010-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -16,7 +16,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2010-2015 Horde LLC
+ * @copyright 2010-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -476,13 +476,7 @@ class IMP_Indices implements ArrayAccess, Countable, Iterator
                  * don't care about this data and 2) message IDs (used by some
                  * maillog backends) won't be available after deletion. */
                 if ($maillog) {
-                    $delete_ids = array();
-                    foreach ($ids_ob as $val) {
-                        $delete_ids[] = new IMP_Maillog_Message(
-                            new IMP_Indices($ob->mbox, $val)
-                        );
-                    }
-                    $maillog->deleteLog($delete_ids);
+                    $maillog->deleteLog(new IMP_Maillog_Messages($ob->mbox, $ids_ob));
                 }
 
                 /* Delete the messages. */
@@ -821,6 +815,13 @@ class IMP_Indices implements ArrayAccess, Countable, Iterator
 
         /* Send out the MDN now. */
         $success = false;
+        $identity = $injector->getInstance('IMP_Identity');
+        if (isset($headers['To']) &&
+            (($match = $identity->getMatchingIdentity($headers['To'], true)) !== null)) {
+            $from = $identity->getFromAddress($match);
+        } else {
+            $from = $identity->getDefaultFromAddress();
+        }
         try {
             $mdn->generate(
                 false,
@@ -830,7 +831,7 @@ class IMP_Indices implements ArrayAccess, Countable, Iterator
                 $injector->getInstance('IMP_Mail'),
                 array(
                     'charset' => 'UTF-8',
-                    'from_addr' => $injector->getInstance('Horde_Core_Factory_Identity')->create()->getDefaultFromAddress()
+                    'from_addr' => $from
                 )
             );
 

@@ -18,8 +18,7 @@ Framework.</description>
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-07-19</date>
- <time>22:36:18</time>
+ <date>2016-12-21</date>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -96,6 +95,7 @@ Framework.</description>
     <file name="Exception.php" role="horde" />
     <file name="FeedParser.php" role="horde" />
     <file name="Jonah.php" role="horde" />
+    <file name="Tagger.php" role="horde" />
     <file name="Test.php" role="horde" />
    </dir> <!-- /lib -->
    <dir name="locale">
@@ -166,6 +166,8 @@ Framework.</description>
    <dir name="migration">
     <file name="1_jonah_base_tables.php" role="horde" />
     <file name="2_jonah_upgrade_autoincrement.php" role="horde" />
+    <file name="3_jonah_upgrade_dropnoninternal.php" role="horde" />
+    <file name="4_trean_upgrade_tagstocontent.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="scripts">
     <dir name="sql">
@@ -213,13 +215,11 @@ Framework.</description>
       <file name="_story.html.php" role="horde" />
      </dir> <!-- /templates/stories/partial -->
      <file name="index.html.php" role="horde" />
-     <file name="share.html" role="horde" />
     </dir> <!-- /templates/stories -->
     <dir name="view">
      <file name="channellist.html.php" role="horde" />
     </dir> <!-- /templates/view -->
     <file name=".htaccess" role="horde" />
-    <file name="menu.inc" role="horde" />
    </dir> <!-- /templates -->
    <dir name="themes">
     <dir name="default">
@@ -294,6 +294,7 @@ Framework.</description>
    <install as="jonah/lib/Exception.php" name="lib/Exception.php" />
    <install as="jonah/lib/FeedParser.php" name="lib/FeedParser.php" />
    <install as="jonah/lib/Jonah.php" name="lib/Jonah.php" />
+   <install as="jonah/lib/Tagger.php" name="lib/Tagger.php" />
    <install as="jonah/lib/Test.php" name="lib/Test.php" />
    <install as="jonah/lib/Block/Cloud.php" name="lib/Block/Cloud.php" />
    <install as="jonah/lib/Block/Delivery.php" name="lib/Block/Delivery.php" />
@@ -343,6 +344,8 @@ Framework.</description>
    <install as="jonah/locale/zh_TW/LC_MESSAGES/jonah.po" name="locale/zh_TW/LC_MESSAGES/jonah.po" />
    <install as="jonah/migration/1_jonah_base_tables.php" name="migration/1_jonah_base_tables.php" />
    <install as="jonah/migration/2_jonah_upgrade_autoincrement.php" name="migration/2_jonah_upgrade_autoincrement.php" />
+   <install as="jonah/migration/3_jonah_upgrade_dropnoninternal.php" name="migration/3_jonah_upgrade_dropnoninternal.php" />
+   <install as="jonah/migration/4_trean_upgrade_tagstocontent.php" name="migration/4_trean_upgrade_tagstocontent.php" />
    <install as="jonah/scripts/.htaccess" name="scripts/.htaccess" />
    <install as="jonah/scripts/feed_tester.php" name="scripts/feed_tester.php" />
    <install as="jonah/scripts/sql/jonah.sql" name="scripts/sql/jonah.sql" />
@@ -363,7 +366,6 @@ Framework.</description>
    <install as="jonah/stories/share.php" name="stories/share.php" />
    <install as="jonah/stories/view.php" name="stories/view.php" />
    <install as="jonah/templates/.htaccess" name="templates/.htaccess" />
-   <install as="jonah/templates/menu.inc" name="templates/menu.inc" />
    <install as="jonah/templates/delivery/html.html" name="templates/delivery/html.html" />
    <install as="jonah/templates/delivery/rss.xml" name="templates/delivery/rss.xml" />
    <install as="jonah/templates/delivery/rss2.xml" name="templates/delivery/rss2.xml" />
@@ -371,7 +373,6 @@ Framework.</description>
    <install as="jonah/templates/delivery/rss_full.xml" name="templates/delivery/rss_full.xml" />
    <install as="jonah/templates/main/main.html" name="templates/main/main.html" />
    <install as="jonah/templates/stories/index.html.php" name="templates/stories/index.html.php" />
-   <install as="jonah/templates/stories/share.html" name="templates/stories/share.html" />
    <install as="jonah/templates/stories/layout/view.html.php" name="templates/stories/layout/view.html.php" />
    <install as="jonah/templates/stories/partial/_story.html.php" name="templates/stories/partial/_story.html.php" />
    <install as="jonah/templates/view/channellist.html.php" name="templates/view/channellist.html.php" />
@@ -400,7 +401,7 @@ Framework.</description>
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2012-07-19</date>
+   <date>2016-12-21</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * Initial release.

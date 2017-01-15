@@ -51,6 +51,21 @@
       </div>
       <?php endif; ?>
 
+      <?php if ($this->admin): ?>
+      <div class="horde-sidebar-split"></div>
+      <div>
+        <h3>
+          <a href="#" id="kronolithAddsystem" class="horde-add" title="<?php echo _("Add System Calendar") ?>">+</a>
+          <span class="horde-expand" title="<?php echo _("Expand") ?>"><?php echo _("System Calendars") ?></span>
+        </h3>
+
+        <div style="display:none">
+          <div class="horde-info"><?php echo _("No items to display") ?></div>
+          <div id="kronolithSystemCalendars" class="horde-resources"></div>
+        </div>
+      </div>
+      <?php endif ?>
+
       <div class="horde-sidebar-split"></div>
       <div>
         <h3>
@@ -109,14 +124,17 @@
           <div id="kronolithResourceGroups" class="horde-resources"></div>
         </div>
       </div>
-      <?php endif ?>
+      <?php endif; ?>
 
       <div id="kronolithExternalCalendars"></div>
 
+      <?php if ($this->showRemote): ?>
       <div class="horde-sidebar-split"></div>
       <div>
         <h3>
+          <?php if ($this->addRemote): ?>
           <a href="#" id="kronolithAddremote" class="horde-add" title="<?php echo _("Add Remote Calendar") ?>">+</a>
+          <?php endif; ?>
           <span class="horde-expand" title="<?php echo _("Expand") ?>"><?php echo _("Remote Calendars") ?></span>
         </h3>
 
@@ -125,6 +143,7 @@
           <div id="kronolithRemoteCalendars" class="horde-resources"></div>
         </div>
       </div>
+      <?php endif;?>
 
       <div class="horde-sidebar-split"></div>
       <div>

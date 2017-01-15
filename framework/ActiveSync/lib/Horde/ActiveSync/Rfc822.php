@@ -7,7 +7,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2010-2015 Horde LLC (http://www.horde.org)
+ * @copyright 2010-2017 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -20,7 +20,7 @@
   *            Version 2, the distribution of the Horde_ActiveSync module in or
   *            to the United States of America is excluded from the scope of this
   *            license.
-  * @copyright 2010-2015 Horde LLC (http://www.horde.org)
+  * @copyright 2010-2017 Horde LLC (http://www.horde.org)
   * @author    Michael J Rubinsky <mrubinsk@horde.org>
   * @package   ActiveSync
   */
@@ -111,7 +111,8 @@ class Horde_ActiveSync_Rfc822
     }
 
     /**
-     * Replace the MIME part of the message sent from the client.
+     * Replace the MIME part of the message sent from the client. Headers from
+     * the original message are always used.
      *
      * @param  Horde_Mime_Part $part  The new MIME part.
      * @since 2.19.0
@@ -122,21 +123,20 @@ class Horde_ActiveSync_Rfc822
             'stream' => true,
             'headers' => false)
         );
+        $mime_stream = new Horde_Stream_Existing(array('stream' => $mime_stream));
 
-        if (!empty($this->_header_text)) {
-            $hdr = $this->_header_text;
-        } else {
-            $this->_stream->rewind();
-            $hdr = $this->_stream->substring(0, $this->_hdr_pos);
-        }
-        $new_stream = Horde_Stream_Wrapper_Combine::getStream(array($hdr, $mime_stream));
-        $this->_parseStream(new Horde_Stream_Existing(array('stream' => $new_stream)));
+        // Since we are still using the headers sent from the device, we can
+        // simply zero out the position members etc...
+        $this->_hdr_pos = 0;
+        $this->_stream = $mime_stream;
+        $mime_stream->rewind();
     }
 
     /**
      * Return the raw message data.
      *
      * @return stream resource
+     * @todo Rename to make it clear this returns a stream.
      */
     public function getString()
     {

@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2013-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2013-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category  Horde
- * @copyright 2013-2015 Horde LLC
+ * @copyright 2013-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link      http://pear.horde.org/index.php?package=Core
  * @package   Core
@@ -17,7 +17,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2013-2015 Horde LLC
+ * @copyright 2013-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link      http://pear.horde.org/index.php?package=Core
  * @package   Core
@@ -101,7 +101,7 @@ class Horde_Core_Factory_Nosql extends Horde_Core_Factory_Base
 
         switch ($config['phptype']) {
         case 'mongo':
-            $ob = new Horde_Mongo_Client(empty($config['hostspec']) ? null : $config['hostspec']);
+            $ob = new Horde_Mongo_Client(empty($config['hostspec']) ? 'localhost' : $config['hostspec']);
             if (isset($config['dbname']) && strlen($config['dbname'])) {
                 $ob->dbname = $config['dbname'];
             }

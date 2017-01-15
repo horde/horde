@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2000-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2000-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you did
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @category  Horde
- * @copyright 2000-2015 Horde LLC
+ * @copyright 2000-2017 Horde LLC
  * @license   http://www.horde.org/licenses/apache ASL
  * @package   Turba
  */
@@ -17,7 +17,7 @@
  * @author    Chuck Hagenbuch <chuck@horde.org>
  * @author    Jon Parise <jon@horde.org>
  * @category  Horde
- * @copyright 2000-2015 Horde LLC
+ * @copyright 2000-2017 Horde LLC
  * @license   http://www.horde.org/licenses/apache ASL
  * @package   Turba
  */
@@ -461,6 +461,9 @@ class Turba
         $out = array();
 
         foreach ($in as $sourceId => $source) {
+            if (!isset($source['type'])) {
+                continue;
+            }
             try {
                 $driver = $factory->create($source, $sourceId);
                 if ($driver->hasPermission($permission) &&
@@ -491,12 +494,14 @@ class Turba
      */
     public static function getConfigFromShares(array $sources, $owner = false)
     {
+        global $notification, $registry, $conf, $injector, $prefs;
+
         try {
             $shares = self::listShares($owner);
         } catch (Horde_Share_Exception $e) {
             // Notify the user if we failed, but still return the $cfgSource
             // array.
-            $GLOBALS['notification']->push($e, 'horde.error');
+            $notification->push($e, 'horde.error');
             return $sources;
         }
 
@@ -510,7 +515,7 @@ class Turba
             }
         }
 
-        $auth_user = $GLOBALS['registry']->getAuth();
+        $auth_user = $registry->getAuth();
         $sortedSources = $vbooks = array();
         $personal = false;
 
@@ -548,7 +553,7 @@ class Turba
                 $info['params']['config']['params']['name'] = $params['name'];
                 $info['title'] = $share->get('name');
                 if ($share->get('owner') != $auth_user) {
-                    $info['title'] .= ' [' . $GLOBALS['registry']->convertUsername($share->get('owner'), false) . ']';
+                    $info['title'] .= ' [' . $registry->convertUsername($share->get('owner'), false) . ']';
                 }
                 $info['type'] = 'share';
                 $info['use_shares'] = false;
@@ -568,16 +573,16 @@ class Turba
                 $newSources = array_merge($newSources, $sortedSources[$source]);
             }
 
-            if (!empty($GLOBALS['conf']['share']['auto_create']) &&
+            if (!empty($conf['share']['auto_create']) &&
                 $auth_user &&
                 !$personal) {
                 // User's default share is missing.
                 try {
-                    $driver = $GLOBALS['injector']
+                    $driver = $injector
                         ->getInstance('Turba_Factory_Driver')
                         ->create($source);
                 } catch (Turba_Exception $e) {
-                    $GLOBALS['notification']->push($e->getMessage(), 'horde.error');
+                    $notification->push($e->getMessage(), 'horde.error');
                     continue;
                 }
 
@@ -598,7 +603,7 @@ class Turba
                     $source_config['params']['share'] = $share;
                     $newSources[$sourceKey] = $source_config;
                     $personal = true;
-                    $GLOBALS['prefs']->setValue('default_dir', $share->getName());
+                    $prefs->setValue('default_dir', $share->getName());
                 } catch (Horde_Share_Exception $e) {
                     Horde::log($e, 'ERR');
                 }
@@ -619,6 +624,16 @@ class Turba
                     'strict' => $newSources[$params['source']]['strict'],
                     'use_shares' => false,
                 );
+            } else {
+                $notification->push(sprintf(
+                    _("Removing the virtual address book \"%s\" because the parent source has disappeared."),
+                    $shares[$name]->get('name')), 'horde.message'
+                );
+                try {
+                    $injector->getInstance('Turba_Shares')->removeShare($shares[$name]);
+                } catch (Horde_Share_Exception $e) {
+                    Horde::log($e, 'ERR');
+                }
             }
         }
 
@@ -628,11 +643,11 @@ class Turba
     /**
      * Retrieve a new source config entry based on a Turba share.
      *
-     * @param Horde_Share object  The share to base config on.
+     * @param Horde_Share_Object object  The share to base config on.
      *
      * @return array  The $cfgSource entry for this share source.
      */
-    public static function getSourceFromShare(Horde_Share $share)
+    public static function getSourceFromShare(Horde_Share_Object $share)
     {
         // Require a fresh config file.
         $cfgSources = self::availableSources();
@@ -739,4 +754,40 @@ class Turba
             'TurbaBrowse.submit' => _("Are you sure that you want to delete the selected contacts?")
         ));
     }
+
+    /**
+     * Return an array of all available attributes of type 'email'. Optionally,
+     * ensure the field is defined in the specified $source.
+     *
+     * @param $source string       An optional source identifier.
+     * @param $searchable boolean  If true, and $source is provided, ensure that
+     *                             the email field is a configured searchable
+     *                             field.
+     *
+     * @return array  An array of email fields.
+     * @since  4.2.9
+     */
+    public static function getAvailableEmailFields($source = null, $searchable = true)
+    {
+        global $attributes, $injector, $cfgSources;
+
+        if (!empty($source)) {
+            $driver = $injector->getInstance('Turba_Factory_Driver')
+                ->create($source);
+        }
+
+        $emailFields = array();
+        foreach ($attributes as $field => $data) {
+            if ($data['type'] == 'email') {
+                if (empty($source) || (!empty($source) &&
+                    in_array($field, array_keys($driver->map)) &&
+                    (!$searchable || ($searchable && in_array($field, $cfgSources[$source]['search'])))))
+
+                    $emailFields[] = $field;
+            }
+        }
+
+        return $emailFields;
+    }
+
 }

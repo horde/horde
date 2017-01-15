@@ -2,8 +2,6 @@
 /**
  * This file is part of PHP Mess Detector.
  *
- * PHP Version 5
- *
  * Copyright (c) 2008-2012, Manuel Pichler <mapi@phpmd.org>.
  * All rights reserved.
  *
@@ -39,7 +37,6 @@
  * @author    Manuel Pichler <mapi@phpmd.org>
  * @copyright 2008-2014 Manuel Pichler. All rights reserved.
  * @license    http://www.opensource.org/licenses/bsd-license.php BSD License
- * @version   @project.version@
  */
 
 namespace PHPMD\Rule\Naming;
@@ -47,6 +44,7 @@ namespace PHPMD\Rule\Naming;
 use PDepend\Source\AST\ASTTrait;
 use PHPMD\AbstractNode;
 use PHPMD\AbstractRule;
+use PHPMD\Node\InterfaceNode;
 use PHPMD\Rule\MethodAware;
 
 /**
@@ -56,7 +54,6 @@ use PHPMD\Rule\MethodAware;
  * @author    Manuel Pichler <mapi@phpmd.org>
  * @copyright 2008-2014 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php BSD License
- * @version   @project.version@
  */
 class ConstructorWithNameAsEnclosingClass extends AbstractRule implements MethodAware
 {
@@ -75,6 +72,13 @@ class ConstructorWithNameAsEnclosingClass extends AbstractRule implements Method
         if (strcasecmp($node->getName(), $node->getParentName()) !== 0) {
             return;
         }
+        if ($node->getParentType() instanceof InterfaceNode) {
+            return;
+        }
+        if ($node->getNamespaceName() !== '+global') {
+            return;
+        }
+
         $this->addViolation($node);
     }
 }

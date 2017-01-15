@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 1999-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
- * @copyright 1999-2015 Horde LLC
+ * @copyright 1999-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -18,7 +18,7 @@
  * @author    Jon Parise <jon@horde.org>
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 1999-2015 Horde LLC
+ * @copyright 1999-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -61,6 +61,15 @@ class IMP_Auth
                 !isset($credentials['password'])) {
                 throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
             }
+
+            // Run imap_preauthenticate hook.
+            try {
+                $credentials = $injector->getInstance('Horde_Core_Hooks')->callHook(
+                    'imap_preauthenticate',
+                    'imp',
+                    array($credentials)
+                );
+            } catch (Horde_Exception_HookNotSet $e) {}
 
             try {
                 $imp_imap->createBaseImapObject($credentials['userId'], $credentials['password'], $credentials['server']);

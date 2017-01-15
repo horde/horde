@@ -3,7 +3,7 @@
  * The Horde_Perms_Sql:: class provides a SQL driver for the Horde
  * permissions system.
  *
- * Copyright 2008-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -196,7 +196,7 @@ class Horde_Perms_Sql extends Horde_Perms_Base
         }
 
         // build parents
-        $parents = '';
+        $parents = null;
         if (($pos = strrpos($name, ':')) !== false) {
             $parent_name = substr($name, 0, $pos);
             $query = 'SELECT perm_id, perm_parents FROM ' .

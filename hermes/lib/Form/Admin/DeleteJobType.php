@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -29,7 +29,7 @@ class Hermes_Form_Admin_DeleteJobType extends Horde_Form
 
         $this->addHidden('', 'jobtype', 'int', true, true);
 
-        $sname = &$this->addVariable(_("Job Type"), 'name', 'text', false, true);
+        $sname = $this->addVariable(_("Job Type"), 'name', 'text', false, true);
         $sname->setDefault($info['name']);
 
         $this->addVariable(

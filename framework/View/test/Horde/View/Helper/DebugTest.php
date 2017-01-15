@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2007-2008 Maintainable Software, LLC
- * Copyright 2006-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2006-2017 Horde LLC (http://www.horde.org/)
  *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
@@ -32,11 +32,11 @@ class Horde_View_Helper_DebugTest extends PHPUnit_Framework_TestCase
     // test truncate
     public function testDebug()
     {
-        $color = ini_get('xdebug.cli_color');
-        ini_set('xdebug.cli_color', 0);
+        $xdebug = ini_get('xdebug.overload_var_dump');
+        ini_set('xdebug.overload_var_dump', 0);
         $expected = '<pre class="debug_dump">string(7) &quot;foo&amp;bar&quot;';
         $output = $this->helper->debug('foo&bar');
-        ini_set('xdebug.cli_color', $color);
+        ini_set('xdebug.overload_var_dump', $xdebug);
         $this->assertContains($expected, $output);
     }
 

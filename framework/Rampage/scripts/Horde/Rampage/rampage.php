@@ -4,7 +4,7 @@
  * Script to automatically create a new Horde application based on a database
  * table definition.
  *
- * Copyright 2003-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2017 Horde LLC (http://www.horde.org/)
  *
  * For license info, see COPYING, for more information and a user guide see
  * README.
@@ -118,13 +118,13 @@ function main()
             die("config file " . $args[1] . " does not exist\n");
         }
         read_config_file($args[1]);
-        $outdir = ZOMBIE_BASE . '/../' . strtolower($config['app']);
+        $outdir = ZOMBIE_BASE . '/../' . Horde_String::lower($config['app']);
         if (is_dir($outdir) && $args[2] != "-f") {
             print "Directory $outdir already exists.\nUse -f flag to force overwrite\n";
             exit;
         }
         $n = $config['app'];
-        print "Creating Horde Application $n in directory " . strtolower($n) . "\n";
+        print "Creating Horde Application $n in directory " . Horde_String::lower($n) . "\n";
         transform($outdir);
         print "\nHorde Application '$n' successfully written. Where to go from here:\n"
             ."1) Paste content of $n/registry.stub to horde/config/registry.php.\n"
@@ -234,7 +234,7 @@ function enhance_info()
 
     for ($i = 0; $i < count($info); ++ $i) {
         // per default text fields are searchable:
-        switch (strtolower($info[$i]['type'])) {
+        switch (Horde_String::lower($info[$i]['type'])) {
         // String types
         case 'string':
         case 'char':
@@ -248,7 +248,7 @@ function enhance_info()
         case 'longtext':
             $info[$i]['search'] = 1;
             break;
-        default :
+        default:
             $info[$i]['search'] = 0;
         }
 
@@ -262,7 +262,7 @@ function enhance_info()
         // per default all fields are editable, except the primary_key
         // and timestamp fields
         $pk = field_get_primary_key();
-        if ($info[$i]['name'] == $pk['name'] || strtolower($info[$i]['type']) == 'timestamp') {
+        if ($info[$i]['name'] == $pk['name'] || Horde_String::lower($info[$i]['type']) == 'timestamp') {
             $info[$i]['edit'] = 0;
         } else {
             $info[$i]['edit'] = 1;
@@ -272,7 +272,7 @@ function enhance_info()
 
         // Field description (displayed to user). Defaults to name.
         // Please note that underscores here result in hotkeys.
-        $info[$i]['desc'] = ucwords($info[$i]['name']);
+        $info[$i]['desc'] = Horde_String::ucwords($info[$i]['name']);
 
         // Set the flag for the title field.
         if ($info[$i]['name'] == $title_field['name']) {
@@ -336,7 +336,7 @@ function dump_config_file()
 
     fwrite($fh, ");\n\n");
     fwrite($fh, "\$config['table'] = '" . $config['table'] . "';\n");
-    fwrite($fh, "\$config['app']   = '" . strtolower($config['app']) . "'; // Name of application. Output will be written to this directory.\n");
+    fwrite($fh, "\$config['app']   = '" . Horde_String::lower($config['app']) . "'; // Name of application. Output will be written to this directory.\n");
     fwrite($fh, "\$config['item']  = '" . $config['item'] . "'; // Name used for one table entry (like 'task'). So menuy entry will have name like 'Edit task'\n");
     fwrite($fh, "\$config['set']   = '" . $config['set'] . "'; // Name used for collection of table entries (like 'tasks'). So menu entry for list will be called s.th. like 'List tasks'\n");
 
@@ -424,9 +424,9 @@ function transform($outdir)
                      'zitem', 'Zitem');
 
     $replace = array ($pk['name'],
-                      strtoupper($config['app']), strtolower($config['app']), ucfirst($config['app']),
-                      strtolower($config['set']), ucfirst($config['set']),
-                      strtolower($config['item']), ucfirst($config['item']));
+                      Horde_String::upper($config['app']), Horde_String::lower($config['app']), Horde_String::ucfirst($config['app']),
+                      Horde_String::lower($config['set']), Horde_String::ucfirst($config['set']),
+                      Horde_String::lower($config['item']), Horde_String::ucfirst($config['item']));
 
     foreach ($files as $file) {
         $infile = ZOMBIE_BASE . '/' . $file;
@@ -834,7 +834,7 @@ function render_field($field)
 {
     $n = $field['name']; // shortcut
 
-    switch (strtolower($field['type'])) {
+    switch (Horde_String::lower($field['type'])) {
     // String types
     case 'string':
     case 'char':
@@ -891,7 +891,7 @@ function render_field($field)
     case 'year':
         return "\$zitem['$n']";
 
-    default :
+    default:
         die("Unknown field type: ".$field['type']."! Sorry, no implementation yet\n");
     }
 }
@@ -903,7 +903,7 @@ function render_edit($field)
 {
     $n = $field['name']; // shortcut
 
-    switch (strtolower($field['type'])) {
+    switch (Horde_String::lower($field['type'])) {
     // String types
     case 'string':
     case 'char':
@@ -987,7 +987,7 @@ function field_default($field)
  */
 function is_blob($field)
 {
-    switch (strtolower($field['type'])) {
+    switch (Horde_String::lower($field['type'])) {
     case 'blob':
     case 'tinyblob':
     case 'tinytext':
@@ -1006,7 +1006,7 @@ function is_blob($field)
  */
 function is_datetime($field)
 {
-    switch (strtolower($field['type'])) {
+    switch (Horde_String::lower($field['type'])) {
     case 'date':
     case 'datetime':
     case 'timestamp':
@@ -1025,7 +1025,7 @@ function is_datetime($field)
  */
 function is_boolean($field)
 {
-    switch (strtolower($field['type'])) {
+    switch (Horde_String::lower($field['type'])) {
     case 'bit':
     case 'bool':
     case 'boolean':
@@ -1083,7 +1083,7 @@ function field_get_primary_key()
  */
 function field_sql2php($field)
 {
-    switch (strtolower($field['type'])) {
+    switch (Horde_String::lower($field['type'])) {
     // String types
     case 'string':
     case 'blob':
@@ -1140,7 +1140,7 @@ function field_sql2php($field)
  */
 function field_get_printf_tag($field)
 {
-    switch (strtolower($field['type'])) {
+    switch (Horde_String::lower($field['type'])) {
     // String types
     case 'string':
     case 'blob':
@@ -1201,7 +1201,7 @@ function field_get_quoted($field)
 {
     $n = $field['name']; // shortcut
 
-    switch (strtolower($field['type'])) {
+    switch (Horde_String::lower($field['type'])) {
     // String types
     case 'string':
     case 'blob':
@@ -1254,7 +1254,7 @@ function field_get_quoted($field)
     case 'year':
         return "\$this->_db->quote(date('Y',\$zitem['$n']))";
 
-    default :
+    default:
         die("Unknown field type: " . $field['type'] . "! Sorry, no implementation yet\n");
     }
 }

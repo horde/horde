@@ -3,7 +3,7 @@
  * Copyright 2006-2007 Alkaloid Networks <http://www.alkaloid.net>
  *
  * See the enclosed file LICENSE for license information (BSD). If you did
- * did not receive this file, see http://cvs.horde.org/co.php/vilma/LICENSE.
+ * did not receive this file, see http://www.horde.org/licenses/bsd.
  *
  * @author Ben Klang <bklang@alkaloid.net>
  * @author David Cummings <davidcummings@acm.org>
@@ -268,7 +268,7 @@ class Vilma_Driver_Qmailldap extends Vilma_Driver_Sql
         if (isset($info['password'])) {
             if (!empty($user['password'])) {
                 // FIXME: Allow choice of hash
-                $info['user_password'] = Horde_Auth::getCryptedPassowrd($info['password'], '', 'ssha', true);
+                $info['user_password'] = Horde_Auth::getCryptedPassword($info['password'], '', 'ssha', true);
             }
             unset($info['password']);
         }

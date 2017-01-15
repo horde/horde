@@ -7,7 +7,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2012-2015 Horde LLC (http://www.horde.org)
+ * @copyright 2012-2017 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -20,20 +20,13 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2012-2015 Horde LLC (http://www.horde.org)
+ * @copyright 2012-2017 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
 class Horde_ActiveSync_Folder_Collection extends Horde_ActiveSync_Folder_Base implements Serializable
 {
     const VERSION = 1;
-
-    /**
-     * Flag for indicating we have an initial sync for this collection.
-     *
-     * @var boolean
-     */
-    public $haveInitialSync = false;
 
     /**
      * Updates the internal UID cache, and clears the internal

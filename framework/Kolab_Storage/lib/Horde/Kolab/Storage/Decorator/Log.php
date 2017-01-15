@@ -14,7 +14,7 @@
 /**
  * A log decorator for the Kolab storage handler.
  *
- * Copyright 2004-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -35,14 +35,14 @@ implements Horde_Kolab_Storage
      *
      * @var Horde_Kolab_Storage
      */
-    private $_storage;
+    protected $_storage;
 
     /**
      * A log handler.
      *
-     * @var mixed
+     * @var Horde_Log_Logger
      */
-    private $_logger;
+    protected $_logger;
 
     /**
      * Constructor.

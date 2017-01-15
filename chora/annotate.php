@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2000-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2000-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -21,12 +21,13 @@ try {
 
 /* Retrieve the desired revision from the GET variable. */
 $rev = Horde_Util::getFormData('rev');
-if (!$rev || !$VC->isValidRevision($rev)) {
-    Chora::fatal(sprintf(_("Revision %s not found"), $rev), '404 Not Found');
+if (!$rev) {
+    Chora::fatal(_("No revision specified"));
 }
 
 switch (Horde_Util::getFormData('actionID')) {
 case 'log':
+    $VC->assertValidRevision($rev);
     $log = $fl->getLog($rev);
     if (!is_null($log)) {
         echo '<em>' . _("Author") . ':</em> ' . Chora::showAuthorName($log->getAuthor(), true) . '<br />' .
@@ -34,6 +35,10 @@ case 'log':
             Chora::formatLogMessage($log->getMessage());
     }
     exit;
+}
+
+if (!$VC->isValidRevision($rev)) {
+    Chora::fatal(sprintf(_("Revision %s not found"), $rev), '404 Not Found');
 }
 
 try {
@@ -47,7 +52,7 @@ $title = sprintf(_("Source Annotation (revision %s) for:"), $rev);
 $page_output->addScriptFile('annotate.js');
 $page_output->addInlineJsVars(array(
     'var Chora' => array(
-        'ANNOTATE_URL' => (string)Horde::url('annotate.php', true)->add(array('actionID' => 'log', 'f' => $where, 'rev' => '')),
+        'ANNOTATE_URL' => (string)Horde::url('annotate.php', true)->add(array('actionID' => 'log', 'rt' => $sourceroot, 'f' => $where, 'rev' => '')),
         'loading_text' => _("Loading...")
     )
 ));

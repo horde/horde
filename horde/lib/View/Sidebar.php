@@ -28,7 +28,7 @@
  * - content: (string, optional) HTML content of the sidebar, if 'containers'
  *            is not specified.
  *
- * Copyright 2012-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL-2). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl.
@@ -170,11 +170,15 @@ class Horde_View_Sidebar extends Horde_View
         $label = htmlspecialchars($row['label']);
 
         if (isset($row['url'])) {
-            $ak = Horde::getAccessKey($label);
             $url = empty($row['url']) ? new Horde_Url() : $row['url'];
-            $attributes = $ak
-                ? array('accesskey' => $ak)
-                : array();
+            if ($boxrow) {
+                $attributes = array();
+            } else {
+                $ak = Horde::getAccessKey($label);
+                $attributes = $ak
+                    ? array('accesskey' => $ak)
+                    : array();
+            }
             foreach (array('onclick', 'target', 'class') as $attribute) {
                 if (!empty($row[$attribute])) {
                    $attributes[$attribute] = $row[$attribute];
@@ -191,10 +195,12 @@ class Horde_View_Sidebar extends Horde_View
                 } else {
                     $attributes['class'] .= ' ' . $class;
                 }
+                $row['link'] = $url->link($attributes) . $label . '</a>';
+            } else {
+                $row['link'] = $url->link($attributes)
+                    . Horde::highlightAccessKey($label, $ak)
+                    . '</a>';
             }
-            $row['link'] = $url->link($attributes)
-                . Horde::highlightAccessKey($label, $ak)
-                . '</a>';
         } else {
             $row['link'] = '<span class="horde-resource-none">'
                 . $label . '</span>';

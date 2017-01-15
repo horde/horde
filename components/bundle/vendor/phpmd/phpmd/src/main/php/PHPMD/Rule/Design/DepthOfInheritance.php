@@ -2,8 +2,6 @@
 /**
  * This file is part of PHP Mess Detector.
  *
- * PHP Version 5
- *
  * Copyright (c) 2008-2012, Manuel Pichler <mapi@phpmd.org>.
  * All rights reserved.
  *
@@ -39,7 +37,6 @@
  * @author    Manuel Pichler <mapi@phpmd.org>
  * @copyright 2008-2014 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php BSD License
- * @version   @project.version@
  */
 
 namespace PHPMD\Rule\Design;
@@ -54,7 +51,6 @@ use PHPMD\Rule\ClassAware;
  * @author    Manuel Pichler <mapi@phpmd.org>
  * @copyright 2008-2014 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php BSD License
- * @version   @project.version@
  */
 class DepthOfInheritance extends AbstractRule implements ClassAware
 {
@@ -67,9 +63,18 @@ class DepthOfInheritance extends AbstractRule implements ClassAware
      */
     public function apply(AbstractNode $node)
     {
-        $threshold = $this->getIntProperty('minimum');
+        try {
+            $threshold = $this->getIntProperty('maximum');
+            $comparision = 1;
+        } catch (\OutOfBoundsException $e) {
+            $threshold = $this->getIntProperty('minimum');
+            $comparision = 2;
+        }
+
         $dit = $node->getMetric('dit');
-        if ($dit >= $threshold) {
+        if (($comparision === 1 && $dit > $threshold) ||
+            ($comparision === 2 && $dit >= $threshold)
+        ) {
             $this->addViolation(
                 $node,
                 array(

@@ -10,9 +10,9 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-01-09</date>
+ <date>2016-03-21</date>
  <version>
-  <release>1.0.5</release>
+  <release>1.0.9</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -48,6 +48,7 @@
        <file name="filetime" role="test" />
       </dir> <!-- /test/Horde/Mapi/fixtures -->
       <file name="AllTests.php" role="test" />
+      <file name="Autoload.php" role="test" />
       <file name="bootstrap.php" role="test" />
       <file name="MapiTest.php" role="test" />
       <file name="phpunit.xml" role="test" />
@@ -61,8 +62,8 @@
   <required>
    <php>
     <min>5.3.0</min>
-    <max>6.0.0alpha1</max>
-    <exclude>6.0.0alpha1</exclude>
+    <max>8.0.0alpha1</max>
+    <exclude>8.0.0alpha1</exclude>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -70,7 +71,7 @@
    <package>
     <name>Horde_Date</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.3.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -81,12 +82,14 @@
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
+   <package>
+    <name>Math_BigInteger</name>
+    <channel>pear.php.net</channel>
+    <min>1.0.2</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
   </required>
-  <optional>
-   <extension>
-    <name>bcmath</name>
-   </extension>
-  </optional>
  </dependencies>
  <phprelease>
   <filelist>
@@ -95,6 +98,7 @@
    <install as="Horde/Mapi/Exception.php" name="lib/Horde/Mapi/Exception.php" />
    <install as="Horde/Mapi/Timezone.php" name="lib/Horde/Mapi/Timezone.php" />
    <install as="Horde/Mapi/AllTests.php" name="test/Horde/Mapi/AllTests.php" />
+   <install as="Horde/Mapi/Autoload.php" name="test/Horde/Mapi/Autoload.php" />
    <install as="Horde/Mapi/bootstrap.php" name="test/Horde/Mapi/bootstrap.php" />
    <install as="Horde/Mapi/MapiTest.php" name="test/Horde/Mapi/MapiTest.php" />
    <install as="Horde/Mapi/phpunit.xml" name="test/Horde/Mapi/phpunit.xml" />
@@ -177,7 +181,59 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-01-09</date>
+   <date>2015-04-28</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Remove bcmath extension requirement and add PEAR Math_BigInteger package in it&apos;s place.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.6</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-02-01</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Mark PHP 7 as supported.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.7</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-03-21</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Work around BC break in PHP 5.5.10 with converting timezone abbreviations to full timezone names.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.8</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-03-21</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Fix dependency on Horde_Date 2.3.0.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.9</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-03-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

@@ -553,7 +553,7 @@ EOF;
         if (! empty($this->homepage)) {
             $homepage = $this->homepage;
         } elseif (isset($this->data['channel'])) {
-            $homepage = 'http://' . $this->data['channel'];
+            $homepage = 'https://' . $this->data['channel'];
         }
         $j .= $tab . '"homepage": "'.$homepage."\",\n";
 
@@ -579,9 +579,9 @@ EOF;
                     $j .= $tab . $tab . $tab . "\"role\": \"$atype\"\n";
                     $j .= $tab . $tab . "},\n";
                 }
-                $j = rtrim($j, ",\n") . "\n";
             }
         }
+        $j = rtrim($j, ",\n") . "\n";
         $j .= $tab . "],\n";
 
         if (isset($this->data['version']['release']) && $this->write_version_to_composer) {
@@ -779,7 +779,7 @@ EOF;
 
     protected function getChannelSuggestedAlias($channel)
     {
-        $channelxml = file_get_contents('http://' . $channel . '/channel.xml');
+        $channelxml = file_get_contents('https://' . $channel . '/channel.xml');
         $channel = new \SimpleXMLElement($channelxml);
 
         return (string) $channel->suggestedalias;

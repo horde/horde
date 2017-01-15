@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2012-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
- * @copyright 2012-2015 Horde LLC
+ * @copyright 2012-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -16,7 +16,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2012-2015 Horde LLC
+ * @copyright 2012-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -1034,7 +1034,7 @@ extends Horde_Core_Ajax_Application_Handler
 
                 case 'text':
                     $tmp = $injector->getInstance('Horde_Core_Factory_TextFilter')->filter($val['text'], 'Html2text', array(
-                        'wrap' => false
+                        'width' => 0
                     ));
                     break;
                 }
@@ -1190,7 +1190,7 @@ extends Horde_Core_Ajax_Application_Handler
             $mbox_ob = $val->mbox_ob;
             $tmp = array(
                 'f' => $mbox_ob->display,
-                'l' => Horde_String::abbreviate(str_repeat(' ', 2 * $val->level) . $mbox_ob->basename, 30),
+                'l' => Horde_String::abbreviate(str_repeat(' ', 2 * $val->level) . $mbox_ob->abbrev_label, 30),
                 'v' => $val->container ? '' : $mbox_ob->form_to
             );
             if ($tmp['f'] == $tmp['v']) {

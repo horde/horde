@@ -122,7 +122,9 @@
   </table>
 
   <p>
+<?php if ($this->create_pgp_keypair): ?>
    <input type="submit" id="create_pgp_key" name="create_pgp_key" class="horde-create" value="<?php echo _("Create Keys") ?>" />
+<?php endif; ?>
 <?php if ($this->import_pgp_private): ?>
    <input type="submit" name="save" class="horde-default" id="import_pgp_personal" value="<?php echo _("Import Key") ?>" />
 <?php endif; ?>

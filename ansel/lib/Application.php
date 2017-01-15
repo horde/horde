@@ -5,7 +5,7 @@
  * This file defines Horde's core API interface. Other core Horde libraries
  * can interact with Ansel through this API.
  *
- * Copyright 2004-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -40,7 +40,7 @@ class Ansel_Application extends Horde_Registry_Application
 
     /**
      */
-    public $version = 'H5 (3.0.2-git)';
+    public $version = 'H5 (4.0.0-git)';
 
     /**
      * Global variables defined:

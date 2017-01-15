@@ -1,17 +1,18 @@
 <?php
 /**
- * Registry connector for Horde backend.
- *
- * @copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * @copyright 2010-2017 Horde LLC (http://www.horde.org/)
  * @license http://www.horde.org/licenses/lgpl21 LGPL
  * @author  Michael J Rubinsky <mrubinsk@horde.org>
  * @package Core
  */
+
 /**
- * Registry connector for Horde backend. Provides the communication between
- * the Horde Registry on the local machine and the ActiveSync Horde driver.
+ * Registry connector for Horde backend.
  *
- * @copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * Provides the communication between the Horde Registry on the local machine
+ * and the ActiveSync Horde driver.
+ *
+ * @copyright 2010-2017 Horde LLC (http://www.horde.org/)
  * @license http://www.horde.org/licenses/lgpl21 LGPL
  * @author  Michael J Rubinsky <mrubinsk@horde.org>
  * @package Core
@@ -135,7 +136,36 @@ class Horde_Core_ActiveSync_Connector
     public function calendar_import(
         Horde_ActiveSync_Message_Appointment $content, $calendar = null)
     {
-        return $this->_registry->calendar->import($content, 'activesync', $calendar);
+        return $this->_registry->calendar->import(
+            $content, 'activesync', $calendar);
+    }
+
+    /**
+     * Version of calendar_import capable of returning an array of values.
+     * Needed for EAS 16 support in order to deal with the fact that
+     * attachment actions are handled within the Message object.
+     *
+     * @param Horde_ActiveSync_Message_Appointment $content  The event content
+     * @param string $calendar                               The calendar id.
+     *
+     * @return  array
+     * @since  2.27.0
+     * @todo  Remove for H6 and make calendar_import return this structure.
+     */
+    public function calendar_import16(
+        Horde_ActiveSync_Message_Appointment $content, $calendar = null)
+    {
+        $result = $this->_registry->calendar->import(
+            $content, 'activesync', $calendar, true);
+
+        if (!is_array($result)) {
+            $result = array(
+                'uid' => $result,
+                'atchash' => false
+            );
+        }
+
+        return $result;
     }
 
     /**
@@ -200,21 +230,28 @@ class Horde_Core_ActiveSync_Connector
      * @param Horde_ActiveSync_Message_Appointment $content
      *        The new event.
      * @param string $calendar  The calendar id. @since 2.12.0
+     *
+     * @return null|array  May return an array of 'uid' and 'atchash' or null.
      */
     public function calendar_replace($uid, Horde_ActiveSync_Message_Appointment $content, $calendar = null)
     {
-        $this->_registry->calendar->replace($uid, $content, 'activesync', $calendar);
+        return $this->_registry->calendar->replace($uid, $content, 'activesync', $calendar);
     }
 
     /**
      * Delete an event from Horde's calendar storage
      *
-     * @param string $uid  The UID of the event to delete
-     * @param string $calendar  The calendar id. @since 2.12.0
+     * @param string $uid         The UID of the event to delete
+     * @param string $calendar    The calendar id. @since 2.12.0 @deprecated (Not used).
+     * @param string $instanceid  The instanceid if this is a EAS 16.0 instance.
+     *                            @since  2.23.0
      */
-    public function calendar_delete($uid, $calendar = null)
+    public function calendar_delete($uid, $calendar = null, $instanceid = null)
     {
-        $this->_registry->calendar->delete($uid, null, $calendar);
+        if ($instanceid) {
+            $instanceid = new Horde_Date($instanceid, 'UTC');
+        }
+        $this->_registry->calendar->delete($uid, $instanceid, null);
     }
 
     /**
@@ -255,6 +292,32 @@ class Horde_Core_ActiveSync_Connector
         }
 
         return $uid;
+    }
+
+    /**
+     * Return an event attachment.
+     *
+     * @param string $filereference  A filereference pointing to the file:
+     *                           calendar:{calendar_id}:{event_uid}:{filename}
+     *
+     * @return array  An array containing:
+     *                   'content-type' and 'data'.
+     */
+    public function calendar_getAttachment($filereference)
+    {
+        if (!$this->_registry->hasMethod(
+            'getAttachment',
+            $this->_registry->hasInterface('calendar'))) {
+            return false;
+        }
+        $fileinfo = explode(':', $filereference, 4);
+        try {
+            return $this->_registry->calendar->getAttachment(
+                $fileinfo[1], $fileinfo[2], $fileinfo[3]
+            );
+        } catch (Horde_Exception $e) {
+            return false;
+        }
     }
 
     /**
@@ -352,7 +415,8 @@ class Horde_Core_ActiveSync_Connector
      */
     public function getRecipientCache($max = 100)
     {
-        if (!$this->_registry->hasInterface('mail')) {
+        if (!$this->_registry->hasInterface('mail') ||
+            !$this->_registry->hasInterface('contacts')) {
             return array();
         }
         $cache = $GLOBALS['injector']->getInstance('Horde_Cache');
@@ -586,7 +650,7 @@ class Horde_Core_ActiveSync_Connector
     }
 
     /**
-     * Importa a single task into the backend.
+     * Import a single task into the backend.
      *
      * @param Horde_ActiveSync_Message_Task $message  The task message object
      * @param string $tasklist  The tasklist id. @since 2.12.0
@@ -735,18 +799,24 @@ class Horde_Core_ActiveSync_Connector
      */
     public function horde_listApis()
     {
-        $apps = $this->_registry->horde->listAPIs();
+        $apis = $this->_registry->horde->listAPIs();
 
         // Note support not added until 5.1. Need to check the feature.
         // @TODO: H6, add this check to all apps. BC break to check it now,
         // since we didn't have this feature earlier.
-        if ($key = array_search('notes', $apps)) {
+        if ($key = array_search('notes', $apis)) {
             if (!$this->hasFeature('activesync', 'notes')) {
-                unset($apps[$key]);
+                unset($apis[$key]);
             }
         }
-
-        return $apps;
+        $inactive = $this->_registry->listApps(array('inactive'));
+        $active_apis = array();
+        foreach ($apis as $api) {
+            if (!$this->_registry->isInactive($this->_registry->hasInterface($api))) {
+                $active_apis[] = $api;
+            }
+        }
+        return $active_apis;
     }
 
     /**
@@ -801,7 +871,7 @@ class Horde_Core_ActiveSync_Connector
      */
     protected function _getInterfaceFromCollectionId($collection)
     {
-        return strtolower(str_replace('@', '', $collection));
+        return Horde_String::lower(str_replace('@', '', $collection));
     }
 
     /**
@@ -829,6 +899,19 @@ class Horde_Core_ActiveSync_Connector
     public function horde_hasInterface($api)
     {
         return $this->_registry->hasInterface($api);
+    }
+
+    /**
+     * Wrapper around Horde_Registry::hasMethod.
+     *
+     * @param string $api     The API to check.
+     * @param string $method  The method name.
+     *
+     * @return boolean
+     */
+    public function horde_hasMethod($method, $api)
+    {
+        return $this->_registry->hasMethod($method, $this->_registry->hasInterface($api));
     }
 
     /**
@@ -901,7 +984,11 @@ class Horde_Core_ActiveSync_Connector
     public function mail_getMaillog($mid)
     {
         if ($this->_registry->hasMethod('getMaillog', $this->_registry->hasInterface('mail'))) {
-            return $this->_registry->mail->getMaillog($mid);
+            try {
+                return $this->_registry->mail->getMaillog($mid);
+            } catch (Horde_Exception $e) {
+                $this->_logger->err($e->getMessage());
+            }
         }
 
         return false;
@@ -914,21 +1001,36 @@ class Horde_Core_ActiveSync_Connector
      *                            'reply_all'.
      * @param string $mid         The Message-ID to log.
      * @param string $recipients  The recipients the mail was forwarded to.
+     * @param string $folder      The sent-mail folder. @since Horde_Core 2.27.0
      */
-    public function mail_logMaillog($action, $mid, $recipients = null)
+    public function mail_logMaillog(
+        $action, $mid, $recipients = null, $folder = null
+    )
     {
+        $data = array();
         if (!empty($recipients)) {
-            $recipients = array('recipients' => $recipients);
+            $data['recipients'] = $recipients;
+        }
+        if (!empty($folder)) {
+            $data['folder'] = $folder;
         }
         if ($this->_registry->hasMethod('logMaillog', $this->_registry->hasInterface('mail'))) {
-            $this->_registry->mail->logMaillog($action, $mid, $recipients);
+            try {
+                $this->_registry->mail->logMaillog($action, $mid, $data);
+            } catch (Horde_Exception $e) {
+                $this->_logger->err($e->getMessage());
+            }
         }
     }
 
     public function mail_logRecipient($action, $recipients, $message_id)
     {
         if ($this->_registry->hasMethod('logRecipient', $this->_registry->hasInterface('mail'))) {
-            $this->_registry->mail->logRecipient($action, $recipients, $message_id);
+            try {
+                $this->_registry->mail->logRecipient($action, $recipients, $message_id);
+            } catch (Horde_Exception $e) {
+                $this->_logger->err($e->getMessage());
+            }
         }
     }
 
@@ -942,7 +1044,11 @@ class Horde_Core_ActiveSync_Connector
     public function mail_getMaillogChanges($ts)
     {
         if ($this->_registry->hasMethod('getMaillogChanges', $this->_registry->hasInterface('mail'))) {
-            return $this->_registry->mail->getMaillogChanges($ts);
+            try {
+                return $this->_registry->mail->getMaillogChanges($ts);
+            } catch (Horde_Exception $e) {
+                return array();
+            }
         }
     }
 
@@ -1107,10 +1213,11 @@ class Horde_Core_ActiveSync_Connector
      *                       the following format:
      *                       'uid' => array('display' => "Display Name", 'primary' => boolean)
      * @since 2.12.0
+     * @todo H6 remove the hasMethod checks.
      */
     public function getFolders($collection, $multiplex)
     {
-        // @TODO: H6 remove the hasMethod checks.
+        $folders = false;
         if (empty($this->_folderCache[$collection])) {
             switch ($collection) {
             case Horde_ActiveSync::CLASS_CALENDAR:
@@ -1167,6 +1274,8 @@ class Horde_Core_ActiveSync_Connector
                     $results[$id] = array('display' => $folder, 'primary' => ($id == $default));
                 }
                 $this->_folderCache[$collection] = $results;
+            } elseif (is_array($folders)) {
+                $this->_folderCache[$collection] = false;
             }
         }
 
@@ -1370,6 +1479,11 @@ class Horde_Core_ActiveSync_Connector
     public function clearAuth()
     {
         $this->_registry->clearAuth(true);
+    }
+
+    public function mdnSend($mdn)
+    {
+        return $this->_registry->mail->mdnSend($mdn->headers(), $mdn->mailbox(), $mdn->uid());
     }
 
 }

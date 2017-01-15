@@ -87,7 +87,7 @@ PHP_FUNCTION(horde_lz4_compress)
         RETURN_FALSE;
     }
 
-    data_len = Z_STRLEN_P(data);
+    data_len = (int)Z_STRLEN_P(data);
 
     output = (char *)emalloc(LZ4_compressBound(data_len) + header_offset);
     if (!output) {
@@ -107,7 +107,7 @@ PHP_FUNCTION(horde_lz4_compress)
     if (output_len <= 0) {
         RETVAL_FALSE;
     } else {
-        RETVAL_STRINGL(output, output_len + header_offset, 1);
+        HORDE_LZ4_RETSTRL(output, output_len + header_offset);
     }
 
     efree(output);
@@ -155,7 +155,7 @@ PHP_FUNCTION(horde_lz4_uncompress)
     if (output_len <= 0) {
         RETVAL_FALSE;
     } else {
-        RETVAL_STRINGL(output, data_len, 1);
+        HORDE_LZ4_RETSTRL(output, data_len);
     }
 
     efree(output);

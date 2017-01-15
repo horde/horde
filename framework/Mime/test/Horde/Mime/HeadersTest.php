@@ -1,9 +1,9 @@
 <?php
 /**
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * @category   Horde
- * @copyright  2010-2015 Horde LLC
+ * @copyright  2010-2016 Horde LLC
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package    Mime
  * @subpackage UnitTests
@@ -14,7 +14,7 @@
  *
  * @author     Michael Slusarz <slusarz@horde.org>
  * @category   Horde
- * @copyright  2010-2015 Horde LLC
+ * @copyright  2010-2016 Horde LLC
  * @internal
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package    Mime
@@ -141,6 +141,11 @@ class Horde_Mime_HeadersTest extends PHPUnit_Framework_TestCase
                 'To',
                 '=?utf-8?B?IklsZ2EginVwbGluc2thIg==?= <foo@example.com>',
                 'Ilga Šuplinska <foo@example.com>'
+            ),
+            array(
+                'From',
+                'Firstname =?utf-8?b?U2Vjb25kw5Es?= Third <correct.email@host.com>',
+                '"Firstname SecondÑ, Third" <correct.email@host.com>'
             )
         );
     }
@@ -657,6 +662,20 @@ class Horde_Mime_HeadersTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testInvalidHeaderParsing()
+    {
+        $data = file_get_contents(__DIR__ . '/fixtures/invalid_hdr.txt');
+
+        $hdrs = Horde_Mime_Headers::parseHeaders($data);
+
+        $this->assertEquals(
+            'foo@example.com',
+            strval($hdrs['to'])
+        );
+
+        $this->assertNull($hdrs['From test2@example.com  Sun Apr  5 09']);
+    }
+
     /**
      * @dataProvider addHeaderObProvider
      */
@@ -732,6 +751,17 @@ class Horde_Mime_HeadersTest extends PHPUnit_Framework_TestCase
                 'Horde_Mime_Headers_ContentParam_ContentType'
             )
         );
+    }
+
+    public function testBug14381()
+    {
+        $hdrs = new Horde_Mime_Headers();
+        $hdrs->addHeader('Date', 'Sat, 22 May 2016 01:41:04 0000');
+        $this->assertEquals($hdrs->getValue('Date'), 'Sat, 22 May 2016 01:41:04 +0000');
+
+        $hdrs = new Horde_Mime_Headers();
+        $hdrs->addHeader('Date', 'Sat, 22 May 2016 01:41:04 +0000');
+        $this->assertEquals($hdrs->getValue('Date'), 'Sat, 22 May 2016 01:41:04 +0000');
     }
 
 }

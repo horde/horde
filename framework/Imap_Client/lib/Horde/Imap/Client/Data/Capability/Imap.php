@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2014-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2014-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category  Horde
- * @copyright 2014-2015 Horde LLC
+ * @copyright 2014-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Imap_Client
  */
@@ -16,7 +16,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2014-2015 Horde LLC
+ * @copyright 2014-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Imap_Client
  * @since     2.24.0
@@ -62,7 +62,7 @@ extends Horde_Imap_Client_Data_Capability
             return true;
         }
 
-        switch (strtoupper($capability)) {
+        switch (Horde_String::upper($capability)) {
         case 'CONDSTORE':
         case 'ENABLE':
             /* RFC 7162 [3.2.3] - QRESYNC implies CONDSTORE and ENABLE. */
@@ -70,7 +70,7 @@ extends Horde_Imap_Client_Data_Capability
 
         case 'UTF8':
             /* RFC 6855 [3] - UTF8=ONLY implies UTF8=ACCEPT. */
-            return ((strtoupper($parameter) === 'ACCEPT') &&
+            return ((Horde_String::upper($parameter) === 'ACCEPT') &&
                     $this->query('UTF8', 'ONLY'));
         }
 
@@ -83,7 +83,7 @@ extends Horde_Imap_Client_Data_Capability
     {
         return is_null($capability)
             ? $this->_enabled
-            : in_array(strtoupper($capability), $this->_enabled);
+            : in_array(Horde_String::upper($capability), $this->_enabled);
     }
 
     /**
@@ -94,7 +94,7 @@ extends Horde_Imap_Client_Data_Capability
      */
     public function enable($capability, $enable = true)
     {
-        $capability = strtoupper($capability);
+        $capability = Horde_String::upper($capability);
         $enabled = $this->isEnabled($capability);
 
         if ($enable && !$enabled) {

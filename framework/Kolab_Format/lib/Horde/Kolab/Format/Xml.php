@@ -19,7 +19,7 @@
  * class and provide a _load/_save function.
  *
  * Copyright 2007-2009 Klarälvdalens Datakonsult AB
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see
@@ -255,7 +255,7 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
      * - relaxed: Relaxed error checking (default: false)
      * </pre>
      *
-     * @return resource The data as XML stream.
+     * @return string The data as an XML string.
      *
      * @throws Horde_Kolab_Format_Exception If converting the data to XML failed.
      */

@@ -174,10 +174,10 @@ class Horde_Mapi_TimezoneTest extends Horde_Test_Case
 
         // Test without a known timezone
         $guessed = $timezones->getTimezone($this->_packed['America/New_York']);
-        $this->assertEquals('EST', $guessed);
+        $this->assertEquals('America/New_York', $guessed);
 
         $guessed = $timezones->getTimezone($this->_packed['Europe/Berlin']);
-        $this->assertEquals('CET', $guessed);
+        $this->assertEquals('Europe/Berlin', $guessed);
     }
 
 }

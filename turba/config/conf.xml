@@ -51,7 +51,18 @@
   <configheader>Tag Settings</configheader>
   <configboolean name="enabled" desc="Enable tagging?">true</configboolean>
  </configsection>
-
+ <configsection name="photos">
+  <configheader>Photo settings</configheader>
+  <configdescription>If the contact source contains contact photos what size
+  should the photos be resized to when automatically resizing (like during
+  import). If there are separate fields configured in the backend for resized
+  and original images the original will be saved. Additionally, if the resized
+  data is missing, but the original data is present then the image will be
+  automatically resized and saved when viewing the contact for the first time.
+  </configdescription>
+  <configinteger name="height" desc="Height">250</configinteger>
+  <configinteger name="width" desc="Width">250</configinteger>
+ </configsection>
  <configsection name="pager">
   <configheader>Alpha Pager Settings</configheader>
   <configlist name="special" required="false" desc="An list containing any

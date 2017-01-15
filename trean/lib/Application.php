@@ -2,7 +2,7 @@
 /**
  * Trean application API
  *
- * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -33,7 +33,7 @@ class Trean_Application extends Horde_Registry_Application
 {
     /**
      */
-    public $version = 'H5 (1.1.0-git)';
+    public $version = 'H5 (2.0.0-git)';
 
     /**
      * Global variables defined:
@@ -107,8 +107,8 @@ class Trean_Application extends Horde_Registry_Application
         $tagger = $GLOBALS['injector']->getInstance('Trean_Tagger');
         $tags = $tagger->listBookmarkTags();
         natcasesort($tags);
-        foreach ($tags as $tag) {
-            $url = Horde::url("tag/$tag");
+        foreach ($tags as $tag) {;
+            $url = Horde::url('tag/' . urlencode($tag));
             $row = array(
                 'url' => $url,
                 'cssClass' => 'trean-tag',

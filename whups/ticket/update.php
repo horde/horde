@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
- * Copyright 2001-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -22,22 +22,8 @@ if (!Whups::hasPermission($ticket->get('queue'), 'queue', 'update')) {
 Whups::addTopbarSearch();
 
 $vars = Horde_Variables::getDefaultVariables();
-$vars->set('id', $id = $ticket->getId());
-foreach ($ticket->getDetails() as $varname => $value) {
-    if ($varname == 'owners') {
-        $owners = $gowners = array();
-        foreach ($value as $owner) {
-            if (strpos($owner, 'user:') !== false) {
-                $owners[] = $owner;
-            } else {
-                $gowners[] = $owner;
-            }
-        }
-        $vars->add('owners', $owners);
-        $vars->add('group_owners', $gowners);
-    }
-    $vars->add($varname, $value);
-}
+$ticket->setDetails($vars, true);
+$id = $vars->id;
 if ($tid = $vars->get('transaction')) {
     $history = Whups::permissionsFilter($whups_driver->getHistory($ticket->getId()),
                                         'comment', Horde_Perms::READ);
@@ -115,8 +101,7 @@ $page_output->header(array(
 $notification->notify(array('listeners' => 'status'));
 require WHUPS_TEMPLATES . '/prevnext.inc';
 
-$tabs = Whups::getTicketTabs($vars, $id);
-echo $tabs->render('update');
+echo Whups::getTicketTabs($vars, $id)->render('update');
 
 $editform->renderActive($editform->getRenderer(), $vars, Horde::url('ticket/update.php'), 'post');
 echo '<br class="spacer" />';

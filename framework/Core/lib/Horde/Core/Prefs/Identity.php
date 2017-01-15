@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category  Horde
- * @copyright 2010-2015 Horde LLC
+ * @copyright 2010-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Core
  */
@@ -18,7 +18,7 @@
  * @author    Jan Schneider <jan@horde.org>
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2010-2015 Horde LLC
+ * @copyright 2010-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Core
  */
@@ -188,24 +188,6 @@ class Horde_Core_Prefs_Identity extends Horde_Prefs_Identity
         }
 
         return parent::getName($ident);
-    }
-
-    /**
-     * Returns the from address based on the chosen identity. If no
-     * address can be found it is built from the current user name and
-     * the specified maildomain.
-     *
-     * @param integer $ident  The identity to retrieve the address from.
-     *
-     * @return string  A valid from address.
-     */
-    public function getFromAddress($ident = null)
-    {
-        $from = $this->getValue('from_addr', $ident);
-        if (strlen($from)) {
-            return $from;
-        }
-        return $this->_user;
     }
 
     /**

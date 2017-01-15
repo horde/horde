@@ -2,6 +2,24 @@
 v7.0.0-git
 ----------
 
+[jan] Allow to specify a secondary S/MIME certificate for signatures only.
+[jan] Find logged replies in other than default sent-mail folders too.
+[mjr] Fix SyntaxHighlighter MIME viewer not rendering part after the initial
+      view of a part (Bug 14337).
+[mjr] Display comment attribute in iTip viewer (Request #14407).
+[mjr] Update the user/attendee participation status when accepting/importing
+      an iTip.
+[jan] Allow to import multiple PGP keys in a single PGP packet (Request
+      #13190).
+[jan] Add Alt+Home and Alt+End hotkeys to navigate in preview pane
+      (michael.menge@zdv.uni-tuebingen.de, Request #13983).
+[mjr] Add support for sending MDN via the API.
+[mjr] Add imap_preauthenticate hook.
+[mms] Report multiple spam/innocent messages in a single digest.
+[mms] Remove mailbox from polled list when unsubscribing from it.
+[mms] Allow remote account passwords to be saved encrypted in user's
+      preferences (Request #13168).
+[mms] Send IMP MUA information to IMAP servers that support the ID extension.
 [mms] Send S/MIME encrypted data to multiple recipients in a single outgoing
       message.
 [mms] Sent-mail maillog entries are now linked to a viewable representation of
@@ -62,12 +80,111 @@ v7.0.0-git
       (Request #13227).
 
 
+-------
+v6.2.16
+-------
+
+[jan] Optimize deleting or moving a large number of messages.
+[jan] Fix the 'special_mboxes' backend configuration (Bug #14423).
+[mjr] Fix display of application/pkcs-7-mime parts (Bug #14363).
+
+
+-------
+v6.2.15
+-------
+
+[jan] Update Portuguese translation.
+[jan] Update Basque translation.
+[jan] Remove <link rel=""> tags with "Previous" and "Next" from basic message
+      view (Bug #14400).
+[jan] Display translated mailbox names in drop down lists too.
+[jan] Consistently display the raw mailbox name in mailbox element titles.
+[jan] Unset window opener when opening new windows from HTML messages (João
+      Machado <geral@jpaulo.eu>).
+[mjr] Fix re-adding an attachment after it has been removed from the compose
+      window (Bug #14329).
+
+
+-------
+v6.2.14
+-------
+
+[mjr] Fix renaming subfolders in basic view (Bug #14254).
+[mjr] Fix display of mailbox sizes in basic view (Bug #14308).
+[mjr] Fix fatal error when deleting messages in basic view when IMAP server
+      does not support QRESYNC or CONDSTORE (Bug #14257).
+
+
+-------
+v6.2.13
+-------
+
+[mjr] Fix opening compose window on IE when uploads are disabled (Bug #14267).
+[jan] Update Greek translation (Limperis Antonis <limperis@cti.gr>).
+[jan] Fix creating new trash folder from preference screen.
+[jan] Fix finding reply or forward text from signed or encrypted messages with
+      HTML content.
+
+
+-------
+v6.2.12
+-------
+
+[jan] Don't strip PGP mime parts when saving sent messages (Bug #14233).
+[jan] Fix retrieving public PGP keys with certain HTTP client backends.
+[jan] Send MDNs from the correct identity (Bug #14034).
+[jan] Fix autocompleter filtering if items exceed the maximum size
+      (jsveiga@it.eng.br, Bug #13984).
+[jan] Use access rules compatible with both Apache 2.2 and 2.4.
+[jan] Allow to disable remote accounts by locking the preference.
+[jan] Fix setting title with newmail count in IE11 and Edge (Bug #14189).
+[jan] Fix wrapping of plain text converted from HTML MIME parts.
+
+
+-------
+v6.2.11
+-------
+
+[mjr] Request that the contacts API only consider email fields when detecting
+      duplicates during automatic saving of attendees to the address book (Bug
+      #14119).
+[jan] Don't show "Create Keys" button if creating PGP keys is disabled
+      (steffen.hau@rz.uni-mannheim.de, Request #14096).
+[mjr] Fix displaying iTips with certain locale/date_format preference
+      combinations (Bug #14076).
+
+
+-------
+v6.2.10
+-------
+
+[mms] Ensure mailbox name is a valid string (Bug #14049).
+
+
+------
+v6.2.9
+------
+
+[jan] Don't focus body field when composing message with HTML editor.
+[jan] Protect against infinite request loop if expanding all mailboxes.
+[jan] Fix redirecting in smartmobile mode (Bug #14002).
+[jan] Fix address autocompletion in redirection window of smartmobile mode
+      (Bug #14002).
+[jan] Fix setting single recipients in redirection window in basic mode (Bug
+      #14002).
+[jan] Don't switch to regular compose view after an error in the redirection
+      view in basic mode.
+[jan] Fix cancelling redirection window in basic mode (Bug #14002).
+
+
 ------
 v6.2.8
 ------
 
 [mms] SECURITY: Fix XSS vulnerability when manually switching between plaintext
       -> HTML compose mode.
+[jan] Update Bcc address when switching identities (João Machado
+      <geral@jpaulo.eu>, Bug #13922).
 [jan] Fix protocol name in POP3 example backend configuration.
 [mms] Don't honor linked attachment limit configuration options if linked
       attachments are disabled (Bug #13665).

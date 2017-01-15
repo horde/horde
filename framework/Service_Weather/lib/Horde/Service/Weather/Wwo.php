@@ -3,7 +3,7 @@
  * This file contains the Horde_Service_Weather class for communicating with
  * the World Weather Online API.
  *
- * Copyright 2011-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
  *
  * @author   Michael J Rubinsky <mrubinsk@horde.org>
  * @license  http://www.horde.org/licenses/bsd BSD
@@ -22,6 +22,9 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
 {
     const API_URL    = 'http://api.worldweatheronline.com/free/v1/weather.ashx';
     const SEARCH_URL = 'http://api.worldweatheronline.com/free/v1/search.ashx';
+
+    const API_URL_v2 = 'https://api.worldweatheronline.com/free/v2/weather.ashx';
+    const SEARCH_URL_v2 = 'https://api.worldweatheronline.com/free/v2/search.ashx';
 
     /**
      * @see Horde_Service_Weather_Base::$title
@@ -80,6 +83,13 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
     protected $_key;
 
     /**
+     * API Version
+     *
+     * @var integer
+     */
+    protected $_version;
+
+    /**
      * Constructor.
      *
      * @param array $params  Parameters:
@@ -87,6 +97,8 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
      *     - cache_lifetime: (integer)        Lifetime of cached data, if caching.
      *     - http_client: (Horde_Http_Client) Required http client object.
      *     - apikey: (string)                 Require api key for Wwo.
+     *     - apiVersion: (integer)            Version of the API to use.
+     *                                        Defaults to v1 for BC reasons.
      *
      * @return Horde_Service_Weather_Wwo
      */
@@ -96,6 +108,7 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
         if (empty($params['apikey'])) {
             throw new InvalidArgumentException('Missing required API Key parameter.');
         }
+        $this->_version = empty($params['apiVersion']) ? 1 : $params['apiVersion'];
         $this->_key = $params['apikey'];
         unset($params['apikey']);
         parent::__construct($params);
@@ -149,7 +162,7 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
      */
     public function autocompleteLocation($search)
     {
-        $url = new Horde_Url(self::SEARCH_URL);
+        $url = new Horde_Url($this->_version == 1 ? self::SEARCH_URL : self::SEARCH_URL_v2);
         $url->add(array(
             'q' => $search,
             'format' => 'json',
@@ -191,30 +204,54 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
         $this->_lastLength = $length;
         $this->_lastLocation = $location;
 
-        $url = new Horde_Url(self::API_URL);
+        $url = new Horde_Url($this->_version == 1 ? self::API_URL : self::API_URL_v2);
         // Not sure why, but Wwo chokes if we urlencode the location?
         $url->add(array(
             'q' => $location,
             'num_of_days' => $length,
             'includeLocation' => 'yes',
-            'timezone' => 'yes',
-            'extra' => 'localObsTime'));
+            'extra' => 'localObsTime')
+        );
+
+        if ($this->_version == 1) {
+            $url->add(array(
+                'timezone' => 'yes')
+            );
+        }
+
+        // V2 of the API only returns hourly data, so ask for 24 hour avg.
+        // @todo Revisit when we support hourly forecast data.
+        if ($this->_version == 2) {
+            $url->add(array(
+                'tp' => 24,
+                'showlocaltime' => 'yes',
+                'showmap' => 'yes')
+            );
+        }
 
         $results = $this->_makeRequest($url);
 
         // Use the minimum station data provided by forecast request to
         // fetch the full station data.
         $station = $this->_parseStation($results->data->nearest_area[0]);
+        if (empty($station)) {
+            throw new Horde_Service_Weather_Exception('Location not found.');
+        }
         $station = $this->searchLocations($station->lat . ',' . $station->lon);
 
         // Hack some data to allow UTC observation time to be returned.
         $results->data->current_condition[0]->date = new Horde_Date($results->data->current_condition[0]->localObsDateTime);
-        $results->data->current_condition[0]->date->hour += -$station->getOffset();
+        if (preg_match('/^(\+|-)?(\d{2}):(\d{2})/', $station->getOffset(), $match)) {
+            $factor = $match[1] == '-' ? -1 : 1;
+            $results->data->current_condition[0]->date->hour += $factor * $match[2];
+            $results->data->current_condition[0]->date->min  += $factor * $match[3];
+        }
 
         // Parse it.
         $this->_current = $this->_parseCurrent($results->data->current_condition);
 
         // Sunrise/Sunset
+        // @todo - this is now available in the forecast section in v2
         $date = $this->_current->time;
         $station->sunset = new Horde_Date(
             date_sunset(
@@ -259,7 +296,7 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
         if (isset($station->timezone)) {
             // Only the *current* UTC offset is provided, with no indication
             // if we are in DST or not.
-            $properties['tz'] = $station->timezone[0]->offset;
+            $properties['tz'] = $station->timezone->offset;
         }
 
         return new Horde_Service_Weather_Station($properties);
@@ -274,7 +311,9 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
      */
     protected function _parseForecast($forecast)
     {
-        $forecast = new Horde_Service_Weather_Forecast_Wwo($forecast, $this);
+        $forecast = $this->_version == 1
+            ? new Horde_Service_Weather_Forecast_Wwo($forecast, $this)
+            : new Horde_Service_Weather_Forecast_Wwov2($forecast, $this);
         return $forecast;
     }
 
@@ -318,7 +357,7 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
      */
     protected function _searchLocations($location)
     {
-        $url = new Horde_Url(self::SEARCH_URL);
+        $url = new Horde_Url($this->_version == 1 ? self::SEARCH_URL : self::SEARCH_URL_v2);
         $url = $url->add(array(
             'timezone' => 'yes',
             'q' => $location,

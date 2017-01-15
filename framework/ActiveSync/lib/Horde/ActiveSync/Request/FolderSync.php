@@ -18,7 +18,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2009-2015 Horde LLC (http://www.horde.org)
+ * @copyright 2009-2017 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -30,7 +30,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2009-2015 Horde LLC (http://www.horde.org)
+ * @copyright 2009-2017 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  * @internal
@@ -182,8 +182,8 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
 
         // Start sending server -> client changes
         $newsynckey = $this->_state->getNewSyncKey($synckey);
-        $exporter = new Horde_ActiveSync_Connector_Exporter($this->_activeSync);
-        $exporter->setChanges($collections->getHierarchyChanges(), false);
+        $exporter = new Horde_ActiveSync_Connector_Exporter_FolderSync($this->_activeSync);
+        $exporter->setChanges($collections->getHierarchyChanges());
 
         // Perform the actual sync operation
         while($exporter->sendNextChange());

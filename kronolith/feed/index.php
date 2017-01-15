@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2008-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -129,9 +129,8 @@ foreach ($events as $day_events) {
         }
         /* Attendees. */
         if (!$event->isPrivate()) {
-            $attendees = Kronolith::getAttendeeEmailList($event->attendees);
-            if (count($attendees)) {
-                $desc .= '<br />' . _("Who:") . ' ' . htmlspecialchars(strval($attendees));
+            if (count($event->attendees)) {
+                $desc .= '<br />' . _("Who:") . ' ' . htmlspecialchars(strval($event->attendees));
             }
             if (strlen($event->location)) {
                 $desc .= '<br />' . _("Where:") . ' ' . htmlspecialchars($event->location);

@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2013-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2013-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category  Horde
- * @copyright 2013-2015 Horde LLC
+ * @copyright 2013-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Css_Parser
  */
@@ -24,7 +24,7 @@ if (file_exists(__DIR__ . '/Parser/vendor/autoload.php')) {
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2013-2015 Horde LLC
+ * @copyright 2013-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Css_Parser
  */
@@ -52,6 +52,11 @@ class Horde_Css_Parser
      */
     public function __construct($css, Sabberworm\CSS\Settings $settings = null)
     {
+        if (!strlen($css)) {
+            $this->doc = new Sabberworm\CSS\CSSList\Document();
+            return;
+        }
+
         if (is_null($settings)) {
             $settings = Sabberworm\CSS\Settings::create();
             $settings->withMultibyteSupport(false);

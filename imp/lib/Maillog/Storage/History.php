@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2014-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2014-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
- * @copyright 2014-2015 Horde LLC
+ * @copyright 2014-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -16,7 +16,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2014-2015 Horde LLC
+ * @copyright 2014-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -144,7 +144,7 @@ class IMP_Maillog_Storage_History extends IMP_Maillog_Storage_Base
 
     /**
      */
-    public function deleteLogs(array $msgs)
+    public function deleteLogs($msgs)
     {
         $ids = array();
         foreach ($msgs as $val) {
@@ -197,15 +197,17 @@ class IMP_Maillog_Storage_History extends IMP_Maillog_Storage_Base
     /**
      * Generate the unique log ID for an event.
      *
-     * @param mixed $msg  An IMP_Maillog_Message object or, if null, return
-     *                    the parent ID.
+     * @param mixed $msg  An IMP_Maillog_Message object, a Message-ID, or, if
+     *                    null, return the parent ID.
      *
      * @return string  The unique log ID.
      * @throws RuntimeException
      */
     protected function _getUniqueHistoryId($msg = null)
     {
-        $msgid = $msg ? $msg->msgid : null;
+        $msgid = $msg
+            ? (is_string($msg) ? $msg : $msg->msgid)
+            : null;
         if ($msgid === '') {
             throw new RuntimeException('Message-ID missing.');
         }

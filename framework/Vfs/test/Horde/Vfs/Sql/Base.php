@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2012-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
  * @author     Jan Schneider <jan@horde.org>
  * @category   Horde
@@ -157,6 +157,11 @@ class Horde_Vfs_Test_Sql_Base extends Horde_Vfs_TestBase
     public function testListFolder()
     {
         $this->_listFolder();
+    }
+
+    public function testNullRoot()
+    {
+        $this->_nullRoot();
     }
 
     public static function setUpBeforeClass()

@@ -1,5 +1,5 @@
 # German translations for Sesha H4 package.
-# Copyright 2012-2015 Horde LLC (http://www.horde.org/)
+# Copyright 2012-2017 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Sesha package.
 # Jan Schneider <jan@horde.org>, 2012-2014.
 #
@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Sesha H4 (1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2014-11-12 14:05+0100\n"
-"PO-Revision-Date: 2014-11-14 12:29+0100\n"
+"PO-Revision-Date: 2016-09-21 14:18+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: de\n"
@@ -281,7 +281,7 @@ msgstr ""
 
 #: config/prefs.php:25 lib/Form/Stock.php:96 lib/View/List.php:117
 msgid "Note"
-msgstr "Notiz"
+msgstr "Bemerkung"
 
 #: lib/Form/Search.php:36
 msgid "Only exact matches"
@@ -392,8 +392,8 @@ msgid "Stock"
 msgstr "Bestand"
 
 #: admin.php:17 config/prefs.php:23 lib/Form/Search.php:31
-#: lib/Form/Stock.php:51 lib/Form/Stock.php:53 lib/View/List.php:99
-#: list.php:31 search.php:20 stock.php:23
+#: lib/Form/Stock.php:51 lib/Form/Stock.php:53 lib/View/List.php:99 list.php:31
+#: search.php:20 stock.php:23
 msgid "Stock ID"
 msgstr "Artikelnummer"
 

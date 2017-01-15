@@ -1,0 +1,5 @@
+{
+    "require": {
+        "singpolyma/openpgp-php": "dev-master"
+    }
+}

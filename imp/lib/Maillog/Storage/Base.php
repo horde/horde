@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2014-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2014-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
- * @copyright 2014-2015 Horde LLC
+ * @copyright 2014-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -16,7 +16,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2014-2015 Horde LLC
+ * @copyright 2014-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -51,9 +51,10 @@ abstract class IMP_Maillog_Storage_Base
     /**
      * Delete log entries.
      *
-     * @param array $msgs  Message objects (IMP_Maillog_Message objects).
+     * @param IMP_Maillog_Messages|array $msgs  Message objects
+     *                                          (IMP_Maillog_Message objects).
      */
-    abstract public function deleteLogs(array $msgs);
+    abstract public function deleteLogs($msgs);
 
     /**
      * Retrieve changes to the maillog since the provided timestamp.

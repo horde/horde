@@ -9,13 +9,7 @@
  */
 
 /**
- * @category   PHP
- * @package    CodeCoverage
- * @author     Arne Blankerts <arne@blankerts.de>
- * @copyright  Sebastian Bergmann <sebastian@phpunit.de>
- * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
- * @link       http://github.com/sebastianbergmann/php-code-coverage
- * @since      Class available since Release 2.0.0
+ * @since Class available since Release 2.0.0
  */
 class PHP_CodeCoverage_Report_XML_File_Report extends PHP_CodeCoverage_Report_XML_File
 {
@@ -25,7 +19,8 @@ class PHP_CodeCoverage_Report_XML_File_Report extends PHP_CodeCoverage_Report_XM
         $this->dom->loadXML('<?xml version="1.0" ?><phpunit xmlns="http://schema.phpunit.de/coverage/1.0"><file /></phpunit>');
 
         $this->contextNode = $this->dom->getElementsByTagNameNS(
-            'http://schema.phpunit.de/coverage/1.0', 'file'
+            'http://schema.phpunit.de/coverage/1.0',
+            'file'
         )->item(0);
 
         $this->setName($name);
@@ -45,7 +40,8 @@ class PHP_CodeCoverage_Report_XML_File_Report extends PHP_CodeCoverage_Report_XM
     {
         $node = $this->contextNode->appendChild(
             $this->dom->createElementNS(
-                'http://schema.phpunit.de/coverage/1.0', 'function'
+                'http://schema.phpunit.de/coverage/1.0',
+                'function'
             )
         );
 
@@ -66,7 +62,8 @@ class PHP_CodeCoverage_Report_XML_File_Report extends PHP_CodeCoverage_Report_XM
     {
         $node = $this->contextNode->appendChild(
             $this->dom->createElementNS(
-                'http://schema.phpunit.de/coverage/1.0', $tagName
+                'http://schema.phpunit.de/coverage/1.0',
+                $tagName
             )
         );
 

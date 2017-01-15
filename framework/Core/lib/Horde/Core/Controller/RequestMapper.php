@@ -65,7 +65,7 @@ class Horde_Core_Controller_RequestMapper
         }
         $match = $this->_mapper->match($path);
         if (isset($match['controller'])) {
-            $config->setControllerName(ucfirst($app) . '_' . ucfirst($match['controller']) . '_Controller');
+            $config->setControllerName(Horde_String::ucfirst($app) . '_' . Horde_String::ucfirst($match['controller']) . '_Controller');
             $config->setSettingsExporterName($settingsFinder->getSettingsExporterName($config->getControllerName()));
         } else {
             $config->setControllerName('Horde_Core_Controller_NotFound');

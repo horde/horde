@@ -36,7 +36,7 @@ class Koward_Form_Object extends Horde_Form {
                 $options[$key] = $config['label'];
             }
             
-            $v = &$this->addVariable(_("Choose an object type"), 'type', 'enum', true, false, null, array($options, true));
+            $v = $this->addVariable(_("Choose an object type"), 'type', 'enum', true, false, null, array($options, true));
             $action = Horde_Form_Action::factory('submit');
             $v->setAction($action);
             $v->setOption('trackchange', true);
@@ -211,7 +211,7 @@ class Koward_Form_Object extends Horde_Form {
                 $desc = isset($attribute['desc']) ? $attribute['desc'] : null;
 
                 $readonly = isset($attribute['readonly']) ? $attribute['readonly'] : null;
-                $v = &$this->addVariable($attribute['label'], 'object[' . $key . ']', $attribute['type'], $attribute['required'], $readonly, $desc, $params);
+                $v = $this->addVariable($attribute['label'], 'object[' . $key . ']', $attribute['type'], $attribute['required'], $readonly, $desc, $params);
             }
 
             if (isset($attribute['default'])) {

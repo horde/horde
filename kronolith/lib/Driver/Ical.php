@@ -1,5 +1,18 @@
 <?php
 /**
+ * Copyright 2004-2017 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
+ *
+ * @author  Chuck Hagenbuch <chuck@horde.org>
+ * @author  Jan Schneider <jan@horde.org>
+ * @package Kronolith
+ */
+
+use \Sabre\DAV\Client;
+
+/**
  * The Kronolith_Driver_Ical class implements the Kronolith_Driver API for
  * iCalendar data.
  *
@@ -8,11 +21,6 @@
  * - proxy:    A hash with HTTP proxy information.
  * - user:     The user name for HTTP Basic Authentication.
  * - password: The password for HTTP Basic Authentication.
- *
- * Copyright 2004-2015 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Jan Schneider <jan@horde.org>
@@ -29,9 +37,9 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
     protected $_cache = array();
 
     /**
-     * HTTP client object.
+     * DAV client object.
      *
-     * @var Horde_Http_Client
+     * @var \Sabre\DAV\Client
      */
     protected $_client;
 
@@ -419,7 +427,9 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
             $url = trim($this->_getUrl(), '/') . '/' . $eventId;
             try {
                 $response = $this->_getClient($url)->request('GET');
-            } catch (Horde_Dav_Exception $e) {
+            } catch (\Sabre\HTTP\ClientException $e) {
+                throw new Kronolith_Exception($e);
+            } catch (\Sabre\DAV\Exception $e) {
                 throw new Kronolith_Exception($e);
             }
             if ($response['statusCode'] == 200) {
@@ -467,8 +477,16 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
     {
         $response = $this->_saveEvent($event);
         if (!in_array($response['statusCode'], array(200, 204))) {
-            Horde::log(sprintf('Failed to update event on remote calendar: url = "%s", status = %s',
-                                      $response['url'], $response['statusCode']), 'INFO');
+            // To find out if $response still contains the final URL after the refactoring
+            Horde::debug($response);
+            Horde::log(
+                sprintf(
+                    'Failed to update event on remote calendar: url = "%s", status = %s',
+                    // TODO need response text here.
+                    ''/*$response['url']*/, $response['body']
+                ),
+                'INFO'
+            );
             throw new Kronolith_Exception(_("The event could not be updated on the remote server."));
         }
         return $event->id;
@@ -494,8 +512,14 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
 
         $response = $this->_saveEvent($event);
         if (!in_array($response['statusCode'], array(200, 201, 204))) {
-            Horde::log(sprintf('Failed to create event on remote calendar: status = %s',
-                                      $response['statusCode']), 'INFO');
+            Horde::log(
+                sprintf(
+                    'Failed to create event on remote calendar: status = %s',
+                    // TODO: need response text instead.
+                    $response['body']
+                ),
+                'INFO'
+            );
             throw new Kronolith_Exception(_("The event could not be added to the remote server."));
         }
         return $event->id;
@@ -506,7 +530,7 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
      *
      * @param Kronolith_Event $event  The event to save.
      *
-     * @return string  The event id.
+     * @return \Sabre\HTTP\ResponseInterface  The HTTP response.
      * @throws Horde_Mime_Exception
      * @throws Kronolith_Exception
      */
@@ -524,7 +548,10 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
                     $ical->exportvCalendar(),
                     array('Content-Type' => 'text/calendar')
                 );
-        } catch (Horde_Dav_Exception $e) {
+        } catch (\Sabre\HTTP\ClientException $e) {
+            Horde::log($e, 'INFO');
+            throw new Kronolith_Exception($e);
+        } catch (\Sabre\DAV\Exception $e) {
             Horde::log($e, 'INFO');
             throw new Kronolith_Exception($e);
         }
@@ -562,13 +589,22 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
         $url = trim($this->_getUrl(), '/') . '/' . $eventId;
         try {
             $response = $this->_getClient($url)->request('DELETE');
-        } catch (Horde_Dav_Exception $e) {
+        } catch (\Sabre\HTTP\ClientException $e) {
+            Horde::log($e, 'INFO');
+            throw new Kronolith_Exception($e);
+        } catch (\Sabre\DAV\Exception $e) {
             Horde::log($e, 'INFO');
             throw new Kronolith_Exception($e);
         }
         if (!in_array($response['statusCode'], array(200, 202, 204))) {
-            Horde::log(sprintf('Failed to delete event from remote calendar: url = "%s", status = %s',
-                                      $url, $response['statusCode']), 'INFO');
+            Horde::log(
+                sprintf(
+                    'Failed to delete event from remote calendar: url = "%s", status = %s',
+                    // TODO need response text here.
+                    $url, $response['body']
+                ),
+                'INFO'
+            );
             throw new Kronolith_Exception(_("The event could not be deleted from the remote server."));
         }
 
@@ -605,20 +641,22 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
             if ($response['statusCode'] != 200) {
                 throw new Horde_Dav_Exception('Request Failed', $response['statusCode']);
             }
-        } catch (Horde_Dav_Exception $e) {
+        } catch (\Sabre\HTTP\ClientException $e) {
+            throw new Kronolith_Exception($e);
+        } catch (\Sabre\DAV\Exception $e) {
             Horde::log(
                 sprintf('Failed to retrieve remote calendar: url = "%s", status = %s',
-                        $url, $e->getCode()),
+                        $url, $e->getHttpStatus()),
                 'INFO'
             );
             $error = sprintf(
                 _("Could not open %s: %s"),
-                $url, $e->getMessage()
+                $url, $e->getResponse()->getStatusText()
             );
             if ($cache) {
                 $cacheOb->set($signature, serialize($error));
             }
-            throw new Kronolith_Exception($error, $e->getCode());
+            throw new Kronolith_Exception($error, $e->getHttpStatus());
         }
 
         /* Log fetch at DEBUG level. */
@@ -688,8 +726,11 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
         $client = $this->_getClient($this->_getUrl());
         try {
             $this->_davSupport = $client->options();
-        } catch (Horde_Dav_Exception $e) {
-            if ($e->getCode() != 405) {
+        } catch (\Sabre\HTTP\ClientException $e) {
+            $this->_davSupport = false;
+            return false;
+        } catch (\Sabre\DAV\Exception $e) {
+            if ($e->getHttpStatus() != 405) {
                 Horde::log($e, 'INFO');
             }
             $this->_davSupport = false;
@@ -711,6 +752,9 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
                 '',
                 array('{DAV:}resourcetype', '{DAV:}current-user-privilege-set')
              );
+        } catch (\Sabre\HTTP\ClientException $e) {
+            Horde::log($e, 'INFO');
+            return false;
         } catch (\Sabre\DAV\Exception $e) {
             Horde::log($e, 'INFO');
             return false;
@@ -782,7 +826,10 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
                                             'Pragma' => 'no-cache',
                                             'Content-Type' => 'application/xml'),
                                       $headers));
-        } catch (Horde_Dav_Exception $e) {
+        } catch (\Sabre\HTTP\ClientException $e) {
+            Horde::log($e, 'INFO');
+            throw new Kronolith_Exception($e);
+        } catch (\Sabre\DAV\Exception $e) {
             Horde::log($e, 'INFO');
             throw new Kronolith_Exception($e);
         }
@@ -822,25 +869,44 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
      *
      * @param string $uri  The base URI for any requests.
      *
-     * @return Horde_Dav_Client  A DAV client.
+     * @return \Sabre\DAV\Client  A DAV client.
+     * @throws \Sabre\DAV\Exception
+     * @throws \Sabre\HTTP\ClientException
      */
     protected function _getClient($uri)
     {
-        $hordeOptions = array(
-            'request.timeout' => isset($this->_params['timeout'])
-                ? $this->_params['timeout']
-                : 5
-        );
-        $sabreOptions = array('baseUri' => $uri);
-        if (!empty($this->_params['user'])) {
-            $hordeOptions['request.username'] = $sabreOptions['userName'] = $this->_params['user'];
-            $hordeOptions['request.password'] = $sabreOptions['password'] = $this->_params['password'];
-        }
-        $sabreOptions['client'] = $GLOBALS['injector']
-            ->getInstance('Horde_Core_Factory_HttpClient')
-            ->create($hordeOptions);
+        global $conf;
 
-        $this->_client = new Horde_Dav_Client($sabreOptions);
+        $options = array('baseUri' => $uri);
+        if (!empty($this->_params['user'])) {
+            $options['userName'] = $this->_params['user'];
+            $options['password'] = $this->_params['password'];
+        }
+
+        $this->_client = new Client($options);
+
+        $this->_client->addCurlSetting(
+            CURLOPT_TIMEOUT,
+            isset($this->_params['timeout']) ? $this->_params['timeout'] : 5
+        );
+        if (!empty($conf['http']['proxy']['proxy_host'])) {
+            $this->_client->addCurlSetting(
+                CURLOPT_PROXY,
+                $conf['http']['proxy']['proxy_host']
+            );
+            $this->_client->addCurlSetting(
+                CURLOPT_PROXYPORT,
+                $conf['http']['proxy']['proxy_port']
+            );
+            if (!empty($conf['http']['proxy']['proxy_user']) &&
+                !empty($conf['http']['proxy']['proxy_pass'])) {
+                $this->_client->addCurlSetting(
+                    CURLOPT_PROXYUSERPWD,
+                    $conf['http']['proxy']['proxy_user'] . ':' .
+                    $conf['http']['proxy']['proxy_pass']
+                );
+            }
+        }
 
         return $this->_client;
     }

@@ -10,8 +10,7 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2012-11-19</date>
- <time>14:08:27</time>
+ <date>2015-07-31</date>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -22,12 +21,16 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Mark PHP 7 as supported.
+* [jan] Fix issues with certain locales like Turkish.
 * [jan] Add Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="bin">
-    <file name="horde-kolab-cli" role="script" />
+    <file name="horde-kolab-cli" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+   </file>
    </dir> <!-- /bin -->
    <dir name="doc">
     <dir name="Horde">
@@ -72,6 +75,12 @@
       <file name="Horde_Kolab_Cli.po" role="data" />
      </dir> <!-- /locale/es/LC_MESSAGES -->
     </dir> <!-- /locale/es -->
+    <dir name="eu">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Kolab_Cli.mo" role="data" />
+      <file name="Horde_Kolab_Cli.po" role="data" />
+     </dir> <!-- /locale/eu/LC_MESSAGES -->
+    </dir> <!-- /locale/eu -->
     <dir name="fi">
      <dir name="LC_MESSAGES">
       <file name="Horde_Kolab_Cli.mo" role="data" />
@@ -133,8 +142,8 @@
   <required>
    <php>
     <min>5.3.0</min>
-    <max>6.0.0alpha1</max>
-    <exclude>6.0.0alpha1</exclude>
+    <max>8.0.0alpha1</max>
+    <exclude>8.0.0alpha1</exclude>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -188,6 +197,13 @@
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
+   <package>
+    <name>Horde_Util</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
   </required>
   <optional>
    <package>
@@ -201,13 +217,6 @@
     <name>Horde_Test</name>
     <channel>pear.horde.org</channel>
     <min>2.1.0</min>
-    <max>3.0.0alpha1</max>
-    <exclude>3.0.0alpha1</exclude>
-   </package>
-   <package>
-    <name>Horde_Util</name>
-    <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -240,6 +249,8 @@
    <install as="locale/Horde_Kolab_Cli.pot" name="locale/Horde_Kolab_Cli.pot" />
    <install as="locale/es/LC_MESSAGES/Horde_Kolab_Cli.mo" name="locale/es/LC_MESSAGES/Horde_Kolab_Cli.mo" />
    <install as="locale/es/LC_MESSAGES/Horde_Kolab_Cli.po" name="locale/es/LC_MESSAGES/Horde_Kolab_Cli.po" />
+   <install as="locale/eu/LC_MESSAGES/Horde_Kolab_Cli.mo" name="locale/eu/LC_MESSAGES/Horde_Kolab_Cli.mo" />
+   <install as="locale/eu/LC_MESSAGES/Horde_Kolab_Cli.po" name="locale/eu/LC_MESSAGES/Horde_Kolab_Cli.po" />
    <install as="locale/fi/LC_MESSAGES/Horde_Kolab_Cli.mo" name="locale/fi/LC_MESSAGES/Horde_Kolab_Cli.mo" />
    <install as="locale/fi/LC_MESSAGES/Horde_Kolab_Cli.po" name="locale/fi/LC_MESSAGES/Horde_Kolab_Cli.po" />
    <install as="locale/ja/LC_MESSAGES/Horde_Kolab_Cli.mo" name="locale/ja/LC_MESSAGES/Horde_Kolab_Cli.mo" />
@@ -310,9 +321,11 @@
    <stability>
     <release>alpha</release>
     <api>alpha</api></stability>
-   <date>2012-11-19</date>
+   <date>2015-07-31</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Mark PHP 7 as supported.
+* [jan] Fix issues with certain locales like Turkish.
 * [jan] Add Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
    </notes>
   </release>

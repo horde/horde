@@ -14,7 +14,7 @@
 /**
  * Handles the recurrence range attribute.
  *
- * Copyright 2011-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see
@@ -88,7 +88,7 @@ extends Horde_Kolab_Format_Xml_Type_String
         if (empty($value)) {
             $type = 'none';
             $value = '';
-        } else if ($value instanceOf DateTime) {
+        } else if ($value instanceof DateTime) {
             $type = 'date';
             $value = Horde_Kolab_Format_Date::writeDate($value);
         } else {

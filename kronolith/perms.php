@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -102,8 +102,7 @@ if ($auth->hasCapability('list') &&
     ($conf['auth']['list_users'] == 'list' ||
      $conf['auth']['list_users'] == 'both')) {
     try {
-        $userList = $auth->listUsers();
-        sort($userList);
+        $userList = $auth->listNames();
     } catch (Horde_Auth_Exception $e) {
         Horde::log($e, 'ERR');
     }

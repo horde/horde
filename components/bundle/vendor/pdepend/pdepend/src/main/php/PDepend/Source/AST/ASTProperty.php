@@ -4,7 +4,7 @@
  *
  * PHP Version 5
  *
- * Copyright (c) 2008-2013, Manuel Pichler <mapi@pdepend.org>.
+ * Copyright (c) 2008-2015, Manuel Pichler <mapi@pdepend.org>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -36,7 +36,7 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @copyright 2008-2013 Manuel Pichler. All rights reserved.
+ * @copyright 2008-2015 Manuel Pichler. All rights reserved.
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
  */
 
@@ -47,7 +47,7 @@ use PDepend\Source\ASTVisitor\ASTVisitor;
 /**
  * This code class represents a class property.
  *
- * @copyright 2008-2013 Manuel Pichler. All rights reserved.
+ * @copyright 2008-2015 Manuel Pichler. All rights reserved.
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
  */
 class ASTProperty extends AbstractASTArtifact
@@ -62,7 +62,7 @@ class ASTProperty extends AbstractASTArtifact
     /**
      * The wrapped field declaration instance.
      *
-     * @var \PDepend\Source\AST\ASTFieldDeclaration
+     * @var   \PDepend\Source\AST\ASTFieldDeclaration
      * @since 0.9.6
      */
     private $fieldDeclaration = null;
@@ -70,7 +70,7 @@ class ASTProperty extends AbstractASTArtifact
     /**
      * The wrapped variable declarator instance.
      *
-     * @var \PDepend\Source\AST\ASTVariableDeclarator
+     * @var   \PDepend\Source\AST\ASTVariableDeclarator
      * @since 0.9.6
      */
     private $variableDeclarator = null;
@@ -109,7 +109,7 @@ class ASTProperty extends AbstractASTArtifact
      * this property.
      *
      * @return integer
-     * @since 0.9.6
+     * @since  0.9.6
      */
     public function getModifiers()
     {
@@ -165,7 +165,7 @@ class ASTProperty extends AbstractASTArtifact
      * contains an array type hint, otherwise the it will return <b>false</b>.
      *
      * @return boolean
-     * @since 0.9.6
+     * @since  0.9.6
      */
     public function isArray()
     {
@@ -183,9 +183,9 @@ class ASTProperty extends AbstractASTArtifact
      * contains a primitive type hint, otherwise the it will return <b>false</b>.
      *
      * @return boolean
-     * @since 0.9.6
+     * @since  0.9.6
      */
-    public function isPrimitive()
+    public function isScalar()
     {
         $typeNode = $this->fieldDeclaration->getFirstChildOfType(
             'PDepend\\Source\\AST\\ASTType'
@@ -193,7 +193,7 @@ class ASTProperty extends AbstractASTArtifact
         if ($typeNode === null) {
             return false;
         }
-        return $typeNode->isPrimitive();
+        return $typeNode->isScalar();
     }
 
     /**
@@ -201,7 +201,7 @@ class ASTProperty extends AbstractASTArtifact
      * for all scalar type, only class properties will have a type.
      *
      * @return \PDepend\Source\AST\AbstractASTClassOrInterface
-     * @since 0.9.5
+     * @since  0.9.5
      */
     public function getClass()
     {
@@ -219,7 +219,7 @@ class ASTProperty extends AbstractASTArtifact
      *
      * @return string
      */
-    public function getDocComment()
+    public function getComment()
     {
         return $this->fieldDeclaration->getComment();
     }
@@ -228,7 +228,7 @@ class ASTProperty extends AbstractASTArtifact
      * Returns the line number where the property declaration can be found.
      *
      * @return integer
-     * @since 0.9.6
+     * @since  0.9.6
      */
     public function getStartLine()
     {
@@ -239,7 +239,7 @@ class ASTProperty extends AbstractASTArtifact
      * Returns the column number where the property declaration starts.
      *
      * @return integer
-     * @since 0.9.8
+     * @since  0.9.8
      */
     public function getStartColumn()
     {
@@ -250,7 +250,7 @@ class ASTProperty extends AbstractASTArtifact
      * Returns the line number where the property declaration ends.
      *
      * @return integer
-     * @since 0.9.6
+     * @since  0.9.6
      */
     public function getEndLine()
     {
@@ -261,7 +261,7 @@ class ASTProperty extends AbstractASTArtifact
      * Returns the column number where the property declaration ends.
      *
      * @return integer
-     * @since 0.9.8
+     * @since  0.9.8
      */
     public function getEndColumn()
     {
@@ -272,7 +272,7 @@ class ASTProperty extends AbstractASTArtifact
      * This method will return the class where this property was declared.
      *
      * @return \PDepend\Source\AST\AbstractASTClassOrInterface
-     * @since 0.9.6
+     * @since  0.9.6
      */
     public function getDeclaringClass()
     {
@@ -282,9 +282,9 @@ class ASTProperty extends AbstractASTArtifact
     /**
      * Sets the declaring class object.
      *
-     * @param \PDepend\Source\AST\ASTClass $declaringClass
+     * @param  \PDepend\Source\AST\ASTClass $declaringClass
      * @return void
-     * @since 0.9.6
+     * @since  0.9.6
      */
     public function setDeclaringClass(ASTClass $declaringClass)
     {
@@ -296,7 +296,7 @@ class ASTProperty extends AbstractASTArtifact
      * contains a default value.
      *
      * @return boolean
-     * @since 0.9.6
+     * @since  0.9.6
      */
     public function isDefaultValueAvailable()
     {
@@ -312,7 +312,7 @@ class ASTProperty extends AbstractASTArtifact
      * <b>null</b> when this property was only declared and not initialized.
      *
      * @return mixed
-     * @since 0.9.6
+     * @since  0.9.6
      */
     public function getDefaultValue()
     {
@@ -326,7 +326,7 @@ class ASTProperty extends AbstractASTArtifact
     /**
      * ASTVisitor method for node tree traversal.
      *
-     * @param \PDepend\Source\ASTVisitor\ASTVisitor $visitor
+     * @param  \PDepend\Source\ASTVisitor\ASTVisitor $visitor
      * @return void
      */
     public function accept(ASTVisitor $visitor)
@@ -338,7 +338,7 @@ class ASTProperty extends AbstractASTArtifact
      * This method returns a string representation of this parameter.
      *
      * @return string
-     * @since 0.9.6
+     * @since  0.9.6
      */
     public function __toString()
     {

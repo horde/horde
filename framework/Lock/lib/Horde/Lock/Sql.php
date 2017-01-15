@@ -19,7 +19,7 @@
  * );
  * </pre>
  *
- * Copyright 2008-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -63,8 +63,7 @@ class Horde_Lock_Sql extends Horde_Lock
 
         parent::__construct($params);
 
-        /* Only do garbage collection if asked for, and then only 0.1% of the
-         * time we create an object. */
+        /* Only do garbage collection 0.1% of the time we create an object. */
         if (substr(time(), -3) === '000') {
             register_shutdown_function(array($this, 'doGC'));
         }
@@ -124,7 +123,7 @@ class Horde_Lock_Sql extends Horde_Lock
         }
 
         try {
-            $result = $this->_db->selectAll($sql, $values);
+            $result = $this->_db->select($sql, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Lock_Exception($e);
         }
@@ -240,6 +239,8 @@ class Horde_Lock_Sql extends Horde_Lock
 
     /**
      * Do garbage collection needed for the driver.
+     *
+     * @todo Rename to gc().
      */
     public function doGC()
     {
@@ -249,9 +250,11 @@ class Horde_Lock_Sql extends Horde_Lock
         $values = array($now, Horde_Lock::PERMANENT);
 
         try {
-            $result = $this->_db->delete($query, $values);
-            if ($this->_logger) {
-                $this->_logger->log(sprintf('Lock garbage collection cleared %d locks.', $result), 'DEBUG');
+            if ($this->_db) {
+                $result = $this->_db->delete($query, $values);
+                if ($this->_logger) {
+                    $this->_logger->log(sprintf('Lock garbage collection cleared %d locks.', $result), 'DEBUG');
+                }
             }
         } catch (Horde_Db_Exception $e) {}
     }

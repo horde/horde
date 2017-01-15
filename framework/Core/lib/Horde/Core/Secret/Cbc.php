@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2015-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category  Horde
- * @copyright 2015 Horde LLC
+ * @copyright 2015-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL
  * @package   Core
  */
@@ -24,7 +24,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2015 Horde LLC
+ * @copyright 2015-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL
  * @package   Core
  * @since     2.20.0
@@ -37,7 +37,8 @@ class Horde_Core_Secret_Cbc extends Horde_Core_Secret
     {
         global $conf;
 
-        if (!isset($this->_cipherCache[self::HORDE_KEYNAME])) {
+        if (!isset($this->_cipherCache[self::HORDE_KEYNAME]) ||
+            $this->_cipherCache[self::HORDE_KEYNAME]->key != $key) {
             /* Use more secure CBC mode (rather than ECB). */
             $this->_cipherCache[self::HORDE_KEYNAME] = new Horde_Crypt_Blowfish(
                 substr($key, 0, 56),

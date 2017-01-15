@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2000-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2000-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
- * @copyright 2000-2015 Horde LLC
+ * @copyright 2000-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -21,7 +21,7 @@
  * @author    Jon Parise <jon@horde.org>
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2000-2015 Horde LLC
+ * @copyright 2000-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  *
@@ -432,6 +432,9 @@ implements ArrayAccess, Countable, IteratorAggregate, Serializable
                 /* Set as unsubscribed, add to unsubscribed list, and remove
                  * from subscribed list. */
                 $this->setAttribute('subscribed', $elt, false);
+
+                /* Remove from polled list. */
+                $this->poll->removePollList($elt);
             }
         }
     }

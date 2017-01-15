@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2012-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
- * @copyright 2012-2015 Horde LLC
+ * @copyright 2012-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -17,7 +17,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2012-2015 Horde LLC
+ * @copyright 2012-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -36,7 +36,7 @@ class IMP_Script_Package_Compose extends Horde_Script_Package
         $this->_files[] = new Horde_Script_File_JsDir('imp.js', 'imp');
 
         if (!$prefs->isLocked('default_encrypt') &&
-            (IMP_Crypt_Pgp::enabled() || IMP_Crypt_Smime::enabled())) {
+            (IMP_Pgp::enabled() || IMP_Smime::enabled())) {
             $page_output->addScriptPackage('Horde_Core_Script_Package_Dialog');
             $this->_files[] = new Horde_Script_File_JsDir('passphrase.js', 'imp');
         }

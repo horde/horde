@@ -1,9 +1,9 @@
 <?php
 /**
- * Copyright 2003-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you did
- * did not receive this file, see http://cvs.horde.org/co.php/vilma/LICENSE.
+ * did not receive this file, see http://www.horde.org/licenses/bsd.
  *
  * @author  Marko Djukic <marko@oblo.com>
  * @author  David Cummings <davidcummings@acm.org>
@@ -70,7 +70,7 @@ class Vilma
      *
      * @return Horde_Core_Ui_Tabs
      */
-    public static function getUserMgrTabs(Variables $vars)
+    public static function getUserMgrTabs(Horde_Variables $vars)
     {
         $url = Horde::url('users/index.php');
         $tabs = new Horde_Core_Ui_Tabs('section', $vars);

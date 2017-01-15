@@ -16,6 +16,7 @@ class Horde_Vcs_CvsTest extends Horde_Vcs_TestBase
 {
     public function setUp()
     {
+        $this->markTestIncomplete('No RCS available on Travis at the moment.');
         if (!self::$conf) {
             $this->markTestSkipped('No test configuration');
         }

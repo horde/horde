@@ -5,7 +5,7 @@
  * This file defines Turba's external API interface. Other applications can
  * interact with Turba through this API.
  *
- * Copyright 2009-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you did
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -565,6 +565,7 @@ class Turba_Api extends Horde_Registry_Api
      */
     public function getChanges($start, $end, $isModSeq = false, $sources = null)
     {
+        $sources = $this->_getSources($sources, true);
         return array(
             'add' => $this->listBy('add', $start, $sources, $end, $isModSeq),
             'modify' => $this->listBy('modify', $start, $sources, $end, $isModSeq),
@@ -655,13 +656,19 @@ class Turba_Api extends Horde_Registry_Api
      *                             text/x-vcard, and activesync.
      * @param string $source       The source into which the contact will be
      *                             imported.
+     * @param array $options       Additional options:
+     *     - match_on_email: (boolean)  If true, will detect entry as duplicate
+     *                                  if ANY email field matches. Useful for
+     *                                  automatically adding contacts from an
+     *                                  email application, such as IMP.
+     *                                  @since 4.2.9
      *
      * @return string  The new UID.
      *
      * @throws Turba_Exception
      * @throws Turba_Exception_ObjectExists
      */
-    public function import($content, $contentType = 'array', $source = null)
+    public function import($content, $contentType = 'array', $source = null, array $options = array())
     {
         global $injector;
 
@@ -700,7 +707,7 @@ class Turba_Api extends Horde_Registry_Api
                     throw new Turba_Exception(_("No vCard data was found."));
 
                 case 1:
-                    $content = $iCal->getComponent(0);
+                    $content = $driver->toHash($iCal->getComponent(0));
                     break;
 
                 default:
@@ -727,8 +734,23 @@ class Turba_Api extends Horde_Registry_Api
             }
         }
 
+        if (!empty($options['match_on_email'])) {
+            $content_copy = array();
+            foreach (Turba::getAvailableEmailFields() as $field) {
+                if (!empty($content[$field])) {
+                    $rfc = new Horde_Mail_Rfc822();
+                    $email = $rfc->parseAddressList($content[$field]);
+                    $content_copy[$field] = (string)$email;
+                }
+            }
+        } else {
+            $content_copy = $content;
+        }
+
         // Check if the entry already exists in the data source.
-        $result = $driver->search($content);
+        $result = $driver->search(
+            $content_copy, null, !empty($options['match_on_email']) ? 'OR' : 'AND');
+
         if (count($result)) {
             throw new Turba_Exception_ObjectExists(_("Already Exists"));
         }
@@ -1147,6 +1169,13 @@ class Turba_Api extends Horde_Registry_Api
      *   - count_only: (boolean) If true, only return the count of matching
      *                           results.
      *                 DEFAULT: false (Return the full data set).
+     *   - emailSearch: (boolean) If true, indicates this is an email search
+     *                  like e.g., for an autocompleter. Ensures that ALL email
+     *                  fields are both included in 'fields' and returned in the
+     *                  results, regardless of the requested returnFields value.
+     *                  @todo Make this a separate API method in H6 (or separate
+     *                  API "module", e.g., an 'email search' API).
+     *                  @since  4.3.0
      *
      * @return mixed  Either a hash containing the search results or a
      *                Rfc822 List object (if 'rfc822Return' is true).
@@ -1197,6 +1226,9 @@ class Turba_Api extends Horde_Registry_Api
         // ...and ensure the default source is used as a default.
         if (!count($opts['sources'])) {
             $opts['sources'] = array(Turba::getDefaultAddressbook());
+            if (!empty($opts['fields']) && empty($opts['fields'][$opts['sources'][0]])) {
+                $opts['fields'][$opts['sources'][0]] = $opts['fields'];
+            }
         }
 
         $driver = $injector->getInstance('Turba_Factory_Driver');
@@ -1211,11 +1243,26 @@ class Turba_Api extends Horde_Registry_Api
                 continue;
             }
 
+            // Ensure we have search fields for each source.
             if (empty($opts['fields'][$source])) {
-                $opts['fields'][$source] = $GLOBALS['cfgSources'][$source]['search'];
+                $opts['fields'][$source] = $cfgSources[$source]['search'];
             }
-            $sdriver = $driver->create($source);
 
+            // If this is an email search, ensure we are searching for and
+            // returning all email-type fields.
+            if (!empty($opts['emailSearch'])) {
+                $opts['returnFields'] = array_merge(
+                    $opts['returnFields'],
+                    Turba::getAvailableEmailFields($source, false)
+                );
+
+                $opts['fields'][$source] = array_merge(
+                    $opts['fields'][$source],
+                    Turba::getAvailableEmailFields($source)
+                );
+            }
+
+            $sdriver = $driver->create($source);
             foreach ($names as $name) {
                 $trimname = trim($name);
                 $out = $criteria = array();
@@ -1311,13 +1358,13 @@ class Turba_Api extends Horde_Registry_Api
                             ? Turba::formatName($ob)
                             : $ob->getValue($ob->driver->alternativeName);
                         unset($tdisplay_name);
-
+                        $email_fields = array();
                         foreach (array_keys($att) as $key) {
                             if ($ob->getValue($key) &&
                                 isset($attributes[$key]) &&
                                 ($attributes[$key]['type'] == 'email')) {
                                 $e_val = $ob->getValue($key);
-
+                                $email_fields[$key] = $e_val;
                                 if (strlen($trimname)) {
                                     /* Ticket #12480: Don't return email if it
                                      * doesn't contain the search string, since
@@ -1346,6 +1393,17 @@ class Turba_Api extends Horde_Registry_Api
                             }
                         }
 
+                        // If we haven't added any results yet, add any available
+                        // addresses since the search term might not have matched
+                        // the display_name OR any of the email addresses.
+                        // See Bug: 13945
+                        if (!count($email)) {
+                            foreach ($email_fields as $e_field => $e_value) {
+                                $email->add($rfc822->parseAddressList($e_value, array(
+                                    'limit' => (isset($attributes[$e_field]['params']) && is_array($attributes[$e_field]['params']) && !empty($attributes[$e_field]['params']['allow_multi'])) ? 0 : 1
+                                )));
+                            }
+                        }
                         if (count($email)) {
                             foreach ($email as $val) {
                                 $seen_key = trim(Horde_String::lower($display_name)) . '/' . Horde_String::lower($val->bare_address);
@@ -1786,7 +1844,7 @@ class Turba_Api extends Horde_Registry_Api
     public function getField($address = '', $field = '', $sources = array(),
                              $strict = false, $multiple = false)
     {
-        global $cfgSources;
+        global $cfgSources, $attributes, $injector;
 
         if (empty($address)) {
             throw new Turba_Exception(_("Invalid email"));
@@ -1800,28 +1858,22 @@ class Turba_Api extends Horde_Registry_Api
             $sources = array(Turba::getDefaultAddressbook());
         }
 
-        $driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver');
         $result = array();
 
         foreach ($sources as $source) {
             if (!isset($cfgSources[$source])) {
                 continue;
             }
-
-            $sdriver = $driver->create($source);
-            $criterium = array('email' => $address);
-            if (!isset($sdriver->map['email'])) {
-                if (isset($sdriver->map['emails'])) {
-                    $criterium = array('emails' => $address);
-                } else {
-                    continue;
-                }
-            }
-
+            $criterium = array_fill_keys(
+                Turba::getAvailableEmailFields($source),
+                $address
+            );
+            $driver = $injector->getInstance('Turba_Factory_Driver')->create($source);
             try {
-                $list = $sdriver->search($criterium, null, 'AND', array(), $strict ? array('email') : array());
+                $list = $driver->search($criterium, null, 'OR', array(), $strict ? array_keys($criterium) : array());
             } catch (Turba_Exception $e) {
                 Horde::log($e, 'ERR');
+                continue;
             }
 
             if ($list instanceof Turba_List) {
@@ -2016,7 +2068,7 @@ class Turba_Api extends Horde_Registry_Api
             list($db, $sql) = $this->_getGroupObject($source, 'Group');
 
             try {
-                $results = $db->selectAll($sql);
+                $results = $db->select($sql);
             } catch (Horde_Db_Exception $e) {
                 throw new Horde_Exception(_("Server error when performing search."));
             }
@@ -2236,7 +2288,7 @@ class Turba_Api extends Horde_Registry_Api
 
     /**
      */
-    private function _modified($uid, $sources)
+    protected function _modified($uid, $sources)
     {
         $modified = $this->getActionTimestamp($uid, 'modify', $sources);
         if (empty($modified)) {
@@ -2248,7 +2300,7 @@ class Turba_Api extends Horde_Registry_Api
     /**
      * @throws Turba_Exception
      */
-    private function _getSources($sources)
+    protected function _getSources($sources, $synchronize = false, $end = false)
     {
         /* Get default address book from user preferences. */
         if (empty($sources)) {
@@ -2267,6 +2319,12 @@ class Turba_Api extends Horde_Registry_Api
         foreach ($sources as $val) {
             if (!strlen($val) || !isset($GLOBALS['cfgSources'][$val])) {
                 throw new Turba_Exception(sprintf(_("Invalid address book: %s"), $val));
+            }
+            if ($synchronize) {
+                $GLOBALS['injector']
+                    ->getInstance('Turba_Factory_Driver')
+                    ->create($val)
+                    ->synchronize($end);
             }
         }
 

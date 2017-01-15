@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @category  Horde
- * @copyright 2002-2015 Horde LLC
+ * @copyright 2002-2017 Horde LLC
  * @license   http://www.horde.org/licenses/apache ASL
  * @package   Ingo
  */
@@ -17,7 +17,7 @@
  * @author    Mike Cochrane <mike@graftonhall.co.nz>
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2002-2015 Horde LLC
+ * @copyright 2002-2017 Horde LLC
  * @license   http://www.horde.org/licenses/apache ASL
  * @package   Ingo
  */
@@ -73,7 +73,7 @@ class Ingo_Basic_Vacation extends Ingo_Basic_Base
                 $ingo_storage->updateRule($vacation);
                 $notification->push($notify, 'horde.success');
 
-                Ingo_Script_Util::update();
+                $injector->getInstance('Ingo_Factory_Script')->activateAll();
             } catch (Ingo_Exception $e) {
                 $notification->push($e);
             }
@@ -123,13 +123,14 @@ class Ingo_Basic_Vacation extends Ingo_Basic_Base
         $this->header = _("Vacation Edit");
 
         Horde::startBuffer();
+        Horde_Util::pformInput();
         $form->renderActive(
             new Horde_Form_Renderer(array(
                 'encode_title' => false,
                 'varrenderer_driver' => array('ingo', 'ingo')
             )),
             $this->vars,
-            self::url(),
+            self::url(array('append_session' => -1)),
             'post'
         );
         $this->output = Horde::endBuffer();
@@ -139,7 +140,10 @@ class Ingo_Basic_Vacation extends Ingo_Basic_Base
      */
     public static function url(array $opts = array())
     {
-        return Horde::url('basic.php')->add('page', 'vacation');
+        if (empty($opts['append_session'])) {
+            $opts['append_session'] = 0;
+        }
+        return Horde::url('basic.php', true, array('append_session' => $opts['append_session']))->add('page', 'vacation');
     }
 
 }

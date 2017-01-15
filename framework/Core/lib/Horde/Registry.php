@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 1999-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category  Horde
- * @copyright 1999-2015 Horde LLC
+ * @copyright 1999-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Core
  */
@@ -20,7 +20,7 @@
  * @author    Anil Madhavapeddy <anil@recoil.org>
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 1999-2015 Horde LLC
+ * @copyright 1999-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Core
  */
@@ -357,7 +357,11 @@ class Horde_Registry implements Horde_Shutdown_Task
             if (empty($GLOBALS['conf']['auth']['admins'])) {
                 throw new Horde_Exception(Horde_Core_Translation::t("Admin authentication requested, but no admin users defined in configuration."));
             }
-            $registry->setAuth(reset($GLOBALS['conf']['auth']['admins']), array());
+            $registry->setAuth(
+                reset($GLOBALS['conf']['auth']['admins']),
+                array(),
+                array('no_convert' => true)
+            );
         }
 
         if ($args['permission']) {
@@ -1472,7 +1476,12 @@ class Horde_Registry implements Horde_Shutdown_Task
 
         case 'problem':
             return Horde::url('services/problem.php', $full, $opts)
-                ->add('return_url', Horde::selfUrl(true, true, true));
+                ->add(
+                    'return_url',
+                    Horde_Util::getFormData(
+                        'location', Horde::selfUrl(true, true, true)
+                    )
+                );
 
         case 'sidebar':
             return Horde::url('services/sidebar.php', $full, $opts);
@@ -2076,6 +2085,7 @@ class Horde_Registry implements Horde_Shutdown_Task
         $logout = new Horde_Registry_Logout();
         $logout->run();
 
+        // @suspicious shouldn't this be 'auth/'
         $session->remove('horde', 'auth');
         $session->remove('horde', 'auth_app/');
 
@@ -2554,6 +2564,9 @@ class Horde_Registry implements Horde_Shutdown_Task
      *             DEFAULT: No
      *   - language: (string) The preferred language.
      *               DEFAULT: null
+     *   - no_convert: (boolean) Don't convert the user name with the
+     *                 authusername hook.
+     *                 DEFAULT: false
      */
     public function setAuth($authId, $credentials, array $options = array())
     {
@@ -2581,7 +2594,14 @@ class Horde_Registry implements Horde_Shutdown_Task
         $session->set('horde', 'auth/remoteAddr', $remote->addr);
 
         $session->set('horde', 'auth/timestamp', time());
-        $session->set('horde', 'auth/userId', $this->convertUsername(trim($authId), true));
+        $username = trim($authId);
+        if (!empty($GLOBALS['conf']['auth']['lowercase'])) {
+            $username = Horde_String::lower($username);
+        }
+        if (empty($options['no_convert'])) {
+            $username = $this->convertUsername($username, true);
+        }
+        $session->set('horde', 'auth/userId', $username);
 
         $this->_cache['auth'] = null;
         $this->_cache['existing'] = $this->_cache['isauth'] = array();
@@ -2685,31 +2705,45 @@ class Horde_Registry implements Horde_Shutdown_Task
         }
 
         $applist = empty($app)
-            ? $this->listApps(array('notoolbar', 'hidden', 'active', 'admin', 'noadmin'))
+            ? $this->listApps(
+                array('notoolbar', 'hidden', 'active', 'admin', 'noadmin')
+            )
             : array($app);
         $errApps = array();
         if (!empty($applist)) {
-            $prefs_ob = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->create('horde', array(
-                'user' => $user
-            ));
+            $prefs_ob = $GLOBALS['injector']
+                ->getInstance('Horde_Core_Factory_Prefs')
+                ->create('horde', array('user' => $user));
+
+            // Remove all preference at once, if possible.
+            if (empty($app)) {
+                try {
+                    $prefs_ob->removeAll();
+                } catch (Horde_Exception $e) {
+                    Horde::log($e);
+                }
+            }
         }
 
-        foreach ($applist as $app) {
+        foreach ($applist as $item) {
             try {
-                $this->callAppMethod($app, 'removeUserData', array(
+                $this->callAppMethod($item, 'removeUserData', array(
                     'args' => array($user)
                 ));
             } catch (Exception $e) {
                 Horde::log($e);
-                $errApps[] = $app;
+                $errApps[] = $item;
             }
 
+            if (empty($app)) {
+                continue;
+            }
             try {
-                $prefs_ob->retrieve($app);
+                $prefs_ob->retrieve($item);
                 $prefs_ob->remove();
             } catch (Horde_Exception $e) {
                 Horde::log($e);
-                $errApps[] = $app;
+                $errApps[] = $item;
             }
         }
 

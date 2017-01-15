@@ -141,7 +141,7 @@ class Whups_Form_Ticket_Edit extends Horde_Form
                     break;
 
                 case 'comment':
-                    $cvar = &$this->addVariable(
+                    $cvar = $this->addVariable(
                         _("Comment"), 'newcomment', 'longtext', false);
 
                     /* Form replies. */
@@ -156,7 +156,7 @@ class Whups_Form_Ticket_Edit extends Horde_Form
                         foreach ($replies as $key => $reply) {
                             $params[$key] = $reply['reply_name'];
                         }
-                        $rvar = &$this->addVariable(
+                        $rvar = $this->addVariable(
                             _("Form Reply:"), 'reply', 'enum', false, false,
                              null, array($params, true));
                         $rvar->setAction(Horde_Form_Action::factory('reload'));

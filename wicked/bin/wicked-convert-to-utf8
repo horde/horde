@@ -4,7 +4,7 @@
  * This script converts the data in an SQL backend from any supported charset
  * to UTF-8.
  *
- * Copyright 2008-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -28,7 +28,7 @@ $charset = $cli->prompt('Please specify the current charset of the data',
 
 // Read existing attachments.
 echo 'Converting attachments';
-$rows = $db->selectAll(
+$rows = $db->select(
     'SELECT page_id, attachment_name, change_log FROM '
     . $conf['storage']['params']['attachmenttable']);
 $updateSql =
@@ -45,7 +45,7 @@ foreach ($rows as $row) {
     echo '.';
 }
 
-$rows = $db->selectAll(
+$rows = $db->select(
     'SELECT page_id, attachment_name, change_log FROM '
     . $conf['storage']['params']['attachmenthistorytable']);
 $updateSql =
@@ -64,7 +64,7 @@ foreach ($rows as $row) {
 $cli->writeln($cli->green('Done'));
 
 // Read existing history.
-$rows = $db->selectAll(
+$rows = $db->select(
     'SELECT page_id, page_version, page_name, page_text, change_log FROM '
     . $conf['storage']['params']['historytable']);
 $updateSql =
@@ -83,7 +83,7 @@ foreach ($rows as $row) {
 $cli->writeln($cli->green('Done'));
 
 // Read existing pages.
-$rows = $db->selectAll(
+$rows = $db->select(
     'SELECT page_id, page_name, page_text, change_log FROM '
     . $conf['storage']['params']['table']);
 $updateSql =

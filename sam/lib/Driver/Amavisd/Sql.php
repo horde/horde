@@ -2,7 +2,7 @@
 /**
  * Sam SQL storage implementation using Horde_Db.
  *
- * Copyright 2003-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -42,7 +42,10 @@ class Sam_Driver_Amavisd_Sql extends Sam_Driver_Base
                                      'skip_banned',
                                      'skip_header',
                                      'whitelist_from',
-                                     'blacklist_from');
+                                     'blacklist_from',
+                                     'subject_tag',
+                                     'subject_tag2',
+                                     'subject_tag3');
 
     /**
      * Constructor.
@@ -79,21 +82,22 @@ class Sam_Driver_Amavisd_Sql extends Sam_Driver_Base
         $userID = $this->_lookupUserID();
 
         /* Find the policy id. */
-        $policyID = $this->_lookupPolicyID();
+        if ($policyID = $this->_lookupPolicyID()) {
 
-        /* Query for SPAM policy. */
-        try {
-            $result = $this->_db->selectOne(
-                sprintf('SELECT * FROM %s WHERE %s = ?',
-                        $this->_mapNameToTable('policies'),
-                        $this->_mapAttributeToField('policies', 'id')),
-                array($policyID));
-        } catch (Horde_Db_Exception $e) {
-            throw new Sam_Exception($e);
+            /* Query for SPAM policy. */
+            try {
+                $result = $this->_db->selectOne(
+                    sprintf('SELECT * FROM %s WHERE %s = ?',
+                            $this->_mapNameToTable('policies'),
+                            $this->_mapAttributeToField('policies', 'id')),
+                    array($policyID));
+            } catch (Horde_Db_Exception $e) {
+                throw new Sam_Exception($e);
+            }
         }
 
         /* Loop through elements of the result, retrieving options. */
-        if ($result) {
+        if (!empty($result)) {
             foreach ($result as $field => $value) {
                 $attribute = $this->_mapFieldToAttribute('policies', $field);
                 if ($this->hasCapability($attribute) && !is_null($value)) {
@@ -157,23 +161,7 @@ class Sam_Driver_Amavisd_Sql extends Sam_Driver_Base
      */
     public function store($defaults = false)
     {
-        /* Check if the policy already exists. */
-        $policyID = $this->_lookupPolicyID();
-
-        /* Delete existing policy. */
-        if ($policyID !== false) {
-            try {
-                $this->_db->delete(
-                    sprintf('DELETE FROM %s WHERE %s = ?',
-                            $this->_mapNameToTable('policies'),
-                            $this->_mapAttributeToField('policies', 'name')),
-                    array($this->_user));
-            } catch (Horde_Db_Exception $e) {
-                throw new Sam_Exception($e);
-            }
-        }
-
-        /* Insert new policy (everything but whitelists and blacklists). */
+        /* Generate new policy (everything but whitelists and blacklists). */
         $insertKeys = $insertVals = array();
         foreach ($this->_options as $attribute => $value) {
             if ($attribute != 'whitelist_from' &&
@@ -182,7 +170,12 @@ class Sam_Driver_Amavisd_Sql extends Sam_Driver_Base
                 $insertVals[] = strlen($value) ? $value : null;
             }
         }
-        if (count($insertKeys)) {
+
+        /* Check if the policy already exists. */
+        $policyID = $this->_lookupPolicyID();
+
+        if ($policyID === false && count($insertKeys)) {
+            // Create new policy for user.
             try {
                 $this->_db->insert(
                     sprintf('INSERT INTO %s (%s, %s) VALUES (%s)',
@@ -194,10 +187,24 @@ class Sam_Driver_Amavisd_Sql extends Sam_Driver_Base
             } catch (Horde_Db_Exception $e) {
                 throw new Sam_Exception($e);
             }
+            $policyID = $this->_lookupPolicyID();
+        } elseif ($policyID && count($insertKeys)) {
+            // Update user's policy.
+            $update = array();
+            foreach ($insertKeys as $value) {
+                $update[] = $this->_mapAttributeToField('policies', $value) . ' = ?';
+            }
+            try {
+                $this->_db->update(
+                    sprintf('UPDATE %s SET %s WHERE %s',
+                            $this->_mapNameToTable('policies'),
+                            implode(', ', $update),
+                            $this->_mapAttributeToField('policies', 'id') . ' = ?'),
+                    array_merge($insertVals, array($policyID)));
+            } catch (Horde_Db_Exception $e) {
+                throw new Sam_Exception($e);
+            }
         }
-
-        /* Get the new policy id for the recipients table. */
-        $policyID = $this->_lookupPolicyID();
 
         /* Update recipients with new policy id. */
         try {
@@ -478,8 +485,8 @@ class Sam_Driver_Amavisd_Sql extends Sam_Driver_Base
     /**
      * Returns an Amavisd-new policy for storage and retrieval.
      *
-     * @return string  The results of the of the policy lookup. Can be the ID
-     *                 of the policy, false if not found.
+     * @return string|boolean  The results of the of the policy lookup. Can be
+     *                         the ID of the policy, false if not found.
      * @throws Sam_Exception
      */
     protected function _lookupPolicyID()

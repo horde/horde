@@ -16,7 +16,7 @@
  * Components_Module_Update:: can update the package.xml of
  * a Horde element.
  *
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -95,6 +95,13 @@ extends Components_Module_Base
                 array(
                     'action' => 'store',
                     'help'   => 'Set a new api state in the package.xml.'
+                )
+            ),
+            new Horde_Argv_Option(
+                '--sentinel',
+                array(
+                    'action' => 'store_true',
+                    'help'   => 'Update the sentinels in docs/CHANGES and lib/Application.php too.'
                 )
             ),
         );

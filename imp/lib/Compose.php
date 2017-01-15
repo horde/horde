@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
- * @copyright 2002-2015 Horde LLC
+ * @copyright 2002-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -16,7 +16,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2002-2015 Horde LLC
+ * @copyright 2002-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -275,10 +275,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         $headers = array_merge($headers, $recip_list['header']);
 
         /* Initalize a header object for the draft. */
-        $draft_headers = $this->_prepareHeaders(
-            $headers,
-            array_merge($opts, array('bcc' => true))
-        );
+        $draft_headers = $this->_prepareHeaders($headers, $opts);
 
         /* Add information necessary to log replies/forwards when finally
          * sent. */
@@ -721,10 +718,10 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      *                                      following keys:
      *  - encrypt: (integer) A flag whether to encrypt or sign the message.
      *            One of:
-     *    - IMP_Crypt_Pgp::ENCRYPT</li>
-     *    - IMP_Crypt_Pgp::SIGNENC</li>
-     *    - IMP_Crypt_Smime::ENCRYPT</li>
-     *    - IMP_Crypt_Smime::SIGNENC</li>
+     *    - IMP_Pgp::ENCRYPT</li>
+     *    - IMP_Pgp::SIGNENC</li>
+     *    - IMP_Smime::ENCRYPT</li>
+     *    - IMP_Smime::SIGNENC</li>
      *  - html: (boolean) Whether this is an HTML message.
      *          DEFAULT: false
      *  - pgp_attach_pubkey: (boolean) Attach the user's PGP public key to the
@@ -799,9 +796,6 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
         /* Initalize a header object for the outgoing message. */
         $headers = $this->_prepareHeaders($header, $opts);
-        $bcc = isset($header['bcc'])
-            ? $header['bcc']
-            : null;
 
         /* Add a Received header for the hop from browser to server. */
         $headers->addHeaderOb(
@@ -842,16 +836,10 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             $tmp_recip = array();
             foreach (array('to', 'cc', 'bcc') as $val) {
                 if ($tmp_hdr = $headers[$val]) {
-                    $tmp_recip[$val] = $tmp_hdr->getAddressList();
+                    $tmp_recip[$val] = $tmp_hdr->getAddressList(true);
                 }
             }
             $recip = $this->recipientList($tmp_recip);
-            if (isset($tmp_recip['bcc'])) {
-                $bcc = $tmp_recip['bcc'];
-                unset($headers['bcc']);
-            } else {
-                $bcc = null;
-            }
         } catch (Horde_Exception_HookNotSet $e) {}
 
         /* Get from address. Done after pre_sent hook since from address could
@@ -900,7 +888,12 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         if ($this->_replytype) {
             /* Log the reply. */
             if ($indices = $this->getMetadata('indices')) {
-                $log_data = array('msgid' => $msgid);
+                $log_data = array(
+                    'msgid' => $msgid,
+                    'folder' => empty($opts['sent_mail'])
+                        ? null
+                        : $opts['sent_mail'],
+                );
 
                 switch ($this->_replytype) {
                 case self::FORWARD:
@@ -970,13 +963,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         );
 
         /* Save message to the sent mail mailbox. */
-        $this->_saveToSentMail(
-            $bcc,
-            $headers,
-            $message,
-            $recip['list'],
-            $opts
-        );
+        $this->_saveToSentMail($headers, $message, $recip['list'], $opts);
 
         /* Delete the attachment data. */
         $this->deleteAllAttachments();
@@ -1015,33 +1002,33 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
         /* Add personal address to encrypted message. */
         switch ($encrypt) {
-        case IMP_Crypt_Pgp::ENCRYPT:
-        case IMP_Crypt_Pgp::SIGNENC:
-        case IMP_Crypt_Pgp::SYM_ENCRYPT:
-        case IMP_Crypt_Pgp::SYM_SIGNENC:
-        case IMP_Crypt_Smime::ENCRYPT:
-        case IMP_Crypt_Smime::SIGNENC:
+        case IMP_Pgp::ENCRYPT:
+        case IMP_Pgp::SIGNENC:
+        case IMP_Pgp::SYM_ENCRYPT:
+        case IMP_Pgp::SYM_SIGNENC:
+        case IMP_Smime::ENCRYPT:
+        case IMP_Smime::SIGNENC:
             $recip2 = clone $recip;
             $recip2->add($from);
             break;
         }
 
         switch ($encrypt) {
-        case IMP_Crypt_Pgp::ENCRYPT:
-        case IMP_Crypt_Pgp::SIGN:
-        case IMP_Crypt_Pgp::SIGNENC:
-        case IMP_Crypt_Pgp::SYM_ENCRYPT:
-        case IMP_Crypt_Pgp::SYM_SIGNENC:
-            if (!IMP_Crypt_Pgp::enabled()) {
+        case IMP_Pgp::ENCRYPT:
+        case IMP_Pgp::SIGN:
+        case IMP_Pgp::SIGNENC:
+        case IMP_Pgp::SYM_ENCRYPT:
+        case IMP_Pgp::SYM_SIGNENC:
+            if (!IMP_Pgp::enabled()) {
                 break;
             }
 
-            $imp_pgp = $injector->getInstance('IMP_Crypt_Pgp');
+            $imp_pgp = $injector->getInstance('IMP_Pgp');
 
             switch ($encrypt) {
-            case IMP_Crypt_Pgp::SIGN:
-            case IMP_Crypt_Pgp::SIGNENC:
-            case IMP_Crypt_Pgp::SYM_SIGNENC:
+            case IMP_Pgp::SIGN:
+            case IMP_Pgp::SIGNENC:
+            case IMP_Pgp::SYM_SIGNENC:
                 /* Check to see if we have the user's passphrase yet. */
                 $passphrase = $imp_pgp->getPassphrase('personal');
                 if (empty($passphrase)) {
@@ -1053,8 +1040,8 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 }
                 break;
 
-            case IMP_Crypt_Pgp::SYM_ENCRYPT:
-            case IMP_Crypt_Pgp::SYM_SIGNENC:
+            case IMP_Pgp::SYM_ENCRYPT:
+            case IMP_Pgp::SYM_SIGNENC:
                 /* Check to see if we have the user's symmetric passphrase
                  * yet. */
                 $symmetric_passphrase = $imp_pgp->getPassphrase(
@@ -1074,25 +1061,25 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             /* Do the encryption/signing requested. */
             try {
                 switch ($encrypt) {
-                case IMP_Crypt_Pgp::SIGN:
-                    $msg2 = $imp_pgp->impSignMimePart($msg);
+                case IMP_Pgp::SIGN:
+                    $msg2 = $imp_pgp->signMimePart($msg);
                     $this->_setMetadata('encrypt_sign', true);
                     return $msg2;
 
-                case IMP_Crypt_Pgp::ENCRYPT:
-                case IMP_Crypt_Pgp::SYM_ENCRYPT:
-                    return $imp_pgp->IMPencryptMIMEPart(
+                case IMP_Pgp::ENCRYPT:
+                case IMP_Pgp::SYM_ENCRYPT:
+                    return $imp_pgp->encryptMimePart(
                         $msg,
                         $recip2,
-                        ($encrypt == IMP_Crypt_Pgp::SYM_ENCRYPT) ? $symmetric_passphrase : null
+                        ($encrypt == IMP_Pgp::SYM_ENCRYPT) ? $symmetric_passphrase : null
                     );
 
-                case IMP_Crypt_Pgp::SIGNENC:
-                case IMP_Crypt_Pgp::SYM_SIGNENC:
-                    return $imp_pgp->IMPsignAndEncryptMIMEPart(
+                case IMP_Pgp::SIGNENC:
+                case IMP_Pgp::SYM_SIGNENC:
+                    return $imp_pgp->signAndEncryptMimePart(
                         $msg,
                         $recip2,
-                        ($encrypt == IMP_Crypt_Pgp::SYM_SIGNENC) ? $symmetric_passphrase : null
+                        ($encrypt == IMP_Pgp::SYM_SIGNENC) ? $symmetric_passphrase : null
                     );
                     break;
                 }
@@ -1103,20 +1090,24 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             }
             break;
 
-        case IMP_Crypt_Smime::ENCRYPT:
-        case IMP_Crypt_Smime::SIGN:
-        case IMP_Crypt_Smime::SIGNENC:
-            if (!IMP_Crypt_Smime::enabled()) {
+        case IMP_Smime::ENCRYPT:
+        case IMP_Smime::SIGN:
+        case IMP_Smime::SIGNENC:
+            if (!IMP_Smime::enabled()) {
                 break;
             }
 
-            $imp_smime = $injector->getInstance('IMP_Crypt_Smime');
+            $imp_smime = $injector->getInstance('IMP_Smime');
 
             /* Check to see if we have the user's passphrase yet. */
             switch ($encrypt) {
-            case IMP_Crypt_Smime::SIGN:
-            case IMP_Crypt_Smime::SIGNENC:
-                if (($passphrase = $imp_smime->getPassphrase()) === false) {
+            case IMP_Smime::SIGN:
+            case IMP_Smime::SIGNENC:
+                $passphrase_required = $imp_smime->getPassphrase(IMP_Smime::KEY_SECONDARY_OR_PRIMARY) === false;
+                if ($encrypt == IMP_Smime::SIGNENC) {
+                    $passphrase_required |= $imp_smime->getPassphrase(IMP_Smime::KEY_PRIMARY) === false;
+                }
+                if ($passphrase_required) {
                     $e = new IMP_Compose_Exception(
                         _("S/MIME Error: Need passphrase for personal private key.")
                     );
@@ -1129,16 +1120,16 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             /* Do the encryption/signing requested. */
             try {
                 switch ($encrypt) {
-                case IMP_Crypt_Smime::SIGN:
-                    $msg2 = $imp_smime->IMPsignMIMEPart($msg);
+                case IMP_Smime::SIGN:
+                    $msg2 = $imp_smime->signMimePart($msg);
                     $this->_setMetadata('encrypt_sign', true);
                     return $msg2;
 
-                case IMP_Crypt_Smime::ENCRYPT:
-                    return $imp_smime->IMPencryptMIMEPart($msg, $recip2);
+                case IMP_Smime::ENCRYPT:
+                    return $imp_smime->encryptMimePart($msg, $recip2);
 
-                case IMP_Crypt_Smime::SIGNENC:
-                    return $imp_smime->IMPsignAndEncryptMIMEPart($msg, $recip2);
+                case IMP_Smime::SIGNENC:
+                    return $imp_smime->signAndEncryptMimePart($msg, $recip2);
                 }
             } catch (Horde_Exception $e) {
                 throw new IMP_Compose_Exception(
@@ -1191,14 +1182,12 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
     /**
      * Save message to sent-mail mailbox, if configured to do so.
      *
-     * @param string $bcc                     List of BCC addresses.
      * @param Horde_Mime_Headers $headers     Headers object.
      * @param Horde_Mime_Part $save_msg       Message data to save.
      * @param Horde_Mail_Rfc822_List $recips  Recipient list.
      * @param array $opts                     See buildAndSendMessage()
      */
     protected function _saveToSentMail(
-        $bcc,
         Horde_Mime_Headers $headers,
         Horde_Mime_Part $save_msg,
         Horde_Mail_Rfc822_List $recips,
@@ -1233,18 +1222,16 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             }
         }
 
-        /* Keep Bcc: headers on saved messages. */
-        if (count($bcc)) {
-            $headers->addHeader('Bcc', $bcc);
-        }
-
         /* Strip attachments if requested. */
         if (!empty($opts['strip_attachments'])) {
             $save_msg->buildMimeIds();
 
             /* Don't strip any part if this is a text message with both
-             * plaintext and HTML representation. */
-            if ($save_msg->getType() != 'multipart/alternative') {
+             * plaintext and HTML representation, or a signed or encrypted
+             * message. */
+            if ($save_msg->getType() != 'multipart/alternative' &&
+                $save_msg->getType() != 'multipart/encrypted' &&
+                $save_msg->getType() != 'multipart/signed') {
                 for ($i = 2; ; ++$i) {
                     if (!($oldPart = $save_msg[$i])) {
                         break;
@@ -1291,7 +1278,6 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      * @param array $headers  Array with 'from', 'to', 'cc', 'bcc', and
      *                        'subject' values.
      * @param array $opts     An array of options w/the following keys:
-     *   - bcc: (boolean) Add BCC header to output.
      *   - priority: (string) The message priority ('high', 'normal', 'low').
      *
      * @return Horde_Mime_Headers  Headers object with the appropriate headers
@@ -1304,13 +1290,13 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         $ob->addHeaderOb(Horde_Mime_Headers_Date::create());
         $ob->addHeaderOb(Horde_Mime_Headers_MessageId::create());
 
-        $hdrs = array_filter(array(
+        $hdrs = array(
             'From' => 'from',
             'To' => 'to',
             'Cc' => 'cc',
-            'Bcc' => empty($opts['bcc']) ? null : 'bcc',
+            'Bcc' => 'bcc',
             'Subject' => 'subject'
-        ));
+        );
 
         foreach ($hdrs as $key => $val) {
             if (isset($headers[$val]) &&
@@ -1378,6 +1364,12 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         if ($this->getMetadata('encrypt_sign')) {
             /* Signing requires that the body not be altered in transport. */
             $opts['encode'] = Horde_Mime_Part::ENCODE_7BIT;
+        }
+
+        /* Remove Bcc header if it exists. */
+        if (isset($headers['bcc'])) {
+            $headers = clone $headers;
+            unset($headers['bcc']);
         }
 
         try {
@@ -1571,7 +1563,15 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 : $recipient->personal;
 
             try {
-                $registry->call('contacts/import', array(array('name' => $name, 'email' => $recipient->bare_address), 'array', $abook));
+                $registry->call(
+                    'contacts/import',
+                    array(
+                        array('name' => $name, 'email' => $recipient->bare_address),
+                        'array',
+                        $abook,
+                        array('match_on_email' => true)
+                    )
+                );
                 $notification->push(sprintf(_("Entry \"%s\" was successfully added to the address book"), $name), 'horde.success');
             } catch (Turba_Exception_ObjectExists $e) {
             } catch (Horde_Exception $e) {
@@ -1667,7 +1667,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 $body_html->returnHtml(),
                 'Html2text',
                 array(
-                    'wrap' => false
+                    'width' => 0
                 )
             );
         }

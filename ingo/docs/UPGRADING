@@ -51,6 +51,14 @@ Configuration Options (conf.php)
 Added a NoSQL (MongoDB) driver for the storage backend.
 
 
+Backend Configuration (backends.php)
+------------------------------------
+
+The Sieve driver now uses the 'date' and 'relational' extensions for timed
+vacation messages by default. If using a Sieve version that doesn't support
+those extensions, set 'date' to false in the sieve script parameters to use the
+older regular expression parsing (see backends.php).
+
 
 Upgrading Ingo From 3.1.x To 3.2
 ================================

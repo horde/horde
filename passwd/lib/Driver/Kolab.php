@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2005-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
- * @copyright 2005-2015 Horde LLC
+ * @copyright 2005-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   Passwd
  */
@@ -19,7 +19,7 @@
  *
  * @author    Stuart Bingë <skbinge@gmail.com>
  * @category  Horde
- * @copyright 2005-2015 Horde LLC
+ * @copyright 2005-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   Passwd
  */
@@ -73,7 +73,7 @@ class Passwd_Driver_Kolab extends Passwd_Driver
         $userdn = ldap_get_dn($ds, $entry);
 
         // Connect as the user.
-        $result = @ldap_bind($ds, $userdn, $old_password);
+        $result = @ldap_bind($ds, $userdn, $oldpass);
         if (!$result) {
             throw new Passwd_Exception(_("Incorrect old password."));
         }

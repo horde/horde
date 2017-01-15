@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2007 Maintainable Software, LLC
- * Copyright 2008-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2017 Horde LLC (http://www.horde.org/)
  *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
@@ -236,16 +236,13 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
      * Returns the maximum length a table alias can have.
      *
      * Returns the configured supported identifier length supported by
-     * PostgreSQL, or report the default of 63 on PostgreSQL 7.x.
+     * PostgreSQL.
      *
      * @return integer  The maximum table alias length.
      */
     public function tableAliasLength()
     {
-        if ($this->postgresqlVersion() >= 80000) {
-            return (int)$this->selectValue('SHOW max_identifier_length');
-        }
-        return 63;
+        return (int)$this->selectValue('SHOW max_identifier_length');
     }
 
     /**
@@ -255,12 +252,7 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
      */
     public function tables()
     {
-        $schemas = array();
-        foreach (explode(',', $this->getSchemaSearchPath()) as $p) {
-            $schemas[] = $this->quote($p);
-        }
-
-        return $this->selectValues('SELECT tablename FROM pg_tables WHERE schemaname IN (' . implode(',', $schemas) . ')');
+        return $this->selectValues('SELECT table_name FROM information_schema.tables WHERE table_schema = ANY (CURRENT_SCHEMAS(false));');
     }
 
     /**
@@ -301,10 +293,6 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
         $indexes = @unserialize($this->cacheRead("tables/indexes/$tableName"));
 
         if (!$indexes) {
-            $schemas = array();
-            foreach (explode(',', $this->getSchemaSearchPath()) as $p) {
-                $schemas[] = $this->quote($p);
-            }
 
             $sql = "
               SELECT distinct i.relname, d.indisunique, a.attname
@@ -314,7 +302,7 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
                  AND d.indisprimary = 'f'
                  AND t.oid = d.indrelid
                  AND t.relname = " . $this->quote($tableName) . "
-                 AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname IN (" . implode(',', $schemas) . ") )
+                 AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY(CURRENT_SCHEMAS(false)))
                  AND a.attrelid = t.oid
                  AND (d.indkey[0] = a.attnum OR d.indkey[1] = a.attnum
                    OR d.indkey[2] = a.attnum OR d.indkey[3] = a.attnum
@@ -583,13 +571,11 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
                            $this->quoteColumnName($columnName),
                            $this->quoteSequenceName($seq_name));
             $this->execute($sql);
-            if ($this->postgresqlVersion() >= 80200) {
-                $sql = sprintf('ALTER SEQUENCE %s OWNED BY %s.%s',
-                               $seq_name,
-                               $this->quoteTableName($tableName),
-                               $this->quoteColumnName($columnName));
-                $this->execute($sql);
-            }
+            $sql = sprintf('ALTER SEQUENCE %s OWNED BY %s.%s',
+                           $seq_name,
+                           $this->quoteTableName($tableName),
+                           $this->quoteColumnName($columnName));
+            $this->execute($sql);
         } elseif (array_key_exists('default', $options)) {
             $this->changeColumnDefault($tableName, $columnName,
                                        $options['default']);
@@ -751,16 +737,7 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
      */
     public function dropDatabase($name)
     {
-        if ($this->postgresqlVersion() >= 80200) {
-            return $this->execute('DROP DATABASE IF EXISTS ' . $this->quoteTableName($name));
-        }
-        try {
-            return $this->execute('DROP DATABASE ' . $this->quoteTableName($name));
-        } catch (Horde_Db_Exception $e) {
-            if ($this->_logger) {
-                $this->_logger->warn("$name database doesn't exist");
-            }
-        }
+        return $this->execute('DROP DATABASE IF EXISTS ' . $this->quoteTableName($name));
     }
 
     /**
@@ -1005,19 +982,6 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
             $this->execute('SET search_path TO ' . $schemaCsv);
             $this->_schemaSearchPath = $schemaCsv;
         }
-    }
-
-    /**
-     * Returns the active schema search path.
-     *
-     * @return string  The active schema search path.
-     */
-    public function getSchemaSearchPath()
-    {
-        if (!$this->_schemaSearchPath) {
-            $this->_schemaSearchPath = $this->selectValue('SHOW search_path');
-        }
-        return $this->_schemaSearchPath;
     }
 
     /**

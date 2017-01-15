@@ -5,13 +5,13 @@
  * This file defines Horde's core API interface. Other core Horde libraries
  * can interact with Horde through this API.
  *
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL-2). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl.
  *
  * @category  Horde
- * @copyright 2010-2015 Horde LLC
+ * @copyright 2010-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl LGPL-2
  * @package   Horde
  */
@@ -24,7 +24,7 @@ class Horde_Application extends Horde_Registry_Application
 {
     /**
      */
-    public $version = '5.3.0-git';
+    public $version = '6.0.0-git';
 
     /**
      */
@@ -125,10 +125,6 @@ class Horde_Application extends Horde_Registry_Application
             return array(
                 'Google' => 'Google',
                 'Bing' => 'Bing',
-                'Cloudmade' => 'CloudMade',
-                // @TODO: API has evidently changed somewhat. Disable until
-                // I can get an API key to fully test.
-                'Mytopo' => 'MyTopo',
                 'Osm' => 'OpenStreetMap',
                 'Ocm' => 'OpenCycleMap',
                 'Mapquest' => 'OpenMapquest'
@@ -242,10 +238,10 @@ class Horde_Application extends Horde_Registry_Application
             'title' => _("Password Complexity"),
             'type' => 'enum',
             'params' => array(array(
-                false => '',
-                0 => _("Allow only numeric"),
-                1 => _("Allow alphanumeric"),
-                2 => _("Allow any"))
+                '' => '',
+                '0' => _("Allow only numeric"),
+                '1' => _("Allow alphanumeric"),
+                '2' => _("Allow any"))
             )
         );
 
@@ -331,13 +327,13 @@ class Horde_Application extends Horde_Registry_Application
                 'title' => _("Maximum Email age"),
                 'type' => 'enum',
                 'params' => array(array(
-                    false => '',
-                    0 => _("Sync all"),
-                    1 => _("1 Day"),
-                    2 => _("3 Days"),
-                    3 => _("1 Week"),
-                    4 => _("2 Weeks"),
-                    5 => _("1 Month"))
+                    '' => '',
+                    '0' => _("Sync all"),
+                    '1' => _("1 Day"),
+                    '2' => _("3 Days"),
+                    '3' => _("1 Week"),
+                    '4' => _("2 Weeks"),
+                    '5' => _("1 Month"))
                 )
             );
             $permissions[$prefix . Horde_ActiveSync_Policies::POLICY_ROAMING_NOPUSH] = array(

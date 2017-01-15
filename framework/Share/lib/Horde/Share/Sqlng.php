@@ -3,7 +3,7 @@
  * Horde_Share_Sqlng provides the next-generation SQL backend driver for the
  * Horde_Share library.
  *
- * Copyright 2011-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -110,7 +110,7 @@ class Horde_Share_Sqlng extends Horde_Share_Sql
             $sortfield = 'attribute_' . $params['sort_by'];
         }
         $where = $this->_getShareCriteria($userid, $perms, $params['attributes'], $shareids, $params['parent'], $params['all_levels']);
-        $query = 'SELECT DISTINCT * FROM ' . $this->_table . ' s ' .
+        $query = 'SELECT ' . $this->_getDistinctClause() . ' FROM ' . $this->_table . ' s ' .
             (!empty($where) ? ' WHERE ' . $where : '')
             . ' ORDER BY ' . $sortfield
             . (($params['direction'] == 0) ? ' ASC' : ' DESC');
@@ -118,17 +118,22 @@ class Horde_Share_Sqlng extends Horde_Share_Sql
         $query = $this->_db->addLimitOffset($query, array('limit' => $params['count'], 'offset' => $params['from']));
 
         try {
-            $rows = $this->_db->selectAll($query);
+            $rows = $this->_db->select($query);
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Share_Exception($e);
         }
 
         $sharelist = array();
+        $shares = array();
         foreach ($rows as $share) {
-            $share = $this->_fromDriverCharset($share);
+            $shares[(int)$share['share_id']] = $this->_fromDriverCharset($share);
+        }
+        $this->_fetchClobFields($shares);
+        foreach ($shares as $share) {
             $this->_loadPermissions($share);
             $sharelist[$share['share_name']] = $this->_createObject($share);
         }
+        unset($shares);
 
         // Run the results through the callback, if configured.
         if (!empty($this->_callbacks['list'])) {
@@ -137,6 +142,32 @@ class Horde_Share_Sqlng extends Horde_Share_Sql
         $this->_listcache[$key] = $sharelist;
 
         return $this->_listcache[$key];
+    }
+
+    /**
+     * Returns an array of all system shares.
+     *
+     * @return array  All system shares.
+     * @throws Horde_Share_Exception
+     */
+    public function listSystemShares()
+    {
+        $query = 'SELECT * FROM ' . $this->_table . ' WHERE share_owner IS NULL';
+        try {
+            $rows = $this->_db->select($query);
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Share_Exception($e->getMessage());
+        }
+
+        $sharelist = array();
+        foreach ($rows as $share) {
+            $this->_convertClobs($share);
+            $data = $this->_fromDriverCharset($share);
+            $this->_loadPermissions($data);
+            $sharelist[$data['share_name']] = $this->_createObject($data);
+        }
+
+        return $sharelist;
     }
 
     /**
@@ -329,7 +360,7 @@ class Horde_Share_Sqlng extends Horde_Share_Sql
             . '_users WHERE user_uid = ' .  $this->_db->quote($userid)
             . ' AND (' . $this->_getPermsCriteria('perm', $perms) . ')';
         try {
-            $users = $this->_db->selectAll($query);
+            $users = $this->_db->select($query);
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Share_Exception($e->getMessage());
         }
@@ -351,7 +382,7 @@ class Horde_Share_Sqlng extends Horde_Share_Sql
                     . implode(',', $group_ids) . ') AND ('
                     . $this->_getPermsCriteria('perm', $perms) . ')';
                 try {
-                    $groups = $this->_db->selectAll($query);
+                    $groups = $this->_db->select($query);
                 } catch (Horde_Db_Exception $e) {
                     throw new Horde_Share_Exception($e->getMessage());
                 }

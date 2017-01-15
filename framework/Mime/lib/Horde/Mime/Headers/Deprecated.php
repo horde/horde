@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2014-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2014-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category  Horde
- * @copyright 2014-2015 Horde LLC
+ * @copyright 2014-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Mime
  */
@@ -17,7 +17,7 @@
  * @author     Michael Slusarz <slusarz@horde.org>
  * @deprecated
  * @category   Horde
- * @copyright  2014-2015 Horde LLC
+ * @copyright  2014-2016 Horde LLC
  * @internal
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package    Mime
@@ -135,13 +135,15 @@ class Horde_Mime_Headers_Deprecated
             $server_name = 'unknown';
         }
 
+        $is_ssl = isset($_SERVER['HTTPS']) &&
+                 $_SERVER['HTTPS'] != 'off';
 
         $this->_headers->addHeaderOb(new Horde_Mime_Headers_Element_Multiple(
             'Received',
             'from ' . $remote . ' (' . $remote_ident .
             '[' . $remote_addr . ']) ' .
-            'by ' . $server_name . ' (Horde Framework) with HTTP; ' .
-            date('r')
+            'by ' . $server_name . ' (Horde Framework) with HTTP' .
+            ($is_ssl ? 'S' : '') . '; ' . date('r')
         ));
     }
 

@@ -1,8 +1,9 @@
 <?php
 /**
- * The basic handler for data objects in a Kolab storage folder.
+ * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
  *
- * PHP version 5
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Kolab
  * @package  Kolab_Storage
@@ -14,10 +15,7 @@
 /**
  * The basic handler for data objects in a Kolab storage folder.
  *
- * Copyright 2011-2015 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * @todo Clean up _attachments mess.
  *
  * @category Kolab
  * @package  Kolab_Storage
@@ -33,42 +31,49 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
      *
      * @var Horde_Kolab_Storage_Folder
      */
-    private $_folder;
+    protected $_folder;
 
     /**
      * The driver for accessing the Kolab storage system.
      *
      * @var Horde_Kolab_Storage_Driver
      */
-    private $_driver;
+    protected $_driver;
 
     /**
      * The factory for generating additional resources.
      *
      * @var Horde_Kolab_Storage_Factory
      */
-    private $_factory;
+    protected $_factory;
 
     /**
      * The folder type.
      *
      * @var string
      */
-    private $_type;
+    protected $_type;
 
     /**
      * The version of the data.
      *
      * @var int
      */
-    private $_version;
+    protected $_version;
 
     /**
      * The list of registered queries.
      *
      * @var array
      */
-    private $_queries = array();
+    protected $_queries = array();
+
+    /**
+     * Logger instance, or stub.
+     *
+     * @var Horde_Log_Logger | Horde_Support_Stub
+     */
+    protected $_logger;
 
     /**
      * Constructor.
@@ -93,6 +98,11 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
         $this->_factory = $factory;
         $this->_type    = $type;
         $this->_version = $version;
+    }
+
+    public function setLogger(Horde_Log_Logger $logger)
+    {
+        $this->_logger = $logger;
     }
 
     /**
@@ -174,12 +184,31 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
     /**
      * Report the status of this folder.
      *
+     * @param Horde_Kolab_Storage_Folder_Stamp $previous  The previous stamp,
+     *                                                    if available.
+     *
      * @return Horde_Kolab_Storage_Folder_Stamp The stamp that can be used for
      *                                          detecting folder changes.
      */
-    public function getStamp()
+    public function getStamp(Horde_Kolab_Storage_Folder_Stamp $previous = null)
     {
-        return $this->_driver->getStamp($this->_folder->getPath());
+        if (empty($previous) || $previous->getToken() === false) {
+            $this->_logger->debug('[KOLAB_STORAGE] Fetching stamp without token.');
+            return $this->_driver->getStamp($this->_folder->getPath());
+        }
+
+        try {
+            $this->_logger->debug('[KOLAB_STORAGE] Fetching stamp WITH token.');
+            return $this->_driver->getStampFromToken(
+                $this->_folder->getPath(),
+                $previous->getToken(),
+                $previous->ids()
+            );
+        } catch (Horde_Kolab_Storage_Exception $e) {
+            // Possibly not supported with the current IMAP driver.
+            $this->_logger->debug('[KOLAB_STORAGE] Attempted to fetch stamp with token, but backend did not support.');
+            return $this->_driver->getStamp($this->_folder->getPath());
+        }
     }
 
     /**
@@ -208,6 +237,9 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
         $storage_object = new Horde_Kolab_Storage_Object();
         $storage_object->setDriver($this->_driver);
         $storage_object->setData($object);
+        if (empty($object['uid'])) {
+            $object['uid'] = $storage_object->getUid();
+        }
         $result = $storage_object->create($this->_folder, $writer, $this->getType());
 
         if ($result === true) {
@@ -291,7 +323,7 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
         }
         $object['_attachments'] = $attachments;
 
-        if (!$object instanceOf Horde_Kolab_Storage_Object) {
+        if (!$object instanceof Horde_Kolab_Storage_Object) {
             $object_array = $object;
             $object = $oldObject;
             $object->setData($object_array);
@@ -356,6 +388,7 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
      *                      the parsed data.
      *
      * @return array An array of objects.
+     * @throws new Horde_Kolab_Storage_Exception
      */
     public function fetch($uids, $raw = false)
     {
@@ -394,6 +427,7 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
      * @param string $object_uid The object ID.
      *
      * @return string The backend ID for the object.
+     * @throws new Horde_Kolab_Storage_Exception
      */
     public function getBackendId($object_id)
     {
@@ -428,6 +462,7 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
      * @param string $object_id The object id.
      *
      * @return array The object data as an array.
+     * @throws new Horde_Kolab_Storage_Exception
      */
     public function getObject($object_id)
     {
@@ -568,8 +603,6 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
      *
      * @param string $object_id  ID of the message to be moved.
      * @param string $new_folder Target folder.
-     *
-     * @return NULL
      */
     public function move($object_id, $new_folder)
     {
@@ -597,11 +630,13 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
      * Delete the specified objects from this data set.
      *
      * @param array|string $object_ids Id(s) of the object to be deleted.
-     *
-     * @return NULL
      */
     public function delete($object_ids)
     {
+        // Short circuit empty collections.
+        if (empty($object_ids)) {
+            return;
+        }
         if (!is_array($object_ids)) {
             $object_ids = array($object_ids);
         }
@@ -629,8 +664,6 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
 
     /**
      * Delete all objects from this data set.
-     *
-     * @return NULL
      */
     public function deleteAll()
     {
@@ -641,8 +674,6 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
      * Delete the specified messages from this folder.
      *
      * @param array|string $uids Backend id(s) of the message to be deleted.
-     *
-     * @return NULL
      */
     public function deleteBackendIds($uids)
     {
@@ -659,15 +690,16 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
      * @param string                    $name  The query name.
      * @param Horde_Kolab_Storage_Query $query The query to register.
      *
-     * @return NULL
+     * @throws new Horde_Kolab_Storage_Exception
      */
     public function registerQuery($name, Horde_Kolab_Storage_Query $query)
     {
-        if (!$query instanceOf Horde_Kolab_Storage_Data_Query) {
+        if (!$query instanceof Horde_Kolab_Storage_Data_Query) {
             throw new Horde_Kolab_Storage_Exception(
                 'The provided query is no data query.'
             );
         }
+        $query->setLogger($this->_logger);
         $this->_queries[$name] = $query;
     }
 
@@ -675,8 +707,6 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
      * Synchronize the data information with the information from the backend.
      *
      * @param array $params Additional parameters.
-     *
-     * @return NULL
      */
     public function synchronize($params = array())
     {

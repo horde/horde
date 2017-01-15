@@ -2,7 +2,7 @@
 /**
  * Imple to attach the spellchecker to an HTML element.
  *
- * Copyright 2005-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -22,7 +22,7 @@ class Horde_Core_Ajax_Imple_SpellChecker extends Horde_Core_Ajax_Imple
      */
     public function __construct(array $params = array())
     {
-        global $registry;
+        global $language, $registry;
 
         if (!isset($params['targetId'])) {
             $params['targetId'] = strval(new Horde_Support_Randomid());
@@ -36,6 +36,7 @@ class Horde_Core_Ajax_Imple_SpellChecker extends Horde_Core_Ajax_Imple
             foreach ($key_list as $lcode) {
                 $params['locales'][] = array(
                     'l' => $registry->nlsconfig->languages[$lcode],
+                    's' => $lcode == $language,
                     'v' => $lcode
                 );
             }

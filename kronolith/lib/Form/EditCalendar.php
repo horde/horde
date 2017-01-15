@@ -79,6 +79,11 @@ class Kronolith_Form_EditCalendar extends Horde_Form
             Kronolith::ALL_CALENDARS,
             $calendar->getName()
         );
+
+        if (!$calendarObject) {
+            throw new Horde_Exception_NotFound();
+        }
+
         $url = $registry->get('webroot', 'horde');
         if (isset($conf['urls']['pretty']) &&
             $conf['urls']['pretty'] == 'rewrite') {
@@ -90,17 +95,14 @@ class Kronolith_Form_EditCalendar extends Horde_Form
         }
         $caldavUrl = $calendarObject->caldavUrl();
         if ($caldavUrl) {
-            $accountParts = array(
-                Horde::url($accountUrl, true, -1) . 'principals',
-                $registry->convertUsername($registry->getAuth(), false),
-                ''
-            );
+            $user = $registry->convertUsername($registry->getAuth(), false);
             try {
-                $accountUrl = $injector->getInstance('Horde_Core_Hooks')
-                    ->callHook('caldav_url', 'kronolith', $accountParts);
+                $user = $injector->getInstance('Horde_Core_Hooks')
+                    ->callHook('davusername', 'horde', array($user, false));
             } catch (Horde_Exception_HookNotSet $e) {
-                $accountUrl = implode('/', $accountParts);
             }
+            $accountUrl = Horde::url($accountUrl, true, -1)
+                . 'principals/' . $user;
             $this->addVariable(
                  _("CalDAV Subscription URL"), '', 'link', false, false, null,
                  array(array(
@@ -120,11 +122,18 @@ class Kronolith_Form_EditCalendar extends Horde_Form
                  )
             );
         }
-        $webdavUrl = Horde::url($webdavUrl, true, -1)
-            . ($calendar->get('owner')
-               ? $registry->convertUsername($calendar->get('owner'), false)
-               : '-system-')
-            . '/' . $calendar->getName() . '.ics';
+        $webdavUrl = Horde::url($webdavUrl, true, -1);
+        if ($calendar->get('owner')) {
+            $user = $registry->convertUsername($calendar->get('owner'), false);
+            try {
+                $user = $injector->getInstance('Horde_Core_Hooks')
+                    ->callHook('davusername', 'horde', array($user, false));
+            } catch (Horde_Exception_HookNotSet $e) {
+            }
+        } else {
+            $webdavUrl .= '-system-';
+        }
+        $webdavUrl .= '/' . $calendar->getName() . '.ics';
         $this->addVariable(
              _("WebDAV/ICS Subscription URL"), '', 'link', false, false, null,
              array(array(

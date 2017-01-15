@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category  Horde
- * @copyright 2002-2015 Horde LLC
+ * @copyright 2002-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Crypt
  */
@@ -19,7 +19,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2002-2015 Horde LLC
+ * @copyright 2002-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Crypt
  * @since     2.4.0
@@ -58,15 +58,24 @@ class Horde_Crypt_Pgp_Keyserver
      *   - port: (integer) The public PGP keyserver port.
      * </pre>
      */
-    public function __construct(Horde_Crypt_Pgp $pgp, array $params = array())
+    public function __construct($pgp, array $params = array())
     {
         $this->_pgp = $pgp;
-        $this->_http = (isset($params['http']) && ($params['http'] instanceof Horde_Http_Client))
-            ? $params['http']
-            : new Horde_Http_Client();
+        if (isset($params['http'])) {
+            if (!($params['http'] instanceof Horde_Http_Client)) {
+                throw new InvalidArgumentException('Argument is not a Horde_Http_Client instance');
+            }
+            $this->_http = $params['http'];
+        } else {
+            $this->_http = new Horde_Http_Client();
+        }
+        /* There is a broken key server software that returns HTML content
+         * instead of plain text on arbitrary criteria. A User-Agent header is
+         * one of those. */
+        $this->_http->{'request.userAgent'} = '';
         $this->_keyserver = isset($params['keyserver'])
             ? $params['keyserver']
-            : 'pool.sks-keyservers.net';
+            : 'http://pool.sks-keyservers.net';
         $this->_keyserver .= ':' . (isset($params['port']) ? $params['port'] : '11371');
     }
 
@@ -157,10 +166,25 @@ class Horde_Crypt_Pgp_Keyserver
             'search' => $address
         ));
 
-        try {
-            $output = $this->_http->get($url)->getBody();
-        } catch (Horde_Http_Exception $e) {
-            throw new Horde_Crypt_Exception($e);
+        // Some keyservers are broken, third time's a charm.
+        $output = null;
+        for ($i = 0; $i < 3; $i++) {
+            try {
+                $response = $this->_http->get($url);
+                // Some keyservers return HTML, try again.
+                if (strpos($response->getHeader('Content-Type'), 'text/plain') !== 0) {
+                    continue;
+                }
+                $output = $response->getBody();
+            } catch (Horde_Http_Exception $e) {
+                throw new Horde_Crypt_Exception($e);
+            }
+        }
+
+        if (!$output) {
+            throw new Horde_Crypt_Exception(
+                Horde_Crypt_Translation::t("Could not obtain public key from the keyserver.")
+            );
         }
 
         if (strpos($output, '-----BEGIN PGP PUBLIC KEY BLOCK') !== false) {

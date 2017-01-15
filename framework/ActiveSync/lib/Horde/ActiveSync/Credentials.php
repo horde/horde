@@ -7,7 +7,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2009-2015 Horde LLC (http://www.horde.org)
+ * @copyright 2009-2017 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -19,7 +19,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2009-2015 Horde LLC (http://www.horde.org)
+ * @copyright 2009-2017 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  * @internal  Not intended for use outside of the ActiveSync library.
@@ -55,13 +55,19 @@ class Horde_ActiveSync_Credentials
         $this->_credentials = $this->_getCredentials();
     }
 
+    /**
+     * Accessor
+     *
+     * @return string|boolean  The value of the requested property, or false
+     *                         if it does not exist.
+     */
     public function __get($property)
     {
         switch ($property) {
         case 'username':
-            return $this->_credentials[0];
+            return !empty($this->_credentials[0]) ? $this->_credentials[0] : false;
         case 'password':
-            return $this->_credentials[1];
+            return !empty($this->_credentials[1]) ? $this->_credentials[1] : false;
         }
     }
 
@@ -86,13 +92,17 @@ class Horde_ActiveSync_Credentials
         $user = $pass = '';
         $serverVars = $this->_server->request->getServerVars();
         if (!empty($serverVars['PHP_AUTH_PW'])) {
+            // Standard case, PHP was passed the needed authentication info.
             $user = $serverVars['PHP_AUTH_USER'];
             $pass = $serverVars['PHP_AUTH_PW'];
-        } elseif (!empty($serverVars['HTTP_AUTHORIZATION']) || !empty($serverVars['Authorization'])) {
-            // Some clients use the non-standard 'Authorization' header.
+        } elseif (!empty($serverVars['HTTP_AUTHORIZATION']) ||
+                  !empty($serverVars['REDIRECT_HTTP_AUTHORIZATION']) ||
+                  !empty($serverVars['Authorization'])) {
             $authorization = !empty($serverVars['HTTP_AUTHORIZATION'])
                 ? $serverVars['HTTP_AUTHORIZATION']
-                : $serverVars['Authorization'];
+                : (!empty($serverVars['REDIRECT_HTTP_AUTHORIZATION'])
+                     ? $serverVars['REDIRECT_HTTP_AUTHORIZATION']
+                     : $serverVars['Authorization']);
             $hash = base64_decode(str_replace('Basic ', '', $authorization));
             if (strpos($hash, ':') !== false) {
                 list($user, $pass) = explode(':', $hash, 2);

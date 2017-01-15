@@ -22,23 +22,23 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-06-25</date>
+ <date>2016-11-09</date>
  <version>
-  <release>3.0.3</release>
-  <api>3.0.0</api>
+  <release>4.0.0</release>
+  <api>4.0.0</api>
  </version>
  <stability>
-  <release>stable</release>
-  <api>stable</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Update Polish translation (Maciej Uhlig &lt;maciej.uhlig@us.edu.pl&gt;).
-* [jan] Make shares table compatible with Oracle.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="config">
+    <file name=".htaccess" role="horde" />
     <file name="backends.php" role="horde" />
     <file name="conf.xml" role="horde" />
     <file name="menu.php.dist" role="horde" />
@@ -74,6 +74,7 @@
       <file name="Columnselect.php" role="horde" />
      </dir> <!-- /lib/Prefs/Special -->
     </dir> <!-- /lib/Prefs -->
+    <file name=".htaccess" role="horde" />
     <file name="Api.php" role="horde" />
     <file name="Application.php" role="horde" />
     <file name="Auth.php" role="horde" />
@@ -114,6 +115,12 @@
      </dir> <!-- /locale/de/LC_MESSAGES -->
      <file name="help.xml" role="horde" />
     </dir> <!-- /locale/de -->
+    <dir name="el">
+     <dir name="LC_MESSAGES">
+      <file name="gollem.mo" role="horde" />
+      <file name="gollem.po" role="horde" />
+     </dir> <!-- /locale/el/LC_MESSAGES -->
+    </dir> <!-- /locale/el -->
     <dir name="en">
      <file name="help.xml" role="horde" />
     </dir> <!-- /locale/en -->
@@ -271,6 +278,7 @@
     <file name="3_gollem_upgrade_parents.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="templates">
+    <file name=".htaccess" role="horde" />
     <file name="clipboard.html.php" role="horde" />
     <file name="edit.html.php" role="horde" />
     <file name="manager.html.php" role="horde" />
@@ -468,6 +476,7 @@
    <install as="gollem/selectlist.php" name="selectlist.php" />
    <install as="gollem/share.php" name="share.php" />
    <install as="gollem/view.php" name="view.php" />
+   <install as="gollem/config/.htaccess" name="config/.htaccess" />
    <install as="gollem/config/backends.php" name="config/backends.php" />
    <install as="gollem/config/conf.xml" name="config/conf.xml" />
    <install as="gollem/config/menu.php.dist" name="config/menu.php.dist" />
@@ -482,6 +491,7 @@
    <install as="gollem/js/login.js" name="js/login.js" />
    <install as="gollem/js/manager.js" name="js/manager.js" />
    <install as="gollem/js/selectlist.js" name="js/selectlist.js" />
+   <install as="gollem/lib/.htaccess" name="lib/.htaccess" />
    <install as="gollem/lib/Api.php" name="lib/Api.php" />
    <install as="gollem/lib/Application.php" name="lib/Application.php" />
    <install as="gollem/lib/Auth.php" name="lib/Auth.php" />
@@ -507,6 +517,8 @@
    <install as="gollem/locale/de/help.xml" name="locale/de/help.xml" />
    <install as="gollem/locale/de/LC_MESSAGES/gollem.mo" name="locale/de/LC_MESSAGES/gollem.mo" />
    <install as="gollem/locale/de/LC_MESSAGES/gollem.po" name="locale/de/LC_MESSAGES/gollem.po" />
+   <install as="gollem/locale/el/LC_MESSAGES/gollem.mo" name="locale/el/LC_MESSAGES/gollem.mo" />
+   <install as="gollem/locale/el/LC_MESSAGES/gollem.po" name="locale/el/LC_MESSAGES/gollem.po" />
    <install as="gollem/locale/en/help.xml" name="locale/en/help.xml" />
    <install as="gollem/locale/es/help.xml" name="locale/es/help.xml" />
    <install as="gollem/locale/es/LC_MESSAGES/gollem.mo" name="locale/es/LC_MESSAGES/gollem.mo" />
@@ -564,6 +576,7 @@
    <install as="gollem/migration/1_gollem_base_tables.php" name="migration/1_gollem_base_tables.php" />
    <install as="gollem/migration/2_gollem_upgrade_autoincrement.php" name="migration/2_gollem_upgrade_autoincrement.php" />
    <install as="gollem/migration/3_gollem_upgrade_parents.php" name="migration/3_gollem_upgrade_parents.php" />
+   <install as="gollem/templates/.htaccess" name="templates/.htaccess" />
    <install as="gollem/templates/clipboard.html.php" name="templates/clipboard.html.php" />
    <install as="gollem/templates/edit.html.php" name="templates/edit.html.php" />
    <install as="gollem/templates/manager.html.php" name="templates/manager.html.php" />
@@ -798,7 +811,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-06-25</date>
+   <date>2013-06-12</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Update Danish translation (Erling Preben Hansen &lt;erling@eph.dk&gt;).
@@ -811,11 +824,121 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-06-12</date>
+   <date>2014-08-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Update Polish translation (Maciej Uhlig &lt;maciej.uhlig@us.edu.pl&gt;).
 * [jan] Make shares table compatible with Oracle.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.4</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-08-01</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Update Italian translation.
+* [jan] Update Catalan translation.
+* [jan] Update Czech translation (Michael Grafnetter &lt;michael.grafnetter@outlook.com&gt;).
+* [jan] Update German translation.
+* [jan] Update Hungarian translation.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.5</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-08-06</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] SECURITY: Fix XSS vulnerability when viewing directory contents (Discovered by http://www.beyondsecurity.com/ssd.html).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.6</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-10-21</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Update Italian translation.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.7</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-02-02</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Use access rules compatible with both Apache 2.2 and 2.4.
+* [jan] Fix fatal error when cutting and pasting files on the same backend.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.8</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-03-21</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Add Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.9</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-07-01</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Update Portuguese translation.
+* [jan] Update Basque translation.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.10</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-07-01</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+*
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.0</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2016-11-09</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+*
    </notes>
   </release>
  </changelog>

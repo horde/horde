@@ -7,7 +7,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2012-2015 Horde LLC (http://www.horde.org)
+ * @copyright 2012-2017 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  * @since 2.19.0
@@ -21,7 +21,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2012-2015 Horde LLC (http://www.horde.org)
+ * @copyright 2012-2017 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  * @since 2.19.0
@@ -50,6 +50,11 @@ class Horde_ActiveSync_Mime
     public function __construct(Horde_Mime_Part $mime)
     {
         $this->_base = $mime;
+    }
+
+    public function __destruct()
+    {
+        $this->_base = null;
     }
 
     /**
@@ -117,6 +122,7 @@ class Horde_ActiveSync_Mime
      * @param string $mime_type  The MIME type.
      *
      * @return boolean  True if an attachment.
+     * @todo Pass a single mime part as parameter.
      */
     public function isAttachment($id, $mime_type)
     {
@@ -134,6 +140,10 @@ class Horde_ActiveSync_Mime
         case 'application/pkcs7-signature':
         case 'application/x-pkcs7-signature':
             return false;
+        }
+
+        if ($this->_base->getPart($id)->getDisposition() == 'attachment') {
+            return true;
         }
 
         list($ptype,) = explode('/', $mime_type, 2);
@@ -226,6 +236,35 @@ class Horde_ActiveSync_Mime
                 return true;
             }
         }
+    }
+
+    /**
+     * Finds the main "body" text part (if any) in a message. "Body" data is the
+     * first text part under this part. Considers only body data that should
+     * be displayed as the main body on an EAS client. I.e., this ignores any
+     * text parts contained withing "attachment" parts such as messages/rfc822
+     * attachments.
+     *
+     * @param string $subtype  Specifically search for this subtype.
+     *
+     * @return mixed  The MIME ID of the main body part, or null if a body
+     *                part is not found.
+     */
+    public function findBody($subtype = null)
+    {
+        $this->buildMimeIds();
+        $iterator = new Horde_ActiveSync_Mime_Iterator($this->_base, true);
+        foreach ($iterator as $val) {
+            $id = $val->getMimeId();
+            if (($val->getPrimaryType() == 'text') &&
+                ((intval($id) === 1) || !$this->getMimeId()) &&
+                (is_null($subtype) || ($val->getSubType() == $subtype)) &&
+                !$this->isAttachment($id, $val->getType())) {
+                return $id;
+            }
+        }
+
+        return null;
     }
 
 }

@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
- * @copyright 2002-2015 Horde LLC
+ * @copyright 2002-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   Passwd
  */
@@ -38,7 +38,7 @@ require_once HORDE_BASE . '/lib/core.php';
  * @author    Eric Rostetter <eric.rostetter@physics.utexas.edu>
  * @author    Ben Klang <ben@alkaloid.net>
  * @category  Horde
- * @copyright 2002-2015 Horde LLC
+ * @copyright 2002-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   Passwd
  */
@@ -47,5 +47,5 @@ class Passwd_Application extends Horde_Registry_Application
     /**
      * The version of passwd as shown in the admin view
      */
-    public $version = 'H5 (5.0.2-git)';
+    public $version = 'H5 (6.0.0-git)';
 }

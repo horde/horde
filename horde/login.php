@@ -11,7 +11,7 @@
  *                    constant).
  *   - url: The url to redirect to after auth.
  *
- * Copyright 1999-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL-2). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl.
@@ -279,12 +279,14 @@ if (!empty($conf['auth']['alternate_login'])) {
 if (!$is_auth && !$prefs->isLocked('language')) {
     $langs = array();
     foreach ($registry->nlsconfig->languages as $key => $val) {
-        $langs[] = array(
-            'sel' => ($key == $GLOBALS['language']),
-            'val' => $key,
-            // Language names are already encoded.
-            'name' => $val
-        );
+        if ($registry->nlsconfig->validLang($key)) {
+            $langs[] = array(
+                'sel' => ($key == $GLOBALS['language']),
+                'val' => $key,
+                // Language names are already encoded.
+                'name' => $val
+            );
+        }
     }
 }
 
@@ -375,6 +377,12 @@ if ($browser->isMobile() &&
     $view->loginurl = $loginurl;
     $view->title = $title;
     $view->url = $vars->url;
+    try {
+        $view->motd = $registry
+            ->loadConfigFile('motd.php', 'motd', 'horde')
+            ->config['motd'];
+    } catch (Horde_Exception $e) {
+    }
 
     if ($browser->hasFeature('ajax')) {
         $page_output->addScriptFile('smartmobile-login.js', 'horde');

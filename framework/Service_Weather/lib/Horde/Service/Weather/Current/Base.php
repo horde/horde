@@ -3,7 +3,7 @@
  * This file contains the Horde_Service_Weather_Current_Base class for
  * abstracting access to current observations.
  *
- * Copyright 2011-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
  *
  * @author   Michael J Rubinsky <mrubinsk@horde.org>
  * @license  http://www.horde.org/licenses/bsd BSD
@@ -27,7 +27,8 @@
  * @property string heat_index        Heat index.
  * @property string temp              The temperature.
  * @property string icon              Icon name to represent conditions.
- * @property string condition         The condition string.
+ * @property string condition         The condition string (for BC).
+ * @property string conditions        The condition string.
  * @property string humidity          The humidity.
  * @property string wind              Full wind description string.
  * @property string icon_url          Url to icon.

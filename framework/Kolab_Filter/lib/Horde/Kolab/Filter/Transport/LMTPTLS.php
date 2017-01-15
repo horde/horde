@@ -6,7 +6,7 @@
 /**
  * Extended LMTP class with support for TLS.
  *
- * Copyright 2008-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -61,7 +61,7 @@ class Net_LMTP_TLS extends Net_LMTP {
                 return $method;
             }
         } else {
-            $method = strtoupper($method);
+            $method = Horde_String::upper($method);
         }
 
         switch ($method) {

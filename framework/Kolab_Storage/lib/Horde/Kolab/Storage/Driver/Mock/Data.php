@@ -14,7 +14,7 @@
 /**
  * Data storage for the mock driver.
  *
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -342,10 +342,12 @@ implements ArrayAccess
         $this->select($folder);
         if (isset($this->_selected['mails'][$uid]['parts'][$id])) {
             if (isset($this->_selected['mails'][$uid]['parts'][$id]['file'])) {
-                return fopen(
+                $stream = fopen(
                     $this->_selected['mails'][$uid]['parts'][$id]['file'],
                     'r'
                 );
+                stream_filter_append($stream, 'convert.quoted-printable-decode');
+                return $stream;
             }
         } elseif (isset($this->_selected['mails'][$uid]['stream'])) {
             rewind($this->_selected['mails'][$uid]['stream']);
@@ -423,4 +425,5 @@ implements ArrayAccess
             unset($this->_selected['mails'][$uid]);
         }
     }
+
 }

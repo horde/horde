@@ -2,7 +2,7 @@
 /**
  * @package Hermes
  *
- * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -39,7 +39,7 @@ class Hermes_Form_Export extends Horde_Form
         if ($perms->hasPermission('hermes:review', $GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             $yesno = array('yes' => _("Yes"),
                            'no' => _("No"));
-            $var = &$this->addVariable(_("Mark the time as exported?"),
+            $var = $this->addVariable(_("Mark the time as exported?"),
                                        'mark_exported', 'enum', true, false,
                                        null, array($yesno));
             $var->setDefault('no');

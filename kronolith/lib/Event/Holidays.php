@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2006-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2006-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -72,9 +72,11 @@ class Kronolith_Event_Holidays extends Kronolith_Event
     /**
      * Return this events title.
      *
+     * @param string $user  The current user.
+     *
      * @return string The title of this event
      */
-    public function getTitle()
+    public function getTitle($user = null)
     {
         return $this->title;
     }

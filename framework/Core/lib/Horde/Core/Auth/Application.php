@@ -1,12 +1,20 @@
 <?php
 /**
- * The Horde_Core_Auth_Application class provides application-specific
- * authentication built on top of the horde/Auth API.
- *
- * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, see http://opensource.org/licenses/lgpl-2.1.php
+ *
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://opensource.org/licenses/lgpl-2.1.php LGPL
+ * @package  Core
+ */
+
+/**
+ * The Horde_Core_Auth_Application class provides application-specific
+ * authentication built on top of the horde/Auth API.
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Michael Slusarz <slusarz@horde.org>
@@ -116,6 +124,10 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
      */
     public function authenticate($userId, $credentials, $login = true)
     {
+        if (!strlen($credentials['password'])) {
+            return false;
+        }
+
         try {
             list($userId, $credentials) = $this->runHook(trim($userId), $credentials, 'preauthenticate', 'authenticate');
          } catch (Horde_Auth_Exception $e) {
@@ -216,8 +228,6 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
         }
 
         if ($this->hasCapability('lock')) {
-            $GLOBALS['registry']->callAppMethod($this->_app, 'authLockUser', array('args' => array($userId, $time)));
-        } else {
             parent::lockUser($userId, $time);
         }
     }
@@ -238,8 +248,6 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
         }
 
         if ($this->hasCapability('lock')) {
-            $GLOBALS['registry']->callAppMethod($this->_app, 'authUnlockUser', array('args' => array($userId, $resetBadLogins)));
-        } else {
             parent::unlockUser($userId, $resetBadLogins);
         }
     }
@@ -259,8 +267,6 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
         }
 
         if ($this->hasCapability('lock')) {
-            return $GLOBALS['registry']->callAppMethod($this->_app, 'authIsLocked', array('args' => array($userId, $show_details)));
-        } else {
             return parent::isLocked($userId, $show_details);
         }
     }
@@ -322,6 +328,26 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
         return $this->hasCapability('list')
             ? $GLOBALS['registry']->callAppMethod($this->_app, 'authUserList')
             : parent::listUsers($sort);
+    }
+
+    /**
+     * List all users in the system with their real names.
+     *
+     * @since Horde_Core 2.23.0
+     *
+     * @return array  The array of user IDs as keys and names as values.
+     * @throws Horde_Auth_Exception
+     */
+    public function listNames()
+    {
+        $factory = $GLOBALS['injector']
+            ->getInstance('Horde_Core_Factory_Identity');
+        $names = array();
+        foreach ($this->listUsers() as $user) {
+            $names[$user] = $factory->create($user)->getName();
+        }
+        asort($names);
+        return $names;
     }
 
     /**
@@ -413,13 +439,13 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
         }
         // The follow capabilities are not determined by the Application,
         // but by 'Horde'.
-        if (in_array(strtolower($capability), array('badlogincount', 'lock'))) {
+        if (in_array(Horde_String::lower($capability), array('badlogincount', 'lock'))) {
             return parent::hasCapability($capability);
         } elseif (!isset($this->_appCapabilities)) {
             $this->_appCapabilities = $GLOBALS['registry']->getApiInstance($this->_app, 'application')->auth;
         }
 
-        return in_array(strtolower($capability), $this->_appCapabilities);
+        return in_array(Horde_String::lower($capability), $this->_appCapabilities);
     }
 
     /**

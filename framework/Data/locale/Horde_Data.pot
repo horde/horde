@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Data\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-11-12 14:05+0100\n"
+"POT-Creation-Date: 2015-12-28 17:25+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,11 +29,11 @@ msgstr ""
 msgid "TSV file"
 msgstr ""
 
-#: lib/Horde/Data/Base.php:317
+#: lib/Horde/Data/Base.php:324
 msgid "The file contained no data."
 msgstr ""
 
-#: lib/Horde/Data/Base.php:378
+#: lib/Horde/Data/Base.php:385
 msgid "The uploaded data was lost since the previous step."
 msgstr ""
 
@@ -45,12 +45,12 @@ msgstr ""
 msgid "There was an error importing the iCalendar data."
 msgstr ""
 
-#: lib/Horde/Data/Base.php:137
+#: lib/Horde/Data/Base.php:144
 #, php-format
 msgid "URL %s not found"
 msgstr ""
 
-#: lib/Horde/Data/Base.php:324
+#: lib/Horde/Data/Base.php:331
 msgid ""
 "You didn\\'t map any fields from the imported file to the corresponding "
 "fields."

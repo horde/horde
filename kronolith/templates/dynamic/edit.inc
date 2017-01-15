@@ -11,6 +11,7 @@
 <input id="kronolithEventRecurOEnd" type="hidden" name="rend" />
 <input type="hidden" name="isajax" value="1" />
 <input type="hidden" id="kronolithEventSendUpdates" name="sendupdates" value="0" />
+<input type="hidden" id="kronolithEventOrganizer" name="organizer" />
 
 <div id="kronolithEventDiv">
 <div id="kronolithEventEditRecur" style="display:none;">
@@ -66,8 +67,8 @@
     <label for="kronolithEventTimezone"><?php echo _("Timezone") ?>:</label>
     <select name="timezone" id="kronolithEventTimezone" tabindex="7">
       <option value=""><?php echo _("Default") ?></option>
-      <?php foreach (Horde_Nls::getTimezones() as $timezone): ?>
-      <option value="<?php echo $timezone ?>"><?php echo $timezone ?></option>
+      <?php foreach (Horde_Nls::getTimezonesWithAbbreviations() as $label => $timezone): ?>
+      <option value="<?php echo $timezone ?>"><?php echo $label ?></option>
       <?php endforeach ?>
     </select>
   </p>
@@ -82,6 +83,7 @@
       <option value="<?php echo Kronolith::STATUS_CONFIRMED ?>" selected="selected"><?php echo _("Confirmed") ?></option>
       <option value="<?php echo Kronolith::STATUS_CANCELLED ?>"><?php echo _("Cancelled") ?></option>
     </select>
+    <span id="kronolithEventStatusText"></span>
     &nbsp;
     <label for="kronolithEventLocation"><?php echo _("Location") ?>:</label>
     <input type="text" name="location" id="kronolithEventLocation" size="25" tabindex="9" />
@@ -90,6 +92,18 @@
       &nbsp;<span><a href="#" class="kronolithEventGeo"><?php echo _("Find in Maps") ?></a></span>&nbsp;<span id="kronolithEventGeo_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
     </span>
     <?php endif; ?>
+  </p>
+</div>
+
+<div id="kronolithEventAttend" style="display:none">
+  <p>
+    <label for="kronolithEventAttendance"><?php echo _("Update attendance to") ?>:</label>
+    <select name="attendance" id="kronolithEventAttendance" tabindex="8">
+      <option value="<?php echo Kronolith::RESPONSE_NONE ?>" selected="selected"><?php echo _("None") ?></option>
+      <option value="<?php echo Kronolith::RESPONSE_TENTATIVE ?>"><?php echo _("Tentative") ?></option>
+      <option value="<?php echo Kronolith::RESPONSE_ACCEPTED ?>"><?php echo _("Accepted") ?></option>
+      <option value="<?php echo Kronolith::RESPONSE_DECLINED ?>"><?php echo _("Declined") ?></option>
+    </select>
   </p>
 </div>
 
@@ -110,7 +124,7 @@
     <li><a href="#" class="kronolithTabLink" id="kronolithEventLinkRecur"><?php echo _("Repeat") ?></a></li>
     <li><a href="#" class="kronolithTabLink" id="kronolithEventLinkUrl"><?php echo _("URL") ?></a></li>
     <li><a href="#" class="kronolithTabLink" id="kronolithEventLinkAttendees"><?php echo _("Attendees") ?></a></li>
-    <?php if (!empty($GLOBALS['conf']['resource']['driver']) && count(Kronolith::getDriver('Resource')->listResources())):?>
+    <?php if (!empty($GLOBALS['conf']['resources']['enabled']) && count(Kronolith::getDriver('Resource')->listResources())):?>
     <li><a href="#" class="kronolithTabLink" id="kronolithEventLinkResources"><?php echo _("Resources") ?></a></li>
     <?php endif; ?>
     <li><a href="#" class="kronolithTabLink" id="kronolithEventLinkTags"><?php echo _("Tags") ?></a></li>
@@ -118,6 +132,8 @@
     <li><a href="#" class="kronolithTabLink" id="kronolithEventLinkMap"><?php echo _("Map") ?></a></li>
     <?php endif; ?>
     <li><a href="#" class="kronolithTabLink" id="kronolithEventLinkExport"><?php echo _("Export") ?></a></li>
+    <li><a href="#" class="kronolithTabLink" id="kronolithEventLinkOther"><?php echo _("Information") ?></a></li>
+    <li><a href="#" class="kronolithTabLink" id="kronolithEventLinkFiles"><?php echo _("Files") ?></a></li>
   </ul>
 </div>
 <br class="clear" />
@@ -151,6 +167,7 @@
 </div>
 
 <div id="kronolithEventTabRecur" class="kronolithTabsOption" style="display:none">
+  <input type="hidden" id="kronolithEventExceptions" name="exceptions" />
   <p id="kronolithEventRepeatType" style="display:none">
     <?php printf(_("%s Don't repeat %s or repeat %s daily, %s weekly, %s monthly %s or %s yearly %s"),
     '<label for="kronolithEventLinkNone"><input type="radio" name="recur" value="' . Horde_Date_Recurrence::RECUR_NONE . '" checked="checked" id="kronolithEventLinkNone" />', '</label>',
@@ -179,12 +196,14 @@
     <label><input type="checkbox" name="weekly[]" value="' . Horde_Date::MASK_SUNDAY . '" /> ' . Horde_String::substr(_("Sunday"), 0, 3) . '</label>') ?>
   </p>
   <p id="kronolithEventRepeatMonthly" style="display:none">
-    <?php printf(_("Repeat %s every month %s or %s every %s months, %s on the same %s date %s or %s weekday %s"),
+    <?php printf(_("Repeat %s every month %s or %s every %s months, %s on the same %s date %s or %s weekday %s %s or %s last weekday %s"),
     '<label><input type="radio" name="recur_monthly" value="1" checked="checked" />', '</label>',
     '<label><input type="radio" name="recur_monthly" value="0" />', '</label>
     <label><input type="text" size="3" name="recur_monthly_interval" value="" class="kronolithEventValue" />', '</label>',
     '<label><input type="radio" name="recur_monthly_scheme" value="' . Horde_Date_Recurrence::RECUR_MONTHLY_DATE . '" />', '</label>',
-    '<label><input type="radio" name="recur_monthly_scheme" value="' . Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY . '" />', '</label>') ?>
+    '<label><input type="radio" name="recur_monthly_scheme" value="' . Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY . '" />', '</label>',
+    '<span id="kronolithEventRepeatMonthlyLastWD">',
+    '<label><input type="radio" name="recur_monthly_scheme" value="' . Horde_Date_Recurrence::RECUR_MONTHLY_LAST_WEEKDAY . '" />', '</label></span>') ?>
   </p>
   <p id="kronolithEventRepeatYearly" style="display:none">
     <?php printf(_("Repeat %s every year %s or %s every %s years %s on the same %s date %s day of the year %s month and weekday %s"),
@@ -215,7 +234,12 @@
 </div>
 
 <div id="kronolithEventTabAttendees" class="kronolithTabsOption" style="display:none">
-  <label for="kronolithEventAttendees"><?php echo _("Add attendees e-mail addresses") ?>:</label> <span class="kronolithSeparator">&mdash; <?php echo _("separate e-mail addresses with a comma") ?></span><br />
+  <label for="kronolithEventUsers"><?php echo _("Add users") ?>:</label>
+  <span class="kronolithSeparator">&mdash; <?php echo _("separate users with a comma") ?></span>
+  <br />
+  <input id="kronolithEventUsers" name="users" />
+  <span id="kronolithEventUsers_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
+  <label for="kronolithEventAttendees"><?php echo _("Add attendees' e-mail addresses or names") ?>:</label> <span class="kronolithSeparator">&mdash; <?php echo _("separate e-mail addresses with a comma") ?></span><br />
   <input id="kronolithEventAttendees" name="attendees" />
   <span id="kronolithEventAttendees_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
   <br class="clear" />
@@ -300,6 +324,16 @@
   </p>
   <p class="kronolithDialogInfo"><?php echo _("This event can be saved as a timeslice in your timesheet.")?></p>
   <?php endif;?>
+</div>
+
+<div id="kronolithEventTabOther" class="kronolithTabsOption" style="display:none">
+  <p><strong><?php echo _("Created: ") ?></strong><span id="kronolithEventOtherCreated"></span></p>
+  <p><strong><?php echo _("Last modified: ") ?></strong><span id="kronolithEventOtherModified"></span></p>
+</div>
+
+<div id="kronolithEventTabFiles" class="kronolithTabsOption" style="display:none">
+  <input type="file" size="30" name="kronolithEventFile" id="kronolithEventFile" /><input type="button" id="kronolithEventFileUpload" class="horde-default" value="<?php echo _("Upload") ?>" />
+  <div id="kronolithEventFileList"></div>
 </div>
 
 <div class="kronolithFormActions">

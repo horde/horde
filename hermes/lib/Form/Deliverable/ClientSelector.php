@@ -2,7 +2,7 @@
 /**
  * DeliverableClientSelector - Form for selecting client on deliverables screen
  *
- * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -18,7 +18,7 @@ class Hermes_Form_Deliverable_ClientSelector extends Horde_Form
         $action = &Horde_Form_Action::factory('submit');
         list($clienttype, $clientparams) = $this->getClientType();
 
-        $cli = &$this->addVariable(_("Client"), 'client_id', $clienttype, true, false, null, $clientparams);
+        $cli = $this->addVariable(_("Client"), 'client_id', $clienttype, true, false, null, $clientparams);
         $cli->setAction($action);
         $this->setButtons(_("Edit Deliverables"));
     }

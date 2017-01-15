@@ -2,7 +2,7 @@
 /**
  * Nag driver classes for the Kolab IMAP server.
  *
- * Copyright 2004-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -43,16 +43,18 @@ class Nag_Driver_Kolab extends Nag_Driver
     /**
      * Return the Kolab data handler for the current tasklist.
      *
+     * @param boolean $force  Force returning a new handler
+     *
      * @return Horde_Kolab_Storage_Data The data handler.
      */
-    protected function _getData()
+    protected function _getData($force = false)
     {
         if (empty($this->_tasklist)) {
             throw new Nag_Exception(
                 'The tasklist has been left undefined but is required!'
             );
         }
-        if ($this->_data === null) {
+        if ($this->_data === null || $force) {
             $this->_data = $this->_getDataForTasklist($this->_tasklist);
         }
         return $this->_data;
@@ -95,7 +97,48 @@ class Nag_Driver_Kolab extends Nag_Driver
     }
 
     /**
+     * Detect if a string is already Horde_Url::uriB64Encode()'ed or not.
+     *
+     * @param string $s  The string to test.
+     *
+     * @return  boolean  True if $s was base64 encoded.
+     * @todo  This will be removed in Horde 6.
+     */
+    public function _isBase64EncodedUid($s)
+    {
+         // Redo stuff possibly done by Horde_Url::uriB64Encode()
+        $data = str_replace(array('-', '_'), array('+', '/'), $s);
+        $mod4 = strlen($data) % 4;
+        if ($mod4) {
+            $data .= substr('====', $mod4);
+        }
+        if (!preg_match('/^[a-zA-Z0-9\/\r\n+]*={0,2}$/', $data)) {
+            return false;
+        }
+
+         // Decode the string in strict mode and check the results
+        $decoded = base64_decode($data, true);
+        if ($decoded === false) {
+            return false;
+        }
+
+        // Check if the decoded string resembles a uid hash...
+        if (!preg_match('/^[a-zA-Z0-9-]+$/', $decoded)) {
+            return false;
+        }
+
+         // Encode the string again for a final sanity check.
+        if (base64_encode($decoded) != $data) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
      * Build a task based a data array
+     *
+     * @todo Use 'organizer' but migrate old format.
      *
      * @param array  $task     The data for the task
      *
@@ -103,13 +146,22 @@ class Nag_Driver_Kolab extends Nag_Driver
      */
     protected function _buildTask($task)
     {
+         // This decoding of parent ID hashes is required because of a
+         // previous bug in Nag_Driver_Kolab.
+         // See Bug: 14197
+        $parent_uid = $task['parent'];
+        if (!empty($parent_uid) && $this->_isBase64EncodedUid($parent_uid)) {
+            $parent_uid = Horde_Url::uriB64Decode($parent_uid);
+        }
+
         $result = array(
             'task_id' => Horde_Url::uriB64Encode($task['uid']),
             'uid' => $task['uid'],
             'name' => $task['summary'],
             'desc' => $task['body'],
             'priority' => $task['priority'],
-            'parent' => $task['parent'],
+            // parent is keyed to internal id, not UID.
+            'parent' => Horde_Url::uriB64Encode($parent_uid),
             'alarm' => $task['alarm'],
             'completed' => !empty($task['completed']),
             'completed_date' => $task['completed_date'],
@@ -156,19 +208,19 @@ class Nag_Driver_Kolab extends Nag_Driver
 
 
     /**
-     * Retrieves one or multiple tasks from the database by UID.
+     * Retrieves one task from the database by UID.
      *
-     * @param string|array $uid  The UID(s) of the task to retrieve.
-     * @param array $tasklists   An optional array of tasklists to search.
-     * @param boolean $getall    If true, return all instances of the task,
-     *                           otherwise only one. Attempts to find the
-     *                           instance owned by the current user.
+     * @param string $uid       The UID of the task to retrieve.
+     * @param array $tasklists  An optional array of tasklists to search.
+     * @param boolean $getall   If true, return all instances of the task,
+     *                          otherwise only one. Attempts to find the
+     *                          instance owned by the current user.
      *
      * @return Nag_Task  A Nag_Task object.
      * @throws Horde_Exception_NotFound
      * @throws Nag_Exception
      */
-    public function getByUID($uids, array $tasklists = null, $getall = true)
+    public function getByUID($uid, array $tasklists = null, $getall = true)
     {
         if (!is_array($tasklists)) {
             $tasklists = array_keys(Nag::listTasklists(false, Horde_Perms::READ, false));
@@ -176,7 +228,12 @@ class Nag_Driver_Kolab extends Nag_Driver
 
         $results = array();
         foreach ($tasklists as $tasklist) {
+            // Must clear the data if the tasklist changed.
+            if ($tasklist != $this->_tasklist) {
+                $this->_data = null;
+            }
             $this->_tasklist = $tasklist;
+
             try {
                 $results[] = $this->get(Horde_Url::uriB64Encode($uid));
             } catch (Horde_Exception_NotFound $e) {
@@ -216,28 +273,39 @@ class Nag_Driver_Kolab extends Nag_Driver
     }
 
     /**
+     * Sets the currently open tasklist.
+     *
+     * @param  string $tasklist  The tasklist.
+     */
+    public function open($tasklist)
+    {
+        if ($this->_tasklist != $tasklist) {
+            $this->_data = null;
+        }
+        parent::open($tasklist);
+    }
+
+    /**
      * Adds a task to the backend storage.
      *
      * @param array $task  A hash with the following possible properties:
-     *     - name: (string) The name (short) of the task.
+     *     - alarm: (integer) The alarm associated with the task.
+     *     - assignee: (string) The assignee of the event.
+     *     - completed: (integer) The completion state of the task.
      *     - desc: (string) The description (long) of the task.
-     *     - start: (OPTIONAL, integer) The start date of the task.
-     *     - due: (OPTIONAL, integer) The due date of the task.
-     *     - priority: (OPTIONAL, integer) The priority of the task.
-     *     - estimate: (OPTIONAL, float) The estimated time to complete the
-     *                 task.
-     *     - completed: (OPTIONAL, integer) The completion state of the task.
-     *     - tags: (OPTIONAL, string) The tags of the task.
-     *     - alarm: (OPTIONAL, integer) The alarm associated with the task.
-     *     - methods: (OPTIONAL, array) The overridden alarm notification
-     *                methods.
-     *     - uid: (OPTIONAL, string) A Unique Identifier for the task.
-     *     - parent: (OPTIONAL, string) The parent task.
-     *     - private: (OPTIONAL, boolean) Whether the task is private.
-     *     - owner: (OPTIONAL, string) The owner of the event.
-     *     - assignee: (OPTIONAL, string) The assignee of the event.
-     *     - recurrence: (OPTIONAL, Horde_Date_Recurrence|array) Recurrence
-     *                   information.
+     *     - due: (integer) The due date of the task.
+     *     - estimate: (float) The estimated time to complete the task.
+     *     - methods: (array) The overridden alarm notification methods.
+     *     - name: (string) The name (short) of the task.
+     *     - organizer: (string) The organizer/owner of the task.
+     *     - owner: (string) The owner of the event.
+     *     - parent: (string) The parent task.
+     *     - priority: (integer) The priority of the task.
+     *     - private: (boolean) Whether the task is private.
+     *     - recurrence: (Horde_Date_Recurrence|array) Recurrence information.
+     *     - start: (integer) The start date of the task.
+     *     - tags: (array) The task tags.
+     *     - uid: (string) A Unique Identifier for the task.
      *
      * @return string  The Nag ID of the new task.
      * @throws Nag_Exception
@@ -245,9 +313,10 @@ class Nag_Driver_Kolab extends Nag_Driver
     protected function _add(array $task)
     {
         $object = $this->_getObject($task);
-        $object['uid'] = $this->_getData()->generateUid(); 
+        $object['uid'] = $this->_getData()->generateUid();
         try {
             $this->_getData()->create($object);
+            $task['uid'] = $object['uid'];
             $this->_addTags($task);
         } catch (Horde_Kolab_Storage_Exception $e) {
             throw new Nag_Exception($e);
@@ -260,30 +329,28 @@ class Nag_Driver_Kolab extends Nag_Driver
      *
      * @param string $taskId  The task to modify.
      * @param array $properties  A hash with the following possible properties:
-     *     - id: (string) The task to modify.
-     *     - name: (string) The name (short) of the task.
+     *     - actual: (float) The actual number of hours accumulated.
+     *     - alarm: (integer) The alarm associated with the task.
+     *     - assignee: (string) The assignee of the event.
+     *     - completed: (integer) The completion state of the task.
+     *     - completed_date: (integer) The task's completion date.
      *     - desc: (string) The description (long) of the task.
-     *     - start: (OPTIONAL, integer) The start date of the task.
-     *     - due: (OPTIONAL, integer) The due date of the task.
-     *     - priority: (OPTIONAL, integer) The priority of the task.
-     *     - estimate: (OPTIONAL, float) The estimated time to complete the
-     *                 task.
-     *     - completed: (OPTIONAL, integer) The completion state of the task.
-     *     - tags: (OPTIONAL, string) The tags of the task.
-     *     - alarm: (OPTIONAL, integer) The alarm associated with the task.
-     *     - methods: (OPTIONAL, array) The overridden alarm notification
-     *                methods.
-     *     - uid: (OPTIONAL, string) A Unique Identifier for the task.
-     *     - parent: (OPTIONAL, string) The parent task.
-     *     - private: (OPTIONAL, boolean) Whether the task is private.
-     *     - owner: (OPTIONAL, string) The owner of the event.
-     *     - assignee: (OPTIONAL, string) The assignee of the event.
-     *     - completed_date: (OPTIONAL, integer) The task's completion date.
-     *     - recurrence: (OPTIONAL, Horde_Date_Recurrence|array) Recurrence
-     *                   information.
+     *     - due: (integer) The due date of the task.
+     *     - estimate: (float) The estimated time to complete the task.
+     *     - methods: (array) The overridden alarm notification methods.
+     *     - name: (string) The name (short) of the task.
+     *     - organizer: (string) The organizer/owner of the task.
+     *     - owner: (string) The owner of the event.
+     *     - parent: (string) The parent task.
+     *     - priority: (integer) The priority of the task.
+     *     - private: (boolean) Whether the task is private.
+     *     - recurrence: (Horde_Date_Recurrence|array) Recurrence information.
+     *     - start: (integer) The start date of the task.
+     *     - tags: (array) The task tags.
      */
     protected function _modify($taskId, array $task)
     {
+        $this->synchronize();
         $object = $this->_getObject($task);
         $object['uid'] = Horde_Url::uriB64Decode($taskId);
         try {
@@ -297,27 +364,27 @@ class Nag_Driver_Kolab extends Nag_Driver
     /**
      * Retrieve the Kolab object representations for the task.
      *
+     * @todo Use 'organizer' but migrate old format.
+     *
      * @param array $task  A hash with the following possible properties:
-     *     - name: (string) The name (short) of the task.
+     *     - actual: (float) The actual number of hours accumulated.
+     *     - alarm: (integer) The alarm associated with the task.
+     *     - assignee: (string) The assignee of the event.
+     *     - completed: (integer) The completion state of the task.
+     *     - completed_date: (integer) The task's completion date.
      *     - desc: (string) The description (long) of the task.
-     *     - start: (OPTIONAL, integer) The start date of the task.
-     *     - due: (OPTIONAL, integer) The due date of the task.
-     *     - priority: (OPTIONAL, integer) The priority of the task.
-     *     - estimate: (OPTIONAL, float) The estimated time to complete the
-     *                 task.
-     *     - completed: (OPTIONAL, integer) The completion state of the task.
-     *     - tags: (OPTIONAL, string) The tags of the task.
-     *     - alarm: (OPTIONAL, integer) The alarm associated with the task.
-     *     - methods: (OPTIONAL, array) The overridden alarm notification
-     *                methods.
-     *     - uid: (OPTIONAL, string) A Unique Identifier for the task.
-     *     - parent: (OPTIONAL, string) The parent task.
-     *     - private: (OPTIONAL, boolean) Whether the task is private.
-     *     - owner: (OPTIONAL, string) The owner of the event.
-     *     - assignee: (OPTIONAL, string) The assignee of the event.
-     *     - completed_date: (OPTIONAL, integer) The task's completion date.
-     *     - recurrence: (OPTIONAL, Horde_Date_Recurrence|array) Recurrence
-     *                   information.
+     *     - due: (integer) The due date of the task.
+     *     - estimate: (float) The estimated time to complete the task.
+     *     - methods: (array) The overridden alarm notification methods.
+     *     - name: (string) The name (short) of the task.
+     *     - organizer: (string) The organizer/owner of the task.
+     *     - owner: (string) The owner of the event.
+     *     - parent: (string) The parent task.
+     *     - priority: (integer) The priority of the task.
+     *     - private: (boolean) Whether the task is private.
+     *     - recurrence: (Horde_Date_Recurrence|array) Recurrence information.
+     *     - start: (integer) The start date of the task.
+     *     - tags: (array) The task tags.
      *
      * @return array The Kolab object.
      */
@@ -326,9 +393,9 @@ class Nag_Driver_Kolab extends Nag_Driver
         $object = array(
             'summary' => $task['name'],
             'body' => $task['desc'],
-            //@todo: Match Horde/Kolab priority values
             'priority' => $task['priority'],
-            'parent' => $task['parent'],
+            // Kolab's parent field is UID, Nag's parent is id.
+            'parent' => Horde_Url::uriB64Decode($task['parent']),
         );
         if (!empty($task['start'])) {
             $object['start-date'] = new DateTime('@' . $task['start']);
@@ -360,6 +427,9 @@ class Nag_Driver_Kolab extends Nag_Driver
         if ($task['estimate'] !== 0.0) {
             $object['horde-estimate'] = number_format((float)$task['estimate'], 2);
         }
+        if ($task['actual'] !== 0.0) {
+            $object['horde-actual'] = number_format((float)$task['actual'], 2);
+        }
         if ($task['methods'] !== null) {
             $object['horde-alarm-methods'] = serialize($task['methods']);
         }
@@ -390,6 +460,7 @@ class Nag_Driver_Kolab extends Nag_Driver
      */
     protected function _move($taskId, $newTasklist)
     {
+        $this->synchronize();
         $this->_getData()->move(
             Horde_Url::uriB64Decode($taskId),
             $GLOBALS['nag_shares']->getShare($newTasklist)->get('folder')
@@ -404,6 +475,7 @@ class Nag_Driver_Kolab extends Nag_Driver
      */
     protected function _delete($taskId)
     {
+        $this->synchronize();
         $this->_getData()->delete(Horde_Url::uriB64Decode($taskId));
     }
 
@@ -414,6 +486,7 @@ class Nag_Driver_Kolab extends Nag_Driver
      */
     protected function _deleteAll()
     {
+        $this->synchronize();
         $this->retrieve();
         $this->tasks->reset();
         $ids = array();
@@ -456,7 +529,7 @@ class Nag_Driver_Kolab extends Nag_Driver
             switch ($completed) {
             case Nag::VIEW_INCOMPLETE:
                 if ($complete) {
-                    continue;
+                    continue 2;
                 }
                 if ($start && $t->recurs() &&
                     ($completions = $t->recurrence->getCompletions())) {
@@ -472,18 +545,18 @@ class Nag_Driver_Kolab extends Nag_Driver
                         ->nextRecurrence($lastCompletion)
                         ->timestamp();
                     if ($start > $_SERVER['REQUEST_TIME']) {
-                        continue;
+                        continue 2;
                     }
                 }
                 break;
             case Nag::VIEW_COMPLETE:
                 if (!$complete) {
-                    continue;
+                    continue 2;
                 }
                 break;
             case Nag::VIEW_FUTURE:
                 if ($complete || $start == 0) {
-                    continue;
+                    continue 2;
                 }
                 if ($start && $t->recurs() &&
                     ($completions = $t->recurrence->getCompletions())) {
@@ -499,13 +572,13 @@ class Nag_Driver_Kolab extends Nag_Driver
                         ->nextRecurrence($lastCompletion)
                         ->timestamp();
                     if ($start < $_SERVER['REQUEST_TIME']) {
-                        continue;
+                        continue 2;
                     }
                 }
                 break;
             case Nag::VIEW_FUTURE_INCOMPLETE:
                 if ($complete) {
-                    continue;
+                    continue 2;
                 }
                 break;
             }
@@ -559,11 +632,15 @@ class Nag_Driver_Kolab extends Nag_Driver
     /**
      * Retrieves sub-tasks from the database.
      *
-     * @param string $parentId  The parent id for the sub-tasks to retrieve.
+     * @param string $parentId          The parent id for the sub-tasks to
+     *                                  retrieve.
+     * @param boolean $include_history  Include created/modified info? Not
+     *                                  currently honored.
      *
      * @return array  List of sub-tasks.
+     * @throws Nag_Exception
      */
-    public function getChildren($parentId)
+    public function getChildren($parentId, $include_history = true)
     {
         $task_list = $this->_getData()->getObjects();
         if (empty($task_list)) {
@@ -584,4 +661,21 @@ class Nag_Driver_Kolab extends Nag_Driver
 
         return $tasks;
     }
+
+    /**
+     * Synchronize with the Kolab backend.
+     *
+     * @param mixed  $token  A value indicating the last synchronization point,
+     *                       if available.
+     */
+    public function synchronize($token = false)
+    {
+        $data = $this->_getData(true);
+        $last_token = $GLOBALS['session']->get('nag', 'kolab/token/' . $this->_tasklist);
+        if (empty($token) || empty($last_token) || $last_token != $token) {
+            $GLOBALS['session']->set('nag', 'kolab/token/' . $this->_tasklist, $token);
+            $data->synchronize();
+        }
+    }
+
 }

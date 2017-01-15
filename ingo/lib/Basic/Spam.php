@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @category  Horde
- * @copyright 2002-2015 Horde LLC
+ * @copyright 2002-2017 Horde LLC
  * @license   http://www.horde.org/licenses/apache ASL
  * @package   Ingo
  */
@@ -18,7 +18,7 @@
  * @author    Jan Schneider <jan@horde.org>
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2002-2015 Horde LLC
+ * @copyright 2002-2017 Horde LLC
  * @license   http://www.horde.org/licenses/apache ASL
  * @package   Ingo
  */
@@ -73,7 +73,8 @@ class Ingo_Basic_Spam extends Ingo_Basic_Base
                 }
                 $ingo_storage->updateRule($spam);
                 $notification->push($notify, 'horde.success');
-                Ingo_Script_Util::update();
+
+                $injector->getInstance('Ingo_Factory_Script')->activateAll();
             } catch (Ingo_Exception $e) {
                 $notification->push($e);
             }
@@ -101,7 +102,8 @@ class Ingo_Basic_Spam extends Ingo_Basic_Base
         $this->header = _("Spam Filtering");
 
         Horde::startBuffer();
-        $form->renderActive($renderer, $this->vars, self::url(), 'post');
+        Horde_Util::pformInput();
+        $form->renderActive($renderer, $this->vars, self::url(array('append_session' => -1)), 'post');
         $this->output = Horde::endBuffer();
     }
 
@@ -109,35 +111,10 @@ class Ingo_Basic_Spam extends Ingo_Basic_Base
      */
     public static function url(array $opts = array())
     {
-        return Horde::url('basic.php')->add('page', 'spam');
-    }
-
-}
-
-
-/**
- * Dummy class to hold the select box created by {@link Ingo_Flist::select()}.
- *
- * @see Horde_Core_Ui_VarRenderer_Ingo
- * @see Ingo_Flist::select()
- */
-class Horde_Form_Type_ingo_folders extends Horde_Form_Type {
-
-    var $_folder;
-
-    function isValid(&$var, &$vars, $value, &$message)
-    {
-        return true;
-    }
-
-    function getFolder()
-    {
-        return $this->_folder;
-    }
-
-    function setFolder($folder)
-    {
-        $this->_folder = $folder;
+        if (empty($opts['append_session'])) {
+            $opts['append_session'] = 0;
+        }
+        return Horde::url('basic.php', true, array('append_session' => $opts['append_session']))->add('page', 'spam');
     }
 
 }

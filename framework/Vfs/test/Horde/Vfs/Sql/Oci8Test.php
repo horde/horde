@@ -5,7 +5,7 @@
 require_once __DIR__ . '/Base.php';
 
 /**
- * Copyright 2014-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2014-2017 Horde LLC (http://www.horde.org/)
  *
  * @author     Jan Schneider <jan@horde.org>
  * @category   Horde
@@ -30,5 +30,13 @@ class Horde_Vfs_Sql_Oci8Test extends Horde_Vfs_Test_Sql_Base
         } else {
             self::$reason = 'No oci8 configuration';
         }
+    }
+
+    public function testWriteLargeData()
+    {
+        // Write twice to test both INSERT and UPDATE.
+        self::$vfs->writeData('', 'large', str_repeat('x', 4001));
+        self::$vfs->writeData('', 'large', str_repeat('x', 4001));
+        self::$vfs->deleteFile('', 'large');
     }
 }

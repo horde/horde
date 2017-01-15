@@ -2,7 +2,7 @@
 /**
  * VFS API for abstracted file storage and access.
  *
- * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -532,6 +532,8 @@ abstract class Horde_Vfs_Base
 
     /**
      * Returns a file list of the directory passed in.
+     *
+     * @todo Move all but $path to an $opts argument.
      *
      * @param string $path          The path of the directory.
      * @param string|array $filter  Regular expression(s) to filter

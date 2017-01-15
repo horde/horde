@@ -4,7 +4,7 @@
  *
  * This file defines information about Horde bundles.
  *
- * Copyright 2011-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
  *
  * @author  Jan Schneider <jan@horde.org>
  * @package groupware
@@ -19,7 +19,7 @@ class Horde_Bundle extends Horde_Core_Bundle
     /**
      * The bundle version.
      */
-    const VERSION = '5.1.4-git';
+    const VERSION = '6.0.0-git';
 
     /**
      * The bundle descriptive name.

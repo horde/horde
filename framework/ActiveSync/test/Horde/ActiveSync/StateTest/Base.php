@@ -142,16 +142,19 @@ class Horde_ActiveSync_StateTest_Base extends Horde_Test_Case
             '@Contacts@' => array(
                 'class' => 'Contacts',
                 'serverid' => '@Contacts@',
+                'type' => 9
             ),
             '519422f1-4c5c-4547-946a-1701c0a8015f' => array(
                 'class' => 'Email',
-                'serverid' => 'INBOX'
+                'serverid' => 'INBOX',
+                'type' => 2
             )
         );
         $this->assertEquals($expected, $cache->getFolders());
         $expected = array(
             'class' => 'Email',
-            'serverid' => 'INBOX'
+            'serverid' => 'INBOX',
+            'type' => 2
         );
         $this->assertEquals($expected, $cache->getFolder('519422f1-4c5c-4547-946a-1701c0a8015f'));
         $cache->save();
@@ -172,16 +175,19 @@ class Horde_ActiveSync_StateTest_Base extends Horde_Test_Case
             '@Contacts@' => array(
                 'class' => 'Contacts',
                 'serverid' => '@Contacts@',
+                'type' => 9
             ),
             '519422f1-4c5c-4547-946a-1701c0a8015f' => array(
                 'class' => 'Email',
-                'serverid' => 'INBOX'
+                'serverid' => 'INBOX',
+                'type' => 2
             )
         );
         $this->assertEquals($expected, $cache->getFolders());
         $expected = array(
             'class' => 'Email',
-            'serverid' => 'INBOX'
+            'serverid' => 'INBOX',
+            'type' => 2
         );
         $this->assertEquals($expected, $cache->getFolder('519422f1-4c5c-4547-946a-1701c0a8015f'));
     }
@@ -284,7 +290,8 @@ class Horde_ActiveSync_StateTest_Base extends Horde_Test_Case
             ),
             'filtertype' => 5,
             'id' => '519422f1-4c5c-4547-946a-1701c0a8015f',
-            'serverid' => 'INBOX'));
+            'serverid' => 'INBOX',
+            'type' => 2));
         $cache->validateCollectionsFromCache($collections);
         $this->assertEquals($expected, $collections);
     }
@@ -434,7 +441,7 @@ class Horde_ActiveSync_StateTest_Base extends Horde_Test_Case
 
     protected function _testPartialSyncWithOnlyChangedHbInterval()
     {
-        $this->markTestSkipped('No idea why the cache does not load the collections here.');
+        $this->markTestIncomplete('No idea why the cache does not load the collections here.');
         $collections = $this->getCollectionHandler();
         $collections->loadCollectionsFromCache();
         $collections->setHeartbeat(array('hbinterval' => 1));
@@ -492,8 +499,6 @@ class Horde_ActiveSync_StateTest_Base extends Horde_Test_Case
         );
         $collections->addCollection($col);
         $collections->initPartialSync();
-        $this->assertEquals(1, $collections->collectionCount());
-        $collections->getMissingCollectionsFromCache();
         $this->assertEquals(2, $collections->collectionCount());
     }
 

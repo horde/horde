@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2009-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -15,7 +15,7 @@
  *
  * @author    Michael J. Rubinsky <mrubinsk@horde.org>
  * @category  Horde
- * @copyright 2009-2015 Horde LLC
+ * @copyright 2009-2017 Horde LLC
  * @package   Image
  */
 abstract class Horde_Image_Exif_Base
@@ -34,7 +34,8 @@ abstract class Horde_Image_Exif_Base
 
     /**
      *
-     * @param $params
+     * @param array $params  Parameter array:
+     *        - logger: Horde_Log_Logger  Logger instance.
      */
     public function __construct($params = array())
     {
@@ -46,9 +47,11 @@ abstract class Horde_Image_Exif_Base
     }
 
     /**
+     * Process the EXIF data.
      *
-     * @param $exif
-     * @return unknown_type
+     * @param array $exif  Array of EXIF data.
+     *
+     * @return array  An array of processed EXIF data.
      */
     protected function _processData($exif)
     {
@@ -120,6 +123,17 @@ abstract class Horde_Image_Exif_Base
             return 0;
         }
 
+        if (strpos($data[0], '/') !== false) {
+            $degrees = explode('/', $data[0]);
+            if (count($degrees) > 1) {
+                $degrees = $degrees[0] / $degrees[1];
+            } else {
+                $degrees = $degrees[0];
+            }
+        } else {
+            $degrees = $data[0];
+        }
+
         if (strpos($data[1], '/') !== false) {
             $min = explode('/', $data[1]);
             if (count($min) > 1) {
@@ -142,15 +156,17 @@ abstract class Horde_Image_Exif_Base
             $sec = $data[2];
         }
 
-        return self::_degToDecimal($data[0], $min, $sec);
+        return self::_degToDecimal($degrees, $min, $sec);
     }
 
     /**
+     * Convert degrees representation to decimal representation.
      *
-     * @param $degrees
-     * @param $minutes
-     * @param $seconds
-     * @return unknown_type
+     * @param double $degrees  The degrees latitude or longitude.
+     * @param double $minutes  The minutes latitude or longitude.
+     * @param double $seconds  the seconds latitude or longitude.
+     *
+     * @return double  The decimal representation of the latitude or longitute.
      */
     protected function _degToDecimal($degrees, $minutes, $seconds)
     {

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2011-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -44,7 +44,8 @@ extends Horde_Core_LoginTasks_SystemTask_Upgrade
         case '2.0':
             /* Upgrade to the new preferences storage format. */
             $upgrade_prefs = array(
-                'rules'
+                'rules',
+                'vacation',
             );
 
             $GLOBALS['injector']->getInstance('Horde_Core_Prefs_Storage_Upgrade')->upgradeSerialized($GLOBALS['prefs'], $upgrade_prefs);

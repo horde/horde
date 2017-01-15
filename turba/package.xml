@@ -28,17 +28,22 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2014-09-05</date>
+ <date>2016-12-14</date>
  <version>
-  <release>4.3.0</release>
-  <api>4.0.0</api>
+  <release>5.0.0</release>
+  <api>5.0.0</api>
  </version>
  <stability>
   <release>beta</release>
-  <api>stable</api>
+  <api>beta</api>
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [jan] Add CLI script to search for invalid email addresses.
+* [mjr] Remove Facebook driver.
+* [jan] Add second home and business phone fields to Kolab backend (Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;, Request #12776).
+* [jan] Change sort direction of birthday/anniversary year picker (Request #11837).
+* [mjr] Add ability to store original versions of contact photos when resizing them for display.
 * [mjr] Add tag search to advanced search (Request #13693).
 * [mms] Added the addGroup API method.
 * [mjr] Add ability to add special characters to the alpha pager.
@@ -75,6 +80,7 @@
     <file name="turba-public-to-horde-share" role="script">
      <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
     </file>
+    <file name="turba-validate-email" role="script" />
    </dir> <!-- /bin -->
    <dir name="config">
     <file name=".htaccess" role="horde" />
@@ -134,7 +140,6 @@
      <file name="Ldif.php" role="horde" />
     </dir> <!-- /lib/Data -->
     <dir name="Driver">
-     <file name="Facebook.php" role="horde" />
      <file name="Favourites.php" role="horde" />
      <file name="Group.php" role="horde" />
      <file name="Imsp.php" role="horde" />
@@ -253,6 +258,7 @@
       <file name="turba.mo" role="horde" />
       <file name="turba.po" role="horde" />
      </dir> <!-- /locale/el/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/el -->
     <dir name="en">
      <file name="help.xml" role="horde" />
@@ -469,6 +475,7 @@
     <file name="9_turba_upgrade_schema.php" role="horde" />
     <file name="10_turba_upgrade_categoriestotags.php" role="horde" />
     <file name="11_turba_upgrade_parents.php" role="horde" />
+    <file name="12_turba_upgrade_originalphotos.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="scripts">
     <dir name="ldap">
@@ -647,7 +654,7 @@
    <package>
     <name>content</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.3</min>
+    <min>2.0.5</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -668,7 +675,7 @@
    <package>
     <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
-    <min>2.12.0alpha1</min>
+    <min>2.12.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -872,13 +879,6 @@
     <max>2.0.0alpha1</max>
     <exclude>2.0.0alpha1</exclude>
    </package>
-   <package>
-    <name>Horde_Service_Facebook</name>
-    <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
-    <max>3.0.0alpha1</max>
-    <exclude>3.0.0alpha1</exclude>
-   </package>
   </optional>
  </dependencies>
  <usesrole>
@@ -899,6 +899,7 @@
    <install as="turba-import-squirrelmail-sql-abook" name="bin/turba-import-squirrelmail-sql-abook" />
    <install as="turba-import-vcards" name="bin/turba-import-vcards" />
    <install as="turba-public-to-horde-share" name="bin/turba-public-to-horde-share" />
+   <install as="turba-validate-email" name="bin/turba-validate-email" />
    <install as="turba/config/.htaccess" name="config/.htaccess" />
    <install as="turba/config/attributes.php" name="config/attributes.php" />
    <install as="turba/config/backends.php" name="config/backends.php" />
@@ -946,7 +947,6 @@
    <install as="turba/lib/Ajax/Imple/TagAutoCompleter.php" name="lib/Ajax/Imple/TagAutoCompleter.php" />
    <install as="turba/lib/Block/Minisearch.php" name="lib/Block/Minisearch.php" />
    <install as="turba/lib/Data/Ldif.php" name="lib/Data/Ldif.php" />
-   <install as="turba/lib/Driver/Facebook.php" name="lib/Driver/Facebook.php" />
    <install as="turba/lib/Driver/Favourites.php" name="lib/Driver/Favourites.php" />
    <install as="turba/lib/Driver/Group.php" name="lib/Driver/Group.php" />
    <install as="turba/lib/Driver/Imsp.php" name="lib/Driver/Imsp.php" />
@@ -998,6 +998,7 @@
    <install as="turba/locale/de/help.xml" name="locale/de/help.xml" />
    <install as="turba/locale/de/LC_MESSAGES/turba.mo" name="locale/de/LC_MESSAGES/turba.mo" />
    <install as="turba/locale/de/LC_MESSAGES/turba.po" name="locale/de/LC_MESSAGES/turba.po" />
+   <install as="turba/locale/el/help.xml" name="locale/el/help.xml" />
    <install as="turba/locale/el/LC_MESSAGES/turba.mo" name="locale/el/LC_MESSAGES/turba.mo" />
    <install as="turba/locale/el/LC_MESSAGES/turba.po" name="locale/el/LC_MESSAGES/turba.po" />
    <install as="turba/locale/en/help.xml" name="locale/en/help.xml" />
@@ -1085,6 +1086,7 @@
    <install as="turba/migration/9_turba_upgrade_schema.php" name="migration/9_turba_upgrade_schema.php" />
    <install as="turba/migration/10_turba_upgrade_categoriestotags.php" name="migration/10_turba_upgrade_categoriestotags.php" />
    <install as="turba/migration/11_turba_upgrade_parents.php" name="migration/11_turba_upgrade_parents.php" />
+   <install as="turba/migration/12_turba_upgrade_originalphotos.php" name="migration/12_turba_upgrade_originalphotos.php" />
    <install as="scripts/.htaccess" name="scripts/.htaccess" />
    <install as="scripts/Turba.reg" name="scripts/Turba.reg" />
    <install as="scripts/ldap/addou" name="scripts/ldap/addou" />
@@ -1826,7 +1828,7 @@
    <date>2014-05-05</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* [jan] Don&apos;t extport binary fields to CSV/TSV.
+* [jan] Don&apos;t export binary fields to CSV/TSV.
 * [mms] Fix search in Facebook driver.
 * [jan] Add script to import contacts from Open-Xchange.
 * [jan] Don&apos;t remove missing contacts from distributions lists in Kolab backends (Bug #12861).
@@ -1901,7 +1903,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-07-08</date>
+   <date>2014-08-04</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Display correct address books in WebDAV folders.
@@ -1918,7 +1920,7 @@
     <release>4.2.2</release>
     <api>4.0.0</api></version>
    <stability>
-    <release>beta</release>
+    <release>stable</release>
     <api>stable</api></stability>
    <date>2014-09-05</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
@@ -1934,11 +1936,15 @@
     <release>4.2.3</release>
     <api>4.0.0</api></version>
    <stability>
-    <release>beta</release>
+    <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-09-05</date>
+   <date>2014-10-29</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [jan] Export nicer display names for users and resources via WebDAV.
+* [jan] Export custom owner and read-only properties via WebDAV.
+* [jan] Fix exporting contacts without __uid attributes via WebDAV.
+* [jan] Fix importing empty birthdays/anniversaries from vCard.
 * [mjr] Fix defaulting to the defined search fields when searching via the API.
 * [mjr] Fix broken EAS synchronization due to incorrect setting of the Categories field.
    </notes>
@@ -1976,25 +1982,207 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-02-10</date>
+   <date>2015-04-28</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [jan] Don&apos;t try to load Content application if tags are disabled.
 * [mjr] Fix adding tags to new contacts (Bug #13884).
 * [jan] Fix waiting for replication on LDAP backend.
    </notes>
   </release>
   <release>
-   <date>2014-06-04</date>
    <version>
-    <release>4.3.0</release>
-    <api>4.0.0</api>
+    <release>4.2.7</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-06-18</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [jan] Fix error when removing user data.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.8</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-08-01</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [mjr] Fix issue where sidebar links point to incorrect address book.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.9</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-10-21</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [mjr] Better prevention of importing duplicate contacts with same email addresses via the API (Bug #14119).
+* [mjr] Remove object reference from Content when object is deleted (Bug #14112).
+* [mjr] Remove tags from Content when tagged object is deleted (Bug #14112).
+* [mjr] Allow API to search all email type fields when calling getField().
+* [mjr] Fix removing all contacts owned by a specific user.
+* [jan] Fix inserting and updating photos with Oracle backends.
+* [mjr] Fix incorrectly populating email field when importing vCard (Bug #14046).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.10</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-10-22</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [mjr] Fix fatal test error related to Content_Tagger.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.11</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-10-28</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [mjr] Fix regression in removing all contacts from a single address book in the Sql driver (Bug #14145, Guenter Bartsch &lt;guenter.bartsch@vista-rasch.com&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.12</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-02-02</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [jan] Fix building search query if some fields are set for strict search (Bug #12272).
+* [jan] Use access rules compatible with both Apache 2.2 and 2.4.
+* [mjr] Fix splitting tags over ActiveSync (Bug #14218).
+* [mjr] Fix searching within virtual address books (Bug #14155).
+* [mjr] Fix import of vCard with single component via API.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.13</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-03-21</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [mjr] Honor alternative_name mapping (Bug #14280).
+* [mjr] Fix dealing with orphaned virtual address books.
+* [jan] Update Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.14</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-04-05</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [mjr] Fix persisting tags when moving or copying a contact to another address book (Bug #14312).
+* [mjr] Fix resetting state when changing sync_book prefs and device has forced multiplex.
+* [mjr] Fix synchronizing contact notes via ActiveSync when no truncation value is requested by the client (Bug #14307).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.15</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-07-02</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [jan] Update Portuguese translation.
+* [jan] Update Basque translation.
+* [mjr] Fix searching via the API when specifying fields and not specifying source.
+* [mjr] Require Horde_Perms::DELETE for including an address book  as sync-able.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.16</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-09-06</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [mjr] Fix synchronizing email fields in certain cases (Bug #14301).
+* [jan] Continue removing user data if a source doesn&apos;t have an __owner field.
+* [mjr] Fix over-agressive filtering of search results when searching via the API (Bug #13945).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.17</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-11-03</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [mjr] Fix regression in sorting contacts by a name field (Bug #14471).
+* [mjr] Fix regression in saving tags (Bug #14463).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.18</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-11-03</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* 
+   </notes>
+  </release>
+  <release>
+   <date>2016-12-14</date>
+   <version>
+    <release>5.0.0</release>
+    <api>5.0.0</api>
    </version>
    <stability>
     <release>beta</release>
-    <api>stable</api>
+    <api>beta</api>
    </stability>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [jan] Add CLI script to search for invalid email addresses.
+* [mjr] Remove Facebook driver.
+* [jan] Add second home and business phone fields to Kolab backend (Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;, Request #12776).
+* [jan] Change sort direction of birthday/anniversary year picker (Request #11837).
+* [mjr] Add ability to store original versions of contact photos when resizing them for display.
 * [mjr] Add tag search to advanced search (Request #13693).
 * [mms] Added the addGroup API method.
 * [mjr] Add ability to add special characters to the alpha pager.

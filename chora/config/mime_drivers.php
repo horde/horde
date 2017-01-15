@@ -14,3 +14,4 @@
 
 /* By default, Chora uses the default Horde-wide settings contained in
  * horde/config/mime_drivers.php. */
+$mime_drivers = array();

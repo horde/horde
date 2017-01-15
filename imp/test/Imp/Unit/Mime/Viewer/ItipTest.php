@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category   Horde
- * @copyright  2010-2015 Horde LLC
+ * @copyright  2010-2016 Horde LLC
  * @license    http://www.horde.org/licenses/gpl GPL
  * @package    IMP
  * @subpackage UnitTests
@@ -18,7 +18,7 @@
  * @author     Michael Slusarz <slusarz@horde.org>
  * @author     Gunnar Wrobel <wrobel@pardus.de>
  * @category   Horde
- * @copyright  2010-2015 Horde LLC
+ * @copyright  2010-2016 Horde LLC
  * @ignore
  * @license    http://www.horde.org/licenses/gpl GPL
  * @package    IMP
@@ -269,13 +269,19 @@ extends PHPUnit_Framework_TestCase
     public function testResultMessageContainsProductId()
     {
         $this->_doImple('accept', $this->_getInvitation()->exportvCalendar());
-        $this->assertRegExp('/-\/\/The Horde Project\/\/Horde Application Framework [1-9]+\/\/EN/', $this->_getIcalendar()->getAttribute('PRODID'));
+        $this->assertRegExp(
+            '/-\/\/The Horde Project\/\/Horde Application Framework [1-9]+\/\/EN/',
+            $this->_getIcalendar()->getAttributeSingle('PRODID')
+        );
     }
 
     public function testResultMessageIndicatesMethodReply()
     {
         $this->_doImple('accept', $this->_getInvitation()->exportvCalendar());
-        $this->assertEquals('REPLY', $this->_getIcalendar()->getAttribute('METHOD'));
+        $this->assertEquals(
+            'REPLY',
+            $this->_getIcalendar()->getAttributeSingle('METHOD')
+        );
     }
 
     public function testResultMessageContainsVevent()
@@ -287,7 +293,10 @@ extends PHPUnit_Framework_TestCase
     public function testResultMessageContainsCopiedUid()
     {
         $this->_doImple('accept', $this->_getInvitation()->exportvCalendar());
-        $this->assertEquals('1001', $this->_getVevent()->getAttribute('UID'));
+        $this->assertEquals(
+            '1001',
+            $this->_getVevent()->getAttributeSingle('UID')
+        );
     }
 
     /**
@@ -305,31 +314,46 @@ extends PHPUnit_Framework_TestCase
     public function testResultMessageContainsCopiedSummary()
     {
         $this->_doImple('accept', $this->_getInvitation()->exportvCalendar());
-        $this->assertEquals('Test Invitation', $this->_getVevent()->getAttribute('SUMMARY'));
+        $this->assertEquals(
+            'Test Invitation',
+            $this->_getVevent()->getAttributeSingle('SUMMARY')
+        );
     }
 
     public function testResultMessageContainsEmptySummaryIfNotAvailable()
     {
         $this->_doImple('accept', $this->_getMinimalInvitation()->exportvCalendar());
-        $this->assertEquals('', $this->_getVevent()->getAttribute('SUMMARY'));
+        $this->assertEquals(
+            '',
+            $this->_getVevent()->getAttributeSingle('SUMMARY')
+        );
     }
 
     public function testResultMessageContainsCopiedDescription()
     {
         $this->_doImple('accept', $this->_getInvitation()->exportvCalendar());
-        $this->assertEquals('You are invited', $this->_getVevent()->getAttribute('DESCRIPTION'));
+        $this->assertEquals(
+            'You are invited',
+            $this->_getVevent()->getAttributeSingle('DESCRIPTION')
+        );
     }
 
     public function testResultMessageContainsEmptyDescriptionIfNotAvailable()
     {
         $this->_doImple('accept', $this->_getMinimalInvitation()->exportvCalendar());
-        $this->assertEquals('Default', $this->_getVevent()->getAttributeDefault('DESCRIPTION', 'Default'));
+        $this->assertEquals(
+            'Default',
+            $this->_getVevent()->getAttributeDefault('DESCRIPTION', 'Default')
+        );
     }
 
     public function testResultMessageContainsCopiedStartDate()
     {
         $this->_doImple('accept', $this->_getInvitation()->exportvCalendar());
-        $this->assertEquals('1222426800', $this->_getVevent()->getAttribute('DTSTART'));
+        $this->assertEquals(
+            '1222426800',
+            $this->_getVevent()->getAttributeSingle('DTSTART')
+        );
     }
 
     public function testResultMessageContainsCopiedStartDateParameters()
@@ -342,7 +366,10 @@ extends PHPUnit_Framework_TestCase
     public function testResultMessageContainsCopiedEndDate()
     {
         $this->_doImple('accept', $this->_getInvitation()->exportvCalendar());
-        $this->assertEquals('1222430400', $this->_getVevent()->getAttribute('DTEND'));
+        $this->assertEquals(
+            '1222430400',
+            $this->_getVevent()->getAttributeSingle('DTEND')
+        );
     }
 
     public function testResultMessageContainsCopiedEndDateParameters()
@@ -364,7 +391,10 @@ extends PHPUnit_Framework_TestCase
         $inv->setAttribute('DURATION', '3600', array('TEST' => 'duration'));
 
         $this->_doImple('accept', $inv->exportvCalendar());
-        $this->assertEquals('3600', $this->_getVevent()->getAttribute('DURATION'));
+        $this->assertEquals(
+            '3600',
+            $this->_getVevent()->getAttributeSingle('DURATION')
+        );
     }
 
     public function testResultMessageContainsCopiedDurationParametersIfEndDateIsMissing()
@@ -390,7 +420,10 @@ extends PHPUnit_Framework_TestCase
         $inv->setAttribute('SEQUENCE', '10');
 
         $this->_doImple('accept', $inv->exportvCalendar());
-        $this->assertEquals('10', $this->_getVevent()->getAttribute('SEQUENCE'));
+        $this->assertEquals(
+            '10',
+            $this->_getVevent()->getAttributeSingle('SEQUENCE')
+        );
     }
 
     public function testResultMessageContainsNoSequenceIfNotAvailable()
@@ -402,7 +435,10 @@ extends PHPUnit_Framework_TestCase
     public function testResultMessageContainsCopiedOrganizer()
     {
         $this->_doImple('accept', $this->_getInvitation()->exportvCalendar());
-        $this->assertEquals('mailto:orga@example.org', $this->_getVevent()->getAttribute('ORGANIZER'));
+        $this->assertEquals(
+            'mailto:orga@example.org',
+            $this->_getVevent()->getAttributeSingle('ORGANIZER')
+        );
     }
 
     public function testResultMessageContainsCopiedOrganizerParameters()
@@ -415,7 +451,10 @@ extends PHPUnit_Framework_TestCase
     public function testResultMessageContainsAttendeeEmail()
     {
         $this->_doImple('accept', $this->_getInvitation()->exportvCalendar());
-        $this->assertEquals('mailto:test@example.org', $this->_getVevent()->getAttribute('ATTENDEE'));
+        $this->assertEquals(
+            'mailto:test@example.org',
+            $this->_getVevent()->getAttributeSingle('ATTENDEE')
+        );
     }
 
     public function testResultMessageContainsAttendeeName()
@@ -599,7 +638,7 @@ extends PHPUnit_Framework_TestCase
             $headers = Horde_Mime_Headers::parseHeaders(
                 $GLOBALS['injector']->getInstance('IMP_Mail')->sentMessages[0]['header_text']
             );
-            if (!$headers instanceOf Horde_Mime_Headers) {
+            if (!$headers instanceof Horde_Mime_Headers) {
                 $this->fail('Failed parsing message headers!');
                 return new Horde_Mime_Headers();
             }

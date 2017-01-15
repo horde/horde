@@ -2,7 +2,7 @@
 /**
  * Class to describe a single Ansel image.
  *
- * Copyright 2001-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -22,7 +22,7 @@
  * @license http://www.horde.org/licenses/gpl GPL
  * @package Ansel
  */
-class Ansel_Image Implements Iterator
+class Ansel_Image implements Iterator
 {
     /**
      * The gallery id of this image's parent gallery
@@ -904,6 +904,7 @@ class Ansel_Image Implements Iterator
         if ($view == 'full' && !$this->_dirty) {
             // Check full photo permissions
             $gallery = $GLOBALS['storage']->getGallery(abs($this->gallery));
+
             if (!$gallery->canDownload()) {
                 throw Horde_Exception_PermissionDenied(
                     _("Access denied downloading photos from this gallery."));
@@ -962,8 +963,11 @@ class Ansel_Image Implements Iterator
      *
      * @param string $view    The view (size) to work with.
      * @param integer $angle  What angle to rotate the image by.
+     * @todo Ansel 4: reverse order of parameters so we can make $angle required
+     *       but $view optional. In fact, view can be taken out entirely as
+     *       we only ever need to rotate the full image anyway.
      */
-    public function rotate($view = 'full', $angle)
+    public function rotate($view = 'full', $angle = 90)
     {
         $this->load($view);
         $this->_dirty = true;
@@ -1264,7 +1268,7 @@ class Ansel_Image Implements Iterator
         if ($view == 'full') {
             return $this->type;
         } elseif ($view == 'screen') {
-            return 'image/jpg';
+            return 'image/jpeg';
         } else {
             return 'image/' . $GLOBALS['conf']['image']['type'];
         }

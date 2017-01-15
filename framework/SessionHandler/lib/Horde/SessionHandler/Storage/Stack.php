@@ -5,7 +5,7 @@
  * This driver allows for use of caching backends on top of persistent
  * backends, for example.
  *
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -53,8 +53,11 @@ class Horde_SessionHandler_Storage_Stack extends Horde_SessionHandler_Storage
     public function open($save_path = null, $session_name = null)
     {
         foreach ($this->_stack as $val) {
-            $val->open($save_path, $session_name);
+            if (!$val->open($save_path, $session_name)) {
+                return false;
+            }
         }
+        return true;
     }
 
     /**
@@ -62,8 +65,11 @@ class Horde_SessionHandler_Storage_Stack extends Horde_SessionHandler_Storage
     public function close()
     {
         foreach ($this->_stack as $val) {
-            $val->close();
+            if (!$val->close()) {
+                return false;
+            }
         }
+        return true;
     }
 
     /**

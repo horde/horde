@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2012-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -32,10 +32,22 @@ class Ingo_Form_Spam extends Ingo_Form_Base
     {
         parent::__construct($vars, $title, $name);
 
-        $v = $this->addVariable(_("Spam Level:"), 'level', 'int', true, false, _("Messages with a likely spam score greater than or equal to this number will be treated as spam."));
+        $v = $this->addVariable(
+            _("Spam Level:"),
+            'level',
+            'int',
+            true,
+            false,
+            _("Messages with a likely spam score greater than or equal to this number will be treated as spam.")
+        );
         $v->setHelp('spam-level');
 
-        $this->folder_var = $this->addVariable(_("Folder to receive spam:"), 'folder', 'ingo_folders', false);
+        $this->folder_var = $this->addVariable(
+            _("Folder to receive spam:"),
+            'folder',
+            'ingo_folders',
+            true
+        );
         $this->folder_var->setHelp('spam-folder');
         $this->addHidden('', 'actionID', 'text', false);
         $this->addHidden('', 'folder_new', 'text', false);
@@ -58,6 +70,51 @@ class Ingo_Form_Spam extends Ingo_Form_Base
         parent::renderActive(
             $renderer, $vars, $action, $method, $enctype, $focus
         );
+    }
+
+    public function validate($vars = null, $canAutoFill = false)
+    {
+        if (is_null($vars)) {
+            $vars = $this->_vars;
+        }
+        if (strlen($vars->get('folder_new'))) {
+            $this->folder_var->type->newFolderSet = true;
+        }
+        return parent::validate($vars, $canAutoFill);
+    }
+
+}
+
+
+/**
+ * Dummy class to hold the select box created by {@link Ingo_Flist::select()}.
+ *
+ * @see Horde_Core_Ui_VarRenderer_Ingo
+ * @see Ingo_Flist::select()
+ */
+class Horde_Form_Type_ingo_folders extends Horde_Form_Type
+{
+    var $_folder;
+    var $newFolderSet;
+
+    function isValid(&$var, &$vars, $value, &$message)
+    {
+        if ($this->newFolderSet || strlen($value)) {
+            return true;
+        }
+
+        $message = _("A target folder is required.");
+        return false;
+    }
+
+    function getFolder()
+    {
+        return $this->_folder;
+    }
+
+    function setFolder($folder)
+    {
+        $this->_folder = $folder;
     }
 
 }

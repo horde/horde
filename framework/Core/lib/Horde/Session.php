@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -238,9 +238,11 @@ class Horde_Session
     {
         /* Load old encrypted data. */
         $encrypted = array();
-        foreach ($this->_data[self::ENCRYPTED] as $app => $val) {
-            foreach (array_keys($val) as $val2) {
-                $encrypted[$app][$val2] = $this->get($app, $val2);
+        if (!empty($this->_data[self::ENCRYPTED])) {
+            foreach ($this->_data[self::ENCRYPTED] as $app => $val) {
+                foreach (array_keys($val) as $val2) {
+                    $encrypted[$app][$val2] = $this->get($app, $val2);
+                }
             }
         }
 
@@ -302,6 +304,7 @@ class Horde_Session
         if (isset($_SESSION)) {
             session_destroy();
         }
+        // @suspicious shouldn't we empty $this->_data here too?
         $this->_cleansession = true;
         $GLOBALS['injector']->getInstance('Horde_Secret_Cbc')->clearKey();
     }

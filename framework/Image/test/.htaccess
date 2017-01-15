@@ -1,1 +1,6 @@
-Allow from all
+<IfModule authz_core_module>
+    Require all granted
+</IfModule>
+<IfModule !authz_core_module>
+    Allow from all
+</IfModule>

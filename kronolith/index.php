@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 1999-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * not receive such a file, see also http://www.horde.org/licenses/gpl.
@@ -29,6 +29,8 @@ case Horde_Registry::VIEW_DYNAMIC:
 /* Load Ajax interface. */
 $today = new Horde_Date($_SERVER['REQUEST_TIME']);
 $ampm = !$prefs->getValue('twentyFour');
+$dayStart = $prefs->getValue('day_hour_start') / 2;
+$dayEnd = $prefs->getValue('day_hour_end') / 2;
 
 $eventAlarmMethods = $eventAlarmParams = $taskAlarmMethods = $taskAlarmParams = '';
 foreach ($injector->getInstance('Horde_Alarm')->handlers() as $method => $handler) {
@@ -90,35 +92,46 @@ foreach ($injector->getInstance('Horde_Alarm')->handlers() as $method => $handle
     $taskAlarmParams = substr($taskAlarmParams, 0, - 6) . '</div>';
 }
 
-$injector->getInstance('Horde_Core_Factory_Imple')->create('Kronolith_Ajax_Imple_TagAutoCompleter', array(
+$impleFactory = $injector->getInstance('Horde_Core_Factory_Imple');
+$impleFactory->create('Kronolith_Ajax_Imple_TagAutoCompleter', array(
     'box' => 'kronolithEventACBox',
     'id' => 'kronolithEventTags',
     'pretty' => true
 ));
 
-$injector->getInstance('Horde_Core_Factory_Imple')->create('Kronolith_Ajax_Imple_TagAutoCompleter', array(
+$impleFactory->create('Kronolith_Ajax_Imple_TagAutoCompleter', array(
     'box' => 'kronolithCalendarinternalACBox',
     'id' => 'kronolithCalendarinternalTags',
     'pretty' => true,
     'triggerContainer' => 'kronolithACCalendarTriggerContainer'
 ));
 
-$injector->getInstance('Horde_Core_Factory_Imple')->create('Kronolith_Ajax_Imple_TagAutoCompleter', array(
+$impleFactory->create('Kronolith_Ajax_Imple_TagAutoCompleter', array(
     'box' => 'kronolithTaskACBox',
     'id' => 'kronolithTaskTags',
     'pretty' => true
 ));
 
-$injector->getInstance('Horde_Core_Factory_Imple')->create('Kronolith_Ajax_Imple_ContactAutoCompleter', array(
-    'box' => 'kronolithAttendeesACBox',
-    'id' => 'kronolithEventAttendees',
-    'onAdd' => 'function(attendee) { KronolithCore.addAttendee(attendee); KronolithCore.checkOrganizerAsAttendee(); }',
-    'onRemove' => 'KronolithCore.removeAttendee.bind(KronolithCore)',
+$impleFactory->create('Kronolith_Ajax_Imple_UserAutoCompleter', array(
+    'box' => 'kronolithUsersACBox',
+    'displayFilter' => 'function(u) { return KronolithCore.parseUser(u).name; }',
+    'id' => 'kronolithEventUsers',
+    'onAdd' => 'function(u) { KronolithCore.addUser(u); KronolithCore.checkOrganizerAsAttendee(); }',
+    'onRemove' => 'KronolithCore.removeUser.bind(KronolithCore)',
     'pretty' => true,
-    'triggerContainer' => 'kronolithAttendeesACTriggerContainer'
 ));
 
-$injector->getInstance('Horde_Core_Factory_Imple')->create('Kronolith_Ajax_Imple_ResourceAutoCompleter', array(
+$impleFactory->create('Kronolith_Ajax_Imple_ContactAutoCompleter', array(
+    'box' => 'kronolithAttendeesACBox',
+    'id' => 'kronolithEventAttendees',
+    'onAdd' => 'function(a) { KronolithCore.addAttendee(a); KronolithCore.checkOrganizerAsAttendee(); }',
+    'onRemove' => 'KronolithCore.removeAttendee.bind(KronolithCore)',
+    'pretty' => true,
+    'triggerContainer' => 'kronolithAttendeesACTriggerContainer',
+    'beforeUpdate' => 'function(a) { return KronolithCore.normalizeAttendee(a); }'
+));
+
+$impleFactory->create('Kronolith_Ajax_Imple_ResourceAutoCompleter', array(
     'box' => 'kronolithResourceACBox',
     'id' => 'kronolithEventResources',
     'onAdd' => 'KronolithCore.addResource.bind(KronolithCore)',

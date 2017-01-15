@@ -1,12 +1,17 @@
 <?php
 /**
- * Class representing a set of "Rule" timezone database entries of the
- * same name.
- *
- * Copyright 2011-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author  Jan Schneider <jan@horde.org>
+ * @package Timezone
+ */
+
+/**
+ * Class representing a set of "Rule" timezone database entries of the
+ * same name.
  *
  * @author  Jan Schneider <jan@horde.org>
  * @package Timezone
@@ -73,11 +78,15 @@ class Horde_Timezone_Zone
     /**
      * Exports this zone to a VTIMEZONE component.
      *
+     * @param Horde_Date $from  The earliest date that we need timezone
+     *                          definitions for.
+     * @param Horde_Date $to    The latest date.
+     *
      * @return Horde_Icalendar_Vtimezone  A VTIMEZONE component representing
      *                                    this timezone.
      * @throws Horde_Timezone_Exception
      */
-    public function toVtimezone()
+    public function toVtimezone($from = null, $to = null)
     {
         if (!count($this->_info)) {
             throw new Horde_Timezone_Exception('No rules found for timezone ' . $this->_name);
@@ -95,8 +104,14 @@ class Horde_Timezone_Zone
         $startDate = $this->_getDate(0);
         $startOffset = $this->_getOffset(0);
         for ($i = 1, $c = count($this->_info); $i < $c; $i++) {
+            if ($to && $startDate->after($to)) {
+                continue;
+            }
             $name = $this->_info[$i][2];
             $endDate = count($this->_info[$i]) > 3 ? $this->_getDate($i) : null;
+            if ($from && $endDate && $endDate->before($from)) {
+                continue;
+            }
             if ($this->_info[$i][1] == '-') {
                 // Standard time.
                 $component = new Horde_Icalendar_Standard();
@@ -106,7 +121,15 @@ class Horde_Timezone_Zone
             } else {
                 // Represented by a ruleset.
                 $startOffset = $this->_getOffset($i);
-                $this->_tz->getRule($this->_info[$i][1])->addRules($tz, $this->_name, $name, $startOffset, $startDate, $endDate);
+                $this->_tz->getRule($this->_info[$i][1])
+                    ->addRules(
+                        $tz,
+                        $this->_name,
+                        $name,
+                        $startOffset,
+                        $from && $from->after($startDate) ? $from : $startDate,
+                        $to && $to->before($endDate) ? $to : $endDate
+                    );
                 $startDate = $endDate;
                 // Continue, because addRules() already adds the
                 // component to $tz.

@@ -3,7 +3,7 @@
  * This class provides a parser which can construct an SQL WHERE clause from a
  * Google-like search expression.
  *
- * Copyright 2004-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2017 Horde LLC (http://www.horde.org/)
  *
  * The expression recognizes boolean "AND", "OR", and "NOT" (providing no
  * operator between keywords implies "AND"), like so:
@@ -156,7 +156,7 @@ class Horde_Db_SearchParser
         }
 
         $val = Horde_String::lower(substr(array_shift($tokens), 1));
-        $val = addslashes(ereg_replace("([\\%])", "\\\\1", $val));
+        $val = addslashes(str_replace("%", "\\%", $val));
 
         return "(LOWER($column) LIKE '%$val%')";
     }

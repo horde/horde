@@ -28,10 +28,10 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2015-03-06</date>
+ <date>2017-01-13</date>
  <version>
-  <release>2.20.0</release>
-  <api>2.20.0</api>
+  <release>2.27.7</release>
+  <api>2.27.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -39,7 +39,10 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix regression in removing CBC cipher mode when encrypting data within a session (Bug #13869).
+* [mjr] Remove support for defunct CloudMade, and MyTopo mapping APIs.
+* [jan] Fix fatal error screen for PHP 7 error objects.
+* [jan] Remember the configuration values of split-read database environments.
+* [jan] Only show $conf[sql][ca] if $conf[sql][ssl] is enabled.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -227,17 +230,16 @@
       </dir> <!-- /js/map/theme/default -->
      </dir> <!-- /js/map/theme -->
      <file name="bing.js" role="horde" />
-     <file name="cloudmade.js" role="horde" />
      <file name="google.js" role="horde" />
      <file name="horde.js" role="horde" />
      <file name="map.js" role="horde" />
      <file name="mapquest.js" role="horde" />
-     <file name="mytopo.js" role="horde" />
      <file name="null.js" role="horde" />
      <file name="ocm.js" role="horde" />
      <file name="OpenLayers-debug.js" role="horde" />
      <file name="OpenLayers.js" role="horde" />
      <file name="osm.js" role="horde" />
+     <file name="owm.js" role="horde" />
     </dir> <!-- /js/map -->
     <dir name="scriptaculous">
      <file name="builder.js" role="horde" />
@@ -300,10 +302,14 @@
        <dir name="Logger">
         <file name="Factory.php" role="php" />
        </dir> <!-- /lib/Horde/Core/ActiveSync/Logger -->
+       <dir name="Mail">
+        <file name="Draft.php" role="php" />
+       </dir> <!-- /lib/Horde/Core/ActiveSync/Mail -->
        <file name="Auth.php" role="php" />
        <file name="Connector.php" role="php" />
        <file name="Driver.php" role="php" />
        <file name="Mail.php" role="php" />
+       <file name="Mdn.php" role="php" />
       </dir> <!-- /lib/Horde/Core/ActiveSync -->
       <dir name="Ajax">
        <dir name="Application">
@@ -327,10 +333,16 @@
         <dir name="Geocoder">
          <file name="Geonames.php" role="php" />
         </dir> <!-- /lib/Horde/Core/Ajax/Imple/Geocoder -->
+        <dir name="WeatherLocationAutoCompleter">
+         <file name="Base.php" role="php" />
+         <file name="Metar.php" role="php" />
+         <file name="Weather.php" role="php" />
+        </dir> <!-- /lib/Horde/Core/Ajax/Imple/WeatherLocationAutoCompleter -->
         <file name="AutoCompleter.php" role="php" />
         <file name="ContactAutoCompleter.php" role="php" />
         <file name="InPlaceEditor.php" role="php" />
         <file name="SpellChecker.php" role="php" />
+        <file name="UserAutoCompleter.php" role="php" />
         <file name="WeatherLocationAutoCompleter.php" role="php" />
        </dir> <!-- /lib/Horde/Core/Ajax/Imple -->
        <dir name="Response">
@@ -397,6 +409,9 @@
       <dir name="Data">
        <file name="Storage.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Data -->
+      <dir name="Dav">
+       <file name="Auth.php" role="php" />
+      </dir> <!-- /lib/Horde/Core/Dav -->
       <dir name="Db">
        <file name="Migration.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Db -->
@@ -405,6 +420,7 @@
       </dir> <!-- /lib/Horde/Core/Editor -->
       <dir name="Factory">
        <dir name="Identity">
+        <file name="DavUsernameHook.php" role="php" />
         <file name="UsernameHook.php" role="php" />
        </dir> <!-- /lib/Horde/Core/Factory/Identity -->
        <dir name="Secret">
@@ -503,6 +519,11 @@
         </dir> <!-- /lib/Horde/Core/Itip/Response/Options -->
        </dir> <!-- /lib/Horde/Core/Itip/Response -->
       </dir> <!-- /lib/Horde/Core/Itip -->
+      <dir name="Kolab">
+       <dir name="Storage">
+        <file name="HistoryPrefix.php" role="php" />
+       </dir> <!-- /lib/Horde/Core/Kolab/Storage -->
+      </dir> <!-- /lib/Horde/Core/Kolab -->
       <dir name="Log">
        <file name="Logger.php" role="php" />
        <file name="Object.php" role="php" />
@@ -803,6 +824,7 @@
     </dir> <!-- /locale/fr -->
     <dir name="gl">
      <dir name="LC_MESSAGES">
+      <file name="Horde_Core.mo" role="data" />
       <file name="Horde_Core.po" role="data" />
      </dir> <!-- /locale/gl/LC_MESSAGES -->
     </dir> <!-- /locale/gl -->
@@ -982,6 +1004,7 @@
       <file name="ActiveSyncTests.php" role="test" />
       <file name="AllTests.php" role="test" />
       <file name="bootstrap.php" role="test" />
+      <file name="NlsconfigTest.php" role="test" />
       <file name="phpunit.xml" role="test" />
       <file name="RegistryTest.php" role="test" />
       <file name="SmartmobileUrlTest.php" role="test" />
@@ -995,8 +1018,8 @@
   <required>
    <php>
     <min>5.3.0</min>
-    <max>6.0.0alpha1</max>
-    <exclude>6.0.0alpha1</exclude>
+    <max>8.0.0alpha1</max>
+    <exclude>8.0.0alpha1</exclude>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -1011,7 +1034,7 @@
    <package>
     <name>Horde_Auth</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.2.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1095,7 +1118,7 @@
    <package>
     <name>Horde_Group</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.1.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1158,7 +1181,7 @@
    <package>
     <name>Horde_Mime_Viewer</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.2.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1186,7 +1209,7 @@
    <package>
     <name>Horde_Prefs</name>
     <channel>pear.horde.org</channel>
-    <min>2.6.0</min>
+    <min>2.8.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1286,7 +1309,7 @@
    <package>
     <name>Horde_ActiveSync</name>
     <channel>pear.horde.org</channel>
-    <min>2.19.1</min>
+    <min>2.37.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1328,7 +1351,7 @@
    <package>
     <name>Horde_Form</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.0.15</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1454,7 +1477,7 @@
    <package>
     <name>Horde_Test</name>
     <channel>pear.horde.org</channel>
-    <min>2.1.0</min>
+    <min>2.6.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1609,17 +1632,16 @@
    <install as="js/jquery.mobile/plugins/form.js" name="js/jquery.mobile/plugins/form.js" />
    <install as="js/jquery.mobile/plugins/swipebutton.js" name="js/jquery.mobile/plugins/swipebutton.js" />
    <install as="js/map/bing.js" name="js/map/bing.js" />
-   <install as="js/map/cloudmade.js" name="js/map/cloudmade.js" />
    <install as="js/map/google.js" name="js/map/google.js" />
    <install as="js/map/horde.js" name="js/map/horde.js" />
    <install as="js/map/map.js" name="js/map/map.js" />
    <install as="js/map/mapquest.js" name="js/map/mapquest.js" />
-   <install as="js/map/mytopo.js" name="js/map/mytopo.js" />
    <install as="js/map/null.js" name="js/map/null.js" />
    <install as="js/map/ocm.js" name="js/map/ocm.js" />
    <install as="js/map/OpenLayers-debug.js" name="js/map/OpenLayers-debug.js" />
    <install as="js/map/OpenLayers.js" name="js/map/OpenLayers.js" />
    <install as="js/map/osm.js" name="js/map/osm.js" />
+   <install as="js/map/owm.js" name="js/map/owm.js" />
    <install as="js/map/img/blank.gif" name="js/map/img/blank.gif" />
    <install as="js/map/img/cloud-popup-relative.png" name="js/map/img/cloud-popup-relative.png" />
    <install as="js/map/img/drag-rectangle-off.png" name="js/map/img/drag-rectangle-off.png" />
@@ -1751,8 +1773,10 @@
    <install as="Horde/Core/ActiveSync/Connector.php" name="lib/Horde/Core/ActiveSync/Connector.php" />
    <install as="Horde/Core/ActiveSync/Driver.php" name="lib/Horde/Core/ActiveSync/Driver.php" />
    <install as="Horde/Core/ActiveSync/Mail.php" name="lib/Horde/Core/ActiveSync/Mail.php" />
+   <install as="Horde/Core/ActiveSync/Mdn.php" name="lib/Horde/Core/ActiveSync/Mdn.php" />
    <install as="Horde/Core/ActiveSync/Imap/Factory.php" name="lib/Horde/Core/ActiveSync/Imap/Factory.php" />
    <install as="Horde/Core/ActiveSync/Logger/Factory.php" name="lib/Horde/Core/ActiveSync/Logger/Factory.php" />
+   <install as="Horde/Core/ActiveSync/Mail/Draft.php" name="lib/Horde/Core/ActiveSync/Mail/Draft.php" />
    <install as="Horde/Core/Ajax/Application.php" name="lib/Horde/Core/Ajax/Application.php" />
    <install as="Horde/Core/Ajax/Imple.php" name="lib/Horde/Core/Ajax/Imple.php" />
    <install as="Horde/Core/Ajax/Response.php" name="lib/Horde/Core/Ajax/Response.php" />
@@ -1767,12 +1791,16 @@
    <install as="Horde/Core/Ajax/Imple/ContactAutoCompleter.php" name="lib/Horde/Core/Ajax/Imple/ContactAutoCompleter.php" />
    <install as="Horde/Core/Ajax/Imple/InPlaceEditor.php" name="lib/Horde/Core/Ajax/Imple/InPlaceEditor.php" />
    <install as="Horde/Core/Ajax/Imple/SpellChecker.php" name="lib/Horde/Core/Ajax/Imple/SpellChecker.php" />
+   <install as="Horde/Core/Ajax/Imple/UserAutoCompleter.php" name="lib/Horde/Core/Ajax/Imple/UserAutoCompleter.php" />
    <install as="Horde/Core/Ajax/Imple/WeatherLocationAutoCompleter.php" name="lib/Horde/Core/Ajax/Imple/WeatherLocationAutoCompleter.php" />
    <install as="Horde/Core/Ajax/Imple/AutoCompleter/Ajax.php" name="lib/Horde/Core/Ajax/Imple/AutoCompleter/Ajax.php" />
    <install as="Horde/Core/Ajax/Imple/AutoCompleter/Base.php" name="lib/Horde/Core/Ajax/Imple/AutoCompleter/Base.php" />
    <install as="Horde/Core/Ajax/Imple/AutoCompleter/Local.php" name="lib/Horde/Core/Ajax/Imple/AutoCompleter/Local.php" />
    <install as="Horde/Core/Ajax/Imple/AutoCompleter/Pretty.php" name="lib/Horde/Core/Ajax/Imple/AutoCompleter/Pretty.php" />
    <install as="Horde/Core/Ajax/Imple/Geocoder/Geonames.php" name="lib/Horde/Core/Ajax/Imple/Geocoder/Geonames.php" />
+   <install as="Horde/Core/Ajax/Imple/WeatherLocationAutoCompleter/Base.php" name="lib/Horde/Core/Ajax/Imple/WeatherLocationAutoCompleter/Base.php" />
+   <install as="Horde/Core/Ajax/Imple/WeatherLocationAutoCompleter/Metar.php" name="lib/Horde/Core/Ajax/Imple/WeatherLocationAutoCompleter/Metar.php" />
+   <install as="Horde/Core/Ajax/Imple/WeatherLocationAutoCompleter/Weather.php" name="lib/Horde/Core/Ajax/Imple/WeatherLocationAutoCompleter/Weather.php" />
    <install as="Horde/Core/Ajax/Response/HordeCore.php" name="lib/Horde/Core/Ajax/Response/HordeCore.php" />
    <install as="Horde/Core/Ajax/Response/Notifications.php" name="lib/Horde/Core/Ajax/Response/Notifications.php" />
    <install as="Horde/Core/Ajax/Response/Prototypejs.php" name="lib/Horde/Core/Ajax/Response/Prototypejs.php" />
@@ -1809,6 +1837,7 @@
    <install as="Horde/Core/Controller/RequestMapper.php" name="lib/Horde/Core/Controller/RequestMapper.php" />
    <install as="Horde/Core/Controller/SettingsFinder.php" name="lib/Horde/Core/Controller/SettingsFinder.php" />
    <install as="Horde/Core/Data/Storage.php" name="lib/Horde/Core/Data/Storage.php" />
+   <install as="Horde/Core/Dav/Auth.php" name="lib/Horde/Core/Dav/Auth.php" />
    <install as="Horde/Core/Db/Migration.php" name="lib/Horde/Core/Db/Migration.php" />
    <install as="Horde/Core/Editor/Ckeditor.php" name="lib/Horde/Core/Editor/Ckeditor.php" />
    <install as="Horde/Core/Factory/ActiveSyncBackend.php" name="lib/Horde/Core/Factory/ActiveSyncBackend.php" />
@@ -1885,6 +1914,7 @@
    <install as="Horde/Core/Factory/Vfs.php" name="lib/Horde/Core/Factory/Vfs.php" />
    <install as="Horde/Core/Factory/View.php" name="lib/Horde/Core/Factory/View.php" />
    <install as="Horde/Core/Factory/Weather.php" name="lib/Horde/Core/Factory/Weather.php" />
+   <install as="Horde/Core/Factory/Identity/DavUsernameHook.php" name="lib/Horde/Core/Factory/Identity/DavUsernameHook.php" />
    <install as="Horde/Core/Factory/Identity/UsernameHook.php" name="lib/Horde/Core/Factory/Identity/UsernameHook.php" />
    <install as="Horde/Core/Factory/Secret/Cbc.php" name="lib/Horde/Core/Factory/Secret/Cbc.php" />
    <install as="Horde/Core/Group/Ldap.php" name="lib/Horde/Core/Group/Ldap.php" />
@@ -1893,6 +1923,7 @@
    <install as="Horde/Core/HashTable/Wrapper.php" name="lib/Horde/Core/HashTable/Wrapper.php" />
    <install as="Horde/Core/Imsp/Utils.php" name="lib/Horde/Core/Imsp/Utils.php" />
    <install as="Horde/Core/Itip/Response/Options/Horde.php" name="lib/Horde/Core/Itip/Response/Options/Horde.php" />
+   <install as="Horde/Core/Kolab/Storage/HistoryPrefix.php" name="lib/Horde/Core/Kolab/Storage/HistoryPrefix.php" />
    <install as="Horde/Core/Log/Logger.php" name="lib/Horde/Core/Log/Logger.php" />
    <install as="Horde/Core/Log/Object.php" name="lib/Horde/Core/Log/Object.php" />
    <install as="Horde/Core/Log/Wrapper.php" name="lib/Horde/Core/Log/Wrapper.php" />
@@ -2014,6 +2045,7 @@
    <install as="locale/fi/LC_MESSAGES/Horde_Core.po" name="locale/fi/LC_MESSAGES/Horde_Core.po" />
    <install as="locale/fr/LC_MESSAGES/Horde_Core.mo" name="locale/fr/LC_MESSAGES/Horde_Core.mo" />
    <install as="locale/fr/LC_MESSAGES/Horde_Core.po" name="locale/fr/LC_MESSAGES/Horde_Core.po" />
+   <install as="locale/gl/LC_MESSAGES/Horde_Core.mo" name="locale/gl/LC_MESSAGES/Horde_Core.mo" />
    <install as="locale/gl/LC_MESSAGES/Horde_Core.po" name="locale/gl/LC_MESSAGES/Horde_Core.po" />
    <install as="locale/he/LC_MESSAGES/Horde_Core.mo" name="locale/he/LC_MESSAGES/Horde_Core.mo" />
    <install as="locale/he/LC_MESSAGES/Horde_Core.po" name="locale/he/LC_MESSAGES/Horde_Core.po" />
@@ -2067,6 +2099,7 @@
    <install as="Horde/Core/ActiveSyncTests.php" name="test/Horde/Core/ActiveSyncTests.php" />
    <install as="Horde/Core/AllTests.php" name="test/Horde/Core/AllTests.php" />
    <install as="Horde/Core/bootstrap.php" name="test/Horde/Core/bootstrap.php" />
+   <install as="Horde/Core/NlsconfigTest.php" name="test/Horde/Core/NlsconfigTest.php" />
    <install as="Horde/Core/phpunit.xml" name="test/Horde/Core/phpunit.xml" />
    <install as="Horde/Core/RegistryTest.php" name="test/Horde/Core/RegistryTest.php" />
    <install as="Horde/Core/SmartmobileUrlTest.php" name="test/Horde/Core/SmartmobileUrlTest.php" />
@@ -3867,10 +3900,471 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-03-06</date>
+   <date>2015-04-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Fix issues with certain locales like Turkish.
+* [jan] Upgrade prototype.js to version 1.7.2.
+* [jan] Fix editing existing LDAP timeout configuration (Bug #13949).
 * [mms] Fix regression in removing CBC cipher mode when encrypting data within a session (Bug #13869).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.20.1</release>
+    <api>2.20.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-05-18</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Fix issue that could cause sending the same email to an ActiveSync client multiple times (Bug #13985).
+* [mjr] Performance and memory improvements to ActiveSync.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.20.2</release>
+    <api>2.20.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-05-19</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Fix duplicate attachments in certain messages that were forwarded by ActiveSync clients.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.20.3</release>
+    <api>2.20.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-05-28</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Fix issue causing message text from email forwarded from ActiveSync clients to be missing (Bug #14000).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.20.4</release>
+    <api>2.20.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-06-01</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Work around broken ActiveSync clients that send incorrect line lengths for text/html parts (Bug #13901).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.20.5</release>
+    <api>2.20.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-06-11</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Fix typo that was causing ActiveSync FILTERTYPE changes to go undetected.
+* [mjr] Support for Horde_History in Horde_Kolab_Storage. Requires Horde_Kolab_Storage 2.2.0+.
+* [jan] Don&apos;t allow empty From: addresses if verifying identities.
+* [mjr] Fix fatal error when disconnecting a user Twitter account.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.20.6</release>
+    <api>2.20.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-07-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] SECURITY: Don&apos;t allow to login with an empty password.
+* [jan] Give administrators access to all groups, even with $conf[&apos;share&apos;][&apos;any_group&apos;] disabled.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.20.7</release>
+    <api>2.20.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-07-22</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Prevent various broken behaviors on ActiveSync clients due to errors copying an email to sent mail folder or updating the maillog (Bug #14058).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.20.8</release>
+    <api>2.20.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-07-31</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Map Kolab distribution-list items to the contacts API (Bug #14038).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.20.9</release>
+    <api>2.20.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-08-29</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Support configuration for version 2 of WorldWeatherOnline&apos;s API.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.21.0</release>
+    <api>2.21.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-09-07</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Fix dependency on possibly missing Horde_Kolab_Storage_HistoryPrefix interface (Bug #14099).
+* [mjr] Add beforeUpdate callback to prettyautocompleter.js.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.22.0</release>
+    <api>2.22.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-09-25</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] ActiveSync logging improvements.
+* [mjr] Add support for OpenWeatherMap layers in Horde_Map.
+* [mjr] Fix edge-case issue with ActiveSync folder list generation when installed application contains no user writable sources.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.22.1</release>
+    <api>2.22.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-10-20</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Fix ajax updating of Weather block when weather map is shown.
+* [mjr] Fix detecting an application&apos;s ability to send Horde_Alarm notifications (Bug #14098).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.22.2</release>
+    <api>2.22.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-11-22</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Small logging improvements for ActiveSync.
+* [mjr] Match various session parameters in the NULL driver.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.22.3</release>
+    <api>2.22.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-12-04</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Fix issue with synchronizing IMAP folder names that contain only numbers.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.22.4</release>
+    <api>2.22.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-12-14</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] SECURITY: Fix XSS in Horde_Core_VarRenderer_Html (reported by Centurion Information Security &lt;www.centurioninfosec.sg&gt;).
+* [mjr] Support sending MDN via ActiveSync (Request #23080).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.22.5</release>
+    <api>2.22.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-01-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Pass Horde_Cache to Horde_Group if group caching enabled.
+* [mjr] Fix handling of empty tags strings in certain use cases (Bug #14203).
+* [mjr] Fix fatal error when using count_bad_logins in SQL auth driver.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.22.6</release>
+    <api>2.22.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-02-04</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Improvements to GHOSTED/SUPPORTED handling for ActiveSync.
+* [mjr] Do not throw a fatal error if a meeting request can not be deleted after responding to it.
+* [mjr] Changes for EAS 16.0 support.
+* [mjr] Honor the disabled property when rendering boolean form types.
+* [jan] Fix returning to last page after problem reporting from AJAX pages (Bug #12112).
+* [jan] Fix updating group cache with LDAP backend.
+* [jan] Horde_Registry_Nlsconfig#validLang() checks now if a locale is installed (Request #10457).
+* [jan] Mark PHP 7 as supported.
+* [jan] Add option to always lowercase user names after logging in.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.22.7</release>
+    <api>2.22.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-02-23</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Improvements to ActiveSync SETTINGS_ACCOUNTS response data.
+* [mjr] Fix issues with ActiveSync clients and user defined message flags.
+* [jan] Fix logging in from a different page than the login page (Bug #14231).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.23.0</release>
+    <api>2.23.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-03-08</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Add Horde_Core_Auth_Application#listNames().
+* [jan] Don&apos;t call authusername() hook on administrator names when running CLI scripts.
+* [jan] Update Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
+* [mjr] Fix fatal error with broken EAS clients searching the Outbox.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.24.0</release>
+    <api>2.24.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-07-01</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Improve EAS logging when sending email messages.
+* [jan] Fix specifying custom log template (Viktor Szépe &lt;viktor@szepe.net&gt;).
+* [jan] Upgrade prototype.js to version 1.7.3.
+* [jan] Pre-select the current locale when building the spellchecker languages (Request #14244).
+* [jan] Fix pre-selecting an item in key-navigation-lists.
+* [jan] Add classes to support the Horde 6 davusername hook.
+* [jan] Fix session_regenerate_id() warnings with PHP 7.
+* [jan] Fix running garbage collection on cached CSS and JS files (Bug #14285).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.25.0</release>
+    <api>2.25.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-07-28</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Allow to use the pretty autocompleter without Ajax requests.
+* [mjr] Allow adding CSS files with Ajax response.
+* [mjr] Use syntaxhighlighter version 4.
+* [jan] Fix issue with prototype.js that keeps images in HTML messages from loading.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.26.0</release>
+    <api>2.26.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-09-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] SECURITY: Add CSRF protection tokens to portal layout forms and fix open URL redirection (Reported by ssys GmbH).
+* [jan] SECURITY: enable CSRF token for configuration form again (Reported by Dawid Gounski via Beyond Security&apos;s SecuriTeam Secure Disclosure program).
+* [mjr] Changes to support EAS attachment sync support for Appointment objects.
+* [mjr] Refactor ajax weather location autocompleter and add support for metar data.
+* [jan] Allow to specify user DN search parameters for LDAP with all bind methods (Request #11697, heinz@htl-steyr.ac.at).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.26.1</release>
+    <api>2.26.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-09-11</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix Horde_Form dependency (Bug #14460).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.27.0</release>
+    <api>2.27.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-09-21</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Fix BC break in Weather block (Bug #14473).
+* [mjr] Fix locking user account after bad logins (Bug #14467).
+* [mjr] Add support for EAS 16 draft email sync.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.27.1</release>
+    <api>2.27.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-11-03</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Allow administrators to log in if preference backend is not available.
+* [mjr] Log message headers on error when sending email via ActiveSync.
+* [jan] Fix warning if an old locale is longer than 255 characters (Bug #14489).
+* [jan] Fix abbreviated Norwegian month names in JavaScript to include trailing dot (Bug #14488).
+* [jan] Fix reading session data from the command line with PHP 7.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.27.2</release>
+    <api>2.27.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-11-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Prevent building invalid HTML when building an email from a SMART_REPLY (Bug #14500).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.27.3</release>
+    <api>2.27.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-11-14</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Improve handling of certain ActiveSync failures.
+* [jan] Fix parsing abbreviated Norwegian month names too (Bug #14503).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.27.4</release>
+    <api>2.27.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-12-03</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Fix Google Map API warnings (Bug #14525, arjen+horde@de-korte.org).
+* [jan] Catch errors from NoSQL preference backend.
+* [jan] Make &apos;hostspec&apos; parameter for MongoDB configuration optional again on PHP 7.
+* [jan] Fix session preference driver.
+* [jan] Don&apos;t pollute DB DSN with unknown parameters when using Cyrsql authentication driver.
+* [mjr] Refresh mailbox list when retrieving for ActiveSync.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.27.5</release>
+    <api>2.27.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-12-11</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Add support for a activesync_mailboxlist hook.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.27.6</release>
+    <api>2.27.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-12-16</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Don&apos;t show apps with &apos;admin&apos; status in menu (Bug #14526).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.27.7</release>
+    <api>2.27.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2017-01-13</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Remove support for defunct CloudMade, and MyTopo mapping APIs.
+* [jan] Fix fatal error screen for PHP 7 error objects.
+* [jan] Remember the configuration values of split-read database environments.
+* [jan] Only show $conf[sql][ca] if $conf[sql][ssl] is enabled.
    </notes>
   </release>
  </changelog>

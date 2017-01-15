@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2008-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license inthisation (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -23,7 +23,7 @@ class Folks_Login_Form extends Horde_Form {
 
         $this->addVariable(_("Password"), 'password', 'password', true, false, _("Enter your password. Please be aware that password is case sensitive."));
 
-        $v = &$this->addVariable(_("Remember login?"), 'loginfor', 'radio', true, false, null,
+        $v = $this->addVariable(_("Remember login?"), 'loginfor', 'radio', true, false, null,
                                                         array(array('0' => _("No, only for this view"),
                                                                     '1' => _("Yes, remember me so the next time I don't neet to login"))));
         $v->setDefault('0');

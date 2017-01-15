@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 1999-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://cvs.horde.org/co.php/jonah/LICENSE.
@@ -65,7 +65,7 @@ if (!$conf['sharing']['allow']) {
     exit;
 }
 
-$story = $GLOBALS['injector']->getInstance('Jonah_Driver')->getStory($channel_id, $story_id);
+$story = $GLOBALS['injector']->getInstance('Jonah_Driver')->getStory($story_id);
 if (is_a($story, 'PEAR_Error')) {
     $notification->push(sprintf(_("Error fetching story: %s"), $story->getMessage()), 'horde.warning');
     $story = '';
@@ -79,7 +79,7 @@ $form->setTitle($title);
 $form->setButtons(_("Send"));
 $form->addHidden('', 'channel_id', 'int', false);
 $form->addHidden('', 'id', 'int', false);
-$v = &$form->addVariable(_("From"), 'from', 'email', true, false);
+$v = $form->addVariable(_("From"), 'from', 'email', true, false);
 if ($GLOBALS['registry']->getAuth()) {
     $v->setDefault($injector->getInstance('Horde_Core_Factory_Identity')->create()->getValue('from_addr'));
 }

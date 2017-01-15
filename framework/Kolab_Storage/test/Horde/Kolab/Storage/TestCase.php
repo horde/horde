@@ -15,7 +15,7 @@
 /**
  * Basic test case.
  *
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license instorageion (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -538,6 +538,7 @@ extends PHPUnit_Framework_TestCase
                     'driver' => 'mock',
                     'params' => $data,
                     'logger' => $this->getMock('Horde_Log_Logger'),
+                    'history_prefix_generator' =>  new Horde_Kolab_Storage_Stub_HistoryPrefix()
                 ),
                 $params
             )

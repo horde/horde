@@ -17,10 +17,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-03-10</date>
+ <date>2016-11-09</date>
  <version>
-  <release>2.8.1</release>
-  <api>2.8.0</api>
+  <release>2.10.3</release>
+  <api>2.10.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -92,6 +92,7 @@
        <dir name="Upgrade">
         <file name="V1.php" role="php" />
        </dir> <!-- /lib/Horde/Mime/Part/Upgrade -->
+       <file name="Iterator.php" role="php" />
       </dir> <!-- /lib/Horde/Mime/Part -->
       <file name="Exception.php" role="php" />
       <file name="Headers.php" role="php" />
@@ -385,6 +386,7 @@
        <file name="deeply_nested.txt" role="test" />
        <file name="flowed_msg.txt" role="test" />
        <file name="header_trailing_ws.txt" role="test" />
+       <file name="invalid_hdr.txt" role="test" />
        <file name="mime_part_v1.txt" role="test" />
        <file name="multiple_to.txt" role="test" />
        <file name="related_msg.txt" role="test" />
@@ -432,8 +434,8 @@
   <required>
    <php>
     <min>5.3.0</min>
-    <max>6.0.0alpha1</max>
-    <exclude>6.0.0alpha1</exclude>
+    <max>8.0.0alpha1</max>
+    <exclude>8.0.0alpha1</exclude>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -588,6 +590,7 @@
    <install as="Horde/Mime/Headers/Element/Multiple.php" name="lib/Horde/Mime/Headers/Element/Multiple.php" />
    <install as="Horde/Mime/Headers/Element/Single.php" name="lib/Horde/Mime/Headers/Element/Single.php" />
    <install as="Horde/Mime/Headers/Extension/Mime.php" name="lib/Horde/Mime/Headers/Extension/Mime.php" />
+   <install as="Horde/Mime/Part/Iterator.php" name="lib/Horde/Mime/Part/Iterator.php" />
    <install as="Horde/Mime/Part/Upgrade/V1.php" name="lib/Horde/Mime/Part/Upgrade/V1.php" />
    <install as="locale/Horde_Mime.pot" name="locale/Horde_Mime.pot" />
    <install as="locale/ar/LC_MESSAGES/Horde_Mime.mo" name="locale/ar/LC_MESSAGES/Horde_Mime.mo" />
@@ -698,6 +701,7 @@
    <install as="Horde/Mime/fixtures/deeply_nested.txt" name="test/Horde/Mime/fixtures/deeply_nested.txt" />
    <install as="Horde/Mime/fixtures/flowed_msg.txt" name="test/Horde/Mime/fixtures/flowed_msg.txt" />
    <install as="Horde/Mime/fixtures/header_trailing_ws.txt" name="test/Horde/Mime/fixtures/header_trailing_ws.txt" />
+   <install as="Horde/Mime/fixtures/invalid_hdr.txt" name="test/Horde/Mime/fixtures/invalid_hdr.txt" />
    <install as="Horde/Mime/fixtures/mime_part_v1.txt" name="test/Horde/Mime/fixtures/mime_part_v1.txt" />
    <install as="Horde/Mime/fixtures/multiple_to.txt" name="test/Horde/Mime/fixtures/multiple_to.txt" />
    <install as="Horde/Mime/fixtures/related_msg.txt" name="test/Horde/Mime/fixtures/related_msg.txt" />
@@ -1679,7 +1683,141 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-03-09</date>
+   <date>2015-04-13</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Ignore broken headers when parsing header text.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.9.0</release>
+    <api>2.9.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-04-28</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Fix rare errors when multiple iterations are occurring on the same set of MIME parts.
+* [jan] Fix issues with certain locales like Turkish.
+* [mms] Fix indexing MIME part when base is a multipart object.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.9.1</release>
+    <api>2.9.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-05-21</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Correctly output MIME headers when generating multipart/digest parts (RFC 2047 [5.1.5]).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.9.2</release>
+    <api>2.9.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-09-01</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Correctly work around PHP bug 65776.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.9.3</release>
+    <api>2.9.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-02-01</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Mark PHP 7 as supported.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.9.4</release>
+    <api>2.9.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-03-21</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Update Greek translation (Limperis Antonis &lt;limperis@cti.gr&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.9.5</release>
+    <api>2.9.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-05-31</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Add sanity check for malformed offset in Date header (Bug #14381).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.10.0</release>
+    <api>2.10.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-07-01</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Add Horde_Mime_Part#isAttachment().
+* [mjr] Add workaround for failures due to sending broken rfc822/message attachments (Bug #14324).
+* [mjr] Catch incorrectly localized Date headers.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.10.1</release>
+    <api>2.10.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-09-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Fix parsing headers containing MIME encoded email addresses (Bug #14456).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.10.2</release>
+    <api>2.10.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-11-09</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Fix regression caused by incorrect fix and test for Bug #14456 (Bug #14505).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.10.3</release>
+    <api>2.10.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-11-09</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

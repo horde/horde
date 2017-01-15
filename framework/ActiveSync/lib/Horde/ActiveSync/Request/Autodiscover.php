@@ -7,7 +7,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2012-2015 Horde LLC (http://www.horde.org)
+ * @copyright 2012-2017 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -19,7 +19,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2012-2015 Horde LLC (http://www.horde.org)
+ * @copyright 2012-2017 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  * @internal
@@ -42,25 +42,19 @@ class Horde_ActiveSync_Request_Autodiscover extends Horde_ActiveSync_Request_Bas
         // Get $_SERVER
         $server = $request->getServerVars();
 
-        // Some broken clients *cough* android *cough* don't send the actual
-        // XML data structure at all, but instead use the email address as
-        // the username in the HTTP_AUTHENTICATION data. There are so many things
-        // wrong with this, but try to work around it if we can.
-        if (empty($values) && !empty($server['HTTP_AUTHORIZATION'])) {
-            $hash = base64_decode(str_replace('Basic ', '', $server['HTTP_AUTHORIZATION']));
-            if (strpos($hash, ':') !== false) {
-                list($email, $pass) = explode(':', $hash, 2);
-            }
-        } elseif (empty($values)) {
-            throw new Horde_Exception_AuthenticationFailure('No username provided.');
-        } else {
-            $email = $values[2]['value'];
-        }
-
-        // Need to override the username since AUTODISCOVER always uses email
-        // address.
+        // Obtain the credentials sent by the client.
+        // NOTE: Some broken clients *cough* android *cough* don't send the
+        // actual XML data structure at all, but instead use the email address
+        // as the username in the HTTP_AUTHENTICATION data. There are so many
+        // things wrong with this, but try to work around it if we can.
         $credentials = new Horde_ActiveSync_Credentials($this->_activeSync);
-        $credentials->username = $email;
+        $username = $credentials->username;
+        if (empty($values) && empty($username)) {
+            throw new Horde_Exception_AuthenticationFailure('No username provided.');
+        } elseif (!empty($values)) {
+            // Override the username; AUTODISCOVER MUST use email address.
+            $credentials->username = $values[2]['value'];
+        }
 
         if (!$this->_activeSync->authenticate($credentials)) {
             throw new Horde_Exception_AuthenticationFailure();
@@ -168,7 +162,7 @@ class Horde_ActiveSync_Request_Autodiscover extends Horde_ActiveSync_Request_Bas
                     <LoginName>' . $properties['username'] . '</LoginName>
                     <DomainRequired>off</DomainRequired>
                     <SPA>off</SPA>
-                    <SSL>' . ($properties['imap']['ssl'] ? 'on' : 'off') . '</SSL>
+                    ' . $this->_getEncryptionValue('imap', $properties) . '
                     <AuthRequired>on</AuthRequired>
                     </Protocol>';
             }
@@ -180,7 +174,7 @@ class Horde_ActiveSync_Request_Autodiscover extends Horde_ActiveSync_Request_Bas
                     <LoginName>' . $properties['username'] . '</LoginName>
                     <DomainRequired>off</DomainRequired>
                     <SPA>off</SPA>
-                    <SSL>' . ($properties['pop']['ssl'] ? 'on' : 'off') . '</SSL>
+                    ' . $this->_getEncryptionValue('pop', $properties) . '
                     <AuthRequired>on</AuthRequired>
                     </Protocol>';
             }
@@ -192,7 +186,7 @@ class Horde_ActiveSync_Request_Autodiscover extends Horde_ActiveSync_Request_Bas
                     <LoginName>' . $properties['username'] . '</LoginName>
                     <DomainRequired>off</DomainRequired>
                     <SPA>off</SPA>
-                    <SSL>' . ($properties['smtp']['ssl'] ? 'on' : 'off') . '</SSL>
+                    ' . $this->_getEncryptionValue('smtp', $properties) . '
                     <AuthRequired>on</AuthRequired>
                     <UsePOPAuth>' . ($properties['smtp']['popauth'] ? 'on' : 'off') . '</UsePOPAuth>
                     </Protocol>';
@@ -206,6 +200,20 @@ class Horde_ActiveSync_Request_Autodiscover extends Horde_ActiveSync_Request_Bas
           // Unknown request.
           return $this->_buildFailureResponse($properties['email'], '600', $properties['response_schema']);
         }
+    }
+
+    protected function _getEncryptionValue($type, $properties)
+    {
+      if (!empty($properties[$type]['encryption'])) {
+          return '<Encryption>' . $properties[$type]['encryption'] . '</Encryption>';
+      }
+      // Older version of autodiscover.
+      if (!empty($properties[$type]['ssl'])) {
+        return '<Encryption>SSL</Encryption>';
+      }
+
+      // None specified.
+      return '<Encryption>None</Encryption>';
     }
 
     /**

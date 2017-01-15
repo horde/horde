@@ -3,7 +3,7 @@
  * The Horde_Mime_Viewer_Ooo class renders out OpenOffice.org documents in
  * HTML format.
  *
- * Copyright 2003-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -47,9 +47,8 @@ class Horde_Mime_Viewer_Ooo extends Horde_Mime_Viewer_Base
      * @param Horde_Mime_Part $mime_part  The object with the data to be
      *                                    rendered.
      * @param array $conf                 Configuration:
-     * <pre>
-     * 'zip' - (Horde_Compress_Zip) A zip object.
-     * </pre>
+     *   - 'zip': (Horde_Compress_Zip) A zip object.
+     *   - 'temp_dir': (string) Where to create a temporary directory.
      */
     public function __construct(Horde_Mime_Part $part, array $conf = array())
     {
@@ -66,7 +65,7 @@ class Horde_Mime_Viewer_Ooo extends Horde_Mime_Viewer_Base
     {
         $has_xsl = Horde_Util::extensionExists('xsl');
         if ($has_xsl) {
-            $tmpdir = Horde_Util::createTempDir(true) . '/';
+            $tmpdir = Horde_Util::createTempDir(true, $this->getConfigParam('temp_dir')) . '/';
         }
 
         $fnames = array('content.xml', 'styles.xml', 'meta.xml');

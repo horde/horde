@@ -15,7 +15,7 @@
 /**
  * Horde base test suite
  *
- * Copyright 2009-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -81,7 +81,7 @@ class Horde_Test_AllTests
         chdir($this->_dir);
         $old_error = error_reporting();
         $suite = $this->suite();
-        $result = PHPUnit_TextUI_TestRunner::run($suite);
+        $result = PHPUnit_TextUI_TestRunner::run($suite, array('colors' => 'auto'));
         error_reporting($old_error);
         chdir($old_dir);
         return $result;

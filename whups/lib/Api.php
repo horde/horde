@@ -177,10 +177,7 @@ class Whups_Api extends Horde_Registry_Api
 
         // More checks if we're assigning the ticket at create-time.
         if ($GLOBALS['registry']->getAuth() && $whups_driver->isCategory('assigned', $vars->get('state'))) {
-            $form4 = new Whups_Form_Ticket_CreateStep4Form($vars);
-        }
-        if ($GLOBALS['registry']->getAuth() && $whups_driver->isCategory('assigned', $vars->get('state'))) {
-            $form4 = new Whups_Form_Ticket_CreateStep4Form($vars);
+            $form4 = new Whups_Form_Ticket_CreateStepFour($vars);
             $form4->useToken(false);
             if (!$form4->validate($vars, true)) {
                 throw new Whups_Exception('Invalid arguments (' . var_export($form4->getErrors(), true) . ')');
@@ -218,7 +215,7 @@ class Whups_Api extends Horde_Registry_Api
 
         // Populate $vars with existing ticket details.
         $vars = new Horde_Variables();
-        $ticket->setDetails($vars);
+        $ticket->setDetails($vars, true);
 
         // Copy new ticket details in.
         foreach ($ticket_info as $detail => $newval) {
@@ -242,6 +239,7 @@ class Whups_Api extends Horde_Registry_Api
 
         $ticket->change('summary', $info['summary']);
         $ticket->change('state', $info['state']);
+        $ticket->change('due', $info['due']);
         $ticket->change('priority', $info['priority']);
         if (!empty($info['newcomment'])) {
             $ticket->change('comment', $info['newcomment']);
@@ -399,8 +397,7 @@ class Whups_Api extends Horde_Registry_Api
                     'completed'         => ($ticket['state_category'] == 'resolved'),
                     'name'              => '[' . _("Ticket") . ' #' . $ticket['id'] . '] ' . $ticket['summary'],
                     'desc'              => null,
-                    'due'               => null,
-                    'category'          => null,
+                    'due'               => $ticket['due'],
                     'view_link'         => $view_link,
                     'delete_link'       => $delete_link,
                     'edit_link'         => $view_link,
@@ -564,7 +561,7 @@ class Whups_Api extends Horde_Registry_Api
                     'type'              => $tickets[$i]['type_name'],
                     'priority'          => $tickets[$i]['priority_name'],
                     'desc'              => null,
-                    'due'               => null,
+                    'due'               => $tickets[$i]['due'],
                     'category'          => null,
                     'view_link'         => $view_link,
                     'delete_link'       => $delete_link,
@@ -589,7 +586,14 @@ class Whups_Api extends Horde_Registry_Api
 
         $info = array();
         if (!empty($criteria['user'])) {
-            $info['owner'] = 'user:' . $GLOBALS['registry']->getAuth();
+            if (is_array($criteria['user'])) {
+                $info['owner'] = array_map(
+                    function($input) { return 'user:' . $input; },
+                    $criteria['user']
+                );
+            } else {
+                $info['owner'] = 'user:' . $criteria['user'];
+            }
         }
         if (!empty($criteria['active'])) {
             $info['nores'] = true;
@@ -598,7 +602,7 @@ class Whups_Api extends Horde_Registry_Api
             $info['id'] = $criteria['id'];
         }
 
-        $tickets = $whups_driver->getTicketsByProperties($info);
+        $tickets = $whups_driver->getTicketsByProperties($info, true, false, false);
         $result = array();
         foreach ($tickets as $ticket) {
             $result[$ticket['id']] = array(
@@ -606,14 +610,18 @@ class Whups_Api extends Horde_Registry_Api
               'active' => ($ticket['state_category'] != 'resolved'),
               'name'   => sprintf(
                 _("Ticket %s - %s"), $ticket['id'], $ticket['summary']));
-
-            /* If the user has an estimate attribute, use that for cost object
-             * hour estimates. */
-            $attributes = $whups_driver->getTicketAttributesWithNames($ticket['id']);
+        }
+        /* If the user has an estimate attribute, use that for cost object
+         * hour estimates. */
+        $ticket_ids = array_map(function($item) {
+            return $item['id'];
+        }, $tickets);
+        $att_list = $whups_driver->getTicketAttributesWithNames($ticket_ids);
+        foreach ($att_list as $attributes) {
             foreach ($attributes as $k => $v) {
-                if (strtolower($k) == _("estimated time")) {
-                    if (!empty($v)) {
-                        $result[$ticket['id']]['estimate'] = (double) $v;
+                if (strtolower($v['attribute_name']) == _("estimated time")) {
+                    if (!empty($v['attribute_value'])) {
+                        $result[$k['id']]['estimate'] = (double) $v['attribute_value'];
                     }
                 }
             }

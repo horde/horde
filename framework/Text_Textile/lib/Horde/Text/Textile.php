@@ -139,11 +139,11 @@ class Horde_Text_Textile {
 
             if ($element == 'td' || $element == 'tr') {
                 if (preg_match('/(' . self::REGEX_A_VLGN . ')/', $matched, $vert))
-                    $style[] = 'vertical-align:' . $this->vAlign($vert[1]) . ';';
+                    $style .= 'vertical-align:' . $this->vAlign($vert[1]) . ';';
             }
 
             if (preg_match('/\{([^}]*)\}/', $matched, $sty)) {
-                $style[] = rtrim($sty[1], ';') . ';';
+                $style .= rtrim($sty[1], ';') . ';';
                 $matched = str_replace($sty[0], '', $matched);
             }
 
@@ -158,17 +158,17 @@ class Horde_Text_Textile {
             }
 
             if (preg_match('/([(]+)/', $matched, $pl)) {
-                $style[] = 'padding-left:' . strlen($pl[1]) . 'em;';
+                $style .= 'padding-left:' . strlen($pl[1]) . 'em;';
                 $matched = str_replace($pl[0], '', $matched);
             }
 
             if (preg_match('/([)]+)/', $matched, $pr)) {
-                $style[] = 'padding-right:' . strlen($pr[1]) . 'em;';
+                $style .= 'padding-right:' . strlen($pr[1]) . 'em;';
                 $matched = str_replace($pr[0], '', $matched);
             }
 
             if (preg_match('/(' . self::REGEX_A_HLGN . ')/', $matched, $horiz)) {
-                $style[] = 'text-align:' . $this->hAlign($horiz[1]) . ';';
+                $style .= 'text-align:' . $this->hAlign($horiz[1]) . ';';
             }
 
             if (preg_match('/^(.*)#(.*)$/', $class, $ids)) {
@@ -177,12 +177,12 @@ class Horde_Text_Textile {
             }
 
             return
-                ($style     ? ' style="'   . implode('', $style) . '"' : '')
-                . ($class   ? ' class="'   . $class              . '"' : '')
-                . ($lang    ? ' lang="'    . $lang               . '"' : '')
-                . ($id      ? ' id="'      . $id                 . '"' : '')
-                . ($colspan ? ' colspan="' . $colspan            . '"' : '')
-                . ($rowspan ? ' rowspan="' . $rowspan            . '"' : '');
+                ($style     ? ' style="'   . $style   . '"' : '')
+                . ($class   ? ' class="'   . $class   . '"' : '')
+                . ($lang    ? ' lang="'    . $lang    . '"' : '')
+                . ($id      ? ' id="'      . $id      . '"' : '')
+                . ($colspan ? ' colspan="' . $colspan . '"' : '')
+                . ($rowspan ? ' rowspan="' . $rowspan . '"' : '');
         }
 
         return '';

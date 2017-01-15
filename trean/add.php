@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you did not
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -36,7 +36,7 @@ case 'add_bookmark':
     );
 
     try {
-        $bookmark = $trean_gateway->newBookmark($properties);
+        $bookmark = $trean_gateway->newBookmark($properties, !empty($conf['content_index']['enabled']));
     } catch (Exception $e) {
         $notification->push(sprintf(_("There was an error adding the bookmark: %s"), $e->getMessage()), 'horde.error');
     }

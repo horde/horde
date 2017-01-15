@@ -2,7 +2,7 @@
 /**
  * Special prefs handling for the 'twittermanagement' preference.
  *
- * Copyright 2012-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl.
@@ -83,7 +83,6 @@ class Horde_Prefs_Special_Twitter implements Horde_Core_Prefs_Ui_Special
 
         switch ($ui->vars->twitteractionID) {
         case 'revokeInfinite':
-            $twitter->account->endSession();
             $prefs->setValue('twitter', 'a:0:{}');
             echo '<script type="text/javascript">location.href="' . Horde::url('services/prefs.php', true)->add(array('group' => 'twitter', 'app'  => 'horde')) . '";</script>';
             exit;

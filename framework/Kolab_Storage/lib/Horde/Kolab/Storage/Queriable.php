@@ -14,7 +14,7 @@
 /**
  * Marks a queriable class.
  *
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -32,8 +32,6 @@ interface Horde_Kolab_Storage_Queriable
      *
      * @param string                    $name  The query name.
      * @param Horde_Kolab_Storage_Query $query The query to register.
-     *
-     * @return NULL
      */
     public function registerQuery($name, Horde_Kolab_Storage_Query $query);
 

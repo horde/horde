@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2013-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2013-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
- * @copyright 2013-2015 Horde LLC
+ * @copyright 2013-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -17,7 +17,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2013-2015 Horde LLC
+ * @copyright 2013-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -53,10 +53,13 @@ class IMP_Mailbox_List_Virtual extends IMP_Mailbox_List
                 $mbox, $sorted
             );
 
-            $this->_sortedMbox = array_merge(
-                $this->_sortedMbox,
-                array_fill(0, count($sorted), strval($mbox))
-            );
+            /* array_fill() in PHP < 5.6 did not allow 2nd arg to be 0. */
+            if (count($sorted)) {
+                $this->_sortedMbox = array_merge(
+                    $this->_sortedMbox,
+                    array_fill(0, count($sorted), strval($mbox))
+                );
+            }
         }
 
         return $sorted;

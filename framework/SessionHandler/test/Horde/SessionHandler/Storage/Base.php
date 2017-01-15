@@ -13,9 +13,9 @@ class Horde_SessionHandler_Storage_Base extends Horde_Test_Case
 
     protected function _write()
     {
-        self::$handler->open(self::$dir, 'sessionname');
+        $this->assertTrue(self::$handler->open(self::$dir, 'sessionname'));
         $this->assertSame('', self::$handler->read('sessionid'));
-        self::$handler->write('sessionid', 'sessiondata');
+        $this->assertTrue(self::$handler->write('sessionid', 'sessiondata'));
     }
 
     protected function _read()
@@ -25,45 +25,45 @@ class Horde_SessionHandler_Storage_Base extends Horde_Test_Case
 
     protected function _reopen()
     {
-        self::$handler->close();
-        self::$handler->open(self::$dir, 'sessionname');
+        $this->assertTrue(self::$handler->close());
+        $this->assertTrue(self::$handler->open(self::$dir, 'sessionname'));
         $this->assertEquals('sessiondata', self::$handler->read('sessionid'));
-        self::$handler->close();
+        $this->assertTrue(self::$handler->close());
     }
 
     protected function _list()
     {
-        self::$handler->close();
-        self::$handler->open(self::$dir, 'sessionname');
+        $this->assertTrue(self::$handler->close());
+        $this->assertTrue(self::$handler->open(self::$dir, 'sessionname'));
         self::$handler->read('sessionid2');
-        self::$handler->write('sessionid2', 'sessiondata2');
+        $this->assertTrue(self::$handler->write('sessionid2', 'sessiondata2'));
         /* List while session is active. */
         $ids = self::$handler->getSessionIDs();
         sort($ids);
         $this->assertEquals(array('sessionid', 'sessionid2'), $ids);
-        self::$handler->close();
+        $this->assertTrue(self::$handler->close());
 
         /* List while session is inactive. */
-        self::$handler->open(self::$dir, 'sessionname');
+        $this->assertTrue(self::$handler->open(self::$dir, 'sessionname'));
         $ids = self::$handler->getSessionIDs();
         sort($ids);
         $this->assertEquals(array('sessionid', 'sessionid2'), $ids);
-        self::$handler->close();
+        $this->assertTrue(self::$handler->close());
     }
 
     protected function _destroy()
     {
-        self::$handler->open(self::$dir, 'sessionname');
+        $this->assertTrue(self::$handler->open(self::$dir, 'sessionname'));
         self::$handler->read('sessionid2');
-        self::$handler->destroy('sessionid2');
+        $this->assertTrue(self::$handler->destroy('sessionid2'));
         $this->assertEquals(array('sessionid'),
                             self::$handler->getSessionIDs());
     }
 
     protected function _gc()
     {
-        self::$handler->open(self::$dir, 'sessionname');
-        self::$handler->gc(-1);
+        $this->assertTrue(self::$handler->open(self::$dir, 'sessionname'));
+        $this->assertTrue(self::$handler->gc(-1));
         $this->assertEquals(array(),
                             self::$handler->getSessionIDs());
     }

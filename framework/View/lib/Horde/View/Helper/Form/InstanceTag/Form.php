@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2007-2008 Maintainable Software, LLC
- * Copyright 2008-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2017 Horde LLC (http://www.horde.org/)
  *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
@@ -69,7 +69,7 @@ class Horde_View_Helper_Form_InstanceTag_Form extends Horde_View_Helper_Form_Ins
         $prettyTagValue = strval($tagValue);
         $prettyTagValue = preg_replace('/\s/', '_', $prettyTagValue);
         $prettyTagValue = preg_replace('/\W/', '', $prettyTagValue);
-        $prettyTagValue = strtolower($prettyTagValue);
+        $prettyTagValue = Horde_String::lower($prettyTagValue);
 
         if (! isset($options['id'])) {
             if (isset($this->autoIndex)) {

@@ -14,7 +14,7 @@
 /**
  * Components_Pear_Factory:: generates PEAR specific handlers.
  *
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -153,7 +153,8 @@ class Components_Pear_Factory
         $package_xml_path,
         Components_Pear_Environment $environment
     ) {
-        $pkg = new PEAR_PackageFile($environment->getPearConfig());
+        $config = $environment->getPearConfig();
+        $pkg = new PEAR_PackageFile($config);
         return Components_Exception_Pear::catchError(
             $pkg->fromPackageFile($package_xml_path, PEAR_VALIDATE_NORMAL)
         );

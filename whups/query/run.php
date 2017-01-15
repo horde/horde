@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
- * Copyright 2001-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -27,6 +27,7 @@ try {
     } else {
         $whups_query = $session->get('whups', 'query');
     }
+    $session->set('whups', 'query', $whups_query);
 } catch (Whups_Exception $e) {
     $notification->push($e->getMessage());
 }
@@ -107,5 +108,3 @@ if (!is_null($tickets)) {
 }
 
 $page_output->footer();
-
-$session->set('whups', 'query', $whups_query);

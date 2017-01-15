@@ -24,23 +24,20 @@
  </lead>
  <date>2016-07-04</date>
  <version>
-  <release>3.0.2</release>
-  <api>3.0.0</api>
+  <release>4.0.0</release>
+  <api>4.0.0</api>
  </version>
  <stability>
-  <release>stable</release>
-  <api>stable</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Show users&apos; full names in share dialogs.
+* [mjr] Remove maps configuration, replaced by global maps configuration (Bug #14168).
 * [jan] Keep original file names when PUTing images via WebDAV.
-* [jan] Fix closure compiler errors (Bug #13596).
 * [jan] Return ETags with browse() API method.
 * [mjr] Fix fatal divide by zero error due to incorrectly named variable.
-* [jan] Fix type of ansel_shares_users.user_uid column.
-* [jan] Fix watermark font size preference.
-* [jan] Make shares table compatible with Oracle.
-* [jan] Add Danish translation (Erling Preben Hansen &lt;erling@eph.dk&gt;).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -57,11 +54,10 @@
     <file name="ansel-garbage-collection" role="script">
      <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
     </file>
-    <file name="AnselPublish.scpt" role="script">
-     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
-    </file>
+    <file name="AnselPublish.scpt" role="script" />
    </dir> <!-- /bin -->
    <dir name="config">
+    <file name=".htaccess" role="horde" />
     <file name="conf.xml" role="horde" />
     <file name="hooks.php.dist" role="horde" />
     <file name="prefs.php" role="horde" />
@@ -73,6 +69,7 @@
     <file name="INSTALL" role="doc" />
     <file name="lighttpd-ansel.conf" role="doc" />
     <file name="RELEASE_NOTES" role="doc" />
+    <file name="UPGRADING" role="doc" />
    </dir> <!-- /docs -->
    <dir name="faces">
     <dir name="search">
@@ -267,6 +264,7 @@
      <file name="SimilarPhotos.php" role="horde" />
      <file name="Tags.php" role="horde" />
     </dir> <!-- /lib/Widget -->
+    <file name=".htaccess" role="horde" />
     <file name="ActionHandler.php" role="horde" />
     <file name="Ajax.php" role="horde" />
     <file name="Ansel.php" role="horde" />
@@ -492,6 +490,7 @@
      <file name="login.inc" role="horde" />
      <file name="new.inc" role="horde" />
     </dir> <!-- /templates/xppublish -->
+    <file name=".htaccess" role="horde" />
     <file name="map_edit.html.php" role="horde" />
    </dir> <!-- /templates -->
    <dir name="test">
@@ -653,7 +652,7 @@
    <package>
     <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
-    <min>2.6.1</min>
+    <min>2.23.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -667,7 +666,7 @@
    <package>
     <name>Horde_Db</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.3</min>
+    <min>2.2.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -858,6 +857,7 @@
    <install as="ansel-exif-to-tags" name="bin/ansel-exif-to-tags" />
    <install as="ansel-garbage-collection" name="bin/ansel-garbage-collection" />
    <install as="AnselPublish.scpt" name="bin/AnselPublish.scpt" />
+   <install as="ansel/config/.htaccess" name="config/.htaccess" />
    <install as="ansel/config/conf.xml" name="config/conf.xml" />
    <install as="ansel/config/hooks.php.dist" name="config/hooks.php.dist" />
    <install as="ansel/config/prefs.php" name="config/prefs.php" />
@@ -867,6 +867,7 @@
    <install as="INSTALL" name="docs/INSTALL" />
    <install as="lighttpd-ansel.conf" name="docs/lighttpd-ansel.conf" />
    <install as="RELEASE_NOTES" name="docs/RELEASE_NOTES" />
+   <install as="UPGRADING" name="docs/UPGRADING" />
    <install as="ansel/faces/claim.php" name="faces/claim.php" />
    <install as="ansel/faces/custom.php" name="faces/custom.php" />
    <install as="ansel/faces/face.php" name="faces/face.php" />
@@ -923,6 +924,7 @@
    <install as="ansel/js/views/slideshow.js" name="js/views/slideshow.js" />
    <install as="ansel/js/widgets/geotag.js" name="js/widgets/geotag.js" />
    <install as="ansel/js/widgets/tagactions.js" name="js/widgets/tagactions.js" />
+   <install as="ansel/lib/.htaccess" name="lib/.htaccess" />
    <install as="ansel/lib/ActionHandler.php" name="lib/ActionHandler.php" />
    <install as="ansel/lib/Ajax.php" name="lib/Ajax.php" />
    <install as="ansel/lib/Ansel.php" name="lib/Ansel.php" />
@@ -1070,6 +1072,7 @@
    <install as="ansel/migration/13_ansel_upgrade_parents.php" name="migration/13_ansel_upgrade_parents.php" />
    <install as="ansel/migration/14_ansel_upgrade_addtitle.php" name="migration/14_ansel_upgrade_addtitle.php" />
    <install as="ansel/migration/14_ansel_upgrade_fixshareusers.php" name="migration/14_ansel_upgrade_fixshareusers.php" />
+   <install as="ansel/templates/.htaccess" name="templates/.htaccess" />
    <install as="ansel/templates/map_edit.html.php" name="templates/map_edit.html.php" />
    <install as="ansel/templates/browse/new.inc" name="templates/browse/new.inc" />
    <install as="ansel/templates/captions/captions.inc" name="templates/captions/captions.inc" />
@@ -1385,14 +1388,89 @@
    <date>2016-07-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* [jan] Keep original file names when PUTing images via WebDAV.
 * [jan] Fix closure compiler errors (Bug #13596).
-* [jan] Return ETags with browse() API method.
-* [mjr] Fix fatal divide by zero error due to incorrectly named variable.
 * [jan] Fix type of ansel_shares_users.user_uid column.
 * [jan] Fix watermark font size preference.
 * [jan] Make shares table compatible with Oracle.
 * [jan] Add Danish translation (Erling Preben Hansen &lt;erling@eph.dk&gt;).
+   </notes>
+  </release>
+  <release>
+   <date>2015-08-01</date>
+   <version>
+    <release>3.0.3</release>
+    <api>3.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Fix PUTing images.
+* [jan] Fix DAV URLs when using authusername hooks.
+* [mjr] Fix fatal error due to failed generation of KeyImage thumbnails in mobile view (Bug #14028).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.4</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-03-21</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Use access rules compatible with both Apache 2.2 and 2.4.
+* [jan] Improve Oracle compatibility.
+* [mjr] Fix content-type for screen images to be compatible with some versions of IE.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.5</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-05-26</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix creating new galleries (Bug #14372).
+* [jan] Fix fatal error in upload screen with PHP 7 (Michael Cramer &lt;michael@bigmichi1.de&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.6</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-05-26</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+*
+   </notes>
+  </release>
+  <release>
+   <date>2016-11-09</date>
+   <version>
+    <release>4.0.0</release>
+    <api>4.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Show users&apos; full names in share dialogs.
+* [mjr] Remove maps configuration, replaced by global maps configuration (Bug #14168).
+* [jan] Keep original file names when PUTing images via WebDAV.
+* [jan] Return ETags with browse() API method.
+* [mjr] Fix fatal divide by zero error due to incorrectly named variable.
    </notes>
   </release>
  </changelog>

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2003-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -345,7 +345,8 @@ class Ingo_Script_Sieve extends Ingo_Script_Base
             'end_year' => $rule->end_year,
             'end_month' => $rule->end_month,
             'end_day' => $rule->end_day,
-            'reason' => $rule->reason
+            'reason' => $rule->reason,
+            'date' => !empty($this->_params['date']),
         ));
 
         if ($rule->ignore_list) {
@@ -737,7 +738,8 @@ class Ingo_Script_Sieve extends Ingo_Script_Base
                                   'comparator' => $comparator);
                     $use_address_test = false;
 
-                    if ($condition['match'] != 'regex') {
+                    if ($condition['match'] != 'regex' &&
+                        $condition['field'] != 'Body') {
                         $condition['value'] = preg_replace('/(.)(?<!\\\)\,(.)/',
                                                            "$1\n$2",
                                                            $condition['value']);

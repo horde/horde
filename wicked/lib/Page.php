@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2003-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -442,11 +442,6 @@ class Wicked_Page
             return $this->_proc;
         }
 
-        $view_url = Wicked::url('%s')
-            ->setRaw(true)
-            ->add('referrer', $this->pageName());
-        $view_url = str_replace(urlencode('%s'), '%s', $view_url);
-
         /* Create format-specific Text_Wiki object */
         $class = 'Text_Wiki_' . $GLOBALS['conf']['wicked']['format'];
         $this->_proc = new $class();
@@ -462,6 +457,8 @@ class Wicked_Page
         $skip = $this->_proc->parseObj['Paragraph']->getConf('skip');
         $skip[] = 'heading2';
         $this->_proc->setParseConf('Paragraph', 'skip', $skip);
+        $this->_proc->setParseConf('Wikilink', 'utf-8', true);
+        $this->_proc->setParseConf('Freelink', 'utf-8', true);
 
         if ($GLOBALS['conf']['wicked']['format'] == 'Default' ||
             $GLOBALS['conf']['wicked']['format'] == 'Cowiki' ||
@@ -471,6 +468,24 @@ class Wicked_Page
         $this->_proc->deleteRule('Toc');
 
         switch ($output_format) {
+        case 'Plain':
+            $this->_proc->insertRule('Table2', 'Table');
+            $this->_proc->deleteRule('Table');
+            break;
+
+        case 'Rst':
+            require_once __DIR__ . '/Text_Wiki/Render/Rst.php';
+            $this->_proc->insertRule('Table2', 'Table');
+            $this->_proc->deleteRule('Table');
+            $this->_proc->setRenderConf('Rst', 'Wikilink', $this->_getLinkConf(true));
+            if ($GLOBALS['conf']['wicked']['format'] == 'Default') {
+                $this->_proc->insertRule('Freelink2', 'Freelink');
+                $this->_proc->setParseConf('Freelink2', 'utf-8', true);
+                $this->_proc->setRenderConf('Rst', 'Freelink2', $this->_getLinkConf(true));
+            }
+            $this->_proc->deleteRule('Freelink');
+            break;
+
         case 'Xhtml':
             if ($GLOBALS['conf']['wicked']['format'] != 'Creole') {
                 $this->_proc->insertRule('Code2', 'Code');
@@ -482,7 +497,6 @@ class Wicked_Page
             } else {
                 $this->_proc->insertRule('Wikilink2', 'Wikilink');
                 $this->_proc->setParseConf('Wikilink2', 'utf-8', true);
-
                 $this->_proc->insertRule('Wickedblock', 'Raw');
             }
             $this->_proc->deleteRule('Wikilink');
@@ -491,6 +505,7 @@ class Wicked_Page
                 $GLOBALS['conf']['wicked']['format'] == 'Cowiki' ||
                 $GLOBALS['conf']['wicked']['format'] == 'Tiki') {
                 $this->_proc->insertRule('Freelink2', 'Freelink');
+                $this->_proc->setParseConf('Freelink2', 'utf-8', true);
             }
             $this->_proc->deleteRule('Freelink');
 
@@ -504,27 +519,14 @@ class Wicked_Page
 
             $this->_proc->setFormatConf('Xhtml', 'charset', 'UTF-8');
             $this->_proc->setFormatConf('Xhtml', 'translate', HTML_SPECIALCHARS);
-            $create = $this->allows(Wicked::MODE_CREATE) ? 1 : 0;
-            $linkConf = array(
-                'pages' => $GLOBALS['wicked']->getPages(),
-                'view_url' => $view_url,
-                'new_url' => $create ? $view_url : false,
-                'new_text_pos' => false,
-                'css_new' => 'newpage',
-                'ext_chars' => true,
-            );
 
-            $this->_proc->setRenderConf('Xhtml', 'Wikilink2', $linkConf);
-            $this->_proc->setRenderConf('Xhtml', 'Freelink2', $linkConf);
+            $this->_proc->setRenderConf('Xhtml', 'Wikilink2', $this->_getLinkConf());
+            $this->_proc->setRenderConf('Xhtml', 'Freelink2', $this->_getLinkConf());
             $this->_proc->setRenderConf('Xhtml', 'Toc2',
                                         array('title' => '<h2>' . _("Table of Contents") . '</h2>'));
             $this->_proc->setRenderConf('Xhtml', 'Table',
                                         array('css_table' => 'horde-table'));
 
-            break;
-
-        case 'Rst':
-            require_once __DIR__ . '/Text_Wiki/Render/Rst.php';
             break;
         }
 
@@ -543,6 +545,30 @@ class Wicked_Page
         );
 
         return $this->_proc;
+    }
+
+    /**
+     * Returns a link configuration for Text_Wiki.
+     *
+     * @param boolean $full  @see Wicked::url()
+     *
+     * @return array  A link configuration for Wiklink and Freelink rules.
+     */
+    protected function _getLinkConf($full = false)
+    {
+        $view_url = Wicked::url('%s', $full)
+            ->setRaw(true)
+            ->add('referrer', $this->pageName());
+        $view_url = str_replace(urlencode('%s'), '%s', $view_url);
+        $create = $this->allows(Wicked::MODE_CREATE) ? 1 : 0;
+        return array(
+            'pages' => $GLOBALS['wicked']->getPages(),
+            'view_url' => $view_url,
+            'new_url' => $create ? $view_url : false,
+            'new_text_pos' => false,
+            'css_new' => 'newpage',
+            'ext_chars' => true,
+        );
     }
 
     public function render($mode, $params = null)
@@ -630,6 +656,11 @@ class Wicked_Page
     }
 
     public function referrer()
+    {
+        return null;
+    }
+
+    public function changeLog()
     {
         return null;
     }

@@ -14,7 +14,7 @@
 /**
  * The basis for Kolab storage access.
  *
- * Copyright 2004-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -33,21 +33,21 @@ implements Horde_Kolab_Storage
      *
      * @var Horde_Kolab_Storage_Driver
      */
-    private $_master;
+    protected $_master;
 
     /**
      * The query handler.
      *
      * @var Horde_Kolab_Storage_QuerySet
      */
-    private $_query_set;
+    protected $_query_set;
 
     /**
      * The factory for generating additional resources.
      *
      * @var Horde_Kolab_Storage_Factory
      */
-    private $_factory;
+    protected $_factory;
 
     /**
      * The cache.
@@ -61,28 +61,28 @@ implements Horde_Kolab_Storage
      *
      * @var Horde_Log_Logger
      */
-    private $_logger;
+    protected $_logger;
 
     /**
      * Additional parameters.
      *
      * @var array
      */
-    private $_params;
+    protected $_params;
 
     /**
      * List instances.
      *
      * @var array
      */
-    private $_lists;
+    protected $_lists;
 
     /**
      * Data instances.
      *
      * @var array
      */
-    private $_data;
+    protected $_data;
 
     /**
      * Constructor.
@@ -92,7 +92,7 @@ implements Horde_Kolab_Storage
      * @param Horde_Kolab_Storage_QuerySet $query_set  The query handler.
      * @param Horde_Kolab_Storage_Factory  $factory    The factory.
      * @param Horde_Kolab_Storage_Cache    $cache      The cache.
-     * @param Horde_Log_Logger             $logger  A logger.
+     * @param Horde_Log_Logger             $logger     A logger.
      * @param array                        $params     Additional parameters.
      */
     public function __construct(Horde_Kolab_Storage_Driver $master,
@@ -189,7 +189,7 @@ implements Horde_Kolab_Storage
      */
     public function getData($folder, $object_type = null, $data_version = 1)
     {
-        if ($folder instanceOf Horde_Kolab_Storage_Folder) {
+        if ($folder instanceof Horde_Kolab_Storage_Folder) {
             $folder_key = $folder->getPath();
         } else {
             $folder_key = $folder;
@@ -204,7 +204,7 @@ implements Horde_Kolab_Storage
             )
         );
         if (!isset($this->_data[$key])) {
-            if (!$folder instanceOf Horde_Kolab_Storage_Folder) {
+            if (!$folder instanceof Horde_Kolab_Storage_Folder) {
                 $folder = $this->getFolder($folder);
             }
             $this->_data[$key] = $this->_createData(

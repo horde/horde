@@ -10,18 +10,18 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-01-28</date>
+ <date>2016-07-12</date>
  <version>
-  <release>1.0.0alpha1</release>
-  <api>1.0.0alpha1</api>
+  <release>1.0.3</release>
+  <api>1.0.0</api>
  </version>
  <stability>
-  <release>alpha</release>
-  <api>alpha</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
-* Initial release.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -71,7 +71,21 @@
     <min>1.7.0</min>
    </pearinstaller>
    <package>
+    <name>Horde_Exception</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
     <name>Horde_Socket_Client</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
     <max>3.0.0alpha1</max>
@@ -115,10 +129,65 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2015-01-28</date>
+   <date>2015-07-31</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * Initial release.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-11-15</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <notes>
+* Initial stable release.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-02-01</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <notes>
+* [jan] Fix usage of &apos;tlsv1&apos; connection setting (Ralf Becker &lt;RalfBecker@outdoor-training.de&gt;).
+* [jan] Fix setting authentication credentials from login() (Ralf Becker &lt;RalfBecker@outdoor-training.de&gt;).
+* [jan] Fix throwing exceptions (Ralf Becker &lt;RalfBecker@outdoor-training.de&gt;).
+* [jan] Mark PHP 7 as supported.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-07-12</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <notes>
+* [jan] Fix loading of Auth_SASL class (Ralf Becker &lt;RalfBecker@outdoor-training.de&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.3</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-07-12</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

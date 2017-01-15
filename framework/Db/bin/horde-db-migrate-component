@@ -3,9 +3,16 @@
 /**
  * Database migration script.
  *
- * Usage: horde-db-migrate-component --adapter=pdo_mysql [--host=db.example.com] [--username=user] [--password=secret] [--database=db] [...] directory module [(up|down|version) [debug]]
+ * Usage: horde-db-migrate-component
+ *        --adapter=pdo_mysql
+ *        [--host=db.example.com]
+ *        [--username=user]
+ *        [--password=secret]
+ *        [--database=db]
+ *        [...]
+ *        directory module [(up|down|status|<version>) [debug]]
  *
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (BSD). If you did
  * not receive this file, see http://www.horde.org/licenses/bsd
@@ -32,7 +39,7 @@ foreach ($_SERVER['argv'] as $arg) {
     }
 }
 if (empty($args[1])) {
-    die("horde-db-migrate-component [--parameter=value ...] directory module [(up|down|version) [debug]]\n");
+    die("horde-db-migrate-component [--parameter=value ...] directory module [(up|down|status|<version>) [debug]]\n");
 }
 if (!isset($params['adapter'])) {
     die("The --adapter parameter is required. Other parameters may be required depending on the adapter.\n");
@@ -52,6 +59,10 @@ if (!empty($args[2])) {
         $action = $args[2];
         break;
 
+    case 'status':
+        $action = $args[2];
+        break;
+
     default:
         $action = 'migrate';
         $targetVersion = $args[2];
@@ -60,7 +71,7 @@ if (!empty($args[2])) {
 }
 
 // Build Horde_Db adapter.
-$class = 'Horde_Db_Adapter_' . str_replace(' ', '_', ucwords(str_replace('_', ' ', basename($params['adapter']))));
+$class = 'Horde_Db_Adapter_' . str_replace(' ', '_', Horde_String::ucwords(str_replace('_', ' ', basename($params['adapter']))));
 if (!class_exists($class)) {
     die($params['adapter'] . " is not a valid adapter name.\n");
 }
@@ -94,6 +105,13 @@ try {
     case 'down':
         echo "Migrating DB down.\n";
         $migrator->down();
+        break;
+
+    case 'status':
+        echo 'Target schema version: ' . $migrator->getTargetVersion() . "\n";
+        exit(
+            $migrator->getCurrentVersion() == $migrator->getTargetVersion() ? 0 : 1
+        );
         break;
 
     case 'migrate':

@@ -3,7 +3,7 @@
  * Read-only Turba_Driver implementation for creating a Horde_Group based
  * address book.
  *
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you did
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -18,11 +18,12 @@ class Turba_Driver_Group extends Turba_Driver
     /**
      * Constructor function.
      *
-     * @param array $params  Array of parameters for this driver.
-     *                       Basically, just passes the group id.
+     * @param string $name   Source name
+     * @param array $params  Hash containing additional configuration
+     *                       parameters.
      *
      */
-    public function __construct($name = '', $params)
+    public function __construct($name = '', array $params = array())
     {
          $this->_gid = $params['gid'];
     }

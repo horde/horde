@@ -30,25 +30,28 @@ class Nag_SaveTask_Controller extends Horde_Controller_Base
                 $notification->push(sprintf(_("Access denied deleting task: %s"), $e->getMessage()), 'horde.error');
                 Horde::url('list.php', true)->redirect();
             }
+            $task = Nag::getTask($info['old_tasklist'], $info['task_id']);
+            $task->loadChildren();
             if (!$share->hasPermission($registry->getAuth(), Horde_Perms::DELETE)) {
                 $notification->push(_("Access denied deleting task"), 'horde.error');
                 Horde::url('list.php', true)->redirect();
+            } else {
+                $storage = $this->getInjector()
+                    ->getInstance('Nag_Factory_Driver')
+                    ->create($info['old_tasklist']);
+                try {
+                    $storage->delete($info['task_id']);
+                    $notification->push(_("Task successfully deleted"), 'horde.success');
+                    Horde::url('list.php', true)->redirect();
+                } catch (Nag_Exception $e) {
+                    $notification->push(sprintf(_("Error deleting task: %s"), $e->getMessage()), 'horde.error');
+                    Horde::url('list.php', true)->redirect();
+                }
             }
-            $storage = $this->getInjector()
-                ->getInstance('Nag_Factory_Driver')
-                ->create($info['old_tasklist']);
-            try {
-                $storage->delete($info['task_id']);
-            } catch (Nag_Exception $e) {
-                $notification->push(sprintf(_("Error deleting task: %s"), $e->getMessage()), 'horde.error');
-                Horde::url('list.php', true)->redirect();
-            }
-            $notification->push(_("Task successfully deleted"), 'horde.success');
-            Horde::url('list.php', true)->redirect();
         }
 
         if ($prefs->isLocked('default_tasklist') ||
-            count(Nag::listTasklists(false, Horde_Perms::EDIT, false)) <= 1) {
+            count($this->_getTasklists()) <= 1) {
             $info['tasklist_id'] = $info['old_tasklist'] = Nag::getDefaultTasklist(Horde_Perms::EDIT);
         }
         try {
@@ -69,7 +72,12 @@ class Nag_SaveTask_Controller extends Horde_Controller_Base
                 ->getInstance('Nag_Factory_Driver')
                 ->create($info['old_tasklist']);
             $info['tasklist'] = $info['tasklist_id'];
-            $result = $storage->modify($info['task_id'], $info);
+            try {
+                $storage->modify($info['task_id'], $info);
+            } catch (Nag_Exception $e) {
+                $notification->push(sprintf(_("There was a problem saving the task: %s."), $e->getMessage()), 'horde.error');
+                Horde::url('list.php', true)->redirect();
+            }
             $method = Nag::ITIP_UPDATE;
             $newid = array($info['task_id']);
         } else {
@@ -114,6 +122,26 @@ class Nag_SaveTask_Controller extends Horde_Controller_Base
         }
 
         $response->setRedirectUrl($url);
+    }
+
+    /**
+     * Return tasklists the current user has PERMS_EDIT on.
+     * See Bug: 13837.
+     *
+     * @return array  A hash of tasklist objects.
+     */
+    protected function _getTasklists()
+    {
+        $tasklist_enums = array();
+        $user = $GLOBALS['registry']->getAuth();
+        foreach (Nag::listTasklists(false, Horde_Perms::SHOW, false) as $tl_id => $tl) {
+            if (!$tl->hasPermission($user, Horde_Perms::EDIT)) {
+                continue;
+            }
+            $tasklist_enums[$tl_id] = Nag::getLabel($tl);
+        }
+
+        return $tasklist_enums;
     }
 
 }

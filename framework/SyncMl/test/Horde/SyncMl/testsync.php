@@ -9,7 +9,7 @@
  * See http://wiki.horde.org/SyncHowTo for a description how to create a test
  * case.
  *
- * Copyright 2006-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2006-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -33,7 +33,7 @@
  *   - change any incoming auth to syncmltest:syncmltest
  *   - identify twowaysync and create fake anchors for that */
 
-require_once 'SyncML.php';
+require_once 'SyncMl.php';
 
 define('SYNCMLTEST_USERNAME', 'syncmltest');
 

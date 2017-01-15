@@ -3,7 +3,7 @@
  * Mnemo storage implementation for Horde's Horde_Db database abstraction
  * layer.
  *
- * Copyright 2001-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -66,7 +66,7 @@ class Mnemo_Driver_Sql extends Mnemo_Driver
         $values = array($this->_notepad);
 
         try {
-            $rows = $this->_db->selectAll($query, $values);
+            $rows = $this->_db->select($query, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Mnemo_Exception($e->getMessage());
         }
@@ -289,7 +289,7 @@ class Mnemo_Driver_Sql extends Mnemo_Driver
      * @param array $row           Hash of the note data, db keys.
      * @param string  $passphrase  The encryption passphrase.
      *
-     * @return array a Task hash.
+     * @return array a Note hash.
      * @throws Mnemo_Exception
      */
     protected function _buildNote($row, $passphrase = null)
