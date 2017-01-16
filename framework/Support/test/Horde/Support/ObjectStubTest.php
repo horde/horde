@@ -19,6 +19,7 @@ class Horde_Support_ObjectStubTest extends PHPUnit_Framework_TestCase
     public function testUndefinedIndex()
     {
         $stub = new Horde_Support_ObjectStub(new stdClass);
+        unset($php_errormsg);
         $oldTrackErrors = ini_set('track_errors', 1);
         $php_errormsg = null;
         $this->assertNull($stub->a);

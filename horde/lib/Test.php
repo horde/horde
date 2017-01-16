@@ -584,6 +584,7 @@ class Horde_Test
         $output = '';
 
         /* Turn tracking of errors on. */
+        unset($php_errormsg);
         ini_set('track_errors', 1);
 
         /* Print the include_path. */

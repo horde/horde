@@ -485,6 +485,7 @@ class Horde_String
     )
     {
         if (Horde_Util::extensionExists('mbstring')) {
+            unset($php_errormsg);
             $track_errors = ini_set('track_errors', 1);
             $ret = @call_user_func('mb_' . $func, $haystack, $needle, $offset, self::_mbstringCharset($charset));
             ini_set('track_errors', $track_errors);
@@ -494,6 +495,7 @@ class Horde_String
         }
 
         if (Horde_Util::extensionExists('intl')) {
+            unset($php_errormsg);
             $track_errors = ini_set('track_errors', 1);
             $ret = self::convertCharset(
                 @call_user_func(

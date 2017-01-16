@@ -34,7 +34,8 @@ class Horde_Vcs_Directory_Rcs extends Horde_Vcs_Directory_Base
 
         /* Open the directory for reading its contents */
         if (!($handle = @opendir($dir))) {
-            throw new Horde_Vcs_Exception(empty($php_errormsg) ? 'Permission denied' : $php_errormsg);
+            $error = error_get_last();
+            throw new Horde_Vcs_Exception($error ? $error['message'] : 'Permission denied');
         }
 
         /* Create two arrays - one of all the files, and the other of all the

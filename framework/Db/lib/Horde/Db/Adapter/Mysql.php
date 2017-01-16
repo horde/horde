@@ -79,12 +79,11 @@ class Horde_Db_Adapter_Mysql extends Horde_Db_Adapter_Base
 
         $config = $this->_parseConfig();
 
-        $oldTrackErrors = ini_set('track_errors', 1);
         $mysql = @mysql_connect($config['host'], $config['username'], $config['password']);
-        ini_set('track_errors', $oldTrackErrors);
 
         if (!$mysql) {
-            throw new Horde_Db_Exception('Connect failed: ' . $php_errormsg);
+            $error = error_get_last();
+            throw new Horde_Db_Exception('Connect failed: ' . $error['message']);
         }
         if (!mysql_select_db($config['dbname'])) {
             throw new Horde_Db_Exception('Could not select database: ' . $config['dbname']);
