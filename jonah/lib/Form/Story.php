@@ -44,7 +44,7 @@ class Jonah_Form_Story extends Horde_Form
 
         $published = $vars->get('published');
         if ($published) {
-            $date_params = array(min(date('Y', $published), date('Y')),
+            $date_params = array(min(date('Y', $published), date('Y') - 2),
                                  max(date('Y', $published), date('Y') + 10));
         } else {
             $date_params = array();
