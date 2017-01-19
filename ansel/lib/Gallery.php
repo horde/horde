@@ -1233,7 +1233,11 @@ class Ansel_Gallery implements Serializable
         $json->dc = $this->get('date_created');
         $json->dm = $this->get('last_modified');
         $json->d = $this->get('desc');
-        if ($mini) {
+
+        $ki = $this->getKeyImage($style);
+        if (!$ki) {
+            $json->ki = Horde_Themes::img('thumb-error.png')->fulluri->toString(true);
+        } elseif ($mini) {
             $json->ki = Ansel::getImageUrl($this->getKeyImage($style), 'Mini', false)->toString(true);
         } else {
             $json->ki = Ansel::getImageUrl($this->getKeyImage($style), 'Thumb', false, $style)->toString(true);
