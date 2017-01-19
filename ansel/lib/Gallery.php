@@ -772,10 +772,13 @@ class Ansel_Gallery implements Serializable
             }
 
             // Don't already have one, must generate it.
-            $default = $this->getKeyImage(Ansel::getStyleDefinition('ansel_default'));
+            if (!($default = $this->getKeyImage(Ansel::getStyleDefinition('ansel_default')))) {
+                // No images in gallery yet.
+                return false;
+            }
             $params = array('gallery' => $this, 'style' => $style, 'image' => $storage->getImage($default));
             try {
-                if (!$params['image'] = $this->getImage($this->_getDefaultImageId())) {
+                if (!($params['image'] = $this->getImage($this->_getDefaultImageId()))) {
                     return false;
                 }
                 $iview = Ansel_ImageGenerator::factory($style->keyimage_type, $params);
