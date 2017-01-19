@@ -525,6 +525,24 @@ AnselCore =
         this.go(this.lastLocation);
     },
 
+    deleteGallery: function(gform)
+    {
+        if($('anselGalleryFormId').getValue()) {
+            HordeCore.doAction('deleteGallery', {
+                id: $('anselGalleryFormId').getValue()
+            }, {
+                callback: this.deleteGalleryCallback.bind(this, gform)
+            });
+        }
+    },
+
+    deleteGalleryCallback: function(form)
+    {
+        form.down('.anselGalleryDelete').enable();
+        this.closeRedBox();
+        this.go(this.lastLocation);
+    },
+
     updateOtherGalleries: function(r)
     {
         HordeCore.doAction(
@@ -676,7 +694,17 @@ AnselCore =
                 }
                 e.stop();
                 break;
+            } else if (elt.hasClassName('anselGalleryDelete')) {
+                if (!elt.disabled) {
+                    elt.disable();
+                    if (!this.deleteGallery(elt.up('form'))) {
+                        elt.enable();
+                    }
+                }
+                e.stop();
+                break;
             }
+
             elt = elt.up();
         }
         // Workaround Firebug bug.

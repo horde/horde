@@ -70,6 +70,37 @@ class Ansel_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
         return Ansel::selectGalleries($params);
     }
 
+    public function deleteGallery()
+    {
+        global $storage, $registry;
+
+        if (!$this->vars->id) {
+            return false;
+        }
+        try {
+            $gallery = $storage->getGallery($this->vars->id);
+        } catch (Ansel_Exception $e) {
+            Horde::log($e, 'ERR');
+            return false;
+        }
+
+        if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::DELETE)) {
+            throw new Horde_Exception_PermissionDenied(
+                sprintf(_("You are not allowed to delete gallery \"%s\"."),
+                    $gallery->get('name'))
+                );
+        }
+
+        try {
+            $storage->removeGallery($gallery);
+        } catch (Ansel_Exception $e) {
+            Horde::log($e, 'ERR');
+            return false;
+        }
+
+        return true;
+    }
+
     /**
      * Return a single image object.
      *
