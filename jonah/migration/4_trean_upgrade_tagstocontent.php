@@ -54,6 +54,8 @@ class TreanUpgradeTagsToContent extends Horde_Db_Migration_Base
 
     public function down()
     {
+        $tableList = $this->tables();
+
         if (!in_array('jonah_stories_tags', $tableList)) {
             $t = $this->createTable('jonah_stories_tags', array('autoincrementKey' => false));
             $t->column('story_id', 'integer', array('null' => false));
