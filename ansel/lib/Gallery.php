@@ -23,6 +23,8 @@
  * @copyright 2001-2014 Horde LLC (http://www.horde.org/)
  * @license http://www.horde.org/licenses/gpl GPL
  * @package Ansel
+ *
+ * @property-read  integer  $id  The gallery id.
  */
 class Ansel_Gallery implements Serializable
 {
