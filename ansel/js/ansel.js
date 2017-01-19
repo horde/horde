@@ -481,7 +481,7 @@ AnselCore =
                     title: Ansel.text['download'],
                     src: Ansel.conf.images['download'],
                     'class': 'ansel-gallery-download' }
-                )
+                ).store('gid', r.id)
             );
         }
 
