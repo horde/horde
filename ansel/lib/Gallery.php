@@ -1213,6 +1213,9 @@ class Ansel_Gallery implements Serializable
      *  'vm' - View mode
      *  'sl' - gallery slug
      *  't'  - gallery tags
+     *  'hd' - current user has delete permission
+     *  'he' - current user has edit permission
+     *  'dl' - current user can download
      *  'imgs' - an array of image objects with the following properties:
      *      'id'  - the image id
      *      'url' - the image url
@@ -1220,12 +1223,14 @@ class Ansel_Gallery implements Serializable
      */
     public function toJson($level = 0, $mini = false)
     {
+        global $registry;
+
         // @TODO: Support date grouped galleries
         $vMode = $this->get('view_mode');
         if ($vMode != 'Normal') {
             $this->_setModeHelper('Normal');
         }
-        $horde_view = $GLOBALS['registry']->getView();
+        $horde_view = $registry->getView();
 
         $style = Ansel::getStyleDefinition($horde_view == Horde_Registry::VIEW_DYNAMIC ? 'ansel_dynamic' : 'ansel_mobile');
 
@@ -1250,7 +1255,7 @@ class Ansel_Gallery implements Serializable
         $json->kid = $this->getKeyImage($style);
         $json->imgs = array();
         $json->ct = $this->countImages(true);
-        $json->cs = $this->countChildren($GLOBALS['registry']->getAuth(), Horde_Perms::SHOW, false);
+        $json->cs = $this->countChildren($registry->getAuth(), Horde_Perms::SHOW, false);
         $json->o = $this->get('owner');
         $json->on = $this->getIdentity()->getValue('fullname');
 
@@ -1265,6 +1270,11 @@ class Ansel_Gallery implements Serializable
             $json->pn = $p->get('name');
         }
 
+        // Perms
+        $json->hd = $this->hasPermission($registry->getAuth(), Horde_Perms::DELETE);
+        $json->he = $this->hasPermission($registry->getAuth(), Horde_Perms::EDIT);
+        $json->dl = $this->canDownload();
+
         if ($level & self::TO_JSON_SUBGALLERIES) {
             $json->tiny =
                 ($GLOBALS['conf']['image']['tiny'] &&
@@ -1272,7 +1282,7 @@ class Ansel_Gallery implements Serializable
             $json->sg = array();
             if ($this->hasSubGalleries()) {
                 $sgs = $this->getChildren(
-                    $GLOBALS['registry']->getAuth(),
+                    $registry->getAuth(),
                     Horde_Perms::READ,
                     false);
                 foreach ($sgs as $g) {

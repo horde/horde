@@ -449,17 +449,52 @@ AnselCore =
         this.galleryLayout.reset();
         // @todo - real breadcrumb, display either "info" or "edit" depending
         // on permissions?
-        $('anselGalleriesTitle').update(r.n).insert(
-            new Element('div', { 'class': 'ansel-gallery-desc' }).update(r.d)).insert(
-                new Element('div', { 'class': 'ansel-gallery-actions' }).insert(
-                    new Element('img', { title: Ansel.text['slideshow_play'], src: Ansel.conf.images['slideshow_play'], 'class': 'ansel-gallery-slideshowplay' }).store('gid', r.id)).insert(
-                    new Element('img', { title: Ansel.text['edit'], src: Ansel.conf.images['edit'], 'class': 'ansel-gallery-edit' }).store('gid', r.id)).insert(
-                    new Element('img', { title: Ansel.text['download'], src: Ansel.conf.images['download'], 'class': 'ansel-gallery-download' })).insert(
-                    new Element('img', { title: Ansel.text['upload'], src: Ansel.conf.images['upload'], 'class': 'ansel-gallery-upload' }).store('gid', r.id))
+        var actionDiv = new Element('div', {
+            'class': 'ansel-gallery-actions' }
+        ).insert(
+            new Element('img', {
+                title: Ansel.text['slideshow_play'],
+                src: Ansel.conf.images['slideshow_play'],
+                'class': 'ansel-gallery-slideshowplay' }
+            ).store('gid', r.id)
+        );
+
+        if (r.he) {
+            actionDiv.insert(
+                new Element('img', {
+                    title: Ansel.text['edit'],
+                    src: Ansel.conf.images['edit'],
+                    'class': 'ansel-gallery-edit' }
+                ).store('gid', r.id)
+            ).insert(
+                new Element('img', {
+                    title: Ansel.text['upload'],
+                    src: Ansel.conf.images['upload'],
+                    'class': 'ansel-gallery-upload' }
+                ).store('gid', r.id)
             );
+        }
+
+        if (r.dl) {
+            actionDiv.insert(
+                new Element('img', {
+                    title: Ansel.text['download'],
+                    src: Ansel.conf.images['download'],
+                    'class': 'ansel-gallery-download' }
+                )
+            );
+        }
+
+        $('anselGalleriesTitle')
+            .update(r.n)
+            .insert(new Element('div', {
+                'class': 'ansel-gallery-desc' }).update(r.d)
+            ).insert(actionDiv);
+
         if (r.sg) {
             this.galleryLayout.galleries = r.sg;
         }
+
         this.galleryLayout.addImages(r.imgs);
         this.updateOtherGalleries(r);
     },
