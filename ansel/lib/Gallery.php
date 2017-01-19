@@ -843,6 +843,8 @@ class Ansel_Gallery implements Serializable
                 return false;
             }
         }
+
+        return false;
     }
 
     /**
