@@ -185,6 +185,10 @@ class Ansel_Gallery implements Serializable
     {
         global $registry;
 
+        if (empty($GLOBALS['conf']['gallery']['downloadzip'])) {
+          return false;
+        }
+
         if ($registry->getAuth() &&
             ($registry->getAuth() == $this->get('owner') ||
              $registry->isAdmin(array('permission' => 'ansel:admin')))) {
