@@ -1219,7 +1219,14 @@ class Ansel_Gallery implements Serializable
         $json->dc = $this->get('date_created');
         $json->dm = $this->get('last_modified');
         $json->d = $this->get('desc');
-        $json->ki = Ansel::getImageUrl($this->getKeyImage($style), 'thumb', false, $style)->toString(true);
+
+        $ki = $this->getKeyImage($style);
+        if (!$ki) {
+            $json->ki = Horde_Themes::img('thumb-error.png')->fulluri->toString(true);
+        } else {
+            $json->ki = Ansel::getImageUrl($this->getKeyImage($style), 'thumb', false, $style)->toString(true);
+        }
+        $json->kid = $this->getKeyImage($style);
         $json->imgs = array();
 
         // Parent
