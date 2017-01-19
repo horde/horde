@@ -19,6 +19,8 @@
  * @copyright 2002-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
  * @package   Image
+ *
+ * Requires PEAR XML_SVG
  */
 class Horde_Image_Svg extends Horde_Image_Base
 {
