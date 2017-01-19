@@ -7,8 +7,9 @@
  *
  * @package Image
  */
+require_once __DIR__ . '/conf.php';
 
-require_once __DIR__ . '/../lib/Application.php';
+require_once $horde . '/lib/Application.php';
 Horde_Registry::appInit(
     'horde',
     array('authentication' => 'none', 'session_control' => 'none')
@@ -18,11 +19,6 @@ Horde_Registry::appInit(
 // profiling.
 $driver = Horde_Util::getFormData('driver', 'Im');
 $test = Horde_Util::getFormData('test');
-
-// Don't use horde config since we might be configured for Imagick only.
-$convert = trim(`which convert`);
-$identify = trim(`which identify`);
-
 $handler = new Horde_Log_Handler_Stream(fopen('/tmp/imagetest.log','a+'));
 $logger = new Horde_Log_Logger($handler);
 
