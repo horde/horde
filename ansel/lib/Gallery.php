@@ -10,6 +10,8 @@
  *
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
+ *
+ * @property-read  integer  $id  The gallery id.
  */
 class Ansel_Gallery implements Serializable
 {
