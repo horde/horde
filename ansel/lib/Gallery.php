@@ -776,7 +776,7 @@ class Ansel_Gallery implements Serializable
                 // No images in gallery yet.
                 return false;
             }
-            $params = array('gallery' => $this, 'style' => $style, 'image' => $storage->getImage($default));
+            $params = array('gallery' => $this, 'style' => $style);
             try {
                 if (!($params['image'] = $this->getImage($this->_getDefaultImageId()))) {
                     return false;
