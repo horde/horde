@@ -145,12 +145,19 @@ class Horde_Image_Im extends Horde_Image_Base
      * @param boolean $convert  If true, the image data will be returned in the
      *                          target format, independently from any image
      *                          operations.
+     * @param array $options    Array of options:
+     *     - stream: If true, return as a stream resource.
+     *               DEFAULT: false.
      *
-     * @return string  The raw image data.
+     * @return mixed  The raw image data either as a string or stream resource.
      */
-    public function raw($convert = false)
+    public function raw($convert = false, $options = array())
     {
-        return $this->_raw($convert);
+        if (!empty($options['stream'])) {
+            return $this->_raw($convert)->stream;
+        }
+
+        return $this->_raw($convert)->__toString();
     }
 
     /**
@@ -159,14 +166,20 @@ class Horde_Image_Im extends Horde_Image_Base
      * @param boolean $convert         If true, the image data will be returned
      *                                 in the target format, independently from
      *                                 any image operations.
-     * @param integer $index           An image index.
-     * @param boolean $preserver_data  Return the converted image but preserve
-     *                                 the current internal image data.
+     * @param array $options           An array of options:
+     *     - index: (integer) An image index.
+     *     - preserve_data (boolean) If true, return the converted image but
+     *         preserve the internal image data.
      *
-     * @return string  The raw image data.
+     * @return Horde_Stream  The data, in a Horde_Stream object.
      */
-    private function _raw($convert = false, $index = 0, $preserve_data = false)
+    private function _raw($convert = false, $options = array())
     {
+        $options = array_merge(
+            array('index' => 0, 'preserve_data' => false),
+            $options
+        );
+
         if (empty($this->_data) ||
             // If there are no operations, and we already have data, don't
             // bother writing out files, just return the current data.
@@ -179,7 +192,7 @@ class Horde_Image_Im extends Horde_Image_Base
         $tmpin = $this->toFile($this->_data);
         $tmpout = Horde_Util::getTempFile('img', false, $this->_tmpdir);
         $command = $this->_convert . ' ' . implode(' ', $this->_operations)
-            . ' "' . $tmpin . '"\'[' . $index . ']\' '
+            . ' "' . $tmpin . '"\'[' . $options['index'] . ']\' '
             . implode(' ', $this->_postSrcOperations)
             . ' -strip ' . $this->_type . ':"' . $tmpout . '" 2>&1';
         $this->_logDebug(sprintf("convert command executed by Horde_Image_im::raw(): %s", $command));
@@ -195,8 +208,13 @@ class Horde_Image_Im extends Horde_Image_Base
         $this->_postSrcOperations = array();
 
         /* Load the result */
-        $return = file_get_contents($tmpout);
-        if (!$preserve_data) {
+        $fp = fopen($tmpout, 'r');
+        $return = new Horde_Stream_Temp();
+        $return->add($fp, true);
+        if (empty($options['preserve_data'])) {
+            if ($this->_data) {
+                $this->_data->close();
+            }
             $this->_data = $return;
         }
 
@@ -241,7 +259,7 @@ class Horde_Image_Im extends Horde_Image_Base
         }
 
         // Refresh the data
-        $this->raw();
+        $this->raw(false, array('stream' => true));
 
         // Reset the width and height instance variables since after resize we
         // don't know the *exact* dimensions yet (especially if we maintained
@@ -263,7 +281,7 @@ class Horde_Image_Im extends Horde_Image_Base
         $this->_operations[] = '-crop ' . $line . ' +repage';
 
         // Reset width/height since these might change
-        $this->raw();
+        $this->raw(false, array('stream' => true));
         $this->clearGeometry();
     }
 
@@ -276,9 +294,9 @@ class Horde_Image_Im extends Horde_Image_Base
      */
     public function rotate($angle, $background = 'white')
     {
-        $this->raw();
+        $this->raw(false, array('stream' => true));
         $this->_operations[] = "-background $background -rotate {$angle}";
-        $this->raw();
+        $this->raw(false, array('stream' => true));
 
         // Reset width/height since these might have changed
         $this->clearGeometry();
@@ -541,7 +559,7 @@ class Horde_Image_Im extends Horde_Image_Base
      */
     public function applyEffects()
     {
-        $this->raw();
+        $this->raw(false, array('stream' => true));
         foreach ($this->_toClean as $tempfile) {
             @unlink($tempfile);
         }
@@ -551,8 +569,8 @@ class Horde_Image_Im extends Horde_Image_Base
      * Method to execute a raw command directly in convert.
      *
      * Useful for executing more involved operations that may require multiple
-     * convert commands piped into each other for example. Really designed for
-     * use by Im based Horde_Image_Effect objects.
+     * convert commands piped into each other as could be needed by
+     * Im based Horde_Image_Effect objects.
      *
      * The input and output files are quoted and substituted for __FILEIN__ and
      * __FILEOUT__ respectfully. In order to support piped convert commands,
@@ -590,7 +608,12 @@ class Horde_Image_Im extends Horde_Image_Base
         if ($retval) {
             $this->_logErr(sprintf("Error running command: %s", $cmd . "\n" . implode("\n", $output)));
         }
-        $this->_data = file_get_contents($tmpout);
+        $fp = fopen($tmpout, 'r');
+        if ($this->_data) {
+            $this->_data->close();
+        }
+        $this->_data = new Horde_Stream_Temp();
+        $this->_data->add($fp, true);
 
         @unlink($tmpin);
         @unlink($tmpout);
@@ -710,7 +733,7 @@ class Horde_Image_Im extends Horde_Image_Base
         if ($index >= $this->getImagePageCount()) {
             throw new Horde_Image_Exception('Image index out of bounds.');
         }
-        $rawImage = $this->_raw(true, $index, true);
+        $rawImage = $this->_raw(true, array('index' => $index, 'preserve_data' => true));
         $image = new Horde_Image_Im(array('data' => $rawImage), $this->_context);
 
         return $image;
