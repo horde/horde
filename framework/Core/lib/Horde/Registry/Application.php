@@ -465,7 +465,7 @@ class Horde_Registry_Application implements Horde_Shutdown_Task
     // Horde_Core_Topbar method.
 
     /**
-     * Add node(s) to the sidebar tree.
+     * Add node(s) to the topbar tree.
      *
      * @param Horde_Tree_Renderer_Base $tree  Tree object.
      * @param string $parent                  The current parent element.
