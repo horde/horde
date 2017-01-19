@@ -54,9 +54,20 @@ class Ansel_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
         return $return;
     }
 
+    /**
+     * Return HTML to render a gallery select.
+     * Expects:
+     *  - selected: A gallery id to mark as selected.
+     *
+     * @return string
+     */
     public function selectGalleries()
     {
-        return Ansel::selectGalleries();
+        $params = array();
+        if ($this->vars->selected) {
+            $params['selected'] = $this->vars->selected;
+        }
+        return Ansel::selectGalleries($params);
     }
 
     /**
@@ -112,6 +123,10 @@ class Ansel_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
     /**
      * Obtain a gallery
      *
+     * Expects:
+     *  - id:    The gallery id to return
+     *  - full:  If true, returns subgallery and image information too.
+     *
      * @return mixed  False on failure, object representing the gallery with
      *                the following structure:
      * @see Ansel_Gallery::toJson()
@@ -120,13 +135,65 @@ class Ansel_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
     {
         $id = $this->vars->id;
         try {
+            $level = ($this->vars->full)
+                ? (Ansel_Gallery::TO_JSON_SUBGALLERIES | Ansel_Gallery::TO_JSON_IMAGES)
+                : 0;
             return $GLOBALS['storage']
                 ->getGallery($id)
-                ->toJson(Ansel_Gallery::TO_JSON_SUBGALLERIES | Ansel_Gallery::TO_JSON_IMAGES);
+                ->toJson($level);
         } catch (Exception $e) {
             Horde::log($e, 'ERR');
             return false;
         }
+    }
+
+    public function saveGallery()
+    {
+        global $storage;
+
+        $attributes = array(
+            'name' => $this->vars->gallery_name,
+            'desc' => $this->vars->gallery_desc,
+            'slug' => $this->vars->gallery_slug,
+            'download' => $this->vars->gallery_download,
+            'view_mode' => $this->vars->view_mode
+        );
+
+        if ($this->vars->gallery_id) {
+            try {
+                $gallery = $storage->getGallery($this->vars->gallery_id);
+            } catch (Ansel_Exception $e) {
+                Horde::log($e, 'ERR');
+                return false;
+            }
+            foreach ($attributes as $key => $value) {
+                $gallery->set($key, $value);
+            }
+            $parent = $gallery->getParent();
+            if ($this->vars->gallery_parent &&
+                $parent->id != $this->vars->gallery_parent) {
+                $gallery->setParent($this->vars->gallery_parent);
+            }
+        } else {
+            try {
+                $parent = $this->vars->gallery_parent
+                    ? $this->vars->gallery_parent
+                    : null;
+                $gallery = $storage->createGallery($attributes, null, $parent);
+            } catch (Ansel_Exception $e) {
+                Horde::log($e, 'ERR');
+                return false;
+            }
+        }
+
+        try {
+            $gallery->save();
+        } catch (Ansel_Exception $e) {
+            Horde::log($e, 'ERR');
+            return false;
+        }
+
+        return true;
     }
 
     /**

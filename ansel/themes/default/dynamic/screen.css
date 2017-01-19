@@ -233,5 +233,47 @@ html, body {
     font-weight: normal;
 }
 .ansel-gallery-share {
+}
 
+.anselDialog {
+    padding: 10px 20px;
+    border: 1px #999 solid;
+}
+
+#RB_window .anselDialog p {
+    margin-bottom: 5px;
+    overflow: visible;
+}
+
+.anselDialog label {
+    font-weight: bold;
+}
+.anselDialog input {
+    vertical-align: middle;
+    line-height: normal;
+}
+.anselDialog input:focus,
+.anselDialog textarea:focus,
+.anselDialog select:focus {
+    border-color: #d0d0d0;
+}
+.anselLongField,
+#anselGalleryDescription,
+#anselGalleryTitle
+{
+    width: 99%;
+}
+
+
+.anselDialog hr {
+   margin: 5px 0;
+   height: 0;
+   line-height: 0;
+   border-width: 1px 0;
+   border-color: #ccc transparent #fff;
+   border-style: solid none;
+}
+
+div.anselFormActions {
+    margin: 5px 0;
 }

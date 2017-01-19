@@ -17,6 +17,8 @@ class Ansel_Ajax_Application extends Horde_Core_Ajax_Application
     protected function _init()
     {
         $this->addHandler('Ansel_Ajax_Application_Handler');
+
+        $this->addHandler('Horde_Core_Ajax_Application_Handler_Chunk');
         $this->addHandler('Horde_Core_Ajax_Application_Handler_Imple');
         $this->addHandler('Horde_Core_Ajax_Application_Handler_Prefs');
     }

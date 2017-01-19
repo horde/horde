@@ -1210,7 +1210,9 @@ class Ansel_Gallery implements Serializable
      *      'dm' - date modified
      *      'd'  - description
      *      'ki' - key image
-     *
+     *  'vm' - View mode
+     *  'sl' - gallery slug
+     *  't'  - gallery tags
      *  'imgs' - an array of image objects with the following properties:
      *      'id'  - the image id
      *      'url' - the image url
@@ -1228,6 +1230,9 @@ class Ansel_Gallery implements Serializable
         $style = Ansel::getStyleDefinition($horde_view == Horde_Registry::VIEW_DYNAMIC ? 'ansel_dynamic' : 'ansel_mobile');
 
         $json = new StdClass();
+        $json->vm = $vMode;
+        $json->sl = $this->get('slug');
+        $json->t = $this->getTags();
         $json->id = $this->id;
         $json->n = $this->get('name');
         $json->dc = $this->get('date_created');

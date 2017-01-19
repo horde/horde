@@ -72,7 +72,7 @@ var AnselMobile = {
      */
     toGallery: function(id)
     {
-        HordeMobile.doAction('getGallery', {id: id}, AnselMobile.galleryLoaded);
+        HordeMobile.doAction('getGallery', {id: id, full: true}, AnselMobile.galleryLoaded);
     },
 
     /**

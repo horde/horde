@@ -61,6 +61,8 @@ AnselCore =
      */
     currentLocation: '',
 
+    redBoxLoading: false,
+
     onException: function(parentfunc, r, e)
     {
         /* Make sure loading images are closed. */
@@ -117,6 +119,8 @@ AnselCore =
             return;
         }
 
+        // TODO: Fix this. (Doesn't catch going back to the
+        // same view after dialog closes).
         // Same location, and subview - exit.
         if (this.openLocation && this.openLocation == fullloc) {
             if (this.subview && !data && subview == this.subview) {
@@ -139,7 +143,7 @@ AnselCore =
                 duration: this.effectDur,
                 queue: 'end',
                 afterFinish: function() {
-                    this.updateView(loc);
+                    this.updateView(loc, null, data);
                     this.loadNextView();
                 }.bind(this) });
             break;
@@ -269,7 +273,7 @@ AnselCore =
             this.addHistory(view);
             HordeCore.doAction(
                 'selectGalleries',
-                {},
+                { 'selected': data },
                 { callback: this.uploaderListGalleriesCallback.bind(this) }
             );
         }
@@ -435,7 +439,7 @@ AnselCore =
     loadGallery: function(gallery)
     {
         HordeCore.doAction('getGallery',
-            { id: gallery },
+            { id: gallery, full: true },
             { callback: this.getGalleryCallback.bind(this) }
         );
     },
@@ -448,16 +452,77 @@ AnselCore =
         $('anselGalleriesTitle').update(r.n).insert(
             new Element('div', { 'class': 'ansel-gallery-desc' }).update(r.d)).insert(
                 new Element('div', { 'class': 'ansel-gallery-actions' }).insert(
-                    new Element('img', { title: Ansel.text['slideshow_play'], src: Ansel.conf.images['slideshow_play'], 'class': 'ansel-gallery-slideshowplay' })).insert(
-                    new Element('img', { title: Ansel.text['edit'], src: Ansel.conf.images['edit'], 'class': 'ansel-gallery-edit' })).insert(
+                    new Element('img', { title: Ansel.text['slideshow_play'], src: Ansel.conf.images['slideshow_play'], 'class': 'ansel-gallery-slideshowplay' }).store('gid', r.id)).insert(
+                    new Element('img', { title: Ansel.text['edit'], src: Ansel.conf.images['edit'], 'class': 'ansel-gallery-edit' }).store('gid', r.id)).insert(
                     new Element('img', { title: Ansel.text['download'], src: Ansel.conf.images['download'], 'class': 'ansel-gallery-download' })).insert(
-                    new Element('img', { title: Ansel.text['upload'], src: Ansel.conf.images['upload'], 'class': 'ansel-gallery-upload' }))
+                    new Element('img', { title: Ansel.text['upload'], src: Ansel.conf.images['upload'], 'class': 'ansel-gallery-upload' }).store('gid', r.id))
             );
         if (r.sg) {
             this.galleryLayout.galleries = r.sg;
         }
         this.galleryLayout.addImages(r.imgs);
         this.updateOtherGalleries(r);
+    },
+
+    editGallery: function(gallery)
+    {
+        if ($('anselGalleryDialog')) {
+            this.redBoxLoading = true;
+            RedBox.showHtml($('anselGalleryDialog').show());
+            this.editGalleryCallback(gallery);
+        } else {
+            RedBox.loading();
+            HordeCore.doAction('chunkContent', {
+                chunk: 'gallery'
+            }, {
+                callback: function(r) {
+                    if (r.chunk) {
+                        this.redBoxLoading = true;
+                        RedBox.showHtml(r.chunk);
+                        this.editGalleryCallback(gallery);
+                    } else {
+                        this.closeRedBox();
+                    }
+                }.bind(this)
+            });
+        }
+    },
+
+    editGalleryCallback: function(gallery)
+    {
+        var form = $('anselGalleryForm');
+        form.reset();
+        $('anselGalleryFormId').setValue(gallery.id);
+        $('anselGalleryFormParentId').setValue(gallery.p);
+        $('anselGalleryFormTitle').setValue(gallery.n);
+        $('anselGalleryFormDescription').setValue(gallery.d);
+        $('anselGalleryFormViewMode').setValue(gallery.vm);
+        $('anselGalleryFormSlug').setValue(gallery.sl);
+       // $('anselGalleryFormViewTags').setValue(gallery.p);
+    },
+
+    saveGallery: function(gform)
+    {
+        var data = gform.serialize( { hash: true });
+
+        if (!data.gallery_name) {
+            HordeCore.notify(Ansel.text.no_gallery_title, 'horde.warning');
+            $('anselGalleryFormTitle').focus();
+            return false;
+        }
+
+        HordeCore.doAction('saveGallery', data, {
+            callback: this.saveGalleryCallback.bind(this, gform, data)
+        });
+
+        return true;
+    },
+
+    saveGalleryCallback: function(form, data)
+    {
+        form.down('.anselGallerySave').enable();
+        this.closeRedBox();
+        this.go(this.lastLocation);
     },
 
     updateOtherGalleries: function(r)
@@ -568,6 +633,10 @@ AnselCore =
                 this.go('all:' + this.subview);
                 return;
 
+            case 'anselSideBarAddGallery':
+                this.editGallery({});
+                e.stop();
+                break;
             }
 
             // Caution, this only works if the element has definitely only a
@@ -576,14 +645,38 @@ AnselCore =
             case 'ansel-tile-target':
                 this.go('me:image:' + elt.retrieve('photo').id, elt.retrieve('photo'));
                 break;
+            case 'ansel-gallery-edit':
+                HordeCore.doAction('getGallery', {
+                    id: elt.retrieve('gid'),
+                    full: false
+                }, {
+                    callback: this.editGallery.bind(this)
+                });
+                //this.editGallery(elt.retrieve('gid'));
+                break;
             case 'ansel-gallery-upload':
                 // Upload link from gallery "actions" icons.
-                this.go('upload:upload');
+                this.go('upload:upload', elt.retrieve('gid'));
                 break;
             // case 'ansel-imageview-close':
             //     this.go(this.lastLocation);
+           case 'horde-cancel':
+                this.closeRedBox();
+                this.go(this.lastLocation);
+                e.stop();
+                break;
             }
 
+            if (elt.hasClassName('anselGallerySave')) {
+                if (!elt.disabled) {
+                    elt.disable();
+                    if (!this.saveGallery(elt.up('form'))) {
+                        elt.enable();
+                    }
+                }
+                e.stop();
+                break;
+            }
             elt = elt.up();
         }
         // Workaround Firebug bug.
@@ -612,6 +705,21 @@ AnselCore =
         e.stop();
     },
 
+    /**
+     * Closes a RedBox overlay, after saving its content to the body.
+     */
+    closeRedBox: function()
+    {
+        if (!RedBox.getWindow()) {
+            return;
+        }
+        var content = RedBox.getWindowContents();
+        if (content) {
+            document.body.insert(content.hide());
+        }
+        RedBox.close();
+    },
+
     /* Onload function. */
     onDomLoad: function()
     {
@@ -620,6 +728,11 @@ AnselCore =
         if (!tmp.empty() && tmp.startsWith('#')) {
             tmp = (tmp.length == 1) ? '' : tmp.substring(1);
         }
+
+        RedBox.onDisplay = function() {
+            this.redBoxLoading = false;
+        }.bind(this);
+        RedBox.duration = this.effectDur;
 
         // Event handlers
         document.observe('click', AnselCore.clickHandler.bindAsEventListener(AnselCore));
