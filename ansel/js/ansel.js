@@ -547,13 +547,13 @@ AnselCore =
         }
 
         HordeCore.doAction('saveGallery', data, {
-            callback: this.saveGalleryCallback.bind(this, gform, data)
+            callback: this.saveGalleryCallback.bind(this, gform)
         });
 
         return true;
     },
 
-    saveGalleryCallback: function(form, data)
+    saveGalleryCallback: function(form)
     {
         form.down('.anselGallerySave').enable();
         this.closeRedBox();
