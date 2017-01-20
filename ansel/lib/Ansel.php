@@ -724,38 +724,40 @@ class Ansel
      */
     public static function downloadImagesAsZip($gallery = null, $images = array())
     {
-        global $session;
+        global $session, $conf, $browser, $storage;
 
-        if (empty($GLOBALS['conf']['gallery']['downloadzip'])) {
+        // @TODO, only redirect if not in dynamic view.
+        if (empty($conf['gallery']['downloadzip'])) {
             $GLOBALS['notification']->push(
-                _("Downloading zip files is not enabled. Talk to your server administrator."));
+                _("Downloading zip files is not enabled. Talk to your server administrator.")
+            );
             Horde::url('view.php?view=List', true)->redirect();
             exit;
         }
 
         // Requested a gallery
         if (!is_null($gallery)) {
-            // We can name the zip file with the slug if we have it
-            $slug = $gallery->get('slug');
-
             // Set the date in case we are viewing in date mode
+            // @TODO check that this works once date viewing in dynamic mode
+            // is working.
             $gallery->setDate(Ansel::getDateParameter());
+            $slug = $gallery->get('slug');
             $images = $gallery->listImages();
         }
 
         // At this point, we should always have a list of images
+        // @TODO, only redirect if not in dynamic view.
         if (!count($images)) {
-            $notification->push(
-                sprintf(_("There are no photos in %s to download."),
+            $notification->push(sprintf(
+                _("There are no photos in %s to download."),
                 $gallery->get('name')),
-                'horde.message');
-
+                'horde.message'
+            );
             Horde::url('view.php?view=List', true)->redirect();
             exit;
         }
 
-        // Try to close off the current session to avoid locking it while the
-        // gallery is downloading.
+        // Avoid locking the session while the gallery is downloading.
         $session->close();
 
         if (!is_null($gallery)) {
@@ -769,30 +771,42 @@ class Ansel
 
         $zipfiles = array();
         foreach ($images as $id) {
-            $image = $GLOBALS['storage']->getImage($id);
-            // If we didn't select an entire gallery, check the download
-            // size for each image.
+            $image = $storage->getImage($id);
+            // If not selecting an entire gallery, check the image sizes.
             if (!isset($view)) {
-                $g = $GLOBALS['storage']->getGallery($image->gallery);
+                $g = $storage->getGallery($image->gallery);
                 $v = $g->canDownload() ? 'full' : 'screen';
             } else {
                 $v = $view;
             }
 
-            $zipfiles[] = array('data' => $image->raw($v),
-                                'name' => $image->filename);
+            $zipfiles[] = array(
+                'data' => $image->raw($v),
+                'name' => $image->filename
+            );
         }
 
         $zip = Horde_Compress::factory('zip');
-        $body = $zip->compress($zipfiles);
+        $body = $zip->compress($zipfiles, array('stream' => true));
+
         if (!empty($gallery)) {
             $filename = (!empty($slug) ? $slug : $gallery->id) . '.zip';
         } else {
             $filename = 'Ansel.zip';
         }
-        $GLOBALS['browser']->downloadHeaders($filename, 'application/zip', false,
-                                  strlen($body));
-        echo $body;
+
+        // Get the resulting stream size.
+        fseek($body, SEEK_END);
+        $size = ftell($body);
+        rewind($body);
+
+        $browser->downloadHeaders(
+            $filename,
+            'application/zip',
+            false,
+            $size);
+
+        echo stream_get_contents($body);
         exit;
     }
 
