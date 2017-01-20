@@ -23,8 +23,7 @@
 class Horde_Image_Effect_Imagick_DropShadow extends Horde_Image_Effect
 {
     /**
-     * Valid parameters: Most are currently ignored for the im version
-     * of this effect.
+     * Valid parameters:
      *
      * @TODO
      *
@@ -32,9 +31,9 @@ class Horde_Image_Effect_Imagick_DropShadow extends Horde_Image_Effect
      */
     protected $_params = array(
         'distance' => 5, // This is used as the x and y offset
-        'width' => 2,
-        'hexcolor' => '000000',
-        'angle' => 215,
+        'width' => 2,    // ignored
+        'hexcolor' => '000000', // ignored
+        'angle' => 215,         // ignored
         'fade' => 3, // Sigma value
         'padding' => 0,
         'background' => 'none'
