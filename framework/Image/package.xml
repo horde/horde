@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Fix drop shadow generation when using a background color.
 * [mjr] Add support for storing image data as a temporary stream.
  </notes>
  <contents>
@@ -1198,6 +1199,7 @@ Initial release as a PEAR package
    <date>2017-01-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Fix drop shadow generation when using a background color.
 * [mjr] Add support for storing image data as a temporary stream.
    </notes>
   </release>
