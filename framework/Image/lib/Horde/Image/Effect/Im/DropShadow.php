@@ -50,7 +50,7 @@ class Horde_Image_Effect_Im_DropShadow extends Horde_Image_Effect
             '\( +clone -background black -shadow 80x' . $this->_params['fade']
             . '+' . $this->_params['distance']
             . '+' . $this->_params['distance']
-            . ' \) +swap -background none -flatten +repage -bordercolor '
+            . ' \) +swap -background ' . $this->_params['background'] . ' -flatten +repage -bordercolor '
             . $this->_params['background']
             . ' -border ' . $this->_params['padding']
         );

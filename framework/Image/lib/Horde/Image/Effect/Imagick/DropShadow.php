@@ -60,6 +60,20 @@ class Horde_Image_Effect_Imagick_DropShadow extends Horde_Image_Effect
                 $this->_params['distance']
             );
 
+            // If we explicitly request a background color, we need to compose
+            // an image of the background color with the shadow since the
+            // shadow is always generated with transparent background.
+            if ($this->_params['background'] != 'none') {
+                $size = $shadow->getImageGeometry();
+                $new = new Imagick();
+                $new->newImage($size['width'], $size['height'], new ImagickPixel($this->_params['background']));
+                $new->setImageFormat($this->_image->getType());
+                $new->compositeImage($shadow, Imagick::COMPOSITE_OVER, 0, 0);
+                $shadow->clear();
+                $shadow->addImage($new);
+                $new->destroy();
+            }
+
             $shadow->compositeImage(
                 $this->_image->imagick, Imagick::COMPOSITE_OVER, 0, 0
             );
