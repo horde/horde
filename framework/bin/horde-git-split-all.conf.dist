@@ -1,0 +1,15 @@
+# GitHub organization where to create the splitted repositories.
+GIT_ORGA="horde-split-test"
+
+# GitHub user name.
+GIT_ACCOUNT=""
+
+# GitHub token with "repo" access from
+# https://github.com/settings/tokens
+GIT_TOKEN=""
+
+# Temporary directory (memory FS) for git operations.
+TMP_DIR="/dev/shm"
+
+# Working directory.
+WORK_DIR="/home/user/horde-split"
