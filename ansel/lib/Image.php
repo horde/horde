@@ -487,9 +487,6 @@ class Ansel_Image implements Iterator
         } catch (Horde_Image_Exception $e) {
             throw new Ansel_Exception($e);
         }
-
-        // ...and put it in Horde_Image obejct, then save
-        $this->_image->loadString($this->_data[$vHash]);
         $this->_loaded[$vHash] = true;
         $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')
             ->create('images')
