@@ -47,7 +47,16 @@ try {
     case 'liquid':
         $time = xdebug_time_index();
         $image = getImageObject(array('filename' => 'img4.jpg'));
-        $image->addEffect('LiquidResize', array('ratio' => true, 'width' => 612, 'height' => 340, 'delta_x' => 3, 'rigidity' => 0));
+        $image->addEffect(
+            'LiquidResize',
+             array(
+                'ratio' => true,
+                'width' => 612,
+                'height' => 340,
+                'delta_x' => 3,
+                'rigidity' => 0
+            )
+        );
         $image->display();
         $time = xdebug_time_index() - $time;
         $memory = xdebug_peak_memory_usage();
@@ -74,9 +83,11 @@ try {
         // Solid blue background color - basically tests initial state of the
         // Horde_Image object.
         $time = xdebug_time_index();
-        $image = getImageObject(array('height' => '200',
-                                      'width' => '200',
-                                      'background' => 'blue'));
+        $image = getImageObject(array(
+            'height' => '200',
+            'width' => '200',
+            'background' => 'blue')
+        );
         $image->display();
         $time = xdebug_time_index() - $time;
         $memory = xdebug_peak_memory_usage();
@@ -98,12 +109,16 @@ try {
 
     case 'testForceImageFormatDuringLoad':
         // Tests forcing image format during load
-        $image = getImageObject(array('filename' => 'img1.jpg', 'type' => 'jpeg'));
+        $image = getImageObject(array(
+            'filename' => 'img1.jpg',
+            'type' => 'jpeg')
+        );
         $image->display();
         break;
+
     case 'testChangeImageFormatAfterLoad':
         // Tests changing image format after load
-        $image = getImageObject(array('filename' => 'img1.jpg')); // Loads as PNG
+        $image = getImageObject(array('filename' => 'img1.jpg')); // Loads PNG
         $image->setType('jpeg');
         $image->display();
         break;
@@ -123,9 +138,11 @@ try {
         $time = xdebug_time_index();
 
         // Transparent PNG image with various primitives.
-        $image = getImageObject(array('height' => '200',
-                                      'width' => '200',
-                                      'background' => 'none'));
+        $image = getImageObject(array(
+            'height' => '200',
+            'width' => '200',
+            'background' => 'none')
+        );
         $image->rectangle(30, 30, 100, 60, 'black', 'yellow');
         $image->roundedRectangle(30, 30, 100, 60, 15, 'black', 'red');
         $image->circle(30, 30, 30, 'black', 'blue');
@@ -138,9 +155,11 @@ try {
     case 'testTransparentPrimitivesReversed':
         // Transparent PNG image with various primitives.
         // Circle should appear *under* the rectangles...
-        $image = getImageObject(array('height' => '200',
-                                      'width' => '200',
-                                      'background' => 'none'));
+        $image = getImageObject(array(
+            'height' => '200',
+            'width' => '200',
+            'background' => 'none')
+        );
         $image->circle(30, 30, 30, 'black', 'blue');
         $image->rectangle(30, 30, 100, 60, 'black', 'yellow');
         $image->roundedRectangle(30, 30, 100, 60, 15, 'black', 'red');
@@ -150,14 +169,18 @@ try {
     case 'testTransparentBGWithBorder':
         $time = xdebug_time_index();
         // Same as above, but with border.
-        $image = getImageObject(array('height' => '200',
-                                      'width' => '200',
-                                      'background' => 'none'));
+        $image = getImageObject(array(
+            'height' => '200',
+            'width' => '200',
+            'background' => 'none')
+        );
         $image->rectangle(30, 30, 100, 60, 'black', 'yellow');
         $image->roundedRectangle(30, 30, 100, 60, 15, 'black', 'red');
         $image->circle(30, 30, 30, 'black', 'blue');
-        $image->addEffect('Border', array('bordercolor' => 'blue',
-                                          'borderwidth' => 1));
+        $image->addEffect('Border',
+            array('bordercolor' => 'blue',
+                  'borderwidth' => 1)
+        );
         $image->display();
         $time = xdebug_time_index() - $time;
         $memory = xdebug_peak_memory_usage();
@@ -177,14 +200,22 @@ try {
         // to make sure that they get reset after each call - so we don't
         // inadvetantly apply a color/stroke/etc setting to a primitive
         // further down the line...
-        $image = getImageObject(array('height' => '200',
-                                      'width' => '200',
-                                      'background' => 'none'));
+        $image = getImageObject(array(
+            'height' => '200',
+            'width' => '200',
+            'background' => 'none')
+        );
+
         // Pie slice. Black outline, green fill
-        $image->polygon(array(array('x' => 30, 'y' => 50),
-                              array('x' => 40, 'y' => 60),
-                              array('x' => 50, 'y' => 40)),
-                       'black', 'green');
+        $image->polygon(
+            array(
+                array('x' => 30, 'y' => 50),
+                array('x' => 40, 'y' => 60),
+                array('x' => 50, 'y' => 40)
+            ),
+            'black',
+            'green'
+        );
 
         // Yellow 'pizza slice' with blue outline
         $image->arc(50, 50, 100, 0, 70, 'blue', 'yellow');
@@ -199,10 +230,15 @@ try {
         $image->line(20, 60, 20, 200, 'blue', 2);
 
         // Yellow checkmark
-        $image->polyline(array(array('x' => 130, 'y' => 150),
-                               array('x' => 140, 'y' => 160),
-                               array('x' => 150, 'y' => 140)),
-                         'yellow', 4);
+        $image->polyline(
+            array(
+                array('x' => 130, 'y' => 150),
+                array('x' => 140, 'y' => 160),
+                array('x' => 150, 'y' => 140)
+            ),
+            'yellow',
+            4
+        );
 
         $image->text('Hello World', 60, 10, '', 'black', 0, 'large');
         $image->display();
@@ -210,13 +246,17 @@ try {
 
     case 'testRoundCorners':
         $time = xdebug_time_index();
-        // Tests resizing, and rounding corners with appropriate background maintained.
+        // Tests resizing, and rounding corners with background maintained.
         $image = getImageObject(array('filename' => 'img1.jpg'));
         $image->resize(150,150);
-        $image->addEffect('RoundCorners',
-                          array('border' => 2,
-                                'bordercolor' => '#333',
-                                'background' => 'none'));
+        $image->addEffect(
+            'RoundCorners',
+            array(
+                'border' => 2,
+                'bordercolor' => '#333',
+                'background' => 'none'
+            )
+        );
         $image->applyEffects();
 
         $time = xdebug_time_index() - $time;
@@ -225,33 +265,47 @@ try {
 
         $image->display();
         break;
+
     case 'testRoundCornersRedBG':
         $time = xdebug_time_index();
-        // Tests resizing, and rounding corners with appropriate background maintained.
+        // Tests resizing, and rounding corners with background maintained.
         $image = getImageObject(array('filename' => 'img1.jpg'));
         $image->resize(150,150);
-        $image->addEffect('RoundCorners',
-                          array('border' => 2,
-                                'bordercolor' => '#333',
-                                'background' => 'red'));
+        $image->addEffect(
+            'RoundCorners',
+            array(
+                'border' => 2,
+                'bordercolor' => '#333',
+                'background' => 'red'
+            )
+        );
         $image->applyEffects();
         $image->display();
         $time = xdebug_time_index() - $time;
         $memory = xdebug_peak_memory_usage();
         logThis($test, $time, $memory);
         break;
+
     case 'testRoundCornersDropShadowTransparentBG':
         $time = xdebug_time_index();
         $image = getImageObject(array('filename' => 'img1.jpg'));
         $image->resize(150,150);
-        $image->addEffect('RoundCorners',
-                          array('border' => 2,
-                                'bordercolor' => '#333'));
-        $image->addEffect('DropShadow',
-                          array('background' => 'none',
-                                'padding' => 5,
-                                'distance' => 5,
-                                'fade' => 3));
+        $image->addEffect(
+            'RoundCorners',
+            array(
+                'border' => 2,
+                'bordercolor' => '#333'
+            )
+        );
+        $image->addEffect(
+            'DropShadow',
+            array(
+                'background' => 'none',
+                'padding' => 5,
+                'distance' => 5,
+                'fade' => 3
+            )
+        );
         $time = xdebug_time_index() - $time;
         $mem = xdebug_peak_memory_usage();
         logThis($test, $time, $mem);
@@ -262,14 +316,22 @@ try {
         $time = xdebug_time_index();
         $image = getImageObject(array('filename' => 'img1.jpg'));
         $image->resize(150,150);
-        $image->addEffect('RoundCorners',
-                          array('border' => 2,
-                                'bordercolor' => '#333'));
-        $image->addEffect('DropShadow',
-                          array('background' => 'yellow',
-                                'padding' => 5,
-                                'distance' => 5,
-                                'fade' => 3));
+        $image->addEffect(
+            'RoundCorners',
+            array(
+                'border' => 2,
+                'bordercolor' => '#333'
+            )
+        );
+        $image->addEffect(
+            'DropShadow',
+            array(
+                'background' => 'yellow',
+                'padding' => 5,
+                'distance' => 5,
+                'fade' => 3
+            )
+        );
         $image->display();
         $time = xdebug_time_index() - $time;
         $memory = xdebug_peak_memory_usage();
@@ -280,13 +342,23 @@ try {
         $time = xdebug_time_index();
 
         $image = getImageObject(array('filename' => 'img1.jpg'));
-        $image->resize(150,150, true);
-        $image->addEffect('Border', array('bordercolor' => '#333', 'borderwidth' => 1));
-        $image->addEffect('DropShadow',
-                          array('background' => 'none',
-                                'padding' => 5,
-                                'distance' => 8,
-                                'fade' => 2));
+        $image->resize(150, 150, true);
+        $image->addEffect(
+            'Border',
+            array(
+                'bordercolor' => '#333',
+                'borderwidth' => 1
+            )
+        );
+        $image->addEffect(
+            'DropShadow',
+            array(
+                'background' => 'none',
+                'padding' => 5,
+                'distance' => 8,
+                'fade' => 2
+            )
+        );
         $image->display();
         $time = xdebug_time_index() - $time;
         $memory = xdebug_peak_memory_usage();
@@ -298,12 +370,22 @@ try {
         $data = file_get_contents('img1.jpg');
         $image->loadString($data);
         $image->resize(150,150, true);
-        $image->addEffect('Border', array('bordercolor' => '#333', 'borderwidth' => 1));
-        $image->addEffect('DropShadow',
-                          array('background' => 'none',
-                                'padding' => 5,
-                                'distance' => 8,
-                                'fade' => 2));
+        $image->addEffect(
+            'Border',
+            array(
+                'bordercolor' => '#333',
+                'borderwidth' => 1
+            )
+        );
+        $image->addEffect(
+            'DropShadow',
+            array(
+                'background' => 'none',
+                'padding' => 5,
+                'distance' => 8,
+                'fade' => 2
+            )
+        );
         $image->display();
         break;
 
@@ -312,12 +394,22 @@ try {
         $image = getImageObject(array('filename' => 'img1.jpg',
                                       'background' => 'none'));
         $image->resize(150,150);
-        $image->addEffect('Border', array('bordercolor' => '#333', 'borderwidth' => 1));
-        $image->addEffect('DropShadow',
-                          array('background' => 'blue',
-                                'padding' => 10,
-                                'distance' => '10',
-                                'fade' => 5));
+        $image->addEffect(
+            'Border',
+            array(
+                'bordercolor' => '#333',
+                'borderwidth' => 1
+            )
+        );
+        $image->addEffect(
+            'DropShadow',
+            array(
+                'background' => 'blue',
+                'padding' => 10,
+                'distance' => '10',
+                'fade' => 5
+            )
+        );
         $image->display();
         $time = xdebug_time_index() - $time;
         $mem = xdebug_peak_memory_usage();
@@ -328,9 +420,13 @@ try {
         $time = xdebug_time_index();
         $image = getImageObject(array('filename' => 'img1.jpg'));
         $image->resize(150, 150);
-        $image->addEffect('PolaroidImage',
-                          array('background' => 'none',
-                                'padding' => 5));
+        $image->addEffect(
+            'PolaroidImage',
+            array(
+                'background' => 'none',
+                'padding' => 5
+            )
+        );
         $image->display();
         $time = xdebug_time_index() - $time;
         $memory = xdebug_peak_memory_usage();
@@ -341,9 +437,13 @@ try {
         $time = xdebug_time_index();
         $image = getImageObject(array('filename' => 'img1.jpg'));
         $image->resize(150, 150);
-        $image->addEffect('PolaroidImage',
-                          array('background' => 'blue',
-                                'padding' => 5));
+        $image->addEffect(
+            'PolaroidImage',
+            array(
+                'background' => 'blue',
+                'padding' => 5
+            )
+        );
         $image->display();
         $time = xdebug_time_index() - $time;
         $memory = xdebug_peak_memory_usage();
@@ -352,19 +452,27 @@ try {
 
     case 'testPlainstackTransparentBG':
         $time = xdebug_time_index();
-        $imgs = array(getImageObject(array('filename' => 'img1.jpg')),
-                      getImageObject(array('filename' => 'img2.jpg')),
-                      getImageObject(array('filename' => 'img3.jpg')));
-        $baseImg = getImageObject(array('width' => 1,
-                                        'height' => 1,
-                                        'background' => 'none'));
+        $imgs = array(
+            getImageObject(array('filename' => 'img1.jpg')),
+            getImageObject(array('filename' => 'img2.jpg')),
+            getImageObject(array('filename' => 'img3.jpg'))
+        );
+        $baseImg = getImageObject(array(
+            'width' => 1,
+            'height' => 1,
+            'background' => 'none')
+        );
 
-        $baseImg->addEffect('PhotoStack',
-                            array('images' => $imgs,
-                                  'resize_height' => 150,
-                                  'padding' => 0,
-                                  'background' => 'none',
-                                  'type' => 'plain'));
+        $baseImg->addEffect(
+            'PhotoStack',
+            array(
+                'images' => $imgs,
+                'resize_height' => 150,
+                'padding' => 0,
+                'background' => 'none',
+                 'type' => 'plain'
+            )
+        );
         $baseImg->applyEffects();
         $baseImg->display();
         $time = xdebug_time_index() - $time;
@@ -375,19 +483,29 @@ try {
     case 'testPlainstackBlueBG':
         $time = xdebug_time_index();
 
-        $imgs = array(getImageObject(array('filename' => 'img1.jpg')),
-                      getImageObject(array('filename' => 'img2.jpg')),
-                      getImageObject(array('filename' => 'img3.jpg')));
-        $baseImg = getImageObject(array('width' => 1,
-                                        'height' => 1,
-                                        'background' => 'blue'));
+        $imgs = array(
+            getImageObject(array('filename' => 'img1.jpg')),
+            getImageObject(array('filename' => 'img2.jpg')),
+            getImageObject(array('filename' => 'img3.jpg'))
+        );
+        $baseImg = getImageObject(
+            array(
+                'width' => 1,
+                'height' => 1,
+                'background' => 'blue'
+            )
+        );
 
-        $baseImg->addEffect('PhotoStack',
-                            array('images' => $imgs,
-                                  'resize_height' => 150,
-                                  'padding' => 5,
-                                  'background' => 'blue',
-                                  'type' => 'plain'));
+        $baseImg->addEffect(
+            'PhotoStack',
+            array(
+                'images' => $imgs,
+                'resize_height' => 150,
+                'padding' => 5,
+                'background' => 'blue',
+                'type' => 'plain'
+            )
+        );
         $baseImg->applyEffects();
         $baseImg->display();
         $time = xdebug_time_index() - $time;
@@ -397,19 +515,27 @@ try {
 
     case 'testRoundstackTransparentBG':
         $time = xdebug_time_index();
-        $imgs = array(getImageObject(array('filename' => 'img1.jpg')),
-                      getImageObject(array('filename' => 'img2.jpg')),
-                      getImageObject(array('filename' => 'img3.jpg')));
-        $baseImg = getImageObject(array('width' => 1,
-                                        'height' => 1,
-                                        'background' => 'none'));
+        $imgs = array(
+            getImageObject(array('filename' => 'img1.jpg')),
+            getImageObject(array('filename' => 'img2.jpg')),
+            getImageObject(array('filename' => 'img3.jpg'))
+        );
+        $baseImg = getImageObject(array(
+            'width' => 1,
+            'height' => 1,
+            'background' => 'none')
+        );
 
-        $baseImg->addEffect('PhotoStack',
-                            array('images' => $imgs,
-                                  'resize_height' => 150,
-                                  'padding' => 0,
-                                  'background' => 'none',
-                                  'type' => 'rounded'));
+        $baseImg->addEffect(
+            'PhotoStack',
+            array(
+                'images' => $imgs,
+                'resize_height' => 150,
+                'padding' => 0,
+                'background' => 'none',
+                'type' => 'rounded'
+            )
+        );
         $baseImg->applyEffects();
         $baseImg->display();
         $time = xdebug_time_index() - $time;
@@ -419,19 +545,27 @@ try {
 
     case 'testRoundstackBlueBG':
         $time = xdebug_time_index();
-        $imgs = array(getImageObject(array('filename' => 'img1.jpg')),
-                      getImageObject(array('filename' => 'img2.jpg')),
-                      getImageObject(array('filename' => 'img3.jpg')));
-        $baseImg = getImageObject(array('width' => 1,
-                                        'height' => 1,
-                                        'background' => 'blue'));
+        $imgs = array(
+            getImageObject(array('filename' => 'img1.jpg')),
+            getImageObject(array('filename' => 'img2.jpg')),
+            getImageObject(array('filename' => 'img3.jpg'))
+        );
+        $baseImg = getImageObject(array(
+            'width' => 1,
+            'height' => 1,
+            'background' => 'blue')
+        );
 
-        $baseImg->addEffect('PhotoStack',
-                            array('images' => $imgs,
-                                  'resize_height' => 150,
-                                  'padding' => 0,
-                                  'background' => 'blue',
-                                  'type' => 'rounded'));
+        $baseImg->addEffect(
+            'PhotoStack',
+            array(
+                'images' => $imgs,
+                'resize_height' => 150,
+                'padding' => 0,
+                'background' => 'blue',
+                'type' => 'rounded'
+            )
+        );
         $baseImg->applyEffects();
         $baseImg->display();
         $time = xdebug_time_index() - $time;
@@ -441,19 +575,27 @@ try {
 
     case 'testPolaroidstackTransparentBG':
         $time = xdebug_time_index();
-        $imgs = array(getImageObject(array('filename' => 'img1.jpg')),
-                      getImageObject(array('filename' => 'img2.jpg')),
-                      getImageObject(array('filename' => 'img3.jpg')));
-        $baseImg = getImageObject(array('width' => 1,
-                                        'height' => 1,
-                                        'background' => 'none'));
+        $imgs = array(
+            getImageObject(array('filename' => 'img1.jpg')),
+            getImageObject(array('filename' => 'img2.jpg')),
+            getImageObject(array('filename' => 'img3.jpg'))
+        );
+        $baseImg = getImageObject(array(
+            'width' => 1,
+            'height' => 1,
+            'background' => 'none')
+        );
 
-        $baseImg->addEffect('PhotoStack',
-                            array('images' => $imgs,
-                                  'resize_height' => 150,
-                                  'padding' => 0,
-                                  'background' => 'none',
-                                  'type' => 'polaroid'));
+        $baseImg->addEffect(
+            'PhotoStack',
+            array(
+                'images' => $imgs,
+                'resize_height' => 150,
+                'padding' => 0,
+                'background' => 'none',
+                'type' => 'polaroid'
+            )
+        );
         $baseImg->applyEffects();
         $baseImg->display();
         $time = xdebug_time_index() - $time;
@@ -462,19 +604,27 @@ try {
         break;
 
     case 'testPolaroidstackBlueBG':
-        $imgs = array(getImageObject(array('filename' => 'img1.jpg')),
-                      getImageObject(array('filename' => 'img2.jpg')),
-                      getImageObject(array('filename' => 'img3.jpg')));
-        $baseImg = getImageObject(array('width' => 1,
-                                        'height' => 1,
-                                        'background' => 'blue'));
+        $imgs = array(
+            getImageObject(array('filename' => 'img1.jpg')),
+            getImageObject(array('filename' => 'img2.jpg')),
+            getImageObject(array('filename' => 'img3.jpg'))
+        );
+        $baseImg = getImageObject(array(
+            'width' => 1,
+            'height' => 1,
+            'background' => 'blue')
+        );
 
-        $baseImg->addEffect('PhotoStack',
-                            array('images' => $imgs,
-                                  'resize_height' => 150,
-                                  'padding' => 5,
-                                  'background' => 'blue',
-                                  'type' => 'polaroid'));
+        $baseImg->addEffect(
+            'PhotoStack',
+            array(
+                'images' => $imgs,
+                'resize_height' => 150,
+                'padding' => 5,
+                'background' => 'blue',
+                'type' => 'polaroid'
+            )
+        );
         $baseImg->applyEffects();
         $baseImg->display();
         break;
@@ -500,6 +650,7 @@ function getImageObject($params = array())
     $context = array(
         'tmpdir' => Horde::getTempdir(),
     );
+
     if ($driver == 'Im') {
         $context['convert'] = $convert;
         $context['identify'] = $identify;
@@ -510,7 +661,10 @@ function getImageObject($params = array())
         return new $class($params, $context);
     }
 
-    throw new Horde_Exception('Invalid Image driver specified: ' . $class . ' not found.');
+    throw new Horde_Exception(sprintf(
+        'Invalid Image driver specified: %s not found.',
+        $class)
+    );
 }
 
 function logThis($effect, $time, $memory)
