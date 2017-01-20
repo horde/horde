@@ -114,7 +114,9 @@ if (isset($result)) {
 
                 $tmp = array();
                 foreach ($row as $val) {
-                    $tmp[] = Horde_String::convertCharset($val, $conf['sql']['charset'], 'UTF-8');
+                    $tmp[] = is_null($val)
+                        ? null
+                        : Horde_String::convertCharset($val, $conf['sql']['charset'], 'UTF-8');
                 }
                 $rows[] = $tmp;
             }
@@ -124,7 +126,9 @@ if (isset($result)) {
                     $keys[] = isset($description) ? $description : '';
                 }
                 $rows[] = array(
-                    Horde_String::convertCharset($val, $conf['sql']['charset'], 'UTF-8')
+                    is_null($val)
+                        ? null
+                        : Horde_String::convertCharset($val, $conf['sql']['charset'], 'UTF-8')
                 );
             }
         }
