@@ -709,14 +709,15 @@ class Horde_Image_Imagick extends Horde_Image_Base
      * @param string $color    The border color.
      * @param integer $width   The image width including the border.
      * @param integer $height  The image height including the border.
+     *
+     * @todo  Make non-static for H6.
      */
     public static function frameImage(&$image, $color, $width, $height)
     {
         // Need to jump through these hoops in order to preserve any
         // transparency.
-        // @TODO Imagick::clone is deprecated as of 3.1.0. For H6 use the clone
-        // keyword instead.
         try {
+            // @todo Use clone or $this->_cloneImagickObject().
             $border = $image->clone();
             $border->borderImage(new ImagickPixel($color), $width, $height);
             $border->compositeImage($image, Imagick::COMPOSITE_COPY, $width, $height);
@@ -821,4 +822,31 @@ class Horde_Image_Imagick extends Horde_Image_Base
     {
         return $this->_imagick->getNumberImages();
     }
+
+
+    /**
+     * Wrapper around cloning the imagick resource object.
+     *
+     * @param  Imagick $imagick  A imagick resource object to clone. If empty
+     *                           will clone the imagick object associated with
+     *                           this Horde_Imagice_Imagick object.
+     *
+     * @todo  Remove in H6 when we can increase version dependency of Imagick.
+     *
+     * @return Imagick
+     * @since  2.4.0
+     */
+    public function cloneImagickObject($imagick = null)
+    {
+        if (version_compare(phpversion('imagick'), '3.1.0') >= 0) {
+            return empty($imagick)
+                ? clone $this->_imagick
+                : clone $imagick;
+        }
+
+        return empty($imagick)
+            ? $this->_imagick->clone()
+            : $imagick->clone();
+    }
+
  }

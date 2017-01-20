@@ -40,7 +40,7 @@ class Horde_Image_Effect_Imagick_SmartCrop extends Horde_Image_Effect
     public function apply()
     {
         $this->_params = new Horde_Support_Array($this->_params);
-       
+
         // Existing geometry
         $geometry = $this->_image->getDimensions();
         $w0 = $geometry['width'];
@@ -48,12 +48,12 @@ class Horde_Image_Effect_Imagick_SmartCrop extends Horde_Image_Effect
 
         $w = $this->_params->width;
         $h = $this->_params->height;
-        
+
         // @TODO: Parameterize these
         $r = 1;         // radius of edge filter
         $nk = 9;        // scale count: number of crop sizes to try
         $gamma = 0.2;   // edge normalization parameter -- see documentation
-        
+
         // Target AR
         $ar = $this->_params->width / $this->_params->height;
 
@@ -69,7 +69,7 @@ class Horde_Image_Effect_Imagick_SmartCrop extends Horde_Image_Effect
 
         try {
             // Compute COE
-            $img = $this->_image->imagick->clone();
+            $img = $this->_image->cloneImagickObject();
             $img->edgeImage($r);
             $img->modulateImage(100,0,100);
             $img->blackThresholdImage("#0f0f0f");
@@ -94,7 +94,7 @@ class Horde_Image_Effect_Imagick_SmartCrop extends Horde_Image_Effect
         $xcenter /= $sum;
         $ycenter /= $sum;
         $this->_logger->debug('COE: ' . $xcenter . 'x' . $ycenter);
-        
+
         // crop source img to target AR
         if ($w0 / $h0 > $ar) {
             // source AR wider than target

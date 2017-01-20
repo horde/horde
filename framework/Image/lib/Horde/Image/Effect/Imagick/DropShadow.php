@@ -50,7 +50,7 @@ class Horde_Image_Effect_Imagick_DropShadow extends Horde_Image_Effect
         // which makes it pretty much impossible to have Imagick shadows look
         // identical to Im shadows...
         try {
-            $shadow = $this->_image->imagick->clone();
+            $shadow = $this->_image->cloneImagickObject();
             $shadow->setImageBackgroundColor(new ImagickPixel('black'));
             $shadow->shadowImage(
                 80,
