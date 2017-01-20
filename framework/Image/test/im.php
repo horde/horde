@@ -380,7 +380,7 @@ try {
                       getImageObject(array('filename' => 'img3.jpg')));
         $baseImg = getImageObject(array('width' => 1,
                                         'height' => 1,
-                                        'background' => 'none'));
+                                        'background' => 'blue'));
 
         $baseImg->addEffect('PhotoStack',
                             array('images' => $imgs,
@@ -424,7 +424,7 @@ try {
                       getImageObject(array('filename' => 'img3.jpg')));
         $baseImg = getImageObject(array('width' => 1,
                                         'height' => 1,
-                                        'background' => 'none'));
+                                        'background' => 'blue'));
 
         $baseImg->addEffect('PhotoStack',
                             array('images' => $imgs,
@@ -467,12 +467,12 @@ try {
                       getImageObject(array('filename' => 'img3.jpg')));
         $baseImg = getImageObject(array('width' => 1,
                                         'height' => 1,
-                                        'background' => 'none'));
+                                        'background' => 'blue'));
 
         $baseImg->addEffect('PhotoStack',
                             array('images' => $imgs,
                                   'resize_height' => 150,
-                                  'padding' => 0,
+                                  'padding' => 5,
                                   'background' => 'blue',
                                   'type' => 'polaroid'));
         $baseImg->applyEffects();
