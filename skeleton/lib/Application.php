@@ -157,4 +157,32 @@ class Skeleton_Application extends Horde_Registry_Application
             'bar'
         );
     }
+
+    /**
+     * Add node(s) to the topbar tree.
+     *
+     * @param Horde_Tree_Renderer_Base $tree  Tree object.
+     * @param string $parent                  The current parent element.
+     * @param array $params                   Additional parameters.
+     *
+     * @throws Horde_Exception
+     */
+    public function topbarCreate(Horde_Tree_Renderer_Base $tree, $parent = null,
+                                 array $params = array())
+    {
+        switch ($params['id']) {
+        case 'menu':
+            $tree->addNode(array(
+                'id' => $parent . '__sub',
+                'parent' => $parent,
+                'label' => _("Sub Item"),
+                'expanded' => false,
+                'params' => array(
+                    'icon' => Horde_Themes::img('add.png'),
+                    'url' => Horde::url('item.php'),
+                ),
+            ));
+            break;
+        }
+    }
 }

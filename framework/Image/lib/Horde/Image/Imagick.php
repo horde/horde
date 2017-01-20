@@ -122,12 +122,14 @@ class Horde_Image_Imagick extends Horde_Image_Base
         parent::loadString($image_data);
         $this->_imagick->clear();
         try {
-            $this->_imagick->readImageBlob($this->_data);
+            $this->_data->rewind();
+            $this->_imagick->readImageFile($this->_data->stream);
             $this->_imagick->setImageFormat($this->_type);
             $this->_imagick->setIteratorIndex(0);
         } catch (ImagickException $e) {
             throw new Horde_Image_Exception($e);
         }
+        $this->_data->close();
         unset($this->_data);
     }
 
@@ -141,9 +143,17 @@ class Horde_Image_Imagick extends Horde_Image_Base
      */
     public function loadFile($filename)
     {
-        // Parent function loads image data into $this->_data
-        parent::loadFile($filename);
-        $this->loadString($this->_data);
+        $this->reset();
+        try {
+            $this->_imagick->readImage($filename);
+            $this->_imagick->setImageFormat($this->_type);
+            $this->_imagick->setIteratorIndex(0);
+        } catch (ImagickException $e) {
+            throw new Horde_Image_Exception($e);
+        }
+        // // Parent function loads image data into $this->_data
+        // parent::loadFile($filename);
+        // $this->loadString($this->_data);
     }
 
     /**
@@ -167,15 +177,23 @@ class Horde_Image_Imagick extends Horde_Image_Base
     /**
      * Returns the raw data for this image.
      *
-     * @param boolean $convert  Ignored for imagick driver.
+     * @param boolean $convert  Ignored for Imagick driver.
+     * @param array $options    Array of options:
+     *     - stream: If true, return as a stream resource.
+     *               DEFAULT: false.
      *
-     * @return string  The raw image data.
+     * @return mixed  The raw image data as a string or stream resource.
      */
-    public function raw($convert = false)
+    public function raw($convert = false, $options = array())
     {
         try {
             $this->_imagick->stripImage();
-            return $this->_imagick->getImageBlob();
+            if (empty($options['stream'])) {
+                return $this->_imagick->getImageBlob();
+            }
+            $s = new Horde_Stream_Temp();
+            $s->add($this->_imagick->getImageBlob(), true);
+            return $s->stream;
         } catch (ImagickException $e) {
             throw new Horde_Image_Exception($e);
         }
@@ -691,14 +709,15 @@ class Horde_Image_Imagick extends Horde_Image_Base
      * @param string $color    The border color.
      * @param integer $width   The image width including the border.
      * @param integer $height  The image height including the border.
+     *
+     * @todo  Make non-static for H6.
      */
     public static function frameImage(&$image, $color, $width, $height)
     {
         // Need to jump through these hoops in order to preserve any
         // transparency.
-        // @TODO Imagick::clone is deprecated as of 3.1.0. For H6 use the clone
-        // keyword instead.
         try {
+            // @todo Use clone or $this->_cloneImagickObject().
             $border = $image->clone();
             $border->borderImage(new ImagickPixel($color), $width, $height);
             $border->compositeImage($image, Imagick::COMPOSITE_COPY, $width, $height);
@@ -730,7 +749,7 @@ class Horde_Image_Imagick extends Horde_Image_Base
     public function current()
     {
         $this->_logDebug('Horde_Image_Imagick#current');
-        $params = array('data' => $this->raw());
+        $params = array('data' => $this->raw(false, array('stream' => true)));
         $image = new Horde_Image_Imagick($params, $this->_context);
         return $image;
     }
@@ -803,4 +822,31 @@ class Horde_Image_Imagick extends Horde_Image_Base
     {
         return $this->_imagick->getNumberImages();
     }
+
+
+    /**
+     * Wrapper around cloning the imagick resource object.
+     *
+     * @param  Imagick $imagick  A imagick resource object to clone. If empty
+     *                           will clone the imagick object associated with
+     *                           this Horde_Imagice_Imagick object.
+     *
+     * @todo  Remove in H6 when we can increase version dependency of Imagick.
+     *
+     * @return Imagick
+     * @since  2.4.0
+     */
+    public function cloneImagickObject($imagick = null)
+    {
+        if (version_compare(phpversion('imagick'), '3.1.0') >= 0) {
+            return empty($imagick)
+                ? clone $this->_imagick
+                : clone $imagick;
+        }
+
+        return empty($imagick)
+            ? $this->_imagick->clone()
+            : $imagick->clone();
+    }
+
  }

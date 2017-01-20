@@ -44,9 +44,9 @@ abstract class Horde_Image_Base extends EmptyIterator
     /**
      * The current image data.
      *
-     * @var string
+     * @var Horde_Stream
      */
-    protected $_data = '';
+    protected $_data;
 
     /**
      * Logger.
@@ -268,7 +268,10 @@ abstract class Horde_Image_Base extends EmptyIterator
      */
     public function reset()
     {
-        $this->_data = '';
+        if ($this->_data) {
+            $this->_data->close();
+        }
+        $this->_data = null;
         $this->_width = null;
         $this->_height = null;
         $this->_background = 'white';
@@ -296,12 +299,14 @@ abstract class Horde_Image_Base extends EmptyIterator
     /**
      * Loads the image data from a string.
      *
-     * @param string $image_data  The data to use for the image.
+     * @param mixed $image_data  The data to use for the image as a string,
+     *                           Horde_Stream, or stream resource.
      */
     public function loadString($image_data)
     {
         $this->reset();
-        $this->_data = $image_data;
+        $this->_data = new Horde_Stream_Temp();
+        $this->_data->add($image_data, true);
     }
 
     /**
@@ -320,7 +325,11 @@ abstract class Horde_Image_Base extends EmptyIterator
                 sprintf("The image file, %s, does not exist.", $filename)
             );
         }
-        if (!$this->_data = file_get_contents($filename)) {
+        $fp = fopen($filename, 'r');
+        $this->_data = new Horde_Stream_Temp();
+        $this->_data->add($fp, true);
+
+        if (!$this->_data->length()) {
             throw new Horde_Image_Exception(
                 sprintf("Could not load the image file %s", $filename)
             );
@@ -330,19 +339,36 @@ abstract class Horde_Image_Base extends EmptyIterator
     /**
      * Saves image data to file.
      *
-     * If $data is false, saves current image data after performing any pending
+     * If $data is false-ish, saves current image data after performing pending
      * operations on the data.  If $data contains raw image data, saves that
      * data to file without regard for the current image data.
      *
-     * @param string  String of binary image data.
+     * @param mixed  String or stream resource of binary image data.
      *
      * @return string  Path to temporary file.
+     * @throws  Horde_Image_Exception
      */
     public function toFile($data = null)
     {
+        if (empty($data)) {
+            if ($data = $this->raw(false, array('stream' => true))) {
+                return $this->toFile($data);
+            }
+            throw new Horde_Image_Exception('Unable to copy to file.');
+        }
+
         $tmp = Horde_Util::getTempFile('img', false, $this->_tmpdir);
         $fp = fopen($tmp, 'wb');
-        fwrite($fp, $data ?: $this->raw());
+
+        if (is_resource($data)) {
+            rewind($data);
+            while (!feof($data)) {
+                fwrite($fp, fread($data, 8192));
+            }
+        } elseif ($data) {
+            fwrite($fp, $data);
+        }
+
         fclose($fp);
         return $tmp;
     }
@@ -362,11 +388,18 @@ abstract class Horde_Image_Base extends EmptyIterator
      * @param boolean $convert  If true, the image data will be returned in the
      *                          target format, independently from any image
      *                          operations.
+     * @param array $options    Array of options:
+     *     - stream: If true, return as a stream resource.
+     *               DEFAULT: false.
      *
      * @return string  The raw image data.
      */
-    public function raw($convert = false)
+    public function raw($convert = false, $options = array())
     {
+        if (empty($options['stream'])) {
+            return $this->_data->__toString();
+        }
+
         return $this->_data;
     }
 

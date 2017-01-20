@@ -19,6 +19,7 @@ class Horde_Support_StubTest extends PHPUnit_Framework_TestCase
     public function testAnyOffsetIsGettable()
     {
         $stub = new Horde_Support_Stub;
+        unset($php_errormsg);
         $oldTrackErrors = ini_set('track_errors', 1);
         $php_errormsg = null;
         $this->assertNull($stub->{uniqid()});

@@ -23,10 +23,10 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-07-12</date>
+ <date>2017-01-19</date>
  <version>
-  <release>2.3.7</release>
-  <api>2.3.0</api>
+  <release>2.4.0</release>
+  <api>2.4.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -34,7 +34,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mjr] Fix drop shadow generation when using a background color.
+* [mjr] Add support for storing image data as a temporary stream.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -394,6 +395,7 @@
      </dir> <!-- /test/Horde/Image -->
     </dir> <!-- /test/Horde -->
     <file name=".htaccess" role="test" />
+    <file name="conf.php.dist" role="test" />
     <file name="error.png" role="test" />
     <file name="gd.php" role="test" />
     <file name="im.php" role="test" />
@@ -629,6 +631,7 @@
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Image.mo" name="locale/zh_TW/LC_MESSAGES/Horde_Image.mo" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Image.po" name="locale/zh_TW/LC_MESSAGES/Horde_Image.po" />
    <install as=".htaccess" name="test/.htaccess" />
+   <install as="conf.php.dist" name="test/conf.php.dist" />
    <install as="error.png" name="test/error.png" />
    <install as="gd.php" name="test/gd.php" />
    <install as="im.php" name="test/im.php" />
@@ -1188,15 +1191,16 @@ Initial release as a PEAR package
   </release>
   <release>
    <version>
-    <release>2.3.7</release>
-    <api>2.3.0</api></version>
+    <release>2.4.0</release>
+    <api>2.4.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-07-12</date>
+   <date>2017-01-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mjr] Fix drop shadow generation when using a background color.
+* [mjr] Add support for storing image data as a temporary stream.
    </notes>
   </release>
  </changelog>

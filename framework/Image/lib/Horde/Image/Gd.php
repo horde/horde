@@ -115,10 +115,13 @@ class Horde_Image_Gd extends Horde_Image_Base
      * Returns the raw data for this image.
      *
      * @param boolean $convert  Ignored for Gd driver.
+     * @param array $options    Array of options:
+     *     - stream: If true, return as a stream resource.
+     *               DEFAULT: false.
      *
      * @return string  The raw image data.
      */
-    public function raw($convert = false)
+    public function raw($convert = false, $options = array())
     {
         if (!is_resource($this->_im)) {
             return '';
@@ -126,7 +129,15 @@ class Horde_Image_Gd extends Horde_Image_Base
 
         ob_start();
         call_user_func('image' . $this->_type, $this->_im);
-        return ob_get_clean();
+
+        if (empty($options['stream'])) {
+            return ob_get_clean();
+        }
+
+        $s = new Horde_Stream_Temp();
+        $s->add(ob_get_clean(), true);
+
+        return $s->stream;
     }
 
     /**
@@ -143,8 +154,8 @@ class Horde_Image_Gd extends Horde_Image_Base
     /**
      * Returns the height and width of the current image data.
      *
-     * @return array  An hash with 'width' containing the width,
-     *                'height' containing the height of the image.
+     * @return array  A hash with 'width' containing the width, 'height'
+     *                containing the height of the image.
      */
     public function getDimensions()
     {
@@ -154,8 +165,10 @@ class Horde_Image_Gd extends Horde_Image_Base
             $this->_width = $this->call('imageSX', array($this->_im));
             $this->_height = $this->call('imageSY', array($this->_im));
         }
-        return array('width' => $this->_width,
-                     'height' => $this->_height);
+        return array(
+            'width' => $this->_width,
+            'height' => $this->_height
+        );
     }
 
     /**
@@ -279,7 +292,10 @@ class Horde_Image_Gd extends Horde_Image_Base
         }
 
         parent::loadFile($filename);
-        $this->_im = $this->call('imageCreateFromString', array($this->_data));
+        $this->_im = $this->call(
+            'imageCreateFromString',
+            array($this->_data->__toString())
+        );
     }
 
     /**

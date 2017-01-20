@@ -1,0 +1,45 @@
+#!/bin/bash
+
+# Setting basics
+set -e
+BASE=$(dirname $(dirname $(dirname $0)))
+if [ -z $(which xpath) ]
+then
+    echo "xpath tool not installed (libxml-xpath-perl)."
+    exit
+fi
+
+# Load configuration
+. "$0.conf"
+
+if [ -z "$GIT_ORGA" ]
+then
+    echo "No configuration file."
+    exit
+fi
+if [ -z "$GIT_TOKEN" ]
+then
+    echo "GitHub access not configured."
+    exit
+fi
+
+# Run through framework libraries.
+FRAMEWORK=$(find "$BASE/framework" \
+                 -maxdepth 1 \
+                 -name [A-Z]\* \
+                 -printf "%P\n"
+         )
+
+for PACKAGE in $FRAMEWORK
+do
+    "$BASE/framework/bin/horde-git-split" \
+        --component "$PACKAGE" \
+        --output "$WORK_DIR" \
+        --tmpdir "$TMP_DIR" \
+        --noprefix
+    TARGET="$WORK_DIR/$PACKAGE/split"
+    DESCRIPTION=$(xpath -q -e "/package/summary/text()" "$BASE/framework/$PACKAGE/package.xml")
+    echo -n "$DESCRIPTION" > "$TARGET/description"
+    curl -u "$GIT_ACCOUNT:$GIT_TOKEN" "https://api.github.com/orgs/$GIT_ORGA/repos" -d '{"name":"'"$PACKAGE"'","has_issues":false,"has_wiki":false,"homepage":"https://www.horde.org/libraries/Horde_'"$PACKAGE"'","description":"'"$DESCRIPTION"'"}'
+    git -C "$TARGET" push --mirror "git@github.com:$GIT_ORGA/$PACKAGE.git"
+done

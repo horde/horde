@@ -59,6 +59,7 @@ class Horde_Nls
 
         $valid = true;
 
+        unset($php_errormsg);
         ini_set('track_errors', 1);
         @htmlspecialchars('', ENT_COMPAT, $charset);
         if (isset($php_errormsg)) {

@@ -202,6 +202,7 @@ class Horde_Timezone
             }
         } else {
             $this->_tmpfile = $this->_params['location'];
+            unset($php_errormsg);
             if (!is_readable($this->_tmpfile)) {
                 $e = new Horde_Timezone_Exception(sprintf('Unable to open file %s.', $this->_params['location']));
                 if (isset($php_errormsg)) {

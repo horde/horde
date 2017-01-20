@@ -110,7 +110,7 @@ class Horde_Image_Effect_Imagick_PhotoStack extends Horde_Image_Effect
                         );
                     } else {
                         $imgk->destroy();
-                        $imgk = $topimg->clone();
+                        $imgk = $this->_image->cloneImagickObject($topimg);
                     }
                     if ($this->_params['type'] == 'rounded') {
                         $imgk = $this->_roundBorder($imgk);
@@ -123,7 +123,7 @@ class Horde_Image_Effect_Imagick_PhotoStack extends Horde_Image_Effect
                     }
                     // Only shadow the bottom image for 'plain' stacks
                     if (!$haveBottom) {
-                        $shad = $imgk->clone();
+                        $shad = $this->_image->cloneImagickObject($imgk);
                         $shad->setImageBackgroundColor(
                             new ImagickPixel('black')
                         );
@@ -170,7 +170,7 @@ class Horde_Image_Effect_Imagick_PhotoStack extends Horde_Image_Effect
                         }
                     }
                     $result = $imgk->polaroidImage(new ImagickDraw(), $angle);
-   
+
                     // Get the geometry of the image and remember the largest.
                     $geo = $imgk->getImageGeometry();
                     $length = max(

@@ -194,12 +194,6 @@ $this->applications = array(
         'menu_parent' => 'others'
     ),
 
-    'trean-menu' => array(
-        'status' => 'topbar',
-        'app' => 'trean',
-        'menu_parent' => 'trean',
-    ),
-
     'ansel' => array(
         'name' => _("Photos"),
         'provides' => 'images',

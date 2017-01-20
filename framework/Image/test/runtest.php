@@ -2,8 +2,9 @@
 /**
  * Test harness for generating the test images for Horde_Image tests
  */
+require_once __DIR__ . '/conf.php';
+require_once $horde . '/lib/Application.php';
 
-require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit(
     'horde',
     array('authentication' => 'none', 'session_control' => 'none')

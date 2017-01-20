@@ -30,7 +30,8 @@ class Horde_Http_Response_Mock extends Horde_Http_Response_Base
     {
         $content = @stream_get_contents($this->_stream);
         if ($content === false) {
-            throw new Horde_Http_Exception('Problem reading data from ' . $this->uri . ': ' . $php_errormsg);
+            $error = error_get_last();
+            throw new Horde_Http_Exception('Problem reading data from ' . $this->uri . ': ' . $error['message']);
         }
         return $content;
     }

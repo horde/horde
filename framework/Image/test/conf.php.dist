@@ -1,0 +1,7 @@
+<?php
+// Path to horde base directory. Needed so we can run from git checkout.
+$horde = '/usr/local/horde/horde/horde';
+
+// Path to convert and identify for Im test
+$convert = '/opt/local/bin/convert';
+$identify = '/opt/local/bin/identify';

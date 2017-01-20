@@ -26,7 +26,13 @@
 <?php foreach ($this->rows as $v): ?>
    <tr>
 <?php foreach ($v as $v2): ?>
-    <td class="fixed"><?php echo $this->h($v2) ?></td>
+    <td class="fixed">
+<?php if (is_null($v2)): ?>
+      <em>NULL</em>
+<?php else: ?>
+      <?php echo $this->h($v2) ?>
+<?php endif ?>
+    </td>
 <?php endforeach; ?>
    </tr>
 <?php endforeach; ?>

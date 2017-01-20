@@ -50,6 +50,7 @@ class Horde_Pack_Driver_Msgpackserialize extends Horde_Pack_Driver
      */
     public function unpack($data)
     {
+        unset($php_errormsg);
         ini_set('track_errors', 1);
         $out = @msgpack_unserialize($data);
         ini_restore('track_errors');

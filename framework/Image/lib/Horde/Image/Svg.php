@@ -19,6 +19,8 @@
  * @copyright 2002-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
  * @package   Image
+ *
+ * Requires PEAR XML_SVG
  */
 class Horde_Image_Svg extends Horde_Image_Base
 {
@@ -87,11 +89,15 @@ class Horde_Image_Svg extends Horde_Image_Base
     }
 
     /**
-     * Returns the raw data for this image.
+     * Return raw image data.
+     *
+     * @param boolean $convert  Unused in SVG driver.
+     * @param array $options    Array of options:
+     *                          NONE USED in SVG driver.
      *
      * @return string  The raw image data.
      */
-    public function raw()
+    public function raw($convert = false, $options = array())
     {
         return $this->_svg->bufferObject();
     }

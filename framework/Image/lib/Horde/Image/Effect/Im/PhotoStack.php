@@ -143,14 +143,14 @@ class Horde_Image_Effect_Im_PhotoStack extends Horde_Image_Effect
                         . '+' . mt_rand(1, $this->_params['resize_height'])
                         . ' -thumbnail \'' . $this->_params['resize_height']
                         . 'x' . $this->_params['resize_height']
-                        . '>\' -bordercolor Snow -border 1 -polaroid '
+                        . '>\' -bordercolor Snow -border 1  -polaroid '
                         . $angle . ' \) ';
                 }
                 $this->_image->addPostSrcOperation(
-                    '-background none' . $ops
+                    '-background ' . $this->_params['background'] . ' ' . $ops
                     . '-mosaic -bordercolor ' . $this->_params['background']
                     . ' -border ' . $this->_params['padding']);
-            } else {
+           } else {
                 // An attempt at a -polaroid command free version of this
                 // effect based on various examples and ideas at
                 // http://imagemagick.org

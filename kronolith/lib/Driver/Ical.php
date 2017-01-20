@@ -636,10 +636,11 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
             }
         }
 
+        $error = sprintf(_("Could not open %s"), $url);
         try {
             $response = $this->_getClient($url)->request('GET');
             if ($response['statusCode'] != 200) {
-                throw new Horde_Dav_Exception('Request Failed', $response['statusCode']);
+                throw new Kronolith_Exception($error, $response['statusCode']);
             }
         } catch (\Sabre\HTTP\ClientException $e) {
             throw new Kronolith_Exception($e);
@@ -649,10 +650,7 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
                         $url, $e->getHttpStatus()),
                 'INFO'
             );
-            $error = sprintf(
-                _("Could not open %s: %s"),
-                $url, $e->getResponse()->getStatusText()
-            );
+            $error .= ': ' . $e->getResponse()->getStatusText();
             if ($cache) {
                 $cacheOb->set($signature, serialize($error));
             }

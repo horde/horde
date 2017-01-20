@@ -23,8 +23,7 @@
 class Horde_Image_Effect_Imagick_DropShadow extends Horde_Image_Effect
 {
     /**
-     * Valid parameters: Most are currently ignored for the im version
-     * of this effect.
+     * Valid parameters:
      *
      * @TODO
      *
@@ -32,9 +31,9 @@ class Horde_Image_Effect_Imagick_DropShadow extends Horde_Image_Effect
      */
     protected $_params = array(
         'distance' => 5, // This is used as the x and y offset
-        'width' => 2,
-        'hexcolor' => '000000',
-        'angle' => 215,
+        'width' => 2,    // ignored
+        'hexcolor' => '000000', // ignored
+        'angle' => 215,         // ignored
         'fade' => 3, // Sigma value
         'padding' => 0,
         'background' => 'none'
@@ -51,7 +50,7 @@ class Horde_Image_Effect_Imagick_DropShadow extends Horde_Image_Effect
         // which makes it pretty much impossible to have Imagick shadows look
         // identical to Im shadows...
         try {
-            $shadow = $this->_image->imagick->clone();
+            $shadow = $this->_image->cloneImagickObject();
             $shadow->setImageBackgroundColor(new ImagickPixel('black'));
             $shadow->shadowImage(
                 80,
@@ -59,6 +58,20 @@ class Horde_Image_Effect_Imagick_DropShadow extends Horde_Image_Effect
                 $this->_params['distance'],
                 $this->_params['distance']
             );
+
+            // If we explicitly request a background color, we need to compose
+            // an image of the background color with the shadow since the
+            // shadow is always generated with transparent background.
+            if ($this->_params['background'] != 'none') {
+                $size = $shadow->getImageGeometry();
+                $new = new Imagick();
+                $new->newImage($size['width'], $size['height'], new ImagickPixel($this->_params['background']));
+                $new->setImageFormat($this->_image->getType());
+                $new->compositeImage($shadow, Imagick::COMPOSITE_OVER, 0, 0);
+                $shadow->clear();
+                $shadow->addImage($new);
+                $new->destroy();
+            }
 
             $shadow->compositeImage(
                 $this->_image->imagick, Imagick::COMPOSITE_OVER, 0, 0
