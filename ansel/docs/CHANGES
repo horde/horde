@@ -2,6 +2,7 @@
 v4.0.0-git
 ----------
 
+[mjr] Remove XPPublish code.
 [jan] Show users' full names in share dialogs.
 [mjr] Remove maps configuration, replaced by global maps configuration (Bug
       #14168).

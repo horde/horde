@@ -22,7 +22,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-07-04</date>
+ <date>2017-01-23</date>
  <version>
   <release>4.0.0</release>
   <api>4.0.0</api>
@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Remove XPPublish code.
 * [jan] Show users&apos; full names in share dialogs.
 * [mjr] Remove maps configuration, replaced by global maps configuration (Bug #14168).
 * [jan] Keep original file names when PUTing images via WebDAV.
@@ -284,7 +285,6 @@
     <file name="Tagger.php" role="horde" />
     <file name="Test.php" role="horde" />
     <file name="Widget.php" role="horde" />
-    <file name="XPPublisher.php" role="horde" />
    </dir> <!-- /lib -->
    <dir name="locale">
     <dir name="da">
@@ -396,8 +396,8 @@
     <file name="11_ansel_fix_blob_length.php" role="horde" />
     <file name="12_ansel_upgrade_fixautoincrement.php" role="horde" />
     <file name="13_ansel_upgrade_parents.php" role="horde" />
-    <file name="14_ansel_upgrade_addtitle.php" role="horde" />
     <file name="14_ansel_upgrade_fixshareusers.php" role="horde" />
+    <file name="15_ansel_upgrade_addtitle.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="templates">
     <dir name="browse">
@@ -406,6 +406,9 @@
     <dir name="captions">
      <file name="captions.inc" role="horde" />
     </dir> <!-- /templates/captions -->
+    <dir name="chunks">
+     <file name="gallery.php" role="horde" />
+    </dir> <!-- /templates/chunks -->
     <dir name="dynamic">
      <file name="index.inc" role="horde" />
      <file name="sidebar.html.php" role="horde" />
@@ -484,12 +487,6 @@
      <file name="othergalleries.html.php" role="horde" />
      <file name="tags.html.php" role="horde" />
     </dir> <!-- /templates/widgets -->
-    <dir name="xppublish">
-     <file name="javascript.inc" role="horde" />
-     <file name="list.inc" role="horde" />
-     <file name="login.inc" role="horde" />
-     <file name="new.inc" role="horde" />
-    </dir> <!-- /templates/xppublish -->
     <file name=".htaccess" role="horde" />
     <file name="map_edit.html.php" role="horde" />
    </dir> <!-- /templates -->
@@ -608,7 +605,6 @@
    <file name="rss.php" role="horde" />
    <file name="smartmobile.php" role="horde" />
    <file name="view.php" role="horde" />
-   <file name="xppublish.php" role="horde" />
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -851,7 +847,6 @@
    <install as="ansel/rss.php" name="rss.php" />
    <install as="ansel/smartmobile.php" name="smartmobile.php" />
    <install as="ansel/view.php" name="view.php" />
-   <install as="ansel/xppublish.php" name="xppublish.php" />
    <install as="ansel" name="bin/ansel" />
    <install as="ansel-convert-sql-shares-to-sqlng" name="bin/ansel-convert-sql-shares-to-sqlng" />
    <install as="ansel-exif-to-tags" name="bin/ansel-exif-to-tags" />
@@ -944,7 +939,6 @@
    <install as="ansel/lib/Tagger.php" name="lib/Tagger.php" />
    <install as="ansel/lib/Test.php" name="lib/Test.php" />
    <install as="ansel/lib/Widget.php" name="lib/Widget.php" />
-   <install as="ansel/lib/XPPublisher.php" name="lib/XPPublisher.php" />
    <install as="ansel/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
    <install as="ansel/lib/Ajax/Application/Handler.php" name="lib/Ajax/Application/Handler.php" />
    <install as="ansel/lib/Ajax/Imple/EditCaption.php" name="lib/Ajax/Imple/EditCaption.php" />
@@ -1070,12 +1064,13 @@
    <install as="ansel/migration/11_ansel_fix_blob_length.php" name="migration/11_ansel_fix_blob_length.php" />
    <install as="ansel/migration/12_ansel_upgrade_fixautoincrement.php" name="migration/12_ansel_upgrade_fixautoincrement.php" />
    <install as="ansel/migration/13_ansel_upgrade_parents.php" name="migration/13_ansel_upgrade_parents.php" />
-   <install as="ansel/migration/14_ansel_upgrade_addtitle.php" name="migration/14_ansel_upgrade_addtitle.php" />
    <install as="ansel/migration/14_ansel_upgrade_fixshareusers.php" name="migration/14_ansel_upgrade_fixshareusers.php" />
+   <install as="ansel/migration/15_ansel_upgrade_addtitle.php" name="migration/15_ansel_upgrade_addtitle.php" />
    <install as="ansel/templates/.htaccess" name="templates/.htaccess" />
    <install as="ansel/templates/map_edit.html.php" name="templates/map_edit.html.php" />
    <install as="ansel/templates/browse/new.inc" name="templates/browse/new.inc" />
    <install as="ansel/templates/captions/captions.inc" name="templates/captions/captions.inc" />
+   <install as="ansel/templates/chunks/gallery.php" name="templates/chunks/gallery.php" />
    <install as="ansel/templates/dynamic/index.inc" name="templates/dynamic/index.inc" />
    <install as="ansel/templates/dynamic/sidebar.html.php" name="templates/dynamic/sidebar.html.php" />
    <install as="ansel/templates/faces/custom.inc" name="templates/faces/custom.inc" />
@@ -1128,10 +1123,6 @@
    <install as="ansel/templates/widgets/links.html.php" name="templates/widgets/links.html.php" />
    <install as="ansel/templates/widgets/othergalleries.html.php" name="templates/widgets/othergalleries.html.php" />
    <install as="ansel/templates/widgets/tags.html.php" name="templates/widgets/tags.html.php" />
-   <install as="ansel/templates/xppublish/javascript.inc" name="templates/xppublish/javascript.inc" />
-   <install as="ansel/templates/xppublish/list.inc" name="templates/xppublish/list.inc" />
-   <install as="ansel/templates/xppublish/login.inc" name="templates/xppublish/login.inc" />
-   <install as="ansel/templates/xppublish/new.inc" name="templates/xppublish/new.inc" />
    <install as="Ansel/AllTests.php" name="test/Ansel/AllTests.php" />
    <install as="Ansel/Autoload.php" name="test/Ansel/Autoload.php" />
    <install as="Ansel/bootstrap.php" name="test/Ansel/bootstrap.php" />
@@ -1455,7 +1446,7 @@
    </notes>
   </release>
   <release>
-   <date>2016-11-09</date>
+   <date>2017-01-23</date>
    <version>
     <release>4.0.0</release>
     <api>4.0.0</api>
@@ -1466,6 +1457,7 @@
    </stability>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Remove XPPublish code.
 * [jan] Show users&apos; full names in share dialogs.
 * [mjr] Remove maps configuration, replaced by global maps configuration (Bug #14168).
 * [jan] Keep original file names when PUTing images via WebDAV.
