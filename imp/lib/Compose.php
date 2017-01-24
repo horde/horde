@@ -1275,12 +1275,12 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             /* $email contains address objects that already have the default
              * maildomain appended. Need to encode personal part and encode
              * IDN domain names. */
-            $tmp = $val->writeAddress(array(
-                'encode' => $charset,
-                'idn' => true
-            ));
-
             try {
+                $tmp = $val->writeAddress(array(
+                    'encode' => $charset,
+                    'idn' => true
+                ));
+
                 /* We have written address, but it still may not be valid.
                  * So double-check. */
                 $alist = IMP::parseAddressList($tmp, array(
@@ -1300,6 +1300,10 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                         $hook = false;
                     }
                 }
+            } catch (Horde_Idna_Exception $e) {
+                $error = array(
+                    'msg' => sprintf(_("Invalid e-mail address (%s): %s"), $val, $e->getMessage())
+                );
             } catch (Horde_Mail_Exception $e) {
                 $error = array(
                     'msg' => sprintf(_("Invalid e-mail address (%s)."), $val)
