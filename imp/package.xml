@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Catch errors when converting email address to IDNA.
 * [jan] Correctly use preference to save attachments with sent messages in mobile modes (Bug #14571).
  </notes>
  <contents>
@@ -3997,6 +3998,7 @@
    <date>2016-12-16</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Catch errors when converting email address to IDNA.
 * [jan] Correctly use preference to save attachments with sent messages in mobile modes (Bug #14571).
    </notes>
   </release>
