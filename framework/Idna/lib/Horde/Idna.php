@@ -40,7 +40,7 @@ class Horde_Idna
 
         case 'INTL_UTS46':
             $result = idn_to_ascii($data, 0, INTL_IDNA_VARIANT_UTS46, $info);
-            $this->_checkForError($info);
+            self::_checkForError($info);
             return $result;
 
         default:
@@ -66,7 +66,7 @@ class Horde_Idna
 
                     case 'INTL_UTS46':
                         $part = idn_to_utf8($part, 0, INTL_IDNA_VARIANT_UTS46, $info);
-                        $this->_checkForError($info);
+                        self::_checkForError($info);
                         break;
                     }
                 }
@@ -86,7 +86,7 @@ class Horde_Idna
      *
      * @throws Horde_Idna_Exception
      */
-    protected function _checkForError($info)
+    protected static function _checkForError($info)
     {
         switch (true) {
         case $info['errors'] & IDNA_ERROR_EMPTY_LABEL:
