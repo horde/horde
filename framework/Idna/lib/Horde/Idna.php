@@ -39,7 +39,63 @@ class Horde_Idna
             return idn_to_ascii($data);
 
         case 'INTL_UTS46':
-            return idn_to_ascii($data, 0, INTL_IDNA_VARIANT_UTS46);
+            $result = idn_to_ascii($data, 0, INTL_IDNA_VARIANT_UTS46, $info);
+            switch (true) {
+            case $info['errors'] & IDNA_ERROR_EMPTY_LABEL:
+                throw new Horde_Idna_Exception(Horde_Idna_Translation::t(
+                    "Domain name is empty"
+                ));
+            case $info['errors'] & IDNA_ERROR_LABEL_TOO_LONG:
+            case $info['errors'] & IDNA_ERROR_DOMAIN_NAME_TOO_LONG:
+                throw new Horde_Idna_Exception(Horde_Idna_Translation::t(
+                    "Domain name is too long"
+                ));
+            case $info['errors'] & IDNA_ERROR_LEADING_HYPHEN:
+                throw new Horde_Idna_Exception(Horde_Idna_Translation::t(
+                    "Starts with a hyphen"
+                ));
+            case $info['errors'] & IDNA_ERROR_TRAILING_HYPHEN:
+                throw new Horde_Idna_Exception(Horde_Idna_Translation::t(
+                    "Ends with a hyphen"
+                ));
+            case $info['errors'] & IDNA_ERROR_HYPHEN_3_4:
+                throw new Horde_Idna_Exception(Horde_Idna_Translation::t(
+                    "Contains hyphen in the third and fourth positions"
+                ));
+            case $info['errors'] & IDNA_ERROR_LEADING_COMBINING_MARK:
+                throw new Horde_Idna_Exception(Horde_Idna_Translation::t(
+                    "Starts with a combining mark"
+                ));
+            case $info['errors'] & IDNA_ERROR_DISALLOWED:
+                throw new Horde_Idna_Exception(Horde_Idna_Translation::t(
+                    "Contains disallowed characters"
+                ));
+            case $info['errors'] & IDNA_ERROR_PUNYCODE:
+                throw new Horde_Idna_Exception(Horde_Idna_Translation::t(
+                    "Starts with \"xn--\" but does not contain valid Punycode"
+                ));
+            case $info['errors'] & IDNA_ERROR_LABEL_HAS_DOT:
+                throw new Horde_Idna_Exception(Horde_Idna_Translation::t(
+                    "Contains a dot"
+                ));
+            case $info['errors'] & IDNA_ERROR_INVALID_ACE_LABEL:
+                throw new Horde_Idna_Exception(Horde_Idna_Translation::t(
+                    "ACE label does not contain a valid label string"
+                ));
+            case $info['errors'] & IDNA_ERROR_BIDI:
+                throw new Horde_Idna_Exception(Horde_Idna_Translation::t(
+                    "Does not meet the IDNA BiDi requirements (for right-to-left characters)"
+                ));
+            case $info['errors'] & IDNA_ERROR_CONTEXTJ:
+                throw new Horde_Idna_Exception(Horde_Idna_Translation::t(
+                    "Does not meet the IDNA CONTEXTJ requirements"
+                ));
+            case $info['errors']:
+                throw new Horde_Idna_Exception(Horde_Idna_Translation::t(
+                    "Unknown error"
+                ));
+            }
+            return $result;
 
         default:
             return $backend->encode($data);
