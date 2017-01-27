@@ -3092,7 +3092,8 @@ abstract class Kronolith_Event
 
         // Never private if private is not true or if the current user is the
         // event creator.
-        if (!$this->private || $this->creator == $user) {
+        if ((!$this->private || $this->creator == $user) &&
+            $this->hasPermission(Horde_Perms::READ, $user)) {
             return false;
         }
 
