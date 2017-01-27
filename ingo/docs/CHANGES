@@ -2,6 +2,8 @@
 v3.2.14-git
 -----------
 
+[jan] Never send autoreplies again when setting zero vacation days in Procmail
+      or Maildrop backends (Bug #14549).
 [jan] Don't split sieve body tests on commas (Bug #14546).
 
 

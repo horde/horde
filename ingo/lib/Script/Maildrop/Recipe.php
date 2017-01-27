@@ -130,11 +130,6 @@ class Ingo_Script_Maildrop_Recipe implements Ingo_Script_Item
             if ($end === false) {
                 $end = 0;
             }
-            $days = strftime($params['action-value']['days']);
-            if ($days === false) {
-                // Set to same value as $_days in ingo/lib/Storage.php
-                $days = 7;
-            }
 
             // Rule : Do not send responses to bulk or list messages
             if ($params['action-value']['ignorelist'] == 1) {
@@ -168,7 +163,7 @@ class Ingo_Script_Maildrop_Recipe implements Ingo_Script_Item
             $this->_action[] = '  cc "' . str_replace('"', '\\"', sprintf(
                 '| mailbot %s -D %d -c \'UTF-8\' -t $HOME/vacation.msg -d $HOME/vacation -A %s -s %s /usr/sbin/sendmail -t -f %s',
                 $this->_params['mailbotargs'],
-                $params['action-value']['days'],
+                $params['action-value']['days'] ?: 9999,
                 escapeshellarg('From: ' . $from),
                 escapeshellarg(Horde_Mime::encode($params['action-value']['subject'])),
                 escapeshellarg($from)))

@@ -157,20 +157,22 @@ class Ingo_Script_Procmail_Recipe implements Ingo_Script_Item
                 $this->_action[] = '  :0';
                 $this->_action[] = '  * ^TO_' . $address;
                 $this->_action[] = '  {';
-                $this->_action[] =
-                    '    FILEDATE=`test -f ${VACATION_DIR:-.}/\'.vacation.'
-                    . $address . '\' && '
-                    . $this->_params['ls']
-                    . ' -lcn --time-style=+%s ${VACATION_DIR:-.}/\'.vacation.'
-                    . $address . '\' | '
-                    . 'awk \'{ print $6 + (' . $days * 86400 . ') }\'`';
                 $this->_action[] = '    DATE=`' . $this->_params['date']
                     . ' +%s`';
-                $this->_action[] =
-                    '    DUMMY=`test -f ${VACATION_DIR:-.}/\'.vacation.'
-                    . $address . '\' && '
-                    . 'test $FILEDATE -le $DATE && '
-                    . 'rm ${VACATION_DIR:-.}/\'.vacation.' . $address . '\'`';
+                if ($days) {
+                    $this->_action[] =
+                        '    FILEDATE=`test -f ${VACATION_DIR:-.}/\'.vacation.'
+                        . $address . '\' && '
+                        . $this->_params['ls']
+                        . ' -lcn --time-style=+%s ${VACATION_DIR:-.}/\'.vacation.'
+                        . $address . '\' | '
+                        . 'awk \'{ print $6 + (' . $days * 86400 . ') }\'`';
+                    $this->_action[] =
+                        '    DUMMY=`test -f ${VACATION_DIR:-.}/\'.vacation.'
+                        . $address . '\' && '
+                        . 'test $FILEDATE -le $DATE && '
+                        . 'rm ${VACATION_DIR:-.}/\'.vacation.' . $address . '\'`';
+                }
                 if ($timed) {
                     $this->_action[] = '    START='
                         . $params['action-value']['start'];
