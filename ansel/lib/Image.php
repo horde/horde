@@ -145,16 +145,10 @@ class Ansel_Image implements Iterator
     /**
      * Flags for loaded views
      *
-     * @var array
+     * @var string
      */
-    protected $_loaded = array();
+    protected $_loaded;
 
-    /**
-     * Binary image data for loaded views
-     *
-     * @var array
-     */
-    protected $_data = array();
     /**
      * Holds an array of tags for this image
      *
@@ -179,7 +173,24 @@ class Ansel_Image implements Iterator
     /**
      * Const'r
      *
-     * @param array $image
+     * @param array $image  An array describing the image properties. May
+     *                      contain any of the following:
+     *   image_filename        - The filename (REQUIRED)
+     *   image_title           - The title
+     *   gallery_id -          - The gallery id the image belongs to
+     *   image_caption         - The image caption
+     *   image_sort            - The image sort value
+     *   image_id              - The image id (empty if a new image).
+     *   image_uploaded_date   - Image uploaded date
+     *   image_type            - The image type (jpg/png etc...)
+     *   tags                  - Comma delimited list of tags
+     *   image_faces           - Faces in this image
+     *   image_location        - Image location
+     *   image_original_date   - Original date
+     *   image_latitude        - Latitude
+     *   image_longitude       - Longitude
+     *   image_geotag_date     - Date image tagged
+     *   data                  - Binary image data
      *
      * @return Ansel_Image
      */
@@ -201,9 +212,6 @@ class Ansel_Image implements Iterator
             }
             if (!empty($image['image_id'])) {
                 $this->id = $image['image_id'];
-            }
-            if (!empty($image['data'])) {
-                $this->_data['full'] = $image['data'];
             }
             if (!empty($image['image_uploaded_date'])) {
                 $this->uploaded = $image['image_uploaded_date'];
@@ -237,6 +245,12 @@ class Ansel_Image implements Iterator
 
         $this->_image = Ansel::getImageObject();
         $this->_image->reset();
+
+        if (!empty($image['data'])) {
+            $this->_image->loadString($image['data']);
+            $this->_loaded = 'full';
+        }
+
         $this->id = !empty($image['image_id']) ? $image['image_id'] : null;
     }
 
@@ -315,11 +329,8 @@ class Ansel_Image implements Iterator
     public function load($view = 'full', Ansel_Style $style = null)
     {
         // If this is a new image that hasn't been saved yet, we will
-        // already have the full data loaded. If we auto-rotate the image
-        // then there is no need to save it just to load it again.
-        if ($view == 'full' && !empty($this->_data['full'])) {
-            $this->_image->loadString($this->_data['full']);
-            $this->_loaded['full'] = true;
+        // already have the full data loaded.
+        if ($view == 'full' && $this->_loaded == 'full') {
             return;
         } elseif ($view == 'full') {
             try {
@@ -334,11 +345,10 @@ class Ansel_Image implements Iterator
             $viewHash = 'full';
         } else {
             $viewHash = $this->getViewHash($view, $style);
-
-            // If we've already loaded the data, just return now.
-            if (!empty($this->_loaded[$viewHash])) {
+            if ($this->_loaded == $viewHash) {
                 return;
             }
+
             $this->createView(
                 $view,
                 $style,
@@ -348,7 +358,7 @@ class Ansel_Image implements Iterator
 
             // If createView() had to resize the full image, we've already
             // loaded the data, so return now.
-            if (!empty($this->_loaded[$viewHash])) {
+            if ($this->_loaded == $viewHash) {
                 return;
             }
 
@@ -367,9 +377,8 @@ class Ansel_Image implements Iterator
             }
         }
 
-        /* We've definitely successfully loaded the image now. */
-        $this->_loaded[$viewHash] = true;
-        $this->_data[$viewHash] = $data;
+        // We've definitely successfully loaded the image now.
+        $this->_loaded = $viewHash;
         $this->_image->loadString($data);
     }
 
@@ -393,9 +402,11 @@ class Ansel_Image implements Iterator
         // Get the VFS path.
         $view = $style->getHash($view);
 
-        // Can't call the various vfs methods here, since this method needs
-        // to be called statically.
-        $vfspath = '.horde/ansel/' . substr(str_pad($id, 2, 0, STR_PAD_LEFT), -2) . '/' . $view;
+        // Can't call the various vfs methods here, since this method is static.
+        $vfspath = '.horde/ansel/'
+            . substr(str_pad($id, 2, 0, STR_PAD_LEFT), -2)
+            . '/'
+            . $view;
 
         // Get VFS name
         $vfsname = $id . '.';
@@ -405,7 +416,9 @@ class Ansel_Image implements Iterator
             $vfsname .= 'png';
         }
 
-        if ($GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create('images')->exists($vfspath, $vfsname)) {
+        if ($GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')
+                ->create('images')
+                ->exists($vfspath, $vfsname)) {
             return $view . '/' . $vfsname;
         } else {
             return false;
@@ -417,25 +430,33 @@ class Ansel_Image implements Iterator
      *
      * @param string $view         Which view to create.
      * @param Ansel_Style  $style  A style object
+     * @param string $watermark    A watermark to apply to screen images.
+     *
+     * @todo  Use a parameter array for style and watermark - maybe refactor
+     *        out the watermark being done in this method at all.
      *
      * @throws Ansel_Exception
      */
     public function createView($view, Ansel_Style $style = null, $watermark = '')
     {
+        global $storage, $injector;
+
         // Default to the gallery's style
         if (empty($style)) {
-            $style = $GLOBALS['storage']->getGallery(abs($this->gallery))->getStyle();
+            $style = $storage->getGallery(abs($this->gallery))->getStyle();
         }
 
-        // Get the VFS info.
+        // Get the VFS info, and check if the view already exists.
         $vfspath = $this->getVFSPath($view, $style);
-        if ($GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')
+        if ($injector->getInstance('Horde_Core_Factory_Vfs')
             ->create('images')
             ->exists($vfspath, $this->getVFSName($view))) {
             return;
         }
+
+        // Doesn't exist, must create it from the full image.
         try {
-            $data = $GLOBALS['injector']
+            $data = $injector
                 ->getInstance('Horde_Core_Factory_Vfs')
                 ->create('images')
                 ->read($this->getVFSPath('full'), $this->getVFSName('full'));
@@ -451,8 +472,11 @@ class Ansel_Image implements Iterator
             $originalType = false;
         }
 
+        // Load the full image data into the image object.
         $vHash = $this->getViewHash($view, $style);
         $this->_image->loadString($data);
+
+        // Figure out the $viewType for the generator.
         if ($view == 'thumb') {
             $viewType = $style->thumbstyle;
         } else {
@@ -460,53 +484,51 @@ class Ansel_Image implements Iterator
             $viewType = ucfirst($view);
         }
 
+        // Use a ImageGenerator to create the view type.
         try {
             $iview = Ansel_ImageGenerator::factory(
                 $viewType, array('image' => $this, 'style' => $style));
         } catch (Ansel_Exception $e) {
-            // It could be we don't support the requested effect, try
-            // ansel_default before giving up.
+            // If we don't support the requested effect, try ansel_default
+            // before giving up.
             if ($view == 'thumb' && $viewType != 'Thumb') {
                 $iview = Ansel_ImageGenerator::factory(
                     'Thumb',
-                     array(
-                         'image' => $this,
-                         'style' => Ansel::getStyleDefinition('ansel_default')));
+                    array(
+                        'image' => $this,
+                        'style' => Ansel::getStyleDefinition('ansel_default')
+                    )
+                );
             } else {
-                // If it wasn't a thumb, then something else must be wrong
                 throw $e;
             }
         }
 
         // generate the view
         $iview->create();
+        $this->_image->raw();
+        $this->_loaded = $vHash;
 
-        // Cache the data from the new ImageGenerator
-        try {
-            $this->_data[$vHash] = $this->_image->raw();
-        } catch (Horde_Image_Exception $e) {
-            throw new Ansel_Exception($e);
-        }
-        $this->_loaded[$vHash] = true;
-        $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')
+        $injector->getInstance('Horde_Core_Factory_Vfs')
             ->create('images')
-            ->writeData($vfspath, $this->getVFSName($vHash), $this->_data[$vHash], true);
+            ->writeData(
+                $vfspath,
+                $this->getVFSName($vHash),
+                $this->_image->raw(),
+                true
+            );
 
-        // Watermark
+        // Watermark?
         if (!empty($watermark)) {
             $this->watermark($view);
-
-            // Cache the data again
-            try {
-                $this->_data[$vHash] = $this->_image->raw();
-            } catch (Horde_Image_Exception $e) {
-                throw new Ansel_Exception($e);
-            }
-
-            $GLOBALS['injector']
-                ->getInstance('Horde_Core_Factory_Vfs')
+            $this->_image->raw();
+            $injector->getInstance('Horde_Core_Factory_Vfs')
                 ->create('images')
-                ->writeData($vfspath, $this->getVFSName($view), $this->_data[$vHash]);
+                ->writeData(
+                    $vfspath,
+                    $this->getVFSName($view),
+                    $this->_image->raw()
+                );
         }
 
         // Revert any type change
@@ -516,28 +538,32 @@ class Ansel_Image implements Iterator
     }
 
     /**
-     * Writes the current data to vfs, used when creating a new image
+     * Writes the current full image data to vfs. Will not attempt to save if
+     * no data at all is loaded. Normally used when saving a new image.
      *
-     * @return boolean
      * @throws Ansel_Exception
      */
     protected function _writeData()
     {
         $this->_dirty = false;
 
-        try {
-            $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')
-                ->create('images')
-                ->writeData(
-                    $this->getVFSPath('full'),
-                    $this->getVFSName('full'),
-                    $this->_data['full'],
-                    true);
-        } catch (Horde_Vfs_Exception $e) {
-            throw new Ansel_Exception($e);
+        if ($this->_loaded == 'full') {
+            try {
+                $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')
+                    ->create('images')
+                    ->writeData(
+                        $this->getVFSPath('full'),
+                        $this->getVFSName('full'),
+                        $this->_image->raw(),
+                        true);
+            } catch (Horde_Vfs_Exception $e) {
+                throw new Ansel_Exception($e);
+            }
+        } else if (!empty($this->_loaded)) {
+            throw new Ansel_Exception(
+                'This method should only be called with full data loaded.'
+            );
         }
-
-        return true;
     }
 
     /**
@@ -651,7 +677,6 @@ class Ansel_Image implements Iterator
     public function replace(array $imageData)
     {
         // Reset the data array and remove all cached images
-        $this->_data = array();
         $this->reset();
         $this->getEXIF(true);
         $this->updateData($imageData);
@@ -712,14 +737,16 @@ class Ansel_Image implements Iterator
         }
 
         try {
-            $exif_fields = $this->_getAttributeObject()->getImageExifData($imageFile);
+            $exif_fields = $this->_getAttributeObject()
+                ->getImageExifData($imageFile);
         } catch (Ansel_Exception $e) {
             // Log the error, but it's not the end of the world, so just ignore
             Horde::log($e, 'ERR');
             $exif_fields = array();
             return false;
         }
-        $this->_exif = $this->_getAttributeObject()->imageAttributes($exif_fields, $replacing);
+        $this->_exif = $this->_getAttributeObject()
+            ->imageAttributes($exif_fields, $replacing);
 
         // Populate any local properties that come from EXIF
         if (!empty($exif_fields['GPSLatitude'])) {
@@ -788,7 +815,7 @@ class Ansel_Image implements Iterator
             }
 
             if ($this->_dirty) {
-                $this->_data['full'] = $this->raw();
+                $this->raw();
                 $this->_writeData();
             }
         }
@@ -801,7 +828,7 @@ class Ansel_Image implements Iterator
     public function reset()
     {
         $this->_image->reset();
-        $this->_loaded = array();
+        $this->_loaded = false;
     }
 
     /**
@@ -857,15 +884,15 @@ class Ansel_Image implements Iterator
      *
      * @return string  The raw binary image data
      */
-    public function raw($view = 'full')
+    public function raw($view = 'full', $params = array())
     {
         if ($this->_dirty) {
-            $data = $this->_image->raw();
+            $data = $this->_image->raw(false, $params);
             $this->reset();
             return $data;
         } else {
             $this->load($view);
-            return $this->_data[$view];
+            return $this->_image->raw(false, $params);
         }
     }
 
@@ -938,8 +965,8 @@ class Ansel_Image implements Iterator
         $this->load($view);
         return $this->_image->toFile(
             $this->_dirty ?
-                false :
-                $this->_data[$view]);
+                null :
+                $this->_image->raw());
     }
 
     /**
@@ -1328,7 +1355,8 @@ class Ansel_Image implements Iterator
      */
     public function getImagePageCount()
     {
-        if (empty($this->_loaded['full'])) {
+        // @TODO: Should we clone the current image and replace it?
+        if ($this->_loaded != 'full') {
             $this->load();
         }
 
@@ -1383,7 +1411,8 @@ class Ansel_Image implements Iterator
      */
     public function rewind()
     {
-        if (empty($this->_loaded['full'])) {
+        // @TODO should we save/reset the image?
+        if ($this->_loaded != 'full') {
             $this->load();
         }
         try {
@@ -1400,7 +1429,7 @@ class Ansel_Image implements Iterator
      */
     public function current()
     {
-        if (empty($this->_loaded['full'])) {
+        if ($this->_loaded != 'full') {
             $this->load();
         }
         try {
@@ -1418,7 +1447,7 @@ class Ansel_Image implements Iterator
      */
     public function key()
     {
-        if (empty($this->_loaded['full'])) {
+        if ($this->_loaded != 'full') {
             $this->load();
         }
         try {
@@ -1435,7 +1464,7 @@ class Ansel_Image implements Iterator
      */
     public function next()
     {
-        if (empty($this->_loaded['full'])) {
+        if ($this->_loaded != 'full') {
             $this->load();
         }
         if ($next = $this->_image->next()) {
@@ -1453,7 +1482,7 @@ class Ansel_Image implements Iterator
      */
     public function valid()
     {
-        if (empty($this->_loaded['full'])) {
+        if ($this->_loaded != 'full') {
             $this->load();
         }
         try {
