@@ -73,7 +73,8 @@ foreach (array('app' => '', 'lib' => 'framework/') as $key => $val) {
     }
 }
 if (is_null($package_path)) {
-    exit("Invalid Horde component: $package\n");
+    fwrite(STDERR, "Invalid Horde component: $package\n");
+    exit(1);
 }
 
 $tmp = empty($options['output'])
@@ -90,7 +91,8 @@ print "Package: " . $package . "\n";
 print "Tag prefix: " . $tag_prefix . "\n";
 print "Temporary git directory: " . $tmp . "\n\n";
 if (file_exists($tmp)) {
-    exit("$tmp already exists.\n");
+    fwrite(STDERR, "$tmp already exists.\n");
+    exit(1);
 }
 
 foreach ($branch_keep as $branch) {

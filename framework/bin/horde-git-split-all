@@ -3,7 +3,7 @@
 
 // Setting basics
 require_once 'Horde/Autoloader/Default.php';
-set_error_handler(function() { var_dump(func_get_args()); exit; });
+set_error_handler(function() { var_dump(func_get_args()); exit(1); });
 $base = __DIR__ . '/../..';
 $keepBranches = array(
     'ansel' => 'ANSEL_4_0',
@@ -22,7 +22,8 @@ $keepBranches = array(
 // Load configuration
 require __FILE__ . '.conf';
 if (empty($git['token'])) {
-    exit("GitHub access not configured.");
+    fwrite(STDERR, "GitHub access not configured.");
+    exit(1);
 }
 
 // Initialize GitHub client
@@ -66,8 +67,12 @@ foreach (array_reverse(glob($base . '/framework/[A-Z]*')) as $package) {
         . ' --output "' . $work_dir . '"'
         . ' --tmpdir "' . $tmp_dir . '"'
         . ' --noprefix '
-        . (isset($keepBranches[$package]) ? $keepBranches[$package] : '')
+        . (isset($keepBranches[$package]) ? $keepBranches[$package] : ''),
+        $result
     );
+    if ($result) {
+        exit($result);
+    }
     $target = $work_dir . '/' . $package . '/split';
     $xml = $base . '/framework/' . $package . '/package.xml';
     if (file_exists($xml)) {
