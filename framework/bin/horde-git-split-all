@@ -5,6 +5,19 @@
 require_once 'Horde/Autoloader/Default.php';
 set_error_handler(function() { var_dump(func_get_args()); exit; });
 $base = __DIR__ . '/../..';
+$keepBranches = array(
+    'ansel' => 'ANSEL_4_0',
+    'jonah' => 'jonah-share-content',
+    'kronolith' => 'kronolith-mobile',
+    'passwd' => 'passwd_5_1',
+    'Autoloader' => 'h5-autoloader',
+    'Controller' => 'horde_controller2',
+    'Core' => 'horde_core-2.11.x',
+    'Dav' => 'horde_dav-1.1.x',
+    'Db' => 'horde_db_mssql',
+    'Icalendar' => 'H4-Icalendar',
+    'Vfs' => 'H4-Vfs',
+);
 
 // Load configuration
 require __FILE__ . '.conf';
@@ -52,7 +65,8 @@ foreach (array_reverse(glob($base . '/framework/[A-Z]*')) as $package) {
         . ' --component "' . $package. '"'
         . ' --output "' . $work_dir . '"'
         . ' --tmpdir "' . $tmp_dir . '"'
-        . ' --noprefix'
+        . ' --noprefix '
+        . (isset($keepBranches[$package]) ? $keepBranches[$package] : '')
     );
     $target = $work_dir . '/' . $package . '/split';
     $xml = $base . '/framework/' . $package . '/package.xml';
