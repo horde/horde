@@ -99,9 +99,14 @@ foreach ($directories as $dir) {
     if (file_exists($xml)) {
         $pear = new Horde_Pear_Package_Xml($xml);
         $description = $pear->getSummary();
-        file_put_contents($target . '/description', $description);
+        if ($description == 'TODO') {
+            $description = '';
+        }
     } else {
         $description = '';
+    }
+    if ($description) {
+        file_put_contents($target . '/description', $description);
     }
     $response = $client->post(
         $api . '/repos',
