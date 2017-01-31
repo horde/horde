@@ -58,11 +58,12 @@ while ($url) {
 $directories = array_reverse(array_merge(
     glob($base . '/bundles/[a-z]*'),
     glob($base . '/[a-z]*'),
+    glob($base . '/[A-Z]*'),
     glob($base . '/framework/[A-Z]*')
 ));
 foreach ($directories as $dir) {
     $package = basename($dir);
-    if ($package == 'framework' || $package == 'bundles') {
+    if (!is_dir($dir) || $package == 'framework' || $package == 'bundles') {
         continue;
     }
     $localPackage = $package;

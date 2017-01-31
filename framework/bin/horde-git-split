@@ -62,7 +62,8 @@ $package_path = null;
 foreach (array('app' => '', 'bundle' => 'bundles/', 'lib' => 'framework/') as $key => $val) {
     $dir = $base . '/' . $val . $package . '/';
     if (is_dir($dir) &&
-        ($package == 'iPhoto2Ansel' || file_exists($dir . 'package.xml'))) {
+        (in_array($package, array('ApertureToAnselExportPlugin', 'Dashboard', 'iPhoto2Ansel')) ||
+         file_exists($dir . 'package.xml'))) {
         if (file_exists($dir . 'package.xml')) {
             switch ($key) {
             case 'app':
