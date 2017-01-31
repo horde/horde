@@ -99,7 +99,7 @@ foreach ($directories as $dir) {
     } else {
         $description = '';
     }
-    $client->post(
+    $response = $client->post(
         $api . '/repos',
         json_encode(array(
             'name' => $package,
@@ -109,6 +109,10 @@ foreach ($directories as $dir) {
             'description' => $description
         ))
     );
+    if ($response->code != 201) {
+        fwrite(STDERR, $response->getBody());
+        exit(1);
+    }
     passthru(
         'git -C "' . $target . '" push --mirror "git@github.com:'
         . $git['orga'] . '/' . $package . '.git"'
