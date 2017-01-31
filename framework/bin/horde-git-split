@@ -59,16 +59,20 @@ $branch_keep = array_merge($branch_keep, $argv);
 $base = dirname(realpath(dirname(__FILE__) . '/../'));
 $package_path = null;
 
-foreach (array('app' => '', 'lib' => 'framework/') as $key => $val) {
+foreach (array('app' => '', 'bundle' => 'bundles/', 'lib' => 'framework/') as $key => $val) {
     $dir = $base . '/' . $val . $package . '/';
-    if (is_dir($dir) && file_exists($dir . 'package.xml')) {
-        switch ($key) {
-        case 'app':
-            $branch_keep = array_merge($branch_keep, $branch_keep_app);
+    if (is_dir($dir) &&
+        ($package == 'iPhoto2Ansel' || file_exists($dir . 'package.xml'))) {
+        if (file_exists($dir . 'package.xml')) {
+            switch ($key) {
+            case 'app':
+            case 'bundle':
+                $branch_keep = array_merge($branch_keep, $branch_keep_app);
+            }
         }
 
         $package_path = $val . $package;
-        $tag_prefix = strtr(($val ? 'horde_' : '') . Horde_String::lower($package), '-', '_') . '-';
+        $tag_prefix = strtr(($val && $key != 'bundle' ? 'horde_' : '') . Horde_String::lower(basename($package)), '-', '_') . '-';
         break;
     }
 }

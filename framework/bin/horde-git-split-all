@@ -54,16 +54,33 @@ while ($url) {
     }
 }
 
-// Run through framework libraries.
-foreach (array_reverse(glob($base . '/framework/[A-Z]*')) as $package) {
-    $package = basename($package);
+// Run through framework libraries and applications.
+$directories = array_reverse(array_merge(
+    glob($base . '/bundles/[a-z]*'),
+    glob($base . '/[a-z]*'),
+    glob($base . '/framework/[A-Z]*')
+));
+foreach ($directories as $dir) {
+    $package = basename($dir);
+    if ($package == 'framework' || $package == 'bundles') {
+        continue;
+    }
+    $localPackage = $package;
+    $library = false;
+    switch (basename(dirname($dir))) {
+    case 'bundles':
+        $localPackage = 'bundles/' . $localPackage;
+        break;
+    case 'framework':
+        $library = true;
+    }
     if (in_array($package, $repos)) {
         echo "$package exists, skipping.\n";
         continue;
     }
     passthru(
         $base . '/framework/bin/horde-git-split'
-        . ' --component "' . $package. '"'
+        . ' --component "' . $localPackage. '"'
         . ' --output "' . $work_dir . '"'
         . ' --tmpdir "' . $tmp_dir . '"'
         . ' --noprefix '
@@ -74,7 +91,7 @@ foreach (array_reverse(glob($base . '/framework/[A-Z]*')) as $package) {
         exit($result);
     }
     $target = $work_dir . '/' . $package . '/split';
-    $xml = $base . '/framework/' . $package . '/package.xml';
+    $xml = $dir . '/package.xml';
     if (file_exists($xml)) {
         $pear = new Horde_Pear_Package_Xml($xml);
         $description = $pear->getDescription();
@@ -88,7 +105,7 @@ foreach (array_reverse(glob($base . '/framework/[A-Z]*')) as $package) {
             'name' => $package,
             'has_issues' => false,
             'has_wiki' => false,
-            'homepage' => 'https://www.horde.org/libraries/Horde_' . $package,
+            'homepage' => 'https://www.horde.org/' . ($library ? 'libraries/Horde_' : 'apps/') . $package,
             'description' => $description
         ))
     );
