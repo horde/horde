@@ -66,7 +66,7 @@ foreach ($directories as $dir) {
     if (!is_dir($dir) || $package == 'framework' || $package == 'bundles') {
         continue;
     }
-    $localPackage = $package;
+    $localPackage = $finalPackage = $package;
     $library = false;
     switch (basename(dirname($dir))) {
     case 'bundles':
@@ -75,8 +75,11 @@ foreach ($directories as $dir) {
     case 'framework':
         $library = true;
     }
-    if (in_array($package, $repos)) {
-        echo "$package exists, skipping.\n";
+    if ($package == 'horde') {
+        $finalPackage = 'base';
+    }
+    if (in_array($finalPackage, $repos)) {
+        echo "$finalPackage exists, skipping.\n";
         continue;
     }
     passthru(
@@ -103,7 +106,7 @@ foreach ($directories as $dir) {
     $response = $client->post(
         $api . '/repos',
         json_encode(array(
-            'name' => $package,
+            'name' => $finalPackage,
             'has_issues' => false,
             'has_wiki' => false,
             'homepage' => 'https://www.horde.org/' . ($library ? 'libraries/Horde_' : 'apps/') . $package,
@@ -116,7 +119,7 @@ foreach ($directories as $dir) {
     }
     passthru(
         'git -C "' . $target . '" push --mirror "git@github.com:'
-        . $git['orga'] . '/' . $package . '.git"'
+        . $git['orga'] . '/' . $finalPackage . '.git"'
     );
     sleep(1);
 }
