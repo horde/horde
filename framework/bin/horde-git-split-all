@@ -94,7 +94,7 @@ foreach ($directories as $dir) {
     $xml = $dir . '/package.xml';
     if (file_exists($xml)) {
         $pear = new Horde_Pear_Package_Xml($xml);
-        $description = $pear->getDescription();
+        $description = $pear->getSummary();
         file_put_contents($target . '/description', $description);
     } else {
         $description = '';
