@@ -1,7 +1,7 @@
 ---
 id: mnemo
 name: Mnemo
-full: A web based notes manager
+full: Notes application
 description: >
   The Mnemo Note Manager is the Horde notes/memos application. It allows users
   to keep web-based notes and freeform text. Notes may be shared with other

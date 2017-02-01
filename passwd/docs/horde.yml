@@ -1,7 +1,7 @@
 ---
 id: passwd
 name: Passwd
-full: Horde password changing application
+full: Password changing application
 description: >
   An application to change any user passwords stored in various backends like
   SQL, LDAP, Kolab, passwd files etc.

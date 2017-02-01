@@ -1,7 +1,7 @@
 ---
 id: gollem
 name: Gollem
-full: Web-based file manager
+full: File manager application
 description: >
   Gollem is a web-based file manager, providing the ability to fully manage a
   hierarchical file system stored in a variety of backends such as a SQL

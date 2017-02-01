@@ -1,7 +1,7 @@
 ---
 id: timeobjects
 name: Timeobjects
-full: Horde timeobjects application
+full: Time-based objects application
 description: >
   The timeobjects application doesn't have an interface but provides streams of
   events to any applications that can consume them, notably the Horde calendar

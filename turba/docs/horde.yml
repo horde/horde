@@ -1,7 +1,7 @@
 ---
 id: turba
 name: Turba
-full: A web based address book
+full: Address book application
 description: >
   Turba is the Horde contact management application. Leveraging the Horde
   framework to provide seamless integration with IMP and other Horde

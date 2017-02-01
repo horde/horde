@@ -1,7 +1,7 @@
 ---
 id: nag
 name: Nag
-full: A web based task list manager
+full: Task list application
 description: >
   Nag is a web-based application built upon the Horde Application Framework
   which provides a simple, clean interface for managing online task lists (i.e.,

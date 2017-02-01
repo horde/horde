@@ -1,7 +1,7 @@
 ---
 id: horde
 name: Horde
-full: Horde Application Framework
+full: Horde base application
 description: >
   The Horde Application Framework is a flexible, modular, general-purpose web
   application framework written in PHP. It provides an extensive array of

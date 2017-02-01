@@ -1,7 +1,7 @@
 ---
 id: jonah
-name: jonah
-full: Jonah is an application for handling news.
+name: Jonah
+full: Newsfeed application
 description: |
   Jonah is a portal system for displaying news and other data
   from various sources, written in PHP and utilizing the Horde Application

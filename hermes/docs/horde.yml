@@ -1,7 +1,7 @@
 ---
 id: hermes
 name: Hermes
-full: A web based time tracker
+full: Time tracking application
 description: >
   Hermes is the Horde time-tracking application. It ties into address books (to
   retrieve clients) and task lists, bug trackers etc. (to retrieve cost

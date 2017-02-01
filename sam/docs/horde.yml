@@ -1,7 +1,7 @@
 ---
 id: sam
-name: sam
-full: Sam is short for Spam Assassin Module.
+name: Sam
+full: Anti-spam user preferences application
 description: >
   Sam allows each user to change their specific anti-spam rules for
   SpamAssassion or Amavisd-new, given a general subset of the overall features

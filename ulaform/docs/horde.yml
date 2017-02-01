@@ -1,7 +1,7 @@
 ---
 id: ulaform
-name: ulaform
-full: An HTML form generation/processing tool
+name: Ulaform
+full: HTML form generation and processing application
 description: >
   Ulaform is a PHP-based dynamic HTML form creation and generation system.
   Ulaform allows users to create sophisticated forms using a web browser, and
