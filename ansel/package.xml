@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Honor selected images when downloading selected images as a zip file (Bug #14569).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1409,7 +1409,7 @@
    <date>2016-05-26</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Honor selected images when downloading selected images as a zip file (Bug #14569).
    </notes>
   </release>
  </changelog>
