@@ -4,10 +4,10 @@ $notes['security'] = false;
 
 /* Mailing list release notes. */
 $notes['changes'] = <<<ML
-The Horde Team is pleased to announce the alpha release of the Horde
+The Horde Team is pleased to announce the alpha release of the Horde Groupware
 Kolab Edition version 4.0.0.
 
-Horde Kolab Edition is a free, enterprise ready, browser based
+Horde Groupware Kolab Edition is a free, enterprise ready, browser based
 communication suite for the Kolab server. Users can read, send and
 organize email messages with four different webmail interfaces and
 manage and share calendars, contacts, tasks and notes with the
@@ -17,6 +17,6 @@ For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/kolab_webmail/docs/INSTALL
 ML;
 
-$notes['name'] = 'Horde Kolab Edition';
+$notes['name'] = 'Horde Groupware Kolab Edition';
 $notes['list'] = 'kolab-users@kolab.org';
 return $notes;
