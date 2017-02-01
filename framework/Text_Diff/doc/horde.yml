@@ -1,0 +1,6 @@
+---
+id: Text_Diff
+name: Text_Diff
+full: Engine for performing and rendering text diffs
+description: A text-based diff engine and renderers for multiple diff output formats.
+list: dev

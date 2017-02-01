@@ -1,0 +1,8 @@
+---
+id: Ldap
+name: Ldap
+full: Horde LDAP libraries
+description: >
+  A set of classes for connecting to LDAP servers and working with directory
+  objects.
+list: dev

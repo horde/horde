@@ -1,0 +1,6 @@
+---
+id: Injector
+name: Injector
+full: Horde dependency injection container
+description: A depedency injection container for Horde.
+list: dev

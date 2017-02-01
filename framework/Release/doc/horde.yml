@@ -1,0 +1,6 @@
+---
+id: Release
+name: Release
+full: Horde Release generation library
+description: Tools necessary to create the Horde distribution packages.
+list: dev

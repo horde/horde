@@ -1,0 +1,8 @@
+---
+id: Service_Weather
+name: Service_Weather
+full: Horde Weather Provider.
+description: >
+  Set of classes that provide an abstraction to various online weather service
+  providers. Includes drivers for WeatherUnderground and WorldWeatherOnline.
+list: dev

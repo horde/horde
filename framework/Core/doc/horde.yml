@@ -1,0 +1,8 @@
+---
+id: Core
+name: Core
+full: Horde Core Framework libraries
+description: >
+  These classes provide the core functionality of the Horde Application
+  Framework.
+list: dev

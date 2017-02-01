@@ -1,0 +1,17 @@
+---
+id: Vfs
+name: Vfs
+full: Virtual File System API
+description: |
+  A Virtual File System API, with backends for:
+  
+  * SQL
+  * FTP
+  * Local filesystems
+  * Hybrid SQL and filesystem
+  * Samba
+  * SSH2/SFTP
+  * MongoDB
+  
+  Reading, writing and listing of files are all supported.
+list: dev

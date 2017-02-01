@@ -1,0 +1,8 @@
+---
+id: Tree
+name: Tree
+full: Horde Tree API
+description: >
+  A tree view of hierarchical information. It allows for expanding/collapsing of
+  branches and maintains their state.
+list: dev

@@ -1,0 +1,6 @@
+---
+id: Url
+name: Url
+full: Horde Url class
+description: This class represents a single URL and provides methods for manipulating URLs.
+list: dev

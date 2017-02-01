@@ -1,0 +1,6 @@
+---
+id: Constraint
+name: Constraint
+full: Horde Constraint library
+description: A programmatic way of building constraints that evaluate to true or false.
+list: dev

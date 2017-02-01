@@ -1,0 +1,7 @@
+---
+id: Text_Flowed
+name: Text_Flowed
+full: Horde API for flowed text as per RFC 3676
+description: |
+  The Horde_Text_Flowed:: class provides common methods for manipulating text using the encoding described in RFC 3676 ('flowed' text).
+list: dev

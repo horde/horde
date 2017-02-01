@@ -1,0 +1,6 @@
+---
+id: Autoloader
+name: Autoloader
+full: Horde Autoloader
+description: Autoload implementation and class loading manager for Horde.
+list: dev

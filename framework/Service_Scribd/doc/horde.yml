@@ -1,0 +1,6 @@
+---
+id: Service_Scribd
+name: Service_Scribd
+full: Horde Scribd client
+description: Client libraries for the Scribd API.
+list: dev

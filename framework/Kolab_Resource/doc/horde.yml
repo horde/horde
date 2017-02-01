@@ -1,0 +1,6 @@
+---
+id: Kolab_Resource
+name: Kolab_Resource
+full: Resource management for the Kolab server
+description: This package allows booking of Kolab server resources.
+list: dev

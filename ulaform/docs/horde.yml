@@ -1,0 +1,10 @@
+---
+id: ulaform
+name: ulaform
+full: An HTML form generation/processing tool
+description: >
+  Ulaform is a PHP-based dynamic HTML form creation and generation system.
+  Ulaform allows users to create sophisticated forms using a web browser, and
+  then render the forms within other web pages by a simple PHP include, or in
+  other Horde applications through the Horde Block API.
+list: horde

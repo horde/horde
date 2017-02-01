@@ -1,0 +1,8 @@
+---
+id: Browser
+name: Browser
+full: Horde Browser API
+description: >
+  The Horde_Browser class provides an API for getting information about the
+  current user's browser and its capabilities.
+list: dev

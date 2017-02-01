@@ -1,0 +1,10 @@
+---
+id: Kolab_Filter
+name: Kolab_Filter
+full: Postfix filters for the Kolab server
+description: |
+  The filters provided by this package implement the Kolab
+  server resource management as well as some Kolab server sender
+  policies.
+  
+list: dev

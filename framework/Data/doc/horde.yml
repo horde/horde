@@ -1,0 +1,13 @@
+---
+id: Data
+name: Data
+full: Horde Data API
+description: |
+  A data import and export API, with backends for:
+  * CSV
+  * TSV
+  * iCalendar
+  * vCard
+  * vNote
+  * vTodo
+list: dev

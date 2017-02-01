@@ -1,0 +1,8 @@
+---
+id: koward
+name: koward
+full: An administration frontend for the Kolab server
+description: |
+  This package provides a web based frontend for the
+  administration of the Kolab server.
+list: horde

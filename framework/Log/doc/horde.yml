@@ -1,0 +1,6 @@
+---
+id: Log
+name: Log
+full: Horde Logging library
+description: Horde Logging package with configurable handlers, filters, and formatting.
+list: dev

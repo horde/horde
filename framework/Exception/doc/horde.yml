@@ -1,0 +1,8 @@
+---
+id: Exception
+name: Exception
+full: Horde Exception Handler
+description: >
+  This class provides the default exception handlers for the Horde Application
+  Framework.
+list: dev

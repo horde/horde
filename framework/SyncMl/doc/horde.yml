@@ -1,0 +1,6 @@
+---
+id: SyncMl
+name: SyncMl
+full: Horde_SyncMl provides an API for processing SyncML requests
+description: Classes for implementing a SyncML server.
+list: dev

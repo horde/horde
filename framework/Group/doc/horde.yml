@@ -1,0 +1,6 @@
+---
+id: Group
+name: Group
+full: Horde User Groups System
+description: Package for managing and accessing the Horde groups system.
+list: dev

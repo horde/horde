@@ -1,0 +1,6 @@
+---
+id: Lock
+name: Lock
+full: Horde Resource Locking System
+description: The Horde resource locking system.
+list: dev

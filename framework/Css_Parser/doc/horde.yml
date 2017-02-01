@@ -1,0 +1,8 @@
+---
+id: Css_Parser
+name: Css_Parser
+full: Horde CSS Parser
+description: >
+  This package provides access to the Sabberworm CSS Parser from within the
+  Horde framework.
+list: dev

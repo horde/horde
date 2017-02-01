@@ -1,0 +1,8 @@
+---
+id: History
+name: History
+full: API for tracking the history of an object
+description: >
+  The Horde_History API provides a way to track changes on arbitrary pieces of
+  data in Horde applications.
+list: dev

@@ -1,0 +1,6 @@
+---
+id: OpenXchange
+name: OpenXchange
+full: Open-Xchange Connector
+description: Library to interact with Open-Xchange servers.
+list: dev

@@ -1,0 +1,9 @@
+---
+id: trean
+name: Trean
+full: Web-based bookmarks application
+description: >
+  Trean is a web-based bookmarks application that provides management of browser
+  bookmarks, including support for tagging, link checking, and searching
+  bookmarks.
+list: horde

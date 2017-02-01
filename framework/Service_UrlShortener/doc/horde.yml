@@ -1,0 +1,6 @@
+---
+id: Service_UrlShortener
+name: Service_UrlShortener
+full: Horde_Service_UrlShortener Class
+description: Interfaces to various URL shortening services.
+list: dev

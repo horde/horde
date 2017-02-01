@@ -1,0 +1,8 @@
+---
+id: Vcs
+name: Vcs
+full: Version Control API
+description: >
+  The Horde_Vcs package provides a generalized API to multiple version control
+  systems.
+list: dev

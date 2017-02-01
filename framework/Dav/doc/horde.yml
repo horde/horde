@@ -1,0 +1,8 @@
+---
+id: Dav
+name: Dav
+full: Horde library for WebDAV, CalDAV, CardDAV
+description: >
+  This package contains all Horde-specific wrapper classes for the Sabre DAV
+  library.
+list: dev

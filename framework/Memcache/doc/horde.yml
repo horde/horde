@@ -1,0 +1,6 @@
+---
+id: Memcache
+name: Memcache
+full: Horde Memcache API
+description: Provides an API to access a memcache installation.
+list: dev

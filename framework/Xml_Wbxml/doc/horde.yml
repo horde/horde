@@ -1,0 +1,10 @@
+---
+id: Xml_Wbxml
+name: Xml_Wbxml
+full: >
+  Horde_Xml_Wbxml provides an API for encoding and decoding WBXML documents used
+  in SyncML and other wireless applications
+description: >
+  Encoding and decoding of WBXML (Wireless Binary XML) documents. WBXML is used
+  in SyncML for transferring smaller amounts of data with wireless devices.
+list: dev

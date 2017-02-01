@@ -1,0 +1,8 @@
+---
+id: Rpc
+name: Rpc
+full: Horde RPC API
+description: >
+  A common abstracted interface to various remote methods of accessing Horde
+  functionality.
+list: dev

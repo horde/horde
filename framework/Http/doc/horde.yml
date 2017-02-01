@@ -1,0 +1,6 @@
+---
+id: Http
+name: Http
+full: Horde HTTP libraries
+description: An API for making HTTP requests.
+list: dev

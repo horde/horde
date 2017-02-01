@@ -1,0 +1,9 @@
+---
+id: JavascriptMinify_Jsmin
+name: JavascriptMinify_Jsmin
+full: |
+  Horde Javascript Minifier - Jsmin PHP Driver
+description: >
+  The JSMin javascript minifier driver for use with the Horde_JavascriptMinify
+  package.
+list: dev

@@ -1,0 +1,8 @@
+---
+id: Oauth
+name: Oauth
+full: Horde OAuth client/server
+description: >
+  An OAuth consumer (http://oauth.net) and OAuth infrastructure, and in the
+  future will provide an OAuth server.
+list: dev

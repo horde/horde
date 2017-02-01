@@ -1,0 +1,6 @@
+---
+id: Pgp
+name: Pgp
+full: Horde PGP API
+description: Provides an API for dealing with OpenPGP (RFC 4880) data.
+list: dev

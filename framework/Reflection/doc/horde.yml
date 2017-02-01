@@ -1,0 +1,8 @@
+---
+id: Reflection
+name: Reflection
+full: Method reflection and documentation package
+description: |
+  The Reflection package provides methods for generationg code reflection and automatic documentation of methods.
+  The package has a driver based output generation and currently generates HTML and Text_Wiki output.
+list: dev

@@ -1,0 +1,10 @@
+---
+id: ingo
+name: Ingo
+full: An email filter rules manager
+description: >
+  Ingo is an email-filter management application. It is fully internationalized,
+  integrated with Horde and the IMP Webmail client, and supports both
+  server-side (Sieve, Procmail, Maildrop) and client-side (IMAP) message
+  filtering.
+list:

@@ -1,0 +1,6 @@
+---
+id: JavascriptMinify
+name: JavascriptMinify
+full: Javascript Minification
+description: Abstracted interface to various javascript minification backends.
+list: dev

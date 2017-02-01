@@ -1,0 +1,6 @@
+---
+id: beatnik
+name: Skeleton
+full: DNS record management for Horde
+description: Manage your DNS zones and records within your Horde install.
+list:

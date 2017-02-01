@@ -1,0 +1,8 @@
+---
+id: components
+name: components
+full: A package for dealing with Horde components
+description: >
+  The package provides utility methods required when preparing a new component
+  release for Horde. It also includes quality control checks.
+list: horde

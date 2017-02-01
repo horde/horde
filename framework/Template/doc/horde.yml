@@ -1,0 +1,8 @@
+---
+id: Template
+name: Template
+full: Horde Template System
+description: >
+  Horde Template system. Adapted from bTemplate, by Brian Lozier
+  <brian@massassi.net>.
+list: dev

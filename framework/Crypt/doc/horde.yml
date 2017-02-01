@@ -1,0 +1,8 @@
+---
+id: Crypt
+name: Crypt
+full: Horde Cryptography API
+description: >
+  The Horde_Crypt package class provides an API for various cryptographic
+  systems.
+list: dev

@@ -1,0 +1,6 @@
+---
+id: Mail
+name: Mail
+full: Horde Mail Library
+description: Provides interfaces for sending e-mail messages and parsing e-mail addresses.
+list: dev

@@ -1,0 +1,6 @@
+---
+id: Imsp
+name: Imsp
+full: IMSP API
+description: Provides an API into an IMSP server for address books and options.
+list: dev

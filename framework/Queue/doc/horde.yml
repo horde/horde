@@ -1,0 +1,6 @@
+---
+id: Queue
+name: Queue
+full: Horde Queue
+description: Queue layer with various storage backends and runners
+list: dev

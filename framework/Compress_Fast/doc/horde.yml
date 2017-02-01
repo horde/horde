@@ -1,0 +1,8 @@
+---
+id: Compress_Fast
+name: Compress_Fast
+full: Fast Compression Library
+description: >
+  Provides compression suitable for packing strings on-the-fly in PHP code (as
+  opposed to more resource-intensive compression algorithms such as DEFLATE).
+list: dev

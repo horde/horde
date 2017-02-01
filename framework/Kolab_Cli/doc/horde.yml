@@ -1,0 +1,8 @@
+---
+id: Kolab_Cli
+name: Kolab_Cli
+full: A command line interface to the Kolab storage system
+description: >
+  A set of utilities to deal with the various aspects of a Kolab server as
+  backend. The primary focus is dealing with the data stored in IMAP.
+list: dev

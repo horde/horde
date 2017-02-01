@@ -1,0 +1,12 @@
+---
+id: kronolith
+name: Kronolith
+full: A web based calendar
+description: >
+  Kronolith is the Horde calendar application. It provides web-based calendars
+  backed by a SQL database or a Kolab server. Supported features include Ajax
+  and mobile interfaces, shared calendars, remote calendars, invitation
+  management (iCalendar/iTip), free/busy management, resource management,
+  alarms, recurring events, and a sophisticated day/week view which handles
+  arbitrary numbers of overlapping events.
+list:

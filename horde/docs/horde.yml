@@ -1,9 +1,13 @@
+---
 id: horde
-
 name: Horde
-
 full: Horde Application Framework
-
-description: The Horde Application Framework is a flexible, modular, general-purpose web application framework written in PHP. It provides an extensive array of components that are targeted at the common problems and tasks involved in developing modern web applications. It is the basis for a large number of production-level web applications, notably the Horde Groupware suites. For more information on Horde or the Horde Groupware suites, visit http://www.horde.org.
-
+description: >
+  The Horde Application Framework is a flexible, modular, general-purpose web
+  application framework written in PHP. It provides an extensive array of
+  components that are targeted at the common problems and tasks involved in
+  developing modern web applications. It is the basis for a large number of
+  production-level web applications, notably the Horde Groupware suites. For
+  more information on Horde or the Horde Groupware suites, visit
+  http://www.horde.org.
 list:

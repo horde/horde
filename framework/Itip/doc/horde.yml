@@ -1,0 +1,6 @@
+---
+id: Itip
+name: Itip
+full: iTip invitation response handling
+description: This package to generates MIME encapsuled responses to iCalendar invitations.
+list: dev

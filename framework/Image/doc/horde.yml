@@ -1,0 +1,14 @@
+---
+id: Image
+name: Image
+full: Horde Image API
+description: |
+  An Image utility API, with backends for:
+  * GD
+  * GIF
+  * PNG
+  * SVG
+  * SWF
+  * ImageMagick convert command line tool
+  * Imagick Extension
+list: dev

@@ -1,0 +1,13 @@
+---
+id: Push
+name: Push
+full: >
+  A package for broadcasting status updates and content to various social
+  network services.
+description: >
+  The package provides a simple definition of a content element that can be
+  pushed to a number of social network services. This will not leverage some of
+  the more complex features the supported services provide but instead focus on
+  a simple status and content update. The content element provides a bridge to
+  quickly broadcast content curated within your own account.
+list: dev

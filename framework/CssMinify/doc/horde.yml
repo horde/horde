@@ -1,0 +1,6 @@
+---
+id: CssMinify
+name: CssMinify
+full: CSS Minification
+description: Abstracted interface to various CSS minification backends.
+list: dev

@@ -1,0 +1,6 @@
+---
+id: Service_Vimeo
+name: Service_Vimeo
+full: Horde Vimeo client
+description: Client libraries for the Vimeo API.
+list: dev

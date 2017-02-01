@@ -1,0 +1,8 @@
+---
+id: ListHeaders
+name: ListHeaders
+full: Horde List Headers Parsing Library
+description: >
+  The Horde_ListHeaders library parses Mailing List Headers as defined in RFC
+  2369 & RFC 2919.
+list: dev
