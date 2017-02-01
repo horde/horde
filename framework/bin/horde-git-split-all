@@ -56,14 +56,14 @@ while ($url) {
 
 // Run through framework libraries and applications.
 $directories = array_reverse(array_merge(
-    glob($base . '/bundles/[a-z]*'),
-    glob($base . '/[a-z]*'),
-    glob($base . '/[A-Z]*'),
-    glob($base . '/framework/[A-Z]*')
+    glob($base . '/bundles/[a-z]*', GLOB_ONLYDIR),
+    glob($base . '/[a-z]*', GLOB_ONLYDIR),
+    glob($base . '/[A-Z]*', GLOB_ONLYDIR),
+    glob($base . '/framework/[A-Z]*', GLOB_ONLYDIR)
 ));
 foreach ($directories as $dir) {
     $package = basename($dir);
-    if (!is_dir($dir) || $package == 'framework' || $package == 'bundles') {
+    if ($package == 'framework' || $package == 'bundles') {
         continue;
     }
     $localPackage = $finalPackage = $package;
