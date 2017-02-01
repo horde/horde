@@ -40,28 +40,17 @@ class Ansel_ActionHandler
             $gallery_id = Horde_Util::getFormData('gallery');
             $image_id = Horde_Util::getFormData('image');
             $ansel_storage = $GLOBALS['injector']->getInstance('Ansel_Storage');
-            if (!is_array($image_id)) {
-                $image_id = array($image_id);
-            } else {
-                $image_id = array_keys($image_id);
-            }
 
-            // All from same gallery.
-            if ($gallery_id) {
-                $gallery = $ansel_storage->getGallery($gallery_id);
-                if (!$registry->getAuth() ||
-                    !$gallery->hasPermission($registry->getAuth(), Horde_Perms::READ) ||
-                    $gallery->hasPasswd() || !$gallery->isOldEnough()) {
-
-                    $notification->push(
-                        _("Access denied downloading photos from this gallery."),
-                        'horde.error');
-                    return true;
+            // Explicitly list images to include
+            if ($image_id) {
+                if (!is_array($image_id)) {
+                    $image_id = array($image_id);
+                } else {
+                    $image_id = array_keys($image_id);
                 }
-                $image_ids = $gallery->listImages();
-            } else {
                 $image_ids = array();
                 foreach ($image_id as $image) {
+
                     $img = $ansel_storage->getImage($image);
                     $galleries[$img->gallery][] = $image;
                 }
@@ -74,7 +63,21 @@ class Ansel_ActionHandler
                     }
                     $image_ids = array_merge($image_ids, $images);
                 }
+            } else if ($gallery_id) {
+                // Or just download enitre gallery.
+                $gallery = $ansel_storage->getGallery($gallery_id);
+                if (!$registry->getAuth() ||
+                    !$gallery->hasPermission($registry->getAuth(), Horde_Perms::READ) ||
+                    $gallery->hasPasswd() || !$gallery->isOldEnough()) {
+
+                    $notification->push(
+                        _("Access denied downloading photos from this gallery."),
+                        'horde.error');
+                    return true;
+                }
+                $image_ids = $gallery->listImages();
             }
+
             if (count($image_ids)) {
                 Ansel::downloadImagesAsZip(null, $image_ids);
             } else {
