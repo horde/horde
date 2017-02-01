@@ -2,8 +2,8 @@
 <package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
  <name>kolab_webmail</name>
  <channel>pear.horde.org</channel>
- <summary>Horde Kolab Edition</summary>
- <description>Horde Kolab Edition is a free, enterprise ready, browser based communication suite for the Kolab server. Users can read, send and organize email messages via a webmail interface and manage and share calendars, contacts, tasks and notes with the standards compliant components from the Horde Project.</description>
+ <summary>Horde Groupware Kolab Edition</summary>
+ <description>Horde Groupware Kolab Edition is a free, enterprise ready, browser based communication suite for the Kolab server. Users can read, send and organize email messages via a webmail interface and manage and share calendars, contacts, tasks and notes with the standards compliant components from the Horde Project.</description>
  <lead>
   <name>Gunnar Wrobel</name>
   <user>wrobel</user>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* First release candidate of Horde Kolab Edition 4.0.
+* First release candidate of Horde Groupware Kolab Edition 4.0.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -294,7 +294,7 @@
    <date>2011-11-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* First release candidate of Horde Kolab Edition 4.0.
+* First release candidate of Horde Groupware Kolab Edition 4.0.
    </notes>
   </release>
  </changelog>
