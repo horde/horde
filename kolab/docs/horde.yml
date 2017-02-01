@@ -1,8 +1,0 @@
----
-id: kolab
-name: Kolab
-full: Kolab storage tool
-description: |
-  This application provides tools to efficiently deal with
-  a Kolab storage backend.
-list:
