@@ -228,6 +228,7 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
      * @var  boolean $log_queries     If true, logs all queries at DEBUG level.
      *       NOTE: Horde_Db_Value_Binary objects and stream resource values are
      *             NEVER included in the log output regardless of this setting.
+     *             @since  2.4.0
      */
     public function setLogger(Horde_Log_Logger $logger, $log_queries = false)
     {
