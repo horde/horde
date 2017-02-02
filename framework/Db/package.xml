@@ -25,8 +25,8 @@
  </lead>
  <date>2016-12-16</date>
  <version>
-  <release>2.3.5</release>
-  <api>2.3.0</api>
+  <release>2.4.0</release>
+  <api>2.4.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -34,7 +34,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* 
+* [mjr] Improve Horde_Db logging options (Request #10773).
+* [mjr] Allow Horde_Value objects to contain stream data (Request #10805).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -963,15 +964,16 @@
   </release>
   <release>
    <version>
-    <release>2.3.5</release>
-    <api>2.3.0</api></version>
+    <release>2.4.0</release>
+    <api>2.4.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
    <date>2016-12-16</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* 
+* [mjr] Improve Horde_Db logging options (Request #10773).
+* [mjr] Allow Horde_Value objects to contain stream data (Request #10805).
    </notes>
   </release>
  </changelog>
