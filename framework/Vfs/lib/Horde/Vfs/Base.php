@@ -195,20 +195,6 @@ abstract class Horde_Vfs_Base
     }
 
     /**
-     * Open a read-only stream to a file in the VFS.
-     *
-     * @param string $path  The pathname to the file.
-     * @param string $name  The filename to retrieve.
-     *
-     * @return resource  The stream.
-     * @throws Horde_Vfs_Exception
-     */
-    public function readStream($path, $name)
-    {
-        throw new Horde_Vfs_Exception('Not supported.');
-    }
-
-    /**
      * Retrieves a file from the VFS as an on-disk local file.
      *
      * This function provides a file on local disk with the data of a VFS file
