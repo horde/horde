@@ -114,6 +114,13 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
      */
     protected $_schemaMethods = array();
 
+    /**
+     * Log query flag
+     *
+     * @var  boolean
+     */
+    protected $_logQueries = false;
+
 
     /*##########################################################################
     # Construct/Destruct
@@ -218,10 +225,14 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
      * @inject
      *
      * @var Horde_Log_Logger $logger  The logger object.
+     * @var  boolean $log_queries     If true, logs all queries at DEBUG level.
+     *       NOTE: Horde_Db_Value_Binary objects and stream resource values are
+     *             NEVER included in the log output regardless of this setting.
      */
-    public function setLogger(Horde_Log_Logger $logger)
+    public function setLogger(Horde_Log_Logger $logger, $log_queries = false)
     {
         $this->_logger = $logger;
+        $this->_logQueries = $log_queries;
     }
 
     /**
@@ -760,13 +771,15 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
     /**
      * Replace ? in a SQL statement with quoted values from $args
      *
-     * @param string $sql  SQL statement.
-     * @param array $args  TODO
+     * @param string $sql         SQL statement.
+     * @param array $args         An array of values to bind.
+     * @param boolean $no_binary  If true, do not replace any
+     *     Horde_Db_Value_Binary values. Used for logging purposes.
      *
      * @return string  Modified SQL statement.
      * @throws Horde_Db_Exception
      */
-    protected function _replaceParameters($sql, array $args)
+    protected function _replaceParameters($sql, array $args, $no_binary = false)
     {
         $paramCount = substr_count($sql, '?');
         if (count($args) != $paramCount) {
@@ -777,8 +790,15 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
         $sqlPieces = explode('?', $sql);
         $sql = array_shift($sqlPieces);
         while (count($sqlPieces)) {
-            $sql .= $this->quote(array_shift($args)) . array_shift($sqlPieces);
+            $value = array_shift($args);
+            if ($no_binary && $value instanceof Horde_Db_Value_Binary) {
+                $sql_value = ':binary_data:';
+            } else {
+                $sql_value = $this->quote($value);
+            }
+            $sql .= $sql_value . array_shift($sqlPieces);
         }
+
         return $sql;
     }
 
@@ -786,16 +806,24 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
      * Logs the SQL query for debugging.
      *
      * @param string $sql     SQL statement.
-     * @param string $name    TODO
+     * @param array  $values  An array of values to substitute for placeholders.
+     * @param string $name    Optional queryname.
      * @param float $runtime  Runtime interval.
      */
-    protected function _logInfo($sql, $name, $runtime = null)
+    protected function _logInfo($sql, $values, $name = null, $runtime = null)
     {
-        if ($this->_logger) {
-            $name = (empty($name) ? '' : $name)
-                . (empty($runtime) ? '' : sprintf(" (%.4fs)", $runtime));
-            $this->_logger->debug($this->_formatLogEntry($name, $sql));
+        if (!$this->_logger || !$this->_logQueries) {
+            return;
         }
+
+        if (is_array($values)) {
+            $sql = $this->_replaceParameters($sql, $values, true);
+        }
+
+        $name = (empty($name) ? '' : $name)
+            . (empty($runtime) ? '' : sprintf(" (%.4fs)", $runtime));
+
+        $this->_logger->debug($this->_formatLogEntry($name, $sql));
     }
 
     protected function _logError($error, $name, $runtime = null)

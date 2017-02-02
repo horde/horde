@@ -280,17 +280,19 @@ class Horde_Db_Adapter_Oci8 extends Horde_Db_Adapter_Base
     public function execute($sql, $arg1 = null, $arg2 = null, $lobs = array())
     {
         if (is_array($arg1)) {
-            $sql = $this->_replaceParameters($sql, $arg1);
+            $query = $this->_replaceParameters($sql, $arg1);
             $name = $arg2;
         } else {
             $name = $arg1;
+            $query = $sql;
+            $arg1 = array();
         }
 
         $t = new Horde_Support_Timer;
         $t->push();
 
-        $this->_lastQuery = $sql;
-        $stmt = @oci_parse($this->_connection, $sql);
+        $this->_lastQuery = $query;
+        $stmt = @oci_parse($this->_connection, $query);
 
         $descriptors = array();
         foreach ($lobs as $name => $lob) {
@@ -310,8 +312,8 @@ class Horde_Db_Adapter_Oci8 extends Horde_Db_Adapter_Base
             if ($stmt) {
                 oci_free_statement($stmt);
             }
-            $this->_logInfo($sql, $name);
-            $this->_logError($sql, 'QUERY FAILED: ' . $error['message']);
+            $this->_logInfo($sql, $arg1, $name);
+            $this->_logError($query, 'QUERY FAILED: ' . $error['message']);
             throw new Horde_Db_Exception(
                 $this->_errorMessage($error),
                 $error['code']
@@ -325,7 +327,7 @@ class Horde_Db_Adapter_Oci8 extends Horde_Db_Adapter_Base
             oci_commit($this->_connection);
         }
 
-        $this->_logInfo($sql, $name, $t->pop());
+        $this->_logInfo($sql, $arg1, $name, $t->pop());
         $this->_rowCount = oci_num_rows($stmt);
 
         return $stmt;

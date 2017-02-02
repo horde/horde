@@ -242,25 +242,27 @@ class Horde_Db_Adapter_Mysql extends Horde_Db_Adapter_Base
     public function execute($sql, $arg1=null, $arg2=null)
     {
         if (is_array($arg1)) {
-            $sql = $this->_replaceParameters($sql, $arg1);
+            $query = $this->_replaceParameters($sql, $arg1);
             $name = $arg2;
         } else {
+            $query = $sql;
             $name = $arg1;
+            $arg1 = array();
         }
 
         $t = new Horde_Support_Timer();
         $t->push();
 
-        $this->_lastQuery = $sql;
-        $stmt = mysql_query($sql, $this->_connection);
+        $this->_lastQuery = $query;
+        $stmt = mysql_query($query, $this->_connection);
         if (!$stmt) {
-            $this->_logInfo($sql, $name);
-            $this->_logError($sql, 'QUERY FAILED: ' . mysql_error($this->_connection));
-            throw new Horde_Db_Exception('QUERY FAILED: ' . mysql_error($this->_connection) . "\n\n" . $sql,
+            $this->_logInfo($sql, $arg1, $name);
+            $this->_logError($query, 'QUERY FAILED: ' . mysql_error($this->_connection));
+            throw new Horde_Db_Exception('QUERY FAILED: ' . mysql_error($this->_connection) . "\n\n" . $query,
                                          $this->_errorCode(null, mysql_errno($this->_connection)));
         }
 
-        $this->_logInfo($sql, $name, $t->pop());
+        $this->_logInfo($sql, $arg1, $name, $t->pop());
 
         $this->_rowCount = mysql_affected_rows($this->_connection);
         $this->_insertId = mysql_insert_id($this->_connection);

@@ -217,25 +217,27 @@ abstract class Horde_Db_Adapter_Pdo_Base extends Horde_Db_Adapter_Base
     public function execute($sql, $arg1 = null, $arg2 = null)
     {
         if (is_array($arg1)) {
-            $sql = $this->_replaceParameters($sql, $arg1);
+            $query = $this->_replaceParameters($sql, $arg1);
             $name = $arg2;
         } else {
             $name = $arg1;
+            $query = $sql;
+            $arg1 = array();
         }
 
         $t = new Horde_Support_Timer;
         $t->push();
 
         try {
-            $this->_lastQuery = $sql;
-            $stmt = $this->_connection->query($sql);
+            $this->_lastQuery = $query;
+            $stmt = $this->_connection->query($query);
         } catch (PDOException $e) {
-            $this->_logInfo($sql, $name);
-            $this->_logError($sql, 'QUERY FAILED: ' . $e->getMessage());
+            $this->_logInfo($sql, $arg1, $name);
+            $this->_logError($query, 'QUERY FAILED: ' . $e->getMessage());
             throw new Horde_Db_Exception($e);
         }
 
-        $this->_logInfo($sql, $name, $t->pop());
+        $this->_logInfo($sql, $arg1, $name, $t->pop());
         $this->_rowCount = $stmt ? $stmt->rowCount() : 0;
 
         return $stmt;
@@ -263,7 +265,7 @@ abstract class Horde_Db_Adapter_Pdo_Base extends Horde_Db_Adapter_Base
                 $stmt->bindParam(':binary' . $key, $bvalue, PDO::PARAM_LOB);
             }
         } catch (PDOException $e) {
-            $this->_logInfo($sql, null);
+            $this->_logInfo($sql, $values, null);
             $this->_logError($sql, 'QUERY FAILED: ' . $e->getMessage());
             throw new Horde_Db_Exception($e);
         }
@@ -275,7 +277,7 @@ abstract class Horde_Db_Adapter_Pdo_Base extends Horde_Db_Adapter_Base
             $this->_lastQuery = $sql;
             $stmt->execute();
         } catch (PDOException $e) {
-            $this->_logInfo($sql, null);
+            $this->_logInfo($sql, $values, null);
             $this->_logError($sql, 'QUERY FAILED: ' . $e->getMessage());
             throw new Horde_Db_Exception($e);
         }
@@ -283,7 +285,7 @@ abstract class Horde_Db_Adapter_Pdo_Base extends Horde_Db_Adapter_Base
         $t = new Horde_Support_Timer;
         $t->push();
 
-        $this->_logInfo($sql, null, $t->pop());
+        $this->_logInfo($sql, $values, null, $t->pop());
         $this->_rowCount = $stmt->rowCount();
     }
 
@@ -339,7 +341,7 @@ abstract class Horde_Db_Adapter_Pdo_Base extends Horde_Db_Adapter_Base
     /**
      * Updates rows including BLOBs into a table.
      *
-     * @since Horde_Db 2.2.0
+     * @since Horde_Db 2.4.0
      *
      * @param string $table        The table name.
      * @param array $fields        A hash of column names and values. BLOB
