@@ -1,9 +1,7 @@
 ---
 id: Push
 name: Push
-full: >
-  A package for broadcasting status updates and content to various social
-  network services.
+full: Social network services library
 description: >
   The package provides a simple definition of a content element that can be
   pushed to a number of social network services. This will not leverage some of

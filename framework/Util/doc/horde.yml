@@ -1,6 +1,6 @@
 ---
 id: Util
 name: Util
-full: Horde Utility Libraries
+full: Utility library
 description: These classes provide functionality useful for all kind of applications.
 list: dev

@@ -1,6 +1,6 @@
 ---
 id: Rdo
 name: Rdo
-full: Rampage Data Objects
-description: Lightweight ORM layer
+full: ORM (object relational-mapping) library
+description: Rampage Data Objects. Lightweight ORM layer
 list: dev

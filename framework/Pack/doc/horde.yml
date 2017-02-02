@@ -1,7 +1,7 @@
 ---
 id: Pack
 name: Pack
-full: Horde Pack Utility
+full: Data packing library
 description: >
   A replacement for serialize()/json_encode() that will automatically use the
   most efficient serialization available based on the input.

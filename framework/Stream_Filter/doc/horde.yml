@@ -1,6 +1,6 @@
 ---
 id: Stream_Filter
 name: Stream_Filter
-full: Horde Stream filters
+full: PHP stream filters library
 description: A collection of various stream filters.
 list: dev

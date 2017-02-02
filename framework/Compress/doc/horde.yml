@@ -1,6 +1,6 @@
 ---
 id: Compress
 name: Compress
-full: Horde Compression API
+full: Compression library
 description: An API for various compression techniques.
 list: dev

@@ -1,6 +1,6 @@
 ---
 id: SpellChecker
 name: SpellChecker
-full: Spellcheck API
+full: Spellchecking library
 description: Unified spellchecking API.
 list: dev

@@ -1,6 +1,6 @@
 ---
 id: Service_Gravatar
 name: Service_Gravatar
-full: API accessor for gravatar.com
+full: Gravatar client library
 description: A library for accessing the Avatar services at gravatar.com.
 list: dev

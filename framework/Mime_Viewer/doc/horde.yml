@@ -1,6 +1,6 @@
 ---
 id: Mime_Viewer
 name: Mime_Viewer
-full: Horde MIME Viewer Library
+full: MIME viewer library
 description: Provides rendering drivers for MIME data.
 list: dev

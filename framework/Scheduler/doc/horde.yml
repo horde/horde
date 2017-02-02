@@ -1,6 +1,6 @@
 ---
 id: Scheduler
 name: Scheduler
-full: Horde Scheduler System
+full: Scheduling library
 description: Horde Scheduler System
 list: dev

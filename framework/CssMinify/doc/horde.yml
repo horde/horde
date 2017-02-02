@@ -1,6 +1,6 @@
 ---
 id: CssMinify
 name: CssMinify
-full: CSS Minification
+full: CSS minification library
 description: Abstracted interface to various CSS minification backends.
 list: dev

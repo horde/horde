@@ -1,6 +1,6 @@
 ---
 id: ElasticSearch
 name: ElasticSearch
-full: Horde ElasticSearch client
+full: ElasticSearch client library
 description: Lightweight API for ElasticSearch (http://www.elasticsearch.org/).
 list: dev

@@ -1,7 +1,7 @@
 ---
 id: Ldap
 name: Ldap
-full: Horde LDAP libraries
+full: LDAP client library
 description: >
   A set of classes for connecting to LDAP servers and working with directory
   objects.

@@ -1,7 +1,7 @@
 ---
 id: Xml_Element
 name: Xml_Element
-full: Horde Xml Element object
+full: XML element library
 description: >
   An element object that can be used to provide SimpleXML-like functionality
   over a DOM object. The main advantage over using SimpleXML is the ability to

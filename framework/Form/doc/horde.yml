@@ -1,7 +1,7 @@
 ---
 id: Form
 name: Form
-full: Horde Form API
+full: Form library
 description: >
   The Horde_Form package provides form rendering, validation, and other
   functionality for the Horde Application Framework.

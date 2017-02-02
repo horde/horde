@@ -1,7 +1,7 @@
 ---
 id: Yaml
 name: Yaml
-full: Horde YAML parsing and dumping routines
+full: YAML parsing and writing library
 description: >
   Classes for parsing YAML files into PHP arrays, and dumping PHP arrays into
   YAML encoding.

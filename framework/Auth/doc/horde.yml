@@ -1,7 +1,7 @@
 ---
 id: Auth
 name: Auth
-full: Horde Authentication API
+full: Authentication and user management library
 description: >
   The Horde_Auth package provides a common interface into the various backends
   for the Horde authentication system.

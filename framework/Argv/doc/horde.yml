@@ -1,7 +1,7 @@
 ---
 id: Argv
 name: Argv
-full: Horde command-line argument parsing package
+full: Command-line argument parsing library
 description: >
   Classes for parsing command line arguments with various actions, providing
   help, grouping options, and more.

@@ -1,7 +1,7 @@
 ---
 id: Cache
 name: Cache
-full: Horde Caching API
+full: Caching library
 description: >
   A simple, functional caching API, with the option to store the cached data on
   the filesystem, in one of the PHP opcode cache systems (APC, eAcclerator,

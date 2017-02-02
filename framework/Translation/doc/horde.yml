@@ -1,6 +1,6 @@
 ---
 id: Translation
 name: Translation
-full: Horde translation library
+full: Translation library
 description: Translation wrappers.
 list: dev

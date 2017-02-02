@@ -1,6 +1,6 @@
 ---
 id: Stream_Wrapper
 name: Stream_Wrapper
-full: Horde Stream wrappers
+full: PHP stream wrappers library
 description: A collection of stream wrappers.
 list: dev

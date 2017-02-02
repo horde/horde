@@ -1,6 +1,6 @@
 ---
 id: Date
 name: Date
-full: Horde Date package
+full: Date library
 description: Package for creating and manipulating dates.
 list: dev

@@ -1,7 +1,7 @@
 ---
 id: Cli
 name: Cli
-full: Horde Command Line Interface API
+full: Command line interface library
 description: |
   Horde_Cli:: API for basic command-line functionality/checks
 list: dev

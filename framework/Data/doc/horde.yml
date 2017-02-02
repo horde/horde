@@ -1,7 +1,7 @@
 ---
 id: Data
 name: Data
-full: Horde Data API
+full: Data import and export library
 description: |
   A data import and export API, with backends for:
   * CSV

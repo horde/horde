@@ -1,6 +1,6 @@
 ---
 id: Test
-name: Test
+name: Unit testing library
 full: Horde testing base classes
 description: Horde-specific PHPUnit base classes.
 list: dev

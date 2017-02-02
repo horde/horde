@@ -1,7 +1,7 @@
 ---
 id: Rpc
 name: Rpc
-full: Horde RPC API
+full: RPC library
 description: >
   A common abstracted interface to various remote methods of accessing Horde
   functionality.

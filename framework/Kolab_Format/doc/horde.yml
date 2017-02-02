@@ -1,6 +1,6 @@
 ---
 id: Kolab_Format
 name: Kolab_Format
-full: A package for reading/writing Kolab data formats.
+full: Kolab data format library
 description: This package allows converting Kolab data objects from XML to data arrays.
 list: dev

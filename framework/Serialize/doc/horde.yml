@@ -1,6 +1,6 @@
 ---
 id: Serialize
 name: Serialize
-full: Data Encapulation API
+full: Data serialization library
 description: An interface to various methods of encapsulating data.
 list: dev

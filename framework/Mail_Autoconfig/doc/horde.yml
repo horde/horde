@@ -1,7 +1,7 @@
 ---
 id: Mail_Autoconfig
 name: Mail_Autoconfig
-full: Horde Mail Autoconfiguration
+full: Mail server autoconfiguration library
 description: >
   Attempts to automatically determine configuration options for various remote
   mail services (IMAP/POP3/SMTP).

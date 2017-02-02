@@ -1,7 +1,7 @@
 ---
 id: Kolab_Filter
 name: Kolab_Filter
-full: Postfix filters for the Kolab server
+full:  Kolab server Postfix filters library
 description: |
   The filters provided by this package implement the Kolab
   server resource management as well as some Kolab server sender

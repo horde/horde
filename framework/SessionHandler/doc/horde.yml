@@ -1,7 +1,7 @@
 ---
 id: SessionHandler
 name: SessionHandler
-full: Horde Session Handler API
+full: Session handler library
 description: >
   Horde_SessionHandler defines an API for implementing custom session handlers
   for PHP.

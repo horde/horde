@@ -1,6 +1,6 @@
 ---
 id: ActiveSync
 name: ActiveSync
-full: Horde ActiveSync Server Library
-description: Libraries for implementing an ActiveSync server.
+full: ActiveSync server library
+description: Library for implementing an ActiveSync server.
 list: dev

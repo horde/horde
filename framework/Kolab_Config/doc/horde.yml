@@ -1,7 +1,7 @@
 ---
 id: Kolab_Config
 name: Kolab_Config
-full: A package for reading the Kolab server configuration
+full: Kolab server configuration library
 description: >
   This package reads the various Kolab server configuration files. It should
   also support retrieving configuration parameters from LDAP but this is not yet

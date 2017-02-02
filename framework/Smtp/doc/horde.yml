@@ -1,7 +1,7 @@
 ---
 id: Smtp
 name: Smtp
-full: Horde SMTP Client
+full: SMTP client library
 description: >
   Provides interfaces for connecting to a SMTP (RFC 5321) server to send e-mail
   messages.

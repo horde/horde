@@ -1,6 +1,6 @@
 ---
 id: View
 name: View
-full: Horde View API
+full: View pattern library
 description: A simple View pattern implementation.
 list: dev

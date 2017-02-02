@@ -1,7 +1,7 @@
 ---
 id: Image
 name: Image
-full: Horde Image API
+full: Image library
 description: |
   An Image utility API, with backends for:
   * GD

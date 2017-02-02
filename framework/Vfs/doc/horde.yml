@@ -1,7 +1,7 @@
 ---
 id: Vfs
 name: Vfs
-full: Virtual File System API
+full: Virtual file system library
 description: |
   A Virtual File System API, with backends for:
   

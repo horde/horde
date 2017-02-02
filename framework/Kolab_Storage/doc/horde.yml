@@ -1,7 +1,7 @@
 ---
 id: Kolab_Storage
 name: Kolab_Storage
-full: A package for handling Kolab data stored on an IMAP server
+full: Kolab data storage library
 description: >
   Storing user data in an IMAP account belonging to the user is one of the Kolab
   server core concepts. This package provides all the necessary means to deal

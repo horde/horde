@@ -1,6 +1,6 @@
 ---
 id: Perms
 name: Perms
-full: Horde Permissions System
+full: Permissions library
 description: The Perms package provides an interface to the Horde permissions system.
 list: dev

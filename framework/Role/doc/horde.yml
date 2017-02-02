@@ -1,6 +1,6 @@
 ---
 id: Role
 name: Role
-full: PEAR installer role used to install Horde components
+full: PEAR installer role
 description: Allows PEAR to install Horde components into a base Horde installation.
 list: dev

@@ -1,6 +1,6 @@
 ---
 id: Memcache
 name: Memcache
-full: Horde Memcache API
+full: Memcache client library
 description: Provides an API to access a memcache installation.
 list: dev

@@ -1,6 +1,6 @@
 ---
 id: Crypt_Blowfish
 name: Crypt_Blowfish
-full: Blowfish Encryption Library
+full: Blowfish encryption library
 description: Provides blowfish encryption/decryption for PHP string data.
 list: dev

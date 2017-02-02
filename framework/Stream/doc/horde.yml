@@ -1,7 +1,7 @@
 ---
 id: Stream
 name: Stream
-full: Horde stream handler
+full: PHP streams library
 description: >
   An object-oriented interface to assist in creating and storing PHP stream
   resources, and to provide utility methods to access and manipulate the stream

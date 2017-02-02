@@ -1,7 +1,7 @@
 ---
 id: Cli_Modular
 name: Cli_Modular
-full: A toolset for CLI interfaces that are modular.
+full: Modular command line interface library
 description: >
   Command line interfaces can often be composed of different modules responsible
   for distinct actions. This package allows each such module to influence the

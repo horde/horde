@@ -1,7 +1,7 @@
 ---
 id: Support
 name: Support
-full: Horde support package
+full: Supporting library
 description: >
   Support classes not tied to Horde but is used by it. These classes can be used
   outside of Horde as well.

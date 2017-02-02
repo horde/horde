@@ -1,6 +1,6 @@
 ---
 id: HashTable
 name: HashTable
-full: Horde Hash Table Interface
+full: Hash table client library
 description: Provides an abstract API to access various hash table implementations.
 list: dev

@@ -1,7 +1,7 @@
 ---
 id: Kolab_FreeBusy
 name: Kolab_FreeBusy
-full: A package for providing free/busy information
+full: Kolab application providing free/busy information
 description: |
   Free/busy information for the
   users of a Kolab server. A Kolab client changing calendar data in an

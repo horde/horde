@@ -1,6 +1,6 @@
 ---
 id: Controller
 name: Controller
-full: Horde Controller libraries
+full: Controller library
 description: The controller part of an MVC system for Horde.
 list: dev

@@ -1,6 +1,6 @@
 ---
 id: JavascriptMinify
 name: JavascriptMinify
-full: Javascript Minification
+full: JavaScript minification library
 description: Abstracted interface to various javascript minification backends.
 list: dev
