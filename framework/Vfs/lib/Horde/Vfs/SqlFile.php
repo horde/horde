@@ -89,6 +89,9 @@ class Horde_Vfs_SqlFile extends Horde_Vfs_File
                 throw new Horde_Vfs_Exception('Unable to open VFS file for writing.');
             }
         }
+        if (is_resource($data)) {
+            rewind($data);
+        }
 
         if (!@fwrite($fp, $data)) {
             throw new Horde_Vfs_Exception('Unable to write VFS file data.');

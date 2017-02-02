@@ -61,10 +61,11 @@ class Horde_Vfs_Musql extends Horde_Vfs_Sql
     /**
      * Stores a file in the VFS from raw data.
      *
-     * @param string $path         The path to store the file in.
-     * @param string $name         The filename to use.
-     * @param string $data         The file data.
-     * @param boolean $autocreate  Automatically create directories?
+     * @param string $path           The path to store the file in.
+     * @param string $name           The filename to use.
+     * @param string|resource $data  The data as a string or stream resource.
+     *                               Resources allowed  @since  2.4.0
+     * @param boolean $autocreate    Automatically create directories?
      *
      * @throws Horde_Vfs_Exception
      */

@@ -200,6 +200,13 @@ class Horde_Vfs_Mongo extends Horde_Vfs_Base
                 break;
 
             case 'string':
+                // MONGO currently has no ability to stream data TO the
+                // server. I.e., there is no opposite version of
+                // MongoGridFSFile::getResource().
+                if (is_resource($data)) {
+                    rewind($data);
+                    $data = stream_get_contents($data);
+                }
                 $this->_files->storeBytes($data, $mdata);
                 break;
             }

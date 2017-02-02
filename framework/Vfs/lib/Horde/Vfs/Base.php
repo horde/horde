@@ -285,10 +285,11 @@ abstract class Horde_Vfs_Base
      *
      * @abstract
      *
-     * @param string $path         The path to store the file in.
-     * @param string $name         The filename to use.
-     * @param string $data         The file data.
-     * @param boolean $autocreate  Automatically create directories?
+     * @param string $path           The path to store the file in.
+     * @param string $name           The filename to use.
+     * @param string|resource $data  The data as a string or stream resource.
+     *                               Resources allowed  @since  2.4.0
+     * @param boolean $autocreate    Automatically create directories?
      *
      * @throws Horde_Vfs_Exception
      */
@@ -751,7 +752,7 @@ abstract class Horde_Vfs_Base
                 throw new Horde_Vfs_Exception('Unable to read VFS file (filesize() failed).');
             }
         } else {
-            $filesize = strlen($data);
+            $filesize = $this->_getDataSize($data);
         }
         $oldsize = 0;
         if ($name) {
@@ -770,6 +771,26 @@ abstract class Horde_Vfs_Base
         if (!is_null($this->_vfsSize)) {
             $this->_vfsSize += $filesize - $oldsize;
         }
+    }
+
+    /**
+     * Return the size of $data.
+     *
+     * @param string|resource  $data  The data.
+     *
+     * @return integer  The data length.
+     */
+    protected function _getDataSize($data)
+    {
+        if (is_resource($data)) {
+            $pos = fseek($data, 0, SEEK_END);
+            $size = ftell($data);
+            fseek($data, $pos);
+
+            return $size;
+        }
+
+        return strlen($data);
     }
 
     /**

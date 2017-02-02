@@ -196,16 +196,20 @@ class Horde_Vfs_Smb extends Horde_Vfs_Base
     /**
      * Stores a file in the VFS from raw data.
      *
-     * @param string $path         The path to store the file in.
-     * @param string $name         The filename to use.
-     * @param string $data         The file data.
-     * @param boolean $autocreate  Automatically create directories?
+     * @param string $path           The path to store the file in.
+     * @param string $name           The filename to use.
+     * @param string|resource $data  The data as a string or stream resource.
+     *                               Resources allowed  @since  2.4.0
+     * @param boolean $autocreate    Automatically create directories?
      *
      * @throws Horde_Vfs_Exception
      */
     public function writeData($path, $name, $data, $autocreate = false)
     {
         $tmpFile = Horde_Util::getTempFile('vfs');
+        if (is_resource($data)) {
+            rewind($data);
+        }
         file_put_contents($tmpFile, $data);
         try {
             $this->write($path, $name, $tmpFile, $autocreate);

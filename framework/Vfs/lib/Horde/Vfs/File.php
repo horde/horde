@@ -291,10 +291,11 @@ class Horde_Vfs_File extends Horde_Vfs_Base
     /**
      * Store a file in the VFS from raw data.
      *
-     * @param string $path         The path to store the file in.
-     * @param string $name         The filename to use.
-     * @param string $data         The file data.
-     * @param boolean $autocreate  Automatically create directories?
+     * @param string $path           The path to store the file in.
+     * @param string $name           The filename to use.
+     * @param string|resource $data  The data as a string or stream resource.
+     *                               Resources allowed  @since  2.4.0
+     * @param boolean $autocreate    Automatically create directories?
      *
      * @throws Horde_Vfs_Exception
      */
@@ -310,7 +311,7 @@ class Horde_Vfs_File extends Horde_Vfs_Base
 
         // Treat an attempt to write an empty file as a touch() call,
         // since otherwise the file will not be created at all.
-        if (!strlen($data)) {
+        if (!$this->_getDataSize($data)) {
             if (@touch($this->_getNativePath($path, $name))) {
                 return;
             }
@@ -320,6 +321,10 @@ class Horde_Vfs_File extends Horde_Vfs_Base
         $this->_checkQuotaWrite('string', $data, $path, $name);
 
         // Otherwise we go ahead and try to write out the file.
+        if (is_resource($data)) {
+            rewind($data);
+        }
+
         if (!@file_put_contents($this->_getNativePath($path, $name), $data)) {
             $this->_throwException(new Horde_Vfs_Exception(sprintf('Unable to write data to VFS file %s/%s.', $path, $name)));
         }
