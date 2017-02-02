@@ -141,6 +141,8 @@ class Horde_Core_Factory_Db extends Horde_Core_Factory_Base
     protected function _createDb($config, $sig = null, $cache = true)
     {
         unset($config['driverconfig']);
+        $logqueries = !empty($config['logqueries']);
+        unset($config['logqueries']);
 
         // Split read?
         if (!empty($config['splitread'])) {
@@ -202,7 +204,10 @@ class Horde_Core_Factory_Db extends Horde_Core_Factory_Base
         /* Bug #13463: setting logger before cache causes intermittent issues
          * with DB object during session shutdown. */
         if (!isset($config['logger'])) {
-            $ob->setLogger($this->_injector->getInstance('Horde_Log_Logger'));
+            $ob->setLogger(
+                $this->_injector->getInstance('Horde_Log_Logger'),
+                $logqueries
+            );
         }
 
         return $ob;
