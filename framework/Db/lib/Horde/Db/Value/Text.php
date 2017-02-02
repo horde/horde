@@ -30,7 +30,8 @@ class Horde_Db_Value_Text implements Horde_Db_Value
     /**
      * Constructor
      *
-     * @param string $textValue
+     * @param string|stream  $textValue  The text value in a string or stream
+     *            resource.
      */
     public function __construct($textValue)
     {
@@ -42,6 +43,10 @@ class Horde_Db_Value_Text implements Horde_Db_Value
      */
     public function quote(Horde_Db_Adapter $db)
     {
+        if (is_resource($this->value)) {
+            rewind($this->value);
+            return $db->quoteString(stream_get_contents($this->value));
+        }
         return $db->quoteString($this->value);
     }
 }

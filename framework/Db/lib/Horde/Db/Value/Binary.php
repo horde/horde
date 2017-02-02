@@ -30,7 +30,8 @@ class Horde_Db_Value_Binary implements Horde_Db_Value
     /**
      * Constructor
      *
-     * @param string $binaryValue
+     * @param string|stream resource $binaryValue  The binary value in either
+     *            a string or a stream resource.
      */
     public function __construct($binaryValue)
     {
@@ -42,6 +43,11 @@ class Horde_Db_Value_Binary implements Horde_Db_Value
      */
     public function quote(Horde_Db_Adapter $db)
     {
+        if (is_resource($this->value)) {
+            rewind($this->value);
+            return $db->quoteBinary(stream_get_contents($this->value));
+        }
+
         return $db->quoteBinary($this->value);
     }
 }

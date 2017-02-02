@@ -228,7 +228,38 @@ abstract class Horde_Db_Adapter_TestBase extends Horde_Test_Case
             8
         );
         $this->assertEquals(8, $result);
+
+        $stream = fopen('php://temp', 'r+');
+        fwrite($stream, str_repeat('X', 5000));
+        rewind($stream);
+        $result = $this->_conn->insertBlob(
+            'unit_tests',
+            array(
+                'id' => 9,
+                'integer_value' => 1001,
+                'text_value' => new Horde_Db_Value_Text($stream)
+            ),
+            null,
+            9
+        );
+        $this->assertEquals(9, $result);
+
+        $stream = fopen('php://temp', 'r+');
+        fwrite($stream, str_repeat("\0", 5000));
+        rewind($stream);
+        $result = $this->_conn->insertBlob(
+            'unit_tests',
+            array(
+                'id' => 10,
+                'integer_value' => 1002,
+                'blob_value' => new Horde_Db_Value_Binary($stream)
+            ),
+            null,
+            10
+        );
+        $this->assertEquals(10, $result);
     }
+
 
     public function testUpdate()
     {
@@ -257,6 +288,30 @@ abstract class Horde_Db_Adapter_TestBase extends Horde_Test_Case
             'unit_tests',
             array(
                 'text_value' => new Horde_Db_Value_Text(str_repeat('X', 5000))
+            ),
+            'id = 1'
+        );
+        $this->assertEquals(1, $result);
+
+        $stream = fopen('php://temp', 'r+');
+        fwrite($stream, str_repeat('X', 5001));
+        rewind($stream);
+        $result = $this->_conn->updateBlob(
+            'unit_tests',
+            array(
+                'text_value' => new Horde_Db_Value_Text($stream)
+            ),
+            'id = 1'
+        );
+        $this->assertEquals(1, $result);
+
+        $stream = fopen('php://temp', 'r+');
+        fwrite($stream, str_repeat("\0", 5001));
+        rewind($stream);
+        $result = $this->_conn->updateBlob(
+            'unit_tests',
+            array(
+                'blob_value' => new Horde_Db_Value_Binary($stream)
             ),
             'id = 1'
         );
