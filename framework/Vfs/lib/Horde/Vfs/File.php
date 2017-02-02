@@ -309,6 +309,9 @@ class Horde_Vfs_File extends Horde_Vfs_Base
             }
         }
 
+        // Ensure we have either a string or seekable stream.
+        $data = $this->_ensureSeekable($data);
+
         // Treat an attempt to write an empty file as a touch() call,
         // since otherwise the file will not be created at all.
         if (!$this->_getDataSize($data)) {
@@ -321,10 +324,6 @@ class Horde_Vfs_File extends Horde_Vfs_Base
         $this->_checkQuotaWrite('string', $data, $path, $name);
 
         // Otherwise we go ahead and try to write out the file.
-        if (is_resource($data)) {
-            rewind($data);
-        }
-
         if (!@file_put_contents($this->_getNativePath($path, $name), $data)) {
             $this->_throwException(new Horde_Vfs_Exception(sprintf('Unable to write data to VFS file %s/%s.', $path, $name)));
         }

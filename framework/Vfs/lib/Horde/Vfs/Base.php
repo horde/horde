@@ -793,6 +793,23 @@ abstract class Horde_Vfs_Base
         return strlen($data);
     }
 
+    protected function _ensureSeekable($stream)
+    {
+        if (!is_resource($stream)) {
+            return $stream;
+        }
+
+        $meta = stream_get_meta_data($stream);
+        if (!$meta['seekable']) {
+            $temp = new Horde_Stream_Temp();
+            $temp->add($stream, true);
+            return $temp->stream;
+        }
+
+        rewind($stream);
+        return $stream;
+    }
+
     /**
      * Checks the quota when preparing to delete data.
      *
