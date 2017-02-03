@@ -365,8 +365,8 @@ class Horde_Db_Adapter_Oci8 extends Horde_Db_Adapter_Base
      * @since Horde_Db 2.1.0
      *
      * @param string $table     The table name.
-     * @param array $fields     A hash of column names and values. BLOB columns
-     *                          must be provided as Horde_Db_Value_Binary
+     * @param array $fields     A hash of column names and values. BLOB/CLOB
+     *                          columns must be provided as Horde_Db_Value
      *                          objects.
      * @param string $pk        The primary key column.
      * @param integer $idValue  The primary key value. This parameter is
@@ -406,9 +406,9 @@ class Horde_Db_Adapter_Oci8 extends Horde_Db_Adapter_Base
      * @since Horde_Db 2.2.0
      *
      * @param string $table        The table name.
-     * @param array $fields        A hash of column names and values. BLOB
+     * @param array $fields        A hash of column names and values. BLOB/CLOB
      *                             columns must be provided as
-     *                             Horde_Db_Value_Binary objects.
+     *                             Horde_Db_Value objects.
      * @param string|array $where  A WHERE clause. Either a complete clause or
      *                             an array containing a clause with
      *                             placeholders and a list of values.
@@ -452,8 +452,8 @@ class Horde_Db_Adapter_Oci8 extends Horde_Db_Adapter_Base
      * Prepares a list of field values to be consumed by insertBlob() or
      * updateBlob().
      *
-     * @param array $fields  A hash of column names and values. BLOB columns
-     *                       must be provided as Horde_Db_Value_Binary objects.
+     * @param array $fields  A hash of column names and values. BLOB/CLOB
+     *                       columns must be provided as Horde_Db_Value objects.
      *
      * @return array  A list of fields, blobs, and locators.
      */

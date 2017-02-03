@@ -295,8 +295,8 @@ abstract class Horde_Db_Adapter_Pdo_Base extends Horde_Db_Adapter_Base
      * @since Horde_Db 2.4.0
      *
      * @param string $table     The table name.
-     * @param array $fields     A hash of column names and values. BLOB columns
-     *                          must be provided as Horde_Db_Value_Binary
+     * @param array $fields     A hash of column names and values. BLOB/CLOB
+     *                          columns must be provided as Horde_Db_Value
      *                          objects.
      * @param string $pk        The primary key column.
      * @param integer $idValue  The primary key value. This parameter is
@@ -344,9 +344,9 @@ abstract class Horde_Db_Adapter_Pdo_Base extends Horde_Db_Adapter_Base
      * @since Horde_Db 2.4.0
      *
      * @param string $table        The table name.
-     * @param array $fields        A hash of column names and values. BLOB
+     * @param array $fields        A hash of column names and values. BLOB/CLOB
      *                             columns must be provided as
-     *                             Horde_Db_Value_Binary objects.
+     *                             Horde_Db_Value objects.
      * @param string|array $where  A WHERE clause. Either a complete clause or
      *                             an array containing a clause with
      *                             placeholders and a list of values.
