@@ -17,36 +17,13 @@
  * @category Horde
  * @package  Db
  */
-class Horde_Db_Value_Text implements Horde_Db_Value
+class Horde_Db_Value_Text extends Horde_Db_Value_Binary
 {
-    /**
-     * Text value to be quoted
-     *
-     * @var string
-     * @since Horde_Db 2.1.0
-     */
-    public $value;
-
-    /**
-     * Constructor
-     *
-     * @param string|stream  $textValue  The text value in a string or stream
-     *            resource.
-     */
-    public function __construct($textValue)
-    {
-        $this->value = $textValue;
-    }
-
     /**
      * @param Horde_Db_Adapter $db
      */
     public function quote(Horde_Db_Adapter $db)
     {
-        if (is_resource($this->value)) {
-            rewind($this->value);
-            return $db->quoteString(stream_get_contents($this->value));
-        }
         return $db->quoteString($this->value);
     }
 }

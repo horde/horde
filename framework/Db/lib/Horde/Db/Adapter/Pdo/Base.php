@@ -311,9 +311,9 @@ abstract class Horde_Db_Adapter_Pdo_Base extends Horde_Db_Adapter_Base
         $placeholders = $values = $binary = array();
         $binary_cnt = 0;
         foreach ($fields as $name => $value) {
-            if ($value instanceof Horde_Db_Value && is_resource($value->value)) {
+            if ($value instanceof Horde_Db_Value) {
                 $placeholders[] = ':binary' . $binary_cnt++;
-                $binary[] = $value->value;
+                $binary[] = $value->stream;
             } else {
                 $placeholders[] = '?';
                 $values[] = $value;
@@ -363,9 +363,9 @@ abstract class Horde_Db_Adapter_Pdo_Base extends Horde_Db_Adapter_Base
         $binary_cnt = 0;
 
         foreach ($fields as $field => $value) {
-            if ($value instanceof Horde_Db_Value && is_resource($value->value)) {
+            if ($value instanceof Horde_Db_Value) {
                 $fnames[] = $this->quoteColumnName($field) . ' = :binary' . $binary_cnt++;
-                $binary_values[] = $value->value;
+                $binary_values[] = $value->stream;
             } else {
                 $fnames[] = $this->quoteColumnName($field) . ' = ?';
                 $values[] = $value;

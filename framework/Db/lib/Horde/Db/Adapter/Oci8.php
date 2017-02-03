@@ -297,7 +297,7 @@ class Horde_Db_Adapter_Oci8 extends Horde_Db_Adapter_Base
         $descriptors = array();
         foreach ($lobs as $name => $lob) {
             $descriptors[$name] = oci_new_descriptor($this->_connection, OCI_DTYPE_LOB);
-            oci_bind_by_name($stmt, ':' . $name, $descriptors[$name], -1, $lob instanceof Horde_Db_Value_Binary ? OCI_B_BLOB : OCI_B_CLOB);
+            oci_bind_by_name($stmt, ':' . $name, $descriptors[$name], -1, $lob instanceof Horde_Db_Value_Text ? OCI_B_CLOB : OCI_B_BLOB);
         }
 
         $flags = $lobs
@@ -465,9 +465,9 @@ class Horde_Db_Adapter_Oci8 extends Horde_Db_Adapter_Base
                 $field instanceof Horde_Db_Value_Text) {
                 $blobs[$this->quoteColumnName($column)] = $field;
                 $locators[] = ':' . $this->quoteColumnName($column);
-                $field = $field instanceof Horde_Db_Value_Binary
-                    ? 'EMPTY_BLOB()'
-                    : 'EMPTY_CLOB()';
+                $field = $field instanceof Horde_Db_Value_Text
+                    ? 'EMPTY_CLOB()'
+                    : 'EMPTY_BLOB()';
             } else {
                 $field = $this->quote($field);
             }

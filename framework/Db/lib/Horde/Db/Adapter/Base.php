@@ -793,7 +793,7 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
         $sql = array_shift($sqlPieces);
         while (count($sqlPieces)) {
             $value = array_shift($args);
-            if ($no_binary && $value instanceof Horde_Db_Value_Binary) {
+            if ($no_binary && get_class($value) == 'Horde_Db_Value_Binary') {
                 $sql_value = '<binary_data>';
             } else {
                 $sql_value = $this->quote($value);

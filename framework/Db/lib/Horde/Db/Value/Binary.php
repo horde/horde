@@ -2,40 +2,96 @@
 /**
  * Copyright 2006-2017 Horde LLC (http://www.horde.org/)
  *
- * @author     Chuck Hagenbuch <chuck@horde.org>
- * @license    http://www.horde.org/licenses/bsd
- * @category   Horde
- * @package    Db
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @license  http://www.horde.org/licenses/bsd
+ * @category Horde
+ * @package  Db
  */
 
 /**
  * Encapsulation object for binary values to be used in SQL statements to
  * ensure proper quoting, escaping, retrieval, etc.
  *
- * @author     Chuck Hagenbuch <chuck@horde.org>
- * @license    http://www.horde.org/licenses/bsd
- * @category   Horde
- * @package    Db
+ * @property $value  The binary value as a string. @since Horde_Db 2.1.0
+ * @property $stream  The binary value as a stream. @since Horde_Db 2.4.0
+ *
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @license  http://www.horde.org/licenses/bsd
+ * @category Horde
+ * @package  Db
  */
 class Horde_Db_Value_Binary implements Horde_Db_Value
 {
     /**
-     * Binary value to be quoted
+     * Binary scalar value to be quoted
      *
      * @var string
-     * @since Horde_Db 2.1.0
      */
-    public $value;
+    protected $_value;
+
+    /**
+     * Binary stream value to be quoted
+     *
+     * @var stream
+     */
+    protected $_stream;
 
     /**
      * Constructor
      *
-     * @param string|stream resource $binaryValue  The binary value in either
-     *            a string or a stream resource.
+     * @param string|stream $binaryValue  The binary value in a string or
+     *                                    stream resource.
      */
     public function __construct($binaryValue)
     {
-        $this->value = $binaryValue;
+        if (is_resource($binaryValue)) {
+            $this->stream = $binaryValue;
+        } else {
+            $this->value = $binaryValue;
+        }
+    }
+
+    /**
+     * Getter for $value and $stream properties.
+     */
+    public function __get($name)
+    {
+        switch ($name) {
+        case 'value':
+            if (isset($this->_value)) {
+                return $this->_value;
+            }
+            if (isset($this->_stream)) {
+                rewind($this->_stream);
+                return stream_get_contents($this->_stream);
+            }
+            break;
+
+        case 'stream':
+            if (isset($this->_stream)) {
+                return $this->_stream;
+            }
+            if (isset($this->_value)) {
+                $stream = @fopen('php://temp', 'r+');
+                fwrite($stream, $this->_value);
+                rewind($stream);
+                return $stream;
+            }
+            break;
+        }
+    }
+
+    /**
+     * Setter for $value and $stream properties.
+     */
+    public function __set($name, $value)
+    {
+        switch ($name) {
+        case 'value':
+        case 'stream':
+            $this->{'_' . $name} = $value;
+            break;
+        }
     }
 
     /**
@@ -43,11 +99,6 @@ class Horde_Db_Value_Binary implements Horde_Db_Value
      */
     public function quote(Horde_Db_Adapter $db)
     {
-        if (is_resource($this->value)) {
-            rewind($this->value);
-            return $db->quoteBinary(stream_get_contents($this->value));
-        }
-
         return $db->quoteBinary($this->value);
     }
 }
