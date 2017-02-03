@@ -801,9 +801,9 @@ abstract class Horde_Vfs_Base
 
         $meta = stream_get_meta_data($stream);
         if (!$meta['seekable']) {
-            $temp = new Horde_Stream_Temp();
-            $temp->add($stream, true);
-            return $temp->stream;
+            $temp = @fopen('php://temp', 'r+');
+            stream_copy_to_stream($stream, $temp);
+            return $temp;
         }
 
         rewind($stream);
