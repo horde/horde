@@ -204,6 +204,7 @@ abstract class Horde_Db_Adapter_TestBase extends Horde_Test_Case
     public function testInsertBlob()
     {
         $this->_createTable();
+        $columns = $this->_conn->columns('unit_tests');
 
         $result = $this->_conn->insertBlob(
             'unit_tests',
@@ -216,6 +217,12 @@ abstract class Horde_Db_Adapter_TestBase extends Horde_Test_Case
             7
         );
         $this->assertEquals(7, $result);
+        $this->assertEquals(
+            str_repeat("\0", 5000),
+            $columns['blob_value']->binaryToString($this->_conn->selectValue(
+                'SELECT blob_value FROM unit_tests WHERE id = 7'
+            ))
+        );
 
         $result = $this->_conn->insertBlob(
             'unit_tests',
@@ -228,10 +235,15 @@ abstract class Horde_Db_Adapter_TestBase extends Horde_Test_Case
             8
         );
         $this->assertEquals(8, $result);
+        $this->assertEquals(
+            str_repeat('X', 5000),
+            $columns['text_value']->binaryToString($this->_conn->selectValue(
+                'SELECT text_value FROM unit_tests WHERE id = 8'
+            ))
+        );
 
         $stream = fopen('php://temp', 'r+');
         fwrite($stream, str_repeat('X', 5000));
-        rewind($stream);
         $result = $this->_conn->insertBlob(
             'unit_tests',
             array(
@@ -243,9 +255,14 @@ abstract class Horde_Db_Adapter_TestBase extends Horde_Test_Case
             9
         );
         $this->assertEquals(9, $result);
+        $this->assertEquals(
+            str_repeat('X', 5000),
+            $columns['text_value']->binaryToString($this->_conn->selectValue(
+                'SELECT text_value FROM unit_tests WHERE id = 9'
+            ))
+        );
 
         $stream = fopen('php://temp', 'r+');
-        rewind($stream);
         fwrite($stream, str_repeat("\0", 10000));
         $result = $this->_conn->insertBlob(
             'unit_tests',
@@ -258,6 +275,12 @@ abstract class Horde_Db_Adapter_TestBase extends Horde_Test_Case
             10
         );
         $this->assertEquals(10, $result);
+        $this->assertEquals(
+            str_repeat("\0", 10000),
+            $columns['blob_value']->binaryToString($this->_conn->selectValue(
+                'SELECT blob_value FROM unit_tests WHERE id = 10'
+            ))
+        );
     }
 
 
@@ -295,7 +318,6 @@ abstract class Horde_Db_Adapter_TestBase extends Horde_Test_Case
 
         $stream = fopen('php://temp', 'r+');
         fwrite($stream, str_repeat('X', 5001));
-        rewind($stream);
         $result = $this->_conn->updateBlob(
             'unit_tests',
             array(
@@ -307,7 +329,6 @@ abstract class Horde_Db_Adapter_TestBase extends Horde_Test_Case
 
         $stream = fopen('php://temp', 'r+');
         fwrite($stream, str_repeat("\0", 5001));
-        rewind($stream);
         $result = $this->_conn->updateBlob(
             'unit_tests',
             array(
