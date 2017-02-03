@@ -207,7 +207,7 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
     {
         /* Don't need to check quota here since it will be checked when
          * writeData() is called. */
-        if (!$stream = @fopen($tmpfile, 'rb')) {
+        if (!$stream = @fopen($tmpFile, 'rb')) {
             throw new Horde_Vfs_Exception('Unable to open ' . $tmpFile);
         }
 
