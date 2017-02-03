@@ -245,8 +245,8 @@ abstract class Horde_Db_Adapter_TestBase extends Horde_Test_Case
         $this->assertEquals(9, $result);
 
         $stream = fopen('php://temp', 'r+');
-        fwrite($stream, str_repeat("\0", 5000));
         rewind($stream);
+        fwrite($stream, str_repeat("\0", 10000));
         $result = $this->_conn->insertBlob(
             'unit_tests',
             array(

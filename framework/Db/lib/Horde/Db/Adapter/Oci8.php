@@ -321,7 +321,11 @@ class Horde_Db_Adapter_Oci8 extends Horde_Db_Adapter_Base
         }
 
         foreach ($lobs as $name => $lob) {
-            $descriptors[$name]->save($lob->value);
+            $stream = $lob->stream;
+            rewind($stream);
+            while (!feof($stream)) {
+                $descriptors[$name]->write(fread($stream, 8192));
+            }
         }
         if ($lobs) {
             oci_commit($this->_connection);
