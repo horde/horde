@@ -419,7 +419,7 @@ class Horde_ActiveSync_Imap_Adapter
     }
 
     /**
-     * Return an array of message UIDs from a list of Message-IDs.
+     * Return a message UIDs from the given Message-ID.
      *
      * @param string $mid                           The Message-ID
      * @param Horde_ActiveSync_Folder_Imap $folder  The folder object to search.

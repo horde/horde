@@ -86,7 +86,8 @@ extends Horde_ActiveSync_Imap_Strategy_Base
                     'read' => (array_search(Horde_Imap_Client::FLAG_SEEN, $data->getFlags()) !== false) ? 1 : 0
                 );
                 if (($options['protocolversion']) > Horde_ActiveSync::VERSION_TWOFIVE) {
-                    $flags[$uid]['flagged'] = (array_search(Horde_Imap_Client::FLAG_FLAGGED, $data->getFlags()) !== false) ? 1 : 0;
+                    $flags[$uid]['flagged'] =
+                    (array_search(Horde_Imap_Client::FLAG_FLAGGED, $data->getFlags()) !== false) ? 1 : 0;
                 }
             }
         }
@@ -94,7 +95,11 @@ extends Horde_ActiveSync_Imap_Strategy_Base
             $this->_folder->setChanges($search_ret['match']->ids, $flags);
         }
         $this->_folder->setRemoved(
-            $this->_imap_ob->vanished($this->_mbox, null, array('ids' => new Horde_Imap_Client_Ids($this->_folder->messages())))->ids
+            $this->_imap_ob->vanished(
+                $this->_mbox,
+                null,
+                array('ids' => new Horde_Imap_Client_Ids($this->_folder->messages()))
+            )->ids
         );
 
         return $this->_folder;
