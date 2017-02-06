@@ -23,7 +23,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-12-16</date>
+ <date>2017-02-06</date>
  <version>
   <release>2.4.0</release>
   <api>2.4.0</api>
@@ -54,6 +54,7 @@
       <file name="UPGRADING" role="doc" />
      </dir> <!-- /doc/Horde/Db -->
     </dir> <!-- /doc/Horde -->
+    <file name="horde.yml" role="doc" />
    </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
@@ -110,6 +111,7 @@
       </dir> <!-- /lib/Horde/Db/Migration -->
       <dir name="Value">
        <file name="Binary.php" role="php" />
+       <file name="Lob.php" role="php" />
        <file name="Text.php" role="php" />
       </dir> <!-- /lib/Horde/Db/Value -->
       <file name="Adapter.php" role="php" />
@@ -285,6 +287,7 @@
  <phprelease>
   <filelist>
    <install as="horde-db-migrate-component" name="bin/horde-db-migrate-component" />
+   <install as="horde.yml" name="doc/horde.yml" />
    <install as="COPYING" name="doc/Horde/Db/COPYING" />
    <install as="README" name="doc/Horde/Db/README" />
    <install as="README_TESTING" name="doc/Horde/Db/README_TESTING" />
@@ -329,6 +332,7 @@
    <install as="Horde/Db/Migration/Exception.php" name="lib/Horde/Db/Migration/Exception.php" />
    <install as="Horde/Db/Migration/Migrator.php" name="lib/Horde/Db/Migration/Migrator.php" />
    <install as="Horde/Db/Value/Binary.php" name="lib/Horde/Db/Value/Binary.php" />
+   <install as="Horde/Db/Value/Lob.php" name="lib/Horde/Db/Value/Lob.php" />
    <install as="Horde/Db/Value/Text.php" name="lib/Horde/Db/Value/Text.php" />
    <install as="Horde/Db/AllTests.php" name="test/Horde/Db/AllTests.php" />
    <install as="Horde/Db/bootstrap.php" name="test/Horde/Db/bootstrap.php" />
@@ -969,7 +973,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-12-16</date>
+   <date>2017-02-06</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [mjr] Improve Horde_Db logging options (Request #10773).

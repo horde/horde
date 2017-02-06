@@ -17,7 +17,7 @@
  * @category Horde
  * @package  Db
  */
-class Horde_Db_Value_Text extends Horde_Db_Value_Binary
+class Horde_Db_Value_Text extends Horde_Db_Value_Lob
 {
     /**
      * @param Horde_Db_Adapter $db

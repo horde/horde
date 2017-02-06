@@ -20,80 +20,8 @@
  * @category Horde
  * @package  Db
  */
-class Horde_Db_Value_Binary implements Horde_Db_Value
+class Horde_Db_Value_Binary extends Horde_Db_Value_Lob
 {
-    /**
-     * Binary scalar value to be quoted
-     *
-     * @var string
-     */
-    protected $_value;
-
-    /**
-     * Binary stream value to be quoted
-     *
-     * @var stream
-     */
-    protected $_stream;
-
-    /**
-     * Constructor
-     *
-     * @param string|stream $binaryValue  The binary value in a string or
-     *                                    stream resource.
-     */
-    public function __construct($binaryValue)
-    {
-        if (is_resource($binaryValue)) {
-            $this->stream = $binaryValue;
-        } else {
-            $this->value = $binaryValue;
-        }
-    }
-
-    /**
-     * Getter for $value and $stream properties.
-     */
-    public function __get($name)
-    {
-        switch ($name) {
-        case 'value':
-            if (isset($this->_value)) {
-                return $this->_value;
-            }
-            if (isset($this->_stream)) {
-                rewind($this->_stream);
-                return stream_get_contents($this->_stream);
-            }
-            break;
-
-        case 'stream':
-            if (isset($this->_stream)) {
-                return $this->_stream;
-            }
-            if (isset($this->_value)) {
-                $stream = @fopen('php://temp', 'r+');
-                fwrite($stream, $this->_value);
-                rewind($stream);
-                return $stream;
-            }
-            break;
-        }
-    }
-
-    /**
-     * Setter for $value and $stream properties.
-     */
-    public function __set($name, $value)
-    {
-        switch ($name) {
-        case 'value':
-        case 'stream':
-            $this->{'_' . $name} = $value;
-            break;
-        }
-    }
-
     /**
      * @param Horde_Db_Adapter $db
      */

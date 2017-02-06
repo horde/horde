@@ -312,8 +312,7 @@ abstract class Horde_Db_Adapter_Pdo_Base extends Horde_Db_Adapter_Base
         $placeholders = $values = $binary = array();
         $binary_cnt = 0;
         foreach ($fields as $name => $value) {
-            if (is_object($value) &&
-                get_class($value) == 'Horde_Db_Value_Binary') {
+            if ($value instanceof Horde_Db_Value_Binary) {
                 $placeholders[] = ':binary' . $binary_cnt++;
                 $binary[] = $value->stream;
             } else {
