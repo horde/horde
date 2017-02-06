@@ -262,6 +262,7 @@ abstract class Horde_Db_Adapter_Pdo_Base extends Horde_Db_Adapter_Base
         try {
             $stmt = $this->_connection->prepare($query);
             foreach ($binary_values as $key => $bvalue) {
+                rewind($bvalue);
                 $stmt->bindParam(':binary' . $key, $bvalue, PDO::PARAM_LOB);
             }
         } catch (PDOException $e) {
@@ -311,7 +312,8 @@ abstract class Horde_Db_Adapter_Pdo_Base extends Horde_Db_Adapter_Base
         $placeholders = $values = $binary = array();
         $binary_cnt = 0;
         foreach ($fields as $name => $value) {
-            if ($value instanceof Horde_Db_Value) {
+            if (is_object($value) &&
+                get_class($value) == 'Horde_Db_Value_Binary') {
                 $placeholders[] = ':binary' . $binary_cnt++;
                 $binary[] = $value->stream;
             } else {
