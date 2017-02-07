@@ -1354,10 +1354,10 @@ class Horde_Icalendar
      *
      * @todo This function should be moved to Horde_Date and made public.
      *
-     * @param $time TODO
-     * @param $tzid TODO
+     * @param string $text  The Icalendar datetime field value.
+     * @param string $tzid  A timezone identifier.
      *
-     * @return TODO
+     * @return integer  A unix timestamp.
      */
     public function _parseDateTime($text, $tzid = false)
     {
