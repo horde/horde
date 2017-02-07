@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Correctly encode IP address literal in first Received: header (Bug #14574).
 * [mjr] Remove support for defunct CloudMade, and MyTopo mapping APIs.
 * [jan] Fix fatal error screen for PHP 7 error objects.
 * [jan] Remember the configuration values of split-read database environments.
@@ -4361,6 +4362,7 @@
    <date>2017-01-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Correctly encode IP address literal in first Received: header (Bug #14574).
 * [mjr] Remove support for defunct CloudMade, and MyTopo mapping APIs.
 * [jan] Fix fatal error screen for PHP 7 error objects.
 * [jan] Remember the configuration values of split-read database environments.
