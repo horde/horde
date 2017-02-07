@@ -151,6 +151,10 @@ class Horde_Icalendar_Vtimezone extends Horde_Icalendar
         }
 
         // Get the timestamp for the first day of $month.
+        if ($result['end'] && $year > $result['end']) {
+            $year = $result['end'];
+        }
+
         $when = gmmktime($start['hours'], $start['minutes'], $start['seconds'],
                          $month, 1, $year);
         // Get the day of the week for the first day of $month.
