@@ -1289,7 +1289,7 @@ class Horde_Icalendar
                 if (!$b['end']) {
                     return -1;
                 }
-                return $a['end'] - $b['end'];
+                return $this->_getEndDifference($a['end'], $b['end']);
             }
         );
 
@@ -1340,6 +1340,31 @@ class Horde_Icalendar
         }
 
         return ($t < $times['end']);
+    }
+
+    /**
+     * Returns the difference between the datetime indicated by $a and the
+     * datetime indicated by $b after normalizing both values to a unix
+     * timestamp. Used when sorting timezone transitions that may contain
+     * mixed format end times.
+     *
+     * @param mixed  Either a string representing a 4 digit year, or unix
+     *               timestamp.
+     * @param mixed  Either a string representing a 4 digit year, or unix
+     *               timestamp.
+     *
+     * @return boolean  True if $a < $b otherwise false.
+     */
+    protected function _getEndDifference($a, $b)
+    {
+        if (strlen($a) == 4) {
+            $a = @gmmktime(0, 0, 0, 1, 1, $a);
+        }
+        if (strlen($b) == 4) {
+            $b = @gmmktime(0, 0, 0, 1, 1, $b);
+        }
+
+        return $a - $b;
     }
 
     /**
