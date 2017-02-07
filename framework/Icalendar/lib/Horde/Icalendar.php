@@ -1297,8 +1297,18 @@ class Horde_Icalendar
         $t = @gmmktime($time['hour'], $time['minute'], $time['second'],
                        $date['month'], $date['mday'], $date['year']);
 
-        if ($t < $change_times[0]['time']) {
-            return $change_times[0]['from'];
+        // First check for the first change time that isn't expired (from POV of
+        // $time) and is after $t.
+        $n = count($change_times);
+        for ($i = 0, $n = count($change_times); $i < $n -1; $i++) {
+            if (!$this->_checkEndDate($t, $change_times[$i])) {
+                continue;
+            }
+            if ($t < $change_times[$i]['time']) {
+                return $change_times[$i]['from'];
+            } else {
+                break;
+            }
         }
 
         for ($i = 0, $n = count($change_times); $i < $n - 1; $i++) {
