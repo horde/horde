@@ -1336,15 +1336,10 @@ class Horde_Icalendar
         }
         if (strlen($times['end']) == 4) {
             $date = @gmmktime(0, 0, 0, 1, 1, $times['end']);
-            if ($date && $t < $date) {
-                return true;
-            }
-            return false;
+             return ($date && $t < $date);
         }
 
-        if ($t < $times['end']) {
-            return true;
-        }
+        return ($t < $times['end']);
     }
 
     /**
