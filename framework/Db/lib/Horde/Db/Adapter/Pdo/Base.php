@@ -331,9 +331,14 @@ abstract class Horde_Db_Adapter_Pdo_Base extends Horde_Db_Adapter_Base
         if ($binary_cnt > 0) {
             $this->_executePrepared($query, $values, $binary);
 
-            return $idValue
-                ? $idValue
-                : $this->_connection->lastInsertId(null);
+            try {
+                return $idValue
+                    ? $idValue
+                    : $this->_connection->lastInsertId(null);
+            } catch (PDOException $e) {
+                echo $e;
+                throw new Horde_Db_Exception($e);
+            }
         }
 
         return $this->insert($query, $fields, null, $pk, $idValue);
