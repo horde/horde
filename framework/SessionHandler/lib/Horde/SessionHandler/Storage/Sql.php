@@ -142,7 +142,9 @@ class Horde_SessionHandler_Storage_Sql extends Horde_SessionHandler_Storage
             } else {
                 $this->_db->insertBlob(
                     $this->_params['table'],
-                    array_merge(array('session_id' => $id), $values)
+                    array_merge(array('session_id' => $id), $values),
+                    null,
+                    $id
                 );
             }
             $this->_db->commitDbTransaction();
