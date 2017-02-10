@@ -263,6 +263,8 @@ class Horde_Db_Adapter_Pdo_Pgsql extends Horde_Db_Adapter_Pdo_Base
 
     /**
      * Returns the current ID of a table's sequence.
+     *
+     * @todo Remove unused $table parameter.
      */
     protected function _lastInsertId($table, $sequenceName)
     {
