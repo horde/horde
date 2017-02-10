@@ -138,6 +138,10 @@ class Horde_Mime_Headers_Deprecated
         $is_ssl = isset($_SERVER['HTTPS']) &&
                  $_SERVER['HTTPS'] != 'off';
 
+        if ($remote == $remote_addr) {
+            $remote = '[' . $remote . ']';
+        }
+
         $this->_headers->addHeaderOb(new Horde_Mime_Headers_Element_Multiple(
             'Received',
             'from ' . $remote . ' (' . $remote_ident .
