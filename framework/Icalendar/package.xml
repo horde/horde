@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mjr] Fix calculating timezone offsets when parsing vTimezone components.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1247,7 +1247,7 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
    <date>2016-03-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mjr] Fix calculating timezone offsets when parsing vTimezone components.
    </notes>
   </release>
  </changelog>
