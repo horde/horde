@@ -23,7 +23,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2016-03-21</date>
+ <date>2017-02-10</date>
  <version>
   <release>2.1.5</release>
   <api>2.1.0</api>
@@ -52,6 +52,7 @@
       <file name="COPYING" role="doc" />
      </dir> <!-- /doc/Horde/Icalendar -->
     </dir> <!-- /doc/Horde -->
+    <file name="horde.yml" role="doc" />
    </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
@@ -342,6 +343,8 @@
         <file name="AuthorChats.txt" role="test" />
         <file name="Brisbane.ics" role="test" />
         <file name="Brisbane.txt" role="test" />
+        <file name="Chicago2.ics" role="test" />
+        <file name="Chicago2.txt" role="test" />
         <file name="events.ics" role="test" />
         <file name="events.txt" role="test" />
         <file name="exchange.ics" role="test" />
@@ -379,6 +382,7 @@
        <file name="bug14132.ics" role="test" />
        <file name="bug14132_2.ics" role="test" />
        <file name="bug14153.ics" role="test" />
+       <file name="bug14153_2.ics" role="test" />
        <file name="charset1.ics" role="test" />
        <file name="charset2.ics" role="test" />
        <file name="charset3.ics" role="test" />
@@ -485,6 +489,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="horde.yml" name="doc/horde.yml" />
    <install as="COPYING" name="doc/Horde/Icalendar/COPYING" />
    <install as="examples/exchange.ics" name="doc/Horde/Icalendar/examples/exchange.ics" />
    <install as="examples/exdate.ics" name="doc/Horde/Icalendar/examples/exdate.ics" />
@@ -603,6 +608,7 @@
    <install as="Horde/Icalendar/fixtures/bug14132.ics" name="test/Horde/Icalendar/fixtures/bug14132.ics" />
    <install as="Horde/Icalendar/fixtures/bug14132_2.ics" name="test/Horde/Icalendar/fixtures/bug14132_2.ics" />
    <install as="Horde/Icalendar/fixtures/bug14153.ics" name="test/Horde/Icalendar/fixtures/bug14153.ics" />
+   <install as="Horde/Icalendar/fixtures/bug14153_2.ics" name="test/Horde/Icalendar/fixtures/bug14153_2.ics" />
    <install as="Horde/Icalendar/fixtures/charset1.ics" name="test/Horde/Icalendar/fixtures/charset1.ics" />
    <install as="Horde/Icalendar/fixtures/charset2.ics" name="test/Horde/Icalendar/fixtures/charset2.ics" />
    <install as="Horde/Icalendar/fixtures/charset3.ics" name="test/Horde/Icalendar/fixtures/charset3.ics" />
@@ -637,6 +643,8 @@
    <install as="Horde/Icalendar/fixtures/vTimezone/AuthorChats.txt" name="test/Horde/Icalendar/fixtures/vTimezone/AuthorChats.txt" />
    <install as="Horde/Icalendar/fixtures/vTimezone/Brisbane.ics" name="test/Horde/Icalendar/fixtures/vTimezone/Brisbane.ics" />
    <install as="Horde/Icalendar/fixtures/vTimezone/Brisbane.txt" name="test/Horde/Icalendar/fixtures/vTimezone/Brisbane.txt" />
+   <install as="Horde/Icalendar/fixtures/vTimezone/Chicago2.ics" name="test/Horde/Icalendar/fixtures/vTimezone/Chicago2.ics" />
+   <install as="Horde/Icalendar/fixtures/vTimezone/Chicago2.txt" name="test/Horde/Icalendar/fixtures/vTimezone/Chicago2.txt" />
    <install as="Horde/Icalendar/fixtures/vTimezone/events.ics" name="test/Horde/Icalendar/fixtures/vTimezone/events.ics" />
    <install as="Horde/Icalendar/fixtures/vTimezone/events.txt" name="test/Horde/Icalendar/fixtures/vTimezone/events.txt" />
    <install as="Horde/Icalendar/fixtures/vTimezone/exchange.ics" name="test/Horde/Icalendar/fixtures/vTimezone/exchange.ics" />
@@ -1244,7 +1252,7 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-03-21</date>
+   <date>2017-02-10</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Fix calculating timezone offsets when parsing vTimezone components.
