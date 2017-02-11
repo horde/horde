@@ -25,7 +25,7 @@
  </developer>
  <date>2017-02-11</date>
  <version>
-  <release>2.1.6</release>
+  <release>2.1.7</release>
   <api>2.1.0</api>
  </version>
  <stability>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Fix PHP 5.3 compatibility (Remi Collet &lt;fedora@famillecollet.com&gt;).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1277,6 +1277,19 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Fix PHP 5.3 compatibility (Remi Collet &lt;fedora@famillecollet.com&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.7</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2017-02-11</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
