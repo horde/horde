@@ -23,7 +23,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2017-02-10</date>
+ <date>2017-02-11</date>
  <version>
   <release>2.1.6</release>
   <api>2.1.0</api>
@@ -365,6 +365,10 @@
         <file name="ProjectCalendar.txt" role="test" />
         <file name="rfc2445.ics" role="test" />
         <file name="rfc2445.txt" role="test" />
+        <file name="sao_paulo_dst.ics" role="test" />
+        <file name="sao_paulo_dst.txt" role="test" />
+        <file name="sao_paulo_st.ics" role="test" />
+        <file name="sao_paulo_st.txt" role="test" />
         <file name="SpanishHolidays.ics" role="test" />
         <file name="SpanishHolidays.txt" role="test" />
         <file name="test.ics" role="test" />
@@ -665,6 +669,10 @@
    <install as="Horde/Icalendar/fixtures/vTimezone/ProjectCalendar.txt" name="test/Horde/Icalendar/fixtures/vTimezone/ProjectCalendar.txt" />
    <install as="Horde/Icalendar/fixtures/vTimezone/rfc2445.ics" name="test/Horde/Icalendar/fixtures/vTimezone/rfc2445.ics" />
    <install as="Horde/Icalendar/fixtures/vTimezone/rfc2445.txt" name="test/Horde/Icalendar/fixtures/vTimezone/rfc2445.txt" />
+   <install as="Horde/Icalendar/fixtures/vTimezone/sao_paulo_dst.ics" name="test/Horde/Icalendar/fixtures/vTimezone/sao_paulo_dst.ics" />
+   <install as="Horde/Icalendar/fixtures/vTimezone/sao_paulo_dst.txt" name="test/Horde/Icalendar/fixtures/vTimezone/sao_paulo_dst.txt" />
+   <install as="Horde/Icalendar/fixtures/vTimezone/sao_paulo_st.ics" name="test/Horde/Icalendar/fixtures/vTimezone/sao_paulo_st.ics" />
+   <install as="Horde/Icalendar/fixtures/vTimezone/sao_paulo_st.txt" name="test/Horde/Icalendar/fixtures/vTimezone/sao_paulo_st.txt" />
    <install as="Horde/Icalendar/fixtures/vTimezone/SpanishHolidays.ics" name="test/Horde/Icalendar/fixtures/vTimezone/SpanishHolidays.ics" />
    <install as="Horde/Icalendar/fixtures/vTimezone/SpanishHolidays.txt" name="test/Horde/Icalendar/fixtures/vTimezone/SpanishHolidays.txt" />
    <install as="Horde/Icalendar/fixtures/vTimezone/test.ics" name="test/Horde/Icalendar/fixtures/vTimezone/test.ics" />
@@ -1265,7 +1273,7 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-02-10</date>
+   <date>2017-02-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Fix PHP 5.3 compatibility (Remi Collet &lt;fedora@famillecollet.com&gt;).
