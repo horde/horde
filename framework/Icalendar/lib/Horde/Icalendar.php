@@ -1289,7 +1289,7 @@ class Horde_Icalendar
                 if (!$b['end']) {
                     return -1;
                 }
-                return $this->_getEndDifference($a['end'], $b['end']);
+                return Horde_Icalendar::_getEndDifference($a['end'], $b['end']);
             }
         );
 
@@ -1365,7 +1365,7 @@ class Horde_Icalendar
      *
      * @return boolean  True if $a < $b otherwise false.
      */
-    protected function _getEndDifference($a, $b)
+    public static function _getEndDifference($a, $b)
     {
         if (strlen($a) == 4) {
             $a = @gmmktime(0, 0, 0, 1, 1, $a);
