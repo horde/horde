@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix MongoDB backend with mongodb extension.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -702,7 +702,7 @@ Initial packaging.
    <date>2016-08-31</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix MongoDB backend with mongodb extension.
    </notes>
   </release>
  </changelog>

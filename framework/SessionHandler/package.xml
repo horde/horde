@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Fix MongoDB backend with mongodb extension.
 * [jan] Fix returning session ID when using a PostgreSQL backend.
  </notes>
  <contents>
@@ -634,6 +635,7 @@ Initial release as a PEAR package
    <date>2016-09-01</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Fix MongoDB backend with mongodb extension.
 * [jan] Fix returning session ID when using a PostgreSQL backend.
    </notes>
   </release>

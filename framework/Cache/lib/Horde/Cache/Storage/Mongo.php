@@ -100,7 +100,7 @@ class Horde_Cache_Storage_Mongo extends Horde_Cache_Storage_Base
         }
 
         try {
-            $result = $this->_db->findOne($query, array(self::DATA));
+            $result = $this->_db->findOne($query, array(self::DATA => true));
         } catch (MongoException $e) {
             $this->_logger->log($e->getMessage(), 'DEBUG');
             return false;
