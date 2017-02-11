@@ -36,7 +36,7 @@ class PHPUnit_Framework_TestFailure
      * @param PHPUnit_Framework_Test $failedTest
      * @param Exception              $thrownException
      */
-    public function __construct(PHPUnit_Framework_Test $failedTest, $thrownException)
+    public function __construct(PHPUnit_Framework_Test $failedTest, Exception $thrownException)
     {
         if ($failedTest instanceof PHPUnit_Framework_SelfDescribing) {
             $this->testName = $failedTest->toString();

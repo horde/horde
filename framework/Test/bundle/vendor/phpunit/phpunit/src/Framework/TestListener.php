@@ -11,7 +11,7 @@
 /**
  * A Listener for test progress.
  *
- * @since      Interface available since Release 2.0.0
+ * @since Interface available since Release 2.0.0
  */
 interface PHPUnit_Framework_TestListener
 {
@@ -22,7 +22,7 @@ interface PHPUnit_Framework_TestListener
      * @param Exception              $e
      * @param float                  $time
      */
-    public function addError(PHPUnit_Framework_Test $test, $e, $time);
+    public function addError(PHPUnit_Framework_Test $test, Exception $e, $time);
 
     /**
      * A failure occurred.
