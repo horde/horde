@@ -10,7 +10,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-03-23</date>
+ <date>2017-02-11</date>
  <version>
   <release>1.1.0</release>
   <api>1.1.0</api>
@@ -32,6 +32,7 @@
       <file name="COPYING" role="doc" />
      </dir> <!-- /doc/Horde/Timezone -->
     </dir> <!-- /doc/Horde -->
+    <file name="horde.yml" role="doc" />
    </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
@@ -115,6 +116,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="horde.yml" name="doc/horde.yml" />
    <install as="COPYING" name="doc/Horde/Timezone/COPYING" />
    <install as="Horde/Timezone.php" name="lib/Horde/Timezone.php" />
    <install as="Horde/Timezone/Exception.php" name="lib/Horde/Timezone/Exception.php" />
@@ -324,7 +326,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-03-23</date>
+   <date>2017-02-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix generating TZOFFSETFROM attributes for certain rules.
