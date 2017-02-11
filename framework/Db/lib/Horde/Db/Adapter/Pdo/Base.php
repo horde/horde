@@ -336,7 +336,6 @@ abstract class Horde_Db_Adapter_Pdo_Base extends Horde_Db_Adapter_Base
                     ? $idValue
                     : $this->_connection->lastInsertId(null);
             } catch (PDOException $e) {
-                echo $e;
                 throw new Horde_Db_Exception($e);
             }
         }
