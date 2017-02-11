@@ -1364,6 +1364,9 @@ class Horde_Icalendar
      *               timestamp.
      *
      * @return boolean  True if $a < $b otherwise false.
+     * @todo  This needs to be public/static due to it being called from a
+     *        anonymous function. See PR: 213. This can be removed once we
+     *        no longer support PHP 5.3.
      */
     public static function _getEndDifference($a, $b)
     {
