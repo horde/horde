@@ -16,7 +16,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-07-12</date>
+ <date>2017-02-11</date>
  <version>
   <release>2.6.2</release>
   <api>2.6.0</api>
@@ -27,6 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Update to PHPUnit 4.8.35 and dependencies.
 * [jan] Colorize PHPUnit output.
  </notes>
  <contents>
@@ -71,28 +72,6 @@
       </dir> <!-- /bundle/vendor/doctrine/instantiator -->
      </dir> <!-- /bundle/vendor/doctrine -->
      <dir name="phpdocumentor">
-      <dir name="reflection-common">
-       <dir name="src">
-        <file name="Element.php" role="php" />
-        <file name="File.php" role="php" />
-        <file name="Fqsen.php" role="php" />
-        <file name="Location.php" role="php" />
-        <file name="Project.php" role="php" />
-        <file name="ProjectFactory.php" role="php" />
-       </dir> <!-- /bundle/vendor/phpdocumentor/reflection-common/src -->
-       <dir name="tests">
-        <dir name="common">
-         <file name="bootstrap.php" role="php" />
-        </dir> <!-- /bundle/vendor/phpdocumentor/reflection-common/tests/common -->
-        <dir name="unit">
-         <file name="FqsenTest.php" role="php" />
-        </dir> <!-- /bundle/vendor/phpdocumentor/reflection-common/tests/unit -->
-       </dir> <!-- /bundle/vendor/phpdocumentor/reflection-common/tests -->
-       <file name=".gitignore" role="php" />
-       <file name="LICENSE" role="php" />
-       <file name="phpunit.xml.dist" role="php" />
-       <file name="README.md" role="php" />
-      </dir> <!-- /bundle/vendor/phpdocumentor/reflection-common -->
       <dir name="reflection-docblock">
        <dir name="src">
         <dir name="phpDocumentor">
@@ -137,61 +116,29 @@
        <file name="phpunit.xml.dist" role="php" />
        <file name="README.md" role="php" />
       </dir> <!-- /bundle/vendor/phpdocumentor/reflection-docblock -->
-      <dir name="type-resolver">
-       <dir name="examples">
-        <file name="01-resolving-simple-types.php" role="php" />
-        <file name="02-resolving-classes.php" role="php" />
-        <file name="03-resolving-all-elements.php" role="php" />
-        <file name="04-discovering-the-context-using-class-reflection.php" role="php" />
-        <file name="05-discovering-the-context-using-method-reflection.php" role="php" />
-        <file name="06-discovering-the-context-using-file-contents.php" role="php" />
-        <file name="Classy.php" role="php" />
-       </dir> <!-- /bundle/vendor/phpdocumentor/type-resolver/examples -->
-       <dir name="src">
-        <dir name="Types">
-         <file name="Array_.php" role="php" />
-         <file name="Boolean.php" role="php" />
-         <file name="Callable_.php" role="php" />
-         <file name="Compound.php" role="php" />
-         <file name="Context.php" role="php" />
-         <file name="ContextFactory.php" role="php" />
-         <file name="Float_.php" role="php" />
-         <file name="Integer.php" role="php" />
-         <file name="Mixed.php" role="php" />
-         <file name="Null_.php" role="php" />
-         <file name="Object_.php" role="php" />
-         <file name="Resource.php" role="php" />
-         <file name="Scalar.php" role="php" />
-         <file name="Self_.php" role="php" />
-         <file name="Static_.php" role="php" />
-         <file name="String_.php" role="php" />
-         <file name="This.php" role="php" />
-         <file name="Void_.php" role="php" />
-        </dir> <!-- /bundle/vendor/phpdocumentor/type-resolver/src/Types -->
-        <file name="FqsenResolver.php" role="php" />
-        <file name="Type.php" role="php" />
-        <file name="TypeResolver.php" role="php" />
-       </dir> <!-- /bundle/vendor/phpdocumentor/type-resolver/src -->
-       <dir name="tests">
-        <dir name="unit">
-         <dir name="Types">
-          <file name="ContextFactoryTest.php" role="php" />
-          <file name="ContextTest.php" role="php" />
-         </dir> <!-- /bundle/vendor/phpdocumentor/type-resolver/tests/unit/Types -->
-         <file name="TypeResolverTest.php" role="php" />
-        </dir> <!-- /bundle/vendor/phpdocumentor/type-resolver/tests/unit -->
-       </dir> <!-- /bundle/vendor/phpdocumentor/type-resolver/tests -->
-       <file name=".gitignore" role="php" />
-       <file name=".scrutinizer.yml" role="php" />
-       <file name=".travis.yml" role="php" />
-       <file name="LICENSE" role="php" />
-       <file name="phpmd.xml.dist" role="php" />
-       <file name="phpunit.xml.dist" role="php" />
-       <file name="README.md" role="php" />
-      </dir> <!-- /bundle/vendor/phpdocumentor/type-resolver -->
-     </dir> <!-- /bundle/vendor/phpdocumentor -->
+      </dir> <!-- /bundle/vendor/phpdocumentor -->
      <dir name="phpspec">
       <dir name="prophecy">
+       <dir name="fixtures">
+        <file name="EmptyClass.php" role="php" />
+        <file name="EmptyInterface.php" role="php" />
+        <file name="FinalClass.php" role="php" />
+        <file name="ModifierInterface.php" role="php" />
+        <file name="Named.php" role="php" />
+        <file name="OptionalDepsClass.php" role="php" />
+        <file name="SpecialMethods.php" role="php" />
+        <file name="WithArguments.php" role="php" />
+        <file name="WithCallableArgument.php" role="php" />
+        <file name="WithFinalMethod.php" role="php" />
+        <file name="WithFinalVirtuallyPrivateMethod.php" role="php" />
+        <file name="WithProtectedAbstractMethod.php" role="php" />
+        <file name="WithReferences.php" role="php" />
+        <file name="WithReturnTypehints.php" role="php" />
+        <file name="WithStaticMethod.php" role="php" />
+        <file name="WithTypehintedVariadicArgument.php" role="php" />
+        <file name="WithVariadicArgument.php" role="php" />
+        <file name="WithVirtuallyPrivateMethod.php" role="php" />
+       </dir> <!-- /bundle/vendor/phpspec/prophecy/fixtures -->
        <dir name="spec">
         <dir name="Prophecy">
          <dir name="Argument">
@@ -241,7 +188,6 @@
            </dir> <!-- /bundle/vendor/phpspec/prophecy/spec/Prophecy/Doubler/Generator/Node -->
            <file name="ClassCodeGeneratorSpec.php" role="php" />
            <file name="ClassCreatorSpec.php" role="php" />
-           <file name="ClassMirrorSpec.php" role="php" />
           </dir> <!-- /bundle/vendor/phpspec/prophecy/spec/Prophecy/Doubler/Generator -->
           <file name="DoublerSpec.php" role="php" />
           <file name="LazyDoubleSpec.php" role="php" />
@@ -648,18 +594,6 @@
        <file name="README.md" role="php" />
       </dir> <!-- /bundle/vendor/phpunit/php-token-stream -->
       <dir name="phpunit">
-       <dir name="build">
-        <dir name="tools">
-         <file name="composer" role="php" />
-         <file name="phpab" role="php" />
-        </dir> <!-- /bundle/vendor/phpunit/phpunit/build/tools -->
-        <file name="binary-phar-autoload.php.in" role="php" />
-        <file name="ca.pem" role="php" />
-        <file name="library-phar-autoload.php.in" role="php" />
-        <file name="phar-manifest.php" role="php" />
-        <file name="phar-version.php" role="php" />
-        <file name="travis-ci-fail.xml" role="php" />
-       </dir> <!-- /bundle/vendor/phpunit/phpunit/build -->
        <dir name="src">
         <dir name="Extensions">
          <file name="GroupTestSuite.php" role="php" />
@@ -669,6 +603,12 @@
          <file name="TestDecorator.php" role="php" />
          <file name="TicketListener.php" role="php" />
         </dir> <!-- /bundle/vendor/phpunit/phpunit/src/Extensions -->
+        <dir name="ForwardCompatibility">
+         <file name="Assert.php" role="php" />
+         <file name="BaseTestListener.php" role="php" />
+         <file name="TestCase.php" role="php" />
+         <file name="TestListener.php" role="php" />
+        </dir> <!-- /bundle/vendor/phpunit/phpunit/src/ForwardCompatibility -->
         <dir name="Framework">
          <dir name="Assert">
           <file name="Functions.php" role="php" />
@@ -1060,7 +1000,6 @@
        <file name=".travis.yml" role="php" />
        <file name="build.xml" role="php" />
        <file name="LICENSE" role="php" />
-       <file name="phpunit.xml.dist" role="php" />
        <file name="README.md" role="php" />
       </dir> <!-- /bundle/vendor/sebastian/environment -->
       <dir name="exporter">
@@ -1121,6 +1060,9 @@
      </dir> <!-- /bundle/vendor/sebastian -->
      <dir name="symfony">
       <dir name="yaml">
+       <dir name="Command">
+        <file name="LintCommand.php" role="php" />
+       </dir> <!-- /bundle/vendor/symfony/yaml/Command -->
        <dir name="Exception">
         <file name="DumpException.php" role="php" />
         <file name="ExceptionInterface.php" role="php" />
@@ -1128,6 +1070,9 @@
         <file name="RuntimeException.php" role="php" />
        </dir> <!-- /bundle/vendor/symfony/yaml/Exception -->
        <dir name="Tests">
+        <dir name="Command">
+         <file name="LintCommandTest.php" role="php" />
+        </dir> <!-- /bundle/vendor/symfony/yaml/Tests/Command -->
         <dir name="Fixtures">
          <file name="arrow.gif" role="php" />
          <file name="embededPhp.yml" role="php" />
@@ -1171,23 +1116,6 @@
        <file name="Yaml.php" role="php" />
       </dir> <!-- /bundle/vendor/symfony/yaml -->
      </dir> <!-- /bundle/vendor/symfony -->
-     <dir name="webmozart">
-      <dir name="assert">
-       <dir name="src">
-        <file name="Assert.php" role="php" />
-       </dir> <!-- /bundle/vendor/webmozart/assert/src -->
-       <dir name="tests">
-        <file name="AssertTest.php" role="php" />
-       </dir> <!-- /bundle/vendor/webmozart/assert/tests -->
-       <file name=".gitignore" role="php" />
-       <file name=".styleci.yml" role="php" />
-       <file name=".travis.yml" role="php" />
-       <file name="CHANGELOG.md" role="php" />
-       <file name="LICENSE" role="php" />
-       <file name="phpunit.xml.dist" role="php" />
-       <file name="README.md" role="php" />
-      </dir> <!-- /bundle/vendor/webmozart/assert -->
-     </dir> <!-- /bundle/vendor/webmozart -->
      <file name="autoload.php" role="php" />
     </dir> <!-- /bundle/vendor -->
    </dir> <!-- /bundle -->
@@ -1204,6 +1132,7 @@
       <file name="COPYING" role="doc" />
      </dir> <!-- /doc/Horde/Test -->
     </dir> <!-- /doc/Horde -->
+    <file name="horde.yml" role="doc" />
    </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
@@ -1322,18 +1251,6 @@
    <install as="Horde/Test/vendor/doctrine/instantiator/src/Doctrine/Instantiator/Exception/ExceptionInterface.php" name="bundle/vendor/doctrine/instantiator/src/Doctrine/Instantiator/Exception/ExceptionInterface.php" />
    <install as="Horde/Test/vendor/doctrine/instantiator/src/Doctrine/Instantiator/Exception/InvalidArgumentException.php" name="bundle/vendor/doctrine/instantiator/src/Doctrine/Instantiator/Exception/InvalidArgumentException.php" />
    <install as="Horde/Test/vendor/doctrine/instantiator/src/Doctrine/Instantiator/Exception/UnexpectedValueException.php" name="bundle/vendor/doctrine/instantiator/src/Doctrine/Instantiator/Exception/UnexpectedValueException.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/reflection-common/.gitignore" name="bundle/vendor/phpdocumentor/reflection-common/.gitignore" />
-   <install as="Horde/Test/vendor/phpdocumentor/reflection-common/LICENSE" name="bundle/vendor/phpdocumentor/reflection-common/LICENSE" />
-   <install as="Horde/Test/vendor/phpdocumentor/reflection-common/phpunit.xml.dist" name="bundle/vendor/phpdocumentor/reflection-common/phpunit.xml.dist" />
-   <install as="Horde/Test/vendor/phpdocumentor/reflection-common/README.md" name="bundle/vendor/phpdocumentor/reflection-common/README.md" />
-   <install as="Horde/Test/vendor/phpdocumentor/reflection-common/src/Element.php" name="bundle/vendor/phpdocumentor/reflection-common/src/Element.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/reflection-common/src/File.php" name="bundle/vendor/phpdocumentor/reflection-common/src/File.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/reflection-common/src/Fqsen.php" name="bundle/vendor/phpdocumentor/reflection-common/src/Fqsen.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/reflection-common/src/Location.php" name="bundle/vendor/phpdocumentor/reflection-common/src/Location.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/reflection-common/src/Project.php" name="bundle/vendor/phpdocumentor/reflection-common/src/Project.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/reflection-common/src/ProjectFactory.php" name="bundle/vendor/phpdocumentor/reflection-common/src/ProjectFactory.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/reflection-common/tests/common/bootstrap.php" name="bundle/vendor/phpdocumentor/reflection-common/tests/common/bootstrap.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/reflection-common/tests/unit/FqsenTest.php" name="bundle/vendor/phpdocumentor/reflection-common/tests/unit/FqsenTest.php" />
    <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/.gitignore" name="bundle/vendor/phpdocumentor/reflection-docblock/.gitignore" />
    <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/.travis.yml" name="bundle/vendor/phpdocumentor/reflection-docblock/.travis.yml" />
    <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/LICENSE" name="bundle/vendor/phpdocumentor/reflection-docblock/LICENSE" />
@@ -1364,50 +1281,30 @@
    <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/VarTag.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/VarTag.php" />
    <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/VersionTag.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/VersionTag.php" />
    <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Type/Collection.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Type/Collection.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/type-resolver/.gitignore" name="bundle/vendor/phpdocumentor/type-resolver/.gitignore" />
-   <install as="Horde/Test/vendor/phpdocumentor/type-resolver/.scrutinizer.yml" name="bundle/vendor/phpdocumentor/type-resolver/.scrutinizer.yml" />
-   <install as="Horde/Test/vendor/phpdocumentor/type-resolver/.travis.yml" name="bundle/vendor/phpdocumentor/type-resolver/.travis.yml" />
-   <install as="Horde/Test/vendor/phpdocumentor/type-resolver/LICENSE" name="bundle/vendor/phpdocumentor/type-resolver/LICENSE" />
-   <install as="Horde/Test/vendor/phpdocumentor/type-resolver/phpmd.xml.dist" name="bundle/vendor/phpdocumentor/type-resolver/phpmd.xml.dist" />
-   <install as="Horde/Test/vendor/phpdocumentor/type-resolver/phpunit.xml.dist" name="bundle/vendor/phpdocumentor/type-resolver/phpunit.xml.dist" />
-   <install as="Horde/Test/vendor/phpdocumentor/type-resolver/README.md" name="bundle/vendor/phpdocumentor/type-resolver/README.md" />
-   <install as="Horde/Test/vendor/phpdocumentor/type-resolver/examples/01-resolving-simple-types.php" name="bundle/vendor/phpdocumentor/type-resolver/examples/01-resolving-simple-types.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/type-resolver/examples/02-resolving-classes.php" name="bundle/vendor/phpdocumentor/type-resolver/examples/02-resolving-classes.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/type-resolver/examples/03-resolving-all-elements.php" name="bundle/vendor/phpdocumentor/type-resolver/examples/03-resolving-all-elements.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/type-resolver/examples/04-discovering-the-context-using-class-reflection.php" name="bundle/vendor/phpdocumentor/type-resolver/examples/04-discovering-the-context-using-class-reflection.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/type-resolver/examples/05-discovering-the-context-using-method-reflection.php" name="bundle/vendor/phpdocumentor/type-resolver/examples/05-discovering-the-context-using-method-reflection.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/type-resolver/examples/06-discovering-the-context-using-file-contents.php" name="bundle/vendor/phpdocumentor/type-resolver/examples/06-discovering-the-context-using-file-contents.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/type-resolver/examples/Classy.php" name="bundle/vendor/phpdocumentor/type-resolver/examples/Classy.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/type-resolver/src/FqsenResolver.php" name="bundle/vendor/phpdocumentor/type-resolver/src/FqsenResolver.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/type-resolver/src/Type.php" name="bundle/vendor/phpdocumentor/type-resolver/src/Type.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/type-resolver/src/TypeResolver.php" name="bundle/vendor/phpdocumentor/type-resolver/src/TypeResolver.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/type-resolver/src/Types/Array_.php" name="bundle/vendor/phpdocumentor/type-resolver/src/Types/Array_.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/type-resolver/src/Types/Boolean.php" name="bundle/vendor/phpdocumentor/type-resolver/src/Types/Boolean.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/type-resolver/src/Types/Callable_.php" name="bundle/vendor/phpdocumentor/type-resolver/src/Types/Callable_.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/type-resolver/src/Types/Compound.php" name="bundle/vendor/phpdocumentor/type-resolver/src/Types/Compound.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/type-resolver/src/Types/Context.php" name="bundle/vendor/phpdocumentor/type-resolver/src/Types/Context.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/type-resolver/src/Types/ContextFactory.php" name="bundle/vendor/phpdocumentor/type-resolver/src/Types/ContextFactory.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/type-resolver/src/Types/Float_.php" name="bundle/vendor/phpdocumentor/type-resolver/src/Types/Float_.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/type-resolver/src/Types/Integer.php" name="bundle/vendor/phpdocumentor/type-resolver/src/Types/Integer.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/type-resolver/src/Types/Mixed.php" name="bundle/vendor/phpdocumentor/type-resolver/src/Types/Mixed.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/type-resolver/src/Types/Null_.php" name="bundle/vendor/phpdocumentor/type-resolver/src/Types/Null_.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/type-resolver/src/Types/Object_.php" name="bundle/vendor/phpdocumentor/type-resolver/src/Types/Object_.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/type-resolver/src/Types/Resource.php" name="bundle/vendor/phpdocumentor/type-resolver/src/Types/Resource.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/type-resolver/src/Types/Scalar.php" name="bundle/vendor/phpdocumentor/type-resolver/src/Types/Scalar.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/type-resolver/src/Types/Self_.php" name="bundle/vendor/phpdocumentor/type-resolver/src/Types/Self_.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/type-resolver/src/Types/Static_.php" name="bundle/vendor/phpdocumentor/type-resolver/src/Types/Static_.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/type-resolver/src/Types/String_.php" name="bundle/vendor/phpdocumentor/type-resolver/src/Types/String_.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/type-resolver/src/Types/This.php" name="bundle/vendor/phpdocumentor/type-resolver/src/Types/This.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/type-resolver/src/Types/Void_.php" name="bundle/vendor/phpdocumentor/type-resolver/src/Types/Void_.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/type-resolver/tests/unit/TypeResolverTest.php" name="bundle/vendor/phpdocumentor/type-resolver/tests/unit/TypeResolverTest.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/type-resolver/tests/unit/Types/ContextFactoryTest.php" name="bundle/vendor/phpdocumentor/type-resolver/tests/unit/Types/ContextFactoryTest.php" />
-   <install as="Horde/Test/vendor/phpdocumentor/type-resolver/tests/unit/Types/ContextTest.php" name="bundle/vendor/phpdocumentor/type-resolver/tests/unit/Types/ContextTest.php" />
    <install as="Horde/Test/vendor/phpspec/prophecy/.gitignore" name="bundle/vendor/phpspec/prophecy/.gitignore" />
    <install as="Horde/Test/vendor/phpspec/prophecy/.travis.yml" name="bundle/vendor/phpspec/prophecy/.travis.yml" />
    <install as="Horde/Test/vendor/phpspec/prophecy/CHANGES.md" name="bundle/vendor/phpspec/prophecy/CHANGES.md" />
    <install as="Horde/Test/vendor/phpspec/prophecy/CONTRIBUTING.md" name="bundle/vendor/phpspec/prophecy/CONTRIBUTING.md" />
    <install as="Horde/Test/vendor/phpspec/prophecy/LICENSE" name="bundle/vendor/phpspec/prophecy/LICENSE" />
    <install as="Horde/Test/vendor/phpspec/prophecy/README.md" name="bundle/vendor/phpspec/prophecy/README.md" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/fixtures/EmptyClass.php" name="bundle/vendor/phpspec/prophecy/fixtures/EmptyClass.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/fixtures/EmptyInterface.php" name="bundle/vendor/phpspec/prophecy/fixtures/EmptyInterface.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/fixtures/FinalClass.php" name="bundle/vendor/phpspec/prophecy/fixtures/FinalClass.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/fixtures/ModifierInterface.php" name="bundle/vendor/phpspec/prophecy/fixtures/ModifierInterface.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/fixtures/Named.php" name="bundle/vendor/phpspec/prophecy/fixtures/Named.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/fixtures/OptionalDepsClass.php" name="bundle/vendor/phpspec/prophecy/fixtures/OptionalDepsClass.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/fixtures/SpecialMethods.php" name="bundle/vendor/phpspec/prophecy/fixtures/SpecialMethods.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/fixtures/WithArguments.php" name="bundle/vendor/phpspec/prophecy/fixtures/WithArguments.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/fixtures/WithCallableArgument.php" name="bundle/vendor/phpspec/prophecy/fixtures/WithCallableArgument.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/fixtures/WithFinalMethod.php" name="bundle/vendor/phpspec/prophecy/fixtures/WithFinalMethod.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/fixtures/WithFinalVirtuallyPrivateMethod.php" name="bundle/vendor/phpspec/prophecy/fixtures/WithFinalVirtuallyPrivateMethod.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/fixtures/WithProtectedAbstractMethod.php" name="bundle/vendor/phpspec/prophecy/fixtures/WithProtectedAbstractMethod.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/fixtures/WithReferences.php" name="bundle/vendor/phpspec/prophecy/fixtures/WithReferences.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/fixtures/WithReturnTypehints.php" name="bundle/vendor/phpspec/prophecy/fixtures/WithReturnTypehints.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/fixtures/WithStaticMethod.php" name="bundle/vendor/phpspec/prophecy/fixtures/WithStaticMethod.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/fixtures/WithTypehintedVariadicArgument.php" name="bundle/vendor/phpspec/prophecy/fixtures/WithTypehintedVariadicArgument.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/fixtures/WithVariadicArgument.php" name="bundle/vendor/phpspec/prophecy/fixtures/WithVariadicArgument.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/fixtures/WithVirtuallyPrivateMethod.php" name="bundle/vendor/phpspec/prophecy/fixtures/WithVirtuallyPrivateMethod.php" />
    <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/ArgumentSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/ArgumentSpec.php" />
    <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/ProphetSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/ProphetSpec.php" />
    <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Argument/ArgumentsWildcardSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Argument/ArgumentsWildcardSpec.php" />
@@ -1443,7 +1340,6 @@
    <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Doubler/ClassPatch/TraversablePatchSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Doubler/ClassPatch/TraversablePatchSpec.php" />
    <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Doubler/Generator/ClassCodeGeneratorSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Doubler/Generator/ClassCodeGeneratorSpec.php" />
    <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Doubler/Generator/ClassCreatorSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Doubler/Generator/ClassCreatorSpec.php" />
-   <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Doubler/Generator/ClassMirrorSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Doubler/Generator/ClassMirrorSpec.php" />
    <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Doubler/Generator/Node/ArgumentNodeSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Doubler/Generator/Node/ArgumentNodeSpec.php" />
    <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Doubler/Generator/Node/ClassNodeSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Doubler/Generator/Node/ClassNodeSpec.php" />
    <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Doubler/Generator/Node/MethodNodeSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Doubler/Generator/Node/MethodNodeSpec.php" />
@@ -1729,14 +1625,6 @@
    <install as="Horde/Test/vendor/phpunit/phpunit/phpunit.xml" name="bundle/vendor/phpunit/phpunit/phpunit.xml" />
    <install as="Horde/Test/vendor/phpunit/phpunit/phpunit.xsd" name="bundle/vendor/phpunit/phpunit/phpunit.xsd" />
    <install as="Horde/Test/vendor/phpunit/phpunit/README.md" name="bundle/vendor/phpunit/phpunit/README.md" />
-   <install as="Horde/Test/vendor/phpunit/phpunit/build/binary-phar-autoload.php.in" name="bundle/vendor/phpunit/phpunit/build/binary-phar-autoload.php.in" />
-   <install as="Horde/Test/vendor/phpunit/phpunit/build/ca.pem" name="bundle/vendor/phpunit/phpunit/build/ca.pem" />
-   <install as="Horde/Test/vendor/phpunit/phpunit/build/library-phar-autoload.php.in" name="bundle/vendor/phpunit/phpunit/build/library-phar-autoload.php.in" />
-   <install as="Horde/Test/vendor/phpunit/phpunit/build/phar-manifest.php" name="bundle/vendor/phpunit/phpunit/build/phar-manifest.php" />
-   <install as="Horde/Test/vendor/phpunit/phpunit/build/phar-version.php" name="bundle/vendor/phpunit/phpunit/build/phar-version.php" />
-   <install as="Horde/Test/vendor/phpunit/phpunit/build/travis-ci-fail.xml" name="bundle/vendor/phpunit/phpunit/build/travis-ci-fail.xml" />
-   <install as="Horde/Test/vendor/phpunit/phpunit/build/tools/composer" name="bundle/vendor/phpunit/phpunit/build/tools/composer" />
-   <install as="Horde/Test/vendor/phpunit/phpunit/build/tools/phpab" name="bundle/vendor/phpunit/phpunit/build/tools/phpab" />
    <install as="Horde/Test/vendor/phpunit/phpunit/src/Exception.php" name="bundle/vendor/phpunit/phpunit/src/Exception.php" />
    <install as="Horde/Test/vendor/phpunit/phpunit/src/Extensions/GroupTestSuite.php" name="bundle/vendor/phpunit/phpunit/src/Extensions/GroupTestSuite.php" />
    <install as="Horde/Test/vendor/phpunit/phpunit/src/Extensions/PhptTestCase.php" name="bundle/vendor/phpunit/phpunit/src/Extensions/PhptTestCase.php" />
@@ -1744,6 +1632,10 @@
    <install as="Horde/Test/vendor/phpunit/phpunit/src/Extensions/RepeatedTest.php" name="bundle/vendor/phpunit/phpunit/src/Extensions/RepeatedTest.php" />
    <install as="Horde/Test/vendor/phpunit/phpunit/src/Extensions/TestDecorator.php" name="bundle/vendor/phpunit/phpunit/src/Extensions/TestDecorator.php" />
    <install as="Horde/Test/vendor/phpunit/phpunit/src/Extensions/TicketListener.php" name="bundle/vendor/phpunit/phpunit/src/Extensions/TicketListener.php" />
+   <install as="Horde/Test/vendor/phpunit/phpunit/src/ForwardCompatibility/Assert.php" name="bundle/vendor/phpunit/phpunit/src/ForwardCompatibility/Assert.php" />
+   <install as="Horde/Test/vendor/phpunit/phpunit/src/ForwardCompatibility/BaseTestListener.php" name="bundle/vendor/phpunit/phpunit/src/ForwardCompatibility/BaseTestListener.php" />
+   <install as="Horde/Test/vendor/phpunit/phpunit/src/ForwardCompatibility/TestCase.php" name="bundle/vendor/phpunit/phpunit/src/ForwardCompatibility/TestCase.php" />
+   <install as="Horde/Test/vendor/phpunit/phpunit/src/ForwardCompatibility/TestListener.php" name="bundle/vendor/phpunit/phpunit/src/ForwardCompatibility/TestListener.php" />
    <install as="Horde/Test/vendor/phpunit/phpunit/src/Framework/Assert.php" name="bundle/vendor/phpunit/phpunit/src/Framework/Assert.php" />
    <install as="Horde/Test/vendor/phpunit/phpunit/src/Framework/AssertionFailedError.php" name="bundle/vendor/phpunit/phpunit/src/Framework/AssertionFailedError.php" />
    <install as="Horde/Test/vendor/phpunit/phpunit/src/Framework/BaseTestListener.php" name="bundle/vendor/phpunit/phpunit/src/Framework/BaseTestListener.php" />
@@ -2012,7 +1904,6 @@
    <install as="Horde/Test/vendor/sebastian/environment/.travis.yml" name="bundle/vendor/sebastian/environment/.travis.yml" />
    <install as="Horde/Test/vendor/sebastian/environment/build.xml" name="bundle/vendor/sebastian/environment/build.xml" />
    <install as="Horde/Test/vendor/sebastian/environment/LICENSE" name="bundle/vendor/sebastian/environment/LICENSE" />
-   <install as="Horde/Test/vendor/sebastian/environment/phpunit.xml.dist" name="bundle/vendor/sebastian/environment/phpunit.xml.dist" />
    <install as="Horde/Test/vendor/sebastian/environment/README.md" name="bundle/vendor/sebastian/environment/README.md" />
    <install as="Horde/Test/vendor/sebastian/environment/src/Console.php" name="bundle/vendor/sebastian/environment/src/Console.php" />
    <install as="Horde/Test/vendor/sebastian/environment/src/Runtime.php" name="bundle/vendor/sebastian/environment/src/Runtime.php" />
@@ -2064,6 +1955,7 @@
    <install as="Horde/Test/vendor/symfony/yaml/README.md" name="bundle/vendor/symfony/yaml/README.md" />
    <install as="Horde/Test/vendor/symfony/yaml/Unescaper.php" name="bundle/vendor/symfony/yaml/Unescaper.php" />
    <install as="Horde/Test/vendor/symfony/yaml/Yaml.php" name="bundle/vendor/symfony/yaml/Yaml.php" />
+   <install as="Horde/Test/vendor/symfony/yaml/Command/LintCommand.php" name="bundle/vendor/symfony/yaml/Command/LintCommand.php" />
    <install as="Horde/Test/vendor/symfony/yaml/Exception/DumpException.php" name="bundle/vendor/symfony/yaml/Exception/DumpException.php" />
    <install as="Horde/Test/vendor/symfony/yaml/Exception/ExceptionInterface.php" name="bundle/vendor/symfony/yaml/Exception/ExceptionInterface.php" />
    <install as="Horde/Test/vendor/symfony/yaml/Exception/ParseException.php" name="bundle/vendor/symfony/yaml/Exception/ParseException.php" />
@@ -2073,6 +1965,7 @@
    <install as="Horde/Test/vendor/symfony/yaml/Tests/ParseExceptionTest.php" name="bundle/vendor/symfony/yaml/Tests/ParseExceptionTest.php" />
    <install as="Horde/Test/vendor/symfony/yaml/Tests/ParserTest.php" name="bundle/vendor/symfony/yaml/Tests/ParserTest.php" />
    <install as="Horde/Test/vendor/symfony/yaml/Tests/YamlTest.php" name="bundle/vendor/symfony/yaml/Tests/YamlTest.php" />
+   <install as="Horde/Test/vendor/symfony/yaml/Tests/Command/LintCommandTest.php" name="bundle/vendor/symfony/yaml/Tests/Command/LintCommandTest.php" />
    <install as="Horde/Test/vendor/symfony/yaml/Tests/Fixtures/arrow.gif" name="bundle/vendor/symfony/yaml/Tests/Fixtures/arrow.gif" />
    <install as="Horde/Test/vendor/symfony/yaml/Tests/Fixtures/embededPhp.yml" name="bundle/vendor/symfony/yaml/Tests/Fixtures/embededPhp.yml" />
    <install as="Horde/Test/vendor/symfony/yaml/Tests/Fixtures/escapedCharacters.yml" name="bundle/vendor/symfony/yaml/Tests/Fixtures/escapedCharacters.yml" />
@@ -2095,15 +1988,7 @@
    <install as="Horde/Test/vendor/symfony/yaml/Tests/Fixtures/YtsNullsAndEmpties.yml" name="bundle/vendor/symfony/yaml/Tests/Fixtures/YtsNullsAndEmpties.yml" />
    <install as="Horde/Test/vendor/symfony/yaml/Tests/Fixtures/YtsSpecificationExamples.yml" name="bundle/vendor/symfony/yaml/Tests/Fixtures/YtsSpecificationExamples.yml" />
    <install as="Horde/Test/vendor/symfony/yaml/Tests/Fixtures/YtsTypeTransfers.yml" name="bundle/vendor/symfony/yaml/Tests/Fixtures/YtsTypeTransfers.yml" />
-   <install as="Horde/Test/vendor/webmozart/assert/.gitignore" name="bundle/vendor/webmozart/assert/.gitignore" />
-   <install as="Horde/Test/vendor/webmozart/assert/.styleci.yml" name="bundle/vendor/webmozart/assert/.styleci.yml" />
-   <install as="Horde/Test/vendor/webmozart/assert/.travis.yml" name="bundle/vendor/webmozart/assert/.travis.yml" />
-   <install as="Horde/Test/vendor/webmozart/assert/CHANGELOG.md" name="bundle/vendor/webmozart/assert/CHANGELOG.md" />
-   <install as="Horde/Test/vendor/webmozart/assert/LICENSE" name="bundle/vendor/webmozart/assert/LICENSE" />
-   <install as="Horde/Test/vendor/webmozart/assert/phpunit.xml.dist" name="bundle/vendor/webmozart/assert/phpunit.xml.dist" />
-   <install as="Horde/Test/vendor/webmozart/assert/README.md" name="bundle/vendor/webmozart/assert/README.md" />
-   <install as="Horde/Test/vendor/webmozart/assert/src/Assert.php" name="bundle/vendor/webmozart/assert/src/Assert.php" />
-   <install as="Horde/Test/vendor/webmozart/assert/tests/AssertTest.php" name="bundle/vendor/webmozart/assert/tests/AssertTest.php" />
+   <install as="horde.yml" name="doc/horde.yml" />
    <install as="COPYING" name="doc/Horde/Test/COPYING" />
    <install as="template/packagetest/AllTests.php" name="doc/Horde/Test/template/packagetest/AllTests.php" />
    <install as="template/packagetest/bootstrap.php" name="doc/Horde/Test/template/packagetest/bootstrap.php" />
@@ -2645,9 +2530,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-07-12</date>
+   <date>2017-02-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Update to PHPUnit 4.8.35 and dependencies.
 * [jan] Colorize PHPUnit output.
    </notes>
   </release>

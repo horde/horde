@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>luxor</name>
+ <channel>pear.horde.org</channel>
+ <summary>Source code cross referencer</summary>
+ <description>Luxor is a port of LXR (Linux Cross Referencer) to PHP.</description>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2017-01-31</date>
+ <version>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0alpha1</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+ <notes>
+* Initial release.
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <dir name="bin">
+    <file name="luxor-indexer" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+   </dir> <!-- /bin -->
+   <dir name="config">
+    <file name=".htaccess" role="horde" />
+    <file name="backends.php" role="horde" />
+    <file name="conf.xml" role="horde" />
+    <file name="languages.php" role="horde" />
+    <file name="mime_drivers.php" role="horde" />
+   </dir> <!-- /config -->
+   <dir name="docs">
+    <file name="CHANGES" role="doc" />
+    <file name="CREDITS" role="doc" />
+    <file name="INSTALL" role="doc" />
+    <file name="TODO" role="doc" />
+   </dir> <!-- /docs -->
+   <dir name="js">
+    <file name="show_var.js" role="horde" />
+   </dir> <!-- /js -->
+   <dir name="lib">
+    <dir name="Driver">
+     <file name="sql.php" role="horde" />
+    </dir> <!-- /lib/Driver -->
+    <dir name="Files">
+     <file name="plain.php" role="horde" />
+    </dir> <!-- /lib/Files -->
+    <dir name="Lang">
+     <file name="Generic.php" role="horde" />
+    </dir> <!-- /lib/Lang -->
+    <file name=".htaccess" role="horde" />
+    <file name="Application.php" role="horde" />
+    <file name="Driver.php" role="horde" />
+    <file name="Files.php" role="horde" />
+    <file name="Lang.php" role="horde" />
+    <file name="Luxor.php" role="horde" />
+    <file name="SimpleParse.php" role="horde" />
+    <file name="Tagger.php" role="horde" />
+   </dir> <!-- /lib -->
+   <dir name="locale">
+    <dir name="de">
+     <dir name="LC_MESSAGES">
+      <file name="luxor.mo" role="horde" />
+      <file name="luxor.po" role="horde" />
+     </dir> <!-- /locale/de/LC_MESSAGES -->
+    </dir> <!-- /locale/de -->
+    <dir name="es">
+     <dir name="LC_MESSAGES">
+      <file name="luxor.mo" role="horde" />
+      <file name="luxor.po" role="horde" />
+     </dir> <!-- /locale/es/LC_MESSAGES -->
+    </dir> <!-- /locale/es -->
+    <dir name="fi">
+     <dir name="LC_MESSAGES">
+      <file name="luxor.mo" role="horde" />
+      <file name="luxor.po" role="horde" />
+     </dir> <!-- /locale/fi/LC_MESSAGES -->
+    </dir> <!-- /locale/fi -->
+    <dir name="lv">
+     <dir name="LC_MESSAGES">
+      <file name="luxor.mo" role="horde" />
+      <file name="luxor.po" role="horde" />
+     </dir> <!-- /locale/lv/LC_MESSAGES -->
+    </dir> <!-- /locale/lv -->
+    <dir name="ro">
+     <dir name="LC_MESSAGES">
+      <file name="luxor.mo" role="horde" />
+      <file name="luxor.po" role="horde" />
+     </dir> <!-- /locale/ro/LC_MESSAGES -->
+    </dir> <!-- /locale/ro -->
+    <file name=".htaccess" role="horde" />
+    <file name="luxor.pot" role="horde" />
+   </dir> <!-- /locale -->
+   <dir name="scripts">
+    <dir name="sql">
+     <file name="luxor.sql" role="horde" />
+    </dir> <!-- /scripts/sql -->
+    <file name=".htaccess" role="horde" />
+   </dir> <!-- /scripts -->
+   <dir name="templates">
+    <file name=".htaccess" role="horde" />
+    <file name="directory.html.php" role="horde" />
+    <file name="headerbar.inc" role="horde" />
+    <file name="menu.inc" role="horde" />
+    <file name="symbol.html.php" role="horde" />
+   </dir> <!-- /templates -->
+   <dir name="themes">
+    <dir name="default">
+     <dir name="graphics">
+      <file name="favicon.ico" role="horde" />
+      <file name="folder.png" role="horde" />
+      <file name="luxor.png" role="horde" />
+      <file name="parent.png" role="horde" />
+     </dir> <!-- /themes/default/graphics -->
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/default -->
+   </dir> <!-- /themes -->
+   <file name=".htaccess" role="horde" />
+   <file name="COPYING" role="doc" />
+   <file name="index.php" role="horde" />
+   <file name="README" role="doc" />
+   <file name="search.php" role="horde" />
+   <file name="source.php" role="horde" />
+   <file name="symbol.php" role="horde" />
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.3.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.7.0</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install as="luxor/.htaccess" name=".htaccess" />
+   <install as="COPYING" name="COPYING" />
+   <install as="skeleton/index.php" name="index.php" />
+   <install as="README" name="README" />
+   <install as="luxor/search.php" name="search.php" />
+   <install as="luxor/source.php" name="source.php" />
+   <install as="luxor/symbol.php" name="symbol.php" />
+   <install as="luxor-indexer" name="bin/luxor-indexer" />
+   <install as="skeleton/config/.htaccess" name="config/.htaccess" />
+   <install as="luxor/config/backends.php" name="config/backends.php" />
+   <install as="skeleton/config/conf.xml" name="config/conf.xml" />
+   <install as="luxor/config/languages.php" name="config/languages.php" />
+   <install as="luxor/config/mime_drivers.php" name="config/mime_drivers.php" />
+   <install as="CHANGES" name="docs/CHANGES" />
+   <install as="CREDITS" name="docs/CREDITS" />
+   <install as="INSTALL" name="docs/INSTALL" />
+   <install as="TODO" name="docs/TODO" />
+   <install as="luxor/js/show_var.js" name="js/show_var.js" />
+   <install as="skeleton/lib/.htaccess" name="lib/.htaccess" />
+   <install as="skeleton/lib/Application.php" name="lib/Application.php" />
+   <install as="skeleton/lib/Driver.php" name="lib/Driver.php" />
+   <install as="luxor/lib/Files.php" name="lib/Files.php" />
+   <install as="luxor/lib/Lang.php" name="lib/Lang.php" />
+   <install as="luxor/lib/Luxor.php" name="lib/Luxor.php" />
+   <install as="luxor/lib/SimpleParse.php" name="lib/SimpleParse.php" />
+   <install as="luxor/lib/Tagger.php" name="lib/Tagger.php" />
+   <install as="luxor/lib/Driver/sql.php" name="lib/Driver/sql.php" />
+   <install as="luxor/lib/Files/plain.php" name="lib/Files/plain.php" />
+   <install as="luxor/lib/Lang/Generic.php" name="lib/Lang/Generic.php" />
+   <install as="skeleton/locale/.htaccess" name="locale/.htaccess" />
+   <install as="luxor/locale/luxor.pot" name="locale/luxor.pot" />
+   <install as="luxor/locale/de/LC_MESSAGES/luxor.mo" name="locale/de/LC_MESSAGES/luxor.mo" />
+   <install as="luxor/locale/de/LC_MESSAGES/luxor.po" name="locale/de/LC_MESSAGES/luxor.po" />
+   <install as="luxor/locale/es/LC_MESSAGES/luxor.mo" name="locale/es/LC_MESSAGES/luxor.mo" />
+   <install as="luxor/locale/es/LC_MESSAGES/luxor.po" name="locale/es/LC_MESSAGES/luxor.po" />
+   <install as="luxor/locale/fi/LC_MESSAGES/luxor.mo" name="locale/fi/LC_MESSAGES/luxor.mo" />
+   <install as="luxor/locale/fi/LC_MESSAGES/luxor.po" name="locale/fi/LC_MESSAGES/luxor.po" />
+   <install as="luxor/locale/lv/LC_MESSAGES/luxor.mo" name="locale/lv/LC_MESSAGES/luxor.mo" />
+   <install as="luxor/locale/lv/LC_MESSAGES/luxor.po" name="locale/lv/LC_MESSAGES/luxor.po" />
+   <install as="luxor/locale/ro/LC_MESSAGES/luxor.mo" name="locale/ro/LC_MESSAGES/luxor.mo" />
+   <install as="luxor/locale/ro/LC_MESSAGES/luxor.po" name="locale/ro/LC_MESSAGES/luxor.po" />
+   <install as="luxor/scripts/.htaccess" name="scripts/.htaccess" />
+   <install as="luxor/scripts/sql/luxor.sql" name="scripts/sql/luxor.sql" />
+   <install as="skeleton/templates/.htaccess" name="templates/.htaccess" />
+   <install as="luxor/templates/directory.html.php" name="templates/directory.html.php" />
+   <install as="luxor/templates/headerbar.inc" name="templates/headerbar.inc" />
+   <install as="luxor/templates/menu.inc" name="templates/menu.inc" />
+   <install as="luxor/templates/symbol.html.php" name="templates/symbol.html.php" />
+   <install as="skeleton/themes/default/screen.css" name="themes/default/screen.css" />
+   <install as="luxor/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
+   <install as="luxor/themes/default/graphics/folder.png" name="themes/default/graphics/folder.png" />
+   <install as="luxor/themes/default/graphics/luxor.png" name="themes/default/graphics/luxor.png" />
+   <install as="luxor/themes/default/graphics/parent.png" name="themes/default/graphics/parent.png" />
+   </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0alpha1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2017-01-31</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* Initial release.
+   </notes>
+  </release>
+ </changelog>
+</package>

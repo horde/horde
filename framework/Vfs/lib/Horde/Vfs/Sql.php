@@ -207,24 +207,31 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
     {
         /* Don't need to check quota here since it will be checked when
          * writeData() is called. */
-        return $this->writeData($path,
-                                $name,
-                                file_get_contents($tmpFile),
-                                $autocreate);
+        if (!$stream = @fopen($tmpFile, 'rb')) {
+            throw new Horde_Vfs_Exception('Unable to open ' . $tmpFile);
+        }
+
+        $result = $this->writeData(
+            $path, $name, $stream, $autocreate);
+        fclose($stream);
+
+        return $result;
     }
 
     /**
      * Store a file in the VFS from raw data.
      *
-     * @param string $path         The path to store the file in.
-     * @param string $name         The filename to use.
-     * @param string $data         The file data.
-     * @param boolean $autocreate  Automatically create directories?
+     * @param string $path           The path to store the file in.
+     * @param string $name           The filename to use.
+     * @param string|resource $data  The data as a string or stream resource.
+     *                               Resources allowed  @since  2.4.0
+     * @param boolean $autocreate    Automatically create directories?
      *
      * @throws Horde_Vfs_Exception
      */
     public function writeData($path, $name, $data, $autocreate = false)
     {
+        $data = $this->_ensureSeekable($data);
         $this->_checkQuotaWrite('string', $data, $path, $name);
 
         $path = $this->_convertPath($path);

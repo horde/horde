@@ -1,0 +1,9 @@
+---
+id: Lens
+name: Lens
+full: Lens decorating iterator/flyweight library
+description: >
+  A way of wrapping iterators to avoid looping over them multiple times, using a
+  single decorator object (the "lens") instead of creating one decorator for
+  every element.
+list: dev

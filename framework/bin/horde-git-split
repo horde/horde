@@ -59,21 +59,27 @@ $branch_keep = array_merge($branch_keep, $argv);
 $base = dirname(realpath(dirname(__FILE__) . '/../'));
 $package_path = null;
 
-foreach (array('app' => '', 'lib' => 'framework/') as $key => $val) {
+foreach (array('app' => '', 'bundle' => 'bundles/', 'lib' => 'framework/') as $key => $val) {
     $dir = $base . '/' . $val . $package . '/';
-    if (is_dir($dir) && file_exists($dir . 'package.xml')) {
-        switch ($key) {
-        case 'app':
-            $branch_keep = array_merge($branch_keep, $branch_keep_app);
+    if (is_dir($dir) &&
+        (in_array($package, array('ApertureToAnselExportPlugin', 'Dashboard', 'iPhoto2Ansel')) ||
+         file_exists($dir . 'package.xml'))) {
+        if (file_exists($dir . 'package.xml')) {
+            switch ($key) {
+            case 'app':
+            case 'bundle':
+                $branch_keep = array_merge($branch_keep, $branch_keep_app);
+            }
         }
 
         $package_path = $val . $package;
-        $tag_prefix = strtr(($val ? 'horde_' : '') . Horde_String::lower($package), '-', '_') . '-';
+        $tag_prefix = strtr(($val && $key != 'bundle' ? 'horde_' : '') . Horde_String::lower(basename($package)), '-', '_') . '-';
         break;
     }
 }
 if (is_null($package_path)) {
-    exit("Invalid Horde component: " . $package . "\n");
+    fwrite(STDERR, "Invalid Horde component: $package\n");
+    exit(1);
 }
 
 $tmp = empty($options['output'])
@@ -89,6 +95,10 @@ $tmp .= $package;
 print "Package: " . $package . "\n";
 print "Tag prefix: " . $tag_prefix . "\n";
 print "Temporary git directory: " . $tmp . "\n\n";
+if (file_exists($tmp)) {
+    fwrite(STDERR, "$tmp already exists.\n");
+    exit(1);
+}
 
 foreach ($branch_keep as $branch) {
     if (!shell_exec("git --work-tree=\"$base\" branch --list $branch")) {

@@ -1,45 +1,130 @@
-#!/bin/bash
+#!/usr/bin/env php
+<?php
 
-# Setting basics
-set -e
-BASE=$(dirname $(dirname $(dirname $0)))
-if [ -z $(which xpath) ]
-then
-    echo "xpath tool not installed (libxml-xpath-perl)."
-    exit
-fi
+// Setting basics
+require_once 'Horde/Autoloader/Default.php';
+set_error_handler(function() { var_dump(func_get_args()); exit(1); });
+$base = __DIR__ . '/../..';
+$keepBranches = array(
+    'ansel' => 'ANSEL_4_0',
+    'jonah' => 'jonah-share-content',
+    'kronolith' => 'kronolith-mobile',
+    'passwd' => 'passwd_5_1',
+    'Autoloader' => 'h5-autoloader',
+    'Controller' => 'horde_controller2',
+    'Core' => 'horde_core-2.11.x',
+    'Dav' => 'horde_dav-1.1.x',
+    'Db' => 'horde_db_mssql',
+    'Icalendar' => 'H4-Icalendar',
+    'Vfs' => 'H4-Vfs',
+);
 
-# Load configuration
-. "$0.conf"
+// Load configuration
+require __FILE__ . '.conf';
+if (empty($git['token'])) {
+    fwrite(STDERR, "GitHub access not configured.");
+    exit(1);
+}
 
-if [ -z "$GIT_ORGA" ]
-then
-    echo "No configuration file."
-    exit
-fi
-if [ -z "$GIT_TOKEN" ]
-then
-    echo "GitHub access not configured."
-    exit
-fi
+// Initialize GitHub client
+$api = 'https://api.github.com/orgs/' . $git['orga'];
+$client = new Horde_Http_Client(array(
+    'request.username' => $git['account'],
+    'request.password' => $git['token'],
+    'request.authenticationScheme' => Horde_Http::AUTH_BASIC,
+));
 
-# Run through framework libraries.
-FRAMEWORK=$(find "$BASE/framework" \
-                 -maxdepth 1 \
-                 -name [A-Z]\* \
-                 -printf "%P\n"
-         )
+// Get existing repositories
+$url = $api . '/repos';
+$repos = array();
+while ($url) {
+    $response = $client->get($url);
+    foreach (json_decode($response->getBody()) as $repo) {
+        $repos[] = $repo->name;
+    }
+    $url = null;
+    if ($link = $response->getHeader('link')) {
+        $links = explode(', ', $link);
+        foreach ($links as $link) {
+            $link = explode('; ', $link);
+            if ($link[1] == 'rel="next"') {
+                $url = trim($link[0], '<>');
+            }
+        }
+    }
+}
 
-for PACKAGE in $FRAMEWORK
-do
-    "$BASE/framework/bin/horde-git-split" \
-        --component "$PACKAGE" \
-        --output "$WORK_DIR" \
-        --tmpdir "$TMP_DIR" \
-        --noprefix
-    TARGET="$WORK_DIR/$PACKAGE/split"
-    DESCRIPTION=$(xpath -q -e "/package/summary/text()" "$BASE/framework/$PACKAGE/package.xml")
-    echo -n "$DESCRIPTION" > "$TARGET/description"
-    curl -u "$GIT_ACCOUNT:$GIT_TOKEN" "https://api.github.com/orgs/$GIT_ORGA/repos" -d '{"name":"'"$PACKAGE"'","has_issues":false,"has_wiki":false,"homepage":"https://www.horde.org/libraries/Horde_'"$PACKAGE"'","description":"'"$DESCRIPTION"'"}'
-    git -C "$TARGET" push --mirror "git@github.com:$GIT_ORGA/$PACKAGE.git"
-done
+// Run through framework libraries and applications.
+$directories = array_reverse(array_merge(
+    glob($base . '/bundles/[a-z]*', GLOB_ONLYDIR),
+    glob($base . '/[a-z]*', GLOB_ONLYDIR),
+    glob($base . '/[A-Z]*', GLOB_ONLYDIR),
+    glob($base . '/framework/[A-Z]*', GLOB_ONLYDIR)
+));
+foreach ($directories as $dir) {
+    $package = basename($dir);
+    if ($package == 'framework' || $package == 'bundles') {
+        continue;
+    }
+    $localPackage = $finalPackage = $package;
+    $library = false;
+    switch (basename(dirname($dir))) {
+    case 'bundles':
+        $localPackage = 'bundles/' . $localPackage;
+        break;
+    case 'framework':
+        $library = true;
+    }
+    if ($package == 'horde') {
+        $finalPackage = 'base';
+    }
+    if (in_array($finalPackage, $repos)) {
+        echo "$finalPackage exists, skipping.\n";
+        continue;
+    }
+    passthru(
+        $base . '/framework/bin/horde-git-split'
+        . ' --component "' . $localPackage. '"'
+        . ' --output "' . $work_dir . '"'
+        . ' --tmpdir "' . $tmp_dir . '"'
+        . ' --noprefix '
+        . (isset($keepBranches[$package]) ? $keepBranches[$package] : ''),
+        $result
+    );
+    if ($result) {
+        exit($result);
+    }
+    $target = $work_dir . '/' . $package . '/split';
+    $xml = $dir . '/package.xml';
+    if (file_exists($xml)) {
+        $pear = new Horde_Pear_Package_Xml($xml);
+        $description = $pear->getSummary();
+        if ($description == 'TODO') {
+            $description = '';
+        }
+    } else {
+        $description = '';
+    }
+    if ($description) {
+        file_put_contents($target . '/description', $description);
+    }
+    $response = $client->post(
+        $api . '/repos',
+        json_encode(array(
+            'name' => $finalPackage,
+            'has_issues' => false,
+            'has_wiki' => false,
+            'homepage' => 'https://www.horde.org/' . ($library ? 'libraries/Horde_' : 'apps/') . $package,
+            'description' => $description
+        ))
+    );
+    if ($response->code != 201) {
+        fwrite(STDERR, $response->getBody());
+        exit(1);
+    }
+    passthru(
+        'git -C "' . $target . '" push --mirror "git@github.com:'
+        . $git['orga'] . '/' . $finalPackage . '.git"'
+    );
+    sleep(1);
+}

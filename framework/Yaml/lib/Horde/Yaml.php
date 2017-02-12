@@ -135,14 +135,15 @@ class Horde_Yaml
     }
 
     /**
-     * Dump a PHP array to YAML.
+     * Dumps a PHP array to YAML.
      *
-     * The dump method, when supplied with an array, will do its best
-     * to convert the array into friendly YAML.
+     * The dump method, when supplied with an array, will do its best to
+     * convert the array into friendly YAML.
      *
-     * @param  array|Traversable  $array     PHP array or traversable object
-     * @param  integer            $options   Options to pass to dumper
-     * @return string                        YAML representation of $value
+     * @param  array|Traversable $array  PHP array or Traversable object.
+     * @param  array $options            Options to pass to dumper.
+     *
+     * @return string  YAML representation of $value.
      */
     public static function dump($value, $options = array())
     {

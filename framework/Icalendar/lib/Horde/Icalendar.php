@@ -1289,7 +1289,7 @@ class Horde_Icalendar
                 if (!$b['end']) {
                     return -1;
                 }
-                return $a['end'] - $b['end'];
+                return Horde_Icalendar::_getEndDifference($a['end'], $b['end']);
             }
         );
 
@@ -1297,8 +1297,18 @@ class Horde_Icalendar
         $t = @gmmktime($time['hour'], $time['minute'], $time['second'],
                        $date['month'], $date['mday'], $date['year']);
 
-        if ($t < $change_times[0]['time']) {
-            return $change_times[0]['from'];
+        // First check for the first change time that isn't expired (from POV of
+        // $time) and is after $t.
+        $n = count($change_times);
+        for ($i = 0, $n = count($change_times); $i < $n -1; $i++) {
+            if (!$this->_checkEndDate($t, $change_times[$i])) {
+                continue;
+            }
+            if ($t < $change_times[$i]['time']) {
+                return $change_times[$i]['from'];
+            } else {
+                break;
+            }
         }
 
         for ($i = 0, $n = count($change_times); $i < $n - 1; $i++) {
@@ -1336,15 +1346,38 @@ class Horde_Icalendar
         }
         if (strlen($times['end']) == 4) {
             $date = @gmmktime(0, 0, 0, 1, 1, $times['end']);
-            if ($date && $t < $date) {
-                return true;
-            }
-            return false;
+             return ($date && $t < $date);
         }
 
-        if ($t < $times['end']) {
-            return true;
+        return ($t < $times['end']);
+    }
+
+    /**
+     * Returns the difference between the datetime indicated by $a and the
+     * datetime indicated by $b after normalizing both values to a unix
+     * timestamp. Used when sorting timezone transitions that may contain
+     * mixed format end times.
+     *
+     * @param mixed  Either a string representing a 4 digit year, or unix
+     *               timestamp.
+     * @param mixed  Either a string representing a 4 digit year, or unix
+     *               timestamp.
+     *
+     * @return boolean  True if $a < $b otherwise false.
+     * @todo  This needs to be public/static due to it being called from a
+     *        anonymous function. See PR: 213. This can be removed once we
+     *        no longer support PHP 5.3.
+     */
+    public static function _getEndDifference($a, $b)
+    {
+        if (strlen($a) == 4) {
+            $a = @gmmktime(0, 0, 0, 1, 1, $a);
         }
+        if (strlen($b) == 4) {
+            $b = @gmmktime(0, 0, 0, 1, 1, $b);
+        }
+
+        return $a - $b;
     }
 
     /**
@@ -1354,10 +1387,10 @@ class Horde_Icalendar
      *
      * @todo This function should be moved to Horde_Date and made public.
      *
-     * @param $time TODO
-     * @param $tzid TODO
+     * @param string $text  The Icalendar datetime field value.
+     * @param string $tzid  A timezone identifier.
      *
-     * @return TODO
+     * @return integer  A unix timestamp.
      */
     public function _parseDateTime($text, $tzid = false)
     {

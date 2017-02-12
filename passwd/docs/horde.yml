@@ -1,0 +1,8 @@
+---
+id: passwd
+name: Passwd
+full: Password changing application
+description: >
+  An application to change any user passwords stored in various backends like
+  SQL, LDAP, Kolab, passwd files etc.
+list: sork

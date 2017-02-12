@@ -11,6 +11,7 @@
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
+
 /**
  * NoSQL based state management.
  *
@@ -235,7 +236,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
 
         try {
             $cursor = $this->_db->selectCollection(self::COLLECTION_STATE)
-                ->find($query, array(self::SYNC_DATA));
+                ->find($query, array(self::SYNC_DATA => true));
         } catch (Exception $e) {
                 $this->_logger->err(sprintf(
                     '[%s] %s',
@@ -274,9 +275,19 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
     protected function _loadState()
     {
         try {
-            $results = $this->_db->selectCollection(self::COLLECTION_STATE)->findOne(
-                array(self::MONGO_ID => $this->_syncKey, self::SYNC_FOLDERID => $this->_collection['id']),
-                array(self::SYNC_DATA, self::SYNC_DEVID, self::SYNC_MOD, self::SYNC_PENDING));
+            $results = $this->_db->selectCollection(self::COLLECTION_STATE)
+                ->findOne(
+                    array(
+                        self::MONGO_ID => $this->_syncKey,
+                        self::SYNC_FOLDERID => $this->_collection['id']
+                    ),
+                    array(
+                        self::SYNC_DATA => true,
+                        self::SYNC_DEVID => true,
+                        self::SYNC_MOD => true,
+                        self::SYNC_PENDING => true
+                    )
+                );
         } catch (Exception $e) {
             $this->_logger->err('Error in loading state from DB: ' . $e->getMessage());
             throw new Horde_ActiveSync_Exception($e);
@@ -711,7 +722,8 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
         }
 
         try {
-            return $this->_db->selectCollection(self::COLLECTION_DEVICE)->find($query)->limit(1)->count();
+            return $this->_db->selectCollection(self::COLLECTION_DEVICE)
+                ->find($query)->limit(1)->count();
         } catch (Exception $e) {
             $this->_logger->err($e->getMessage());
             throw new Horde_ActiveSync_Exception($e);
@@ -756,7 +768,8 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
             }
         }
         try {
-            $cursor = $this->_db->selectCollection(self::COLLECTION_DEVICE)->find($query);
+            $cursor = $this->_db->selectCollection(self::COLLECTION_DEVICE)
+                ->find($query);
         } catch (Exception $e) {
             $this->_logger->err($e->getMessage());
             throw new Horde_ActiveSync_Exception($e);
@@ -800,7 +813,8 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
         //     $this->_logger->err($e->getMessage());
         //     throw new Horde_ActiveSync_Exception($e);
         // }
-        $cursor = $this->_db->selectCollection(self::COLLECTION_DEVICE)->find(array(), array('users'));
+        $cursor = $this->_db->selectCollection(self::COLLECTION_DEVICE)
+            ->find(array(), array('users' => true));
         foreach ($cursor as $row) {
             foreach ($row['users'] as $user) {
                 $this->_db->selectCollection(self::COLLECTION_DEVICE)->update(
@@ -834,7 +848,8 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
 
         if ($status == Horde_ActiveSync::RWSTATUS_PENDING) {
             $new_data[self::DEVICE_USERS_POLICYKEY] = 0;
-            $cursor = $this->_db->selectCollection(self::COLLECTION_DEVICE)->find($query, array('users'));
+            $cursor = $this->_db->selectCollection(self::COLLECTION_DEVICE)
+                ->find($query, array('users' => true));
             try {
                 foreach ($cursor as $row) {
                     foreach ($row['users'] as $user) {
@@ -995,7 +1010,8 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
                 '$or' => array(array(self::DEVICE_RWSTATUS => Horde_ActiveSync::RWSTATUS_PENDING), array(self::DEVICE_RWSTATUS => Horde_ActiveSync::RWSTATUS_WIPED))
             );
             try {
-                $results = $this->_db->selectCollection(self::COLLECTION_DEVICE)->findOne($query, array(self::MONGO_ID));
+                $results = $this->_db->selectCollection(self::COLLECTION_DEVICE)
+                    ->findOne($query, array(self::MONGO_ID => true));
             } catch (Exception $e) {
                 $this->_logger->err(sprintf(
                     '[%s] %s',
@@ -1134,10 +1150,11 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
         );
 
         try {
-            $result = $this->_db->selectCollection(self::COLLECTION_MAP)->findOne(
-                $query,
-                array(self::MESSAGE_UID)
-            );
+            $result = $this->_db->selectCollection(self::COLLECTION_MAP)
+                ->findOne(
+                    $query,
+                    array(self::MESSAGE_UID => true)
+                );
         } catch (Exception $e) {
                 $this->_logger->err(sprintf(
                     '[%s] %s',
@@ -1185,10 +1202,8 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
             $projection = array(self::CACHE_DATA => true);
         }
         try {
-            $data = $this->_db->selectCollection(self::COLLECTION_CACHE)->findOne(
-                $query,
-                $projection
-            );
+            $data = $this->_db->selectCollection(self::COLLECTION_CACHE)
+                ->findOne($query, $projection);
         } catch (Exception $e) {
                 $this->_logger->err(sprintf(
                     '[%s] %s',
@@ -1393,7 +1408,8 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
             self::SYNC_FOLDERID => $this->_collection['serverid']
         );
         try {
-            return (bool)$c->find($query, array(self::MONGO_ID))->count();
+            return (bool)$c->find($query, array(self::MONGO_ID => true))
+                ->count();
         } catch (Exception $e) {
                 $this->_logger->err(sprintf(
                     '[%s] %s',
@@ -1429,7 +1445,13 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
         );
         $rows = $this->_db->selectCollection(self::COLLECTION_MAILMAP)->find(
             $query,
-            array(self::MESSAGE_UID, self::SYNC_READ, self::SYNC_FLAGGED, self::SYNC_DELETED, self::SYNC_CHANGED)
+            array(
+                self::MESSAGE_UID => true,
+                self::SYNC_READ => true,
+                self::SYNC_FLAGGED => true,
+                self::SYNC_DELETED => true,
+                self::SYNC_CHANGED
+            )
         );
         $results = array();
         foreach ($rows as $row) {

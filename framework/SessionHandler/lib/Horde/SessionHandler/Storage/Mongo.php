@@ -236,7 +236,7 @@ class Horde_SessionHandler_Storage_Mongo extends Horde_SessionHandler_Storage im
                 self::MODIFIED => array(
                     '$gte' => (time() - ini_get('session.gc_maxlifetime'))
                 )
-            ), array(self::SID));
+            ), array(self::SID => true));
 
             foreach ($cursor as $val) {
                 $ids[] = $val[self::SID];

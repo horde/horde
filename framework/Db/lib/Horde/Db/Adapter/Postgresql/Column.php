@@ -172,6 +172,7 @@ class Horde_Db_Adapter_Postgresql_Column extends Horde_Db_Adapter_Base_Column
     public function binaryToString($value)
     {
         if (is_resource($value)) {
+            rewind($value);
             $string = stream_get_contents($value);
             fclose($value);
             return $string;

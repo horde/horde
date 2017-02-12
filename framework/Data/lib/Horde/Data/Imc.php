@@ -93,13 +93,11 @@ class Horde_Data_Imc extends Horde_Data_Base
         switch ($action) {
         case Horde_Data::IMPORT_FILE:
             parent::nextStep($action, $param);
-            $this->importFile($_FILES['import_file']['tmp_name']);
-            return $this->_iCal->getComponents();
+            return $this->importFile($_FILES['import_file']['tmp_name']);
 
         case Horde_Data::IMPORT_URL:
             parent::nextStep($action, $param);
-            $this->importUrl($this->_vars->import_url);
-            return $this->_iCal->getComponents();
+            return $this->importUrl($this->_vars->import_url);
         }
 
         return parent::nextStep($action, $param);

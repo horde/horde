@@ -1263,6 +1263,19 @@ class Horde_Config
             )
         );
 
+        $logqueries = array(
+            '_type' => 'boolean',
+            'required' => false,
+            'desc' => 'Should Horde log all queries. If selected, queries will be logged at the DEBUG level to your configured logger.',
+            'default' => $this->_default(
+                $ctx . '|logqueries',
+                $node ? ($xpath->evaluate('string(configboolean[@name="logqueries"])', $node) ?: false) : false),
+            'switch' => array(
+                'false' => array('desc' => 'No'),
+                'true' => array('desc' => 'Yes')
+            )
+        );
+
         $custom_fields = array(
             'required' => true,
             'desc' => 'What database backend should we use?',
@@ -1286,6 +1299,7 @@ class Horde_Config
                         'ssl' => $ssl,
                         'ca' => $ca,
                         'splitread' => $this->_configSQLSplitRead($ctx, $node, 'mysql'),
+                        'logqueries' => $logqueries,
                     )
                 ),
                 'mysqli' => array(
@@ -1299,6 +1313,7 @@ class Horde_Config
                         'ssl' => $ssl,
                         'ca' => $ca,
                         'splitread' => $this->_configSQLSplitRead($ctx, $node, 'mysqli'),
+                        'logqueries' => $logqueries,
                     )
                 ),
                 'oci8' => array(
@@ -1359,6 +1374,7 @@ class Horde_Config
                                 ),
                             ),
                         ),
+                        'logqueries' => $logqueries,
                     ),
                 ),
                 'pgsql' => array(
@@ -1370,6 +1386,7 @@ class Horde_Config
                         'database' => $database,
                         'charset' => $charset,
                         'splitread' => $this->_configSQLSplitRead($ctx, $node, 'pgsql'),
+                        'logqueries' => $logqueries,
                     )
                 ),
                 'sqlite' => array(
@@ -1384,7 +1401,8 @@ class Horde_Config
                                 $node ? ($xpath->evaluate('string(configstring[@name="database"])', $node) ?: '') : ''
                             )
                         ),
-                        'charset' => $charset
+                        'charset' => $charset,
+                        'logqueries' => $logqueries,
                     )
                 )
             )

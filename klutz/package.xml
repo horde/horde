@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>klutz</name>
+ <channel>pear.horde.org</channel>
+ <summary>Comic reader</summary>
+ <description>Klutz is a Horde comics-fetching module.</description>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2017-01-31</date>
+ <version>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0alpha1</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+ <notes>
+* Initial release.
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <dir name="bin">
+    <file name="klutz-fetch-comics" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+   </dir> <!-- /bin -->
+   <dir name="config">
+    <file name=".htaccess" role="horde" />
+    <file name="comics.php" role="horde" />
+    <file name="conf.xml" role="horde" />
+    <file name="prefs.php" role="horde" />
+   </dir> <!-- /config -->
+   <dir name="docs">
+    <file name="CHANGES" role="doc" />
+    <file name="CREDITS" role="doc" />
+    <file name="INSTALL" role="doc" />
+    <file name="RELEASE_NOTES" role="doc" />
+   </dir> <!-- /docs -->
+   <dir name="lib">
+    <dir name="Block">
+     <file name="Comics.php" role="horde" />
+    </dir> <!-- /lib/Block -->
+    <dir name="Comic">
+     <file name="Bysize.php" role="horde" />
+     <file name="Direct.php" role="horde" />
+     <file name="Search.php" role="horde" />
+    </dir> <!-- /lib/Comic -->
+    <dir name="Driver">
+     <file name="File.php" role="horde" />
+     <file name="Sql.php" role="horde" />
+    </dir> <!-- /lib/Driver -->
+    <file name=".htaccess" role="horde" />
+    <file name="Application.php" role="horde" />
+    <file name="Comic.php" role="horde" />
+    <file name="Driver.php" role="horde" />
+    <file name="Image.php" role="horde" />
+    <file name="Klutz.php" role="horde" />
+   </dir> <!-- /lib -->
+   <dir name="locale">
+    <dir name="cs">
+     <dir name="LC_MESSAGES">
+      <file name="klutz.mo" role="horde" />
+      <file name="klutz.po" role="horde" />
+     </dir> <!-- /locale/cs/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/cs -->
+    <dir name="da">
+     <dir name="LC_MESSAGES">
+      <file name="klutz.mo" role="horde" />
+      <file name="klutz.po" role="horde" />
+     </dir> <!-- /locale/da/LC_MESSAGES -->
+    </dir> <!-- /locale/da -->
+    <dir name="de">
+     <dir name="LC_MESSAGES">
+      <file name="klutz.mo" role="horde" />
+      <file name="klutz.po" role="horde" />
+     </dir> <!-- /locale/de/LC_MESSAGES -->
+    </dir> <!-- /locale/de -->
+    <dir name="en">
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/en -->
+    <dir name="es">
+     <dir name="LC_MESSAGES">
+      <file name="klutz.mo" role="horde" />
+      <file name="klutz.po" role="horde" />
+     </dir> <!-- /locale/es/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/es -->
+    <dir name="fi">
+     <dir name="LC_MESSAGES">
+      <file name="klutz.mo" role="horde" />
+      <file name="klutz.po" role="horde" />
+     </dir> <!-- /locale/fi/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/fi -->
+    <dir name="lv">
+     <dir name="LC_MESSAGES">
+      <file name="klutz.mo" role="horde" />
+      <file name="klutz.po" role="horde" />
+     </dir> <!-- /locale/lv/LC_MESSAGES -->
+    </dir> <!-- /locale/lv -->
+    <dir name="ro">
+     <dir name="LC_MESSAGES">
+      <file name="klutz.mo" role="horde" />
+      <file name="klutz.po" role="horde" />
+     </dir> <!-- /locale/ro/LC_MESSAGES -->
+    </dir> <!-- /locale/ro -->
+    <dir name="sv">
+     <dir name="LC_MESSAGES">
+      <file name="klutz.mo" role="horde" />
+      <file name="klutz.po" role="horde" />
+     </dir> <!-- /locale/sv/LC_MESSAGES -->
+    </dir> <!-- /locale/sv -->
+    <file name=".htaccess" role="horde" />
+    <file name="klutz.pot" role="horde" />
+   </dir> <!-- /locale -->
+   <dir name="migration">
+    <file name="1_klutz_base_tables.php" role="horde" />
+   </dir> <!-- /migration -->
+   <dir name="templates">
+    <dir name="comics">
+     <file name="comic.inc" role="horde" />
+     <file name="main.inc" role="horde" />
+     <file name="missing.inc" role="horde" />
+     <file name="nav_bar.inc" role="horde" />
+    </dir> <!-- /templates/comics -->
+    <dir name="prefs">
+     <file name="comic_select.inc" role="horde" />
+    </dir> <!-- /templates/prefs -->
+    <file name=".htaccess" role="horde" />
+    <file name="backend.html.php" role="horde" />
+    <file name="savecomic.html.php" role="horde" />
+   </dir> <!-- /templates -->
+   <dir name="themes">
+    <dir name="default">
+     <dir name="graphics">
+      <file name="favicon.ico" role="horde" />
+      <file name="goto.png" role="horde" />
+      <file name="klutz.png" role="horde" />
+      <file name="klutz_butter.png" role="horde" />
+      <file name="today.png" role="horde" />
+     </dir> <!-- /themes/default/graphics -->
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/default -->
+   </dir> <!-- /themes -->
+   <file name="backend.php" role="horde" />
+   <file name="comics.php" role="horde" />
+   <file name="COPYING" role="doc" />
+   <file name="index.php" role="horde" />
+   <file name="README" role="doc" />
+   <file name="savecomic.php" role="horde" />
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.3.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.7.0</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install as="klutz/backend.php" name="backend.php" />
+   <install as="klutz/comics.php" name="comics.php" />
+   <install as="COPYING" name="COPYING" />
+   <install as="skeleton/index.php" name="index.php" />
+   <install as="README" name="README" />
+   <install as="klutz/savecomic.php" name="savecomic.php" />
+   <install as="klutz-fetch-comics" name="bin/klutz-fetch-comics" />
+   <install as="skeleton/config/.htaccess" name="config/.htaccess" />
+   <install as="klutz/config/comics.php" name="config/comics.php" />
+   <install as="skeleton/config/conf.xml" name="config/conf.xml" />
+   <install as="skeleton/config/prefs.php" name="config/prefs.php" />
+   <install as="CHANGES" name="docs/CHANGES" />
+   <install as="CREDITS" name="docs/CREDITS" />
+   <install as="INSTALL" name="docs/INSTALL" />
+   <install as="RELEASE_NOTES" name="docs/RELEASE_NOTES" />
+   <install as="skeleton/lib/.htaccess" name="lib/.htaccess" />
+   <install as="skeleton/lib/Application.php" name="lib/Application.php" />
+   <install as="klutz/lib/Comic.php" name="lib/Comic.php" />
+   <install as="skeleton/lib/Driver.php" name="lib/Driver.php" />
+   <install as="klutz/lib/Image.php" name="lib/Image.php" />
+   <install as="klutz/lib/Klutz.php" name="lib/Klutz.php" />
+   <install as="klutz/lib/Block/Comics.php" name="lib/Block/Comics.php" />
+   <install as="klutz/lib/Comic/Bysize.php" name="lib/Comic/Bysize.php" />
+   <install as="klutz/lib/Comic/Direct.php" name="lib/Comic/Direct.php" />
+   <install as="klutz/lib/Comic/Search.php" name="lib/Comic/Search.php" />
+   <install as="klutz/lib/Driver/File.php" name="lib/Driver/File.php" />
+   <install as="skeleton/lib/Driver/Sql.php" name="lib/Driver/Sql.php" />
+   <install as="skeleton/locale/.htaccess" name="locale/.htaccess" />
+   <install as="klutz/locale/klutz.pot" name="locale/klutz.pot" />
+   <install as="klutz/locale/cs/help.xml" name="locale/cs/help.xml" />
+   <install as="klutz/locale/cs/LC_MESSAGES/klutz.mo" name="locale/cs/LC_MESSAGES/klutz.mo" />
+   <install as="klutz/locale/cs/LC_MESSAGES/klutz.po" name="locale/cs/LC_MESSAGES/klutz.po" />
+   <install as="klutz/locale/da/LC_MESSAGES/klutz.mo" name="locale/da/LC_MESSAGES/klutz.mo" />
+   <install as="klutz/locale/da/LC_MESSAGES/klutz.po" name="locale/da/LC_MESSAGES/klutz.po" />
+   <install as="klutz/locale/de/LC_MESSAGES/klutz.mo" name="locale/de/LC_MESSAGES/klutz.mo" />
+   <install as="klutz/locale/de/LC_MESSAGES/klutz.po" name="locale/de/LC_MESSAGES/klutz.po" />
+   <install as="skeleton/locale/en/help.xml" name="locale/en/help.xml" />
+   <install as="klutz/locale/es/help.xml" name="locale/es/help.xml" />
+   <install as="klutz/locale/es/LC_MESSAGES/klutz.mo" name="locale/es/LC_MESSAGES/klutz.mo" />
+   <install as="klutz/locale/es/LC_MESSAGES/klutz.po" name="locale/es/LC_MESSAGES/klutz.po" />
+   <install as="klutz/locale/fi/help.xml" name="locale/fi/help.xml" />
+   <install as="klutz/locale/fi/LC_MESSAGES/klutz.mo" name="locale/fi/LC_MESSAGES/klutz.mo" />
+   <install as="klutz/locale/fi/LC_MESSAGES/klutz.po" name="locale/fi/LC_MESSAGES/klutz.po" />
+   <install as="klutz/locale/lv/LC_MESSAGES/klutz.mo" name="locale/lv/LC_MESSAGES/klutz.mo" />
+   <install as="klutz/locale/lv/LC_MESSAGES/klutz.po" name="locale/lv/LC_MESSAGES/klutz.po" />
+   <install as="klutz/locale/ro/LC_MESSAGES/klutz.mo" name="locale/ro/LC_MESSAGES/klutz.mo" />
+   <install as="klutz/locale/ro/LC_MESSAGES/klutz.po" name="locale/ro/LC_MESSAGES/klutz.po" />
+   <install as="klutz/locale/sv/LC_MESSAGES/klutz.mo" name="locale/sv/LC_MESSAGES/klutz.mo" />
+   <install as="klutz/locale/sv/LC_MESSAGES/klutz.po" name="locale/sv/LC_MESSAGES/klutz.po" />
+   <install as="klutz/migration/1_klutz_base_tables.php" name="migration/1_klutz_base_tables.php" />
+   <install as="skeleton/templates/.htaccess" name="templates/.htaccess" />
+   <install as="klutz/templates/backend.html.php" name="templates/backend.html.php" />
+   <install as="klutz/templates/savecomic.html.php" name="templates/savecomic.html.php" />
+   <install as="klutz/templates/comics/comic.inc" name="templates/comics/comic.inc" />
+   <install as="klutz/templates/comics/main.inc" name="templates/comics/main.inc" />
+   <install as="klutz/templates/comics/missing.inc" name="templates/comics/missing.inc" />
+   <install as="klutz/templates/comics/nav_bar.inc" name="templates/comics/nav_bar.inc" />
+   <install as="klutz/templates/prefs/comic_select.inc" name="templates/prefs/comic_select.inc" />
+   <install as="skeleton/themes/default/screen.css" name="themes/default/screen.css" />
+   <install as="klutz/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
+   <install as="klutz/themes/default/graphics/goto.png" name="themes/default/graphics/goto.png" />
+   <install as="klutz/themes/default/graphics/klutz.png" name="themes/default/graphics/klutz.png" />
+   <install as="klutz/themes/default/graphics/klutz_butter.png" name="themes/default/graphics/klutz_butter.png" />
+   <install as="klutz/themes/default/graphics/today.png" name="themes/default/graphics/today.png" />
+   </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0alpha1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2017-01-31</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* Initial release.
+   </notes>
+  </release>
+ </changelog>
+</package>

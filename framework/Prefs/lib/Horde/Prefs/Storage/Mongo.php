@@ -83,8 +83,8 @@ implements Horde_Mongo_Collection_Index
                 self::SCOPE => $scope_ob->scope,
                 self::UID => $this->_params['user']
             ), array(
-                self::NAME => 1,
-                self::VALUE => 1
+                self::NAME => true,
+                self::VALUE => true
             ));
         } catch (MongoException $e) {
             throw new Horde_Prefs_Exception($e);

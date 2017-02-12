@@ -32,6 +32,6 @@ $this->notes['fm']['changes'] = <<<FM
 Initial release.
 FM;
 
-$this->notes['name'] = 'Horde Kolab Edition';
+$this->notes['name'] = 'Horde Groupware Kolab Edition';
 $this->notes['list'] = 'kolab-users@kolab.org';
 $this->notes['fm']['project'] = 'kolab-webmail';

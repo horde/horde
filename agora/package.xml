@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>agora</name>
+ <channel>pear.horde.org</channel>
+ <summary>Forum application</summary>
+ <description>Agora is a Horde-based forum program</description>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2017-01-31</date>
+ <version>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0alpha1</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+ <notes>
+* Initial release.
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <dir name="config">
+    <file name=".htaccess" role="horde" />
+    <file name="conf.xml" role="horde" />
+    <file name="menu.php.dist" role="horde" />
+    <file name="prefs.php" role="horde" />
+   </dir> <!-- /config -->
+   <dir name="docs">
+    <file name="CHANGES" role="doc" />
+    <file name="CREDITS" role="doc" />
+    <file name="INSTALL" role="doc" />
+    <file name="TODO" role="doc" />
+   </dir> <!-- /docs -->
+   <dir name="lib">
+    <dir name="Block">
+     <file name="Forums.php" role="horde" />
+     <file name="Thread.php" role="horde" />
+     <file name="Threads.php" role="horde" />
+    </dir> <!-- /lib/Block -->
+    <dir name="Driver">
+     <file name="SplitSql.php" role="horde" />
+     <file name="Sql.php" role="horde" />
+    </dir> <!-- /lib/Driver -->
+    <dir name="Factory">
+     <file name="Driver.php" role="horde" />
+    </dir> <!-- /lib/Factory -->
+    <dir name="Form">
+     <file name="Forum.php" role="horde" />
+     <file name="Message.php" role="horde" />
+     <file name="Search.php" role="horde" />
+    </dir> <!-- /lib/Form -->
+    <dir name="Tree">
+     <file name="Flat.php" role="horde" />
+    </dir> <!-- /lib/Tree -->
+    <file name=".htaccess" role="horde" />
+    <file name="Agora.php" role="horde" />
+    <file name="Api.php" role="horde" />
+    <file name="Application.php" role="horde" />
+    <file name="Comments.php" role="horde" />
+    <file name="Driver.php" role="horde" />
+    <file name="Exception.php" role="horde" />
+    <file name="prefs.php" role="horde" />
+    <file name="View.php" role="horde" />
+   </dir> <!-- /lib -->
+   <dir name="locale">
+    <dir name="de">
+     <dir name="LC_MESSAGES">
+      <file name="agora.mo" role="horde" />
+      <file name="agora.po" role="horde" />
+     </dir> <!-- /locale/de/LC_MESSAGES -->
+    </dir> <!-- /locale/de -->
+    <dir name="es">
+     <dir name="LC_MESSAGES">
+      <file name="agora.mo" role="horde" />
+      <file name="agora.po" role="horde" />
+     </dir> <!-- /locale/es/LC_MESSAGES -->
+    </dir> <!-- /locale/es -->
+    <dir name="fi">
+     <dir name="LC_MESSAGES">
+      <file name="agora.mo" role="horde" />
+      <file name="agora.po" role="horde" />
+     </dir> <!-- /locale/fi/LC_MESSAGES -->
+    </dir> <!-- /locale/fi -->
+    <dir name="fr">
+     <dir name="LC_MESSAGES">
+      <file name="agora.mo" role="horde" />
+      <file name="agora.po" role="horde" />
+     </dir> <!-- /locale/fr/LC_MESSAGES -->
+    </dir> <!-- /locale/fr -->
+    <dir name="hu">
+     <dir name="LC_MESSAGES">
+      <file name="agora.mo" role="horde" />
+      <file name="agora.po" role="horde" />
+     </dir> <!-- /locale/hu/LC_MESSAGES -->
+    </dir> <!-- /locale/hu -->
+    <dir name="it">
+     <dir name="LC_MESSAGES">
+      <file name="agora.mo" role="horde" />
+      <file name="agora.po" role="horde" />
+     </dir> <!-- /locale/it/LC_MESSAGES -->
+    </dir> <!-- /locale/it -->
+    <dir name="ja">
+     <dir name="LC_MESSAGES">
+      <file name="agora.mo" role="horde" />
+      <file name="agora.po" role="horde" />
+     </dir> <!-- /locale/ja/LC_MESSAGES -->
+    </dir> <!-- /locale/ja -->
+    <dir name="lt">
+     <dir name="LC_MESSAGES">
+      <file name="agora.mo" role="horde" />
+      <file name="agora.po" role="horde" />
+     </dir> <!-- /locale/lt/LC_MESSAGES -->
+    </dir> <!-- /locale/lt -->
+    <dir name="lv">
+     <dir name="LC_MESSAGES">
+      <file name="agora.mo" role="horde" />
+      <file name="agora.po" role="horde" />
+     </dir> <!-- /locale/lv/LC_MESSAGES -->
+    </dir> <!-- /locale/lv -->
+    <dir name="ro">
+     <dir name="LC_MESSAGES">
+      <file name="agora.mo" role="horde" />
+      <file name="agora.po" role="horde" />
+     </dir> <!-- /locale/ro/LC_MESSAGES -->
+    </dir> <!-- /locale/ro -->
+    <dir name="sl">
+     <dir name="LC_MESSAGES">
+      <file name="agora.mo" role="horde" />
+      <file name="agora.po" role="horde" />
+     </dir> <!-- /locale/sl/LC_MESSAGES -->
+    </dir> <!-- /locale/sl -->
+    <dir name="uk">
+     <dir name="LC_MESSAGES">
+      <file name="agora.mo" role="horde" />
+      <file name="agora.po" role="horde" />
+     </dir> <!-- /locale/uk/LC_MESSAGES -->
+    </dir> <!-- /locale/uk -->
+    <dir name="zh_TW">
+     <dir name="LC_MESSAGES">
+      <file name="agora.mo" role="horde" />
+      <file name="agora.po" role="horde" />
+     </dir> <!-- /locale/zh_TW/LC_MESSAGES -->
+    </dir> <!-- /locale/zh_TW -->
+    <file name=".htaccess" role="horde" />
+    <file name="agora.pot" role="horde" />
+   </dir> <!-- /locale -->
+   <dir name="messages">
+    <file name="abuse.php" role="horde" />
+    <file name="delete.php" role="horde" />
+    <file name="edit.php" role="horde" />
+    <file name="index.php" role="horde" />
+    <file name="lock.php" role="horde" />
+    <file name="merge.php" role="horde" />
+    <file name="move.php" role="horde" />
+    <file name="split.php" role="horde" />
+   </dir> <!-- /messages -->
+   <dir name="migration">
+    <file name="1_agora_base_tables.php" role="horde" />
+    <file name="2_agora_upgrade_autoincrement.php" role="horde" />
+   </dir> <!-- /migration -->
+   <dir name="rss">
+    <file name="index.php" role="horde" />
+    <file name="messages.php" role="horde" />
+    <file name="threads.php" role="horde" />
+   </dir> <!-- /rss -->
+   <dir name="scripts">
+    <file name="phorum2agora.php" role="horde" />
+   </dir> <!-- /scripts -->
+   <dir name="templates">
+    <dir name="block">
+     <file name="forums.html.php" role="horde" />
+     <file name="thread.html.php" role="horde" />
+     <file name="threads.html.php" role="horde" />
+    </dir> <!-- /templates/block -->
+    <dir name="messages">
+     <file name="edit.html.php" role="horde" />
+     <file name="flat.html.php" role="horde" />
+     <file name="flat_thread.html.php" role="horde" />
+     <file name="form.html.php" role="horde" />
+     <file name="index.html.php" role="horde" />
+     <file name="message.html.php" role="horde" />
+     <file name="threads.html.php" role="horde" />
+    </dir> <!-- /templates/messages -->
+    <file name=".htaccess" role="horde" />
+    <file name="ban.html.php" role="horde" />
+    <file name="forums.html.php" role="horde" />
+    <file name="moderate.html.php" role="horde" />
+    <file name="moderators.html.php" role="horde" />
+    <file name="search.html.php" role="horde" />
+    <file name="threads.html.php" role="horde" />
+   </dir> <!-- /templates -->
+   <dir name="themes">
+    <dir name="default">
+     <dir name="graphics">
+      <file name="agora.png" role="horde" />
+      <file name="favicon.ico" role="horde" />
+      <file name="flagged.png" role="horde" />
+      <file name="forums.png" role="horde" />
+      <file name="hot.png" role="horde" />
+      <file name="moderate.png" role="horde" />
+      <file name="newforum.png" role="horde" />
+      <file name="newmessage.png" role="horde" />
+      <file name="reply.png" role="horde" />
+      <file name="thread.png" role="horde" />
+      <file name="threads.png" role="horde" />
+     </dir> <!-- /themes/default/graphics -->
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/default -->
+   </dir> <!-- /themes -->
+   <file name="ban.php" role="horde" />
+   <file name="COPYING" role="doc" />
+   <file name="deleteforum.php" role="horde" />
+   <file name="editforum.php" role="horde" />
+   <file name="forums.php" role="horde" />
+   <file name="index.php" role="horde" />
+   <file name="moderate.php" role="horde" />
+   <file name="moderators.php" role="horde" />
+   <file name="owner.php" role="horde" />
+   <file name="README" role="doc" />
+   <file name="search.php" role="horde" />
+   <file name="threads.php" role="horde" />
+   <file name="view.php" role="horde" />
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.3.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.7.0</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install as="agora/ban.php" name="ban.php" />
+   <install as="COPYING" name="COPYING" />
+   <install as="agora/deleteforum.php" name="deleteforum.php" />
+   <install as="agora/editforum.php" name="editforum.php" />
+   <install as="agora/forums.php" name="forums.php" />
+   <install as="skeleton/index.php" name="index.php" />
+   <install as="agora/moderate.php" name="moderate.php" />
+   <install as="agora/moderators.php" name="moderators.php" />
+   <install as="agora/owner.php" name="owner.php" />
+   <install as="README" name="README" />
+   <install as="agora/search.php" name="search.php" />
+   <install as="agora/threads.php" name="threads.php" />
+   <install as="agora/view.php" name="view.php" />
+   <install as="skeleton/config/.htaccess" name="config/.htaccess" />
+   <install as="skeleton/config/conf.xml" name="config/conf.xml" />
+   <install as="agora/config/menu.php.dist" name="config/menu.php.dist" />
+   <install as="skeleton/config/prefs.php" name="config/prefs.php" />
+   <install as="CHANGES" name="docs/CHANGES" />
+   <install as="CREDITS" name="docs/CREDITS" />
+   <install as="INSTALL" name="docs/INSTALL" />
+   <install as="TODO" name="docs/TODO" />
+   <install as="skeleton/lib/.htaccess" name="lib/.htaccess" />
+   <install as="agora/lib/Agora.php" name="lib/Agora.php" />
+   <install as="skeleton/lib/Api.php" name="lib/Api.php" />
+   <install as="skeleton/lib/Application.php" name="lib/Application.php" />
+   <install as="agora/lib/Comments.php" name="lib/Comments.php" />
+   <install as="skeleton/lib/Driver.php" name="lib/Driver.php" />
+   <install as="skeleton/lib/Exception.php" name="lib/Exception.php" />
+   <install as="agora/lib/prefs.php" name="lib/prefs.php" />
+   <install as="agora/lib/View.php" name="lib/View.php" />
+   <install as="agora/lib/Block/Forums.php" name="lib/Block/Forums.php" />
+   <install as="agora/lib/Block/Thread.php" name="lib/Block/Thread.php" />
+   <install as="agora/lib/Block/Threads.php" name="lib/Block/Threads.php" />
+   <install as="agora/lib/Driver/SplitSql.php" name="lib/Driver/SplitSql.php" />
+   <install as="skeleton/lib/Driver/Sql.php" name="lib/Driver/Sql.php" />
+   <install as="skeleton/lib/Factory/Driver.php" name="lib/Factory/Driver.php" />
+   <install as="agora/lib/Form/Forum.php" name="lib/Form/Forum.php" />
+   <install as="agora/lib/Form/Message.php" name="lib/Form/Message.php" />
+   <install as="agora/lib/Form/Search.php" name="lib/Form/Search.php" />
+   <install as="agora/lib/Tree/Flat.php" name="lib/Tree/Flat.php" />
+   <install as="skeleton/locale/.htaccess" name="locale/.htaccess" />
+   <install as="agora/locale/agora.pot" name="locale/agora.pot" />
+   <install as="agora/locale/de/LC_MESSAGES/agora.mo" name="locale/de/LC_MESSAGES/agora.mo" />
+   <install as="agora/locale/de/LC_MESSAGES/agora.po" name="locale/de/LC_MESSAGES/agora.po" />
+   <install as="agora/locale/es/LC_MESSAGES/agora.mo" name="locale/es/LC_MESSAGES/agora.mo" />
+   <install as="agora/locale/es/LC_MESSAGES/agora.po" name="locale/es/LC_MESSAGES/agora.po" />
+   <install as="agora/locale/fi/LC_MESSAGES/agora.mo" name="locale/fi/LC_MESSAGES/agora.mo" />
+   <install as="agora/locale/fi/LC_MESSAGES/agora.po" name="locale/fi/LC_MESSAGES/agora.po" />
+   <install as="agora/locale/fr/LC_MESSAGES/agora.mo" name="locale/fr/LC_MESSAGES/agora.mo" />
+   <install as="agora/locale/fr/LC_MESSAGES/agora.po" name="locale/fr/LC_MESSAGES/agora.po" />
+   <install as="agora/locale/hu/LC_MESSAGES/agora.mo" name="locale/hu/LC_MESSAGES/agora.mo" />
+   <install as="agora/locale/hu/LC_MESSAGES/agora.po" name="locale/hu/LC_MESSAGES/agora.po" />
+   <install as="agora/locale/it/LC_MESSAGES/agora.mo" name="locale/it/LC_MESSAGES/agora.mo" />
+   <install as="agora/locale/it/LC_MESSAGES/agora.po" name="locale/it/LC_MESSAGES/agora.po" />
+   <install as="agora/locale/ja/LC_MESSAGES/agora.mo" name="locale/ja/LC_MESSAGES/agora.mo" />
+   <install as="agora/locale/ja/LC_MESSAGES/agora.po" name="locale/ja/LC_MESSAGES/agora.po" />
+   <install as="agora/locale/lt/LC_MESSAGES/agora.mo" name="locale/lt/LC_MESSAGES/agora.mo" />
+   <install as="agora/locale/lt/LC_MESSAGES/agora.po" name="locale/lt/LC_MESSAGES/agora.po" />
+   <install as="agora/locale/lv/LC_MESSAGES/agora.mo" name="locale/lv/LC_MESSAGES/agora.mo" />
+   <install as="agora/locale/lv/LC_MESSAGES/agora.po" name="locale/lv/LC_MESSAGES/agora.po" />
+   <install as="agora/locale/ro/LC_MESSAGES/agora.mo" name="locale/ro/LC_MESSAGES/agora.mo" />
+   <install as="agora/locale/ro/LC_MESSAGES/agora.po" name="locale/ro/LC_MESSAGES/agora.po" />
+   <install as="agora/locale/sl/LC_MESSAGES/agora.mo" name="locale/sl/LC_MESSAGES/agora.mo" />
+   <install as="agora/locale/sl/LC_MESSAGES/agora.po" name="locale/sl/LC_MESSAGES/agora.po" />
+   <install as="agora/locale/uk/LC_MESSAGES/agora.mo" name="locale/uk/LC_MESSAGES/agora.mo" />
+   <install as="agora/locale/uk/LC_MESSAGES/agora.po" name="locale/uk/LC_MESSAGES/agora.po" />
+   <install as="agora/locale/zh_TW/LC_MESSAGES/agora.mo" name="locale/zh_TW/LC_MESSAGES/agora.mo" />
+   <install as="agora/locale/zh_TW/LC_MESSAGES/agora.po" name="locale/zh_TW/LC_MESSAGES/agora.po" />
+   <install as="agora/messages/abuse.php" name="messages/abuse.php" />
+   <install as="agora/messages/delete.php" name="messages/delete.php" />
+   <install as="agora/messages/edit.php" name="messages/edit.php" />
+   <install as="agora/messages/index.php" name="messages/index.php" />
+   <install as="agora/messages/lock.php" name="messages/lock.php" />
+   <install as="agora/messages/merge.php" name="messages/merge.php" />
+   <install as="agora/messages/move.php" name="messages/move.php" />
+   <install as="agora/messages/split.php" name="messages/split.php" />
+   <install as="agora/migration/1_agora_base_tables.php" name="migration/1_agora_base_tables.php" />
+   <install as="agora/migration/2_agora_upgrade_autoincrement.php" name="migration/2_agora_upgrade_autoincrement.php" />
+   <install as="agora/rss/index.php" name="rss/index.php" />
+   <install as="agora/rss/messages.php" name="rss/messages.php" />
+   <install as="agora/rss/threads.php" name="rss/threads.php" />
+   <install as="agora/scripts/phorum2agora.php" name="scripts/phorum2agora.php" />
+   <install as="skeleton/templates/.htaccess" name="templates/.htaccess" />
+   <install as="agora/templates/ban.html.php" name="templates/ban.html.php" />
+   <install as="agora/templates/forums.html.php" name="templates/forums.html.php" />
+   <install as="agora/templates/moderate.html.php" name="templates/moderate.html.php" />
+   <install as="agora/templates/moderators.html.php" name="templates/moderators.html.php" />
+   <install as="agora/templates/search.html.php" name="templates/search.html.php" />
+   <install as="agora/templates/threads.html.php" name="templates/threads.html.php" />
+   <install as="agora/templates/block/forums.html.php" name="templates/block/forums.html.php" />
+   <install as="agora/templates/block/thread.html.php" name="templates/block/thread.html.php" />
+   <install as="agora/templates/block/threads.html.php" name="templates/block/threads.html.php" />
+   <install as="agora/templates/messages/edit.html.php" name="templates/messages/edit.html.php" />
+   <install as="agora/templates/messages/flat.html.php" name="templates/messages/flat.html.php" />
+   <install as="agora/templates/messages/flat_thread.html.php" name="templates/messages/flat_thread.html.php" />
+   <install as="agora/templates/messages/form.html.php" name="templates/messages/form.html.php" />
+   <install as="agora/templates/messages/index.html.php" name="templates/messages/index.html.php" />
+   <install as="agora/templates/messages/message.html.php" name="templates/messages/message.html.php" />
+   <install as="agora/templates/messages/threads.html.php" name="templates/messages/threads.html.php" />
+   <install as="skeleton/themes/default/screen.css" name="themes/default/screen.css" />
+   <install as="agora/themes/default/graphics/agora.png" name="themes/default/graphics/agora.png" />
+   <install as="agora/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
+   <install as="agora/themes/default/graphics/flagged.png" name="themes/default/graphics/flagged.png" />
+   <install as="agora/themes/default/graphics/forums.png" name="themes/default/graphics/forums.png" />
+   <install as="agora/themes/default/graphics/hot.png" name="themes/default/graphics/hot.png" />
+   <install as="agora/themes/default/graphics/moderate.png" name="themes/default/graphics/moderate.png" />
+   <install as="agora/themes/default/graphics/newforum.png" name="themes/default/graphics/newforum.png" />
+   <install as="agora/themes/default/graphics/newmessage.png" name="themes/default/graphics/newmessage.png" />
+   <install as="agora/themes/default/graphics/reply.png" name="themes/default/graphics/reply.png" />
+   <install as="agora/themes/default/graphics/thread.png" name="themes/default/graphics/thread.png" />
+   <install as="agora/themes/default/graphics/threads.png" name="themes/default/graphics/threads.png" />
+   </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0alpha1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2017-01-31</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* Initial release.
+   </notes>
+  </release>
+ </changelog>
+</package>

@@ -42,6 +42,11 @@ extends Horde_Mime_Headers_Received
             $remote_ident = '';
         }
 
+        $remote_host = $remote->host;
+        if ($remote_host == $remote->addr) {
+            $remote_host = '[' . $remote_host . ']';
+        }
+
         if (!empty($conf['server']['name'])) {
             $server_name = $conf['server']['name'];
         } elseif (!empty($_SERVER['SERVER_NAME'])) {
@@ -56,7 +61,7 @@ extends Horde_Mime_Headers_Received
 
         return new self(
             null,
-            'from ' . $remote->host . ' (' . $remote_ident .
+            'from ' . $remote_host . ' (' . $remote_ident .
             '[' . $remote->addr . ']) ' .
             'by ' . $server_name . ' (Horde Framework) with HTTP' .
             ($is_ssl ? 'S' : '') . '; ' . date('r')

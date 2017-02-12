@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>hylax</name>
+ <channel>pear.horde.org</channel>
+ <summary>Fax frontend</summary>
+ <description>Fax frontend</description>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2017-01-31</date>
+ <version>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0alpha1</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+ <notes>
+* Initial release.
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <dir name="config">
+    <file name=".htaccess" role="horde" />
+    <file name="conf.xml" role="horde" />
+    <file name="covers.php.dist" role="horde" />
+    <file name="prefs.php" role="horde" />
+   </dir> <!-- /config -->
+   <dir name="docs">
+    <file name="COPYING" role="doc" />
+    <file name="INSTALL" role="doc" />
+    <file name="TODO" role="doc" />
+   </dir> <!-- /docs -->
+   <dir name="lib">
+    <dir name="Driver">
+     <file name="hylafax.php" role="horde" />
+     <file name="spandsp.php" role="horde" />
+    </dir> <!-- /lib/Driver -->
+    <dir name="SQL">
+     <file name="Attributes.php" role="horde" />
+    </dir> <!-- /lib/SQL -->
+    <dir name="Storage">
+     <file name="sql.php" role="horde" />
+    </dir> <!-- /lib/Storage -->
+    <file name=".htaccess" role="horde" />
+    <file name="Application.php" role="horde" />
+    <file name="Driver.php" role="horde" />
+    <file name="Hylax.php" role="horde" />
+    <file name="Image.php" role="horde" />
+    <file name="Storage.php" role="horde" />
+    <file name="version.php" role="horde" />
+   </dir> <!-- /lib -->
+   <dir name="scripts">
+    <dir name="cups">
+     <file name="hylafax" role="horde" />
+     <file name="hylafax.ppd" role="horde" />
+    </dir> <!-- /scripts/cups -->
+    <dir name="hylafax">
+     <file name="faxrcvd" role="horde" />
+    </dir> <!-- /scripts/hylafax -->
+    <dir name="spandsp">
+     <file name="faxrcvd" role="horde" />
+    </dir> <!-- /scripts/spandsp -->
+    <dir name="sql">
+     <file name="hylax.mssql.sql" role="horde" />
+     <file name="hylax.sql" role="horde" />
+    </dir> <!-- /scripts/sql -->
+    <file name=".htaccess" role="horde" />
+    <file name=".hylarc" role="horde" />
+    <file name="fax_create.php" role="horde" />
+    <file name="fax_create_recv.php" role="horde" />
+    <file name="fax_save_data.php" role="horde" />
+    <file name="fax_save_recv_data.php" role="horde" />
+    <file name="install_cups_drivers.php" role="horde" />
+   </dir> <!-- /scripts -->
+   <dir name="templates">
+    <dir name="compose">
+     <file name="compose.html" role="horde" />
+    </dir> <!-- /templates/compose -->
+    <dir name="fax">
+     <file name="fax.html" role="horde" />
+    </dir> <!-- /templates/fax -->
+    <dir name="folder">
+     <file name="folder.html" role="horde" />
+    </dir> <!-- /templates/folder -->
+    <dir name="summary">
+     <file name="summary.html" role="horde" />
+    </dir> <!-- /templates/summary -->
+    <dir name="view">
+     <file name="view.html" role="horde" />
+    </dir> <!-- /templates/view -->
+    <file name=".htaccess" role="horde" />
+   </dir> <!-- /templates -->
+   <dir name="themes">
+    <dir name="default">
+     <dir name="graphics">
+      <file name="fax.png" role="horde" />
+      <file name="folder.png" role="horde" />
+      <file name="hylax.png" role="horde" />
+     </dir> <!-- /themes/default/graphics -->
+    </dir> <!-- /themes/default -->
+   </dir> <!-- /themes -->
+   <file name="compose.php" role="horde" />
+   <file name="folder.php" role="horde" />
+   <file name="img.php" role="horde" />
+   <file name="index.php" role="horde" />
+   <file name="print.php" role="horde" />
+   <file name="send.php" role="horde" />
+   <file name="summary.php" role="horde" />
+   <file name="view.php" role="horde" />
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.3.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.7.0</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install as="hylax/compose.php" name="compose.php" />
+   <install as="hylax/folder.php" name="folder.php" />
+   <install as="hylax/img.php" name="img.php" />
+   <install as="skeleton/index.php" name="index.php" />
+   <install as="hylax/print.php" name="print.php" />
+   <install as="hylax/send.php" name="send.php" />
+   <install as="hylax/summary.php" name="summary.php" />
+   <install as="hylax/view.php" name="view.php" />
+   <install as="skeleton/config/.htaccess" name="config/.htaccess" />
+   <install as="skeleton/config/conf.xml" name="config/conf.xml" />
+   <install as="hylax/config/covers.php.dist" name="config/covers.php.dist" />
+   <install as="skeleton/config/prefs.php" name="config/prefs.php" />
+   <install as="COPYING" name="docs/COPYING" />
+   <install as="INSTALL" name="docs/INSTALL" />
+   <install as="TODO" name="docs/TODO" />
+   <install as="skeleton/lib/.htaccess" name="lib/.htaccess" />
+   <install as="skeleton/lib/Application.php" name="lib/Application.php" />
+   <install as="skeleton/lib/Driver.php" name="lib/Driver.php" />
+   <install as="hylax/lib/Hylax.php" name="lib/Hylax.php" />
+   <install as="hylax/lib/Image.php" name="lib/Image.php" />
+   <install as="hylax/lib/Storage.php" name="lib/Storage.php" />
+   <install as="hylax/lib/version.php" name="lib/version.php" />
+   <install as="hylax/lib/Driver/hylafax.php" name="lib/Driver/hylafax.php" />
+   <install as="hylax/lib/Driver/spandsp.php" name="lib/Driver/spandsp.php" />
+   <install as="hylax/lib/SQL/Attributes.php" name="lib/SQL/Attributes.php" />
+   <install as="hylax/lib/Storage/sql.php" name="lib/Storage/sql.php" />
+   <install as="hylax/scripts/.htaccess" name="scripts/.htaccess" />
+   <install as="hylax/scripts/.hylarc" name="scripts/.hylarc" />
+   <install as="hylax/scripts/fax_create.php" name="scripts/fax_create.php" />
+   <install as="hylax/scripts/fax_create_recv.php" name="scripts/fax_create_recv.php" />
+   <install as="hylax/scripts/fax_save_data.php" name="scripts/fax_save_data.php" />
+   <install as="hylax/scripts/fax_save_recv_data.php" name="scripts/fax_save_recv_data.php" />
+   <install as="hylax/scripts/install_cups_drivers.php" name="scripts/install_cups_drivers.php" />
+   <install as="hylax/scripts/cups/hylafax" name="scripts/cups/hylafax" />
+   <install as="hylax/scripts/cups/hylafax.ppd" name="scripts/cups/hylafax.ppd" />
+   <install as="hylax/scripts/hylafax/faxrcvd" name="scripts/hylafax/faxrcvd" />
+   <install as="hylax/scripts/spandsp/faxrcvd" name="scripts/spandsp/faxrcvd" />
+   <install as="hylax/scripts/sql/hylax.mssql.sql" name="scripts/sql/hylax.mssql.sql" />
+   <install as="hylax/scripts/sql/hylax.sql" name="scripts/sql/hylax.sql" />
+   <install as="skeleton/templates/.htaccess" name="templates/.htaccess" />
+   <install as="hylax/templates/compose/compose.html" name="templates/compose/compose.html" />
+   <install as="hylax/templates/fax/fax.html" name="templates/fax/fax.html" />
+   <install as="hylax/templates/folder/folder.html" name="templates/folder/folder.html" />
+   <install as="hylax/templates/summary/summary.html" name="templates/summary/summary.html" />
+   <install as="hylax/templates/view/view.html" name="templates/view/view.html" />
+   <install as="hylax/themes/default/graphics/fax.png" name="themes/default/graphics/fax.png" />
+   <install as="hylax/themes/default/graphics/folder.png" name="themes/default/graphics/folder.png" />
+   <install as="hylax/themes/default/graphics/hylax.png" name="themes/default/graphics/hylax.png" />
+   </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0alpha1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2017-01-31</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* Initial release.
+   </notes>
+  </release>
+ </changelog>
+</package>

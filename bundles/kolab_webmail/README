@@ -1,17 +1,17 @@
-What is Horde Kolab Edition?
-============================
+What is Horde Groupware Kolab Edition?
+======================================
 
 :Contact: horde@lists.horde.org
 
 .. contents:: Contents
 .. section-numbering::
 
-Horde Kolab Edition is a free, enterprise ready, browser based
-communication suite for the Kolab server. Users can read, send and
-organize email messages and manage and share calendars, contacts,
-tasks and notes with the standards compliant components from the
-`Horde Project`_. Horde Kolab Edition bundles the separately available
-applications IMP, Ingo, Kronolith, Turba, Nag and Mnemo.
+Horde Groupware Kolab Edition is a free, enterprise ready, browser based
+communication suite for the Kolab server. Users can read, send and organize
+email messages and manage and share calendars, contacts, tasks and notes with
+the standards compliant components from the `Horde Project`_. Horde Groupware
+Kolab Edition bundles the separately available applications IMP, Ingo,
+Kronolith, Turba, Nag and Mnemo.
 
 It can be extended with any of the released `Horde applications`_ or the
 `Horde modules`_ that are still in development, like a file manager, a
@@ -26,10 +26,10 @@ certification mark of the `Open Source Initiative`_.
 .. _`Open Source Initiative`: http://www.opensource.org/
 
 
-Obtaining Horde Kolab Edition
------------------------------
+Obtaining Horde Groupware Kolab Edition
+---------------------------------------
 
-Further information on Horde Kolab Edition and the latest version can
+Further information on Horde Groupware Kolab Edition and the latest version can
 be obtained at
 
   http://www.horde.org/apps/kolab_webmail
@@ -38,28 +38,29 @@ be obtained at
 Documentation
 -------------
 
-The following documentation is available in the Horde Kolab Edition
+The following documentation is available in the Horde Groupware Kolab Edition
 distribution:
 
 :README_:            This file
 :`docs/CHANGES`_:    Changes by release
 :`docs/INSTALL`_:    Installation instructions and notes
-:`docs/UPGRADING`_:  Pointers on upgrading from previous Horde Kolab
+:`docs/UPGRADING`_:  Pointers on upgrading from previous Horde Groupware Kolab
                      Edition versions
 
 
 Installation
 ------------
 
-Instructions for installing Horde Kolab Edition can be found in the
-file INSTALL_ in the ``docs/`` directory of the Horde Kolab Edition
+Instructions for installing Horde Groupware Kolab Edition can be found in the
+file INSTALL_ in the ``docs/`` directory of the Horde Groupware Kolab Edition
 distribution.
 
 
 Assistance
 ----------
 
-If you encounter problems with Horde Kolab Edition, help is available!
+If you encounter problems with Horde Groupware Kolab Edition, help is
+available!
 
 The Horde Frequently Asked Questions List (FAQ), available on the web at
 
@@ -83,13 +84,13 @@ appearances on IRC, on the channel #horde on the freenode Network
 Licensing
 ---------
 
-For licensing and copyright information, please see the file COPYING
-in the Horde Kolab Edition distribution and the COPYING and LICENSE
-files in the `kronolith`, `turba`, `nag` and `mnemo` subdirectories.
+For licensing and copyright information, please see the file COPYING in the
+Horde Groupware Kolab Edition distribution and the COPYING and LICENSE files in
+the `kronolith`, `turba`, `nag` and `mnemo` subdirectories.
 
 Thanks,
 
-The Horde Kolab Edition team
+The Horde Groupware Kolab Edition team
 
 
 .. _README: README

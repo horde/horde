@@ -1,0 +1,13 @@
+---
+id: Data
+name: Data
+full: Data import and export library
+description: |
+  A data import and export API, with backends for:
+  * CSV
+  * TSV
+  * iCalendar
+  * vCard
+  * vNote
+  * vTodo
+list: dev

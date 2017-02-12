@@ -300,25 +300,27 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Base
     public function execute($sql, $arg1=null, $arg2=null)
     {
         if (is_array($arg1)) {
-            $sql = $this->_replaceParameters($sql, $arg1);
+            $query = $this->_replaceParameters($sql, $arg1);
             $name = $arg2;
         } else {
             $name = $arg1;
+            $query = $sql;
+            $arg1 = array();
         }
 
         $t = new Horde_Support_Timer();
         $t->push();
 
-        $this->_lastQuery = $sql;
-        $stmt = $this->_connection->query($sql);
+        $this->_lastQuery = $query;
+        $stmt = $this->_connection->query($query);
         if (!$stmt) {
-            $this->_logInfo($sql, $name);
-            $this->_logError($sql, 'QUERY FAILED: ' . $this->_connection->error);
-            throw new Horde_Db_Exception('QUERY FAILED: ' . $this->_connection->error . "\n\n" . $sql,
+            $this->_logInfo($sql, $arg1, $name);
+            $this->_logError($query, 'QUERY FAILED: ' . $this->_connection->error);
+            throw new Horde_Db_Exception('QUERY FAILED: ' . $this->_connection->error . "\n\n" . $query,
                                          $this->_errorCode($this->_connection->sqlstate, $this->_connection->errno));
         }
 
-        $this->_logInfo($sql, $name, $t->pop());
+        $this->_logInfo($sql, $arg1, $name, $t->pop());
         //@TODO if ($this->_connection->info) $this->_loginfo($sql, $this->_connection->info);
         //@TODO also log warnings? http://php.net/mysqli.warning-count and http://php.net/mysqli.get-warnings
 

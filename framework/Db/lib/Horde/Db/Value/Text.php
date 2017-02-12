@@ -17,26 +17,8 @@
  * @category Horde
  * @package  Db
  */
-class Horde_Db_Value_Text implements Horde_Db_Value
+class Horde_Db_Value_Text extends Horde_Db_Value_Lob
 {
-    /**
-     * Text value to be quoted
-     *
-     * @var string
-     * @since Horde_Db 2.1.0
-     */
-    public $value;
-
-    /**
-     * Constructor
-     *
-     * @param string $textValue
-     */
-    public function __construct($textValue)
-    {
-        $this->value = $textValue;
-    }
-
     /**
      * @param Horde_Db_Adapter $db
      */

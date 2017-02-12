@@ -280,22 +280,24 @@ class Horde_Db_Adapter_Oci8 extends Horde_Db_Adapter_Base
     public function execute($sql, $arg1 = null, $arg2 = null, $lobs = array())
     {
         if (is_array($arg1)) {
-            $sql = $this->_replaceParameters($sql, $arg1);
+            $query = $this->_replaceParameters($sql, $arg1);
             $name = $arg2;
         } else {
             $name = $arg1;
+            $query = $sql;
+            $arg1 = array();
         }
 
         $t = new Horde_Support_Timer;
         $t->push();
 
-        $this->_lastQuery = $sql;
-        $stmt = @oci_parse($this->_connection, $sql);
+        $this->_lastQuery = $query;
+        $stmt = @oci_parse($this->_connection, $query);
 
         $descriptors = array();
         foreach ($lobs as $name => $lob) {
             $descriptors[$name] = oci_new_descriptor($this->_connection, OCI_DTYPE_LOB);
-            oci_bind_by_name($stmt, ':' . $name, $descriptors[$name], -1, $lob instanceof Horde_Db_Value_Binary ? OCI_B_BLOB : OCI_B_CLOB);
+            oci_bind_by_name($stmt, ':' . $name, $descriptors[$name], -1, $lob instanceof Horde_Db_Value_Text ? OCI_B_CLOB : OCI_B_BLOB);
         }
 
         $flags = $lobs
@@ -310,8 +312,8 @@ class Horde_Db_Adapter_Oci8 extends Horde_Db_Adapter_Base
             if ($stmt) {
                 oci_free_statement($stmt);
             }
-            $this->_logInfo($sql, $name);
-            $this->_logError($sql, 'QUERY FAILED: ' . $error['message']);
+            $this->_logInfo($sql, $arg1, $name);
+            $this->_logError($query, 'QUERY FAILED: ' . $error['message']);
             throw new Horde_Db_Exception(
                 $this->_errorMessage($error),
                 $error['code']
@@ -319,13 +321,17 @@ class Horde_Db_Adapter_Oci8 extends Horde_Db_Adapter_Base
         }
 
         foreach ($lobs as $name => $lob) {
-            $descriptors[$name]->save($lob->value);
+            $stream = $lob->stream;
+            rewind($stream);
+            while (!feof($stream)) {
+                $descriptors[$name]->write(fread($stream, 8192));
+            }
         }
         if ($lobs) {
             oci_commit($this->_connection);
         }
 
-        $this->_logInfo($sql, $name, $t->pop());
+        $this->_logInfo($sql, $arg1, $name, $t->pop());
         $this->_rowCount = oci_num_rows($stmt);
 
         return $stmt;
@@ -363,8 +369,8 @@ class Horde_Db_Adapter_Oci8 extends Horde_Db_Adapter_Base
      * @since Horde_Db 2.1.0
      *
      * @param string $table     The table name.
-     * @param array $fields     A hash of column names and values. BLOB columns
-     *                          must be provided as Horde_Db_Value_Binary
+     * @param array $fields     A hash of column names and values. BLOB/CLOB
+     *                          columns must be provided as Horde_Db_Value
      *                          objects.
      * @param string $pk        The primary key column.
      * @param integer $idValue  The primary key value. This parameter is
@@ -404,9 +410,9 @@ class Horde_Db_Adapter_Oci8 extends Horde_Db_Adapter_Base
      * @since Horde_Db 2.2.0
      *
      * @param string $table        The table name.
-     * @param array $fields        A hash of column names and values. BLOB
+     * @param array $fields        A hash of column names and values. BLOB/CLOB
      *                             columns must be provided as
-     *                             Horde_Db_Value_Binary objects.
+     *                             Horde_Db_Value objects.
      * @param string|array $where  A WHERE clause. Either a complete clause or
      *                             an array containing a clause with
      *                             placeholders and a list of values.
@@ -450,8 +456,8 @@ class Horde_Db_Adapter_Oci8 extends Horde_Db_Adapter_Base
      * Prepares a list of field values to be consumed by insertBlob() or
      * updateBlob().
      *
-     * @param array $fields  A hash of column names and values. BLOB columns
-     *                       must be provided as Horde_Db_Value_Binary objects.
+     * @param array $fields  A hash of column names and values. BLOB/CLOB
+     *                       columns must be provided as Horde_Db_Value objects.
      *
      * @return array  A list of fields, blobs, and locators.
      */
@@ -463,9 +469,9 @@ class Horde_Db_Adapter_Oci8 extends Horde_Db_Adapter_Base
                 $field instanceof Horde_Db_Value_Text) {
                 $blobs[$this->quoteColumnName($column)] = $field;
                 $locators[] = ':' . $this->quoteColumnName($column);
-                $field = $field instanceof Horde_Db_Value_Binary
-                    ? 'EMPTY_BLOB()'
-                    : 'EMPTY_CLOB()';
+                $field = $field instanceof Horde_Db_Value_Text
+                    ? 'EMPTY_CLOB()'
+                    : 'EMPTY_BLOB()';
             } else {
                 $field = $this->quote($field);
             }

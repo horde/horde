@@ -1,0 +1,9 @@
+---
+id: whups
+name: Whups
+full: Ticket-tracking application
+description: >
+  Whups is a Horde ticket-tracking application. It is very flexible in design,
+  and can be used for help-desk requests, tracking software development, and
+  anything else that needs to track a set of requests and their status.
+list: horde

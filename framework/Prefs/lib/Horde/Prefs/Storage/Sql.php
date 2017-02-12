@@ -138,7 +138,7 @@ class Horde_Prefs_Storage_Sql extends Horde_Prefs_Storage_Base
                     );
 
                     try {
-                        $this->_db->insertBlob($this->_params['table'], $values);
+                        $this->_db->insertBlob($this->_params['table'], $values, null, true);
                     } catch (Horde_Db_Exception $e) {
                         throw new Horde_Prefs_Exception($e);
                     }

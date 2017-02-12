@@ -1,0 +1,6 @@
+---
+id: Service_Facebook
+name: Service_Facebook
+full: Facebook client library
+description: Client libraries for the Facebook REST API.
+list: dev

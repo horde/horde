@@ -455,7 +455,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
 
             // Check for supported SCRAM AUTH mechanisms. Preferred because it
-            // provides verificaion of server authenticity.
+            // provides verification of server authenticity.
             foreach (array_keys($auth) as $key) {
                 switch ($key) {
                 case 'SCRAM-SHA-1':

@@ -1,0 +1,8 @@
+---
+id: pastie
+name: Pastie
+full: Pastebin application
+description: >
+  An application for pasting and sharing syntax-highlighted snippets of
+  arbitrary text or program code
+list:

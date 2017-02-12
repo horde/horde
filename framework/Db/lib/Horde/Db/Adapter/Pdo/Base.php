@@ -217,10 +217,58 @@ abstract class Horde_Db_Adapter_Pdo_Base extends Horde_Db_Adapter_Base
     public function execute($sql, $arg1 = null, $arg2 = null)
     {
         if (is_array($arg1)) {
-            $sql = $this->_replaceParameters($sql, $arg1);
+            $query = $this->_replaceParameters($sql, $arg1);
             $name = $arg2;
         } else {
             $name = $arg1;
+            $query = $sql;
+            $arg1 = array();
+        }
+
+        $t = new Horde_Support_Timer;
+        $t->push();
+
+        try {
+            $this->_lastQuery = $query;
+            $stmt = $this->_connection->query($query);
+        } catch (PDOException $e) {
+            $this->_logInfo($sql, $arg1, $name);
+            $this->_logError($query, 'QUERY FAILED: ' . $e->getMessage());
+            throw new Horde_Db_Exception($e);
+        }
+
+        $this->_logInfo($sql, $arg1, $name, $t->pop());
+        $this->_rowCount = $stmt ? $stmt->rowCount() : 0;
+
+        return $stmt;
+    }
+
+    /**
+     * Use a PDO prepared statement to execute a query. Used when passing
+     * values to insert/update as a stream resource.
+     *
+     * @param  string $sql           The SQL statement. Includes '?' placeholder
+     *     for binding non-stream values. Stream values are bound using a
+     *     placeholders named like ':binary0', ':binary1' etc...
+     *
+     * @param  array $values        An array of non-stream values.
+     * @param  array $binary_values An array of stream resources.
+     *
+     * @throws  Horde_Db_Exception
+     */
+    protected function _executePrepared($sql, $values, $binary_values)
+    {
+        $query = $this->_replaceParameters($sql, $values);
+        try {
+            $stmt = $this->_connection->prepare($query);
+            foreach ($binary_values as $key => $bvalue) {
+                rewind($bvalue);
+                $stmt->bindParam(':binary' . $key, $bvalue, PDO::PARAM_LOB);
+            }
+        } catch (PDOException $e) {
+            $this->_logInfo($sql, $values, null);
+            $this->_logError($sql, 'QUERY FAILED: ' . $e->getMessage());
+            throw new Horde_Db_Exception($e);
         }
 
         $t = new Horde_Support_Timer;
@@ -228,18 +276,122 @@ abstract class Horde_Db_Adapter_Pdo_Base extends Horde_Db_Adapter_Base
 
         try {
             $this->_lastQuery = $sql;
-            $stmt = $this->_connection->query($sql);
+            $stmt->execute();
         } catch (PDOException $e) {
-            $this->_logInfo($sql, $name);
+            $this->_logInfo($sql, $values, null);
             $this->_logError($sql, 'QUERY FAILED: ' . $e->getMessage());
             throw new Horde_Db_Exception($e);
         }
 
-        $this->_logInfo($sql, $name, $t->pop());
-        $this->_rowCount = $stmt ? $stmt->rowCount() : 0;
+        $t = new Horde_Support_Timer;
+        $t->push();
 
-        return $stmt;
+        $this->_logInfo($sql, $values, null, $t->pop());
+        $this->_rowCount = $stmt->rowCount();
     }
+
+    /**
+     * Inserts a row including BLOBs into a table.
+     *
+     * @since Horde_Db 2.4.0
+     *
+     * @param string $table     The table name.
+     * @param array $fields     A hash of column names and values. BLOB/CLOB
+     *                          columns must be provided as Horde_Db_Value
+     *                          objects.
+     * @param string $pk        The primary key column.
+     * @param integer $idValue  The primary key value. This parameter is
+     *                          required if the primary key is inserted
+     *                          manually.
+     *
+     * @return integer  Last inserted ID.
+     * @throws Horde_Db_Exception
+     */
+    public function insertBlob($table, $fields, $pk = null, $idValue = null)
+    {
+        $placeholders = $values = $binary = array();
+        $binary_cnt = 0;
+        foreach ($fields as $name => $value) {
+            if ($value instanceof Horde_Db_Value_Binary) {
+                $placeholders[] = ':binary' . $binary_cnt++;
+                $binary[] = $value->stream;
+            } else {
+                $placeholders[] = '?';
+                $values[] = $value;
+            }
+        }
+
+        $query = sprintf(
+            'INSERT INTO %s (%s) VALUES (%s)',
+            $this->quoteTableName($table),
+            implode(', ', array_map(array($this, 'quoteColumnName'), array_keys($fields))),
+            implode(', ', $placeholders)
+        );
+
+        if ($binary_cnt > 0) {
+            $this->_executePrepared($query, $values, $binary);
+
+            try {
+                return $idValue
+                    ? $idValue
+                    : $this->_connection->lastInsertId(null);
+            } catch (PDOException $e) {
+                throw new Horde_Db_Exception($e);
+            }
+        }
+
+        return $this->insert($query, $fields, null, $pk, $idValue);
+    }
+
+    /**
+     * Updates rows including BLOBs into a table.
+     *
+     * @since Horde_Db 2.4.0
+     *
+     * @param string $table        The table name.
+     * @param array $fields        A hash of column names and values. BLOB/CLOB
+     *                             columns must be provided as
+     *                             Horde_Db_Value objects.
+     * @param string|array $where  A WHERE clause. Either a complete clause or
+     *                             an array containing a clause with
+     *                             placeholders and a list of values.
+     *
+     * @throws Horde_Db_Exception
+     */
+    public function updateBlob($table, $fields, $where = null)
+    {
+        if (is_array($where)) {
+            $where = $this->_replaceParameters($where[0], $where[1]);
+        }
+
+        $values = $binary_values = $fnames = array();
+        $binary_cnt = 0;
+
+        foreach ($fields as $field => $value) {
+            if ($value instanceof Horde_Db_Value) {
+                $fnames[] = $this->quoteColumnName($field) . ' = :binary' . $binary_cnt++;
+                $binary_values[] = $value->stream;
+            } else {
+                $fnames[] = $this->quoteColumnName($field) . ' = ?';
+                $values[] = $value;
+            }
+        }
+
+        $query = sprintf(
+            'UPDATE %s SET %s%s',
+            $this->quoteTableName($table),
+            implode(', ', $fnames),
+            strlen($where) ? ' WHERE ' . $where : ''
+        );
+
+        if ($binary_cnt > 0) {
+            $this->_executePrepared($query, $values, $binary_values);
+            return $this->_rowCount;
+        }
+
+        return $this->update($query, $fields);
+    }
+
 
     /**
      * Inserts a row into a table.

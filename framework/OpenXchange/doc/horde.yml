@@ -1,0 +1,6 @@
+---
+id: OpenXchange
+name: OpenXchange
+full: Open-Xchange client library
+description: Library to interact with Open-Xchange servers.
+list: dev

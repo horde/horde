@@ -1,0 +1,8 @@
+---
+id: Text_Filter_Jsmin
+name: Text_Filter_Jsmin
+full: Text filtering and conversion library - JSMin driver
+description: >
+  The JSMin javascript minifier driver for use with the Horde_Text_Filter
+  package.
+list: dev

@@ -1,15 +1,17 @@
-# GitHub organization where to create the splitted repositories.
-GIT_ORGA="horde-split-test"
+<?php
 
-# GitHub user name.
-GIT_ACCOUNT=""
+// GitHub organization where to create the splitted repositories.
+$git['orga'] = 'horde-split-test';
 
-# GitHub token with "repo" access from
-# https://github.com/settings/tokens
-GIT_TOKEN=""
+// GitHub user name.
+$git['account'] = '';
 
-# Temporary directory (memory FS) for git operations.
-TMP_DIR="/dev/shm"
+// GitHub token with "repo" access from
+// https://github.com/settings/tokens
+$git['token'] = '';
 
-# Working directory.
-WORK_DIR="/home/user/horde-split"
+// Temporary directory (memory FS) for git operations.
+$tmp_dir = '/dev/shm';
+
+// Working directory.
+$work_dir = '/home/user/horde-split';

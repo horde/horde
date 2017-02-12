@@ -1,0 +1,6 @@
+---
+id: Socket_Client
+name: Socket_Client
+full: Network socket client library
+description: Provides abstract class for use in creating PHP network socket clients.
+list: dev

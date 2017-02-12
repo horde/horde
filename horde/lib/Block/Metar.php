@@ -430,6 +430,8 @@ class Horde_Block_Metar extends Horde_Core_Block
                     $period['fmc']['clouds'] = !empty($period['fmc']['clouds'])
                         ? $period['fmc']['clouds']
                         : array();
+                } else {
+                    $period['fmc'] = array();
                 }
 
                 // Set the period in the view.

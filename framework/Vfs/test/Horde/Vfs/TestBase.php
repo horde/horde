@@ -50,6 +50,7 @@ class Horde_Vfs_TestBase extends Horde_Test_Case
      * test/
      *   dir1/
      *     file1: content1_1
+     *     file1s: stream_content
      *   dir2/
      *   dir3/
      *     file1: content3_1
@@ -58,13 +59,19 @@ class Horde_Vfs_TestBase extends Horde_Test_Case
     protected function _writeData()
     {
         self::$vfs->writeData('test', 'file1', 'content1');
+        $temp = fopen('php://temp', 'r+');
+        fwrite($temp, 'stream_content');
+        rewind($temp);
         self::$vfs->writeData('test/dir1', 'file1', 'content1_1');
+        self::$vfs->writeData('test/dir1', 'file1s', $temp);
         self::$vfs->writeData('test/dir3', 'file1', 'content3_1', true);
         try {
             self::$vfs->writeData('test/dir4', 'file1', 'content4_1');
             $this->fail('Missing directory should throw an exception unless $autocreate is set');
         } catch (Horde_Vfs_Exception $e) {
         }
+
+
     }
 
     /**
@@ -72,6 +79,7 @@ class Horde_Vfs_TestBase extends Horde_Test_Case
      * test/
      *   dir1/
      *     file1: content1_1
+     *     file1s: stream_content
      *     file2: __FILE__
      *   dir2/
      *   dir3/
@@ -94,6 +102,7 @@ class Horde_Vfs_TestBase extends Horde_Test_Case
     {
         $this->assertEquals('content1', self::$vfs->read('test', 'file1'));
         $this->assertEquals('content1_1', self::$vfs->read('test/dir1', 'file1'));
+        $this->assertEquals('stream_content', self::$vfs->read('test/dir1', 'file1s'));
         $this->assertEquals('content3_1', self::$vfs->read('test/dir3', 'file1'));
         $this->assertEquals(file_get_contents(__FILE__), self::$vfs->read('test/dir1', 'file2'));
         $this->assertEquals(file_get_contents(__FILE__), self::$vfs->read('test/dir3', 'file2', __FILE__));
@@ -139,14 +148,14 @@ class Horde_Vfs_TestBase extends Horde_Test_Case
 
     protected function _folderSize()
     {
-        $this->assertEquals(28 + 2 * filesize(__FILE__), self::$vfs->getFolderSize('test'));
-        $this->assertEquals(10 + filesize(__FILE__), self::$vfs->getFolderSize('test/dir1'));
+        $this->assertEquals(42 + 2 * filesize(__FILE__), self::$vfs->getFolderSize('test'));
+        $this->assertEquals(24 + filesize(__FILE__), self::$vfs->getFolderSize('test/dir1'));
         $this->assertEquals(10 + filesize(__FILE__), self::$vfs->getFolderSize('test/dir3'));
     }
 
     protected function _vfsSize()
     {
-        $this->assertEquals(28 + 2 * filesize(__FILE__), self::$vfs->getVFSSize());
+        $this->assertEquals(42 + 2 * filesize(__FILE__), self::$vfs->getVFSSize());
     }
 
     /**
@@ -314,8 +323,8 @@ class Horde_Vfs_TestBase extends Horde_Test_Case
      */
     protected function _quota()
     {
-        $used = 18 + filesize(__FILE__);
-        self::$vfs->setQuota(18 + filesize(__FILE__) + 10);
+        $used = 32 + filesize(__FILE__);
+        self::$vfs->setQuota(32 + filesize(__FILE__) + 10);
         try {
             self::$vfs->writeData('', 'file1', '12345678901');
             $this->fail('Writing over quota should throw an exception');
@@ -395,12 +404,14 @@ class Horde_Vfs_TestBase extends Horde_Test_Case
             array('file2' => null,
                   'test' => array('.file2' => null,
                                   'dir1' => array('file1' => null,
+                                                   'file1s' => null,
                                                   'file2' => null),
                                   'dir2' => array(),
                                   'file1' => null)),
             $this->_sort(self::$vfs->listFolder('', null, true, false, true)));
         $this->assertEquals(
             array('dir1' => array('file1' => null,
+                                  'file1s' => null,
                                   'file2' => null),
                   'dir2' => array(),
                   'file1' => null),

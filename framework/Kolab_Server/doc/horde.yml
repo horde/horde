@@ -1,0 +1,8 @@
+---
+id: Kolab_Server
+name: Kolab_Server
+full: Kolab user database library
+description: |
+  This package reads/writes entries in the Kolab user
+  database stored in LDAP.
+list: dev
