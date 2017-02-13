@@ -936,26 +936,6 @@ class Ansel_Image implements Iterator
     }
 
     /**
-     * Wraps the given view into a file.
-     *
-     * @param string $view  Which view to wrap up.
-     *
-     * @return string  Path to temporary file.
-     * @deprecated Not used anywhere, remove in A4.
-     */
-    public function toFile($view = 'full')
-    {
-        $this->load($view);
-
-        // @TODO: This logic looks broken to me. SHould probably be
-        // just always $this->_image->toFile();
-        return $this->_image->toFile(
-            $this->_dirty ?
-                null :
-                $this->_image->raw(false, array('stream' => true)));
-    }
-
-    /**
      * Returns the dimensions of the given view.
      *
      * @param string $view  The view (full, screen etc..) to get dimensions for
