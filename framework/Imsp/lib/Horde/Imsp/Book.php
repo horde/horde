@@ -427,7 +427,7 @@ class Horde_Imsp_Book
             $this->_imsp->send("\"$entryName\" ", false, false);
         }
 
-        foreach ($entryInfo as $key, $value) {
+        foreach ($entryInfo as $key => $value) {
             // Do not sent the key name 'name'.
             if ($key != 'name') {
                 // Protect from extraneous white space
