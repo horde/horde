@@ -379,7 +379,11 @@ abstract class Horde_Image_Base extends EmptyIterator
     public function display()
     {
         $this->headers();
-        echo $this->raw(true);
+        $data = $this->raw(true, array('stream' => true));
+        $output = fopen('php://output', 'w');
+        while (!feof($data)) {
+            fwrite($output, fread($data, 8192));
+        }
     }
 
     /**
