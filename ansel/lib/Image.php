@@ -497,20 +497,20 @@ class Ansel_Image implements Iterator
             ->writeData(
                 $vfspath,
                 $this->getVFSName($vHash),
-                $this->_image->raw(false, array('stream' -> true)),
+                $this->_image->raw(false, array('stream' => true)),
                 true
             );
 
         // Watermark?
         if (!empty($watermark)) {
             $this->watermark($view);
-            $this->_image->raw(false, array('stream' -> true));
+            $this->_image->raw(false, array('stream' => true));
             $injector->getInstance('Horde_Core_Factory_Vfs')
                 ->create('images')
                 ->writeData(
                     $vfspath,
                     $this->getVFSName($view),
-                    $this->_image->raw(false, array('stream' -> true))
+                    $this->_image->raw(false, array('stream' => true))
                 );
         }
 
@@ -798,7 +798,7 @@ class Ansel_Image implements Iterator
             }
 
             if ($this->_dirty) {
-                $this->raw(false, array('stream' -> true));
+                $this->raw(false, array('stream' => true));
                 $this->_writeData();
             }
         }
@@ -1470,7 +1470,7 @@ class Ansel_Image implements Iterator
     {
         $params = array(
                 'image_filename' => $this->filename,
-                'data' => $image->raw(false, array('stream' -> true)),
+                'data' => $image->raw(false, array('stream' => true)),
         );
         $newImage = new Ansel_Image($params);
 
