@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2016-12-16</date>
+ <date>2017-02-13</date>
  <version>
   <release>2.1.7</release>
   <api>2.1.0</api>
@@ -49,6 +49,7 @@
       <file name="COPYING" role="doc" />
      </dir> <!-- /doc/Horde/Compress -->
     </dir> <!-- /doc/Horde -->
+    <file name="horde.yml" role="doc" />
    </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
@@ -346,6 +347,7 @@
        <file name="winmail2.dat" role="test" />
       </dir> <!-- /test/Horde/Compress/fixtures -->
       <file name="AllTests.php" role="test" />
+      <file name="Autoload.php" role="test" />
       <file name="bootstrap.php" role="test" />
       <file name="phpunit.xml" role="test" />
       <file name="RarTest.php" role="test" />
@@ -438,6 +440,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="horde.yml" name="doc/horde.yml" />
    <install as="COPYING" name="doc/Horde/Compress/COPYING" />
    <install as="Horde/Compress.php" name="lib/Horde/Compress.php" />
    <install as="Horde/Compress/Base.php" name="lib/Horde/Compress/Base.php" />
@@ -542,6 +545,7 @@
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Compress.mo" name="locale/zh_TW/LC_MESSAGES/Horde_Compress.mo" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Compress.po" name="locale/zh_TW/LC_MESSAGES/Horde_Compress.po" />
    <install as="Horde/Compress/AllTests.php" name="test/Horde/Compress/AllTests.php" />
+   <install as="Horde/Compress/Autoload.php" name="test/Horde/Compress/Autoload.php" />
    <install as="Horde/Compress/bootstrap.php" name="test/Horde/Compress/bootstrap.php" />
    <install as="Horde/Compress/phpunit.xml" name="test/Horde/Compress/phpunit.xml" />
    <install as="Horde/Compress/RarTest.php" name="test/Horde/Compress/RarTest.php" />
@@ -1037,7 +1041,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-12-16</date>
+   <date>2017-02-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 
