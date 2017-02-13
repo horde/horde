@@ -80,7 +80,7 @@ class Horde_Text_Diff_Engine_Shell
 
             if ($from_line_no < $match[1] || $to_line_no < $match[4]) {
                 // copied lines
-                assert('$match[1] - $from_line_no == $match[4] - $to_line_no');
+                assert($match[1] - $from_line_no == $match[4] - $to_line_no);
                 $edits[] =
                     new Horde_Text_Diff_Op_Copy(
                         $this->_getLines($from_lines, $from_line_no, $match[1] - 1),
