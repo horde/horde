@@ -15,7 +15,10 @@ class Horde_Autoloader_ClassPathMapper_DefaultTest extends PHPUnit_Framework_Tes
     public function providerClassNames()
     {
         return array_map(
-            create_function('$a', '$a[1] = str_replace("/", DIRECTORY_SEPARATOR, $a[1]); return $a;'),
+            function ($a) {
+                $a[1] = str_replace('/', DIRECTORY_SEPARATOR, $a[1]);
+                return $a;
+            },
             array(
                 array('Module_Action_Suffix', 'dir/Module/Action/Suffix.php'),
                 array('MyModule_Action_Suffix', 'dir/MyModule/Action/Suffix.php'),

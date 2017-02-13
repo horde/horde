@@ -240,13 +240,9 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
             $this->_alterTable(
                 $tableName,
                 array(),
-                create_function(
-                    '$definition',
-                    sprintf(
-                        '$definition->column("%s", "%s", %s);',
-                        $columnName, $type, var_export($options, true)
-                    )
-                )
+                function ($definition) use ($columnName, $type, $options) {
+                    $definition->column($columnName, $type, $options);
+                }
             );
         } else {
             parent::addColumn($tableName, $columnName, $type, $options);
@@ -269,8 +265,10 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
         return $this->_alterTable(
             $tableName,
             array(),
-            create_function('$definition',
-                            'unset($definition["' . $columnName . '"]);'));
+            function ($definition) use ($columnName) {
+                unset($definition[$columnName]);
+            }
+        );
     }
 
     /**
@@ -288,39 +286,51 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
         $this->_clearTableCache($tableName);
 
         $defs = array(
-            sprintf('$definition["%s"]->setType("%s");', $columnName, $type),
-            sprintf('if ("%s" == "autoincrementKey") $definition->primaryKey(false);', $type)
+            function ($definition) use ($columnName, $type) {
+                $definition[$columnName]->setType($type);
+            },
+            function ($definition) use ($type) {
+                if ($type == 'autoincrementKey') {
+                    $definition->primaryKey(false);
+                }
+            }
         );
         if (isset($options['limit'])) {
-            $defs[] = sprintf('$definition["%s"]->setLimit("%s");', $columnName, $options['limit']);
+            $defs[] = function ($definition) use ($columnName, $options) {
+                $definition[$columnName]->setLimit($options['limit']);
+            };
         }
         if (isset($options['null'])) {
-            $defs[] = sprintf('$definition["%s"]->setNull((bool)%d);', $columnName, $options['null']);
+            $defs[] = function ($definition) use ($columnName, $options) {
+                $definition[$columnName]->setNull((bool)$options['null']);
+            };
         }
         if (isset($options['precision'])) {
-            $defs[] = sprintf('$definition["%s"]->setPrecision("%s");', $columnName, $options['precision']);
+            $defs[] = function ($definition) use ($columnName, $options) {
+                $definition[$columnName]->setPrecision($options['precision']);
+            };
         }
         if (isset($options['scale'])) {
-            $defs[] = sprintf('$definition["%s"]->setScale("%s");', $columnName, $options['scale']);
+            $defs[] = function ($definition) use ($columnName, $options) {
+                $definition[$columnName]->setScale($options['scale']);
+            };
         }
 
         if (array_key_exists('default', $options)) {
-            if ($options['default'] === true) {
-                $default = 'true';
-            } elseif ($options['default'] === false) {
-                $default = 'false';
-            } elseif ($options['default'] === null) {
-                $default = 'null';
-            } else {
-                $default = '"' . $options['default'] . '"';
-            }
-            $defs[] = sprintf('$definition["%s"]->setDefault(%s);', $columnName, $default);
+            $defs[] = function ($definition) use ($columnName, $options) {
+                $definition[$columnName]->setDefault($options['default']);
+            };
         }
 
         return $this->_alterTable(
             $tableName,
             array(),
-            create_function('$definition', implode("\n", $defs)));
+            function ($definition) use ($defs) {
+                foreach ($defs as $callback) {
+                    $callback($definition);
+                }
+            }
+        );
     }
 
     /**
@@ -337,13 +347,13 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
     {
         $this->_clearTableCache($tableName);
 
-        $default = is_null($default) ? 'null' : '"' . $default . '"';
         return $this->_alterTable(
             $tableName,
             array(),
-            create_function('$definition',
-                            sprintf('$definition["%s"]->setDefault(%s);',
-                                    $columnName, $default)));
+            function ($definition) use ($columnName, $default) {
+                $definition[$columnName]->setDefault($default);
+            }
+        );
     }
 
     /**
@@ -374,13 +384,9 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
     {
         $this->_clearTableCache($tableName);
         $columns = (array)$columns;
-        foreach ($columns as &$column) {
-            $column = '"' . $column . '"';
-        }
-        $callback = create_function(
-            '$definition',
-            sprintf('$definition->primaryKey(array(%s));',
-                    implode(', ', $columns)));
+        $callback = function ($definition) use ($columns) {
+            $definition->primaryKey($columns);
+        };
         $this->_alterTable($tableName, array(), $callback);
     }
 
@@ -394,8 +400,9 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
     public function removePrimaryKey($tableName)
     {
         $this->_clearTableCache($tableName);
-        $callback = create_function('$definition',
-                                    '$definition->primaryKey(false);');
+        $callback = function ($definition) {
+            $definition->primaryKey(false);
+        };
         $this->_alterTable($tableName, array(), $callback);
     }
 
@@ -647,8 +654,10 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
         $this->_copyTableContents(
             $from,
             $to,
-            array_map(create_function('$c', 'return $c->getName();'),
-                      iterator_to_array($definition)),
+            array_map(
+                function($c) { return $c->getName(); },
+                iterator_to_array($definition)
+            ),
             isset($options['rename']) ? $options['rename'] : array());
     }
 

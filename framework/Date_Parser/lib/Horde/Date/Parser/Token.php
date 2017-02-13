@@ -23,7 +23,12 @@ class Horde_Date_Parser_Token
      */
     public function untag($tagClass)
     {
-        $this->tags = array_filter($this->tags, create_function('$t', 'return substr($t[0], 0, ' . strlen($tagClass) . ') != "' . $tagClass . '";'));
+        $this->tags = array_filter(
+            $this->tags,
+            function ($t) use ($tagClass) {
+                return substr($t[0], 0, strlen($tagClass)) != $tagClass;
+            }
+        );
     }
 
     /**
@@ -39,7 +44,12 @@ class Horde_Date_Parser_Token
      */
     public function getTag($tagClass)
     {
-        $matches = array_filter($this->tags, create_function('$t', 'return substr($t[0], 0, ' . strlen($tagClass) . ') == "' . $tagClass . '";'));
+        $matches = array_filter(
+            $this->tags,
+            function ($t) use ($tagClass) {
+                return substr($t[0], 0, strlen($tagClass)) == $tagClass;
+            }
+        );
         $match = array_shift($matches);
         return $match[1];
     }

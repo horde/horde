@@ -332,7 +332,20 @@ class Horde_Data_Csv extends Horde_Data_Base
 
         if ($row) {
             $row = (strlen($params['quote']) && strlen($params['escape']))
-                ? array_map(create_function('$a', 'return str_replace(\'' . str_replace('\'', '\\\'', $params['escape'] . $params['quote']) . '\', \'' . str_replace('\'', '\\\'', $params['quote']) . '\', $a);'), $row)
+                ? array_map(
+                    function ($a) use ($params) {
+                        return str_replace(
+                            str_replace(
+                                '\'',
+                                '\\\'',
+                                $params['escape'] . $params['quote']
+                            ),
+                            str_replace('\'', '\\\'', $params['quote']),
+                            $a
+                        );
+                    },
+                    $row
+                )
                 : array_map('trim', $row);
 
             if (!empty($params['length'])) {

@@ -16,7 +16,7 @@
 <div class="commitList">
 <?php
 $view = $injector->createInstance('Horde_View');
-echo $view->renderPartial('app/views/logMessage', array('collection' => array_map(create_function('$a', 'return $a->toHash();'), $log_messages), 'locals' => array('diff_page' => 1)));
+echo $view->renderPartial('app/views/logMessage', array('collection' => array_map(function ($a) { return $a->toHash(); }, $log_messages), 'locals' => array('diff_page' => 1)));
 ?>
 </div>
 <?php endif; ?>

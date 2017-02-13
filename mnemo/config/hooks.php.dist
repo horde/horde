@@ -21,8 +21,8 @@ class Mnemo_Hooks
 //        $text = preg_replace('/#(\d+)/', '<a href="http://bugs.horde.org/ticket/\1">\0</a>', $text);
 //        $text = preg_replace('/(bug|ticket|request|enhancement|issue):\s*#?(\d+)/i', '<a href="http://bugs.horde.org/ticket/\1">\0</a>', $text);
 //
-//        $text = preg_replace_callback('/\[\[note: ?(.*)\]\]/i', create_function('$m', 'return \'<a href="/horde/mnemo/notes/?q=\' . urlencode($m[1]) . \'">\' . htmlspecialchars($m[0]) . \'</a>\';'), $text);
-//        $text = preg_replace_callback('/\[\[task: ?(.*)\]\]/i', create_function('$m', 'return \'<a href="/horde/nag/tasks/?q=\' . urlencode($m[1]) . \'">\' . htmlspecialchars($m[0]) . \'</a>\';'), $text);
+//        $text = preg_replace_callback('/\[\[note: ?(.*)\]\]/i', function ($m) { return '<a href="/horde/mnemo/notes/?q=' . urlencode($m[1]) . '">' . htmlspecialchars($m[0]) . '</a>'; }, $text);
+//        $text = preg_replace_callback('/\[\[task: ?(.*)\]\]/i', function ($m) { return '<a href="/horde/nag/tasks/?q=' . urlencode($m[1]) . '">' . htmlspecialchars($m[0]) . '</a>'; }, $text);
 //
 //        return $text;
 //    }

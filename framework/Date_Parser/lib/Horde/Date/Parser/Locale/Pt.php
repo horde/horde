@@ -100,7 +100,9 @@ class Horde_Date_Parser_Locale_Pt extends Horde_Date_Parser_Locale_Base
         }
 
         // strip any non-tagged tokens
-        $taggedTokens = array_values(array_filter($tokens, create_function('$t', 'return $t->tagged();')));
+        $taggedTokens = array_values(array_filter(
+            $tokens, function ($t) { return $t->tagged(); }
+        ));
 
         // Remove tokens we know we don't want - for example, if the first
         // token is a separator, drop it.

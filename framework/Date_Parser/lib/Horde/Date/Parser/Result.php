@@ -28,14 +28,22 @@ class Horde_Date_Parser_Result
 
     public function taggedText()
     {
-        $taggedTokens = array_values(array_filter($this->tokens, create_function('$t', 'return $t->tagged();')));
-        return implode(' ', array_map(create_function('$t', 'return $t->word;'), $taggedTokens));
+        $taggedTokens = array_values(array_filter(
+            $this->tokens, function ($t) { return $t->tagged(); }
+        ));
+        return implode(
+            ' ', array_map(function ($t) { return $t->word; }, $taggedTokens)
+        );
     }
 
     public function untaggedText()
     {
-        $untaggedTokens = array_values(array_filter($this->tokens, create_function('$t', 'return ! $t->tagged();')));
-        return implode(' ', array_map(create_function('$t', 'return $t->word;'), $untaggedTokens));
+        $untaggedTokens = array_values(array_filter(
+            $this->tokens, function ($t) { return !$t->tagged(); }
+        ));
+        return implode(
+            ' ', array_map(function ($t) { return $t->word; }, $untaggedTokens)
+        );
     }
 
 }

@@ -286,7 +286,10 @@ class Horde_Translation_Script
 
         if ($local) {
             $files = $this->ff->glob($file, $dir, 'perl');
-            $files = array_map(create_function('$file', 'return "' . $dir . DS . '" . $file;'), $files);
+            $files = array_map(
+                function ($file) use ($dir) { return $dir . DS . $file; },
+                $files
+            );
             return $files;
         }
         return $this->ff->search($file, $dir, 'perl', false);

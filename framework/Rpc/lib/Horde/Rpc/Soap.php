@@ -87,7 +87,7 @@ class Horde_Rpc_Soap extends Horde_Rpc
         Horde::log(
             sprintf('SOAP call: %s(%s) by %s serviced in %d seconds, sent %d bytes in response',
                     $GLOBALS['__horde_rpc_PhpSoap']['lastMethodCalled'],
-                    implode(', ', array_map(create_function('$a', 'return is_array($a) ? "Array" : $a;'),
+                    implode(', ', array_map(function ($a) { return is_array($a) ? 'Array' : $a; },
                                             $GLOBALS['__horde_rpc_PhpSoap']['lastMethodParams'])),
                     $GLOBALS['registry']->getAuth(),
                     time() - $beginTime,

@@ -760,7 +760,7 @@ variables used in these functions, and check the source of any
 constants as well.
 
 eval and create_function - Obvious danger if user input is supplied to
-it in uncontrolled conditions.
+it in uncontrolled conditions. Deprecated, use closures instead.
 
 preg_replace - The /e modifier is deprecated and must no longer be used.
 
@@ -833,19 +833,6 @@ key and then call array_keys($foo) to return the unique list.
 Avoid array_push(), the [] operator is much faster::
 
     $array[] = 'element';
-
-User defined functions
-----------------------
-User defined functions are more expensive than "regular" functions.  Use them
-only if they improve the code readability more than regular functions.
-
-Dynamically created functions (eval and create_function)
---------------------------------------------------------
-Code executed with eval, and functions created with create_function,
-are essentially PHP code that the engine has to parse every time it is
-run. This code is impossible to cache with an opcode cache, and even
-without one is slower than regular PHP code. Because they also have
-security risks, they should be avoided if at all possible.
 
 Disk I/O
 --------

@@ -44,7 +44,18 @@ class Horde_Date_Parser
         foreach (new DirectoryIterator($dir) as $f) {
             if ($f->isFile()) {
                 $locale = str_replace('.php', '', $f->getFilename());
-                $locale = preg_replace_callback('/([A-Z][a-z]*)([A-Z].*)?/', create_function('$m', 'if (!isset($m[2])) { return Horde_String::lower($m[1]); } else { return Horde_String::lower($m[1]) . "_" . Horde_String::upper($m[2]); }'), $locale);
+                $locale = preg_replace_callback(
+                    '/([A-Z][a-z]*)([A-Z].*)?/',
+                    function ($m) {
+                        if (!isset($m[2])) {
+                            return Horde_String::lower($m[1]);
+                        } else {
+                            return Horde_String::lower($m[1])
+                                . '_' . Horde_String::upper($m[2]);
+                        }
+                    },
+                    $locale
+                );
                 $locales[] = $locale;
             }
         }

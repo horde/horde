@@ -97,7 +97,9 @@ class Horde_Date_Parser_Locale_Base
         }
 
         // strip any non-tagged tokens
-        $taggedTokens = array_values(array_filter($tokens, create_function('$t', 'return $t->tagged();')));
+        $taggedTokens = array_values(array_filter(
+            $tokens, function ($t) { return $t->tagged(); }
+        ));
 
         // Remove tokens we know we don't want - for example, if the first token
         // is a separator, drop it.
@@ -197,7 +199,10 @@ class Horde_Date_Parser_Locale_Base
      */
     public function preTokenize($text)
     {
-        return array_map(create_function('$w', 'return new Horde_Date_Parser_Token($w);'), preg_split('/\s+/', $text));
+        return array_map(
+            function ($w) { return new Horde_Date_Parser_Token($w); },
+            preg_split('/\s+/', $text)
+        );
     }
 
     /**
@@ -292,7 +297,9 @@ class Horde_Date_Parser_Locale_Base
         // maybe it's a specific date
         foreach ($this->definitions['date'] as $handler) {
             if ($handler->match($tokens, $this->definitions)) {
-                $goodTokens = array_values(array_filter($tokens, create_function('$o', 'return !$o->getTag("separator");')));
+                $goodTokens = array_values(array_filter(
+                    $tokens, function ($o) { return !$o->getTag('separator'); }
+                ));
                 $this->debug($handler->handlerMethod, $goodTokens, $options);
                 return call_user_func(array($this, $handler->handlerMethod), $goodTokens, $options);
             }
@@ -301,7 +308,9 @@ class Horde_Date_Parser_Locale_Base
         // I guess it's not a specific date, maybe it's just an anchor
         foreach ($this->definitions['anchor'] as $handler) {
             if ($handler->match($tokens, $this->definitions)) {
-                $goodTokens = array_values(array_filter($tokens, create_function('$o', 'return !$o->getTag("separator");')));
+                $goodTokens = array_values(array_filter(
+                    $tokens, function ($o) { return !$o->getTag('separator'); }
+                ));
                 $this->debug($handler->handlerMethod, $goodTokens, $options);
                 return call_user_func(array($this, $handler->handlerMethod), $goodTokens, $options);
             }
@@ -310,7 +319,14 @@ class Horde_Date_Parser_Locale_Base
         // not an anchor, perhaps it's an arrow
         foreach ($this->definitions['arrow'] as $handler) {
             if ($handler->match($tokens, $this->definitions)) {
-                $goodTokens = array_values(array_filter($tokens, create_function('$o', 'return !$o->getTag("separator_at") && !$o->getTag("separator_slash_or_dash") && !$o->getTag("separator_comma");')));
+                $goodTokens = array_values(array_filter(
+                    $tokens,
+                    function ($o) {
+                        return !$o->getTag('separator_at') &&
+                            !$o->getTag('separator_slash_or_dash') &&
+                            !$o->getTag('separator_comma');
+                    }
+                ));
                 $this->debug($handler->handlerMethod, $goodTokens, $options);
                 return call_user_func(array($this, $handler->handlerMethod), $goodTokens, $options);
             }
@@ -603,7 +619,10 @@ class Horde_Date_Parser_Locale_Base
         }
 
         // Return repeaters in order from widest (years) to smallest (seconds)
-        usort($repeaters, create_function('$a, $b', 'return $b->width() > $a->width();'));
+        usort(
+            $repeaters,
+            function ($a, $b) { return $b->width() > $a->width(); }
+        );
         return $repeaters;
     }
 

@@ -488,7 +488,7 @@ abstract class Horde_Db_Adapter_TestBase extends Horde_Test_Case
         $this->assertEquals(3, count($indexes));
 
         // sort by name so we can predict the order of indexes
-        usort($indexes, create_function('$a, $b', 'return strcmp($a->name, $b->name);'));
+        usort($indexes, function ($a, $b) { return strcmp($a->name, $b->name); });
 
         // multi-column index
         $col = array('integer_value', 'string_value');

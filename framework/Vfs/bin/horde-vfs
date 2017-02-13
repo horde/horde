@@ -100,7 +100,7 @@ function ls($url, $argv, $filter)
                             $list);
     }
     $list = array_keys($list);
-    $max = max(array_map(create_function('$a', 'return strlen($a);'), $list)) + 2;
+    $max = max(array_map(function ($a) { return strlen($a); }, $list)) + 2;
 
     $line = '';
     $dirs = array();
