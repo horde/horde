@@ -64,8 +64,7 @@ class Horde_Mime_Uudecode implements Countable, IteratorAggregate
     {
         /* Find all uuencoded sections. */
         if (preg_match_all(self::UUENCODE_REGEX, $input, $matches, PREG_SET_ORDER)) {
-            reset($matches);
-            while (list(,$v) = each($matches)) {
+            foreach ($matches as $v) {
                 $this->_data[] = array(
                     'data' => $this->_uudecode($v[3]),
                     'name' => $v[2],

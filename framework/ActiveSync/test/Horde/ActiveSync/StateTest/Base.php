@@ -164,8 +164,7 @@ class Horde_ActiveSync_StateTest_Base extends Horde_Test_Case
     {
         $cache_data = self::$state->getSyncCache('dev123', 'mike', array('folders'));
         $this->assertCount(1, $cache_data);
-        list($key, $value) = each($cache_data);
-        $this->assertEquals('folders', $key);
+        $this->assertEquals('folders', key($cache_data));
     }
 
     protected function _testCacheFoldersPersistence()

@@ -169,8 +169,7 @@ class Horde_Text_Filter_Highlightquotes extends Horde_Text_Filter_Base
 
         $level = 0;
 
-        next($lines);
-        while (list(,$curr) = each($lines)) {
+        while ($curr = next($lines)) {
             if ($level > $curr['level']) {
                 for ($i = $level; $i > $curr['level']; --$i) {
                     $out .= $this->_params['citeblock'] ? '</div>' : '</font>';

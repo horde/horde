@@ -44,8 +44,7 @@ class Horde_Vcs_Patchset_Git extends Horde_Vcs_Patchset_Base
             }
         }
 
-        reset($revs);
-        while (list($rev, $log) = each($revs)) {
+        foreach ($revs as $rev => $log) {
             if (empty($log)) {
                 continue;
             }

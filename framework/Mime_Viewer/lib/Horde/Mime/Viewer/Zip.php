@@ -127,9 +127,8 @@ class Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Base
             $val['method'] = Horde_String::pad($val['method'], 10, ' ', STR_PAD_LEFT);
             $val['ratio'] = Horde_String::pad(sprintf("%1.1f%%", $ratio), 10, ' ', STR_PAD_LEFT);
 
-            reset($val);
-            while (list($k, $v) = each($val)) {
-                $val[$k] = $this->_textFilter($v, 'Space2html', array(
+            foreach ($val as &$v) {
+                $v = $this->_textFilter($v, 'Space2html', array(
                     'charset' => $charset,
                     'encode' => true,
                     'encode_all' => true

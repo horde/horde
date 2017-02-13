@@ -83,8 +83,7 @@ class Horde_Mime_Viewer_Tnef extends Horde_Mime_Viewer_Base
         $mixed = new Horde_Mime_Part();
         $mixed->setType('multipart/mixed');
 
-        reset($tnefData);
-        while (list(,$data) = each($tnefData)) {
+        foreach ($tnefData as $data) {
             $temp_part = new Horde_Mime_Part();
             $temp_part->setName($data['name']);
             $temp_part->setDescription($data['name']);

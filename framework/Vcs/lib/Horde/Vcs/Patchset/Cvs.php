@@ -64,8 +64,7 @@ class Horde_Vcs_Patchset_Cvs extends Horde_Vcs_Patchset_Base
         }
 
         $state = 'begin';
-        reset($ret_array);
-        while (list(,$line) = each($ret_array)) {
+        foreach ($ret_array as $line) {
             $line = trim($line);
 
             if ($line == '---------------------') {

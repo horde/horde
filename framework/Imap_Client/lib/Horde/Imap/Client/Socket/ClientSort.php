@@ -274,9 +274,8 @@ class Horde_Imap_Client_Socket_ClientSort
                     $last = $start = null;
                     $i = 0;
                     $todo = array();
-                    reset($sorted);
 
-                    while (list($k, $v) = each($sorted)) {
+                    foreach ($sorted as $k => $v) {
                         if (is_null($last) || ($last != $v)) {
                             if ($i) {
                                 $todo[] = array($start, $i);

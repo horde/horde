@@ -72,7 +72,7 @@ class Horde_Registry_Loadconfig
         $end = count($flist) - 1;
         $load = 0;
 
-        while (list($k, $v) = each($flist)) {
+        foreach ($flist as $k => $v) {
             if (file_exists($v)) {
                 Horde::startBuffer();
                 $success = include $v;

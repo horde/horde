@@ -351,7 +351,7 @@ abstract class Horde_ActiveSync_Driver_Base
         }
 
         // Now put in the busy blocks.
-        while (list($b_start, $b_end) = each($fb->b)) {
+        foreach ($fb->b as $b_start => $b_end) {
             $offset = $b_start - $start->timestamp();
             $duration = ceil(($b_end - $b_start) / 1800);
             if ($offset > 0) {

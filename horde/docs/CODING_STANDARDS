@@ -809,13 +809,6 @@ Loops
 Make sure that you do not continue to define the same variable within a
 loop.  Instead, declare the variable a single time before the loop is run.
 
-Additionally, for large amounts of data, do not use foreach() loops, as PHP
-will make an additional copy in memory of every element of the array when
-traversing.  Instead, use either array_shift, a for() loop, or the
-next()/each() functions.  (NOTE: As of PHP 5, it is possible to indicate that
-the values should be provided to the interior of the loop by reference,
-thereby eliminating the need to create a copy of the value.)
-
 Array
 -----
 Avoid frequent array accesses.  If you use an array or an array member in a

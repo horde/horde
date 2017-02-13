@@ -33,7 +33,7 @@ class Horde_Reflection_Html extends Horde_Reflection {
         $result .= "<span class=\"other\">(</span>";
         $first = true;
         $nbr = 0;
-        while (list($name, $parameter) = each($this->_parameters)) {
+        foreach ($this->_parameters as $name => $parameter) {
             $nbr++;
             if ($nbr == $this->_numberOfRequiredParameters + 1) {
                 $result .= "<span class=\"other\">[</span>";
@@ -76,7 +76,7 @@ class Horde_Reflection_Html extends Horde_Reflection {
             if (count($this->_parameters)>0) {
                 $html .= "      <table>\n";
                 $html .= "        <tr><td><b>Type</b></td><td><b>Name</b></td><td><b>Documentation</b></td></tr>\n";
-                while (list($name, $parameter) = each($this->_parameters)) {
+                foreach ($this->_parameters as $name => $parameter) {
                     $type = $parameter['type'];
                     if (is_array($type)) {
                         $type = implode(' | ', $type);

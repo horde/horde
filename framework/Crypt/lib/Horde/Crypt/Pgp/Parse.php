@@ -159,7 +159,7 @@ class Horde_Crypt_Pgp_Parse
         $new_part = new Horde_Mime_Part();
         $new_part->setType('multipart/mixed');
 
-        while (list(,$val) = each($parts)) {
+        for ($val = reset($parts); $val; $val = next($parts)) {
             switch ($val['type']) {
             case self::ARMOR_TEXT:
                 $part = new Horde_Mime_Part();
@@ -198,7 +198,7 @@ class Horde_Crypt_Pgp_Parse
                 break;
 
             case self::ARMOR_SIGNED_MESSAGE:
-                if ((list(,$sig) = each($parts)) &&
+                if (($sig = next($parts)) &&
                     ($sig['type'] == self::ARMOR_SIGNATURE)) {
                     $part = new Horde_Mime_Part();
                     $part->setType('multipart/signed');
@@ -223,8 +223,6 @@ class Horde_Crypt_Pgp_Parse
                     $part->addPart($part1);
                     $part->addPart($part2);
                     $new_part->addPart($part);
-
-                    next($parts);
                 }
             }
         }

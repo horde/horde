@@ -523,7 +523,7 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
         $out = array();
 
         reset($in);
-        while (list($key, $val) = each($in)) {
+        foreach ($in as $key => $val) {
             if (($last + 1) == $val) {
                 $last = $val;
             }
@@ -571,8 +571,7 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
         if (strpos($str, ':') === false) {
             return $idarray;
         }
-        reset($idarray);
-        while (list(,$val) = each($idarray)) {
+        foreach ($idarray as $val) {
             $range = explode(':', $val);
             if (isset($range[1])) {
                 for ($i = min($range), $j = max($range); $i <= $j; ++$i) {

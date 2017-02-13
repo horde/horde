@@ -1765,8 +1765,7 @@ implements ArrayAccess, Countable, RecursiveIterator, Serializable
         }
 
         try {
-            reset($data);
-            while (list(,$d) = each($data)) {
+            foreach ($data as $d) {
                 if (is_resource($d)) {
                     rewind($d);
                     while (!feof($d)) {

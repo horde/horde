@@ -53,7 +53,7 @@ class Horde_Reflection_CLI extends Horde_Reflection {
         $first = true;
         $nbr = 0;
 
-        while (list($name, $parameter) = each($this->_parameters)) {
+        foreach ($this->_parameters as $name => $parameter) {
             $nbr++;
             if ($nbr == $this->_numberOfRequiredParameters + 1) {
                 $result .= " [ ";
@@ -87,7 +87,7 @@ class Horde_Reflection_CLI extends Horde_Reflection {
 
         if (count($this->_parameters) > 0) {
             $out = $this->_cli->indent("Type\tName\tDocumentation\n");
-            while (list($name, $parameter) = each($this->_parameters)) {
+            foreach ($this->_parameters as $name => $parameter) {
                 $type = $parameter['type'];
                 if (is_array($type)) {
                     $type = implode(' | ', $type);

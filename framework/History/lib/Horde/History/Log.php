@@ -36,8 +36,7 @@ class Horde_History_Log implements IteratorAggregate, ArrayAccess, Countable
             return;
         }
 
-        reset($data);
-        while (list(,$row) = each($data)) {
+        foreach ($data as $row) {
             $history = array(
                 'action' => $row['history_action'],
                 'desc' => $row['history_desc'],

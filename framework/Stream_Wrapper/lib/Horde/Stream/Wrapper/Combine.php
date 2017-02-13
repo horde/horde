@@ -125,8 +125,7 @@ class Horde_Stream_Wrapper_Combine
             throw new Exception('Use ' . __CLASS__ . '::getStream() to initialize the stream.');
         }
 
-        reset($data);
-        while (list(,$val) = each($data)) {
+        foreach ($data as $val) {
             if (is_string($val)) {
                 $fp = fopen('php://temp', 'r+');
                 fwrite($fp, $val);

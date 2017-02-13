@@ -77,7 +77,7 @@ class Horde_Yaml
         $lines = explode("\n", $yaml);
         $loader = new Horde_Yaml_Loader;
 
-        while (list(,$line) = each($lines)) {
+        foreach ($lines as $line) {
             $loader->parse($line);
         }
 

@@ -100,7 +100,7 @@ class Horde_Compress_Zip extends Horde_Compress_Base
         $this->_tmp = fopen('php://temp', 'r+');
 
         reset($data);
-        while (list(, $val) = each($data)) {
+        foreach ($data as $val) {
             $this->_addToZipFile($val);
         }
 

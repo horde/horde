@@ -748,7 +748,7 @@ class Horde_Yaml_Loader
      */
     protected function _array_kmerge($arr1, $arr2)
     {
-        while (list($key, $val) = each($arr2)) {
+        foreach ($arr2 as $key => $val) {
             if (isset($arr1[$key]) && is_int($key)) {
                 $arr1[] = $val;
             } else {

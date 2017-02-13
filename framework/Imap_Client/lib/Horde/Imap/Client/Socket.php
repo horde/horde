@@ -1860,8 +1860,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     $data_stream = new Horde_Stream_Temp();
                 }
 
-                reset($data[$key]['data']);
-                while (list(,$v) = each($data[$key]['data'])) {
+                foreach ($data[$key]['data'] as $v) {
                     switch ($v['t']) {
                     case 'text':
                         if ($catenate) {

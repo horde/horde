@@ -99,8 +99,7 @@ class Horde_LoginTasks_Tasklist
             }
         }
 
-        reset($this->_tasks);
-        while (list($k, $v) = each($this->_tasks)) {
+        foreach ($this->_tasks as $k => $v) {
             if ($v->needsDisplay() && ($k >= $this->_ptr)) {
                 break;
             }
@@ -127,8 +126,7 @@ class Horde_LoginTasks_Tasklist
         $tmp = array();
         $previous = null;
 
-        reset($this->_tasks);
-        while (list(, $v) = each($this->_tasks)) {
+        foreach ($this->_tasks as $v) {
             if (!$v->needsDisplay() ||
                 (!is_null($previous) && !$v->joinDisplayWith($previous))) {
                 break;

@@ -379,8 +379,7 @@ class Horde_ActiveSync_Imap_Message
             return false;
         }
 
-        reset($tnef_data);
-        while (list(,$data) = each($tnef_data)) {
+        foreach ($tnef_data as $data) {
             $tmp_part = new Horde_Mime_Part();
             $tmp_part->setName($data['name']);
             $tmp_part->setDescription($data['name']);

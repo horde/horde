@@ -1681,8 +1681,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         switch ($class) {
         case Horde_ActiveSync::CLASS_CALENDAR:
             if ($instanceids) {
-                reset($ids);
-                list($ids, $instanceid) = each($ids);
+                $instanceid = reset($ids);
+                $ids = key($ids);
             } else {
                 $instanceid = false;
             }
@@ -2795,7 +2795,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
 
         // Now put in the busy blocks. Need to convert to UTC here too since
         // all fb data is returned as local tz.
-        while (list($b_start, $b_end) = each($fb->b)) {
+        foreach ($fb->b as $b_start, $b_end) {
             $b_start = new Horde_Date($b_start);
             $b_start->setTimezone('UTC');
             $b_end = new Horde_Date($b_end);

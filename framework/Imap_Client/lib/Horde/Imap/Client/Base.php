@@ -1844,7 +1844,7 @@ implements Serializable, SplObserver
 
         $uids = $this->getIdsOb();
 
-        while (list(,$val) = each($data)) {
+        foreach ($data as $val) {
             if (is_resource($val['data'])) {
                 rewind($val['data']);
             }
