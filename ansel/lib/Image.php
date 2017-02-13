@@ -190,13 +190,14 @@ class Ansel_Image implements Iterator
      *   image_latitude        - Latitude
      *   image_longitude       - Longitude
      *   image_geotag_date     - Date image tagged
-     *   data                  - Binary image data
+     *   data                  - Binary image data as a string or stream
+     *                           resource
      *
      * @return Ansel_Image
      */
     public function __construct(array $image = array())
     {
-        if ($image) {
+        if (!empty($image)) {
             $this->filename = $image['image_filename'];
             if (!empty($image['image_title'])) {
                 $this->title = $image['image_title'];
@@ -333,15 +334,10 @@ class Ansel_Image implements Iterator
         if ($view == 'full' && $this->_loaded == 'full') {
             return;
         } elseif ($view == 'full') {
-            try {
-                $data = $GLOBALS['injector']
-                    ->getInstance('Horde_Core_Factory_Vfs')
-                    ->create('images')
-                    ->read($this->getVFSPath('full'), $this->getVFSName('full'));
-            } catch (Horde_Vfs_Exception $e) {
-                Horde::log($e, 'ERR');
-                throw new Ansel_Exception($e);
-            }
+            $data = $this->_getVfsStream(
+                $this->getVFSPath('full'),
+                $this->getVFSName('full')
+            );
             $viewHash = 'full';
         } else {
             $viewHash = $this->getViewHash($view, $style);
@@ -366,15 +362,7 @@ class Ansel_Image implements Iterator
             $vfspath = $this->getVFSPath($view, $style);
 
             // Read in the requested view.
-            try {
-                $data = $GLOBALS['injector']
-                    ->getInstance('Horde_Core_Factory_Vfs')
-                    ->create('images')
-                    ->read($vfspath, $this->getVFSName($view));
-            } catch (Horde_Vfs_Exception $e) {
-                Horde::log($e, 'ERR');
-                throw new Ansel_Exception($e);
-            }
+            $data = $this->_getVfsStream($vfspath, $this->getVFSName($view));
         }
 
         // We've definitely successfully loaded the image now.
@@ -455,15 +443,10 @@ class Ansel_Image implements Iterator
         }
 
         // Doesn't exist, must create it from the full image.
-        try {
-            $data = $injector
-                ->getInstance('Horde_Core_Factory_Vfs')
-                ->create('images')
-                ->read($this->getVFSPath('full'), $this->getVFSName('full'));
-        } catch (Horde_Vfs_Exception $e) {
-            Horde::log($e, 'ERR');
-            throw new Ansel_Exception($e);
-        }
+        $data = $this->_getVfsStream(
+            $this->getVFSPath('full'),
+            $this->getVFSName('full')
+        );
 
         // Force screen images to ALWAYS be jpegs for performance/size
         if ($view == 'screen' && $GLOBALS['conf']['image']['type'] != 'jpeg') {
@@ -506,7 +489,7 @@ class Ansel_Image implements Iterator
 
         // generate the view
         $iview->create();
-        $this->_image->raw();
+        $this->_image->raw(false, array('stream' => true));
         $this->_loaded = $vHash;
 
         $injector->getInstance('Horde_Core_Factory_Vfs')
@@ -514,20 +497,20 @@ class Ansel_Image implements Iterator
             ->writeData(
                 $vfspath,
                 $this->getVFSName($vHash),
-                $this->_image->raw(),
+                $this->_image->raw(false, array('stream' -> true)),
                 true
             );
 
         // Watermark?
         if (!empty($watermark)) {
             $this->watermark($view);
-            $this->_image->raw();
+            $this->_image->raw(false, array('stream' -> true));
             $injector->getInstance('Horde_Core_Factory_Vfs')
                 ->create('images')
                 ->writeData(
                     $vfspath,
                     $this->getVFSName($view),
-                    $this->_image->raw()
+                    $this->_image->raw(false, array('stream' -> true))
                 );
         }
 
@@ -815,7 +798,7 @@ class Ansel_Image implements Iterator
             }
 
             if ($this->_dirty) {
-                $this->raw();
+                $this->raw(false, array('stream' -> true));
                 $this->_writeData();
             }
         }
@@ -925,25 +908,25 @@ class Ansel_Image implements Iterator
      */
     public function display($view = 'full', Ansel_Style $style = null)
     {
+        global $storage;
+
         if ($view == 'full' && !$this->_dirty) {
             // Check full photo permissions
-            $gallery = $GLOBALS['storage']->getGallery(abs($this->gallery));
+            $gallery = $storage->getGallery(abs($this->gallery));
 
             if (!$gallery->canDownload()) {
                 throw Horde_Exception_PermissionDenied(
                     _("Access denied downloading photos from this gallery."));
             }
 
-            try {
-                $data = $GLOBALS['injector']
-                    ->getInstance('Horde_Core_Factory_Vfs')
-                    ->create('images')->read(
-                        $this->getVFSPath('full'),
-                        $this->getVFSName('full'));
-            } catch (Horde_Vfs_Exception $e) {
-                throw new Ansel_Exception($e);
+            $data = $this->_getVfsStream(
+                $this->getVFSPath('full'),
+                $this->getVFSName('full')
+            );
+            $output = fopen('php://output', 'w');
+            while (!feof($data)) {
+                fwrite($output, fread($data, 8192));
             }
-            echo $data;
         } elseif (!$this->_dirty) {
             $this->load($view, $style);
             $this->_image->display();
@@ -963,10 +946,13 @@ class Ansel_Image implements Iterator
     public function toFile($view = 'full')
     {
         $this->load($view);
+
+        // @TODO: This logic looks broken to me. SHould probably be
+        // just always $this->_image->toFile();
         return $this->_image->toFile(
             $this->_dirty ?
                 null :
-                $this->_image->raw());
+                $this->_image->raw(false, array('stream' => true)));
     }
 
     /**
@@ -1504,7 +1490,7 @@ class Ansel_Image implements Iterator
     {
         $params = array(
                 'image_filename' => $this->filename,
-                'data' => $image->raw(),
+                'data' => $image->raw(false, array('stream' -> true)),
         );
         $newImage = new Ansel_Image($params);
 
@@ -1518,6 +1504,39 @@ class Ansel_Image implements Iterator
         }
 
         return $this->_attributes;
+    }
+
+    /**
+     * Returns a stream containing the requested image view-type.
+     *
+     * @param string $path  The VFS path to the image file.
+     * @param string $name  The VFS name of the image file.
+     *
+     * @return Horde_Stream
+     * @throws  Ansel_Exception
+     */
+    protected function _getVfsStream($path, $name)
+    {
+        global $injector;
+
+        $vfs = $injector
+            ->getInstance('Horde_Core_Factory_Vfs')
+            ->create('images');
+
+        // If we can get a stream directly from the VFS, use that.
+        if (is_callable(array($vfs, 'readStream'))) {
+            return $vfs->readStream($path, $name);
+        }
+
+        $stream = new Horde_Stream_Temp();
+        try {
+            $stream->add($vfs->read($path, $name), true);
+        } catch (Horde_Vfs_Exception $e) {
+            Horde::log($e, 'ERR');
+            throw new Ansel_Exception($e);
+        }
+
+        return $stream;
     }
 
 }

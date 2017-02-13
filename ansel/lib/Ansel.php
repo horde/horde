@@ -769,6 +769,7 @@ class Ansel
             }
         }
 
+        // Build list of images and data to add to zip archive.
         $zipfiles = array();
         foreach ($images as $id) {
             $image = $storage->getImage($id);
@@ -779,16 +780,15 @@ class Ansel
             } else {
                 $v = $view;
             }
-
             $zipfiles[] = array(
-                'data' => $image->raw($v),
+                'data' => $image->raw($v, array('stream' => true)),
                 'name' => $image->filename
             );
         }
 
+        // Create the archive.
         $zip = Horde_Compress::factory('zip');
         $body = $zip->compress($zipfiles, array('stream' => true));
-
         if (!empty($gallery)) {
             $filename = (!empty($slug) ? $slug : $gallery->id) . '.zip';
         } else {
@@ -800,13 +800,13 @@ class Ansel
         $size = ftell($body);
         rewind($body);
 
+        // Send it out.
         $browser->downloadHeaders(
             $filename,
             'application/zip',
             false,
             $size);
-
-        echo stream_get_contents($body);
+        stream_copy_to_stream($body, fopen('php://output', 'w'));
         exit;
     }
 
