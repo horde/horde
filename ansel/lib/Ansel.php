@@ -796,7 +796,7 @@ class Ansel
         }
 
         // Get the resulting stream size.
-        fseek($body, SEEK_END);
+        fseek($body, 0, SEEK_END);
         $size = ftell($body);
         rewind($body);
 
