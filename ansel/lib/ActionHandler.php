@@ -43,13 +43,6 @@ class Ansel_ActionHandler
                 ? array($image_id)
                 : array_keys($image_id);
 
-            // All from same gallery.
-            if ($gallery_id) {
-                $gallery = $storage->getGallery($gallery_id);
-                if (!$registry->getAuth() ||
-                    !$gallery->hasPermission($registry->getAuth(), Horde_Perms::READ) ||
-                    $gallery->hasPasswd() || !$gallery->isOldEnough()) {
-
             // Explicitly list images to include
             if ($image_id) {
                 if (!is_array($image_id)) {
