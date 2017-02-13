@@ -38,18 +38,14 @@ class Ansel_ActionHandler
         if ($actionID == 'downloadzip') {
             $gallery_id = Horde_Util::getFormData('gallery');
             $image_id = Horde_Util::getFormData('image');
-
-            $image_id = !is_array($image_id)
-                ? array($image_id)
-                : array_keys($image_id);
+            $image_id = !empty($image_id)
+                ? (!is_array($image_id)
+                    ? array($image_id)
+                    : array_keys($image_id))
+                : false;
 
             // Explicitly list images to include
-            if ($image_id) {
-                if (!is_array($image_id)) {
-                    $image_id = array($image_id);
-                } else {
-                    $image_id = array_keys($image_id);
-                }
+            if (!empty($image_id)) {
                 $image_ids = array();
                 foreach ($image_id as $image) {
                     $img = $storage->getImage($image);
@@ -66,7 +62,7 @@ class Ansel_ActionHandler
                 }
             } else if ($gallery_id) {
                 // Or just download enitre gallery.
-                $gallery = $ansel_storage->getGallery($gallery_id);
+                $gallery = $storage->getGallery($gallery_id);
                 if (!$registry->getAuth() ||
                     !$gallery->hasPermission($registry->getAuth(), Horde_Perms::READ) ||
                     $gallery->hasPasswd() || !$gallery->isOldEnough()) {
