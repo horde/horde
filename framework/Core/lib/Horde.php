@@ -328,7 +328,9 @@ class Horde
             // base SQL config and the explicit driver we are creating, we
             // need to remove the not-used connection config since they use
             // different keys.
-            if (!is_null($type) && $type == 'sql') {
+            if ((!isset($c['params']['driverconfig']) ||
+                 $c['params']['driverconfig'] != 'horde') &&
+                !is_null($type) && $type == 'sql') {
                 if ($c['params']['protocol'] == 'unix') {
                     unset($result['hostspec'], $result['port']);
                 } else {
