@@ -555,7 +555,9 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
                     'signature' => $this->vars->signature,
                     'strip_attachments' =>
                         (isset($this->vars->save_attachments_select) &&
-                            !$this->vars->save_attachments_select),
+                         !$this->vars->save_attachments_select) ||
+                        (!isset($this->vars->save_attachments_select) &&
+                         strcasecmp($prefs->getValue('save_attachments'), 'always') !== 0),
                     'vcard_attach' => ($this->vars->vcard_attach
                         ? $identity->getValue('fullname')
                         : null)
