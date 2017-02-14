@@ -1,6 +1,14 @@
-----------
-v7.0.0-git
-----------
+-----------
+v6.2.18-git
+-----------
+
+[jan] Correctly use preference to save attachments with sent messages in mobile
+      modes (Bug #14571).
+
+
+-------
+v6.2.17
+-------
 
 [jan] Allow to specify a secondary S/MIME certificate for signatures only.
 [jan] Find logged replies in other than default sent-mail folders too.

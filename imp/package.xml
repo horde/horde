@@ -3959,10 +3959,28 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-09-06</date>
+   <date>2016-12-16</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Update German translation.
+* [jan] Update Greek translation.
+* [mjr] Fix issue when forwarding an email to multiple recipients in Mobile view (Bug #14060).
+* [jan] Fix iTip MIME viewer actions if attachment type hasn&apos;t been specified.
+* [mjr] Add option to reload folder tree when fetching via the API.
 * [jan] Update preview cache after permanently unblocking images from a sender (Bug #14446).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>6.2.18</release>
+    <api>6.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-12-16</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Correctly use preference to save attachments with sent messages in mobile modes (Bug #14571).
    </notes>
   </release>
   <release>
