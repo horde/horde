@@ -2,6 +2,8 @@
 v6.2.18-git
 -----------
 
+[jan] Correctly use preference to save attachments with sent messages in mobile
+      modes (Bug #14571).
 
 
 -------
