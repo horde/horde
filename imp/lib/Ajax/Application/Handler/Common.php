@@ -537,23 +537,39 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
                 $headers,
                 $identity,
                 array(
-                    'encrypt' => ($prefs->isLocked('default_encrypt') ? $prefs->getValue('default_encrypt') : $this->vars->encrypt),
+                    'encrypt' => ($prefs->isLocked('default_encrypt')
+                        ? $prefs->getValue('default_encrypt')
+                        : $this->vars->encrypt),
                     'html' => $this->vars->html,
                     'pgp_attach_pubkey' => $this->vars->pgp_attach_pubkey,
                     'priority' => $this->vars->priority,
                     'readreceipt' => $this->vars->request_read_receipt,
                     'save_sent' => ($sm_displayed
-                                    ? (bool)$this->vars->save_sent_mail
-                                    : $identity->getValue('save_sent_mail')),
+                        ? (bool)$this->vars->save_sent_mail
+                        : $identity->getValue('save_sent_mail')),
                     'sent_mail' => ($sm_displayed
-                                      ? (isset($this->vars->save_sent_mail_mbox) ? IMP_Mailbox::formFrom($this->vars->save_sent_mail_mbox) : $identity->getValue(IMP_Mailbox::MBOX_SENT))
-                                      : $identity->getValue(IMP_Mailbox::MBOX_SENT)),
+                        ? (isset($this->vars->save_sent_mail_mbox)
+                            ? IMP_Mailbox::formFrom($this->vars->save_sent_mail_mbox)
+                            : $identity->getValue(IMP_Mailbox::MBOX_SENT))
+                        : $identity->getValue(IMP_Mailbox::MBOX_SENT)),
                     'signature' => $this->vars->signature,
-                    'strip_attachments' => (isset($this->vars->save_attachments_select) && !$this->vars->save_attachments_select),
-                    'vcard_attach' => ($this->vars->vcard_attach ? $identity->getValue('fullname') : null)
+                    'strip_attachments' =>
+                        (isset($this->vars->save_attachments_select) &&
+                            !$this->vars->save_attachments_select),
+                    'vcard_attach' => ($this->vars->vcard_attach
+                        ? $identity->getValue('fullname')
+                        : null)
                 )
             );
-            $notification->push(empty($headers['subject']) ? _("Message sent successfully.") : sprintf(_("Message \"%s\" sent successfully."), Horde_String::truncate($headers['subject'])), 'horde.success');
+            $notification->push(
+                empty($headers['subject'])
+                    ? _("Message sent successfully.")
+                    : sprintf(
+                        _("Message \"%s\" sent successfully."),
+                        Horde_String::truncate($headers['subject'])
+                    ),
+                'horde.success'
+            );
         } catch (IMP_Compose_Exception_Address $e) {
             $this->_handleBadComposeAddr($e);
             $result->success = 0;
