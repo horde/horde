@@ -124,9 +124,10 @@ abstract class Horde_Image_Base extends EmptyIterator
             );
         }
         $this->_tmpdir = $context['tmpdir'];
-        if (!empty($context['logger'])) {
-            $this->_logger = $context['logger'];
-        }
+
+        $this->_logger = !empty($context['logger'])
+            ? $context['logger']
+            : new Horde_Support_Stub();
 
         if (isset($params['width'])) {
             $this->_width = $params['width'];
@@ -499,9 +500,7 @@ abstract class Horde_Image_Base extends EmptyIterator
      */
     protected function _logDebug($message)
     {
-        if (!empty($this->_logger)) {
-            $this->_logger->debug($message);
-        }
+        $this->_logger->debug($message);
     }
 
     /**
@@ -511,9 +510,7 @@ abstract class Horde_Image_Base extends EmptyIterator
      */
     protected function _logErr($message)
     {
-        if (!empty($this->_logger)) {
-            $this->_logger->err($message);
-        }
+        $this->_logger->err($message);
     }
 
     /**
