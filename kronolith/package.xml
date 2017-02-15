@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix display of date in ITIP_CANCEL notifications of deleted instances of recurring events (PR: 214, almarin@um.es).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2760,7 +2760,7 @@
    <date>2016-12-16</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix display of date in ITIP_CANCEL notifications of deleted instances of recurring events (PR: 214, almarin@um.es).
    </notes>
   </release>
  </changelog>
