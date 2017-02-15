@@ -2049,6 +2049,7 @@ class Kronolith
                         $end->sec += $diff;
                         $ve->setAttribute('DTEND', $end, array(), false);
                         $ve->removeAttribute('EXDATE');
+			$event->fromiCalendar($ve);
                         break;
                     }
                 }
