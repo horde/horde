@@ -1907,7 +1907,7 @@ class Kronolith
         $view = new Horde_View(array('templatePath' => KRONOLITH_TEMPLATES . '/itip'));
         new Horde_View_Helper_Text($view);
         $view->identity = $ident;
-        $view->event = $event;
+        $view->event = clone $event;
         $view->imageId = $image->getContentId();
 
         if ($action == self::ITIP_CANCEL && count($cancellations)) {
@@ -2049,6 +2049,7 @@ class Kronolith
                         $end->sec += $diff;
                         $ve->setAttribute('DTEND', $end, array(), false);
                         $ve->removeAttribute('EXDATE');
+                        $view->event->fromiCalendar($ve);
                         break;
                     }
                 }
