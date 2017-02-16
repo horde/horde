@@ -236,6 +236,7 @@ abstract class Horde_ActiveSync_Request_Base
         $this->_logger->meta(sprintf(
             '%sRequest being handled for device: %s, Supporting protocol version: %s, Using Horde_ActiveSync v%s%s',
             str_repeat('-', 10),
+            $this->_device->id,
             $this->_device->version,
             Horde_ActiveSync::LIBRARY_VERSION,
             str_repeat('-', 10))
