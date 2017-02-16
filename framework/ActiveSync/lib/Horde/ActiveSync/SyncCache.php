@@ -123,10 +123,7 @@ class Horde_ActiveSync_SyncCache
             ? new Horde_Log_Logger(new Horde_Log_Handler_Null())
             : $logger;
 
-        $this->_logger->info(sprintf(
-            '[%s] Creating new Horde_ActiveSync_SyncCache.',
-            $this->_procid)
-        );
+        $this->_logger->meta('Creating new Horde_ActiveSync_SyncCache.');
     }
 
     public function __get($property)
@@ -272,9 +269,7 @@ class Horde_ActiveSync_SyncCache
      */
     public function clearCollections()
     {
-        $this->_logger->info(sprintf(
-            '[%s] Clearing collections data from cache.',
-            $this->_procid));
+        $this->_logger->meta('Clearing collections data from cache.');
         $this->_data['collections'] = array();
         $this->_dirty['collections'] = true;
     }
@@ -314,9 +309,9 @@ class Horde_ActiveSync_SyncCache
     {
         if (empty($this->_data['collections'][$id])) {
             $this->_logger->warn(sprintf(
-                '[%s] Collection %s was asked to be removed from PINGABLE but does not exist.',
-                $this->_procid,
-                $id));
+                'Collection %s was asked to be removed from PINGABLE but does not exist.',
+                $id)
+            );
             return;
         }
         $this->_data['collections'][$id]['pingable'] = false;
@@ -401,9 +396,7 @@ class Horde_ActiveSync_SyncCache
             $this->_data['collections'][$id] = $cache_collection;
             $this->_markCollectionsDirty($id);
         }
-        $this->_logger->info(sprintf(
-            '[%s] SyncCache collections refreshed.',
-            $this->_procid));
+        $this->_logger->meta('SyncCache collections refreshed.');
     }
 
     /**
@@ -462,9 +455,8 @@ class Horde_ActiveSync_SyncCache
     public function removeCollection($id, $purge = true)
     {
         if ($purge) {
-            $this->_logger->info(sprintf(
-                '[%s] Removing collection %s from SyncCache.',
-                $this->_procid, $id)
+            $this->_logger->meta(sprintf(
+                'Removing collection %s from SyncCache.', $id)
             );
             unset($this->_data['collections'][$id]);
             $this->_dirty['collections'] = true;
@@ -504,10 +496,7 @@ class Horde_ActiveSync_SyncCache
      */
     public function clearCollectionKeys()
     {
-        $this->_logger->info(sprintf(
-            '[%s] Clearing all collection synckeys from the cache.',
-            $this->_procid)
-        );
+        $this->_logger->meta('Clearing all collection synckeys from the cache.');
         foreach ($this->_data['collections'] as $id => &$c) {
             unset($c['synckey']);
         }
@@ -623,9 +612,8 @@ class Horde_ActiveSync_SyncCache
                 $this->_markCollectionsDirty($collection['id']);
             }
         } else {
-            $this->_logger->info(sprintf(
-                '[%s] Collection without id found: %s',
-                $this->_procid,
+            $this->_logger->meta(sprintf(
+                'Collection without id found: %s',
                 serialize($collection))
             );
         }

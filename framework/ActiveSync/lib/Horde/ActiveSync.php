@@ -561,10 +561,7 @@ class Horde_ActiveSync
     {
         if (!$credentials->username) {
             // No provided username or Authorization header.
-            self::$_logger->notice(sprintf(
-                '[%s] Client did not provide authentication data.',
-                $this->_procid)
-            );
+            self::$_logger->notice('Client did not provide authentication data.');
             return false;
         }
 
@@ -652,7 +649,7 @@ class Horde_ActiveSync
     /**
      * Setter for the logger
      *
-     * @param Horde_Log_Logger $logger  The logger object.
+     * @param Horde_ActiveSync_Interface_LoggerFactory $logger  The logger object.
      *
      * @return void
      */
@@ -664,12 +661,22 @@ class Horde_ActiveSync
     protected function _setLogger(array $options)
     {
         if (!empty($this->_loggerFactory)) {
-            self::$_logger = $this->_loggerFactory->create($options);
+            // @TODO. Remove wrapper.
+            self::$_logger = $this->_wrapLogger($this->_loggerFactory->create($options));
             $this->_encoder->setLogger(self::$_logger);
             $this->_decoder->setLogger(self::$_logger);
             $this->_driver->setLogger(self::$_logger);
             $this->_state->setLogger(self::$_logger);
         }
+    }
+
+    protected function _wrapLogger(Horde_Log_Logger $logger)
+    {
+        if (!($logger instanceof Horde_ActiveSync_Log_Logger)) {
+            return new Horde_ActiveSync_Log_Logger_Deprecated(null, $logger);
+        }
+
+        return $logger;
     }
 
     /**
@@ -747,8 +754,7 @@ class Horde_ActiveSync
         }
 
         self::$_logger->info(sprintf(
-            '[%s] %s request received for user %s',
-            $this->_procid,
+            '%s request received for user %s',
             Horde_String::upper($cmd),
             $this->_driver->getUser())
         );
@@ -800,10 +806,7 @@ class Horde_ActiveSync
         if ((!empty($headers['ms-asacceptmultipart']) && $headers['ms-asacceptmultipart'] == 'T') ||
             !empty($get['AcceptMultiPart'])) {
             $this->_multipart = true;
-            self::$_logger->info(sprintf(
-                '[%s] Requesting multipart data.',
-                $this->_procid)
-            );
+            self::$_logger->info('Requesting multipart data.');
         }
 
         // Load the request handler to handle the request
@@ -817,10 +820,7 @@ class Horde_ActiveSync
 
         // Should we announce a new version is available to the client?
         if (!empty($this->_needMsRp)) {
-            self::$_logger->info(sprintf(
-                '[%s] Announcing X-MS-RP to client.',
-                $this->_procid)
-            );
+            self::$_logger->info('Announcing X-MS-RP to client.');
             header("X-MS-RP: ". $this->getSupportedVersions());
         }
 
@@ -832,9 +832,8 @@ class Horde_ActiveSync
             $request = new $class($this);
             $request->setLogger(self::$_logger);
             $result = $request->handle();
-            self::$_logger->info(sprintf(
-                '[%s] Maximum memory usage for ActiveSync request: %d bytes.',
-                $this->_procid,
+            self::$_logger->meta(sprintf(
+                'Maximum memory usage for ActiveSync request: %d bytes.',
                 memory_get_peak_usage(true))
             );
 

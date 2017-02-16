@@ -411,11 +411,11 @@ abstract class Horde_ActiveSync_Driver_Base
 
         // None found, generate a new UID.
         $this->_tempMap[$id] = sprintf('%s%04x%04x', $prefix, mt_rand(0, 0xffff), mt_rand(0, 0xffff));
-        $this->_logger->info(sprintf(
-            '[%s] Creating new folder uuid for %s: %s',
-            getmypid(),
+        $this->_logger->meta(sprintf(
+            'Creating new folder uuid for %s: %s',
             $id,
-            $this->_tempMap[$id]));
+            $this->_tempMap[$id])
+        );
 
         return $this->_tempMap[$id];
     }

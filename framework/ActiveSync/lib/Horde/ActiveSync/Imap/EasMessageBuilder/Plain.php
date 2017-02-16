@@ -43,11 +43,7 @@ class Horde_ActiveSync_Imap_EasMessageBuilder_Plain extends Horde_ActiveSync_Ima
      */
     protected function _buildBody()
     {
-        $this->_logger->info(sprintf(
-            '[%s] Building PLAINTEXT Message.',
-            $this->_procid)
-        );
-
+        $this->_logger->meta('Building PLAINTEXT Message.');
         if (!empty($this->_mbd->plain['size'])) {
             $this->_buildPlainPart();
         }

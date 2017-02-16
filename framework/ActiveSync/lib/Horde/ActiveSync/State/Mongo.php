@@ -222,11 +222,11 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
      */
     public function updateServerIdInState($uid, $serverid)
     {
-        $this->_logger->info(sprintf(
-            '[%s] Updating serverid in folder state. Setting %s for %s.',
-            $this->_procid,
+        $this->_logger->meta(sprintf(
+            'Updating serverid in folder state. Setting %s for %s.',
             $serverid,
-            $uid));
+            $uid)
+        );
 
         $query = array(
             self::SYNC_DEVID => $this->_deviceInfo->id,
@@ -238,11 +238,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
             $cursor = $this->_db->selectCollection(self::COLLECTION_STATE)
                 ->find($query, array(self::SYNC_DATA => true));
         } catch (Exception $e) {
-                $this->_logger->err(sprintf(
-                    '[%s] %s',
-                    $this->_procid,
-                    $e->getMessage())
-                );
+                $this->_logger->err($e->getMessage());
             throw new Horde_ActiveSync_Exception($e);
         }
 
@@ -257,11 +253,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
                     array('multiple' => true)
                 );
             } catch (Exception $e) {
-                $this->_logger->err(sprintf(
-                    '[%s] %s',
-                    $this->_procid,
-                    $e->getMessage())
-                );
+                $this->_logger->err($e->getMessage());
                 throw new Horde_ActiveSync_Exception($e);
             }
         }
@@ -295,8 +287,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
 
         if (empty($results)) {
             $this->_logger->warn(sprintf(
-                '[%s] Could not find state for synckey %s.',
-                $this->_procid,
+                'Could not find state for synckey %s.',
                 $this->_syncKey));
             throw new Horde_ActiveSync_Exception_StateGone();
         }
@@ -328,18 +319,18 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
 
         if ($this->_type == Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC) {
             $this->_folder = ($data !== false) ? $data : array();
-            $this->_logger->info(
-                sprintf('[%s] Loading FOLDERSYNC state containing %d folders.',
-                $this->_procid,
-                count($this->_folder)));
+            $this->_logger->meta(sprintf(
+                'Loading FOLDERSYNC state containing %d folders.',
+                count($this->_folder))
+            );
         } elseif ($this->_type == Horde_ActiveSync::REQUEST_TYPE_SYNC) {
             $this->_folder = $data;
             $this->_changes = ($pending !== false) ? $pending : null;
             if ($this->_changes) {
-                $this->_logger->info(
-                    sprintf('[%s] Found %d changes remaining from previous SYNC.',
-                    $this->_procid,
-                    count($this->_changes)));
+                $this->_logger->meta(
+                    sprintf('Found %d changes remaining from previous SYNC.',
+                    count($this->_changes))
+                );
             }
         }
     }
@@ -376,9 +367,8 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
             self::SYNC_PENDING => $pending,
             self::SYNC_TIMESTAMP => time()
         );
-        $this->_logger->info(
-            sprintf('[%s] Saving state for sync_key %s: %s',
-                $this->_procid,
+        $this->_logger->meta(
+            sprintf('Saving state for sync_key %s: %s',
                 $this->_syncKey,
                 serialize($document))
         );
@@ -387,11 +377,10 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
             $this->_db->selectCollection(self::COLLECTION_STATE)->insert($document);
         } catch (Exception $e) {
             // Might exist already if the last sync attempt failed.
-            $this->_logger->notice(
-                sprintf('[%s] Previous request processing for synckey %s failed to be accepted by the client, removing previous state and trying again.',
-                        $this->_procid,
-                        $this->_syncKey)
-                );
+            $this->_logger->notice(sprintf(
+                'Previous request processing for synckey %s failed to be accepted by the client, removing previous state and trying again.',
+                $this->_syncKey)
+            );
             try {
                 $this->_db->selectCollection(self::COLLECTION_STATE)->remove(array(self::MONGO_ID => $this->_syncKey));
                 $this->_db->selectCollection(self::COLLECTION_STATE)->insert($document);
@@ -436,9 +425,9 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
         $type, array $change, $origin = Horde_ActiveSync::CHANGE_ORIGIN_NA,
         $user = null, $clientid = '')
     {
-        $this->_logger->info(sprintf(
-            '[%s] Horde_ActiveSync_State_Mongo::updateState(%s, %s, %d, %s, %s)',
-            $this->_procid, $type, serialize($change), $origin, $user, $clientid));
+        $this->_logger->meta(sprintf(
+            'Horde_ActiveSync_State_Mongo::updateState(%s, %s, %d, %s, %s)',
+            $type, serialize($change), $origin, $user, $clientid));
 
         if ($origin == Horde_ActiveSync::CHANGE_ORIGIN_PIM) {
             if ($this->_type == Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC) {
@@ -637,9 +626,9 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
                     $device[$this->_propertyMap[$property]] = $data->$property;
                 }
             }
-            $this->_logger->info(sprintf(
-                '[%s] setDeviceInfo saving properties: %s',
-                $this->_procid, serialize($dirty))
+            $this->_logger->meta(sprintf(
+                'setDeviceInfo saving properties: %s',
+                serialize($dirty))
             );
             if (count($device)) {
                 try {
@@ -877,9 +866,8 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
      */
     protected function _resetDeviceState($id)
     {
-        $this->_logger->info(sprintf(
-            '[%s] Resetting device state for device: %s, user: %s, and collection: %s.',
-            $this->_procid,
+        $this->_logger->meta(sprintf(
+            'Resetting device state for device: %s, user: %s, and collection: %s.',
             $this->_deviceInfo->id,
             $this->_deviceInfo->user,
             $id));
@@ -904,9 +892,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
         if ($id != Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC) {
             $cache->removeCollection($id, false);
         } else {
-            $this->_logger->notice(sprintf(
-                '[%s] Clearing foldersync state from synccache.',
-                $this->_procid));
+            $this->_logger->notice(' Clearing foldersync state from synccache.');
             $cache->clearFolders();
             $cache->clearCollections();
             $cache->hierarchy = '0';
@@ -944,11 +930,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
                 array('$group' => array(self::MONGO_ID => '$sync_dev', 'max' => array('$max' => '$sync_timestamp')))
             );
         } catch (Exception $e) {
-            $this->_logger->err(sprintf(
-                '[%s] %s',
-                $this->_procid,
-                $e->getMessage())
-            );
+            $this->_logger->err($e->getMessage());
             throw new Horde_ActiveSync_Exception($e);
         }
 
@@ -970,15 +952,13 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
     public function setPolicyKey($devId, $key)
     {
         if (empty($this->_deviceInfo) || $devId != $this->_deviceInfo->id) {
-            $this->_logger->err(sprintf(
-                '[%s] Device not loaded',
-                $this->_procid)
-            );
+            $this->_logger->err('Device not loaded');
             throw new Horde_ActiveSync_Exception('Device not loaded');
         }
-        $this->_logger->info(sprintf(
-            '[%s] Setting policykey: %s, %s, %s',
-            $this->_procid, $devId, $this->_backend->getUser(), $key));
+        $this->_logger->meta(sprintf(
+            'Setting policykey: %s, %s, %s',
+            $devId, $this->_backend->getUser(), $key)
+        );
         $this->_deviceInfo->policykey = $key;
         $this->_deviceInfo->save();
     }
@@ -1013,11 +993,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
                 $results = $this->_db->selectCollection(self::COLLECTION_DEVICE)
                     ->findOne($query, array(self::MONGO_ID => true));
             } catch (Exception $e) {
-                $this->_logger->err(sprintf(
-                    '[%s] %s',
-                    $this->_procid,
-                    $e->getMessage())
-                );
+                $this->_logger->err($e->getMessage());
                 throw new Horde_ActiveSync_Exception($e);
             }
             if (!empty($results)) {
@@ -1032,16 +1008,14 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
             );
             if (!empty($options['id'])) {
                 $query[self::SYNC_FOLDERID] = $options['id'];
-                $this->_logger->info(sprintf(
-                    '[%s] Removing device state for user %s and collection %s.',
-                    $options['devId'],
+                $this->_logger->meta(sprintf(
+                    'Removing device state for user %s and collection %s.',
                     $options['user'],
                     $options['id'])
                 );
             } else {
-                $this->_logger->info(sprintf(
-                    '[%s] Removing device %s state for user %s.',
-                    $this->_procid,
+                $this->_logger->meta(sprintf(
+                    'Removing device %s state for user %s.',
                     $options['devId'],
                     $options['user'])
                 );
@@ -1055,19 +1029,14 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
                     array('$pull' => array('users' => array(self::DEVICE_USER=> $options['user'])))
                 );
             } catch (Exception $e) {
-                $this->_logger->err(sprintf(
-                    '[%s] %s',
-                    $this->_procid,
-                    $e->getMessage())
-                );
+                $this->_logger->err($e->getMessage());
                 throw new Horde_ActiveSync_Exception($e);
             }
         } elseif (!empty($options['devId'])) {
             // Query for state and map tables.
             $query = array(self::SYNC_DEVID => $options['devId']);
-            $this->_logger->info(sprintf(
-                '[%s] Removing all device state for device %s.',
-                $this->_procid,
+            $this->_logger->meta(sprintf(
+                'Removing all device state for device %s.',
                 $options['devId'])
             );
             $this->deleteSyncCache($options['devId']);
@@ -1076,19 +1045,14 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
             try {
                 $this->_db->selectCollection(self::COLLECTION_DEVICE)->remove(array(self::MONGO_ID => $options['devId']));
             } catch (Exception $e) {
-                $this->_logger->err(sprintf(
-                    '[%s] %s',
-                    $this->_procid,
-                    $e->getMessage())
-                );
+                $this->_logger->err($e->getMessage());
                 throw new Horde_ActiveSync_Exception($e);
             }
         } elseif (!empty($options['user'])) {
             // Query for state and map tables.
             $query = array(self::SYNC_USER => $options['user']);
-            $this->_logger->info(sprintf(
-                '[%s] Removing all device state for user %s.',
-                $this->_procid,
+            $this->_logger->meta(sprintf(
+                'Removing all device state for user %s.',
                 $options['user'])
             );
             $this->deleteSyncCache(null, $options['user']);
@@ -1105,9 +1069,8 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
             }
         } elseif (!empty($options['synckey'])) {
             $query = array(self::SYNC_KEY => $options['synckey']);
-            $this->_logger->info(sprintf(
-                '[%s] Removing device state for sync_key %s only.',
-                $this->_procid,
+            $this->_logger->meta(sprintf(
+                'Removing device state for sync_key %s only.',
                 $options['synckey'])
             );
         } else {
@@ -1121,11 +1084,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
             $this->_db->selectCollection(self::COLLECTION_MAILMAP)->remove($query);
             $this->_db->selectCollection(self::COLLECTION_DEVICE)->remove(array('users' => array('$size' => 0)));
         } catch (Exception $e) {
-                $this->_logger->err(sprintf(
-                    '[%s] %s',
-                    $this->_procid,
-                    $e->getMessage())
-                );
+                $this->_logger->err($e->getMessage());
             throw new Horde_ActiveSync_Exception($e);
         }
 
@@ -1156,11 +1115,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
                     array(self::MESSAGE_UID => true)
                 );
         } catch (Exception $e) {
-                $this->_logger->err(sprintf(
-                    '[%s] %s',
-                    $this->_procid,
-                    $e->getMessage())
-                );
+            $this->_logger->err($e->getMessage());
             throw new Horde_ActiveSync_Exception($e);
         }
 
@@ -1184,9 +1139,8 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
      */
     public function getSyncCache($devid, $user, array $fields = null)
     {
-        $this->_logger->info(sprintf(
-            '[%s] Loading SyncCache from storage: %s',
-            $this->_procid,
+        $this->_logger->meta(sprintf(
+            'Loading SyncCache from storage: %s',
             serialize($fields)));
 
         $query = array(
@@ -1205,11 +1159,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
             $data = $this->_db->selectCollection(self::COLLECTION_CACHE)
                 ->findOne($query, $projection);
         } catch (Exception $e) {
-                $this->_logger->err(sprintf(
-                    '[%s] %s',
-                    $this->_procid,
-                    $e->getMessage())
-                );
+            $this->_logger->err($e->getMessage());
             throw new Horde_ActiveSync_Exception($e);
         }
 
@@ -1242,9 +1192,10 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
      */
     public function saveSyncCache(array $cache, $devid, $user, array $dirty = array())
     {
-        $this->_logger->info(
-            sprintf('[%s] Saving SYNC_CACHE entry fields %s for user %s and device %s.',
-                $this->_procid, serialize($dirty), $user, $devid));
+        $this->_logger->meta(sprintf(
+            'Saving SYNC_CACHE entry fields %s for user %s and device %s.',
+            serialize($dirty), $user, $devid)
+        );
 
         $cache['timestamp'] = strval($cache['timestamp']);
         $query = array(
@@ -1276,11 +1227,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
                 array('upsert' => true)
             );
         } catch (Exception $e) {
-                $this->_logger->err(sprintf(
-                    '[%s] %s',
-                    $this->_procid,
-                    $e->getMessage())
-                );
+            $this->_logger->err($e->getMessage());
             throw new Horde_ActiveSync_Exception($e);
         }
     }
@@ -1295,7 +1242,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
      */
     public function deleteSyncCache($devid, $user = null)
     {
-        $this->_logger->info(sprintf(
+        $this->_logger->meta(sprintf(
             'Horde_ActiveSync_State_Mongo::deleteSyncCache(%s, %s)',
             $devid, $user));
 
@@ -1310,11 +1257,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
         try {
             $this->_db->selectCollection(self::COLLECTION_CACHE)->remove($params);
         } catch (Exception $e) {
-                $this->_logger->err(sprintf(
-                    '[%s] %s',
-                    $this->_procid,
-                    $e->getMessage())
-                );
+            $this->_logger->err($e->getMessage());
             throw new Horde_ActiveSync_Exception($e);
         }
     }
@@ -1360,11 +1303,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
 
             );
         } catch (Exception $e) {
-                $this->_logger->err(sprintf(
-                    '[%s] %s',
-                    $this->_procid,
-                    $e->getMessage())
-                );
+            $this->_logger->err($e->getMessage());
             throw new Horde_ActiveSync_Exception($e);
         }
         if (empty($rows) || empty($rows['ok'])) {
@@ -1397,9 +1336,10 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
             return true;
         }
 
-        $this->_logger->info(sprintf(
-            '[%s] Horde_ActiveSync_State_Mongo::_havePIMChanges() for %s',
-            $this->_procid, $this->_collection['serverid']));
+        $this->_logger->meta(sprintf(
+            'Horde_ActiveSync_State_Mongo::_havePIMChanges() for %s',
+            $this->_collection['serverid'])
+        );
 
         $c = $this->_db->selectCollection(self::COLLECTION_MAP);
         $query = array(
@@ -1411,11 +1351,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
             return (bool)$c->find($query, array(self::MONGO_ID => true))
                 ->count();
         } catch (Exception $e) {
-                $this->_logger->err(sprintf(
-                    '[%s] %s',
-                    $this->_procid,
-                    $e->getMessage())
-                );
+            $this->_logger->err($e->getMessage());
             throw new Horde_ActiveSync_Exception($e);
         }
     }
@@ -1520,11 +1456,7 @@ EOT;
         try {
             $this->_db->selectCollection(self::COLLECTION_STATE)->remove($query);
         } catch (Exception $e) {
-                $this->_logger->err(sprintf(
-                    '[%s] %s',
-                    $this->_procid,
-                    $e->getMessage())
-                );
+            $this->_logger->err($e->getMessage());
             throw new Horde_ActiveSync_Exception($e);
         }
 
@@ -1551,11 +1483,7 @@ EOT;
             try {
                 $c->remove($query);
             } catch (Exception $e) {
-                $this->_logger->err(sprintf(
-                    '[%s] %s',
-                    $this->_procid,
-                    $e->getMessage())
-                );
+                $this->_logger->err($e->getMessage());
                 throw new Horde_ActiveSync_Exception($e);
             }
         }

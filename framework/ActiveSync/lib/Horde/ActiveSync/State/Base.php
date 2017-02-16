@@ -342,19 +342,18 @@ abstract class Horde_ActiveSync_State_Base
         $folders = $cache['folders'];
         foreach ($folders as $id => $folder) {
             if ($folder['serverid'] == $serverid) {
-                $this->_logger->info(sprintf(
-                    '[%s] Found serverid for %s: %s',
-                    $this->_procid,
-                    $serverid,
-                    $id));
+                $this->_logger->meta(sprintf(
+                    'Found serverid for %s: %s',
+                    $serverid, $id)
+                );
                 return $id;
             }
         }
 
-        $this->_logger->info(sprintf(
-            '[%s] No folderid found for %s',
-            $this->_procid,
-            $serverid));
+        $this->_logger->meta(sprintf(
+            'No folderid found for %s',
+            $serverid)
+        );
 
         return false;
     }
@@ -391,19 +390,15 @@ abstract class Horde_ActiveSync_State_Base
                 ? $this->_collection['filtertype']
                 : 0);
 
-            $this->_logger->info(sprintf(
-                '[%s] Initializing message diff engine for %s (%s)',
-                $this->_procid,
+            $this->_logger->meta(sprintf(
+                'Initializing message diff engine for %s (%s)',
                 $this->_collection['id'],
-                $this->_folder->serverid()
-                ));
+                $this->_folder->serverid())
+            );
 
             // Check for previously found changes first.
             if (!empty($this->_changes)) {
-                $this->_logger->info(sprintf(
-                    '[%s] Returning previously found changes.',
-                    $this->_procid)
-                );
+                $this->_logger->meta('Returning previously found changes.');
                 return $this->_changes;
             }
 
@@ -419,11 +414,11 @@ abstract class Horde_ActiveSync_State_Base
                 );
             }
 
-            $this->_logger->info(sprintf(
-                '[%s] Using SYNCSTAMP %s for %s.',
-                $this->_procid,
+            $this->_logger->meta(sprintf(
+                'Using SYNCSTAMP %s for %s.',
                 $this->_thisSyncStamp,
-                $this->_collection['id']));
+                $this->_collection['id'])
+            );
 
             // No existing changes, poll the backend
             $changes = $this->_backend->getServerChanges(
@@ -442,21 +437,16 @@ abstract class Horde_ActiveSync_State_Base
                 $this->_folder->updateState();
             }
 
-            $this->_logger->info(sprintf(
-                '[%s] Found %d message changes in %s.',
-                $this->_procid,
+            $this->_logger->meta(sprintf(
+                'Found %d message changes in %s.',
                 count($changes),
-                $this->_collection['id']));
+                $this->_collection['id'])
+            );
 
             // Check for mirrored client changes.
             $this->_changes = array();
             if (count($changes) && $this->_havePIMChanges()) {
-                $this->_logger->info(sprintf(
-                    '[%s] Checking for client initiated changes.',
-                    $this->_procid)
-                );
-
-                // As usual, Email is handled differently than other collections
+                $this->_logger->meta('Checking for client initiated changes.');
                 switch ($this->_collection['class']) {
                 case Horde_ActiveSync::CLASS_EMAIL:
                     // @todo Fix me with a changes object that transparently
@@ -500,9 +490,8 @@ abstract class Horde_ActiveSync_State_Base
                         }
                         $changes[$i]['ignore'] = true;
                         $this->_changes[] = $changes[$i];
-                        $this->_logger->info(sprintf(
-                            '[%s] Ignoring client initiated %s for %s',
-                            $this->_procid,
+                        $this->_logger->meta(sprintf(
+                            'Ignoring client initiated %s for %s',
                             $flag_map[$changes[$i]['type']],
                             $changes[$i]['id'])
                         );
@@ -527,9 +516,8 @@ abstract class Horde_ActiveSync_State_Base
                             $stat = $this->_backend->statMessage($this->_folder->serverid(), $changes[$i]['id']);
                         }
                         if ($client_timestamps[$changes[$i]['id']] >= $stat['mod']) {
-                            $this->_logger->info(sprintf(
-                                '[%s] Ignoring client initiated change for %s (client TS: %s Stat TS: %s)',
-                                $this->_procid,
+                            $this->_logger->meta(sprintf(
+                                'Ignoring client initiated change for %s (client TS: %s Stat TS: %s)',
                                 $changes[$i]['id'], $client_timestamps[$changes[$i]['id']], $stat['mod'])
                             );
                         } else {
@@ -538,10 +526,7 @@ abstract class Horde_ActiveSync_State_Base
                     }
                 }
             } elseif (count($changes)) {
-                $this->_logger->info(sprintf(
-                    '[%s] No client changes present, returning all messages.',
-                    $this->_procid)
-                );
+                $this->_logger->meta('No client changes present, returning all messages.');
                 $this->_changes = $changes;
             }
         } else {
@@ -558,9 +543,7 @@ abstract class Horde_ActiveSync_State_Base
      */
     protected function _getFolderChanges()
     {
-        $this->_logger->info(sprintf(
-            '[%s] Initializing folder diff engine',
-            $this->_procid));
+        $this->_logger->meta('Initializing folder diff engine');
         $folderlist = $this->_backend->getFolderList();
         if ($folderlist === false) {
             return false;
@@ -581,14 +564,12 @@ abstract class Horde_ActiveSync_State_Base
             $folderlist);
 
         if (!count($this->_changes)) {
-            $this->_logger->info(sprintf(
-                '[%s] No folder changes found.',
-                $this->_procid));
+            $this->_logger->meta('No folder changes found.');
         } else {
-            $this->_logger->info(sprintf(
-                '[%s] Found %d folder changes.',
-                $this->_procid,
-                count($this->_changes)));
+            $this->_logger->meta(sprintf(
+                'Found %d folder changes.',
+                count($this->_changes))
+            );
         }
     }
 
@@ -606,8 +587,9 @@ abstract class Horde_ActiveSync_State_Base
     {
         if ($this->checkCollision($newKey = self::getNewSyncKey($syncKey))) {
             $this->_logger->err(sprintf(
-                '[%s] Found collision when generating synckey %s. Trying again.',
-                $this->_procid, $newKey));
+                'Found collision when generating synckey %s. Trying again.',
+                $newKey)
+            );
             return $this->getNewSyncKeyWrapper($synckey);
         }
 
@@ -862,9 +844,9 @@ abstract class Horde_ActiveSync_State_Base
         // synckey == 0 is an initial sync or reset.
         if (empty($syncKey)) {
             $this->_logger->notice(sprintf(
-                '[%s] %s::loadState: clearing folder state.',
-                $this->_procid,
-                __CLASS__));
+                '%s::loadState: clearing folder state.',
+                __CLASS__)
+            );
             if ($type == Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC) {
                 $this->_folder = array();
             } else {
@@ -878,11 +860,7 @@ abstract class Horde_ActiveSync_State_Base
             return;
         }
 
-        $this->_logger->info(
-            sprintf('[%s] Loading state for synckey %s',
-                $this->_procid,
-                $syncKey)
-        );
+        $this->_logger->meta(sprintf('Loading state for synckey %s', $syncKey));
 
         // Check if synckey is allowed. Throw a StateGone exception if it
         // doesn't match to give the client a chance to reset it's internal

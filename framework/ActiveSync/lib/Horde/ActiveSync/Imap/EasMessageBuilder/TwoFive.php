@@ -29,10 +29,7 @@ class Horde_ActiveSync_Imap_EasMessageBuilder_TwoFive extends Horde_ActiveSync_I
      */
     protected function _buildBody()
     {
-        $this->_logger->info(sprintf(
-            '[%s] Building EAS 2.5 style Message.',
-            $this->_procid)
-        );
+        $this->_logger->meta('Building EAS 2.5 style Message.');
         $this->_easMessage->body = $this->_mbd->plain['body']->stream;
         $this->_easMessage->bodysize = $this->_mbd->plain['body']->length(true);
         $this->_easMessage->bodytruncated = $this->_mbd->plain['truncated'];

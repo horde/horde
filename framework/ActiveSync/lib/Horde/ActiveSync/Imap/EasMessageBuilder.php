@@ -476,10 +476,7 @@ class Horde_ActiveSync_Imap_EasMessageBuilder
      */
     protected function _buildBodyPart()
     {
-        $this->_logger->info(sprintf(
-            '[%s] Preparing BODYPART data.',
-            $this->_procid)
-        );
+        $this->_logger->meta('Preparing BODYPART data.');
 
         $message = Horde_ActiveSync::messageFactory('AirSyncBaseBodypart');
         $message->status = Horde_ActiveSync_Message_AirSyncBaseBodypart::STATUS_SUCCESS;

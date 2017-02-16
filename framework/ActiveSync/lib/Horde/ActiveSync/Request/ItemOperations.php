@@ -81,11 +81,7 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_S
      */
     protected function _handle()
     {
-        $this->_logger->info(sprintf(
-            '[%s] Handling ITEMOPERATIONS command.',
-            $this->_device->id)
-        );
-
+        $this->_logger->info('Handling ITEMOPERATIONS command.');
         $this->_statusCode = self::STATUS_SUCCESS;
 
         if (!$this->_decoder->getElementStartTag(self::ITEMOPERATIONS_ITEMOPERATIONS)) {
@@ -298,9 +294,8 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_S
                     break;
 
                 default :
-                    $this->_logger->warn(sprintf(
-                        '[%s] %s not supported by HANDLEITEMOPERATIONS.',
-                        $this->_device->id,
+                    $this->_logger->err(sprintf(
+                        '%s not supported by HANDLEITEMOPERATIONS.',
                         $value['type'])
                     );
                     break;
@@ -312,8 +307,7 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_S
                     $map = array_flip($this->_state->getFolderUidToBackendIdMap());
                     $value['folderid'] = $map[$value['folderid']];
                     $this->_logger->info(sprintf(
-                        '[%s] Handling EMPTYFOLDERCONTENT for collection %s.',
-                        $this->_device->id,
+                        'Handling EMPTYFOLDERCONTENT for collection %s.',
                         $value['folderid']));
                     try {
                         $this->_driver->itemOperationsEmptyFolder($value);
@@ -321,17 +315,12 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_S
                         $this->_status = self::STATUS_NOT_SUPPORTED;
                     }
                 } else {
-                    $this->_logger->err(sprintf(
-                        '[%s] EMPTYFOLDERCONTENT not supported by driver.',
-                        $this->_device->id,
-                        $value['type'])
-                    );
+                    $this->_logger->err('EMPTYFOLDERCONTENT not supported by driver.');
                 }
                 break;
             default :
                 $this->_logger->err(sprintf(
-                    '[%s] %s not supported by HANDLEITEMOPERATIONS.',
-                    $this->_device->id,
+                    '%s not supported by HANDLEITEMOPERATIONS.',
                     $value['type'])
                 );
                 break;

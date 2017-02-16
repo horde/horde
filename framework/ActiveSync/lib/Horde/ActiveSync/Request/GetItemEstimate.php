@@ -63,10 +63,7 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
      */
     protected function _handle()
     {
-        $this->_logger->info(sprintf(
-            '[%s] Handling GETITEMESTIMATE command.',
-            $this->_device->id)
-        );
+        $this->_logger->meta('Handling GETITEMESTIMATE command.');
         if (!$this->checkPolicyKey($this->_activeSync->getPolicyKey(), self::GETITEMESTIMATE)) {
             return true;
         }
@@ -211,8 +208,7 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
                 $collections->initCollectionState($collection);
                 $count = $collections->getCollectionChangeCount();
             } catch (Horde_ActiveSync_Exception_StaleState $e) {
-                $this->_logger->warn(sprintf('[%s] Stale state detected: %s',
-                    getmypid(),
+                $this->_logger->warn(sprintf('Stale state detected: %s',
                     $e->getMessage())
                 );
                 $status = self::STATUS_KEYMISM;

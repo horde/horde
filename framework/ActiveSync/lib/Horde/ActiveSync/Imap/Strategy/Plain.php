@@ -35,9 +35,9 @@ extends Horde_ActiveSync_Imap_Strategy_Base
      */
     public function getChanges(array $options)
     {
-        $this->_logger->info(sprintf(
-            '[%s] NO CONDSTORE or per mailbox MODSEQ. minuid: %s, total_messages: %s',
-            $this->_procid, $this->_folder->minuid(), $this->_status['messages'])
+        $this->_logger->meta(sprintf(
+            'NO CONDSTORE or per mailbox MODSEQ. minuid: %s, total_messages: %s',
+            $this->_folder->minuid(), $this->_status['messages'])
         );
 
         $query = new Horde_Imap_Client_Search_Query();

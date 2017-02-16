@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2017-01-10</date>
+ <date>2017-02-16</date>
  <version>
   <release>2.37.5</release>
   <api>2.37.0</api>
@@ -34,6 +34,7 @@
       <file name="TODO" role="doc" />
      </dir> <!-- /doc/Horde/ActiveSync -->
     </dir> <!-- /doc/Horde -->
+    <file name="horde.yml" role="doc" />
    </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
@@ -91,6 +92,14 @@
        <file name="ImapFactory.php" role="php" />
        <file name="LoggerFactory.php" role="php" />
       </dir> <!-- /lib/Horde/ActiveSync/Interface -->
+      <dir name="Log">
+       <dir name="Logger">
+        <file name="Deprecated.php" role="php" />
+       </dir> <!-- /lib/Horde/ActiveSync/Log/Logger -->
+       <file name="Formatter.php" role="php" />
+       <file name="Handler.php" role="php" />
+       <file name="Logger.php" role="php" />
+      </dir> <!-- /lib/Horde/ActiveSync/Log -->
       <dir name="Message">
        <file name="AirSyncBaseAdd.php" role="php" />
        <file name="AirSyncBaseAttachment.php" role="php" />
@@ -367,6 +376,13 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
+    <name>Horde_Log</name>
+    <channel>pear.horde.org</channel>
+    <min>2.3.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
     <name>Horde_Mapi</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0</min>
@@ -459,6 +475,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="horde.yml" name="doc/horde.yml" />
    <install as="COPYING" name="doc/Horde/ActiveSync/COPYING" />
    <install as="TODO" name="doc/Horde/ActiveSync/TODO" />
    <install as="Horde/ActiveSync.php" name="lib/Horde/ActiveSync.php" />
@@ -508,6 +525,10 @@
    <install as="Horde/ActiveSync/Imap/Strategy/Plain.php" name="lib/Horde/ActiveSync/Imap/Strategy/Plain.php" />
    <install as="Horde/ActiveSync/Interface/ImapFactory.php" name="lib/Horde/ActiveSync/Interface/ImapFactory.php" />
    <install as="Horde/ActiveSync/Interface/LoggerFactory.php" name="lib/Horde/ActiveSync/Interface/LoggerFactory.php" />
+   <install as="Horde/ActiveSync/Log/Formatter.php" name="lib/Horde/ActiveSync/Log/Formatter.php" />
+   <install as="Horde/ActiveSync/Log/Handler.php" name="lib/Horde/ActiveSync/Log/Handler.php" />
+   <install as="Horde/ActiveSync/Log/Logger.php" name="lib/Horde/ActiveSync/Log/Logger.php" />
+   <install as="Horde/ActiveSync/Log/Logger/Deprecated.php" name="lib/Horde/ActiveSync/Log/Logger/Deprecated.php" />
    <install as="Horde/ActiveSync/Message/AirSyncBaseAdd.php" name="lib/Horde/ActiveSync/Message/AirSyncBaseAdd.php" />
    <install as="Horde/ActiveSync/Message/AirSyncBaseAttachment.php" name="lib/Horde/ActiveSync/Message/AirSyncBaseAttachment.php" />
    <install as="Horde/ActiveSync/Message/AirSyncBaseBody.php" name="lib/Horde/ActiveSync/Message/AirSyncBaseBody.php" />
@@ -3333,7 +3354,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-01-10</date>
+   <date>2017-02-16</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Fix MongoDB backend with mongodb extension.

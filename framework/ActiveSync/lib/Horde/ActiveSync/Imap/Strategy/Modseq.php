@@ -57,10 +57,7 @@ class Horde_ActiveSync_Imap_Strategy_Modseq extends Horde_ActiveSync_Imap_Strate
         // EAS clients do not properly handle the status codes that report this.
         parent::__construct($imap, $status, $folder, $logger);
         if ($folder->modseq > $this->_status[Horde_ActiveSync_Folder_Imap::HIGHESTMODSEQ]) {
-            $this->_logger->err(sprintf(
-                '[%s] IMAP Server error: Current HIGHESTMODSEQ is lower than previously reported.',
-                 $this->_procid)
-            );
+            $this->_logger->err('IMAP Server error: Current HIGHESTMODSEQ is lower than previously reported.');
             $this->_modseq_valid = false;
         }
     }
@@ -75,10 +72,7 @@ class Horde_ActiveSync_Imap_Strategy_Modseq extends Horde_ActiveSync_Imap_Strate
      */
     public function getChanges(array $options)
     {
-        $this->_logger->info(sprintf(
-            '[%s] CONDSTORE and CHANGES',
-            $this->_procid)
-        );
+        $this->_logger->meta('CONDSTORE and CHANGES');
         $flags = array();
         $current_modseq = $this->_status[Horde_ActiveSync_Folder_Imap::HIGHESTMODSEQ];
         $query = new Horde_Imap_Client_Search_Query();
@@ -107,15 +101,12 @@ class Horde_ActiveSync_Imap_Strategy_Modseq extends Horde_ActiveSync_Imap_Strate
 
         // Catch changes to FILTERTYPE.
         if (!empty($options['refreshfilter'])) {
-            $this->_logger->info(sprintf(
-                '[%s] Checking for additional messages within the new FilterType parameters.',
-                $this->_procid)
-            );
+            $this->_logger->meta('Checking for additional messages within the new FilterType parameters.');
             $search_ret = $this->_searchQuery($options, false);
             if ($search_ret['count']) {
-                $this->_logger->info(sprintf(
-                    '[%s] Found %d messages that are now outside FilterType.',
-                    $this->_procid, $search_ret['count'])
+                $this->_logger->meta(sprintf(
+                    'Found %d messages that are now outside FilterType.',
+                    $search_ret['count'])
                 );
                 $search_uids = array_merge($search_uids, $search_ret['match']->ids);
             }
@@ -171,23 +162,23 @@ class Horde_ActiveSync_Imap_Strategy_Modseq extends Horde_ActiveSync_Imap_Strate
             throw new Horde_ActiveSync_Exception($e);
         }
         $this->_folder->setRemoved($deleted->ids);
-        $this->_logger->info(sprintf(
-            '[%s] Found %d deleted messages.',
-            $this->_procid, $deleted->count())
+        $this->_logger->meta(sprintf(
+            'Found %d deleted messages.',
+            $deleted->count())
         );
 
         // Check for SOFTDELETE messages.
         if (!empty($options['sincedate']) &&
             (!empty($options['softdelete']) || !empty($options['refreshfilter']))) {
-            $this->_logger->info(sprintf(
-                '[%s] Polling for SOFTDELETE in %s before %d',
-                $this->_procid, $this->_folder->serverid(), $options['sincedate'])
+            $this->_logger->meta(sprintf(
+                'Polling for SOFTDELETE in %s before %d',
+                $this->_folder->serverid(), $options['sincedate'])
             );
             $search_ret = $this->_searchQuery($options, true);
             if ($search_ret['count']) {
-                $this->_logger->info(sprintf(
-                    '[%s] Found %d messages to SOFTDELETE.',
-                    $this->_procid, count($search_ret['match']->ids))
+                $this->_logger->meta(sprintf(
+                    'Found %d messages to SOFTDELETE.',
+                    count($search_ret['match']->ids))
                 );
                 $this->_folder->setSoftDeleted($search_ret['match']->ids);
             }

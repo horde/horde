@@ -218,11 +218,7 @@ class Horde_ActiveSync_Driver_Mock extends Horde_ActiveSync_Driver_Base
                             $folders[] = $this->_getMailFolder($id, $imap_folders, $folder);
                             ++$cnt;
                         } catch (Horde_ActiveSync_Exception $e) {
-                            $this->_logger->err(sprintf(
-                                "[%s] Problem retrieving %s mail folder",
-                                $this->_pid,
-                                $id)
-                            );
+                            $this->_logger->err(sprintf('Problem retrieving %s mail folder', $id));
                         }
                     }
                 }
@@ -274,9 +270,9 @@ class Horde_ActiveSync_Driver_Mock extends Horde_ActiveSync_Driver_Base
             $specialFolders = $this->_imap->getSpecialMailboxes();
         } catch (Horde_ActiveSync_Exception $e) {
             $this->_logger->err(sprintf(
-                "[%s] Problem retrieving special folders: %s",
-                $this->_pid,
-                $e->getMessage()));
+                'Problem retrieving special folders: %s',
+                $e->getMessage())
+            );
             throw $e;
         }
 

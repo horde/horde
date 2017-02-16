@@ -35,11 +35,7 @@ extends Horde_ActiveSync_Imap_Strategy_Base
      */
     public function getChanges(array $options)
     {
-       $this->_logger->info(sprintf(
-            '[%s] INITIAL SYNC',
-             $this->_procid)
-        );
-
+        $this->_logger->meta('INITIAL SYNC');
         $query = new Horde_Imap_Client_Search_Query();
         if (!empty($options['sincedate'])) {
             $query->dateSearch(
@@ -57,10 +53,7 @@ extends Horde_ActiveSync_Imap_Strategy_Base
         if ($this->_status[Horde_ActiveSync_Folder_Imap::HIGHESTMODSEQ] &&
             !$this->_folder->haveInitialSync) {
 
-            $this->_logger->info(sprintf(
-                '[%s] Priming IMAP folder object.',
-                $this->_procid)
-            );
+            $this->_logger->meta('Priming IMAP folder object.');
             $this->_folder->primeFolder($search_ret['match']->ids);
         } elseif (count($search_ret['match']->ids)) {
             // No modseq.

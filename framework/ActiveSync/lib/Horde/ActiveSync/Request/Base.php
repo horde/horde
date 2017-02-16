@@ -155,9 +155,8 @@ abstract class Horde_ActiveSync_Request_Base
      */
     public function checkPolicyKey($sentKey, $requestType = null)
     {
-        $this->_logger->info(sprintf(
-            '[%s] Checking policykey for device: %s user: %s',
-            $this->_procid,
+        $this->_logger->meta(sprintf(
+            'Checking policykey for device: %s user: %s',
             $this->_device->id,
             $this->_driver->getUser()));
 
@@ -165,16 +164,16 @@ abstract class Horde_ActiveSync_Request_Base
         if (empty($sentKey) && !$this->_device->enforceProvisioning() &&
             $this->_provisioning === Horde_ActiveSync::PROVISIONING_LOOSE) {
             $sentKey = null;
-            $this->_logger->info(sprintf(
-                '[%s] Allowing %s to connect since PROVISIONING_LOOSE is true and is either non-provisionable or has broken provisioning.',
-                $this->_procid,
-                $this->_device->id));
+            $this->_logger->meta(sprintf(
+                'Allowing %s to connect since PROVISIONING_LOOSE is true and device is either non-provisionable or has broken provisioning.',
+                $this->_device->id)
+            );
         } elseif (empty($sentKey) && $this->_device->isNonProvisionable()) {
             // Check for non-provisionable, but allowable, devices.
-            $this->_logger->info(sprintf(
-                '[%s] Allowing %s to connect since it is non-provisionable.',
-                $this->_procid,
-                $this->_device->id));
+            $this->_logger->meta(sprintf(
+                'Allowing %s to connect since it is non-provisionable.',
+                $this->_device->id)
+            );
             $sentKey = null;
         }
 
@@ -182,9 +181,7 @@ abstract class Horde_ActiveSync_Request_Base
         if ($this->_provisioning !== Horde_ActiveSync::PROVISIONING_NONE) {
             // Get the stored key
             $storedKey = $this->_state->getPolicyKey($this->_device->id);
-            $this->_logger->info(sprintf(
-                '[%s] Stored key: %s',
-                $this->_procid, $storedKey));
+            $this->_logger->meta(sprintf('Stored key: %s', $storedKey));
 
             // Did we request a remote wipe?
             if ($this->_state->getDeviceRWStatus($this->_device->id) == Horde_ActiveSync::RWSTATUS_PENDING) {
@@ -215,9 +212,7 @@ abstract class Horde_ActiveSync_Request_Base
         }
 
         // Either successfully validated, or we didn't care enough to check.
-        $this->_logger->info(sprintf(
-            '[%s] Policykey: %s verified.',
-            $this->_procid, $sentKey));
+        $this->_logger->meta(sprintf('Policykey: %s verified.', $sentKey));
         return true;
     }
 
@@ -238,17 +233,17 @@ abstract class Horde_ActiveSync_Request_Base
      */
     public function handle()
     {
-        $this->_logger->info(sprintf(
-            '[%s] Request being handled for device: %s, Supporting protocol version: %s, Using Horde_ActiveSync v%s',
-            $this->_procid,
-            $this->_device->id,
+        $this->_logger->meta(sprintf(
+            '%sRequest being handled for device: %s, Supporting protocol version: %s, Using Horde_ActiveSync v%s%s',
+            str_repeat('-', 10),
             $this->_device->version,
-            Horde_ActiveSync::LIBRARY_VERSION)
+            Horde_ActiveSync::LIBRARY_VERSION,
+            str_repeat('-', 10))
         );
-        $this->_logger->info(sprintf(
-            '[%s] GET VARIABLES: %s',
-            $this->_procid,
-            print_r($this->_activeSync->getGetVars(), true)));
+        $this->_logger->meta(sprintf(
+            'GET VARIABLES: %s',
+            print_r($this->_activeSync->getGetVars(), true))
+        );
         try {
             return $this->_handle();
         } catch (Exception $e) {
@@ -269,9 +264,7 @@ abstract class Horde_ActiveSync_Request_Base
         // FOLDERSYNC response is ignored by the client. Remove the entry,
         // to avoid having 2 device entries for every android client.
         if ($this->_device->id == 'validate') {
-            $this->_logger->info(sprintf(
-                '[%s] Removing state for bogus VALIDATE device.',
-                $this->_procid));
+            $this->_logger->meta('Removing state for bogus VALIDATE device.');
             $this->_state->removeState(array('devId' => 'validate'));
         }
     }

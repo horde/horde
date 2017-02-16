@@ -122,8 +122,7 @@ class Horde_ActiveSync_Imap_Adapter
         } catch (Horde_Imap_Client_Exception $e) {
             if ($e->getCode() == Horde_Imap_Client_Exception::ALREADYEXISTS) {
                 $this->_logger->warn(sprintf(
-                    '[%s] Mailbox %s already exists, subscribing to it.',
-                    $this->_procid,
+                    'Mailbox %s already exists, subscribing to it.',
                     $name
                 ));
                 try {
@@ -343,9 +342,8 @@ class Horde_ActiveSync_Imap_Adapter
             throw new Horde_ActiveSync_Exception_FolderGone($e);
         }
 
-        $this->_logger->info(sprintf(
-            '[%s] IMAP status: %s',
-            $this->_procid,
+        $this->_logger->meta(sprintf(
+            'IMAP status: %s',
             serialize($status))
         );
 
@@ -535,9 +533,8 @@ class Horde_ActiveSync_Imap_Adapter
             throw new Horde_ActiveSync_Exception($e);
         }
 
-        $this->_logger->info(sprintf(
-            '[%s] IMAP status: %s',
-            $this->_procid,
+        $this->_logger->meta(sprintf(
+            'IMAP status: %s',
             serialize($status))
         );
 
@@ -1036,9 +1033,9 @@ class Horde_ActiveSync_Imap_Adapter
             );
         } catch (Horde_Imap_Client_Exception $e) {
             $this->_logger->err(sprintf(
-                '[%s] Unable to fetch message: %s',
-                $this->_procid,
-                $e->getMessage()));
+                'Unable to fetch message: %s',
+                $e->getMessage())
+            );
             throw new Horde_ActiveSync_Exception($e);
         }
     }

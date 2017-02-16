@@ -459,20 +459,12 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
      */
     private function _logStartTag($tag, $attr, $output_empty)
     {
-        $spaces = str_repeat(' ', count($this->_logStack));
+        $indent = count($this->_logStack);
         if ($output_empty) {
-            $this->_logger->debug(sprintf(
-                '[%s] O %s <%s/>',
-                $this->_procid,
-                $spaces,
-                $tag));
+            $this->_logger->server(sprintf('<%s>', $tag), $indent);
         } else {
             $this->_logStack[] = $tag;
-            $this->_logger->debug(sprintf(
-                '[%s] O %s <%s>',
-                $this->_procid,
-                $spaces,
-                $tag));
+            $this->_logger->server(sprintf('<%s>', $tag), $indent);
         }
     }
 
@@ -483,13 +475,9 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
      */
     private function _logEndTag()
     {
-        $spaces = str_repeat(' ', count($this->_logStack) - 1);
+        $indent = count($this->_logStack) - 1;
         $tag = array_pop($this->_logStack);
-        $this->_logger->debug(sprintf(
-            '[%s] O %s </%s>',
-            $this->_procid,
-            $spaces,
-            $tag));
+        $this->_logger->server(sprintf('</%s>', $tag), $indent);
     }
 
     /**
@@ -501,12 +489,8 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
      */
     private function _logContent($content)
     {
-        $spaces = str_repeat(' ', count($this->_logStack));
-        $this->_logger->debug(sprintf(
-            '[%s] O %s %s',
-            $this->_procid,
-            $spaces,
-            $content));
+        $indent = count($this->_logStack);
+        $this->_logger->server($content, $indent);
     }
 
 }

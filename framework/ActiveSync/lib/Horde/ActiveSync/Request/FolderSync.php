@@ -57,9 +57,7 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
     {
         // Be optimistic
         $this->_statusCode = self::STATUS_SUCCESS;
-        $this->_logger->info(sprintf(
-            '[%s] Handling FOLDERSYNC command.',
-            $this->_procid));
+        $this->_logger->meta('Handling FOLDERSYNC command.');
 
         // Check policy
         if (!$this->checkPolicyKey($this->_activeSync->getPolicyKey(), Horde_ActiveSync::FOLDERHIERARCHY_FOLDERSYNC)) {

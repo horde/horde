@@ -104,10 +104,10 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
     {
         $now = time();
         $forceCacheSave = false;
-        $this->_logger->info(sprintf(
-            '[%s] Handling PING command received at timestamp: %s.',
-            $this->_procid,
-            $now));
+        $this->_logger->meta(sprintf(
+            'Handling PING command received at timestamp: %s.',
+            $now)
+        );
 
         // Check global errors.
         if ($error = $this->_activeSync->checkGlobalError()) {
@@ -132,25 +132,21 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
             $heartbeat = !empty($this->_pingSettings['heartbeatdefault'])
                 ? $this->_pingSettings['heartbeatdefault']
                 : 60;
-            $this->_logger->info(sprintf(
-                '[%s] Cached heartbeat is %s',
-                $this->_procid,
-                $heartbeat));
+            $this->_logger->meta(sprintf(
+                'Cached heartbeat is %s',
+                $heartbeat)
+            );
         }
         $this->_statusCode = self::STATUS_NOCHANGES;
 
         // Either handle the empty request or decode a full request.
         if (!$this->_decoder->getElementStartTag(self::PING)) {
-            $this->_logger->info(sprintf(
-                '[%s] Empty PING request.',
-                $this->_procid));
+            $this->_logger->meta('Empty PING request.');
             $isEmpty = true;
             $collections->loadCollectionsFromCache();
             if ($collections->collectionCount() == 0 ||
                 !$collections->havePingableCollections()) {
-                $this->_logger->warn(sprintf(
-                    '[%s] Empty PING request with no cached collections. Request full PING.',
-                    $this->_procid));
+                $this->_logger->warn('Empty PING request with no cached collections. Request full PING.');
                 $this->_statusCode = self::STATUS_MISSING;
                 $this->_handleGlobalError();
                 return true;
@@ -165,9 +161,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                 $forceCacheSave = true;
                 $this->_decoder->getElementEndTag();
             }
-            $this->_logger->info(sprintf(
-                '[%s] Actual heartbeat value in use is %s.',
-                $this->_procid, $heartbeat));
+            $this->_logger->meta(sprintf('Actual heartbeat value in use is %s.', $heartbeat));
             if ($this->_decoder->getElementStartTag(self::FOLDERS)) {
                 while ($this->_decoder->getElementStartTag(self::FOLDER)) {
                     $collection = array();
@@ -204,9 +198,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                 // No FOLDERS supplied, use the cache.
                 $collections->loadCollectionsFromCache();
                 if ($collections->collectionCount() == 0) {
-                    $this->_logger->warn(sprintf(
-                        '[%s] Empty PING request with no cached collections. Request full PING.',
-                        $this->_procid));
+                    $this->_logger->warn('Empty PING request with no cached collections. Request full PING.');
                     $this->_statusCode = self::STATUS_MISSING;
                     $this->_handleGlobalError();
                     return true;
@@ -232,9 +224,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                     $this->_handleGlobalError();
                     return true;
                 case Horde_ActiveSync_Collections::COLLECTION_ERR_STALE:
-                    $this->_logger->info(sprintf(
-                        '[%s] Changes in cache detected during PING, exiting here.',
-                        $this->_procid));
+                    $this->_logger->meta('Changes in cache detected during PING, exiting here.');
                     return true;
                 case Horde_ActiveSync_Collections::COLLECTION_ERR_FOLDERSYNC_REQUIRED;
                     $this->_statusCode = self::STATUS_FOLDERSYNCREQD;
@@ -254,14 +244,10 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                     break;
                 default:
                     if ($this->_device->version < Horde_ActiveSync::VERSION_FOURTEEN) {
-                        $this->_logger->warn(sprintf(
-                            '[%s] Version is < 14.0, returning false since we have no PINGABLE collections.',
-                            $this->_procid));
+                        $this->_logger->warn('Version is < 14.0, returning false since we have no PINGABLE collections.');
                         return false;
                     } else {
-                        $this->_logger->warn(sprintf(
-                            '[%s] Version is >= 14.0 returning status code 132 since we have no PINGABLE collections.',
-                            $this->_procid));
+                        $this->_logger->warn('Version is >= 14.0 returning status code 132 since we have no PINGABLE collections.');
                         $this->_statusCode = Horde_ActiveSync_Status::STATEFILE_NOT_FOUND;
                         $this->_handleGlobalError();
                         return true;

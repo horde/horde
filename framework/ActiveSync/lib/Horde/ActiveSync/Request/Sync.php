@@ -73,10 +73,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
      */
     protected function _handle()
     {
-        $this->_logger->info(sprintf(
-            '[%s] Handling SYNC command.',
-            $this->_procid)
-        );
+        $this->_logger->meta('Handling SYNC command.');
 
         // Check policy
         if (!$this->checkPolicyKey($this->_activeSync->getPolicyKey(), Horde_ActiveSync::SYNC_SYNCHRONIZE)) {
@@ -106,9 +103,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
         if ($this->_device->version >= Horde_ActiveSync::VERSION_TWELVEONE) {
             // We don't have a previous FOLDERSYNC.
             if (!$this->_collections->haveHierarchy()) {
-                $this->_logger->notice(sprintf(
-                    '[%s] No HIERARCHY SYNCKEY in sync_cache, invalidating.',
-                    $this->_procid));
+                $this->_logger->meta('No HIERARCHY SYNCKEY in sync_cache, invalidating.');
                 $this->_statusCode = self::STATUS_FOLDERSYNC_REQUIRED;
                 $this->_handleGlobalSyncError();
                 return true;
@@ -118,13 +113,9 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
         // Start decoding request
         if (!$this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_SYNCHRONIZE)) {
             if ($this->_device->version >= Horde_ActiveSync::VERSION_TWELVEONE) {
-                $this->_logger->info(sprintf(
-                    '[%s] Empty Sync request, taking info from SyncCache.',
-                    $this->_procid));
+                $this->_logger->meta('Empty Sync request, taking info from SyncCache.');
                 if ($this->_collections->cachedCollectionCount() == 0) {
-                    $this->_logger->warn(sprintf(
-                        '[%s] Empty SYNC request but no SyncCache or SyncCache with no collections.',
-                        $this->_procid));
+                    $this->_logger->warn('Empty SYNC request but no SyncCache or SyncCache with no collections.');
                     $this->_statusCode = self::STATUS_REQUEST_INCOMPLETE;
                     $this->_handleGlobalSyncError();
                     return true;
@@ -158,10 +149,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                         $this->_collections->hangingSync = true;
                         $this->_decoder->getElementEndTag();
                         if ($hbinterval > (self::MAX_HEARTBEAT)) {
-                            $this->_logger->err(sprintf(
-                                '[%s] HeartbeatInterval outside of allowed range.',
-                                $this->_procid)
-                            );
+                            $this->_logger->err('HeartbeatInterval outside of allowed range.');
                             $this->_statusCode = self::STATUS_INVALID_WAIT_HEARTBEATINTERVAL;
                             $this->_handleGlobalSyncError(self::MAX_HEARTBEAT);
                             return true;
@@ -174,10 +162,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                         $this->_collections->hangingSync = true;
                         $this->_decoder->getElementEndTag();
                         if ($wait > (self::MAX_HEARTBEAT / 60)) {
-                            $this->_logger->err(sprintf(
-                                '[%s] Wait value outside of allowed range.',
-                                $this->_procid)
-                            );
+                            $this->_logger->err('Wait value outside of allowed range.');
                             $this->_statusCode = self::STATUS_INVALID_WAIT_HEARTBEATINTERVAL;
                             $this->_handleGlobalSyncError(self::MAX_HEARBEAT / 60);
                             return true;
@@ -211,9 +196,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 if ($this->_collections->hbinterval !== false &&
                     $this->_collections->wait !== false) {
 
-                    $this->_logger->err(sprintf(
-                        '[%s] Received both HBINTERVAL and WAIT interval in same request.',
-                        $this->_procid));
+                    $this->_logger->err('Received both HBINTERVAL and WAIT interval in same request.');
                     $this->_statusCode = Horde_ActiveSync_Status::INVALID_XML;
                     $this->_handleGlobalSyncError();
                     return true;
@@ -228,10 +211,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
 
             // Full or partial sync request?
             if ($partial === true) {
-                $this->_logger->info(sprintf(
-                    '[%s] Executing a PARTIAL SYNC.',
-                    $this->_procid)
-                );
+                $this->_logger->meta('Executing a PARTIAL SYNC.');
                 if (!$this->_collections->initPartialSync()) {
                     $this->_statusCode = self::STATUS_REQUEST_INCOMPLETE;
                     $this->_handleGlobalSyncError();
@@ -263,9 +243,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             // Save.
             $this->_collections->save(true);
 
-            $this->_logger->info(sprintf(
-                '[%s] All synckeys confirmed. Continuing with SYNC',
-                $this->_procid));
+            $this->_logger->meta('All synckeys confirmed. Continuing with SYNC');
         }
 
         $pingSettings = $this->_driver->getHeartbeatConfig();
@@ -292,9 +270,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             if ($changes !== true && $changes !== false) {
                 switch ($changes) {
                 case Horde_ActiveSync_Collections::COLLECTION_ERR_STALE:
-                    $this->_logger->notice(sprintf(
-                        '[%s] Changes in cache detected during looping SYNC exiting here.',
-                        $this->_procid));
+                    $this->_logger->meta('Changes in cache detected during looping SYNC exiting here.');
                     return true;
                 case Horde_ActiveSync_Collections::COLLECTION_ERR_FOLDERSYNC_REQUIRED;
                     $this->_statusCode = self::STATUS_FOLDERSYNC_REQUIRED;
@@ -318,17 +294,16 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             empty($changes) &&
             $this->_collections->canSendEmptyResponse()) {
 
-            $this->_logger->info(sprintf(
-                '[%s] Sending an empty SYNC response.',
-                $this->_procid));
+            $this->_logger->meta('Sending an empty SYNC response.');
             $this->_collections->lastsyncendnormal = time();
             $this->_collections->save(true);
             return true;
         }
 
-        $this->_logger->info(sprintf(
-            '[%s] Completed parsing incoming request. Peak memory usage: %d.',
-            $this->_procid, memory_get_peak_usage(true)));
+        $this->_logger->meta(sprintf(
+            'Completed parsing incoming request. Peak memory usage: %d.',
+             memory_get_peak_usage(true))
+        );
 
         // Start output to client
         $this->_encoder->startWBXML();
@@ -363,10 +338,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             try {
                 $this->_collections->initCollectionState($collection);
             } catch (Horde_ActiveSync_Exception_StateGone $e) {
-                $this->_logger->notice(sprintf(
-                    '[%s] SYNC terminating, state not found',
-                    $this->_procid)
-                );
+                $this->_logger->warn('SYNC terminating, state not found');
                 $statusCode = self::STATUS_KEYMISM;
             } catch (Horde_ActiveSync_Exception_FolderGone $e) {
                 // This isn't strictly correct, but at least some versions of
@@ -390,9 +362,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             if (!empty($collection['importedchanges']) && empty($collection['getchanges'])) {
                 $forceChanges = true;
                 $collection['getchanges'] = true;
-                $this->_logger->notice(sprintf(
-                    '[%s] Forcing a GETCHANGES due to incoming changes.',
-                    $this->_procid));
+                $this->_logger->notice('Forcing a GETCHANGES due to incoming changes.');
             }
 
             // Check for server-side changes, if requested.
@@ -401,8 +371,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     $changecount = $this->_collections->getCollectionChangeCount();
                 } catch (Horde_ActiveSync_Exception_StaleState $e) {
                     $this->_logger->err(sprintf(
-                        '[%s] Force restting of state for %s: %s',
-                        $this->_procid,
+                        'Force restting of state for %s: %s',
                         $id,
                         $e->getMessage()));
                     $this->_state->loadState(
@@ -412,25 +381,19 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                         $id);
                     $statusCode = self::STATUS_KEYMISM;
                 } catch (Horde_ActiveSync_Exception_StateGone $e) {
-                    $this->_logger->warn(sprintf(
-                        '[%s] SYNCKEY not found. Reset required.', $this->_procid));
+                    $this->_logger->warn('SYNCKEY not found. Reset required.');
                         $statusCode = self::STATUS_KEYMISM;
                 } catch (Horde_ActiveSync_Exception_FolderGone $e) {
-                    $this->_logger->warn(sprintf(
-                        '[%s] FOLDERSYNC required, collection gone.',
-                        $this->_procid));
+                    $this->_logger->warn('FOLDERSYNC required, collection gone.');
                     $statusCode = self::STATUS_FOLDERSYNC_REQUIRED;
                 } catch (Horde_ActiveSync_Exception_TemporaryFailure $e) {
                     $this->_logger->err(sprintf(
-                        '[%s] Failure in polling for changes: "%s".',
-                        $this->_procid,
+                        'Failure in polling for changes: "%s".',
                         $e->getMessage())
                     );
                     $statusCode = Horde_ActiveSync_Status::SERVER_ERROR_RETRY;
                 } catch (Horde_Exception_AuthenticationFailure $e) {
-                    $this->_logger->err(sprintf(
-                        '[%s] Lost authentication during SYNC!!',
-                        $this->_procid));
+                    $this->_logger->err('Lost authentication during SYNC!!');
                     $statusCode = self::STATUS_SERVERERROR;
                 }
             }
@@ -451,9 +414,8 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
 
                 try {
                     $collection['newsynckey'] = $this->_state->getNewSyncKeyWrapper($collection['synckey']);
-                    $this->_logger->info(sprintf(
-                        '[%s] Old SYNCKEY: %s, New SYNCKEY: %s',
-                        $this->_procid,
+                    $this->_logger->meta(sprintf(
+                        'Old SYNCKEY: %s, New SYNCKEY: %s',
                         $collection['synckey'],
                         $collection['newsynckey'])
                     );
@@ -490,9 +452,9 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     // MOREAVAILABLE?
                     if (!empty($changecount) &&
                         (($changecount > $max_windowsize) || $cnt_global + $changecount > $this->_collections->getDefaultWindowSize())) {
-                        $this->_logger->info(sprintf(
-                            '[%s] Sending MOREAVAILABLE. WINDOWSIZE = %d, $changecount = %d, MAX_REQUEST_WINDOWSIZE = %d, $cnt_global = %d',
-                            $this->_procid, $max_windowsize, $changecount, $this->_collections->getDefaultWindowSize(), $cnt_global));
+                        $this->_logger->meta(sprintf(
+                            'Sending MOREAVAILABLE. WINDOWSIZE = %d, $changecount = %d, MAX_REQUEST_WINDOWSIZE = %d, $cnt_global = %d',
+                            $max_windowsize, $changecount, $this->_collections->getDefaultWindowSize(), $cnt_global));
                         $this->_encoder->startTag(Horde_ActiveSync::SYNC_MOREAVAILABLE, false, true);
                         $over_window = ($cnt_global + $changecount > $this->_collections->getDefaultWindowSize());
                     }
@@ -505,9 +467,9 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                         while ($cnt_collection < $max_windowsize &&
                                $cnt_global < $this->_collections->getDefaultWindowSize() &&
                                $progress = $exporter->sendNextChange()) {
-                            $this->_logger->info(sprintf(
-                                '[%s] Peak memory usage after message: %d',
-                                $this->_procid, memory_get_peak_usage(true))
+                            $this->_logger->meta(sprintf(
+                                'Peak memory usage after message: %d',
+                                memory_get_peak_usage(true))
                             );
                             if ($progress === true) {
                                 ++$cnt_collection;
@@ -582,9 +544,10 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
 
             // End SYNC_FOLDER
             $this->_encoder->endTag();
-            $this->_logger->info(sprintf(
-                '[%s] Collection output peak memory usage: %d',
-                $this->_procid, memory_get_peak_usage(true)));
+            $this->_logger->meta(sprintf(
+                'Collection output peak memory usage: %d',
+                memory_get_peak_usage(true))
+            );
         }
 
         // End SYNC_FOLDERS
@@ -595,9 +558,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
 
         if ($this->_device->version >= Horde_ActiveSync::VERSION_TWELVEONE) {
             if ($this->_collections->checkStaleRequest()) {
-                $this->_logger->info(sprintf(
-                    '[%s] Changes detected in sync_cache during wait interval, exiting without updating cache.',
-                    $this->_procid));
+                $this->_logger->meta('Changes detected in sync_cache during wait interval, exiting without updating cache.');
                 return true;
             } else {
                 $this->_collections->lastsyncendnormal = time();
@@ -613,10 +574,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
 
     protected function _sendOverWindowResponse($collection)
     {
-        $this->_logger->info(sprintf(
-            '[%s] Over window maximum, skip polling for this request.',
-            $this->_procid));
-
+        $this->_logger->meta('Over window maximum, skip polling for this request.');
         $this->_encoder->startTag(Horde_ActiveSync::SYNC_FOLDER);
 
         // Not sent in > 12.0
@@ -688,9 +646,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                         // Log this case explicitly since we can't send back
                         // a protocol error status (the response requires a
                         // collection id and we obviously don't have one).
-                        $this->_logger->err(sprintf(
-                            '[%s] PROTOCOL ERROR. Client sent an empty SYNC_FOLDERID value.',
-                            $this->_procid));
+                        $this->_logger->err('PROTOCOL ERROR. Client sent an empty SYNC_FOLDERID value.');
                         throw new Horde_ActiveSync_Exception('Protocol error');
                     }
                     if (!$this->_decoder->getElementEndTag()) {
@@ -706,9 +662,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                         return false;
                     }
                     if ($collection['windowsize'] < 1 || $collection['windowsize'] > self::MAX_WINDOW_SIZE) {
-                        $this->_logger->err(sprintf(
-                            '[%s] Bad windowsize sent, defaulting to 512',
-                            $this->_procid));
+                        $this->_logger->err('Bad windowsize sent, defaulting to 512');
                         $collection['windowsize'] = self::MAX_WINDOW_SIZE;
                     }
                     break;
@@ -808,8 +762,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             if (isset($collection['filtertype']) &&
                 !$this->_collections->checkFilterType($collection['id'], $collection['filtertype'])) {
 
-                $this->_logger->info(sprintf(
-                    '[%s] Found updated filtertype, will force a SOFTDELETE.', $this->_procid));
+                $this->_logger->meta('Updated filtertype, will force a SOFTDELETE.');
                 $collection['forcerefresh'] = true;
             }
 
@@ -860,17 +813,13 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
         // This is a violation of the spec, and could lead to all kinds
         // of data integrity issues.
         if (empty($collection['synckey'])) {
-            $this->_logger->warn(sprintf(
-                '[%s] Attempting a SYNC_COMMANDS, but device failed to send synckey. Ignoring.',
-                $this->_procid));
+            $this->_logger->warn('Attempting a SYNC_COMMANDS, but device failed to send synckey. Ignoring.');
         }
 
         try {
             $this->_collections->initCollectionState($collection);
         } catch (Horde_ActiveSync_Exception_StateGone $e) {
-            $this->_logger->warn(sprintf(
-                '[%s] State not found sending STATUS_KEYMISM',
-                $this->_procid));
+            $this->_logger->warn('State not found sending STATUS_KEYMISM');
             $this->_statusCode = self::STATUS_KEYMISM;
             $this->_handleError($collection);
             return false;
@@ -973,10 +922,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 $commandType == Horde_ActiveSync::SYNC_MODIFY) &&
                 ($el = $this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_DATA))) {
                 if ($this->_decoder->isEmptyElement($el)) {
-                    $this->_logger->err(sprintf(
-                        '[%s] Client sent an empty <Data> element. This is a protocol error, but attempting to ignore.',
-                        $this->_procid)
-                    );
+                    $this->_logger->err('Client sent an empty <Data> element. This is a protocol error, but attempting to ignore.');
                 } else {
                     switch ($collection['class']) {
                     case Horde_ActiveSync::CLASS_EMAIL:
@@ -1117,10 +1063,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             unset($collection['instanceid_removes']);
         }
 
-        $this->_logger->info(sprintf(
-            '[%s] Processed %d incoming changes',
-            $this->_procid,
-            $nchanges));
+        $this->_logger->meta(sprintf('Processed %d incoming changes', $nchanges));
 
         if (!$this->_decoder->getElementEndTag()) {
             // end commands
@@ -1251,7 +1194,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 while (1) {
                     $e = $this->_decoder->getElement();
                     if ($e === false) {
-                        $this->_logger->err(sprintf('[%s] Unexpected end of stream.', $this->_procid));
+                        $this->_logger->err('Unexpected end of stream.');
                         $this->_statusCode = self::STATUS_PROTERROR;
                         $this->_handleError($collection);
                         exit;

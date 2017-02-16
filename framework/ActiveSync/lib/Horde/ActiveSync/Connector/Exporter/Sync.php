@@ -81,8 +81,7 @@ class Horde_ActiveSync_Connector_Exporter_Sync extends Horde_ActiveSync_Connecto
         if ($message->getClass() != $this->_currentCollection['class'] ||
             in_array($id, $this->_seenObjects)) {
             $this->_logger->notice(sprintf(
-                '[%s] IGNORING message %s since it looks like it was already sent or does not belong to this collection. Class: %s, CurrentClass: %s',
-                $this->_procid,
+                'IGNORING message %s since it looks like it was already sent or does not belong to this collection. Class: %s, CurrentClass: %s',
                 $id,
                 $message->getClass(),
                 $this->_currentCollection['class']));
@@ -92,8 +91,7 @@ class Horde_ActiveSync_Connector_Exporter_Sync extends Horde_ActiveSync_Connecto
         // Ignore any empty objects.
         if ($message->isEmpty()) {
             $this->_logger->notice(sprintf(
-                '[%s] IGNORING message %s since it looks like it does not contain any data. Class: %s, CurrentClass: %s',
-                $this->_procid,
+                'IGNORING message %s since it looks like it does not contain any data. Class: %s, CurrentClass: %s',
                 $id,
                 $message->getClass(),
                 $this->_currentCollection['class']));
@@ -313,8 +311,7 @@ class Horde_ActiveSync_Connector_Exporter_Sync extends Horde_ActiveSync_Connecto
                 $this->_encoder->endTag();
             } catch (Horde_Exception_NotFound $e) {
                 $this->_logger->err(sprintf(
-                    '[%s] Unable to fetch %s',
-                    getmypid(),
+                    'Unable to fetch %s',
                     $fetch_id)
                 );
                 $this->_encoder->startTag(Horde_ActiveSync::SYNC_FETCH);
@@ -496,22 +493,22 @@ class Horde_ActiveSync_Connector_Exporter_Sync extends Horde_ActiveSync_Connecto
                     $this->messageChange($change['id'], $message);
                 } catch (Horde_Exception_NotFound $e) {
                     $this->_logger->notice(sprintf(
-                        '[%s] Message gone or error reading message from server: %s',
-                        $this->_procid, $e->getMessage()));
+                        'Message gone or error reading message from server: %s',
+                        $e->getMessage()));
                     $this->_as->state->updateState($change['type'], $change);
                     $this->_step++;
                     return $e;
                 } catch (Horde_ActiveSync_Exception_TemporaryFailure $e) {
                     $this->_logger->err(sprintf(
-                        '[%s] Backend server reported an error: %s.',
-                        $this->_procid,
-                        $e->getMessage()));
-                        throw $e;
+                        'Backend server reported an error: %s.',
+                        $e->getMessage())
+                    );
+                    throw $e;
                 } catch (Horde_ActiveSync_Exception $e) {
                     $this->_logger->err(sprintf(
-                        '[%s] Unknown backend error skipping message: %s',
-                        $this->_procid,
-                        $e->getMessage()));
+                        'Unknown backend error skipping message: %s',
+                        $e->getMessage())
+                    );
                     $this->_as->state->updateState($change['type'], $change);
                     $this->_step++;
                     return $e;

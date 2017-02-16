@@ -586,7 +586,7 @@ class Horde_ActiveSync_Message_Base
                                 Horde_ActiveSync::AIRSYNCBASE_DATA,
                                 Horde_ActiveSync_Request_ItemOperations::ITEMOPERATIONS_DATA)
                               )) {
-                        $this->_logger->info('HANDLING MULTIPART OUTPUT');
+                        $this->_logger->meta('HANDLING MULTIPART OUTPUT');
                         $encoder->addPart($this->{$map[self::KEY_ATTRIBUTE]});
                         $encoder->startTag(Horde_ActiveSync_Request_ItemOperations::ITEMOPERATIONS_PART);
                         $encoder->content((string)(count($encoder->getParts()) - 1));

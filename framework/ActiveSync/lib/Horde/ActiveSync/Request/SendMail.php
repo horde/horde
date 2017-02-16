@@ -46,8 +46,7 @@ class Horde_ActiveSync_Request_SendMail extends Horde_ActiveSync_Request_Base
     {
         // Check for wbxml vs RFC822
         if (!$this->_decoder->isWbxml()) {
-            $this->_logger->info(sprintf(
-                '[%s] Handling SENDMAIL command with no Wbxml.',
+            $this->_logger->meta('Handling SENDMAIL command with no Wbxml.');
                 $this->_procid));
             $stream = $this->_decoder->getFullInputStream();
             try {
@@ -74,10 +73,7 @@ class Horde_ActiveSync_Request_SendMail extends Horde_ActiveSync_Request_Base
      */
     protected function _handleWbxmlRequest()
     {
-        $this->_logger->info(sprintf(
-            '[%s] Handling SENDMAIL command with Wbxml.',
-            $this->_procid));
-        // Get the first element and see what type of mail request we have.
+        $this->_logger->meta('Handling SENDMAIL command with Wbxml.');
         $e = $this->_decoder->getElement();
         if ($e[Horde_ActiveSync_Wbxml::EN_TYPE] != Horde_ActiveSync_Wbxml::EN_TYPE_STARTTAG) {
             $this->_handleError(
@@ -126,10 +122,7 @@ class Horde_ActiveSync_Request_SendMail extends Horde_ActiveSync_Request_Base
                 // For now, return false, which causes a HTTP 500 to be returned
                 // - the expected behavior prior to EAS 14.0. For 3.0, we will
                 // rework this stuff into a Response object.
-                $this->_logger->err(sprintf(
-                    '[%s] Returning HTTP 500, since EAS version < 14.0',
-                    $this->_procid)
-                );
+                $this->_logger->err('Returning HTTP 500, since EAS version < 14.0');
                 return false;
             }
             $this->_handleError(

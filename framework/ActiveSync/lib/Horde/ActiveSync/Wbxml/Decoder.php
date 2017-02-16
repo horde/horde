@@ -249,9 +249,7 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
         if ($element[self::EN_TYPE] == self::EN_TYPE_ENDTAG) {
             return $element;
         } else {
-            $this->_logger->err(sprintf(
-                '[%s] Unmatched end tag:',
-                $this->_procid));
+            $this->_logger->err('Unmatched end tag:');
             $this->_logger->err(print_r($element, true));
             $this->_ungetElement($element);
         }
@@ -306,49 +304,26 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
     {
         switch ($el[self::EN_TYPE]) {
         case self::EN_TYPE_STARTTAG:
+            $indent = count($this->_logStack);
             if ($el[self::EN_FLAGS] & self::EN_FLAGS_CONTENT) {
-                $spaces = str_repeat(' ', count($this->_logStack));
                 $this->_logStack[] = $el[self::EN_TAG];
-                $this->_logger->debug(sprintf(
-                    '[%s] I %s <%s>',
-                    $this->_procid,
-                    $spaces,
-                    $el[self::EN_TAG]));
+                $this->_logger->client(sprintf('<%s>', $el[self::EN_TAG]), $indent);
             } else {
-                $spaces = str_repeat(' ', count($this->_logStack));
-                $this->_logger->debug(sprintf(
-                    '[%s] I %s <%s />',
-                    $this->_procid,
-                    $spaces,
-                    $el[self::EN_TAG]));
+                $this->_logger->client(sprintf('<%s />', $el[self::EN_TAG]), $indent);
             }
             break;
         case self::EN_TYPE_ENDTAG:
             $tag = array_pop($this->_logStack);
-            $spaces = str_repeat(' ', count($this->_logStack));
-            $this->_logger->debug(sprintf(
-                '[%s] I %s </%s>',
-                $this->_procid,
-                $spaces,
-                $tag));
+            $indent = count($this->_logStack);
+            $this->_logger->client(sprintf('</%s>', $tag), $indent);
             break;
         case self::EN_TYPE_CONTENT:
-            $spaces = str_repeat(' ', count($this->_logStack) + 1);
+            $indent = count($this->_logStack) + 1;
             if ($this->_logLevel == self::LOG_PROTOCOL &&
                 ($l = Horde_String::length($el[self::EN_CONTENT])) > self::LOG_MAXCONTENT) {
-                $this->_logger->debug(sprintf(
-                    '[%s] I %s %s',
-                    $this->_procid,
-                    $spaces,
-                    sprintf('[%d bytes of content]', $l)
-                  ));
+                $this->_logger->client(sprintf('[%d bytes of content]', $l), $indent);
             } else {
-                $this->_logger->debug(sprintf(
-                    '[%s] I %s %s',
-                    $this->_procid,
-                    $spaces,
-                    $el[self::EN_CONTENT])
-                );
+                $this->_logger->client($el[self::EN_CONTENT], $indent);
             }
             break;
         }

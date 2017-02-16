@@ -44,20 +44,17 @@ class Horde_ActiveSync_Request_GetAttachment extends Horde_ActiveSync_Request_Ba
      */
     protected function _handle()
     {
-        $this->_logger->info(sprintf(
-            '[%s] Handling GETATTACHMENT command.',
-            $this->_procid)
-        );
+        $this->_logger->meta('Handling GETATTACHMENT command.');
         $get = $this->_activeSync->getGetVars();
         if (empty($get['AttachmentName'])) {
             return false;
         }
         $attname = $get['AttachmentName'];
 
-        $this->_logger->info(sprintf(
-            '[%s] Fetching attachment: %s',
-            $this->_device->id,
-            $attname));
+        $this->_logger->meta(sprintf(
+            'Fetching attachment: %s',
+            $attname)
+        );
         $att = $this->_driver->getAttachment($attname);
 
         // Send the content-type header in case the attachment is large enough
@@ -66,10 +63,10 @@ class Horde_ActiveSync_Request_GetAttachment extends Horde_ActiveSync_Request_Ba
 
         // Output the attachment data to the stream.
         if (is_resource($att['data'])) {
-            $this->_logger->info('Copying attachment data directly from stream to stream.');
+            $this->_logger->meta('Copying attachment data directly from stream to stream.');
             rewind($att['data']);
         } else {
-            $this->_logger->info('Writing attachment data from string to stream.');
+            $this->_logger->meta('Writing attachment data from string to stream.');
         }
         $this->_encoder->getStream()->add($att['data']);
 

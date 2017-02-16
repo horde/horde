@@ -89,8 +89,8 @@ class Horde_ActiveSync_Connector_Exporter_FolderSync extends Horde_ActiveSync_Co
                     $this->folderChange($folder);
                 } else {
                     $this->_logger->err(sprintf(
-                        '[%s] Error stating %s: ignoring.',
-                        $this->_procid, $change['id']));
+                        'Error stating %s: ignoring.',
+                        $change['id']));
                     $stat = array('id' => $change['id'], 'mod' => $change['id'], 0);
                 }
                 // Update the state.

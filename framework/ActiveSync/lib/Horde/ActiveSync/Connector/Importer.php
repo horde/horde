@@ -175,8 +175,8 @@ class Horde_ActiveSync_Connector_Importer
                 );
                 if ($conflict) {
                     $this->_logger->notice(sprintf(
-                        '[%s] Conflict when updating %s, will overwrite client version on next sync.',
-                        $this->_procid, $id)
+                        'Conflict when updating %s, will overwrite client version on next sync.',
+                        $id)
                     );
                     return array(
                         $id,
@@ -187,8 +187,8 @@ class Horde_ActiveSync_Connector_Importer
         } elseif (!$id && $uid = $this->_state->isDuplicatePIMAddition($clientid)) {
             // Already saw this addition, but client never received UID
             $this->_logger->notice(sprintf(
-                '[%s] Duplicate addition for %s',
-                $this->_procid, $uid)
+                'Duplicate addition for %s',
+                $uid)
             );
             return $uid;
         }
@@ -201,8 +201,7 @@ class Horde_ActiveSync_Connector_Importer
         // Tell the backend about the change
         if (!$stat = $this->_as->driver->changeMessage($this->_folderId, $id, $message, $device)) {
             $this->_logger->err(sprintf(
-                '[%s] Change message failed when updating %s',
-                $this->_procid, $id)
+                'Change message failed when updating %s', $id)
             );
             return $id
                 ? array(0 => $id, 'error' => Horde_ActiveSync_Request_Sync::STATUS_NOTFOUND)
@@ -399,9 +398,10 @@ class Horde_ActiveSync_Connector_Importer
      */
     public function importFolderChange($uid, $displayname, $parent = Horde_ActiveSync::FOLDER_ROOT, $type = null)
     {
-        $this->_logger->info(sprintf(
-            '[%s] Horde_ActiveSync_Connector_Importer::importFolderChange(%s, %s, %s, %s)',
-            $this->_procid, $uid, $displayname, $parent, $type));
+        $this->_logger->meta(sprintf(
+            'Horde_ActiveSync_Connector_Importer::importFolderChange(%s, %s, %s, %s)',
+            $uid, $displayname, $parent, $type)
+        );
 
         // Convert the uids to serverids.
         $collections = $this->_as->getCollectionsObject();
@@ -426,7 +426,7 @@ class Horde_ActiveSync_Connector_Importer
             $folderid = $results->_serverid;
             $uid = $results->serverid;
         } else {
-            $this->_logger->info('Using older BC codepath.');
+            $this->_logger->meta('Using older BC codepath.');
             // @TODO Remove for 3.0 Need to build a message folder object here
             // for BC reasons.
             $serverid = $results;

@@ -59,11 +59,7 @@ class Horde_ActiveSync_Imap_EasMessageBuilder_Mime extends Horde_ActiveSync_Imap
      */
     protected function _buildMessage()
     {
-        $this->_logger->info(sprintf(
-            '[%s] Building MIME Message.',
-            $this->_procid)
-        );
-
+        $this->_logger->meta('Building MIME Message.');
         if (!$this->_canModify()) {
             $this->_buildEncrypted();
         }
@@ -126,11 +122,11 @@ class Horde_ActiveSync_Imap_EasMessageBuilder_Mime extends Horde_ActiveSync_Imap
                 ? $this->_options['truncation']
                 : false);
 
-        $this->_logger->info(sprintf(
-            '[%s] Checking MIMETRUNCATION: %d, ServerData: %d',
-            $this->_procid,
+        $this->_logger->meta(sprintf(
+            'Checking MIMETRUNCATION: %d, ServerData: %d',
             $mime_truncation,
-            $this->_airsyncBody->estimateddatasize));
+            $this->_airsyncBody->estimateddatasize)
+        );
 
         if (!empty($mime_truncation) &&
             $this->_airsyncBody->estimateddatasize > $mime_truncation) {

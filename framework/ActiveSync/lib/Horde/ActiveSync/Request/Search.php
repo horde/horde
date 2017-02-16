@@ -100,10 +100,7 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_SyncBase
      */
     protected function _handle()
     {
-        $this->_logger->info(sprintf(
-            '[%s] Handling SEARCH command.',
-            $this->_device->id));
-
+        $this->_logger->meta('Handling SEARCH command.');
         $search_status = self::SEARCH_STATUS_SUCCESS;
         $store_status = self::STORE_STATUS_SUCCESS;
 

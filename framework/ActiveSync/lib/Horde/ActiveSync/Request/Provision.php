@@ -134,7 +134,7 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
             // POLICYKEY is only sent by client in phase 3
             if ($this->_decoder->getElementStartTag(Horde_ActiveSync::PROVISION_POLICYKEY)) {
                 $policykey = $this->_decoder->getElementContent();
-                $this->_logger->info('[' . $this->_device->id .'] PHASE 3 policykey sent from client: ' . $policykey);
+                $this->_logger->meta(sprintf('PHASE 3 policykey sent from client: %s', $policykey));
                 if (!$this->_decoder->getElementEndTag() ||
                     !$this->_decoder->getElementStartTag(Horde_ActiveSync::PROVISION_STATUS)) {
 
@@ -197,7 +197,7 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
         // send it to the client.
         if (!$phase2) {
             // Verify intermediate key
-            $this->_logger->info(sprintf(
+            $this->_logger->meta(sprintf(
                 'Verifying Phase 3 policykey: From Device: %s, Stored: %s',
                 $policykey, $this->_device->policykey)
             );
@@ -213,7 +213,7 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
         } elseif (empty($policykey)) {
             // This is phase2 - we need to set the intermediate key
             $policykey = $this->_state->generatePolicyKey();
-            $this->_logger->info(sprintf(
+            $this->_logger->meta(sprintf(
                 'Generating PHASE2 policy key: %s', $policykey));
             $this->_state->setPolicyKey($this->_device->id, $policykey);
         }

@@ -63,10 +63,7 @@ class Horde_ActiveSync_Request_FolderCreate extends Horde_ActiveSync_Request_Bas
     {
         $status = self::STATUS_SUCCESS;
         $create = $update = $delete = false;
-        $this->_logger->info(sprintf(
-            '[%s] Handling FOLDER[CREATE|DELETE|CHANGE] command.',
-            $this->_device->id)
-        );
+        $this->_logger->meta('Handling FOLDER[CREATE|DELETE|CHANGE] command.');
 
         $el = $this->_decoder->getElement();
         if ($el[Horde_ActiveSync_Wbxml::EN_TYPE] != Horde_ActiveSync_Wbxml::EN_TYPE_STARTTAG) {

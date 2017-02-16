@@ -53,11 +53,7 @@ class Horde_ActiveSync_Imap_EasMessageBuilder_Html extends Horde_ActiveSync_Imap
      */
     protected function _buildBody()
     {
-        $this->_logger->info(sprintf(
-            '[%s] Building HTML Message.',
-            $this->_procid)
-        );
-
+        $this->_logger->meta('Building HTML Message.');
         $this->_buildHtmlPart();
         $this->_easMessage->airsyncbasebody = $this->_airsyncBody;
         $this->_easMessage->airsyncbaseattachments =
