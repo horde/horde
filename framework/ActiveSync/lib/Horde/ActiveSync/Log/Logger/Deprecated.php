@@ -49,8 +49,18 @@ class Horde_ActiveSync_Log_Logger_Deprecated extends Horde_Log_Logger
         if (!isset($this->_levels[$levelName])) {
             throw new Horde_Log_Exception('Bad log level ' . $levelName);
         }
-        if (in_array($method, array('client', 'server'))) {
-            $message = sprintf('[%s] %s ', getmypid(), str_repeat(' ' , $params[1]));
+        if (in_array($method, array('client', 'server', 'meta'))) {
+            switch ($method) {
+            case 'client':
+                $pre = 'I ';
+                break;
+            case 'server':
+                $pre = 'O ';
+                break;
+            default:
+                $pre = '';
+            }
+            $message = sprintf('[%s] %s%s ', getmypid(), $pre, str_repeat(' ' , $params[1]));
             if (is_resource($params[0])) {
                 rewind($params[0]);
                 $message .= stream_get_contents($params[0]);
@@ -61,7 +71,7 @@ class Horde_ActiveSync_Log_Logger_Deprecated extends Horde_Log_Logger
             $event = array(
                 'message' => $message,
                 'indent' => $params[1],
-                'level' => $method
+                'level' => $this->_levels['DEBUG']
             );
         } else {
             $event = array(
