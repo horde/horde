@@ -41,21 +41,21 @@ class Horde_Log_Logger implements Serializable
      *
      * @var array
      */
-    private $_levels = array();
+    protected $_levels = array();
 
     /**
      * Horde_Log_Handler_Base objects.
      *
      * @var array
      */
-    private $_handlers = array();
+    protected $_handlers = array();
 
     /**
      * Horde_Log_Filter objects.
      *
      * @var array
      */
-    private $_filters = array();
+    protected $_filters = array();
 
     /**
      * Constructor.
