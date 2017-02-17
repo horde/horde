@@ -647,11 +647,9 @@ class Horde_ActiveSync
     }
 
     /**
-     * Setter for the logger
+     * Setter for the logger factory.
      *
-     * @param Horde_ActiveSync_Interface_LoggerFactory $logger  The logger object.
-     *
-     * @return void
+     * @param Horde_ActiveSync_Interface_LoggerFactory $logger  The logger factory.
      */
     public function setLogger(Horde_ActiveSync_Interface_LoggerFactory $logger)
     {
