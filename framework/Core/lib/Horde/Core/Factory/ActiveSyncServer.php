@@ -7,10 +7,12 @@ class Horde_Core_Factory_ActiveSyncServer extends Horde_Core_Factory_Injector
 {
     public function create(Horde_Injector $injector)
     {
-        if (empty($GLOBALS['conf']['activesync']['logging']['level'])) {
+        global $conf;
+
+        if (empty($conf['activesync']['logging']['level'])) {
             $level = Horde_ActiveSync_Wbxml::LOG_PROTOCOL;
         } else {
-            $level = $GLOBALS['conf']['activesync']['logging']['level'];
+            $level = $conf['activesync']['logging']['level'];
         }
 
         $server = new Horde_ActiveSync(
