@@ -47,7 +47,6 @@ class Horde_ActiveSync_Request_SendMail extends Horde_ActiveSync_Request_Base
         // Check for wbxml vs RFC822
         if (!$this->_decoder->isWbxml()) {
             $this->_logger->meta('Handling SENDMAIL command with no Wbxml.');
-                $this->_procid));
             $stream = $this->_decoder->getFullInputStream();
             try {
                 $result = $this->_driver->sendMail($stream, false, false, false, true);
