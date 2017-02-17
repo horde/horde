@@ -22,10 +22,13 @@ class Horde_Core_Factory_ActiveSyncServer extends Horde_Core_Factory_Injector
             $injector->getInstance('Horde_ActiveSyncState'),
             $injector->getInstance('Horde_Controller_Request')
         );
-        $server->setSupportedVersion($GLOBALS['conf']['activesync']['version']);
-        $server->setLogger(new Horde_Core_ActiveSync_Logger_Factory());
-        if (!empty($GLOBALS['conf']['openssl']['cafile'])) {
-            $server->setRootCertificatePath($GLOBALS['conf']['openssl']['cafile']);
+        $server->setSupportedVersion($conf['activesync']['version']);
+        $server->setLogger(new Horde_ActiveSync_Log_Factory(array(
+            'type' => $conf['activesync']['logging']['type'],
+            'path' => $conf['activesync']['logging']['path']))
+        );
+        if (!empty($conf['openssl']['cafile'])) {
+            $server->setRootCertificatePath($conf['openssl']['cafile']);
         }
 
         return $server;
