@@ -81,7 +81,7 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_S
      */
     protected function _handle()
     {
-        $this->_logger->info('Handling ITEMOPERATIONS command.');
+        $this->_logger->meta('Handling ITEMOPERATIONS command.');
         $this->_statusCode = self::STATUS_SUCCESS;
 
         if (!$this->_decoder->getElementStartTag(self::ITEMOPERATIONS_ITEMOPERATIONS)) {
@@ -306,7 +306,7 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_S
                 if (method_exists($this->_driver, 'itemOperationsEmptyFolder')) {
                     $map = array_flip($this->_state->getFolderUidToBackendIdMap());
                     $value['folderid'] = $map[$value['folderid']];
-                    $this->_logger->info(sprintf(
+                    $this->_logger->meta(sprintf(
                         'Handling EMPTYFOLDERCONTENT for collection %s.',
                         $value['folderid']));
                     try {

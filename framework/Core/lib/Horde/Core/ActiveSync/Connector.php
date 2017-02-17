@@ -1090,7 +1090,7 @@ class Horde_Core_ActiveSync_Connector
 
         // We can use modification sequences.
         if ($this->hasFeature('modseq', $collection)) {
-            $this->_logger->info(sprintf(
+            $this->_logger->meta(sprintf(
                 '[%s] Fetching changes for %s using MODSEQ.',
                 getmypid(),
                 $collection));
@@ -1104,7 +1104,7 @@ class Horde_Core_ActiveSync_Connector
         }
 
         // Older API, use timestamps.
-        $this->_logger->info(sprintf(
+        $this->_logger->meta(sprintf(
             '[%s] Fetching changes for %s using TIMESTAMPS.',
             getmypid(),
             $collection));

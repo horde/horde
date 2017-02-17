@@ -141,7 +141,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
 
         // Either handle the empty request or decode a full request.
         if (!$this->_decoder->getElementStartTag(self::PING)) {
-            $this->_logger->meta('Empty PING request.');
+            $this->_logger->info('Handling empty PING request.');
             $isEmpty = true;
             $collections->loadCollectionsFromCache();
             if ($collections->collectionCount() == 0 ||
@@ -224,7 +224,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                     $this->_handleGlobalError();
                     return true;
                 case Horde_ActiveSync_Collections::COLLECTION_ERR_STALE:
-                    $this->_logger->meta('Changes in cache detected during PING, exiting here.');
+                    $this->_logger->info('Changes in cache detected during PING, exiting here.');
                     return true;
                 case Horde_ActiveSync_Collections::COLLECTION_ERR_FOLDERSYNC_REQUIRED;
                     $this->_statusCode = self::STATUS_FOLDERSYNCREQD;

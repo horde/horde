@@ -194,9 +194,11 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         global $injector, $conf;
 
         $this->_logger->info(sprintf(
-            '[%s] Horde_Core_ActiveSync_Driver::authenticate() attempt for %s',
-            $this->_pid,
-            $username));
+            '%sHorde_Core_ActiveSync_Driver::authenticate() attempt for %s%s',
+            str_repeat('-', 10),
+            $username,
+            str_repeat('-', 10))
+        );
 
         // First try transparent/X509. Happens for authtype == 'cert' || 'basic_cert'
         if ($conf['activesync']['auth']['type'] != 'basic') {
@@ -213,7 +215,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             }
             $this->_logger->info(sprintf(
                 'Access granted based on transparent authentication for %s. Client certificate name: %s',
-                $GLOBALS['registry']->getAuth(), $username));
+                $GLOBALS['registry']->getAuth(), $username)
+            );
         }
 
         // Now check Basic. Happens for authtype == 'basic' || 'basic_cert'
@@ -231,7 +234,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             // Check permissions to ActiveSync
             if (!$this->_getPolicyValue('activesync', $perms->getPermissions('horde:activesync', $username))) {
                 $this->_logger->info(sprintf(
-                    "Access denied for user %s per policy settings.",
+                    'Access denied for user %s per policy settings.',
                     $username)
                 );
                 return Horde_ActiveSync::AUTH_REASON_USER_DENIED;
@@ -250,9 +253,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     {
         $this->_connector->clearAuth();
         $this->_logger->info(sprintf(
-            "[%s] User %s logged off",
-            $this->_pid,
-            $this->_user));
+            'User %s logged off',
+            $this->_user)
+        );
         return true;
     }
 
@@ -304,9 +307,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function getFolderList()
     {
-        $this->_logger->info(sprintf(
-            "[%s] Horde_Core_ActiveSync_Driver::getFolderList()",
-            $this->_pid));
+        $this->_logger->meta('Horde_Core_ActiveSync_Driver::getFolderList()');
         $folderlist = $this->getFolders();
         $folders = array();
         foreach ($folderlist as $f) {
@@ -352,7 +353,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                             if (!empty($temp_folder)) {
                                 $folders[] = $temp_folder;
                             } else {
-                                $this->_logger->info('Unable to find a useable calendar folder.');
+                                $this->_logger->meta('Unable to find a useable calendar folder.');
                             }
                         } catch (Horde_ActiveSync_Exception $e) {
                         }
@@ -363,10 +364,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                         if (!empty($temp_folder)) {
                             $folders[] = $temp_folder;
                         } else {
-                            $this->_logger->info('Unable to find a useable calendar folder.');
+                            $this->_logger->meta('Unable to find a useable calendar folder.');
                         }
                     } catch (Horde_ActiveSync_Exception $e) {
-                        $this->_logger->info('Unable to find a useable calendar folder.');
+                        $this->_logger->meta('Unable to find a useable calendar folder.');
                     }
                 }
             }
@@ -387,10 +388,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                             if (!empty($temp_folder)) {
                                 $folders[] = $temp_folder;
                             } else {
-                                $this->_logger->info('Unable to find a useable contacts folder.');
+                                $this->_logger->meta('Unable to find a useable contacts folder.');
                             }
                         } catch (Horde_ActiveSync_Exception $e) {
-                            $this->_logger->info('Unable to find a useable contacts folder.');
+                            $this->_logger->meta('Unable to find a useable contacts folder.');
                         }
                     }
                 } else {
@@ -399,10 +400,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                         if (!empty($temp_folder)) {
                             $folders[] = $temp_folder;
                         } else {
-                            $this->_logger->info('Unable to find a useable contacts folder.');
+                            $this->_logger->meta('Unable to find a useable contacts folder.');
                         }
                     } catch (Horde_ActiveSync_Exception $e) {
-                        $this->_logger->info('Unable to find a useable contacts folder.');
+                        $this->_logger->meta('Unable to find a useable contacts folder.');
                     }
                 }
             }
@@ -423,10 +424,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                             if (!empty($temp_folder)) {
                                 $folders[] = $temp_folder;
                             } else {
-                                $this->_logger->info('Unable to find a useable tasks folder.');
+                                $this->_logger->meta('Unable to find a useable tasks folder.');
                             }
                        } catch (Horde_ActiveSync_Exception $e) {
-                            $this->_logger->info('Unable to find a useable tasks folder.');
+                            $this->_logger->meta('Unable to find a useable tasks folder.');
                        }
                     }
                 } else {
@@ -435,10 +436,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                         if (!empty($temp_folder)) {
                             $folders[] = $temp_folder;
                         } else {
-                            $this->_logger->info('Unable to find a useable tasks folder.');
+                            $this->_logger->meta('Unable to find a useable tasks folder.');
                         }
                     } catch (Horde_ActiveSync_Exception $e) {
-                        $this->_logger->info('Unable to find a useable tasks folder.');
+                        $this->_logger->meta('Unable to find a useable tasks folder.');
                     }
                 }
             }
@@ -459,10 +460,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                             if (!empty($temp_folder)) {
                                 $folders[] = $temp_folder;
                             } else {
-                                $this->_logger->info('Unable to find a useable notes folder.');
+                                $this->_logger->meta('Unable to find a useable notes folder.');
                             }
                         } catch (Horde_ActiveSync_Exception $e) {
-                            $this->_logger->info('Unable to find a useable notes folder.');
+                            $this->_logger->meta('Unable to find a useable notes folder.');
                         }
                     }
                 } else {
@@ -473,7 +474,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     if (!empty($temp_folder)) {
                         $folders[] = $temp_folder;
                     } else {
-                        $this->_logger->info('Unable to find a useable notes folder.');
+                        $this->_logger->meta('Unable to find a useable notes folder.');
                     }
                 }
             }
@@ -622,9 +623,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         $folders = $this->getFolders();
         foreach ($folders as $folder) {
             if ($folder->_serverid == $id) {
-                $this->_logger->info(sprintf(
-                    '[%s] Returning folder %s (%s type %s) from Horde_Core_ActiveSync_Driver::getFolder()',
-                    $this->_pid,
+                $this->_logger->meta(sprintf(
+                    'Returning folder %s (%s type %s) from Horde_Core_ActiveSync_Driver::getFolder()',
                     $id,
                     $folder->serverid,
                     $folder->type)
@@ -707,9 +707,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function changeFolder($old_name, $new_name, $parent, $uid = null, $type = null)
     {
-        $this->_logger->info(sprintf(
-            '[%s] Horde_Core_ActiveSync_Driver::changeFolder(%s, %s, %s, %s, %s)',
-            getmypid(), $old_name, $new_name, $parent, $uid, $type));
+        $this->_logger->meta(sprintf(
+            'Horde_Core_ActiveSync_Driver::changeFolder(%s, %s, %s, %s, %s)',
+            $old_name, $new_name, $parent, $uid, $type)
+        );
 
         // For FOLDERUPDATE requests, the EAS Folder type is not passed by
         // the client so we need to figure it out.
@@ -728,9 +729,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             if (!$old_name) {
                 try {
                     $serverid = $this->_imap->createMailbox($new_name, $parent);
-                    $this->_logger->info(sprintf(
-                        '[%s] New IMAP folder created: %s',
-                        $this->_pid,
+                    $this->_logger->meta(sprintf(
+                        'New IMAP folder created: %s',
                         $serverid)
                     );
                 } catch (Horde_ActiveSync_Exception $e) {
@@ -812,9 +812,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function deleteFolder($id, $parent = Horde_ActiveSync::FOLDER_ROOT)
     {
-        $this->_logger->info(sprintf(
-            '[%s] Horde_Core_ActiveSync_Driver::deleteFolder(%s)',
-            getmypid(), $id));
+        $this->_logger->meta(sprintf(
+            'Horde_Core_ActiveSync_Driver::deleteFolder(%s)', $id)
+        );
 
         $parts = $this->_parseFolderId($id);
         if (is_array($parts)) {
@@ -926,9 +926,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     public function getServerChanges(
         $folder, $from_ts, $to_ts, $cutoffdate, $ping, $ignoreFirstSync = false, $maxitems = 100, $refreshFilter = false)
     {
-        $this->_logger->info(sprintf(
-            "[%s] Horde_Core_ActiveSync_Driver::getServerChanges(%s, %u, %u, %u, %d, %s, %u, %s)",
-            $this->_pid,
+        $this->_logger->meta(sprintf(
+            'Horde_Core_ActiveSync_Driver::getServerChanges(%s, %u, %u, %u, %d, %s, %u, %s)',
             $folder->serverid(),
             $from_ts,
             $to_ts,
@@ -1004,12 +1003,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                         $from = 0;
                     }
                     if (isset($from)) {
-                        $this->_logger->info(sprintf(
-                            '[%s] Polling for SOFTDELETE items in calendar collection',
-                            getmypid()));
-                        // Gets the list of ids contained between the last softdelete
-                        // run and the current cutoffdate.
-                        $changes['soft'] = $this->_connector->softDelete('calendar', $from, $cutoffdate, $server_id);
+                        $this->_logger->meta('Polling for SOFTDELETE items in calendar collection');
+                        $changes['soft'] = $this->_connector->softDelete(
+                            'calendar', $from, $cutoffdate, $server_id
+                        );
                         $folder->setSoftDeleteTimes($cutoffdate, time());
                     }
                 }
@@ -1136,9 +1133,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $this->_endBuffer();
                 return array();
             }
-            $this->_logger->info(sprintf(
-                '[%s] %s IMAP PREVIOUS MODSEQ: %d',
-                $this->_pid,
+            $this->_logger->meta(sprintf(
+                '%s IMAP PREVIOUS MODSEQ: %d',
                 $folder->serverid(),
                 $folder->modseq())
             );
@@ -1218,9 +1214,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
 
         $results = array();
         if (!$folder->haveInitialSync) {
-            $this->_logger->info(sprintf(
-                '[%s] Initial sync, only sending UID.',
-                $this->_pid));
+            $this->_logger->meta('Initial sync, only sending UID.');
             $this->_endBuffer();
             $add = $changes['add'];
             $changes = null;
@@ -1304,11 +1298,11 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function getMessage($folderid, $id, array $collection)
     {
-        $this->_logger->info(sprintf(
-            "[%s] Horde_Core_ActiveSync_Driver::getMessage(%s, %s)",
-            $this->_pid,
+        $this->_logger->meta(sprintf(
+            'Horde_Core_ActiveSync_Driver::getMessage(%s, %s)',
             $folderid,
-            $id));
+            $id)
+        );
         ob_start();
         $message = false;
 
@@ -1659,9 +1653,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function deleteMessage($folderid, array $ids, $instanceids = false)
     {
-        $this->_logger->info(sprintf(
-            "[%s] Horde_Core_ActiveSync_Driver::deleteMessage() %s: %s %s",
-            $this->_pid,
+        $this->_logger->meta(sprintf(
+            'Horde_Core_ActiveSync_Driver::deleteMessage() %s: %s %s',
             $folderid,
             print_r($ids, true),
             $instanceids)
@@ -1687,7 +1680,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $instanceid = false;
             }
             try {
-                $this->_logger->info(sprintf(
+                $this->_logger->meta(sprintf(
                     'calendar_delete: %s %s %s',
                     print_r($ids, true), $folder_id, $instanceid)
                 );
@@ -1799,12 +1792,12 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function moveMessage($folderid, array $ids, $newfolderid)
     {
-        $this->_logger->info(sprintf(
-            "[%s] Horde_Core_ActiveSync_Driver::moveMessage(%s, [%s], %s)",
-            $this->_pid,
+        $this->_logger->meta(sprintf(
+            'Horde_Core_ActiveSync_Driver::moveMessage(%s, [%s], %s)',
             $folderid,
             implode(',', $ids),
-            $newfolderid));
+            $newfolderid)
+        );
 
         $parts = $this->_parseFolderId($folderid);
         if (is_array($parts)) {
@@ -1867,11 +1860,11 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function changeMessage($folderid, $id, Horde_ActiveSync_Message_Base $message, $device)
     {
-        $this->_logger->info(sprintf(
-            "[%s] Horde_Core_ActiveSync_Driver::changeMessage(%s, %s ...)",
-            $this->_pid,
+        $this->_logger->meta(sprintf(
+            'Horde_Core_ActiveSync_Driver::changeMessage(%s, %s ...)',
             $folderid,
-            $id));
+            $id)
+        );
 
         // Short circuit OUTBOX modifications to work around broken clients.
         if ($folderid == 'OUTBOX') {
@@ -2052,18 +2045,12 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     // Do RFC 3798 MDN checks. If $message->read is being set to
                     // FLAG_READ_SEEN, then we *might* be able to send one.
                     if ($message->read == Horde_ActiveSync_Message_Mail::FLAG_READ_SEEN) {
-                        $this->_logger->info(sprintf(
-                            "[%s] Checking for MDN",
-                            $this->_pid)
-                        );
+                        $this->_logger->meta('Checking for MDN');
                         $mdn = new Horde_Core_ActiveSync_Mdn(
                             $folderid, $id, $this->_imap, $this->_connector
                         );
                         if ($mdn->mdnCheck()) {
-                            $this->_logger->info(sprintf(
-                                "[%s] Sending MDN",
-                                $this->_pid)
-                            );
+                            $this->_logger->meta('Sending MDN');
                         }
                     }
                 }
@@ -2238,9 +2225,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
 
         try {
             $mailer->send();
-            $this->_logger->info(sprintf(
-                "[%s] Message-ID: '%s' successfully sent.",
-                $this->_pid,
+            $this->_logger->meta(sprintf(
+                'Message-ID: /'%s/' successfully sent.',
                 $mailer->headers['Message-ID'])
             );
         } catch (Horde_ActiveSync_Exception $e) {
@@ -2256,9 +2242,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         if ($save) {
             $sf = $this->getSpecialFolderNameByType(self::SPECIAL_SENT);
             if (!empty($sf)) {
-                $this->_logger->info(sprintf(
-                    "[%s] Preparing to copy Message-ID: '%s' to '%s'.",
-                    $this->_pid,
+                $this->_logger->meta(sprintf(
+                    'Preparing to copy Message-ID: \'%s\' to \'%s\'.',
                     $mailer->headers['Message-ID'],
                     $sf)
                 );
@@ -2268,9 +2253,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 // available.
                 try {
                     $this->_imap->appendMessage($sf, $mailer->getSentMail(), $flags);
-                    $this->_logger->info(sprintf(
-                        "[%s] Message-ID: '%s' appended to '%s'.",
-                        $this->_pid,
+                    $this->_logger->meta(sprintf(
+                        'Message-ID: \'%s\' appended to \'%s\'.',
                         $mailer->headers['Message-ID'],
                         $sf)
                     );
@@ -2282,7 +2266,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
 
         // Attempt to write forward/reply state.
         if ($this->_version > Horde_ActiveSync::VERSION_TWELVEONE && $mailer->id) {
-            $this->_logger->info(sprintf(
+            $this->_logger->meta(sprintf(
                 'Logging LASTVERBEXECUTED to Maillog: %s, %s, %s',
                 $mailer->reply ? 'reply' : 'forward',
                 $mailer->imapMessage->getHeaders()->getValue('Message-ID'),
@@ -2304,7 +2288,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         }
 
         // Attempt to log the recipient.
-        $this->_logger->info('Logging recipients for RI.');
+        $this->_logger->meta('Logging recipients for RI.');
         $action = $mailer->reply
             ? 'reply'
             : ($mailer->forward ? 'forward' : 'new');
@@ -2939,9 +2923,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     new Horde_Core_Itip_Response_Options_Horde('UTF-8', array()),
                     $injector->getInstance('Horde_Mail')
                 );
-                $this->_logger->info('Reply sent.');
+                $this->_logger->meta('Reply sent.');
             } catch (Horde_Itip_Exception $e) {
-                $this->_logger->err(sprintf(_("Error sending reply: %s."), $e->getMessage()), 'horde.error');
+                $this->_logger->err(sprintf('Error sending reply: %s.', $e->getMessage()), 'horde.error');
             }
         }
 
@@ -2977,7 +2961,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             $state = $injector->getInstance('Horde_ActiveSyncState');
             $devices = $state->listDevices($registry->getAuth());
             if (count($devices) >= $max_devices) {
-                $this->_logger->info(sprintf(
+                $this->_logger->meta(sprintf(
                     'Maximum number of devices of %d reached for %s.',
                     $max_devices,
                     $registry->getAuth()));
@@ -3055,9 +3039,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function getSyncStamp($collection, $last = null)
     {
-        $this->_logger->info(sprintf(
-            '[%s] Horde_Core_ActiveSync_Driver::getSyncStamp(%s, %d);',
-            getmypid(), $collection, $last));
+        $this->_logger->meta(sprintf(
+            'Horde_Core_ActiveSync_Driver::getSyncStamp(%s, %d);',
+            $collection, $last)
+        );
 
         // For FolderSync (empty $collection) or Email collections, we don't care.
         if (empty($collection)) {
@@ -3130,11 +3115,11 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     protected function _smartStatMessage($folderid, $id, $hint)
     {
         ob_start();
-        $this->_logger->info(sprintf(
-            "[%s] Horde_Core_ActiveSync_Driver::_smartStatMessage(%s, %s)",
-            $this->_pid,
+        $this->_logger->meta(sprintf(
+            'Horde_Core_ActiveSync_Driver::_smartStatMessage(%s, %s)',
             $folderid,
-            $id));
+            $id)
+        );
         $statKey = $folderid . $id;
         $mod = false;
 
@@ -3226,16 +3211,13 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $this->_mailFolders[] = $this->_buildDummyFolder(self::SPECIAL_DRAFTS);
                 $this->_mailFolders[] = $this->_buildDummyFolder(self::SPECIAL_OUTBOX);
             } else {
-                $this->_logger->info(sprintf(
-                    "[%s] Polling Horde_Core_ActiveSync_Driver::_getMailFolders()",
-                    $this->_pid));
+                $this->_logger->meta('Polling Horde_Core_ActiveSync_Driver::_getMailFolders()');
                 $folders = array();
                 try {
                     $imap_folders = $this->_imap->getMailboxes(true);
                 } catch (Horde_ActiveSync_Exception $e) {
                     $this->_logger->err(sprintf(
-                        "[%s] Problem loading mail folders from IMAP server: %s",
-                        $this->_pid,
+                        'Problem loading mail folders from IMAP server: %s',
                         $e->getMessage())
                     );
                     throw $e;
@@ -3253,9 +3235,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                                 ++$cnt;
                             } catch (Horde_ActiveSync_Exception $e) {
                                 $this->_logger->err(sprintf(
-                                    "[%s] Problem retrieving %s mail folder",
-                                    $this->_pid,
-                                    $id)
+                                    'Problem retrieving %s mail folder', $id)
                                 );
                             }
                         }
@@ -3349,9 +3329,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             $specialFolders = $this->_imap->getSpecialMailboxes();
         } catch (Horde_ActiveSync_Exception $e) {
             $this->_logger->err(sprintf(
-                "[%s] Problem retrieving special folders: %s",
-                $this->_pid,
-                $e->getMessage()));
+                'Problem retrieving special folders: %s',
+                $e->getMessage())
+            );
             throw $e;
         }
 
@@ -3442,10 +3422,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             return $return;
         }
         $return['total'] = $count;
-        $this->_logger->info(sprintf(
-            "[%s] Horde_Core_ActiveSync_Driver::_searchGal() found %d matches.",
-            $this->_pid,
-            $count));
+        $this->_logger->meta(sprintf(
+            'Horde_Core_ActiveSync_Driver::_searchGal() found %d matches.', $count)
+        );
 
         if (!empty($query['range'])) {
             preg_match('/(.*)\-(.*)/', $query['range'], $matches);
@@ -3695,11 +3674,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             }
             $this->_verbs[$mid] = $last;
         }
-        $this->_logger->info(sprintf(
-            '[%s] Fetching verb for %s.',
-            $this->_pid,
-            $mid
-        ));
+        $this->_logger->meta(sprintf('Fetching verb for %s.', $mid));
 
         return $this->_verbs[$mid];
     }

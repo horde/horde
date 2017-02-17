@@ -103,7 +103,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
         if ($this->_device->version >= Horde_ActiveSync::VERSION_TWELVEONE) {
             // We don't have a previous FOLDERSYNC.
             if (!$this->_collections->haveHierarchy()) {
-                $this->_logger->meta('No HIERARCHY SYNCKEY in sync_cache, invalidating.');
+                $this->_logger->info('No HIERARCHY SYNCKEY in sync_cache, invalidating.');
                 $this->_statusCode = self::STATUS_FOLDERSYNC_REQUIRED;
                 $this->_handleGlobalSyncError();
                 return true;
@@ -211,7 +211,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
 
             // Full or partial sync request?
             if ($partial === true) {
-                $this->_logger->meta('Executing a PARTIAL SYNC.');
+                $this->_logger->info('Executing a PARTIAL SYNC.');
                 if (!$this->_collections->initPartialSync()) {
                     $this->_statusCode = self::STATUS_REQUEST_INCOMPLETE;
                     $this->_handleGlobalSyncError();
@@ -270,7 +270,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             if ($changes !== true && $changes !== false) {
                 switch ($changes) {
                 case Horde_ActiveSync_Collections::COLLECTION_ERR_STALE:
-                    $this->_logger->meta('Changes in cache detected during looping SYNC exiting here.');
+                    $this->_logger->info('Changes in cache detected during looping SYNC exiting here.');
                     return true;
                 case Horde_ActiveSync_Collections::COLLECTION_ERR_FOLDERSYNC_REQUIRED;
                     $this->_statusCode = self::STATUS_FOLDERSYNC_REQUIRED;
@@ -294,13 +294,13 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             empty($changes) &&
             $this->_collections->canSendEmptyResponse()) {
 
-            $this->_logger->meta('Sending an empty SYNC response.');
+            $this->_logger->info('Sending an empty SYNC response.');
             $this->_collections->lastsyncendnormal = time();
             $this->_collections->save(true);
             return true;
         }
 
-        $this->_logger->meta(sprintf(
+        $this->_logger->info(sprintf(
             'Completed parsing incoming request. Peak memory usage: %d.',
              memory_get_peak_usage(true))
         );
@@ -454,7 +454,8 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                         (($changecount > $max_windowsize) || $cnt_global + $changecount > $this->_collections->getDefaultWindowSize())) {
                         $this->_logger->meta(sprintf(
                             'Sending MOREAVAILABLE. WINDOWSIZE = %d, $changecount = %d, MAX_REQUEST_WINDOWSIZE = %d, $cnt_global = %d',
-                            $max_windowsize, $changecount, $this->_collections->getDefaultWindowSize(), $cnt_global));
+                            $max_windowsize, $changecount, $this->_collections->getDefaultWindowSize(), $cnt_global)
+                        );
                         $this->_encoder->startTag(Horde_ActiveSync::SYNC_MOREAVAILABLE, false, true);
                         $over_window = ($cnt_global + $changecount > $this->_collections->getDefaultWindowSize());
                     }
@@ -558,7 +559,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
 
         if ($this->_device->version >= Horde_ActiveSync::VERSION_TWELVEONE) {
             if ($this->_collections->checkStaleRequest()) {
-                $this->_logger->meta('Changes detected in sync_cache during wait interval, exiting without updating cache.');
+                $this->_logger->info('Changes detected in sync_cache during wait interval, exiting without updating cache.');
                 return true;
             } else {
                 $this->_collections->lastsyncendnormal = time();
@@ -1063,7 +1064,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             unset($collection['instanceid_removes']);
         }
 
-        $this->_logger->meta(sprintf('Processed %d incoming changes', $nchanges));
+        $this->_logger->info(sprintf('Processed %d incoming changes', $nchanges));
 
         if (!$this->_decoder->getElementEndTag()) {
             // end commands

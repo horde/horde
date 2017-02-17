@@ -212,7 +212,8 @@ abstract class Horde_ActiveSync_Request_Base
         }
 
         // Either successfully validated, or we didn't care enough to check.
-        $this->_logger->meta(sprintf('Policykey: %s verified.', $sentKey));
+        $this->_logger->info(sprintf('Policykey: %s verified.', $sentKey));
+
         return true;
     }
 
@@ -233,13 +234,12 @@ abstract class Horde_ActiveSync_Request_Base
      */
     public function handle()
     {
-        $this->_logger->meta(sprintf(
-            '%sRequest being handled for device: %s, Supporting protocol version: %s, Using Horde_ActiveSync v%s%s',
+        $this->_logger->info(sprintf(
+            '%sRequest being handled for device: %s, Supporting protocol version: %s, Using Horde_ActiveSync v%s',
             str_repeat('-', 10),
             $this->_device->id,
             $this->_device->version,
-            Horde_ActiveSync::LIBRARY_VERSION,
-            str_repeat('-', 10))
+            Horde_ActiveSync::LIBRARY_VERSION)
         );
         $this->_logger->meta(sprintf(
             'GET VARIABLES: %s',

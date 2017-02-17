@@ -752,7 +752,8 @@ class Horde_ActiveSync
         }
 
         self::$_logger->info(sprintf(
-            '%s request received for user %s',
+            '%s%s request received for user %s',
+            str_repeat('-', 10),
             Horde_String::upper($cmd),
             $this->_driver->getUser())
         );
@@ -830,7 +831,7 @@ class Horde_ActiveSync
             $request = new $class($this);
             $request->setLogger(self::$_logger);
             $result = $request->handle();
-            self::$_logger->meta(sprintf(
+            self::$_logger->info(sprintf(
                 'Maximum memory usage for ActiveSync request: %d bytes.',
                 memory_get_peak_usage(true))
             );
