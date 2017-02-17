@@ -343,7 +343,7 @@ abstract class Horde_ActiveSync_State_Base
         foreach ($folders as $id => $folder) {
             if ($folder['serverid'] == $serverid) {
                 $this->_logger->meta(sprintf(
-                    'Found serverid for %s: %s',
+                    'STORAGE: Found serverid for %s: %s',
                     $serverid, $id)
                 );
                 return $id;
@@ -351,7 +351,7 @@ abstract class Horde_ActiveSync_State_Base
         }
 
         $this->_logger->meta(sprintf(
-            'No folderid found for %s',
+            'STORAGE: No folderid found for %s',
             $serverid)
         );
 
@@ -391,14 +391,14 @@ abstract class Horde_ActiveSync_State_Base
                 : 0);
 
             $this->_logger->meta(sprintf(
-                'Initializing message diff engine for %s (%s)',
+                'STATE: Initializing message diff engine for %s (%s)',
                 $this->_collection['id'],
                 $this->_folder->serverid())
             );
 
             // Check for previously found changes first.
             if (!empty($this->_changes)) {
-                $this->_logger->meta('Returning previously found changes.');
+                $this->_logger->meta('STATE: Returning previously found changes.');
                 return $this->_changes;
             }
 
@@ -415,7 +415,7 @@ abstract class Horde_ActiveSync_State_Base
             }
 
             $this->_logger->meta(sprintf(
-                'Using SYNCSTAMP %s for %s.',
+                'STATE: Using SYNCSTAMP %s for %s.',
                 $this->_thisSyncStamp,
                 $this->_collection['id'])
             );
@@ -438,7 +438,7 @@ abstract class Horde_ActiveSync_State_Base
             }
 
             $this->_logger->meta(sprintf(
-                'Found %d message changes in %s.',
+                'STATE: Found %d message changes in %s.',
                 count($changes),
                 $this->_collection['id'])
             );
@@ -446,7 +446,7 @@ abstract class Horde_ActiveSync_State_Base
             // Check for mirrored client changes.
             $this->_changes = array();
             if (count($changes) && $this->_havePIMChanges()) {
-                $this->_logger->meta('Checking for client initiated changes.');
+                $this->_logger->meta('STATE: Checking for client initiated changes.');
                 switch ($this->_collection['class']) {
                 case Horde_ActiveSync::CLASS_EMAIL:
                     // @todo Fix me with a changes object that transparently
@@ -491,7 +491,7 @@ abstract class Horde_ActiveSync_State_Base
                         $changes[$i]['ignore'] = true;
                         $this->_changes[] = $changes[$i];
                         $this->_logger->meta(sprintf(
-                            'Ignoring client initiated %s for %s',
+                            'STATE: Ignoring client initiated %s for %s',
                             $flag_map[$changes[$i]['type']],
                             $changes[$i]['id'])
                         );
@@ -517,7 +517,7 @@ abstract class Horde_ActiveSync_State_Base
                         }
                         if ($client_timestamps[$changes[$i]['id']] >= $stat['mod']) {
                             $this->_logger->meta(sprintf(
-                                'Ignoring client initiated change for %s (client TS: %s Stat TS: %s)',
+                                'STATE: Ignoring client initiated change for %s (client TS: %s Stat TS: %s)',
                                 $changes[$i]['id'], $client_timestamps[$changes[$i]['id']], $stat['mod'])
                             );
                         } else {
@@ -526,7 +526,7 @@ abstract class Horde_ActiveSync_State_Base
                     }
                 }
             } elseif (count($changes)) {
-                $this->_logger->meta('No client changes present, returning all messages.');
+                $this->_logger->meta('STATE: No client changes, returning all messages.');
                 $this->_changes = $changes;
             }
         } else {
@@ -543,7 +543,7 @@ abstract class Horde_ActiveSync_State_Base
      */
     protected function _getFolderChanges()
     {
-        $this->_logger->meta('Initializing folder diff engine');
+        $this->_logger->meta('STATE: Initializing folder diff engine');
         $folderlist = $this->_backend->getFolderList();
         if ($folderlist === false) {
             return false;
@@ -564,10 +564,10 @@ abstract class Horde_ActiveSync_State_Base
             $folderlist);
 
         if (!count($this->_changes)) {
-            $this->_logger->meta('No folder changes found.');
+            $this->_logger->meta('STATE: No folder changes found.');
         } else {
             $this->_logger->meta(sprintf(
-                'Found %d folder changes.',
+                'STATE: Found %d folder changes.',
                 count($this->_changes))
             );
         }
@@ -587,7 +587,7 @@ abstract class Horde_ActiveSync_State_Base
     {
         if ($this->checkCollision($newKey = self::getNewSyncKey($syncKey))) {
             $this->_logger->err(sprintf(
-                'Found collision when generating synckey %s. Trying again.',
+                'STATE: Found collision when generating synckey %s. Trying again.',
                 $newKey)
             );
             return $this->getNewSyncKeyWrapper($synckey);
@@ -860,7 +860,7 @@ abstract class Horde_ActiveSync_State_Base
             return;
         }
 
-        $this->_logger->meta(sprintf('Loading state for synckey %s', $syncKey));
+        $this->_logger->meta(sprintf('STATE: Loading state for synckey %s', $syncKey));
 
         // Check if synckey is allowed. Throw a StateGone exception if it
         // doesn't match to give the client a chance to reset it's internal
