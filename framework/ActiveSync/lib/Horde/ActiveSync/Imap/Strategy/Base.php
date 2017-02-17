@@ -90,7 +90,7 @@ abstract class Horde_ActiveSync_Imap_Strategy_Base
         $this->_imap_ob = $imap->getImapOb();
         $this->_status = $status;
         $this->_folder = $folder;
-        $this->_logger = $logger;
+        $this->_logger = Horde_ActiveSync::_wrapLogger($logger);
         $this->_procid = getmypid();
         $this->_mbox = new Horde_Imap_Client_Mailbox($folder->serverid());
     }

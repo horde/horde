@@ -87,7 +87,7 @@ class Horde_ActiveSync_Imap_EasMessageBuilder
             : $options['protocolversion'];
 
         $this->_airsyncBody = Horde_ActiveSync::messageFactory('AirSyncBaseBody');
-        $this->_logger = $logger;
+        $this->_logger = Horde_ActiveSync::_wrapLogger($logger);
         $this->_procid = getmypid();
     }
 

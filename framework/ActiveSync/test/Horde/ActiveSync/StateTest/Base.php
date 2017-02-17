@@ -586,7 +586,7 @@ class Horde_ActiveSync_StateTest_Base extends Horde_Test_Case
     public function getCollectionHandler($addDevice = false)
     {
         $as = $this->getMockSkipConstructor('Horde_ActiveSync');
-        $as->logger = self::$logger->getLogger();
+        $as->logger = Horde_ActiveSync::_wrapLogger(self::$logger->getLogger());
         $as->state = self::$state;
         if ($addDevice) {
             $as->device = self::$state->loadDeviceInfo('dev123', 'mike');

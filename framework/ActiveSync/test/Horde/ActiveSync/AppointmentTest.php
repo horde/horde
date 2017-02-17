@@ -28,8 +28,7 @@ class Horde_ActiveSync_AppointmentTest extends Horde_Test_Case
     public function testEncoding()
     {
         $this->markTestIncomplete('Needs updated fixture.');
-        $l = new Horde_Test_Log();
-        $logger = $l->getLogger();
+        $logger = new Horde_ActiveSync_Log_Logger(new Horde_Log_Handler_Null());
 
         $appt = new Horde_ActiveSync_Message_Appointment(array('logger' => $logger));
         $appt->setSubject('Event Title');
@@ -64,9 +63,7 @@ class Horde_ActiveSync_AppointmentTest extends Horde_Test_Case
 
     public function testDecoding()
     {
-        $l = new Horde_Test_Log();
-        $logger = $l->getLogger();
-
+        $logger = new Horde_ActiveSync_Log_Logger(new Horde_Log_Handler_Null());
         $stream = fopen(__DIR__ . '/fixtures/appointment.wbxml', 'r+');
         $decoder = new Horde_ActiveSync_Wbxml_Decoder($stream);
         $decoder->setLogger($logger);
@@ -95,8 +92,7 @@ class Horde_ActiveSync_AppointmentTest extends Horde_Test_Case
     public function testEncodingRecurrence()
     {
         $this->markTestIncomplete('Needs updated fixture.');
-        $l = new Horde_Test_Log();
-        $logger = $l->getLogger();
+        $logger = new Horde_ActiveSync_Log_Logger(new Horde_Log_Handler_Null());
 
         // Every other week recurrence, on thursday, no end.
         $r = new Horde_Date_Recurrence('2011-12-01T15:00:00');
@@ -137,9 +133,7 @@ class Horde_ActiveSync_AppointmentTest extends Horde_Test_Case
 
     public function testDecodingRecurrence()
     {
-        $l = new Horde_Test_Log();
-        $logger = $l->getLogger();
-
+        $logger = new Horde_ActiveSync_Log_Logger(new Horde_Log_Handler_Null());
         // Test Decoding
         $stream = fopen(__DIR__ . '/fixtures/recurrence.wbxml', 'r+');
         $decoder = new Horde_ActiveSync_Wbxml_Decoder($stream);
@@ -176,9 +170,7 @@ class Horde_ActiveSync_AppointmentTest extends Horde_Test_Case
     public function testEncodingSimpleExceptions()
     {
         $this->markTestIncomplete('Needs updated fixture.');
-        $l = new Horde_Test_Log();
-        $logger = $l->getLogger();
-        //$logger = new Horde_Log_Logger(new Horde_Log_Handler_Stream(fopen('/tmp/test.log', 'a')));
+        $logger = new Horde_ActiveSync_Log_Logger(new Horde_Log_Handler_Null());
 
         // Every other week recurrence, on thursday, no end.
         $r = new Horde_Date_Recurrence('2011-12-01T15:00:00');
@@ -226,8 +218,7 @@ class Horde_ActiveSync_AppointmentTest extends Horde_Test_Case
 
     public function testAlldayEncoding()
     {
-        $l = new Horde_Test_Log();
-        $logger = $l->getLogger();
+        $logger = new Horde_ActiveSync_Log_Logger(new Horde_Log_Handler_Null());
 
         // Check that the encoded wbxml looks correct.
         $stream_out = fopen('php://memory', 'w+');
@@ -282,8 +273,7 @@ class Horde_ActiveSync_AppointmentTest extends Horde_Test_Case
      */
     public function testSetDatetimeAlldayHandling()
     {
-        $l = new Horde_Test_Log();
-        $logger = $l->getLogger();
+        $logger = new Horde_ActiveSync_Log_Logger(new Horde_Log_Handler_Null());
 
         // Test the deprecated setDatetime method's ability to properly detect
         // and set properties.
@@ -377,8 +367,7 @@ class Horde_ActiveSync_AppointmentTest extends Horde_Test_Case
 
     public function testDecodingSimpleExceptions()
     {
-        $l = new Horde_Test_Log();
-        $logger = $l->getLogger();
+        $logger = new Horde_ActiveSync_Log_Logger(new Horde_Log_Handler_Null());
 
         // Test Decoding
         $stream = fopen(__DIR__ . '/fixtures/simpleexception.wbxml', 'r+');
@@ -429,8 +418,7 @@ class Horde_ActiveSync_AppointmentTest extends Horde_Test_Case
     public function testRecurrenceDSTSwitch()
     {
         // Recurring event starts 10/1/2011 15:00:00 EDST
-        $l = new Horde_Test_Log();
-        $logger = $l->getLogger();
+        $logger = new Horde_ActiveSync_Log_Logger(new Horde_Log_Handler_Null());
 
         // Test Decoding
         $stream = fopen(__DIR__ . '/fixtures/dst.wbxml', 'r+');

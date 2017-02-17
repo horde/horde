@@ -61,6 +61,7 @@ class Horde_ActiveSync_Log_Logger_Deprecated extends Horde_Log_Logger
                 break;
             default:
                 $pre = '';
+                $params[1] = 0;
             }
             $message = sprintf('[%s] %s%s ', getmypid(), $pre, str_repeat(' ' , $params[1]));
             if (is_resource($params[0])) {

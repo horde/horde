@@ -65,7 +65,7 @@ class Horde_ActiveSync_Imap_Adapter
         Horde_Mime_Part::$defaultCharset = 'UTF-8';
         Horde_Mime_Headers::$defaultCharset = 'UTF-8';
         $this->_procid = getmypid();
-        $this->_logger = new Horde_Log_Logger(new Horde_Log_Handler_Null());
+        $this->_logger = new Horde_ActiveSync_Log_Logger(new Horde_Log_Handler_Null());
     }
 
     /**
@@ -636,7 +636,7 @@ class Horde_ActiveSync_Imap_Adapter
      */
     public function setLogger(Horde_Log_Logger $logger)
     {
-        $this->_logger = $logger;
+        $this->_logger = Horde_ActiveSync::_wrapLogger($logger);
     }
 
     /**

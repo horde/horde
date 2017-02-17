@@ -119,9 +119,10 @@ class Horde_ActiveSync_SyncCache
         $this->loadCacheFromStorage();
         $this->_procid = getmypid();
 
+        // @todo
         $this->_logger = empty($logger)
-            ? new Horde_Log_Logger(new Horde_Log_Handler_Null())
-            : $logger;
+            ? new Horde_ActiveSync_Log_Logger(new Horde_Log_Handler_Null())
+            : Horde_ActiveSync::_wrapLogger($logger);
 
         $this->_logger->meta('Creating new Horde_ActiveSync_SyncCache.');
     }

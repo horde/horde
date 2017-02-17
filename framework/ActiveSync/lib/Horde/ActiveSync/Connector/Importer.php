@@ -120,7 +120,7 @@ class Horde_ActiveSync_Connector_Importer
      */
     public function setLogger($logger)
     {
-        $this->_logger = $logger;
+        $this->_logger = Horde_ActiveSync::_wrapLogger($logger);
     }
 
     /**

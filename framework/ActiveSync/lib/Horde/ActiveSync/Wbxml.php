@@ -908,7 +908,7 @@ class Horde_ActiveSync_Wbxml
     public function __construct($stream, $log_level = self::LOG_PROTOCOL)
     {
         $this->_stream = new Horde_Stream_Existing(array('stream' => $stream));
-        $this->_logger = new Horde_Log_Logger(new Horde_Log_Handler_Null());
+        $this->_logger = new Horde_ActiveSync_Log_Logger(new Horde_Log_Handler_Null());
         $this->_procid = getmypid();
         $this->_logLevel = $log_level;
     }
@@ -925,7 +925,7 @@ class Horde_ActiveSync_Wbxml
      */
     public function setLogger(Horde_Log_Logger $logger)
     {
-        $this->_logger = $logger;
+        $this->_logger = Horde_ActiveSync::_wrapLogger($logger);
     }
 
 }

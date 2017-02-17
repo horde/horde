@@ -125,10 +125,10 @@ abstract class Horde_ActiveSync_Driver_Base
         /* Create a stub if we don't have a useable logger. */
         if (isset($params['logger'])
             && is_callable(array($params['logger'], 'log'))) {
-            $this->_logger = $params['logger'];
+            $this->_logger = Horde_ActiveSync::_wrapLogger($params['logger']);
             unset($params['logger']);
         } else {
-            $this->_logger = new Horde_Log_Logger(new Horde_Log_Handler_Null());
+            $this->_logger = new Horde_ActiveSync_Log_Logger(new Horde_Log_Handler_Null());
         }
 
         $this->_state = $params['state'];
@@ -152,7 +152,7 @@ abstract class Horde_ActiveSync_Driver_Base
      */
     public function setLogger($logger)
     {
-        $this->_logger = $logger;
+        $this->_logger = Horde_ActiveSync::_wrapLogger($logger);
     }
 
     /**

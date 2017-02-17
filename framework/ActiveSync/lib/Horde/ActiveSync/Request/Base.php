@@ -224,7 +224,7 @@ abstract class Horde_ActiveSync_Request_Base
      */
     public function setLogger(Horde_Log_Logger $logger)
     {
-        $this->_logger = $logger;
+        $this->_logger = Horde_ActiveSync::_wrapLogger($logger);
     }
 
     /**

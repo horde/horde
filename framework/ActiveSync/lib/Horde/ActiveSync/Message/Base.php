@@ -140,9 +140,9 @@ class Horde_ActiveSync_Message_Base
     public function __construct(array $options = array())
     {
         if (!empty($options['logger'])) {
-            $this->_logger = $options['logger'];
+            $this->_logger = Horde_ActiveSync::_wrapLogger($options['logger']);
         } else {
-            $this->_logger =  new Horde_Log_Logger(new Horde_Log_Handler_Null());
+            $this->_logger =  new Horde_ActiveSync_Log_Logger(new Horde_Log_Handler_Null());
         }
         if (!empty($options['protocolversion'])) {
             $this->_version = $options['protocolversion'];

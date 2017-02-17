@@ -135,9 +135,9 @@ abstract class Horde_ActiveSync_State_Base
     {
         $this->_params = $params;
         if (empty($params['logger'])) {
-            $this->_logger =  new Horde_Log_Logger(new Horde_Log_Handler_Null());
+            $this->_logger =  new Horde_ActiveSync_Log_Logger(new Horde_Log_Handler_Null());
         } else {
-            $this->_logger = $params['logger'];
+            $this->_logger = Horde_ActiveSync::_wrapLogger($params['logger']);
         }
         $this->_procid = getmypid();
     }
@@ -237,7 +237,7 @@ abstract class Horde_ActiveSync_State_Base
      */
     public function setLogger($logger)
     {
-        $this->_logger = $logger;
+        $this->_logger = Horde_ActiveSync::_wrapLogger($logger);
     }
 
     /**

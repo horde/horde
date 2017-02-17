@@ -32,7 +32,7 @@
  * @property-read boolean $multipart Indicate this is a multipart request.
  * @property-read string $certPath Local path to the certificate bundle.
  * @property-read Horde_ActiveSync_Device $device  The current device object.
- * @property-read Horde_Log_Logger $logger   The logger object.
+ * @property-read Horde_ActiveSync_Log_Logger $logger   The logger object.
  */
 class Horde_ActiveSync
 {
@@ -666,7 +666,7 @@ class Horde_ActiveSync
     {
         if (!empty($this->_loggerFactory)) {
             // @TODO. Remove wrapper.
-            self::$_logger = $this->_wrapLogger($this->_loggerFactory->create($options));
+            self::$_logger = self::_wrapLogger($this->_loggerFactory->create($options));
             $this->_encoder->setLogger(self::$_logger);
             $this->_decoder->setLogger(self::$_logger);
             $this->_driver->setLogger(self::$_logger);
@@ -674,7 +674,7 @@ class Horde_ActiveSync
         }
     }
 
-    protected function _wrapLogger(Horde_Log_Logger $logger)
+    public static function _wrapLogger(Horde_Log_Logger $logger)
     {
         if (!($logger instanceof Horde_ActiveSync_Log_Logger)) {
             return new Horde_ActiveSync_Log_Logger_Deprecated(null, $logger);
