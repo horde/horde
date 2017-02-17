@@ -18,6 +18,10 @@
  */
 class Horde_ActiveSync_Log_Logger extends Horde_Log_Logger
 {
+    const SERVER = 10;
+    const CLIENT = 11;
+    const META   = 12;
+
     /**
      * Constructor.
      *
@@ -26,9 +30,9 @@ class Horde_ActiveSync_Log_Logger extends Horde_Log_Logger
     public function __construct($handler = null)
     {
         parent::__construct($handler);
-        $this->addLevel('SERVER', 10);
-        $this->addLevel('CLIENT', 11);
-        $this->addLevel('META', 12);
+        $this->addLevel('SERVER', self::SERVER);
+        $this->addLevel('CLIENT', self::CLIENT);
+        $this->addLevel('META', self::META);
     }
 
     /**
