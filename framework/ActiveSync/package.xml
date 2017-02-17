@@ -12,8 +12,8 @@
  </lead>
  <date>2017-02-17</date>
  <version>
-  <release>2.37.5</release>
-  <api>2.37.0</api>
+  <release>2.38.0</release>
+  <api>2.38.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -3351,8 +3351,8 @@
   </release>
   <release>
    <version>
-    <release>2.37.5</release>
-    <api>2.37.0</api></version>
+    <release>2.38.0</release>
+    <api>2.38.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>

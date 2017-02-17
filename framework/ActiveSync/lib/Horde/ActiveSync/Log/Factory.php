@@ -7,14 +7,15 @@
  * @category   Horde
  * @license    http://www.horde.org/licenses/bsd BSD
  * @package    ActiveSync
+ * @since      2.38.0
  */
-
 /**
  * @copyright  2010-2017 Horde LLC (http://www.horde.org/)
  * @author     Michael J Rubinsky <mrubinsk@horde.org>
  * @category   Horde
  * @license    http://www.horde.org/licenses/bsd BSD
  * @package    ActiveSync
+ * @since      2.38.0
  */
 class Horde_ActiveSync_Log_Factory implements Horde_ActiveSync_Interface_LoggerFactory
 {
@@ -33,8 +34,9 @@ class Horde_ActiveSync_Log_Factory implements Horde_ActiveSync_Interface_LoggerF
      *   - path: The path to either the log file (for 'onefile' type) or
      *           the logging directory (for 'perdevice' or 'perrequest' types).
      *   - level: The logging level. Defaults to META. MUST be one of
-     *            [CLIENT | META]. CLIENT logs all WBXML sent/received. META
-     *            will log CLIENT plus additional debug messaging.
+     *            [CLIENT | META]. CLIENT logs all WBXML sent/received plus
+     *            minimal information messages. META will log CLIENT plus all
+     *            additional debug messaging.
      *
      * @throws  InvalidArgumentException
      */

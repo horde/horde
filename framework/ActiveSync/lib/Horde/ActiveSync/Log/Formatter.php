@@ -7,6 +7,7 @@
  * @category   Horde
  * @license    http://www.horde.org/licenses/bsd BSD
  * @package    ActiveSync
+ * @since      2.38.0
  */
 /**
  * @copyright  2017 Horde LLC (http://www.horde.org/)
@@ -14,6 +15,7 @@
  * @category   Horde
  * @license    http://www.horde.org/licenses/bsd BSD
  * @package    ActiveSync
+ * @since      2.38.0
  */
 class Horde_ActiveSync_Log_Formatter implements Horde_Log_Formatter
 {

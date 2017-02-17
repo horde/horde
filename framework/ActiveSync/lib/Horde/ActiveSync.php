@@ -656,6 +656,12 @@ class Horde_ActiveSync
         $this->_loggerFactory = $logger;
     }
 
+    /**
+     * Instantiate the logger from the factory and inject into all needed
+     * objects.
+     *
+     * @param array $options [description]
+     */
     protected function _setLogger(array $options)
     {
         if (!empty($this->_loggerFactory)) {

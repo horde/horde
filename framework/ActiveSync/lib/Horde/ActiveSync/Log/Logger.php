@@ -7,6 +7,7 @@
  * @category   Horde
  * @license    http://www.horde.org/licenses/bsd BSD
  * @package    ActiveSync
+ * @since      2.38.0
  */
 /**
  * @copyright  2017 Horde LLC (http://www.horde.org/)
@@ -14,6 +15,7 @@
  * @category   Horde
  * @license    http://www.horde.org/licenses/bsd BSD
  * @package    ActiveSync
+ * @since      2.38.0
  *
  * @method void emerg() emerg($event) Log an event at the EMERG log level
  * @method void alert() alert($event) Log an event at the ALERT log level

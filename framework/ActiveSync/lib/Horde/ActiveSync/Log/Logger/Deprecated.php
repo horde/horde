@@ -1,20 +1,22 @@
 <?php
 /**
- * ActiveSync logger.
+ * Compatibility wrapper used to maintain BC with old style of log handling.
+ * Will be removed in version 3.0.0 for Horde 6.
  *
  * @copyright  2017 Horde LLC (http://www.horde.org/)
  * @author     Michael J Rubinsky <mrubinsk@horde.org>
  * @category   Horde
  * @license    http://www.horde.org/licenses/bsd BSD
  * @package    ActiveSync
+ * @since      2.38.0
  */
-
 /**
  * @copyright  2017 Horde LLC (http://www.horde.org/)
  * @author     Michael J Rubinsky <mrubinsk@horde.org>
  * @category   Horde
  * @license    http://www.horde.org/licenses/bsd BSD
  * @package    ActiveSync
+ * @since      2.38.0
  */
 class Horde_ActiveSync_Log_Logger_Deprecated extends Horde_Log_Logger
 {

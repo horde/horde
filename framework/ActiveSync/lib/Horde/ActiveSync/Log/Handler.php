@@ -8,6 +8,7 @@
  * @category   Horde
  * @license    http://www.horde.org/licenses/bsd BSD
  * @package    ActiveSync
+ * @since      2.38.0
  */
 
 /**
@@ -16,6 +17,7 @@
  * @category   Horde
  * @license    http://www.horde.org/licenses/bsd BSD
  * @package    ActiveSync
+ * @since      2.38.0
  */
 class Horde_ActiveSync_Log_Handler extends Horde_Log_Handler_Stream
 {
