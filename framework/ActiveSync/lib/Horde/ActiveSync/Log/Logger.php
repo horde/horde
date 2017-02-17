@@ -8,13 +8,26 @@
  * @license    http://www.horde.org/licenses/bsd BSD
  * @package    ActiveSync
  */
-
 /**
  * @copyright  2017 Horde LLC (http://www.horde.org/)
  * @author     Michael J Rubinsky <mrubinsk@horde.org>
  * @category   Horde
  * @license    http://www.horde.org/licenses/bsd BSD
  * @package    ActiveSync
+ *
+ * @method void emerg() emerg($event) Log an event at the EMERG log level
+ * @method void alert() alert($event) Log an event at the ALERT log level
+ * @method void crit() crit($event) Log an event at the CRIT log level
+ * @method void err() err($event) Log an event at the ERR log level
+ * @method void warn() warn($event) Log an event at the WARN log level
+ * @method void notice() notice($event) Log an event at the NOTICE log level
+ * @method void info() info($event) Log an event at the INFO log level
+ * @method void debug() debug($event) Log an event at the DEBUG log level
+ * @method void meta($event) Log an event at the META log level.
+ * @method void client(string $event, integer $indent) Log an event as a CLIENT
+ *         message, indented by specified number of spaces.
+ * @method void server(string $event, integer $indent) Log an event as a SERVER
+ *         message, indented by specified number of spaces.
  */
 class Horde_ActiveSync_Log_Logger extends Horde_Log_Logger
 {
