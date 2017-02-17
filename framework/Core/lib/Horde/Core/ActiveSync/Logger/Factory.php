@@ -4,12 +4,15 @@
  *
  * PHP Version 5
  *
+ * @deprecated Use Horde_ActiveSync_Log_Factory instead.
+ *
  * @license   http://www.horde.org/licenses/gpl GPLv2
  * @copyright 2010-2017 Horde LLC (http://www.horde.org/)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @link      http://pear.horde.org/index.php?package=Core
  * @package   Core
  */
+
  /**
  * Horde_Core_ActiveSync_Logger_Factory:: Implements a factory/builder for
  * providing a Horde_Log_Logger object correctly configured for the
@@ -53,7 +56,8 @@ class Horde_Core_ActiveSync_Logger_Factory implements Horde_ActiveSync_Interface
             if (!empty($properties['DeviceId'])) {
                 $stream = fopen($conf['activesync']['logging']['path'] . '/' . Horde_String::upper($properties['DeviceId']) . '.txt', 'a');
                 if ($stream) {
-                    $logger = new Horde_Log_Logger(new Horde_Log_Handler_Stream($stream));
+                    $formatter = new Horde_ActiveSync_Log_Formatter();
+                    $logger = new Horde_ActiveSync_Log_Logger(new Horde_ActiveSync_Log_Handler($stream, false, $formatter));
                 }
             }
             break;
