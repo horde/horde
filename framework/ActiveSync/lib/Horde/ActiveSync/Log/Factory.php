@@ -46,7 +46,7 @@ class Horde_ActiveSync_Log_Factory implements Horde_ActiveSync_Interface_LoggerF
             throw new InvalidArgumentException('Missing required parameters.');
         }
         if (empty($params['level'])) {
-            $params['level'] = 'CLIENT';
+            $params['level'] = 'META';
         }
         $this->_params = $params;
     }
