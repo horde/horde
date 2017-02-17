@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2017-02-16</date>
+ <date>2017-02-17</date>
  <version>
   <release>2.37.5</release>
   <api>2.37.0</api>
@@ -96,6 +96,7 @@
        <dir name="Logger">
         <file name="Deprecated.php" role="php" />
        </dir> <!-- /lib/Horde/ActiveSync/Log/Logger -->
+       <file name="Factory.php" role="php" />
        <file name="Formatter.php" role="php" />
        <file name="Handler.php" role="php" />
        <file name="Logger.php" role="php" />
@@ -525,6 +526,7 @@
    <install as="Horde/ActiveSync/Imap/Strategy/Plain.php" name="lib/Horde/ActiveSync/Imap/Strategy/Plain.php" />
    <install as="Horde/ActiveSync/Interface/ImapFactory.php" name="lib/Horde/ActiveSync/Interface/ImapFactory.php" />
    <install as="Horde/ActiveSync/Interface/LoggerFactory.php" name="lib/Horde/ActiveSync/Interface/LoggerFactory.php" />
+   <install as="Horde/ActiveSync/Log/Factory.php" name="lib/Horde/ActiveSync/Log/Factory.php" />
    <install as="Horde/ActiveSync/Log/Formatter.php" name="lib/Horde/ActiveSync/Log/Formatter.php" />
    <install as="Horde/ActiveSync/Log/Handler.php" name="lib/Horde/ActiveSync/Log/Handler.php" />
    <install as="Horde/ActiveSync/Log/Logger.php" name="lib/Horde/ActiveSync/Log/Logger.php" />
@@ -3354,7 +3356,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-02-16</date>
+   <date>2017-02-17</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Fix MongoDB backend with mongodb extension.
