@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Use new ActiveSync log handling.
 * [jan] Correctly encode IP address literal in first Received: header (Bug #14574).
 * [mjr] Remove support for defunct CloudMade, and MyTopo mapping APIs.
 * [jan] Fix fatal error screen for PHP 7 error objects.
@@ -1310,7 +1311,7 @@
    <package>
     <name>Horde_ActiveSync</name>
     <channel>pear.horde.org</channel>
-    <min>2.37.0</min>
+    <min>2.38.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -4362,6 +4363,7 @@
    <date>2017-01-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Use new ActiveSync log handling.
 * [jan] Correctly encode IP address literal in first Received: header (Bug #14574).
 * [mjr] Remove support for defunct CloudMade, and MyTopo mapping APIs.
 * [jan] Fix fatal error screen for PHP 7 error objects.
