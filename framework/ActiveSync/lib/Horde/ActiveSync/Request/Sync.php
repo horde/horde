@@ -762,12 +762,11 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
 
             if (isset($collection['filtertype']) &&
                 !$this->_collections->checkFilterType($collection['id'], $collection['filtertype'])) {
-
                 $this->_logger->meta('Updated filtertype, will force a SOFTDELETE.');
                 $collection['forcerefresh'] = true;
             }
 
-            // Default value, if missing is TRUE if we have a non-empty synckey,
+            // Default value if missing is TRUE if we have a non-empty synckey,
             // otherwise FALSE.
             if (!isset($collection['getchanges'])) {
                 $collection['getchanges'] = !empty($collection['synckey']);
