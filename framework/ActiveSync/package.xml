@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Refactor logging to support streams and improve readability.
 * [jan] Fix MongoDB backend with mongodb extension.
 * [mjr] Add Horde_ActiveSync_Imap_EasMessageBuilder classes.
 * [mjr] Fix loading event file attachments on iOS.
@@ -3359,6 +3360,7 @@
    <date>2017-02-17</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Refactor logging to support streams and improve readability.
 * [jan] Fix MongoDB backend with mongodb extension.
 * [mjr] Add Horde_ActiveSync_Imap_EasMessageBuilder classes.
 * [mjr] Fix loading event file attachments on iOS.
