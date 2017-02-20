@@ -28,9 +28,9 @@ class Horde_ActiveSync_Log_Logger_Deprecated extends Horde_Log_Logger
     public function __construct($handler = null, Horde_Log_Logger $logger = null)
     {
         parent::__construct($handler);
-        $this->addLevel('SERVER', '10');
-        $this->addLevel('CLIENT', '11');
-        $this->addLevel('META', '12');
+        $this->addLevel('SERVER', Horde_ActiveSync_Log_Logger::SERVER);
+        $this->addLevel('CLIENT', Horde_ActiveSync_Log_Logger::CLIENT);
+        $this->addLevel('META', Horde_ActiveSync_Log_Logger::META);
         $this->_logger = $logger;
     }
 
