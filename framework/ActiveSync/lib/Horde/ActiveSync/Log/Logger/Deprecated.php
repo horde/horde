@@ -21,6 +21,12 @@
 class Horde_ActiveSync_Log_Logger_Deprecated extends Horde_Log_Logger
 {
     /**
+     *
+     * @var Horde_Log_Logger
+     */
+    protected $_logger;
+
+    /**
      * Constructor.
      *
      * @param Horde_Log_Handler_Base|null $handler  Default handler.
