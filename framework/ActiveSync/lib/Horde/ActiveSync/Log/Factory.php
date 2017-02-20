@@ -42,9 +42,6 @@ class Horde_ActiveSync_Log_Factory implements Horde_ActiveSync_Interface_LoggerF
      */
     public function __construct(array $params)
     {
-        if (empty($params['type']) || empty($params['path'])) {
-            throw new InvalidArgumentException('Missing required parameters.');
-        }
         if (empty($params['level'])) {
             $params['level'] = 'META';
         }
@@ -64,6 +61,10 @@ class Horde_ActiveSync_Log_Factory implements Horde_ActiveSync_Interface_LoggerF
     {
         $stream = $logger = false;
         $formatter = new Horde_ActiveSync_Log_Formatter();
+
+        if (empty($params['path'])) {
+             new Horde_ActiveSync_Log_Logger(new Horde_Log_Handler_Null());
+        }
 
         switch ($this->_params['type']) {
         case 'onefile':
@@ -106,7 +107,7 @@ class Horde_ActiveSync_Log_Factory implements Horde_ActiveSync_Interface_LoggerF
         }
 
         if (!$logger) {
-            $logger = new Horde_Log_Logger(new Horde_Log_Handler_Null());
+            $logger = new Horde_ActiveSync_Log_Logger(new Horde_Log_Handler_Null());
         }
 
         return $logger;
