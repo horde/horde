@@ -535,6 +535,8 @@ class Mnemo
     {
         $haveRemoved = false;
         $cs = unserialize($GLOBALS['prefs']->getValue('sync_notepads'));
+        // Ensure we have an actual non-empty value for any entry.
+        $cs = array_filter($cs);
         if (!empty($cs)) {
             if ($prune) {
                 $notepads =  self::listNotepads(true, Horde_Perms::DELETE);
