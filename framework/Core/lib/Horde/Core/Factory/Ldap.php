@@ -69,6 +69,7 @@ class Horde_Core_Factory_Ldap extends Horde_Core_Factory_Base
             $config['user'] = $config;
         }
         $config['cache'] = $this->_injector->getInstance('Horde_Cache');
+        $config['cache_root_dse'] = true;
 
         $e = null;
         try {
