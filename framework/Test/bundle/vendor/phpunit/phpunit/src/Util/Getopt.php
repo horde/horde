@@ -35,7 +35,7 @@ class PHPUnit_Util_Getopt
         reset($args);
         array_map('trim', $args);
 
-        while (list($i, $arg) = each($args)) {
+        while (list($i, $arg) = @each($args)) {
             if ($arg == '') {
                 continue;
             }
@@ -94,7 +94,7 @@ class PHPUnit_Util_Getopt
                     if ($i + 1 < $argLen) {
                         $opts[] = array($opt, substr($arg, $i + 1));
                         break;
-                    } elseif (list(, $opt_arg) = each($args)) {
+                    } elseif (list(, $opt_arg) = @each($args)) {
                     } else {
                         throw new PHPUnit_Framework_Exception(
                             "option requires an argument -- $opt"
@@ -140,7 +140,7 @@ class PHPUnit_Util_Getopt
             if (substr($long_opt, -1) == '=') {
                 if (substr($long_opt, -2) != '==') {
                     if (!strlen($opt_arg) &&
-                        !(list(, $opt_arg) = each($args))) {
+                        !(list(, $opt_arg) = @each($args))) {
                         throw new PHPUnit_Framework_Exception(
                             "option --$opt requires an argument"
                         );
