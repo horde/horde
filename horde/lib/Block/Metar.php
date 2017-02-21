@@ -25,7 +25,13 @@ class Horde_Block_Metar extends Horde_Core_Block
     {
         global $injector, $conf;
 
-        parent::__construct($app, $params);
+        parent::__construct(
+            $app,
+            array_merge(
+                array('units' => Horde_Service_Weather::UNITS_STANDARD),
+                $params
+            )
+        );
         $this->_name = _("Metar Weather");
         if (!class_exists('Horde_Service_Weather_Metar')) {
             $this->enabled = false;
