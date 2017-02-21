@@ -87,7 +87,7 @@ class Horde_Ldap_RootDse
      */
     public function supportedExtension($oids)
     {
-        return $this->checkAttr($oids, 'supportedExtension');
+        return $this->_checkAttr($oids, 'supportedExtension');
     }
 
     /**
@@ -99,7 +99,7 @@ class Horde_Ldap_RootDse
      */
     public function supportedVersion($versions)
     {
-        return $this->checkAttr($versions, 'supportedLDAPVersion');
+        return $this->_checkAttr($versions, 'supportedLDAPVersion');
     }
 
     /**
@@ -111,7 +111,7 @@ class Horde_Ldap_RootDse
      */
     public function supportedControl($oids)
     {
-        return $this->checkAttr($oids, 'supportedControl');
+        return $this->_checkAttr($oids, 'supportedControl');
     }
 
     /**
@@ -134,7 +134,7 @@ class Horde_Ldap_RootDse
      *
      * @return boolean
      */
-    protected function checkAttr($values, $attr)
+    protected function _checkAttr($values, $attr)
     {
         if (!is_array($values)) {
             $values = array($values);
