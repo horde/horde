@@ -1284,7 +1284,10 @@ class Horde_Ldap
     {
         /* If a cache object is registered, we use that to fetch a rootDSE
          * object. */
-        $key = 'Horde_Ldap_RootDse_' . md5(serialize($attrs));
+        $key = 'Horde_Ldap_RootDse_'
+            . md5(serialize(array(
+                $this->_config['hostspec'], $this->_config['port'], $attrs
+            )));
         if (empty($this->_rootDSE[$key]) &&
             $this->_config['cache'] &&
             $this->_config['cache_root_dse']) {
