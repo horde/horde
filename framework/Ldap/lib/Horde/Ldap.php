@@ -1326,8 +1326,11 @@ class Horde_Ldap
             /* Store a temporary error message so subsequent calls to schema()
              * can detect that we are fetching the schema already. Otherwise we
              * will get an infinite loop at Horde_Ldap_Schema. */
-            $this->_schema = new Horde_Ldap_Exception('Schema not initialized');
-            $this->_schema = new Horde_Ldap_Schema($this, $dn);
+            try {
+                $this->_schema = new Horde_Ldap_Schema($this, $dn);
+            } catch (Horde_Ldap_Exception $e) {
+                $this->_schema = $e;
+            }
 
             /* If schema caching is active, advise the cache to store the
              * schema. */
