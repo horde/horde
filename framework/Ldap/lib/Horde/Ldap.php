@@ -18,33 +18,33 @@
 class Horde_Ldap
 {
     /**
-     * Class configuration array
+     * Class configuration array.
      *
-     * - hostspec:       the LDAP host to connect to (may be an array of
+     * - hostspec:       The LDAP host to connect to (may be an array of
      *                   several hosts to try).
-     * - port:           the server port.
+     * - port:           The server port.
      * - version:        LDAP version (defaults to 3).
-     * - tls:            when set, ldap_start_tls() is run after connecting.
-     * - binddn:         the DN to bind as when searching.
-     * - bindpw:         password to use when searching LDAP.
+     * - tls:            When set, ldap_start_tls() is run after connecting.
+     * - binddn:         The DN to bind as when searching.
+     * - bindpw:         Password to use when searching LDAP.
      * - basedn:         LDAP base.
-     * - options:        hash of LDAP options to set.
-     * - filter:         default search filter.
-     * - scope:          default search scope.
-     * - user:           configuration parameters for {@link findUserDN()},
+     * - options:        Hash of LDAP options to set.
+     * - filter:         Default search filter.
+     * - scope:          Default search scope.
+     * - user:           Configuration parameters for {@link findUserDN()},
      *                   must contain 'uid', and may contain 'basedn'
      *                   entries.
      * - timeout:        Connection timeout in seconds (defaults to 5).
-     * - auto_reconnect: if true, the class will automatically
+     * - auto_reconnect: If true, the class will automatically
      *                   attempt to reconnect to the LDAP server in certain
      *                   failure conditions when attempting a search, or other
      *                   LDAP operations.  Defaults to false.  Note that if you
      *                   set this to true, calls to search() may block
      *                   indefinitely if there is a catastrophic server failure.
-     * - min_backoff:    minimum reconnection delay period (in seconds).
-     * - current_backof: initial reconnection delay period (in seconds).
-     * - max_backoff:    maximum reconnection delay period (in seconds).
-     * - cache           a Horde_Cache instance for caching schema requests.
+     * - min_backoff:    Minimum reconnection delay period (in seconds).
+     * - current_backof: Initial reconnection delay period (in seconds).
+     * - max_backoff:    Maximum reconnection delay period (in seconds).
+     * - cache:          A Horde_Cache instance for caching schema requests.
      *
      * @var array
      */
@@ -106,7 +106,7 @@ class Horde_Ldap
     protected $_schemaAttrs = array();
 
     /**
-     * Cache for rootDSE objects
+     * Cache for rootDSE objects.
      *
      * Hash with requested rootDSE attr names as key and rootDSE
      * object as value.
