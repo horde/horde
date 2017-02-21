@@ -141,7 +141,7 @@ class Horde_Ldap_RootDse
         }
 
         foreach ($values as $value) {
-            if (!in_array($value, $this->get_value($attr, 'all'))) {
+            if (!in_array($value, $this->getValue($attr, 'all'))) {
                 return false;
             }
         }
