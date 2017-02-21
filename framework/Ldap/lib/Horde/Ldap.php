@@ -98,14 +98,6 @@ class Horde_Ldap
     protected $_schema;
 
     /**
-     * Schema cache function callback.
-     *
-     * @see registerSchemaCache()
-     * @var string
-     */
-    protected $_schemaCache;
-
-    /**
      * Cache for attribute encoding checks.
      *
      * @var array Hash with attribute names as key and boolean value
