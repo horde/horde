@@ -862,7 +862,7 @@ class Horde_Config
                                         $node ? ($xpath->evaluate('string(configsection/configstring[@name="bindpw"])', $node) ?: '') : '')
                                 )
                             ),
-                            $this->_configLDAPUser($ctx, $nod)
+                            $this->_configLDAPUser($ctx, $node)
                         ),
                     ),
                 )
@@ -1245,7 +1245,7 @@ class Horde_Config
                 $ctx . '|ssl',
                 $node ? ($xpath->evaluate('string(configboolean[@name="ssl"])', $node) ?: false) : false),
             'switch' => array(
-                'false' => array('desc' => 'No'),
+                'false' => array('desc' => 'No', 'fields' => array()),
                 'true' => array(
                     'desc' => 'Yes',
                     'fields' => array(
@@ -1263,6 +1263,13 @@ class Horde_Config
             )
         );
 
+        $ca = array(
+            '_type' => 'text',
+            'required' => false,
+            'desc' => 'Certification Authority to use for SSL connections',
+            'default' => $this->_default($ctx . '|ca', '')
+        );
+
         $logqueries = array(
             '_type' => 'boolean',
             'required' => false,
@@ -1270,10 +1277,6 @@ class Horde_Config
             'default' => $this->_default(
                 $ctx . '|logqueries',
                 $node ? ($xpath->evaluate('string(configboolean[@name="logqueries"])', $node) ?: false) : false),
-            'switch' => array(
-                'false' => array('desc' => 'No'),
-                'true' => array('desc' => 'Yes')
-            )
         );
 
         $custom_fields = array(
