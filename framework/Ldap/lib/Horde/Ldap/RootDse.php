@@ -11,7 +11,7 @@
  * @author    Jan Schneider <jan@horde.org>
  * @license   http://www.gnu.org/licenses/lgpl-3.0.html LGPL-3.0
  */
-class Horde_Ldap_RootDse
+class Horde_Ldap_RootDse implements Serializable
 {
     /**
      * @var object Horde_Ldap_Entry
@@ -147,5 +147,26 @@ class Horde_Ldap_RootDse
         }
 
         return true;
+    }
+
+    /* Serializable methods */
+
+    /**
+     * @since Horde_Ldap 2.4.0
+     */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->_entry->currentDN(), $this->_entry->getValues()
+        ));
+    }
+
+    /**
+     * @since Horde_Ldap 2.4.0
+     */
+    public function unserialize($serialized)
+    {
+        $data = unserialize($serialized);
+        $this->_entry = Horde_Ldap_Entry::createFresh($data[0], $data[1]);
     }
 }

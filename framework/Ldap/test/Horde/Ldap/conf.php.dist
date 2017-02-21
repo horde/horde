@@ -5,8 +5,12 @@ $conf = array(
         'port'     => 389,
         'basedn'   => 'ou=hordetest,dc=example,dc=com',
         'binddn'  => 'cn=admin,dc=example,dc=com',
-        'bindpw'  => 'secret'),
+        'bindpw'  => 'secret',
+        'cache' => new Horde_Cache(new Horde_Cache_Storage_Mock()),
+        'cache_root_dse' => true,
+    ),
     'capability' => array(
         'anonymous' => true,
-        'tls'       => true),
+        'tls'       => true
+    ),
 );

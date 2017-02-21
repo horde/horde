@@ -66,6 +66,7 @@ class Horde_Ldap
         'current_backoff' => 1,
         'max_backoff'     => 32,
         'cache'           => false,
+        'cache_root_dse'  => false,
         'cachettl'        => 3600);
 
     /**
@@ -118,7 +119,7 @@ class Horde_Ldap
      *
      * @var array
      */
-    protected $_rootDSECache = array();
+    protected $_rootDSE = array();
 
     /**
      * Constructor.
@@ -1281,15 +1282,36 @@ class Horde_Ldap
      */
     public function rootDSE(array $attrs = array())
     {
-        $attrs_signature = serialize($attrs);
+        /* If a cache object is registered, we use that to fetch a rootDSE
+         * object. */
+        $key = 'Horde_Ldap_RootDse_' . md5(serialize($attrs));
+        if (empty($this->_rootDSE[$key]) &&
+            $this->_config['cache'] &&
+            $this->_config['cache_root_dse']) {
+            $entry = $this->_config['cache']->get(
+                $key, $this->_config['cachettl']
+            );
+            if ($entry) {
+                $this->_rootDSE[$key] = @unserialize($entry);
+            }
+        }
 
         /* See if we need to fetch a fresh object, or if we already
          * requested this object with the same attributes. */
-        if (!isset($this->_rootDSECache[$attrs_signature])) {
-            $this->_rootDSECache[$attrs_signature] = new Horde_Ldap_RootDse($this, $attrs);
+        if (empty($this->_rootDSE[$key])) {
+            $this->_rootDSE[$key] = new Horde_Ldap_RootDse($this, $attrs);
+
+            /* If caching is active, advise the cache to store the object. */
+            if ($this->_config['cache'] && $this->_config['cache_root_dse']) {
+                $this->_config['cache']->set(
+                    $key,
+                    serialize($this->_rootDSE[$key]),
+                    $this->_config['cachettl']
+                );
+            }
         }
 
-        return $this->_rootDSECache[$attrs_signature];
+        return $this->_rootDSE[$key];
     }
 
     /**
