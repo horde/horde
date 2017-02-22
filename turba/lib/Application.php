@@ -362,6 +362,7 @@ class Turba_Application extends Horde_Registry_Application
                         ->create($source, $sourceId);
                 } catch (Turba_Exception $e) {
                     Horde::log($e, 'ERR');
+                    continue;
                 }
 
                 try {
