@@ -63,7 +63,9 @@ class Kronolith_Shares
     public function listShares($userid, array $params = array())
     {
         $attributes = array('calendar_type' => Kronolith::SHARE_TYPE_USER);
-        if (!empty($params['attributes']) && !is_array($params['attributes'])) {
+        $ownerOnly = !empty($params['attributes']) &&
+            !is_array($params['attributes']);
+        if ($ownerOnly) {
             $attributes['owner'] = $params['attributes'];
             $params['attributes'] = array();
         } elseif (empty($params['attributes'])) {
@@ -76,7 +78,8 @@ class Kronolith_Shares
 
         // Must explicitly include system shares if the user is an admin since
         // there may be some shares that do not have perms set.
-        if ($attributes['calendar_type'] == Kronolith::SHARE_TYPE_USER &&
+        if (!$ownerOnly &&
+            $attributes['calendar_type'] == Kronolith::SHARE_TYPE_USER &&
             $GLOBALS['registry']->isAdmin()) {
             $shares = array_merge($shares, $this->listSystemShares());
         }
