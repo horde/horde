@@ -371,27 +371,10 @@ class Text_Wiki {
     var $_blocks;
 
     /**
-    *
-    * Constructor.
-    *
-    * **DEPRECATED**
-    * Please use the singleton() or factory() methods.
-    *
-    * @access public
-    *
-    * @param array $rules The set of rules to load for this object. Defaults to null
-    *                     which will load the default ruleset for this parser.
-    *
-    * @return $this
-    * @see    self::__construct()
-    */
-    function Text_Wiki($rules = null)
-    {
-        $this->__construct($rules);
-    }
-
-    /**
      * A fix for PHP5.
+     *
+     * **DEPRECATED**
+     * Please use the singleton() or factory() methods.
      *
      * @param mixed $rules null or an array.
      *
@@ -415,6 +398,26 @@ class Text_Wiki {
             'render',
             $this->fixPath(dirname(__FILE__)) . 'Wiki/Render/'
         );
+    }
+
+    /**
+    *
+    * Constructor.
+    *
+    * **DEPRECATED**
+    * Please use the singleton() or factory() methods.
+    *
+    * @access public
+    *
+    * @param array $rules The set of rules to load for this object. Defaults to null
+    *                     which will load the default ruleset for this parser.
+    *
+    * @return $this
+    * @see    self::__construct()
+    */
+    function Text_Wiki($rules = null)
+    {
+        $this->__construct($rules);
     }
 
     /**
