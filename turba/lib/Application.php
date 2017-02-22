@@ -382,7 +382,8 @@ class Turba_Application extends Horde_Registry_Application
         $turba_shares = $GLOBALS['injector']->getInstance('Turba_Shares');
         $shares = $turba_shares->listShares(
             $user,
-            array('attributes' => $user));
+            array('attributes' => $user)
+        );
 
         // Look for the deleted user's shares and remove them
         foreach ($shares as $share) {
