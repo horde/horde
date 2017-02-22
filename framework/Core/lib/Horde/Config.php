@@ -1263,13 +1263,17 @@ class Horde_Config
             )
         );
 
+        list($default, $isDefault) = $this->__default(
+            $ctx . '|logqueries',
+            $node
+            ? ($xpath->evaluate('string(configboolean[@name="logqueries"])', $node) ?: false)
+            : false);
         $logqueries = array(
             '_type' => 'boolean',
             'required' => false,
             'desc' => 'Should Horde log all queries. If selected, queries will be logged at the DEBUG level to your configured logger.',
-            'default' => $this->_default(
-                $ctx . '|logqueries',
-                $node ? ($xpath->evaluate('string(configboolean[@name="logqueries"])', $node) ?: false) : false),
+            'default' => $default,
+            'is_default' => $isDefault,
         );
 
         $custom_fields = array(
