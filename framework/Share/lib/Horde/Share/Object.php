@@ -172,11 +172,7 @@ abstract class Horde_Share_Object implements Serializable
     {
         /* Remove all $userid's permissions. */
         $perm = $this->getPermission();
-        $perm->removeUserPermission($userid, Horde_Perms::SHOW, false);
-        $perm->removeUserPermission($userid, Horde_Perms::READ, false);
-        $perm->removeUserPermission($userid, Horde_Perms::EDIT, false);
-        $perm->removeUserPermission($userid, Horde_Perms::DELETE, false);
-
+        $perm->removeUserPermission($userid, null, false);
         $this->setPermission($perm);
     }
 
@@ -189,11 +185,7 @@ abstract class Horde_Share_Object implements Serializable
     {
         /* Remove all $groupId's permissions. */
         $perm = $this->getPermission();
-        $perm->removeGroupPermission($groupId, Horde_Perms::SHOW, false);
-        $perm->removeGroupPermission($groupId, Horde_Perms::READ, false);
-        $perm->removeGroupPermission($groupId, Horde_Perms::EDIT, false);
-        $perm->removeGroupPermission($groupId, Horde_Perms::DELETE, false);
-
+        $perm->removeGroupPermission($groupId, null, false);
         return $this->setPermission($perm);
     }
 
