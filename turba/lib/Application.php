@@ -344,6 +344,11 @@ class Turba_Application extends Horde_Registry_Application
      */
     public function removeUserData($user)
     {
+        $err = sprintf(
+            _("There was an error removing an address book for %s"),
+            $user
+        );
+
         /* We need a clean copy of the $cfgSources array here.*/
         $cfgSources = Turba::availableSources();
         foreach ($cfgSources as $sourceId => $source) {
@@ -363,7 +368,7 @@ class Turba_Application extends Horde_Registry_Application
                     continue;
                 } catch (Turba_Exception $e) {
                     Horde::log($e, 'ERR');
-                    throw new Turba_Exception(sprintf(_("There was an error removing an address book for %s"), $user));
+                    throw new Turba_Exception($err);
                 }
             }
         }
@@ -395,7 +400,7 @@ class Turba_Application extends Horde_Registry_Application
                 continue;
             } catch (Turba_Exception $e) {
                 Horde::log($e, 'ERR');
-                throw new Turba_Exception(sprintf(_("There was an error removing an address book for %s"), $user));
+                throw new Turba_Exception($err);
             }
         }
 
@@ -408,7 +413,7 @@ class Turba_Application extends Horde_Registry_Application
             }
         } catch (Horde_Share_Exception $e) {
             Horde::log($e, 'ERR');
-            throw new Turba_Exception(sprintf(_("There was an error removing an address book for %s"), $user));
+            throw new Turba_Exception($err);
         }
     }
 
