@@ -177,7 +177,7 @@ abstract class Horde_Share_Object implements Serializable
         $perm->removeUserPermission($userid, Horde_Perms::EDIT, false);
         $perm->removeUserPermission($userid, Horde_Perms::DELETE, false);
 
-        return $this->setPermission($perm);
+        $this->setPermission($perm);
     }
 
     /**
