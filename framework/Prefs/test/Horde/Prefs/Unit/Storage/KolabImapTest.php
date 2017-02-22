@@ -67,7 +67,6 @@ class Horde_Prefs_Unit_Storage_KolabImapTest extends PHPUnit_Framework_TestCase
 
     public function testCreateFolder()
     {
-        $this->markTestIncomplete();
         $storage = $this->_createStorage();
         $p = new Horde_Prefs(
             'test@example.com',
@@ -80,7 +79,12 @@ class Horde_Prefs_Unit_Storage_KolabImapTest extends PHPUnit_Framework_TestCase
         );
         $p['a'] = 'c';
         $p->store();
-        $this->assertContains('INBOX/Preferences', $storage->getList()->listFolders());
+        $this->assertArrayHasKey(
+            'INBOX/Preferences',
+            $storage->getList()
+                ->getQuery(Horde_Kolab_Storage_List_Tools::QUERY_BASE)
+                ->listTypes()
+        );
         $p->cleanup(true);
     }
 
