@@ -1777,8 +1777,8 @@
  <configtab name="block" desc="Portal Blocks">
   <configsection name="portal">
    <configheader>Portal Blocks Settings</configheader>
-   <configmultienum name="fixed_blocks" muldesc="Which blocks should always be
-    displayed in the portal?">
+   <configmultienum name="fixed_blocks" required="false" desc="Which blocks
+    should always be displayed in the portal?">
     <values>
      <configspecial application="horde" name="blocks" />
     </values>
