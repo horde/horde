@@ -407,7 +407,8 @@ class Kronolith_Application extends Horde_Registry_Application
             $kronolith_shares = $GLOBALS['injector']->getInstance('Kronolith_Shares');
             $shares = $kronolith_shares->listShares(
                 $user,
-                array('attributes' => $user));
+                array('attributes' => $user)
+            );
             foreach ($shares as $share) {
                 $kronolith_shares->removeShare($share);
             }
