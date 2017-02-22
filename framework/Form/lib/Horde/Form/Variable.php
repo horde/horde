@@ -494,8 +494,9 @@ class Horde_Form_Variable {
         } else {
             $name = $this->varName;
         }
-        $value = $vars->getExists($name, $wasset);
 
+        $value = $vars->get($name);
+        $wasset = $vars->exists($name);
         if (!$wasset) {
             $value = $this->getDefault();
         }
