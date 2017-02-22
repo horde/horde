@@ -427,11 +427,11 @@ class Text_Wiki {
     * of objects are required in one call, e.g. to save memory in a
     * CMS invironment where several parsers are required in a single page.
     *
-    * $single = & singleton();
+    * $single = singleton();
     *
     * or
     *
-    * $single = & singleton('Parser', array('Prefilter', 'Delimiter', 'Code', 'Function',
+    * $single = singleton('Parser', array('Prefilter', 'Delimiter', 'Code', 'Function',
     *   'Html', 'Raw', 'Include', 'Embed', 'Anchor', 'Heading', 'Toc', 'Horiz',
     *   'Break', 'Blockquote', 'List', 'Deflist', 'Table', 'Image', 'Phplookup',
     *   'Center', 'Newline', 'Paragraph', 'Url', 'Freelink', 'Interwiki', 'Wikilink',
@@ -449,8 +449,6 @@ class Text_Wiki {
     * times with different rules but the same parser name, you will get the same
     * static parser object each time.
     *
-    * @access public
-    * @static
     * @since Method available since Release 1.1.0
     * @param string $parser The parser to be used (defaults to 'Default').
     * @param array $rules   The set of rules to instantiate the object. This
@@ -458,15 +456,15 @@ class Text_Wiki {
     *    in further calls it will be effectively ignored.
     * @return &object a reference to the Text_Wiki unique instantiation.
     */
-    function &singleton($parser = 'Default', $rules = null)
+    public static function singleton($parser = 'Default', $rules = null)
     {
         static $only = array();
         if (!isset($only[$parser])) {
-            $ret = & Text_Wiki::factory($parser, $rules);
+            $ret = Text_Wiki::factory($parser, $rules);
             if (Text_Wiki::isError($ret)) {
                 return $ret;
             }
-            $only[$parser] =& $ret;
+            $only[$parser] = $ret;
         }
         return $only[$parser];
     }
@@ -474,15 +472,13 @@ class Text_Wiki {
     /**
      * Returns a Text_Wiki Parser class for the specified parser.
      *
-     * @access public
-     * @static
      * @param string $parser The name of the parse to instantiate
      * you need to have Text_Wiki_XXX installed to use $parser = 'XXX', it's E_FATAL
      * @param array $rules The rules to pass into the constructor
      *    {@see Text_Wiki::singleton} for a list of rules
      * @return Text_Wiki a Parser object extended from Text_Wiki
      */
-    function factory($parser = 'Default', $rules = null)
+    public static function factory($parser = 'Default', $rules = null)
     {
         $class = 'Text_Wiki_' . $parser;
         $file = str_replace('_', '/', $class).'.php';
@@ -1550,15 +1546,13 @@ class Text_Wiki {
     *
     * Simple error checker.
     *
-    * @access public
-    *
     * @param mixed $obj Check if this is a PEAR_Error object or not.
     *
     * @return bool True if a PEAR_Error, false if not.
     *
     */
 
-    function isError(&$obj)
+    public static function isError(&$obj)
     {
         return is_a($obj, 'PEAR_Error');
     }
