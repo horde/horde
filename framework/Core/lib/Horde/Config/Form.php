@@ -108,9 +108,6 @@ class Horde_Config_Form extends Horde_Form
                         $this->_vars->set($varname, $configitem['default']);
                     }
                 }
-                if (!empty($configitem['is_default'])) {
-                    $v->_new = true;
-                }
                 $v_action = Horde_Form_Action::factory('reload');
                 $v->setAction($v_action);
                 if (isset($selected) && isset($configitem['switch'][$selected])) {
@@ -158,9 +155,6 @@ class Horde_Config_Form extends Horde_Form
                             break;
                         }
                     }
-                }
-                if (!empty($configitem['is_default'])) {
-                    $v->_new = true;
                 }
             } else {
                 $this->_buildVariables($configitem, $prefixedname);
