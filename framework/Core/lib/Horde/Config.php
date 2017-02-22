@@ -1263,13 +1263,6 @@ class Horde_Config
             )
         );
 
-        $ca = array(
-            '_type' => 'text',
-            'required' => false,
-            'desc' => 'Certification Authority to use for SSL connections',
-            'default' => $this->_default($ctx . '|ca', '')
-        );
-
         $logqueries = array(
             '_type' => 'boolean',
             'required' => false,
@@ -1300,7 +1293,6 @@ class Horde_Config
                         'database' => $database,
                         'charset' => $charset,
                         'ssl' => $ssl,
-                        'ca' => $ca,
                         'splitread' => $this->_configSQLSplitRead($ctx, $node, 'mysql'),
                         'logqueries' => $logqueries,
                     )
@@ -1314,7 +1306,6 @@ class Horde_Config
                         'database' => $database,
                         'charset' => $charset,
                         'ssl' => $ssl,
-                        'ca' => $ca,
                         'splitread' => $this->_configSQLSplitRead($ctx, $node, 'mysqli'),
                         'logqueries' => $logqueries,
                     )
