@@ -54,7 +54,9 @@ class Horde_Menu
     /**
      * Add an item to the menu array.
      *
-     * @param array $item  The item to add.  Valid keys:
+     * @param mixed $item  The item to add.  Either a string containing the
+     *                     value 'separator' or an array contianing the
+     *                     following valid keys:
      * <pre>
      * 'class' - (string) CSS classname.
      * 'icon' - (string) Filename of the image icon.
@@ -70,6 +72,11 @@ class Horde_Menu
      */
     public function addArray($item)
     {
+        if (!is_array($item) && $item == 'separator') {
+            $this->_menu[] = $item;
+            return;
+        }
+
         if (!isset($item['url'])) {
             $item['url'] = new Horde_Url();
         } elseif (!($item['url'] instanceof Horde_Url)) {
