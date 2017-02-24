@@ -66,9 +66,6 @@ class Horde_Menu
      * 'text' - (string) Label.
      * 'url' - (string) Hyperlink.
      * </pre>
-     *
-     * @return integer  The id (NOT guaranteed to be an array index) of the
-     *                  item just added to the menu.
      */
     public function addArray($item)
     {
