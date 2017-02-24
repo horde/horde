@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* 
+* [mjr] Fix potential infinite recursion in Mnemo_Api::listBy() due to corrupt preference values.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1395,7 +1395,7 @@
    <date>2016-12-16</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* 
+* [mjr] Fix potential infinite recursion in Mnemo_Api::listBy() due to corrupt preference values.
    </notes>
   </release>
  </changelog>
