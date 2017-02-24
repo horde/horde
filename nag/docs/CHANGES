@@ -2,6 +2,7 @@
 v4.2.14-git
 -----------
 
+[mjr] Avoid PHP warnings due to corrupt preference values (Bug #14585).
 
 
 -------

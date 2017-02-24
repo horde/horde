@@ -1703,6 +1703,10 @@ class Nag
     static public function getSyncLists()
     {
         $cs = unserialize($GLOBALS['prefs']->getValue('sync_lists'));
+
+        // Bug #14585 Filter out erroneous null values.
+        $cs = array_filter($cs);
+
         if (!empty($cs)) {
             // Have a pref, make sure it's still available
             $lists = self::listTasklists(false, Horde_Perms::DELETE);
