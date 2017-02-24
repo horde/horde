@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Fix adding a separator item to a custom menu (Bug #14581).
 * [jan] Enable LDAP rootDSE caching.
 * [mjr] Use new ActiveSync log handling.
 * [jan] Correctly encode IP address literal in first Received: header (Bug #14574).
@@ -4364,6 +4365,7 @@
    <date>2017-01-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Fix adding a separator item to a custom menu (Bug #14581).
 * [jan] Enable LDAP rootDSE caching.
 * [mjr] Use new ActiveSync log handling.
 * [jan] Correctly encode IP address literal in first Received: header (Bug #14574).
