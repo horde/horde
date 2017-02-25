@@ -37,17 +37,25 @@ class Turba_Factory_Driver extends Horde_Core_Factory_Base
     /**
      * Return the Turba_Driver:: instance.
      *
-     * @param mixed $name    Either a string containing the internal name of
-     *                       this source, or a config array describing the
-     *                       source.
-     * @param string $name2  The internal name of this source if $name is an
-     *                       array.
+     * @param mixed $name        Either a string containing the internal name of
+     *                           this source, or a config array describing the
+     *                           source.
+     * @param string $name2      The internal name of this source if $name is an
+     *                           array.
+     * @param array $cfgSources  Override the global cfgSources configuration
+     *                           with this array. Used when an admin needs
+     *                           access to another user's sources like e.g.,
+     *                           when calling removeUserData().
      *
      * @return Turba_Driver  The singleton instance.
      * @throws Turba_Exception
      */
-    public function create($name, $name2 = '')
+    public function create($name, $name2 = '', $cfgSources = array())
     {
+        if (empty($cfgSources)) {
+            $cfgSources = $GLOBALS['cfgSources'];
+        }
+
         if (is_array($name)) {
             ksort($name);
             $key = md5(serialize($name));
@@ -56,10 +64,10 @@ class Turba_Factory_Driver extends Horde_Core_Factory_Base
         } else {
             $key = $name;
             $srcName = $name;
-            if (empty($GLOBALS['cfgSources'][$name])) {
+            if (empty($cfgSources[$name])) {
                 throw new Turba_Exception(sprintf(_("The address book \"%s\" does not exist."), $name));
             }
-            $srcConfig = $GLOBALS['cfgSources'][$name];
+            $srcConfig = $cfgSources[$name];
         }
 
         if (!isset($this->_instances[$key])) {
@@ -91,6 +99,11 @@ class Turba_Factory_Driver extends Horde_Core_Factory_Base
 
             case 'Turba_Driver_Kolab':
                 $srcConfig['params']['storage'] = $this->_injector->getInstance('Horde_Kolab_Storage');
+                break;
+
+            case 'Turba_Driver_Vbook':
+                // $srcConfig['params']['source_name'] = $srcConfig['params']['source'];
+                $srcConfig['params']['source'] = $cfgSources[$srcConfig['params']['source']];
                 break;
             }
 

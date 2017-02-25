@@ -36,9 +36,16 @@ class Turba_Driver_Vbook extends Turba_Driver
     protected $_driver;
 
     /**
+     * Constructs a new Turba_Driver object.
      *
-     * @see Turba_Driver::__construct
-     * @throws Turba_Exception
+     * @param string $name   Source name
+     * @param array $params  Additional configuration parameters:
+     *        - share: Horde_Share object representing this vbook.
+     *        - source: The configuration array of the parent source or the
+     *                  source name of parent source in the global cfgSources
+     *                  array.
+     *       - source_name: If providing the configuration array in 'source',
+     *                      this is the source name to use for the parent source.
      */
     public function __construct($name = '', array $params = array())
     {
@@ -58,6 +65,24 @@ class Turba_Driver_Vbook extends Turba_Driver
         $this->searchType = (count($this->searchCriteria) > 1)
             ? 'advanced'
             : 'basic';
+    }
+
+    /**
+     * Remove all data for a specific user.
+     *
+     * @param string $user  The user to remove all data for.
+     */
+    public function removeUserData($user)
+    {
+        // Make sure we are being called by an admin.
+        if (!$GLOBALS['registry']->isAdmin()) {
+            throw new Horde_Exception_PermissionDenied(_("Permission denied"));
+        }
+
+        $GLOBALS['injector']
+            ->getInstance('Turba_Shares')
+            ->removeShare($this->_share);
+        unset($this->_share);
     }
 
     /**
