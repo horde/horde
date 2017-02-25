@@ -105,7 +105,7 @@ class Horde_Variables implements ArrayAccess, Countable, IteratorAggregate
      */
     public function exists($varname)
     {
-        return isset($this->$varname);
+        return $this->__isset($varname);
     }
 
     /**
