@@ -455,20 +455,28 @@ class Turba
      *
      * @param array $sources  The default $cfgSources array.
      * @param boolean $owner  Only return shares that the current user owns?
+     * @param array $options  An array of options:
+     *        - shares: Use this list of provided shares. Default is to get the
+     *                  list from the share system using the current user.
+     *        - auth_user: Use this as the authenticated user name.
      *
      * @return array  The $cfgSources array.
      */
-    static public function getConfigFromShares(array $sources, $owner = false)
+    public static function getConfigFromShares(array $sources, $owner = false, $options = array())
     {
         global $notification, $registry, $conf, $injector, $prefs;
 
-        try {
-            $shares = self::listShares($owner);
-        } catch (Horde_Share_Exception $e) {
-            // Notify the user if we failed, but still return the $cfgSource
-            // array.
-            $notification->push($e, 'horde.error');
-            return $sources;
+        if (empty($options['shares'])) {
+            try {
+                $shares = self::listShares($owner);
+            } catch (Horde_Share_Exception $e) {
+                // Notify the user if we failed, but still return the $cfgSource
+                // array.
+                $notification->push($e, 'horde.error');
+                return $sources;
+            }
+        } else {
+            $shares = $options['shares'];
         }
 
         /* See if any of our sources are configured to handle all otherwise
@@ -481,7 +489,12 @@ class Turba
             }
         }
 
-        $auth_user = $registry->getAuth();
+        if (empty($options['auth_user'])) {
+            $auth_user = $registry->getAuth();
+        } else {
+            $auth_user = $options['auth_user'];
+        }
+
         $sortedSources = $vbooks = array();
         $personal = false;
 

@@ -386,12 +386,18 @@ class Turba_Application extends Horde_Registry_Application
         );
 
         // Look for the deleted user's shares and remove them
+        $sources = Turba::getConfigFromShares(
+            $cfgSources,
+            true,
+            array('shares' => $shares, 'auth_user' => $user)
+        );
+
         foreach ($shares as $share) {
-            $config = Turba::getSourceFromShare($share);
+            $config = $sources[$share->getName()];
             try {
                 $driver = $GLOBALS['injector']
                     ->getInstance('Turba_Factory_Driver')
-                    ->create($config, $share->getName());
+                    ->create($config, $share->getName(), $sources);
             } catch (Turba_Exception $e) {
                 continue;
             }
