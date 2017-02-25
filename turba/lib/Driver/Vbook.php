@@ -44,8 +44,6 @@ class Turba_Driver_Vbook extends Turba_Driver
      *        - source: The configuration array of the parent source or the
      *                  source name of parent source in the global cfgSources
      *                  array.
-     *       - source_name: If providing the configuration array in 'source',
-     *                      this is the source name to use for the parent source.
      */
     public function __construct($name = '', array $params = array())
     {

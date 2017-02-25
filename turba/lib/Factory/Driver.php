@@ -102,7 +102,6 @@ class Turba_Factory_Driver extends Horde_Core_Factory_Base
                 break;
 
             case 'Turba_Driver_Vbook':
-                // $srcConfig['params']['source_name'] = $srcConfig['params']['source'];
                 $srcConfig['params']['source'] = $cfgSources[$srcConfig['params']['source']];
                 break;
             }
