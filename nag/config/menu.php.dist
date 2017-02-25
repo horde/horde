@@ -27,13 +27,25 @@
  *      'onclick' =>    ''
  *  );
  *
- * You can also add a "separator" (a spacer) between menu items.  To add a
- * separator, simply add a new string to the $_menu array set to the text
- * 'separator'.  It should look like this:
+ * To add items in a separate container, separated by line separators, use a
+ * unique 'container' property for each item to appear in the same container.
  *
- *  $_menu[] = 'separator';
+ * For example, the following two entries will appear in the same container:
  *
- * $Id$
+ *  $_menu[] = array(
+ *      'url' =>        'http://www.example.com/',
+ *      'text' =>       'Example, Inc.',
+ *      'icon' =>       'example.png',
+ *      'icon_path' =>  'http://www.example.com/images/',
+ *      'target' =>     '_blank',
+ *      'container' =>  'mylinks'
+ *  );
+ *  $_menu[] = array(
+ *      'url' =>        'http://www.another-example.com/',
+ *      'text' =>       'Another Example, Inc.',
+ *      'target' =>     '_blank',
+ *      'container' =>  'mylinks'
+ *  );
  */
 
 $_menu = array();
