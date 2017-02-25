@@ -65,6 +65,8 @@ class Horde_Menu
      * 'target' - (string) HREF target parameter.
      * 'text' - (string) Label.
      * 'url' - (string) Hyperlink.
+     * 'container' - (string) Name of sidebar container to add to, if not the
+     *               default.
      * </pre>
      */
     public function addArray($item)
@@ -86,7 +88,8 @@ class Horde_Menu
             'icon_path' => null,
             'onclick' => null,
             'target' => '',
-            'text' => ''
+            'text' => '',
+            'container' => '',
         ), $item);
     }
 
@@ -148,7 +151,11 @@ class Horde_Menu
                 $row['class'] = $m['class'];
             }
 
-            $sidebar->addRow($row);
+            $container = !empty($m['container'])
+                ? $m['container']
+                : '';
+
+            $sidebar->addRow($row, $container);
         }
 
         return $sidebar;
