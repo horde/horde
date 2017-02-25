@@ -2,6 +2,8 @@
 v4.2.19-git
 -----------
 
+[mjr] Fix removing virtual address books when calling the removeUserData API
+      (Bug #14577).
 [jan] Fix fatal error if group contacts from an LDAP server don't exist
       anymore.
 
