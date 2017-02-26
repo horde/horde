@@ -1086,7 +1086,7 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
         }
 
         // Initialize the state
-        $this->_logger->meta(sprintf(
+        $this->_logger->info(sprintf(
             'COLLECTIONS: Initializing state for collection: %s, synckey: %s',
             $collection['serverid'],
             $collection['synckey'])
@@ -1117,7 +1117,7 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
         $started = time();
         $until = $started + $heartbeat;
 
-        $this->_logger->meta(sprintf(
+        $this->_logger->info(sprintf(
             'COLLECTIONS: Waiting for changes for %s seconds',
             $heartbeat)
         );
@@ -1269,7 +1269,7 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
             }
 
             if (!empty($dataavailable)) {
-                $this->_logger->meta('COLLECTIONS: Found changes!');
+                $this->_logger->info('COLLECTIONS: Found changes!');
                 break;
             }
 
