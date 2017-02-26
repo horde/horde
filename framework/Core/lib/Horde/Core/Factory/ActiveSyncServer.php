@@ -27,8 +27,8 @@ class Horde_Core_Factory_ActiveSyncServer extends Horde_Core_Factory_Injector
         // @todo Remove this BC level mapping for H6.
         if (!empty($conf['activesync']['logging']['level'])) {
             $level = ($conf['activesync']['logging']['level'] == Horde_ActiveSync_Wbxml::LOG_PROTOCOL)
-                ? Horde_ActiveSync_Logger::META
-                : Horde_ActiveSync_Logger::CLIENT;
+                ? Horde_ActiveSync_Log_Logger::META
+                : Horde_ActiveSync_Log_Logger::CLIENT;
         } else {
             $level = null;
         }
