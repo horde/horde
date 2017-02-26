@@ -1306,7 +1306,10 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
     protected function _sleep($interval)
     {
         // Wait.
-        $this->_logger->meta(sprintf('COLLECTIONS: Sleeping for %s seconds.', $interval));
+        $this->_logger->info(sprintf(
+            '%sCOLLECTIONS: Sleeping for %s seconds.',
+            str_repeat('-', 10),
+            $interval));
 
         // Close any backend connections.
         $this->_cache->state->disconnect();
