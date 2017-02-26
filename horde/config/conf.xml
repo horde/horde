@@ -2478,7 +2478,7 @@
       between checks for changes? Increasing this value will cause the server
       to wait longer between checks for changes during the heartbeat,
       essentially reducing the number of checks done during each heartbeat.
-      Lowering this value will increase the number of checks that are down
+      Lowering this value will increase the number of checks that are done
       during each heartbeat.">15</configinteger>
       <configheader>Maximum Collection Window Size</configheader>
       <configdescription>The Maximum Collection Window Size specifies the
