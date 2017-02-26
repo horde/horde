@@ -72,6 +72,7 @@ class Horde_LoginTasks_Task_UpgradeCheck extends Horde_LoginTasks_Task
 
         $configLink = Horde::link(
             Horde::url('admin/config/index.php', false, array('app' => 'horde'))
+                ->add('check_versions', 1)
         );
         if (class_exists('Horde_Bundle') &&
             isset($versions[Horde_Bundle::NAME]) &&
