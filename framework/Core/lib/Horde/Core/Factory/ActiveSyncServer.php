@@ -23,9 +23,20 @@ class Horde_Core_Factory_ActiveSyncServer extends Horde_Core_Factory_Injector
             $injector->getInstance('Horde_Controller_Request')
         );
         $server->setSupportedVersion($conf['activesync']['version']);
+
+        // @todo Remove this BC level mapping for H6.
+        if (!empty($conf['activesync']['logging']['level'])) {
+            $level = ($conf['activesync']['logging']['level'] == Horde_ActiveSync_Wbxml::LOG_PROTOCOL)
+                ? Horde_ActiveSync_Logger::META
+                : Horde_ActiveSync_Logger::CLIENT;
+        } else {
+            $level = null;
+        }
+
         $server->setLogger(new Horde_ActiveSync_Log_Factory(array(
             'type' => $conf['activesync']['logging']['type'],
-            'path' => $conf['activesync']['logging']['path']))
+            'path' => $conf['activesync']['logging']['path'],
+            'level' => $level))
         );
         if (!empty($conf['openssl']['cafile'])) {
             $server->setRootCertificatePath($conf['openssl']['cafile']);
