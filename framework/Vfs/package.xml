@@ -29,7 +29,7 @@ Reading, writing and listing of files are all supported.</description>
  </lead>
  <date>2017-02-27</date>
  <version>
-  <release>2.4.0</release>
+  <release>2.4.1</release>
   <api>2.4.0</api>
  </version>
  <stability>
@@ -38,8 +38,7 @@ Reading, writing and listing of files are all supported.</description>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Allow Horde_Vfs::writeData() to accept stream input.
-* [jan] Fix retrieving files from root folder with SQL backends (Bug #14545).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1314,6 +1313,19 @@ Added a class for providing garbage collection; removed all Horde dependancies.
    <notes>
 * [mjr] Allow Horde_Vfs::writeData() to accept stream input.
 * [jan] Fix retrieving files from root folder with SQL backends (Bug #14545).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.4.1</release>
+    <api>2.4.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2017-02-27</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
