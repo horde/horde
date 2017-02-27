@@ -1,14 +1,6 @@
------------
-v6.2.18-git
------------
-
-[jan] Correctly use preference to save attachments with sent messages in mobile
-      modes (Bug #14571).
-
-
--------
-v6.2.17
--------
+----------
+v7.0.0-git
+----------
 
 [jan] Allow to specify a secondary S/MIME certificate for signatures only.
 [jan] Find logged replies in other than default sent-mail folders too.
@@ -86,6 +78,28 @@ v6.2.17
 [mms] Add button to allow folder tree to be rebuilt in smartmobile view.
 [mms] Add option to poll mailbox for new mailbox when creating a mailbox
       (Request #13227).
+
+-----------
+v6.2.18-git
+-----------
+
+[jan] Catch errors when converting email address to IDNA.
+[jan] Correctly use preference to save attachments with sent messages in mobile
+      modes (Bug #14571).
+
+
+-------
+v6.2.17
+-------
+
+[jan] Update German translation.
+[jan] Update Greek translation.
+[mjr] Fix issue when forwarding an email to multiple recipients in Mobile view
+      (Bug #14060).
+[jan] Fix iTip MIME viewer actions if attachment type hasn't been specified.
+[mjr] Add option to reload folder tree when fetching via the API.
+[jan] Update preview cache after permanently unblocking images from a sender
+      (Bug #14446).
 
 
 -------
