@@ -89,7 +89,8 @@ abstract class Horde_Translation_Autodetect extends Horde_Translation
         $className = get_called_class();
         $class = new ReflectionClass($className);
         $basedir = dirname($class->getFilename());
-        $depth = substr_count($className, '_');
+        $depth = substr_count($className, '\\')
+            ?: substr_count($className, '_');
 
         return array(
             /* Composer */
