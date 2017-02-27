@@ -115,7 +115,7 @@ class Php4Constructor extends Rule
                     $start, $this->_tokens->key() - $start
                 );
                 $function = $function->splice(0, 0, array("\n\n    "));
-                $function->append('    $this->__construct(');
+                $function->append('$this->__construct(');
 
                 // Transfer function parameters.
                 $this->_tokens->seek($ctor4);
