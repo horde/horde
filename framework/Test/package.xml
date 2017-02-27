@@ -16,7 +16,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2017-02-11</date>
+ <date>2017-02-27</date>
  <version>
   <release>2.6.2</release>
   <api>2.6.0</api>
@@ -2530,7 +2530,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-02-11</date>
+   <date>2017-02-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Update to PHPUnit 4.8.35 and dependencies.
