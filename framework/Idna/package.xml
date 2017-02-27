@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2017-01-24</date>
+ <date>2017-02-27</date>
  <version>
   <release>1.1.0</release>
   <api>1.1.0</api>
@@ -32,6 +32,7 @@
       <file name="UPGRADING" role="doc" />
      </dir> <!-- /doc/Horde/Idna -->
     </dir> <!-- /doc/Horde -->
+    <file name="horde.yml" role="doc" />
    </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
@@ -45,6 +46,15 @@
      <file name="Idna.php" role="php" />
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
+   <dir name="locale">
+    <dir name="de">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Idna.mo" role="data" />
+      <file name="Horde_Idna.po" role="data" />
+     </dir> <!-- /locale/de/LC_MESSAGES -->
+    </dir> <!-- /locale/de -->
+    <file name="Horde_Idna.pot" role="data" />
+   </dir> <!-- /locale -->
    <dir name="test">
     <dir name="Horde">
      <dir name="Idna">
@@ -90,12 +100,16 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="horde.yml" name="doc/horde.yml" />
    <install as="COPYING" name="doc/Horde/Idna/COPYING" />
    <install as="UPGRADING" name="doc/Horde/Idna/UPGRADING" />
    <install as="Horde/Idna.php" name="lib/Horde/Idna.php" />
    <install as="Horde/Idna/Exception.php" name="lib/Horde/Idna/Exception.php" />
    <install as="Horde/Idna/Punycode.php" name="lib/Horde/Idna/Punycode.php" />
    <install as="Horde/Idna/Translation.php" name="lib/Horde/Idna/Translation.php" />
+   <install as="locale/Horde_Idna.pot" name="locale/Horde_Idna.pot" />
+   <install as="locale/de/LC_MESSAGES/Horde_Idna.mo" name="locale/de/LC_MESSAGES/Horde_Idna.mo" />
+   <install as="locale/de/LC_MESSAGES/Horde_Idna.po" name="locale/de/LC_MESSAGES/Horde_Idna.po" />
    <install as="Horde/Idna/AllTests.php" name="test/Horde/Idna/AllTests.php" />
    <install as="Horde/Idna/bootstrap.php" name="test/Horde/Idna/bootstrap.php" />
    <install as="Horde/Idna/IdnaTest.php" name="test/Horde/Idna/IdnaTest.php" />
@@ -177,7 +191,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-01-24</date>
+   <date>2017-02-27</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [jan] Check for errors when using UTS #46 algorithm.
