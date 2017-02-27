@@ -1,0 +1,28 @@
+# German translations for Horde_Refactor package.
+# Copyright (C) 2017 Horde LLC (http://www.horde.org/)
+# This file is distributed under the same license as the Horde_Refactor package.
+# Automatically generated, 2017.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_Refactor\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2017-02-27 11:27+0100\n"
+"PO-Revision-Date: 2017-02-27 11:27+0100\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: i18n@lists.horde.org\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: lib/Horde/Refactor/Exception/NotFound.php:44
+#, fuzzy, php-format
+msgid "Token \"%s\" Not Found"
+msgstr "Vorlage \"%s\" nicht gefunden."
+
+#: lib/Horde/Refactor/Exception/UnexpectedToken.php:44
+#, php-format
+msgid "Unexpected Token \"%s\""
+msgstr ""

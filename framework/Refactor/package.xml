@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Horde_Refactor</name>
+ <channel>pear.horde.org</channel>
+ <summary>TODO</summary>
+ <description>TODO</description>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2017-02-27</date>
+ <version>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0alpha1</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="TODO">TODO</license>
+ <notes>
+* Initial release.
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <dir name="bin">
+    <file name="horde-refactor" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+   </dir> <!-- /bin -->
+   <dir name="docs">
+    <dir name="Horde">
+     <dir name="Refactor">
+      <file name="LICENSE" role="php" />
+     </dir> <!-- /docs/Horde/Refactor -->
+    </dir> <!-- /docs/Horde -->
+   </dir> <!-- /docs -->
+   <dir name="lib">
+    <dir name="Horde">
+     <dir name="Refactor">
+      <dir name="Exception">
+       <file name="NotFound.php" role="php" />
+       <file name="UnexpectedToken.php" role="php" />
+      </dir> <!-- /lib/Horde/Refactor/Exception -->
+      <dir name="Rule">
+       <file name="Php4Constructor.php" role="php" />
+      </dir> <!-- /lib/Horde/Refactor/Rule -->
+      <file name="Cli.php" role="php" />
+      <file name="Regexp.php" role="php" />
+      <file name="Rule.php" role="php" />
+      <file name="Tokens.php" role="php" />
+      <file name="Translation.php" role="php">
+       <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
+      </file>
+     </dir> <!-- /lib/Horde/Refactor -->
+    </dir> <!-- /lib/Horde -->
+   </dir> <!-- /lib -->
+   <dir name="locale">
+    <dir name="de">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Refactor.po" role="data" />
+     </dir> <!-- /locale/de/LC_MESSAGES -->
+    </dir> <!-- /locale/de -->
+    <file name="Horde_Refactor.pot" role="data" />
+   </dir> <!-- /locale -->
+   <file name="Test.php" role="php" />
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.4.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.7.0</min>
+   </pearinstaller>
+   <package>
+    <name>Horde_Exception</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Translation</name>
+    <channel>pear.horde.org</channel>
+    <min>2.2.2</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+  </required>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install as="" name="Test.php" />
+   <install as="horde-refactor" name="bin/horde-refactor" />
+   <install as="Horde/Refactor/LICENSE" name="docs/Horde/Refactor/LICENSE" />
+   <install as="Horde/Refactor/Cli.php" name="lib/Horde/Refactor/Cli.php" />
+   <install as="Horde/Refactor/Regexp.php" name="lib/Horde/Refactor/Regexp.php" />
+   <install as="Horde/Refactor/Rule.php" name="lib/Horde/Refactor/Rule.php" />
+   <install as="Horde/Refactor/Tokens.php" name="lib/Horde/Refactor/Tokens.php" />
+   <install as="Horde/Refactor/Translation.php" name="lib/Horde/Refactor/Translation.php" />
+   <install as="Horde/Refactor/Exception/NotFound.php" name="lib/Horde/Refactor/Exception/NotFound.php" />
+   <install as="Horde/Refactor/Exception/UnexpectedToken.php" name="lib/Horde/Refactor/Exception/UnexpectedToken.php" />
+   <install as="Horde/Refactor/Rule/Php4Constructor.php" name="lib/Horde/Refactor/Rule/Php4Constructor.php" />
+   <install as="locale/Horde_Refactor.pot" name="locale/Horde_Refactor.pot" />
+   <install as="locale/de/LC_MESSAGES/Horde_Refactor.po" name="locale/de/LC_MESSAGES/Horde_Refactor.po" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0alpha1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2017-02-27</date>
+   <license uri="TODO">TODO</license>
+   <notes>
+* Initial release.
+   </notes>
+  </release>
+ </changelog>
+</package>
