@@ -17,7 +17,7 @@
   <email>mike@maintainable.com</email>
   <active>yes</active>
  </lead>
- <date>2016-04-05</date>
+ <date>2017-02-27</date>
  <version>
   <release>2.3.0</release>
   <api>1.3.0</api>
@@ -38,6 +38,7 @@
       <file name="COPYING" role="doc" />
      </dir> <!-- /doc/Horde/Log -->
     </dir> <!-- /doc/Horde -->
+    <file name="horde.yml" role="doc" />
    </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
@@ -162,6 +163,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="horde.yml" name="doc/horde.yml" />
    <install as="COPYING" name="doc/Horde/Log/COPYING" />
    <install as="Horde/Log.php" name="lib/Horde/Log.php" />
    <install as="Horde/Log/Exception.php" name="lib/Horde/Log/Exception.php" />
@@ -442,7 +444,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-04-05</date>
+   <date>2017-02-27</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [mjr] Use protected member variables to facilitate extending the Horde_Log_Logger class.

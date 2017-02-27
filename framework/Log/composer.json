@@ -16,12 +16,12 @@
             "role": "lead"
         }
     ],
-    "version": "2.2.0",
-    "time": "2016-04-05",
+    "version": "2.3.0",
+    "time": "2017-02-27",
     "repositories": [
         {
             "type": "pear",
-            "url": "https://pear.horde.org"
+            "url": "http://pear.horde.org"
         }
     ],
     "require": {
