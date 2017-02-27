@@ -24,7 +24,7 @@
  </lead>
  <date>2017-02-27</date>
  <version>
-  <release>2.8.1</release>
+  <release>2.8.2</release>
   <api>2.8.0</api>
  </version>
  <stability>
@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Fix PostgreSQL backend with newer Horde_Db version.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1229,6 +1229,19 @@ Initial release as a PEAR package
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix PostgreSQL backend with newer Horde_Db version.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.8.2</release>
+    <api>2.8.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2017-02-27</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
