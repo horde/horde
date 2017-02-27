@@ -1,28 +1,28 @@
 <?php
 
 /**
-* 
+*
 * Parses for wiki freelink text.
-* 
+*
 * @category Text
-* 
+*
 * @package Text_Wiki
-* 
+*
 * @author Paul M. Jones <pmjones@php.net>
-* 
+*
 * @license LGPL
-* 
+*
 * @version $Id$
-* 
+*
 */
 
 /**
-* 
+*
 * Parses for freelinked page links.
-* 
+*
 * This class implements a Text_Wiki_Parse to find source text marked as a
 * wiki freelink, and automatically create a link to that page.
-* 
+*
 * A freelink is any page name not conforming to the standard
 * StudlyCapsStyle for a wiki page name.  For example, a page normally
 * named MyHomePage can be renamed and referred to as ((My Home Page)) --
@@ -32,33 +32,33 @@
 * ((MyHomePage|My Home Page#Section1)).
 *
 * @category Text
-* 
+*
 * @package Text_Wiki
-* 
+*
 * @author Paul M. Jones <pmjones@php.net>
-* 
+*
 */
 
 class Text_Wiki_Parse_Freelink extends Text_Wiki_Parse {
-    
+
     var $conf = array (
                        'utf-8' => false
     );
-    
+
     /**
-    * 
+    *
     * Constructor.  We override the Text_Wiki_Parse constructor so we can
     * explicitly comment each part of the $regex property.
-    * 
+    *
     * @access public
-    * 
+    *
     * @param object &$obj The calling "parent" Text_Wiki object.
-    * 
+    *
     */
-    
-    function Text_Wiki_Parse_Freelink(&$obj)
+
+    function __construct(&$obj)
     {
-        parent::Text_Wiki_Parse($obj);
+        parent::__construct($obj);
         if ($this->getConf('utf-8')) {
             $any = '\p{L}';
         } else {
@@ -82,19 +82,35 @@ class Text_Wiki_Parse_Freelink extends Text_Wiki_Parse {
             "()\\)\\)" .                                           // double close-parens
             '/'.($this->getConf('utf-8') ? 'u' : '');              // END regex
     }
-    
-    
+
     /**
-    * 
+    *
+    * Constructor.  We override the Text_Wiki_Parse_Default constructor so we can
+    * explicitly comment each part of the $regex property.
+    *
+    * @access public
+    *
+    * @param object &$obj The calling "parent" Text_Wiki object.
+    *
+    */
+
+    function Text_Wiki_Parse_Default_Freelink(&$obj)
+    {
+        $this->__construct($obj);
+    }
+
+
+    /**
+    *
     * Generates a replacement for the matched text.  Token options are:
-    * 
+    *
     * 'page' => the wiki page name (e.g., HomePage).
-    * 
+    *
     * 'text' => alternative text to be displayed in place of the wiki
     * page name.
-    * 
+    *
     * 'anchor' => a named anchor on the target wiki page
-    * 
+    *
     * @access public
     *
     * @param array &$matches The array of matches from parse().
@@ -103,14 +119,14 @@ class Text_Wiki_Parse_Freelink extends Text_Wiki_Parse {
     * the source text, plus any text priot to the match.
     *
     */
-    
+
     function process(&$matches)
     {
         // use nice variable names
         $page = $matches[1];
         $text = $matches[2];
         $anchor = $matches[3];
-        
+
         // is the page given a new text appearance?
         if (trim($text) == '') {
             // no
@@ -119,14 +135,14 @@ class Text_Wiki_Parse_Freelink extends Text_Wiki_Parse {
             // yes, strip the leading | character
             $text = substr($text, 1);
         }
-        
+
         // set the options
         $options = array(
             'page'   => $page,
             'text'   => $text,
             'anchor' => $anchor
         );
-        
+
         // return a token placeholder
         return $this->wiki->addToken($this->rule, $options);
     }

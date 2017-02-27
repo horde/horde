@@ -90,7 +90,7 @@ class Text_Wiki_Render {
     *
     */
 
-    function Text_Wiki_Render(&$obj)
+    function __construct(&$obj)
     {
         // keep a reference to the calling Text_Wiki object
         $this->wiki =& $obj;
@@ -133,6 +133,22 @@ class Text_Wiki_Render {
                 $this->wiki->renderConf[$this->format][$this->rule]
             );
         }
+    }
+
+
+    /**
+    *
+    * Constructor for this render format or rule.
+    *
+    * @access public
+    *
+    * @param object &$obj The calling "parent" Text_Wiki object.
+    *
+    */
+
+    function Text_Wiki_Render(&$obj)
+    {
+        $this->__construct($obj);
     }
 
 

@@ -85,9 +85,9 @@ class Text_Wiki_Render_Docbook_Heading extends Text_Wiki_Render {
      * @return The render object
      * @access public
      */
-    function Text_Wiki_Render_Docbook_Heading(&$obj)
+    function __construct(&$obj)
     {
-        parent::Text_Wiki_Render($obj);
+        parent::__construct($obj);
         $max = 0;
         foreach ($this->wiki->getTokens('Heading') as $key => $val) {
             if ($val[1]['type'] == 'start') {
@@ -146,6 +146,22 @@ class Text_Wiki_Render_Docbook_Heading extends Text_Wiki_Render {
         // clean stack
         $this->_stack = array();
         $this->_level = -1;
+    }
+
+    /**
+     * Constructor.
+     * We override the constructor to pre-process the heading tokens
+     * - to correct levels as sequential 
+     * - mark the terminal ones
+     * - prepare the actual sections to be used
+     *
+     * @param object &$obj the base conversion handler
+     * @return The render object
+     * @access public
+     */
+    function Text_Wiki_Render_Docbook_Heading(&$obj)
+    {
+        $this->__construct($obj);
     }
 
      /**
