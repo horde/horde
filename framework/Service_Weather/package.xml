@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-12-10</date>
+ <date>2017-02-27</date>
  <version>
   <release>2.5.4</release>
   <api>1.5.0</api>
@@ -37,6 +37,7 @@
       </dir> <!-- /doc/Horde/Service/Weather -->
      </dir> <!-- /doc/Horde/Service -->
     </dir> <!-- /doc/Horde -->
+    <file name="horde.yml" role="doc" />
    </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
@@ -365,6 +366,7 @@
  <phprelease>
   <filelist>
    <install as="horde-service-weather-metar-database" name="bin/horde-service-weather-metar-database" />
+   <install as="horde.yml" name="doc/horde.yml" />
    <install as="COPYING" name="doc/Horde/Service/Weather/COPYING" />
    <install as="UPGRADING" name="doc/Horde/Service/Weather/UPGRADING" />
    <install as="Horde/Service/Weather.php" name="lib/Horde/Service/Weather.php" />
@@ -1047,7 +1049,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-12-10</date>
+   <date>2017-02-27</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [jan] Fix regression with PHP &lt; 5.5.
