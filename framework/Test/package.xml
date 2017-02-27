@@ -18,7 +18,7 @@
  </lead>
  <date>2017-02-27</date>
  <version>
-  <release>2.6.2</release>
+  <release>2.6.3</release>
   <api>2.6.0</api>
  </version>
  <stability>
@@ -27,8 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Update to PHPUnit 4.8.35 and dependencies.
-* [jan] Colorize PHPUnit output.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2535,6 +2534,19 @@
    <notes>
 * [jan] Update to PHPUnit 4.8.35 and dependencies.
 * [jan] Colorize PHPUnit output.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.6.3</release>
+    <api>2.6.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2017-02-27</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
