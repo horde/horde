@@ -24,7 +24,7 @@
  </developer>
  <date>2017-02-27</date>
  <version>
-  <release>2.2.0</release>
+  <release>2.2.1</release>
   <api>2.2.0</api>
  </version>
  <stability>
@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* [jan] Add Horde_Backtrace#createFromThrowable() to support PHP 7 error objects too.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -519,6 +519,19 @@
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [jan] Add Horde_Backtrace#createFromThrowable() to support PHP 7 error objects too.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.1</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2017-02-27</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
