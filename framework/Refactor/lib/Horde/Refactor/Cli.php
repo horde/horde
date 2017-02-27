@@ -103,6 +103,7 @@ class Cli
             }
             if ($options->update) {
                 file_put_contents($file, $rule->dump());
+                echo "Updated file\n";
             } else {
                 $diff = new \Horde_Text_Diff(
                     'auto',
