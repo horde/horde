@@ -23,7 +23,7 @@ owns or has access to.</description>
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-09-01</date>
+ <date>2017-02-27</date>
  <version>
   <release>2.1.2</release>
   <api>1.4.0</api>
@@ -44,6 +44,7 @@ owns or has access to.</description>
       <file name="COPYING" role="doc" />
      </dir> <!-- /doc/Horde/Share -->
     </dir> <!-- /doc/Horde -->
+    <file name="horde.yml" role="doc" />
    </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
@@ -454,6 +455,7 @@ owns or has access to.</description>
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="horde.yml" name="doc/horde.yml" />
    <install as="COPYING" name="doc/Horde/Share/COPYING" />
    <install as="Horde/Share/Base.php" name="lib/Horde/Share/Base.php" />
    <install as="Horde/Share/Exception.php" name="lib/Horde/Share/Exception.php" />
@@ -1076,7 +1078,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-09-01</date>
+   <date>2017-02-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix removing custom permssions when removing a user or group from a share (Bug #14578).
