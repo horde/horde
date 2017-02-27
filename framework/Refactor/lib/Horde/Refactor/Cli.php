@@ -33,7 +33,7 @@ class Cli
     public static function main()
     {
         $parser = new Horde_Argv_Parser(
-            array('usage' => '%prog [OPTIONS] RefactoringFile.php RefactoringClass ...')
+            array('usage' => '%prog [OPTIONS] RefactoringFile.php RefactoringClass')
         );
         $parser->addOptions(
             array(
@@ -66,8 +66,7 @@ class Cli
         list($options, $arguments) = $parser->parseArgs();
 
         if ((!$options->file && !$options->directory) ||
-            !$arguments ||
-            count($arguments) % 2 == 1) {
+            count($arguments) != 2) {
             $parser->printHelp();
             return;
         }
@@ -75,17 +74,39 @@ class Cli
         if (!$options->update) {
             $renderer = new \Horde_Text_Diff_Renderer_Unified();
         }
-        for ($i = 0; $i < count($arguments); $i += 2) {
-            require $arguments[$i];
-            $class = 'Horde\\Refactor\\Rule\\' . $arguments[$i + 1];
-            $rule = new $class($options->file);
+        if ($options->file) {
+            $files = array($options->file);
+        } else {
+            $files = new \RecursiveIteratorIterator(
+                new \RecursiveDirectoryIterator(
+                    $options->directory,
+                    \FilesystemIterator::CURRENT_AS_PATHNAME
+                    | \FilesystemIterator::SKIP_DOTS
+                ),
+                \RecursiveIteratorIterator::LEAVES_ONLY
+            );
+        }
+
+        require $arguments[0];
+        $class = 'Horde\\Refactor\\Rule\\' . $arguments[1];
+
+        foreach ($files as $file) {
+            echo "Processing file $file\n";
+            $rule = new $class($file);
             $rule->run();
+            $original = file($file, FILE_IGNORE_NEW_LINES);
+            $refactored = explode("\n", trim($rule->dump()));
+            if (!array_diff($original, $refactored) &&
+                !array_diff($refactored, $original)) {
+                echo "Refactoring not necessary\n";
+                continue;
+            }
             if ($options->update) {
-                echo $rule->dump();
+                file_put_contents($file, $rule->dump());
             } else {
                 $diff = new \Horde_Text_Diff(
                     'auto',
-                    array(file($options->file), explode("\n", $rule->dump()))
+                    array($original, $refactored)
                 );
                 echo $renderer->render($diff);
             }
