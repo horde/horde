@@ -214,7 +214,11 @@ class Tokens extends \ArrayIterator
                 }
                 $level--;
             }
-            if ($this->current() === $bracket) {
+            if ($this->current() === $bracket ||
+                ($bracket == '{' && is_array($this->current()) &&
+                 ($this->current()[0] == T_CURLY_OPEN ||
+                  $this->current()[0] == T_DOLLAR_OPEN_CURLY_BRACES ||
+                  $this->current()[0] == T_STRING_VARNAME))) {
                 $level++;
             }
             if ($backward) {
