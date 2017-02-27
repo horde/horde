@@ -291,6 +291,29 @@ class Tokens extends \ArrayIterator
     }
 
     /**
+     * Returns whether the tokens starting from the current position match a
+     * certain sequence of tokens.
+     *
+     * @param array $tokens  A sequence of function arguments to matches().
+     *
+     * @return boolean  True if all tokens from the sequence match.
+     */
+    public function matchesAll(array $tokens)
+    {
+        $pos = $this->key();
+        while ($this->valid() &&
+               $token = array_shift($tokens)) {
+            if (!call_user_func_array(array($this, 'matches'), $token)) {
+                $this->seek($pos);
+                return false;
+            }
+            $this->next();
+        }
+        $this->seek($pos);
+        return true;
+    }
+
+    /**
      * Returns a slice of the tokens.
      *
      * @param integer $offset     Offset where to start the slice. See
