@@ -1532,7 +1532,7 @@ class Text_Wiki {
     *
     */
 
-    function &error($message)
+    function error($message)
     {
         if (! class_exists('PEAR_Error')) {
             include_once 'PEAR.php';
