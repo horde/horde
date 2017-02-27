@@ -43,6 +43,21 @@ class Php4Constructor extends Rule
                 throw new Exception\UnexpectedToken($this->_tokens->current());
             }
             $class = $this->_tokens->current()[1];
+            $extends = null;
+            while ($this->_tokens->valid()) {
+                if ($this->_tokens->matches('{')) {
+                    break;
+                }
+                if ($this->_tokens->matches(T_EXTENDS)) {
+                    $this->_tokens->skipWhitespace();
+                    if (!$this->_tokens->matches(T_STRING)) {
+                        throw new Exception\UnexpectedToken($this->_tokens->current());
+                    }
+                    $extends = $this->_tokens->current()[1];
+                    break;
+                }
+                $this->_tokens->next();
+            }
 
             // Find PHP 4 constructor.
             $start = $this->_tokens->key();
@@ -143,6 +158,20 @@ class Php4Constructor extends Rule
                 // Rewrite original constructor to PHP 5.
                 $this->_tokens->seek($ctor4);
                 $this->_tokens[$this->_tokens->key()] = '__construct';
+                while ($extends &&
+                       $this->_tokens->valid() &&
+                       $this->_tokens->key() < $end) {
+                    $sequence = array(
+                        array(T_STRING, 'parent'),
+                        array(T_DOUBLE_COLON),
+                        array(T_STRING, $extends),
+                    );
+                    if ($this->_tokens->matchesAll($sequence)) {
+                        $this->_tokens[$this->_tokens->key() + 2] = '__construct';
+                        break;
+                    }
+                    $this->_tokens->next();
+                }
             }
         }
     }
