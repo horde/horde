@@ -16,8 +16,8 @@
             "role": "lead"
         }
     ],
-    "version": "2.3.4",
-    "time": "2016-12-03",
+    "version": "2.4.0",
+    "time": "2017-02-27",
     "repositories": [
         {
             "type": "pear",
@@ -33,7 +33,7 @@
     "suggest": {
         "pear-pear.horde.org/Horde_Auth": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Core": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Db": ">=2.2.0@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Db": ">=2.4.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Kolab_Session": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Mime": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Mongo": ">=1.0.0@stable,<=2.0.0alpha1@stable",

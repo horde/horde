@@ -27,7 +27,7 @@ Reading, writing and listing of files are all supported.</description>
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-12-03</date>
+ <date>2017-02-27</date>
  <version>
   <release>2.4.0</release>
   <api>2.4.0</api>
@@ -55,6 +55,7 @@ Reading, writing and listing of files are all supported.</description>
       <file name="UPGRADING" role="doc" />
      </dir> <!-- /doc/Horde/Vfs -->
     </dir> <!-- /doc/Horde -->
+    <file name="horde.yml" role="doc" />
    </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
@@ -491,6 +492,7 @@ Reading, writing and listing of files are all supported.</description>
  <phprelease>
   <filelist>
    <install as="horde-vfs" name="bin/horde-vfs" />
+   <install as="horde.yml" name="doc/horde.yml" />
    <install as="COPYING" name="doc/Horde/Vfs/COPYING" />
    <install as="UPGRADING" name="doc/Horde/Vfs/UPGRADING" />
    <install as="Horde/Vfs.php" name="lib/Horde/Vfs.php" />
@@ -1307,7 +1309,7 @@ Added a class for providing garbage collection; removed all Horde dependancies.
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-12-03</date>
+   <date>2017-02-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Allow Horde_Vfs::writeData() to accept stream input.
