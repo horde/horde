@@ -16,7 +16,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-08-31</date>
+ <date>2017-02-27</date>
  <version>
   <release>2.5.5</release>
   <api>2.5.0</api>
@@ -37,6 +37,7 @@
       <file name="COPYING" role="doc" />
      </dir> <!-- /doc/Horde/Cache -->
     </dir> <!-- /doc/Horde -->
+    <file name="horde.yml" role="doc" />
    </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
@@ -197,6 +198,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="horde.yml" name="doc/horde.yml" />
    <install as="COPYING" name="doc/Horde/Cache/COPYING" />
    <install as="Horde/Cache.php" name="lib/Horde/Cache.php" />
    <install as="Horde/Cache/Exception.php" name="lib/Horde/Cache/Exception.php" />
@@ -699,7 +701,7 @@ Initial packaging.
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-08-31</date>
+   <date>2017-02-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix MongoDB backend with mongodb extension.
