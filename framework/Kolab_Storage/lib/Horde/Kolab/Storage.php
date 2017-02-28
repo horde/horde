@@ -1,14 +1,14 @@
 <?php
 /**
- * A library for accessing a Kolab storage (usually IMAP).
+ * Copyright 2004-2017 Horde LLC (http://www.horde.org/)
  *
- * PHP version 5
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Kolab
  * @package  Kolab_Storage
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 
 /**
@@ -37,16 +37,10 @@
  *     $folder = Horde_Kolab_Storage::getShareData(Auth::getAuth(), 'event');
  *   </code>
  *
- * Copyright 2004-2017 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
- *
  * @category Kolab
  * @package  Kolab_Storage
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 interface Horde_Kolab_Storage
 {
@@ -56,8 +50,9 @@ interface Horde_Kolab_Storage
     /**
      * Get the folder list object.
      *
-     * @return Horde_Kolab_Storage_List The handler for the list of folders
-     *                                  present in the Kolab backend.
+     * @return Horde_Kolab_Storage_List_Tools  The handler for the list of
+     *                                         folders present in the Kolab
+     *                                         backend.
      */
     public function getList();
 
@@ -66,8 +61,9 @@ interface Horde_Kolab_Storage
      *
      * @param string $type The type of system user.
      *
-     * @return Horde_Kolab_Storage_List The handler for the list of folders
-     *                                  present in the Kolab backend.
+     * @return Horde_Kolab_Storage_List_Tools  The handler for the list of
+     *                                         folders present in the Kolab
+     *                                         backend.
      */
     public function getSystemList($type);
 

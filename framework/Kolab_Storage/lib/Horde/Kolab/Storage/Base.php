@@ -1,19 +1,5 @@
 <?php
 /**
- * The basis for Kolab storage access.
- *
- * PHP version 5
- *
- * @category Kolab
- * @package  Kolab_Storage
- * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link     http://pear.horde.org/index.php?package=Kolab_Storage
- */
-
-/**
- * The basis for Kolab storage access.
- *
  * Copyright 2004-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
@@ -23,7 +9,15 @@
  * @package  Kolab_Storage
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link     http://pear.horde.org/index.php?package=Kolab_Storage
+ */
+
+/**
+ * The basis for Kolab storage access.
+ *
+ * @category Kolab
+ * @package  Kolab_Storage
+ * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  */
 abstract class Horde_Kolab_Storage_Base
 implements Horde_Kolab_Storage
@@ -115,8 +109,9 @@ implements Horde_Kolab_Storage
      *
      * @param string $type The type of system user.
      *
-     * @return Horde_Kolab_Storage_List The handler for the list of folders
-     *                                  present in the Kolab backend.
+     * @return Horde_Kolab_Storage_List_Tools  The handler for the list of
+     *                                         folders present in the Kolab
+     *                                         backend.
      */
     public function getSystemList($type)
     {
@@ -143,8 +138,9 @@ implements Horde_Kolab_Storage
      * @params Horde_Kolab_Storage_Driver $driver Optional driver as backend
      *                                            for the list.
      *
-     * @return Horde_Kolab_Storage_List The handler for the list of folders
-     *                                  present in the Kolab backend.
+     * @return Horde_Kolab_Storage_List_Tools  The handler for the list of
+     *                                         folders present in the Kolab
+     *                                         backend.
      */
     public function getList(Horde_Kolab_Storage_Driver $driver = null)
     {

@@ -1,19 +1,5 @@
 <?php
 /**
- * Manages and provides the toolset available for dealing with the list of Kolab folders.
- *
- * PHP version 5
- *
- * @category Kolab
- * @package  Kolab_Storage
- * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link     http://pear.horde.org/index.php?package=Kolab_Storage
- */
-
-/**
- * Manages and provides the toolset available for dealing with the list of Kolab folders.
- *
  * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
@@ -23,7 +9,16 @@
  * @package  Kolab_Storage
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link     http://pear.horde.org/index.php?package=Kolab_Storage
+ */
+
+/**
+ * Manages and provides the toolset available for dealing with the list of
+ * Kolab folders.
+ *
+ * @category Kolab
+ * @package  Kolab_Storage
+ * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  */
 class Horde_Kolab_Storage_List_Tools
 {
