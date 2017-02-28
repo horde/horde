@@ -27,7 +27,7 @@
  */
 class Horde_Date_Recurrence
 {
-    /** No Recurrence **/
+    /** No Recurrence */
     const RECUR_NONE = 0;
 
     /** Recurs daily. */
