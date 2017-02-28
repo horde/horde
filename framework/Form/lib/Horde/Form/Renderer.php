@@ -204,7 +204,20 @@ class Horde_Form_Renderer {
             foreach ($variables as $var) {
                 if (is_object($var)) {
                     if (!$var->isReadonly()) {
-                        $vars[$var->getVarName()] = 1;
+                        $varname = $var->getVarName();
+                        if (Horde_Array::getArrayParts($varname, $base, $keys)) {
+                            array_unshift($keys, $base);
+                            $place = &$vars;
+                            while ($key = array_shift($keys)) {
+                                if (!isset($place[$key])) {
+                                    $place[$key] = array();
+                                }
+                                $place = &$place[$key];
+                            }
+                            $place = 1;
+                        } else {
+                            $vars[$varname] = 1;
+                        }
                     }
                 } else {
                     $vars[$var] = 1;
