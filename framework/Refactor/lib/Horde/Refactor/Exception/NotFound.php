@@ -12,6 +12,7 @@
  */
 
 namespace Horde\Refactor\Exception;
+use Horde\Refactor\Exception;
 use Horde\Refactor\Translation;
 
 /**
@@ -23,7 +24,7 @@ use Horde\Refactor\Translation;
  * @license   http://www.horde.org/licenses/bsd BSD
  * @package   Refactor
  */
-class NotFound extends \Horde_Exception_NotFound
+class NotFound extends Exception
 {
     /**
      * Constructor.

@@ -1,4 +1,3 @@
-#!/usr/bin/env php
 <?php
 /**
  * Copyright 2017 Horde LLC (http://www.horde.org/)
@@ -12,8 +11,10 @@
  * @package  Refactor
  */
 
+namespace Horde\Refactor;
+
 /**
- * Script to help refactoring of PHP code.
+ * Exception thrown if an unexpected token was found.
  *
  * @author    Jan Schneider <jan@horde.org>
  * @category  Horde
@@ -21,7 +22,6 @@
  * @license   http://www.horde.org/licenses/bsd BSD
  * @package   Refactor
  */
-
-require_once 'Horde/Autoloader/Default.php';
-throw new Horde\Refactor\Exception\NotFound();
-Horde\Refactor\Cli::main();
+class Exception extends \Horde_Exception_Wrapped
+{
+}
