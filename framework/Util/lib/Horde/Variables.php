@@ -14,6 +14,13 @@
 /**
  * An OO-way to access form variables.
  *
+ * @todo $_expected and $_vars are used inconsistently. $_expected is used in
+ * exists(), but not in getExists(). And both are expected to be of the same
+ * format, while Horde_Form submits $_expected as a flat list and $_vars as a
+ * multi-dimensional array, if the the form elements are or array type (like
+ * object[] in Turba).
+ * @todo The sanitized feature doesn't seem to be used anywhere at all.
+ *
  * @author    Robert E. Coyle <robertecoyle@hotmail.com>
  * @author    Chuck Hagenbuch <chuck@horde.org>
  * @author    Michael Slusarz <slusarz@horde.org>
