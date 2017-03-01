@@ -53,7 +53,11 @@ $_prefs['sync_books'] = array(
         $enum = array();
         $sync_books = @unserialize($GLOBALS['prefs']->getValue('sync_books'));
         if (empty($sync_books)) {
-            $GLOBALS['prefs']->setValue('sync_books', serialize(array(Turba::getDefaultAddressbook())));
+            $default_book = Turba::getDefaultAddressbook();
+            $sync_list = !empty($default_book)
+                ? array($default_book)
+                : array();
+            $GLOBALS['prefs']->setValue('sync_books', serialize($sync_list));
         }
         foreach (Turba::getAddressBooks(Horde_Perms::DELETE) as $key => $val) {
             if (!empty($val['map']['__uid']) &&

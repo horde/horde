@@ -278,7 +278,11 @@ $_prefs['sync_lists'] = array(
         $enum = array();
         $sync = @unserialize($GLOBALS['prefs']->getValue('sync_lists'));
         if (empty($sync)) {
-            $GLOBALS['prefs']->setValue('sync_lists', serialize(array(Nag::getDefaultTasklist(Horde_Perms::DELETE))));
+            $default_tasklist = Nag::getDefaultTasklist(Horde_Perms::DELETE);
+            $sync_list = !empty($default_tasklist)
+                ? array($default_tasklist)
+                : array();
+            $GLOBALS['prefs']->setValue('sync_lists', serialize($sync_list));
         }
         foreach (Nag::listTasklists(false, Horde_Perms::DELETE, false) as $key => $list) {
             if ($list->getName() != Nag::getDefaultTasklist(Horde_Perms::DELETE)) {
@@ -297,7 +301,7 @@ $_prefs['sync_lists'] = array(
                 break;
             }
         }
-        if (!$haveDefault) {
+        if (!$haveDefault && !empty($default)) {
             $sync[] = $default;
             $GLOBALS['prefs']->setValue('sync_lists', serialize($sync));
         }
