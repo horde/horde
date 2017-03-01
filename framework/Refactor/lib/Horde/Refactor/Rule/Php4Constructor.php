@@ -12,6 +12,7 @@
  */
 
 namespace Horde\Refactor\Rule;
+
 use Horde\Refactor\Exception;
 use Horde\Refactor\Rule;
 

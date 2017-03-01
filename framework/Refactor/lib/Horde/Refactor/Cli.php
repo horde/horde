@@ -12,6 +12,7 @@
  */
 
 namespace Horde\Refactor;
+
 use Horde\Refactor\Rule;
 use Horde_Argv_Parser;
 use Horde_Argv_Option;
