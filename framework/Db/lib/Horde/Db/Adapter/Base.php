@@ -576,7 +576,7 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
      *                          columns must be provided as Horde_Db_Value
      *                          objects.
      * @param string $pk        The primary key column.
-     * @param integer $idValue  The primary key value. This parameter is
+     * @param mixed  $idValue    The primary key value. This parameter is
      *                          required if the primary key is inserted
      *                          manually.
      *
