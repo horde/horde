@@ -23,5 +23,4 @@
  */
 
 require_once 'Horde/Autoloader/Default.php';
-throw new Horde\Refactor\Exception\NotFound();
 Horde\Refactor\Cli::main();
