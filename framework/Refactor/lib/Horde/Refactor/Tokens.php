@@ -18,10 +18,16 @@ use Horde\Refactor\Exception;
  * Custom ArrayIterator implementation representing the tokens.
  *
  * <code>
- * $iterator = new Horde\Refactor\Iterator(token_get_all('<?php echo "foo"; ?>'));
+ * $iterator = new Horde\Refactor\Iterator(
+ *     token_get_all('<?php echo "foo"; ?>')
+ * );
  * $iterator->find(T_ECHO);
  * $iterator->find(T_CONSTANT_ENCAPSED_STRING);
- * $iterator->find(T_CONSTANT_ENCAPSED_STRING, '"foo"', true);
+ * $iterator->find(
+ *     T_CONSTANT_ENCAPSED_STRING,
+ *     '"foo"',
+ *     array('backwards' => true, 'allowed' => T_WHITESPACE)
+ * );
  * </code>
  *
  * @author    Jan Schneider <jan@horde.org>
