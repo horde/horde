@@ -12,7 +12,7 @@
  </lead>
  <date>2017-03-01</date>
  <version>
-  <release>2.38.0</release>
+  <release>2.38.1</release>
   <api>2.38.0</api>
  </version>
  <stability>
@@ -21,11 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Database compatibility improvements.
-* [mjr] Refactor logging to support streams and improve readability.
-* [jan] Fix MongoDB backend with mongodb extension.
-* [mjr] Add Horde_ActiveSync_Imap_EasMessageBuilder classes.
-* [mjr] Fix loading event file attachments on iOS.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3366,6 +3362,19 @@
 * [jan] Fix MongoDB backend with mongodb extension.
 * [mjr] Add Horde_ActiveSync_Imap_EasMessageBuilder classes.
 * [mjr] Fix loading event file attachments on iOS.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.38.1</release>
+    <api>2.38.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2017-03-01</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
