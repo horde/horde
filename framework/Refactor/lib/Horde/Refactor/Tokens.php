@@ -49,22 +49,33 @@ class Tokens extends \ArrayIterator
      * @param string $term           If $token is a token that can have
      *                               individual content, the term to search for
      *                               in the content.
-     * @param boolean $backward      Search backwards?
+     * @param array $opts            Additional options:
+     *                               - backward (boolean): Search backwards?
+     *                               - allowed (array): Tokens allowed to skip
+     *                                 over.
      *
      * @return boolean  Whether the token was found.
      */
-    public function find($token, $term = null, $backward = false)
+    public function find($token, $term = null, $opts = array())
     {
+        $opts = array_merge(
+            array(
+                'backward' => false,
+            ),
+            $opts
+        );
+
         while ($this->valid()) {
             if ($this->matches($token, $term)) {
                 return true;
             }
-            if ($backward) {
+            if ($opts['backward']) {
                 $this->previous();
             } else {
                 $this->next();
             }
         }
+
         return false;
     }
 
