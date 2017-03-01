@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix saving sync preference when no default tasklist exists (Bug #14585).
 * [mjr] Avoid PHP warnings due to corrupt preference values (Bug #14585).
  </notes>
  <contents>
@@ -1779,6 +1780,7 @@
    <date>2016-11-09</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix saving sync preference when no default tasklist exists (Bug #14585).
 * [mjr] Avoid PHP warnings due to corrupt preference values (Bug #14585).
    </notes>
   </release>

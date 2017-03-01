@@ -2,6 +2,7 @@
 v4.2.20-git
 -----------
 
+[mjr] Fix saving sync preference when no default calendar exists (Bug #14585).
 [mjr] Fix display of date in ITIP_CANCEL notifications of deleted instances of
       recurring events (PR: 214, almarin@um.es).
 
