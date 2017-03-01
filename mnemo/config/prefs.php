@@ -111,7 +111,11 @@ $_prefs['sync_notepads'] = array(
         $enum = array();
         $sync = @unserialize($GLOBALS['prefs']->getValue('sync_notepads'));
         if (empty($sync)) {
-            $GLOBALS['prefs']->setValue('sync_notepads', serialize(array(Mnemo::getDefaultNotepad(Horde_Perms::DELETE))));
+            $default_notepad = Mnemo::getDefaultNotepad(Horde_Perms::DELETE);
+            $sync_list = !empty($default_notepad)
+                ? array($default_notepad)
+                : array();
+            $GLOBALS['prefs']->setValue('sync_notepads', serialize($sync_list));
         }
         foreach (Mnemo::listNotepads(false, Horde_Perms::DELETE) as $key => $list) {
             if ($list->getName() != Mnemo::getDefaultNotepad(Horde_Perms::DELETE)) {
@@ -130,7 +134,7 @@ $_prefs['sync_notepads'] = array(
                 break;
             }
         }
-        if (!$haveDefault) {
+        if (!$haveDefault && !empty($default)) {
             $sync[] = $default;
             $GLOBALS['prefs']->setValue('sync_notepads', serialize($sync));
         }
