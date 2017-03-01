@@ -27,6 +27,12 @@ class Horde_ActiveSync_Log_Formatter implements Horde_Log_Formatter
      */
     protected $_format = '[%pid%] %levelName%: %indent%';
 
+    protected $_levelMap = array(
+        'CLIENT' => 'I',
+        'SERVER' => 'O',
+        'META' => '>>>'
+    );
+
     /**
      * Formats an event to be written by the handler.
      *
@@ -43,6 +49,9 @@ class Horde_ActiveSync_Log_Formatter implements Horde_Log_Formatter
         } else {
             $event['indent'] = str_repeat(' ', $event['indent']);
         }
+        $event['levelName'] = !empty($this->_levelMap[$event['levelName']])
+            ? $this->_levelMap[$event['levelName']]
+            : $event['levelName'];
         foreach ($event as $name => $value) {
             $output = str_replace("%$name%", $value, $output);
         }
