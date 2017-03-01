@@ -377,7 +377,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 )
             );
         try {
-            $this->_db->insertBlob($this->_syncStateTable, $params);
+            $this->_db->insertBlob($this->_syncStateTable, $params, 'sync_key', $params['sync_key']);
         } catch (Horde_Db_Exception $e) {
             // Might exist already if the last sync attempt failed.
             $this->_logger->notice(sprintf(
