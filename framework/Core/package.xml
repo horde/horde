@@ -30,7 +30,7 @@
  </developer>
  <date>2017-03-01</date>
  <version>
-  <release>2.27.7</release>
+  <release>2.27.8</release>
   <api>2.27.0</api>
  </version>
  <stability>
@@ -39,14 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Fix adding a separator item to a custom menu (Bug #14581).
-* [jan] Enable LDAP rootDSE caching.
-* [mjr] Use new ActiveSync log handling.
-* [jan] Correctly encode IP address literal in first Received: header (Bug #14574).
-* [mjr] Remove support for defunct CloudMade, and MyTopo mapping APIs.
-* [jan] Fix fatal error screen for PHP 7 error objects.
-* [jan] Remember the configuration values of split-read database environments.
-* [jan] Only show $conf[sql][ca] if $conf[sql][ssl] is enabled.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4375,6 +4368,19 @@
 * [jan] Fix fatal error screen for PHP 7 error objects.
 * [jan] Remember the configuration values of split-read database environments.
 * [jan] Only show $conf[sql][ca] if $conf[sql][ssl] is enabled.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.27.8</release>
+    <api>2.27.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2017-03-01</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
