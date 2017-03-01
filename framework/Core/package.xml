@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2017-01-13</date>
+ <date>2017-03-01</date>
  <version>
   <release>2.27.7</release>
   <api>2.27.0</api>
@@ -56,6 +56,7 @@
       <file name="COPYING" role="doc" />
      </dir> <!-- /doc/Horde/Core -->
     </dir> <!-- /doc/Horde -->
+    <file name="horde.yml" role="doc" />
    </dir> <!-- /doc -->
    <dir name="js">
     <dir name="date">
@@ -1537,6 +1538,7 @@
  </usesrole>
  <phprelease>
   <filelist>
+   <install as="horde.yml" name="doc/horde.yml" />
    <install as="COPYING" name="doc/Horde/Core/COPYING" />
    <install as="js/accesskeys.js" name="js/accesskeys.js" />
    <install as="js/addressbooksprefs.js" name="js/addressbooksprefs.js" />
@@ -4362,7 +4364,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-01-13</date>
+   <date>2017-03-01</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Fix adding a separator item to a custom menu (Bug #14581).
