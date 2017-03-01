@@ -388,7 +388,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
 
         try {
             $this->_db->delete('DELETE FROM ' . $this->_syncStateTable . ' WHERE sync_key = ?', array($this->_syncKey));
-            $this->_db->insertBlob($this->_syncStateTable, $params);
+            $this->_db->insertBlob($this->_syncStateTable, $params, 'sync_key', $params['sync_key']);
         } catch (Horde_Db_Exception $e) {
             $this->_logger->err(sprintf(
                 'STATE: Unrecoverable error while saving state for synckey %s: %s',

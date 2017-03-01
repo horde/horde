@@ -111,7 +111,7 @@ class Horde_Db_Adapter_Pdo_Pgsql extends Horde_Db_Adapter_Pdo_Base
      * @param string $arg2          If $arg1 contains bound parameters, the
      *                              query name.
      * @param string $pk            The primary key column.
-     * @param mixed  $idValue        The primary key value. This parameter is
+     * @param mixed  $idValue       The primary key value. This parameter is
      *                              required if the primary key is inserted
      *                              manually.
      * @param string $sequenceName  The sequence name.

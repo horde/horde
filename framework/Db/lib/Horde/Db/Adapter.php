@@ -227,7 +227,7 @@ interface Horde_Db_Adapter
      * @param string $arg2          If $arg1 contains bound parameters, the
      *                              query name.
      * @param string $pk            The primary key column.
-     * @param mixed  $idValue        The primary key value. This parameter is
+     * @param mixed  $idValue       The primary key value. This parameter is
      *                              required if the primary key is inserted
      *                              manually.
      * @param string $sequenceName  The sequence name.
@@ -248,7 +248,7 @@ interface Horde_Db_Adapter
      *                          must be provided as Horde_Db_Value_Binary
      *                          objects.
      * @param string $pk        The primary key column.
-     * @param mixed  $idValue    The primary key value. This parameter is
+     * @param mixed  $idValue   The primary key value. This parameter is
      *                          required if the primary key is inserted
      *                          manually.
      *

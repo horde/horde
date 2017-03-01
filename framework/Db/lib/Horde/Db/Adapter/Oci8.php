@@ -346,7 +346,7 @@ class Horde_Db_Adapter_Oci8 extends Horde_Db_Adapter_Base
      * @param string $arg2          If $arg1 contains bound parameters, the
      *                              query name.
      * @param string $pk            The primary key column.
-     * @param mixed  $idValue        The primary key value. This parameter is
+     * @param mixed  $idValue       The primary key value. This parameter is
      *                              required if the primary key is inserted
      *                              manually.
      * @param string $sequenceName  The sequence name.
@@ -373,7 +373,7 @@ class Horde_Db_Adapter_Oci8 extends Horde_Db_Adapter_Base
      *                          columns must be provided as Horde_Db_Value
      *                          objects.
      * @param string $pk        The primary key column.
-     * @param mixed  $idValue    The primary key value. This parameter is
+     * @param mixed  $idValue   The primary key value. This parameter is
      *                          required if the primary key is inserted
      *                          manually.
      *
