@@ -381,11 +381,20 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         } catch (Horde_Db_Exception $e) {
             // Might exist already if the last sync attempt failed.
             $this->_logger->notice(sprintf(
-                'STATE: Previous request processing for synckey %s failed to be accepted by the client, removing previous state and trying again.',
+                'STATE: Error saving state, checking if this is due to previous synckey %s not being accepted by client.',
                 $this->_syncKey)
             );
+        }
+
+        try {
             $this->_db->delete('DELETE FROM ' . $this->_syncStateTable . ' WHERE sync_key = ?', array($this->_syncKey));
             $this->_db->insertBlob($this->_syncStateTable, $params);
+        } catch (Horde_Db_Exception $e) {
+            $this->_logger->err(sprintf(
+                'STATE: Unrecoverable error while saving state for synckey %s: %s',
+                $this->_syncKey, $e->getMessage())
+            );
+            throw new Horde_ActiveSync_Exception($e);
         }
     }
 
