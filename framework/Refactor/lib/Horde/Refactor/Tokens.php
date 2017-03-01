@@ -69,6 +69,10 @@ class Tokens extends \ArrayIterator
             if ($this->matches($token, $term)) {
                 return true;
             }
+            if ($opts['allowed'] &&
+                !in_array(is_array($this->current()) ? $this->current()[0] : $this->current(), $opts['allowed'], true)) {
+                return false;
+            }
             if ($opts['backward']) {
                 $this->previous();
             } else {
@@ -122,7 +126,7 @@ class Tokens extends \ArrayIterator
         $pos = $this->key();
 
         // Find the "function" keyword.
-        if (!$this->find(T_FUNCTION, null, true)) {
+        if (!$this->find(T_FUNCTION, null, array('backward' => true))) {
             throw new Exception\NotFound(T_FUNCTION);
         }
 
