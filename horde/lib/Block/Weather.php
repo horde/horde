@@ -161,7 +161,13 @@ class Horde_Block_Weather extends Horde_Core_Block
             $view->timezone = $prefs->getValue('timezone');
             $view->dateFormat = $prefs->getValue('date_format');
             $view->timeFormat = $prefs->getValue('time_format');
-            $view->alerts = $this->_weather->getAlerts($view->location->code);
+            $view->alerts = array();
+            foreach ($this->_weather->getAlerts($view->location->code) as $alert) {
+                if (empty($alert['expires']) ||
+                    $alert['expires']->after(time())) {
+                    $view->alerts[] = $alert;
+                }
+            }
             $view->radar = $this->_weather->getRadarImageUrl($location);
         } catch (Horde_Service_Weather_Exception $e) {
             return $e->getMessage();
