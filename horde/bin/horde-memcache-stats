@@ -43,16 +43,16 @@ $parser->addOption('--flush', array(
     'dest' => 'flush',
     'help' => 'Flush all data'
 ));
-$parser->addOptions('-l', '--lookup', array(
+$parser->addOption('-l', '--lookup', array(
     'dest' => 'lookup',
     'help' => 'Key to lookup'
 ));
-$parser->addOptions('-r', '--raw', array(
+$parser->addOption('-r', '--raw', array(
     'action' => 'store_true',
     'dest' => 'raw',
     'help' => 'Display raw data'
 ));
-$parser->addOptions('-s', '--summary', array(
+$parser->addOption('-s', '--summary', array(
     'action' => 'store_true',
     'dest' => 'summary',
     'help' => 'Display summary'
