@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mjr] Fix fatal error when logging a successfully sent email via ActiveSync.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4380,7 +4380,7 @@
    <date>2017-03-01</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mjr] Fix fatal error when logging a successfully sent email via ActiveSync.
    </notes>
   </release>
  </changelog>
