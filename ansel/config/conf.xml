@@ -137,6 +137,16 @@
    <configheader>Ecard Settings</configheader>
    <configboolean name="enable" desc="Allow users to send photos as
    ecards?">false</configboolean>
+   <configswitch name="captcha" quote="false" desc="Require guests to enter a
+   verification string with each transaction to protect against spam? (Requires
+   Horde 3.1)">false
+    <case name="false" desc="No"/>
+    <case name="true" desc="Yes">
+     <configstring name="figlet_font" desc="The path to a Figlet
+     (http://www.figlet.org/) font
+     file">/usr/share/games/figlet/fonts/big.flf</configstring>
+    </case>
+   </configswitch>
   </configsection>
  </configtab>
 

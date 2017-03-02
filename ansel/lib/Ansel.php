@@ -933,4 +933,104 @@ class Ansel
         }
     }
 
+    /**
+     * Returns a new or the current CAPTCHA string.
+     *
+     * @param boolean $new  If true, a new CAPTCHA is created and returned.
+     *                      The current, to-be-confirmed string otherwise.
+     *
+     * @return string  A CAPTCHA string.
+     */
+    public static function getCAPTCHA($new = false)
+    {
+        global $session;
+
+        if ($new || !$session->get('ansel', 'captcha')) {
+            $captcha = '';
+            for ($i = 0; $i < 5; ++$i) {
+                $captcha .= chr(rand(65, 90));
+            }
+            $session->set('ansel', 'captcha', $captcha);
+        }
+
+        return $session->get('ansel', 'captcha');
+    }
+
+    /**
+     * Handle sending an Ecard.
+     *
+     * @param  Ansel_Image  $image  The image to attach the card to.
+     */
+    public static function sendEcard(Ansel_Image $image)
+    {
+        global $notification, $injector, $conf;
+
+        /* Abort if ecard sending is disabled. */
+        if (empty($conf['ecard']['enable']) ||
+            Horde_Util::getFormData('actionID' != 'send')) {
+            return;
+        }
+
+        /* Check for required elements. */
+        $from = Horde_Util::getFormData('ecard_retaddr');
+        if (empty($from)) {
+            $notification->push(_("You must enter your e-mail address."), 'horde.error');
+            return;
+        }
+        $to = Horde_Util::getFormData('ecard_addr');
+        if (empty($to)) {
+            $notification->push(_("You must enter an e-mail address to send the message to."), 'horde.error');
+            return;
+        }
+
+        /* Create the text part. */
+        $textpart = new Horde_Mime_Part();
+        $textpart->setType('text/plain');
+        $textpart->setCharset('UTF-8');
+        $textpart->setContents(_("You have been sent an Ecard. To view the Ecard, you must be able to view text/html messages in your mail reader. If you are viewing this message, then most likely your mail reader does not support viewing text/html messages."));
+
+        /* Create the multipart/related part. */
+        $related = new Horde_Mime_Part();
+        $related->setType('multipart/related');
+
+        /* Create the HTML part. */
+        $htmlpart = new Horde_Mime_Part();
+        $htmlpart->setType('text/html');
+        $htmlpart->setCharset('UTF-8');
+
+        /* The image part */
+        $imgpart = new Horde_Mime_Part();
+        $imgpart->setType($image->getType('screen'));
+        $imgpart->setContents($image->raw('screen'));
+        $img_tag = '<img src="cid:' . $imgpart->setContentID() . '" /><p />';
+        $comments = $htmlpart->replaceEOL(Horde_Util::getFormData('ecard_comments'));
+        if (!Horde_Util::getFormData('rtemode')) {
+            $comments = '<pre>' . htmlspecialchars($comments, ENT_COMPAT, 'UTF-8') . '</pre>';
+        }
+        $htmlpart->setContents('<html>' . $img_tag . $comments . '</html>');
+        $related->setContentTypeParameter('start', $htmlpart->setContentID());
+        $related->addPart($htmlpart);
+        $related->addPart($imgpart);
+
+        /* Create the multipart/alternative part. */
+        $alternative = new Horde_Mime_Part();
+        $alternative->setType('multipart/alternative');
+        $alternative->addPart($textpart);
+        $alternative->addPart($related);
+
+        /* Add them to the mail message */
+        $alt = new Horde_Mime_Mail(array(
+            'Subject' => _("Ecard - ") . Horde_Util::getFormData('image_desc'),
+            'To' => $to,
+            'From' => $from));
+        $alt->setBasePart($alternative);
+
+        /* Send. */
+        try {
+            $alt->send($injector->getInstance('Horde_Mail'));
+        } catch (Horde_Mime_Exception $e) {
+            $notification->push(sprintf(_("There was an error sending your message: %s"), $e->getMessage()), 'horde.error');
+        }
+    }
+
 }
