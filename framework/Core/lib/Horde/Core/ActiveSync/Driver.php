@@ -2226,7 +2226,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         try {
             $mailer->send();
             $this->_logger->meta(sprintf(
-                'Message-ID: /'%s/' successfully sent.',
+                'Message-ID: \'%s\' successfully sent.',
                 $mailer->headers['Message-ID'])
             );
         } catch (Horde_ActiveSync_Exception $e) {
