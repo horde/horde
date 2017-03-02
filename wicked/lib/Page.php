@@ -72,6 +72,8 @@ class Wicked_Page
      * permissions object does not exist, we assume reasonable
      * defaults.
      *
+     * @param  string $pageName  The page name.
+     *
      * @return integer  The permissions bitmask.
      */
     public function getPermissions($pageName = null)
