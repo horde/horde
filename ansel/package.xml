@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Add captch check when sending ecard.
 * [jan] Show users&apos; full names in share dialogs.
 * [mjr] Remove maps configuration, replaced by global maps configuration (Bug #14168).
 * [jan] Keep original file names when PUTing images via WebDAV.
@@ -1430,6 +1431,7 @@
    </stability>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Add captch check when sending ecard.
 * [jan] Show users&apos; full names in share dialogs.
 * [mjr] Remove maps configuration, replaced by global maps configuration (Bug #14168).
 * [jan] Keep original file names when PUTing images via WebDAV.

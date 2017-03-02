@@ -2,6 +2,7 @@
 v4.0.0-git
 ----------
 
+[mjr] Add captch check when sending ecard.
 [jan] Show users' full names in share dialogs.
 [mjr] Remove maps configuration, replaced by global maps configuration (Bug
       #14168).
