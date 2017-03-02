@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Minor PHP 7 compatibility improvements.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1127,7 +1127,7 @@
    <date>2016-12-16</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Minor PHP 7 compatibility improvements.
    </notes>
   </release>
  </changelog>
