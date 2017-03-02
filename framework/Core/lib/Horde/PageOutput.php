@@ -718,6 +718,8 @@ class Horde_PageOutput
             header('Vary: Accept-Language');
         }
 
+        header('Referrer-Policy: same-origin');
+
         echo $view->render('header');
         if ($this->topbar) {
             echo $injector->getInstance('Horde_View_Topbar')->render();
