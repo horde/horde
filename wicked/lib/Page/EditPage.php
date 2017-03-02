@@ -71,9 +71,11 @@ class Wicked_Page_EditPage extends Wicked_Page
     /**
      * Retrieve this user's permissions for the referring page.
      *
+     * @param  string $pageName  The page name (unused in this method).
+     *
      * @return integer  The permissions bitmask.
      */
-    public function getPermissions()
+    public function getPermissions($pageName = null)
     {
         return parent::getPermissions($this->referrer());
     }
