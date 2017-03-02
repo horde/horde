@@ -2,6 +2,7 @@
 v5.2.14-git
 -----------
 
+[mjr] Fix errors in horde-memcache-stats script (Bug #14588).
 [mjr] Remove configuration for defunct Yahoo, CloudMade, and MyTopo mapping
       providers.
 

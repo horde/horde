@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
+* [mjr] Fix errors in horde-memcache-stats script (Bug #14588).
 * [mjr] Remove configuration for defunct Yahoo, CloudMade, and MyTopo mapping providers.
  </notes>
  <contents>
@@ -4148,6 +4149,7 @@
    <date>2016-12-16</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
+* [mjr] Fix errors in horde-memcache-stats script (Bug #14588).
 * [mjr] Remove configuration for defunct Yahoo, CloudMade, and MyTopo mapping providers.
    </notes>
   </release>
