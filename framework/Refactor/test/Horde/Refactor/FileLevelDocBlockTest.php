@@ -32,7 +32,7 @@ class FileLevelDocBlockTest extends \Horde_Test_Case
     /**
      * @dataProvider getFileNames
      */
-    public function testNoFileLevelDocBlock($file, $config)
+    public function testFileLevelDocBlocks($file, $config)
     {
         if ($config) {
             $config = new Config(__DIR__ . '/fixtures/config.php');
