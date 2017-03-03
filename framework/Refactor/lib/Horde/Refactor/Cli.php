@@ -89,11 +89,12 @@ class Cli
         }
 
         require $arguments[0];
+        $config = new Config();
         $class = 'Horde\\Refactor\\Rule\\' . $arguments[1];
 
         foreach ($files as $file) {
             echo "Processing file $file\n";
-            $rule = new $class($file);
+            $rule = new $class($file, $config->{$arguments[1]});
             $rule->run();
             if ($rule->warnings) {
                 echo "WARNING\n";

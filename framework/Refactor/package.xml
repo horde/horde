@@ -40,6 +40,9 @@
    <dir name="lib">
     <dir name="Horde">
      <dir name="Refactor">
+      <dir name="Config">
+       <file name="Base.php" role="php" />
+      </dir> <!-- /lib/Horde/Refactor/Config -->
       <dir name="Exception">
        <file name="NotFound.php" role="php" />
        <file name="UnexpectedToken.php" role="php" />
@@ -48,6 +51,7 @@
        <file name="Php4Constructor.php" role="php" />
       </dir> <!-- /lib/Horde/Refactor/Rule -->
       <file name="Cli.php" role="php" />
+      <file name="Config.php" role="php" />
       <file name="Exception.php" role="php" />
       <file name="Regexp.php" role="php" />
       <file name="Rule.php" role="php" />
@@ -97,11 +101,13 @@
    <install as="horde-refactor" name="bin/horde-refactor" />
    <install as="Horde/Refactor/LICENSE" name="docs/Horde/Refactor/LICENSE" />
    <install as="Horde/Refactor/Cli.php" name="lib/Horde/Refactor/Cli.php" />
+   <install as="Horde/Refactor/Config.php" name="lib/Horde/Refactor/Config.php" />
    <install as="Horde/Refactor/Exception.php" name="lib/Horde/Refactor/Exception.php" />
    <install as="Horde/Refactor/Regexp.php" name="lib/Horde/Refactor/Regexp.php" />
    <install as="Horde/Refactor/Rule.php" name="lib/Horde/Refactor/Rule.php" />
    <install as="Horde/Refactor/Tokens.php" name="lib/Horde/Refactor/Tokens.php" />
    <install as="Horde/Refactor/Translation.php" name="lib/Horde/Refactor/Translation.php" />
+   <install as="Horde/Refactor/Config/Base.php" name="lib/Horde/Refactor/Config/Base.php" />
    <install as="Horde/Refactor/Exception/NotFound.php" name="lib/Horde/Refactor/Exception/NotFound.php" />
    <install as="Horde/Refactor/Exception/UnexpectedToken.php" name="lib/Horde/Refactor/Exception/UnexpectedToken.php" />
    <install as="Horde/Refactor/Rule/Php4Constructor.php" name="lib/Horde/Refactor/Rule/Php4Constructor.php" />

@@ -30,6 +30,13 @@ namespace Horde\Refactor;
 abstract class Rule
 {
     /**
+     * Rule configuration.
+     *
+     * @var Horde\Refactor\Config\Base
+     */
+    protected $_config;
+
+    /**
      * Current list of tokens.
      *
      * @var Horde\Refactor\Tokens
@@ -46,10 +53,13 @@ abstract class Rule
     /**
      * Constructor.
      *
-     * @param string $file  Name of the file to parse and refactor.
+     * @param string $file                        Name of the file to parse and
+     *                                            refactor.
+     * @param Horde\Refactor\Config\Base $config  The rule configuration.
      */
-    public function __construct($file)
+    public function __construct($file, Config\Base $config)
     {
+        $this->_config = $config;
         $this->_tokens = new Tokens(
             token_get_all(file_get_contents($file))
         );
