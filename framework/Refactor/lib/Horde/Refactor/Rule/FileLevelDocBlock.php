@@ -102,38 +102,6 @@ class FileLevelDocBlock extends Rule
     }
 
     /**
-     * Creates a file-level DocBlock based on the first existing DocBlock.
-     *
-     * @param array $first  The token of the first existing DocBlock.
-     * @param integer $pos  The position of the first existing DocBlock.
-     */
-    protected function _createFileLevelBlock($first, $pos)
-    {
-        $classDocBlock = new DocBlock($first[1]);
-        if ($license = $classDocBlock->getTagsByName('license')) {
-            $license = explode(' ', $license[0]->getContent(), 2);
-            if (count($license) == 2) {
-                $this->_config->licenseUrl = $license[0];
-                $this->_config->license = $license[1];
-            }
-        }
-        $tags = array();
-        foreach ($this->_fillTemplate($this->_config->fileTags) as $key => $value) {
-            if ($classTags = $classDocBlock->getTagsByName($key)) {
-                $value = $classTags[0]->getContent();
-            }
-            $tags[] = TagFactory::create($key, $value);
-        }
-        $fileDocBlock = $this->_getFileLevelDocBlock($tags);
-        $serializer = new Serializer();
-        $this->_tokens->seek($pos);
-        $this->_tokens = $this->_tokens->insert(array(
-            $serializer->getDocComment($fileDocBlock),
-            "\n\n"
-        ));
-    }
-
-    /**
      * Adds two default DocBlocks at the top of the file.
      *
      * @see $_defaultContent
@@ -168,6 +136,38 @@ class FileLevelDocBlock extends Rule
         }
         $new .= "\n\n" . $serializer->getDocComment($docblock) . "\n";
         $this->_tokens = $this->_tokens->insert(array($new));
+    }
+
+    /**
+     * Creates a file-level DocBlock based on the first existing DocBlock.
+     *
+     * @param array $first  The token of the first existing DocBlock.
+     * @param integer $pos  The position of the first existing DocBlock.
+     */
+    protected function _createFileLevelBlock($first, $pos)
+    {
+        $classDocBlock = new DocBlock($first[1]);
+        if ($license = $classDocBlock->getTagsByName('license')) {
+            $license = explode(' ', $license[0]->getContent(), 2);
+            if (count($license) == 2) {
+                $this->_config->licenseUrl = $license[0];
+                $this->_config->license = $license[1];
+            }
+        }
+        $tags = array();
+        foreach ($this->_fillTemplate($this->_config->fileTags) as $key => $value) {
+            if ($classTags = $classDocBlock->getTagsByName($key)) {
+                $value = $classTags[0]->getContent();
+            }
+            $tags[] = TagFactory::create($key, $value);
+        }
+        $fileDocBlock = $this->_getFileLevelDocBlock($tags);
+        $serializer = new Serializer();
+        $this->_tokens->seek($pos);
+        $this->_tokens = $this->_tokens->insert(array(
+            $serializer->getDocComment($fileDocBlock),
+            "\n\n"
+        ));
     }
 
     /**
