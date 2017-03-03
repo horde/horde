@@ -147,6 +147,7 @@ class Php4Constructor extends Rule
      */
     protected function _createPhp5Ctor($ctor4, $extends)
     {
+        // Extract the function body from the PHP 4 constructor.
         $this->_tokens->seek($ctor4);
         list($start, $end) = $this->_tokens->findFunctionTokens();
         $this->_tokens->seek($start);
@@ -155,8 +156,11 @@ class Php4Constructor extends Rule
         $function = $this->_tokens->slice(
             $start, $this->_tokens->key() - $start
         );
+
+        // Replace the PHP 4 constructor body with a call to the PHP 5
+        // constructor.
         $function = $function->splice(0, 0, array("\n\n    "));
-        $function->append('$this->__construct(');
+        $function->append('    $this->__construct(');
 
         // Transfer function parameters.
         $this->_tokens->seek($ctor4);
