@@ -72,6 +72,8 @@ class FileLevelDocBlock extends Rule
     public function run()
     {
         $this->_tokens->rewind();
+
+        // Check if we have DocBlocks at all.
         if (!$this->_tokens->find(
                 T_DOC_COMMENT,
                 null,
@@ -82,7 +84,6 @@ class FileLevelDocBlock extends Rule
         }
 
         $firstPos = $this->_tokens->key();
-        $first = $this->_tokens->current();
         $this->_tokens->skipWhitespace();
         while ($this->_tokens->matches(T_NAMESPACE) ||
                $this->_tokens->matches(T_USE) ||
@@ -93,12 +94,15 @@ class FileLevelDocBlock extends Rule
             $this->_tokens->find(';');
             $this->_tokens->skipWhitespace();
         }
+
+        // We have two DocBlocks, check for correctness.
         if ($this->_tokens->matches(T_DOC_COMMENT)) {
             $this->_checkDocBlocks($first, $this->_tokens->current());
             return;
         }
 
-        $this->_createFileLevelBlock($first, $firstPos);
+        // The file-level DocBlock is missing, create one.
+        $this->_createFileLevelBlock($firstPos);
     }
 
     /**
@@ -141,12 +145,12 @@ class FileLevelDocBlock extends Rule
     /**
      * Creates a file-level DocBlock based on the first existing DocBlock.
      *
-     * @param array $first  The token of the first existing DocBlock.
      * @param integer $pos  The position of the first existing DocBlock.
      */
-    protected function _createFileLevelBlock($first, $pos)
+    protected function _createFileLevelBlock($pos)
     {
-        $classDocBlock = new DocBlock($first[1]);
+        $this->_tokens->seek($pos);
+        $classDocBlock = new DocBlock($this->current()[1]);
         if ($license = $classDocBlock->getTagsByName('license')) {
             $license = explode(' ', $license[0]->getContent(), 2);
             if (count($license) == 2) {
@@ -163,7 +167,6 @@ class FileLevelDocBlock extends Rule
         }
         $fileDocBlock = $this->_getFileLevelDocBlock($tags);
         $serializer = new Serializer();
-        $this->_tokens->seek($pos);
         $this->_tokens = $this->_tokens->insert(array(
             $serializer->getDocComment($fileDocBlock),
             "\n\n"
