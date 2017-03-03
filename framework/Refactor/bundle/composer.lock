@@ -1,0 +1,72 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "hash": "350107b66dc87f57287e67f03ef6b19a",
+    "content-hash": "4c5cf4a6538d268330d2b24420132adc",
+    "packages": [
+        {
+            "name": "phpdocumentor/reflection-docblock",
+            "version": "dev-release/2.x",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/horde/ReflectionDocBlock.git",
+                "reference": "946d8cecb41d28938b3cd92e16db64f595c46e8b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/horde/ReflectionDocBlock/zipball/946d8cecb41d28938b3cd92e16db64f595c46e8b",
+                "reference": "946d8cecb41d28938b3cd92e16db64f595c46e8b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+            "suggest": {
+                "dflydev/markdown": "~1.0",
+                "erusev/parsedown": "~1.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "phpDocumentor": [
+                        "src/"
+                    ]
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mike van Riel",
+                    "email": "mike.vanriel@naenius.com"
+                }
+            ],
+            "support": {
+                "source": "https://github.com/horde/ReflectionDocBlock/tree/release/2.x"
+            },
+            "time": "2017-03-03 09:22:15"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "phpdocumentor/reflection-docblock": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}

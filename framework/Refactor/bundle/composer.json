@@ -1,0 +1,11 @@
+{
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/horde/ReflectionDocBlock"
+        }
+    ],
+    "require": {
+        "phpdocumentor/reflection-docblock": "dev-release/2.x"
+    }
+}

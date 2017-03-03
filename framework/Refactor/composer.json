@@ -1,0 +1,27 @@
+{
+    "name": "horde/horde-refactor",
+    "description": "PHP code refactoring library",
+    "type": "library",
+    "homepage": "https://pear.horde.org",
+    "license": "BSD",
+    "authors": [
+        {
+            "name": "Jan Schneider",
+            "email": "jan@horde.org",
+            "role": "lead"
+        }
+    ],
+    "version": "1.0.0alpha1",
+    "time": "2017-02-28",
+    "repositories": [
+        {
+            "type": "pear",
+            "url": "http://pear.horde.org"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.0",
+        "pear-pear.horde.org/Horde_Exception": ">=2.0.0,<=3.0.0alpha1",
+        "pear-pear.horde.org/Horde_Translation": ">=2.2.2,<=3.0.0alpha1",
+    }
+}

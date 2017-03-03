@@ -30,6 +30,97 @@
      <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
     </file>
    </dir> <!-- /bin -->
+   <dir name="bundle">
+    <dir name="vendor">
+     <dir name="composer">
+      <file name="autoload_classmap.php" role="php" />
+      <file name="autoload_namespaces.php" role="php" />
+      <file name="autoload_psr4.php" role="php" />
+      <file name="autoload_real.php" role="php" />
+      <file name="autoload_static.php" role="php" />
+      <file name="ClassLoader.php" role="php" />
+      <file name="installed.json" role="php" />
+      <file name="LICENSE" role="php" />
+     </dir> <!-- /bundle/vendor/composer -->
+     <dir name="phpdocumentor">
+      <dir name="reflection-docblock">
+       <dir name="src">
+        <dir name="phpDocumentor">
+         <dir name="Reflection">
+          <dir name="DocBlock">
+           <dir name="Tag">
+            <file name="AuthorTag.php" role="php" />
+            <file name="CoversTag.php" role="php" />
+            <file name="DeprecatedTag.php" role="php" />
+            <file name="ExampleTag.php" role="php" />
+            <file name="LinkTag.php" role="php" />
+            <file name="MethodTag.php" role="php" />
+            <file name="ParamTag.php" role="php" />
+            <file name="PropertyReadTag.php" role="php" />
+            <file name="PropertyTag.php" role="php" />
+            <file name="PropertyWriteTag.php" role="php" />
+            <file name="ReturnTag.php" role="php" />
+            <file name="SeeTag.php" role="php" />
+            <file name="SinceTag.php" role="php" />
+            <file name="SourceTag.php" role="php" />
+            <file name="ThrowsTag.php" role="php" />
+            <file name="UsesTag.php" role="php" />
+            <file name="VarTag.php" role="php" />
+            <file name="VersionTag.php" role="php" />
+           </dir> <!-- /bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag -->
+           <dir name="Type">
+            <file name="Collection.php" role="php" />
+           </dir> <!-- /bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Type -->
+           <file name="Context.php" role="php" />
+           <file name="Description.php" role="php" />
+           <file name="Location.php" role="php" />
+           <file name="Serializer.php" role="php" />
+           <file name="Tag.php" role="php" />
+          </dir> <!-- /bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock -->
+          <file name="DocBlock.php" role="php" />
+         </dir> <!-- /bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection -->
+        </dir> <!-- /bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor -->
+       </dir> <!-- /bundle/vendor/phpdocumentor/reflection-docblock/src -->
+       <dir name="tests">
+        <dir name="phpDocumentor">
+         <dir name="Reflection">
+          <dir name="DocBlock">
+           <dir name="Tag">
+            <file name="CoversTagTest.php" role="php" />
+            <file name="DeprecatedTagTest.php" role="php" />
+            <file name="ExampleTagTest.php" role="php" />
+            <file name="LinkTagTest.php" role="php" />
+            <file name="MethodTagTest.php" role="php" />
+            <file name="ParamTagTest.php" role="php" />
+            <file name="ReturnTagTest.php" role="php" />
+            <file name="SeeTagTest.php" role="php" />
+            <file name="SinceTagTest.php" role="php" />
+            <file name="SourceTagTest.php" role="php" />
+            <file name="ThrowsTagTest.php" role="php" />
+            <file name="UsesTagTest.php" role="php" />
+            <file name="VarTagTest.php" role="php" />
+            <file name="VersionTagTest.php" role="php" />
+           </dir> <!-- /bundle/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag -->
+           <dir name="Type">
+            <file name="CollectionTest.php" role="php" />
+           </dir> <!-- /bundle/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Type -->
+           <file name="DescriptionTest.php" role="php" />
+           <file name="TagTest.php" role="php" />
+          </dir> <!-- /bundle/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock -->
+          <file name="DocBlockTest.php" role="php" />
+         </dir> <!-- /bundle/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection -->
+        </dir> <!-- /bundle/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor -->
+        </dir> <!-- /bundle/vendor/phpdocumentor/reflection-docblock/tests -->
+       <file name=".gitignore" role="php" />
+       <file name=".travis.yml" role="php" />
+       <file name="LICENSE" role="php" />
+       <file name="phpunit.xml.dist" role="php" />
+       <file name="README.md" role="php" />
+      </dir> <!-- /bundle/vendor/phpdocumentor/reflection-docblock -->
+      </dir> <!-- /bundle/vendor/phpdocumentor -->
+     <file name="autoload.php" role="php" />
+    </dir> <!-- /bundle/vendor -->
+   </dir> <!-- /bundle -->
    <dir name="docs">
     <dir name="Horde">
      <dir name="Refactor">
@@ -42,12 +133,14 @@
      <dir name="Refactor">
       <dir name="Config">
        <file name="Base.php" role="php" />
+       <file name="FileLevelDocBlock.php" role="php" />
       </dir> <!-- /lib/Horde/Refactor/Config -->
       <dir name="Exception">
        <file name="NotFound.php" role="php" />
        <file name="UnexpectedToken.php" role="php" />
       </dir> <!-- /lib/Horde/Refactor/Exception -->
       <dir name="Rule">
+       <file name="FileLevelDocBlock.php" role="php" />
        <file name="Php4Constructor.php" role="php" />
       </dir> <!-- /lib/Horde/Refactor/Rule -->
       <file name="Cli.php" role="php" />
@@ -55,6 +148,7 @@
       <file name="Exception.php" role="php" />
       <file name="Regexp.php" role="php" />
       <file name="Rule.php" role="php" />
+      <file name="TagFactory.php" role="php" />
       <file name="Tokens.php" role="php" />
       <file name="Translation.php" role="php">
        <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
@@ -70,6 +164,26 @@
     </dir> <!-- /locale/de -->
     <file name="Horde_Refactor.pot" role="data" />
    </dir> <!-- /locale -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="Refactor">
+      <dir name="fixtures">
+       <dir name="refactored">
+        <file name="ClassLevelDocBlock.php" role="test" />
+        <file name="ConfiguredNoFileLevelDocBlock.php" role="test" />
+        <file name="NoFileLevelDocBlock.php" role="test" />
+       </dir> <!-- /test/Horde/Refactor/fixtures/refactored -->
+       <file name="ClassLevelDocBlock.php" role="test" />
+       <file name="config.php" role="test" />
+       <file name="NoFileLevelDocBlock.php" role="test" />
+      </dir> <!-- /test/Horde/Refactor/fixtures -->
+      <file name="AllTests.php" role="test" />
+      <file name="bootstrap.php" role="test" />
+      <file name="FileLevelDocBlockTest.php" role="test" />
+      <file name="phpunit.xml" role="test" />
+     </dir> <!-- /test/Horde/Refactor -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -99,20 +213,90 @@
  <phprelease>
   <filelist>
    <install as="horde-refactor" name="bin/horde-refactor" />
+   <install as="Horde/Refactor/vendor/autoload.php" name="bundle/vendor/autoload.php" />
+   <install as="Horde/Refactor/vendor/composer/autoload_classmap.php" name="bundle/vendor/composer/autoload_classmap.php" />
+   <install as="Horde/Refactor/vendor/composer/autoload_namespaces.php" name="bundle/vendor/composer/autoload_namespaces.php" />
+   <install as="Horde/Refactor/vendor/composer/autoload_psr4.php" name="bundle/vendor/composer/autoload_psr4.php" />
+   <install as="Horde/Refactor/vendor/composer/autoload_real.php" name="bundle/vendor/composer/autoload_real.php" />
+   <install as="Horde/Refactor/vendor/composer/autoload_static.php" name="bundle/vendor/composer/autoload_static.php" />
+   <install as="Horde/Refactor/vendor/composer/ClassLoader.php" name="bundle/vendor/composer/ClassLoader.php" />
+   <install as="Horde/Refactor/vendor/composer/installed.json" name="bundle/vendor/composer/installed.json" />
+   <install as="Horde/Refactor/vendor/composer/LICENSE" name="bundle/vendor/composer/LICENSE" />
+   <install as="Horde/Refactor/vendor/phpdocumentor/reflection-docblock/.gitignore" name="bundle/vendor/phpdocumentor/reflection-docblock/.gitignore" />
+   <install as="Horde/Refactor/vendor/phpdocumentor/reflection-docblock/.travis.yml" name="bundle/vendor/phpdocumentor/reflection-docblock/.travis.yml" />
+   <install as="Horde/Refactor/vendor/phpdocumentor/reflection-docblock/LICENSE" name="bundle/vendor/phpdocumentor/reflection-docblock/LICENSE" />
+   <install as="Horde/Refactor/vendor/phpdocumentor/reflection-docblock/phpunit.xml.dist" name="bundle/vendor/phpdocumentor/reflection-docblock/phpunit.xml.dist" />
+   <install as="Horde/Refactor/vendor/phpdocumentor/reflection-docblock/README.md" name="bundle/vendor/phpdocumentor/reflection-docblock/README.md" />
+   <install as="Horde/Refactor/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock.php" />
+   <install as="Horde/Refactor/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Context.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Context.php" />
+   <install as="Horde/Refactor/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Description.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Description.php" />
+   <install as="Horde/Refactor/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Location.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Location.php" />
+   <install as="Horde/Refactor/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Serializer.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Serializer.php" />
+   <install as="Horde/Refactor/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag.php" />
+   <install as="Horde/Refactor/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/AuthorTag.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/AuthorTag.php" />
+   <install as="Horde/Refactor/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/CoversTag.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/CoversTag.php" />
+   <install as="Horde/Refactor/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/DeprecatedTag.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/DeprecatedTag.php" />
+   <install as="Horde/Refactor/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/ExampleTag.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/ExampleTag.php" />
+   <install as="Horde/Refactor/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/LinkTag.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/LinkTag.php" />
+   <install as="Horde/Refactor/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/MethodTag.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/MethodTag.php" />
+   <install as="Horde/Refactor/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/ParamTag.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/ParamTag.php" />
+   <install as="Horde/Refactor/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/PropertyReadTag.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/PropertyReadTag.php" />
+   <install as="Horde/Refactor/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/PropertyTag.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/PropertyTag.php" />
+   <install as="Horde/Refactor/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/PropertyWriteTag.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/PropertyWriteTag.php" />
+   <install as="Horde/Refactor/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/ReturnTag.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/ReturnTag.php" />
+   <install as="Horde/Refactor/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/SeeTag.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/SeeTag.php" />
+   <install as="Horde/Refactor/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/SinceTag.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/SinceTag.php" />
+   <install as="Horde/Refactor/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/SourceTag.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/SourceTag.php" />
+   <install as="Horde/Refactor/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/ThrowsTag.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/ThrowsTag.php" />
+   <install as="Horde/Refactor/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/UsesTag.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/UsesTag.php" />
+   <install as="Horde/Refactor/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/VarTag.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/VarTag.php" />
+   <install as="Horde/Refactor/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/VersionTag.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/VersionTag.php" />
+   <install as="Horde/Refactor/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Type/Collection.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Type/Collection.php" />
+   <install as="Horde/Refactor/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlockTest.php" name="bundle/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlockTest.php" />
+   <install as="Horde/Refactor/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/DescriptionTest.php" name="bundle/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/DescriptionTest.php" />
+   <install as="Horde/Refactor/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/TagTest.php" name="bundle/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/TagTest.php" />
+   <install as="Horde/Refactor/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/CoversTagTest.php" name="bundle/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/CoversTagTest.php" />
+   <install as="Horde/Refactor/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/DeprecatedTagTest.php" name="bundle/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/DeprecatedTagTest.php" />
+   <install as="Horde/Refactor/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/ExampleTagTest.php" name="bundle/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/ExampleTagTest.php" />
+   <install as="Horde/Refactor/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/LinkTagTest.php" name="bundle/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/LinkTagTest.php" />
+   <install as="Horde/Refactor/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/MethodTagTest.php" name="bundle/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/MethodTagTest.php" />
+   <install as="Horde/Refactor/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/ParamTagTest.php" name="bundle/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/ParamTagTest.php" />
+   <install as="Horde/Refactor/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/ReturnTagTest.php" name="bundle/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/ReturnTagTest.php" />
+   <install as="Horde/Refactor/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/SeeTagTest.php" name="bundle/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/SeeTagTest.php" />
+   <install as="Horde/Refactor/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/SinceTagTest.php" name="bundle/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/SinceTagTest.php" />
+   <install as="Horde/Refactor/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/SourceTagTest.php" name="bundle/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/SourceTagTest.php" />
+   <install as="Horde/Refactor/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/ThrowsTagTest.php" name="bundle/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/ThrowsTagTest.php" />
+   <install as="Horde/Refactor/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/UsesTagTest.php" name="bundle/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/UsesTagTest.php" />
+   <install as="Horde/Refactor/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/VarTagTest.php" name="bundle/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/VarTagTest.php" />
+   <install as="Horde/Refactor/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/VersionTagTest.php" name="bundle/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/VersionTagTest.php" />
+   <install as="Horde/Refactor/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Type/CollectionTest.php" name="bundle/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Type/CollectionTest.php" />
    <install as="Horde/Refactor/LICENSE" name="docs/Horde/Refactor/LICENSE" />
    <install as="Horde/Refactor/Cli.php" name="lib/Horde/Refactor/Cli.php" />
    <install as="Horde/Refactor/Config.php" name="lib/Horde/Refactor/Config.php" />
    <install as="Horde/Refactor/Exception.php" name="lib/Horde/Refactor/Exception.php" />
    <install as="Horde/Refactor/Regexp.php" name="lib/Horde/Refactor/Regexp.php" />
    <install as="Horde/Refactor/Rule.php" name="lib/Horde/Refactor/Rule.php" />
+   <install as="Horde/Refactor/TagFactory.php" name="lib/Horde/Refactor/TagFactory.php" />
    <install as="Horde/Refactor/Tokens.php" name="lib/Horde/Refactor/Tokens.php" />
    <install as="Horde/Refactor/Translation.php" name="lib/Horde/Refactor/Translation.php" />
    <install as="Horde/Refactor/Config/Base.php" name="lib/Horde/Refactor/Config/Base.php" />
+   <install as="Horde/Refactor/Config/FileLevelDocBlock.php" name="lib/Horde/Refactor/Config/FileLevelDocBlock.php" />
    <install as="Horde/Refactor/Exception/NotFound.php" name="lib/Horde/Refactor/Exception/NotFound.php" />
    <install as="Horde/Refactor/Exception/UnexpectedToken.php" name="lib/Horde/Refactor/Exception/UnexpectedToken.php" />
+   <install as="Horde/Refactor/Rule/FileLevelDocBlock.php" name="lib/Horde/Refactor/Rule/FileLevelDocBlock.php" />
    <install as="Horde/Refactor/Rule/Php4Constructor.php" name="lib/Horde/Refactor/Rule/Php4Constructor.php" />
    <install as="locale/Horde_Refactor.pot" name="locale/Horde_Refactor.pot" />
    <install as="locale/de/LC_MESSAGES/Horde_Refactor.po" name="locale/de/LC_MESSAGES/Horde_Refactor.po" />
+   <install as="Horde/Refactor/AllTests.php" name="test/Horde/Refactor/AllTests.php" />
+   <install as="Horde/Refactor/bootstrap.php" name="test/Horde/Refactor/bootstrap.php" />
+   <install as="Horde/Refactor/FileLevelDocBlockTest.php" name="test/Horde/Refactor/FileLevelDocBlockTest.php" />
+   <install as="Horde/Refactor/phpunit.xml" name="test/Horde/Refactor/phpunit.xml" />
+   <install as="Horde/Refactor/fixtures/ClassLevelDocBlock.php" name="test/Horde/Refactor/fixtures/ClassLevelDocBlock.php" />
+   <install as="Horde/Refactor/fixtures/config.php" name="test/Horde/Refactor/fixtures/config.php" />
+   <install as="Horde/Refactor/fixtures/NoFileLevelDocBlock.php" name="test/Horde/Refactor/fixtures/NoFileLevelDocBlock.php" />
+   <install as="Horde/Refactor/fixtures/refactored/ClassLevelDocBlock.php" name="test/Horde/Refactor/fixtures/refactored/ClassLevelDocBlock.php" />
+   <install as="Horde/Refactor/fixtures/refactored/ConfiguredNoFileLevelDocBlock.php" name="test/Horde/Refactor/fixtures/refactored/ConfiguredNoFileLevelDocBlock.php" />
+   <install as="Horde/Refactor/fixtures/refactored/NoFileLevelDocBlock.php" name="test/Horde/Refactor/fixtures/refactored/NoFileLevelDocBlock.php" />
   </filelist>
  </phprelease>
  <changelog>
