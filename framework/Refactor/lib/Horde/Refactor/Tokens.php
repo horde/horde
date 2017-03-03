@@ -376,6 +376,18 @@ class Tokens extends \ArrayIterator
     }
 
     /**
+     * Inserts tokens at the current position.
+     *
+     * @param array $tokens  The tokens to insert.
+     *
+     * @return self  A new iterator with the tokens inserted.
+     */
+    public function insert(array $tokens)
+    {
+        return $this->splice($this->key(), 0, $tokens);
+    }
+
+    /**
      * Returns the file code in its current state.
      *
      * @return string  The file code.
