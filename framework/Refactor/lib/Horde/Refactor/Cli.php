@@ -95,6 +95,12 @@ class Cli
             echo "Processing file $file\n";
             $rule = new $class($file);
             $rule->run();
+            if ($rule->warnings) {
+                echo "WARNING\n";
+                foreach ($rule->warnings as $warning) {
+                    echo "$warning\n";
+                }
+            }
             $original = file($file, FILE_IGNORE_NEW_LINES);
             $refactored = explode("\n", trim($rule->dump()));
             if (!array_diff($original, $refactored) &&

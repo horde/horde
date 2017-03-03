@@ -19,6 +19,8 @@ namespace Horde\Refactor;
  *
  * Extend this class to implement actual refactorings.
  *
+ * @property-read string[] $warnings Warning messages.
+ *
  * @author    Jan Schneider <jan@horde.org>
  * @category  Horde
  * @copyright 2017 Horde LLC
@@ -33,6 +35,13 @@ abstract class Rule
      * @var Horde\Refactor\Tokens
      */
     protected $_tokens;
+
+    /**
+     * A list of warning messages.
+     *
+     * @var string[]
+     */
+    protected $_warnings;
 
     /**
      * Constructor.
@@ -59,5 +68,15 @@ abstract class Rule
     public function dump()
     {
         return (string)$this->_tokens;
+    }
+
+    /**
+     * Getter.
+     */
+    public function __get($name)
+    {
+        if ($name == 'warnings') {
+            return $this->_warnings;
+        }
     }
 }
