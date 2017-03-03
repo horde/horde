@@ -35,12 +35,27 @@ class FileLevelDocBlock extends Base
     public $fileSummary = 'Copyright %year% Horde LLC (http://www.horde.org/)';
 
     /**
+     * Regular expression to verify summary for file-level DocBlocks.
+     *
+     * @var string
+     */
+    public $fileSummaryRegexp = '/Copyright \d{4}(-\d{4})? Horde LLC \(http:\/\/www\.horde\.org\/\)/';
+
+    /**
      * Default description for new, empty file-level DocBlocks.
      *
      * @var string
      */
     public $fileDescription = 'See the enclosed file LICENSE for license information (%license%). If you
 did not receive this file, see %licenseUrl%.';
+
+    /**
+     * Regular expression to verify description for file-level DocBlocks.
+     *
+     * @var string
+     */
+    public $fileDescriptionRegexp = '/See the enclosed file (LICENSE|COPYING) for license information \((GPL|LGPL(-21)?|BSD|ASL)\)\. If you
+did not receive this file, see https?:\/\/www\.horde\.org\/licenses\/(gpl|lgpl(21)?|bsd|apache)\./';
 
     /**
      * Default tags for new, empty file-level DocBlocks.
@@ -55,6 +70,13 @@ did not receive this file, see %licenseUrl%.';
     );
 
     /**
+     * Forbidden tags for file-level DocBlocks.
+     *
+     * @var string
+     */
+    public $fileForbiddenTags = array('copyright');
+
+    /**
      * Default summary for new, empty class-level DocBlocks.
      *
      * @var string
@@ -62,11 +84,25 @@ did not receive this file, see %licenseUrl%.';
     public $classSummary = 'Summary';
 
     /**
+     * Regular expression to verify summary for file-level DocBlocks.
+     *
+     * @var string
+     */
+    public $classSummaryRegexp = '/.+/';
+
+    /**
      * Default description for new, empty class-level DocBlocks.
      *
      * @var string
      */
     public $classDescription = '';
+
+    /**
+     * Regular expression to verify description for file-level DocBlocks.
+     *
+     * @var string
+     */
+    public $classDescriptionRegexp = '/./';
 
     /**
      * Default tags for new, empty class-level DocBlocks.
@@ -80,6 +116,13 @@ did not receive this file, see %licenseUrl%.';
         'license' => '%licenseUrl% %license%',
         'package' => '',
     );
+
+    /**
+     * Forbidden tags for class-level DocBlocks.
+     *
+     * @var string
+     */
+    public $classForbiddenTags = array();
 
     /**
      * Default license name for new, empty DocBlocks.

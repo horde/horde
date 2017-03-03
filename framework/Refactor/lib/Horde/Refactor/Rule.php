@@ -48,7 +48,7 @@ abstract class Rule
      *
      * @var string[]
      */
-    protected $_warnings;
+    protected $_warnings = array();
 
     /**
      * Constructor.

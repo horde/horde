@@ -97,7 +97,7 @@ class FileLevelDocBlock extends Rule
 
         // We have two DocBlocks, check for correctness.
         if ($this->_tokens->matches(T_DOC_COMMENT)) {
-            $this->_checkDocBlocks($first, $this->_tokens->current());
+            $this->_checkDocBlocks($firstPos, $this->_tokens->key());
             return;
         }
 
@@ -140,6 +140,80 @@ class FileLevelDocBlock extends Rule
         }
         $new .= "\n\n" . $serializer->getDocComment($docblock) . "\n";
         $this->_tokens = $this->_tokens->insert(array($new));
+    }
+
+    /**
+     * Verifies the existing DocBlocks.
+     *
+     * @param integer $first   Position of the first DocBlock.
+     * @param integer $second  Position of the second DocBlock.
+     */
+    protected function _checkDocBlocks($first, $second)
+    {
+        $this->_checkDocBlock($first, 'file');
+        $this->_checkDocBlock($second, 'class');
+    }
+
+    /**
+     * Verifies one of the existing DocBlocks.
+     *
+     * @param integer $pos   Position of the DocBlock.
+     * @param string $which  Which DocBlock to verify, either 'file' or 'class'.
+     */
+    protected function _checkDocBlock($pos, $which)
+    {
+        $this->_tokens->seek($pos);
+        $docblock = new DocBlock($this->_tokens->current()[1]);
+        if (!preg_match(
+                $this->_config->{$which . 'SummaryRegexp'},
+                $docblock->getShortDescription()
+            )) {
+            $this->_warnings[] = ($which == 'file'
+                ? Translation::t(
+                    "The file-level DocBlock summary should be like: "
+                )
+                : Translation::t(
+                    "The class-level DocBlock summary should be like: "
+                ))
+                . $this->_config->{$which . 'Summary'};
+        }
+        if (!preg_match(
+                $this->_config->{$which . 'DescriptionRegexp'},
+                $docblock->getLongDescription()
+            )) {
+            $this->_warnings[] = ($which == 'file'
+                ? Translation::t(
+                    "The file-level DocBlock description should be like: "
+                )
+                : Translation::t(
+                    "The class-level DocBlock  description should be like: "
+                ))
+                . $this->_config->{$which . 'Description'};
+        }
+        foreach (array_keys($this->_config->{$which . 'Tags'}) as $tag) {
+            if (!$docblock->hasTag($tag)) {
+                $this->_warnings[] = ($which == 'file'
+                    ? Translation::t(
+                        "The file-level DocBlock tags should include: "
+                    )
+                    : Translation::t(
+                        "The class-level DocBlock tags should include: "
+                    ))
+                    . $tag;
+            }
+        }
+        foreach ($this->_config->{$which . 'ForbiddenTags'} as $tag) {
+            if ($docblock->hasTag($tag)) {
+                $this->_warnings[] = ($which == 'file'
+                    ? Translation::t(
+                        "The file-level DocBlock tags should not include: "
+                    )
+                    : Translation::t(
+                        "The class-level DocBlock tags should not include: "
+                    ))
+                    . $tag;
+            }
+        }
     }
 
     /**

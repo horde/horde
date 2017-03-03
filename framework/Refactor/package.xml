@@ -178,6 +178,8 @@
        </dir> <!-- /test/Horde/Refactor/fixtures/refactored -->
        <file name="ClassLevelDocBlock.php" role="test" />
        <file name="config.php" role="test" />
+       <file name="CorrectDocBlocks.php" role="test" />
+       <file name="IncorrectDocBlocks.php" role="test" />
        <file name="NoFileLevelDocBlock.php" role="test" />
        <file name="Php4ConstructorOnly.php" role="test" />
        <file name="Php5Constructor.php" role="test" />
@@ -301,6 +303,8 @@
    <install as="Horde/Refactor/phpunit.xml" name="test/Horde/Refactor/phpunit.xml" />
    <install as="Horde/Refactor/fixtures/ClassLevelDocBlock.php" name="test/Horde/Refactor/fixtures/ClassLevelDocBlock.php" />
    <install as="Horde/Refactor/fixtures/config.php" name="test/Horde/Refactor/fixtures/config.php" />
+   <install as="Horde/Refactor/fixtures/CorrectDocBlocks.php" name="test/Horde/Refactor/fixtures/CorrectDocBlocks.php" />
+   <install as="Horde/Refactor/fixtures/IncorrectDocBlocks.php" name="test/Horde/Refactor/fixtures/IncorrectDocBlocks.php" />
    <install as="Horde/Refactor/fixtures/NoFileLevelDocBlock.php" name="test/Horde/Refactor/fixtures/NoFileLevelDocBlock.php" />
    <install as="Horde/Refactor/fixtures/Php4ConstructorOnly.php" name="test/Horde/Refactor/fixtures/Php4ConstructorOnly.php" />
    <install as="Horde/Refactor/fixtures/Php5Constructor.php" name="test/Horde/Refactor/fixtures/Php5Constructor.php" />

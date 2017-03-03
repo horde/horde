@@ -51,6 +51,58 @@ class FileLevelDocBlockTest extends \Horde_Test_Case
         );
     }
 
+    public function testWarnings()
+    {
+        $rule = new Rule\FileLevelDocBlock(
+            __DIR__ . '/fixtures/NoFileLevelDocBlock.php',
+            new Config\FileLevelDocBlock(array('year' => 2017))
+        );
+        $rule->run();
+        $this->assertCount(1, $rule->warnings);
+        $this->assertEquals(
+            'No DocBlocks found, adding default DocBlocks',
+            $rule->warnings[0]
+        );
+
+        $rule = new Rule\FileLevelDocBlock(
+            __DIR__ . '/fixtures/CorrectDocBlocks.php',
+            new Config\FileLevelDocBlock(array('year' => 2017))
+        );
+        $rule->run();
+        $this->assertCount(0, $rule->warnings);
+
+        $rule = new Rule\FileLevelDocBlock(
+            __DIR__ . '/fixtures/IncorrectDocBlocks.php',
+            new Config\FileLevelDocBlock(array('year' => 2017))
+        );
+        $rule->run();
+        $this->assertCount(12, $rule->warnings);
+        $this->assertStringStartsWith(
+            'The file-level DocBlock summary should be like:',
+            $rule->warnings[0]
+        );
+        $this->assertStringStartsWith(
+            'The file-level DocBlock description should be like:',
+            $rule->warnings[1]
+        );
+        foreach (array(2 => 'author', 3 => 'category', 4 => 'license', 5 => 'package') as $warning => $tag) {
+            $this->assertEquals(
+                'The file-level DocBlock tags should include: ' . $tag,
+                $rule->warnings[$warning]
+            );
+        }
+        $this->assertEquals(
+            'The file-level DocBlock tags should not include: copyright',
+            $rule->warnings[6]
+        );
+        foreach (array(7 => 'author', 8 => 'category', 9 => 'copyright', 10 => 'license', 11 => 'package') as $warning => $tag) {
+            $this->assertEquals(
+                'The class-level DocBlock tags should include: ' . $tag,
+                $rule->warnings[$warning]
+            );
+        }
+    }
+
     public function getFileNames()
     {
         return array(
