@@ -76,7 +76,7 @@ class Tokens extends \ArrayIterator
             if ($this->matches($token, $term)) {
                 return true;
             }
-            if ($opts['allowed'] &&
+            if (!empty($opts['allowed']) &&
                 !in_array(is_array($this->current()) ? $this->current()[0] : $this->current(), $opts['allowed'], true)) {
                 return false;
             }
