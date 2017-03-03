@@ -224,7 +224,7 @@ class FileLevelDocBlock extends Rule
     protected function _createFileLevelBlock($pos)
     {
         $this->_tokens->seek($pos);
-        $classDocBlock = new DocBlock($this->current()[1]);
+        $classDocBlock = new DocBlock($this->_tokens->current()[1]);
         if ($license = $classDocBlock->getTagsByName('license')) {
             $license = explode(' ', $license[0]->getContent(), 2);
             if (count($license) == 2) {
