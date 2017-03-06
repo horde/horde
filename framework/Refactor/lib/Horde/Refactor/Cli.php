@@ -16,6 +16,7 @@ namespace Horde\Refactor;
 use Horde\Refactor\Rule;
 use Horde_Argv_Parser;
 use Horde_Argv_Option;
+use Horde_Cli;
 
 /**
  * Command line tool for refactoring of PHP code.
@@ -72,8 +73,11 @@ class Cli
             return;
         }
 
+        $cli = Horde_Cli::init();
         if (!$options->update) {
-            $renderer = new \Horde_Text_Diff_Renderer_Unified();
+            $renderer = new \Horde_Text_Diff_Renderer_Unified_Colored(
+                array('cli' => $cli)
+            );
         }
         if ($options->file) {
             $files = array($options->file);
