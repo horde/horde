@@ -17,10 +17,10 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-02-02</date>
+ <date>2017-03-06</date>
  <version>
-  <release>2.1.3</release>
-  <api>1.1.0</api>
+  <release>2.2.0</release>
+  <api>1.2.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Add Horde_Text_Diff_Renderer_Unified_Colored as a renderer with color highlighting.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -42,9 +42,11 @@
         <file name="diff.php" role="doc" />
        </dir> <!-- /doc/Horde/Text/Diff/examples -->
        <file name="COPYING" role="doc" />
+       <file name="UPGRADING" role="doc" />
       </dir> <!-- /doc/Horde/Text/Diff -->
      </dir> <!-- /doc/Horde/Text -->
     </dir> <!-- /doc/Horde -->
+    <file name="horde.yml" role="doc" />
    </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
@@ -64,6 +66,9 @@
         <file name="Delete.php" role="php" />
        </dir> <!-- /lib/Horde/Text/Diff/Op -->
        <dir name="Renderer">
+        <dir name="Unified">
+         <file name="Colored.php" role="php" />
+        </dir> <!-- /lib/Horde/Text/Diff/Renderer/Unified -->
         <file name="Context.php" role="php" />
         <file name="Inline.php" role="php" />
         <file name="Unified.php" role="php" />
@@ -140,6 +145,13 @@
   </required>
   <optional>
    <package>
+    <name>Horde_Cli</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
     <name>Horde_Test</name>
     <channel>pear.horde.org</channel>
     <min>2.1.0</min>
@@ -155,7 +167,9 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="horde.yml" name="doc/horde.yml" />
    <install as="COPYING" name="doc/Horde/Text/Diff/COPYING" />
+   <install as="UPGRADING" name="doc/Horde/Text/Diff/UPGRADING" />
    <install as="examples/1.txt" name="doc/Horde/Text/Diff/examples/1.txt" />
    <install as="examples/2.txt" name="doc/Horde/Text/Diff/examples/2.txt" />
    <install as="examples/diff.php" name="doc/Horde/Text/Diff/examples/diff.php" />
@@ -176,6 +190,7 @@
    <install as="Horde/Text/Diff/Renderer/Context.php" name="lib/Horde/Text/Diff/Renderer/Context.php" />
    <install as="Horde/Text/Diff/Renderer/Inline.php" name="lib/Horde/Text/Diff/Renderer/Inline.php" />
    <install as="Horde/Text/Diff/Renderer/Unified.php" name="lib/Horde/Text/Diff/Renderer/Unified.php" />
+   <install as="Horde/Text/Diff/Renderer/Unified/Colored.php" name="lib/Horde/Text/Diff/Renderer/Unified/Colored.php" />
    <install as="Horde/Text/Diff/ThreeWay/BlockBuilder.php" name="lib/Horde/Text/Diff/ThreeWay/BlockBuilder.php" />
    <install as="Horde/Text/Diff/ThreeWay/Op/Base.php" name="lib/Horde/Text/Diff/ThreeWay/Op/Base.php" />
    <install as="Horde/Text/Diff/ThreeWay/Op/Copy.php" name="lib/Horde/Text/Diff/ThreeWay/Op/Copy.php" />
@@ -423,15 +438,15 @@
   </release>
   <release>
    <version>
-    <release>2.1.3</release>
-    <api>1.1.0</api></version>
+    <release>2.2.0</release>
+    <api>1.2.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-02-02</date>
+   <date>2017-03-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Add Horde_Text_Diff_Renderer_Unified_Colored as a renderer with color highlighting.
    </notes>
   </release>
  </changelog>
