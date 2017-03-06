@@ -11,6 +11,9 @@
  * Summary.
  *
  * Descriptions.
+ *
+ * @license FooBar
+ * @license FooBar
  */
 class Foo
 {

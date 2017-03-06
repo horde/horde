@@ -1,1 +1,7 @@
-<phpunit bootstrap="bootstrap.php"></phpunit>
+<phpunit bootstrap="bootstrap.php">
+  <filter>
+    <whitelist processUncoveredFilesFromWhitelist="true">
+      <directory suffix=".php">../../../lib</directory>
+    </whitelist>
+  </filter>
+</phpunit>

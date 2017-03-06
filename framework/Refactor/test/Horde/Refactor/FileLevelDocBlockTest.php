@@ -77,15 +77,19 @@ class FileLevelDocBlockTest extends \Horde_Test_Case
         );
         $rule->run();
         $this->assertCount(12, $rule->warnings);
-        $this->assertStringStartsWith(
-            'The file-level DocBlock summary should be like:',
+        $this->assertEquals(
+            'More than one @license tag.',
             $rule->warnings[0]
         );
         $this->assertStringStartsWith(
-            'The file-level DocBlock description should be like:',
+            'The file-level DocBlock summary should be like:',
             $rule->warnings[1]
         );
-        foreach (array(2 => 'author', 3 => 'category', 4 => 'license', 5 => 'package') as $warning => $tag) {
+        $this->assertStringStartsWith(
+            'The file-level DocBlock description should be like:',
+            $rule->warnings[2]
+        );
+        foreach (array(3 => 'author', 4 => 'category', 5 => 'license', 6 => 'package') as $warning => $tag) {
             $this->assertEquals(
                 'The file-level DocBlock tags should include: ' . $tag,
                 $rule->warnings[$warning]
@@ -93,9 +97,9 @@ class FileLevelDocBlockTest extends \Horde_Test_Case
         }
         $this->assertEquals(
             'The file-level DocBlock tags should not include: copyright',
-            $rule->warnings[6]
+            $rule->warnings[7]
         );
-        foreach (array(7 => 'author', 8 => 'category', 9 => 'copyright', 10 => 'license', 11 => 'package') as $warning => $tag) {
+        foreach (array(8 => 'author', 9 => 'category', 10 => 'copyright', 11 => 'package') as $warning => $tag) {
             $this->assertEquals(
                 'The class-level DocBlock tags should include: ' . $tag,
                 $rule->warnings[$warning]
@@ -109,6 +113,7 @@ class FileLevelDocBlockTest extends \Horde_Test_Case
             array('NoFileLevelDocBlock.php', false),
             array('NoFileLevelDocBlock.php', true),
             array('ClassLevelDocBlock.php', false),
+            array('ClassLevelDocBlockWithFileLevelDocs.php', false),
         );
     }
 }
