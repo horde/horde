@@ -102,7 +102,7 @@ did not receive this file, see https?:\/\/www\.horde\.org\/licenses\/(gpl|lgpl(2
      *
      * @var string
      */
-    public $classDescriptionRegexp = '/./';
+    public $classDescriptionRegexp = '/.*/';
 
     /**
      * Default tags for new, empty class-level DocBlocks.
