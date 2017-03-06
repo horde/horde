@@ -131,11 +131,25 @@ did not receive this file, see %licenseUrl%.';
     public $license = '...';
 
     /**
+     * Regular expression to extract license name from description.
+     *
+     * @var string
+     */
+    public $licenseExtractRegexp = '/See the enclosed file (?:LICENSE|COPYING) for license information \((GPL|LGPL(?:-21)?|BSD|ASL)\)\. If you(?: |\n)did(?: |\n)not receive this file, see https?:\/\/www\.horde\.org\/licenses\/(?:gpl|lgpl(?:21)?|bsd|apache)\./';
+
+    /**
      * Default license URL for new, empty DocBlocks.
      *
      * @var string
      */
     public $licenseUrl = 'http://www.horde.org/licenses/...';
+
+    /**
+     * Regular expression to extract license URL from description.
+     *
+     * @var string
+     */
+    public $licenseUrlExtractRegexp = '/See the enclosed file (?:LICENSE|COPYING) for license information \((?:GPL|LGPL(?:-21)?|BSD|ASL)\)\. If you(?: |\n)did(?: |\n)not receive this file, see (https?:\/\/www\.horde\.org\/licenses\/(?:gpl|lgpl(?:21)?|bsd|apache))\./';
 
     /**
      * Default copyright year for new, empty DocBlocks.

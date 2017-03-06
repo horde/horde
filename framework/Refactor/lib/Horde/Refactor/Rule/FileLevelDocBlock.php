@@ -42,6 +42,34 @@ use phpDocumentor\Reflection\DocBlock\Serializer;
 class FileLevelDocBlock extends Rule
 {
     /**
+     * Position of the first DocBlock.
+     *
+     * @var integer
+     */
+    protected $_first;
+
+    /**
+     * Position of the second DocBlock.
+     *
+     * @var integer
+     */
+    protected $_second;
+
+    /**
+     * The first DocBlock.
+     *
+     * @var \phpDocumentor\Reflection\DocBlock
+     */
+    protected $_firstBlock;
+
+    /**
+     * The second DocBlock.
+     *
+     * @var \phpDocumentor\Reflection\DocBlock
+     */
+    protected $_secondBlock;
+
+    /**
      * Autoload necessary libraries.
      */
     static public function autoload()
@@ -83,7 +111,9 @@ class FileLevelDocBlock extends Rule
             return;
         }
 
-        $firstPos = $this->_tokens->key();
+        $this->_first = $this->_tokens->key();
+        $this->_firstBlock = new DocBlock($this->_tokens->current()[1]);
+        $this->_processDocBlock($this->_firstBlock);
         $this->_tokens->skipWhitespace();
         while ($this->_tokens->matches(T_NAMESPACE) ||
                $this->_tokens->matches(T_USE) ||
@@ -97,12 +127,16 @@ class FileLevelDocBlock extends Rule
 
         // We have two DocBlocks, check for correctness.
         if ($this->_tokens->matches(T_DOC_COMMENT)) {
-            $this->_checkDocBlocks($firstPos, $this->_tokens->key());
+            $this->_second = $this->_tokens->key();
+            $this->_secondBlock = new DocBlock($this->_tokens->current()[1]);
+            $this->_processDocBlock($this->_secondBlock);
+            $this->_checkDocBlocks();
             return;
         }
 
         // The file-level DocBlock is missing, create one.
-        $this->_createFileLevelBlock($firstPos);
+        $this->_createFileLevelBlock();
+        $this->_checkDocBlock('class');
     }
 
     /**
@@ -144,107 +178,209 @@ class FileLevelDocBlock extends Rule
 
     /**
      * Verifies the existing DocBlocks.
-     *
-     * @param integer $first   Position of the first DocBlock.
-     * @param integer $second  Position of the second DocBlock.
      */
-    protected function _checkDocBlocks($first, $second)
+    protected function _checkDocBlocks()
     {
-        $this->_checkDocBlock($first, 'file');
-        $this->_checkDocBlock($second, 'class');
+        $this->_checkDocBlock('file');
+        $this->_checkDocBlock('class');
     }
 
     /**
      * Verifies one of the existing DocBlocks.
      *
-     * @param integer $pos   Position of the DocBlock.
      * @param string $which  Which DocBlock to verify, either 'file' or 'class'.
      */
-    protected function _checkDocBlock($pos, $which)
+    protected function _checkDocBlock($which)
     {
-        $this->_tokens->seek($pos);
-        $docblock = new DocBlock($this->_tokens->current()[1]);
+        switch ($which) {
+        case 'file';
+            $warn = Translation::t("file-level");
+            $pos = $this->_first;
+            $docblock = $this->_firstBlock;
+            $otherPos = $this->_second;
+            $otherBlock = $this->_secondBlock;
+            break;
+        case 'class':
+            $warn = Translation::t("class-level");
+            $pos = $this->_second;
+            $docblock = $this->_secondBlock;
+            $otherPos = $this->_first;
+            $otherBlock = $this->_firstBlock;
+            break;
+        default:
+            throw new InvalidArgumentException();
+        }
+
+        $serializer = new Serializer();
+        $update = false;
+
+        // Checking the summary.
         if (!preg_match(
                 $this->_config->{$which . 'SummaryRegexp'},
                 $docblock->getShortDescription()
             )) {
-            $this->_warnings[] = ($which == 'file'
-                ? Translation::t(
-                    "The file-level DocBlock summary should be like: "
-                )
-                : Translation::t(
-                    "The class-level DocBlock summary should be like: "
-                ))
+            $this->_warnings[] = sprintf(
+                Translation::t("The %s DocBlock summary should be like: "),
+                $warn
+            )
                 . $this->_config->{$which . 'Summary'};
+            if (strlen($docblock->getShortDescription()) &&
+                $which == 'file') {
+                // Move the file-level descriptions to the class level.
+                $otherBlock = $this->_getDocBlock(
+                    $docblock->getText() . "\n\n" . $otherBlock->getText(),
+                    $otherBlock->getTags()
+                );
+                $this->_tokens = $this->_tokens->splice(
+                    $otherPos, 1, array($serializer->getDocComment($otherBlock))
+                );
+                $this->_secondBlock = $otherBlock;
+                $docblock = $this->_getDocBlock('', $docblock->getTags());
+            }
+            if (!strlen($docblock->getShortDescription()) &&
+                strlen($this->_config->{$which . 'Summary'})) {
+                $docblock->setText(
+                    $this->_fillTemplate($this->_config->{$which . 'Summary'})
+                    . "\n\n" . $docblock->getLongDescription()
+                );
+                $update = true;
+            }
         }
+
+        // Checking the description.
         if (!preg_match(
                 $this->_config->{$which . 'DescriptionRegexp'},
                 $docblock->getLongDescription()
             )) {
-            $this->_warnings[] = ($which == 'file'
-                ? Translation::t(
-                    "The file-level DocBlock description should be like: "
-                )
-                : Translation::t(
-                    "The class-level DocBlock  description should be like: "
-                ))
+            $this->_warnings[] = sprintf(
+                Translation::t("The %s DocBlock description should be like: "),
+                $warn
+            )
                 . $this->_config->{$which . 'Description'};
+            if (!strlen($docblock->getLongDescription()) &&
+                strlen($this->_config->{$which . 'Description'})) {
+                $docblock->setText(
+                    $docblock->getShortDescription()
+                    . "\n\n"
+                    . $this->_fillTemplate($this->_config->{$which . 'Description'})
+                );
+                $update = true;
+            }
         }
-        foreach (array_keys($this->_config->{$which . 'Tags'}) as $tag) {
+
+        // Checking for missing tags.
+        $tags = $docblock->getTags();
+        foreach ($this->_config->{$which . 'Tags'} as $tag => $value) {
             if (!$docblock->hasTag($tag)) {
-                $this->_warnings[] = ($which == 'file'
-                    ? Translation::t(
-                        "The file-level DocBlock tags should include: "
-                    )
-                    : Translation::t(
-                        "The class-level DocBlock tags should include: "
-                    ))
+                $this->_warnings[] = sprintf(
+                    Translation::t("The %s DocBlock tags should include: "),
+                    $warn
+                )
                     . $tag;
+                if ($otherBlock->hasTag($tag)) {
+                    $tags = array_merge($tags, $otherBlock->getTagsByName($tag));
+                } else {
+                    $tags[] = TagFactory::create(
+                        $tag, $this->_fillTemplate($value)
+                    );
+                }
             }
         }
-        foreach ($this->_config->{$which . 'ForbiddenTags'} as $tag) {
-            if ($docblock->hasTag($tag)) {
-                $this->_warnings[] = ($which == 'file'
-                    ? Translation::t(
-                        "The file-level DocBlock tags should not include: "
-                    )
-                    : Translation::t(
-                        "The class-level DocBlock tags should not include: "
-                    ))
-                    . $tag;
+        if (count($tags) != count($docblock->getTags())) {
+            $docblock = $this->_getDocBlock($docblock, $tags);
+            $update = true;
+        }
+
+        // Checking for forbidden tags.
+        $tags = array();
+        foreach ($docblock->getTags() as $tag) {
+            if (in_array($tag->getName(), $this->_config->{$which . 'ForbiddenTags'})) {
+                $this->_warnings[] = sprintf(
+                    Translation::t("The %s DocBlock tags should not include: "),
+                    $warn
+                )
+                    . $tag->getName();
+            } else {
+                $tags[] = $tag;
             }
+        }
+        if (count($tags) != count($docblock->getTags())) {
+            $docblock = $this->_getDocBlock($docblock, $tags);
+            $update = true;
+        }
+
+        // Update DocBlock if necessary.
+        if ($update) {
+            $this->_tokens = $this->_tokens->splice(
+                $pos, 1, array($serializer->getDocComment($docblock))
+            );
         }
     }
 
     /**
      * Creates a file-level DocBlock based on the first existing DocBlock.
-     *
-     * @param integer $pos  The position of the first existing DocBlock.
      */
-    protected function _createFileLevelBlock($pos)
+    protected function _createFileLevelBlock()
     {
-        $this->_tokens->seek($pos);
-        $classDocBlock = new DocBlock($this->_tokens->current()[1]);
-        if ($license = $classDocBlock->getTagsByName('license')) {
-            $license = explode(' ', $license[0]->getContent(), 2);
-            if (count($license) == 2) {
-                $this->_config->licenseUrl = $license[0];
-                $this->_config->license = $license[1];
+        $serializer = new Serializer();
+
+        $fileLevelSummary = $fileLevelDescription = null;
+        if ($this->_config->fileSummaryRegexp != '//' &&
+            preg_match(
+                $this->_config->fileSummaryRegexp,
+                $this->_firstBlock->getText(),
+                $match
+            )) {
+            $fileLevelSummary = $match[0];
+            $this->_firstBlock->setText(
+                str_replace($match[0], '', $this->_firstBlock->getText())
+            );
+        }
+        if ($this->_config->fileDescriptionRegexp != '//' &&
+            preg_match(
+                $this->_config->fileDescriptionRegexp,
+                $this->_firstBlock->getText(),
+                $match
+            )) {
+            $fileLevelDescription = $match[0];
+            $this->_firstBlock->setText(
+                str_replace($match[0], '', $this->_firstBlock->getText())
+            );
+        }
+        if ($fileLevelSummary || $fileLevelDescription) {
+            $this->_firstBlock->setText(
+                trim($this->_firstBlock->getText())
+            );
+            $this->_tokens = $this->_tokens->splice(
+                $this->_first,
+                1,
+                array($serializer->getDocComment($this->_firstBlock))
+            );
+            if ($fileLevelSummary) {
+                $this->_config->fileSummary = $fileLevelSummary;
+            }
+            if ($fileLevelDescription) {
+                $this->_config->fileDescription = $fileLevelDescription;
             }
         }
+        $this->_secondBlock = $this->_firstBlock;
+
         $tags = array();
         foreach ($this->_fillTemplate($this->_config->fileTags) as $key => $value) {
-            if ($classTags = $classDocBlock->getTagsByName($key)) {
-                $value = $classTags[0]->getContent();
+            if ($classTags = $this->_firstBlock->getTagsByName($key)) {
+                $tags = array_merge($tags, $classTags);
+            } else {
+                $tags[] = TagFactory::create($key, $value);
             }
-            $tags[] = TagFactory::create($key, $value);
         }
         $fileDocBlock = $this->_getFileLevelDocBlock($tags);
-        $serializer = new Serializer();
+        $this->_tokens->seek($this->_first);
         $this->_tokens = $this->_tokens->insert(array(
             $serializer->getDocComment($fileDocBlock),
             "\n\n"
         ));
+        $this->_firstBlock = $fileDocBlock;
+        $this->_second = $this->_first + 2;
     }
 
     /**
@@ -256,15 +392,78 @@ class FileLevelDocBlock extends Rule
      */
     protected function _getFileLevelDocBlock(array $tags)
     {
+        return $this->_getDocBlock(
+            $this->_fillTemplate($this->_config->fileSummary)
+            . "\n\n" . $this->_fillTemplate($this->_config->fileDescription),
+            $tags
+        );
+    }
+
+    /**
+     * Builds a DocBlock.
+     *
+     * @param \phpDocumentor\Reflection\DocBlock|string $descriptions
+     *     The DocBlock summary and description or the DocBlock to pull those
+     *     from.
+     * @param \phpDocumentor\Reflection\DocBlock\Tag[] $tags
+     *     Tags to add.
+     *
+     * @return \phpDocumentor\Reflection\DocBlock  A DocBlock.
+     */
+    protected function _getDocBlock($descriptions, array $tags)
+    {
         $docblock = new DocBlock('');
         $docblock->setText(
-            $this->_fillTemplate($this->_config->fileSummary)
-            . "\n\n" . $this->_fillTemplate($this->_config->fileDescription)
+            $descriptions instanceof DocBlock
+                ? $descriptions->getText()
+                : $descriptions
         );
         foreach ($tags as $tag) {
-            $docblock->appendTag($tag);
+            $docblock->appendTag(
+                TagFactory::create($tag->getName(), $tag->getContent())
+            );
         }
         return $docblock;
+    }
+
+    /**
+     * Processes an existing DocBlock.
+     *
+     * Parses any information out of the block that might be required later,
+     * and checks for different tag contents if processing the second block.
+     *
+     * @param \phpDocumentor\Reflection\DocBlock $block  A DocBlock.
+     */
+    protected function _processDocBlock($block)
+    {
+        if (preg_match($this->_config->licenseExtractRegexp, $block->getText(), $match)) {
+            $this->_config->license = $match[1];
+        }
+        if (preg_match($this->_config->licenseUrlExtractRegexp, $block->getText(), $match)) {
+            $this->_config->licenseUrl = $match[1];
+        }
+        if ($tags = $block->getTagsByName('copyright')) {
+            foreach ($tags as $tag) {
+                $copyright = explode(' ', $tag->getContent(), 2);
+                if (count($copyright) == 2 &&
+                    strpos($this->_config->fileSummary, $copyright[1]) !== false) {
+                    $this->_config->year = $copyright[0];
+                    break;
+                }
+            }
+        }
+        if ($tags = $block->getTagsByName('license')) {
+            if (count($tags) > 1) {
+                $this->_warnings[] = Translation::t(
+                    "More than one @license tag."
+                );
+            }
+            $license = explode(' ', $tags[0]->getContent(), 2);
+            if (count($license) == 2) {
+                $this->_config->licenseUrl = $license[0];
+                $this->_config->license = $license[1];
+            }
+        }
     }
 
     /**
