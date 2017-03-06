@@ -35,12 +35,12 @@ class Php4ConstructorTest extends \Horde_Test_Case
     public function testPhp4Constructors($file, $config)
     {
         $rule = new Rule\Php4Constructor(
-            __DIR__ . '/fixtures/' . $file,
+            __DIR__ . '/fixtures/Php4Constructor/' . $file,
             new Config\Base()
         );
         $rule->run();
         $this->assertStringEqualsFile(
-            __DIR__ . '/fixtures/refactored/' . $file,
+            __DIR__ . '/fixtures/Php4Constructor/refactored/' . $file,
             $rule->dump()
         );
     }

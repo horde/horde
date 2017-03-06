@@ -38,14 +38,14 @@ class FileLevelDocBlockTest extends \Horde_Test_Case
             $config = new Config(__DIR__ . '/fixtures/config.php');
         }
         $rule = new Rule\FileLevelDocBlock(
-            __DIR__ . '/fixtures/' . $file,
+            __DIR__ . '/fixtures/FileLevelDocBlock/' . $file,
             $config
                 ? $config->FileLevelDocBlock
                 : new Config\FileLevelDocBlock(array('year' => 2017))
         );
         $rule->run();
         $this->assertStringEqualsFile(
-            __DIR__ . '/fixtures/refactored/'
+            __DIR__ . '/fixtures/FileLevelDocBlock/refactored/'
                 . ($config ? 'Configured' : '') . $file,
             $rule->dump()
         );
@@ -54,7 +54,7 @@ class FileLevelDocBlockTest extends \Horde_Test_Case
     public function testWarnings()
     {
         $rule = new Rule\FileLevelDocBlock(
-            __DIR__ . '/fixtures/NoFileLevelDocBlock.php',
+            __DIR__ . '/fixtures/FileLevelDocBlock/NoFileLevelDocBlock.php',
             new Config\FileLevelDocBlock(array('year' => 2017))
         );
         $rule->run();
@@ -65,14 +65,14 @@ class FileLevelDocBlockTest extends \Horde_Test_Case
         );
 
         $rule = new Rule\FileLevelDocBlock(
-            __DIR__ . '/fixtures/CorrectDocBlocks.php',
+            __DIR__ . '/fixtures/FileLevelDocBlock/CorrectDocBlocks.php',
             new Config\FileLevelDocBlock(array('year' => 2017))
         );
         $rule->run();
         $this->assertCount(0, $rule->warnings);
 
         $rule = new Rule\FileLevelDocBlock(
-            __DIR__ . '/fixtures/IncorrectDocBlocks.php',
+            __DIR__ . '/fixtures/FileLevelDocBlock/IncorrectDocBlocks.php',
             new Config\FileLevelDocBlock(array('year' => 2017))
         );
         $rule->run();
