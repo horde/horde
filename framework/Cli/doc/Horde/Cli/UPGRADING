@@ -1,0 +1,21 @@
+=====================
+ Upgrading Horde_Cli
+=====================
+
+:Contact: dev@lists.horde.org
+
+.. contents:: Contents
+.. section-numbering::
+
+
+This lists the API changes between releases of the package.
+
+
+Upgrading to 2.1.0
+==================
+
+  - Horde_Cli
+
+    - color()
+
+      This method has been added.

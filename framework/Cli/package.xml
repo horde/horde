@@ -17,10 +17,10 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-07-12</date>
+ <date>2017-03-06</date>
  <version>
-  <release>2.0.8</release>
-  <api>2.0.0</api>
+  <release>2.1.0</release>
+  <api>2.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Add color() method to colorize output with any supported color.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -37,8 +37,10 @@
      <dir name="Cli">
       <file name="colors.php" role="doc" />
       <file name="COPYING" role="doc" />
+      <file name="UPGRADING" role="doc" />
      </dir> <!-- /doc/Horde/Cli -->
     </dir> <!-- /doc/Horde -->
+    <file name="horde.yml" role="doc" />
    </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
@@ -335,8 +337,10 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="horde.yml" name="doc/horde.yml" />
    <install as="Horde/Cli/colors.php" name="doc/Horde/Cli/colors.php" />
    <install as="COPYING" name="doc/Horde/Cli/COPYING" />
+   <install as="UPGRADING" name="doc/Horde/Cli/UPGRADING" />
    <install as="Horde/Cli.php" name="lib/Horde/Cli.php" />
    <install as="Horde/Cli/Translation.php" name="lib/Horde/Cli/Translation.php" />
    <install as="locale/Horde_Cli.pot" name="locale/Horde_Cli.pot" />
@@ -765,15 +769,15 @@ Add &apos;default&apos; parameter to Horde_CLI::prompt().
   </release>
   <release>
    <version>
-    <release>2.0.8</release>
-    <api>2.0.0</api></version>
+    <release>2.1.0</release>
+    <api>2.1.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-07-12</date>
+   <date>2017-03-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Add color() method to colorize output with any supported color.
    </notes>
   </release>
  </changelog>

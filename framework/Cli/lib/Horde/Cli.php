@@ -60,20 +60,42 @@ class Horde_Cli
      *
      * @var string
      */
-    protected $_red_start    = '';
-    protected $_green_start  = '';
-    protected $_yellow_start = '';
-    protected $_blue_start   = '';
+    protected $_red_start          = '';
+    protected $_green_start        = '';
+    protected $_brown_start        = '';
+    protected $_blue_start         = '';
+    protected $_magenta_start      = '';
+    protected $_cyan_start         = '';
+    protected $_lightgray_start    = '';
+    protected $_white_start        = '';
+    protected $_darkgray_start     = '';
+    protected $_lightred_start     = '';
+    protected $_lightgreen_start   = '';
+    protected $_yellow_start       = '';
+    protected $_lightblue_start    = '';
+    protected $_lightmagenta_start = '';
+    protected $_lightcyan_start    = '';
 
     /**
      * The strings to mark the end of coloured text.
      *
      * @var string
      */
-    protected $_red_end      = '';
-    protected $_green_end    = '';
-    protected $_yellow_end   = '';
-    protected $_blue_end     = '';
+    protected $_red_end          = '';
+    protected $_green_end        = '';
+    protected $_brown_end        = '';
+    protected $_blue_end         = '';
+    protected $_magenta_end      = '';
+    protected $_cyan_end         = '';
+    protected $_lightgray_end    = '';
+    protected $_white_end        = '';
+    protected $_darkgray_end     = '';
+    protected $_lightred_end     = '';
+    protected $_lightgreen_end   = '';
+    protected $_yellow_end       = '';
+    protected $_lightblue_end    = '';
+    protected $_lightmagenta_end = '';
+    protected $_lightcyan_end    = '';
 
     /**
      * Terminal foreground color codes. Not used yet.
@@ -138,11 +160,11 @@ class Horde_Cli
                 if (preg_match('/^(xterm|vt220|linux)/', $term)) {
                     $this->_clearscreen  = "\x1b[2J\x1b[H";
                     $this->_bold_start   = "\x1b[1m";
-                    $this->_red_start    = "\x1b[01;31m";
-                    $this->_green_start  = "\x1b[01;32m";
-                    $this->_yellow_start = "\x1b[01;33m";
-                    $this->_blue_start   = "\x1b[01;34m";
-                    $this->_bold_end = $this->_red_end = $this->_green_end = $this->_yellow_end = $this->_blue_end = "\x1b[0m";
+                    $this->_bold_end = "\x1b[0m";
+                    foreach ($this->_terminalForegrounds as $color => $value) {
+                        $this->{'_' . $color . '_start'} = $value;
+                        $this->{'_' . $color . '_end'} = "\x1b[0m";
+                    }
                 } elseif (preg_match('/^vt100/', $term)) {
                     $this->_clearscreen  = "\x1b[2J\x1b[H";
                     $this->_bold_start = "\x1b[1m";
@@ -155,11 +177,11 @@ class Horde_Cli
 
             $this->_bold_start   = '<strong>';
             $this->_bold_end     = '</strong>';
-            $this->_red_start    = '<span style="color:red">';
-            $this->_green_start  = '<span style="color:green">';
-            $this->_yellow_start = '<span style="color:yellow">';
-            $this->_blue_start   = '<span style="color:blue">';
-            $this->_red_end = $this->_green_end = $this->_yellow_end = $this->_blue_end = '</span>';
+            foreach (array_keys($this->_terminalForegrounds) as $color) {
+                $this->{'_' . $color . '_start'} =
+                    '<span style="color:' . $color . '">';
+                $this->{'_' . $color . '_end'} = '</span>';
+            }
         }
 
         // We really want to call this at the end of the script, not in the
@@ -215,6 +237,22 @@ class Horde_Cli
     public function bold($text)
     {
         return $this->_bold_start . $text . $this->_bold_end;
+    }
+
+    /**
+     * Returns a colored version of $text.
+     *
+     * @since Horde_Cli 2.1.0
+     *
+     * @param string $color  The color to use. @see $_foregroundColors
+     * @param string $text   The text to print in this color.
+     *
+     * @return string  The colored text.
+     */
+    public function color($color, $text)
+    {
+        return $this->{'_' . $color . '_start'} . $text
+            . $this->{'_' . $color . '_end'};
     }
 
     /**
