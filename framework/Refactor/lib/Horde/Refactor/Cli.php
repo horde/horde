@@ -93,6 +93,9 @@ class Cli
         $class = 'Horde\\Refactor\\Rule\\' . $arguments[1];
 
         foreach ($files as $file) {
+            if (substr($file, -4) != '.php') {
+                continue;
+            }
             echo "Processing file $file\n";
             $rule = new $class($file, $config->{$arguments[1]});
             $rule->run();
