@@ -76,10 +76,10 @@ class Php4Constructor extends Rule
                     continue;
                 }
                 // Constructors need to be swapped.
-                $this->_swapCtors($ctor5, $start, $ctor4, $extends);
+                $this->_swapCtors($ctor5, $start, $ctor4);
             } else {
                 // Create new BC constructors.
-                $this->_createPhp5Ctor($ctor4, $start, $extends);
+                $this->_createPhp5Ctor($ctor4, $extends);
             }
         }
     }
@@ -160,7 +160,7 @@ class Php4Constructor extends Rule
         // Replace the PHP 4 constructor body with a call to the PHP 5
         // constructor.
         $function = $function->splice(0, 0, array("\n\n    "));
-        $function->append('    $this->__construct(');
+        $function->append('$this->__construct(');
 
         // Transfer function parameters.
         $this->_tokens->seek($ctor4);
