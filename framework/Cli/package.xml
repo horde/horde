@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Add header() method to turn a string into an outlined header.
 * [jan] Add color() method to colorize output with any supported color.
  </notes>
  <contents>
@@ -777,6 +778,7 @@ Add &apos;default&apos; parameter to Horde_CLI::prompt().
    <date>2017-03-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Add header() method to turn a string into an outlined header.
 * [jan] Add color() method to colorize output with any supported color.
    </notes>
   </release>

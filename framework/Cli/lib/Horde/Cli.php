@@ -304,6 +304,41 @@ class Horde_Cli
     }
 
     /**
+     * Creates a header from a string by drawing character lines above or below
+     * the header content.
+     *
+     * @since Horde_Cli 2.2.0
+     *
+     * @param string $message  A message to turn into a header.
+     * @param string $below    Character to use for drawing the line below the
+     *                         message.
+     * @param string $above    Character to use for drawing the line above the
+     *                         message.
+     *
+     * @return string  The formatted header.
+     */
+    public function header($message, $below = '-', $above = null)
+    {
+        $escapes = array();
+        foreach (get_object_vars($this) as $var => $value) {
+            if (preg_match('/^_[a-z]+_(start|end)$/', $var)) {
+                $escapes[] = $value;
+            }
+        }
+        $length = 0;
+        foreach (explode($this->_newline, str_replace($escapes, '', $message)) as $line) {
+            $length = max($length, Horde_String::length($line));
+        }
+        if (strlen($above)) {
+            $message = $this->writeln(str_repeat($above, $length)) . $message;
+        }
+        if (strlen($below)) {
+            $message = $this->writeln($message) . str_repeat($below, $length);
+        }
+        return $message;
+    }
+
+    /**
      * Displays a message.
      *
      * @param string $event  The message string.
