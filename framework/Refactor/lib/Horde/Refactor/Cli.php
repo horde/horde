@@ -63,6 +63,14 @@ class Cli
                         'help'   => 'Overwrite the refatored files',
                     )
                 ),
+                new Horde_Argv_Option(
+                    '-c',
+                    '--config-file',
+                    array(
+                        'action' => 'store',
+                        'help'   => 'Configuration file to use',
+                    )
+                ),
             )
         );
         list($options, $arguments) = $parser->parseArgs();
@@ -96,7 +104,7 @@ class Cli
         $cli->writeln($cli->bold($cli->header($header, '=', '=')));
 
         require $arguments[0];
-        $config = new Config();
+        $config = new Config($options->config_file);
         $class = 'Horde\\Refactor\\Rule\\' . $arguments[1];
 
         foreach ($files as $file) {
