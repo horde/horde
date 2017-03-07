@@ -81,7 +81,9 @@ class Cli
         }
         if ($options->file) {
             $files = array($options->file);
+            $header = 'Processing single file ' . $options->file;
         } else {
+            $header = 'Processing directory ' . $options->directory;
             $files = new \RecursiveIteratorIterator(
                 new \RecursiveDirectoryIterator(
                     $options->directory,
@@ -91,6 +93,7 @@ class Cli
                 \RecursiveIteratorIterator::LEAVES_ONLY
             );
         }
+        $cli->writeln($cli->bold($cli->header($header, '=', '=')));
 
         require $arguments[0];
         $config = new Config();
@@ -100,30 +103,38 @@ class Cli
             if (substr($file, -4) != '.php') {
                 continue;
             }
-            echo "Processing file $file\n";
+            $cli->writeln();
+            $cli->writeln(
+                $cli->header(
+                    "Processing file\n" . $cli->color('cyan', $file),
+                    '-', '-'
+                )
+            );
             $rule = new $class($file, $config->{$arguments[1]});
             $rule->run();
             if ($rule->warnings) {
-                echo "WARNING\n";
+                $cli->writeln();
+                $cli->writeln($cli->red('WARNING'));
                 foreach ($rule->warnings as $warning) {
-                    echo "$warning\n";
+                    $cli->writeln($cli->color('brown', $warning));
                 }
             }
             $original = file($file, FILE_IGNORE_NEW_LINES);
             $refactored = explode("\n", trim($rule->dump()));
             if (!array_diff($original, $refactored) &&
                 !array_diff($refactored, $original)) {
-                echo "Refactoring not necessary\n";
+                $cli->writeln($cli->blue('Refactoring not necessary'));
                 continue;
             }
             if ($options->update) {
                 file_put_contents($file, $rule->dump());
-                echo "Updated file\n";
+                $cli->writeln($cli->green('Updated file'));
             } else {
                 $diff = new \Horde_Text_Diff(
                     'auto',
                     array($original, $refactored)
                 );
+                $cli->writeln();
                 echo $renderer->render($diff);
             }
         }
