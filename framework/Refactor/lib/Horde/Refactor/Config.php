@@ -57,8 +57,11 @@ class Config
         if (!$file) {
             return;
         }
+        if (!file_exists($file)) {
+            throw new \InvalidArgumentException("$file not found");
+        }
         if (!is_readable($file)) {
-            throw InvalidArgumentException("Reading of $file not allowed");
+            throw new \InvalidArgumentException("Reading of $file not allowed");
         }
         include $file;
         if (!isset($config)) {
