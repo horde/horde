@@ -44,6 +44,7 @@ class NotFound extends Exception
         $message = sprintf(
             Translation::t("Token \"%s\" Not Found"), $name
         );
-        parent::__construct($message, $token);
+        parent::__construct($message);
+        $this->details = $token;
     }
 }

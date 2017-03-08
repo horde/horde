@@ -29,7 +29,7 @@ class UnexpectedToken extends Exception
     /**
      * Constructor.
      *
-     * @param integer|string $token  The unexpected token.
+     * @param array|integer|string $token  The unexpected token.
      */
     public function __construct($token)
     {
@@ -44,6 +44,7 @@ class UnexpectedToken extends Exception
         $message = sprintf(
             Translation::t("Unexpected Token \"%s\""), $name
         );
-        parent::__construct($message, $token);
+        parent::__construct($message);
+        $this->details = $token;
     }
 }

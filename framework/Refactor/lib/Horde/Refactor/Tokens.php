@@ -14,6 +14,7 @@
 namespace Horde\Refactor;
 
 use Horde\Refactor\Exception;
+use Horde\Refactor\Regexp;
 
 /**
  * Custom ArrayIterator implementation representing the tokens.
@@ -81,6 +82,9 @@ class Tokens extends \ArrayIterator
                 return false;
             }
             if ($opts['backward']) {
+                if (!$this->key()) {
+                    return false;
+                }
                 $this->previous();
             } else {
                 $this->next();
@@ -105,7 +109,7 @@ class Tokens extends \ArrayIterator
         while ($this->find($token)) {
             $this->skipWhitespace();
             if (!$this->matches(T_STRING)) {
-                throw new Exception\UnexpectedToken($this->current());
+                continue;
             }
             if ($this->current()[1] == $name) {
                 return true;
@@ -218,17 +222,18 @@ class Tokens extends \ArrayIterator
 
         if (!$bracket) {
             $bracket = $this->current();
-            if (!is_string($bracket) || !isset($matches[$bracket])) {
-                throw new Exception\UnexpectedToken($bracket);
-            }
-            if ($backward) {
-                $this->previous();
-            } else {
-                $this->next();
-            }
+        }
+
+        if (!is_string($bracket) || !isset($matches[$bracket])) {
+            throw new Exception\UnexpectedToken($bracket);
         }
 
         $level = 0;
+        if ($backward) {
+            $this->previous();
+        } else {
+            $this->next();
+        }
         while ($this->valid()) {
             if ($this->current() === $matches[$bracket]) {
                 if (!$level) {
@@ -295,7 +300,7 @@ class Tokens extends \ArrayIterator
             if (is_null($term)) {
                 return true;
             } elseif ($term instanceof Regexp) {
-                return preg_match($term, $current);
+                return (bool)preg_match($term, $current[1]);
             } else {
                 return $current[1] == $term;
             }
@@ -307,7 +312,7 @@ class Tokens extends \ArrayIterator
             return false;
         }
         if ($token instanceof Regexp) {
-            return preg_match($token, $current);
+            return (bool)preg_match($token, $current);
         }
         return $current == $token;
     }

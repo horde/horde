@@ -25,7 +25,7 @@ namespace Horde\Refactor;
 class Regexp
 {
     /**
-     * Processed regular expression string.
+     * Regular expression string.
      *
      * @var string
      */
@@ -34,15 +34,15 @@ class Regexp
     /**
      * Constructor.
      *
-     * @param string $regexp  A regular expression, without markers.
+     * @param string $regexp  A regular expression.
      */
     public function __construct($regexp)
     {
-        $this->_regexp = '/' . preg_quote($regexp, '/') . '/';
+        $this->_regexp = $regexp;
     }
 
     /**
-     * Returns the string representation, including markers.
+     * Returns the string representation.
      *
      * @return string  String representation of this regular expression.
      */
