@@ -10,7 +10,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2017-03-06</date>
+ <date>2017-03-08</date>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -168,28 +168,38 @@
     <dir name="Horde">
      <dir name="Refactor">
       <dir name="fixtures">
-       <dir name="refactored">
+       <dir name="FileLevelDocBlock">
+        <dir name="refactored">
+         <file name="ClassLevelDocBlock.php" role="test" />
+         <file name="ClassLevelDocBlockWithFileLevelDocs.php" role="test" />
+         <file name="ConfiguredNoFileLevelDocBlock.php" role="test" />
+         <file name="NoFileLevelDocBlock.php" role="test" />
+        </dir> <!-- /test/Horde/Refactor/fixtures/FileLevelDocBlock/refactored -->
         <file name="ClassLevelDocBlock.php" role="test" />
-        <file name="ConfiguredNoFileLevelDocBlock.php" role="test" />
+        <file name="ClassLevelDocBlockWithFileLevelDocs.php" role="test" />
+        <file name="CorrectDocBlocks.php" role="test" />
+        <file name="IncorrectDocBlocks.php" role="test" />
         <file name="NoFileLevelDocBlock.php" role="test" />
+       </dir> <!-- /test/Horde/Refactor/fixtures/FileLevelDocBlock -->
+       <dir name="Php4Constructor">
+        <dir name="refactored">
+         <file name="Php4ConstructorOnly.php" role="test" />
+         <file name="Php5Constructor.php" role="test" />
+         <file name="WrongConstructorOrder.php" role="test" />
+        </dir> <!-- /test/Horde/Refactor/fixtures/Php4Constructor/refactored -->
         <file name="Php4ConstructorOnly.php" role="test" />
         <file name="Php5Constructor.php" role="test" />
         <file name="WrongConstructorOrder.php" role="test" />
-       </dir> <!-- /test/Horde/Refactor/fixtures/refactored -->
-       <file name="ClassLevelDocBlock.php" role="test" />
+       </dir> <!-- /test/Horde/Refactor/fixtures/Php4Constructor -->
        <file name="config.php" role="test" />
-       <file name="CorrectDocBlocks.php" role="test" />
-       <file name="IncorrectDocBlocks.php" role="test" />
-       <file name="NoFileLevelDocBlock.php" role="test" />
-       <file name="Php4ConstructorOnly.php" role="test" />
-       <file name="Php5Constructor.php" role="test" />
-       <file name="WrongConstructorOrder.php" role="test" />
       </dir> <!-- /test/Horde/Refactor/fixtures -->
       <file name="AllTests.php" role="test" />
       <file name="bootstrap.php" role="test" />
+      <file name="ConfigTest.php" role="test" />
       <file name="FileLevelDocBlockTest.php" role="test" />
       <file name="Php4ConstructorTest.php" role="test" />
       <file name="phpunit.xml" role="test" />
+      <file name="TokensTest.php" role="test" />
      </dir> <!-- /test/Horde/Refactor -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
@@ -312,24 +322,28 @@
    <install as="locale/de/LC_MESSAGES/Horde_Refactor.po" name="locale/de/LC_MESSAGES/Horde_Refactor.po" />
    <install as="Horde/Refactor/AllTests.php" name="test/Horde/Refactor/AllTests.php" />
    <install as="Horde/Refactor/bootstrap.php" name="test/Horde/Refactor/bootstrap.php" />
+   <install as="Horde/Refactor/ConfigTest.php" name="test/Horde/Refactor/ConfigTest.php" />
    <install as="Horde/Refactor/FileLevelDocBlockTest.php" name="test/Horde/Refactor/FileLevelDocBlockTest.php" />
    <install as="Horde/Refactor/Php4ConstructorTest.php" name="test/Horde/Refactor/Php4ConstructorTest.php" />
    <install as="Horde/Refactor/phpunit.xml" name="test/Horde/Refactor/phpunit.xml" />
-   <install as="Horde/Refactor/fixtures/ClassLevelDocBlock.php" name="test/Horde/Refactor/fixtures/ClassLevelDocBlock.php" />
+   <install as="Horde/Refactor/TokensTest.php" name="test/Horde/Refactor/TokensTest.php" />
    <install as="Horde/Refactor/fixtures/config.php" name="test/Horde/Refactor/fixtures/config.php" />
-   <install as="Horde/Refactor/fixtures/CorrectDocBlocks.php" name="test/Horde/Refactor/fixtures/CorrectDocBlocks.php" />
-   <install as="Horde/Refactor/fixtures/IncorrectDocBlocks.php" name="test/Horde/Refactor/fixtures/IncorrectDocBlocks.php" />
-   <install as="Horde/Refactor/fixtures/NoFileLevelDocBlock.php" name="test/Horde/Refactor/fixtures/NoFileLevelDocBlock.php" />
-   <install as="Horde/Refactor/fixtures/Php4ConstructorOnly.php" name="test/Horde/Refactor/fixtures/Php4ConstructorOnly.php" />
-   <install as="Horde/Refactor/fixtures/Php5Constructor.php" name="test/Horde/Refactor/fixtures/Php5Constructor.php" />
-   <install as="Horde/Refactor/fixtures/WrongConstructorOrder.php" name="test/Horde/Refactor/fixtures/WrongConstructorOrder.php" />
-   <install as="Horde/Refactor/fixtures/refactored/ClassLevelDocBlock.php" name="test/Horde/Refactor/fixtures/refactored/ClassLevelDocBlock.php" />
-   <install as="Horde/Refactor/fixtures/refactored/ConfiguredNoFileLevelDocBlock.php" name="test/Horde/Refactor/fixtures/refactored/ConfiguredNoFileLevelDocBlock.php" />
-   <install as="Horde/Refactor/fixtures/refactored/NoFileLevelDocBlock.php" name="test/Horde/Refactor/fixtures/refactored/NoFileLevelDocBlock.php" />
-   <install as="Horde/Refactor/fixtures/refactored/Php4ConstructorOnly.php" name="test/Horde/Refactor/fixtures/refactored/Php4ConstructorOnly.php" />
-   <install as="Horde/Refactor/fixtures/refactored/Php5Constructor.php" name="test/Horde/Refactor/fixtures/refactored/Php5Constructor.php" />
-   <install as="Horde/Refactor/fixtures/refactored/WrongConstructorOrder.php" name="test/Horde/Refactor/fixtures/refactored/WrongConstructorOrder.php" />
-  </filelist>
+   <install as="Horde/Refactor/fixtures/FileLevelDocBlock/ClassLevelDocBlock.php" name="test/Horde/Refactor/fixtures/FileLevelDocBlock/ClassLevelDocBlock.php" />
+   <install as="Horde/Refactor/fixtures/FileLevelDocBlock/ClassLevelDocBlockWithFileLevelDocs.php" name="test/Horde/Refactor/fixtures/FileLevelDocBlock/ClassLevelDocBlockWithFileLevelDocs.php" />
+   <install as="Horde/Refactor/fixtures/FileLevelDocBlock/CorrectDocBlocks.php" name="test/Horde/Refactor/fixtures/FileLevelDocBlock/CorrectDocBlocks.php" />
+   <install as="Horde/Refactor/fixtures/FileLevelDocBlock/IncorrectDocBlocks.php" name="test/Horde/Refactor/fixtures/FileLevelDocBlock/IncorrectDocBlocks.php" />
+   <install as="Horde/Refactor/fixtures/FileLevelDocBlock/NoFileLevelDocBlock.php" name="test/Horde/Refactor/fixtures/FileLevelDocBlock/NoFileLevelDocBlock.php" />
+   <install as="Horde/Refactor/fixtures/FileLevelDocBlock/refactored/ClassLevelDocBlock.php" name="test/Horde/Refactor/fixtures/FileLevelDocBlock/refactored/ClassLevelDocBlock.php" />
+   <install as="Horde/Refactor/fixtures/FileLevelDocBlock/refactored/ClassLevelDocBlockWithFileLevelDocs.php" name="test/Horde/Refactor/fixtures/FileLevelDocBlock/refactored/ClassLevelDocBlockWithFileLevelDocs.php" />
+   <install as="Horde/Refactor/fixtures/FileLevelDocBlock/refactored/ConfiguredNoFileLevelDocBlock.php" name="test/Horde/Refactor/fixtures/FileLevelDocBlock/refactored/ConfiguredNoFileLevelDocBlock.php" />
+   <install as="Horde/Refactor/fixtures/FileLevelDocBlock/refactored/NoFileLevelDocBlock.php" name="test/Horde/Refactor/fixtures/FileLevelDocBlock/refactored/NoFileLevelDocBlock.php" />
+   <install as="Horde/Refactor/fixtures/Php4Constructor/Php4ConstructorOnly.php" name="test/Horde/Refactor/fixtures/Php4Constructor/Php4ConstructorOnly.php" />
+   <install as="Horde/Refactor/fixtures/Php4Constructor/Php5Constructor.php" name="test/Horde/Refactor/fixtures/Php4Constructor/Php5Constructor.php" />
+   <install as="Horde/Refactor/fixtures/Php4Constructor/WrongConstructorOrder.php" name="test/Horde/Refactor/fixtures/Php4Constructor/WrongConstructorOrder.php" />
+   <install as="Horde/Refactor/fixtures/Php4Constructor/refactored/Php4ConstructorOnly.php" name="test/Horde/Refactor/fixtures/Php4Constructor/refactored/Php4ConstructorOnly.php" />
+   <install as="Horde/Refactor/fixtures/Php4Constructor/refactored/Php5Constructor.php" name="test/Horde/Refactor/fixtures/Php4Constructor/refactored/Php5Constructor.php" />
+   <install as="Horde/Refactor/fixtures/Php4Constructor/refactored/WrongConstructorOrder.php" name="test/Horde/Refactor/fixtures/Php4Constructor/refactored/WrongConstructorOrder.php" />
+   </filelist>
  </phprelease>
  <changelog>
   <release>
@@ -341,7 +355,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2017-03-06</date>
+   <date>2017-03-08</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * Initial release.

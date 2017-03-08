@@ -58,6 +58,7 @@ class FileLevelDocBlockTest extends \Horde_Test_Case
             new Config\FileLevelDocBlock(array('year' => 2017))
         );
         $rule->run();
+        $this->assertNull($rule->something);
         $this->assertCount(1, $rule->warnings);
         $this->assertEquals(
             'No DocBlocks found, adding default DocBlocks',

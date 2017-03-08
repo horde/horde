@@ -11,6 +11,10 @@
  * @package  Foobar
  */
 
+namespace Bar;
+
+use Dummy;
+
 /**
  * Summary.
  *
