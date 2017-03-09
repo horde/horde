@@ -309,6 +309,25 @@ class FileLevelDocBlock extends Rule
             $update = true;
         }
 
+        // Update tags order.
+        $tags = array();
+        $oldTags = new \ArrayIterator($docblock->getTags());
+        foreach (array_keys($this->_config->{$which . 'Tags'}) as $tagName) {
+            foreach ($oldTags as $key => $tag) {
+                if ($tag->getName() == $tagName) {
+                    $tags[] = $tag;
+                    unset($oldTags[$key]);
+                }
+            }
+        }
+        foreach ($oldTags as $key => $tag) {
+            $tags[] = $tag;
+        }
+        if ($tags != $docblock->getTags()) {
+            $docblock = $this->_getDocBlock($docblock, $tags);
+            $update = true;
+        }
+
         // Update DocBlock if necessary.
         if ($update) {
             $this->_tokens = $this->_tokens->splice(
@@ -441,6 +460,9 @@ class FileLevelDocBlock extends Rule
         }
         if (preg_match($this->_config->licenseUrlExtractRegexp, $block->getText(), $match)) {
             $this->_config->licenseUrl = $match[1];
+        }
+        if (preg_match($this->_config->yearExtractRegexp, $block->getText(), $match)) {
+            $this->_config->year = $match[1];
         }
         if ($tags = $block->getTagsByName('copyright')) {
             foreach ($tags as $tag) {

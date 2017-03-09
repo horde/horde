@@ -10,7 +10,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2017-03-08</date>
+ <date>2017-03-09</date>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -173,11 +173,13 @@
          <file name="ClassLevelDocBlock.php" role="test" />
          <file name="ClassLevelDocBlockWithFileLevelDocs.php" role="test" />
          <file name="ConfiguredNoFileLevelDocBlock.php" role="test" />
+         <file name="ExtractYearFixTagOrder.php" role="test" />
          <file name="NoFileLevelDocBlock.php" role="test" />
         </dir> <!-- /test/Horde/Refactor/fixtures/FileLevelDocBlock/refactored -->
         <file name="ClassLevelDocBlock.php" role="test" />
         <file name="ClassLevelDocBlockWithFileLevelDocs.php" role="test" />
         <file name="CorrectDocBlocks.php" role="test" />
+        <file name="ExtractYearFixTagOrder.php" role="test" />
         <file name="IncorrectDocBlocks.php" role="test" />
         <file name="NoFileLevelDocBlock.php" role="test" />
        </dir> <!-- /test/Horde/Refactor/fixtures/FileLevelDocBlock -->
@@ -331,11 +333,13 @@
    <install as="Horde/Refactor/fixtures/FileLevelDocBlock/ClassLevelDocBlock.php" name="test/Horde/Refactor/fixtures/FileLevelDocBlock/ClassLevelDocBlock.php" />
    <install as="Horde/Refactor/fixtures/FileLevelDocBlock/ClassLevelDocBlockWithFileLevelDocs.php" name="test/Horde/Refactor/fixtures/FileLevelDocBlock/ClassLevelDocBlockWithFileLevelDocs.php" />
    <install as="Horde/Refactor/fixtures/FileLevelDocBlock/CorrectDocBlocks.php" name="test/Horde/Refactor/fixtures/FileLevelDocBlock/CorrectDocBlocks.php" />
+   <install as="Horde/Refactor/fixtures/FileLevelDocBlock/ExtractYearFixTagOrder.php" name="test/Horde/Refactor/fixtures/FileLevelDocBlock/ExtractYearFixTagOrder.php" />
    <install as="Horde/Refactor/fixtures/FileLevelDocBlock/IncorrectDocBlocks.php" name="test/Horde/Refactor/fixtures/FileLevelDocBlock/IncorrectDocBlocks.php" />
    <install as="Horde/Refactor/fixtures/FileLevelDocBlock/NoFileLevelDocBlock.php" name="test/Horde/Refactor/fixtures/FileLevelDocBlock/NoFileLevelDocBlock.php" />
    <install as="Horde/Refactor/fixtures/FileLevelDocBlock/refactored/ClassLevelDocBlock.php" name="test/Horde/Refactor/fixtures/FileLevelDocBlock/refactored/ClassLevelDocBlock.php" />
    <install as="Horde/Refactor/fixtures/FileLevelDocBlock/refactored/ClassLevelDocBlockWithFileLevelDocs.php" name="test/Horde/Refactor/fixtures/FileLevelDocBlock/refactored/ClassLevelDocBlockWithFileLevelDocs.php" />
    <install as="Horde/Refactor/fixtures/FileLevelDocBlock/refactored/ConfiguredNoFileLevelDocBlock.php" name="test/Horde/Refactor/fixtures/FileLevelDocBlock/refactored/ConfiguredNoFileLevelDocBlock.php" />
+   <install as="Horde/Refactor/fixtures/FileLevelDocBlock/refactored/ExtractYearFixTagOrder.php" name="test/Horde/Refactor/fixtures/FileLevelDocBlock/refactored/ExtractYearFixTagOrder.php" />
    <install as="Horde/Refactor/fixtures/FileLevelDocBlock/refactored/NoFileLevelDocBlock.php" name="test/Horde/Refactor/fixtures/FileLevelDocBlock/refactored/NoFileLevelDocBlock.php" />
    <install as="Horde/Refactor/fixtures/Php4Constructor/Php4ConstructorOnly.php" name="test/Horde/Refactor/fixtures/Php4Constructor/Php4ConstructorOnly.php" />
    <install as="Horde/Refactor/fixtures/Php4Constructor/Php5Constructor.php" name="test/Horde/Refactor/fixtures/Php4Constructor/Php5Constructor.php" />
@@ -355,7 +359,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2017-03-08</date>
+   <date>2017-03-09</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * Initial release.

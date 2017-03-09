@@ -115,6 +115,7 @@ class FileLevelDocBlockTest extends \Horde_Test_Case
             array('NoFileLevelDocBlock.php', true),
             array('ClassLevelDocBlock.php', false),
             array('ClassLevelDocBlockWithFileLevelDocs.php', false),
+            array('ExtractYearFixTagOrder.php', false),
         );
     }
 }

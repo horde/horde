@@ -159,6 +159,13 @@ did not receive this file, see %licenseUrl%.';
     public $year;
 
     /**
+     * Regular expression to extract year from description.
+     *
+     * @var string
+     */
+    public $yearExtractRegexp = '/Copyright (\d{4}(-\d{4})?)/';
+
+    /**
      * Constructor.
      *
      * @param array $params  Configuration parameters.
