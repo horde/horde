@@ -328,14 +328,17 @@ class FileLevelDocBlock extends Rule
 
         // Update tags order.
         $tags = array();
-        $oldTags = new \ArrayIterator($docblock->getTags());
+        $oldTags = $docblock->getTags();
         foreach (array_keys($this->_config->{$which . 'Tags'}) as $tagName) {
-            foreach ($oldTags as $key => $tag) {
+            $tmp = array();
+            foreach ($oldTags as $tag) {
                 if ($tag->getName() == $tagName) {
                     $tags[] = $tag;
-                    unset($oldTags[$key]);
+                } else {
+                    $tmp[] = $tag;
                 }
             }
+            $oldTags = $tmp;
         }
         foreach ($oldTags as $key => $tag) {
             $tags[] = $tag;
