@@ -9,7 +9,7 @@
  * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
  * @package  Auth
- * @since 2.0.7
+ * @since 2.1.0
  */
 
 /**
@@ -22,7 +22,7 @@
  * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
  * @package  Auth
- * @since 2.0.7
+ * @since 2.1.0
  */
 class Horde_Auth_X509 extends Horde_Auth_Base
 {
