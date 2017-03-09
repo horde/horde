@@ -111,7 +111,7 @@ did not receive this file, see %licenseUrl%.';
     public $classTags = array(
         'author' => '',
         'category' => 'Horde',
-        'copyright' => '%year% Horde LLC',
+        'copyright' => array('%year% Horde LLC'),
         'license' => '%licenseUrl% %license%',
         'package' => '',
     );

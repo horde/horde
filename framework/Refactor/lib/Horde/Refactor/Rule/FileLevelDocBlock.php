@@ -159,8 +159,13 @@ class FileLevelDocBlock extends Rule
         }
         $this->_tokens->next();
         $tags = array();
-        foreach ($this->_fillTemplate($this->_config->fileTags) as $key => $value) {
-            $tags[] = TagFactory::create($key, $value);
+        foreach ($this->_config->fileTags as $key => $value) {
+            if (!is_array($value)) {
+                $value = array($value);
+            }
+            foreach ($value as $v) {
+                $tags[] = TagFactory::create($key, $this->_fillTemplate($v));
+            }
         }
         $serializer = new Serializer();
         $new .= $serializer->getDocComment($this->_getFileLevelDocBlock($tags));
@@ -169,8 +174,15 @@ class FileLevelDocBlock extends Rule
             $this->_fillTemplate($this->_config->classSummary)
             . "\n\n" . $this->_fillTemplate($this->_config->classDescription)
         );
-        foreach ($this->_fillTemplate($this->_config->classTags) as $key => $value) {
-            $docblock->appendTag(TagFactory::create($key, $value));
+        foreach ($this->_config->classTags as $key => $value) {
+            if (!is_array($value)) {
+                $value = array($value);
+            }
+            foreach ($value as $v) {
+                $docblock->appendTag(
+                    TagFactory::create($key, $this->_fillTemplate($v))
+                );
+            }
         }
         $new .= "\n\n" . $serializer->getDocComment($docblock) . "\n";
         $this->_tokens = $this->_tokens->insert(array($new));
@@ -280,9 +292,14 @@ class FileLevelDocBlock extends Rule
                 if ($otherBlock->hasTag($tag)) {
                     $tags = array_merge($tags, $otherBlock->getTagsByName($tag));
                 } else {
-                    $tags[] = TagFactory::create(
-                        $tag, $this->_fillTemplate($value)
-                    );
+                    if (!is_array($value)) {
+                        $value = array($value);
+                    }
+                    foreach ($value as $v) {
+                        $tags[] = TagFactory::create(
+                            $tag, $this->_fillTemplate($v)
+                        );
+                    }
                 }
             }
         }
@@ -385,11 +402,16 @@ class FileLevelDocBlock extends Rule
         $this->_secondBlock = $this->_firstBlock;
 
         $tags = array();
-        foreach ($this->_fillTemplate($this->_config->fileTags) as $key => $value) {
+        foreach ($this->_config->fileTags as $key => $value) {
             if ($classTags = $this->_firstBlock->getTagsByName($key)) {
                 $tags = array_merge($tags, $classTags);
             } else {
-                $tags[] = TagFactory::create($key, $value);
+                if (!is_array($value)) {
+                    $value = array($value);
+                }
+                foreach ($value as $v) {
+                    $tags[] = TagFactory::create($key, $this->_fillTemplate($v));
+                }
             }
         }
         $fileDocBlock = $this->_getFileLevelDocBlock($tags);
