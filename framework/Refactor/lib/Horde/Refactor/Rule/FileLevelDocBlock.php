@@ -269,13 +269,14 @@ class FileLevelDocBlock extends Rule
                 $warn
             )
                 . $this->_config->{$which . 'Description'};
-            if (!strlen($docblock->getLongDescription()) &&
-                strlen($this->_config->{$which . 'Description'})) {
-                $docblock->setText(
-                    $docblock->getShortDescription()
+            if (strlen($this->_config->{$which . 'Description'})) {
+                $description = $docblock->getShortDescription()
                     . "\n\n"
-                    . $this->_fillTemplate($this->_config->{$which . 'Description'})
-                );
+                    . $this->_fillTemplate($this->_config->{$which . 'Description'});
+                if (strlen($docblock->getLongDescription())) {
+                    $description .= "\n\n" . $docblock->getLongDescription();
+                }
+                $docblock->setText($description);
                 $update = true;
             }
         }
