@@ -480,14 +480,13 @@ class FileLevelDocBlock extends Rule
      */
     protected function _processDocBlock($block)
     {
-        if (preg_match($this->_config->licenseExtractRegexp, $block->getText(), $match)) {
-            $this->_config->license = $match[1];
+        foreach (array('license', 'licenseUrl', 'year') as $property) {
+            if (preg_match($this->_config->{$property . 'ExtractRegexp'}, $block->getText(), $match)) {
+                $this->_config->$property = $match[1];
+            }
         }
-        if (preg_match($this->_config->licenseUrlExtractRegexp, $block->getText(), $match)) {
-            $this->_config->licenseUrl = $match[1];
-        }
-        if (preg_match($this->_config->yearExtractRegexp, $block->getText(), $match)) {
-            $this->_config->year = $match[1];
+        if (preg_match_all($this->_config->copyrightExtractRegexp, $block->getText(), $match)) {
+            $this->_config->classTags['copyright'] = $match[1];
         }
         if ($tags = $block->getTagsByName('copyright')) {
             foreach ($tags as $tag) {

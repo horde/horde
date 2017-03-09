@@ -39,7 +39,7 @@ class FileLevelDocBlock extends Base
      *
      * @var string
      */
-    public $fileSummaryRegexp = '/Copyright \d{4}(-\d{4})? Horde LLC \(http:\/\/www\.horde\.org\/\)/';
+    public $fileSummaryRegexp = '/Copyright \d{4}(-\d{4})? .+/';
 
     /**
      * Default description for new, empty file-level DocBlocks.
@@ -122,6 +122,13 @@ did not receive this file, see %licenseUrl%.';
      * @var string
      */
     public $classForbiddenTags = array();
+
+    /**
+     * Regular expression to extract copyrights from description.
+     *
+     * @var string
+     */
+    public $copyrightExtractRegexp = '/Copyright (\d{4}(?:-\d{4})? .+)(?:\s+\(?http:.+)/';
 
     /**
      * Default license name for new, empty DocBlocks.
