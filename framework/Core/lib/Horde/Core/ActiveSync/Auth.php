@@ -3,7 +3,7 @@
  * Copyright 2013-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
- * not receive this file, http://www.horde.org/licenses/lgpl21
+ * not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Michael J Rubinsky <mrubinsk@horde.org>
  * @category Horde
@@ -17,7 +17,7 @@
  * to require one, the other, or layer basic auth on top of client certs.
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
- * not receive this file, http://www.horde.org/licenses/lgpl21
+ * not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Michael J Rubinsky <mrubinsk@horde.org>
  * @category Horde

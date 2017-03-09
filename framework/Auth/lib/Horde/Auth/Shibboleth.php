@@ -1,9 +1,9 @@
 <?php
 /**
- * Copyright 9Star Research, Inc. 2006 http://www.protectnetwork.org/
+ * Copyright 2006 9Star Research, Inc. http://www.protectnetwork.org/
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
- * not receive this file, http://www.horde.org/licenses/lgpl21
+ * not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Cassio Nishiguchi <cassio@protectnetwork.org>
  * @category Horde
@@ -13,9 +13,11 @@
 
 /**
  * The Horde_Auth_Shibboleth class only provides transparent authentication
- * based on the headers set by a Shibboleth SP.  Note that this class does
- * not provide any actual SP functionality, it just takes the username
- * from the HTTP headers that should be set by the Shibboleth SP.
+ * based on the headers set by a Shibboleth SP.
+ *
+ * Note that this class does not provide any actual SP functionality, it just
+ * takes the username from the HTTP headers that should be set by the
+ * Shibboleth SP.
  *
  * @author   Cassio Nishiguchi <cassio@protectnetwork.org>
  * @category Horde
