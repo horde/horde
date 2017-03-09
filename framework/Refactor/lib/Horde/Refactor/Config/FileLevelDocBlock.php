@@ -128,7 +128,7 @@ did not receive this file, see %licenseUrl%.';
      *
      * @var string
      */
-    public $copyrightExtractRegexp = '/Copyright (\d{4}(?:-\d{4})? .+)(?:\s+\(?http:.+)/';
+    public $copyrightExtractRegexp = '/^Copyright (\d{4}(?:-\d{4})? .+?)(?:\s+\(?http:.+)?$/m';
 
     /**
      * Default license name for new, empty DocBlocks.
