@@ -1,9 +1,11 @@
 <?php
 /**
- * Provides HelpFormatter, used by Horde_Argv_Parser to generate formatted
- * help text.
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * This package is ported from Python's Optik (http://optik.sourceforge.net/).
+ *
+ * See the enclosed file LICENSE for license information (BSD). If you
+ * did not receive this file, see http://www.horde.org/licenses/bsd.
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Mike Naberezny <mike@maintainable.com>
@@ -13,11 +15,16 @@
  */
 
 /**
+ * Provides HelpFormatter, used by Horde_Argv_Parser to generate formatted
+ * help text.
+ *
+ * This package is ported from Python's Optik (http://optik.sourceforge.net/).
+ *
  * Abstract base class for formatting option help.  Horde_Argv_Parser
  * instances should use one of the HelpFormatter subclasses for
  * formatting help; by default IndentedHelpFormatter is used.
  *
- *  Instance attributes:
+ * Instance attributes:
  *    parser : Horde_Argv_Parser
  *      the controlling Horde_Argv_Parser instance
  *    indent_increment : int
@@ -52,8 +59,12 @@
  *      similar but for long options; must be either "%s %s" ("--file FILE")
  *      or "%s=%s" ("--file=FILE").
  *
- * @category Horde
- * @package  Argv
+ * @category  Horde
+ * @package   Argv
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @author    Mike Naberezny <mike@maintainable.com>
+ * @copyright 2010-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/bsd BSD
  */
 abstract class Horde_Argv_HelpFormatter
 {

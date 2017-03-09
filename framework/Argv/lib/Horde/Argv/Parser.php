@@ -1,8 +1,11 @@
 <?php
 /**
- * Horde command-line argument parsing package.
+ * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * This package is ported from Python's Optik (http://optik.sourceforge.net/).
+ *
+ * See the enclosed file LICENSE for license information (BSD). If you
+ * did not receive this file, see http://www.horde.org/licenses/bsd.
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Mike Naberezny <mike@maintainable.com>
@@ -12,12 +15,16 @@
  */
 
 /**
- *  Class attributes:
+ * Horde command-line argument parsing package.
+ *
+ * This package is ported from Python's Optik (http://optik.sourceforge.net/).
+ *
+ * Class attributes:
  *    standardOptionList : [Option]
  *      list of standard options that will be accepted by all instances
  *      of this parser class (intended to be overridden by subclasses).
  *
- *  Instance attributes:
+ * Instance attributes:
  *    usage : string
  *      a usage string for your program.  Before it is displayed
  *      to the user, "%prog" will be expanded to the name of
@@ -67,8 +74,12 @@
  *      the set of option values currently being accumulated.  Only
  *      set when parseArgs() is active.  Also mainly for callbacks.
  *
- * @category Horde
- * @package  Argv
+ * @category  Horde
+ * @package   Argv
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @author    Mike Naberezny <mike@maintainable.com>
+ * @copyright 2010-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/bsd BSD
  */
 class Horde_Argv_Parser extends Horde_Argv_OptionContainer
 {
