@@ -19,10 +19,11 @@
  * of IPs to be able to access a site, and that access is simply on/off - no
  * preferences, etc.
  *
- * @author   Chuck Hagenbuch <chuck@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
- * @package  Auth
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @category  Horde
+ * @copyright 1999-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Auth
  */
 class Horde_Auth_Ipbasic extends Horde_Auth_Base
 {

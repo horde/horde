@@ -15,10 +15,11 @@
  * The Horde_Auth_Http class transparently logs users in to Horde using
  * already present HTTP authentication headers.
  *
- * @author   Chuck Hagenbuch <chuck@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
- * @package  Auth
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @category  Horde
+ * @copyright 1999-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Auth
  */
 class Horde_Auth_Http extends Horde_Auth_Base
 {

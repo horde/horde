@@ -17,11 +17,12 @@
  * The Horde_Auth_Smbclient class provides an smbclient implementation of
  * the Horde authentication system.
  *
- * @author   Jon Parise <jon@horde.org>
- * @author   Marcus I. Ryan <marcus@riboflavin.net>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
- * @package  Auth
+ * @author    Jon Parise <jon@horde.org>
+ * @author    Marcus I. Ryan <marcus@riboflavin.net>
+ * @category  Horde
+ * @copyright 1999-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Auth
  */
 class Horde_Auth_Smbclient extends Horde_Auth_Base
 {

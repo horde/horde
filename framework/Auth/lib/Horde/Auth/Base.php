@@ -16,11 +16,12 @@
  * The Horde_Auth_Base class provides a common abstracted interface to creating
  * various authentication backends.
  *
- * @author   Chuck Hagenbuch <chuck@horde.org>
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
- * @package  Auth
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 1999-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Auth
  */
 abstract class Horde_Auth_Base
 {

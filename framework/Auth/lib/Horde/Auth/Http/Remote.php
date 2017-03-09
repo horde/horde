@@ -15,10 +15,11 @@
  * The Horde_Auth_Http_Remote class authenticates users against a remote
  * HTTP-Auth endpoint.
  *
- * @author   Duck <duck@obala.net>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
- * @package  Auth
+ * @author    Duck <duck@obala.net>
+ * @category  Horde
+ * @copyright 2007-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Auth
  */
 class Horde_Auth_Http_Remote extends Horde_Auth_Base
 {

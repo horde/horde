@@ -17,11 +17,13 @@
  * The Horde_Auth_Passwd class provides a passwd-file implementation of the
  * Horde authentication system.
  *
- * @author   Rasmus Lerdorf <rasmus@php.net>
- * @author   Chuck Hagenbuch <chuck@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
- * @package  Auth
+ * @author    Rasmus Lerdorf <rasmus@php.net>
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @category  Horde
+ * @copyright 1997-2007 Rasmus Lerdorf <rasmus@php.net>
+ * @copyright 2002-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Auth
  */
 class Horde_Auth_Passwd extends Horde_Auth_Base
 {

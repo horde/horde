@@ -16,11 +16,12 @@
  * The Horde_Auth_Ftp class provides an FTP implementation of the Horde
  * authentication system.
  *
- * @author   Chuck Hagenbuch <chuck@horde.org>
- * @author   Max Kalika <max@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
- * @package  Auth
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @author    Max Kalika <max@horde.org>
+ * @category  Horde
+ * @copyright 1999-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Auth
  */
 class Horde_Auth_Ftp extends Horde_Auth_Base
 {

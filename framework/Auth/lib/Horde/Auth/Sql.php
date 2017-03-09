@@ -18,10 +18,11 @@
  * The table structure for the Auth system needs to be created with the shipped
  * migration scripts. See "horde-db-migrate-component --help" for details.
  *
- * @author   Chuck Hagenbuch <chuck@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
- * @package  Auth
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @category  Horde
+ * @copyright 1999-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Auth
  */
 class Horde_Auth_Sql extends Horde_Auth_Base
 {

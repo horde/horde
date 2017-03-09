@@ -25,11 +25,12 @@
  * and not equal to each other. In other words, to use this module you must
  * have a domain with at least one PDC and one BDC.
  *
- * @author   Jon Parise <jon@horde.org>
- * @author   Marcus I. Ryan <marcus@riboflavin.net>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
- * @package  Auth
+ * @author    Jon Parise <jon@horde.org>
+ * @author    Marcus I. Ryan <marcus@riboflavin.net>
+ * @category  Horde
+ * @copyright 1999-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Auth
  */
 class Horde_Auth_Smb extends Horde_Auth_Base
 {

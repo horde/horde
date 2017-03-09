@@ -18,11 +18,12 @@
  * if the server setup requires the use of per-user passwords, a callback
  * function may be passed to obtain it from.
  *
- * @author   Michael J Rubinsky <mrubinsk@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
- * @package  Auth
- * @since 2.1.0
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
+ * @category  Horde
+ * @copyright 2013-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Auth
+ * @since     2.1.0
  */
 class Horde_Auth_X509 extends Horde_Auth_Base
 {

@@ -18,10 +18,11 @@
  * This class requires the 'radius' PECL extension:
  *   http://pecl.php.net/package/radius
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
- * @package  Auth
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2002-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Auth
  */
 class Horde_Auth_Radius extends Horde_Auth_Base
 {

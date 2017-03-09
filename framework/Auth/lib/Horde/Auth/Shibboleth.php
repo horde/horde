@@ -19,10 +19,11 @@
  * takes the username from the HTTP headers that should be set by the
  * Shibboleth SP.
  *
- * @author   Cassio Nishiguchi <cassio@protectnetwork.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
- * @package  Auth
+ * @author    Cassio Nishiguchi <cassio@protectnetwork.org>
+ * @category  Horde
+ * @copyright 2006 9Star Research, Inc.
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Auth
  */
 class Horde_Auth_Shibboleth extends Horde_Auth_Base
 {

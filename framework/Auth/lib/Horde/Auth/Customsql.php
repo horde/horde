@@ -18,12 +18,14 @@
  * The Horde_Auth_Customsql class provides a sql implementation of the Horde
  * authentication system with the possibility to set custom-made queries.
  *
- * @author   Ronnie Garcia <ronnie@mk2.net>
- * @author   Chuck Hagenbuch <chuck@horde.org>
- * @author   Joel Vandal <joel@scopserv.com>
- * @category Horde
- * @license  http://opensource.org/licenses/lgpl-2.1.php LGPL-2.1
- * @package  Auth
+ * @author    Ronnie Garcia <ronnie@mk2.net>
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @author    Joel Vandal <joel@scopserv.com>
+ * @category  Horde
+ * @copyright 2002 Ronnie Garcia <ronnie@mk2.net>
+ * @copyright 2002-2017 Horde LLC
+ * @license   http://opensource.org/licenses/lgpl-2.1.php LGPL-2.1
+ * @package   Auth
  */
 class Horde_Auth_Customsql extends Horde_Auth_Sql
 {

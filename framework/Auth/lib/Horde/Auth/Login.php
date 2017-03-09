@@ -1,11 +1,5 @@
 <?php
 /**
- * The Horde_Auth_login:: class provides a system login implementation of
- * the Horde authentication system.
- *
- * This Auth driver is useful if you have a shadow password system
- * where the Horde_Auth_Passwd driver doesn't work.
- *
  * Copyright 2004-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
@@ -13,8 +7,22 @@
  *
  * @author   Jan Schneider <jan@horde.org>
  * @category Horde
- * @license http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
  * @package  Auth
+ */
+
+/**
+ * The Horde_Auth_login:: class provides a system login implementation of
+ * the Horde authentication system.
+ *
+ * This Auth driver is useful if you have a shadow password system
+ * where the Horde_Auth_Passwd driver doesn't work.
+ *
+ * @author    Jan Schneider <jan@horde.org>
+ * @category  Horde
+ * @copyright 2004-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Auth
  */
 class Horde_Auth_Login extends Horde_Auth_Base
 {

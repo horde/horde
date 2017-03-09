@@ -90,11 +90,12 @@
  * );
  * </pre>
  *
- * @author   Ilya Krel <mail@krel.org>
- * @author   Jan Schneider <jan@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
- * @package  Auth
+ * @author    Ilya Krel <mail@krel.org>
+ * @author    Jan Schneider <jan@horde.org>
+ * @category  Horde
+ * @copyright 2002-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Auth
  */
 class Horde_Auth_Cyrsql extends Horde_Auth_Sql
 {

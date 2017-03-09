@@ -16,11 +16,12 @@
  * The Horde_Auth class provides some useful authentication-related utilities
  * and constants for the Auth package.
  *
- * @author   Chuck Hagenbuch <chuck@horde.org>
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
- * @package  Auth
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 1999-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Auth
  */
 class Horde_Auth
 {

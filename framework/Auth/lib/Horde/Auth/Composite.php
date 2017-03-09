@@ -15,10 +15,11 @@
  * The Horde_Auth_Composite class provides a way to combine two separate
  * drivers for admin vs. authentication purposes.
  *
- * @author   Chuck Hagenbuch <chuck@horde.org>
- * @category Horde
- * @license http://www.horde.org/licenses/lgpl21 LGPL-2.1
- * @package  Auth
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @category  Horde
+ * @copyright 2002-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Auth
  */
 class Horde_Auth_Composite extends Horde_Auth_Base
 {

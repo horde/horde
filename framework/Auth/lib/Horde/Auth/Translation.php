@@ -14,10 +14,11 @@
 /**
  * Horde_Auth_Translation is the translation wrapper class for Horde_Auth.
  *
- * @author   Jan Schneider <jan@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
- * @package  Auth
+ * @author    Jan Schneider <jan@horde.org>
+ * @category  Horde
+ * @copyright 2011-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Auth
  */
 class Horde_Auth_Translation extends Horde_Translation_Autodetect
 {

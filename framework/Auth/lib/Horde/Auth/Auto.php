@@ -18,10 +18,11 @@
  * This is only for use in testing or behind a firewall; it should NOT be used
  * on a public, production machine.
  *
- * @author   Chuck Hagenbuch <chuck@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
- * @package  Auth
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @category  Horde
+ * @copyright 1999-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Auth
  */
 class Horde_Auth_Auto extends Horde_Auth_Base
 {

@@ -15,14 +15,17 @@
 
 /**
  * The Horde_Auth_Kolab implementation of the Horde authentication system.
+ *
  * Derives from the Horde_Auth_Imap authentication object, and provides
  * parameters to it based on the global Kolab configuration.
  *
- * @author   Stuart Binge <s.binge@codefusion.co.za>
- * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
- * @package  Auth
+ * @author    Stuart Binge <s.binge@codefusion.co.za>
+ * @author    Gunnar Wrobel <wrobel@pardus.de>
+ * @category  Horde
+ * @copyright 2004-2007 Stuart Binge <s.binge@codefusion.co.za>
+ * @copyright 2008-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Auth
  */
 class Horde_Auth_Kolab extends Horde_Auth_Base
 {
