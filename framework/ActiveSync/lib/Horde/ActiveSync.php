@@ -772,7 +772,7 @@ class Horde_ActiveSync
         // Device id is REQUIRED
         if (empty($devId)) {
             if ($cmd == 'Options') {
-                $this->_doOptionsRequest();
+                $this->_handleOptionsRequest();
                 $this->_driver->clearAuthentication();
                 return true;
             }
@@ -972,40 +972,56 @@ class Horde_ActiveSync
 
     /**
      * Send the MS_Server-ActiveSync header.
+     *
+     * @return array Returns an array of the headers that were sent.
+     *     @since  2.39.0
      */
     public function activeSyncHeader()
     {
-        header('Allow: OPTIONS,POST');
-        header('Server: Horde_ActiveSync Library v' . self::LIBRARY_VERSION);
-        header('Public: OPTIONS,POST');
+        $headers = array(
+            'Allow: OPTIONS,POST',
+            sprintf('Server: Horde_ActiveSync Library v%s', self::LIBRARY_VERSION),
+            'Public: OPTIONS,POST'
+        );
 
         switch ($this->_maxVersion) {
         case self::VERSION_TWOFIVE:
-            header('MS-Server-ActiveSync: 6.5.7638.1');
+            $headers[] = 'MS-Server-ActiveSync: 6.5.7638.1';
             break;
         case self::VERSION_TWELVE:
-            header('MS-Server-ActiveSync: 12.0');
+            $headers[] = 'MS-Server-ActiveSync: 12.0';
             break;
         case self::VERSION_TWELVEONE:
-            header('MS-Server-ActiveSync: 12.1');
+            $headers[] = 'MS-Server-ActiveSync: 12.1';
             break;
         case self::VERSION_FOURTEEN:
-            header('MS-Server-ActiveSync: 14.0');
+            $headers[] = 'MS-Server-ActiveSync: 14.0';
             break;
         case self::VERSION_FOURTEENONE:
-            header('MS-Server-ActiveSync: 14.1');
+            $headers[] = 'MS-Server-ActiveSync: 14.1';
             break;
         case self::VERSION_SIXTEEN:
-            header('MS-Server-ActiveSync: 16.0');
+            $headers[] = 'MS-Server-ActiveSync: 16.0';
         }
+
+        foreach ($headers as $hdr) {
+            header($hdr);
+        }
+
+        return $headers;
     }
 
     /**
      * Send the protocol versions header.
+     *
+     * @return  string  The header that was sent. @since 2.39.0
      */
     public function versionHeader()
     {
-        header('MS-ASProtocolVersions: ' . $this->getSupportedVersions());
+        $hdr = sprintf('MS-ASProtocolVersions: %s', $this->getSupportedVersions());
+        header($hdr);
+
+        return $hdr;
     }
 
     /**
@@ -1021,10 +1037,15 @@ class Horde_ActiveSync
 
     /**
      * Send protocol commands header.
+     *
+     * @return string  The header that was sent. @since 2.39.0
      */
     public function commandsHeader()
     {
-        header('MS-ASProtocolCommands: ' . $this->getSupportedCommands());
+        $hdr = sprintf('MS-ASProtocolCommands: %s', $this->getSupportedCommands());
+        header($hdr);
+
+        return $hdr;
     }
 
     /**
@@ -1171,11 +1192,15 @@ class Horde_ActiveSync
     /**
      * Send the OPTIONS request response headers.
      */
-    protected function _doOptionsRequest()
+    protected function _handleOptionsRequest()
     {
-        $this->activeSyncHeader();
-        $this->versionHeader();
-        $this->commandsHeader();
+        $as_headers = implode("\r\n", $this->activeSyncHeader());
+        $version_header = $this->versionHeader();
+        $cmd_header = $this->commandsHeader();
+        $this->_logger->meta(sprintf(
+            "Returning OPTIONS response:\r\n%s\r\n%s\r\n%s",
+            $as_headers, $version_header, $cmd_header)
+        );
     }
 
     /**
