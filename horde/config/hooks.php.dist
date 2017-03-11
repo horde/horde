@@ -1271,6 +1271,13 @@ class Horde_Hooks
    //          return Horde_ActiveSync::PROVISIONING_FORCE;
    //      }
 
+   //      // Example for working around Windows 10 Mail.app broken provisioning
+   //      // support. This allows Mail.app to connect UNPROVISIONED regardless
+   //      // of the provisioning setting of the server.
+   //        if (strpos($device->userAgent, 'MSFT-WIN-3') === 0 &&
+   //            strpos($device->properties[Horde_ActiveSync_Device::NAME], 'DESKTOP') === 0) {
+   //            return Horde_ActiveSync::PROVISIONING_NONE;
+   //        }
    //      return -1;
    // }
 
