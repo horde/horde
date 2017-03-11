@@ -279,7 +279,7 @@ class Horde_ActiveSync_Device
         }
 
         // Don't attempt to provision the Microsoft Connectivity Analyser
-        if ($this->DeviceType === 'TestActiveSyncConnectivity') {
+        if ($this->deviceType === 'TestActiveSyncConnectivity') {
             return true;
         }
 
