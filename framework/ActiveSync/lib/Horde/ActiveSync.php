@@ -795,7 +795,7 @@ class Horde_ActiveSync
 
         // Don't bother with everything else if all we want are Options
         if ($cmd == 'Options') {
-            $this->_doOptionsRequest();
+            $this->_handleOptionsRequest();
             $this->_driver->clearAuthentication();
             return true;
         }
