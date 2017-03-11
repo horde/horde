@@ -1249,7 +1249,7 @@ class Horde_ActiveSync
      *                          falso if no truncation.
      *
      */
-    public function getTruncSize($truncation)
+    public static function getTruncSize($truncation)
     {
         switch($truncation) {
         case Horde_ActiveSync::TRUNCATION_ALL:
