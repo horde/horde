@@ -224,11 +224,13 @@ class Horde_PageOutput
     /**
      * Add inline javascript to the output buffer.
      *
-     * @param mixed $script    The script text to add (can be stored in an
-     *                         array).
-     * @param boolean $onload  Load the script after the page (DOM) has
-     *                         loaded?
-     * @param boolean $top     Add script to top of stack?
+     * @param string|array $script    The script text(s) to add.
+     * @param boolean|string $onload  Load the script after the page (DOM) has
+     *                                loaded? If a string (either 'prototype'
+     *                                or 'jquery'), that JS framework's method
+     *                                is used. Defaults to Prototype. @since
+     *                                Horde_Core 2.28.0
+     * @param boolean $top            Add script to top of stack?
      */
     public function addInlineScript($script, $onload = false, $top = false)
     {
@@ -239,7 +241,7 @@ class Horde_PageOutput
             return;
         }
 
-        $onload = intval($onload);
+        $onload = is_bool($onload) ? 'prototype' : $onload;
         $script = rtrim($script, ';') . ';';
 
         if ($top && isset($this->inlineScript[$onload])) {
@@ -320,9 +322,20 @@ class Horde_PageOutput
         foreach ($this->inlineScript as $key => $val) {
             $val = implode('', $val);
 
-            $script[] = (!$raw && $key)
-                ? 'document.observe("dom:loaded",function(){' . $val . '});'
-                : $val;
+            if (!$raw && $key) {
+                switch ($key) {
+                case 'prototype':
+                    $script[] = 'document.observe("dom:loaded",function(){' . $val . '});';
+                    break;
+                case 'jquery':
+                    $script[] = '$(function(){' . $val . '});';
+                    break;
+                default:
+                    throw new RuntimeException('Unknown JS framework: ' . $key);
+                }
+            } else {
+                $script[] = $val;
+            }
         }
 
         echo $raw
