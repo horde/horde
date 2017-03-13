@@ -241,7 +241,7 @@ class Horde_PageOutput
             return;
         }
 
-        $onload = is_bool($onload) ? 'prototype' : $onload;
+        $onload = is_bool($onload) && $onload ? 'prototype' : $onload;
         $script = rtrim($script, ';') . ';';
 
         if ($top && isset($this->inlineScript[$onload])) {
