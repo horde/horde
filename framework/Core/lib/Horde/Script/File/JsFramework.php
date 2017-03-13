@@ -12,7 +12,7 @@
  */
 
 /**
- * This class represents a framework-level javascript script fileW.
+ * This class represents a framework-level javascript script file.
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
