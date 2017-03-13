@@ -26,24 +26,38 @@
 class Horde_Auth
 {
     /**
-     * Authentication failure reasons.
-     *
-     * <pre>
-     * REASON_BADLOGIN - Bad username and/or password
-     * REASON_FAILED   - Login failed
-     * REASON_EXPIRED  - Password has expired
-     * REASON_LOGOUT   - Logout due to user request
-     * REASON_MESSAGE  - Logout with custom message
-     * REASON_SESSION  - Logout due to session expiration
-     * REASON_LOCKED   - User is locked
-     * </pre>
+     * Authentication failure reason: Bad username and/or password
      */
     const REASON_BADLOGIN = 1;
+
+    /**
+     * Authentication failure reason: Login failed
+     */
     const REASON_FAILED = 2;
+
+    /**
+     * Authentication failure reason: Password has expired
+     */
     const REASON_EXPIRED = 3;
+
+    /**
+     * Authentication failure reason: Logout due to user request
+     */
     const REASON_LOGOUT = 4;
+
+    /**
+     * Authentication failure reason: Logout with custom message
+     */
     const REASON_MESSAGE = 5;
+
+    /**
+     * Authentication failure reason: Logout due to session expiration
+     */
     const REASON_SESSION = 6;
+
+    /**
+     * Authentication failure reason: User is locked
+     */
     const REASON_LOCKED = 7;
 
     /**
@@ -52,10 +66,18 @@ class Horde_Auth
     const APRMD5_VALID = './0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
 
     /**
-     * Characters used when generating a password.
+     * Characters used when generating a password: vowels
      */
     const VOWELS = 'aeiouy';
+
+    /**
+     * Characters used when generating a password: consonants
+     */
     const CONSONANTS = 'bcdfghjklmnpqrstvwxz';
+
+    /**
+     * Characters used when generating a password: numbers
+     */
     const NUMBERS = '0123456789';
 
     /**
@@ -104,9 +126,9 @@ class Horde_Auth
      *
      * @return string  The encrypted password.
      */
-    public static function getCryptedPassword($plaintext, $salt = '',
-                                              $encryption = 'md5-hex',
-                                              $show_encrypt = false)
+    public static function getCryptedPassword(
+        $plaintext, $salt = '', $encryption = 'md5-hex', $show_encrypt = false
+    )
     {
         /* Get the salt to use. */
         $salt = self::getSalt($encryption, $salt, $plaintext);
@@ -205,6 +227,7 @@ class Horde_Auth
 
     /**
      * Returns a salt for the appropriate kind of password encryption.
+     *
      * Optionally takes a seed and a plaintext password, to extract the seed
      * of an existing password, or for encryption types that use the plaintext
      * in the generation of the salt.
@@ -219,8 +242,9 @@ class Horde_Auth
      *
      * @return string  The generated or extracted salt.
      */
-    public static function getSalt($encryption = 'md5-hex', $seed = '',
-                                   $plaintext = '')
+    public static function getSalt(
+        $encryption = 'md5-hex', $seed = '', $plaintext = ''
+    )
     {
         switch ($encryption) {
         case 'aprmd5':
@@ -309,8 +333,9 @@ class Horde_Auth
     }
 
     /**
-     * Generates a random, hopefully pronounceable, password. This can be used
-     * when resetting automatically a user's password.
+     * Generates a random, hopefully pronounceable, password.
+     *
+     * This can be used when resetting automatically a user's password.
      *
      * @return string A random password
      */
@@ -338,9 +363,9 @@ class Horde_Auth
      *   - maxLength:   Maximum length of the password
      *   - maxSpace:    Maximum number of white space characters
      *
-     *     The following are the types of characters required in a
-     *     password.  Either specific characters, character classes,
-     *     or both can be required.  Specific types are:
+     *   The following are the types of characters required in a password.
+     *   Either specific characters, character classes, or both can be
+     *   required.  Specific types are:
      *
      *   - minUpper:    Minimum number of uppercase characters
      *   - minLower:    Minimum number of lowercase characters
@@ -350,14 +375,13 @@ class Horde_Auth
      *   - minSymbol:   Minimum number of punctuation / symbol characters
      *   - minNonAlpha: Minimum number of non-alphabetic characters
      *
-     *     Alternatively (or in addition to), the minimum number of
-     *     character classes can be configured by setting the
-     *     following.  The valid range is 0 through 4 character
-     *     classes may be required for a password. The classes are:
-     *     'upper', 'lower', 'number', and 'symbol'.  For example: A
-     *     password of 'p@ssw0rd' satisfies three classes ('number',
-     *     'lower', and 'symbol'), while 'passw0rd' only satisfies two
-     *     classes ('lower' and 'number').
+     *   Alternatively (or in addition to), the minimum number of character
+     *   classes can be configured by setting the following.  The valid range
+     *   is 0 through 4 character classes may be required for a password. The
+     *   classes are: 'upper', 'lower', 'number', and 'symbol'.  For example: A
+     *   password of 'p@ssw0rd' satisfies three classes ('number', 'lower', and
+     *   'symbol'), while 'passw0rd' only satisfies two classes ('lower' and
+     *   'number').
      *
      *   - minClasses:  Minimum number (0 through 4) of character
      *                  classes.
@@ -437,8 +461,9 @@ class Horde_Auth
      *
      * @throws Horde_Auth_Exception if the password is too similar.
      */
-    public static function checkPasswordSimilarity($password, array $dict,
-                                                   $max = 80)
+    public static function checkPasswordSimilarity(
+        $password, array $dict, $max = 80
+    )
     {
         // Check for pass == dict, simple reverse strings, etc.
         foreach ($dict as $test) {
