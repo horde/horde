@@ -32,7 +32,7 @@ class Horde_Script_Cache_HordeCache extends Horde_Script_Cache
 
     /**
      */
-    protected function _process($scripts)
+    protected function _process($scripts, $full = false)
     {
         global $injector;
 

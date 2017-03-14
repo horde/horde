@@ -47,15 +47,15 @@ abstract class Horde_Script_Cache
      * Process the scripts contained in Horde_Script_List.
      *
      * @param Horde_Script_List $hsl  Script list.
+     * @param boolean $full           Return full URLs?
+     *                                @since Horde_Core 2.28.0
      *
      * @return object  Object with these properties:
-     * <pre>
-     *   - all: (array)
-     *   - jsvars: (array)
-     *   - script: (array)
-     * </pre>
+     *                 - all: (array)
+     *                 - jsvars: (array)
+     *                 - script: (array)
      */
-    public function process(Horde_Script_List $hsl)
+    public function process(Horde_Script_List $hsl, $full = false)
     {
         $out = new stdClass;
         $out->all = array();
@@ -66,12 +66,12 @@ abstract class Horde_Script_Cache
         $tmp = array();
 
         foreach ($hsl as $val) {
-            $out->all[] = $url = strval($val->url);
+            $out->all[] = $url = strval($full ? $val->url_full : $val->url);
 
             if (is_null($val->cache)) {
                 $out->script = array_merge(
                     $out->script,
-                    $this->_process($tmp),
+                    $this->_process($tmp, $full),
                     array($url)
                 );
                 $tmp = array();
@@ -79,7 +79,7 @@ abstract class Horde_Script_Cache
                 if (!is_null($last_cache) && ($last_cache != $val->cache)) {
                     $out->script = array_merge(
                         $out->script,
-                        $this->_process($tmp)
+                        $this->_process($tmp, $full)
                     );
                     $tmp = array();
                 }
@@ -109,9 +109,10 @@ abstract class Horde_Script_Cache
      * Process a list of scripts.
      *
      * @param array $scripts  Script list.
+     * @param boolean $full   Return full URLs?
      *
      * @return array  List of JS files to load.
      */
-    abstract protected function _process($scripts);
+    abstract protected function _process($scripts, $full = false);
 
 }

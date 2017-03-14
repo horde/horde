@@ -26,12 +26,12 @@ class Horde_Script_Cache_Null extends Horde_Script_Cache
 {
     /**
      */
-    protected function _process($scripts)
+    protected function _process($scripts, $full = false)
     {
         $out = array();
 
         foreach ($scripts as $val) {
-            $out[] = strval($val->url);
+            $out[] = strval($full ? $val->url_full : $val->url);
         }
 
         return $out;

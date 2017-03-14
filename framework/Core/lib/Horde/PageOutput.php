@@ -189,9 +189,11 @@ class Horde_PageOutput
      * Outputs the necessary script tags, honoring configuration choices as
      * to script caching.
      *
+     * @param boolean $full  Return a full URL?
+     *
      * @throws Horde_Exception
      */
-    public function includeScriptFiles()
+    public function includeScriptFiles($full = false)
     {
         global $browser, $injector;
 
@@ -207,7 +209,7 @@ class Horde_PageOutput
             $this->smartmobileInit = array();
         }
 
-        $out = $injector->getInstance('Horde_Core_JavascriptCache')->process($this->hsl);
+        $out = $injector->getInstance('Horde_Core_JavascriptCache')->process($this->hsl, $full);
 
         $this->hsl->clear();
 
@@ -480,9 +482,9 @@ class Horde_PageOutput
     /**
      * Generate the stylesheet tags for the current application.
      *
-     * @param array $opts  Options to pass to
-     *                     Horde_Themes_Css::getStylesheetUrls().
-     * @param array $full  Return a full URL?
+     * @param array $opts    Options to pass to
+     *                       Horde_Themes_Css::getStylesheetUrls().
+     * @param boolean $full  Return a full URL? @since Horde_Core 2.28.0
      */
     public function includeStylesheetFiles(array $opts = array(),
                                            $full = false)
