@@ -307,6 +307,9 @@ class Horde_Form {
 
     /**
      * TODO
+     *
+     * @todo Remove $readonly parameter. Hidden fields are read-only by
+     *       definition.
      */
     function addHidden($humanName, $varName, $type, $required,
                        $readonly = false, $description = null,

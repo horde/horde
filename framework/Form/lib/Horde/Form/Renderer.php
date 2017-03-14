@@ -203,7 +203,10 @@ class Horde_Form_Renderer {
         if ($variables) {
             foreach ($variables as $var) {
                 if (is_object($var)) {
-                    if (!$var->isReadonly()) {
+                    // @todo H6 isHidden() is just a BC duct-tape because
+                    // hidden read-only fields had not been detected in the
+                    // past. The actual forms need to be fixed instead.
+                    if ($var->isHidden() || !$var->isReadonly()) {
                         $varname = $var->getVarName();
                         if (Horde_Array::getArrayParts($varname, $base, $keys)) {
                             array_unshift($keys, $base);
