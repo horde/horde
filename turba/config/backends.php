@@ -288,7 +288,14 @@ $cfgSources['localsql'] = array(
         'homeAddress' => array('fields' => array('homeStreet', 'homeCity',
                                                  'homeProvince',
                                                  'homePostalCode'),
-                               'format' => "%s\n%s, %s  %s"),
+                               'format' => "%s\n%s, %s  %s",
+                               'parse' => array(
+                                    array('fields' => array('homeStreet',
+                                                            'homeCity',
+                                                            'homeProvince',
+                                                            'homePostalCode'),
+                                          'format' => "%[^\n]\n %[^\w,], %s %s"
+                                ))),
         'workStreet' => 'object_workstreet',
         'workPOBox' => 'object_workpob',
         'workCity' => 'object_workcity',
@@ -298,7 +305,14 @@ $cfgSources['localsql'] = array(
         'workAddress' => array('fields' => array('workStreet', 'workCity',
                                                  'workProvince',
                                                  'workPostalCode'),
-                               'format' => "%s\n%s, %s  %s"),
+                               'format' => "%s\n%s, %s  %s",
+                               'parse' => array(
+                                    array('fields' => array('workStreet',
+                                                            'workCity',
+                                                            'workProvince',
+                                                            'workPostalCode'),
+                                          'format' => "%[^\n]\n %[^\w,], %s %s"
+                                ))),
         'otherStreet' => 'object_otherstreet',
         'otherPOBox' => 'object_otherpob',
         'otherCity' => 'object_othercity',
@@ -308,7 +322,14 @@ $cfgSources['localsql'] = array(
         'otherAddress' => array('fields' => array('otherStreet', 'otherCity',
                                                   'otherProvince',
                                                   'otherPostalCode'),
-                                'format' => "%s\n%s, %s  %s"),
+                                'format' => "%s\n%s, %s  %s",
+                                'parse' => array(
+                                    array('fields' => array('otherStreet',
+                                                            'otherCity',
+                                                            'otherProvince',
+                                                            'otherPostalCode'),
+                                          'format' => "%[^\n]\n %[^\w,], %s %s"
+                                ))),
         'department' => 'object_department',
         'manager' => 'object_manager',
         'assistant' => 'object_assistant',
