@@ -23,7 +23,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2017-02-11</date>
+ <date>2017-03-16</date>
  <version>
   <release>2.1.7</release>
   <api>2.1.0</api>
@@ -390,6 +390,7 @@
        <file name="charset1.ics" role="test" />
        <file name="charset2.ics" role="test" />
        <file name="charset3.ics" role="test" />
+       <file name="contact.vcf" role="test" />
        <file name="date.ics" role="test" />
        <file name="duration0.ics" role="test" />
        <file name="empty.ics" role="test" />
@@ -616,6 +617,7 @@
    <install as="Horde/Icalendar/fixtures/charset1.ics" name="test/Horde/Icalendar/fixtures/charset1.ics" />
    <install as="Horde/Icalendar/fixtures/charset2.ics" name="test/Horde/Icalendar/fixtures/charset2.ics" />
    <install as="Horde/Icalendar/fixtures/charset3.ics" name="test/Horde/Icalendar/fixtures/charset3.ics" />
+   <install as="Horde/Icalendar/fixtures/contact.vcf" name="test/Horde/Icalendar/fixtures/contact.vcf" />
    <install as="Horde/Icalendar/fixtures/date.ics" name="test/Horde/Icalendar/fixtures/date.ics" />
    <install as="Horde/Icalendar/fixtures/duration0.ics" name="test/Horde/Icalendar/fixtures/duration0.ics" />
    <install as="Horde/Icalendar/fixtures/empty.ics" name="test/Horde/Icalendar/fixtures/empty.ics" />
@@ -1286,7 +1288,7 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-02-11</date>
+   <date>2017-03-16</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 
