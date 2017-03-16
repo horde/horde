@@ -60,6 +60,27 @@ class Horde_Icalendar_AttributeTest extends Horde_Test_Case
         );
     }
 
+    public function testAddress()
+    {
+        $ical = new Horde_Icalendar();
+        $ical->parsevCalendar(file_get_contents(__DIR__ . '/fixtures/contact.vcf'));
+        $this->assertEquals(array(
+                '',
+                '',
+                '123 Main St',
+                'Smallville',
+                'NJ',
+                '08111',
+                'United States'
+            ),
+            $ical->getComponent(0)->getAttributeValues('ADR')
+        );
+        $this->assertEquals(
+            "123 Main St\nSmallville, NJ 08111",
+            $ical->getComponent(0)->getAttribute('LABEL')
+        );
+    }
+
     public function testIgnoringMultipleAttributeValues()
     {
         $ical = new Horde_Icalendar();
