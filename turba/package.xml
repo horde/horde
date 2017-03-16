@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [mjr] Fix importing vCard LABEL fields (Bug #14584).
 * [mjr] Fix saving sync preference when no default address book exists (Bug #14585).
 * [mjr] Fix removing virtual address books when calling the removeUserData API (Bug #14577).
 * [jan] Fix fatal error if group contacts from an LDAP server don&apos;t exist anymore.
@@ -2180,6 +2181,7 @@
    <date>2016-12-16</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [mjr] Fix importing vCard LABEL fields (Bug #14584).
 * [mjr] Fix saving sync preference when no default address book exists (Bug #14585).
 * [mjr] Fix removing virtual address books when calling the removeUserData API (Bug #14577).
 * [jan] Fix fatal error if group contacts from an LDAP server don&apos;t exist anymore.
