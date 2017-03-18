@@ -5,10 +5,11 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @category  Horde
- * @copyright 2008-2017 Horde LLC
- * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package   Autoloader
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Bob Mckee <bmckee@bywires.com>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Autoloader
  */
 
 require_once 'Horde/Autoloader.php';

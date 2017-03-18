@@ -18,12 +18,13 @@
  * Browser identification is performed by examining the HTTP_USER_AGENT
  * environment variable provided by the web server.
  *
- * @todo     http://ajaxian.com/archives/parse-user-agent
- * @author   Chuck Hagenbuch <chuck@horde.org>
- * @author   Jon Parise <jon@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL
- * @package  Browser
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @author    Jon Parise <jon@horde.org>
+ * @category  Horde
+ * @copyright 1999-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL
+ * @package   Browser
+ * @todo      http://ajaxian.com/archives/parse-user-agent
  */
 class Horde_Browser
 {
