@@ -82,12 +82,12 @@ class FileLevelDocBlockTest extends \Horde_Test_Case
             'More than one @license tag.',
             $rule->warnings[0]
         );
-        $this->assertStringStartsWith(
-            'The file-level DocBlock summary should be like:',
+        $this->assertEquals(
+            'The file-level DocBlock summary is not valid',
             $rule->warnings[1]
         );
-        $this->assertStringStartsWith(
-            'The file-level DocBlock description should be like:',
+        $this->assertEquals(
+            'The file-level DocBlock description is not valid',
             $rule->warnings[2]
         );
         foreach (array(3 => 'author', 4 => 'category', 5 => 'license', 6 => 'package') as $warning => $tag) {
@@ -117,6 +117,8 @@ class FileLevelDocBlockTest extends \Horde_Test_Case
             array('ClassLevelDocBlockWithFileLevelDocs.php', false),
             array('ExtractYearFixTagOrder.php', false),
             array('OtherCopyright.php', false),
+            array('ClassLevelDocsInFileLevel.php', false),
+            array('FileLevelDocsInClassLevel.php', false),
         );
     }
 }

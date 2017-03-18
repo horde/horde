@@ -42,6 +42,14 @@ class FileLevelDocBlock extends Base
     public $fileSummaryRegexp = '/Copyright \d{4}(-\d{4})? .+/';
 
     /**
+     * Regular expression to extract summary for file-level DocBlocks, if other
+     * than $fileSummaryRegexp.
+     *
+     * @var string
+     */
+    public $fileSummaryExtractRegexp = '/(Copyright \d{4}(-\d{4})? .+)+/';
+
+    /**
      * Default description for new, empty file-level DocBlocks.
      *
      * @var string
@@ -55,6 +63,14 @@ did not receive this file, see %licenseUrl%.';
      * @var string
      */
     public $fileDescriptionRegexp = '/See the enclosed file (LICENSE|COPYING) for license information \((GPL|LGPL(-2\.1)?|BSD|ASL)\)\. If you( |\n)did( |\n)not receive this file, see https?:\/\/www\.horde\.org\/licenses\/(gpl|lgpl(21)?|bsd|apache)\./';
+
+    /**
+     * Regular expression to extract description for file-level DocBlocks, if
+     * other than $fileDescriptionRegexp.
+     *
+     * @var string
+     */
+    public $fileDescriptionExtractRegexp;
 
     /**
      * Default tags for new, empty file-level DocBlocks.
@@ -90,6 +106,14 @@ did not receive this file, see %licenseUrl%.';
     public $classSummaryRegexp = '/.+/';
 
     /**
+     * Regular expression to extract summary for class-level DocBlocks, if
+     * other than $classSummaryRegexp.
+     *
+     * @var string
+     */
+    public $classSummaryExtractRegexp = '//';
+
+    /**
      * Default description for new, empty class-level DocBlocks.
      *
      * @var string
@@ -102,6 +126,14 @@ did not receive this file, see %licenseUrl%.';
      * @var string
      */
     public $classDescriptionRegexp = '//';
+
+    /**
+     * Regular expression to extract summary for class-level DocBlocks, if
+     * other than $classDescriptionRegexp.
+     *
+     * @var string
+     */
+    public $classDescriptionExtractRegexp;
 
     /**
      * Default tags for new, empty class-level DocBlocks.
@@ -181,5 +213,12 @@ did not receive this file, see %licenseUrl%.';
     {
         $params = array_merge(array('year' => date('Y')), $params);
         parent::__construct($params);
+        foreach (array('file', 'class') as $where) {
+            foreach (array('Summary', 'Description') as $what) {
+                if (is_null($this->{$where . $what . 'ExtractRegexp'})) {
+                    $this->{$where . $what . 'ExtractRegexp'} = $this->{$where . $what . 'Regexp'};
+                }
+            }
+        }
     }
 }

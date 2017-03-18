@@ -130,11 +130,14 @@ class FileLevelDocBlock extends Rule
             $this->_second = $this->_tokens->key();
             $this->_secondBlock = new DocBlock($this->_tokens->current()[1]);
             $this->_processDocBlock($this->_secondBlock);
+            $this->_processDocBlockText($this->_firstBlock, 'file');
+            $this->_processDocBlockText($this->_secondBlock, 'class');
             $this->_checkDocBlocks();
             return;
         }
 
         // The file-level DocBlock is missing, create one.
+        $this->_processDocBlockText($this->_firstBlock, 'class');
         $this->_createFileLevelBlock();
         $this->_checkDocBlock('class');
     }
@@ -209,6 +212,8 @@ class FileLevelDocBlock extends Rule
             $warn = Translation::t("file-level");
             $pos = $this->_first;
             $docblock = $this->_firstBlock;
+            $other = 'class';
+            $otherWarn = Translation::t("class-level");
             $otherPos = $this->_second;
             $otherBlock = $this->_secondBlock;
             break;
@@ -216,6 +221,8 @@ class FileLevelDocBlock extends Rule
             $warn = Translation::t("class-level");
             $pos = $this->_second;
             $docblock = $this->_secondBlock;
+            $other = 'file';
+            $otherWarn = Translation::t("file-level");
             $otherPos = $this->_first;
             $otherBlock = $this->_firstBlock;
             break;
@@ -226,16 +233,27 @@ class FileLevelDocBlock extends Rule
         $serializer = new Serializer();
         $update = false;
 
+        // Cleaning the summary and description.
+        $text = $docblock->getText();
+        $text = $this->_stripIncorrectText($text, $other);
+        if ($text != $docblock->getText()) {
+            $this->_warnings[] = sprintf(
+                Translation::t("The %s DocBlock contains text that should be in the %s DocBlock"),
+                $warn, $otherWarn
+            );
+            $docblock->setText($text);
+            $update = true;
+        }
+
         // Checking the summary.
         if (!preg_match(
                 $this->_config->{$which . 'SummaryRegexp'},
                 $docblock->getShortDescription()
             )) {
             $this->_warnings[] = sprintf(
-                Translation::t("The %s DocBlock summary should be like: "),
+                Translation::t("The %s DocBlock summary is not valid"),
                 $warn
-            )
-                . $this->_config->{$which . 'Summary'};
+            );
             if (strlen($docblock->getShortDescription()) &&
                 $which == 'file') {
                 // Move the file-level descriptions to the class level.
@@ -265,10 +283,9 @@ class FileLevelDocBlock extends Rule
                 $docblock->getLongDescription()
             )) {
             $this->_warnings[] = sprintf(
-                Translation::t("The %s DocBlock description should be like: "),
+                Translation::t("The %s DocBlock description is not valid"),
                 $warn
-            )
-                . $this->_config->{$which . 'Description'};
+            );
             if (strlen($this->_config->{$which . 'Description'})) {
                 $description = $docblock->getShortDescription()
                     . "\n\n"
@@ -364,45 +381,14 @@ class FileLevelDocBlock extends Rule
     {
         $serializer = new Serializer();
 
-        $fileLevelSummary = $fileLevelDescription = null;
-        if ($this->_config->fileSummaryRegexp != '//' &&
-            preg_match(
-                $this->_config->fileSummaryRegexp,
-                $this->_firstBlock->getText(),
-                $match
-            )) {
-            $fileLevelSummary = $match[0];
-            $this->_firstBlock->setText(
-                str_replace($match[0], '', $this->_firstBlock->getText())
-            );
-        }
-        if ($this->_config->fileDescriptionRegexp != '//' &&
-            preg_match(
-                $this->_config->fileDescriptionRegexp,
-                $this->_firstBlock->getText(),
-                $match
-            )) {
-            $fileLevelDescription = $match[0];
-            $this->_firstBlock->setText(
-                str_replace($match[0], '', $this->_firstBlock->getText())
-            );
-        }
-        if ($fileLevelSummary || $fileLevelDescription) {
-            $this->_firstBlock->setText(
-                trim($this->_firstBlock->getText())
-            );
-            $this->_tokens = $this->_tokens->splice(
-                $this->_first,
-                1,
-                array($serializer->getDocComment($this->_firstBlock))
-            );
-            if ($fileLevelSummary) {
-                $this->_config->fileSummary = $fileLevelSummary;
-            }
-            if ($fileLevelDescription) {
-                $this->_config->fileDescription = $fileLevelDescription;
-            }
-        }
+        $this->_firstBlock->setText(
+            $this->_stripIncorrectText($this->_firstBlock->getText(), 'file')
+        );
+        $this->_tokens = $this->_tokens->splice(
+            $this->_first,
+            1,
+            array($serializer->getDocComment($this->_firstBlock))
+        );
         $this->_secondBlock = $this->_firstBlock;
 
         $tags = array();
@@ -418,6 +404,7 @@ class FileLevelDocBlock extends Rule
                 }
             }
         }
+
         $fileDocBlock = $this->_getFileLevelDocBlock($tags);
         $this->_tokens->seek($this->_first);
         $this->_tokens = $this->_tokens->insert(array(
@@ -426,6 +413,29 @@ class FileLevelDocBlock extends Rule
         ));
         $this->_firstBlock = $fileDocBlock;
         $this->_second = $this->_first + 2;
+    }
+
+    /**
+     * Strips text from summary and description that belongs to the "other"
+     * block.
+     *
+     * @param string $text   The original text.
+     * @param string $which  Which DocBlock to verify, either 'file' or 'class'.
+     *
+     * @return string  The cleaned text.
+     */
+    protected function _stripIncorrectText($text, $which)
+    {
+        return trim(
+            str_replace(
+                array(
+                    $this->_config->{$which . 'Summary'},
+                    $this->_config->{$which . 'Description'}
+                ),
+                '',
+                $text
+            )
+        );
     }
 
     /**
@@ -469,6 +479,30 @@ class FileLevelDocBlock extends Rule
             );
         }
         return $docblock;
+    }
+
+    /**
+     * Processes the summary and discription of an existing DocBlock.
+     *
+     * Parses any information out of the "other" block that might be required
+     * later.
+     *
+     * @param \phpDocumentor\Reflection\DocBlock $block  A DocBlock.
+     * @param string $which  Which DocBlock to verify, either 'file' or 'class'.
+     */
+    protected function _processDocBlockText($block, $which)
+    {
+        $update = $which == 'file' ? 'class' : 'file';
+        foreach (array('Summary', 'Description') as $what) {
+            if ($this->_config->{$update . $what . 'ExtractRegexp'} != '//' &&
+                preg_match(
+                    $this->_config->{$update . $what . 'ExtractRegexp'},
+                    $block->getText(),
+                    $match
+                )) {
+                $this->_config->{$update . $what} = $match[0];
+            }
+        }
     }
 
     /**

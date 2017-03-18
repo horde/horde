@@ -1,16 +1,16 @@
 <?php
 /**
- * Summary.
+ * File summary.
  *
- * Descriptions.
+ * File Descriptions.
  *
  * @copyright Jan Schneider <jan@horde.org>
  */
 
 /**
- * Summary.
+ * Class summary.
  *
- * Descriptions.
+ * File Descriptions.
  *
  * @license FooBar
  * @license FooBar
