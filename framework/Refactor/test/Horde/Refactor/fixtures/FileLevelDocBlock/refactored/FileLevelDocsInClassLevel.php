@@ -5,20 +5,20 @@
  * See the enclosed file LICENSE for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
- * @author
+ * @author   
  * @category Horde
  * @license  http://www.horde.org/licenses/... ...
- * @package
+ * @package  
  */
 
 /**
  * Summary
  *
- * @author
+ * @author    
  * @category  Horde
  * @copyright 2017 Horde LLC
  * @license   http://www.horde.org/licenses/... ...
- * @package
+ * @package   
  */
 class Foo
 {
