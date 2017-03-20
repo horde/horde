@@ -5,7 +5,7 @@ $notes['security'] = false;
 /* Mailing list release notes. */
 $notes['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Nag Task List
-Manager version H5 (4.2.13).
+Manager version H5 (4.2.14).
 
 Nag is a web-based application built upon the Horde Application Framework which
 provides a simple, clean interface for managing online task lists (i.e., todo
@@ -19,8 +19,8 @@ http://www.horde.org/apps/nag/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/nag/docs/INSTALL
 
-The major changes compared to the Nag version H5 (4.2.12) are:
-    * Fixed regression with PHP < 5.5.
+The major changes compared to the Nag version H5 (4.2.13) are:
+    * Small bugfixes.
 ML;
 
 $notes['name'] = 'Nag';

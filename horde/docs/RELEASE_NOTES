@@ -5,7 +5,7 @@ $notes['security'] = false;
 /* Mailing list release notes. */
 $notes['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Horde
-Application Framework version 5.2.13.
+Application Framework version 5.2.14.
 
 The Horde Application Framework is a flexible, modular, general-purpose web
 application framework written in PHP. It provides an extensive array of
@@ -20,9 +20,8 @@ http://www.horde.org/apps/horde/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/horde/docs/INSTALL
 
-The major changes compared to the Horde version 5.2.12 are:
-    * Disallow setting of creator permissions if sharing with world is disabled.
-    * Small bugfixes.
+The major changes compared to the Horde version 5.2.13 are:
+    * Small improvements and bugfixes.
 ML;
 
 $notes['name'] = 'Horde';
