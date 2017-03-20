@@ -1,6 +1,6 @@
------------
-v4.2.13-git
------------
+-------
+v4.2.13
+-------
 
 [mjr] Fix saving sync preference when no default notepad exists (Bug #14585).
 [mjr] Fix potential infinite recursion in Mnemo_Api::listBy() due to corrupt
