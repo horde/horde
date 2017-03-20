@@ -61,6 +61,11 @@ class Horde_Yaml_Loader
     protected $_inBlock = false;
 
     /**
+     * @var string
+     */
+    protected $_blockEnd = '';
+
+    /**
      * @var boolean
      */
     protected $_isInline = false;
