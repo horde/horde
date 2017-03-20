@@ -131,7 +131,8 @@ class Horde_Yaml_Loader
 
         if (!$this->_inBlock && empty($trimmed)) {
             return;
-        } elseif ($this->_inBlock && empty($trimmed)) {
+        }
+        if ($this->_inBlock && empty($trimmed)) {
             $last =& $this->_allNodes[$this->_lastNode];
             $last->data[key($last->data)] .= "\n";
         } elseif ($trimmed[0] != '#' && substr($trimmed, 0, 3) != '---') {
@@ -156,7 +157,7 @@ class Horde_Yaml_Loader
                 if ($this->_inBlock) {
                     $parent =& $this->_allNodes[$this->_lastNode];
                     $parent->data[key($parent->data)] .= trim($line) . $this->_blockEnd;
-                } elseif (!$this->_inBlock) {
+                } else {
                     // The current node's parent is the previous node
                     $node->parent = $this->_lastNode;
 
@@ -164,7 +165,7 @@ class Horde_Yaml_Loader
                     // we need to start blocking i.e. taking in all
                     // lines as a text value until we drop our indent.
                     $parent =& $this->_allNodes[$node->parent];
-                    $this->_allNodes[$node->parent]->children = true;
+                    $parent->children = true;
                     if (is_array($parent->data)) {
                         if (isset($parent->data[key($parent->data)])) {
                             $chk = $parent->data[key($parent->data)];
@@ -174,7 +175,7 @@ class Horde_Yaml_Loader
                                 $parent->data[key($parent->data)] =
                                     str_replace('>', '', $parent->data[key($parent->data)]);
                                 $parent->data[key($parent->data)] .= trim($line) . ' ';
-                                $this->_allNodes[$node->parent]->children = false;
+                                $parent->children = false;
                                 $this->_lastIndent = $node->indent;
                             } elseif ($chk === '|') {
                                 $this->_inBlock = true;
@@ -182,7 +183,7 @@ class Horde_Yaml_Loader
                                 $parent->data[key($parent->data)] =
                                     str_replace('|', '', $parent->data[key($parent->data)]);
                                 $parent->data[key($parent->data)] .= trim($line) . "\n";
-                                $this->_allNodes[$node->parent]->children = false;
+                                $parent->children = false;
                                 $this->_lastIndent = $node->indent;
                             }
                         }
