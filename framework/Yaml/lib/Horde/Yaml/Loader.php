@@ -87,7 +87,7 @@ class Horde_Yaml_Loader
      */
     public function __construct()
     {
-        $base = new Horde_Yaml_Node($this->_nodeId++);
+        $base = new Horde_Yaml_Node($this->_nodeId);
         $base->indent = 0;
         $this->_lastNode = $base->id;
     }
