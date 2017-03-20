@@ -118,7 +118,7 @@ class Horde_Yaml
      */
     public static function loadStream($stream)
     {
-        if (! is_resource($stream) || get_resource_type($stream) != 'stream') {
+        if (!is_resource($stream) || get_resource_type($stream) != 'stream') {
             throw new InvalidArgumentException('Stream must be a stream resource');
         }
 
