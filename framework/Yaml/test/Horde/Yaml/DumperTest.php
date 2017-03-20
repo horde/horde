@@ -208,7 +208,9 @@ class Horde_Yaml_DumperTest extends PHPUnit_Framework_TestCase
         $actual = $this->dumper->dump($value);
         $this->assertEquals($expected, $actual);
         // round-trip assert
-        $this->assertEquals($value, Horde_Yaml::load($actual), "Error: expected: " . print_r($value, true) . ", actual: " . print_r(Horde_Yaml::load($actual), true) . ", from: >" . $actual . "<"); // fails presently due to bug in loader which causes an extra "\n" at end of string
+        // parsing keeps trailing newlines.
+        $value['foo'] .= "\n";
+        $this->assertEquals($value, Horde_Yaml::load($actual));
     }
 
 }

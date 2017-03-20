@@ -100,6 +100,11 @@ extends Components_Release_Task_Base
                 $this->getOutput()->warn((string)$e);
             }
         } else {
+            if (!empty($options['dump'])) {
+                $this->getOutput()->plain($mailer->getBody());
+                return;
+            }
+
             $info = 'ANNOUNCEMENT
 
 Message headers

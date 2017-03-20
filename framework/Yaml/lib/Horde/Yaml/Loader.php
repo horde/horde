@@ -61,6 +61,11 @@ class Horde_Yaml_Loader
     protected $_inBlock = false;
 
     /**
+     * @var string
+     */
+    protected $_blockEnd = '';
+
+    /**
      * @var boolean
      */
     protected $_isInline = false;
@@ -82,7 +87,7 @@ class Horde_Yaml_Loader
      */
     public function __construct()
     {
-        $base = new Horde_Yaml_Node($this->_nodeId++);
+        $base = new Horde_Yaml_Node($this->_nodeId);
         $base->indent = 0;
         $this->_lastNode = $base->id;
     }
@@ -126,7 +131,8 @@ class Horde_Yaml_Loader
 
         if (!$this->_inBlock && empty($trimmed)) {
             return;
-        } elseif ($this->_inBlock && empty($trimmed)) {
+        }
+        if ($this->_inBlock && empty($trimmed)) {
             $last =& $this->_allNodes[$this->_lastNode];
             $last->data[key($last->data)] .= "\n";
         } elseif ($trimmed[0] != '#' && substr($trimmed, 0, 3) != '---') {
@@ -139,7 +145,7 @@ class Horde_Yaml_Loader
                 // If we're in a block, add the text to the parent's data
                 if ($this->_inBlock) {
                     $parent =& $this->_allNodes[$this->_lastNode];
-                    $parent->data[key($parent->data)] .= trim($line) . $this->_blockEnd;
+                    $parent->data[key($parent->data)] .= $this->_blockEnd . trim($line);
                 } else {
                     // The current node's parent is the same as the previous
                     // node's
@@ -151,7 +157,7 @@ class Horde_Yaml_Loader
                 if ($this->_inBlock) {
                     $parent =& $this->_allNodes[$this->_lastNode];
                     $parent->data[key($parent->data)] .= trim($line) . $this->_blockEnd;
-                } elseif (!$this->_inBlock) {
+                } else {
                     // The current node's parent is the previous node
                     $node->parent = $this->_lastNode;
 
@@ -159,25 +165,25 @@ class Horde_Yaml_Loader
                     // we need to start blocking i.e. taking in all
                     // lines as a text value until we drop our indent.
                     $parent =& $this->_allNodes[$node->parent];
-                    $this->_allNodes[$node->parent]->children = true;
+                    $parent->children = true;
                     if (is_array($parent->data)) {
                         if (isset($parent->data[key($parent->data)])) {
                             $chk = $parent->data[key($parent->data)];
                             if ($chk === '>') {
                                 $this->_inBlock = true;
-                                $this->_blockEnd = '';
+                                $this->_blockEnd = ' ';
                                 $parent->data[key($parent->data)] =
                                     str_replace('>', '', $parent->data[key($parent->data)]);
-                                $parent->data[key($parent->data)] .= trim($line) . ' ';
-                                $this->_allNodes[$node->parent]->children = false;
+                                $parent->data[key($parent->data)] .= trim($line);
+                                $parent->children = false;
                                 $this->_lastIndent = $node->indent;
                             } elseif ($chk === '|') {
                                 $this->_inBlock = true;
                                 $this->_blockEnd = "\n";
                                 $parent->data[key($parent->data)] =
                                     str_replace('|', '', $parent->data[key($parent->data)]);
-                                $parent->data[key($parent->data)] .= trim($line) . "\n";
-                                $this->_allNodes[$node->parent]->children = false;
+                                $parent->data[key($parent->data)] .= trim($line);
+                                $parent->children = false;
                                 $this->_lastIndent = $node->indent;
                             }
                         }
@@ -187,10 +193,9 @@ class Horde_Yaml_Loader
                 // Any block we had going is dead now
                 if ($this->_inBlock) {
                     $this->_inBlock = false;
-                    if ($this->_blockEnd == "\n") {
+                    if ($this->_blockEnd == "\n" || $this->_blockEnd == ' ') {
                         $last =& $this->_allNodes[$this->_lastNode];
-                        $last->data[key($last->data)] =
-                            trim($last->data[key($last->data)]);
+                        $last->data[key($last->data)] .= "\n";
                     }
                 }
 
