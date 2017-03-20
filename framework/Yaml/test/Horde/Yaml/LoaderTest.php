@@ -217,7 +217,7 @@ class Horde_Yaml_LoaderTest extends PHPUnit_Framework_TestCase
     {
         $parsed = Horde_Yaml::loadFile($this->fixture('basic'));
 
-        $expected = "There isn't any time for your tricks!\nDo you understand?\n";
+        $expected = "There isn't any time for your tricks!\n Do you understand?\n\n";
         $actual = $parsed['no time'];
         $this->assertEquals($expected, $actual);
     }
@@ -800,7 +800,7 @@ class Horde_Yaml_LoaderTest extends PHPUnit_Framework_TestCase
     public function testUnliteralizing()
     {
         $parsed = Horde_Yaml::loadFile($this->fixture('basic'));
-        $expected = "Line #1\nLine #2";
+        $expected = "Line #1\nLine #2\n";
         $this->assertEquals($expected, $parsed['literalStringTest']);
     }
 
