@@ -1,6 +1,6 @@
------------
-v4.2.20-git
------------
+-------
+v4.2.20
+-------
 
 [mjr] Fix saving sync preference when no default calendar exists (Bug #14585).
 [mjr] Fix display of date in ITIP_CANCEL notifications of deleted instances of
