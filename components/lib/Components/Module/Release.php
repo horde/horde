@@ -122,6 +122,13 @@ extends Components_Module_Base
                     'help'   => 'The directory of a horde-web checkout.'
                 )
             ),
+            new Horde_Argv_Option(
+                '--dump',
+                array(
+                    'action' => 'store_true',
+                    'help'   => 'Prints the release notes only.'
+                )
+            ),
         );
     }
 
@@ -204,6 +211,7 @@ The following example would generate the package and add the release tag to git 
             '--horde_user' => '',
             '--horde_pass' => '',
             '--web_dir' => '',
+            '--dump' => '',
         );
     }
 
@@ -218,9 +226,12 @@ The following example would generate the package and add the release tag to git 
     public function handle(Components_Config $config)
     {
         $options = $config->getOptions();
+        if (!empty($options['dump'])) {
+            $config->setOption('pretend', true);
+        }
         $arguments = $config->getArguments();
-        if (!empty($options['release'])
-            || (isset($arguments[0]) && $arguments[0] == 'release')) {
+        if (!empty($options['release']) ||
+            (isset($arguments[0]) && $arguments[0] == 'release')) {
             $this->_dependencies->getRunnerRelease()->run();
             return true;
         }

@@ -190,8 +190,11 @@ class Components_Runner_Release
     private function _doTask($task)
     {
         $arguments = $this->_config->getArguments();
-        if ((count($arguments) == 1 && $arguments[0] == 'release')
-            || in_array($task, $arguments)) {
+        if ((count($arguments) == 1 && $arguments[0] == 'release') ||
+            in_array($task, $arguments)) {
+            if ($this->_config->getOption('dump') && $task != 'announce') {
+                return false;
+            }
             return true;
         }
         return false;
