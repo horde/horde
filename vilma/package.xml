@@ -10,7 +10,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-12-19</date>
+ <date>2017-03-20</date>
  <version>
   <release>1.0.0</release>
   <api>1.0.0</api>
@@ -39,7 +39,6 @@
    <dir name="docs">
     <file name="CHANGES" role="doc" />
     <file name="CREDITS" role="doc" />
-    <file name="horde.yml" role="doc" />
     <file name="INSTALL" role="doc" />
     <file name="release.yml" role="doc" />
     <file name="TODO" role="doc" />
@@ -188,7 +187,6 @@
    <install as="vilma/config/prefs.php" name="config/prefs.php" />
    <install as="CHANGES" name="docs/CHANGES" />
    <install as="CREDITS" name="docs/CREDITS" />
-   <install as="horde.yml" name="docs/horde.yml" />
    <install as="INSTALL" name="docs/INSTALL" />
    <install as="release.yml" name="docs/release.yml" />
    <install as="TODO" name="docs/TODO" />
@@ -263,7 +261,7 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2016-12-19</date>
+   <date>2017-03-20</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * Initial release.

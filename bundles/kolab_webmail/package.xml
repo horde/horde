@@ -10,8 +10,7 @@
   <email>wrobel@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-11-29</date>
- <time>19:43:49</time>
+ <date>2017-03-20</date>
  <version>
   <release>4.0.0alpha1</release>
   <api>4.0.0alpha1</api>
@@ -84,6 +83,9 @@
       <file name="20-kolab.php" role="horde" />
       <file name="20-kolab.xml" role="horde" />
      </dir> <!-- /kronolith/config/conf.d -->
+     <dir name="prefs.d">
+      <file name="20-kolab.php" role="horde" />
+     </dir> <!-- /kronolith/config/prefs.d -->
     </dir> <!-- /kronolith/config -->
    </dir> <!-- /kronolith -->
    <dir name="lib">
@@ -94,6 +96,9 @@
      <dir name="conf.d">
       <file name="20-kolab.xml" role="horde" />
      </dir> <!-- /mnemo/config/conf.d -->
+     <dir name="prefs.d">
+      <file name="20-kolab.php" role="horde" />
+     </dir> <!-- /mnemo/config/prefs.d -->
     </dir> <!-- /mnemo/config -->
    </dir> <!-- /mnemo -->
    <dir name="nag">
@@ -101,6 +106,9 @@
      <dir name="conf.d">
       <file name="20-kolab.xml" role="horde" />
      </dir> <!-- /nag/config/conf.d -->
+     <dir name="prefs.d">
+      <file name="20-kolab.php" role="horde" />
+     </dir> <!-- /nag/config/prefs.d -->
     </dir> <!-- /nag/config -->
    </dir> <!-- /nag -->
    <dir name="turba">
@@ -112,6 +120,10 @@
       <file name="10-webmail.xml" role="horde" />
       <file name="20-kolab.xml" role="horde" />
      </dir> <!-- /turba/config/conf.d -->
+     <dir name="prefs.d">
+      <file name="20-kolab.php" role="horde" />
+     </dir> <!-- /turba/config/prefs.d -->
+     <file name="hooks.php" role="horde" />
     </dir> <!-- /turba/config -->
    </dir> <!-- /turba -->
    <file name="COPYING" role="doc" />
@@ -272,13 +284,18 @@
    <install as="kronolith/config/conf.d/10-webmail.xml" name="kronolith/config/conf.d/10-webmail.xml" />
    <install as="kronolith/config/conf.d/20-kolab.php" name="kronolith/config/conf.d/20-kolab.php" />
    <install as="kronolith/config/conf.d/20-kolab.xml" name="kronolith/config/conf.d/20-kolab.xml" />
+   <install as="kronolith/config/prefs.d/20-kolab.php" name="kronolith/config/prefs.d/20-kolab.php" />
    <install as="lib/Bundle.php" name="lib/Bundle.php" />
    <install as="mnemo/config/conf.d/20-kolab.xml" name="mnemo/config/conf.d/20-kolab.xml" />
+   <install as="mnemo/config/prefs.d/20-kolab.php" name="mnemo/config/prefs.d/20-kolab.php" />
    <install as="nag/config/conf.d/20-kolab.xml" name="nag/config/conf.d/20-kolab.xml" />
+   <install as="nag/config/prefs.d/20-kolab.php" name="nag/config/prefs.d/20-kolab.php" />
+   <install as="turba/config/hooks.php" name="turba/config/hooks.php" />
    <install as="turba/config/backends.d/20-kolab.php" name="turba/config/backends.d/20-kolab.php" />
    <install as="turba/config/conf.d/10-webmail.xml" name="turba/config/conf.d/10-webmail.xml" />
    <install as="COPYING" name="COPYING" />
    <install as="turba/config/conf.d/20-kolab.xml" name="turba/config/conf.d/20-kolab.xml" />
+   <install as="turba/config/prefs.d/20-kolab.php" name="turba/config/prefs.d/20-kolab.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -291,7 +308,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-11-29</date>
+   <date>2017-03-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * First release candidate of Horde Groupware Kolab Edition 4.0.

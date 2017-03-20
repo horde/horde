@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2017-02-27</date>
+ <date>2017-03-20</date>
  <version>
   <release>1.1.1</release>
   <api>1.1.0</api>
@@ -32,7 +32,6 @@
       <file name="UPGRADING" role="doc" />
      </dir> <!-- /doc/Horde/Idna -->
     </dir> <!-- /doc/Horde -->
-    <file name="horde.yml" role="doc" />
    </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
@@ -100,7 +99,6 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="horde.yml" name="doc/horde.yml" />
    <install as="COPYING" name="doc/Horde/Idna/COPYING" />
    <install as="UPGRADING" name="doc/Horde/Idna/UPGRADING" />
    <install as="Horde/Idna.php" name="lib/Horde/Idna.php" />
@@ -204,7 +202,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-02-27</date>
+   <date>2017-03-20</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * 

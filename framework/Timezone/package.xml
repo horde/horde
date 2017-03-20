@@ -10,7 +10,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2017-02-11</date>
+ <date>2017-03-20</date>
  <version>
   <release>1.1.1</release>
   <api>1.1.0</api>
@@ -31,7 +31,6 @@
       <file name="COPYING" role="doc" />
      </dir> <!-- /doc/Horde/Timezone -->
     </dir> <!-- /doc/Horde -->
-    <file name="horde.yml" role="doc" />
    </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
@@ -55,6 +54,7 @@
        <file name="europe_berlin.ics" role="test" />
        <file name="europe_jersey" role="test" />
        <file name="europe_jersey.ics" role="test" />
+       <file name="europe_jersey_new.ics" role="test" />
        <file name="losangeles.ics" role="test" />
        <file name="northamerica" role="test" />
        <file name="uruguay" role="test" />
@@ -115,7 +115,6 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="horde.yml" name="doc/horde.yml" />
    <install as="COPYING" name="doc/Horde/Timezone/COPYING" />
    <install as="Horde/Timezone.php" name="lib/Horde/Timezone.php" />
    <install as="Horde/Timezone/Exception.php" name="lib/Horde/Timezone/Exception.php" />
@@ -135,6 +134,7 @@
    <install as="Horde/Timezone/fixtures/europe_berlin.ics" name="test/Horde/Timezone/fixtures/europe_berlin.ics" />
    <install as="Horde/Timezone/fixtures/europe_jersey" name="test/Horde/Timezone/fixtures/europe_jersey" />
    <install as="Horde/Timezone/fixtures/europe_jersey.ics" name="test/Horde/Timezone/fixtures/europe_jersey.ics" />
+   <install as="Horde/Timezone/fixtures/europe_jersey_new.ics" name="test/Horde/Timezone/fixtures/europe_jersey_new.ics" />
    <install as="Horde/Timezone/fixtures/losangeles.ics" name="test/Horde/Timezone/fixtures/losangeles.ics" />
    <install as="Horde/Timezone/fixtures/northamerica" name="test/Horde/Timezone/fixtures/northamerica" />
    <install as="Horde/Timezone/fixtures/uruguay" name="test/Horde/Timezone/fixtures/uruguay" />
@@ -339,7 +339,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-02-11</date>
+   <date>2017-03-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

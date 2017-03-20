@@ -23,7 +23,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2017-02-27</date>
+ <date>2017-03-20</date>
  <version>
   <release>2.4.1</release>
   <api>2.4.0</api>
@@ -53,7 +53,6 @@
       <file name="UPGRADING" role="doc" />
      </dir> <!-- /doc/Horde/Db -->
     </dir> <!-- /doc/Horde -->
-    <file name="horde.yml" role="doc" />
    </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
@@ -286,7 +285,6 @@
  <phprelease>
   <filelist>
    <install as="horde-db-migrate-component" name="bin/horde-db-migrate-component" />
-   <install as="horde.yml" name="doc/horde.yml" />
    <install as="COPYING" name="doc/Horde/Db/COPYING" />
    <install as="README" name="doc/Horde/Db/README" />
    <install as="README_TESTING" name="doc/Horde/Db/README_TESTING" />
@@ -986,7 +984,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-02-27</date>
+   <date>2017-03-20</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * 

@@ -16,7 +16,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2017-02-27</date>
+ <date>2017-03-20</date>
  <version>
   <release>2.6.3</release>
   <api>2.6.0</api>
@@ -1131,7 +1131,6 @@
       <file name="COPYING" role="doc" />
      </dir> <!-- /doc/Horde/Test -->
     </dir> <!-- /doc/Horde -->
-    <file name="horde.yml" role="doc" />
    </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
@@ -1987,7 +1986,6 @@
    <install as="Horde/Test/vendor/symfony/yaml/Tests/Fixtures/YtsNullsAndEmpties.yml" name="bundle/vendor/symfony/yaml/Tests/Fixtures/YtsNullsAndEmpties.yml" />
    <install as="Horde/Test/vendor/symfony/yaml/Tests/Fixtures/YtsSpecificationExamples.yml" name="bundle/vendor/symfony/yaml/Tests/Fixtures/YtsSpecificationExamples.yml" />
    <install as="Horde/Test/vendor/symfony/yaml/Tests/Fixtures/YtsTypeTransfers.yml" name="bundle/vendor/symfony/yaml/Tests/Fixtures/YtsTypeTransfers.yml" />
-   <install as="horde.yml" name="doc/horde.yml" />
    <install as="COPYING" name="doc/Horde/Test/COPYING" />
    <install as="template/packagetest/AllTests.php" name="doc/Horde/Test/template/packagetest/AllTests.php" />
    <install as="template/packagetest/bootstrap.php" name="doc/Horde/Test/template/packagetest/bootstrap.php" />
@@ -2543,7 +2541,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-02-27</date>
+   <date>2017-03-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

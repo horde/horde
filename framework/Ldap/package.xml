@@ -17,7 +17,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2017-02-27</date>
+ <date>2017-03-20</date>
  <version>
   <release>2.4.1</release>
   <api>1.4.0</api>
@@ -38,7 +38,6 @@
       <file name="COPYING" role="doc" />
      </dir> <!-- /doc/Horde/Ldap -->
     </dir> <!-- /doc/Horde -->
-    <file name="horde.yml" role="doc" />
    </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
@@ -125,7 +124,6 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="horde.yml" name="doc/horde.yml" />
    <install as="COPYING" name="doc/Horde/Ldap/COPYING" />
    <install as="Horde/Ldap.php" name="lib/Horde/Ldap.php" />
    <install as="Horde/Ldap/Entry.php" name="lib/Horde/Ldap/Entry.php" />
@@ -525,7 +523,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-02-27</date>
+   <date>2017-03-20</date>
    <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
    <notes>
 * 

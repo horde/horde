@@ -28,7 +28,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2016-11-09</date>
+ <date>2017-03-20</date>
  <version>
   <release>6.0.0</release>
   <api>6.0.0</api>
@@ -197,7 +197,6 @@
     <file name="CODING_STANDARDS" role="doc" />
     <file name="CONTRIBUTING" role="doc" />
     <file name="CREDITS" role="doc" />
-    <file name="horde.yml" role="doc" />
     <file name="INSTALL" role="doc" />
     <file name="lighttpd-horde.conf" role="doc" />
     <file name="PERFORMANCE" role="doc" />
@@ -2058,7 +2057,6 @@
    <install as="CODING_STANDARDS" name="docs/CODING_STANDARDS" />
    <install as="CONTRIBUTING" name="docs/CONTRIBUTING" />
    <install as="CREDITS" name="docs/CREDITS" />
-   <install as="horde.yml" name="docs/horde.yml" />
    <install as="INSTALL" name="docs/INSTALL" />
    <install as="lighttpd-horde.conf" name="docs/lighttpd-horde.conf" />
    <install as="PERFORMANCE" name="docs/PERFORMANCE" />
@@ -4259,7 +4257,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2016-11-09</date>
+   <date>2017-03-20</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [jan] Mark NULL result values in SQL shell.

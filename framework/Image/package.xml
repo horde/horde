@@ -46,7 +46,6 @@
       <file name="UPGRADING" role="doc" />
      </dir> <!-- /doc/Horde/Image -->
     </dir> <!-- /doc/Horde -->
-    <file name="horde.yml" role="doc" />
    </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
@@ -489,7 +488,6 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="horde.yml" name="doc/horde.yml" />
    <install as="COPYING" name="doc/Horde/Image/COPYING" />
    <install as="COPYING-EXIF" name="doc/Horde/Image/COPYING-EXIF" />
    <install as="UPGRADING" name="doc/Horde/Image/UPGRADING" />

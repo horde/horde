@@ -11,8 +11,7 @@ The package has a driver based output generation and currently generates HTML an
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-07</date>
- <time>00:19:45</time>
+ <date>2017-03-20</date>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -27,6 +26,13 @@ The package has a driver based output generation and currently generates HTML an
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Reflection">
+      <file name="COPYING" role="doc" />
+     </dir> <!-- /doc/Horde/Reflection -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Reflection">
@@ -53,6 +59,7 @@ The package has a driver based output generation and currently generates HTML an
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Reflection/COPYING" />
    <install as="Horde/Reflection.php" name="lib/Horde/Reflection.php" />
    <install as="Horde/Reflection/Cli.php" name="lib/Horde/Reflection/Cli.php" />
    <install as="Horde/Reflection/Html.php" name="lib/Horde/Reflection/Html.php" />

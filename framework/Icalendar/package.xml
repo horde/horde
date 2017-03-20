@@ -23,7 +23,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2017-03-16</date>
+ <date>2017-03-20</date>
  <version>
   <release>2.1.7</release>
   <api>2.1.0</api>
@@ -52,7 +52,6 @@
       <file name="COPYING" role="doc" />
      </dir> <!-- /doc/Horde/Icalendar -->
     </dir> <!-- /doc/Horde -->
-    <file name="horde.yml" role="doc" />
    </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
@@ -494,7 +493,6 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="horde.yml" name="doc/horde.yml" />
    <install as="COPYING" name="doc/Horde/Icalendar/COPYING" />
    <install as="examples/exchange.ics" name="doc/Horde/Icalendar/examples/exchange.ics" />
    <install as="examples/exdate.ics" name="doc/Horde/Icalendar/examples/exdate.ics" />
@@ -1288,7 +1286,7 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-03-16</date>
+   <date>2017-03-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

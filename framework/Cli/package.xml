@@ -40,7 +40,6 @@
       <file name="UPGRADING" role="doc" />
      </dir> <!-- /doc/Horde/Cli -->
     </dir> <!-- /doc/Horde -->
-    <file name="horde.yml" role="doc" />
    </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
@@ -337,7 +336,6 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="horde.yml" name="doc/horde.yml" />
    <install as="Horde/Cli/colors.php" name="doc/Horde/Cli/colors.php" />
    <install as="COPYING" name="doc/Horde/Cli/COPYING" />
    <install as="UPGRADING" name="doc/Horde/Cli/UPGRADING" />

@@ -16,7 +16,7 @@
   <email>lang@b1-systems.de</email>
   <active>yes</active>
  </lead>
- <date>2016-01-13</date>
+ <date>2017-03-20</date>
  <version>
   <release>1.0.0RC4</release>
   <api>1.0.0</api>
@@ -98,7 +98,6 @@
    <dir name="locale">
     <dir name="de">
      <dir name="LC_MESSAGES">
-      <file name="#sesha.po#" role="horde" />
       <file name="sesha.mo" role="horde" />
       <file name="sesha.po" role="horde" />
      </dir> <!-- /locale/de/LC_MESSAGES -->
@@ -312,7 +311,6 @@
    <install as="sesha/lib/View/List.php" name="lib/View/List.php" />
    <install as="sesha/locale/.htaccess" name="locale/.htaccess" />
    <install as="sesha/locale/sesha.pot" name="locale/sesha.pot" />
-   <install as="sesha/locale/de/LC_MESSAGES/#sesha.po#" name="locale/de/LC_MESSAGES/#sesha.po#" />
    <install as="sesha/locale/de/LC_MESSAGES/sesha.mo" name="locale/de/LC_MESSAGES/sesha.mo" />
    <install as="sesha/locale/de/LC_MESSAGES/sesha.po" name="locale/de/LC_MESSAGES/sesha.po" />
    <install as="sesha/locale/es/LC_MESSAGES/sesha.mo" name="locale/es/LC_MESSAGES/sesha.mo" />
@@ -426,7 +424,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2016-01-13</date>
+   <date>2017-03-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Fix several notices and warnings (skhorde@smail.inf.fh-bonn-rhein-sieg.de).

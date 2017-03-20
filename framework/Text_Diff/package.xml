@@ -46,7 +46,6 @@
       </dir> <!-- /doc/Horde/Text/Diff -->
      </dir> <!-- /doc/Horde/Text -->
     </dir> <!-- /doc/Horde -->
-    <file name="horde.yml" role="doc" />
    </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
@@ -167,7 +166,6 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="horde.yml" name="doc/horde.yml" />
    <install as="COPYING" name="doc/Horde/Text/Diff/COPYING" />
    <install as="UPGRADING" name="doc/Horde/Text/Diff/UPGRADING" />
    <install as="examples/1.txt" name="doc/Horde/Text/Diff/examples/1.txt" />

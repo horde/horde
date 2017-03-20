@@ -10,7 +10,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2017-02-27</date>
+ <date>2017-03-20</date>
  <version>
   <release>2.2.3</release>
   <api>2.2.0</api>
@@ -31,7 +31,6 @@
       <file name="COPYING" role="doc" />
      </dir> <!-- /doc/Horde/Translation -->
     </dir> <!-- /doc/Horde -->
-    <file name="horde.yml" role="doc" />
    </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
@@ -160,7 +159,6 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="horde.yml" name="doc/horde.yml" />
    <install as="COPYING" name="doc/Horde/Translation/COPYING" />
    <install as="Horde/Translation.php" name="lib/Horde/Translation.php" />
    <install as="Horde/Translation/Autodetect.php" name="lib/Horde/Translation/Autodetect.php" />
@@ -402,7 +400,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-02-27</date>
+   <date>2017-03-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

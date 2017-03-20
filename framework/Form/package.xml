@@ -37,7 +37,6 @@
       <file name="COPYING" role="doc" />
      </dir> <!-- /doc/Horde/Form -->
     </dir> <!-- /doc/Horde -->
-    <file name="horde.yml" role="doc" />
    </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
@@ -395,7 +394,6 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="horde.yml" name="doc/horde.yml" />
    <install as="COPYING" name="doc/Horde/Form/COPYING" />
    <install as="Horde/Form.php" name="lib/Horde/Form.php" />
    <install as="Horde/Form/Action.php" name="lib/Horde/Form/Action.php" />

@@ -10,7 +10,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-11-09</date>
+ <date>2017-03-20</date>
  <version>
   <release>6.0.0</release>
   <api>6.0.0</api>
@@ -37,7 +37,6 @@
    </dir> <!-- /config -->
    <dir name="docs">
     <file name="CHANGES" role="doc" />
-    <file name="horde.yml" role="doc" />
     <file name="INSTALL" role="doc" />
     <file name="PERFORMANCE" role="doc" />
     <file name="release.yml" role="doc" />
@@ -170,7 +169,6 @@
    <install as="webmail-install" name="bin/webmail-install" />
    <install as="config/prefs.d/10-webmail.php" name="config/prefs.d/10-webmail.php" />
    <install as="CHANGES" name="docs/CHANGES" />
-   <install as="horde.yml" name="docs/horde.yml" />
    <install as="INSTALL" name="docs/INSTALL" />
    <install as="PERFORMANCE" name="docs/PERFORMANCE" />
    <install as="release.yml" name="docs/release.yml" />
@@ -501,7 +499,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2016-11-09</date>
+   <date>2017-03-20</date>
    <license uri="http://www.horde.org/licenses/">OSI certified</license>
    <notes>
 *

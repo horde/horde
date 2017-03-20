@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2017-03-01</date>
+ <date>2017-03-20</date>
  <version>
   <release>2.38.1</release>
   <api>2.38.0</api>
@@ -32,7 +32,6 @@
       <file name="TODO" role="doc" />
      </dir> <!-- /doc/Horde/ActiveSync -->
     </dir> <!-- /doc/Horde -->
-    <file name="horde.yml" role="doc" />
    </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
@@ -474,7 +473,6 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="horde.yml" name="doc/horde.yml" />
    <install as="COPYING" name="doc/Horde/ActiveSync/COPYING" />
    <install as="TODO" name="doc/Horde/ActiveSync/TODO" />
    <install as="Horde/ActiveSync.php" name="lib/Horde/ActiveSync.php" />
@@ -3371,7 +3369,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-03-01</date>
+   <date>2017-03-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * 
