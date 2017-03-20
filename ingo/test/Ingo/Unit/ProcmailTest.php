@@ -188,8 +188,8 @@ $DEFAULT');
 :0
 * ^TO_from@example.com
 {
-FILEDATE=`test -f ${VACATION_DIR:-.}/\'.vacation.from@example.com\' && ls -lcn --time-style=+%s ${VACATION_DIR:-.}/\'.vacation.from@example.com\' | awk \'{ print $6 + (604800) }\'`
 DATE=`date +%s`
+FILEDATE=`test -f ${VACATION_DIR:-.}/\'.vacation.from@example.com\' && ls -lcn --time-style=+%s ${VACATION_DIR:-.}/\'.vacation.from@example.com\' | awk \'{ print $6 + (604800) }\'`
 DUMMY=`test -f ${VACATION_DIR:-.}/\'.vacation.from@example.com\' && test $FILEDATE -le $DATE && rm ${VACATION_DIR:-.}/\'.vacation.from@example.com\'`
 :0 h
 SUBJECT=| formail -xSubject:
