@@ -1,6 +1,6 @@
------------
-v4.2.19-git
------------
+-------
+v4.2.19
+-------
 
 [mjr] Fix importing vCard LABEL fields (Bug #14584).
 [mjr] Fix saving sync preference when no default address book exists (Bug

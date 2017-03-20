@@ -28,7 +28,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2016-12-16</date>
+ <date>2017-03-20</date>
  <version>
   <release>4.2.19</release>
   <api>4.0.0</api>
@@ -2178,7 +2178,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-12-16</date>
+   <date>2017-03-20</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [mjr] Fix importing vCard LABEL fields (Bug #14584).
