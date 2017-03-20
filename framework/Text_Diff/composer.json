@@ -16,12 +16,12 @@
             "role": "lead"
         }
     ],
-    "version": "2.1.2",
-    "time": "2016-02-02",
+    "version": "2.2.0",
+    "time": "2017-03-20",
     "repositories": [
         {
             "type": "pear",
-            "url": "https://pear.horde.org"
+            "url": "http://pear.horde.org"
         }
     ],
     "require": {
@@ -30,6 +30,7 @@
         "pear-pear.horde.org/Horde_Util": ">=2.0.0@stable,<=3.0.0alpha1@stable"
     },
     "suggest": {
+        "pear-pear.horde.org/Horde_Cli": ">=2.1.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Test": ">=2.1.0@stable,<=3.0.0alpha1@stable",
         "pear-pecl.php.net/xdiff": "*"
     }
