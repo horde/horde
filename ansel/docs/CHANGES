@@ -1,6 +1,6 @@
-----------
-v3.0.6-git
-----------
+------
+v3.0.6
+------
 
 [mjr] Honor selected images when downloading selected images as a zip file
       (Bug #14569).

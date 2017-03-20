@@ -22,7 +22,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-05-26</date>
+ <date>2017-03-20</date>
  <version>
   <release>3.0.6</release>
   <api>3.0.0</api>
@@ -340,7 +340,6 @@
      <dir name="LC_MESSAGES">
       <file name="ansel.mo" role="horde" />
       <file name="ansel.po" role="horde" />
-      <file name="ansel.po.tmp" role="horde" />
      </dir> <!-- /locale/sk/LC_MESSAGES -->
     </dir> <!-- /locale/sk -->
     <dir name="sl">
@@ -1015,7 +1014,6 @@
    <install as="ansel/locale/lv/LC_MESSAGES/ansel.po" name="locale/lv/LC_MESSAGES/ansel.po" />
    <install as="ansel/locale/sk/LC_MESSAGES/ansel.mo" name="locale/sk/LC_MESSAGES/ansel.mo" />
    <install as="ansel/locale/sk/LC_MESSAGES/ansel.po" name="locale/sk/LC_MESSAGES/ansel.po" />
-   <install as="ansel/locale/sk/LC_MESSAGES/ansel.po.tmp" name="locale/sk/LC_MESSAGES/ansel.po.tmp" />
    <install as="ansel/locale/sl/LC_MESSAGES/ansel.mo" name="locale/sl/LC_MESSAGES/ansel.mo" />
    <install as="ansel/locale/sl/LC_MESSAGES/ansel.po" name="locale/sl/LC_MESSAGES/ansel.po" />
    <install as="ansel/locale/sv/LC_MESSAGES/ansel.mo" name="locale/sv/LC_MESSAGES/ansel.mo" />
@@ -1406,7 +1404,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-05-26</date>
+   <date>2017-03-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Honor selected images when downloading selected images as a zip file (Bug #14569).
