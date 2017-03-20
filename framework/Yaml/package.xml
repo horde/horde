@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* 
+* [jan] Fix unfolding of multi-line strings and other incompatibilites with libyaml.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -306,7 +306,7 @@
    <date>2016-02-02</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* 
+* [jan] Fix unfolding of multi-line strings and other incompatibilites with libyaml.
    </notes>
   </release>
  </changelog>
