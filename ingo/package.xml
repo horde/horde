@@ -24,7 +24,7 @@
  </lead>
  <date>2017-03-20</date>
  <version>
-  <release>3.2.14</release>
+  <release>3.2.15</release>
   <api>3.2.0</api>
  </version>
  <stability>
@@ -33,8 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* [jan] Never send autoreplies again when setting zero vacation days in Procmail or Maildrop backends (Bug #14549).
-* [jan] Don&apos;t split sieve body tests on commas (Bug #14546).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1707,6 +1706,19 @@
    <notes>
 * [jan] Never send autoreplies again when setting zero vacation days in Procmail or Maildrop backends (Bug #14549).
 * [jan] Don&apos;t split sieve body tests on commas (Bug #14546).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.2.15</release>
+    <api>3.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2017-03-20</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
