@@ -17,7 +17,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2017-03-06</date>
+ <date>2017-03-20</date>
  <version>
   <release>2.1.0</release>
   <api>2.1.0</api>
@@ -775,7 +775,7 @@ Add &apos;default&apos; parameter to Horde_CLI::prompt().
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-03-06</date>
+   <date>2017-03-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Add header() method to turn a string into an outlined header.
