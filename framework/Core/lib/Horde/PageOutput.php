@@ -327,6 +327,8 @@ class Horde_PageOutput
             if (!$raw && $key) {
                 switch ($key) {
                 case 'prototype':
+                // @todo Remove 'dom' which is here for BC only.
+                case 'dom':
                     $script[] = 'document.observe("dom:loaded",function(){' . $val . '});';
                     break;
                 case 'jquery':
