@@ -19,7 +19,7 @@
  </lead>
  <date>2017-03-20</date>
  <version>
-  <release>2.1.0</release>
+  <release>2.1.1</release>
   <api>2.1.0</api>
  </version>
  <stability>
@@ -28,8 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Add header() method to turn a string into an outlined header.
-* [jan] Add color() method to colorize output with any supported color.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -780,6 +779,19 @@ Add &apos;default&apos; parameter to Horde_CLI::prompt().
    <notes>
 * [jan] Add header() method to turn a string into an outlined header.
 * [jan] Add color() method to colorize output with any supported color.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.1</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2017-03-20</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
