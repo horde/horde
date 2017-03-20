@@ -83,7 +83,7 @@ class Components_Release_Notes
             if (strpos($description, 'release') === false) {
                 $description .= ' release';
             }
-            $infofile = dirname($file) . '/horde.yml';
+            $infofile = dirname(dirname($file)) . '/.horde.yml';
             try {
                 $info = Horde_Yaml::loadFile($infofile);
             } catch (Horde_Yaml_Exception $e) {

@@ -102,6 +102,7 @@ implements Horde_Pear_Package_Type
                         'CVS/*',
                         'bin/.htaccess',
                         'composer.*',
+                        '.horde.yml',
                     ),
                     $this->getRootPath()
                 ),
