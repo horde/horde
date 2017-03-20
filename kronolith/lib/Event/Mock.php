@@ -17,4 +17,10 @@
  */
 class Kronolith_Event_Mock extends Kronolith_Event
 {
+    /**
+     */
+    public function hasPermission($permission, $user = null)
+    {
+        return true;
+    }
 }
