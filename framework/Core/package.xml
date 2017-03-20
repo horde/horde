@@ -30,7 +30,7 @@
  </developer>
  <date>2017-03-20</date>
  <version>
-  <release>2.28.0</release>
+  <release>2.28.1</release>
   <api>2.28.0</api>
  </version>
  <stability>
@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Allow to specify JS framework to use for defer-loading inline scripts.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4394,6 +4394,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Allow to specify JS framework to use for defer-loading inline scripts.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.28.1</release>
+    <api>2.28.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2017-03-20</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
