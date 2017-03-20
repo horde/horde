@@ -30,7 +30,7 @@
  </lead>
  <date>2017-03-20</date>
  <version>
-  <release>5.2.14</release>
+  <release>5.2.15</release>
   <api>5.2.0</api>
  </version>
  <stability>
@@ -39,8 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
-* [mjr] Fix errors in horde-memcache-stats script (Bug #14588).
-* [mjr] Remove configuration for defunct Yahoo, CloudMade, and MyTopo mapping providers.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4151,6 +4150,19 @@
    <notes>
 * [mjr] Fix errors in horde-memcache-stats script (Bug #14588).
 * [mjr] Remove configuration for defunct Yahoo, CloudMade, and MyTopo mapping providers.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.2.15</release>
+    <api>5.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2017-03-20</date>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
