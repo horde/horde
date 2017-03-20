@@ -30,7 +30,7 @@
  </lead>
  <date>2017-03-20</date>
  <version>
-  <release>4.2.19</release>
+  <release>4.2.20</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -39,10 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* [mjr] Fix importing vCard LABEL fields (Bug #14584).
-* [mjr] Fix saving sync preference when no default address book exists (Bug #14585).
-* [mjr] Fix removing virtual address books when calling the removeUserData API (Bug #14577).
-* [jan] Fix fatal error if group contacts from an LDAP server don&apos;t exist anymore.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2185,6 +2182,19 @@
 * [mjr] Fix saving sync preference when no default address book exists (Bug #14585).
 * [mjr] Fix removing virtual address books when calling the removeUserData API (Bug #14577).
 * [jan] Fix fatal error if group contacts from an LDAP server don&apos;t exist anymore.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.20</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2017-03-20</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
