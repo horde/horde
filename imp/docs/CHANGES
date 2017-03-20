@@ -1,6 +1,6 @@
------------
-v6.2.18-git
------------
+-------
+v6.2.18
+-------
 
 [jan] Catch errors when converting email address to IDNA.
 [jan] Correctly use preference to save attachments with sent messages in mobile
