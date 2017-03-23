@@ -330,11 +330,15 @@ class FileLevelDocBlock extends Rule
         $tags = array();
         foreach ($docblock->getTags() as $tag) {
             if (isset($this->_config->{$which . 'ForbiddenTags'}[$tag->getName()])) {
-                $this->_warnings[] = sprintf(
-                    Translation::t("The %s DocBlock tags should not include: "),
-                    $warn
-                )
-                    . $tag->getName();
+                $test = $this->_config->{$which . 'ForbiddenTags'}[$tag->getName()];
+                if (($test instanceof Regexp && $test->match($tag->getValue())) ||
+                    $test) {
+                    $this->_warnings[] = sprintf(
+                        Translation::t("The %s DocBlock tags should not include: "),
+                        $warn
+                    )
+                        . $tag->getName();
+                }
             } else {
                 $tags[] = $tag;
             }

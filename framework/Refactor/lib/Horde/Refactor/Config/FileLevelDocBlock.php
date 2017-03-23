@@ -13,6 +13,8 @@
 
 namespace Horde\Refactor\Config;
 
+use Horde\Refactor\Regexp;
+
 /**
  * Configuration for the FileLevelDocBlock refactoring rule.
  *
@@ -211,7 +213,19 @@ did not receive this file, see %licenseUrl%.';
      */
     public function __construct(array $params = array())
     {
-        $params = array_merge(array('year' => date('Y')), $params);
+        $linkRegexp = new Regexp('|^https?://pear\.horde\.org|');
+        $params = array_merge(
+            array(
+                'year' => date('Y'),
+                'fileForbiddenTags' => array_merge(
+                    $this->fileForbiddenTags, array('link' => $linkRegexp)
+                ),
+                'classForbiddenTags' => array_merge(
+                    $this->classForbiddenTags, array('link' => $linkRegexp)
+                ),
+            ),
+            $params
+        );
         parent::__construct($params);
         foreach (array('file', 'class') as $where) {
             foreach (array('Summary', 'Description') as $what) {
