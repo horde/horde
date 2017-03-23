@@ -95,7 +95,6 @@ class FileLevelDocBlock extends Rule
     }
 
     /**
-     * Applies the actual refactoring to the tokenized code.
      */
     public function run()
     {
@@ -210,7 +209,7 @@ class FileLevelDocBlock extends Rule
             $secondTags = $this->_secondBlock->getTagsByName($name);
             foreach ($secondTags as $tag) {
                 if (!in_array($tag->getContent(), $values)) {
-                    $this->addError(sprintf(
+                    throw new Exception\StopProcessing(sprintf(
                         Translation::t("The DocBlocks contain different values for the @%s tag"),
                         $name
                     ));

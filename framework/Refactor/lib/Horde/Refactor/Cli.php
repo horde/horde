@@ -14,6 +14,7 @@
 namespace Horde\Refactor;
 
 use Horde\Refactor\Rule;
+use Horde\Refactor\Exception\StopProcessing;
 use Horde_Argv_Parser;
 use Horde_Argv_Option;
 use Horde_Cli;
@@ -119,12 +120,14 @@ class Cli
                 )
             );
             $rule = new $class($file, $config->{$arguments[1]});
-            $rule->run();
+            try {
+                $rule->run();
+            } catch (StopProcessing $e) {
+                $cli->writeln($cli->color('red', $e->getMessage()));
+                continue;
+            }
             if ($rule->warnings) {
                 $cli->writeln();
-                foreach ($rule->errors as $error) {
-                    $cli->writeln($cli->color('red', $error));
-                }
                 foreach ($rule->warnings as $warning) {
                     $cli->writeln($cli->color('brown', $warning));
                 }

@@ -137,6 +137,7 @@
       </dir> <!-- /lib/Horde/Refactor/Config -->
       <dir name="Exception">
        <file name="NotFound.php" role="php" />
+       <file name="StopProcessing.php" role="php" />
        <file name="UnexpectedToken.php" role="php" />
       </dir> <!-- /lib/Horde/Refactor/Exception -->
       <dir name="Rule">
@@ -326,6 +327,7 @@
    <install as="Horde/Refactor/Config/Base.php" name="lib/Horde/Refactor/Config/Base.php" />
    <install as="Horde/Refactor/Config/FileLevelDocBlock.php" name="lib/Horde/Refactor/Config/FileLevelDocBlock.php" />
    <install as="Horde/Refactor/Exception/NotFound.php" name="lib/Horde/Refactor/Exception/NotFound.php" />
+   <install as="Horde/Refactor/Exception/StopProcessing.php" name="lib/Horde/Refactor/Exception/StopProcessing.php" />
    <install as="Horde/Refactor/Exception/UnexpectedToken.php" name="lib/Horde/Refactor/Exception/UnexpectedToken.php" />
    <install as="Horde/Refactor/Rule/FileLevelDocBlock.php" name="lib/Horde/Refactor/Rule/FileLevelDocBlock.php" />
    <install as="Horde/Refactor/Rule/Php4Constructor.php" name="lib/Horde/Refactor/Rule/Php4Constructor.php" />

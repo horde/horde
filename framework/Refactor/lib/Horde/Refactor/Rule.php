@@ -44,13 +44,6 @@ abstract class Rule
     protected $_tokens;
 
     /**
-     * A list of error messages.
-     *
-     * @var string[]
-     */
-    protected $_errors = array();
-
-    /**
      * A list of warning messages.
      *
      * @var string[]
@@ -74,6 +67,8 @@ abstract class Rule
 
     /**
      * Applies the actual refactoring to the tokenized code.
+     *
+     * @throws \Horde\Refactor\Exception\StopProcessing on unrecoverable error.
      */
     abstract public function run();
 
@@ -92,8 +87,8 @@ abstract class Rule
      */
     public function __get($name)
     {
-        if ($name == 'errors' || $name == 'warnings') {
-            return $this->{'_' . $name};
+        if ($name == 'warnings') {
+            return $this->_warnings;
         }
     }
 
@@ -108,19 +103,6 @@ abstract class Rule
             return;
         }
         $this->_warnings[] = $warning;
-    }
-
-    /**
-     * Adds an error.
-     *
-     * @param string $error  A error.
-     */
-    public function addError($error)
-    {
-        if ($this->_pauseWarnings) {
-            return;
-        }
-        $this->_errors[] = $error;
     }
 
     /**

@@ -115,16 +115,19 @@ class FileLevelDocBlockTest extends \Horde_Test_Case
 
     public function testErrors()
     {
-        $rule = new Rule\FileLevelDocBlock(
-            __DIR__ . '/fixtures/FileLevelDocBlock/DifferentTagContents.php',
-            new Config\FileLevelDocBlock()
-        );
-        $rule->run();
-        $this->assertCount(1, $rule->errors);
-        $this->assertEquals(
-            'The DocBlocks contain different values for the @license tag',
-            $rule->errors[0]
-        );
+        try {
+            $rule = new Rule\FileLevelDocBlock(
+                __DIR__ . '/fixtures/FileLevelDocBlock/DifferentTagContents.php',
+                new Config\FileLevelDocBlock()
+            );
+            $rule->run();
+            $this->fail('Expected \Horde\Refactor\Exception\StopProcessing');
+        } catch (Exception\StopProcessing $e) {
+            $this->assertEquals(
+                'The DocBlocks contain different values for the @license tag',
+                $e->getMessage()
+            );
+        }
     }
 
     public function getFileNames()

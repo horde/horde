@@ -30,7 +30,6 @@ use Horde\Refactor\Rule;
 class Php4Constructor extends Rule
 {
     /**
-     * Applies the actual refactoring to the tokenized code.
      */
     public function run()
     {
