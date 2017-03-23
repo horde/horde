@@ -50,4 +50,16 @@ class Regexp
     {
         return $this->_regexp;
     }
+
+    /**
+     * Returns whether this a string matches this regular expression.
+     *
+     * @param string $string  A string to match against.
+     *
+     * @return boolean  True if the string matches.
+     */
+    public function matches($string)
+    {
+        return (bool)preg_match($this, $string);
+    }
 }

@@ -300,7 +300,7 @@ class Tokens extends \ArrayIterator
             if (is_null($term)) {
                 return true;
             } elseif ($term instanceof Regexp) {
-                return (bool)preg_match($term, $current[1]);
+                return $term->matches($current[1]);
             } else {
                 return $current[1] == $term;
             }
@@ -312,7 +312,7 @@ class Tokens extends \ArrayIterator
             return false;
         }
         if ($token instanceof Regexp) {
-            return (bool)preg_match($token, $current);
+            return $token->matches($current);
         }
         return $current == $token;
     }
