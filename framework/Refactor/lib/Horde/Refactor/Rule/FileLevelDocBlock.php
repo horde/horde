@@ -596,6 +596,7 @@ class FileLevelDocBlock extends Rule
             );
         }
         if ($tags = $block->getTagsByName('copyright')) {
+            $tmp = array();
             foreach ($tags as $tag) {
                 $copyright = $tag->getContent();
                 if (isset($this->_extracted['copyright']) &&
@@ -604,7 +605,7 @@ class FileLevelDocBlock extends Rule
                         "The @copyright tags are different from the copyright header"
                     ));
                 }
-                unset($this->_extracted['copyright'][$copyright]);
+                $tmp[] = $copyright;
                 $copyright = explode(' ', $copyright, 2);
                 if (count($copyright) == 2 &&
                     strpos($this->_config->fileSummary, $copyright[1]) !== false) {
@@ -612,7 +613,8 @@ class FileLevelDocBlock extends Rule
                     break;
                 }
             }
-            if (!empty($this->_extracted['copyright'])) {
+            if (isset($this->_extracted['copyright']) &&
+                $this->_extracted['copyright'] != array_flip($tmp)) {
                 throw new Exception\StopProcessing(Translation::t(
                     "The @copyright tags are different from the copyright header"
                 ));
