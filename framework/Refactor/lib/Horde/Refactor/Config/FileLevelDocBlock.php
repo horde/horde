@@ -89,7 +89,7 @@ did not receive this file, see %licenseUrl%.';
      *
      * @var string
      */
-    public $fileForbiddenTags = array('copyright');
+    public $fileForbiddenTags = array('copyright' => true);
 
     /**
      * Default summary for new, empty class-level DocBlocks.

@@ -329,7 +329,7 @@ class FileLevelDocBlock extends Rule
         // Checking for forbidden tags.
         $tags = array();
         foreach ($docblock->getTags() as $tag) {
-            if (in_array($tag->getName(), $this->_config->{$which . 'ForbiddenTags'})) {
+            if (isset($this->_config->{$which . 'ForbiddenTags'}[$tag->getName()])) {
                 $this->_warnings[] = sprintf(
                     Translation::t("The %s DocBlock tags should not include: "),
                     $warn
