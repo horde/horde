@@ -122,7 +122,6 @@ class Cli
             $rule->run();
             if ($rule->warnings) {
                 $cli->writeln();
-                $cli->writeln($cli->red('WARNING'));
                 foreach ($rule->warnings as $warning) {
                     $cli->writeln($cli->color('brown', $warning));
                 }
