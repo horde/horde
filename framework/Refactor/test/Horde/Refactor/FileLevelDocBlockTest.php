@@ -128,6 +128,34 @@ class FileLevelDocBlockTest extends \Horde_Test_Case
                 $e->getMessage()
             );
         }
+
+        try {
+            $rule = new Rule\FileLevelDocBlock(
+                __DIR__ . '/fixtures/FileLevelDocBlock/DifferentCopyrightYears.php',
+                new Config\FileLevelDocBlock()
+            );
+            $rule->run();
+            $this->fail('Expected \Horde\Refactor\Exception\StopProcessing');
+        } catch (Exception\StopProcessing $e) {
+            $this->assertEquals(
+                'The @copyright tags are different from the copyright header',
+                $e->getMessage()
+            );
+        }
+
+        try {
+            $rule = new Rule\FileLevelDocBlock(
+                __DIR__ . '/fixtures/FileLevelDocBlock/DifferentCopyrightNames.php',
+                new Config\FileLevelDocBlock()
+            );
+            $rule->run();
+            $this->fail('Expected \Horde\Refactor\Exception\StopProcessing');
+        } catch (Exception\StopProcessing $e) {
+            $this->assertEquals(
+                'The @copyright tags are different from the copyright header',
+                $e->getMessage()
+            );
+        }
     }
 
     public function getFileNames()

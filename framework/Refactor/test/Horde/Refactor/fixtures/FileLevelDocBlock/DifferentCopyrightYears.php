@@ -16,7 +16,7 @@
  *
  * @author    
  * @category  Horde
- * @copyright 2011 Horde LLC
+ * @copyright 2017 Horde LLC
  * @license   http://www.horde.org/licenses/... ...
  * @package   
  */

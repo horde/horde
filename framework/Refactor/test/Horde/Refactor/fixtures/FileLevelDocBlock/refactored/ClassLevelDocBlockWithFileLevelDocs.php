@@ -18,7 +18,7 @@
  *
  * @author    Jan Schneider <jan@horde.org>
  * @category  Horde
- * @copyright 2017 Horde LLC
+ * @copyright 2001-2017 Horde LLC
  * @license   http://www.horde.org/licenses/bsd BSD
  * @package   Foobar
  */

@@ -70,6 +70,13 @@ class FileLevelDocBlock extends Rule
     protected $_secondBlock;
 
     /**
+     * Extracted information from existing DocBlocks.
+     *
+     * @var array
+     */
+    protected $_extracted = array();
+
+    /**
      * Autoload necessary libraries.
      */
     static public function autoload()
@@ -543,7 +550,7 @@ class FileLevelDocBlock extends Rule
     }
 
     /**
-     * Processes the summary and discription of an existing DocBlock.
+     * Processes the summary and description of an existing DocBlock.
      *
      * Parses any information out of the "other" block that might be required
      * later.
@@ -579,19 +586,36 @@ class FileLevelDocBlock extends Rule
         foreach (array('license', 'licenseUrl', 'year') as $property) {
             if (preg_match($this->_config->{$property . 'ExtractRegexp'}, $block->getText(), $match)) {
                 $this->_config->$property = $match[1];
+                $this->_extracted[$property] = true;
             }
         }
         if (preg_match_all($this->_config->copyrightExtractRegexp, $block->getText(), $match)) {
             $this->_config->classTags['copyright'] = $match[1];
+            $this->_extracted['copyright'] = array_flip(
+                $this->_config->classTags['copyright']
+            );
         }
         if ($tags = $block->getTagsByName('copyright')) {
             foreach ($tags as $tag) {
-                $copyright = explode(' ', $tag->getContent(), 2);
+                $copyright = $tag->getContent();
+                if (isset($this->_extracted['copyright']) &&
+                    !isset($this->_extracted['copyright'][$copyright])) {
+                    throw new Exception\StopProcessing(Translation::t(
+                        "The @copyright tags are different from the copyright header"
+                    ));
+                }
+                unset($this->_extracted['copyright'][$copyright]);
+                $copyright = explode(' ', $copyright, 2);
                 if (count($copyright) == 2 &&
                     strpos($this->_config->fileSummary, $copyright[1]) !== false) {
                     $this->_config->year = $copyright[0];
                     break;
                 }
+            }
+            if (!empty($this->_extracted['copyright'])) {
+                throw new Exception\StopProcessing(Translation::t(
+                    "The @copyright tags are different from the copyright header"
+                ));
             }
         }
         if ($tags = $block->getTagsByName('license')) {
@@ -602,6 +626,18 @@ class FileLevelDocBlock extends Rule
             }
             $license = explode(' ', $tags[0]->getContent(), 2);
             if (count($license) == 2) {
+                if (isset($this->_extracted['licenseUrl']) &&
+                    $this->_extracted['licenseUrl'] != $license[0]) {
+                    throw new Exception\StopProcessing(Translation::t(
+                        "The @license tag URL is different from the license URL in the header"
+                    ));
+                }
+                if (isset($this->_extracted['license']) &&
+                    $this->_extracted['license'] != $license[1]) {
+                    throw new Exception\StopProcessing(Translation::t(
+                        "The @license tag name is different from the license name in the header"
+                    ));
+                }
                 $this->_config->licenseUrl = $license[0];
                 $this->_config->license = $license[1];
             }
