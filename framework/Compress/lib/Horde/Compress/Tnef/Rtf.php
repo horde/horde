@@ -14,10 +14,11 @@
 /**
  * Object to parse RTF data encapsulated in a TNEF file.
  *
- * @author   Michael J Rubinsky <mrubinsk@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Compress
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
+ * @category  Horde
+ * @copyright 2002-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Compress
  */
 class Horde_Compress_Tnef_Rtf extends Horde_Compress_Tnef_Object
 {

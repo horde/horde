@@ -1,7 +1,5 @@
 <?php
 /**
- * This class allows tar files to be read.
- *
  * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
@@ -12,6 +10,17 @@
  * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Compress
+ */
+
+/**
+ * This class allows tar files to be read.
+ *
+ * @author    Michael Cochrane <mike@graftonhall.co.nz>
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2002-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Compress
  */
 class Horde_Compress_Tar extends Horde_Compress_Base
 {

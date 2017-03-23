@@ -5,6 +5,7 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
+ * @author   Jan Schneider <jan@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Compress
@@ -14,9 +15,11 @@
  * Horde_Compress_Translation is the translation wrapper class for
  * horde/Compress.
  *
- * @author   Jan Schneider <jan@horde.org>
- * @category Horde
- * @package  Compress
+ * @author    Jan Schneider <jan@horde.org>
+ * @category  Horde
+ * @copyright 2010-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Compress
  */
 class Horde_Compress_Translation extends Horde_Translation_Autodetect
 {

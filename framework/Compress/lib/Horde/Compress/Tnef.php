@@ -1,16 +1,14 @@
 <?php
 /**
- * The Horde_Compress_Tnef class allows MS-TNEF data to be displayed.
+ * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * The TNEF rendering is based on code by:
  *   Graham Norbury <gnorbury@bondcar.com>
  * Original design by:
  *   Thomas Boll <tb@boll.ch>, Mark Simpson <damned@world.std.com>
- *
- * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Jan Schneider <jan@horde.org>
  * @author   Michael Slusarz <slusarz@horde.org>
@@ -18,6 +16,18 @@
  * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Compress
+ */
+
+/**
+ * The Horde_Compress_Tnef class allows MS-TNEF data to be displayed.
+ *
+ * @author    Jan Schneider <jan@horde.org>
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
+ * @category  Horde
+ * @copyright 2002-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Compress
  */
 class Horde_Compress_Tnef extends Horde_Compress_Base
 {

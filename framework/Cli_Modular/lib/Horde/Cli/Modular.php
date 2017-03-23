@@ -5,21 +5,20 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @category Horde
- * @package  Cli_Modular
  * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL
- * @link     http://www.horde.org/libraries/Horde_Cli_Modular
+ * @package  Cli_Modular
  */
 
 /**
  * Glue class for a modular CLI.
  *
- * @category Horde
- * @package  Cli_Modular
- * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link     http://www.horde.org/libraries/Horde_Cli_Modular
+ * @author    Gunnar Wrobel <wrobel@pardus.de>
+ * @category  Horde
+ * @copyright 2010-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL
+ * @package   Cli_Modular
  */
 class Horde_Cli_Modular
 {

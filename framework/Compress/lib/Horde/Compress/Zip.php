@@ -1,6 +1,9 @@
 <?php
 /**
- * The Horde_Compress_zip class allows ZIP files to be created and read.
+ * Copyright 2000-2017 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * The ZIP compression code is partially based on code from:
  *   Eric Mueller <eric@themepark.com>
@@ -12,17 +15,24 @@
  * The ZIP compression date code is partially based on code from
  *   Peter Listiak <mlady@users.sourceforge.net>
  *
- * Copyright 2000-2017 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
- *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Michael Cochrane <mike@graftonhall.co.nz>
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Compress
+ */
+
+/**
+ * The Horde_Compress_zip class allows ZIP files to be created and read.
+ *
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @author    Michael Cochrane <mike@graftonhall.co.nz>
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2000-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Compress
  */
 class Horde_Compress_Zip extends Horde_Compress_Base
 {

@@ -1,29 +1,25 @@
 <?php
 /**
+ * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author   Michael J Rubinsky <mrubinsk@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Compress
+ * @todo     Use Streams for content.
+ */
+
+/**
  * Object to parse and represent a generic file encapsulated by a TNEF file.
  *
- * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
- *
- * @author   Michael J Rubinsky <mrubinsk@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Compress
- *
- * @todo  Use Streams for content.
- */
-/**
- * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
- *
- * @author   Michael J Rubinsky <mrubinsk@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Compress
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
+ * @category  Horde
+ * @copyright 2002-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Compress
  */
 class Horde_Compress_Tnef_File extends Horde_Compress_Tnef_Object
 {

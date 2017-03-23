@@ -1,29 +1,24 @@
 <?php
 /**
- * The Horde_Cli_Modular_Modules:: class handles a set of CLI modules.
- *
- * PHP version 5
- *
- * @category Horde
- * @package  Cli_Modular
- * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.horde.org/licenses/lgpl21 LGPL
- * @link     http://www.horde.org/libraries/Horde_Cli_Modular
- */
-
-/**
- * The Horde_Cli_Modular_Modules:: class handles a set of CLI modules.
- *
  * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @category Horde
- * @package  Cli_Modular
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link     http://www.horde.org/libraries/Horde_Cli_Modular
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL
+ * @package  Cli_Modular
+ */
+
+/**
+ * The Horde_Cli_Modular_Modules:: class handles a set of CLI modules.
+ *
+ * @author    Gunnar Wrobel <wrobel@pardus.de>
+ * @category  Horde
+ * @copyright 2010-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL
+ * @package   Cli_Modular
  */
 class Horde_Cli_Modular_Modules
 implements IteratorAggregate, Countable

@@ -5,11 +5,10 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @category  Horde
- * @copyright 2010-2017 Horde LLC
- * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link      http://pear.horde.org/index.php?package=Cache
- * @package   Cache
+ * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Cache
  */
 
 /**
@@ -18,13 +17,12 @@
  * It persists only during a script run and ignores the object lifetime
  * because of that.
  *
- * @author    Gunnar Wrobel <wrobel@pardus.de>
- * @category  Horde
- * @copyright 2010-2017 Horde LLC
+ * @author     Gunnar Wrobel <wrobel@pardus.de>
+ * @category   Horde
+ * @copyright  2010-2017 Horde LLC
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package    Cache
  * @deprecated Use Memory driver instead.
- * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link      http://pear.horde.org/index.php?package=Cache
- * @package   Cache
  */
 class Horde_Cache_Storage_Mock extends Horde_Cache_Storage_Memory
 {

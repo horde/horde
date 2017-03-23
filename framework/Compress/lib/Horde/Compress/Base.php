@@ -1,7 +1,5 @@
 <?php
 /**
- * The base class that all compress drivers should extend.
- *
  * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
@@ -11,6 +9,16 @@
  * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Compress
+ */
+
+/**
+ * The base class that all compress drivers should extend.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2011-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Compress
  */
 class Horde_Compress_Base
 {

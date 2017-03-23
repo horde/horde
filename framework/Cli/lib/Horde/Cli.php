@@ -1,15 +1,26 @@
 <?php
 /**
- * Horde_Cli API for basic command-line functionality/checks.
- *
  * Copyright 2003-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @author  Jan Schneider <jan@horde.org>
- * @package Cli
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL
+ * @package  Cli
+ */
+
+/**
+ * Horde_Cli API for basic command-line functionality/checks.
+ *
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @author    Jan Schneider <jan@horde.org>
+ * @category  Horde
+ * @copyright 2003-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL
+ * @package   Cli
  */
 class Horde_Cli
 {
