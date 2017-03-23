@@ -172,6 +172,7 @@ class FileLevelDocBlockTest extends \Horde_Test_Case
             array('FileLevelDocsInClassLevel.php', false),
             array('RemoveForbiddenTags.php', false),
             array('RemoveStripText.php', false),
+            array('MissingLinebreak.php', false),
         );
     }
 }

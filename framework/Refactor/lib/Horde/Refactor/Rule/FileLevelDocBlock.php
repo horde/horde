@@ -120,6 +120,9 @@ class FileLevelDocBlock extends Rule
         $this->_first = $this->_tokens->key();
         $this->_firstBlock = new DocBlock($this->_tokens->current()[1]);
         $this->_processDocBlock($this->_firstBlock);
+        $this->_tokens->next();
+        $separator = $this->_tokens->key();
+        $emptyLine = $this->_tokens->matches(T_WHITESPACE, "\n\n");
         $this->_tokens->skipWhitespace();
         while ($this->_tokens->matches(T_NAMESPACE) ||
                $this->_tokens->matches(T_USE) ||
@@ -139,6 +142,10 @@ class FileLevelDocBlock extends Rule
             $this->_processDocBlockText($this->_firstBlock, 'file');
             $this->_processDocBlockText($this->_secondBlock, 'class');
             $this->_checkDocBlocks();
+            // Make sure there is a double newline between the DocBlocks.
+            if (!$emptyLine) {
+                $this->_tokens = $this->_tokens->splice($separator, 1, "\n\n");
+            }
             return;
         }
 
