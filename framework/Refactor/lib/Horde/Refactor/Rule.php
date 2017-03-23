@@ -66,7 +66,7 @@ abstract class Rule
      */
     public function __construct($file, Config\Base $config)
     {
-        $this->_config = $config;
+        $this->_config = clone $config;
         $this->_tokens = new Tokens(
             token_get_all(file_get_contents($file))
         );
