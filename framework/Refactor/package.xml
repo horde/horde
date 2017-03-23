@@ -184,6 +184,7 @@
         <file name="ClassLevelDocBlockWithFileLevelDocs.php" role="test" />
         <file name="ClassLevelDocsInFileLevel.php" role="test" />
         <file name="CorrectDocBlocks.php" role="test" />
+        <file name="DifferentTagContents.php" role="test" />
         <file name="ExtractYearFixTagOrder.php" role="test" />
         <file name="FileLevelDocsInClassLevel.php" role="test" />
         <file name="IncorrectDocBlocks.php" role="test" />
@@ -342,6 +343,7 @@
    <install as="Horde/Refactor/fixtures/FileLevelDocBlock/ClassLevelDocBlockWithFileLevelDocs.php" name="test/Horde/Refactor/fixtures/FileLevelDocBlock/ClassLevelDocBlockWithFileLevelDocs.php" />
    <install as="Horde/Refactor/fixtures/FileLevelDocBlock/ClassLevelDocsInFileLevel.php" name="test/Horde/Refactor/fixtures/FileLevelDocBlock/ClassLevelDocsInFileLevel.php" />
    <install as="Horde/Refactor/fixtures/FileLevelDocBlock/CorrectDocBlocks.php" name="test/Horde/Refactor/fixtures/FileLevelDocBlock/CorrectDocBlocks.php" />
+   <install as="Horde/Refactor/fixtures/FileLevelDocBlock/DifferentTagContents.php" name="test/Horde/Refactor/fixtures/FileLevelDocBlock/DifferentTagContents.php" />
    <install as="Horde/Refactor/fixtures/FileLevelDocBlock/ExtractYearFixTagOrder.php" name="test/Horde/Refactor/fixtures/FileLevelDocBlock/ExtractYearFixTagOrder.php" />
    <install as="Horde/Refactor/fixtures/FileLevelDocBlock/FileLevelDocsInClassLevel.php" name="test/Horde/Refactor/fixtures/FileLevelDocBlock/FileLevelDocsInClassLevel.php" />
    <install as="Horde/Refactor/fixtures/FileLevelDocBlock/IncorrectDocBlocks.php" name="test/Horde/Refactor/fixtures/FileLevelDocBlock/IncorrectDocBlocks.php" />

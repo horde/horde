@@ -77,35 +77,54 @@ class FileLevelDocBlockTest extends \Horde_Test_Case
             new Config\FileLevelDocBlock(array('year' => 2017))
         );
         $rule->run();
-        $this->assertCount(12, $rule->warnings);
+        $warnings = $rule->warnings;
+        $this->assertCount(13, $warnings);
         $this->assertEquals(
             'More than one @license tag.',
-            $rule->warnings[0]
+            array_shift($warnings)
         );
         $this->assertEquals(
             'The file-level DocBlock summary is not valid',
-            $rule->warnings[1]
+            array_shift($warnings)
         );
         $this->assertEquals(
             'The file-level DocBlock description is not valid',
-            $rule->warnings[2]
+            array_shift($warnings)
         );
-        foreach (array(3 => 'author', 4 => 'category', 5 => 'license', 6 => 'package') as $warning => $tag) {
+        foreach (array('author', 'category', 'license', 'package') as $warning => $tag) {
             $this->assertEquals(
                 'The file-level DocBlock tags should include: ' . $tag,
-                $rule->warnings[$warning]
+                array_shift($warnings)
             );
         }
         $this->assertEquals(
             'The file-level DocBlock tags should not include: copyright',
-            $rule->warnings[7]
+            array_shift($warnings)
         );
-        foreach (array(8 => 'author', 9 => 'category', 10 => 'copyright', 11 => 'package') as $warning => $tag) {
+        $this->assertEquals(
+            'The class-level DocBlock contains duplicate @license tags',
+            array_shift($warnings)
+        );
+        foreach (array('author', 'category', 'copyright', 'package') as $warning => $tag) {
             $this->assertEquals(
                 'The class-level DocBlock tags should include: ' . $tag,
-                $rule->warnings[$warning]
+                array_shift($warnings)
             );
         }
+    }
+
+    public function testErrors()
+    {
+        $rule = new Rule\FileLevelDocBlock(
+            __DIR__ . '/fixtures/FileLevelDocBlock/DifferentTagContents.php',
+            new Config\FileLevelDocBlock()
+        );
+        $rule->run();
+        $this->assertCount(1, $rule->errors);
+        $this->assertEquals(
+            'The DocBlocks contain different values for the @license tag',
+            $rule->errors[0]
+        );
     }
 
     public function getFileNames()

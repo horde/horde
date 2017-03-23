@@ -196,6 +196,26 @@ class FileLevelDocBlock extends Rule
      */
     protected function _checkDocBlocks()
     {
+        // Checking for different tags.
+        $tags = array();
+        foreach ($this->_firstBlock->getTags() as $tag) {
+            if (!isset($tags[$tag->getName()])) {
+                $tags[$tag->getName()] = array();
+            }
+            $tags[$tag->getName()][] = $tag->getContent();
+        }
+        foreach ($tags as $name => $values) {
+            $secondTags = $this->_secondBlock->getTagsByName($name);
+            foreach ($secondTags as $tag) {
+                if (!in_array($tag->getContent(), $values)) {
+                    $this->_errors[] = sprintf(
+                        Translation::t("The DocBlocks contain different values for the @%s tag"),
+                        $name
+                    );
+                }
+            }
+        }
+
         $this->_checkDocBlock('file');
         $this->_checkDocBlock('class');
     }
@@ -298,6 +318,34 @@ class FileLevelDocBlock extends Rule
             }
         }
 
+        // Checking for duplicate tags.
+        $tags = array();
+        foreach ($docblock->getTags() as $tag) {
+            if (!isset($tags[$tag->getName()])) {
+                $tags[$tag->getName()] = array();
+            }
+            $tags[$tag->getName()][] = $tag->getContent();
+        }
+        foreach ($tags as $name => &$values) {
+            if (count($values) != count(array_unique($values))) {
+                $this->_warnings[] = sprintf(
+                    Translation::t("The %s DocBlock contains duplicate @%s tags"),
+                    $warn, $name
+                );
+                $values = array_unique($values);
+            }
+        }
+        $newtags = array();
+        foreach ($tags as $name => $namedTags) {
+            foreach ($namedTags as $value) {
+                $newtags[] = TagFactory::create($name, $value);
+            }
+        }
+        if (count($newtags) != count($docblock->getTags())) {
+            $docblock = $this->_getDocBlock($docblock, $newtags);
+            $update = true;
+        }
+
         // Checking for missing tags.
         $tags = $docblock->getTags();
         foreach ($this->_config->{$which . 'Tags'} as $tag => $value) {
@@ -331,7 +379,7 @@ class FileLevelDocBlock extends Rule
         foreach ($docblock->getTags() as $tag) {
             if (isset($this->_config->{$which . 'ForbiddenTags'}[$tag->getName()])) {
                 $test = $this->_config->{$which . 'ForbiddenTags'}[$tag->getName()];
-                if (($test instanceof Regexp && $test->match($tag->getValue())) ||
+                if (($test instanceof Regexp && $test->match($tag->getContent())) ||
                     $test) {
                     $this->_warnings[] = sprintf(
                         Translation::t("The %s DocBlock tags should not include: "),

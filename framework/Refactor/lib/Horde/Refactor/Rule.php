@@ -44,6 +44,13 @@ abstract class Rule
     protected $_tokens;
 
     /**
+     * A list of error messages.
+     *
+     * @var string[]
+     */
+    protected $_errors = array();
+
+    /**
      * A list of warning messages.
      *
      * @var string[]
@@ -85,8 +92,8 @@ abstract class Rule
      */
     public function __get($name)
     {
-        if ($name == 'warnings') {
-            return $this->_warnings;
+        if ($name == 'errors' || $name == 'warnings') {
+            return $this->{'_' . $name};
         }
     }
 }
