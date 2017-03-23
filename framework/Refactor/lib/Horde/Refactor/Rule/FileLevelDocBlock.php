@@ -290,14 +290,16 @@ class FileLevelDocBlock extends Rule
             if (strlen($docblock->getShortDescription()) &&
                 $which == 'file') {
                 // Move the file-level descriptions to the class level.
-                $otherBlock = $this->_getDocBlock(
-                    $docblock->getText() . "\n\n" . $otherBlock->getText(),
-                    $otherBlock->getTags()
-                );
-                $this->_tokens = $this->_tokens->splice(
-                    $otherPos, 1, array($serializer->getDocComment($otherBlock))
-                );
-                $this->_secondBlock = $otherBlock;
+                if (strpos($otherBlock->getText(), $docblock->getText()) === false) {
+                    $otherBlock = $this->_getDocBlock(
+                        $docblock->getText() . "\n\n" . $otherBlock->getText(),
+                        $otherBlock->getTags()
+                    );
+                    $this->_tokens = $this->_tokens->splice(
+                        $otherPos, 1, array($serializer->getDocComment($otherBlock))
+                    );
+                    $this->_secondBlock = $otherBlock;
+                }
                 $docblock = $this->_getDocBlock('', $docblock->getTags());
             }
             if (!strlen($docblock->getShortDescription()) &&

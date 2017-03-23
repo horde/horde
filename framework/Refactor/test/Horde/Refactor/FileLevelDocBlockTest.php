@@ -168,6 +168,7 @@ class FileLevelDocBlockTest extends \Horde_Test_Case
             array('ExtractYearFixTagOrder.php', false),
             array('OtherCopyright.php', false),
             array('ClassLevelDocsInFileLevel.php', false),
+            array('ClassLevelDocsInFileLevelDuplicate.php', false),
             array('FileLevelDocsInClassLevel.php', false),
             array('RemoveForbiddenTags.php', false),
             array('RemoveStripText.php', false),
