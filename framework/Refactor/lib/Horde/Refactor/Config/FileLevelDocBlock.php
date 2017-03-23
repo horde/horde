@@ -75,6 +75,13 @@ did not receive this file, see %licenseUrl%.';
     public $fileDescriptionExtractRegexp;
 
     /**
+     * Text to strip from file summaries and descriptions.
+     *
+     * @var string
+     */
+    public $fileStripText;
+
+    /**
      * Default tags for new, empty file-level DocBlocks.
      *
      * @var string
@@ -136,6 +143,13 @@ did not receive this file, see %licenseUrl%.';
      * @var string
      */
     public $classDescriptionExtractRegexp;
+
+    /**
+     * Text to strip from file summaries and descriptions.
+     *
+     * @var string
+     */
+    public $classStripText;
 
     /**
      * Default tags for new, empty class-level DocBlocks.
@@ -213,13 +227,16 @@ did not receive this file, see %licenseUrl%.';
      */
     public function __construct(array $params = array())
     {
+        $stripRegexp = new Regexp('/^PHP version .*$/im');
         $linkRegexp = new Regexp('|^https?://pear\.horde\.org|');
         $params = array_merge(
             array(
                 'year' => date('Y'),
+                'fileStripText' => $stripRegexp,
                 'fileForbiddenTags' => array_merge(
                     $this->fileForbiddenTags, array('link' => $linkRegexp)
                 ),
+                'classStripText' => $stripRegexp,
                 'classForbiddenTags' => array_merge(
                     $this->classForbiddenTags, array('link' => $linkRegexp)
                 ),

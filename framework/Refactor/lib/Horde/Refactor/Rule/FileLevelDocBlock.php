@@ -263,6 +263,11 @@ class FileLevelDocBlock extends Rule
 
         // Cleaning the summary and description.
         $text = $docblock->getText();
+        if ($this->_config->{$which . 'StripText'}) {
+            $text = trim(preg_replace(
+                $this->_config->{$which . 'StripText'}, '', $text
+            ));
+        }
         $text = $this->_stripIncorrectText($text, $other);
         if ($text != $docblock->getText()) {
             $this->addWarning(sprintf(
