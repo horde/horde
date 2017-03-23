@@ -96,4 +96,46 @@ abstract class Rule
             return $this->{'_' . $name};
         }
     }
+
+    /**
+     * Adds a warning.
+     *
+     * @param string $warning  A warning.
+     */
+    public function addWarning($warning)
+    {
+        if ($this->_pauseWarnings) {
+            return;
+        }
+        $this->_warnings[] = $warning;
+    }
+
+    /**
+     * Adds an error.
+     *
+     * @param string $error  A error.
+     */
+    public function addError($error)
+    {
+        if ($this->_pauseWarnings) {
+            return;
+        }
+        $this->_errors[] = $error;
+    }
+
+    /**
+     * Pauses the logging of warnings and errors.
+     */
+    public function pauseWarnings()
+    {
+        $this->_pauseWarnings = true;
+    }
+
+    /**
+     * Resumes the logging of warnings and errors.
+     */
+    public function resumeWarnings()
+    {
+        $this->_pauseWarnings = false;
+    }
 }

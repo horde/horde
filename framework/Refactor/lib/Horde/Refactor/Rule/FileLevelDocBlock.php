@@ -139,7 +139,9 @@ class FileLevelDocBlock extends Rule
         // The file-level DocBlock is missing, create one.
         $this->_processDocBlockText($this->_firstBlock, 'class');
         $this->_createFileLevelBlock();
+        $this->pauseWarnings();
         $this->_checkDocBlock('class');
+        $this->resumeWarnings();
     }
 
     /**
@@ -149,9 +151,9 @@ class FileLevelDocBlock extends Rule
      */
     protected function _addEmptyBlocks()
     {
-        $this->_warnings[] = Translation::t(
+        $this->addWarning(Translation::t(
             "No DocBlocks found, adding default DocBlocks"
-        );
+        ));
         $this->_tokens->rewind();
         if (!$this->_tokens->find(T_OPEN_TAG)) {
             throw new Exception\NotFound(T_OPEN_TAG);
@@ -208,10 +210,10 @@ class FileLevelDocBlock extends Rule
             $secondTags = $this->_secondBlock->getTagsByName($name);
             foreach ($secondTags as $tag) {
                 if (!in_array($tag->getContent(), $values)) {
-                    $this->_errors[] = sprintf(
+                    $this->addError(sprintf(
                         Translation::t("The DocBlocks contain different values for the @%s tag"),
                         $name
-                    );
+                    ));
                 }
             }
         }
@@ -257,10 +259,10 @@ class FileLevelDocBlock extends Rule
         $text = $docblock->getText();
         $text = $this->_stripIncorrectText($text, $other);
         if ($text != $docblock->getText()) {
-            $this->_warnings[] = sprintf(
+            $this->addWarning(sprintf(
                 Translation::t("The %s DocBlock contains text that should be in the %s DocBlock"),
                 $warn, $otherWarn
-            );
+            ));
             $docblock->setText($text);
             $update = true;
         }
@@ -270,10 +272,10 @@ class FileLevelDocBlock extends Rule
                 $this->_config->{$which . 'SummaryRegexp'},
                 $docblock->getShortDescription()
             )) {
-            $this->_warnings[] = sprintf(
+            $this->addWarning(sprintf(
                 Translation::t("The %s DocBlock summary is not valid"),
                 $warn
-            );
+            ));
             if (strlen($docblock->getShortDescription()) &&
                 $which == 'file') {
                 // Move the file-level descriptions to the class level.
@@ -302,10 +304,10 @@ class FileLevelDocBlock extends Rule
                 $this->_config->{$which . 'DescriptionRegexp'},
                 $docblock->getLongDescription()
             )) {
-            $this->_warnings[] = sprintf(
+            $this->addWarning(sprintf(
                 Translation::t("The %s DocBlock description is not valid"),
                 $warn
-            );
+            ));
             if (strlen($this->_config->{$which . 'Description'})) {
                 $description = $docblock->getShortDescription()
                     . "\n\n"
@@ -328,10 +330,10 @@ class FileLevelDocBlock extends Rule
         }
         foreach ($tags as $name => &$values) {
             if (count($values) != count(array_unique($values))) {
-                $this->_warnings[] = sprintf(
+                $this->addWarning(sprintf(
                     Translation::t("The %s DocBlock contains duplicate @%s tags"),
                     $warn, $name
-                );
+                ));
                 $values = array_unique($values);
             }
         }
@@ -350,11 +352,13 @@ class FileLevelDocBlock extends Rule
         $tags = $docblock->getTags();
         foreach ($this->_config->{$which . 'Tags'} as $tag => $value) {
             if (!$docblock->hasTag($tag)) {
-                $this->_warnings[] = sprintf(
-                    Translation::t("The %s DocBlock tags should include: "),
-                    $warn
-                )
-                    . $tag;
+                $this->addWarning(
+                    sprintf(
+                        Translation::t("The %s DocBlock tags should include: "),
+                        $warn
+                    )
+                    . $tag
+                );
                 if ($otherBlock->hasTag($tag)) {
                     $tags = array_merge($tags, $otherBlock->getTagsByName($tag));
                 } else {
@@ -381,11 +385,13 @@ class FileLevelDocBlock extends Rule
                 $test = $this->_config->{$which . 'ForbiddenTags'}[$tag->getName()];
                 if (($test instanceof Regexp && $test->match($tag->getContent())) ||
                     $test) {
-                    $this->_warnings[] = sprintf(
-                        Translation::t("The %s DocBlock tags should not include: "),
-                        $warn
-                    )
-                        . $tag->getName();
+                    $this->addWarning(
+                        sprintf(
+                            Translation::t("The %s DocBlock tags should not include: "),
+                            $warn
+                        )
+                        . $tag->getName()
+                    );
                 }
             } else {
                 $tags[] = $tag;
@@ -431,6 +437,10 @@ class FileLevelDocBlock extends Rule
      */
     protected function _createFileLevelBlock()
     {
+        $this->addWarning(Translation::t(
+            "No file-level DocBlock found, creating one from class-level DocBlock"
+        ));
+
         $serializer = new Serializer();
 
         $this->_firstBlock->setText(
@@ -587,9 +597,9 @@ class FileLevelDocBlock extends Rule
         }
         if ($tags = $block->getTagsByName('license')) {
             if (count($tags) > 1) {
-                $this->_warnings[] = Translation::t(
+                $this->addWarning(Translation::t(
                     "More than one @license tag."
-                );
+                ));
             }
             $license = explode(' ', $tags[0]->getContent(), 2);
             if (count($license) == 2) {
