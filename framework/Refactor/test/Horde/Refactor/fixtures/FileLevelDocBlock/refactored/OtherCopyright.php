@@ -1,6 +1,7 @@
 <?php
 /**
  * Copyright 2006 AMCME, Inc. http://www.acme.org/
+ * Copyright 2008 Some Guy <john@doe.com>
  * Copyright 2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
@@ -18,6 +19,7 @@
  * @author    Some Author <author@acme.org>
  * @category  Horde
  * @copyright 2006 AMCME, Inc.
+ * @copyright 2008 Some Guy
  * @copyright 2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
  * @package   Auth
