@@ -17,10 +17,11 @@ use Sabre\DAV\Locks;
 /**
  * A locking backend.
  *
- * @author   Jan Schneider <jan@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/bsd BSD
- * @package  Dav
+ * @author    Jan Schneider <jan@horde.org>
+ * @category  Horde
+ * @copyright 2013-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/bsd BSD
+ * @package   Dav
  */
 class Horde_Dav_Locks extends Locks\Backend\AbstractBackend
 {

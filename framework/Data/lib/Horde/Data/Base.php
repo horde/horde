@@ -8,16 +8,19 @@
  * @author   Jan Schneider <jan@horde.org>
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL
  * @package  Data
  */
 
 /**
  * Abstract class that Data drivers extend.
  *
- * @author   Jan Schneider <jan@horde.org>
- * @author   Chuck Hagenbuch <chuck@horde.org>
- * @category Horde
- * @package  Data
+ * @author    Jan Schneider <jan@horde.org>
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @category  Horde
+ * @copyright 1999-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL
+ * @package   Data
  */
 abstract class Horde_Data_Base
 {

@@ -1,7 +1,5 @@
 <?php
 /**
- * Horde_Data implementation for tab-separated data (TSV).
- *
  * Copyright 1999-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
@@ -10,7 +8,19 @@
  * @author   Jan Schneider <jan@horde.org>
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL
  * @package  Data
+ */
+
+/**
+ * Horde_Data implementation for tab-separated data (TSV).
+ *
+ * @author    Jan Schneider <jan@horde.org>
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @category  Horde
+ * @copyright 1999-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL
+ * @package   Data
  */
 class Horde_Data_Tsv extends Horde_Data_Base
 {

@@ -18,12 +18,12 @@ use Sabre\DAVACL;
  * Backend implementation for listing and managing principals (users and
  * groups).
  *
- * @todo Horde_Group support
- *
- * @author   Jan Schneider <jan@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/bsd BSD
- * @package  Dav
+ * @author    Jan Schneider <jan@horde.org>
+ * @category  Horde
+ * @copyright 2013-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/bsd BSD
+ * @package   Dav
+ * @todo      Horde_Group support
  */
 class Horde_Dav_Principals extends DAVACL\PrincipalBackend\AbstractBackend
 {

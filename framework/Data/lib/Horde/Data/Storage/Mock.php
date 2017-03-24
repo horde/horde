@@ -1,8 +1,5 @@
 <?php
 /**
- * A mocked version of the storage class that stores data for the current
- * page access only.
- *
  * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
@@ -12,6 +9,17 @@
  * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
  * @package  Data
+ */
+
+/**
+ * A mocked version of the storage class that stores data for the current
+ * page access only.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2012-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Data
  */
 class Horde_Data_Storage_Mock implements Horde_Data_Storage
 {

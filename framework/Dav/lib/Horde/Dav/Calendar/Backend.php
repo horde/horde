@@ -17,10 +17,11 @@ use Sabre\CalDAV\Backend;
 /**
  * The calendar and task list backend wrapper.
  *
- * @author   Jan Schneider <jan@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/bsd BSD
- * @package  Dav
+ * @author    Jan Schneider <jan@horde.org>
+ * @category  Horde
+ * @copyright 2013-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/bsd BSD
+ * @package   Dav
  */
 class Horde_Dav_Calendar_Backend extends Backend\AbstractBackend
 {

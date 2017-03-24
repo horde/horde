@@ -2,9 +2,12 @@
 /**
  * Copyright 2013-2017 Horde LLC (http://www.horde.org/)
  *
+ * See the enclosed file LICENSE for license information (BSD). If you
+ * did not receive this file, see http://www.horde.org/licenses/bsd.
+ *
  * @author     Jan Schneider <jan@horde.org>
- * @license    http://www.horde.org/licenses/bsd
  * @category   Horde
+ * @license    http://www.horde.org/licenses/bsd
  * @package    Db
  * @subpackage Adapter
  */
@@ -13,11 +16,12 @@
  * Class for Oracle-specific managing of database schemes and handling of SQL
  * dialects and quoting.
  *
- * @since      Horde_Db 2.1.0
  * @author     Jan Schneider <jan@horde.org>
- * @license    http://www.horde.org/licenses/bsd
  * @category   Horde
+ * @copyright  2013-2017 Horde LLC
+ * @license    http://www.horde.org/licenses/bsd
  * @package    Db
+ * @since      Horde_Db 2.1.0
  * @subpackage Adapter
  */
 class Horde_Db_Adapter_Oracle_Schema extends Horde_Db_Adapter_Base_Schema

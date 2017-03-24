@@ -1,13 +1,13 @@
 <?php
 /**
- * This file contains the Horde_Date_Recurrence class and according constants.
- *
  * Copyright 2007-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
+ * @author   Jan Schneider <jan@horde.org>
  * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL
  * @package  Date
  */
 
@@ -21,9 +21,11 @@
  * Horde_Date constructor accepts, i.e. a timestamp, another Horde_Date
  * object, an ISO time string or a hash.
  *
- * @author   Jan Schneider <jan@horde.org>
- * @category Horde
- * @package  Date
+ * @author    Jan Schneider <jan@horde.org>
+ * @category  Horde
+ * @copyright 2007-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL
+ * @package   Date
  */
 class Horde_Date_Recurrence
 {

@@ -5,6 +5,7 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
+ * @author   Jan Schneider <jan@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Crypt
@@ -13,9 +14,11 @@
 /**
  * Horde_Crypt_Translation is the translation wrapper class for Horde_Crypt.
  *
- * @author   Jan Schneider <jan@horde.org>
- * @category Horde
- * @package  Crypt
+ * @author    Jan Schneider <jan@horde.org>
+ * @category  Horde
+ * @copyright 2010-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Crypt
  */
 class Horde_Crypt_Translation extends Horde_Translation_Autodetect
 {

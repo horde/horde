@@ -1,6 +1,13 @@
 <?php
 /**
+ * Copyright 2004-2017 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file LICENSE for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author   Chuck Hagenbuch <chuck@horde.org>
  * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL
  * @package  Date
  */
 
@@ -8,8 +15,11 @@
  * Horde Date wrapper/logic class, including some calculation
  * functions.
  *
- * @category Horde
- * @package  Date
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @category  Horde
+ * @copyright 2004-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL
+ * @package   Date
  */
 class Horde_Date_Utils
 {

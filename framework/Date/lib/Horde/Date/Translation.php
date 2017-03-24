@@ -1,18 +1,24 @@
 <?php
 /**
- * @package Date
- *
  * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL
+ * @package  Date
  */
 
 /**
  * Horde_Date_Translation is the translation wrapper class for Horde_Date.
  *
- * @author  Jan Schneider <jan@horde.org>
- * @package Date
+ * @author    Jan Schneider <jan@horde.org>
+ * @category  Horde
+ * @copyright 2010-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL
+ * @package   Date
  */
 class Horde_Date_Translation extends Horde_Translation_Autodetect
 {

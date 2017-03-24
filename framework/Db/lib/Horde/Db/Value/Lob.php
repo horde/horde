@@ -2,9 +2,12 @@
 /**
  * Copyright 2006-2017 Horde LLC (http://www.horde.org/)
  *
+ * See the enclosed file LICENSE for license information (BSD). If you
+ * did not receive this file, see http://www.horde.org/licenses/bsd.
+ *
  * @author   Chuck Hagenbuch <chuck@horde.org>
- * @license  http://www.horde.org/licenses/bsd
  * @category Horde
+ * @license  http://www.horde.org/licenses/bsd
  * @package  Db
  */
 
@@ -12,13 +15,13 @@
  * Encapsulation object for LOB values to be used in SQL statements to ensure
  * proper quoting, escaping, retrieval, etc.
  *
- * @property $value  The binary value as a string. @since Horde_Db 2.1.0
- * @property $stream  The binary value as a stream. @since Horde_Db 2.4.0
- *
- * @author   Chuck Hagenbuch <chuck@horde.org>
- * @license  http://www.horde.org/licenses/bsd
- * @category Horde
- * @package  Db
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @category  Horde
+ * @copyright 2006-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/bsd
+ * @package   Db
+ * @property  $value  The binary value as a string. @since Horde_Db 2.1.0
+ * @property  $stream  The binary value as a stream. @since Horde_Db 2.4.0
  */
 abstract class Horde_Db_Value_Lob implements Horde_Db_Value
 {

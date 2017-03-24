@@ -5,24 +5,23 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @category  Horde
- * @copyright 2015-2017 Horde LLC
- * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package   Crypt_Blowfish
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Crypt_Blowfish
  */
 
 /**
  * PBKDF2 (Password-Based Key Derivation Function 2) implementation (RFC
  * 2898; PKCS #5 v2.0).
  *
- * pbkdf2 code released to the public domain.
- * @link https://defuse.ca/php-pbkdf2.htm
- *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
  * @copyright 2015-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Crypt_Blowfish
+ * @link      https://defuse.ca/php-pbkdf2.htm pbkdf2 code released to the
+ *            public domain.
  */
 class Horde_Crypt_Blowfish_Pbkdf2
 {

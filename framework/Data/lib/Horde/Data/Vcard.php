@@ -1,7 +1,5 @@
 <?php
 /**
- * Implement the Horde_Data:: API for vCard data.
- *
  * Copyright 1999-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
@@ -9,7 +7,18 @@
  *
  * @author   Jan Schneider <jan@horde.org>
  * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL
  * @package  Data
+ */
+
+/**
+ * Implement the Horde_Data:: API for vCard data.
+ *
+ * @author    Jan Schneider <jan@horde.org>
+ * @category  Horde
+ * @copyright 1999-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL
+ * @package   Data
  */
 class Horde_Data_Vcard extends Horde_Data_Imc {
 

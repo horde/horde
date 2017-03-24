@@ -2,9 +2,12 @@
 /**
  * Copyright 2013-2017 Horde LLC (http://www.horde.org/)
  *
+ * See the enclosed file LICENSE for license information (BSD). If you
+ * did not receive this file, see http://www.horde.org/licenses/bsd.
+ *
  * @author     Jan Schneider <jan@horde.org>
- * @license    http://www.horde.org/licenses/bsd
  * @category   Horde
+ * @license    http://www.horde.org/licenses/bsd
  * @package    Db
  * @subpackage Adapter
  */
@@ -13,8 +16,9 @@
  * This class represents the result set of a SELECT query.
  *
  * @author     Jan Schneider <jan@horde.org>
- * @license    http://www.horde.org/licenses/bsd
  * @category   Horde
+ * @copyright  2013-2017 Horde LLC
+ * @license    http://www.horde.org/licenses/bsd
  * @package    Db
  * @subpackage Adapter
  */

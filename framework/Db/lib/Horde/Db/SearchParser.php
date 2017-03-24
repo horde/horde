@@ -1,9 +1,19 @@
 <?php
 /**
+ * Copyright 2004-2017 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file LICENSE for license information (BSD). If you
+ * did not receive this file, see http://www.horde.org/licenses/bsd.
+ *
+ * @author   Jason M. Felice <jason.m.felice@gmail.com>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/bsd
+ * @package  Db
+ */
+
+/**
  * This class provides a parser which can construct an SQL WHERE clause from a
  * Google-like search expression.
- *
- * Copyright 2004-2017 Horde LLC (http://www.horde.org/)
  *
  * The expression recognizes boolean "AND", "OR", and "NOT" (providing no
  * operator between keywords implies "AND"), like so:
@@ -31,10 +41,11 @@
  * people search for "AND", "OR", or "NOT" without quoting it or use unbalanced
  * parentheses.
  *
- * @author   Jason M. Felice <jason.m.felice@gmail.com>
- * @license  http://www.horde.org/licenses/bsd
- * @category Horde
- * @package  Db
+ * @author    Jason M. Felice <jason.m.felice@gmail.com>
+ * @category  Horde
+ * @copyright 2004-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/bsd
+ * @package   Db
  */
 class Horde_Db_SearchParser
 {

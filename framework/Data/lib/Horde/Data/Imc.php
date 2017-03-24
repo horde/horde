@@ -1,10 +1,5 @@
 <?php
 /**
- * Abstract implementation of the Horde_Data:: API for IMC data -
- * vCards and iCalendar data, etc. Provides a number of utility
- * methods that vCard and iCalendar implementation can share and rely
- * on.
- *
  * Copyright 1999-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
@@ -12,7 +7,22 @@
  *
  * @author   Jan Schneider <jan@horde.org>
  * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL
  * @package  Data
+ */
+
+/**
+ * Abstract implementation of the Horde_Data:: API for IMC data - vCards and
+ * iCalendar data, etc.
+ *
+ * Provides a number of utility methods that vCard and iCalendar implementation
+ * can share and rely on.
+ *
+ * @author    Jan Schneider <jan@horde.org>
+ * @category  Horde
+ * @copyright 1999-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL
+ * @package   Data
  */
 class Horde_Data_Imc extends Horde_Data_Base
 {

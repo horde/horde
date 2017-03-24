@@ -1,19 +1,22 @@
 <?php
 /**
- * Horde Date wrapper/logic class, including some calculation
- * functions.
+ * Copyright 2004-2017 Horde LLC (http://www.horde.org/)
  *
+ * See the enclosed file LICENSE for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Michael J Rubinsky <mrubinsk@horde.org>
  * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL
  * @package  Date
- *
- * @TODO in format():
+ * @todo     in format():
  *   http://php.net/intldateformatter
- *
- * @TODO on timezones:
+ * @todo     on timezones:
  *   http://trac.agavi.org/ticket/1008
  *   http://trac.agavi.org/changeset/3659
- *
- * @TODO on switching to PHP::DateTime:
+ * @todo     on switching to PHP::DateTime:
  *   The only thing ever stored in the database *IS* Unix timestamps. Doing
  *   anything other than that is unmanageable, yet some frameworks use 'server
  *   based' times in their systems, simply because they do not bother with
@@ -48,8 +51,15 @@
  */
 
 /**
- * @category Horde
- * @package  Date
+ * Horde Date wrapper/logic class, including some calculation functions.
+ *
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @author    Jan Schneider <jan@horde.org>
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
+ * @category  Horde
+ * @copyright 2004-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL
+ * @package   Date
  */
 class Horde_Date
 {

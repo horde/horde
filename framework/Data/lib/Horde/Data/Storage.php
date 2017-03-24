@@ -1,7 +1,5 @@
 <?php
 /**
- * Abstract class that implements the temporary storage backend.
- *
  * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
@@ -11,6 +9,16 @@
  * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
  * @package  Data
+ */
+
+/**
+ * Abstract class that implements the temporary storage backend.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2012-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Data
  */
 interface Horde_Data_Storage
 {

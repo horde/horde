@@ -1,7 +1,5 @@
 <?php
 /**
- * Library to interact with the OpenSSL library and implement S/MIME.
- *
  * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
@@ -12,6 +10,17 @@
  * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Crypt
+ */
+
+/**
+ * Library to interact with the OpenSSL library and implement S/MIME.
+ *
+ * @author    Mike Cochrane <mike@graftonhall.co.nz>
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2002-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Crypt
  */
 class Horde_Crypt_Smime extends Horde_Crypt
 {
