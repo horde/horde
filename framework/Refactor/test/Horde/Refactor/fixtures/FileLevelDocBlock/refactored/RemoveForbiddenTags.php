@@ -19,6 +19,7 @@
  * @copyright 2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
  * @package   Auth
+ * @link      http://www.horde.org/
  */
 class Foo
 {

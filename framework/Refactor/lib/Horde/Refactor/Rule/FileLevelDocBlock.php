@@ -15,6 +15,7 @@ namespace Horde\Refactor\Rule;
 
 use Horde\Refactor\Config;
 use Horde\Refactor\Exception;
+use Horde\Refactor\Regexp;
 use Horde\Refactor\Rule;
 use Horde\Refactor\TagFactory;
 use Horde\Refactor\Translation;
@@ -403,8 +404,9 @@ class FileLevelDocBlock extends Rule
         foreach ($docblock->getTags() as $tag) {
             if (isset($this->_config->{$which . 'ForbiddenTags'}[$tag->getName()])) {
                 $test = $this->_config->{$which . 'ForbiddenTags'}[$tag->getName()];
-                if (($test instanceof Regexp && $test->match($tag->getContent())) ||
-                    $test) {
+                if (($test instanceof Regexp &&
+                     $test->matches($tag->getContent())) ||
+                    (!($test instanceof Regexp) && $test)) {
                     $this->addWarning(
                         sprintf(
                             Translation::t("The %s DocBlock tags should not include: "),
@@ -412,6 +414,8 @@ class FileLevelDocBlock extends Rule
                         )
                         . $tag->getName()
                     );
+                } else {
+                    $tags[] = $tag;
                 }
             } else {
                 $tags[] = $tag;
