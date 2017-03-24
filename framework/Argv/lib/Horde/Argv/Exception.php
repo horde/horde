@@ -15,9 +15,7 @@
  */
 
 /**
- * Horde command-line argument parser
- *
- * This package is ported from Python's Optik (http://optik.sourceforge.net/).
+ * Exception handler for the Horde_Argv library.
  *
  * @category  Horde
  * @package   Argv

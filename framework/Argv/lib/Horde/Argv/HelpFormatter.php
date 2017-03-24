@@ -18,8 +18,6 @@
  * Provides HelpFormatter, used by Horde_Argv_Parser to generate formatted
  * help text.
  *
- * This package is ported from Python's Optik (http://optik.sourceforge.net/).
- *
  * Abstract base class for formatting option help.  Horde_Argv_Parser
  * instances should use one of the HelpFormatter subclasses for
  * formatting help; by default IndentedHelpFormatter is used.

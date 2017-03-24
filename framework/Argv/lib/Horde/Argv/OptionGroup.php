@@ -15,7 +15,8 @@
  */
 
 /**
- * Summary
+ * An option group allows to group a number of options under a common header
+ * and description.
  *
  * @category  Horde
  * @package   Argv

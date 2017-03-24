@@ -17,8 +17,6 @@
 /**
  * Horde command-line argument parsing package.
  *
- * This package is ported from Python's Optik (http://optik.sourceforge.net/).
- *
  * Class attributes:
  *    standardOptionList : [Option]
  *      list of standard options that will be accepted by all instances
