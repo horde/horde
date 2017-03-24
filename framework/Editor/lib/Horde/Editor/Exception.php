@@ -1,7 +1,5 @@
 <?php
 /**
- * Exception handler for the Horde_Editor package.
- *
  * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
@@ -9,7 +7,18 @@
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL
  * @package  Editor
+ */
+
+/**
+ * Exception handler for the Horde_Editor package.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2010-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL
+ * @package   Editor
  */
 class Horde_Editor_Exception extends Horde_Exception_Wrapped
 {

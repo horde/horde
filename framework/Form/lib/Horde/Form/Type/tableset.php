@@ -1,6 +1,24 @@
 <?php
 /**
- * @package Form
+ * Copyright 2001-2017 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file LICENSE for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author   
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL
+ * @package  Form
+ */
+
+/**
+ * 
+ *
+ * @author    
+ * @category  Horde
+ * @copyright 2001-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL
+ * @package   Form
  */
 class Horde_Form_Type_tableset extends Horde_Form_Type {
 

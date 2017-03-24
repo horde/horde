@@ -1,9 +1,24 @@
 <?php
 /**
+ * Copyright 2001-2017 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file LICENSE for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author   Robert E. Coyle <robertecoyle@hotmail.com>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL
+ * @package  Form
+ */
+
+/**
  * Horde_Form_Type Class
  *
- * @author  Robert E. Coyle <robertecoyle@hotmail.com>
- * @package Form
+ * @author    Robert E. Coyle <robertecoyle@hotmail.com>
+ * @category  Horde
+ * @copyright 2001-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL
+ * @package   Form
  */
 class Horde_Form_Type
 {

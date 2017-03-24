@@ -1,15 +1,25 @@
 <?php
 /**
- * The Horde_Form_Renderer class provides HTML and other renderings of
- * forms for the Horde_Form:: package.
- *
  * Copyright 2001-2007 Robert E. Coyle <robertecoyle@hotmail.com>
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author  Robert E. Coyle <robertecoyle@hotmail.com>
- * @package Form
+ * @author   Robert E. Coyle <robertecoyle@hotmail.com>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL
+ * @package  Form
+ */
+
+/**
+ * The Horde_Form_Renderer class provides HTML and other renderings of
+ * forms for the Horde_Form:: package.
+ *
+ * @author    Robert E. Coyle <robertecoyle@hotmail.com>
+ * @category  Horde
+ * @copyright 2001-2007 Robert E. Coyle
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL
+ * @package   Form
  */
 class Horde_Form_Renderer {
 

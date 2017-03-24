@@ -3,7 +3,12 @@
  * Portions Copyright 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * Copyright 2007-2017 Horde LLC (http://www.horde.org/)
  *
+ * See the enclosed file LICENSE for license information (BSD). If you
+ * did not receive this file, see http://www.horde.org/licenses/bsd.
+ *
+ * @author   Chuck Hagenbuch <chuck@horde.org>
  * @category Horde
+ * @license  http://www.horde.org/licenses/bsd BSD
  * @package  Feed
  */
 
@@ -16,8 +21,12 @@
  * data that Horde_Feed_Atom expects, and as a further pointer for users as to
  * what kind of feed object they have been passed.
  *
- * @category Horde
- * @package  Feed
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @category  Horde
+ * @copyright 2005-2007 Zend Technologies USA Inc.
+ * @copyright 2007-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/bsd BSD
+ * @package   Feed
  */
 class Horde_Feed_Atom extends Horde_Feed_Base
 {

@@ -3,8 +3,13 @@
  * Portions Copyright 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * Copyright 2007-2017 Horde LLC (http://www.horde.org/)
  *
+ * See the enclosed file LICENSE for license information (BSD). If you
+ * did not receive this file, see http://www.horde.org/licenses/bsd.
+ *
+ * @author   Chuck Hagenbuch <chuck@horde.org>
  * @category Horde
- * @package Feed
+ * @license  http://www.horde.org/licenses/bsd BSD
+ * @package  Feed
  */
 
 /**
@@ -15,8 +20,12 @@
  * array is considered to be the entry collection, such that iterating
  * over the feed takes you through each of the feed's entries.
  *
- * @category Horde
- * @package Feed
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @category  Horde
+ * @copyright 2005-2007 Zend Technologies USA Inc.
+ * @copyright 2007-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/bsd BSD
+ * @package   Feed
  */
 abstract class Horde_Feed_Base extends Horde_Xml_Element_List
 {

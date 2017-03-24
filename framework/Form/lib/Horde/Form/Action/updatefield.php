@@ -1,16 +1,26 @@
 <?php
 /**
- * Horde_Form_Action_updatefield is a Horde_Form_Action that updates
- * the value of one Horde_Form variable as the variable the action is
- * attached to is updated.
- *
  * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @package Form
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL
+ * @package  Form
+ */
+
+/**
+ * Horde_Form_Action_updatefield is a Horde_Form_Action that updates
+ * the value of one Horde_Form variable as the variable the action is
+ * attached to is updated.
+ *
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @category  Horde
+ * @copyright 2002-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL
+ * @package   Form
  */
 class Horde_Form_Action_updatefield extends Horde_Form_Action {
 

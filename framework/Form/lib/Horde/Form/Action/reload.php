@@ -1,16 +1,26 @@
 <?php
 /**
- * Horde_Form_Action_reload is a Horde_Form Action that reloads the
- * form with the current (not the original) value after the form element
- * that the action is attached to is modified.
- *
  * Copyright 2003-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author  Jan Schneider <jan@horde.org>
- * @package Form
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL
+ * @package  Form
+ */
+
+/**
+ * Horde_Form_Action_reload is a Horde_Form Action that reloads the
+ * form with the current (not the original) value after the form element
+ * that the action is attached to is modified.
+ *
+ * @author    Jan Schneider <jan@horde.org>
+ * @category  Horde
+ * @copyright 2003-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL
+ * @package   Form
  */
 class Horde_Form_Action_reload extends Horde_Form_Action {
 

@@ -1,22 +1,30 @@
 <?php
-
-require_once 'Horde/Form/Type.php';
-
 /**
- * Horde_Form Master Class.
- *
- * The Horde_Form:: package provides form rendering, validation, and
- * other functionality for the Horde Application Framework.
- *
  * Copyright 2001-2007 Robert E. Coyle <robertecoyle@hotmail.com>
  * Copyright 2001-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author  Robert E. Coyle <robertecoyle@hotmail.com>
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @package Form
+ * @author   Robert E. Coyle <robertecoyle@hotmail.com>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL
+ * @package  Form
+ */
+
+require_once 'Horde/Form/Type.php';
+
+/**
+ * Horde_Form Master Class.
+ *
+ * @author    Robert E. Coyle <robertecoyle@hotmail.com>
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @category  Horde
+ * @copyright 2001-2007 Robert E. Coyle
+ * @copyright 2001-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL
+ * @package   Form
  */
 class Horde_Form {
 

@@ -1,18 +1,28 @@
 <?php
 /**
+ * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author   Matt Kynaston <matt@kynx.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL
+ * @package  Form
+ */
+
+/**
  * Horde_Form_Action_sum_fields is a Horde_Form_Action that sets the target
  * field to the sum of one or more other numeric fields.
  *
  * The params array should contain the names of the fields which will be
  * summed.
  *
- * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
- *
- * @author  Matt Kynaston <matt@kynx.org>
- * @package Form
+ * @author    Matt Kynaston <matt@kynx.org>
+ * @category  Horde
+ * @copyright 2002-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL
+ * @package   Form
  */
 class Horde_Form_Action_SumFields extends Horde_Form_Action {
 

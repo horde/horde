@@ -1,14 +1,24 @@
 <?php
 /**
- * Horde exception class that converts PEAR errors to exceptions.
- *
  * Copyright 2008-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
+ * @author   
  * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL
  * @package  Exception
+ */
+
+/**
+ * Horde exception class that converts PEAR errors to exceptions.
+ *
+ * @author    
+ * @category  Horde
+ * @copyright 2008-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL
+ * @package   Exception
  */
 class Horde_Exception_Pear extends Horde_Exception
 {
