@@ -89,7 +89,7 @@ class Horde_ActiveSync_Message_Task extends Horde_ActiveSync_Message_Base
     // EAS 14
     const POOMTASKS_CALENDARTYPE   = 'POOMTASKS:CalendarType';
     const POOMTASKS_ISLEAPMONTH    = 'POOMTASKS:IsLeapMonth';
-    const POOMTASKS_FIRSTDAYOFWEEK = 'POOMTASKS::FirstDayOfWeek';
+    const POOMTASKS_FIRSTDAYOFWEEK = 'POOMTASKS:FirstDayOfWeek';
 
     const TASK_COMPLETE_TRUE      = 1;
     const TASK_COMPLETE_FALSE     = 0;
