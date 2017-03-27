@@ -62,7 +62,7 @@ class Horde_ActiveSync_Log_Factory implements Horde_ActiveSync_Interface_LoggerF
         $stream = $logger = false;
         $formatter = new Horde_ActiveSync_Log_Formatter();
 
-        if (empty($params['path'])) {
+        if (empty($this->_params['path'])) {
              new Horde_ActiveSync_Log_Logger(new Horde_Log_Handler_Null());
         }
 
