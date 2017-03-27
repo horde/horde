@@ -5,7 +5,7 @@ $notes['security'] = false;
 /* Mailing list release notes. */
 $notes['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Horde Groupware
-Webmail Edition version 5.2.17.
+Webmail Edition version 5.2.18.
 
 Horde Groupware Webmail Edition is a free, enterprise ready, browser based
 communication suite. Users can read, send and organize email messages with four
@@ -20,48 +20,10 @@ For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/webmail/docs/INSTALL
 
 The major changes compared to the Horde Groupware Webmail Edition version
-5.2.16 are:
+5.2.18 are:
 
 General changes:
-    * Update German translation.
-    * Other minor bugfixes and improvements.
-
-Horde changes:
-    * Disallow setting of creator permissions too if sharing with world is
-      disabled.
-
-Mail Changes:
-    * Fix issue when forwarding an email to multiple recipients in Mobile view
-      (Bug #14060).
-    * Fix iTip MIME viewer actions if attachment type hasn't been specified.
-    * Add option to reload folder tree when fetching via the API.
-    * Update preview cache after permanently unblocking images from a sender
-      (Bug #14446).
-
-Filter Changes:
-    * Convert vacation rules in preference backend from Ingo < 2.0.
-    * Fix some edge cases with Sieve vacation rules with date limits
-      (Bug #14486).
-
-Address Book Changes:
-    * Fix regression in sorting contacts by a name field (Bug #14471).
-    * Fix regression in saving tags (Bug #14463).
-
-Calendar Changes:
-    * Fix allowing ics import on when user has edit permissions on a shared
-      calendar (Bug #14501).
-    * Disallow setting of creator permissions too if sharing with world is
-      disabled.
-    * Split shared users by linebreaks too.
-
-Tasks Changes:
-  * Fix sorting by due date with PHP < 5.5 (Bug #14507).
-  * Fix fatal error caused by regression in sorting recurring tasks with due
-    dates (Bug #14504).
-
-Files Changes:
-    * Use access rules compatible with both Apache 2.2 and 2.4.
-    * Fix fatal error when cutting and pasting files on the same backend.
+    * Small improvements and bugfixes.
 ML;
 
 $notes['name'] = 'Horde Groupware Webmail Edition';
