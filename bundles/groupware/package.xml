@@ -10,7 +10,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-12-17</date>
+ <date>2017-03-27</date>
  <version>
   <release>5.2.18</release>
   <api>5.2.0</api>
@@ -716,7 +716,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-12-17</date>
+   <date>2017-03-27</date>
    <license uri="http://www.horde.org/licenses/">OSI certified</license>
    <notes>
 * 
