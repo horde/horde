@@ -1197,7 +1197,7 @@ class Horde_ActiveSync
         $as_headers = implode("\r\n", $this->activeSyncHeader());
         $version_header = $this->versionHeader();
         $cmd_header = $this->commandsHeader();
-        $this->_logger->meta(sprintf(
+        self::$_logger->meta(sprintf(
             "Returning OPTIONS response:\r\n%s\r\n%s\r\n%s",
             $as_headers, $version_header, $cmd_header)
         );
