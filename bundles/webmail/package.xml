@@ -12,7 +12,7 @@
  </lead>
  <date>2017-03-27</date>
  <version>
-  <release>5.2.18</release>
+  <release>5.2.19</release>
   <api>5.2.0</api>
  </version>
  <stability>
@@ -766,6 +766,19 @@
   <release>
    <version>
     <release>5.2.18</release>
+    <api>5.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2017-03-27</date>
+   <license uri="http://www.horde.org/licenses/">OSI certified</license>
+   <notes>
+* 
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.2.19</release>
     <api>5.2.0</api></version>
    <stability>
     <release>stable</release>
