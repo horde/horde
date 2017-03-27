@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix PHP error accessing logger during OPTIONS request (Bug #14601).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3385,7 +3385,7 @@
    <date>2017-03-26</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix PHP error accessing logger during OPTIONS request (Bug #14601).
    </notes>
   </release>
  </changelog>
