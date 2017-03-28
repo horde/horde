@@ -621,6 +621,7 @@ class Horde_Registry implements Horde_Shutdown_Task
         if (in_array($api, $this->listAPIs())) {
             return new Horde_Registry_Caller($this, $api);
         }
+        throw new Horde_Exception('The API "' . $api . '" is not defined in the Horde Registry.');
     }
 
     /**
