@@ -433,7 +433,7 @@ extends Horde_Crypt_Pgp_Backend
             $cmdline[] = $keyring;
             $cmdline[] = '--encrypt';
             foreach (array_keys($params['recips']) as $val) {
-                $cmdline[] = '--recipient ' . $val;
+                $cmdline[] = '--recipient ' . escapeshellarg($val);
             }
         } else {
             $cmdline[] = '--symmetric';
@@ -552,7 +552,7 @@ extends Horde_Crypt_Pgp_Backend
             '--armor',
             '--always-trust',
             '--batch',
-            '--charset ' . (isset($params['charset']) ? $params['charset'] : 'UTF-8'),
+            '--charset ' . (isset($params['charset']) ? escapeshellarg($params['charset']) : 'UTF-8'),
             $keyring,
             '--verify'
         );
