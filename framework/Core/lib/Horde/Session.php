@@ -353,13 +353,15 @@ class Horde_Session
             $value = $this->_data[$app][$name];
             if (!is_string($value) || strlen($value) === 0) {
                 return $value;
-            } elseif ($value[0] === self::NOT_SERIALIZED) {
-                return substr($value, 1);
             }
 
             if (isset($this->_data[self::ENCRYPTED][$app][$name])) {
                 $secret = $injector->getInstance('Horde_Secret_Cbc');
                 $value = strval($secret->read($secret->getKey(), $value));
+            }
+
+            if ($value[0] === self::NOT_SERIALIZED) {
+                return substr($value, 1);
             }
 
             try {
