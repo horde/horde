@@ -30,7 +30,7 @@
  </developer>
  <date>2017-03-29</date>
  <version>
-  <release>2.28.2</release>
+  <release>2.28.3</release>
   <api>2.28.0</api>
  </version>
  <stability>
@@ -39,8 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Fix unpacking encrypted session data ("User not authorized for ..." log messages).
-* [jan] Throw an exception when accessing a non-existing API through the registry.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4420,6 +4419,19 @@
    <notes>
 * [jan] Fix unpacking encrypted session data ("User not authorized for ..." log messages).
 * [jan] Throw an exception when accessing a non-existing API through the registry.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.28.3</release>
+    <api>2.28.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2017-03-29</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
