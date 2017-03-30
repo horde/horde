@@ -190,6 +190,28 @@ var Horde_Calendar =
         $('hordeCalendar').hide();
     },
 
+    execChange: function()
+    {
+        // Storage for used onchange code (avoiding multiple execution)
+        var onchange = [];
+
+        // We're expecting all select elements living within the same
+        // table cell to be date related
+        $(this.trigger).up().siblings('select').each(function (element, arrayKey) {
+            var onchange_code = $(element).readAttribute("onchange");
+
+            // Run the elements native onchange property
+            if (onchange.indexOf(onchange_code) == -1) element.onchange();
+
+            // Remember this onchange code as fired to avoid multiple
+            // execution of the same code
+            onchange.push(onchange_code);
+        });
+
+        onchange.clear();
+
+    },
+
     changeYear: function(by)
     {
         this.draw((new Date(this.date.getFullYear() + by, this.date.getMonth(), 1)).getTime());
@@ -277,6 +299,7 @@ var Horde_Calendar =
         if (elt.hasClassName('hordeCalendarDay')) {
             this.hideCal();
             this.trigger.fire('Horde_Calendar:select', new Date(this.year, this.month, parseInt(elt.textContent || elt.innerText, 10)));
+            this.execChange();
         } else if (elt.hasClassName('hordeCalendarClose')) {
             this.hideCal();
         } else if (elt.hasClassName('hordeCalendarPrevYear')) {
@@ -290,13 +313,16 @@ var Horde_Calendar =
         } else if (this.click_year && elt.hasClassName('hordeCalendarYear')) {
             this.trigger.fire('Horde_Calendar:selectYear', new Date(this.year, this.month, 1));
             this.hideCal();
+            this.execChange();
         } else if (this.click_month && elt.hasClassName('hordeCalendarMonth')) {
             this.trigger.fire('Horde_Calendar:selectMonth', new Date(this.year, this.month, 1));
             this.hideCal();
+            this.execChange();
         } else if (this.click_week && elt.hasClassName('hordeCalendarWeek')) {
             day = elt.up('TR').down('A.hordeCalendarDay');
             this.trigger.fire('Horde_Calendar:selectWeek', new Date(this.year, this.month, day.textContent || day.innerText));
             this.hideCal();
+            this.execChange();
         }
 
         e.stop();
