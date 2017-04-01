@@ -72,7 +72,8 @@ class Horde_Registry_Loadconfig
         $end = count($flist) - 1;
         $load = 0;
 
-        foreach ($flist as $k => $v) {
+        $k = 0;
+        for ($v = reset($flist); $v; $v = next($flist)) {
             if (file_exists($v)) {
                 Horde::startBuffer();
                 $success = include $v;
@@ -85,7 +86,7 @@ class Horde_Registry_Loadconfig
                 ++$load;
             }
 
-            if (($k === $end) && !empty($conf['vhosts'])) {
+            if (($k++ === $end) && !empty($conf['vhosts'])) {
                 /* Load vhost configuration file. The vhost conf.php is not
                  * determined until here because, if this is Horde, the vhost
                  * configuration variable is not available until this
