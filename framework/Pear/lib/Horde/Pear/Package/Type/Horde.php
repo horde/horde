@@ -246,15 +246,15 @@ implements Horde_Pear_Package_Type
  <summary>TODO</summary>
  <description>TODO</description>
  <lead>
-  <name>Chuck Hagenbuch</name>
-  <user>chuck</user>
-  <email>chuck@horde.org</email>
-  <active>yes</active>
- </lead>
- <lead>
   <name>Jan Schneider</name>
   <user>jan</user>
   <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Michael J Rubinsky</name>
+  <user>mrubinsk</user>
+  <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
  <date>' . date('Y-m-d') . '</date>
