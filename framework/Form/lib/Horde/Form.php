@@ -416,7 +416,6 @@ class Horde_Form {
             $enctype = $this->_enctype;
         }
         $renderer->open($action, $method, $this->_name, $enctype);
-        $renderer->listFormVars($this);
 
         if (!empty($this->_name)) {
             $this->_preserveVarByPost('formname', $this->_name);

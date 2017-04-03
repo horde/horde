@@ -32,6 +32,7 @@ class Horde_Form_Renderer {
     var $_varRenderer = null;
     var $_firstField = null;
     var $_stripedRows = false;
+    var $_forms = array();
 
     /**
      * Does the title of the form contain HTML? If so, you are responsible for
@@ -195,6 +196,7 @@ class Horde_Form_Renderer {
 
     function close($focus = true)
     {
+        $this->_listAllFormVars();
         echo "</form>\n";
         if ($focus) {
             $GLOBALS['injector']
@@ -206,7 +208,7 @@ class Horde_Form_Renderer {
         }
     }
 
-    function listFormVars(&$form)
+    function getFormVars($form)
     {
         $variables = $form->getVariables(true, true);
         $vars = array();
@@ -237,6 +239,20 @@ class Horde_Form_Renderer {
                 }
             }
         }
+        return $vars;
+    }
+
+    function listFormVars(&$form)
+    {
+        echo '<input type="hidden" name="_formvars" value="' . htmlspecialchars(json_encode($this->getFormVars($form))) . '" />';
+    }
+
+    function _listAllFormVars()
+    {
+        $vars = array();
+        foreach ($this->_forms as $form) {
+            $vars = array_merge($vars, $this->getFormVars($form));
+        }
         echo '<input type="hidden" name="_formvars" value="' . htmlspecialchars(json_encode($vars)) . '" />';
     }
 
@@ -252,6 +268,8 @@ class Horde_Form_Renderer {
 
     function _renderForm(&$form, &$vars, $active)
     {
+        $this->_forms[] = $form;
+
         /* If help is present 3 columns are needed. */
         $this->_cols = $form->hasHelp() ? 3 : 2;
 
