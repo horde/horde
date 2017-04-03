@@ -25,7 +25,7 @@ if (!$criteria) {
     );
     if ($tag_id = Horde_Util::getFormData('tag_id')) {
         $criteria['tags'] = $injector->getInstance('Jonah_Tagger')
-            ->getTagNames(explode(':', $tag_id));
+            ->getTags(explode(':', $tag_id));
     }
     if ($tag = Horde_Util::getFormData('tag')) {
         $criteria['tags'] = explode(':', $tag);
