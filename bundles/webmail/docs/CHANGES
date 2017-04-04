@@ -1,8 +1,24 @@
------------
-v5.2.19-git
------------
+-------
+v5.2.19
+-------
 
+Library Changes
+---------------
 
+Crypt
+[mjr] SECURITY: Fix incorrectly sanitized parameters passed to gpg binary which
+      could lead to potential remote code execution.
+
+ActiveSync
+[mjr] Fix PHP error accessing logger during OPTIONS request (Bug #14601).
+
+Core
+[jan] Fix unpacking encrypted session data ("User not authorized for ..." log messages).
+[jan] Throw an exception when accessing a non-existing API through the registry.
+[mjr] Fix regression in loading vhost config files (Bug #14605).
+
+Form
+[jan] Fix regression when submitting multiple forms (Bug #14604).
 
 -------
 v5.2.18
