@@ -1,29 +1,24 @@
 <?php
 /**
- * A parser for a release information response from a PEAR server.
- *
- * PHP version 5
- *
- * @category Horde
- * @package  Pear
- * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link     http://pear.horde.org/index.php?package=Pear
- */
-
-/**
- * A parser for a release information response from a PEAR server.
- *
  * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @category Horde
- * @package  Pear
  * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link     http://pear.horde.org/index.php?package=Pear
+ * @package  Pear
+ */
+
+/**
+ * A parser for a release information response from a PEAR server.
+ *
+ * @author    Gunnar Wrobel <wrobel@pardus.de>
+ * @category  Horde
+ * @copyright 2011-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Pear
  */
 class Horde_Pear_Rest_Release extends Horde_Xml_Element
 {

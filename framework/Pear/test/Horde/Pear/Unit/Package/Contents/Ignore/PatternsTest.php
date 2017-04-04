@@ -1,31 +1,26 @@
 <?php
 /**
- * Test the pattern based ignore handler for package contents.
- *
- * PHP version 5
- *
- * @category   Horde
- * @package    Pear
- * @subpackage UnitTests
- * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link       http://pear.horde.org/index.php?package=Pear
- */
-
-/**
- * Test the pattern based ignore handler for package contents.
- *
  * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
+ * @author     Gunnar Wrobel <wrobel@pardus.de>
  * @category   Horde
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package    Pear
  * @subpackage UnitTests
+ */
+
+/**
+ * Test the pattern based ignore handler for package contents.
+ *
  * @author     Gunnar Wrobel <wrobel@pardus.de>
+ * @category   Horde
+ * @copyright  2011-2017 Horde LLC
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link       http://pear.horde.org/index.php?package=Pear
+ * @package    Pear
+ * @subpackage UnitTests
  */
 class Horde_Pear_Unit_Package_Contents_Ignore_PatternsTest
 extends Horde_Pear_TestCase

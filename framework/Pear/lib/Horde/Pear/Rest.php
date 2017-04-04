@@ -5,10 +5,10 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @category Horde
- * @package  Pear
  * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Pear
  */
 
 /**
@@ -17,11 +17,12 @@
  * This implements a subset of the REST methods detailed in
  * http://pear.php.net/manual/en/core.rest.php
  *
- * @category Horde
- * @package  Pear
- * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link     http://pear.php.net/manual/en/core.rest.php
+ * @author    Gunnar Wrobel <wrobel@pardus.de>
+ * @category  Horde
+ * @copyright 2011-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Pear
+ * @link      http://pear.php.net/manual/en/core.rest.php
  */
 class Horde_Pear_Rest
 {

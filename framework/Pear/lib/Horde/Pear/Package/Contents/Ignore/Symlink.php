@@ -1,29 +1,24 @@
 <?php
 /**
- * Horde_Pear_Package_Contents_Ignore_Symlink:: ignores symbolic links.
- *
- * PHP version 5
- *
- * @category Horde
- * @package  Pear
- * @author   Jan Schneider <jan@horde.org>
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link     http://pear.horde.org/index.php?package=Pear
- */
-
-/**
- * Horde_Pear_Package_Contents_Ignore_Symlink:: ignores symbolic links.
- *
  * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @category Horde
- * @package  Pear
  * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link     http://pear.horde.org/index.php?package=Pear
+ * @package  Pear
+ */
+
+/**
+ * Horde_Pear_Package_Contents_Ignore_Symlink:: ignores symbolic links.
+ *
+ * @author    Jan Schneider <jan@horde.org>
+ * @category  Horde
+ * @copyright 2012-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Pear
  */
 class Horde_Pear_Package_Contents_Ignore_Symlink
 implements Horde_Pear_Package_Contents_Ignore

@@ -5,11 +5,10 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @category  Horde
- * @copyright 2015-2017 Horde LLC
- * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link      http://pear.horde.org/index.php?package=Pear
- * @package   Pear
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Pear
  */
 
 /**
@@ -19,7 +18,6 @@
  * @category  Horde
  * @copyright 2015-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link      http://pear.horde.org/index.php?package=Pear
  * @package   Pear
  */
 class Horde_Pear_Package_Contents_Ignore_Composer

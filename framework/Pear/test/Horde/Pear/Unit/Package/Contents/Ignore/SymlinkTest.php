@@ -1,31 +1,26 @@
 <?php
 /**
- * Test the symlink ignore handler for package contents.
- *
- * PHP version 5
- *
- * @category   Horde
- * @package    Pear
- * @subpackage UnitTests
- * @author     Jan Schneider <jan@horde.org>
- * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link       http://pear.horde.org/index.php?package=Pear
- */
-
-/**
- * Test the symlink ignore handler for package contents.
- *
  * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
+ * @author     Jan Schneider <jan@horde.org>
  * @category   Horde
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package    Pear
  * @subpackage UnitTests
+ */
+
+/**
+ * Test the symlink ignore handler for package contents.
+ *
  * @author     Jan Schneider <jan@horde.org>
+ * @category   Horde
+ * @copyright  2012-2017 Horde LLC
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link       http://pear.horde.org/index.php?package=Pear
+ * @package    Pear
+ * @subpackage UnitTests
  */
 class Horde_Pear_Unit_Package_Contents_Ignore_SymlinkTest
 extends Horde_Pear_TestCase
