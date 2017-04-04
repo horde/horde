@@ -16,7 +16,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-12-16</date>
+ <date>2017-04-04</date>
  <version>
   <release>2.7.6</release>
   <api>2.7.0</api>
@@ -1197,7 +1197,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-12-16</date>
+   <date>2017-04-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] SECURITY: Fix remote code execution vulnerability (CVE-2017-7413, and CVE-2017-7414).
