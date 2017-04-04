@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mjr] SECURITY: Fix remote code execution vulnerability (CVE-2017-7413, and CVE-2017-7414).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1200,7 +1200,7 @@ Initial release as a PEAR package
    <date>2016-12-16</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mjr] SECURITY: Fix remote code execution vulnerability (CVE-2017-7413, and CVE-2017-7414).
    </notes>
   </release>
  </changelog>
