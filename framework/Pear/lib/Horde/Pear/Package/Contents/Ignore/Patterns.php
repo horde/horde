@@ -94,8 +94,7 @@ implements Horde_Pear_Package_Contents_Ignore
     private function _matches($matches, $path)
     {
         foreach ($matches as $match) {
-            preg_match('/' . $match.'/', $path, $find);
-            if (count($find)) {
+            if (preg_match('/' . $match . '/', $path)) {
                 return true;
             }
         }
