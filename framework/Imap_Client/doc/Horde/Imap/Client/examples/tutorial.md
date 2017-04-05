@@ -6,7 +6,7 @@
 
 Horde/Imap_Client does not [include()](http://php.net/include) its own files, so an autoloader must be registered that will load the Horde/Imap_Client files from its directory.
 
-If installing via Composer, user the generated include file to load the library.
+If installing via Composer, use the generated include file to load the library.
 
 If using PEAR, or installing from source, [Horde's Autoloader](http://www.horde.org/libraries/Horde_Autoloader) package can be used to do this for you (or any other [PSR-0](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md) compliant autoloader).
 
