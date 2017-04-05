@@ -25,73 +25,48 @@
 class Horde_Pear_Unit_Rest_AccessTest
 extends Horde_Pear_TestCase
 {
-    public function setUp()
-    {
-        $this->markTestIncomplete();
-    }
-
-
     public function testLatestRelease()
     {
         $this->assertEquals(
             '1.0.0',
-            $this->_getAccess()->getLatestRelease('A', 'stable')
+            $this->_getRest()->fetchLatestRelease('A')
         );
-    }
-
-    public function testGetRelease()
-    {
-        $this->assertInstanceOf(
-            'Horde_Pear_Rest_Release',
-            $this->_getReleaseAccess()->getRelease('A', '1.0.0')
+        $this->assertEquals(
+            '1.0.0',
+            $this->_getRest()->fetchLatestPackageReleases('A')['stable']
         );
     }
 
     public function testDownloadUri()
     {
+        $release = new Horde_Pear_Rest_Release(
+            $this->_getReleaseRest()->fetchReleaseInformation('A', '1.0.0')
+        );
         $this->assertEquals(
             'http://pear.horde.org/get/A-1.0.0.tgz',
-            $this->_getReleaseAccess()
-            ->getRelease('A', '1.0.0')
-            ->getDownloadUri()
-        );
-    }
-
-    public function testDependencies()
-    {
-        $this->assertInstanceOf(
-            'Horde_Pear_Rest_Dependencies',
-            $this->_getDependencyAccess()->getDependencies('A', '1.0.0')
-        );
-    }
-
-    public function testPackageXml()
-    {
-        $this->assertInstanceOf(
-            'Horde_Pear_Package_Xml',
-            $this->_getPackageAccess()->getPackageXml('A', '1.0.0')
+            $release->getDownloadUri()
         );
     }
 
     public function testPackageXmlName()
     {
-        $this->assertEquals(
-            'Fixture',
-            $this->_getPackageAccess()->getPackageXml('A', '1.0.0')->getName()
+        $package = new Horde_Pear_Rest_Package(
+            $this->_getPackageInfoRest()->fetchPackageInformation('A')
         );
+        $this->assertEquals('Horde_Core', $package->getName());
     }
 
     public function testReleaseExists()
     {
         $this->assertTrue(
-            $this->_getPackageAccess()->releaseExists('A', '1.0.0')
+            $this->_getPackageRest()->releaseExists('A', '1.0.0')
         );
     }
 
     public function testReleaseDoesNotExist()
     {
         $this->assertFalse(
-            $this->_getPackageAccess(404)->releaseExists('A', '1.0.0')
+            $this->_getPackageRest(404)->releaseExists('A', '1.0.0')
         );
     }
 
@@ -99,11 +74,11 @@ extends Horde_Pear_TestCase
     {
         $this->assertEquals(
             'b:1;',
-            $this->_getDependencyAccess()->getChannel()
+            $this->_getDependencyRest()->fetchChannelXml()
         );
     }
 
-    private function _getAccess()
+    private function _getRest()
     {
         if (!class_exists('Horde_Http_Client')) {
             $this->markTestSkipped('Horde_Http is missing!');
@@ -129,10 +104,10 @@ extends Horde_Pear_TestCase
                 ),
             )
         );
-        return $this->_createAccess($request);
+        return $this->_createRest($request);
     }
 
-    private function _getReleaseAccess()
+    private function _getReleaseRest()
     {
         if (!class_exists('Horde_Http_Client')) {
             $this->markTestSkipped('Horde_Http is missing!');
@@ -143,10 +118,10 @@ extends Horde_Pear_TestCase
         $response->code = 200;
         $request = new Horde_Http_Request_Mock();
         $request->setResponse($response);
-        return $this->_createAccess($request);
+        return $this->_createRest($request);
     }
 
-    private function _getDependencyAccess()
+    private function _getDependencyRest()
     {
         if (!class_exists('Horde_Http_Client')) {
             $this->markTestSkipped('Horde_Http is missing!');
@@ -157,10 +132,10 @@ extends Horde_Pear_TestCase
         $response->code = 200;
         $request = new Horde_Http_Request_Mock();
         $request->setResponse($response);
-        return $this->_createAccess($request);
+        return $this->_createRest($request);
     }
 
-    private function _getPackageAccess($code = 200)
+    private function _getPackageRest($code = 200)
     {
         if (!class_exists('Horde_Http_Client')) {
             $this->markTestSkipped('Horde_Http is missing!');
@@ -172,20 +147,28 @@ extends Horde_Pear_TestCase
         $response->code = $code;
         $request = new Horde_Http_Request_Mock();
         $request->setResponse($response);
-        return $this->_createAccess($request);
+        return $this->_createRest($request);
     }
 
-    private function _createAccess($request)
+    private function _getPackageInfoRest()
     {
-        $access = new Horde_Pear_Rest_Access();
-        $access->setServer('test');
-        $access->setRest(
-            'http://test',
-            new Horde_Pear_Rest(
-                new Horde_Http_Client(array('request' => $request)),
-                'http://test'
-            )
+        if (!class_exists('Horde_Http_Client')) {
+            $this->markTestSkipped('Horde_Http is missing!');
+        }
+        $response = new Horde_Http_Response_Mock(
+            '',
+            fopen(__DIR__ . '/../../fixture/rest/package.xml', 'r')
         );
-        return $access;
+        $request = new Horde_Http_Request_Mock();
+        $request->setResponse($response);
+        return $this->_createRest($request);
+    }
+
+    private function _createRest($request)
+    {
+        return new Horde_Pear_Rest(
+            new Horde_Http_Client(array('request' => $request)),
+            'http://test'
+        );
     }
 }
