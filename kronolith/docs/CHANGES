@@ -2,6 +2,8 @@
 v5.0.0-git
 ----------
 
+[mjr] Add support for tracking the ORGANIZER of an event independently of the
+      horde user (Bug #3965, PR: 127, Ralf Lang <lang@b1-systems.de>).
 [jan] Use preferred start and end of day for color shades in dynamic view.
 [jan] Automatically scroll to preferred start of day (heinz@htl-steyr.ac.at,
       Request #14498).
