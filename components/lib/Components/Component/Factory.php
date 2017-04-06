@@ -282,12 +282,10 @@ class Components_Component_Factory
     }
 
     /**
-     * Create a new PEAR Package representation.
+     * Creates a new package.xml.
      *
      * @param string $package_xml_dir Path to the parent directory of the
      *                                new package.xml file.
-     *
-     * @return PEAR_PackageFile
      */
     public function createPackageFile($package_xml_dir)
     {
@@ -296,7 +294,19 @@ class Components_Component_Factory
     }
 
     /**
-     * Create a new content listing.
+     * Creates a new package.xml for a theme.
+     *
+     * @param string $package_xml_dir Path to the parent directory of the
+     *                                new package.xml file.
+     */
+    public function createThemePackageFile($package_xml_dir)
+    {
+        $type = new Horde_Pear_Package_Type_HordeTheme($package_xml_dir);
+        $type->writePackageXmlDraft();
+    }
+
+    /**
+     * Creates a new content listing.
      *
      * @param string $package_xml_dir Path to the parent directory of the
      *                                new package.xml file.
@@ -307,6 +317,24 @@ class Components_Component_Factory
     {
         return new Horde_Pear_Package_Contents_List(
             new Horde_Pear_Package_Type_Horde(
+                $package_xml_dir,
+                $this->getGitRoot()->getRoot()
+            )
+        );
+    }
+
+    /**
+     * Creates a new content listing for a theme.
+     *
+     * @param string $package_xml_dir Path to the parent directory of the
+     *                                new package.xml file.
+     *
+     * @return Horde_Pear_Package_Contents_List
+     */
+    public function createThemeContentList($package_xml_dir)
+    {
+        return new Horde_Pear_Package_Contents_List(
+            new Horde_Pear_Package_Type_HordeTheme(
                 $package_xml_dir,
                 $this->getGitRoot()->getRoot()
             )

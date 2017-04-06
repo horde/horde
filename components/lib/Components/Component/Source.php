@@ -153,18 +153,20 @@ class Components_Component_Source extends Components_Component_Base
     }
 
     /**
-     * Update the package.xml file for this component.
+     * Updates the package.xml file for this component.
      *
-     * @param string $action  The action to perform. Either "update", "diff",
-     *                        or "print".
-     * @param array  $options Options for this operation.
-     *
-     * @return NULL
+     * @param string $action   The action to perform. Either "update", "diff",
+     *                         or "print".
+     * @param array  $options  Options for this operation.
      */
     public function updatePackageXml($action, $options)
     {
         if (!file_exists($this->getPackageXmlPath())) {
-            $this->getFactory()->createPackageFile($this->_directory);
+            if ($options['theme']) {
+                $this->getFactory()->createThemePackageFile($this->_directory);
+            } else {
+                $this->getFactory()->createPackageFile($this->_directory);
+            }
         }
 
         $package_xml = $this->getPackageXml();
@@ -172,7 +174,9 @@ class Components_Component_Source extends Components_Component_Base
         /* Skip updating if this is a PECL package. */
         if (!$package_xml->findNode('/p:package/p:providesextension')) {
             $package_xml->updateContents(
-                $this->getFactory()->createContentList($this->_directory),
+                $options['theme']
+                    ? $this->getFactory()->createThemeContentList($this->_directory)
+                    : $this->getFactory()->createContentList($this->_directory),
                 $options
             );
         }

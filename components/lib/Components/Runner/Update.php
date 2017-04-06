@@ -65,6 +65,7 @@ class Components_Runner_Update
             'new_api' => false,
             'new_state' => false,
             'new_apistate' => false,
+            'theme' => false,
         ), $this->_config->getOptions());
 
         if (!empty($options['updatexml']) ||

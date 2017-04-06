@@ -70,6 +70,13 @@ extends Components_Module_Base
                 )
             ),
             new Horde_Argv_Option(
+                '--theme',
+                array(
+                    'action' => 'store_true',
+                    'help'   => 'Update a theme\'s package.xml.'
+                )
+            ),
+            new Horde_Argv_Option(
                 '--new-version',
                 array(
                     'action' => 'store',
@@ -138,6 +145,7 @@ extends Components_Module_Base
         return array(
             '--pretend' => 'Display a textual diff of the current package.xml and the updated package.xml. The package.xml file does not get modified.',
             '--regenerate' => 'Purge the old file listings and replace them with a completely fresh list.',
+            '--theme' => 'Update a theme\'s package.xml inside the main theme directory.',
             '--new-version' => '',
             '--new-api' => '',
             '--new-state' => '',
