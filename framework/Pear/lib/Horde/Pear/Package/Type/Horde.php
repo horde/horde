@@ -28,14 +28,14 @@ implements Horde_Pear_Package_Type
      *
      * @var string
      */
-    private $_root;
+    protected $_root;
 
     /**
      * The root path for the repository.
      *
      * @var string
      */
-    private $_repository_root;
+    protected $_repository_root;
 
     /**
      * Constructor.
@@ -99,7 +99,7 @@ implements Horde_Pear_Package_Type
                         'composer.*',
                         '.horde.yml',
                     ),
-                    $this->getRootPath()
+                    $this->_root
                 ),
                 new Horde_Pear_Package_Contents_Ignore_Git(
                     $this->getGitIgnore(),
@@ -155,7 +155,7 @@ implements Horde_Pear_Package_Type
      */
     public function getType()
     {
-        $location = substr($this->getRootPath(), strlen($this->getRepositoryRoot()));
+        $location = substr($this->_root, strlen($this->getRepositoryRoot()));
         if (substr($location, 0, 10) == '/framework') {
             return 'Component';
         } else {
@@ -171,9 +171,9 @@ implements Horde_Pear_Package_Type
     public function getName()
     {
         if ($this->getType() == 'Application') {
-            return basename($this->getRootPath());
+            return basename($this->_root);
         } else {
-            return 'Horde_' . basename($this->getRootPath());
+            return 'Horde_' . basename($this->_root);
         }
     }
 
@@ -196,7 +196,7 @@ implements Horde_Pear_Package_Type
     {
         if ($this->_repository_root === null) {
             $i = 0;
-            $current = $this->getRootPath();
+            $current = $this->_root;
             while ($current != '/' || $i < 10) {
                 if (is_dir($current)) {
                     $elements = scandir($current);
@@ -214,7 +214,7 @@ implements Horde_Pear_Package_Type
                 throw new Horde_Pear_Exception(
                     sprintf(
                         'Unable to determine Horde root from path %s!',
-                        $this->getRootPath()
+                        $this->_root
                     )
                 );
             }
@@ -258,7 +258,6 @@ implements Horde_Pear_Package_Type
   <active>yes</active>
  </lead>
  <date>' . date('Y-m-d') . '</date>
- <time>' . date('H:i:s') . '</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -298,7 +297,8 @@ implements Horde_Pear_Package_Type
    </notes>
   </release>
  </changelog>
-</package>'
+</package>
+'
         );
     }
 }
