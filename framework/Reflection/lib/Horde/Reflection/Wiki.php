@@ -63,7 +63,6 @@ class Horde_Reflection_Wiki extends Horde_Reflection {
     public function autoDocument()
     {
         $signature = $this->_getSignature();
-        $id = md5($this->_name);
         $help = trim(strip_tags($this->_help));
 
         $html = "$signature\n";

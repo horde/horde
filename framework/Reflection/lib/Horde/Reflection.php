@@ -67,12 +67,11 @@ abstract class Horde_Reflection {
         $parameters = array();
         $returns = 'mixed';
         $shortdesc = '';
-        $paramcount = -1;
         $this->_name = $method->getName();
 
         // Extract info from docblock.
         $paramDocs = array();
-        foreach ($docs as $i => $doc) {
+        foreach ($docs as $doc) {
             $doc = trim($doc, " \r\t/*");
             if (strlen($doc) && strpos($doc, '@') !== 0) {
                 if ($shortdesc) {
