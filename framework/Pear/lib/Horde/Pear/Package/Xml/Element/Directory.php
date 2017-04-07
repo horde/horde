@@ -219,7 +219,7 @@ class Horde_Pear_Package_Xml_Element_Directory
     public function insertSubDirectory($name, DOMNode $point = null)
     {
         $element = $this->_xml->createElementDirectory($name, $this);
-        $element->_insert($this, $point);
+        $element->insert($this, $point);
         return $element;
     }
 
@@ -231,8 +231,8 @@ class Horde_Pear_Package_Xml_Element_Directory
      *
      * @return NULL
      */
-    private function _insert(Horde_Pear_Package_Xml_Element_Directory $parent,
-                             DOMNode $point = null)
+    public function insert(Horde_Pear_Package_Xml_Element_Directory $parent,
+                            DOMNode $point = null)
     {
         if ($point === null) {
             $point = $parent->getDirectoryNode()->lastChild;
