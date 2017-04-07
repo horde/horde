@@ -209,19 +209,6 @@ class Horde_Pear_Package_Xml_Directory
     }
 
     /**
-     * Delete a subdirectory from the list.
-     *
-     * @param string $dir The directory name.
-     *
-     * @return NULL
-     */
-    private function _deleteSubdirectory($dir)
-    {
-        unset($this->_subdirectories[$dir]);
-        $this->_prune();
-    }
-
-    /**
      * Prune this directory if it is empty.
      *
      * @return NULL
@@ -230,9 +217,6 @@ class Horde_Pear_Package_Xml_Directory
     {
         if (empty($this->_files) && empty($this->_subdirectories)) {
             $this->_element->delete();
-            if ($this->_parent instanceof Horde_Pear_Package_Xml_Directory) {
-                $this->_parent->_deleteSubdirectory($this->_element->getName());
-            }
         }
     }
 
