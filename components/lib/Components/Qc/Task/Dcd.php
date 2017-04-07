@@ -65,7 +65,7 @@ class Components_Qc_Task_Dcd extends Components_Qc_Task_Base
         $files = $finder->findFiles();
 
         $detector = new PHPDCD\Detector();
-        $result   = $detector->detectDeadCode($files, true);
+        $result   = $detector->detectDeadCode($files);
 
         $this->_printResult($result);
     }
