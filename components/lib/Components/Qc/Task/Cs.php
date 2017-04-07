@@ -78,6 +78,6 @@ extends Components_Qc_Task_Base
         $_SERVER['argc'] = $argc;
 
         chdir($old_dir);
-        return $phpcs->reporting->printReport('emacs', false, null);
+        return $phpcs->reporting->printReport('emacs', false, array('colors' => true), null)['errors'];
     }
 }
