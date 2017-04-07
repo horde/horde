@@ -440,7 +440,7 @@ class FileLevelDocBlock extends Rule
             }
             $oldTags = $tmp;
         }
-        foreach ($oldTags as $key => $tag) {
+        foreach ($oldTags as $tag) {
             $tags[] = $tag;
         }
         if ($tags != $docblock->getTags()) {
