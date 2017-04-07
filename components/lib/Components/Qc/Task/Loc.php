@@ -94,15 +94,12 @@ Size
   Non-Comment Lines of Code (NCLOC)         %10d (%.2f%%)
   Logical Lines of Code (LLOC)              %10d (%.2f%%)
     Classes                                 %10d (%.2f%%)
-      Average Class Length                  %10d
-      Average Method Length                 %10d
     Functions                               %10d (%.2f%%)
       Average Function Length               %10d
     Not in classes or functions             %10d (%.2f%%)
 
 Complexity
   Cyclomatic Complexity / LLOC              %10.2f
-  Cyclomatic Complexity / Number of Methods %10.2f
 
 Dependencies
   Global Accesses                           %10d
@@ -150,15 +147,12 @@ END;
             $count['loc'] > 0 ? ($count['lloc'] / $count['loc']) * 100 : 0,
             $count['llocClasses'],
             $count['lloc'] > 0 ? ($count['llocClasses'] / $count['lloc']) * 100 : 0,
-            $count['llocByNoc'],
-            $count['llocByNom'],
             $count['llocFunctions'],
             $count['lloc'] > 0 ? ($count['llocFunctions'] / $count['lloc']) * 100 : 0,
             $count['llocByNof'],
             $count['llocGlobal'],
             $count['lloc'] > 0 ? ($count['llocGlobal'] / $count['lloc']) * 100 : 0,
             $count['ccnByLloc'],
-            $count['ccnByNom'],
             $count['globalAccesses'],
             $count['globalConstantAccesses'],
             $count['globalAccesses'] > 0 ? ($count['globalConstantAccesses'] / $count['globalAccesses']) * 100 : 0,
