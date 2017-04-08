@@ -162,7 +162,7 @@ class Components_Component_Source extends Components_Component_Base
     public function updatePackageXml($action, $options)
     {
         if (!file_exists($this->getPackageXmlPath())) {
-            if ($options['theme']) {
+            if (!empty($options['theme'])) {
                 $this->getFactory()->createThemePackageFile($this->_directory);
             } else {
                 $this->getFactory()->createPackageFile($this->_directory);
@@ -174,7 +174,7 @@ class Components_Component_Source extends Components_Component_Base
         /* Skip updating if this is a PECL package. */
         if (!$package_xml->findNode('/p:package/p:providesextension')) {
             $package_xml->updateContents(
-                $options['theme']
+                !empty($options['theme'])
                     ? $this->getFactory()->createThemeContentList($this->_directory)
                     : $this->getFactory()->createContentList($this->_directory),
                 $options
