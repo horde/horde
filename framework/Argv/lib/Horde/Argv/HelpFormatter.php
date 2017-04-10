@@ -88,10 +88,10 @@ abstract class Horde_Argv_HelpFormatter
         $this->level = 0;
         $this->help_width = null; // computed later
         $this->short_first = $short_first;
-        $this->default_tag = "%default";
+        $this->default_tag = '%default';
         $this->option_strings = array();
-        $this->_short_opt_fmt = "%s %s";
-        $this->_long_opt_fmt = "%s=%s";
+        $this->_short_opt_fmt = '%s %s';
+        $this->_long_opt_fmt = '%s=%s';
     }
 
     public function setParser($parser)
@@ -194,23 +194,33 @@ abstract class Horde_Argv_HelpFormatter
     public function formatOption($option)
     {
         $result = array();
-        $opts = isset($this->option_strings[(string)$option]) ? $this->option_strings[(string)$option] : null;
+        $opts = isset($this->option_strings[(string)$option])
+            ? $this->option_strings[(string)$option]
+            : null;
         $opt_width = $this->help_position - $this->current_indent - 2;
         if (strlen($opts) > $opt_width) {
-            $opts = sprintf('%' . $this->current_indent . "s%s\n", "", $opts);
+            $opts = sprintf('%' . $this->current_indent . "s%s\n", '', $opts);
             $indent_first = $this->help_position;
         } else {
             // start help on same line as opts
-            $opts = sprintf("%" . $this->current_indent . "s%-" . $opt_width . "s  ", "", $opts);
+            $opts = sprintf(
+                '%' . $this->current_indent . 's%-' . $opt_width . 's  ',
+                '',
+                $opts
+            );
             $indent_first = 0;
         }
         $result[] = $opts;
         if ($option->help) {
             $help_text = $this->expandDefault($option);
             $help_lines = explode("\n", wordwrap($help_text, $this->help_width));
-            $result[] = sprintf("%" . $indent_first . "s%s\n", '', $help_lines[0]);
+            $result[] = sprintf(
+                '%' . $indent_first . "s%s\n", '', $help_lines[0]
+            );
             for ($i = 1, $i_max = count($help_lines); $i < $i_max; $i++) {
-                $result[] = sprintf("%" . $this->help_position . "s%s\n", "", $help_lines[$i]);
+                $result[] = sprintf(
+                    '%' . $this->help_position . "s%s\n", '', $help_lines[$i]
+                );
             }
         } elseif (substr($opts, -1) != "\n") {
             $result[] = "\n";
