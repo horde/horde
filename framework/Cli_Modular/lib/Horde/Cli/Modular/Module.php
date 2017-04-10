@@ -28,6 +28,10 @@ interface Horde_Cli_Modular_Module
      * This description will be added after the automatically generated usage
      * line, so make sure to add any necessary line breaks or other separators.
      *
+     * @todo This should be split up in title and usage, so that (action)
+     *       titles can be colorized and descriptions can be lined up
+     *       automatically.
+     *
      * @return string  The description.
      */
     public function getUsage();
