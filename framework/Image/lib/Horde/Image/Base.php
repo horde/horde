@@ -405,7 +405,7 @@ abstract class Horde_Image_Base extends EmptyIterator
             return $this->_data->__toString();
         }
 
-        return $this->_data;
+        return $this->_data->stream;
     }
 
     /**
