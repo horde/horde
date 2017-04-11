@@ -32,6 +32,13 @@ class Horde_Cli
     protected $_newline;
 
     /**
+     * The formatted space string to use.
+     *
+     * @var string
+     */
+    protected $_space;
+
+    /**
      * The string to use for clearing the screen.
      *
      * @var string
@@ -66,14 +73,15 @@ class Horde_Cli
 
         if ($console) {
             $this->_newline = "\n";
-            $this->_indent  = '    ';
+            $this->_space = ' ';
             if (getenv('TERM')) {
                 $this->_clearscreen  = "\x1b[2J\x1b[H";
             }
         } else {
             $this->_newline = '<br />';
-            $this->_indent  = str_repeat('&nbsp;', 4);
+            $this->_space = '&nbsp;';
         }
+        $this->_indent = str_repeat($this->_space, 4);
 
         // We really want to call this at the end of the script, not in the
         // destructor.
@@ -246,19 +254,30 @@ class Horde_Cli
 
         switch ($type) {
         case 'cli.error':
-            $type_message = $this->red('[ ERROR! ] ');
+            $type_message = $this->red(
+                '[' . $this->_space . 'ERROR!' . $this->_space . '] '
+            );
             break;
 
         case 'cli.warning':
-            $type_message = $this->yellow('[  WARN  ] ');
+            $type_message = $this->yellow(
+                '[' . $this->_space . $this->_space . 'WARN'
+                    . $this->_space . $this->_space . '] '
+            );
             break;
 
         case 'cli.success':
-            $type_message = $this->green('[   OK   ] ');
+            $type_message = $this->green(
+                '[' . $this->_space . $this->_space . $this->_space . 'OK'
+                    . $this->_space . $this->_space . $this->_space . '] '
+            );
             break;
 
         case 'cli.message':
-            $type_message = $this->blue('[  INFO  ] ');
+            $type_message = $this->blue(
+                '[' . $this->_space . $this->_space . 'INFO' . $this->_space
+                    . $this->_space . '] '
+            );
             break;
 
         default:
