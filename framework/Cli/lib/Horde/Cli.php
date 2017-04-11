@@ -53,103 +53,11 @@ class Horde_Cli
     protected $_indent;
 
     /**
-     * The string to mark the beginning of bold text.
+     * The color formatter.
      *
-     * @var string
+     * @var Horde_Cli_Color
      */
-    protected $_bold_start = '';
-
-    /**
-     * The string to mark the end of bold text.
-     *
-     * @var string
-     */
-    protected $_bold_end = '';
-
-    /**
-     * The strings to mark the beginning of coloured text.
-     *
-     * @var string
-     */
-    protected $_red_start          = '';
-    protected $_green_start        = '';
-    protected $_brown_start        = '';
-    protected $_blue_start         = '';
-    protected $_magenta_start      = '';
-    protected $_cyan_start         = '';
-    protected $_lightgray_start    = '';
-    protected $_white_start        = '';
-    protected $_darkgray_start     = '';
-    protected $_lightred_start     = '';
-    protected $_lightgreen_start   = '';
-    protected $_yellow_start       = '';
-    protected $_lightblue_start    = '';
-    protected $_lightmagenta_start = '';
-    protected $_lightcyan_start    = '';
-
-    /**
-     * The strings to mark the end of coloured text.
-     *
-     * @var string
-     */
-    protected $_red_end          = '';
-    protected $_green_end        = '';
-    protected $_brown_end        = '';
-    protected $_blue_end         = '';
-    protected $_magenta_end      = '';
-    protected $_cyan_end         = '';
-    protected $_lightgray_end    = '';
-    protected $_white_end        = '';
-    protected $_darkgray_end     = '';
-    protected $_lightred_end     = '';
-    protected $_lightgreen_end   = '';
-    protected $_yellow_end       = '';
-    protected $_lightblue_end    = '';
-    protected $_lightmagenta_end = '';
-    protected $_lightcyan_end    = '';
-
-    /**
-     * Terminal foreground color codes. Not used yet.
-     *
-     * @var array
-     */
-    protected $_terminalForegrounds = array(
-        'normal'        => "\x1B[0m",
-        'black'         => "\x1B[0m",
-        'bold'          => "\x1b[1m",
-        'red'           => "\x1B[31m",
-        'green'         => "\x1B[32m",
-        'brown'         => "\x1B[33m",
-        'blue'          => "\x1B[34m",
-        'magenta'       => "\x1B[35m",
-        'cyan'          => "\x1B[36m",
-        'lightgray'     => "\x1B[37m",
-        'white'         => "\x1B[1m\x1B[37m",
-        'darkgray'      => "\x1B[1m\x1B[0m",
-        'lightred'      => "\x1B[1m\x1B[31m",
-        'lightgreen'    => "\x1B[1m\x1B[32m",
-        'yellow'        => "\x1B[1m\x1B[33m",
-        'lightblue'     => "\x1B[1m\x1B[34m",
-        'lightmagenta'  => "\x1B[1m\x1B[35m",
-        'lightcyan'     => "\x1B[1m\x1B[36m",
-    );
-
-    /**
-     * Terminal background color codes. Not used yet.
-     *
-     * @var array
-     */
-    protected $_terminalBackgrounds = array(
-        'normal'    => "\x1B[0m",
-        'black'     => "\x1B[0m",
-        'red'       => "\x1B[41m",
-        'green'     => "\x1B[42m",
-        'brown'     => "\x1B[43m",
-        'blue'      => "\x1B[44m",
-        'magenta'   => "\x1B[45m",
-        'cyan'      => "\x1B[46m",
-        'lightgray' => "\x1B[47m",
-    );
+    protected $_color;
 
     /**
      * Detect the current environment (web server or console) and sets
@@ -161,38 +69,17 @@ class Horde_Cli
     public function __construct()
     {
         $this->_console = $this->runningFromCLI();
+        $this->_color = new Horde_Cli_Color();
 
         if ($this->_console) {
             $this->_newline = "\n";
             $this->_indent  = '    ';
-
-            $term = getenv('TERM');
-            if ($term) {
-                if (preg_match('/^(xterm|vt220|linux)/', $term)) {
-                    $this->_clearscreen  = "\x1b[2J\x1b[H";
-                    $this->_bold_start   = "\x1b[1m";
-                    $this->_bold_end = "\x1b[0m";
-                    foreach ($this->_terminalForegrounds as $color => $value) {
-                        $this->{'_' . $color . '_start'} = $value;
-                        $this->{'_' . $color . '_end'} = "\x1b[0m";
-                    }
-                } elseif (preg_match('/^vt100/', $term)) {
-                    $this->_clearscreen  = "\x1b[2J\x1b[H";
-                    $this->_bold_start = "\x1b[1m";
-                    $this->_bold_end   = "\x1b[0m";
-                }
+            if (getenv('TERM')) {
+                $this->_clearscreen  = "\x1b[2J\x1b[H";
             }
         } else {
             $this->_newline = '<br />';
             $this->_indent  = str_repeat('&nbsp;', 4);
-
-            $this->_bold_start   = '<strong>';
-            $this->_bold_end     = '</strong>';
-            foreach (array_keys($this->_terminalForegrounds) as $color) {
-                $this->{'_' . $color . '_start'} =
-                    '<span style="color:' . $color . '">';
-                $this->{'_' . $color . '_end'} = '</span>';
-            }
         }
 
         // We really want to call this at the end of the script, not in the
@@ -241,13 +128,15 @@ class Horde_Cli
     /**
      * Returns a bold version of $text.
      *
+     * @deprecated Use Horde_Cli_Color instead.
+     *
      * @param string $text  The text to bold.
      *
      * @return string  The bolded text.
      */
     public function bold($text)
     {
-        return $this->_bold_start . $text . $this->_bold_end;
+        return $this->_color->bold($text);
     }
 
     /**
@@ -262,12 +151,13 @@ class Horde_Cli
      */
     public function color($color, $text)
     {
-        return $this->{'_' . $color . '_start'} . $text
-            . $this->{'_' . $color . '_end'};
+        return $this->_color->color($color, $text);
     }
 
     /**
      * Returns a red version of $text.
+     *
+     * @deprecated Use Horde_Cli_Color or color() instead.
      *
      * @param string $text  The text to print in red.
      *
@@ -275,11 +165,13 @@ class Horde_Cli
      */
     public function red($text)
     {
-        return $this->_red_start . $text . $this->_red_end;
+        return $this->_color->red($text);
     }
 
     /**
      * Returns a green version of $text.
+     *
+     * @deprecated Use Horde_Cli_Color or color() instead.
      *
      * @param string $text  The text to print in green.
      *
@@ -287,11 +179,13 @@ class Horde_Cli
      */
     public function green($text)
     {
-        return $this->_green_start . $text . $this->_green_end;
+        return $this->_color->green($text);
     }
 
     /**
      * Returns a blue version of $text.
+     *
+     * @deprecated Use Horde_Cli_Color or color() instead.
      *
      * @param string $text  The text to print in blue.
      *
@@ -299,11 +193,13 @@ class Horde_Cli
      */
     public function blue($text)
     {
-        return $this->_blue_start . $text . $this->_blue_end;
+        return $this->_color->blue($text);
     }
 
     /**
      * Returns a yellow version of $text.
+     *
+     * @deprecated Use Horde_Cli_Color or color() instead.
      *
      * @param string $text  The text to print in yellow.
      *
@@ -311,7 +207,7 @@ class Horde_Cli
      */
     public function yellow($text)
     {
-        return $this->_yellow_start . $text . $this->_yellow_end;
+        return $this->_color->yellow($text);
     }
 
     /**
@@ -330,14 +226,8 @@ class Horde_Cli
      */
     public function header($message, $below = '-', $above = null)
     {
-        $escapes = array();
-        foreach (get_object_vars($this) as $var => $value) {
-            if (preg_match('/^_[a-z]+_(start|end)$/', $var)) {
-                $escapes[] = $value;
-            }
-        }
         $length = 0;
-        foreach (explode($this->_newline, str_replace($escapes, '', $message)) as $line) {
+        foreach (explode($this->_newline, $this->_color->remove($message)) as $line) {
             $length = max($length, Horde_String::length($line));
         }
         if (strlen($above)) {

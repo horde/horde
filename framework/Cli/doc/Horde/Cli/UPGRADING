@@ -16,6 +16,21 @@ Upgrading to 2.1.0
 
   - Horde_Cli
 
-    - color()
+    - color(), header()
 
-      This method has been added.
+      These methods have been added.
+
+
+Upgrading to 2.2.0
+==================
+
+  - Horde_Cli_Color
+
+    This class has been added.
+
+  - Horde_Cli
+
+    - bold(), red(), green(), blue(), yellow()
+
+      These methods have been deprecated. Use Horde_Cli_Color or
+      Horde_Cli#color() instead.

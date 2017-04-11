@@ -17,10 +17,10 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2017-03-20</date>
+ <date>2017-04-11</date>
  <version>
-  <release>2.1.1</release>
-  <api>2.1.0</api>
+  <release>2.2.0</release>
+  <api>2.2.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -44,6 +44,7 @@
    <dir name="lib">
     <dir name="Horde">
      <dir name="Cli">
+      <file name="Color.php" role="php" />
       <file name="Translation.php" role="php">
        <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
       </file>
@@ -340,6 +341,7 @@
    <install as="COPYING" name="doc/Horde/Cli/COPYING" />
    <install as="UPGRADING" name="doc/Horde/Cli/UPGRADING" />
    <install as="Horde/Cli.php" name="lib/Horde/Cli.php" />
+   <install as="Horde/Cli/Color.php" name="lib/Horde/Cli/Color.php" />
    <install as="Horde/Cli/Translation.php" name="lib/Horde/Cli/Translation.php" />
    <install as="locale/Horde_Cli.pot" name="locale/Horde_Cli.pot" />
    <install as="locale/ar/LC_MESSAGES/Horde_Cli.mo" name="locale/ar/LC_MESSAGES/Horde_Cli.mo" />
@@ -781,12 +783,12 @@ Add &apos;default&apos; parameter to Horde_CLI::prompt().
   </release>
   <release>
    <version>
-    <release>2.1.1</release>
-    <api>2.1.0</api></version>
+    <release>2.2.0</release>
+    <api>2.2.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-03-20</date>
+   <date>2017-04-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 
