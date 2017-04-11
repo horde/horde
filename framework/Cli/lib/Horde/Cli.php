@@ -25,13 +25,6 @@
 class Horde_Cli
 {
     /**
-     * Are we running on a console?
-     *
-     * @var boolean
-     */
-    protected $_console;
-
-    /**
      * The newline string to use.
      *
      * @var string
@@ -68,10 +61,10 @@ class Horde_Cli
      */
     public function __construct()
     {
-        $this->_console = $this->runningFromCLI();
         $this->_color = new Horde_Cli_Color();
+        $console = $this->runningFromCLI();
 
-        if ($this->_console) {
+        if ($console) {
             $this->_newline = "\n";
             $this->_indent  = '    ';
             if (getenv('TERM')) {
@@ -84,7 +77,7 @@ class Horde_Cli
 
         // We really want to call this at the end of the script, not in the
         // destructor.
-        if ($this->_console) {
+        if ($console) {
             register_shutdown_function(array($this, 'shutdown'));
         }
     }
