@@ -25,6 +25,8 @@
  * Instance attributes:
  *    parser : Horde_Argv_Parser
  *      the controlling Horde_Argv_Parser instance
+ *    _color : Horde_Cli_Color @since Horde_Argv 2.1.0
+ *      a color formatter
  *    indent_increment : int
  *      the number of columns to indent per nesting level
  *    max_help_position : int
@@ -69,9 +71,15 @@ abstract class Horde_Argv_HelpFormatter
 
     public $parser = null;
 
-    public function __construct($indent_increment, $max_help_position,
-                                $width = null, $short_first = false)
+    public function __construct(
+        $indent_increment, $max_help_position, $width = null,
+        $short_first = false, $color = null
+    )
     {
+        if (is_null($color)) {
+            $color = new Horde_Cli_Color();
+        }
+        $this->_color = $color;
         $this->indent_increment = $indent_increment;
         $this->help_position = $this->max_help_position = $max_help_position;
         if (is_null($width)) {
@@ -126,6 +134,20 @@ abstract class Horde_Argv_HelpFormatter
     abstract public function formatUsage($usage);
 
     abstract public function formatHeading($heading);
+
+    /**
+     * Highlights with the heading color.
+     *
+     * @since Horde_Argv 2.1.0
+     *
+     * @param string $heading  A heading text.
+     *
+     * @retun string  The colored text.
+     */
+    public function highlightHeading($heading)
+    {
+        return $this->_color->brown($heading);
+    }
 
     /**
      * Format a paragraph of free-form text for inclusion in the
@@ -209,6 +231,7 @@ abstract class Horde_Argv_HelpFormatter
             );
             $indent_first = 0;
         }
+        $opts = $this->highlightOption($opts);
         $result[] = $opts;
         if ($option->help) {
             $help_text = $this->expandDefault($option);
@@ -225,6 +248,20 @@ abstract class Horde_Argv_HelpFormatter
             $result[] = "\n";
         }
         return implode('', $result);
+    }
+
+    /**
+     * Highlights with the option color.
+     *
+     * @since Horde_Argv 2.1.0
+     *
+     * @param string $option  An option text.
+     *
+     * @retun string  The colored text.
+     */
+    public function highlightOption($option)
+    {
+        return $this->_color->green($option);
     }
 
     public function storeOptionStrings($parser)

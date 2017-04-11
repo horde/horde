@@ -27,23 +27,32 @@
 class Horde_Argv_TitledHelpFormatter extends Horde_Argv_HelpFormatter
 {
     public function __construct(
-        $indent_increment = 0,
-        $max_help_position = 24,
-        $width = null,
-        $short_first = false)
+        $indent_increment = 0, $max_help_position = 24, $width = null,
+        $short_first = false, $color = null
+    )
     {
-        parent::__construct($indent_increment, $max_help_position, $width, $short_first);
+        parent::__construct(
+            $indent_increment, $max_help_position, $width, $short_first, $color
+        );
     }
 
     public function formatUsage($usage)
     {
-        return sprintf("%s  %s\n", $this->formatHeading(Horde_Argv_Translation::t("Usage")), $usage);
+        return sprintf(
+            "%s  %s\n",
+            $this->formatHeading(Horde_Argv_Translation::t("Usage")),
+            $usage
+        );
     }
 
     public function formatHeading($heading)
     {
         $prefix = array('=', '-');
-        return sprintf("%s\n%s\n", $heading, str_repeat($prefix[$this->level], strlen($heading)));
+        return $this->highlightHeading(sprintf(
+            "%s\n%s\n",
+            $heading,
+            str_repeat($prefix[$this->level], strlen($heading))
+        ));
     }
 
 }

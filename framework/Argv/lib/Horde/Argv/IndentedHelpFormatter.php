@@ -27,22 +27,29 @@
 class Horde_Argv_IndentedHelpFormatter extends Horde_Argv_HelpFormatter
 {
     public function __construct(
-        $indent_increment = 2,
-        $max_help_position = 24,
-        $width = null,
-        $short_first = true)
+        $indent_increment = 2, $max_help_position = 24, $width = null,
+        $short_first = true, $color = null
+    )
     {
-        parent::__construct($indent_increment, $max_help_position, $width, $short_first);
+        parent::__construct(
+            $indent_increment, $max_help_position, $width, $short_first, $color
+        );
     }
 
     public function formatUsage($usage)
     {
-        return sprintf(Horde_Argv_Translation::t("Usage:") . " %s\n", $usage);
+        return sprintf(
+            $this->highlightHeading(Horde_Argv_Translation::t("Usage:"))
+                . " %s\n",
+            $usage
+        );
     }
 
     public function formatHeading($heading)
     {
-        return sprintf('%' . $this->current_indent . "s%s:\n", '', $heading);
+        return $this->highlightHeading(sprintf(
+            '%' . $this->current_indent . "s%s:\n", '', $heading
+        ));
     }
 
 }

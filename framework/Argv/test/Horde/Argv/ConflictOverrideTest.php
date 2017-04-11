@@ -16,14 +16,31 @@ class Horde_Argv_ConflictOverrideTest extends Horde_Argv_TestCase
     public function setUp()
     {
         parent::setUp();
-        $this->parser = new Horde_Argv_InterceptingParser(array('usage' => Horde_Argv_Option::SUPPRESS_USAGE));
+        $this->parser = new Horde_Argv_InterceptingParser(array(
+            'usage' => Horde_Argv_Option::SUPPRESS_USAGE,
+            'formatter' => new Horde_Argv_IndentedHelpFormatter(
+                2, 24, null, true,
+                new Horde_Cli_Color(Horde_Cli_Color::FORMAT_NONE)
+            )
+        ));
         $this->parser->setConflictHandler('resolve');
-        $this->parser->addOption('-n', '--dry-run',
-                                 array('action' => 'store_true', 'dest' => 'dry_run',
-                                       'help' => "don't do anything"));
-        $this->parser->addOption('--dry-run', '-n',
-                                 array('action' => 'store_const', 'const' => 42, 'dest' => 'dry_run',
-                                       'help' => 'dry run mode'));
+        $this->parser->addOption(
+            '-n', '--dry-run',
+            array(
+                'action' => 'store_true',
+                'dest' => 'dry_run',
+                'help' => "don't do anything"
+            )
+        );
+        $this->parser->addOption(
+            '--dry-run', '-n',
+            array(
+                'action' => 'store_const',
+                'const' => 42,
+                'dest' => 'dry_run',
+                'help' => 'dry run mode'
+            )
+        );
     }
 
     public function testConflictOverrideOpts()

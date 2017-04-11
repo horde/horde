@@ -18,9 +18,14 @@ class Horde_Argv_ConflictTestCase extends Horde_Argv_TestCase
             'help' => 'increment verbosity'))
         );
 
-        $this->parser = new Horde_Argv_InterceptingParser(
-            array('usage' => Horde_Argv_Option::SUPPRESS_USAGE, 'optionList' => $options)
-        );
+        $this->parser = new Horde_Argv_InterceptingParser(array(
+            'usage' => Horde_Argv_Option::SUPPRESS_USAGE,
+            'optionList' => $options,
+            'formatter' => new Horde_Argv_IndentedHelpFormatter(
+                2, 24, null, true,
+                new Horde_Cli_Color(Horde_Cli_Color::FORMAT_NONE)
+            )
+        ));
     }
 
     public function showVersion($option, $opt, $value, $parser)

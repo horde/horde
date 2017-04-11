@@ -61,19 +61,32 @@ class Horde_Argv_CallbackTest extends Horde_Argv_TestCase
 
     public function testCallbackHelp()
     {
-        // This test was prompted by SF bug #960515 -- the point is
-        // not to inspect the help text, just to make sure that
-        // formatHelp() doesn't crash.
-        $parser = new Horde_Argv_Parser(array('usage' => Horde_Argv_Option::SUPPRESS_USAGE));
+        // This test was prompted by SF bug #960515 -- the point is not to
+        // inspect the help text, just to make sure that formatHelp() doesn't
+        // crash.
+        $parser = new Horde_Argv_Parser(array(
+            'usage' => Horde_Argv_Option::SUPPRESS_USAGE,
+            'formatter' => new Horde_Argv_IndentedHelpFormatter(
+                2, 24, null, true,
+                new Horde_Cli_Color(Horde_Cli_Color::FORMAT_NONE)
+            )
+        ));
         $parser->removeOption('-h');
-        $parser->addOption('-t', '--test',
-                           array('action' => 'callback', 'callback' => array($this, 'returnNull'),
-                                 'type' => 'string', 'help' => 'foo'));
+        $parser->addOption(
+            '-t', '--test',
+            array(
+                'action' => 'callback',
+                'callback' => array($this, 'returnNull'),
+                'type' => 'string',
+                'help' => 'foo'
+            )
+        );
 
         $expectedHelp = "Options:\n  -t TEST, --test=TEST  foo\n";
         $this->assertHelp($parser, $expectedHelp);
     }
 
     public function returnNull()
-    {}
+    {
+    }
 }

@@ -17,10 +17,10 @@
   <email>mike@maintainable.com</email>
   <active>yes</active>
  </lead>
- <date>2016-02-01</date>
+ <date>2017-04-11</date>
  <version>
-  <release>2.0.13</release>
-  <api>1.0.0</api>
+  <release>2.1.0</release>
+  <api>1.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -28,7 +28,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* 
+* [jan] Colorize output.
+* [jan] Add Horde_Argv_HelpFormatter#highlightHeading() and  Horde_Argv_HelpFormatter#highlightOption().
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -41,6 +42,7 @@
       <file name="DOCS_ORIGIN" role="doc" />
       <file name="EXTEND" role="doc" />
       <file name="README" role="doc" />
+      <file name="UPGRADING" role="doc" />
      </dir> <!-- /doc/Horde/Argv -->
     </dir> <!-- /doc/Horde -->
    </dir> <!-- /doc -->
@@ -424,6 +426,7 @@
    <install as="DOCS_ORIGIN" name="doc/Horde/Argv/DOCS_ORIGIN" />
    <install as="EXTEND" name="doc/Horde/Argv/EXTEND" />
    <install as="README" name="doc/Horde/Argv/README" />
+   <install as="UPGRADING" name="doc/Horde/Argv/UPGRADING" />
    <install as="Horde/Argv/AmbiguousOptionException.php" name="lib/Horde/Argv/AmbiguousOptionException.php" />
    <install as="Horde/Argv/BadOptionException.php" name="lib/Horde/Argv/BadOptionException.php" />
    <install as="Horde/Argv/Exception.php" name="lib/Horde/Argv/Exception.php" />
@@ -918,15 +921,16 @@
   </release>
   <release>
    <version>
-    <release>2.0.13</release>
-    <api>1.0.0</api></version>
+    <release>2.1.0</release>
+    <api>1.1.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-02-01</date>
+   <date>2017-04-11</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* 
+* [jan] Colorize output.
+* [jan] Add Horde_Argv_HelpFormatter#highlightHeading() and  Horde_Argv_HelpFormatter#highlightOption().
    </notes>
   </release>
  </changelog>

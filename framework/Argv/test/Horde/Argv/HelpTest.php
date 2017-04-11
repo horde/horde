@@ -111,7 +111,13 @@ Options:
 
         putenv('COLUMNS=' . $columns);
 
-        return new Horde_Argv_InterceptingParser(array('optionList' => $options));
+        return new Horde_Argv_InterceptingParser(array(
+            'optionList' => $options,
+            'formatter' => new Horde_Argv_IndentedHelpFormatter(
+                2, 24, null, true,
+                new Horde_Cli_Color(Horde_Cli_Color::FORMAT_NONE)
+            )
+        ));
     }
 
     public function assertHelpEquals($expectedOutput)
@@ -147,7 +153,10 @@ Options:
 
     public function testHelpTitleFormatter()
     {
-        $this->parser->formatter = new Horde_Argv_TitledHelpFormatter();
+        $this->parser->formatter = new Horde_Argv_TitledHelpFormatter(
+            0, 24, null, true,
+            new Horde_Cli_Color(Horde_Cli_Color::FORMAT_NONE)
+        );
         $this->assertHelpEquals(self::$expected_help_title_formatter);
     }
 

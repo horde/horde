@@ -37,11 +37,19 @@ class Horde_Argv_ProgNameTest extends Horde_Argv_TestCase
 
     public function testDefaultProgName()
     {
-        // Make sure that program name is taken from $_SERVER['argv'][0] by default.
+        // Make sure that program name is taken from $_SERVER['argv'][0] by
+        // default.
         $saveArgv = $_SERVER['argv'];
         try {
             $_SERVER['argv'][0] = 'foo/bar/baz.php';
-            $parser = new Horde_Argv_Parser(array('usage' => "%prog ...", 'version' => "%prog 1.2"));
+            $parser = new Horde_Argv_Parser(array(
+                'usage' => "%prog ...",
+                'version' => "%prog 1.2",
+                'formatter' => new Horde_Argv_IndentedHelpFormatter(
+                    2, 24, null, true,
+                    new Horde_Cli_Color(Horde_Cli_Color::FORMAT_NONE)
+                )
+            ));
             $expectedUsage = "Usage: baz.php ...\n";
         } catch (Exception $e) {
             $_SERVER['argv'] = $saveArgv;
@@ -59,9 +67,15 @@ class Horde_Argv_ProgNameTest extends Horde_Argv_TestCase
 
     public function testCustomProgName()
     {
-        $parser = new Horde_Argv_Parser(array('prog' => 'thingy',
-                                              'version' => "%prog 0.1",
-                                              'usage' => "%prog arg arg"));
+        $parser = new Horde_Argv_Parser(array(
+            'prog' => 'thingy',
+            'version' => "%prog 0.1",
+            'usage' => "%prog arg arg",
+            'formatter' => new Horde_Argv_IndentedHelpFormatter(
+                2, 24, null, true,
+                new Horde_Cli_Color(Horde_Cli_Color::FORMAT_NONE)
+            )
+        ));
         $parser->removeOption('-h');
         $parser->removeOption('--version');
         $expectedUsage = "Usage: thingy arg arg\n";
