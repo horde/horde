@@ -457,46 +457,51 @@ class Horde_Cli
      */
     public function prompt($prompt, $choices = null, $default = null)
     {
+        if (!is_array($choices) || empty($choices)) {
+            if ($default !== null) {
+                $prompt .= ' [' . $default . ']';
+            }
+            $this->writeln($prompt . ' ', true);
+            @ob_flush();
+            $response = trim(fgets(STDIN));
+            if ($response === '' && $default !== null) {
+                $response = $default;
+            }
+            return $response;
+        }
+
         // Main event loop to capture top level command.
         while (true) {
             // Print out the prompt message.
-            if (is_array($choices) && !empty($choices)) {
-                $this->writeln(wordwrap($prompt) . ' ', !is_array($choices));
-                foreach ($choices as $key => $choice) {
-                    $this->writeln($this->indent('(' . $this->bold($key) . ') ' . $choice));
-                }
-                $question = Horde_Cli_Translation::t("Type your choice");
-                if ($default !== null) {
-                    $question .= ' [' . $default . ']';
-                }
-                $this->writeln($question . ': ', true);
-                @ob_flush();
+            $this->writeln($prompt . ' ', !is_array($choices));
+            foreach ($choices as $key => $choice) {
+                $this->writeln(
+                    $this->indent('(' . $this->bold($key) . ') ' . $choice)
+                );
+            }
+            $question = Horde_Cli_Translation::t("Type your choice");
+            if ($default !== null) {
+                $question .= ' [' . $default . ']';
+            }
+            $this->writeln($question . ': ', true);
+            @ob_flush();
 
-                // Get the user choice.
-                $response = trim(fgets(STDIN));
-                if ($response === '' && $default !== null) {
-                    $response = $default;
-                }
-                if (isset($choices[$response])) {
-                    return $response;
-                } else {
-                    $this->writeln($this->red(sprintf(Horde_Cli_Translation::t("\"%s\" is not a valid choice."), $response)));
-                }
-            } else {
-                if ($default !== null) {
-                    $prompt .= ' [' . $default . ']';
-                }
-                $this->writeln(wordwrap($prompt) . ' ', true);
-                @ob_flush();
-                $response = trim(fgets(STDIN));
-                if ($response === '' && $default !== null) {
-                    $response = $default;
-                }
+            // Get the user choice.
+            $response = trim(fgets(STDIN));
+            if ($response === '' && $default !== null) {
+                $response = $default;
+            }
+            if (isset($choices[$response])) {
                 return $response;
+            } else {
+                $this->writeln($this->red(sprintf(
+                    Horde_Cli_Translation::t(
+                        "\"%s\" is not a valid choice."
+                    ),
+                    $response
+                )));
             }
         }
-
-        return true;
     }
 
     /**
@@ -516,7 +521,11 @@ class Horde_Cli
 
         if (preg_match('/^win/i', PHP_OS)) {
             $vbscript = sys_get_temp_dir() . 'prompt_password.vbs';
-            file_put_contents($vbscript, 'wscript.echo(InputBox("' . addslashes($prompt) . '", "", "password here"))');
+            file_put_contents(
+                $vbscript,
+                'wscript.echo(InputBox("' . addslashes($prompt)
+                . '", "", "password here"))'
+            );
             $command = "cscript //nologo " . escapeshellarg($vbscript);
             $password = rtrim(shell_exec($command));
             unlink($vbscript);
@@ -526,7 +535,8 @@ class Horde_Cli
                 /* Cannot spawn shell, fall back to standard prompt. */
                 return $this->prompt($prompt);
             }
-            $command = '/usr/bin/env bash -c "read -s -p ' . escapeshellarg($prompt) . ' mypassword && echo \$mypassword"';
+            $command = '/usr/bin/env bash -c "read -s -p '
+                . escapeshellarg($prompt) . ' mypassword && echo \$mypassword"';
             $password = rtrim(shell_exec($command));
             echo "\n";
         }
@@ -535,8 +545,8 @@ class Horde_Cli
     }
 
     /**
-     * Reads everything that is sent through standard input and returns it
-     * as a single string.
+     * Reads everything that is sent through standard input and returns it as a
+     * single string.
      *
      * @return string  The contents of the standard input.
      */
