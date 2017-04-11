@@ -2,7 +2,7 @@
     "name": "horde/components",
     "description": "A package for dealing with Horde components",
     "type": "library",
-    "homepage": "http://pear.horde.org",
+    "homepage": "https://pear.horde.org",
     "license": "LGPL-2.1",
     "authors": [
         {
@@ -12,7 +12,7 @@
         }
     ],
     "version": "0.99.1",
-    "time": "2013-02-13",
+    "time": "2016-06-28",
     "repositories": [
         {
             "type": "pear",
@@ -20,11 +20,11 @@
         }
     ],
     "require": {
-        "php": ">=5.2.1",
+        "php": "^5.3",
         "pear-pear.horde.org/Horde_Autoloader": "*",
         "pear-pear.horde.org/Horde_Argv": "*",
         "pear-pear.horde.org/Horde_Cli": "*",
-        "pear-pear.horde.org/Horde_Cli_Modular": "*",
+        "pear-pear.horde.org/Horde_Cli_Modular": "^2.1",
         "pear-pear.horde.org/Horde_Http": "*",
         "pear-pear.horde.org/Horde_Pear": "*",
         "pear-pear.horde.org/Horde_Role": "*",

@@ -11,15 +11,15 @@
             "role": "lead"
         }
     ],
-    "version": "1.0.10",
+    "version": "1.0.11",
     "time": "2016-03-08",
     "repositories": [
         {
             "type": "pear",
-            "url": "https://pear.horde.org"
+            "url": "http://pear.horde.org"
         }
     ],
     "require": {
-        "php": ">=5.0.0,<=8.0.0alpha1"
+        "php": "^5,<8"
     }
 }

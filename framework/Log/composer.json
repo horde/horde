@@ -16,8 +16,8 @@
             "role": "lead"
         }
     ],
-    "version": "2.3.0",
-    "time": "2017-02-27",
+    "version": "2.3.1",
+    "time": "2017-03-20",
     "repositories": [
         {
             "type": "pear",
@@ -25,15 +25,15 @@
         }
     ],
     "require": {
-        "php": ">=5.3.0,<=8.0.0alpha1",
-        "pear-pear.horde.org/Horde_Constraint": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Exception": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Util": ">=2.0.0@stable,<=3.0.0alpha1@stable"
+        "php": "^5.3,<8",
+        "pear-pear.horde.org/Horde_Constraint": "^2@stable",
+        "pear-pear.horde.org/Horde_Exception": "^2@stable",
+        "pear-pear.horde.org/Horde_Util": "^2@stable"
     },
     "suggest": {
-        "pear-pear.horde.org/Horde_Cli": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Scribe": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Test": ">=2.1.0@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Cli": "^2@stable",
+        "pear-pear.horde.org/Horde_Scribe": "^2@stable",
+        "pear-pear.horde.org/Horde_Test": "^2.1@stable",
         "ext-dom": "*"
     }
 }

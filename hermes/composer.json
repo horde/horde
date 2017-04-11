@@ -2,7 +2,7 @@
     "name": "horde/hermes",
     "description": "A web based time tracker",
     "type": "library",
-    "homepage": "http://pear.horde.org",
+    "homepage": "https://pear.horde.org",
     "license": "BSD-2-Clause",
     "authors": [
         {
@@ -22,7 +22,7 @@
         }
     ],
     "version": "2.0.0",
-    "time": "2012-11-19",
+    "time": "2016-01-13",
     "repositories": [
         {
             "type": "pear",
@@ -30,27 +30,27 @@
         }
     ],
     "require": {
-        "php": ">=5.3.0",
-        "pear-pear.horde.org/horde": ">=5.0.0,<=6.0.0alpha1",
-        "pear-pear.horde.org/Horde_Auth": ">=2.0.0,<=3.0.0alpha1",
-        "pear-pear.horde.org/Horde_Autoloader": ">=2.0.0,<=3.0.0alpha1",
-        "pear-pear.horde.org/Horde_Core": ">=2.9.0,<=3.0.0alpha1",
-        "pear-pear.horde.org/Horde_Data": ">=2.0.0,<=3.0.0alpha1",
-        "pear-pear.horde.org/Horde_Date": ">=2.0.0,<=3.0.0alpha1",
-        "pear-pear.horde.org/Horde_Db": ">=2.0.0,<=3.0.0alpha1",
-        "pear-pear.horde.org/Horde_Exception": ">=2.0.0,<=3.0.0alpha1",
-        "pear-pear.horde.org/Horde_Form": ">=2.0.0,<=3.0.0alpha1",
-        "pear-pear.horde.org/Horde_Nls": ">=2.0.0,<=3.0.0alpha1",
-        "pear-pear.horde.org/Horde_Notification": ">=2.0.0,<=3.0.0alpha1",
-        "pear-pear.horde.org/Horde_Perms": ">=2.0.0,<=3.0.0alpha1",
-        "pear-pear.horde.org/Horde_Url": ">=2.0.0,<=3.0.0alpha1",
-        "pear-pear.horde.org/Horde_Util": ">=2.0.0,<=3.0.0alpha1",
+        "php": "^5.3",
+        "pear-pear.horde.org/horde": "^5",
+        "pear-pear.horde.org/Horde_Auth": "^2",
+        "pear-pear.horde.org/Horde_Autoloader": "^2",
+        "pear-pear.horde.org/Horde_Core": "^2.23",
+        "pear-pear.horde.org/Horde_Data": "^2",
+        "pear-pear.horde.org/Horde_Date": "^2",
+        "pear-pear.horde.org/Horde_Db": "^2",
+        "pear-pear.horde.org/Horde_Exception": "^2",
+        "pear-pear.horde.org/Horde_Form": "^2",
+        "pear-pear.horde.org/Horde_Nls": "^2",
+        "pear-pear.horde.org/Horde_Notification": "^2",
+        "pear-pear.horde.org/Horde_Perms": "^2",
+        "pear-pear.horde.org/Horde_Url": "^2",
+        "pear-pear.horde.org/Horde_Util": "^2",
         "ext-gettext": "*",
         "ext-json": "*",
         "ext-SimpleXML": "*"
     },
     "suggest": {
-        "pear-pear.horde.org/nag": ">=4.0.0,<=5.0.0alpha1",
-        "pear-pear.horde.org/turba": ">=4.0.0,<=5.0.0alpha1"
+        "pear-pear.horde.org/nag": "^4",
+        "pear-pear.horde.org/turba": "^4"
     }
 }

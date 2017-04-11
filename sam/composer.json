@@ -2,7 +2,7 @@
     "name": "horde/sam",
     "description": "Sam is short for Spam Assassin Module.",
     "type": "library",
-    "homepage": "http://pear.horde.org",
+    "homepage": "https://pear.horde.org",
     "license": "GPL-2.0",
     "authors": [
         {
@@ -12,7 +12,7 @@
         }
     ],
     "version": "1.0.0alpha1",
-    "time": "2012-07-19",
+    "time": "2016-01-13",
     "repositories": [
         {
             "type": "pear",
@@ -20,8 +20,8 @@
         }
     ],
     "require": {
-        "php": ">=5.3.0",
-        "pear-pear.horde.org/horde": ">=5.0.0,<=6.0.0alpha1",
-        "pear-pear.horde.org/Horde_Core": ">=2.0.0,<=3.0.0alpha1"
+        "php": "^5.3",
+        "pear-pear.horde.org/horde": "^5",
+        "pear-pear.horde.org/Horde_Core": "^2"
     }
 }

@@ -16,13 +16,13 @@
     "repositories": [
         {
             "type": "pear",
-            "url": "https://pear.horde.org"
+            "url": "http://pear.horde.org"
         }
     ],
     "require": {
-        "php": ">=5.3.0"
+        "php": "^5.3,<8"
     },
     "suggest": {
-        "pear-pear.horde.org/Horde_Test": ">=2.1.0,<=3.0.0alpha1"
+        "pear-pear.horde.org/Horde_Test": "^2.1"
     }
 }

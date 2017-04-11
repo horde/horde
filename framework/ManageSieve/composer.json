@@ -11,7 +11,7 @@
             "role": "lead"
         }
     ],
-    "version": "1.0.2",
+    "version": "1.0.3",
     "time": "2016-07-12",
     "repositories": [
         {
@@ -20,12 +20,12 @@
         }
     ],
     "require": {
-        "php": ">=5.4.0",
-        "pear-pear.horde.org/Horde_Exception": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Socket_Client": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Util": ">=2.0.0@stable,<=3.0.0alpha1@stable"
+        "php": "^5.4",
+        "pear-pear.horde.org/Horde_Exception": "^2@stable",
+        "pear-pear.horde.org/Horde_Socket_Client": "^2@stable",
+        "pear-pear.horde.org/Horde_Util": "^2@stable"
     },
     "suggest": {
-        "pear-pear.php.net/Auth_SASL": ">=1.0@stable"
+        "pear-pear.php.net/Auth_SASL": "^1@stable"
     }
 }

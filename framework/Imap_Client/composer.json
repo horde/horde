@@ -11,7 +11,7 @@
             "role": "lead"
         }
     ],
-    "version": "2.29.12",
+    "version": "2.29.13",
     "time": "2016-12-17",
     "repositories": [
         {
@@ -20,30 +20,30 @@
         }
     ],
     "require": {
-        "php": ">=5.3.0,<=8.0.0alpha1",
-        "pear-pear.horde.org/Horde_Exception": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Mail": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Mime": ">=2.5.2@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Socket_Client": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Stream": ">=1.4.0@stable,<=2.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Secret": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Stream_Filter": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Translation": ">=2.2.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Util": ">=2.0.0@stable,<=3.0.0alpha1@stable",
+        "php": "^5.3,<8",
+        "pear-pear.horde.org/Horde_Exception": "^2@stable",
+        "pear-pear.horde.org/Horde_Mail": "^2@stable",
+        "pear-pear.horde.org/Horde_Mime": "^2.5.2@stable",
+        "pear-pear.horde.org/Horde_Socket_Client": "^2@stable",
+        "pear-pear.horde.org/Horde_Stream": "^1.4@stable",
+        "pear-pear.horde.org/Horde_Secret": "^2@stable",
+        "pear-pear.horde.org/Horde_Stream_Filter": "^2@stable",
+        "pear-pear.horde.org/Horde_Translation": "^2.2@stable",
+        "pear-pear.horde.org/Horde_Util": "^2@stable",
         "ext-hash": "*",
         "ext-json": "*"
     },
     "suggest": {
-        "pear-pear.horde.org/Horde_Cache": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Compress_Fast": ">=1.0.0@stable,<=2.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Crypt_Blowfish": ">=1.1.0@stable,<=2.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Db": ">=2.2.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_HashTable": ">=1.0.0@stable,<=2.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Mongo": ">=1.0.0@stable,<=2.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Pack": ">=1.0.0@stable,<=2.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Stringprep": ">=1.0.0@stable,<=2.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Support": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Test": ">=2.2.7@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Cache": "^2@stable",
+        "pear-pear.horde.org/Horde_Compress_Fast": "^1@stable",
+        "pear-pear.horde.org/Horde_Crypt_Blowfish": "^1.1@stable",
+        "pear-pear.horde.org/Horde_Db": "^2.2@stable",
+        "pear-pear.horde.org/Horde_HashTable": "^1@stable",
+        "pear-pear.horde.org/Horde_Mongo": "^1@stable",
+        "pear-pear.horde.org/Horde_Pack": "^1@stable",
+        "pear-pear.horde.org/Horde_Stringprep": "^1@stable",
+        "pear-pear.horde.org/Horde_Support": "^2@stable",
+        "pear-pear.horde.org/Horde_Test": "^2.2.7@stable",
         "ext-intl": "*",
         "ext-mbstring": "*"
     }

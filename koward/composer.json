@@ -2,7 +2,7 @@
     "name": "horde/koward",
     "description": "An administration frontend for the Kolab server",
     "type": "library",
-    "homepage": "http://pear.horde.org",
+    "homepage": "https://pear.horde.org",
     "license": "LGPL-2.1",
     "authors": [
         {
@@ -12,7 +12,7 @@
         }
     ],
     "version": "0.99.1",
-    "time": "2012-07-19",
+    "time": "2016-01-13",
     "repositories": [
         {
             "type": "pear",
@@ -20,7 +20,7 @@
         }
     ],
     "require": {
-        "php": ">=5.2.8",
+        "php": "^5.3",
         "pear-pear.horde.org/Horde_Autoloader": "*",
         "pear-pear.horde.org/Horde_Auth": "*",
         "pear-pear.horde.org/Horde_Browser": "*",

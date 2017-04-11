@@ -2,7 +2,7 @@
     "name": "horde/jonah",
     "description": "Jonah is an application for handling news.",
     "type": "library",
-    "homepage": "http://pear.horde.org",
+    "homepage": "https://pear.horde.org",
     "license": "BSD-2-Clause",
     "authors": [
         {
@@ -17,7 +17,7 @@
         }
     ],
     "version": "1.0.0alpha1",
-    "time": "2012-07-19",
+    "time": "2016-12-21",
     "repositories": [
         {
             "type": "pear",
@@ -25,7 +25,7 @@
         }
     ],
     "require": {
-        "php": ">=5.3.0",
+        "php": "^5.3",
         "pear-pear.php.net/DB": "*"
     }
 }

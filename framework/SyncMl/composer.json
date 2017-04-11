@@ -11,26 +11,26 @@
             "role": "lead"
         }
     ],
-    "version": "2.0.7",
+    "version": "2.0.8",
     "time": "2016-04-05",
     "repositories": [
         {
             "type": "pear",
-            "url": "https://pear.horde.org"
+            "url": "http://pear.horde.org"
         }
     ],
     "require": {
-        "php": ">=5.3.0,<=8.0.0alpha1",
-        "pear-pear.horde.org/Horde_Date": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Icalendar": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Log": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Support": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Util": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Xml_Wbxml": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Translation": ">=2.2.0@stable,<=3.0.0alpha1@stable"
+        "php": "^5.3,<8",
+        "pear-pear.horde.org/Horde_Date": "^2@stable",
+        "pear-pear.horde.org/Horde_Icalendar": "^2@stable",
+        "pear-pear.horde.org/Horde_Log": "^2@stable",
+        "pear-pear.horde.org/Horde_Support": "^2@stable",
+        "pear-pear.horde.org/Horde_Util": "^2@stable",
+        "pear-pear.horde.org/Horde_Xml_Wbxml": "^2@stable",
+        "pear-pear.horde.org/Horde_Translation": "^2.2@stable"
     },
     "suggest": {
-        "pear-pear.horde.org/Horde_Auth": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Core": ">=2.0.0@stable,<=3.0.0alpha1@stable"
+        "pear-pear.horde.org/Horde_Auth": "^2@stable",
+        "pear-pear.horde.org/Horde_Core": "^2@stable"
     }
 }

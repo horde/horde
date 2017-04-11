@@ -12,7 +12,7 @@
         }
     ],
     "version": "1.0.0alpha1",
-    "time": "2017-02-28",
+    "time": "2017-03-23",
     "repositories": [
         {
             "type": "pear",
@@ -20,8 +20,10 @@
         }
     ],
     "require": {
-        "php": ">=5.5.0",
-        "pear-pear.horde.org/Horde_Exception": ">=2.0.0,<=3.0.0alpha1",
-        "pear-pear.horde.org/Horde_Translation": ">=2.2.2,<=3.0.0alpha1",
+        "php": "^5.5",
+        "pear-pear.horde.org/Horde_Cli": "^2.1",
+        "pear-pear.horde.org/Horde_Exception": "^2",
+        "pear-pear.horde.org/Horde_Text_Diff": "^2.2",
+        "pear-pear.horde.org/Horde_Translation": "^2.2.2"
     }
 }
