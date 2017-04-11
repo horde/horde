@@ -755,18 +755,24 @@ EOF;
     {
         $out = array();
         if (! empty($req['min'])) {
-            $v = '>='.$req['min'];
-            if ($req['dep'] == 'package' && $this->data['stability']['release'] == 'stable') {
+            $v = '^' . trim($req['min'], '.0');
+            if ($req['dep'] == 'package' &&
+                $this->data['stability']['release'] == 'stable') {
                 $v .= '@stable';
             }
             $out[] = $v;
         }
-        if (! empty($req['max'])) {
-            $v = '<='.$req['max'];
-            if ($req['dep'] == 'package' && $this->data['stability']['release'] == 'stable') {
-                $v .= '@stable';
+        if (!empty($req['max'])) {
+            if (!empty($req['exclude']) &&
+                is_array($req['exclude']) &&
+                $req['exclude'][0] == $req['max'] &&
+                preg_match('/(\d)\.0\.0alpha1/', $req['max'], $version)) {
+                if (substr($req['min'], 0, 2) != ($version[1] - 1) . '.') {
+                    $out[] = '<'.preg_replace('/(.0)*alpha1$/', '', $req['max']);
+                }
+            } else {
+                $out[] = '<='.$req['max'];
             }
-            $out[] = $v;
         }
 
         if (! empty($out)) {
