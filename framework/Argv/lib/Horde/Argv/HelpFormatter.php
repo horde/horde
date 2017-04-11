@@ -33,8 +33,7 @@
  *      the calculated starting column for option help text;
  *      initially the same as the maximum
  *    width : int
- *      total number of columns for output (pass None to constructor for
- *      this value to be taken from the $COLUMNS environment variable)
+ *      total number of columns for output (automatically detected by default)
  *    level : int
  *      current indentation level
  *    current_indent : int
@@ -76,12 +75,8 @@ abstract class Horde_Argv_HelpFormatter
         $this->indent_increment = $indent_increment;
         $this->help_position = $this->max_help_position = $max_help_position;
         if (is_null($width)) {
-            if (!empty($_ENV['COLUMNS'])) {
-                $width = $_ENV['COLUMNS'];
-            } else {
-                $width = 80;
-            }
-            $width -= 2;
+            $cli = new Horde_Cli();
+            $width = $cli->getWidth() - 2;
         }
         $this->width = $width;
         $this->current_indent = 0;
@@ -140,7 +135,7 @@ abstract class Horde_Argv_HelpFormatter
     {
         $text_width = $this->width - $this->current_indent;
         $indent = str_repeat(' ', $this->current_indent);
-        return wordwrap($indent . $text, $text_width, "\n" . $indent);
+        return wordwrap($indent . $text, $text_width, "\n" . $indent, true);
     }
 
     public function formatDescription($description)
@@ -199,7 +194,11 @@ abstract class Horde_Argv_HelpFormatter
             : null;
         $opt_width = $this->help_position - $this->current_indent - 2;
         if (strlen($opts) > $opt_width) {
-            $opts = sprintf('%' . $this->current_indent . "s%s\n", '', $opts);
+            $opts = sprintf(
+                '%' . $this->current_indent . "s%s\n",
+                '',
+                $opts
+            );
             $indent_first = $this->help_position;
         } else {
             // start help on same line as opts
@@ -213,7 +212,7 @@ abstract class Horde_Argv_HelpFormatter
         $result[] = $opts;
         if ($option->help) {
             $help_text = $this->expandDefault($option);
-            $help_lines = explode("\n", wordwrap($help_text, $this->help_width));
+            $help_lines = explode("\n", wordwrap($help_text, $this->help_width, "\n", true));
             $result[] = sprintf(
                 '%' . $indent_first . "s%s\n", '', $help_lines[0]
             );
@@ -235,14 +234,21 @@ abstract class Horde_Argv_HelpFormatter
         foreach ($parser->optionList as $opt) {
             $strings = $this->formatOptionStrings($opt);
             $this->option_strings[(string)$opt] = $strings;
-            $max_len = max($max_len, strlen($strings) + $this->current_indent);
+            $max_len = max(
+                $max_len,
+                strlen($strings) + $this->current_indent
+            );
         }
         $this->indent();
         foreach ($parser->optionGroups as $group) {
             foreach ($group->optionList as $opt) {
                 $strings = $this->formatOptionStrings($opt);
                 $this->option_strings[(string)$opt] = $strings;
-                $max_len = max($max_len, strlen($strings) + $this->current_indent);
+                $max_len = max(
+                    $max_len,
+                    strlen($strings)
+                        + $this->current_indent
+                );
             }
         }
         $this->dedent();

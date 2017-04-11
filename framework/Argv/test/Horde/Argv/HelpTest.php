@@ -63,7 +63,7 @@ Options:
     {
         parent::setUp();
         $this->parser = $this->makeParser(80);
-        $this->origColumns = isset($_ENV['COLUMNS']) ? $_ENV['COLUMNS'] : null;
+        $this->origColumns = getenv('COLUMNS');
         if (!isset($_SERVER['argv'])) {
             $_SERVER['argv'] = array('test');
         }
@@ -71,30 +71,45 @@ Options:
 
     public function tearDown()
     {
-        if (is_null($this->origColumns)) {
-            unset($_ENV['COLUMNS']);
-        } else {
-            $_ENV['COLUMNS'] = $this->origColumns;
-        }
+        putenv('COLUMNS=' . $this->origColumns);
         unset($_SERVER['argv']);
     }
 
     public function makeParser($columns)
     {
         $options = array(
-            $this->makeOption("-a", array('type' => "string", 'dest' => 'a',
-                                          'metavar' => "APPLE", 'help' => "throw APPLEs at basket")),
+            $this->makeOption(
+                "-a",
+                array(
+                    'type'    => "string",
+                    'dest'    => 'a',
+                    'metavar' => "APPLE",
+                    'help'    => "throw APPLEs at basket"
+                )
+            ),
+            $this->makeOption(
+                "-b", "--boo",
+                array(
+                    'type'    => "int",
+                    'dest'    => 'boo',
+                    'metavar' => "NUM",
+                    'help'    => "shout \"boo!\" NUM times (in order to frighten away "
+                        . "all the evil spirits that cause trouble and mayhem)"
+                )
+            ),
 
-            $this->makeOption("-b", "--boo", array('type'    => "int", 'dest' => 'boo',
-                                                   'metavar' => "NUM",
-                                                   'help'    => "shout \"boo!\" NUM times (in order to frighten away " .
-                                                                "all the evil spirits that cause trouble and mayhem)")),
-
-            $this->makeOption("--foo", array('action' => 'append', 'type' => 'string', 'dest' => 'foo',
-                                             'help' => "store FOO in the foo list for later fooing")),
+            $this->makeOption(
+                "--foo",
+                array(
+                    'action' => 'append',
+                    'type' => 'string',
+                    'dest' => 'foo',
+                    'help' => "store FOO in the foo list for later fooing"
+                )
+            ),
         );
 
-        $_ENV['COLUMNS'] = $columns;
+        putenv('COLUMNS=' . $columns);
 
         return new Horde_Argv_InterceptingParser(array('optionList' => $options));
     }
