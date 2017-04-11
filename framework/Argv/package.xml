@@ -6,16 +6,22 @@
  <summary>Horde command-line argument parsing package</summary>
  <description>Classes for parsing command line arguments with various actions, providing help, grouping options, and more.</description>
  <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
   <email>chuck@horde.org</email>
-  <active>yes</active>
+  <active>no</active>
  </lead>
  <lead>
   <name>Mike Naberezny</name>
   <user>mnaberez</user>
   <email>mike@maintainable.com</email>
-  <active>yes</active>
+  <active>no</active>
  </lead>
  <date>2017-04-11</date>
  <version>
