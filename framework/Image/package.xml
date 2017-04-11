@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mjr] Fix returning stream data from NULL image driver (Bug #14608).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1212,7 +1212,7 @@ Initial release as a PEAR package
    <date>2017-03-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mjr] Fix returning stream data from NULL image driver (Bug #14608).
    </notes>
   </release>
  </changelog>
