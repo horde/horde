@@ -60,6 +60,13 @@ class Horde_Cli
     protected $_color;
 
     /**
+     * The terminal width.
+     *
+     * @var integer
+     */
+    protected $_width;
+
+    /**
      * Detect the current environment (web server or console) and sets
      * internal values accordingly.
      *
@@ -77,6 +84,7 @@ class Horde_Cli
             if (getenv('TERM')) {
                 $this->_clearscreen  = "\x1b[2J\x1b[H";
             }
+            $this->_setWidth();
         } else {
             $this->_newline = '<br />';
             $this->_space = '&nbsp;';
@@ -88,6 +96,20 @@ class Horde_Cli
         if ($console) {
             register_shutdown_function(array($this, 'shutdown'));
         }
+    }
+
+    /**
+     * Retuns the detected terminal screen width.
+     *
+     * Defaults to 80 if the width cannot be detected automatically.
+     *
+     * @since Horde_Cli 2.2.0
+     *
+     * @return integer  The terminal screen width or null if not a terminal.
+     */
+    public function getWidth()
+    {
+        return $this->_width;
     }
 
     /**
@@ -231,11 +253,16 @@ class Horde_Cli
         foreach (explode($this->_newline, $this->_color->remove($message)) as $line) {
             $length = max($length, Horde_String::length($line));
         }
+        if ($width = $this->getWidth()) {
+            $length = min($length, $width);
+        }
         if (strlen($above)) {
-            $message = $this->writeln(str_repeat($above, $length)) . $message;
+            $message = $this->writeln(str_repeat($above, $length))
+                . wordwrap($message, $length, $this->_newline);
         }
         if (strlen($below)) {
-            $message = $this->writeln($message) . str_repeat($below, $length);
+            $message = $this->writeln(wordwrap($message, $length, $this->_newline))
+                . str_repeat($below, $length);
         }
         return $message;
     }
@@ -249,8 +276,15 @@ class Horde_Cli
      */
     public function message($message, $type = 'cli.message')
     {
-        $message = wordwrap(str_replace("\n", "\n           ", $message),
-                            68, "\n           ", true);
+        if ($width = $this->getWidth()) {
+            $indent = $this->_newline . str_repeat($this->_space, 11);
+            $message = wordwrap(
+                str_replace($this->_newline, $indent, $message),
+                $width - 12,
+                $indent,
+                true
+            );
+        }
 
         switch ($type) {
         case 'cli.error':
@@ -359,9 +393,14 @@ class Horde_Cli
      */
     public function prompt($prompt, $choices = null, $default = null)
     {
+        $width = $this->getWidth();
+
         if (!is_array($choices) || empty($choices)) {
             if ($default !== null) {
                 $prompt .= ' [' . $default . ']';
+            }
+            if ($width) {
+                $prompt = wordwrap($prompt, $width);
             }
             $this->writeln($prompt . ' ', true);
             @ob_flush();
@@ -370,6 +409,10 @@ class Horde_Cli
                 $response = $default;
             }
             return $response;
+        }
+
+        if ($width) {
+            $prompt = wordwrap($prompt, $width);
         }
 
         // Main event loop to capture top level command.
@@ -532,4 +575,23 @@ class Horde_Cli
         }
     }
 
+    /**
+     * Detects the terminal screen width.
+     */
+    protected function _setWidth()
+    {
+        $this->_width = getenv('COLUMNS');
+        if (!$this->_width) {
+            $this->_width = exec('tput cols');
+        }
+        if (!$this->_width) {
+            $size = explode(' ', exec('stty size'));
+            if (count($size) == 2) {
+                $this->_width = $size[1];
+            }
+        }
+        if (!$this->_width) {
+            $this->_width = 80;
+        }
+    }
 }

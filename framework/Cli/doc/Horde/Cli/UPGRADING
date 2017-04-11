@@ -30,6 +30,10 @@ Upgrading to 2.2.0
 
   - Horde_Cli
 
+    - getWidth()
+
+      This method has been added.
+
     - bold(), red(), green(), blue(), yellow()
 
       These methods have been deprecated. Use Horde_Cli_Color or
