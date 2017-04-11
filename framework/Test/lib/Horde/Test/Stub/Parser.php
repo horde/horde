@@ -28,6 +28,15 @@
 class Horde_Test_Stub_Parser
 extends Horde_Argv_Parser
 {
+    public function __construct($args = array())
+    {
+        $args['formatter'] = new Horde_Argv_IndentedHelpFormatter(
+            2, 14, null, true,
+            new Horde_Cli_Color(Horde_Cli_Color::FORMAT_NONE)
+        );
+        parent::__construct($args);
+    }
+
     /**
      * Print a usage message incorporating $msg to stderr and exit.
      * If you override this in a subclass, it should not return -- it
