@@ -135,14 +135,23 @@ extends Components_Module_Base
     }
 
     /**
+     * Get the usage title for this module.
+     *
+     * @return string The title.
+     */
+    public function getTitle()
+    {
+        return 'install';
+    }
+
+    /**
      * Get the usage description for this module.
      *
      * @return string The description.
      */
     public function getUsage()
     {
-        return '  install     - Install a component.
-';
+        return 'Install a component.';
     }
 
     /**

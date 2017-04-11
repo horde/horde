@@ -61,14 +61,23 @@ extends Components_Module_Base
     }
 
     /**
+     * Get the usage title for this module.
+     *
+     * @return string The title.
+     */
+    public function getTitle()
+    {
+        return 'changed';
+    }
+
+    /**
      * Get the usage description for this module.
      *
      * @return string The description.
      */
     public function getUsage()
     {
-        return '  changed     - Add a change log entry.
-';
+        return 'Add a change log entry.';
     }
 
     /**

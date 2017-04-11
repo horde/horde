@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Use coloring capabilities of Horde_Cli_Modular.
 * [jan] Add --theme argument to &apos;update&apos; command to package themes.
 * [jan] Add --dump switch to release module to dump the release notes.
 * [jan] Add --sentinel argument to &apos;update&apos; command.
@@ -2044,6 +2045,9 @@
    <package>
     <name>Horde_Cli_Modular</name>
     <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Http</name>
@@ -3434,6 +3438,7 @@
    <date>2016-06-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Use coloring capabilities of Horde_Cli_Modular.
 * [jan] Add --theme argument to &apos;update&apos; command to package themes.
 * [jan] Add --dump switch to release module to dump the release notes.
 * [jan] Add --sentinel argument to &apos;update&apos; command.

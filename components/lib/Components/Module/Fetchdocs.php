@@ -68,14 +68,23 @@ extends Components_Module_Base
     }
 
     /**
+     * Get the usage title for this module.
+     *
+     * @return string The title.
+     */
+    public function getTitle()
+    {
+        return 'fetchdocs';
+    }
+
+    /**
      * Get the usage description for this module.
      *
      * @return string The description.
      */
     public function getUsage()
     {
-        return '  fetchdocs   - Fetch remote documentation.
-';
+        return 'Fetch remote documentation.';
     }
 
     /**

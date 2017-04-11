@@ -75,14 +75,23 @@ extends Components_Module_Base
     }
 
     /**
+     * Get the usage title for this module.
+     *
+     * @return string The title.
+     */
+    public function getTitle()
+    {
+        return 'webdocs';
+    }
+
+    /**
      * Get the usage description for this module.
      *
      * @return string The description.
      */
     public function getUsage()
     {
-        return '  webdocs     - Generate documentation for www.horde.org.
-';
+        return 'Generate documentation for www.horde.org.';
     }
 
     /**
@@ -104,7 +113,8 @@ extends Components_Module_Base
      */
     public function getHelp($action)
     {
-        return 'This module generates the required set of data to publish information about this component on www.horde.org. The operation will only work with an already relased package! Make sure you enter the name of the package on the PEAR server rather than using a local path and ensure you added the "--allow-remote" flag as well.';
+        $formatter = new Horde_Argv_IndentedHelpFormatter();
+        return 'This module generates the required set of data to publish information about this component on www.horde.org. The operation will only work with an already relased package! Make sure you enter the name of the package on the PEAR server rather than using a local path and ensure you added the "' . $formatter->highlightOption('--allow-remote') . '" flag as well.';
     }
 
     /**

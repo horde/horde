@@ -69,14 +69,23 @@ extends Components_Module_Base
     }
 
     /**
+     * Get the usage title for this module.
+     *
+     * @return string The title.
+     */
+    public function getTitle()
+    {
+        return 'distribute';
+    }
+
+    /**
      * Get the usage description for this module.
      *
      * @return string The description.
      */
     public function getUsage()
     {
-        return '  distribute  - Generate a distributable package.
-';
+        return 'Generate a distributable package.';
     }
 
     /**

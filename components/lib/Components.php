@@ -107,7 +107,8 @@ This is a list of available actions (use "help ACTION" to get additional informa
                 'provider' => array(
                     'prefix' => 'Components_Module_',
                     'dependencies' => $dependencies
-                )
+                ),
+                'cli' => $dependencies->getInstance('Horde_Cli'),
             )
         );
         $dependencies->setModules($modular);

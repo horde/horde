@@ -133,14 +133,23 @@ extends Components_Module_Base
     }
 
     /**
+     * Get the usage title for this module.
+     *
+     * @return string The title.
+     */
+    public function getTitle()
+    {
+        return 'release';
+    }
+
+    /**
      * Get the usage description for this module.
      *
      * @return string The description.
      */
     public function getUsage()
     {
-        return '  release     - Releases a component via pear.horde.org.
-';
+        return 'Releases a component via pear.horde.org.';
     }
 
     /**

@@ -28,7 +28,7 @@
  * @link     http://pear.horde.org/index.php?package=Components
  */
 abstract class Components_Module_Base
-implements Components_Module
+implements Components_Module, Horde_Cli_Modular_ModuleUsage
 {
     /**
      * The dependency provider.
@@ -45,6 +45,16 @@ implements Components_Module
     public function __construct(Components_Dependencies $dependencies)
     {
         $this->_dependencies = $dependencies;
+    }
+
+    /**
+     * Get the usage title for this module.
+     *
+     * @return string The title.
+     */
+    public function getTitle()
+    {
+        return '';
     }
 
     /**

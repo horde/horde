@@ -47,13 +47,23 @@ extends Components_Module_Base
     }
 
     /**
+     * Get the usage title for this module.
+     *
+     * @return string The title.
+     */
+    public function getTitle()
+    {
+        return 'composer';
+    }
+
+    /**
      * Get the usage description for this module.
      *
      * @return string The description.
      */
     public function getUsage()
     {
-        return "  composer    - Create config file for PHP Composer.\n";
+        return 'Create config file for PHP Composer.';
     }
 
     /**

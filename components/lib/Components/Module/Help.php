@@ -54,14 +54,23 @@ extends Components_Module_Base
     }
 
     /**
+     * Get the usage title for this module.
+     *
+     * @return string The title.
+     */
+    public function getTitle()
+    {
+        return 'help ACTION';
+    }
+
+    /**
      * Get the usage description for this module.
      *
      * @return string The description.
      */
     public function getUsage()
     {
-        return '  help ACTION - Provide information about the specified ACTION.
-';
+        return 'Provide information about the specified ACTION.';
     }
 
     /**
@@ -91,26 +100,29 @@ extends Components_Module_Base
             } else {
                 $action = '';
             }
+            $formatter = new Horde_Argv_IndentedHelpFormatter();
             $modules = $this->_dependencies->getModules();
             foreach ($modules->getModules()->listModules() as $module) {
                 $element = $modules->getProvider()->getModule($module);
                 if (in_array($action, $element->getActions())) {
                     $title = "ACTION \"" . $action . "\"";
                     $sub = str_repeat('-', strlen($title));
-                    $help = "\n" . $title . "\n" . $sub . "\n\n";
+                    $help = "\n"
+                        . $formatter->highlightHeading($title . "\n" . $sub)
+                        . "\n\n";
                     $help .= Horde_String::wordwrap(
                         $element->getHelp($action), 75, "\n", true
                     );
                     $options = $element->getContextOptionHelp();
                     if (!empty($options)) {
-                        $formatter = new Horde_Argv_IndentedHelpFormatter();
                         $parser = $this->_dependencies->getParser();
                         $title = "OPTIONS for \"" . $action . "\"";
                         $sub = str_repeat('-', strlen($title));
-                        $help .= "\n\n\n" . $title . "\n" . $sub . "";
+                        $help .= "\n\n\n"
+                            . $formatter->highlightHeading($title . "\n" . $sub);
                         foreach ($options as $option => $help_text) {
                             $argv_option = $parser->getOption($option);
-                            $help .= "\n\n    " . $formatter->formatOptionStrings($argv_option) . "\n\n      ";
+                            $help .= "\n\n    " . $formatter->highlightOption($formatter->formatOptionStrings($argv_option)) . "\n\n      ";
                             if (empty($help_text)) {
                                 $help .= Horde_String::wordwrap(
                                     $argv_option->help, 75, "\n      ", true
