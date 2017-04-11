@@ -135,6 +135,12 @@ if ((!@include_once __DIR__ . '/../Cli/lib/Horde/Cli.php') &&
     (!@include_once $cwd . '/../Cli/lib/Horde/Cli.php')) {
     print_usage('Horde_Cli library is not in the include_path or in the src directory.');
 }
+if ((!@include_once __DIR__ . '/../Cli/lib/Horde/Cli/Color.php') &&
+    (!@include_once 'Horde/Cli/Color.php')  &&
+    (!@include_once $srcDir . '/Cli/lib/Horde/Cli/Color.php') &&
+    (!@include_once $cwd . '/../Cli/lib/Horde/Cli/Color.php')) {
+    print_usage('Horde_Cli library is not recent enough, you need at least version 2.2.0.');
+}
 
 // Make sure no one runs this from the web.
 if (!Horde_Cli::runningFromCLI()) {
