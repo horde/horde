@@ -318,7 +318,7 @@ class Horde_Cli
      * Creates a header from a string by drawing character lines above or below
      * the header content.
      *
-     * @since Horde_Cli 2.2.0
+     * @since Horde_Cli 2.1.0
      *
      * @param string $message  A message to turn into a header.
      * @param string $below    Character to use for drawing the line below the
