@@ -58,9 +58,11 @@ class Horde_Cli_Modular
      *               (object) An instance of Horde_Cli_Modular_Modules
      *  - provider:  Determines the module provider. Can be one of:
      *               (array)  A parameter array.
-     *                        See Horde_Cli_Modular_ModuleProvider::__construct()
+     *                        See
+     *                        Horde_Cli_Modular_ModuleProvider::__construct()
      *               (string) A class name.
      *               (object) An instance of Horde_Cli_Modular_ModuleProvider
+     *  - cli:       (Horde_Cli) A Horde_Cli object for usage formatting.
      */
     public function __construct(array $parameters = null)
     {
@@ -93,9 +95,52 @@ class Horde_Cli_Modular
         } else {
             $usage = $this->_parameters['parser']['usage'];
         }
+
+        $usageInterface = true;
+        $length = 0;
         foreach ($this->getModules() as $module) {
-            $usage .= $this->getProvider()->getModule($module)->getUsage();
+            $module = $this->getProvider()->getModule($module);
+            if ($module instanceof Horde_Cli_Modular_ModuleUsage) {
+                $length = max($length, strlen($module->getTitle()));
+            } else {
+                $usageInterface = false;
+                break;
+            }
         }
+
+        if (!$usageInterface) {
+            foreach ($this->getModules() as $module) {
+                $usage .= $this->getProvider()->getModule($module)->getUsage();
+            }
+            return $usage;
+        }
+
+        $indent = str_repeat(' ', $length + 5);
+        $width = $this->_parameters['cli']->getWidth();
+        foreach ($this->getModules() as $module) {
+            $module = $this->getProvider()->getModule($module);
+            if (!strlen($module->getTitle())) {
+                continue;
+            }
+            $moduleUsage = $module->getUsage();
+            if ($width) {
+                $moduleUsage = wordwrap(
+                    $moduleUsage,
+                    $width - $length - 5,
+                    "\n" . $indent,
+                    true
+                );
+            }
+            $usage .= sprintf(
+                "%s - %s\n",
+                $this->_parameters['cli']->color(
+                    'green',
+                    sprintf('  %-' . $length . 's', $module->getTitle())
+                ),
+                $moduleUsage
+            );
+        }
+
         return $usage;
     }
 

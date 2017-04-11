@@ -5,15 +5,21 @@
  <summary>A toolset for CLI interfaces that are modular.</summary>
  <description>Command line interfaces can often be composed of different modules responsible for distinct actions. This package allows each such module to influence the overall command line interface. First and foremost each module can add its own option group with a specific title, description and a set of module specific options (see Horde_Argv_OptionGroup for further details). In addition Cli_Modular allows a module to modify the global usage string and add basic options valid for all modules.</description>
  <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
   <name>Gunnar Wrobel</name>
   <user>wrobel</user>
   <email>p@rdus.de</email>
-  <active>yes</active>
+  <active>no</active>
  </lead>
- <date>2016-02-01</date>
+ <date>2017-04-11</date>
  <version>
-  <release>2.0.5</release>
-  <api>1.0.0</api>
+  <release>2.1.0</release>
+  <api>1.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -21,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Add Horde_Cli_Modular_ModuleUsage to support colored output.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -32,6 +38,7 @@
        <file name="COPYING" role="doc" />
        <file name="DOCS_ORIGIN" role="doc" />
        <file name="README" role="doc" />
+       <file name="UPGRADING" role="doc" />
       </dir> <!-- /doc/Horde/Cli/Modular -->
      </dir> <!-- /doc/Horde/Cli -->
     </dir> <!-- /doc/Horde -->
@@ -43,6 +50,7 @@
        <file name="Exception.php" role="php" />
        <file name="Module.php" role="php" />
        <file name="ModuleProvider.php" role="php" />
+       <file name="ModuleUsage.php" role="php" />
        <file name="Modules.php" role="php" />
       </dir> <!-- /lib/Horde/Cli/Modular -->
       <file name="Modular.php" role="php" />
@@ -115,10 +123,12 @@
    <install as="COPYING" name="doc/Horde/Cli/Modular/COPYING" />
    <install as="DOCS_ORIGIN" name="doc/Horde/Cli/Modular/DOCS_ORIGIN" />
    <install as="README" name="doc/Horde/Cli/Modular/README" />
+   <install as="UPGRADING" name="doc/Horde/Cli/Modular/UPGRADING" />
    <install as="Horde/Cli/Modular.php" name="lib/Horde/Cli/Modular.php" />
    <install as="Horde/Cli/Modular/Exception.php" name="lib/Horde/Cli/Modular/Exception.php" />
    <install as="Horde/Cli/Modular/Module.php" name="lib/Horde/Cli/Modular/Module.php" />
    <install as="Horde/Cli/Modular/ModuleProvider.php" name="lib/Horde/Cli/Modular/ModuleProvider.php" />
+   <install as="Horde/Cli/Modular/ModuleUsage.php" name="lib/Horde/Cli/Modular/ModuleUsage.php" />
    <install as="Horde/Cli/Modular/Modules.php" name="lib/Horde/Cli/Modular/Modules.php" />
    <install as="Horde/Cli/Modular/AllTests.php" name="test/Horde/Cli/Modular/AllTests.php" />
    <install as="Horde/Cli/Modular/Autoload.php" name="test/Horde/Cli/Modular/Autoload.php" />
@@ -271,15 +281,15 @@
   </release>
   <release>
    <version>
-    <release>2.0.5</release>
-    <api>1.0.0</api></version>
+    <release>2.1.0</release>
+    <api>1.1.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-02-01</date>
+   <date>2017-04-11</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Add Horde_Cli_Modular_ModuleUsage to support colored output.
    </notes>
   </release>
  </changelog>
