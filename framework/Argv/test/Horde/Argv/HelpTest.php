@@ -41,10 +41,10 @@ Options:
 Options
 =======
 -a APPLE           throw APPLEs at basket
---boo=NUM, -b NUM  shout "boo!" NUM times (in order to frighten away all the
+-b NUM, --boo=NUM  shout "boo!" NUM times (in order to frighten away all the
                    evil spirits that cause trouble and mayhem)
 --foo=FOO          store FOO in the foo list for later fooing
---help, -h         show this help message and exit
+-h, --help         show this help message and exit
 ';
 
     public static $expected_help_short_lines = 'Usage: bar.php [options]
