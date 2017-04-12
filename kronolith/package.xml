@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Don&apos;t hide the reservee&apos;s identity on the resource calendar (Bug #14609).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2774,7 +2774,7 @@
    <date>2017-03-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Don&apos;t hide the reservee&apos;s identity on the resource calendar (Bug #14609).
    </notes>
   </release>
  </changelog>
