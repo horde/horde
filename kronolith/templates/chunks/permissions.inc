@@ -2,7 +2,7 @@
     <p class="kronolithDialogInfo"><?php printf(_("%sStandard sharing.%s You can also set %sadvanced sharing%s options."), '<strong>', '</strong>', '<strong><a href="#" id="kronolithC' .  $type . 'PMore">', '</a></strong>') ?></p>
     <p>
       <input type="radio" id="kronolithC<?php echo $type ?>PNone" name="basic_perms" checked="checked" />
-      <label for="kronolithC<?php echo $type ?>PNone"><?php echo $type == 'internal' ? _("Don't share this calendar") : _("Don't share this task list") ?></label><br />
+      <label for="kronolithC<?php echo $type ?>PNone"><?php echo $type == 'internal' || $type == 'resource' ? _("Don't share this calendar") : _("Don't share this task list") ?></label><br />
     </p>
     <?php if ($GLOBALS['registry']->isAdmin() || !empty($GLOBALS['conf']['share']['world'])): ?>
     <p>
