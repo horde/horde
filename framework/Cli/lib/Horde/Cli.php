@@ -288,27 +288,27 @@ class Horde_Cli
 
         switch ($type) {
         case 'cli.error':
-            $type_message = $this->red(
+            $type_message = $this->_color->red(
                 '[' . $this->_space . 'ERROR!' . $this->_space . '] '
             );
             break;
 
         case 'cli.warning':
-            $type_message = $this->yellow(
+            $type_message = $this->_color->yellow(
                 '[' . $this->_space . $this->_space . 'WARN'
                     . $this->_space . $this->_space . '] '
             );
             break;
 
         case 'cli.success':
-            $type_message = $this->green(
+            $type_message = $this->_color->green(
                 '[' . $this->_space . $this->_space . $this->_space . 'OK'
                     . $this->_space . $this->_space . $this->_space . '] '
             );
             break;
 
         case 'cli.message':
-            $type_message = $this->blue(
+            $type_message = $this->_color->blue(
                 '[' . $this->_space . $this->_space . 'INFO' . $this->_space
                     . $this->_space . '] '
             );
@@ -363,19 +363,19 @@ class Horde_Cli
             $error = $error->getMessage();
         }
         $this->writeln();
-        $this->writeln($this->red('===================='));
+        $this->writeln($this->_color->red('===================='));
         $this->writeln();
-        $this->writeln($this->red(Horde_Cli_Translation::t("Fatal Error:")));
-        $this->writeln($this->red($error));
+        $this->writeln($this->_color->red(Horde_Cli_Translation::t("Fatal Error:")));
+        $this->writeln($this->_color->red($error));
         if ($details) {
-            $this->writeln($this->red(print_r($details, true)));
+            $this->writeln($this->_color->red(print_r($details, true)));
         }
         if ($location) {
-            $this->writeln($this->red($location));
+            $this->writeln($this->_color->red($location));
         }
         $this->writeln();
         $this->writeln((string)$backtrace);
-        $this->writeln($this->red('===================='));
+        $this->writeln($this->_color->red('===================='));
         exit(1);
     }
 
@@ -421,7 +421,7 @@ class Horde_Cli
             $this->writeln($prompt . ' ', !is_array($choices));
             foreach ($choices as $key => $choice) {
                 $this->writeln(
-                    $this->indent('(' . $this->bold($key) . ') ' . $choice)
+                    $this->indent('(' . $this->_color->bold($key) . ') ' . $choice)
                 );
             }
             $question = Horde_Cli_Translation::t("Type your choice");
@@ -439,7 +439,7 @@ class Horde_Cli
             if (isset($choices[$response])) {
                 return $response;
             } else {
-                $this->writeln($this->red(sprintf(
+                $this->writeln($this->_color->red(sprintf(
                     Horde_Cli_Translation::t(
                         "\"%s\" is not a valid choice."
                     ),
