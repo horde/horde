@@ -192,6 +192,20 @@ class Horde_Cli_Color
     }
 
     /**
+     * Returns a version of $text with a colored foreground and background.
+     *
+     * @param string $foreground  The foreground color to use.
+     * @param string $background  The background color to use.
+     * @param string $text        The text to print in color.
+     *
+     * @return string  The colored text.
+     */
+    public function format($foreground, $background, $text)
+    {
+        return $this->background($background, $this->color($foreground, $text));
+    }
+
+    /**
      * Removes all color formatting from a text.
      *
      * @param string $text  A colored text.
