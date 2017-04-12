@@ -110,13 +110,11 @@ class IMP_Prefs_Special_Acl implements Horde_Core_Prefs_Ui_Special
             $view->curr_acl = $cval;
         }
 
-        $current_users = array_keys($curr_acl);
         $new_user = array();
-
         try {
             $auth_imap = $injector->getInstance('IMP_AuthImap');
             foreach ((array('anyone') + $auth_imap->listUsers()) as $user) {
-                if (!in_array($user, $current_users)) {
+                if (!isset($curr_acl[$user])) {
                     $new_user[] = htmlspecialchars($user);
                 }
             }
