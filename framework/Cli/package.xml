@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Fix color sequences for black and darkgray.
 * [jan] Mark PHP 7 as supported.
 * [jan] Wrap content matching the terminal width.
 * [jan] Add Horde_Cli#getWidth() to return the terminal width.
@@ -794,6 +795,7 @@ Add &apos;default&apos; parameter to Horde_CLI::prompt().
    <date>2017-04-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Fix color sequences for black and darkgray.
 * [jan] Mark PHP 7 as supported.
 * [jan] Wrap content matching the terminal width.
 * [jan] Add Horde_Cli#getWidth() to return the terminal width.

@@ -141,7 +141,7 @@ class Horde_Cli_Color
 
         $colors = $this->_foregroundColors();
         if (isset($colors[$color])) {
-            return $colors[$color] . $text . "\x1b[0m";
+            return $colors[$color] . $text . "\x1b[39m";
         }
 
         return $text;
@@ -185,7 +185,7 @@ class Horde_Cli_Color
 
         $colors = $this->_backgroundColors();
         if (isset($colors[$color])) {
-            return $colors[$color] . $text . "\x1b[0m";
+            return $colors[$color] . $text . "\x1b[49m";
         }
 
         return $text;
@@ -233,9 +233,9 @@ class Horde_Cli_Color
     protected function _foregroundColors()
     {
         return array(
-            'normal'       => "\x1b[0m",
-            'black'        => "\x1b[0m",
             'bold'         => "\x1b[1m",
+            'normal'       => "\x1b[39m",
+            'black'        => "\x1b[30m",
             'red'          => "\x1b[31m",
             'green'        => "\x1b[32m",
             'brown'        => "\x1b[33m",
@@ -243,14 +243,14 @@ class Horde_Cli_Color
             'magenta'      => "\x1b[35m",
             'cyan'         => "\x1b[36m",
             'lightgray'    => "\x1b[37m",
-            'white'        => "\x1b[1m\x1b[37m",
-            'darkgray'     => "\x1b[1m\x1b[0m",
+            'darkgray'     => "\x1b[1m\x1b[30m",
             'lightred'     => "\x1b[1m\x1b[31m",
             'lightgreen'   => "\x1b[1m\x1b[32m",
             'yellow'       => "\x1b[1m\x1b[33m",
             'lightblue'    => "\x1b[1m\x1b[34m",
             'lightmagenta' => "\x1b[1m\x1b[35m",
             'lightcyan'    => "\x1b[1m\x1b[36m",
+            'white'        => "\x1b[1m\x1b[37m",
         );
     }
 
@@ -262,8 +262,8 @@ class Horde_Cli_Color
     protected function _backgroundColors()
     {
         return array(
-            'normal'    => "\x1b[0m",
-            'black'     => "\x1b[0m",
+            'normal'    => "\x1b[49m",
+            'black'     => "\x1b[40m",
             'red'       => "\x1b[41m",
             'green'     => "\x1b[42m",
             'brown'     => "\x1b[43m",
