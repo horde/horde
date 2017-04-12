@@ -26,7 +26,7 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
         $property = str_replace('resource_', '', $property);
 
         if ($property == 'calendar') {
-            return $this->_share->getName();
+            return 'internal_' . $this->_share->getName();
         }
 
         return parent::get($property);
