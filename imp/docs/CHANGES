@@ -2,6 +2,8 @@
 v6.2.19-git
 -----------
 
+[mjr] Fix sending email after the attach_body_check hook fails in Smartmobile
+      view (Bug #14610).
 
 
 -------

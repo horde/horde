@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix sending email after the attach_body_check hook fails in Smartmobile view (Bug #14610).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4011,7 +4011,7 @@
    <date>2017-03-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix sending email after the attach_body_check hook fails in Smartmobile view (Bug #14610).
    </notes>
   </release>
  </changelog>
