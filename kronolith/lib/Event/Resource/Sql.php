@@ -76,8 +76,7 @@ class Kronolith_Event_Resource_Sql extends Kronolith_Event_Sql
         }
         $reservee = sprintf(_("Reserved by: %s"), $this->getResourceReservee());
         $perms = $GLOBALS['injector']->getInstance('Horde_Core_Perms');
-
-        return $this->isPrivate($user)
+        return !$perms->hasAppPermission('resource_management')
             ? $reservee
             : (strlen($this->title) ? sprintf('%s %s', $this->title, $reservee) : sprintf(_("[Unnamed event] %s"), $reservee));
     }
