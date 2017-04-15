@@ -1561,6 +1561,26 @@ class Turba_Api extends Horde_Registry_Api
     }
 
     /**
+     * Creates a URL for a contact retrieved from
+     * getAllAttributeValues
+     *
+     * @param string $uid   ID consisting of source:objectId
+     *
+     * @return Horde::url  A url representing the contact
+     */
+    public function getContactUrl($uid = '')
+    {
+	    global $registry;
+
+	    preg_match('/^(.+):(.+)$/', $uid, $match);
+	    $url = Horde::url($registry->link('contacts/show', array(
+	    	'source' => $match[1],
+		'key' => $match[2])),
+		true);
+	    return $url;
+    }
+ 
+    /**
      * Retrieves a list of available time objects categories.
      *
      * @return array  An array of all configured time object categories.
