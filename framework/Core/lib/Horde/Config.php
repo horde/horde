@@ -302,6 +302,10 @@ class Horde_Config
             fclose($fp);
             $GLOBALS['registry']->rebuild();
             $GLOBALS['notification']->push(sprintf(Horde_Core_Translation::t("Successfully wrote %s"), Horde_Util::realPath($configFile)), 'horde.success');
+            if (function_exists('opcache_invalidate')) {
+                /* Invalidate Zend OPcache to ensure saved version used */
+                opcache_invalidate($configFile, true);
+            }
             return true;
         }
 
