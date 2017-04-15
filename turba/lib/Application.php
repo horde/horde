@@ -622,23 +622,29 @@ class Turba_Application extends Horde_Registry_Application
                 }
             }
 
+            $type;
+            $filename;
             switch ($vars->exportID) {
             case Horde_Data::EXPORT_CSV:
-                $injector->getInstance('Horde_Core_Factory_Data')->create('Csv', array('cleanup' => array($this, 'cleanupData')))->exportFile(_("contacts.csv"), $data, true);
-                exit;
+                $type = 'Csv';
+                $filename = "contacts.csv";
+                break;
 
             case Horde_Data::EXPORT_OUTLOOKCSV:
-                $injector->getInstance('Horde_Core_Factory_Data')->create('Outlookcsv', array('cleanup' => array($this, 'cleanupData')))->exportFile(_("contacts.csv"), $data, true, array_flip($this->getOutlookMapping()));
-                exit;
+                $type = 'Outlookcsv';
+                $filename = "contacts.csv";
+                break;
 
             case Horde_Data::EXPORT_TSV:
-                $injector->getInstance('Horde_Core_Factory_Data')->create('Tsv', array('cleanup' => array($this, 'cleanupData')))->exportFile(_("contacts.tsv"), $data, true);
-                exit;
+                $type = 'Tsv';
+                $filename = "contacts.tsv";
+                break;
 
             case Horde_Data::EXPORT_VCARD:
             case 'vcard30':
-                $injector->getInstance('Horde_Core_Factory_Data')->create('Vcard', array('cleanup' => array($this, 'cleanupData')))->exportFile(_("contacts.vcf"), $data, true);
-                exit;
+                $type = 'Vcard';
+                $filename = "contacts.vcf";
+                break;
 
             case 'ldif':
                 $ldif = new Turba_Data_Ldif(array(
@@ -649,6 +655,17 @@ class Turba_Application extends Horde_Registry_Application
                 $ldif->exportFile(_("contacts.ldif"), $data, true);
                 exit;
             }
+
+            if ( strlen($type) ) {
+                $imc = $injector->getInstance('Horde_Core_Factory_Data')->create($type, array('cleanup' => array($this, 'cleanupData')));
+                if ( $vars->exportData ) {
+                    return $imc->exportData($data, true);
+                } else {
+                    $imc->exportFile(_($filename), $data, true);
+                    exit;
+                }
+            }
+
 
             break;
         }
