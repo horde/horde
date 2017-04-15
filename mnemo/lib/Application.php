@@ -295,11 +295,16 @@ class Mnemo_Application extends Horde_Registry_Application
                     $data[] = $note;
                 }
 
-                $injector->getInstance('Horde_Core_Factory_Data')
+                $imc = $injector->getInstance('Horde_Core_Factory_Data')
                     ->create('Csv',
-                             array('cleanup' => array($this, 'cleanupData')))
-                    ->exportFile(_("notes.csv"), $data, true);
-                exit;
+                             array('cleanup' => array($this, 'cleanupData')));
+
+                if ( $vars->exportData ) {
+                    return $imc->exportData($data, true);
+                } else {
+                    $imc->exportFile(_("notes.csv"), $data, true);
+                    exit;
+                }
             }
         }
     }
