@@ -816,12 +816,19 @@ abstract class Horde_Db_Adapter_Base_Schema
     {
         $this->_clearTableCache($tableName);
 
-        $index = $this->indexName($tableName, $options);
+        $toremove = $this->indexName($tableName, $options);
         $sql = sprintf('DROP INDEX %s ON %s',
-                       $this->quoteColumnName($index),
+                       $this->quoteColumnName($toremove),
                        $this->quoteTableName($tableName));
+        // check if index exists before removing it
+        $indexes = $this->indexes($tableName);
+        foreach ( $indexes as $index ) {
+            if ( $index->getName() == $toremove ) {
+                return $this->execute($sql);
+            }
+        }
 
-        return $this->execute($sql);
+        return 0;
     }
 
     /**
