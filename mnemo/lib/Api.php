@@ -607,7 +607,24 @@ class Mnemo_Api extends Horde_Registry_Api
         case 'text/plain':
             $noteId = $storage->add($storage->getMemoDescription($content), $content);
             break;
-
+        case 'text/csv':
+            $ids = array();
+            $map = array();
+            foreach ( $content as $id => $row ) {
+                if ( $id == 0 ) {
+                    foreach ( $row as $id => $name ) {
+                        $map[$name] = $id;
+                    }
+                    // skip the header line
+                    continue;
+                }
+                $body = $row[$map['body']];
+                $category = !empty($row[$map['category']]) ? $row[$map['category']] : '';
+                // cannot restore the passphrase
+                $ids[] = $storage->add($storage->getMemoDescription($body), $body, $category);
+            }
+            return $ids;
+            break;
         case 'text/x-vnote':
             if (!($content instanceof Horde_Icalendar_Vnote)) {
                 $iCal = new Horde_Icalendar();
