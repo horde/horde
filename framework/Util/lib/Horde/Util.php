@@ -197,7 +197,7 @@ class Horde_Util
                                        $secure = false)
     {
         $tempDir = (empty($dir) || !is_dir($dir))
-            ? sys_get_temp_dir()
+            ? Horde::getTempDir()
             : $dir;
 
         $tempFile = tempnam($tempDir, $prefix);
