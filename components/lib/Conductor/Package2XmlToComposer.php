@@ -661,7 +661,7 @@ EOF;
                 } elseif ($type == 'files' || $type == 'classmap') {
                     $j->autoload->$type = array();
                     foreach ($list as $val) {
-                        $j->autoload->$type[] = $val;
+                        $j->autoload->{$type}[] = $val;
                     }
                 }
             }
