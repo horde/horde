@@ -27,7 +27,12 @@ extends Horde_Crypt_Pgp_TestBase
             ));
         }
 
-        return array(new Horde_Crypt_Pgp_Backend_Binary($gnupg));
+        $backends = array(new Horde_Crypt_Pgp_Backend_Binary($gnupg));
+        if (!empty($c['gnupg2'])) {
+            $backends[] = new Horde_Crypt_Pgp_Backend_Binary($c['gnupg2']);
+        }
+
+        return $backends;
     }
 
 }

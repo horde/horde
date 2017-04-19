@@ -1,2 +1,3 @@
 <?php
 $conf['gnupg'] = '/usr/bin/gpg';
+$conf['gnupg2'] = false;
