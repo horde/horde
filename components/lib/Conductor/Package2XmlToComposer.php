@@ -529,25 +529,20 @@ EOF;
 
         // assemble human-readable composer.json
         $tab = '    ';
-        $j = "{\n";
-        $j .= $tab . '"name": "' . $this->name . "\",\n";
+        $j = new stdClass();
+        $j->name = $this->name;
 
         // short package.xml summaries are what composer means for descriptions
         if (isset($this->data['summary'])) {
-            $j .= $tab . '"description": "'. $this->data['summary'] . "\",\n";
+            $j->description = $this->data['summary'];
         }
 
         if (! empty($this->type)) {
-            $j .= $tab . '"type": "' . $this->type . "\",\n";
+            $j->type = $this->type;
         }
 
         if (! empty($this->keywords)) {
-            $j .= $tab . '"keywords": [' . "\n";
-            foreach ($this->keywords as $kw) {
-                $j .= $tab . $tab . "\"$kw\",\n";
-            }
-
-            $j = rtrim($j, ",\n") . "\n$tab],\n";
+            $j->keywords = $this->keywords;
         }
 
         if (! empty($this->homepage)) {
@@ -555,78 +550,66 @@ EOF;
         } elseif (isset($this->data['channel'])) {
             $homepage = 'https://' . $this->data['channel'];
         }
-        $j .= $tab . '"homepage": "'.$homepage."\",\n";
+        $j->homepage = $homepage;
 
         if (! empty($this->license)) {
             $license = $this->license;
         } elseif (isset($this->data['license']['type'])) {
             $license = $this->data['license']['type'];
         }
-        $j .= $tab . '"license": "'.$license."\",\n";
+        $j->license = $license;
 
-        $j .= $tab . '"authors": [' . "\n";
+        $j->authors = array();
         $author_types = array('lead', 'developer', 'contributor', 'helper');
         foreach ($author_types as $atype) {
             if (! empty($this->data[$atype])) {
                 foreach ($this->data[$atype] as $dev) {
-                    $j .= $tab . $tab . "{\n";
+                    $author = new stdClass();
                     if (! empty($dev['name'])) {
-                        $j .= $tab . $tab . $tab . "\"name\": \"{$dev['name']}\",\n";
+                        $author->name = $dev['name'];
                     }
                     if (! empty($dev['email'])) {
-                        $j .= $tab . $tab . $tab . "\"email\": \"{$dev['email']}\",\n";
+                        $author->email = $dev['email'];
                     }
-                    $j .= $tab . $tab . $tab . "\"role\": \"$atype\"\n";
-                    $j .= $tab . $tab . "},\n";
+                    $author->role = $atype;
+                    $j->authors[] = $author;
                 }
             }
         }
-        $j = rtrim($j, ",\n") . "\n";
-        $j .= $tab . "],\n";
 
         if (isset($this->data['version']['release']) && $this->write_version_to_composer) {
-            $j .= $tab . '"version": "'. $this->data['version']['release'] . "\",\n";
+            $j->version = $this->data['version']['release'];
         }
         if (isset($this->data['date']) && $this->write_time_to_composer) {
-            $j .= $tab . '"time": "'. $this->data['date'] . "\",\n";
+            $j->time = $this->data['date'];
         }
 
         if (! empty($this->support)) {
-            $j .= $tab . "\"support\": {\n";
-            foreach ($this->support as $key => $val) {
-                $j .= $tab . $tab . "\"$key\": \"$val\",\n";
-            }
-            $j = rtrim($j, ",\n") . "\n";
-            $j .= $tab . "},\n";
+            $j->support = $this->support;
         }
 
         /* Horde */
         if (!empty($this->repositories)) {
-            $j .= $tab . "\"repositories\": [\n";
-            foreach ($this->repositories as $key => $val) {
-                $j .= $tab . $tab . "{\n";
-                $j .= $tab . $tab . $tab . '"type": "' . $val[0] . "\",\n";
-                $j .= $tab . $tab . $tab . '"url": "' . $val[1] . "\"\n";
-                $j .= $tab . $tab . "},\n";
+            $j->repositories = array();
+            foreach ($this->repositories as $val) {
+                $j->repositories[] = array('type' => $val[0], 'url' => $val[1]);
             }
-            $j = rtrim($j, ",\n") . "\n";
-            $j .= $tab . "],\n";
         }
 
         // requirements
         $deptypes = array('required' => 'require', 'optional' => 'suggest');
         foreach ($deptypes as $pear_deptype => $composer_deptype) {
             if (! empty($this->data['dependencies'][$pear_deptype])) {
-                $j .= $tab . "\"{$composer_deptype}\": {\n";
+                $deps = new stdClass();
                 foreach ($this->data['dependencies'][$pear_deptype] as $req) {
                     if ($req['dep'] == 'pearinstaller') {
                         continue;
                     }
                     if ($req['dep'] == 'php') {
-                        $j .= $tab . $tab . "\"php\": \"" . $this->getDepVersionString($req) . "\",\n";
+                        $deps->php = $this->getDepVersionString($req);
                     }
                     if ($req['dep'] == 'extension') {
-                        $j .= $tab . $tab . "\"ext-{$req['name']}\": \"" . $this->getDepVersionString($req) . "\",\n";
+                        $deps->{'ext-' . $req['name']} = $this->getDepVersionString($req);
                     }
                     if ($req['dep'] == 'package') {
 
@@ -645,101 +628,60 @@ EOF;
                             $reqname = 'pear-' . $reqkey;
                         }
 
-                        $j .= $tab . $tab . "\"$reqname\": \"" . $this->getDepVersionString($req) . "\",\n";
+                        $deps->$reqname = $this->getDepVersionString($req);
                     }
                 }
-                $j = rtrim($j, ",\n") . "\n";
-                $j .= $tab . "},\n";
+                $j->$composer_deptype = $deps;
             }
         }
 
 
         if (! empty($this->bin_files)) {
-            $j .= $tab . "\"bin\": [\n";
+            $j->bin = array();
             foreach ($this->bin_files as $file) {
                 // composer creates its own .bat wrapper, so skip this.
                 // @see https://github.com/sebastianbergmann/phpunit/pull/648
                 if (substr($file, -4) == '.bat') {
                     continue;
                 }
-                $j .= $tab . $tab . "\"$file\",\n";
+                $j->bin[] = $file;
             }
-            $j = rtrim($j, ",\n") . "\n";
-            $j .= $tab . "],\n";
 
-
-            $j .= $tab . "\"config\": {\n";
-            $j .= $tab . $tab . "\"bin-dir\": \"bin\"\n";
-            $j .= $tab . "},\n";
+            $j->config = array('bin-dir' => 'bin');
         }
 
         if (! empty($this->autoload)) {
-            $j .= $tab . "\"autoload\": {\n";
+            $j->autoload = new stdClass();
             foreach ($this->autoload as $type => $list) {
                 if ($type == 'psr-0') {
-                    $j .= $tab . $tab . "\"psr-0\": {\n";
+                    $j->autoload->{'psr-0'} = new stdClass();
                     foreach ($list as $key => $val) {
-                        $j .= $tab . $tab . $tab . "\"$key\": \"";
-                        if ($val === null) {
-                            $j .= "\",\n";
-                        } else {
-                            $j .= $val . "\",\n";
-                        }
+                        $j->autoload->{'psr-0'}->$key = (string)$val;
                     }
-                    $j = rtrim($j, ",\n") . "\n";
-                    $j .= $tab . $tab . "},\n";
                 } elseif ($type == 'files' || $type == 'classmap') {
-                    $j .= $tab . $tab . "\"$type\": [\n";
+                    $j->autoload->$type = array();
                     foreach ($list as $val) {
-                        $j .= $tab . $tab . $tab . "\"$val\",\n";
+                        $j->autoload->$type[] = $val;
                     }
-                    $j = rtrim($j, ",\n") . "\n";
-                    $j .= $tab . $tab . "],\n";
                 }
             }
-            $j = rtrim($j, ",\n") . "\n";
-            $j .= $tab . "},\n";
         }
 
         if (! empty($this->extra)) {
-            $j .= $tab . "\"extra\": {\n";
-            foreach ($this->extra as $key => $val) {
-                if (! is_array($val)) {
-                    $j .= $tab . $tab . "\"$key\": \"$val\",\n";
-                } else {
-                    $v = json_encode($val);
-                    $j .= $tab . $tab . "\"$key\": $v,\n";
-                }
-            }
-            $j = rtrim($j, ",\n") . "\n";
-            $j .= $tab . "},\n";
+            $j->extra = $this->extra;
         } elseif (! empty($this->branch_alias)) {
-            $j .= $tab . "\"extra\": {\n";
-            $j .= $tab . $tab . "\"branch-alias\": {\n";
-            foreach ($this->branch_alias as $key => $val) {
-                $j .= $tab . $tab . $tab . "\"$key\": \"$val\"\n,";
-            }
-            $j = rtrim($j, ",\n") . "\n";
-            $j .= $tab . $tab . "}\n";
-            $j .= $tab . "},\n";
+            $j->extra = array('branch-alias' => $this->branch_alias);
         }
 
         if (! empty($this->include_path)) {
-            $j .= $tab . "\"include-path\": [\n";
+            $j->{'include-path'} = array();
             foreach ($this->include_path as $val) {
-                if ($val === null) {
-                    $j .= $tab . $tab . "\"\",\n";
-                } else {
-                    $j .= $tab . $tab . "\"$val\",\n";
-                }
+                $j->{'include-path'}[] = (string)$val;
             }
-            $j = rtrim($j, ",\n") . "\n";
-            $j .= $tab . "]\n";
         }
 
         // wrap it up
-        $j = rtrim($j, ",\n") . "\n";
-        $j .= "}\n";
+        $j = json_encode($j, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . "\n";
 
         if ($this->output_file === false) {
             return $j;
