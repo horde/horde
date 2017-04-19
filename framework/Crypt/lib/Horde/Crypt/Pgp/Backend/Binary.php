@@ -77,6 +77,17 @@ extends Horde_Crypt_Pgp_Backend
             '--yes',
             '--homedir ' . $this->_tempdir
         );
+
+        /* GnuPG 2 requires specifying the pinentry-mode. */
+        $result = $this->_callGpg(array('--version'), 'r');
+        if (preg_match('/gpg \(GnuPG\) (\d+)\.(\d+)\.(\d+)/', $result->stdout, $version) &&
+            $version[1] >= 2) {
+            $this->_gnupg[] = '--pinentry-mode loopback';
+            file_put_contents(
+                $this->_tempdir . '/gpg-agent.conf',
+                'allow-loopback-pinentry'
+            );
+        }
     }
 
     /**
