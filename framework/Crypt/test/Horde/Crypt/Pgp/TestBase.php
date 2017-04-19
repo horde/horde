@@ -14,21 +14,14 @@ abstract class Horde_Crypt_Pgp_TestBase
 extends Horde_Test_Case
 {
     private $_language;
-    private $_pgp;
 
     /* Returns the list of backends to test. */
     abstract protected function _setUp();
 
     protected function setUp()
     {
-        $backends = $this->_setUp();
-
         @date_default_timezone_set('GMT');
         $this->_language = getenv('LANGUAGE');
-
-        $this->_pgp = Horde_Crypt::factory('Pgp', array(
-            'backends' => $backends
-        ));
     }
 
     protected function tearDown()
@@ -36,7 +29,21 @@ extends Horde_Test_Case
         putenv('LANGUAGE=' . $this->_language);
     }
 
-    public function testBug6601()
+    public function backendProvider()
+    {
+        $pgp = array();
+        foreach ($this->_setUp() as $backend) {
+            $pgp[] = array(Horde_Crypt::factory('Pgp', array(
+                'backends' => array($backend)
+            )));
+        }
+        return $pgp;
+    }
+
+    /**
+     * @dataProvider backendProvider
+     */
+    public function testBug6601($pgp)
     {
         $data = $this->_getFixture('bug_6601.asc');
 
@@ -54,17 +61,21 @@ Key ID:           0xF3C01D42
 Key Fingerprint:  5912D91D4C79C6701FFF148604A67B37F3C01D42
 
 ',
-            $this->_pgp->pgpPrettyKey($data)
+            $pgp->pgpPrettyKey($data)
         );
     }
 
-    // decrypt() message
-    public function testPgpDecrypt()
+    /**
+     * decrypt() message
+     *
+     * @dataProvider backendProvider
+     */
+    public function testPgpDecrypt($pgp)
     {
         // Encrypted data is in ISO-8859-1 format
         $crypt = $this->_getFixture('pgp_encrypted.txt');
 
-        $decrypt = $this->_pgp->decrypt($crypt, array(
+        $decrypt = $pgp->decrypt($crypt, array(
             'passphrase' => 'Secret',
             'privkey' => $this->_getPrivateKey(),
             'pubkey' => $this->_getPublicKey(),
@@ -92,12 +103,15 @@ The quick brown fox jumps over the lazy dog.
         );
     }
 
-    public function testPgpDecryptSymmetric()
+    /**
+     * @dataProvider backendProvider
+     */
+    public function testPgpDecryptSymmetric($pgp)
     {
         // Encrypted data is in ISO-8859-1 format
         $crypt = $this->_getFixture('pgp_encrypted_symmetric.txt');
 
-        $decrypt = $this->_pgp->decrypt($crypt, array(
+        $decrypt = $pgp->decrypt($crypt, array(
             'passphrase' => 'Secret',
             'type' => 'message'
         ));
@@ -122,11 +136,14 @@ The quick brown fox jumps over the lazy dog.
         );
     }
 
-    public function testPgpEncrypt()
+    /**
+     * @dataProvider backendProvider
+     */
+    public function testPgpEncrypt($pgp)
     {
         $clear = $this->_getFixture('clear.txt');
 
-        $out = $this->_pgp->encrypt($clear, array(
+        $out = $pgp->encrypt($clear, array(
             'recips' => array('me@example.com' => $this->_getPublicKey()),
             'type' => 'message'
         ));
@@ -151,11 +168,14 @@ Version: GnuPG %s
         );
     }
 
-    public function testPgpEncryptSymmetric()
+    /**
+     * @dataProvider backendProvider
+     */
+    public function testPgpEncryptSymmetric($pgp)
     {
         $clear = $this->_getFixture('clear.txt');
 
-        $out = $this->_pgp->encrypt($clear, array(
+        $out = $pgp->encrypt($clear, array(
             'passphrase' => 'Secret',
             'symmetric' => true,
             'type' => 'message'
@@ -175,31 +195,40 @@ Version: GnuPG %s
         );
     }
 
-    public function testPgpEncryptedSymmetrically()
+    /**
+     * @dataProvider backendProvider
+     */
+    public function testPgpEncryptedSymmetrically($pgp)
     {
         $this->assertFalse(
-            $this->_pgp->encryptedSymmetrically(
+            $pgp->encryptedSymmetrically(
                 $this->_getFixture('pgp_encrypted.txt')
             )
         );
         $this->assertTrue(
-            $this->_pgp->encryptedSymmetrically(
+            $pgp->encryptedSymmetrically(
                 $this->_getFixture('pgp_encrypted_symmetric.txt')
             )
         );
     }
 
-    public function testGetSignersKeyID()
+    /**
+     * @dataProvider backendProvider
+     */
+    public function testGetSignersKeyID($pgp)
     {
         $this->assertEquals(
             'BADEABD7',
-            $this->_pgp->getSignersKeyID($this->_getFixture('pgp_signed.txt'))
+            $pgp->getSignersKeyID($this->_getFixture('pgp_signed.txt'))
         );
     }
 
-    public function testPgpPacketInformation()
+    /**
+     * @dataProvider backendProvider
+     */
+    public function testPgpPacketInformation($pgp)
     {
-        $out = $this->_pgp->pgpPacketInformation($this->_getPublicKey());
+        $out = $pgp->pgpPacketInformation($this->_getPublicKey());
 
         $this->assertArrayHasKey(
             'public_key',
@@ -222,7 +251,7 @@ Version: GnuPG %s
             $out['keyid']
         );
 
-        $out = $this->_pgp->pgpPacketInformation($this->_getPrivateKey());
+        $out = $pgp->pgpPacketInformation($this->_getPrivateKey());
 
         $this->assertArrayHasKey(
             'secret_key',
@@ -246,9 +275,12 @@ Version: GnuPG %s
         );
     }
 
-    public function testPgpPacketSignature()
+    /**
+     * @dataProvider backendProvider
+     */
+    public function testPgpPacketSignature($pgp)
     {
-        $out = $this->_pgp->pgpPacketSignature(
+        $out = $pgp->pgpPacketSignature(
             $this->_getPublicKey(),
             'me@example.com'
         );
@@ -258,7 +290,7 @@ Version: GnuPG %s
             $out['keyid']
         );
 
-        $out = $this->_pgp->pgpPacketSignature(
+        $out = $pgp->pgpPacketSignature(
             $this->_getPrivateKey(),
             'me@example.com'
         );
@@ -268,7 +300,7 @@ Version: GnuPG %s
             $out['keyid']
         );
 
-        $out = $this->_pgp->pgpPacketSignature(
+        $out = $pgp->pgpPacketSignature(
             $this->_getPrivateKey(),
             'foo@example.com'
         );
@@ -279,9 +311,12 @@ Version: GnuPG %s
         );
     }
 
-    public function testPgpPacketSignatureByUidIndex()
+    /**
+     * @dataProvider backendProvider
+     */
+    public function testPgpPacketSignatureByUidIndex($pgp)
     {
-        $out = $this->_pgp->pgpPacketSignatureByUidIndex(
+        $out = $pgp->pgpPacketSignatureByUidIndex(
             $this->_getPublicKey(),
             'id1'
         );
@@ -291,7 +326,7 @@ Version: GnuPG %s
             $out['keyid']
         );
 
-        $out = $this->_pgp->pgpPacketSignatureByUidIndex(
+        $out = $pgp->pgpPacketSignatureByUidIndex(
             $this->_getPrivateKey(),
             'id1'
         );
@@ -301,7 +336,7 @@ Version: GnuPG %s
             $out['keyid']
         );
 
-        $out = $this->_pgp->pgpPacketSignatureByUidIndex(
+        $out = $pgp->pgpPacketSignatureByUidIndex(
             $this->_getPrivateKey(),
             'id2'
         );
@@ -312,7 +347,10 @@ Version: GnuPG %s
         );
     }
 
-    public function testPgpPrettyKey()
+    /**
+     * @dataProvider backendProvider
+     */
+    public function testPgpPrettyKey($pgp)
     {
         putenv('LANGUAGE=C');
 
@@ -329,7 +367,7 @@ Key ID:           0xBADEABD7
 Key Fingerprint:  966F4BA9569DE6F65E8253977CA74426BADEABD7
 
 ',
-            $this->_pgp->pgpPrettyKey($this->_getPublicKey())
+            $pgp->pgpPrettyKey($this->_getPublicKey())
         );
 
         $this->assertEquals(
@@ -345,24 +383,24 @@ Key ID:           0xBADEABD7
 Key Fingerprint:  966F4BA9569DE6F65E8253977CA74426BADEABD7
 
 ',
-            $this->_pgp->pgpPrettyKey($this->_getPrivateKey())
+            $pgp->pgpPrettyKey($this->_getPrivateKey())
         );
     }
 
     /**
      * @dataProvider pgpGetFingerprintsFromKeyProvider
      */
-    public function testPgpGetFingerprintsFromKey($expected, $key)
+    public function testPgpGetFingerprintsFromKey($pgp, $expected, $key)
     {
         $this->assertEquals(
             $expected,
-            $this->_pgp->getFingerprintsFromKey($key)
+            $pgp->getFingerprintsFromKey($key)
         );
     }
 
     public function pgpGetFingerprintsFromKeyProvider()
     {
-        return array(
+        $fingerprints = array(
             array(
                 array(
                     '0xBADEABD7' => '966F4BA9569DE6F65E8253977CA74426BADEABD7'
@@ -376,11 +414,21 @@ Key Fingerprint:  966F4BA9569DE6F65E8253977CA74426BADEABD7
                 $this->_getPrivateKey()
             )
         );
+        $args = $this->backendProvider();
+        foreach ($args as &$arg) {
+            foreach ($fingerprints as $fingerprint) {
+                $arg = array_merge($arg, $fingerprint);
+            }
+        }
+        return $args;
     }
 
-    public function pgpPublicKeyMIMEPart()
+    /**
+     * @dataProvider backendProvider
+     */
+    public function pgpPublicKeyMIMEPart($pgp)
     {
-        $mime_part = $this->_pgp->publicKeyMIMEPart($this->_getPublicKey());
+        $mime_part = $pgp->publicKeyMIMEPart($this->_getPublicKey());
 
         $this->assertEquals(
             'application/pgp-keys',
@@ -416,11 +464,14 @@ umO5uT5yDcir3zwqUAxzBAkE4ACcCtGfb6usaTKnNXo+ZuLoHiOwIE4=
         );
     }
 
-    public function testPgpSign()
+    /**
+     * @dataProvider backendProvider
+     */
+    public function testPgpSign($pgp)
     {
         $clear = $this->_getFixture('clear.txt');
 
-        $out = $this->_pgp->encrypt($clear, array(
+        $out = $pgp->encrypt($clear, array(
             'passphrase' => 'Secret',
             'privkey' => $this->_getPrivateKey(),
             'pubkey' => $this->_getPublicKey(),
@@ -438,7 +489,7 @@ Version: GnuPG %s
             $out
         );
 
-        $out = $this->_pgp->encrypt($clear, array(
+        $out = $pgp->encrypt($clear, array(
             'passphrase' => 'Secret',
             'privkey' => $this->_getPrivateKey(),
             'pubkey' => $this->_getPublicKey(),
@@ -475,11 +526,14 @@ Version: GnuPG %s
         );
     }
 
-    public function testDecryptSignature()
+    /**
+     * @dataProvider backendProvider
+     */
+    public function testDecryptSignature($pgp)
     {
         date_default_timezone_set('GMT');
 
-        $out = $this->_pgp->decrypt(
+        $out = $pgp->decrypt(
             $this->_getFixture('clear.txt'),
             array(
                 'pubkey' => $this->_getPublicKey(),
@@ -490,7 +544,7 @@ Version: GnuPG %s
 
         $this->assertNotEmpty($out->result);
 
-        $out = $this->_pgp->decrypt(
+        $out = $pgp->decrypt(
             $this->_getFixture('pgp_signed.txt'),
             array(
                 'pubkey' => $this->_getPublicKey(),
@@ -500,7 +554,7 @@ Version: GnuPG %s
 
         $this->assertNotEmpty($out->result);
 
-        $out = $this->_pgp->decrypt(
+        $out = $pgp->decrypt(
             $this->_getFixture('pgp_signed2.txt'),
             array(
                 'pubkey' => $this->_getPublicKey(),
@@ -511,18 +565,27 @@ Version: GnuPG %s
         $this->assertNotEmpty($out->result);
     }
 
-    public function testVerifyPassphrase()
+    /**
+     * @dataProvider backendProvider
+     */
+    public function testVerifyPassphraseCorrect($pgp)
     {
         $this->assertTrue(
-            $this->_pgp->verifyPassphrase(
+            $pgp->verifyPassphrase(
                 $this->_getPublicKey(),
                 $this->_getPrivateKey(),
                 'Secret'
             )
         );
+    }
 
+    /**
+     * @dataProvider backendProvider
+     */
+    public function testVerifyPassphraseIncorrect($pgp)
+    {
         $this->assertFalse(
-            $this->_pgp->verifyPassphrase(
+            $pgp->verifyPassphrase(
                 $this->_getPublicKey(),
                 $this->_getPrivateKey(),
                 'Wrong'
@@ -530,10 +593,13 @@ Version: GnuPG %s
         );
     }
 
-    public function testGetPublicKeyFromPrivateKey()
+    /**
+     * @dataProvider backendProvider
+     */
+    public function testGetPublicKeyFromPrivateKey($pgp)
     {
         $this->assertNotNull(
-            $this->_pgp->getPublicKeyFromPrivateKey($this->_getPrivateKey())
+            $pgp->getPublicKeyFromPrivateKey($this->_getPrivateKey())
         );
     }
 
