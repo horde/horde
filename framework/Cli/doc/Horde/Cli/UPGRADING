@@ -30,9 +30,9 @@ Upgrading to 2.2.0
 
   - Horde_Cli
 
-    - getWidth()
+    - block(), getWidth()
 
-      This method has been added.
+      These methods have been added.
 
     - bold(), red(), green(), blue(), yellow()
 

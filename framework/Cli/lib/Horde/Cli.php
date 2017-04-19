@@ -380,6 +380,39 @@ class Horde_Cli
     }
 
     /**
+     * Formats text in a visual block with optional margin.
+     *
+     * @since Horde_Cli 2.2.0
+     *
+     * @param string $text    The block text.
+     * @param string $color   The background color.
+     * @param string $margin  The block margin string.
+     * @param integer $width  The block width.
+     *
+     * @return string  The formatted block.
+     */
+    public function block($text, $color, $margin = '', $width = null)
+    {
+        $text = explode($this->_newline, $text);
+        if (!$width) {
+            $width = 0;
+            foreach ($text as $line) {
+                $width = max($width, strlen($line));
+            }
+            if ($maxWidth = $this->getWidth()) {
+                $width = min($width, $maxWidth - 2 * strlen($margin));
+            }
+        }
+        foreach ($text as &$line) {
+            $line = $this->_color->background(
+                $color,
+                $margin . sprintf('%-' . $width . 's', $line) . $margin
+            );
+        }
+        return implode($this->_newline, $text);
+    }
+
+    /**
      * Prompts for a user response.
      *
      * @todo Horde 5: switch $choices and $default
