@@ -79,7 +79,7 @@ class Horde_Cli
         $console = $this->runningFromCLI();
 
         if ($console) {
-            $this->_newline = "\n";
+            $this->_newline = PHP_EOL;
             $this->_space = ' ';
             if (getenv('TERM')) {
                 $this->_clearscreen  = "\x1b[2J\x1b[H";
@@ -483,7 +483,7 @@ class Horde_Cli
             $command = '/usr/bin/env bash -c "read -s -p '
                 . escapeshellarg($prompt) . ' mypassword && echo \$mypassword"';
             $password = rtrim(shell_exec($command));
-            echo "\n";
+            echo $this->_newline;
         }
 
         return $password;
