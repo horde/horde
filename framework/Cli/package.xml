@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Use rectangular background coloring for messages and errors.
 * [jan] Add Horde_Cli#block().
 * [jan] Use the system&apos;s newline character(s).
 * [jan] Fix color sequences for black and darkgray.
@@ -797,6 +798,7 @@ Add &apos;default&apos; parameter to Horde_CLI::prompt().
    <date>2017-04-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Use rectangular background coloring for messages and errors.
 * [jan] Add Horde_Cli#block().
 * [jan] Use the system&apos;s newline character(s).
 * [jan] Fix color sequences for black and darkgray.

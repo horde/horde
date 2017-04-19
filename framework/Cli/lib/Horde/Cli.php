@@ -288,37 +288,61 @@ class Horde_Cli
 
         switch ($type) {
         case 'cli.error':
-            $type_message = $this->_color->red(
-                '[' . $this->_space . 'ERROR!' . $this->_space . '] '
+            $this->writeln(
+                $this->_color->lightgray(
+                    $this->block(
+                        '[' . $this->_space . 'ERROR!' . $this->_space . '] '
+                            . $message,
+                        'red'
+                    )
+                )
             );
             break;
 
         case 'cli.warning':
-            $type_message = $this->_color->yellow(
-                '[' . $this->_space . $this->_space . 'WARN'
-                    . $this->_space . $this->_space . '] '
+            $this->writeln(
+                $this->_color->black(
+                    $this->block(
+                        '[' . $this->_space . $this->_space . 'WARN'
+                            . $this->_space . $this->_space . '] '
+                            . $message,
+                        'brown'
+                    )
+                )
             );
             break;
 
         case 'cli.success':
-            $type_message = $this->_color->green(
-                '[' . $this->_space . $this->_space . $this->_space . 'OK'
-                    . $this->_space . $this->_space . $this->_space . '] '
+            $this->writeln(
+                $this->_color->black(
+                    $this->block(
+                        '[' . $this->_space . $this->_space . $this->_space
+                            . 'OK' . $this->_space . $this->_space
+                            . $this->_space . '] '
+                            . $message,
+                        'green'
+                    )
+                )
             );
             break;
 
         case 'cli.message':
-            $type_message = $this->_color->blue(
-                '[' . $this->_space . $this->_space . 'INFO' . $this->_space
-                    . $this->_space . '] '
+            $this->writeln(
+                $this->_color->lightgray(
+                    $this->block(
+                        '[' . $this->_space . $this->_space . 'INFO'
+                            . $this->_space . $this->_space . '] '
+                            . $message,
+                        'blue'
+                    )
+                )
             );
             break;
 
         default:
-            $type_message = '';
+            $this->writeln($message);
+            break;
         }
-
-        $this->writeln($type_message . $message);
     }
 
     /**
@@ -362,21 +386,48 @@ class Horde_Cli
             }
             $error = $error->getMessage();
         }
-        $this->writeln();
-        $this->writeln($this->_color->red('===================='));
-        $this->writeln();
-        $this->writeln($this->_color->red(Horde_Cli_Translation::t("Fatal Error:")));
-        $this->writeln($this->_color->red($error));
+
+        $lines = array('');
+        $lines = $this->_addLines(
+            $lines, Horde_Cli_Translation::t("Fatal Error:")
+        );
+        $lines = $this->_addLines($lines, $error);
         if ($details) {
-            $this->writeln($this->_color->red(print_r($details, true)));
+            $this->_addLines($lines, print_r($details, true));
         }
         if ($location) {
-            $this->writeln($this->_color->red($location));
+            $lines = $this->_addLines($lines, $location);
         }
-        $this->writeln();
-        $this->writeln((string)$backtrace);
-        $this->writeln($this->_color->red('===================='));
+        $lines = $this->_addLines($lines, '');
+        $lines = $this->_addLines($lines, (string)$backtrace);
+        $lines = $this->_addLines($lines, '');
+        $this->writeln(
+            $this->_color->lightgray(
+                $this->block(implode($this->_newline, $lines), 'red', '  ')
+            )
+        );
         exit(1);
+    }
+
+    /**
+     * Adds content to a line buffer, wrapping long lines if necessary.
+     *
+     * @param array $buffer    The line buffer.
+     * @param string $content  The lines to add.
+     *
+     * @return string  The updated line buffer.
+     */
+    protected function _addLines($buffer, $content)
+    {
+        $width = max(0, $this->getWidth() - 7);
+        if ($width) {
+            foreach (explode($this->_newline, $content) as $line) {
+                $buffer[] = wordwrap($line, $width, "\n   ", true);
+            }
+        } else {
+            $buffer[] = $content;
+        }
+        return $buffer;
     }
 
     /**
