@@ -86,8 +86,6 @@
     <name>Math_BigInteger</name>
     <channel>pear.php.net</channel>
     <min>1.0.2</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
    </package>
   </required>
  </dependencies>
