@@ -528,7 +528,6 @@ EOF;
         }
 
         // assemble human-readable composer.json
-        $tab = '    ';
         $j = new stdClass();
         $j->name = $this->name;
 
@@ -635,6 +634,10 @@ EOF;
             }
         }
 
+        $replaceVersion = preg_replace('/^(\d+)\..*/', '$1.*', $j->version);
+        $j->replace = new stdClass();
+        $j->replace->{'pear-' . $this->data['channel'] . '/' . $this->data['name']} = $replaceVersion;
+        $j->replace->{'pear-' . $this->getChannelSuggestedAlias($this->data['channel']) . '/' . $this->data['name']} = $replaceVersion;
 
         if (! empty($this->bin_files)) {
             $j->bin = array();
