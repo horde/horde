@@ -710,7 +710,11 @@ EOF;
                 $req['exclude'][0] == $req['max'] &&
                 preg_match('/(\d)\.0\.0alpha1/', $req['max'], $version)) {
                 if (substr($req['min'], 0, 2) != ($version[1] - 1) . '.') {
-                    $out[] = '<'.preg_replace('/(.0)*alpha1$/', '', $req['max']);
+                    if ($req['dep'] == 'php') {
+                        $out[] = '|| ^' . ($version[1] - 1);
+                    } else {
+                        $out[] = '<'.preg_replace('/(.0)*alpha1$/', '', $req['max']);
+                    }
                 }
             } else {
                 $out[] = '<='.$req['max'];
@@ -718,7 +722,7 @@ EOF;
         }
 
         if (! empty($out)) {
-            $ret = join(',', $out);
+            $ret = join(' ', $out);
         } else {
             $ret = '*';
         }
