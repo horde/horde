@@ -27,5 +27,14 @@
         "pear-pear.horde.org/Horde_Oauth": "^2@stable",
         "pear-pear.horde.org/Horde_Url": "^2@stable",
         "pear-pear.horde.org/Horde_Util": "^2@stable"
+    },
+    "replace": {
+        "pear-pear.horde.org/Horde_Service_Twitter": "2.*",
+        "pear-horde/Horde_Service_Twitter": "2.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Horde_Service_Twitter": "lib/"
+        }
     }
 }

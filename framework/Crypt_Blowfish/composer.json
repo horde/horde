@@ -20,7 +20,7 @@
         }
     ],
     "require": {
-        "php": "^5.3,<8",
+        "php": "^5.3 || ^7",
         "pear-pear.horde.org/Horde_Exception": "^2@stable",
         "pear-pear.horde.org/Horde_Support": "^2@stable"
     },
@@ -28,5 +28,14 @@
         "pear-pear.horde.org/Horde_Test": "^2.1@stable",
         "ext-mcrypt": "*",
         "ext-openssl": "*"
+    },
+    "replace": {
+        "pear-pear.horde.org/Horde_Crypt_Blowfish": "1.*",
+        "pear-horde/Horde_Crypt_Blowfish": "1.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Horde_Crypt_Blowfish": "lib/"
+        }
     }
 }

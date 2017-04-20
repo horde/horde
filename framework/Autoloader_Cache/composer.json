@@ -36,5 +36,14 @@
         "ext-apc": "*",
         "ext-eaccelerator": "*",
         "ext-xcache": "*"
+    },
+    "replace": {
+        "pear-pear.horde.org/Horde_Autoloader_Cache": "2.*",
+        "pear-horde/Horde_Autoloader_Cache": "2.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Horde_Autoloader_Cache": "lib/"
+        }
     }
 }

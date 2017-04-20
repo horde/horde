@@ -25,5 +25,14 @@
         "pear-pear.horde.org/Horde_Http": "^2@stable",
         "pear-pear.horde.org/Horde_Perms": "^2@stable",
         "pear-pear.horde.org/Horde_Url": "^2@stable"
+    },
+    "replace": {
+        "pear-pear.horde.org/Horde_OpenXchange": "1.*",
+        "pear-horde/Horde_OpenXchange": "1.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Horde_OpenXchange": "lib/"
+        }
     }
 }

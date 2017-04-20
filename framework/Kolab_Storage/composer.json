@@ -25,7 +25,7 @@
         }
     ],
     "require": {
-        "php": "^5.3,<8",
+        "php": "^5.3 || ^7",
         "pear-pear.horde.org/Horde_Cache": "^2@stable",
         "pear-pear.horde.org/Horde_Exception": "^2@stable",
         "pear-pear.horde.org/Horde_Kolab_Format": "^2@stable",
@@ -41,5 +41,14 @@
         "pear-pear.php.net/HTTP_Request": "*",
         "pear-pear.php.net/Net_IMAP": "^1.1@stable",
         "ext-imap": "*"
+    },
+    "replace": {
+        "pear-pear.horde.org/Horde_Kolab_Storage": "2.*",
+        "pear-horde/Horde_Kolab_Storage": "2.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Horde_Kolab_Storage": "lib/"
+        }
     }
 }

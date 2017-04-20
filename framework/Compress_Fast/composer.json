@@ -20,7 +20,7 @@
         }
     ],
     "require": {
-        "php": "^5.3,<8",
+        "php": "^5.3 || ^7",
         "pear-pear.horde.org/Horde_Exception": "^2@stable"
     },
     "suggest": {
@@ -28,5 +28,14 @@
         "pear-pear.horde.org/horde_lz4": "*",
         "pear-pecl.php.net/lzf": "^1.5.2@stable",
         "ext-zlib": "*"
+    },
+    "replace": {
+        "pear-pear.horde.org/Horde_Compress_Fast": "1.*",
+        "pear-horde/Horde_Compress_Fast": "1.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Horde_Compress_Fast": "lib/"
+        }
     }
 }

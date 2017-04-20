@@ -25,7 +25,7 @@
         }
     ],
     "require": {
-        "php": "^5.3,<8",
+        "php": "^5.3 || ^7",
         "pear-pear.horde.org/Horde_Exception": "^2@stable",
         "pear-pear.horde.org/Horde_Translation": "^2.2@stable",
         "pear-pear.horde.org/Horde_Util": "^2@stable"
@@ -39,7 +39,16 @@
         "pear-pear.horde.org/Horde_Mongo": "^1@stable",
         "pear-pear.horde.org/Horde_Perms": "^2@stable",
         "pear-pear.horde.org/Horde_Test": "^2.1@stable",
-        "pear-pecl.php.net/ssh2": "^12@stable",
+        "pear-pecl.php.net/ssh2": "^0.12@stable",
         "ext-ftp": "*"
+    },
+    "replace": {
+        "pear-pear.horde.org/Horde_Vfs": "2.*",
+        "pear-horde/Horde_Vfs": "2.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Horde_Vfs": "lib/"
+        }
     }
 }

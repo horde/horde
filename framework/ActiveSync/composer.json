@@ -20,7 +20,7 @@
         }
     ],
     "require": {
-        "php": "^5.3,<8",
+        "php": "^5.3 || ^7",
         "pear-pear.horde.org/Horde_Compress": "^2@stable",
         "pear-pear.horde.org/Horde_Date": "^2.3@stable",
         "pear-pear.horde.org/Horde_Exception": "^2@stable",
@@ -41,5 +41,14 @@
         "pear-pear.horde.org/Horde_Mongo": "^1.0.2@stable",
         "pear-pear.horde.org/Horde_Text_Filter": "^2@stable",
         "pear-pear.horde.org/Horde_Test": "^2.1@stable"
+    },
+    "replace": {
+        "pear-pear.horde.org/Horde_ActiveSync": "2.*",
+        "pear-horde/Horde_ActiveSync": "2.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Horde_ActiveSync": "lib/"
+        }
     }
 }

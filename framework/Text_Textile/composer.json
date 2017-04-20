@@ -20,9 +20,18 @@
         }
     ],
     "require": {
-        "php": "^5.3,<8"
+        "php": "^5.3 || ^7"
     },
     "suggest": {
         "pear-pear.horde.org/Horde_Test": "^2.1"
+    },
+    "replace": {
+        "pear-pear.horde.org/Horde_Text_Textile": "1.*",
+        "pear-horde/Horde_Text_Textile": "1.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Horde_Text_Textile": "lib/"
+        }
     }
 }

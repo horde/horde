@@ -30,7 +30,7 @@
         }
     ],
     "require": {
-        "php": "^5.3,<8",
+        "php": "^5.3 || ^7",
         "ext-dom": "*"
     },
     "suggest": {
@@ -43,5 +43,14 @@
         "ext-json": "*",
         "ext-mbstring": "*",
         "ext-xml": "*"
+    },
+    "replace": {
+        "pear-pear.horde.org/Horde_Util": "2.*",
+        "pear-horde/Horde_Util": "2.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Horde_Util": "lib/"
+        }
     }
 }

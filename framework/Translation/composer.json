@@ -20,10 +20,19 @@
         }
     ],
     "require": {
-        "php": "^5.3,<8"
+        "php": "^5.3 || ^7"
     },
     "suggest": {
         "pear-pear.horde.org/Horde_Test": "^2.1@stable",
         "ext-gettext": "*"
+    },
+    "replace": {
+        "pear-pear.horde.org/Horde_Translation": "2.*",
+        "pear-horde/Horde_Translation": "2.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Horde_Translation": "lib/"
+        }
     }
 }

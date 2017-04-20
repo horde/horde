@@ -30,7 +30,7 @@
         }
     ],
     "require": {
-        "php": "^5.3,<8",
+        "php": "^5.3 || ^7",
         "pear-pear.horde.org/Horde_Date": "^2@stable",
         "pear-pear.horde.org/Horde_Exception": "^2@stable",
         "pear-pear.horde.org/Horde_Support": "^2@stable",
@@ -45,5 +45,14 @@
         "ext-mysqli": "*",
         "ext-oci8": "*",
         "ext-PDO": "*"
+    },
+    "replace": {
+        "pear-pear.horde.org/Horde_Db": "2.*",
+        "pear-horde/Horde_Db": "2.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Horde_Db": "lib/"
+        }
     }
 }

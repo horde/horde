@@ -27,5 +27,14 @@
     },
     "suggest": {
         "pear-pear.php.net/Auth_SASL": "^1@stable"
+    },
+    "replace": {
+        "pear-pear.horde.org/Horde_ManageSieve": "1.*",
+        "pear-horde/Horde_ManageSieve": "1.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Horde_ManageSieve": "lib/"
+        }
     }
 }

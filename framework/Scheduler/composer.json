@@ -24,5 +24,14 @@
         "pear-pear.horde.org/Horde_Core": "^2@stable",
         "pear-pear.horde.org/Horde_Util": "^2@stable",
         "pear-pear.horde.org/Horde_Vfs": "^2@stable"
+    },
+    "replace": {
+        "pear-pear.horde.org/Horde_Scheduler": "2.*",
+        "pear-horde/Horde_Scheduler": "2.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Horde_Scheduler": "lib/"
+        }
     }
 }

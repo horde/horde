@@ -20,9 +20,18 @@
         }
     ],
     "require": {
-        "php": "^5.3,<8",
+        "php": "^5.3 || ^7",
         "pear-pear.horde.org/Horde_Date": "^2.3@stable",
         "pear-pear.horde.org/Horde_Exception": "^2@stable",
-        "pear-pear.php.net/Math_BigInteger": "^1.0.2@stable,<=2.0.0"
+        "pear-pear.php.net/Math_BigInteger": "^1.0.2@stable"
+    },
+    "replace": {
+        "pear-pear.horde.org/Horde_Mapi": "1.*",
+        "pear-horde/Horde_Mapi": "1.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Horde_Mapi": "lib/"
+        }
     }
 }

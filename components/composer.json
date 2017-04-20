@@ -20,7 +20,7 @@
         }
     ],
     "require": {
-        "php": "^5.3",
+        "php": "^5.4 || ^7",
         "pear-pear.horde.org/Horde_Autoloader": "*",
         "pear-pear.horde.org/Horde_Argv": "*",
         "pear-pear.horde.org/Horde_Cli": "*",
@@ -41,5 +41,14 @@
         "pear-pear.phpunit.de/phpdcd": "*",
         "pear-pear.phpunit.de/phploc": "*",
         "pear-pear.phpmd.org/PHP_PMD": "*"
+    },
+    "replace": {
+        "pear-pear.horde.org/components": "0.*",
+        "pear-horde/components": "0.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Components": "lib/"
+        }
     }
 }

@@ -21,5 +21,14 @@
     ],
     "require": {
         "php": "^5.3"
+    },
+    "replace": {
+        "pear-pear.horde.org/Horde_Lens": "1.*",
+        "pear-horde/Horde_Lens": "1.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Horde_Lens": "lib/"
+        }
     }
 }

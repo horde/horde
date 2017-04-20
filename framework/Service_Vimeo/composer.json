@@ -22,5 +22,14 @@
     "require": {
         "php": "^5.3",
         "pear-pear.horde.org/Horde_Http": "^2"
+    },
+    "replace": {
+        "pear-pear.horde.org/Horde_Service_Vimeo": "1.*",
+        "pear-horde/Horde_Service_Vimeo": "1.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Horde_Service_Vimeo": "lib/"
+        }
     }
 }

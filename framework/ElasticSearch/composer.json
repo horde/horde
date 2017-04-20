@@ -28,5 +28,14 @@
         "php": "^5.3",
         "pear-pear.horde.org/Horde_Exception": "^2@stable",
         "pear-pear.horde.org/Horde_Http": "^2@stable"
+    },
+    "replace": {
+        "pear-pear.horde.org/Horde_ElasticSearch": "1.*",
+        "pear-horde/Horde_ElasticSearch": "1.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Horde_ElasticSearch": "lib/"
+        }
     }
 }

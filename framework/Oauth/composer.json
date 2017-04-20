@@ -26,5 +26,14 @@
         "pear-pear.horde.org/Horde_Util": "^2@stable",
         "ext-hash": "*",
         "ext-openssl": "*"
+    },
+    "replace": {
+        "pear-pear.horde.org/Horde_Oauth": "2.*",
+        "pear-horde/Horde_Oauth": "2.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Horde_Oauth": "lib/"
+        }
     }
 }

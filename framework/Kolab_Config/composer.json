@@ -20,9 +20,18 @@
         }
     ],
     "require": {
-        "php": "^5.3,<8"
+        "php": "^5.3 || ^7"
     },
     "suggest": {
         "pear-pear.horde.org/Horde_Test": "^2.4"
+    },
+    "replace": {
+        "pear-pear.horde.org/Horde_Kolab_Config": "1.*",
+        "pear-horde/Horde_Kolab_Config": "1.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Horde_Kolab_Config": "lib/"
+        }
     }
 }

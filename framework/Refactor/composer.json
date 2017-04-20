@@ -25,5 +25,14 @@
         "pear-pear.horde.org/Horde_Exception": "^2",
         "pear-pear.horde.org/Horde_Text_Diff": "^2.2",
         "pear-pear.horde.org/Horde_Translation": "^2.2.2"
+    },
+    "replace": {
+        "pear-pear.horde.org/Horde_Refactor": "1.*",
+        "pear-horde/Horde_Refactor": "1.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Horde_Refactor": "lib/"
+        }
     }
 }

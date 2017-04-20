@@ -21,5 +21,14 @@
     ],
     "require": {
         "php": "^5.3"
+    },
+    "replace": {
+        "pear-pear.horde.org/Horde_Thrift": "2.*",
+        "pear-horde/Horde_Thrift": "2.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Horde_Thrift": "lib/"
+        }
     }
 }

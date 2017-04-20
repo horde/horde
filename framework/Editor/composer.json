@@ -29,5 +29,14 @@
         "pear-pear.horde.org/Horde_Browser": "^2@stable",
         "pear-pear.horde.org/Horde_Exception": "^2@stable",
         "pear-pear.horde.org/Horde_Serialize": "^2@stable"
+    },
+    "replace": {
+        "pear-pear.horde.org/Horde_Editor": "2.*",
+        "pear-horde/Horde_Editor": "2.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Horde_Editor": "lib/"
+        }
     }
 }

@@ -20,6 +20,15 @@
         }
     ],
     "require": {
-        "php": "^5,<8"
+        "php": "^5 || ^7"
+    },
+    "replace": {
+        "pear-pear.horde.org/horde_lz4": "1.*",
+        "pear-horde/horde_lz4": "1.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "horde_lz4": "lib/"
+        }
     }
 }

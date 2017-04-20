@@ -22,5 +22,14 @@
     "require": {
         "php": "^5.3",
         "pear-pear.horde.org/Horde_Thrift": "*"
+    },
+    "replace": {
+        "pear-pear.horde.org/Horde_Scribe": "2.*",
+        "pear-horde/Horde_Scribe": "2.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Horde_Scribe": "lib/"
+        }
     }
 }

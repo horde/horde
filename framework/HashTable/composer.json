@@ -20,13 +20,22 @@
         }
     ],
     "require": {
-        "php": "^5.3,<8",
+        "php": "^5.3 || ^7",
         "pear-pear.horde.org/Horde_Exception": "^2@stable"
     },
     "suggest": {
         "pear-pear.horde.org/Horde_Log": "^2@stable",
         "pear-pear.horde.org/Horde_Memcache": "^2@stable",
         "pear-pear.horde.org/Horde_Vfs": "^2@stable",
-        "pear-pear.nrk.io/Predis": "^8.3@stable"
+        "pear-pear.nrk.io/Predis": "^0.8.3@stable"
+    },
+    "replace": {
+        "pear-pear.horde.org/Horde_HashTable": "1.*",
+        "pear-horde/Horde_HashTable": "1.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Horde_HashTable": "lib/"
+        }
     }
 }

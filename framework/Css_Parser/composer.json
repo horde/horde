@@ -20,9 +20,18 @@
         }
     ],
     "require": {
-        "php": "^5.3.2,<8"
+        "php": "^5.3.2 || ^7"
     },
     "suggest": {
         "ext-mbstring": "*"
+    },
+    "replace": {
+        "pear-pear.horde.org/Horde_Css_Parser": "1.*",
+        "pear-horde/Horde_Css_Parser": "1.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Horde_Css_Parser": "lib/"
+        }
     }
 }

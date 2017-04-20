@@ -20,7 +20,16 @@
         }
     ],
     "require": {
-        "php": "^5.3,<8",
+        "php": "^5.3 || ^7",
         "pear-pear.horde.org/Horde_JavascriptMinify": "^1.1@stable"
+    },
+    "replace": {
+        "pear-pear.horde.org/Horde_JavascriptMinify_Jsmin": "1.*",
+        "pear-horde/Horde_JavascriptMinify_Jsmin": "1.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Horde_JavascriptMinify_Jsmin": "lib/"
+        }
     }
 }

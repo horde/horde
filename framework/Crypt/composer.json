@@ -25,7 +25,7 @@
         }
     ],
     "require": {
-        "php": "^5.3,<8",
+        "php": "^5.3 || ^7",
         "pear-pear.horde.org/Horde_Exception": "^2@stable",
         "pear-pear.horde.org/Horde_Http": "^2@stable",
         "pear-pear.horde.org/Horde_Mime": "^2@stable",
@@ -39,5 +39,14 @@
     },
     "suggest": {
         "pear-pear.horde.org/Horde_Test": "^2.1@stable"
+    },
+    "replace": {
+        "pear-pear.horde.org/Horde_Crypt": "2.*",
+        "pear-horde/Horde_Crypt": "2.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Horde_Crypt": "lib/"
+        }
     }
 }

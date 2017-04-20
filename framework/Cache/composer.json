@@ -25,7 +25,7 @@
         }
     ],
     "require": {
-        "php": "^5.3,<8",
+        "php": "^5.3 || ^7",
         "pear-pear.horde.org/Horde_Compress_Fast": "^1@stable",
         "pear-pear.horde.org/Horde_Exception": "^2@stable",
         "pear-pear.horde.org/Horde_Util": "^2@stable",
@@ -38,7 +38,16 @@
         "pear-pear.horde.org/Horde_Memcache": "^2@stable",
         "pear-pear.horde.org/Horde_Mongo": "^1@stable",
         "pear-pecl.php.net/APC": "^3.1.1@stable",
-        "ext-eaccelerator": "^9.5,<=0.9.6",
+        "ext-eaccelerator": "^0.9.5 <=0.9.5",
         "ext-xcache": "*"
+    },
+    "replace": {
+        "pear-pear.horde.org/Horde_Cache": "2.*",
+        "pear-horde/Horde_Cache": "2.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Horde_Cache": "lib/"
+        }
     }
 }

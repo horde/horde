@@ -20,7 +20,16 @@
         }
     ],
     "require": {
-        "php": "^5.3,<8",
+        "php": "^5.3 || ^7",
         "pear-pear.horde.org/Horde_Text_Filter": "^2.2@stable"
+    },
+    "replace": {
+        "pear-pear.horde.org/Horde_Text_Filter_Jsmin": "1.*",
+        "pear-horde/Horde_Text_Filter_Jsmin": "1.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Horde_Text_Filter_Jsmin": "lib/"
+        }
     }
 }

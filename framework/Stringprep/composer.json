@@ -23,5 +23,14 @@
         "php": "^5.3",
         "ext-iconv": "*",
         "ext-intl": "*"
+    },
+    "replace": {
+        "pear-pear.horde.org/Horde_Stringprep": "1.*",
+        "pear-horde/Horde_Stringprep": "1.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Horde_Stringprep": "lib/"
+        }
     }
 }

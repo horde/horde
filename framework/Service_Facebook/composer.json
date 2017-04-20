@@ -28,5 +28,14 @@
         "pear-pear.horde.org/Horde_Util": "^2@stable",
         "ext-json": "*",
         "ext-SimpleXML": "*"
+    },
+    "replace": {
+        "pear-pear.horde.org/Horde_Service_Facebook": "2.*",
+        "pear-horde/Horde_Service_Facebook": "2.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Horde_Service_Facebook": "lib/"
+        }
     }
 }

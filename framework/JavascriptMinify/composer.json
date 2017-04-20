@@ -24,5 +24,14 @@
         "pear-pear.horde.org/Horde_Exception": "^2@stable",
         "pear-pear.horde.org/Horde_Log": "^2@stable",
         "pear-pear.horde.org/Horde_Util": "^2@stable"
+    },
+    "replace": {
+        "pear-pear.horde.org/Horde_JavascriptMinify": "1.*",
+        "pear-horde/Horde_JavascriptMinify": "1.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Horde_JavascriptMinify": "lib/"
+        }
     }
 }

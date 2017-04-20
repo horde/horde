@@ -25,12 +25,21 @@
         }
     ],
     "require": {
-        "php": "^5.3,<8",
+        "php": "^5.3 || ^7",
         "pear-pear.horde.org/Horde_Translation": "^2.2@stable",
         "pear-pear.horde.org/Horde_Util": "^2@stable"
     },
     "suggest": {
         "pear-pear.php.net/Net_DNS2": "*",
         "pear-pecl.php.net/geoip": "*"
+    },
+    "replace": {
+        "pear-pear.horde.org/Horde_Nls": "2.*",
+        "pear-horde/Horde_Nls": "2.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Horde_Nls": "lib/"
+        }
     }
 }

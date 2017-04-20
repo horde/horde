@@ -20,12 +20,21 @@
         }
     ],
     "require": {
-        "php": "^5.3,<8",
+        "php": "^5.3 || ^7",
         "pear-pear.horde.org/Horde_Exception": "^2@stable",
         "ext-hash": "*"
     },
     "suggest": {
         "pear-pecl.php.net/memcache": "^2@stable",
         "pear-pecl.php.net/memcached": "*"
+    },
+    "replace": {
+        "pear-pear.horde.org/Horde_Memcache": "2.*",
+        "pear-horde/Horde_Memcache": "2.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Horde_Memcache": "lib/"
+        }
     }
 }

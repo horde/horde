@@ -20,10 +20,19 @@
         }
     ],
     "require": {
-        "php": "^5.3,<8"
+        "php": "^5.3 || ^7"
     },
     "suggest": {
         "pear-pecl.php.net/mongo": "^1.3@stable",
         "pear-pecl.php.net/mongodb": "*"
+    },
+    "replace": {
+        "pear-pear.horde.org/Horde_Mongo": "1.*",
+        "pear-horde/Horde_Mongo": "1.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Horde_Mongo": "lib/"
+        }
     }
 }
