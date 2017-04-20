@@ -527,7 +527,11 @@ EOF;
             $this->name = strtolower($suggested_alias . '/' . $pkgname);
         }
 
-        $this->autoload = array('psr-0' => array($this->data['name'] => "lib/"));
+        $this->autoload = array(
+            'psr-0' => array(
+                $this->data['name'] == 'Horde_Core' ? 'Horde' : $this->data['name'] => "lib/"
+            )
+        );
 
         // assemble human-readable composer.json
         $j = new stdClass();
@@ -702,7 +706,7 @@ EOF;
     {
         $out = array();
         if (! empty($req['min'])) {
-            $v = '^' . trim($req['min'], '.0');
+            $v = '^' . rtrim($req['min'], '.0');
             if ($req['dep'] == 'package' &&
                 $this->data['stability']['release'] == 'stable') {
                 $v .= '@stable';
