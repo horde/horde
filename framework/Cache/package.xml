@@ -187,8 +187,7 @@
    <extension>
     <name>eaccelerator</name>
     <min>0.9.5</min>
-    <max>0.9.6</max>
-    <exclude>0.9.6</exclude>
+    <max>0.9.5</max>
    </extension>
    <extension>
     <name>xcache</name>
