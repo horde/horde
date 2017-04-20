@@ -527,6 +527,8 @@ EOF;
             $this->name = strtolower($suggested_alias . '/' . $pkgname);
         }
 
+        $this->autoload = array('psr-0' => array($this->data['name'] => "lib/"));
+
         // assemble human-readable composer.json
         $j = new stdClass();
         $j->name = $this->name;
