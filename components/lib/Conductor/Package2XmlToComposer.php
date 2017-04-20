@@ -527,11 +527,16 @@ EOF;
             $this->name = strtolower($suggested_alias . '/' . $pkgname);
         }
 
-        $this->autoload = array(
-            'psr-0' => array(
-                $this->data['name'] == 'Horde_Core' ? 'Horde' : $this->data['name'] => "lib/"
-            )
-        );
+        if ($this->data['name'] == 'Horde_Core') {
+            $prefix = 'Horde';
+        } elseif ($this->data['name'] == 'imp') {
+            $prefix = 'IMP';
+        } elseif (strpos($this->data['name'], 'Horde') !== 0) {
+            $prefix = Horde_String::ucfirst($this->data['name']);
+        } else {
+            $prefix = $this->data['name'];
+        }
+        $this->autoload = array('psr-0' => array($prefix => "lib/"));
 
         // assemble human-readable composer.json
         $j = new stdClass();
