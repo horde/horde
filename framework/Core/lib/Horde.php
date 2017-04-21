@@ -446,14 +446,22 @@ class Horde
 
         $url = '';
         $schemeRegexp = '|^([a-zA-Z][a-zA-Z0-9+.-]{0,19})://|';
-        $webroot = ltrim($GLOBALS['registry']->get('webroot', empty($opts['app']) ? null : $opts['app']), '/');
+        $webroot = ltrim(
+            $GLOBALS['registry']->get(
+                'webroot',
+                empty($opts['app']) ? null : $opts['app']
+            ),
+            '/'
+        );
 
         if ($full &&
             !isset($puri['scheme']) &&
-            !preg_match($schemeRegexp, $webroot) ) {
+            !preg_match($schemeRegexp, $webroot)) {
             /* Store connection parameters in local variables. */
             $server_name = $GLOBALS['conf']['server']['name'];
-            $server_port = isset($GLOBALS['conf']['server']['port']) ? $GLOBALS['conf']['server']['port'] : '';
+            $server_port = isset($GLOBALS['conf']['server']['port'])
+                ? $GLOBALS['conf']['server']['port']
+                : '';
 
             $protocol = 'http';
             switch ($GLOBALS['conf']['use_ssl']) {
