@@ -84,6 +84,12 @@ class IMP_LoginTasks_Task_Autocreate extends Horde_LoginTasks_Task
                     'special_use' => array(Horde_Imap_Client::SPECIALUSE_TRASH)
                 ));
                 break;
+
+            case IMP_Mailbox::SPECIAL_USER:
+                foreach ($val as $mbox) {
+                    $mbox->create();
+                }
+                break;
             }
         }
     }
