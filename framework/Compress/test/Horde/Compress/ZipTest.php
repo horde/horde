@@ -115,4 +115,17 @@ class Horde_Compress_ZipTest extends Horde_Test_Case
         );
         $this->assertEquals($this->testdata, $data);
     }
+
+    public function testDatesBefore1980()
+    {
+        $compress = Horde_Compress::factory('Zip');
+
+        $zip_data = $compress->compress(array(array(
+            'data' => $this->testdata,
+            'name' => 'test.txt',
+            'time' => mktime(0,0,0,12,31,1987)
+        )));
+
+        $this->assertNotEmpty($zip_data);
+    }
 }

@@ -342,7 +342,7 @@ class Horde_Compress_Zip extends Horde_Compress_Base
         $ftime = (isset($file['time'])) ? $file['time'] : null;
 
         /* Get the hex time. */
-        $dtime    = dechex($this->_unix2DosTime($ftime));
+        $dtime    = sprintf('%08s', dechex($this->_unix2DosTime($ftime)));
         $hexdtime = chr(hexdec($dtime[6] . $dtime[7])) .
                     chr(hexdec($dtime[4] . $dtime[5])) .
                     chr(hexdec($dtime[2] . $dtime[3])) .
