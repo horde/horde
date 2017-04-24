@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2017-04-11</date>
+ <date>2017-04-24</date>
  <version>
   <release>2.28.4</release>
   <api>2.28.0</api>
@@ -998,6 +998,9 @@
        <file name="KolabServerTest.php" role="test" />
        <file name="KolabSessionTest.php" role="test" />
       </dir> <!-- /test/Horde/Core/Factory -->
+      <dir name="Stub">
+       <file name="Registryconfig.php" role="test" />
+      </dir> <!-- /test/Horde/Core/Stub -->
       <file name="ActiveSyncTests.php" role="test" />
       <file name="AllTests.php" role="test" />
       <file name="bootstrap.php" role="test" />
@@ -2104,6 +2107,7 @@
    <install as="Horde/Core/Factory/GroupTest.php" name="test/Horde/Core/Factory/GroupTest.php" />
    <install as="Horde/Core/Factory/KolabServerTest.php" name="test/Horde/Core/Factory/KolabServerTest.php" />
    <install as="Horde/Core/Factory/KolabSessionTest.php" name="test/Horde/Core/Factory/KolabSessionTest.php" />
+   <install as="Horde/Core/Stub/Registryconfig.php" name="test/Horde/Core/Stub/Registryconfig.php" />
    </filelist>
  </phprelease>
  <changelog>
@@ -4441,7 +4445,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-04-11</date>
+   <date>2017-04-24</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

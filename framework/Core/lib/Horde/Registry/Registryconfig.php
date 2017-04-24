@@ -176,9 +176,11 @@ class Horde_Registry_Registryconfig
     /**
      * Attempt to auto-detect the Horde webroot.
      *
+     * @param string $basedir  The base horde directory.
+     *
      * @return string  The webroot.
      */
-    protected function _detectWebroot()
+    protected function _detectWebroot($basedir = HORDE_BASE)
     {
         // Note for Windows: the below assumes the PHP_SELF variable uses
         // forward slashes.
@@ -186,7 +188,7 @@ class Horde_Registry_Registryconfig
             $path = empty($_SERVER['SCRIPT_URL'])
                 ? $_SERVER['SCRIPT_NAME']
                 : $_SERVER['SCRIPT_URL'];
-            $hordedir = basename(str_replace(DIRECTORY_SEPARATOR, '/', realpath(HORDE_BASE)));
+            $hordedir = basename(str_replace(DIRECTORY_SEPARATOR, '/', realpath($basedir)));
             return (preg_match(';/' . $hordedir . ';', $path))
                 ? preg_replace(';/' . $hordedir . '.*;', '/' . $hordedir, $path)
                 : '';
@@ -197,7 +199,7 @@ class Horde_Registry_Registryconfig
         }
 
         $webroot = preg_split(';/;', $_SERVER['PHP_SELF'], 2, PREG_SPLIT_NO_EMPTY);
-        $webroot = strstr(realpath(HORDE_BASE), DIRECTORY_SEPARATOR . array_shift($webroot));
+        $webroot = strstr(realpath($basedir), DIRECTORY_SEPARATOR . array_shift($webroot));
         if ($webroot !== false) {
             return preg_replace(array('/\\\\/', ';/config$;'), array('/', ''), $webroot);
         }
