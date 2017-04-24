@@ -225,7 +225,7 @@ class Horde_Compress_Zip extends Horde_Compress_Base
                 mktime((($info['Time'] >> 11) & 0x1f),
                        (($info['Time'] >> 5) & 0x3f),
                        (($info['Time'] << 1) & 0x3e),
-                       (($info['Time'] >> 21) & 0x07),
+                       (($info['Time'] >> 21) & 0x0f),
                        (($info['Time'] >> 16) & 0x1f),
                        ((($info['Time'] >> 25) & 0x7f) + 1980));
 
