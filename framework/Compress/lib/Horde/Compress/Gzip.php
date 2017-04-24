@@ -5,6 +5,7 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
+ * @see      https://tools.ietf.org/html/rfc1952
  * @author   Michael Cochrane <mike@graftonhall.co.nz>
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
