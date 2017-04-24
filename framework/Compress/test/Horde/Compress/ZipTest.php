@@ -24,7 +24,7 @@
  */
 class Horde_Compress_ZipTest extends Horde_Test_Case
 {
-    public $testdata;
+    protected $testdata;
 
     public function setup()
     {
@@ -37,11 +37,21 @@ class Horde_Compress_ZipTest extends Horde_Test_Case
 
         $zip_data = $compress->compress(array(array(
             'data' => $this->testdata,
-            'name' => 'test.txt'
+            'name' => 'test.txt',
+            'time' => 1000000000
         )));
 
-        // Better test needed
         $this->assertNotEmpty($zip_data);
+
+        return $zip_data;
+    }
+
+    /**
+     * @depends testZipCreateString
+     */
+    public function testZipUnzipString($zip_data)
+    {
+        $this->_testZipUnzip($zip_data);
     }
 
     public function testZipCreateStream()
@@ -53,12 +63,56 @@ class Horde_Compress_ZipTest extends Horde_Test_Case
 
         $zip_data = $compress->compress(array(array(
             'data' => $fd,
-            'name' => 'test.txt'
+            'name' => 'test.txt',
+            'time' => 1000000000
         )), array(
             'stream' => true
         ));
 
-        // Better test needed
         $this->assertNotEmpty($zip_data);
+        $this->assertInternalType('resource', $zip_data);
+
+        return stream_get_contents($zip_data);
+    }
+
+    /**
+     * @depends testZipCreateStream
+     */
+    public function testZipUnzipStream($zip_data)
+    {
+        $this->_testZipUnzip($zip_data);
+    }
+
+    protected function _testZipUnzip($zip_data)
+    {
+        $compress = Horde_Compress::factory('Zip');
+        $list = $compress->decompress(
+            $zip_data, array('action' => Horde_Compress_Zip::ZIP_LIST)
+        );
+        $this->assertEquals(
+            array(array(
+                'attr' => '-A---',
+                'crc' => 'd72299ec',
+                'csize' => 62,
+                'date' => 1000000000,
+                '_dataStart' => 38,
+                'name' => 'test.txt',
+                'method' => 'Deflated',
+                '_method' => 8,
+                'size' => 15000,
+                'type' => 'binary',
+            )),
+            $list
+        );
+
+        $data = $compress->decompress(
+            $zip_data,
+            array(
+                'action' => Horde_Compress_Zip::ZIP_DATA,
+                'info' => $list,
+                'key' => 0
+            )
+        );
+        $this->assertEquals($this->testdata, $data);
     }
 }
