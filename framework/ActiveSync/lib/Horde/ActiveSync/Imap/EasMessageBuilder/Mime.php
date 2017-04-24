@@ -97,11 +97,15 @@ class Horde_ActiveSync_Imap_EasMessageBuilder_Mime extends Horde_ActiveSync_Imap
             $base = $mime;
         }
 
-        // Populate the EAS body structure with the MIME data.
-        $this->_airsyncBody->data = $base->toString(array(
-            'headers' => $this->_getHeaders(),
-            'stream' => true)
-        );
+        try {
+            // Populate the EAS body structure with the MIME data.
+            $this->_airsyncBody->data = $base->toString(array(
+                'headers' => $this->_getHeaders(),
+                'stream' => true)
+            );
+        } catch (Horde_Idna_Exception $e) {
+            $this->_logger->err($e->getMessage());
+        }
         $this->_airsyncBody->estimateddatasize = $base->getBytes();
     }
 
