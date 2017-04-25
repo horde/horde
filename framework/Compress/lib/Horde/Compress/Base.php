@@ -53,7 +53,7 @@ class Horde_Compress_Base
     }
 
     /**
-     * Compress the data.
+     * Compresses the data.
      *
      * @param mixed $data    The data to compress.
      * @param array $params  An array of arguments needed to compress the
@@ -68,7 +68,47 @@ class Horde_Compress_Base
     }
 
     /**
-     * Decompress the data.
+     * Compresses a directory.
+     *
+     * @since Horde_Compress 2.2.0
+     *
+     * @param string $directory  The directory to recursively compress.
+     * @param array $params      An array of arguments needed to compress the
+     *                           data.
+     *
+     * @return mixed  The compressed data.
+     * @throws Horde_Compress_Exception
+     */
+    public function compressDirectory($directory, array $params = array())
+    {
+        if (!$this->canCompress) {
+            throw new Horde_Compress_Exception(
+                Horde_Compress_Translation::t("Cannot compress data")
+            );
+        }
+
+        $iterator = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator(
+                $directory,
+                FilesystemIterator::CURRENT_AS_FILEINFO
+                | FilesystemIterator::SKIP_DOTS
+            )
+        );
+        $regexp = '/^' . preg_quote($directory . '/', '/') . '/';
+        $data = array();
+        foreach ($iterator as $file) {
+            $data[] = array(
+                'name' => preg_replace($regexp, '', $file->getPathName()),
+                'data' => $file->openFile()->fread($file->getSize()),
+                'time' => $file->getMTime()
+            );
+        }
+
+        return $this->compress($data, $params);
+    }
+
+    /**
+     * Decompresses the data.
      *
      * @param mixed $data    The data to decompress.
      * @param array $params  An array of arguments needed to decompress the

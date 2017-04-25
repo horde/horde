@@ -128,4 +128,56 @@ class Horde_Compress_ZipTest extends Horde_Test_Case
 
         $this->assertNotEmpty($zip_data);
     }
+
+    public function testZipDirectory()
+    {
+        $compress = Horde_Compress::factory('Zip');
+
+        $zip_data = $compress->compressDirectory(
+            __DIR__ . '/fixtures/directory'
+        );
+
+        $this->assertNotEmpty($zip_data);
+
+        $list = $compress->decompress(
+            $zip_data, array('action' => Horde_Compress_Zip::ZIP_LIST)
+        );
+        $this->assertCount(3, $list);
+        $this->assertEquals('one.txt', $list[0]['name']);
+        $this->assertEquals(4, $list[0]['size']);
+        $this->assertEquals('sub/three.txt', $list[1]['name']);
+        $this->assertEquals(6, $list[1]['size']);
+        $this->assertEquals('two.bin', $list[2]['name']);
+        $this->assertEquals(2, $list[2]['size']);
+
+        $data = $compress->decompress(
+            $zip_data,
+            array(
+                'action' => Horde_Compress_Zip::ZIP_DATA,
+                'info' => $list,
+                'key' => 0
+            )
+        );
+        $this->assertEquals("One\n", $data);
+
+        $data = $compress->decompress(
+            $zip_data,
+            array(
+                'action' => Horde_Compress_Zip::ZIP_DATA,
+                'info' => $list,
+                'key' => 1
+            )
+        );
+        $this->assertEquals("Three\n", $data);
+
+        $data = $compress->decompress(
+            $zip_data,
+            array(
+                'action' => Horde_Compress_Zip::ZIP_DATA,
+                'info' => $list,
+                'key' => 2
+            )
+        );
+        $this->assertEquals("\x02\x0a", $data);
+    }
 }

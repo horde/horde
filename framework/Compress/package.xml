@@ -5,21 +5,9 @@
  <summary>Horde Compression API</summary>
  <description>An API for various compression techniques.</description>
  <lead>
-  <name>Chuck Hagenbuch</name>
-  <user>chuck</user>
-  <email>chuck@horde.org</email>
-  <active>yes</active>
- </lead>
- <lead>
   <name>Jan Schneider</name>
   <user>jan</user>
   <email>jan@horde.org</email>
-  <active>yes</active>
- </lead>
- <lead>
-  <name>Michael Slusarz</name>
-  <user>slusarz</user>
-  <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
  <developer>
@@ -28,10 +16,22 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2017-03-20</date>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>no</active>
+ </lead>
+ <lead>
+  <name>Michael Slusarz</name>
+  <user>slusarz</user>
+  <email>slusarz@horde.org</email>
+  <active>no</active>
+ </lead>
+ <date>2017-04-25</date>
  <version>
-  <release>2.1.7</release>
-  <api>2.1.0</api>
+  <release>2.2.0</release>
+  <api>2.2.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Add compressDirectory().
 * [jan] Fix notice when adding files older than 1988 to a ZIP archive.
 * [jan] Fix reading file dates after August from ZIP files.
  </notes>
@@ -48,6 +49,7 @@
     <dir name="Horde">
      <dir name="Compress">
       <file name="COPYING" role="doc" />
+      <file name="UPGRADING" role="doc" />
      </dir> <!-- /doc/Horde/Compress -->
     </dir> <!-- /doc/Horde -->
    </dir> <!-- /doc -->
@@ -337,6 +339,13 @@
     <dir name="Horde">
      <dir name="Compress">
       <dir name="fixtures">
+       <dir name="directory">
+        <dir name="sub">
+         <file name="three.txt" role="test" />
+        </dir> <!-- /test/Horde/Compress/fixtures/directory/sub -->
+        <file name="one.txt" role="test" />
+        <file name="two.bin" role="test" />
+       </dir> <!-- /test/Horde/Compress/fixtures/directory -->
        <file name="Itip_Reply.eml" role="test" />
        <file name="TnefAttachments.txt" role="test" />
        <file name="TnefAttachmentsMultiple.txt" role="test" />
@@ -441,6 +450,7 @@
  <phprelease>
   <filelist>
    <install as="COPYING" name="doc/Horde/Compress/COPYING" />
+   <install as="UPGRADING" name="doc/Horde/Compress/UPGRADING" />
    <install as="Horde/Compress.php" name="lib/Horde/Compress.php" />
    <install as="Horde/Compress/Base.php" name="lib/Horde/Compress/Base.php" />
    <install as="Horde/Compress/Dbx.php" name="lib/Horde/Compress/Dbx.php" />
@@ -558,6 +568,9 @@
    <install as="Horde/Compress/fixtures/tnef_vnote" name="test/Horde/Compress/fixtures/tnef_vnote" />
    <install as="Horde/Compress/fixtures/tnef_vtodo_fixture.txt" name="test/Horde/Compress/fixtures/tnef_vtodo_fixture.txt" />
    <install as="Horde/Compress/fixtures/winmail2.dat" name="test/Horde/Compress/fixtures/winmail2.dat" />
+   <install as="Horde/Compress/fixtures/directory/one.txt" name="test/Horde/Compress/fixtures/directory/one.txt" />
+   <install as="Horde/Compress/fixtures/directory/two.bin" name="test/Horde/Compress/fixtures/directory/two.bin" />
+   <install as="Horde/Compress/fixtures/directory/sub/three.txt" name="test/Horde/Compress/fixtures/directory/sub/three.txt" />
    </filelist>
  </phprelease>
  <changelog>
@@ -1035,14 +1048,15 @@ Initial release as a PEAR package
   </release>
   <release>
    <version>
-    <release>2.1.7</release>
-    <api>2.1.0</api></version>
+    <release>2.2.0</release>
+    <api>2.2.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-03-20</date>
+   <date>2017-04-25</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Add compressDirectory().
 * [jan] Fix notice when adding files older than 1988 to a ZIP archive.
 * [jan] Fix reading file dates after August from ZIP files.
    </notes>
