@@ -46,19 +46,6 @@ class Horde_Compress_Tar extends Horde_Compress_Base
     );
 
     /**
-     * Tar file flags.
-     *
-     * @var array
-     */
-    protected $_flags = array(
-        'FTEXT'     =>  0x01,
-        'FHCRC'     =>  0x02,
-        'FEXTRA'    =>  0x04,
-        'FNAME'     =>  0x08,
-        'FCOMMENT'  =>  0x10
-    );
-
-    /**
      * @return array  Tar file data:
      * <pre>
      * KEY: Position in the array
