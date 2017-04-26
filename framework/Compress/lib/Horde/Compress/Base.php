@@ -6,6 +6,7 @@
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
+ * @author   Jan Schneider <jan@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Compress
@@ -15,6 +16,7 @@
  * The base class that all compress drivers should extend.
  *
  * @author    Michael Slusarz <slusarz@horde.org>
+ * @author    Jan Schneider <jan@horde.org>
  * @category  Horde
  * @copyright 2011-2017 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
@@ -43,6 +45,11 @@ class Horde_Compress_Base
      */
     protected $_logger;
 
+    /**
+     * Constructor.
+     *
+     * @param array $options  Additional options for the compressor backend.
+     */
     public function __construct($options = array())
     {
         if (!empty($options['logger'])) {
