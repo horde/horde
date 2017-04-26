@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Readd timestamp to sync log entries.
 * [mjr] Catch leaked Horde_Idna_Exceptions from Horde_Mime.
  </notes>
  <contents>
@@ -3398,6 +3399,7 @@
    <date>2017-04-11</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Readd timestamp to sync log entries.
 * [mjr] Catch leaked Horde_Idna_Exceptions from Horde_Mime.
    </notes>
   </release>
