@@ -71,13 +71,15 @@ class Horde_ActiveSync_Log_Logger extends Horde_Log_Logger
             $event = array(
                 'message' => $params[0],
                 'indent' => $params[1],
-                'level' => $this->_levels[$levelName]
+                'level' => $this->_levels[$levelName],
+                'timestamp' => date('c')
             );
         } else {
             $event = array(
                 'message' => array_shift($params),
                 'level' =>  $this->_levels[$levelName],
-                'indent' => 0
+                'indent' => 0,
+                'timestamp' => date('c')
             );
         }
 

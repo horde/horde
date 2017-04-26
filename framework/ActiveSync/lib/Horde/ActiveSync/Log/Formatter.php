@@ -25,7 +25,7 @@ class Horde_ActiveSync_Log_Formatter implements Horde_Log_Formatter
      * @var string
      * @todo  Log Device ID?
      */
-    protected $_format = '[%pid%] %levelName%: %indent%';
+    protected $_format = '[%pid%][%timestamp%] %levelName%: %indent%';
 
     protected $_levelMap = array(
         'CLIENT' => 'I',
