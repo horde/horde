@@ -131,7 +131,6 @@ class Horde_Compress_Zip extends Horde_Compress_Base
         $this->_ctrldir = array();
         $this->_tmp = fopen('php://temp', 'r+');
 
-        reset($data);
         foreach ($data as $val) {
             $this->_addToZipFile($val);
         }
