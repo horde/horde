@@ -19,3 +19,9 @@ Upgrading to 2.2.0
     - compressDirectory()
 
       This method has been added.
+
+  - Horde_Compress_Tar
+
+    - compress()
+
+      This method has been added.

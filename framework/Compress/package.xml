@@ -28,7 +28,7 @@
   <email>slusarz@horde.org</email>
   <active>no</active>
  </lead>
- <date>2017-04-25</date>
+ <date>2017-04-26</date>
  <version>
   <release>2.2.0</release>
   <api>2.2.0</api>
@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Add support for compressing TAR archives.
 * [jan] Add compressDirectory().
 * [jan] Fix notice when adding files older than 1988 to a ZIP archive.
 * [jan] Fix reading file dates after August from ZIP files.
@@ -360,6 +361,7 @@
       <file name="bootstrap.php" role="test" />
       <file name="phpunit.xml" role="test" />
       <file name="RarTest.php" role="test" />
+      <file name="TarTest.php" role="test" />
       <file name="TnefTest.php" role="test" />
       <file name="ZipTest.php" role="test" />
      </dir> <!-- /test/Horde/Compress -->
@@ -558,6 +560,7 @@
    <install as="Horde/Compress/bootstrap.php" name="test/Horde/Compress/bootstrap.php" />
    <install as="Horde/Compress/phpunit.xml" name="test/Horde/Compress/phpunit.xml" />
    <install as="Horde/Compress/RarTest.php" name="test/Horde/Compress/RarTest.php" />
+   <install as="Horde/Compress/TarTest.php" name="test/Horde/Compress/TarTest.php" />
    <install as="Horde/Compress/TnefTest.php" name="test/Horde/Compress/TnefTest.php" />
    <install as="Horde/Compress/ZipTest.php" name="test/Horde/Compress/ZipTest.php" />
    <install as="Horde/Compress/fixtures/Itip_Reply.eml" name="test/Horde/Compress/fixtures/Itip_Reply.eml" />
@@ -1053,9 +1056,10 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-04-25</date>
+   <date>2017-04-26</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Add support for compressing TAR archives.
 * [jan] Add compressDirectory().
 * [jan] Fix notice when adding files older than 1988 to a ZIP archive.
 * [jan] Fix reading file dates after August from ZIP files.

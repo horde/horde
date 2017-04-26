@@ -107,7 +107,8 @@ class Horde_Compress_Base
             $data[] = array(
                 'name' => preg_replace($regexp, '', $file->getPathName()),
                 'data' => $file->openFile()->fread($file->getSize()),
-                'time' => $file->getMTime()
+                'time' => $file->getMTime(),
+                'spl'  => $file,
             );
         }
 
