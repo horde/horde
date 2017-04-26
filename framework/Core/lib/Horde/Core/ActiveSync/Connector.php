@@ -1091,8 +1091,7 @@ class Horde_Core_ActiveSync_Connector
         // We can use modification sequences.
         if ($this->hasFeature('modseq', $collection)) {
             $this->_logger->meta(sprintf(
-                '[%s] Fetching changes for %s using MODSEQ.',
-                getmypid(),
+                'Fetching changes for %s using MODSEQ.',
                 $collection));
             try {
                 return $this->_registry->{$collection}->getChangesByModSeq($from_ts, $to_ts, $server_id);
@@ -1105,8 +1104,7 @@ class Horde_Core_ActiveSync_Connector
 
         // Older API, use timestamps.
         $this->_logger->meta(sprintf(
-            '[%s] Fetching changes for %s using TIMESTAMPS.',
-            getmypid(),
+            'Fetching changes for %s using TIMESTAMPS.',
             $collection));
         try {
             return $this->_registry->{$collection}->getChanges($from_ts, $to_ts, false, $server_id);

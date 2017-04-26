@@ -129,9 +129,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     public function __construct(array $params = array())
     {
         parent::__construct($params);
-
-        $this->_pid = getmypid();
-
         if (empty($this->_params['connector']) ||
             !($this->_params['connector'] instanceof Horde_Core_ActiveSync_Connector)) {
             throw new InvalidArgumentException('Missing required connector object.');
@@ -634,9 +631,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         }
 
         throw new Horde_ActiveSync_Exception(sprintf(
-            '[%s] Folder: %s not found!',
-            $this->_pid,
-            $id)
+            'Folder: %s not found!', $id)
         );
     }
 
