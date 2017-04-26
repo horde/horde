@@ -104,9 +104,13 @@ class Horde_Compress_Base
         $regexp = '/^' . preg_quote($directory . '/', '/') . '/';
         $data = array();
         foreach ($iterator as $file) {
+            $content = '';
+            foreach ($file->openFile() as $line) {
+                $content .= $line;
+            }
             $data[] = array(
                 'name' => preg_replace($regexp, '', $file->getPathName()),
-                'data' => $file->openFile()->fread($file->getSize()),
+                'data' => $content,
                 'time' => $file->getMTime(),
                 'spl'  => $file,
             );
