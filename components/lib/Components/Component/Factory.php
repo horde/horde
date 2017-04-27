@@ -32,42 +32,42 @@ class Components_Component_Factory
      *
      * @var Components_Config
      */
-    private $_config;
+    protected $_config;
 
     /**
      * The factory for PEAR handlers.
      *
      * @var Components_Factory
      */
-    private $_factory;
+    protected $_factory;
 
     /**
      * The HTTP client for remote access.
      *
      * @var Horde_Http_Client
      */
-    private $_client;
+    protected $_client;
 
     /**
      * The first source component generated
      *
      * @var Components_Component
      */
-    private $_first_source;
+    protected $_first_source;
 
     /**
      * The git root path.
      *
      * @var Components_Helper_Root
      */
-    private $_git_root;
+    protected $_git_root;
 
     /**
      * The resolver instance.
      *
      * @var Components_Component_Resolver
      */
-    private $_resolver;
+    protected $_resolver;
 
     /**
      * Constructor.
