@@ -409,6 +409,8 @@ class IMP_Smime
      */
     protected function _signParameters()
     {
+        global $conf;
+
         $pubkey = $this->getPersonalPublicKey(true);
         $additional = array();
         if ($pubkey) {
@@ -422,6 +424,11 @@ class IMP_Smime
         if ($secondary) {
             $additional[] = $this->getAdditionalCert();
         }
+
+        $sslpath = empty($conf['openssl']['path'])
+            ? null
+            : $conf['openssl']['path'];
+
         return array(
             'type' => 'signature',
             'pubkey' => $pubkey,
@@ -429,6 +436,7 @@ class IMP_Smime
             'passphrase' => $this->getPassphrase($secondary),
             'sigtype' => 'detach',
             'certs' => implode("\n", $additional),
+            'sslpath' => $sslpath
         );
     }
 
