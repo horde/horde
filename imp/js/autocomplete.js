@@ -277,8 +277,10 @@ var IMP_Autocompleter = Class.create({
             this.input.setValue(entry.value);
             this.removeEntry(entry);
         } else {
-            this.input.setValue(input);
-            this.resize();
+            if ($F(this.input) != input) {
+                this.input.setValue(input);
+                this.resize();
+            }
             this.focus();
         }
     },
@@ -378,7 +380,7 @@ var IMP_Autocompleter = Class.create({
         var input = $F(this.input);
 
         if (input != this.lastinput) {
-            this.input.setValue(this.processValue(input));
+            this.processValue(input);
             this.lastinput = $F(this.input);
             if (this.acTimeout) {
                 window.clearTimeout(this.acTimeout);
