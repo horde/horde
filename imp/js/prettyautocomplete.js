@@ -329,10 +329,13 @@ var IMP_PrettyAutocompleter = Class.create({
 
     inputWatcher: function()
     {
-        var input = $F(this.input);
+        var input = $F(this.input), processed;
 
         if (input != this.lastinput) {
-            this.input.setValue(this.processValue(input));
+            processed = this.processValue(input);
+            if (processed != input) {
+                this.input.setValue(processed);
+            }
             this.lastinput = $F(this.input);
             this.resize();
             // Pre-load the delete image now.
