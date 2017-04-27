@@ -442,13 +442,13 @@ abstract class Horde_Alarm
 
         $handlers = $this->handlers();
         foreach ($alarms as $alarm) {
-            foreach ($alarm['methods'] as $alarm_method) {
+            foreach ($alarm['methods'] as $key => $alarm_method) {
                 if (isset($handlers[$alarm_method]) &&
                     !in_array($alarm_method, $exclude)) {
                     try {
                         $handlers[$alarm_method]->notify($alarm);
                     } catch (Horde_Alarm_Exception $e) {
-                        $this->_errors[] = $e;
+                        $this->_errors[$alarm['id'] . "\0" . $key] = $e;
                     }
                 }
             }
@@ -507,6 +507,8 @@ abstract class Horde_Alarm
      * calls.
      *
      * @since Horde_Alarm 2.1.0
+     * @since Horde_Alarm 2.2.9 the keys consist of the alarm id concatenated
+     *        with a NUL character and an alarm method key.
      *
      * @return array  Error list.
      */

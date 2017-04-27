@@ -10,7 +10,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-08-31</date>
+ <date>2017-04-27</date>
  <version>
   <release>2.2.9</release>
   <api>1.2.0</api>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Return the alarm ID with the getErrors() result.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -29,6 +29,7 @@
     <dir name="Horde">
      <dir name="Alarm">
       <file name="COPYING" role="doc" />
+      <file name="UPGRADING" role="doc" />
      </dir> <!-- /doc/Horde/Alarm -->
     </dir> <!-- /doc/Horde -->
    </dir> <!-- /doc -->
@@ -438,6 +439,7 @@
  <phprelease>
   <filelist>
    <install as="COPYING" name="doc/Horde/Alarm/COPYING" />
+   <install as="UPGRADING" name="doc/Horde/Alarm/UPGRADING" />
    <install as="Horde/Alarm.php" name="lib/Horde/Alarm.php" />
    <install as="Horde/Alarm/Exception.php" name="lib/Horde/Alarm/Exception.php" />
    <install as="Horde/Alarm/Handler.php" name="lib/Horde/Alarm/Handler.php" />
@@ -1008,10 +1010,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-08-31</date>
+   <date>2017-04-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Return the alarm ID with the getErrors() result.
    </notes>
   </release>
  </changelog>
