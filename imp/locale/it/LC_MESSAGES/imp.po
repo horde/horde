@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Imp H3 (4.2)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2015-05-21 17:27+0200\n"
-"PO-Revision-Date: 2015-05-21 09:26+0100\n"
+"PO-Revision-Date: 2017-03-14 18:19+0100\n"
 "Last-Translator: Massimo Balestrieri <massimo@balestrieri.eu>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: \n"
@@ -71,8 +71,8 @@ msgstr[1] "%d Allegati"
 msgid "%d Attachments"
 msgstr "%d Allegati"
 
-#: lib/Basic/Mailbox.php:397 lib/Basic/Mailbox.php:398
-#: lib/Basic/Thread.php:180 mailbox.php:381 mailbox.php:382 thread.php:169
+#: lib/Basic/Mailbox.php:397 lib/Basic/Mailbox.php:398 lib/Basic/Thread.php:180
+#: mailbox.php:381 mailbox.php:382 thread.php:169
 #, php-format
 msgid "%d Messages"
 msgstr "%d Messaggi"
@@ -858,8 +858,7 @@ msgstr "Allegato correttamente eliminato."
 
 #: compose.php:892 lib/Basic/Compose.php:909 lib/Basic/Message.php:849
 #: lib/Basic/Message.php:881 lib/Compose.php:2893 lib/Compose.php:2900
-#: message.php:859 message.php:891
-#: templates/basic/compose/compose.html.php:271
+#: message.php:859 message.php:891 templates/basic/compose/compose.html.php:271
 #: templates/dynamic/message.html.php:82
 #: templates/smartmobile/compose.html.php:75
 msgid "Attachments"
@@ -986,9 +985,8 @@ msgstr "Non posso aggiungere le informazioni del contatto: %s"
 #: templates/basic/folders/folders_confirm.html.php:27
 #: templates/basic/folders/import.html.php:17
 #: templates/contacts/contacts.html.php:69
-#: templates/minimal/compose.html.php:59
-#: templates/minimal/redirect.html.php:29 templates/pgp/import_key.html.php:69
-#: templates/prefs/remote.html.php:80
+#: templates/minimal/compose.html.php:59 templates/minimal/redirect.html.php:29
+#: templates/pgp/import_key.html.php:69 templates/prefs/remote.html.php:80
 #: templates/saveimage/saveimage.html.php:20
 #: templates/search/search.html.php:103
 #: templates/smartmobile/compose.html.php:50
@@ -1647,8 +1645,8 @@ msgid "Delegated"
 msgstr "Delegato"
 
 #: lib/Dynamic/Compose/Common.php:186 lib/Dynamic/Mailbox.php:327
-#: lib/Dynamic/Mailbox.php:358 lib/Imap/Acl.php:196
-#: lib/Minimal/Message.php:218 templates/basic/folders/actions.html.php:26
+#: lib/Dynamic/Mailbox.php:358 lib/Imap/Acl.php:196 lib/Minimal/Message.php:218
+#: templates/basic/folders/actions.html.php:26
 #: templates/dynamic/mailbox.html.php:51 templates/dynamic/message.html.php:29
 #: templates/minimal/mailbox.html.php:30 templates/prefs/acl.html.php:43
 #: templates/prefs/acl.html.php:78 templates/prefs/pgppublickey.html.php:22
@@ -2191,8 +2189,7 @@ msgid "Expand Headers"
 msgstr "Espandi Intestazioni"
 
 #: lib/Minimal/Compose.php:107 lib/Minimal/Compose.php:162
-#: templates/minimal/compose.html.php:58
-#: templates/minimal/redirect.html.php:28
+#: templates/minimal/compose.html.php:58 templates/minimal/redirect.html.php:28
 msgid "Expand Names"
 msgstr "Espandi Nomi"
 
@@ -2419,8 +2416,7 @@ msgstr "D_a"
 #: templates/basic/thread/thread.html.php:19
 #: templates/dynamic/compose.html.php:102
 #: templates/dynamic/mailbox.html.php:128 templates/minimal/mailbox.html.php:9
-#: templates/smartmobile/search.html.php:11
-#: templates/thread/thread.html.php:21
+#: templates/smartmobile/search.html.php:11 templates/thread/thread.html.php:21
 msgid "From"
 msgstr "Da"
 
@@ -2887,8 +2883,7 @@ msgstr "Disconnessione ..."
 msgid "Low"
 msgstr "Bassa"
 
-#: lib/Basic/Message.php:311 lib/Flag/System/LowPriority.php:37
-#: message.php:331
+#: lib/Basic/Message.php:311 lib/Flag/System/LowPriority.php:37 message.php:331
 msgid "Low Priority"
 msgstr "Bassa Priorità"
 
@@ -3492,8 +3487,7 @@ msgstr "Non Partecipante"
 msgid "None"
 msgstr "Nessuno"
 
-#: compose.php:847 lib/Basic/Compose.php:866
-#: lib/Dynamic/Compose/Common.php:231
+#: compose.php:847 lib/Basic/Compose.php:866 lib/Dynamic/Compose/Common.php:231
 msgid "Normal"
 msgstr "Normale"
 
@@ -4041,8 +4035,7 @@ msgstr "Reindiri_zza"
 #: lib/Minimal/Compose.php:234 lib/Minimal/Compose.php:237
 #: lib/Minimal/Message.php:244 lib/Notification/Event/Status.php:32
 #: mailbox.php:667 templates/basic/compose/redirect.html.php:51
-#: templates/dynamic/redirect.html.php:7
-#: templates/minimal/redirect.html.php:27
+#: templates/dynamic/redirect.html.php:7 templates/minimal/redirect.html.php:27
 #: templates/smartmobile/message.html.php:55
 msgid "Redirect"
 msgid_plural "Redirect Messages"
@@ -4234,8 +4227,7 @@ msgid "Required Participant"
 msgstr "Partecipanti Richiesto"
 
 #: templates/basic/search/search-basic.html.php:50
-#: templates/contacts/contacts.html.php:25
-#: templates/search/search.html.php:106
+#: templates/contacts/contacts.html.php:25 templates/search/search.html.php:106
 msgid "Reset"
 msgstr "Azzera"
 
@@ -4738,7 +4730,7 @@ msgstr "Mostra tutte le Intestazioni"
 
 #: lib/Dynamic/Mailbox.php:291 lib/Minimal/Folders.php:61
 msgid "Show All Mailboxes"
-msgstr "Mostrqa tutte le caselle email"
+msgstr "Mostra tutte le caselle email"
 
 #: lib/Basic/Message.php:810 message.php:819
 msgid "Show All Parts"
@@ -4946,8 +4938,7 @@ msgstr "O_ggetto"
 #: lib/Dynamic/Mailbox.php:493 lib/Message/Ui.php:39 lib/Smartmobile.php:181
 #: lib/Ui/Message.php:31 search.php:65
 #: templates/basic/search/search-basic.html.php:18
-#: templates/dynamic/compose.html.php:147
-#: templates/minimal/mailbox.html.php:10
+#: templates/dynamic/compose.html.php:147 templates/minimal/mailbox.html.php:10
 #: templates/smartmobile/search.html.php:13
 msgid "Subject"
 msgstr "Oggetto"
@@ -5426,8 +5417,7 @@ msgid "There are no alternative parts that can be displayed inline."
 msgstr ""
 "Non ci sono parti alternative che possono essere visualizzati in linea."
 
-#: lib/Dynamic/Mailbox.php:555
-#: templates/basic/mailbox/empty_mailbox.html.php:6
+#: lib/Dynamic/Mailbox.php:555 templates/basic/mailbox/empty_mailbox.html.php:6
 msgid "There are no messages in this mailbox."
 msgstr "Non ci sono messaggi in questa casella di posta."
 
@@ -5636,10 +5626,10 @@ msgstr "Ordinamento Argomenti"
 msgid "Thread View"
 msgstr "Visualizzazione per Argomento"
 
-#: lib/Basic/Contacts.php:111 lib/Basic/Mailbox.php:725
-#: lib/Basic/Search.php:65 lib/Compose.php:2593 lib/Dynamic/Mailbox.php:183
-#: lib/Dynamic/Mailbox.php:257 lib/Message/Ui.php:35 lib/Ui/Message.php:27
-#: mailbox.php:709 search.php:53 templates/basic/compose/redirect.html.php:30
+#: lib/Basic/Contacts.php:111 lib/Basic/Mailbox.php:725 lib/Basic/Search.php:65
+#: lib/Compose.php:2593 lib/Dynamic/Mailbox.php:183 lib/Dynamic/Mailbox.php:257
+#: lib/Message/Ui.php:35 lib/Ui/Message.php:27 mailbox.php:709 search.php:53
+#: templates/basic/compose/redirect.html.php:30
 #: templates/basic/thread/thread.html.php:19
 #: templates/contacts/contacts.html.php:40
 #: templates/dynamic/compose.html.php:114
@@ -5718,8 +5708,7 @@ msgid "Type: %s"
 msgstr "Tipo: %s"
 
 #: lib/Quota/Command.php:90 lib/Quota/Hook.php:46 lib/Quota/Imap.php:47
-#: lib/Quota/Maildir.php:60 lib/Quota/Mdaemon.php:62
-#: lib/Quota/Mercury32.php:68
+#: lib/Quota/Maildir.php:60 lib/Quota/Mdaemon.php:62 lib/Quota/Mercury32.php:68
 msgid "Unable to retrieve quota"
 msgstr "Impossibile ottenere quota"
 
@@ -6599,8 +6588,8 @@ msgstr "da"
 msgid "into mailbox"
 msgstr "nella casella email"
 
-#: lib/Basic/Pgp.php:47 lib/Basic/Pgp.php:75 lib/Basic/Smime.php:209
-#: pgp.php:32 pgp.php:60
+#: lib/Basic/Pgp.php:47 lib/Basic/Pgp.php:75 lib/Basic/Smime.php:209 pgp.php:32
+#: pgp.php:60
 msgid "key"
 msgstr "chiave"
 
