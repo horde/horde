@@ -17,6 +17,10 @@
         {
             "type": "pear",
             "url": "http://pear.horde.org"
+        },
+        {
+            "type": "pear",
+            "url": "http://pear.php.net"
         }
     ],
     "require": {
@@ -32,6 +36,7 @@
         "pear-pear.horde.org/Horde_Util": "*",
         "pear-pear.horde.org/Horde_Injector": "*",
         "pear-pear.horde.org/Horde_Release": "*"
+        "pear-pear.php.net/Archive_Tar": "*"
     },
     "suggest": {
         "pear-pear.horde.org/Horde_Test": "*",

@@ -2084,6 +2084,10 @@
     <channel>pear.horde.org</channel>
    </package>
    <package>
+     <name>Archive_Tar</name>
+     <channel>pear.php.net</channel>
+   </package>
+   <package>
     <name>PHP_CodeSniffer</name>
     <channel>pear.php.net</channel>
    </package>
