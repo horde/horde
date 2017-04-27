@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix regression that caused S/MIME messages to appear invalid on device.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3412,7 +3412,7 @@
    <date>2017-04-26</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix regression that caused S/MIME messages to appear invalid on device.
    </notes>
   </release>
  </changelog>
