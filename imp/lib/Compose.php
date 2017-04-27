@@ -1874,7 +1874,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             }
 
             if (!empty($options['pgp_attach_pubkey'])) {
-                $parts[] = $injector->getInstance('IMP_Crypt_Pgp')->publicKeyMIMEPart();
+                $parts[] = $injector->getInstance('IMP_Pgp')->publicKeyMIMEPart();
             }
 
             if (!empty($options['vcard_attach'])) {
