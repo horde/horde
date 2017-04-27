@@ -3977,10 +3977,26 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-12-16</date>
+   <date>2017-03-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Catch errors when converting email address to IDNA.
 * [jan] Correctly use preference to save attachments with sent messages in mobile modes (Bug #14571).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>6.2.19</release>
+    <api>6.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2017-03-20</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Fix cursor jumping in some browser when editing address fields (Bug #14606).
+* [mjr] Fix auto creation of SPECIAL_USER mailboxes (Bug #14620).
+* [mjr] Fix sending email after the attach_body_check hook fails in Smartmobile view (Bug #14610).
    </notes>
   </release>
   <release>

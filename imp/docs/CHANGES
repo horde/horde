@@ -79,9 +79,9 @@ v7.0.0-git
 [mms] Add option to poll mailbox for new mailbox when creating a mailbox
       (Request #13227).
 
------------
-v6.2.18-git
------------
+-------
+v6.2.18
+-------
 
 [jan] Catch errors when converting email address to IDNA.
 [jan] Correctly use preference to save attachments with sent messages in mobile
