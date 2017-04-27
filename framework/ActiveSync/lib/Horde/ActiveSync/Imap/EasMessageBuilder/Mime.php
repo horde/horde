@@ -62,6 +62,7 @@ class Horde_ActiveSync_Imap_EasMessageBuilder_Mime extends Horde_ActiveSync_Imap
         $this->_logger->meta('Building MIME Message.');
         if (!$this->_canModify()) {
             $this->_buildEncrypted();
+            return;
         }
 
         // The base MIME part.
