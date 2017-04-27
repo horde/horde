@@ -79,7 +79,7 @@ class Components
         }
     }
 
-    private static function _prepareModular(
+    protected static function _prepareModular(
         Components_Dependencies $dependencies, array $parameters = array()
     ) {
         $modular = new Horde_Cli_Modular(
@@ -122,7 +122,7 @@ This is a list of available actions (use "help ACTION" to get additional informa
      *
      * @return Components_Dependencies The dependency handler.
      */
-    private static function _prepareDependencies($parameters)
+    protected static function _prepareDependencies($parameters)
     {
         if (isset($parameters['dependencies'])
             && $parameters['dependencies'] instanceof Components_Dependencies) {
@@ -132,7 +132,7 @@ This is a list of available actions (use "help ACTION" to get additional informa
         }
     }
 
-    private static function _prepareConfig(Horde_Argv_Parser $parser)
+    protected static function _prepareConfig(Horde_Argv_Parser $parser)
     {
         $config = new Components_Configs();
         $config->addConfigurationType(
@@ -155,7 +155,7 @@ This is a list of available actions (use "help ACTION" to get additional informa
      *
      * @return NULL
      */
-    private static function _getActionArguments(Horde_Cli_Modular $modular)
+    protected static function _getActionArguments(Horde_Cli_Modular $modular)
     {
         $actions = array();
         foreach ($modular->getModules() as $module) {
@@ -175,7 +175,7 @@ This is a list of available actions (use "help ACTION" to get additional informa
      *
      * @return NULL
      */
-    private static function _identifyComponent(
+    protected static function _identifyComponent(
         Components_Config $config,
         $actions,
         Components_Dependencies $dependencies

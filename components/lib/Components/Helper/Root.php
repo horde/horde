@@ -34,35 +34,35 @@ class Components_Helper_Root
      *
      * @var string
      */
-    private $_root_path;
+    protected $_root_path;
 
     /**
      * Path used to determine the root of the Horde repository.
      *
      * @var string
      */
-    private $_path;
+    protected $_path;
 
     /**
      * Component used to determine the root of the Horde repository.
      *
      * @var Components_Component
      */
-    private $_component;
+    protected $_component;
 
     /**
      * Options used to determine the root of the Horde repository.
      *
      * @var array
      */
-    private $_options;
+    protected $_options;
 
     /**
      * Errors that occured while trying to determine the root path.
      *
      * @var array
      */
-    private $_errors = array();
+    protected $_errors = array();
 
     /**
      * Constructor.
