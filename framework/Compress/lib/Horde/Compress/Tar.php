@@ -121,7 +121,7 @@ class Horde_Compress_Tar extends Horde_Compress_Base
 
             /* Header data for the file entries. */
             $header =
-                pack('Z99', $name) . "\0" .                 /* Name. */
+                pack('a99', $name) . "\0" .                 /* Name. */
                 $this->_formatNumber($file, 'getPerms') .   /* Permissions. */
                 $this->_formatNumber($file, 'getOwner') .   /* Owner ID. */
                 $this->_formatNumber($file, 'getGroup') .   /* Group ID. */
@@ -129,13 +129,13 @@ class Horde_Compress_Tar extends Horde_Compress_Base
                 sprintf("%011o\0", $ftime) .                /* MTime. */
                 '        ' .                                /* Checksum. */
                 ($isLink ? '1' : '0') .                     /* Type. */
-                pack('Z99', $link) . "\0" .                 /* Link target. */
+                pack('a99', $link) . "\0" .                 /* Link target. */
                 "ustar\0" . "00" .                          /* Magic marker. */
-                pack('Z31', $owner) . "\0" .                /* Owner name. */
-                pack('Z31', $group) . "\0" .                /* Group name. */
-                pack('Z16', '') .                           /* Device numbers. */
-                pack('Z154', $prefix) . "\0";               /* Name prefix. */
-            $header = pack('Z512', $header);
+                pack('a31', $owner) . "\0" .                /* Owner name. */
+                pack('a31', $group) . "\0" .                /* Group name. */
+                pack('a16', '') .                           /* Device numbers. */
+                pack('a154', $prefix) . "\0";               /* Name prefix. */
+            $header = pack('a512', $header);
             $checksum = array_sum(array_map('ord', str_split($header)));
             $header = substr($header, 0, 148)
                 . sprintf("%06o\0 ", $checksum)
@@ -204,7 +204,7 @@ class Horde_Compress_Tar extends Horde_Compress_Base
         if (isset($file['spl'])) {
             return sprintf("%07o\0", $file['spl']->$method());
         }
-        return pack('Z8', '');
+        return pack('a8', '');
     }
 
     /**
