@@ -24,6 +24,10 @@ Horde_Registry::appInit('horde', array('cli' => true, 'user_admin' => true));
 
 $alarm = $injector->getInstance('Horde_Alarm');
 $alarm->notify(null, true, false, array('notify', 'desktop'));
-foreach ($alarm->getErrors() as $error) {
+foreach ($alarm->getErrors() as $id => $error) {
+    if (!is_int($id)) {
+        list($id) = explode("\0", $id);
+        $cli->message(sprintf(_("Error with alarm \"%s\""), $id), 'cli.error');
+    }
     $cli->message($error, 'cli.error');
 }

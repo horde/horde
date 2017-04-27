@@ -31,6 +31,23 @@ v6.0.0-git
 
 
 -------
+v5.2.14
+-------
+
+[mjr] Fix errors in horde-memcache-stats script (Bug #14588).
+[mjr] Remove configuration for defunct Yahoo, CloudMade, and MyTopo mapping
+      providers.
+
+
+-------
+v5.2.13
+-------
+
+[jan] Disallow setting of creator permissions too if sharing with world is
+      disabled.
+
+
+-------
 v5.2.12
 -------
 
