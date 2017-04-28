@@ -276,18 +276,13 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
      */
     protected function _signParameters()
     {
-        $sslpath = empty($GLOBALS['conf']['openssl']['path'])
-            ? null
-            : $GLOBALS['conf']['openssl']['path'];
-
         return array(
             'type' => 'signature',
             'pubkey' => $this->getPersonalPublicKey(),
             'privkey' => $this->getPersonalPrivateKey(),
             'passphrase' => $this->getPassphrase(),
             'sigtype' => 'detach',
-            'certs' => $this->getAdditionalCert(),
-            'sslpath' => $sslpath
+            'certs' => $this->getAdditionalCert()
         );
     }
 
