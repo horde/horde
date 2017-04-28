@@ -3408,6 +3408,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         }
 
         $atc->setType($type);
+        $atc->setHeaderCharset('UTF-8');
 
         if (($atc->getType() == 'application/octet-stream') ||
             ($atc->getPrimaryType() == 'text')) {
@@ -3426,8 +3427,6 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                     $atc->setCharset($ctype->params['charset']);
                 }
             }
-        } else {
-            $atc->setHeaderCharset('UTF-8');
         }
 
         $atc_ob = new IMP_Compose_Attachment($this, $atc, $atc_file);
