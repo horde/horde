@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Fix filename charset of certain attachments (Bug #14618).
 * [jan] Fix cursor jumping in some browser when editing address fields (Bug #14606).
 * [mjr] Fix auto creation of SPECIAL_USER mailboxes (Bug #14620).
 * [mjr] Fix sending email after the attach_body_check hook fails in Smartmobile view (Bug #14610).
@@ -4013,6 +4014,7 @@
    <date>2017-03-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix filename charset of certain attachments (Bug #14618).
 * [jan] Fix cursor jumping in some browser when editing address fields (Bug #14606).
 * [mjr] Fix auto creation of SPECIAL_USER mailboxes (Bug #14620).
 * [mjr] Fix sending email after the attach_body_check hook fails in Smartmobile view (Bug #14610).

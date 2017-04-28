@@ -2,6 +2,7 @@
 v6.2.19-git
 -----------
 
+[jan] Fix filename charset of certain attachments (Bug #14618).
 [jan] Fix cursor jumping in some browser when editing address fields (Bug
       #14606).
 [mjr] Fix auto creation of SPECIAL_USER mailboxes (Bug #14620).
