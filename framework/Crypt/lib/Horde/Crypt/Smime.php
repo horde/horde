@@ -244,24 +244,9 @@ class Horde_Crypt_Smime extends Horde_Crypt
             'protocol',
             'application/pkcs7-signature'
         );
-        // Per RFC 5751 [3.4.3.2], 'sha1' has been deprecated for 'sha-1'.
-        $micalg = 'sha-1';
-
-        // Newer versions of openssl use SHA-256 as the message digest.
-        // Unfortunately, the openssl_pkcs7_* methods don't let us specify this,
-        // or even get the to-be-used md method. We *could* properly parse
-        // the entire binary DER data stream to pull it out, or we can just
-        // search for sha256 in a known location of asn1parse output.
-        if (!empty($params['sslpath'])) {
-            $sslpath = escapeshellcmd($params['sslpath']);
-            $temp_sig = $this->_createTempFile('horde-smime');
-            file_put_contents($temp_sig, $smime_sign->getContents());
-            $asn1 = explode("\n", shell_exec($sslpath . ' asn1parse -inform DER -in ' . $temp_sig));
-            if (strpos($asn1[7], 'sha256') !== false) {
-                $micalg = 'sha-256';
-            }
-        }
-        $smime_part->setContentTypeParameter('micalg', $micalg);
+        $smime_part->setContentTypeParameter(
+            'micalg', $mime_message->getContentTypeParameter('micalg')
+        );
         $smime_part->addPart($mime_part);
         $smime_part->addPart($smime_sign);
 
