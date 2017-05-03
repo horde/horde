@@ -89,8 +89,9 @@ class Components_Runner_Release
             $unit = $this->_qc->getTask('unit', $component);
             if (!$unit->validate($options)) {
                 $this->_output->info(
-                    'Running ' . $unit->getName() . ' on ' . $component->getName() .  "\n"
+                    'Running ' . $unit->getName() . ' on ' . $component->getName()
                 );
+                $this->_output->plain('');
 
                 if ($unit->run($options)) {
                     $this->_output->warn('Aborting due to unit test errors.');

@@ -119,9 +119,9 @@ class Components_Qc_Tasks
         foreach ($selected_tasks as $task) {
             $output->bold(str_repeat('-', 30));
             $output->ok(
-                'Running ' . $task->getName() . ' on ' . $component->getName() .
-                "\n"
+                'Running ' . $task->getName() . ' on ' . $component->getName()
             );
+            $output->plain('');
 
             $numErrors = $task->run($options);
 
