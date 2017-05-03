@@ -15,6 +15,9 @@
   </form>
 </div>
 
+<!-- print header -->
+<h1 id="kronolithPrintHeader"></h1>
+
 <!-- begin header -->
 <div id="kronolithHeader">
 

@@ -215,10 +215,10 @@ KronolithCore = {
             case 'tasks':
                 var tasktype = locParts.shift() || this.tasktype;
 
-
                 this.switchTaskView(true);
-                $('kronolithCurrent')
-                    .update(this.setTitle(Kronolith.text.tasks));
+                $('kronolithCurrent', 'kronolithPrintHeader').invoke(
+                    'update', [ this.setTitle(Kronolith.text.tasks) ]
+                );
                 if (this.view == loc && this.tasktype == tasktype) {
                     this.addHistory(fullloc);
                     this.loadNextView();
@@ -451,8 +451,9 @@ KronolithCore = {
             this.dayEvents = [];
             this.dayGroups = [];
             this.allDayEvents = [];
-            $('kronolithCurrent')
-                .update(this.setViewTitle(date, view, data));
+            $('kronolithCurrent', 'kronolithPrintHeader').invoke(
+                'update', [ this.setViewTitle(date, view, data) ]
+            );
             $('kronolithViewDay')
                 .down('.kronolithAllDayContainer')
                 .store('date', date.dateString());
@@ -478,8 +479,9 @@ KronolithCore = {
                 today = Date.today(),
                 day, dateString, i, hourCol;
 
-            $('kronolithCurrent')
-                .update(this.setViewTitle(date, view, data));
+            $('kronolithCurrent', 'kronolithPrintHeader').invoke(
+                'update', [ this.setViewTitle(date, view, data) ]
+            );
 
             for (i = 0; i < 24; i++) {
                 day = dates[0].clone();
@@ -525,8 +527,9 @@ KronolithCore = {
                 dates = this.viewDates(date, view),
                 day = dates[0].clone();
 
-            $('kronolithCurrent')
-                .update(this.setViewTitle(date, view, data));
+            $('kronolithCurrent', 'kronolithPrintHeader').invoke(
+                'update', [ this.setViewTitle(date, view, data) ]
+            );
 
             // Remove old rows. Maybe we should only rebuild the calendars if
             // necessary.
@@ -550,7 +553,9 @@ KronolithCore = {
         case 'year':
             var month;
 
-            $('kronolithCurrent').update(this.setViewTitle(date, view, data));
+            $('kronolithCurrent', 'kronolithPrintHeader').invoke(
+                'update', [ this.setViewTitle(date, view, data) ]
+            );
 
             // Build new calendar view.
             for (month = 0; month < 12; month++) {
@@ -565,12 +570,14 @@ KronolithCore = {
             // to add.
             if (view == 'agenda') {
                 var dates = this.viewDates(date, view);
-                $('kronolithCurrent')
-                    .update(this.setViewTitle(date, view, data));
+                $('kronolithCurrent', 'kronolithPrintHeader').invoke(
+                    'update', [ this.setViewTitle(date, view, data) ]
+                );
                 $('kronolithSearchNavigation').up().up().hide();
             } else {
-                $('kronolithCurrent')
-                    .update(this.setViewTitle(date, view, data));
+                $('kronolithCurrent', 'kronolithPrintHeader').invoke(
+                    'update', [ this.setViewTitle(date, view, data) ]
+                );
                 $('kronolithSearchNavigation').up().up().show();
             }
 

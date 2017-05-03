@@ -2,6 +2,10 @@ html, body {
     height: 100%;
 }
 
+#kronolithPrintHeader {
+    display: none;
+}
+
 #kronolithToday {
     font-weight: bold;
 }
@@ -889,6 +893,9 @@ div.kronolithEditable:hover .kronolithDragger,
 @media print {
     #kronolithMenu, #kronolithBar, #kronolithHeader {
         display: none;
+    }
+    #kronolithPrintHeader {
+        display: block;
     }
 
     #kronolithBody {
