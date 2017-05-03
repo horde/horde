@@ -2,6 +2,63 @@
 v5.2.20-git
 -----------
 
+Colorize output of command line scripts.
+
+Horde Changes
+-------------
+[jan] Show alarm ID with error output from horde-alarms.
+
+Calendar Changes
+----------------
+[mjr] Don't hide the reservee's identity on the resource calendar (Bug #14609).
+
+Library Changes
+---------------
+ActiveSync
+[mjr] Fix regression that caused S/MIME messages to appear invalid on device.
+[mjr] Readd timestamp to sync log entries.
+[mjr] Catch leaked Horde_Idna_Exceptions from Horde_Mime.
+
+Alarm
+[jan] Return the alarm ID with the getErrors() result.
+
+Argv
+[jan] Colorize output.
+[jan] Add Horde_Argv_HelpFormatter#highlightHeading() and
+      Horde_Argv_HelpFormatter#highlightOption().
+
+Cli
+[jan] Use rectangular background coloring for messages and errors.
+[jan] Add Horde_Cli#block().
+[jan] Use the system's newline character(s).
+[jan] Fix color sequences for black and darkgray.
+[jan] Mark PHP 7 as supported.
+[jan] Wrap content matching the terminal width.
+[jan] Add Horde_Cli#getWidth() to return the terminal width.
+[jan] Add Horde_Cli_Color.
+
+Cli_Modular
+[jan] Add Horde_Cli_Modular_ModuleUsage to support colored output.
+
+Compress
+[jan] Add support for compressing TAR archives.
+[jan] Add compressDirectory().
+[jan] Fix notice when adding files older than 1988 to a ZIP archive.
+[jan] Fix reading file dates after August from ZIP files.
+
+Crypt
+[mjr] Correctly specify either sha-1 or sha-256 when signing a smime message.
+[jan] Support GnuPG 2.1+ too (Bug #14014).
+
+Image
+[mjr] Fix returning stream data from NULL image driver (Bug #14608).
+
+Test
+[jan] Don't exit after running phpunit tests.
+
+Yaml
+[jan] Fix unfolding of multi-line strings and other incompatibilites with
+      libyaml.
 
 
 -------
@@ -10,16 +67,16 @@ v5.2.19
 
 Library Changes
 ---------------
-
 Crypt
-[mjr] SECURITY: Fix incorrectly sanitized parameters passed to gpg binary which
-      could lead to potential remote code execution.
+[mjr] SECURITY: Fix remote code execution vulnerability (CVE-2017-7413, and
+      CVE-2017-7414).
 
 ActiveSync
 [mjr] Fix PHP error accessing logger during OPTIONS request (Bug #14601).
 
 Core
-[jan] Fix unpacking encrypted session data ("User not authorized for ..." log messages).
+[jan] Fix unpacking encrypted session data ("User not authorized for ..." log
+      messages).
 [jan] Throw an exception when accessing a non-existing API through the registry.
 [mjr] Fix regression in loading vhost config files (Bug #14605).
 
@@ -66,7 +123,6 @@ Notes Changes
 
 Library Changes
 ---------------
-
 ActiveSync
 [mjr] Fix error in synchronizing recurring tasks (Bug #14599).
 [mjr] Database compatibility improvements.
@@ -214,7 +270,6 @@ Timeobject Changes
 
 Library Changes
 ---------------
-
 ActiveSync
 [mjr] Fix test issue on 32bit systems (Bug #14532).
 [mjr] Improve handling of case when IMAP server returns invalid HIGHESTMODSEQ
