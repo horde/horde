@@ -10,7 +10,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2017-04-27</date>
+ <date>2017-05-03</date>
  <version>
   <release>2.2.9</release>
   <api>1.2.0</api>
@@ -1010,7 +1010,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-04-27</date>
+   <date>2017-05-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Return the alarm ID with the getErrors() result.
