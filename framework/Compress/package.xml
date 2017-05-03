@@ -30,7 +30,7 @@
  </lead>
  <date>2017-05-03</date>
  <version>
-  <release>2.2.0</release>
+  <release>2.2.1</release>
   <api>2.2.0</api>
  </version>
  <stability>
@@ -39,10 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Add support for compressing TAR archives.
-* [jan] Add compressDirectory().
-* [jan] Fix notice when adding files older than 1988 to a ZIP archive.
-* [jan] Fix reading file dates after August from ZIP files.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1063,6 +1060,19 @@ Initial release as a PEAR package
 * [jan] Add compressDirectory().
 * [jan] Fix notice when adding files older than 1988 to a ZIP archive.
 * [jan] Fix reading file dates after August from ZIP files.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.1</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2017-05-03</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
