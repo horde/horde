@@ -112,14 +112,20 @@ class Horde_Compress_TarTest extends Horde_Test_Case
 
         $list = $compress->decompress($tar_data);
         $this->assertCount(3, $list);
-        $this->assertEquals('one.txt', $list[0]['name']);
-        $this->assertEquals(4, $list[0]['size']);
-        $this->assertEquals("One\n", $list[0]['data']);
-        $this->assertEquals('sub/three.txt', $list[1]['name']);
-        $this->assertEquals(6, $list[1]['size']);
-        $this->assertEquals("Three\n", $list[1]['data']);
-        $this->assertEquals('two.bin', $list[2]['name']);
-        $this->assertEquals(2, $list[2]['size']);
-        $this->assertEquals("\x02\x0a", $list[2]['data']);
+        for ($i=0 ; $i<3 ; $i++) {
+            $list[$list[$i]['name']] = $list[$i];
+            unset($list[$i]);
+        }
+        $this->assertArrayHasKey($k='one.txt', $list);
+        $this->assertEquals(4, $list[$k]['size']);
+        $this->assertEquals("One\n", $list[$k]['data']);
+
+        $this->assertArrayHasKey($k='sub/three.txt', $list);
+        $this->assertEquals(6, $list[$k]['size']);
+        $this->assertEquals("Three\n", $list[$k]['data']);
+
+        $this->assertArrayHasKey($k='two.bin', $list);
+        $this->assertEquals(2, $list[$k]['size']);
+        $this->assertEquals("\x02\x0a", $list[$k]['data']);
     }
 }
