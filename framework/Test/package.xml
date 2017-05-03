@@ -18,7 +18,7 @@
  </lead>
  <date>2017-05-03</date>
  <version>
-  <release>2.6.3</release>
+  <release>2.6.4</release>
   <api>2.6.0</api>
  </version>
  <stability>
@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Don&apos;t exit after running phpunit tests.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2545,6 +2545,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Don&apos;t exit after running phpunit tests.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.6.4</release>
+    <api>2.6.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2017-05-03</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
