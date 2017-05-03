@@ -14,9 +14,9 @@ $enable_img = $this->hordeImage('enable.png');
  <div class="header">
 <?php if ($this->mbox_search): ?>
 <?php if ($this->mbox_search['exact']): ?>
-  <?php printf(_("Rules Matching Mailbox \"%s\""), $this->mbox_search['query']) ?>
+  <?php printf(_("Rules Matching Mailbox \"%s\""), $this->h($this->mbox_search['query'])) ?>
 <?php else: ?>
-  <?php printf(_("Rules Containing Mailbox \"%s\""), $this->mbox_search['query']) ?>
+  <?php printf(_("Rules Containing Mailbox \"%s\""), $this->h($this->mbox_search['query'])) ?>
 <?php endif; ?>
 <?php else: ?>
   <?php echo _("Filter Rules") ?>

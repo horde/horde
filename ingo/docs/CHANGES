@@ -12,6 +12,24 @@ v4.0.0-git
 
 
 -------
+v3.2.14
+-------
+
+[jan] Never send autoreplies again when setting zero vacation days in Procmail
+      or Maildrop backends (Bug #14549).
+[jan] Don't split sieve body tests on commas (Bug #14546).
+
+
+-------
+v3.2.13
+-------
+
+[jan] Convert vacation rules in preference backend from Ingo < 2.0.
+[jan] Fix some edge cases with Sieve vacation rules with date limits (Bug
+      #14486).
+
+
+-------
 v3.2.12
 -------
 
