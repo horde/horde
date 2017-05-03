@@ -47,6 +47,8 @@ Compress
 [jan] Fix reading file dates after August from ZIP files.
 
 Crypt
+[jan] Detect unsupported GnuPG versions.
+[jan] Fix detection of new GnuPG API (Remi Collet <remi@remirepo.net>, PR #220).
 [mjr] Correctly specify either sha-1 or sha-256 when signing a smime message.
 [jan] Support GnuPG 2.1+ too (Bug #14014).
 
