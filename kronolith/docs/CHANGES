@@ -1,6 +1,6 @@
------------
-v4.2.21-git
------------
+-------
+v4.2.21
+-------
 
 [mjr] Don't hide the reservee's identity on the resource calendar (Bug #14609).
 
