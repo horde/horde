@@ -28,7 +28,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2017-03-20</date>
+ <date>2017-05-03</date>
  <version>
   <release>5.2.15</release>
   <api>5.2.0</api>
@@ -4159,7 +4159,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-03-20</date>
+   <date>2017-05-03</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [jan] Show alarm ID with error output from horde-alarms.
