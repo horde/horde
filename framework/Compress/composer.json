@@ -6,13 +6,13 @@
     "license": "LGPL-2.1",
     "authors": [
         {
-            "name": "Chuck Hagenbuch",
-            "email": "chuck@horde.org",
+            "name": "Jan Schneider",
+            "email": "jan@horde.org",
             "role": "lead"
         },
         {
-            "name": "Jan Schneider",
-            "email": "jan@horde.org",
+            "name": "Chuck Hagenbuch",
+            "email": "chuck@horde.org",
             "role": "lead"
         },
         {
@@ -26,8 +26,8 @@
             "role": "developer"
         }
     ],
-    "version": "2.1.7",
-    "time": "2017-03-20",
+    "version": "2.2.0",
+    "time": "2017-05-03",
     "repositories": [
         {
             "type": "pear",
