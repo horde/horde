@@ -10,7 +10,7 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2017-04-06</date>
+ <date>2017-05-03</date>
  <version>
   <release>1.0.0alpha12</release>
   <api>1.0.0</api>
@@ -81,6 +81,7 @@
        </dir> <!-- /lib/Horde/Pear/Package/Task -->
        <dir name="Type">
         <file name="Horde.php" role="php" />
+        <file name="HordeSplit.php" role="php" />
         <file name="HordeTheme.php" role="php" />
        </dir> <!-- /lib/Horde/Pear/Package/Type -->
        <dir name="Xml">
@@ -384,6 +385,7 @@
    <install as="Horde/Pear/Package/Contents/Role/HordeComponent.php" name="lib/Horde/Pear/Package/Contents/Role/HordeComponent.php" />
    <install as="Horde/Pear/Package/Task/UpdateContents.php" name="lib/Horde/Pear/Package/Task/UpdateContents.php" />
    <install as="Horde/Pear/Package/Type/Horde.php" name="lib/Horde/Pear/Package/Type/Horde.php" />
+   <install as="Horde/Pear/Package/Type/HordeSplit.php" name="lib/Horde/Pear/Package/Type/HordeSplit.php" />
    <install as="Horde/Pear/Package/Type/HordeTheme.php" name="lib/Horde/Pear/Package/Type/HordeTheme.php" />
    <install as="Horde/Pear/Package/Xml/Contents.php" name="lib/Horde/Pear/Package/Xml/Contents.php" />
    <install as="Horde/Pear/Package/Xml/Directory.php" name="lib/Horde/Pear/Package/Xml/Directory.php" />
@@ -642,7 +644,7 @@
    <stability>
     <release>alpha</release>
     <api>alpha</api></stability>
-   <date>2017-04-06</date>
+   <date>2017-05-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Add a HordeTheme package type to generate content lists for single themes.
