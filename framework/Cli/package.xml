@@ -17,7 +17,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2017-04-11</date>
+ <date>2017-05-03</date>
  <version>
   <release>2.2.0</release>
   <api>2.2.0</api>
@@ -795,7 +795,7 @@ Add &apos;default&apos; parameter to Horde_CLI::prompt().
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-04-11</date>
+   <date>2017-05-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Use rectangular background coloring for messages and errors.
