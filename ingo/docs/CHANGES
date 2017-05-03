@@ -2,6 +2,8 @@
 v3.2.15-git
 -----------
 
+[jan] SECURITY: Fix XSS vulnerability in rule search (Andrey Zelenchuk
+      <azelenchuk@plesk.com>).
 
 
 -------

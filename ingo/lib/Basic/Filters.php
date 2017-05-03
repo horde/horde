@@ -164,6 +164,7 @@ class Ingo_Basic_Filters extends Ingo_Basic_Base
         $view->addHelper('Horde_Core_View_Helper_Label');
         $view->addHelper('FormTag');
         $view->addHelper('Tag');
+        $view->addHelper('Text');
 
         $view->canapply = $factory->canPerform();
         $view->deleteallowed = $delete_allowed;
