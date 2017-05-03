@@ -19,7 +19,7 @@ class Horde_Bundle extends Horde_Core_Bundle
     /**
      * The bundle version.
      */
-    const VERSION = '5.2.20';
+    const VERSION = '5.2.21-git';
 
     /**
      * The bundle descriptive name.
