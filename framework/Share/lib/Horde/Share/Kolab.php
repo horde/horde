@@ -577,7 +577,8 @@ class Horde_Share_Kolab extends Horde_Share_Base
      * permissions.
      *
      * For the Kolab backend this cannot work in the same way as for the SQL
-     * based backend. Permissions are always handled by the backend automatically (IMAP ACLs) and cannot be disabled.
+     * based backend. Permissions are always handled by the backend
+     * automatically (IMAP ACLs) and cannot be disabled.
      *
      * listAllShares() is apparently used during command line scipts where it
      * represents administrator access. This is possible on Kolab by using the
