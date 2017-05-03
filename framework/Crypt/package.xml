@@ -18,7 +18,7 @@
  </lead>
  <date>2017-05-03</date>
  <version>
-  <release>2.7.7</release>
+  <release>2.7.8</release>
   <api>2.7.0</api>
  </version>
  <stability>
@@ -27,8 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Correctly specify either sha-1 or sha-256 when signing a smime message.
-* [jan] Support GnuPG 2.1+ too (Bug #14014).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1216,6 +1215,19 @@ Initial release as a PEAR package
    <notes>
 * [mjr] Correctly specify either sha-1 or sha-256 when signing a smime message.
 * [jan] Support GnuPG 2.1+ too (Bug #14014).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.7.8</release>
+    <api>2.7.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2017-05-03</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
