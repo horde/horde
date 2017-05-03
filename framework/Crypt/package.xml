@@ -16,7 +16,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2017-04-04</date>
+ <date>2017-05-03</date>
  <version>
   <release>2.7.7</release>
   <api>2.7.0</api>
@@ -1211,7 +1211,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-04-04</date>
+   <date>2017-05-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Correctly specify either sha-1 or sha-256 when signing a smime message.
