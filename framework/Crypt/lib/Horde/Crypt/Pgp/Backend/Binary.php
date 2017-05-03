@@ -80,8 +80,8 @@ extends Horde_Crypt_Pgp_Backend
 
         /* GnuPG 2 requires specifying the pinentry-mode. */
         $result = $this->_callGpg(array('--version'), 'r');
-        if (preg_match('/gpg \(GnuPG\) (\d+)\.(\d+)\.(\d+)/', $result->stdout, $version) &&
-            $version[1] >= 2) {
+        if (preg_match('/gpg \(GnuPG\) (\d+\.\d+\.\d+)/', $result->stdout, $version) &&
+            version_compare($version[1], '2.1.12', 'ge') ) {
             $this->_gnupg[] = '--pinentry-mode loopback';
             file_put_contents(
                 $this->_tempdir . '/gpg-agent.conf',
