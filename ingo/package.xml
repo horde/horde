@@ -24,7 +24,7 @@
  </lead>
  <date>2017-05-03</date>
  <version>
-  <release>3.2.15</release>
+  <release>3.2.16</release>
   <api>3.2.0</api>
  </version>
  <stability>
@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* [jan] SECURITY: Fix XSS vulnerability in rule search (Andrey Zelenchuk &lt;azelenchuk@plesk.com&gt;).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1719,6 +1719,19 @@
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] SECURITY: Fix XSS vulnerability in rule search (Andrey Zelenchuk &lt;azelenchuk@plesk.com&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.2.16</release>
+    <api>3.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2017-05-03</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
