@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2017-03-20</date>
+ <date>2017-05-03</date>
  <version>
   <release>6.2.19</release>
   <api>6.2.0</api>
@@ -4011,7 +4011,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-03-20</date>
+   <date>2017-05-03</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Fix filename charset of certain attachments (Bug #14618).

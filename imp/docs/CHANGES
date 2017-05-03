@@ -1,6 +1,6 @@
------------
-v6.2.19-git
------------
+-------
+v6.2.19
+-------
 
 [jan] Fix filename charset of certain attachments (Bug #14618).
 [jan] Fix cursor jumping in some browser when editing address fields (Bug
