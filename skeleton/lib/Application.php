@@ -36,10 +36,11 @@ require_once HORDE_BASE . '/lib/core.php';
  * This class defines Horde's core API interface. Other core Horde libraries
  * can interact with Skeleton through this API.
  *
- * @author   Your Name <you@example.com>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  Skeleton
+ * @author    Your Name <you@example.com>
+ * @category  Horde
+ * @copyright 2010-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   Skeleton
  */
 class Skeleton_Application extends Horde_Registry_Application
 {

@@ -20,7 +20,7 @@
  *
  * @author    Your Name <you@example.com>
  * @category  Horde
- * @copyright 2010-2017 Horde LLC
+ * @copyright 2012-2017 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   Skeleton
  */
