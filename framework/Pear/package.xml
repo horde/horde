@@ -12,7 +12,7 @@
  </lead>
  <date>2017-05-03</date>
  <version>
-  <release>1.0.0alpha12</release>
+  <release>1.0.0alpha13</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Add a HordeTheme package type to generate content lists for single themes.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -648,6 +648,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Add a HordeTheme package type to generate content lists for single themes.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0alpha13</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api></stability>
+   <date>2017-05-03</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
