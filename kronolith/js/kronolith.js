@@ -3259,18 +3259,20 @@ KronolithCore = {
         }
 
         if (newCalendar || info.owner) {
-            if (system || (info && info.system)) {
-                $('kronolith' + type + 'Owner').hide();
-                $('kronolithPOwner' + type + 'Input').hide();
-                $('kronolithCalendar' + type + 'System').setValue(1);
-            } else {
-                $('kronolith' + type + 'Owner').show();
-                $('kronolithPOwner' + type + 'Input').show();
-                if ($('kronolithCalendar' + type + 'System')) {
-                    $('kronolithCalendar' + type + 'System').setValue(0);
-                }
-            }
             if (type == 'internal' || type == 'tasklists' || type == 'resource') {
+                if (system || (info && info.system)) {
+                    $('kronolith' + type + 'Owner').hide();
+                    $('kronolithPOwner' + type + 'Input').hide();
+                    if ($('kronolithCalendar' + type + 'System')) {
+                        $('kronolithCalendar' + type + 'System').setValue(1);
+                    }
+                } else {
+                    $('kronolith' + type + 'Owner').show();
+                    $('kronolithPOwner' + type + 'Input').show();
+                    if ($('kronolithCalendar' + type + 'System')) {
+                        $('kronolithCalendar' + type + 'System').setValue(0);
+                    }
+                }
                 this.updateGroupDropDown([['kronolithC' + type + 'PGList', this.updateGroupPerms.bind(this, type)],
                                           ['kronolithC' + type + 'PGNew']]);
                 $('kronolithC' + type + 'PBasic').show();
