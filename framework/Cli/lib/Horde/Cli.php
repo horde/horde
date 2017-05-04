@@ -666,10 +666,10 @@ class Horde_Cli
     {
         $this->_width = getenv('COLUMNS');
         if (!$this->_width) {
-            $this->_width = @exec('tput cols');
+            $this->_width = @exec('tput cols 2> /dev/null');
         }
         if (!$this->_width) {
-            $size = explode(' ', @exec('stty size'));
+            $size = explode(' ', @exec('stty size 2> /dev/null'));
             if (count($size) == 2) {
                 $this->_width = $size[1];
             }
