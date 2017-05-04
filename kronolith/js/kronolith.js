@@ -3178,7 +3178,6 @@ KronolithCore = {
             case 'remote':
                 if (calendar) {
                     $('kronolithCalendarremoteUrl').setValue(calendar);
-                    $('kronolithCalendarremoteId').setValue(calendar);
                 }
                 break;
             case 'holiday':
