@@ -1332,39 +1332,32 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
      */
     public function getRemoteInfo()
     {
+        global $conf, $injector, $notification;
+
         $params = array('timeout' => 15);
         if ($user = $this->vars->user) {
             $params['user'] = $user;
             $params['password'] = $this->vars->password;
         }
-        if (!empty($GLOBALS['conf']['http']['proxy']['proxy_host'])) {
-            $params['proxy'] = $GLOBALS['conf']['http']['proxy'];
+        if (!empty($conf['http']['proxy']['proxy_host'])) {
+            $params['proxy'] = $conf['http']['proxy'];
         }
 
         $result = new stdClass;
         try {
-            $driver = $GLOBALS['injector']->getInstance('Kronolith_Factory_Driver')->create('Ical', $params);
+            $driver = $injector->getInstance('Kronolith_Factory_Driver')
+                ->create('Ical', $params);
             $driver->open($this->vars->url);
-            if ($driver->isCalDAV()) {
-                $result->success = true;
-                // TODO: find out how to retrieve calendar information via CalDAV.
-            } else {
-                $ical = $driver->getRemoteCalendar(false);
-                $result->success = true;
-                try {
-                    $name = $ical->getAttribute('X-WR-CALNAME');
-                    $result->name = $name;
-                } catch (Horde_Icalendar_Exception $e) {}
-                try {
-                    $desc = $ical->getAttribute('X-WR-CALDESC');
-                    $result->desc = $desc;
-                } catch (Horde_Icalendar_Exception $e) {}
-            }
+            $info = $driver->getCalendarInfo();
+            $result->success = true;
+            $result->name = $info['name'];
+            $result->desc = $info['desc'];
+            $result->color = $info['color'];
         } catch (Exception $e) {
             if ($e->getCode() == 401) {
                 $result->auth = true;
             } else {
-                $GLOBALS['notification']->push($e, 'horde.error');
+                $notification->push($e, 'horde.error');
             }
         }
 

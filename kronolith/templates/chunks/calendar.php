@@ -270,13 +270,6 @@ $accountUrl .= $user;
   </label></p>
 </div>
 
-<div>
-  <p><label><?php echo _("Color") ?>:<br />
-    <input type="text" name="color" id="kronolithCalendarremoteColor" size="7" />
-    <?php echo Horde::url('#')->link(array('title' => _("Color Picker"), 'class' => 'kronolithColorPicker')) . Horde::img('colorpicker.png', _("Color Picker")) . '</a>' ?>
-  </label></p>
-</div>
-
 <div class="kronolithFormActions">
   <input type="button" value="<?php echo _("Continue") ?>" class="kronolithCalendarContinue horde-default" />
   <input type="button" value="<?php echo _("Delete") ?>" class="kronolithCalendarDelete horde-delete" />
@@ -315,6 +308,13 @@ $accountUrl .= $user;
 <div>
   <p><label><?php echo _("Description") ?>:<br />
     <textarea name="desc" id="kronolithCalendarremoteDescription" rows="5" cols="40" class="kronolithLongField"></textarea>
+  </label></p>
+</div>
+
+<div>
+  <p><label><?php echo _("Color") ?>:<br />
+    <input type="text" name="color" id="kronolithCalendarremoteColor" size="7" />
+    <?php echo Horde::url('#')->link(array('title' => _("Color Picker"), 'class' => 'kronolithColorPicker')) . Horde::img('colorpicker.png', _("Color Picker")) . '</a>' ?>
   </label></p>
 </div>
 

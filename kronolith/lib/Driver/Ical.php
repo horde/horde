@@ -10,7 +10,8 @@
  * @package Kronolith
  */
 
-use \Sabre\DAV\Client;
+use Sabre\DAV\Client;
+use Sabre\CalDAV;
 
 /**
  * The Kronolith_Driver_Ical class implements the Kronolith_Driver API for
@@ -785,6 +786,50 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
         }
 
         return true;
+    }
+
+    /**
+     * Returns calendar information.
+     *
+     * @return array  A hash with the keys 'name', 'desc', and 'color'.
+     */
+    public function getCalendarInfo()
+    {
+        $result = array('name' => '', 'desc' => '', 'color' => '');
+        if ($this->isCalDAV()) {
+            $client = $this->_getClient($this->_getUrl());
+            try {
+                $properties = $client->propfind(
+                    '',
+                    array(
+                        '{DAV:}displayname',
+                        '{' . CalDAV\Plugin::NS_CALDAV . '}calendar-description',
+                        '{http://apple.com/ns/ical/}calendar-color'
+                    )
+                );
+                $result['name'] = $properties['{DAV:}displayname'];
+                $result['desc'] = $properties['{' . CalDAV\Plugin::NS_CALDAV . '}calendar-description'];
+                $result['color'] = substr(
+                    $properties['{http://apple.com/ns/ical/}calendar-color'],
+                    0,
+                    7
+                );
+            } catch (Exception $e) {
+            }
+        } else {
+            $ical = $this->getRemoteCalendar(false);
+            try {
+                $name = $ical->getAttribute('X-WR-CALNAME');
+                $result['name'] = $name;
+            } catch (Horde_Icalendar_Exception $e) {
+            }
+            try {
+                $desc = $ical->getAttribute('X-WR-CALDESC');
+                $result['desc'] = $desc;
+            } catch (Horde_Icalendar_Exception $e) {
+            }
+        }
+        return $result;
     }
 
     /**

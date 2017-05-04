@@ -2,6 +2,7 @@
 v5.0.0-git
 ----------
 
+[jan] Use colors of remote CalDAV calendars (Request #14612).
 [jan] Add headers to print views.
 [mjr] Add support for tracking the ORGANIZER of an event independently of the
       horde user (Bug #3965, PR: 127, Ralf Lang <lang@b1-systems.de>).

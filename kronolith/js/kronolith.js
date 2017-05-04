@@ -3174,6 +3174,7 @@ KronolithCore = {
                 // Fall through.
             case 'tasklists':
                 $('kronolithCalendar' + type + 'LinkExport').up('li').hide();
+                this.setColor(type);
                 break;
             case 'remote':
                 if (calendar) {
@@ -3192,14 +3193,10 @@ KronolithCore = {
                             .insert(calendar.value.name.escapeHTML())
                     );
                 });
+                this.setColor(type);
                 break;
             }
             $('kronolithCalendar' + type + 'Id').clear();
-            var color = '#', i;
-            for (i = 0; i < 3; i++) {
-                color += (Math.random() * 256 | 0).toColorPart();
-            }
-            $('kronolithCalendar' + type + 'Color').setValue(color).setStyle({ backgroundColor: color, color: Color.brightness(Color.hex2rgb(color)) < 125 ? '#fff' : '#000' });
             form.down('.kronolithCalendarDelete').hide();
             $('kronolithCalendarinternalImportButton').hide();
         } else {
@@ -3207,7 +3204,7 @@ KronolithCore = {
 
             $('kronolithCalendar' + type + 'Id').setValue(calendar);
             $('kronolithCalendar' + type + 'Name').setValue(info.name);
-            $('kronolithCalendar' + type + 'Color').setValue(info.bg).setStyle({ backgroundColor: info.bg, color: info.fg });
+            this.setColor(type, info.bg);
             $('kronolithCalendarinternalImportButton').hide();
 
             switch (type) {
@@ -3354,6 +3351,30 @@ KronolithCore = {
                 form.down('.kronolithFormActions .kronolithSeparator').hide();
             }
         }
+    },
+
+    /**
+     * Updates the color field in a calendar dialog.
+     *
+     * @param string type   The calendar type.
+     * @param string color  The hex color string. If empty a random color is
+     *                      generated.
+     */
+    setColor: function(type, color)
+    {
+        var i;
+        if (!color) {
+            color = '#';
+            for (i = 0; i < 3; i++) {
+                color += (Math.random() * 256 | 0).toColorPart();
+            }
+        }
+        $('kronolithCalendar' + type + 'Color')
+            .setValue(color)
+            .setStyle({
+                backgroundColor: color,
+                color: Color.brightness(Color.hex2rgb(color)) < 125 ? '#fff' : '#000'
+            });
     },
 
     /**
@@ -5206,6 +5227,9 @@ KronolithCore = {
                                     if (r.desc) {
                                         $('kronolithCalendarremoteDescription').setValue(r.desc);
                                     }
+                                    if (r.color) {
+                                        this.setColor('remote', r.color);
+                                    }
                                     this.calendarNext(type);
                                     this.calendarNext(type);
                                 } else if (r.auth) {
@@ -5233,6 +5257,10 @@ KronolithCore = {
                                     if (r.desc &&
                                         !$F('kronolithCalendarremoteDescription')) {
                                         $('kronolithCalendarremoteDescription').setValue(r.desc);
+                                    }
+                                    if (r.color &&
+                                        !$F('kronolithCalendarremoteColor')) {
+                                        this.setColor('remote', r.color);
                                     }
                                     this.calendarNext(type);
                                 } else {
