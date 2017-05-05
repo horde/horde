@@ -1,0 +1,34 @@
+{
+    "name": "horde/backup",
+    "description": "Backup and restore library",
+    "type": "library",
+    "homepage": "https://pear.horde.org",
+    "license": "BSD",
+    "authors": [
+        {
+            "name": "Jan Schneider",
+            "email": "jan@horde.org",
+            "role": "lead"
+        }
+    ],
+    "version": "1.0.0alpha1",
+    "time": "2017-05-05",
+    "repositories": [
+        {
+            "type": "pear",
+            "url": "http://pear.horde.org"
+        }
+    ],
+    "require": {
+        "php": "^5.3 || ^7"
+    },
+    "replace": {
+        "pear-pear.horde.org/Horde_Backup": "1.*",
+        "pear-horde/Horde_Backup": "1.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Horde_Backup": "lib/"
+        }
+    }
+}
