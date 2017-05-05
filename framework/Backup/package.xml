@@ -41,6 +41,21 @@
      </dir> <!-- /lib/Horde/Backup -->
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="Backup">
+      <dir name="Stub">
+       <file name="Application.php" role="test" />
+       <file name="Collection.php" role="test" />
+      </dir> <!-- /test/Horde/Backup/Stub -->
+      <file name="AllTests.php" role="test" />
+      <file name="ApplicationTest.php" role="test" />
+      <file name="bootstrap.php" role="test" />
+      <file name="phpunit.xml" role="test" />
+      <file name="UsersTest.php" role="test" />
+     </dir> <!-- /test/Horde/Backup -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -61,6 +76,13 @@
    <install as="Horde/Backup/Collection.php" name="lib/Horde/Backup/Collection.php" />
    <install as="Horde/Backup/User.php" name="lib/Horde/Backup/User.php" />
    <install as="Horde/Backup/Users.php" name="lib/Horde/Backup/Users.php" />
+   <install as="Horde/Backup/AllTests.php" name="test/Horde/Backup/AllTests.php" />
+   <install as="Horde/Backup/ApplicationTest.php" name="test/Horde/Backup/ApplicationTest.php" />
+   <install as="Horde/Backup/bootstrap.php" name="test/Horde/Backup/bootstrap.php" />
+   <install as="Horde/Backup/phpunit.xml" name="test/Horde/Backup/phpunit.xml" />
+   <install as="Horde/Backup/UsersTest.php" name="test/Horde/Backup/UsersTest.php" />
+   <install as="Horde/Backup/Stub/Application.php" name="test/Horde/Backup/Stub/Application.php" />
+   <install as="Horde/Backup/Stub/Collection.php" name="test/Horde/Backup/Stub/Collection.php" />
   </filelist>
  </phprelease>
  <changelog>
