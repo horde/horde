@@ -56,7 +56,7 @@ class Horde_ActiveSync_Imap_Strategy_Modseq extends Horde_ActiveSync_Imap_Strate
         // server state and handled by a complete resync, but a majority of
         // EAS clients do not properly handle the status codes that report this.
         parent::__construct($imap, $status, $folder, $logger);
-        if ($folder->modseq > $this->_status[Horde_ActiveSync_Folder_Imap::HIGHESTMODSEQ]) {
+        if ($folder->modseq() > $this->_status[Horde_ActiveSync_Folder_Imap::HIGHESTMODSEQ]) {
             $this->_logger->err('IMAP Server error: Current HIGHESTMODSEQ is lower than previously reported.');
             $this->_modseq_valid = false;
         }
