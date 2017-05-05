@@ -36,9 +36,14 @@
     <dir name="Horde">
      <dir name="Backup">
       <file name="Collection.php" role="php" />
+      <file name="Exception.php" role="php" />
+      <file name="Translation.php" role="php">
+       <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
+      </file>
       <file name="User.php" role="php" />
       <file name="Users.php" role="php" />
      </dir> <!-- /lib/Horde/Backup -->
+     <file name="Backup.php" role="php" />
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
    <dir name="test">
@@ -46,10 +51,12 @@
      <dir name="Backup">
       <dir name="Stub">
        <file name="Application.php" role="test" />
+       <file name="Application2.php" role="test" />
        <file name="Collection.php" role="test" />
       </dir> <!-- /test/Horde/Backup/Stub -->
       <file name="AllTests.php" role="test" />
       <file name="ApplicationTest.php" role="test" />
+      <file name="BackupRestoreTest.php" role="test" />
       <file name="bootstrap.php" role="test" />
       <file name="phpunit.xml" role="test" />
       <file name="UsersTest.php" role="test" />
@@ -73,15 +80,20 @@
  <phprelease>
   <filelist>
    <install as="LICENSE" name="doc/Horde/Backup/LICENSE" />
+   <install as="Horde/Backup.php" name="lib/Horde/Backup.php" />
    <install as="Horde/Backup/Collection.php" name="lib/Horde/Backup/Collection.php" />
+   <install as="Horde/Backup/Exception.php" name="lib/Horde/Backup/Exception.php" />
+   <install as="Horde/Backup/Translation.php" name="lib/Horde/Backup/Translation.php" />
    <install as="Horde/Backup/User.php" name="lib/Horde/Backup/User.php" />
    <install as="Horde/Backup/Users.php" name="lib/Horde/Backup/Users.php" />
    <install as="Horde/Backup/AllTests.php" name="test/Horde/Backup/AllTests.php" />
    <install as="Horde/Backup/ApplicationTest.php" name="test/Horde/Backup/ApplicationTest.php" />
+   <install as="Horde/Backup/BackupRestoreTest.php" name="test/Horde/Backup/BackupRestoreTest.php" />
    <install as="Horde/Backup/bootstrap.php" name="test/Horde/Backup/bootstrap.php" />
    <install as="Horde/Backup/phpunit.xml" name="test/Horde/Backup/phpunit.xml" />
    <install as="Horde/Backup/UsersTest.php" name="test/Horde/Backup/UsersTest.php" />
    <install as="Horde/Backup/Stub/Application.php" name="test/Horde/Backup/Stub/Application.php" />
+   <install as="Horde/Backup/Stub/Application2.php" name="test/Horde/Backup/Stub/Application2.php" />
    <install as="Horde/Backup/Stub/Collection.php" name="test/Horde/Backup/Stub/Collection.php" />
   </filelist>
  </phprelease>

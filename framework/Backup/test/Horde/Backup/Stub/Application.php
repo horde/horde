@@ -49,7 +49,7 @@ class Application
             'events' => array(
                 array(
                     'id' => 'event1',
-                    'name' => 'Johns Event',
+                    'name' => 'John\'s Event',
                     'calendar' => 'id1'
                 )
             )
@@ -58,7 +58,7 @@ class Application
             'events' => array(
                 array(
                     'id' => 'event2',
-                    'name' => 'Janess Event',
+                    'name' => 'Jane\'s Event',
                     'calendar' => 'id1'
                 )
             )
