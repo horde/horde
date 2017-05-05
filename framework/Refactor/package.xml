@@ -10,7 +10,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2017-03-23</date>
+ <date>2017-05-05</date>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -121,13 +121,13 @@
      <file name="autoload.php" role="php" />
     </dir> <!-- /bundle/vendor -->
    </dir> <!-- /bundle -->
-   <dir name="docs">
+   <dir name="doc">
     <dir name="Horde">
      <dir name="Refactor">
-      <file name="LICENSE" role="php" />
-     </dir> <!-- /docs/Horde/Refactor -->
-    </dir> <!-- /docs/Horde -->
-   </dir> <!-- /docs -->
+      <file name="LICENSE" role="doc" />
+     </dir> <!-- /doc/Horde/Refactor -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Refactor">
@@ -323,7 +323,7 @@
    <install as="Horde/Refactor/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/VarTagTest.php" name="bundle/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/VarTagTest.php" />
    <install as="Horde/Refactor/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/VersionTagTest.php" name="bundle/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/VersionTagTest.php" />
    <install as="Horde/Refactor/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Type/CollectionTest.php" name="bundle/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Type/CollectionTest.php" />
-   <install as="Horde/Refactor/LICENSE" name="docs/Horde/Refactor/LICENSE" />
+   <install as="LICENSE" name="doc/Horde/Refactor/LICENSE" />
    <install as="Horde/Refactor/Cli.php" name="lib/Horde/Refactor/Cli.php" />
    <install as="Horde/Refactor/Config.php" name="lib/Horde/Refactor/Config.php" />
    <install as="Horde/Refactor/Exception.php" name="lib/Horde/Refactor/Exception.php" />
@@ -395,7 +395,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2017-03-23</date>
+   <date>2017-05-05</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * Initial release.
