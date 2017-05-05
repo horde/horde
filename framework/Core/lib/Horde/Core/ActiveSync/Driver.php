@@ -990,8 +990,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 if (!$ping) {
                     if (!$refreshFilter) {
                         $sd = $folder->getSoftDeleteTimes();
-                        if ($sd[1] + 82800 + mt_rand(0, 3600) < time()) {
-                            $from = $sd[2];
+                        if ($sd[0] + 82800 + mt_rand(0, 3600) < time()) {
+                            $from = $sd[1];
                         }
                     } else {
                         // Force refresh the FILTERTYPE.
