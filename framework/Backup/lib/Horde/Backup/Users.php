@@ -13,6 +13,8 @@
 
 namespace Horde\Backup;
 
+use Iterator;
+
 /**
  * An application's list of users with backup data.
  *
@@ -25,31 +27,73 @@ namespace Horde\Backup;
  * @license   http://www.horde.org/licenses/bsd BSD
  * @package   Backup
  */
-abstract class Users implements Iterator
+class Users implements Iterator
 {
+    /**
+     * The user list.
+     *
+     * @var Iterator
+     */
+    protected $_users;
+
+    /**
+     * User creation callback.
+     *
+     * @var callback
+     */
+    protected $_getUser;
+
+    /**
+     * Constructor.
+     *
+     * @param Iterator $users    A user list.
+     * @param callable $getUser  Callback to create a \Horde\Backup\User
+     *                           instance.
+     */
+    public function __construct(Iterator $users, callable $getUser)
+    {
+        $this->_users = $users;
+        $this->_getUser = $getUser;
+    }
+
     /**
      * A single user's backup data.
      *
      * @return \Horde\Backup\User
      */
-    abstract public function current();
+    public function current()
+    {
+        return call_user_func($this->_getUser, $this->key());
+    }
 
     /**
      * A user name.
      *
      * @return string
      */
-    abstract public function key();
+    public function key()
+    {
+        return $this->_users->current();
+    }
 
     /**
      */
-    abstract public function next();
+    public function next()
+    {
+        $this->_users->next();
+    }
 
     /**
      */
-    abstract public function rewind();
+    public function rewind()
+    {
+        $this->_users->rewind();
+    }
 
     /**
      */
-    abstract public function valid();
+    public function valid()
+    {
+        return $this->_users->valid();
+    }
 }
