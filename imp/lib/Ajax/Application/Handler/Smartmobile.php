@@ -72,7 +72,7 @@ extends Horde_Core_Ajax_Application_Handler
     {
         $result = $this->_base->callAction('getForwardData');
 
-        if ($result && $result->opts->attach) {
+        if ($result && !empty($result->opts->attach)) {
             $GLOBALS['notification']->push(_("Forwarded message will be automatically added to your outgoing message."), 'horde.message');
         }
 
