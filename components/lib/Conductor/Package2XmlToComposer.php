@@ -522,7 +522,8 @@ EOF;
 
         if (empty($this->name) && isset($this->data['channel'])) {
             $suggested_alias = $this->getChannelSuggestedAlias($this->data['channel']);
-            $pkgname = strtolower($this->data['name']);
+            $pkgname = preg_replace('/^Horde_/', '', $this->data['name']);
+            $pkgname = strtolower($pkgname);
             $pkgname = str_replace('_', '-', $pkgname);
             $this->name = strtolower($suggested_alias . '/' . $pkgname);
         }
