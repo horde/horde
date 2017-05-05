@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix undefined property warnings (Bug #14631).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3425,7 +3425,7 @@
    <date>2017-05-03</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix undefined property warnings (Bug #14631).
    </notes>
   </release>
  </changelog>
