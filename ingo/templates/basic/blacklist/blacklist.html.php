@@ -9,25 +9,32 @@
 <?php endif; ?>
  </h1>
 
+<?php if ($this->actions) : ?>
  <div>
   <em><?php echo _("Action for blacklisted addresses:") ?></em>
   <?php echo $this->hordeHelp('ingo', 'blacklist-action') ?>
  </div>
-
+<?php endif; ?>
+ <?php if ($this->actiondelete) : ?>
  <div class="blacklistAction">
   <?php echo $this->radioButtonTag('action', 'delete', empty($this->folder), array('id' => 'action_delete')) ?>
   <?php echo $this->hordeLabel('action_delete', _("_Delete message completely")) ?>
   <br />
-<?php if ($this->flagonly): ?>
+<?php endif; ?>
+<?php if ($this->actionmark && $this->flagonly) : ?>
   <?php echo $this->radioButtonTag('action', 'mark', $this->folder == Ingo::BLACKLIST_MARKER, array('id' => 'action_mark')) ?>
   <?php echo $this->hordeLabel('action_mark', _("Mar_k message as deleted")) ?>
   <br />
 <?php endif; ?>
+<?php if ($this->actionfolder) : ?>
   <?php echo $this->radioButtonTag('action', 'folder', $this->folder && ($this->folder != Ingo::BLACKLIST_MARKER), array('id' => 'action_folder')) ?>
   <?php echo $this->hordeLabel('action_folder', _("_Move message to folder:")) ?>
   <label for="actionvalue" class="hidden"><?php echo _("Select target folder") ?></label>
   <?php echo $this->folderlist ?>
  </div>
+<?php else : ?>
+<?php echo $this->hiddenFieldTag('actionvalue', '', array('id' => 'actionvalue')) ?>
+<?php endif; ?>
 
  <div>
   <em><?php echo $this->hordeLabel('blacklist', _("_Enter each address on a new line:")) ?></em>

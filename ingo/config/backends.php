@@ -45,6 +45,7 @@
  *   - customsql: Custom SQL queries (only for vacation notices).
  *   - imap:      IMAP client side filtering (POP3 servers NOT supported).
  *   - ispconfig: ISPConfig SOAP Server (only for vacation notices).
+ *   - ispconfig3: ISPConfig 3 SOAP Server (SPAM NOT supported).
  *   - maildrop:  Maildrop scripts.
  *   - procmail:  Procmail scripts.
  *   - sieve:     Sieve scripts.
@@ -412,6 +413,43 @@ $backends['ispconfig'] = array(
             'driver' => 'ispconfig',
             'params' => array()
         ),
+    ),
+    'shares' => false
+);
+
+/* ISPConfig3 Example */
+$backends['Ispconfig3'] = array(
+    'disabled' => true,
+    'transport' => array(
+        Ingo::RULE_ALL => array(
+            'driver' => 'null',
+            'params' => array()
+        )
+    ),
+    'script' => array(
+        Ingo::RULE_ALL => array(
+            'driver' => 'Ispconfig3',
+            'params' => array(
+                'soap_uri' => 'http://localhost:8080/remote/',
+                // This user must be created in the ispconfig3 web interface
+                // under System -> Remote Users. The required permissions
+                // ("functions") are:
+                // - Client functions
+                // - Mail user functions
+                // - Mail spamfilter user functions
+                // - Mail spamfilter whitelist functions
+                // - Mail spamfilter blacklist functions
+                // - Mail user filter functions
+                'soap_user' => 'horde',
+                'soap_pass' => 'secret',
+                // Default policy id in case we have to create a new user
+                // for whitelist/blacklist rules.
+                'policy_id' => 5,
+                // Delete filter rules not created by Ingo in the ISPConfig
+                // server.
+                'delete_orphan' => false
+            )
+        )
     ),
     'shares' => false
 );

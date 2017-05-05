@@ -44,7 +44,13 @@ class Ingo_Basic_Spam extends Ingo_Basic_Base
         }
 
         /* Build form. */
-        $form = new Ingo_Form_Spam($this->vars);
+        $form = new Ingo_Form_Spam(
+            $this->vars,
+            '',
+            null,
+            $injector->getInstance('Ingo_Factory_Script')->create(Ingo::RULE_SPAM)->availableCategoryFeatures(Ingo_Storage::ACTION_SPAM)
+        );
+
         $renderer = new Horde_Form_Renderer(array(
             'encode_title' => false,
             'varrenderer_driver' => array('ingo', 'ingo')

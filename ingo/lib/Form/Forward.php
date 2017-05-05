@@ -21,12 +21,16 @@
  */
 class Ingo_Form_Forward extends Ingo_Form_Base
 {
-    public function __construct($vars, $title = '', $name = null)
+    public function __construct($vars, $title = '', $name = null, $features = array())
     {
-        parent::__construct($vars, $title, $name);
+        parent::__construct($vars, $title, $name, $features);
 
-        $v = $this->addVariable(_("Keep a copy of messages in this account?"), 'keep_copy', 'boolean', false);
-        $v->setHelp('forward-keepcopy');
+        if ($this->hasFeature('keepcopy'))
+        {
+            $v = $this->addVariable(_("Keep a copy of messages in this account?"), 'keep_copy', 'boolean', false);
+            $v->setHelp('forward-keepcopy');
+        }
+
         $v = $this->addVariable(_("Address(es) to forward to:"), 'addresses', 'ingo:Longemail', false, false, null, array(5, 40));
         $v->setHelp('forward-addresses');
         $this->setButtons(_("Save"));
