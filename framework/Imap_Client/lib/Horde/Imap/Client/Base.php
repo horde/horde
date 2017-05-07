@@ -202,6 +202,8 @@ implements Serializable, SplObserver
      *          provided. The value can be any PHP supported wrapper that can
      *          be opened via PHP's fopen() function.
      *          DEFAULT: No debug output
+     * - debug_pid: (boolean) Include pid in debug output.
+     *              DEFAULT: false
      * - hostspec: (string) The hostname or IP address of the server.
      *             DEFAULT: 'localhost'
      * - id: (array) Send ID information to the server (only if server
@@ -303,8 +305,9 @@ implements Serializable, SplObserver
         // @todo: Remove (BC)
         $this->_alerts->attach($this);
 
+        $debug_pid = $this->getParam('debug_pid');
         $this->_debug = ($debug = $this->getParam('debug'))
-            ? new Horde_Imap_Client_Base_Debug($debug)
+            ? new Horde_Imap_Client_Base_Debug($debug, $debug_pid)
             : new Horde_Support_Stub();
 
         // @todo: Remove (BC purposes)

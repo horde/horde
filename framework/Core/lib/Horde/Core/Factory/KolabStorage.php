@@ -105,6 +105,9 @@ class Horde_Core_Factory_KolabStorage extends Horde_Core_Factory_Base
                 'debug'    => isset($configuration['debug'])
                     ? $configuration['debug']
                     : null,
+                'debug_pid'    => isset($configuration['debug_pid'])
+                    ? $configuration['debug_pid']
+                    : null,
                 'cache' =>  array(
                     'backend' => new Horde_Imap_Client_Cache_Backend_Cache(
                         array('cacheob' => $cacheob)
