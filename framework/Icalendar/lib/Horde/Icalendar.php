@@ -1609,6 +1609,10 @@ class Horde_Icalendar
             // ("T0S").
             $duration .= 'T0S';
         }
+		// duration without time ("P") is NOT valid, append 0 seconds ("T0S")
+		elseif ($duration === 'P') {
+			$duration .= 'T0S';
+		}
 
         return $duration;
     }
