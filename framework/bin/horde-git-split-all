@@ -1,6 +1,9 @@
 #!/usr/bin/env php
 <?php
 
+// Remember modules that failed.
+$errors = array();
+
 // Setting basics
 require_once 'Horde/Autoloader/Default.php';
 set_error_handler(function() { var_dump(func_get_args()); exit(1); });
@@ -92,7 +95,9 @@ foreach ($directories as $dir) {
         $result
     );
     if ($result) {
-        exit($result);
+          $errors[] = $package;
+          echo('Skipping ' . $package . "\n");
+          continue;
     }
     $target = $work_dir . '/' . $package . '/split';
     $xml = $dir . '/package.xml';
@@ -122,9 +127,15 @@ foreach ($directories as $dir) {
         fwrite(STDERR, $response->getBody());
         exit(1);
     }
+    sleep(2);
     passthru(
         'git -C "' . $target . '" push --mirror "git@github.com:'
         . $git['orga'] . '/' . $finalPackage . '.git"'
     );
     sleep(1);
+}
+
+if (!empty($errors)) {
+    echo "The following repos were not created:\n";
+    echo implode("\n", $errors) . "\n";
 }
