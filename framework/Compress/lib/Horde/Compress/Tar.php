@@ -74,7 +74,7 @@ class Horde_Compress_Tar extends Horde_Compress_Base
      *
      * @return mixed  The TAR file as either a string or a stream resource.
      */
-    public function compress($data, $params = array())
+    public function compress($data, array $params = array())
     {
         $this->_tmp = fopen('php://temp', 'r+');
 

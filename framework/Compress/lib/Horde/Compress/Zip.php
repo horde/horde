@@ -118,7 +118,7 @@ class Horde_Compress_Zip extends Horde_Compress_Base
      *
      * @return mixed  The ZIP file as either a string or a stream resource.
      */
-    public function compress($data, $params = array())
+    public function compress($data, array $params = array())
     {
         if (!Horde_Util::extensionExists('zlib')) {
             throw new Horde_Compress_Exception(
