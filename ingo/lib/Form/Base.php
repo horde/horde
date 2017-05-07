@@ -30,7 +30,7 @@ class Ingo_Form_Base extends Horde_Form
 
     public function __construct($vars, $title = '', $name = null, $features = array())
     {
-        parent::__construct($vars, $title, $name);
+        parent::__construct($vars, $title, $name, $features);
         $this->_features = $features;
     }
 

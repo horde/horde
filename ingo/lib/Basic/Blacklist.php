@@ -92,6 +92,18 @@ class Ingo_Basic_Blacklist extends Ingo_Basic_Base
         $view->addHelper('Tag');
         $view->addHelper('Text');
 
+        $features = new Ingo_Form_Base(
+            null,
+            '',
+            null,
+            $ingo_script->availableCategoryFeatures('Ingo_Rule_System_Blacklist')
+        );
+
+        $view->actiondelete = $features->hasFeature('actiondelete');
+        $view->actionmark = $features->hasFeature('actionmark');
+        $view->actionfolder = $features->hasFeature('actionfolder');
+        $view->actions = $view->actiondelete || $view->actionmark || $view->actionfolder;
+
         $view->blacklist = implode("\n", $bl->addresses);
         $view->disabled = $bl->disable;
         $view->flagonly = $flagonly;

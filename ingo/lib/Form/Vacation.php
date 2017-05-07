@@ -35,7 +35,7 @@ class Ingo_Form_Vacation extends Ingo_Form_Base
      */
     protected $_end;
 
-    public function __construct($vars, $title = '', $name = null, $features = null)
+    public function __construct($vars, $title = '', $name = null, $features = array())
     {
         parent::__construct($vars, $title, $name, $features);
 

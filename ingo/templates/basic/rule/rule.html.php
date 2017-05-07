@@ -23,6 +23,7 @@
   <em><?php echo _("For an incoming message that matches:") ?></em>
   <?php echo $this->hordeHelp('ingo', 'rule-match') ?>
 
+<?php if ($this->combine) : ?>
   <div class="ruleCondition">
    <span>
     <?php echo $this->radioButtonTag('combine', Ingo_Rule_User::COMBINE_ALL, $this->rule->combine == Ingo_Rule_User::COMBINE_ALL, array('id' => 'all')) ?>
@@ -33,10 +34,17 @@
     <?php echo $this->hordeLabel('any', _("ANY of the following")) ?>
    </span>
   </div>
+<?php else : ?>
+<?php echo $this->hiddenFieldTag('combine', Ingo_Rule_User::COMBINE_ALL, array('id' => 'all')) ?>
+<?php echo $this->hiddenFieldTag('combine', Ingo_Rule_User::COMBINE_ANY, array('id' => 'any')) ?>
+<?php endif; ?>
 
   <div class="ruleMatch">
 <?php foreach ($this->filter as $f): ?>
 <?php if ($f['cond_num'] > 0): ?>
+<?php if (!$this->combine): ?>
+<?php break; ?>
+<?php endif; ?>
    <div class="ruleMatchCondition">
     <?php echo ($this->rule->combine == Ingo_Rule_User::COMBINE_ALL) ? _("and") : _("or") ?>
    </div>

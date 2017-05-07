@@ -33,6 +33,8 @@ class Ingo_Basic_Vacation extends Ingo_Basic_Base
         if ($this->vars->submitbutton == _("Return to Rules List")) {
             Ingo_Basic_Filters::url()->redirect();
         }
+        
+        $ingo_script_factory = $injector->getInstance('Ingo_Factory_Script');
 
         /* Get vacation object and rules. */
         $ingo_storage = $injector->getInstance('Ingo_Factory_Storage')->create();
@@ -43,7 +45,7 @@ class Ingo_Basic_Vacation extends Ingo_Basic_Base
             $this->vars,
             '',
             null,
-            $injector->getInstance('Ingo_Factory_Script')->create(Ingo::RULE_VACATION)->availableCategoryFeatures('Ingo_Rule_System_Vacation')
+            $ingo_script_factory->create(Ingo::RULE_VACATION)->availableCategoryFeatures('Ingo_Rule_System_Vacation')
         );
 
         /* Perform requested actions. Ingo_Form_Vacation does token checking
@@ -73,7 +75,7 @@ class Ingo_Basic_Vacation extends Ingo_Basic_Base
                 $ingo_storage->updateRule($vacation);
                 $notification->push($notify, 'horde.success');
 
-                $injector->getInstance('Ingo_Factory_Script')->activateAll();
+                $ingo_script_factory->activateAll();
             } catch (Ingo_Exception $e) {
                 $notification->push($e);
             }
