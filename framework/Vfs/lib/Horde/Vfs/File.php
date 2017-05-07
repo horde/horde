@@ -366,6 +366,8 @@ class Horde_Vfs_File extends Horde_Vfs_Base
             }
         }
 
+        chdir($this->_getNativePath($path, '/'));		
+		
         if (!@rmdir($this->_getNativePath($path, $name))) {
             $this->_throwException(new Horde_Vfs_Exception(sprintf('Unable to delete VFS directory %s/%s.', $path, $name)));
         }
