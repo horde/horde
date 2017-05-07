@@ -3002,8 +3002,12 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     public function modifyDeviceCallback(Horde_ActiveSync_Device $device)
     {
         try {
-            return $GLOBALS['injector']->getInstance('Horde_Core_Hooks')
+            $device = $GLOBALS['injector']->getInstance('Horde_Core_Hooks')
                 ->callHook('activesync_device_modify', 'horde', array($device));
+            if (!($device instanceof Horde_ActiveSync_Device)) {
+                $this->_logger->err('activesync_device_modify hook must return device object.');
+                throw new Exception();
+            }
         } catch (Horde_Exception_HookNotSet $e) {}
 
         return $device;
