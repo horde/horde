@@ -42,9 +42,19 @@ class Ingo_Form_Vacation extends Ingo_Form_Base
         $this->setSection('basic', _("Basic Settings"));
 
         if ($this->hasFeature('period')) {
-            $this->_start = $this->addVariable(_("Start of vacation:"), 'start', 'monthdayyear', false);
+            $this->_start = $this->addVariable(
+                _("Start of vacation:"),
+                'start',
+                $this->hasFeature('time') ? 'datetime' : 'monthdayyear',
+                false
+            );
             $this->_start->setHelp('vacation-period');
-            $this->_end = $this->addVariable(_("End of vacation:"), 'end', 'monthdayyear', false);
+            $this->_end = $this->addVariable(
+                _("End of vacation:"),
+                'end',
+                $this->hasFeature('time') ? 'datetime' : 'monthdayyear',
+                false
+            );
         }
         if ($this->hasFeature('subject')) {
             $v = $this->addVariable(_("Subject of vacation message:"), 'subject', 'text', true);

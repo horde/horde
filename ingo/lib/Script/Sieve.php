@@ -33,12 +33,14 @@ class Ingo_Script_Sieve extends Ingo_Script_Base
         'case_sensitive' => true,
         /* Does the driver support setting IMAP flags? */
         'imap_flags' => true,
-        /* Does the driver support the stop-script option? */
-        'stop_script' => true,
         /* Can this driver perform on demand filtering? */
         'on_demand' => false,
         /* Does the driver require a script file to be generated? */
         'script_file' => true,
+        /* Does the driver support the stop-script option? */
+        'stop_script' => true,
+        /* Does the driver support vacation start and end on time level? */
+        'vacation_time' => false,
     );
 
     /**
@@ -69,6 +71,23 @@ class Ingo_Script_Sieve extends Ingo_Script_Base
         'Ingo_Rule_System_Spam',
         'Ingo_Rule_System_Vacation',
         'Ingo_Rule_System_Whitelist'
+    );
+
+    /**
+     * Which form fields are supported in each category by this driver?
+     *
+     * @var array
+     */
+    protected $_categoryFeatures = array(
+        'Ingo_Rule_System_Vacation' => array(
+            'period',
+            'subject',
+            'reason',
+            'addresses',
+            'excludes',
+            'ignorelist',
+            'days',
+        )
     );
 
     /**
@@ -116,6 +135,19 @@ class Ingo_Script_Sieve extends Ingo_Script_Base
      * @var array
      */
     protected $_endBlocks = array();
+
+    /**
+     * Constructor.
+     *
+     * @param array $params  A hash containing parameters needed.
+     */
+    public function __construct(array $params = array())
+    {
+        parent::__construct($params);
+        if (!empty($this->_params['date'])) {
+            $this->_categoryFeatures['Ingo_Rule_System_Vacation'][] = 'time';
+        }
+    }
 
     /**
      * Escape a string according to Sieve RFC 3028 [2.4.2].

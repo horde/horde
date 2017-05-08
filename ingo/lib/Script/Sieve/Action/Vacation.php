@@ -188,17 +188,15 @@ class Ingo_Script_Sieve_Action_Vacation extends Ingo_Script_Sieve_Action
             $code .= 'allof ( ';
         }
         if ($start) {
-            $code .= 'currentdate :zone '
-                . date('O', $this->_vars['start']) . ' :value "ge" "date" "'
-                . date('Y-m-d', $this->_vars['start']) . '"';
+            $code .= 'currentdate :value "ge" "iso8601" "'
+                . date('c', $this->_vars['start']) . '"';
         }
         if ($start && $end) {
             $code .= ",\n" . '               ';
         }
         if ($end) {
-            $code .= 'currentdate :zone '
-                . date('O', $this->_vars['end']) . ' :value "le" "date" "'
-                . date('Y-m-d', $this->_vars['end']) . '"';
+            $code .= 'currentdate :value "le" "iso8601" "'
+                . date('c', $this->_vars['end']) . '"';
         }
         if ($start && $end) {
             $code .= ' )';

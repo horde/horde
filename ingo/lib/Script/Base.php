@@ -47,6 +47,8 @@ abstract class Ingo_Script_Base
         'script_file' => false,
         /* Does the driver support the stop-script option? */
         'stop_script' => false,
+        /* Does the driver support vacation start and end on time level? */
+        'vacation_time' => false,
     );
 
     /**

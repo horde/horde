@@ -33,12 +33,14 @@ class Ingo_Script_Imap extends Ingo_Script_Base
         'case_sensitive' => false,
         /* Does the driver support setting IMAP flags? */
         'imap_flags' => true,
-        /* Does the driver support the stop-script option? */
-        'stop_script' => true,
         /* Can this driver perform on demand filtering? */
         'on_demand' => true,
         /* Does the driver require a script file to be generated? */
         'script_file' => false,
+        /* Does the driver support the stop-script option? */
+        'stop_script' => true,
+        /* Does the driver support vacation start and end on time level? */
+        'vacation_time' => false,
     );
 
     /**

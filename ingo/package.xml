@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [jan] Allow to specify time limits for vacation messages if supported.
 * [jan] Allow to set vaction with only start or end date, if supported.
 * [jan] Add support for Sieve date extension to vacation messages (Request #12520).
 * [mjr] Export active vacation messages via the timeObjects API (Request #10885).
@@ -1779,6 +1780,7 @@
    </stability>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [jan] Allow to specify time limits for vacation messages if supported.
 * [jan] Allow to set vaction with only start or end date, if supported.
 * [jan] Add support for Sieve date extension to vacation messages (Request #12520).
 * [mjr] Export active vacation messages via the timeObjects API (Request #10885).
