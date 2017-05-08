@@ -3,6 +3,7 @@
 
 // Remember modules that failed.
 $errors = array();
+$skipped = array();
 
 // Setting basics
 require_once 'Horde/Autoloader/Default.php';
@@ -82,6 +83,7 @@ foreach ($directories as $dir) {
         $finalPackage = 'base';
     }
     if (in_array($finalPackage, $repos)) {
+        $skipped[] = $package;
         echo "$finalPackage exists, skipping.\n";
         continue;
     }
@@ -138,4 +140,8 @@ foreach ($directories as $dir) {
 if (!empty($errors)) {
     echo "The following repos were not created:\n";
     echo implode("\n", $errors) . "\n";
+}
+if (!empty($skipped)) {
+    echo "The following repositories already existed:\n";
+    echo implode("\n", $skipped) . "\n";
 }
