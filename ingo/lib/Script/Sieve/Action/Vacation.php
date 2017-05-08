@@ -53,12 +53,12 @@ class Ingo_Script_Sieve_Action_Vacation extends Ingo_Script_Sieve_Action
      */
     public function generate()
     {
-        if (empty($this->_vars['start']) || empty($this->_vars['end'])) {
-            return $this->_vacationCode();
-        }
-
         if ($this->_vars['date']) {
             return $this->_dateCheck();
+        }
+
+        if (empty($this->_vars['start']) || empty($this->_vars['end'])) {
+            return $this->_vacationCode();
         }
 
         return $this->_regexCheck();
@@ -178,15 +178,39 @@ class Ingo_Script_Sieve_Action_Vacation extends Ingo_Script_Sieve_Action
      */
     protected function _dateCheck()
     {
-        return 'if allof ( currentdate :zone '
-            . date('O', $this->_vars['start']) . ' :value "ge" "date" "'
-            . date('Y-m-d', $this->_vars['start']) . "\",\n"
-            . '               currentdate :zone '
-            . date('O', $this->_vars['end']) . ' :value "le" "date" "'
-            . date('Y-m-d', $this->_vars['end']) . "\" ) {\n"
-            . '    '
-            . $this->_vacationCode()
-            . "\n    }";
+        $start = empty($this->_vars['start']) ? null : $this->_vars['start'];
+        $end = empty($this->_vars['end']) ? null : $this->_vars['end'];
+        $code = '';
+        if ($start || $end) {
+            $code .= 'if ';
+        }
+        if ($start && $end) {
+            $code .= 'allof ( ';
+        }
+        if ($start) {
+            $code .= 'currentdate :zone '
+                . date('O', $this->_vars['start']) . ' :value "ge" "date" "'
+                . date('Y-m-d', $this->_vars['start']) . '"';
+        }
+        if ($start && $end) {
+            $code .= ",\n" . '               ';
+        }
+        if ($end) {
+            $code .= 'currentdate :zone '
+                . date('O', $this->_vars['end']) . ' :value "le" "date" "'
+                . date('Y-m-d', $this->_vars['end']) . '"';
+        }
+        if ($start && $end) {
+            $code .= ' )';
+        }
+        if ($start || $end) {
+            $code .= " {\n" . '    ';
+        }
+        $code .= $this->_vacationCode();
+        if ($start || $end) {
+            $code .= "\n    }";
+        }
+        return $code;
     }
 
     /**

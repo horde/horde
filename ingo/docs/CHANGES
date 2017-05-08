@@ -2,6 +2,8 @@
 v4.0.0-git
 ----------
 
+[jan] Allow to set vaction with only start or end date, if Sieve date extension
+      is available.
 [jan] Add support for Sieve date extension to vacation messages (Request
       #12520).
 [mjr] Export active vacation messages via the timeObjects API (Request #10885).
