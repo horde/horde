@@ -62,12 +62,22 @@ $parser = new Horde_Argv_Parser(
                     'help'   => 'Halt migration immediately on error.'
                 )
             ),
+            new Horde_Argv_Option(
+                '-b',
+                '--base-directory',
+                array(
+                    'action' => 'store',
+                    'help'   => 'The base folder for the development checkout.'
+                )
+            ),
         )
     )
 );
 list($options, $args) = $parser->parseArgs();
-
-$migration = new Horde_Core_Db_Migration(__DIR__ . '/../..', $options['config']);
+if (empty($options['base_directory'])) {
+    $options['base_directory'] = __DIR__ . '/../..';
+}
+$migration = new Horde_Core_Db_Migration($options['base-directory'], $options['config']);
 if (empty($args[0])) {
     // Run all migrations.
     $apps = $migration->apps;
