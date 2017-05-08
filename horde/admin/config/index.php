@@ -230,16 +230,26 @@ foreach ($a as $app) {
             $config_outdated = true;
         } else {
             /* A conf.php exists, get the xml version. */
-            if (($xml_ver = $hconfig->getVersion(@file_get_contents($path . '/conf.xml'))) === false) {
+            $content = @file_get_contents($path . '/conf.xml');
+            if (!$content) {
                 $apps[$i]['conf'] = $conf_link . $warning . '</a>';
-                $apps[$i]['status'] = $conf_link . _("No version found in original configuration. Regenerate configuration.") . '</a>';
+                $apps[$i]['status'] = $conf_link . _("Cannot read original configuration definition from conf.xml.") . '</a>';
+                continue;
+            } elseif (($xml_ver = $hconfig->getVersion($content)) === false) {
+                $apps[$i]['conf'] = $conf_link . $warning . '</a>';
+                $apps[$i]['status'] = $conf_link . _("No version found in original configuration. This shouldn't happen, your installation may be corrupt.") . '</a>';
                 $config_outdated = true;
                 continue;
             }
             /* Get the generated php version. */
-            if (($php_ver = $hconfig->getVersion(@file_get_contents($path . '/conf.php'))) === false) {
-                /* No version found in generated php, suggest regenerating just in
-                 * case. */
+            $content = @file_get_contents($path . '/conf.php');
+            if (!$content) {
+                $apps[$i]['conf'] = $conf_link . $warning . '</a>';
+                $apps[$i]['status'] = $conf_link . _("Cannot read configuration file conf.php.") . '</a>';
+                continue;
+            } elseif (($php_ver = $hconfig->getVersion($content)) === false) {
+                /* No version found in generated php, suggest regenerating just
+                 * in case. */
                 $apps[$i]['conf'] = $conf_link . $warning . '</a>';
                 $apps[$i]['status'] = $conf_link . _("No version found in your configuration. Regenerate configuration.") . '</a>';
                 $config_outdated = true;
