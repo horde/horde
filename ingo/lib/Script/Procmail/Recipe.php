@@ -148,8 +148,6 @@ class Ingo_Script_Procmail_Recipe implements Ingo_Script_Item
 
         case 'Ingo_Rule_System_Vacation':
             $days = $params['action-value']['days'];
-            $timed = !empty($params['action-value']['start']) &&
-                !empty($params['action-value']['end']);
             $this->_action[] = '{';
             foreach ($params['action-value']['addresses'] as $address) {
                 if (empty($address)) {
@@ -174,9 +172,11 @@ class Ingo_Script_Procmail_Recipe implements Ingo_Script_Item
                         . 'test $FILEDATE -le $DATE && '
                         . 'rm ${VACATION_DIR:-.}/\'.vacation.' . $address . '\'`';
                 }
-                if ($timed) {
+                if (!empty($params['action-value']['start'])) {
                     $this->_action[] = '    START='
                         . $params['action-value']['start'];
+                }
+                if (!empty($params['action-value']['end'])) {
                     $this->_action[] = '    END='
                         . $params['action-value']['end'];
                 }
@@ -186,9 +186,20 @@ class Ingo_Script_Procmail_Recipe implements Ingo_Script_Item
                 $this->_action[] = '';
                 $this->_action[] =
                     '    :0 Wc: ${VACATION_DIR:-.}/vacation.lock';
-                if ($timed) {
-                    $this->_action[] =
-                        '    * ? test $DATE -gt $START && test $END -gt $DATE';
+                if (!empty($params['action-value']['start']) ||
+                    !empty($params['action-value']['end'])) {
+                    $test = '    * ?';
+                    if (!empty($params['action-value']['start'])) {
+                        $test .= ' test $DATE -gt $START';
+                    }
+                    if (!empty($params['action-value']['start']) &&
+                        !empty($params['action-value']['end'])) {
+                        $test .= ' &&';
+                    }
+                    if (!empty($params['action-value']['end'])) {
+                        $test .= ' test $END -gt $DATE';
+                    }
+                    $this->_action[] = $test;
                 }
                 $this->_action[] = '    {';
                 $this->_action[] = '      :0 Wh';
