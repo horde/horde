@@ -77,7 +77,7 @@ list($options, $args) = $parser->parseArgs();
 if (empty($options['base_directory'])) {
     $options['base_directory'] = __DIR__ . '/../..';
 }
-$migration = new Horde_Core_Db_Migration($options['base-directory'], $options['config']);
+$migration = new Horde_Core_Db_Migration($options['base_directory'], $options['config']);
 if (empty($args[0])) {
     // Run all migrations.
     $apps = $migration->apps;
