@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* 
+* [jan] Fix creating address books with the external API.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2194,7 +2194,7 @@
    <date>2017-03-20</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* 
+* [jan] Fix creating address books with the external API.
    </notes>
   </release>
  </changelog>
