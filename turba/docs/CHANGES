@@ -19,6 +19,34 @@ v5.0.0-git
 
 
 -------
+v4.2.19
+-------
+
+[mjr] Fix importing vCard LABEL fields (Bug #14584).
+[mjr] Fix saving sync preference when no default address book exists (Bug
+      #14585).
+[mjr] Fix removing virtual address books when calling the removeUserData API
+      (Bug #14577).
+[jan] Fix fatal error if group contacts from an LDAP server don't exist
+      anymore.
+
+
+-------
+v4.2.18
+-------
+
+[jan] Remove left over from 10-years-old code (Bug #14521).
+
+
+-------
+v4.2.17
+-------
+
+[mjr] Fix regression in sorting contacts by a name field (Bug #14471).
+[mjr] Fix regression in saving tags (Bug #14463).
+
+
+-------
 v4.2.16
 -------
 

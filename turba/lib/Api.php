@@ -2218,7 +2218,7 @@ class Turba_Api extends Horde_Registry_Api
     }
 
     /**
-     * Create a new addressbook
+     * Creates a new addressbook.
      *
      * @param string $name   The display name for the addressbook.
      * @param array  $params Any addtional parameters needed.
@@ -2232,16 +2232,27 @@ class Turba_Api extends Horde_Registry_Api
      */
     public function addAddressbook($name, array $params = array())
     {
-        $share_name = strval(new Horde_Support_Randomid());
-        $share = Turba::createShare($share_name, array('name' => $name));
-        $name = $share->getName();
+        global $conf, $injector, $prefs;
+
+        $cfgSources = Turba::availableSources();
+        $driver = $injector->getInstance('Turba_Factory_Driver')
+            ->create($cfgSources[$conf['shares']['source']]);
+        $share = $driver->createShare(
+            strval(new Horde_Support_Randomid()),
+            array(
+                'params' => array('source' => $conf['shares']['source']),
+                'name' => $name
+            )
+        );
+        $shareName = $share->getName();
+
         if (!empty($params['synchronize'])) {
             $sync = @unserialize($prefs->getValue('sync_books'));
-            $sync[] = $name;
+            $sync[] = $shareName;
             $prefs->setValue('sync_books', serialize($sync));
         }
 
-        return $name;
+        return $shareName;
     }
 
     /**
