@@ -99,7 +99,7 @@ class Kronolith_Block_Prevmonthlist extends Horde_Core_Block
                                     $endDate->mday, $endDate->month, $endDate->year);
 
         /* Loop through the days. */
-        for ($i = 0; $i < $days; ++$i) {
+        for ($i = 0; $i <= $days; ++$i) {
             $day = new Kronolith_Day($startDate->month, $startDate->mday + $i, $startDate->year);
             if (empty($all_events[$day->dateString()])) {
                 continue;
