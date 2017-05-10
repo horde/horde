@@ -23,25 +23,28 @@
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  *
- * @property string   $id               The device id.
- * @property string   $deviceType       The device type string.
- * @property string   $clientType       The client name, if available.
- * @property integer  $rwstatus         The RemoteWipe status - a
- *                                      Horde_ActiveSync::RWSTATUS_* constant.
- * @property string   $userAgent        The device's user agent string.
- * @property string   $user             The userid for the current device account.
- * @property array    $supported        The SUPPORTED data sent from this device.
- * @property string   $policykey        The current policykey, if provisioned.
- * @property array    $properties       The device properties, sent in DEVICEINFO,
- *                                      along with any custom properties set.
- * @property string   $announcedVersion The most last EAS supported versions
- *                                      announced to the device.
- * @property integer  $multiplex        Bitmask describing collections that this
- *                                      device does not support user created
- *                                      folders for, therefore all sources must
- *                                      be multiplexed together. Masks are
- *                                      the MULTIPLEX_* constants.
- * @property boolean   $blocked         True if device has been marked as blocked.
+ * @property string  $id               The device id.
+ * @property string  $deviceType       The device type string.
+ * @property string  $clientType       The client name, if available.
+ * @property integer $rwstatus         The RemoteWipe status - a
+ *                                     Horde_ActiveSync::RWSTATUS_* constant.
+ * @property string  $userAgent        The device's user agent string.
+ * @property string  $user             The userid for the current device
+ *                                     account.
+ * @property array   $supported        The SUPPORTED data sent from this device.
+ * @property string  $policykey        The current policykey, if provisioned.
+ * @property array   $properties       The device properties, sent in
+ *                                     DEVICEINFO, along with any custom
+ *                                     properties set.
+ * @property string  $announcedVersion The most last EAS supported versions
+ *                                     announced to the device.
+ * @property integer $multiplex        Bitmask describing collections that this
+ *                                     device does not support user created
+ *                                     folders for, therefore all sources must
+ *                                     be multiplexed together. Masks are
+ *                                     the MULTIPLEX_* constants.
+ * @property boolean $blocked          True if device has been marked as
+ *                                     blocked.
  *
  */
 class Horde_ActiveSync_Device
