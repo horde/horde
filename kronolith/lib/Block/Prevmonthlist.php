@@ -66,8 +66,16 @@ class Kronolith_Block_Prevmonthlist extends Horde_Core_Block
 
         $page_output->addScriptFile('tooltips.js', 'horde');
 
-        $startDate = new Horde_Date(array('year' => date('Y'), 'month' => date('n') - $this->_params['months'], 'mday' => date('j')));
-        $endDate = new Horde_Date(array('year' => date('Y'), 'month' => date('n'), 'mday' => date('j') - 1));
+        $startDate = new Horde_Date(array(
+            'year' => date('Y'),
+            'month' => date('n') - $this->_params['months'],
+            'mday' => date('j')
+        ));
+        $endDate = new Horde_Date(array(
+            'year' => date('Y'),
+            'month' => date('n'),
+            'mday' => date('j') - 1
+        ));
 
         $current_month = '';
 
@@ -86,7 +94,11 @@ class Kronolith_Block_Prevmonthlist extends Horde_Core_Block
                 $all_events = $driver->listEvents(
                     $startDate, $endDate, array('show_recurrence' => true));
             } else {
-                $all_events = Kronolith::listEvents($startDate, $endDate, $GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_CALENDARS));
+                $all_events = Kronolith::listEvents(
+                    $startDate,
+                    $endDate,
+                    $GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_CALENDARS)
+                );
             }
         } catch (Exception $e) {
             return '<em>' . $e->getMessage() . '</em>';
@@ -95,12 +107,16 @@ class Kronolith_Block_Prevmonthlist extends Horde_Core_Block
         $html = '';
 
         /* How many days do we need to check. */
-        $days = Date_Calc::dateDiff($startDate->mday, $startDate->month, $startDate->year,
-                                    $endDate->mday, $endDate->month, $endDate->year);
+        $days = Date_Calc::dateDiff(
+            $startDate->mday, $startDate->month, $startDate->year,
+            $endDate->mday, $endDate->month, $endDate->year
+        );
 
         /* Loop through the days. */
         for ($i = 0; $i <= $days; ++$i) {
-            $day = new Kronolith_Day($startDate->month, $startDate->mday + $i, $startDate->year);
+            $day = new Kronolith_Day(
+                $startDate->month, $startDate->mday + $i, $startDate->year
+            );
             if (empty($all_events[$day->dateString()])) {
                 continue;
             }
@@ -108,7 +124,8 @@ class Kronolith_Block_Prevmonthlist extends Horde_Core_Block
             /* Output month header. */
             if ($current_month != $day->month) {
                 $current_month = $day->strftime('%m');
-                $html .= '<tr><td colspan="4" class="control"><strong>' . $day->strftime('%B') . '</strong></td></tr>';
+                $html .= '<tr><td colspan="4" class="control"><strong>'
+                    . $day->strftime('%B') . '</strong></td></tr>';
             }
 
             $firstevent = true;
@@ -147,7 +164,8 @@ class Kronolith_Block_Prevmonthlist extends Horde_Core_Block
                 $html .= '<td class="text" nowrap="nowrap" valign="top">';
                 if ($event->start->compareDate($startDate) < 0 &&
                     $event->end->compareDate($startDate) > 0) {
-                    $html .= '<strong>' . htmlspecialchars($event->getLocation()) . '</strong>';
+                    $html .= '<strong>'
+                        . htmlspecialchars($event->getLocation()) . '</strong>';
                 } else {
                     $html .= htmlspecialchars($event->getLocation());
                 }
@@ -170,5 +188,4 @@ class Kronolith_Block_Prevmonthlist extends Horde_Core_Block
 
         return '<table cellspacing="0" width="100%">' . $html . '</table>';
     }
-
 }
