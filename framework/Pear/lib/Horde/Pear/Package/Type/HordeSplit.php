@@ -59,6 +59,39 @@ class Horde_Pear_Package_Type_HordeSplit extends Horde_Pear_Package_Type_Horde
     }
 
     /**
+     * Return the ignore handler for this package.
+     *
+     * @return Horde_Pear_Package_Contents_Ignore The ignore handler.
+     */
+    public function getIgnore()
+    {
+        return new Horde_Pear_Package_Contents_Ignore_Composite(
+            array(
+                new Horde_Pear_Package_Contents_Ignore_Dot(),
+                new Horde_Pear_Package_Contents_Ignore_Symlink(),
+                new Horde_Pear_Package_Contents_Ignore_Patterns(
+                    array(
+                        '/package.xml',
+                        '*~',
+                        'conf.php',
+                        'CVS/*',
+                        'bin/.htaccess',
+                        'composer.*',
+                        '.horde.yml',
+                        '.git/*'
+                    ),
+                    $this->getRepositoryRoot()
+                ),
+                new Horde_Pear_Package_Contents_Ignore_Git(
+                    $this->getGitIgnore(),
+                    $this->getRepositoryRoot()
+                ),
+                new Horde_Pear_Package_Contents_Ignore_Composer()
+            )
+        );
+    }
+
+    /**
      * Return the contents of the Horde .gitignore file.
      *
      * @return string The .gitignore patterns.
