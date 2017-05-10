@@ -71,6 +71,10 @@ class Horde_Core_Db_Migration
         // Loop through local framework checkout.
         if ($basedir) {
             // Support both the split repo and monolithic for now.
+            // @todo - remove when we perform official split.
+            if (file_exists($basedir . '/base')) {
+                $basedir .= $basedir . '/..';
+            }
             if (file_exists($basedir . '/applications') && !file_exists($basedir . '/.git')) {
                 $path = $basedir . '/*/migration';
             } else {
