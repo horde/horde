@@ -36,11 +36,11 @@ class Horde_Pear_Package_Type_HordeSplit extends Horde_Pear_Package_Type_Horde
      */
     public function getType()
     {
-        $location = substr($this->getRootPath(), strlen($this->getRepositoryRoot()));
-        if (substr($location, 0, 10) == '/framework') {
-            return 'Component';
-        } else {
+        $dir = basename(dirname($this->getRootPath()));
+        if (basename(dirname($this->getRootPath())) == '/applications') {
             return 'Application';
+        } else {
+            return 'Component';
         }
     }
 
