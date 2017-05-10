@@ -67,15 +67,15 @@ class Components_Helper_Root
     /**
      * Constructor.
      *
-     * @param string               $path If given the helper will try to
-     *                                   determine the root of the Horde
-     *                                   repository based on this path.
-     * @param Components_Component $comp If given the helper will try to
-     *                                   determine the root of the Horde
-     *                                   repository based on this component.
      * @param array                $opts If given the helper will try to
      *                                   determine the root of the Horde
      *                                   repository based on these options.
+     * @param Components_Component $comp If given the helper will try to
+     *                                   determine the root of the Horde
+     *                                   repository based on this component.
+     * @param string               $path If given the helper will try to
+     *                                   determine the root of the Horde
+     *                                   repository based on this path.
      */
     public function __construct(
         $opts = array(),
