@@ -2815,12 +2815,52 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-09-06</date>
+   <date>2016-12-16</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix allowing ics import on when user has edit permissions on a shared calendar (Bug #14501).
 * [jan] Disallow setting of creator permissions too if sharing with world is disabled.
 * [jan] Split shared users by linebreaks too.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.20</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2017-03-20</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix saving sync preference when no default calendar exists (Bug #14585).
+* [mjr] Fix display of date in ITIP_CANCEL notifications of deleted instances of recurring events (PR: 214, almarin@um.es).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.21</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2017-05-03</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Don&apos;t hide the reservee&apos;s identity on the resource calendar (Bug #14609).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.22</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2017-05-03</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Fix displaying yesterday&apos;s event in Prior Events portal block (admin@layertec.de, Bug #14638).
    </notes>
   </release>
   <release>
