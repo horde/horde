@@ -60,9 +60,9 @@ class Kronolith_Block_Prevmonthlist extends Horde_Core_Block
      */
     protected function _content()
     {
-        global $page_output, $registry, $prefs;
+        global $calendar_manager, $from_block, $page_output;
 
-        $GLOBALS['from_block'] = true;
+        $from_block = true;
 
         $page_output->addScriptFile('tooltips.js', 'horde');
 
@@ -97,7 +97,7 @@ class Kronolith_Block_Prevmonthlist extends Horde_Core_Block
                 $all_events = Kronolith::listEvents(
                     $startDate,
                     $endDate,
-                    $GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_CALENDARS)
+                    $calendar_manager->get(Kronolith::DISPLAY_CALENDARS)
                 );
             }
         } catch (Exception $e) {
