@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Use colors of remote CalDAV calendars (Request #14612).
+* [jan] Use colors, names, and descriptions of remote CalDAV calendars (Request #14612).
 * [jan] Add headers to print views.
 * [mjr] Add support for tracking the ORGANIZER of an event independently of the horde user (Bug #3965, PR: 127, Ralf Lang &lt;lang@b1-systems.de&gt;).
 * [jan] Use preferred start and end of day for color shades in dynamic view.
@@ -2834,7 +2834,7 @@
    <date>2016-11-09</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* [jan] Use colors of remote CalDAV calendars (Request #14612).
+* [jan] Use colors, names, and descriptions of remote CalDAV calendars (Request #14612).
 * [jan] Add headers to print views.
 * [mjr] Add support for tracking the ORGANIZER of an event independently of the horde user (Bug #3965, PR: 127, Ralf Lang &lt;lang@b1-systems.de&gt;).
 * [jan] Use preferred start and end of day for color shades in dynamic view.
