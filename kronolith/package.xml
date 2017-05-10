@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [jan] Fix displaying yesterday&apos;s event in Prior Events portal block (admin@layertec.de, Bug #14638).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2787,7 +2787,7 @@
    <date>2017-05-03</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [jan] Fix displaying yesterday&apos;s event in Prior Events portal block (admin@layertec.de, Bug #14638).
    </notes>
   </release>
  </changelog>
