@@ -37,4 +37,14 @@ class User
      * @var \Horde\Backup\Collection[]
      */
     public $collections = array();
+
+    /**
+     * Constructor.
+     *
+     * @param string $user  A user name.
+     */
+    public function __construct($user = null)
+    {
+        $this->user = $user;
+    }
 }

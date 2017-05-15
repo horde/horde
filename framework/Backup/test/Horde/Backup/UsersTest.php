@@ -34,9 +34,7 @@ class UsersTest extends TestCase
     public function testIterator()
     {
         $callback = function($user) {
-            $backupUser = new User();
-            $backupUser->user = $user;
-            return $backupUser;
+            return new User($user);
         };
         $users = new Users(
             new ArrayIterator(array('john', 'jane')), $callback

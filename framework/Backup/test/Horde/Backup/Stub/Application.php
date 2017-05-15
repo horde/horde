@@ -78,8 +78,7 @@ class Application
 
     public function getUserBackup($user)
     {
-        $backup = new User();
-        $backup->user = $user;
+        $backup = new User($user);
         foreach ($this->userData[$user] as $type => $data) {
             $backup->collections[] = new CollectionStub($data, $user, $type);
         }
