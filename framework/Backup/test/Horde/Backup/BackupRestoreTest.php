@@ -15,7 +15,7 @@
 namespace Horde\Backup;
 
 use Horde_Test_Case as TestCase;
-use Horde\Backup;
+use Horde\Backup\Writer;
 use Horde\Backup\Stub;
 
 /**
@@ -53,7 +53,7 @@ class BackupRestoreTest extends TestCase
     public function testBackupMultipleUsers()
     {
         $this->_createBackup();
-        $backup = new Backup($this->_temp);
+        $backup = new Writer($this->_temp);
         $application = new Stub\Application();
         $application2 = new Stub\Application2();
         $backup->backup('calendar', $application->backup());
