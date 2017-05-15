@@ -29,10 +29,6 @@ use Horde\Backup\Stub;
  */
 class ApplicationTest extends TestCase
 {
-    public function setUp()
-    {
-    }
-
     public function testBackupSingleUser()
     {
         $application = new Stub\Application();
@@ -76,9 +72,5 @@ class ApplicationTest extends TestCase
                 $data
             );
         }
-    }
-
-    public function tearDown()
-    {
     }
 }
