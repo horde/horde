@@ -786,13 +786,19 @@ class Turba_Driver implements Countable
      * @return array  A list of timeObject hashes.
      * @throws Turba Exception
      */
-    public function listTimeObjects(Horde_Date $start, Horde_Date $end, $category)
+    public function listTimeObjects(
+        Horde_Date $start, Horde_Date $end, $category
+    )
     {
+        global $attributes;
+
         try {
             $res = $this->getTimeObjectTurbaList($start, $end, $category);
         } catch (Turba_Exception $e) {
             /* Try the default implementation before returning an error */
-            $res = $this->_getTimeObjectTurbaListFallback($start, $end, $category);
+            $res = $this->_getTimeObjectTurbaListFallback(
+                $start, $end, $category
+            );
         }
 
         $t_objects = array();
@@ -828,26 +834,36 @@ class Turba_Driver implements Countable
                 $age = $start->year - $t_object->year;
             }
 
-            $title = sprintf(_("%d. %s of %s"),
-                             $age,
-                             $GLOBALS['attributes'][$category]['label'],
-                             $ob->getValue('name'));
+            $title = sprintf(
+                _("%d. %s of %s"),
+                $age,
+                $attributes[$category]['label'],
+                $ob->getValue('name')
+            );
 
             $t_objects[] = array(
                 'id' => $key,
                 'title' => $title,
-                'start' => sprintf('%d-%02d-%02dT00:00:00',
-                                   $t_object->year,
-                                   $t_object->month,
-                                   $t_object->mday),
-                'end' => sprintf('%d-%02d-%02dT00:00:00',
-                                 $t_object_end->year,
-                                 $t_object_end->month,
-                                 $t_object_end->mday),
-                'recurrence' => array('type' => Horde_Date_Recurrence::RECUR_YEARLY_DATE,
-                                      'interval' => 1),
+                'start' => sprintf(
+                    '%d-%02d-%02dT00:00:00',
+                    $t_object->year,
+                    $t_object->month,
+                    $t_object->mday
+                ),
+                'end' => sprintf(
+                    '%d-%02d-%02dT00:00:00',
+                    $t_object_end->year,
+                    $t_object_end->month,
+                    $t_object_end->mday
+                ),
+                'recurrence' => array(
+                    'type' => Horde_Date_Recurrence::RECUR_YEARLY_DATE,
+                    'interval' => 1
+                ),
                 'params' => array('source' => $this->_name, 'key' => $key),
-                'link' => Horde::url('contact.php', true)->add(array('source' => $this->_name, 'key' => $key))->setRaw(true)
+                'link' => Horde::url('contact.php', true)
+                    ->add(array('source' => $this->_name, 'key' => $key))
+                    ->setRaw(true)
             );
         }
 
