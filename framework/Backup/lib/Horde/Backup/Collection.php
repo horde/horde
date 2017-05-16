@@ -47,13 +47,25 @@ class Collection extends IteratorIterator
     /**
      * Constructor.
      *
-     * @param string $user  A user name.
+     * @param Traversable $data  The backup data.
+     * @param string $user       A user name.
+     * @param string $type       A collection type like "calendar" or "contact".
      */
-    public function __construct(Traversable $iterator, $user, $type)
+    public function __construct(Traversable $data, $user, $type)
     {
-        parent::__construct($iterator);
+        parent::__construct($data);
         $this->_user = $user;
         $this->_type = $type;
+    }
+
+    /**
+     * Returns this collection's user.
+     *
+     * @return string  The collection user.
+     */
+    public function getUser()
+    {
+        return $this->_user;
     }
 
     /**
