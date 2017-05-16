@@ -28,7 +28,7 @@ use Traversable;
  * @license   http://www.horde.org/licenses/bsd BSD
  * @package   Backup
  */
-abstract class Collection extends IteratorIterator
+class Collection extends IteratorIterator
 {
     /**
      * The collection's user.
@@ -38,14 +38,22 @@ abstract class Collection extends IteratorIterator
     protected $_user;
 
     /**
+     * The collection's type.
+     *
+     * @var string
+     */
+    protected $_type;
+
+    /**
      * Constructor.
      *
      * @param string $user  A user name.
      */
-    public function __construct(Traversable $iterator, $user)
+    public function __construct(Traversable $iterator, $user, $type)
     {
         parent::__construct($iterator);
         $this->_user = $user;
+        $this->_type = $type;
     }
 
     /**
@@ -53,5 +61,8 @@ abstract class Collection extends IteratorIterator
      *
      * @return string  The collection type.
      */
-    abstract public function getType();
+    public function getType()
+    {
+        return $this->_type;
+    }
 }

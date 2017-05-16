@@ -16,7 +16,6 @@ namespace Horde\Backup\Stub;
 
 use ArrayIterator;
 use Horde\Backup\Collection;
-use Horde\Backup\Stub\Collection as CollectionStub;
 use Horde\Backup\User;
 use Horde\Backup\Users;
 
@@ -80,7 +79,7 @@ class Application
     {
         $backup = new User($user);
         foreach ($this->userData[$user] as $type => $data) {
-            $backup->collections[] = new CollectionStub($data, $user, $type);
+            $backup->collections[] = new Collection($data, $user, $type);
         }
         return $backup;
     }
