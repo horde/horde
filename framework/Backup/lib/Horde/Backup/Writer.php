@@ -13,6 +13,7 @@
 
 namespace Horde\Backup;
 
+use Horde_Compress_Tar as Tar;
 use Horde_Compress_Zip as Zip;
 use Horde_Pack_Driver_Json as Json;
 use Horde\Backup;

@@ -78,10 +78,12 @@ class Application
     public function getUserBackup($user)
     {
         $backup = new User($user);
-        foreach ($this->userData[$user] as $type => $data) {
-            $backup->collections[] = new Collection(
-                new ArrayIterator($data), $user, $type
-            );
+        if (isset($this->userData[$user])) {
+            foreach ($this->userData[$user] as $type => $data) {
+                $backup->collections[] = new Collection(
+                    new ArrayIterator($data), $user, $type
+                );
+            }
         }
         return $backup;
     }
