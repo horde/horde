@@ -2,6 +2,7 @@
 v5.0.0-git
 ----------
 
+[jan] Show photos when displaying contacts in calendars.
 [jan] Add CLI script to search for invalid email addresses.
 [mjr] Remove Facebook driver.
 [jan] Add second home and business phone fields to Kolab backend (Thomas

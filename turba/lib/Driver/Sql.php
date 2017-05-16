@@ -745,7 +745,7 @@ class Turba_Driver_Sql extends Turba_Driver
         }
 
         $fields_pre = array(
-            '__key', '__type', '__owner', 'name', 'birthday', 'anniversary'
+            '__key', '__type', '__owner', 'name', 'birthday', 'anniversary', 'photo'
         );
 
         $fields = array();
@@ -763,7 +763,14 @@ class Turba_Driver_Sql extends Turba_Driver
             }
         }
 
-        return $this->_toTurbaObjects($this->_internalSearch($criteria, $fields, array(), $where));
+        return $this->_toTurbaObjects(
+            $this->_internalSearch(
+                $criteria,
+                $fields,
+                array($this->toDriver('photo') => true),
+                $where
+            )
+        );
     }
 
 }

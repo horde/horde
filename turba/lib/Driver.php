@@ -790,7 +790,7 @@ class Turba_Driver implements Countable
         Horde_Date $start, Horde_Date $end, $category
     )
     {
-        global $attributes;
+        global $attributes, $registry;
 
         try {
             $res = $this->getTimeObjectTurbaList($start, $end, $category);
@@ -834,6 +834,29 @@ class Turba_Driver implements Countable
                 $age = $start->year - $t_object->year;
             }
 
+            // Generate thumbnail.
+            $img = null;
+            if (($imgdata = $ob->getValue('photo')) &&
+                !empty($imgdata['load']['data'])) {
+                Horde::debug(strlen($imgdata['load']['data']));
+                $file = Horde::getTempFile('turba_', false);
+                if ($fd = fopen($file, 'w')) {
+                    fwrite($fd, $imgdata['load']['data']);
+                    fclose($fd);
+                    $img = (string)Horde::url(
+                        $registry->get('webroot', 'horde')
+                            . '/services/images/view.php',
+                        true
+                    )->add(
+                        array(
+                            'f' => basename($file),
+                            'a' => 'resize',
+                            'v' => '25.25.1'
+                        )
+                    );
+                }
+            }
+
             $title = sprintf(
                 _("%d. %s of %s"),
                 $age,
@@ -863,7 +886,8 @@ class Turba_Driver implements Countable
                 'params' => array('source' => $this->_name, 'key' => $key),
                 'link' => Horde::url('contact.php', true)
                     ->add(array('source' => $this->_name, 'key' => $key))
-                    ->setRaw(true)
+                    ->setRaw(true),
+                'icon' => $img,
             );
         }
 
