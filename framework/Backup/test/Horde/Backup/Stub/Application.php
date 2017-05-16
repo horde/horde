@@ -79,12 +79,22 @@ class Application
     {
         $backup = new User($user);
         foreach ($this->userData[$user] as $type => $data) {
-            $backup->collections[] = new Collection($data, $user, $type);
+            $backup->collections[] = new Collection(
+                new ArrayIterator($data), $user, $type
+            );
         }
         return $backup;
     }
 
-    public function restore($user, Collection $data)
+    public function restore(Collection $data)
     {
+        foreach ($data as $backup) {
+            foreach ($this->userData[$data->getUser()][$data->getType()] as $original) {
+                if ($original == $backup) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

@@ -35,6 +35,9 @@
    <dir name="lib">
     <dir name="Horde">
      <dir name="Backup">
+      <dir name="Reader">
+       <file name="ZipIterator.php" role="php" />
+      </dir> <!-- /lib/Horde/Backup/Reader -->
       <file name="Collection.php" role="php" />
       <file name="Exception.php" role="php" />
       <file name="Reader.php" role="php" />
@@ -89,6 +92,7 @@
    <install as="Horde/Backup/User.php" name="lib/Horde/Backup/User.php" />
    <install as="Horde/Backup/Users.php" name="lib/Horde/Backup/Users.php" />
    <install as="Horde/Backup/Writer.php" name="lib/Horde/Backup/Writer.php" />
+   <install as="Horde/Backup/Reader/ZipIterator.php" name="lib/Horde/Backup/Reader/ZipIterator.php" />
    <install as="Horde/Backup/AllTests.php" name="test/Horde/Backup/AllTests.php" />
    <install as="Horde/Backup/ApplicationTest.php" name="test/Horde/Backup/ApplicationTest.php" />
    <install as="Horde/Backup/BackupRestoreTest.php" name="test/Horde/Backup/BackupRestoreTest.php" />
