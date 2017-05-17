@@ -10,7 +10,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2017-05-16</date>
+ <date>2017-05-17</date>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -36,7 +36,11 @@
     <dir name="Horde">
      <dir name="Backup">
       <dir name="Reader">
-       <file name="ZipIterator.php" role="php" />
+       <dir name="CompressIterator">
+        <file name="Tar.php" role="php" />
+        <file name="Zip.php" role="php" />
+       </dir> <!-- /lib/Horde/Backup/Reader/CompressIterator -->
+       <file name="CompressIterator.php" role="php" />
       </dir> <!-- /lib/Horde/Backup/Reader -->
       <file name="Collection.php" role="php" />
       <file name="Exception.php" role="php" />
@@ -92,7 +96,9 @@
    <install as="Horde/Backup/User.php" name="lib/Horde/Backup/User.php" />
    <install as="Horde/Backup/Users.php" name="lib/Horde/Backup/Users.php" />
    <install as="Horde/Backup/Writer.php" name="lib/Horde/Backup/Writer.php" />
-   <install as="Horde/Backup/Reader/ZipIterator.php" name="lib/Horde/Backup/Reader/ZipIterator.php" />
+   <install as="Horde/Backup/Reader/CompressIterator.php" name="lib/Horde/Backup/Reader/CompressIterator.php" />
+   <install as="Horde/Backup/Reader/CompressIterator/Tar.php" name="lib/Horde/Backup/Reader/CompressIterator/Tar.php" />
+   <install as="Horde/Backup/Reader/CompressIterator/Zip.php" name="lib/Horde/Backup/Reader/CompressIterator/Zip.php" />
    <install as="Horde/Backup/AllTests.php" name="test/Horde/Backup/AllTests.php" />
    <install as="Horde/Backup/ApplicationTest.php" name="test/Horde/Backup/ApplicationTest.php" />
    <install as="Horde/Backup/BackupRestoreTest.php" name="test/Horde/Backup/BackupRestoreTest.php" />
@@ -113,7 +119,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2017-05-16</date>
+   <date>2017-05-17</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * Initial release.

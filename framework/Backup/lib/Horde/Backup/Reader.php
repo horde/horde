@@ -13,10 +13,12 @@
 
 namespace Horde\Backup;
 
+use Horde_Compress_Tar as Tar;
 use Horde_Compress_Zip as Zip;
 use Horde_Pack_Driver_Json as Json;
 use Horde\Backup\Exception;
-use Horde\Backup\Reader\ZipIterator;
+use Horde\Backup\Reader\CompressIterator\Tar as TarIterator;
+use Horde\Backup\Reader\CompressIterator\Zip as ZipIterator;
 use Horde\Backup\Translation;
 
 /**
@@ -131,12 +133,70 @@ class Reader
     {
         $user = basename($file, '.zip');
         $contents = file_get_contents($file);
-        $packer = new Json();
         $compress = new Zip();
         $files = $compress->decompress(
             $contents, array('action' => Zip::ZIP_LIST)
         );
 
+        return $this->_buildCollections(
+            $files,
+            $applications,
+            $contents,
+            $user,
+            function ($application, $resource, $files, $contents)
+            {
+                return new ZipIterator(
+                    $application, $resource, $files, $contents
+                );
+            }
+        );
+    }
+
+    /**
+     * Restores user data from a TAR file.
+     *
+     * @param string $file         Pathname to a TAR backup file.
+     * @param array $applications  A list of applications to restore. Defaults
+     *                             to all backups.
+     *
+     * @return \Horde\Backup\Collection[]  All restored object collections.
+     */
+    protected function _restoreFromTar($file, $applications)
+    {
+        $user = basename($file, '.tar');
+        $contents = file_get_contents($file);
+        $compress = new Tar();
+        $files = $compress->decompress($contents);
+
+        return $this->_buildCollections(
+            $files,
+            $applications,
+            $contents,
+            $user,
+            function ($application, $resource, $files, $contents)
+            {
+                return new TarIterator($application, $resource, $files);
+            }
+        );
+    }
+
+    /**
+     * Builds a list of object collections from any Horde_Compress backend.
+     *
+     * @param array $files         Archive info from Horde_Compress.
+     * @param array $applications  A list of applications to restore. Defaults
+     *                             to all backups.
+     * @param string $contents     The archive file contents.
+     * @param string $user         A user name.
+     * @param callable $factory    A factory for iterators that are passed to
+     *                             \Horde\Backup\Collection.
+     *
+     * @return \Horde\Backup\Collection[]  All restored object collections.
+     */
+    protected function _buildCollections(
+        $files, $applications, $contents, $user, $factory
+    )
+    {
         $data = array();
         foreach ($files as $key => $info) {
             $path = explode('/', $info['name']);
@@ -150,7 +210,7 @@ class Reader
             $collections[$application] = array();
             foreach (array_keys($resources) as $resource) {
                 $collections[$application][] = new Collection(
-                    new ZipIterator($contents, $application, $resource, $files),
+                    $factory($application, $resource, $files, $contents),
                     $user,
                     $resource
                 );
@@ -159,7 +219,6 @@ class Reader
 
         return $collections;
     }
-
 
     /**
      * Builds a backup iterator for individual users.

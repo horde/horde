@@ -20,7 +20,7 @@ use Horde_Compress_Zip as Zip;
 use Horde_Pack_Driver_Json as Json;
 
 /**
- * Iterates over certain files in a ZIP archive.
+ * Iterates over certain files from a Horde_Compress archive.
  *
  * @author    Jan Schneider <jan@horde.org>
  * @category  Horde
@@ -28,28 +28,14 @@ use Horde_Pack_Driver_Json as Json;
  * @license   http://www.horde.org/licenses/bsd BSD
  * @package   Backup
  */
-class ZipIterator extends IteratorIterator
+abstract class CompressIterator extends IteratorIterator
 {
-    /**
-     * The ZIP file contents.
-     *
-     * @var string
-     */
-    protected $_contents;
-
     /**
      * Archive info from Horde_Compress_Zip.
      *
      * @var array
      */
     protected $_info;
-
-    /**
-     * The ZIP uncompressor.
-     *
-     * @var Horde_Compress_Zip
-     */
-    protected $_compress;
 
     /**
      * The JSON unpacker.
@@ -61,18 +47,15 @@ class ZipIterator extends IteratorIterator
     /**
      * Constructor.
      *
-     * @param string $contents     The ZIP file contents.
      * @param string $application  An application name.
      * @param string $type         A collection type like "calendar" or
      *                             "contact".
      * @param array $info          ZIP archive info from Horde_Compress_Zip.
      */
-    public function __construct($contents, $application, $type, $info)
+    public function __construct($application, $type, $info)
     {
-        $this->_contents = $contents;
         $this->_info = $info;
         $this->_packer = new Json();
-        $this->_compress = new Zip();
 
         $iterator = new CallbackFilterIterator(
             new ArrayIterator($info),
@@ -88,7 +71,7 @@ class ZipIterator extends IteratorIterator
     /**
      * Returns the unpacked backup data.
      *
-     * @return \Horde\Backup\User
+     * @return mixed  Backup data.
      */
     public function current()
     {

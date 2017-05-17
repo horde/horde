@@ -148,7 +148,6 @@ class BackupRestoreTest extends TestCase
      */
     public function testRestoreFromTar($temp)
     {
-        $this->markTestIncomplete();
         $this->_restoreTest(
             $temp,
             array(
