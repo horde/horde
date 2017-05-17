@@ -1,0 +1,16 @@
+#!/usr/bin/env php
+<?php
+/**
+ * This is a CLI application example that keeps all application logic in a
+ * separate class.
+ */
+
+/* We need some autoloader, use Horde's by default. */
+require 'Horde/Autoloader/Default.php';
+
+require __DIR__ . '/MyApplication.php';
+
+$app = new MyApplication();
+$app->run();
+
+$app->cli->writeln($app->values->int);

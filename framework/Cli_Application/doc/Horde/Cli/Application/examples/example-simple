@@ -1,0 +1,19 @@
+#!/usr/bin/env php
+<?php
+/**
+ * This is a simple CLI application example that doesn't require a Horde
+ * installation.
+ *
+ * See example-horde for a more complex example.
+ */
+
+/* We need some autoloader, use Horde's by default. */
+require 'Horde/Autoloader/Default.php';
+
+use Horde\Cli\Application;
+
+$app = new Application();
+$app->addOption('-f', '--foo');
+$app->run();
+
+$app->cli->writeln($app->values->foo);

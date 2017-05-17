@@ -1,0 +1,8 @@
+---
+id: Cli_Application
+name: Cli_Application
+full: Library for creating command line applications
+description: >
+  A base class with supporting classes that builds a complete command line
+  application.
+list: dev

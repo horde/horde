@@ -1,0 +1,56 @@
+#!/usr/bin/env php
+<?php
+/**
+ * This is a CLI application example that runs on a configured Horde
+ * installation.
+ */
+
+/* Load the Horde bootstrapping code from a PEAR installation. */
+require_once 'PEAR/Config.php';
+require_once PEAR_Config::singleton()
+    ->get('horde_dir', null, 'pear.horde.org') . '/lib/Application.php';
+
+Horde_Registry::appInit(
+    /* The application to initialize. */
+    'horde',
+    array(
+        /* Always true. */
+        'cli' => true,
+        /* Don't authenticate. Leave out if using user_admin below. */
+        'authentication' => 'none',
+        /* Authenticate as an administrator. Optional. */
+        'user_admin' => false,
+    )
+);
+
+use Horde\Cli\Application;
+
+$app = new Application(
+    $cli,
+    array(
+        'epilog' => 'Please report any bugs to https://bugs.horde.org.',
+        'description' => 'This is a Horde CLI application',
+        'version' => '%prog 1.0.0'
+    )
+);
+$app->addOption(
+    '-f', '--foo',
+    array(
+        'action' => 'store_const',
+        'const' => 42,
+        'dest' => 'bar',
+        'help' => 'Enable bar.',
+    )
+);
+$app->addOption(
+    '-i', '--int',
+    array(
+        'action' => 'store',
+        'type' => 'int',
+        'help' => 'An integer.',
+    )
+);
+$app->run();
+
+$app->cli->message($app->values->bar, 'cli.success');
+$app->cli->writeln($app->values->int);
