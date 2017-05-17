@@ -1,0 +1,9 @@
+---
+id: Refactor
+name: Refactor
+full: PHP code refactoring library
+description: >
+  An extendable set of classes and a command line tool to refactor files or
+  complete directories.
+list: dev
+type: library

@@ -1,0 +1,8 @@
+---
+id: Backup
+name: Backup
+full: Backup and restore library
+description: >
+  Library that drives the backup and restore features of Horde applications.
+list: dev
+type: library
