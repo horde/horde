@@ -4109,7 +4109,7 @@ abstract class Kronolith_Event
 
             $space = ' ';
             if (!empty($this->icon)) {
-                $link = $status . '<img class="kronolithEventIcon" src="' . $this->icon . '" /> ' . $link;
+                $link = $status . ' <img class="kronolithEventIcon" src="' . $this->icon . '" /> ' . $link;
             } elseif (!empty($status)) {
                 $link .= ' ' . $status;
                 $space = '';
