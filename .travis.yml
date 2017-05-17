@@ -12,7 +12,10 @@ php:
 matrix:
   fast_finish: true
   allow_failures:
-    - php: nightly
+    - php:
+      - nightly
+      - 7.1
+      - 7.0
 services:
   - memcached
   - mongodb
