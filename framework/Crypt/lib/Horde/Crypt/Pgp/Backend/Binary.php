@@ -364,8 +364,14 @@ extends Horde_Crypt_Pgp_Backend
             true
         );
 
+        // GnuPG 1
         if (preg_match('/gpg:\sSignature\smade.*ID\s+([A-F0-9]{8})\s+/', $result->stderr, $matches)) {
             return $matches[1];
+        }
+
+        // GnuPG 2
+        if (preg_match('/gpg:\sSignature\smade.*using\s+\S+\s+key\s+([A-F0-9]{16})\s+/s', $result->stderr, $matches)) {
+            return substr($matches[1], -8);
         }
 
         throw new Horde_Crypt_Exception(_("Cannot read PGP key ID"));
