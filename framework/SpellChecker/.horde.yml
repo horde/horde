@@ -4,3 +4,4 @@ name: SpellChecker
 full: Spellchecking library
 description: Unified spellchecking API.
 list: dev
+type: library

@@ -6,3 +6,4 @@ description: >
   The Horde_Auth package provides a common interface into the various backends
   for the Horde authentication system.
 list: dev
+type: library

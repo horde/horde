@@ -4,3 +4,4 @@ name: Kolab_Format
 full: Kolab data format library
 description: This package allows converting Kolab data objects from XML to data arrays.
 list: dev
+type: library

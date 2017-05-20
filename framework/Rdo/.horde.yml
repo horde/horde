@@ -4,3 +4,4 @@ name: Rdo
 full: ORM (object relational-mapping) library
 description: Rampage Data Objects. Lightweight ORM layer
 list: dev
+type: library

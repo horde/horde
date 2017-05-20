@@ -4,3 +4,4 @@ name: Rampage
 full: Rampage application server library
 description: PHP 5 application framework for Horde
 list: dev
+type: library

@@ -6,3 +6,4 @@ description: >
   The JSMin javascript minifier driver for use with the Horde_Text_Filter
   package.
 list: dev
+type: library

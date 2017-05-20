@@ -15,3 +15,4 @@ description: |
   
   Reading, writing and listing of files are all supported.
 list: dev
+type: library

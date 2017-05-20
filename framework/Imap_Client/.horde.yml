@@ -6,3 +6,4 @@ description: >
   Interface to access IMAP4rev1 (RFC 3501) mail servers. Also supports
   connections to POP3 (STD 53/RFC 1939).
 list: dev
+type: library

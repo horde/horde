@@ -8,3 +8,4 @@ description: >
   then render the forms within other web pages by a simple PHP include, or in
   other Horde applications through the Horde Block API.
 list: horde
+type: application

@@ -4,3 +4,4 @@ name: Http
 full: HTTP client library
 description: An API for making HTTP requests.
 list: dev
+type: library

@@ -6,3 +6,4 @@ description: >
   A common abstracted interface to various remote methods of accessing Horde
   functionality.
 list: dev
+type: library

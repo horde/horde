@@ -8,3 +8,4 @@ description: >
   users via shared notepads. It requires the Horde Application Framework and an
   SQL database or Kolab server for backend storage.
 list: horde
+type: application

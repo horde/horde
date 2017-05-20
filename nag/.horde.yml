@@ -9,3 +9,4 @@ description: >
   applications and allows users to share task lists or enable light-weight
   project management.
 list:
+type: application

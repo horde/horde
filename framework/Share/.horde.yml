@@ -6,3 +6,4 @@ description: >
   Horde_Share provides an interface to all shared resources a user
   owns or has access to.
 list: dev
+type: library

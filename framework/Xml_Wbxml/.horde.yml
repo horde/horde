@@ -8,3 +8,4 @@ description: >
   Encoding and decoding of WBXML (Wireless Binary XML) documents. WBXML is used
   in SyncML for transferring smaller amounts of data with wireless devices.
 list: dev
+type: library

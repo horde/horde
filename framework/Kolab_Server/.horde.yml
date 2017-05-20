@@ -6,3 +6,4 @@ description: |
   This package reads/writes entries in the Kolab user
   database stored in LDAP.
 list: dev
+type: library

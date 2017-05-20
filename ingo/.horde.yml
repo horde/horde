@@ -8,3 +8,4 @@ description: >
   server-side (Sieve, Procmail, Maildrop) and client-side (IMAP) message
   filtering.
 list:
+type: application

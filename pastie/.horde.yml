@@ -6,3 +6,4 @@ description: >
   An application for pasting and sharing syntax-highlighted snippets of
   arbitrary text or program code
 list:
+type: application

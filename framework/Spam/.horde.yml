@@ -7,3 +7,4 @@ description: >
   spam or innocent email messages. Supported systems include reporting via email
   redirection and digest reports, and through an executable.
 list: dev
+type: library

@@ -6,3 +6,4 @@ description: >
   The JSMin javascript minifier driver for use with the Horde_JavascriptMinify
   package.
 list: dev
+type: library

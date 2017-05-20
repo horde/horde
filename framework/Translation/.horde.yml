@@ -4,3 +4,4 @@ name: Translation
 full: Translation library
 description: Translation wrappers.
 list: dev
+type: library

@@ -4,3 +4,4 @@ name: Stream_Filter
 full: PHP stream filters library
 description: A collection of various stream filters.
 list: dev
+type: library

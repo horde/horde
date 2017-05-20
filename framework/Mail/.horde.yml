@@ -4,3 +4,4 @@ name: Mail
 full: Mail library
 description: Provides interfaces for sending e-mail messages and parsing e-mail addresses.
 list: dev
+type: library

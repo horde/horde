@@ -4,3 +4,4 @@ name: Ansel
 full: Photo gallery application
 description: Ansel is a full featured photo gallery application.
 list: ansel
+type: application

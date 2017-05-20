@@ -6,3 +6,4 @@ description: >
   Horde Template system. Adapted from bTemplate, by Brian Lozier
   <brian@massassi.net>.
 list: dev
+type: library

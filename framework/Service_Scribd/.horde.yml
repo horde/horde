@@ -4,3 +4,4 @@ name: Service_Scribd
 full: Scribd client library
 description: Client libraries for the Scribd API.
 list: dev
+type: library

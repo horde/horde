@@ -4,3 +4,4 @@ name: LoginTasks
 full: Login tasks library
 description: An API for dealing with tasks run upon login to Horde applications.
 list: dev
+type: library

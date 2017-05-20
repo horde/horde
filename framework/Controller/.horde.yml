@@ -4,3 +4,4 @@ name: Controller
 full: Controller library
 description: The controller part of an MVC system for Horde.
 list: dev
+type: library

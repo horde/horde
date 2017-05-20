@@ -7,3 +7,4 @@ description: >
   and can be used for help-desk requests, tracking software development, and
   anything else that needs to track a set of requests and their status.
 list: horde
+type: application

@@ -4,3 +4,4 @@ name: Imsp
 full: IMSP client library
 description: Provides an API into an IMSP server for address books and options.
 list: dev
+type: library

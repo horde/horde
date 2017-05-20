@@ -6,3 +6,4 @@ description: >
   Provides an API to ensure that the PECL Mongo extension can be used
   consistently across various Horde packages.
 list: dev
+type: library

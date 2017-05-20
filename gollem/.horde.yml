@@ -7,3 +7,4 @@ description: >
   hierarchical file system stored in a variety of backends such as a SQL
   database, as part of a real filesystem, or on FTP, Samba or SSH servers.
 list:
+type: application

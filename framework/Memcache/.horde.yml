@@ -4,3 +4,4 @@ name: Memcache
 full: Memcache client library
 description: Provides an API to access a memcache installation.
 list: dev
+type: library

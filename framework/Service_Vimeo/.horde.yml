@@ -4,3 +4,4 @@ name: Service_Vimeo
 full: Vimeo client library
 description: Client libraries for the Vimeo API.
 list: dev
+type: library

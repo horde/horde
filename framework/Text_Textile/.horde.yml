@@ -4,3 +4,4 @@ name: Text_Textile
 full: Textile formatting library
 description: A Humane Web Text Generator.
 list: dev
+type: library

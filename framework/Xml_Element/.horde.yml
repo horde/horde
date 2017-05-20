@@ -8,3 +8,4 @@ description: >
   add multiple levels of new elements in a single call, without introducing
   "ghost" objects.
 list: dev
+type: library

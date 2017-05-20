@@ -4,3 +4,4 @@ name: Wicked
 full: Wiki application
 description: Wicked is a wiki application for Horde.
 list: horde
+type: application

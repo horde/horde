@@ -7,3 +7,4 @@ description: >
   also support retrieving configuration parameters from LDAP but this is not yet
   implemented.
 list: dev
+type: library

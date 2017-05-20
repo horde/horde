@@ -10,3 +10,4 @@ description: >
   alarms, recurring events, and a sophisticated day/week view which handles
   arbitrary numbers of overlapping events.
 list:
+type: application

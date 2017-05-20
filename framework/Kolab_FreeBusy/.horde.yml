@@ -11,3 +11,4 @@ description: |
   finally combined to the complete free/busy information once a client
   requests this data for a particular user.
 list: dev
+type: library

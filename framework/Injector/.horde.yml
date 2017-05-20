@@ -4,3 +4,4 @@ name: Injector
 full: Dependency injection container library
 description: A depedency injection container for Horde.
 list: dev
+type: library

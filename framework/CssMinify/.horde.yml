@@ -4,3 +4,4 @@ name: CssMinify
 full: CSS minification library
 description: Abstracted interface to various CSS minification backends.
 list: dev
+type: library

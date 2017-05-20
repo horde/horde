@@ -7,3 +7,4 @@ description: >
   SpamAssassion or Amavisd-new, given a general subset of the overall features
   that are available.
 list: horde
+type: application

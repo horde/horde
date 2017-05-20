@@ -6,3 +6,4 @@ description: >
   A tree view of hierarchical information. It allows for expanding/collapsing of
   branches and maintains their state.
 list: dev
+type: library

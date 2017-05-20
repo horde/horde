@@ -8,3 +8,4 @@ description: >
   applications, it supports storing contacts in SQL, LDAP, Kolab, and IMSP
   address books.
 list:
+type: application

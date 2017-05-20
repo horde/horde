@@ -4,3 +4,4 @@ name: Service_UrlShortener
 full: URL shortening library
 description: Interfaces to various URL shortening services.
 list: dev
+type: library

@@ -4,3 +4,4 @@ name: Util
 full: Utility library
 description: These classes provide functionality useful for all kind of applications.
 list: dev
+type: library

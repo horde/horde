@@ -4,3 +4,4 @@ name: Lock
 full: Resource locking library
 description: The Horde resource locking system.
 list: dev
+type: library

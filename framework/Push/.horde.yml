@@ -9,3 +9,4 @@ description: >
   a simple status and content update. The content element provides a bridge to
   quickly broadcast content curated within your own account.
 list: dev
+type: library

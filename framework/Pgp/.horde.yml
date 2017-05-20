@@ -4,3 +4,4 @@ name: Pgp
 full: PGP library
 description: Provides an API for dealing with OpenPGP (RFC 4880) data.
 list: dev
+type: library

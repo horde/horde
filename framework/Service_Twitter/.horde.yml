@@ -4,3 +4,4 @@ name: Service_Twitter
 full: Twitter client library
 description: Client libraries for the Twitter REST API.
 list: dev
+type: library

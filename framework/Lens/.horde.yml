@@ -7,3 +7,4 @@ description: >
   single decorator object (the "lens") instead of creating one decorator for
   every element.
 list: dev
+type: library

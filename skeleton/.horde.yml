@@ -4,3 +4,4 @@ name: Skeleton
 full: Skeleton for new Horde applications
 description: TODO
 list:
+type: application

@@ -6,3 +6,4 @@ description: >
   Vilma is a tool for administrators who need to handle various aspects of
   domain, user, and email administration.
 list: horde
+type: application

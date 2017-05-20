@@ -7,3 +7,4 @@ description: >
   bookmarks, including support for tagging, link checking, and searching
   bookmarks.
 list: horde
+type: application

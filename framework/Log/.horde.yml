@@ -4,3 +4,4 @@ name: Log
 full: Logging library
 description: Horde Logging package with configurable handlers, filters, and formatting.
 list: dev
+type: library

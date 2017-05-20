@@ -4,3 +4,4 @@ name: Stream_Wrapper
 full: PHP stream wrappers library
 description: A collection of stream wrappers.
 list: dev
+type: library

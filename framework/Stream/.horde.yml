@@ -7,3 +7,4 @@ description: >
   resources, and to provide utility methods to access and manipulate the stream
   contents.
 list: dev
+type: library

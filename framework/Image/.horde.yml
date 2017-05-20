@@ -12,3 +12,4 @@ description: |
   * ImageMagick convert command line tool
   * Imagick Extension
 list: dev
+type: library

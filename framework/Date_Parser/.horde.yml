@@ -6,3 +6,4 @@ description: >
   Library for natural-language date parsing, with support for multiple languages
   and locales
 list: dev
+type: library

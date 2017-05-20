@@ -6,3 +6,4 @@ description: >
   Support classes not tied to Horde but is used by it. These classes can be used
   outside of Horde as well.
 list: dev
+type: library

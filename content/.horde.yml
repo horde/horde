@@ -4,3 +4,4 @@ name: Content
 full: Tagging application
 description: This application provides tagging support for the other Horde applications.
 list:
+type: application

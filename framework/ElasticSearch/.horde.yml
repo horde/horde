@@ -4,3 +4,4 @@ name: ElasticSearch
 full: ElasticSearch client library
 description: Lightweight API for ElasticSearch (http://www.elasticsearch.org/).
 list: dev
+type: library

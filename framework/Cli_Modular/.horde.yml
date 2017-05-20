@@ -11,3 +11,4 @@ description: >
   Cli_Modular allows a module to modify the global usage string and add basic
   options valid for all modules.
 list: dev
+type: library

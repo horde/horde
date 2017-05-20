@@ -7,3 +7,4 @@ description: >
   server core concepts. This package provides all the necessary means to deal
   with this type of data storage effectively.
 list: dev
+type: library

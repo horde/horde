@@ -7,3 +7,4 @@ description: |
   from various sources, written in PHP and utilizing the Horde Application
   Framework.
 list: horde
+type: application

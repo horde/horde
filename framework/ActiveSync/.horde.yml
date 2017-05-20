@@ -4,3 +4,4 @@ name: ActiveSync
 full: ActiveSync server library
 description: Library for implementing an ActiveSync server.
 list: dev
+type: library

@@ -4,3 +4,4 @@ name: Beatnik
 full: DNS record management application
 description: Manage your DNS zones and records within your Horde install.
 list:
+type: application

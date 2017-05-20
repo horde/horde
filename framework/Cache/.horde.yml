@@ -8,3 +8,4 @@ description: >
   XCache), Memcache, MongoDB, Redis, user session, an SQL table, or a
   combination of these.
 list: dev
+type: library

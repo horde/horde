@@ -4,3 +4,4 @@ name: Thrift
 full: Thrift client library
 description: Packaged version of the PHP Thrift client
 list: dev
+type: library

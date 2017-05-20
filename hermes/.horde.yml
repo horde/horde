@@ -8,3 +8,4 @@ description: >
   objects). It comes with timers, search and reporting capabilities, and an
   invoice interface.
 list: horde
+type: application

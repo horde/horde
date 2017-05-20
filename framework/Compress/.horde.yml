@@ -4,3 +4,4 @@ name: Compress
 full: Compression library
 description: An API for various compression techniques.
 list: dev
+type: library

@@ -4,3 +4,4 @@ name: Icalendar
 full: iCalendar and vCard library
 description: An API for dealing with iCalendar data.
 list: dev
+type: library

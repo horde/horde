@@ -9,3 +9,4 @@ description: >
   interfaces with a rich range of features normally found only in desktop email
   clients.
 list:
+type: application

@@ -4,3 +4,4 @@ name: Mime_Viewer
 full: MIME viewer library
 description: Provides rendering drivers for MIME data.
 list: dev
+type: library

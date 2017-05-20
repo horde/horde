@@ -4,3 +4,4 @@ name: View
 full: View pattern library
 description: A simple View pattern implementation.
 list: dev
+type: library

@@ -8,3 +8,4 @@ description: |
   policies.
   
 list: dev
+type: library

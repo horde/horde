@@ -6,3 +6,4 @@ description: |
   This package provides a web based frontend for the
   administration of the Kolab server.
 list: horde
+type: application

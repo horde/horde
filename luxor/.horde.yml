@@ -4,3 +4,4 @@ name: Luxor
 full: Source code cross referencer
 description: Luxor is a port of LXR (Linux Cross Referencer) to PHP.
 list: horde
+type: application
