@@ -24,7 +24,9 @@ $auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();
 if (empty($_COOKIE['user']) ||
     empty($_COOKIE['password']) ||
     !$auth->authenticate($_COOKIE['user'], array('password' => $_COOKIE['password']))) {
-    Horde::authenticationFailureRedirect();
+    $e = new Horde_Exception_AuthenticationFailure();
+    $e->application = 'horde';
+    throw $e;
 }
 
 $GLOBALS['horde_login_url'] = Horde_Util::getFormData('url');
