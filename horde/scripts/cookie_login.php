@@ -29,5 +29,5 @@ if (empty($_COOKIE['user']) ||
     throw $e;
 }
 
-$GLOBALS['horde_login_url'] = Horde_Util::getFormData('url');
+$horde_login_url = Horde_Util::getFormData('url');
 require HORDE_BASE . '/index.php';
