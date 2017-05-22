@@ -22,10 +22,12 @@ $auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();
 
 // Check for GET auth.
 if (empty($_GET['user']) ||
+    empty($_GET['pass']) ||
     !$auth->authenticate($_GET['user'], array('password' => $_GET['pass']))) {
     $e = new Horde_Exception_AuthenticationFailure();
     $e->application = 'horde';
     throw $e;
 }
 
+$horde_login_url = Horde_Util::getFormData('url');
 require HORDE_BASE . '/index.php';
