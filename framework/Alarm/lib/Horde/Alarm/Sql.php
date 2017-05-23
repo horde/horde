@@ -81,17 +81,16 @@ class Horde_Alarm_Sql extends Horde_Alarm
             $values[] = (string)$user;
         }
 
+        $alarms = array();
         try {
             $result = $this->_db->select($query, $values);
+            foreach ($result as $val) {
+                $alarms[] = $this->_getHash($val);
+            }
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Alarm_Exception(
                 Horde_Alarm_Translation::t("Server error when querying database.")
             );
-        }
-
-        $alarms = array();
-        foreach ($result as $val) {
-            $alarms[] = $this->_getHash($val);
         }
 
         return $alarms;

@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix catching database backend exceptions.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1026,7 +1026,7 @@
    <date>2017-05-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix catching database backend exceptions.
    </notes>
   </release>
  </changelog>
