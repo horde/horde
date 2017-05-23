@@ -21,6 +21,9 @@ use Horde\Cli\Application\Translation;
 /**
  * This class implements a complete command line application.
  *
+ * The embedded Horde_Cli and Horde_Argv_Parser objects are proxied, so you can
+ * call any of their methods on the \Horde\Cli\Application object too.
+ *
  * @author    Jan Schneider <jan@horde.org>
  * @category  Horde
  * @copyright 2017 Horde LLC
@@ -83,6 +86,25 @@ class Application
     }
 
     /**
+     * Delegates calls to the embedded Horde_Cli and Horde_Argv_Parser objects.
+     *
+     * @param string $method  Method name.
+     * @param array $args     Method arguments.
+     *
+     * @return mixed  Result of method call.
+     */
+    public function __call($method, $args)
+    {
+        if (method_exists($this->_cli, $method)) {
+            return call_user_func_array(array($this->_cli, $method), $args);
+        }
+        if (method_exists($this->_parser, $method)) {
+            return call_user_func_array(array($this->_parser, $method), $args);
+        }
+        throw new BadMethodCallException('Undefined method ' . $method);
+    }
+
+    /**
      * Getter.
      *
      * @param string $property  Property to return.
@@ -121,28 +143,5 @@ class Application
     public function run()
     {
         list($this->_values, $this->_arguments) = $this->_parser->parseArgs();
-    }
-
-    /**
-     * Overloaded method to add an argument option.
-     *
-     * <code>
-     * addOption(Horde_Argv_Option $option);
-     * addOption(string $option[, string $option...][, array $attributes]);
-     * </code>
-     * - string $option could be any number of short (-v) or long (--verbose)
-     *   options.
-     * - $attributes is a hash of option attributes. See
-     *   https://wiki.horde.org/Doc/Dev/HordeArgv for details.
-     *
-     * @param Horde_Argv_Option
-     * @return Horde_Argv_Option
-     */
-    public function addOption()
-    {
-        return call_user_func_array(
-            array($this->_parser, 'addOption'),
-            func_get_args()
-        );
     }
 }

@@ -13,4 +13,4 @@ require __DIR__ . '/MyApplication.php';
 $app = new MyApplication();
 $app->run();
 
-$app->cli->writeln($app->values->int);
+$app->writeln($app->values->int);
