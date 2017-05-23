@@ -21,26 +21,36 @@ class MyApplication extends Application
                 'epilog' => 'Please report any bugs to https://bugs.horde.org.',
                 'description' => 'This is a Horde CLI application',
                 'version' => '%prog 1.0.0',
-                'optionList' => array(
-                    new Horde_Argv_Option(
-                        '-f', '--foo',
-                        array(
-                            'action' => 'store_const',
-                            'const' => 42,
-                            'dest' => 'bar',
-                            'help' => 'Enable bar.',
-                        )
-                    ),
-                    new Horde_Argv_Option(
-                        '-i', '--int',
-                        array(
-                            'action' => 'store',
-                            'type' => 'int',
-                            'help' => 'An integer.',
-                        )
-                    )
-                )
             )
         );
+        $this->addOption(
+            '-f', '--foo',
+            array(
+                'action' => 'store_const',
+                'const' => 42,
+                'dest' => 'bar',
+                'help' => 'Enable bar.',
+            )
+        );
+        $this->addOption(
+            '-i', '--int',
+            array(
+                'action' => 'store',
+                'type' => 'int',
+                'help' => 'An integer.',
+            )
+        );
+    }
+
+    /**
+     * Excecutes the actual application logic.
+     */
+    protected function _doRun()
+    {
+        if ($this->values->bar) {
+            $this->message('The answer is ' . $this->values->bar, 'cli.success');
+        } else {
+            $this->message('You didn\'t pass --foo', 'cli.warning');
+        }
     }
 }

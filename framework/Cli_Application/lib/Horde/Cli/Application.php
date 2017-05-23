@@ -143,5 +143,13 @@ class Application
     public function run()
     {
         list($this->_values, $this->_arguments) = $this->_parser->parseArgs();
+        $this->_doRun();
+    }
+
+    /**
+     * Excecutes the actual application logic.
+     */
+    protected function _doRun()
+    {
     }
 }
