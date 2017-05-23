@@ -244,8 +244,6 @@ class Horde_Cli
      *                         message.
      * @param string $above    Character to use for drawing the line above the
      *                         message.
-     *
-     * @return string  The formatted header.
      */
     public function header($message, $below = '-', $above = null)
     {
@@ -257,14 +255,12 @@ class Horde_Cli
             $length = min($length, $width);
         }
         if (strlen($above)) {
-            $message = $this->writeln(str_repeat($above, $length))
-                . wordwrap($message, $length, $this->_newline);
+            $this->writeln(str_repeat($above, $length));
         }
+        $this->writeln(wordwrap($message, $length, $this->_newline));
         if (strlen($below)) {
-            $message = $this->writeln(wordwrap($message, $length, $this->_newline))
-                . str_repeat($below, $length);
+            $this->writeln(str_repeat($below, $length));
         }
-        return $message;
     }
 
     /**

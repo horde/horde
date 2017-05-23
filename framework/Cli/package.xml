@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix header() method to print, not return the header.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -837,7 +837,7 @@ Add &apos;default&apos; parameter to Horde_CLI::prompt().
    <date>2017-05-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix header() method to print, not return the header.
    </notes>
   </release>
  </changelog>
