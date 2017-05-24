@@ -112,14 +112,19 @@ abstract class Mnemo_Driver
      *
      * @param string $desc        The first line of the note.
      * @param string $body        The whole note body.
-     * @param string $tags        The tags of the note.
+     * @param array|string $tags  The tags of the note.
      * @param string $passphrase  The passphrase to encrypt the note with.
+     * @param string $uid         The note's UID.
      *
      * @return string  The ID of the new note.
      * @throws Mnemo_Exception
      */
-    public function add($desc, $body, $tags = '', $passphrase = null)
+    public function add(
+        $desc, $body, $tags = '', $passphrase = null, $uid = null
+    )
     {
+        global $injector, $registry;
+
         $noteId = $this->_generateId();
 
         if ($passphrase) {
@@ -127,15 +132,15 @@ abstract class Mnemo_Driver
             Mnemo::storePassphrase($noteId, $passphrase);
         }
 
-        $uid = $this->_add($noteId, $desc, $body, $tags);
+        $uid = $this->_add($noteId, $desc, $body, $tags, $uid);
 
         // Add tags.
-        $GLOBALS['injector']->getInstance('Mnemo_Tagger')
-            ->tag($uid, $tags, $GLOBALS['registry']->getAuth(), 'note');
+        $injector->getInstance('Mnemo_Tagger')
+            ->tag($uid, $tags, $registry->getAuth(), 'note');
 
         // Log the creation of this item in the history log.
         try {
-            $GLOBALS['injector']->getInstance('Horde_History')
+            $injector->getInstance('Horde_History')
                 ->log('mnemo:' . $this->_notepad . ':' . $uid,
                       array('action' => 'add'), true);
         } catch (Horde_Exception $e) {
@@ -151,11 +156,12 @@ abstract class Mnemo_Driver
      * @param string $desc    The first line of the note.
      * @param string $body    The whole note body.
      * @param string $tags    The tags of the note.
+     * @param string $uid     The note's UID.
      *
      * @return string  The unique ID of the new note.
      * @throws Mnemo_Exception
      */
-    abstract protected function _add($noteId, $desc, $body, $tags);
+    abstract protected function _add($noteId, $desc, $body, $tags, $uid);
 
     /**
      * Modifies an existing note.

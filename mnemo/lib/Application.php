@@ -13,6 +13,8 @@
  * @package Mnemo
  */
 
+use Horde\Backup;
+
 /* Determine the base directories. */
 if (!defined('MNEMO_BASE')) {
     define('MNEMO_BASE', realpath(__DIR__ . '/..'));
@@ -261,6 +263,93 @@ class Mnemo_Application extends Horde_Registry_Application
 
         if ($error) {
             throw new Mnemo_Exception(sprintf(_("There was an error removing notes for %s. Details have been logged."), $user));
+        }
+    }
+
+    /**
+     */
+    public function backup(array $users = array())
+    {
+        global $conf, $injector, $mnemo_shares;
+
+        $factory = $injector->getInstance('Mnemo_Factory_Driver');
+
+        if (!$users) {
+            foreach ($mnemo_shares->listAllShares() as $share) {
+                $users[$share->get('owner')] = true;
+            }
+            $users = array_keys($users);
+        }
+
+        $getUser = function($user) use ($factory, $mnemo_shares)
+        {
+            global $registry;
+
+            $backup = new Backup\User($user);
+
+            $shares = $mnemo_shares->listShares(
+                $user, array('attributes' => $user)
+            );
+            if (!$shares) {
+                return $backup;
+            }
+
+            // Need to pushApp() here because this method is called delayed,
+            // but we need Mnemo's $conf.
+            $pushed = $registry->pushApp('mnemo', array('check_perms' => false));
+            $notepads = array();
+            foreach ($shares as $notepad => $share) {
+                $notepads[$share->getId()] = $share->toHash();
+                $backup->collections[] = new Backup\Collection(
+                    new Mnemo\Backup\Notes($factory->create($notepad)),
+                    'user',
+                    'notes'
+                );
+            }
+            $backup->collections[] = new Backup\Collection(
+                new ArrayIterator($notepads),
+                'user',
+                'notepads'
+            );
+            if ($pushed === true) {
+                $registry->popApp();
+            }
+
+            return $backup;
+        };
+
+        return new Backup\Users(new ArrayIterator($users), $getUser);
+    }
+
+    /**
+     */
+    public function restore(Backup\Collection $data)
+    {
+        global $injector, $mnemo_shares;
+
+        switch ($data->getType()) {
+        case 'notepads':
+            foreach ($data as $notepad) {
+                $notepad['owner'] = $data->getUser();
+                $notepad['attributes'] = array_intersect_key(
+                    $notepad['attributes'],
+                    array('name' => true, 'desc' => true)
+                );
+                $mnemo_shares->fromHash($notepad);
+            }
+            break;
+        case 'notes':
+            $factory = $injector->getInstance('Mnemo_Factory_Driver');
+            foreach ($data as $note) {
+                $factory->create($note['memolist_id'])->add(
+                    $note['desc'],
+                    $note['body'],
+                    $note['tags'],
+                    null,
+                    $note['uid']
+                );
+            }
+            break;
         }
     }
 

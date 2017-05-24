@@ -16,7 +16,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2016-11-09</date>
+ <date>2017-05-24</date>
  <version>
   <release>5.0.0</release>
   <api>5.0.0</api>
@@ -27,6 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [jan] Add API to backup and restore user data.
 * [mjr] Add ability to save note without redirecting to notebook (Request #14085).
 * [mjr] Add tag browsing/searching (Request #14178).
 * [jan] Keep original file names when PUTing notes via WebDAV.
@@ -77,6 +78,9 @@
      </dir> <!-- /lib/Ajax/Imple -->
      <file name="Application.php" role="horde" />
     </dir> <!-- /lib/Ajax -->
+    <dir name="Backup">
+     <file name="Notes.php" role="horde" />
+    </dir> <!-- /lib/Backup -->
     <dir name="Block">
      <file name="Note.php" role="horde" />
      <file name="Summary.php" role="horde" />
@@ -527,7 +531,7 @@
    <package>
     <name>Horde_Share</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.2.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -562,6 +566,13 @@
     <channel>pear.horde.org</channel>
     <min>2.4.0</min>
     <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Backup</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
@@ -636,6 +647,7 @@
    <install as="mnemo/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
    <install as="mnemo/lib/Ajax/Imple/EditNote.php" name="lib/Ajax/Imple/EditNote.php" />
    <install as="mnemo/lib/Ajax/Imple/TagAutoCompleter.php" name="lib/Ajax/Imple/TagAutoCompleter.php" />
+   <install as="mnemo/lib/Backup/Notes.php" name="lib/Backup/Notes.php" />
    <install as="mnemo/lib/Block/Note.php" name="lib/Block/Note.php" />
    <install as="mnemo/lib/Block/Summary.php" name="lib/Block/Summary.php" />
    <install as="mnemo/lib/Driver/Kolab.php" name="lib/Driver/Kolab.php" />
@@ -1405,9 +1417,10 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2016-11-09</date>
+   <date>2017-05-24</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [jan] Add API to backup and restore user data.
 * [mjr] Add ability to save note without redirecting to notebook (Request #14085).
 * [mjr] Add tag browsing/searching (Request #14178).
 * [jan] Keep original file names when PUTing notes via WebDAV.

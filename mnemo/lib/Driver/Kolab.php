@@ -128,17 +128,18 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
     /**
      * Adds a note to the backend storage.
      *
-     * @param string $noteId  The ID of the new note.
-     * @param string $desc    The first line of the note.
-     * @param string $body    The whole note body.
-     * @param string $tags    The tags of the note.
+     * @param string $noteId      The ID of the new note.
+     * @param string $desc        The first line of the note.
+     * @param string $body        The whole note body.
+     * @param array|string $tags  The tags of the note.
+     * @param string $uid         The note's UID.
      *
      * @return string  The unique ID of the new note.
      * @throws Mnemo_Exception
      */
-    protected function _add($noteId, $desc, $body, $tags)
+    protected function _add($noteId, $desc, $body, $tags, $uid)
     {
-        $object = $this->_buildObject($noteId, $desc, $body, $tags);
+        $object = $this->_buildObject($noteId, $desc, $body, $tags, $uid);
 
         try {
             $this->_getData()->create($object);
@@ -177,27 +178,34 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
     /**
      * Converts a note hash to a Kolab hash.
      *
-     * @param string $noteId  The note to modify.
-     * @param string $desc    The first line of the note.
-     * @param string $body    The whole note body.
-     * @param string $tags    The tags of the note.
+     * @param string $noteId      The note to modify.
+     * @param string $desc        The first line of the note.
+     * @param string $body        The whole note body.
+     * @param array|string $tags  The tags of the note.
+     * @param string $uid         The note's UID.
      *
      * @return object  The Kolab hash.
      */
-    protected function _buildObject($noteId, $desc, $body, $tags)
+    protected function _buildObject($noteId, $desc, $body, $tags, $uid)
     {
+        global $injector;
+
         // Not really needed but it's nice to update the view
         $this->synchronize();
 
-        $uid = Horde_Url::uriB64Decode($noteId);
+        if (!$uid) {
+            $uid = Horde_Url::uriB64Decode($noteId);
+        }
         $object = array(
             'uid' => $uid,
             'summary' => $desc,
             'body' => $body,
         );
-        $object['categories'] = $GLOBALS['injector']
-            ->getInstance('Mnemo_Tagger')
-            ->split($tags);
+        $object['categories'] = is_array($tags)
+            ? $tags
+            : $injector
+                ->getInstance('Mnemo_Tagger')
+                ->split($tags);
         usort($object['categories'], 'strcoll');
 
         return $object;

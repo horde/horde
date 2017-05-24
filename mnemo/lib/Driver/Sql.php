@@ -139,17 +139,20 @@ class Mnemo_Driver_Sql extends Mnemo_Driver
     /**
      * Adds a note to the backend storage.
      *
-     * @param string $noteId  The ID of the new note.
-     * @param string $desc    The first line of the note.
-     * @param string $body    The whole note body.
-     * @param string $tags    The tags of the note.
+     * @param string $noteId      The ID of the new note.
+     * @param string $desc        The first line of the note.
+     * @param string $body        The whole note body.
+     * @param array|string $tags  The tags of the note.
+     * @param string $uid         The note's UID.
      *
      * @return string  The unique ID of the new note.
      * @throws Mnemo_Exception
      */
-    protected function _add($noteId, $desc, $body, $tags)
+    protected function _add($noteId, $desc, $body, $tags, $uid)
     {
-        $uid = strval(new Horde_Support_Uuid());
+        if (!$uid) {
+            $uid = strval(new Horde_Support_Uuid());
+        }
 
         $query = 'INSERT INTO mnemo_memos'
             . ' (memo_owner, memo_id, memo_desc, memo_body, memo_uid)'
