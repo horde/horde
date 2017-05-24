@@ -112,6 +112,30 @@ abstract class Horde_Share_Object implements Serializable
     abstract protected function _save();
 
     /**
+     * Exports the share object as a PHP hash.
+     *
+     * @since Horde_Shares 2.2.0
+     *
+     * @return array  Hash representation of this share.
+     */
+    public function toHash()
+    {
+        return array(
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'attributes' => $this->_getAttributes(),
+            'permissions' => $this->getPermission()->getData(),
+        );
+    }
+
+    /**
+     * Returns the share attributes.
+     *
+     * @return array  All share attributes as a hash.
+     */
+    abstract protected function _getAttributes();
+
+    /**
      * Gives a user a certain privilege for this share.
      *
      * @param string $userid       The userid of the user.

@@ -342,6 +342,22 @@ class Horde_Share_Object_Sql extends Horde_Share_Object implements Serializable
     }
 
     /**
+     * Returns the share attributes.
+     *
+     * @return array  All share attributes as a hash.
+     */
+    protected function _getAttributes()
+    {
+        $attributes = array();
+        foreach ($this->data as $attribute => $value) {
+            if (strpos($attribute, 'attribute_') === 0) {
+                $attributes[substr($attribute, 10)] = $value;
+            }
+        }
+        return $attributes;
+    }
+
+    /**
      * Checks to see if a user has a given permission.
      *
      * @param string $userid       The userid of the user.

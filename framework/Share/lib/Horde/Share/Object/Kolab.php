@@ -345,6 +345,23 @@ implements Serializable, Horde_Perms_Permission_Kolab_Storage
     }
 
     /**
+     * Returns the share attributes.
+     *
+     * @return array  All share attributes as a hash.
+     */
+    protected function _getAttributes()
+    {
+        $blacklist = array('owner', 'prefix', 'delimiter', 'subpath');
+        $attributes = array();
+        foreach ($this->data as $attribute => $value) {
+            if (!in_array($attribute, $blacklist)) {
+                $attributes[$attribute] = $value;
+            }
+        }
+        return $attributes;
+    }
+
+    /**
      * Checks to see if a user has a given permission.
      *
      * @param string $userid       The userid of the user.

@@ -469,6 +469,33 @@ abstract class Horde_Share_Base
     abstract protected function _addShare(Horde_Share_Object $share);
 
     /**
+     * Adds a share created from a hash.
+     *
+     * @since Horde_Share 2.2.0
+     *
+     * @param array $hash  A hash like exported from
+     *                     Horde_Share_Object#toHash().
+     *
+     * @return Horde_Share_Object  A new share object.
+     */
+    public function fromHash(array $hash)
+    {
+        $share = $this->newShare($hash['owner'], $hash['name']);
+        if (isset($hash['attributes'])) {
+            foreach ($hash['attributes'] as $attribute => $value) {
+                $share->set($attribute, $value);
+            }
+        }
+        if (isset($hash['permissions'])) {
+            $permission = $share->getPermission();
+            $permission->setData($hash['permissions']);
+            $share->setPermission($permission, false);
+        }
+        $this->addShare($share);
+        return $share;
+    }
+
+    /**
      * Renames a share in the shares system.
      *
      * @param Horde_Share_Object $share  The share to rename.
