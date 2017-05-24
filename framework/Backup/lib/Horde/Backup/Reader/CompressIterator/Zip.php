@@ -58,6 +58,16 @@ class Zip extends CompressIterator
     }
 
     /**
+     * Returns the object ID.
+     *
+     * @return string  Object ID.
+     */
+    public function key()
+    {
+        return basename($this->_info[parent::key()]['name']);
+    }
+
+    /**
      * Returns the unpacked backup data.
      *
      * @return mixed  Backup data.
@@ -70,7 +80,7 @@ class Zip extends CompressIterator
                 array(
                     'action' => Compress::ZIP_DATA,
                     'info' => $this->_info,
-                    'key' => $this->key()
+                    'key' => parent::key()
                 )
             )
         );

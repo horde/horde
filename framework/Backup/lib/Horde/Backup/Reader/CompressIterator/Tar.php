@@ -27,12 +27,22 @@ use Horde\Backup\Reader\CompressIterator;
 class Tar extends CompressIterator
 {
     /**
+     * Returns the object ID.
+     *
+     * @return string  Object ID.
+     */
+    public function key()
+    {
+        return basename($this->_info[parent::key()]['name']);
+    }
+
+    /**
      * Returns the unpacked backup data.
      *
      * @return mixed  Backup data.
      */
     public function current()
     {
-        return $this->_packer->unpack($this->_info[$this->key()]['data']);
+        return $this->_packer->unpack($this->_info[parent::key()]['data']);
     }
 }
