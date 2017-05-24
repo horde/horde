@@ -425,7 +425,7 @@ class Horde_Core_Ui_VarRenderer_Nag extends Horde_Core_Ui_VarRenderer_Html
             $on ? ' checked="checked"' : '',
             _("Start date specified."),
             _("Date"),
-            htmlspecialchars(strftime($GLOBALS['prefs']->getValue('time_format_mini'), $start_dt))
+            htmlspecialchars(strftime($GLOBALS['prefs']->getValue('date_format_mini'), $start_dt))
         );
 
         if ($GLOBALS['browser']->hasFeature('javascript')) {
