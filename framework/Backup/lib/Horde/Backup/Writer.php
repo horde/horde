@@ -84,7 +84,9 @@ class Writer
      */
     public function backup($application, Users $users)
     {
-        $this->_backups[$application] = $users;
+        if ($users) {
+            $this->_backups[$application] = $users;
+        }
     }
 
     /**
@@ -127,6 +129,9 @@ class Writer
                         );
                     }
                 }
+            }
+            if (!$data) {
+                continue;
             }
             $archive = fopen($this->_dir . '/' . $name . $extension, 'w');
             stream_copy_to_stream(
