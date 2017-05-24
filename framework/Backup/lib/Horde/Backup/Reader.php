@@ -13,6 +13,7 @@
 
 namespace Horde\Backup;
 
+use ArrayIterator;
 use Horde_Compress_Tar as Tar;
 use Horde_Compress_Zip as Zip;
 use Horde_Pack_Driver_Json as Json;
@@ -88,6 +89,8 @@ class Reader
      *                             backups.
      * @param array $applications  A list of applications to restore. Defaults
      *                             to all backups.
+     *
+     * @return \Horde\Backup\Collection[]  All restored object collections.
      */
     public function restore(
         array $users = array(), $applications = array()
@@ -231,7 +234,7 @@ class Reader
     {
         $files = array();
         foreach ($users as $user) {
-            $file = $this->_temp . '/' . $user;
+            $file = $this->_dir . '/' . $user;
             if (file_exists($file . '.zip')) {
                 $files[] = $file . '.zip';
             } elseif (file_exists($file . '.tar')) {
