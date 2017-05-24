@@ -91,7 +91,7 @@ class Components_Pear_Factory
     public function createPackageForPearConfig($package_file, $config_file)
     {
         return $this->createPackageForEnvironment(
-            $package_file, $this->createEnvironment($config_file)
+            $package_file, $this->createEnvironment(dirname($config_file), $config_file)
         );
     }
 
