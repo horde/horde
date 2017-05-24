@@ -16,7 +16,6 @@ namespace Horde\Backup\Reader;
 use ArrayIterator;
 use CallbackFilterIterator;
 use IteratorIterator;
-use Horde_Compress_Zip as Zip;
 use Horde_Pack_Driver_Json as Json;
 
 /**
@@ -66,24 +65,5 @@ abstract class CompressIterator extends IteratorIterator
             }
         );
         parent::__construct($iterator);
-    }
-
-    /**
-     * Returns the unpacked backup data.
-     *
-     * @return mixed  Backup data.
-     */
-    public function current()
-    {
-        return $this->_packer->unpack(
-            $this->_compress->decompress(
-                $this->_contents,
-                array(
-                    'action' => Zip::ZIP_DATA,
-                    'info' => $this->_info,
-                    'key' => $this->key()
-                )
-            )
-        );
     }
 }
