@@ -1,16 +1,28 @@
 <?php
 /**
- * Default class for the Horde Application API.
- *
  * Copyright 2009-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
+ * @author   Jan Schneider <jan@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Core
+ */
+
+use Horde\Backup;
+
+/**
+ * Default class for the Horde Application API.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @author    Jan Schneider <jan@horde.org>
+ * @category  Horde
+ * @copyright 2009-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Core
  */
 class Horde_Registry_Application implements Horde_Shutdown_Task
 {
@@ -196,6 +208,35 @@ class Horde_Registry_Application implements Horde_Shutdown_Task
      * @throws Horde_Exception
      */
     public function removeUserData($user)
+    {
+    }
+
+    /**
+     * Returns user data for specific (or all) users.
+     *
+     * @since Horde_Core 2.29.0
+     *
+     * @param string $user  Name of user(s) to return data for. Empty arguments
+     *                      returns all users.
+     *
+     * @return \Horde\Backup\Users  List of per-user data.
+     * @throws Horde_Exception
+     */
+    public function backup(array $users = array())
+    {
+        return new Backup\Users(new EmptyIterator(), function(){});
+    }
+
+    /**
+     * Restores user data for a specific user.
+     *
+     * @since Horde_Core 2.29.0
+     *
+     * @param \Horde\Backup\Collection $data   User data to restore.
+     *
+     * @throws Horde_Exception
+     */
+    public function restore(Backup\Collection $data)
     {
     }
 

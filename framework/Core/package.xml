@@ -28,10 +28,10 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2017-04-24</date>
+ <date>2017-05-24</date>
  <version>
-  <release>2.28.4</release>
-  <api>2.28.0</api>
+  <release>2.29.0</release>
+  <api>2.29.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Add Horde_Registry_Application#backup() and restore().
 * [mjr] Fix calculating ActiveSync SOFTDELETE times for calendar collections (Bug #14631).
  </notes>
  <contents>
@@ -1311,6 +1312,13 @@
     <channel>pear.horde.org</channel>
     <min>2.38.0</min>
     <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Backup</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
@@ -4440,14 +4448,15 @@
   </release>
   <release>
    <version>
-    <release>2.28.4</release>
-    <api>2.28.0</api></version>
+    <release>2.29.0</release>
+    <api>2.29.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-04-24</date>
+   <date>2017-05-24</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Add Horde_Registry_Application#backup() and restore().
 * [mjr] Fix calculating ActiveSync SOFTDELETE times for calendar collections (Bug #14631).
    </notes>
   </release>

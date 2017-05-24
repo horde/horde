@@ -2,6 +2,7 @@
 v6.0.0-git
 ----------
 
+[jan] Add command line tool for backing up and restoring user data.
 [jan] Mark NULL result values in SQL shell.
 [mjr] Refactor the Metar weather block to use Horde_Service_Weather and remove
       PEAR_Services_Weather dependency.

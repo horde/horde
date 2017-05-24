@@ -28,7 +28,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2017-03-20</date>
+ <date>2017-05-24</date>
  <version>
   <release>6.0.0</release>
   <api>6.0.0</api>
@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
+* [jan] Add command line tool for backing up and restoring user data.
 * [jan] Mark NULL result values in SQL shell.
 * [mjr] Refactor the Metar weather block to use Horde_Service_Weather and remove PEAR_Services_Weather dependency.
 * [jan] Add a weekly login task to check for newer versions.
@@ -126,6 +127,9 @@
      <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
     </file>
     <file name="horde-alarms" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="horde-backup" role="script">
      <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
     </file>
     <file name="horde-check-logger" role="script">
@@ -305,6 +309,9 @@
      <file name="Vatid.php" role="horde" />
      <file name="Weather.php" role="horde" />
     </dir> <!-- /lib/Block -->
+    <dir name="Cli">
+     <file name="Backup.php" role="horde" />
+    </dir> <!-- /lib/Cli -->
     <dir name="LoginTasks">
      <dir name="SystemTask">
       <file name="GarbageCollection.php" role="horde" />
@@ -1721,7 +1728,7 @@
    <package>
     <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
-    <min>2.26.0</min>
+    <min>2.29.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1909,6 +1916,20 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
+    <name>Horde_Backup</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Cli_Application</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
     <name>Horde_Db</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
@@ -2024,6 +2045,7 @@
    <install as="admin/perms/index.php" name="admin/perms/index.php" />
    <install as="horde-active-sessions" name="bin/horde-active-sessions" />
    <install as="horde-alarms" name="bin/horde-alarms" />
+   <install as="horde-backup" name="bin/horde-backup" />
    <install as="horde-check-logger" name="bin/horde-check-logger" />
    <install as="horde-clear-cache" name="bin/horde-clear-cache" />
    <install as="horde-crond" name="bin/horde-crond" />
@@ -2148,6 +2170,7 @@
    <install as="/lib/Block/Account/Finger.php" name="lib/Block/Account/Finger.php" />
    <install as="/lib/Block/Account/Ldap.php" name="lib/Block/Account/Ldap.php" />
    <install as="/lib/Block/Account/Localhost.php" name="lib/Block/Account/Localhost.php" />
+   <install as="lib/Cli/Backup.php" name="lib/Cli/Backup.php" />
    <install as="lib/LoginTasks/SystemTask/GarbageCollection.php" name="lib/LoginTasks/SystemTask/GarbageCollection.php" />
    <install as="lib/LoginTasks/SystemTask/Upgrade.php" name="lib/LoginTasks/SystemTask/Upgrade.php" />
    <install as="lib/LoginTasks/Task/AdminCheck.php" name="lib/LoginTasks/Task/AdminCheck.php" />
@@ -4284,9 +4307,10 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2017-03-20</date>
+   <date>2017-05-24</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
+* [jan] Add command line tool for backing up and restoring user data.
 * [jan] Mark NULL result values in SQL shell.
 * [mjr] Refactor the Metar weather block to use Horde_Service_Weather and remove PEAR_Services_Weather dependency.
 * [jan] Add a weekly login task to check for newer versions.
