@@ -38,7 +38,7 @@ class Components_Component_Match
      */
     public static function matches($c_name, $c_channel, $selector)
     {
-        $selectors = split(',', $selector);
+        $selectors = explode(',', $selector);
         if (in_array('ALL', $selectors)) {
             return true;
         }
@@ -47,7 +47,7 @@ class Components_Component_Match
                 continue;
             }
             if (strpos($selector, '/') !== false) {
-                list($channel, $name) = split('/', $selector, 2);
+                list($channel, $name) = explode('/', $selector, 2);
                 if ($c_channel == $channel && $c_name == $name) {
                     return true;
                 }
