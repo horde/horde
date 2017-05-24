@@ -665,7 +665,7 @@ class Components_Component_Source extends Components_Component_Base
     /**
      * Return a PEAR PackageFile representation for the component.
      *
-     * @return PEAR_PackageFile The package representation.
+     * @return Components_Pear_Package The package representation.
      */
     private function _getPackageFile()
     {
