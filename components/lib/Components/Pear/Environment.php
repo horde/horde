@@ -506,7 +506,7 @@ class Components_Pear_Environment
         );
         if (!empty($warnings)) {
             foreach ($warnings as $warning) {
-                $this->_output->warn($warnings);
+                $this->_output->warn($warning);
             }
         }
         ob_start();
