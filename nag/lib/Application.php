@@ -11,6 +11,8 @@
  * @package Nag
  */
 
+use Horde\Backup;
+
 /* Determine the base directories. */
 if (!defined('NAG_BASE')) {
     define('NAG_BASE', realpath(__DIR__ . '/..'));
@@ -354,6 +356,113 @@ class Nag_Application extends Horde_Registry_Application
             ));
             break;
         }
+    }
+
+    /* Backup/restore */
+
+    /**
+     */
+    public function backup(array $users = array())
+    {
+        global $injector, $nag_shares;
+
+        $factory = $injector->getInstance('Nag_Factory_Driver');
+
+        if (!$users) {
+            foreach ($nag_shares->listAllShares() as $share) {
+                $users[$share->get('owner')] = true;
+            }
+            $users = array_keys($users);
+        }
+
+        $getUser = function($user) use ($factory, $nag_shares)
+        {
+            global $registry;
+
+            $backup = new Backup\User($user);
+
+            $shares = $nag_shares->listShares(
+                $user, array('attributes' => $user)
+            );
+            if (!$shares) {
+                return $backup;
+            }
+
+            // Need to pushApp() here because this method is called delayed,
+            // but we need Nag's $conf.
+            $pushed = $registry->pushApp('nag', array('check_perms' => false));
+            $tasklists = array();
+            foreach ($shares as $share) {
+                $tasklists[$share->getId()] = $share->toHash();
+                $backup->collections[] = new Backup\Collection(
+                    new Nag\Backup\Tasks($factory->create($share->getName())),
+                    'user',
+                    'tasks'
+                );
+            }
+            $backup->collections[] = new Backup\Collection(
+                new ArrayIterator($tasklists),
+                'user',
+                'tasklists'
+            );
+            if ($pushed === true) {
+                $registry->popApp();
+            }
+
+            return $backup;
+        };
+
+        return new Backup\Users(new ArrayIterator($users), $getUser);
+    }
+
+    /**
+     */
+    public function restore(Backup\Collection $data)
+    {
+        global $injector, $nag_shares;
+
+        switch ($data->getType()) {
+        case 'tasklists':
+            foreach ($data as $tasklist) {
+                $tasklist['owner'] = $data->getUser();
+                $tasklist['attributes'] = array_intersect_key(
+                    $tasklist['attributes'],
+                    array(
+                        'name'    => true,
+                        'desc'    => true,
+                        'color'   => true,
+                        'issmart' => true,
+                        'search'  => true)
+                );
+                $nag_shares->fromHash($tasklist);
+            }
+            break;
+        case 'tasks':
+            $factory = $injector->getInstance('Nag_Factory_Driver');
+            $map = array();
+            foreach ($data as $task) {
+                if (!empty($task['recurrence'])) {
+                    $task['recurrence'] = Horde_Date_Recurrence::fromHash(
+                        $task['recurrence']
+                    );
+                }
+                if (!empty($task['parent']) &&
+                    isset($map[$task['parent']])) {
+                    $task['parent'] = $map[$task['parent']];
+                }
+                $driver = $factory->create($task['tasklist_id']);
+                $ids = $driver->add($task);
+                $map[$task['task_id']] = $ids[0];
+            }
+            break;
+        }
+    }
+
+    /**
+     */
+    public function restoreDependencies()
+    {
+        return array('tasks' => array('tasklists'));
     }
 
     /* Download data. */

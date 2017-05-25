@@ -2,6 +2,7 @@
 v5.0.0-git
 ----------
 
+[jan] Add API to backup and restore user data.
 [jan] Add support for monthly recurrence on last weekday (Request #1922).
 [jan] Keep original file names when PUTing tasks via WebDAV.
 [mjr] Add an "actual" field for tracking actual time spent.

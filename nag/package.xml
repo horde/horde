@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>false</active>
  </lead>
- <date>2016-12-13</date>
+ <date>2017-05-25</date>
  <version>
   <release>5.0.0</release>
   <api>5.0.0</api>
@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Add API to backup and restore user data.
 * [jan] Add support for monthly recurrence on last weekday (Request #1922).
 * [jan] Keep original file names when PUTing tasks via WebDAV.
 * [mjr] Add an "actual" field for tracking actual time spent.
@@ -109,6 +110,9 @@
      </dir> <!-- /lib/Ajax/Imple -->
      <file name="Application.php" role="horde" />
     </dir> <!-- /lib/Ajax -->
+    <dir name="Backup">
+     <file name="Tasks.php" role="horde" />
+    </dir> <!-- /lib/Backup -->
     <dir name="Block">
      <file name="Summary.php" role="horde" />
     </dir> <!-- /lib/Block -->
@@ -837,6 +841,7 @@
    <install as="nag/lib/Ajax/Application/Handler/Smartmobile.php" name="lib/Ajax/Application/Handler/Smartmobile.php" />
    <install as="nag/lib/Ajax/Imple/ContactAutoCompleter.php" name="lib/Ajax/Imple/ContactAutoCompleter.php" />
    <install as="nag/lib/Ajax/Imple/TagAutoCompleter.php" name="lib/Ajax/Imple/TagAutoCompleter.php" />
+   <install as="nag/lib/Backup/Tasks.php" name="lib/Backup/Tasks.php" />
    <install as="nag/lib/Block/Summary.php" name="lib/Block/Summary.php" />
    <install as="nag/lib/Driver/Kolab.php" name="lib/Driver/Kolab.php" />
    <install as="nag/lib/Driver/Smartlist.php" name="lib/Driver/Smartlist.php" />
@@ -1811,9 +1816,10 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2016-12-13</date>
+   <date>2017-05-25</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Add API to backup and restore user data.
 * [jan] Add support for monthly recurrence on last weekday (Request #1922).
 * [jan] Keep original file names when PUTing tasks via WebDAV.
 * [mjr] Add an "actual" field for tracking actual time spent.
