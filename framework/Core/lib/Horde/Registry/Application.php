@@ -241,6 +241,20 @@ class Horde_Registry_Application implements Horde_Shutdown_Task
     }
 
     /**
+     * Returns restore dependencies, i.e. a list of collections types that
+     * require other collection types to be finished first.
+     *
+     * @since Horde_Core 2.29.0
+     *
+     * @return array  A list of dependencies in the format
+     *                [ 'type' => [ 'dependency' ] ]
+     */
+    public function restoreDependencies()
+    {
+        return array();
+    }
+
+    /**
      * Return the initial page to access.
      *
      * @since 2.12.0

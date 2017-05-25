@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Add Horde_Registry_Application#backup() and restore().
+* [jan] Add Horde_Registry_Application#backup(), restore(), and restoreDependencies().
 * [mjr] Fix calculating ActiveSync SOFTDELETE times for calendar collections (Bug #14631).
  </notes>
  <contents>
@@ -4456,7 +4456,7 @@
    <date>2017-05-24</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [jan] Add Horde_Registry_Application#backup() and restore().
+* [jan] Add Horde_Registry_Application#backup(), restore(), and restoreDependencies().
 * [mjr] Fix calculating ActiveSync SOFTDELETE times for calendar collections (Bug #14631).
    </notes>
   </release>

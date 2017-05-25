@@ -174,18 +174,38 @@ class Horde_Cli_Backup extends Application
         global $registry;
 
         $reader = new Reader($dir);
-        $cleared = array();
-        foreach ($reader->restore($apps, $users) as $app => $collections) {
-            foreach ($collections as $collection) {
-                $user = $collection->getUser();
-                if ($clear && !isset($cleared[$user])) {
-                    $this->_registry->removeUserData($user, $app);
-                    $cleared[$user] = true;
-                }
-                $this->_registry->callAppMethod(
-                    $app, 'restore', array('args' => array($collection))
+        $cleared = $resolved = array();
+        $continue = false;
+        while (true) {
+            foreach ($reader->restore($apps, $users) as $app => $collections) {
+                $deps = $this->_registry->callAppMethod(
+                    $app, 'restoreDependencies'
                 );
+                foreach ($collections as $collection) {
+                    $type = $collection->getType();
+                    if (in_array($type, $resolved)) {
+                        continue;
+                    }
+                    if (isset($deps[$type]) &&
+                        array_diff($deps[$type], $resolved)) {
+                        $continue = true;
+                        continue;
+                    }
+                    $resolved[] = $type;
+                    $user = $collection->getUser();
+                    if ($clear && !isset($cleared[$user])) {
+                        $this->_registry->removeUserData($user, $app);
+                        $cleared[$user] = true;
+                    }
+                    $this->_registry->callAppMethod(
+                        $app, 'restore', array('args' => array($collection))
+                    );
+                }
             }
+            if (!$continue) {
+                break;
+            }
+            $continue = false;
         }
     }
 
