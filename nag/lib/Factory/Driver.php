@@ -69,6 +69,9 @@ class Nag_Factory_Driver extends Horde_Core_Factory_Base
         } else {
             $nag = new Nag_Driver($params, sprintf(_("Unable to load the definition of %s."), $class));
         }
+        if (!empty($tasklist)) {
+            $nag->open($tasklist);
+        }
         $this->_instances[$signature] = $nag;
 
         return $nag;

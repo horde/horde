@@ -1049,7 +1049,6 @@ class Nag_Api extends Horde_Registry_Api
                             unset($hash['tasklist_id']);
                             unset($hash['task_id']);
                             unset($hash['parent']);
-                            $storage->open($tasklist);
                             $storage->add($hash);
                         }
                         $ids[] = $task->uid;
