@@ -49,7 +49,7 @@ class Horde_Cli_Backup extends Application
             $cli,
             array(
                 'description' => _("Horde backup and restore tool"),
-                'usage' => '%prog [-a|--app=APP ...] [-u|--user=USER ...] -d|--dir=DIR --backup|--restore',
+                'usage' => '%prog [-a|--app=APP ...] [-u|--user=USER ...] -d|--dir=DIR --backup|--restore [-c|--clear]',
             )
         );
 
@@ -100,6 +100,13 @@ class Horde_Cli_Backup extends Application
                 'help' => _("List of users to backup/restore."),
             )
         );
+        $this->addOption(
+            '-c', '--clear',
+            array(
+                'action' => 'store_true',
+                'help' => _("Clear all existing user data before restoring a user?"),
+            )
+        );
     }
 
     /**
@@ -120,7 +127,8 @@ class Horde_Cli_Backup extends Application
             $this->_restore(
                 $this->values->dir,
                 $this->values->app ?: array(),
-                $this->values->user ?: array()
+                $this->values->user ?: array(),
+                $this->values->clear
             );
             break;
         case 'list':
@@ -159,12 +167,21 @@ class Horde_Cli_Backup extends Application
      * @param string $directory      Backup directory.
      * @param string[] $application  Application names.
      * @param string[] $users        User names.
+     * @param boolean $clear         Clear user data before restore?
      */
-    protected function _restore($dir, $apps, $users)
+    protected function _restore($dir, $apps, $users, $clear)
     {
+        global $registry;
+
         $reader = new Reader($dir);
+        $cleared = array();
         foreach ($reader->restore($apps, $users) as $app => $collections) {
             foreach ($collections as $collection) {
+                $user = $collection->getUser();
+                if ($clear && !isset($cleared[$user])) {
+                    $this->_registry->removeUserData($user, $app);
+                    $cleared[$user] = true;
+                }
                 $this->_registry->callAppMethod(
                     $app, 'restore', array('args' => array($collection))
                 );
