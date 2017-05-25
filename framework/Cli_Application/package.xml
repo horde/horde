@@ -3,7 +3,7 @@
  <name>Horde_Cli_Application</name>
  <channel>pear.horde.org</channel>
  <summary>Library for creating command line applications</summary>
- <description>TODO</description>
+ <description>A base class with supporting classes that builds a complete command line application.</description>
  <lead>
   <name>Jan Schneider</name>
   <user>jan</user>
