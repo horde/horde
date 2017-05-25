@@ -128,6 +128,37 @@ class Horde_Date_Recurrence
     }
 
     /**
+     * Creates an instance of this class from a hash.
+     *
+     * @since Horde_Date 2.4.0
+     * @see toHash()
+     *
+     * @param array $hash  A hash of this object.
+     */
+    public static function fromHash($hash)
+    {
+        $start = explode('/', $hash['start'], 2);
+        if (!isset($start[1])) {
+            $start[1] = null;
+        }
+        $recurrence = new self(new Horde_Date($start[0], $start[1]));
+        if (!empty($hash['end'])) {
+            $end = explode('/', $hash['end'], 2);
+            if (!isset($end[1])) {
+                $end[1] = null;
+            }
+            $recurrence->recurEnd = new Horde_Date($end[0], $end[1]);
+        }
+        $recurrence->recurCount = $hash['count'];
+        $recurrence->recurType = $hash['type'];
+        $recurrence->recurInterval = $hash['interval'];
+        $recurrence->recurData = $hash['data'];
+        $recurrence->exceptions = $hash['exceptions'];
+        $recurrence->completions = $hash['completions'];
+        return $recurrence;
+    }
+
+    /**
      * Resets the class properties.
      */
     public function reset()
@@ -1617,6 +1648,30 @@ class Horde_Date_Recurrence
         }
 
         return $hash;
+    }
+
+    /**
+     * Returns a hash representing this object.
+     *
+     * @since Horde_Date 2.4.0
+     * @see fromHash()
+     *
+     * @return array  A hash of this object.
+     */
+    public function toHash()
+    {
+        return array(
+            'start' => $this->start->format(Horde_Date::DATE_DEFAULT . '/e'),
+            'end' => $this->recurEnd
+                ? $this->recurEnd->format(Horde_Date::DATE_DEFAULT . '/e')
+                : null,
+            'count' => $this->recurCount,
+            'type' => $this->recurType,
+            'interval' => $this->recurInterval,
+            'data' => $this->recurData,
+            'exceptions' => $this->exceptions,
+            'completions' => $this->completions,
+        );
     }
 
     /**

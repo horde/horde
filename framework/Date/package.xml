@@ -16,10 +16,10 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-12-16</date>
+ <date>2017-05-25</date>
  <version>
-  <release>2.3.3</release>
-  <api>2.3.0</api>
+  <release>2.4.0</release>
+  <api>2.4.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Add Horde_Date_Recurrence::fromHash() and toHash().
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1106,15 +1106,15 @@
   </release>
   <release>
    <version>
-    <release>2.3.3</release>
-    <api>2.3.0</api></version>
+    <release>2.4.0</release>
+    <api>2.4.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-12-16</date>
+   <date>2017-05-25</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Add Horde_Date_Recurrence::fromHash() and toHash().
    </notes>
   </release>
  </changelog>
