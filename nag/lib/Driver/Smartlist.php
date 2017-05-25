@@ -20,9 +20,16 @@ class Nag_Driver_Smartlist extends Nag_Driver
     /**
      * The share object the smartlist is based on.
      *
-     * @var array  An array of criteria
+     * @var Horde_Share_Object
      */
     protected $_share;
+
+    /**
+     * The search query bulding this smartlist.
+     *
+     * @var Nag_Search
+     */
+    protected $_search;
 
     /**
      * Constructs a new SQL storage object.
