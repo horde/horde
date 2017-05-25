@@ -266,11 +266,13 @@ class Mnemo_Application extends Horde_Registry_Application
         }
     }
 
+    /* Backup/restore */
+
     /**
      */
     public function backup(array $users = array())
     {
-        global $conf, $injector, $mnemo_shares;
+        global $injector, $mnemo_shares;
 
         $factory = $injector->getInstance('Mnemo_Factory_Driver');
 
