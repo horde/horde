@@ -163,7 +163,7 @@ class Horde_Cli_Backup extends Application
     protected function _restore($dir, $apps, $users)
     {
         $reader = new Reader($dir);
-        foreach ($reader->restore($users, $apps) as $app => $collections) {
+        foreach ($reader->restore($apps, $users) as $app => $collections) {
             foreach ($collections as $collection) {
                 $this->_registry->callAppMethod(
                     $app, 'restore', array('args' => array($collection))

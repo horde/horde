@@ -93,7 +93,7 @@ class Reader
      * @return \Horde\Backup\Collection[]  All restored object collections.
      */
     public function restore(
-        array $users = array(), $applications = array()
+        array $applications = array(), $users = array()
     )
     {
         if ($users) {
