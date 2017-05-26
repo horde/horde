@@ -49,9 +49,11 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
     /**
      * Retrieves all of the notes of the current notepad from the backend.
      *
+     * @param boolean $raw  Return the raw bodies, don't try to decrypt.
+     *
      * @throws Mnemo_Exception
      */
-    public function retrieve()
+    public function retrieve($raw = false)
     {
         $this->_memos = array();
 
@@ -65,7 +67,8 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
         }
 
         foreach ($note_list as $note) {
-            $this->_memos[Horde_Url::uriB64Encode($note['uid'])] = $this->_buildNote($note);
+            $this->_memos[Horde_Url::uriB64Encode($note['uid'])] =
+                $this->_buildNote($note, null, $raw);
         }
     }
 
@@ -343,30 +346,18 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
      *
      * @param array $note         The data for the note
      * @param string $passphrase  A passphrase for decrypting a note
+     * @param boolean $raw        Return the raw body, don't try to decrypt.
      *
      * @return array  The converted data array representing the note
      */
-    protected function _buildNote($note, $passphrase = null)
+    protected function _buildNote($note, $passphrase = null, $raw = false)
     {
-        $encrypted = false;
         $body = $note['body'];
         $id = Horde_Url::uriB64Encode($note['uid']);
-
-        if (strpos($body, '-----BEGIN PGP MESSAGE-----') === 0) {
-            $encrypted = true;
-            if (empty($passphrase)) {
-                $passphrase = Mnemo::getPassphrase($id);
-            }
-            if (empty($passphrase)) {
-                $body = new Mnemo_Exception(_("This note has been encrypted."), Mnemo::ERR_NO_PASSPHRASE);
-            } else {
-                try {
-                    $body = $this->_decrypt($body, $passphrase)->message;
-                } catch (Mnemo_Exception $e) {
-                    $body = $e;
-                }
-                Mnemo::storePassphrase($id, $passphrase);
-            }
+        if ($raw) {
+            $encrypted = false;
+        } else {
+            $encrypted = $this->_decryptBody($body, $id, $passphrase);
         }
 
         $tagger = $GLOBALS['injector']->getInstance('Mnemo_Tagger');

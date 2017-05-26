@@ -86,7 +86,7 @@ class Notes implements Iterator
      */
     public function rewind()
     {
-        $this->_driver->retrieve();
+        $this->_driver->retrieve(true);
         $this->_iterator = new ArrayIterator($this->_driver->listMemos());
     }
 

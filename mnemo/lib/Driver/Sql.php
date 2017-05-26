@@ -58,9 +58,11 @@ class Mnemo_Driver_Sql extends Mnemo_Driver
     /**
      * Retrieves all of the notes of the current notepad from the backend.
      *
+     * @param boolean $raw  Return the raw bodies, don't try to decrypt.
+     *
      * @throws Mnemo_Exception
      */
-    public function retrieve()
+    public function retrieve($raw = false)
     {
         $query = 'SELECT * FROM mnemo_memos WHERE memo_owner = ?';
         $values = array($this->_notepad);
@@ -74,7 +76,7 @@ class Mnemo_Driver_Sql extends Mnemo_Driver
         // Store the retrieved values in a fresh list.
         $this->_memos = array();
         foreach ($rows as $row) {
-            $this->_memos[$row['memo_id']] = $this->_buildNote($row);
+            $this->_memos[$row['memo_id']] = $this->_buildNote($row, null, $raw);
         }
     }
 
@@ -291,11 +293,12 @@ class Mnemo_Driver_Sql extends Mnemo_Driver
      *
      * @param array $row           Hash of the note data, db keys.
      * @param string  $passphrase  The encryption passphrase.
+     * @param boolean $raw         Return the raw body, don't try to decrypt.
      *
      * @return array a Note hash.
      * @throws Mnemo_Exception
      */
-    protected function _buildNote($row, $passphrase = null)
+    protected function _buildNote($row, $passphrase = null, $raw = false)
     {
         // Make sure notes always have a UID.
         if (empty($row['memo_uid'])) {
@@ -313,25 +316,13 @@ class Mnemo_Driver_Sql extends Mnemo_Driver
         }
 
         // Decrypt note if requested.
-        $encrypted = false;
+        $id = $row['memo_id'];
         $body = $this->_column->binaryToString($row['memo_body']);
         $body = Horde_String::convertCharset($body, $this->_charset, 'UTF-8');
-        if (strpos($body, '-----BEGIN PGP MESSAGE-----') === 0) {
-            $encrypted = true;
-            if (empty($passphrase)) {
-                $passphrase = Mnemo::getPassphrase($row['memo_id']);
-            }
-            if (empty($passphrase)) {
-                $body = new Mnemo_Exception(_("This note has been encrypted."), Mnemo::ERR_NO_PASSPHRASE);
-            } else {
-                try {
-                    $body = $this->_decrypt($body, $passphrase);
-                    $body = $body->message;
-                } catch (Mnemo_Exception $e) {
-                    $body = $e;
-                }
-                Mnemo::storePassphrase($row['memo_id'], $passphrase);
-            }
+        if ($raw) {
+            $encrypted = false;
+        } else {
+            $encrypted = $this->_decryptBody($body, $id, $passphrase);
         }
 
         // Create a new note based on $row's values.

@@ -38,9 +38,11 @@ abstract class Mnemo_Driver
     /**
      * Retrieves all of the notes of the current notepad from the backend.
      *
+     * @param boolean $raw  Return the raw bodies, don't try to decrypt.
+     *
      * @thows Mnemo_Exception
      */
-    abstract public function retrieve();
+    abstract public function retrieve($raw = false);
 
     /**
      * Lists memos based on the given criteria. All memos will be
@@ -377,6 +379,42 @@ abstract class Mnemo_Driver
         } catch (Horde_Crypt_Exception $e) {
             throw new Mnemo_Exception($e->getMessage(), Mnemo::ERR_DECRYPT);
         }
+    }
+
+    /**
+     * Tries to decrypt the note body.
+     *
+     * @param string $body  The note body. Will be decrypted if possible, or
+     *                      set to an exception if decryption failed.
+     * @param string $id    The note ID.
+     * @param string $passphrase  An optional encryption password.
+     *
+     * @return boolean  Whether this was an encrypted note.
+     */
+    protected function _decryptBody(&$body, $id, $passphrase)
+    {
+        if (strpos($body, '-----BEGIN PGP MESSAGE-----') !== 0) {
+            return false;
+        }
+
+        if (empty($passphrase)) {
+            $passphrase = Mnemo::getPassphrase($id);
+        }
+        if (empty($passphrase)) {
+            $body = new Mnemo_Exception(
+                _("This note has been encrypted."),
+                Mnemo::ERR_NO_PASSPHRASE
+            );
+        } else {
+            try {
+                $body = $this->_decrypt($body, $passphrase)->message;
+            } catch (Mnemo_Exception $e) {
+                $body = $e;
+            }
+            Mnemo::storePassphrase($id, $passphrase);
+        }
+
+        return true;
     }
 
     /**
