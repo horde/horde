@@ -349,7 +349,8 @@ class Horde_Cli
      */
     public function fatal($error)
     {
-        if ($error instanceof Exception) {
+        if ($error instanceof Throwable ||
+            $error instanceof Exception) {
             $trace = $error;
         } else {
             $trace = debug_backtrace();
