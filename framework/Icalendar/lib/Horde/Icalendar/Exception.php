@@ -1,7 +1,5 @@
 <?php
 /**
- * Exception handler for the horde/Icalendar package.
- *
  * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
@@ -11,6 +9,16 @@
  * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Icalendar
+ */
+
+/**
+ * Exception handler for the Horde_Icalendar library.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2010-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Icalendar
  */
 class Horde_Icalendar_Exception extends Horde_Exception_Wrapped
 {

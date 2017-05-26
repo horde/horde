@@ -1,7 +1,5 @@
 <?php
 /**
- * Class representing vNotes.
- *
  * Copyright 2003-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
@@ -12,6 +10,17 @@
  * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Icalendar
+ */
+
+/**
+ * Class representing vNotes.
+ *
+ * @author    Mike Cochrane <mike@graftonhall.co.nz>
+ * @author    Karsten Fourmont <fourmont@gmx.de>
+ * @category  Horde
+ * @copyright 2003-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Icalendar
  */
 class Horde_Icalendar_Vnote extends Horde_Icalendar
 {

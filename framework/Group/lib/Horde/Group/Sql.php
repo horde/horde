@@ -15,11 +15,12 @@
 /**
  * This class provides an SQL driver for the Horde group system.
  *
- * @author   Duck <duck@obala.net>
- * @author   Jan Schneider <jan@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Group
+ * @author    Duck <duck@obala.net>
+ * @author    Jan Schneider <jan@horde.org>
+ * @category  Horde
+ * @copyright 1999-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Group
  */
 class Horde_Group_Sql extends Horde_Group_Base
 {

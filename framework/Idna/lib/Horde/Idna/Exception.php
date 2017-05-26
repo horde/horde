@@ -5,10 +5,10 @@
  * See the enclosed file COPYING for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsd.
  *
- * @category  Horde
- * @copyright 2014-2017 Horde LLC
- * @license   http://www.horde.org/licenses/bsd BSD
- * @package   Idna
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/bsd BSD
+ * @package  Idna
  */
 
 /**

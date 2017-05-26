@@ -5,20 +5,21 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @category Horde
- * @package  History
  * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  History
  */
 
 /**
  * The Horde_History_Sql class provides a method of tracking changes in Horde
  * objects, stored in a SQL table.
  *
- * @category Horde
- * @package  History
- * @author   Chuck Hagenbuch <chuck@horde.org>
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @category  Horde
+ * @copyright 2003-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   History
  */
 class Horde_History_Sql extends Horde_History
 {

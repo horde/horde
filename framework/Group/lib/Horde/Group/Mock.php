@@ -14,10 +14,11 @@
 /**
  * This class provides a mock driver for the Horde group system.
  *
- * @author   Duck <duck@obala.net>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Group
+ * @author    Duck <duck@obala.net>
+ * @category  Horde
+ * @copyright 2008-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Group
  */
 class Horde_Group_Mock extends Horde_Group_Base
 {

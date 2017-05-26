@@ -2,20 +2,23 @@
 /**
  * Copyright 2007-2017 Horde LLC (http://www.horde.org/)
  *
+ * See the enclosed file LICENSE for license information (BSD). If you
+ * did not receive this file, see http://www.horde.org/licenses/bsd.
+ *
  * @author   Chuck Hagenbuch <chuck@horde.org>
- * @license  http://www.horde.org/licenses/bsd BSD
  * @category Horde
+ * @license  http://www.horde.org/licenses/bsd BSD
  * @package  Http
  */
 
 /**
  * An HTTP client.
  *
- * @author   Chuck Hagenbuch <chuck@horde.org>
- * @license  http://www.horde.org/licenses/bsd BSD
- * @category Horde
- * @package  Http
- *
+ * @author         Chuck Hagenbuch <chuck@horde.org>
+ * @category       Horde
+ * @copyright      2007-2017 Horde LLC
+ * @license        http://www.horde.org/licenses/bsd BSD
+ * @package        Http
  * @property       boolean      $httpMethodOverride
  *                              @see $_httpMethodOverride
  * @property       Horde_Http_Request_Base $request

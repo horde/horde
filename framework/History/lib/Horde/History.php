@@ -1,32 +1,27 @@
 <?php
 /**
- * The Horde_History:: system.
- *
- * PHP version 5
- *
- * @category Horde
- * @package  History
- * @author   Chuck Hagenbuch <chuck@horde.org>
- * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link     http://pear.horde.org/index.php?package=History
- */
-
-/**
- * The Horde_History:: class provides a method of tracking changes in Horde
- * objects, stored in a SQL table.
- *
  * Copyright 2003-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @category Horde
- * @package  History
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link     http://pear.horde.org/index.php?package=History
+ * @package  History
+ */
+
+/**
+ * The Horde_History class provides methods of tracking changes in Horde
+ * objects.
+ *
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @author    Gunnar Wrobel <wrobel@pardus.de>
+ * @category  Horde
+ * @copyright 2003-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   History
  */
 abstract class Horde_History
 {

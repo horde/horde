@@ -2,40 +2,46 @@
 /**
  * Copyright 2007-2017 Horde LLC (http://www.horde.org/)
  *
+ * See the enclosed file LICENSE for license information (BSD). If you
+ * did not receive this file, see http://www.horde.org/licenses/bsd.
+ *
  * @author   Chuck Hagenbuch <chuck@horde.org>
- * @license  http://www.horde.org/licenses/bsd BSD
  * @category Horde
+ * @license  http://www.horde.org/licenses/bsd BSD
  * @package  Http
  */
 
 /**
- * @author   Chuck Hagenbuch <chuck@horde.org>
- * @license  http://www.horde.org/licenses/bsd BSD
- * @category Horde
- * @package  Http
+ * Base class for HTTP request objects.
  *
- * @property string|Horde_Url $uri   Default URI if not specified for
- *                                   individual requests.
- * @property array   $headers        Hash with additional request headers.
- * @property string  $method         Default request method if not specified
- *                                   for individual requests.
- * @property array|string $data      POST data fields or POST/PUT data body.
- * @property string  $username       Authentication user name.
- * @property string  $password       Authentication password.
- * @property string  $authenticationScheme  Authentication method, one of the
- *                                   Horde_Http::AUTH_* constants.
- * @property string  $proxyServer    Host name of a proxy server.
- * @property integer $proxyPort      Port number of a proxy server.
- * @property integer $proxyType      Proxy server type, one of the
- *                                   Horde_Http::PROXY_* constants.
- * @property string  $proxyUsername  Proxy authentication user name.
- * @property string  $proxyPassword  Proxy authentication password.
- * @property string  $proxyAuthenticationScheme  Proxy authentication method,
- *                                   one of the Horde_Http::AUTH_* constants.
- * @property integer $redirects      Maximum number of redirects to follow.
- * @property integer $timeout        Timeout in seconds.
- * @property string $userAgent       User-Agent: request header contents.
- * @property boolean $verifyPeer     Verify SSL peer certificates?
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @category  Horde
+ * @copyright 2007-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/bsd BSD
+ * @package   Http
+ * @property  string|Horde_Url $uri Default URI if not specified for
+  *                                 individual requests.
+ * @property  array $headers Hash with additional request headers.
+ * @property  string $method Default request method if not specified for
+ *                           individual requests.
+ * @property  array|string $data POST data fields or POST/PUT data body.
+ * @property  string $username Authentication user name.
+ * @property  string $password Authentication password.
+ * @property  string $authenticationScheme Authentication method, one of the
+ *                                         Horde_Http::AUTH_* constants.
+ * @property  string $proxyServer Host name of a proxy server.
+ * @property  integer $proxyPort Port number of a proxy server.
+ * @property  integer $proxyType Proxy server type, one of the
+ *                               Horde_Http::PROXY_* constants.
+ * @property  string $proxyUsername Proxy authentication user name.
+ * @property  string $proxyPassword Proxy authentication password.
+ * @property  string $proxyAuthenticationScheme Proxy authentication method,
+ *                                              one of the Horde_Http::AUTH_*
+ *                                              constants.
+ * @property  integer $redirects Maximum number of redirects to follow.
+ * @property  integer $timeout Timeout in seconds.
+ * @property  string $userAgent User-Agent: request header contents.
+ * @property  boolean $verifyPeer Verify SSL peer certificates?
  */
 abstract class Horde_Http_Request_Base
 {

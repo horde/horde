@@ -2,19 +2,26 @@
 /**
  * Copyright 2007-2017 Horde LLC (http://www.horde.org/)
  *
+ * See the enclosed file LICENSE for license information (BSD). If you
+ * did not receive this file, see http://www.horde.org/licenses/bsd.
+ *
  * @author   Michael Cramer <michael@bigmichi1.de>
- * @license  http://www.horde.org/licenses/bsd BSD
  * @category Horde
+ * @license  http://www.horde.org/licenses/bsd BSD
  * @package  Http
  */
 
 /**
- * @author   Michael Cramer <michael@bigmichi1.de>
- * @license  http://www.horde.org/licenses/bsd BSD
- * @category Horde
- * @package  Http
+ * Base HTTP request object for the pecl_http backends.
+ *
+ * @author    Michael Cramer <michael@bigmichi1.de>
+ * @category  Horde
+ * @copyright 2007-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/bsd BSD
+ * @package   Http
  */
-abstract class Horde_Http_Request_PeclhttpBase extends Horde_Http_Request_Base {
+abstract class Horde_Http_Request_PeclhttpBase extends Horde_Http_Request_Base
+{
     /**
      * Map of HTTP authentication schemes from Horde_Http constants to
      * implementation specific constants.
@@ -29,16 +36,6 @@ abstract class Horde_Http_Request_PeclhttpBase extends Horde_Http_Request_Base {
      * @var array
      */
     protected $_proxyTypes = array();
-
-    /**
-     * Constructor.
-     *
-     * @throws Horde_Http_Exception
-     */
-    public function __construct($args = array())
-    {
-        parent::__construct($args);
-    }
 
     /**
      * Translates a Horde_Http::AUTH_* constant to implementation specific

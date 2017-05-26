@@ -2,17 +2,25 @@
 /**
  * Copyright 2007-2017 Horde LLC (http://www.horde.org/)
  *
+ * See the enclosed file LICENSE for license information (BSD). If you
+ * did not receive this file, see http://www.horde.org/licenses/bsd.
+ *
  * @author   Chuck Hagenbuch <chuck@horde.org>
- * @license  http://www.horde.org/licenses/bsd BSD
  * @category Horde
+ * @license  http://www.horde.org/licenses/bsd BSD
  * @package  Http
  */
 
 /**
- * @author   Chuck Hagenbuch <chuck@horde.org>
- * @license  http://www.horde.org/licenses/bsd BSD
- * @category Horde
- * @package  Http
+ * HTTP request object factory.
+ *
+ * Automatically determines the best suitable HTTP backend driver.
+ *
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @category  Horde
+ * @copyright 2007-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/bsd BSD
+ * @package   Http
  */
 class Horde_Http_Request_Factory
 {

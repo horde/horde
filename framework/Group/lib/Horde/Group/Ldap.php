@@ -15,11 +15,12 @@
 /**
  * This class provides an LDAP driver for the Horde group system.
  *
- * @author   Ben Chavet <ben@horde.org>
- * @author   Jan Schneider <jan@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Group
+ * @author    Ben Chavet <ben@horde.org>
+ * @author    Jan Schneider <jan@horde.org>
+ * @category  Horde
+ * @copyright 2005-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Group
  */
 class Horde_Group_Ldap extends Horde_Group_Base
 {

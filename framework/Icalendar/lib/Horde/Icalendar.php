@@ -14,10 +14,11 @@
 /**
  * Class representing iCalendar files.
  *
- * @author   Mike Cochrane <mike@graftonhall.co.nz>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Icalendar
+ * @author    Mike Cochrane <mike@graftonhall.co.nz>
+ * @category  Horde
+ * @copyright 2003-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Icalendar
  */
 class Horde_Icalendar
 {

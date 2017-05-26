@@ -1,7 +1,5 @@
 <?php
 /**
- * Class representing vTimezones.
- *
  * Copyright 2003-2017 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
@@ -11,6 +9,16 @@
  * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Icalendar
+ */
+
+/**
+ * Class representing timezones at standard time.
+ *
+ * @author    Mike Cochrane <mike@graftonhall.co.nz>
+ * @category  Horde
+ * @copyright 2003-2017 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Icalendar
  */
 class Horde_Icalendar_Standard extends Horde_Icalendar
 {
