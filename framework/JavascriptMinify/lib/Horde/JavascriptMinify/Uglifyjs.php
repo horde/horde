@@ -63,6 +63,9 @@ class Horde_JavascriptMinify_Uglifyjs extends Horde_JavascriptMinify_Null
                 ' --source-map-url ' .
                 escapeshellarg($this->_opts['sourcemap']);
         }
+        if (isset($this->_opts['cmdline'])) {
+            $cmd .= ' ' . $this->_opts['cmdline'];
+        }
 
         if (is_array($this->_data)) {
             $js = '';
@@ -74,11 +77,8 @@ class Horde_JavascriptMinify_Uglifyjs extends Horde_JavascriptMinify_Null
         }
 
         $cmdline = new Horde_JavascriptMinify_Util_Cmdline();
-        return $cmdline->runCmd(
-            $js,
-            trim($cmd . ' ' . $this->_opts['cmdline']),
-            $this->_opts['logger']
-        ) . $this->_sourceUrls();
+        return $cmdline->runCmd($js, trim($cmd), $this->_opts['logger'])
+            . $this->_sourceUrls();
     }
 
 }
