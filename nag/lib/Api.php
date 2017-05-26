@@ -215,8 +215,6 @@ class Nag_Api extends Horde_Registry_Api
         $task = $GLOBALS['injector']
             ->getInstance('Nag_Factory_Driver')
             ->create('')->getByUID($uid);
-        $taskId = $task->id;
-        $owner = $task->owner;
         if (!Nag::hasPermission($task->tasklist, Horde_Perms::EDIT)) {
             throw new Horde_Exception_PermissionDenied();
         }
@@ -682,7 +680,7 @@ class Nag_Api extends Horde_Registry_Api
                             // LAST-MODIFIED timestamp of existing entry
                             // is newer: don't replace it.
                             continue;
-                        }
+                    }
 
                     // Don't change creator/owner.
                     $task->owner = $existing->owner;
@@ -1138,12 +1136,6 @@ class Nag_Api extends Horde_Registry_Api
         if (!Nag::hasPermission($tasklist_id, Horde_Perms::EDIT)) {
             throw new Horde_Exception_PermissionDenied();
         }
-        try {
-            $share = $GLOBALS['nag_shares']->getShare($tasklist_id);
-        } catch (Horde_Share_Exception $e) {
-            Horde::log($e->getMessage(), 'ERR');
-            throw new Nag_Exception($e);
-        }
         $task = Nag::getTask($tasklist_id, $task_id);
         $completed = $task->completed;
         try {
@@ -1293,7 +1285,7 @@ class Nag_Api extends Horde_Registry_Api
         // Handle an arrray of UIDs for convenience
         if (is_array($uid)) {
             foreach ($uid as $g) {
-                $result = $this->delete($g);
+                $this->delete($g);
             }
 
             return true;
@@ -1397,8 +1389,6 @@ class Nag_Api extends Horde_Registry_Api
         default:
             throw new Nag_Exception(sprintf(_("Unsupported Content-Type: %s"), $contentType));
         }
-
-        return $result;
     }
 
     /**
@@ -1588,7 +1578,6 @@ class Nag_Api extends Horde_Registry_Api
         $storage = $GLOBALS['injector']
             ->getInstance('Nag_Factory_Driver')
             ->create($timeobject['params']['tasklist']);
-        $existing = $storage->get($timeobject['id']);
         $info = array();
         if (isset($timeobject['start'])) {
             $info['due'] = new Horde_Date($timeobject['start']);
@@ -1679,11 +1668,13 @@ class Nag_Api extends Horde_Registry_Api
      *  'icon'     - URL to an image.
      * </pre>
      */
-    public function searchTags($names, $max = 10, $from = 0,
-                               $resource_type = '', $user = null, $raw = false)
+    public function searchTags(
+        $names, $max = 10, $from = 0, $resource_type = '', $user = null,
+        $raw = false
+    )
     {
         // TODO: $max, $from, $resource_type not honored
-        global $injector, $registry;
+        global $injector;
 
         $results = $injector
             ->getInstance('Nag_Tagger')
