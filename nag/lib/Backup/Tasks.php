@@ -84,7 +84,13 @@ class Tasks implements Iterator
      */
     public function rewind()
     {
+        global $registry;
+
+        $pushed = $registry->pushApp('nag', array('check_perms' => false));
         $this->_driver->retrieve(Nag::VIEW_ALL, false);
+        if ($pushed === true) {
+            $registry->popApp();
+        }
         $this->_task = $this->_driver->tasks;
         $this->_task->reset();
         $this->_current = $this->_task->each();
