@@ -134,22 +134,30 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
      */
     public function deleteSlice()
     {
-        $slices = array();
-        $ids = !is_array($this->vars->id) ? array($this->vars->id) : $this->vars->id;
-        foreach ($ids as $id) {
-            $slices[] = array('id' => $id, 'delete' => true);
-        }
-        try {
-            $result = $GLOBALS['injector']
-                ->getInstance('Hermes_Driver')
-                ->updateTime($slices);
-            $GLOBALS['notification']->push(
-                _("Your time entry was successfully deleted."), 'horde.success');
+        global $injector, $notification;
 
-            return $result;
-        } catch (Hermes_Exception $e) {
-            $GLOBALS['notification']->push($e, 'horde.error');
+        $driver = $injector->getInstance('Hermes_Driver');
+        $ids = is_array($this->vars->id)
+            ? $this->vars->id
+            : array($this->vars->id);
+
+        $slices = array();
+        foreach ($ids as $id) {
+            try {
+                $slice = $driver->updateTime(
+                    array('id' => $id, 'delete' => true)
+                );
+                $slices[] = $slice['id'];
+            } catch (Hermes_Exception $e) {
+                $notification->push($e, 'horde.error');
+            }
         }
+
+        $notification->push(
+            _("Your time entry was successfully deleted."), 'horde.success'
+        );
+
+        return $slices;
     }
 
     /**
@@ -160,30 +168,31 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
      */
     public function enterTime()
     {
+        global $injector, $notification, $registry;
+
         $slice = new Hermes_Slice();
         $slice->readForm();
 
         try {
-            $id = $GLOBALS['injector']
-                ->getInstance('Hermes_Driver')
+            $new = $injector->getInstance('Hermes_Driver')
                 ->enterTime($slice['employee'], $slice);
-            $new = current($GLOBALS['injector']
-                ->getInstance('Hermes_Driver')
-                ->getHours(array('id' => $id)));
-
-            Hermes::updateCostObject($new);
-            if ($slice['employee'] == $GLOBALS['registry']->getAuth()) {
-                $GLOBALS['notification']
-                    ->push(_("Your time was successfully entered."), 'horde.success');
-
+            if ($slice['employee'] == $registry->getAuth()) {
+                $notification->push(
+                    _("Your time was successfully entered."),
+                    'horde.success'
+                );
                 return $new->toJson();
-            } else {
-                $GLOBALS['notification']
-                    ->push(sprintf(_("The time was successfully entered for %s."), $slice['employee']), 'horde.success');
-                return true;
             }
+            $notification->push(
+                sprintf(
+                    _("The time was successfully entered for %s."),
+                    $slice['employee']
+                ),
+                'horde.success'
+            );
+            return true;
         } catch (Hermes_Exception $e) {
-            $GLOBALS['notification']->push($e, 'horde.error');
+            $notification->push($e, 'horde.error');
         }
     }
 
@@ -525,21 +534,30 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
      */
     public function updateSlice()
     {
+        global $injector, $notification, $registry;
+
         $slice = new Hermes_Slice();
         $slice->readForm();
         try {
-            $GLOBALS['injector']->getInstance('Hermes_Driver')->updateTime(array($slice));
-            if ($slice['employee'] == $GLOBALS['registry']->getAuth()) {
-                $GLOBALS['notification']->push(_("Your time was successfully updated."), 'horde.success');
+            $new = $injector->getInstance('Hermes_Driver')
+                ->updateTime($slice);
+            if ($slice['employee'] == $registry->getAuth()) {
+                $notification->push(
+                    _("Your time was successfully updated."),
+                    'horde.success'
+                );
             } else {
-                $GLOBALS['notification']->push(sprintf(_("The time was successfully updated and saved to the time sheet of %s."), $slice['employee']), 'horde.success');
+                $notification->push(
+                    sprintf(
+                        _("The time was successfully updated and saved to the time sheet of %s."),
+                        $slice['employee']
+                    ),
+                    'horde.success'
+                );
             }
-
-            $new = current($GLOBALS['injector']->getInstance('Hermes_Driver')->getHours(array('id' => $slice['id'])));
-            Hermes::updateCostObject($new);
             return $new->toJson();
         } catch (Hermes_Exception $e) {
-            $GLOBALS['notification']->push($e, 'horde.error');
+            $notification->push($e, 'horde.error');
         }
     }
 

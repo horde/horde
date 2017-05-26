@@ -39,24 +39,25 @@ class Hermes_Driver_Sql extends Hermes_Driver
     }
 
     /**
-     * Save a row of billing information.
+     * Saves a row of time information.
      *
      * @param string $employee  The Horde ID of the person who worked the
      *                          hours.
      * @param array $info       The billing information to enter. Must contain
      *                          the following entries:
-     *<pre>
-     *  'date'         The day the hours were worked (ISO format)
-     *  'client'       The id of the client the work was done for.
-     *  'type'         The type of work done.
-     *  'hours'        The number of hours worked
-     *  'billable'     (optional) Whether or not the work is billable hours.
-     *  'description'  A short description of the work.
-     *  'note'         Any notes.
-     *  'costobject'   The costobject id
-     *</pre>
+     *                          - date:        The day the hours were worked
+     *                                         (ISO format)
+     *                          - client:      The id of the client the work
+     *                                         was done for.
+     *                          - type:        The type of work done.
+     *                          - hours:       The number of hours worked
+     *                          - billable:    (optional) Whether or not the
+     *                                         work is billable hours.
+     *                          - description: A short description of the work.
+     *                          - note:        Any notes.
+     *                          - costobject:  The costobject id
      *
-     * @return integer  The new timeslice_id of the newly entered slice
+     * @return Hermes_Slice  The new time slice.
      * @throws Hermes_Exception
      */
     public function enterTime($employee, $info)
@@ -76,93 +77,107 @@ class Hermes_Driver_Sql extends Hermes_Driver
                'timeslice_note, timeslice_rate, costobject_id) ' .
                'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 
-        $values = array($info['client'],
-                        $employee,
-                        $info['type'],
-                        $info['hours'],
-                        isset($info['billable']) ? (int)$info['billable'] : 0,
-                        $dt->timestamp() + 1,
-                        $this->_convertToDriver($info['description']),
-                        $this->_convertToDriver($info['note']),
-                        (float)$job_rate,
-                        (empty($info['costobject']) ? null :
-                         $info['costobject']));
+        $values = array(
+            $info['client'],
+            $employee,
+            $info['type'],
+            $info['hours'],
+            isset($info['billable']) ? (int)$info['billable'] : 0,
+            $dt->timestamp() + 1,
+            $this->_convertToDriver($info['description']),
+            $this->_convertToDriver($info['note']),
+            (float)$job_rate,
+            (empty($info['costobject']) ? null :
+             $info['costobject'])
+        );
 
         try {
-            return $this->_db->insert($sql, $values);
+            $id = $this->_db->insert($sql, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Hermes_Exception($e);
         }
+
+        $slice = current($this->getHours(array('id' => $id)));
+        Hermes::updateCostObject($slice);
+
+        return $slice;
     }
 
     /**
-     * Update a set of billing information.
+     * Updates time slice information.
      *
-     * @param array $entries  The billing information to enter. Each array row
-     *                        must contain the following entries:
-     *              'id'           The id of this time entry.
-     *              'date'         The day the hours were worked (ISO format)
-     *              'client'       The id of the client the work was done for.
-     *              'type'         The type of work done.
-     *              'hours'        The number of hours worked
-     *              'rate'         The hourly rate the work was done at.
-     *              'billable'     Whether or not the work is billable hours.
-     *              'description'  A short description of the work.
-     *              'employee'     The employee
+     * @param array $info  The time information to enter. Must contain the
+     *                     following entries:
+     *                     - id:          The id of this time entry.
+     *                     - date:        The day the hours were worked (ISO
+     *                                    format)
+     *                     - client:      The id of the client the work was
+     *                                    done for.
+     *                     - type:        The type of work done.
+     *                     - hours:       The number of hours worked
+     *                     - rate:        The hourly rate the work was done at.
+     *                     - billable:    Whether or not the work is billable
+     *                                    hours.
+     *                     - description: A short description of the work.
+     *                     - employee:    The employee
      *
-     *                        If any rows contain a 'delete' entry, those rows
-     *                        will be deleted instead of updated.
+     *                     If any rows contain a 'delete' entry, those rows will
+     *                     be deleted instead of updated.
      *
-     * @return integer  The number of successful updates.
+     * @return Hermes_Slice  The updated time slice.
      * @throws Horde_Exception_PermissionDenied
      * @throws Hermes_Exception
      */
-    public function updateTime($entries)
+    public function updateTime($info)
     {
-        foreach ($entries as $info) {
-            if (!Hermes::canEditTimeslice($info['id'])) {
-                throw new Horde_Exception_PermissionDenied(_("Access denied; user cannot modify this timeslice."));
-            }
-            if (!empty($info['delete'])) {
-                try {
-                    return $this->_db->delete('DELETE FROM hermes_timeslices WHERE timeslice_id = ?', array((int)$info['id']));
-                } catch (Horde_Db_Exception $e) {
-                    throw new Hermes_Exception($e);
-                }
-            } else {
-                if (isset($info['employee'])) {
-                    $employee_cl = ' ,employee_id = ?';
-                } else {
-                    $employee_cl = '';
-                }
-                $dt = new Horde_Date($info['date']);
-                $sql = 'UPDATE hermes_timeslices SET' .
-                       ' clientjob_id = ?, jobtype_id = ?,' .
-                       ' timeslice_hours = ?, timeslice_isbillable = ?,' .
-                       ' timeslice_date = ?, timeslice_description = ?,' .
-                       ' timeslice_note = ?, costobject_id = ?' .
-                       $employee_cl .
-                       ' WHERE timeslice_id = ?';
-                $values = array($info['client'],
-                                $info['type'],
-                                $info['hours'],
-                                (isset($info['billable']) ? (int)$info['billable'] : 0),
-                                $dt->timestamp(),
-                                $this->_convertToDriver($info['description']),
-                                $this->_convertToDriver($info['note']),
-                                (empty($info['costobject']) ? null : $info['costobject']));
-                if (!empty($employee_cl)) {
-                    $values[] = $info['employee'];
-                }
-                $values[] = (int)$info['id'];
+        if (!Hermes::canEditTimeslice($info['id'])) {
+            throw new Horde_Exception_PermissionDenied(_("Access denied; user cannot modify this timeslice."));
+        }
 
-                try {
-                    return $this->_db->update($sql, $values);
-                } catch (Horde_Db_Exception $e) {
-                    throw new Hermes_Exception($e);
-                }
+        if (!empty($info['delete'])) {
+            try {
+                return $this->_db->delete('DELETE FROM hermes_timeslices WHERE timeslice_id = ?', array((int)$info['id']));
+            } catch (Horde_Db_Exception $e) {
+                throw new Hermes_Exception($e);
             }
         }
+
+        if (isset($info['employee'])) {
+            $employee_cl = ' ,employee_id = ?';
+        } else {
+            $employee_cl = '';
+        }
+        $dt = new Horde_Date($info['date']);
+        $sql = 'UPDATE hermes_timeslices SET' .
+               ' clientjob_id = ?, jobtype_id = ?,' .
+               ' timeslice_hours = ?, timeslice_isbillable = ?,' .
+               ' timeslice_date = ?, timeslice_description = ?,' .
+               ' timeslice_note = ?, costobject_id = ?' .
+               $employee_cl .
+               ' WHERE timeslice_id = ?';
+        $values = array($info['client'],
+                        $info['type'],
+                        $info['hours'],
+                        (isset($info['billable']) ? (int)$info['billable'] : 0),
+                        $dt->timestamp(),
+                        $this->_convertToDriver($info['description']),
+                        $this->_convertToDriver($info['note']),
+                        (empty($info['costobject']) ? null : $info['costobject']));
+        if (!empty($employee_cl)) {
+            $values[] = $info['employee'];
+        }
+        $values[] = (int)$info['id'];
+
+        try {
+            $this->_db->update($sql, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Hermes_Exception($e);
+        }
+
+        $slice = current($this->getHours(array('id' => $info['id'])));
+        Hermes::updateCostObject($slice);
+
+        return $slice;
     }
 
     /**

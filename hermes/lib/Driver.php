@@ -165,47 +165,53 @@ abstract class Hermes_Driver
     abstract public function purge();
 
     /**
-     * Save a row of billing information.
+     * Saves a row of time information.
      *
      * @param string $employee  The Horde ID of the person who worked the
      *                          hours.
-     * @param array $entries    The billing information to enter. Each array
-     *                          row must contain the following entries:
-     *             'date'         The day the hours were worked (ISO format)
-     *             'client'       The id of the client the work was done for.
-     *             'type'         The type of work done.
-     *             'hours'        The number of hours worked
-     *             'rate'         The hourly rate the work was done at.
-     *             'billable'     (optional) Whether or not the work is
-     *                            billable hours.
-     *             'description'  A short description of the work.
+     * @param array $info       The billing information to enter. Must contain
+     *                          the following entries:
+     *                          - date:        The day the hours were worked
+     *                                         (ISO format)
+     *                          - client:      The id of the client the work
+     *                                         was done for.
+     *                          - type:        The type of work done.
+     *                          - hours:       The number of hours worked
+     *                          - billable:    (optional) Whether or not the
+     *                                         work is billable hours.
+     *                          - description: A short description of the work.
+     *                          - note:        Any notes.
+     *                          - costobject:  The costobject id
      *
-     * @return integer  The new timeslice_id of the newly entered slice
+     * @return Hermes_Slice  The new time slice.
      * @throws Hermes_Exception
      */
     abstract public function enterTime($employee, $info);
 
     /**
-     * Update a set of billing information.
+     * Updates time slice information.
      *
-     * @param array $entries  The billing information to enter. Each array row
-     *                        must contain the following entries:
-     *              'id'           The id of this time entry.
-     *              'date'         The day the hours were worked (ISO format)
-     *              'client'       The id of the client the work was done for.
-     *              'type'         The type of work done.
-     *              'hours'        The number of hours worked
-     *              'rate'         The hourly rate the work was done at.
-     *              'billable'     Whether or not the work is billable hours.
-     *              'description'  A short description of the work.
+     * @param array $info  The time information to enter. Must contain the
+     *                     following entries:
+     *                     - id:          The id of this time entry.
+     *                     - date:        The day the hours were worked (ISO
+     *                                    format)
+     *                     - client:      The id of the client the work was
+     *                                    done for.
+     *                     - type:        The type of work done.
+     *                     - hours:       The number of hours worked
+     *                     - rate:        The hourly rate the work was done at.
+     *                     - billable:    Whether or not the work is billable
+     *                                    hours.
+     *                     - description: A short description of the work.
+     *                     - employee:    The employee
      *
-     *                        If any rows contain a 'delete' entry, those rows
-     *                        will be deleted instead of updated.
+     *                     If any rows contain a 'delete' entry, those rows will
+     *                     be deleted instead of updated.
      *
-     * @return mixed  boolean
+     * @return Hermes_Slice  The updated time slice.
      * @throws Horde_Exception_PermissionDenied
      * @throws Hermes_Exception
      */
     abstract public function updateTime($entries);
-
 }

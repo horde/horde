@@ -17,11 +17,19 @@ $delete = $vars->get('delete');
 if (!empty($delete)) {
     try {
         $injector->getInstance('Hermes_Driver')
-            ->updateTime(array(array('id' => $delete, 'delete' => true)));
+            ->updateTime(array('id' => $delete, 'delete' => true));
     } catch (Horde_Exception $e) {
-        $notification->push(sprintf(_("There was an error deleting the time: %s"), $e->getMessage()), 'horde.error');
+        $notification->push(
+            sprintf(
+                _("There was an error deleting the time: %s"),
+                $e->getMessage()
+            ),
+            'horde.error'
+        );
     }
-    $notification->push(_("The time entry was successfully deleted."), 'horde.success');
+    $notification->push(
+        _("The time entry was successfully deleted."), 'horde.success'
+    );
     $vars->remove('delete');
 }
 
