@@ -55,10 +55,10 @@ case 'hermes_form_time_entry':
         try {
             if ($vars->exists('id')) {
                 $notification->push(_("Your time was successfully updated."), 'horde.success', array('sticky'));
-                $GLOBALS['injector']->getInstance('Hermes_Driver')->updateTime(array($info));
+                $injector->getInstance('Hermes_Driver')->updateTime(array($info));
             } else {
                 $notification->push(_("Your time was successfully entered."), 'horde.success', array('sticky'));
-                $GLOBALS['injector']->getInstance('Hermes_Driver')->enterTime($GLOBALS['registry']->getAuth(), $info);
+                $injector->getInstance('Hermes_Driver')->enterTime($registry->getAuth(), $info);
             }
         } catch (Exception $e) {
             Horde::log($e, 'ERR');
@@ -77,7 +77,7 @@ default:
             $notification->push(_("Access denied; user cannot modify this timeslice."), 'horde.error');
             Horde::url('time.php')->redirect();
         }
-        $myhours = $GLOBALS['injector']->getInstance('Hermes_Driver')->getHours(array('id' => $id));
+        $myhours = $injector->getInstance('Hermes_Driver')->getHours(array('id' => $id));
         if (is_array($myhours)) {
             foreach ($myhours as $item) {
                 if (isset($item['id']) && $item['id'] == $id) {

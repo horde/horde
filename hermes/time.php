@@ -16,7 +16,7 @@ $vars = Horde_Variables::getDefaultVariables();
 $delete = $vars->get('delete');
 if (!empty($delete)) {
     try {
-        $GLOBALS['injector']->getInstance('Hermes_Driver')
+        $injector->getInstance('Hermes_Driver')
             ->updateTime(array(array('id' => $delete, 'delete' => true)));
     } catch (Horde_Exception $e) {
         $notification->push(sprintf(_("There was an error deleting the time: %s"), $e->getMessage()), 'horde.error');
@@ -38,7 +38,7 @@ case 'submittimeform':
             $time[] = array('id' => $id);
         }
         try {
-            $GLOBALS['injector']->getInstance('Hermes_Driver')
+            $injector->getInstance('Hermes_Driver')
                 ->markAs('submitted', $time);
             $notification->push(
                 _("Your time was successfully submitted."), 'horde.success');
@@ -53,7 +53,7 @@ case 'submittimeform':
 // We are displaying all time.
 $tabs = Hermes::tabs();
 $criteria = array(
-    'employee' => $GLOBALS['registry']->getAuth(),
+    'employee' => $registry->getAuth(),
     'submitted' => false,
     'link_page' => 'time.php');
 $table = new Hermes_Table(

@@ -19,7 +19,7 @@ $vars = Horde_Variables::getDefaultVariables();
 $delete = $vars->get('delete');
 if (!empty($delete)) {
     try {
-        $GLOBALS['injector']->getInstance('Hermes_Driver')->updateTime(array(array('id' => $delete, 'delete' => true)));
+        $injector->getInstance('Hermes_Driver')->updateTime(array(array('id' => $delete, 'delete' => true)));
     } catch (Horde_Exception $e) {
         $notification->push(sprintf(_("There was an error deleting the time: %s"), $e->getMessage()), 'horde.error');
     }
