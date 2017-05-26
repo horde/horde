@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-03-08</date>
+ <date>2017-05-26</date>
  <version>
   <release>1.1.4</release>
   <api>1.1.0</api>
@@ -47,6 +47,25 @@
      <file name="JavascriptMinify.php" role="php" />
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="JavascriptMinify">
+      <dir name="fixtures">
+       <file name="one.js" role="test" />
+       <file name="two.js" role="test" />
+      </dir> <!-- /test/Horde/JavascriptMinify/fixtures -->
+      <file name="AllTests.php" role="test" />
+      <file name="bootstrap.php" role="test" />
+      <file name="ClosureTest.php" role="test" />
+      <file name="conf.php.dist" role="test" />
+      <file name="NullTest.php" role="test" />
+      <file name="phpunit.xml" role="test" />
+      <file name="TestBase.php" role="test" />
+      <file name="UglifyjsTest.php" role="test" />
+      <file name="YuiTest.php" role="test" />
+     </dir> <!-- /test/Horde/JavascriptMinify -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
    </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -92,6 +111,17 @@
    <install as="Horde/JavascriptMinify/Uglifyjs.php" name="lib/Horde/JavascriptMinify/Uglifyjs.php" />
    <install as="Horde/JavascriptMinify/Yui.php" name="lib/Horde/JavascriptMinify/Yui.php" />
    <install as="Horde/JavascriptMinify/Util/Cmdline.php" name="lib/Horde/JavascriptMinify/Util/Cmdline.php" />
+   <install as="Horde/JavascriptMinify/AllTests.php" name="test/Horde/JavascriptMinify/AllTests.php" />
+   <install as="Horde/JavascriptMinify/bootstrap.php" name="test/Horde/JavascriptMinify/bootstrap.php" />
+   <install as="Horde/JavascriptMinify/ClosureTest.php" name="test/Horde/JavascriptMinify/ClosureTest.php" />
+   <install as="Horde/JavascriptMinify/conf.php.dist" name="test/Horde/JavascriptMinify/conf.php.dist" />
+   <install as="Horde/JavascriptMinify/NullTest.php" name="test/Horde/JavascriptMinify/NullTest.php" />
+   <install as="Horde/JavascriptMinify/phpunit.xml" name="test/Horde/JavascriptMinify/phpunit.xml" />
+   <install as="Horde/JavascriptMinify/TestBase.php" name="test/Horde/JavascriptMinify/TestBase.php" />
+   <install as="Horde/JavascriptMinify/UglifyjsTest.php" name="test/Horde/JavascriptMinify/UglifyjsTest.php" />
+   <install as="Horde/JavascriptMinify/YuiTest.php" name="test/Horde/JavascriptMinify/YuiTest.php" />
+   <install as="Horde/JavascriptMinify/fixtures/one.js" name="test/Horde/JavascriptMinify/fixtures/one.js" />
+   <install as="Horde/JavascriptMinify/fixtures/two.js" name="test/Horde/JavascriptMinify/fixtures/two.js" />
    </filelist>
  </phprelease>
  <changelog>
@@ -169,7 +199,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-03-08</date>
+   <date>2017-05-26</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

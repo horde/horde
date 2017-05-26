@@ -1,0 +1,6 @@
+<?php
+$conf['javascriptminify']['closure']['java'] = '/usr/bin/java';
+$conf['javascriptminify']['closure']['closure'] = '/usr/share/java/closure-compiler.jar';
+$conf['javascriptminify']['uglifyjs']['uglifyjs'] = '/usr/bin/uglifyjs';
+$conf['javascriptminify']['yui']['java'] = '/usr/bin/java';
+$conf['javascriptminify']['yui']['yui'] = '/usr/share/yui-compressor/yui-compressor.jar';
