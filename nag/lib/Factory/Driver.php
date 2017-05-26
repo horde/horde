@@ -52,7 +52,7 @@ class Nag_Factory_Driver extends Horde_Core_Factory_Base
             $params['db'] = $GLOBALS['injector']
                 ->getInstance('Horde_Core_Factory_Db')
                 ->create('nag', 'storage');
-                break;
+            break;
         case 'Kolab':
             $params['kolab'] = $GLOBALS['injector']->getInstance('Horde_Kolab_Storage');
             break;
