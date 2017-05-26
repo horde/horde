@@ -638,12 +638,22 @@ class Hermes
 
     public static function updateCostObject($slice)
     {
-        global $registry;
+        global $notification, $registry;
 
         list($app, $id) = explode(':', $slice['costobject']);
-        if ($registry->hasMethod('updateCostObject', strtolower($app))) {
-            $registry->callByPackage(strtolower($app), 'updateCostObject', array($id, $slice));
-            $GLOBALS['notification']->push(sprintf(_("Successfully updated the hours of cost object \"%s\"." . $slice->_type_name)), 'horde.success');
+        if ($registry->hasMethod('updateCostObject', Horde_String::lower($app))) {
+            $registry->callByPackage(
+                Horde_String::lower($app),
+                'updateCostObject',
+                array($id, $slice)
+            );
+            $notification->push(
+                sprintf(
+                    _("Successfully updated the hours of cost object \"%s\"."),
+                    $slice['_costobject_name']
+                ),
+                'horde.success'
+            );
         }
     }
 }
