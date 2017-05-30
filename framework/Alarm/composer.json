@@ -1,5 +1,5 @@
 {
-    "name": "horde/horde-alarm",
+    "name": "horde/alarm",
     "description": "Horde Alarm Libraries",
     "type": "library",
     "homepage": "https://pear.horde.org",
@@ -11,8 +11,8 @@
             "role": "lead"
         }
     ],
-    "version": "2.2.9",
-    "time": "2017-05-03",
+    "version": "2.2.10",
+    "time": "2017-05-30",
     "repositories": [
         {
             "type": "pear",
