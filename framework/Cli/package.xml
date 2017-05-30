@@ -17,7 +17,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2017-05-04</date>
+ <date>2017-05-30</date>
  <version>
   <release>2.2.3</release>
   <api>2.2.0</api>
@@ -835,7 +835,7 @@ Add &apos;default&apos; parameter to Horde_CLI::prompt().
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-05-04</date>
+   <date>2017-05-30</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix fatal error screen for PHP 7 error objects.
