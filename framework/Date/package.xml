@@ -18,7 +18,7 @@
  </lead>
  <date>2017-05-30</date>
  <version>
-  <release>2.4.0</release>
+  <release>2.4.1</release>
   <api>2.4.0</api>
  </version>
  <stability>
@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Add Horde_Date_Recurrence::fromHash() and toHash().
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1115,6 +1115,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Add Horde_Date_Recurrence::fromHash() and toHash().
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.4.1</release>
+    <api>2.4.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2017-05-30</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
