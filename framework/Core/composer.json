@@ -1,5 +1,5 @@
 {
-    "name": "horde/horde-core",
+    "name": "horde/core",
     "description": "Horde Core Framework libraries",
     "type": "library",
     "homepage": "https://pear.horde.org",
@@ -26,8 +26,8 @@
             "role": "developer"
         }
     ],
-    "version": "2.28.4",
-    "time": "2017-04-11",
+    "version": "2.29.0",
+    "time": "2017-05-30",
     "repositories": [
         {
             "type": "pear",
@@ -80,6 +80,7 @@
     },
     "suggest": {
         "pear-pear.horde.org/Horde_ActiveSync": "^2.38@stable",
+        "pear-pear.horde.org/Horde_Backup": "^1@stable <=2.0.0alpha1",
         "pear-pear.horde.org/Horde_Crypt": "^2@stable",
         "pear-pear.horde.org/Horde_Dav": "^1.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Db": "^2@stable",
