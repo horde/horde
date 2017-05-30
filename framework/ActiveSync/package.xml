@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2017-05-03</date>
+ <date>2017-05-30</date>
  <version>
   <release>2.38.5</release>
   <api>2.38.0</api>
@@ -3422,7 +3422,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-05-03</date>
+   <date>2017-05-30</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix undefined property warnings (Bug #14631).
