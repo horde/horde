@@ -33,15 +33,15 @@ class Horde_Pear_Package_Type_HordeSplit extends Horde_Pear_Package_Type_Horde
      * Get the package type.
      *
      * @return string The type: "Application" or "Component".
+     * @throws  Horde_Pear_Exception
      */
     public function getType()
     {
-        $dir = basename(dirname($this->getRootPath()));
-        if (basename(dirname($this->getRootPath())) == '/applications') {
-            return 'Application';
-        } else {
-            return 'Component';
+        if (!file_exists($this->getRootPath() . '/.horde.yml')) {
+            throw new Horde_Pear_Exception('Cannot find the horde.yml file.');
         }
+        $yml = Horde_Yaml::loadFile($this->getRootPath() . '/.horde.yml');
+        return ($yml['type'] == 'application') ? 'Application' : 'Component';
     }
 
     /**
