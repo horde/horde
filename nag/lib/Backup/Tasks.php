@@ -41,6 +41,13 @@ class Tasks implements Iterator
     protected $_task;
 
     /**
+     * The current task during iteration.
+     *
+     * @var Nag_Task
+     */
+    protected $_current;
+
+    /**
      * Constructor.
      *
      * @param Nag_Driver $driver  A driver instance.
