@@ -396,13 +396,13 @@ class Nag_Application extends Horde_Registry_Application
                 $tasklists[$share->getId()] = $share->toHash();
                 $backup->collections[] = new Backup\Collection(
                     new Nag\Backup\Tasks($factory->create($share->getName())),
-                    'user',
+                    $user,
                     'tasks'
                 );
             }
             $backup->collections[] = new Backup\Collection(
                 new ArrayIterator($tasklists),
-                'user',
+                $user,
                 'tasklists'
             );
             if ($pushed === true) {

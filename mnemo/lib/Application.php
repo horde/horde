@@ -304,13 +304,13 @@ class Mnemo_Application extends Horde_Registry_Application
                 $notepads[$share->getId()] = $share->toHash();
                 $backup->collections[] = new Backup\Collection(
                     new Mnemo\Backup\Notes($factory->create($notepad)),
-                    'user',
+                    $user,
                     'notes'
                 );
             }
             $backup->collections[] = new Backup\Collection(
                 new ArrayIterator($notepads),
-                'user',
+                $user,
                 'notepads'
             );
             if ($pushed === true) {
