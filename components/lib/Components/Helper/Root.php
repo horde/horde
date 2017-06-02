@@ -143,10 +143,7 @@ class Components_Helper_Root
      */
     public function getRoot()
     {
-        if (empty($this->_root_path)) {
-            $this->_root_path = $this->_determineRoot();
-        }
-        return $this->_root_path;
+        return $this->_options['git_base'];
     }
 
     /**
