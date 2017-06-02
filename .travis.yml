@@ -13,8 +13,6 @@ matrix:
   fast_finish: true
   allow_failures:
     - php: nightly
-    - php: 7.1
-    - php: 7.0
 services:
   - memcached
   - mongodb
@@ -100,7 +98,7 @@ before_script:
   - if [ "$TRAVIS_PHP_VERSION" == "7.0" ] || [ $(echo "$TRAVIS_PHP_VERSION 7.0" | tr " " "\n" | sort -V | head -n1) = "7.0" ];
     then
         phpenv config-add .travis.php7.ini;
-        yes "" | pecl install channel://pecl.php.net/pecl_http channel://pecl.php.net/msgpack-beta;
+        yes "" | pecl install channel://pecl.php.net/msgpack-beta;
     else
         phpenv config-add .travis.ini;
         yes "" | pecl install channel://pecl.php.net/igbinary channel://pecl.php.net/raphf-1.1.2 channel://pecl.php.net/propro-1.0.2 channel://pecl.php.net/pecl_http-2.5.6 channel://pecl.php.net/msgpack-0.5.7;
