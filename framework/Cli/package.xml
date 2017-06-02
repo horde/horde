@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix returning to normal font after text with light colors.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -851,7 +851,7 @@ Add &apos;default&apos; parameter to Horde_CLI::prompt().
    <date>2017-05-30</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix returning to normal font after text with light colors.
    </notes>
   </release>
  </changelog>

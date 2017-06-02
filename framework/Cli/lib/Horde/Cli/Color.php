@@ -141,7 +141,9 @@ class Horde_Cli_Color
 
         $colors = $this->_foregroundColors();
         if (isset($colors[$color])) {
-            return $colors[$color] . $text . "\x1b[39m";
+            return $colors[$color] . $text
+                . "\x1b[39m"
+                . (strpos($colors[$color], "\x1b[1m") === false ? '' : "\x1b[0m");
         }
 
         return $text;
