@@ -60,7 +60,8 @@ extends Components_Release_Task_Base
         if (strpos($results, 'lone zero block') !== false || substr($results, -1, 1) == 'a') {
             $errors[] = 'Broken Archive_Tar, upgrade first.';
         }
-        $remote = new Horde_Pear_Remote();
+
+        $remote = new Horde_Pear_Remote($options['releaseserver']);
         try {
             $exists = $remote->releaseExists(
                 $this->getComponent()->getName(),
