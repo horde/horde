@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix JavaScript minifying with recent Closure compilers (Bug #14650).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4469,7 +4469,7 @@
    <date>2017-05-30</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix JavaScript minifying with recent Closure compilers (Bug #14650).
    </notes>
   </release>
  </changelog>
