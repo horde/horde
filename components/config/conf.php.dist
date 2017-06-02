@@ -10,6 +10,9 @@
  * Boolean values may be true or false (never quotes).
  */
 
+/* Target directory for git checkouts. */
+$conf['git_base'] = '';
+
 /* PEAR server name. Only change for testing purposes. */
 $conf['releaseserver'] = 'pear.horde.org';
 
