@@ -61,6 +61,17 @@ extends Components_Release_Task_Base
             $errors[] = 'Broken Archive_Tar, upgrade first.';
         }
 
+        if (empty($options['releaseserver'])) {
+            $errors[] = 'The "releaseserver" option has no value. Where should the release be uploaded?';
+        }
+        if (empty($options['releasedir'])) {
+            $errors[] = 'The "releasedir" option has no value. Where is the remote pirum install located?';
+        }
+
+        if ($errors) {
+            return $errors;
+        }
+
         $remote = new Horde_Pear_Remote($options['releaseserver']);
         try {
             $exists = $remote->releaseExists(
@@ -75,7 +86,7 @@ extends Components_Release_Task_Base
                 );
             }
         } catch (Horde_Http_Exception $e) {
-                $errors[] = 'Failed accessing the remote PEAR server.';
+            $errors[] = 'Failed accessing the remote PEAR server.';
         }
         try {
             Components_Helper_Version::validateReleaseStability(
@@ -92,12 +103,6 @@ extends Components_Release_Task_Base
             );
         } catch (Components_Exception $e) {
             $errors[] = $e->getMessage();
-        }
-        if (empty($options['releaseserver'])) {
-            $errors[] = 'The "releaseserver" option has no value. Where should the release be uploaded?';
-        }
-        if (empty($options['releasedir'])) {
-            $errors[] = 'The "releasedir" option has no value. Where is the remote pirum install located?';
         }
         return $errors;
     }
