@@ -154,7 +154,7 @@ extends Components_Config_Base
                 '--horde-root',
                 array(
                     'action' => 'store',
-                    'help'   => 'The root of the Horde git repository.'
+                    'help'   => 'The root of the Horde git repository(ies).'
                 )
             )
         );
