@@ -319,6 +319,8 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             /* Convert links to open in new windows. Ignore mailto: links and
              * links that already have a target. */
             if ($node->hasAttribute('href')) {
+		$node->removeAttribute('download');//extra RFD security
+
                 $url = parse_url($node->getAttribute('href'));
                 if (isset($url['scheme']) && ($url['scheme'] == 'mailto')) {
                     /* We don't include HordePopup in IFRAME, so need to use
