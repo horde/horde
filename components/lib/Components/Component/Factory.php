@@ -289,7 +289,12 @@ class Components_Component_Factory
      */
     public function createPackageFile($package_xml_dir)
     {
-        $type = new Horde_Pear_Package_Type_HordeSplit($package_xml_dir);
+        if (basename(dirname($package_xml_dir)) == 'framework' ||
+            file_exists($package_xml_dir . '/../.gitignore')) {
+            $type = new Horde_Pear_Package_Type_Horde($package_xml_dir);
+        } else {
+            $type = new Horde_Pear_Package_Type_HordeSplit($package_xml_dir);
+        }
         $type->writePackageXmlDraft();
     }
 
@@ -315,12 +320,19 @@ class Components_Component_Factory
      */
     public function createContentList($package_xml_dir)
     {
-        return new Horde_Pear_Package_Contents_List(
-            new Horde_Pear_Package_Type_HordeSplit(
+        if (basename(dirname($package_xml_dir)) == 'framework' ||
+            file_exists($package_xml_dir . '/../.gitignore')) {
+            $type = new Horde_Pear_Package_Type_Horde(
                 $package_xml_dir,
                 $this->getGitRoot()->getRoot()
-            )
-        );
+            );
+        } else {
+            $type = new Horde_Pear_Package_Type_HordeSplit(
+                $package_xml_dir,
+                $this->getGitRoot()->getRoot()
+            );
+        }
+        return new Horde_Pear_Package_Contents_List($type);
     }
 
     /**
