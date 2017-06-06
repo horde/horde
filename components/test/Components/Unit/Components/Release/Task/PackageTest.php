@@ -36,7 +36,7 @@ extends Components_TestCase
         $task = $this->getReleaseTask('Package', $package);
         $this->assertEquals(
             array(),
-            $task->validate(array('releaseserver' => 'A', 'releasedir' => 'B'))
+            $task->validate(array('releaseserver' => 'pear.horde.org', 'releasedir' => 'B'))
         );
     }
 
@@ -68,7 +68,7 @@ extends Components_TestCase
         $this->getReleaseTasks()->run(
             array('Package'),
             $package,
-            array('releaseserver' => 'A', 'releasedir' => 'B')
+            array('releaseserver' => 'pear.horde.org', 'releasedir' => 'B')
         );
     }
 
@@ -82,7 +82,7 @@ extends Components_TestCase
             array('Package'),
             $package,
             array(
-                'releaseserver' => 'A',
+                'releaseserver' => 'pear.horde.org',
                 'releasedir' => 'B',
                 'pretend' => true,
                 'upload' => true
@@ -91,8 +91,8 @@ extends Components_TestCase
         $this->assertEquals(
             array(
                 'Would package NAME now.',
-                'Would run "scp [PATH TO RESULTING]/[PACKAGE.TGZ - PRETEND MODE] A:~/" now.',
-                'Would run "ssh A "umask 0002 && pirum add B ~/[PACKAGE.TGZ - PRETEND MODE] && rm [PACKAGE.TGZ - PRETEND MODE]"" now.'
+                'Would run "scp [PATH TO RESULTING]/[PACKAGE.TGZ - PRETEND MODE] pear.horde.org:~/" now.',
+                'Would run "ssh pear.horde.org "umask 0002 && pirum add B ~/[PACKAGE.TGZ - PRETEND MODE] && rm [PACKAGE.TGZ - PRETEND MODE]"" now.'
             ),
             $this->output->getOutput()
         );
