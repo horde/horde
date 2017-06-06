@@ -100,7 +100,7 @@ extends Components_TestCase
 
     private function _getPackage()
     {
-        $package = $this->getMock('Components_Component', array(), array(), '', false, false);
+        $package = $this->createMock('Components_Component', array(), array(), '', false, false);
         $package->expects($this->any())
             ->method('getState')
             ->will($this->returnValue('stable'));
