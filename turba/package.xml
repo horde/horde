@@ -28,7 +28,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2016-12-14</date>
+ <date>2017-06-06</date>
  <version>
   <release>5.0.0</release>
   <api>5.0.0</api>
@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [jan] Add API to backup and restore user data.
 * [jan] Show photos when displaying contacts in calendars.
 * [jan] Add CLI script to search for invalid email addresses.
 * [mjr] Remove Facebook driver.
@@ -134,6 +135,9 @@
      </dir> <!-- /lib/Ajax/Imple -->
      <file name="Application.php" role="horde" />
     </dir> <!-- /lib/Ajax -->
+    <dir name="Backup">
+     <file name="Contacts.php" role="horde" />
+    </dir> <!-- /lib/Backup -->
     <dir name="Block">
      <file name="Minisearch.php" role="horde" />
     </dir> <!-- /lib/Block -->
@@ -946,6 +950,7 @@
    <install as="turba/lib/Ajax/Application/Handler/Minisearch.php" name="lib/Ajax/Application/Handler/Minisearch.php" />
    <install as="turba/lib/Ajax/Application/Handler/Smartmobile.php" name="lib/Ajax/Application/Handler/Smartmobile.php" />
    <install as="turba/lib/Ajax/Imple/TagAutoCompleter.php" name="lib/Ajax/Imple/TagAutoCompleter.php" />
+   <install as="turba/lib/Backup/Contacts.php" name="lib/Backup/Contacts.php" />
    <install as="turba/lib/Block/Minisearch.php" name="lib/Block/Minisearch.php" />
    <install as="turba/lib/Data/Ldif.php" name="lib/Data/Ldif.php" />
    <install as="turba/lib/Driver/Favourites.php" name="lib/Driver/Favourites.php" />
@@ -2197,7 +2202,7 @@
    </notes>
   </release>
   <release>
-   <date>2016-12-14</date>
+   <date>2017-06-06</date>
    <version>
     <release>5.0.0</release>
     <api>5.0.0</api>
@@ -2208,6 +2213,7 @@
    </stability>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [jan] Add API to backup and restore user data.
 * [jan] Show photos when displaying contacts in calendars.
 * [jan] Add CLI script to search for invalid email addresses.
 * [mjr] Remove Facebook driver.

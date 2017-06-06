@@ -11,6 +11,10 @@
  * @package   Turba
  */
 
+use Horde\Backup;
+use Sabre\CalDAV;
+use Sabre\CardDAV;
+
 /**
  * Turba application API.
  *
@@ -42,9 +46,6 @@ if (!defined('HORDE_BASE')) {
 /* Load the Horde Framework core (needed to autoload
  * Horde_Registry_Application::). */
 require_once HORDE_BASE . '/lib/core.php';
-
-use Sabre\CalDAV;
-use Sabre\CardDAV;
 
 class Turba_Application extends Horde_Registry_Application
 {
@@ -490,6 +491,186 @@ class Turba_Application extends Horde_Registry_Application
                 'url' => Horde::url('search.php')
             )
         ));
+    }
+
+    /* Backup/restore */
+
+    /**
+     */
+    public function backup(array $users = array())
+    {
+        global $injector, $session;
+
+        $factory = $injector->getInstance('Turba_Factory_Driver');
+        $cfgSources = Turba::availableSources();
+
+        if (!$users && $session->get('turba', 'has_share')) {
+            foreach ($injector->getInstance('Turba_Shares')->listAllShares() as $share) {
+                $users[$share->get('owner')] = true;
+            }
+            $users = array_keys($users);
+        }
+
+        $getUser = function($user) use ($factory, $cfgSources)
+        {
+            global $injector, $registry, $session;
+
+            $backup = new Backup\User($user);
+
+            // Need to pushApp() here because this method is called delayed,
+            // but we need Turba's $conf.
+            $pushed = $registry->pushApp(
+                'turba', array('check_perms' => false)
+            );
+
+            if ($session->get('turba', 'has_share')) {
+                $turba_shares = $injector->getInstance('Turba_Shares');
+                $shares = $turba_shares->listShares(
+                    $user,
+                    array('attributes' => $user)
+                );
+                $cfgSources = Turba::getConfigFromShares(
+                    $cfgSources,
+                    true,
+                    array('shares' => $shares, 'auth_user' => $user)
+                );
+                $addressbooks = array();
+                foreach ($shares as $share) {
+                    $addressbooks[$share->getId()] = $share->toHash();
+                }
+                $backup->collections[] = new Backup\Collection(
+                    new ArrayIterator($addressbooks),
+                    $user,
+                    'addressbooks'
+                );
+            }
+
+            foreach ($cfgSources as $sourceId => $source) {
+                $driver = $factory->create($source, $sourceId, $cfgSources);
+                if ($driver->getContactOwner() == $registry->getAuth()) {
+                    $driver->setContactOwner($user);
+                }
+                $backup->collections[] = new Backup\Collection(
+                    new Turba\Backup\Contacts($driver, $user),
+                    $user,
+                    'contacts'
+                );
+            }
+
+            if ($pushed === true) {
+                $registry->popApp();
+            }
+
+            return $backup;
+        };
+
+        return new Backup\Users(new ArrayIterator($users), $getUser);
+    }
+
+    /**
+     */
+    public function restore(Backup\Collection $data)
+    {
+        global $injector, $registry, $session;
+
+        $user = $data->getUser();
+
+        switch ($data->getType()) {
+        case 'addressbooks':
+            $turba_shares = $injector->getInstance('Turba_Shares');
+            foreach ($data as $addressbook) {
+                $addressbook['owner'] = $user;
+                $addressbook['attributes'] = array_intersect_key(
+                    $addressbook['attributes'],
+                    array(
+                        'name'    => true,
+                        'desc'    => true,
+                        'params'  => true)
+                );
+                $turba_shares->fromHash($addressbook);
+            }
+            break;
+
+        case 'contacts':
+            $cfgSources = Turba::availableSources();
+            if ($session->get('turba', 'has_share')) {
+                $turba_shares = $injector->getInstance('Turba_Shares');
+                $shares = $turba_shares->listShares(
+                    $user,
+                    array('attributes' => $user)
+                );
+                $cfgSources = Turba::getConfigFromShares(
+                    $cfgSources,
+                    true,
+                    array('shares' => $shares, 'auth_user' => $user)
+                );
+            }
+            $map = array();
+            foreach (array('Object', 'Group') as $type) {
+                foreach ($data as $contact) {
+                    if ($contact['contact']['__type'] != $type) {
+                        continue;
+                    }
+                    $map = $this->_restoreContact(
+                        $contact, $user, $cfgSources, $map
+                    );
+                }
+            }
+            break;
+        }
+    }
+
+    /**
+     * Restores a single contact.
+     *
+     * @param array $contact     A contact hash.
+     * @param string $user       A user name.
+     * @param array $cfgSources  A backend configuration list.
+     * @param array $map         Maps old group member IDs to new IDs.
+     *
+     * @return array  The updated map.
+     */
+    protected function _restoreContact($contact, $user, $cfgSources, $map)
+    {
+        global $injector, $registry;
+
+        $driver = $injector->getInstance('Turba_Factory_Driver')->create(
+            $cfgSources[$contact['addressbook']],
+            $contact['addressbook'],
+            $cfgSources
+        );
+        if ($driver->getContactOwner() == $registry->getAuth()) {
+            $driver->setContactOwner($user);
+        }
+        $blobs = array_keys($driver->getBlobs());
+        foreach ($blobs as $blob) {
+            if (strlen($contact['contact'][$blob])) {
+                $contact['contact'][$blob] = base64_decode(
+                    $contact['contact'][$blob]
+                );
+            }
+        }
+        if ($contact['contact']['__type'] == 'Group') {
+            $members = array();
+            foreach (unserialize($contact['contact']['__members']) as $member) {
+                if (isset($map[$member])) {
+                    $members[] = $map[$member];
+                }
+            }
+            $contact['contact']['__members'] = serialize($members);
+        }
+        $map[$contact['contact']['__key']] = $driver->add(
+            $contact['contact']
+        );
+
+        return $map;
+    }
+
+    /**
+     */
+    public function restoreDependencies()
+    {
+        return array('contacts' => array('addressbooks'));
     }
 
     /* Download data. */
