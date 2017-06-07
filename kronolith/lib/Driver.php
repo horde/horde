@@ -461,6 +461,8 @@ class Kronolith_Driver
      */
     public function deleteEvent($eventId, $silent = false)
     {
+        global $injector;
+
         $event = $this->_deleteEvent($eventId, $silent);
         if (!$event) {
             return;
@@ -469,7 +471,11 @@ class Kronolith_Driver
         /* Log the deletion of this item in the history log. */
         if ($event->uid) {
             try {
-                $GLOBALS['injector']->getInstance('Horde_History')->log('kronolith:' . $this->calendar . ':' . $event->uid, array('action' => 'delete'), true);
+                $injector->getInstance('Horde_History')->log(
+                    'kronolith:' . $this->calendar . ':' . $event->uid,
+                    array('action' => 'delete'),
+                    true
+                );
             } catch (Exception $e) {
                 Horde::log($e, 'ERR');
             }
@@ -491,25 +497,27 @@ class Kronolith_Driver
         }
 
         /* Remove any pending alarms. */
-        $GLOBALS['injector']->getInstance('Horde_Alarm')->delete($event->uid);
+        $injector->getInstance('Horde_Alarm')->delete($event->uid);
 
         /* Remove any tags */
         $tagger = Kronolith::getTagger();
-        $tagger->replaceTags($event->uid, array(), $event->creator, Kronolith_Tagger::TYPE_EVENT);
+        $tagger->replaceTags(
+            $event->uid, array(), $event->creator, Kronolith_Tagger::TYPE_EVENT
+        );
 
         /* Tell content we removed the object */
-        $GLOBALS['injector']->getInstance('Content_Objects_Manager')
+        $injector->getInstance('Content_Objects_Manager')
             ->delete(array($event->uid), Kronolith_Tagger::TYPE_EVENT);
 
         /* Remove any geolocation data. */
         try {
-            $GLOBALS['injector']->getInstance('Kronolith_Geo')->deleteLocation($event->id);
+            $injector->getInstance('Kronolith_Geo')->deleteLocation($event->id);
         } catch (Kronolith_Exception $e) {
         }
 
         /* Remove any CalDAV mappings. */
         try {
-            $davStorage = $GLOBALS['injector']
+            $davStorage = $injector
                 ->getInstance('Horde_Dav_Storage');
             try {
                 $davStorage
@@ -529,11 +537,14 @@ class Kronolith_Driver
         /* See if this event represents an exception - if so, touch the base
          * event's history. The $isRecurring check is to prevent an infinite
          * loop in the off chance that an exception is entered as a recurring
-         * event.
-         */
+         * event. */
         if ($event->baseid && !$event->recurs()) {
             try {
-                $GLOBALS['injector']->getInstance('Horde_History')->log('kronolith:' . $this->calendar . ':' . $event->baseid, array('action' => 'modify'), true);
+                $injector->getInstance('Horde_History')->log(
+                    'kronolith:' . $this->calendar . ':' . $event->baseid,
+                    array('action' => 'modify'),
+                    true
+                );
             } catch (Exception $e) {
                 Horde::log($e, 'ERR');
             }
