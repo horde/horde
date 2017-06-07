@@ -520,6 +520,12 @@ class Kronolith_Driver
         } catch (Horde_Exception $e) {
         }
 
+        /* Remove any attached files. */
+        try {
+            $event->deleteFiles();
+        } catch (Horde_Exception $e) {
+        }
+
         /* See if this event represents an exception - if so, touch the base
          * event's history. The $isRecurring check is to prevent an infinite
          * loop in the off chance that an exception is entered as a recurring
