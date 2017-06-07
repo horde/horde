@@ -4275,38 +4275,36 @@ abstract class Kronolith_Event
      *
      * @param array $info  A hash with the file information as returned from a
      *                     Horde_Form_Type_file.
+     *
      * @throws Kronolith_Exception
      */
     public function addFile(array $info)
     {
-        if (empty($this->uid)) {
-            throw new Kronolith_Exception('VFS not supported for this object.');
-        }
-
-        $vfs = $this->vfsInit();
-
-        $dir = Kronolith::VFS_PATH . '/' . $this->getVfsUid();
-        $file = $info['name'];
-        while ($vfs->exists($dir, $file)) {
-            if (preg_match('/(.*)\[(\d+)\](\.[^.]*)?$/', $file, $match)) {
-                $file = $match[1] . '[' . ++$match[2] . ']' . $match[3];
-            } else {
-                $dot = strrpos($file, '.');
-                if ($dot === false) {
-                    $file .= '[1]';
-                } else {
-                    $file = substr($file, 0, $dot) . '[1]' . substr($file, $dot);
-                }
-            }
-        }
-        try {
-            $vfs->write($dir, $file, $info['tmp_name'], true);
-        } catch (Horde_Vfs_Exception $e) {
-            throw new Kronolith_Exception($e);
-        }
+        $this->_addFile($info);
     }
 
+    /**
+     * Saves a file into the VFS backend associated with this event.
+     *
+     * @param array $info  A hash with the file information and the file
+     *                     contents in 'data'.
+     *
+     * @throws Kronolith_Exception
+     */
     public function addFileFromData($info)
+    {
+        $this->_addFile($info, true);
+    }
+
+    /**
+     * Saves a file into the VFS backend associated with this event.
+     *
+     * @param array $info    A hash with the file information.
+     * @param boolean $data  Whether the file contents is in $info['data'].
+     *
+     * @throws Kronolith_Exception
+     */
+    protected function _addFile($info, $data = false)
     {
         if (empty($this->uid)) {
             throw new Kronolith_Exception("VFS not supported until object saved");
@@ -4328,7 +4326,11 @@ abstract class Kronolith_Event
             }
         }
         try {
-            $vfs->writeData($dir, $file, $info['data'], true);
+            if ($data) {
+                $vfs->writeData($dir, $file, $info['data'], true);
+            } else {
+                $vfs->write($dir, $file, $info['tmp_name'], true);
+            }
         } catch (Horde_Vfs_Exception $e) {
             throw new Kronolith_Exception($e);
         }
