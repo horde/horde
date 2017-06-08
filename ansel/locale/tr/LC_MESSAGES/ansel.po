@@ -1999,8 +1999,7 @@ msgid "Rotate Right"
 msgstr "Sağa Döndür"
 
 #: templates/image/resize_image.inc:76 templates/faces/custom.inc:52
-#: lib/Forms/Watermark.php:26 lib/Forms/ImageDate.php:15
-#: lib/Forms/Image.php:26
+#: lib/Forms/Watermark.php:26 lib/Forms/ImageDate.php:15 lib/Forms/Image.php:26
 msgid "Save"
 msgstr "Kaydet"
 

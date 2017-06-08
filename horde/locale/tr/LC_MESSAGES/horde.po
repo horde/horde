@@ -7,19 +7,20 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Horde 4.0.14\n"
+"Project-Id-Version: Horde 5.2.15\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-05-13 11:20+0100\n"
-"PO-Revision-Date: 2012-06-15 13:18+0200\n"
+"POT-Creation-Date: 2017-06-05 17:05+0300\n"
+"PO-Revision-Date: 2017-06-07 16:24+0300\n"
 "Last-Translator: ITU-BIDB\n"
 "Language-Team: i18n@lists.horde.org\n"
-"Language: Turkish\n"
+"Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.8.12\n"
 
-#: admin/groups.php:33
+#: admin/groups.php:32
 #, php-format
 msgid "\"%s\" was added to the groups system."
 msgstr "\"%s\" grup sistemine eklendi."
@@ -39,7 +40,7 @@ msgstr "\"%s\" yaratılamadı: %s."
 msgid "%.2fMB used of %.2fMB allowed (%.2f%%)"
 msgstr "%.2fMB kullanıyor. İzin verilen %.2fMB . (%.2f%%)"
 
-#: lib/Block/Weather.php:197
+#: lib/Block/Weather.php:212
 #, php-format
 msgid "%d %s and %s"
 msgstr "%d %s ve %s"
@@ -49,74 +50,115 @@ msgstr "%d %s ve %s"
 msgid "%d days until your password expires."
 msgstr "Şifrenizin son kullanım tarihine %d gün kaldı."
 
-#: lib/Block/Metar.php:259
+#: lib/Block/Metar.php:260
 #, php-format
 msgid "%d minutes"
 msgstr "%d dakika"
 
-#: services/facebook/index.php:122
+#: lib/Ajax/Application/FacebookHandler.php:221
 #, php-format
 msgid "%d person likes this"
 msgid_plural "%d persons like this"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d kişi bunu beğendi"
+msgstr[1] "%d kişi bunu beğendi"
 
 #: templates/admin/user/list.inc:4
 #, php-format
 msgid "%d to %d of %d"
 msgstr "%d den %d e. toplam: %d"
 
-#: lib/Block/Weather.php:237
+#: lib/Block/Weather.php:252
 #, php-format
 msgid "%d-day forecast"
 msgstr "%d-günlük hava tahmini"
 
-#: services/logintasks.php:89
+#: services/logintasks.php:91
 #, php-format
 msgid "%s - Notice"
 msgstr "%s - Uyarı"
 
-#: admin/config/config.php:26 admin/config/index.php:358
+#: admin/config/config.php:28 admin/config/index.php:465
 #, php-format
 msgid "%s Configuration"
 msgstr "%s Yapılandırma"
 
-#: services/logintasks.php:69
+#: services/logintasks.php:71
 #, php-format
 msgid "%s Tasks - Confirmation"
 msgstr "/%s Görevler - Onaylama"
 
-#: services/logintasks.php:79
+#: services/logintasks.php:81
 #, php-format
 msgid "%s Terms of Agreement"
 msgstr "%s Kullanım Koşulları"
 
-#: lib/Block/Metar.php:132 lib/Block/Metar.php:138 lib/Block/Metar.php:212
-#: lib/Block/Metar.php:318 lib/Block/Metar.php:324
+#: lib/Block/Metar.php:133 lib/Block/Metar.php:139 lib/Block/Metar.php:213
+#: lib/Block/Metar.php:319 lib/Block/Metar.php:325
 #, php-format
 msgid "%s at %s %s"
 msgstr "%s de %s %s"
 
-#: services/logintasks.php:70
+#: templates/prefs/twitter.html.php:9
+#, php-format
+msgid "%s can interact with your Twitter account"
+msgstr "%s, Twitter hesabınızla etkileşimde bulunabilir."
+
+#: templates/prefs/facebook.html.php:48
+#, php-format
+msgid "%s cannot read information about your Facebook friends."
+msgstr "%s, Facebook arkadaşlarınızla ilgili bilgileri okuyamıyor."
+
+#: templates/prefs/facebook.html.php:34
+#, php-format
+msgid ""
+"%s cannot read your stream messages and various other Facebook data items."
+msgstr ""
+"%s, akış iletilerinizi ve diğer çeşitli Facebook veri öğelerini okuyamıyor."
+
+#: templates/prefs/facebook.html.php:20
+#, php-format
+msgid ""
+"%s cannot set your status messages or publish other content to Facebook."
+msgstr ""
+"%s, durum iletilerinizi ayarlayamıyor veya başka içeriği Facebook'a "
+"yayınlayamıyor."
+
+#: services/logintasks.php:72
 #, php-format
 msgid ""
 "%s is ready to perform the tasks below. Select each operation to run at this "
 "time."
 msgstr "%s aşağıdaki görevleri yapmaya hazır. Şimdi yapılacak işlemleri seçin."
 
-#: lib/Block/Metar.php:161 lib/Block/Metar.php:166
+#: lib/Block/Metar.php:162 lib/Block/Metar.php:167
 #, php-format
 msgid ", gusting %s %s"
 msgstr ", fırtınalı %s %s"
 
-#: lib/Block/Metar.php:174
+#: lib/Block/Metar.php:175
 #, php-format
 msgid ", variable from %s to %s"
 msgstr ", değişim %s -> %s"
 
+#: lib/Application.php:332
+msgid "1 Day"
+msgstr "1 Gün"
+
+#: lib/Application.php:336
+msgid "1 Month"
+msgstr "1 Ay"
+
+#: lib/Application.php:334
+msgid "1 Week"
+msgstr "1 Hafta"
+
 #: lib/Block/Time.php:31
 msgid "12 Hour Format"
 msgstr "12'lik Saat Biçimi"
+
+#: lib/Application.php:335
+msgid "2 Weeks"
+msgstr "2 Hafta"
 
 #: lib/Block/Time.php:30
 msgid "24 Hour Format"
@@ -126,57 +168,36 @@ msgstr "24'lük Saat Biçimi"
 msgid "24 hours"
 msgstr "24 saat"
 
-#: config/prefs.php:440 config/prefs.php:442
+#: config/prefs.php:486 config/prefs.php:488
 msgid "24-hour format"
 msgstr "24'lük saat biçimi"
 
-#: templates/prefs/facebook.html:14
-msgid ""
-"<tag:app_name /> can interact with your Facebook account, but you must login "
-"to Facebook manually each time."
-msgstr ""
+#: lib/Application.php:333
+msgid "3 Days"
+msgstr "3 Gün"
 
-#: templates/prefs/facebook.html:49
-msgid "<tag:app_name /> cannot read information about your Facebook friends."
-msgstr ""
-
-#: templates/prefs/facebook.html:37
-msgid ""
-"<tag:app_name /> cannot read your stream messages and various other Facebook "
-"data items."
-msgstr ""
-
-#: templates/prefs/facebook.html:25
-msgid ""
-"<tag:app_name /> cannot set your status messages or publish other content to "
-"Facebook."
-msgstr ""
-
-#: templates/prefs/twitter.html:9
-msgid "<tag:appname /> can interact with your Twitter account"
-msgstr ""
-
-#: services/keyboard.php:46
-msgid "A characters"
-msgstr "Bir karakter"
-
-#: admin/activesync.php:36
+#: admin/activesync.php:40
 msgid ""
 "A device wipe has been requested. Device will be wiped on next "
 "syncronization attempt."
 msgstr ""
+"Bir cihaz temizleme isteği gönderildi. Cihaz bir sonraki senkronizasyon "
+"girişiminde temizlenecek."
 
-#: admin/config/index.php:147 admin/config/index.php:188
+#: admin/config/index.php:171 admin/config/index.php:215
+#: admin/config/index.php:348 admin/config/index.php:374
 #, php-format
 msgid "A newer version (%s) exists."
 msgstr "Daha yeni bir sürüm (%s) var."
 
-#: lib/Prefs/Ui.php:708
+#: lib/Prefs/Special/Activesync.php:112
 #, php-format
 msgid ""
 "A remote wipe for device id %s has been initiated. The device will be wiped "
 "during the next synchronisation."
 msgstr ""
+"Cihaz kimliği %s için uzaktan cihaz temizleme başlatıldı. Cihaz bir sonraki "
+"eşleşme sırasında temizlenecek."
 
 #: templates/data/datetime.inc:110 templates/data/time.inc:29
 msgid "AM/PM"
@@ -186,31 +207,32 @@ msgstr "Öğleden Önce / Öğleden Sonra"
 msgid "Account Information"
 msgstr "Hesap Bilgileri"
 
-#: admin/activesync.php:128
+#: templates/activesync/device_table.html.php:8
 msgid "Actions"
 msgstr "İşlemler"
 
-#: config/prefs.php:675
+#: config/prefs.php:735 lib/Application.php:207
 msgid "ActiveSync"
-msgstr ""
+msgstr "ActiveSync"
 
-#: admin/activesync.php:73
-msgid "ActiveSync Device Administration"
-msgstr ""
+#: admin/activesync.php:108
+msgid "ActiveSync Administration"
+msgstr "ActiveSync Yönetimi"
 
-#: admin/activesync.php:201 lib/Api.php:85
+#: lib/Api.php:93 templates/admin/activesync.html.php:6
 msgid "ActiveSync Devices"
-msgstr ""
+msgstr "ActiveSync Cihazları"
 
-#: admin/activesync.php:25 lib/Prefs/Ui.php:351
+#: admin/activesync.php:24 lib/Api.php:720 lib/Api.php:781
+#: lib/Prefs/Special/Activesync.php:32
 msgid "ActiveSync not activated."
-msgstr ""
+msgstr "ActiveSync etkinleştirilmedi."
 
-#: templates/admin/groups/add.inc:11 templates/portal/add.inc:14
+#: templates/admin/groups/add.inc:12 templates/portal/add.inc:15
 msgid "Add"
 msgstr "Ekle"
 
-#: services/portal/index.php:49
+#: templates/portal/new.inc:2
 msgid "Add Content"
 msgstr "İçerik Ekle"
 
@@ -218,7 +240,7 @@ msgstr "İçerik Ekle"
 msgid "Add Here:"
 msgstr "Buraya Ekle:"
 
-#: templates/admin/groups/edit.inc:56
+#: templates/admin/groups/edit.inc:55
 msgid "Add Members"
 msgstr "Üye Ekle"
 
@@ -242,14 +264,14 @@ msgstr "Eş ekle"
 msgid "Add user"
 msgstr "Kullanıcı ekle"
 
-#: admin/signup_confirm.php:80 admin/user.php:97
+#: admin/signup_confirm.php:82 admin/user.php:93
 #, php-format
 msgid ""
 "Added \"%s\" to the system, but could not add additional signup information: "
 "%s."
 msgstr "\"%s\" sisteme eklendi, fakat ek giriş bilgileri eklenemedi: %s."
 
-#: signup.php:44
+#: signup.php:47
 #, php-format
 msgid "Added \"%s\" to the system. You can log in now."
 msgstr "\"%s\" sisteme eklendi. Giriş yapabilirsiniz."
@@ -258,15 +280,15 @@ msgstr "\"%s\" sisteme eklendi. Giriş yapabilirsiniz."
 msgid "Adding users is disabled."
 msgstr "Kullanıcı ekleme devre dışı."
 
-#: lib/Block/Vatid.php:117
+#: lib/Block/Vatid.php:97
 msgid "Address"
 msgstr "Adres"
 
-#: config/registry.php:122
+#: config/registry.php:134
 msgid "Address Book"
 msgstr "Adres Defteri"
 
-#: lib/Application.php:46
+#: lib/Application.php:55
 msgid "Administration"
 msgstr "Yönetim"
 
@@ -290,81 +312,95 @@ msgstr "Alarm metni"
 msgid "Alarm title"
 msgstr "Alarm başlığı"
 
-#: admin/alarms.php:138
+#: admin/alarms.php:146
 msgid "Alarms"
 msgstr "Alarmlar"
+
+#: admin/alarms.php:121
+msgid "Alarms have been disabled in the configuration"
+msgstr "Alarmlar konfigürasyonda devde dışı bırakıldı."
 
 #: lib/Block/Fortune.php:93
 msgid "All"
 msgstr "Tümü"
 
-#: templates/shares/edit.inc:61
+#: templates/shares/edit.inc:62
 msgid "All Authenticated Users"
 msgstr "Oturum açmış tüm kullanıcılar"
 
-#: admin/activesync.php:51
+#: admin/activesync.php:58
 msgid "All policy keys successfully reset."
-msgstr ""
+msgstr "Tüm policy anahtarları başarıyla sıfırlandı."
 
-#: lib/Prefs/Ui.php:718
+#: lib/Prefs/Special/Activesync.php:127
 msgid ""
 "All state removed for your ActiveSync devices. They will resynchronize next "
 "time they connect to the server."
 msgstr ""
+"Tüm durumlar ActiveSync aygıtlarınız için kaldırıldı. Sunucuya bir dahaki "
+"sefere bağlandıklarında tekrar eşleşecekler."
 
-#: lib/Prefs/Ui.php:688
+#: lib/Prefs/Special/Syncml.php:76
 msgid "All synchronization sessions deleted."
-msgstr ""
+msgstr "Tüm eşleşme oturumları silindi."
 
-#: config/prefs.php:641
+#: lib/Application.php:243
+msgid "Allow alphanumeric"
+msgstr "Alfanumerik izin ver"
+
+#: lib/Application.php:244
+msgid "Allow any"
+msgstr "Herhangi birine izin ver"
+
+#: lib/Application.php:222
+msgid "Allow non-provisionable devices"
+msgstr "Sağlanamayan cihazlara izin ver"
+
+#: lib/Application.php:242
+msgid "Allow only numeric"
+msgstr "Yalnızca numerik izin ver"
+
+#: config/prefs.php:690
 msgid "Alternate IMSP Login"
 msgstr "İkincil IMSP Girişi"
 
-#: config/prefs.php:655
+#: config/prefs.php:707
 msgid "Alternate IMSP Password"
 msgstr "İkincil IMSP Şifresi"
 
-#: config/prefs.php:649
+#: config/prefs.php:701
 msgid "Alternate IMSP Username"
 msgstr "İkincil IMSP Kullanıcı Adı"
 
-#: services/resetpassword.php:32
+#: services/resetpassword.php:35
 msgid "Alternate email address"
 msgstr "İkinci eposta adresi"
 
-#: services/resetpassword.php:49
+#: services/resetpassword.php:52
 msgid "Answer"
 msgstr "Cevap"
 
-#: templates/data/csvmap.inc:113 templates/admin/config/index.html:27
+#: templates/admin/config/index.html.php:27 templates/data/csvmap.inc:113
 msgid "Application"
 msgstr "Uygulama"
 
-#: admin/phpshell.php:49
-msgid "Application Context: "
-msgstr "Uygulama Bağlamı: "
+#: templates/admin/phpshell.html.php:8
+msgid "Application Context"
+msgstr "Uygulama Bağlamı"
 
-#: util/icon_browser.php:45
-msgid "Application List"
-msgstr "Uygulama Listesi"
-
-#: admin/config/index.php:228
+#: admin/config/index.php:257
 msgid "Application is ready."
 msgstr "Uygulama Hazır."
 
-#: admin/config/index.php:150 admin/config/index.php:191
-msgid "Application is up-to-date."
-msgstr "Uygulama güncel."
-
-#: templates/admin/user/approve.inc:33
+#: templates/admin/user/approve.inc:34
 msgid "Approve"
 msgstr "Onayla"
 
-#: config/nls.php:169
+#: config/nls.php:168
 msgid "Arabic (Windows-1256)"
 msgstr "Arapça (Windows-1256)"
 
-#: admin/alarms.php:128
+#: admin/alarms.php:134
 #, php-format
 msgid "Are you sure you want to delete '%s'?"
 msgstr "'%s'i silmek istediğinizden emin misiniz?"
@@ -379,7 +415,7 @@ msgstr "\"%s\" için kayıt olma talebi iptal edilecek. Emin misiniz?"
 msgid "Are you sure you wish to delete \"%s\"?"
 msgstr "\"%s\" i silmek istediğinize emin misiniz?"
 
-#: config/nls.php:170
+#: config/nls.php:169
 msgid "Armenian (ARMSCII-8)"
 msgstr "Ermenice (ARMSCII-8)"
 
@@ -391,15 +427,19 @@ msgstr "Sanat"
 msgid "Ascii Art"
 msgstr "Ascii Sanatı"
 
-#: lib/LoginTasks/Task/AdminCheck.php:65
+#: lib/LoginTasks/Task/AdminCheck.php:57
 msgid "At least one database schema is outdated."
 msgstr "En az bir veritabanı şeması güncel değil."
 
-#: templates/problem/problem.inc:43
+#: templates/problem/problem.inc:22
 msgid "Attachment"
 msgstr "Ek"
 
-#: admin/groups.php:58
+#: lib/Application.php:266
+msgid "Attachment Download"
+msgstr "Ek İndirme"
+
+#: admin/groups.php:56
 msgid "Attempt to delete a non-existent group."
 msgstr "Var olmayan bir grubu silme girişimi."
 
@@ -407,80 +447,73 @@ msgstr "Var olmayan bir grubu silme girişimi."
 msgid "Attempt to delete a non-existent permission."
 msgstr "Var olmayan bir izni silme girişimi."
 
-#: admin/perms/edit.php:98
+#: admin/perms/edit.php:119
 msgid "Attempt to edit a non-existent permission."
 msgstr "Var olmayan bir grubu düzenleme girişimi."
 
-#: services/shares/edit.php:66
+#: services/shares/edit.php:70
 msgid "Attempt to edit a non-existent share."
 msgstr "Var olmayan bir paylaşımı düzenleme girişimi."
 
-#: admin/sessions.php:44
-msgid "Authenticated to:"
-msgstr "Yetkilendirilen:"
+#: templates/admin/sessions.html.php:11
+msgid "Authenticated Applications"
+msgstr "Yetkilendirilmiş Uygulamalar"
 
-#: templates/prefs/facebook.html:50
-msgid "Authorize Access to Friends Data:"
-msgstr ""
+#: templates/prefs/facebook.html.php:23 templates/prefs/facebook.html.php:37
+#: templates/prefs/facebook.html.php:51 templates/prefs/facebook.html.php:63
+#: templates/prefs/twitter.html.php:18
+msgid "Authorize"
+msgstr "Yetki"
 
-#: templates/prefs/facebook.html:26
+#: templates/prefs/facebook.html.php:49
+msgid "Authorize Access to Friends Data"
+msgstr "Arkadaş Verileri Erişimine Yetki"
+
+#: templates/prefs/facebook.html.php:21
 msgid "Authorize Publish"
-msgstr ""
+msgstr "Yayınlama Yetkisi"
 
-#: templates/prefs/facebook.html:38
-msgid "Authorize Read:"
-msgstr ""
+#: templates/prefs/facebook.html.php:35
+msgid "Authorize Read"
+msgstr "Okuma Yetkisi"
 
-#: templates/prefs/facebook.html:15
-msgid "Authorize an infinite session:"
-msgstr ""
-
-#: login.php:219
+#: templates/login/smartmobile.html.php:31
 msgid "Automatic"
-msgstr ""
+msgstr "Otomatik"
 
 #: templates/data/csvmap.inc:71
 msgid "Available fields:"
-msgstr ""
-
-#: themes/azur/info.php:6
-msgid "Azur"
-msgstr "zur"
+msgstr "Kullanılabilit alanlar:"
 
 #: lib/Block/Fortune.php:37
 msgid "BOFH Excuses"
 msgstr "BOFH Açıklamaları"
 
-#: config/nls.php:171
+#: config/nls.php:170
 msgid "Baltic (ISO-8859-13)"
 msgstr "Baltık (ISO-8859-13)"
 
-#: themes/barbie/info.php:2
-msgid "Barbie"
-msgstr "Barbi"
+#: templates/login/smartmobile.html.php:33
+msgid "Basic"
+msgstr "Temel"
 
-#: util/icon_browser.php:34
-#, php-format
-msgid "Base graphics directory \"%s\" not found."
-msgstr "Temel grafik dizini \"%s\" bulunamadı."
+#: templates/activesync/device_table.html.php:43
+msgid "Block"
+msgstr "Engelle"
 
-#: templates/portal/layout.inc:90
+#: templates/portal/layout.inc:91
 msgid "Block Settings"
 msgstr "Blok Ayarları"
 
-#: templates/portal/layout.inc:72
+#: templates/portal/layout.inc:73
 msgid "Block Type"
 msgstr "Blok Tipi"
 
-#: themes/bluemoon/info.php:2
-msgid "Blue Moon"
-msgstr "Mavi Ay"
+#: lib/Application.php:299
+msgid "Bluetooth"
+msgstr "Bluetooth"
 
-#: themes/bluewhite/info.php:2
-msgid "Blue and White"
-msgstr "Mavi ve Beyaz"
-
-#: config/registry.php:204
+#: config/registry.php:185
 msgid "Bookmarks"
 msgstr "Yer İmleri"
 
@@ -488,52 +521,52 @@ msgstr "Yer İmleri"
 msgid "Both"
 msgstr "Her İkisi"
 
-#: themes/brown/info.php:2
-msgid "Brown"
-msgstr "Kahverengi"
+#: config/prefs.php:751
+msgid "Bottom"
+msgstr "Alt"
 
-#: admin/sessions.php:42
-msgid "Browser:"
+#: templates/admin/sessions.html.php:9
+msgid "Browser"
 msgstr "Tarayıcı"
 
-#: themes/burntorange/info.php:7
-msgid "Burnt Orange"
-msgstr "Kırmızımsı Sarı"
+#: templates/activesync/device_table.html.php:29
+msgid "Cached Heartbeat (seconds)"
+msgstr "Önbelleklenmiş Kalpatışı (saniye)"
 
-#: config/registry.php:144
+#: config/registry.php:120
 msgid "Calendar"
 msgstr "Takvim"
 
-#: themes/camouflage/info.php:2
-msgid "Camouflage"
-msgstr "Kamuflaj"
+#: lib/Application.php:287
+msgid "Camera"
+msgstr "Kamera"
 
-#: admin/user.php:120 admin/user.php:140 templates/admin/groups/delete.inc:11
-#: templates/admin/user/clear.inc:12 templates/admin/user/remove.inc:12
+#: admin/user.php:115 admin/user.php:138 templates/admin/groups/delete.inc:12
+#: templates/admin/user/clear.inc:14 templates/admin/user/remove.inc:15
 msgid "Cancel"
 msgstr "İptal"
 
-#: templates/problem/problem.inc:58
+#: templates/problem/problem.inc:37
 msgid "Cancel Problem Report"
 msgstr "Sorun Raporunu İptal Et"
 
-#: admin/activesync.php:185 templates/prefs/activesync.html:31
+#: templates/activesync/device_table.html.php:36
 msgid "Cancel Wipe"
 msgstr "Silmeyi iptal et"
 
-#: services/resetpassword.php:18
+#: services/resetpassword.php:23
 msgid "Cannot reset password automatically, contact your administrator."
 msgstr "Otomatik olarak şifre sıfırlanamadı, sistem yönetisi ile görüşünüz."
 
-#: config/prefs.php:465
+#: config/prefs.php:510
 msgid "Categories and Labels"
 msgstr "Kategoriler ve Etiketler"
 
-#: config/nls.php:172
+#: config/nls.php:171
 msgid "Celtic (ISO-8859-14)"
 msgstr "Keltik (ISO-8859-14)"
 
-#: config/nls.php:173
+#: config/nls.php:172
 msgid "Central European (ISO-8859-2)"
 msgstr "Orta Avrupa (ISO-8859-2)"
 
@@ -541,19 +574,19 @@ msgstr "Orta Avrupa (ISO-8859-2)"
 msgid "Change"
 msgstr "Değiştir"
 
-#: lib/Block/Weather.php:120
+#: lib/Block/Weather.php:134
 msgid "Change Location"
 msgstr "Konumu Değiştir"
 
-#: services/changepassword.php:23
+#: services/changepassword.php:26
 msgid "Change Your Password"
 msgstr "Şifre Değiştirme"
 
-#: config/prefs.php:233
+#: config/prefs.php:264
 msgid "Change your personal information."
 msgstr "Kişisel bilgileri değiştir"
 
-#: services/changepassword.php:17
+#: services/changepassword.php:20
 msgid ""
 "Changing your password is not supported with the current configuration.  "
 "Contact your administrator."
@@ -561,57 +594,61 @@ msgstr ""
 "Geçerli yapılandırma, şifre değiştirmeyi desteklemiyor. Lütfen sistem "
 "yöneticiniz ile temasa geçiniz."
 
-#: lib/Block/Vatid.php:41
+#: lib/Block/Vatid.php:42
 msgid "Check"
 msgstr "İşaretle"
 
-#: templates/admin/config/index.html:4
+#: templates/admin/config/index.html.php:4
 msgid "Check for newer versions"
 msgstr "Yeni sürümü kontrol et"
 
-#: lib/Block/Vatid.php:43
+#: lib/Block/Vatid.php:45
 msgid "Checking"
 msgstr "Kontrol ediyor"
 
-#: config/nls.php:174
+#: config/nls.php:173
 msgid "Chinese Simplified (GB2312)"
 msgstr "Basitleştirilmiş Çince (GB2312)"
 
-#: config/nls.php:175
+#: config/nls.php:174
 msgid "Chinese Traditional (Big5)"
 msgstr "Geleneksel Çince (Big5)"
 
-#: services/obrowser/index.php:91
+#: services/obrowser/index.php:61
 #, php-format
 msgid "Choose %s"
 msgstr "%s seç"
 
-#: config/prefs.php:431
+#: config/prefs.php:478
 msgid "Choose how to display dates (abbreviated format):"
 msgstr "Tarih biçimini seçin (kısaltılmış gösterim):"
 
-#: config/prefs.php:406
+#: config/prefs.php:454
 msgid "Choose how to display dates (full format):"
 msgstr "Tarih biçimini seçin (uzun gösterim):"
 
-#: config/prefs.php:445
+#: config/prefs.php:491
 msgid "Choose how to display times:"
 msgstr "Zaman biçimini seçin:"
 
-#: admin/sqlshell.php:122
+#: lib/Prefs/Special/Activesync.php:67
+msgid "Class"
+msgstr "Sınıf"
+
+#: templates/admin/sqlshell.html.php:58
 msgid "Clear Query"
 msgstr "Sorguyu temizle"
 
-#: templates/admin/user/clear.inc:5
+#: templates/admin/user/clear.inc:7
 #, php-format
 msgid "Clear out user: %s"
 msgstr "Kullanıcıyı temizle: %s"
 
-#: templates/admin/user/clear.inc:11
+#: templates/admin/user/clear.inc:13
 msgid "Clear user"
 msgstr "Kullanıcı temizle"
 
-#: templates/admin/user/list.inc:37
+#: templates/admin/user/list.inc:35
 msgid "Clear user data"
 msgstr "Kullanıcı verisini temizle"
 
@@ -623,35 +660,45 @@ msgstr ""
 "Seçili adres defterlerinizden birine tıklayın ve aramak için tüm alanları "
 "seçin."
 
-#: templates/logintasks/logintasks.html:30 templates/logintasks/mobile.html:37
+#: templates/logintasks/logintasks.html.php:32
+#: templates/logintasks/smartmobile.html.php:52
 msgid "Click to Continue"
 msgstr "Devam etmek için tıklayın"
 
-#: templates/prefs/syncml.html:13
+#: templates/prefs/syncml.html.php:13
 msgid "Client Anchor"
 msgstr "İstemci Çapası"
 
-#: services/keyboard.php:154 templates/shares/edit.inc:12
+#: templates/shares/edit.inc:13
 msgid "Close Window"
 msgstr "Pencereyi Kapat"
 
-#: lib/Block/Metar.php:217
+#: lib/Block/Metar.php:218
 msgid "Clouds"
 msgstr "Bulutlar"
 
-#: admin/sessions.php:35
+#: lib/Application.php:259
+msgid "Codeword frequency"
+msgstr "Kod sözcük frekansı"
+
+#: lib/View/Sidebar.php:65 templates/sidebar/_container.html.php:14
 msgid "Collapse"
 msgstr "Daralt"
 
-#: lib/Prefs/Ui.php:213
+#: lib/Prefs/Special/Activesync.php:66
+msgid "Collection id"
+msgstr "Koleksiyon kimliği"
+
+#: templates/prefs/category.html.php:12 templates/prefs/category.html.php:23
+#: templates/prefs/category.html.php:35
 msgid "Color Picker"
 msgstr "Renk Seçici"
 
-#: config/registry.php:254
+#: config/registry.php:249
 msgid "Comics"
-msgstr ""
+msgstr "Karikatürler"
 
-#: admin/cmdshell.php:25 admin/cmdshell.php:47
+#: templates/admin/cmdshell.html.php:2 templates/admin/cmdshell.html.php:19
 msgid "Command"
 msgstr "Komut"
 
@@ -659,44 +706,48 @@ msgstr "Komut"
 msgid "Command Shell"
 msgstr "Komut Kabuğu"
 
-#: services/facebook/index.php:109
+#: lib/Ajax/Application/FacebookHandler.php:162
 #, php-format
 msgid "Comments: %d"
 msgstr "Yorum: %d"
+
+#: templates/admin/activesync.html.php:16
+msgid "Common Name"
+msgstr "Yaygın İsim"
 
 #: lib/Block/Fortune.php:38
 msgid "Computers"
 msgstr "Bilgisayarlar"
 
-#: lib/Block/Weather.php:250
+#: lib/Block/Weather.php:265
 msgid "Condition"
 msgstr "Durum"
 
-#: lib/Block/Metar.php:222
+#: lib/Block/Metar.php:223
 msgid "Conditions"
 msgstr "Koşullar"
 
-#: admin/config/config.php:74 templates/admin/config/config.html:9
+#: admin/config/config.php:59 templates/admin/config/config.html.php:11
 msgid "Configuration"
 msgstr "Yapılandırma"
 
-#: admin/config/diff.php:85
+#: admin/config/diff.php:90
 msgid "Configuration Differences"
 msgstr "Yapılandırma Farkları"
 
-#: config/prefs.php:664
+#: config/prefs.php:717
 msgid "Configuration for syncing with PDAs, Smartphones and Outlook."
 msgstr "PDAs, Smartphones ve Outlook ile eşleme yapılandırması"
 
-#: admin/config/index.php:223
+#: admin/config/index.php:252
 msgid "Configuration is out of date."
 msgstr "Yapılandırma güncel değil."
 
-#: templates/admin/config/index.html:89
+#: templates/admin/config/index.html.php:79
 msgid "Configuration upgrade scripts available"
 msgstr "Yapılandırma yükseltme betikleri bulundu"
 
-#: admin/config/index.php:165
+#: admin/config/index.php:189
 #, php-format
 msgid "Configure %s"
 msgstr "Yapılandır:%s"
@@ -705,7 +756,7 @@ msgstr "Yapılandır:%s"
 msgid "Confirm Password"
 msgstr "Paraloyı Doğrula"
 
-#: services/changepassword.php:25 services/resetpassword.php:26
+#: services/changepassword.php:28 services/resetpassword.php:29
 msgid "Continue"
 msgstr "Devam"
 
@@ -713,31 +764,41 @@ msgstr "Devam"
 msgid "Cookie"
 msgstr "Çerez"
 
-#: themes/cornflower/info.php:2
-msgid "Cornflower"
-msgstr "Peygamber Çiçeği"
-
 #: admin/config/index.php:32
 #, php-format
 msgid "Could not connect to server \"%s\" using FTP: %s"
 msgstr "Sunucu \"%s\"'e FTP kullanılarak bağlanılamadı: %s"
 
-#: admin/config/index.php:76
+#: admin/config/index.php:95
 msgid "Could not contact server. Try again later."
 msgstr "Sunucuyla iletişime geçilemedi. Lütfen tekrar deneyin."
 
-#: admin/config/scripts.php:40
+#: admin/config/scripts.php:35
 #, php-format
 msgid "Could not delete configuration upgrade script \"%s\"."
 msgstr " \"%s\" yapılandırma yükseltme betiği silinemedi."
 
-#: templates/prefs/twitter.html:14
+#: templates/prefs/facebook.html.php:58
+#, php-format
 msgid ""
-"Could not find authorization for <tag:appname /> to interact with your "
-"Twitter account"
+"Could not find authorization for \"%s\" to interact with your Facebook "
+"account. This means that either you have not yet authorized your Facebook "
+"account to interact with \"%s\", or your authorization has expired and must "
+"be renewed."
 msgstr ""
+"Facebook hesabınızla etkileşim kurmak için \"%s\" için yetkilendirme "
+"bulunamadı. Bu, Facebook hesabınızda \"%s\" ile etkileşim kurmaya henüz izin "
+"vermediğiniz veya yetkinizin süresinin dolduğu ve yenilenmesi gerektiği "
+"anlamına gelir."
 
-#: services/resetpassword.php:97
+#: templates/prefs/twitter.html.php:15
+#, php-format
+msgid ""
+"Could not find authorization for %s to interact with your Twitter account"
+msgstr ""
+"Twitter hesabınızla etkileşim kurmak için %s için yetkilendirme bulunamadı."
+
+#: services/resetpassword.php:104
 msgid ""
 "Could not reset the password for the requested user. Some or all of the "
 "details are not correct. Try again or contact your administrator if you need "
@@ -755,24 +816,21 @@ msgstr "Yapılandırma geri döndürülemedi.."
 msgid "Could not save a backup configuation: %s"
 msgstr "Yedek bir yapılandırma kaydedilemedi: %s"
 
-#: admin/config/scripts.php:101
+#: admin/config/scripts.php:94
 #, php-format
 msgid "Could not save configuration upgrade script to: \"%s\"."
 msgstr " \"%s\" yapılandırma yükseltme betiği kaydfedilemedi."
 
-#: admin/config/config.php:62
-#, php-format
-msgid "Could not save the backup configuration file %s."
-msgstr "Yedek yapılandırma dosyası %s kaydedilemedi."
-
-#: admin/config/index.php:100
+#: admin/config/index.php:116
 #, php-format
 msgid ""
 "Could not save the configuration file %s. Use one of the options below to "
 "save the code."
 msgstr ""
+"%s konfigürasyon dosyası kaydedilemedi. Kaydetmek için aşağıdaki "
+"seçeneklerden birini kullanın."
 
-#: admin/config/config.php:74
+#: admin/config/config.php:59
 #, php-format
 msgid ""
 "Could not save the configuration file %s. You can either use one of the "
@@ -787,7 +845,7 @@ msgstr ""
 msgid "Could not write configuration for \"%s\": %s"
 msgstr "\"%s\" için yapılandırma yazılamadı: %s"
 
-#: lib/Block/Vatid.php:105
+#: lib/Block/Vatid.php:85
 msgid "Country"
 msgstr "Ülke"
 
@@ -795,7 +853,7 @@ msgstr "Ülke"
 msgid "Create"
 msgstr "Yarat"
 
-#: templates/prefs/identityselect.html:22
+#: templates/prefs/identityselect.html:26
 msgid "Create New Identity"
 msgstr "Yeni Kimlik Yarat"
 
@@ -811,7 +869,7 @@ msgstr "Şu Andaki Alarmlar"
 msgid "Current Locks"
 msgstr "Şu Andaki Kilitlemeler"
 
-#: admin/sessions.php:27
+#: templates/admin/sessions.html.php:2 templates/admin/sessions.html.php:27
 msgid "Current Sessions"
 msgstr "Şu Andaki Oturumlar"
 
@@ -819,37 +877,29 @@ msgstr "Şu Andaki Oturumlar"
 msgid "Current Time"
 msgstr "Şu Andaki Zaman"
 
-#: lib/Block/Metar.php:29
+#: lib/Block/Metar.php:30
 msgid "Current Weather"
 msgstr "Şu Andaki Hava Durumu"
 
-#: lib/Block/Weather.php:230
+#: lib/Block/Weather.php:244
 msgid "Current condition"
 msgstr "Şu Andaki Şartlar:"
 
-#: config/nls.php:176
+#: config/nls.php:175
 msgid "Cyrillic (KOI8-R)"
 msgstr "Kiril (Windows-1251)"
 
-#: config/nls.php:177
+#: config/nls.php:176
 msgid "Cyrillic (Windows-1251)"
 msgstr "Kiril (Windows-1251)"
 
-#: config/nls.php:178
+#: config/nls.php:177
 msgid "Cyrillic/Ukrainian (KOI8-U)"
 msgstr "Kiril/Ukrayna (KOI8-U)"
 
-#: admin/config/index.php:241 admin/config/index.php:279
+#: admin/config/index.php:272 admin/config/index.php:324
 msgid "DB access is not configured."
 msgstr "Veritabanı erişimi henüz yapılandırılmadı."
-
-#: admin/config/index.php:247 admin/config/index.php:286
-msgid "DB schema is out of date."
-msgstr "Veritabanı şeması güncel değil."
-
-#: admin/config/index.php:252 admin/config/index.php:291
-msgid "DB schema is ready."
-msgstr "Veritabanı şeması hazır."
 
 #: templates/data/date.inc:47 templates/data/date.inc:48
 #: templates/data/date.inc:49 templates/data/date.inc:50
@@ -862,23 +912,23 @@ msgstr "GG"
 msgid "Data"
 msgstr "Veri"
 
-#: admin/datatree.php:65
-msgid "DataTree"
-msgstr "Veri Ağacı"
-
-#: admin/datatree.php:62
-msgid "DataTree Browser"
-msgstr "Veri Ağacı Gezgini"
-
-#: templates/admin/config/index.html:33 templates/prefs/syncml.html:11
+#: templates/admin/config/index.html.php:30 templates/prefs/syncml.html.php:11
 msgid "Database"
 msgstr "Veritabanı"
 
-#: lib/Block/Vatid.php:108
+#: admin/config/index.php:73
+msgid ""
+"Database migration files not found. Please check PEAR's data_dir "
+"configuration setting."
+msgstr ""
+"Veritabanı taşıma dosyaları bulunamadı. Lütfen PEAR data_dir konfigürasyon "
+"ayarlarını kontrol ediniz."
+
+#: lib/Block/Vatid.php:88
 msgid "Date"
 msgstr "Tarih"
 
-#: templates/admin/user/approve.inc:23
+#: templates/admin/user/approve.inc:24
 msgid "Date Received"
 msgstr "Geliş Tarihi"
 
@@ -887,16 +937,16 @@ msgstr "Geliş Tarihi"
 msgid "Date: %s; time: %s"
 msgstr "Tarih: %s; zaman: %s"
 
-#: lib/Block/Weather.php:245
+#: lib/Block/Weather.php:260
 msgid "Day"
 msgstr "Gün"
 
-#: config/prefs.php:356 config/prefs.php:439 lib/Prefs/Ui.php:80
-#: lib/Prefs/Ui.php:94
+#: config/prefs.php:382 config/prefs.php:403 config/prefs.php:416
+#: config/prefs.php:485 themes/default/info.php:2
 msgid "Default"
 msgstr "varsayılan"
 
-#: lib/Prefs/Ui.php:228 lib/Prefs/Ui.php:258
+#: templates/prefs/category.html.php:7 templates/prefs/category.html.php:30
 msgid "Default Color"
 msgstr "varsayılan Renk"
 
@@ -904,11 +954,11 @@ msgstr "varsayılan Renk"
 msgid "Default Shell"
 msgstr "Varsayılan Kabuk"
 
-#: config/prefs.php:359
+#: config/prefs.php:406
 msgid "Default charset for sending e-mail messages:"
 msgstr "Eposta gönderilirken kullanılacak varsayılan karakter seti:"
 
-#: config/prefs.php:269
+#: config/prefs.php:296
 msgid "Default location to use for location-aware features."
 msgstr "Konum-bildirim özellikleri için kullanılacak varsayılan konum."
 
@@ -916,109 +966,127 @@ msgstr "Konum-bildirim özellikleri için kullanılacak varsayılan konum."
 msgid "Definitions"
 msgstr "Tanımlar"
 
-#: admin/groups.php:54 templates/admin/groups/delete.inc:10
-#: templates/admin/user/list.inc:34 templates/shares/edit.inc:66
-#: templates/shares/edit.inc:86 templates/shares/edit.inc:101
-#: templates/shares/edit.inc:121 templates/shares/edit.inc:137
-#: templates/shares/edit.inc:157 templates/shares/edit.inc:172
-#: templates/shares/edit.inc:196 templates/shares/edit.inc:231
-#: templates/shares/edit.inc:258 templates/shares/edit.inc:274
-#: templates/shares/edit.inc:299 templates/shares/edit.inc:328
-#: templates/prefs/identityselect.html:34 templates/prefs/rpc.html:35
-#: templates/prefs/syncml.html:14 templates/prefs/syncml.html:23
+#: admin/groups.php:52 templates/admin/groups/delete.inc:11
+#: templates/admin/user/list.inc:32 templates/prefs/syncml.html.php:14
+#: templates/prefs/syncml.html.php:23 templates/shares/edit.inc:67
+#: templates/shares/edit.inc:87 templates/shares/edit.inc:102
+#: templates/shares/edit.inc:122 templates/shares/edit.inc:137
+#: templates/shares/edit.inc:157 templates/shares/edit.inc:173
+#: templates/shares/edit.inc:197 templates/shares/edit.inc:232
+#: templates/shares/edit.inc:259 templates/shares/edit.inc:275
+#: templates/shares/edit.inc:300 templates/shares/edit.inc:329
+#: templates/prefs/identityselect.html:32 templates/prefs/rpc.html:35
 msgid "Delete"
 msgstr "Sil"
 
-#: admin/alarms.php:127 admin/groups.php:210
+#: admin/alarms.php:133 admin/groups.php:208
 #, php-format
 msgid "Delete \"%s\""
 msgstr "Sil: \"%s\""
 
-#: templates/prefs/syncml.html:30
+#: templates/prefs/syncml.html.php:30
 msgid "Delete All SyncML Data"
 msgstr "Tüm SyncML Eşleme Verisini Sil"
 
-#: admin/groups.php:184
+#: admin/groups.php:181
 msgid "Delete Group"
 msgstr "Grup Sil"
 
-#: admin/config/scripts.php:38
+#: admin/config/scripts.php:33
 #, php-format
 msgid "Deleted configuration upgrade script \"%s\"."
 msgstr "Yapılandırma yükseltme betiği \"%s\" sil."
 
-#: lib/Prefs/Ui.php:680
+#: lib/Prefs/Special/Syncml.php:68
 #, php-format
 msgid "Deleted synchronization session for device \"%s\" and database \"%s\"."
 msgstr "Aygıt \"%s\" ve veritabanı \"%s\" için oturum eşlemeyi sil."
 
-#: templates/problem/problem.inc:27
+#: templates/problem/problem.inc:6
 msgid "Describe the Problem"
 msgstr "Sorunu Tanımlayın"
 
-#: config/registry.php:216
+#: config/registry.php:209
 msgid "Development"
 msgstr "Gelişim"
 
-#: templates/prefs/activesync.html:20 templates/prefs/syncml.html:10
+#: templates/activesync/device_table.html.php:4
+#: templates/prefs/syncml.html.php:10
 msgid "Device"
 msgstr "Aygıt"
 
-#: admin/activesync.php:121
-msgid "Device ID"
-msgstr ""
+#: templates/admin/activesync.html.php:11
+msgid "Device Id"
+msgstr "Cihaz Kimliği"
 
-#: templates/prefs/activesync.html:11
+#: templates/activesync/device_table.html.php:7
+msgid "Device Information"
+msgstr "Cihaz Bilgisi"
+
+#: templates/prefs/activesync.html.php:20
 msgid "Device Management"
-msgstr ""
+msgstr "Cihaz Yönetimi"
 
-#: lib/Prefs/Ui.php:404
-msgid "Device id:"
-msgstr ""
+#: templates/admin/activesync.html.php:10
+msgid "Device Type"
+msgstr "Cihaz Tipi"
 
-#: admin/activesync.php:169 lib/Prefs/Ui.php:392
-msgid "Device is wiped"
-msgstr ""
+#: lib/Application.php:319
+msgid "Device encryption"
+msgstr "Cihaz şifrelemesi"
 
-#: admin/activesync.php:46
+#: templates/activesync/device_table.html.php:16
+msgid "Device is Blocked."
+msgstr "Cihaz Engellendi."
+
+#: templates/activesync/device_table.html.php:14
+msgid "Device is Wiped. Remove device state to allow device to reconnect."
+msgstr ""
+"Cihaz Temizlenmiş. Cihazın yeniden bağlanabilmesi için cihazın durumunu "
+"kaldırın."
+
+#: admin/activesync.php:53
 msgid "Device successfully removed."
-msgstr ""
+msgstr "Cihaz başarıyla kaldırıldı."
 
-#: admin/activesync.php:41
+#: admin/activesync.php:45
 msgid "Device wipe successfully canceled."
-msgstr ""
+msgstr "Cihaz temizlenmesi başarıyla iptal edildi."
 
-#: lib/Block/Metar.php:190
+#: lib/Block/Metar.php:191
 msgid "Dew Point"
-msgstr ""
+msgstr "Çiğ Noktası"
 
-#: lib/Block/Metar.php:267
+#: lib/Block/Metar.php:268
 msgid "Dew Point for last hour: "
-msgstr ""
+msgstr "Son saat için Çiğ Noktası:"
 
-#: lib/Block/Weather.php:180
+#: lib/Block/Weather.php:195
 msgid "Dew point"
-msgstr ""
+msgstr "Çiğ Noktası"
 
-#: templates/prefs/facebook.html:10 templates/prefs/facebook.html:21
-#: templates/prefs/facebook.html:33 templates/prefs/facebook.html:45
-#: templates/prefs/twitter.html:10
+#: templates/prefs/facebook.html.php:18 templates/prefs/facebook.html.php:32
+#: templates/prefs/facebook.html.php:46 templates/prefs/twitter.html.php:11
 msgid "Disable"
 msgstr "Devredışı bırak"
 
-#: config/prefs.php:375
+#: lib/Application.php:223
+msgid "Disable (not recommended)"
+msgstr "Devre Dışı Bırak (önerilmez)"
+
+#: config/prefs.php:424
 msgid "Display 24-hour times?"
 msgstr "24 saatlik zaman mı gösterilsin?"
 
-#: config/prefs.php:491
+#: config/prefs.php:535
 msgid "Display Preferences"
 msgstr "Seçenekleri Göster"
 
-#: lib/Block/Weather.php:87
+#: lib/Block/Weather.php:104
 msgid "Display detailed forecast"
 msgstr "Detaylı tahmini görüntüle"
 
-#: lib/Block/Metar.php:71
+#: lib/Block/Metar.php:72
 msgid "Display forecast (TAF)"
 msgstr "Hava tahminini görüntüle (TAF)"
 
@@ -1030,12 +1098,13 @@ msgstr "İlk satır alan adlarını içeriyor mu? Evet ise bu kutuyu seçin:"
 msgid "Don't have an account? Sign up."
 msgstr "Hesabınız yok mu? Kayıt olun."
 
-#: admin/config/index.php:147 admin/config/index.php:188
+#: admin/config/index.php:171 admin/config/index.php:215
+#: admin/config/index.php:348 admin/config/index.php:374
 #, php-format
 msgid "Download %s"
 msgstr "%s indir"
 
-#: admin/config/index.php:309
+#: admin/config/index.php:400
 msgid "Download generated configuration as PHP script."
 msgstr "Oluşturulan yapılandırmayı PHP betiği olarak indir."
 
@@ -1043,25 +1112,21 @@ msgstr "Oluşturulan yapılandırmayı PHP betiği olarak indir."
 msgid "Drugs"
 msgstr "İlaçlar"
 
-#: login.php:227
+#: templates/login/smartmobile.html.php:34
 msgid "Dynamic"
 msgstr "Dinamik"
-
-#: services/keyboard.php:64
-msgid "E characters"
-msgstr "E karakterleri"
 
 #: lib/Block/Vatid.php:14
 msgid "EU VAT identification"
 msgstr "AB KDV tanımlaması"
 
-#: templates/shares/edit.inc:65 templates/shares/edit.inc:82
-#: templates/shares/edit.inc:100 templates/shares/edit.inc:117
-#: templates/shares/edit.inc:136 templates/shares/edit.inc:153
-#: templates/shares/edit.inc:171 templates/shares/edit.inc:192
-#: templates/shares/edit.inc:227 templates/shares/edit.inc:254
-#: templates/shares/edit.inc:273 templates/shares/edit.inc:295
-#: templates/shares/edit.inc:324
+#: lib/View/Sidebar.php:229 templates/shares/edit.inc:66
+#: templates/shares/edit.inc:83 templates/shares/edit.inc:101
+#: templates/shares/edit.inc:118 templates/shares/edit.inc:136
+#: templates/shares/edit.inc:153 templates/shares/edit.inc:172
+#: templates/shares/edit.inc:193 templates/shares/edit.inc:228
+#: templates/shares/edit.inc:255 templates/shares/edit.inc:274
+#: templates/shares/edit.inc:296 templates/shares/edit.inc:325
 msgid "Edit"
 msgstr "Düzenle"
 
@@ -1070,15 +1135,15 @@ msgstr "Düzenle"
 msgid "Edit \"%s\""
 msgstr "Düzenle \"%s\""
 
-#: templates/prefs/app.html:7
+#: templates/prefs/app.html:6
 msgid "Edit Preferences for"
 msgstr "Seçenekleri düzenle:"
 
-#: services/shares/edit.php:256
+#: services/shares/edit.php:249
 msgid "Edit permissions"
 msgstr "İzin Değiştirme"
 
-#: services/shares/edit.php:257 templates/shares/edit.inc:14
+#: services/shares/edit.php:248 templates/shares/edit.inc:15
 #, php-format
 msgid "Edit permissions for \"%s\""
 msgstr "\"%s\" için izinleri düzenle"
@@ -1091,31 +1156,53 @@ msgstr "Eğitim"
 msgid "Email Address"
 msgstr "Elektronik Posta Adresi"
 
+#: lib/Application.php:221
+msgid "Enable"
+msgstr "Etkin"
+
 #: templates/admin/locks/list.html.php:14
 msgid "End Time"
 msgstr "Bitiş Zamanı"
 
-#: lib/Prefs/Ui.php:201
+#: lib/Block/Weather.php:92
+msgid "English"
+msgstr "İngilizce"
+
+#: lib/Prefs/Special/Category.php:32
 msgid "Enter a name for the new category:"
 msgstr "Yeni kategori için bir isim girin:"
 
-#: lib/Prefs/Ui.php:546 services/twitter/index.php:182
-#: services/twitter/index.php:205
+#: lib/Ajax/Application/FacebookHandler.php:244
+msgid ""
+"Error connecting to Facebook. Details have been logged for the administrator."
+msgstr ""
+"Facebook'a bağlanırken hata oluştu. Ayrıntılar yönetici için günlüklere "
+"kaydedildi."
+
+#: lib/Ajax/Application/TwitterHandler.php:284 services/twitter/index.php:27
+msgid ""
+"Error connecting to Twitter. Details have been logged for the administrator."
+msgstr ""
+"Twitter'a bağlanırken hata oluştu. Ayrıntılar yönetici için günlüklere "
+"kaydedildi."
+
+#: lib/Prefs/Special/Twitter.php:54
 #, php-format
 msgid ""
 "Error connecting to Twitter: %s Details have been logged for the "
 "administrator."
 msgstr ""
+"Twitter bağlantısında hata: %s Detaylar yönetici için günlüklere kaydedildi."
 
-#: lib/Prefs/Ui.php:682
+#: lib/Prefs/Special/Syncml.php:70
 msgid "Error deleting synchronization session:"
 msgstr "Eşleme oturumu silinirken hata:"
 
-#: lib/Prefs/Ui.php:690
+#: lib/Prefs/Special/Syncml.php:78
 msgid "Error deleting synchronization sessions:"
 msgstr "Eşleme oturumları silinirken hata:"
 
-#: services/changepassword.php:61
+#: services/changepassword.php:54
 #, php-format
 msgid "Error updating password: %s"
 msgstr "Şifre güncellenirken hata : %s"
@@ -1124,47 +1211,44 @@ msgstr "Şifre güncellenirken hata : %s"
 msgid "Ethnic"
 msgstr "Etnik"
 
-#: services/facebook/index.php:77
-msgid "Event Invites:"
-msgstr "Etkinlik Daveti:"
-
-#: config/prefs.php:541 templates/portal/layout.inc:101
+#: config/prefs.php:594 templates/portal/layout.inc:102
 msgid "Every 15 minutes"
 msgstr "Her 15 dakika"
 
-#: config/prefs.php:577
+#: config/prefs.php:613
 msgid "Every 2 minutes"
 msgstr "Her 2 dakika"
 
-#: config/prefs.php:538 config/prefs.php:575 templates/portal/layout.inc:98
+#: config/prefs.php:591 config/prefs.php:611 templates/portal/layout.inc:99
 msgid "Every 30 seconds"
 msgstr "Her 30 saniye"
 
-#: config/prefs.php:540 config/prefs.php:578 templates/portal/layout.inc:100
+#: config/prefs.php:593 config/prefs.php:614 templates/portal/layout.inc:101
 msgid "Every 5 minutes"
 msgstr "Her 5 dakika"
 
-#: config/prefs.php:542 templates/portal/layout.inc:102
+#: config/prefs.php:595 templates/portal/layout.inc:103
 msgid "Every half hour"
 msgstr "Her yarım saat"
 
-#: templates/portal/layout.inc:103
+#: templates/portal/layout.inc:104
 msgid "Every hour"
 msgstr "Her saat"
 
-#: config/prefs.php:539 config/prefs.php:576 templates/portal/layout.inc:99
+#: config/prefs.php:592 config/prefs.php:612 templates/portal/layout.inc:100
 msgid "Every minute"
 msgstr "Her dakika"
 
-#: templates/data/datemap.inc:26
+#: templates/data/datemap.inc:27
 msgid "Example values:"
 msgstr "Örnek değerler:"
 
-#: admin/cmdshell.php:53 admin/phpshell.php:60 admin/sqlshell.php:121
+#: templates/admin/cmdshell.html.php:24 templates/admin/phpshell.html.php:23
+#: templates/admin/sqlshell.html.php:57
 msgid "Execute"
 msgstr "Çalıştır"
 
-#: admin/sessions.php:34
+#: lib/View/Sidebar.php:66 templates/sidebar/_container.html.php:14
 msgid "Expand"
 msgstr "Genişlet"
 
@@ -1172,17 +1256,21 @@ msgstr "Genişlet"
 msgid "Extra Large"
 msgstr "Çok Büyük"
 
-#: templates/admin/config/index.html:102
+#: templates/admin/config/index.html.php:93
 msgid "FTP upload of configuration"
-msgstr ""
+msgstr "Yapılandırmanın FTP yüklemesi"
 
-#: config/prefs.php:602
+#: config/prefs.php:638
 msgid "Facebook Integration"
-msgstr ""
+msgstr "Facebook Entegrasyonu"
 
-#: themes/fadetogreen/info.php:9
-msgid "Fade to Green"
-msgstr "Uçuk Yeşil"
+#: lib/Application.php:254
+msgid "Failed unlock attempts before device is wiped"
+msgstr "Cihaz temizlenmeden önce kilit açma denemeleri başarısız oldu"
+
+#: lib/Block/TwitterTimeline.php:120 templates/block/twitter_tweet.html.php:37
+msgid "Favorite"
+msgstr "Sık Kullanılan"
 
 #: lib/Block/Feed.php:56
 msgid "Feed"
@@ -1192,31 +1280,31 @@ msgstr "Besleme"
 msgid "Feed Address"
 msgstr "Besleme Adresi"
 
-#: lib/Block/Metar.php:193
+#: lib/Block/Metar.php:194
 msgid "Feels Like"
 msgstr "Hissediliyor"
 
-#: templates/prefs/addressbooks.html:17
+#: templates/prefs/addressbooks.html:15
 msgid "Fields to search"
 msgstr "Arama Alanları"
 
-#: config/registry.php:310
+#: config/registry.php:315
 msgid "File Manager"
 msgstr "Dosya Yöneticisi"
 
-#: lib/Block/FbStream.php:54
+#: lib/Block/FbStream.php:61
 msgid "Filter"
 msgstr "Süzgeç"
 
-#: config/registry.php:88
+#: config/registry.php:90
 msgid "Filters"
 msgstr "Süzgeçler"
 
-#: lib/Block/Moon.php:167
+#: lib/Block/Moon.php:165
 msgid "First Half"
 msgstr "İlk Yarı"
 
-#: lib/Block/Moon.php:75 lib/Block/Moon.php:77
+#: lib/Block/Moon.php:72 lib/Block/Moon.php:74
 msgid "First Quarter"
 msgstr "İlk Çeyrek"
 
@@ -1224,23 +1312,23 @@ msgstr "İlk Çeyrek"
 msgid "Food"
 msgstr "Yemek"
 
-#: lib/Block/Metar.php:307
+#: lib/Block/Metar.php:308
 msgid "Forecast (TAF)"
 msgstr "Tahmin (TAF)"
 
-#: lib/Block/Weather.php:81
+#: lib/Block/Weather.php:98
 msgid ""
 "Forecast Days (note that the returned forecast returns both day and night; a "
 "large number here could result in a wide block)"
 msgstr ""
-"Tahmin Günleri (Not: Geri dönülecekler hem gün hem gece olarak dönülecek; )"
-"büyük bir sayı geniş bir öbekle sonuçlanacaktır)"
+"Tahmin Günleri (Not: Geri dönülecekler hem gün hem gece olarak "
+"dönülecek; )büyük bir sayı geniş bir öbekle sonuçlanacaktır)"
 
-#: templates/login/login.inc:106
+#: templates/login/login.inc:104
 msgid "Forgot your password?"
 msgstr "Şifrenizi mi unuttunuz?"
 
-#: config/registry.php:338
+#: config/registry.php:344
 msgid "Forms"
 msgstr "Formlar"
 
@@ -1260,33 +1348,29 @@ msgstr "Deyişler"
 msgid "Fortunes 2"
 msgstr "Deyişler 2"
 
-#: config/registry.php:332
+#: config/registry.php:338
 msgid "Forums"
 msgstr "Forumlar"
 
-#: services/facebook/index.php:76
-msgid "Friend Requests:"
-msgstr ""
+#: templates/prefs/facebook.html.php:44
+msgid "Friends enabled."
+msgstr "Arkadaşlar etkin."
 
-#: templates/prefs/facebook.html:44
-msgid "Friends enabled"
-msgstr ""
-
-#: lib/Block/Weather.php:207
+#: lib/Block/Weather.php:221
 #, php-format
 msgid "From the %s (%s &deg;) at %s %s"
-msgstr ""
+msgstr "%s (%s &deg;) 'den %s 'de %s"
 
-#: lib/Block/Weather.php:316
+#: lib/Block/Weather.php:332
 #, php-format
 msgid "From the %s at %s %s"
 msgstr "%s'den %s %s de"
 
-#: templates/problem/problem.inc:48
+#: templates/problem/problem.inc:27
 msgid "Full Description"
 msgstr "Tam Betimleme"
 
-#: lib/Block/Moon.php:82 lib/Block/Moon.php:177
+#: lib/Block/Moon.php:79 lib/Block/Moon.php:175
 msgid "Full Moon"
 msgstr "Dolunay"
 
@@ -1299,19 +1383,19 @@ msgstr "Açık Ad"
 msgid "Generate %s Configuration"
 msgstr "%s Yapılandırmasını Oluştur"
 
-#: templates/admin/config/config.html:6
+#: templates/admin/config/config.html.php:6
 msgid "Generated Code"
 msgstr "Oluşturulan Kod"
 
-#: lib/Block/FbStream.php:170 templates/block/twitter-layout.html.php:35
+#: lib/Block/FbStream.php:150 templates/block/twitter-layout.html.php:35
 msgid "Get More"
 msgstr "Daha Fazla"
 
-#: templates/prefs/app.html:10
+#: templates/prefs/app.html:9
 msgid "Global Preferences"
 msgstr "Genel Seçenekler"
 
-#: templates/prefs/app.html:17
+#: templates/prefs/app.html:16
 msgid "Go"
 msgstr "Git"
 
@@ -1323,40 +1407,36 @@ msgstr "Goedel"
 msgid "Google Search"
 msgstr "Google Arama"
 
-#: config/nls.php:179
+#: config/nls.php:178
 msgid "Greek (ISO-8859-7)"
 msgstr "Yunanca (ISO-8859-7)"
 
-#: themes/green/info.php:2
-msgid "Green"
-msgstr "Yeşil"
-
-#: themes/grey/info.php:2
-msgid "Grey"
-msgstr "Gri"
-
-#: admin/groups.php:165
+#: admin/groups.php:161
 msgid "Group Administration"
 msgstr "Grup Yönetimi"
 
-#: templates/admin/groups/add.inc:9
+#: templates/admin/groups/add.inc:10
 msgid "Group name"
 msgstr "Grup Adı"
 
-#: admin/groups.php:36
+#: admin/groups.php:35
 #, php-format
 msgid "Group was not created: %s."
 msgstr "Grup yaratılamadı: %s."
 
-#: admin/groups.php:224 templates/shares/edit.inc:269
+#: admin/groups.php:221 templates/shares/edit.inc:270
 msgid "Groups"
 msgstr "Gruplar"
 
-#: templates/shares/edit.inc:96
+#: templates/shares/edit.inc:97
 msgid "Guest Permissions"
 msgstr "Konuk İzinleri"
 
-#: config/nls.php:180
+#: lib/Application.php:323
+msgid "HTML Email"
+msgstr "HTML E-posta"
+
+#: config/nls.php:179
 msgid "Hebrew (ISO-8859-8-I)"
 msgstr "İbranice (ISO-8859-8-I)"
 
@@ -1364,15 +1444,15 @@ msgstr "İbranice (ISO-8859-8-I)"
 msgid "Height"
 msgstr "Yükseklik"
 
-#: lib/Block/FbStream.php:69 lib/Block/TwitterTimeline.php:70
+#: lib/Block/FbStream.php:71 lib/Block/TwitterTimeline.php:64
 msgid "Height of stream content (width automatically adjusts to block)"
-msgstr ""
+msgstr "Akış içeriğinin yüksekliği (genişlik otomatik olarak engellenir)"
 
-#: services/help/index.php:17 templates/help/index.inc:4
+#: services/help/index.php:79 templates/help/index.inc:4
 msgid "Help"
 msgstr "Yardım"
 
-#: services/help/index.php:70
+#: services/help/index.php:94
 msgid "Help _Topics"
 msgstr "Yardım _Başlıkları"
 
@@ -1384,33 +1464,21 @@ msgstr "Yarıküre"
 msgid "Here is the beginning of the file:"
 msgstr "Dosyanın başlangıcı: "
 
-#: themes/hi-contrast/info.php:3
-msgid "Hi-Contrast"
-msgstr "Yüksek Kontrast"
-
-#: templates/prefs/app.html:24
+#: templates/prefs/app.html:23
 msgid "Hide Advanced Preferences"
 msgstr "Gelişmiş Seçenekleri Gizle"
 
-#: services/portal/cloud_search.php:37
+#: services/portal/cloud_search.php:40
 msgid "Hide Results"
 msgstr "Sonuçları Gizle"
-
-#: templates/sidebar/sidebar.inc:3
-msgid "Hide Sidebar"
-msgstr "Kenar Çubuğunu Gizle"
 
 #: lib/Block/Account.php:73
 msgid "Home Directory"
 msgstr "Ev Dizini"
 
-#: config/registry.php:75
+#: config/registry.php:77
 msgid "Horde"
 msgstr "Horde"
-
-#: themes/hordeweb/info.php:2
-msgid "Horde Website"
-msgstr "Horde Websitesi"
 
 #: templates/data/csvinfo.inc:18
 msgid "How many fields (columns) are there?"
@@ -1420,7 +1488,7 @@ msgstr "Kaç alan (kolon) var?"
 msgid "How many seconds before we check for new articles?"
 msgstr "Yeni makale kontrolleri arası kaç saniye olsun?"
 
-#: lib/Block/Metar.php:203 lib/Block/Weather.php:219 lib/Block/Weather.php:258
+#: lib/Block/Metar.php:204 lib/Block/Weather.php:233 lib/Block/Weather.php:273
 msgid "Humidity"
 msgstr "Nem"
 
@@ -1428,28 +1496,20 @@ msgstr "Nem"
 msgid "Humorists"
 msgstr "Mizahçılar"
 
-#: services/keyboard.php:78
-msgid "I characters"
-msgstr "I karakterleri"
+#: templates/admin/activesync.html.php:15
+msgid "IMEI"
+msgstr "IMEI"
 
-#: config/prefs.php:564
-msgid "Icons Only"
-msgstr "Sadece Simgeler"
-
-#: util/icon_browser.php:53
+#: util/icon_browser.php:40
 #, php-format
 msgid "Icons for %s"
 msgstr "%s için simgeler"
 
-#: config/prefs.php:565
-msgid "Icons with text"
-msgstr "Metin ile birlikte simgeler"
+#: templates/prefs/activesync.html.php:2
+msgid "Identity to use when sending email via ActiveSync."
+msgstr "ActiveSync ile e-posta gönderirken kullanılacak kimlik."
 
-#: themes/ideas/info.php:2
-msgid "Ideas"
-msgstr "Fikirler"
-
-#: config/prefs.php:244
+#: config/prefs.php:274
 msgid "Identity's name:"
 msgstr "Kimliğin adı:"
 
@@ -1459,7 +1519,7 @@ msgstr "Kimliğin adı:"
 msgid "Import, Step %d"
 msgstr "İçeri Aktar, Adım %d"
 
-#: templates/data/datemap.inc:17
+#: templates/data/datemap.inc:18
 #, php-format
 msgid "Imported field: %s"
 msgstr "İçeri aktarılan alan: %s"
@@ -1468,9 +1528,9 @@ msgstr "İçeri aktarılan alan: %s"
 msgid "Imported fields:"
 msgstr "İçeri aktarılan alanlar:"
 
-#: lib/Block/TwitterTimeline.php:118
+#: lib/Block/TwitterTimeline.php:113
 msgid "In reply to:"
-msgstr ""
+msgstr "Cevap olarak:"
 
 #: templates/data/csvmap.inc:57
 msgid ""
@@ -1484,7 +1544,7 @@ msgstr ""
 "tıklayarak, ikilileri içeri taşımak için işaretleyiniz. Bitirince \"Devam\" "
 "butonuna tıklayınız."
 
-#: services/resetpassword.php:55
+#: services/resetpassword.php:58
 msgid ""
 "Incorrect username or alternate address. Try again or contact your "
 "administrator if you need further help."
@@ -1492,15 +1552,11 @@ msgstr ""
 "Yanlış kullanıcı adı veya öteki adres.Yeniden deneyin veya daha fazla yardım "
 "için yöneticinizle görüşün."
 
-#: templates/shares/edit.inc:167
+#: templates/shares/edit.inc:168
 msgid "Individual Users"
 msgstr "Bireysel Kullanıcılar"
 
-#: templates/prefs/facebook.html:9
-msgid "Infinite sessions enabled."
-msgstr ""
-
-#: config/registry.php:249
+#: config/registry.php:243
 msgid "Information"
 msgstr "Bilgi"
 
@@ -1508,36 +1564,44 @@ msgstr "Bilgi"
 msgid "Inherited Members"
 msgstr "Miras Üyelikler"
 
-#: lib/Block/Vatid.php:57
+#: lib/Block/Vatid.php:61
 msgid "Invalid VAT identification number format."
 msgstr "Geçersiz KDV tanımlama numarası biçimi."
 
-#: admin/signup_confirm.php:43
+#: admin/signup_confirm.php:45
 #, php-format
 msgid "Invalid action %s"
 msgstr "geçersiz işlem %s"
 
-#: admin/config/config.php:29
+#: admin/config/config.php:31
 msgid "Invalid application."
 msgstr "Geçersiz uygulama."
 
-#: admin/signup_confirm.php:33
+#: admin/signup_confirm.php:35
 msgid "Invalid hash."
-msgstr ""
+msgstr "Geçersiz hash."
 
 #: admin/perms/addchild.php:29
 msgid "Invalid parent permission."
 msgstr "Geçersiz üst izin."
 
-#: config/registry.php:364
+#: config/registry.php:296
 msgid "Inventory"
-msgstr ""
+msgstr "Envanter"
 
-#: config/nls.php:181
+#: config/nls.php:180
 msgid "Japanese (ISO-2022-JP)"
 msgstr "Japonca (ISO-2022-JP)"
 
-#: lib/Block/TwitterTimeline.php:120
+#: login.php:167
+msgid ""
+"JavaScript is either disabled or not available on your browser. You are "
+"restricted to the minimal view."
+msgstr ""
+"JavaScript, tarayıcıda devre dışı bırakılmış veya mevcut değil. Minimal "
+"görünümle sınırlandırıldınız."
+
+#: lib/Block/TwitterTimeline.php:114
 msgid "Just now..."
 msgstr "Sadece şimdi..."
 
@@ -1545,7 +1609,7 @@ msgstr "Sadece şimdi..."
 msgid "Kernel Newbies"
 msgstr "Çekirdek Acemileri"
 
-#: services/help/index.php:134
+#: services/help/index.php:161
 msgid "Keyword"
 msgstr "Anahtar Kelime"
 
@@ -1553,15 +1617,15 @@ msgstr "Anahtar Kelime"
 msgid "Kids"
 msgstr "Çocuklar"
 
-#: config/registry.php:300 themes/kolab/info.php:7
+#: config/registry.php:304
 msgid "Kolab"
 msgstr "Kolab"
 
-#: config/nls.php:182
+#: config/nls.php:181
 msgid "Korean (EUC-KR)"
 msgstr "Korece (euc-KR)"
 
-#: login.php:363
+#: login.php:365
 msgid "Language"
 msgstr "Dil"
 
@@ -1569,7 +1633,7 @@ msgstr "Dil"
 msgid "Large"
 msgstr "Geniş"
 
-#: lib/Block/Moon.php:170
+#: lib/Block/Moon.php:168
 msgid "Last Half"
 msgstr "Son Dördün"
 
@@ -1577,49 +1641,45 @@ msgstr "Son Dördün"
 msgid "Last Password Change"
 msgstr "Son Şifre Değişimi"
 
-#: lib/Block/Moon.php:87 lib/Block/Moon.php:89
+#: lib/Block/Moon.php:85 lib/Block/Moon.php:87
 msgid "Last Quarter"
 msgstr "Şişkin Ay"
 
-#: admin/activesync.php:100 templates/prefs/activesync.html:21
+#: templates/activesync/device_table.html.php:5
 msgid "Last Sync Time"
 msgstr "Son Eşleşme Zamanı"
 
-#: lib/Block/Metar.php:124
+#: lib/Block/Metar.php:125
 msgid "Last Updated:"
 msgstr "Son Güncelleme:"
 
-#: lib/LoginTasks/Task/LastLogin.php:49
+#: lib/LoginTasks/Task/LastLogin.php:52
 #, php-format
 msgid "Last login: %s"
 msgstr "Son Giriş: %s"
 
-#: lib/LoginTasks/Task/LastLogin.php:51
+#: lib/LoginTasks/Task/LastLogin.php:54
 #, php-format
 msgid "Last login: %s from %s"
 msgstr "Son Giriş: %s zamanında %s üzerinden yapıldı."
 
-#: lib/LoginTasks/Task/LastLogin.php:47
+#: lib/LoginTasks/Task/LastLogin.php:50
 msgid "Last login: Never"
 msgstr "Son giriş: Daha önce giriş yapılmadı."
+
+#: lib/Prefs/Special/Activesync.php:69
+msgid "Last synckey"
+msgstr "Son eşleşme anahtarı"
 
 #: templates/block/twitter-layout.html.php:19
 msgid "Latest"
 msgstr "En son"
 
-#: themes/lavander/info.php:2
-msgid "Lavender"
-msgstr "Lavanta"
-
 #: lib/Block/Fortune.php:51
 msgid "Law"
 msgstr "Yasa"
 
-#: themes/lightblue/info.php:2
-msgid "Light Blue"
-msgstr "Açık Mavi"
-
-#: services/facebook/index.php:113
+#: lib/Ajax/Application/FacebookHandler.php:205
 msgid "Like"
 msgstr "Beğen"
 
@@ -1631,24 +1691,33 @@ msgstr "Nükteli Şiir"
 msgid "Linux Cookie"
 msgstr "Linux Çerezi"
 
-#: admin/sqlshell.php:126
+#: templates/admin/sqlshell.html.php:62
 msgid "List Tables"
 msgstr "Çizelgeleri Listele"
 
-#: admin/alarms.php:135
+#: admin/alarms.php:141
 #, php-format
 msgid "Listing alarms failed: %s"
 msgstr "Alarm listeleme başarısız oldu: %s"
 
-#: admin/locks.php:55
+#: admin/locks.php:57
 #, php-format
 msgid "Listing locks failed: %s"
 msgstr "Kilit listeleme başarısız oldu: %s"
 
-#: admin/sessions.php:71
+#: templates/admin/sessions.html.php:29
 #, php-format
 msgid "Listing sessions failed: %s"
 msgstr "Oturum listeleme başarısız oldu: %s"
+
+#: templates/admin/user/listfail.inc:5
+#, php-format
+msgid "Listing users failed with this error message: %s"
+msgstr "Kullanıcıların listesi bu hata mesajıyla başarısız oldu: %s"
+
+#: templates/admin/user/listfail.inc:2
+msgid "Listing users failed."
+msgstr "Kullanıcı listeleme başarısız."
 
 #: templates/admin/user/nolist.inc:2
 msgid "Listing users is disabled."
@@ -1658,20 +1727,16 @@ msgstr "Kullanıcı listeleme seçilemez kılındı."
 msgid "Literature"
 msgstr "Edebiyat"
 
-#: templates/sidebar/sidebar.inc:5
-msgid "Loading..."
-msgstr "Yükleniyor..."
-
-#: lib/Block/Weather.php:159
+#: lib/Block/Weather.php:173
 #, php-format
-msgid "Local time: %s %s"
-msgstr "Yerel zaman: %s %s"
+msgid "Local time: %s %s (UTC %s)"
+msgstr "Yerel zaman: %s %s (UTC %s)"
 
-#: config/prefs.php:330
+#: config/prefs.php:366
 msgid "Locale and Time"
 msgstr "Konum ve Zaman"
 
-#: lib/Block/Metar.php:51 lib/Block/Sunrise.php:23 lib/Block/Weather.php:67
+#: lib/Block/Metar.php:52 lib/Block/Sunrise.php:23 lib/Block/Weather.php:84
 msgid "Location"
 msgstr "Kunum"
 
@@ -1679,45 +1744,53 @@ msgstr "Kunum"
 msgid "Lock User"
 msgstr "Kullanıcıyı Kilitle"
 
-#: admin/locks.php:58
+#: admin/locks.php:61
 msgid "Locks"
 msgstr "Kilitler"
 
-#: login.php:303 templates/login/login.inc:82
+#: login.php:291 templates/login/login.inc:86
+#: templates/topbar/_menubar.html.php:10
 msgid "Log in"
 msgstr "Oturum Aç"
 
-#: templates/portal/mobile.inc:7
+#: templates/portal/smartmobile.inc:5 templates/topbar/_menubar.html.php:8
 msgid "Log out"
 msgstr "Oturumu Kapat"
 
-#: login.php:328
+#: templates/prefs/facebook.html.php:8
+msgid "Logged in to Facebook"
+msgstr "Facebook'ta oturum açtı"
+
+#: login.php:320
 msgid "Login failed because your username or password was entered incorrectly."
 msgstr "Giriş başarısız: Kullanıcı adı yada parola yanlış"
 
-#: login.php:324
+#: login.php:316
 msgid "Login failed."
 msgstr "Giriş başarısız."
 
-#: templates/prefs/facebook.html:57
-msgid "Login to Facebook and authorize <tag:app_name />"
-msgstr ""
+#: login.php:405
+#, php-format
+msgid "Login to %s"
+msgstr "%s için Oturum Aç"
 
-#: templates/prefs/twitter.html:21
-msgid "Login to Twitter and authorize the <tag:appname /> application"
-msgstr ""
+#: templates/prefs/facebook.html.php:62
+#, php-format
+msgid "Login to Facebook and authorize %s"
+msgstr "Facebook'a giriş yapın ve %s yetkilendirin"
+
+#: templates/prefs/twitter.html.php:18
+#, php-format
+msgid "Login to Twitter and authorize %s"
+msgstr "Twitter'a giriş yapın ve %s yetkilendirin"
+
+#: templates/prefs/facebook.html.php:10
+msgid "Logout"
+msgstr "Oturumu Kapat"
 
 #: lib/Block/Fortune.php:55
 msgid "Love"
 msgstr "Aşk"
-
-#: themes/luc/info.php:2
-msgid "Loyola"
-msgstr "Loyola"
-
-#: themes/lucblue/info.php:2
-msgid "Loyola Blue"
-msgstr "Loyola Mavi"
 
 #: templates/data/date.inc:47 templates/data/date.inc:48
 #: templates/data/date.inc:49 templates/data/date.inc:50
@@ -1730,15 +1803,15 @@ msgstr "AA"
 msgid "Magic"
 msgstr "Büyü"
 
-#: config/registry.php:80
+#: config/registry.php:82
 msgid "Mail"
 msgstr "Posta"
 
-#: config/registry.php:355
+#: config/registry.php:349
 msgid "Mail Admin"
 msgstr "Posta Yöneticisi"
 
-#: config/prefs.php:466
+#: config/prefs.php:511
 msgid ""
 "Manage the list of categories you have to label items with, and colors "
 "associated with those categories."
@@ -1746,7 +1819,7 @@ msgstr ""
 "Öğeleri etiketleyeceğiniz kategori listesini ve kategorileri "
 "ilişkilendireceğiniz renkleri yönetin."
 
-#: config/prefs.php:676
+#: config/prefs.php:736
 msgid "Manage your ActiveSync devices."
 msgstr "ActıceSync aygıtlarınızı yönetin."
 
@@ -1754,19 +1827,31 @@ msgstr "ActıceSync aygıtlarınızı yönetin."
 msgid "Matching fields:"
 msgstr "Eşleşen alanlar:"
 
-#: lib/Block/Metar.php:279
+#: lib/Block/Metar.php:280
 msgid "Max temp last 24 hours: "
 msgstr "Son 24 saatteki en yüksek sıcaklık: "
 
-#: lib/Block/Metar.php:271
+#: lib/Block/Metar.php:272
 msgid "Max temp last 6 hours: "
 msgstr "Son 6 saatteki en yüksek sıcaklık: "
 
-#: lib/Application.php:42
+#: lib/Application.php:327
+msgid "Maximum Email age"
+msgstr "En Yüksek Eposta yaşı"
+
+#: lib/Application.php:51
 msgid "Maximum Number of Portal Blocks"
 msgstr "En Fazla Portal Bloğu Sayısı"
 
-#: lib/Block/FbStream.php:60
+#: lib/Application.php:271
+msgid "Maximum attachment size in bytes"
+msgstr "Byte cinsinden en büyük ek boyutu"
+
+#: lib/Application.php:212
+msgid "Maximum number of devices"
+msgstr "En fazla cihaz sayısı"
+
+#: lib/Block/FbStream.php:67
 msgid "Maximum number of entries to display"
 msgstr "En Fazla Girdi Sayısı"
 
@@ -1778,55 +1863,72 @@ msgstr "Tıp"
 msgid "Medium"
 msgstr "Orta"
 
-#: templates/admin/groups/edit.inc:19
+#: templates/admin/groups/edit.inc:18
 msgid "Members"
 msgstr "Üyeler"
 
 #: templates/block/twitter-layout.html.php:25
 msgid "Mentions"
-msgstr ""
+msgstr "İmalar"
 
-#: config/prefs.php:567
-msgid "Menu mode:"
-msgstr "Menü Modu:"
-
-#: lib/Block/Metar.php:22
+#: lib/Block/Metar.php:23
 msgid "Metar Weather"
 msgstr "Hava Raporu"
 
-#: lib/Block/Metar.php:61 lib/Block/Weather.php:76
+#: lib/Block/Metar.php:62 lib/Block/Weather.php:93
 msgid "Metric"
 msgstr "Metrik"
 
-#: lib/Block/Metar.php:283
+#: lib/Block/Metar.php:284
 msgid "Min temp last 24 hours: "
 msgstr "Son 24 saatteki en düşük sıcaklık: "
 
-#: lib/Block/Metar.php:275
+#: lib/Block/Metar.php:276
 msgid "Min temp last 6 hours: "
 msgstr "Son 6 saatteki en düşük sıcaklık: "
+
+#: lib/Application.php:233
+msgid "Minimum PIN length"
+msgstr "Minimum PIN uzunluğu"
 
 #: lib/Block/Fortune.php:58
 msgid "Miscellaneous"
 msgstr "Çeşitli"
 
-#: admin/config/index.php:200
+#: admin/config/index.php:229
 msgid "Missing configuration."
 msgstr "Yapılandırma yok."
 
-#: login.php:235
-msgid "Mobile"
-msgstr "Taşınabilir cihaz"
+#: templates/login/smartmobile.html.php:36
+msgid "Mobile (Minimal)"
+msgstr "Mobil (Minimal)"
 
-#: login.php:231
-msgid "Mobile (Smartphone)"
-msgstr "Taşınabilir cihaz (Akıllı Telefon)"
+#: templates/login/smartmobile.html.php:37
+msgid "Mobile (No JavaScript)"
+msgstr "Mobil (JavaScript Yok)"
 
-#: login.php:215
+#: templates/login/smartmobile.html.php:35
+msgid "Mobile (Smartphone/Tablet)"
+msgstr "Mobil (Akıllı Telefon/Tablet)"
+
+#: templates/portal/smartmobile.inc:12
+msgid "Mobile Optimized Apps"
+msgstr "Mobil Cihazlar için Optimize Edilen Uygulamalar"
+
+#: templates/login/login.inc:52 templates/login/smartmobile.html.php:29
 msgid "Mode"
 msgstr "Mod"
 
-#: config/prefs.php:454
+#: templates/admin/activesync.html.php:14
+msgid "Model"
+msgstr "Model"
+
+#: admin/config/index.php:174 admin/config/index.php:218
+#: admin/config/index.php:351 admin/config/index.php:377
+msgid "Module is up-to-date."
+msgstr "Uygulama güncel."
+
+#: config/prefs.php:499
 msgid "Monday"
 msgstr "Pazartesi"
 
@@ -1834,11 +1936,7 @@ msgstr "Pazartesi"
 msgid "Moon Phases"
 msgstr "Ay Evreleri"
 
-#: themes/mozilla/info.php:2
-msgid "Mozilla"
-msgstr "Mozilla"
-
-#: config/registry.php:305
+#: config/registry.php:309
 msgid "My Account"
 msgstr "Hesabım"
 
@@ -1846,54 +1944,50 @@ msgstr "Hesabım"
 msgid "My Account Information"
 msgstr "Hesap Bilgilerim"
 
-#: lib/Block/FbStream.php:30
+#: lib/Block/FbStream.php:38
 msgid "My Facebook Stream"
-msgstr ""
+msgstr "Facebook Akışım"
 
-#: services/portal/index.php:43
+#: services/portal/index.php:45
 msgid "My Portal"
 msgstr "Portalım"
 
-#: services/portal/edit.php:32
+#: services/portal/edit.php:37
 msgid "My Portal Layout"
 msgstr "Portal Düzenim"
 
-#: lib/Block/Weather.php:306 lib/Block/Weather.php:310
-#: lib/Block/Weather.php:326
+#: lib/Block/Weather.php:322 lib/Block/Weather.php:326
+#: lib/Block/Weather.php:342
 msgid "N/A"
-msgstr ""
+msgstr "N/A"
 
-#: templates/logintasks/logintasks.html:27 templates/logintasks/mobile.html:31
+#: templates/logintasks/logintasks.html.php:29
+#: templates/logintasks/smartmobile.html.php:45
 msgid "NO, I Do NOT Agree"
 msgstr "Kabul etmiyorum"
 
-#: templates/prefs/activesync.html:48
+#: templates/admin/activesync.html.php:37
+#: templates/prefs/activesync.html.php:36
 msgid ""
 "NOTE: WIPING A DEVICE MAY RESET IT TO FACTORY DEFAULTS. PLEASE MAKE SURE YOU "
 "REALLY WANT TO DO THIS BEFORE REQUESTING A WIPE"
 msgstr ""
+"NOT: CİHAZIN TEMİZLENMESİ, CİHAZI FABRİKA AYARLARINA DÖNDÜREBİLİR. LÜTFEN "
+"TEMİZLEME İSTEĞİ GÖNDERMEDEN ÖNCE BUNU GERÇEKTEN İSTEDİĞİNİZE EMİN OLUNUZ"
 
-#: lib/Block/Vatid.php:113
+#: lib/Block/Vatid.php:93
 msgid "Name"
 msgstr "Ad"
 
-#: themes/NeXTgrey/info.php:2
-msgid "NeXT"
-msgstr "NeXT"
-
-#: config/prefs.php:537 config/prefs.php:574 templates/portal/layout.inc:97
+#: config/prefs.php:590 config/prefs.php:610 templates/portal/layout.inc:98
 msgid "Never"
 msgstr "Asla"
 
-#: templates/prefs/category.html:3
+#: templates/prefs/category.html.php:43
 msgid "New Category"
 msgstr "Yeni Kategori"
 
-#: services/facebook/index.php:73
-msgid "New Messages:"
-msgstr "Yeni İletiler:"
-
-#: lib/Block/Moon.php:47 lib/Block/Moon.php:69 lib/Block/Moon.php:175
+#: lib/Block/Moon.php:47 lib/Block/Moon.php:65 lib/Block/Moon.php:173
 msgid "New Moon"
 msgstr "Yeni Ay"
 
@@ -1901,7 +1995,7 @@ msgstr "Yeni Ay"
 msgid "New Username (optional)"
 msgstr "Yeni Kullanıcı Adı (Seçimli)"
 
-#: services/changepassword.php:29
+#: services/changepassword.php:31
 msgid "New password"
 msgstr "Yeni şifre"
 
@@ -1909,12 +2003,12 @@ msgstr "Yeni şifre"
 msgid "New passwords don't match."
 msgstr "Yeni şifre eşleşmedi."
 
-#: config/registry.php:259 lib/Block/Fortune.php:59
+#: config/registry.php:254 lib/Block/Fortune.php:59
 msgid "News"
 msgstr "Haberler"
 
-#: templates/data/csvinfo.inc:21 templates/data/csvmap.inc:120
-#: templates/data/datemap.inc:43 templates/data/tsvinfo.inc:15
+#: templates/data/csvinfo.inc:23 templates/data/csvmap.inc:123
+#: templates/data/datemap.inc:46 templates/data/tsvinfo.inc:17
 msgid "Next"
 msgstr "Sonraki"
 
@@ -1926,19 +2020,23 @@ msgstr "Sonraki 4 Evre"
 msgid "No Sound"
 msgstr "Ses Yok"
 
-#: templates/admin/config/diff.html:9
+#: templates/admin/config/diff.html.php:2
 msgid "No available configuration data to show differences for."
 msgstr "Farkların gösterilebileceği kullanılabilir yapılandırma verisi yok."
 
-#: admin/config/diff.php:44
+#: admin/config/diff.php:49
 msgid "No change."
 msgstr "Değişiklik Yok"
 
-#: util/icon_browser.php:83
+#: util/icon_browser.php:70
 msgid "No icons found."
 msgstr "Hiçbir simge bulunamadı."
 
-#: lib/Block/Metar.php:99 lib/Block/Sunrise.php:45
+#: templates/sidebar/_container.html.php:30
+msgid "No items to display"
+msgstr "Görüntülenecek etkinlik yok"
+
+#: lib/Block/Metar.php:100 lib/Block/Sunrise.php:45
 msgid "No location is set."
 msgstr "Hiçbir yer belirtilmedi."
 
@@ -1950,48 +2048,67 @@ msgstr "Saldırgan deyiş kullanma"
 msgid "No pending signups."
 msgstr "Üye olmak için bekleyen yok."
 
-#: services/resetpassword.php:51
-msgid "No security question has been set. Please contact your administrator."
-msgstr ""
+#: lib/Application.php:340
+msgid "No push while roaming"
+msgstr "Dolaşımdayken Push yok"
 
-#: admin/config/index.php:144 admin/config/index.php:185
+#: services/resetpassword.php:54
+msgid "No security question has been set. Please contact your administrator."
+msgstr "Güvenlik sorusu ayarlanmadı. Lütfen yöneticinize başvurun."
+
+#: admin/config/index.php:168 admin/config/index.php:212
+#: admin/config/index.php:345 admin/config/index.php:371
 msgid "No stable version exists yet."
 msgstr "Henüz kararlı bir sürüm yok."
 
-#: admin/signup_confirm.php:57
+#: admin/signup_confirm.php:59
 msgid "No username specified."
-msgstr ""
+msgstr "Kullanıcı adı belirtilmedi."
 
-#: admin/config/index.php:206
+#: admin/config/index.php:235
 msgid "No version found in original configuration. Regenerate configuration."
 msgstr "Özgün yapılandırmada sürüm bulunamadı.Yapılandırmayı tekrar üretin."
 
-#: admin/config/index.php:215
+#: admin/config/index.php:244
 msgid "No version found in your configuration. Regenerate configuration."
 msgstr "Özgün yapılandırmanızda sürüm bulunamadı.Yapılandırmayı tekrar üretin."
 
-#: lib/Prefs/Ui.php:383 templates/prefs/activesync.html:43
-#: templates/prefs/identityselect.html:20 templates/prefs/syncml.html:34
+#: admin/config/index.php:296
+msgid "NoSQL indices are ready."
+msgstr "NoSQL indexleri hazır."
+
+#: admin/config/index.php:291
+#, php-format
+msgid "NoSQL indices for %s"
+msgstr "%s için NoSQL indexleri"
+
+#: admin/config/index.php:293
+msgid "NoSQL indices out of date."
+msgstr "NoSQL indexleri güncel değil."
+
+#: templates/activesync/device_table.html.php:23
+#: templates/admin/activesync.html.php:28
+#: templates/prefs/activesync.html.php:30 templates/prefs/syncml.html.php:34
 msgid "None"
 msgstr "Hiçbiri"
 
-#: config/nls.php:183
+#: config/nls.php:182
 msgid "Nordic (ISO-8859-10)"
 msgstr "Kuzey Avrupalı (ISO-8859-10)"
 
-#: lib/Block/Moon.php:31 lib/Block/Moon.php:61
+#: lib/Block/Moon.php:31 lib/Block/Moon.php:59
 msgid "Northern Hemisphere"
 msgstr "Kuzey Yarımküre"
 
-#: admin/activesync.php:173 lib/Prefs/Ui.php:398
+#: templates/activesync/device_table.html.php:18
 msgid "Not Provisioned"
 msgstr "Sağlanmamış"
 
-#: config/registry.php:192
+#: config/registry.php:169
 msgid "Notes"
 msgstr "Notlar"
 
-#: services/obrowser/index.php:32
+#: services/obrowser/index.php:36
 msgid "Nothing to browse, go back."
 msgstr "Göz atılacak birşey yok, geri dönün."
 
@@ -1999,13 +2116,17 @@ msgstr "Göz atılacak birşey yok, geri dönün."
 msgid "Number of articles to display"
 msgstr "Görüntülenecek makale sayısı"
 
-#: lib/Block/TwitterTimeline.php:75
+#: lib/Block/TwitterTimeline.php:69
 msgid "Number of seconds to wait to refresh"
 msgstr "Yenileme sıklığı (saniye)"
 
-#: services/keyboard.php:92
-msgid "O characters"
-msgstr "O karakterleri"
+#: templates/admin/activesync.html.php:17
+msgid "OS"
+msgstr "OS"
+
+#: templates/services/obrowser.html.php:5
+msgid "Object Browser"
+msgstr "Nesne Tarayıcısı"
 
 #: templates/shares/edit.inc:132
 msgid "Object Creator"
@@ -2015,19 +2136,15 @@ msgstr "Nesne Yaratıcısı"
 msgid "Offense filter"
 msgstr "Saldırganlık süzgeci"
 
-#: config/registry.php:271
+#: config/registry.php:266
 msgid "Office"
 msgstr "Ofis"
-
-#: themes/hordeweb1/info.php:2
-msgid "Old Horde Website"
-msgstr "Eski Horde Websitesi"
 
 #: services/changepassword.php:42
 msgid "Old and new passwords must be different."
 msgstr "Eski ve yeni şifreler farklı olmalı."
 
-#: services/changepassword.php:28
+#: services/changepassword.php:30
 msgid "Old password"
 msgstr "Eski şifre"
 
@@ -2039,7 +2156,7 @@ msgstr "Eski şifre doğru değil."
 msgid "Only offensive fortunes"
 msgstr "Sadece saldırgan deyişler"
 
-#: services/shares/edit.php:83
+#: services/shares/edit.php:91
 msgid ""
 "Only the owner or system administrator may change ownership or owner "
 "permissions for a share"
@@ -2051,74 +2168,73 @@ msgstr ""
 msgid "Operating System"
 msgstr "İşletim Sistemi"
 
-#: templates/shares/edit.inc:239
+#: templates/shares/edit.inc:240
 msgid "Or enter a user name:"
 msgstr "Yada bir kullanıcı adı girin:"
 
-#: config/registry.php:117
-msgid "Organizing"
-msgstr "Düzenleme"
-
-#: services/keyboard.php:124
-msgid "Other"
-msgstr "Diğer"
-
-#: config/prefs.php:490 config/prefs.php:601 config/prefs.php:621
-#: config/prefs.php:640 config/prefs.php:662 config/prefs.php:674
+#: config/prefs.php:534 config/prefs.php:637 config/prefs.php:663
+#: config/prefs.php:689 config/prefs.php:715 config/prefs.php:734
 msgid "Other Information"
 msgstr "Diğer Bilgiler"
 
-#: services/keyboard.php:122
-msgid "Other characters"
-msgstr "Diğer karakterler"
+#: templates/login/smartmobile.html.php:18
+msgid "Other Options"
+msgstr "Diğer Seçenekler"
 
-#: templates/shares/edit.inc:33
+#: config/registry.php:180
+msgid "Others"
+msgstr "Diğerleri"
+
+#: templates/shares/edit.inc:34
 msgid "Owner"
 msgstr "Sahip"
 
-#: templates/shares/edit.inc:39 templates/shares/edit.inc:48
+#: templates/shares/edit.inc:40 templates/shares/edit.inc:49
 msgid "Owner:"
 msgstr "Sahip:"
 
-#: admin/phpshell.php:56
+#: templates/admin/phpshell.html.php:17
 msgid "PHP"
 msgstr "PHP"
 
-#: admin/phpshell.php:76
+#: templates/admin/phpshell.html.php:29
 msgid "PHP Code"
 msgstr "PHP Kodu"
 
-#: admin/phpshell.php:37
+#: admin/phpshell.php:38
 msgid "PHP Shell"
 msgstr "PHP Kabuğu"
+
+#: lib/Application.php:303
+msgid "POP/IMAP Email accounts"
+msgstr "POP / IMAP E-posta hesapları"
 
 #: lib/Block/Account/Localhost.php:53
 msgid "POSIX extension is missing"
 msgstr "POSIX eklentisi yok"
 
-#: lib/Api.php:67
+#: lib/Api.php:75
 msgid "P_HP Shell"
 msgstr "P_HP Kabuğu"
 
-#: login.php:194 admin/config/index.php:322 admin/user.php:40
-#: admin/user.php:54 config/registry.php:322
-#: templates/admin/user/update.inc:20
+#: login.php:211 admin/config/index.php:421 admin/user.php:39 admin/user.php:53
+#: config/registry.php:327 templates/admin/user/update.inc:20
 msgid "Password"
 msgstr "Şifre"
 
-#: services/changepassword.php:52
+#: lib/Application.php:238
+msgid "Password Complexity"
+msgstr "Parola Karmaşıklığı"
+
+#: services/changepassword.php:47
 msgid "Password changed successfully."
 msgstr "Şifre başarı ile değiştirildi."
 
-#: lib/Prefs/Ui.php:302
-msgid "Password:"
-msgstr "Şifre:"
-
-#: admin/user.php:173 admin/user.php:233
+#: admin/user.php:175 admin/user.php:235
 msgid "Passwords must match."
 msgstr "Şifreler eşleşmek zorundadır."
 
-#: admin/sqlshell.php:110
+#: templates/admin/sqlshell.html.php:45
 msgid "Paste"
 msgstr "Yapıştır"
 
@@ -2130,7 +2246,7 @@ msgstr "Bekleyen Üyelikler:"
 msgid "People"
 msgstr "İnsanlar"
 
-#: templates/logintasks/logintasks.html:22
+#: templates/logintasks/logintasks.html.php:24
 msgid "Perform Login Tasks"
 msgstr "Giriş Görevlerini Uygula"
 
@@ -2139,16 +2255,16 @@ msgstr "Giriş Görevlerini Uygula"
 msgid "Permission \"%s\" not deleted."
 msgstr " \"%s\" izni silinmedi."
 
-#: admin/perms/index.php:28
+#: admin/perms/index.php:29
 msgid "Permissions"
 msgstr "İzinler"
 
-#: admin/perms/addchild.php:57 admin/perms/delete.php:52
-#: admin/perms/edit.php:116 admin/perms/index.php:22
+#: admin/perms/addchild.php:58 admin/perms/delete.php:53
+#: admin/perms/edit.php:150 admin/perms/index.php:23
 msgid "Permissions Administration"
 msgstr "İzin Yönetimi"
 
-#: config/prefs.php:232
+#: config/prefs.php:263
 msgid "Personal Information"
 msgstr "Kişisel Bilgiler"
 
@@ -2156,7 +2272,11 @@ msgstr "Kişisel Bilgiler"
 msgid "Pets"
 msgstr "Evcil Hayvanlar"
 
-#: config/registry.php:343
+#: templates/admin/activesync.html.php:19
+msgid "Phone Number"
+msgstr "Telefon Numarası"
+
+#: config/registry.php:197
 msgid "Photos"
 msgstr "Fotoğraflar"
 
@@ -2164,19 +2284,19 @@ msgstr "Fotoğraflar"
 msgid "Platitudes"
 msgstr "Beylik Sözler"
 
-#: login.php:200
+#: login.php:217
 msgid "Please enter a password."
 msgstr "Lütfen bir parola giriniz."
 
-#: login.php:199
+#: login.php:216
 msgid "Please enter a username."
 msgstr "Lütfen bir kullanıcı adı giriniz."
 
-#: templates/problem/problem.inc:7
+#: services/problem.php:156
 msgid "Please provide a summary of the problem."
 msgstr "Lütfen sorunun bir özetini yapın."
 
-#: services/logintasks.php:80
+#: services/logintasks.php:82
 msgid ""
 "Please read the following text. You MUST agree with the terms to use the "
 "system."
@@ -2184,76 +2304,69 @@ msgstr ""
 "Lütfen aşağıdaki metni okuyunuz. Sistemi kullanma şartlarını KABUL "
 "ETMELİSİNİZ."
 
-#: services/facebook/index.php:75
-msgid "Pokes:"
-msgstr ""
-
-#: admin/activesync.php:107
-msgid "Policy Key"
-msgstr ""
-
-#: lib/Prefs/Ui.php:404
-msgid "Policy Key:"
-msgstr ""
-
 #: lib/Block/Fortune.php:64
 msgid "Politics"
 msgstr "Politika"
 
-#: services/facebook/index.php:109
+#: config/prefs.php:750
+msgid ""
+"Position of reply text when replying to email on your device. Note that some "
+"devices will always send the citation string at the end of the reply text."
+msgstr ""
+"Cihazınızda e-postanızı yanıtlarken cevap metninin konumu. Bazı cihazların "
+"yanıt metninin sonundaki atıf dizesini daima göndereceğini unutmayın."
+
+#: lib/Ajax/Application/FacebookHandler.php:157
 #, php-format
 msgid "Posted %s"
-msgstr ""
+msgstr "%s yayınladı"
 
 #: templates/block/twitter_tweet.html.php:26
 #, php-format
 msgid "Posted %s via %s"
-msgstr ""
+msgstr "%s, %s ile yayınladı"
 
-#: themes/postnuke/info.php:2
-msgid "Postnuke"
-msgstr "Postnuke"
-
-#: lib/Block/Metar.php:239 lib/Block/Metar.php:244
+#: lib/Block/Metar.php:240 lib/Block/Metar.php:245
 #, php-format
 msgid "Precipitation for last %d hour: "
 msgid_plural "Precipitation for last %d hours: "
 msgstr[0] "Son %d saat için yağış: "
+msgstr[1] "Son %d saat için yağış: "
 
-#: lib/Block/Weather.php:254
+#: lib/Block/Weather.php:269
 #, php-format
 msgid "Precipitation%schance"
 msgstr "Yağış%solasılığı"
 
-#: lib/Block/Metar.php:198 lib/Block/Weather.php:191
+#: lib/Block/Metar.php:199 lib/Block/Weather.php:206
 msgid "Pressure"
 msgstr "Basınç:"
 
-#: lib/Block/Metar.php:232
+#: lib/Block/Metar.php:233
 msgid "Pressure at sea level: "
 msgstr "Deniz seviyesindeki basınç:"
 
 #: templates/admin/locks/list.html.php:11
 msgid "Principal"
-msgstr ""
+msgstr "Asıl"
 
-#: services/problem.php:145
+#: services/problem.php:161
 msgid "Problem Description"
 msgstr "Sorun Tanımlaması"
 
-#: admin/activesync.php:173 lib/Prefs/Ui.php:397
+#: templates/activesync/device_table.html.php:18
 msgid "Provisioned"
-msgstr ""
+msgstr "Hazırladı"
 
-#: templates/prefs/facebook.html:20
+#: lib/Application.php:217
+msgid "Provisioning"
+msgstr "Sağlama"
+
+#: templates/prefs/facebook.html.php:16
 msgid "Publish enabled."
-msgstr ""
+msgstr "Yayın etkinleştirildi."
 
-#: themes/purple/info.php:2
-msgid "Purple Horde"
-msgstr "Mor Horde"
-
-#: admin/sqlshell.php:59
+#: templates/admin/sqlshell.html.php:9
 msgid "Query"
 msgstr "Sorgu"
 
@@ -2265,26 +2378,26 @@ msgstr "Kota"
 msgid "Random Fortune"
 msgstr "Rastgele Deyiş"
 
-#: templates/shares/edit.inc:64 templates/shares/edit.inc:78
-#: templates/shares/edit.inc:99 templates/shares/edit.inc:113
+#: templates/shares/edit.inc:65 templates/shares/edit.inc:79
+#: templates/shares/edit.inc:100 templates/shares/edit.inc:114
 #: templates/shares/edit.inc:135 templates/shares/edit.inc:149
-#: templates/shares/edit.inc:170 templates/shares/edit.inc:188
-#: templates/shares/edit.inc:223 templates/shares/edit.inc:250
-#: templates/shares/edit.inc:272 templates/shares/edit.inc:291
-#: templates/shares/edit.inc:320
+#: templates/shares/edit.inc:171 templates/shares/edit.inc:189
+#: templates/shares/edit.inc:224 templates/shares/edit.inc:251
+#: templates/shares/edit.inc:273 templates/shares/edit.inc:292
+#: templates/shares/edit.inc:321
 msgid "Read"
 msgstr "Okuma"
 
-#: templates/prefs/facebook.html:32
-msgid "Read enabled"
-msgstr "Okuma etkin"
+#: templates/prefs/facebook.html.php:30
+msgid "Read enabled."
+msgstr "Okuma etkin."
 
-#: templates/admin/user/remove.inc:8
+#: templates/admin/user/remove.inc:11
 #, php-format
 msgid "Really delete \"%s\"? This operation cannot be undone."
 msgstr "\"%s\" gerçekten silinsin mi? Bu işlem geri döndürülemez."
 
-#: templates/admin/user/clear.inc:8
+#: templates/admin/user/clear.inc:10
 #, php-format
 msgid ""
 "Really remove user data for user \"%s\"? This operation cannot be undone."
@@ -2292,37 +2405,33 @@ msgstr ""
 "Gerçekten \"%s\" için kullanıcı verilerinin silinmesini istiyor musunuz? Bu "
 "işlemin geri dönüşü yoktur."
 
-#: config/prefs.php:580
+#: config/prefs.php:616
 msgid "Refresh Dynamic Menu Elements:"
 msgstr "Dinamik Menü Öğelerini Yenile:"
 
-#: config/prefs.php:544
+#: config/prefs.php:597
 msgid "Refresh Portal View:"
 msgstr "Portal Görünümünü Yenile:"
 
-#: templates/portal/layout.inc:94
+#: templates/portal/layout.inc:95
 msgid "Refresh rate:"
 msgstr "Yenileme sıklığı"
 
-#: admin/activesync.php:136
-msgid "Registered User Devices"
-msgstr ""
+#: templates/portal/smartmobile.inc:22
+msgid "Regular Apps"
+msgstr "Düzenli Uygulamalar"
 
-#: lib/Block/Metar.php:299
+#: lib/Block/Metar.php:300
 msgid "Remarks"
 msgstr "Açıklamalar"
 
-#: admin/sessions.php:43 admin/sessions.php:59
-msgid "Remote Host:"
-msgstr "Uzaktaki Sunucu:"
+#: templates/admin/sessions.html.php:10
+msgid "Remote Host"
+msgstr "Uzaktaki Sunucu"
 
-#: lib/Prefs/Ui.php:300
-msgid "Remote URL (http://www.example.com/horde):"
-msgstr "Uzaktaki URL (http://www.example.com/webmail):"
-
-#: admin/activesync.php:187 templates/admin/groups/edit.inc:26
-#: templates/admin/user/approve.inc:40
-#: templates/admin/user/removequeued.inc:13 templates/prefs/activesync.html:33
+#: templates/activesync/device_table.html.php:38
+#: templates/admin/groups/edit.inc:25 templates/admin/user/approve.inc:41
+#: templates/admin/user/removequeued.inc:13
 msgid "Remove"
 msgstr "Sil"
 
@@ -2330,15 +2439,15 @@ msgstr "Sil"
 msgid "Remove pair"
 msgstr "Ikiliyi Sil"
 
-#: admin/config/index.php:341
+#: admin/config/index.php:440
 msgid "Remove saved script from server's temporary directory."
 msgstr "Kaydedilmiş betiği sunucunu geçici dizininden sil."
 
-#: templates/admin/user/remove.inc:11
+#: templates/admin/user/remove.inc:14
 msgid "Remove user"
 msgstr "Kullanıcı Sil"
 
-#: templates/admin/user/remove.inc:5
+#: templates/admin/user/remove.inc:8
 #, php-format
 msgid "Remove user: %s"
 msgstr "Kullanıcıyı sil: %s"
@@ -2347,56 +2456,60 @@ msgstr "Kullanıcıyı sil: %s"
 msgid "Reply"
 msgstr "Yanıtla"
 
-#: admin/activesync.php:140
-msgid "Reprovision All Devices"
-msgstr ""
+#: lib/Application.php:228
+msgid "Require PIN"
+msgstr "PIN Gerektirir"
+
+#: lib/Application.php:311
+msgid "Require S/MIME Encryption"
+msgstr "S / MIME Şifrelemesi Gerektirir"
+
+#: lib/Application.php:315
+msgid "Require S/MIME Signature"
+msgstr "S / MIME İmzası Gerektirir"
 
 #: admin/user.php:27 templates/admin/user/update.inc:64
 #: templates/prefs/rpc.html:36
 msgid "Reset"
 msgstr "Sıfırla"
 
-#: services/resetpassword.php:46
+#: services/resetpassword.php:49
 msgid "Reset Password"
 msgstr "Şifreyi Sıfırla"
 
-#: templates/prefs/activesync.html:6
-msgid ""
-"Reset all device state. This will cause your devices to resyncronize all "
-"items."
-msgstr ""
+#: templates/admin/activesync.html.php:32
+#: templates/prefs/activesync.html.php:15
+msgid "Reset all device state"
+msgstr "Tüm cihaz durumlarını sıfırla"
 
-#: services/resetpassword.php:24
+#: services/resetpassword.php:27
 msgid "Reset your password"
 msgstr "Şifrenizi Sıfırlayın"
 
-#: admin/sqlshell.php:124
+#: templates/admin/sqlshell.html.php:60
 msgid "Restore Last Query"
 msgstr "Son Sorguyu Geri Al"
 
-#: admin/cmdshell.php:28 admin/phpshell.php:79 admin/sqlshell.php:62
+#: templates/admin/cmdshell.html.php:7 templates/admin/phpshell.html.php:34
+#: templates/admin/sqlshell.html.php:13
 msgid "Results"
 msgstr "Sonuçlar"
 
-#: services/portal/cloud_search.php:34
+#: services/portal/cloud_search.php:37
 #, php-format
 msgid "Results for %s"
 msgstr "%s için sonuçlar"
 
-#: templates/prefs/end.html:7
-msgid "Return to Main Screen"
-msgstr "Ana Ekrana Geri Dön"
-
 #: templates/block/twitter_tweet.html.php:35
 msgid "Retweet"
-msgstr ""
+msgstr "Retweet"
 
 #: templates/block/twitter_tweet.html.php:30
 #, php-format
 msgid "Retweeted by %s"
-msgstr ""
+msgstr "%s tarafından Retweetlendi"
 
-#: services/changepassword.php:30
+#: services/changepassword.php:32
 msgid "Retype new password"
 msgstr "Yeni şifreyi tekrar yazınız"
 
@@ -2408,36 +2521,56 @@ msgstr "Yapılandırmayı Geri Döndür"
 msgid "Riddles"
 msgstr "Bilmeceler"
 
-#: admin/sqlshell.php:111
+#: templates/admin/sqlshell.html.php:46
 msgid "Run"
 msgstr "Çalıştır"
 
-#: templates/logintasks/mobile.html:26
+#: templates/logintasks/smartmobile.html.php:29
 msgid "Run Login Tasks"
 msgstr "Giriş Görevlerini Uygula"
 
-#: admin/sqlshell.php:43
+#: lib/Application.php:283
+msgid "SD card"
+msgstr "Sd kart"
+
+#: lib/Application.php:276
+msgid "SD card encryption"
+msgstr "SD kart şifreleme"
+
+#: lib/Application.php:291
+msgid "SMS Text messages"
+msgstr "SMS Metin mesajları"
+
+#: admin/config/index.php:278 admin/config/index.php:331
+msgid "SQL DB schema is out of date."
+msgstr "SQL Veritabanı şeması güncel değil."
+
+#: admin/config/index.php:283 admin/config/index.php:336
+msgid "SQL DB schema is ready."
+msgstr "SQL Veritabanı şeması hazır."
+
+#: admin/sqlshell.php:23
 msgid "SQL Shell"
 msgstr "SQL Kabuğu"
 
-#: lib/Api.php:72
+#: lib/Api.php:80
 msgid "S_QL Shell"
 msgstr "S_QL Kabuğu"
 
-#: templates/portal/layout.inc:115 templates/prefs/end.html:3
+#: templates/portal/layout.inc:116 templates/prefs/end.html:4
 msgid "Save"
 msgstr "Kaydet"
 
-#: templates/admin/groups/edit.inc:70 templates/shares/edit.inc:338
+#: templates/admin/groups/edit.inc:71 templates/shares/edit.inc:336
 #, php-format
 msgid "Save \"%s\""
 msgstr "Sakla: \"%s\""
 
-#: templates/shares/edit.inc:339
+#: templates/shares/edit.inc:337
 msgid "Save and Finish"
 msgstr "Kaydet ve Sonlandır"
 
-#: admin/config/index.php:313
+#: admin/config/index.php:408
 msgid ""
 "Save generated configuration as a PHP script to your server's temporary "
 "directory."
@@ -2445,7 +2578,7 @@ msgstr ""
 "Oluşturulan yapılandırmayı PHP betiği olarak sunucunun geçici dizinine "
 "kaydet."
 
-#: admin/config/scripts.php:99
+#: admin/config/scripts.php:92
 #, php-format
 msgid "Saved configuration upgrade script to: \"%s\"."
 msgstr "Yapılandırma yükseltme betiği kaydedildi: \"%s\"."
@@ -2458,23 +2591,28 @@ msgstr "Bilim"
 msgid "Scope"
 msgstr "Kapsam"
 
-#: services/help/index.php:71
+#: services/help/index.php:95
 msgid "Sea_rch"
 msgstr "A_ra"
 
-#: services/help/index.php:130 templates/admin/user/list.inc:16
+#: lib/View/Topbar.php:59 services/help/index.php:156
+#: templates/admin/activesync.html.php:22 templates/admin/user/list.inc:14
 msgid "Search"
 msgstr "Arama"
 
-#: templates/admin/user/list.inc:14
+#: templates/admin/activesync.html.php:7 templates/admin/user/list.inc:12
 msgid "Search:"
 msgstr "Ara:"
 
-#: templates/shares/edit.inc:306 templates/shares/edit.inc:308
+#: lib/Application.php:249
+msgid "Seconds of inactivity before device should lock"
+msgstr "Cihaz kilitlenmeden önce etkinliksiz gçeen saniyeler"
+
+#: templates/shares/edit.inc:307 templates/shares/edit.inc:309
 msgid "Select a group to add:"
 msgstr "Eklenecek grubu seçin:"
 
-#: templates/shares/edit.inc:41
+#: templates/shares/edit.inc:42
 msgid "Select a new owner:"
 msgstr "Bir sahip seçin:"
 
@@ -2482,21 +2620,13 @@ msgstr "Bir sahip seçin:"
 msgid "Select a server"
 msgstr "Bir sunucu seçin"
 
-#: templates/shares/edit.inc:205 templates/shares/edit.inc:207
+#: templates/shares/edit.inc:206 templates/shares/edit.inc:208
 msgid "Select a user to add:"
 msgstr "Eklenecek kullanıcıyı seçin"
 
 #: templates/prefs/addressbooks.html:5
 msgid "Select all fields to search when expanding addresses."
 msgstr "Adresleri genişletirken tüm alanları aramak için seç"
-
-#: services/keyboard.php:38
-msgid ""
-"Select the characters you need from the boxes below. You can then copy and "
-"paste them from the text area."
-msgstr ""
-"İstediğniz karakterleri aşağıdaki kutulardan seçin. Daha sonra metin "
-"alanından kopyalayıp yapıştırabilirsiniz."
 
 #: templates/data/datetime.inc:57
 msgid "Select the date and time format:"
@@ -2522,52 +2652,56 @@ msgstr "Saat sınırlayıcısını seçin:"
 msgid "Select the time format:"
 msgstr "Saat biçimini seçin:"
 
-#: config/prefs.php:530
+#: config/prefs.php:583
 msgid "Select your color scheme."
 msgstr "Renk düzeninizi seçin."
 
-#: config/prefs.php:345
+#: config/prefs.php:379
 msgid "Select your preferred language:"
 msgstr "Tercih ettiğiniz dili seçin:"
 
-#: templates/problem/problem.inc:57
+#: templates/problem/problem.inc:36
 msgid "Send Problem Report"
 msgstr "Sorun Raporu Gönder"
 
-#: lib/Block/Metar.php:289
+#: lib/Block/Metar.php:290
 msgid "Sensor: "
 msgstr "Algılayıcı:"
 
-#: templates/prefs/syncml.html:12
+#: lib/Prefs/Special/Activesync.php:68
+msgid "Server Id"
+msgstr "Sunucu Kimliği"
+
+#: templates/prefs/syncml.html.php:12
 msgid "Server Time"
 msgstr "Sunucu Saati"
 
-#: admin/sessions.php:19
-msgid "Session Admin"
-msgstr "Oturum Yöneticisi"
+#: admin/sessions.php:67
+msgid "Session Administration"
+msgstr "Oturum Yönetimi"
 
-#: admin/sessions.php:41
-msgid "Session Timestamp:"
-msgstr "Oturum Zaman Bilgisi:"
+#: templates/admin/sessions.html.php:8
+msgid "Session Timestamp"
+msgstr "Oturum Zaman Damgası"
 
-#: lib/Api.php:62
+#: lib/Api.php:70
 msgid "Sessions"
 msgstr "Oturum"
 
-#: config/prefs.php:603
+#: config/prefs.php:639
 msgid "Set up integration with your Facebook account."
-msgstr ""
+msgstr "Facebook hesabınızla entegrasyon kurun."
 
-#: config/prefs.php:623
+#: config/prefs.php:665
 msgid "Set up integration with your Twitter account."
-msgstr ""
+msgstr "Twitter hesabınızla entegrasyon kurun."
 
-#: config/prefs.php:331
+#: config/prefs.php:367
 msgid "Set your preferred language, timezone and date preferences."
 msgstr ""
 "Tercih ettiğiniz dili, zaman dilimini ve tarih özelliklerini ayarlayın."
 
-#: config/prefs.php:492
+#: config/prefs.php:536
 msgid ""
 "Set your startup application, color scheme, page refreshing, and other "
 "display preferences."
@@ -2575,38 +2709,38 @@ msgstr ""
 "Başlangıç uygulamanızı, renk düzeninizi, sayfa tazeleme, ve diğer görüntü "
 "seçeneklerini belirleyin."
 
-#: lib/Block/Weather.php:136
+#: lib/Block/Weather.php:150
 #, php-format
 msgid "Several locations possible with the parameter: %s"
-msgstr ""
+msgstr "%s parametresi ile mümkün olan çeşitli yerler:"
 
-#: templates/problem/problem.inc:38
+#: templates/problem/problem.inc:17
 msgid "Short Summary"
 msgstr "Kısa Özet"
 
-#: config/prefs.php:587
+#: config/prefs.php:623
 msgid "Should access keys be defined for most links?"
 msgstr "Çoğu bağlantı için erişim anahtarı tanımlansın mı?"
 
-#: templates/shares/edit.inc:63 templates/shares/edit.inc:74
-#: templates/shares/edit.inc:98 templates/shares/edit.inc:109
+#: templates/shares/edit.inc:64 templates/shares/edit.inc:75
+#: templates/shares/edit.inc:99 templates/shares/edit.inc:110
 #: templates/shares/edit.inc:134 templates/shares/edit.inc:145
-#: templates/shares/edit.inc:169 templates/shares/edit.inc:184
-#: templates/shares/edit.inc:219 templates/shares/edit.inc:246
-#: templates/shares/edit.inc:271 templates/shares/edit.inc:287
-#: templates/shares/edit.inc:316
+#: templates/shares/edit.inc:170 templates/shares/edit.inc:185
+#: templates/shares/edit.inc:220 templates/shares/edit.inc:247
+#: templates/shares/edit.inc:272 templates/shares/edit.inc:288
+#: templates/shares/edit.inc:317
 msgid "Show"
 msgstr "Göster"
 
-#: templates/prefs/app.html:22
+#: templates/prefs/app.html:21
 msgid "Show Advanced Preferences"
 msgstr "Gelişmiş Seçenekleri Göster"
 
-#: templates/sidebar/sidebar.inc:10
-msgid "Show Sidebar"
-msgstr "Kenar Çubuğunu Göster"
+#: templates/prefs/end.html:8
+msgid "Show All Preferences Groups"
+msgstr "Tüm Seçeneklere Dön"
 
-#: admin/config/index.php:303
+#: admin/config/index.php:390
 msgid ""
 "Show differences between currently saved and the newly generated "
 "configuration."
@@ -2618,24 +2752,12 @@ msgstr ""
 msgid "Show extra detail?"
 msgstr "Ek detay gösterilsin mi?"
 
-#: config/prefs.php:513
+#: config/prefs.php:568
 msgid "Show last login time when logging in?"
 msgstr "Girişte en son giriş tarihi gösterilsin mi?"
 
-#: lib/Block/FbStream.php:65
-msgid "Show notifications"
-msgstr "Bildirimleri Göster"
-
-#: config/prefs.php:550
-#, php-format
-msgid "Show the %s Menu on the left?"
-msgstr "%s Menüsü solda gösterilsin mi?"
-
-#: themes/simplex/info.php:2
-msgid "Simplex"
-msgstr ""
-
-#: templates/logintasks/logintasks.html:23 templates/logintasks/mobile.html:25
+#: templates/logintasks/logintasks.html.php:25
+#: templates/logintasks/smartmobile.html.php:33
 msgid "Skip Login Tasks"
 msgstr "Giriş Görevlerini Atla"
 
@@ -2643,11 +2765,11 @@ msgstr "Giriş Görevlerini Atla"
 msgid "Small"
 msgstr "Küçük"
 
-#: lib/Block/Metar.php:251
+#: lib/Block/Metar.php:252
 msgid "Snow depth: "
 msgstr "Kar Derinliği: "
 
-#: lib/Block/Metar.php:255
+#: lib/Block/Metar.php:256
 msgid "Snow equivalent in water: "
 msgstr "Yağan karın su eşiti: "
 
@@ -2655,27 +2777,23 @@ msgstr "Yağan karın su eşiti: "
 msgid "Songs & Poems"
 msgstr "Şarkılar & Şiirler"
 
-#: config/nls.php:184
+#: config/nls.php:183
 msgid "South European (ISO-8859-3)"
 msgstr "Güney Avrupa (ISO-8859-3)"
 
-#: lib/Block/Moon.php:32 lib/Block/Moon.php:63
+#: lib/Block/Moon.php:32 lib/Block/Moon.php:60
 msgid "Southern Hemisphere"
 msgstr "Güney Yarımküre"
 
-#: config/registry.php:103
+#: config/registry.php:106
 msgid "Spam"
 msgstr "İstenmeyen İleti"
-
-#: services/keyboard.php:14
-msgid "Special Character Input"
-msgstr "Özel Karakter Girişi"
 
 #: lib/Block/Fortune.php:68
 msgid "Sports"
 msgstr "Sporlar"
 
-#: lib/Block/Metar.php:60 lib/Block/Weather.php:75
+#: lib/Block/Metar.php:61
 msgid "Standard"
 msgstr "Standart"
 
@@ -2687,29 +2805,24 @@ msgstr "Uzay Yolu"
 msgid "Start Time"
 msgstr "Başlangıç Zamanı"
 
-#: templates/prefs/activesync.html:2
+#: templates/prefs/activesync.html.php:13
 msgid "State Management"
-msgstr ""
+msgstr "Durum Yöneticisi"
 
-#: admin/activesync.php:114 templates/admin/config/index.html:39
-#: templates/prefs/activesync.html:22
+#: templates/activesync/device_table.html.php:6
+#: templates/admin/config/index.html.php:33
 msgid "Status"
 msgstr "Durum"
 
-#: services/facebook/index.php:147
+#: lib/Ajax/Application/FacebookHandler.php:86
 msgid "Status unable to be set."
-msgstr ""
+msgstr "Durum ayarlanamadı."
 
 #: templates/block/twitter-layout.html.php:24
 msgid "Stream"
-msgstr ""
+msgstr "Akış"
 
-#: util/icon_browser.php:40
-#, php-format
-msgid "Subdirectory \"%s\" not found."
-msgstr "Altdizin \"%s\" bulunamadı."
-
-#: signup.php:52
+#: signup.php:55
 #, php-format
 msgid ""
 "Submitted request to add \"%s\" to the system. You cannot log in until your "
@@ -2718,30 +2831,30 @@ msgstr ""
 "\"%s\" yi sisteme ekleme talebiniz alındı. Talep onaylanana kadar sisteme "
 "giriş yapamazsınız."
 
-#: services/facebook/index.php:35
+#: services/facebook/index.php:48
 msgid "Succesfully connected your Facebook account or updated permissions."
-msgstr ""
+msgstr "Facebook hesabınıza başarıyla bağlanıldı veya izinleriniz güncellendi."
 
-#: admin/sqlshell.php:97
+#: templates/admin/sqlshell.html.php:17
 msgid "Success"
 msgstr "Başarı"
 
-#: admin/signup_confirm.php:85 admin/user.php:105
+#: admin/signup_confirm.php:87 admin/user.php:101
 #, php-format
 msgid "Successfully added \"%s\" to the system."
 msgstr "\"%s\" başarıyla sisteme eklendi."
 
-#: admin/user.php:143
+#: admin/user.php:147
 #, php-format
 msgid "Successfully cleared data for user \"%s\" from the system."
 msgstr "\"%s\" kullanıcısının bilgileri başarıyla sistemden temizlendi."
 
-#: admin/groups.php:65 admin/perms/delete.php:42
+#: admin/groups.php:63 admin/perms/delete.php:42
 #, php-format
 msgid "Successfully deleted \"%s\"."
 msgstr "\"%s\" başarıyla silindi."
 
-#: admin/user.php:123
+#: admin/user.php:124
 #, php-format
 msgid "Successfully removed \"%s\" from the system."
 msgstr "\"%s\" başarıyla sistemden kaldırıldı."
@@ -2756,18 +2869,12 @@ msgstr ""
 msgid "Successfully saved backup configuration."
 msgstr "Yedek yapılandırma başarıyla kaydedildi."
 
-#: admin/config/config.php:60
-#, php-format
-msgid "Successfully saved the backup configuration file %s."
-msgstr "Yedek yapılandırma dosyası %s başarıyla kaydedildi."
-
-#: admin/user.php:197
+#: admin/user.php:199
 #, php-format
 msgid "Successfully updated \"%s\""
 msgstr "\"%s\" başarıyla güncellendi"
 
-#: admin/config/config.php:69 admin/config/index.php:52
-#: admin/config/index.php:98
+#: admin/config/index.php:52
 #, php-format
 msgid "Successfully wrote %s"
 msgstr "%s başarıyla yazıldı."
@@ -2780,11 +2887,11 @@ msgstr "Gün Doğumu"
 msgid "Sun Set"
 msgstr "Gün batımı"
 
-#: config/prefs.php:453
+#: config/prefs.php:498
 msgid "Sunday"
 msgstr "Pazar"
 
-#: lib/Block/Weather.php:165 lib/Block/Weather.php:166
+#: lib/Block/Weather.php:180 lib/Block/Weather.php:181
 msgid "Sunrise"
 msgstr "Gün doğumu"
 
@@ -2792,11 +2899,15 @@ msgstr "Gün doğumu"
 msgid "Sunrise/Sunset"
 msgstr "Gün doğumu/Gün batımı"
 
-#: lib/Block/Weather.php:168 lib/Block/Weather.php:169
+#: lib/Block/Weather.php:183 lib/Block/Weather.php:184
 msgid "Sunset"
 msgstr "Gün batımı"
 
-#: config/prefs.php:663
+#: lib/Application.php:331
+msgid "Sync all"
+msgstr "Hepsini eşitle"
+
+#: config/prefs.php:716
 msgid "SyncML"
 msgstr "SyncML"
 
@@ -2808,55 +2919,59 @@ msgstr "Ortak Besleme"
 msgid "Tag Cloud"
 msgstr "Etiket Bulutu"
 
-#: themes/tango-blue/info.php:24
-msgid "Tango Blue"
-msgstr "Tango Mavisi"
-
-#: config/registry.php:168
+#: config/registry.php:155
 msgid "Tasks"
 msgstr "Görevler"
 
-#: themes/gennevilliers/info.php:12
-msgid "Teal"
-msgstr "Ördek"
-
-#: lib/Block/Metar.php:263
+#: lib/Block/Metar.php:264
 msgid "Temp for last hour: "
 msgstr "Son saat için sıcaklık: "
 
-#: lib/Block/Metar.php:187 lib/Block/Weather.php:175
+#: lib/Block/Metar.php:188 lib/Block/Weather.php:190
 msgid "Temperature"
 msgstr "Sıcaklık"
 
-#: lib/Block/Weather.php:246
+#: lib/Block/Weather.php:261
 #, php-format
 msgid "Temperature%s(%sHi%s/%sLo%s)"
 msgstr "Sıcaklık%s(%sYük%s/%sAlç%s)"
 
-#: lib/Prefs/Ui.php:478 services/facebook/index.php:40
+#: lib/Prefs/Special/Facebook.php:79 services/facebook/index.php:57
 msgid "Temporarily unable to connect with Facebook, Please try again."
 msgstr ""
+"Geçici olarak Facebook ile iletişim kuramıyor Lütfen daha sonra tekrar "
+"deneyiniz."
 
-#: lib/Block/TwitterTimeline.php:104
+#: lib/Block/TwitterTimeline.php:98
 msgid "Temporarily unable to contact Twitter. Please try again later."
 msgstr ""
+"Geçici olarak Twitter ile iletişim kuramıyor Lütfen daha sonra tekrar "
+"deneyiniz."
 
-#: services/keyboard.php:148
-msgid "Text Area"
-msgstr "Metin Alanı"
-
-#: config/prefs.php:563
-msgid "Text Only"
-msgstr "Sadece Metin"
-
-#: config/nls.php:185
+#: config/nls.php:184
 msgid "Thai (TIS-620)"
 msgstr "Tai (TIS-620)"
 
-#: lib/Prefs/Ui.php:712
+#: admin/sqlshell.php:97
+#, php-format
+msgid ""
+"The DELETE command completed successfully. A total of %d rows were deleted."
+msgstr "DELETE komutu başarıyla tamamlandı. Toplam %d satır silindi"
+
+#: admin/sqlshell.php:89
+msgid "The INSERT command completed successfully."
+msgstr "INSERT komutu başarıyla tamamlandı."
+
+#: lib/Prefs/Special/Activesync.php:118
 #, php-format
 msgid "The Remote Wipe for device id %s has been cancelled."
-msgstr ""
+msgstr "Cihaz kimliği %s için Uzaktan Temizleme işlemi iptal edildi."
+
+#: admin/sqlshell.php:93
+#, php-format
+msgid ""
+"The UPDATE command completed successfully. A total of %d rows were modified."
+msgstr "UPDATE komutu başarıyla tamamlandı. Toplan %d satır değiştirildi."
 
 #: admin/alarms.php:86
 msgid "The alarm has been deleted."
@@ -2866,22 +2981,24 @@ msgstr "Alarm silindi."
 msgid "The alarm has been saved."
 msgstr "Alarm kaydedildi."
 
-#: admin/config/index.php:103
+#: admin/config/index.php:119
 #, php-format
 msgid ""
 "The configuration for %s cannot be updated automatically. Please update the "
 "configuration manually."
 msgstr ""
+"%s konfigürsyonu otomatik olarak güncellenemedi. Lütfen konfigürasyonu elle "
+"güncelleyiniz."
 
-#: config/prefs.php:262
+#: config/prefs.php:290
 msgid "The default e-mail address to use with this identity:"
 msgstr "Bu kimlikle kullanılacak varsayılan eposta adresi:"
 
 #: admin/locks.php:24
 msgid "The lock has been removed."
-msgstr ""
+msgstr "Kilit kaldırıldı."
 
-#: lib/Block/Vatid.php:87
+#: lib/Block/Vatid.php:116
 msgid ""
 "The member state service could not be reached in time. Try again later or "
 "with a different member state."
@@ -2889,7 +3006,7 @@ msgstr ""
 "Üye ülke hizmetine ulaşılamadı. Daha sonra ya da farklı bir üye seçerek "
 "tekrar deneyiniz."
 
-#: lib/Block/Vatid.php:83
+#: lib/Block/Vatid.php:112
 msgid ""
 "The member state service is currently not available. Try again later or with "
 "a different member state."
@@ -2897,44 +3014,36 @@ msgstr ""
 "Üye ülke hizmeti şuanda kullanılabilir değil. Daha sonra ya da farklı bir "
 "üye seçerek tekrar deneyiniz."
 
-#: lib/Block/Vatid.php:75
+#: lib/Block/Vatid.php:104
 msgid "The provided country code is invalid."
 msgstr "Belirtilen ülke kodu geçersiz."
 
-#: lib/Prefs/Ui.php:645
-#, php-format
-msgid "The server \"%s\" has been deleted."
-msgstr "\"%s\" sunucusu silindi."
-
-#: lib/Prefs/Ui.php:640
-#, php-format
-msgid "The server \"%s\" has been saved."
-msgstr "\"%s\" sunucusu kaydedildi."
-
-#: lib/Block/Vatid.php:79
+#: lib/Block/Vatid.php:108
 msgid "The service is currently not available. Try again later."
 msgstr "Hizmet şu anda kullanılabilir değil. Daha sonra tekrar deneyin."
 
-#: lib/Block/Vatid.php:91
+#: lib/Block/Vatid.php:120
 msgid "The service is currently too busy. Try again later."
 msgstr "Hizmet şu anda çok yoğun. Lütfen daha sonra tekrar deneyin."
 
-#: admin/user.php:222
+#: admin/user.php:224
 #, php-format
 msgid "The signup request for \"%s\" has been removed."
 msgstr "\"%s\" için kayıt talebi iptal edildi."
 
-#: admin/signup_confirm.php:39
+#: admin/signup_confirm.php:41
 #, php-format
 msgid "The signup request for user \"%s\" has been removed."
 msgstr "\"%s\" kullanıcısı için kayıt talebi iptal edildi."
 
-#: lib/Prefs/Ui.php:721
+#: lib/Prefs/Special/Activesync.php:133
 #, php-format
 msgid ""
 "The state for device id %s has been reset. It will resynchronize next time "
 "it connects to the server."
 msgstr ""
+"Cihaz kimliği %s için durum sıfırlandı. Sunucuya bir dahaki sefer "
+"bağlandığında tekrar eşlenecek."
 
 #: lib/LoginTasks/Task/AdminCheck.php:47
 msgid ""
@@ -2944,91 +3053,99 @@ msgstr ""
 "Test betikleri aktif. Güvenlik nedenlerinden dolayı, test betiklerini "
 "kapatın (bkz: horde/docs/INSTALL)"
 
-#: admin/signup_confirm.php:60 admin/user.php:77
+#: admin/signup_confirm.php:62 admin/user.php:73
 #, php-format
 msgid "The user \"%s\" already exists."
 msgstr "\"%s\" kullanıcısı zaten var."
 
-#: services/shares/edit.php:85 services/shares/edit.php:177
+#: services/shares/edit.php:93 services/shares/edit.php:178
 #, php-format
 msgid "The user \"%s\" does not exist."
 msgstr "\"%s\" bulunamadı."
 
-#: util/icon_browser.php:28
-#, php-format
-msgid "Themes directory \"%s\" not found."
-msgstr "Tema dizini \"%s\" bulunamadı."
-
-#: signup.php:38 signup.php:59 admin/signup_confirm.php:74 admin/user.php:89
+#: signup.php:41 signup.php:62 admin/signup_confirm.php:76 admin/user.php:85
 #, php-format
 msgid "There was a problem adding \"%s\" to the system: %s"
 msgstr "\"%s\"'in sisteme eklenmesinde sorun oluştu: %s"
 
-#: admin/user.php:145
+#: admin/user.php:149
 #, php-format
 msgid "There was a problem clearing data for user \"%s\" from the system: "
 msgstr "\"%s\" kullanıcının verilerinin sistemden silinmesinde sorun var: "
 
-#: admin/user.php:125
+#: admin/user.php:126
 #, php-format
 msgid "There was a problem removing \"%s\" from the system: "
 msgstr "\"%s\" kullanıcısını sistemden çıkartılmasında sorun var: "
 
-#: admin/user.php:178
+#: admin/user.php:180
 #, php-format
 msgid "There was a problem updating \"%s\": %s"
 msgstr "\"%s\" güncellenirken sorun oluştu: %s"
 
-#: lib/Prefs/Ui.php:724
+#: lib/Prefs/Special/Activesync.php:136
 #, php-format
 msgid "There was an error communicating with the ActiveSync server: %s"
-msgstr ""
+msgstr "ActiveSync sunucusu ile iletişim kurarken bir hata oluştu: %s"
 
-#: lib/Block/TwitterTimeline.php:92 lib/Block/TwitterTimeline.php:108
+#: lib/Block/TwitterTimeline.php:86 lib/Block/TwitterTimeline.php:105
 #, php-format
 msgid "There was an error contacting Twitter: %s"
-msgstr ""
+msgstr "Twitter ile iletişim kurarken bir hata oluştu: %s"
 
-#: admin/config/config.php:80
+#: admin/config/config.php:62
 msgid ""
 "There was an error in the configuration form. Perhaps you left out a "
 "required field."
 msgstr ""
+"Konfigürasyon dosyasında hata var. Gerekli bir alanı boş bırakmış "
+"olabilirsiniz."
 
-#: lib/Block/FbStream.php:135 lib/Block/FbStream.php:161
-#: services/facebook/index.php:62 services/facebook/index.php:79
+#: lib/Ajax/Application/FacebookHandler.php:47 lib/Block/FbStream.php:142
 #, php-format
 msgid "There was an error making the request: %s"
-msgstr ""
+msgstr "İstekte hata oluştu: %s"
 
-#: services/facebook/index.php:37
+#: services/facebook/index.php:52
 msgid ""
 "There was an error obtaining your Facebook session. Please try again later."
 msgstr ""
+"Facebook oturumu alınırken bir hata oluştu. Lütfen daha sonra tekrar "
+"deneyiniz."
 
-#: lib/Application.php:177
+#: lib/Application.php:198
 #, php-format
 msgid ""
 "There was an error removing global data for %s. Details have been logged."
 msgstr ""
+"%s için genel verileri kaldırırken bir hata oluştu. Ayrıntılar kaydedildi."
 
-#: services/facebook/index.php:49
+#: services/facebook/index.php:67
 msgid "There was an error with the requested permissions"
-msgstr ""
+msgstr "İstenen izinlerle ilgili bir hata oluştu"
 
-#: lib/Block/Vatid.php:102
+#: lib/Block/Vatid.php:82
 msgid "This VAT identification number is invalid."
 msgstr "Bu KDV numarası geçersiz."
 
-#: lib/Block/Vatid.php:99
+#: lib/Block/Vatid.php:79
 msgid "This VAT identification number is valid."
 msgstr "Bu KDV numarası geçerli."
 
-#: config/registry.php:232
+#: templates/admin/activesync.html.php:33
+msgid "This will cause all devices to resyncronize all items."
+msgstr ""
+"Bu, tüm cihazların tüm öğeleri tekrar senkronize etmesine neden olacaktır."
+
+#: templates/prefs/activesync.html.php:16
+msgid "This will cause your devices to resyncronize all items."
+msgstr "Bu, cihazlarınızın tüm öğeleri tekrar eşitlemesine neden olacaktır."
+
+#: config/registry.php:226
 msgid "Tickets"
 msgstr "Biletler"
 
-#: config/registry.php:276
+#: config/registry.php:272
 msgid "Time Tracking"
 msgstr "Zaman İzleme"
 
@@ -3040,9 +3157,9 @@ msgstr "Zaman Biçimi"
 msgid "Timestamp or unknown"
 msgstr "Zaman bilgisi ya da bilinmiyor"
 
-#: templates/prefs/syncml.html:2
+#: templates/prefs/syncml.html.php:2
 msgid "Timestamps of successful synchronization sessions"
-msgstr ""
+msgstr "Başarılı eşleşme oturumlarının zaman damgaları"
 
 #: lib/Block/Iframe.php:28
 msgid "Title"
@@ -3057,93 +3174,112 @@ msgstr ""
 "eşlemeyi düzeltmek için, aşağıdaki listeden bir alan seçerek \"İkili sil\".a "
 "tıklayınız."
 
-#: templates/prefs/addressbooks.html:10
+#: templates/prefs/addressbooks.html:8
 msgid ""
 "To select multiple fields, hold down the Control (PC) or Command (Mac) while "
 "clicking."
 msgstr ""
 "Çoklu seçim yapmak için Ctrl (PC) yada Command (Mac) tuşuna basarak seçiniz."
 
-#: lib/Block/Weather.php:278
+#: lib/Block/Weather.php:294
 msgid "Today"
 msgstr "Bugün"
 
-#: lib/Block/Weather.php:280
+#: lib/Block/Weather.php:296
 msgid "Tomorrow"
 msgstr "Yarın"
 
-#: login.php:223
-msgid "Traditional"
-msgstr "Geleneksel"
+#: config/prefs.php:751
+msgid "Top"
+msgstr "Üst"
 
 #: lib/Block/Fortune.php:70
 msgid "Translations"
 msgstr "Çeviriler"
 
-#: config/nls.php:186
+#: config/nls.php:185
 msgid "Turkish (ISO-8859-9)"
 msgstr "Türkçe (ISO-8859-9)"
 
 #: templates/block/twitter-layout.html.php:15
 msgid "Tweet"
-msgstr ""
+msgstr "Tweet"
 
-#: config/prefs.php:622
+#: config/prefs.php:664
 msgid "Twitter Integration"
-msgstr ""
+msgstr "Twitter Entegrasyonu"
 
-#: lib/Block/TwitterTimeline.php:41
+#: lib/Block/TwitterTimeline.php:35
 msgid "Twitter Timeline"
-msgstr ""
+msgstr "Twitter Zaman Çizelgesi"
 
-#: lib/Block/TwitterTimeline.php:57
+#: lib/Block/TwitterTimeline.php:51
 #, php-format
 msgid "Twitter Timeline for %s"
-msgstr ""
+msgstr "%s için Twitter Zaman Çizelgesi"
 
-#: services/keyboard.php:108
-msgid "U characters"
-msgstr "U karakterleri"
+#: lib/Ajax/Application/TwitterHandler.php:37
+msgid "Twitter not enabled."
+msgstr "Twitter etkin değil."
 
 #: lib/Block/Iframe.php:23
 msgid "URL"
 msgstr "URL"
 
-#: services/twitter/index.php:78
-#, php-format
-msgid "Unable to contact Twitter. Please try again later. Error returned: %s"
-msgstr ""
-
-#: admin/groups.php:68 admin/perms/delete.php:45
+#: admin/groups.php:66 admin/perms/delete.php:45
 #, php-format
 msgid "Unable to delete \"%s\": %s."
 msgstr "\"%s\" silinemedi: %s"
 
-#: services/facebook/index.php:172
+#: lib/Ajax/Application/FacebookHandler.php:118
 msgid "Unable to set like."
-msgstr ""
+msgstr "Böyle ayarlanamıyor."
 
-#: templates/prefs/end.html:4
+#: services/facebook/index.php:36
+msgid "Unable to validate the request token. Please try your request again."
+msgstr "İstek belirteci doğrulanamadı. Lütfen isteğinizi tekrar deneyin."
+
+#: admin/activesync.php:98 lib/Prefs/Special/Activesync.php:61
+msgid "Unavailable"
+msgstr "Kullanım dışı"
+
+#: templates/activesync/device_table.html.php:41
+msgid "Unblock"
+msgstr "Kilidi kaldır"
+
+#: templates/prefs/end.html:5
 msgid "Undo Changes"
 msgstr "Değişiklikleri Geri Al"
 
-#: lib/Prefs/Ui.php:242
+#: lib/Block/TwitterTimeline.php:121 templates/block/twitter_tweet.html.php:39
+msgid "Unfavorite"
+msgstr "Sık kullanılanlardan çıkar"
+
+#: templates/prefs/category.html.php:18
 msgid "Unfiled"
 msgstr "Doldurulmamış"
 
-#: config/nls.php:187
+#: config/nls.php:186
 msgid "Unicode (UTF-8)"
 msgstr "Unicode (UTF-8)"
 
-#: lib/Block/Metar.php:57 lib/Block/Weather.php:72
+#: lib/Block/Metar.php:58 lib/Block/Weather.php:89
 msgid "Units"
 msgstr "Birimler"
 
-#: admin/locks.php:41
+#: admin/sessions.php:36
+msgid "Unknown"
+msgstr "Bilinmiyor"
+
+#: admin/locks.php:43
 msgid "Unlock"
 msgstr "Kilidi kaldır"
 
-#: lib/Block/FbStream.php:157 templates/admin/user/list.inc:36
+#: lib/Api.php:723 lib/Api.php:784
+msgid "Unsupported action."
+msgstr "Desteklenmeyen eylem."
+
+#: templates/admin/user/list.inc:34
 msgid "Update"
 msgstr "Güncelle"
 
@@ -3152,16 +3288,16 @@ msgstr "Güncelle"
 msgid "Update %s"
 msgstr "Güncelle: %s"
 
-#: admin/config/index.php:168 admin/config/index.php:266
+#: admin/config/index.php:192 admin/config/index.php:310
 #, php-format
 msgid "Update %s schema"
 msgstr "Güncelle: %s şeması"
 
-#: templates/admin/config/index.html:19
+#: templates/admin/config/index.html.php:19
 msgid "Update all DB schemas"
 msgstr "Tüm veritabanı şemalarını güncelle"
 
-#: templates/admin/config/index.html:11
+#: templates/admin/config/index.html.php:11
 msgid "Update all configurations"
 msgstr "Tüm yapılandırmaları güncelle"
 
@@ -3169,54 +3305,59 @@ msgstr "Tüm yapılandırmaları güncelle"
 msgid "Update user"
 msgstr "Kullanıcıyı güncelle"
 
-#: admin/groups.php:108 admin/perms/edit.php:110 services/shares/edit.php:248
+#: admin/groups.php:105 admin/perms/edit.php:131 services/shares/edit.php:241
 #, php-format
 msgid "Updated \"%s\"."
 msgstr "\"%s\" Güncellendi."
 
-#: admin/config/index.php:118
+#: admin/config/index.php:134
 #, php-format
 msgid "Updated schema for %s."
 msgstr "%s şeması güncellendi."
 
-#: admin/config/index.php:320
+#: admin/config/index.php:419
 msgid "Upload"
 msgstr "Yükle"
 
-#: admin/config/index.php:328
+#: admin/config/index.php:427
 msgid "Uploaded all application configuration files to the server."
-msgstr ""
+msgstr "Tüm uygulama konfigürasyon dosyaları sunucuya yüklendi."
 
-#: config/prefs.php:642
+#: lib/Prefs/Special/Activesync.php:81
+msgid "Use Horde Default"
+msgstr "Varsayılanı Kullan"
+
+#: config/prefs.php:691
 msgid "Use if name/password is different for IMSP server."
 msgstr "Kullanıcı adınız/şifreniz IMSP sunucu için farklı ise kullanın."
 
-#: templates/admin/groups/edit.inc:24 templates/admin/groups/edit.inc:67
-#: templates/admin/locks/list.html.php:12
+#: templates/activesync/device_table.html.php:3
+#: templates/admin/groups/edit.inc:23 templates/admin/groups/edit.inc:68
+#: templates/admin/locks/list.html.php:12 templates/admin/sessions.html.php:7
 msgid "User"
 msgstr "Kullanıcı"
 
-#: admin/user.php:237
+#: admin/user.php:240
 msgid "User Administration"
 msgstr "Kullanıcı Yönetimi"
 
-#: lib/Prefs/Ui.php:404
-msgid "User Agent:"
-msgstr ""
+#: templates/admin/activesync.html.php:12
+msgid "User Agent"
+msgstr "Kullanıcı Aracı"
 
 #: lib/Block/Account.php:68
 msgid "User Name"
 msgstr "Kullanıcı Adı"
 
-#: signup.php:67
+#: signup.php:74
 msgid "User Registration"
 msgstr "Kullanıcı Kaydı"
 
-#: signup.php:19 admin/signup_confirm.php:18
+#: signup.php:22 admin/signup_confirm.php:23
 msgid "User Registration has been disabled for this site."
 msgstr "Kullanıcı kaydı bu site için devredışı bırakıldı."
 
-#: signup.php:27 admin/signup_confirm.php:25
+#: signup.php:30 admin/signup_confirm.php:30
 msgid "User Registration is not properly configured for this site."
 msgstr "Kullanıcı kaydı bu dite için yapılandırılmamış."
 
@@ -3224,21 +3365,17 @@ msgstr "Kullanıcı kaydı bu dite için yapılandırılmamış."
 msgid "User account not found"
 msgstr "Kullanıcı hesabı bulunamadı"
 
-#: templates/shares/edit.inc:241
+#: templates/shares/edit.inc:242
 msgid "User to add:"
 msgstr "Eklenecek kullanıcı:"
 
-#: login.php:189 admin/config/index.php:321 admin/user.php:37
-#: admin/user.php:53 services/resetpassword.php:30
-#: templates/admin/user/approve.inc:22
+#: login.php:206 admin/config/index.php:420 admin/user.php:36 admin/user.php:52
+#: services/resetpassword.php:33 templates/admin/activesync.html.php:9
+#: templates/admin/user/approve.inc:23
 msgid "Username"
 msgstr "Kullanıcı Adı"
 
-#: lib/Prefs/Ui.php:301
-msgid "Username:"
-msgstr "Kullanıcı Adı:"
-
-#: templates/admin/groups/edit.inc:60
+#: templates/admin/groups/edit.inc:59
 msgid "Users"
 msgstr "Kullanıcılar"
 
@@ -3250,23 +3387,27 @@ msgstr "Sistemdeki kullanıcılar:"
 msgid "VAT id number verification"
 msgstr "KDV numarası doğrulama"
 
-#: lib/Block/Vatid.php:39
+#: lib/Block/Vatid.php:40
 msgid "VAT identification number:"
 msgstr "KDV numarası:"
 
-#: lib/Block/Vatid.php:107
+#: lib/Block/Vatid.php:87
 msgid "VAT number"
 msgstr "KDV numarası"
 
-#: templates/admin/config/index.html:46
+#: templates/admin/activesync.html.php:18
+msgid "Version"
+msgstr "Sürüm"
+
+#: templates/admin/config/index.html.php:37
 msgid "Version Check"
 msgstr "Sürüm Kontrol"
 
-#: config/registry.php:221
+#: config/registry.php:215
 msgid "Version Control"
 msgstr "Sürüm Kontrol"
 
-#: config/nls.php:188
+#: config/nls.php:187
 msgid "Vietnamese (VISCII)"
 msgstr "Vietnamca (VISCII)"
 
@@ -3274,7 +3415,7 @@ msgstr "Vietnamca (VISCII)"
 msgid "View an external web page"
 msgstr "Bir dış web sayfası görüntüle"
 
-#: lib/Block/Metar.php:182 lib/Block/Weather.php:224
+#: lib/Block/Metar.php:183 lib/Block/Weather.php:238
 msgid "Visibility"
 msgstr "Görünürlük"
 
@@ -3282,41 +3423,45 @@ msgstr "Görünürlük"
 msgid "Warning"
 msgstr "Uyarı"
 
-#: lib/Block/Weather.php:54
+#: lib/Block/Weather.php:46 lib/Block/Weather.php:73
 msgid "Weather"
 msgstr "Hava Durumu"
 
-#: lib/Block/Weather.php:338 lib/Block/Weather.php:346
+#: lib/Block/Weather.php:354 lib/Block/Weather.php:362
 msgid "Weather data provided by"
 msgstr "Hava verisi sağlayıcısı"
 
-#: config/registry.php:327
+#: config/registry.php:332
 msgid "Web Site"
 msgstr "Web Sitesi"
 
-#: services/portal/mobile.php:29
+#: lib/Application.php:307
+msgid "Web browser"
+msgstr "İnternet tarayıcısı"
+
+#: services/portal/smartmobile.php:44
 msgid "Welcome"
 msgstr "Hoşgeldiniz"
 
-#: templates/portal/mobile.inc:5
+#: templates/portal/smartmobile.inc:3
 #, php-format
 msgid "Welcome, %s"
 msgstr "Hoşgeldiniz, %s"
 
-#: config/nls.php:189
+#: config/nls.php:188
 msgid "Western (ISO-8859-1)"
 msgstr "Batı (ISO-8859-1)"
 
-#: config/nls.php:190
+#: config/nls.php:189
 msgid "Western (ISO-8859-15)"
 msgstr "Batı (ISO-8859-15)"
 
-#: config/prefs.php:506
+#: config/prefs.php:548
 #, php-format
 msgid "What application should %s display after login?"
 msgstr "%s girişten sonra hangi uygulamayı görüntülesin?"
 
-#: lib/Block/TwitterTimeline.php:113
+#: lib/Block/TwitterTimeline.php:110
 msgid "What are you working on now?"
 msgstr "Şu anda ne yapıyorsunuz?"
 
@@ -3328,11 +3473,7 @@ msgstr "Sınırlayıcı karakter nedir?"
 msgid "What is the quote character?"
 msgstr "Aktarım karakteri nedir?"
 
-#: lib/Block/FbStream.php:143
-msgid "What's on your mind?"
-msgstr "Ne düşünüyorsunuz?"
-
-#: config/prefs.php:456
+#: config/prefs.php:501
 msgid "Which day would you like to be displayed as the first day of the week?"
 msgstr "Haftanın ilk günü olarak hangi gün görüntülensin?"
 
@@ -3340,44 +3481,52 @@ msgstr "Haftanın ilk günü olarak hangi gün görüntülensin?"
 msgid "Which phases"
 msgstr "Hangi Evre"
 
-#: config/prefs.php:556
+#: config/prefs.php:603
 #, php-format
 msgid "Width of the %s menu on the left:"
 msgstr "Soldaki %s menüsü genişliği:"
 
-#: config/registry.php:349
+#: lib/Application.php:295
+msgid "Wifi"
+msgstr "Kablosuz"
+
+#: config/registry.php:203
 msgid "Wiki"
 msgstr "Wiki"
 
-#: lib/Block/Weather.php:204 lib/Block/Weather.php:262
+#: lib/Block/Weather.php:219 lib/Block/Weather.php:277
 msgid "Wind"
 msgstr "Rüzgar"
 
-#: lib/Block/Metar.php:66
+#: lib/Block/Metar.php:67
 msgid "Wind speed in knots"
 msgstr "Rüzgar Hızı (knot)"
 
-#: lib/Block/Metar.php:129
+#: lib/Block/Metar.php:130
 msgid "Wind:"
 msgstr "Rüzgar:"
 
-#: admin/activesync.php:183 templates/prefs/activesync.html:28
+#: templates/activesync/device_table.html.php:33
 msgid "Wipe"
-msgstr ""
+msgstr "Temizleme"
 
-#: admin/activesync.php:164 lib/Prefs/Ui.php:387
-msgid "Wipe is pending"
-msgstr ""
+#: templates/activesync/device_table.html.php:12
+msgid "Wipe Pending"
+msgstr "Temizleme Bekliyor"
 
 #: lib/Block/Fortune.php:71
 msgid "Wisdom"
 msgstr "Bilgelik"
 
+#: templates/block/facebook_story.html.php:48
+msgid "With "
+msgstr "İle "
+
 #: lib/Block/Fortune.php:72
 msgid "Work"
 msgstr "İş"
 
-#: config/registry.php:244
+#: config/registry.php:238
 msgid "X-Ref"
 msgstr "X-Ref"
 
@@ -3388,68 +3537,78 @@ msgstr "X-Ref"
 msgid "YY"
 msgstr "YY"
 
-#: templates/logintasks/logintasks.html:26 templates/logintasks/mobile.html:32
+#: templates/logintasks/logintasks.html.php:28
+#: templates/logintasks/smartmobile.html.php:42
 msgid "Yes, I Agree"
 msgstr "Evet, Kabul Ediyorum"
 
-#: services/facebook/index.php:118 services/facebook/index.php:166
+#: lib/Ajax/Application/FacebookHandler.php:111
+#: lib/Ajax/Application/FacebookHandler.php:213
 #, php-format
 msgid "You and %d other person likes this"
 msgid_plural "You and %d other people like this"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Siz ve %d kişi daha bunu beğendiniz."
+msgstr[1] "Siz ve %d kişi daha bunu beğendiniz."
 
-#: lib/Api.php:248
+#: lib/Api.php:250
 msgid "You are not allowed to add groups."
 msgstr "Grup ekleme izniniz yok."
 
-#: lib/Api.php:365
+#: lib/Api.php:348
 msgid "You are not allowed to add shares."
 msgstr "Paylaşım ekleme izniniz yok."
 
-#: lib/Api.php:291 lib/Api.php:314
+#: lib/Api.php:285 lib/Api.php:304
 msgid "You are not allowed to change groups."
 msgstr "Grupları değiştirme izniniz yok."
 
-#: lib/Api.php:446 lib/Api.php:483 lib/Api.php:517 lib/Api.php:542
+#: lib/Api.php:422 lib/Api.php:455 lib/Api.php:485 lib/Api.php:506
 msgid "You are not allowed to change shares."
 msgstr "Paylaşımları değiştirme izniniz yok."
 
-#: lib/Api.php:270
+#: lib/Api.php:268
 msgid "You are not allowed to delete groups."
 msgstr "Grupları silme izniniz yok."
 
-#: lib/Api.php:390
+#: lib/Api.php:369
 msgid "You are not allowed to delete shares."
 msgstr "Paylaşımları silme izniniz yok."
 
-#: lib/Api.php:674
+#: lib/Api.php:637
 msgid "You are not allowed to list groups of shares."
 msgstr "Paylaşım gruplarını listeleme izniniz yok."
 
-#: lib/Api.php:568 lib/Api.php:606
+#: lib/Api.php:528 lib/Api.php:566
 msgid "You are not allowed to list share permissions."
 msgstr "Paylaşım izinlerini listeleme izniniz yok."
 
-#: lib/Api.php:415
+#: lib/Api.php:390
 msgid "You are not allowed to list shares."
 msgstr "Paylaşımları listeleme izniniz yok."
 
-#: lib/Api.php:337
+#: lib/Api.php:324
 msgid "You are not allowed to list users of groups."
 msgstr "Grup kullanıcılarını listeleme izniniz yok."
 
-#: lib/Api.php:644
+#: lib/Api.php:605
 msgid "You are not allowed to list users of shares."
 msgstr "Paylaşım kullanıcılarını listeleme izniniz yok."
 
-#: lib/Block/FbStream.php:136 lib/Block/FbStream.php:162
-#: services/facebook/index.php:63 services/facebook/index.php:80
+#: lib/Block/FbStream.php:102
+#, php-format
+msgid ""
+"You are not connected to your Facebook account. You should check your "
+"Facebook settings in your %s."
+msgstr ""
+"Facebook hesabınıza bağlı değilsiniz. Facebook ayarlarınızı %s 'nizde "
+"kontrol etmelisiniz."
+
+#: lib/Ajax/Application/FacebookHandler.php:48 lib/Block/FbStream.php:143
 #, php-format
 msgid "You can also check your Facebook settings in your %s."
-msgstr ""
+msgstr "Facebook ayarlarınızı %s 'nizde de kontrol edebilirsiniz."
 
-#: lib/LoginTasks/Task/TosAgreement.php:64
+#: lib/LoginTasks/Task/TosAgreement.php:66
 msgid ""
 "You did not agree to the Terms of Service agreement, so you were not allowed "
 "to login."
@@ -3457,42 +3616,34 @@ msgstr ""
 "Kullanım Şartlarını kabul etmediğini için sisteme girişinize izin "
 "verilmemektedir."
 
-#: login.php:320
+#: login.php:312
 msgid "You have been logged out."
 msgstr "Çıkış yaptınız."
 
-#: services/facebook/index.php:47
+#: services/facebook/index.php:65
 msgid "You have denied the requested permissions."
 msgstr "Talep edilen izin reddedildi."
 
-#: lib/Block/FbStream.php:97
-#, php-format
-msgid ""
-"You have not properly connected your Facebook account with Horde. You should "
-"check your Facebook settings in your %s."
-msgstr ""
-
-#: lib/Block/TwitterTimeline.php:169
+#: lib/Block/TwitterTimeline.php:168
 #, php-format
 msgid ""
 "You have not properly connected your Twitter account with Horde. You should "
 "check your Twitter settings in your %s."
 msgstr ""
+"Horde ile Twitter hesabınızı doğru bir şekilde bağlamadınız. %s 'inizdeki "
+"Twitter ayarlarını kontrol etmelisiniz."
 
-#: services/facebook/index.php:120 services/facebook/index.php:160
-#: services/facebook/index.php:168
+#: lib/Ajax/Application/FacebookHandler.php:105
+#: lib/Ajax/Application/FacebookHandler.php:113
+#: lib/Ajax/Application/FacebookHandler.php:216
 msgid "You like this"
-msgstr ""
+msgstr "Bunu beğendiniz"
 
-#: templates/problem/problem.inc:11
+#: services/problem.php:155
 msgid "You must describe the problem before you can send the problem report."
 msgstr "Problem raporu göndermeden önce sorunu açıklamalısınız."
 
-#: lib/Prefs/Ui.php:643
-msgid "You must select an server to be deleted."
-msgstr "Silinmesi için bir sunucu seçmelisiniz."
-
-#: admin/user.php:139
+#: admin/user.php:142
 msgid "You must specify a username to clear out."
 msgstr "Temizlenmesi için bir kullanıcı adı belirtmelisiniz."
 
@@ -3500,23 +3651,23 @@ msgstr "Temizlenmesi için bir kullanıcı adı belirtmelisiniz."
 msgid "You must specify a username to remove."
 msgstr "Silinmesi için bir kullanıcı adı belirtmelisiniz."
 
-#: admin/user.php:75
+#: admin/user.php:71
 msgid "You must specify the username to add."
 msgstr "Eklenmesi için bir kullanıcı adı belirtmelisiniz."
 
-#: admin/user.php:169
+#: admin/user.php:171
 msgid "You must specify the username to update."
 msgstr "Güncellenmesi için bir kullanıcı adı belirtmelisiniz."
 
-#: templates/problem/problem.inc:34
+#: templates/problem/problem.inc:13
 msgid "Your Email Address"
 msgstr "Eposta Adresiniz"
 
-#: config/prefs.php:231 config/prefs.php:329 config/prefs.php:464
+#: config/prefs.php:262 config/prefs.php:365 config/prefs.php:509
 msgid "Your Information"
 msgstr "Bilgileriniz"
 
-#: login.php:312
+#: login.php:300
 msgid ""
 "Your Internet Address has changed since the beginning of your session. To "
 "protect your security, you must login again."
@@ -3524,7 +3675,7 @@ msgstr ""
 "IP adresiniz oturumun başlangıcından sonra değişti. Güvenliğinizi sağlamak "
 "için, tekrar giriş yapmalısınız."
 
-#: templates/problem/problem.inc:30
+#: templates/problem/problem.inc:9
 msgid "Your Name"
 msgstr "Adınız"
 
@@ -3546,7 +3697,7 @@ msgstr ""
 "Kimlik denetiminiz kullanıcı listelemeyi desteklememektedir veya bu özellik "
 "bir neden yüzünden seçilemez kılınmıştır."
 
-#: login.php:316
+#: login.php:304
 msgid ""
 "Your browser appears to have changed since the beginning of your session. To "
 "protect your security, you must login again."
@@ -3554,36 +3705,32 @@ msgstr ""
 "Tarayıcınız oturumun başlangıcından sonra değişti. Güvenliğinizi sağlamak "
 "için, tekrar giriş yapnalısınız."
 
-#: lib/Block/Iframe.php:67
+#: lib/Block/Iframe.php:69
 msgid "Your browser does not support this feature."
 msgstr "Tarayıcınız bu özelliği desteklememektedir."
 
-#: config/prefs.php:368
+#: config/prefs.php:413
 msgid "Your current time zone:"
 msgstr "Zaman Diliminiz:"
 
-#: config/prefs.php:253
+#: config/prefs.php:282
 msgid "Your full name:"
 msgstr "Tam Adınız:"
 
-#: login.php:336
-msgid "Your login has been locked."
-msgstr "Giriş işleminiz engellendi."
-
-#: login.php:332
+#: login.php:324
 msgid "Your login has expired."
 msgstr "Girişiniz zaman aşımına uğradı."
 
-#: services/resetpassword.php:79
+#: services/resetpassword.php:82
 #, php-format
 msgid "Your new password for %s is: %s"
 msgstr "%s için yeni şifreniz: %s"
 
-#: services/resetpassword.php:78
+#: services/resetpassword.php:89
 msgid "Your password has been reset"
 msgstr "Şifreniz sıfırlandı."
 
-#: services/resetpassword.php:92
+#: services/resetpassword.php:99
 msgid ""
 "Your password has been reset, but couldn't be sent to you. Please contact "
 "the administrator."
@@ -3591,7 +3738,7 @@ msgstr ""
 "Şifreniz sıfırlandı, fakat size gönderilemedi. Lütfen sistem yöneticinizle "
 "iletişime geçiniz."
 
-#: services/resetpassword.php:87
+#: services/resetpassword.php:94
 msgid ""
 "Your password has been reset, check your email and log in with your new "
 "password."
@@ -3599,110 +3746,103 @@ msgstr ""
 "Şifreniz sıfırlandı, elektronik postanızı kontol edin ve yeni şifrenizle "
 "giriş yapın."
 
+#: services/changepassword.php:50
+msgid ""
+"Your password has been succesfully changed. You need to re-login to the "
+"system with your new password."
+msgstr ""
+"Parolanız başarıyla değiştirildi. Yeni şifrenizle sisteme yeniden giriş "
+"yapmanız gerekiyor."
+
 #: lib/Block/Account/Ldap.php:212 lib/Block/Account/Ldap.php:224
 msgid "Your password has expired"
 msgstr "Şifrenizin son kullanma tarihi doldu"
 
-#: login.php:163
+#: login.php:178
 msgid "Your password has expired."
 msgstr "Şifrenizin son kullanma tarihi doldu."
 
-#: lib/Prefs/Ui.php:298
-msgid "Your remote servers:"
-msgstr "Uzaktaki sunucularınız:"
+#: login.php:296
+msgid "Your session has expired. Please login again."
+msgstr "Oturumunuz zaman aşımına uğradı. Lütfen tekrar giriş yapın."
 
 #: login.php:308
-msgid "Your session has expired. Please login again."
+msgid ""
+"Your session length has exceeded the maximum amount of time allowed. Please "
+"login again."
 msgstr "Oturumunuz zaman aşımına uğradı. Lütfen tekrar giriş yapın."
 
 #: lib/Block/Fortune.php:73
 msgid "Zippy"
 msgstr "Hızlı"
 
-#: services/problem.php:109
+#: services/problem.php:112
 msgid "[Problem Report]"
 msgstr "[Problem Raporu]"
 
-#: admin/sessions.php:43
-msgid "[Unknown]"
-msgstr "[Hiçbiri]"
-
-#: lib/Api.php:52
+#: lib/Api.php:65
 msgid "_Alarms"
 msgstr "_Alarmlar"
 
-#: lib/Api.php:77
+#: lib/Api.php:85
 msgid "_CLI"
 msgstr "_CLI"
 
-#: lib/Api.php:27
+#: lib/Api.php:40
 msgid "_Configuration"
 msgstr "_Yapılandırma"
 
-#: lib/Api.php:57
-msgid "_DataTree"
-msgstr "_VeriAğacı"
-
-#: lib/Api.php:37
+#: lib/Api.php:50
 msgid "_Groups"
 msgstr "_Gruplar"
 
-#: lib/Application.php:77
-msgid "_Home"
-msgstr "_Ev"
-
-#: lib/Api.php:47
+#: lib/Api.php:60
 msgid "_Locks"
 msgstr "_Kilitler"
 
-#: lib/Api.php:42
+#: lib/Api.php:55
 msgid "_Permissions"
 msgstr "_İzinler"
 
-#: lib/Api.php:32
+#: lib/Api.php:45
 msgid "_Users"
 msgstr "K_ullanıcılar"
 
-#: services/problem.php:56
+#: services/problem.php:59
 msgid "attachment"
 msgstr "Ek"
 
-#: lib/Block/Metar.php:145 lib/Block/Metar.php:331
+#: lib/Block/Metar.php:146 lib/Block/Metar.php:332
 #, php-format
 msgid "calm"
 msgstr "ılımlı"
 
-#: lib/Block/Metar.php:147 lib/Block/Metar.php:333 lib/Block/Metar.php:359
+#: lib/Block/Metar.php:148 lib/Block/Metar.php:334 lib/Block/Metar.php:360
 #, php-format
 msgid "from the %s (%s) at %s %s"
 msgstr "%s (%s) den %s %s de"
 
-#: lib/Block/Weather.php:213 lib/Block/Weather.php:321
+#: lib/Block/Weather.php:227 lib/Block/Weather.php:337
 msgid "gusting"
 msgstr "fırtına"
 
-#: admin/config/diff.php:56 admin/config/diff.php:68
+#: admin/config/diff.php:61 admin/config/diff.php:71
 msgid "inline"
 msgstr "Metne gömülü"
 
-#: lib/Block/FbStream.php:97 lib/Block/FbStream.php:136
-#: lib/Block/FbStream.php:162 lib/Block/TwitterTimeline.php:169
-#: services/facebook/index.php:63 services/facebook/index.php:80
+#: lib/Ajax/Application/FacebookHandler.php:48 lib/Block/FbStream.php:103
+#: lib/Block/FbStream.php:143 lib/Block/TwitterTimeline.php:168
 msgid "preferences"
 msgstr "seçenekler"
 
-#: admin/config/config.php:90
+#: admin/config/config.php:75
 msgid "show differences"
 msgstr "farkları göster"
 
-#: admin/user.php:40 admin/user.php:54
+#: admin/user.php:39 admin/user.php:53
 msgid "type the password twice to confirm"
 msgstr "şifreyi doğrulamak için iki defa girin"
 
-#: admin/config/diff.php:56 admin/config/diff.php:68
+#: admin/config/diff.php:61 admin/config/diff.php:71
 msgid "unified"
 msgstr "birleştirilmiş"
-
-#: lib/Block/Weather.php:33
-msgid "weather"
-msgstr "hava durumu"
