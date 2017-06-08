@@ -8,13 +8,15 @@ msgstr ""
 "Project-Id-Version: Horde_Crypt\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2010-10-13 01:27+0200\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
+"PO-Revision-Date: 2017-06-08 13:56+0300\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: tr\n"
+"X-Generator: Poedit 1.8.12\n"
 
 #: lib/Horde/Crypt/Smime.php:614
 #, php-format
@@ -136,12 +138,12 @@ msgstr "Elektronik Posta Adresi"
 
 #: lib/Horde/Crypt/Pgp.php:1584 lib/Horde/Crypt/Pgp.php:1592
 msgid "Error while talking to pgp binary."
-msgstr ""
+msgstr "Pgp binary ile konuşurken hata oluştu."
 
 #: lib/Horde/Crypt/Smime.php:1251 lib/Horde/Crypt/Smime.php:1269
 #: lib/Horde/Crypt/Smime.php:1284
 msgid "Error while talking to smime binary."
-msgstr ""
+msgstr "Smime binary ile konuşurken hata oluştu."
 
 #: lib/Horde/Crypt/Pgp.php:425
 msgid "Expiration Date"
@@ -173,7 +175,7 @@ msgstr "Anahtar Parmakizi"
 
 #: lib/Horde/Crypt/Pgp.php:427
 msgid "Key ID"
-msgstr ""
+msgstr "Anahtar Kimliği"
 
 #: lib/Horde/Crypt/Pgp.php:425
 msgid "Key Length"
@@ -375,9 +377,8 @@ msgstr ""
 "gerekmektedir."
 
 #: lib/Horde/Crypt/Smime.php:1146
-#, fuzzy
 msgid "The openssl module is required for the Horde_Crypt_Smime:: class."
-msgstr "Horde_Crypt_sime:: sınıfı openssl birimi için gerekmektedir."
+msgstr "Horde_Crypt_sime:: sınıfı openssl modülü için gerekmektedir."
 
 #: lib/Horde/Crypt/Smime.php:512
 msgid "Unable to extract certificate details"
@@ -398,9 +399,8 @@ msgid "Validity"
 msgstr "Geçerlilik"
 
 #: lib/Horde/Crypt/Smime.php:191
-#, fuzzy
 msgid "Verification failed - an unknown error has occurred."
-msgstr "Bilinmeyen bir hata oluştu."
+msgstr "Doğrulama başarısız oldu - bilinmeyen bir hata oluştu."
 
 #: lib/Horde/Crypt/Smime.php:193
 msgid "Verification failed - this message may have been tampered with."

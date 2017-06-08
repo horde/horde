@@ -8,18 +8,19 @@ msgstr ""
 "Project-Id-Version: Horde_Compress\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2010-10-13 01:27+0200\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
+"PO-Revision-Date: 2017-06-08 13:52+0300\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: tr\n"
+"X-Generator: Poedit 1.8.12\n"
 
 #: lib/Horde/Compress/Rar.php:54
-#, fuzzy
 msgid "Invalid RAR data."
-msgstr "Geçersiz ZIP verisi"
+msgstr "Geçersiz RAR verisi."
 
 #: lib/Horde/Compress/Zip.php:197 lib/Horde/Compress/Zip.php:224
 #: lib/Horde/Compress/Zip.php:244
@@ -32,14 +33,12 @@ msgid "Invalid file format"
 msgstr "Geçersiz dosya biçimi"
 
 #: lib/Horde/Compress/Zip.php:93
-#, fuzzy
 msgid "This server can't compress zip files."
-msgstr "Bu sunucu zip ve gzip dosyalarını açamamaktadır."
+msgstr "Bu sunucu zip dosyalarını sıkıştıramıyor."
 
 #: lib/Horde/Compress/Gzip.php:42
-#, fuzzy
 msgid "This server can't uncompress gzip files."
-msgstr "Bu sunucu zip ve gzip dosyalarını açamamaktadır."
+msgstr "Bu sunuzu gzip dosyalarını açamıyor."
 
 #: lib/Horde/Compress/Gzip.php:49 lib/Horde/Compress/Gzip.php:79
 #: lib/Horde/Compress/Tar.php:74

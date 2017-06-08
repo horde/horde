@@ -8,13 +8,15 @@ msgstr ""
 "Project-Id-Version: Horde_Form\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2010-10-13 01:27+0200\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
+"PO-Revision-Date: 2017-06-08 14:01+0300\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: tr\n"
+"X-Generator: Poedit 1.8.12\n"
 
 #: Form/Type.php:2520
 #, php-format
@@ -53,18 +55,16 @@ msgid "-- select --"
 msgstr "-- Seç --"
 
 #: Form/Type.php:843 Form/Type.php:886
-#, fuzzy
 msgid "A temporary directory"
-msgstr "Geçici dizin bulunamadı."
+msgstr "Geçici bir dizin"
 
 #: Form/Type.php:773
 msgid "Address"
 msgstr "Adres"
 
 #: Form/Type.php:795
-#, fuzzy
 msgid "Address Link"
-msgstr "Adres Defteri"
+msgstr "Adres Bağlantısı"
 
 #: Form/Type.php:1620
 msgid "Allow multiple addresses?"
@@ -189,18 +189,16 @@ msgid "Headers"
 msgstr "Başlık Bilgisi"
 
 #: Form/Type.php:617
-#, fuzzy
 msgid "Helpers"
-msgstr "Yardımcı?"
+msgstr "Yardımcılar"
 
 #: Form/Type.php:528
 msgid "IP address"
 msgstr "IP adresi"
 
 #: Form/Type.php:558
-#, fuzzy
 msgid "IPv6 address"
-msgstr "IP adresi"
+msgstr "IPv6 adresi"
 
 #: Form/Type.php:3349
 msgid "Id"
@@ -331,9 +329,8 @@ msgid "Only one email address is allowed."
 msgstr "Sadece bir eposta adresine izin var."
 
 #: Form/Type.php:839
-#, fuzzy
 msgid "PGP Key"
-msgstr "PGP Açık Anahtarı"
+msgstr "PGP Anahtarı"
 
 #: Form/Type.php:2142
 msgid "Password"
@@ -349,7 +346,7 @@ msgstr "Şifreler eşleşmek zorundadır."
 
 #: Form/Type.php:841
 msgid "Path to the GnuPG binary"
-msgstr ""
+msgstr "GnuPG binary yolu"
 
 #: Form/Type.php:475
 msgid "Phone number"
@@ -417,7 +414,7 @@ msgstr "Doğru değerler"
 
 #: Form/Type.php:884
 msgid "S/MIME Key"
-msgstr ""
+msgstr "S/MIME Anahtarı"
 
 #: Form/Type.php:3645
 msgid "SQL statement for value lookups"
@@ -465,9 +462,8 @@ msgid "Sort order selection"
 msgstr "Sıralama düzeni seçimi"
 
 #: Form/Type.php:3200
-#, fuzzy
 msgid "Sound selection"
-msgstr "Renk Seçimi"
+msgstr "Ses seçimi"
 
 #: Form/Type.php:98
 msgid "Spacer"
@@ -487,7 +483,7 @@ msgstr "Dizgi listesi"
 
 #: Form/Type.php:440
 msgid "String list returning an array"
-msgstr ""
+msgstr "Dizi listesi bir dizge dönüyor"
 
 #: Form.php:361 Form/Renderer.php:326
 msgid "Submit"
@@ -528,6 +524,7 @@ msgid ""
 msgid_plural ""
 "There are too many characters in this field. You have entered %d characters; "
 msgstr[0] "Bu alanda çok fazla karakter var. %d adet karakter girdiniz; "
+msgstr[1] "Bu alanda çok fazla karakter var. %d adet karakter girdiniz; "
 
 #: Form/Type.php:3504
 msgid "This does not seem to be a valid card number."
