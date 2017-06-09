@@ -128,7 +128,6 @@ class Horde_Crypt_Smime extends Horde_Crypt
         /* Create temp files for input/output. */
         $input = $this->_createTempFile('horde-smime');
         $output = $this->_createTempFile('horde-smime');
-        $content = $this->_createTempFile('horde-smime');
 
         /* Write text to file */
         file_put_contents($input, $text);
@@ -164,9 +163,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
             $ob->msg = Horde_Crypt_Translation::t("Message verified successfully but the signer's certificate could not be verified.");
             $ob->verify = false;
         }
-        if (openssl_pkcs7_verify($input, PKCS7_NOVERIFY, $output, array(), $output, $content)) {
-            $ob->content = file_get_contents($content);
-        }
+
         $ob->cert = file_get_contents($output);
         $ob->email = $this->getEmailFromKey($ob->cert);
 
