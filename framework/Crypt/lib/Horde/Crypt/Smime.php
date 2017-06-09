@@ -186,22 +186,22 @@ class Horde_Crypt_Smime extends Horde_Crypt
         /* Create temp files for input/output. */
         $input = $this->_createTempFile('horde-smime');
         $output = $this->_createTempFile('horde-smime');
-		$certs = $this->_createTempFile('horde-smime');
+        $certs = $this->_createTempFile('horde-smime');
 
 
         /* Write text to file. */
         file_put_contents($input, $data);
         unset($data);
 
-		if (openssl_pkcs7_verify($input, PKCS7_NOVERIFY, $certs) === true &&
+        if (openssl_pkcs7_verify($input, PKCS7_NOVERIFY, $certs) === true &&
                 openssl_pkcs7_verify($input, PKCS7_NOVERIFY, $certs, array(), $certs, $output) === true) {
             $ret = file_get_contents($output);
             if ($ret) {
                 return $ret;
             }
-		}
+        }
 
-        throw new Horde_Crypt_Exception(Horde_Crypt_Translation::t("Could not extract data from signed S/MIME part."));
+        throw new Horde_Crypt_Exception(Horde_Crypt_Translation::t("OpenSSL error:Could not extract data from signed S/MIME part."));
     }
 
     /**
