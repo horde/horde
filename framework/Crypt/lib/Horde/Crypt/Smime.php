@@ -174,29 +174,30 @@ class Horde_Crypt_Smime extends Horde_Crypt
      * Extract the contents from signed S/MIME data.
      *
      * @param string $data     The signed S/MIME data.
-     * @param string $sslpath  The path to the OpenSSL binary.
      *
      * @return string  The contents embedded in the signed data.
      * @throws Horde_Crypt_Exception
      */
-    public function extractSignedContents($data, $sslpath)
+    public function extractSignedContents($data)
     {
         /* Check for availability of OpenSSL PHP extension. */
         $this->checkForOpenSSL();
 
-        /* Create temp files for input/output. */
+        /* Create temp files for input/output/certs. */
         $input = $this->_createTempFile('horde-smime');
         $output = $this->_createTempFile('horde-smime');
+        $certs = $this->_createTempFile('horde-smime');
 
         /* Write text to file. */
         file_put_contents($input, $data);
         unset($data);
 
-        exec($sslpath . ' smime -verify -noverify -nochain -in ' . $input . ' -out ' . $output);
-
-        $ret = file_get_contents($output);
-        if ($ret) {
-            return $ret;
+        if (openssl_pkcs7_verify($input, PKCS7_NOVERIFY, $certs) === true &&
+                openssl_pkcs7_verify($input, PKCS7_NOVERIFY, $certs, array(), $certs, $output) === true) {
+            $ret = file_get_contents($output);
+            if ($ret) {
+                return $ret;
+            }
         }
 
         throw new Horde_Crypt_Exception(Horde_Crypt_Translation::t("OpenSSL error: Could not extract data from signed S/MIME part."));
