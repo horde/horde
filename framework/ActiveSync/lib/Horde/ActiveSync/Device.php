@@ -797,7 +797,7 @@ class Horde_ActiveSync_Device
             // OL2013 and OL2016 do not support multiple contact lists.
             $this->_properties['properties'][self::MULTIPLEX] = Horde_ActiveSync_Device::MULTIPLEX_CONTACTS;
         } else {
-            $this->_properties['properties']['multiplex'] = 0;
+            $this->_properties['properties'][self::MULTIPLEX] = 0;
         }
     }
 
