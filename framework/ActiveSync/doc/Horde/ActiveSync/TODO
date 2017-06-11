@@ -148,3 +148,5 @@ BC BREAKING (i.e., Horde 6).
   of the $stat array. Move functionality in H_A_S_Exporter_Sync::syncAddResponse
   and ::syncModifiedResponse() into these new objects. Probably need concrete
   classes for Calendar and Email etc...
+
+- Clean up Horde_ActiveSync_Device - break into device specific child classes.
