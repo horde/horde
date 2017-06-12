@@ -752,6 +752,11 @@ class Horde_ActiveSync_Device
                 return;
             }
 
+            // Newer GMAIL applications may not send the self::OS value.
+            if (strpos($this->userAgent, 'Android-Mail/7.5') !== false) {
+                $this->_properties['properties'][SELF::MULTIPLEX] = 0;
+                return;
+            }
             // All android before 4.4 KitKat requires multiplex. KitKat and
             // Android 5 native supports non-multiplexed calendars only.
             if (!empty($this->properties[self::OS]) &&
@@ -792,7 +797,7 @@ class Horde_ActiveSync_Device
             // OL2013 and OL2016 do not support multiple contact lists.
             $this->_properties['properties'][self::MULTIPLEX] = Horde_ActiveSync_Device::MULTIPLEX_CONTACTS;
         } else {
-            $this->_properties['properties']['multiplex'] = 0;
+            $this->_properties['properties'][self::MULTIPLEX] = 0;
         }
     }
 
