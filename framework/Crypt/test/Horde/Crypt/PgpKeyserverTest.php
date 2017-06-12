@@ -16,7 +16,7 @@ class Horde_Crypt_PgpKeyserverTest extends Horde_Test_Case
 
     protected function setUp()
     {
-        $c = self::getConfig('CRYPTPGP_TEST_CONFIG', __DIR__);
+        $c = self::getConfig('CRYPT_TEST_CONFIG', __DIR__);
         $this->_gnupg = isset($c['gnupg'])
             ? $c['gnupg']
             : '/usr/bin/gpg';

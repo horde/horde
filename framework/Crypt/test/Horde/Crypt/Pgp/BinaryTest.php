@@ -15,7 +15,7 @@ extends Horde_Crypt_Pgp_TestBase
 {
     protected function _setUp()
     {
-        $c = self::getConfig('CRYPTPGP_TEST_CONFIG', __DIR__ . '/../');
+        $c = self::getConfig('CRYPT_TEST_CONFIG', __DIR__ . '/../');
         $gnupg = isset($c['gnupg'])
             ? $c['gnupg']
             : '/usr/bin/gpg';

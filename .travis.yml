@@ -50,8 +50,7 @@ before_script:
     export CACHE_SQL_MYSQLI_TEST_CONFIG='{"cache":{"sql":{"mysqli":{"adapter":"mysqli","host":"localhost","username":"root","password":"","dbname":"test","charset":"utf-8"}}}}';
     export CACHE_SQL_PDO_MYSQL_TEST_CONFIG='{"cache":{"sql":{"pdo_mysql":{"adapter":"pdo_mysql","host":"localhost","username":"root","password":"","dbname":"test","charset":"utf-8"}}}}';
     export CACHE_SQL_PDO_PGSQL_TEST_CONFIG='{"cache":{"sql":{"pdo_pgsql":{"adapter":"pdo_pgsql","username":"postgres","password":"","dbname":"test","charset":"utf-8"}}}}';
-    export CRYPT_TEST_CONFIG='{"crypt":{"keyserver":false}}';
-    export CRYPTPGP_TEST_CONFIG='{"gnupg":"/usr/bin/gnupg","gnupg2":"/usr/bin/gnupg2"}';
+    export CRYPT_TEST_CONFIG='{"gnupg":"/usr/bin/gnupg","gnupg2":"/usr/bin/gnupg2","openssl":"/usr/bin/openssl"}';
     export DB_ADAPTER_MYSQL_TEST_CONFIG='{"db":{"adapter":{"mysql":{"test":{"host":"localhost","username":"root","password":"","dbname":"test"}}}}}';
     export DB_ADAPTER_MYSQLI_TEST_CONFIG='{"db":{"adapter":{"mysqli":{"test":{"host":"localhost","username":"root","password":"","dbname":"test"}}}}}';
     export DB_ADAPTER_PDO_MYSQL_TEST_CONFIG='{"db":{"adapter":{"pdo":{"mysql":{"test":{"host":"localhost","username":"root","password":"","dbname":"test"}}}}}}';
