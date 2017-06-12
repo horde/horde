@@ -46,23 +46,7 @@ class Horde_Crypt_SmimeTest extends Horde_Test_Case
         $expected = "Content-Type: text/plain\r\n\r\nHello World!\r\n";
         $this->assertEquals(
             $expected,
-            $smime->extractSignedContents($message, $this->_getOpenssl())
+            $smime->extractSignedContents($message)
         );
-    }
-
-    protected function _getOpenssl()
-    {
-        $c = self::getConfig('CRYPT_TEST_CONFIG', __DIR__ . '/../');
-        $openssl = isset($c['openssl'])
-            ? $c['openssl']
-            : '/usr/bin/openssl';
-
-        if (!is_executable($openssl)) {
-            $this->markTestSkipped(sprintf(
-                'OpenSSL binary not found at %s.',
-                $openssl
-            ));
-        }
-        return $openssl;
     }
 }
