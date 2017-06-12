@@ -425,34 +425,54 @@ class Whups
         $tabs = new Horde_Core_Ui_Tabs(null, $vars);
         $queue = Whups_Ticket::makeTicket($id)->get('queue');
 
-        $tabs->addTab(_("_History"), self::urlFor('ticket', $id), 'history');
-        $tabs->addTab(_("_Attachments"), self::urlFor('ticket_action', array('attachments', $id)), 'attachments');
+        $tabs->addTab(
+            _("_History"),
+            self::urlFor('ticket', $id),
+            'history'
+        );
+        $tabs->addTab(
+            _("_Attachments"),
+            self::urlFor('ticket_action', array('attachments', $id)),
+            'attachments'
+        );
         if (self::hasPermission($queue, 'queue', 'update')) {
-            $tabs->addTab(_("_Update"),
-                          self::urlFor('ticket_action', array('update', $id)),
-                          'update');
+            $tabs->addTab(
+                _("_Update"),
+                self::urlFor('ticket_action', array('update', $id)),
+                'update'
+            );
         } else {
-            $tabs->addTab(_("_Comment"),
-                          self::urlFor('ticket_action', array('comment', $id)),
-                          'comment');
+            $tabs->addTab(
+                _("_Comment"),
+                self::urlFor('ticket_action', array('comment', $id)),
+                'comment'
+            );
         }
-        $tabs->addTab(_("_Watch"),
-                      self::urlFor('ticket_action', array('watch', $id)),
-                      'watch');
+        $tabs->addTab(
+            _("_Watch"),
+            self::urlFor('ticket_action', array('watch', $id)),
+            'watch'
+        );
         if (self::hasPermission($queue, 'queue', Horde_Perms::DELETE)) {
-            $tabs->addTab(_("S_et Queue"),
-                          self::urlFor('ticket_action', array('queue', $id)),
-                          'queue');
+            $tabs->addTab(
+                _("S_et Queue"),
+                self::urlFor('ticket_action', array('queue', $id)),
+                'queue'
+            );
         }
         if (self::hasPermission($queue, 'queue', 'update')) {
-            $tabs->addTab(_("Set _Type"),
-                          self::urlFor('ticket_action', array('type', $id)),
-                          'type');
+            $tabs->addTab(
+                _("Set _Type"),
+                self::urlFor('ticket_action', array('type', $id)),
+                'type'
+            );
         }
         if (self::hasPermission($queue, 'queue', Horde_Perms::DELETE)) {
-            $tabs->addTab(_("_Delete"),
-                          self::urlFor('ticket_action', array('delete', $id)),
-                          'delete');
+            $tabs->addTab(
+                _("_Delete"),
+                self::urlFor('ticket_action', array('delete', $id)),
+                'delete'
+            );
         }
 
         return $tabs;
