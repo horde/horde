@@ -364,8 +364,14 @@ extends Horde_Crypt_Pgp_Backend
             true
         );
 
+        // GnuPG 1
         if (preg_match('/gpg:\sSignature\smade.*ID\s+([A-F0-9]{8})\s+/', $result->stderr, $matches)) {
             return $matches[1];
+        }
+
+        // GnuPG 2
+        if (preg_match('/gpg:\sSignature\smade.*using\s+\S+\s+key\s+([A-F0-9]{16})\s+/s', $result->stderr, $matches)) {
+            return substr($matches[1], -8);
         }
 
         throw new Horde_Crypt_Exception(_("Cannot read PGP key ID"));
@@ -382,6 +388,8 @@ extends Horde_Crypt_Pgp_Backend
             array(
                 '--fingerprint',
                 $keyring,
+                '--with-colons',
+                '--fixed-list-mode',
             ),
             'r',
             null,
@@ -397,10 +405,11 @@ extends Horde_Crypt_Pgp_Backend
         $lines = explode("\n", $result->stdout);
 
         foreach ($lines as $line) {
-            if (preg_match('/pub\s+\w+\/(\w{8})/', $line, $matches)) {
-                $keyid = '0x' . $matches[1];
-            } elseif ($keyid && preg_match('/^\s+[\s\w]+=\s*([\w\s]+)$/m', $line, $matches)) {
-                $fingerprints[$keyid] = str_replace(' ', '', $matches[1]);
+            $fields = explode(':', $line);
+            if ($fields[0] == 'pub') {
+                $keyid = '0x' . substr($fields[4], -8);
+            } elseif ($keyid && ($fields[0] == 'fpr')) {
+                $fingerprints[$keyid] = $fields[9];
                 $keyid = null;
             }
         }
