@@ -174,11 +174,13 @@ class Horde_Crypt_Smime extends Horde_Crypt
      * Extract the contents from signed S/MIME data.
      *
      * @param string $data     The signed S/MIME data.
+     * @param string $sslpath  The path to the OpenSSL binary. @deprecated and
+     *                         not used, just for backwards-compatibility.
      *
      * @return string  The contents embedded in the signed data.
      * @throws Horde_Crypt_Exception
      */
-    public function extractSignedContents($data)
+    public function extractSignedContents($data, $sslpath)
     {
         /* Check for availability of OpenSSL PHP extension. */
         $this->checkForOpenSSL();
@@ -192,8 +194,12 @@ class Horde_Crypt_Smime extends Horde_Crypt
         file_put_contents($input, $data);
         unset($data);
 
+        /* Unfortunatelly the openssl_pkcs7_verify method does not behave as explained
+         * in openssl extensions documentation, it does not return content if no certs
+         * specified. Therefore, we need to use double verfication which the first one
+         * tries to extract certificats then the second to extract content. */
         if (openssl_pkcs7_verify($input, PKCS7_NOVERIFY, $certs) === true &&
-                openssl_pkcs7_verify($input, PKCS7_NOVERIFY, $certs, array(), $certs, $output) === true) {
+            openssl_pkcs7_verify($input, PKCS7_NOVERIFY, $certs, array(), $certs, $output) === true) {
             $ret = file_get_contents($output);
             if ($ret) {
                 return $ret;
