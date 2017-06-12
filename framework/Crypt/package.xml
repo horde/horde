@@ -27,6 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] More fixes for GnuPG 2 (Mathieu Parent &lt;math.parent@gmail.com&gt;).
 * [jan] Remove dependency on openssl executable (Hadi Nategh &lt;hnategh@gmail.com&gt;).
  </notes>
  <contents>
@@ -1243,6 +1244,7 @@ Initial release as a PEAR package
    <date>2017-06-12</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] More fixes for GnuPG 2 (Mathieu Parent &lt;math.parent@gmail.com&gt;).
 * [jan] Remove dependency on openssl executable (Hadi Nategh &lt;hnategh@gmail.com&gt;).
    </notes>
   </release>
