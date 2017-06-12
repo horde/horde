@@ -1,0 +1,111 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Horde LLC (http://www.horde.org/)
+# This file is distributed under the same license as the Horde_Auth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_Auth\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2017-06-09 15:46+0300\n"
+"PO-Revision-Date: 2017-06-09 16:15+0300\n"
+"Language-Team: İTÜ BİDB <sistemdestek@itu.edu.tr>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.8.12\n"
+"Last-Translator: \n"
+"Language: tr\n"
+
+#: lib/Horde/Auth.php:375
+#, php-format
+msgid ""
+"The password is too long; passwords may not be more than %d characters long!"
+msgstr "Parola çok uzun; Parolalar %d karakterden daha uzun olamaz!"
+
+#: lib/Horde/Auth.php:446 lib/Horde/Auth.php:456
+msgid "The password is too simple to guess."
+msgstr "Parolanın tahmin edilmesi çok kolay."
+
+#: lib/Horde/Auth.php:371
+#, php-format
+msgid "The password must be at least %d characters long!"
+msgstr "Parola en az %d karakter uzunluğunda olmalıdır!"
+
+#: lib/Horde/Auth.php:407
+#, php-format
+msgid "The password must contain at least %d alphabetic character."
+msgid_plural "The password must contain at least %d alphabetic characters."
+msgstr[0] "Parola en az %d alfabetik karakter içermelidir."
+msgstr[1] "Parola en az %d alfabetik karakter içermelidir."
+
+#: lib/Horde/Auth.php:410
+#, php-format
+msgid "The password must contain at least %d alphanumeric character."
+msgid_plural "The password must contain at least %d alphanumeric characters."
+msgstr[0] "Parola en az %d alfanumerik karakter içermelidir."
+msgstr[1] "Parola en az %d alfanumerik karakter içermelidir."
+
+#: lib/Horde/Auth.php:416
+#, php-format
+msgid ""
+"The password must contain at least %d different types of characters. The "
+"types are: lower, upper, numeric, and symbols."
+msgstr ""
+"Parola en az %d farklı karakter türü içermelidir. Türler şunlardır: küçük, "
+"büyük, sayısal ve işaretler."
+
+#: lib/Horde/Auth.php:401
+#, php-format
+msgid "The password must contain at least %d lowercase character."
+msgid_plural "The password must contain at least %d lowercase characters."
+msgstr[0] "Parola en az %d küçük harf içermelidir."
+msgstr[1] "Parola en az %d küçük harf içermelidir."
+
+#: lib/Horde/Auth.php:404
+#, php-format
+msgid "The password must contain at least %d numeric character."
+msgid_plural "The password must contain at least %d numeric characters."
+msgstr[0] "Parola en az %d sayısal karakter içermelidir."
+msgstr[1] "Parola en az %d sayısal karakter içermelidir."
+
+#: lib/Horde/Auth.php:413
+#, php-format
+msgid "The password must contain at least %d numeric or special character."
+msgid_plural ""
+"The password must contain at least %d numeric or special characters."
+msgstr[0] "Parola en az %d sayısal veya özel karakter içermelidir."
+msgstr[1] "Parola en az %d sayısal veya özel karakter içermelidir."
+
+#: lib/Horde/Auth.php:425
+#, php-format
+msgid "The password must contain at least %d symbol character."
+msgid_plural "The password must contain at least %d symbol characters."
+msgstr[0] "Parola en az %d işaret karakteri içermelidir."
+msgstr[1] "Parola en az %d işaret karakteri içermelidir."
+
+#: lib/Horde/Auth.php:398
+#, php-format
+msgid "The password must contain at least %d uppercase character."
+msgid_plural "The password must contain at least %d uppercase characters."
+msgstr[0] "Parola en az %d büyük harf içermelidir."
+msgstr[1] "Parola en az %d büyük harf içermelidir."
+
+#: lib/Horde/Auth.php:420
+#, php-format
+msgid "The password must contain less than %d whitespace characters."
+msgstr "Parola %d 'den az boşluk karakteri içermelidir."
+
+#: lib/Horde/Auth.php:422
+msgid "The password must not contain whitespace characters."
+msgstr "Parola boşluk karakterleri içermemelidir."
+
+#: lib/Horde/Auth/Base.php:156
+#, php-format
+msgid "Your account has been locked for %d minutes"
+msgstr "Hesabınız %d dakika süreyle kilitlendi"
+
+#: lib/Horde/Auth/Base.php:154
+msgid "Your account has been permanently locked"
+msgstr "Hesabınız kalıcı olarak kilitlendi"
