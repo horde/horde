@@ -423,6 +423,8 @@ class Whups
      */
     public static function getTicketTabs(&$vars, $id)
     {
+        global $registry;
+
         $tabs = new Horde_Core_Ui_Tabs(null, $vars);
         $queue = Whups_Ticket::makeTicket($id)->get('queue');
 
@@ -475,6 +477,13 @@ class Whups
                 'delete'
             );
         }
+        $tabs->addTab(
+            _("Download"),
+            $registry->downloadUrl(
+                _("ticket") . $id . '.html',
+                array('actionID' => 'ticket', 'id' => $id)
+            )
+        );
 
         return $tabs;
     }

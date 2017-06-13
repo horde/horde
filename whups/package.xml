@@ -27,6 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
  <notes>
+* [jan] Add download of ticket history to an HTML file.
 * [jan] Add saved queries to sidebar menu.
 * [jan] Store incoming email messages separately from attachments.
 * [jan] Return due dates in API methods.
@@ -1268,6 +1269,7 @@
    <date>2016-11-09</date>
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
    <notes>
+* [jan] Add download of ticket history to an HTML file.
 * [jan] Add saved queries to sidebar menu.
 * [jan] Store incoming email messages separately from attachments.
 * [jan] Return due dates in API methods.

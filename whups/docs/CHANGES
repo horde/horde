@@ -2,6 +2,7 @@
 v4.0.0-git
 ----------
 
+[jan] Add download of ticket history to an HTML file.
 [jan] Add saved queries to sidebar menu.
 [jan] Store incoming email messages separately from attachments.
 [jan] Return due dates in API methods.

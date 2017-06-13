@@ -186,6 +186,8 @@ class Whups_Application extends Horde_Registry_Application
         case 'download_file':
         case 'download_message':
             return $this->_downloadAttachment($vars);
+        case 'ticket':
+            return $this->_downloadTicket($vars);
         case 'report':
             return $this->_downloadReport($vars);
         }
@@ -251,6 +253,135 @@ class Whups_Application extends Horde_Registry_Application
                 sprintf(_("Access denied to %s"), $vars->file)
             );
         }
+    }
+
+    /**
+     * Provides download data for an HTML version of an ticket.
+     *
+     * @param Horde_Variables $vars  Submitted form/URL data.
+     *
+     * @throws Whups_Exception
+     */
+    protected function _downloadTicket(Horde_Variables $vars)
+    {
+        global $injector, $page_output, $prefs, $whups_driver;
+
+        $ticket = Whups::getCurrentTicket();
+        $ticket->setDetails($vars);
+        $title = '[#' . $ticket->getId() . '] ' . $ticket->get('summary');
+        $filter = $injector->getInstance('Horde_Core_Factory_TextFilter');
+
+        Horde::startBuffer();
+
+        $page_output->addMetaTag('Content-Type', 'text/html; charset=UTF-8');
+        $page_output->header(array(
+            'title' => $title,
+            'view' => Horde_Registry::VIEW_MINIMAL
+        ));
+
+        $html = Horde::endBuffer();
+
+        $html = substr($html, 0, strrpos($html, '</head>')) . <<<STYLE
+   <style type="text/css">
+table, th, td {
+    border: 1px solid black;
+}
+table {
+    border-collapse: collapse;
+}
+td, th {
+    padding: 2px;
+}
+div.header {
+    font-weight: bold;
+    font-size: 140%;
+    padding: 3px 0;
+}
+.nowrap {
+    white-space: nowrap;
+}
+.comment {
+    font-family: Menlo,Consolas,"Lucida Console","DejaVu Sans Mono",monospace;
+    padding: 5px;
+}
+    </style>
+ </head>
+<body>
+
+STYLE;
+
+        Horde::startBuffer();
+
+        $form = new Whups_Form_TicketDetails($vars, $ticket);
+        $renderer = $form->getRenderer();
+        $renderer->_name = $form->getName();
+        $renderer->beginInactive($title);
+        $renderer->renderFormInactive($form, $vars);
+        $renderer->end();
+        echo "<br />\n";
+
+        echo '<div class="header">' . _("Comments") . "</div>\n";
+        $history = Whups::permissionsFilter(
+            $whups_driver->getHistory($ticket->getId(), $form),
+            'comment',
+            Horde_Perms::READ);
+        foreach ($history as $transaction) {
+            if (empty($transaction['changes'])) {
+                continue;
+            }
+            foreach ($transaction['changes'] as $change) {
+                if ($change['type'] != 'comment' ||
+                    !empty($change['private'])) {
+                    continue;
+                }
+                $comment = $change['comment'];
+                $flowed = new Horde_Text_Flowed($comment, 'UTF-8');
+                $flowed->setDelSp(true);
+                $comment = $flowed->toFlowed(false);
+                $comment = $filter->filter(
+                    $comment,
+                    array('text2html', 'simplemarkup'),
+                    array(
+                        array('parselevel' => Horde_Text_Filter_Text2html::MICRO),
+                        array('html' => true),
+                    )
+                );
+                $user = empty($transaction['user_id'])
+                    ? '&nbsp;'
+                    : Whups::formatUser(
+                        $transaction['user_id'], false, true, true
+                    );
+                $time = strftime(
+                    $prefs->getValue('date_format') . ' '
+                        . $prefs->getValue('time_format'),
+                    $transaction['timestamp']
+                );
+                echo <<<COMMENT
+<table width="100%">
+ <tr>
+  <td class="nowrap" valign="top"><em>$user</em></td>
+  <td class="nowrap" valign="top" align="right"><em>$time</em></td>
+ </tr>
+ <tr><td colspan="2">
+  <div class="comment">
+   $comment
+  </div>
+ </td></tr>
+</table>
+<br />
+
+COMMENT;
+            }
+        }
+
+        $page_output->footer();
+
+        $html .= Horde::endBuffer();
+
+        return array(
+            'data' => $html,
+            'name' => _("ticket") . $vars->id . '.html'
+        );
     }
 
     /**
