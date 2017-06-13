@@ -396,7 +396,7 @@ class Whups
         try {
             return Whups_Ticket::makeTicket($id);
         } catch (Whups_Exception $e) {
-            if ($ticket->code === 0) {
+            if ($e->code === 0) {
                 // No permissions to this ticket.
                 $GLOBALS['notification']->push($e->getMessage(), 'horde.warning');
                 $default->redirect();
@@ -410,7 +410,8 @@ class Whups
     /**
      * Adds topbar search to page
      */
-    public static function addTopbarSearch() {
+    public static function addTopbarSearch()
+    {
         $topbar = $GLOBALS['injector']->getInstance('Horde_View_Topbar');
         $topbar->search = true;
         $topbar->searchAction = Horde::url('ticket');
