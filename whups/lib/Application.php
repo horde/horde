@@ -264,12 +264,14 @@ class Whups_Application extends Horde_Registry_Application
      */
     protected function _downloadTicket(Horde_Variables $vars)
     {
-        global $injector, $page_output, $prefs, $whups_driver;
+        global $conf, $injector, $page_output, $prefs, $whups_driver;
 
         $ticket = Whups::getCurrentTicket();
         $ticket->setDetails($vars);
         $title = '[#' . $ticket->getId() . '] ' . $ticket->get('summary');
         $filter = $injector->getInstance('Horde_Core_Factory_TextFilter');
+        $obfuscate = $conf['prefs']['obfuscate_email'];
+        $conf['prefs']['obfuscate_email'] = false;
 
         Horde::startBuffer();
 
@@ -377,6 +379,8 @@ COMMENT;
         $page_output->footer();
 
         $html .= Horde::endBuffer();
+
+        $conf['prefs']['obfuscate_email'] = $obfuscate;
 
         return array(
             'data' => $html,
