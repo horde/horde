@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
  <notes>
-* 
+* [jan] SECURITY: Fix permission check when downloading reports.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1246,7 +1246,7 @@
    <date>2016-12-16</date>
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
    <notes>
-* 
+* [jan] SECURITY: Fix permission check when downloading reports.
    </notes>
   </release>
  </changelog>

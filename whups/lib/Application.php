@@ -206,8 +206,12 @@ class Whups_Application extends Horde_Registry_Application
 
             // Fetch all unresolved tickets assigned to the current user.
             $info = array('id' => explode(',', $vars->ids));
-            $tickets = $whups_driver->getTicketsByProperties($info);
-            foreach ($tickets as $id => $info) {
+            $tickets = array();
+            foreach ($whups_driver->getTicketsByProperties($info) as $id => $info) {
+                if (!Whups::hasPermission($info['queue'], 'queue', Horde_Perms::READ)) {
+                    continue;
+                }
+                $tickets[$id] = $info;
                 $tickets[$id]['#'] = $id + 1;
                 $tickets[$id]['link'] = Whups::urlFor('ticket', $info['id'], true, -1);
                 $tickets[$id]['date_created'] = strftime('%x', $info['timestamp']);
