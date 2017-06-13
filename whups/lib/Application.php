@@ -348,8 +348,8 @@ STYLE;
                 );
                 $user = empty($transaction['user_id'])
                     ? '&nbsp;'
-                    : Whups::formatUser(
-                        $transaction['user_id'], false, true, true
+                    : htmlspecialchars(
+                        Whups::formatUser($transaction['user_id'])
                     );
                 $time = strftime(
                     $prefs->getValue('date_format') . ' '
