@@ -93,7 +93,7 @@ abstract class Horde_Image_Base extends EmptyIterator
      *
      * @param array
      */
-     protected $_context;
+    protected $_context;
 
     /**
      * Constructor.

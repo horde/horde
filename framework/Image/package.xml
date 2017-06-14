@@ -23,9 +23,9 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2017-04-11</date>
+ <date>2017-06-14</date>
  <version>
-  <release>2.4.2</release>
+  <release>2.4.0</release>
   <api>2.4.0</api>
  </version>
  <stability>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Add blur effect.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -52,6 +52,7 @@
      <dir name="Image">
       <dir name="Effect">
        <dir name="Gd">
+        <file name="Blur.php" role="php" />
         <file name="Border.php" role="php" />
         <file name="DropShadow.php" role="php" />
         <file name="RoundCorners.php" role="php" />
@@ -59,6 +60,7 @@
         <file name="Unsharpmask.php" role="php" />
        </dir> <!-- /lib/Horde/Image/Effect/Gd -->
        <dir name="Im">
+        <file name="Blur.php" role="php" />
         <file name="Border.php" role="php" />
         <file name="CenterCrop.php" role="php" />
         <file name="Composite.php" role="php" />
@@ -71,6 +73,7 @@
         <file name="Unsharpmask.php" role="php" />
        </dir> <!-- /lib/Horde/Image/Effect/Im -->
        <dir name="Imagick">
+        <file name="Blur.php" role="php" />
         <file name="Border.php" role="php" />
         <file name="CenterCrop.php" role="php" />
         <file name="Composite.php" role="php" />
@@ -506,11 +509,13 @@
    <install as="Horde/Image/Swf.php" name="lib/Horde/Image/Swf.php" />
    <install as="Horde/Image/Translation.php" name="lib/Horde/Image/Translation.php" />
    <install as="Horde/Image/Effect/Border.php" name="lib/Horde/Image/Effect/Border.php" />
+   <install as="Horde/Image/Effect/Gd/Blur.php" name="lib/Horde/Image/Effect/Gd/Blur.php" />
    <install as="Horde/Image/Effect/Gd/Border.php" name="lib/Horde/Image/Effect/Gd/Border.php" />
    <install as="Horde/Image/Effect/Gd/DropShadow.php" name="lib/Horde/Image/Effect/Gd/DropShadow.php" />
    <install as="Horde/Image/Effect/Gd/RoundCorners.php" name="lib/Horde/Image/Effect/Gd/RoundCorners.php" />
    <install as="Horde/Image/Effect/Gd/TextWatermark.php" name="lib/Horde/Image/Effect/Gd/TextWatermark.php" />
    <install as="Horde/Image/Effect/Gd/Unsharpmask.php" name="lib/Horde/Image/Effect/Gd/Unsharpmask.php" />
+   <install as="Horde/Image/Effect/Im/Blur.php" name="lib/Horde/Image/Effect/Im/Blur.php" />
    <install as="Horde/Image/Effect/Im/Border.php" name="lib/Horde/Image/Effect/Im/Border.php" />
    <install as="Horde/Image/Effect/Im/CenterCrop.php" name="lib/Horde/Image/Effect/Im/CenterCrop.php" />
    <install as="Horde/Image/Effect/Im/Composite.php" name="lib/Horde/Image/Effect/Im/Composite.php" />
@@ -521,6 +526,7 @@
    <install as="Horde/Image/Effect/Im/RoundCorners.php" name="lib/Horde/Image/Effect/Im/RoundCorners.php" />
    <install as="Horde/Image/Effect/Im/TextWatermark.php" name="lib/Horde/Image/Effect/Im/TextWatermark.php" />
    <install as="Horde/Image/Effect/Im/Unsharpmask.php" name="lib/Horde/Image/Effect/Im/Unsharpmask.php" />
+   <install as="Horde/Image/Effect/Imagick/Blur.php" name="lib/Horde/Image/Effect/Imagick/Blur.php" />
    <install as="Horde/Image/Effect/Imagick/Border.php" name="lib/Horde/Image/Effect/Imagick/Border.php" />
    <install as="Horde/Image/Effect/Imagick/CenterCrop.php" name="lib/Horde/Image/Effect/Imagick/CenterCrop.php" />
    <install as="Horde/Image/Effect/Imagick/Composite.php" name="lib/Horde/Image/Effect/Imagick/Composite.php" />
@@ -1198,8 +1204,7 @@ Initial release as a PEAR package
    <date>2017-03-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [mjr] Fix drop shadow generation when using a background color.
-* [mjr] Add support for storing image data as a temporary stream.
+* [jan] Add blur effect.
    </notes>
   </release>
   <release>
@@ -1217,12 +1222,12 @@ Initial release as a PEAR package
   </release>
   <release>
    <version>
-    <release>2.4.2</release>
+    <release>2.4.0</release>
     <api>2.4.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-04-11</date>
+   <date>2017-06-14</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

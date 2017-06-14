@@ -16,8 +16,8 @@
 /**
  * Unsharp mask Image effect.
  *
- * Unsharp mask algorithm by Torstein Hønsi 2003 <thoensi_at_netcom_dot_no>
- * From: http://www.vikjavev.com/hovudsida/umtestside.php
+ * Unsharp mask algorithm by Torstein Hønsi 2003 <thoensi@netcom.no>
+ * from: http://www.vikjavev.com/hovudsida/umtestside.php
  *
  * @author    Torstein Hønsi <thoensi@netcom.no>
  * @author    Michael J. Rubinsky <mrubinsk@horde.org>
