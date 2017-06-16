@@ -780,6 +780,8 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
      */
     protected function _deleteEvent($eventId, $silent = false)
     {
+        global $injector;
+
         /* Fetch the event for later use. */
         if ($eventId instanceof Kronolith_Event) {
             $event = $eventId;
@@ -816,6 +818,9 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
                 $this->deleteEvent($id, true);
             }
         }
+
+        /* Delete Geolocation */
+        $injector->getInstance('Kronolith_Geo')->deleteLocation($eventId);
 
         return $event;
     }
