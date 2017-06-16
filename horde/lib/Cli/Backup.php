@@ -194,7 +194,11 @@ class Horde_Cli_Backup extends Application
                     $resolved[] = $type;
                     $user = $collection->getUser();
                     if ($clear && !isset($cleared[$user])) {
-                        $this->_registry->removeUserData($user, $app);
+                        try {
+                            $this->_registry->removeUserData($user, $app);
+                        } catch (Horde_Exception $e) {
+                            $this->message($e->getMessage(), 'cli.warning');
+                        }
                         $cleared[$user] = true;
                     }
                     $this->_registry->callAppMethod(
