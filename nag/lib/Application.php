@@ -12,6 +12,7 @@
  */
 
 use Horde\Backup;
+use Sabre\CalDAV;
 
 /* Determine the base directories. */
 if (!defined('NAG_BASE')) {
@@ -31,8 +32,6 @@ if (!defined('HORDE_BASE')) {
 /* Load the Horde Framework core (needed to autoload
  * Horde_Registry_Application::). */
 require_once HORDE_BASE . '/lib/core.php';
-
-use Sabre\CalDAV;
 
 class Nag_Application extends Horde_Registry_Application
 {
