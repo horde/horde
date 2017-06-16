@@ -144,8 +144,10 @@ class Kronolith_Resource
 
     public static function getResource($id)
     {
-        $r_share = $GLOBALS['kronolith_shares']->getShare($id);
-        $resource = new Kronolith_Resource_Single(array('share' => $r_share));
+        global $injector;
+
+        $r_share = $injector->getInstance('Kronolith_Shares')->getShare($id);
+        return new Kronolith_Resource_Single(array('share' => $r_share));
     }
 
 }
