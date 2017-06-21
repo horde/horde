@@ -34,6 +34,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] SECURITY: Prevent DOS attack by preventing an infinite loop in certain conditions (CVE-2017-9773, reported by Fariskhi Vidyan &lt;farislab@gmail.com&gt;).
+* [mjr] SECURITY: Prevent RCE attacks by properly sanitizing shell arguments (CVE-2017-9774, reported by Fariskhi Vidyan &lt;farislab@gmail.com&gt;).
 * [jan] Add blur effect.
  </notes>
  <contents>
@@ -1230,6 +1232,8 @@ Initial release as a PEAR package
    <date>2017-06-14</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] SECURITY: Prevent DOS attack by preventing an infinite loop in certain conditions (CVE-2017-9773, reported by Fariskhi Vidyan &lt;farislab@gmail.com&gt;).
+* [mjr] SECURITY: Prevent RCE attacks by properly sanitizing shell arguments (CVE-2017-9774, reported by Fariskhi Vidyan &lt;farislab@gmail.com&gt;).
 * [jan] Add blur effect.
    </notes>
   </release>
