@@ -32,6 +32,8 @@ class Horde_Image_Null extends Horde_Image_Base
             $this->loadFile($params['filename']);
         } elseif (!empty($params['data'])) {
             $this->loadString($params['data']);
+        } else {
+           $this->_data = new Horde_Stream_Temp();
         }
     }
 }
