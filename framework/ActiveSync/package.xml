@@ -12,7 +12,7 @@
  </lead>
  <date>2017-06-21</date>
  <version>
-  <release>2.38.6</release>
+  <release>2.38.7</release>
   <api>2.38.0</api>
  </version>
  <stability>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Improve support for android Gmail application (Bug #14655).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3439,6 +3439,19 @@
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Improve support for android Gmail application (Bug #14655).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.38.7</release>
+    <api>2.38.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2017-06-21</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
