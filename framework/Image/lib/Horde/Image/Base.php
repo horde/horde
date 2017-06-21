@@ -130,10 +130,10 @@ abstract class Horde_Image_Base extends EmptyIterator
             : new Horde_Support_Stub();
 
         if (isset($params['width'])) {
-            $this->_width = $params['width'];
+            $this->_width = (integer)$params['width'];
         }
         if (isset($params['height'])) {
-            $this->_height = $params['height'];
+            $this->_height = (integer)$params['height'];
         }
         if (!empty($params['type'])) {
             // We only want the extension, not the full mimetype.

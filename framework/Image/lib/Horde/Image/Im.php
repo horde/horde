@@ -134,7 +134,13 @@ class Horde_Image_Im extends Horde_Image_Base
         } elseif (!empty($params['data'])) {
             $this->loadString($params['data']);
         } else {
-            $cmd = "-size {$this->_width}x{$this->_height} xc:{$this->_background} -strip {$this->_type}:__FILEOUT__";
+            $cmd = sprintf(
+                '-size %dx%d xc:%s -strip %s:__FILEOUT__',
+                $this->_width,
+                $this->_height,
+                escapeshellarg($this->_background),
+                $this->_type
+            );
             $this->executeConvertCmd($cmd);
         }
     }
@@ -251,11 +257,11 @@ class Horde_Image_Im extends Horde_Image_Base
         if ($ratio) {
             $this->_postSrcOperations[] =
                 ($keepProfile ? '-resize' : '-thumbnail')
-                . " {$width}x{$height}";
+                . sprintf(' %dx%d', $width, $height);
         } else {
             $this->_postSrcOperations[] =
                 ($keepProfile ? '-resize' : '-thumbnail')
-                . " {$width}x{$height}!";
+                . sprintf(' %dx%d', $width, $height);
         }
 
         // Refresh the data
@@ -295,7 +301,11 @@ class Horde_Image_Im extends Horde_Image_Base
     public function rotate($angle, $background = 'white')
     {
         $this->raw(false, array('stream' => true));
-        $this->_operations[] = "-background $background -rotate {$angle}";
+        $this->_operations[] = sprintf(
+            '-background %s -rotate %d',
+            escapeshellarg($this->_background),
+            (integer)$angle
+        );
         $this->raw(false, array('stream' => true));
 
         // Reset width/height since these might have changed
@@ -333,7 +343,7 @@ class Horde_Image_Im extends Horde_Image_Base
      */
     public function sepia($threshold = 85)
     {
-        $this->_operations[] = '-sepia-tone ' . $threshold . '%';
+        $this->_operations[] = '-sepia-tone ' . (integer)$threshold . '%';
     }
 
     /**
@@ -363,9 +373,12 @@ class Horde_Image_Im extends Horde_Image_Base
     {
         $string = addslashes('"' . $string . '"');
         $fontsize = Horde_Image::getFontSize($fontsize);
-        $this->_postSrcOperations[] = "-fill $color "
-            . (!empty($font) ? "-font $font" : '')
-            . " -pointsize $fontsize -gravity northwest -draw \"text $x,$y $string\" -fill none";
+        $this->_postSrcOperations[] = '-fill ' . escapeshellarg($color)
+            . (!empty($font) ? '-font ' . escapeshellarg($font) : '')
+            . sprintf(
+                '-pointsize %d -gravity northwest -draw "text %d,%d %s" -fill none',
+                $fontsize, $x, $y, escapeshellarg($string)
+            );
     }
 
     /**
