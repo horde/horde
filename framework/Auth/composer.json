@@ -1,5 +1,5 @@
 {
-    "name": "horde/horde-auth",
+    "name": "horde/auth",
     "description": "Horde Authentication API",
     "type": "library",
     "homepage": "https://pear.horde.org",
@@ -22,7 +22,7 @@
         }
     ],
     "version": "2.2.2",
-    "time": "2016-12-03",
+    "time": "2017-06-22",
     "repositories": [
         {
             "type": "pear",
