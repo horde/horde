@@ -18,7 +18,7 @@
  </lead>
  <date>2017-06-22</date>
  <version>
-  <release>2.7.9</release>
+  <release>2.7.10</release>
   <api>2.7.0</api>
  </version>
  <stability>
@@ -27,8 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] More fixes for GnuPG 2 (Mathieu Parent &lt;math.parent@gmail.com&gt;).
-* [jan] Remove dependency on openssl executable (Hadi Nategh &lt;hnategh@gmail.com&gt;).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1246,6 +1245,19 @@ Initial release as a PEAR package
    <notes>
 * [jan] More fixes for GnuPG 2 (Mathieu Parent &lt;math.parent@gmail.com&gt;).
 * [jan] Remove dependency on openssl executable (Hadi Nategh &lt;hnategh@gmail.com&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.7.10</release>
+    <api>2.7.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2017-06-22</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
