@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-04-05</date>
+ <date>2017-06-22</date>
  <version>
   <release>1.2.5</release>
   <api>1.2.0</api>
@@ -83,6 +83,12 @@
       <file name="Horde_ListHeaders.po" role="data" />
      </dir> <!-- /locale/ja/LC_MESSAGES -->
     </dir> <!-- /locale/ja -->
+    <dir name="tr">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_ListHeaders.mo" role="data" />
+      <file name="Horde_ListHeaders.po" role="data" />
+     </dir> <!-- /locale/tr/LC_MESSAGES -->
+    </dir> <!-- /locale/tr -->
     <file name="Horde_ListHeaders.pot" role="data" />
    </dir> <!-- /locale -->
    <dir name="test">
@@ -168,6 +174,8 @@
    <install as="locale/hu/LC_MESSAGES/Horde_ListHeaders.po" name="locale/hu/LC_MESSAGES/Horde_ListHeaders.po" />
    <install as="locale/ja/LC_MESSAGES/Horde_ListHeaders.mo" name="locale/ja/LC_MESSAGES/Horde_ListHeaders.mo" />
    <install as="locale/ja/LC_MESSAGES/Horde_ListHeaders.po" name="locale/ja/LC_MESSAGES/Horde_ListHeaders.po" />
+   <install as="locale/tr/LC_MESSAGES/Horde_ListHeaders.mo" name="locale/tr/LC_MESSAGES/Horde_ListHeaders.mo" />
+   <install as="locale/tr/LC_MESSAGES/Horde_ListHeaders.po" name="locale/tr/LC_MESSAGES/Horde_ListHeaders.po" />
    <install as="Horde/ListHeaders/AllTests.php" name="test/Horde/ListHeaders/AllTests.php" />
    <install as="Horde/ListHeaders/bootstrap.php" name="test/Horde/ListHeaders/bootstrap.php" />
    <install as="Horde/ListHeaders/ParseTest.php" name="test/Horde/ListHeaders/ParseTest.php" />
@@ -381,7 +389,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-04-05</date>
+   <date>2017-06-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Add Turkish translation (İTÜ BİDB &lt;sistemdestek@itu.edu.tr&gt;).
