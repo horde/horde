@@ -1,5 +1,5 @@
 {
-    "name": "horde/horde-javascriptminify",
+    "name": "horde/javascriptminify",
     "description": "Javascript Minification",
     "type": "library",
     "homepage": "https://pear.horde.org",
@@ -12,7 +12,7 @@
         }
     ],
     "version": "1.1.4",
-    "time": "2016-03-08",
+    "time": "2017-06-22",
     "repositories": [
         {
             "type": "pear",
