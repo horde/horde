@@ -2577,7 +2577,10 @@ var DimpBase = {
             e = new Event(e);
             e.preventDefault();
             noelt = true;
-            if (!(kc === 17 || kc === 67)) { //CTRL + C
+
+            // Allow ctrl-c (kc=67) and command-c (kc=91) to copy text from the
+            // message preview.
+            if (!(kc === 17 || kc === 67 || kc === 91)) {
                 $$('IFRAME').invoke('blur');
             }
         } else if (e.findElement('FORM')) {

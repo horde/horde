@@ -2,6 +2,7 @@
 v6.2.20-git
 -----------
 
+[jan] Allow Command-C to copy text from HTML message previews (Bug #14653).
 
 
 -------

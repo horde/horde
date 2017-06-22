@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [jan] Allow Command-C to copy text from HTML message previews (Bug #14653).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4027,7 +4027,7 @@
    <date>2017-05-03</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [jan] Allow Command-C to copy text from HTML message previews (Bug #14653).
    </notes>
   </release>
  </changelog>
