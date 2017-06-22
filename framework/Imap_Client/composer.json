@@ -1,5 +1,5 @@
 {
-    "name": "horde/horde-imap-client",
+    "name": "horde/imap-client",
     "description": "Horde IMAP Client",
     "type": "library",
     "homepage": "https://pear.horde.org",
@@ -12,7 +12,7 @@
         }
     ],
     "version": "2.29.13",
-    "time": "2016-12-17",
+    "time": "2017-06-22",
     "repositories": [
         {
             "type": "pear",
