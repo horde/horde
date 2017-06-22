@@ -1,5 +1,5 @@
 {
-    "name": "horde/horde-crypt",
+    "name": "horde/crypt",
     "description": "Horde Cryptography API",
     "type": "library",
     "homepage": "https://pear.horde.org",
@@ -16,8 +16,8 @@
             "role": "lead"
         }
     ],
-    "version": "2.7.8",
-    "time": "2017-05-03",
+    "version": "2.7.9",
+    "time": "2017-06-22",
     "repositories": [
         {
             "type": "pear",
