@@ -17,7 +17,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2017-05-30</date>
+ <date>2017-06-22</date>
  <version>
   <release>2.2.4</release>
   <api>2.2.0</api>
@@ -848,7 +848,7 @@ Add &apos;default&apos; parameter to Horde_CLI::prompt().
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-05-30</date>
+   <date>2017-06-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix returning to normal font after text with light colors.
