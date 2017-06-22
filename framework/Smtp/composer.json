@@ -1,5 +1,5 @@
 {
-    "name": "horde/horde-smtp",
+    "name": "horde/smtp",
     "description": "Horde SMTP Client",
     "type": "library",
     "homepage": "https://pear.horde.org",
@@ -12,7 +12,7 @@
         }
     ],
     "version": "1.9.5",
-    "time": "2016-12-21",
+    "time": "2017-06-22",
     "repositories": [
         {
             "type": "pear",

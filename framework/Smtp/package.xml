@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-12-21</date>
+ <date>2017-06-22</date>
  <version>
   <release>1.9.5</release>
   <api>1.9.0</api>
@@ -89,6 +89,12 @@
       <file name="Horde_Smtp.po" role="data" />
      </dir> <!-- /locale/ja/LC_MESSAGES -->
     </dir> <!-- /locale/ja -->
+    <dir name="tr">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Smtp.mo" role="data" />
+      <file name="Horde_Smtp.po" role="data" />
+     </dir> <!-- /locale/tr/LC_MESSAGES -->
+    </dir> <!-- /locale/tr -->
     <file name="Horde_Smtp.pot" role="data" />
    </dir> <!-- /locale -->
    <dir name="test">
@@ -210,6 +216,8 @@
    <install as="locale/hu/LC_MESSAGES/Horde_Smtp.po" name="locale/hu/LC_MESSAGES/Horde_Smtp.po" />
    <install as="locale/ja/LC_MESSAGES/Horde_Smtp.mo" name="locale/ja/LC_MESSAGES/Horde_Smtp.mo" />
    <install as="locale/ja/LC_MESSAGES/Horde_Smtp.po" name="locale/ja/LC_MESSAGES/Horde_Smtp.po" />
+   <install as="locale/tr/LC_MESSAGES/Horde_Smtp.mo" name="locale/tr/LC_MESSAGES/Horde_Smtp.mo" />
+   <install as="locale/tr/LC_MESSAGES/Horde_Smtp.po" name="locale/tr/LC_MESSAGES/Horde_Smtp.po" />
    <install as="Horde/Smtp/AllTests.php" name="test/Horde/Smtp/AllTests.php" />
    <install as="Horde/Smtp/bootstrap.php" name="test/Horde/Smtp/bootstrap.php" />
    <install as="Horde/Smtp/conf.php.dist" name="test/Horde/Smtp/conf.php.dist" />
@@ -562,7 +570,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-12-21</date>
+   <date>2017-06-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Add Turkish translation (İTÜ BİDB &lt;sistemdestek@itu.edu.tr&gt;).
