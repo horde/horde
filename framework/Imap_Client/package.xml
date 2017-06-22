@@ -12,7 +12,7 @@
  </lead>
  <date>2017-06-22</date>
  <version>
-  <release>2.29.13</release>
+  <release>2.29.14</release>
   <api>2.29.0</api>
  </version>
  <stability>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Add Turkish translation (İTÜ BİDB &lt;sistemdestek@itu.edu.tr&gt;).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3098,6 +3098,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Add Turkish translation (İTÜ BİDB &lt;sistemdestek@itu.edu.tr&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.29.14</release>
+    <api>2.29.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2017-06-22</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
