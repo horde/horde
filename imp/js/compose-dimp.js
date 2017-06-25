@@ -891,6 +891,7 @@ var DimpCompose = {
                 afterFinish: function() {
                     this.removeAttachRow(elt);
                     this.initAttachList();
+                    $('upload').value = '';
                     $('upload').removeAttribute('value');
                     $('upload').replace($('upload').cloneNode(true));
                 }.bind(this),
