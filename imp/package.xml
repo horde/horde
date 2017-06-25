@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix issue with reattaching a file after removing it on Chrome browsers (Bug #14657),
 * [jan] Allow Command-C to copy text from HTML message previews (Bug #14653).
  </notes>
  <contents>
@@ -4027,6 +4028,7 @@
    <date>2017-05-03</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix issue with reattaching a file after removing it on Chrome browsers (Bug #14657),
 * [jan] Allow Command-C to copy text from HTML message previews (Bug #14653).
    </notes>
   </release>

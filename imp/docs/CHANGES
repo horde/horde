@@ -2,6 +2,8 @@
 v6.2.20-git
 -----------
 
+[mjr] Fix issue with reattaching a file after removing it on Chrome browsers
+      (Bug #14657),
 [jan] Allow Command-C to copy text from HTML message previews (Bug #14653).
 
 
