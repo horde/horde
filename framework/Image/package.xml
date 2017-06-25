@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mjr] SECURITY: Fix more potential places for command injections.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1245,7 +1245,7 @@ Initial release as a PEAR package
    <date>2017-06-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mjr] SECURITY: Fix more potential places for command injections.
    </notes>
   </release>
  </changelog>
