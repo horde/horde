@@ -47,12 +47,12 @@ class Horde_Image_Effect_Im_DropShadow extends Horde_Image_Effect
     {
         $size = $this->_image->getDimensions();
         $this->_image->addPostSrcOperation(
-            '\( +clone -background black -shadow 80x' . $this->_params['fade']
-            . '+' . $this->_params['distance']
-            . '+' . $this->_params['distance']
-            . ' \) +swap -background ' . $this->_params['background'] . ' -flatten +repage -bordercolor '
-            . $this->_params['background']
-            . ' -border ' . $this->_params['padding']
+            '\( +clone -background black -shadow 80x' . (integer)$this->_params['fade']
+            . '+' . (integer)$this->_params['distance']
+            . '+' . (integer)$this->_params['distance']
+            . ' \) +swap -background ' . escapeshellarg($this->_params['background']) . ' -flatten +repage -bordercolor '
+            . escapeshellarg($this->_params['background'])
+            . ' -border ' . (integer)$this->_params['padding']
         );
         $this->_image->clearGeometry();
     }

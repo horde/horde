@@ -113,9 +113,9 @@ class Horde_Image_Effect_Im_PhotoStack extends Horde_Image_Effect
             // convert versions before 6.4 it seems. Without it specified as
             // none here, all stacks come out with a white background.
             $this->_image->addPostSrcOperation(
-                $ops . ' -background ' . $this->_params['background']
-                . ' -mosaic -bordercolor ' . $this->_params['background']
-                . ' -border ' . $this->_params['padding']);
+                $ops . ' -background ' . escapeshellarg($this->_params['background'])
+                . ' -mosaic -bordercolor ' . escapeshellarg($this->_params['background'])
+                . ' -border ' . (integer)$this->_params['padding']);
             break;
 
         case 'polaroid':
@@ -141,15 +141,15 @@ class Horde_Image_Effect_Im_PhotoStack extends Horde_Image_Effect
                         . ' -geometry +'
                         . mt_rand(1, $this->_params['resize_height'])
                         . '+' . mt_rand(1, $this->_params['resize_height'])
-                        . ' -thumbnail \'' . $this->_params['resize_height']
-                        . 'x' . $this->_params['resize_height']
+                        . ' -thumbnail \'' . (integer)$this->_params['resize_height']
+                        . 'x' . (integer)$this->_params['resize_height']
                         . '>\' -bordercolor Snow -border 1  -polaroid '
                         . $angle . ' \) ';
                 }
                 $this->_image->addPostSrcOperation(
-                    '-background ' . $this->_params['background'] . ' ' . $ops
-                    . '-mosaic -bordercolor ' . $this->_params['background']
-                    . ' -border ' . $this->_params['padding']);
+                    '-background ' . escapeshellarg($this->_params['background']) . ' ' . $ops
+                    . '-mosaic -bordercolor ' . escapeshellarg($this->_params['background'])
+                    . ' -border ' . (integer)$this->_params['padding']);
            } else {
                 // An attempt at a -polaroid command free version of this
                 // effect based on various examples and ideas at
@@ -167,16 +167,16 @@ class Horde_Image_Effect_Im_PhotoStack extends Horde_Image_Effect
                         }
                     }
                     $ops .= '\( ' . $temp . ' -thumbnail \''
-                        . $this->_params['resize_height']
-                        . 'x' . $this->_params['resize_height']
+                        . (integer)$this->_params['resize_height']
+                        . 'x' . (integer)$this->_params['resize_height']
                         . '>\' -bordercolor "#eee" -border 4 -bordercolor grey90 -border 1 -bordercolor none -background none -rotate '
                         . $angle . ' -background none \( +clone -shadow 60x4+4+4 \) +swap -background none -flatten \) ';
                 }
                 $this->_image->addPostSrcOperation(
                     '-background none ' . $ops
                     . '-mosaic -trim +repage -bordercolor '
-                    . $this->_params['background']
-                    . ' -border ' . $this->_params['padding']);
+                    . escapeshellarg($this->_params['background'])
+                    . ' -border ' . (integer)$this->_params['padding']);
             }
             break;
         }

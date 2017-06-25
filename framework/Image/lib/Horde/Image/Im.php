@@ -283,7 +283,7 @@ class Horde_Image_Im extends Horde_Image_Base
      */
     public function crop($x1, $y1, $x2, $y2)
     {
-        $line = ($x2 - $x1) . 'x' . ($y2 - $y1) . '+' . $x1 . '+' . $y1;
+        $line = ($x2 - $x1) . 'x' . ($y2 - $y1) . '+' . (integer)$x1 . '+' . (integer)$y1;
         $this->_operations[] = '-crop ' . $line . ' +repage';
 
         // Reset width/height since these might change
@@ -373,11 +373,12 @@ class Horde_Image_Im extends Horde_Image_Base
     {
         $string = addslashes('"' . $string . '"');
         $fontsize = Horde_Image::getFontSize($fontsize);
+        $command = 'text ' . (integer)$x . ',' . (integer)$y . ' ' . $string;
         $this->_postSrcOperations[] = '-fill ' . escapeshellarg($color)
-            . (!empty($font) ? '-font ' . escapeshellarg($font) : '')
+            . (!empty($font) ? ' -font ' . escapeshellarg($font) : '')
             . sprintf(
-                '-pointsize %d -gravity northwest -draw "text %d,%d %s" -fill none',
-                $fontsize, $x, $y, escapeshellarg($string)
+                ' -pointsize %d -gravity northwest -draw "%s" -fill none',
+                $fontsize, $command
             );
     }
 
@@ -393,7 +394,10 @@ class Horde_Image_Im extends Horde_Image_Base
     public function circle($x, $y, $r, $color, $fill = 'none')
     {
         $xMax = $x + $r;
-        $this->_postSrcOperations[] = "-stroke $color -fill $fill -draw \"circle $x,$y $xMax,$y\" -stroke none -fill none";
+        $this->_postSrcOperations[] = sprintf(
+            '-stroke %s -fill %s -draw "circle %d,%d %d,%d" -stroke none -fill none',
+            escapeshellarg($color), escapeshellarg($fill), $x, $y, $xMax, $y
+        );
     }
 
     /**
@@ -410,7 +414,10 @@ class Horde_Image_Im extends Horde_Image_Base
         foreach ($verts as $vert) {
             $command .= sprintf(' %d,%d', $vert['x'], $vert['y']);
         }
-        $this->_postSrcOperations[] = "-stroke $color -fill $fill -draw \"polygon $command\" -stroke none -fill none";
+        $this->_postSrcOperations[] = sprintf(
+            '-stroke %s -fill %s -draw "polygon $command" -stroke none -fill none',
+            escapeshellarg($color), escapeshellarg($fill)
+        );
     }
 
     /**
@@ -427,7 +434,11 @@ class Horde_Image_Im extends Horde_Image_Base
     {
         $xMax = $x + $width;
         $yMax = $y + $height;
-        $this->_postSrcOperations[] = "-stroke $color -fill $fill -draw \"rectangle $x,$y $xMax,$yMax\" -stroke none -fill none";
+        $this->_postSrcOperations[] = sprintf(
+            '-stroke %s -fill %s -draw "rectangle %d,%d %d,%d" -stroke none -fill none',
+            escapeshellarg($color), escapeshellarg($fill), $x, $y, $xMax, $yMax
+        );
+
     }
 
     /**
@@ -447,7 +458,10 @@ class Horde_Image_Im extends Horde_Image_Base
     {
         $x1 = $x + $width;
         $y1 = $y + $height;
-        $this->_postSrcOperations[] = "-stroke $color -fill $fill -draw \"roundRectangle $x,$y $x1,$y1 $round,$round\" -stroke none -fill none";
+        $this->_postSrcOperations[] = sprintf(
+            '-stroke %s -fill %s -draw "roundRectangle %d,%d %d,%d %d,%d" -stroke none -fill none',
+            escapeshellarg($color), escapeshellarg($fill), $x, $y, $x1, $y1, $round, $round
+        );
     }
 
     /**
@@ -462,7 +476,10 @@ class Horde_Image_Im extends Horde_Image_Base
      */
     public function line($x0, $y0, $x1, $y1, $color = 'black', $width = 1)
     {
-        $this->_operations[] = "-stroke $color -strokewidth $width -draw \"line $x0,$y0 $x1,$y1\"";
+        $this->_operations[] = sprintf(
+            '-stroke %s -strokewidth %d -draw "line %d,%d %d,%d"',
+            escapeshellarg($color), $width, $x0, $y0, $x1, $y1
+        );
     }
 
     /**
@@ -482,7 +499,10 @@ class Horde_Image_Im extends Horde_Image_Base
         $dash_space = 2
     )
     {
-       $this->_operations[] = "-stroke $color -strokewidth $width -draw \"line $x0,$y0 $x1,$y1\"";
+        $this->_operations[] = sprintf(
+            '-stroke %s -strokewidth %d -draw "line %d,%d %d,%d"',
+            escapeshellarg($color), $width, $x0, $y0, $x1, $y1
+        );
     }
 
     /**
@@ -500,7 +520,10 @@ class Horde_Image_Im extends Horde_Image_Base
         foreach ($verts as $vert) {
             $command .= sprintf(' %d,%d', $vert['x'], $vert['y']);
         }
-        $this->_operations[] = "-stroke $color -strokewidth $width -fill none -draw \"polyline $command\" -strokewidth 1 -stroke none -fill none";
+        $this->_operations[] = sprintf(
+            '-stroke %s -strokewidth %d -fill none -draw "polyline $command" -strokewidth 1 -stroke none -fill none',
+            escapeshellarg($color), $width
+        );
     }
 
     /**
@@ -519,16 +542,28 @@ class Horde_Image_Im extends Horde_Image_Base
     )
     {
         // Split up arcs greater than 180 degrees into two pieces.
-        $this->_postSrcOperations[] = "-stroke $color -fill $fill";
+        $this->_postSrcOperations[] = sprintf(
+            '-stroke %s -fill %s',
+            escapeshellarg($color), escapeshellarg($fill)
+        );
         $mid = round(($start + $end) / 2);
         $x = round($x);
         $y = round($y);
         $r = round($r);
         if ($mid > 90) {
-            $this->_postSrcOperations[] = "-draw \"ellipse $x,$y $r,$r $start,$mid\"";
-            $this->_postSrcOperations[] = "-draw \"ellipse $x,$y $r,$r $mid,$end\"";
+            $this->_postSrcOperations[] = sprintf(
+                '-draw "ellipse %d,%d %d,%d %d,%d"',
+                $x, $y, $r, $r, $start, $mid
+            );
+            $this->_postSrcOperations[] = sprintf(
+                '-draw "ellipse %d,%d %d,%d %d,%d"',
+                $x, $y, $r, $r, $mid, $end
+            );
         } else {
-            $this->_postSrcOperations[] = "-draw \"ellipse $x,$y $r,$r $start,$end\"";
+            $this->_postSrcOperations[] = sprintf(
+                '-draw "ellipse %d,%d %d,%d %d,%d"',
+                $x, $y, $r, $r, $start, $end
+            );
         }
 
         // If filled, draw the outline.

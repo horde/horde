@@ -44,11 +44,11 @@ class Horde_Image_Effect_Im_RoundCorners extends Horde_Image_Effect
         $dimensions = $this->_image->getDimensions();
         $height = $dimensions['height'];
         $width = $dimensions['width'];
-        $round = $this->_params['radius'];
-
+        $round = (integer)$this->_params['radius'];
+        $background = escapeshellarg($this->_params['background']);
         $this->_image->addOperation(
-            "-size {$width}x{$height} xc:{$this->_params['background']} "
-            . "-fill {$this->_params['background']} -draw \"matte 0,0 reset\" -tile"
+            "-size {$width}x{$height} xc:$background "
+            . "-fill $background -draw \"matte 0,0 reset\" -tile"
         );
 
         $this->_image->roundedRectangle(

@@ -45,17 +45,17 @@ class Horde_Image_Effect_Im_Composite extends Horde_Image_Effect
     {
         $ops = $geometry = $gravity = '';
         if (isset($this->_params['gravity'])) {
-            $gravity = ' -gravity ' . $this->_params['gravity'];
+            $gravity = ' -gravity ' . escapeshellarg($this->_params['gravity']);
         }
 
         if (isset($this->_params['x']) && isset($this->_params['y'])) {
-            $geometry = ' -geometry +' . $this->_params['x']
-                . '+' . $this->_params['y'] . ' ';
+            $geometry = ' -geometry +' . (integer)$this->_params['x']
+                . '+' . (integer)$this->_params['y'] . ' ';
         }
         if (isset($this->_params['compose'])) {
             // The -matte ensures that the destination (background) image has
             // an alpha channel - to avoid black holes in the image.
-            $compose = ' -compose ' . $this->_params['compose'] . ' -matte';
+            $compose = ' -compose ' . escapeshellarg($this->_params['compose']) . ' -matte';
         }
 
         foreach ($this->_params['images'] as $image) {

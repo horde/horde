@@ -83,7 +83,7 @@ class Horde_Image_Effect_Im_TextWatermark extends Horde_Image_Effect
         $this->_image->addPostSrcOperation(
             ' -font ' . $this->_params['font'] . ' -pointsize ' . $point
             . ' \( +clone -resize 1x1 -fx 1-intensity -threshold 50% -scale 32x32 -write mpr:color +delete \) -tile mpr:color -gravity '
-            . $gravity . ' -annotate +20+10 "' . $this->_params['text'] . '"'
+            . $gravity . ' -annotate +20+10 "' . escapeshellarg($this->_params['text']) . '"'
         );
         $this->_image->raw();
     }

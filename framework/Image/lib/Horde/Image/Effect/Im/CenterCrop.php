@@ -26,8 +26,8 @@ class Horde_Image_Effect_Im_CenterCrop extends Horde_Image_Effect
 {
     /**
      * Valid parameters:
-     *   - width: (integer) Crop width.
-     *   - height: (integer Crop height.
+     *   - width:  (integer) Crop width.
+     *   - height: (integer) Crop height.
      *
      * @var array
      */
@@ -42,9 +42,15 @@ class Horde_Image_Effect_Im_CenterCrop extends Horde_Image_Effect
         $ver = $this->_image->getIMVersion();
         if (is_array($ver) && version_compare($ver[0], '6.3.8') < 0) {
             $initialCrop = $this->_params->width * 2;
-            $command = "-resize x{$initialCrop} -resize '{$initialCrop}x<' -resize 50% -gravity center -crop {$this->_params->width}x{$this->_params->height}+0+0 +repage";
+            $command = sprintf(
+                '-resize x%d -resize \'%dx<\' -resize 50% -gravity center -crop %dx%d+0+0 +repage',
+                $initialCrop, $initialCrop, $this->_params->width, $this->params->height
+            );
         } else {
-            $command = "-thumbnail {$this->_params->width}x{$this->_params->height}\^ -gravity center -extent {$this->_params->width}x{$this->_params->height}";
+            $command = sprintf(
+                '-thumbnail %dx%d\^ -gravity center -extent %dx%d',
+                $this->_params->width, $this->_params->height, $this->_params->width, $this->_params->height
+            );
         }
         $this->_image->addPostSrcOperation($command);
         $this->_image->clearGeometry();
