@@ -18,6 +18,38 @@ v4.0.0-git
 [jan] Add ticket_create hook.
 
 
+-------
+v3.0.10
+-------
+
+[jan] SECURITY: Fix permission check when downloading reports.
+
+
+------
+v3.0.9
+------
+
+[jan] Update German translation.
+
+
+------
+v3.0.8
+------
+
+[jan] Update Portuguese translation.
+[mjr] Fix decoding custom attributes for display (Bug #14326).
+
+
+------
+v3.0.7
+------
+
+[jan] Fix displaying ticket creators with names when creating tickets from
+      emails.
+[jan] If set, use Reply-To: address for the ticket creator when creating
+      tickets from emails.
+
+
 ------
 v3.0.6
 ------
