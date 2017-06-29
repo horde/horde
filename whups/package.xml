@@ -27,6 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
  <notes>
+* [jan] Don&apos;t allow to add unsported image attributes (Bug #14659).
 * [jan] Fix deleting attributes from ticket types (Bug 14111).
  </notes>
  <contents>
@@ -1259,6 +1260,7 @@
    <date>2017-06-23</date>
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
    <notes>
+* [jan] Don&apos;t allow to add unsported image attributes (Bug #14659).
 * [jan] Fix deleting attributes from ticket types (Bug 14111).
    </notes>
   </release>
