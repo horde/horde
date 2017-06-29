@@ -2,6 +2,7 @@
 v3.0.11-git
 -----------
 
+[jan] Fix deleting attributes from ticket types (Bug 14111).
 
 
 -------
