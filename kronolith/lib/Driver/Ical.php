@@ -807,13 +807,19 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
                         '{http://apple.com/ns/ical/}calendar-color'
                     )
                 );
-                $result['name'] = $properties['{DAV:}displayname'];
-                $result['desc'] = $properties['{' . CalDAV\Plugin::NS_CALDAV . '}calendar-description'];
-                $result['color'] = substr(
-                    $properties['{http://apple.com/ns/ical/}calendar-color'],
-                    0,
-                    7
-                );
+                if (isset($properties['{DAV:}displayname'])) {
+                    $result['name'] = $properties['{DAV:}displayname'];
+                }
+                if (isset($properties['{' . CalDAV\Plugin::NS_CALDAV . '}calendar-description'])) {
+                    $result['desc'] = $properties['{' . CalDAV\Plugin::NS_CALDAV . '}calendar-description'];
+                }
+                if (isset($properties['{http://apple.com/ns/ical/}calendar-color'])) {
+                    $result['color'] = substr(
+                        $properties['{http://apple.com/ns/ical/}calendar-color'],
+                        0,
+                        7
+                    );
+                }
             } catch (Exception $e) {
             }
         } else {
