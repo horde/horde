@@ -23,9 +23,9 @@ class Whups_Form_Renderer_Comment extends Horde_Form_Renderer
         echo '<div id="comments">';
     }
 
-    public function render($transaction, &$vars)
+    public function render($transaction, $vars)
     {
-        global $prefs, $conf, $registry;
+        global $prefs, $conf;
         static $canUpdate, $comment_count = 0;
 
         if (!isset($canUpdate)) {
@@ -263,7 +263,7 @@ class Whups_Form_Renderer_Comment extends Horde_Form_Renderer
      *
      * @return string  The first available link.
      */
-    protected function _readTokens($matches)
+    protected function _readTokens()
     {
         return array_shift($this->_tokens);
     }
