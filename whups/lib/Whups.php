@@ -1248,8 +1248,10 @@ class Whups
         $classes = get_declared_classes();
 
         /* Filter for the Horde_Form_Type classes. */
-        $blacklist = array('invalid', 'addresslink', 'spacer', 'description',
-                           'captcha', 'figlet', 'header');
+        $blacklist = array(
+            'addresslink', 'captcha', 'description', 'figlet', 'header',
+            'image', 'invalid', 'spacer'
+        );
         foreach ($classes as $class) {
             if (stripos($class, 'horde_form_type_') !== false) {
                 $field_type = substr($class, 16);
