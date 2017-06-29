@@ -1129,7 +1129,7 @@ class Whups_Driver_Sql extends Whups_Driver
         $attributes = $this->getTicketAttributesWithNames(array_keys($tickets));
         foreach ($attributes as $row) {
             $attribute_id = 'attribute_' . $row['attribute_id'];
-            $tickets[$row['id']][$attribute_id] = $this->_json_decode($row['attribute_value']);
+            $tickets[$row['id']][$attribute_id] = $row['attribute_value'];
             $tickets[$row['id']][$attribute_id . '_name'] = $row['attribute_name'];
         }
 
