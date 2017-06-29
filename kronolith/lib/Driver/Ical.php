@@ -120,10 +120,17 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
                                    array $options = array())
     {
         if ($this->isCalDAV()) {
-            return $this->_listCalDAVEvents(
-                $startDate, $endDate, $options['show_recurrence'],
-                $options['has_alarm'], $options['json'],
-                $options['cover_dates'], $options['hide_exceptions']);
+            try {
+                return $this->_listCalDAVEvents(
+                    $startDate, $endDate, $options['show_recurrence'],
+                    $options['has_alarm'], $options['json'],
+                    $options['cover_dates'], $options['hide_exceptions']);
+            } catch (Kronolith_Exception $e) {
+                // Fall back to regular ICS downloads. At least Nextcloud
+                // advertises calendars as CalDAV capable, but then denying
+                // CalDAV requests.
+                $this->_davSupport = false;
+            }
         }
         return $this->_listWebDAVEvents(
             $startDate, $endDate, $options['show_recurrence'],
