@@ -838,7 +838,6 @@ class Turba_Driver implements Countable
             $img = null;
             if (($imgdata = $ob->getValue('photo')) &&
                 !empty($imgdata['load']['data'])) {
-                Horde::debug(strlen($imgdata['load']['data']));
                 $file = Horde::getTempFile('turba_', false);
                 if ($fd = fopen($file, 'w')) {
                     fwrite($fd, $imgdata['load']['data']);
