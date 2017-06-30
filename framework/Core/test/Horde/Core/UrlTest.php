@@ -409,6 +409,46 @@ class Horde_Core_UrlTest extends PHPUnit_Framework_TestCase
         $GLOBALS['conf']['server']['port'] = 1234;
         $this->assertEquals('http://example.com:1234/hordeurl/test/', Horde::selfUrl(false, true, true));
     }
+
+    public function testSignUrl()
+    {
+        $now = 1000000000;
+        $query = 'foo=42&bar=xyz';
+        $signedQuery = 'foo=42&bar=xyz&_t=1000000000&_h=Zt9M0io4vBpM2dA2gMpiPiDKTUA';
+        $url = 'http://www.example.com';
+        $signedUrl = 'http://www.example.com?_t=1000000000&_h=UcbwFn6pLKHh2U35cK-GHwGT6_Q';
+        $urlQuery = 'http://www.example.com?hello=world';
+        $signedUrlQuery = 'http://www.example.com?hello=world&_t=1000000000&_h=_wQyvcO90UF7S2sdhRr-X4rRT9k';
+
+        $signed = Horde::signQueryString($query, $now);
+        $this->assertEquals($query, $signed);
+
+        $signed = Horde::signUrl($url, $now);
+        $this->assertEquals($url, $signed);
+        $signed = Horde::signUrl($urlQuery, $now);
+        $this->assertEquals($urlQuery, $signed);
+
+        $GLOBALS['conf']['secret_key'] = 'abcdefghijklmnopqrstuvwxyz';
+        $GLOBALS['conf']['urls']['hmac_lifetime'] = '30';
+
+        $signed = Horde::signQueryString($query, $now);
+        $this->assertEquals($signedQuery, $signed);
+        $this->assertTrue(Horde::verifySignedQueryString($signedQuery, $now));
+        $this->assertFalse(Horde::verifySignedQueryString($query, $now));
+        $this->assertFalse(Horde::verifySignedQueryString($signedQuery, $now + $GLOBALS['conf']['urls']['hmac_lifetime'] * 60 + 1));
+
+        $signed = Horde::signUrl($url, $now);
+        $this->assertEquals($signedUrl, $signed);
+        $this->assertEquals($url, Horde::verifySignedUrl($signedUrl, $now));
+        $this->assertFalse(Horde::verifySignedUrl($url, $now));
+        $this->assertFalse(Horde::verifySignedUrl($signedUrl, $now + $GLOBALS['conf']['urls']['hmac_lifetime'] * 60 + 1));
+
+        $signed = Horde::signUrl($urlQuery, $now);
+        $this->assertEquals($signedUrlQuery, $signed);
+        $this->assertEquals($urlQuery, Horde::verifySignedUrl($signedUrlQuery, $now));
+        $this->assertFalse(Horde::verifySignedUrl($urlQuery, $now));
+        $this->assertFalse(Horde::verifySignedUrl($signedUrlQuery, $now + $GLOBALS['conf']['urls']['hmac_lifetime'] * 60 + 1));
+    }
 }
 
 class Registry

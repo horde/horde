@@ -148,7 +148,104 @@ class Horde
     }
 
     /**
-     * Add a signature + timestamp to a query string and return the signed
+     * Adds a signature + timestamp to a URL and returns the signed URL.
+     *
+     * @since Horde_Core 2.30.0
+     *
+     * @param string|Horde_Url $url  The URL to sign.
+     * @param integer $now           The timestamp at which to sign. Leave
+     *                               blank for generating signatures; specify
+     *                               when testing.
+     *
+     * @return string|Horde_Url  The signed URL.
+     */
+    public static function signUrl($url, $now = null)
+    {
+        global $conf;
+
+        if (!isset($conf['secret_key'])) {
+            return $url;
+        }
+
+        if (is_null($now)) {
+            $now = time();
+        }
+
+        if ($url instanceof Horde_Url) {
+            $url->setRaw(true)->add(array('_t' => $now, '_h' => ''));
+            $url->add(
+                '_h',
+                Horde_Url::uriB64Encode(
+                    hash_hmac('sha1', $url . '=', $conf['secret_key'], true)
+                )
+            );
+            return $url;
+        }
+
+        if (strpos($url, '?')) {
+            $url .= '&';
+        } else {
+            $url .= '?';
+        }
+        $url .= '_t=' . $now . '&_h=';
+        $url .= Horde_Url::uriB64Encode(
+            hash_hmac('sha1', $url, $conf['secret_key'], true)
+        );
+
+        return $url;
+    }
+
+    /**
+     * Verifies a signature and timestamp on a URL.
+     *
+     * @since Horde_Core 2.30.0
+     *
+     * @param string $data  The signed URL.
+     * @param integer $now  The current time (can override for testing).
+     *
+     * @return string|boolean  The URL stripped off the signature, of false if
+     *                         not verified.
+     */
+    public static function verifySignedUrl($data, $now = null)
+    {
+        global $conf;
+
+        if (is_null($now)) {
+            $now = time();
+        }
+
+        $pos = strrpos($data, '&_h=');
+        if ($pos === false) {
+            return false;
+        }
+        $pos += 4;
+
+        $url = substr($data, 0, $pos);
+        $hmac = substr($data, $pos);
+
+        if ($hmac != Horde_Url::uriB64Encode(hash_hmac('sha1', $url, $conf['secret_key'], true))) {
+            return false;
+        }
+
+        // String was not tampered with; now validate timestamp
+        parse_str(parse_url($url, PHP_URL_QUERY), $values);
+        if ($values['_t'] + $conf['urls']['hmac_lifetime'] * 60 < $now) {
+            return false;
+        }
+
+        $pos = strrpos($data, '&_t=');
+        if ($pos === false) {
+            $pos = strrpos($data, '?_t=');
+        }
+        if ($pos === false) {
+            return false;
+        }
+
+        return substr($data, 0, $pos);
+    }
+
+    /**
+     * Adds a signature + timestamp to a query string and returns the signed
      * query string.
      *
      * @param mixed $queryString  The query string (or Horde_Url object)
@@ -182,7 +279,7 @@ class Horde
     }
 
     /**
-     * Verify a signature and timestamp on a query string.
+     * Verifies a signature and timestamp on a query string.
      *
      * @param string $data  The signed query string.
      * @param integer $now  The current time (can override for testing).
