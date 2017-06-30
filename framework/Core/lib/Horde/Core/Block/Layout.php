@@ -80,12 +80,16 @@ class Horde_Core_Block_Layout
      */
     public function getActionUrl($action, $row, $col)
     {
-        return Horde::url($this->_editUrl)->unique()->setAnchor('block')->add(array(
-            'col' => $col,
-            'row' => $row,
-            'action' => $action,
-            'url' => $this->_viewUrl
-        ));
+        return Horde::url($this->_editUrl)
+            ->unique()
+            ->setAnchor('block')
+            ->add(array(
+                'col' => $col,
+                'row' => $row,
+                'action' => $action,
+                'url' => Horde::signUrl($this->_viewUrl)
+            )
+        );
     }
 
     /**

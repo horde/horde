@@ -1480,7 +1480,7 @@ class Horde_Registry implements Horde_Shutdown_Task
                 ->add(
                     'return_url',
                     Horde_Util::getFormData(
-                        'location', Horde::selfUrl(true, true, true)
+                        'location', Horde::signUrl(Horde::selfUrl(true, true, true))
                     )
                 );
 
@@ -2249,7 +2249,7 @@ class Horde_Registry implements Horde_Shutdown_Task
 
         $params = array();
         if (!in_array($options['reason'], array(Horde_Auth::REASON_LOGOUT, Horde_Auth::REASON_MESSAGE))) {
-            $params['url'] = Horde::selfUrl(true, true, true);
+            $params['url'] = Horde::signUrl(Horde::selfUrl(true, true, true));
         }
 
         if (empty($options['app']) ||
