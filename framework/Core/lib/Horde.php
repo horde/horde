@@ -182,6 +182,10 @@ class Horde
             return $url;
         }
 
+        if (!$url) {
+            return $url;
+        }
+
         if (strpos($url, '?')) {
             $url .= '&';
         } else {
