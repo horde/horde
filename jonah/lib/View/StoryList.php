@@ -44,19 +44,14 @@ class Jonah_View_StoryList extends Jonah_View_Base
         } catch (Exception $e) {
             $notification->push(sprintf(_("Invalid channel requested. %s"), $e->getMessage()), 'horde.error');
             Horde::url('channels/index.php', true)->redirect();
-            exit;
         }
 
         /* Do some state tests. */
         if (empty($stories)) {
             $notification->push(_("No available stories."), 'horde.warning');
         }
-        if (!empty($refresh)) {
-            $notification->push(_("Channel refreshed."), 'horde.success');
-        }
         if (!empty($url)) {
             $url->redirect();
-            exit;
         }
 
         /* Get channel details, for title, etc. */
