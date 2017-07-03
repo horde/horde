@@ -1179,7 +1179,7 @@ class Whups
                     array(
                         'file' => $file['name'],
                         'id' => $ticket,
-                        'url' => Horde::selfUrl(true, false, true)
+                        'url' => Horde::signUrl(Horde::selfUrl(true, false, true))
                     )
                 )
                 ->link(array(

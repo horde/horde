@@ -189,7 +189,7 @@ class Hermes_Api extends Horde_Registry_Api
                     $edit_link = Horde::url('entry.php', true)
                       ->add(array(
                         'id' => $vals['id'],
-                        'url' => Horde::selfUrl(true, true, true)));
+                        'url' => Horde::signUrl(Horde::selfUrl(true, true, true))));
                     $vals['icons'] =
                         Horde::link($edit_link, _("Edit Entry")) .
                         Horde::img('edit.png', _("Edit Entry"), '') . '</a>';

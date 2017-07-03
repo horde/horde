@@ -176,7 +176,7 @@ class Nag_Block_Summary extends Horde_Core_Block
                 $taskurl = Horde::url('task.php', true)->add(array(
                     'task' => $task->id,
                     'tasklist' => $task->tasklist,
-                    'url' => Horde::selfUrl(true)
+                    'url' => Horde::signUrl(Horde::selfUrl(true))
                 ));
                 $label = sprintf(_("Edit \"%s\""), $task->name);
                 $html .= '<td width="1%"' . $style . '>'

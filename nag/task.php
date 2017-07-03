@@ -45,7 +45,7 @@ function _delete($task_id, $tasklist_id)
     }
 
     /* Return to the last page or to the task list. */
-    if ($url = Horde_Util::getFormData('url')) {
+    if ($url = Horde::verifySignedUrl(Horde_Util::getFormData('url'))) {
         header('Location: ' . $url);
         exit;
     }

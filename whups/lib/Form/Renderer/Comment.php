@@ -207,7 +207,7 @@ class Whups_Form_Renderer_Comment extends Horde_Form_Renderer
                 $delete_link = Horde::url('ticket/delete_history.php')
                     ->add(array('transaction' => $transaction,
                                 'id' => $vars->get('ticket_id'),
-                                'url' => Whups::urlFor('ticket', $vars->get('ticket_id'), true)))
+                                'url' => Horde::signUrl(Whups::urlFor('ticket', $vars->get('ticket_id'), true))))
                     ->link(array('title' => _("Delete entry"), 'onclick' => 'return window.confirm(\'' . addslashes(_("Permanently delete entry?")) . '\');'))
                     . Horde::img('delete.png', _("Delete entry"))
                     . '</a>';
