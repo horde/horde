@@ -26,7 +26,7 @@ try {
     $notification->push($e, 'horde.error');
 }
 
-if ($url = Horde_Util::getFormData('url')) {
+if ($url = Horde::verifySignedUrl(Horde_Util::getFormData('url'))) {
     header('Location: ' . $url);
 } else {
     Horde::url($prefs->getValue('whups_default_view') . '.php', true)

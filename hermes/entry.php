@@ -39,7 +39,7 @@ if (!$vars->exists('id') && $vars->exists('timer')) {
 
 switch ($vars->get('formname')) {
 case 'hermes_form_time_entry':
-    $url = $vars->get('url');
+    $url = Horde::verifySignedUrl($vars->get('url'));
     if (empty($url)) {
         $url = Horde::url('time.php');
     }
