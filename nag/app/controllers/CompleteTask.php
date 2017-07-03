@@ -18,8 +18,8 @@ class Nag_CompleteTask_Controller extends Horde_Controller_Base
             $requestVars['format'] == 'json') {
             $response->setContentType('application/json');
             $response->setBody(json_encode($result));
-        } elseif ($requestVars['url']) {
-            $response->setRedirectUrl($requestVars['url']);
+        } elseif ($url = Horde::verifySignedUrl($requestVars['url'])) {
+            $response->setRedirectUrl($url);
         }
     }
 }

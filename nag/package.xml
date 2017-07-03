@@ -603,7 +603,7 @@
    <package>
     <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
-    <min>2.6.1</min>
+    <min>2.30.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1803,10 +1803,38 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-11-08</date>
+   <date>2016-11-09</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Fix sorting by due date with PHP &lt; 5.5 (Bug #14507).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.14</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2017-03-20</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix saving sync preference when no default tasklist exists (Bug #14585).
+* [mjr] Avoid PHP warnings due to corrupt preference values (Bug #14585).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.15</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2017-03-20</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] SECURITY: Fix open redirects.
+* [mjr] Fix handling of delayed start dates (Bug #14634).
    </notes>
   </release>
   <release>

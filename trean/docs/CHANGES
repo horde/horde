@@ -10,6 +10,30 @@ v2.0.0-git
 
 
 ------
+v1.1.7
+------
+
+[jan] Update German translation.
+
+
+------
+v1.1.6
+------
+
+[mjr] Honor ['content_index']['enabled'] setting (Bug #14345).
+[jan] Add Basque translation (Ibon Igartua <ibon.igartua@ehu.eus>).
+
+
+------
+v1.1.5
+------
+
+[jan] Add Greek translation (Limperis Antonis <limperis@cti.gr>).
+[cjh] Fix error when deleting bookmarks.
+>>>>>>> ea59bad... Fix even more redirects.
+
+
+------
 v1.1.4
 ------
 
