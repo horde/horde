@@ -24,7 +24,9 @@ $prefs->setValue('language', $lang);
 $registry->setLanguageEnvironment($lang);
 
 /* Redirect to the url or login page if none given. */
-$url = isset($vars->url)
-    ? Horde::url('index.php', true)
-    : Horde::url($vars->url, true);
+if ($url = Horde::verifySignedUrl($vars->url)) {
+    $url = Horde::url($url, true);
+} else {
+    $url = Horde::url('index.php', true);
+}
 $url->redirect();

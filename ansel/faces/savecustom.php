@@ -16,14 +16,14 @@ Horde_Registry::appInit('ansel');
 $image_id = (int)Horde_Util::getFormData('image_id');
 $gallery_id = (int)Horde_Util::getFormData('gallery_id');
 $face_id = (int)Horde_Util::getFormData('face_id');
-$url = Horde_Util::getFormData('url');
 $page = Horde_Util::getFormData('page', 0);
 
-$back_url = empty($url)
-    ? Horde::url('faces/gallery.php')->add(
-            array('gallery' => $gallery_id,
-                  'page' => $page))->setRaw(true)
-    : new Horde_Url($url);
+$back_url = ($url = Horde::verifySignedUrl(Horde_Util::getFormData('url')))
+    ? new Horde_Url($url)
+    : Horde::url('faces/gallery.php')->add(array(
+        'gallery' => $gallery_id,
+        'page' => $page))
+    ->setRaw(true);
 
 if (Horde_Util::getPost('submit') == _("Cancel")) {
     $notification->push(_("Changes cancelled."), 'horde.warning');

@@ -1,7 +1,7 @@
 <?php
 if (empty($url)) {
-    $url = Horde::url('month.php', true)
-        ->add(array('month' => $month, 'year' => $year));
+    $url = Horde::signUrl(Horde::url('month.php', true)
+        ->add(array('month' => $month, 'year' => $year)));
 }
 ?>
 <form action="<?php echo Horde::url('delete.php') ?>" method="post" name="delete">

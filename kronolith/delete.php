@@ -23,10 +23,10 @@ if ($eventID = Horde_Util::getFormData('eventID')) {
     try {
         $event = $kronolith_driver->getEvent($eventID);
     } catch(Exception $e) {
-        if (($url = Horde_Util::getFormData('url')) === null) {
-            $url = Horde::url($prefs->getValue('defaultview') . '.php', true);
-        } else {
+        if ($url = Horde::verifySignedUrl(Horde_Util::getFormData('url'))) {
             $url = new Horde_Url($url);
+        } else {
+            $url = Horde::url($prefs->getValue('defaultview') . '.php', true);
         }
         $url->redirect();
     }
@@ -95,8 +95,7 @@ if ($eventID = Horde_Util::getFormData('eventID')) {
     }
 }
 
-$url = Horde_Util::getFormData('url');
-if (!empty($url)) {
+if ($url = Horde::verifySignedUrl(Horde_Util::getFormData('url'))) {
     $url = new Horde_Url($url, true);
 } else {
     $date = new Horde_Date(Horde_Util::getFormData('date'));

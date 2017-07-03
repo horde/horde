@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [jan] Fix redirection after logins with Horde 5.2.16 and later.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -358,7 +358,7 @@
    <package>
     <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
-    <min>2.7.0</min>
+    <min>2.30.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -938,7 +938,7 @@
    <date>2017-04-11</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [jan] Fix redirection after logins with Horde 5.2.16 and later.
    </notes>
   </release>
  </changelog>

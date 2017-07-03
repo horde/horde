@@ -174,8 +174,7 @@ case 'dismiss':
         exit;
     }
 
-    $url = Horde_Util::getFormData('url');
-    if (!empty($url)) {
+    if ($url = Horde::verifySignedUrl(Horde_Util::getFormData('url'))) {
         $url = new Horde_Url($url, true);
     } else {
         $url = Horde::url($prefs->getValue('defaultview') . '.php', true)

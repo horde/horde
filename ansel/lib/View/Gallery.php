@@ -68,7 +68,7 @@ class Ansel_View_Gallery extends Ansel_View_Ansel
                     $date),
                 true);
 
-            $params = array('gallery' => $this->gallery->id, 'url' => $galleryurl);
+            $params = array('gallery' => $this->gallery->id, 'url' => Horde::signUrl($galleryurl));
             Horde::url('disclamer.php')->add($params)->setRaw(true)->redirect();
             exit;
         }
@@ -92,9 +92,8 @@ class Ansel_View_Gallery extends Ansel_View_Ansel
                             'view' => 'Gallery'),
                         $date),
                     true);
-            $params = array('gallery' => $this->gallery->id, 'url' => $galleryurl);
+                $params = array('gallery' => $this->gallery->id, 'url' => Horde::signUrl($galleryurl));
             Horde::url('protect.php')->add($params)->setRaw(true)->redirect();
-            exit;
         }
 
         if (!$this->gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {

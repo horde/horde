@@ -113,7 +113,7 @@ class Ansel_Tile_Gallery
                 array('gallery' => $gallery->id,
                       'actionID' => 'modify',
                       'havesearch' => $haveSearch,
-                      'url' => Horde::selfUrl(true, false, true)));
+                      'url' => Horde::signUrl(Horde::selfUrl(true, false, true))));
         }
 
         if ($showOwner && !$mini &&

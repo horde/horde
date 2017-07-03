@@ -25,8 +25,8 @@ $layout->handle($vars->action, intval($vars->row), intval($vars->col));
 
 if ($layout->updated()) {
     $prefs->setValue('portal_layout', $layout->serialize());
-    if ($vars->url) {
-        $url = new Horde_Url($vars->url);
+    if ($url = Horde::verifySignedUrl($vars->url)) {
+        $url = new Horde_Url($url);
         $url->unique()->redirect();
     }
 }

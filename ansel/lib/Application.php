@@ -155,7 +155,7 @@ class Ansel_Application extends Horde_Registry_Application
 
             $sidebar->addNewButton(
                 _("_New Gallery"),
-                Horde::url('gallery.php')->add('url', Horde::selfUrl(true, false, true))->add('actionID', 'add')
+                Horde::url('gallery.php')->add('url', Horde::signUrl(Horde::selfUrl(true, false, true)))->add('actionID', 'add')
             );
 
         }

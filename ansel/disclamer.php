@@ -19,7 +19,6 @@ try {
     Horde::url('view.php?view=List', true)->redirect();
     exit;
 }
-$url = $vars->get('url');
 $form = new Horde_Form($vars, _("Content Disclaimer"), 'disclamer');
 $form->addVariable($gallery->get('name'), 'name', 'description', false);
 $form->addVariable($gallery->get('desc'), 'desc', 'description', false);
@@ -30,12 +29,14 @@ $form->addVariable($msg, 'warning', 'description', false);
 $form->setButtons(array(sprintf(_("Continue - I'm over %d"), $gallery->get('age')), _("Cancel")));
 
 if ($form->isSubmitted()) {
-    if (Horde_Util::getFormData('submitbutton') == _("Cancel")) {
+    if (Horde_Util::getFormData('submitbutton') == _("Cancel") ||
+        !($url = Horde::verifySignedUrl($vars->get('url')))) {
         $notification->push("You are not authorised to view this photo.", 'horde.warning');
         Horde::url('view.php?view=List', true)->redirect();
         exit;
     } else {
         $session->set('ansel', 'user_age', (int)$gallery->get('age'));
+        $url = new Horde_Url($url);
         $url->redirect();
         exit;
     }

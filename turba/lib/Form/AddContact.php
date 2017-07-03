@@ -95,9 +95,12 @@ class Turba_Form_AddContact extends Turba_Form_ContactBase
                 try {
                     $ob = $driver->getObject($key);
                     $notification->push(sprintf(_("%s added."), $ob->getValue('name')), 'horde.success');
-                    $url = empty($info['url'])
-                        ? $ob->url('Contact', true)
-                        : new Horde_Url($info['url']);
+                    if (!empty($info['url']) &&
+                        $url = Horde::verifySignedUrl($info['url'])) {
+                        $url =  new Horde_Url($url);
+                    } else {
+                        $url = $ob->url('Contact', true);
+                    }
                     $url->redirect();
                 } catch (Horde_Exception_NotFound $e) {
                 }

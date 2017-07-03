@@ -891,7 +891,7 @@
    <package>
     <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
-    <min>2.23.0</min>
+    <min>2.30.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -2860,6 +2860,7 @@
    <date>2017-05-03</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] SECURITY: Fix open redirects.
 * [jan] Work around calendar servers advertising as CalDAV-capable, but ignoring CalDAV requests (Bug #14662).
 * [jan] Fix displaying yesterday&apos;s event in Prior Events portal block (admin@layertec.de, Bug #14638).
    </notes>

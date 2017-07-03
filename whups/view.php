@@ -25,7 +25,7 @@ try {
 } catch (Horde_Exception_PermissionDenied $e) {
     // No permissions to this ticket.
     Horde::url($registry->get('webroot', 'horde') . '/login.php', true)
-        ->add('url', Horde::selfUrl(true))
+        ->add('url', Horde::signUrl(Horde::selfUrl(true)))
         ->redirect();
 }
 

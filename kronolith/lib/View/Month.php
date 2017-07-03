@@ -133,7 +133,7 @@ class Kronolith_View_Month
         $showTime = Kronolith::viewShowTime();
         $day_url = Horde::url('day.php');
         $this_link = $this->link(0, true);
-        $new_url = Horde::url('new.php')->add('url', $this_link);
+        $new_url = Horde::url('new.php')->add('url', Horde::signUrl($this_link));
         $new_img = Horde::img('new_small.png', '+');
         $weekOffset = $prefs->getValue('week_start_monday') ? 0 : 1;
         $weekStart = $prefs->getValue('week_start_monday');
@@ -200,7 +200,7 @@ class Kronolith_View_Month
                             if ($showTime && !$event->isAllDay()) {
                                 $html .= '<span class="kronolith-time">' . htmlspecialchars($event->getTimeRange()) . '</span>';
                             }
-                            $html .= $event->getLink($date, true, $this_link);
+                            $html .= $event->getLink($date, true, Horde::signUrl($this_link));
                             if (!$event->isPrivate() && $showLocation) {
                                 $html .= '<span class="kronolith-location">' . htmlspecialchars($event->getLocation()) . '</span>';
                             }

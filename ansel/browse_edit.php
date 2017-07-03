@@ -18,8 +18,8 @@ $layout->handle(Horde_Util::getFormData('action'),
                 (int)Horde_Util::getFormData('col'));
 if ($layout->updated()) {
     $prefs->setValue('myansel_layout', $layout->serialize());
-    if (Horde_Util::getFormData('url')) {
-        $url = new Horde_Url(Horde_Util::getFormData('url'));
+    if ($url = Horde::verifySignedUrl(Horde_Util::getFormData('url'))) {
+        $url = new Horde_Url($url);
         $url->unique()->redirect();
     }
 }

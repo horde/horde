@@ -38,7 +38,6 @@ class Jonah_View_StoryEdit extends Jonah_View_Base
         } catch (Exception $e) {
             $notification->push(sprintf(_("Story editing failed: %s"), $e->getMessage()), 'horde.error');
             Horde::url('channels/index.php', true)->redirect();
-            exit;
         }
 
         /* Check permissions. */
@@ -64,7 +63,6 @@ class Jonah_View_StoryEdit extends Jonah_View_Base
                 $result = $driver->saveStory($info);
                 $notification->push(sprintf(_("The story \"%s\" has been saved."), $info['title']), 'horde.success');
                 Horde::url('stories/index.php')->add('channel_id', $channel_id)->redirect();
-                exit;
             } catch (Exception $e) {
                 $notification->push(sprintf(_("There was an error saving the story: %s"), $e->getMessage()), 'horde.error');
             }

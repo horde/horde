@@ -9,7 +9,7 @@
     <form action="<?php echo $this->mergeUrl ?>">
       <input type="hidden" name="source" value="<?php echo $this->source ?>" />
       <input type="hidden" name="key" value="<?php echo $this->h($this->id) ?>" />
-      <input type="hidden" name="url" value="<?php echo Horde::selfUrl(true) ?>" />
+      <input type="hidden" name="url" value="<?php echo Horde::signUrl(Horde::selfUrl(true)) ?>" />
       <input type="hidden" name="merge_into" value="<?php echo $this->h($this->mergeTarget) ?>" />
       <input type="submit" class="horde-default" value="<?php echo _("<< Merge this into the first contact") ?>" />
     </form>

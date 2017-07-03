@@ -130,7 +130,7 @@ class Ansel_View_Image extends Ansel_View_Ansel
                     $date),
                 true);
 
-            $params = array('gallery' => $this->gallery->id, 'url' => $url);
+            $params = array('gallery' => $this->gallery->id, 'url' => Horde::signUrl($url));
             Horde::url('disclamer.php')->add($params)->setRaw(true)->redirect();
             exit;
         }
@@ -157,9 +157,8 @@ class Ansel_View_Image extends Ansel_View_Ansel
                     $date),
                 true);
 
-            $params = array('gallery' => $this->gallery->id, 'url' => $url);
+            $params = array('gallery' => $this->gallery->id, 'url' => Horde::signUrl($url));
             Horde::url('protect.php')->add($params)->setRaw(true)->redirect();
-            exit;
         }
 
         // Any script files we may need if not calling via the api
@@ -434,7 +433,7 @@ class Ansel_View_Image extends Ansel_View_Ansel
             $this->addWidget(Ansel_Widget::factory('SimilarPhotos'));
             $this->addWidget(Ansel_Widget::factory('Geotag', array('images' => array($this->resource->id))));
             if ($conf['faces']['driver']) {
-                $this->addWidget(Ansel_Widget::factory('ImageFaces', array('selfUrl' => $this->_urls['self'])));
+                $this->addWidget(Ansel_Widget::factory('ImageFaces', array('selfUrl' => Horde::signUrl($this->_urls['self']))));
             }
             $this->addWidget(Ansel_Widget::factory('Links', array()));
 

@@ -242,8 +242,8 @@ class Passwd_Basic
             $logout_url->redirect();
         }
 
-        if ($this->_vars->return_to) {
-            $url = new Horde_Url($return_to);
+        if ($url = Horde::verifySignedUrl($this->_vars->return_to)) {
+            $url = new Horde_Url($url);
             $url->redirect();
         }
     }

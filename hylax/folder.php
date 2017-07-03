@@ -55,7 +55,7 @@ foreach ($folder_list as $key => $value) {
     // $folder_list[$key]['actions'][] = Horde::link($url, _("Delete")) . $del_img . '</a>';
 
     /* Print. */
-    $url = $print_url->copy()->add($params)->add('url', Horde::selfUrl(true));
+    $url = $print_url->copy()->add($params)->add('url', Horde::signUrl(Horde::selfUrl(true)));
     $folder_list[$key]['actions'][] = Horde::link($url, _("Print")) . $print_img . '</a>';
     $folder_list[$key]['alt_count'] = $i;
     $i = $i ? 0 : 1;
