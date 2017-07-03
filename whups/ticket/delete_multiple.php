@@ -36,8 +36,10 @@ if ($vars->get('formname') == 'whups_form_ticket_deletemultiple' &&
     } else {
         $notification->push(_("The tickets were not deleted."), 'horde.message');
     }
-    Horde::url($vars->get('url', $prefs->getValue('whups_default_view') . '.php'), true)
-        ->redirect();
+    if (!($url = Horde::verifySignedUrl($vars->get('url')))) {
+        $url = $prefs->getValue('whups_default_view') . '.php';
+    }
+    Horde::url($url, true)->redirect();
 }
 
 $vars->set('tickets', serialize($deleteform->getTickets()));
