@@ -30,7 +30,10 @@ class Trean_SaveBookmark_Controller extends Horde_Controller_Base
             $response->setContentType('application/json');
             $response->setBody(json_encode($result));
         } else {
-            $response->setRedirectUrl(Horde_Util::getFormData('url', Horde::url('browse.php', true)));
+            if (!($url = Horde::verifySignedUrl(Horde_Util::getFormData('url')))) {
+                $url = Horde::url('browse.php', true);
+            }
+            $response->setRedirectUrl($url);
         }
     }
 }
