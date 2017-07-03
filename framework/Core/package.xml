@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Deprecate Horde::redirect().
 * [jan] Add Horde::signUrl() and Horde::verifySignedUrl().
  </notes>
  <contents>
@@ -4482,6 +4483,7 @@
    <date>2017-06-30</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Deprecate Horde::redirect().
 * [jan] Add Horde::signUrl() and Horde::verifySignedUrl().
    </notes>
   </release>

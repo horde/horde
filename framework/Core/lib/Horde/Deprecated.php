@@ -258,4 +258,22 @@ class Horde_Deprecated
         Horde_Core_HordeMap::init($params);
     }
 
+    /**
+     * Utility function to send redirect headers to browser, handling any
+     * browser quirks.
+     *
+     * @param string $url  The URL to redirect to.
+     */
+    public static function redirect($url)
+    {
+        if ($GLOBALS['browser']->isBrowser('msie') &&
+            ($GLOBALS['conf']['use_ssl'] == self::SSL_ONLY_LOGIN) &&
+            (strlen($url) < 160)) {
+            header('Refresh: 0; URL=' . $url);
+        } else {
+            header('Location: ' . $url);
+        }
+        exit;
+    }
+
 }
