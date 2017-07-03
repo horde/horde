@@ -19,7 +19,7 @@ try {
     Horde::url('view.php?view=List', true)->redirect();
     exit;
 }
-$form = new Horde_Form($vars, _("Content Disclaimer"), 'disclamer');
+$form = new Horde_Form($vars, _("Content Disclaimer"), 'disclaimer');
 $form->addVariable($gallery->get('name'), 'name', 'description', false);
 $form->addVariable($gallery->get('desc'), 'desc', 'description', false);
 $form->addHidden('', 'url', 'text', true);

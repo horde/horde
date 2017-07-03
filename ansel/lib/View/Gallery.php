@@ -69,7 +69,7 @@ class Ansel_View_Gallery extends Ansel_View_Ansel
                 true);
 
             $params = array('gallery' => $this->gallery->id, 'url' => Horde::signUrl($galleryurl));
-            Horde::url('disclamer.php')->add($params)->setRaw(true)->redirect();
+            Horde::url('disclaimer.php')->add($params)->setRaw(true)->redirect();
             exit;
         }
 

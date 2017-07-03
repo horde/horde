@@ -22,7 +22,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2016-11-09</date>
+ <date>2017-07-03</date>
  <version>
   <release>4.0.0</release>
   <api>4.0.0</api>
@@ -574,7 +574,7 @@
    <file name="browse.php" role="horde" />
    <file name="browse_edit.php" role="horde" />
    <file name="COPYING" role="doc" />
-   <file name="disclamer.php" role="horde" />
+   <file name="disclaimer.php" role="horde" />
    <file name="edit_dates.php" role="horde" />
    <file name="gallery.php" role="horde" />
    <file name="group.php" role="horde" />
@@ -817,7 +817,7 @@
    <install as="ansel/browse.php" name="browse.php" />
    <install as="ansel/browse_edit.php" name="browse_edit.php" />
    <install as="COPYING" name="COPYING" />
-   <install as="ansel/disclamer.php" name="disclamer.php" />
+   <install as="ansel/disclaimer.php" name="disclaimer.php" />
    <install as="ansel/edit_dates.php" name="edit_dates.php" />
    <install as="ansel/gallery.php" name="gallery.php" />
    <install as="ansel/group.php" name="group.php" />
@@ -1433,7 +1433,7 @@
    </notes>
   </release>
   <release>
-   <date>2016-11-09</date>
+   <date>2017-07-03</date>
    <version>
     <release>4.0.0</release>
     <api>4.0.0</api>
