@@ -97,7 +97,7 @@ class Turba_Form_AddContact extends Turba_Form_ContactBase
                     $notification->push(sprintf(_("%s added."), $ob->getValue('name')), 'horde.success');
                     if (!empty($info['url']) &&
                         $url = Horde::verifySignedUrl($info['url'])) {
-                        $url =  new Horde_Url($url);
+                        $url = new Horde_Url($url);
                     } else {
                         $url = $ob->url('Contact', true);
                     }
