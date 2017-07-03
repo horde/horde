@@ -18,7 +18,11 @@ Horde_Registry::appInit('horde', array('authentication' => 'none'));
 
 $vars = $injector->getInstance('Horde_Variables');
 
-$redirect_url = new Horde_Url($vars->get('return_url', Horde::url('login.php', true, array('app' => 'horde'))));
+if ($redirect_url = Horde::verifySignedUrl($vars->get('return_url'))) {
+    $redirect_url = new Horde_Url($redirect_url);
+} else {
+    $redirect_url = Horde::url('login.php', true, array('app' => 'horde'));
+}
 
 if (!$registry->showService('problem')) {
     $redirect_url->redirect();
@@ -43,7 +47,7 @@ case 'send_problem_report':
         $user_agent = $_SERVER['HTTP_USER_AGENT'];
         $body = "This problem report was received from $remote. " .
             "The user clicked the problem report link from the following location:\n" .
-            $vars->get('return_url', 'No requesting page') .
+            (Horde::verifySignedUrl($vars->get('return_url')) ?: $vars->get('return_url', 'No requesting page')) .
             "\nand is using the following browser:\n$user_agent\n\n" .
             str_replace("\r\n", "\n", $message);
 

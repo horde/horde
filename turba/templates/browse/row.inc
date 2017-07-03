@@ -34,7 +34,7 @@ if ($ob->hasValue('__key')) {
         $edit_url = Horde::link(Horde::url('edit.php')->add(array(
             'key' => $ob->getValue('__key'),
             'source' => $ob->getSource(),
-            'url' => Horde::selfUrl(true, false, true)
+            'url' => Horde::signUrl(Horde::selfUrl(true, false, true))
         ), _("Edit"))) . '<span class="iconImg editImg"></span></a>';
     }
 } else {

@@ -2,6 +2,7 @@
 v3.0.11-git
 -----------
 
+[jan] SECURITY: Fix open redirects.
 [jan] Fix decoding serialized attributes loaded from the backend.
 [jan] Don't allow to add unsported image attributes (Bug #14659).
 [jan] Fix deleting attributes from ticket types (Bug 14111).

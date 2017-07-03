@@ -68,16 +68,13 @@ class Jonah_View_StoryDelete extends Jonah_View_Base
                     $delete = $driver->deleteStory($info['channel_id'], $info['id']);
                     $notification->push(_("The story has been deleted."), 'horde.success');
                     Horde::url('stories/index.php', true)->add('channel_id', $channel_id)->setRaw(true)->redirect();
-                    exit;
                 } catch (Exception $e) {
                     $notification->push(sprintf(_("There was an error deleting the story: %s"), $e->getMessage()), 'horde.error');
                 }
             }
         } elseif (!empty($form_submit)) {
             $notification->push(_("Story has not been deleted."), 'horde.message');
-            $url = Horde::url('stories/index.php', true)->add('channel_id', $channel_id)->setRaw(true);
             Horde::url('stories/index.php', true)->add('channel_id', $channel_id)->setRaw(true)->redirect();
-            exit;
         }
 
         $GLOBALS['page_output']->header(array(

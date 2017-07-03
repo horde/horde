@@ -2,6 +2,7 @@
 v4.2.20-git
 -----------
 
+[jan] SECURITY: Fix open redirects.
 [jan] Fix creating address books with the external API.
 
 

@@ -70,7 +70,7 @@ class Turba_Form_EditContactGroup extends Turba_Form_EditContact
             'source' => $info['source'],
             'original_source' => $info['original_source'],
             'objectkeys' => $info['objectkeys'],
-            'url' => $info['url'],
+            'url' => Horde::signUrl($info['url']),
             'actionID' => 'groupedit'
         ));
 

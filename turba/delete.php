@@ -30,9 +30,11 @@ try {
 try {
     $driver->delete($vars->key);
     $notification->push(sprintf(_("Deleted contact: %s"), $object->getValue('name')), 'horde.success');
-    $url = strlen($vars->url)
-        ? new Horde_Url($vars->url)
-        : Horde::url($prefs->getValue('initial_page'), true);
+    if ($url = Horde::verifySignedUrl($vars->url)) {
+        $url = new Horde_Url($url);
+    } else {
+        $url = Horde::url($prefs->getValue('initial_page'), true);
+    }
     $url->redirect();
 } catch (Turba_Exception $e) {
     $notification->push(sprintf(_("There was an error deleting this contact: %s"), $e->getMessage()), 'horde.error');

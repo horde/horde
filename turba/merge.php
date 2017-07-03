@@ -18,9 +18,11 @@ $key = Horde_Util::getFormData('key');
 $mergeInto = Horde_Util::getFormData('merge_into');
 $driver = $injector->getInstance('Turba_Factory_Driver')->create($source);
 
-if ($url = Horde_Util::getFormData('url')) {
+if ($url = Horde::verifySignedUrl(Horde_Util::getFormData('url'))) {
     $url = new Horde_Url($url, true);
     $url = $url->unique();
+} else {
+    $url = Horde::url('', true);
 }
 
 try {

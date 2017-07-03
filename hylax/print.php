@@ -10,7 +10,9 @@ require_once __DIR__ . '/lib/Application.php';
 $hylax = Horde_Registry::appInit('hylax');
 
 $fax_id = Horde_Util::getFormData('fax_id');
-$url = Horde_Util::getFormData('url', 'folder.php');
+if (!($url = Horde::verifySignedUrl(Util::getFormData('url')))) {
+    $url = 'folder.php';
+}
 $print = Hylax::printFax($fax_id);
 if (is_a($print, 'PEAR_Error')) {
     $notification->push(sprintf(_("Could not print fax ID \"%s\". %s"), $fax_id, $print->getMessage()), 'horde.error');

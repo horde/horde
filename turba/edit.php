@@ -21,7 +21,9 @@ $vars = Horde_Variables::getDefaultVariables();
 $source = $vars->source;
 $key = $vars->key;
 $groupedit = ($vars->actionID == 'groupedit');
-$url = new Horde_Url($vars->get('url', Horde::url($prefs->getValue('initial_page'), true)));
+$url = ($url = Horde::verifySignedUrl($vars->get('url')))
+    ? new Horde_Url($url)
+    : Horde::url($prefs->getValue('initial_page'), true);
 
 /* Edit the first of a list of contacts? */
 if ($groupedit && (!$key || $key == '**search')) {
@@ -76,13 +78,14 @@ $form = $groupedit
 /* Execute() checks validation first. */
 try {
     $edited = $form->execute();
-    $url = isset($vars->url)
+    $url = ($url = Horde::verifySignedUrl($vars->url))
         ? new Horde_Url($url, true)
         : $contact->url('Contact', true);
     $url->add('section', $form->getOpenSection())
         ->unique()
         ->redirect();
-} catch (Turba_Exception $e) {}
+} catch (Turba_Exception $e) {
+}
 
 $title = sprintf($contact->isGroup() ? _("Edit Contact List \"%s\"") : _("Edit \"%s\""), $contact->getValue('name'));
 Horde::startBuffer();

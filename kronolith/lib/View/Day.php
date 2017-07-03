@@ -89,7 +89,7 @@ class Kronolith_View_Day extends Kronolith_Day
                 ->add(array('datetime' => sprintf($this->dateString() . '%02d%02d00',
                                                   $this->slots[0]['hour'], $this->slots[0]['min']),
                             'allday' => 1,
-                            'url' => $this->link(0, true)))
+                            'url' => Horde::signUrl($this->link(0, true))))
                 ->link(array('title' => _("Create a New Event")))
                 . _("All day")
                 . '</a>';
@@ -102,7 +102,7 @@ class Kronolith_View_Day extends Kronolith_Day
             foreach ($this->all_day_events[$cid] as $event) {
                 $row .= '<div class="kronolith-event"'
                     . $event->getCSSColors() . '>'
-                    . $event->getLink($this, true, $this->link(0, true));
+                    . $event->getLink($this, true, Horde::signUrl($this->link(0, true)));
                 if (!$event->isPrivate() && $showLocation) {
                     $row .= '<span class="event-location">'
                         . htmlspecialchars($event->getLocation()) . '</span>';
@@ -206,7 +206,7 @@ class Kronolith_View_Day extends Kronolith_Day
                         if ($showTime) {
                             $row .= '<span class="kronolith-time">' . htmlspecialchars($event->getTimeRange()) . '</span>';
                         }
-                        $row .= $event->getLink($this, true, $this->link(0, true));
+                        $row .= $event->getLink($this, true, Horde::signUrl($this->link(0, true)));
                         if (!$event->isPrivate() && $showLocation) {
                             $row .= '<span class="kronolith-location">' . htmlspecialchars($event->getLocation()) . '</span>';
                         }
@@ -227,7 +227,7 @@ class Kronolith_View_Day extends Kronolith_Day
                 $newEventUrl = Horde::url('new.php')
                     ->add(array('datetime' => sprintf($this->dateString() . '%02d%02d00',
                                                       $this->slots[$i]['hour'], $this->slots[$i]['min']),
-                                'url' => $this->link(0, true)))
+                                'url' => Horde::signUrl($this->link(0, true))))
                     ->link(array('title' =>_("Create a New Event")))
                     . $time
                     . '</a>';

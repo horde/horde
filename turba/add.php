@@ -20,14 +20,13 @@ if (count($addSources) == 1) {
     $vars->set('source', key($addSources));
 }
 $source = $vars->get('source');
-$url = $vars->get('url');
+$url = ($url = Horde::verifySignedUrl($vars->get('url')))
+    ? Horde::url($url, true)
+    : Horde::url('index.php', true);
 
 /* Exit with an error message if there are no sources to add to. */
 if (!$addSources) {
     $notification->push(_("There are no writeable address books. None of the available address books are configured to allow you to add new entries to them. If you believe this is an error, please contact your system administrator."), 'horde.error');
-    $url = $url
-        ? Horde::url($url, true)
-        : Horde::url('index.php', true);
     $url->redirect();
 }
 
@@ -50,9 +49,6 @@ if ($source) {
                 'max_contacts',
                 sprintf(_("You are not allowed to create more than %d contacts in \"%s\"."), $max_contacts, $cfgSources[$source]['title'])
             );
-            $url = $url
-                ? Horde::url($url, true)
-                : Horde::url('index.php', true);
             $url->redirect();
         }
 

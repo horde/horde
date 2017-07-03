@@ -30,11 +30,10 @@ if ($form->validate()) {
         $notification->push(_("Incorrect password"), 'horde.warning');
     } else {
         $session->set('ansel', 'passwd/' . $gallery->id, hash('md5', $vars->get('passwd')));
-        $url = $vars->get('url');
-        if (empty($url)) {
-            $url = Horde::url('view.php')->add('gallery', $gallery->id);
-        } else {
+        if ($url = Horde::verifySignedUrl($vars->get('url'))) {
             $url = Horde::url($url);
+        } else {
+            $url = Horde::url('view.php')->add('gallery', $gallery->id);
         }
         $url->redirect();
         exit;

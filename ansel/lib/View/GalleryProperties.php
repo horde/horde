@@ -407,23 +407,25 @@ class Ansel_View_GalleryProperties
         }
 
         // Return to the last view.
-        $url = Horde_Util::getFormData('url');
-        if (empty($url) && empty($exists)) {
-            // Redirect to the images upload page for newly creted galleries
-            $url = Horde::url('img/upload.php')->add('gallery', $galleryId);
-        } elseif (empty($url)) {
-            $url = Horde::url('index.php', true);
+        if (!($url = Horde::verifySignedUrl(Horde_Util::getFormData('url')))) {
+            if (empty($exists)) {
+                // Redirect to the images upload page for newly created
+                // galleries.
+                $url = Horde::url('img/upload.php')->add('gallery', $galleryId);
+            } else {
+                $url = Horde::url('index.php', true);
+            }
         } else {
             $url = new Horde_Url($url);
         }
         $url->redirect();
     }
 
-   /**
-    * Get a list of available, currently usable thumbnail styles.
-    *
-    * @return array  An array of Classnames => titles
-    */
+    /**
+     * Get a list of available, currently usable thumbnail styles.
+     *
+     * @return array  An array of Classnames => titles
+     */
     protected function _thumbStyles()
     {
         // Iterate all available thumbstyles:

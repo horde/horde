@@ -134,7 +134,7 @@ class Kronolith_View_Week
                 foreach ($this->days[$j]->all_day_events[$cid] as $event) {
                     $row .= '<div class="kronolith-event"'
                         . $event->getCSSColors()
-                        . $event->getLink($this->days[$j], true, $this->link(0, true));
+                        . $event->getLink($this->days[$j], true, Horde::signUrl($this->link(0, true)));
                     if (!$event->isPrivate() && $showLocation) {
                         $row .= '<span class="kronolith-location">' . htmlspecialchars($event->getLocation()) . '</span>';
                     }
@@ -272,7 +272,7 @@ class Kronolith_View_Week
                                 if ($showTime) {
                                     $row .= '<span class="kronolith-time">' . htmlspecialchars($event->getTimeRange()) . '</span>';
                                 }
-                                $row .= $event->getLink($this->days[$j], true, $this->link(0, true));
+                                $row .= $event->getLink($this->days[$j], true, Horde::signUrl($this->link(0, true)));
                                 if (!$event->isPrivate() && $showLocation) {
                                     $row .= '<span class="kronolith-location">' . htmlspecialchars($event->getLocation()) . '</span>';
                                 }

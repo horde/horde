@@ -10,7 +10,6 @@ require_once __DIR__ . '/lib/Application.php';
 $hylax = Horde_Registry::appInit('hylax');
 
 $fax_id = Horde_Util::getFormData('fax_id');
-$url = Horde_Util::getFormData('url');
 $folder = strtolower(Horde_Util::getFormData('folder'));
 $path = Horde_Util::getFormData('path');
 $base_folders = Hylax::getBaseFolders();
@@ -25,7 +24,7 @@ if (Horde_Util::getFormData('action') == 'download') {
 $fax = $hylax->storage->getFax($fax_id);
 if (is_a($fax, 'PEAR_Error')) {
     $notification->push(sprintf(_("Could not open fax ID \"%s\". %s"), $fax_id, $fax->getMessage()), 'horde.error');
-    if (empty($url)) {
+    if (!($url = Horde::verifySignedUrl(Horde_Util::getFormData('url')))) {
         $url = Horde::url('folder.php', true);
     } else {
         $url = new Horde_Url($url);

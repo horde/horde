@@ -84,7 +84,7 @@ class Ansel_Widget_Actions extends Ansel_Widget_Base
 
             if ($this->_view->gallery->hasFeature('subgalleries')) {
                 $view->subgallery_link = $galleryurl->copy()
-                    ->add(array('actionID' => 'addchild', 'url' => Horde::selfUrl(true, false, true)))
+                    ->add(array('actionID' => 'addchild', 'url' => Horde::signUrl(Horde::selfUrl(true, false, true))))
                     ->link(array('class' => 'widget'));
             }
         }
@@ -146,7 +146,7 @@ class Ansel_Widget_Actions extends Ansel_Widget_Base
         // Image upload, subgalleries, captions etc..
         if ($this->_view->gallery->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
             $view->hasEdit = true;
-            $view->properties_url = $galleryurl->copy()->add(array('actionID' => 'modify', 'url' => $selfurl))->link(array('class' => 'widget'));
+            $view->properties_url = $galleryurl->copy()->add(array('actionID' => 'modify', 'url' => Horde::signUrl($selfurl)))->link(array('class' => 'widget'));
             if ($count) {
                 if ($this->_view->gallery->hasFeature('image_captions')) {
                     $params = array_merge(array('gallery' => $id), $date);
@@ -165,7 +165,7 @@ class Ansel_Widget_Actions extends Ansel_Widget_Base
                 }
             }
             if ($this->_view->gallery->hasFeature('stacks')) {
-                $view->gendefault_url = $galleryurl->copy()->add(array('actionID' => 'generateDefault', 'url' => $selfurl))->link(array('class' => 'widget'));
+                $view->gendefault_url = $galleryurl->copy()->add(array('actionID' => 'generateDefault', 'url' => Horde::signUrl($selfurl)))->link(array('class' => 'widget'));
             }
         }
 

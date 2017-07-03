@@ -31,7 +31,7 @@ if (empty($_SERVER['PHP_AUTH_USER']) ||
     exit('Forbidden');
 }
 
-$url = isset($vars->url)
-    ? new Horde_Url($vars->url)
+$url = ($url = Horde::verifySignedUrl($vars->url))
+    ? new Horde_Url($url)
     : Horde::url('login.php');
 $url->redirect();

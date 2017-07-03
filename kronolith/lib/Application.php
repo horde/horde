@@ -162,7 +162,7 @@ class Kronolith_Application extends Horde_Registry_Application
         if (Kronolith::getDefaultCalendar(Horde_Perms::EDIT) &&
             ($perms->hasAppPermission('max_events') === true ||
              $perms->hasAppPermission('max_events') > Kronolith::countEvents())) {
-            $sidebar->addNewButton(_("_New Event"), Horde::url('new.php')->add('url', Horde::selfUrl(true, false, true)));
+            $sidebar->addNewButton(_("_New Event"), Horde::url('new.php')->add('url', Horde::signUrl(Horde::selfUrl(true, false, true))));
         }
 
         if (strlen($GLOBALS['session']->get('kronolith', 'display_cal'))) {

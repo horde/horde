@@ -16,7 +16,9 @@ $base_folders = Hylax::getBaseFolders();
 
 $vars = Horde_Variables::getDefaultVariables();
 $fax_id = $vars->get('fax_id');
-$url = $vars->get('url', 'folder.php');
+if (!($url = Horde::verifySignedUrl($vars->get('url')))) {
+    $url = 'folder.php';
+}
 
 $fax = $hylax->storage->getFax($fax_id);
 if (is_a($fax, 'PEAR_Error')) {

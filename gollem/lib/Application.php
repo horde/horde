@@ -261,7 +261,7 @@ class Gollem_Application extends Horde_Registry_Application
     {
         $backend = Gollem_Auth::getPreferredBackend();
         $url = $GLOBALS['registry']->getServiceLink('login', 'horde')
-            ->add(array('url' => (string)Horde::url('manager.php', true),
+            ->add(array('url' => Horde::signUrl(Horde::url('manager.php', true)),
                         'app' => 'gollem'));
 
         if ($GLOBALS['conf']['backend']['backend_list'] == 'shown') {

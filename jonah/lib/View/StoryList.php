@@ -34,9 +34,10 @@ class Jonah_View_StoryList extends Jonah_View_Base
         }
 
         /* Check if a URL has been passed. */
-        $url = Horde_Util::getFormData('url');
-        if ($url) {
+        if ($url = Horde::verifySignedUrl(Horde_Util::getFormData('url'))) {
             $url = new Horde_Url($url);
+        } else {
+            $url = null;
         }
 
         try {
