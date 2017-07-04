@@ -1,5 +1,5 @@
 {
-    "name": "horde/horde-icalendar",
+    "name": "horde/icalendar",
     "description": "iCalendar API",
     "type": "library",
     "homepage": "https://pear.horde.org",
@@ -22,7 +22,7 @@
         }
     ],
     "version": "2.1.7",
-    "time": "2017-03-20",
+    "time": "2017-07-04",
     "repositories": [
         {
             "type": "pear",
