@@ -146,6 +146,7 @@ class Kronolith_Unit_AttendeeTest extends Horde_Test_Case
                 'l' => 'Jürgen Doe',
                 'r' => Kronolith::RESPONSE_NONE,
                 'u' => null,
+                'i' => 'email:juergen@example.com',
             ),
             $attendees[0]->toJson()
         );
@@ -156,6 +157,7 @@ class Kronolith_Unit_AttendeeTest extends Horde_Test_Case
                 'l' => 'Jane Doe',
                 'r' => Kronolith::RESPONSE_ACCEPTED,
                 'u' => null,
+                'i' => 'name:Jane Doe',
             ),
             $attendees[1]->toJson()
         );
@@ -166,6 +168,7 @@ class Kronolith_Unit_AttendeeTest extends Horde_Test_Case
                 'l' => 'jenny@example.com',
                 'r' => Kronolith::RESPONSE_TENTATIVE,
                 'u' => null,
+                'i' => 'email:jenny@example.com',
             ),
             $attendees[3]->toJson()
         );
@@ -176,6 +179,7 @@ class Kronolith_Unit_AttendeeTest extends Horde_Test_Case
                 'l' => 'User Name',
                 'r' => Kronolith::RESPONSE_TENTATIVE,
                 'u' => 'username',
+                'i' => 'user:username',
             ),
             $attendees[4]->toJson()
         );
@@ -186,6 +190,7 @@ class Kronolith_Unit_AttendeeTest extends Horde_Test_Case
                 'l' => 'Another User',
                 'r' => Kronolith::RESPONSE_TENTATIVE,
                 'u' => 'username2',
+                'i' => 'user:username2',
             ),
             $attendees[5]->toJson()
         );
