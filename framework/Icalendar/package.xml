@@ -23,7 +23,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2017-03-20</date>
+ <date>2017-07-04</date>
  <version>
   <release>2.1.7</release>
   <api>2.1.0</api>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix unescaping of commas in ADR, N, and ORG attributes.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -411,6 +411,8 @@
        <file name="timezone3.ics" role="test" />
        <file name="timezone4.ics" role="test" />
        <file name="vcal20.ics" role="test" />
+       <file name="vcard2.1.vcs" role="test" />
+       <file name="vcard3.0.vcs" role="test" />
        <file name="vfreebusy1.ics" role="test" />
        <file name="vfreebusy2.ics" role="test" />
       </dir> <!-- /test/Horde/Icalendar/fixtures -->
@@ -637,6 +639,8 @@
    <install as="Horde/Icalendar/fixtures/timezone3.ics" name="test/Horde/Icalendar/fixtures/timezone3.ics" />
    <install as="Horde/Icalendar/fixtures/timezone4.ics" name="test/Horde/Icalendar/fixtures/timezone4.ics" />
    <install as="Horde/Icalendar/fixtures/vcal20.ics" name="test/Horde/Icalendar/fixtures/vcal20.ics" />
+   <install as="Horde/Icalendar/fixtures/vcard2.1.vcs" name="test/Horde/Icalendar/fixtures/vcard2.1.vcs" />
+   <install as="Horde/Icalendar/fixtures/vcard3.0.vcs" name="test/Horde/Icalendar/fixtures/vcard3.0.vcs" />
    <install as="Horde/Icalendar/fixtures/vfreebusy1.ics" name="test/Horde/Icalendar/fixtures/vfreebusy1.ics" />
    <install as="Horde/Icalendar/fixtures/vfreebusy2.ics" name="test/Horde/Icalendar/fixtures/vfreebusy2.ics" />
    <install as="Horde/Icalendar/fixtures/vTimezone/allcategories.ics" name="test/Horde/Icalendar/fixtures/vTimezone/allcategories.ics" />
@@ -1286,10 +1290,10 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-03-20</date>
+   <date>2017-07-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix unescaping of commas in ADR, N, and ORG attributes.
    </notes>
   </release>
  </changelog>

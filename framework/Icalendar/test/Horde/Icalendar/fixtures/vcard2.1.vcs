@@ -1,0 +1,6 @@
+BEGIN:VCARD
+VERSION:2.1
+N:Contact;Test
+FN:Test,Contact
+ORG:My,Company;IT Department
+END:VCARD

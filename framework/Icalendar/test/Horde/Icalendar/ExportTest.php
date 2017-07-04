@@ -139,6 +139,34 @@ EOT;
             array('There are important words after this dash - see anything here or have the words gone?'),
             $readIcal->getComponent(1)->getAttributeValues('DESCRIPTION')
         );
+
+        foreach (array('2.1', '3.0') as $version) {
+            $contact = new Horde_Icalendar_Vcard($version);
+            $contact->setAttribute(
+                'N', null, array(), true, array('Contact', 'Test')
+            );
+            $contact->setAttribute('FN', 'Test,Contact');
+            $contact->setAttribute(
+                'ORG', null, array(), true, array('My,Company', 'IT Department')
+            );
+            $this->assertStringEqualsFile(
+                __DIR__ . '/fixtures/vcard' . $version . '.vcs',
+                $contact->exportVcalendar()
+            );
+            $readIcal = new Horde_Icalendar();
+            $readIcal->parseVCalendar($contact->exportVCalendar());
+            $vcard = $readIcal->getComponent(0);
+            $this->assertEquals(
+                array('Contact', 'Test'), $vcard->getAttributeValues('N')
+            );
+            $this->assertEquals(
+                array('Test,Contact'), $vcard->getAttributeValues('FN')
+            );
+            $this->assertEquals(
+                array('My,Company', 'IT Department'),
+                $vcard->getAttributeValues('ORG')
+            );
+        }
     }
 
     public function testQuotedParameters()

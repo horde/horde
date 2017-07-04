@@ -804,8 +804,12 @@ class Horde_Icalendar
 
                     // Split by unescaped semicolons:
                     $values = preg_split('/(?<!\\\\);/', $value);
-                    $value = str_replace('\\;', ';', $value);
-                    $values = str_replace('\\;', ';', $values);
+                    $value = str_replace(
+                        array('\\;', '\\,'), array(';', ','), $value
+                    );
+                    $values = str_replace(
+                        array('\\;', '\\,'), array(';', ','), $values
+                    );
                     $this->setAttribute($tag, trim($value), $params, true, $values);
                     break;
 
