@@ -117,6 +117,7 @@ class Turba_Unit_LdifTest extends Turba_TestCase
                 'mozillaWorkUrl' => 'http://www.school.edu/',
                 'description' => 'hi mom
 ',
+                'mozillaSecondEmail' => 'brown@gmail.com',
             ),
         );
 

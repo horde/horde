@@ -57,9 +57,9 @@ class Turba_Data_Ldif extends Horde_Data_Base
         'name' => 'cn',
         'firstname' => 'givenName',
         'lastname' => 'sn',
+        'emails' => 'mail',
         'email' => 'mail',
         'workEmail' => 'mozillaSecondEmail',
-        'emails' => 'mail',
         'alias' => 'mozillaNickname',
         'homePhone' => 'homePhone',
         'workPhone' => 'telephoneNumber',
@@ -147,7 +147,7 @@ class Turba_Data_Ldif extends Horde_Data_Base
             return '';
         }
         $export = '';
-        $mozillaTurbaMap = array_flip($this->_turbaMozillaMap) ;
+        $mozillaTurbaMap = array_flip($this->_turbaMozillaMap);
         foreach ($data as $row) {
             $recordData = '';
             foreach ($this->_mozillaAttr as $value) {

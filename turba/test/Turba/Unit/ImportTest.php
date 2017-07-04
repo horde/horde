@@ -578,9 +578,9 @@ London W1 1AA',
         return $driver->toHash($ical->getComponent(0));
     }
 
-    public function  testBug14046()
+    public function testBug14046()
     {
-        $vard = 'BEGIN:VCARD
+        $vcard = 'BEGIN:VCARD
 VERSION:3.0
 UID:20110107095409.cA7RPZcRtLVNJykRD60mE0A@h4.theupstairsroom.com
 FN:Michael Joseph Rubinsky
@@ -591,9 +591,9 @@ EMAIL;TYPE=WORK:mrubinsk@horde.org
 N:Rubinsky;Michael;Joseph;;
 END:VCARD';
 
-    $hash = $this->toHash($vcard, self::$emailMap);
-    $this->assertEquals($hash['workEmail'] = 'mrubinsk@horde.org');
-    $this->assertEmpty($hash['email']);
+        $hash = $this->toHash($vcard, self::$emailMap);
+        $this->assertEquals('mrubinsk@horde.org', $hash['workEmail']);
+        $this->assertFalse(isset($hash['email']));
     }
 
 }
