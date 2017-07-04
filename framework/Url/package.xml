@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] SECURITY: Fix XSS vulnerability with pathinfo component in toString().
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -417,7 +417,7 @@
    <date>2016-02-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] SECURITY: Fix XSS vulnerability with pathinfo component in toString().
    </notes>
   </release>
  </changelog>

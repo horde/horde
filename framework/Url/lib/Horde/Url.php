@@ -267,8 +267,12 @@ class Horde_Url
             : parse_url($this->url, PHP_URL_PATH);
 
         if (strlen($this->pathInfo)) {
-            $url = rtrim($url, '/');
-            $url .= '/' . $this->pathInfo;
+            $url = rtrim($url, '/') . '/';
+            if ($raw) {
+                $url .= $this->pathInfo;
+            } else {
+                $url .= implode('/', array_map('rawurlencode', explode('/', $this->pathInfo)));
+            }
         }
 
         if ($params = $this->_getParameters()) {
