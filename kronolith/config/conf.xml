@@ -54,19 +54,11 @@
   </configswitch>
  </configsection>
 
- <configsection name="calendars">
-  <configheader>Calendar Handler Settings</configheader>
-  <configswitch name="driver" desc="What type of calendar handler should we use?">default
-   <case name="default" desc="Default" />
-   <case name="kolab" desc="IMAP/Kolab" />
-  </configswitch>
+ <configsection name="resources">
+  <configheader>Resource Settings</configheader>
+  <configboolean name="enabled" desc="Should resource scheduling be enabled?">
+  true</configboolean>
  </configsection>
-
-  <configsection name="resources">
-   <configheader>Resource Settings</configheader>
-   <configboolean name="enabled" desc="Should resource scheduling be enabled?">
-   true</configboolean>
-  </configsection>
 
  <configsection name="reminder">
   <configheader>Reminder Settings</configheader>

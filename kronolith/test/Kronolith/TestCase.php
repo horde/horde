@@ -94,7 +94,7 @@ extends PHPUnit_Framework_TestCase
             new Kronolith_Stub_ShareFactory($setup->getInjector()->getInstance('Kronolith_Shares'))
         );
         $GLOBALS['conf']['storage']['driver'] = 'sql';
-        $GLOBALS['conf']['calendars']['driver'] = 'default';
+        $GLOBALS['conf']['calendar']['driver'] = 'default';
     }
 
     protected static function createKolabShares(Horde_Test_Setup $setup)
@@ -118,7 +118,7 @@ extends PHPUnit_Framework_TestCase
             new Kronolith_Stub_ShareFactory($setup->getInjector()->getInstance('Kronolith_Shares'))
         );
         $GLOBALS['conf']['storage']['driver'] = 'kolab';
-        $GLOBALS['conf']['calendars']['driver'] = 'kolab';
+        $GLOBALS['conf']['calendar']['driver'] = 'kolab';
     }
 
     protected static function createKolabSetup()

@@ -41,10 +41,15 @@ class Kronolith_Factory_Calendars
      */
     public function create()
     {
-        if (!isset($GLOBALS['conf']['calendars']['driver'])) {
+        global $conf, $injector, $registry;
+
+        switch ($conf['calendar']['driver']) {
+        case 'sql':
             $driver = 'Default';
-        } else {
-            $driver = Horde_String::ucfirst($GLOBALS['conf']['calendars']['driver']);
+            break;
+        default:
+            $driver = Horde_String::ucfirst($conf['calendar']['driver']);
+            break;
         }
         if (empty($this->_instances[$driver])) {
             $class = 'Kronolith_Calendars_' . $driver;
@@ -52,16 +57,20 @@ class Kronolith_Factory_Calendars
                 $params = array();
                 switch ($driver) {
                 case 'Default':
-                    $params['identity'] = $this->_injector->getInstance('Horde_Core_Factory_Identity')->create();
+                    $params['identity'] = $this->_injector
+                        ->getInstance('Horde_Core_Factory_Identity')
+                        ->create();
                     break;
                 }
                 $this->_instances[$driver] = new $class(
-                    $GLOBALS['injector']->getInstance('Kronolith_Shares'),
-                    $GLOBALS['registry']->getAuth(),
+                    $injector->getInstance('Kronolith_Shares'),
+                    $registry->getAuth(),
                     $params
                 );
             } else {
-                throw new Kronolith_Exception(sprintf('Unable to load the definition of %s.', $class));
+                throw new Kronolith_Exception(
+                    sprintf('Unable to load the definition of %s.', $class)
+                );
             }
         }
         return $this->_instances[$driver];
