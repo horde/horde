@@ -826,14 +826,13 @@ class Horde
         }
 
         if ($script_params) {
+            $url = new Horde_Url($url);
             if ($pathInfo = Horde_Util::getPathInfo()) {
-                if (substr($url, -1) == '/') {
-                    $pathInfo = substr($pathInfo, 1);
-                }
-                $url .= $pathInfo;
+                $url->pathInfo = ltrim($pathInfo, '/');
             }
             if (!empty($_SERVER['QUERY_STRING'])) {
-                $url .= '?' . $_SERVER['QUERY_STRING'];
+                parse_str($_SERVER['QUERY_STRING'], $args);
+                $url->add($args);
             }
         }
 
