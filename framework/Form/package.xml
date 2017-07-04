@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] SECURITY: Fix XSS vulnerability with form sections.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1017,7 +1017,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <date>2017-04-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] SECURITY: Fix XSS vulnerability with form sections.
    </notes>
   </release>
  </changelog>
