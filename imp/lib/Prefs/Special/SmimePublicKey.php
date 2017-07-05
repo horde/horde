@@ -58,6 +58,13 @@ class IMP_Prefs_Special_SmimePublicKey implements Horde_Core_Prefs_Ui_Special
         $view->addHelper('Text');
 
         if (!empty($pubkey_list)) {
+            uasort(
+                $pubkey_list,
+                function ($a, $b)
+                {
+                    return strcoll($a['name'], $b['name']);
+                }
+            );
             $plist = array();
             $self_url = $ui->selfUrl(array('special' => true, 'token' => true));
 

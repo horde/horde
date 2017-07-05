@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Sort public keys in preferences by name.
 * [jan] Allow to specify a secondary S/MIME certificate for signatures only.
 * [jan] Find logged replies in other than default sent-mail folders too.
 * [mjr] Fix SyntaxHighlighter MIME viewer not rendering part after the initial view of a part (Bug 14337).
@@ -4012,6 +4013,7 @@
    </stability>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Sort public keys in preferences by name.
 * [jan] Allow to specify a secondary S/MIME certificate for signatures only.
 * [jan] Find logged replies in other than default sent-mail folders too.
 * [mjr] Fix SyntaxHighlighter MIME viewer not rendering part after the initial view of a part (Bug 14337).
