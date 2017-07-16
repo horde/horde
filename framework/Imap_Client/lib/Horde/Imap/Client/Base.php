@@ -580,7 +580,9 @@ implements Serializable, SplObserver
     /**
      * Returns the correct IDs object for use with this driver.
      *
-     * @param mixed $ids         See add().
+     * @param mixed $ids  Either self::ALL, self::SEARCH_RES, self::LARGEST,
+     *                    Horde_Imap_Client_Ids object, array, or sequence
+     *                    string.
      * @param boolean $sequence  Are $ids message sequence numbers?
      *
      * @return Horde_Imap_Client_Ids  The IDs object.
