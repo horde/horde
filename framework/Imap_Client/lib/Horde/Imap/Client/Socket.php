@@ -2537,7 +2537,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $partial = $this->getIdsOb($options['partial'], true);
             $min = $partial->min - 1;
 
-            $sr->sort();
             $sr = $this->getIdsOb(
                 array_slice($sr->ids, $min, $partial->max - $min),
                 !empty($options['sequence'])
