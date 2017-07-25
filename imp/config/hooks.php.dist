@@ -246,7 +246,7 @@ class IMP_Hooks
      */
 //    public function pre_sent(
 //        Horde_Mime_Part $message,
-//        Horde_Mime_Header $headers,
+//        Horde_Mime_Headers $headers,
 //        IMP_Compose $compose
 //    )
 //    {
