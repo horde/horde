@@ -2790,7 +2790,7 @@ implements Serializable, SplObserver
         $this->login();
 
         if (empty($opts['ids'])) {
-            if (!$this->_capability('QRESYNC')) {
+            if (!$this->_capability()->isEnabled('QRESYNC')) {
                 return $this->getIdsOb();
             }
             $opts['ids'] = $this->getIdsOb(Horde_Imap_Client_Ids::ALL);
@@ -2802,7 +2802,7 @@ implements Serializable, SplObserver
 
         $this->openMailbox($mailbox, Horde_Imap_Client::OPEN_AUTO);
 
-        if ($this->_capability('QRESYNC')) {
+        if ($this->_capability()->isEnabled('QRESYNC')) {
             if (!$this->_mailboxOb()->getStatus(Horde_Imap_Client::STATUS_HIGHESTMODSEQ)) {
                 throw new Horde_Imap_Client_Exception(
                     Horde_Imap_Client_Translation::r("Mailbox does not support mod-sequences."),
