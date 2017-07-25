@@ -32,7 +32,8 @@
  *   - stringlist        - addresslink
  * required - Boolean whether this field is mandatory.
  * readonly - Boolean whether this field is editable.
- * desc - Any help text attached to the field.
+ * desc - Any help text attached to this field.
+ * default - The default value for this field.
  * time_object_label - The text to describe the time object category.
  *                     Only valid for monthdayyear types and removing this
  *                     from a monthdayyear type will hide it from the
