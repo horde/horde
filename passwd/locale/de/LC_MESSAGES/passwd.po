@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Passwd H5 (5.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-03-25 18:08+0100\n"
+"POT-Creation-Date: 2017-07-26 11:56+0200\n"
 "PO-Revision-Date: 2013-05-22 14:30+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <i18n@lists.horde.org>\n"
@@ -143,11 +143,11 @@ msgstr "Neues Passwort ungültig (zu kurz, ungültige Zeichen, zu ähnlich, ...)
 msgid "New password:"
 msgstr "Neues Passwort:"
 
-#: lib/Factory/Driver.php:200
+#: lib/Factory/Driver.php:201
 msgid "No backend configured for this host"
 msgstr "Keine Backendkonfiguration für diesen Host angegeben"
 
-#: lib/Factory/Driver.php:183
+#: lib/Factory/Driver.php:184
 msgid "No backends configured in backends.php"
 msgstr "Keine Backends in backends.php konfiguriert"
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ingo H5 (3.2-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2016-08-08 15:06+0200\n"
+"POT-Creation-Date: 2017-07-26 11:56+0200\n"
 "PO-Revision-Date: 2014-10-29 12:28+0100\n"
 "Last-Translator: Jan Schneider\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -99,7 +99,7 @@ msgstr "Beantwortet"
 msgid "Apply Filters"
 msgstr "Filterregeln anwenden"
 
-#: lib/Basic/Filters.php:270
+#: lib/Basic/Filters.php:271
 msgid "Are you sure you want to delete this rule?"
 msgstr "Sind Sie sicher, dass Sie diese Regel löschen möchten?"
 
@@ -128,7 +128,7 @@ msgstr "Beginnt mit"
 msgid "Bind failed: (%s) %s"
 msgstr "Verbindung fehlgeschlagen: (%s) %s"
 
-#: lib/Basic/Blacklist.php:32 lib/Basic/Filters.php:200
+#: lib/Basic/Blacklist.php:32 lib/Basic/Filters.php:201
 #: lib/Block/Overview.php:101 lib/Smartmobile.php:85
 #: templates/basic/blacklist/blacklist.html.php:5
 msgid "Blacklist"
@@ -172,7 +172,7 @@ msgstr "Enthält"
 msgid "Copy"
 msgstr "Kopiere"
 
-#: lib/Basic/Filters.php:275
+#: lib/Basic/Filters.php:276
 #, php-format
 msgid "Copy %s"
 msgstr "%s kopieren"
@@ -202,7 +202,7 @@ msgstr "Skript deaktivieren"
 msgid "Delete"
 msgstr "Löschen"
 
-#: lib/Basic/Filters.php:270
+#: lib/Basic/Filters.php:271
 #, php-format
 msgid "Delete %s"
 msgstr "%s löschen"
@@ -243,7 +243,7 @@ msgstr "Beschreibung"
 msgid "Destination (To, Cc, Bcc, etc.)"
 msgstr "Empfänger (An, Cc, Bcc etc.)"
 
-#: lib/Basic/Filters.php:282
+#: lib/Basic/Filters.php:283
 #, php-format
 msgid "Disable %s"
 msgstr "%s deaktivieren"
@@ -301,12 +301,12 @@ msgstr "Entspricht nicht Regulärem Ausdruck"
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: lib/Basic/Filters.php:263 lib/Basic/Filters.php:265
+#: lib/Basic/Filters.php:264 lib/Basic/Filters.php:266
 #, php-format
 msgid "Edit %s"
 msgstr "%s Bearbeiten"
 
-#: lib/Basic/Filters.php:285
+#: lib/Basic/Filters.php:286
 #, php-format
 msgid "Enable %s"
 msgstr "%s aktivieren"
@@ -378,7 +378,7 @@ msgstr "Filtereinstellungen"
 msgid "Filter Rule"
 msgstr "Filterregel"
 
-#: lib/Basic/Filters.php:321
+#: lib/Basic/Filters.php:322
 msgid "Filter Rules"
 msgstr "Filterregeln"
 
@@ -451,7 +451,7 @@ msgstr "Ordner für Spamnachrichten:"
 msgid "For an incoming message that matches:"
 msgstr "Für eingehende Nachrichten, auf die folgende Regeln zutreffen:"
 
-#: lib/Basic/Filters.php:227 lib/Basic/Forward.php:33 lib/Basic/Forward.php:84
+#: lib/Basic/Filters.php:228 lib/Basic/Forward.php:33 lib/Basic/Forward.php:84
 #: lib/Block/Overview.php:75 lib/Smartmobile.php:100
 msgid "Forward"
 msgstr "Weiterleitung"
@@ -538,7 +538,7 @@ msgstr "List-ID"
 msgid "Login to %s failed."
 msgstr "Anmeldung bei %s fehlgeschlagen."
 
-#: lib/Basic/Filters.php:314
+#: lib/Basic/Filters.php:315
 msgid "Mailbox Search"
 msgstr "Ordnersuche"
 
@@ -623,7 +623,7 @@ msgstr "Die Adresse, zu der weitergeleitet werden soll, wurde nicht angegeben"
 msgid "Missing reason for reject"
 msgstr "Der Grund für Ablehnung wurde nicht angegeben"
 
-#: lib/Script/Sieve/Action/Vacation.php:150
+#: lib/Script/Sieve/Action/Vacation.php:166
 msgid "Missing reason in vacation."
 msgstr "Der Grund für die Abwesenheitsnachricht wurde nicht angegeben"
 
@@ -937,7 +937,7 @@ msgstr "Größe"
 msgid "Source (From, Reply-to, etc.)"
 msgstr "Absender (Von, Antwort-an etc.)"
 
-#: lib/Basic/Filters.php:236 lib/Block/Overview.php:112
+#: lib/Basic/Filters.php:237 lib/Block/Overview.php:112
 #: lib/Script/Maildrop.php:296 lib/Script/Sieve.php:404 lib/Smartmobile.php:105
 msgid "Spam Filter"
 msgstr "Spamfilter"
@@ -1019,7 +1019,7 @@ msgstr "Der Transport-Treiber \"%s\" konnte nicht geladen werden."
 msgid "User header"
 msgstr "Benutzerdefinierter Kopfeintrag"
 
-#: lib/Basic/Filters.php:218 lib/Basic/Vacation.php:32
+#: lib/Basic/Filters.php:219 lib/Basic/Vacation.php:32
 #: lib/Basic/Vacation.php:122 lib/Block/Overview.php:64
 #: lib/Script/Maildrop.php:259 lib/Script/Procmail.php:286
 #: lib/Script/Sieve.php:377 lib/Smartmobile.php:95
@@ -1050,7 +1050,7 @@ msgstr "Regel anzeigen"
 msgid "Wh_itelist addresses:"
 msgstr "P_ositivgelistete Adressen:"
 
-#: lib/Basic/Filters.php:209 lib/Basic/Whitelist.php:33
+#: lib/Basic/Filters.php:210 lib/Basic/Whitelist.php:33
 #: lib/Block/Overview.php:90 lib/Smartmobile.php:90
 #: templates/basic/whitelist/whitelist.html.php:5
 msgid "Whitelist"

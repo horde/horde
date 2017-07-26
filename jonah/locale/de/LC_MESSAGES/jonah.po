@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jonah 1.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-03-25 18:08+0100\n"
+"POT-Creation-Date: 2017-07-26 11:56+0200\n"
 "PO-Revision-Date: 2011-02-02 17:34+0100\n"
 "Last-Translator: Jan Schneider\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -108,10 +108,6 @@ msgstr "Der Kanal wurde nicht entfernt."
 msgid "Channel id \"%s\" not found."
 msgstr "Kanal-ID \"%s\" nicht gefunden."
 
-#: lib/View/StoryList.php:55
-msgid "Channel refreshed."
-msgstr "Kanal aktualisiert."
-
 #: lib/Application.php:67
 msgid "Channels"
 msgstr "Sender"
@@ -169,7 +165,7 @@ msgstr "Nachrichtenbeitrag \"%s\" löschen?"
 msgid "Delete channel"
 msgstr "Kanal löschen"
 
-#: lib/View/StoryList.php:91 lib/View/TagSearchList.php:92
+#: lib/View/StoryList.php:87 lib/View/TagSearchList.php:92
 msgid "Delete story"
 msgstr "Beitrag löschen"
 
@@ -193,7 +189,7 @@ msgstr "Beitrag bearbeiten"
 msgid "Edit channel"
 msgstr "Kanal bearbeiten"
 
-#: lib/View/StoryList.php:86 lib/View/TagSearchList.php:86
+#: lib/View/StoryList.php:82 lib/View/TagSearchList.php:86
 msgid "Edit story"
 msgstr "Beitrag bearbeiten"
 
@@ -263,7 +259,7 @@ msgstr "Den vollständigen Beitragstext in den veröffentlichten Feed verwenden?
 msgid "Internal"
 msgstr "Intern"
 
-#: lib/View/StoryList.php:45 lib/View/TagSearchList.php:52
+#: lib/View/StoryList.php:46 lib/View/TagSearchList.php:52
 #, php-format
 msgid "Invalid channel requested. %s"
 msgstr "Ungültiger Kanal angefordert. %s"
@@ -393,7 +389,7 @@ msgstr "Notiz"
 msgid "Or publish on this date:"
 msgstr "Oder zu diesem Datum veröffentlichen:"
 
-#: lib/View/StoryList.php:82 lib/View/TagSearchList.php:81
+#: lib/View/StoryList.php:78 lib/View/TagSearchList.php:81
 msgid "PDF version"
 msgstr "PDF-Version"
 
@@ -527,7 +523,7 @@ msgstr "Art des Beitragstexts"
 msgid "Story editing failed: %s"
 msgstr "Bearbeiten des Beitrags fehlgeschlagen: %s"
 
-#: lib/View/StoryDelete.php:77
+#: lib/View/StoryDelete.php:76
 msgid "Story has not been deleted."
 msgstr "Der Beitrag wurde nicht gelöscht."
 
@@ -578,7 +574,7 @@ msgstr "Den gesamten Nachrichtentext"
 msgid "The feed \"%s\" has been saved."
 msgstr "Der Feed \"%s\" wurde gespeichert."
 
-#: lib/View/StoryEdit.php:65
+#: lib/View/StoryEdit.php:64
 #, php-format
 msgid "The story \"%s\" has been saved."
 msgstr "Der Beitrag \"%s\" wurde gespeichert."
@@ -596,7 +592,7 @@ msgstr "Der Beitrag wurde erfolgreich versendet."
 msgid "There was an error deleting the channel: %s"
 msgstr "Beim Löschen des Kanals ist ein Fehler aufgetreten: %s"
 
-#: lib/View/StoryDelete.php:73
+#: lib/View/StoryDelete.php:72
 #, php-format
 msgid "There was an error deleting the story: %s"
 msgstr "Beim Löschen des Beitrags ist ein Fehler aufgetreten: %s"
@@ -606,7 +602,7 @@ msgstr "Beim Löschen des Beitrags ist ein Fehler aufgetreten: %s"
 msgid "There was an error saving the feed: %s"
 msgstr "Beim Speichern des Feeds ist ein Fehler aufgetreten: %s"
 
-#: lib/View/StoryEdit.php:69
+#: lib/View/StoryEdit.php:67
 #, php-format
 msgid "There was an error saving the story: %s"
 msgstr "Beim Speichern des Beitrags ist ein Fehler aufgetreten: %s"
@@ -633,7 +629,7 @@ msgid "View"
 msgstr "Anzeigen"
 
 #: lib/Api.php:111 lib/View/ChannelDelete.php:47 lib/View/ChannelEdit.php:41
-#: lib/View/StoryDelete.php:39 lib/View/StoryEdit.php:46
+#: lib/View/StoryDelete.php:39 lib/View/StoryEdit.php:45
 #: lib/View/StoryList.php:32 lib/View/TagSearchList.php:34
 msgid "You are not authorised for this action."
 msgstr "Sie sind zu dieser Aktion nicht autorisiert."

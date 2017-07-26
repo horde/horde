@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Nag H5 (4.2-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2016-08-08 15:06+0200\n"
+"POT-Creation-Date: 2017-07-26 11:56+0200\n"
 "PO-Revision-Date: 2016-08-08 15:11+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
@@ -185,7 +185,7 @@ msgstr ""
 "Alle erledigten Aufgaben, die älter als %d Tage sind, werden endgültig "
 "gelöscht."
 
-#: config/prefs.php:316
+#: config/prefs.php:320
 msgid ""
 "All state removed for your ActiveSync devices. They will resynchronize next "
 "time they connect to the server."
@@ -900,7 +900,7 @@ msgstr "Priorität"
 msgid "Private"
 msgstr "Privat"
 
-#: data.php:54 lib/Task.php:851
+#: data.php:54 lib/Task.php:854
 msgid "Private Task"
 msgstr "Private Aufgabe"
 
@@ -1141,7 +1141,7 @@ msgstr "Es existieren noch Unteraufgaben, löschen Sie diese zuerst"
 msgid "Successfully deleted"
 msgstr "Erfolgreich gelöscht"
 
-#: config/prefs.php:328
+#: config/prefs.php:332
 msgid "Support separate task lists?"
 msgstr "Getrennte Aufgabenlisten unterstützen?"
 
@@ -1357,7 +1357,7 @@ msgstr "Beim Löschen von %s ist ein Problem aufgetreten: %s"
 msgid "There was a problem saving the task: %s."
 msgstr "Beim Speichern der Aufgabe ist ein Fehler aufgetreten: %s."
 
-#: config/prefs.php:318
+#: config/prefs.php:322
 #, php-format
 msgid "There was an error communicating with the ActiveSync server: %s"
 msgstr ""
