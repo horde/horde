@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wicked H4 (2.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2016-08-08 15:58+0200\n"
+"POT-Creation-Date: 2017-07-26 12:13+0200\n"
 "PO-Revision-Date: 2015-01-08 11:24+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -142,7 +142,7 @@ msgstr "Wiederherstellung einer unbekannten Version nicht möglich."
 msgid "Can't update \"%s\": no such attachment."
 msgstr "\"%s\" konnte nicht aktualisiert werden: Kein Anhang mit diesem Namen."
 
-#: lib/Page/DeletePage.php:102 lib/Page/EditPage.php:132
+#: lib/Page/DeletePage.php:102 lib/Page/EditPage.php:134
 #: lib/Page/MergeOrRename.php:163 lib/Page/RevertPage.php:93
 #: templates/display/MergeOrRename.html.php:61
 #: templates/edit/create.html.php:47
@@ -172,7 +172,7 @@ msgstr "Verweise von folgenden Seiten ändern:"
 msgid "Changed references from %s to %s"
 msgstr "Verweise von %s nach %s geändert"
 
-#: lib/Page/EditPage.php:136
+#: lib/Page/EditPage.php:138
 msgid "Changelog is required"
 msgstr "Änderungseintrag ist notwendig"
 
@@ -249,12 +249,12 @@ msgstr "Unterschiede zu"
 msgid "Diff for %s between %s and %s"
 msgstr "Unterschiede in %s zwischen %s und %s"
 
-#: lib/Page.php:616
+#: lib/Page.php:618
 #, php-format
 msgid "Display %s"
 msgstr "%s anzeigen"
 
-#: lib/Page.php:622 lib/Page/StandardPage.php:388
+#: lib/Page.php:624 lib/Page/StandardPage.php:388
 #, php-format
 msgid "Display Version %s"
 msgstr "Version %s anzeigen"
@@ -272,7 +272,7 @@ msgstr "Downloads"
 msgid "Edit %s"
 msgstr "%s Bearbeiten"
 
-#: lib/Page/EditPage.php:162 templates/edit/standard.html.php:8
+#: lib/Page/EditPage.php:164 templates/edit/standard.html.php:8
 msgid "Edit Page"
 msgstr "Seite bearbeiten"
 
@@ -308,7 +308,7 @@ msgstr "Anzuhängende Datei"
 msgid "File to update"
 msgstr "Zu aktualisierende Datei"
 
-#: lib/Page.php:267
+#: lib/Page.php:269
 msgid "Guest"
 msgstr "Gast"
 
@@ -358,7 +358,7 @@ msgstr "Ungültige Seite angefordert."
 msgid "Last Author"
 msgstr "Letzter Autor"
 
-#: lib/Page.php:361 lib/Page/EditPage.php:113
+#: lib/Page.php:363 lib/Page/EditPage.php:115
 #, php-format
 msgid "Last Modified %s by %s"
 msgstr "Letzte Änderung am %s durch %s"
@@ -375,7 +375,7 @@ msgstr "Latex"
 msgid "Least Popular"
 msgstr "Unbeliebteste"
 
-#: lib/Page.php:375 lib/Page/DeletePage.php:95 lib/Page/EditPage.php:127
+#: lib/Page.php:377 lib/Page/DeletePage.php:95 lib/Page/EditPage.php:129
 #: lib/Page/RevertPage.php:86
 msgid "Locked"
 msgstr "Gesperrt"
@@ -412,7 +412,7 @@ msgstr "Name für diese Datei"
 msgid "Name of wiki page to display"
 msgstr "Name der anzuzeigenden Wikiseite"
 
-#: lib/Page.php:259
+#: lib/Page.php:261
 msgid "Never"
 msgstr "Nie"
 
@@ -438,7 +438,7 @@ msgstr "Neuer Name"
 msgid "New name is the same as old name."
 msgstr "Neuer Name ist der gleiche wie der alte."
 
-#: lib/Api.php:194 lib/Page/EditPage.php:212
+#: lib/Api.php:194 lib/Page/EditPage.php:214
 msgid "No changes made"
 msgstr "Keine Änderungen vorgenommen"
 
@@ -456,7 +456,7 @@ msgstr "Die Seite \"%s\" existiert bereits."
 msgid "Page Created"
 msgstr "Seite Erstellt"
 
-#: lib/Page/EditPage.php:215
+#: lib/Page/EditPage.php:217
 msgid "Page Saved"
 msgstr "Seite gespeichert"
 
@@ -476,7 +476,7 @@ msgstr "Gefundene Titeltreffer"
 msgid "Page Views"
 msgstr "Seitenaufrufe"
 
-#: display.php:33 lib/Page/EditPage.php:98
+#: display.php:33 lib/Page/EditPage.php:100
 #, php-format
 msgid "Page failed to lock: %s"
 msgstr "Fehler beim Sperren der Seite: %s"
@@ -518,7 +518,7 @@ msgstr "Einfacher Text"
 msgid "Preview"
 msgstr "Vorschau"
 
-#: lib/Page/EditPage.php:199 lib/Page/NewPage.php:134
+#: lib/Page/EditPage.php:201 lib/Page/NewPage.php:134
 msgid "Random string did not match."
 msgstr "Die Buchstaben stimmen nicht überein."
 
@@ -601,7 +601,7 @@ msgstr "Suche"
 msgid "Search Results"
 msgstr "Suchergebnisse"
 
-#: lib/Page.php:359 lib/Page/RecentChanges.php:69
+#: lib/Page.php:361 lib/Page/RecentChanges.php:69
 #, php-format
 msgid "Show changes for %s"
 msgstr "Änderungen für %s anzeigen"
@@ -638,7 +638,7 @@ msgstr "\"%s\" wurde erfolgreich gelöscht."
 msgid "Successfully deleted version %s of \"%s\" from \"%s\""
 msgstr "Version %s von \"%s\" erfolgreich aus \"%s\" gelöscht"
 
-#: lib/Page.php:526
+#: lib/Page.php:528
 msgid "Table of Contents"
 msgstr "Inhaltsverzeichnis"
 
@@ -683,10 +683,10 @@ msgid "Unable to create Wiki/Home. The wiki is not configured."
 msgstr ""
 "Wiki/Home kann nicht erstellt werden. Das Wiki wurde nicht konfiguriert."
 
-#: lib/Page.php:248 lib/Page.php:281 lib/Page.php:286 lib/Page.php:410
-#: lib/Page.php:418 lib/Page.php:426 lib/Page.php:436 lib/Page.php:596
-#: lib/Page.php:635 lib/Page.php:640 lib/Page.php:645 lib/Page.php:650
-#: lib/Page.php:695
+#: lib/Page.php:250 lib/Page.php:283 lib/Page.php:288 lib/Page.php:412
+#: lib/Page.php:420 lib/Page.php:428 lib/Page.php:438 lib/Page.php:598
+#: lib/Page.php:637 lib/Page.php:642 lib/Page.php:647 lib/Page.php:652
+#: lib/Page.php:697
 msgid "Unsupported"
 msgstr "Nicht unterstützt"
 
@@ -750,7 +750,7 @@ msgstr "Sie haben nicht genügend Rechte, um \"%s\" zu erstellen."
 msgid "You don't have permission to delete \"%s\"."
 msgstr "Sie haben nicht genügend Rechte, um \"%s\" zu löschen."
 
-#: lib/Api.php:176 lib/Page/EditPage.php:194 lib/Page/RevertPage.php:133
+#: lib/Api.php:176 lib/Page/EditPage.php:196 lib/Page/RevertPage.php:133
 #, php-format
 msgid "You don't have permission to edit \"%s\"."
 msgstr "Sie haben nicht genügend Rechte, um \"%s\" zu bearbeiten."
@@ -763,7 +763,7 @@ msgstr "Sie haben nicht die nötigen Rechte um diese Seite anzuzeigen."
 msgid "You must enter a change description to attach this file."
 msgstr "Sie müssen einen Änderungseintrag eingeben, um diese Datei anzuhängen."
 
-#: lib/Api.php:180 lib/Page/EditPage.php:205
+#: lib/Api.php:180 lib/Page/EditPage.php:207
 msgid "You must provide a change log."
 msgstr "Sie müssen einen Änderungseintrag angeben."
 

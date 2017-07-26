@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ansel 2.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2016-08-08 15:58+0200\n"
+"POT-Creation-Date: 2017-07-26 12:12+0200\n"
 "PO-Revision-Date: 2014-11-14 12:47+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -145,7 +145,7 @@ msgstr ""
 msgid "Access denied adding photos to this gallery."
 msgstr "Zugriff verweigert beim Hinzufügen von Fotos zu dieser Galerie."
 
-#: lib/Gallery.php:887
+#: lib/Gallery.php:895
 msgid "Access denied adding tags to this gallery."
 msgstr "Zugriff verweigert beim Hinzufügen von Tags zu dieser Galerie."
 
@@ -153,7 +153,7 @@ msgstr "Zugriff verweigert beim Hinzufügen von Tags zu dieser Galerie."
 msgid "Access denied adding tags to this photo."
 msgstr "Zugriff verweigert beim Hinzufügen von Tags zu diesem Foto."
 
-#: lib/Gallery.php:483
+#: lib/Gallery.php:485
 msgid "Access denied copying photos to this gallery."
 msgstr "Zugriff verweigert beim Kopieren von Fotos zu dieser Galerie."
 
@@ -165,11 +165,11 @@ msgstr "Zugriff verweigert beim Erstellen neuer Galerien."
 msgid "Access denied deleting galleries."
 msgstr "Zugriff verweigert beim Löschen der Galerien."
 
-#: lib/ActionHandler.php:122 lib/Api.php:434
+#: lib/ActionHandler.php:125 lib/Api.php:434
 msgid "Access denied deleting photos from this gallery."
 msgstr "Zugriff verweigert beim Löschen der Fotos aus dieser Galerie."
 
-#: lib/ActionHandler.php:948 lib/ActionHandler.php:973 lib/Api.php:521
+#: lib/ActionHandler.php:951 lib/ActionHandler.php:976 lib/Api.php:521
 msgid "Access denied deleting this gallery."
 msgstr "Löschen dieser Galerie verweigert."
 
@@ -178,7 +178,7 @@ msgid "Access denied downloading full sized photos from this gallery."
 msgstr ""
 "Zugriff verweigert beim Herunterladen der Originalfotos von dieser Galerie."
 
-#: lib/ActionHandler.php:57 lib/ActionHandler.php:232 lib/ActionHandler.php:901
+#: lib/ActionHandler.php:74 lib/ActionHandler.php:235 lib/ActionHandler.php:904
 #: lib/Image.php:921
 msgid "Access denied downloading photos from this gallery."
 msgstr "Zugriff verweigert beim Herunterladen der Fotos von dieser Galerie."
@@ -187,7 +187,7 @@ msgstr "Zugriff verweigert beim Herunterladen der Fotos von dieser Galerie."
 msgid "Access denied editing galleries."
 msgstr "Zugriff verweigert beim Bearbeiten der Galerien."
 
-#: faces/custom.php:36 lib/ActionHandler.php:495 lib/ActionHandler.php:825
+#: faces/custom.php:36 lib/ActionHandler.php:498 lib/ActionHandler.php:828
 #: lib/Faces/Base.php:434 lib/Faces/Base.php:522
 msgid "Access denied editing the photo."
 msgstr "Zugriff verweigert beim Bearbeiten des Fotos."
@@ -204,8 +204,8 @@ msgstr "Zugriff verweigert beim Verschieben von Fotos in diese Galerie."
 msgid "Access denied removing photos from this gallery."
 msgstr "Zugriff verweigert beim Entfernen der Fotos aus dieser Galerie."
 
-#: lib/ActionHandler.php:341 lib/ActionHandler.php:584
-#: lib/ActionHandler.php:626
+#: lib/ActionHandler.php:344 lib/ActionHandler.php:587
+#: lib/ActionHandler.php:629
 msgid "Access denied saving photo to this gallery."
 msgstr "Zugriff verweigert beim Speichern von Fotos in dieser Galerie."
 
@@ -223,7 +223,7 @@ msgid "Access denied to this gallery."
 msgstr "Zugriff auf diese Galerie verweigert."
 
 #: lib/Block/Gallery.php:162 lib/Block/RecentComments.php:175
-#: lib/Block/RecentlyAdded.php:205 lib/Gallery.php:854
+#: lib/Block/RecentlyAdded.php:205 lib/Gallery.php:862
 msgid "Access denied viewing this gallery."
 msgstr "Zugriff auf diese Galerie verweigert."
 
@@ -358,7 +358,7 @@ msgstr "Zurück zur Galerie"
 msgid "Background Color"
 msgstr "Hintergrundfarbe"
 
-#: lib/ActionHandler.php:169 lib/ActionHandler.php:209
+#: lib/ActionHandler.php:172 lib/ActionHandler.php:212
 msgid "Bad input."
 msgstr "Fehlerhafte Eingabe."
 
@@ -387,7 +387,7 @@ msgstr "Von"
 msgid "Can't get unknown file type \"%s\"."
 msgstr "Unbekannter Dateityp \"%s\" kann nicht verarbeitet werden."
 
-#: disclamer.php:30 disclamer.php:33 faces/claim.php:34 faces/report.php:37
+#: disclaimer.php:29 disclaimer.php:32 faces/claim.php:34 faces/report.php:37
 #: faces/savecustom.php:28 lib/Form/Upload.php:30 lib/View/Upload.php:256
 #: report.php:49 report.php:68 templates/faces/custom.inc:19
 #: templates/faces/define.inc:39 templates/gallery/delete_confirmation.inc:13
@@ -474,11 +474,11 @@ msgid "Click on a thumbnail to locate at the same point."
 msgstr ""
 "Klicken Sie auf ein Vorschaubild, um an der gleichen Stelle zu verorten."
 
-#: lib/Form/Ecard.php:33
+#: lib/Form/Ecard.php:35
 msgid "Comments:"
 msgstr "Kommentare:"
 
-#: disclamer.php:23
+#: disclaimer.php:22
 msgid "Content Disclaimer"
 msgstr "Inhaltserklärung"
 
@@ -487,12 +487,12 @@ msgstr "Inhaltserklärung"
 msgid "Content abuse report in %s"
 msgstr "Anstößigen Inhalt in %s melden"
 
-#: disclamer.php:30
+#: disclaimer.php:29
 #, php-format
 msgid "Continue - I'm over %d"
 msgstr "Weiter - Ich bin über %d"
 
-#: lib/ActionHandler.php:198
+#: lib/ActionHandler.php:201
 #, php-format
 msgid "Copied %d photo from %s to %s"
 msgid_plural "Copied %d photos from %s to %s"
@@ -515,14 +515,14 @@ msgstr "Bilderdaten konnten nicht aus dem ZIP-Archiv gelesen werden."
 msgid "Could not open zip archive."
 msgstr "ZIP-Archiv konnte nicht geöffnet werden."
 
-#: lib/Gallery.php:220
+#: lib/Gallery.php:222
 #, php-format
 msgid "Could not save gallery, the slug, \"%s\", already exists."
 msgstr ""
 "Die Galerie konnte nicht gespeichert werden, der Kurzname \"%s\" existiert "
 "bereits."
 
-#: lib/Gallery.php:212
+#: lib/Gallery.php:214
 #, php-format
 msgid "Could not save gallery, the slug, \"%s\", contains invalid characters."
 msgstr ""
@@ -553,7 +553,7 @@ msgstr "Untergalerie erstellen"
 msgid "Created"
 msgstr "Erstellt"
 
-#: lib/ActionHandler.php:839 templates/image/crop_image.inc:111
+#: lib/ActionHandler.php:842 templates/image/crop_image.inc:111
 #: templates/image/edit_image.inc:30 templates/image/resize_image.inc:29
 msgid "Crop"
 msgstr "Beschneiden"
@@ -608,7 +608,7 @@ msgstr "Gesicht löschen"
 msgid "Delete geotag"
 msgstr "Geotag löschen"
 
-#: lib/ActionHandler.php:126
+#: lib/ActionHandler.php:129
 msgid "Deleted the photo."
 msgstr "Foto gelöscht."
 
@@ -689,7 +689,7 @@ msgstr "Schattenwurf"
 msgid "ERROR: %s"
 msgstr "FEHLER: %s"
 
-#: img/ecard.php:75
+#: lib/Ansel.php:1023
 msgid "Ecard - "
 msgstr "Grußkarte - "
 
@@ -698,7 +698,7 @@ msgstr "Grußkarte - "
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: lib/ActionHandler.php:505
+#: lib/ActionHandler.php:508
 #, php-format
 msgid "Edit %s :: %s"
 msgstr "%s Bearbeiten :: %s"
@@ -717,11 +717,11 @@ msgstr "Rechte bearbeiten"
 msgid "Edit Permissions for %s"
 msgstr "Rechte für '%s' bearbeiten"
 
-#: lib/ActionHandler.php:770
+#: lib/ActionHandler.php:773
 msgid "Edit Photo"
 msgstr "Foto bearbeiten"
 
-#: lib/ActionHandler.php:362
+#: lib/ActionHandler.php:365
 msgid "Edit a photo"
 msgstr "Foto bearbeiten"
 
@@ -733,7 +733,7 @@ msgstr "Gesicht bearbeiten"
 msgid "Edit faces"
 msgstr "Gesichter bearbeiten"
 
-#: lib/ActionHandler.php:306
+#: lib/ActionHandler.php:309
 #, php-format
 msgid "Edit properties :: %s"
 msgstr "Eigenschaften bearbeiten :: %s"
@@ -880,7 +880,7 @@ msgstr "Galerien gruppiert nach %s"
 msgid "Gallery"
 msgstr "Galerie"
 
-#: img/upload.php:21 lib/ActionHandler.php:291 lib/Storage.php:279
+#: img/upload.php:21 lib/ActionHandler.php:294 lib/Storage.php:279
 #, php-format
 msgid "Gallery %s not found."
 msgstr "Galerie %s nicht gefunden."
@@ -1005,7 +1005,7 @@ msgstr "Ich weiß, wer auf einem Deiner Fotos zu sehen ist"
 msgid "Image"
 msgstr "Bild"
 
-#: lib/Gallery.php:507
+#: lib/Gallery.php:509
 msgid "Image already has existing attributes."
 msgstr "Das Bild hat bereits Attribute."
 
@@ -1171,7 +1171,7 @@ msgstr ""
 msgid "Move"
 msgstr "Verschiebe"
 
-#: lib/ActionHandler.php:158
+#: lib/ActionHandler.php:161
 #, php-format
 msgid "Moved %d photo from \"%s\" to \"%s\""
 msgid_plural "Moved %d photos from \"%s\" to \"%s\""
@@ -1340,7 +1340,7 @@ msgstr "Besitzer: %s"
 msgid "Owner"
 msgstr "Besitzer"
 
-#: lib/Gallery.php:352
+#: lib/Gallery.php:354
 #, php-format
 msgid "Page %d"
 msgstr "Seite %d"
@@ -1400,7 +1400,7 @@ msgstr "Fotogalerien"
 msgid "Photo Upload"
 msgstr "Fotos hochladen"
 
-#: disclamer.php:28
+#: disclaimer.php:27
 #, php-format
 msgid "Photo content may be offensive. You must be over %d to continue."
 msgstr ""
@@ -1416,7 +1416,7 @@ msgstr ""
 msgid "Photo not found"
 msgstr "Foto nicht gefunden"
 
-#: lib/ActionHandler.php:302
+#: lib/ActionHandler.php:305
 msgid "Photo not found."
 msgstr "Foto nicht gefunden."
 
@@ -1488,7 +1488,7 @@ msgstr "Drücken Sie den \"Zurück\"-Knopf und versuchen Sie es noch einmal."
 msgid "Preview"
 msgstr "Vorschau"
 
-#: lib/ActionHandler.php:774 lib/ActionHandler.php:843
+#: lib/ActionHandler.php:777 lib/ActionHandler.php:846
 #, php-format
 msgid "Preview changes for %s :: %s"
 msgstr "Vorschau der Änderungen für %s :: %s"
@@ -1771,7 +1771,7 @@ msgstr "Änderungen speichern"
 msgid "Save Gallery"
 msgstr "Galerie speichern"
 
-#: lib/ActionHandler.php:338
+#: lib/ActionHandler.php:341
 msgid "Save Photo"
 msgstr "Foto Speichern"
 
@@ -1829,11 +1829,11 @@ msgstr "Für eine Aktion auswählen"
 msgid "Selected photos to"
 msgstr "ausgewählte Fotos nach"
 
-#: lib/Form/Ecard.php:16
+#: lib/Form/Ecard.php:18
 msgid "Send"
 msgstr "Senden"
 
-#: img/ecard.php:90
+#: img/ecard.php:19
 #, php-format
 msgid "Send Ecard :: %s"
 msgstr "Grußkarte verschicken :: %s"
@@ -1842,7 +1842,7 @@ msgstr "Grußkarte verschicken :: %s"
 msgid "Send an Ecard"
 msgstr "Grußkarte verschicken"
 
-#: lib/Form/Ecard.php:32
+#: lib/Form/Ecard.php:34
 msgid "Send ecard to the following address:"
 msgstr "Grußkarte an folgende Adressen verschicken:"
 
@@ -1915,6 +1915,10 @@ msgstr "Sortieren nach:"
 msgid "Sort photos"
 msgstr "Fotos sortieren"
 
+#: lib/Form/Ecard.php:38 lib/Form/Ecard.php:61
+msgid "Spam protection"
+msgstr "Spamschutz"
+
 #: lib/ImageGenerator/SquareThumb.php:18
 msgid "Square Thumbnails"
 msgstr "Quadratische Vorschau"
@@ -1932,12 +1936,12 @@ msgstr "Diashow starten"
 msgid "Subject"
 msgstr "Betreff"
 
-#: lib/ActionHandler.php:954
+#: lib/ActionHandler.php:957
 #, php-format
 msgid "Successfully deleted %s."
 msgstr "%s wurde erfolgreich gelöscht."
 
-#: lib/ActionHandler.php:978
+#: lib/ActionHandler.php:981
 #, php-format
 msgid "Successfully emptied \"%s\""
 msgstr "\"%s\" wurde erfolgreich geleert"
@@ -1977,7 +1981,7 @@ msgstr "AGB-Verletzung"
 msgid "The file \"%s\" doesn't exist."
 msgstr "Die Datei \"%s\" existiert nicht."
 
-#: lib/ActionHandler.php:374 lib/Api.php:343 lib/View/Upload.php:219
+#: lib/ActionHandler.php:377 lib/Api.php:343 lib/View/Upload.php:219
 msgid "The file you uploaded does not appear to be a valid photo."
 msgstr ""
 "Die Datei, die Sie hochgeladen haben, scheint kein gültiges Foto zu sein."
@@ -2001,15 +2005,15 @@ msgstr "Die Galerie \"%s\" wurde erfolgreich erstellt."
 msgid "The gallery was saved."
 msgstr "Die Galerie wurde gespeichert."
 
-#: lib/ActionHandler.php:1007
+#: lib/ActionHandler.php:1010
 msgid "The gallery's default photo has successfully been reset."
 msgstr "Das Standardfoto dieser Galerie wurde erfolgreich zurückgesetzt."
 
-#: lib/ActionHandler.php:1027
+#: lib/ActionHandler.php:1030
 msgid "The gallery's thumbnails have successfully been reset."
 msgstr "Die Vorschauen dieser Galerie wurde erfolgreich zurückgesetzt."
 
-#: lib/ActionHandler.php:1042
+#: lib/ActionHandler.php:1045
 msgid "The gallery's views have successfully been reset."
 msgstr "Die Ansichten dieser Galerie wurden erfolgreich zurückgesetzt."
 
@@ -2049,12 +2053,12 @@ msgstr "In %s befinden sich keine Fotos zum Herunterladen."
 msgid "There are no photos in this gallery."
 msgstr "In dieser Galerie befinden sich keine Fotos."
 
-#: lib/ActionHandler.php:958
+#: lib/ActionHandler.php:961
 #, php-format
 msgid "There was a problem deleting %s: %s"
 msgstr "Beim Löschen von %s ist ein Problem aufgetreten: %s"
 
-#: lib/ActionHandler.php:129
+#: lib/ActionHandler.php:132
 #, php-format
 msgid "There was a problem deleting photos: %s"
 msgstr "Beim Löschen der Fotos ist ein Problem aufgetreten: %s"
@@ -2097,11 +2101,11 @@ msgid "There was an error processing the uploaded archive: %s"
 msgstr ""
 "Bei der Verabeitung des hochgeladenen Archivs ist ein Fehler aufgetreten: %s"
 
-#: lib/ActionHandler.php:391
+#: lib/ActionHandler.php:394
 msgid "There was an error replacing the photo."
 msgstr "Beim Ersetzen des Fotos is ist ein Fehler aufgetreten."
 
-#: img/ecard.php:84
+#: lib/Ansel.php:1032
 #, php-format
 msgid "There was an error sending your message: %s"
 msgstr "Beim Versenden der Nachricht ist ein Fehler aufgetreten: %s"
@@ -2209,7 +2213,7 @@ msgstr "In Galerie hochladen"
 msgid "Use a lightbox to view photos"
 msgstr "Lightbox benutzen um Fotos anzuzeigen"
 
-#: lib/Form/Ecard.php:24
+#: lib/Form/Ecard.php:26
 msgid "Use the following return address:"
 msgstr "Folgende Antwortadresse benutzen:"
 
@@ -2267,7 +2271,7 @@ msgstr "Kommentare anzeigen oder hinzufügen"
 msgid "View to display by default"
 msgstr "Standardansicht"
 
-#: lib/ActionHandler.php:722 lib/ActionHandler.php:732
+#: lib/ActionHandler.php:725 lib/ActionHandler.php:735
 #: templates/image/crop_image.inc:108 templates/image/edit_image.inc:26
 #: templates/image/resize_image.inc:25
 msgid "Watermark"
@@ -2343,7 +2347,7 @@ msgstr ""
 "Sie haben nicht die nötigen Rechte, um Untergalerien zu dieser Galerie "
 "hinzuzufügen."
 
-#: img/ecard.php:42
+#: lib/Ansel.php:990
 msgid ""
 "You have been sent an Ecard. To view the Ecard, you must be able to view "
 "text/html messages in your mail reader. If you are viewing this message, "
@@ -2373,13 +2377,13 @@ msgid "You must choose a gallery to move photos to."
 msgstr ""
 "Sie müssen eine Galerie auswählen, zu der die Fotos verschoben werden sollen."
 
-#: img/ecard.php:34
+#: lib/Ansel.php:982
 msgid "You must enter an e-mail address to send the message to."
 msgstr ""
 "Sie müssen eine Emailadresse eingeben, an die diese Nachricht geschickt "
 "werden soll."
 
-#: img/ecard.php:29
+#: lib/Ansel.php:977
 msgid "You must enter your e-mail address."
 msgstr "Sie müssen Ihre Emailadresse angeben."
 
@@ -2395,7 +2399,7 @@ msgstr "Sie müssen einen Anzeigenamen für die neue Galerie angeben."
 msgid "You must select at least on photo to edit."
 msgstr "Sie müssen erst mindestens ein Foto auswählen."
 
-#: lib/ActionHandler.php:81 lib/ActionHandler.php:256
+#: lib/ActionHandler.php:84 lib/ActionHandler.php:259
 msgid "You must select images to download."
 msgstr "Sie müssen Bilder zum Herunterladen auswählen."
 

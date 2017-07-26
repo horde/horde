@@ -1,23 +1,23 @@
 # German translations for Vilma.
 # Copyright 2004-2017 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Vilma package.
-# Jan Schneider <jan@horde.org>, 2004-2010.
+# Jan Schneider <jan@horde.org>, 2004-2017.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Vilma 0.1-cvs\n"
+"Project-Id-Version: Vilma 1.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-10-12 19:05+0200\n"
-"PO-Revision-Date: 2011-02-02 18:19+0100\n"
+"POT-Creation-Date: 2017-07-26 12:13+0200\n"
+"PO-Revision-Date: 2017-07-26 12:35+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
-"Language: \n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: users/edit.php:62
+#: users/edit.php:61
 #, php-format
 msgid "\"%s\" already has the maximum number of users allowed."
 msgstr "\"%s\" hat bereits die maximale Benutzerzahl erreicht."
@@ -55,7 +55,7 @@ msgid_plural "Account is the target of %d forwards."
 msgstr[0] "Konto ist Ziel von %d Weiterleitung."
 msgstr[1] "Konto ist Ziel von %d Weiterleitungen."
 
-#: templates/users/index.html:7
+#: templates/users/index.html.php:7
 msgid "Address"
 msgstr "Adresse"
 
@@ -112,11 +112,11 @@ msgstr "%s \"%s\" und alle Abhängigkeiten löschen?"
 msgid "Delete %s \"%s\"?"
 msgstr "%s \"%s\" löschen?"
 
-#: domains/index.php:44 lib/Form/DeleteDomain.php:15
+#: domains/index.php:47 lib/Form/DeleteDomain.php:15
 msgid "Delete Domain"
 msgstr "Domain löschen"
 
-#: users/index.php:109 virtuals/index.php:61
+#: users/index.php:105 virtuals/index.php:61
 msgid "Delete User"
 msgstr "Benutzer löschen"
 
@@ -134,7 +134,7 @@ msgstr "Domain \"%s\" und alle dazugehörigen E-Mail-Adressen löschen?"
 msgid "Delete the virtual email address \"%s\" => \"%s\"?"
 msgstr "Virtuelle E-Mail-Adresse \"%s\" => \"%s\" löschen?"
 
-#: virtuals/edit.php:58 templates/virtuals/index.html:14
+#: templates/virtuals/index.html.php:14 virtuals/edit.php:58
 msgid "Destination"
 msgstr "Ziel"
 
@@ -159,7 +159,7 @@ msgstr "Anzeigelisten"
 msgid "Do not delete"
 msgstr "Nicht löschen"
 
-#: lib/Form/EditDomain.php:30 templates/domains/index.html:10
+#: lib/Form/EditDomain.php:30 templates/domains/index.html.php:6
 msgid "Domain"
 msgstr "Domain"
 
@@ -175,12 +175,16 @@ msgstr "Domain nicht gelöscht."
 msgid "Domain saved."
 msgstr "Domain gespeichert."
 
+#: templates/domains/index.html.php:1
+msgid "Domains"
+msgstr "Domains"
+
 #: lib/Form/EditAlias.php:17
 #, php-format
 msgid "Edit Alias \"%s\" for \"%s\""
 msgstr "Alias \"%s\" von \"%s\" bearbeiten"
 
-#: domains/index.php:45 lib/Form/EditDomain.php:18
+#: domains/index.php:48 lib/Form/EditDomain.php:18
 msgid "Edit Domain"
 msgstr "Domain bearbeiten"
 
@@ -199,7 +203,7 @@ msgstr "Weiterleitung von \"%s\" bearbeiten"
 msgid "Edit Group for \"%s\""
 msgstr "Gruppe von \"%s\" bearbeiten"
 
-#: users/index.php:110 virtuals/index.php:62
+#: users/index.php:106 virtuals/index.php:62
 msgid "Edit User"
 msgstr "Benutzer bearbeiten"
 
@@ -315,7 +319,7 @@ msgstr "Fehler beim Speichern der Domain: %s."
 msgid "Error saving forward. %s"
 msgstr "Fehler beim Speichern der Weiterleitung. %s"
 
-#: users/edit.php:89
+#: users/edit.php:88
 #, php-format
 msgid "Error saving user. %s"
 msgstr "Fehler beim Speichern des Benutzers. %s"
@@ -357,7 +361,7 @@ msgstr "Weiterleitung gelöscht."
 msgid "Forwards"
 msgstr "Weiterleitung"
 
-#: lib/Form/EditUser.php:51 templates/users/index.html:10
+#: lib/Form/EditUser.php:51 templates/users/index.html.php:8
 msgid "Full Name"
 msgstr "Vollständiger Name"
 
@@ -391,7 +395,7 @@ msgstr "Mailbox \"%s\" existiert nicht."
 msgid "Maildrop directory \"%s\" does not exist."
 msgstr "Das Maildrop-Verzeichnis \"%s\" existiert nicht."
 
-#: templates/domains/index.html:13
+#: templates/domains/index.html.php:7
 msgid "Max Users"
 msgstr "Maximale Benutzerzahl"
 
@@ -399,7 +403,7 @@ msgstr "Maximale Benutzerzahl"
 msgid "Max users"
 msgstr "Maximale Benutzerzahl"
 
-#: users/index.php:103
+#: users/index.php:98
 msgid "Maximum Users"
 msgstr "Maximale Benutzerzahl"
 
@@ -440,8 +444,8 @@ msgstr "Neue Weiterleitung für %s"
 
 #: lib/Form/EditUser.php:32
 #, php-format
-msgid "New User @%s"
-msgstr "Neuer Benutzer für Domain @%s"
+msgid "New User for \"%s\""
+msgstr "Neuer Benutzer für \"%s\""
 
 #: virtuals/index.php:51
 msgid "New Virtual Email"
@@ -450,10 +454,6 @@ msgstr "Neue virtuelle E-Mail-Adresse"
 #: virtuals/edit.php:42
 msgid "New Virtual Email Address"
 msgstr "Neue virtuelle E-Mail-Adresse"
-
-#: lib/Application.php:97
-msgid "New _Address"
-msgstr "Neue _Adresse"
 
 #: lib/MailboxDriver/Maildrop.php:76
 msgid "No 'mail_dir_base' parameter specified to maildrop driver."
@@ -467,6 +467,10 @@ msgstr ""
 "Kein 'system_user' Parameter in der Maildrop-Treiber-Konfiguration angegeben."
 "<"
 
+#: templates/domains/index.html.php:25
+msgid "No domains yet"
+msgstr "Noch keine Domains"
+
 #: lib/Driver.php:400
 #, php-format
 msgid "No such address %s of type %s found."
@@ -476,6 +480,10 @@ msgstr "Adresse %s vom Typ %s nicht gefunden."
 #, php-format
 msgid "No such backend \"%s\" found"
 msgstr "Ein Backend namens \"%s\" konnte nicht gefunden werden"
+
+#: templates/users/index.html.php:56
+msgid "No users yet"
+msgstr "Noch keine Benutzer"
 
 #: lib/Form/EditUser.php:47
 msgid "Only enter a password if you wish to change this user's password"
@@ -487,7 +495,7 @@ msgstr ""
 msgid "Password"
 msgstr "Passwort"
 
-#: lib/Driver/Sql.php:255
+#: lib/Driver/Sql.php:266
 msgid "Password must be supplied when creating a new user."
 msgstr "Passwort muss beim Erstellen eines neuen Benutzers angegeben werden."
 
@@ -507,11 +515,11 @@ msgstr "Externe E-Mail-Adresse"
 msgid "Set default display parameters."
 msgstr "Legen Sie Ihre Standard-Anzeigeeinstellungen fest."
 
-#: templates/users/index.html:16
+#: templates/users/index.html.php:10
 msgid "Status"
 msgstr "Status"
 
-#: lib/Application.php:73
+#: lib/Application.php:72
 msgid "Super Administrator"
 msgstr "Super-Administrator"
 
@@ -546,7 +554,7 @@ msgstr ""
 msgid "Transport"
 msgstr "Transport"
 
-#: templates/users/index.html:13
+#: templates/users/index.html.php:9
 msgid "Type"
 msgstr "Typ"
 
@@ -599,7 +607,7 @@ msgstr "Benutzer"
 msgid "User Name"
 msgstr "Benutzername"
 
-#: users/edit.php:72
+#: users/edit.php:71
 msgid "User details saved."
 msgstr "Benutzerdetails gespeichert."
 
@@ -615,7 +623,7 @@ msgstr "Benutzer wurde nicht gelöscht."
 msgid "User ready."
 msgstr "Benutzer bereit."
 
-#: lib/Vilma.php:56 virtuals/index.php:57
+#: lib/Vilma.php:56 templates/users/index.html.php:1 virtuals/index.php:57
 msgid "Users"
 msgstr "Benutzer"
 
@@ -627,7 +635,7 @@ msgstr "Wert in MB"
 msgid "Virtual Email"
 msgstr "Virtuelle E-Mail-Adresse"
 
-#: templates/virtuals/index.html:11
+#: templates/virtuals/index.html.php:11
 msgid "Virtual Email Address"
 msgstr "Virtuelle E-Mail-Adresse"
 
@@ -643,13 +651,17 @@ msgstr "Virtuelle E-Mail-Adresse nicht gelöscht."
 msgid "Virtual email saved."
 msgstr "Virtuelle E-Mail-Adresse gespeichert."
 
-#: lib/Application.php:93
-msgid "_Domains"
-msgstr "_Domains"
+#: lib/Application.php:94
+msgid "_List Domains"
+msgstr "Domains _anzeigen"
 
-#: lib/Application.php:99
+#: lib/Application.php:122
 msgid "_New Domain"
 msgstr "_Neue Domain"
+
+#: lib/Application.php:117
+msgid "_New User"
+msgstr "_Neuer Benutzer"
 
 #: users/editForward.php:32
 msgid "forward saved."

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Argv\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-03-05 10:52+0100\n"
+"POT-Creation-Date: 2017-07-26 12:13+0200\n"
 "PO-Revision-Date: 2010-10-13 01:27+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -17,61 +17,61 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde/Argv/Parser.php:478
+#: lib/Horde/Argv/Parser.php:487
 #, php-format
 msgid "%s option does not take a value"
 msgstr "Option %s erwartet kein Argument"
 
-#: lib/Horde/Argv/Parser.php:468 lib/Horde/Argv/Parser.php:520
+#: lib/Horde/Argv/Parser.php:477 lib/Horde/Argv/Parser.php:529
 #, php-format
 msgid "%s option requires %d arguments"
 msgstr "Option %s erwartet %d Argumente"
 
-#: lib/Horde/Argv/Parser.php:466 lib/Horde/Argv/Parser.php:518
+#: lib/Horde/Argv/Parser.php:475 lib/Horde/Argv/Parser.php:527
 #, php-format
 msgid "%s option requires an argument"
 msgstr "Option %s erweitert ein Argument"
 
-#: lib/Horde/Argv/Parser.php:643
+#: lib/Horde/Argv/Parser.php:652
 msgid "Options"
 msgstr "Einstellungen"
 
-#: lib/Horde/Argv/TitledHelpFormatter.php:29
+#: lib/Horde/Argv/TitledHelpFormatter.php:43
 msgid "Usage"
 msgstr "Aufruf"
 
-#: lib/Horde/Argv/IndentedHelpFormatter.php:29
+#: lib/Horde/Argv/IndentedHelpFormatter.php:42
 msgid "Usage:"
 msgstr "Aufruf:"
 
-#: lib/Horde/Argv/Parser.php:169
+#: lib/Horde/Argv/Parser.php:178
 msgid "[options]"
 msgstr "[Optionen]"
 
-#: lib/Horde/Argv/Option.php:122
+#: lib/Horde/Argv/Option.php:133
 #, php-format
 msgid "option %s: invalid choice: '%s' (choose from %s)"
 msgstr "Option %s: ungültige Auswahl: '%s' (gültige Werte: %s)"
 
-#: lib/Horde/Argv/Option.php:104
+#: lib/Horde/Argv/Option.php:115
 #, php-format
 msgid "option %s: invalid floating-point value: '%s'"
 msgstr "Option %s: ungültiger Fließkomma-Wert: '%s'"
 
-#: lib/Horde/Argv/Option.php:94
+#: lib/Horde/Argv/Option.php:105
 #, php-format
 msgid "option %s: invalid integer value: '%s'"
 msgstr "Option %s: ungültiger Ganzzahl-Wert: '%s'"
 
-#: lib/Horde/Argv/Option.php:95
+#: lib/Horde/Argv/Option.php:106
 #, php-format
 msgid "option %s: invalid long integer value: '%s'"
 msgstr "Option %s: ungültiger Lange-Ganzzahl-Wert: '%s'"
 
-#: lib/Horde/Argv/Parser.php:141
+#: lib/Horde/Argv/Parser.php:150
 msgid "show program's version number and exit"
 msgstr "Programmversion anzeigen und abbrechen"
 
-#: lib/Horde/Argv/Parser.php:135
+#: lib/Horde/Argv/Parser.php:144
 msgid "show this help message and exit"
 msgstr "diesen Hilfetext anzeigen und abbrechen"

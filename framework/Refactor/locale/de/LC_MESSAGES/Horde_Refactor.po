@@ -1,15 +1,15 @@
 # German translations for Horde_Refactor package.
 # Copyright (C) 2017 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Refactor package.
-# Automatically generated, 2017.
+# Jan Schneider <jan@horde.org>, 2017.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Refactor\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2017-02-27 11:27+0100\n"
-"PO-Revision-Date: 2017-02-27 11:27+0100\n"
-"Last-Translator: Automatically generated\n"
+"POT-Creation-Date: 2017-07-26 12:13+0200\n"
+"PO-Revision-Date: 2017-07-26 13:05+0200\n"
+"Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -17,12 +17,84 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde/Refactor/Exception/NotFound.php:44
-#, fuzzy, php-format
-msgid "Token \"%s\" Not Found"
-msgstr "Vorlage \"%s\" nicht gefunden."
+#: lib/Horde/Refactor/Rule/FileLevelDocBlock.php:644
+msgid "More than one @license tag."
+msgstr "Mehr als ein @license Label."
 
-#: lib/Horde/Refactor/Exception/UnexpectedToken.php:44
+#: lib/Horde/Refactor/Rule/FileLevelDocBlock.php:169
+msgid "No DocBlocks found, adding default DocBlocks"
+msgstr "Keine DocBlocks gefunden, Standard-DocBlocks hinzugefügt"
+
+#: lib/Horde/Refactor/Rule/FileLevelDocBlock.php:465
+msgid "No file-level DocBlock found, creating one from class-level DocBlock"
+msgstr "Kein Datei-DocBlock gefunden, neuer DocBlock aus Klasse erzeugt"
+
+#: lib/Horde/Refactor/Rule/FileLevelDocBlock.php:355
+#, php-format
+msgid "The %s DocBlock contains duplicate @%s tags"
+msgstr "Der %s-DocBlock enthält doppelte @%s Label"
+
+#: lib/Horde/Refactor/Rule/FileLevelDocBlock.php:282
+#, php-format
+msgid "The %s DocBlock contains text that should be in the %s DocBlock"
+msgstr "Der %s-DocBlock enthält Text, der im %s-DocBlock sein sollte"
+
+#: lib/Horde/Refactor/Rule/FileLevelDocBlock.php:329
+#, php-format
+msgid "The %s DocBlock description is not valid"
+msgstr "Die %s-DocBlock-Beschreibung ist ungültig"
+
+#: lib/Horde/Refactor/Rule/FileLevelDocBlock.php:295
+#, php-format
+msgid "The %s DocBlock summary is not valid"
+msgstr "Die %s-DocBlock-Zusammenfassung ist ungültig"
+
+#: lib/Horde/Refactor/Rule/FileLevelDocBlock.php:378
+#, php-format
+msgid "The %s DocBlock tags should include: "
+msgstr "Die %s-DocBlock-Labels sollten enthalten: "
+
+#: lib/Horde/Refactor/Rule/FileLevelDocBlock.php:412
+#, php-format
+msgid "The %s DocBlock tags should not include: "
+msgstr "Die %s-DocBlock-Labels sollten nicht enthalten: "
+
+#: lib/Horde/Refactor/Rule/FileLevelDocBlock.php:623
+#: lib/Horde/Refactor/Rule/FileLevelDocBlock.php:637
+msgid "The @copyright tags are different from the copyright header"
+msgstr "Die @copyright Label unterscheiden sich vom Copyright-Kopfeintrag"
+
+#: lib/Horde/Refactor/Rule/FileLevelDocBlock.php:652
+msgid "The @license tag URL is different from the license URL in the header"
+msgstr ""
+"Die @license Label-URL unterscheidet sich von der Lizenz-URL im Kopfeintrag"
+
+#: lib/Horde/Refactor/Rule/FileLevelDocBlock.php:658
+msgid "The @license tag name is different from the license name in the header"
+msgstr ""
+"Der @license Label-Name unterscheidet sich von dem Lizenznamen im Kopfeintrag"
+
+#: lib/Horde/Refactor/Rule/FileLevelDocBlock.php:228
+#, php-format
+msgid "The DocBlocks contain different values for the @%s tag"
+msgstr "Die DocBlocks enthalten unterschiedliche Werte für die @%s Label"
+
+#: lib/Horde/Refactor/Exception/NotFound.php:45
+#, php-format
+msgid "Token \"%s\" Not Found"
+msgstr "Token \"%s\" nicht gefunden"
+
+#: lib/Horde/Refactor/Exception/UnexpectedToken.php:45
 #, php-format
 msgid "Unexpected Token \"%s\""
-msgstr ""
+msgstr "Unerwarteter Token \"%s\""
+
+#: lib/Horde/Refactor/Rule/FileLevelDocBlock.php:252
+#: lib/Horde/Refactor/Rule/FileLevelDocBlock.php:257
+msgid "class-level"
+msgstr "Klassen"
+
+#: lib/Horde/Refactor/Rule/FileLevelDocBlock.php:248
+#: lib/Horde/Refactor/Rule/FileLevelDocBlock.php:261
+msgid "file-level"
+msgstr "Datei"

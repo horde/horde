@@ -1,17 +1,17 @@
 # German translations for Horde_Nls module.
 # Copyright 2010-2017 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Nls module.
-# Jan Schneider <jan@horde.org>, 2010-2012.
+# Jan Schneider <jan@horde.org>, 2010-2017.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Nls\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-07-19 18:34+0200\n"
-"PO-Revision-Date: 2012-05-01 14:40+0200\n"
-"Last-Translator: Automatically generated\n"
+"POT-Creation-Date: 2017-07-26 12:13+0200\n"
+"PO-Revision-Date: 2017-07-26 12:40+0200\n"
+"Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
-"Language: \n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -217,9 +217,13 @@ msgstr "Bihari"
 msgid "Bislama"
 msgstr "Bislama"
 
-#: lib/Horde/Nls/Countries.php:34 lib/Horde/Nls/Tld.php:42
+#: lib/Horde/Nls/Tld.php:42
 msgid "Bolivia"
 msgstr "Bolivien"
+
+#: lib/Horde/Nls/Countries.php:34
+msgid "Bolivia, Plurinational State of"
+msgstr "Plurinationaler Staat Bolivien"
 
 #: lib/Horde/Nls/Countries.php:35
 msgid "Bonaire, Sint Eustatius and Saba"
@@ -361,8 +365,12 @@ msgstr "Kongo"
 msgid "Congo, Republic of"
 msgstr "Republik Kongo"
 
-#: lib/Horde/Nls/Countries.php:59 lib/Horde/Nls/Tld.php:52
+#: lib/Horde/Nls/Tld.php:52
 msgid "Congo, The Democratic Republic of the"
+msgstr "Demokratische Republic Kongo"
+
+#: lib/Horde/Nls/Countries.php:59
+msgid "Congo, the Democratic Republic of the"
 msgstr "Demokratische Republic Kongo"
 
 #: lib/Horde/Nls/Countries.php:60 lib/Horde/Nls/Tld.php:57
@@ -982,7 +990,7 @@ msgid "Macedonia, The Former Yugoslav Republic of"
 msgstr "Die ehemalige Jugoslawische Republik Mazedonien"
 
 #: lib/Horde/Nls/Countries.php:139
-msgid "Macedonia, The former Yugoslav Republic of"
+msgid "Macedonia, the Former Yugoslav Republic of"
 msgstr "Die ehemalige Jugoslawische Republik Mazedonien"
 
 #: lib/Horde/Nls/Languages.php:112
@@ -1244,7 +1252,11 @@ msgstr "Pakistan"
 msgid "Palau"
 msgstr "Palau"
 
-#: lib/Horde/Nls/Countries.php:177 lib/Horde/Nls/Tld.php:194
+#: lib/Horde/Nls/Countries.php:177
+msgid "Palestine, State of"
+msgstr "Staat Palästina"
+
+#: lib/Horde/Nls/Tld.php:194
 msgid "Palestinian Territory, Occupied"
 msgstr "Besetzte Palästinensische Gebiete"
 
@@ -1753,9 +1765,13 @@ msgstr "Vanuatu"
 msgid "Venda"
 msgstr "Tshivenda"
 
-#: lib/Horde/Nls/Countries.php:248 lib/Horde/Nls/Tld.php:250
+#: lib/Horde/Nls/Tld.php:250
 msgid "Venezuela"
 msgstr "Venezuela"
+
+#: lib/Horde/Nls/Countries.php:248
+msgid "Venezuela, Bolivarian Republic of"
+msgstr "Bolivarische Republik Venezuela"
 
 #: lib/Horde/Nls/Countries.php:249 lib/Horde/Nls/Tld.php:253
 msgid "Viet Nam"

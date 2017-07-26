@@ -1,13 +1,13 @@
 # German translation for Chora.
 # Copyright 2001-2017 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Chora package.
-# Jan Schneider <jan@horde.org>, 2001-2014.
+# Jan Schneider <jan@horde.org>, 2001-2017.
 msgid ""
 msgstr ""
-"Project-Id-Version: Chora 3.0-git\n"
+"Project-Id-Version: Chora H6 (3.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-07-16 21:24+0200\n"
-"PO-Revision-Date: 2013-07-16 21:49+0200\n"
+"POT-Creation-Date: 2017-07-26 12:13+0200\n"
+"PO-Revision-Date: 2017-07-26 14:56+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
 "Language: de\n"
@@ -43,7 +43,7 @@ msgstr "Hinzugefügt"
 msgid "All Branches"
 msgstr "Alle Branches"
 
-#: annotate.php:32 templates/annotate/header.inc:5
+#: annotate.php:33 templates/annotate/header.inc:5
 #: templates/patchsets/header_table.inc:11 templates/stats/stats.inc:4
 msgid "Author"
 msgstr "Autor"
@@ -106,7 +106,7 @@ msgstr "Commits für:"
 msgid "Da_te"
 msgstr "Da_tum"
 
-#: annotate.php:33 templates/patchsets/header_table.inc:10
+#: annotate.php:34 templates/patchsets/header_table.inc:10
 msgid "Date"
 msgstr "Datum"
 
@@ -174,7 +174,7 @@ msgstr "Letzter Eintrag"
 msgid "Line"
 msgstr "Zeile"
 
-#: annotate.php:51
+#: annotate.php:56
 msgid "Loading..."
 msgstr "Lade..."
 
@@ -197,6 +197,10 @@ msgstr "Keine Commit-ID angegeben"
 #: lib/Application.php:114
 msgid "No repositories found."
 msgstr "Keine Repositories gefunden."
+
+#: annotate.php:25
+msgid "No revision specified"
+msgstr "Keine Version angegeben"
 
 #: templates/directory/back.inc:4
 msgid "Parent Directory"
@@ -227,7 +231,7 @@ msgstr "Rev"
 msgid "Revision %s (%s ago) for:"
 msgstr "Version %s (vor %s) für:"
 
-#: annotate.php:25
+#: annotate.php:41
 #, php-format
 msgid "Revision %s not found"
 msgstr "Version %s nicht gefunden"
@@ -262,7 +266,7 @@ msgstr "Unterschiede anzeigen"
 msgid "Show diffs between %s and %s"
 msgstr "Unterschiede zwischen %s und %s anzeigen"
 
-#: annotate.php:45
+#: annotate.php:50
 #, php-format
 msgid "Source Annotation (revision %s) for:"
 msgstr "Quell-Kommentar (Version %s) für:"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Imap_Client\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2016-08-08 15:58+0200\n"
+"POT-Creation-Date: 2017-07-26 12:13+0200\n"
 "PO-Revision-Date: 2015-12-29 17:59+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -53,7 +53,7 @@ msgid "Cannot convert search query text to new charset"
 msgstr ""
 "Der Suchtext konnte nicht in den benötigten Zeichensatz übersetzt werden."
 
-#: lib/Horde/Imap/Client/Base.php:1922 lib/Horde/Imap/Client/Base.php:1985
+#: lib/Horde/Imap/Client/Base.php:1924 lib/Horde/Imap/Client/Base.php:1987
 msgid "Cannot expunge read-only mailbox."
 msgstr "Nur-Lesen-Ordner können nicht aufgeräumt werden."
 
@@ -135,8 +135,8 @@ msgstr "Der E-Mail-Server hat die Verbindung unerwartet unterbrochen."
 msgid "Mail server denied authentication."
 msgstr "Der E-Mail-Server hat die Authentifizierung verweigert."
 
-#: lib/Horde/Imap/Client/Base.php:2255 lib/Horde/Imap/Client/Base.php:2534
-#: lib/Horde/Imap/Client/Base.php:2806 lib/Horde/Imap/Client/Base.php:2891
+#: lib/Horde/Imap/Client/Base.php:2257 lib/Horde/Imap/Client/Base.php:2536
+#: lib/Horde/Imap/Client/Base.php:2808 lib/Horde/Imap/Client/Base.php:2893
 msgid "Mailbox does not support mod-sequences."
 msgstr "Der Ordner unterstützt keine Mod-Sequences."
 

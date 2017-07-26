@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hermes H5 (1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2016-08-08 15:58+0200\n"
+"POT-Creation-Date: 2017-07-26 12:13+0200\n"
 "PO-Revision-Date: 2015-03-24 10:59+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <i18n@lists.horde.org>\n"
@@ -79,7 +79,7 @@ msgstr "--- Arbeitsart auswählen ---"
 msgid "; Notes: "
 msgstr "; Bemerkungen: "
 
-#: entry.php:77 lib/Driver/Sql.php:124
+#: entry.php:77 lib/Driver/Sql.php:134
 msgid "Access denied; user cannot modify this timeslice."
 msgstr ""
 "Zugriff verweigert; Benutzer kann diesen Zeitabschnitt nicht bearbeiten."
@@ -194,11 +194,11 @@ msgstr "Nach Arbeitsart"
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: lib/Driver/Sql.php:610
+#: lib/Driver/Sql.php:625
 msgid "Cannot delete deliverable; it has children."
 msgstr "Ergebnis kann nicht gelöscht werden; es existieren Unterergebnisse."
 
-#: lib/Driver/Sql.php:621
+#: lib/Driver/Sql.php:636
 msgid "Cannot delete deliverable; there is time entered on it."
 msgstr "Ergebnis kann nicht gelöscht werden; es existieren Zeiteinträge dafür."
 
@@ -427,7 +427,7 @@ msgstr "Fehler beim Lesen der Kostenstellen aus \"%s\": %s"
 msgid "Error saving deliverable: %s"
 msgstr "Fehler beim Speichern des Ergebnisses: %s"
 
-#: lib/Driver/Sql.php:306
+#: lib/Driver/Sql.php:321
 #, php-format
 msgid "Error: %s"
 msgstr "Fehler: %s"
@@ -500,8 +500,8 @@ msgstr ""
 "Kunden-ID für das Exportieren, falls sie sich von dem oben angezeigten Namen "
 "unterscheidet."
 
-#: lib/Ajax/Application/Handler.php:346 lib/Ajax/Application/Handler.php:396
-#: lib/Ajax/Application/Handler.php:427
+#: lib/Ajax/Application/Handler.php:355 lib/Ajax/Application/Handler.php:405
+#: lib/Ajax/Application/Handler.php:436
 msgid "Invalid timer requested"
 msgstr "Ungültige Stoppuhr angefordert"
 
@@ -540,7 +540,7 @@ msgstr "Arbeitsart erfolgreich hinzugefügt."
 msgid "Job type successfully deleted."
 msgstr "Arbeitsart erfolgreich gelöscht."
 
-#: lib/Ajax/Application/Handler.php:515
+#: lib/Ajax/Application/Handler.php:524
 msgid "Job type successfully updated."
 msgstr "Arbeitsart erfolgreich aktualisiert."
 
@@ -574,7 +574,7 @@ msgstr ""
 "Pflichtfelder fehlen: Überprüfen Sie die Daten und versuchen Sie es noch "
 "einmal."
 
-#: templates/dynamic/sidebar.html.php:6 time.php:75
+#: templates/dynamic/sidebar.html.php:6 time.php:83
 msgid "My Time"
 msgstr "Meine Zeit"
 
@@ -582,7 +582,7 @@ msgstr "Meine Zeit"
 msgid "My Timers"
 msgstr "Meine Stoppuhren"
 
-#: templates/dynamic/slices.inc:75 time.php:63
+#: templates/dynamic/slices.inc:75 time.php:71
 msgid "My Unsubmitted Time"
 msgstr "Meine nicht abgeschickten Zeiteinträge"
 
@@ -636,7 +636,7 @@ msgstr "Keine Arbeitsart mit der ID \"%s\"."
 msgid "No time slices were submitted"
 msgstr "Es wurden keine Zeitabschnitte abgeschickt"
 
-#: time.php:34
+#: time.php:42
 msgid "No timeslices were selected to submit."
 msgstr "Es wurden keine Zeitabschnitte ausgewählt."
 
@@ -730,7 +730,7 @@ msgstr "Suche"
 msgid "Search For Time"
 msgstr "Nach Zeit suchen"
 
-#: lib/Api.php:94 search.php:75 templates/dynamic/search.inc:84
+#: lib/Api.php:94 search.php:84 templates/dynamic/search.inc:84
 msgid "Search Results"
 msgstr "Suchergebnisse"
 
@@ -738,7 +738,7 @@ msgstr "Suchergebnisse"
 msgid "Search Time"
 msgstr "Zeit suchen"
 
-#: search.php:54
+#: search.php:63
 msgid "Search for Time"
 msgstr "Nach Zeit suchen"
 
@@ -846,7 +846,7 @@ msgstr "Abgeschickte Zeiteinträge"
 msgid "Submitted?"
 msgstr "Abgeschickt?"
 
-#: lib/Hermes.php:646
+#: lib/Hermes.php:652
 #, php-format
 msgid "Successfully updated the hours of cost object \"%s\"."
 msgstr ""
@@ -898,21 +898,21 @@ msgstr ""
 "Die Stoppuhr \"%s\" wurde gestartet und erscheint nach der nächsten "
 "Aktualisierung im Menü."
 
-#: entry.php:32 lib/Ajax/Application/Handler.php:450
+#: entry.php:32 lib/Ajax/Application/Handler.php:459
 #, php-format
 msgid "The stop watch \"%s\" has been stopped."
 msgstr "Die Stoppuhr \"%s\" wurde angehalten."
 
-#: search.php:26 time.php:24
+#: search.php:34 time.php:31
 msgid "The time entry was successfully deleted."
 msgstr "Der Zeiteintrag wurde erfolgreich gelöscht."
 
-#: lib/Ajax/Application/Handler.php:182
+#: lib/Ajax/Application/Handler.php:188
 #, php-format
 msgid "The time was successfully entered for %s."
 msgstr "Ihr Zeiteintrag für %s wurde erfolgreich gespeichert."
 
-#: lib/Ajax/Application/Handler.php:535
+#: lib/Ajax/Application/Handler.php:552
 #, php-format
 msgid "The time was successfully updated and saved to the time sheet of %s."
 msgstr ""
@@ -949,7 +949,7 @@ msgstr "Beim Hinzufügen der Arbeitsart ist ein Fehler aufgetreten: %s."
 msgid "There was an error deleting the job type: %s."
 msgstr "Beim Löschen der Arbeisart ist ein Fehler aufgetreten: %s."
 
-#: search.php:24 time.php:22
+#: search.php:27 time.php:24
 #, php-format
 msgid "There was an error deleting the time: %s"
 msgstr "Beim Löschen des Zeiteintrags ist ein Fehler aufgetreten: %s"
@@ -970,7 +970,7 @@ msgstr "Beim Bearbeiten der Arbeitsart ist ein Fehler aufgetreten: %s."
 msgid "There was an error storing your timesheet: %s"
 msgstr "Beim Speichern Ihrer Zeiteinträge is ein Fehler aufgetreten: %s"
 
-#: lib/Ajax/Application/Handler.php:481 time.php:47
+#: lib/Ajax/Application/Handler.php:490 time.php:55
 #, php-format
 msgid "There was an error submitting your time: %s"
 msgstr "Beim Abschicken Ihres Zeiteintrags ist ein Fehler aufgetreten: %s"
@@ -1028,7 +1028,7 @@ msgstr "Nicht abgeschickte Zeiteinträge"
 msgid "Update Time"
 msgstr "Zeiteintrag aktualisieren"
 
-#: lib/Ajax/Application/Handler.php:440
+#: lib/Ajax/Application/Handler.php:449
 #, php-format
 msgid "Using the \"%s\" stop watch from %s %s to %s %s"
 msgstr "Mit Stoppuhr \"%s\" von %s %s bis %s %s"
@@ -1062,19 +1062,19 @@ msgstr ""
 "Sie haben ein unbekanntes Datumsformat \"%s\" benutzt. Bitte versuchen Sie "
 "etwas wie \"%s\"."
 
-#: lib/Ajax/Application/Handler.php:147
+#: lib/Ajax/Application/Handler.php:157
 msgid "Your time entry was successfully deleted."
 msgstr "Ihr Zeiteintrag wurde erfolgreich gelöscht."
 
-#: entry.php:60 lib/Ajax/Application/Handler.php:177
+#: entry.php:60 lib/Ajax/Application/Handler.php:181
 msgid "Your time was successfully entered."
 msgstr "Ihr Zeiteintrag wurde erfolgreich gespeichert."
 
-#: lib/Ajax/Application/Handler.php:485 time.php:44
+#: lib/Ajax/Application/Handler.php:494 time.php:52
 msgid "Your time was successfully submitted."
 msgstr "Ihr Zeiteintrag wurde erfolgreich abgeschickt."
 
-#: entry.php:57 lib/Ajax/Application/Handler.php:533
+#: entry.php:57 lib/Ajax/Application/Handler.php:546
 msgid "Your time was successfully updated."
 msgstr "Ihr Zeiteintrag wurde erfolgreich aktualisiert."
 

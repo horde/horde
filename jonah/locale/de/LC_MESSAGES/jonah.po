@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jonah 1.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-11-12 14:05+0100\n"
+"POT-Creation-Date: 2017-07-26 12:13+0200\n"
 "PO-Revision-Date: 2011-02-02 17:34+0100\n"
 "Last-Translator: Jan Schneider\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Block/NewsPopular.php:70 lib/Block/NewsPopular.php:73
+#: lib/Block/NewsPopular.php:77 lib/Block/NewsPopular.php:80
 msgid " - Most read stories"
 msgstr " - Am häufigsten gelesene Beiträge"
 
@@ -27,31 +27,31 @@ msgstr " - Am häufigsten gelesene Beiträge"
 msgid "\"%s\" stories in HTML"
 msgstr "\"%s\"-Beiträge als HTML"
 
-#: lib/Driver.php:248
+#: lib/Driver.php:242
 msgid "1 hour"
 msgstr "1 Stunde"
 
-#: lib/Driver.php:252
+#: lib/Driver.php:246
 msgid "12 hours"
 msgstr "12 Stunden"
 
-#: lib/Driver.php:249
+#: lib/Driver.php:243
 msgid "2 hours"
 msgstr "2 Stunden"
 
-#: lib/Driver.php:253
+#: lib/Driver.php:247
 msgid "24 hours"
 msgstr "24 Stunden"
 
-#: lib/Driver.php:247
+#: lib/Driver.php:241
 msgid "30 mins"
 msgstr "30 Minuten"
 
-#: lib/Driver.php:250
+#: lib/Driver.php:244
 msgid "4 hours"
 msgstr "4 Stunden"
 
-#: lib/Driver.php:251
+#: lib/Driver.php:245
 msgid "8 hours"
 msgstr "8 Stunden"
 
@@ -63,11 +63,11 @@ msgstr "Einen Link zum Beitrag"
 msgid "Add New Story"
 msgstr "Neuen Beitrag hinzufügen"
 
-#: lib/View/ChannelList.php:52
+#: lib/View/ChannelList.php:50
 msgid "Add story"
 msgstr "Beitrag hinzufügen"
 
-#: lib/Application.php:61
+#: lib/Application.php:69
 msgid "Administrator"
 msgstr "Administrator"
 
@@ -76,16 +76,16 @@ msgstr "Administrator"
 msgid "An error occurred fetching channels: %s"
 msgstr "Beim Empfangen dieses Kanals ist ein Fehler aufgetreten: %s"
 
-#: lib/Driver/Sql.php:579
+#: lib/Driver/Sql.php:606
 #, php-format
 msgid "Channel \"%s\" not found."
 msgstr "Kanal \"%s\" nicht gefunden."
 
-#: lib/Form/Feed.php:44
+#: lib/Form/Feed.php:37
 msgid "Channel Slug"
 msgstr "Kanalkurzname"
 
-#: lib/Form/Feed.php:51
+#: lib/Form/Feed.php:44
 msgid ""
 "Channel URL for further pages, if not the default one. %c gets replaced by "
 "the feed ID, %n by the story offset."
@@ -93,7 +93,7 @@ msgstr ""
 "Kanal-URL für weiterführende Seiten, falls nicht die Standard-URL. %c wird "
 "durch die Feed-ID und %s durch die Beitragsnummer ersetzt."
 
-#: lib/Form/Feed.php:50
+#: lib/Form/Feed.php:43
 #, php-format
 msgid "Channel URL if not the default one. %c gets replaced by the feed ID."
 msgstr ""
@@ -103,16 +103,12 @@ msgstr ""
 msgid "Channel has not been deleted."
 msgstr "Der Kanal wurde nicht entfernt."
 
-#: lib/Driver/Sql.php:147
+#: lib/Driver/Sql.php:157
 #, php-format
 msgid "Channel id \"%s\" not found."
 msgstr "Kanal-ID \"%s\" nicht gefunden."
 
-#: lib/View/StoryList.php:55
-msgid "Channel refreshed."
-msgstr "Kanal aktualisiert."
-
-#: lib/Application.php:67
+#: lib/Application.php:75
 msgid "Channels"
 msgstr "Sender"
 
@@ -128,11 +124,7 @@ msgstr "Kommentare"
 msgid "Compact"
 msgstr "Kompakt"
 
-#: lib/Jonah.php:213
-msgid "Composite Feed"
-msgstr "Zusammengefasster Feed"
-
-#: lib/Jonah.php:51 lib/Jonah.php:54
+#: lib/Jonah.php:41 lib/Jonah.php:44
 #, php-format
 msgid "Could not open %s: %s"
 msgstr "%s konnte nicht gelesen werden: %s"
@@ -169,11 +161,11 @@ msgstr "Nachrichtenbeitrag \"%s\" löschen?"
 msgid "Delete channel"
 msgstr "Kanal löschen"
 
-#: lib/View/StoryList.php:91 lib/View/TagSearchList.php:92
+#: lib/View/StoryList.php:84 lib/View/TagSearchList.php:91
 msgid "Delete story"
 msgstr "Beitrag löschen"
 
-#: lib/Form/Feed.php:42
+#: lib/Form/Feed.php:35
 msgid "Description"
 msgstr "Beschreibung"
 
@@ -193,7 +185,7 @@ msgstr "Beitrag bearbeiten"
 msgid "Edit channel"
 msgstr "Kanal bearbeiten"
 
-#: lib/View/StoryList.php:86 lib/View/TagSearchList.php:86
+#: lib/View/StoryList.php:79 lib/View/TagSearchList.php:85
 msgid "Edit story"
 msgstr "Beitrag bearbeiten"
 
@@ -207,16 +199,16 @@ msgstr "Kommagetrennte Stichwörter für diesen Beitrag"
 msgid "Error fetching story: %s"
 msgstr "Fehler beim Herunterladen des Beitrags: %s"
 
-#: lib/Form/Feed.php:35
+#: lib/Form/Feed.php:28
 msgid "Extra information for this feed type"
 msgstr "Zusätzliche Informationen für diesen Feedtyp"
 
-#: lib/Block/News.php:20 lib/Block/News.php:28 lib/Block/NewsPopular.php:30
+#: lib/Block/News.php:20 lib/Block/News.php:28 lib/Block/NewsPopular.php:31
 #: lib/Block/Story.php:40
 msgid "Feed"
 msgstr "Feed"
 
-#: lib/Block/Delivery.php:20 lib/View/ChannelList.php:69
+#: lib/Block/Delivery.php:20 lib/View/ChannelList.php:63
 msgid "Feeds"
 msgstr "Feeds"
 
@@ -237,7 +229,7 @@ msgstr "Vollständiger Beitragstext"
 msgid "HTML Delivery for \"%s\""
 msgstr "HTML-Auslieferung für \"%s\""
 
-#: lib/Driver.php:420
+#: lib/Driver.php:414
 msgid "HTML Version of Story"
 msgstr "HTML-Version des Beitrags"
 
@@ -255,7 +247,7 @@ msgstr ""
 msgid "Include"
 msgstr "Einfügen"
 
-#: lib/Form/Feed.php:49
+#: lib/Form/Feed.php:42
 msgid "Include full story content in syndicated feeds?"
 msgstr "Den vollständigen Beitragstext in den veröffentlichten Feed verwenden?"
 
@@ -263,7 +255,7 @@ msgstr "Den vollständigen Beitragstext in den veröffentlichten Feed verwenden?
 msgid "Internal"
 msgstr "Intern"
 
-#: lib/View/StoryList.php:45 lib/View/TagSearchList.php:52
+#: lib/View/StoryList.php:46 lib/View/TagSearchList.php:50
 #, php-format
 msgid "Invalid channel requested. %s"
 msgstr "Ungültiger Kanal angefordert. %s"
@@ -276,7 +268,7 @@ msgstr "Kein gültiger Kanal zum Löschen ausgewählt."
 msgid "Invalid channel."
 msgstr "Ungültiger Kanal."
 
-#: templates/view/channellist.html.php:28
+#: templates/view/channellist.html.php:27
 msgid "Last Update"
 msgstr "Letzte Aktualisierung"
 
@@ -284,15 +276,11 @@ msgstr "Letzte Aktualisierung"
 msgid "Latest News"
 msgstr "Neueste Beiträge"
 
-#: lib/Jonah.php:74 lib/Jonah.php:210
-msgid "Local Feed"
-msgstr "Lokaler Feed"
-
 #: templates/view/channellist.html.php:11
 msgid "Manage Feeds"
 msgstr "Feeds verwalten"
 
-#: lib/Block/News.php:46 lib/Block/NewsPopular.php:49
+#: lib/Block/News.php:46 lib/Block/NewsPopular.php:55
 msgid "Maximum Stories"
 msgstr "Maximale Beiträge"
 
@@ -304,7 +292,7 @@ msgstr "Multimedia"
 msgid "Message"
 msgstr "Nachricht"
 
-#: lib/Driver.php:63
+#: lib/Driver.php:74
 msgid "Missing channel id."
 msgstr "Kanal-ID fehlt."
 
@@ -312,15 +300,15 @@ msgstr "Kanal-ID fehlt."
 msgid "Most Popular Stories"
 msgstr "Populärste Beiträge"
 
-#: lib/Form/Feed.php:34 templates/view/channellist.html.php:26
+#: lib/Form/Feed.php:27 templates/view/channellist.html.php:26
 msgid "Name"
 msgstr "Name"
 
-#: lib/Application.php:100 lib/Form/Feed.php:24
+#: lib/Application.php:105 lib/Form/Feed.php:24
 msgid "New Feed"
 msgstr "Neuer Feed"
 
-#: lib/Application.php:64
+#: lib/Application.php:72
 msgid "News"
 msgstr "Nachrichten"
 
@@ -328,11 +316,7 @@ msgstr "Nachrichten"
 msgid "News Source"
 msgstr "Nachrichtenquelle"
 
-#: channels/index.php:21
-msgid "News is not enabled."
-msgstr "Nachrichten sind nicht aktiviert."
-
-#: lib/View/StoryList.php:52 lib/View/TagSearchList.php:59
+#: lib/View/StoryList.php:52 lib/View/TagSearchList.php:58
 msgid "No available stories."
 msgstr "Keine Beiträge verfügbar."
 
@@ -344,11 +328,11 @@ msgstr "Kein Kanal angefragt."
 msgid "No channel specified."
 msgstr "Kein Kanal angegeben."
 
-#: templates/view/channellist.html.php:52
+#: templates/view/channellist.html.php:50
 msgid "No channels are available."
 msgstr "Keine Kanäle sind verfügbar."
 
-#: lib/Block/News.php:85 lib/Block/NewsPopular.php:84
+#: lib/Block/News.php:85 lib/Block/NewsPopular.php:91
 msgid "No feed specified."
 msgstr "Kein Feed angegeben."
 
@@ -356,11 +340,11 @@ msgstr "Kein Feed angegeben."
 msgid "No feeds are available."
 msgstr "Keine Feeds verfügbar."
 
-#: templates/view/channellist.html.php:48
+#: templates/view/channellist.html.php:46
 msgid "No feeds match"
 msgstr "Keine Treffer"
 
-#: lib/Driver.php:309
+#: lib/Driver.php:303
 msgid "No stories are currently available."
 msgstr "Zur Zeit sind keine Beiträge verfügbar."
 
@@ -393,7 +377,7 @@ msgstr "Notiz"
 msgid "Or publish on this date:"
 msgstr "Oder zu diesem Datum veröffentlichen:"
 
-#: lib/View/StoryList.php:82 lib/View/TagSearchList.php:81
+#: lib/View/StoryList.php:75 lib/View/TagSearchList.php:80
 msgid "PDF version"
 msgstr "PDF-Version"
 
@@ -405,7 +389,7 @@ msgstr "Parsen fehlgeschlagen:"
 msgid "Parse succeeded, structure is:"
 msgstr "Parsen erfolgreich, Struktur ist:"
 
-#: lib/Driver.php:415
+#: lib/Driver.php:409
 msgid "Plaintext Version of Story"
 msgstr "Textversion des Beitrags"
 
@@ -438,7 +422,7 @@ msgstr "Diesen Nachrichtenbeitrag wirklich löschen?"
 msgid "Results URL"
 msgstr "Ergebnis-URL"
 
-#: lib/Jonah.php:164
+#: lib/Jonah.php:116
 msgid "Rich Text"
 msgstr "Formatierter Text"
 
@@ -466,7 +450,7 @@ msgstr "Trennen Sie mehrere Emailadressen durch Kommas."
 msgid "Share Story"
 msgstr "Beitrag weitergeben"
 
-#: lib/View/StoryView.php:125
+#: lib/View/StoryView.php:138
 msgid "Share this story"
 msgstr "Diesen Beitrag weitergeben"
 
@@ -474,7 +458,7 @@ msgstr "Diesen Beitrag weitergeben"
 msgid "Short Description"
 msgstr "Kurzbeschreibung"
 
-#: lib/Form/Feed.php:45
+#: lib/Form/Feed.php:38
 #, php-format
 msgid ""
 "Slugs allows direct access to this channel's content by visiting: %s. <br /> "
@@ -487,7 +471,7 @@ msgstr ""
 msgid "Standard"
 msgstr "Standard"
 
-#: delivery/rss.php:71
+#: delivery/rss.php:72
 #, php-format
 msgid "Stories tagged with %s in %s"
 msgstr "Mit %s getaggte Beiträge in %s"
@@ -509,7 +493,7 @@ msgstr "Beitragstitel (Überschrift)"
 msgid "Story URL"
 msgstr "Beitrags-URL"
 
-#: lib/Form/Feed.php:52
+#: lib/Form/Feed.php:45
 #, php-format
 msgid ""
 "Story URL if not the default one. %c gets replaced by the feed ID, %s by the "
@@ -527,11 +511,11 @@ msgstr "Art des Beitragstexts"
 msgid "Story editing failed: %s"
 msgstr "Bearbeiten des Beitrags fehlgeschlagen: %s"
 
-#: lib/View/StoryDelete.php:77
+#: lib/View/StoryDelete.php:76
 msgid "Story has not been deleted."
 msgstr "Der Beitrag wurde nicht gelöscht."
 
-#: lib/Driver/Sql.php:527
+#: lib/Driver/Sql.php:548
 #, php-format
 msgid "Story id \"%s\" not found."
 msgstr "Beitrags-ID \"%s\" nicht gefunden."
@@ -543,11 +527,6 @@ msgstr "Betreff"
 #: lib/Block/Cloud.php:20
 msgid "Tag Cloud"
 msgstr "Tagwolke"
-
-#: lib/Driver.php:448 lib/Driver.php:453 lib/Driver.php:458 lib/Driver.php:464
-#: lib/Driver.php:469
-msgid "Tag support not enabled in backend."
-msgstr "Tags sind für dieses Backend nicht aktiviert."
 
 #: lib/Form/Story.php:77
 msgid "Tags"
@@ -561,7 +540,7 @@ msgstr "Tags:"
 msgid "Tags: "
 msgstr "Tags: "
 
-#: lib/Jonah.php:171
+#: lib/Jonah.php:123
 msgid "Text"
 msgstr "Text"
 
@@ -578,7 +557,7 @@ msgstr "Den gesamten Nachrichtentext"
 msgid "The feed \"%s\" has been saved."
 msgstr "Der Feed \"%s\" wurde gespeichert."
 
-#: lib/View/StoryEdit.php:65
+#: lib/View/StoryEdit.php:64
 #, php-format
 msgid "The story \"%s\" has been saved."
 msgstr "Der Beitrag \"%s\" wurde gespeichert."
@@ -596,7 +575,7 @@ msgstr "Der Beitrag wurde erfolgreich versendet."
 msgid "There was an error deleting the channel: %s"
 msgstr "Beim Löschen des Kanals ist ein Fehler aufgetreten: %s"
 
-#: lib/View/StoryDelete.php:73
+#: lib/View/StoryDelete.php:72
 #, php-format
 msgid "There was an error deleting the story: %s"
 msgstr "Beim Löschen des Beitrags ist ein Fehler aufgetreten: %s"
@@ -606,7 +585,7 @@ msgstr "Beim Löschen des Beitrags ist ein Fehler aufgetreten: %s"
 msgid "There was an error saving the feed: %s"
 msgstr "Beim Speichern des Feeds ist ein Fehler aufgetreten: %s"
 
-#: lib/View/StoryEdit.php:69
+#: lib/View/StoryEdit.php:67
 #, php-format
 msgid "There was an error saving the story: %s"
 msgstr "Beim Speichern des Beitrags ist ein Fehler aufgetreten: %s"
@@ -614,10 +593,6 @@ msgstr "Beim Speichern des Beitrags ist ein Fehler aufgetreten: %s"
 #: stories/share.php:86
 msgid "To"
 msgstr "An"
-
-#: lib/Form/Feed.php:29 templates/view/channellist.html.php:27
-msgid "Type"
-msgstr "Typ"
 
 #: config/templates.php:56
 msgid "Ultracompact"
@@ -628,24 +603,24 @@ msgstr "Sehr kompakt"
 msgid "Unable to send story: %s"
 msgstr "Der Beitrag konnte nicht versendet werden: %s"
 
-#: lib/Block/News.php:38 lib/Block/NewsPopular.php:42
+#: lib/Block/News.php:38 lib/Block/NewsPopular.php:46
 msgid "View"
 msgstr "Anzeigen"
 
 #: lib/Api.php:111 lib/View/ChannelDelete.php:47 lib/View/ChannelEdit.php:41
-#: lib/View/StoryDelete.php:39 lib/View/StoryEdit.php:46
-#: lib/View/StoryList.php:32 lib/View/TagSearchList.php:34
+#: lib/View/StoryDelete.php:39 lib/View/StoryEdit.php:45
+#: lib/View/StoryList.php:32 lib/View/TagSearchList.php:39
 msgid "You are not authorised for this action."
 msgstr "Sie sind zu dieser Aktion nicht autorisiert."
 
-#: lib/Application.php:92
+#: lib/Application.php:100
 msgid "_Feeds"
 msgstr "_Feeds"
 
-#: lib/Application.php:113
+#: lib/Application.php:117
 msgid "_New Story"
 msgstr "_Neuer Beitrag"
 
-#: lib/Driver.php:246
+#: lib/Driver.php:240
 msgid "none"
 msgstr "keines"
