@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ansel\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2016-08-08 15:06+0200\n"
+"POT-Creation-Date: 2017-07-26 11:56+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -162,11 +162,11 @@ msgstr ""
 msgid "Access denied deleting galleries."
 msgstr ""
 
-#: lib/ActionHandler.php:122 lib/Api.php:410
+#: lib/ActionHandler.php:125 lib/Api.php:410
 msgid "Access denied deleting photos from this gallery."
 msgstr ""
 
-#: lib/ActionHandler.php:948 lib/ActionHandler.php:973 lib/Api.php:497
+#: lib/ActionHandler.php:951 lib/ActionHandler.php:976 lib/Api.php:497
 msgid "Access denied deleting this gallery."
 msgstr ""
 
@@ -174,7 +174,7 @@ msgstr ""
 msgid "Access denied downloading full sized photos from this gallery."
 msgstr ""
 
-#: lib/ActionHandler.php:57 lib/ActionHandler.php:232 lib/ActionHandler.php:901
+#: lib/ActionHandler.php:74 lib/ActionHandler.php:235 lib/ActionHandler.php:904
 #: lib/Image.php:921
 msgid "Access denied downloading photos from this gallery."
 msgstr ""
@@ -183,7 +183,7 @@ msgstr ""
 msgid "Access denied editing galleries."
 msgstr ""
 
-#: faces/custom.php:36 lib/ActionHandler.php:495 lib/ActionHandler.php:825
+#: faces/custom.php:36 lib/ActionHandler.php:498 lib/ActionHandler.php:828
 #: lib/Faces/Base.php:434 lib/Faces/Base.php:522
 msgid "Access denied editing the photo."
 msgstr ""
@@ -200,8 +200,8 @@ msgstr ""
 msgid "Access denied removing photos from this gallery."
 msgstr ""
 
-#: lib/ActionHandler.php:341 lib/ActionHandler.php:584
-#: lib/ActionHandler.php:626
+#: lib/ActionHandler.php:344 lib/ActionHandler.php:587
+#: lib/ActionHandler.php:629
 msgid "Access denied saving photo to this gallery."
 msgstr ""
 
@@ -350,7 +350,7 @@ msgstr ""
 msgid "Background Color"
 msgstr ""
 
-#: lib/ActionHandler.php:169 lib/ActionHandler.php:209
+#: lib/ActionHandler.php:172 lib/ActionHandler.php:212
 msgid "Bad input."
 msgstr ""
 
@@ -379,7 +379,7 @@ msgstr ""
 msgid "Can't get unknown file type \"%s\"."
 msgstr ""
 
-#: disclamer.php:30 disclamer.php:33 faces/claim.php:34 faces/report.php:37
+#: disclamer.php:29 disclamer.php:32 faces/claim.php:34 faces/report.php:37
 #: faces/savecustom.php:28 lib/Form/Upload.php:30 lib/View/Upload.php:256
 #: report.php:49 report.php:68 templates/faces/custom.inc:19
 #: templates/faces/define.inc:39 templates/gallery/delete_confirmation.inc:13
@@ -463,7 +463,7 @@ msgstr ""
 msgid "Comments:"
 msgstr ""
 
-#: disclamer.php:23
+#: disclamer.php:22
 msgid "Content Disclaimer"
 msgstr ""
 
@@ -472,12 +472,12 @@ msgstr ""
 msgid "Content abuse report in %s"
 msgstr ""
 
-#: disclamer.php:30
+#: disclamer.php:29
 #, php-format
 msgid "Continue - I'm over %d"
 msgstr ""
 
-#: lib/ActionHandler.php:198
+#: lib/ActionHandler.php:201
 #, php-format
 msgid "Copied %d photo from %s to %s"
 msgid_plural "Copied %d photos from %s to %s"
@@ -534,7 +534,7 @@ msgstr ""
 msgid "Created"
 msgstr ""
 
-#: lib/ActionHandler.php:839 templates/image/crop_image.inc:111
+#: lib/ActionHandler.php:842 templates/image/crop_image.inc:111
 #: templates/image/edit_image.inc:30 templates/image/resize_image.inc:29
 msgid "Crop"
 msgstr ""
@@ -587,7 +587,7 @@ msgstr ""
 msgid "Delete geotag"
 msgstr ""
 
-#: lib/ActionHandler.php:126
+#: lib/ActionHandler.php:129
 msgid "Deleted the photo."
 msgstr ""
 
@@ -673,7 +673,7 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: lib/ActionHandler.php:505
+#: lib/ActionHandler.php:508
 #, php-format
 msgid "Edit %s :: %s"
 msgstr ""
@@ -692,11 +692,11 @@ msgstr ""
 msgid "Edit Permissions for %s"
 msgstr ""
 
-#: lib/ActionHandler.php:770
+#: lib/ActionHandler.php:773
 msgid "Edit Photo"
 msgstr ""
 
-#: lib/ActionHandler.php:362
+#: lib/ActionHandler.php:365
 msgid "Edit a photo"
 msgstr ""
 
@@ -708,7 +708,7 @@ msgstr ""
 msgid "Edit faces"
 msgstr ""
 
-#: lib/ActionHandler.php:306
+#: lib/ActionHandler.php:309
 #, php-format
 msgid "Edit properties :: %s"
 msgstr ""
@@ -855,7 +855,7 @@ msgstr ""
 msgid "Gallery"
 msgstr ""
 
-#: img/upload.php:21 lib/ActionHandler.php:291 lib/Storage.php:279
+#: img/upload.php:21 lib/ActionHandler.php:294 lib/Storage.php:279
 #, php-format
 msgid "Gallery %s not found."
 msgstr ""
@@ -1144,7 +1144,7 @@ msgstr ""
 msgid "Move"
 msgstr ""
 
-#: lib/ActionHandler.php:158
+#: lib/ActionHandler.php:161
 #, php-format
 msgid "Moved %d photo from \"%s\" to \"%s\""
 msgid_plural "Moved %d photos from \"%s\" to \"%s\""
@@ -1367,7 +1367,7 @@ msgstr ""
 msgid "Photo Upload"
 msgstr ""
 
-#: disclamer.php:28
+#: disclamer.php:27
 #, php-format
 msgid "Photo content may be offensive. You must be over %d to continue."
 msgstr ""
@@ -1380,7 +1380,7 @@ msgstr ""
 msgid "Photo not found"
 msgstr ""
 
-#: lib/ActionHandler.php:302
+#: lib/ActionHandler.php:305
 msgid "Photo not found."
 msgstr ""
 
@@ -1448,7 +1448,7 @@ msgstr ""
 msgid "Preview"
 msgstr ""
 
-#: lib/ActionHandler.php:774 lib/ActionHandler.php:843
+#: lib/ActionHandler.php:777 lib/ActionHandler.php:846
 #, php-format
 msgid "Preview changes for %s :: %s"
 msgstr ""
@@ -1727,7 +1727,7 @@ msgstr ""
 msgid "Save Gallery"
 msgstr ""
 
-#: lib/ActionHandler.php:338
+#: lib/ActionHandler.php:341
 msgid "Save Photo"
 msgstr ""
 
@@ -1885,12 +1885,12 @@ msgstr ""
 msgid "Subject"
 msgstr ""
 
-#: lib/ActionHandler.php:954
+#: lib/ActionHandler.php:957
 #, php-format
 msgid "Successfully deleted %s."
 msgstr ""
 
-#: lib/ActionHandler.php:978
+#: lib/ActionHandler.php:981
 #, php-format
 msgid "Successfully emptied \"%s\""
 msgstr ""
@@ -1930,7 +1930,7 @@ msgstr ""
 msgid "The file \"%s\" doesn't exist."
 msgstr ""
 
-#: lib/ActionHandler.php:374 lib/Api.php:319 lib/View/Upload.php:219
+#: lib/ActionHandler.php:377 lib/Api.php:319 lib/View/Upload.php:219
 msgid "The file you uploaded does not appear to be a valid photo."
 msgstr ""
 
@@ -1953,15 +1953,15 @@ msgstr ""
 msgid "The gallery was saved."
 msgstr ""
 
-#: lib/ActionHandler.php:1007
+#: lib/ActionHandler.php:1010
 msgid "The gallery's default photo has successfully been reset."
 msgstr ""
 
-#: lib/ActionHandler.php:1027
+#: lib/ActionHandler.php:1030
 msgid "The gallery's thumbnails have successfully been reset."
 msgstr ""
 
-#: lib/ActionHandler.php:1042
+#: lib/ActionHandler.php:1045
 msgid "The gallery's views have successfully been reset."
 msgstr ""
 
@@ -1997,12 +1997,12 @@ msgstr ""
 msgid "There are no photos in this gallery."
 msgstr ""
 
-#: lib/ActionHandler.php:958
+#: lib/ActionHandler.php:961
 #, php-format
 msgid "There was a problem deleting %s: %s"
 msgstr ""
 
-#: lib/ActionHandler.php:129
+#: lib/ActionHandler.php:132
 #, php-format
 msgid "There was a problem deleting photos: %s"
 msgstr ""
@@ -2044,7 +2044,7 @@ msgstr ""
 msgid "There was an error processing the uploaded archive: %s"
 msgstr ""
 
-#: lib/ActionHandler.php:391
+#: lib/ActionHandler.php:394
 msgid "There was an error replacing the photo."
 msgstr ""
 
@@ -2210,7 +2210,7 @@ msgstr ""
 msgid "View to display by default"
 msgstr ""
 
-#: lib/ActionHandler.php:722 lib/ActionHandler.php:732
+#: lib/ActionHandler.php:725 lib/ActionHandler.php:735
 #: templates/image/crop_image.inc:108 templates/image/edit_image.inc:26
 #: templates/image/resize_image.inc:25
 msgid "Watermark"
@@ -2315,7 +2315,7 @@ msgstr ""
 msgid "You must select at least on photo to edit."
 msgstr ""
 
-#: lib/ActionHandler.php:81 lib/ActionHandler.php:256
+#: lib/ActionHandler.php:84 lib/ActionHandler.php:259
 msgid "You must select images to download."
 msgstr ""
 

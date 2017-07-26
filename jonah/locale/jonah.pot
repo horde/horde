@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jonah\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-03-25 18:08+0100\n"
+"POT-Creation-Date: 2017-07-26 11:56+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -104,10 +104,6 @@ msgstr ""
 msgid "Channel id \"%s\" not found."
 msgstr ""
 
-#: lib/View/StoryList.php:55
-msgid "Channel refreshed."
-msgstr ""
-
 #: lib/Application.php:67
 msgid "Channels"
 msgstr ""
@@ -164,7 +160,7 @@ msgstr ""
 msgid "Delete channel"
 msgstr ""
 
-#: lib/View/StoryList.php:91 lib/View/TagSearchList.php:92
+#: lib/View/StoryList.php:87 lib/View/TagSearchList.php:92
 msgid "Delete story"
 msgstr ""
 
@@ -188,7 +184,7 @@ msgstr ""
 msgid "Edit channel"
 msgstr ""
 
-#: lib/View/StoryList.php:86 lib/View/TagSearchList.php:86
+#: lib/View/StoryList.php:82 lib/View/TagSearchList.php:86
 msgid "Edit story"
 msgstr ""
 
@@ -255,7 +251,7 @@ msgstr ""
 msgid "Internal"
 msgstr ""
 
-#: lib/View/StoryList.php:45 lib/View/TagSearchList.php:52
+#: lib/View/StoryList.php:46 lib/View/TagSearchList.php:52
 #, php-format
 msgid "Invalid channel requested. %s"
 msgstr ""
@@ -385,7 +381,7 @@ msgstr ""
 msgid "Or publish on this date:"
 msgstr ""
 
-#: lib/View/StoryList.php:82 lib/View/TagSearchList.php:81
+#: lib/View/StoryList.php:78 lib/View/TagSearchList.php:81
 msgid "PDF version"
 msgstr ""
 
@@ -513,7 +509,7 @@ msgstr ""
 msgid "Story editing failed: %s"
 msgstr ""
 
-#: lib/View/StoryDelete.php:77
+#: lib/View/StoryDelete.php:76
 msgid "Story has not been deleted."
 msgstr ""
 
@@ -564,7 +560,7 @@ msgstr ""
 msgid "The feed \"%s\" has been saved."
 msgstr ""
 
-#: lib/View/StoryEdit.php:65
+#: lib/View/StoryEdit.php:64
 #, php-format
 msgid "The story \"%s\" has been saved."
 msgstr ""
@@ -582,7 +578,7 @@ msgstr ""
 msgid "There was an error deleting the channel: %s"
 msgstr ""
 
-#: lib/View/StoryDelete.php:73
+#: lib/View/StoryDelete.php:72
 #, php-format
 msgid "There was an error deleting the story: %s"
 msgstr ""
@@ -592,7 +588,7 @@ msgstr ""
 msgid "There was an error saving the feed: %s"
 msgstr ""
 
-#: lib/View/StoryEdit.php:69
+#: lib/View/StoryEdit.php:67
 #, php-format
 msgid "There was an error saving the story: %s"
 msgstr ""
@@ -619,7 +615,7 @@ msgid "View"
 msgstr ""
 
 #: lib/Api.php:111 lib/View/ChannelDelete.php:47 lib/View/ChannelEdit.php:41
-#: lib/View/StoryDelete.php:39 lib/View/StoryEdit.php:46
+#: lib/View/StoryDelete.php:39 lib/View/StoryEdit.php:45
 #: lib/View/StoryList.php:32 lib/View/TagSearchList.php:34
 msgid "You are not authorised for this action."
 msgstr ""

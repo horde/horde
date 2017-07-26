@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Whups\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2016-08-08 15:06+0200\n"
+"POT-Creation-Date: 2017-07-26 11:56+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -229,7 +229,7 @@ msgstr ""
 
 #: config/prefs.php:57 lib/Api.php:663 lib/Driver.php:304
 #: lib/Form/Renderer/Query.php:164 lib/Form/TicketDetails.php:127
-#: lib/Whups.php:868
+#: lib/Whups.php:869
 msgid "Assigned"
 msgstr ""
 
@@ -455,7 +455,7 @@ msgid "Create Ticket - Step 4"
 msgstr ""
 
 #: config/prefs.php:56 lib/Api.php:668 lib/Form/Renderer/Query.php:149
-#: lib/Form/TicketDetails.php:109 lib/Whups.php:866
+#: lib/Form/TicketDetails.php:109 lib/Whups.php:867
 msgid "Created"
 msgstr ""
 
@@ -519,7 +519,7 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: lib/Whups.php:1068 lib/Whups.php:1077
+#: lib/Whups.php:1069 lib/Whups.php:1078
 #, php-format
 msgid "Delete %s"
 msgstr ""
@@ -630,7 +630,7 @@ msgstr ""
 msgid "Display Preferences"
 msgstr ""
 
-#: lib/Whups.php:1055
+#: lib/Whups.php:1056
 msgid "Download"
 msgstr ""
 
@@ -640,7 +640,7 @@ msgstr ""
 
 #: lib/Api.php:672 lib/Form/Renderer/Query.php:169
 #: lib/Form/TicketDetails.php:115 lib/Ticket.php:696 lib/Ticket.php:888
-#: lib/Whups.php:869
+#: lib/Whups.php:870
 msgid "Due"
 msgstr ""
 
@@ -895,7 +895,7 @@ msgstr ""
 
 #: config/prefs.php:49 lib/Block/Tickets.php:54
 #: lib/Form/Query/PropertyCriterion.php:39 lib/Form/Renderer/Query.php:87
-#: lib/Whups.php:858 lib/Whups.php:881
+#: lib/Whups.php:859 lib/Whups.php:882
 msgid "Id"
 msgstr ""
 
@@ -1162,7 +1162,7 @@ msgstr ""
 msgid "No tickets in queue."
 msgstr ""
 
-#: lib/Whups.php:926
+#: lib/Whups.php:927
 msgid "No tickets matched your search criteria."
 msgstr ""
 
@@ -1253,11 +1253,11 @@ msgstr ""
 #: lib/Form/Ticket/CreateStepFour.php:67 lib/Form/Ticket/Edit.php:118
 #: lib/Form/TicketDetails.php:96 lib/Ticket.php:702 lib/Ticket.php:786
 #: lib/Ticket.php:787 lib/Ticket.php:790 lib/Ticket.php:892 lib/Ticket.php:913
-#: lib/Whups.php:865
+#: lib/Whups.php:866
 msgid "Owners"
 msgstr ""
 
-#: lib/Whups.php:1071
+#: lib/Whups.php:1072
 #, php-format
 msgid "Permanently delete %s?"
 msgstr ""
@@ -1289,7 +1289,7 @@ msgstr ""
 #: lib/Form/Queue/StepThree.php:35 lib/Form/Renderer/Query.php:129
 #: lib/Form/SetTypeStepTwo.php:28 lib/Form/Ticket/CreateStepThree.php:69
 #: lib/Form/Ticket/Edit.php:86 lib/Form/TicketDetails.php:91 lib/Ticket.php:695
-#: lib/Ticket.php:887 lib/Whups.php:862
+#: lib/Ticket.php:887 lib/Whups.php:863
 msgid "Priority"
 msgstr ""
 
@@ -1342,7 +1342,7 @@ msgstr ""
 #: lib/Block/Queuesummary.php:39 lib/Form/Query/PropertyCriterion.php:52
 #: lib/Form/Renderer/Query.php:98 lib/Form/Search.php:40
 #: lib/Form/TicketDetails.php:53 lib/Form/TicketDetails.php:60
-#: lib/Ticket.php:691 lib/Ticket.php:883 lib/Whups.php:863
+#: lib/Ticket.php:691 lib/Ticket.php:883 lib/Whups.php:864
 msgid "Queue"
 msgstr ""
 
@@ -1448,7 +1448,7 @@ msgstr ""
 msgid "Refine Search"
 msgstr ""
 
-#: lib/Whups.php:961
+#: lib/Whups.php:962
 msgid "Reminder: Your open tickets"
 msgstr ""
 
@@ -1473,7 +1473,7 @@ msgid "Reports"
 msgstr ""
 
 #: lib/Form/Renderer/Query.php:90 lib/Form/TicketDetails.php:103
-#: lib/Whups.php:864
+#: lib/Whups.php:865
 msgid "Requester"
 msgstr ""
 
@@ -1484,7 +1484,7 @@ msgstr ""
 
 #: config/prefs.php:58 lib/Api.php:677 lib/Driver.php:305
 #: lib/Form/Renderer/Query.php:159 lib/Form/TicketDetails.php:133
-#: lib/Whups.php:870
+#: lib/Whups.php:871
 msgid "Resolved"
 msgstr ""
 
@@ -1500,7 +1500,7 @@ msgstr ""
 msgid "Responsible Users"
 msgstr ""
 
-#: lib/Whups.php:438
+#: lib/Whups.php:439
 msgid "S_et Queue"
 msgstr ""
 
@@ -1633,7 +1633,7 @@ msgstr ""
 msgid "Set Type for %s"
 msgstr ""
 
-#: lib/Whups.php:443
+#: lib/Whups.php:444
 msgid "Set _Type"
 msgstr ""
 
@@ -1676,7 +1676,7 @@ msgstr ""
 #: lib/Form/Queue/StepThree.php:34 lib/Form/Renderer/Query.php:121
 #: lib/Form/SetTypeStepTwo.php:27 lib/Form/Ticket/Edit.php:80
 #: lib/Form/TicketDetails.php:86 lib/Ticket.php:694 lib/Ticket.php:886
-#: lib/Whups.php:860
+#: lib/Whups.php:861
 msgid "State"
 msgstr ""
 
@@ -1733,7 +1733,7 @@ msgstr ""
 #: lib/Form/Ticket/CreateStepThree.php:74 lib/Form/Ticket/Delete.php:20
 #: lib/Form/Ticket/Edit.php:63 lib/Form/TicketDetails.php:47 lib/Ticket.php:701
 #: lib/Ticket.php:728 lib/Ticket.php:731 lib/Ticket.php:735 lib/Ticket.php:892
-#: lib/Ticket.php:901 lib/Whups.php:859
+#: lib/Ticket.php:901 lib/Whups.php:860
 msgid "Summary"
 msgstr ""
 
@@ -2137,7 +2137,7 @@ msgstr ""
 msgid "Ticket #"
 msgstr ""
 
-#: lib/Whups.php:412
+#: lib/Whups.php:413
 msgid "Ticket #Id"
 msgstr ""
 
@@ -2208,7 +2208,7 @@ msgstr ""
 #: config/prefs.php:52 lib/Form/Query/PropertyCriterion.php:43
 #: lib/Form/Queue/StepTwo.php:42 lib/Form/Renderer/Query.php:112
 #: lib/Form/TicketDetails.php:82 lib/Ticket.php:693 lib/Ticket.php:885
-#: lib/Whups.php:861
+#: lib/Whups.php:862
 msgid "Type"
 msgstr ""
 
@@ -2267,7 +2267,7 @@ msgid "Update Associations"
 msgstr ""
 
 #: lib/Form/Renderer/Query.php:154 lib/Form/TicketDetails.php:121
-#: lib/Whups.php:867
+#: lib/Whups.php:868
 msgid "Updated"
 msgstr ""
 
@@ -2384,7 +2384,7 @@ msgstr ""
 msgid "You have no saved queries."
 msgstr ""
 
-#: lib/Whups.php:920
+#: lib/Whups.php:921
 msgid "You must select at least one queue to send reminders for."
 msgstr ""
 
@@ -2403,7 +2403,7 @@ msgstr ""
 msgid "[ Could not render body of message. ]"
 msgstr ""
 
-#: lib/Whups.php:619
+#: lib/Whups.php:620
 msgid "[Hidden]"
 msgstr ""
 
@@ -2415,11 +2415,11 @@ msgstr ""
 msgid "_Admin"
 msgstr ""
 
-#: lib/Whups.php:424
+#: lib/Whups.php:425
 msgid "_Attachments"
 msgstr ""
 
-#: lib/Whups.php:430
+#: lib/Whups.php:431
 msgid "_Comment"
 msgstr ""
 
@@ -2427,7 +2427,7 @@ msgstr ""
 msgid "_Date Criteria"
 msgstr ""
 
-#: lib/Whups.php:448
+#: lib/Whups.php:449
 msgid "_Delete"
 msgstr ""
 
@@ -2447,7 +2447,7 @@ msgstr ""
 msgid "_Group Criteria"
 msgstr ""
 
-#: lib/Whups.php:423
+#: lib/Whups.php:424
 msgid "_History"
 msgstr ""
 
@@ -2484,7 +2484,7 @@ msgstr ""
 msgid "_Text Criteria"
 msgstr ""
 
-#: lib/Whups.php:426
+#: lib/Whups.php:427
 msgid "_Update"
 msgstr ""
 
@@ -2492,7 +2492,7 @@ msgstr ""
 msgid "_User Criteria"
 msgstr ""
 
-#: lib/Whups.php:434
+#: lib/Whups.php:435
 msgid "_Watch"
 msgstr ""
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mnemo\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2016-08-08 15:06+0200\n"
+"POT-Creation-Date: 2017-07-26 11:56+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -47,7 +47,7 @@ msgstr ""
 msgid "Access denied saving note to this notepad."
 msgstr ""
 
-#: config/prefs.php:149
+#: config/prefs.php:153
 msgid ""
 "All state removed for your ActiveSync devices. They will resynchronize next "
 "time they connect to the server."
@@ -165,7 +165,7 @@ msgstr ""
 msgid "Display Preferences"
 msgstr ""
 
-#: config/prefs.php:174
+#: config/prefs.php:178
 msgid "Do you want to confirm deleting entries?"
 msgstr ""
 
@@ -425,7 +425,7 @@ msgstr ""
 msgid "Successfully saved \"%s\"."
 msgstr ""
 
-#: config/prefs.php:161
+#: config/prefs.php:165
 msgid "Support separate notepads?"
 msgstr ""
 
@@ -484,7 +484,7 @@ msgstr ""
 msgid "The passwords don't match."
 msgstr ""
 
-#: config/prefs.php:151
+#: config/prefs.php:155
 #, php-format
 msgid "There was an error communicating with the ActiveSync server: %s"
 msgstr ""

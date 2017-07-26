@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ingo\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2016-08-08 15:06+0200\n"
+"POT-Creation-Date: 2017-07-26 11:56+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -99,7 +99,7 @@ msgstr ""
 msgid "Apply Filters"
 msgstr ""
 
-#: lib/Basic/Filters.php:270
+#: lib/Basic/Filters.php:271
 msgid "Are you sure you want to delete this rule?"
 msgstr ""
 
@@ -128,7 +128,7 @@ msgstr ""
 msgid "Bind failed: (%s) %s"
 msgstr ""
 
-#: lib/Basic/Blacklist.php:32 lib/Basic/Filters.php:200
+#: lib/Basic/Blacklist.php:32 lib/Basic/Filters.php:201
 #: lib/Block/Overview.php:101 lib/Smartmobile.php:85
 #: templates/basic/blacklist/blacklist.html.php:5
 msgid "Blacklist"
@@ -172,7 +172,7 @@ msgstr ""
 msgid "Copy"
 msgstr ""
 
-#: lib/Basic/Filters.php:275
+#: lib/Basic/Filters.php:276
 #, php-format
 msgid "Copy %s"
 msgstr ""
@@ -202,7 +202,7 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: lib/Basic/Filters.php:270
+#: lib/Basic/Filters.php:271
 #, php-format
 msgid "Delete %s"
 msgstr ""
@@ -243,7 +243,7 @@ msgstr ""
 msgid "Destination (To, Cc, Bcc, etc.)"
 msgstr ""
 
-#: lib/Basic/Filters.php:282
+#: lib/Basic/Filters.php:283
 #, php-format
 msgid "Disable %s"
 msgstr ""
@@ -298,12 +298,12 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: lib/Basic/Filters.php:263 lib/Basic/Filters.php:265
+#: lib/Basic/Filters.php:264 lib/Basic/Filters.php:266
 #, php-format
 msgid "Edit %s"
 msgstr ""
 
-#: lib/Basic/Filters.php:285
+#: lib/Basic/Filters.php:286
 #, php-format
 msgid "Enable %s"
 msgstr ""
@@ -375,7 +375,7 @@ msgstr ""
 msgid "Filter Rule"
 msgstr ""
 
-#: lib/Basic/Filters.php:321
+#: lib/Basic/Filters.php:322
 msgid "Filter Rules"
 msgstr ""
 
@@ -442,7 +442,7 @@ msgstr ""
 msgid "For an incoming message that matches:"
 msgstr ""
 
-#: lib/Basic/Filters.php:227 lib/Basic/Forward.php:33 lib/Basic/Forward.php:84
+#: lib/Basic/Filters.php:228 lib/Basic/Forward.php:33 lib/Basic/Forward.php:84
 #: lib/Block/Overview.php:75 lib/Smartmobile.php:100
 msgid "Forward"
 msgstr ""
@@ -526,7 +526,7 @@ msgstr ""
 msgid "Login to %s failed."
 msgstr ""
 
-#: lib/Basic/Filters.php:314
+#: lib/Basic/Filters.php:315
 msgid "Mailbox Search"
 msgstr ""
 
@@ -601,7 +601,7 @@ msgstr ""
 msgid "Missing reason for reject"
 msgstr ""
 
-#: lib/Script/Sieve/Action/Vacation.php:150
+#: lib/Script/Sieve/Action/Vacation.php:166
 msgid "Missing reason in vacation."
 msgstr ""
 
@@ -913,7 +913,7 @@ msgstr ""
 msgid "Source (From, Reply-to, etc.)"
 msgstr ""
 
-#: lib/Basic/Filters.php:236 lib/Block/Overview.php:112
+#: lib/Basic/Filters.php:237 lib/Block/Overview.php:112
 #: lib/Script/Maildrop.php:296 lib/Script/Sieve.php:404 lib/Smartmobile.php:105
 msgid "Spam Filter"
 msgstr ""
@@ -995,7 +995,7 @@ msgstr ""
 msgid "User header"
 msgstr ""
 
-#: lib/Basic/Filters.php:218 lib/Basic/Vacation.php:32
+#: lib/Basic/Filters.php:219 lib/Basic/Vacation.php:32
 #: lib/Basic/Vacation.php:122 lib/Block/Overview.php:64
 #: lib/Script/Maildrop.php:259 lib/Script/Procmail.php:286
 #: lib/Script/Sieve.php:377 lib/Smartmobile.php:95
@@ -1026,7 +1026,7 @@ msgstr ""
 msgid "Wh_itelist addresses:"
 msgstr ""
 
-#: lib/Basic/Filters.php:209 lib/Basic/Whitelist.php:33
+#: lib/Basic/Filters.php:210 lib/Basic/Whitelist.php:33
 #: lib/Block/Overview.php:90 lib/Smartmobile.php:90
 #: templates/basic/whitelist/whitelist.html.php:5
 msgid "Whitelist"

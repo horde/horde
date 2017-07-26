@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Nag\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2016-08-08 15:06+0200\n"
+"POT-Creation-Date: 2017-07-26 11:56+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -181,7 +181,7 @@ msgstr ""
 msgid "All completed tasks older than %d days will be permanently deleted."
 msgstr ""
 
-#: config/prefs.php:316
+#: config/prefs.php:320
 msgid ""
 "All state removed for your ActiveSync devices. They will resynchronize next "
 "time they connect to the server."
@@ -867,7 +867,7 @@ msgstr ""
 msgid "Private"
 msgstr ""
 
-#: data.php:54 lib/Task.php:851
+#: data.php:54 lib/Task.php:854
 msgid "Private Task"
 msgstr ""
 
@@ -1101,7 +1101,7 @@ msgstr ""
 msgid "Successfully deleted"
 msgstr ""
 
-#: config/prefs.php:328
+#: config/prefs.php:332
 msgid "Support separate task lists?"
 msgstr ""
 
@@ -1313,7 +1313,7 @@ msgstr ""
 msgid "There was a problem saving the task: %s."
 msgstr ""
 
-#: config/prefs.php:318
+#: config/prefs.php:322
 #, php-format
 msgid "There was an error communicating with the ActiveSync server: %s"
 msgstr ""
