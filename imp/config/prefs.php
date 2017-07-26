@@ -1495,7 +1495,7 @@ $_prefs['atc_flag'] = array(
     'value' => 0,
     'advanced' => true,
     'type' => 'checkbox',
-    'desc' => _("Indicate whether a message has attachments or is signed or encrypted in in the mailbox listing?")
+    'desc' => _("Indicate whether a message has attachments or is signed or encrypted in the mailbox listing?")
 );
 
 
