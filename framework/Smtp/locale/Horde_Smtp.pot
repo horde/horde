@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Smtp\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2015-12-28 17:25+0100\n"
+"POT-Creation-Date: 2017-07-26 12:13+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,7 +25,7 @@ msgstr ""
 msgid "Error connecting to SMTP server."
 msgstr ""
 
-#: lib/Horde/Smtp/Connection.php:124
+#: lib/Horde/Smtp/Connection.php:131
 msgid "Error when communicating with the server."
 msgstr ""
 
@@ -43,7 +43,7 @@ msgid ""
 "is not receiving messages."
 msgstr ""
 
-#: lib/Horde/Smtp/Connection.php:116
+#: lib/Horde/Smtp/Connection.php:123
 msgid "Server closed the connection unexpectedly."
 msgstr ""
 
@@ -68,6 +68,6 @@ msgstr ""
 msgid "Server requires authentication."
 msgstr ""
 
-#: lib/Horde/Smtp/Connection.php:94
+#: lib/Horde/Smtp/Connection.php:101
 msgid "Server write error."
 msgstr ""

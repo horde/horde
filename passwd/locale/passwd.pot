@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Passwd\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2016-08-08 15:58+0200\n"
+"POT-Creation-Date: 2017-07-26 12:13+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -150,11 +150,11 @@ msgstr ""
 msgid "New password:"
 msgstr ""
 
-#: lib/Factory/Driver.php:200
+#: lib/Factory/Driver.php:201
 msgid "No backend configured for this host"
 msgstr ""
 
-#: lib/Factory/Driver.php:183
+#: lib/Factory/Driver.php:184
 msgid "No backends configured in backends.php"
 msgstr ""
 

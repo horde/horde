@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Service_Weather\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2015-12-28 17:25+0100\n"
+"POT-Creation-Date: 2017-07-26 12:13+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,8 +17,80 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: lib/Horde/Service/Weather/Parser/Base.php:193
+msgid "2nd Ceiling Height Indicator offline"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:192
+msgid "2nd Visibility Sensor offline"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Metar.php:197
+#: lib/Horde/Service/Weather/Parser/Taf.php:178
+msgid "AT"
+msgstr ""
+
 #: lib/Horde/Service/Weather/Alerts/Base.php:50
 msgid "Advisory"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:169
+msgid "Altocumulus (chaotic)"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:166
+msgid "Altocumulus (from Cumulus)"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:164
+msgid "Altocumulus (patchy)"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:165
+msgid "Altocumulus (thickening)"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:163
+msgid "Altocumulus (thin)"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:167
+msgid "Altocumulus (w/ Altocumulus, Altostratus, Nimbostratus)"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:168
+msgid "Altocumulus (w/ turrets)"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:162
+msgid "Altostratus (thick)"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:161
+msgid "Altostratus (thin)"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Metar.php:394
+#: test/Horde/Service/Weather/MetarTest.php:57
+msgid "Automatic weatherstation w/ precipitation discriminator"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Metar.php:392
+msgid "Automatic weatherstation w/o precipitation discriminator"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Metar.php:215
+#: lib/Horde/Service/Weather/Parser/Taf.php:196
+msgid "BELOW"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Metar.php:205
+#: lib/Horde/Service/Weather/Parser/Metar.php:217
+#: lib/Horde/Service/Weather/Parser/Metar.php:243
+#: lib/Horde/Service/Weather/Parser/Taf.php:186
+#: lib/Horde/Service/Weather/Parser/Taf.php:198
+#: lib/Horde/Service/Weather/Parser/Taf.php:224
+msgid "BEYOND"
 msgstr ""
 
 #: lib/Horde/Service/Weather/Wwo_Strings.php:44
@@ -73,6 +145,42 @@ msgstr ""
 msgid "Chance of a Thunderstorm"
 msgstr ""
 
+#: lib/Horde/Service/Weather/Parser/Base.php:182
+msgid "Cirrocumulus or Cirrocumulus/Cirrus/Cirrostratus"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:180
+msgid "Cirrostratus (entire sky)"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:181
+msgid "Cirrostratus (partial)"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:175
+msgid "Cirrus (dense)"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:174
+msgid "Cirrus (filaments)"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:176
+msgid "Cirrus (often w/ Cumulonimbus)"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:177
+msgid "Cirrus (thickening)"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:179
+msgid "Cirrus/Cirrostratus (high in sky)"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:178
+msgid "Cirrus/Cirrostratus (low in sky)"
+msgstr ""
+
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:127
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:139
 #: lib/Horde/Service/Weather/Wwo_Strings.php:55
@@ -80,9 +188,38 @@ msgstr ""
 msgid "Clear"
 msgstr ""
 
+#: lib/Horde/Service/Weather/Parser/Metar.php:250
+#: lib/Horde/Service/Weather/Parser/Taf.php:231
+msgid "Clear below"
+msgstr ""
+
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:140
 #: lib/Horde/Service/Weather/Wwo_Strings.php:53
 msgid "Cloudy"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:141
+msgid "Cumulonimbus"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:150
+msgid "Cumulonimbus (no anvil)"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:156
+msgid "Cumulonimbus (thunderstorm)"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:148
+msgid "Cumulus (fair weather)"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:149
+msgid "Cumulus (towering)"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:155
+msgid "Cumulus and Stratocumulus"
 msgstr ""
 
 #: lib/Horde/Service/Weather/Alerts/Base.php:37
@@ -117,6 +254,10 @@ msgstr ""
 msgid "F"
 msgstr ""
 
+#: lib/Horde/Service/Weather/Parser/Metar.php:551
+msgid "Falling"
+msgstr ""
+
 #: lib/Horde/Service/Weather/Alerts/Base.php:39
 msgid "Fire Weather Advisory"
 msgstr ""
@@ -143,6 +284,10 @@ msgstr ""
 msgid "Forecast"
 msgstr ""
 
+#: lib/Horde/Service/Weather/Parser/Base.php:154
+msgid "Fractocumulus/Fractostratus (bad weather)"
+msgstr ""
+
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:44
 msgid "Freezing Drizzle"
 msgstr ""
@@ -154,6 +299,10 @@ msgstr ""
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:45
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:148
 msgid "Freezing Rain"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:190
+msgid "Freezing Rain Sensor offline"
 msgstr ""
 
 #: lib/Horde/Service/Weather/Wwo_Strings.php:39
@@ -561,6 +710,10 @@ msgstr ""
 msgid "Light snow showers"
 msgstr ""
 
+#: lib/Horde/Service/Weather/Parser/Base.php:191
+msgid "Lightning Detection System offline"
+msgstr ""
+
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:28
 msgid "Low Drifting Sand"
 msgstr ""
@@ -571,6 +724,10 @@ msgstr ""
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:27
 msgid "Low Drifting Widespread Dust"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Metar.php:568
+msgid "Maintainance needed"
 msgstr ""
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:16
@@ -636,7 +793,7 @@ msgstr ""
 msgid "N"
 msgstr ""
 
-#: lib/Horde/Service/Weather/Current/WeatherUnderground.php:128
+#: lib/Horde/Service/Weather/Current/WeatherUnderground.php:129
 #: lib/Horde/Service/Weather/Period/WeatherUnderground.php:73
 #: lib/Horde/Service/Weather/Period/WeatherUnderground.php:81
 #: lib/Horde/Service/Weather/Period/WeatherUnderground.php:91
@@ -661,6 +818,20 @@ msgstr ""
 msgid "NW"
 msgstr ""
 
+#: lib/Horde/Service/Weather/Parser/Metar.php:557
+msgid "No changes in weather conditions"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Taf.php:234
+msgid "No significant weather"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:147
+#: lib/Horde/Service/Weather/Parser/Base.php:160
+#: lib/Horde/Service/Weather/Parser/Base.php:173
+msgid "None"
+msgstr ""
+
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:159
 msgid "North"
 msgstr ""
@@ -669,6 +840,9 @@ msgstr ""
 msgid "Outlook"
 msgstr ""
 
+#: lib/Horde/Service/Weather/Parser/Base.php:146
+#: lib/Horde/Service/Weather/Parser/Base.php:159
+#: lib/Horde/Service/Weather/Parser/Base.php:172
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:126
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:156
 #: lib/Horde/Service/Weather/Wwo_Strings.php:52
@@ -731,6 +905,18 @@ msgstr ""
 msgid "Patchy snow nearby"
 msgstr ""
 
+#: lib/Horde/Service/Weather/Parser/Base.php:188
+msgid "Present Weather Identifier offline"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Metar.php:403
+msgid "Pressure falling rapidly"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Metar.php:401
+msgid "Pressure rising rapidly"
+msgstr ""
+
 #: lib/Horde/Service/Weather/Alerts/Base.php:44
 msgid "Public Information Statement"
 msgstr ""
@@ -754,6 +940,14 @@ msgstr ""
 
 #: lib/Horde/Service/Weather/Alerts/Base.php:42
 msgid "Record Set"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Metar.php:547
+msgid "Rising"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:187
+msgid "Runway Visual Range Detector offline"
 msgstr ""
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:170
@@ -843,6 +1037,22 @@ msgstr ""
 msgid "Statement"
 msgstr ""
 
+#: lib/Horde/Service/Weather/Parser/Metar.php:549
+msgid "Steady"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:151
+msgid "Stratocumulus (from Cumulus)"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:152
+msgid "Stratocumulus (not Cumulus)"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:153
+msgid "Stratus or Fractostratus (fair)"
+msgstr ""
+
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:152
 #: lib/Horde/Service/Weather/Wwo_Strings.php:56
 #: test/Horde/Service/Weather/WwoTest.php:83
@@ -888,6 +1098,10 @@ msgstr ""
 msgid "Thundery outbreaks nearby"
 msgstr ""
 
+#: lib/Horde/Service/Weather/Parser/Base.php:189
+msgid "Tipping Bucket Rain Gauge offline"
+msgstr ""
+
 #: lib/Horde/Service/Weather/Alerts/Base.php:27
 msgid "Tornado Warning"
 msgstr ""
@@ -900,8 +1114,30 @@ msgstr ""
 msgid "Torrential rain shower"
 msgstr ""
 
+#: lib/Horde/Service/Weather/Parser/Metar.php:466
+#, php-format
+msgid "Total minutes of sunshine: %s"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:140
+msgid "Towering Cumulus"
+msgstr ""
+
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:155
 msgid "Unknown"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Metar.php:160
+#: lib/Horde/Service/Weather/Parser/Metar.php:161
+#: lib/Horde/Service/Weather/Parser/Taf.php:143
+#: lib/Horde/Service/Weather/Parser/Taf.php:144
+msgid "Variable"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Current/Metar.php:132
+#: lib/Horde/Service/Weather/Period/Taf.php:76
+#, php-format
+msgid "Visibility %s %s %s "
 msgstr ""
 
 #: lib/Horde/Service/Weather/Alerts/Base.php:40
@@ -940,17 +1176,81 @@ msgstr ""
 msgid "Widespread Dust"
 msgstr ""
 
+#: lib/Horde/Service/Weather/Current/Metar.php:123
+#: lib/Horde/Service/Weather/Period/Taf.php:67
+#, php-format
+msgid "Wind from %s at %s%s "
+msgstr ""
+
 #: lib/Horde/Service/Weather/Alerts/Base.php:31
 msgid "Winter Weather Advisory"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:103
+msgid "blowing"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:137
+#: test/Horde/Service/Weather/MetarTest.php:53
+msgid "broken"
 msgstr ""
 
 #: lib/Horde/Service/Weather/Base.php:279
 msgid "centimeters"
 msgstr ""
 
-#: lib/Horde/Service/Weather/Current/WeatherUnderground.php:116
+#: lib/Horde/Service/Weather/Parser/Base.php:142
+msgid "clear below 12,000 ft"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:107
+msgid "drizzle"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:127
+msgid "duststorm"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Current/WeatherUnderground.php:117
 #: test/Horde/Service/Weather/WundergroundTest.php:50
 msgid "falling"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:135
+msgid "few"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:118
+msgid "fog"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:106
+msgid "freezing"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:129
+msgid "funnel cloud"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:114
+msgid "hail"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:122
+msgid "haze"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:94
+msgid "heavy"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:111
+msgid "ice crystals"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:112
+#: lib/Horde/Service/Weather/Parser/Base.php:113
+msgid "ice pellets"
 msgstr ""
 
 #: lib/Horde/Service/Weather/Base.php:266
@@ -967,6 +1267,14 @@ msgstr ""
 msgid "kph"
 msgstr ""
 
+#: lib/Horde/Service/Weather/Parser/Base.php:95
+msgid "light"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:105
+msgid "low drifting"
+msgstr ""
+
 #: lib/Horde/Service/Weather/Base.php:267
 msgid "miles"
 msgstr ""
@@ -979,14 +1287,139 @@ msgstr ""
 msgid "millimeters"
 msgstr ""
 
+#: lib/Horde/Service/Weather/Parser/Base.php:117
+msgid "mist"
+msgstr ""
+
 #: lib/Horde/Service/Weather/Base.php:265
 msgid "mph"
 msgstr ""
 
-#: lib/Horde/Service/Weather/Current/WeatherUnderground.php:114
+#: lib/Horde/Service/Weather/Parser/Base.php:134
+msgid "no significant cloud"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:98
+#: lib/Horde/Service/Weather/Parser/Metar.php:253
+msgid "no significant weather"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:138
+msgid "overcast"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:101
+msgid "partial"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:100
+msgid "patches"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Taf.php:267
+msgid "probability"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:108
+msgid "rain"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:97
+msgid "recent"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Current/WeatherUnderground.php:115
 msgid "rising"
 msgstr ""
 
-#: lib/Horde/Service/Weather/Current/WeatherUnderground.php:112
+#: lib/Horde/Service/Weather/Parser/Base.php:121
+msgid "sand"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:126
+msgid "sandstorm"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:136
+#: test/Horde/Service/Weather/MetarTest.php:51
+msgid "scattered"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:99
+msgid "shallow"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:104
+msgid "showers"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:133
+msgid "sky clear"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:115
+msgid "small hail/snow pellets"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:119
+msgid "smoke"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:109
+msgid "snow"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:110
+msgid "snow grains"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:123
+msgid "spray"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:125
+msgid "squall"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Metar.php:288
+#: lib/Horde/Service/Weather/Parser/Metar.php:299
+#: lib/Horde/Service/Weather/Parser/Taf.php:281
+#: lib/Horde/Service/Weather/Parser/Taf.php:292
+msgid "station level or below"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Current/WeatherUnderground.php:113
 msgid "steady"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:102
+msgid "thunderstorm"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:130
+msgid "tornado/waterspout"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:116
+msgid "unknown precipitation"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:139
+msgid "vertical visibility"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:96
+msgid "vicinity"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:120
+msgid "volcanic ash"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:128
+msgid "well developed dust/sand whirls"
+msgstr ""
+
+#: lib/Horde/Service/Weather/Parser/Base.php:124
+msgid "widespread dust"
 msgstr ""

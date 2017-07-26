@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Sam\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2016-08-08 15:58+0200\n"
+"POT-Creation-Date: 2017-07-26 12:13+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,19 +17,19 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: config/attributes.php:214
+#: config/attributes.php:229
 msgid "0: Only add X-Spam-* headers"
 msgstr ""
 
-#: config/attributes.php:215
+#: config/attributes.php:230
 msgid "1: Attach the original message to the report"
 msgstr ""
 
-#: config/attributes.php:216
+#: config/attributes.php:231
 msgid "2: Attach the original message as plain text to the report"
 msgstr ""
 
-#: config/attributes.php:274
+#: config/attributes.php:289
 msgid "Banned Files Folder"
 msgstr ""
 
@@ -53,7 +53,7 @@ msgstr ""
 msgid "Blacklist To"
 msgstr ""
 
-#: lib/Driver/Amavisd/Sql.php:447
+#: lib/Driver/Amavisd/Sql.php:450
 #, php-format
 msgid "Cannot create recipient %s: %s"
 msgstr ""
@@ -76,7 +76,7 @@ msgstr ""
 msgid "Make Settings Global"
 msgstr ""
 
-#: config/attributes.php:211
+#: config/attributes.php:226
 msgid "Modify messages tagged as spam:"
 msgstr ""
 
@@ -97,23 +97,23 @@ msgstr ""
 msgid "Only an administrator may change the global defaults."
 msgstr ""
 
-#: config/attributes.php:259
+#: config/attributes.php:274
 msgid "Receive Bad Headers"
 msgstr ""
 
-#: config/attributes.php:254
+#: config/attributes.php:269
 msgid "Receive Banned Files"
 msgstr ""
 
-#: config/attributes.php:249
+#: config/attributes.php:264
 msgid "Receive Spam"
 msgstr ""
 
-#: config/attributes.php:244
+#: config/attributes.php:259
 msgid "Receive Viruses"
 msgstr ""
 
-#: lib/Driver/Amavisd/Sql.php:450
+#: lib/Driver/Amavisd/Sql.php:453
 #, php-format
 msgid "Recipient created: %s"
 msgstr ""
@@ -122,15 +122,15 @@ msgstr ""
 msgid "Required Score"
 msgstr ""
 
-#: config/attributes.php:172
+#: config/attributes.php:187
 msgid "Rewrite Email Subject"
 msgstr ""
 
-#: config/attributes.php:188
+#: config/attributes.php:203
 msgid "Rewrite From: Address"
 msgstr ""
 
-#: config/attributes.php:180
+#: config/attributes.php:195
 msgid "Rewrite To: Address"
 msgstr ""
 
@@ -138,27 +138,27 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: config/attributes.php:239
+#: config/attributes.php:254
 msgid "Skip Bad Header Checks"
 msgstr ""
 
-#: config/attributes.php:234
+#: config/attributes.php:249
 msgid "Skip Banned File Checks"
 msgstr ""
 
-#: config/attributes.php:219
+#: config/attributes.php:234
 msgid "Skip RBL Checks"
 msgstr ""
 
-#: config/attributes.php:229
+#: config/attributes.php:244
 msgid "Skip Spam Checks"
 msgstr ""
 
-#: config/attributes.php:224
+#: config/attributes.php:239
 msgid "Skip Virus Checks"
 msgstr ""
 
-#: config/attributes.php:264
+#: config/attributes.php:279
 msgid "Spam Folder"
 msgstr ""
 
@@ -166,7 +166,7 @@ msgstr ""
 msgid "Spam Options"
 msgstr ""
 
-#: config/attributes.php:206
+#: config/attributes.php:221
 msgid "Spam Quarantine Address"
 msgstr ""
 
@@ -210,7 +210,7 @@ msgstr ""
 msgid "Updated user whitelists"
 msgstr ""
 
-#: config/attributes.php:269
+#: config/attributes.php:284
 msgid "Virus Folder"
 msgstr ""
 

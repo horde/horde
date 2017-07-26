@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Refactor\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2017-02-27 11:27+0100\n"
+"POT-Creation-Date: 2017-07-26 12:13+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,12 +17,82 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: lib/Horde/Refactor/Exception/NotFound.php:44
+#: lib/Horde/Refactor/Rule/FileLevelDocBlock.php:644
+msgid "More than one @license tag."
+msgstr ""
+
+#: lib/Horde/Refactor/Rule/FileLevelDocBlock.php:169
+msgid "No DocBlocks found, adding default DocBlocks"
+msgstr ""
+
+#: lib/Horde/Refactor/Rule/FileLevelDocBlock.php:465
+msgid "No file-level DocBlock found, creating one from class-level DocBlock"
+msgstr ""
+
+#: lib/Horde/Refactor/Rule/FileLevelDocBlock.php:355
+#, php-format
+msgid "The %s DocBlock contains duplicate @%s tags"
+msgstr ""
+
+#: lib/Horde/Refactor/Rule/FileLevelDocBlock.php:282
+#, php-format
+msgid "The %s DocBlock contains text that should be in the %s DocBlock"
+msgstr ""
+
+#: lib/Horde/Refactor/Rule/FileLevelDocBlock.php:329
+#, php-format
+msgid "The %s DocBlock description is not valid"
+msgstr ""
+
+#: lib/Horde/Refactor/Rule/FileLevelDocBlock.php:295
+#, php-format
+msgid "The %s DocBlock summary is not valid"
+msgstr ""
+
+#: lib/Horde/Refactor/Rule/FileLevelDocBlock.php:378
+#, php-format
+msgid "The %s DocBlock tags should include: "
+msgstr ""
+
+#: lib/Horde/Refactor/Rule/FileLevelDocBlock.php:412
+#, php-format
+msgid "The %s DocBlock tags should not include: "
+msgstr ""
+
+#: lib/Horde/Refactor/Rule/FileLevelDocBlock.php:623
+#: lib/Horde/Refactor/Rule/FileLevelDocBlock.php:637
+msgid "The @copyright tags are different from the copyright header"
+msgstr ""
+
+#: lib/Horde/Refactor/Rule/FileLevelDocBlock.php:652
+msgid "The @license tag URL is different from the license URL in the header"
+msgstr ""
+
+#: lib/Horde/Refactor/Rule/FileLevelDocBlock.php:658
+msgid "The @license tag name is different from the license name in the header"
+msgstr ""
+
+#: lib/Horde/Refactor/Rule/FileLevelDocBlock.php:228
+#, php-format
+msgid "The DocBlocks contain different values for the @%s tag"
+msgstr ""
+
+#: lib/Horde/Refactor/Exception/NotFound.php:45
 #, php-format
 msgid "Token \"%s\" Not Found"
 msgstr ""
 
-#: lib/Horde/Refactor/Exception/UnexpectedToken.php:44
+#: lib/Horde/Refactor/Exception/UnexpectedToken.php:45
 #, php-format
 msgid "Unexpected Token \"%s\""
+msgstr ""
+
+#: lib/Horde/Refactor/Rule/FileLevelDocBlock.php:252
+#: lib/Horde/Refactor/Rule/FileLevelDocBlock.php:257
+msgid "class-level"
+msgstr ""
+
+#: lib/Horde/Refactor/Rule/FileLevelDocBlock.php:248
+#: lib/Horde/Refactor/Rule/FileLevelDocBlock.php:261
+msgid "file-level"
 msgstr ""

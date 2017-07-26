@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Core\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2016-08-08 15:58+0200\n"
+"POT-Creation-Date: 2017-07-26 12:13+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,12 +18,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: lib/Horde.php:972
+#: lib/Horde.php:1097
 #, php-format
 msgid " (Accesskey %s)"
 msgstr ""
 
-#: lib/Horde/Registry.php:1333 lib/Horde/Registry.php:2062
+#: lib/Horde/Registry.php:1334 lib/Horde/Registry.php:2063
 #, php-format
 msgid "\"%s\" is not configured in the Horde Registry."
 msgstr ""
@@ -35,14 +35,14 @@ msgid_plural "%d contacts were successfully added to your address book."
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/Horde/Core/Auth/Application.php:690
+#: lib/Horde/Core/Auth/Application.php:684
 #, php-format
 msgid "%d day until your password expires."
 msgid_plural "%d days until your password expires."
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/Horde/Registry.php:1533
+#: lib/Horde/Registry.php:1534
 #, php-format
 msgid "%s is not activated."
 msgstr ""
@@ -52,23 +52,23 @@ msgstr ""
 msgid "-- select --"
 msgstr ""
 
-#: lib/Horde/Core/Notification/Event/Status.php:73 lib/Horde/PageOutput.php:663
+#: lib/Horde/Core/Notification/Event/Status.php:73 lib/Horde/PageOutput.php:680
 msgid "1 day"
 msgstr ""
 
-#: lib/Horde/Core/Notification/Event/Status.php:71 lib/Horde/PageOutput.php:661
+#: lib/Horde/Core/Notification/Event/Status.php:71 lib/Horde/PageOutput.php:678
 msgid "1 hour"
 msgstr ""
 
-#: lib/Horde/Core/Notification/Event/Status.php:70 lib/Horde/PageOutput.php:660
+#: lib/Horde/Core/Notification/Event/Status.php:70 lib/Horde/PageOutput.php:677
 msgid "15 minutes"
 msgstr ""
 
-#: lib/Horde/Core/Notification/Event/Status.php:69 lib/Horde/PageOutput.php:659
+#: lib/Horde/Core/Notification/Event/Status.php:69 lib/Horde/PageOutput.php:676
 msgid "5 minutes"
 msgstr ""
 
-#: lib/Horde/Core/Notification/Event/Status.php:72 lib/Horde/PageOutput.php:662
+#: lib/Horde/Core/Notification/Event/Status.php:72 lib/Horde/PageOutput.php:679
 msgid "6 hours"
 msgstr ""
 
@@ -151,7 +151,7 @@ msgid ""
 "Admin authentication requested, but no admin users defined in configuration."
 msgstr ""
 
-#: lib/Horde/Core/Topbar.php:123
+#: lib/Horde/Core/Topbar.php:124
 msgid "Administration"
 msgstr ""
 
@@ -199,7 +199,7 @@ msgstr ""
 msgid "Available address books:"
 msgstr ""
 
-#: lib/Horde/Core/Smartmobile/View/Helper.php:46 lib/Horde/PageOutput.php:591
+#: lib/Horde/Core/Smartmobile/View/Helper.php:46 lib/Horde/PageOutput.php:608
 msgid "Back"
 msgstr ""
 
@@ -212,7 +212,7 @@ msgstr ""
 msgid "Block \"%s\" of application \"%s\" not found."
 msgstr ""
 
-#: lib/Horde/Core/ActiveSync/Driver.php:159
+#: lib/Horde/Core/ActiveSync/Driver.php:156
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:549
 msgid "Calendar"
 msgstr ""
@@ -240,7 +240,7 @@ msgstr ""
 msgid "Choose the order of address books to search when expanding addresses."
 msgstr ""
 
-#: lib/Horde/PageOutput.php:669
+#: lib/Horde/PageOutput.php:686
 msgid "Clear All"
 msgstr ""
 
@@ -248,7 +248,7 @@ msgstr ""
 msgid "Click to add caption..."
 msgstr ""
 
-#: lib/Horde/PageOutput.php:592
+#: lib/Horde/PageOutput.php:609
 msgid "Close"
 msgstr ""
 
@@ -265,7 +265,7 @@ msgstr ""
 msgid "Confirm new email address"
 msgstr ""
 
-#: lib/Horde/Core/ActiveSync/Driver.php:160
+#: lib/Horde/Core/ActiveSync/Driver.php:157
 msgid "Contacts"
 msgstr ""
 
@@ -318,11 +318,11 @@ msgstr ""
 msgid "Desktop notification (with certain browsers)"
 msgstr ""
 
-#: lib/Horde/ErrorHandler.php:117
+#: lib/Horde/ErrorHandler.php:126
 msgid "Details"
 msgstr ""
 
-#: lib/Horde/ErrorHandler.php:124
+#: lib/Horde/ErrorHandler.php:133
 msgid "Details have been logged for the administrator."
 msgstr ""
 
@@ -344,11 +344,11 @@ msgstr ""
 msgid "Domestic Address"
 msgstr ""
 
-#: lib/Horde/Core/ActiveSync/Driver.php:3171
+#: lib/Horde/Core/ActiveSync/Driver.php:3278
 msgid "Drafts"
 msgstr ""
 
-#: lib/Horde/Core/Block/Layout.php:107 lib/Horde/Core/Block/Layout.php:108
+#: lib/Horde/Core/Block/Layout.php:111 lib/Horde/Core/Block/Layout.php:112
 msgid "Edit"
 msgstr ""
 
@@ -383,11 +383,11 @@ msgstr ""
 msgid "Error"
 msgstr ""
 
-#: lib/Horde/PageOutput.php:653
+#: lib/Horde/PageOutput.php:670
 msgid "Error when communicating with the server."
 msgstr ""
 
-#: lib/Horde/Core/Block/Layout/Manager.php:536
+#: lib/Horde/Core/Block/Layout/Manager.php:539
 msgid "Expand"
 msgstr ""
 
@@ -401,7 +401,7 @@ msgstr ""
 msgid "February"
 msgstr ""
 
-#: lib/Horde/PageOutput.php:593
+#: lib/Horde/PageOutput.php:610
 msgid "Filter items..."
 msgstr ""
 
@@ -421,11 +421,11 @@ msgstr ""
 msgid "Friday"
 msgstr ""
 
-#: lib/Horde/Core/Prefs/Ui.php:682 lib/Horde/Core/Topbar.php:154
+#: lib/Horde/Core/Prefs/Ui.php:682 lib/Horde/Core/Topbar.php:159
 msgid "Global Preferences"
 msgstr ""
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1330
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1308
 msgid "Google Maps"
 msgstr ""
 
@@ -441,7 +441,7 @@ msgstr ""
 msgid "Guest Permissions"
 msgstr ""
 
-#: lib/Horde/Core/Topbar.php:200 lib/Horde/Help.php:253 lib/Horde/Help.php:254
+#: lib/Horde/Core/Topbar.php:205 lib/Horde/Help.php:253 lib/Horde/Help.php:254
 msgid "Help"
 msgstr ""
 
@@ -458,7 +458,7 @@ msgstr ""
 msgid "Home Phone"
 msgstr ""
 
-#: lib/Horde/Core/ActiveSync/Driver.php:3166
+#: lib/Horde/Core/ActiveSync/Driver.php:3273
 msgid "Inbox"
 msgstr ""
 
@@ -512,7 +512,7 @@ msgid "MM"
 msgstr ""
 
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:1256
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1305
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1283
 msgid "MapQuest map"
 msgstr ""
 
@@ -544,19 +544,19 @@ msgstr ""
 msgid "Monday"
 msgstr ""
 
-#: lib/Horde/Core/Block/Layout/Manager.php:570
+#: lib/Horde/Core/Block/Layout/Manager.php:573
 msgid "Move Down"
 msgstr ""
 
-#: lib/Horde/Core/Block/Layout/Manager.php:574
+#: lib/Horde/Core/Block/Layout/Manager.php:577
 msgid "Move Left"
 msgstr ""
 
-#: lib/Horde/Core/Block/Layout/Manager.php:578
+#: lib/Horde/Core/Block/Layout/Manager.php:581
 msgid "Move Right"
 msgstr ""
 
-#: lib/Horde/Core/Block/Layout/Manager.php:566
+#: lib/Horde/Core/Block/Layout/Manager.php:569
 msgid "Move Up"
 msgstr ""
 
@@ -587,7 +587,7 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-#: lib/Horde/PageOutput.php:671
+#: lib/Horde/PageOutput.php:688
 msgid "No Alerts"
 msgstr ""
 
@@ -607,7 +607,7 @@ msgstr ""
 msgid "No children can be added to this permission."
 msgstr ""
 
-#: lib/Horde.php:366
+#: lib/Horde.php:484
 #, php-format
 msgid "No configuration information specified for %s."
 msgstr ""
@@ -632,7 +632,7 @@ msgstr ""
 msgid "Not an admin"
 msgstr ""
 
-#: lib/Horde/Core/ActiveSync/Driver.php:162
+#: lib/Horde/Core/ActiveSync/Driver.php:159
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:377
 msgid "Notes"
 msgstr ""
@@ -661,12 +661,12 @@ msgstr ""
 msgid "Ok"
 msgstr ""
 
-#: lib/Horde/Core/ActiveSync/Connector.php:897
-#: lib/Horde/Core/ActiveSync/Connector.php:904
+#: lib/Horde/Core/ActiveSync/Connector.php:954
+#: lib/Horde/Core/ActiveSync/Connector.php:961
 msgid "Out Of Office"
 msgstr ""
 
-#: lib/Horde/Core/ActiveSync/Driver.php:3176
+#: lib/Horde/Core/ActiveSync/Driver.php:3283
 msgid "Outbox"
 msgstr ""
 
@@ -706,7 +706,7 @@ msgstr ""
 msgid "Postal Address"
 msgstr ""
 
-#: lib/Horde/Core/Topbar.php:142
+#: lib/Horde/Core/Topbar.php:143
 msgid "Preferences"
 msgstr ""
 
@@ -720,19 +720,19 @@ msgstr ""
 msgid "Preferred Address"
 msgstr ""
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1555
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1533
 msgid "Preview"
 msgstr ""
 
-#: lib/Horde/Core/Topbar.php:188
+#: lib/Horde/Core/Topbar.php:193
 msgid "Problem"
 msgstr ""
 
-#: lib/Horde/Core/Block/Layout.php:117
+#: lib/Horde/Core/Block/Layout.php:121
 msgid "Really delete this block?"
 msgstr ""
 
-#: lib/Horde/Core/Block/Layout.php:114 lib/Horde/Core/Block/Layout.php:118
+#: lib/Horde/Core/Block/Layout.php:118 lib/Horde/Core/Block/Layout.php:122
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:212
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:648
 msgid "Remove"
@@ -742,7 +742,7 @@ msgstr ""
 msgid "Remove source"
 msgstr ""
 
-#: lib/Horde.php:375
+#: lib/Horde.php:493
 #, php-format
 msgid "Required \"%s\" not specified in %s configuration."
 msgstr ""
@@ -801,7 +801,7 @@ msgstr ""
 msgid "Select the identity you want to change:"
 msgstr ""
 
-#: lib/Horde/PageOutput.php:658
+#: lib/Horde/PageOutput.php:675
 msgid "Select..."
 msgstr ""
 
@@ -813,7 +813,7 @@ msgstr ""
 msgid "Send SMS"
 msgstr ""
 
-#: lib/Horde/Core/ActiveSync/Driver.php:3161
+#: lib/Horde/Core/ActiveSync/Driver.php:3268
 msgid "Sent"
 msgstr ""
 
@@ -823,7 +823,7 @@ msgstr ""
 msgid "September"
 msgstr ""
 
-#: lib/Horde/Core/Block/Layout/Manager.php:541
+#: lib/Horde/Core/Block/Layout/Manager.php:544
 msgid "Shrink"
 msgstr ""
 
@@ -861,7 +861,7 @@ msgstr ""
 msgid "Sunday"
 msgstr ""
 
-#: lib/Horde/Core/ActiveSync/Driver.php:161
+#: lib/Horde/Core/ActiveSync/Driver.php:158
 msgid "Tasks"
 msgstr ""
 
@@ -869,11 +869,11 @@ msgstr ""
 msgid "Th"
 msgstr ""
 
-#: lib/Horde/PageOutput.php:665
+#: lib/Horde/PageOutput.php:682
 msgid "The alarm was dismissed."
 msgstr ""
 
-#: lib/Horde/PageOutput.php:654
+#: lib/Horde/PageOutput.php:671
 msgid "The connection to the server has been restored."
 msgstr ""
 
@@ -888,26 +888,26 @@ msgid ""
 "window now."
 msgstr ""
 
-#: lib/Horde.php:287
+#: lib/Horde.php:388
 msgid "The encryption features require a secure web connection."
 msgstr ""
 
-#: lib/Horde.php:376
+#: lib/Horde.php:494
 #, php-format
 msgid "The file %s should contain a %s setting."
 msgstr ""
 
-#: lib/Horde.php:367
+#: lib/Horde.php:485
 #, php-format
 msgid "The file %s should contain some %s settings."
 msgstr ""
 
-#: lib/Horde/Registry.php:2750
+#: lib/Horde/Registry.php:2752
 #, php-format
 msgid "The following applications encountered errors removing user data: %s"
 msgstr ""
 
-#: lib/Horde/ErrorHandler.php:118
+#: lib/Horde/ErrorHandler.php:127
 msgid ""
 "The full error message is logged in Horde's log file, and is shown below "
 "only to administrators. Non-administrative users will not see error details."
@@ -922,14 +922,14 @@ msgstr ""
 msgid "The new from address can't be verified, try again later: "
 msgstr ""
 
-#: lib/Horde/Core/Factory/Prefs.php:277
+#: lib/Horde/Core/Factory/Prefs.php:281
 #, php-format
 msgid ""
 "The preference \"%s\" could not be saved because its data exceeds the "
 "maximum allowable size"
 msgstr ""
 
-#: lib/Horde/Core/Factory/Prefs.php:205
+#: lib/Horde/Core/Factory/Prefs.php:211
 msgid ""
 "The preferences backend is currently unavailable and your preferences have "
 "not been loaded. You may continue to use the system with default preferences."
@@ -939,7 +939,7 @@ msgstr ""
 msgid "There are no preferences available for this application."
 msgstr ""
 
-#: lib/Horde/PageOutput.php:655
+#: lib/Horde/PageOutput.php:672
 msgid ""
 "There has been no contact with the server for several minutes. The server "
 "may be temporarily unavailable or network problems may be interrupting your "
@@ -958,7 +958,7 @@ msgstr ""
 msgid "There were errors encountered while updating your preferences."
 msgstr ""
 
-#: lib/Horde/PageOutput.php:670
+#: lib/Horde/PageOutput.php:687
 msgid "This is the notification log."
 msgstr ""
 
@@ -988,11 +988,11 @@ msgid ""
 "while clicking."
 msgstr ""
 
-#: lib/Horde/Core/Topbar.php:177
+#: lib/Horde/Core/Topbar.php:182
 msgid "Toggle Alerts Log"
 msgstr ""
 
-#: lib/Horde/Core/ActiveSync/Driver.php:3156
+#: lib/Horde/Core/ActiveSync/Driver.php:3263
 msgid "Trash"
 msgstr ""
 
@@ -1069,35 +1069,37 @@ msgstr ""
 msgid "YYYY"
 msgstr ""
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1276
-msgid "Yahoo! map"
-msgstr ""
-
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:1075
 msgid "Yes"
 msgstr ""
 
-#: lib/Horde/Core/Block/Layout/Manager.php:225
+#: lib/Horde/Core/Block/Layout/Manager.php:228
 #, php-format
 msgid "You are not allowed to create more than %d block."
 msgid_plural "You are not allowed to create more than %d blocks."
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/Horde/Registry.php:2703
+#: lib/Horde/Registry.php:2705
 msgid "You are not allowed to remove user data."
 msgstr ""
 
-#: lib/Horde/Core/Auth/Application.php:775
+#: lib/Horde/Core/Auth/Application.php:769
 msgid ""
 "You are using an old, unsupported version of Internet Explorer. You need at "
 "least Internet Explorer 8. If you already run IE8 or higher, disable the "
 "Compatibility View. Minimal view will be used until you upgrade your browser."
 msgstr ""
 
-#: lib/Horde/PageOutput.php:656
+#: lib/Horde/PageOutput.php:673
 #, php-format
 msgid "You can snooze it for %s or %s dismiss %s it entirely"
+msgstr ""
+
+#: lib/Horde/Core/ActiveSync/Driver.php:2896
+msgid ""
+"You do not have an email address configured in your Personal Information "
+"Preferences."
 msgstr ""
 
 #: lib/Horde/Core/Prefs/Identity.php:63
@@ -1121,17 +1123,17 @@ msgstr ""
 msgid "You must provide a setting for \"%s\"."
 msgstr ""
 
-#: lib/Horde/Core/Auth/Application.php:742
+#: lib/Horde/Core/Auth/Application.php:736
 msgid "Your browser does not support javascript. Using minimal view instead."
 msgstr ""
 
-#: lib/Horde/Core/Auth/Application.php:750
+#: lib/Horde/Core/Auth/Application.php:744
 msgid ""
 "Your browser does not support the dynamic view. Using basic view instead."
 msgstr ""
 
-#: lib/Horde/Core/Auth/Application.php:753
-#: lib/Horde/Core/Auth/Application.php:761
+#: lib/Horde/Core/Auth/Application.php:747
+#: lib/Horde/Core/Auth/Application.php:755
 msgid ""
 "Your browser does not support the dynamic view. Using minimal view instead."
 msgstr ""
@@ -1173,7 +1175,12 @@ msgstr ""
 msgid "hh"
 msgstr ""
 
-#: lib/Horde/PageOutput.php:594
+#: lib/Horde/ErrorHandler.php:121
+#, php-format
+msgid "in %s:%d"
+msgstr ""
+
+#: lib/Horde/PageOutput.php:611
 msgid "loading"
 msgstr ""
 

@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Horde_Cli \n"
+"Project-Id-Version: Horde_Cli\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-07-16 21:24+0200\n"
+"POT-Creation-Date: 2017-07-26 12:13+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,25 +17,25 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: lib/Horde/Cli.php:341
+#: lib/Horde/Cli.php:382
 #, php-format
 msgid " on line %d"
 msgstr ""
 
-#: lib/Horde/Cli.php:399
+#: lib/Horde/Cli.php:525
 #, php-format
 msgid "\"%s\" is not a valid choice."
 msgstr ""
 
-#: lib/Horde/Cli.php:348
+#: lib/Horde/Cli.php:389
 msgid "Fatal Error:"
 msgstr ""
 
-#: lib/Horde/Cli.php:338
+#: lib/Horde/Cli.php:379
 #, php-format
 msgid "In %s"
 msgstr ""
 
-#: lib/Horde/Cli.php:384
+#: lib/Horde/Cli.php:508
 msgid "Type your choice"
 msgstr ""

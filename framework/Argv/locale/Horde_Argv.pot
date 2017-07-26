@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Horde_Argv \n"
+"Project-Id-Version: Horde_Argv\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-03-05 10:52+0100\n"
+"POT-Creation-Date: 2017-07-26 12:13+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,61 +17,61 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: lib/Horde/Argv/Parser.php:478
+#: lib/Horde/Argv/Parser.php:487
 #, php-format
 msgid "%s option does not take a value"
 msgstr ""
 
-#: lib/Horde/Argv/Parser.php:468 lib/Horde/Argv/Parser.php:520
+#: lib/Horde/Argv/Parser.php:477 lib/Horde/Argv/Parser.php:529
 #, php-format
 msgid "%s option requires %d arguments"
 msgstr ""
 
-#: lib/Horde/Argv/Parser.php:466 lib/Horde/Argv/Parser.php:518
+#: lib/Horde/Argv/Parser.php:475 lib/Horde/Argv/Parser.php:527
 #, php-format
 msgid "%s option requires an argument"
 msgstr ""
 
-#: lib/Horde/Argv/Parser.php:643
+#: lib/Horde/Argv/Parser.php:652
 msgid "Options"
 msgstr ""
 
-#: lib/Horde/Argv/TitledHelpFormatter.php:29
+#: lib/Horde/Argv/TitledHelpFormatter.php:43
 msgid "Usage"
 msgstr ""
 
-#: lib/Horde/Argv/IndentedHelpFormatter.php:29
+#: lib/Horde/Argv/IndentedHelpFormatter.php:42
 msgid "Usage:"
 msgstr ""
 
-#: lib/Horde/Argv/Parser.php:169
+#: lib/Horde/Argv/Parser.php:178
 msgid "[options]"
 msgstr ""
 
-#: lib/Horde/Argv/Option.php:122
+#: lib/Horde/Argv/Option.php:133
 #, php-format
 msgid "option %s: invalid choice: '%s' (choose from %s)"
 msgstr ""
 
-#: lib/Horde/Argv/Option.php:104
+#: lib/Horde/Argv/Option.php:115
 #, php-format
 msgid "option %s: invalid floating-point value: '%s'"
 msgstr ""
 
-#: lib/Horde/Argv/Option.php:94
+#: lib/Horde/Argv/Option.php:105
 #, php-format
 msgid "option %s: invalid integer value: '%s'"
 msgstr ""
 
-#: lib/Horde/Argv/Option.php:95
+#: lib/Horde/Argv/Option.php:106
 #, php-format
 msgid "option %s: invalid long integer value: '%s'"
 msgstr ""
 
-#: lib/Horde/Argv/Parser.php:141
+#: lib/Horde/Argv/Parser.php:150
 msgid "show program's version number and exit"
 msgstr ""
 
-#: lib/Horde/Argv/Parser.php:135
+#: lib/Horde/Argv/Parser.php:144
 msgid "show this help message and exit"
 msgstr ""

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Nag\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2016-08-08 15:58+0200\n"
+"POT-Creation-Date: 2017-07-26 12:12+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -73,12 +73,12 @@ msgstr ""
 msgid "%s at %s"
 msgstr ""
 
-#: lib/Nag.php:1847
+#: lib/Nag.php:1851
 #, php-format
 msgid "%s has cancelled \"%s\"."
 msgstr ""
 
-#: lib/Nag.php:1849
+#: lib/Nag.php:1853
 #, php-format
 msgid "%s has cancelled an instance of the recurring \"%s\"."
 msgstr ""
@@ -108,12 +108,12 @@ msgstr ""
 msgid "%s successfully imported"
 msgstr ""
 
-#: lib/Nag.php:1869
+#: lib/Nag.php:1873
 #, php-format
 msgid "%s wants to notify you about changes of \"%s\"."
 msgstr ""
 
-#: lib/Nag.php:1865
+#: lib/Nag.php:1869
 #, php-format
 msgid "%s wishes to make you aware of \"%s\"."
 msgstr ""
@@ -205,7 +205,7 @@ msgstr ""
 msgid "All completed tasks older than %d days will be permanently deleted."
 msgstr ""
 
-#: config/prefs.php:322
+#: config/prefs.php:326
 msgid ""
 "All state removed for your ActiveSync devices. They will resynchronize next "
 "time they connect to the server."
@@ -272,12 +272,12 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: lib/Nag.php:1845
+#: lib/Nag.php:1849
 #, php-format
 msgid "Cancelled: %s"
 msgstr ""
 
-#: lib/Driver/Smartlist.php:43
+#: lib/Driver/Smartlist.php:50
 msgid "Cannot add tasks to smart lists."
 msgstr ""
 
@@ -424,7 +424,7 @@ msgstr ""
 msgid "Completion Status"
 msgstr ""
 
-#: lib/Api.php:773
+#: lib/Api.php:771
 #, php-format
 msgid "Connection failed: %s"
 msgstr ""
@@ -453,11 +453,11 @@ msgstr ""
 msgid "Create Task List"
 msgstr ""
 
-#: lib/Application.php:161
+#: lib/Application.php:162
 msgid "Create a new System Task List"
 msgstr ""
 
-#: lib/Application.php:148
+#: lib/Application.php:149
 msgid "Create a new Task List"
 msgstr ""
 
@@ -525,7 +525,7 @@ msgstr ""
 msgid "Deleting Tasks"
 msgstr ""
 
-#: lib/Api.php:745
+#: lib/Api.php:743
 msgid "Deleting entire task lists is not supported."
 msgstr ""
 
@@ -695,15 +695,15 @@ msgstr ""
 msgid "Incomplete tasks"
 msgstr ""
 
-#: lib/Api.php:420
+#: lib/Api.php:418
 msgid "Invalid task list file requested."
 msgstr ""
 
-#: lib/Api.php:566
+#: lib/Api.php:564
 msgid "Invalid task list name supplied."
 msgstr ""
 
-#: lib/Api.php:438 lib/Api.php:443
+#: lib/Api.php:436 lib/Api.php:441
 msgid "Invalid task list requested."
 msgstr ""
 
@@ -732,7 +732,7 @@ msgstr ""
 msgid "Mark \"%s\" as incomplete"
 msgstr ""
 
-#: lib/Application.php:76
+#: lib/Application.php:77
 msgid "Maximum Number of Tasks"
 msgstr ""
 
@@ -765,7 +765,7 @@ msgstr ""
 msgid "More Options..."
 msgstr ""
 
-#: lib/Api.php:1374
+#: lib/Api.php:1365
 msgid "Multiple iCalendar components found; only one vTodo is supported."
 msgstr ""
 
@@ -773,7 +773,7 @@ msgstr ""
 msgid "Must complete all children tasks."
 msgstr ""
 
-#: lib/Application.php:141
+#: lib/Application.php:142
 msgid "My Task Lists"
 msgstr ""
 
@@ -800,7 +800,7 @@ msgstr ""
 msgid "New"
 msgstr ""
 
-#: app/controllers/SaveTask.php:12 lib/Application.php:320
+#: app/controllers/SaveTask.php:12 lib/Application.php:321
 #: lib/Smartmobile.php:122 task.php:87 test/Nag/Unit/Form/Task/Base.php:72
 #: test/Nag/Unit/Form/Task/Base.php:86
 msgid "New Task"
@@ -814,7 +814,7 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-#: lib/Api.php:235
+#: lib/Api.php:233
 msgid ""
 "No attendees have been updated because none of the provided email addresses "
 "have been found in the event's attendees list."
@@ -832,7 +832,7 @@ msgstr ""
 msgid "No end date"
 msgstr ""
 
-#: lib/Api.php:1033 lib/Api.php:1067 lib/Api.php:1381
+#: lib/Api.php:1031 lib/Api.php:1064 lib/Api.php:1372
 msgid "No iCalendar data was found."
 msgstr ""
 
@@ -872,7 +872,7 @@ msgstr ""
 msgid "Not Private"
 msgstr ""
 
-#: lib/Api.php:819
+#: lib/Api.php:817
 msgid "Not configured"
 msgstr ""
 
@@ -922,7 +922,7 @@ msgstr ""
 msgid "Private"
 msgstr ""
 
-#: data.php:54 lib/Task.php:895
+#: data.php:54 lib/Task.php:898
 msgid "Private Task"
 msgstr ""
 
@@ -1015,7 +1015,7 @@ msgstr ""
 msgid "Saved %s."
 msgstr ""
 
-#: lib/Application.php:348 lib/Form/Search.php:72 search.php:17 search.php:30
+#: lib/Application.php:349 lib/Form/Search.php:72 search.php:17 search.php:30
 #: templates/list/header.html.php:6
 msgid "Search"
 msgstr ""
@@ -1071,7 +1071,7 @@ msgstr ""
 msgid "Set recurrence end date"
 msgstr ""
 
-#: lib/Application.php:167
+#: lib/Application.php:168
 msgid "Shared Task Lists"
 msgstr ""
 
@@ -1156,7 +1156,7 @@ msgstr ""
 msgid "Successfully deleted"
 msgstr ""
 
-#: config/prefs.php:334
+#: config/prefs.php:338
 msgid "Support separate task lists?"
 msgstr ""
 
@@ -1172,7 +1172,7 @@ msgstr ""
 msgid "System Task List"
 msgstr ""
 
-#: lib/Application.php:155
+#: lib/Application.php:156
 msgid "System Task Lists"
 msgstr ""
 
@@ -1236,11 +1236,11 @@ msgstr ""
 msgid "Task description:"
 msgstr ""
 
-#: lib/Api.php:761
+#: lib/Api.php:759
 msgid "Task list does not exist or no permission to delete"
 msgstr ""
 
-#: lib/Api.php:581
+#: lib/Api.php:579
 msgid "Task list does not exist or no permission to edit"
 msgstr ""
 
@@ -1265,7 +1265,7 @@ msgstr ""
 msgid "Task successfully deleted"
 msgstr ""
 
-#: lib/Api.php:1464 lib/Tasklists/Kolab.php:41
+#: lib/Api.php:1453 lib/Tasklists/Kolab.php:41
 msgid "Tasks"
 msgstr ""
 
@@ -1273,7 +1273,7 @@ msgstr ""
 msgid "Tasks Summary"
 msgstr ""
 
-#: lib/Api.php:387
+#: lib/Api.php:385
 #, php-format
 msgid "Tasks from %s"
 msgstr ""
@@ -1300,7 +1300,7 @@ msgstr ""
 msgid "The Tasks backend is not currently available: %s"
 msgstr ""
 
-#: lib/Api.php:258
+#: lib/Api.php:256
 msgid ""
 "The attendee hasn't been updated because the update was not sent from the "
 "attendee."
@@ -1355,7 +1355,7 @@ msgstr ""
 msgid "The task list \"%s\" has been saved."
 msgstr ""
 
-#: lib/Nag.php:1920
+#: lib/Nag.php:1924
 #, php-format
 msgid "The task request notification to %s was successfully sent."
 msgstr ""
@@ -1383,7 +1383,7 @@ msgstr ""
 msgid "There was a problem saving the task: %s."
 msgstr ""
 
-#: config/prefs.php:324
+#: config/prefs.php:328
 #, php-format
 msgid "There was an error communicating with the ActiveSync server: %s"
 msgstr ""
@@ -1393,16 +1393,16 @@ msgstr ""
 msgid "There was an error importing the data: %s"
 msgstr ""
 
-#: lib/Api.php:606 lib/Api.php:1025 lib/Api.php:1366 lib/Application.php:579
+#: lib/Api.php:604 lib/Api.php:1023 lib/Api.php:1357 lib/Application.php:687
 msgid "There was an error importing the iCalendar data."
 msgstr ""
 
-#: lib/Application.php:251
+#: lib/Application.php:252
 #, php-format
 msgid "There was an error removing tasks for %s. Details have been logged."
 msgstr ""
 
-#: lib/Nag.php:1925
+#: lib/Nag.php:1929
 #, php-format
 msgid "There was an error sending a task request notification to %s: %s"
 msgstr ""
@@ -1439,7 +1439,7 @@ msgstr ""
 msgid "Turned privacy on"
 msgstr ""
 
-#: lib/Api.php:791
+#: lib/Api.php:789
 #, php-format
 msgid "Unable to delete task list \"%s\": %s"
 msgstr ""
@@ -1458,13 +1458,13 @@ msgstr ""
 msgid "Unique ID"
 msgstr ""
 
-#: lib/Api.php:709 lib/Api.php:1084 lib/Api.php:1214 lib/Api.php:1280
-#: lib/Api.php:1399
+#: lib/Api.php:707 lib/Api.php:1081 lib/Api.php:1205 lib/Api.php:1271
+#: lib/Api.php:1390
 #, php-format
 msgid "Unsupported Content-Type: %s"
 msgstr ""
 
-#: lib/Nag.php:1868
+#: lib/Nag.php:1872
 #, php-format
 msgid "Updated: %s."
 msgstr ""
@@ -1545,7 +1545,7 @@ msgstr ""
 msgid "You are not allowed to see this task list."
 msgstr ""
 
-#: lib/Nag.php:1819
+#: lib/Nag.php:1823
 #, php-format
 msgid ""
 "You do not have an email address configured in your Personal Information "
@@ -1615,23 +1615,23 @@ msgstr ""
 msgid "_Future tasks"
 msgstr ""
 
-#: lib/Application.php:98
+#: lib/Application.php:99
 msgid "_Import/Export"
 msgstr ""
 
-#: lib/Application.php:91
+#: lib/Application.php:92
 msgid "_List Tasks"
 msgstr ""
 
-#: lib/Application.php:117
+#: lib/Application.php:118
 msgid "_New Task"
 msgstr ""
 
-#: lib/Application.php:127
+#: lib/Application.php:128
 msgid "_Quick Add"
 msgstr ""
 
-#: lib/Application.php:94
+#: lib/Application.php:95
 msgid "_Search"
 msgstr ""
 
@@ -1686,7 +1686,7 @@ msgstr ""
 msgid "iCalendar (vTodo)"
 msgstr ""
 
-#: lib/Application.php:336
+#: lib/Application.php:337
 #, php-format
 msgid "in %s"
 msgstr ""
@@ -1740,11 +1740,11 @@ msgstr ""
 msgid "tasks"
 msgstr ""
 
-#: lib/Application.php:412 templates/data/export.inc:1
+#: lib/Application.php:520 templates/data/export.inc:1
 msgid "tasks.csv"
 msgstr ""
 
-#: lib/Application.php:426
+#: lib/Application.php:534
 msgid "tasks.ics"
 msgstr ""
 

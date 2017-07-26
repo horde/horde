@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Chora H5 (3.0.0-git)\n"
+"Project-Id-Version: Chora\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-07-16 21:24+0200\n"
+"POT-Creation-Date: 2017-07-26 12:13+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,7 +42,7 @@ msgstr ""
 msgid "All Branches"
 msgstr ""
 
-#: annotate.php:32 templates/annotate/header.inc:5
+#: annotate.php:33 templates/annotate/header.inc:5
 #: templates/patchsets/header_table.inc:11 templates/stats/stats.inc:4
 msgid "Author"
 msgstr ""
@@ -103,7 +103,7 @@ msgstr ""
 msgid "Da_te"
 msgstr ""
 
-#: annotate.php:33 templates/patchsets/header_table.inc:10
+#: annotate.php:34 templates/patchsets/header_table.inc:10
 msgid "Date"
 msgstr ""
 
@@ -171,7 +171,7 @@ msgstr ""
 msgid "Line"
 msgstr ""
 
-#: annotate.php:51
+#: annotate.php:56
 msgid "Loading..."
 msgstr ""
 
@@ -193,6 +193,10 @@ msgstr ""
 
 #: lib/Application.php:114
 msgid "No repositories found."
+msgstr ""
+
+#: annotate.php:25
+msgid "No revision specified"
 msgstr ""
 
 #: templates/directory/back.inc:4
@@ -224,7 +228,7 @@ msgstr ""
 msgid "Revision %s (%s ago) for:"
 msgstr ""
 
-#: annotate.php:25
+#: annotate.php:41
 #, php-format
 msgid "Revision %s not found"
 msgstr ""
@@ -259,7 +263,7 @@ msgstr ""
 msgid "Show diffs between %s and %s"
 msgstr ""
 
-#: annotate.php:45
+#: annotate.php:50
 #, php-format
 msgid "Source Annotation (revision %s) for:"
 msgstr ""

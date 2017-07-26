@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Imap_Client\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2016-08-08 15:58+0200\n"
+"POT-Creation-Date: 2017-07-26 12:13+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -51,7 +51,7 @@ msgstr ""
 msgid "Cannot convert search query text to new charset"
 msgstr ""
 
-#: lib/Horde/Imap/Client/Base.php:1922 lib/Horde/Imap/Client/Base.php:1985
+#: lib/Horde/Imap/Client/Base.php:1924 lib/Horde/Imap/Client/Base.php:1987
 msgid "Cannot expunge read-only mailbox."
 msgstr ""
 
@@ -130,8 +130,8 @@ msgstr ""
 msgid "Mail server denied authentication."
 msgstr ""
 
-#: lib/Horde/Imap/Client/Base.php:2255 lib/Horde/Imap/Client/Base.php:2534
-#: lib/Horde/Imap/Client/Base.php:2806 lib/Horde/Imap/Client/Base.php:2891
+#: lib/Horde/Imap/Client/Base.php:2257 lib/Horde/Imap/Client/Base.php:2536
+#: lib/Horde/Imap/Client/Base.php:2808 lib/Horde/Imap/Client/Base.php:2893
 msgid "Mailbox does not support mod-sequences."
 msgstr ""
 

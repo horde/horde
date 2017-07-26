@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2016-08-08 15:58+0200\n"
+"POT-Creation-Date: 2017-07-26 15:06+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -43,12 +43,17 @@ msgstr ""
 msgid "%d %s and %s"
 msgstr ""
 
+#: lib/Cli/Backup.php:230
+#, php-format
+msgid "%d backups"
+msgstr ""
+
 #: lib/Block/Account/Ldap.php:228 lib/Block/Account/Ldap.php:243
 #, php-format
 msgid "%d days until your password expires."
 msgstr ""
 
-#: lib/Block/Metar.php:260
+#: lib/Block/Metar.php:294
 #, php-format
 msgid "%d minutes"
 msgstr ""
@@ -65,7 +70,7 @@ msgstr[1] ""
 msgid "%d to %d of %d"
 msgstr ""
 
-#: templates/block/weather_content.html.php:90
+#: templates/block/weather_content.html.php:91
 #, php-format
 msgid "%d-day forecast"
 msgstr ""
@@ -75,7 +80,7 @@ msgstr ""
 msgid "%s - Notice"
 msgstr ""
 
-#: admin/config/config.php:28 admin/config/index.php:465
+#: admin/config/config.php:28 admin/config/index.php:475
 #, php-format
 msgid "%s Configuration"
 msgstr ""
@@ -90,8 +95,8 @@ msgstr ""
 msgid "%s Terms of Agreement"
 msgstr ""
 
-#: lib/Block/Metar.php:133 lib/Block/Metar.php:139 lib/Block/Metar.php:213
-#: lib/Block/Metar.php:319 lib/Block/Metar.php:325
+#: lib/Block/Metar.php:189 lib/Block/Metar.php:195 lib/Block/Metar.php:365
+#: lib/Block/Metar.php:375 templates/block/metar_content.html.php:37
 #, php-format
 msgid "%s at %s %s"
 msgstr ""
@@ -118,6 +123,26 @@ msgid ""
 "%s cannot set your status messages or publish other content to Facebook."
 msgstr ""
 
+#: lib/Cli/Backup.php:250
+#, php-format
+msgid "%s doesn't exist"
+msgstr ""
+
+#: lib/Cli/Backup.php:255
+#, php-format
+msgid "%s is not a directory"
+msgstr ""
+
+#: lib/Cli/Backup.php:260
+#, php-format
+msgid "%s is not readable"
+msgstr ""
+
+#: lib/Cli/Backup.php:265
+#, php-format
+msgid "%s is not writable"
+msgstr ""
+
 #: services/logintasks.php:72
 #, php-format
 msgid ""
@@ -125,25 +150,25 @@ msgid ""
 "time."
 msgstr ""
 
-#: lib/Block/Metar.php:162 lib/Block/Metar.php:167
+#: lib/Block/Metar.php:221 lib/Block/Metar.php:232
 #, php-format
 msgid ", gusting %s %s"
 msgstr ""
 
-#: lib/Block/Metar.php:175
+#: lib/Block/Metar.php:243
 #, php-format
 msgid ", variable from %s to %s"
 msgstr ""
 
-#: lib/Application.php:336
+#: lib/Application.php:332
 msgid "1 Day"
 msgstr ""
 
-#: lib/Application.php:340
+#: lib/Application.php:336
 msgid "1 Month"
 msgstr ""
 
-#: lib/Application.php:338
+#: lib/Application.php:334
 msgid "1 Week"
 msgstr ""
 
@@ -151,7 +176,7 @@ msgstr ""
 msgid "12 Hour Format"
 msgstr ""
 
-#: lib/Application.php:339
+#: lib/Application.php:335
 msgid "2 Weeks"
 msgstr ""
 
@@ -167,7 +192,7 @@ msgstr ""
 msgid "24-hour format"
 msgstr ""
 
-#: lib/Application.php:337
+#: lib/Application.php:333
 msgid "3 Days"
 msgstr ""
 
@@ -178,21 +203,21 @@ msgid ""
 msgstr ""
 
 #: admin/config/index.php:171 admin/config/index.php:215
-#: admin/config/index.php:348 admin/config/index.php:374
+#: admin/config/index.php:358 admin/config/index.php:384
 #, php-format
 msgid "A newer version (%s) exists."
 msgstr ""
 
-#: lib/LoginTasks/Task/UpgradeCheck.php:81
+#: lib/LoginTasks/Task/UpgradeCheck.php:82
 #, php-format
 msgid "A newer version of %s exists."
 msgstr ""
 
-#: lib/LoginTasks/Task/UpgradeCheck.php:106
+#: lib/LoginTasks/Task/UpgradeCheck.php:107
 msgid "A newer version of a library exists."
 msgstr ""
 
-#: lib/LoginTasks/Task/UpgradeCheck.php:94
+#: lib/LoginTasks/Task/UpgradeCheck.php:95
 msgid "A newer version of an application exists."
 msgstr ""
 
@@ -219,7 +244,7 @@ msgstr ""
 msgid "Actions"
 msgstr ""
 
-#: config/prefs.php:741 lib/Application.php:211
+#: config/prefs.php:741 lib/Application.php:207
 msgid "ActiveSync"
 msgstr ""
 
@@ -236,7 +261,7 @@ msgstr ""
 msgid "ActiveSync not activated."
 msgstr ""
 
-#: templates/admin/groups/add.inc:12 templates/portal/add.inc:14
+#: templates/admin/groups/add.inc:12 templates/portal/add.inc:15
 msgid "Add"
 msgstr ""
 
@@ -350,19 +375,19 @@ msgstr ""
 msgid "All synchronization sessions deleted."
 msgstr ""
 
-#: lib/Application.php:247
+#: lib/Application.php:243
 msgid "Allow alphanumeric"
 msgstr ""
 
-#: lib/Application.php:248
+#: lib/Application.php:244
 msgid "Allow any"
 msgstr ""
 
-#: lib/Application.php:226
+#: lib/Application.php:222
 msgid "Allow non-provisionable devices"
 msgstr ""
 
-#: lib/Application.php:246
+#: lib/Application.php:242
 msgid "Allow only numeric"
 msgstr ""
 
@@ -394,7 +419,7 @@ msgstr ""
 msgid "Application Context"
 msgstr ""
 
-#: admin/config/index.php:257
+#: admin/config/index.php:267
 msgid "Application is ready."
 msgstr ""
 
@@ -441,7 +466,7 @@ msgstr ""
 msgid "Attachment"
 msgstr ""
 
-#: lib/Application.php:270
+#: lib/Application.php:266
 msgid "Attachment Download"
 msgstr ""
 
@@ -499,6 +524,10 @@ msgstr ""
 msgid "Backend Read/Write Test"
 msgstr ""
 
+#: lib/Cli/Backup.php:62
+msgid "Backup user data."
+msgstr ""
+
 #: config/nls.php:170
 msgid "Baltic (ISO-8859-13)"
 msgstr ""
@@ -511,15 +540,15 @@ msgstr ""
 msgid "Block"
 msgstr ""
 
-#: templates/portal/layout.inc:90
+#: templates/portal/layout.inc:91
 msgid "Block Settings"
 msgstr ""
 
-#: templates/portal/layout.inc:72
+#: templates/portal/layout.inc:73
 msgid "Block Type"
 msgstr ""
 
-#: lib/Application.php:303
+#: lib/Application.php:299
 msgid "Bluetooth"
 msgstr ""
 
@@ -562,7 +591,11 @@ msgstr ""
 msgid "Calendar"
 msgstr ""
 
-#: lib/Application.php:291
+#: lib/Block/Metar.php:202 lib/Block/Metar.php:382
+msgid "Calm"
+msgstr ""
+
+#: lib/Application.php:287
 msgid "Camera"
 msgstr ""
 
@@ -577,6 +610,14 @@ msgstr ""
 
 #: templates/activesync/device_table.html.php:51
 msgid "Cancel Wipe"
+msgstr ""
+
+#: admin/config/index.php:248
+msgid "Cannot read configuration file conf.php."
+msgstr ""
+
+#: admin/config/index.php:236
+msgid "Cannot read original configuration definition from conf.xml."
 msgstr ""
 
 #: services/resetpassword.php:23
@@ -599,7 +640,7 @@ msgstr ""
 msgid "Change"
 msgstr ""
 
-#: templates/block/weather.html.php:4
+#: templates/block/metar.html.php:4 templates/block/weather.html.php:4
 msgid "Change Location"
 msgstr ""
 
@@ -678,8 +719,12 @@ msgstr ""
 msgid "Clear Hashtable"
 msgstr ""
 
-#: templates/admin/sqlshell.html.php:58
+#: templates/admin/sqlshell.html.php:64
 msgid "Clear Query"
+msgstr ""
+
+#: lib/Cli/Backup.php:107
+msgid "Clear all existing user data before restoring a user?"
 msgstr ""
 
 #: templates/admin/user/clear.inc:7
@@ -714,11 +759,11 @@ msgstr ""
 msgid "Close Window"
 msgstr ""
 
-#: lib/Block/Metar.php:218
+#: templates/block/metar_content.html.php:33
 msgid "Clouds"
 msgstr ""
 
-#: lib/Application.php:263
+#: lib/Application.php:259
 msgid "Codeword frequency"
 msgstr ""
 
@@ -735,7 +780,7 @@ msgstr ""
 msgid "Color Picker"
 msgstr ""
 
-#: config/registry.php:256
+#: config/registry.php:250
 msgid "Comics"
 msgstr ""
 
@@ -760,11 +805,13 @@ msgstr ""
 msgid "Computers"
 msgstr ""
 
-#: templates/block/weather_content.html.php:96
+#: templates/block/metar_content.html.php:90
+#: templates/block/weather_content.html.php:97
 msgid "Condition"
 msgstr ""
 
-#: lib/Block/Metar.php:223
+#: templates/block/metar_content.html.php:44
+#: templates/block/metar_content.html.php:116
 msgid "Conditions"
 msgstr ""
 
@@ -780,7 +827,7 @@ msgstr ""
 msgid "Configuration for syncing with PDAs, Smartphones and Outlook."
 msgstr ""
 
-#: admin/config/index.php:252
+#: admin/config/index.php:262
 msgid "Configuration is out of date."
 msgstr ""
 
@@ -906,7 +953,7 @@ msgstr ""
 msgid "Current Time"
 msgstr ""
 
-#: lib/Block/Metar.php:30
+#: lib/Block/Metar.php:54
 msgid "Current Weather"
 msgstr ""
 
@@ -926,7 +973,7 @@ msgstr ""
 msgid "Cyrillic/Ukrainian (KOI8-U)"
 msgstr ""
 
-#: admin/config/index.php:272 admin/config/index.php:324
+#: admin/config/index.php:282 admin/config/index.php:334
 msgid "DB access is not configured."
 msgstr ""
 
@@ -964,7 +1011,7 @@ msgstr ""
 msgid "Date: %s; time: %s"
 msgstr ""
 
-#: templates/block/weather_content.html.php:94
+#: templates/block/weather_content.html.php:95
 msgid "Day"
 msgstr ""
 
@@ -997,8 +1044,8 @@ msgstr ""
 #: templates/admin/user/list.inc:32 templates/prefs/syncml.html.php:14
 #: templates/prefs/syncml.html.php:23 templates/shares/edit.inc:67
 #: templates/shares/edit.inc:87 templates/shares/edit.inc:102
-#: templates/shares/edit.inc:122 templates/shares/edit.inc:138
-#: templates/shares/edit.inc:158 templates/shares/edit.inc:173
+#: templates/shares/edit.inc:122 templates/shares/edit.inc:137
+#: templates/shares/edit.inc:157 templates/shares/edit.inc:173
 #: templates/shares/edit.inc:197 templates/shares/edit.inc:232
 #: templates/shares/edit.inc:259 templates/shares/edit.inc:275
 #: templates/shares/edit.inc:300 templates/shares/edit.inc:329
@@ -1033,7 +1080,7 @@ msgstr ""
 msgid "Describe the Problem"
 msgstr ""
 
-#: config/registry.php:216
+#: config/registry.php:210
 msgid "Development"
 msgstr ""
 
@@ -1058,7 +1105,7 @@ msgstr ""
 msgid "Device Type"
 msgstr ""
 
-#: lib/Application.php:323
+#: lib/Application.php:319
 msgid "Device encryption"
 msgstr ""
 
@@ -1078,11 +1125,11 @@ msgstr ""
 msgid "Device wipe successfully canceled."
 msgstr ""
 
-#: lib/Block/Metar.php:191
+#: templates/block/metar_content.html.php:22
 msgid "Dew Point"
 msgstr ""
 
-#: lib/Block/Metar.php:268
+#: lib/Block/Metar.php:304
 msgid "Dew Point for last hour: "
 msgstr ""
 
@@ -1095,7 +1142,7 @@ msgstr ""
 msgid "Disable"
 msgstr ""
 
-#: lib/Application.php:227
+#: lib/Application.php:223
 msgid "Disable (not recommended)"
 msgstr ""
 
@@ -1111,7 +1158,7 @@ msgstr ""
 msgid "Display detailed forecast?"
 msgstr ""
 
-#: lib/Block/Metar.php:72
+#: lib/Block/Metar.php:105
 msgid "Display forecast (TAF)"
 msgstr ""
 
@@ -1136,12 +1183,12 @@ msgid "Don't have an account? Sign up."
 msgstr ""
 
 #: admin/config/index.php:171 admin/config/index.php:215
-#: admin/config/index.php:348 admin/config/index.php:374
+#: admin/config/index.php:358 admin/config/index.php:384
 #, php-format
 msgid "Download %s"
 msgstr ""
 
-#: admin/config/index.php:400
+#: admin/config/index.php:410
 msgid "Download generated configuration as PHP script."
 msgstr ""
 
@@ -1163,8 +1210,8 @@ msgstr ""
 
 #: lib/View/Sidebar.php:229 templates/shares/edit.inc:66
 #: templates/shares/edit.inc:83 templates/shares/edit.inc:101
-#: templates/shares/edit.inc:118 templates/shares/edit.inc:137
-#: templates/shares/edit.inc:154 templates/shares/edit.inc:172
+#: templates/shares/edit.inc:118 templates/shares/edit.inc:136
+#: templates/shares/edit.inc:153 templates/shares/edit.inc:172
 #: templates/shares/edit.inc:193 templates/shares/edit.inc:228
 #: templates/shares/edit.inc:255 templates/shares/edit.inc:274
 #: templates/shares/edit.inc:296 templates/shares/edit.inc:325
@@ -1197,7 +1244,7 @@ msgstr ""
 msgid "Email Address"
 msgstr ""
 
-#: lib/Application.php:225
+#: lib/Application.php:221
 msgid "Enable"
 msgstr ""
 
@@ -1253,7 +1300,7 @@ msgstr ""
 msgid "Ethnic"
 msgstr ""
 
-#: config/prefs.php:600 templates/portal/layout.inc:101
+#: config/prefs.php:600 templates/portal/layout.inc:102
 msgid "Every 15 minutes"
 msgstr ""
 
@@ -1261,23 +1308,23 @@ msgstr ""
 msgid "Every 2 minutes"
 msgstr ""
 
-#: config/prefs.php:597 config/prefs.php:617 templates/portal/layout.inc:98
+#: config/prefs.php:597 config/prefs.php:617 templates/portal/layout.inc:99
 msgid "Every 30 seconds"
 msgstr ""
 
-#: config/prefs.php:599 config/prefs.php:620 templates/portal/layout.inc:100
+#: config/prefs.php:599 config/prefs.php:620 templates/portal/layout.inc:101
 msgid "Every 5 minutes"
 msgstr ""
 
-#: config/prefs.php:601 templates/portal/layout.inc:102
+#: config/prefs.php:601 templates/portal/layout.inc:103
 msgid "Every half hour"
 msgstr ""
 
-#: templates/portal/layout.inc:103
+#: templates/portal/layout.inc:104
 msgid "Every hour"
 msgstr ""
 
-#: config/prefs.php:598 config/prefs.php:618 templates/portal/layout.inc:99
+#: config/prefs.php:598 config/prefs.php:618 templates/portal/layout.inc:100
 msgid "Every minute"
 msgstr ""
 
@@ -1286,8 +1333,12 @@ msgid "Example values:"
 msgstr ""
 
 #: templates/admin/cmdshell.html.php:24 templates/admin/phpshell.html.php:23
-#: templates/admin/sqlshell.html.php:57
+#: templates/admin/sqlshell.html.php:63
 msgid "Execute"
+msgstr ""
+
+#: lib/Cli/Backup.php:224
+msgid "Existings backups"
 msgstr ""
 
 #: lib/View/Sidebar.php:66 templates/sidebar/_container.html.php:14
@@ -1315,7 +1366,7 @@ msgstr ""
 msgid "Facebook Integration"
 msgstr ""
 
-#: lib/Application.php:258
+#: lib/Application.php:254
 msgid "Failed unlock attempts before device is wiped"
 msgstr ""
 
@@ -1331,15 +1382,15 @@ msgstr ""
 msgid "Feed Address"
 msgstr ""
 
-#: lib/Block/Metar.php:194
-msgid "Feels Like"
+#: templates/block/metar_content.html.php:24
+msgid "Feels like"
 msgstr ""
 
 #: templates/prefs/addressbooks.html:15
 msgid "Fields to search"
 msgstr ""
 
-#: config/registry.php:322
+#: config/registry.php:316
 msgid "File Manager"
 msgstr ""
 
@@ -1363,7 +1414,7 @@ msgstr ""
 msgid "Food"
 msgstr ""
 
-#: lib/Block/Metar.php:308
+#: templates/block/metar_content.html.php:51
 msgid "Forecast (TAF)"
 msgstr ""
 
@@ -1377,7 +1428,7 @@ msgstr ""
 msgid "Forgot your password?"
 msgstr ""
 
-#: config/registry.php:351
+#: config/registry.php:345
 msgid "Forms"
 msgstr ""
 
@@ -1397,7 +1448,7 @@ msgstr ""
 msgid "Fortunes 2"
 msgstr ""
 
-#: config/registry.php:345
+#: config/registry.php:339
 msgid "Forums"
 msgstr ""
 
@@ -1410,7 +1461,7 @@ msgstr ""
 msgid "From the %s (%s&deg;) at %s %s"
 msgstr ""
 
-#: templates/block/weather_content.html.php:128
+#: templates/block/weather_content.html.php:129
 #, php-format
 msgid "From the %s at %s %s"
 msgstr ""
@@ -1481,7 +1532,7 @@ msgstr ""
 msgid "Guest Permissions"
 msgstr ""
 
-#: lib/Application.php:327
+#: lib/Application.php:323
 msgid "HTML Email"
 msgstr ""
 
@@ -1533,12 +1584,20 @@ msgstr ""
 msgid "Hide Results"
 msgstr ""
 
+#: templates/block/metar_content.html.php:77
+msgid "High"
+msgstr ""
+
 #: lib/Block/Account.php:73
 msgid "Home Directory"
 msgstr ""
 
 #: config/registry.php:84
 msgid "Horde"
+msgstr ""
+
+#: lib/Cli/Backup.php:51
+msgid "Horde backup and restore tool"
 msgstr ""
 
 #: templates/data/csvinfo.inc:18
@@ -1549,8 +1608,9 @@ msgstr ""
 msgid "How many seconds before we check for new articles?"
 msgstr ""
 
-#: lib/Block/Metar.php:204 templates/block/weather_content.html.php:75
-#: templates/block/weather_content.html.php:102
+#: templates/block/metar_content.html.php:30
+#: templates/block/weather_content.html.php:75
+#: templates/block/weather_content.html.php:103
 msgid "Humidity"
 msgstr ""
 
@@ -1612,7 +1672,7 @@ msgstr ""
 msgid "Individual Users"
 msgstr ""
 
-#: config/registry.php:250
+#: config/registry.php:244
 msgid "Information"
 msgstr ""
 
@@ -1649,7 +1709,7 @@ msgstr ""
 msgid "Invalid parent permission."
 msgstr ""
 
-#: config/registry.php:303
+#: config/registry.php:297
 msgid "Inventory"
 msgstr ""
 
@@ -1679,7 +1739,7 @@ msgstr ""
 msgid "Kids"
 msgstr ""
 
-#: config/registry.php:311
+#: config/registry.php:305
 msgid "Kolab"
 msgstr ""
 
@@ -1711,8 +1771,9 @@ msgstr ""
 msgid "Last Sync Time"
 msgstr ""
 
-#: lib/Block/Metar.php:125
-msgid "Last Updated:"
+#: templates/block/metar_content.html.php:6
+#, php-format
+msgid "Last Updated: %s"
 msgstr ""
 
 #: lib/LoginTasks/Task/LastLogin.php:52
@@ -1753,8 +1814,20 @@ msgstr ""
 msgid "Linux Cookie"
 msgstr ""
 
-#: templates/admin/sqlshell.html.php:62
+#: templates/admin/sqlshell.html.php:68
 msgid "List Tables"
+msgstr ""
+
+#: lib/Cli/Backup.php:80
+msgid "List backups."
+msgstr ""
+
+#: lib/Cli/Backup.php:93
+msgid "List of applications to backup/restore."
+msgstr ""
+
+#: lib/Cli/Backup.php:100
+msgid "List of users to backup/restore."
 msgstr ""
 
 #: admin/alarms.php:141
@@ -1798,7 +1871,7 @@ msgstr ""
 msgid "Locale and Time"
 msgstr ""
 
-#: lib/Block/Metar.php:52 lib/Block/Sunrise.php:23 lib/Block/Weather.php:84
+#: lib/Block/Metar.php:85 lib/Block/Sunrise.php:23 lib/Block/Weather.php:84
 msgid "Location"
 msgstr ""
 
@@ -1854,6 +1927,10 @@ msgstr ""
 msgid "Love"
 msgstr ""
 
+#: templates/block/metar_content.html.php:74
+msgid "Low"
+msgstr ""
+
 #: templates/data/date.inc:47 templates/data/date.inc:48
 #: templates/data/date.inc:49 templates/data/date.inc:50
 #: templates/data/datetime.inc:89 templates/data/datetime.inc:90
@@ -1869,7 +1946,7 @@ msgstr ""
 msgid "Mail"
 msgstr ""
 
-#: config/registry.php:356
+#: config/registry.php:350
 msgid "Mail Admin"
 msgstr ""
 
@@ -1887,15 +1964,15 @@ msgstr ""
 msgid "Matching fields:"
 msgstr ""
 
-#: lib/Block/Metar.php:280
+#: lib/Block/Metar.php:322
 msgid "Max temp last 24 hours: "
 msgstr ""
 
-#: lib/Block/Metar.php:272
+#: lib/Block/Metar.php:310
 msgid "Max temp last 6 hours: "
 msgstr ""
 
-#: lib/Application.php:331
+#: lib/Application.php:327
 msgid "Maximum Email age"
 msgstr ""
 
@@ -1903,11 +1980,11 @@ msgstr ""
 msgid "Maximum Number of Portal Blocks"
 msgstr ""
 
-#: lib/Application.php:275
+#: lib/Application.php:271
 msgid "Maximum attachment size in bytes"
 msgstr ""
 
-#: lib/Application.php:216
+#: lib/Application.php:212
 msgid "Maximum number of devices"
 msgstr ""
 
@@ -1931,23 +2008,23 @@ msgstr ""
 msgid "Mentions"
 msgstr ""
 
-#: lib/Block/Metar.php:23
+#: lib/Block/Metar.php:35
 msgid "Metar Weather"
 msgstr ""
 
-#: lib/Block/Metar.php:62 lib/Block/Weather.php:93
+#: lib/Block/Metar.php:95 lib/Block/Weather.php:93
 msgid "Metric"
 msgstr ""
 
-#: lib/Block/Metar.php:284
+#: lib/Block/Metar.php:328
 msgid "Min temp last 24 hours: "
 msgstr ""
 
-#: lib/Block/Metar.php:276
+#: lib/Block/Metar.php:316
 msgid "Min temp last 6 hours: "
 msgstr ""
 
-#: lib/Application.php:237
+#: lib/Application.php:233
 msgid "Minimum PIN length"
 msgstr ""
 
@@ -1984,7 +2061,7 @@ msgid "Model"
 msgstr ""
 
 #: admin/config/index.php:174 admin/config/index.php:218
-#: admin/config/index.php:351 admin/config/index.php:377
+#: admin/config/index.php:361 admin/config/index.php:387
 msgid "Module is up-to-date."
 msgstr ""
 
@@ -1996,7 +2073,7 @@ msgstr ""
 msgid "Moon Phases"
 msgstr ""
 
-#: config/registry.php:316
+#: config/registry.php:310
 msgid "My Account"
 msgstr ""
 
@@ -2016,9 +2093,9 @@ msgstr ""
 msgid "My Portal Layout"
 msgstr ""
 
-#: templates/block/weather_content.html.php:121
-#: templates/block/weather_content.html.php:124
-#: templates/block/weather_content.html.php:130
+#: templates/block/weather_content.html.php:122
+#: templates/block/weather_content.html.php:125
+#: templates/block/weather_content.html.php:131
 msgid "N/A"
 msgstr ""
 
@@ -2038,7 +2115,7 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-#: config/prefs.php:596 config/prefs.php:616 templates/portal/layout.inc:97
+#: config/prefs.php:596 config/prefs.php:616 templates/portal/layout.inc:98
 msgid "Never"
 msgstr ""
 
@@ -2062,7 +2139,7 @@ msgstr ""
 msgid "New passwords don't match."
 msgstr ""
 
-#: config/registry.php:261 lib/Block/Fortune.php:59
+#: config/registry.php:255 lib/Block/Fortune.php:59
 msgid "News"
 msgstr ""
 
@@ -2099,8 +2176,14 @@ msgstr ""
 msgid "No items to display"
 msgstr ""
 
-#: lib/Block/Metar.php:100 lib/Block/Sunrise.php:45
+#: lib/Block/Sunrise.php:45
 msgid "No location is set."
+msgstr ""
+
+#: lib/Block/Metar.php:140
+msgid ""
+"No metar station data found. Contact administrator to run the horde-service-"
+"weather-metar-database script."
 msgstr ""
 
 #: lib/Block/Fortune.php:101
@@ -2111,7 +2194,7 @@ msgstr ""
 msgid "No pending signups."
 msgstr ""
 
-#: lib/Application.php:344
+#: lib/Application.php:340
 msgid "No push while roaming"
 msgstr ""
 
@@ -2120,7 +2203,7 @@ msgid "No security question has been set. Please contact your administrator."
 msgstr ""
 
 #: admin/config/index.php:168 admin/config/index.php:212
-#: admin/config/index.php:345 admin/config/index.php:371
+#: admin/config/index.php:355 admin/config/index.php:381
 msgid "No stable version exists yet."
 msgstr ""
 
@@ -2128,24 +2211,31 @@ msgstr ""
 msgid "No username specified."
 msgstr ""
 
-#: admin/config/index.php:235
-msgid "No version found in original configuration. Regenerate configuration."
+#: admin/config/index.php:240
+msgid ""
+"No version found in original configuration. This shouldn't happen, your "
+"installation may be corrupt."
 msgstr ""
 
-#: admin/config/index.php:244
+#: admin/config/index.php:254
 msgid "No version found in your configuration. Regenerate configuration."
 msgstr ""
 
-#: admin/config/index.php:296
+#: templates/block/metar_content.html.php:3
+#, php-format
+msgid "No weather information provided for %s."
+msgstr ""
+
+#: admin/config/index.php:306
 msgid "NoSQL indices are ready."
 msgstr ""
 
-#: admin/config/index.php:291
+#: admin/config/index.php:301
 #, php-format
 msgid "NoSQL indices for %s"
 msgstr ""
 
-#: admin/config/index.php:293
+#: admin/config/index.php:303
 msgid "NoSQL indices out of date."
 msgstr ""
 
@@ -2191,7 +2281,7 @@ msgstr ""
 msgid "Object Browser"
 msgstr ""
 
-#: templates/shares/edit.inc:133
+#: templates/shares/edit.inc:132
 msgid "Object Creator"
 msgstr ""
 
@@ -2199,7 +2289,7 @@ msgstr ""
 msgid "Offense filter"
 msgstr ""
 
-#: config/registry.php:273
+#: config/registry.php:267
 msgid "Office"
 msgstr ""
 
@@ -2266,7 +2356,7 @@ msgstr ""
 msgid "PHP Shell"
 msgstr ""
 
-#: lib/Application.php:307
+#: lib/Application.php:303
 msgid "POP/IMAP Email accounts"
 msgstr ""
 
@@ -2278,12 +2368,12 @@ msgstr ""
 msgid "P_HP Shell"
 msgstr ""
 
-#: login.php:211 admin/config/index.php:421 admin/user.php:39 admin/user.php:53
-#: config/registry.php:334 templates/admin/user/update.inc:20
+#: login.php:211 admin/config/index.php:431 admin/user.php:39 admin/user.php:53
+#: config/registry.php:328 templates/admin/user/update.inc:20
 msgid "Password"
 msgstr ""
 
-#: lib/Application.php:242
+#: lib/Application.php:238
 msgid "Password Complexity"
 msgstr ""
 
@@ -2295,7 +2385,7 @@ msgstr ""
 msgid "Passwords must match."
 msgstr ""
 
-#: templates/admin/sqlshell.html.php:45
+#: templates/admin/sqlshell.html.php:51
 msgid "Paste"
 msgstr ""
 
@@ -2337,7 +2427,7 @@ msgstr ""
 msgid "Phone Number"
 msgstr ""
 
-#: config/registry.php:204
+#: config/registry.php:198
 msgid "Photos"
 msgstr ""
 
@@ -2353,7 +2443,7 @@ msgstr ""
 msgid "Please enter a username."
 msgstr ""
 
-#: services/problem.php:156
+#: services/problem.php:160
 msgid "Please provide a summary of the problem."
 msgstr ""
 
@@ -2377,31 +2467,41 @@ msgstr ""
 msgid "Posted %s via %s"
 msgstr ""
 
-#: lib/Block/Metar.php:240 lib/Block/Metar.php:245
+#: lib/Block/Metar.php:271 lib/Block/Metar.php:277
 #, php-format
 msgid "Precipitation for last %d hour: "
 msgid_plural "Precipitation for last %d hours: "
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/block/weather_content.html.php:99
+#: templates/block/weather_content.html.php:100
 #, php-format
 msgid "Precipitation%schance"
 msgstr ""
 
-#: lib/Block/Metar.php:199 templates/block/weather_content.html.php:56
+#: templates/block/metar_content.html.php:27
+#: templates/block/weather_content.html.php:56
 msgid "Pressure"
 msgstr ""
 
-#: lib/Block/Metar.php:233
+#: lib/Block/Metar.php:263
 msgid "Pressure at sea level: "
+msgstr ""
+
+#: lib/Block/Metar.php:340
+#, php-format
+msgid "Pressure tendency last 3 hours: %s (%s %s)"
 msgstr ""
 
 #: templates/admin/locks/list.html.php:11
 msgid "Principal"
 msgstr ""
 
-#: services/problem.php:161
+#: templates/block/metar_content.html.php:113
+msgid "Prob"
+msgstr ""
+
+#: services/problem.php:165
 msgid "Problem Description"
 msgstr ""
 
@@ -2409,7 +2509,7 @@ msgstr ""
 msgid "Provisioned"
 msgstr ""
 
-#: lib/Application.php:221
+#: lib/Application.php:217
 msgid "Provisioning"
 msgstr ""
 
@@ -2431,7 +2531,7 @@ msgstr ""
 
 #: templates/shares/edit.inc:65 templates/shares/edit.inc:79
 #: templates/shares/edit.inc:100 templates/shares/edit.inc:114
-#: templates/shares/edit.inc:136 templates/shares/edit.inc:150
+#: templates/shares/edit.inc:135 templates/shares/edit.inc:149
 #: templates/shares/edit.inc:171 templates/shares/edit.inc:189
 #: templates/shares/edit.inc:224 templates/shares/edit.inc:251
 #: templates/shares/edit.inc:273 templates/shares/edit.inc:292
@@ -2462,7 +2562,7 @@ msgstr ""
 msgid "Refresh Portal View:"
 msgstr ""
 
-#: templates/portal/layout.inc:94
+#: templates/portal/layout.inc:95
 msgid "Refresh rate:"
 msgstr ""
 
@@ -2470,7 +2570,7 @@ msgstr ""
 msgid "Regular Apps"
 msgstr ""
 
-#: lib/Block/Metar.php:300
+#: templates/block/metar_content.html.php:47
 msgid "Remarks"
 msgstr ""
 
@@ -2488,7 +2588,7 @@ msgstr ""
 msgid "Remove pair"
 msgstr ""
 
-#: admin/config/index.php:440
+#: admin/config/index.php:450
 msgid "Remove saved script from server's temporary directory."
 msgstr ""
 
@@ -2505,15 +2605,15 @@ msgstr ""
 msgid "Reply"
 msgstr ""
 
-#: lib/Application.php:232
+#: lib/Application.php:228
 msgid "Require PIN"
 msgstr ""
 
-#: lib/Application.php:315
+#: lib/Application.php:311
 msgid "Require S/MIME Encryption"
 msgstr ""
 
-#: lib/Application.php:319
+#: lib/Application.php:315
 msgid "Require S/MIME Signature"
 msgstr ""
 
@@ -2535,8 +2635,12 @@ msgstr ""
 msgid "Reset your password"
 msgstr ""
 
-#: templates/admin/sqlshell.html.php:60
+#: templates/admin/sqlshell.html.php:66
 msgid "Restore Last Query"
+msgstr ""
+
+#: lib/Cli/Backup.php:71
+msgid "Restore user data."
 msgstr ""
 
 #: templates/admin/cmdshell.html.php:7 templates/admin/phpshell.html.php:34
@@ -2570,7 +2674,7 @@ msgstr ""
 msgid "Riddles"
 msgstr ""
 
-#: templates/admin/sqlshell.html.php:46
+#: templates/admin/sqlshell.html.php:52
 msgid "Run"
 msgstr ""
 
@@ -2578,23 +2682,23 @@ msgstr ""
 msgid "Run Login Tasks"
 msgstr ""
 
-#: lib/Application.php:287
+#: lib/Application.php:283
 msgid "SD card"
 msgstr ""
 
-#: lib/Application.php:280
+#: lib/Application.php:276
 msgid "SD card encryption"
 msgstr ""
 
-#: lib/Application.php:295
+#: lib/Application.php:291
 msgid "SMS Text messages"
 msgstr ""
 
-#: admin/config/index.php:278 admin/config/index.php:331
+#: admin/config/index.php:288 admin/config/index.php:341
 msgid "SQL DB schema is out of date."
 msgstr ""
 
-#: admin/config/index.php:283 admin/config/index.php:336
+#: admin/config/index.php:293 admin/config/index.php:346
 msgid "SQL DB schema is ready."
 msgstr ""
 
@@ -2606,7 +2710,7 @@ msgstr ""
 msgid "S_QL Shell"
 msgstr ""
 
-#: templates/portal/layout.inc:115 templates/prefs/end.html:4
+#: templates/portal/layout.inc:116 templates/prefs/end.html:4
 msgid "Save"
 msgstr ""
 
@@ -2619,7 +2723,7 @@ msgstr ""
 msgid "Save and Finish"
 msgstr ""
 
-#: admin/config/index.php:408
+#: admin/config/index.php:418
 msgid ""
 "Save generated configuration as a PHP script to your server's temporary "
 "directory."
@@ -2651,7 +2755,7 @@ msgstr ""
 msgid "Search:"
 msgstr ""
 
-#: lib/Application.php:253
+#: lib/Application.php:249
 msgid "Seconds of inactivity before device should lock"
 msgstr ""
 
@@ -2711,7 +2815,7 @@ msgstr ""
 msgid "Send Problem Report"
 msgstr ""
 
-#: lib/Block/Metar.php:290
+#: lib/Block/Metar.php:335
 msgid "Sensor: "
 msgstr ""
 
@@ -2758,7 +2862,7 @@ msgid ""
 "display preferences."
 msgstr ""
 
-#: templates/block/weather.html.php:13
+#: templates/block/metar.html.php:13 templates/block/weather.html.php:13
 #, php-format
 msgid "Several locations possible with the parameter: %s"
 msgstr ""
@@ -2773,7 +2877,7 @@ msgstr ""
 
 #: templates/shares/edit.inc:64 templates/shares/edit.inc:75
 #: templates/shares/edit.inc:99 templates/shares/edit.inc:110
-#: templates/shares/edit.inc:135 templates/shares/edit.inc:146
+#: templates/shares/edit.inc:134 templates/shares/edit.inc:145
 #: templates/shares/edit.inc:170 templates/shares/edit.inc:185
 #: templates/shares/edit.inc:220 templates/shares/edit.inc:247
 #: templates/shares/edit.inc:272 templates/shares/edit.inc:288
@@ -2789,7 +2893,7 @@ msgstr ""
 msgid "Show All Preferences Groups"
 msgstr ""
 
-#: admin/config/index.php:390
+#: admin/config/index.php:400
 msgid ""
 "Show differences between currently saved and the newly generated "
 "configuration."
@@ -2812,11 +2916,11 @@ msgstr ""
 msgid "Small"
 msgstr ""
 
-#: lib/Block/Metar.php:252
+#: lib/Block/Metar.php:285
 msgid "Snow depth: "
 msgstr ""
 
-#: lib/Block/Metar.php:256
+#: lib/Block/Metar.php:289
 msgid "Snow equivalent in water: "
 msgstr ""
 
@@ -2840,7 +2944,7 @@ msgstr ""
 msgid "Sports"
 msgstr ""
 
-#: lib/Block/Metar.php:61
+#: lib/Block/Metar.php:94
 msgid "Standard"
 msgstr ""
 
@@ -2954,7 +3058,7 @@ msgstr ""
 msgid "Sunset"
 msgstr ""
 
-#: lib/Application.php:335
+#: lib/Application.php:331
 msgid "Sync all"
 msgstr ""
 
@@ -2970,19 +3074,25 @@ msgstr ""
 msgid "Tag Cloud"
 msgstr ""
 
+#: lib/Cli/Backup.php:86
+msgid "Target directory for backups."
+msgstr ""
+
 #: config/registry.php:162
 msgid "Tasks"
 msgstr ""
 
-#: lib/Block/Metar.php:264
+#: lib/Block/Metar.php:298
 msgid "Temp for last hour: "
 msgstr ""
 
-#: lib/Block/Metar.php:188 templates/block/weather_content.html.php:48
+#: templates/block/metar_content.html.php:19
+#: templates/block/metar_content.html.php:72
+#: templates/block/weather_content.html.php:48
 msgid "Temperature"
 msgstr ""
 
-#: templates/block/weather_content.html.php:95
+#: templates/block/weather_content.html.php:96
 #, php-format
 msgid "Temperature%s(%sHi%s/%sLo%s)"
 msgstr ""
@@ -3146,7 +3256,7 @@ msgid ""
 "There was an error obtaining your Facebook session. Please try again later."
 msgstr ""
 
-#: lib/Application.php:202
+#: lib/Application.php:198
 #, php-format
 msgid ""
 "There was an error removing global data for %s. Details have been logged."
@@ -3172,11 +3282,11 @@ msgstr ""
 msgid "This will cause your devices to resyncronize all items."
 msgstr ""
 
-#: config/registry.php:233
+#: config/registry.php:227
 msgid "Tickets"
 msgstr ""
 
-#: config/registry.php:279
+#: config/registry.php:273
 msgid "Time Tracking"
 msgstr ""
 
@@ -3208,11 +3318,11 @@ msgid ""
 "clicking."
 msgstr ""
 
-#: templates/block/weather_content.html.php:116
+#: templates/block/weather_content.html.php:117
 msgid "Today"
 msgstr ""
 
-#: templates/block/weather_content.html.php:116
+#: templates/block/weather_content.html.php:117
 msgid "Tomorrow"
 msgstr ""
 
@@ -3243,6 +3353,10 @@ msgstr ""
 
 #: lib/Ajax/Application/TwitterHandler.php:37
 msgid "Twitter not enabled."
+msgstr ""
+
+#: templates/block/metar_content.html.php:111
+msgid "Type"
 msgstr ""
 
 #: lib/Block/Iframe.php:23
@@ -3286,7 +3400,7 @@ msgstr ""
 msgid "Unicode (UTF-8)"
 msgstr ""
 
-#: lib/Block/Metar.php:58 lib/Block/Weather.php:89
+#: lib/Block/Metar.php:91 lib/Block/Weather.php:89
 msgid "Units"
 msgstr ""
 
@@ -3311,7 +3425,7 @@ msgstr ""
 msgid "Update %s"
 msgstr ""
 
-#: admin/config/index.php:192 admin/config/index.php:310
+#: admin/config/index.php:192 admin/config/index.php:320
 #, php-format
 msgid "Update %s schema"
 msgstr ""
@@ -3338,11 +3452,11 @@ msgstr ""
 msgid "Updated schema for %s."
 msgstr ""
 
-#: admin/config/index.php:419
+#: admin/config/index.php:429
 msgid "Upload"
 msgstr ""
 
-#: admin/config/index.php:427
+#: admin/config/index.php:437
 msgid "Uploaded all application configuration files to the server."
 msgstr ""
 
@@ -3392,7 +3506,7 @@ msgstr ""
 msgid "User to add:"
 msgstr ""
 
-#: login.php:206 admin/config/index.php:420 admin/user.php:36 admin/user.php:52
+#: login.php:206 admin/config/index.php:430 admin/user.php:36 admin/user.php:52
 #: services/resetpassword.php:33 templates/admin/activesync.html.php:9
 #: templates/admin/user/approve.inc:23
 msgid "Username"
@@ -3418,6 +3532,11 @@ msgstr ""
 msgid "VAT number"
 msgstr ""
 
+#: templates/block/metar_content.html.php:53
+#, php-format
+msgid "Valid from %s %s to %s %s"
+msgstr ""
+
 #: templates/admin/activesync.html.php:18
 msgid "Version"
 msgstr ""
@@ -3426,7 +3545,7 @@ msgstr ""
 msgid "Version Check"
 msgstr ""
 
-#: config/registry.php:222
+#: config/registry.php:216
 msgid "Version Control"
 msgstr ""
 
@@ -3438,7 +3557,10 @@ msgstr ""
 msgid "View an external web page"
 msgstr ""
 
-#: lib/Block/Metar.php:183 templates/block/weather_content.html.php:80
+#: templates/block/metar_content.html.php:16
+#: templates/block/metar_content.html.php:86
+#: templates/block/metar_content.html.php:124
+#: templates/block/weather_content.html.php:80
 msgid "Visibility"
 msgstr ""
 
@@ -3454,16 +3576,16 @@ msgstr ""
 msgid "Weather"
 msgstr ""
 
-#: templates/block/weather_content.html.php:140
-#: templates/block/weather_content.html.php:142
+#: templates/block/weather_content.html.php:141
+#: templates/block/weather_content.html.php:143
 msgid "Weather data provided by"
 msgstr ""
 
-#: config/registry.php:339
+#: config/registry.php:333
 msgid "Web Site"
 msgstr ""
 
-#: lib/Application.php:311
+#: lib/Application.php:307
 msgid "Web browser"
 msgstr ""
 
@@ -3514,25 +3636,27 @@ msgstr ""
 msgid "Width of the %s menu on the left:"
 msgstr ""
 
-#: lib/Application.php:299
+#: lib/Application.php:295
 msgid "Wifi"
 msgstr ""
 
-#: config/registry.php:210
+#: config/registry.php:204
 msgid "Wiki"
 msgstr ""
 
+#: templates/block/metar_content.html.php:13
+#: templates/block/metar_content.html.php:67
 #: templates/block/weather_content.html.php:66
-#: templates/block/weather_content.html.php:105
+#: templates/block/weather_content.html.php:106
 msgid "Wind"
 msgstr ""
 
-#: lib/Block/Metar.php:67
-msgid "Wind speed in knots"
+#: templates/block/metar_content.html.php:82
+msgid "Wind Shear"
 msgstr ""
 
-#: lib/Block/Metar.php:130
-msgid "Wind:"
+#: lib/Block/Metar.php:100
+msgid "Wind speed in knots"
 msgstr ""
 
 #: templates/activesync/device_table.html.php:48
@@ -3555,7 +3679,7 @@ msgstr ""
 msgid "Work"
 msgstr ""
 
-#: config/registry.php:245
+#: config/registry.php:239
 msgid "X-Ref"
 msgstr ""
 
@@ -3666,8 +3790,12 @@ msgstr ""
 msgid "You like this"
 msgstr ""
 
-#: services/problem.php:155
+#: services/problem.php:159
 msgid "You must describe the problem before you can send the problem report."
+msgstr ""
+
+#: lib/Cli/Backup.php:245
+msgid "You must specify a target directory with --dir"
 msgstr ""
 
 #: admin/user.php:142
@@ -3676,6 +3804,10 @@ msgstr ""
 
 #: admin/user.php:119
 msgid "You must specify a username to remove."
+msgstr ""
+
+#: lib/Cli/Backup.php:240
+msgid "You must specify either --backup, --restore, or --list"
 msgstr ""
 
 #: admin/user.php:71
@@ -3789,7 +3921,7 @@ msgstr ""
 msgid "Zippy"
 msgstr ""
 
-#: services/problem.php:112
+#: services/problem.php:116
 msgid "[Problem Report]"
 msgstr ""
 
@@ -3821,22 +3953,23 @@ msgstr ""
 msgid "_Users"
 msgstr ""
 
-#: services/problem.php:59
+#: templates/block/metar_content.html.php:96
+#: templates/block/metar_content.html.php:121
+#, php-format
+msgid "at %s %s"
+msgstr ""
+
+#: services/problem.php:63
 msgid "attachment"
 msgstr ""
 
-#: lib/Block/Metar.php:146 lib/Block/Metar.php:332
-#, php-format
-msgid "calm"
-msgstr ""
-
-#: lib/Block/Metar.php:148 lib/Block/Metar.php:334 lib/Block/Metar.php:360
+#: lib/Block/Metar.php:204 lib/Block/Metar.php:385 lib/Block/Metar.php:412
 #, php-format
 msgid "from the %s (%s) at %s %s"
 msgstr ""
 
 #: templates/block/weather_content.html.php:69
-#: templates/block/weather_content.html.php:128
+#: templates/block/weather_content.html.php:129
 msgid "gusting"
 msgstr ""
 

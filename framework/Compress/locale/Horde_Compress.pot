@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Compress\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2016-08-08 15:58+0200\n"
+"POT-Creation-Date: 2017-07-26 12:13+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,40 +17,44 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: lib/Horde/Compress/Rar.php:57 lib/Horde/Compress/Rar.php:66
-#: lib/Horde/Compress/Rar.php:113
+#: lib/Horde/Compress/Base.php:93
+msgid "Cannot compress data"
+msgstr ""
+
+#: lib/Horde/Compress/Rar.php:66 lib/Horde/Compress/Rar.php:75
+#: lib/Horde/Compress/Rar.php:122
 msgid "Invalid RAR data."
 msgstr ""
 
-#: lib/Horde/Compress/Zip.php:191 lib/Horde/Compress/Zip.php:196
-#: lib/Horde/Compress/Zip.php:223 lib/Horde/Compress/Zip.php:243
+#: lib/Horde/Compress/Zip.php:225 lib/Horde/Compress/Zip.php:235
+#: lib/Horde/Compress/Zip.php:264 lib/Horde/Compress/Zip.php:291
 msgid "Invalid ZIP data"
 msgstr ""
 
-#: lib/Horde/Compress/Dbx.php:131 lib/Horde/Compress/Dbx.php:160
-#: lib/Horde/Compress/Dbx.php:241
+#: lib/Horde/Compress/Dbx.php:139 lib/Horde/Compress/Dbx.php:168
+#: lib/Horde/Compress/Dbx.php:249
 msgid "Invalid file format"
 msgstr ""
 
-#: test/Horde/Compress/TnefTest.php:43 test/Horde/Compress/TnefTest.php:79
-#: test/Horde/Compress/TnefTest.php:133
+#: test/Horde/Compress/TnefTest.php:55 test/Horde/Compress/TnefTest.php:91
+#: test/Horde/Compress/TnefTest.php:145
 msgid "No iCalendar data was found."
 msgstr ""
 
-#: test/Horde/Compress/TnefTest.php:38 test/Horde/Compress/TnefTest.php:74
-#: test/Horde/Compress/TnefTest.php:129
+#: test/Horde/Compress/TnefTest.php:50 test/Horde/Compress/TnefTest.php:86
+#: test/Horde/Compress/TnefTest.php:141
 msgid "There was an error importing the iCalendar data."
 msgstr ""
 
-#: lib/Horde/Compress/Zip.php:96
+#: lib/Horde/Compress/Zip.php:126
 msgid "This server can't compress zip files."
 msgstr ""
 
-#: lib/Horde/Compress/Gzip.php:42
+#: lib/Horde/Compress/Gzip.php:52
 msgid "This server can't uncompress gzip files."
 msgstr ""
 
-#: lib/Horde/Compress/Gzip.php:49 lib/Horde/Compress/Gzip.php:81
-#: lib/Horde/Compress/Tar.php:80
+#: lib/Horde/Compress/Gzip.php:59 lib/Horde/Compress/Gzip.php:91
+#: lib/Horde/Compress/Tar.php:238
 msgid "Unable to decompress data."
 msgstr ""

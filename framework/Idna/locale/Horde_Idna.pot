@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Idna\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2017-01-24 11:25+0100\n"
+"POT-Creation-Date: 2017-07-26 12:13+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,54 +17,54 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: lib/Horde/Idna.php:83
+#: lib/Horde/Idna.php:131
 msgid "ACE label does not contain a valid label string"
 msgstr ""
 
-#: lib/Horde/Idna.php:79
+#: lib/Horde/Idna.php:127
 msgid "Contains a dot"
 msgstr ""
 
-#: lib/Horde/Idna.php:71
+#: lib/Horde/Idna.php:119
 msgid "Contains disallowed characters"
 msgstr ""
 
-#: lib/Horde/Idna.php:63
+#: lib/Horde/Idna.php:111
 msgid "Contains hyphen in the third and fourth positions"
 msgstr ""
 
-#: lib/Horde/Idna.php:87
+#: lib/Horde/Idna.php:135
 msgid "Does not meet the IDNA BiDi requirements (for right-to-left characters)"
 msgstr ""
 
-#: lib/Horde/Idna.php:91
+#: lib/Horde/Idna.php:139
 msgid "Does not meet the IDNA CONTEXTJ requirements"
 msgstr ""
 
-#: lib/Horde/Idna.php:46
+#: lib/Horde/Idna.php:94
 msgid "Domain name is empty"
 msgstr ""
 
-#: lib/Horde/Idna.php:51
+#: lib/Horde/Idna.php:99
 msgid "Domain name is too long"
 msgstr ""
 
-#: lib/Horde/Idna.php:59
+#: lib/Horde/Idna.php:107
 msgid "Ends with a hyphen"
 msgstr ""
 
-#: lib/Horde/Idna.php:75
+#: lib/Horde/Idna.php:123
 msgid "Starts with \"xn--\" but does not contain valid Punycode"
 msgstr ""
 
-#: lib/Horde/Idna.php:67
+#: lib/Horde/Idna.php:115
 msgid "Starts with a combining mark"
 msgstr ""
 
-#: lib/Horde/Idna.php:55
+#: lib/Horde/Idna.php:103
 msgid "Starts with a hyphen"
 msgstr ""
 
-#: lib/Horde/Idna.php:95
+#: lib/Horde/Idna.php:143
 msgid "Unknown error"
 msgstr ""
