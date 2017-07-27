@@ -18,7 +18,7 @@
  </developer>
  <date>2017-07-27</date>
  <version>
-  <release>2.0.14</release>
+  <release>2.0.15</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Filter out control characters from file names when sending download headers.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -917,6 +917,19 @@ Initial packaging
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Filter out control characters from file names when sending download headers.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.15</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2017-07-27</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
