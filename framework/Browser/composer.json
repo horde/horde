@@ -1,5 +1,5 @@
 {
-    "name": "horde/horde-browser",
+    "name": "horde/browser",
     "description": "Horde Browser API",
     "type": "library",
     "homepage": "https://pear.horde.org",
@@ -17,7 +17,7 @@
         }
     ],
     "version": "2.0.14",
-    "time": "2016-12-16",
+    "time": "2017-07-27",
     "repositories": [
         {
             "type": "pear",

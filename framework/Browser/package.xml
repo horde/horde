@@ -16,7 +16,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2016-12-16</date>
+ <date>2017-07-27</date>
  <version>
   <release>2.0.14</release>
   <api>1.0.0</api>
@@ -913,7 +913,7 @@ Initial packaging
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-12-16</date>
+   <date>2017-07-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Filter out control characters from file names when sending download headers.
