@@ -1199,11 +1199,15 @@ class Horde_Browser
      * @param boolean $inline   True if inline, false if attachment.
      * @param string $cLength   The content-length of this file.
      */
-    public function downloadHeaders($filename = 'unknown', $cType = null,
-                             $inline = false, $cLength = null)
+    public function downloadHeaders(
+        $filename = 'unknown', $cType = null, $inline = false, $cLength = null
+    )
     {
         /* Remove linebreaks from file names. */
         $filename = str_replace(array("\r\n", "\r", "\n"), ' ', $filename);
+
+        /* Remove control characters from file names. */
+        $filename = preg_replace('/[\x00-\x1f]+/', '', $filename);
 
         /* Some browsers don't like spaces in the filename. */
         if ($this->hasQuirk('no_filename_spaces')) {
