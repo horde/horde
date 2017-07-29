@@ -150,7 +150,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                         $this->_decoder->getElementEndTag();
                         if ($hbinterval > (self::MAX_HEARTBEAT)) {
                             $this->_logger->err('HeartbeatInterval outside of allowed range.');
-                            $this->_statusCode = self::STATUS_INVALID_WAIT_HEARTBEATINTERVAL;
+                            $this->_statusCode = self::STATUS_INVALID_WAIT_HEARTBEAT;
                             $this->_handleGlobalSyncError(self::MAX_HEARTBEAT);
                             return true;
                         }
@@ -163,7 +163,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                         $this->_decoder->getElementEndTag();
                         if ($wait > (self::MAX_HEARTBEAT / 60)) {
                             $this->_logger->err('Wait value outside of allowed range.');
-                            $this->_statusCode = self::STATUS_INVALID_WAIT_HEARTBEATINTERVAL;
+                            $this->_statusCode = self::STATUS_INVALID_WAIT_HEARTBEAT;
                             $this->_handleGlobalSyncError(self::MAX_HEARBEAT / 60);
                             return true;
                         }
