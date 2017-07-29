@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix undefined constant error (Bug #14671).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3451,7 +3451,7 @@
    <date>2017-06-21</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix undefined constant error (Bug #14671).
    </notes>
   </release>
  </changelog>
