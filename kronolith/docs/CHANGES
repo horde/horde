@@ -3,6 +3,7 @@ v4.2.22-git
 -----------
 
 [jan] SECURITY: Fix open redirects.
+[mjr] Prevent broken iCalendar files from causing fatal errors (Bug #14672).
 [jan] Work around calendar servers advertising as CalDAV-capable, but ignoring
       CalDAV requests (Bug #14662).
 [jan] Fix displaying yesterday's event in Prior Events portal block

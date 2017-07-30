@@ -34,6 +34,7 @@
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
 * [jan] SECURITY: Fix open redirects.
+* [mjr] Prevent broken iCalendar files from causing fatal errors (Bug #14672).
 * [jan] Work around calendar servers advertising as CalDAV-capable, but ignoring CalDAV requests (Bug #14662).
 * [jan] Fix displaying yesterday&apos;s event in Prior Events portal block (admin@layertec.de, Bug #14638).
  </notes>
@@ -2790,6 +2791,7 @@
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] SECURITY: Fix open redirects.
+* [mjr] Prevent broken iCalendar files from causing fatal errors (Bug #14672).
 * [jan] Work around calendar servers advertising as CalDAV-capable, but ignoring CalDAV requests (Bug #14662).
 * [jan] Fix displaying yesterday&apos;s event in Prior Events portal block (admin@layertec.de, Bug #14638).
    </notes>
