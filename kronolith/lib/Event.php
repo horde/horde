@@ -1080,7 +1080,7 @@ abstract class Kronolith_Event
 
         // Title, tags and description.
         try {
-            $title = $vEvent->getAttribute('SUMMARY');
+            $title = $this->_validUtf8($vEvent->getAttribute('SUMMARY'));
             if (!is_array($title)) {
                 $this->title = $title;
             }
@@ -1093,7 +1093,7 @@ abstract class Kronolith_Event
 
         // Description
         try {
-            $desc = $vEvent->getAttribute('DESCRIPTION');
+            $desc = $this->_validUtf8($vEvent->getAttribute('DESCRIPTION'));
             if (!is_array($desc)) {
                 $this->description = $desc;
             }
@@ -3711,5 +3711,21 @@ abstract class Kronolith_Event
         return str_replace(array('[', ']'),
                            array('_', ''),
                            $id);
+    }
+
+    /**
+     * Ensure the given string is valid UTF-8.
+     *
+     * @param string $text  The string to ensure contains no invalid UTF-8 sequences.
+     *
+     * @return string|boolean  The valid UTF-8 string, possibly with illegal sequences removed.
+     */
+    protected function _ensureUtf8($text)
+    {
+        if (Horde_String::validUtf8($text)) {
+            return $text;
+        }
+
+        return preg_replace('/[^\x09\x0A\x0D\x20-\x7E]/', '', $text);
     }
 }
