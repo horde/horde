@@ -1080,7 +1080,7 @@ abstract class Kronolith_Event
 
         // Title, tags and description.
         try {
-            $title = $this->_validUtf8($vEvent->getAttribute('SUMMARY'));
+            $title = $this->_ensureUtf8($vEvent->getAttribute('SUMMARY'));
             if (!is_array($title)) {
                 $this->title = $title;
             }
@@ -1093,7 +1093,7 @@ abstract class Kronolith_Event
 
         // Description
         try {
-            $desc = $this->_validUtf8($vEvent->getAttribute('DESCRIPTION'));
+            $desc = $this->_ensureUtf8($vEvent->getAttribute('DESCRIPTION'));
             if (!is_array($desc)) {
                 $this->description = $desc;
             }
@@ -1109,7 +1109,7 @@ abstract class Kronolith_Event
 
         // Location
         try {
-            $location = $vEvent->getAttribute('LOCATION');
+            $location = $this->_ensureUtf8($vEvent->getAttribute('LOCATION'));
             if (!is_array($location)) {
                 $this->location = $location;
             }
@@ -1389,7 +1389,9 @@ abstract class Kronolith_Event
                         break;
                     }
                 }
-                $name = isset($params[$i]['CN']) ? $params[$i]['CN'] : null;
+                $name = isset($params[$i]['CN'])
+                    ? $this->_ensureUtf8($params[$i]['CN'])
+                    : null;
 
                 $this->addAttendee($email, $attendance, $response, $name);
             }
