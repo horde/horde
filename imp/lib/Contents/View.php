@@ -101,7 +101,7 @@ class IMP_Contents_View
             $data = Horde_Compress::factory('Zip')->compress(array(
                 array(
                     'data' => $mime->getContents(),
-                    'name' => $name
+                    'name' => preg_replace('/[\x00-\x1f]+/', '', $name)
                 )
             ), array(
                 'stream' => true
