@@ -16,7 +16,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2017-06-23</date>
+ <date>2017-08-01</date>
  <version>
   <release>3.0.11</release>
   <api>3.0.0</api>
@@ -1259,7 +1259,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-06-23</date>
+   <date>2017-08-01</date>
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
    <notes>
 * [jan] SECURITY: Fix open redirects.
