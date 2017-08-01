@@ -1,5 +1,5 @@
 {
-    "name": "horde/horde-url",
+    "name": "horde/url",
     "description": "Horde Url class",
     "type": "library",
     "homepage": "https://pear.horde.org",
@@ -17,7 +17,7 @@
         }
     ],
     "version": "2.2.6",
-    "time": "2016-02-02",
+    "time": "2017-08-01",
     "repositories": [
         {
             "type": "pear",
