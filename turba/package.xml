@@ -30,7 +30,7 @@
  </lead>
  <date>2017-08-01</date>
  <version>
-  <release>4.2.20</release>
+  <release>4.2.21</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -39,8 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* [jan] SECURITY: Fix open redirects.
-* [jan] Fix creating address books with the external API.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2197,6 +2196,19 @@
    <notes>
 * [jan] SECURITY: Fix open redirects.
 * [jan] Fix creating address books with the external API.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.21</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2017-08-01</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
