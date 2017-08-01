@@ -2207,8 +2207,6 @@ class Turba_Driver implements Countable
      */
     public function toHash(Horde_Icalendar_Vcard $vcard)
     {
-        global $attributes;
-
         $hash = array();
         $attr = $vcard->getAllAttributes();
 
