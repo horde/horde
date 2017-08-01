@@ -28,7 +28,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2017-05-03</date>
+ <date>2017-08-01</date>
  <version>
   <release>5.2.16</release>
   <api>5.2.0</api>
@@ -4172,7 +4172,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-05-03</date>
+   <date>2017-08-01</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [jan] SECURITY: Fix open redirects.

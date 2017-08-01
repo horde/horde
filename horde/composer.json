@@ -26,8 +26,8 @@
             "role": "lead"
         }
     ],
-    "version": "5.2.15",
-    "time": "2017-05-03",
+    "version": "5.2.16",
+    "time": "2017-08-01",
     "repositories": [
         {
             "type": "pear",
@@ -41,7 +41,7 @@
         "pear-pear.horde.org/Horde_Auth": "^2@stable",
         "pear-pear.horde.org/Horde_Autoloader": "^2.1@stable",
         "pear-pear.horde.org/Horde_Browser": "^2@stable",
-        "pear-pear.horde.org/Horde_Core": "^2.12@stable",
+        "pear-pear.horde.org/Horde_Core": "^2.3@stable",
         "pear-pear.horde.org/Horde_Date": "^2@stable",
         "pear-pear.horde.org/Horde_Exception": "^2@stable",
         "pear-pear.horde.org/Horde_Form": "^2.0.16@stable",
