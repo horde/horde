@@ -12,7 +12,7 @@
  </lead>
  <date>2017-08-01</date>
  <version>
-  <release>2.29.14</release>
+  <release>2.29.15</release>
   <api>2.29.0</api>
  </version>
  <stability>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Fix check if QRESYNC is enabled in vanished() (i.badamshin &lt;i.badamshin@i-infinite.net&gt;).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3111,6 +3111,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix check if QRESYNC is enabled in vanished() (i.badamshin &lt;i.badamshin@i-infinite.net&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.29.15</release>
+    <api>2.29.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2017-08-01</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
