@@ -61,7 +61,9 @@ class IMP_Contents_View
         $tosave = array();
         foreach ($this->_contents->downloadAllList() as $val) {
             $mime = $this->_getRawDownloadPart($val);
-            if (!($name = $mime->getName(true))) {
+            if ($name = $mime->getName(true)) {
+                $name = preg_replace('/[\x00-\x1f]+/', '', $name);
+            } else {
                 $name = sprintf(_("part %s"), $val);
             }
             $tosave[] = array(
