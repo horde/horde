@@ -140,7 +140,7 @@ class Horde_Form_Variable {
      * @param string $description    A long description of the variable's
      *                               purpose, special instructions, etc.
      */
-    function Horde_Form_Variable($humanName, $varName, &$type, $required,
+    function Horde_Form_Variable($humanName, $varName, $type, $required,
                                  $readonly = false, $description = null)
     {
         $this->humanName   = $humanName;
