@@ -1,6 +1,6 @@
------------
-v6.2.20-git
------------
+-------
+v6.2.20
+-------
 
 [jan] Fix finding reply or forward text from signed or encrypted messages with
       HTML content again (Bug #14656).
