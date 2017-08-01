@@ -5,7 +5,7 @@ $notes['security'] = true;
 /* Mailing list release notes. */
 $notes['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Horde Groupware
-Webmail Edition version 5.2.20.
+Webmail Edition version 5.2.21.
 
 Horde Groupware Webmail Edition is a free, enterprise ready, browser based
 communication suite. Users can read, send and organize email messages with four
@@ -19,14 +19,12 @@ http://www.horde.org/apps/webmail/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/webmail/docs/INSTALL
 
-Thanks to Andrey Zelenchuk for reporting the XSS vulnerability and for
-proposing a patch.
-
 The major changes compared to the Horde Groupware Webmail Edition version
-5.2.19 are:
+5.2.20 are:
 
 General changes:
-    * Fixed an XSS vulnerability in the filter frontend.
+    * Fixed open redirects.
+    * Fixed XSS vulnerabilities.
     * Small bugfixes and improvements.
 ML;
 

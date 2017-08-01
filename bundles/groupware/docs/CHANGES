@@ -2,6 +2,92 @@
 v5.2.21-git
 -----------
 
+[jan] SECURITY: Fix open redirects.
+[jan] Update Turkish translations (İTÜ BİDB <sistemdestek@itu.edu.tr>).
+
+Address Book Changes
+--------------------
+[jan] Fix creating address books with the external API.
+
+Calendar Changes
+----------------
+[mjr] Prevent broken iCalendar files from causing fatal errors (Bug #14672).
+[jan] Work around calendar servers advertising as CalDAV-capable, but ignoring
+      CalDAV requests (Bug #14662).
+[jan] Fix displaying yesterday's event in Prior Events portal block
+      (admin@layertec.de, Bug #14638).
+
+Tasks Changes
+-------------
+[mjr] Fix handling of delayed start dates (Bug #14634).
+
+File Manager Changes
+--------------------
+[jan] Fix redirection after logins with Horde 5.2.16 and later.
+
+Library Changes
+---------------
+ActiveSync
+[mjr] Fix undefined constant error (Bug #14671).
+[mjr] Improve support for android Gmail application (Bug #14655).
+[mjr] Fix undefined property warnings (Bug #14631).
+
+Alarm
+[jan] Fix catching database backend exceptions.
+
+Browser
+[jan] Filter out control characters from file names when sending download
+      headers.
+
+Cli
+[jan] Fix returning to normal font after text with light colors.
+[jan] Fix fatal error screen for PHP 7 error objects.
+[jan] Fix header() method to print, not return the header.
+[jan] Really silence errors from tput and stty (Bug #14632).
+[jan] Silence errors from tput and stty (Bug #14632).
+
+Core
+[jan] SECURITY: Fix XSS vulnerability with pathinfo component in
+      Horde::selfUrl().
+[jan] Deprecate Horde::redirect().
+[jan] Add Horde::signUrl() and Horde::verifySignedUrl().
+[jan] Fix JavaScript minifying with recent Closure compilers (Bug #14650).
+[jan] Add Horde_Registry_Application#backup(), restore(), and
+      restoreDependencies().
+[mjr] Fix calculating ActiveSync SOFTDELETE times for calendar collections (Bug
+      #14631).
+
+Crypt
+[jan] More fixes for GnuPG 2 (Mathieu Parent <math.parent@gmail.com>).
+[jan] Remove dependency on openssl executable (Hadi Nategh <hnategh@gmail.com>).
+
+Date
+[jan] Add Horde_Date_Recurrence::fromHash() and toHash().
+
+Form
+[jan] SECURITY: Fix XSS vulnerability with form sections.
+
+Icalendar
+[jan] Fix unescaping of commas in ADR, N, and ORG attributes.
+
+Image
+[mjr] SECURITY: Fix more potential places for command injections.
+[mjr] SECURITY: Prevent DOS attack by preventing an infinite loop in certain
+      conditions (CVE-2017-9773, reported by Fariskhi Vidyan
+      <farislab@gmail.com>).
+[mjr] SECURITY: Prevent RCE attacks by properly sanitizing shell arguments
+      (CVE-2017-9774, reported by Fariskhi Vidyan <farislab@gmail.com>).
+[jan] Add blur effect.
+
+Imap_Client
+[jan] Fix check if QRESYNC is enabled in vanished() (i.badamshin
+      <i.badamshin@i-infinite.net>).
+
+JavascriptMinify
+[jan] Add unit tests.
+
+Url
+[jan] SECURITY: Fix XSS vulnerability with pathinfo component in toString().
 
 
 -------
