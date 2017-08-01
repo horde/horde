@@ -1,5 +1,5 @@
 {
-    "name": "horde/horde-form",
+    "name": "horde/form",
     "description": "Horde Form API",
     "type": "library",
     "homepage": "https://pear.horde.org",
@@ -17,7 +17,7 @@
         }
     ],
     "version": "2.0.18",
-    "time": "2017-04-03",
+    "time": "2017-08-01",
     "repositories": [
         {
             "type": "pear",
