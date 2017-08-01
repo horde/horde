@@ -21,8 +21,8 @@
             "role": "lead"
         }
     ],
-    "version": "3.0.6",
-    "time": "2017-03-20",
+    "version": "3.0.7",
+    "time": "2017-08-01",
     "repositories": [
         {
             "type": "pear",
@@ -30,40 +30,49 @@
         }
     ],
     "require": {
-        "php": ">=5.3.0,<=6.0.0alpha1",
-        "pear-pear.horde.org/content": ">=2.0.3@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/horde": ">=5.0.0@stable,<=6.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Auth": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Autoloader": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Core": ">=2.6.1@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Date": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Db": ">=2.2.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Exception": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Form": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Group": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Image": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Mime": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Nls": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Perms": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Prefs": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Serialize": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Share": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Support": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Text_Filter": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Url": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Util": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_View": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Vfs": ">=2.0.0@stable,<=3.0.0alpha1@stable",
+        "php": "^5.3",
+        "pear-pear.horde.org/content": "^2.0.3@stable",
+        "pear-pear.horde.org/horde": "^5@stable",
+        "pear-pear.horde.org/Horde_Auth": "^2@stable",
+        "pear-pear.horde.org/Horde_Autoloader": "^2@stable",
+        "pear-pear.horde.org/Horde_Core": "^2.3@stable",
+        "pear-pear.horde.org/Horde_Date": "^2@stable",
+        "pear-pear.horde.org/Horde_Db": "^2.2@stable",
+        "pear-pear.horde.org/Horde_Exception": "^2@stable",
+        "pear-pear.horde.org/Horde_Form": "^2@stable",
+        "pear-pear.horde.org/Horde_Group": "^2@stable",
+        "pear-pear.horde.org/Horde_Image": "^2@stable",
+        "pear-pear.horde.org/Horde_Mime": "^2@stable",
+        "pear-pear.horde.org/Horde_Nls": "^2@stable",
+        "pear-pear.horde.org/Horde_Perms": "^2@stable",
+        "pear-pear.horde.org/Horde_Prefs": "^2@stable",
+        "pear-pear.horde.org/Horde_Serialize": "^2@stable",
+        "pear-pear.horde.org/Horde_Share": "^2@stable",
+        "pear-pear.horde.org/Horde_Support": "^2@stable",
+        "pear-pear.horde.org/Horde_Text_Filter": "^2@stable",
+        "pear-pear.horde.org/Horde_Url": "^2@stable",
+        "pear-pear.horde.org/Horde_Util": "^2@stable",
+        "pear-pear.horde.org/Horde_View": "^2@stable",
+        "pear-pear.horde.org/Horde_Vfs": "^2@stable",
         "ext-gettext": "*",
         "ext-hash": "*"
     },
     "suggest": {
-        "pear-pear.horde.org/Horde_Service_UrlShortener": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Service_Twitter": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Service_Facebook": ">=2.0.0@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Service_UrlShortener": "^2@stable",
+        "pear-pear.horde.org/Horde_Service_Twitter": "^2@stable",
+        "pear-pear.horde.org/Horde_Service_Facebook": "^2@stable",
         "ext-gd": "*",
         "ext-imagick": "*",
         "ext-libpuzzle": "*",
         "ext-php-facedetect": "*"
+    },
+    "replace": {
+        "pear-pear.horde.org/ansel": "3.*",
+        "pear-horde/ansel": "3.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Ansel": "lib/"
+        }
     }
 }
