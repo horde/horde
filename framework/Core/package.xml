@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2017-06-30</date>
+ <date>2017-08-01</date>
  <version>
   <release>2.30.0</release>
   <api>2.30.0</api>
@@ -4481,7 +4481,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-06-30</date>
+   <date>2017-08-01</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] SECURITY: Fix XSS vulnerability with pathinfo component in Horde::selfUrl().
