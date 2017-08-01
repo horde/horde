@@ -63,7 +63,9 @@ class IMP_Contents_View
             if (!($mime = $this->_getRawDownloadPart($val))) {
                 continue;
             }
-            if (!($name = $mime->getName(true))) {
+            if ($name = $mime->getName(true)) {
+                $name = preg_replace('/[\x00-\x1f]+/', '', $name);
+            } else {
                 $name = sprintf(_("part %s"), $val);
             }
             $tosave[] = array(
