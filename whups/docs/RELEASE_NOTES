@@ -5,7 +5,7 @@ $notes['security'] = true;
 /* Mailing list release notes. */
 $notes['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Whups Ticket
-Tracking System version H5 (3.0.10).
+Tracking System version H5 (3.0.11).
 
 Whups is a Horde ticket-tracking application. It is very flexible in design,
 and can be used for help-desk requests, tracking software development, and
@@ -18,8 +18,9 @@ http://www.horde.org/apps/whups/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/whups/docs/INSTALL
 
-The major changes compared to the Whups version H5 (3.0.9) are:
-    * Fixed unsufficient permission checking when downloading reports.
+The major changes compared to the Whups version H5 (3.0.10) are:
+    * Fixed open redirects.
+    * Small bugfixes.
 ML;
 
 $notes['name'] = 'Whups';
