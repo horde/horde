@@ -59,13 +59,14 @@ class Turba_Object
     protected $_vfs;
 
     /**
-     * Local cache of available email addresses. Needed to ensure we
-     * populate the email field correctly. See See Bug: 12955 and Bug: 14046.
-     * A hash with turba attribute names as key.
+     * Local cache of available values for a specific attribute type.
+     *
+     * A hash with turba attribute names as key. Needed to ensure we populate
+     * some fields correctly. See bugs 12955, 14046, and 14673.
      *
      * @var array
      */
-    protected $_emailFields = array();
+    protected $_attributeFields = array();
 
     /**
      * Constructs a new Turba_Object object.
@@ -80,7 +81,9 @@ class Turba_Object
                                 array $options = array())
     {
         $this->driver = $driver;
-        $this->attributes = $attributes;
+        foreach ($attributes as $attribute => $value) {
+            $this->setValue($attribute, $value);
+        }
         $this->attributes['__type'] = 'Object';
         $this->_options = $options;
     }
@@ -158,7 +161,7 @@ class Turba_Object
                             'type' => 'jpeg'
                         ));
                     $img->resize($conf['photos']['width'], $conf['photos']['height']);
-                    $this->attributes[$attribute] = $img->raw(true);
+                    $this->setValue($attribute, $img->raw(true));
                     $this->store();
                 }
             }
@@ -207,21 +210,60 @@ class Turba_Object
                         $this
                     )
                 );
-            } catch (Turba_Exception $e) {}
+            } catch (Turba_Exception $e) {
+            }
         }
 
         // If we don't know the attribute, it's not a private attribute,
         // and it's an email field, save it in case we need to populate an email
         // field on save.
-        if (!isset($this->driver->map[$attribute]) && strpos($attribute, '__') === false) {
-            if (isset($attributes[$attribute]) &&
-                $attributes[$attribute]['type'] == 'email') {
-                $this->_emailFields[$attribute] = $value;
+        if (!isset($this->driver->map[$attribute]) &&
+            strpos($attribute, '__') === false) {
+            if (isset($attributes[$attribute])) {
+                $type = $attributes[$attribute]['type'];
+                if (in_array($type, array('phone', 'email', 'address'))) {
+                    if (!isset($this->_attributeFields[$type])) {
+                        $this->_attributeFields[$type] = array();
+                    }
+                    $this->_attributeFields[$type][] = $value;
+                }
             }
             return;
         }
 
         $this->attributes[$attribute] = $value;
+    }
+
+    /**
+     * Ensures we save attributes of a certain type to attributes of the same
+     * type but a different attribute name, if the original name didn't exist.
+     *
+     * Needed to cover the case where a contact might have been imported via
+     * vCard with email/phone/etc TYPEs that do not match the configured
+     * attributes for this source. E.g., the vCard contains a TYPE=HOME but we
+     * only have the generic 'email' field available or vice versa.
+     */
+    public function ensureAttributes()
+    {
+        global $attributes;
+
+        // If an email type attribute is not known to this object's driver map
+        // then attempt to fill in any email attributes we DO know about that
+        // are currently empty. Not ideal, but if a client is sending unknown
+        // email fields, we have no way of knowing where to put them and this
+        // is better than dropping them.
+        foreach ($this->_attributeFields as $type => $values) {
+            foreach ($values as $value) {
+                foreach (array_keys($this->driver->map) as $attribute) {
+                    if (isset($attributes[$attribute]) &&
+                        $attributes[$attribute]['type'] == $type &&
+                        empty($this->attributes[$attribute])) {
+                        $this->setValue($attribute, $value);
+                        break;
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -578,7 +620,7 @@ class Turba_Object
      */
     public function store()
     {
-        $this->_ensureEmail();
+        $this->ensureAttributes();
         return $this->setValue('__key', $this->driver->save($this));
     }
 
@@ -600,35 +642,4 @@ class Turba_Object
 
         return $this->_vfs;
     }
-
-    /**
-     * Ensures we have an email address set, if available.
-     *
-     * Needed to cover the case where a contact might have been imported via
-     * vCard with email TYPEs that do not match the configured attributes for
-     * this source. E.g., the vCard contains a TYPE=HOME but we only have the
-     * generic 'email' field available.
-     */
-    protected  function _ensureEmail()
-    {
-        global $attributes;
-
-        // If an email type attribute is not known to this object's driver map
-        // then attempt to fill in any email attributes we DO know about that
-        // are currently empty. Not ideal, but if a client is sending unknown
-        // email fields, we have no way of knowing where to put them and this
-        // is better than dropping them.
-        foreach ($this->_emailFields as $attribute => $email) {
-            if (empty($this->driver->map[$attribute]) && $attribute != 'emails') {
-                foreach ($this->driver->map as $driver_att => $driver_value) {
-                    if ($attributes[$driver_att]['type'] == 'email' &&
-                        empty($this->attributes[$driver_att])) {
-                        $this->attributes[$driver_att] = $email;
-                        break;
-                    }
-                }
-            }
-        }
-    }
-
 }

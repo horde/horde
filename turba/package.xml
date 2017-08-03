@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [jan] Try harder to import attributes that don&apos;t match exactly the address book configuration (Bug #14673).
 * [jan] Add API to backup and restore user data.
 * [jan] Show photos when displaying contacts in calendars.
 * [jan] Add CLI script to search for invalid email addresses.
@@ -2214,6 +2215,7 @@
    </stability>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [jan] Try harder to import attributes that don&apos;t match exactly the address book configuration (Bug #14673).
 * [jan] Add API to backup and restore user data.
 * [jan] Show photos when displaying contacts in calendars.
 * [jan] Add CLI script to search for invalid email addresses.

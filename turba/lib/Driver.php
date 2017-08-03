@@ -1004,44 +1004,56 @@ class Turba_Driver implements Countable
      */
     public function add(array $attributes)
     {
-        /* Only set __type and __owner if they are not already set. */
-        if (!isset($attributes['__type'])) {
-            $attributes['__type'] = 'Object';
-        }
+        global $injector, $registry;
+
+        /* Set __owner and __uid if they are not already set. */
         if (isset($this->map['__owner']) && !isset($attributes['__owner'])) {
             $attributes['__owner'] = $this->getContactOwner();
         }
-
         if (!isset($attributes['__uid'])) {
             $attributes['__uid'] = $this->_makeUid();
         }
 
-        $key = $attributes['__key'] = $this->_makeKey($this->toDriverKeys($attributes));
+        $class = isset($attributes['__type']) &&
+            $attributes['__type'] == 'Group'
+            ? 'Turba_Object_Group'
+            : 'Turba_Object';
+        $object = new $class($this);
+        foreach ($attributes as $attribute => $key) {
+            $object->setValue($attribute, $key);
+        }
+        $object->ensureAttributes();
+        $attributes = $object->getAttributes();
+        $key = $attributes['__key'] = $this->_makeKey(
+            $this->toDriverKeys($attributes)
+        );
         $uid = $attributes['__uid'];
 
         /* Remember any tags, since toDriverKeys will remove them.
-           (They are not stored in the Turba backend so have no mapping). */
+         * (They are not stored in the Turba backend so have no mapping). */
         $tags = isset($attributes['__tags'])
             ? $attributes['__tags']
             : false;
 
-        $attributes = $this->toDriverKeys($attributes);
-
-        $this->_add($attributes, $this->toDriverKeys($this->getBlobs()), $this->toDriverKeys($this->getDateFields()));
+        $this->_add(
+            $this->toDriverKeys($attributes),
+            $this->toDriverKeys($this->getBlobs()),
+            $this->toDriverKeys($this->getDateFields())
+        );
 
         /* Add tags. */
         if ($tags !== false) {
-            $GLOBALS['injector']->getInstance('Turba_Tagger')->tag(
+            $injector->getInstance('Turba_Tagger')->tag(
                 $uid,
                 $tags,
-                $GLOBALS['registry']->getAuth(),
+                $registry->getAuth(),
                 'contact'
             );
         }
 
         /* Log the creation of this item in the history log. */
         try {
-            $GLOBALS['injector']->getInstance('Horde_History')
+            $injector->getInstance('Horde_History')
                 ->log('turba:' . $this->getName() . ':' . $uid,
                       array('action' => 'add'), true);
         } catch (Exception $e) {
