@@ -248,6 +248,26 @@ Deutschland',
             ),
             $this->toHash($vcard)
         );
+
+        $vcard =
+'BEGIN:VCARD
+VERSION:3.0
+PRODID:-//Apple Inc.//iPhone OS 10.3.2//EN
+N:Hzik;Zgg;;;
+FN:Zgg Hzik
+TEL;type=pref:+36303770746
+END:VCARD
+';
+
+        $this->assertEquals(
+            array(
+                'lastname' => 'Hzik',
+                'firstname' => 'Zgg',
+                'name' => 'Zgg Hzik',
+                'phone' => '+36303770746',
+            ),
+            $this->toHash($vcard)
+        );
     }
 
     public function testImportFullName()
