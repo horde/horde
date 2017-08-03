@@ -92,18 +92,28 @@ class Horde_Compress_Rar extends Horde_Compress_Base
 
             case 0x74:
                 /* File Header */
-                $info = unpack('VPacked/VUnpacked/COS/VCRC32/VTime/CVersion/CMethod/vLength/vAttrib', substr($data, $position));
+                $info = unpack(
+                    'VPacked/VUnpacked/COS/VCRC32/VTime/CVersion/CMethod/vLength/vAttrib',
+                    substr($data, $position)
+                );
+                $year = (($info['Time'] >> 25) & 0x7f) + 80;
+                $name = substr($data, $position + 25, $info['Length']);
+                if ($unicode = strpos($name, "\0")) {
+                    $name = substr($name, 0, $unicode);
+                }
 
                 $return_array[] = array(
-                    'name' => substr($data, $position + 25, $info['Length']),
+                    'name' => $name,
                     'size' => $info['Unpacked'],
                     'csize' => $info['Packed'],
-                    'date' => mktime((($info['Time'] >> 11) & 0x1f),
-                                     (($info['Time'] >> 5) & 0x3f),
-                                     (($info['Time'] << 1) & 0x3e),
-                                     (($info['Time'] >> 21) & 0x07),
-                                     (($info['Time'] >> 16) & 0x1f),
-                                     ((($info['Time'] >> 25) & 0x7f) + 80)),
+                    'date' => mktime(
+                        (($info['Time'] >> 11) & 0x1f),
+                        (($info['Time'] >> 5) & 0x3f),
+                        (($info['Time'] << 1) & 0x3e),
+                        (($info['Time'] >> 21) & 0x07),
+                        (($info['Time'] >> 16) & 0x1f),
+                        $year < 1900 ? $year + 1900 : $year
+                    ),
                     'method' => $this->_methods[$info['Method']],
                     'attr' => (($info['Attrib'] & 0x10) ? 'D' : '-') .
                               (($info['Attrib'] & 0x20) ? 'A' : '-') .
