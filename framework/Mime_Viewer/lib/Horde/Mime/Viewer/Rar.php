@@ -134,7 +134,7 @@ class Horde_Mime_Viewer_Rar extends Horde_Mime_Viewer_Base
         }
 
         return $this->_renderReturn(
-            nl2br($text . str_repeat('-', 106) . "\n</span></td></tr></table>"),
+            nl2br($text . str_repeat('-', 109) . "\n</span></td></tr></table>"),
             'text/html; charset=' . $charset
         );
     }

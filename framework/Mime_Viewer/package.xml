@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix bottom table line length of RAR archive summaries.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1118,7 +1118,7 @@
    <date>2016-09-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix bottom table line length of RAR archive summaries.
    </notes>
   </release>
  </changelog>
