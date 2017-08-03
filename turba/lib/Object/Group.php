@@ -286,9 +286,4 @@ class Turba_Object_Group extends Turba_Object
         return $out;
     }
 
-    protected function _ensureEmail()
-    {
-        // Noop for groups
-    }
-
 }
