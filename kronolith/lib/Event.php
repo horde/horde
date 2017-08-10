@@ -795,8 +795,7 @@ abstract class Kronolith_Event
 
             // Tags
             if ($this->tags) {
-                $tags = implode(', ', $this->tags);
-                $vEvent->setAttribute('CATEGORIES', $tags);
+                $vEvent->setAttribute('CATEGORIES', '', array(), true, $this->tags);
             }
 
             // Location
