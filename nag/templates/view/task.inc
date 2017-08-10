@@ -51,6 +51,12 @@
   <td class="horde-label"><?php echo _("Due By") ?>:</td>
   <td><?php echo Nag::formatDate($task->due) ?></td>
  </tr>
+ <?php if ($task->recurs()): ?>
+ <tr>
+  <td class="horde-label"><?php echo _("Recurrence") ?>:</td>
+  <td><?php echo nl2br($task->recurrence->toString($prefs->getValue('date_format'))) ?></td>
+ </tr>
+ <?php endif ?>
  <tr>
   <td class="horde-label"><?php echo _("Alarm") ?>:</td>
   <td><?php echo htmlspecialchars($alarm_text) ?></td>
