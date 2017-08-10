@@ -864,7 +864,7 @@ class Nag_Task
                 ? 't/complete'
                 : 'task/complete.php'
             )->add(array(
-                'url' => Horde::url('list.php'),
+                'url' => Horde::signUrl(Horde::url('list.php')),
                 'task' => $this->id,
                 'tasklist' => $this->tasklist
             ));
