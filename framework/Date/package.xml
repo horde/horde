@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix translating the string representation of a recurrence rule.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1127,7 +1127,7 @@
    <date>2017-05-30</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix translating the string representation of a recurrence rule.
    </notes>
   </release>
  </changelog>

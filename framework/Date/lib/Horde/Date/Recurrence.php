@@ -1829,34 +1829,34 @@ class Horde_Date_Recurrence
     {
         $string = '';
         if ($this->hasRecurType(self::RECUR_DAILY)) {
-                $string = _("Daily: Recurs every") . ' ' . $this->getRecurInterval() . ' ' . _("day(s)");
+                $string = Horde_Date_Translation::t("Daily: Recurs every") . ' ' . $this->getRecurInterval() . ' ' . Horde_Date_Translation::t("day(s)");
         } elseif ($this->hasRecurType(self::RECUR_WEEKLY)) {
             $weekdays = array();
-            if ($this->recurOnDay(Horde_Date::MASK_MONDAY))    $weekdays[] = _("Monday");
-            if ($this->recurOnDay(Horde_Date::MASK_TUESDAY))   $weekdays[] = _("Tuesday");
-            if ($this->recurOnDay(Horde_Date::MASK_WEDNESDAY)) $weekdays[] = _("Wednesday");
-            if ($this->recurOnDay(Horde_Date::MASK_THURSDAY))  $weekdays[] = _("Thursday");
-            if ($this->recurOnDay(Horde_Date::MASK_FRIDAY))    $weekdays[] = _("Friday");
-            if ($this->recurOnDay(Horde_Date::MASK_SATURDAY))  $weekdays[] = _("Saturday");
-            if ($this->recurOnDay(Horde_Date::MASK_SUNDAY))    $weekdays[] = _("Sunday");
-            $string = _("Weekly: Recurs every") . ' ' . $this->getRecurInterval() . ' ' . _("week(s) on:") . ' ' . implode(', ', $weekdays);
+            if ($this->recurOnDay(Horde_Date::MASK_MONDAY))    $weekdays[] = Horde_Date_Translation::t("Monday");
+            if ($this->recurOnDay(Horde_Date::MASK_TUESDAY))   $weekdays[] = Horde_Date_Translation::t("Tuesday");
+            if ($this->recurOnDay(Horde_Date::MASK_WEDNESDAY)) $weekdays[] = Horde_Date_Translation::t("Wednesday");
+            if ($this->recurOnDay(Horde_Date::MASK_THURSDAY))  $weekdays[] = Horde_Date_Translation::t("Thursday");
+            if ($this->recurOnDay(Horde_Date::MASK_FRIDAY))    $weekdays[] = Horde_Date_Translation::t("Friday");
+            if ($this->recurOnDay(Horde_Date::MASK_SATURDAY))  $weekdays[] = Horde_Date_Translation::t("Saturday");
+            if ($this->recurOnDay(Horde_Date::MASK_SUNDAY))    $weekdays[] = Horde_Date_Translation::t("Sunday");
+            $string = Horde_Date_Translation::t("Weekly: Recurs every") . ' ' . $this->getRecurInterval() . ' ' . Horde_Date_Translation::t("week(s) on:") . ' ' . implode(', ', $weekdays);
         } elseif ($this->hasRecurType(self::RECUR_MONTHLY_DATE)) {
-            $string = _("Monthly: Recurs every") . ' ' . $this->getRecurInterval() . ' ' . _("month(s)") . ' ' . _("on the same date");
+            $string = Horde_Date_Translation::t("Monthly: Recurs every") . ' ' . $this->getRecurInterval() . ' ' . Horde_Date_Translation::t("month(s)") . ' ' . Horde_Date_Translation::t("on the same date");
         } elseif ($this->hasRecurType(self::RECUR_MONTHLY_WEEKDAY)) {
-            $string = _("Monthly: Recurs every") . ' ' . $this->getRecurInterval() . ' ' . _("month(s)") . ' ' . _("on the same weekday");
+            $string = Horde_Date_Translation::t("Monthly: Recurs every") . ' ' . $this->getRecurInterval() . ' ' . Horde_Date_Translation::t("month(s)") . ' ' . Horde_Date_Translation::t("on the same weekday");
         } elseif ($this->hasRecurType(self::RECUR_MONTHLY_LAST_WEEKDAY)) {
-            $string = _("Monthly: Recurs every") . ' ' . $this->getRecurInterval() . ' ' . _("month(s)") . ' ' . _("on the same last weekday");
+            $string = Horde_Date_Translation::t("Monthly: Recurs every") . ' ' . $this->getRecurInterval() . ' ' . Horde_Date_Translation::t("month(s)") . ' ' . Horde_Date_Translation::t("on the same last weekday");
         } elseif ($this->hasRecurType(self::RECUR_YEARLY_DATE)) {
-            $string =  _("Yearly: Recurs every") . ' ' . $this->getRecurInterval() . ' ' . _("year(s) on the same date");
+            $string =  Horde_Date_Translation::t("Yearly: Recurs every") . ' ' . $this->getRecurInterval() . ' ' . Horde_Date_Translation::t("year(s) on the same date");
         } elseif ($this->hasRecurType(self::RECUR_YEARLY_DAY)) {
-            $string = _("Yearly: Recurs every") . ' ' . $this->getRecurInterval() . ' ' . _("year(s) on the same day of the year");
+            $string = Horde_Date_Translation::t("Yearly: Recurs every") . ' ' . $this->getRecurInterval() . ' ' . Horde_Date_Translation::t("year(s) on the same day of the year");
         } elseif ($this->hasRecurType(self::RECUR_YEARLY_WEEKDAY)) {
-            $string = _("Yearly: Recurs every") . ' ' . $this->getRecurInterval() . ' ' . _("year(s) on the same weekday and month of the year");
+            $string = Horde_Date_Translation::t("Yearly: Recurs every") . ' ' . $this->getRecurInterval() . ' ' . Horde_Date_Translation::t("year(s) on the same weekday and month of the year");
         }
 
-        $string .= "\n" . _("Ends after") . ': ' . ($this->hasRecurEnd() ? $this->recurEnd->strftime($date_format) . ($this->recurEnd->hour == 23 && $this->recurEnd->min == 59 ? '' : ' ' . $this->recurEnd->format($date_format)) : ($this->getRecurCount() ? sprintf(_("%d times"), $this->getRecurCount()) : _("No end date")));;
+        $string .= "\n" . Horde_Date_Translation::t("Ends after") . ': ' . ($this->hasRecurEnd() ? $this->recurEnd->strftime($date_format) . ($this->recurEnd->hour == 23 && $this->recurEnd->min == 59 ? '' : ' ' . $this->recurEnd->format($date_format)) : ($this->getRecurCount() ? sprintf(Horde_Date_Translation::t("%d times"), $this->getRecurCount()) : Horde_Date_Translation::t("No end date")));;
         if ($this->getExceptions()) {
-            $string .= "\n" . _("Exceptions on") . ': ';
+            $string .= "\n" . Horde_Date_Translation::t("Exceptions on") . ': ';
             foreach ($this->getExceptions() as $exception_date) {
                 $string .= $this->_formatExceptionDate($exception_date, $date_format) . ' ';
             }
