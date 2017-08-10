@@ -2,6 +2,7 @@
 v4.2.14-git
 -----------
 
+[jan] Fix exporting multiple tags to vNote CATEGORIES (Bug #14057).
 
 
 -------

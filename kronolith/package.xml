@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [jan] Fix exporting multiple tags to iCalendar CATEGORIES (Bug #14057).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2803,7 +2803,7 @@
    <date>2017-08-01</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [jan] Fix exporting multiple tags to iCalendar CATEGORIES (Bug #14057).
    </notes>
   </release>
  </changelog>

@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* 
+* [jan] Fix exporting multiple tags to vNote CATEGORIES (Bug #14057).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1409,7 +1409,7 @@
    <date>2017-03-20</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* 
+* [jan] Fix exporting multiple tags to vNote CATEGORIES (Bug #14057).
    </notes>
   </release>
  </changelog>
