@@ -2857,12 +2857,26 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-05-03</date>
+   <date>2017-08-01</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] SECURITY: Fix open redirects.
+* [mjr] Prevent broken iCalendar files from causing fatal errors (Bug #14672).
 * [jan] Work around calendar servers advertising as CalDAV-capable, but ignoring CalDAV requests (Bug #14662).
 * [jan] Fix displaying yesterday&apos;s event in Prior Events portal block (admin@layertec.de, Bug #14638).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.23</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2017-08-01</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Fix exporting multiple tags to iCalendar CATEGORIES (Bug #14057).
    </notes>
   </release>
   <release>

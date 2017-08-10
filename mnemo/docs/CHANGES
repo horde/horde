@@ -13,6 +13,38 @@ v5.0.0-git
       access.
 
 
+-------
+v4.2.13
+-------
+
+[mjr] Fix saving sync preference when no default notepad exists (Bug #14585).
+[mjr] Fix potential infinite recursion in Mnemo_Api::listBy() due to corrupt
+      preference values.
+
+
+-------
+v4.2.12
+-------
+
+[jan] Update German translation.
+
+
+-------
+v4.2.11
+-------
+
+[jan] Update Portuguese translation.
+[jan] Update Basque translation.
+[mjr] Require Horde_Perms::DELETE for including a notebook as sync-able.
+
+
+-------
+v4.2.10
+-------
+
+[jan] Update Greek translation (Limperis Antonis <limperis@cti.gr>).
+
+
 ------
 v4.2.9
 ------
