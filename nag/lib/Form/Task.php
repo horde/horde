@@ -89,7 +89,8 @@ class Nag_Form_Task extends Horde_Form
             $tasks = Nag::listTasks(array(
                 'tasklists' => array($tasklist),
                 'complete' => Nag::VIEW_FUTURE_INCOMPLETE,
-                'include_history' => false)
+                'include_history' => false,
+                'external' => false)
             );
             $task_enums = array('' => _("No parent task"));
             $tasks->reset();
