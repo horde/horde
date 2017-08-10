@@ -409,355 +409,462 @@ class Horde_Date_Recurrence
 
         switch ($this->getRecurType()) {
         case self::RECUR_DAILY:
-            $diff = $this->start->diff($after);
-            $recur = ceil($diff / $this->recurInterval);
-            if ($this->recurCount && $recur >= $this->recurCount) {
-                return false;
-            }
-
-            $recur *= $this->recurInterval;
-            $next = $this->start->add(array('day' => $recur));
-            if ((!$this->hasRecurEnd() ||
-                 $next->compareDateTime($this->recurEnd) <= 0) &&
-                $next->compareDateTime($after) >= 0) {
-                return $next;
-            }
-            break;
+            return $this->_nextDaily($after);
 
         case self::RECUR_WEEKLY:
-            if (empty($this->recurData)) {
-                return false;
-            }
-
-            $start_week = Horde_Date_Utils::firstDayOfWeek($this->start->format('W'),
-                                                           $this->start->year);
-            $start_week->timezone = $this->start->timezone;
-            $start_week->hour = $this->start->hour;
-            $start_week->min  = $this->start->min;
-            $start_week->sec  = $this->start->sec;
-
-            // Make sure we are not at the ISO-8601 first week of year while
-            // still in month 12...OR in the ISO-8601 last week of year while
-            // in month 1 and adjust the year accordingly.
-            $week = $after->format('W');
-            if ($week == 1 && $after->month == 12) {
-                $theYear = $after->year + 1;
-            } elseif ($week >= 52 && $after->month == 1) {
-                $theYear = $after->year - 1;
-            } else {
-                $theYear = $after->year;
-            }
-
-            $after_week = Horde_Date_Utils::firstDayOfWeek($week, $theYear);
-            $after_week->timezone = $this->start->timezone;
-            $after_week_end = clone $after_week;
-            $after_week_end->mday += 7;
-
-            $diff = $start_week->diff($after_week);
-            $interval = $this->recurInterval * 7;
-            $repeats = floor($diff / $interval);
-            if ($diff % $interval < 7) {
-                $recur = $diff;
-            } else {
-                /**
-                 * If the after_week is not in the first week interval the
-                 * search needs to skip ahead a complete interval. The way it is
-                 * calculated here means that an event that occurs every second
-                 * week on Monday and Wednesday with the event actually starting
-                 * on Tuesday or Wednesday will only have one incidence in the
-                 * first week.
-                 */
-                $recur = $interval * ($repeats + 1);
-            }
-
-            if ($this->hasRecurCount()) {
-                $recurrences = 0;
-                /**
-                 * Correct the number of recurrences by the number of events
-                 * that lay between the start of the start week and the
-                 * recurrence start.
-                 */
-                $next = clone $start_week;
-                while ($next->compareDateTime($this->start) < 0) {
-                    if ($this->recurOnDay((int)pow(2, $next->dayOfWeek()))) {
-                        $recurrences--;
-                    }
-                    ++$next->mday;
-                }
-                if ($repeats > 0) {
-                    $weekdays = $this->recurData;
-                    $total_recurrences_per_week = 0;
-                    while ($weekdays > 0) {
-                        if ($weekdays % 2) {
-                            $total_recurrences_per_week++;
-                        }
-                        $weekdays = ($weekdays - ($weekdays % 2)) / 2;
-                    }
-                    $recurrences += $total_recurrences_per_week * $repeats;
-                }
-            }
-
-            $next = clone $start_week;
-            $next->mday += $recur;
-            while ($next->compareDateTime($after) < 0 &&
-                   $next->compareDateTime($after_week_end) < 0) {
-                if ($this->hasRecurCount()
-                    && $next->compareDateTime($after) < 0
-                    && $this->recurOnDay((int)pow(2, $next->dayOfWeek()))) {
-                    $recurrences++;
-                }
-                ++$next->mday;
-            }
-            if ($this->hasRecurCount() &&
-                $recurrences >= $this->recurCount) {
-                return false;
-            }
-            if (!$this->hasRecurEnd() ||
-                $next->compareDateTime($this->recurEnd) <= 0) {
-                if ($next->compareDateTime($after_week_end) >= 0) {
-                    return $this->nextRecurrence($after_week_end);
-                }
-                while (!$this->recurOnDay((int)pow(2, $next->dayOfWeek())) &&
-                       $next->compareDateTime($after_week_end) < 0) {
-                    ++$next->mday;
-                }
-                if (!$this->hasRecurEnd() ||
-                    $next->compareDateTime($this->recurEnd) <= 0) {
-                    if ($next->compareDateTime($after_week_end) >= 0) {
-                        return $this->nextRecurrence($after_week_end);
-                    } else {
-                        return $next;
-                    }
-                }
-            }
-            break;
+            return $this->_nextWeekly($after);
 
         case self::RECUR_MONTHLY_DATE:
-            $start = clone $this->start;
-            if ($after->compareDateTime($start) < 0) {
-                $after = clone $start;
-            } else {
-                $after = clone $after;
-            }
-
-            // If we're starting past this month's recurrence of the event,
-            // look in the next month on the day the event recurs.
-            if ($after->mday > $start->mday) {
-                ++$after->month;
-                $after->mday = $start->mday;
-            }
-
-            // Adjust $start to be the first match.
-            $offset = ($after->month - $start->month) + ($after->year - $start->year) * 12;
-            $offset = floor(($offset + $this->recurInterval - 1) / $this->recurInterval) * $this->recurInterval;
-
-            if ($this->recurCount &&
-                ($offset / $this->recurInterval) >= $this->recurCount) {
-                return false;
-            }
-            $start->month += $offset;
-            $count = $offset / $this->recurInterval;
-
-            do {
-                if ($this->recurCount &&
-                    $count++ >= $this->recurCount) {
-                    return false;
-                }
-
-                // Bail if we've gone past the end of recurrence.
-                if ($this->hasRecurEnd() &&
-                    $this->recurEnd->compareDateTime($start) < 0) {
-                    return false;
-                }
-                if ($start->isValid()) {
-                    return $start;
-                }
-
-                // If the interval is 12, and the date isn't valid, then we
-                // need to see if February 29th is an option. If not, then the
-                // event will _never_ recur, and we need to stop checking to
-                // avoid an infinite loop.
-                if ($this->recurInterval == 12 && ($start->month != 2 || $start->mday > 29)) {
-                    return false;
-                }
-
-                // Add the recurrence interval.
-                $start->month += $this->recurInterval;
-            } while (true);
-
-            break;
+            return $this->_nextMonthlyDate($after);
 
         case self::RECUR_MONTHLY_WEEKDAY:
         case self::RECUR_MONTHLY_LAST_WEEKDAY:
-            // Start with the start date of the event.
-            $estart = clone $this->start;
-
-            // What day of the week, and week of the month, do we recur on?
-            if ($this->recurType == self::RECUR_MONTHLY_LAST_WEEKDAY) {
-                $nth = -1;
-            } else {
-                $nth = ceil($this->start->mday / 7);
-            }
-            $weekday = $estart->dayOfWeek();
-
-            // Adjust $estart to be the first candidate.
-            $offset = ($after->month - $estart->month) + ($after->year - $estart->year) * 12;
-            $offset = floor(($offset + $this->recurInterval - 1) / $this->recurInterval) * $this->recurInterval;
-
-            // Adjust our working date until it's after $after.
-            $estart->mday = 1;
-            $estart->month += $offset - $this->recurInterval;
-
-            $count = $offset / $this->recurInterval;
-            do {
-                if ($this->recurCount &&
-                    $count++ >= $this->recurCount) {
-                    return false;
-                }
-
-                $estart->month += $this->recurInterval;
-
-                $next = clone $estart;
-                $next->setNthWeekday($weekday, $nth);
-
-                if ($next->month != $estart->month) {
-                    // We're already in the next month.
-                    continue;
-                }
-                if ($next->compareDateTime($after) < 0) {
-                    // We haven't made it past $after yet, try again.
-                    continue;
-                }
-                if ($this->hasRecurEnd() &&
-                    $next->compareDateTime($this->recurEnd) > 0) {
-                    // We've gone past the end of recurrence; we can give up
-                    // now.
-                    return false;
-                }
-
-                // We have a candidate to return.
-                break;
-            } while (true);
-
-            return $next;
+            return $this->_nextMonthlyWeekday($after);
 
         case self::RECUR_YEARLY_DATE:
-            // Start with the start date of the event.
-            $estart = clone $this->start;
-            $after = clone $after;
-
-            if ($after->month > $estart->month ||
-                ($after->month == $estart->month && $after->mday > $estart->mday)) {
-                ++$after->year;
-                $after->month = $estart->month;
-                $after->mday = $estart->mday;
-            }
-
-            // Seperate case here for February 29th
-            if ($estart->month == 2 && $estart->mday == 29) {
-                while (!Horde_Date_Utils::isLeapYear($after->year)) {
-                    ++$after->year;
-                }
-            }
-
-            // Adjust $estart to be the first candidate.
-            $offset = $after->year - $estart->year;
-            if ($offset > 0) {
-                $offset = floor(($offset + $this->recurInterval - 1) / $this->recurInterval) * $this->recurInterval;
-                $estart->year += $offset;
-            }
-
-            // We've gone past the end of recurrence; give up.
-            if ($this->recurCount &&
-                $offset >= $this->recurCount) {
-                return false;
-            }
-            if ($this->hasRecurEnd() &&
-                $this->recurEnd->compareDateTime($estart) < 0) {
-                return false;
-            }
-
-            return $estart;
+            return $this->_nextYearlyDate($after);
 
         case self::RECUR_YEARLY_DAY:
-            // Check count first.
-            $dayofyear = $this->start->dayOfYear();
-            $count = ($after->year - $this->start->year) / $this->recurInterval + 1;
-            if ($this->recurCount &&
-                ($count > $this->recurCount ||
-                 ($count == $this->recurCount &&
-                  $after->dayOfYear() > $dayofyear))) {
-                return false;
-            }
-
-            // Start with a rough interval.
-            $estart = clone $this->start;
-            $estart->year += floor($count - 1) * $this->recurInterval;
-
-            // Now add the difference to the required day of year.
-            $estart->mday += $dayofyear - $estart->dayOfYear();
-
-            // Add an interval if the estimation was wrong.
-            if ($estart->compareDate($after) < 0) {
-                $estart->year += $this->recurInterval;
-                $estart->mday += $dayofyear - $estart->dayOfYear();
-            }
-
-            // We've gone past the end of recurrence; give up.
-            if ($this->hasRecurEnd() &&
-                $this->recurEnd->compareDateTime($estart) < 0) {
-                return false;
-            }
-
-            return $estart;
+            return $this->_nextYearlyDay($after);
 
         case self::RECUR_YEARLY_WEEKDAY:
-            // Start with the start date of the event.
-            $estart = clone $this->start;
-
-            // What day of the week, and week of the month, do we recur on?
-            $nth = ceil($this->start->mday / 7);
-            $weekday = $estart->dayOfWeek();
-
-            // Adjust $estart to be the first candidate.
-            $offset = floor(($after->year - $estart->year + $this->recurInterval - 1) / $this->recurInterval) * $this->recurInterval;
-
-            // Adjust our working date until it's after $after.
-            $estart->year += $offset - $this->recurInterval;
-
-            $count = $offset / $this->recurInterval;
-            do {
-                if ($this->recurCount &&
-                    $count++ >= $this->recurCount) {
-                    return false;
-                }
-
-                $estart->year += $this->recurInterval;
-
-                $next = clone $estart;
-                $next->setNthWeekday($weekday, $nth);
-
-                if ($next->compareDateTime($after) < 0) {
-                    // We haven't made it past $after yet, try again.
-                    continue;
-                }
-                if ($this->hasRecurEnd() &&
-                    $next->compareDateTime($this->recurEnd) > 0) {
-                    // We've gone past the end of recurrence; we can give up
-                    // now.
-                    return false;
-                }
-
-                // We have a candidate to return.
-                break;
-            } while (true);
-
-            return $next;
+            return $this->_nextYearlyWeekday($after);
         }
 
         // We didn't find anything, the recurType was bad, or something else
         // went wrong - return false.
         return false;
+    }
+
+    /**
+     * Finds the next daily recurrence of this event that's after $afterDate.
+     *
+     * @param Horde_Date|string $after  Return events after this date.
+     *
+     * @return Horde_Date|boolean  The date of the next recurrence or false
+     *                             if the event does not recur after
+     *                             $afterDate.
+     */
+    protected function _nextDaily($after)
+    {
+        $diff = $this->start->diff($after);
+        $recur = ceil($diff / $this->recurInterval);
+        if ($this->recurCount && $recur >= $this->recurCount) {
+            return false;
+        }
+
+        $recur *= $this->recurInterval;
+        $next = $this->start->add(array('day' => $recur));
+        if ((!$this->hasRecurEnd() ||
+             $next->compareDateTime($this->recurEnd) <= 0) &&
+            $next->compareDateTime($after) >= 0) {
+            return $next;
+        }
+
+        return false;
+    }
+
+    /**
+     * Finds the next weekly recurrence of this event that's after $afterDate.
+     *
+     * @param Horde_Date|string $after  Return events after this date.
+     *
+     * @return Horde_Date|boolean  The date of the next recurrence or false
+     *                             if the event does not recur after
+     *                             $afterDate.
+     */
+    protected function _nextWeekly($after)
+    {
+        if (empty($this->recurData)) {
+            return false;
+        }
+
+        $start_week = Horde_Date_Utils::firstDayOfWeek(
+            $this->start->format('W'),
+            $this->start->year
+        );
+        $start_week->timezone = $this->start->timezone;
+        $start_week->hour = $this->start->hour;
+        $start_week->min  = $this->start->min;
+        $start_week->sec  = $this->start->sec;
+
+        // Make sure we are not at the ISO-8601 first week of year while
+        // still in month 12...OR in the ISO-8601 last week of year while
+        // in month 1 and adjust the year accordingly.
+        $week = $after->format('W');
+        if ($week == 1 && $after->month == 12) {
+            $theYear = $after->year + 1;
+        } elseif ($week >= 52 && $after->month == 1) {
+            $theYear = $after->year - 1;
+        } else {
+            $theYear = $after->year;
+        }
+
+        $after_week = Horde_Date_Utils::firstDayOfWeek($week, $theYear);
+        $after_week->timezone = $this->start->timezone;
+        $after_week_end = clone $after_week;
+        $after_week_end->mday += 7;
+
+        $diff = $start_week->diff($after_week);
+        $interval = $this->recurInterval * 7;
+        $repeats = floor($diff / $interval);
+        if ($diff % $interval < 7) {
+            $recur = $diff;
+        } else {
+            /**
+             * If the after_week is not in the first week interval the
+             * search needs to skip ahead a complete interval. The way it is
+             * calculated here means that an event that occurs every second
+             * week on Monday and Wednesday with the event actually starting
+             * on Tuesday or Wednesday will only have one incidence in the
+             * first week.
+             */
+            $recur = $interval * ($repeats + 1);
+        }
+
+        if ($this->hasRecurCount()) {
+            $recurrences = 0;
+            /**
+             * Correct the number of recurrences by the number of events
+             * that lay between the start of the start week and the
+             * recurrence start.
+             */
+            $next = clone $start_week;
+            while ($next->compareDateTime($this->start) < 0) {
+                if ($this->recurOnDay((int)pow(2, $next->dayOfWeek()))) {
+                    $recurrences--;
+                }
+                ++$next->mday;
+            }
+            if ($repeats > 0) {
+                $weekdays = $this->recurData;
+                $total_recurrences_per_week = 0;
+                while ($weekdays > 0) {
+                    if ($weekdays % 2) {
+                        $total_recurrences_per_week++;
+                    }
+                    $weekdays = ($weekdays - ($weekdays % 2)) / 2;
+                }
+                $recurrences += $total_recurrences_per_week * $repeats;
+            }
+        }
+
+        $next = clone $start_week;
+        $next->mday += $recur;
+        while ($next->compareDateTime($after) < 0 &&
+               $next->compareDateTime($after_week_end) < 0) {
+            if ($this->hasRecurCount()
+                && $next->compareDateTime($after) < 0
+                && $this->recurOnDay((int)pow(2, $next->dayOfWeek()))) {
+                $recurrences++;
+            }
+            ++$next->mday;
+        }
+        if ($this->hasRecurCount() &&
+            $recurrences >= $this->recurCount) {
+            return false;
+        }
+        if (!$this->hasRecurEnd() ||
+            $next->compareDateTime($this->recurEnd) <= 0) {
+            if ($next->compareDateTime($after_week_end) >= 0) {
+                return $this->nextRecurrence($after_week_end);
+            }
+            while (!$this->recurOnDay((int)pow(2, $next->dayOfWeek())) &&
+                   $next->compareDateTime($after_week_end) < 0) {
+                ++$next->mday;
+            }
+            if (!$this->hasRecurEnd() ||
+                $next->compareDateTime($this->recurEnd) <= 0) {
+                if ($next->compareDateTime($after_week_end) >= 0) {
+                    return $this->nextRecurrence($after_week_end);
+                } else {
+                    return $next;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Finds the next monthly recurrence on the same date of this event that's
+     * after $afterDate.
+     *
+     * @param Horde_Date|string $after  Return events after this date.
+     *
+     * @return Horde_Date|boolean  The date of the next recurrence or false
+     *                             if the event does not recur after
+     *                             $afterDate.
+     */
+    protected function _nextMonthlyDate($after)
+    {
+        $start = clone $this->start;
+        if ($after->compareDateTime($start) < 0) {
+            $after = clone $start;
+        } else {
+            $after = clone $after;
+        }
+
+        // If we're starting past this month's recurrence of the event,
+        // look in the next month on the day the event recurs.
+        if ($after->mday > $start->mday) {
+            ++$after->month;
+            $after->mday = $start->mday;
+        }
+
+        // Adjust $start to be the first match.
+        $offset = ($after->month - $start->month) + ($after->year - $start->year) * 12;
+        $offset = floor(($offset + $this->recurInterval - 1) / $this->recurInterval) * $this->recurInterval;
+
+        if ($this->recurCount &&
+            ($offset / $this->recurInterval) >= $this->recurCount) {
+            return false;
+        }
+        $start->month += $offset;
+        $count = $offset / $this->recurInterval;
+
+        do {
+            if ($this->recurCount &&
+                $count++ >= $this->recurCount) {
+                return false;
+            }
+
+            // Bail if we've gone past the end of recurrence.
+            if ($this->hasRecurEnd() &&
+                $this->recurEnd->compareDateTime($start) < 0) {
+                return false;
+            }
+            if ($start->isValid()) {
+                return $start;
+            }
+
+            // If the interval is 12, and the date isn't valid, then we
+            // need to see if February 29th is an option. If not, then the
+            // event will _never_ recur, and we need to stop checking to
+            // avoid an infinite loop.
+            if ($this->recurInterval == 12 && ($start->month != 2 || $start->mday > 29)) {
+                return false;
+            }
+
+            // Add the recurrence interval.
+            $start->month += $this->recurInterval;
+        } while (true);
+
+        return false;
+    }
+
+    /**
+     * Finds the next monthly recurrence on the same weekday of this event
+     * that's after $afterDate.
+     *
+     * @param Horde_Date|string $after  Return events after this date.
+     *
+     * @return Horde_Date|boolean  The date of the next recurrence or false
+     *                             if the event does not recur after
+     *                             $afterDate.
+     */
+    protected function _nextMonthlyWeekday($after)
+    {
+        // Start with the start date of the event.
+        $estart = clone $this->start;
+
+        // What day of the week, and week of the month, do we recur on?
+        if ($this->recurType == self::RECUR_MONTHLY_LAST_WEEKDAY) {
+            $nth = -1;
+        } else {
+            $nth = ceil($this->start->mday / 7);
+        }
+        $weekday = $estart->dayOfWeek();
+
+        // Adjust $estart to be the first candidate.
+        $offset = ($after->month - $estart->month) + ($after->year - $estart->year) * 12;
+        $offset = floor(($offset + $this->recurInterval - 1) / $this->recurInterval) * $this->recurInterval;
+
+        // Adjust our working date until it's after $after.
+        $estart->mday = 1;
+        $estart->month += $offset - $this->recurInterval;
+
+        $count = $offset / $this->recurInterval;
+        do {
+            if ($this->recurCount &&
+                $count++ >= $this->recurCount) {
+                return false;
+            }
+
+            $estart->month += $this->recurInterval;
+
+            $next = clone $estart;
+            $next->setNthWeekday($weekday, $nth);
+
+            if ($next->month != $estart->month) {
+                // We're already in the next month.
+                continue;
+            }
+            if ($next->compareDateTime($after) < 0) {
+                // We haven't made it past $after yet, try again.
+                continue;
+            }
+            if ($this->hasRecurEnd() &&
+                $next->compareDateTime($this->recurEnd) > 0) {
+                // We've gone past the end of recurrence; we can give up
+                // now.
+                return false;
+            }
+
+            // We have a candidate to return.
+            break;
+        } while (true);
+
+        return $next;
+    }
+
+    /**
+     * Finds the next yearly recurrence on the same date of this event that's
+     * after $afterDate.
+     *
+     * @param Horde_Date|string $after  Return events after this date.
+     *
+     * @return Horde_Date|boolean  The date of the next recurrence or false
+     *                             if the event does not recur after
+     *                             $afterDate.
+     */
+    protected function _nextYearlyDate($after)
+    {
+        // Start with the start date of the event.
+        $estart = clone $this->start;
+        $after = clone $after;
+
+        if ($after->month > $estart->month ||
+            ($after->month == $estart->month && $after->mday > $estart->mday)) {
+            ++$after->year;
+            $after->month = $estart->month;
+            $after->mday = $estart->mday;
+        }
+
+        // Seperate case here for February 29th
+        if ($estart->month == 2 && $estart->mday == 29) {
+            while (!Horde_Date_Utils::isLeapYear($after->year)) {
+                ++$after->year;
+            }
+        }
+
+        // Adjust $estart to be the first candidate.
+        $offset = $after->year - $estart->year;
+        if ($offset > 0) {
+            $offset = floor(($offset + $this->recurInterval - 1) / $this->recurInterval) * $this->recurInterval;
+            $estart->year += $offset;
+        }
+
+        // We've gone past the end of recurrence; give up.
+        if ($this->recurCount &&
+            $offset >= $this->recurCount) {
+            return false;
+        }
+        if ($this->hasRecurEnd() &&
+            $this->recurEnd->compareDateTime($estart) < 0) {
+            return false;
+        }
+
+        return $estart;
+    }
+
+    /**
+     * Finds the next yearly recurrence on the same day of the year of this
+     * event that's after $afterDate.
+     *
+     * @param Horde_Date|string $after  Return events after this date.
+     *
+     * @return Horde_Date|boolean  The date of the next recurrence or false
+     *                             if the event does not recur after
+     *                             $afterDate.
+     */
+    protected function _nextYearlyDay($after)
+    {
+        // Check count first.
+        $dayofyear = $this->start->dayOfYear();
+        $count = ($after->year - $this->start->year) / $this->recurInterval + 1;
+        if ($this->recurCount &&
+            ($count > $this->recurCount ||
+             ($count == $this->recurCount &&
+              $after->dayOfYear() > $dayofyear))) {
+            return false;
+        }
+
+        // Start with a rough interval.
+        $estart = clone $this->start;
+        $estart->year += floor($count - 1) * $this->recurInterval;
+
+        // Now add the difference to the required day of year.
+        $estart->mday += $dayofyear - $estart->dayOfYear();
+
+        // Add an interval if the estimation was wrong.
+        if ($estart->compareDate($after) < 0) {
+            $estart->year += $this->recurInterval;
+            $estart->mday += $dayofyear - $estart->dayOfYear();
+        }
+
+        // We've gone past the end of recurrence; give up.
+        if ($this->hasRecurEnd() &&
+            $this->recurEnd->compareDateTime($estart) < 0) {
+            return false;
+        }
+
+        return $estart;
+    }
+
+    /**
+     * Finds the next yearly recurrence on the same weekday of this event
+     * that's after $afterDate.
+     *
+     * @param Horde_Date|string $after  Return events after this date.
+     *
+     * @return Horde_Date|boolean  The date of the next recurrence or false
+     *                             if the event does not recur after
+     *                             $afterDate.
+     */
+    protected function _nextYearlyWeekday($after)
+    {
+        // Start with the start date of the event.
+        $estart = clone $this->start;
+
+        // What day of the week, and week of the month, do we recur on?
+        $nth = ceil($this->start->mday / 7);
+        $weekday = $estart->dayOfWeek();
+
+        // Adjust $estart to be the first candidate.
+        $offset = floor(($after->year - $estart->year + $this->recurInterval - 1) / $this->recurInterval) * $this->recurInterval;
+
+        // Adjust our working date until it's after $after.
+        $estart->year += $offset - $this->recurInterval;
+
+        $count = $offset / $this->recurInterval;
+        do {
+            if ($this->recurCount &&
+                $count++ >= $this->recurCount) {
+                return false;
+            }
+
+            $estart->year += $this->recurInterval;
+
+            $next = clone $estart;
+            $next->setNthWeekday($weekday, $nth);
+
+            if ($next->compareDateTime($after) < 0) {
+                // We haven't made it past $after yet, try again.
+                continue;
+            }
+            if ($this->hasRecurEnd() &&
+                $next->compareDateTime($this->recurEnd) > 0) {
+                // We've gone past the end of recurrence; we can give up
+                // now.
+                return false;
+            }
+
+            // We have a candidate to return.
+            break;
+        } while (true);
+
+        return $next;
     }
 
     /**
@@ -1742,9 +1849,9 @@ class Horde_Date_Recurrence
         } elseif ($this->hasRecurType(self::RECUR_YEARLY_DATE)) {
             $string =  _("Yearly: Recurs every") . ' ' . $this->getRecurInterval() . ' ' . _("year(s) on the same date");
         } elseif ($this->hasRecurType(self::RECUR_YEARLY_DAY)) {
-           $string = _("Yearly: Recurs every") . ' ' . $this->getRecurInterval() . ' ' . _("year(s) on the same day of the year");
+            $string = _("Yearly: Recurs every") . ' ' . $this->getRecurInterval() . ' ' . _("year(s) on the same day of the year");
         } elseif ($this->hasRecurType(self::RECUR_YEARLY_WEEKDAY)) {
-           $string = _("Yearly: Recurs every") . ' ' . $this->getRecurInterval() . ' ' . _("year(s) on the same weekday and month of the year");
+            $string = _("Yearly: Recurs every") . ' ' . $this->getRecurInterval() . ' ' . _("year(s) on the same weekday and month of the year");
         }
 
         $string .= "\n" . _("Ends after") . ': ' . ($this->hasRecurEnd() ? $this->recurEnd->strftime($date_format) . ($this->recurEnd->hour == 23 && $this->recurEnd->min == 59 ? '' : ' ' . $this->recurEnd->format($date_format)) : ($this->getRecurCount() ? sprintf(_("%d times"), $this->getRecurCount()) : _("No end date")));;
