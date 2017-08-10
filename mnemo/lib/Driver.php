@@ -512,7 +512,7 @@ abstract class Mnemo_Driver
         $vnote->setAttribute('SUMMARY', $memo['desc']);
 
         if (!empty($memo['tags'])) {
-            $vnote->setAttribute('CATEGORIES', implode(', ', $memo['tags']));
+            $vnote->setAttribute('CATEGORIES', '', array(), true, $memo['tags']);
         }
 
         /* Get the note's history. */
