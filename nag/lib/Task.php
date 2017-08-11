@@ -1342,6 +1342,16 @@ class Nag_Task
                     $vAlarm->setAttribute('TRIGGER;VALUE=DURATION', '-PT' . $this->alarm . 'M');
                     $vTodo->addComponent($vAlarm);
                 }
+                $hordeAlarm = $GLOBALS['injector']->getInstance('Horde_Alarm');
+                if ($hordeAlarm->exists($this->uid, $GLOBALS['registry']->getAuth()) &&
+                    $hordeAlarm->isSnoozed($this->uid, $GLOBALS['registry']->getAuth())) {
+                    $vTodo->setAttribute('X-MOZ-LASTACK', new Horde_Date($_SERVER['REQUEST_TIME']));
+                    $alarm = $hordeAlarm->get($this->uid, $GLOBALS['registry']->getAuth());
+                    if (!empty($alarm['snooze'])) {
+                        $alarm['snooze']->setTimezone(date_default_timezone_get());
+                        $vTodo->setAttribute('X-MOZ-SNOOZE-TIME', $alarm['snooze']);
+                    }
+                }
             }
         }
 
