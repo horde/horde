@@ -1314,7 +1314,14 @@ class Nag_Task
         }
 
         if (isset($this->priority)) {
-            $vTodo->setAttribute('PRIORITY', $this->priority);
+            $priorityMap = array(
+                1 => 1,
+                2 => 3,
+                3 => 5,
+                4 => 7,
+                5 => 9,
+            );
+            $vTodo->setAttribute('PRIORITY', $priorityMap[$this->priority]);
         }
 
         if (!empty($this->parent_id) && !empty($this->parent)) {
@@ -1780,7 +1787,21 @@ class Nag_Task
         try {
             $priority = $vTodo->getAttribute('PRIORITY');
             if (!is_array($priority)) {
-                $this->priority = $priority;
+                $priorityMap = array(
+                    0 => 3,
+                    1 => 1,
+                    2 => 1,
+                    3 => 2,
+                    4 => 2,
+                    5 => 3,
+                    6 => 4,
+                    7 => 4,
+                    8 => 5,
+                    9 => 5,
+                );
+                $this->priority = isset($priorityMap[$priority])
+                    ? $priorityMap[$priority]
+                    : 3;
             }
         } catch (Horde_Icalendar_Exception $e) {
         }
