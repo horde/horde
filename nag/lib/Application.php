@@ -420,6 +420,7 @@ class Nag_Application extends Horde_Registry_Application
     {
         global $injector, $nag_shares;
 
+        $count = 0;
         switch ($data->getType()) {
         case 'tasklists':
             foreach ($data as $tasklist) {
@@ -434,8 +435,10 @@ class Nag_Application extends Horde_Registry_Application
                         'search'  => true)
                 );
                 $nag_shares->fromHash($tasklist);
+                $count++;
             }
             break;
+
         case 'tasks':
             $factory = $injector->getInstance('Nag_Factory_Driver');
             $map = array();
@@ -452,9 +455,12 @@ class Nag_Application extends Horde_Registry_Application
                 $driver = $factory->create($task['tasklist_id']);
                 $ids = $driver->add($task);
                 $map[$task['task_id']] = $ids[0];
+                $count++;
             }
             break;
         }
+
+        return $count;
     }
 
     /**

@@ -329,6 +329,7 @@ class Mnemo_Application extends Horde_Registry_Application
     {
         global $injector, $mnemo_shares;
 
+        $count = 0;
         switch ($data->getType()) {
         case 'notepads':
             foreach ($data as $notepad) {
@@ -338,6 +339,7 @@ class Mnemo_Application extends Horde_Registry_Application
                     array('name' => true, 'desc' => true)
                 );
                 $mnemo_shares->fromHash($notepad);
+                $count++;
             }
             break;
         case 'notes':
@@ -350,9 +352,12 @@ class Mnemo_Application extends Horde_Registry_Application
                     null,
                     $note['uid']
                 );
+                $count++;
             }
             break;
         }
+
+        return $count;
     }
 
     /* Download data. */

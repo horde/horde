@@ -575,6 +575,7 @@ class Turba_Application extends Horde_Registry_Application
 
         $user = $data->getUser();
 
+        $count = 0;
         switch ($data->getType()) {
         case 'addressbooks':
             $turba_shares = $injector->getInstance('Turba_Shares');
@@ -588,6 +589,7 @@ class Turba_Application extends Horde_Registry_Application
                         'params'  => true)
                 );
                 $turba_shares->fromHash($addressbook);
+                $count++;
             }
             break;
 
@@ -614,10 +616,13 @@ class Turba_Application extends Horde_Registry_Application
                     $map = $this->_restoreContact(
                         $contact, $user, $cfgSources, $map
                     );
+                    $count++;
                 }
             }
             break;
         }
+
+        return $count;
     }
 
     /**
