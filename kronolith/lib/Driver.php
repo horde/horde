@@ -491,7 +491,9 @@ class Kronolith_Driver
                     try {
                         $r = $rd->getResource($uid);
                         $r->removeEvent($event);
-                    } catch (Kronolith_Exception $e) {}
+                    } catch (Horde_Exception_NotFound $e) {
+                    } catch (Kronolith_Exception $e) {
+                    }
                 }
             }
         }
