@@ -1369,6 +1369,12 @@ class Nag_Task
                 $vTodo->setAttribute('STATUS', 'NEEDS-ACTION');
             }
         }
+        if (!empty($this->estimate)) {
+            $vTodo->setAttribute('X-HORDE-ESTIMATE', $this->estimate);
+        }
+        if (!empty($this->actual)) {
+            $vTodo->setAttribute('X-HORDE-EFFORT', $this->actual);
+        }
 
         // Recurrence.
         // We may have to implicitely set DTSTART if not set explicitely, may
@@ -1558,7 +1564,8 @@ class Nag_Task
             if (!is_array($organizer)) {
                 $this->organizer = $organizer;
             }
-        } catch (Horde_Icalendar_Exception $e) {}
+        } catch (Horde_Icalendar_Exception $e) {
+        }
 
         // If an attendee matches our from_addr, add current user as assignee.
         try {
@@ -1604,7 +1611,8 @@ class Nag_Task
         try {
             $uid = $vTodo->getAttribute('UID');
             if (!is_array($uid)) { $this->uid = $uid; }
-        } catch (Horde_Icalendar_Exception $e) {}
+        } catch (Horde_Icalendar_Exception $e) {
+        }
 
         try {
             $relations = $vTodo->getAttribute('RELATED-TO');
@@ -1623,7 +1631,8 @@ class Nag_Task
                     break;
                 }
             }
-        } catch (Horde_Icalendar_Exception $e) {}
+        } catch (Horde_Icalendar_Exception $e) {
+        }
 
         try {
             $start = $vTodo->getAttribute('DTSTART');
@@ -1634,7 +1643,8 @@ class Nag_Task
                 // Date field
                 $this->start = mktime(0, 0, 0, (int)$start['month'], (int)$start['mday'], (int)$start['year']);
             }
-        } catch (Horde_Icalendar_Exception $e) {}
+        } catch (Horde_Icalendar_Exception $e) {
+        }
 
         try {
             $due = $vTodo->getAttribute('DUE');
@@ -1643,7 +1653,8 @@ class Nag_Task
             } elseif (!empty($due)) {
                 $this->due = $due;
             }
-        } catch (Horde_Icalendar_Exception $e) {}
+        } catch (Horde_Icalendar_Exception $e) {
+        }
 
         // Recurrence.
         try {
@@ -1670,7 +1681,8 @@ class Nag_Task
                     }
                 }
             }
-        } catch (Horde_Icalendar_Exception $e) {}
+        } catch (Horde_Icalendar_Exception $e) {
+        }
 
         // vCalendar 1.0 alarms
         try {
@@ -1682,7 +1694,8 @@ class Nag_Task
                     $this->alarm = 1;
                 }
             }
-        } catch (Horde_Icalendar_Exception $e) {}
+        } catch (Horde_Icalendar_Exception $e) {
+        }
 
         // vCalendar 2.0 alarms
         foreach ($vTodo->getComponents() as $alarm) {
@@ -1761,28 +1774,32 @@ class Nag_Task
             if (!is_array($desc)) {
                 $this->desc = $desc;
             }
-        } catch (Horde_Icalendar_Exception $e) {}
+        } catch (Horde_Icalendar_Exception $e) {
+        }
 
         try {
             $priority = $vTodo->getAttribute('PRIORITY');
             if (!is_array($priority)) {
                 $this->priority = $priority;
             }
-        } catch (Horde_Icalendar_Exception $e) {}
+        } catch (Horde_Icalendar_Exception $e) {
+        }
 
         try {
             $cat = $vTodo->getAttribute('CATEGORIES');
             if (!is_array($cat)) {
                 $this->tags = $cat;
             }
-        } catch (Horde_Icalendar_Exception $e) {}
+        } catch (Horde_Icalendar_Exception $e) {
+        }
 
         try {
             $status = $vTodo->getAttribute('STATUS');
             if (!is_array($status)) {
                 $this->completed = !strcasecmp($status, 'COMPLETED');
             }
-        } catch (Horde_Icalendar_Exception $e) {}
+        } catch (Horde_Icalendar_Exception $e) {
+        }
 
         try {
             $class = $vTodo->getAttribute('CLASS');
@@ -1790,7 +1807,24 @@ class Nag_Task
                 $class = Horde_String::upper($class);
                 $this->private = $class == 'PRIVATE' || $class == 'CONFIDENTIAL';
             }
-        } catch (Horde_Icalendar_Exception $e) {}
+        } catch (Horde_Icalendar_Exception $e) {
+        }
+
+        try {
+            $estimate = $vTodo->getAttribute('X-HORDE-ESTIMATE');
+            if (!is_array($estimate)) {
+                $this->estimate = $estimate;
+            }
+        } catch (Horde_Icalendar_Exception $e) {
+        }
+
+        try {
+            $effort = $vTodo->getAttribute('X-HORDE-EFFORT');
+            if (!is_array($effort)) {
+                $this->actual = $effort;
+            }
+        } catch (Horde_Icalendar_Exception $e) {
+        }
     }
 
     /**
