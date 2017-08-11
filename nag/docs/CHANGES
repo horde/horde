@@ -2,6 +2,7 @@
 v4.2.16-git
 -----------
 
+[jan] Fix positioning of due time drop down list (Bug #12288).
 [jan] Improve compatibilty when synchronizing tasks via CalDAV/ICS (Bug
       #14057).
 [jan] Fix exporting multiple tags to iCalendar CATEGORIES (Bug #14057).
