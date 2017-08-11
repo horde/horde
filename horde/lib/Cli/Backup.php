@@ -196,13 +196,21 @@ class Horde_Cli_Backup extends Application
                     if ($clear && !isset($cleared[$user])) {
                         try {
                             $this->_registry->removeUserData($user, $app);
+                            $this->message(
+                                sprintf(_("Removed user data from %s."), $type),
+                                'cli.success'
+                            );
                         } catch (Horde_Exception $e) {
                             $this->message($e->getMessage(), 'cli.warning');
                         }
                         $cleared[$user] = true;
                     }
-                    $this->_registry->callAppMethod(
+                    $count = $this->_registry->callAppMethod(
                         $app, 'restore', array('args' => array($collection))
+                    );
+                    $this->message(
+                        sprintf(_("Restored %d items from %s."), $count, $type),
+                        'cli.success'
                     );
                 }
             }
