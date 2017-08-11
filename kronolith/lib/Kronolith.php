@@ -2994,7 +2994,9 @@ class Kronolith
             $uids = array();
             foreach ($events as $dayevents) {
                 foreach ($dayevents as $event) {
-                    $uids[] = $event->uid;
+                    if (!$event->baseid) {
+                        $uids[] = $event->uid;
+                    }
                 }
             }
             foreach ($uids as $uid) {
