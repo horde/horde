@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2016-11-09</date>
+ <date>2017-08-11</date>
  <version>
   <release>5.0.0</release>
   <api>5.0.0</api>
@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Add API to backup and restore user data.
 * [jan] Use colors, names, and descriptions of remote CalDAV calendars (Request #14612).
 * [jan] Add headers to print views.
 * [mjr] Add support for tracking the ORGANIZER of an event independently of the horde user (Bug #3965, PR: 127, Ralf Lang &lt;lang@b1-systems.de&gt;).
@@ -144,6 +145,9 @@
     <dir name="Attendee">
      <file name="List.php" role="horde" />
     </dir> <!-- /lib/Attendee -->
+    <dir name="Backup">
+     <file name="Events.php" role="horde" />
+    </dir> <!-- /lib/Backup -->
     <dir name="Block">
      <file name="Month.php" role="horde" />
      <file name="Monthlist.php" role="horde" />
@@ -898,7 +902,7 @@
    <package>
     <name>Horde_Data</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.4.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1208,6 +1212,7 @@
    <install as="kronolith/lib/Ajax/Imple/TagAutoCompleter.php" name="lib/Ajax/Imple/TagAutoCompleter.php" />
    <install as="kronolith/lib/Ajax/Imple/UserAutoCompleter.php" name="lib/Ajax/Imple/UserAutoCompleter.php" />
    <install as="kronolith/lib/Attendee/List.php" name="lib/Attendee/List.php" />
+   <install as="kronolith/lib/Backup/Events.php" name="lib/Backup/Events.php" />
    <install as="kronolith/lib/Block/Month.php" name="lib/Block/Month.php" />
    <install as="kronolith/lib/Block/Monthlist.php" name="lib/Block/Monthlist.php" />
    <install as="kronolith/lib/Block/Prevmonthlist.php" name="lib/Block/Prevmonthlist.php" />
@@ -2887,9 +2892,10 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2016-11-09</date>
+   <date>2017-08-11</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Add API to backup and restore user data.
 * [jan] Use colors, names, and descriptions of remote CalDAV calendars (Request #14612).
 * [jan] Add headers to print views.
 * [mjr] Add support for tracking the ORGANIZER of an event independently of the horde user (Bug #3965, PR: 127, Ralf Lang &lt;lang@b1-systems.de&gt;).

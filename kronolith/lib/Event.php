@@ -2375,6 +2375,68 @@ abstract class Kronolith_Event
     }
 
     /**
+     * Exports the values for this event to an array of values.
+     *
+     * @return array  Array containing all the values.
+     * @throws Kronolith_Exception
+     */
+    public function toHash()
+    {
+        $attendees = array();
+        foreach ($this->attendees as $id => $attendee) {
+            $attendees[$id] = $attendee->toHash();
+        }
+
+        $files = array();
+        if ($vfs = $this->vfsInit()) {
+            foreach ($this->listFiles() as $file) {
+                try {
+                    $data = $vfs->read(
+                        Kronolith::VFS_PATH . '/' . $this->getVfsUid(),
+                        $file['name']
+                    );
+                } catch (Horde_Vfs_Exception $e) {
+                    Horde::log($e->getMessage, 'ERR');
+                }
+                if ($data) {
+                    $file['data'] = base64_encode($data);
+                    $files[] = $file;
+                }
+            }
+        }
+
+        return array(
+            'title'         => $this->title,
+            'start_date'    => $this->start->format('Y-m-d'),
+            'start_time'    => $this->start->format('H:i:s'),
+            'timezone'      => $this->timezone,
+            'end_date'      => $this->end->format('Y-m-d'),
+            'end_time'      => $this->end->format('H:i:s'),
+            'alarm'         => $this->alarm,
+            'allday'        => $this->allday,
+            'attendees'     => $attendees,
+            'baseid'        => $this->baseid,
+            'calendar'      => $this->calendar,
+            'creator'       => $this->_creator,
+            'description'   => $this->description,
+            'geo_location'  => $this->geoLocation,
+            'location'      => $this->location,
+            'methods'       => $this->methods,
+            'organizer'     => $this->organizer,
+            'original_date' => (string)$this->exceptionoriginaldate,
+            'private'       => $this->private,
+            'recurrence'    => $this->recurrence ? $this->recurrence->toHash() : null,
+            'resources'     => $this->_resources,
+            'sequence'      => $this->sequence,
+            'status'        => $this->status,
+            'tags'          => $this->tags,
+            'uid'           => $this->uid,
+            'url'           => $this->url,
+            'files'         => $files,
+        );
+    }
+
+    /**
      * Imports the values for this event from an array of values.
      *
      * @param array $hash  Array containing all the values.
@@ -4389,7 +4451,8 @@ abstract class Kronolith_Event
                 if ($vfs->exists(Kronolith::VFS_PATH, $this->getVfsUid())) {
                     return $vfs->listFolder(Kronolith::VFS_PATH . '/' . $this->getVfsUid());
                 }
-            } catch (Kronolith_Exception $e) {}
+            } catch (Kronolith_Exception $e) {
+            }
         }
 
         return array();

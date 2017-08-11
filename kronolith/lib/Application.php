@@ -13,6 +13,9 @@
  * @package Kronolith
  */
 
+use Horde\Backup;
+use Sabre\CalDAV;
+
 /* Determine the base directories. */
 if (!defined('KRONOLITH_BASE')) {
     define('KRONOLITH_BASE', realpath(__DIR__ . '/..'));
@@ -31,8 +34,6 @@ if (!defined('HORDE_BASE')) {
 /* Load the Horde Framework core (needed to autoload
  * Horde_Registry_Application::). */
 require_once HORDE_BASE . '/lib/core.php';
-
-use Sabre\CalDAV;
 
 class Kronolith_Application extends Horde_Registry_Application
 {
@@ -562,6 +563,167 @@ class Kronolith_Application extends Horde_Registry_Application
         }
 
         return $alarm_list;
+    }
+
+    /* Backup/restore */
+
+    /**
+     */
+    public function backup(array $users = array())
+    {
+        global $injector;
+
+        $factory = $injector->getInstance('Kronolith_Factory_Driver');
+        $kronolith_shares = $injector->getInstance('Kronolith_Shares');
+
+        if (!$users) {
+            foreach ($kronolith_shares->listAllShares() as $share) {
+                $users[$share->get('owner')] = true;
+            }
+            $users = array_keys($users);
+        }
+
+        $getUser = function($user) use ($factory, $kronolith_shares)
+        {
+            global $registry;
+
+            $backup = new Backup\User($user);
+
+            $shares = $kronolith_shares->listShares(
+                $user, array('perm' => Horde_Perms::EDIT)
+            );
+            if (!$shares) {
+                return $backup;
+            }
+
+            // Need to pushApp() here because this method is called delayed,
+            // but we need Kronolith's $conf.
+            $pushed = $registry->pushApp(
+                'kronolith', array('check_perms' => false)
+            );
+            $calendars = array();
+            foreach ($shares as $share) {
+                if ($share->get('owner') == $user) {
+                    $calendars[$share->getId()] = $share->toHash();
+                }
+                $backup->collections[] = new Backup\Collection(
+                    new Kronolith\Backup\Events(
+                        Kronolith::getDriver(),
+                        $share->getName(),
+                        $user
+                    ),
+                    $user,
+                    'events'
+                );
+            }
+            $backup->collections[] = new Backup\Collection(
+                new ArrayIterator($calendars),
+                $user,
+                'calendars'
+            );
+            if ($pushed === true) {
+                $registry->popApp();
+            }
+
+            return $backup;
+        };
+
+        return new Backup\Users(new ArrayIterator($users), $getUser);
+    }
+
+    /**
+     */
+    public function restore(Backup\Collection $data)
+    {
+        global $injector;
+
+        $count = 0;
+        switch ($data->getType()) {
+        case 'calendars':
+            $kronolith_shares = $injector->getInstance('Kronolith_Shares');
+            foreach ($data as $calendar) {
+                $calendar['owner'] = $data->getUser();
+                $calendar['attributes'] = array_intersect_key(
+                    $calendar['attributes'],
+                    array(
+                        'name'          => true,
+                        'color'         => true,
+                        'desc'          => true,
+                        'calendar_type' => true,
+                    )
+                );
+                $kronolith_shares->fromHash($calendar);
+                $count++;
+            }
+            break;
+
+        case 'events':
+            $factory = $injector->getInstance('Kronolith_Factory_Driver');
+            $map = array();
+            foreach ($data as $event) {
+                $driver = Kronolith::getDriver(null, $event['calendar']);
+                $object = $driver->getEvent();
+                $object->fromHash($event);
+                if (!empty($event['attendees'])) {
+                    $object->attendees = new Kronolith_Attendee_List();
+                    foreach ($event['attendees'] as $attendee) {
+                        $object->attendees->add(
+                            new Kronolith_Attendee($attendee)
+                        );
+                    }
+                }
+                if (!empty($event['original_date'])) {
+                    $object->exceptionoriginaldate = new Horde_Date(
+                        $event['original_date']
+                    );
+                }
+                if (!empty($event['recurrence'])) {
+                    $object->recurrence = Horde_Date_Recurrence::fromHash(
+                        $event['recurrence']
+                    );
+                }
+                if (!empty($event['resources'])) {
+                    foreach ($event['resources'] as $resource) {
+                        try {
+                            $object->addResource(
+                                Kronolith_Resource::getResource(
+                                    $resource['calendar']
+                                ),
+                                $resource['response']
+                            );
+                        } catch (Horde_Exception_NotFound $e) {
+                        }
+                    }
+                }
+                $object->baseid      = $event['baseid'];
+                $object->creator     = $event['creator'];
+                $object->geoLocation = $event['geo_location'];
+                $object->methods     = $event['methods'];
+                $object->status      = $event['status'];
+                $object->url         = $event['url'];
+
+                $driver->saveEvent($object);
+
+                if (!empty($event['files'])) {
+                    foreach ($event['files'] as $file) {
+                        $file['data'] = base64_decode($file['data']);
+                        $object->addFileFromData($file);
+                    }
+                }
+
+                $count++;
+            }
+            break;
+        }
+
+        return $count;
+    }
+
+    /**
+     */
+    public function restoreDependencies()
+    {
+        return array('events' => array('calendars'));
     }
 
     /* Download data. */

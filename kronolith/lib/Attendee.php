@@ -192,8 +192,24 @@ class Kronolith_Attendee implements Serializable
     }
 
     /**
+     * Returns hash representing this attendee.
+     *
+     * @return array  An hash respresenting this attendee.
+     */
+    public function toHash()
+    {
+        return array(
+            'user' => $this->user,
+            'email' => $this->email,
+            'name' => $this->name,
+            'role' => $this->role,
+            'response' => $this->response,
+        );
+    }
+
+    /**
      * Returns a simple object suitable for JSON transport representing this
-     * event.
+     * attendee.
      *
      * @return object  An object respresenting this attendee.
      */
