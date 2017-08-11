@@ -3009,9 +3009,11 @@ class Kronolith
     }
 
     /**
-     * Export an event to a timeslice.
+     * Exports an event to a timeslice.
      *
-     *
+     * @param Kronolith_Event $event  An event.
+     * @param integer $type           A job type ID.
+     * @param string $client          A client ID.
      */
     public static function toTimeslice(Kronolith_Event $event, $type, $client)
     {
