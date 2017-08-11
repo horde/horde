@@ -408,7 +408,12 @@ class Kronolith_Application extends Horde_Registry_Application
         $error = false;
 
         // Remove all events owned by the user in all calendars.
-        Kronolith::removeUserEvents($user);
+        try {
+            Kronolith::removeUserEvents($user);
+        } catch (Exception $e) {
+            Horde::log($e, 'NOTICE');
+            $error = true;
+        }
 
         // Get the shares owned by the user being deleted.
         try {
