@@ -1338,6 +1338,7 @@ class Nag_Task
                 } else {
                     $vAlarm = Horde_Icalendar::newComponent('valarm', $vTodo);
                     $vAlarm->setAttribute('ACTION', 'DISPLAY');
+                    $vAlarm->setAttribute('DESCRIPTION', $this->name);
                     $vAlarm->setAttribute('TRIGGER;VALUE=DURATION', '-PT' . $this->alarm . 'M');
                     $vTodo->addComponent($vAlarm);
                 }
