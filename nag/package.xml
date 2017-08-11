@@ -1855,6 +1855,7 @@
    <date>2017-08-01</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix positioning of due time drop down list (Bug #12288).
 * [jan] Improve compatibilty when synchronizing tasks via CalDAV/ICS (Bug #14057).
 * [jan] Fix exporting multiple tags to iCalendar CATEGORIES (Bug #14057).
 * [jan] Don&apos;t include external tasks into drop down list for parent tasks.

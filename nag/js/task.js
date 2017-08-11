@@ -23,7 +23,6 @@ var NagTasks = {
         field = $(field);
         opts = {
             list: list,
-            domParent: field.up('#nag_form_task'),
             onChoose: function(value) {
                 if (value) {
                     field.setValue(value);
