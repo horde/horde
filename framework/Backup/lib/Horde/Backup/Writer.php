@@ -91,6 +91,11 @@ class Writer
 
     /**
      * Saves the backups.
+     *
+     * @param integer $format  The backup format, one of the Backup::FORMAT_*
+     *                         constants.
+     *
+     * @return integer  Number of processed items.
      */
     public function save($format = Backup::FORMAT_ZIP)
     {
@@ -115,6 +120,7 @@ class Writer
         }
         $packer = new Json();
 
+        $count = 0;
         foreach ($backups as $name => $applications) {
             $data = array();
             foreach ($applications as $application => $backup) {
@@ -127,6 +133,7 @@ class Writer
                             'name' => $dir . $id,
                             'data' => $stream
                         );
+                        $count++;
                     }
                 }
             }
@@ -140,5 +147,7 @@ class Writer
             );
             fclose($archive);
         }
+
+        return $count;
     }
 }
