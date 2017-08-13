@@ -945,6 +945,35 @@ class Kronolith_Application extends Horde_Registry_Application
                 '{http://sabredav.org/ns}read-only' => !$share->hasPermission($hordeUser, Horde_Perms::EDIT),
             );
         }
+        // External Calendars from other Horde Apps
+                foreach ($calendar_manager->get(Kronolith::ALL_EXTERNAL_CALENDARS) as $calendarId => $calendar) {
+            // We don't want to duplicate tasks handling
+            if ($calendar->api() == 'tasks') {
+                continue;
+            }
+            try {
+                $id = $dav->getExternalCollectionId($calendar->internalId(), 'calendar');
+            } catch (Horde_Dav_Exception $e) {
+            }
+            $calendars[] = array(
+                'id' => $id,
+                'uri' => $id,
+                '{' . CalDAV\Plugin::NS_CALENDARSERVER . '}shared-url' =>
+                    $calendar->caldavUrl(),
+                'principaluri' => 'principals/' . $user,
+                '{http://sabredav.org/ns}owner-principal' =>
+                    'principals/-system-', // TODO: Not sure who should really own these, system or the calling user
+                '{DAV:}displayname' => sprintf("%s: %s", ucfirst($calendar->api()),  $calendar->name()),
+                '{' . CalDAV\Plugin::NS_CALDAV . '}calendar-description' =>
+                    $calendar->name(), // TODO: Implement an interface for description and fallback to name if none given
+                '{http://apple.com/ns/ical/}calendar-color' =>
+                    $calendar->background(),
+                '{' . CalDAV\Plugin::NS_CALDAV . '}supported-calendar-component-set' => new CalDAV\Property\SupportedCalendarComponentSet(array('VEVENT')),
+                '{http://sabredav.org/ns}read-only' => true, // For now, externals are readonly
+            );
+        }
+
+
         return $calendars;
     }
 
@@ -956,11 +985,19 @@ class Kronolith_Application extends Horde_Registry_Application
             ->getInstance('Horde_Dav_Storage');
 
         $internal = $dav->getInternalCollectionId($collection, 'calendar') ?: $collection;
-        if (!Kronolith::hasPermission($internal, Horde_Perms::SHOW)) {
+        // Handle external collections
+        $exploded = explode(':', $internal, 2);
+        $driverType = null;
+        if ($exploded[0] == "external") {
+            $driverType = "Horde";
+            $internalName = str_replace(':', '/', $exploded[1]);
+        } elseif (!Kronolith::hasPermission($internal, Horde_Perms::SHOW)) {
             throw new Kronolith_Exception(_("Calendar does not exist or no permission to edit"));
+        } else {
+            $internalName = $internal;
         }
 
-        $kronolith_driver = Kronolith::getDriver(null, $internal);
+        $kronolith_driver = Kronolith::getDriver($driverType, $internalName);
         $allEvents = $kronolith_driver->listEvents(
             null,
             null,
@@ -997,11 +1034,20 @@ class Kronolith_Application extends Horde_Registry_Application
             ->getInstance('Horde_Dav_Storage');
 
         $internal = $dav->getInternalCollectionId($collection, 'calendar') ?: $collection;
-        if (!Kronolith::hasPermission($internal, Horde_Perms::SHOW)) {
-            throw new Kronolith_Exception(_("Calendar does not exist or no permission to edit"));
+        // Handle external collections
+        $exploded = explode(':', $internal, 2);
+        $driverType = null;
+        if ($exploded[0] == "external") {
+            $driverType = "Horde";
+            $internalName = str_replace(':', '/', $exploded[1]);
+        } elseif (!Kronolith::hasPermission($internal, Horde_Perms::SHOW)) {
+            throw new Kronolith_Exception(_("Calendar does not exist or no permission to edit") . "foo");
+        } else {
+            $internalName = $internal;
         }
 
-        $kronolith_driver = Kronolith::getDriver(null, $internal);
+        $kronolith_driver = Kronolith::getDriver($driverType, $internalName);
+
         try {
             $object = $dav->getInternalObjectId($object, $internal) ?: preg_replace('/\.ics$/', '', $object);
         } catch (Horde_Dav_Exception $e) {
@@ -1020,7 +1066,11 @@ class Kronolith_Application extends Horde_Registry_Application
             ->getInstance('Kronolith_Shares')
             ->getShare($event->calendar);
         $ical = new Horde_Icalendar('2.0');
-        $ical->setAttribute('X-WR-CALNAME', $share->get('name'));
+        if ($share) {
+            $ical->setAttribute('X-WR-CALNAME', $share->get('name'));
+        } else {
+            // TODO: Get Calendar object and run ->name()
+        }
         $ical->addComponent($event->toiCalendar($ical));
         $data = $ical->exportvCalendar();
 
