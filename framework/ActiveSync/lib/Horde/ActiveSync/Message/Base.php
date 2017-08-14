@@ -724,10 +724,11 @@ class Horde_ActiveSync_Message_Base
      */
     protected function _parseDate($ts)
     {
-        if (preg_match("/(\d{4})[^0-9]*(\d{2})[^0-9]*(\d{2})(T(\d{2})[^0-9]*(\d{2})[^0-9]*(\d{2})(.\d+)?Z){0,1}$/", $ts, $matches)) {
+        if (preg_match('/(\d{4})\D*(\d{2})\D*(\d{2})(T(\d{2})\D*(\d{2})\D*(\d{2})(.\d+)?Z)?$/', $ts)) {
             try {
                 return new Horde_Date($ts);
-            } catch (Horde_Date_Exception $e) {}
+            } catch (Horde_Date_Exception $e) {
+            }
         }
 
         return false;
@@ -744,8 +745,7 @@ class Horde_ActiveSync_Message_Base
     {
         $len = strlen($data);
         $newdata = '';
-        for($i = 0; $i < $len; $i += 2)
-        {
+        for ($i = 0; $i < $len; $i += 2) {
             $newdata .= pack('C', hexdec(substr($data, $i, 2)));
         }
 
