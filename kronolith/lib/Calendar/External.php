@@ -96,6 +96,7 @@ class Kronolith_Calendar_External extends Kronolith_Calendar
     {
         return $this->_api;
     }
+
    /**
      * Returns the CalDAV URL to this calendar.
      *
