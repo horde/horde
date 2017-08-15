@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>false</active>
  </lead>
- <date>2017-08-01</date>
+ <date>2017-08-15</date>
  <version>
   <release>4.2.16</release>
   <api>4.2.0</api>
@@ -1816,7 +1816,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-08-01</date>
+   <date>2017-08-15</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Fix parsing sub-tasks from the quick enter dialog (Bug #14681).
