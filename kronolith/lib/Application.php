@@ -946,7 +946,7 @@ class Kronolith_Application extends Horde_Registry_Application
             );
         }
         // External Calendars from other Horde Apps
-                foreach ($calendar_manager->get(Kronolith::ALL_EXTERNAL_CALENDARS) as $calendarId => $calendar) {
+        foreach ($calendar_manager->get(Kronolith::ALL_EXTERNAL_CALENDARS) as $calendarId => $calendar) {
             // We don't want to duplicate tasks handling
             if ($calendar->api() == 'tasks') {
                 continue;
