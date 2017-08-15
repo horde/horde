@@ -962,10 +962,10 @@ class Kronolith_Application extends Horde_Registry_Application
                     $calendar->caldavUrl(),
                 'principaluri' => 'principals/' . $user,
                 '{http://sabredav.org/ns}owner-principal' =>
-                    'principals/-system-', // TODO: Not sure who should really own these, system or the calling user
+                    'principals/' . $registry->convertUsername($registry->getAuth(), false),
                 '{DAV:}displayname' => sprintf("%s: %s", ucfirst($calendar->api()),  $calendar->name()),
                 '{' . CalDAV\Plugin::NS_CALDAV . '}calendar-description' =>
-                    $calendar->name(), // TODO: Implement an interface for description and fallback to name if none given
+                    '', // TODO: Implement an interface for description and fallback to empty if none given
                 '{http://apple.com/ns/ical/}calendar-color' =>
                     $calendar->background(),
                 '{' . CalDAV\Plugin::NS_CALDAV . '}supported-calendar-component-set' => new CalDAV\Property\SupportedCalendarComponentSet(array('VEVENT')),
