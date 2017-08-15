@@ -988,11 +988,11 @@ class Kronolith_Application extends Horde_Registry_Application
         // Handle external collections
         $exploded = explode(':', $internal, 2);
         $driverType = null;
-        if ($exploded[0] == "external") {
-            $driverType = "Horde";
+        if ($exploded[0] == 'external') {
+            $driverType = 'Horde';
             $internalName = str_replace(':', '/', $exploded[1]);
         } elseif (!Kronolith::hasPermission($internal, Horde_Perms::SHOW)) {
-            throw new Kronolith_Exception(_("Calendar does not exist or no permission to edit"));
+            throw new Kronolith_Exception(_('Calendar does not exist or no permission to edit'));
         } else {
             $internalName = $internal;
         }
@@ -1030,6 +1030,8 @@ class Kronolith_Application extends Horde_Registry_Application
      */
     public function davGetObject($collection, $object)
     {
+        global $calendar_manager;
+
         $dav = $GLOBALS['injector']
             ->getInstance('Horde_Dav_Storage');
 
@@ -1037,11 +1039,11 @@ class Kronolith_Application extends Horde_Registry_Application
         // Handle external collections
         $exploded = explode(':', $internal, 2);
         $driverType = null;
-        if ($exploded[0] == "external") {
-            $driverType = "Horde";
+        if ($exploded[0] == 'external') {
+            $driverType = 'Horde';
             $internalName = str_replace(':', '/', $exploded[1]);
         } elseif (!Kronolith::hasPermission($internal, Horde_Perms::SHOW)) {
-            throw new Kronolith_Exception(_("Calendar does not exist or no permission to edit") . "foo");
+            throw new Kronolith_Exception(_('Calendar does not exist or no permission to edit'));
         } else {
             $internalName = $internal;
         }
@@ -1069,7 +1071,8 @@ class Kronolith_Application extends Horde_Registry_Application
         if ($share) {
             $ical->setAttribute('X-WR-CALNAME', $share->get('name'));
         } else {
-            // TODO: Get Calendar object and run ->name()
+            $calendar = $calendar_manager->getEntry(Kronolith::ALL_EXTERNAL_CALENDARS, $internalName);
+            $ical->setAttribute('X-WR-CALNAME', $calendar->name());
         }
         $ical->addComponent($event->toiCalendar($ical));
         $data = $ical->exportvCalendar();
