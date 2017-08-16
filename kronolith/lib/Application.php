@@ -964,8 +964,6 @@ class Kronolith_Application extends Horde_Registry_Application
                 '{http://sabredav.org/ns}owner-principal' =>
                     'principals/' . $registry->convertUsername($registry->getAuth(), false),
                 '{DAV:}displayname' => sprintf('%s: %s', $registry->get('name', $calendar->api()), $calendar->name()),
-                '{' . CalDAV\Plugin::NS_CALDAV . '}calendar-description' =>
-                    '', // TODO: Implement an interface for description and fallback to empty if none given
                 '{http://apple.com/ns/ical/}calendar-color' =>
                     $calendar->background(),
                 '{' . CalDAV\Plugin::NS_CALDAV . '}supported-calendar-component-set' => new CalDAV\Property\SupportedCalendarComponentSet(array('VEVENT')),
@@ -992,7 +990,7 @@ class Kronolith_Application extends Horde_Registry_Application
             $driverType = 'Horde';
             $internalName = str_replace(':', '/', $exploded[1]);
         } elseif (!Kronolith::hasPermission($internal, Horde_Perms::SHOW)) {
-            throw new Kronolith_Exception(_('Calendar does not exist or no permission to edit'));
+            throw new Kronolith_Exception(_("Calendar does not exist or no permission to edit"));
         } else {
             $internalName = $internal;
         }
@@ -1043,7 +1041,7 @@ class Kronolith_Application extends Horde_Registry_Application
             $driverType = 'Horde';
             $internalName = str_replace(':', '/', $exploded[1]);
         } elseif (!Kronolith::hasPermission($internal, Horde_Perms::SHOW)) {
-            throw new Kronolith_Exception(_('Calendar does not exist or no permission to edit'));
+            throw new Kronolith_Exception(_("Calendar does not exist or no permission to edit"));
         } else {
             $internalName = $internal;
         }
