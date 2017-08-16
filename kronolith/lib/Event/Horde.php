@@ -109,6 +109,7 @@ class Kronolith_Event_Horde extends Kronolith_Event
         if (isset($event['location'])) {
             $this->location = $event['location'];
         }
+        $this->uid = empty($event['uid']) ? $this->id . '@' . $this->calendar : $event['uid'];
         try {
             $this->start = new Horde_Date($event['start']);
             $this->end = new Horde_Date($event['end']);
