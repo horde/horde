@@ -1061,17 +1061,17 @@ class Kronolith_Application extends Horde_Registry_Application
 
         $event->loadHistory();
         $modified = $event->modified ?: $event->created;
-
-        $share = $GLOBALS['injector']
-            ->getInstance('Kronolith_Shares')
-            ->getShare($event->calendar);
         $ical = new Horde_Icalendar('2.0');
-        if ($share) {
-            $ical->setAttribute('X-WR-CALNAME', $share->get('name'));
-        } else {
+        if ($exploded[0] == 'external') {
             $calendar = $calendar_manager->getEntry(Kronolith::ALL_EXTERNAL_CALENDARS, $internalName);
             $ical->setAttribute('X-WR-CALNAME', $calendar->name());
+        } else {
+            $share = $GLOBALS['injector']
+                ->getInstance('Kronolith_Shares')
+                ->getShare($event->calendar);
+            $ical->setAttribute('X-WR-CALNAME', $share->get('name'));
         }
+
         $ical->addComponent($event->toiCalendar($ical));
         $data = $ical->exportvCalendar();
 
