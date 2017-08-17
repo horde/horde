@@ -20,7 +20,7 @@ class Nag_QuickParser
             $line = rtrim($line);
             if (preg_match('/^\s*$/', $line)) { continue; }
 
-            $indented = preg_match('/^([*-\s]+)(.*)$/', $line, $matches);
+            $indented = preg_match('/^([-*\s]+)(.*)$/', $line, $matches);
             if (!$indented) {
                 $tasks[] = $line;
                 $parents[$this->_indentStack->peek()] = count($tasks) - 1;

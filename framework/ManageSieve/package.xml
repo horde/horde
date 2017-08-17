@@ -19,7 +19,7 @@
   <release>stable</release>
   <api>stable</api>
  </stability>
- <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+ <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
 * 
  </notes>
@@ -130,7 +130,7 @@
     <api>alpha</api>
    </stability>
    <date>2015-07-31</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * Initial release.
    </notes>
@@ -143,7 +143,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2015-11-15</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * Initial stable release.
    </notes>
@@ -156,7 +156,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2016-02-01</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [jan] Fix usage of &apos;tlsv1&apos; connection setting (Ralf Becker &lt;RalfBecker@outdoor-training.de&gt;).
 * [jan] Fix setting authentication credentials from login() (Ralf Becker &lt;RalfBecker@outdoor-training.de&gt;).
@@ -172,7 +172,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2016-07-12</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [jan] Fix loading of Auth_SASL class (Ralf Becker &lt;RalfBecker@outdoor-training.de&gt;).
    </notes>
@@ -185,7 +185,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2016-07-12</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * 
    </notes>

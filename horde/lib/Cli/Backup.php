@@ -158,7 +158,11 @@ class Horde_Cli_Backup extends Application
                 )
             );
         }
-        $writer->save();
+        $count = $writer->save();
+        $this->message(
+            sprintf(_("Saved %d items."), $count),
+            'cli.success'
+        );
     }
 
     /**
