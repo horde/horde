@@ -12,7 +12,8 @@
  */
 
 /**
- * This class represents the Content-Description header value (RFC 2045 [6]).
+ * This class represents the Content-Transfer-Encoding header value (RFC 2045
+ * [6]).
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
