@@ -1831,7 +1831,7 @@ implements ArrayAccess, Countable, RecursiveIterator, Serializable
      *
      * @param resource $fp  A stream resource.
      *
-     * @param mixed  Either 'binary', '8bit', or false.
+     * @return mixed  Either 'binary', '8bit', or false.
      */
     protected function _scanStream($fp)
     {
