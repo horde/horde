@@ -72,7 +72,7 @@ class Horde_Mime_Filter_Encoding extends php_user_filter
                         if (++$this->_crlf > 998) {
                             $this->params->body = 'binary';
                             break 2;
-                        } else if ($chr > 127) {
+                        } elseif ($chr > 127) {
                             $this->params->body = '8bit';
                         }
                         break;
