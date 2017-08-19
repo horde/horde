@@ -30,7 +30,7 @@
  </developer>
  <date>2017-08-19</date>
  <version>
-  <release>2.30.1</release>
+  <release>2.30.2</release>
   <api>2.30.0</api>
  </version>
  <stability>
@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Fix issue that could break ActiveSync sync if object not found.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4498,6 +4498,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Fix issue that could break ActiveSync sync if object not found.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.30.2</release>
+    <api>2.30.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2017-08-19</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
