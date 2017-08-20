@@ -399,7 +399,9 @@ class Horde_ActiveSync_Message_Contact extends Horde_ActiveSync_Message_Base
      */
     protected function _parseDate($ts)
     {
-        $date = parent::_parseDate($ts);
+        if (!($date = parent::_parseDate($ts))) {
+            return false;
+        }
 
         // Since some clients send the date as YYYY-MM-DD only, the best we can
         // do is assume that it is in the same timezone as the user's default
