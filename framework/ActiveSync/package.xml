@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Prevent broken datetime strings from causing a fatal error (Bug #14682).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3464,7 +3464,7 @@
    <date>2017-08-01</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Prevent broken datetime strings from causing a fatal error (Bug #14682).
    </notes>
   </release>
  </changelog>
