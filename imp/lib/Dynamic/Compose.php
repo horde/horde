@@ -78,6 +78,7 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
         $compose_opts = array(
             'title' => _("New Message")
         );
+        $onload = null;
 
         switch ($this->vars->type) {
         case 'reply':
@@ -216,23 +217,25 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
 
         $compose_opts['redirect'] = ($this->vars->type == 'forward_redirect');
 
-        if (isset($onload->addr) || !empty($addr)) {
-            foreach (array('to', 'cc', 'bcc') as $val) {
-                if (!isset($onload->addr[$val])) {
-                    $onload->addr[$val] = array();
-                }
-                if (isset($addr[$val])) {
-                    $tmp = new IMP_Ajax_Addresses($addr[$val]);
-                    $onload->addr[$val] = array_merge(
-                        $onload->addr[$val],
-                        $tmp->toAutocompleteArray()
-                    );
+        if ($onload) {
+            if (isset($onload->addr) || !empty($addr)) {
+                foreach (array('to', 'cc', 'bcc') as $val) {
+                    if (!isset($onload->addr[$val])) {
+                        $onload->addr[$val] = array();
+                    }
+                    if (isset($addr[$val])) {
+                        $tmp = new IMP_Ajax_Addresses($addr[$val]);
+                        $onload->addr[$val] = array_merge(
+                            $onload->addr[$val],
+                            $tmp->toAutocompleteArray()
+                        );
+                    }
                 }
             }
-        }
 
-        if (!is_null($subject)) {
-            $onload->subject = $subject;
+            if (!is_null($subject)) {
+                $onload->subject = $subject;
+            }
         }
 
         $this->title = $compose_opts['title'];
