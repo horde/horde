@@ -724,7 +724,7 @@ class Horde_ActiveSync_Message_Base
      */
     protected function _parseDate($ts)
     {
-        if (preg_match('/(\d{4})\D*(\d{2})\D*(\d{2})(T(\d{2})\D*(\d{2})\D*(\d{2})(.\d+)?Z)?$/', $ts)) {
+        if (preg_match('/(\d{4})\D*(\d{1,2})\D*(\d{1,2})(T(\d{1,2})\D*(\d{1,2})\D*(\d{1,2})(.\d+)?Z)?$/', $ts)) {
             try {
                 return new Horde_Date($ts);
             } catch (Horde_Date_Exception $e) {
