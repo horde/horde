@@ -738,18 +738,35 @@ class Horde
      *
      * @return string  The full <a href> tag.
      */
-    public static function linkTooltip($url, $status = '', $class = '',
-                                       $target = '', $onclick = '',
-                                       $title = '', $accesskey = '',
-                                       $attributes = array())
+    public static function linkTooltip(
+        $url, $status = '', $class = '', $target = '', $onclick = '',
+        $title = '', $accesskey = '', $attributes = array()
+    )
     {
         if (strlen($title)) {
-            $attributes['nicetitle'] = Horde_Serialize::serialize(explode("\n", preg_replace('/<br\s*\/?\s*>/', "\n", $title)), Horde_Serialize::JSON);
+            $attributes['nicetitle'] = Horde_Serialize::serialize(
+                preg_split(
+                    '/\r?\n/',
+                    preg_replace('/<br\s*\/?\s*>/', "\n", $title)
+                ),
+                Horde_Serialize::JSON
+            );
             $title = null;
-            $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('tooltips.js', 'horde');
+            $GLOBALS['injector']->getInstance('Horde_PageOutput')
+                ->addScriptFile('tooltips.js', 'horde');
         }
 
-        return self::link($url, $title, $class, $target, $onclick, null, $accesskey, $attributes, false);
+        return self::link(
+            $url,
+            $title,
+            $class,
+            $target,
+            $onclick,
+            null,
+            $accesskey,
+            $attributes,
+            false
+        );
     }
 
     /**

@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix double line breaks in task description tooltips (Bug #14684).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4510,7 +4510,7 @@
    <date>2017-08-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix double line breaks in task description tooltips (Bug #14684).
    </notes>
   </release>
  </changelog>
