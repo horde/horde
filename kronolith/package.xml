@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Fix updating and deleting events from external CalDAV servers (martin1@k0k.net, Bug #14021).
 * [jan] Fix exporting multiple tags to iCalendar CATEGORIES (Bug #14057).
  </notes>
  <contents>
@@ -2803,6 +2804,7 @@
    <date>2017-08-01</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix updating and deleting events from external CalDAV servers (martin1@k0k.net, Bug #14021).
 * [jan] Fix exporting multiple tags to iCalendar CATEGORIES (Bug #14057).
    </notes>
   </release>
