@@ -450,7 +450,7 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
                 $results = array();
                 $this->_processComponents(
                     $results, $this->_convertEvents($ical), null, null, false,
-                    false, false, $eventId
+                    false, false, false, $eventId
                 );
                 $event = reset(reset($results));
                 if (!$event) {
