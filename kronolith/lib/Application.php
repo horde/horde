@@ -963,7 +963,7 @@ class Kronolith_Application extends Horde_Registry_Application
                 'principaluri' => 'principals/' . $user,
                 '{http://sabredav.org/ns}owner-principal' =>
                     'principals/' . $registry->convertUsername($registry->getAuth(), false),
-                '{DAV:}displayname' => sprintf('%s: %s', $registry->get('name', $calendar->api()), $calendar->name()),
+                '{DAV:}displayname' => sprintf('%s: %s', $registry->get('name', $registry->hasMethod($calendar->api() . '/listTimeObjectCategories' )), $calendar->name()),
                 '{http://apple.com/ns/ical/}calendar-color' =>
                     $calendar->background(),
                 '{' . CalDAV\Plugin::NS_CALDAV . '}supported-calendar-component-set' => new CalDAV\Property\SupportedCalendarComponentSet(array('VEVENT')),
