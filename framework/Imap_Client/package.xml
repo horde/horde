@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix expunging cache entries of a certain lifetime from the DB backend.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3123,7 +3123,7 @@
    <date>2017-08-01</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix expunging cache entries of a certain lifetime from the DB backend.
    </notes>
   </release>
  </changelog>

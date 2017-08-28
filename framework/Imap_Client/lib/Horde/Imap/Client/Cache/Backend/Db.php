@@ -317,7 +317,7 @@ extends Horde_Imap_Client_Cache_Backend
         }
 
         $purge = time() - $lifetime;
-        $sql = 'DELETE FROM %s WHERE messageid IN (SELECT messageid FROM %s WHERE modified < ?';
+        $sql = 'DELETE FROM %s WHERE messageid IN (SELECT messageid FROM %s WHERE modified < ?)';
 
         foreach (array(self::MD_TABLE, self::MSG_TABLE) as $val) {
             try {
@@ -325,7 +325,8 @@ extends Horde_Imap_Client_Cache_Backend
                     sprintf($sql, $val, self::BASE_TABLE),
                     array($purge)
                 );
-            } catch (Horde_Db_Exception $e) {}
+            } catch (Horde_Db_Exception $e) {
+            }
         }
 
         try {
@@ -333,7 +334,8 @@ extends Horde_Imap_Client_Cache_Backend
                 sprintf('DELETE FROM %s WHERE modified < ?', self::BASE_TABLE),
                 array($purge)
             );
-        } catch (Horde_Db_Exception $e) {}
+        } catch (Horde_Db_Exception $e) {
+        }
     }
 
     /**
