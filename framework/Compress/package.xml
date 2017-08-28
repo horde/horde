@@ -30,7 +30,7 @@
  </lead>
  <date>2017-08-28</date>
  <version>
-  <release>2.2.1</release>
+  <release>2.2.2</release>
   <api>2.2.0</api>
  </version>
  <stability>
@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Fix RAR compressed file names with unicode characters.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1073,6 +1073,19 @@ Initial release as a PEAR package
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix RAR compressed file names with unicode characters.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.2</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2017-08-28</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
