@@ -1,5 +1,5 @@
 {
-    "name": "horde/horde-compress",
+    "name": "horde/compress",
     "description": "Horde Compression API",
     "type": "library",
     "homepage": "https://pear.horde.org",
@@ -26,8 +26,8 @@
             "role": "developer"
         }
     ],
-    "version": "2.2.0",
-    "time": "2017-05-03",
+    "version": "2.2.1",
+    "time": "2017-08-28",
     "repositories": [
         {
             "type": "pear",

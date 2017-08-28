@@ -28,7 +28,7 @@
   <email>slusarz@horde.org</email>
   <active>no</active>
  </lead>
- <date>2017-05-03</date>
+ <date>2017-08-28</date>
  <version>
   <release>2.2.1</release>
   <api>2.2.0</api>
@@ -1069,7 +1069,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-05-03</date>
+   <date>2017-08-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix RAR compressed file names with unicode characters.
