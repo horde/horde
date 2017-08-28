@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2017-08-19</date>
+ <date>2017-08-28</date>
  <version>
   <release>2.30.2</release>
   <api>2.30.0</api>
@@ -4507,7 +4507,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-08-19</date>
+   <date>2017-08-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix double line breaks in task description tooltips (Bug #14684).
