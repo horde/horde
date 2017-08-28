@@ -150,7 +150,9 @@ extends Horde_Crypt_Pgp_Backend
 
         /* If either key is empty, something went wrong. */
         if (empty($public_key) || empty($secret_key)) {
-            throw new Horde_Crypt_Exception(_("Cannot generate PGP keys"));
+            throw new Horde_Crypt_Exception(
+                Horde_Crypt_Translation::t("Cannot generate PGP keys")
+            );
         }
 
         return array(
@@ -374,7 +376,9 @@ extends Horde_Crypt_Pgp_Backend
             return substr($matches[1], -8);
         }
 
-        throw new Horde_Crypt_Exception(_("Cannot read PGP key ID"));
+        throw new Horde_Crypt_Exception(
+            Horde_Crypt_Translation::t("Cannot read PGP key ID")
+        );
     }
 
     /**
