@@ -15,11 +15,11 @@ var_dump($t->tokens);
 ?>
 --EXPECT--
 string(43) "
-ÿ0ÿtest 1
+0test 1
 test 2
-ÿ1ÿtest 11
-test 22ÿ2ÿÿ3ÿ
-"
+1test 11
+test 22
+23"
 array(4) {
   [0]=>
   array(2) {
