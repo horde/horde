@@ -2,6 +2,7 @@
 v4.2.23-git
 -----------
 
+[jan] Fix time offsets when importing CSV data with two-digit years.
 [jan] Fix updating and deleting events from external CalDAV servers
       (martin1@k0k.net, Bug #14021).
 [jan] Fix exporting multiple tags to iCalendar CATEGORIES (Bug #14057).
