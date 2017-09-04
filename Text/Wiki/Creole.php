@@ -95,8 +95,8 @@ class Text_Wiki_Creole extends Text_Wiki {
      * @param array $rules The set of rules to load for this object.
      */
 
-    function Text_Wiki_Creole($rules = null) {
-        parent::Text_Wiki($rules);
+    function __construct($rules = null) {
+        parent::__construct($rules);
         $this->addPath('parse', $this->fixPath(dirname(__FILE__)).'Parse/Creole');
         $this->renderingType = 'char';
         $this->setRenderConf('xhtml', 'center', 'css', 'center');
@@ -128,7 +128,7 @@ class Text_Wiki_Creole extends Text_Wiki {
         }
         return ! (count($started) > 0);
     }
-    
+
     function restoreRaw($text) {
 		$i = false;
         while (($i = strpos($text, $this->delim, $i)) !== false) {

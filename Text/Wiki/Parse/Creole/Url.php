@@ -38,9 +38,9 @@ class Text_Wiki_Parse_Url extends Text_Wiki_Parse {
      *
      */
 
-    function Text_Wiki_Parse_Url(&$obj)
+    function __construct(&$obj)
     {
-        parent::Text_Wiki_Parse($obj);
+        parent::__construct($obj);
         $this->regex = '/((?:\[\[ *((?:\w+:\/\/|mailto:|\/)[^\|\]\n ]*)( *\| *([^\]\n]*))? *\]\])|((?<=[^\~\w])(https?:\/\/|ftps?:\/\/|mailto:)[^\'\"\n ' . $this->wiki->delim . ']*[A-Za-z0-9\/\?\=\&\~\_#]))/';
     }
 

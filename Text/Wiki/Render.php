@@ -138,22 +138,6 @@ class Text_Wiki_Render {
 
     /**
     *
-    * Constructor for this render format or rule.
-    *
-    * @access public
-    *
-    * @param object &$obj The calling "parent" Text_Wiki object.
-    *
-    */
-
-    function Text_Wiki_Render(&$obj)
-    {
-        $this->__construct($obj);
-    }
-
-
-    /**
-    *
     * Simple method to safely get configuration key values.
     *
     * @access public

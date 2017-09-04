@@ -83,22 +83,6 @@ class Text_Wiki_Parse_Freelink extends Text_Wiki_Parse {
             '/'.($this->getConf('utf-8') ? 'u' : '');              // END regex
     }
 
-    /**
-    *
-    * Constructor.  We override the Text_Wiki_Parse_Default constructor so we can
-    * explicitly comment each part of the $regex property.
-    *
-    * @access public
-    *
-    * @param object &$obj The calling "parent" Text_Wiki object.
-    *
-    */
-
-    function Text_Wiki_Parse_Default_Freelink(&$obj)
-    {
-        $this->__construct($obj);
-    }
-
 
     /**
     *

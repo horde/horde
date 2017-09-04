@@ -53,23 +53,6 @@ class Text_Wiki_Parse_Delimiter extends Text_Wiki_Parse {
         $this->regex = '/' . $this->wiki->delim . '/';
     }
 
-    /**
-    *
-    * Constructor.  Overrides the Text_Wiki_Parse_Default constructor so that we
-    * can set the $regex property dynamically (we need to include the
-    * Text_Wiki $delim character.
-    *
-    * @param object &$obj The calling "parent" Text_Wiki object.
-    *
-    * @param string $name The token name to use for this rule.
-    *
-    */
-
-    function Text_Wiki_Parse_Default_Delimiter(&$obj)
-    {
-        $this->__construct($obj);
-    }
-
 
     /**
     *

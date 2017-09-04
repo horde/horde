@@ -104,25 +104,6 @@ class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
 
     /**
     *
-    * Constructor.
-    *
-    * We override the Text_Wiki_Parse_Default constructor so we can
-    * explicitly comment each part of the $regex property.
-    *
-    * @access public
-    *
-    * @param object &$obj The calling "parent" Text_Wiki object.
-    *
-    */
-
-    function Text_Wiki_Parse_Default_Wikilink(&$obj)
-    {
-        $this->__construct($obj);
-    }
-
-
-    /**
-    *
     * First parses for described links, then for standalone links.
     *
     * @access public

@@ -401,26 +401,6 @@ class Text_Wiki {
     }
 
     /**
-    *
-    * Constructor.
-    *
-    * **DEPRECATED**
-    * Please use the singleton() or factory() methods.
-    *
-    * @access public
-    *
-    * @param array $rules The set of rules to load for this object. Defaults to null
-    *                     which will load the default ruleset for this parser.
-    *
-    * @return $this
-    * @see    self::__construct()
-    */
-    function Text_Wiki($rules = null)
-    {
-        $this->__construct($rules);
-    }
-
-    /**
     * Singleton.
     *
     * This avoids instantiating multiple Text_Wiki instances where a number
