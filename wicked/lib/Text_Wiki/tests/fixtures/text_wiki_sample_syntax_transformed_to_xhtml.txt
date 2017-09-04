@@ -1,0 +1,70 @@
+<p><a href="http://www.example.com" onclick="window.open(this.href, '_blank'); return false;">http://www.example.com</a></p>
+
+<p><a href="http://www.example.com" onclick="window.open(this.href, '_blank'); return false;">See the example site</a></p>
+
+<p>Lorem ipsum dolor sit amet, <a href="http://exemple.com/index.php" onclick="window.open(this.href, '_blank'); return false;">consectetur adipiscing</a> elit. Etiam commodo felis vitae sem convallis elementum vel a mauris. Sed rhoncus dapibus orci ullamcorper tempor. Mauris tortor ante, hendrerit ut scelerisque ut, aliquet blandit metus. Morbi fermentum vulputate mi ac sagittis. Suspendisse in vehicula mauris.</p>
+
+<p><a href="http://exemple.com/index.php#anchor" onclick="window.open(this.href, '_blank'); return false;">Pellentesque</a> sed luctus metus. Morbi posuere euismod placerat. Aliquam erat volutpat. Phasellus elit quam, cursus nec fringilla nec, egestas a libero. Integer aliquet gravida sem. Donec sagittis turpis nec erat dictum a ultrices enim mollis.</p>
+
+<p><strong>Lorem ipsum dolor sit amet</strong>, consectetur <em>adipiscing elit</em>. <em><strong>Etiam commodo felis</strong></em> vitae sem convallis elementum vel a mauris. Sed rhoncus dapibus orci ullamcorper tempor. Mauris tortor ante, hendrerit ut scelerisque ut, aliquet blandit metus. Morbi fermentum vulputate mi ac sagittis. Suspendisse in vehicula mauris.</p>
+
+<p>Pellentesque sed luctus metus. Morbi posuere euismod placerat. Aliquam erat volutpat. Phasellus elit quam, cursus nec fringilla nec, egestas a libero. Integer aliquet gravida sem. Donec sagittis turpis nec erat dictum a ultrices enim mollis.</p>
+
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam commodo felis vitae sem convallis elementum vel a mauris. Sed rhoncus dapibus orci ullamcorper tempor. Mauris tortor ante, hendrerit ut scelerisque ut, aliquet blandit metus. Morbi fermentum vulputate mi ac sagittis. Suspendisse in vehicula mauris.</p>
+
+<p>Pellentesque sed luctus metus. Morbi posuere euismod placerat. Aliquam erat volutpat. Phasellus elit quam, cursus nec fringilla nec, egestas a libero. Integer aliquet gravida sem. Donec sagittis turpis nec erat dictum a ultrices enim mollis.</p>
+
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam commodo felis vitae sem convallis elementum vel a mauris. Sed rhoncus dapibus orci ullamcorper tempor. Mauris tortor ante, hendrerit ut scelerisque ut, aliquet blandit metus. Morbi fermentum vulputate mi ac sagittis. Suspendisse in vehicula mauris.</p>
+
+<p>Pellentesque sed luctus metus. Morbi posuere euismod placerat. Aliquam erat volutpat. Phasellus elit quam, cursus nec fringilla nec, egestas a libero. Integer aliquet gravida sem. Donec sagittis turpis nec erat dictum a ultrices enim mollis.</p>
+
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam commodo felis vitae sem convallis elementum vel a mauris. Sed rhoncus dapibus orci ullamcorper tempor. Mauris tortor ante, hendrerit ut scelerisque ut, aliquet blandit metus. Morbi fermentum vulputate mi ac sagittis. Suspendisse in vehicula mauris.</p>
+
+<p>Pellentesque sed luctus metus. Morbi posuere euismod placerat. Aliquam erat volutpat. Phasellus elit quam, cursus nec fringilla nec, egestas a libero. Integer aliquet gravida sem. Donec sagittis turpis nec erat dictum a ultrices enim mollis.</p>
+
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam commodo felis vitae sem convallis elementum vel a mauris. Sed rhoncus dapibus orci ullamcorper tempor. Mauris tortor ante, hendrerit ut scelerisque ut, aliquet blandit metus. Morbi fermentum vulputate mi ac sagittis. Suspendisse in vehicula mauris.</p>
+
+<p>Pellentesque sed luctus metus. Morbi posuere euismod placerat. Aliquam erat volutpat. Phasellus elit quam, cursus nec fringilla nec, egestas a libero. Integer aliquet gravida sem. Donec sagittis turpis nec erat dictum a ultrices enim mollis.</p>
+
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam commodo felis vitae sem convallis elementum vel a mauris. Sed rhoncus dapibus orci ullamcorper tempor. Mauris tortor ante, hendrerit ut scelerisque ut, aliquet blandit metus. Morbi fermentum vulputate mi ac sagittis. Suspendisse in vehicula mauris.</p>
+
+<p>Pellentesque sed luctus metus. Morbi posuere euismod placerat. Aliquam erat volutpat. Phasellus elit quam, cursus nec fringilla nec, egestas a libero. Integer aliquet gravida sem. Donec sagittis turpis nec erat dictum a ultrices enim mollis.</p>
+
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam commodo felis vitae sem convallis elementum vel a mauris. Sed rhoncus dapibus orci ullamcorper tempor. Mauris tortor ante, hendrerit ut scelerisque ut, aliquet blandit metus. Morbi fermentum vulputate mi ac sagittis. Suspendisse in vehicula mauris.</p>
+
+<p>Pellentesque sed luctus metus. Morbi posuere euismod placerat. Aliquam erat volutpat. Phasellus elit quam, cursus nec fringilla nec, egestas a libero. Integer aliquet gravida sem. Donec sagittis turpis nec erat dictum a ultrices enim mollis.</p>
+
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam commodo felis vitae sem convallis elementum vel a mauris. Sed rhoncus dapibus orci ullamcorper tempor. Mauris tortor ante, hendrerit ut scelerisque ut, aliquet blandit metus. Morbi fermentum vulputate mi ac sagittis. Suspendisse in vehicula mauris.</p>
+
+<p>Pellentesque sed luctus metus. Morbi posuere euismod placerat. Aliquam erat volutpat. Phasellus elit quam, cursus nec fringilla nec, egestas a libero. Integer aliquet gravida sem. Donec sagittis turpis nec erat dictum a ultrices enim mollis.</p>
+
+<p>Horizontal line:</p>
+
+<hr />
+<p>Can be 4 hyphens or more:</p>
+
+<hr />
+<ul>
+    <li> List</li>
+    <li> List<ul>
+        <li> List</li>
+        <li> List<ul>
+            <li> List</li>
+        </ul></li>
+    </ul></li>
+    <li> List</li>
+    <li> List</li>
+</ul>
+
+<ol>
+    <li> List</li>
+    <li> List<ol>
+        <li> List</li>
+        <li> List<ol>
+            <li> List</li>
+        </ol></li>
+    </ol></li>
+    <li> List</li>
+    <li> List</li>
+</ol>
+
