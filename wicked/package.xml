@@ -27,6 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Bundle Text_Wiki and fix it to run on PHP 7.
 * [mjr] Minor PHP 7 compatibility improvements.
  </notes>
  <contents>
@@ -1127,6 +1128,7 @@
    <date>2016-12-16</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Bundle Text_Wiki and fix it to run on PHP 7.
 * [mjr] Minor PHP 7 compatibility improvements.
    </notes>
   </release>
