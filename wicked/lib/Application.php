@@ -47,6 +47,23 @@ class Wicked_Application extends Horde_Registry_Application
 
     protected function _bootstrap()
     {
+        set_include_path(
+            __DIR__ . DIRECTORY_SEPARATOR . 'Text_Wiki'
+            . PATH_SEPARATOR . get_include_path()
+        );
+        $autoloader = $GLOBALS['injector']->getInstance('Horde_Autoloader');
+        $autoloader->addClassPathMapper(
+            new Horde_Autoloader_ClassPathMapper_Prefix(
+                '/^Text_Wiki/',
+                WICKED_BASE . '/lib/Text_Wiki/Text/Wiki'
+            )
+        );
+        $autoloader->addClassPathMapper(
+            new Horde_Autoloader_ClassPathMapper_Prefix(
+                '/^Text_Wiki$/',
+                WICKED_BASE . '/lib/Text_Wiki/Text/Wiki.php'
+            )
+        );
         $GLOBALS['injector']->bindFactory('Wicked_Driver', 'Wicked_Factory_Driver', 'create');
     }
 

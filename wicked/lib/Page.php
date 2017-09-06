@@ -532,20 +532,6 @@ class Wicked_Page
             break;
         }
 
-        $autoloader = $GLOBALS['injector']->getInstance('Horde_Autoloader');
-        $autoloader->addClassPathMapper(
-            new Horde_Autoloader_ClassPathMapper_Prefix(
-                '/^Text_Wiki_Render_' . $output_format . '/',
-                WICKED_BASE . '/lib/Text_Wiki/Render/' . $output_format
-            )
-        );
-        $autoloader->addClassPathMapper(
-            new Horde_Autoloader_ClassPathMapper_Prefix(
-                '/^Text_Wiki_Parse/',
-                WICKED_BASE . '/lib/Text_Wiki/Parse/' . $GLOBALS['conf']['wicked']['format']
-            )
-        );
-
         return $this->_proc;
     }
 
