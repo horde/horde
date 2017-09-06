@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.8.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Text_Wiki_Tiki</name>
+ <channel>pear.php.net</channel>
+ <summary>Tiki parser and renderer for Text_Wiki</summary>
+ <description>Parses TikiWiki mark-up to tokenize the text for Text_Wiki rendering and also renders for wiki conversion. You can see a reference for this syntax here: http://tikiwiki.org/tiki-index.php?page=WikiSyntax
+ </description>
+ <lead>
+  <name>Justin Patrin</name>
+  <user>justinpatrin</user>
+  <email>papercrane@reversefold.com</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Rodrigo Sampaio Primo</name>
+  <user>rodrigosprimo</user>
+  <email>rodrigo at utopia dot org dot br</email>
+  <active>yes</active>
+ </lead>
+ <date>2009-08-10</date>
+ <time>11:21:24</time>
+ <version>
+  <release>0.1.0</release>
+  <api>0.1.0</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <notes>
+Release with some improvements to Tiki Render:
+
+* New supported render rules: Paragraph, Preformatted, Redirect
+* Fix bug #16322: properly URL rendering
+* Fix render for heading rule
+* Fix render for code rule
+* Fix render for definition list
+* Improvement to image render: can render images without additional params and has configuration option for the image path
+* Add PHPUnit tests for Tiki render
+ </notes>
+ <contents>
+  <dir name="/">
+   <dir name="Text">
+    <dir name="Wiki">
+     <dir name="Parse">
+      <dir name="Tiki">
+       <file name="Anchor.php" role="php" />
+       <file name="Blockquote.php" role="php" />
+       <file name="Bold.php" role="php" />
+       <file name="Box.php" role="php" />
+       <file name="Break.php" role="php" />
+       <file name="Center.php" role="php" />
+       <file name="Code.php" role="php" />
+       <file name="Colortext.php" role="php" />
+       <file name="Deflist.php" role="php" />
+       <file name="Delimiter.php" role="php" />
+       <file name="Embed.php" role="php" />
+       <file name="Emphasis.php" role="php" />
+       <file name="Freelink.php" role="php" />
+       <file name="Heading.php" role="php" />
+       <file name="Horiz.php" role="php" />
+       <file name="Html.php" role="php" />
+       <file name="Image.php" role="php" />
+       <file name="Include.php" role="php" />
+       <file name="Interwiki.php" role="php" />
+       <file name="Italic.php" role="php" />
+       <file name="List.php" role="php" />
+       <file name="Newline.php" role="php" />
+       <file name="Page.php" role="php" />
+       <file name="Paragraph.php" role="php" />
+       <file name="Plugin.php" role="php" />
+       <file name="Prefilter.php" role="php" />
+       <file name="Preformatted.php" role="php" />
+       <file name="Raw.php" role="php" />
+       <file name="Revise.php" role="php" />
+       <file name="Smiley.php" role="php" />
+       <file name="Specialchar.php" role="php" />
+       <file name="Strong.php" role="php" />
+       <file name="Subscript.php" role="php" />
+       <file name="Superscript.php" role="php" />
+       <file name="Table.php" role="php" />
+       <file name="Tighten.php" role="php" />
+       <file name="Titlebar.php" role="php" />
+       <file name="Toc.php" role="php" />
+       <file name="Tt.php" role="php" />
+       <file name="Underline.php" role="php" />
+       <file name="Url.php" role="php" />
+       <file name="Wikilink.php" role="php" />
+      </dir> <!-- //Text/Wiki/Parse/Tiki -->
+     </dir> <!-- //Text/Wiki/Parse -->
+     <dir name="Render">
+      <dir name="Tiki">
+       <file name="Anchor.php" role="php" />
+       <file name="Blockquote.php" role="php" />
+       <file name="Bold.php" role="php" />
+       <file name="Box.php" role="php" />
+       <file name="Break.php" role="php" />
+       <file name="Center.php" role="php" />
+       <file name="Code.php" role="php" />
+       <file name="Colortext.php" role="php" />
+       <file name="Deflist.php" role="php" />
+       <file name="Delimiter.php" role="php" />
+       <file name="Embed.php" role="php" />
+       <file name="Emphasis.php" role="php" />
+       <file name="Freelink.php" role="php" />
+       <file name="Function.php" role="php" />
+       <file name="Heading.php" role="php" />
+       <file name="Horiz.php" role="php" />
+       <file name="Html.php" role="php" />
+       <file name="Image.php" role="php" />
+       <file name="Include.php" role="php" />
+       <file name="Interwiki.php" role="php" />
+       <file name="Italic.php" role="php" />
+       <file name="List.php" role="php" />
+       <file name="Newline.php" role="php" />
+       <file name="Paragraph.php" role="php" />
+       <file name="Phplookup.php" role="php" />
+       <file name="Prefilter.php" role="php" />
+       <file name="Preformatted.php" role="php" />
+       <file name="Raw.php" role="php" />
+       <file name="Redirect.php" role="php" />
+       <file name="Revise.php" role="php" />
+       <file name="Strong.php" role="php" />
+       <file name="Subscript.php" role="php" />
+       <file name="Superscript.php" role="php" />
+       <file name="Table.php" role="php" />
+       <file name="Tighten.php" role="php" />
+       <file name="Toc.php" role="php" />
+       <file name="Tt.php" role="php" />
+       <file name="Underline.php" role="php" />
+       <file name="Url.php" role="php" />
+       <file name="Wikilink.php" role="php" />
+      </dir> <!-- //Text/Wiki/Render/Tiki -->
+      <file name="Tiki.php" role="php" />
+     </dir> <!-- //Text/Wiki/Render -->
+     <file name="Tiki.php" role="php" />
+    </dir> <!-- //Text/Wiki -->
+   </dir> <!-- //Text -->
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.0.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0b1</min>
+   </pearinstaller>
+   <package>
+    <name>Text_Wiki</name>
+    <channel>pear.php.net</channel>
+    <min>1.0.1</min>
+   </package>
+  </required>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <date>2005-10-14</date>
+   <version>
+    <release>0.0.1</release>
+    <api>0.0.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+First released version of Text_Wiki_Tiki.
+   </notes>
+  </release> 
+ </changelog>
+</package>

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id: packageBBCode2.xml,v 1.2 2006-12-23 02:55:18 toggg Exp $ -->
+<package packagerversion="1.4.11" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Text_Wiki_BBCode</name>
+ <channel>pear.php.net</channel>
+ <summary>BBCode parser for Text_Wiki</summary>
+ <description>Parses BBCode mark-up to tokenize the text for Text_Wiki
+rendering (Xhtml, plain, Latex)
+or for conversions using the existing renderers (wiki).
+IT IS USING PCRE, SO IS UNDER PCRE LIMITATIONS, see http://php.net/pcre
+ </description>
+ <lead>
+  <name>Firman Wandayandi</name>
+  <user>firman</user>
+  <email>firman at php dot net</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>bertrand Gugger</name>
+  <user>toggg</user>
+  <email>toggg at php dot net</email>
+  <active>yes</active>
+ </lead>
+ <date>2006-12-23</date>
+ <time>03:08:41</time>
+ <version>
+  <release>0.0.4</release>
+  <api>0.0.4</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <notes>* Url: in case of [url=...]description[/url] , description is now parsed (#9393, thanks laurent from invisibleray)
+* List: secured recursion risk but the simple #7908 is causing the state of the package to be kept alpha.
+        
+ </notes>
+ <contents>
+  <dir name="/">
+   <dir name="doc">
+    <file name="BBCodeParser.php" role="doc" />
+    <file name="BBCodeParser_V2.ini" role="doc" />
+    <file name="BBtest.txt" role="doc" />
+    <file name="parser.php" role="doc" />
+    <file name="README_BBCodeParser" role="doc" />
+   </dir> <!-- /doc -->
+   <dir name="Text">
+    <dir name="Wiki">
+     <dir name="Parse">
+      <dir name="BBCode">
+       <file name="Blockquote.php" role="php" />
+       <file name="Bold.php" role="php" />
+       <file name="Code.php" role="php" />
+       <file name="Colortext.php" role="php" />
+       <file name="Font.php" role="php" />
+       <file name="Image.php" role="php" />
+       <file name="Italic.php" role="php" />
+       <file name="List.php" role="php" />
+       <file name="Subscript.php" role="php" />
+       <file name="Superscript.php" role="php" />
+       <file name="Underline.php" role="php" />
+       <file name="Url.php" role="php" />
+      </dir> <!-- /Text/Wiki/Parse/BBCode -->
+     </dir> <!-- /Text/Wiki/Parse -->
+     <file name="BBCode.php" role="php" />
+    </dir> <!-- /Text/Wiki -->
+   </dir> <!-- /Text -->
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.0.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0b1</min>
+   </pearinstaller>
+   <package>
+    <name>Text_Wiki</name>
+    <channel>pear.php.net</channel>
+    <min>1.0.2</min>
+   </package>
+  </required>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <version>
+    <release>0.0.3</release>
+    <api>0.0.3</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2006-02-06</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>* List: Swallow away line breaks within the lists which produced unwanted &lt;br /&gt;
+* List: Starting count by zero as Xhtml render relies on it (erroneous &lt;/li&gt; at begin)
+* Really add superscript and subscript extensions (forgoten in package file list)
+        
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.0.2</release>
+    <api>0.0.2</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2005-11-06</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>* Firman is now co-lead of the package
+* Added a test file to use with doc/Text_Wiki/doc/test_Text_Wiki.php
+* Added examples showing how to replace deprecated HTML_BBCodeParser by Text_Wiki_BBCode
+* # is optional for hexadecimal colours
+* Add superscript and subscript extension
+* Option relative_enable default false for relative urls, e.g., [url=/contact.php] (Request #5767)
+* Refuse ] , [ and &apos; in path part of the url, should be urlencoded
+* Fixed enumeration type [list=A] (as html type: a,A,i or I)
+        
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.0.1</release>
+    <api>0.0.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2005-09-13</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>This is the basic BBCode syntax as per http://www.phpbb.com/phpBB/faq.php?mode=bbcode
+        
+   </notes>
+  </release>
+ </changelog>
+</package>
