@@ -17,7 +17,7 @@ class Text_Wiki_Parse_Attribute extends Text_Wiki_Parse
 
     public function __construct(&$obj)
     {
-        parent::Text_Wiki_Parse($obj);
+        parent::__construct($obj);
 
         $this->regex = '/((?:\[\[' . Wicked::REGEXP_WIKIWORD .
                        ':\s+.*?\]\]\s*)+)/';
