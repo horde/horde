@@ -858,8 +858,8 @@
   <required>
    <php>
     <min>5.3.4</min>
-    <max>6.0.0alpha1</max>
-    <exclude>6.0.0alpha1</exclude>
+    <max>8.0.0alpha1</max>
+    <exclude>8.0.0alpha1</exclude>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -2881,6 +2881,7 @@
    <date>2017-08-01</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Officially support PHP 7.
 * [jan] Fix time offsets when importing CSV data with two-digit years.
 * [jan] Fix updating and deleting events from external CalDAV servers (martin1@k0k.net, Bug #14021).
 * [jan] Fix exporting multiple tags to iCalendar CATEGORIES (Bug #14057).

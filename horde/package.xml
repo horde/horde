@@ -1684,8 +1684,8 @@
   <required>
    <php>
     <min>5.3.0</min>
-    <max>6.0.0alpha1</max>
-    <exclude>6.0.0alpha1</exclude>
+    <max>8.0.0alpha1</max>
+    <exclude>8.0.0alpha1</exclude>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -4307,10 +4307,23 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-05-03</date>
+   <date>2017-08-01</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [jan] SECURITY: Fix open redirects.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.2.17</release>
+    <api>5.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2017-08-01</date>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
+   <notes>
+* [jan] Officially support PHP 7.
    </notes>
   </release>
   <release>

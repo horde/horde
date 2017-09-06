@@ -32,6 +32,13 @@ v6.0.0-git
 
 
 -------
+v5.2.16
+-------
+
+[jan] SECURITY: Fix open redirects.
+
+
+-------
 v5.2.15
 -------
 

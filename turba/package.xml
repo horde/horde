@@ -651,8 +651,8 @@
   <required>
    <php>
     <min>5.3.0</min>
-    <max>6.0.0alpha1</max>
-    <exclude>6.0.0alpha1</exclude>
+    <max>8.0.0alpha1</max>
+    <exclude>8.0.0alpha1</exclude>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -2196,11 +2196,24 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-03-20</date>
+   <date>2017-08-01</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] SECURITY: Fix open redirects.
 * [jan] Fix creating address books with the external API.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.21</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2017-08-01</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [jan] Officially support PHP 7.
    </notes>
   </release>
   <release>

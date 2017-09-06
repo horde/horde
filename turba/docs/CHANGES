@@ -23,6 +23,14 @@ v5.0.0-git
 
 
 -------
+v4.2.20
+-------
+
+[jan] SECURITY: Fix open redirects.
+[jan] Fix creating address books with the external API.
+
+
+-------
 v4.2.19
 -------
 

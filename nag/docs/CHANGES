@@ -19,6 +19,19 @@ v5.0.0-git
 
 
 -------
+v4.2.16
+-------
+
+[jan] Fix parsing sub-tasks from the quick enter dialog (Bug #14681).
+[jan] Fix positioning of due time drop down list (Bug #12288).
+[jan] Improve compatibilty when synchronizing tasks via CalDAV/ICS (Bug
+      #14057).
+[jan] Fix exporting multiple tags to iCalendar CATEGORIES (Bug #14057).
+[jan] Don't include external tasks into drop down list for parent tasks.
+[jan] Fix redirecting to task list after completing a task (Bug #14678).
+
+
+-------
 v4.2.15
 -------
 

@@ -3,6 +3,12 @@ v4.0.0-git
 ----------
 
 
+-------
+v3.0.11
+-------
+
+[jan] Fix redirection after logins with Horde 5.2.16 and later.
+
 
 -------
 v3.0.10

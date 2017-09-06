@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Fix redirection after logins with Horde 5.2.16 and later.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -328,8 +328,8 @@
   <required>
    <php>
     <min>5.3.0</min>
-    <max>6.0.0alpha1</max>
-    <exclude>6.0.0alpha1</exclude>
+    <max>8.0.0alpha1</max>
+    <exclude>8.0.0alpha1</exclude>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -922,10 +922,36 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-07-01</date>
+   <date>2016-12-16</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-*
+* [jan] Update German translation.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.11</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2017-08-01</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Fix redirection after logins with Horde 5.2.16 and later.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.12</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2017-08-01</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Officially support PHP 7.
    </notes>
   </release>
   <release>
@@ -938,7 +964,7 @@
    <date>2017-04-11</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* [jan] Fix redirection after logins with Horde 5.2.16 and later.
+*
    </notes>
   </release>
  </changelog>

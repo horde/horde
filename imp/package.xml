@@ -1215,8 +1215,8 @@
   <required>
    <php>
     <min>5.3.0</min>
-    <max>6.0.0alpha1</max>
-    <exclude>6.0.0alpha1</exclude>
+    <max>8.0.0alpha1</max>
+    <exclude>8.0.0alpha1</exclude>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -3992,13 +3992,41 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-03-20</date>
+   <date>2017-05-03</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Fix filename charset of certain attachments (Bug #14618).
 * [jan] Fix cursor jumping in some browser when editing address fields (Bug #14606).
 * [mjr] Fix auto creation of SPECIAL_USER mailboxes (Bug #14620).
 * [mjr] Fix sending email after the attach_body_check hook fails in Smartmobile view (Bug #14610).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>6.2.20</release>
+    <api>6.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2017-08-01</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Fix finding reply or forward text from signed or encrypted messages with HTML content again (Bug #14656).
+* [mjr] Fix issue with reattaching a file after removing it on Chrome browsers (Bug #14657),
+* [jan] Allow Command-C to copy text from HTML message previews (Bug #14653).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>6.2.21</release>
+    <api>6.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2017-08-01</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Officially support PHP 7.
    </notes>
   </release>
   <release>

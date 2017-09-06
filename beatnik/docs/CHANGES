@@ -2,6 +2,7 @@
 0.1
 ---
 
+[jan] Officially support PHP 7.
 [jan] Add Hungarian translation (Andras Galos <galosa@netinform.hu>).
 [jan] Add Spanish translation (Manuel P. Ayala <mayala@unex.es>).
 [mjr] Add initial database migration.

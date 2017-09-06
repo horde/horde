@@ -2,6 +2,7 @@
 v3.0-git
 --------
 
+[jan] Officially support PHP 7.
 [jan] Fix proxy/browser caching of commit, checkout, and diff pages.
 [jan] Add Latvian translation (Jānis Eisaks <jancs@dv.lv>).
 [jan] Provide default configuration files instead of .dist versions.

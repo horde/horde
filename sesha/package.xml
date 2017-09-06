@@ -27,6 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Officially support PHP 7.
 * [jan] Fix several notices and warnings (skhorde@smail.inf.fh-bonn-rhein-sieg.de).
 * [jan] Don&apos;t use LIKE search on inventory ID field (Bug #12976).
  </notes>
@@ -180,8 +181,8 @@
   <required>
    <php>
     <min>5.3.0</min>
-    <max>6.0.0alpha1</max>
-    <exclude>6.0.0alpha1</exclude>
+    <max>8.0.0alpha1</max>
+    <exclude>8.0.0alpha1</exclude>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -427,6 +428,7 @@
    <date>2017-03-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Officially support PHP 7.
 * [jan] Fix several notices and warnings (skhorde@smail.inf.fh-bonn-rhein-sieg.de).
 * [jan] Don&apos;t use LIKE search on inventory ID field (Bug #12976).
    </notes>

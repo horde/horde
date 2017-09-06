@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Officially support PHP 7.
 * [jan] Use coloring capabilities of Horde_Cli_Modular.
 * [jan] Add --theme argument to &apos;update&apos; command to package themes.
 * [jan] Add --dump switch to release module to dump the release notes.
@@ -3442,6 +3443,7 @@
    <date>2016-06-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Officially support PHP 7.
 * [jan] Use coloring capabilities of Horde_Cli_Modular.
 * [jan] Add --theme argument to &apos;update&apos; command to package themes.
 * [jan] Add --dump switch to release module to dump the release notes.

@@ -80,6 +80,30 @@ v7.0.0-git
 [mms] Add option to poll mailbox for new mailbox when creating a mailbox
       (Request #13227).
 
+
+-------
+v6.2.20
+-------
+
+[jan] Fix finding reply or forward text from signed or encrypted messages with
+      HTML content again (Bug #14656).
+[mjr] Fix issue with reattaching a file after removing it on Chrome browsers
+      (Bug #14657),
+[jan] Allow Command-C to copy text from HTML message previews (Bug #14653).
+
+
+-------
+v6.2.19
+-------
+
+[jan] Fix filename charset of certain attachments (Bug #14618).
+[jan] Fix cursor jumping in some browser when editing address fields (Bug
+      #14606).
+[mjr] Fix auto creation of SPECIAL_USER mailboxes (Bug #14620).
+[mjr] Fix sending email after the attach_body_check hook fails in Smartmobile
+      view (Bug #14610).
+
+
 -------
 v6.2.18
 -------

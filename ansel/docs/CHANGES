@@ -2,13 +2,20 @@
 v4.0.0-git
 ----------
 
-[mjr] Add captch check when sending ecard.
+[mjr] Add captcha check when sending ecard.
 [jan] Show users' full names in share dialogs.
 [mjr] Remove maps configuration, replaced by global maps configuration (Bug
       #14168).
 [jan] Keep original file names when PUTing images via WebDAV.
 [jan] Return ETags with browse() API method.
 [mjr] Fix fatal divide by zero error due to incorrectly named variable.
+
+
+------
+v3.0.7
+------
+
+[jan] SECURITY: Fix open redirects.
 
 
 ------

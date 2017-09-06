@@ -28,6 +28,7 @@
  </stability>
  <license uri="TODO">TODO</license>
  <notes>
+* [jan] Officially support PHP 7.
 * [jan] Fix proxy/browser caching of commit, checkout, and diff pages.
 * Initial release.
  </notes>
@@ -285,8 +286,8 @@
   <required>
    <php>
     <min>5.3.0</min>
-    <max>6.0.0alpha1</max>
-    <exclude>6.0.0alpha1</exclude>
+    <max>8.0.0alpha1</max>
+    <exclude>8.0.0alpha1</exclude>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -430,6 +431,7 @@
    <date>2013-06-22</date>
    <license uri="TODO">TODO</license>
    <notes>
+* [jan] Officially support PHP 7.
 * [jan] Fix proxy/browser caching of commit, checkout, and diff pages.
 * Initial release.
    </notes>
