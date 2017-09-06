@@ -28,8 +28,14 @@
  * @link       http://www.horde.org/apps/wicked
  * @license    http://www.horde.org/licenses/gpl GNU General Public License, version 2
  */
-class Wicked_TestCase extends PHPUnit_Framework_TestCase
+class Wicked_TestCase extends Horde_Test_Case
 {
+    public function setUp()
+    {
+        $text_wiki = __DIR__ . '/../../lib/Text_Wiki';
+        set_include_path($text_wiki . PATH_SEPARATOR . get_include_path());
+    }
+
     protected function unstrictPearTestingMode()
     {
         $this->_old_errorreporting = error_reporting(E_ALL & ~(E_STRICT | E_DEPRECATED));
