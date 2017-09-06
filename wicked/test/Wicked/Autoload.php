@@ -19,7 +19,7 @@
  */
 
 Horde_Test_Autoload::addPrefix('Wicked', __DIR__ . '/../../lib');
-Horde_Test_Autoload::addPrefix('Text/Wiki/Render/Rst', __DIR__ . '/../../lib/Text_Wiki/Render/Rst');
+Horde_Test_Autoload::addPrefix('Text_Wiki', __DIR__ . '/../../lib/Text_Wiki');
 
 /** Load the basic test definition */
 require_once __DIR__ . '/TestCase.php';
