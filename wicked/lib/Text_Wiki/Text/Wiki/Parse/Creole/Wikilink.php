@@ -102,10 +102,10 @@ class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
      * @access public
      */
 
-    function Text_Wiki_Parse_Wikilink(&$obj)
+    function __construct(&$obj)
     {
         $default = $this->conf;
-        parent::Text_Wiki_Parse($obj);
+        parent::__construct($obj);
 
         // override config options for image if specified
         if (in_array('Image', $this->wiki->disable)) {
@@ -159,7 +159,7 @@ class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
     function process(&$matches)
     {
         $matches[3] = $this->wiki->restoreRaw($matches[3]);
-                                        
+
         // Starting colon ?
         $colon = !empty($matches[1]);
         $auto = $interlang = $interwiki = $image = $site = '';

@@ -35,8 +35,8 @@ require_once('Text/Wiki.php');
  */
 class Text_Wiki_Cowiki extends Text_Wiki {
 
-    function Text_Wiki_Cowiki() {
-        parent::Text_Wiki();
+    function __construct() {
+        parent::__construct();
         $paths = $this->getPath('parse');
         $this->addPath('parse', str_replace('Default', 'Cowiki', $paths[0]));
     }

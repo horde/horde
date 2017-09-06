@@ -135,22 +135,6 @@ class Text_Wiki_Parse {
 
     /**
     *
-    * Constructor for this parser rule.
-    *
-    * @access public
-    *
-    * @param object &$obj The calling "parent" Text_Wiki object.
-    *
-    */
-
-    function Text_Wiki_Parse(&$obj)
-    {
-        $this->__construct($obj);
-    }
-
-
-    /**
-    *
     * Abstrct method to parse source text for matches.
     *
     * Applies the rule's regular expression to the source text, passes

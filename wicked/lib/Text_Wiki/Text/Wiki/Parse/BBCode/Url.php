@@ -81,10 +81,10 @@ class Text_Wiki_Parse_Url extends Text_Wiki_Parse {
      * @return The parser object
      * @access public
      */
-    function Text_Wiki_Parse_Url(&$obj)
+    function __construct(&$obj)
     {
         $default = $this->conf;
-        parent::Text_Wiki_Parse($obj);
+        parent::__construct($obj);
 
         // store the list of refused schemes
         $this->refused = $this->getConf('refused', array());

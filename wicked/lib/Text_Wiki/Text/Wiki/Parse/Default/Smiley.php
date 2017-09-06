@@ -134,19 +134,6 @@ class Text_Wiki_Parse_Smiley extends Text_Wiki_Parse {
     }
 
     /**
-     * Constructor.
-     * We override the constructor to build up the regex from config
-     *
-     * @param object &$obj the base conversion handler
-     * @return The parser object
-     * @access public
-     */
-    function Text_Wiki_Parse_Default_Smiley(&$obj)
-    {
-        $this->__construct($obj);
-    }
-
-    /**
      * Generates a replacement token for the matched text.  Token options are:
      *     'symbol' => the original marker
      *     'name' => the name of the smiley

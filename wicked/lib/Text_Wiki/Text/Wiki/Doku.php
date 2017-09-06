@@ -35,8 +35,8 @@ require_once('Text/Wiki.php');
  */
 class Text_Wiki_Doku extends Text_Wiki {
 
-    function Text_Wiki_Doku($rules = null) {
-        parent::Text_Wiki($rules);
+    function __construct($rules = null) {
+        parent::__construct($rules);
         $paths = $this->getPath('parse');
         $this->addPath('parse', str_replace('Default', 'Doku', $paths[0]));
     }

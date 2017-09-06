@@ -25,7 +25,7 @@
 /**
  * Wikilink, Interwiki and Image rules parser class for Mediawiki.
  * This class implements a Text_Wiki_Parse to find links marked
- * in source by text surrounded by 2 opening/closing brackets as 
+ * in source by text surrounded by 2 opening/closing brackets as
  * [[Wiki page name#Section|Alternate text]]
  * On parsing, the link is replaced with a token.
  *
@@ -96,10 +96,10 @@ class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
      * @return The parser object
      * @access public
      */
-    function Text_Wiki_Parse_Wikilink(&$obj)
+    function __construct(&$obj)
     {
         $default = $this->conf;
-        parent::Text_Wiki_Parse($obj);
+        parent::__construct($obj);
 
         // override config options for image if specified
         if (in_array('Image', $this->wiki->disable)) {
@@ -146,7 +146,7 @@ class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
      *
      * @access public
      * @param array &$matches The array of matches from parse().
-     * @return string token to be used as replacement 
+     * @return string token to be used as replacement
      */
     function process(&$matches)
     {
@@ -242,7 +242,7 @@ class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
      *
      * @access public
      * @param array &$matches The array of matches from parse().
-     * @return string token to be used as replacement 
+     * @return string token to be used as replacement
      */
     function image($name, $text, $interlang, $colon)
     {
@@ -289,7 +289,7 @@ class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
      *
      * @access public
      * @param array &$matches The array of matches from parse().
-     * @return string token to be used as replacement 
+     * @return string token to be used as replacement
      */
     function interwiki($site, $interwiki, $page, $text, $interlang, $colon)
     {

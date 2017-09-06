@@ -77,7 +77,7 @@ class Text_Wiki_Render_Docbook_Heading extends Text_Wiki_Render {
      /**
      * Constructor.
      * We override the constructor to pre-process the heading tokens
-     * - to correct levels as sequential 
+     * - to correct levels as sequential
      * - mark the terminal ones
      * - prepare the actual sections to be used
      *
@@ -126,7 +126,7 @@ class Text_Wiki_Render_Docbook_Heading extends Text_Wiki_Render {
                             'text' => '')) .
             $this->wiki->addToken($this->rule,
                     array('type' => 'end',
-                            'level' => 0)) . 
+                            'level' => 0)) .
             $this->wiki->source .
             // will produce nothing but the closure of preceding sections
             $this->wiki->addToken($this->rule,
@@ -146,22 +146,6 @@ class Text_Wiki_Render_Docbook_Heading extends Text_Wiki_Render {
         // clean stack
         $this->_stack = array();
         $this->_level = -1;
-    }
-
-    /**
-     * Constructor.
-     * We override the constructor to pre-process the heading tokens
-     * - to correct levels as sequential 
-     * - mark the terminal ones
-     * - prepare the actual sections to be used
-     *
-     * @param object &$obj the base conversion handler
-     * @return The render object
-     * @access public
-     */
-    function Text_Wiki_Render_Docbook_Heading(&$obj)
-    {
-        $this->__construct($obj);
     }
 
      /**
@@ -187,7 +171,7 @@ class Text_Wiki_Render_Docbook_Heading extends Text_Wiki_Render {
         $output = '';
         // sections to finish ?
         while ($this->_level >= 0 && $level <= $this->_level) {
-            $output .= $this->_stack[$this->_level] ? 
+            $output .= $this->_stack[$this->_level] ?
                     '</' . $this->_stack[$this->_level] . ">\n" : '';
             --$this->_level;
         }

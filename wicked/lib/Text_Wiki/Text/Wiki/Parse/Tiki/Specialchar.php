@@ -38,8 +38,8 @@ class Text_Wiki_Parse_SpecialChar extends Text_Wiki_Parse {
                        '~lt~',
                        '~gt~');
 
-    function Text_Wiki_Parse_SpecialChar(&$obj) {
-        parent::Text_Wiki_Parse($obj);
+    function __construct(&$obj) {
+        parent::__construct($obj);
 
         $this->regex = '';
         foreach ($this->types as $type) {

@@ -120,21 +120,6 @@ class Text_Wiki_Parse_Url extends Text_Wiki_Parse {
             "[A-Za-z0-9\\/?=&~_#]";
     }
 
-    /**
-    *
-    * Constructor.
-    *
-    * We override the constructor so we can comment the regex nicely.
-    *
-    * @access public
-    *
-    */
-
-    function Text_Wiki_Parse_Default_Url(&$obj)
-    {
-        $this->__construct($obj);
-    }
-
 
     /**
     *

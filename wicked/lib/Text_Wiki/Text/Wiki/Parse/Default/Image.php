@@ -87,19 +87,6 @@ class Text_Wiki_Parse_Image extends Text_Wiki_Parse {
     }
 
     /**
-     * Constructor.
-     * We override the constructor to build up the url regex from config
-     *
-     * @param object &$obj the base conversion handler
-     * @return The parser object
-     * @access public
-     */
-    function Text_Wiki_Parse_Default_Image(&$obj)
-    {
-        $this->__construct($obj);
-    }
-
-    /**
     *
     * Generates a token entry for the matched text.  Token options are:
     *

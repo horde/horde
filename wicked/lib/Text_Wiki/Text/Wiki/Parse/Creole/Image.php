@@ -31,9 +31,9 @@ class Text_Wiki_Parse_Image extends Text_Wiki_Parse {
      *
      */
 
-    function Text_Wiki_Parse_Image(&$obj)
+    function __construct(&$obj)
     {
-        parent::Text_Wiki_Parse($obj);
+        parent::__construct($obj);
         $this->regex = '/{{([^' . $this->wiki->delim . ']*)(\|([^' . $this->wiki->delim . ']*))?}}/U';
     }
 
