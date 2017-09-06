@@ -611,11 +611,6 @@
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
-   <package>
-    <name>Text_Wiki</name>
-    <channel>pear.php.net</channel>
-    <min>1.2.0</min>
-   </package>
    <extension>
     <name>gettext</name>
    </extension>
@@ -624,21 +619,6 @@
    <package>
     <name>Text_Figlet</name>
     <channel>pear.php.net</channel>
-   </package>
-   <package>
-    <name>Text_Wiki_Creole</name>
-    <channel>pear.php.net</channel>
-    <min>1.0.0</min>
-   </package>
-   <package>
-    <name>Text_Wiki_Mediawiki</name>
-    <channel>pear.php.net</channel>
-    <min>0.2.0</min>
-   </package>
-   <package>
-    <name>Text_Wiki_Tiki</name>
-    <channel>pear.php.net</channel>
-    <min>0.1.0</min>
    </package>
   </optional>
  </dependencies>
