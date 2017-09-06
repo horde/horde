@@ -41,7 +41,10 @@ To function properly, Wicked **requires** the following:
    Wicked stores its data in an SQL database. Build PHP with whichever
    SQL driver you require; see the Horde INSTALL file for details.
 
-3. The following PEAR packages:
+The following items are not required, but if present will enable advanced
+features in Wicked:
+
+1. The following PEAR packages:
    (See `horde/docs/INSTALL`_ for instructions on installing PEAR packages)
 
    .. Important:: If you are going to install Wicked the recommended way,
@@ -49,10 +52,10 @@ To function properly, Wicked **requires** the following:
                   this section. Installing Wicked through PEAR will
                   automatically download and install all required PEAR modules.
 
-   a. The Text_Wiki PEAR module (>= 1.2.0)
+   a. Text_Figlet
 
-      Text_Wiki is responsible for all parsing of wiki markup and rendering
-      into the different output formats.
+      Text_Figlet can be used to require unauthenticated users to enter a
+      CAPTCHA when updating pages.
 
 
 Installing Wicked
