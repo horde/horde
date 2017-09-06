@@ -41,21 +41,8 @@ class Wicked_Test extends Horde_Test
      * @var array
      */
     protected $_pearList = array(
-        'Text_Wiki' => array(
-            'error' => 'The Text_Wiki module is required to parse and render the wiki markup in Wicked.',
-            'required' => true,
-            'function' => '_checkPearTextWikiVersion'
-        ),
-        'Text_Wiki_Creole' => array(
-            'error' => 'The Text_Wiki_Creole module is required if you plan on using Creole formatting.',
-            'required' => false,
-        ),
-        'Text_Wiki_Mediawiki' => array(
-            'error' => 'The Text_Wiki_Mediawiki module is required if you plan on using Mediawiki formatting.',
-            'required' => false,
-        ),
-        'Text_Wiki_Tiki' => array(
-            'error' => 'The Text_Wiki_Tiki module is required if you plan on using Tiki formatting.',
+        'Text_Figlet' => array(
+            'error' => 'The Text_Figlet module can be used to require unauthenticated users to enter a CAPTCHA when updating pages.',
             'required' => false,
         ),
     );
@@ -66,18 +53,6 @@ class Wicked_Test extends Horde_Test
      * @var array
      */
     protected $_appList = array();
-
-    /**
-     * Additional check for PEAR Text_Wiki module for its version.
-     *
-     * @return string  Returns error string on error.
-     */
-    protected function _checkPearTextWikiVersion()
-    {
-        if (!is_callable(array('Text_Wiki', 'setRenderConf'))) {
-            return 'Your version of Text_Wiki is not recent enough.';
-        }
-    }
 
     /**
      * Any application specific tests that need to be done.
