@@ -1,0 +1,142 @@
+<?php
+
+/**
+* 
+* Parses for interwiki links.
+* 
+* @category Text
+* 
+* @package Text_Wiki
+* 
+* @author Paul M. Jones <pmjones@php.net>
+* 
+* @license LGPL
+* 
+* @version $Id$
+* 
+*/
+
+/**
+* 
+* Parses for interwiki links.
+* 
+* This class implements a Text_Wiki_Parse to find source text marked as
+* an Interwiki link.  See the regex for a detailed explanation of the
+* text matching procedure; e.g., "InterWikiName:PageName".
+*
+* @category Text
+* 
+* @package Text_Wiki
+* 
+* @author Paul M. Jones <pmjones@php.net>
+* 
+*/
+
+class Text_Wiki_Parse_Interwiki extends Text_Wiki_Parse {
+    
+    // double-colons wont trip up now
+    var $regex = '([A-Za-z0-9_\s\.-:;&~=\/]+)\|((?!\|)[A-Za-z0-9_\/=&~#.:;-\s]*)';
+    
+    
+    /**
+    * 
+    * Parser.  We override the standard parser so we can
+    * find both described interwiki links and standalone links.
+    * 
+    * @access public
+    * 
+    * @return void
+    * 
+    */
+    
+    function parse()
+    {
+        // described interwiki links
+        $tmp_regex = '/\(\(' . $this->regex . '(\)\((.+?))?\)\)/';
+        $this->wiki->source = preg_replace_callback(
+            $tmp_regex,
+            array(&$this, 'processDescr'),
+            $this->wiki->source
+        );
+        
+        // standalone interwiki links
+        $tmp_regex = '/' . $this->regex . '/';
+        $this->wiki->source = preg_replace_callback(
+            $tmp_regex,
+            array(&$this, 'process'),
+            $this->wiki->source
+        );
+       
+    }
+    
+    
+    /**
+    * 
+    * Generates a replacement for the matched standalone interwiki text.
+    * Token options are:
+    * 
+    * 'site' => The key name for the Text_Wiki interwiki array map,
+    * usually the name of the interwiki site.
+    * 
+    * 'page' => The page on the target interwiki to link to.
+    * 
+    * 'text' => The text to display as the link.
+    * 
+    * @access public
+    *
+    * @param array &$matches The array of matches from parse().
+    *
+    * @return A delimited token to be used as a placeholder in
+    * the source text, plus any text priot to the match.
+    *
+    */
+    
+    function process(&$matches)
+    {
+        $options = array(
+            'site' => $matches[1],
+            'page' => isset($matches[2]) ? $matches[2] : '',
+            'text' => isset($matches[2]) && strlen($matches[2]) ? $matches[2] : $matches[1]
+        );
+        
+        return $this->wiki->addToken($this->rule, $options);
+    }
+    
+    
+    /**
+    * 
+    * Generates a replacement for described interwiki links. Token
+    * options are:
+    * 
+    * 'site' => The key name for the Text_Wiki interwiki array map,
+    * usually the name of the interwiki site.
+    * 
+    * 'page' => The page on the target interwiki to link to.
+    * 
+    * 'text' => The text to display as the link.
+    * 
+    * @access public
+    *
+    * @param array &$matches The array of matches from parse().
+    *
+    * @return A delimited token to be used as a placeholder in
+    * the source text, plus any text priot to the match.
+    *
+    */
+    
+    function processDescr(&$matches)
+    {
+        $options = array(
+            'site' => $matches[1],
+            'page' => $matches[2],
+            'text' => (isset($matches[4]) && strlen($matches[4])
+                       ? $matches[4]
+                       : (isset($matches[2]) && strlen($matches[2])
+                          ? $matches[2]
+                          : $matches[1]))
+        );
+        
+        return $this->wiki->addToken($this->rule, $options);
+    }
+}
+?>
