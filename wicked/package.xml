@@ -1148,10 +1148,24 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2016-07-01</date>
+   <date>2016-12-16</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-*
+* [jan] Update German translation.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.8</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2016-12-16</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Bundle Text_Wiki and fix it to run on PHP 7.
+* [mjr] Minor PHP 7 compatibility improvements.
    </notes>
   </release>
   <release>

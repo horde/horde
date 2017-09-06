@@ -7,6 +7,28 @@ v3.0.0-git
 
 
 ------
+v2.0.7
+------
+
+[jan] Update German translation.
+
+
+------
+v2.0.6
+------
+
+[jan] Update Portuguese translation.
+
+
+------
+v2.0.5
+------
+
+[jan] Use access rules compatible with both Apache 2.2 and 2.4.
+>>>>>>> 5a94b41... [jan] Bundle Text_Wiki and fix it to run on PHP 7.
+
+
+------
 v2.0.4
 ------
 
