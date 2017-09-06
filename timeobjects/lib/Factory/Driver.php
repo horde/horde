@@ -25,12 +25,12 @@ class TimeObjects_Factory_Driver
         switch ($class) {
         case 'TimeObjects_Driver_Weather':
             if (!class_exists('Horde_Service_Weather')) {
-                throw new TimeObjects_Exception('Horde_Services_Weather is not installed');
+                throw new TimeObjects_Exception('Horde_Service_Weather is not installed');
             }
             break;
         case 'TimeObjects_Driver_FacebookEvents':
             if (!class_exists('Horde_Service_Facebook')) {
-                throw new TimeObjects_Exception('Horde_Services_Facebook is not installed');
+                throw new TimeObjects_Exception('Horde_Service_Facebook is not installed');
             }
             break;
         default:
