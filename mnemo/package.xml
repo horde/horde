@@ -27,6 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [jan] Officially support PHP 7.
 * [jan] Fix exporting multiple tags to vNote CATEGORIES (Bug #14057).
  </notes>
  <contents>
@@ -417,8 +418,8 @@
   <required>
    <php>
     <min>5.3.0</min>
-    <max>6.0.0alpha1</max>
-    <exclude>6.0.0alpha1</exclude>
+    <max>8.0.0alpha1</max>
+    <exclude>8.0.0alpha1</exclude>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -434,8 +435,8 @@
     <name>horde</name>
     <channel>pear.horde.org</channel>
     <min>5.0.0</min>
-    <max>6.0.0alpha1</max>
-    <exclude>6.0.0alpha1</exclude>
+    <max>8.0.0alpha1</max>
+    <exclude>8.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Auth</name>
@@ -1409,6 +1410,7 @@
    <date>2017-03-20</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [jan] Officially support PHP 7.
 * [jan] Fix exporting multiple tags to vNote CATEGORIES (Bug #14057).
    </notes>
   </release>

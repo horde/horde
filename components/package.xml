@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Officially support PHP 7.
 * [jan] Update website versions after releasing a package.
 * [mms] Run unit tests before releasing a package.
 * [mms] Composer file is now generated/updated before releasing.
@@ -538,8 +539,8 @@
   <required>
    <php>
     <min>5.3.0</min>
-    <max>6.0.0alpha1</max>
-    <exclude>6.0.0alpha1</exclude>
+    <max>8.0.0alpha1</max>
+    <exclude>8.0.0alpha1</exclude>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -901,6 +902,7 @@
    <date>2016-01-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Officially support PHP 7.
 * [jan] Update website versions after releasing a package.
 * [mms] Run unit tests before releasing a package.
 * [mms] Composer file is now generated/updated before releasing.

@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Officially support PHP 7.
 * [jan] Add Spanish translation (Manuel P. Ayala &lt;mayala@unex.es&gt;).
 * [jan] Add Finnish translation (Leena Heino &lt;liinu@uta.fi&gt;).
 * Initial release.
@@ -114,8 +115,8 @@
   <required>
    <php>
     <min>5.3.0</min>
-    <max>6.0.0alpha1</max>
-    <exclude>6.0.0alpha1</exclude>
+    <max>8.0.0alpha1</max>
+    <exclude>8.0.0alpha1</exclude>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -177,6 +178,7 @@
    <date>2016-01-13</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Officially support PHP 7.
 * [jan] Add Spanish translation (Manuel P. Ayala &lt;mayala@unex.es&gt;).
 * [jan] Add Finnish translation (Leena Heino &lt;liinu@uta.fi&gt;).
 * Initial release.

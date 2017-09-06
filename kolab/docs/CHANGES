@@ -2,6 +2,7 @@
 0.1-git
 -------
 
+[jan] Officially support PHP 7.
 [jan] Add Spanish translation (Manuel P. Ayala <mayala@unex.es>).
 [jan] Add Finnish translation (Leena Heino <liinu@uta.fi>).
 [xyz] Initial Release.

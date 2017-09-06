@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Officially support PHP 7.
 * First release candidate of Horde Groupware Kolab Edition 4.0.
  </notes>
  <contents>
@@ -154,8 +155,8 @@
     <name>imp</name>
     <channel>pear.horde.org</channel>
     <min>5.0.8</min>
-    <max>6.0.0</max>
-    <exclude>6.0.0</exclude>
+    <max>8.0.0</max>
+    <exclude>8.0.0</exclude>
    </package>
    <package>
     <name>ingo</name>
@@ -294,6 +295,7 @@
    <date>2011-11-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Officially support PHP 7.
 * First release candidate of Horde Groupware Kolab Edition 4.0.
    </notes>
   </release>

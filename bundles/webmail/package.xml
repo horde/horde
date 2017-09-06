@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/">OSI certified</license>
  <notes>
-* 
+* [jan] Officially support PHP 7.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -101,8 +101,8 @@
     <name>horde</name>
     <channel>pear.horde.org</channel>
     <min>5.2.16</min>
-    <max>6.0.0alpha1</max>
-    <exclude>6.0.0alpha1</exclude>
+    <max>8.0.0alpha1</max>
+    <exclude>8.0.0alpha1</exclude>
    </package>
    <package>
     <name>imp</name>
@@ -825,7 +825,7 @@
    <date>2017-08-01</date>
    <license uri="http://www.horde.org/licenses/">OSI certified</license>
    <notes>
-* 
+* [jan] Officially support PHP 7.
    </notes>
   </release>
  </changelog>

@@ -2,6 +2,7 @@
 v1.0-git
 --------
 
+[jan] Officially support PHP 7.
 [jan] Add Latvian translation (Jānis Eisaks <jancs@dv.lv>).
 [jan] Provide default configuration files instead of .dist versions.
 [bak/mjr/mms] Converted to H4.

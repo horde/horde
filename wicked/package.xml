@@ -27,6 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Officially support PHP 7.
 * [jan] Bundle Text_Wiki and fix it to run on PHP 7.
 * [mjr] Minor PHP 7 compatibility improvements.
  </notes>
@@ -1087,8 +1088,8 @@
   <required>
    <php>
     <min>5.3.0</min>
-    <max>6.0.0alpha1</max>
-    <exclude>6.0.0alpha1</exclude>
+    <max>8.0.0alpha1</max>
+    <exclude>8.0.0alpha1</exclude>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -1097,8 +1098,8 @@
     <name>horde</name>
     <channel>pear.horde.org</channel>
     <min>5.0.0</min>
-    <max>6.0.0alpha1</max>
-    <exclude>6.0.0alpha1</exclude>
+    <max>8.0.0alpha1</max>
+    <exclude>8.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Auth</name>
@@ -2368,6 +2369,7 @@
    <date>2017-09-06</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Officially support PHP 7.
 * [jan] Bundle Text_Wiki and fix it to run on PHP 7.
 * [mjr] Minor PHP 7 compatibility improvements.
    </notes>
