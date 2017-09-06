@@ -87,6 +87,22 @@ class Text_Wiki_Parse_Url extends Text_Wiki_Parse {
             'mailto:'
         )
     );
+
+
+    /**
+    *
+    * Constructor.
+    *
+    * We override the constructor so we can comment the regex nicely.
+    *
+    * @access public
+    *
+    */
+
+    function __construct(&$obj)
+    {
+        parent::__construct($obj);
+
         // convert the list of recognized schemes to a regex-safe string,
         // where the pattern delim is a slash
         $tmp = array();
