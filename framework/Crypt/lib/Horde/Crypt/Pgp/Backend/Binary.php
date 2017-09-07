@@ -179,8 +179,6 @@ extends Horde_Crypt_Pgp_Backend
         $key_idx = -1;
         $out = array();
 
-        $this2 = $this;
-
         $packetInfoHelper = function ($a) {
             return chr(hexdec($a[1]));
         };
