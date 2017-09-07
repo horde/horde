@@ -320,12 +320,10 @@ extends Horde_Crypt_Pgp_Backend
                 }
 
                 if (isset($out[$key_idx]['signature'][$header]['sig_' . $sig_id]['created']) &&
-                    preg_match('/expires after (\d+y\d+d\d+h\d+m)\)$/', $line, $matches)) {
-                    $expires = $matches[1];
-                    preg_match('/^(\d+)y(\d+)d(\d+)h(\d+)m$/', $expires, $matches);
+                    preg_match('/expires after (?:(?:(\d+)y)?(\d+)d)?(\d+)h(\d+)m\)$/', $line, $matches)) {
                     list(, $years, $days, $hours, $minutes) = $matches;
                     $out[$key_idx]['signature'][$header]['sig_' . $sig_id]['expires'] =
-                        strtotime('+ ' . $years . ' years + ' . $days . ' days + ' . $hours . ' hours + ' . $minutes . ' minutes', $out[$key_idx]['signature'][$header]['sig_' . $sig_id]['created']);
+                        strtotime('+ ' . (int)$years . ' years + ' . (int)$days . ' days + ' . $hours . ' hours + ' . $minutes . ' minutes', $out[$key_idx]['signature'][$header]['sig_' . $sig_id]['created']);
                     continue;
                 }
 

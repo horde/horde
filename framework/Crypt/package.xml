@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Correctly determine expiration dates of short living PGP keys.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1257,7 +1257,7 @@ Initial release as a PEAR package
    <date>2017-06-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Correctly determine expiration dates of short living PGP keys.
    </notes>
   </release>
  </changelog>
