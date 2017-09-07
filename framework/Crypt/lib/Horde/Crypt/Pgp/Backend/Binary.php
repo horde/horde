@@ -36,6 +36,13 @@ extends Horde_Crypt_Pgp_Backend
     protected $_gnupg;
 
     /**
+     * Whether the GnuPG version is 2.1 or later.
+     *
+     * @var boolean
+     */
+    protected $_gnupg21 = false;
+
+    /**
      * Filename of the temporary private keyring.
      *
      * @var string
@@ -81,7 +88,8 @@ extends Horde_Crypt_Pgp_Backend
         /* GnuPG 2 requires specifying the pinentry-mode. */
         $result = $this->_callGpg(array('--version'), 'r');
         if (preg_match('/gpg \(GnuPG\) (\d+\.\d+\.\d+)/', $result->stdout, $version) &&
-            version_compare($version[1], '2.1.0', '>')) {
+            version_compare($version[1], '2.1.0', '>=')) {
+            $this->_gnupg21 = true;
             if (version_compare($version[1], '2.1.12', '>=')) {
                 $this->_gnupg[] = '--pinentry-mode loopback';
                 file_put_contents(
