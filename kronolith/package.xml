@@ -820,7 +820,7 @@
     <name>horde</name>
     <channel>pear.horde.org</channel>
     <min>5.0.0</min>
-    <max>8.0.0alpha1</max>
+    <max>6.0.0alpha1</max>
     <exclude>8.0.0alpha1</exclude>
    </package>
    <package>
