@@ -109,7 +109,7 @@ extends Horde_Crypt_Pgp_Backend
 
         $expire = empty($opts['expire'])
             ? 0
-            : date('Y-m-d', $opts['expire']);
+            : 'seconds=' . ($opts['expire'] - time());
 
         /* Create the config file necessary for GnuPG to run in batch mode. */
         /* TODO: Sanitize input, More user customizable? */

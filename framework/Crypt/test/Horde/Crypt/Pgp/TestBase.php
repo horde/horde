@@ -467,6 +467,42 @@ umO5uT5yDcir3zwqUAxzBAkE4ACcCtGfb6usaTKnNXo+ZuLoHiOwIE4=
     /**
      * @dataProvider backendProvider
      */
+    public function testGenerateKey($pgp)
+    {
+        $expire = time() + 2*86400;
+        $keys = $pgp->generateKey(
+            'John Doe', 'john@example.com', 'secret', 'Key Comment', 1024,
+            time() + 2*86400
+        );
+        // Key generation may take some time, so get the expiration date after
+        // being finished.
+        $this->assertStringStartsWith(
+            '-----BEGIN PGP PUBLIC KEY BLOCK-----',
+            $keys['public']
+        );
+        $this->assertStringStartsWith(
+            '-----BEGIN PGP PRIVATE KEY BLOCK-----',
+            $keys['private']
+        );
+        $info = $pgp->pgpPacketInformation($keys['private']);
+        $this->assertEquals('John Doe', $info['signature']['id1']['name']);
+        $this->assertEquals('john@example.com', $info['signature']['id1']['email']);
+        $this->assertEquals('Key Comment', $info['signature']['id1']['comment']);
+        $this->assertLessThan($expire + 30, $info['signature']['id1']['sig_' . $info['signature']['id1']['keyid']]['expires']);
+        $this->assertGreaterThan($expire - 30, $info['signature']['id1']['sig_' . $info['signature']['id1']['keyid']]['expires']);
+        $this->assertEquals(1024, $info['secret_key']['size']);
+        $info = $pgp->pgpPacketInformation($keys['public']);
+        $this->assertEquals('John Doe', $info['signature']['id1']['name']);
+        $this->assertEquals('john@example.com', $info['signature']['id1']['email']);
+        $this->assertEquals('Key Comment', $info['signature']['id1']['comment']);
+        $this->assertLessThan($expire + 30, $info['signature']['id1']['sig_' . $info['signature']['id1']['keyid']]['expires']);
+        $this->assertGreaterThan($expire - 30, $info['signature']['id1']['sig_' . $info['signature']['id1']['keyid']]['expires']);
+        $this->assertEquals(1024, $info['public_key']['size']);
+    }
+
+    /**
+     * @dataProvider backendProvider
+     */
     public function testPgpSign($pgp)
     {
         $clear = $this->_getFixture('clear.txt');
