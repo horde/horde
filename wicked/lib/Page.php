@@ -476,7 +476,6 @@ class Wicked_Page
             break;
 
         case 'Rst':
-            require_once __DIR__ . '/Text_Wiki/Render/Rst.php';
             $this->_proc->insertRule('Table2', 'Table');
             $this->_proc->deleteRule('Table');
             $this->_proc->setRenderConf('Rst', 'Wikilink', $this->_getLinkConf(true));
