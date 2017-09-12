@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
+* [jan] Fix returning to last URL after using the login link.
 * [jan] Officially support PHP 7.
  </notes>
  <contents>
@@ -4188,6 +4189,7 @@
    <date>2017-08-01</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
+* [jan] Fix returning to last URL after using the login link.
 * [jan] Officially support PHP 7.
    </notes>
   </release>
