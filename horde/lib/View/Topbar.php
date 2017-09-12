@@ -76,7 +76,7 @@ class Horde_View_Topbar extends Horde_View
                         $registry->getApp()
                     )
                     ->setRaw(false)
-                    ->add('url', Horde::selfUrl(true, true, true));
+                    ->add('url', Horde::signUrl(Horde::selfUrl(true, true, true)));
             }
         }
 
