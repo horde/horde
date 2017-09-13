@@ -24,8 +24,12 @@ if (!$criteria) {
         'limit' => 10,
     );
     if ($tag_id = Horde_Util::getFormData('tag_id')) {
-        $criteria['tags'] = $injector->getInstance('Jonah_Tagger')
-            ->getTags(explode(':', $tag_id));
+        $criteria['tags'] = array_reduce(
+            $injector->getInstance('Jonah_Tagger')
+                ->getTags(explode(':', $tag_id)),
+            'array_merge',
+            array()
+        );
     }
     if ($tag = Horde_Util::getFormData('tag')) {
         $criteria['tags'] = explode(':', $tag);
