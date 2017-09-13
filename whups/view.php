@@ -55,7 +55,7 @@ if ($message) {
     try {
         $data = $vfs->read(Whups::VFS_ATTACH_PATH . '/' . $id, $filename);
     } catch (Horde_Vfs_Exception $e) {
-        throw Horde_Exception(sprintf(_("Access denied to %s"), $filename));
+        throw new Horde_Exception(sprintf(_("Access denied to %s"), $filename));
     }
 
     $mime_part = new Horde_Mime_Part();
