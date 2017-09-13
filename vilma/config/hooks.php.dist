@@ -29,7 +29,7 @@
 //
 //         $qmail_locals = '/tmp/locals';
 //         $domainlist = file_get_contents($qmail_locals);
-//         $domains = split("\n", $domainlist);
+//         $domains = explode("\n", $domainlist);
 //
 //         if (!in_array($domain, $domains)) {
 //            $domains[] = $domain;
@@ -64,7 +64,7 @@
 //
 //         $qmail_locals = '/tmp/locals';
 //         $domainlist = file_get_contents($qmail_locals);
-//         $domains = split("\n", $domainlist);
+//         $domains = explode("\n", $domainlist);
 //
 //         if ($key = array_search($domain, $domains)) {
 //            unset($domains[$key]);
