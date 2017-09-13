@@ -79,7 +79,7 @@ class Whups_Form_Query_PropertyCriterion extends Horde_Form
         $id = $vars->get('id');
         if (strlen(trim($id))) {
             $newpath = $path;
-            $ids = split("[\\t\\n ,]+", $id);
+            $ids = preg_split('/[\\t\\n ,]+/', $id);
 
             if (count($ids) > 1) {
                 $newpath = $GLOBALS['whups_query']->insertBranch(

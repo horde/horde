@@ -69,8 +69,9 @@ class Hermes_Application extends Horde_Registry_Application
 
         switch ($vars->actionID) {
         case 'export':
+
             // 'export' used from Ajax view
-            $ids = split(',', $vars->s);
+            $ids = explode(',', $vars->s);
             if (!is_array($ids)) {
                 $notification->push(_("No time slices were submitted"), 'horde.error');
                 return false;
