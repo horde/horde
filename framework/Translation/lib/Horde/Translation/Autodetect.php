@@ -64,14 +64,14 @@ abstract class Horde_Translation_Autodetect extends Horde_Translation
     {
         if (static::$_pearDirectory !== '@data_dir@') {
             $directory = static::$_pearDirectory . '/' . static::$_domain . '/locale';
-            if (file_exists($directory)) {
+            if (is_dir($directory)) {
                 return $directory;
             }
         }
 
         $directories = static::_getSearchDirectories();
         foreach ($directories as $directory) {
-            if (file_exists($directory)) {
+            if (is_dir($directory)) {
                 return $directory;
             }
         }
