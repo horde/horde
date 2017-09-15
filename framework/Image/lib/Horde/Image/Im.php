@@ -198,7 +198,7 @@ class Horde_Image_Im extends Horde_Image_Base
         $tmpin = $this->toFile($this->_data);
         $tmpout = Horde_Util::getTempFile('img', false, $this->_tmpdir);
         $command = $this->_convert . ' ' . implode(' ', $this->_operations)
-            . ' "' . $tmpin . '"\'[' . $options['index'] . ']\' '
+            . ' "' . $tmpin . '"\'[' . (integer)$options['index'] . ']\' '
             . implode(' ', $this->_postSrcOperations)
             . ' -strip ' . $this->_type . ':"' . $tmpout . '" 2>&1';
         $this->_logDebug(sprintf("convert command executed by Horde_Image_im::raw(): %s", $command));
