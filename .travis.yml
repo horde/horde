@@ -1,5 +1,4 @@
 sudo: false
-dist: precise
 notifications:
   irc: "chat.freenode.net#horde"
 language: php
