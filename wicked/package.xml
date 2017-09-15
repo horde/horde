@@ -16,13 +16,13 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2017-09-06</date>
+ <date>2017-09-15</date>
  <version>
-  <release>2.0.8</release>
+  <release>2.0.8RC1</release>
   <api>2.0.0</api>
  </version>
  <stability>
-  <release>stable</release>
+  <release>beta</release>
   <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
@@ -2361,12 +2361,12 @@
   </release>
   <release>
    <version>
-    <release>2.0.8</release>
+    <release>2.0.8RC1</release>
     <api>2.0.0</api></version>
    <stability>
-    <release>stable</release>
+    <release>beta</release>
     <api>stable</api></stability>
-   <date>2017-09-06</date>
+   <date>2017-09-15</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Officially support PHP 7.
