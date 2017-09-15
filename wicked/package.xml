@@ -18,7 +18,7 @@
  </lead>
  <date>2017-09-15</date>
  <version>
-  <release>2.0.8RC1</release>
+  <release>2.0.8RC2</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -27,9 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Officially support PHP 7.
-* [jan] Bundle Text_Wiki and fix it to run on PHP 7.
-* [mjr] Minor PHP 7 compatibility improvements.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2372,6 +2370,19 @@
 * [jan] Officially support PHP 7.
 * [jan] Bundle Text_Wiki and fix it to run on PHP 7.
 * [mjr] Minor PHP 7 compatibility improvements.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.8RC2</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2017-09-15</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
