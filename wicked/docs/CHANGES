@@ -1,6 +1,6 @@
-----------
-v2.0.8-git
-----------
+---------
+v2.0.8RC1
+---------
 
 [jan] Officially support PHP 7.
 [jan] Bundle Text_Wiki and fix it to run on PHP 7.

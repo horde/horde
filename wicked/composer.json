@@ -16,8 +16,8 @@
             "role": "lead"
         }
     ],
-    "version": "2.0.7",
-    "time": "2016-12-16",
+    "version": "2.0.8RC1",
+    "time": "2017-09-15",
     "repositories": [
         {
             "type": "pear",
@@ -25,34 +25,39 @@
         }
     ],
     "require": {
-        "php": ">=5.3.0,<=6.0.0alpha1",
-        "pear-pear.horde.org/horde": ">=5.0.0@stable,<=6.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Auth": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Autoloader": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Core": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Db": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Exception": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Form": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Http": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Lock": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Mail": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Mime": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Mime_Viewer": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Notification": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Perms": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Prefs": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Rpc": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Text_Diff": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Url": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Util": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Vfs": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.php.net/Text_Wiki": ">=1.2.0@stable",
+        "php": "^5.3 || ^7",
+        "pear-pear.horde.org/horde": "^5",
+        "pear-pear.horde.org/Horde_Auth": "^2",
+        "pear-pear.horde.org/Horde_Autoloader": "^2",
+        "pear-pear.horde.org/Horde_Core": "^2",
+        "pear-pear.horde.org/Horde_Db": "^2",
+        "pear-pear.horde.org/Horde_Exception": "^2",
+        "pear-pear.horde.org/Horde_Form": "^2",
+        "pear-pear.horde.org/Horde_Http": "^2",
+        "pear-pear.horde.org/Horde_Lock": "^2",
+        "pear-pear.horde.org/Horde_Mail": "^2",
+        "pear-pear.horde.org/Horde_Mime": "^2",
+        "pear-pear.horde.org/Horde_Mime_Viewer": "^2",
+        "pear-pear.horde.org/Horde_Notification": "^2",
+        "pear-pear.horde.org/Horde_Perms": "^2",
+        "pear-pear.horde.org/Horde_Prefs": "^2",
+        "pear-pear.horde.org/Horde_Rpc": "^2",
+        "pear-pear.horde.org/Horde_Text_Diff": "^2",
+        "pear-pear.horde.org/Horde_Url": "^2",
+        "pear-pear.horde.org/Horde_Util": "^2",
+        "pear-pear.horde.org/Horde_Vfs": "^2",
         "ext-gettext": "*"
     },
     "suggest": {
-        "pear-pear.php.net/Text_Figlet": "*",
-        "pear-pear.php.net/Text_Wiki_Creole": ">=1.0.0@stable",
-        "pear-pear.php.net/Text_Wiki_Mediawiki": ">=0.2.0@stable",
-        "pear-pear.php.net/Text_Wiki_Tiki": ">=0.1.0@stable"
+        "pear-pear.php.net/Text_Figlet": "*"
+    },
+    "replace": {
+        "pear-pear.horde.org/wicked": "2.*",
+        "pear-horde/wicked": "2.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Wicked": "lib/"
+        }
     }
 }
