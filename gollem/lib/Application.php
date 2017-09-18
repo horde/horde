@@ -312,9 +312,17 @@ class Gollem_Application extends Horde_Registry_Application
      */
     public function download(Horde_Variables $vars)
     {
-        $vfs = $GLOBALS['injector']
-            ->getInstance('Gollem_Factory_Vfs')
+        global $injector, $session;
+
+        // Check permissions.
+        if ($vars->backend != $session->get('gollem', 'backend_key')) {
+            throw new Horde_Exception_PermissionDenied();
+        }
+        Gollem::changeDir();
+
+        $vfs = $injector->getInstance('Gollem_Factory_Vfs')
             ->create($vars->backend);
+
         $res = array(
             'data' => is_callable(array($vfs, 'readStream'))
                 ? $vfs->readStream($vars->dir, $vars->filename)
@@ -323,7 +331,8 @@ class Gollem_Application extends Horde_Registry_Application
 
         try {
             $res['size'] = $vfs->size($vars->dir, $vars->filename);
-        } catch (Horde_Vfs_Exception $e) {}
+        } catch (Horde_Vfs_Exception $e) {
+        }
 
         return $res;
     }
