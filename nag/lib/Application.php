@@ -367,10 +367,14 @@ class Nag_Application extends Horde_Registry_Application
 
         switch ($vars->actionID) {
         case 'export':
-            $tasklists = $vars->get('exportList', $display_tasklists);
+            $allowed = array_keys(
+                Nag::listTasklists(false, Horde_Perms::READ, false)
+            );
+            $tasklists = $vars->get('exportList', $allowed);
             if (!is_array($tasklists)) {
                 $tasklists = array($tasklists);
             }
+            $tasklists = array_intersect($tasklists, $allowed);
 
             /* Get the full, sorted task list. */
             $tasks = Nag::listTasks(array(
