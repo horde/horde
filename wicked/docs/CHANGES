@@ -6,6 +6,15 @@ v3.0.0-git
 [jan] Add navigation between pages from the same hierarchy.
 
 
+---------
+v2.0.8RC1
+---------
+
+[jan] Officially support PHP 7.
+[jan] Bundle Text_Wiki and fix it to run on PHP 7.
+[mjr] Minor PHP 7 compatibility improvements.
+
+
 ------
 v2.0.7
 ------
