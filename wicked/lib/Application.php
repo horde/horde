@@ -149,10 +149,14 @@ class Wicked_Application extends Horde_Registry_Application
     {
         global $wicked;
 
-        $page = $vars->get('page', 'Wiki/Home');
+        $pageName = $vars->get('page', 'Wiki/Home');
+        $page = Wicked_Page::getPage($pageName);
+        if (!$page->allows(Wicked::MODE_DISPLAY)) {
+            throw new Horde_Exception_PermissionDenied();
+        }
 
-        $page_id = (($id = $wicked->getPageId($page)) === false)
-            ? $page
+        $page_id = (($id = $wicked->getPageId($pageName)) === false)
+            ? $pageName
             : $id;
 
         $version = $vars->version;
