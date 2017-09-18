@@ -1,11 +1,11 @@
 <?php
 /* Security release? */
-$notes['security'] = true;
+$notes['security'] = false;
 
 /* Mailing list release notes. */
 $notes['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Trean Bookmarks
-Manager version H5 (1.1.8).
+Manager version H5 (1.1.9).
 
 Trean is a web-based bookmarks application that provides management of browser
 bookmarks, including support for tagging, link checking, and searching
@@ -18,8 +18,8 @@ http://www.horde.org/apps/horde/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/trean/docs/INSTALL
 
-Major changes compared to Trean version H5 (1.1.7) are:
-    * Fixed open redirects.
+Major changes compared to Trean version H5 (1.1.8) are:
+    * Officially support PHP 7.
 ML;
 
 $notes['name'] = 'Trean';

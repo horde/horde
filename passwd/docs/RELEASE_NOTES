@@ -18,6 +18,7 @@ http://www.horde.org/apps/nag/docs/INSTALL
 
 The major changes compared to Passwd version H5 (5.0.6) are:
     * Fixed open redirects.
+    * Officially support PHP 7.
 ML;
 
 

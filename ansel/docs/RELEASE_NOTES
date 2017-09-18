@@ -1,11 +1,11 @@
 <?php
 /* Security release? */
-$notes['security'] = true;
+$notes['security'] = false;
 
 /* Mailing list release notes. */
 $notes['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Ansel Photo
-Management and Web Gallery application version H5 (3.0.7).
+Management and Web Gallery application version H5 (3.0.8).
 
 Ansel is a full featured photo management application. With it, you can
 organize your photos in any number of galleries and subgalleries, share
@@ -16,8 +16,8 @@ http://www.horde.org/apps/ansel.
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/ansel/docs/INSTALL
 
-Major changes compared to the Ansel version H5 (3.0.6) are:
-    * Fixed open redirects.
+Major changes compared to the Ansel version H5 (3.0.7) are:
+    * Officially support PHP 7.
 ML;
 
 $notes['name'] = 'Ansel';
