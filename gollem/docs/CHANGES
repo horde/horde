@@ -2,6 +2,9 @@
 v3.0.12-git
 -----------
 
+[jan] SECURITY: Fix unauthorized access to files from backends that don't
+      require authentication (Reported by Tim O'Driscoll
+      <tim.odriscoll@lambrookschool.co.uk>).
 [jan] Officially support PHP 7.
 
 

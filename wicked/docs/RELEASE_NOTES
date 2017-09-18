@@ -1,26 +1,27 @@
 <?php
 /* Security release? */
-$notes['security'] = false;
+$notes['security'] = true;
 
 /* Mailing list release notes. */
 $notes['changes'] = <<<ML
-The Horde Team is pleased to announce the first release candidate of the Wicked
-wiki application version H5 (2.0.8).
+The Horde Team is pleased to announce the final release of the Wicked wiki
+application version H5 (2.0.8).
 
 Wicked is a wiki application for the Horde Framework. It uses PEAR's Text_Wiki
 library for the actual wiki markup parsing and rendering. It supports Creole,
 Mediawiki, Tiki Wiki, and its own markup engine. For more information on
 Wicked, visit http://www.horde.org/apps/wicked.
 
-Barring any problems, this code will be released as Wicked H5 (2.0.8).
-Testing is requested and comments are encouraged.
-
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/wicked/docs/INSTALL
 
+The major changes compared to the Wicked version H5 (2.0.8RC1) are:
+    * Fixed unauthorized access to attachments of pages with restricted
+      permissions.
+
 The major changes compared to the Wicked version H5 (2.0.7) are:
-    * Bundle Text_Wiki library.
-    * Improve PHP 7 compatibility.
+    * Bundled Text_Wiki library.
+    * Improved PHP 7 compatibility.
 ML;
 
 $notes['name'] = 'Wicked';

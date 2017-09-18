@@ -16,18 +16,18 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2017-09-15</date>
+ <date>2017-09-18</date>
  <version>
-  <release>2.0.8RC2</release>
+  <release>2.0.8</release>
   <api>2.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
+  <release>stable</release>
   <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [jan] SECURITY: Fix unauthorized access to page attachments.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2374,15 +2374,15 @@
   </release>
   <release>
    <version>
-    <release>2.0.8RC2</release>
+    <release>2.0.8</release>
     <api>2.0.0</api></version>
    <stability>
-    <release>beta</release>
+    <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-09-15</date>
+   <date>2017-09-18</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [jan] SECURITY: Fix unauthorized access to page attachments.
    </notes>
   </release>
  </changelog>
