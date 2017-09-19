@@ -36,7 +36,7 @@ class Whups_Application extends Horde_Registry_Application
 {
     /**
      */
-    public $version = 'H5 (3.0.12)';
+    public $version = 'H5 (3.0.13-git)';
 
     /**
      * Global variables defined:
