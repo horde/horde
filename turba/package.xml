@@ -30,7 +30,7 @@
  </lead>
  <date>2017-09-19</date>
  <version>
-  <release>4.2.21</release>
+  <release>4.2.22</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* [jan] Officially support PHP 7.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2209,6 +2209,19 @@
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Officially support PHP 7.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.22</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2017-09-19</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
