@@ -24,7 +24,7 @@
  </lead>
  <date>2017-09-19</date>
  <version>
-  <release>4.2.23</release>
+  <release>4.2.24</release>
   <api>4.2.0</api>
  </version>
  <stability>
@@ -33,10 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Officially support PHP 7.
-* [jan] Fix time offsets when importing CSV data with two-digit years.
-* [jan] Fix updating and deleting events from external CalDAV servers (martin1@k0k.net, Bug #14021).
-* [jan] Fix exporting multiple tags to iCalendar CATEGORIES (Bug #14057).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2810,6 +2807,19 @@
 * [jan] Fix time offsets when importing CSV data with two-digit years.
 * [jan] Fix updating and deleting events from external CalDAV servers (martin1@k0k.net, Bug #14021).
 * [jan] Fix exporting multiple tags to iCalendar CATEGORIES (Bug #14057).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.24</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2017-09-19</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
