@@ -1,5 +1,5 @@
 {
-    "name": "horde/horde-elasticsearch",
+    "name": "horde/elasticsearch",
     "description": "Horde ElasticSearch client",
     "type": "library",
     "homepage": "https://pear.horde.org",
@@ -17,7 +17,7 @@
         }
     ],
     "version": "1.0.4",
-    "time": "2015-01-08",
+    "time": "2017-09-19",
     "repositories": [
         {
             "type": "pear",
@@ -25,7 +25,7 @@
         }
     ],
     "require": {
-        "php": "^5.3",
+        "php": "^5.3 || ^7",
         "pear-pear.horde.org/Horde_Exception": "^2@stable",
         "pear-pear.horde.org/Horde_Http": "^2@stable"
     },
