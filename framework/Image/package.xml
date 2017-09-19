@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] SECURITY: Fix remote code execution vulnerability in Im driver (Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1258,7 +1258,7 @@ Initial release as a PEAR package
    <date>2017-06-25</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] SECURITY: Fix remote code execution vulnerability in Im driver (Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;.
    </notes>
   </release>
  </changelog>
