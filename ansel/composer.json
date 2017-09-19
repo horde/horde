@@ -21,8 +21,8 @@
             "role": "lead"
         }
     ],
-    "version": "3.0.7",
-    "time": "2017-08-01",
+    "version": "3.0.8",
+    "time": "2017-09-19",
     "repositories": [
         {
             "type": "pear",
@@ -30,7 +30,7 @@
         }
     ],
     "require": {
-        "php": "^5.3",
+        "php": "^5.3 || ^7",
         "pear-pear.horde.org/content": "^2.0.3@stable",
         "pear-pear.horde.org/horde": "^5@stable",
         "pear-pear.horde.org/Horde_Auth": "^2@stable",
