@@ -16,7 +16,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2017-08-01</date>
+ <date>2017-09-19</date>
  <version>
   <release>3.0.12</release>
   <api>3.0.0</api>
@@ -1272,7 +1272,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-08-01</date>
+   <date>2017-09-19</date>
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
    <notes>
 * [jan] Officially support PHP 7.
