@@ -1,5 +1,5 @@
 {
-    "name": "horde/horde-openxchange",
+    "name": "horde/openxchange",
     "description": "Open-Xchange Connector",
     "type": "library",
     "homepage": "https://pear.horde.org",
@@ -12,7 +12,7 @@
         }
     ],
     "version": "1.0.1",
-    "time": "2014-05-21",
+    "time": "2017-09-19",
     "repositories": [
         {
             "type": "pear",
@@ -20,7 +20,7 @@
         }
     ],
     "require": {
-        "php": "^5.3",
+        "php": "^5.3 || ^7",
         "pear-pear.horde.org/Horde_Date": "^2@stable",
         "pear-pear.horde.org/Horde_Http": "^2@stable",
         "pear-pear.horde.org/Horde_Perms": "^2@stable",
