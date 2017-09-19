@@ -1,5 +1,5 @@
 {
-    "name": "horde/horde-service-urlshortener",
+    "name": "horde/service-urlshortener",
     "description": "Horde_Service_UrlShortener Class",
     "type": "library",
     "homepage": "https://pear.horde.org",
@@ -12,7 +12,7 @@
         }
     ],
     "version": "2.0.3",
-    "time": "2015-01-09",
+    "time": "2017-09-19",
     "repositories": [
         {
             "type": "pear",
@@ -20,7 +20,7 @@
         }
     ],
     "require": {
-        "php": "^5.3",
+        "php": "^5.3 || ^7",
         "pear-pear.horde.org/Horde_Exception": "^2@stable",
         "pear-pear.horde.org/Horde_Url": "^2@stable",
         "pear-pear.horde.org/Horde_Http": "^2@stable"
