@@ -1,5 +1,5 @@
 {
-    "name": "horde/horde-imsp",
+    "name": "horde/imsp",
     "description": "IMSP API",
     "type": "library",
     "homepage": "https://pear.horde.org",
@@ -12,7 +12,7 @@
         }
     ],
     "version": "2.0.10",
-    "time": "2016-03-21",
+    "time": "2017-09-19",
     "repositories": [
         {
             "type": "pear",
@@ -20,7 +20,7 @@
         }
     ],
     "require": {
-        "php": "^5.3",
+        "php": "^5.3 || ^7",
         "pear-pear.horde.org/Horde_Translation": "^2.2@stable",
         "pear-pear.horde.org/Horde_Util": "^2@stable"
     },
