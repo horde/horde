@@ -1,5 +1,5 @@
 {
-    "name": "horde/horde-queue",
+    "name": "horde/queue",
     "description": "Horde Queue",
     "type": "library",
     "homepage": "https://pear.horde.org",
@@ -12,7 +12,7 @@
         }
     ],
     "version": "1.1.5",
-    "time": "2016-09-01",
+    "time": "2017-09-19",
     "repositories": [
         {
             "type": "pear",
@@ -20,7 +20,7 @@
         }
     ],
     "require": {
-        "php": "^5.3"
+        "php": "^5.3 || ^7"
     },
     "replace": {
         "pear-pear.horde.org/Horde_Queue": "1.*",
