@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Fix regression when exporting single tags to iCalendar CATEGORIES.
 * [jan] Officially support PHP 7.
  </notes>
  <contents>
@@ -1832,6 +1833,7 @@
    <date>2017-08-15</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix regression when exporting single tags to iCalendar CATEGORIES.
 * [jan] Officially support PHP 7.
    </notes>
   </release>
