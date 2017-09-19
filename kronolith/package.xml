@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2017-08-01</date>
+ <date>2017-09-19</date>
  <version>
   <release>4.2.23</release>
   <api>4.2.0</api>
@@ -2803,7 +2803,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-08-01</date>
+   <date>2017-09-19</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Officially support PHP 7.
