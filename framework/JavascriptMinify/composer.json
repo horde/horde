@@ -11,8 +11,8 @@
             "role": "lead"
         }
     ],
-    "version": "1.1.4",
-    "time": "2017-06-22",
+    "version": "1.1.5",
+    "time": "2017-09-19",
     "repositories": [
         {
             "type": "pear",
@@ -20,7 +20,7 @@
         }
     ],
     "require": {
-        "php": "^5.3",
+        "php": "^5.3 || ^7",
         "pear-pear.horde.org/Horde_Exception": "^2@stable",
         "pear-pear.horde.org/Horde_Log": "^2@stable",
         "pear-pear.horde.org/Horde_Util": "^2@stable"
