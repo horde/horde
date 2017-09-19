@@ -24,7 +24,7 @@
  </lead>
  <date>2017-09-19</date>
  <version>
-  <release>3.0.8</release>
+  <release>3.0.9</release>
   <api>3.0.0</api>
  </version>
  <stability>
@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Officially support PHP 7.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1434,6 +1434,19 @@
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Officially support PHP 7.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.9</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2017-09-19</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
