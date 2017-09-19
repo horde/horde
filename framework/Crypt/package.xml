@@ -16,7 +16,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2017-06-22</date>
+ <date>2017-09-19</date>
  <version>
   <release>2.7.10</release>
   <api>2.7.0</api>
@@ -1254,7 +1254,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-06-22</date>
+   <date>2017-09-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Correctly determine expiration dates of short living PGP keys.
