@@ -16,7 +16,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2017-03-20</date>
+ <date>2017-09-19</date>
  <version>
   <release>4.2.14</release>
   <api>4.0.0</api>
@@ -1407,7 +1407,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-03-20</date>
+   <date>2017-09-19</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Officially support PHP 7.
