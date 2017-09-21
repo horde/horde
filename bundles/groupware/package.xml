@@ -12,7 +12,7 @@
  </lead>
  <date>2017-09-21</date>
  <version>
-  <release>5.2.22</release>
+  <release>5.2.23</release>
   <api>5.2.0</api>
  </version>
  <stability>
@@ -21,8 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/">OSI certified</license>
  <notes>
-* [jan] Officially support PHP 7.
-* [jan] Update Horde, Turba, Kronolith, Nag, Mnemo, Gollem, Trean, Content, and Timeobjects.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -774,6 +773,19 @@
    <notes>
 * [jan] Officially support PHP 7.
 * [jan] Update Horde, Turba, Kronolith, Nag, Mnemo, Gollem, Trean, Content, and Timeobjects.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.2.23</release>
+    <api>5.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2017-09-21</date>
+   <license uri="http://www.horde.org/licenses/">OSI certified</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
