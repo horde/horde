@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2017-08-01</date>
+ <date>2017-09-21</date>
  <version>
   <release>3.0.12</release>
   <api>3.0.0</api>
@@ -949,7 +949,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-08-01</date>
+   <date>2017-09-21</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] SECURITY: Fix unauthorized access to files from backends that don&apos;t require authentication (Reported by Tim O&apos;Driscoll &lt;tim.odriscoll@lambrookschool.co.uk&gt;).
