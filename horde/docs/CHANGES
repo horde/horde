@@ -2,6 +2,8 @@
 v5.2.18-git
 -----------
 
+[jan] Check for both the memcache and memcached extensions in test script (Bug
+      #14691).
 
 
 -------

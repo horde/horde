@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
-* 
+* [jan] Check for both the memcache and memcached extensions in test script (Bug #14691).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4202,7 +4202,7 @@
    <date>2017-09-19</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
-* 
+* [jan] Check for both the memcache and memcached extensions in test script (Bug #14691).
    </notes>
   </release>
  </changelog>
