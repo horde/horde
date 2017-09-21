@@ -5,7 +5,7 @@ $notes['security'] = true;
 /* Mailing list release notes. */
 $notes['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Horde Groupware
-version 5.2.21.
+version 5.2.22.
 
 Horde Groupware is a free, enterprise ready, browser based collaboration
 suite. Users can manage and share calendars, contacts, tasks, notes, files, and
@@ -17,12 +17,26 @@ http://www.horde.org/apps/groupware/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/groupware/docs/INSTALL
 
-The major changes compared to the Horde Groupware version 5.2.20 are:
+Thanks to Tim O'Driscoll <tim.odriscoll@lambrookschool.co.uk> for reporting the
+missing authorization check for file downloads on backends that don't require
+implicit authentication.
+
+The major changes compared to the Horde Groupware version 5.2.21 are:
 
 General changes:
-    * Fixed open redirects.
-    * Fixed XSS vulnerabilities.
-    * Small bugfixes and improvements.
+    * Officially support PHP 7.
+    * Small bugfixes.
+
+Calendar changes:
+    * Fixed deleting events from remote CalDAV servers.
+
+Tasks changes:
+    * Fixed unauthorized export of task lists.
+    * Fixed returning to task list after completing a task.
+    * Improved CalDAV synchronization compatibility.
+
+File Manager changes:
+    * Fixed unauthorized access to file downloads.
 ML;
 
 $notes['name'] = 'Horde Groupware';

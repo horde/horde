@@ -2,7 +2,66 @@
 v5.2.22-git
 -----------
 
+[jan] SECURITY: Fix unauthorized access in Tasks and File Manager.
 [jan] Officially support PHP 7.
+[jan] Fix returning to last URL after using the login link.
+
+Calendar Changes
+----------------
+[jan] Fix time offsets when importing CSV data with two-digit years.
+[jan] Fix updating and deleting events from external CalDAV servers
+      (martin1@k0k.net, Bug #14021).
+[jan] Fix exporting multiple tags to iCalendar CATEGORIES (Bug #14057).
+
+Tasks Changes
+-------------
+[jan] SECURITY: Fix unauthorized access to task exports.
+[jan] Fix regression when exporting single tags to iCalendar CATEGORIES.
+[jan] Fix parsing sub-tasks from the quick enter dialog (Bug #14681).
+[jan] Fix positioning of due time drop down list (Bug #12288).
+[jan] Improve compatibilty when synchronizing tasks via CalDAV/ICS (Bug
+      #14057).
+[jan] Fix exporting multiple tags to iCalendar CATEGORIES (Bug #14057).
+[jan] Don't include external tasks into drop down list for parent tasks.
+[jan] Fix redirecting to task list after completing a task (Bug #14678).
+
+Notes Changes
+-------------
+[jan] Fix exporting multiple tags to vNote CATEGORIES (Bug #14057).
+
+File Manager Changes
+--------------------
+[jan] SECURITY: Fix unauthorized access to files from backends that don't
+      require authentication (Reported by Tim O'Driscoll
+      <tim.odriscoll@lambrookschool.co.uk>).
+
+Library Changes
+---------------
+ActiveSync
+[mjr] Prevent broken datetime strings from causing a fatal error (Bug #14682).
+
+Compress
+[jan] Fix RAR compressed file names with unicode characters.
+
+Core
+[jan] Fix double line breaks in task description tooltips (Bug #14684).
+[mjr] Fix issue that could break ActiveSync sync if object not found.
+
+Crypt
+[jan] Correctly determine expiration dates of short living PGP keys.
+
+Date
+[jan] Fix translating the string representation of a recurrence rule.
+
+Image
+[jan] SECURITY: Fix remote code execution vulnerability in Im driver (Thomas
+      Jarosch <thomas.jarosch@intra2net.com>.
+
+Imap_Client
+[jan] Fix expunging cache entries of a certain lifetime from the DB backend.
+
+Mime_Viewer
+[jan] Fix bottom table line length of RAR archive summaries.
 
 
 -------
@@ -3140,30 +3199,6 @@ Horde Changes
 -------------
 [mms] Fix regression where AJAX actions were not correctly checking permissions
       and potential authentication expiration actions.
-
-Mail Changes
-------------
-[mms] Add Save All link to the popup message page in dynamic view.
-[mms] Cleaner handling of broken S/MIME signed messages.
-[mms] Fix displaying user-defined message headers when multiple-headers exist
-      in a single message.
-[mjr] Honor recurrence-id range values when deleting recurring events (Bug
-      #12746).
-[mms] Don't provide links to view attachments in compose screen unless the
-      attachment can be displayed (Bug #12841).
-[mms] Fix regression where auto-saved drafts were not being deleted when
-      cancelling compose message in dynamic view.
-[mms] Fix regression in parsing permission values (Bug #12812).
-[mms] Fix regression in showing non-available actions in dynamic mailbox view
-      when ACL rules prevent them (Bug #12808).
-
-Filters Changes
----------------
-[jan] Make spam level a required form field (Bug #12964).
-[jan] Fix behavior of 'utf' parameter (Bug #12937).
-[mms] Fix sieve driver correctly identifying mailing lists when determining
-      whether to send vacation messages
-      (skhorde@smail.inf.fg-bonn-rhein-sieg.de, Bug #12938).
 
 Address Book Changes
 --------------------

@@ -10,7 +10,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2017-08-01</date>
+ <date>2017-09-21</date>
  <version>
   <release>5.2.22</release>
   <api>5.2.0</api>
@@ -22,6 +22,7 @@
  <license uri="http://www.horde.org/licenses/">OSI certified</license>
  <notes>
 * [jan] Officially support PHP 7.
+* [jan] Update Horde, Turba, Kronolith, Nag, Mnemo, Gollem, Trean, Content, and Timeobjects.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -78,63 +79,63 @@
    <package>
     <name>content</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.5</min>
+    <min>2.0.6</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>gollem</name>
     <channel>pear.horde.org</channel>
-    <min>3.0.11</min>
+    <min>3.0.12</min>
     <max>4.0.0alpha1</max>
     <exclude>4.0.0alpha1</exclude>
    </package>
    <package>
     <name>horde</name>
     <channel>pear.horde.org</channel>
-    <min>5.2.16</min>
+    <min>5.2.17</min>
     <max>8.0.0alpha1</max>
     <exclude>8.0.0alpha1</exclude>
    </package>
    <package>
     <name>kronolith</name>
     <channel>pear.horde.org</channel>
-    <min>4.2.22</min>
+    <min>4.2.23</min>
     <max>5.0.0alpha1</max>
     <exclude>5.0.0alpha1</exclude>
    </package>
    <package>
     <name>mnemo</name>
     <channel>pear.horde.org</channel>
-    <min>4.2.13</min>
+    <min>4.2.14</min>
     <max>5.0.0alpha1</max>
     <exclude>5.0.0alpha1</exclude>
    </package>
    <package>
     <name>nag</name>
     <channel>pear.horde.org</channel>
-    <min>4.2.15</min>
+    <min>4.2.17</min>
     <max>5.0.0alpha1</max>
     <exclude>5.0.0alpha1</exclude>
    </package>
    <package>
     <name>timeobjects</name>
     <channel>pear.horde.org</channel>
-    <min>2.1.3</min>
+    <min>2.1.4</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>trean</name>
     <channel>pear.horde.org</channel>
-    <min>1.1.8</min>
+    <min>1.1.9</min>
     <max>2.0.0alpha1</max>
     <exclude>2.0.0alpha1</exclude>
    </package>
    <package>
     <name>turba</name>
     <channel>pear.horde.org</channel>
-    <min>4.2.20</min>
+    <min>4.2.21</min>
     <max>5.0.0alpha1</max>
     <exclude>5.0.0alpha1</exclude>
    </package>
@@ -758,7 +759,7 @@
    <date>2017-08-01</date>
    <license uri="http://www.horde.org/licenses/">OSI certified</license>
    <notes>
-* 
+* [jan] Update Horde, Turba, Kronolith, Nag, Gollem, and Trean.
    </notes>
   </release>
   <release>
@@ -768,10 +769,11 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-08-01</date>
+   <date>2017-09-21</date>
    <license uri="http://www.horde.org/licenses/">OSI certified</license>
    <notes>
 * [jan] Officially support PHP 7.
+* [jan] Update Horde, Turba, Kronolith, Nag, Mnemo, Gollem, Trean, Content, and Timeobjects.
    </notes>
   </release>
  </changelog>
