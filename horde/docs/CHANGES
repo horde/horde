@@ -32,6 +32,14 @@ v6.0.0-git
 
 
 -------
+v5.2.17
+-------
+
+[jan] Fix returning to last URL after using the login link.
+[jan] Officially support PHP 7.
+
+
+-------
 v5.2.16
 -------
 

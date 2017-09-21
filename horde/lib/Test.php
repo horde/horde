@@ -140,8 +140,9 @@ class Horde_Test
             'error' => 'If you want to take full advantage of Horde\'s localization features and character set support, you will need the mbstring extension. Compile PHP with <code>--enable-mbstring</code> to activate the extension.'
         ),
         'memcache' => array(
-            'descrip' => 'memcached Support (memcache) (PECL extension)',
-            'error' => 'The memcache PECL extension is only needed if you are using a memcached server for caching or sessions. See horde/docs/INSTALL for information on how to install PECL/PHP extensions.'
+            'descrip' => 'Memcached Support (PECL extension)',
+            'error' => 'The memcache(d) PECL extension is only needed if you are using a Memcached server for caching or sessions. See horde/docs/INSTALL for information on how to install PECL/PHP extensions.',
+            'function' => '_checkMemcache'
         ),
         'mongo' => array(
             'descrip' => 'MongoDB support (PECL extension)',
@@ -530,6 +531,14 @@ class Horde_Test
         }
 
         return true;
+    }
+
+    /**
+     */
+    protected function _checkMemcache()
+    {
+        return extension_loaded('memcached') ||
+            extension_loaded('memcache');
     }
 
     /**
