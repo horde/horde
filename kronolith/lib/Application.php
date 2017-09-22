@@ -588,6 +588,7 @@ class Kronolith_Application extends Horde_Registry_Application
             global $registry;
 
             $backup = new Backup\User($user);
+            $this->_backupPrefs($backup, 'kronolith');
 
             $shares = $kronolith_shares->listShares(
                 $user, array('perm' => Horde_Perms::EDIT)
@@ -639,6 +640,10 @@ class Kronolith_Application extends Horde_Registry_Application
 
         $count = 0;
         switch ($data->getType()) {
+        case 'preferences':
+            $count = $this->_restorePrefs($data, 'kronolith');
+            break;
+
         case 'calendars':
             $kronolith_shares = $injector->getInstance('Kronolith_Shares');
             foreach ($data as $calendar) {

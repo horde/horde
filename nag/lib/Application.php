@@ -379,6 +379,7 @@ class Nag_Application extends Horde_Registry_Application
             global $registry;
 
             $backup = new Backup\User($user);
+            $this->_backupPrefs($backup, 'nag');
 
             $shares = $nag_shares->listShares(
                 $user, array('attributes' => $user)
@@ -422,6 +423,10 @@ class Nag_Application extends Horde_Registry_Application
 
         $count = 0;
         switch ($data->getType()) {
+        case 'preferences':
+                $count = $this->_restorePrefs($data, 'nag');
+                break;
+
         case 'tasklists':
             foreach ($data as $tasklist) {
                 $tasklist['owner'] = $data->getUser();

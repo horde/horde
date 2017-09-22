@@ -288,6 +288,7 @@ class Mnemo_Application extends Horde_Registry_Application
             global $registry;
 
             $backup = new Backup\User($user);
+            $this->_backupPrefs($backup, 'mnemo');
 
             $shares = $mnemo_shares->listShares(
                 $user, array('attributes' => $user)
@@ -331,6 +332,10 @@ class Mnemo_Application extends Horde_Registry_Application
 
         $count = 0;
         switch ($data->getType()) {
+        case 'preferences':
+                $count = $this->_restorePrefs($data, 'mnemo');
+                break;
+
         case 'notepads':
             foreach ($data as $notepad) {
                 $notepad['owner'] = $data->getUser();

@@ -20,6 +20,8 @@
  * Horde_Registry_Application::). */
 require_once __DIR__ . '/core.php';
 
+use Horde\Backup;
+
 class Horde_Application extends Horde_Registry_Application
 {
     /**
@@ -197,6 +199,30 @@ class Horde_Application extends Horde_Registry_Application
         if ($error) {
             throw new Horde_Exception(sprintf(_("There was an error removing global data for %s. Details have been logged."), $user));
         }
+    }
+
+    /**
+     */
+    public function backup(array $users = array())
+    {
+        $getUser = function($user)
+        {
+            $backup = new Backup\User($user);
+            $this->_backupPrefs($backup, 'horde');
+            return $backup;
+        };
+
+        return new Backup\Users(new ArrayIterator($users), $getUser);
+    }
+
+    /**
+     */
+    public function restore(Backup\Collection $data)
+    {
+        if ($data->getType() == 'preferences') {
+            return $this->_restorePrefs($data, 'horde');
+        }
+        return 0;
     }
 
     protected function _addActiveSyncPerms(&$permissions)

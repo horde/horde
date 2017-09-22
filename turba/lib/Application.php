@@ -516,6 +516,7 @@ class Turba_Application extends Horde_Registry_Application
             global $injector, $registry, $session;
 
             $backup = new Backup\User($user);
+            $this->_backupPrefs($backup, 'turba');
 
             // Need to pushApp() here because this method is called delayed,
             // but we need Turba's $conf.
@@ -577,6 +578,10 @@ class Turba_Application extends Horde_Registry_Application
 
         $count = 0;
         switch ($data->getType()) {
+        case 'preferences':
+                $count = $this->_restorePrefs($data, 'turba');
+                break;
+
         case 'addressbooks':
             $turba_shares = $injector->getInstance('Turba_Shares');
             foreach ($data as $addressbook) {

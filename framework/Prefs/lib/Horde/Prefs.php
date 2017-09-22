@@ -145,6 +145,21 @@ class Horde_Prefs implements ArrayAccess
     }
 
     /**
+     * Returns the current scope object.
+     *
+     * @since 2.9.0
+     *
+     * @return Horde_Prefs_Scope  The current scope object.
+     */
+    public function getScopeObject($scope = null)
+    {
+        if (!is_null($scope)) {
+            $this->changeScope($scope);
+        }
+        return $this->_scopes[$this->_scope];
+    }
+
+    /**
      * Returns the storage drivers.
      *
      * @return array  The storage drivers.

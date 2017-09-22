@@ -255,6 +255,61 @@ class Horde_Registry_Application implements Horde_Shutdown_Task
     }
 
     /**
+     * Extends a backup with some application's preferences.
+     *
+     * @param \Horde\Backup\User $backup  A backup object to extend with
+     *                                    preference information.
+     * @param string $app                 An application name.
+     */
+    protected function _backupPrefs(Backup\User $backup, $app)
+    {
+        global $injector;
+
+        $prefs = $injector->getInstance('Horde_Core_Factory_Prefs')
+            ->create($app, array('user' => $backup->user));
+        $prefs->retrieve();
+        $scope = $prefs->getScopeObject($app);
+        $values = array();
+        foreach ($scope as $key => $value) {
+            if (!$scope->isDefault($key)) {
+                $values[$key] = $scope->get($key);
+            }
+        }
+        $backup->collections[] = new Backup\Collection(
+            new ArrayIterator($values),
+            $user,
+            'preferences'
+        );
+    }
+
+    /**
+     * Restores the preferences for an application.
+     *
+     * @param Backup\Collection $data  Backup data for the specified
+     *                                 application.
+     * @param string $app              An application name.
+     *
+     * @return integer  Number of restored preferences.
+     */
+    protected function _restorePrefs(Backup\Collection $data, $app)
+    {
+        global $injector;
+
+        $prefs = $injector->getInstance('Horde_Core_Factory_Prefs')
+            ->create($app, array('user' => $data->getUser()));
+        $prefs->retrieve();
+
+        $count = 0;
+        foreach ($data as $key => $value) {
+            $prefs->setValue($key, $value);
+            $count++;
+        }
+        $prefs->store();
+
+        return $count;
+    }
+
+    /**
      * Return the initial page to access.
      *
      * @since 2.12.0
