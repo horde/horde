@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Fix retrieving one of multiple public PGP keys (mh &lt;mh@immerda.ch&gt;).
 * [jan] Fix generating PDF thumbnails with imagick extension 3.3.0+ (arjen+horde@de-korte.org, Bug #14697).
  </notes>
  <contents>
@@ -4055,6 +4056,7 @@
    <date>2017-09-19</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix retrieving one of multiple public PGP keys (mh &lt;mh@immerda.ch&gt;).
 * [jan] Fix generating PDF thumbnails with imagick extension 3.3.0+ (arjen+horde@de-korte.org, Bug #14697).
    </notes>
   </release>

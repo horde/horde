@@ -278,7 +278,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
          * the array. There is no way of knowing which is the "preferred" key,
          * if the keys are different. */
         if (is_array($result)) {
-            reset($result);
+            $result = reset($result);
         }
 
         return $result;
