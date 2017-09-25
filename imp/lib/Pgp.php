@@ -359,7 +359,7 @@ class IMP_Pgp
          * the array. There is no way of knowing which is the "preferred" key,
          * if the keys are different. */
         if (is_array($result)) {
-            reset($result);
+            $result = reset($result);
         }
 
         return $result;
