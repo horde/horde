@@ -54,7 +54,7 @@ class Horde_Test
      *        error: (string) Error message
      *        fatal: (boolean) Is missing extension fatal?
      *        function: (string) Reference to function to run. If function
-     *                  returns boolean true, error message will be output.
+     *                  returns boolean false, error message will be output.
      *                  If function returns a string, this error message
      *                  will be used.
      *        phpver: (string) The PHP version above which to do the test
@@ -104,9 +104,10 @@ class Horde_Test
             'error' => 'Horde will not run without the hash extension. Don\'t compile PHP with <code>--disable-all/--disable-hash</code>.',
             'fatal' => true
         ),
-        'horde_lz4' => array(
-            'descrip' => 'LZ4 Compression Support (PECL extension)',
-            'error' => 'If the horde_lz4 PECL extension is available, Horde can perform real-time compression on cached data to optimize storage resources.'
+        'horde_lz4/lzf' => array(
+            'descrip' => 'LZ4/LZF Compression Support (PECL extension)',
+            'error' => 'If the horde_lz4 or lzf PECL extensions are available, Horde can perform real-time compression on cached data to optimize storage resources. It is recommended to use horde_lz4, as its compression speed is twice as fast as the lzf extension\'s.',
+            'function' => '_checkLzCompression'
         ),
         'iconv' => array(
             'descrip' => 'Iconv Support',
@@ -134,27 +135,24 @@ class Horde_Test
             'descrip' => 'LDAP Support',
             'error' => 'LDAP support is only required if you want to use an LDAP server for anything like authentication, address books, or preference storage. Compile PHP with <code>--with-ldap</code> to activate the extension.'
         ),
-        'lzf' => array(
-            'descrip' => 'LZF Compression Support (PECL extension)',
-            'error' => 'If the lzf PECL extension is available, Horde can perform real-time compression on cached data to optimize storage resources. It is recommended to use horde_lz4 instead, as its compression speed is twice as fast as this extension.'
-        ),
         'mbstring' => array(
             'descrip' => 'Mbstring Support',
             'error' => 'If you want to take full advantage of Horde\'s localization features and character set support, you will need the mbstring extension. Compile PHP with <code>--enable-mbstring</code> to activate the extension.'
         ),
-        'memcache' => array(
+        'memcached' => array(
             'descrip' => 'Memcached Support (PECL extension)',
             'error' => 'The memcache(d) PECL extension is only needed if you are using a Memcached server for caching or sessions. See horde/docs/INSTALL for information on how to install PECL/PHP extensions.',
             'function' => '_checkMemcache'
         ),
-        'mongo' => array(
+        'mongodb' => array(
             'descrip' => 'MongoDB support (PECL extension)',
-            'error' => 'If you want to use the MongoDB NoSQL database backend, you must install this extension.',
+            'error' => 'If you want to use the MongoDB NoSQL database backend, you must install the mongo(db) extension.',
             'function' => '_checkMongo'
         ),
         'mysql' => array(
             'descrip' => 'MySQL Support',
-            'error' => 'The MySQL extension is only required if you want to use a MySQL database server for data storage. See the PHP documentation on how to enable MySQL support when compiling PHP.'
+            'error' => 'The MySQL extensions are only required if you want to use a MySQL database server for data storage. See the PHP documentation on how to enable MySQL support when compiling PHP.',
+            'function' => '_checkMysql'
         ),
         'openssl' => array(
             'descrip' => 'OpenSSL Support',
@@ -251,7 +249,7 @@ class Horde_Test
         ),
         'session.gc_probability' => array(
             'setting' => 'value',
-            'error' => 'PHP automatically garbage collects old session information, as long as this setting (and session.gc_divisor) are set to non-zero. It is recommended that this value be "1".',
+            'error' => 'PHP automatically garbage collects old session information, as long as this setting (and session.gc_divisor) are set to non-zero. It is recommended that this value be "1". Some distributions may implement the garbage collection externally through a cronjob though.',
             'function' => '_checkGcProbability'
         ),
         'session.use_trans_sid' => array(
@@ -293,6 +291,9 @@ class Horde_Test
         ),
         'Services_Weather' => array(
             'error' => 'Services_Weather is used by the METAR weather applet/block on the portal page.'
+        ),
+        'Predis\\Client' => array(
+            'error' => 'The Predis library is only needed if you are using a Redis server as a hash table backend for caching or sessions. This library is provided by the pear.nrk.io PEAR channel.',
         ),
     );
 
@@ -462,6 +463,16 @@ class Horde_Test
     }
 
     /**
+     * Check for either horde_lz4 or lzf.
+     *
+     * @return boolean  False on error.
+     */
+    protected function _checkLzCompression()
+    {
+        return extension_loaded('horde_lz4') || extension_loaded('lzf');
+    }
+
+    /**
      * Additional check for iconv module implementation.
      *
      * @return boolean  False on error.
@@ -534,6 +545,13 @@ class Horde_Test
         }
 
         return true;
+    }
+
+    /**
+     */
+    protected function _checkMysql()
+    {
+        return extension_loaded('mysqli') || extension_loaded('pdo_mysql');
     }
 
     /**
