@@ -148,7 +148,8 @@ class Horde_Test
         ),
         'mysql' => array(
             'descrip' => 'MySQL Support',
-            'error' => 'The MySQL extension is only required if you want to use a MySQL database server for data storage. See the PHP documentation on how to enable MySQL support when compiling PHP.'
+            'error' => 'The MySQL extensions are only required if you want to use a MySQL database server for data storage. See the PHP documentation on how to enable MySQL support when compiling PHP.',
+            'function' => '_checkMysql'
         ),
         'openssl' => array(
             'descrip' => 'OpenSSL Support',
@@ -538,6 +539,13 @@ class Horde_Test
         }
 
         return true;
+    }
+
+    /**
+     */
+    protected function _checkMysql()
+    {
+        return extension_loaded('mysqli') || extension_loaded('pdo_mysql');
     }
 
     /**
