@@ -1081,6 +1081,8 @@ class Horde_Icalendar
 
             default:
                 if ($this->_oldFormat) {
+                    // FIXME: No need to make this dependent on the number of
+                    // values.
                     if (is_array($attribute['values']) &&
                         count($attribute['values']) > 1) {
                         $values = $attribute['values'];
