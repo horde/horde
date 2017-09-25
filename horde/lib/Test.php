@@ -246,7 +246,7 @@ class Horde_Test
         ),
         'session.gc_probability' => array(
             'setting' => 'value',
-            'error' => 'PHP automatically garbage collects old session information, as long as this setting (and session.gc_divisor) are set to non-zero. It is recommended that this value be "1".',
+            'error' => 'PHP automatically garbage collects old session information, as long as this setting (and session.gc_divisor) are set to non-zero. It is recommended that this value be "1". Some distributions may implement the garbage collection externally through a cronjob though.',
             'function' => '_checkGcProbability'
         ),
         'session.use_trans_sid' => array(
