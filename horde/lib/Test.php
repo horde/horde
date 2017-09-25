@@ -289,6 +289,9 @@ class Horde_Test
         'Math_BigInteger' => array(
             'error' => 'The Math_BigInteger library is used in decoding certain embedded attachments in TNEF data.',
         ),
+        'Predis\\Client' => array(
+            'error' => 'The Predis library is only needed if you are using a Redis server as a hash table backend for caching or sessions. This library is provided by the pear.nrk.io PEAR channel.',
+        ),
     );
 
     /**
