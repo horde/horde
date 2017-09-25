@@ -105,9 +105,10 @@ class Horde_Test
             'error' => 'Horde will not run without the hash extension. Don\'t compile PHP with <code>--disable-all/--disable-hash</code>.',
             'fatal' => true
         ),
-        'horde_lz4' => array(
-            'descrip' => 'LZ4 Compression Support (PECL extension)',
-            'error' => 'If the horde_lz4 PECL extension is available, Horde can perform real-time compression on cached data to optimize storage resources.'
+        'horde_lz4/lzf' => array(
+            'descrip' => 'LZ4/LZF Compression Support (PECL extension)',
+            'error' => 'If the horde_lz4 or lzf PECL extensions are available, Horde can perform real-time compression on cached data to optimize storage resources. It is recommended to use horde_lz4, as its compression speed is twice as fast as the lzf extension\'s.',
+            'function' => '_checkLzCompression'
         ),
         'iconv' => array(
             'descrip' => 'Iconv Support',
@@ -131,22 +132,18 @@ class Horde_Test
             'descrip' => 'LDAP Support',
             'error' => 'LDAP support is only required if you want to use an LDAP server for anything like authentication, address books, or preference storage. Compile PHP with <code>--with-ldap</code> to activate the extension.'
         ),
-        'lzf' => array(
-            'descrip' => 'LZF Compression Support (PECL extension)',
-            'error' => 'If the lzf PECL extension is available, Horde can perform real-time compression on cached data to optimize storage resources. It is recommended to use horde_lz4 instead, as its compression speed is twice as fast as this extension.'
-        ),
         'mbstring' => array(
             'descrip' => 'Mbstring Support',
             'error' => 'If you want to take full advantage of Horde\'s localization features and character set support, you will need the mbstring extension. Compile PHP with <code>--enable-mbstring</code> to activate the extension.'
         ),
-        'memcache' => array(
+        'memcached' => array(
             'descrip' => 'Memcached Support (PECL extension)',
             'error' => 'The memcache(d) PECL extension is only needed if you are using a Memcached server for caching or sessions. See horde/docs/INSTALL for information on how to install PECL/PHP extensions.',
             'function' => '_checkMemcache'
         ),
-        'mongo' => array(
+        'mongodb' => array(
             'descrip' => 'MongoDB support (PECL extension)',
-            'error' => 'If you want to use the MongoDB NoSQL database backend, you must install this extension.',
+            'error' => 'If you want to use the MongoDB NoSQL database backend, you must install the mongo(db) extension.',
             'function' => '_checkMongo'
         ),
         'mysql' => array(
@@ -456,6 +453,16 @@ class Horde_Test
         }
 
         return $output;
+    }
+
+    /**
+     * Check for either horde_lz4 or lzf.
+     *
+     * @return boolean  False on error.
+     */
+    protected function _checkLzCompression()
+    {
+        return extension_loaded('horde_lz4') || extension_loaded('lzf');
     }
 
     /**
