@@ -354,6 +354,9 @@ class Horde_Registry_Application implements Horde_Shutdown_Task
     /**
      * Prepare data to deliver to browser for download.
      *
+     * IMPORTANT: Applications providing this method MUST implement
+     * authentication/permission checking themselves!
+     *
      * @param Horde_Variables $vars  Form variables provided to download
      *                               script. The filename is available in
      *                               the 'filename' parameter.
