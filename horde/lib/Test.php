@@ -55,7 +55,7 @@ class Horde_Test
      *        error: (string) Error message
      *        fatal: (boolean) Is missing extension fatal?
      *        function: (string) Reference to function to run. If function
-     *                  returns boolean true, error message will be output.
+     *                  returns boolean false, error message will be output.
      *                  If function returns a string, this error message
      *                  will be used.
      *        phpver: (string) The PHP version above which to do the test
