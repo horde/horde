@@ -2,6 +2,8 @@
 v6.2.22-git
 -----------
 
+[jan] Fix generating PDF thumbnails with imagick extension 3.3.0+
+      (arjen+horde@de-korte.org, Bug #14697).
 
 
 -------

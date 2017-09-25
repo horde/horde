@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [jan] Fix generating PDF thumbnails with imagick extension 3.3.0+ (arjen+horde@de-korte.org, Bug #14697).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4055,7 +4055,7 @@
    <date>2017-09-19</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [jan] Fix generating PDF thumbnails with imagick extension 3.3.0+ (arjen+horde@de-korte.org, Bug #14697).
    </notes>
   </release>
  </changelog>
