@@ -4023,10 +4023,23 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-08-01</date>
+   <date>2017-09-19</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Officially support PHP 7.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>6.2.22</release>
+    <api>6.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2017-09-19</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Fix generating PDF thumbnails with imagick extension 3.3.0+ (arjen+horde@de-korte.org, Bug #14697).
    </notes>
   </release>
   <release>
