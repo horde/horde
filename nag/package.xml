@@ -1870,12 +1870,26 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-08-15</date>
+   <date>2017-09-21</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] SECURITY: Fix unauthorized access to task exports.
 * [jan] Fix regression when exporting single tags to iCalendar CATEGORIES.
 * [jan] Officially support PHP 7.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.18</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2017-09-21</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Fix notice when re-exporting tasks without priority (Bug #14699).
+* [jan] Fix regression in exporting single tags to iCalendar CATEGORIES (Bug #14699).
    </notes>
   </release>
   <release>
