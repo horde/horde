@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [jan] Fix regression in exporting single tags to iCalendar CATEGORIES (Bug #14698).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2819,7 +2819,7 @@
    <date>2017-09-19</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [jan] Fix regression in exporting single tags to iCalendar CATEGORIES (Bug #14698).
    </notes>
   </release>
  </changelog>

@@ -2,6 +2,8 @@
 v4.2.24-git
 -----------
 
+[jan] Fix regression in exporting single tags to iCalendar CATEGORIES (Bug
+      #14698).
 
 
 -------
