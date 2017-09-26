@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Fix notice when re-exporting tasks without priority (Bug #14699).
 * [jan] Fix regression in exporting single tags to iCalendar CATEGORIES (Bug #14699).
  </notes>
  <contents>
@@ -1847,6 +1848,7 @@
    <date>2017-09-21</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix notice when re-exporting tasks without priority (Bug #14699).
 * [jan] Fix regression in exporting single tags to iCalendar CATEGORIES (Bug #14699).
    </notes>
   </release>

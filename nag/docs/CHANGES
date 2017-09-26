@@ -2,6 +2,7 @@
 v4.2.18-git
 -----------
 
+[jan] Fix notice when re-exporting tasks without priority (Bug #14699).
 [jan] Fix regression in exporting single tags to iCalendar CATEGORIES (Bug
       #14699).
 

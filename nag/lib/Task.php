@@ -1236,6 +1236,7 @@ class Nag_Task
 
         if (isset($this->priority)) {
             $priorityMap = array(
+                0 => 5,
                 1 => 1,
                 2 => 3,
                 3 => 5,
