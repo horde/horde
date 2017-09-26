@@ -1298,11 +1298,7 @@ class Nag_Task
         }
 
         if ($this->tags) {
-            if (count($this->tags) == 1) {
-                $vTodo->setAttribute('CATEGORIES', $this->tags[0]);
-            } else {
-                $vTodo->setAttribute('CATEGORIES', '', array(), true, $this->tags);
-            }
+            $vTodo->setAttribute('CATEGORIES', '', array(), true, array_values($this->tags));
         }
 
         /* Get the task's history. */
