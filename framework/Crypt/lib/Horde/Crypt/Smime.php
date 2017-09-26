@@ -534,70 +534,106 @@ class Horde_Crypt_Smime extends Horde_Crypt
         $text = '<pre class="fixed">';
 
         /* Subject (a/k/a Certificate Owner) */
-        $text .= "<strong>" . Horde_Crypt_Translation::t("Certificate Owner") . ":</strong>\n";
+        $text .= '<strong>' . Horde_Crypt_Translation::t("Certificate Owner")
+            . ':</strong>';
 
         foreach ($details['subject'] as $key => $value) {
-            $value = htmlspecialchars($this->_implodeValues($value));
-            $text .= isset($fieldnames[$key])
-                ? sprintf("&nbsp;&nbsp;%s: %s\n", htmlspecialchars($fieldnames[$key]), $value)
-                : sprintf("&nbsp;&nbsp;*%s: %s\n", htmlspecialchars($key), $value);
+            $text .= sprintf(
+                "\n&nbsp;&nbsp;%s: %s",
+                 htmlspecialchars(
+                     isset($fieldnames[$key]) ? $fieldnames[$key] : $key
+                 ),
+                htmlspecialchars($value)
+            );
         }
         $text .= "\n";
 
         /* Issuer */
-        $text .= "<strong>" . Horde_Crypt_Translation::t("Issuer") . ":</strong>\n";
+        $text .=
+            '<strong>' . Horde_Crypt_Translation::t("Issuer") . ':</strong>';
 
         foreach ($details['issuer'] as $key => $value) {
-            $value = htmlspecialchars($this->_implodeValues($value));
-            $text .= isset($fieldnames[$key])
-                ? sprintf("&nbsp;&nbsp;%s: %s\n", htmlspecialchars($fieldnames[$key]), $value)
-                : sprintf("&nbsp;&nbsp;*%s: %s\n", htmlspecialchars($key), $value);
+            $text .= sprintf(
+                "\n&nbsp;&nbsp;%s: %s",
+                htmlspecialchars(
+                    isset($fieldnames[$key]) ? $fieldnames[$key] : $key
+                ),
+                htmlspecialchars($value)
+            );
         }
         $text .= "\n";
 
         /* Dates  */
-        $text .= "<strong>" . Horde_Crypt_Translation::t("Validity") . ":</strong>\n" .
-            sprintf("&nbsp;&nbsp;%s: %s\n", Horde_Crypt_Translation::t("Not Before"), strftime("%x %X", $details['validity']['notbefore']->getTimestamp())) .
-            sprintf("&nbsp;&nbsp;%s: %s\n", Horde_Crypt_Translation::t("Not After"), strftime("%x %X", $details['validity']['notafter']->getTimestamp())) .
-            "\n";
+        $text .=
+            '<strong>' . Horde_Crypt_Translation::t("Validity") . ':</strong>'
+            . sprintf(
+                "\n&nbsp;&nbsp;%s: %s",
+                Horde_Crypt_Translation::t("Not Before"),
+                strftime(
+                    '%x %X', $details['validity']['notbefore']->getTimestamp()
+                )
+            )
+            . sprintf(
+                "\n&nbsp;&nbsp;%s: %s",
+                Horde_Crypt_Translation::t("Not After"),
+                strftime(
+                    '%x %X', $details['validity']['notafter']->getTimestamp()
+                )
+            );
 
         /* X509v3 extensions */
         if (!empty($details['extensions'])) {
-            $text .= "<strong>" . Horde_Crypt_Translation::t("X509v3 extensions") . ":</strong>\n";
+            $text .= "\n" . '<strong>'
+                . Horde_Crypt_Translation::t("X509v3 extensions")
+                . ':</strong>';
 
             foreach ($details['extensions'] as $key => $value) {
-                $value = htmlspecialchars(trim($this->_implodeValues($value, 6)));
-                $text .= isset($fieldnames[$key])
-                    ? sprintf("&nbsp;&nbsp;%s:\n&nbsp;&nbsp;&nbsp;&nbsp;%s\n", htmlspecialchars($fieldnames[$key]), $value)
-                    : sprintf("&nbsp;&nbsp;*%s:\n&nbsp;&nbsp;&nbsp;&nbsp;%s\n", htmlspecialchars($key), $value);
+                $value = $this->_implodeValues($value);
+                $text .= sprintf(
+                    "\n&nbsp;&nbsp;%s:\n%s",
+                    htmlspecialchars(
+                        isset($fieldnames[$key]) ? $fieldnames[$key] : $key
+                    ),
+                    $value
+                );
             }
-
-            $text .= "\n";
         }
+        $text .= "\n";
 
         /* Certificate Details */
-        $text .= "<strong>" . Horde_Crypt_Translation::t("Certificate Details") . ":</strong>\n" .
-            sprintf("&nbsp;&nbsp;%s: %d\n", Horde_Crypt_Translation::t("Version"), $details['version']) .
-            sprintf("&nbsp;&nbsp;%s: %d\n", Horde_Crypt_Translation::t("Serial Number"), $details['serialNumber']);
+        $text .= '<strong>' . Horde_Crypt_Translation::t("Certificate Details")
+            . ':</strong>'
+            . sprintf(
+                "\n&nbsp;&nbsp;%s: %d",
+                Horde_Crypt_Translation::t("Version"),
+                $details['version']
+            )
+            . sprintf(
+                "\n&nbsp;&nbsp;%s: %d",
+                Horde_Crypt_Translation::t("Serial Number"),
+                $details['serialNumber']
+            );
 
-        return $text . "\n</pre>";
+        return $text . '</pre>';
     }
 
     /**
      * Formats a multi-value cert field.
      *
-     * @param array|string $value  A cert field value.
-     * @param integer $indent      The indention level.
+     * @param array|string $values  A cert field value.
+     * @param integer $indent       The indention level.
      *
      * @return string  The formatted cert field value(s).
      */
-    protected function _implodeValues($value, $indent = 4)
+    protected function _implodeValues($values)
     {
-        if (is_array($value)) {
-            $value = "\n" . str_repeat('&nbsp;', $indent)
-                . implode("\n" . str_repeat('&nbsp;', $indent), $value);
+        if (!is_array($values)) {
+            $values = explode("\n", trim($values));
         }
-        return $value;
+        foreach ($values as &$value) {
+            $value = str_repeat('&nbsp;', 4) . htmlspecialchars($value);
+        }
+        return implode("\n", $values);
     }
 
     /**
