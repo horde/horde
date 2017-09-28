@@ -358,6 +358,12 @@ class Ingo_Script_Maildrop extends Ingo_Script_Base
                     $rule->level
                 )
             ));
+        } elseif ($this->_params['spam_compare'] == 'boolean') {
+            $recipe->addCondition(array(
+                'match' => 'is',
+                'field' => $this->_params['spam_header'],
+                'value' => $this->_params['spam_value']
+            ));
         }
 
         $this->_addItem(Ingo::RULE_SPAM, $recipe);

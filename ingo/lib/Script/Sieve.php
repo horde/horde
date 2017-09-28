@@ -467,6 +467,14 @@ class Ingo_Script_Sieve extends Ingo_Script_Base
                 'comparator' => 'i;ascii-casemap',
             );
             $test = new Ingo_Script_Sieve_Test_Header($vals);
+        } elseif ($this->_params['spam_compare'] == 'boolean') {
+            $vals = array(
+                'headers' => $this->_params['spam_header'],
+                'match-type' => ':is',
+                'strings' => $this->_params['spam_value'],
+                'comparator' => 'i;ascii-casemap',
+            );
+            $test = new Ingo_Script_Sieve_Test_Header($vals);
         }
 
         $actions[] = new Ingo_Script_Sieve_Action_Stop();
