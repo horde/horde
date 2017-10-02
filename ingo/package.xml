@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [jan] Add support for boolean spam headers (Adam James &lt;adam.james@transitiv.co.uk&gt;).
 * [jan] Allow to specify time limits for vacation messages if supported.
 * [jan] Allow to set vaction with only start or end date, if supported.
 * [jan] Add support for Sieve date extension to vacation messages (Request #12520).
@@ -1793,6 +1794,7 @@
    </stability>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [jan] Add support for boolean spam headers (Adam James &lt;adam.james@transitiv.co.uk&gt;).
 * [jan] Allow to specify time limits for vacation messages if supported.
 * [jan] Allow to set vaction with only start or end date, if supported.
 * [jan] Add support for Sieve date extension to vacation messages (Request #12520).
