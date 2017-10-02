@@ -39,6 +39,12 @@
     &quot;*&quot;, then &quot;****&quot; in the header indicates a spam level
     of four.">*</configstring>
    </case>
+   <case name="boolean" desc="Boolean">
+    <configstring name="header" desc="The spam header to
+    check">X-Spam</configstring>
+    <configstring name="value" desc="The value of the spam header when a mail
+    is identified as spam.">Yes</configstring>
+   </case>
   </configswitch>
  </configsection>
 </configuration>

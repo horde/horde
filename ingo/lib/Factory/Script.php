@@ -86,6 +86,10 @@ class Ingo_Factory_Script extends Horde_Core_Factory_Base
             ($params['spam_compare'] == 'string')) {
             $params['spam_char'] = $conf['spam']['char'];
         }
+        if (!isset($params['spam_value']) &&
+            ($params['spam_compare'] == 'boolean')) {
+            $params['spam_value'] = $conf['spam']['value'];
+        }
 
         switch ($driver) {
         case 'Imap':
