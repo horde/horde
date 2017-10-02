@@ -143,39 +143,45 @@ class Horde_Compress_ZipTest extends Horde_Test_Case
             $zip_data, array('action' => Horde_Compress_Zip::ZIP_LIST)
         );
         $this->assertCount(3, $list);
-        $this->assertEquals('one.txt', $list[0]['name']);
-        $this->assertEquals(4, $list[0]['size']);
-        $this->assertEquals('sub/three.txt', $list[1]['name']);
-        $this->assertEquals(6, $list[1]['size']);
-        $this->assertEquals('two.bin', $list[2]['name']);
-        $this->assertEquals(2, $list[2]['size']);
+        for ($i=0 ; $i<3 ; $i++) {
+            $index[$list[$i]['name']] = $i;
+        }
 
+        $this->assertArrayHasKey($k='one.txt', $index);
+        $this->assertEquals($k, $list[$index[$k]]['name']);
+        $this->assertEquals(4, $list[$index[$k]]['size']);
         $data = $compress->decompress(
             $zip_data,
             array(
                 'action' => Horde_Compress_Zip::ZIP_DATA,
                 'info' => $list,
-                'key' => 0
+                'key' => $index[$k]
             )
         );
         $this->assertEquals("One\n", $data);
 
+        $this->assertArrayHasKey($k='sub/three.txt', $index);
+        $this->assertEquals($k, $list[$index[$k]]['name']);
+        $this->assertEquals(6, $list[$index[$k]]['size']);
         $data = $compress->decompress(
             $zip_data,
             array(
                 'action' => Horde_Compress_Zip::ZIP_DATA,
                 'info' => $list,
-                'key' => 1
+                'key' => $index[$k]
             )
         );
         $this->assertEquals("Three\n", $data);
 
+        $this->assertArrayHasKey($k='two.bin', $index);
+        $this->assertEquals('two.bin', $list[$index[$k]]['name']);
+        $this->assertEquals(2, $list[$index[$k]]['size']);
         $data = $compress->decompress(
             $zip_data,
             array(
                 'action' => Horde_Compress_Zip::ZIP_DATA,
                 'info' => $list,
-                'key' => 2
+                'key' => $index[$k]
             )
         );
         $this->assertEquals("\x02\x0a", $data);
