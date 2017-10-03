@@ -93,9 +93,9 @@ class IMP_Quota_Ui
             $quota['usage'] = $quota['usage'] / $calc;
             $quota['limit'] = $quota['limit'] / $calc;
             $ret['raw_percent'] = ($quota['usage'] * 100) / $quota['limit'];
-            if ($ret['percent'] >= 90) {
+            if ($ret['raw_percent'] >= 90) {
                 $ret['class'] = 'quotaalert';
-            } elseif ($ret['percent'] >= 75) {
+            } elseif ($ret['raw_percent'] >= 75) {
                 $ret['class'] = 'quotawarn';
             }
 
