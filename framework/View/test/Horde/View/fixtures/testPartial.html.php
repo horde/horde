@@ -1,1 +1,0 @@
-<div><?php echo @$this->myVar1 ?><?php echo $this->renderPartial('myPartial') ?></div>

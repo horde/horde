@@ -1,9 +1,0 @@
----
-id: Mail_Autoconfig
-name: Mail_Autoconfig
-full: Mail server autoconfiguration library
-description: >
-  Attempts to automatically determine configuration options for various remote
-  mail services (IMAP/POP3/SMTP).
-list: dev
-type: library

@@ -1,9 +1,0 @@
----
-id: Timezone
-name: Timezone
-full: Timezone library
-description: >
-  Library for parsing timezone databases and generating VTIMEZONE iCalendar
-  components.
-list: dev
-type: library

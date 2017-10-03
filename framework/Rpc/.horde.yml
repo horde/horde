@@ -1,9 +1,0 @@
----
-id: Rpc
-name: Rpc
-full: RPC library
-description: >
-  A common abstracted interface to various remote methods of accessing Horde
-  functionality.
-list: dev
-type: library

@@ -1,8 +1,0 @@
-Foo Bar
-- -Dash line should be escaped
- -This line should not be escaped
-01234567890
-- From lines should also be escaped
- From line that should not be escaped
-ABCDEFG
-

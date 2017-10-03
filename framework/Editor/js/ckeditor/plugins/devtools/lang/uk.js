@@ -1,1 +1,0 @@
-CKEDITOR.plugins.setLang("devtools","uk",{devTools:{title:"Відомості про Елемент",dialogName:"Заголовок діалогового вікна",tabName:"Назва вкладки",elementId:"Ідентифікатор Елемента",elementType:"Тип Елемента"}});

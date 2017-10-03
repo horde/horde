@@ -1,2 +1,0 @@
-# This is a hylafax configuration file to override the server one.
-JobFmt:         "%j|%a|%o|%e|%P|%D|%z|%s"

@@ -1,9 +1,0 @@
-<nowiki>
-The nowiki tag ignores [[Wiki]] ''markup''.
-It reformats text by removing newlines 
-and multiple spaces.
-It still interprets special
-characters: &rarr;
-</nowiki>
-
-Some text <nowiki>''ignores markup''</nowiki> more text

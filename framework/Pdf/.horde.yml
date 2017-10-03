@@ -1,7 +1,0 @@
----
-id: Pdf
-name: Pdf
-full: PDF writer library
-description: PDF generation using only PHP, without requiring any external libraries.
-list: dev
-type: library

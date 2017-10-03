@@ -1,9 +1,0 @@
----
-id: Notification
-name: Notification
-full: Notification library implementing subject-observer pattern
-description: >
-  A library implementing a subject-observer pattern for raising and showing
-  messages of different types and to different listeners.
-list: dev
-type: library

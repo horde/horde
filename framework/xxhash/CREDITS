@@ -1,9 +1,0 @@
-horde_xxhash extension
-
-This package is maintained by The Horde Project (http://www.horde.org/).
-Copyright 2014-2017 Horde LLC
-
-The php-ext-xxhash package is released under the BSD License.
-
-The xxHash C source was created by Yann Collet and released under the BSD
-license.

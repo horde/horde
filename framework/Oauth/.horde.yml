@@ -1,9 +1,0 @@
----
-id: Oauth
-name: Oauth
-full: OAuth client library
-description: >
-  An OAuth consumer (http://oauth.net) and OAuth infrastructure, and in the
-  future will provide an OAuth server.
-list: dev
-type: library

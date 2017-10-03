@@ -1,1 +1,0 @@
-<div>test <?php echo $this->h($this->myVar) ?> quotes</div>

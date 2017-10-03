@@ -1,2 +1,0 @@
-<?php
-$conf['a'] = null;

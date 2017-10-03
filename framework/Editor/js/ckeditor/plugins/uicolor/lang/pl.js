@@ -1,1 +1,0 @@
-CKEDITOR.plugins.setLang("uicolor","pl",{uicolor:{title:"Wybór koloru interfejsu",preview:"Podgląd na żywo",config:"Wklej poniższy łańcuch znaków do pliku config.js:",predefined:"Predefiniowane zestawy kolorów"}});

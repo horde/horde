@@ -1,7 +1,0 @@
----
-id: Scheduler
-name: Scheduler
-full: Scheduling library
-description: Horde Scheduler System
-list: dev
-type: library

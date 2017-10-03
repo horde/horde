@@ -1,3 +1,0 @@
-<?php
-$conf['pear']['server'] = 'pear.horde.org';
-$conf['pear']['config'] = '/etc/pear/pear.conf';

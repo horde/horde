@@ -1,1 +1,0 @@
-CKEDITOR.plugins.setLang("placeholder","lv",{placeholder:{title:"Viettura uzstādījumi",toolbar:"Izveidot vietturi",text:"Viettura teksts",edit:"Labot vietturi",textMissing:"Vietturim jāsatur tekstu"}});

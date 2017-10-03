@@ -1,1 +1,0 @@
-<div><?php echo $this->renderPartial('myPartialObject', array('object' => $this->myObject)) ?></div>

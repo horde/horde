@@ -1,9 +1,0 @@
----
-id: History
-name: History
-full: History tracking library
-description: >
-  The Horde_History API provides a way to track changes on arbitrary pieces of
-  data in Horde applications.
-list: dev
-type: library

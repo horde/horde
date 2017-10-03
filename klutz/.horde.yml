@@ -1,7 +1,0 @@
----
-id: klutz
-name: Klutz
-full: Comic reader application
-description: Klutz is a Horde comics-fetching module.
-list: horde
-type: application

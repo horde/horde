@@ -1,8 +1,0 @@
----
-id: Autoloader_Cache
-name: Autoloader_Cache
-full: Caching library for Horde_Autoloader
-description: |
-  Extension of the Horde_Autoloader that implements caching of class-file-maps. The caching method is determined automatically from the list of supported cache backends: APC, XCache, eAccelerator, local file system.
-list: dev
-type: library

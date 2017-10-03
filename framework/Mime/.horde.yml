@@ -1,9 +1,0 @@
----
-id: Mime
-name: Mime
-full: MIME library
-description: >
-  Provides methods for dealing with Multipurpose Internet Mail Extensions (MIME)
-  features (RFC 2045/2046/2047).
-list: dev
-type: library

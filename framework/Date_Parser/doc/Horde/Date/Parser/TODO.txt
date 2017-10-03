@@ -1,2 +1,0 @@
-- Horde_Date_Repeater_Weekday
-- tests from http://www.datejs.com/test/index.html

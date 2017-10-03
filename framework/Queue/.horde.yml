@@ -1,7 +1,0 @@
----
-id: Queue
-name: Queue
-full: Message and data queuing client library
-description: Queue layer with various storage backends and runners
-list: dev
-type: library

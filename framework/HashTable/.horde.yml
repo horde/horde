@@ -1,7 +1,0 @@
----
-id: HashTable
-name: HashTable
-full: Hash table client library
-description: Provides an abstract API to access various hash table implementations.
-list: dev
-type: library

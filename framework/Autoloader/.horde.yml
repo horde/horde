@@ -1,7 +1,0 @@
----
-id: Autoloader
-name: Autoloader
-full: Autoloader library
-description: Autoload implementation and class loading manager for Horde.
-list: dev
-type: library

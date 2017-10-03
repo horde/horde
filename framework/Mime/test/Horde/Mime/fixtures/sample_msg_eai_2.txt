@@ -1,5 +1,0 @@
-From: Jøran Øygårdvær <jøran@example.com>
-To: Arnt Gulbrandsen <arnt@example.com>
-Date: Thu, 20 May 2004 14:28:51 +0200
-
-asdf

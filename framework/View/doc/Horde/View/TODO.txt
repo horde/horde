@@ -1,1 +1,0 @@
-- support embedded [CSS] images (see http://bugs.horde.org/ticket/7174)

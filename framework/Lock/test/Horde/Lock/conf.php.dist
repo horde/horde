@@ -1,2 +1,0 @@
-<?php
-$conf['lock']['mongo'] = 'localhost';

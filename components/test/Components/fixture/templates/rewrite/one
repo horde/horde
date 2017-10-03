@@ -1,5 +1,0 @@
-<?php
-
-echo $one;
-
-$target = 'rewritten';

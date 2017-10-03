@@ -1,6 +1,0 @@
-Subject: This subject has a trailing whitespace
-    
-From: "Test User" <test@example.com>
-
-Body Text.
-

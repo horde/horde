@@ -1,7 +1,0 @@
----
-id: Release
-name: Release
-full: Component release library
-description: Tools necessary to create the Horde distribution packages.
-list: dev
-type: library

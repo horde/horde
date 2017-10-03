@@ -1,3 +1,0 @@
-<?php
-$notes['name'] = 'Timeobjects';
-return $notes;

@@ -1,1 +1,0 @@
-CKEDITOR.plugins.setLang("devtools","pt-br",{devTools:{title:"Informação do Elemento",dialogName:"Nome da janela de diálogo",tabName:"Nome da aba",elementId:"ID do elemento",elementType:"Tipo do elemento"}});

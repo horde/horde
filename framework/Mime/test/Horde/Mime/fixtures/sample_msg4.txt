@@ -1,9 +1,0 @@
-Message-ID: <asdl8ahwhoadsadl@example.com>
-Date: Tue, 07 Jul 2013 10:21:48 -0600
-From: "Test Q. User" <test@example.com>
-To: foo@example.com
-Subject: Test
-MIME-Version: 1.0
-
-
-Test.

@@ -1,5 +1,0 @@
-<?php
-$conf['managesieve']['host'] = 'localhost';
-$conf['managesieve']['port'] = 4190;
-$conf['managesieve']['username'] = 'user';
-$conf['managesieve']['password'] = 'pass';

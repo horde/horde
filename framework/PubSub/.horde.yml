@@ -1,7 +1,0 @@
----
-id: PubSub
-name: PubSub
-full: Publish/Subscribe library
-description: Horde Publish/Subscribe package that can act as an inter-app messaging hub.
-list: dev
-type: library

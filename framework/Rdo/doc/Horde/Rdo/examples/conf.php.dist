@@ -1,4 +1,0 @@
-<?php
-
-// Dist config file for Rdo examples.
-$conf['adapter'] = new Horde_Db_Adapter_Pdo_Sqlite(array('dbname' => ':memory'));

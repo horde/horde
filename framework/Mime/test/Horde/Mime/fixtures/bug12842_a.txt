@@ -1,7 +1,0 @@
-Content-Type: multipart/related; boundary="=_123"
-MIME-Version: 1.0
-
---=_123
-Content-Type: text/plain
-
-FOO

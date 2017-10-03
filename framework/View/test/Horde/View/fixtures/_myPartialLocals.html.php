@@ -1,1 +1,0 @@
-<p><?php echo $a ?> <?php echo $b ?></p>

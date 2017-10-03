@@ -1,7 +1,0 @@
----
-id: Group
-name: Group
-full: User groups library
-description: Package for managing and accessing the Horde groups system.
-list: dev
-type: library

@@ -1,2 +1,0 @@
-<?php
-$conf['http']['server'] = 'www.horde.org';
