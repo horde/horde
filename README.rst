@@ -1,4 +1,5 @@
-+ This repository is deprecated
+This repository is deprecated
+=============================
 
 This is the old, monolith Horde repository that used to contain all Horde components, i.e. all Horde libraries and applications in one single repository. It's still completely available in read-only mode.
 
