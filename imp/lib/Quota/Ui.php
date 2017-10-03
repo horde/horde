@@ -85,21 +85,22 @@ class IMP_Quota_Ui
         list($calc, $unit) = $quotaDriver->getUnit();
         $ret = array(
             'class' => '',
-            'percent' => 0
+            'percent' => 0,
+            'raw_percent' => 0
         );
 
         if ($quota['limit'] != 0) {
             $quota['usage'] = $quota['usage'] / $calc;
             $quota['limit'] = $quota['limit'] / $calc;
-            $ret['percent'] = ($quota['usage'] * 100) / $quota['limit'];
-            if ($ret['percent'] >= 90) {
+            $ret['raw_percent'] = ($quota['usage'] * 100) / $quota['limit'];
+            if ($ret['raw_percent'] >= 90) {
                 $ret['class'] = 'quotaalert';
-            } elseif ($ret['percent'] >= 75) {
+            } elseif ($ret['raw_percent'] >= 75) {
                 $ret['class'] = 'quotawarn';
             }
 
-            $ret['message'] = sprintf($strings['short'], $ret['percent'], $quota['limit'], $unit);
-            $ret['percent'] = sprintf("%.2f", $ret['percent']);
+            $ret['message'] = sprintf($strings['short'], $ret['raw_percent'], $quota['limit'], $unit);
+            $ret['percent'] = sprintf("%.2f", $ret['raw_percent']);
         } elseif ($quotaDriver->isHiddenWhenUnlimited()) {
             return false;
         } elseif ($quota['usage'] != 0) {

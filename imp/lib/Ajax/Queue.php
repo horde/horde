@@ -290,7 +290,7 @@ class IMP_Ajax_Queue
             ($quotadata = $injector->getInstance('IMP_Quota_Ui')->quota($this->_quota[0], $this->_quota[1]))) {
             $ajax->addTask('quota', array(
                 'm' => $quotadata['message'],
-                'p' => round($quotadata['percent']),
+                'p' => round($quotadata['raw_percent']),
                 'l' => $quotadata['percent'] >= 90
                     ? 'alert'
                     : ($quotadata['percent'] >= 75 ? 'warn' : '')
