@@ -18,6 +18,7 @@ $prefGroups['display_avatar'] = array(
     }
 );
 
+
 $prefGroups['display_forums'] = array(
     'column' => _("Display Preferences"),
     'label' => _("Forums View"),
